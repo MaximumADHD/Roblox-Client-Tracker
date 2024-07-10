@@ -95,7 +95,7 @@ local GetFFlagShouldInitWithFirstPageWithTabHeader =  require(RobloxGui.Modules.
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
-local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM", false)
+local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM2", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
@@ -2911,8 +2911,15 @@ local function CreateSettingsHub()
 					this.ReducedMotionOpenTween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
 					this.ReducedMotionOpenTween:Play()
 
-					this.ReducedMotionOpenTween.Completed:Connect(function()
-						this.Shield.Parent = this.ClippingShield
+					this.ReducedMotionOpenTween.Completed:Connect(function(playbackState)
+						if FFlagFixReducedMotionStuckIGM then
+							if playbackState == Enum.PlaybackState.Completed then
+								this.Shield.Parent = this.ClippingShield
+								this.ReducedMotionOpenTween = nil
+							end
+						else
+							this.Sheild.Parent = this.ClippingShield
+						end
 					end)
 
 					if FFlagEnableInGameMenuDurationLogger then
@@ -3082,12 +3089,21 @@ local function CreateSettingsHub()
 					}
 					this.ReducedMotionCloseTween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
 					this.ReducedMotionCloseTween:Play()
-					this.ReducedMotionCloseTween.Completed:Connect(function()
+					this.ReducedMotionCloseTween.Completed:Connect(function(playbackState)
+						if FFlagFixReducedMotionStuckIGM then 
+							if playbackState == Enum.PlaybackState.Completed then
+								this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 
-						this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
+								this.Shield.Visible = this.Visible
+								this.Shield.Parent = this.ClippingShield
+								this.ReducedMotionCloseTween = nil
+							end
+						else 
+							this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 
-						this.Shield.Visible = this.Visible
-						this.Shield.Parent = this.ClippingShield
+							this.Shield.Visible = this.Visible
+							this.Shield.Parent = this.ClippingShield
+						end	
 					end)
 
 					handleShieldClose()

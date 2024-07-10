@@ -24,43 +24,59 @@ PROTO_1:
   SETTABLEKS R7 R6 K3 ["LayoutOrder"]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K4 ["Tag"]
-  LOADK R8 K5 ["MainContents ContentList X-FitY X-Top X-Column X-Center"]
+  LOADK R9 K5 ["MainContents ContentList X-Top X-Column X-Center %*"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K4 ["Tag"]
+  GETTABLE R11 R0 R12
+  NAMECALL R9 R9 K6 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
   SETTABLE R8 R6 R7
-  DUPTABLE R7 K8 [{"HeaderRow", "View"}]
+  DUPTABLE R7 K9 [{"HeaderRow", "ListContainer"}]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K2 ["createElement"]
   GETUPVAL R9 5
-  DUPTABLE R10 K9 [{"LayoutOrder"}]
-  NAMECALL R11 R1 K10 ["getNextOrder"]
+  DUPTABLE R10 K10 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K11 ["getNextOrder"]
   CALL R11 1 1
   SETTABLEKS R11 R10 K3 ["LayoutOrder"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K6 ["HeaderRow"]
+  SETTABLEKS R8 R7 K7 ["HeaderRow"]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K2 ["createElement"]
-  GETUPVAL R9 6
-  NEWTABLE R10 8 0
-  NAMECALL R11 R1 K10 ["getNextOrder"]
+  GETUPVAL R9 4
+  NEWTABLE R10 2 0
+  NAMECALL R11 R1 K11 ["getNextOrder"]
   CALL R11 1 1
   SETTABLEKS R11 R10 K3 ["LayoutOrder"]
-  DUPCLOSURE R11 K11 [PROTO_0]
-  SETTABLEKS R11 R10 K12 ["GetRowProps"]
-  SETTABLEKS R3 R10 K13 ["Rows"]
-  GETUPVAL R11 7
-  SETTABLEKS R11 R10 K14 ["RowComponent"]
-  GETUPVAL R11 8
-  LOADK R13 K15 ["RowHeight"]
-  NAMECALL R11 R11 K16 ["GetAttribute"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K15 ["RowHeight"]
-  GETIMPORT R11 K20 [Enum.ScrollingDirection.XY]
-  SETTABLEKS R11 R10 K18 ["ScrollingDirection"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K4 ["Tag"]
-  LOADK R12 K21 ["ItemList"]
+  LOADK R12 K12 ["ItemList"]
   SETTABLE R12 R10 R11
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K7 ["View"]
+  DUPTABLE R11 K14 [{"List"}]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K2 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K20 [{"LayoutOrder", "GetRowProps", "Rows", "RowComponent", "RowHeight", "ScrollingDirection"}]
+  NAMECALL R15 R1 K11 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K3 ["LayoutOrder"]
+  DUPCLOSURE R15 K21 [PROTO_0]
+  SETTABLEKS R15 R14 K15 ["GetRowProps"]
+  SETTABLEKS R3 R14 K16 ["Rows"]
+  GETUPVAL R15 7
+  SETTABLEKS R15 R14 K17 ["RowComponent"]
+  GETUPVAL R15 8
+  LOADK R17 K18 ["RowHeight"]
+  NAMECALL R15 R15 K22 ["GetAttribute"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K18 ["RowHeight"]
+  GETIMPORT R15 K25 [Enum.ScrollingDirection.XY]
+  SETTABLEKS R15 R14 K19 ["ScrollingDirection"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K13 ["List"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K8 ["ListContainer"]
   CALL R4 3 -1
   RETURN R4 -1
 

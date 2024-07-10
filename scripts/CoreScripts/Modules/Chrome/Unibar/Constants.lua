@@ -17,11 +17,17 @@ local ScreenOrientations = {
 	Sensor = "Sensor",
 }
 
+local socialSlots = 3
+local toggleSlots = 1
+local nineDotSlots = 1
+
 return {
 	ICON_CELL_WIDTH = 44,
 	DIVIDER_CELL_WIDTH = 5,
 	ICON_SIZE = 36,
 	SUB_MENU_ROW_HEIGHT = 56,
+	CONTAINER_PADDING_TOP_BOTTOM = UDim.new(0, 4),
+	CONTAINER_PADDING_LEFT_RIGHT = UDim.new(0, 2),
 	PIN_ICON_SIZE = UDim2.new(0, 18, 0, 18),
 	PIN_BUTTON_SIZE = 40,
 	PIN_RIGHT_PADDING = 13,
@@ -55,6 +61,16 @@ return {
 	MAX_WIDTH_PORTRAIT = 150,
 	MAX_HEIGHT_LANDSCAPE = 240,
 	MAX_WIDTH_LANDSCAPE = 112,
+
+	-- Integration Constraints per device type
+	SOCIAL_SLOTS = socialSlots, -- Chat, mic, and self view always present in open standard unibar (when available)
+	TOGGLE_SLOTS = toggleSlots, -- Unibar or back button present in every unibar/compact utility state
+	NINE_DOT_SLOTS = nineDotSlots, -- Nine dot always present in open unibar
+	CORE_SLOTS = socialSlots + toggleSlots + nineDotSlots, -- Slots always present in open Unibar
+	MOBILE_TINY_PORTRAIT_SLOTS = 5,
+	MOBILE_PORTRAIT_SLOTS = 6,
+	MOBILE_LANDSCAPE_SLOTS = 7,
+	NON_MOBILE_SLOTS = 9,
 
 	HEALTH = {
 		RED = Color3.fromRGB(255, 28, 0),

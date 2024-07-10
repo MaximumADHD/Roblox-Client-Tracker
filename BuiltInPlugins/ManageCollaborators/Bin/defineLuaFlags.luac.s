@@ -6,32 +6,27 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["ApiProxyToUsersApiGetUserByUsernamesEnabled"]
+  LOADK R2 K4 ["COLLAB2699FixSaveChangesLogic"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K6 ["COLLAB2699FixSaveChangesLogic"]
+  LOADK R2 K6 ["COLLAB2850_FixMcTooltips"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["COLLAB2850_FixMcTooltips"]
+  LOADK R2 K7 ["COLLAB4802_FixManageCollabLanguageBug"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K8 ["COLLAB4802_FixManageCollabLanguageBug"]
+  LOADK R2 K8 ["StudioManageCollabWideBox2"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K9 ["StudioManageCollabWideBox2"]
-  LOADB R3 0
-  NAMECALL R0 R0 K5 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K10 ["StudioManageCollabFixFocusError"]
+  LOADK R2 K9 ["StudioManageCollabFixFocusError"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

@@ -10,8 +10,11 @@ local CorePackages = game:GetService("CorePackages")
 local Url = require(RobloxGui.Modules.Common.Url)
 local rolloutByApplicationId = require(CorePackages.Workspace.Packages.AppCommonLib).rolloutByApplicationId
 
+local FIntBlockUtilityBlockedUsersRequestMaxSize = game:DefineFastInt("BlockUtilityBlockedUsersRequestMaxSize", 50)
+local FFlagUseGetBlockedUsersBlockingUtility = game:DefineFastFlag("UseGetBlockedUsersBlockingUtility", false)
+
 local newBlockingUtilityRollout  = function()
-	return game:DefineFastInt("NewBlockingUtilityRollout_v1", 0)
+	return game:DefineFastInt("NewBlockingUtilityRollout_v2", 0)
 end
 local shouldUseNewBlockingUtility = rolloutByApplicationId(newBlockingUtilityRollout)
 
@@ -44,41 +47,69 @@ local MutedList = {}
 
 local batchIsBlockedApi = Url.APIS_URL.."user-blocking-api/v1/users/batch-is-blocked"
 
+local function getBlockedUsersApi(cursor, count)
+	return Url.APIS_URL.."user-blocking-api/v1/users/get-blocked-users?cursor="..cursor.."&count="..count
+end
+
 local function GetBlockedPlayersAsync(): { [string]: boolean }
 	if shouldUseNewBlockingUtility() then
-		if not game:IsLoaded() then
-			game.Loaded:Wait()
-		end
-		local players = PlayersService:GetPlayers()
-	
-		local playerIds = {}
-		for _, player in players do
-			table.insert(playerIds, player.UserId)
-		end
-	
-		local success, blockList
-		success, blockList  = pcall(function()
-			local request = HttpService:JSONEncode(
-				{
-					userIds = playerIds
-				}
-			)
-			local result = HttpRbxApiService:PostAsyncFullUrl(batchIsBlockedApi, request, Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationJson, Enum.HttpRequestType.Players)
-	
-			if result then
-				result = HttpService:JSONDecode(result)
-				return result
-			end
-		end)
-		local blockedUserSet = {}
-		if success and blockList then
-			for _, user in blockList.users do
-				if user.isBlocked then
-					blockedUserSet[user.userId] = true
+		if FFlagUseGetBlockedUsersBlockingUtility then
+			local blockList = {}
+			local cursor = ""
+			while cursor do
+				local result
+				local success = pcall(function()
+					local request = HttpRbxApiService:GetAsyncFullUrl(getBlockedUsersApi(cursor, FIntBlockUtilityBlockedUsersRequestMaxSize),
+					Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
+					result = request and HttpService:JSONDecode(request)
+				end)
+
+				if success and result.data and result.data["blockedUserIds"] then
+					for _, v in result.data.blockedUserIds do
+						blockList[v] = true
+					end
+					cursor = result.data.cursor
+				else
+					cursor = nil
 				end
 			end
+
+			return blockList
+		else
+			if not game:IsLoaded() then
+				game.Loaded:Wait()
+			end
+			local players = PlayersService:GetPlayers()
+		
+			local playerIds = {}
+			for _, player in players do
+				table.insert(playerIds, player.UserId)
+			end
+		
+			local success, blockList
+			success, blockList  = pcall(function()
+				local request = HttpService:JSONEncode(
+					{
+						userIds = playerIds
+					}
+				)
+				local result = HttpRbxApiService:PostAsyncFullUrl(batchIsBlockedApi, request, Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationJson, Enum.HttpRequestType.Players)
+		
+				if result then
+					result = HttpService:JSONDecode(result)
+					return result
+				end
+			end)
+			local blockedUserSet = {}
+			if success and blockList then
+				for _, user in blockList.users do
+					if user.isBlocked then
+						blockedUserSet[user.userId] = true
+					end
+				end
+			end
+			return blockedUserSet
 		end
-		return blockedUserSet
 	else
 		local apiPath = Url.ACCOUNT_SETTINGS_URL.."v1/users/get-blocked-users"
 

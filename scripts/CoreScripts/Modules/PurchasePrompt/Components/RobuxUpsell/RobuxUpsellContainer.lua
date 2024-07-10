@@ -39,6 +39,8 @@ local RobuxUpsellContainer = Roact.Component:extend(script.Name)
 
 local SELECTION_GROUP_NAME = "RobuxUpsellContainer"
 
+local FFlagFixLimitedUMobilePurchasePrompt = game:DefineFastFlag("FixLimitedUMobilePurchasePrompt", false)
+
 function RobuxUpsellContainer:init()
 	self.state = {
 		screenSize = Vector2.new(0, 0),
@@ -68,6 +70,10 @@ function RobuxUpsellContainer:createElement()
 		imageIcon = nil
 	end
 
+	local itemRobuxCost = FFlagFixLimitedUMobilePurchasePrompt
+		and getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4, props.expectedPrice) 
+		or getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4)
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		[Roact.Change.AbsoluteSize] = self.changeScreenSize,
@@ -87,7 +93,7 @@ function RobuxUpsellContainer:createElement()
 
 			itemIcon = imageIcon,
 			itemName = props.productInfo.name,
-			itemRobuxCost = getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4),
+			itemRobuxCost = itemRobuxCost,
 			iapRobuxAmount = props.nativeUpsell.robuxPurchaseAmount or 0,
 			beforeRobuxBalance = props.accountInfo.balance,
 
@@ -136,20 +142,38 @@ end
 
 RobuxUpsellContainer = connectToStore(
 	function(state)
-		return {
-			purchaseFlow = state.purchaseFlow,
-			requestType = state.promptRequest.requestType,
+		if (FFlagFixLimitedUMobilePurchasePrompt) then
+			return {
+				purchaseFlow = state.purchaseFlow,
+				requestType = state.promptRequest.requestType,
+				expectedPrice = state.promptRequest.expectedPrice,
 
-			promptState = state.promptState,
-			purchaseError = state.purchaseError,
+				promptState = state.promptState,
+				purchaseError = state.purchaseError,
 
-			productInfo = state.productInfo,
-			accountInfo = state.accountInfo,
-			nativeUpsell = state.nativeUpsell,
+				productInfo = state.productInfo,
+				accountInfo = state.accountInfo,
+				nativeUpsell = state.nativeUpsell,
 
-			isTestPurchase = isMockingPurchases(),
-			isGamepadEnabled = state.gamepadEnabled,
-		}
+				isTestPurchase = isMockingPurchases(),
+				isGamepadEnabled = state.gamepadEnabled,
+			}
+		else
+			return {
+				purchaseFlow = state.purchaseFlow,
+				requestType = state.promptRequest.requestType,
+
+				promptState = state.promptState,
+				purchaseError = state.purchaseError,
+
+				productInfo = state.productInfo,
+				accountInfo = state.accountInfo,
+				nativeUpsell = state.nativeUpsell,
+
+				isTestPurchase = isMockingPurchases(),
+				isGamepadEnabled = state.gamepadEnabled,
+			}			
+		end
 	end,
 	function(dispatch)
 		return {

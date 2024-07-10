@@ -26,10 +26,11 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 0 2
+  NEWTABLE R0 0 3
   LOADK R1 K0 ["rbxassetid://(%d+)"]
-  LOADK R2 K1 ["http[s]?://www.roblox.com/[Aa]sset[/]?%?[Ii][Dd]=(%d+)"]
-  SETLIST R0 R1 2 [1]
-  DUPCLOSURE R1 K2 [PROTO_0]
+  LOADK R2 K1 ["https?://www%.roblox%.com/[Aa]sset/?%?[Ii][Dd]=(%d+)"]
+  LOADK R3 K2 ["https?://assetdelivery%.roblox%.com/v[12]/[Aa]sset/?%?[Ii][Dd]=(%d+)"]
+  SETLIST R0 R1 3 [1]
+  DUPCLOSURE R1 K3 [PROTO_0]
   CAPTURE VAL R0
   RETURN R1 1

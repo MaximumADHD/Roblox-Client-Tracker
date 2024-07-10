@@ -1,51 +1,25 @@
 PROTO_0:
   ORK R0 R0 K0 [""]
-  GETIMPORT R2 K2 [game]
-  LOADK R4 K3 ["TagEditorIconPickerSearchReset"]
-  NAMECALL R2 R2 K4 ["GetFastFlag"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+30]
-  GETTABLEKS R2 R1 K5 ["type"]
-  JUMPIFNOTEQKS R2 K6 ["ToggleIconPicker"] [+3]
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K2 ["ToggleIconPicker"] [+3]
   LOADK R2 K0 [""]
   RETURN R2 1
-  GETTABLEKS R2 R1 K5 ["type"]
-  JUMPIFNOTEQKS R2 K7 ["SetIconSearch"] [+51]
-  GETTABLEKS R5 R1 K8 ["text"]
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K3 ["SetIconSearch"] [+20]
+  GETTABLEKS R5 R1 K4 ["text"]
   FASTCALL1 TYPEOF R5 [+2]
-  GETIMPORT R4 K10 [typeof]
+  GETIMPORT R4 K6 [typeof]
   CALL R4 1 1
-  JUMPIFEQKS R4 K11 ["string"] [+2]
+  JUMPIFEQKS R4 K7 ["string"] [+2]
   LOADB R3 0 +1
   LOADB R3 1
   FASTCALL1 ASSERT R3 [+2]
-  GETIMPORT R2 K13 [assert]
+  GETIMPORT R2 K9 [assert]
   CALL R2 1 0
   GETUPVAL R2 0
-  GETTABLEKS R3 R1 K8 ["text"]
+  GETTABLEKS R3 R1 K4 ["text"]
   CALL R2 1 -1
   RETURN R2 -1
-  RETURN R0 1
-  GETTABLEKS R2 R1 K5 ["type"]
-  JUMPIFNOTEQKS R2 K6 ["ToggleIconPicker"] [+6]
-  GETTABLEKS R2 R1 K14 ["tag"]
-  JUMPIF R2 [+2]
-  LOADK R2 K0 [""]
-  RETURN R2 1
-  GETTABLEKS R2 R1 K5 ["type"]
-  JUMPIFNOTEQKS R2 K7 ["SetIconSearch"] [+18]
-  GETTABLEKS R5 R1 K8 ["text"]
-  FASTCALL1 TYPEOF R5 [+2]
-  GETIMPORT R4 K10 [typeof]
-  CALL R4 1 1
-  JUMPIFEQKS R4 K11 ["string"] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL1 ASSERT R3 [+2]
-  GETIMPORT R2 K13 [assert]
-  CALL R2 1 0
-  GETTABLEKS R2 R1 K8 ["text"]
-  RETURN R2 1
   RETURN R0 1
 
 MAIN:

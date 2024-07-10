@@ -1,0 +1,255 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["BuildRobloxUrl"]
+  LOADK R1 K1 ["create"]
+  GETUPVAL R2 1
+  CALL R2 0 -1
+  CALL R0 -1 1
+  GETUPVAL R1 2
+  MOVE R3 R0
+  NAMECALL R1 R1 K2 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["BuildRobloxUrl"]
+  LOADK R1 K1 ["create"]
+  GETUPVAL R2 1
+  CALL R2 0 -1
+  CALL R0 -1 1
+  GETUPVAL R1 2
+  MOVE R3 R0
+  NAMECALL R1 R1 K2 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  CALL R2 0 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R1 K1 [assert]
+  CALL R1 -1 0
+  GETTABLEKS R1 R0 K2 ["props"]
+  GETTABLEKS R2 R1 K3 ["Stylizer"]
+  GETTABLEKS R3 R1 K4 ["Localization"]
+  GETTABLEKS R4 R1 K5 ["DataSharingEnabled"]
+  GETTABLEKS R5 R1 K6 ["DataSharingDefault"]
+  GETTABLEKS R6 R1 K7 ["isOwningCreator"]
+  GETTABLEKS R7 R1 K8 ["LayoutOrder"]
+  GETTABLEKS R8 R1 K9 ["OnClick"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K10 ["new"]
+  CALL R9 0 1
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K11 ["FINISHED"]
+  JUMPIFEQ R5 R11 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  JUMPIFNOT R6 [+1]
+  JUMPIF R10 [+2]
+  LOADNIL R11
+  RETURN R11 1
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K12 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K14 [{"LayoutOrder", "Title"}]
+  SETTABLEKS R7 R13 K8 ["LayoutOrder"]
+  LOADK R16 K15 ["DataSharing"]
+  LOADK R17 K13 ["Title"]
+  NAMECALL R14 R3 K16 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K13 ["Title"]
+  DUPTABLE R14 K20 [{"ToggleButton", "LinkText", "UIPadding"}]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K12 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K24 [{"Disabled", "Selected", "LayoutOrder", "OnClick", "Size"}]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K21 ["Disabled"]
+  SETTABLEKS R4 R17 K22 ["Selected"]
+  NAMECALL R18 R9 K25 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K8 ["LayoutOrder"]
+  SETTABLEKS R8 R17 K9 ["OnClick"]
+  GETIMPORT R18 K28 [UDim2.fromOffset]
+  LOADN R19 40
+  LOADN R20 24
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K23 ["Size"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K17 ["ToggleButton"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K12 ["createElement"]
+  GETUPVAL R16 6
+  DUPTABLE R17 K36 [{"LinkMap", "Text", "MaxWidth", "LayoutOrder", "TextProps", "HorizontalAlignment", "TextWrapped", "AutomaticSize"}]
+  NEWTABLE R18 2 0
+  DUPTABLE R19 K38 [{"LinkText", "LinkCallback"}]
+  LOADK R22 K15 ["DataSharing"]
+  LOADK R23 K39 ["SettingsHyperlink"]
+  NAMECALL R20 R3 K16 ["getText"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K18 ["LinkText"]
+  DUPCLOSURE R20 K40 [PROTO_0]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  SETTABLEKS R20 R19 K37 ["LinkCallback"]
+  SETTABLEKS R19 R18 K41 ["[settingsPage]"]
+  DUPTABLE R19 K38 [{"LinkText", "LinkCallback"}]
+  LOADK R22 K15 ["DataSharing"]
+  LOADK R23 K18 ["LinkText"]
+  NAMECALL R20 R3 K16 ["getText"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K18 ["LinkText"]
+  DUPCLOSURE R20 K42 [PROTO_1]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U9
+  SETTABLEKS R20 R19 K37 ["LinkCallback"]
+  SETTABLEKS R19 R18 K43 ["[link]"]
+  SETTABLEKS R18 R17 K29 ["LinkMap"]
+  LOADK R20 K15 ["DataSharing"]
+  LOADK R21 K44 ["CheckboxDescription"]
+  NAMECALL R18 R3 K16 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K30 ["Text"]
+  GETTABLEKS R19 R2 K45 ["textWithInlineLink"]
+  GETTABLEKS R18 R19 K46 ["maxWidth"]
+  SETTABLEKS R18 R17 K31 ["MaxWidth"]
+  NAMECALL R18 R9 K25 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K8 ["LayoutOrder"]
+  GETUPVAL R19 11
+  GETTABLEKS R18 R19 K47 ["join"]
+  GETTABLEKS R20 R2 K48 ["fontStyle"]
+  GETTABLEKS R19 R20 K49 ["Subtext"]
+  DUPTABLE R20 K52 [{"BackgroundTransparency", "TextXAlignment"}]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K50 ["BackgroundTransparency"]
+  GETIMPORT R21 K55 [Enum.TextXAlignment.Left]
+  SETTABLEKS R21 R20 K51 ["TextXAlignment"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K32 ["TextProps"]
+  GETIMPORT R18 K56 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R18 R17 K33 ["HorizontalAlignment"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K34 ["TextWrapped"]
+  GETIMPORT R18 K58 [Enum.AutomaticSize.Y]
+  SETTABLEKS R18 R17 K35 ["AutomaticSize"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K18 ["LinkText"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K12 ["createElement"]
+  LOADK R16 K19 ["UIPadding"]
+  DUPTABLE R17 K63 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R18 K65 [UDim.new]
+  LOADN R19 0
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K59 ["PaddingTop"]
+  GETIMPORT R18 K65 [UDim.new]
+  LOADN R19 0
+  LOADN R20 16
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K60 ["PaddingBottom"]
+  GETIMPORT R18 K65 [UDim.new]
+  LOADN R19 0
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K61 ["PaddingLeft"]
+  GETIMPORT R18 K65 [UDim.new]
+  LOADN R19 0
+  LOADN R20 20
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K62 ["PaddingRight"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K19 ["UIPadding"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["Dash"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K7 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K9 ["ContextServices"]
+  GETTABLEKS R6 R5 K10 ["withContext"]
+  GETTABLEKS R7 R4 K11 ["UI"]
+  GETTABLEKS R8 R7 K12 ["TitledFrame"]
+  GETTABLEKS R9 R7 K13 ["ToggleButton"]
+  GETTABLEKS R10 R7 K14 ["TextWithLinks"]
+  GETTABLEKS R12 R4 K15 ["Util"]
+  GETTABLEKS R11 R12 K16 ["LayoutOrderIterator"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Types"]
+  GETTABLEKS R13 R14 K19 ["DataSharingFetchState"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R16 R0 K17 ["Src"]
+  GETTABLEKS R15 R16 K20 ["Network"]
+  GETTABLEKS R14 R15 K21 ["Http"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K17 ["Src"]
+  GETTABLEKS R16 R17 K22 ["Flags"]
+  GETTABLEKS R15 R16 K23 ["getFStringCAP1107DisplayUrl"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K17 ["Src"]
+  GETTABLEKS R17 R18 K22 ["Flags"]
+  GETTABLEKS R16 R17 K24 ["getFStringCAP1107SettingsUrl"]
+  CALL R15 1 1
+  GETIMPORT R16 K26 [game]
+  LOADK R18 K27 ["BrowserService"]
+  NAMECALL R16 R16 K28 ["GetService"]
+  CALL R16 2 1
+  GETTABLEKS R17 R1 K29 ["PureComponent"]
+  LOADK R19 K30 ["DataSharingToggle"]
+  NAMECALL R17 R17 K31 ["extend"]
+  CALL R17 2 1
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R21 R0 K17 ["Src"]
+  GETTABLEKS R20 R21 K22 ["Flags"]
+  GETTABLEKS R19 R20 K32 ["getFFlagCAP1107"]
+  CALL R18 1 1
+  DUPCLOSURE R19 K33 [PROTO_2]
+  CAPTURE VAL R18
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R3
+  SETTABLEKS R19 R17 K34 ["render"]
+  MOVE R19 R6
+  DUPTABLE R20 K37 [{"Stylizer", "Localization"}]
+  GETTABLEKS R21 R5 K35 ["Stylizer"]
+  SETTABLEKS R21 R20 K35 ["Stylizer"]
+  GETTABLEKS R21 R5 K36 ["Localization"]
+  SETTABLEKS R21 R20 K36 ["Localization"]
+  CALL R19 1 1
+  MOVE R20 R17
+  CALL R19 1 1
+  MOVE R17 R19
+  RETURN R17 1

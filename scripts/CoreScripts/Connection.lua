@@ -35,7 +35,6 @@ local GetFFlagFixChromeAllowlistWait = require(RobloxGui.Modules.Flags.GetFFlagF
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
 local fflagCreatorBanWhitespaceSub = game:DefineFastFlag("CreatorBanWhitespaceSub", false)
-local fflagCreatorBanReconnectDisabled = game:DefineFastFlag("CreatorBanReconnectDisabled", false)
 
 local TopBarConstant
 if not GetFFlagFixChromeAllowlistWait() then
@@ -239,16 +238,13 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.PlacelaunchUserLeft] = true,
 	[Enum.ConnectionError.PlacelaunchRestricted] = true,
 	[Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized] = true,
+	[Enum.ConnectionError.PlacelaunchCreatorBan] = true,
 }
 -- When removing engine feature CoreGuiOverflowDetection, move this into the above list.
 if coreGuiOverflowDetection then
 	-- Older versions of the engine don't have this variant, using subscript
 	-- syntax instead avoids a possible type error.
 	reconnectDisabledList[Enum.ConnectionError["DisconnectClientFailure"]] = true
-end
-
-if fflagCreatorBanReconnectDisabled then
-	reconnectDisabledList[Enum.ConnectionError['PlacelaunchCreatorBan']] = true
 end
 
 local ButtonList = {

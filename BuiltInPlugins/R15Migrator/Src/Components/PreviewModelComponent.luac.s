@@ -12,6 +12,16 @@ PROTO_0:
   RETURN R1 1
 
 PROTO_1:
+  JUMPIFNOT R0 [+6]
+  GETIMPORT R1 K2 [string.match]
+  MOVE R2 R0
+  LOADK R3 K3 ["%d+$"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  LOADK R1 K4 [""]
+  RETURN R1 1
+
+PROTO_2:
   JUMPIFNOTEQKNIL R0 [+3]
   LOADNIL R1
   RETURN R1 1
@@ -26,7 +36,7 @@ PROTO_1:
   SETTABLEKS R1 R0 K5 ["Parent"]
   RETURN R1 1
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Model"]
@@ -67,7 +77,7 @@ PROTO_2:
   SETTABLEKS R5 R4 K13 ["CFrame"]
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["Loaded"]
@@ -77,7 +87,7 @@ PROTO_3:
   CALL R0 3 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   JUMPIFNOT R1 [+76]
   GETIMPORT R4 K1 [game]
   NAMECALL R2 R1 K2 ["IsDescendantOf"]
@@ -138,7 +148,7 @@ PROTO_4:
   CALL R7 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["AnimationId"]
@@ -157,7 +167,7 @@ PROTO_5:
   CLOSEUPVALS R2
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETIMPORT R1 K2 [Instance.new]
   LOADK R2 K3 ["Camera"]
   CALL R1 1 1
@@ -173,7 +183,7 @@ PROTO_6:
   SETTABLEKS R1 R0 K7 ["loadAnimation"]
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETTABLEKS R2 R0 K0 ["AnimationId"]
   GETTABLEKS R3 R1 K1 ["animationId"]
   JUMPIFNOTEQ R2 R3 [+7]
@@ -203,7 +213,7 @@ PROTO_7:
   LOADNIL R2
   RETURN R2 1
 
-PROTO_8:
+PROTO_9:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Size"]
   GETTABLEKS R3 R1 K2 ["Position"]
@@ -217,94 +227,185 @@ PROTO_8:
   GETTABLEKS R6 R1 K10 ["AnimationId"]
   GETTABLEKS R7 R1 K11 ["Stylizer"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K12 ["createElement"]
-  GETUPVAL R9 1
-  DUPTABLE R10 K16 [{"Style", "Padding", "Size", "Position", "BackgroundColor3"}]
-  LOADK R11 K17 ["RoundBox"]
-  SETTABLEKS R11 R10 K13 ["Style"]
-  GETTABLEKS R11 R7 K14 ["Padding"]
-  SETTABLEKS R11 R10 K14 ["Padding"]
-  SETTABLEKS R2 R10 K1 ["Size"]
-  SETTABLEKS R3 R10 K2 ["Position"]
-  GETTABLEKS R11 R7 K18 ["BackgroundColor"]
-  SETTABLEKS R11 R10 K15 ["BackgroundColor3"]
-  DUPTABLE R11 K21 [{"PreviewRender", "CameraResetButton", "Label"}]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K12 ["createElement"]
-  GETUPVAL R13 2
-  DUPTABLE R14 K25 [{"Camera", "Model", "FocusDirection", "OnViewModelLoaded"}]
-  GETTABLEKS R15 R0 K26 ["camera"]
-  SETTABLEKS R15 R14 K22 ["Camera"]
-  SETTABLEKS R4 R14 K8 ["Model"]
-  GETUPVAL R15 3
-  SETTABLEKS R15 R14 K23 ["FocusDirection"]
-  JUMPIFNOT R6 [+3]
-  GETTABLEKS R15 R0 K27 ["loadAnimation"]
+  GETTABLEKS R8 R9 K6 ["new"]
+  CALL R8 0 1
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K18 [{"Size", "AutomaticSize", "Position", "Padding", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R12 K20 [UDim2.new]
+  GETTABLEKS R14 R2 K21 ["X"]
+  GETTABLEKS R13 R14 K22 ["Scale"]
+  GETTABLEKS R15 R2 K21 ["X"]
+  GETTABLEKS R14 R15 K23 ["Offset"]
+  LOADN R15 0
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K1 ["Size"]
+  GETIMPORT R12 K26 [Enum.AutomaticSize.Y]
+  SETTABLEKS R12 R11 K13 ["AutomaticSize"]
+  SETTABLEKS R3 R11 K2 ["Position"]
+  GETTABLEKS R12 R7 K14 ["Padding"]
+  SETTABLEKS R12 R11 K14 ["Padding"]
+  GETIMPORT R12 K29 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K15 ["Layout"]
+  GETIMPORT R12 K31 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R12 R11 K16 ["HorizontalAlignment"]
+  GETIMPORT R12 K33 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R12 R11 K17 ["VerticalAlignment"]
+  DUPTABLE R12 K36 [{"Header", "Preview"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K12 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K38 [{"LayoutOrder", "Size", "AutomaticSize", "Padding"}]
+  NAMECALL R16 R8 K39 ["getNextOrder"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K37 ["LayoutOrder"]
+  GETIMPORT R16 K41 [UDim2.fromScale]
+  LOADN R17 1
+  LOADN R18 0
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K1 ["Size"]
+  GETIMPORT R16 K26 [Enum.AutomaticSize.Y]
+  SETTABLEKS R16 R15 K13 ["AutomaticSize"]
+  GETTABLEKS R16 R7 K14 ["Padding"]
+  SETTABLEKS R16 R15 K14 ["Padding"]
+  DUPTABLE R16 K43 [{"Label", "AssetId"}]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K12 ["createElement"]
+  GETUPVAL R18 3
+  DUPTABLE R19 K47 [{"Text", "Style", "Size", "TextXAlignment", "AutomaticSize"}]
+  SETTABLEKS R5 R19 K44 ["Text"]
+  LOADK R20 K48 ["Bold"]
+  SETTABLEKS R20 R19 K45 ["Style"]
+  GETIMPORT R20 K41 [UDim2.fromScale]
+  LOADN R21 1
+  LOADN R22 0
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K1 ["Size"]
+  GETIMPORT R20 K49 [Enum.TextXAlignment.Left]
+  SETTABLEKS R20 R19 K46 ["TextXAlignment"]
+  GETIMPORT R20 K51 [Enum.AutomaticSize.XY]
+  SETTABLEKS R20 R19 K13 ["AutomaticSize"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K9 ["Label"]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K12 ["createElement"]
+  GETUPVAL R18 3
+  DUPTABLE R19 K47 [{"Text", "Style", "Size", "TextXAlignment", "AutomaticSize"}]
+  JUMPIFNOT R6 [+6]
+  GETIMPORT R20 K54 [string.match]
+  MOVE R21 R6
+  LOADK R22 K55 ["%d+$"]
+  CALL R20 2 1
   JUMP [+1]
-  LOADNIL R15
-  SETTABLEKS R15 R14 K24 ["OnViewModelLoaded"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K19 ["PreviewRender"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K12 ["createElement"]
-  GETUPVAL R13 4
-  DUPTABLE R14 K30 [{"OnClick", "Style", "Size", "AnchorPoint", "Position"}]
-  GETTABLEKS R15 R0 K31 ["resetCamera"]
-  SETTABLEKS R15 R14 K28 ["OnClick"]
-  LOADK R15 K32 ["RoundSubtle"]
-  SETTABLEKS R15 R14 K13 ["Style"]
-  GETTABLEKS R15 R7 K33 ["ResetButtonSize"]
-  SETTABLEKS R15 R14 K1 ["Size"]
-  GETIMPORT R15 K35 [Vector2.new]
-  LOADN R16 1
-  LOADN R17 0
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K29 ["AnchorPoint"]
-  GETIMPORT R15 K38 [UDim2.fromScale]
-  LOADN R16 1
-  LOADN R17 0
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K2 ["Position"]
-  DUPTABLE R15 K41 [{"Icon", "Tooltip"}]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K12 ["createElement"]
-  GETUPVAL R17 5
-  DUPTABLE R18 K43 [{"Image"}]
-  GETUPVAL R21 6
-  GETTABLEKS R20 R21 K44 ["getThemeName"]
-  CALL R20 0 1
-  JUMPIFEQKS R20 K45 ["Dark"] [+3]
-  JUMPIFNOTEQKS R20 K46 ["Default"] [+5]
-  GETUPVAL R21 7
-  GETTABLEKS R19 R21 K47 ["RESET_CAM_DARK"]
+  LOADK R20 K56 [""]
+  SETTABLEKS R20 R19 K44 ["Text"]
+  LOADK R20 K57 ["Body"]
+  SETTABLEKS R20 R19 K45 ["Style"]
+  GETIMPORT R20 K41 [UDim2.fromScale]
+  LOADN R21 1
+  LOADN R22 0
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K1 ["Size"]
+  GETIMPORT R20 K59 [Enum.TextXAlignment.Right]
+  SETTABLEKS R20 R19 K46 ["TextXAlignment"]
+  GETIMPORT R20 K51 [Enum.AutomaticSize.XY]
+  SETTABLEKS R20 R19 K13 ["AutomaticSize"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K42 ["AssetId"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K34 ["Header"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K12 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K62 [{"LayoutOrder", "Style", "Padding", "BackgroundColor3", "Size", "SizeConstraint"}]
+  NAMECALL R16 R8 K39 ["getNextOrder"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K37 ["LayoutOrder"]
+  LOADK R16 K63 ["RoundBox"]
+  SETTABLEKS R16 R15 K45 ["Style"]
+  GETTABLEKS R16 R7 K14 ["Padding"]
+  SETTABLEKS R16 R15 K14 ["Padding"]
+  GETTABLEKS R16 R7 K64 ["BackgroundColor"]
+  SETTABLEKS R16 R15 K60 ["BackgroundColor3"]
+  GETIMPORT R16 K41 [UDim2.fromScale]
+  LOADN R17 1
+  LOADN R18 1
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K1 ["Size"]
+  GETIMPORT R16 K66 [Enum.SizeConstraint.RelativeXX]
+  SETTABLEKS R16 R15 K61 ["SizeConstraint"]
+  DUPTABLE R16 K69 [{"PreviewRender", "CameraResetButton"}]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K12 ["createElement"]
+  GETUPVAL R18 4
+  DUPTABLE R19 K73 [{"Camera", "Model", "FocusDirection", "OnViewModelLoaded"}]
+  GETTABLEKS R20 R0 K74 ["camera"]
+  SETTABLEKS R20 R19 K70 ["Camera"]
+  SETTABLEKS R4 R19 K8 ["Model"]
+  GETUPVAL R20 5
+  SETTABLEKS R20 R19 K71 ["FocusDirection"]
+  JUMPIFNOT R6 [+3]
+  GETTABLEKS R20 R0 K75 ["loadAnimation"]
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K72 ["OnViewModelLoaded"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K67 ["PreviewRender"]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K12 ["createElement"]
+  GETUPVAL R18 6
+  DUPTABLE R19 K78 [{"OnClick", "Style", "Size", "AnchorPoint", "Position"}]
+  GETTABLEKS R20 R0 K79 ["resetCamera"]
+  SETTABLEKS R20 R19 K76 ["OnClick"]
+  LOADK R20 K80 ["RoundSubtle"]
+  SETTABLEKS R20 R19 K45 ["Style"]
+  GETTABLEKS R20 R7 K81 ["ResetButtonSize"]
+  SETTABLEKS R20 R19 K1 ["Size"]
+  GETIMPORT R20 K83 [Vector2.new]
+  LOADN R21 1
+  LOADN R22 0
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K77 ["AnchorPoint"]
+  GETIMPORT R20 K41 [UDim2.fromScale]
+  LOADN R21 1
+  LOADN R22 0
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K2 ["Position"]
+  DUPTABLE R20 K86 [{"Icon", "Tooltip"}]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K12 ["createElement"]
+  GETUPVAL R22 7
+  DUPTABLE R23 K88 [{"Image"}]
+  GETUPVAL R26 8
+  GETTABLEKS R25 R26 K89 ["getThemeName"]
+  CALL R25 0 1
+  JUMPIFEQKS R25 K90 ["Dark"] [+3]
+  JUMPIFNOTEQKS R25 K91 ["Default"] [+5]
+  GETUPVAL R26 9
+  GETTABLEKS R24 R26 K92 ["RESET_CAM_DARK"]
   JUMP [+4]
-  GETUPVAL R21 7
-  GETTABLEKS R19 R21 K48 ["RESET_CAM_LIGHT"]
+  GETUPVAL R26 9
+  GETTABLEKS R24 R26 K93 ["RESET_CAM_LIGHT"]
   JUMP [0]
-  SETTABLEKS R19 R18 K42 ["Image"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K39 ["Icon"]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K12 ["createElement"]
-  GETUPVAL R17 8
-  DUPTABLE R18 K50 [{"Text"}]
-  LOADK R19 K51 ["Reset Camera"]
-  SETTABLEKS R19 R18 K49 ["Text"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K40 ["Tooltip"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K20 ["CameraResetButton"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K12 ["createElement"]
-  GETUPVAL R13 9
-  DUPTABLE R14 K53 [{"Text", "AutomaticSize"}]
-  SETTABLEKS R5 R14 K49 ["Text"]
-  GETIMPORT R15 K56 [Enum.AutomaticSize.XY]
-  SETTABLEKS R15 R14 K52 ["AutomaticSize"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K9 ["Label"]
-  CALL R8 3 -1
-  RETURN R8 -1
+  SETTABLEKS R24 R23 K87 ["Image"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K84 ["Icon"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K12 ["createElement"]
+  GETUPVAL R22 10
+  DUPTABLE R23 K94 [{"Text"}]
+  LOADK R24 K95 ["Reset Camera"]
+  SETTABLEKS R24 R23 K44 ["Text"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K85 ["Tooltip"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K68 ["CameraResetButton"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K35 ["Preview"]
+  CALL R9 3 -1
+  RETURN R9 -1
 
 MAIN:
   PREPVARARGS 0
@@ -336,65 +437,69 @@ MAIN:
   GETTABLEKS R14 R10 K21 ["Image"]
   GETTABLEKS R15 R10 K22 ["TextLabel"]
   GETTABLEKS R16 R10 K23 ["Tooltip"]
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R20 R0 K24 ["Src"]
-  GETTABLEKS R19 R20 K25 ["Resources"]
-  GETTABLEKS R18 R19 K26 ["Images"]
-  CALL R17 1 1
-  LOADN R19 255
-  LOADN R20 1
-  LOADN R21 255
+  GETTABLEKS R18 R2 K24 ["Util"]
+  GETTABLEKS R17 R18 K25 ["LayoutOrderIterator"]
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R21 R0 K26 ["Src"]
+  GETTABLEKS R20 R21 K27 ["Resources"]
+  GETTABLEKS R19 R20 K28 ["Images"]
+  CALL R18 1 1
+  LOADN R20 255
+  LOADN R21 1
+  LOADN R22 255
   FASTCALL VECTOR [+2]
-  GETIMPORT R18 K29 [Vector3.new]
-  CALL R18 3 1
-  GETTABLEKS R19 R1 K30 ["PureComponent"]
-  LOADK R21 K31 ["PreviewModelComponent"]
-  NAMECALL R19 R19 K32 ["extend"]
-  CALL R19 2 1
-  DUPCLOSURE R20 K33 [PROTO_0]
+  GETIMPORT R19 K31 [Vector3.new]
+  CALL R19 3 1
+  GETTABLEKS R20 R1 K32 ["PureComponent"]
+  LOADK R22 K33 ["PreviewModelComponent"]
+  NAMECALL R20 R20 K34 ["extend"]
+  CALL R20 2 1
+  DUPCLOSURE R21 K35 [PROTO_0]
   CAPTURE VAL R9
-  CAPTURE VAL R17
-  GETIMPORT R21 K35 [Instance.new]
-  LOADK R22 K36 ["WorldModel"]
-  CALL R21 1 1
-  GETIMPORT R22 K38 [game]
-  LOADK R24 K39 ["Players"]
-  NAMECALL R22 R22 K40 ["GetService"]
-  CALL R22 2 1
-  GETIMPORT R24 K35 [Instance.new]
-  LOADK R25 K41 ["HumanoidDescription"]
-  CALL R24 1 1
-  GETIMPORT R25 K45 [Enum.HumanoidRigType.R6]
-  NAMECALL R22 R22 K46 ["CreateHumanoidModelFromDescription"]
-  CALL R22 3 1
-  SETTABLEKS R21 R22 K47 ["Parent"]
-  DUPCLOSURE R22 K48 [PROTO_1]
-  DUPCLOSURE R23 K49 [PROTO_6]
   CAPTURE VAL R18
-  SETTABLEKS R23 R19 K50 ["init"]
-  DUPCLOSURE R23 K51 [PROTO_7]
+  DUPCLOSURE R22 K36 [PROTO_1]
+  GETIMPORT R23 K38 [Instance.new]
+  LOADK R24 K39 ["WorldModel"]
+  CALL R23 1 1
+  GETIMPORT R24 K41 [game]
+  LOADK R26 K42 ["Players"]
+  NAMECALL R24 R24 K43 ["GetService"]
+  CALL R24 2 1
+  GETIMPORT R26 K38 [Instance.new]
+  LOADK R27 K44 ["HumanoidDescription"]
+  CALL R26 1 1
+  GETIMPORT R27 K48 [Enum.HumanoidRigType.R6]
+  NAMECALL R24 R24 K49 ["CreateHumanoidModelFromDescription"]
+  CALL R24 3 1
+  SETTABLEKS R23 R24 K50 ["Parent"]
+  DUPCLOSURE R24 K51 [PROTO_2]
+  DUPCLOSURE R25 K52 [PROTO_7]
+  CAPTURE VAL R19
+  SETTABLEKS R25 R20 K53 ["init"]
+  DUPCLOSURE R25 K54 [PROTO_8]
   CAPTURE VAL R1
-  SETTABLEKS R23 R19 K52 ["getDerivedStateFromProps"]
-  DUPCLOSURE R23 K53 [PROTO_8]
+  SETTABLEKS R25 R20 K55 ["getDerivedStateFromProps"]
+  DUPCLOSURE R25 K56 [PROTO_9]
+  CAPTURE VAL R17
   CAPTURE VAL R1
   CAPTURE VAL R11
+  CAPTURE VAL R15
   CAPTURE VAL R12
-  CAPTURE VAL R18
+  CAPTURE VAL R19
   CAPTURE VAL R13
   CAPTURE VAL R14
   CAPTURE VAL R9
-  CAPTURE VAL R17
+  CAPTURE VAL R18
   CAPTURE VAL R16
-  CAPTURE VAL R15
-  SETTABLEKS R23 R19 K54 ["render"]
-  MOVE R23 R4
-  DUPTABLE R24 K55 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
-  SETTABLEKS R5 R24 K11 ["Analytics"]
-  SETTABLEKS R6 R24 K12 ["Localization"]
-  SETTABLEKS R8 R24 K15 ["Stylizer"]
-  SETTABLEKS R7 R24 K13 ["Plugin"]
-  CALL R23 1 1
-  MOVE R24 R19
-  CALL R23 1 1
-  MOVE R19 R23
-  RETURN R19 1
+  SETTABLEKS R25 R20 K57 ["render"]
+  MOVE R25 R4
+  DUPTABLE R26 K58 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
+  SETTABLEKS R5 R26 K11 ["Analytics"]
+  SETTABLEKS R6 R26 K12 ["Localization"]
+  SETTABLEKS R8 R26 K15 ["Stylizer"]
+  SETTABLEKS R7 R26 K13 ["Plugin"]
+  CALL R25 1 1
+  MOVE R26 R20
+  CALL R25 1 1
+  MOVE R20 R25
+  RETURN R20 1

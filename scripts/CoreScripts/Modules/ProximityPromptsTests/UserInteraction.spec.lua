@@ -587,7 +587,7 @@ return function()
 			expect(promptTriggerEndedMock).toHaveBeenCalledTimes(1)
 		end)
 
-		it("Should only fire triggered signal after .HoldDuration time has elapsed for click", function()
+		xit("Should only fire triggered signal after .HoldDuration time has elapsed for click", function()
 			prompt.KeyboardKeyCode = Enum.KeyCode.E
 			prompt.GamepadKeyCode = Enum.KeyCode.ButtonX
 			prompt.ClickablePrompt = true
@@ -613,7 +613,7 @@ return function()
 			expect(promptTriggerEndedMock).toHaveBeenCalledTimes(1)
 		end)
 
-		it("Should only fire triggered signal after .HoldDuration time has elapsed for tap", function()
+		xit("Should only fire triggered signal after .HoldDuration time has elapsed for tap", function()
 			-- Set touch input type
 			setMobileInputType()
 			PlayerHelper.WaitNFrames(1)

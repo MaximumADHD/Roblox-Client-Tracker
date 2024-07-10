@@ -10,9 +10,19 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  NEWTABLE R3 0 0
+  DUPTABLE R3 K13 [{"CancelButtonBackgroundColor", "CancelButtonHoverBackgroundColor", "LoadingSpinnerImage"}]
+  GETIMPORT R4 K16 [Color3.fromHex]
+  LOADK R5 K17 ["#3C3C3C"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K10 ["CancelButtonBackgroundColor"]
+  GETIMPORT R4 K16 [Color3.fromHex]
+  LOADK R5 K18 ["#424242"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K11 ["CancelButtonHoverBackgroundColor"]
+  LOADK R4 K19 ["rbxasset://studio_svg_textures/Lua/Dialog/Dark/Standard/Spinner.png"]
+  SETTABLEKS R4 R3 K12 ["LoadingSpinnerImage"]
   MOVE R4 R2
-  LOADK R5 K10 ["CancellableDialogDarkTheme"]
+  LOADK R5 K20 ["CancellableDialogDarkTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

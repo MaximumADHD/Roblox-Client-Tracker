@@ -10,7 +10,7 @@ PROTO_0:
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K5 ["Fragment"]
   NEWTABLE R4 0 0
-  DUPTABLE R5 K13 [{"GUI", "PhysicsGeometry", "Lighting", "Navigation", "PhysicsConstraints", "PhysicsSimulation", "View"}]
+  DUPTABLE R5 K13 [{"GUI", "PhysicsGeometry", "Lighting", "Pathfinding", "PhysicsConstraints", "PhysicsSimulation", "View"}]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K4 ["createElement"]
   LOADK R7 K14 ["VisualizationModeCategory"]
@@ -91,87 +91,87 @@ PROTO_0:
   NAMECALL R9 R1 K18 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K15 ["Title"]
-  DUPTABLE R9 K40 [{"AssemblyLabels", "DecompositionGeometry", "MechanismLabels", "UnanchoredPartLabels"}]
+  DUPTABLE R9 K40 [{"Assemblies", "CollisionFidelity", "Mechanisms", "AnchoredParts"}]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K36 ["AssemblyLabels"]
+  LOADK R16 K41 ["ShowAssemblies"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K41 ["AssemblyLabelsToolTip"]
+  LOADK R16 K42 ["ShowAssembliesToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K42 ["Physics"]
+  GETTABLEKS R13 R0 K43 ["Physics"]
   SETTABLEKS R13 R12 K27 ["Setting"]
-  LOADK R13 K43 ["AreAssembliesShown"]
+  LOADK R13 K44 ["AreAssembliesShown"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K36 ["AssemblyLabels"]
+  SETTABLEKS R10 R9 K36 ["Assemblies"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K37 ["DecompositionGeometry"]
+  LOADK R16 K37 ["CollisionFidelity"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K44 ["DecompositionGeometryToolTip"]
+  LOADK R16 K45 ["CollisionFidelityToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K42 ["Physics"]
+  GETTABLEKS R13 R0 K43 ["Physics"]
   SETTABLEKS R13 R12 K27 ["Setting"]
-  LOADK R13 K45 ["ShowDecompositionGeometry"]
+  LOADK R13 K46 ["ShowDecompositionGeometry"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K37 ["DecompositionGeometry"]
+  SETTABLEKS R10 R9 K37 ["CollisionFidelity"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K38 ["MechanismLabels"]
+  LOADK R16 K38 ["Mechanisms"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K46 ["MechanismLabelsToolTip"]
+  LOADK R16 K47 ["MechanismsToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K42 ["Physics"]
+  GETTABLEKS R13 R0 K43 ["Physics"]
   SETTABLEKS R13 R12 K27 ["Setting"]
-  LOADK R13 K47 ["AreMechanismsShown"]
+  LOADK R13 K48 ["AreMechanismsShown"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K38 ["MechanismLabels"]
+  SETTABLEKS R10 R9 K38 ["Mechanisms"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K39 ["UnanchoredPartLabels"]
+  LOADK R16 K39 ["AnchoredParts"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K48 ["UnanchoredPartLabelsToolTip"]
+  LOADK R16 K49 ["AnchoredPartsToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K42 ["Physics"]
+  GETTABLEKS R13 R0 K43 ["Physics"]
   SETTABLEKS R13 R12 K27 ["Setting"]
-  LOADK R13 K49 ["AreAnchorsShown"]
+  LOADK R13 K50 ["AreAnchorsShown"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K39 ["UnanchoredPartLabels"]
+  SETTABLEKS R10 R9 K39 ["AnchoredParts"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K7 ["PhysicsGeometry"]
   GETUPVAL R7 1
@@ -183,27 +183,30 @@ PROTO_0:
   NAMECALL R9 R1 K18 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K15 ["Title"]
-  DUPTABLE R9 K51 [{"LightGuides"}]
+  DUPTABLE R9 K52 [{"Lights"}]
+  GETUPVAL R10 2
+  CALL R10 0 1
+  JUMPIFNOT R10 [+27]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K50 ["LightGuides"]
+  LOADK R16 K51 ["Lights"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K52 ["LightGuidesToolTip"]
+  LOADK R16 K53 ["LightsToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K53 ["Studio"]
+  GETTABLEKS R13 R0 K54 ["Studio"]
   SETTABLEKS R13 R12 K27 ["Setting"]
-  LOADK R13 K54 ["Show Light Guides"]
+  LOADK R13 K55 ["Show Light Guides"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K50 ["LightGuides"]
+  SETTABLEKS R10 R9 K51 ["Lights"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K8 ["Lighting"]
   GETUPVAL R7 1
@@ -211,73 +214,73 @@ PROTO_0:
   LOADK R7 K14 ["VisualizationModeCategory"]
   DUPTABLE R8 K16 [{"Title"}]
   LOADK R11 K17 ["VisualizationModeCategories"]
-  LOADK R12 K9 ["Navigation"]
+  LOADK R12 K9 ["Pathfinding"]
   NAMECALL R9 R1 K18 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K15 ["Title"]
-  DUPTABLE R9 K58 [{"NavigationMesh", "NavigationLabels", "PathfindingLinks"}]
+  DUPTABLE R9 K59 [{"PathfindingMesh", "PathfindingModifiers", "PathfindingLinks"}]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K55 ["NavigationMesh"]
+  LOADK R16 K56 ["PathfindingMesh"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K59 ["NavigationMeshToolTip"]
+  LOADK R16 K60 ["PathfindingMeshToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K53 ["Studio"]
+  GETTABLEKS R13 R0 K54 ["Studio"]
   SETTABLEKS R13 R12 K27 ["Setting"]
-  LOADK R13 K60 ["Show Navigation Mesh"]
+  LOADK R13 K61 ["Show Navigation Mesh"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K55 ["NavigationMesh"]
+  SETTABLEKS R10 R9 K56 ["PathfindingMesh"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K56 ["NavigationLabels"]
+  LOADK R16 K57 ["PathfindingModifiers"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K61 ["NavigationLabelsToolTip"]
+  LOADK R16 K62 ["PathfindingModifiersToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K53 ["Studio"]
+  GETTABLEKS R13 R0 K54 ["Studio"]
   SETTABLEKS R13 R12 K27 ["Setting"]
-  LOADK R13 K62 ["Show Navigation Labels"]
+  LOADK R13 K63 ["Show Navigation Labels"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K56 ["NavigationLabels"]
+  SETTABLEKS R10 R9 K57 ["PathfindingModifiers"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K57 ["PathfindingLinks"]
+  LOADK R16 K58 ["PathfindingLinks"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K63 ["PathfindingLinksToolTip"]
+  LOADK R16 K64 ["PathfindingLinksToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K53 ["Studio"]
+  GETTABLEKS R13 R0 K54 ["Studio"]
   SETTABLEKS R13 R12 K27 ["Setting"]
-  LOADK R13 K64 ["Show Pathfinding Links"]
+  LOADK R13 K65 ["Show Pathfinding Links"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K57 ["PathfindingLinks"]
+  SETTABLEKS R10 R9 K58 ["PathfindingLinks"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K9 ["Navigation"]
+  SETTABLEKS R6 R5 K9 ["Pathfinding"]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K4 ["createElement"]
   LOADK R7 K14 ["VisualizationModeCategory"]
@@ -287,7 +290,7 @@ PROTO_0:
   NAMECALL R9 R1 K18 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K15 ["Title"]
-  DUPTABLE R9 K68 [{"Constraints", "ConstraintsOnTop", "ContactPoints"}]
+  DUPTABLE R9 K69 [{"Constraints", "ConstraintsOnTop", "ContactPoints"}]
   GETUPVAL R10 2
   CALL R10 0 1
   JUMPIFNOT R10 [+20]
@@ -296,17 +299,17 @@ PROTO_0:
   GETUPVAL R11 3
   DUPTABLE R12 K24 [{"Title", "ToolTip"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K65 ["Constraints"]
+  LOADK R16 K66 ["Constraints"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K69 ["ConstraintsToolTip"]
+  LOADK R16 K70 ["ConstraintsToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K65 ["Constraints"]
+  SETTABLEKS R10 R9 K66 ["Constraints"]
   GETUPVAL R10 2
   CALL R10 0 1
   JUMPIFNOT R10 [+20]
@@ -315,17 +318,17 @@ PROTO_0:
   GETUPVAL R11 3
   DUPTABLE R12 K24 [{"Title", "ToolTip"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K66 ["ConstraintsOnTop"]
+  LOADK R16 K67 ["ConstraintsOnTop"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K70 ["ConstraintsOnTopToolTip"]
+  LOADK R16 K71 ["ConstraintsOnTopToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K66 ["ConstraintsOnTop"]
+  SETTABLEKS R10 R9 K67 ["ConstraintsOnTop"]
   GETUPVAL R10 2
   CALL R10 0 1
   JUMPIFNOT R10 [+20]
@@ -334,17 +337,17 @@ PROTO_0:
   GETUPVAL R11 3
   DUPTABLE R12 K24 [{"Title", "ToolTip"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K67 ["ContactPoints"]
+  LOADK R16 K68 ["ContactPoints"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K71 ["ContactPointsToolTip"]
+  LOADK R16 K72 ["ContactPointsToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K67 ["ContactPoints"]
+  SETTABLEKS R10 R9 K68 ["ContactPoints"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K10 ["PhysicsConstraints"]
   GETUPVAL R7 1
@@ -356,33 +359,33 @@ PROTO_0:
   NAMECALL R9 R1 K18 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K15 ["Title"]
-  DUPTABLE R9 K75 [{"AwakeParts", "NetworkOwner", "WindDirection"}]
+  DUPTABLE R9 K76 [{"AwakeParts", "NetworkOwner", "WindDirection"}]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K76 ["HighlightAwakeParts"]
+  LOADK R16 K73 ["AwakeParts"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K77 ["HighlightAwakePartsToolTip"]
+  LOADK R16 K77 ["AwakePartsToolTip"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K42 ["Physics"]
+  GETTABLEKS R13 R0 K43 ["Physics"]
   SETTABLEKS R13 R12 K27 ["Setting"]
   LOADK R13 K78 ["AreAwakePartsHighlighted"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K72 ["AwakeParts"]
+  SETTABLEKS R10 R9 K73 ["AwakeParts"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 3
   DUPTABLE R12 K29 [{"Title", "ToolTip", "Setting", "Property"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K73 ["NetworkOwner"]
+  LOADK R16 K74 ["NetworkOwner"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
@@ -391,12 +394,12 @@ PROTO_0:
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
-  GETTABLEKS R13 R0 K42 ["Physics"]
+  GETTABLEKS R13 R0 K43 ["Physics"]
   SETTABLEKS R13 R12 K27 ["Setting"]
   LOADK R13 K80 ["AreOwnersShown"]
   SETTABLEKS R13 R12 K28 ["Property"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K73 ["NetworkOwner"]
+  SETTABLEKS R10 R9 K74 ["NetworkOwner"]
   GETUPVAL R10 2
   CALL R10 0 1
   JUMPIFNOT R10 [+20]
@@ -405,7 +408,7 @@ PROTO_0:
   GETUPVAL R11 3
   DUPTABLE R12 K24 [{"Title", "ToolTip"}]
   LOADK R15 K25 ["StudioModes"]
-  LOADK R16 K74 ["WindDirection"]
+  LOADK R16 K75 ["WindDirection"]
   NAMECALL R13 R1 K18 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K15 ["Title"]
@@ -415,7 +418,7 @@ PROTO_0:
   CALL R13 3 1
   SETTABLEKS R13 R12 K23 ["ToolTip"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K74 ["WindDirection"]
+  SETTABLEKS R10 R9 K75 ["WindDirection"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K11 ["PhysicsSimulation"]
   GETUPVAL R7 1

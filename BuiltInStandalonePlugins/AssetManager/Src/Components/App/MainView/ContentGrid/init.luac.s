@@ -17,32 +17,38 @@ PROTO_0:
   SETTABLEKS R8 R7 K3 ["LayoutOrder"]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K4 ["Tag"]
-  LOADK R9 K5 ["MainContents ContentGrid X-FitY X-Top X-Column X-Center"]
+  LOADK R10 K5 ["MainContents ContentGrid X-Top X-Column X-Center %*"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K4 ["Tag"]
+  GETTABLE R12 R0 R13
+  NAMECALL R10 R10 K6 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
   SETTABLE R9 R7 R8
-  DUPTABLE R8 K7 [{"View"}]
+  DUPTABLE R8 K8 [{"View"}]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
   GETUPVAL R10 5
-  DUPTABLE R11 K12 [{"Cells", "CellSize", "CellPadding", "CellComponent"}]
-  SETTABLEKS R2 R11 K8 ["Cells"]
-  GETIMPORT R12 K15 [UDim2.fromOffset]
+  DUPTABLE R11 K13 [{"Cells", "CellSize", "CellPadding", "CellComponent"}]
+  SETTABLEKS R2 R11 K9 ["Cells"]
+  GETIMPORT R12 K16 [UDim2.fromOffset]
   MOVE R13 R4
   GETUPVAL R15 6
-  LOADK R17 K16 ["CellHeightDiff"]
-  NAMECALL R15 R15 K17 ["GetAttribute"]
+  LOADK R17 K17 ["CellHeightDiff"]
+  NAMECALL R15 R15 K18 ["GetAttribute"]
   CALL R15 2 1
   ADD R14 R4 R15
   CALL R12 2 1
-  SETTABLEKS R12 R11 K9 ["CellSize"]
+  SETTABLEKS R12 R11 K10 ["CellSize"]
   GETUPVAL R12 6
-  LOADK R14 K10 ["CellPadding"]
-  NAMECALL R12 R12 K17 ["GetAttribute"]
+  LOADK R14 K11 ["CellPadding"]
+  NAMECALL R12 R12 K18 ["GetAttribute"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K10 ["CellPadding"]
+  SETTABLEKS R12 R11 K11 ["CellPadding"]
   GETUPVAL R12 7
-  SETTABLEKS R12 R11 K11 ["CellComponent"]
+  SETTABLEKS R12 R11 K12 ["CellComponent"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K6 ["View"]
+  SETTABLEKS R9 R8 K7 ["View"]
   CALL R5 3 -1
   RETURN R5 -1
 

@@ -64,6 +64,7 @@ local FFlagSettingsMenuUseHardwareSafeArea = game:DefineFastFlag("SettingsMenuUs
 local GetFFlagFix10ftMenuAddFriend = require(Settings.Flags.GetFFlagFix10ftMenuAddFriend)
 local GetFFlagAddAnimatedFocusState = require(Settings.Flags.GetFFlagAddAnimatedFocusState)
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
+local FFlagUnbindRenderSteps = game:DefineFastFlag("UnbindRenderSteps", false)
 
 ------------------ Modules --------------------
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
@@ -785,6 +786,10 @@ local function MakeRoundedRectFocusState(instance, renderStepName)
 		Transparency = Theme.selectionCursor.GradientTransparencySequence,
 		Parent = stroke,
 	})
+
+	if FFlagUnbindRenderSteps then
+		RunService:UnbindFromRenderStep(renderStepName)
+	end
 
 	RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
 		local rotation = gradient.Rotation + FOCUS_GRADIENT_ROTATION_SPEED

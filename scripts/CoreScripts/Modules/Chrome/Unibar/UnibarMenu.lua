@@ -26,6 +26,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListInitialVisibleState = require(RobloxGui.Modules.PlayerList.PlayerListInitialVisibleState)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
+local ContainerHost = require(script.Parent.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
@@ -45,6 +46,7 @@ local GetFFlagEnableScreenshotUtility =
 local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
 local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCapturesInChrome)
+local GetFFlagSupportChromeContainerSizing = require(Chrome.Flags.GetFFlagSupportChromeContainerSizing)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -91,10 +93,17 @@ function configureUnibar(viewportInfo)
 	end
 
 	if GetFFlagNewUnibarIA() and GetFFlagEnableChromePinIntegrations() then
-		ChromeService:configureMenu({
-			{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
-			{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
-		})
+		if GetFFlagSupportChromeContainerSizing() then
+			ChromeService:configureMenu({
+				{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2", "dummy_container" },
+				{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
+			})
+		else
+			ChromeService:configureMenu({
+				{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
+				{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
+			})
+		end
 	elseif GetFFlagNewUnibarIA() then
 		ChromeService:configureMenu({
 			{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
@@ -516,15 +525,34 @@ function Unibar(props: UnibarProp)
 				end)
 			end
 
-			children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
-				position = positionBinding :: any,
-				visible = pinned or visibleBinding :: any,
-				toggleTransition = if GetFFlagUsePolishedAnimations() then toggleIconTransition else toggleTransition,
-				integration = item,
-			}) :: any
-			xOffset += Constants.ICON_CELL_WIDTH
-			if pinned then
-				xOffsetPinned += Constants.ICON_CELL_WIDTH
+			if GetFFlagSupportChromeContainerSizing() and item.integration.components.Container then
+				local containerWidthSlots = if item.integration.containerWidthSlots
+					then item.integration.containerWidthSlots:get()
+					else 0
+
+				children[item.id or ("container" .. k)] = React.createElement(ContainerHost, {
+					position = positionBinding :: any,
+					visible = pinned or visibleBinding :: any,
+					integration = item,
+					containerWidthSlots = containerWidthSlots,
+				}) :: any
+				xOffset += containerWidthSlots * Constants.ICON_CELL_WIDTH
+				if pinned then
+					xOffsetPinned += containerWidthSlots * Constants.ICON_CELL_WIDTH
+				end
+			else
+				children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
+					position = positionBinding :: any,
+					visible = pinned or visibleBinding :: any,
+					toggleTransition = if GetFFlagUsePolishedAnimations()
+						then toggleIconTransition
+						else toggleTransition,
+					integration = item,
+				}) :: any
+				xOffset += Constants.ICON_CELL_WIDTH
+				if pinned then
+					xOffsetPinned += Constants.ICON_CELL_WIDTH
+				end
 			end
 		end
 	end

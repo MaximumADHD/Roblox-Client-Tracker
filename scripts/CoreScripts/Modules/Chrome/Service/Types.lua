@@ -1,9 +1,11 @@
 local ChromeUtils = require(script.Parent.ChromeUtils)
 local WindowSizeSignal = require(script.Parent.WindowSizeSignal)
+local ContainerSlotSignal = require(script.Parent.ContainerSlotSignal)
 
 export type IntegrationComponents = {
 	Icon: any?,
 	Window: any?,
+	Container: any?,
 }
 
 export type IntegrationId = string
@@ -28,6 +30,7 @@ export type IntegrationProps = {
 	hideNotificationCountWhileOpen: boolean,
 	startingWindowPosition: UDim2?,
 	windowSize: WindowSizeSignal.WindowSizeSignal?,
+	containerWidthSlots: ContainerSlotSignal.ContainerSlotSignal?,
 	cachePosition: boolean?,
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,
@@ -45,6 +48,7 @@ export type IntegrationRegisterProps = {
 	notification: ChromeUtils.NotifySignal?,
 	hideNotificationCountWhileOpen: boolean?,
 	windowSize: WindowSizeSignal.WindowSizeSignal?,
+	containerWidthSlots: ContainerSlotSignal.ContainerSlotSignal?,
 	cachePosition: boolean?,
 	startingWindowPosition: UDim2?,
 	hotkeyCodes: { [number]: Enum.KeyCode }?,

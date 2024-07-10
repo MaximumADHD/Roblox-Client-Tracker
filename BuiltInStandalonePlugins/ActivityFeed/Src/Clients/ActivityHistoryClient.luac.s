@@ -97,44 +97,45 @@ PROTO_4:
   RETURN R0 1
 
 PROTO_5:
-  DUPTABLE R5 K2 [{"entryCount", "universeId"}]
-  GETUPVAL R6 0
-  SETTABLEKS R6 R5 K0 ["entryCount"]
-  SETTABLEKS R1 R5 K1 ["universeId"]
+  DUPTABLE R6 K3 [{"entryCount", "universeId", "reverseOrder"}]
+  GETUPVAL R7 0
+  SETTABLEKS R7 R6 K0 ["entryCount"]
+  SETTABLEKS R1 R6 K1 ["universeId"]
+  SETTABLEKS R4 R6 K2 ["reverseOrder"]
   JUMPIFNOT R2 [+2]
-  SETTABLEKS R2 R5 K3 ["cursor"]
+  SETTABLEKS R2 R6 K4 ["cursor"]
   JUMPIFNOT R3 [+9]
-  GETIMPORT R6 K6 [DateTime.fromUnixTimestampMillis]
-  MOVE R7 R3
-  CALL R6 1 1
-  NAMECALL R6 R6 K7 ["ToIsoDate"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K8 ["startDate"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K9 ["composeUrl"]
+  GETIMPORT R7 K7 [DateTime.fromUnixTimestampMillis]
+  MOVE R8 R3
+  CALL R7 1 1
+  NAMECALL R7 R7 K8 ["ToIsoDate"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K9 ["startDate"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K10 ["APIS_URL"]
-  LOADK R8 K11 ["activity-feed-service/v1/history-paged"]
-  MOVE R9 R5
-  CALL R6 3 1
-  DUPCLOSURE R7 K12 [PROTO_1]
-  NEWCLOSURE R8 P1
+  GETTABLEKS R7 R8 K10 ["composeUrl"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K11 ["APIS_URL"]
+  LOADK R9 K12 ["activity-feed-service/v1/history-paged"]
+  MOVE R10 R6
+  CALL R7 3 1
+  DUPCLOSURE R8 K13 [PROTO_1]
+  NEWCLOSURE R9 P1
   CAPTURE UPVAL U2
-  CAPTURE VAL R4
-  GETUPVAL R9 3
-  GETUPVAL R11 3
-  MOVE R13 R6
-  NAMECALL R11 R11 K13 ["get"]
-  CALL R11 2 -1
-  NAMECALL R9 R9 K14 ["handleRetry"]
-  CALL R9 -1 1
-  DUPCLOSURE R11 K15 [PROTO_4]
-  NAMECALL R9 R9 K16 ["catch"]
-  CALL R9 2 1
-  MOVE R11 R8
-  MOVE R12 R7
-  NAMECALL R9 R9 K17 ["andThen"]
-  CALL R9 3 0
+  CAPTURE VAL R5
+  GETUPVAL R10 3
+  GETUPVAL R12 3
+  MOVE R14 R7
+  NAMECALL R12 R12 K14 ["get"]
+  CALL R12 2 -1
+  NAMECALL R10 R10 K15 ["handleRetry"]
+  CALL R10 -1 1
+  DUPCLOSURE R12 K16 [PROTO_4]
+  NAMECALL R10 R10 K17 ["catch"]
+  CALL R10 2 1
+  MOVE R12 R9
+  MOVE R13 R8
+  NAMECALL R10 R10 K18 ["andThen"]
+  CALL R10 3 0
   RETURN R0 0
 
 PROTO_6:

@@ -4,7 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Modules = CoreGui.RobloxGui.Modules
-local Theme = require(Modules.Settings.Theme)
 local ChromeEnabled = require(Modules.Chrome.Enabled)
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
@@ -41,7 +40,7 @@ OverlayScreenGui.ResetOnSpawn = false
 OverlayScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 OverlayScreenGui.Parent = CoreGui
 
-ScreenshotsApp.mountCaptureManager(CaptureManagerScreenGui, Theme)
+ScreenshotsApp.mountCaptureManager(CaptureManagerScreenGui)
 ScreenshotsApp.mountCarousel(CarouselScreenGui)
 ScreenshotsApp.mountCoreUI(
 	RobloxGui,

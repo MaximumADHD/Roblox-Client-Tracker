@@ -11,12 +11,22 @@ MAIN:
   NAMECALL R0 R0 K5 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K6 ["ActivityFeedRefreshMs"]
-  LOADK R3 K7 [60000]
+  LOADK R2 K6 ["ActivityFeedBDISFetchSensitivity"]
+  LOADN R3 50
   NAMECALL R0 R0 K5 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K8 ["ActivityHistoryTelemetry"]
+  LOADK R2 K7 ["ActivityFeedBDISMinEvents"]
+  LOADN R3 10
+  NAMECALL R0 R0 K5 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K8 ["ActivityFeedRefreshMs"]
+  LOADK R3 K9 [60000]
+  NAMECALL R0 R0 K5 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K10 ["ActivityHistoryTelemetry"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

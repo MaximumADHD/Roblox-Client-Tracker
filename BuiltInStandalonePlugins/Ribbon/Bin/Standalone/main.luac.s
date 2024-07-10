@@ -1,51 +1,84 @@
 PROTO_0:
   GETUPVAL R0 0
-  JUMPIFNOT R0 [+7]
-  GETUPVAL R0 0
-  LOADNIL R2
-  NAMECALL R0 R0 K0 ["render"]
-  CALL R0 2 0
-  LOADNIL R0
-  SETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["unmount"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K1 ["Destroy"]
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_1:
-  GETIMPORT R2 K1 [require]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["DebugTestRibbonInAssetDM"]
+  NAMECALL R1 R1 K3 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETIMPORT R1 K5 [require]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Packages"]
-  GETTABLEKS R3 R4 K3 ["React"]
+  GETTABLEKS R4 R5 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ReactRoblox"]
   CALL R2 1 1
-  GETIMPORT R3 K1 [require]
+  GETIMPORT R3 K5 [require]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["Packages"]
-  GETTABLEKS R4 R5 K4 ["ReactRoblox"]
+  GETTABLEKS R5 R6 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["MainPlugin"]
   CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K5 ["Src"]
-  GETTABLEKS R5 R6 K6 ["MainPlugin"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K7 ["createElement"]
-  MOVE R6 R4
-  DUPTABLE R7 K10 [{"Plugin", "PluginLoaderContext"}]
-  SETTABLEKS R0 R7 K8 ["Plugin"]
-  SETTABLEKS R1 R7 K9 ["PluginLoaderContext"]
+  LOADK R6 K11 ["Ribbon"]
+  DUPTABLE R7 K22 [{"Id", "InitialEnabled", "MinSize", "Modal", "Panel", "Resizable", "Size", "Title", "Parent", "AddToParentLayout"}]
+  LOADK R8 K11 ["Ribbon"]
+  SETTABLEKS R8 R7 K12 ["Id"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K13 ["InitialEnabled"]
+  GETIMPORT R8 K25 [Vector2.new]
+  LOADN R9 128
+  LOADN R10 129
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["MinSize"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K15 ["Modal"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K16 ["Panel"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K17 ["Resizable"]
+  GETIMPORT R8 K25 [Vector2.new]
+  LOADN R9 128
+  LOADN R10 129
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K18 ["Size"]
+  LOADK R8 K11 ["Ribbon"]
+  SETTABLEKS R8 R7 K19 ["Title"]
+  LOADK R8 K26 ["studioTopBar"]
+  SETTABLEKS R8 R7 K20 ["Parent"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K21 ["AddToParentLayout"]
+  NAMECALL R4 R0 K27 ["CreateQWidgetPluginGui"]
+  CALL R4 3 1
+  GETIMPORT R5 K31 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R5 R4 K29 ["ZIndexBehavior"]
+  GETTABLEKS R5 R1 K32 ["createElement"]
+  MOVE R6 R3
+  DUPTABLE R7 K35 [{"Plugin", "Widget"}]
+  SETTABLEKS R0 R7 K33 ["Plugin"]
+  SETTABLEKS R4 R7 K34 ["Widget"]
   CALL R5 2 1
-  GETIMPORT R6 K13 [Instance.new]
-  LOADK R7 K14 ["Frame"]
+  GETTABLEKS R6 R2 K36 ["createRoot"]
+  MOVE R7 R4
   CALL R6 1 1
-  GETTABLEKS R7 R3 K15 ["createRoot"]
-  MOVE R8 R6
-  CALL R7 1 1
-  MOVE R10 R5
-  NAMECALL R8 R7 K16 ["render"]
-  CALL R8 2 0
-  GETTABLEKS R8 R0 K17 ["Unloading"]
-  NEWCLOSURE R10 P0
-  CAPTURE REF R7
-  NAMECALL R8 R8 K18 ["Connect"]
-  CALL R8 2 0
-  CLOSEUPVALS R7
+  MOVE R9 R5
+  NAMECALL R7 R6 K37 ["render"]
+  CALL R7 2 0
+  GETTABLEKS R7 R0 K38 ["Unloading"]
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  NAMECALL R7 R7 K39 ["Once"]
+  CALL R7 2 0
   RETURN R0 0
 
 MAIN:

@@ -125,6 +125,13 @@ if getFFlagRenderVoiceBubbleAfterAsyncInit() then
 	GlobalFlags.RenderVoiceBubbleAfterAsyncInit = true
 end
 
+local GetFFlagShowLikelySpeakingBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowLikelySpeakingBubbles)
+if GetFFlagShowLikelySpeakingBubbles() then
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	local GlobalFlags = (ExperienceChat.GlobalFlags :: any)
+	GlobalFlags.ShowLikelySpeakingBubbles = true
+end
+
 -- Since prop validation can be expensive in certain scenarios, you can enable
 -- this flag locally to validate props to Roact components.
 if FFlagUseRoactGlobalConfigInCoreScripts and RunService:IsStudio() then

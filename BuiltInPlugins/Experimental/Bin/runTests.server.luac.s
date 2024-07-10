@@ -1,0 +1,98 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProcessService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  LOADN R2 0
+  NAMECALL R0 R0 K4 ["ExitAsync"]
+  CALL R0 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["defineLuaFlags"]
+  CALL R1 1 0
+  GETIMPORT R1 K4 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["commonInit"]
+  CALL R1 1 1
+  MOVE R2 R1
+  CALL R2 0 0
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["DebugFlags"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K12 ["RunningUnderCLI"]
+  CALL R4 0 1
+  JUMPIF R4 [+4]
+  GETTABLEKS R4 R2 K13 ["RunTests"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+73]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K10 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Dev"]
+  GETTABLEKS R5 R6 K15 ["TestEZ"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K16 ["TestBootstrap"]
+  GETTABLEKS R7 R4 K17 ["Reporters"]
+  GETTABLEKS R6 R7 K18 ["TeamCityReporter"]
+  GETTABLEKS R8 R4 K17 ["Reporters"]
+  GETTABLEKS R7 R8 K19 ["TextReporter"]
+  GETIMPORT R10 K22 [_G]
+  GETTABLEKS R9 R10 K20 ["TEAMCITY"]
+  JUMPIFNOT R9 [+2]
+  MOVE R8 R6
+  JUMPIF R8 [+1]
+  MOVE R8 R7
+  GETTABLEKS R9 R0 K7 ["Src"]
+  GETIMPORT R10 K24 [print]
+  LOADK R12 K25 ["----- All "]
+  GETTABLEKS R13 R0 K26 ["Name"]
+  LOADK R14 K27 [" Tests ------"]
+  CONCAT R11 R12 R14
+  CALL R10 1 0
+  NEWTABLE R12 0 1
+  MOVE R13 R9
+  SETLIST R12 R13 1 [1]
+  MOVE R13 R8
+  NAMECALL R10 R5 K28 ["run"]
+  CALL R10 3 0
+  GETIMPORT R10 K24 [print]
+  LOADK R11 K29 ["----------------------------------"]
+  CALL R10 1 0
+  GETTABLEKS R10 R2 K30 ["RunDeveloperFrameworkTests"]
+  CALL R10 0 1
+  JUMPIFNOT R10 [+19]
+  GETIMPORT R10 K24 [print]
+  LOADK R11 K31 [""]
+  CALL R10 1 0
+  GETIMPORT R10 K24 [print]
+  LOADK R11 K32 ["----- All DeveloperFramework Tests ------"]
+  CALL R10 1 0
+  GETTABLEKS R11 R3 K33 ["TestHelpers"]
+  GETTABLEKS R10 R11 K34 ["runFrameworkTests"]
+  MOVE R11 R4
+  MOVE R12 R8
+  CALL R10 2 0
+  GETIMPORT R10 K24 [print]
+  LOADK R11 K29 ["----------------------------------"]
+  CALL R10 1 0
+  GETTABLEKS R4 R2 K12 ["RunningUnderCLI"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+4]
+  GETIMPORT R4 K36 [pcall]
+  DUPCLOSURE R5 K37 [PROTO_0]
+  CALL R4 1 0
+  RETURN R0 0

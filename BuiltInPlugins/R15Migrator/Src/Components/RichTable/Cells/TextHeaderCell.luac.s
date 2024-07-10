@@ -1,0 +1,140 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["join"]
+  DUPTABLE R4 K9 [{"LayoutOrder", "BorderColor3", "BorderSizePixel", "Padding", "Style", "StyleModifier", "Size"}]
+  GETTABLEKS R5 R0 K10 ["ColumnIndex"]
+  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
+  GETTABLEKS R6 R0 K6 ["Style"]
+  GETTABLEKS R5 R6 K11 ["Border"]
+  SETTABLEKS R5 R4 K3 ["BorderColor3"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K4 ["BorderSizePixel"]
+  GETTABLEKS R6 R0 K6 ["Style"]
+  GETTABLEKS R5 R6 K12 ["HeaderCellPadding"]
+  SETTABLEKS R5 R4 K5 ["Padding"]
+  LOADK R5 K13 ["SubtleBox"]
+  SETTABLEKS R5 R4 K6 ["Style"]
+  GETTABLEKS R6 R0 K14 ["OnPress"]
+  JUMPIFEQKNIL R6 [+4]
+  GETTABLEKS R5 R0 K7 ["StyleModifier"]
+  JUMPIF R5 [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K7 ["StyleModifier"]
+  GETIMPORT R5 K17 [UDim2.new]
+  GETTABLEKS R7 R0 K18 ["Width"]
+  GETTABLEKS R6 R7 K19 ["Scale"]
+  GETTABLEKS R8 R0 K18 ["Width"]
+  GETTABLEKS R7 R8 K20 ["Offset"]
+  LOADN R8 1
+  LOADN R9 0
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K8 ["Size"]
+  GETTABLEKS R5 R0 K21 ["WrapperProps"]
+  CALL R3 2 1
+  DUPTABLE R4 K25 [{"Text", "Icon", "Tooltip"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K28 [{"Text", "Size", "TextXAlignment", "TextTruncate"}]
+  GETTABLEKS R8 R0 K29 ["Name"]
+  SETTABLEKS R8 R7 K22 ["Text"]
+  GETIMPORT R8 K31 [UDim2.fromScale]
+  LOADN R9 1
+  LOADN R10 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K8 ["Size"]
+  GETIMPORT R8 K34 [Enum.TextXAlignment.Left]
+  SETTABLEKS R8 R7 K26 ["TextXAlignment"]
+  GETIMPORT R8 K36 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R8 R7 K27 ["TextTruncate"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K22 ["Text"]
+  GETTABLEKS R5 R0 K37 ["Order"]
+  JUMPIFNOT R5 [+49]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 4
+  DUPTABLE R7 K43 [{"ImageColor3", "Image", "Size", "Position", "Rotation", "AnchorPoint"}]
+  GETTABLEKS R9 R0 K6 ["Style"]
+  GETTABLEKS R8 R9 K44 ["IconColor"]
+  SETTABLEKS R8 R7 K38 ["ImageColor3"]
+  LOADK R8 K45 ["rbxasset://textures/DeveloperFramework/Table/sort_arrow.png"]
+  SETTABLEKS R8 R7 K39 ["Image"]
+  GETIMPORT R8 K47 [UDim2.fromOffset]
+  LOADN R9 6
+  LOADN R10 8
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K8 ["Size"]
+  GETIMPORT R8 K17 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 246
+  LOADK R11 K48 [0.5]
+  LOADN R12 252
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K40 ["Position"]
+  GETTABLEKS R9 R0 K37 ["Order"]
+  GETIMPORT R10 K51 [Enum.SortDirection.Descending]
+  JUMPIFNOTEQ R9 R10 [+3]
+  LOADN R8 166
+  JUMP [+1]
+  LOADN R8 90
+  SETTABLEKS R8 R7 K41 ["Rotation"]
+  GETIMPORT R8 K53 [Vector2.new]
+  LOADN R9 1
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K42 ["AnchorPoint"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K23 ["Icon"]
+  GETTABLEKS R5 R0 K24 ["Tooltip"]
+  JUMPIFNOT R5 [+10]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 5
+  DUPTABLE R7 K54 [{"Text"}]
+  GETTABLEKS R8 R0 K24 ["Tooltip"]
+  SETTABLEKS R8 R7 K22 ["Text"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K24 ["Tooltip"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Dash"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["Pane"]
+  GETTABLEKS R6 R4 K12 ["TextLabel"]
+  GETTABLEKS R7 R4 K13 ["Image"]
+  GETTABLEKS R8 R4 K14 ["Tooltip"]
+  GETTABLEKS R10 R1 K15 ["Wrappers"]
+  GETTABLEKS R9 R10 K16 ["withControl"]
+  DUPCLOSURE R10 K17 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  MOVE R11 R9
+  MOVE R12 R10
+  CALL R11 1 -1
+  RETURN R11 -1

@@ -18,6 +18,8 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
 
+local GetFFlagEnableCoreVoiceManagerMuteAll = require(script.Parent.Flags.GetFFlagEnableCoreVoiceManagerMuteAll)
+
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoiceMicPromptToastFix = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMicPromptToastFix)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
@@ -78,6 +80,7 @@ local FStringVoiceUIImprovementsIXPLayerName =
 	game:DefineFastString("VoiceUIImprovementsIXPLayerName", "Voice.Exposure")
 local FStringThrottleParticipantsUpdateIXPLayerValue =
 	game:DefineFastString("ThrottleParticipantsUpdateIXPLayerValue", "ThrottleParticipantsUpdate")
+local GetFFlagShowLikelySpeakingBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowLikelySpeakingBubbles)
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 local Constants = VoiceChat.Constants
 local PostRecordUserSeenGeneralModal = VoiceChat.AgeVerificationOverlay.PostRecordUserSeenGeneralModal
@@ -250,6 +253,11 @@ local VOICE_CHAT_CORE_PROPERTIES = LuauPolyfill.Set.new({
 	"talkingChanged",
 })
 
+if GetFFlagEnableCoreVoiceManagerMuteAll() then
+	VOICE_CHAT_CORE_PROPERTIES:add('_mutedAnyone')
+	VOICE_CHAT_CORE_PROPERTIES:add('muteAllChanged')
+end
+
 -- Initialized in GetVoiceStateFromEnum
 local LOCAL_STATE_MAP = {}
 local IN_EXP_VARIANT_TO_PROMPT = {
@@ -385,6 +393,23 @@ function VoiceChatServiceManager.new(
 			ExperienceChat.Events.VoiceParticipantToggleMuted(tostring(userId), isMuted)
 		end
 	end)
+	if GetFFlagShowLikelySpeakingBubbles() then
+		-- This tells us who in the experience is voice enabled, which is needed to determine who
+		-- should have likely speaking bubbles over their avatars. It fires when players join.
+		self.coreVoiceManager:subscribe('OnLikelySpeakingUsersUpdated', function(likelySpeakingUsers)
+			if ExperienceChat.Events.LikelySpeakingUsersUpdated then
+				ExperienceChat.Events.LikelySpeakingUsersUpdated(likelySpeakingUsers)
+			end
+		end)
+		-- This tells us whether we should show likely speaking bubbles in general for the local player.
+		-- It'll fire true once per session if the local player will see the bubbles and will fire
+		-- false if the local player accepts or declines the in-experience voice upsell.
+		self.coreVoiceManager:subscribe('OnShowLikelySpeakingBubblesChanged', function(showLikelySpeakingBubbles)
+			if ExperienceChat.Events.ShowLikelySpeakingBubblesChanged then
+				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(showLikelySpeakingBubbles)
+			end
+		end)
+	end
 	self.coreVoiceManager:subscribe('OnUserAndPlaceCanUseVoiceResolved', function (userSettings, universePlaceSettings)
 		self:_onUserAndPlaceCanUseVoiceResolved(userSettings, universePlaceSettings)
 	end)
@@ -412,6 +437,9 @@ function VoiceChatServiceManager.new(
 		if getFFlagMicrophoneDevicePermissionsPromptLogging() then
 			MicrophoneDevicePermissionsLogging:setClientSessionId(self.coreVoiceManager:GetSessionId())
 		end
+	end)
+	self.coreVoiceManager:subscribe('OnPlayerMuted', function ()
+		self:UpdateAudioDeviceInputDebugger()
 	end)
 	self.coreVoiceManager:subscribe('OnAudioDeviceInputAdded', function ()
 		self:UpdateAudioDeviceInputDebugger()
@@ -474,6 +502,9 @@ function VoiceChatServiceManager:getService()
 end
 
 function VoiceChatServiceManager:GetMutedAnyone()
+	if GetFFlagEnableCoreVoiceManagerMuteAll() then
+		return self.coreVoiceManager:GetMutedAnyone()
+	end
 	return self._mutedAnyone
 end
 
@@ -620,6 +651,20 @@ end
 
 function VoiceChatServiceManager:UserEligibleForInExperienceUpsell(): boolean
 	return self.coreVoiceManager:UserEligibleForInExperienceUpsell()
+end
+
+function VoiceChatServiceManager:UserEligibleForLikelySpeakingBubbles(): boolean
+	return self.coreVoiceManager:UserEligibleForLikelySpeakingBubbles()
+end
+
+function VoiceChatServiceManager:ShowInExperienceVoiceUpsell(entrypoint: string)
+	local ageVerificationResponse = self:FetchAgeVerificationOverlay()
+	local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
+
+	self:SetInExpUpsellEntrypoint(entrypoint)
+
+	local promptToShow = self:GetInExpUpsellPromptFromEnum(voiceInExpUpsellVariant)
+	self:showPrompt(promptToShow)
 end
 
 function VoiceChatServiceManager:SetInExpUpsellEntrypoint(entrypoint: string)
@@ -774,6 +819,9 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 					elseif isVoiceConsentModal then function()
 						if GetFFlagUsePostRecordUserSeenGeneralModal() then
 							self:RecordUserSeenModal(VoiceConstants.MODAL_IDS.IN_EXP_UPSELL)
+						end
+						if GetFFlagShowLikelySpeakingBubbles() and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged then
+							ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
 						end
 					end
 					else nil,
@@ -991,6 +1039,9 @@ function VoiceChatServiceManager:hookupAudioDeviceInputListener()
 end
 
 function VoiceChatServiceManager:ToggleMutePlayer(userId: number, context: string)
+	if GetFFlagEnableCoreVoiceManagerMuteAll() then
+		return self.coreVoiceManager:ToggleMutePlayer(userId, context)
+	end
 	self:ensureInitialized("mute player " .. userId)
 	self._mutedAnyone = true
 	local requestedMuteStatus = if GetFFlagVoiceUseAudioRoutingAPI() and FFlagOverwriteIsMutedLocally
@@ -1034,6 +1085,9 @@ function VoiceChatServiceManager:ToggleMutePlayer(userId: number, context: strin
 end
 
 function VoiceChatServiceManager:MuteAll(muteState: boolean, context: string)
+	if GetFFlagEnableCoreVoiceManagerMuteAll() then
+		return self.coreVoiceManager:MuteAll(muteState, context)
+	end
 	self:ensureInitialized("mute all")
 	self._mutedAnyone = true
 	if GetFFlagVoiceUseAudioRoutingAPI() then
@@ -1077,6 +1131,9 @@ function VoiceChatServiceManager:ToggleMuteSome(
 	groupType: string,
 	context: string
 )
+	if GetFFlagEnableCoreVoiceManagerMuteAll() then
+		return self.coreVoiceManager:ToggleMuteSome(userIds, muteState, groupType, context)
+	end
 	self:ensureInitialized("mute some players")
 	self._mutedAnyone = true
 	local userIdSet: { [number]: boolean } = {}

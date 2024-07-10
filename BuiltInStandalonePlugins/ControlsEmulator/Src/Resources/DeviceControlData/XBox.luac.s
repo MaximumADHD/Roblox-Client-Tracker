@@ -1,0 +1,266 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K2 [UDim2.new]
+  LOADN R1 0
+  LOADN R2 45
+  LOADN R3 0
+  LOADN R4 45
+  CALL R0 4 1
+  GETIMPORT R1 K2 [UDim2.new]
+  LOADN R2 0
+  LOADN R3 20
+  LOADN R4 0
+  LOADN R5 20
+  CALL R1 4 1
+  GETIMPORT R2 K2 [UDim2.new]
+  LOADN R3 0
+  LOADN R4 25
+  LOADN R5 0
+  LOADN R6 25
+  CALL R2 4 1
+  DUPTABLE R3 K21 [{"DeviceImage", "ThumbstickLeft", "ThumbstickRight", "ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft", "ButtonX", "ButtonY", "ButtonB", "ButtonA", "Select", "Home", "Start", "L1", "L2", "R1", "R2"}]
+  LOADK R4 K22 ["rbxasset://textures/ControlsEmulator/GenericController_Default@3x.png"]
+  SETTABLEKS R4 R3 K3 ["DeviceImage"]
+  DUPTABLE R4 K25 [{"Position", "Size"}]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 75
+  LOADN R8 0
+  LOADN R9 110
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R0 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K4 ["ThumbstickLeft"]
+  DUPTABLE R4 K25 [{"Position", "Size"}]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 195
+  LOADN R8 0
+  LOADN R9 150
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R0 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K5 ["ThumbstickRight"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K28 ["↑"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 120
+  LOADN R8 0
+  LOADN R9 145
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R1 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K6 ["ArrowUp"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K29 ["→"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 140
+  LOADN R8 0
+  LOADN R9 165
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R1 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K7 ["ArrowRight"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K30 ["↓"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 120
+  LOADN R8 0
+  LOADN R9 185
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R1 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K8 ["ArrowDown"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K31 ["←"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 100
+  LOADN R8 0
+  LOADN R9 165
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R1 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K9 ["ArrowLeft"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K32 ["X"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 230
+  LOADN R8 0
+  LOADN R9 130
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R2 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K10 ["ButtonX"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K33 ["Y"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 255
+  LOADN R8 0
+  LOADN R9 105
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R2 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K11 ["ButtonY"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K34 ["B"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 24
+  LOADN R8 0
+  LOADN R9 130
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R2 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K12 ["ButtonB"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K35 ["A"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 255
+  LOADN R8 0
+  LOADN R9 155
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  SETTABLEKS R2 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K13 ["ButtonA"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K36 ["◁"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 140
+  LOADN R8 0
+  LOADN R9 130
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 25
+  LOADN R8 0
+  LOADN R9 15
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K14 ["Select"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K37 ["⌂"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 165
+  LOADN R8 0
+  LOADN R9 130
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 25
+  LOADN R8 0
+  LOADN R9 15
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K15 ["Home"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K38 ["▹"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 190
+  LOADN R8 0
+  LOADN R9 130
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 25
+  LOADN R8 0
+  LOADN R9 15
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K16 ["Start"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K17 ["L1"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 30
+  LOADN R8 0
+  LOADN R9 30
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 30
+  LOADN R8 0
+  LOADN R9 30
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K17 ["L1"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K18 ["L2"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 30
+  LOADN R8 0
+  LOADN R9 60
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 30
+  LOADN R8 0
+  LOADN R9 30
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K18 ["L2"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K19 ["R1"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 54
+  LOADN R8 0
+  LOADN R9 30
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 30
+  LOADN R8 0
+  LOADN R9 30
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K19 ["R1"]
+  DUPTABLE R4 K27 [{"Text", "Position", "Size"}]
+  LOADK R5 K20 ["R2"]
+  SETTABLEKS R5 R4 K26 ["Text"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 54
+  LOADN R8 0
+  LOADN R9 60
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K23 ["Position"]
+  GETIMPORT R5 K2 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 30
+  LOADN R8 0
+  LOADN R9 30
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K24 ["Size"]
+  SETTABLEKS R4 R3 K20 ["R2"]
+  RETURN R3 1

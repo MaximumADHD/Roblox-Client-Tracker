@@ -33,6 +33,8 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
+local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
+
 local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
@@ -305,9 +307,13 @@ end
 local function mapStateToProps(state)
 	local selectedPlayer = state.playerDropDown.selectedPlayer
 
+	local isVisible = if GetFFlagFixDropDownVisibility() 
+		then state.playerDropDown.isVisible and state.displayOptions.isVisible 
+		else state.playerDropDown.isVisible 
+
 	return {
 		selectedPlayer = selectedPlayer,
-		isVisible = state.playerDropDown.isVisible,
+		isVisible = isVisible,
 		playerRelationship = selectedPlayer and state.playerRelationship[selectedPlayer.UserId],
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 		isTenFootInterface = state.displayOptions.isTenFootInterface,

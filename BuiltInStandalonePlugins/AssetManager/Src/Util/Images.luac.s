@@ -25,7 +25,7 @@ MAIN:
   CALL R6 2 1
   MOVE R5 R6
   SETTABLEKS R5 R4 K15 ["ICON_USER_DEFAULT"]
-  LOADK R6 K16 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/Users.png"]
+  LOADK R6 K16 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/Group.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
@@ -37,7 +37,7 @@ MAIN:
   CALL R6 2 1
   MOVE R5 R6
   SETTABLEKS R5 R4 K19 ["ICON_USER_LARGE_DEFAULT"]
-  LOADK R6 K20 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Large/Users.png"]
+  LOADK R6 K20 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Large/Group.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
@@ -55,4 +55,10 @@ MAIN:
   CALL R6 2 1
   MOVE R5 R6
   SETTABLEKS R5 R4 K24 ["PLACEHOLDER"]
+  LOADK R6 K25 ["rbxasset://studio_svg_textures/Lua/FileSync/%*/Standard/Refresh.png"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K12 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K26 ["REFRESH_ICON"]
   RETURN R4 1

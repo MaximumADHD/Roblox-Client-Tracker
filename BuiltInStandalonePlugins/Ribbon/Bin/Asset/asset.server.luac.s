@@ -3,127 +3,150 @@ PROTO_0:
   GETTABLEKS R0 R1 K2 ["HostDataModelTypeIsCurrent"]
   JUMPIF R0 [+1]
   RETURN R0 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K3 ["MountAssetReactTree"]
-  JUMPIFNOT R0 [+55]
-  GETIMPORT R0 K5 [require]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K6 ["Packages"]
-  GETTABLEKS R1 R2 K7 ["React"]
-  CALL R0 1 1
-  GETIMPORT R1 K5 [require]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K6 ["Packages"]
-  GETTABLEKS R2 R3 K8 ["ReactRoblox"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K9 ["Src"]
-  GETTABLEKS R3 R4 K10 ["MainPlugin"]
+  GETIMPORT R0 K1 [plugin]
+  LOADK R2 K3 ["Ribbon"]
+  DUPTABLE R3 K9 [{"InitialEnabled", "MinSize", "Modal", "Size", "Title"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K4 ["InitialEnabled"]
+  GETIMPORT R4 K12 [Vector2.new]
+  LOADN R5 64
+  LOADN R6 132
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K5 ["MinSize"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K6 ["Modal"]
+  GETIMPORT R4 K12 [Vector2.new]
+  LOADN R5 64
+  LOADN R6 132
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K7 ["Size"]
+  LOADK R4 K3 ["Ribbon"]
+  SETTABLEKS R4 R3 K8 ["Title"]
+  NAMECALL R0 R0 K13 ["CreateQWidgetPluginGui"]
+  CALL R0 3 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K14 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K18 [{"Plugin", "Widget", "EditMode"}]
+  GETIMPORT R4 K1 [plugin]
+  SETTABLEKS R4 R3 K15 ["Plugin"]
+  SETTABLEKS R0 R3 K16 ["Widget"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K17 ["EditMode"]
+  CALL R1 2 1
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K19 ["createRoot"]
+  MOVE R3 R0
   CALL R2 1 1
-  GETTABLEKS R3 R0 K11 ["createElement"]
-  MOVE R4 R2
-  DUPTABLE R5 K13 [{"Plugin"}]
-  GETIMPORT R6 K1 [plugin]
-  SETTABLEKS R6 R5 K12 ["Plugin"]
-  CALL R3 2 1
-  GETIMPORT R4 K16 [Instance.new]
-  LOADK R5 K17 ["ScreenGui"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K18 ["createRoot"]
-  MOVE R6 R4
-  CALL R5 1 1
-  SETUPVAL R5 2
-  GETUPVAL R5 2
-  MOVE R7 R3
-  NAMECALL R5 R5 K19 ["render"]
-  CALL R5 2 0
-  GETIMPORT R5 K21 [game]
-  LOADK R7 K22 ["StarterGui"]
-  NAMECALL R5 R5 K23 ["GetService"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K24 ["Parent"]
+  SETUPVAL R2 2
+  GETUPVAL R3 2
+  FASTCALL2K ASSERT R3 K20 [+4]
+  LOADK R4 K20 ["Luau does not refine the type of `root` to be non-nil here"]
+  GETIMPORT R2 K22 [assert]
+  CALL R2 2 0
+  GETUPVAL R2 2
+  MOVE R4 R1
+  NAMECALL R2 R2 K23 ["render"]
+  CALL R2 2 0
   RETURN R0 0
 
 PROTO_1:
   GETUPVAL R0 0
   JUMPIFNOT R0 [+6]
   GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["destroy"]
+  NAMECALL R0 R0 K0 ["unmount"]
   CALL R0 1 0
   LOADNIL R0
   SETUPVAL R0 0
-  GETUPVAL R0 1
-  JUMPIFNOT R0 [+7]
-  GETUPVAL R0 1
-  LOADNIL R2
-  NAMECALL R0 R0 K1 ["render"]
-  CALL R0 2 0
-  LOADNIL R0
-  SETUPVAL R0 1
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R0 K1 [require]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["Packages"]
+  GETTABLEKS R1 R2 K3 ["React"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["Packages"]
+  GETTABLEKS R2 R3 K4 ["ReactRoblox"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["MainPlugin"]
+  CALL R2 1 1
+  GETIMPORT R4 K8 [plugin]
+  GETTABLEKS R3 R4 K9 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R4 R3 K10 ["FocusedDataModelSession"]
+  LOADNIL R5
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  NEWCLOSURE R7 P1
+  CAPTURE REF R5
+  GETTABLEKS R8 R4 K11 ["CurrentDataModelTypeAboutToChange"]
+  MOVE R10 R7
+  NAMECALL R8 R8 K12 ["Connect"]
+  CALL R8 2 0
+  GETTABLEKS R8 R4 K13 ["CurrentDataModelTypeChanged"]
+  MOVE R10 R6
+  NAMECALL R8 R8 K12 ["Connect"]
+  CALL R8 2 0
+  MOVE R8 R6
+  CALL R8 0 0
+  CLOSEUPVALS R5
   RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [plugin]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K4 ["HasInternalPermission"]
+  CALL R0 1 1
   JUMPIF R0 [+1]
   RETURN R0 0
-  GETIMPORT R0 K3 [script]
-  LOADK R2 K4 ["Ribbon"]
-  NAMECALL R0 R0 K5 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETTABLEKS R2 R0 K6 ["Bin"]
-  GETTABLEKS R1 R2 K7 ["Common"]
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R3 R1 K10 ["defineLuaFlags"]
-  CALL R2 1 0
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R0 K11 ["Packages"]
-  GETTABLEKS R3 R4 K12 ["TestLoader"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K13 ["launch"]
-  LOADK R4 K4 ["Ribbon"]
-  GETTABLEKS R5 R0 K14 ["Src"]
-  CALL R3 2 0
-  GETTABLEKS R3 R2 K15 ["isCli"]
-  CALL R3 0 1
-  JUMPIFNOT R3 [+1]
+  GETIMPORT R1 K6 [plugin]
+  JUMPIF R1 [+1]
   RETURN R0 0
-  GETIMPORT R3 K17 [game]
-  LOADK R5 K18 ["EnableRibbonPlugin"]
-  NAMECALL R3 R3 K19 ["GetFastFlag"]
-  CALL R3 2 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETTABLEKS R3 R2 K20 ["getDebugFlags"]
-  LOADK R4 K4 ["Ribbon"]
+  GETIMPORT R1 K8 [script]
+  LOADK R3 K9 ["Ribbon"]
+  NAMECALL R1 R1 K10 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETTABLEKS R3 R1 K11 ["Bin"]
+  GETTABLEKS R2 R3 K12 ["Common"]
+  GETIMPORT R3 K14 [require]
+  GETTABLEKS R4 R2 K15 ["defineLuaFlags"]
+  CALL R3 1 0
+  GETIMPORT R3 K14 [require]
+  GETTABLEKS R5 R1 K16 ["Packages"]
+  GETTABLEKS R4 R5 K17 ["TestLoader"]
   CALL R3 1 1
-  GETIMPORT R5 K1 [plugin]
-  GETTABLEKS R4 R5 K21 ["MultipleDocumentInterfaceInstance"]
-  LOADNIL R5
-  LOADNIL R6
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R3
-  CAPTURE VAL R0
-  CAPTURE REF R6
-  NEWCLOSURE R8 P1
-  CAPTURE REF R5
-  CAPTURE REF R6
-  GETIMPORT R10 K1 [plugin]
-  GETTABLEKS R9 R10 K22 ["Unloading"]
-  MOVE R11 R8
-  NAMECALL R9 R9 K23 ["Connect"]
-  CALL R9 2 0
-  GETTABLEKS R9 R4 K24 ["FocusedDataModelSession"]
-  GETTABLEKS R10 R9 K25 ["CurrentDataModelTypeAboutToChange"]
-  MOVE R12 R8
-  NAMECALL R10 R10 K23 ["Connect"]
-  CALL R10 2 0
-  GETTABLEKS R10 R9 K26 ["CurrentDataModelTypeChanged"]
-  MOVE R12 R7
-  NAMECALL R10 R10 K23 ["Connect"]
-  CALL R10 2 0
-  MOVE R10 R7
-  CALL R10 0 0
-  CLOSEUPVALS R5
+  GETTABLEKS R4 R3 K18 ["launch"]
+  LOADK R5 K9 ["Ribbon"]
+  GETTABLEKS R6 R1 K19 ["Src"]
+  CALL R4 2 0
+  GETTABLEKS R4 R3 K20 ["isCli"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+1]
+  RETURN R0 0
+  GETIMPORT R4 K1 [game]
+  LOADK R6 K21 ["EnableRibbonPlugin"]
+  NAMECALL R4 R4 K22 ["GetFastFlag"]
+  CALL R4 2 1
+  JUMPIF R4 [+1]
+  RETURN R0 0
+  DUPCLOSURE R4 K23 [PROTO_2]
+  CAPTURE VAL R1
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K24 ["DebugTestRibbonInAssetDM"]
+  NAMECALL R5 R5 K22 ["GetFastFlag"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R6 R4
+  CALL R6 0 0
   RETURN R0 0

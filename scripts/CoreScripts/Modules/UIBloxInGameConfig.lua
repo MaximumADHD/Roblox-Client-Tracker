@@ -19,4 +19,5 @@ return {
 	refactorInteractable = UIBloxFlags.FFlagUIBloxUseNewInteractableCoreScript,
 	enableTooltipV2HoverControllerReRenderFix = UIBloxFlags.GetFFlagUIBloxEnableTooltipV2HoverControllerReRenderFix(),
 	enableTooltipV2BodyFontFix = UIBloxFlags.GetFFlagUIBloxEnableTooltipV2BodyFontFix(),
+	enableTextFieldInputType = UIBloxFlags.GetFFlagUIBloxEnableTextFieldInputType(),
 }

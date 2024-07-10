@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ReactUtils"]["ReactUtils"])
+local Package = require(PackageIndex["ReactUtils-31ab8d40-1.2.0"]["ReactUtils"])
 
 return Package

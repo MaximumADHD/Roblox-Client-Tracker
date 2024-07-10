@@ -23,10 +23,13 @@ local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetC
 local FFlagExperienceChatSiblingZIndexBehavior = game:DefineFastFlag("ExperienceChatSiblingZIndexBehavior", false)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.getFFlagAddApolloClientToExperienceChat)
-local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+local getFFlagDoNotPromptCameraPermissionsOnMount =
+	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
-local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+local GetFFlagRemoveInGameChatBubbleChatReferences =
+	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.getFFlagRenderVoiceBubbleAfterAsyncInit)
+local GetFFlagShowLikelySpeakingBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowLikelySpeakingBubbles)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
 local getIconVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.getIconVoiceIndicator)
@@ -39,6 +42,7 @@ local displayCameraDeniedToast
 local isCamEnabledForUserAndPlace
 local isCameraOnlyUser
 local isVoiceServiceInitialized
+local onClickedLikelySpeakingBubble
 
 if FFlagAvatarChatCoreScriptSupport then
 	onClickedCameraIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedCameraIndicator)
@@ -60,6 +64,10 @@ if FFlagAvatarChatCoreScriptSupport then
 	if getFFlagRenderVoiceBubbleAfterAsyncInit() then
 		isVoiceServiceInitialized = require(RobloxGui.Modules.VoiceChat.Components.isVoiceServiceInitialized)
 	end
+end
+
+if GetFFlagShowLikelySpeakingBubbles() then
+	onClickedLikelySpeakingBubble = require(RobloxGui.Modules.VoiceChat.Components.onClickedLikelySpeakingBubble)
 end
 
 if ChromeEnabled then
@@ -96,7 +104,8 @@ end
 local createdDefaultChannels
 local validateLegacyBubbleChatSettings
 if GetFFlagConsolidateBubbleChat() then
-	createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService and TextChatService.CreateDefaultTextChannels
+	createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService
+		and TextChatService.CreateDefaultTextChannels
 	validateLegacyBubbleChatSettings = require(RobloxGui.Modules.InGameChat.BubbleChat.Types).IChatSettings
 else
 	createdDefaultChannels = TextChatService.CreateDefaultTextChannels
@@ -114,8 +123,11 @@ ExperienceChat.mountClientApp({
 	selfViewListenerChanged = if selfViewListenerChanged then selfViewListenerChanged else nil,
 	defaultTargetTextChannel = if createdDefaultChannels then findTextChannel("RBXGeneral") else nil,
 	defaultSystemTextChannel = if createdDefaultChannels then findTextChannel("RBXSystem") else nil,
-	validateLegacyBubbleChatSettings = if validateLegacyBubbleChatSettings then validateLegacyBubbleChatSettings else nil,
+	validateLegacyBubbleChatSettings = if validateLegacyBubbleChatSettings
+		then validateLegacyBubbleChatSettings
+		else nil,
 	isVoiceServiceInitialized = if isVoiceServiceInitialized then isVoiceServiceInitialized else nil,
+	onClickedLikelySpeakingBubble = if onClickedLikelySpeakingBubble then onClickedLikelySpeakingBubble else nil,
 	translator = RobloxTranslator :: any,
 	parent = screenGui,
 })

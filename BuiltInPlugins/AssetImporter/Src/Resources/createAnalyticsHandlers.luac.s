@@ -3,51 +3,49 @@ PROTO_0:
   JUMPIF R2 [+2]
   NEWTABLE R2 0 0
   MOVE R1 R2
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  DUPTABLE R3 K6 [{"studioSid", "clientId", "placeId", "userId"}]
+  GETUPVAL R2 0
+  DUPTABLE R3 K4 [{"studioSid", "clientId", "placeId", "userId"}]
   GETUPVAL R4 1
-  NAMECALL R4 R4 K7 ["GetSessionId"]
+  NAMECALL R4 R4 K5 ["GetSessionId"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K2 ["studioSid"]
+  SETTABLEKS R4 R3 K0 ["studioSid"]
   GETUPVAL R4 1
-  NAMECALL R4 R4 K8 ["GetClientId"]
+  NAMECALL R4 R4 K6 ["GetClientId"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K3 ["clientId"]
-  GETIMPORT R5 K10 [game]
-  GETTABLEKS R4 R5 K11 ["PlaceId"]
-  SETTABLEKS R4 R3 K4 ["placeId"]
+  SETTABLEKS R4 R3 K1 ["clientId"]
+  GETIMPORT R5 K8 [game]
+  GETTABLEKS R4 R5 K9 ["PlaceId"]
+  SETTABLEKS R4 R3 K2 ["placeId"]
   GETUPVAL R4 2
-  NAMECALL R4 R4 K12 ["GetUserId"]
+  NAMECALL R4 R4 K10 ["GetUserId"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K5 ["userId"]
+  SETTABLEKS R4 R3 K3 ["userId"]
   MOVE R4 R1
   CALL R2 2 1
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K13 ["LogAnalytics"]
+  GETTABLEKS R3 R4 K11 ["LogAnalytics"]
   CALL R3 0 1
   JUMPIFNOT R3 [+18]
-  GETIMPORT R3 K15 [print]
-  LOADK R4 K16 ["%s SendEvent eventName=%s args=%s"]
-  LOADK R6 K17 ["AssetImporter"]
+  GETIMPORT R3 K13 [print]
+  LOADK R4 K14 ["%s SendEvent eventName=%s args=%s"]
+  LOADK R6 K15 ["AssetImporter"]
   FASTCALL1 TOSTRING R0 [+3]
   MOVE R8 R0
-  GETIMPORT R7 K19 [tostring]
+  GETIMPORT R7 K17 [tostring]
   CALL R7 1 1
   GETUPVAL R8 4
   MOVE R10 R2
-  NAMECALL R8 R8 K20 ["JSONEncode"]
+  NAMECALL R8 R8 K18 ["JSONEncode"]
   CALL R8 2 -1
-  NAMECALL R4 R4 K21 ["format"]
+  NAMECALL R4 R4 K19 ["format"]
   CALL R4 -1 -1
   CALL R3 -1 0
   GETUPVAL R3 1
-  LOADK R5 K22 ["studio"]
-  LOADK R6 K17 ["AssetImporter"]
+  LOADK R5 K20 ["studio"]
+  LOADK R6 K15 ["AssetImporter"]
   MOVE R7 R0
   MOVE R8 R2
-  NAMECALL R3 R3 K23 ["SendEventDeferred"]
+  NAMECALL R3 R3 K21 ["SendEventDeferred"]
   CALL R3 5 0
   RETURN R0 0
 
@@ -98,25 +96,51 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Cryo"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagAssetImporterPackageMigration"]
   CALL R1 1 1
+  MOVE R3 R1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+8]
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Utility"]
-  GETTABLEKS R3 R4 K10 ["DebugFlags"]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Dash"]
   CALL R2 1 1
-  GETIMPORT R3 K12 [game]
-  LOADK R5 K13 ["HttpService"]
-  NAMECALL R3 R3 K14 ["GetService"]
-  CALL R3 2 1
-  GETIMPORT R4 K12 [game]
-  LOADK R6 K15 ["StudioService"]
-  NAMECALL R4 R4 K14 ["GetService"]
-  CALL R4 2 1
-  DUPCLOSURE R5 K16 [PROTO_2]
-  CAPTURE VAL R1
+  JUMP [+1]
+  LOADNIL R2
+  MOVE R4 R1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+2]
+  LOADNIL R3
+  JUMP [+7]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Cryo"]
+  CALL R3 1 1
+  MOVE R5 R1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R4 R2 K12 ["join"]
+  JUMP [+4]
+  GETTABLEKS R5 R3 K13 ["Dictionary"]
+  GETTABLEKS R4 R5 K12 ["join"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Utility"]
+  GETTABLEKS R6 R7 K15 ["DebugFlags"]
+  CALL R5 1 1
+  GETIMPORT R6 K17 [game]
+  LOADK R8 K18 ["HttpService"]
+  NAMECALL R6 R6 K19 ["GetService"]
+  CALL R6 2 1
+  GETIMPORT R7 K17 [game]
+  LOADK R9 K20 ["StudioService"]
+  NAMECALL R7 R7 K19 ["GetService"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K21 [PROTO_2]
   CAPTURE VAL R4
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  RETURN R5 1
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  RETURN R8 1

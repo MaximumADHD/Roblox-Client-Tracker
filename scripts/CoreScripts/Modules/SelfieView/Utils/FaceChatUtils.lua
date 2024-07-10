@@ -7,6 +7,16 @@ local CorePackages = game:GetService("CorePackages")
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local FFlagDisableCameraOnSelfieViewForLowspecDevices =
+	game:DefineFastFlag("DisableCameraOnSelfieViewForLowspecDevices", false)
+
+local isCamEnabledForUserAndPlace = function()
+	return true
+end
+
+if FFlagDisableCameraOnSelfieViewForLowspecDevices then
+	isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
+end
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 
@@ -58,6 +68,17 @@ local getPermissions = function(): Permissions
 		userCamEnabled = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserVideo),
 		userCamEligible = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserVideoEligible),
 	}
+
+	if
+		FFlagDisableCameraOnSelfieViewForLowspecDevices
+		and permissions.placeCamEnabled
+		and permissions.userCamEligible
+		and permissions.userCamEnabled
+		and not isCamEnabledForUserAndPlace()
+	then
+		permissions.userCamEnabled = false
+	end
+
 	cachedPermissions = permissions
 	return permissions
 end
@@ -68,7 +89,9 @@ local function toggleVideoAnimation()
 			return
 		end
 
-		FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
+		if not FFlagDisableCameraOnSelfieViewForLowspecDevices or getPermissions().userCamEnabled then
+			FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
+		end
 	end
 
 	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.CAMERA_ACCESS :: string })

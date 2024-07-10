@@ -1,0 +1,259 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["dispatchSetCount"]
+  GETTABLEKS R3 R0 K3 ["Count"]
+  ADDK R2 R3 K2 [1]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K4 ["Analytics"]
+  LOADK R3 K5 ["counterClicked"]
+  LOADK R4 K6 ["increment"]
+  NAMECALL R1 R1 K7 ["report"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["dispatchSetCount"]
+  GETTABLEKS R3 R0 K3 ["Count"]
+  SUBK R2 R3 K2 [1]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K4 ["Analytics"]
+  LOADK R3 K5 ["counterClicked"]
+  LOADK R4 K6 ["decrement"]
+  NAMECALL R1 R1 K7 ["report"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["dispatchSetCount"]
+  LOADN R2 0
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["Analytics"]
+  LOADK R3 K3 ["counterClicked"]
+  LOADK R4 K4 ["reset"]
+  NAMECALL R1 R1 K5 ["report"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["increaseCountByOne"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["decreaseCountByOne"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["resetCount"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Size"]
+  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
+  GETTABLEKS R5 R1 K3 ["Count"]
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K5 [tostring]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K6 ["Localization"]
+  LOADK R7 K7 ["CountModifier"]
+  LOADK R8 K8 ["Reset"]
+  NAMECALL R5 R5 K9 ["getText"]
+  CALL R5 3 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K10 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K12 [{"Size", "LayoutOrder", "Layout"}]
+  SETTABLEKS R2 R8 K1 ["Size"]
+  SETTABLEKS R3 R8 K2 ["LayoutOrder"]
+  GETIMPORT R9 K16 [Enum.FillDirection.Vertical]
+  SETTABLEKS R9 R8 K11 ["Layout"]
+  DUPTABLE R9 K19 [{"CountController", "ResetButton"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K10 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K20 [{"Size", "Layout", "LayoutOrder"}]
+  GETIMPORT R13 K23 [UDim2.fromScale]
+  LOADN R14 1
+  LOADK R15 K24 [0.5]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K1 ["Size"]
+  GETIMPORT R13 K26 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R13 R12 K11 ["Layout"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K2 ["LayoutOrder"]
+  DUPTABLE R13 K30 [{"Decrease", "Display", "Increase"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K10 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K33 [{"Size", "Text", "OnClick", "LayoutOrder"}]
+  GETIMPORT R17 K35 [UDim2.fromOffset]
+  LOADN R18 50
+  LOADN R19 50
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K1 ["Size"]
+  LOADK R17 K36 ["-"]
+  SETTABLEKS R17 R16 K31 ["Text"]
+  GETTABLEKS R17 R0 K37 ["decreaseCountByOne"]
+  SETTABLEKS R17 R16 K32 ["OnClick"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K2 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K27 ["Decrease"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K10 ["createElement"]
+  GETUPVAL R15 3
+  DUPTABLE R16 K38 [{"Size", "Text", "LayoutOrder"}]
+  GETIMPORT R17 K35 [UDim2.fromOffset]
+  LOADN R18 150
+  LOADN R19 50
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K1 ["Size"]
+  SETTABLEKS R4 R16 K31 ["Text"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K2 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K28 ["Display"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K10 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K39 [{"Text", "Size", "OnClick", "LayoutOrder"}]
+  LOADK R17 K40 ["+"]
+  SETTABLEKS R17 R16 K31 ["Text"]
+  GETIMPORT R17 K35 [UDim2.fromOffset]
+  LOADN R18 50
+  LOADN R19 50
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K1 ["Size"]
+  GETTABLEKS R17 R0 K41 ["increaseCountByOne"]
+  SETTABLEKS R17 R16 K32 ["OnClick"]
+  LOADN R17 3
+  SETTABLEKS R17 R16 K2 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K29 ["Increase"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K17 ["CountController"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K10 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K33 [{"Size", "Text", "OnClick", "LayoutOrder"}]
+  GETIMPORT R13 K35 [UDim2.fromOffset]
+  LOADN R14 150
+  LOADN R15 50
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K1 ["Size"]
+  SETTABLEKS R5 R12 K31 ["Text"]
+  GETTABLEKS R13 R0 K42 ["resetCount"]
+  SETTABLEKS R13 R12 K32 ["OnClick"]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K2 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K18 ["ResetButton"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_5:
+  DUPTABLE R2 K1 [{"Count"}]
+  GETTABLEKS R4 R0 K2 ["CountReducer"]
+  GETTABLEKS R3 R4 K0 ["Count"]
+  SETTABLEKS R3 R2 K0 ["Count"]
+  RETURN R2 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_7:
+  DUPTABLE R1 K1 [{"dispatchSetCount"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchSetCount"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R9 R0 K5 ["Packages"]
+  GETTABLEKS R8 R9 K9 ["_Index"]
+  GETTABLEKS R7 R8 K10 ["DeveloperFramework"]
+  GETTABLEKS R6 R7 K10 ["DeveloperFramework"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Types"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K13 ["ContextServices"]
+  GETTABLEKS R7 R6 K14 ["withContext"]
+  GETTABLEKS R8 R6 K15 ["Analytics"]
+  GETTABLEKS R9 R6 K16 ["Localization"]
+  GETTABLEKS R11 R3 K17 ["Style"]
+  GETTABLEKS R10 R11 K18 ["Stylizer"]
+  GETTABLEKS R11 R3 K19 ["UI"]
+  GETTABLEKS R12 R11 K20 ["Pane"]
+  GETTABLEKS R13 R11 K21 ["TextLabel"]
+  GETTABLEKS R14 R11 K22 ["Button"]
+  GETTABLEKS R16 R0 K12 ["Src"]
+  GETTABLEKS R15 R16 K23 ["Actions"]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R17 R15 K24 ["SetCount"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R20 R0 K12 ["Src"]
+  GETTABLEKS R19 R20 K25 ["Reducers"]
+  GETTABLEKS R18 R19 K26 ["MainReducer"]
+  CALL R17 1 1
+  GETTABLEKS R18 R1 K27 ["PureComponent"]
+  LOADK R20 K28 ["CountModifier"]
+  NAMECALL R18 R18 K29 ["extend"]
+  CALL R18 2 1
+  DUPCLOSURE R19 K30 [PROTO_3]
+  SETTABLEKS R19 R18 K31 ["init"]
+  DUPCLOSURE R19 K32 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  SETTABLEKS R19 R18 K33 ["render"]
+  MOVE R19 R7
+  DUPTABLE R20 K34 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R8 R20 K15 ["Analytics"]
+  SETTABLEKS R9 R20 K16 ["Localization"]
+  SETTABLEKS R10 R20 K18 ["Stylizer"]
+  CALL R19 1 1
+  MOVE R20 R18
+  CALL R19 1 1
+  MOVE R18 R19
+  GETTABLEKS R19 R2 K35 ["connect"]
+  DUPCLOSURE R20 K36 [PROTO_5]
+  DUPCLOSURE R21 K37 [PROTO_7]
+  CAPTURE VAL R16
+  CALL R19 2 1
+  MOVE R20 R18
+  CALL R19 1 -1
+  RETURN R19 -1

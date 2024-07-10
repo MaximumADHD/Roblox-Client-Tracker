@@ -11,8 +11,6 @@ local JestGlobals = require(CorePackages.JestGlobals)
 local expect = JestGlobals.expect
 
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
-local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION = "ExperienceMenuCSATQualification"
-
 
 local GetFFlagDisableChromeV3Baseline = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3Baseline)()
 local GetFFlagDisableChromeV3Captures = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3Captures)()
@@ -32,7 +30,6 @@ return function()
 		beforeEach(function()
 			if IsExperienceMenuABTestEnabled() then
 				AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, "")
-				AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION, "")
 				AppStorageService:Flush()
 			end
 		end)
@@ -40,7 +37,6 @@ return function()
 		afterEach(function()
 			if IsExperienceMenuABTestEnabled() then
 				AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, "")
-				AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION, "")
 				AppStorageService:Flush()
 			end
 		end)
@@ -637,8 +633,6 @@ return function()
 
 		it("keeps track of CSAT qualification and threshold, starting with junk data", function()
 			if IsExperienceMenuABTestEnabled() and isV3Valid then
-				AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION, tostring(true))
-
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
 				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({

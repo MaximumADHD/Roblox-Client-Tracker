@@ -13,7 +13,7 @@ MAIN:
   MOVE R3 R2
   LOADK R4 K10 [".App"]
   NEWTABLE R5 0 0
-  NEWTABLE R6 0 3
+  NEWTABLE R6 0 4
   MOVE R7 R2
   LOADK R8 K11 [">> .TopBar"]
   DUPTABLE R9 K13 [{"Size"}]
@@ -46,28 +46,52 @@ MAIN:
   LOADN R16 214
   CALL R12 4 1
   SETTABLEKS R12 R11 K12 ["Size"]
-  CALL R9 2 -1
+  NEWTABLE R12 0 1
+  MOVE R13 R2
+  LOADK R14 K19 [".HasLoadingBar"]
+  DUPTABLE R15 K13 [{"Size"}]
+  GETIMPORT R16 K16 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 1
+  LOADN R20 210
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K12 ["Size"]
+  CALL R13 2 -1
+  SETLIST R12 R13 -1 [1]
+  CALL R9 3 1
+  MOVE R10 R2
+  LOADK R11 K20 [">> .ProgressBar"]
+  DUPTABLE R12 K13 [{"Size"}]
+  GETIMPORT R13 K16 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 4
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K12 ["Size"]
+  CALL R10 2 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K23 [{"DefaultSizeSidebar", "MinimumSizeSidebar", "DefaultSizeMainView", "MinimumSizeMainView"}]
-  GETIMPORT R8 K25 [UDim.new]
-  LOADK R9 K26 [0.15]
+  DUPTABLE R7 K25 [{"DefaultSizeSidebar", "MinimumSizeSidebar", "DefaultSizeMainView", "MinimumSizeMainView"}]
+  GETIMPORT R8 K27 [UDim.new]
+  LOADK R9 K28 [0.15]
   LOADN R10 0
   CALL R8 2 1
-  SETTABLEKS R8 R7 K19 ["DefaultSizeSidebar"]
-  GETIMPORT R8 K25 [UDim.new]
+  SETTABLEKS R8 R7 K21 ["DefaultSizeSidebar"]
+  GETIMPORT R8 K27 [UDim.new]
   LOADN R9 0
   LOADN R10 100
   CALL R8 2 1
-  SETTABLEKS R8 R7 K20 ["MinimumSizeSidebar"]
-  GETIMPORT R8 K25 [UDim.new]
-  LOADK R9 K27 [0.85]
+  SETTABLEKS R8 R7 K22 ["MinimumSizeSidebar"]
+  GETIMPORT R8 K27 [UDim.new]
+  LOADK R9 K29 [0.85]
   LOADN R10 0
   CALL R8 2 1
-  SETTABLEKS R8 R7 K21 ["DefaultSizeMainView"]
-  GETIMPORT R8 K25 [UDim.new]
+  SETTABLEKS R8 R7 K23 ["DefaultSizeMainView"]
+  GETIMPORT R8 K27 [UDim.new]
   LOADN R9 0
   LOADN R10 144
   CALL R8 2 1
-  SETTABLEKS R8 R7 K22 ["MinimumSizeMainView"]
+  SETTABLEKS R8 R7 K24 ["MinimumSizeMainView"]
   CALL R3 4 -1
   RETURN R3 -1

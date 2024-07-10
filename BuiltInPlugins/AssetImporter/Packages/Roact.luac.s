@@ -8,7 +8,7 @@ MAIN:
   GETTABLEKS R2 R3 K5 ["Src"]
   GETTABLEKS R1 R2 K6 ["Flags"]
   GETIMPORT R2 K8 [require]
-  GETTABLEKS R3 R1 K9 ["getFFlagDebugAssetImporterPackageMigration"]
+  GETTABLEKS R3 R1 K9 ["getFFlagAssetImporterPackageMigration"]
   CALL R2 1 1
   MOVE R3 R2
   CALL R3 0 1

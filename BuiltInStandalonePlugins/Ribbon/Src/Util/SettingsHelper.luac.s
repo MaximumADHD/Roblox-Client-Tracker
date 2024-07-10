@@ -1,0 +1,332 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["Uri"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["equals"]
+  GETTABLEKS R2 R0 K1 ["Uri"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["Uri"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_2:
+  LOADK R4 K0 ["Settings"]
+  NAMECALL R2 R0 K1 ["GetPluginComponent"]
+  CALL R2 2 1
+  GETUPVAL R5 0
+  NAMECALL R3 R2 K2 ["Get"]
+  CALL R3 2 1
+  NEWTABLE R4 0 0
+  NEWTABLE R5 0 0
+  GETUPVAL R6 1
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  DUPTABLE R11 K8 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  GETTABLEKS R12 R10 K3 ["Uri"]
+  SETTABLEKS R12 R11 K3 ["Uri"]
+  GETTABLEKS R13 R10 K4 ["Text"]
+  JUMPIFEQKS R13 K9 [""] [+8]
+  LOADK R14 K10 ["Plugin"]
+  GETTABLEKS R15 R10 K4 ["Text"]
+  NAMECALL R12 R1 K11 ["getText"]
+  CALL R12 3 1
+  JUMP [+1]
+  LOADK R12 K9 [""]
+  SETTABLEKS R12 R11 K4 ["Text"]
+  GETTABLEKS R13 R10 K5 ["Tooltip"]
+  JUMPIFEQKS R13 K9 [""] [+8]
+  LOADK R14 K10 ["Plugin"]
+  GETTABLEKS R15 R10 K5 ["Tooltip"]
+  NAMECALL R12 R1 K11 ["getText"]
+  CALL R12 3 1
+  JUMP [+1]
+  LOADK R12 K9 [""]
+  SETTABLEKS R12 R11 K5 ["Tooltip"]
+  GETTABLEKS R12 R10 K6 ["Enabled"]
+  SETTABLEKS R12 R11 K6 ["Enabled"]
+  GETTABLEKS R12 R10 K7 ["Value"]
+  SETTABLEKS R12 R11 K7 ["Value"]
+  GETUPVAL R12 2
+  MOVE R13 R3
+  NEWCLOSURE R14 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R10
+  CALL R12 2 1
+  JUMPIFNOT R12 [+7]
+  FASTCALL2 TABLE_INSERT R5 R11 [+4]
+  MOVE R13 R5
+  MOVE R14 R11
+  GETUPVAL R12 4
+  CALL R12 2 0
+  JUMP [+6]
+  FASTCALL2 TABLE_INSERT R4 R11 [+4]
+  MOVE R13 R4
+  MOVE R14 R11
+  GETUPVAL R12 4
+  CALL R12 2 0
+  FORGLOOP R6 2 [-62]
+  LENGTH R6 R4
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+5]
+  MOVE R8 R4
+  NAMECALL R6 R2 K12 ["Create"]
+  CALL R6 2 0
+  LENGTH R6 R5
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+5]
+  MOVE R8 R5
+  NAMECALL R6 R2 K13 ["Update"]
+  CALL R6 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["StudioUri"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K10 ["fromSetting"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Dash"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K13 ["find"]
+  GETTABLEKS R6 R4 K14 ["map"]
+  GETIMPORT R7 K17 [table.insert]
+  NEWTABLE R8 1 0
+  NEWTABLE R9 0 15
+  DUPTABLE R10 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R11 R3
+  LOADK R12 K24 ["RunTools"]
+  LOADK R13 K25 ["RunMode"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K18 ["Uri"]
+  LOADK R11 K26 ["Setting_RunMode"]
+  SETTABLEKS R11 R10 K19 ["Text"]
+  LOADK R11 K27 [""]
+  SETTABLEKS R11 R10 K20 ["Tooltip"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K21 ["Enabled"]
+  LOADN R11 255
+  SETTABLEKS R11 R10 K22 ["Value"]
+  DUPTABLE R11 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R12 R3
+  LOADK R13 K28 ["BuilderTools"]
+  LOADK R14 K29 ["PartShape"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K18 ["Uri"]
+  LOADK R12 K30 ["Setting_Part"]
+  SETTABLEKS R12 R11 K19 ["Text"]
+  LOADK R12 K27 [""]
+  SETTABLEKS R12 R11 K20 ["Tooltip"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K21 ["Enabled"]
+  LOADN R12 255
+  SETTABLEKS R12 R11 K22 ["Value"]
+  DUPTABLE R12 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R13 R3
+  LOADK R14 K28 ["BuilderTools"]
+  LOADK R15 K31 ["EffectType"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K18 ["Uri"]
+  LOADK R13 K32 ["Setting_Effect"]
+  SETTABLEKS R13 R12 K19 ["Text"]
+  LOADK R13 K27 [""]
+  SETTABLEKS R13 R12 K20 ["Tooltip"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K21 ["Enabled"]
+  LOADN R13 255
+  SETTABLEKS R13 R12 K22 ["Value"]
+  DUPTABLE R13 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R14 R3
+  LOADK R15 K28 ["BuilderTools"]
+  LOADK R16 K33 ["ConstraintType"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K18 ["Uri"]
+  LOADK R14 K34 ["Setting_Constraint"]
+  SETTABLEKS R14 R13 K19 ["Text"]
+  LOADK R14 K27 [""]
+  SETTABLEKS R14 R13 K20 ["Tooltip"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K21 ["Enabled"]
+  LOADN R14 255
+  SETTABLEKS R14 R13 K22 ["Value"]
+  DUPTABLE R14 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R15 R3
+  LOADK R16 K35 ["ScriptTools"]
+  LOADK R17 K36 ["CreateScript"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K18 ["Uri"]
+  LOADK R15 K37 ["Setting_Script"]
+  SETTABLEKS R15 R14 K19 ["Text"]
+  LOADK R15 K38 ["Tooltip_Script"]
+  SETTABLEKS R15 R14 K20 ["Tooltip"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K21 ["Enabled"]
+  LOADN R15 255
+  SETTABLEKS R15 R14 K22 ["Value"]
+  DUPTABLE R15 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R16 R3
+  LOADK R17 K28 ["BuilderTools"]
+  LOADK R18 K39 ["Group"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K18 ["Uri"]
+  LOADK R16 K40 ["Setting_Group"]
+  SETTABLEKS R16 R15 K19 ["Text"]
+  LOADK R16 K41 ["Tooltip_Group"]
+  SETTABLEKS R16 R15 K20 ["Tooltip"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K21 ["Enabled"]
+  LOADN R16 255
+  SETTABLEKS R16 R15 K22 ["Value"]
+  DUPTABLE R16 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R17 R3
+  LOADK R18 K35 ["ScriptTools"]
+  LOADK R19 K42 ["FormatScript"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K18 ["Uri"]
+  LOADK R17 K43 ["Setting_Format"]
+  SETTABLEKS R17 R16 K19 ["Text"]
+  LOADK R17 K44 ["Tooltip_Format"]
+  SETTABLEKS R17 R16 K20 ["Tooltip"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K21 ["Enabled"]
+  LOADN R17 255
+  SETTABLEKS R17 R16 K22 ["Value"]
+  DUPTABLE R17 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R18 R3
+  LOADK R19 K35 ["ScriptTools"]
+  LOADK R20 K45 ["Find"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K18 ["Uri"]
+  LOADK R18 K46 ["Setting_Find"]
+  SETTABLEKS R18 R17 K19 ["Text"]
+  LOADK R18 K27 [""]
+  SETTABLEKS R18 R17 K20 ["Tooltip"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K21 ["Enabled"]
+  LOADN R18 255
+  SETTABLEKS R18 R17 K22 ["Value"]
+  DUPTABLE R18 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R19 R3
+  LOADK R20 K28 ["BuilderTools"]
+  LOADK R21 K47 ["InsertGui"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K18 ["Uri"]
+  LOADK R19 K48 ["Setting_GUI"]
+  SETTABLEKS R19 R18 K19 ["Text"]
+  LOADK R19 K49 ["Tooltip_GUI"]
+  SETTABLEKS R19 R18 K20 ["Tooltip"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K21 ["Enabled"]
+  LOADN R19 255
+  SETTABLEKS R19 R18 K22 ["Value"]
+  DUPTABLE R19 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R20 R3
+  LOADK R21 K28 ["BuilderTools"]
+  LOADK R22 K50 ["InsertUIFrame"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K18 ["Uri"]
+  LOADK R20 K51 ["Setting_Frame"]
+  SETTABLEKS R20 R19 K19 ["Text"]
+  LOADK R20 K27 [""]
+  SETTABLEKS R20 R19 K20 ["Tooltip"]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K21 ["Enabled"]
+  LOADN R20 255
+  SETTABLEKS R20 R19 K22 ["Value"]
+  DUPTABLE R20 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R21 R3
+  LOADK R22 K28 ["BuilderTools"]
+  LOADK R23 K52 ["InsertUILabel"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K18 ["Uri"]
+  LOADK R21 K53 ["Setting_Label"]
+  SETTABLEKS R21 R20 K19 ["Text"]
+  LOADK R21 K27 [""]
+  SETTABLEKS R21 R20 K20 ["Tooltip"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K21 ["Enabled"]
+  LOADN R21 255
+  SETTABLEKS R21 R20 K22 ["Value"]
+  DUPTABLE R21 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R22 R3
+  LOADK R23 K28 ["BuilderTools"]
+  LOADK R24 K54 ["InsertUIInput"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K18 ["Uri"]
+  LOADK R22 K55 ["Setting_Input"]
+  SETTABLEKS R22 R21 K19 ["Text"]
+  LOADK R22 K27 [""]
+  SETTABLEKS R22 R21 K20 ["Tooltip"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K21 ["Enabled"]
+  LOADN R22 255
+  SETTABLEKS R22 R21 K22 ["Value"]
+  DUPTABLE R22 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R23 R3
+  LOADK R24 K28 ["BuilderTools"]
+  LOADK R25 K56 ["InsertUIStyle"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K18 ["Uri"]
+  LOADK R23 K57 ["Setting_Style"]
+  SETTABLEKS R23 R22 K19 ["Text"]
+  LOADK R23 K27 [""]
+  SETTABLEKS R23 R22 K20 ["Tooltip"]
+  LOADB R23 1
+  SETTABLEKS R23 R22 K21 ["Enabled"]
+  LOADN R23 255
+  SETTABLEKS R23 R22 K22 ["Value"]
+  DUPTABLE R23 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R24 R3
+  LOADK R25 K28 ["BuilderTools"]
+  LOADK R26 K58 ["InsertUILayout"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K18 ["Uri"]
+  LOADK R24 K59 ["Setting_Layout"]
+  SETTABLEKS R24 R23 K19 ["Text"]
+  LOADK R24 K27 [""]
+  SETTABLEKS R24 R23 K20 ["Tooltip"]
+  LOADB R24 1
+  SETTABLEKS R24 R23 K21 ["Enabled"]
+  LOADN R24 255
+  SETTABLEKS R24 R23 K22 ["Value"]
+  DUPTABLE R24 K23 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  MOVE R25 R3
+  LOADK R26 K28 ["BuilderTools"]
+  LOADK R27 K60 ["InsertUIConstraint"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K18 ["Uri"]
+  LOADK R25 K61 ["Setting_UIConstraint"]
+  SETTABLEKS R25 R24 K19 ["Text"]
+  LOADK R25 K27 [""]
+  SETTABLEKS R25 R24 K20 ["Tooltip"]
+  LOADB R25 1
+  SETTABLEKS R25 R24 K21 ["Enabled"]
+  LOADN R25 255
+  SETTABLEKS R25 R24 K22 ["Value"]
+  SETLIST R9 R10 15 [1]
+  MOVE R10 R6
+  MOVE R11 R9
+  DUPCLOSURE R12 K62 [PROTO_0]
+  CALL R10 2 1
+  DUPCLOSURE R11 K63 [PROTO_2]
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  SETTABLEKS R11 R8 K64 ["createSettings"]
+  RETURN R8 1

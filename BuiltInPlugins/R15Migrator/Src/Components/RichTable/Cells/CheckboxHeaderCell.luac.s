@@ -1,0 +1,90 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["OnClick"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["ColumnIndex"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K7 [{"Padding", "LayoutOrder", "BorderColor3", "BorderSizePixel", "Style", "Size"}]
+  DUPTABLE R4 K12 [{"Top", "Bottom", "Left", "Right"}]
+  LOADN R5 8
+  SETTABLEKS R5 R4 K8 ["Top"]
+  LOADN R5 8
+  SETTABLEKS R5 R4 K9 ["Bottom"]
+  LOADN R5 4
+  SETTABLEKS R5 R4 K10 ["Left"]
+  LOADN R5 4
+  SETTABLEKS R5 R4 K11 ["Right"]
+  SETTABLEKS R4 R3 K1 ["Padding"]
+  GETTABLEKS R4 R0 K13 ["ColumnIndex"]
+  SETTABLEKS R4 R3 K2 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K5 ["Style"]
+  GETTABLEKS R4 R5 K14 ["Border"]
+  SETTABLEKS R4 R3 K3 ["BorderColor3"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K4 ["BorderSizePixel"]
+  LOADK R4 K15 ["SubtleBox"]
+  SETTABLEKS R4 R3 K5 ["Style"]
+  GETIMPORT R4 K18 [UDim2.new]
+  GETTABLEKS R6 R0 K19 ["Width"]
+  GETTABLEKS R5 R6 K20 ["Scale"]
+  GETTABLEKS R7 R0 K19 ["Width"]
+  GETTABLEKS R6 R7 K21 ["Offset"]
+  LOADN R7 1
+  LOADN R8 0
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K6 ["Size"]
+  DUPTABLE R4 K24 [{"Checkbox", "Tooltip"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K27 [{"Checked", "OnClick"}]
+  GETTABLEKS R8 R0 K25 ["Checked"]
+  SETTABLEKS R8 R7 K25 ["Checked"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K26 ["OnClick"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K22 ["Checkbox"]
+  GETTABLEKS R5 R0 K23 ["Tooltip"]
+  JUMPIFNOT R5 [+10]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K29 [{"Text"}]
+  GETTABLEKS R8 R0 K23 ["Tooltip"]
+  SETTABLEKS R8 R7 K28 ["Text"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K23 ["Tooltip"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["UI"]
+  GETTABLEKS R4 R3 K10 ["Pane"]
+  GETTABLEKS R5 R3 K11 ["Tooltip"]
+  GETTABLEKS R6 R3 K12 ["Checkbox"]
+  DUPCLOSURE R7 K13 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  RETURN R7 1

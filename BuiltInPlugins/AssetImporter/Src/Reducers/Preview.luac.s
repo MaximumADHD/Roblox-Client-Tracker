@@ -1,109 +1,89 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"currentPreset"}]
-  GETTABLEKS R5 R1 K2 ["currentPreset"]
-  SETTABLEKS R5 R4 K2 ["currentPreset"]
+  DUPTABLE R4 K1 [{"currentPreset"}]
+  GETTABLEKS R5 R1 K0 ["currentPreset"]
+  SETTABLEKS R5 R4 K0 ["currentPreset"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_1:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"activeQueueItem"}]
-  GETTABLEKS R5 R1 K2 ["activeQueueItem"]
-  SETTABLEKS R5 R4 K2 ["activeQueueItem"]
+  DUPTABLE R4 K1 [{"activeQueueItem"}]
+  GETTABLEKS R5 R1 K0 ["activeQueueItem"]
+  SETTABLEKS R5 R4 K0 ["activeQueueItem"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_2:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"assetImportSession"}]
-  GETTABLEKS R5 R1 K2 ["assetImportSession"]
-  SETTABLEKS R5 R4 K2 ["assetImportSession"]
+  DUPTABLE R4 K1 [{"assetImportSession"}]
+  GETTABLEKS R5 R1 K0 ["assetImportSession"]
+  SETTABLEKS R5 R4 K0 ["assetImportSession"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_3:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K4 [{"importTree", "importDataExpansion"}]
-  GETTABLEKS R5 R1 K2 ["importTree"]
-  SETTABLEKS R5 R4 K2 ["importTree"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K3 ["importDataExpansion"]
+  DUPTABLE R4 K2 [{"importTree", "importDataExpansion"}]
+  GETTABLEKS R5 R1 K0 ["importTree"]
+  SETTABLEKS R5 R4 K0 ["importTree"]
+  GETUPVAL R5 0
+  GETTABLEKS R6 R0 K1 ["importDataExpansion"]
   NEWTABLE R7 1 0
-  GETTABLEKS R8 R1 K2 ["importTree"]
+  GETTABLEKS R8 R1 K0 ["importTree"]
   LOADB R9 1
   SETTABLE R9 R7 R8
   CALL R5 2 1
-  SETTABLEKS R5 R4 K3 ["importDataExpansion"]
+  SETTABLEKS R5 R4 K1 ["importDataExpansion"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_4:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"filename"}]
-  GETTABLEKS R5 R1 K2 ["filename"]
-  SETTABLEKS R5 R4 K2 ["filename"]
+  DUPTABLE R4 K1 [{"filename"}]
+  GETTABLEKS R5 R1 K0 ["filename"]
+  SETTABLEKS R5 R4 K0 ["filename"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_5:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"hasInvalidPackageId"}]
-  GETTABLEKS R5 R1 K2 ["hasInvalidPackageId"]
-  SETTABLEKS R5 R4 K2 ["hasInvalidPackageId"]
+  DUPTABLE R4 K1 [{"hasInvalidPackageId"}]
+  GETTABLEKS R5 R1 K0 ["hasInvalidPackageId"]
+  SETTABLEKS R5 R4 K0 ["hasInvalidPackageId"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_6:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"previewInstance"}]
-  GETTABLEKS R5 R1 K2 ["previewInstance"]
-  SETTABLEKS R5 R4 K2 ["previewInstance"]
+  DUPTABLE R4 K1 [{"previewInstance"}]
+  GETTABLEKS R5 R1 K0 ["previewInstance"]
+  SETTABLEKS R5 R4 K0 ["previewInstance"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_7:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"managedGroups"}]
-  GETTABLEKS R5 R1 K2 ["managedGroups"]
-  SETTABLEKS R5 R4 K2 ["managedGroups"]
+  DUPTABLE R4 K1 [{"managedGroups"}]
+  GETTABLEKS R5 R1 K0 ["managedGroups"]
+  SETTABLEKS R5 R4 K0 ["managedGroups"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_8:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"selectedImportItem"}]
-  GETTABLEKS R5 R1 K2 ["selectedImportItem"]
-  SETTABLEKS R5 R4 K2 ["selectedImportItem"]
+  DUPTABLE R4 K1 [{"selectedImportItem"}]
+  GETTABLEKS R5 R1 K0 ["selectedImportItem"]
+  SETTABLEKS R5 R4 K0 ["selectedImportItem"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -117,67 +97,53 @@ PROTO_9:
   LOADB R7 1
   SETTABLEKS R7 R5 K3 ["ShouldImport"]
   FORGLOOP R2 2 [-7]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["Dictionary"]
-  GETTABLEKS R2 R3 K5 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K7 [{"importDataChecked"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["Dictionary"]
-  GETTABLEKS R5 R6 K5 ["join"]
-  GETTABLEKS R6 R0 K6 ["importDataChecked"]
+  DUPTABLE R4 K5 [{"importDataChecked"}]
+  GETUPVAL R5 0
+  GETTABLEKS R6 R0 K4 ["importDataChecked"]
   GETTABLEKS R7 R1 K2 ["checked"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K6 ["importDataChecked"]
+  SETTABLEKS R5 R4 K4 ["importDataChecked"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_10:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"importDataCheckedCount"}]
-  GETTABLEKS R5 R1 K4 ["count"]
-  SETTABLEKS R5 R4 K2 ["importDataCheckedCount"]
+  DUPTABLE R4 K1 [{"importDataCheckedCount"}]
+  GETTABLEKS R5 R1 K2 ["count"]
+  SETTABLEKS R5 R4 K0 ["importDataCheckedCount"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_11:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"importDataExpansion"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K2 ["importDataExpansion"]
-  GETTABLEKS R7 R1 K4 ["expansion"]
+  DUPTABLE R4 K1 [{"importDataExpansion"}]
+  GETUPVAL R5 0
+  GETTABLEKS R6 R0 K0 ["importDataExpansion"]
+  GETTABLEKS R7 R1 K2 ["expansion"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["importDataExpansion"]
+  SETTABLEKS R5 R4 K0 ["importDataExpansion"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_12:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"errorNodeChecked"}]
-  GETTABLEKS R5 R1 K4 ["isErrorChecked"]
-  SETTABLEKS R5 R4 K2 ["errorNodeChecked"]
+  DUPTABLE R4 K1 [{"errorNodeChecked"}]
+  GETTABLEKS R5 R1 K2 ["isErrorChecked"]
+  SETTABLEKS R5 R4 K0 ["errorNodeChecked"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_13:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"settingsChanged"}]
-  GETTABLEKS R5 R1 K2 ["settingsChanged"]
-  SETTABLEKS R5 R4 K2 ["settingsChanged"]
+  DUPTABLE R4 K1 [{"settingsChanged"}]
+  GETTABLEKS R5 R1 K0 ["settingsChanged"]
+  SETTABLEKS R5 R4 K0 ["settingsChanged"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -189,9 +155,7 @@ PROTO_14:
   GETUPVAL R2 1
   CALL R1 1 1
   RETURN R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K3 ["Dictionary"]
-  GETTABLEKS R1 R2 K4 ["join"]
+  GETUPVAL R1 2
   NEWTABLE R2 0 0
   GETUPVAL R3 1
   CALL R1 2 1
@@ -208,180 +172,206 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Rodux"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Cryo"]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Flags"]
+  GETTABLEKS R3 R4 K10 ["getFFlagAssetImporterPackageMigration"]
   CALL R2 1 1
+  MOVE R4 R2
+  CALL R4 0 1
+  JUMPIFNOT R4 [+8]
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Types"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Dash"]
   CALL R3 1 1
+  JUMP [+1]
+  LOADNIL R3
+  MOVE R5 R2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADNIL R4
+  JUMP [+7]
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K11 ["DataTypes"]
-  GETTABLEKS R5 R6 K12 ["QueuedSession"]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Cryo"]
   CALL R4 1 1
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Actions"]
+  MOVE R6 R2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+3]
+  GETTABLEKS R5 R3 K13 ["join"]
+  JUMP [+4]
+  GETTABLEKS R6 R4 K14 ["Dictionary"]
+  GETTABLEKS R5 R6 K13 ["join"]
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R5 K14 ["ResetState"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Types"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R8 R5 K15 ["SetActiveQueueItem"]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K16 ["DataTypes"]
+  GETTABLEKS R8 R9 K17 ["QueuedSession"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R9 R5 K16 ["SetAssetImportSession"]
-  CALL R8 1 1
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K18 ["Actions"]
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R5 K17 ["SetCheckedCount"]
+  GETTABLEKS R10 R8 K19 ["ResetState"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R11 R5 K18 ["SetCurrentPreset"]
+  GETTABLEKS R11 R8 K20 ["SetActiveQueueItem"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R12 R5 K19 ["SetErrorNodeChecked"]
+  GETTABLEKS R12 R8 K21 ["SetAssetImportSession"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R13 R5 K20 ["SetFilename"]
+  GETTABLEKS R13 R8 K22 ["SetCheckedCount"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R14 R5 K21 ["SetHasInvalidPackageId"]
+  GETTABLEKS R14 R8 K23 ["SetCurrentPreset"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R15 R5 K22 ["SetImportTree"]
+  GETTABLEKS R15 R8 K24 ["SetErrorNodeChecked"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
-  GETTABLEKS R16 R5 K23 ["SetManagedGroups"]
+  GETTABLEKS R16 R8 K25 ["SetFilename"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
-  GETTABLEKS R17 R5 K24 ["SetPreviewInstance"]
+  GETTABLEKS R17 R8 K26 ["SetHasInvalidPackageId"]
   CALL R16 1 1
   GETIMPORT R17 K5 [require]
-  GETTABLEKS R18 R5 K25 ["SetSelectedImportItem"]
+  GETTABLEKS R18 R8 K27 ["SetImportTree"]
   CALL R17 1 1
   GETIMPORT R18 K5 [require]
-  GETTABLEKS R19 R5 K26 ["SetSettingsChanged"]
+  GETTABLEKS R19 R8 K28 ["SetManagedGroups"]
   CALL R18 1 1
   GETIMPORT R19 K5 [require]
-  GETTABLEKS R20 R5 K27 ["SetTreeChecked"]
+  GETTABLEKS R20 R8 K29 ["SetPreviewInstance"]
   CALL R19 1 1
   GETIMPORT R20 K5 [require]
-  GETTABLEKS R21 R5 K28 ["SetTreeExpansion"]
+  GETTABLEKS R21 R8 K30 ["SetSelectedImportItem"]
   CALL R20 1 1
   GETIMPORT R21 K5 [require]
-  GETTABLEKS R24 R0 K9 ["Src"]
-  GETTABLEKS R23 R24 K29 ["Flags"]
-  GETTABLEKS R22 R23 K30 ["getFFlagAssetImportEnableMultipleFiles"]
+  GETTABLEKS R22 R8 K31 ["SetSettingsChanged"]
   CALL R21 1 1
-  DUPTABLE R22 K45 [{"activeQueueItem", "assetImportSession", "currentPreset", "errorNodeChecked", "filename", "hasInvalidPackageId", "importDataChecked", "importDataCheckedCount", "importDataExpansion", "importTree", "managedGroups", "previewInstance", "selectedImportItem", "settingsChanged"}]
-  MOVE R24 R21
-  CALL R24 0 1
-  JUMPIFNOT R24 [+4]
-  GETTABLEKS R23 R4 K46 ["new"]
-  CALL R23 0 1
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R23 R8 K32 ["SetTreeChecked"]
+  CALL R22 1 1
+  GETIMPORT R23 K5 [require]
+  GETTABLEKS R24 R8 K33 ["SetTreeExpansion"]
+  CALL R23 1 1
+  GETIMPORT R24 K5 [require]
+  GETTABLEKS R27 R0 K8 ["Src"]
+  GETTABLEKS R26 R27 K9 ["Flags"]
+  GETTABLEKS R25 R26 K34 ["getFFlagAssetImportEnableMultipleFiles"]
+  CALL R24 1 1
+  DUPTABLE R25 K49 [{"activeQueueItem", "assetImportSession", "currentPreset", "errorNodeChecked", "filename", "hasInvalidPackageId", "importDataChecked", "importDataCheckedCount", "importDataExpansion", "importTree", "managedGroups", "previewInstance", "selectedImportItem", "settingsChanged"}]
+  MOVE R27 R24
+  CALL R27 0 1
+  JUMPIFNOT R27 [+4]
+  GETTABLEKS R26 R7 K50 ["new"]
+  CALL R26 0 1
   JUMP [+1]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K31 ["activeQueueItem"]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K32 ["assetImportSession"]
-  MOVE R24 R21
-  CALL R24 0 1
-  JUMPIFNOT R24 [+2]
-  LOADNIL R23
+  LOADNIL R26
+  SETTABLEKS R26 R25 K35 ["activeQueueItem"]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K36 ["assetImportSession"]
+  MOVE R27 R24
+  CALL R27 0 1
+  JUMPIFNOT R27 [+2]
+  LOADNIL R26
   JUMP [+1]
-  LOADK R23 K47 [""]
-  SETTABLEKS R23 R22 K33 ["currentPreset"]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K34 ["errorNodeChecked"]
-  LOADK R23 K47 [""]
-  SETTABLEKS R23 R22 K35 ["filename"]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K36 ["hasInvalidPackageId"]
-  NEWTABLE R23 0 0
-  SETTABLEKS R23 R22 K37 ["importDataChecked"]
-  LOADN R23 255
-  SETTABLEKS R23 R22 K38 ["importDataCheckedCount"]
-  NEWTABLE R23 0 0
-  SETTABLEKS R23 R22 K39 ["importDataExpansion"]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K40 ["importTree"]
-  NEWTABLE R23 0 0
-  SETTABLEKS R23 R22 K41 ["managedGroups"]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K42 ["previewInstance"]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K43 ["selectedImportItem"]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K44 ["settingsChanged"]
-  DUPCLOSURE R23 K48 [PROTO_0]
-  CAPTURE VAL R2
-  GETTABLEKS R24 R1 K49 ["createReducer"]
-  MOVE R25 R22
-  NEWTABLE R26 16 0
-  GETTABLEKS R27 R7 K50 ["name"]
-  DUPCLOSURE R28 K51 [PROTO_1]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R8 K50 ["name"]
-  DUPCLOSURE R28 K52 [PROTO_2]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R14 K50 ["name"]
-  DUPCLOSURE R28 K53 [PROTO_3]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R12 K50 ["name"]
-  DUPCLOSURE R28 K54 [PROTO_4]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R13 K50 ["name"]
-  DUPCLOSURE R28 K55 [PROTO_5]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R16 K50 ["name"]
-  DUPCLOSURE R28 K56 [PROTO_6]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R15 K50 ["name"]
-  DUPCLOSURE R28 K57 [PROTO_7]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R17 K50 ["name"]
-  DUPCLOSURE R28 K58 [PROTO_8]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R19 K50 ["name"]
-  DUPCLOSURE R28 K59 [PROTO_9]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R9 K50 ["name"]
-  DUPCLOSURE R28 K60 [PROTO_10]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R20 K50 ["name"]
-  DUPCLOSURE R28 K61 [PROTO_11]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R11 K50 ["name"]
-  DUPCLOSURE R28 K62 [PROTO_12]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R18 K50 ["name"]
-  DUPCLOSURE R28 K63 [PROTO_13]
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R10 K50 ["name"]
-  MOVE R29 R21
-  CALL R29 0 1
-  JUMPIFNOT R29 [+2]
-  LOADNIL R28
+  LOADK R26 K51 [""]
+  SETTABLEKS R26 R25 K37 ["currentPreset"]
+  LOADB R26 0
+  SETTABLEKS R26 R25 K38 ["errorNodeChecked"]
+  LOADK R26 K51 [""]
+  SETTABLEKS R26 R25 K39 ["filename"]
+  LOADB R26 0
+  SETTABLEKS R26 R25 K40 ["hasInvalidPackageId"]
+  NEWTABLE R26 0 0
+  SETTABLEKS R26 R25 K41 ["importDataChecked"]
+  LOADN R26 255
+  SETTABLEKS R26 R25 K42 ["importDataCheckedCount"]
+  NEWTABLE R26 0 0
+  SETTABLEKS R26 R25 K43 ["importDataExpansion"]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K44 ["importTree"]
+  NEWTABLE R26 0 0
+  SETTABLEKS R26 R25 K45 ["managedGroups"]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K46 ["previewInstance"]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K47 ["selectedImportItem"]
+  LOADB R26 0
+  SETTABLEKS R26 R25 K48 ["settingsChanged"]
+  DUPCLOSURE R26 K52 [PROTO_0]
+  CAPTURE VAL R5
+  GETTABLEKS R27 R1 K53 ["createReducer"]
+  MOVE R28 R25
+  NEWTABLE R29 16 0
+  GETTABLEKS R30 R10 K54 ["name"]
+  DUPCLOSURE R31 K55 [PROTO_1]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R11 K54 ["name"]
+  DUPCLOSURE R31 K56 [PROTO_2]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R17 K54 ["name"]
+  DUPCLOSURE R31 K57 [PROTO_3]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R15 K54 ["name"]
+  DUPCLOSURE R31 K58 [PROTO_4]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R16 K54 ["name"]
+  DUPCLOSURE R31 K59 [PROTO_5]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R19 K54 ["name"]
+  DUPCLOSURE R31 K60 [PROTO_6]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R18 K54 ["name"]
+  DUPCLOSURE R31 K61 [PROTO_7]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R20 K54 ["name"]
+  DUPCLOSURE R31 K62 [PROTO_8]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R22 K54 ["name"]
+  DUPCLOSURE R31 K63 [PROTO_9]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R12 K54 ["name"]
+  DUPCLOSURE R31 K64 [PROTO_10]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R23 K54 ["name"]
+  DUPCLOSURE R31 K65 [PROTO_11]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R14 K54 ["name"]
+  DUPCLOSURE R31 K66 [PROTO_12]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R21 K54 ["name"]
+  DUPCLOSURE R31 K67 [PROTO_13]
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R13 K54 ["name"]
+  MOVE R32 R24
+  CALL R32 0 1
+  JUMPIFNOT R32 [+2]
+  LOADNIL R31
   JUMP [+1]
-  MOVE R28 R23
-  SETTABLE R28 R26 R27
-  GETTABLEKS R27 R6 K50 ["name"]
-  DUPCLOSURE R28 K64 [PROTO_14]
-  CAPTURE VAL R21
-  CAPTURE VAL R22
-  CAPTURE VAL R2
-  SETTABLE R28 R26 R27
-  CALL R24 2 -1
-  RETURN R24 -1
+  MOVE R31 R26
+  SETTABLE R31 R29 R30
+  GETTABLEKS R30 R9 K54 ["name"]
+  DUPCLOSURE R31 K68 [PROTO_14]
+  CAPTURE VAL R24
+  CAPTURE VAL R25
+  CAPTURE VAL R5
+  SETTABLE R31 R29 R30
+  CALL R27 2 -1
+  RETURN R27 -1
