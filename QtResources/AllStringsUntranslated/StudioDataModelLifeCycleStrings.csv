@@ -1,7 +1,6 @@
 Key,Context,Source,en-us
 Studio.App.IdeDoc.LoadingPlacePleaseWait,Roblox IDE Doc,Loading Place. Please wait...,Loading Place. Please wait...
 Studio.App.CommandLine.InvalidArgument2,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
-Studio.App.DataModelLifeCycle.CannotOpenFileForRead,Failed to open file during open place process,Cannot open place file for reading.,Cannot open place file for reading.
 Studio.App.DataModelLifeCycle.GameIsGoneWhileLoadingDM,Game has disappeared during the dm loading process,Game has disappeared while loading dm (client).,Game has disappeared while loading dm (client).
 Studio.App.DataModelLifeCycle.ProcessingAeroMeshes,Shown during aerodynamic mesh generation,Processing aerodynamic meshes,Processing aerodynamic meshes
 Studio.App.DataModelLifeCycle.AeroMeshPleaseWait,Waiting for aerodynamic mesh generation to complete,Please Wait,Please Wait

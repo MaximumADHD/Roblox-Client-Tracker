@@ -1,9 +1,7 @@
 #version 110
 
 #extension GL_ARB_shading_language_include : require
-#include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[58];
 uniform vec4 CB1[10];
 attribute vec4 POSITION;
 varying vec2 VARYING0;
@@ -35,8 +33,8 @@ void main()
     vec4 v13 = v12;
     v13.w = v11.y;
     gl_Position = POSITION;
-    VARYING0 = v0 * CB0[50].zw;
-    VARYING1 = v7 * CB0[50].zw.xyxy;
-    VARYING2 = v13 * CB0[50].zw.xyxy;
+    VARYING0 = v0 * CB1[1].xy;
+    VARYING1 = v7 * CB1[1].xyxy;
+    VARYING2 = v13 * CB1[1].xyxy;
 }
 

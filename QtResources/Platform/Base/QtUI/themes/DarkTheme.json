@@ -1752,5 +1752,16 @@
     "Warning": {
         "Main": "#FFCE0B",
         "Text": "#F5BA19"
+    },
+    "Semantic": {
+        "Color": {
+            "Content": {
+                "Standard": "#F9F9F9",
+                "Disabled": "#696A6D"
+            },
+            "States": {
+                "Hover": "#454647"
+            }
+        }
     }
 }

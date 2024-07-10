@@ -1748,6 +1748,17 @@
         "Main": "#AD8007",
         "Text": "#816006"
     },
+    "Semantic": {
+        "Color": {
+            "Content": {
+                "Standard": "#111216",
+                "Disabled": "#BBBCBE"
+            },
+            "States": {
+                "Hover": "#D7D8D9"
+            }
+        }
+    },
     "Onboarding": {
         "Cover": "#3C64FA",
         "Highlight": "#4785FF",

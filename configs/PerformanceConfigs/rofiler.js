@@ -128,8 +128,9 @@ li a{ float:none; }
 .info {position:absolute;z-index:5;text-align:left;padding:2px;margin-left:-999em;background-color: #313131;}
 .helpstart {position:absolute;z-index:5;text-align:left;padding:2px;background-color: #313131;width:300px;display:none}
 .root {z-index:1;position:absolute;top:0px;left:0px;}
-.filterinput0{position:fixed;bottom:10px;left:25px;background-color: #313131}
-.filterinput1{position:fixed;bottom:10px;left:175px;background-color: #313131}
+.filterinput0{z-index:3;position:fixed;bottom:20px;left:25px;background-color: #313131}
+.filterinput1{z-index:3;position:fixed;bottom:20px;left:175px;background-color: #313131}
+.filterinputTooltip{z-index:2;position:fixed;bottom:5px;left:25px;background-color: #313131}
 `;
 
 g_Loader.bodyText = `
@@ -137,8 +138,9 @@ g_Loader.bodyText = `
 <div id='filterinput' style="display: none;">
 <div class="filterinput0">Group<br><input type="text" id="filtergroup"></div>
 <div class="filterinput1">Timer/Thread<br><input type="text" id="filtertimer"></div>
+<div class="filterinputTooltip">Left/Right keys = navigate</div>
 </div>
-<canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas><canvas id="DetailedView" height="200" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
+<canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas><canvas id="DetailedView" height="200" style="background-color:#474747;margin:0px;padding:0px;" ondrop="DropHandler(event);" ondragover="DragOverHandler(event);"></canvas>
 <div id="root" class="root" style="display: none;">
 <div class="helpstart" id="helpwindow" style="left:20px;top:20px">
 History View:<br>
@@ -248,11 +250,13 @@ Esc: Exit &amp; Clear filter
 `;
 
 function InitCssHtml() {
-	var styleElement = document.querySelector("style")
+	const styleElId = "rofilerMainStyle"
+	var styleElement = document.getElementById(styleElId);
 	if (styleElement) {
 		styleElement.textContent = g_Loader.styleText;
 	} else {
 		styleElement = document.createElement("style");
+		styleElement.id = styleElId;
 		styleElement.textContent = g_Loader.styleText;
 		document.head.appendChild(styleElement);
 	}
@@ -581,6 +585,10 @@ function InitViewerVars()
 	window.StrCount = "Count";
 	window.StrExclAverage = "Excl Average";
 	window.StrExclMax = "Excl Max";
+	
+	// Part 3
+	window.IsMac = navigator.platform.indexOf("Mac") === 0;
+	window.IsHtmlSavable = !window.g_wasReloaded && (GetHtmlSource(true) != null);
 }
 
 function RangeInit()
@@ -4096,6 +4104,28 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled)
 			ThreadY[nLog+1] = fOffsetY;
 		}
 
+		if (!g_Loader.hasUserInteracted) {
+			var lines = [
+				"Mouse drag = navigate",
+				"Mouse wheel = zoom",
+				"Ctrl(Cmd) + F = find"
+			];
+			if (IsPluginsTabVisible()) {
+				lines.push("X key = X-Ray mode");
+			}
+			if (fOffsetY > nHeight) {
+				lines.push("\u21D3 More threads below \u21D3");
+			}
+			var textSizeMax = 0;
+			lines.forEach(line => {
+				var textSize = context.measureText(line).width;
+				textSizeMax = Math.max(textSizeMax, textSize);
+			});
+			lines.forEach((line, i) => {
+				context.fillText(line, nWidth - textSizeMax - FontWidth, nHeight - 10 - BoxHeight * (lines.length - i));
+			});
+		}
+
 		if(nContextSwitchEnabled) //non instrumented threads.
 		{
 			var CurrentPid = -112;
@@ -4806,7 +4836,8 @@ function ZoomGraph(nZoom)
 		fMousePrc = 0;
 	}
 	fDetailedOffset += fDiff * fMousePrc;
-
+	
+	g_Loader.hasUserInteracted = true;
 }
 
 function MeasureFont()
@@ -5094,10 +5125,21 @@ function MouseDrag(Source, Event)
 	var LocalRect = Event.target.getBoundingClientRect();
 	MouseDragX = Event.clientX - LocalRect.left;
 	MouseDragY = Event.clientY - LocalRect.top;
-	if(MouseDragState == MouseDragMove)
-	{
+
+	function HasSelection() {
 		var dx = Math.abs(MouseDragX - MouseDragXStart);
 		var dy = Math.abs(MouseDragY - MouseDragYStart);
+		return (dx + dy > 1);
+	}
+
+	if(Source == MouseDragUp && !HasSelection())
+	{
+		RangeSelect = RangeInit();
+		Invalidate = 0;
+	}
+
+	if(MouseDragState == MouseDragMove)
+	{
 		if((Source == MouseDragUp && MapMouseButton(Event) == MouseDragButton) ||
 			(MouseDragKeyCtrl && !KeyCtrlDown) ||
 			(MouseDragKeyShift && !KeyShiftDown))
@@ -5110,6 +5152,7 @@ function MouseDrag(Source, Event)
 		{
 			MouseHandleDrag();
 		}
+		g_Loader.hasUserInteracted = true;
 	}
 	else if(MouseDragState == MouseDragOff)
 	{
@@ -5143,9 +5186,7 @@ function MouseDrag(Source, Event)
 		}
 		else if(Source == MouseDragMove)
 		{
-			var dx = Math.abs(MouseDragX - MouseDragXStart);
-			var dy = Math.abs(MouseDragY - MouseDragYStart);
-			if(dx+dy>1)
+			if(HasSelection())
 			{
 				MouseDragState = MouseDragMove;
 			}
@@ -5280,10 +5321,10 @@ function MouseWheel(e)
 	
 	if (e.target == CanvasDetailedView) {
 		if (KeyShiftDown == 1 && g_Ext.xray.barEnabled && DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0) {
-			// Select x-Ray threshold for the preview bar
+			// Select X-Ray threshold for the preview bar
 			clickBtnIdDir("xthreshold_bar");
 		} else if (KeyShiftDown == 1 && g_Ext.xray.viewEnabled) {
-			// Select x-Ray threshold for the main view
+			// Select X-Ray threshold for the main view
 			clickBtnIdDir("xthreshold_main");
 		} else if (KeyCtrlDown == 0) {
 			// Default behaviour = zoom
@@ -5314,14 +5355,11 @@ function MouseWheel(e)
 }
 function ShowFilterInput(bShow)
 {
-	if(bShow)
-	{
-		document.getElementById('filterinput').style['display'] = 'block';
-	}
-	else
-	{
-		document.getElementById('filterinput').style['display'] = 'none';
-	}
+	var el = document.getElementById('filterinput');
+	if(bShow == undefined)
+		return el.style['display'] == 'block';
+	el.style['display'] = bShow ? 'block' : 'none';
+	return bShow;
 }
 
 function SetFilterInput(group, timer)
@@ -5360,6 +5398,11 @@ function ToggleFilterInput(escape)
 	ActiveElement++;
 	if(!escape)
 	{
+		if(!ShowFilterInput())
+		{
+			// First show -> set focus on the last filter input field
+			ActiveElement = FilterInputArray.length - 1;
+		}
 		if(ActiveElement < FilterInputArray.length)
 		{
 			ShowFilterInput(1);
@@ -5506,8 +5549,7 @@ function KeyUp(evt)
 	}
 
 	function ClickMenuButton(elId) {
-		var PluginsTab = document.getElementById('ilPlugins');
-		if (PluginsTab.style.display != 'none') {
+		if (IsPluginsTabVisible()) {
 			var XView = document.getElementById(elId);
 			var firstA = XView.querySelector('a');
 			firstA.click();
@@ -5564,6 +5606,31 @@ function KeyDown(evt)
 	{
 		evt.preventDefault();
 	}
+	else
+	{
+		var isFindKey = false;
+		var isFindNextKey = false;
+		if (window.IsMac) {
+			isFindKey = evt.metaKey && evt.keyCode === 70;
+			isFindNextKey = evt.metaKey && evt.keyCode === 71;
+		} else {
+			isFindKey = evt.ctrlKey && evt.keyCode === 70;
+			isFindNextKey = evt.keyCode === 114;
+		}
+		
+		if (isFindKey)
+		{
+			evt.preventDefault();
+			var hide = ShowFilterInput();
+			ToggleFilterInput(hide);
+		}
+
+		if (isFindNextKey) {
+			evt.preventDefault();
+			MoveToNext(1);
+		}
+	}
+	
 	Invalidate = 0;
 }
 
@@ -6270,7 +6337,7 @@ async function ExtractDataFromComment(nodeId, magic, prefix, postfix, hasSize, m
 			callback(data);
 		})
 		.catch(error => {
-			console.error('Error unzipping data: ', error);
+			console.error("Error unzipping data: ", error);
 			callback(new Uint8Array);
 		});
 }
@@ -6335,7 +6402,7 @@ function ComposeOrigDatetime(forTitle) {
 	return res;
 }
 
-function OpenNewExportTab(shortName, forceDownload) {
+function OpenNewExportTab(shortName, fullName, forceDownload) {
 	var tabOpened = false;
 
 	function ComposeOrigFilename() {
@@ -6374,12 +6441,13 @@ function OpenNewExportTab(shortName, forceDownload) {
 	}
 	
 	if (!tabOpened) {
-		var filename = GetExportFilename(shortName);
+		var filename = fullName ? fullName : GetExportFilename(shortName);
 		var link = document.createElement('a');
 		link.setAttribute('download', filename);
 		link.href = pageObj;
 		link.click();
 		URL.revokeObjectURL(pageObj);
+		ShowFlashMessage("Saving started\n" + "Please allow file download if prompted", 150, "#ffcc77");
 	}
 	
 	g_Loader.toolsData.exportResult = null;
@@ -6434,12 +6502,16 @@ function InitToolsExportMenu() {
 	AdjustMenuItemsWidth(ExportMenu);
 }
 
-function GetHtmlSource(checkOnly) {
+function GetHtmlSource(checkOnly, rawDataZipB64) {
 	var doc = "";
-
-	var commentsCount = 0;
+	var startNodeIndex = 0;
+	if (rawDataZipB64) {
+		doc += "<!--R0FL" + rawDataZipB64 + "-->\n";
+		startNodeIndex++;
+	}
+	var commentsCount = startNodeIndex;
 	var nodes = document.childNodes;
-	for (var i = 0; i < 2 && i < nodes.length; i++) {
+	for (var i = startNodeIndex; i < 2 && i < nodes.length; i++) {
 		var node = nodes[i];
 		if (node.nodeType == Node.COMMENT_NODE) {
 			commentsCount++;
@@ -6498,7 +6570,7 @@ function InitAuxMenus() {
 		}
 	}
 	
-	var savingAllowed = isHttpProtocol && !window.g_wasReloaded && (GetHtmlSource(true) != null);
+	var savingAllowed = isHttpProtocol && window.IsHtmlSavable;
 	if (savingAllowed) {
 		var SaveMenu = document.getElementById('ilSave');
 		SaveMenu.style.display = "";
@@ -6506,8 +6578,7 @@ function InitAuxMenus() {
 			if (!g_Loader.isExportInProgress) {
 				var doc = GetHtmlSource();
 				SaveExportResult(doc);
-				OpenNewExportTab("", true);
-				ShowFlashMessage("Saving started\n" + "Please allow file download if prompted", 150, "#ffcc77");
+				OpenNewExportTab("", "", true);
 			}
 		};
 	}
@@ -6639,6 +6710,132 @@ async function InitData() {
 		return;
 	}
 	await ExtractAndExportRaw();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// Drag and drop
+
+async function ZipData(inputData, skipFirstBytes, addPrefix) {
+	const zipPrefixSize = 2 * 4;
+	var binaryArray = skipFirstBytes ? inputData.slice(skipFirstBytes) : inputData;
+	
+	const inputStream = new ReadableStream({
+		start(controller) {
+			controller.enqueue(binaryArray);
+			controller.close();
+		}
+	});
+
+	const compressionStream = new CompressionStream("deflate");
+	const readableStream = inputStream.pipeThrough(compressionStream);
+
+	const reader = readableStream.getReader();
+	var chunks = [];
+	var resPos = 0;
+
+	if (addPrefix) {
+		var prefixArray = new Uint8Array(zipPrefixSize);
+		const view = new DataView(prefixArray.buffer);
+		view.setUint32(0, binaryArray.length, true);
+		chunks.push(prefixArray);
+		resPos += prefixArray.length;
+	}
+	
+	while (true) {
+		const { done, value } = await reader.read();
+		if (done)
+			break;
+		chunks.push(value);
+		resPos += value.length;
+	}
+
+	var resData = new Uint8Array(resPos);
+	resPos = 0;
+	
+	chunks.forEach(chunk => {
+		resData.set(chunk, resPos);
+		resPos += chunk.length;
+	});
+
+	return resData;
+}
+
+function ReadFileToUint8Array(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => {
+			const arrayBuffer = reader.result;
+			const binaryArray = new Uint8Array(arrayBuffer);
+			resolve(binaryArray);
+		};
+		reader.onerror = reject;
+		reader.readAsArrayBuffer(file);
+	});
+}
+
+function Uint8ArrayToBase64(uint8Array) {
+	let binaryString = "";
+	for (let i = 0; i < uint8Array.byteLength; i++) {
+		binaryString += String.fromCharCode(uint8Array[i]);
+	}
+	return btoa(binaryString);
+}
+
+function CompareUint8ArrayWithStringBytes(uint8Array, str) {
+	if (uint8Array.length !== str.length) {
+		return false;
+	}
+	for (let i = 0; i < uint8Array.length; i++) {
+		if (uint8Array[i] !== str.charCodeAt(i)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function CheckFileMagic(dataArray, magicStr) {
+	if (dataArray.length <= magicStr.length)
+		return false;
+	const firstBytes = dataArray.slice(0, magicStr.length);
+	const res = CompareUint8ArrayWithStringBytes(firstBytes, magicStr);
+	return res;
+}
+
+async function RawToHtml(file) {
+	try {
+		const rawMagic = "\0\0\0\0R0FL";
+		const rawArray = await ReadFileToUint8Array(file);
+		if (!CheckFileMagic(rawArray, rawMagic))
+			throw new Error("Incorrect input file format");
+		
+		var zipArray = await ZipData(rawArray, rawMagic.length, true);
+		const zipBase64 = Uint8ArrayToBase64(zipArray);
+		var doc = GetHtmlSource(false, zipBase64);
+
+		var dotIndex = file.name.lastIndexOf('.');
+		var baseName = file.name.substring(0, dotIndex);
+		var resName = baseName + '.html';
+
+		SaveExportResult(doc);
+		OpenNewExportTab("", resName, true);
+	} catch (error) {
+		console.error("Error converting raw to html:", error);
+	}
+}
+
+function DragOverHandler(evt) {
+	evt.preventDefault();
+}
+
+async function DropHandler(evt) {
+	evt.preventDefault();
+	var files = evt.dataTransfer.files;
+	if (!files)
+		return;
+	const file = files[0];
+	if (window.IsHtmlSavable && file.name.endsWith(".raw")) {
+		return RawToHtml(file);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -7280,6 +7477,11 @@ function AdjustMenuItemsWidth(MenuElement) {
 	for(var i = 0; i < Lis.length; ++i) {
 		Lis[i].style['width'] = LenStr;
 	}
+}
+
+function IsPluginsTabVisible() {
+	var PluginsTab = document.getElementById('ilPlugins');
+	return PluginsTab.style.display != 'none';
 }
 
 function InitPluginUi() {

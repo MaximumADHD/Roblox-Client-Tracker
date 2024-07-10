@@ -1,0 +1,36 @@
+Key,Context,Source,en-us
+Studio.App.LocalSaveHelper.DataModelError,,Failed to save the DataModel.,Failed to save the DataModel.
+Studio.App.LocalSaveHelper.TempFileError1,,"Failed to open temporary file while saving.
+
+Make sure the path '%1' is writeble and there is enough disk space.","Failed to open temporary file while saving.
+
+Make sure the path '%1' is writeble and there is enough disk space."
+Studio.App.LocalSaveHelper.FileSystemError1,,"Error in writing data to file '%1'.
+
+Make sure that you have sufficient permissions to the path and that there is no file system error.","Error in writing data to file '%1'.
+
+Make sure that you have sufficient permissions to the path and that there is no file system error."
+Studio.App.LocalSaveHelper.FailedToRename2,,"Failed to save to file '%1'.
+
+Existing data has not been overwritten. New data is temporarily saved in '%2'.","Failed to save to file '%1'.
+
+Existing data has not been overwritten. New data is temporarily saved in '%2'."
+Studio.App.LocalSaveHelper.FailedToLock1,,"Failed to obtain a file lock on '%1'.
+
+Make sure this file is not opened by another Studio instance, or pick a different file name.","Failed to obtain a file lock on '%1'.
+
+Make sure this file is not opened by another Studio instance, or pick a different file name."
+Studio.App.StudioSerializerHelper.ErrorSavingFile2,,Error saving file '%1' - %2,Error saving file '%1' - %2
+Studio.App.LocalSaveHelper.InvalidFilename,,Invalid filename for saving.,Invalid filename for saving.
+Studio.App.LocalSaveHelper.FailedToWrite1,,"Failed to write to file '%1'.
+
+Make sure this file is not set to read-only.","Failed to write to file '%1'.
+
+Make sure this file is not set to read-only."
+Studio.App.LocalSaveHelper.AutoRecoveryFileCreated1,,'%1' auto-recovery file was created,'%1' auto-recovery file was created
+Studio.App.LocalSaveHelper.SuccessfullyDownloadedCopyTo1,,Successfully downloaded a copy to '%1',Successfully downloaded a copy to '%1'
+Studio.App.LocalSaveHelper.SavedToLocalFile1,,Saved to '%1',Saved to '%1'
+Studio.App.LocalSaveHelper.SaveFileFailure,,Save File Failure,Save File Failure
+Studio.App.LocalSaveHelper.AlreadyAutoSaveFailure,,Failed to auto-save because we are already auto-saving.,Failed to auto-save because we are already auto-saving.
+Studio.App.LocalSaveHelper.GenerateAutoSaveFilePath,,Failed to generate auto-save file path.,Failed to generate auto-save file path.
+Studio.App.LocalSaveHelper.AutoSaveCancelled,,Auto-save is cancelled.,Auto-save is cancelled.

@@ -105,8 +105,8 @@
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" modernIcon="ColorPicker" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
         <DropdownButton fflag="MainRibbonDropdownButton" name="materialPickerAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.MaterialPicker" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip" width="32" height="32" />
         <addseparator visible="false"/>
-        <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.GroupShort" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
-          <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />
+        <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.GroupShort" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/GroupAsAModel.png" modernIcon="GroupAsAModel" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
+          <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/GroupAsAModel.png" modernIcon="GroupAsAModel" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
@@ -208,8 +208,8 @@
         <DropdownButton fflag="MainRibbonDropdownButton" name="materialPickerAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.MaterialPicker" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip" width="32" height="32" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool" style="textundericon" width="32" height="32" />
         <addseparator visible="false"/>
-        <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.GroupShort" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
-          <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />
+        <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.GroupShort" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/GroupAsAModel.png" modernIcon="GroupAsAModel" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
+          <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/GroupAsAModel.png" modernIcon="GroupAsAModel" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
@@ -370,19 +370,19 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png" modernIcon=""
             width="32"
             height="32"/>
-        <MenuPopupButton fflag="EnableSimulationStep" handleMenuTrigger="true" selectChangesText="true" value="simulationPauseAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32">
+        <MenuPopupButton fflag="EnableSimulationStep" name="simulationPauseAllAction" handleMenuTrigger="true" selectChangesText="true" value="simulationPauseAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32">
           <ActionGroup name="pauseActions" style="textbesideicon" ischeckable="false">
             <addaction name="simulationPauseAllAction" type="plugin" style="textundericon" text="Studio.Common.Action.PauseAllPhysics" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
             <addaction name="simulationPauseActionV3" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
           </ActionGroup>
         </MenuPopupButton>
-        <MenuPopupButton fflag="EnableSimulationStep" handleMenuTrigger="true" selectChangesText="true" value="simulationResumeAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32">
+        <MenuPopupButton fflag="EnableSimulationStep" name="simulationResumeAllAction" handleMenuTrigger="true" selectChangesText="true" value="simulationResumeAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32">
           <ActionGroup name="resumeActions" style="textbesideicon" ischeckable="false">
             <addaction name="simulationResumeAllAction" type="plugin" style="textundericon" text="Studio.Common.Action.ResumeAllPhysics" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
             <addaction name="simulationResumeActionV3" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
           </ActionGroup>
         </MenuPopupButton>
-        <MenuPopupButton fflag="EnableSimulationStepForward" fflagList="EnableSimulationStep,EnableSimulationStepForward" handleMenuTrigger="true" selectChangesText="true" value="simulationStepForwardAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.StepForward" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Resume" width="32" height="32">
+        <MenuPopupButton fflag="EnableSimulationStepForward" fflagList="EnableSimulationStep,EnableSimulationStepForward" name="simulationStepForwardAllAction" handleMenuTrigger="true" selectChangesText="true" value="simulationStepForwardAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.StepForward" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Resume" width="32" height="32">
           <ActionGroup name="stepForwardActions" style="textbesideicon" ischeckable="false">
             <addaction name="simulationStepForwardAllAction" type="plugin" text="Studio.Common.Action.StepForward" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Fwd" width="32" height="32"/>
             <addaction name="simulationStepForwardAction" type="plugin" text="Studio.Common.Action.StepForwardPhysicsCurrent" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Fwd" width="32" height="32"/>

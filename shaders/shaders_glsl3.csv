@@ -411,6 +411,7 @@ GrassHQFS,Fragment
 GrassHQFSShadowed,Fragment
 GrassHQVSWind,Vertex
 GrassHQVSWindDepth,Vertex
+GrassHQVSWindDepthOld,Vertex
 GrassHQVSWindShadowed,Vertex
 GrassShadowPS_00000000,Fragment
 GrassShadowPS_00000040,Fragment
@@ -418,6 +419,7 @@ GrassShadowVS_00000000,Vertex
 GrassShadowVS_00000040,Vertex
 GrassVS,Vertex
 GrassVSDepth,Vertex
+GrassVSDepthOld,Vertex
 GrassVSPrecise,Vertex
 GridFS_00000000,Fragment
 GridFS_00000008,Fragment
@@ -682,7 +684,6 @@ SSAOVS,Vertex
 StarsFS,Fragment
 StarsVS,Vertex
 SunRaysFS,Fragment
-SunRaysFS_old,Fragment
 TentFilterFS,Fragment
 TexCompFS,Fragment
 TexCompPMAFS,Fragment

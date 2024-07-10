@@ -87,6 +87,10 @@ Class Accoutrement : Instance
 Class Accessory : Accoutrement
 	Property Accessory.AccessoryType: Enum.AccessoryType
 Class Hat : Accoutrement [Deprecated]
+Class AchievementService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function AchievementService:GrantAchievement(achievementName: string) -> boolean {RobloxScriptSecurity} [Yields]
+	Function AchievementService:HasAchieved(achievementName: string) -> boolean {RobloxScriptSecurity} [Yields]
+	Function AchievementService:IsAvailable() -> boolean {RobloxScriptSecurity}
 Class ActivityHistoryService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ActivityHistoryService.EventNotificationReceived()
 Class AdPortal : Instance
@@ -425,6 +429,14 @@ Class AudioFader : Instance [NotBrowsable]
 	Property AudioFader.Bypass: boolean
 	Property AudioFader.Volume: number
 	Function AudioFader:GetConnectedWires(pin: string) -> { any }
+Class AudioFilter : Instance [NotBrowsable]
+	Property AudioFilter.Bypass: boolean
+	Property AudioFilter.FilterType: Enum.AudioFilterType
+	Property AudioFilter.Frequency: number
+	Property AudioFilter.Gain: number
+	Property AudioFilter.Q: number
+	Function AudioFilter:GetConnectedWires(pin: string) -> { any }
+	Function AudioFilter:GetGainAt(frequency: number) -> number
 Class AudioFlanger : Instance [NotBrowsable]
 	Property AudioFlanger.Bypass: boolean
 	Property AudioFlanger.Depth: number
@@ -1766,6 +1778,7 @@ Class ExperienceNotificationService : Instance [NotCreatable] [Service] [NotRepl
 	Event ExperienceNotificationService.OptInPromptClosed()
 	Event ExperienceNotificationService.PromptOptInRequested() {RobloxScriptSecurity}
 Class ExperienceService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ExperienceService:ExecuteCrossExperienceCall(callId: string, params: { [string]: any }, successCallback: (...any) -> ...any, errorCallback: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function ExperienceService:GetPendingJoinAttempt() -> { [string]: any } {RobloxScriptSecurity}
 	Function ExperienceService:LaunchExperience(params: { [string]: any }) -> string {RobloxScriptSecurity}
 	Function ExperienceService:LaunchExperienceFromSource(params: { [string]: any }, source: string) -> string {RobloxScriptSecurity}
@@ -1779,6 +1792,7 @@ Class ExperienceService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ExperienceService.OnNewJoinAttempt(params: { [string]: any }) {RobloxScriptSecurity}
 Class ExperienceStateCaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ExperienceStateCaptureService.HiddenSelectionEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property ExperienceStateCaptureService.IsInBackground: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property ExperienceStateCaptureService.IsInCaptureMode: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function ExperienceStateCaptureService:CanEnterCaptureMode() -> boolean {RobloxScriptSecurity}
 	Function ExperienceStateCaptureService:ResetHighlight() -> () {RobloxScriptSecurity}
@@ -3571,6 +3585,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BasePart.Orientation: Vector3 [Hidden] [NotReplicated]
 	Property BasePart.PhysicsCFrame: CFrame {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BasePart.PhysicsLinearVelocity: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
+	Property BasePart.PhysicsRepRootPart: BasePart? {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BasePart.PhysicsRotationalVelocity: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BasePart.Position: Vector3 [Hidden] [NotReplicated]
 	Property BasePart.Size: Vector3 [📁 LoadOnly] [NotReplicated]
@@ -5940,7 +5955,9 @@ Class TweenService : Instance [NotCreatable] [Service]
 	Function TweenService:GetValue(alpha: number, easingStyle: Enum.EasingStyle, easingDirection: Enum.EasingDirection) -> number
 Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function UGCValidationService:CalculateEditableMeshTotalSurfaceArea(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:CalculateEditableMeshUniqueUVCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateTotalSurfaceArea(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateUniqueUVCount(meshId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CanLoadAsset(assetId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CheckEditableMeshInCameraFrustum(editableMesh: EditableMesh, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity}
@@ -6497,6 +6514,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionDropped(sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionFeedStarted(eventTag: number, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeAcked(eventTag: number, handshakeAnswer: string, usersToMute: string, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeCompleted(sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeInitiated(handshakeOffer: string, newSubscriptionStates: string, isNewConnection: boolean, sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
@@ -6505,6 +6523,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.SubscriptionReset(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.TurnServerInfoAcked(eventTag: number, userId: number, turnServerInfo: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.TurnServerInfoRequested(eventTag: number, userId: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.UserTurnAuth(sessionId: string, userName: string, password: string, ttl: number, uris: { any }) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapabilityWithConfig(sessionConfigFlags: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedClientToServer(muteState: Enum.MuteState) {RobloxSecurity} [Hidden]
@@ -6779,6 +6798,18 @@ Enum AudioApiRollout
 	EnumItem AudioApiRollout.Disabled : 0
 	EnumItem AudioApiRollout.Automatic : 1
 	EnumItem AudioApiRollout.Enabled : 2
+Enum AudioFilterType
+	EnumItem AudioFilterType.Peak : 0
+	EnumItem AudioFilterType.LowShelf : 1
+	EnumItem AudioFilterType.HighShelf : 2
+	EnumItem AudioFilterType.Lowpass12dB : 3
+	EnumItem AudioFilterType.Lowpass24dB : 4
+	EnumItem AudioFilterType.Lowpass48dB : 5
+	EnumItem AudioFilterType.Highpass12dB : 6
+	EnumItem AudioFilterType.Highpass24dB : 7
+	EnumItem AudioFilterType.Highpass48dB : 8
+	EnumItem AudioFilterType.Bandpass : 9
+	EnumItem AudioFilterType.Notch : 10
 Enum AudioSubType
 	EnumItem AudioSubType.Music : 1
 	EnumItem AudioSubType.SoundEffect : 2
@@ -8424,10 +8455,10 @@ Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
 Enum PreferredTextSize
-	EnumItem PreferredTextSize.Medium : 0
-	EnumItem PreferredTextSize.Large : 4
-	EnumItem PreferredTextSize.Larger : 9
-	EnumItem PreferredTextSize.Largest : 14
+	EnumItem PreferredTextSize.Medium : 1
+	EnumItem PreferredTextSize.Large : 2
+	EnumItem PreferredTextSize.Larger : 3
+	EnumItem PreferredTextSize.Largest : 4
 Enum PrimalPhysicsSolver
 	EnumItem PrimalPhysicsSolver.Default : 0
 	EnumItem PrimalPhysicsSolver.Experimental : 1

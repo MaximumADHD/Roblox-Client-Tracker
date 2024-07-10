@@ -55,9 +55,6 @@ void main()
     float v40 = v22.y - (((0.25 * v3) * CB2[1].w) * (mix(mix((-1.0) + (2.0 * fract((v28 * v29) * (v28 + v29))), (-1.0) + (2.0 * fract((v31 * v32) * (v31 + v32))), v33), mix((-1.0) + (2.0 * fract((v35 * v36) * (v35 + v36))), (-1.0) + (2.0 * fract((v38 * v39) * (v38 + v39))), v33), v26.y) + 1.5));
     vec3 v41 = v22;
     v41.y = v40;
-    vec4 v42 = vec4(v22.x, v40 - (smoothstep(0.0, 1.0, 1.0 - ((CB1[1].x - length(CB0[11].xyz - v41)) * CB1[1].y)) * v0.w), v22.z, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v43 = v42;
-    v43.z = v42.z - (float(POSITION.w < 0.0) * 0.00200000009499490261077880859375);
-    gl_Position = v43;
+    gl_Position = vec4(v22.x, v40 - (smoothstep(0.0, 1.0, 1.0 - ((CB1[1].x - length(CB0[11].xyz - v41)) * CB1[1].y)) * v0.w), v22.z, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
 }
 

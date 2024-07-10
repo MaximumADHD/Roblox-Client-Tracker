@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ExternalAttribution",
+    "tree": {
+      "$path": "../../../../../../../modules/external-attribution/src"
+    }
+  }
+}
