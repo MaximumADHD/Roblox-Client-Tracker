@@ -88,4 +88,10 @@ return {
 
 	-- Allow the user to specify the input type for TextField
 	enableTextFieldInputType = false,
+
+	-- Disable token scaling for console
+	disableTokenScalingForConsole = false,
+
+	-- Use automatic sizing for the text under PlayerTile
+	playerTileAutomaticSizeXY = false,
 }

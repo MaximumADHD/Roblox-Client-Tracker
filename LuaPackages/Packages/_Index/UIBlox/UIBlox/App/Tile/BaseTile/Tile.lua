@@ -75,8 +75,11 @@ local tileInterface = t.strictInterface({
 	-- The item's thumbnail that will show a loading state if nil
 	thumbnail = t.optional(t.union(t.string, t.table)),
 
-	-- The item thumbnail's size if not UDm2.new(1, 0, 1, 0)
+	-- The item thumbnail image's size if not UDim2.new(1, 0, 1, 0)
 	thumbnailSize = t.optional(t.UDim2),
+
+	-- The item thumbnail frame's size if not UDim2.new(1, 0, 1, 0)
+	thumbnailFrameSize = t.optional(t.UDim2),
 
 	-- The item thumbnail's color
 	thumbnailColor = t.optional(t.Color3),
@@ -152,6 +155,9 @@ local tileInterface = t.strictInterface({
 
 	-- Whether the tile should be circular
 	isCircular = t.optional(t.boolean),
+
+	-- Alignment of the title and subtitle to the tile
+	horizontalAlignment = t.optional(t.EnumItem),
 })
 
 local function tileBannerUseValidator(props)
@@ -176,6 +182,8 @@ Tile.defaultProps = {
 	hasRoundedCorners = true,
 	Selectable = false,
 	isCircular = false,
+	horizontalAlignment = nil,
+	thumbnailFrameSize = UDim2.new(1, 0, 1, 0),
 }
 
 function Tile:init()
@@ -207,6 +215,7 @@ function Tile:render()
 	local onActivated = self.props.onActivated
 	local thumbnail = self.props.thumbnail
 	local thumbnailSize = self.props.thumbnailSize
+	local thumbnailFrameSize = self.props.thumbnailFrameSize
 	local thumbnailColor = self.props.thumbnailColor
 	local thumbnailTransparency = self.props.thumbnailTransparency
 	local bannerText = self.props.bannerText
@@ -219,6 +228,7 @@ function Tile:render()
 	local backgroundImage = self.props.backgroundImage
 	local useMaxTitleHeight = self.props.useMaxTitleHeight
 	local addSubtitleSpace = self.props.addSubtitleSpace
+	local horizontalAlignment = self.props.horizontalAlignment
 
 	return withStyle(function(stylePalette)
 		return withSelectionCursorProvider(function(getSelectionCursor)
@@ -321,7 +331,7 @@ function Tile:render()
 					Padding = UDim.new(0, innerPadding),
 				}),
 				Thumbnail = React.createElement(RoactGamepad.Focusable.Frame, {
-					Size = UDim2.new(1, 0, 1, 0),
+					Size = thumbnailFrameSize,
 					SizeConstraint = Enum.SizeConstraint.RelativeXX,
 					BackgroundTransparency = 1,
 					LayoutOrder = 1,
@@ -373,6 +383,7 @@ function Tile:render()
 						FillDirection = Enum.FillDirection.Vertical,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						Padding = UDim.new(0, subtitleTopPadding),
+						HorizontalAlignment = horizontalAlignment,
 					}),
 					NameOverThumbnailPadding = titleTextPadding,
 					Name = (titleTextLineCount > 0 and tileWidth > 0) and React.createElement(TileName, {
@@ -388,7 +399,10 @@ function Tile:render()
 						titleFontStyle = titleFontStyle,
 					}),
 					Subtitle = (subtitle ~= "" and subtitle ~= nil) and React.createElement(StyledTextLabel, {
-						size = UDim2.new(1, 0, 0, subtitleTextHeight),
+						size = if UIBloxConfig.playerTileAutomaticSizeXY
+							then UDim2.fromScale(0, 0)
+							else UDim2.new(1, 0, 0, subtitleTextHeight),
+						automaticSize = if UIBloxConfig.playerTileAutomaticSizeXY then Enum.AutomaticSize.XY else nil,
 						text = subtitle,
 						colorStyle = theme.TextDefault,
 						fontStyle = subtitleFontStyle,

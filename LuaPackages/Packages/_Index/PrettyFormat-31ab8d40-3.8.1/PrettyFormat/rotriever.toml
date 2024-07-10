@@ -1,0 +1,29 @@
+[package]
+name = "PrettyFormat"
+version = "3.8.1"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.ChalkLua]
+version = "^0.2.0"
+
+[dependencies.JestGetType]
+package = "JestGetType"
+version = "^3.8.1"
+
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.ReactIs]
+version = "^17.0.1"
+
+[dependencies.RegExp]
+version = "^0.2.1"
+
+[dependencies.RobloxShared]
+package = "RobloxShared"
+version = "^3.8.1"

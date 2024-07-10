@@ -1,3 +1,1 @@
-return {
-	getFFlagDeprecatedSocialLibrariesCells = require(script.getFFlagDeprecatedSocialLibrariesCells),
-}
+return {}

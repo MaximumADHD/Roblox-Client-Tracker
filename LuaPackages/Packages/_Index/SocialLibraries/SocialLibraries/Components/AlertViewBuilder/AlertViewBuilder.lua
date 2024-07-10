@@ -14,8 +14,6 @@ local CheckboxList = UIBlox.App.InputButton.CheckboxList
 
 local AlertViewBuilder = Roact.Component:extend("AlertViewBuilder")
 
-local FFlagAlertViewUseScreenSize = game:DefineFastFlag("AlertViewUseScreenSize", false)
-
 --[[
 	A component that wraps around AlertView and provides an interface to allow for the easy creation of AlertView
 	modals.
@@ -295,7 +293,7 @@ function AlertViewBuilder:render()
 				bodyText = bodyText,
 				middleContent = middleContent,
 				buttonStackInfo = buttonTableLayout,
-				screenSize = if FFlagAlertViewUseScreenSize then self.props.screenSize else Vector2.new(0, 0),
+				screenSize = self.props.screenSize,
 			}),
 		})
 	end)

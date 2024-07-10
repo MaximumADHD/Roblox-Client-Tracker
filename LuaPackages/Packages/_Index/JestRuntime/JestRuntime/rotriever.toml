@@ -1,6 +1,6 @@
 [package]
 name = "JestRuntime"
-version = "3.8.0"
+version = "3.8.1"
 content_root = "src"
 files = [
     "*",
@@ -10,23 +10,23 @@ publish = true
 license = "MIT"
 [dependencies.Expect]
 package = "Expect"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestFakeTimers]
 package = "JestFakeTimers"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestMock]
 package = "JestMock"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestSnapshot]
 package = "JestSnapshot"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestTypes]
 package = "JestTypes"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.LuauPolyfill]
 version = "^1"

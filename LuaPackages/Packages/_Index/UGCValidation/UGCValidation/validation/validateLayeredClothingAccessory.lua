@@ -24,6 +24,7 @@ local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
+local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateMisMatchUV = require(root.validation.validateMisMatchUV)
 local validateCageMeshIntersection = require(root.validation.validateCageMeshIntersection)
 local validateCageNonManifoldAndHoles = require(root.validation.validateCageNonManifoldAndHoles)
@@ -44,6 +45,14 @@ local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationN
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
+	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
+local getFFlagUGCValidateCageOrigin = require(root.flags.getFFlagUGCValidateCageOrigin)
+local getFIntUGCValidateAccessoryMaxCageOrigin = require(root.flags.getFIntUGCValidateAccessoryMaxCageOrigin)
+
+local maxAccessoryCageOrigin = if getFFlagUGCValidateCageOrigin()
+	then getFIntUGCValidateAccessoryMaxCageOrigin() / 100
+	else nil
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -264,6 +273,27 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
 			end
+
+			if getFFlagUGCValidateCageOrigin() then
+				Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_CageOriginOutOfBounds)
+				-- for layered clothing accessories there is no reason not to have the CageOrigin of the WrapLayer at 0,0,0 as the item should get
+				-- fitted to the character's WrapTarget mesh regardless of the CageOrigin position. There is an exploit that if you have identical
+				-- CageMesh and ReferenceMesh in the WrapLayer then your Accessory will not deform to the character's WrapTarget, then you can
+				-- have a large CageOrigin Position to put Accessories far above the character. This check protects against that
+				if wrapLayer.CageOrigin.Position.Magnitude > maxAccessoryCageOrigin then
+					table.insert(
+						reasons,
+						string.format(
+							"WrapLayer %s found under %s.%s has a CageOrigin position greater than %.2f. You need to set CageOrigin.Position to 0,0,0.",
+							wrapLayer.Name,
+							instance.Name,
+							handle.Name,
+							maxAccessoryCageOrigin
+						)
+					)
+					validationResult = false
+				end
+			end
 		end
 	end
 
@@ -280,6 +310,14 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	end
 
 	if hasMeshContent then
+		if getFFlagUGCValidateTotalSurfaceAreaTestAccessory() then
+			success, failedReason = validateTotalSurfaceArea(meshInfo, meshScale, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+
 		success, failedReason = validateMeshBounds(
 			handle,
 			attachment,

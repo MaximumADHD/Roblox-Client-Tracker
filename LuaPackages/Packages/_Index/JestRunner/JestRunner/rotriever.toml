@@ -1,6 +1,6 @@
 [package]
 name = "JestRunner"
-version = "3.8.0"
+version = "3.8.1"
 content_root = "src"
 files = [
     "*",
@@ -13,39 +13,39 @@ version = "^0.2.0"
 
 [dependencies.Emittery]
 package = "Emittery"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestCircus]
 package = "JestCircus"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestConsole]
 package = "JestConsole"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestEnvironment]
 package = "JestEnvironment"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestMessageUtil]
 package = "JestMessageUtil"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestRuntime]
 package = "JestRuntime"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestTestResult]
 package = "JestTestResult"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestTypes]
 package = "JestTypes"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestUtil]
 package = "JestUtil"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.LuauPolyfill]
 version = "^1"
@@ -55,8 +55,8 @@ version = "^3.3.0"
 
 [dependencies.RobloxShared]
 package = "RobloxShared"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.Throat]
 package = "Throat"
-version = "^3.8.0"
+version = "^3.8.1"

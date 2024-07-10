@@ -22,6 +22,13 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
+local getFFlagUGCValidateCageOrigin = require(root.flags.getFFlagUGCValidateCageOrigin)
+local getFIntUGCValidateBodyPartMaxCageOrigin = require(root.flags.getFIntUGCValidateBodyPartMaxCageOrigin)
+
+local maxBodyPartCageOrigin = if getFFlagUGCValidateCageOrigin()
+	then getFIntUGCValidateBodyPartMaxCageOrigin() / 100
+	else nil
+
 local function getMeshInfoHelper(
 	inst: Instance,
 	fieldName: string,
@@ -145,6 +152,29 @@ local function calculateMeshSize(
 	return true, nil, meshSize
 end
 
+-- if the CageOrigin is far from the origin, then layered clothing can get fitted to the character, but it will be visibly offset from the character
+local function validateCageOrigin(meshHandle: MeshPart): (boolean, { string }?)
+	assert(getFFlagUGCValidateCageOrigin())
+
+	local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
+	-- the existance of all required Instances has been checked prior to calling this function where the asset is checked against the schema
+	assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
+
+	Analytics.reportFailure(Analytics.ErrorType.validateBodyPart_CageOriginOutOfBounds)
+	if wrapTarget.CageOrigin.Position.Magnitude > maxBodyPartCageOrigin :: number then
+		return false,
+			{
+				string.format(
+					"WrapTarget %s found under %s has a CageOrigin position greater than %.2f. You need to set CageOrigin.Position to 0,0,0.",
+					wrapTarget.Name,
+					meshHandle.Name,
+					maxBodyPartCageOrigin :: number
+				),
+			}
+	end
+	return true
+end
+
 local function validateInternal(
 	meshHandle: MeshPart,
 	validationContext: Types.ValidationContext
@@ -158,6 +188,9 @@ local function validateInternal(
 	local meshScale = meshHandle.Size / meshSize :: Vector3
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
+	if getFFlagUGCValidateCageOrigin() then
+		reasonsAccumulator:updateReasons(validateCageOrigin(meshHandle))
+	end
 	reasonsAccumulator:updateReasons(validateWrapTargetComparison(meshScale, meshHandle, validationContext))
 
 	Analytics.recordScriptTime(script.Name, startTime, validationContext)

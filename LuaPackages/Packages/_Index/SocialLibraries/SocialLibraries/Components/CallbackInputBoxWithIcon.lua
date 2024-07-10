@@ -2,8 +2,6 @@ local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
 
 local Roact = dependencies.Roact
-local UIBlox = dependencies.UIBlox
-local UIBloxConfig = UIBlox.Config
 
 local CallbackInputBox = require(script.Parent.CallbackInputBox)
 local CallbackInputBoxWithIcon = Roact.PureComponent:extend("CallbackInputBoxWithIcon")
@@ -25,7 +23,7 @@ CallbackInputBoxWithIcon.defaultProps = {
 	iconTransparency = 0,
 	iconImage = "rbxasset://textures/ui/LuaChat/icons/ic-search.png",
 
-	inputTextFont = if UIBloxConfig.enableFontNameMapping then Enum.Font.BuilderSans else Enum.Font.Gotham,
+	inputTextFont = Enum.Font.BuilderSans,
 	inputTextColor3 = Color3.new(1, 0, 1),
 	inputTextSize = 14,
 	inputTextYAlignment = Enum.TextYAlignment.Center,

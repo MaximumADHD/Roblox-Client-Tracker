@@ -1,6 +1,6 @@
 [package]
 name = "JestCircus"
-version = "3.8.0"
+version = "3.8.1"
 content_root = "src"
 files = [
     "*",
@@ -22,50 +22,50 @@ version = "^0.2.0"
 
 [dependencies.Expect]
 package = "Expect"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestEach]
 package = "JestEach"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestEnvironment]
 package = "JestEnvironment"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestMatcherUtils]
 package = "JestMatcherUtils"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestMessageUtil]
 package = "JestMessageUtil"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestRuntime]
 package = "JestRuntime"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestSnapshot]
 package = "JestSnapshot"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestTestResult]
 package = "JestTestResult"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestTypes]
 package = "JestTypes"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestUtil]
 package = "JestUtil"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.LuauPolyfill]
 version = "^1"
 
 [dependencies.PrettyFormat]
 package = "PrettyFormat"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.Promise]
 version = "^3.3.0"
@@ -75,8 +75,8 @@ version = "^0.2.1"
 
 [dependencies.RobloxShared]
 package = "RobloxShared"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.Throat]
 package = "Throat"
-version = "^3.8.0"
+version = "^3.8.1"

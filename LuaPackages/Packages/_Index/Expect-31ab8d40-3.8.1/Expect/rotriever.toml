@@ -1,0 +1,42 @@
+[package]
+name = "Expect"
+version = "3.8.1"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.JestGetType]
+package = "JestGetType"
+version = "^3.8.1"
+
+[dependencies.JestMatcherUtils]
+package = "JestMatcherUtils"
+version = "^3.8.1"
+
+[dependencies.JestMessageUtil]
+package = "JestMessageUtil"
+version = "^3.8.1"
+
+[dependencies.JestSnapshot]
+package = "JestSnapshot"
+version = "^3.8.1"
+
+[dependencies.JestUtil]
+package = "JestUtil"
+version = "^3.8.1"
+
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.Promise]
+version = "^3.3.0"
+
+[dependencies.RegExp]
+version = "^0.2.1"
+
+[dependencies.RobloxShared]
+package = "RobloxShared"
+version = "^3.8.1"

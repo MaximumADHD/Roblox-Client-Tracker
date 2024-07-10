@@ -21,6 +21,7 @@ local validateThumbnailConfiguration = require(root.validation.validateThumbnail
 local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateSurfaceAppearances = require(root.validation.validateSurfaceAppearances)
 local validateScaleType = require(root.validation.validateScaleType)
+local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
@@ -35,6 +36,8 @@ local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationN
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
+	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
 
 local function validateMeshPartAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	assert(
@@ -196,6 +199,10 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	end
 
 	if hasMeshContent then
+		if getFFlagUGCValidateTotalSurfaceAreaTestAccessory() then
+			reasonsAccumulator:updateReasons(validateTotalSurfaceArea(meshInfo, meshScale, validationContext))
+		end
+
 		reasonsAccumulator:updateReasons(
 			validateMeshBounds(
 				handle,

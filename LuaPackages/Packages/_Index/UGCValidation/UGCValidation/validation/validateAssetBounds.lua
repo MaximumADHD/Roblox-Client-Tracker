@@ -226,7 +226,7 @@ local function forEachMeshPart(
 			return func(inst :: MeshPart)
 		else
 			for subPartName in pairs(assetInfo.subParts) do
-				local meshHandle: MeshPart? = ((inst :: Instance):FindFirstChild(subPartName) :: MeshPart)
+				local meshHandle: MeshPart? = (inst :: Instance):FindFirstChild(subPartName) :: MeshPart
 				assert(meshHandle)
 				if not func(meshHandle) then
 					return false

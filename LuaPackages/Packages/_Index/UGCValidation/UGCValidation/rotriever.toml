@@ -1,6 +1,6 @@
 [package]
 name = "UGCValidation"
-version = "1.12.5"
+version = "1.12.7"
 content_root = "src"
 files = [
     "*",

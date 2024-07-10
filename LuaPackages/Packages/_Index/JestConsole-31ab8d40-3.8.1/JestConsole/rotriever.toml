@@ -1,0 +1,39 @@
+[package]
+name = "JestConsole"
+version = "3.8.1"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.ChalkLua]
+version = "^0.2.0"
+
+[dependencies.JestEach]
+package = "JestEach"
+version = "^3.8.1"
+
+[dependencies.JestMessageUtil]
+package = "JestMessageUtil"
+version = "^3.8.1"
+
+[dependencies.JestMock]
+package = "JestMock"
+version = "^3.8.1"
+
+[dependencies.JestTypes]
+package = "JestTypes"
+version = "^3.8.1"
+
+[dependencies.JestUtil]
+package = "JestUtil"
+version = "^3.8.1"
+
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.RobloxShared]
+package = "RobloxShared"
+version = "^3.8.1"

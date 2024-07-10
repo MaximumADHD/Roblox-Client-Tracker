@@ -79,6 +79,8 @@ LoadableImage.validateProps = t.strictInterface({
 	ScaleType = t.optional(t.enum(Enum.ScaleType)),
 	-- The size of the image
 	Size = t.UDim2,
+	-- TileSize used for ScaleType.Tile
+	TileSize = t.optional(t.UDim2),
 	-- Whether or not to show a static image or the shimmer animation while loading
 	useShimmerAnimationWhileLoading = t.optional(t.boolean),
 	-- Whether to show failed state when failed
@@ -297,6 +299,7 @@ function LoadableImage:render()
 				LayoutOrder = layoutOrder,
 				Position = position,
 				ScaleType = scaleType,
+				TileSize = self.props.TileSize,
 				Size = size,
 				ZIndex = zIndex,
 				[Roact.Ref] = self.imageRef,

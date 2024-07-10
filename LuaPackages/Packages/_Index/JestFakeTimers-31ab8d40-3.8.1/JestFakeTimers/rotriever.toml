@@ -1,0 +1,20 @@
+[package]
+name = "JestFakeTimers"
+version = "3.8.1"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.JestGetType]
+package = "JestGetType"
+version = "^3.8.1"
+
+[dependencies.JestMock]
+package = "JestMock"
+version = "^3.8.1"
+
+[dependencies.LuauPolyfill]
+version = "^1"

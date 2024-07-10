@@ -15,6 +15,10 @@ local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCVa
 local getFFlagUGCValidationFixResetPhysicsError = require(root.flags.getFFlagUGCValidationFixResetPhysicsError)
 local getEngineFeatureEngineUGCValidationReportScriptTime =
 	require(root.flags.getEngineFeatureEngineUGCValidationReportScriptTime)
+local getFFlagUGCValidateCageOrigin = require(root.flags.getFFlagUGCValidateCageOrigin)
+local getFFlagUGCValidateTotalSurfaceAreaTestBody = require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestBody)
+local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
+	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
 
 local function joinTables(...)
 	local result = {}
@@ -145,6 +149,18 @@ end
 if getFFlagUGCValidationFixResetPhysicsError() then
 	Analytics.ErrorType.resetPhysicsData_FailedToLoadMesh = "resetPhysicsData_FailedToLoadMesh"
 	Analytics.ErrorType.validateFullBody_MeshIdsMissing = "validateFullBody_MeshIdsMissing"
+end
+
+if getFFlagUGCValidateCageOrigin() then
+	Analytics.ErrorType.validateLayeredClothingAccessory_CageOriginOutOfBounds =
+		"validateLayeredClothingAccessory_CageOriginOutOfBounds"
+	Analytics.ErrorType.validateBodyPart_CageOriginOutOfBounds = "validateBodyPart_CageOriginOutOfBounds"
+end
+
+if getFFlagUGCValidateTotalSurfaceAreaTestBody() or getFFlagUGCValidateTotalSurfaceAreaTestAccessory() then
+	Analytics.ErrorType.validateTotalSurfaceArea_FailedToExecute = "validateTotalSurfaceArea_FailedToExecute"
+	Analytics.ErrorType.validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded =
+		"validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded"
 end
 
 setmetatable(Analytics.ErrorType, {

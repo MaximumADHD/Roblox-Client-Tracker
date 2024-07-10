@@ -199,10 +199,16 @@ local function validateDynamicHeadData(
 			)
 
 			reasonsAccumulator:updateReasons(doAllControlsExist, {
-				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is missing FACS controls: {table.concat(missingControls, ", ")}`,
+				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is missing FACS controls: {table.concat(
+					missingControls,
+					", "
+				)}`,
 			})
 			reasonsAccumulator:updateReasons(areAllControlsActive, {
-				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) has inactive FACS controls: {table.concat(inactiveControls, ", ")}`,
+				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) has inactive FACS controls: {table.concat(
+					inactiveControls,
+					", "
+				)}`,
 			})
 		end
 	end

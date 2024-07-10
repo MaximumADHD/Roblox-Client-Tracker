@@ -1,6 +1,6 @@
 [package]
 name = "JestBenchmark"
-version = "3.8.0"
+version = "3.8.1"
 content_root = "src"
 files = [
     "*",
@@ -10,11 +10,11 @@ publish = true
 license = "MIT"
 [dependencies.JestGlobals]
 package = "JestGlobals"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.JestTypes]
 package = "JestTypes"
-version = "^3.8.0"
+version = "^3.8.1"
 
 [dependencies.LuauPolyfill]
 version = "^1"

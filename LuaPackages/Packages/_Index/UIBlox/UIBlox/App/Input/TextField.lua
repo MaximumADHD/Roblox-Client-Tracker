@@ -41,6 +41,8 @@ type TextFieldProps = {
 	iconButton: ImagesTypes.ImageSetImage?,
 	-- On press of the icon button
 	onButtonPress: (() -> ())?,
+	-- On successful focus of the textbox (doesn't call if focus is attempted while the input is disabled)
+	onFocusGained: (() -> ())?,
 	LayoutOrder: number?,
 }
 
@@ -112,6 +114,9 @@ local function TextField(props: TextFieldProps)
 			textBox.current:ReleaseFocus()
 		else
 			setFocus(true)
+			if props.onFocusGained then
+				props.onFocusGained()
+			end
 		end
 	end
 

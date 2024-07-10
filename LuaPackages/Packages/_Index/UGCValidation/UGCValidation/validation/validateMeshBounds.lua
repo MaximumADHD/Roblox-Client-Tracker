@@ -13,6 +13,8 @@ local Analytics = require(root.Analytics)
 
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
+local FFlagUGCValidationPositionCheck = game:DefineFastFlag("UGCValidationPositionCheck", false)
+
 local function pointInBounds(worldPos, boundsCF, boundsSize)
 	local objectPos = boundsCF:PointToObjectSpace(worldPos)
 	return objectPos.X >= -boundsSize.X / 2
@@ -53,6 +55,29 @@ local function validateMeshBounds(
 	local boundsSize = boundsInfo.size
 	local boundsOffset = boundsInfo.offset or DEFAULT_OFFSET
 	local boundsCF = handle.CFrame * attachment.CFrame * CFrame.new(boundsOffset)
+
+	if FFlagUGCValidationPositionCheck then
+		if
+			handle.Position.X > 10000
+			or handle.Position.X < -10000
+			or handle.Position.Y > 10000
+			or handle.Position.Y < -10000
+			or handle.Position.Z > 10000
+			or handle.Position.Z < -10000
+		then
+			return false, { "Position is outside of bounds" }
+		end
+		if
+			boundsCF.Position.X > 10000
+			or boundsCF.Position.X < -10000
+			or boundsCF.Position.Y > 10000
+			or boundsCF.Position.Y < -10000
+			or boundsCF.Position.Z > 10000
+			or boundsCF.Position.Z < -10000
+		then
+			return false, { "Position is outside of bounds" }
+		end
+	end
 
 	if getFFlagUGCLCQualityReplaceLua() then
 		local success, result

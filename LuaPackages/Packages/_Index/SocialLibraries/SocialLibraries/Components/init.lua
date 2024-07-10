@@ -8,7 +8,6 @@ return {
 	PlainTextAutomaticSize = require(script.PlainTextAutomaticSize),
 	ChatBubbleContainer = require(script.ChatBubbleContainer),
 	ChatBubbleContainerAutomaticSize = require(script.ChatBubbleContainerAutomaticSize),
-	Cells = require(script.Cells),
 	Masks = require(script.Masks),
 	FilteredScrollingList = require(script.FilteredScrollingList),
 	SortedList = require(script.SortedList),

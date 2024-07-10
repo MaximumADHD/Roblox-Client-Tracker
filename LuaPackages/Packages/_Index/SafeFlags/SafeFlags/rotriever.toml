@@ -1,0 +1,10 @@
+[package]
+name = "SafeFlags"
+version = "0.1.1"
+content_root = "src"
+files = [
+    "*",
+    "!**/*.test.lua",
+]
+publish = true
+authors = ["Roblox"]

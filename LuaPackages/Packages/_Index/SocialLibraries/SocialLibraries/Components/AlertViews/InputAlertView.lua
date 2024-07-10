@@ -28,6 +28,7 @@ InputAlertView.defaultProps = {
 
 	soakAreaColor3 = Color3.fromRGB(0, 0, 255),
 	soakAreaTransparency = 0.9,
+	shouldAdjustForKeyboard = true,
 }
 
 function InputAlertView:init()
@@ -56,22 +57,27 @@ function InputAlertView:init()
 	self.onModalStayOpen = function()
 		self.closing = false
 
-		-- if the modal stays open the keyboard may close after a button click
-		self.updateModalPosition()
+		if self.props.shouldAdjustForKeyboard then
+			-- if the modal stays open the keyboard may close after a button click
+			self.updateModalPosition()
+		end
 	end
 
-	-- TODO remove this when keyboard covering screen is automatically tracked on android
-	self.keyboardConnection = UserInputService:GetPropertyChangedSignal("OnScreenKeyboardVisible"):connect(function()
-		-- Run on a different thread so it doesn't block button events that could be triggered at the same time.
-		spawn(function()
-			-- Check if modal is closing, to prevent it interrupting it from doing so:
-			if not self.isMounted or self.closing then
-				return
-			end
+	if self.props.shouldAdjustForKeyboard then
+		-- TODO remove this when keyboard covering screen is automatically tracked on android
+		self.keyboardConnection = UserInputService:GetPropertyChangedSignal("OnScreenKeyboardVisible")
+			:connect(function()
+				-- Run on a different thread so it doesn't block button events that could be triggered at the same time.
+				spawn(function()
+					-- Check if modal is closing, to prevent it interrupting it from doing so:
+					if not self.isMounted or self.closing then
+						return
+					end
 
-			self.updateModalPosition()
-		end)
-	end)
+					self.updateModalPosition()
+				end)
+			end)
+	end
 
 	self.onPositionChanged = function(rbx)
 		if not self.isMounted then

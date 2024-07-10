@@ -650,7 +650,11 @@ function GenericSlider:startListeningForDrag()
 			-- should not move if it is not being dragged (since the track is not clickable)
 			-- and, therefore, should not process if the drag is ending
 			self:stopListeningForDrag()
-			self:processOneKnobDrag(inputObject.Position.X)
+
+			-- Only process final drag like this if we're using UserInputService connections
+			if not self.props.containerRef then
+				self:processOneKnobDrag(inputObject.Position.X)
+			end
 		end)
 
 		-- If the window loses focus the user can release the mouse and we won't

@@ -34,6 +34,8 @@ PlayerTile.validateProps = t.strictInterface({
 	title = t.optional(t.string),
 	-- The subtitle text for the player tile
 	subtitle = t.optional(t.string),
+	-- The style for the subtitle, defaults to CaptionHeader.
+	subtitleFontStyle = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 
 	hasVerifiedBadge = t.optional(t.boolean),
 	-- Whether it's gamepad/keyboard selectable or not
@@ -56,11 +58,18 @@ PlayerTile.validateProps = t.strictInterface({
 		iconTransparency = t.optional(t.number),
 		onActivated = t.optional(t.callback),
 		fontStyle = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
+		horizontalAlignment = t.optional(t.EnumItem),
 	}),
 	-- The size of the tile
 	tileSize = t.optional(t.UDim2),
-	-- Whether the thumbnails and buttons should be circular
+	-- The size of the thumbnail frame
+	thumbnailFrameSize = t.optional(t.UDim2),
+	-- Whether the thumbnail should be circular
 	isCircular = t.optional(t.boolean),
+	-- Alignment of the title and subtitle to the tile
+	horizontalAlignment = t.optional(t.EnumItem),
+	-- The vertical padding above the footer, defaults to tokens.Global.Space_50
+	footerTopPadding = t.optional(t.integer),
 	-- A function that fires when the tile is pressed
 	onActivated = t.optional(t.callback),
 	forwardedRef = t.optional(t.table),
@@ -103,6 +112,7 @@ local function footer(props)
 			iconPadding = 0,
 			iconSize = UDim2.fromOffset(tokens.Global.Size_150, tokens.Global.Size_150),
 			textHeight = tokens.Global.Size_350,
+			horizontalAlignment = props.horizontalAlignment,
 		}, props.playerContext)
 
 		return Roact.createElement("Frame", {
@@ -204,7 +214,6 @@ local function thumbnailOverlayComponents(props)
 								onActivated = button.onActivated,
 								mouseEnter = props.hoverMouseEnter,
 								mouseLeave = props.hoverMouseLeave,
-								isCircular = props.isCircular,
 							})
 						end),
 						{
@@ -264,6 +273,8 @@ function PlayerTile:render()
 
 	return withStyle(function(style)
 		local tokens = style.Tokens
+		local subtitleFontStyle = self.props.subtitleFontStyle or tokens.Semantic.Typography.CaptionHeader
+		local footerTopPadding = self.props.footerTopPadding or tokens.Global.Space_50
 
 		return Roact.createElement("Frame", {
 			Size = tileSize,
@@ -285,14 +296,14 @@ function PlayerTile:render()
 				innerPadding = INNER_PADDING,
 				titleTopPadding = tokens.Global.Space_100,
 				subtitleTopPadding = tokens.Global.Space_25,
-				footerTopPadding = tokens.Global.Space_50,
+				footerTopPadding = footerTopPadding,
 				name = title,
 				nameTextColor = tokens.Semantic.Color.Text.Emphasis.Color3,
 				titleFontStyle = tokens.Semantic.Typography.Subheader,
 				hasVerifiedBadge = self.props.hasVerifiedBadge,
 				titleTextLineCount = 1,
 				subtitle = self.props.subtitle,
-				subtitleFontStyle = tokens.Semantic.Typography.CaptionHeader,
+				subtitleFontStyle = subtitleFontStyle,
 				onActivated = onActivated,
 				thumbnail = thumbnail,
 				backgroundImage = Images[style.Theme.PlayerBackgroundDefault.Image],
@@ -303,6 +314,8 @@ function PlayerTile:render()
 				})),
 				addSubtitleSpace = title == nil,
 				isCircular = self.props.isCircular,
+				horizontalAlignment = self.props.horizontalAlignment,
+				thumbnailFrameSize = self.props.thumbnailFrameSize,
 			}),
 		})
 	end)

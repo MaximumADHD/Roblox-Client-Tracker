@@ -3,6 +3,7 @@ local App = script:FindFirstAncestor("App")
 local UIBlox = App.Parent
 local Core = UIBlox.Core
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
@@ -65,6 +66,8 @@ PlayerContext.validateProps = t.strictInterface({
 	iconTextSpacing = t.optional(t.number),
 	-- The layoutOrder of PlayerContext
 	layoutOrder = t.optional(t.number),
+	-- The horizontal alignment
+	horizontalAlignment = t.optional(t.EnumItem),
 })
 
 PlayerContext.defaultProps = {
@@ -76,6 +79,7 @@ PlayerContext.defaultProps = {
 	iconPadding = 4,
 	iconTextSpacing = 4,
 	layoutOrder = 1,
+	horizontalAlignment = Enum.HorizontalAlignment.Left,
 }
 
 function PlayerContext:init()
@@ -88,6 +92,7 @@ function PlayerContext:render()
 	local text = self.props.text
 	local icon = self.props.icon
 	local iconSize = self.props.iconSize
+	local horizontalAlignment = self.props.horizontalAlignment
 
 	local onActivated = self.props.onActivated
 
@@ -132,7 +137,7 @@ function PlayerContext:render()
 			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				HorizontalAlignment = horizontalAlignment,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, iconTextSpacing),
 			}),
@@ -154,8 +159,12 @@ function PlayerContext:render()
 				}),
 			}),
 			Text = text and Roact.createElement(GenericTextLabel, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, -iconFrameWidth - iconTextSpacing, 1, 0),
+				AutomaticSize = if UIBloxConfig.playerTileAutomaticSizeXY
+					then Enum.AutomaticSize.XY
+					else Enum.AutomaticSize.Y,
+				Size = if UIBloxConfig.playerTileAutomaticSizeXY
+					then UDim2.fromScale(0, 0)
+					else UDim2.new(1, -iconFrameWidth - iconTextSpacing, 1, 0),
 				Text = text,
 				TextWrapped = true,
 				TextXAlignment = Enum.TextXAlignment.Left,
