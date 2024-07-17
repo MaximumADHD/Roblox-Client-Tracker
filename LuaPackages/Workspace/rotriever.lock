@@ -129,6 +129,7 @@ dependencies = [
     "HttpRequest HttpRequest 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "LoggingProtocol LoggingProtocol 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "Promise Promise 0.1.0",
@@ -343,6 +344,7 @@ dependencies = [
     "Otter Otter 0.1.0",
     "PlaceInfoRodux PlaceInfoRodux 0.1.0",
     "PlayabilityRodux PlayabilityRodux 0.1.0",
+    "PlayerContextualMenu PlayerContextualMenu 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
@@ -459,6 +461,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "AppShortcutBar"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "FocusNavigationUtils FocusNavigationUtils 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "React React 0.1.0",
+    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "TenFootUiCommon TenFootUiCommon 0.1.0",
+    "TenFootUiTesting TenFootUiTesting 0.1.0",
+    "TestUtils TestUtils 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+]
+
+[[package]]
 name = "AppStartup"
 version = "0.1.0"
 dependencies = [
@@ -512,6 +538,7 @@ name = "AuthAnalytics"
 version = "0.1.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
+    "AppCommonLib AppCommonLib 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
 ]
@@ -524,6 +551,7 @@ dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "CentralOverlay CentralOverlay 0.1.0",
+    "CredentialsProtocol CredentialsProtocol 0.1.0",
     "Cryo Cryo 0.1.0",
     "FormFactor FormFactor 0.1.0",
     "Http Http 0.1.0",
@@ -2240,7 +2268,8 @@ dependencies = [
 name = "LinkingProtocol"
 version = "0.1.0"
 dependencies = [
-    "JestGlobals JestGlobals 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
@@ -2296,6 +2325,7 @@ dependencies = [
     "CredentialsProtocol CredentialsProtocol 0.1.0",
     "Cryo Cryo 0.1.0",
     "FitFrame FitFrame 0.1.0",
+    "GenericChallenges GenericChallenges 0.1.0",
     "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
@@ -2380,10 +2410,15 @@ dependencies = [
 name = "MultiPageSignup"
 version = "0.1.0"
 dependencies = [
+    "AppBlox AppBlox 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Navigation Navigation 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "Rodux Rodux 0.1.0",
 ]
 
 [[package]]
@@ -2549,6 +2584,24 @@ dependencies = [
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "TestUtils TestUtils 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+]
+
+[[package]]
+name = "NowPlaying"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactOtter ReactOtter 0.1.0",
+    "ReactSceneUnderstanding ReactSceneUnderstanding 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "ReactTestingUtils ReactTestingUtils 0.1.0",
+    "ReactUtils ReactUtils 0.1.0",
+    "RoactCompat RoactCompat 0.1.0",
+    "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
 ]
 
@@ -3030,7 +3083,15 @@ name = "ReactRoblox"
 version = "0.1.0"
 
 [[package]]
+name = "ReactSceneUnderstanding"
+version = "0.1.0"
+
+[[package]]
 name = "ReactTestingLibrary"
+version = "0.1.0"
+
+[[package]]
+name = "ReactTestingUtils"
 version = "0.1.0"
 
 [[package]]
@@ -3933,30 +3994,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "TenFootUiControllerBar"
-version = "0.1.0"
-dependencies = [
-    "Cryo Cryo 0.1.0",
-    "FocusNavigationUtils FocusNavigationUtils 0.1.0",
-    "JestConfigs JestConfigs 0.1.0",
-    "JestGlobals JestGlobals3 0.1.0",
-    "Localization Localization 0.1.0",
-    "React React 0.1.0",
-    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
-    "ReactRoblox ReactRoblox 0.1.0",
-    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
-    "RoactRodux RoactRodux 0.1.0",
-    "RoactUtils RoactUtils 0.1.0",
-    "Rodux Rodux 0.1.0",
-    "SharedFlags SharedFlags 0.1.0",
-    "TenFootUiCommon TenFootUiCommon 0.1.0",
-    "TenFootUiTesting TenFootUiTesting 0.1.0",
-    "TestUtils TestUtils 0.1.0",
-    "UIBlox UIBlox 0.1.0",
-    "UnitTestHelpers UnitTestHelpers 0.1.0",
-]
-
-[[package]]
 name = "TenFootUiEngagementScreen"
 version = "0.1.0"
 dependencies = [
@@ -4048,6 +4085,7 @@ name = "TenFootUiShell"
 version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
+    "AppShortcutBar AppShortcutBar 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "AvatarExperienceNavigation AvatarExperienceNavigation 0.1.0",
     "CentralOverlay CentralOverlay 0.1.0",
@@ -4087,7 +4125,6 @@ dependencies = [
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
     "TenFootUiCommon TenFootUiCommon 0.1.0",
-    "TenFootUiControllerBar TenFootUiControllerBar 0.1.0",
     "TenFootUiGlobalNav TenFootUiGlobalNav 0.1.0",
     "TenFootUiTesting TenFootUiTesting 0.1.0",
     "TestUtils TestUtils 0.1.0",
@@ -4280,6 +4317,7 @@ version = "0.1.0"
 name = "UserActivationFramework"
 version = "0.1.0"
 dependencies = [
+    "AuthCommon AuthCommon 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
 ]
@@ -4518,6 +4556,7 @@ version = "0.1.0"
 name = "VoiceChat"
 version = "0.1.0"
 dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
     "CentralOverlay CentralOverlay 0.1.0",
     "Cryo Cryo 0.1.0",
     "Http Http 0.1.0",

@@ -39,6 +39,7 @@ InputHandlers = "github.com/roblox/focus-navigation@1.3.1"
 React = "github.com/Roblox/roact-alignment@17.0.3"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.3"
 ReactRoblox = "github.com/Roblox/roact-alignment@17.0.3"
+ReactSceneUnderstanding = "github.com/Roblox/scene-understanding-internal@0.3.0"
 ReactUtils = "github.com/Roblox/react-utils@1.2.0"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 VirtualizedList = "github.com/roblox/virtualized-list-lua@1.4.3"
@@ -87,6 +88,7 @@ ReactDevtoolsExtensions = "github.com/Roblox/roact-alignment@17.0.3"
 DeveloperTools = "github.com/Roblox/developer-tools@0.2.7"
 ApolloClientTesting = "github.com/Roblox/apollo-client-testing@0.3.10"
 UsageTracker = "github.com/roblox/usage-tracker-lua@0.1.1"
+ReactTestingUtils = "github.com/Roblox/react-utils@1.2.0"
 
 # Patch all dependencies (git or otherwise) upon rodux to the flagged indirection package,
 # which will ensure that we always use only one rodux version

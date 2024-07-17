@@ -125,7 +125,9 @@ dependencies = [
     "ReactIs ReactIs 17.0.4 registry",
     "ReactOtter ReactOtter 1.1.0 registry",
     "ReactRoblox ReactRoblox 17.0.4 registry",
+    "ReactSceneUnderstanding ReactSceneUnderstanding 0.3.0 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
+    "ReactTestingUtils ReactTestingUtils 1.2.0 registry",
     "ReactUtils ReactUtils 1.2.0 registry",
     "RecordPlayback RecordPlayback 0.1.1 registry",
     "RegExp RegExp 0.2.1 registry",
@@ -149,7 +151,7 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
     "UGCValidation UGCValidation 1.12.7 registry",
-    "UIBlox UIBlox 356e5894 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox a1afabe7 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 7ecf93c3 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
@@ -337,7 +339,7 @@ dependencies = [
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 356e5894 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox a1afabe7 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -356,7 +358,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.4 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 356e5894 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox a1afabe7 git+https://github.com/roblox/uiblox#master",
     "t t 1.2.5 registry",
 ]
 
@@ -1201,7 +1203,7 @@ dependencies = [
     "Roact RoactCompat 17.0.4 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 356e5894 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox a1afabe7 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 7ecf93c3 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
@@ -1322,6 +1324,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ReactSceneUnderstanding"
+version = "0.3.0"
+source = "registry"
+dependencies = [
+    "Cryo Cryo 1.1.0 registry",
+    "React React 17.0.4 registry",
+    "SceneUnderstanding SceneUnderstanding 0.3.0 registry",
+]
+
+[[package]]
 name = "ReactTestingLibrary"
 version = "12.2.0"
 source = "registry"
@@ -1334,6 +1346,16 @@ dependencies = [
     "ReactRoblox ReactRoblox 17.0.4 registry",
     "Scheduler Scheduler 17.0.4 registry",
     "Shared Shared 17.0.4 registry",
+]
+
+[[package]]
+name = "ReactTestingUtils"
+version = "1.2.0"
+source = "registry"
+dependencies = [
+    "React React 17.0.4 registry",
+    "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
+    "ReactUtils ReactUtils 1.2.0 registry",
 ]
 
 [[package]]
@@ -1687,6 +1709,11 @@ version = "0.1.1"
 source = "registry"
 
 [[package]]
+name = "SceneUnderstanding"
+version = "0.3.0"
+source = "registry"
+
+[[package]]
 name = "Scheduler"
 version = "17.0.4"
 source = "registry"
@@ -1733,7 +1760,7 @@ dependencies = [
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 356e5894 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox a1afabe7 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1832,7 +1859,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "356e5894076be820c87a519de539020c76f87745"
+commit = "a1afabe7a3493228629018f17c4bdc300eb44407"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",

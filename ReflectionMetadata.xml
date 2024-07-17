@@ -463,6 +463,19 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">WrapDeformer</string>
+        <string name="ClassCategory">Effects</string>
+        <string name="ExplorerOrder">32</string>
+        <string name="ExplorerImageIndex">127</string>
+        <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
+        <string name="PreferredParents">Model</string>
+        <bool name="FFlag">WrapDeformerTargetModifier</bool>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">WrapLayer</string>
         <string name="ClassCategory">Effects</string>
         <string name="ExplorerOrder">32</string>
@@ -5045,6 +5058,15 @@
           </Properties>
         </Item>
       </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ColorGradingEffect</string>
+        <string name="ClassCategory">Post Processing Effects</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerImageIndex">83</string>
+        <string name="FFlag">EnableColorGrading</string>
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>

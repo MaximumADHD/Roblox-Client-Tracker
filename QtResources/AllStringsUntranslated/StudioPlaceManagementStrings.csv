@@ -30,3 +30,6 @@ Studio.App.PlaceManager.FailedToClosePlaceDueToAutoSave,,Failed to close the pla
 Studio.App.PlaceManager.OpenRobloxFile,,Open Roblox File,Open Roblox File
 Studio.App.PlaceManager.PlaySoloError,,Error loading PlaySolo. Please try again later.,Error loading PlaySolo. Please try again later.
 Studio.App.PlaceManager.GameJoin403FailureMessage,,Bad authentication for joining a team create place. We will log out and please try again after logging in.,Bad authentication for joining a team create place. We will log out and please try again after logging in.
+Studio.App.PlaceSessionTaskRegister.CreatingDataModel,This message is shown in a dialog while the place is opening,Creating DataModel...,Creating DataModel...
+Studio.App.PlaceSessionTaskRegister.LoadingDataModel,This message is shown in a dialog while the place is opening,Loading DataModel...,Loading DataModel...
+Studio.App.PlaceSessionTaskRegister.OpenPlaceSuccess,This message is shown in a dialog when the place is opened successfully,Place opened successfully.,Place opened successfully.

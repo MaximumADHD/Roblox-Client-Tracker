@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ReactSceneUnderstanding",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/react-scene-understanding/src"
+    }
+  }
+}

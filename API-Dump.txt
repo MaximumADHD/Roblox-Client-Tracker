@@ -91,8 +91,6 @@ Class AchievementService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AchievementService:GrantAchievement(achievementName: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function AchievementService:HasAchieved(achievementName: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function AchievementService:IsAvailable() -> boolean {RobloxScriptSecurity}
-Class ActivityHistoryService : Instance [NotCreatable] [Service] [NotReplicated]
-	Event ActivityHistoryService.EventNotificationReceived()
 Class AdPortal : Instance
 	Property AdPortal.Status: Enum.AdUnitStatus [ReadOnly]
 	Property AdPortal.PortalInvalidReason: string [ReadOnly] [NotScriptable]
@@ -233,7 +231,23 @@ Class Animator : Instance
 	Event Animator.OnStreamingUpdated(fadeTime: number, weight: number, priority: Enum.AnimationPriority, valuesUpdated: number) {RobloxSecurity} [Hidden]
 	Event Animator.OnStreamingUpdated2(fadeTime: number, weight: number, priority: Enum.AnimationPriority, maskEnabled: boolean, valuesUpdated: number) {RobloxSecurity} [Hidden]
 	Event Animator.StreamSyncRequest(player: Player) {RobloxSecurity} [Hidden]
+Class Annotation : Instance
+	Property Annotation.AuthorColor3: Color3 {RobloxScriptSecurity} [Hidden]
+	Property Annotation.AuthorId: number {RobloxScriptSecurity} [Hidden]
+	Property Annotation.Contents: string {RobloxScriptSecurity} [Hidden]
+	Property Annotation.CreationTimeUnix: number {RobloxScriptSecurity} [Hidden]
+	Property Annotation.LastModifiedTimeUnix: number {RobloxScriptSecurity} [Hidden]
+	Property Annotation.Resolved: boolean {RobloxScriptSecurity} [Hidden]
+	Property Annotation.TaggedUsers: string {RobloxScriptSecurity} [Hidden]
+Class WorkspaceAnnotation : Annotation
+	Property WorkspaceAnnotation.Adornee: PVInstance? {RobloxScriptSecurity} [Hidden]
+	Property WorkspaceAnnotation.Position: CFrame {RobloxScriptSecurity} [Hidden]
 Class AnnotationsService : Instance [NotCreatable] [Service]
+	Property AnnotationsService.Hovered: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Function AnnotationsService:createAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:createWorkspaceAnnotation(adornee: PVInstance, position: CFrame, contents: string) -> () {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationAdded(annotation: Annotation, parentId: UniqueId) {RobloxScriptSecurity}
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppLifecycleObserverService:IsDidDetachSupported() -> boolean {RobloxScriptSecurity}
 	Event AppLifecycleObserverService.OnBecomeActive() {RobloxScriptSecurity}
@@ -751,6 +765,10 @@ Class BaseWrap : Instance [NotCreatable]
 	Function BaseWrap:IsHSRReady() -> boolean {RobloxScriptSecurity}
 	Function BaseWrap:ModifyVertices(cageType: Enum.CageType, vertices: { any }) -> () {RobloxScriptSecurity}
 	Event BaseWrap.VerticesModified() {RobloxScriptSecurity}
+Class WrapDeformer : BaseWrap [NotBrowsable]
+	Property WrapDeformer.RenderMeshID: string {✏️PluginSecurity}
+	Property WrapDeformer.Enabled: boolean
+	Property WrapDeformer.Amount: number {✏️PluginSecurity}
 Class WrapLayer : BaseWrap
 	Property WrapLayer.Order: number
 	Property WrapLayer.Puffiness: number
@@ -2502,6 +2520,7 @@ Class SelectionPointLasso : SelectionLasso [Deprecated]
 Class Path2D : GuiBase
 	Property Path2D.SelectedControlPoint: number {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.SelectedControlPointData: Path2DControlPoint {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
+	Property Path2D.Closed: boolean
 	Property Path2D.Color3: Color3
 	Property Path2D.PropertiesSerialize: BinaryString {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property Path2D.Thickness: number
@@ -2511,7 +2530,8 @@ Class Path2D : GuiBase
 	Function Path2D:GetBoundingRect() -> Rect
 	Function Path2D:GetControlPoint(index: number) -> Path2DControlPoint
 	Function Path2D:GetControlPoints() -> { any }
-	Function Path2D:GetLength() -> number {RobloxScriptSecurity}
+	Function Path2D:GetLength() -> number
+	Function Path2D:GetMaxControlPoints() -> number
 	Function Path2D:GetPositionOnCurve(t: number) -> UDim2
 	Function Path2D:GetPositionOnCurveArcLength(t: number) -> UDim2
 	Function Path2D:GetSegmentCount() -> number {RobloxScriptSecurity}
@@ -2521,6 +2541,7 @@ Class Path2D : GuiBase
 	Function Path2D:RemoveControlPoint(index: number) -> ()
 	Function Path2D:SetControlPoints(controlPoints: { any }) -> ()
 	Function Path2D:UpdateControlPoint(index: number, point: Path2DControlPoint) -> ()
+	Event Path2D.ControlPointChanged()
 Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.AutoSelectGuiEnabled: boolean
 	Property GuiService.CoreEffectFolder: Folder? {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -2530,6 +2551,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.IsModalDialog: boolean [ReadOnly] [Deprecated]
 	Property GuiService.IsWindows: boolean [ReadOnly] [Deprecated]
 	Property GuiService.MenuIsOpen: boolean [ReadOnly]
+	Property GuiService.PreferredTextSize: Enum.PreferredTextSize [ReadOnly]
 	Property GuiService.PreferredTransparency: number [Hidden] [ReadOnly]
 	Property GuiService.ReducedMotionEnabled: boolean [Hidden] [ReadOnly]
 	Property GuiService.SelectedCoreObject: GuiObject? {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -4513,6 +4535,8 @@ Class ColorCorrectionEffect : PostEffect
 	Property ColorCorrectionEffect.Contrast: number
 	Property ColorCorrectionEffect.Saturation: number
 	Property ColorCorrectionEffect.TintColor: Color3
+Class ColorGradingEffect : PostEffect [NotBrowsable]
+	Property ColorGradingEffect.TonemapperPreset: Enum.TonemapperPreset
 Class DepthOfFieldEffect : PostEffect
 	Property DepthOfFieldEffect.FarIntensity: number
 	Property DepthOfFieldEffect.FocusDistance: number
@@ -8077,6 +8101,13 @@ Enum KeyCode
 	EnumItem KeyCode.DPadDown : 1015
 	EnumItem KeyCode.Thumbstick1 : 1016
 	EnumItem KeyCode.Thumbstick2 : 1017
+	EnumItem KeyCode.MouseLeftButton : 1018
+	EnumItem KeyCode.MouseRightButton : 1019
+	EnumItem KeyCode.MouseMiddleButton : 1020
+	EnumItem KeyCode.MouseBackButton : 1021
+	EnumItem KeyCode.MouseNoButton : 1022
+	EnumItem KeyCode.MouseX : 1023
+	EnumItem KeyCode.MouseY : 1024
 Enum KeyInterpolationMode
 	EnumItem KeyInterpolationMode.Constant : 0
 	EnumItem KeyInterpolationMode.Linear : 1
@@ -9087,7 +9118,8 @@ Enum TeleportMethod
 	EnumItem TeleportMethod.TeleportToPrivateServer : 2
 	EnumItem TeleportMethod.TeleportPartyAsync : 3
 	EnumItem TeleportMethod.TeleportToVIPServer : 4
-	EnumItem TeleportMethod.TeleportUnknown : 5
+	EnumItem TeleportMethod.TeleportToInstanceBack : 5
+	EnumItem TeleportMethod.TeleportUnknown : 6
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1
@@ -9108,6 +9140,7 @@ Enum TeleportType
 	EnumItem TeleportType.ToInstance : 1
 	EnumItem TeleportType.ToReservedServer : 2
 	EnumItem TeleportType.ToVIPServer : 3
+	EnumItem TeleportType.ToInstanceBack : 4
 Enum TerrainAcquisitionMethod
 	EnumItem TerrainAcquisitionMethod.None : 0
 	EnumItem TerrainAcquisitionMethod.Legacy : 1
@@ -9204,6 +9237,9 @@ Enum TickCountSampleMethod
 	EnumItem TickCountSampleMethod.Fast : 0
 	EnumItem TickCountSampleMethod.Benchmark : 1
 	EnumItem TickCountSampleMethod.Precise : 2
+Enum TonemapperPreset
+	EnumItem TonemapperPreset.Default : 0
+	EnumItem TonemapperPreset.Retro : 1
 Enum TopBottom
 	EnumItem TopBottom.Top : 0
 	EnumItem TopBottom.Center : 1

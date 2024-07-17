@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ReactTestingUtils",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/react-testing-utils/src"
+    }
+  }
+}

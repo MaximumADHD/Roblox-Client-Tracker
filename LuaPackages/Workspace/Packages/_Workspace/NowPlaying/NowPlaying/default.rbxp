@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "NowPlaying",
+    "tree": {
+      "$path": "../../../../../../../modules/music/now-playing/src"
+    }
+  }
+}
