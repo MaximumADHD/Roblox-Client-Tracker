@@ -25,7 +25,7 @@ local CORNER_RADIUS = UDim.new(0, 8)
 
 local PANEL_PADDING = UDim.new(0, 8)
 local HOVER_PANEL_PADDING = UDim.new(0, 12)
-local MIN_PANEL_HEIGHT = if UIBloxConfig.enableFontNameMapping then 87 else 84
+local MIN_PANEL_HEIGHT = 87
 local MIN_TILE_WIDTH = 146
 local MIN_TILE_HEIGHT = MIN_TILE_WIDTH + MIN_PANEL_HEIGHT
 

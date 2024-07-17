@@ -6,8 +6,8 @@ local validateFont = require(Style.Validator.validateFont)
 local FontLoader = require(script.Parent.FontLoader)
 local StyleTypes = require(Style.StyleTypes)
 
-return function(fontName, enableFontNameMapping: boolean?, tokens: StyleTypes.Tokens)
-	local fontLoader = FontLoader.new(enableFontNameMapping, tokens)
+return function(fontName, tokens: StyleTypes.Tokens)
+	local fontLoader = FontLoader.new(tokens)
 	local fontMap = {
 		[Constants.FontName.Gotham:lower()] = fontLoader:loadFont(),
 	}

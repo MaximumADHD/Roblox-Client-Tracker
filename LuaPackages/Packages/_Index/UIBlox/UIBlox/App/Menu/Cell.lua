@@ -26,6 +26,7 @@ local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 local KeyLabel = require(script.Parent.KeyLabel.KeyLabel)
 local RoundedFrame = require(script.Parent.RoundedFrame)
 
+local Interactable = require(UIBlox.Core.Control.Interactable)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local CELL_BACKGROUND_ASSET = Images["component_assets/circle_17"]
@@ -286,161 +287,195 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 		-- When UIBloxConfig.enableNewMenuLayout is enabled, we will use the `RoundedFrame` instead of image asset for background
 		local isImageAssetBackgroundVisible = isElementBackgroundVisible and not UIBloxConfig.enableNewMenuLayout
 
-		return Roact.createElement(Controllable, {
-			controlComponent = {
-				component = "ImageButton",
-				props = {
-					Size = UDim2.new(1, 0, 0, self.props.elementHeight),
+		local children = {
+
+			Background = if UIBloxConfig.enableNewMenuLayout and isElementBackgroundVisible
+				then self:renderRoundedBackground(-1, cellStyle)
+				else nil,
+
+			Divider = Roact.createElement("Frame", {
+				BackgroundColor3 = theme.Divider.Color,
+				BackgroundTransparency = theme.Divider.Transparency,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, -self.props.dividerOffset, 0, self.props.dividerSize),
+				Position = UDim2.new(0, self.props.dividerOffset, 1, 0),
+				AnchorPoint = Vector2.new(0, 1),
+				Visible = self.props.hasDivider,
+			}),
+
+			StateOverlay = if UIBloxConfig.enableNewMenuLayout
+				then self:renderRoundedBackground(2, overlayTheme)
+				else Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
 
-					Image = if UIBloxConfig.enableNewMenuLayout then nil else CELL_BACKGROUND_ASSET.Image,
+					Image = CELL_BACKGROUND_ASSET.Image,
 					ScaleType = Enum.ScaleType.Slice,
 					SliceCenter = sliceCenter,
 					ImageRectSize = imageRectSize,
 					ImageRectOffset = imageRectOffset,
 					SliceScale = 1 / Images.ImagesResolutionScale,
-					ImageTransparency = if isImageAssetBackgroundVisible then cellStyle.Transparency else 1,
-					ImageColor3 = cellStyle.Color,
-					AutoButtonColor = false,
-					LayoutOrder = self.props.layoutOrder,
+
+					ImageColor3 = overlayTheme.Color,
+					ImageTransparency = overlayTheme.Transparency,
 					BorderSizePixel = 0,
-					[Roact.Ref] = self.props.setButtonRef,
-					[Roact.Event.Activated] = self.props.onActivated,
-					SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
-						then self.props.selectionCursor
-						else getSelectionCursor(self.props.cursorKind),
-					SelectionOrder = self.props.selectionOrder,
-				},
-				children = {
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = 2,
+				}),
 
-					Background = if UIBloxConfig.enableNewMenuLayout and isElementBackgroundVisible
-						then self:renderRoundedBackground(-1, cellStyle)
-						else nil,
+			LeftAlignedContent = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, self.props.textPadding.left),
+				}),
 
-					Divider = Roact.createElement("Frame", {
-						BackgroundColor3 = theme.Divider.Color,
-						BackgroundTransparency = theme.Divider.Transparency,
-						BorderSizePixel = 0,
-						Size = UDim2.new(1, -self.props.dividerOffset, 0, self.props.dividerSize),
-						Position = UDim2.new(0, self.props.dividerOffset, 1, 0),
-						AnchorPoint = Vector2.new(0, 1),
-						Visible = self.props.hasDivider,
-					}),
+				LeftPadding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, leftPadding),
+				}),
 
-					StateOverlay = if UIBloxConfig.enableNewMenuLayout
-						then self:renderRoundedBackground(2, overlayTheme)
-						else Roact.createElement("ImageLabel", {
+				Icon = self.props.icon and Roact.createElement(ImageSetComponent.Label, {
+					Image = self.props.icon,
+					Size = UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
+					BackgroundTransparency = 1,
+					ImageColor3 = self.props.iconColorOverride or theme.IconEmphasis.Color,
+					ImageTransparency = divideTransparency(
+						theme.IconEmphasis.Transparency,
+						self.props.disabled and 2 or 1
+					),
+					LayoutOrder = 1,
+				}),
+
+				Text = Roact.createElement(GenericTextLabel, {
+					fontStyle = self.props.fontStyle or font.Header2,
+					colorStyle = textTheme,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, -textLengthOffset, 1, 0),
+					Text = self.props.text,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextWrapped = false, -- TODO: evaluate
+					LayoutOrder = 2,
+				}),
+			}),
+
+			RightAlignedContent = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, self.props.textPadding.right),
+				}),
+
+				RightPadding = Roact.createElement("UIPadding", {
+					PaddingRight = UDim.new(0, rightPadding),
+				}),
+
+				RightSideContent = self.props.renderRightSideGadget
+						and self.props.rightSideGadgetSize
+						and Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
-
-							Image = CELL_BACKGROUND_ASSET.Image,
-							ScaleType = Enum.ScaleType.Slice,
-							SliceCenter = sliceCenter,
-							ImageRectSize = imageRectSize,
-							ImageRectOffset = imageRectOffset,
-							SliceScale = 1 / Images.ImagesResolutionScale,
-
-							ImageColor3 = overlayTheme.Color,
-							ImageTransparency = overlayTheme.Transparency,
 							BorderSizePixel = 0,
-							Size = UDim2.fromScale(1, 1),
-							ZIndex = 2,
-						}),
+							LayoutOrder = 3,
+							Size = UDim2.fromOffset(self.props.rightSideGadgetSize.X, self.props.rightSideGadgetSize.Y),
+						}, self.props.renderRightSideGadget())
+					or Roact.createFragment({
+						KeyLabel = self.props.keyCodeLabel and Roact.createElement(KeyLabel, {
+							keyCode = self.props.keyCodeLabel,
 
-					LeftAlignedContent = Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						Size = UDim2.fromScale(1, 1),
-					}, {
-						Layout = Roact.createElement("UIListLayout", {
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							FillDirection = Enum.FillDirection.Horizontal,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							Padding = UDim.new(0, self.props.textPadding.left),
-						}),
-
-						LeftPadding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, leftPadding),
-						}),
-
-						Icon = self.props.icon and Roact.createElement(ImageSetComponent.Label, {
-							Image = self.props.icon,
-							Size = UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
-							BackgroundTransparency = 1,
-							ImageColor3 = self.props.iconColorOverride or theme.IconEmphasis.Color,
-							ImageTransparency = divideTransparency(
-								theme.IconEmphasis.Transparency,
-								self.props.disabled and 2 or 1
-							),
-							LayoutOrder = 1,
-						}),
-
-						Text = Roact.createElement(GenericTextLabel, {
-							fontStyle = self.props.fontStyle or font.Header2,
-							colorStyle = textTheme,
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, -textLengthOffset, 1, 0),
-							Text = self.props.text,
-							TextTruncate = Enum.TextTruncate.AtEnd,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextWrapped = false, -- TODO: evaluate
 							LayoutOrder = 2,
+
+							[Roact.Change.AbsoluteSize] = self.keyLabelSizeChanged,
+						}),
+
+						SelectedIcon = Roact.createElement(ImageSetComponent.Label, {
+							Image = Images["icons/status/success_small"],
+							Size = UDim2.fromOffset(self.props.selectedIconSize, self.props.selectedIconSize),
+							LayoutOrder = 1,
+							BackgroundTransparency = 1,
+							ImageColor3 = theme.IconEmphasis.Color,
+							ImageTransparency = theme.IconEmphasis.Transparency,
+							Visible = self.props.selected,
 						}),
 					}),
+			}),
+		}
 
-					RightAlignedContent = Roact.createElement("Frame", {
+		if UIBloxConfig.useInteractableWithTileAndCell then
+			return Roact.createElement(Interactable, {
+				Size = UDim2.new(1, 0, 0, self.props.elementHeight),
+				BackgroundTransparency = 1,
+
+				Image = if UIBloxConfig.enableNewMenuLayout then nil else CELL_BACKGROUND_ASSET.Image,
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = sliceCenter,
+				ImageRectSize = imageRectSize,
+				ImageRectOffset = imageRectOffset,
+				SliceScale = 1 / Images.ImagesResolutionScale,
+				ImageTransparency = if isImageAssetBackgroundVisible then cellStyle.Transparency else 1,
+				ImageColor3 = cellStyle.Color,
+				AutoButtonColor = false,
+				LayoutOrder = self.props.layoutOrder,
+				BorderSizePixel = 0,
+				[Roact.Ref] = self.props.setButtonRef,
+				SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
+					then self.props.selectionCursor
+					else getSelectionCursor(self.props.cursorKind),
+				SelectionOrder = self.props.selectionOrder,
+				onStateChanged = function(oldState, newState)
+					if oldState == ControlState.Pressed or oldState == ControlState.SelectedPressed then
+						if self.props.onActivated then
+							self.props.onActivated()
+						end
+					end
+					if self.props.setControlState then
+						self.setControlState(newState)
+					end
+				end,
+				isDisabled = self.props.disabled,
+			}, children)
+		else
+			return Roact.createElement(Controllable, {
+				controlComponent = {
+					component = "ImageButton",
+					props = {
+						Size = UDim2.new(1, 0, 0, self.props.elementHeight),
 						BackgroundTransparency = 1,
-						Size = UDim2.fromScale(1, 1),
-					}, {
-						Layout = Roact.createElement("UIListLayout", {
-							HorizontalAlignment = Enum.HorizontalAlignment.Right,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							FillDirection = Enum.FillDirection.Horizontal,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							Padding = UDim.new(0, self.props.textPadding.right),
-						}),
 
-						RightPadding = Roact.createElement("UIPadding", {
-							PaddingRight = UDim.new(0, rightPadding),
-						}),
-
-						RightSideContent = self.props.renderRightSideGadget
-								and self.props.rightSideGadgetSize
-								and Roact.createElement("Frame", {
-									BackgroundTransparency = 1,
-									BorderSizePixel = 0,
-									LayoutOrder = 3,
-									Size = UDim2.fromOffset(
-										self.props.rightSideGadgetSize.X,
-										self.props.rightSideGadgetSize.Y
-									),
-								}, self.props.renderRightSideGadget())
-							or Roact.createFragment({
-								KeyLabel = self.props.keyCodeLabel and Roact.createElement(KeyLabel, {
-									keyCode = self.props.keyCodeLabel,
-
-									LayoutOrder = 2,
-
-									[Roact.Change.AbsoluteSize] = self.keyLabelSizeChanged,
-								}),
-
-								SelectedIcon = Roact.createElement(ImageSetComponent.Label, {
-									Image = Images["icons/status/success_small"],
-									Size = UDim2.fromOffset(self.props.selectedIconSize, self.props.selectedIconSize),
-									LayoutOrder = 1,
-									BackgroundTransparency = 1,
-									ImageColor3 = theme.IconEmphasis.Color,
-									ImageTransparency = theme.IconEmphasis.Transparency,
-									Visible = self.props.selected,
-								}),
-							}),
-					}),
+						Image = if UIBloxConfig.enableNewMenuLayout then nil else CELL_BACKGROUND_ASSET.Image,
+						ScaleType = Enum.ScaleType.Slice,
+						SliceCenter = sliceCenter,
+						ImageRectSize = imageRectSize,
+						ImageRectOffset = imageRectOffset,
+						SliceScale = 1 / Images.ImagesResolutionScale,
+						ImageTransparency = if isImageAssetBackgroundVisible then cellStyle.Transparency else 1,
+						ImageColor3 = cellStyle.Color,
+						AutoButtonColor = false,
+						LayoutOrder = self.props.layoutOrder,
+						BorderSizePixel = 0,
+						[Roact.Ref] = self.props.setButtonRef,
+						[Roact.Event.Activated] = self.props.onActivated,
+						SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
+							then self.props.selectionCursor
+							else getSelectionCursor(self.props.cursorKind),
+						SelectionOrder = self.props.selectionOrder,
+					},
+					children = children,
 				},
-			},
-			onStateChanged = function(_, newState)
-				self.setControlState(newState)
-			end,
-			isDisabled = self.props.disabled,
-		})
+				onStateChanged = function(_, newState)
+					self.setControlState(newState)
+				end,
+				isDisabled = self.props.disabled,
+			})
+		end
 	end)
 end
 

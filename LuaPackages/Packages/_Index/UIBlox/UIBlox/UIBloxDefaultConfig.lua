@@ -45,9 +45,6 @@ return {
 	-- Use general design tokens with `scale` parameter to adapt to different platforms
 	useTokensWithScale = false,
 
-	-- Indicate whether mapping for existing Font names are enabled
-	enableFontNameMapping = false,
-
 	-- Add a ref that points to ScrollingFrame in ResponsiveBaseRow
 	responsiveBaseRowScrollingFrameRef = false,
 
@@ -94,4 +91,13 @@ return {
 
 	-- Use automatic sizing for the text under PlayerTile
 	playerTileAutomaticSizeXY = false,
+
+	-- Combine redundant button backgrounds into base component for TextButton
+	consolidateBackgroundsTextButton = false,
+
+	-- Flag for updating tile and cell to use Interactable
+	useInteractableWithTileAndCell = false,
+
+	-- Add optional max height to getTextHeight
+	getTextHeightOptionalMaxHeight = false,
 }

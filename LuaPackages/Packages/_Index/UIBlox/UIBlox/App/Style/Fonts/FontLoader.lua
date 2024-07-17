@@ -4,7 +4,6 @@ local App = Style.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Cryo = require(Packages.Cryo)
-local Gotham = require(Fonts.Gotham)
 local StyleTypes = require(Style.StyleTypes)
 
 local FONT_CONFIG = {
@@ -15,9 +14,8 @@ local FONT_CONFIG = {
 local FontLoader = {}
 FontLoader.__index = FontLoader
 
-function FontLoader.new(enableFontNameMapping: boolean?, tokens: StyleTypes.Tokens)
+function FontLoader.new(tokens: StyleTypes.Tokens)
 	local self = {
-		_enableFontNameMapping = enableFontNameMapping,
 		_tokens = tokens,
 	}
 	setmetatable(self, FontLoader)
@@ -25,9 +23,6 @@ function FontLoader.new(enableFontNameMapping: boolean?, tokens: StyleTypes.Toke
 end
 
 function FontLoader:loadFont()
-	if self._enableFontNameMapping ~= true then
-		return Gotham
-	end
 	local tokens: StyleTypes.Tokens = self._tokens
 	local baseSize = FONT_CONFIG.BASE_SIZE
 	local nominalSizeFactor = FONT_CONFIG.FACTOR

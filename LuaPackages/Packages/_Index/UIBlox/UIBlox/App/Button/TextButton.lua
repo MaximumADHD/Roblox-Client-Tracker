@@ -55,7 +55,7 @@ TextButton.validateProps = t.strictInterface({
 	richText = t.optional(t.boolean),
 	-- Is a background shown by default (matches IconButton)
 	showBackground = t.optional(t.boolean),
-	--backgroundColor
+	-- backgroundColor
 	backgroundColor = t.optional(validateColorInfo),
 	-- The Horizontal Padding of the button
 	horizontalPadding = t.optional(t.number),
@@ -156,10 +156,40 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 	local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
 	local showBackground = self.props.showBackground
-	local backgroundColor = self.props.backgroundColor or style.Theme["UIMuted"]
+	local backgroundColor = if showBackground
+		then (self.props.backgroundColor or style.Theme["UIMuted"])
+		else {
+			Color = nil,
+			Transparency = 1,
+		}
 
 	local verticalPadding = self.props.verticalPadding
 	local horizontalPadding = self.props.horizontalPadding
+
+	local backgroundHover = style.Theme.BackgroundOnHover
+	if
+		UIBloxConfig.consolidateBackgroundsTextButton
+		and self.props.hoverBackgroundEnabled
+		and currentState == ControlState.Hover
+	then
+		-- Lerp between the backgroundColor and the backgroundHover color
+		backgroundColor = if backgroundColor.Color
+			then {
+				Color = backgroundColor.Color:Lerp(backgroundHover.Color, 1 - backgroundHover.Transparency),
+				Transparency = backgroundColor.Transparency,
+			}
+			else backgroundHover
+
+		-- backgroundTransparency does not exist as a prop - not referencing here as a way
+		-- to ensure safe cleanup with this flag.
+		-- else
+		-- 	if self.props.backgroundTransparency then
+		-- 		return {
+		-- 			Transparency = self.props.backgroundTransparency,
+		-- 			Color = backgroundColor.Color
+		-- 		}
+		-- 	end
+	end
 
 	return Roact.createElement(Interactable, {
 		[React.Tag] = self.props[React.Tag],
@@ -171,7 +201,10 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		isDisabled = self.props.isDisabled,
 		onStateChanged = self.onStateChanged,
 		userInteractionEnabled = self.props.userInteractionEnabled,
-		BackgroundTransparency = 1,
+		BackgroundColor3 = if UIBloxConfig.consolidateBackgroundsTextButton then backgroundColor.Color else nil,
+		BackgroundTransparency = if UIBloxConfig.consolidateBackgroundsTextButton
+			then backgroundColor.Transparency
+			else 1,
 		AutoButtonColor = false,
 
 		SelectionImageObject = if getCursor
@@ -179,6 +212,11 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 			else (getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset)),
 		[Roact.Event.Activated] = self.props.onActivated,
 	}, {
+		corner = if UIBloxConfig.consolidateBackgroundsTextButton
+			then Roact.createElement("UICorner", {
+				CornerRadius = CORNER_RADIUS,
+			})
+			else nil,
 		sizeConstraint = Roact.createElement("UISizeConstraint", {
 			MinSize = Vector2.new(textWidth + horizontalPadding * 2, fontSize + verticalPadding * 2),
 		}),
@@ -191,19 +229,23 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 			colorStyle = textStyle,
 			RichText = self.props.richText,
 		}),
-		hoverBackground = self.props.hoverBackgroundEnabled
-			and currentState == ControlState.Hover
-			and Roact.createElement(HoverButtonBackground),
-		background = showBackground and Roact.createElement("Frame", {
-			Size = UDim2.fromScale(1, 1),
-			BackgroundColor3 = backgroundColor.Color,
-			BackgroundTransparency = self.props.backgroundTransparency or backgroundColor.Transparency,
-			ZIndex = if UIBloxConfig.useNewThemeColorPalettes then -10 else 0,
-		}, {
-			corner = Roact.createElement("UICorner", {
-				CornerRadius = CORNER_RADIUS,
-			}),
-		}) or nil,
+		hoverBackground = if not UIBloxConfig.consolidateBackgroundsTextButton
+				and self.props.hoverBackgroundEnabled
+				and currentState == ControlState.Hover
+			then Roact.createElement(HoverButtonBackground)
+			else nil,
+		background = if not UIBloxConfig.consolidateBackgroundsTextButton and showBackground
+			then Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundColor3 = backgroundColor.Color,
+				BackgroundTransparency = self.props.backgroundTransparency or backgroundColor.Transparency,
+				ZIndex = if UIBloxConfig.useNewThemeColorPalettes then -10 else 0,
+			}, {
+				corner = Roact.createElement("UICorner", {
+					CornerRadius = CORNER_RADIUS,
+				}),
+			})
+			else nil,
 	})
 end
 

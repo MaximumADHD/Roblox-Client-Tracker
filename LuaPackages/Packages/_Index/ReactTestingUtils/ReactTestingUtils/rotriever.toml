@@ -1,0 +1,19 @@
+[package]
+name = "ReactTestingUtils"
+version = "1.2.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/*.spec.lua",
+]
+publish = true
+authors = ["Roblox"]
+[dependencies.React]
+version = "^17.0.1"
+
+[dependencies.ReactTestingLibrary]
+version = "^12.2.0"
+
+[dependencies.ReactUtils]
+package = "ReactUtils"
+version = "^1.2.0"

@@ -27,24 +27,14 @@ return {
 		-- Fallback to the default even though it's currently unknown as long as the DeviceType is valid
 		[Constants.DeviceType.Unknown] = getThemePackageIndex("Desktop"),
 	},
-	GetTokenGenerators = function(themeName: ThemeName | string, enableTokenNameMapping: boolean?)
+	GetTokenGenerators = function(themeName: ThemeName | string)
 		local theme = themeName:lower()
-		if enableTokenNameMapping == true then
-			if theme == Constants.ThemeName.Dark:lower() then
-				return RbxDesignFoundations.tokens.Common.Builder.Dark
-			elseif theme == Constants.ThemeName.Light:lower() then
-				return RbxDesignFoundations.tokens.Common.Builder.Light
-			else
-				return nil
-			end
+		if theme == Constants.ThemeName.Dark:lower() then
+			return RbxDesignFoundations.tokens.Common.Builder.Dark
+		elseif theme == Constants.ThemeName.Light:lower() then
+			return RbxDesignFoundations.tokens.Common.Builder.Light
 		else
-			if theme == Constants.ThemeName.Dark:lower() then
-				return RbxDesignFoundations.tokens.Common.Dark
-			elseif theme == Constants.ThemeName.Light:lower() then
-				return RbxDesignFoundations.tokens.Common.Light
-			else
-				return nil
-			end
+			return nil
 		end
 	end,
 	SchemaPackage = {

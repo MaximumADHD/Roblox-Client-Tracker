@@ -23,6 +23,8 @@ local MAX_WIDTH = 400
 local MARGIN = 24
 local MIDDLE_CONTENT_PADDING = 12
 local TITLE_ICON_SIZE = 48
+local DEFAULT_BODY_HEIGHT = 200
+local DEFAULT_FOOTER_HEIGHT = 100
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
@@ -120,7 +122,8 @@ function InteractiveAlert:render()
 						self.props.footerText,
 						font.Footer.Font,
 						font.BaseSize * font.Footer.RelativeSize,
-						innerWidth
+						innerWidth,
+						if UIBloxConfig.getTextHeightOptionalMaxHeight then DEFAULT_FOOTER_HEIGHT else nil
 					)
 				or 0
 
@@ -139,7 +142,13 @@ function InteractiveAlert:render()
 		end
 
 		local fullTextHeight = self.props.bodyText
-				and GetTextHeight(self.props.bodyText, textFont, fontSize, innerWidth)
+				and GetTextHeight(
+					self.props.bodyText,
+					textFont,
+					fontSize,
+					innerWidth,
+					if UIBloxConfig.getTextHeightOptionalMaxHeight then DEFAULT_BODY_HEIGHT else nil
+				)
 			or 0
 
 		local middleContent = self.props.middleContent

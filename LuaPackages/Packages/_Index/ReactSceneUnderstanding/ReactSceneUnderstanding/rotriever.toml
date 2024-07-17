@@ -1,0 +1,19 @@
+[package]
+name = "ReactSceneUnderstanding"
+version = "0.3.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/*.spec.lua",
+]
+publish = true
+authors = ["Roblox"]
+[dependencies.Cryo]
+version = "^1.1.0"
+
+[dependencies.React]
+version = "^17.0.2"
+
+[dependencies.SceneUnderstanding]
+package = "SceneUnderstanding"
+version = "^0.3.0"
