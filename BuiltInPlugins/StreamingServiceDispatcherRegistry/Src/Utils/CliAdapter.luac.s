@@ -96,214 +96,6 @@ PROTO_9:
   CLOSEUPVALS R1
   RETURN R1 1
 
-PROTO_10:
-  GETTABLEKS R4 R0 K0 ["_instanceStore"]
-  MOVE R6 R1
-  MOVE R7 R2
-  CONCAT R5 R6 R7
-  GETTABLE R3 R4 R5
-  RETURN R3 1
-
-PROTO_11:
-  GETTABLEKS R3 R0 K0 ["_boundCodeGuids"]
-  SETTABLE R2 R3 R1
-  RETURN R0 0
-
-PROTO_12:
-  GETUPVAL R1 0
-  FASTCALL2K ASSERT R1 K0 [+4]
-  LOADK R2 K0 ["Loaded code is nil!"]
-  GETIMPORT R0 K2 [assert]
-  CALL R0 2 0
-  GETUPVAL R0 0
-  CALL R0 0 0
-  RETURN R0 0
-
-PROTO_13:
-  GETTABLEKS R4 R0 K0 ["_boundCodeGuids"]
-  GETTABLE R3 R4 R1
-  JUMPIF R3 [+7]
-  GETIMPORT R4 K2 [warn]
-  LOADK R5 K3 ["Code was not bound to a guid!"]
-  CALL R4 1 0
-  LOADB R4 0
-  LOADK R5 K3 ["Code was not bound to a guid!"]
-  RETURN R4 2
-  GETIMPORT R4 K5 [loadstring]
-  MOVE R5 R3
-  CALL R4 1 2
-  JUMPIF R4 [+8]
-  GETIMPORT R6 K2 [warn]
-  LOADK R7 K6 ["COMPILATION ERROR"]
-  MOVE R8 R5
-  CALL R6 2 0
-  LOADB R6 0
-  MOVE R7 R5
-  RETURN R6 2
-  GETIMPORT R6 K8 [getfenv]
-  MOVE R7 R4
-  CALL R6 1 1
-  GETIMPORT R7 K10 [print]
-  SETTABLEKS R7 R6 K9 ["print"]
-  GETIMPORT R6 K12 [pcall]
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R4
-  CALL R6 1 2
-  JUMPIF R6 [+8]
-  GETIMPORT R8 K2 [warn]
-  LOADK R9 K13 ["RUNTIME ERROR"]
-  MOVE R10 R7
-  CALL R8 2 0
-  LOADB R8 0
-  MOVE R9 R7
-  RETURN R8 2
-  LOADB R8 1
-  LOADNIL R9
-  RETURN R8 2
-
-PROTO_14:
-  GETTABLEKS R3 R0 K0 ["_variableStore"]
-  GETTABLE R2 R3 R1
-  RETURN R2 1
-
-PROTO_15:
-  SETTABLEKS R1 R3 K0 ["requestId"]
-  GETTABLEKS R5 R0 K1 ["_commandStore"]
-  GETTABLE R4 R5 R2
-  MOVE R5 R3
-  CALL R4 1 0
-  RETURN R0 0
-
-PROTO_16:
-  SETTABLEKS R1 R3 K0 ["requestId"]
-  GETTABLEKS R5 R0 K1 ["_commandStore"]
-  GETTABLE R4 R5 R2
-  MOVE R5 R3
-  CALL R4 1 0
-  RETURN R0 0
-
-PROTO_17:
-  GETTABLEKS R3 R0 K0 ["_commandStore"]
-  SETTABLE R2 R3 R1
-  RETURN R0 0
-
-PROTO_18:
-  GETTABLEKS R3 R0 K0 ["_collectorStore"]
-  SETTABLE R2 R3 R1
-  RETURN R0 0
-
-PROTO_19:
-  GETTABLEKS R3 R0 K0 ["_commandStore"]
-  SETTABLE R2 R3 R1
-  RETURN R0 0
-
-PROTO_20:
-  GETTABLEKS R4 R0 K0 ["_variableStore"]
-  SETTABLE R2 R4 R1
-  RETURN R0 0
-
-PROTO_21:
-  RETURN R0 0
-
-PROTO_22:
-  GETTABLEKS R2 R0 K0 ["_commandStore"]
-  LOADNIL R3
-  SETTABLE R3 R2 R1
-  RETURN R0 0
-
-PROTO_23:
-  GETTABLEKS R2 R0 K0 ["_collectorStore"]
-  LOADNIL R3
-  SETTABLE R3 R2 R1
-  RETURN R0 0
-
-PROTO_24:
-  FASTCALL1 TYPE R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [type]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K2 ["table"] [+14]
-  MOVE R2 R0
-  LOADNIL R3
-  LOADNIL R4
-  FORGPREP R2
-  GETGLOBAL R7 K3 ["replaceInstances"]
-  MOVE R8 R6
-  MOVE R9 R1
-  CALL R7 2 1
-  SETTABLE R7 R0 R5
-  FORGLOOP R2 2 [-7]
-  RETURN R0 1
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K5 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K6 ["Instance"] [+14]
-  LOADK R3 K7 ["Instance_"]
-  NAMECALL R4 R0 K8 ["GetDebugId"]
-  CALL R4 1 1
-  CONCAT R2 R3 R4
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K9 ["_instanceStore"]
-  MOVE R5 R1
-  MOVE R6 R2
-  CONCAT R4 R5 R6
-  SETTABLE R0 R3 R4
-  RETURN R2 1
-  RETURN R0 1
-
-PROTO_25:
-  DUPTABLE R0 K4 [{"ClientVersionContext", "use_inventory_assets", "ClientFlagContext", "MessageIdentifier"}]
-  LOADK R1 K5 ["1.0.0"]
-  SETTABLEKS R1 R0 K0 ["ClientVersionContext"]
-  LOADB R1 0
-  SETTABLEKS R1 R0 K1 ["use_inventory_assets"]
-  DUPTABLE R1 K9 [{"FFlagCAPFixMissingHREndTag", "FFlagCAPAddStreamIdToRichTextContent", "FFlagConvAICodeRunnerClientMarker"}]
-  DUPTABLE R2 K11 [{"boolean"}]
-  LOADK R3 K12 ["true"]
-  SETTABLEKS R3 R2 K10 ["boolean"]
-  SETTABLEKS R2 R1 K6 ["FFlagCAPFixMissingHREndTag"]
-  DUPTABLE R2 K11 [{"boolean"}]
-  LOADK R3 K12 ["true"]
-  SETTABLEKS R3 R2 K10 ["boolean"]
-  SETTABLEKS R2 R1 K7 ["FFlagCAPAddStreamIdToRichTextContent"]
-  DUPTABLE R2 K11 [{"boolean"}]
-  LOADK R3 K12 ["true"]
-  SETTABLEKS R3 R2 K10 ["boolean"]
-  SETTABLEKS R2 R1 K8 ["FFlagConvAICodeRunnerClientMarker"]
-  SETTABLEKS R1 R0 K2 ["ClientFlagContext"]
-  GETUPVAL R1 0
-  SETTABLEKS R1 R0 K3 ["MessageIdentifier"]
-  RETURN R0 1
-
-PROTO_26:
-  LOADK R5 K0 ["native_injector"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R1
-  NAMECALL R3 R0 K1 ["RegisterContextCollector"]
-  CALL R3 3 0
-  GETTABLEKS R3 R0 K2 ["_collectorStore"]
-  LOADNIL R4
-  LOADNIL R5
-  FORGPREP R3
-  MOVE R8 R7
-  MOVE R9 R1
-  CALL R8 1 1
-  MOVE R9 R8
-  LOADNIL R10
-  LOADNIL R11
-  FORGPREP R9
-  GETTABLE R14 R2 R12
-  JUMPIF R14 [+1]
-  SETTABLE R13 R2 R12
-  FORGLOOP R9 2 [-4]
-  FORGLOOP R3 2 [-13]
-  GETGLOBAL R3 K3 ["replaceInstances"]
-  MOVE R4 R2
-  MOVE R5 R1
-  CALL R3 2 0
-  RETURN R0 0
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -314,213 +106,94 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["TestLoader"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Flags"]
-  GETTABLEKS R3 R4 K10 ["getFFlagFixAssistantLuaTests"]
-  CALL R2 1 1
-  DUPTABLE R3 K12 [{"RunningEval"}]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K11 ["RunningEval"]
-  GETIMPORT R4 K14 [game]
-  LOADK R6 K15 ["LoadedCode"]
-  NAMECALL R4 R4 K16 ["FindFirstChild"]
+  DUPTABLE R2 K9 [{"RunningEval"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K8 ["RunningEval"]
+  GETIMPORT R3 K11 [game]
+  LOADK R5 K12 ["LoadedCode"]
+  NAMECALL R3 R3 K13 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+28]
+  LOADK R6 K14 ["lib"]
+  NAMECALL R4 R3 K13 ["FindFirstChild"]
   CALL R4 2 1
-  JUMPIFNOT R4 [+28]
-  LOADK R7 K17 ["lib"]
-  NAMECALL R5 R4 K16 ["FindFirstChild"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+23]
-  GETIMPORT R6 K5 [require]
-  MOVE R7 R5
+  JUMPIFNOT R4 [+23]
+  GETIMPORT R5 K5 [require]
+  MOVE R6 R4
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K15 ["thisIsEvalFramework"]
+  JUMPIFNOT R6 [+16]
+  LOADB R6 1
+  SETTABLEKS R6 R2 K8 ["RunningEval"]
+  GETIMPORT R6 K18 [Instance.new]
+  LOADK R7 K19 ["ObjectValue"]
   CALL R6 1 1
-  GETTABLEKS R7 R6 K18 ["thisIsEvalFramework"]
-  JUMPIFNOT R7 [+16]
-  LOADB R7 1
-  SETTABLEKS R7 R3 K11 ["RunningEval"]
-  GETIMPORT R7 K21 [Instance.new]
-  LOADK R8 K22 ["ObjectValue"]
-  CALL R7 1 1
-  LOADK R8 K23 ["CliAdapter"]
-  SETTABLEKS R8 R7 K24 ["Name"]
-  GETIMPORT R8 K1 [script]
-  SETTABLEKS R8 R7 K25 ["Value"]
-  SETTABLEKS R4 R7 K26 ["Parent"]
-  MOVE R5 R2
-  CALL R5 0 1
-  JUMPIFNOT R5 [+4]
-  GETTABLEKS R5 R1 K27 ["isCli"]
-  CALL R5 0 1
-  JUMPIFNOT R5 [+6]
-  MOVE R5 R2
-  CALL R5 0 1
-  JUMPIF R5 [+7]
-  GETTABLEKS R5 R3 K11 ["RunningEval"]
-  JUMPIF R5 [+4]
-  DUPCLOSURE R5 K28 [PROTO_0]
-  SETTABLEKS R5 R3 K29 ["GetService"]
-  RETURN R3 1
-  DUPTABLE R5 K31 [{"__call"}]
-  DUPCLOSURE R6 K32 [PROTO_1]
-  SETTABLEKS R6 R5 K30 ["__call"]
-  SETTABLEKS R5 R5 K33 ["__index"]
-  DUPCLOSURE R6 K34 [PROTO_2]
-  DUPCLOSURE R7 K35 [PROTO_4]
-  CAPTURE VAL R6
-  SETTABLEKS R7 R5 K36 ["Connect"]
-  DUPCLOSURE R7 K37 [PROTO_5]
+  LOADK R7 K20 ["CliAdapter"]
+  SETTABLEKS R7 R6 K21 ["Name"]
+  GETIMPORT R7 K1 [script]
+  SETTABLEKS R7 R6 K22 ["Value"]
+  SETTABLEKS R3 R6 K23 ["Parent"]
+  GETTABLEKS R4 R1 K24 ["isCli"]
+  CALL R4 0 1
+  JUMPIF R4 [+4]
+  DUPCLOSURE R4 K25 [PROTO_0]
+  SETTABLEKS R4 R2 K26 ["GetService"]
+  RETURN R2 1
+  DUPTABLE R4 K28 [{"__call"}]
+  DUPCLOSURE R5 K29 [PROTO_1]
+  SETTABLEKS R5 R4 K27 ["__call"]
+  SETTABLEKS R4 R4 K30 ["__index"]
+  DUPCLOSURE R5 K31 [PROTO_2]
+  DUPCLOSURE R6 K32 [PROTO_4]
   CAPTURE VAL R5
-  SETTABLEKS R7 R5 K20 ["new"]
-  DUPTABLE R7 K38 [{"__index"}]
-  DUPCLOSURE R8 K39 [PROTO_6]
-  CAPTURE VAL R6
-  SETTABLEKS R8 R7 K33 ["__index"]
-  LOADNIL R8
-  MOVE R9 R2
-  CALL R9 0 1
-  JUMPIF R9 [+33]
-  DUPTABLE R10 K45 [{"FindVariationsSignal", "SetMaterialSettingsSignal", "ActionActivatedSignal", "ShiftVariationSignal", "ShiftToAssetIdSignal"}]
-  GETTABLEKS R11 R5 K20 ["new"]
-  CALL R11 0 1
-  SETTABLEKS R11 R10 K40 ["FindVariationsSignal"]
-  GETTABLEKS R11 R5 K20 ["new"]
-  CALL R11 0 1
-  SETTABLEKS R11 R10 K41 ["SetMaterialSettingsSignal"]
-  GETTABLEKS R11 R5 K20 ["new"]
-  CALL R11 0 1
-  SETTABLEKS R11 R10 K42 ["ActionActivatedSignal"]
-  GETTABLEKS R11 R5 K20 ["new"]
-  CALL R11 0 1
-  SETTABLEKS R11 R10 K43 ["ShiftVariationSignal"]
-  GETTABLEKS R11 R5 K20 ["new"]
-  CALL R11 0 1
-  SETTABLEKS R11 R10 K44 ["ShiftToAssetIdSignal"]
-  FASTCALL2 SETMETATABLE R10 R7 [+4]
-  MOVE R11 R7
-  GETIMPORT R9 K47 [setmetatable]
+  SETTABLEKS R6 R4 K33 ["Connect"]
+  DUPCLOSURE R6 K34 [PROTO_5]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R4 K17 ["new"]
+  DUPTABLE R6 K35 [{"__index"}]
+  DUPCLOSURE R7 K36 [PROTO_6]
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K30 ["__index"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K37 ["Src"]
+  GETTABLEKS R9 R10 K38 ["Mocks"]
+  GETTABLEKS R8 R9 K39 ["MockStreamingService"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K37 ["Src"]
+  GETTABLEKS R10 R11 K38 ["Mocks"]
+  GETTABLEKS R9 R10 K40 ["MockChatbotUIService"]
+  CALL R8 1 1
+  NEWTABLE R10 0 0
+  FASTCALL2 SETMETATABLE R10 R6 [+4]
+  MOVE R11 R6
+  GETIMPORT R9 K42 [setmetatable]
   CALL R9 2 1
-  MOVE R8 R9
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K8 ["Src"]
-  GETTABLEKS R11 R12 K48 ["Mocks"]
-  GETTABLEKS R10 R11 K49 ["MockStreamingService"]
-  CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K48 ["Mocks"]
-  GETTABLEKS R11 R12 K50 ["MockChatbotUIService"]
-  CALL R10 1 1
+  NEWTABLE R11 0 0
+  FASTCALL2 SETMETATABLE R11 R6 [+4]
+  MOVE R12 R6
+  GETIMPORT R10 K42 [setmetatable]
+  CALL R10 2 1
   NEWTABLE R12 0 0
-  FASTCALL2 SETMETATABLE R12 R7 [+4]
-  MOVE R13 R7
-  GETIMPORT R11 K47 [setmetatable]
+  FASTCALL2 SETMETATABLE R12 R6 [+4]
+  MOVE R13 R6
+  GETIMPORT R11 K42 [setmetatable]
   CALL R11 2 1
-  NEWTABLE R13 0 0
-  FASTCALL2 SETMETATABLE R13 R7 [+4]
-  MOVE R14 R7
-  GETIMPORT R12 K47 [setmetatable]
-  CALL R12 2 1
-  NEWTABLE R14 0 0
-  FASTCALL2 SETMETATABLE R14 R7 [+4]
-  MOVE R15 R7
-  GETIMPORT R13 K47 [setmetatable]
-  CALL R13 2 1
-  LOADNIL R14
-  MOVE R15 R2
-  CALL R15 0 1
-  JUMPIF R15 [+55]
-  DUPTABLE R15 K63 [{"ConversationCleared", "RequestEnded", "RequestError", "RequestStarted", "SequentialCommandsFinished", "Stream", "_requestId", "_instanceStore", "_variableStore", "_commandStore", "_collectorStore", "_boundCodeGuids"}]
-  GETTABLEKS R16 R5 K20 ["new"]
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K51 ["ConversationCleared"]
-  GETTABLEKS R16 R5 K20 ["new"]
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K52 ["RequestEnded"]
-  GETTABLEKS R16 R5 K20 ["new"]
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K53 ["RequestError"]
-  GETTABLEKS R16 R5 K20 ["new"]
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K54 ["RequestStarted"]
-  GETTABLEKS R16 R5 K20 ["new"]
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K55 ["SequentialCommandsFinished"]
-  GETTABLEKS R16 R5 K20 ["new"]
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K56 ["Stream"]
-  LOADK R16 K64 ["123"]
-  SETTABLEKS R16 R15 K57 ["_requestId"]
-  NEWTABLE R16 0 0
-  SETTABLEKS R16 R15 K58 ["_instanceStore"]
-  NEWTABLE R16 0 0
-  SETTABLEKS R16 R15 K59 ["_variableStore"]
-  NEWTABLE R16 0 0
-  SETTABLEKS R16 R15 K60 ["_commandStore"]
-  NEWTABLE R16 0 0
-  SETTABLEKS R16 R15 K61 ["_collectorStore"]
-  NEWTABLE R16 0 0
-  SETTABLEKS R16 R15 K62 ["_boundCodeGuids"]
-  MOVE R14 R15
-  DUPTABLE R15 K66 [{"UpdateSourceAsync"}]
-  DUPCLOSURE R16 K67 [PROTO_7]
-  SETTABLEKS R16 R15 K65 ["UpdateSourceAsync"]
-  DUPTABLE R16 K74 [{"StreamingService", "ChatbotUIService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "StudioAssetService", "ScriptEditorService"}]
-  MOVE R18 R2
-  CALL R18 0 1
-  JUMPIFNOT R18 [+4]
-  GETTABLEKS R17 R9 K20 ["new"]
-  CALL R17 0 1
-  JUMP [+1]
-  MOVE R17 R14
-  SETTABLEKS R17 R16 K68 ["StreamingService"]
-  MOVE R18 R2
-  CALL R18 0 1
-  JUMPIFNOT R18 [+4]
-  GETTABLEKS R17 R10 K20 ["new"]
-  CALL R17 0 1
-  JUMP [+1]
-  MOVE R17 R8
-  SETTABLEKS R17 R16 K69 ["ChatbotUIService"]
-  SETTABLEKS R11 R16 K70 ["ConversationalAIAcceptanceService"]
-  SETTABLEKS R12 R16 K71 ["MaterialGenerationService"]
-  SETTABLEKS R13 R16 K72 ["StudioAssetService"]
-  SETTABLEKS R15 R16 K73 ["ScriptEditorService"]
-  DUPCLOSURE R17 K75 [PROTO_9]
-  CAPTURE VAL R16
-  SETTABLEKS R17 R3 K29 ["GetService"]
-  MOVE R17 R2
-  CALL R17 0 1
-  JUMPIF R17 [+46]
-  DUPCLOSURE R17 K76 [PROTO_10]
-  SETTABLEKS R17 R14 K77 ["GetInstance"]
-  DUPCLOSURE R17 K78 [PROTO_11]
-  SETTABLEKS R17 R14 K79 ["BindCodeToGuid"]
-  DUPCLOSURE R17 K80 [PROTO_13]
-  SETTABLEKS R17 R14 K81 ["RunSandboxedCode"]
-  DUPCLOSURE R17 K82 [PROTO_14]
-  SETTABLEKS R17 R14 K83 ["GetEphemeralVariable"]
-  DUPCLOSURE R17 K84 [PROTO_15]
-  SETTABLEKS R17 R14 K85 ["ExecuteCommandAsync"]
-  DUPCLOSURE R17 K86 [PROTO_16]
-  SETTABLEKS R17 R14 K87 ["InvokeCommand"]
-  DUPCLOSURE R17 K88 [PROTO_17]
-  SETTABLEKS R17 R14 K89 ["RegisterCommand"]
-  DUPCLOSURE R17 K90 [PROTO_18]
-  SETTABLEKS R17 R14 K91 ["RegisterContextCollector"]
-  DUPCLOSURE R17 K92 [PROTO_19]
-  SETTABLEKS R17 R14 K93 ["RegisterSequentialCommand"]
-  DUPCLOSURE R17 K94 [PROTO_20]
-  SETTABLEKS R17 R14 K95 ["SetEphemeralVariable"]
-  DUPCLOSURE R17 K96 [PROTO_21]
-  SETTABLEKS R17 R14 K97 ["SetPluginInfoCallback"]
-  DUPCLOSURE R17 K98 [PROTO_22]
-  SETTABLEKS R17 R14 K99 ["UnregisterCommand"]
-  DUPCLOSURE R17 K100 [PROTO_23]
-  SETTABLEKS R17 R14 K101 ["UnregisterContextCollector"]
-  NEWCLOSURE R17 P21
-  CAPTURE REF R14
-  SETGLOBAL R17 K102 ["replaceInstances"]
-  DUPCLOSURE R17 K103 [PROTO_26]
-  SETTABLEKS R17 R14 K104 ["CollectContexts"]
-  CLOSEUPVALS R14
-  RETURN R3 1
+  DUPTABLE R12 K44 [{"UpdateSourceAsync"}]
+  DUPCLOSURE R13 K45 [PROTO_7]
+  SETTABLEKS R13 R12 K43 ["UpdateSourceAsync"]
+  DUPTABLE R13 K52 [{"StreamingService", "ChatbotUIService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "StudioAssetService", "ScriptEditorService"}]
+  GETTABLEKS R14 R7 K17 ["new"]
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K46 ["StreamingService"]
+  GETTABLEKS R14 R8 K17 ["new"]
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K47 ["ChatbotUIService"]
+  SETTABLEKS R9 R13 K48 ["ConversationalAIAcceptanceService"]
+  SETTABLEKS R10 R13 K49 ["MaterialGenerationService"]
+  SETTABLEKS R11 R13 K50 ["StudioAssetService"]
+  SETTABLEKS R12 R13 K51 ["ScriptEditorService"]
+  DUPCLOSURE R14 K53 [PROTO_9]
+  CAPTURE VAL R13
+  SETTABLEKS R14 R2 K26 ["GetService"]
+  RETURN R2 1

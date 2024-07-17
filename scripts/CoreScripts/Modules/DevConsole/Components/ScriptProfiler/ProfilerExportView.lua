@@ -3,19 +3,8 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
--- Temporary: Remove with FFlagScriptProfilerUseNewAPI
--- Used only to work around CI where we try to get the ScriptProfilerService on versions of roblox-cli that do not implement it.
--- Can be removed once all CLI's in CI are >= 620.
-local HAS_SCRIPTPROFILERSERVICE = pcall(function()
-	game:GetService("ScriptProfilerService")
-end)
-
-local FFlagScriptProfilerUseNewAPI = game:DefineFastFlag("ScriptProfilerUseNewAPI", false)
-
 local ScriptContext = game:GetService("ScriptContext")
-local ScriptProfiler: any = if FFlagScriptProfilerUseNewAPI and HAS_SCRIPTPROFILERSERVICE
-	then game:GetService("ScriptProfilerService")
-	else nil
+local ScriptProfiler = game:GetService("ScriptProfilerService")
 
 local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
 
@@ -119,13 +108,7 @@ function ProfilerExportView:renderExportInputAndButton(isClient: boolean, export
 					BackgroundColor3 = BACKGROUND_COLOR,
 
 					[Roact.Event.Activated] = function()
-						local savedToPath
-
-						if FFlagScriptProfilerUseNewAPI then
-							savedToPath = ScriptProfiler:SaveScriptProfilingData(exportData, exportFilename)
-						else
-							savedToPath = ScriptContext:SaveScriptProfilingData(exportData, exportFilename)
-						end
+						local savedToPath = ScriptProfiler:SaveScriptProfilingData(exportData, exportFilename)
 
 						if isClient then
 							self:setState({

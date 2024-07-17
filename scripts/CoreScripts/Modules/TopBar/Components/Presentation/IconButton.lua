@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local GuiService = game:GetService("GuiService")
 
 local Roact = require(CorePackages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -25,6 +26,7 @@ local ChromeEnabled = require(CoreGui.RobloxGui.Modules.Chrome.Enabled)()
 local isNewTiltIconEnabled = require(CoreGui.RobloxGui.Modules.isNewTiltIconEnabled)
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
+local GetFFlagChromeUsePreferredTransparency = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
@@ -92,7 +94,7 @@ function IconButton:init()
 end
 
 function IconButton:render()
-	return withStyle(function(style)
+	return withStyle(function(style: any)
 		local overlayTheme = {
 			Color = Color3.new(1, 1, 1),
 			Transparency = 1,
@@ -108,7 +110,10 @@ function IconButton:render()
 			onStateChanged = self.controlStateUpdated,
 
 			ZIndex = 1,
-			BackgroundTransparency = if isNewTiltIconEnabled() then style.Theme.BackgroundUIContrast.Transparency else 1,
+			BackgroundTransparency = if isNewTiltIconEnabled() then 
+					if GetFFlagChromeUsePreferredTransparency() then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency 
+					else style.Theme.BackgroundUIContrast.Transparency
+				else 1,
 			Position = UDim2.fromScale(0, if isNewTiltIconEnabled() then 0.5 else 1),
 			AnchorPoint = Vector2.new(0, if isNewTiltIconEnabled() then 0.5 else 1),
 			Size = UDim2.fromOffset(BACKGROUND_SIZE, BACKGROUND_SIZE),

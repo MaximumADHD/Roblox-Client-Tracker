@@ -8,13 +8,12 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["createContext"]
-  DUPTABLE R3 K12 [{"CurrentSelection", "Mappings", "gamepadId"}]
-  LOADNIL R4
-  SETTABLEKS R4 R3 K9 ["CurrentSelection"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K10 ["Mappings"]
-  LOADN R4 0
-  SETTABLEKS R4 R3 K11 ["gamepadId"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["Constants"]
   CALL R2 1 1
-  RETURN R2 1
+  GETTABLEKS R3 R1 K11 ["createContext"]
+  GETTABLEKS R4 R2 K12 ["DEFAULT_MAPPINGS_STATE"]
+  CALL R3 1 1
+  RETURN R3 1

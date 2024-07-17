@@ -491,7 +491,7 @@ MAIN:
   LOADK R10 K64 ["BuilderTools"]
   LOADK R11 K113 ["MoveGridSize"]
   CALL R9 2 1
-  DUPTABLE R10 K119 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "Suffix"}]
+  DUPTABLE R10 K119 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "FormatStringKey"}]
   LOADK R11 K120 ["Number"]
   SETTABLEKS R11 R10 K16 ["Type"]
   LOADK R11 K121 [0.2]
@@ -502,14 +502,14 @@ MAIN:
   SETTABLEKS R11 R10 K116 ["Minimum"]
   LOADN R11 3
   SETTABLEKS R11 R10 K117 ["Precision"]
-  LOADK R11 K122 ["StudsSuffix"]
-  SETTABLEKS R11 R10 K118 ["Suffix"]
+  LOADK R11 K122 ["StudsFormat"]
+  SETTABLEKS R11 R10 K118 ["FormatStringKey"]
   SETTABLE R10 R8 R9
   MOVE R9 R6
   LOADK R10 K64 ["BuilderTools"]
   LOADK R11 K123 ["RotateGridSize"]
   CALL R9 2 1
-  DUPTABLE R10 K119 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "Suffix"}]
+  DUPTABLE R10 K119 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "FormatStringKey"}]
   LOADK R11 K120 ["Number"]
   SETTABLEKS R11 R10 K16 ["Type"]
   LOADN R11 5
@@ -520,8 +520,8 @@ MAIN:
   SETTABLEKS R11 R10 K116 ["Minimum"]
   LOADN R11 3
   SETTABLEKS R11 R10 K117 ["Precision"]
-  LOADK R11 K124 [" °"]
-  SETTABLEKS R11 R10 K118 ["Suffix"]
+  LOADK R11 K124 ["DegreesFormat"]
+  SETTABLEKS R11 R10 K118 ["FormatStringKey"]
   SETTABLE R10 R8 R9
   MOVE R9 R6
   LOADK R10 K64 ["BuilderTools"]

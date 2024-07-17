@@ -33,9 +33,13 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
 
+local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil
+local ChromeService = if GetFFlagFixChromeReferences() then 
+	if ChromeEnabled() then require(Chrome.Service) else nil
+	else if ChromeEnabled then require(Chrome.Service) else nil
 
 VoiceBetaBadge.validateProps = t.strictInterface({
 	layoutOrder = t.integer,

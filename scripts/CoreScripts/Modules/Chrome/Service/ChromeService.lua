@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local LocalizationService = game:GetService("LocalizationService")
 local UserInputService = game:GetService("UserInputService")
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
@@ -18,6 +20,7 @@ local NotifySignal = utils.NotifySignal
 local AvailabilitySignal = utils.AvailabilitySignal
 local Types = require(script.Parent.Types)
 local Constants = require(script.Parent.Parent.Unibar.Constants)
+local ChromeEnabled = require(script.Parent.Parent.Enabled)
 
 local GetFFlagEnableUnibarSneakPeak = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)
@@ -35,6 +38,7 @@ local GetFFlagEnableSaveUserPins = require(script.Parent.Parent.Flags.GetFFlagEn
 local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFlagUseSelfieViewFlatIcon)
 local GetFFlagEnableUserPinPortraitFix = require(script.Parent.Parent.Flags.GetFFlagEnableUserPinPortraitFix)
 local GetFFlagSupportChromeContainerSizing = require(script.Parent.Parent.Flags.GetFFlagSupportChromeContainerSizing)
+local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
 local FFlagPreserveWindowsCompactUtility = game:DefineFastFlag("PreserveWindowsCompactUtility", false)
 
 local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
@@ -287,6 +291,14 @@ function ChromeService.new(): ChromeService
 		else Enum.UserInputType.None
 
 	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
+
+	if GetFFlagFixChromeReferences() then
+		--[[ If you're hitting this assert, try the following:
+			local Chrome = RobloxGui.Modules.Chrome
+			local ChromeEnabled = require(Chrome.Enabled)
+			local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil ]]
+		assert(ChromeEnabled(), "ChromeService should not be initialized when Chrome is not enabled")
+	end
 
 	-- todo: Consider moving this outside of ChromeService to reduce dependency on Roblox instances
 	ViewportUtil.viewport:connect(function(viewportInfo: ViewportUtil.ViewportInfo)

@@ -34,8 +34,6 @@ local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagC
 local GetFFlagFixChromeAllowlistWait = require(RobloxGui.Modules.Flags.GetFFlagFixChromeAllowlistWait)
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
-local fflagCreatorBanWhitespaceSub = game:DefineFastFlag("CreatorBanWhitespaceSub", false)
-
 local TopBarConstant
 if not GetFFlagFixChromeAllowlistWait() then
 	TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
@@ -503,12 +501,6 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 			return attemptTranslation
 		end
 		return errorMsg
-	end
-
-	if fflagCreatorBanWhitespaceSub and not FFlagErrorPromptResizesHeight() then
-		if errorCode == Enum.ConnectionError.PlacelaunchCreatorBan then
-			return errorMsg:gsub("%s+", " ")
-		end
 	end
 
 	local key = string.gsub(tostring(errorCode), "Enum", "InGame")

@@ -15,9 +15,15 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+
 local Chrome = RobloxGui.Modules.Chrome
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
-local ChromeService = require(Chrome.Service)
+local ChromeEnabled = if GetFFlagFixChromeReferences()
+	then require(Chrome.Enabled)
+	else require(RobloxGui.Modules.Chrome.Enabled)
+local ChromeService = if GetFFlagFixChromeReferences()
+	then if ChromeEnabled() then require(Chrome.Service) else nil
+	else require(Chrome.Service)
 local ChromeConstants = require(Chrome.Unibar.Constants)
 
 local TopBar = RobloxGui.Modules.TopBar
@@ -94,7 +100,7 @@ local function CallBarContainer(passedProps: Props)
 			screenPositionYOffset = -CALL_BAR_SIZE.Y
 		end
 
-		if ChromeEnabled() then
+		if ChromeEnabled() and ChromeService then
 			-- It is possible unibar has not been initialized here.
 
 			local unibarStatus = ChromeService:status():get()
@@ -179,7 +185,7 @@ local function CallBarContainer(passedProps: Props)
 	end, { props.callProtocol })
 
 	local unibarMounted, setUnibarMounted = React.useState(false)
-	if ChromeEnabled() then
+	if ChromeEnabled() and ChromeService then
 		React.useEffect(function()
 			-- Listen for when Unibar has finished mounting
 			local unibarLayoutConnection = ChromeService:layout():connect(function()
@@ -205,7 +211,7 @@ local function CallBarContainer(passedProps: Props)
 		updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
 
 		local unibarStatusConnection
-		if ChromeEnabled() then
+		if ChromeEnabled() and ChromeService then
 			unibarStatusConnection = ChromeService:status():connect(function()
 				updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
 			end)

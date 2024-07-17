@@ -97,6 +97,7 @@ local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM2", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
+local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 --[[ SERVICES ]]
@@ -288,6 +289,7 @@ local function CreateSettingsHub()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
 	this.hasMicPermissions = false
+	this.isFetchingMicPermissions = true
 
 	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "SettingsHub")
 
@@ -1445,17 +1447,53 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if GetFFlagEnableInExpJoinVoiceAnalytics then
+		if GetFFlagUseMicPermForEnrollment() then
+			local setMicPermissionsCallback = function(response)
+				this.hasMicPermissions = response.hasMicPermissions
+				this.isFetchingMicPermissions = false
+			end
+			getCamMicPermissions(setMicPermissionsCallback, nil, true)
+		end
+
+		if GetFFlagEnableInExpJoinVoiceAnalytics() then
 			this.SettingsShowSignal:connect(function(isOpen)
-				local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
-				local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
-					or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
-				if isOpen and userInInExperienceUpsellTreatment and userVoiceUpsellEligible then
-					local sessionId = ""
-					if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-						sessionId = AnalyticsService:GetPlaySessionId()
+				if GetFFlagUseMicPermForEnrollment() then
+					if isOpen then
+						if VoiceChatServiceManager:UserVoiceEnabled() then
+							-- We may still be waiting for user to accept or deny mic permissions. If we are still waiting, don't fire the analytic event
+							if this.isFetchingMicPermissions then
+								return
+							end
+						end
+	
+						local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
+							or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
+					
+						-- Don't fetch age verification overlay data if user is not eligible for upsell
+						if not userVoiceUpsellEligible then
+							return
+						end
+	
+						local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
+						if userInInExperienceUpsellTreatment then
+							local sessionId = ""
+							if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+								sessionId = AnalyticsService:GetPlaySessionId()
+							end
+							VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent("shown", game.GameId, game.PlaceId, sessionId)
+						end
 					end
-					VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent("shown", game.GameId, game.PlaceId, sessionId)
+				else
+					local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
+					local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
+						or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
+					if isOpen and userInInExperienceUpsellTreatment and userVoiceUpsellEligible then
+						local sessionId = ""
+						if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+							sessionId = AnalyticsService:GetPlaySessionId()
+						end
+						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent("shown", game.GameId, game.PlaceId, sessionId)
+					end
 				end
 			end)
 		end
@@ -2918,7 +2956,7 @@ local function CreateSettingsHub()
 								this.ReducedMotionOpenTween = nil
 							end
 						else
-							this.Sheild.Parent = this.ClippingShield
+							this.Shield.Parent = this.ClippingShield
 						end
 					end)
 

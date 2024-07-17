@@ -227,7 +227,7 @@ PROTO_5:
   GETUPVAL R21 1
   GETTABLEKS R20 R21 K16 ["createElement"]
   GETUPVAL R21 8
-  DUPTABLE R22 K75 [{"BackgroundColor3", "Camera", "DisablePan", "DisableZoom", "Model", "Size", "FocusDirection", "LightColor", "LightDirection", "ShowAxisIndicator", "ShowResetCamera"}]
+  DUPTABLE R22 K76 [{"BackgroundColor3", "Camera", "DisablePan", "DisableZoom", "Model", "ShouldMuteModelSounds", "Size", "FocusDirection", "LightColor", "LightDirection", "ShowAxisIndicator", "ShowResetCamera"}]
   GETTABLEKS R23 R1 K18 ["BackgroundColor"]
   SETTABLEKS R23 R22 K58 ["BackgroundColor3"]
   SETTABLEKS R3 R22 K6 ["Camera"]
@@ -236,33 +236,40 @@ PROTO_5:
   GETTABLEKS R23 R1 K68 ["DisableZoom"]
   SETTABLEKS R23 R22 K68 ["DisableZoom"]
   SETTABLEKS R5 R22 K69 ["Model"]
-  GETIMPORT R23 K76 [UDim2.new]
+  GETUPVAL R24 9
+  CALL R24 0 1
+  JUMPIFNOT R24 [+2]
+  LOADB R23 1
+  JUMP [+1]
+  LOADNIL R23
+  SETTABLEKS R23 R22 K70 ["ShouldMuteModelSounds"]
+  GETIMPORT R23 K77 [UDim2.new]
   LOADN R24 1
   LOADN R25 0
   LOADN R26 1
   LOADN R27 224
   CALL R23 4 1
   SETTABLEKS R23 R22 K22 ["Size"]
-  GETUPVAL R24 9
-  GETTABLEKS R23 R24 K77 ["INITIAL_FOCUS_DIRECTION"]
-  SETTABLEKS R23 R22 K70 ["FocusDirection"]
+  GETUPVAL R24 10
+  GETTABLEKS R23 R24 K78 ["INITIAL_FOCUS_DIRECTION"]
+  SETTABLEKS R23 R22 K71 ["FocusDirection"]
   GETIMPORT R23 K62 [Color3.new]
   LOADN R24 1
   LOADN R25 1
   LOADN R26 1
   CALL R23 3 1
-  SETTABLEKS R23 R22 K71 ["LightColor"]
+  SETTABLEKS R23 R22 K72 ["LightColor"]
   LOADN R24 1
   LOADN R25 1
   LOADN R26 1
   FASTCALL VECTOR [+2]
-  GETIMPORT R23 K79 [Vector3.new]
+  GETIMPORT R23 K80 [Vector3.new]
   CALL R23 3 1
-  SETTABLEKS R23 R22 K72 ["LightDirection"]
+  SETTABLEKS R23 R22 K73 ["LightDirection"]
   LOADB R23 1
-  SETTABLEKS R23 R22 K73 ["ShowAxisIndicator"]
+  SETTABLEKS R23 R22 K74 ["ShowAxisIndicator"]
   LOADB R23 1
-  SETTABLEKS R23 R22 K74 ["ShowResetCamera"]
+  SETTABLEKS R23 R22 K75 ["ShowResetCamera"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K64 ["ModelView"]
   CALL R16 3 1
@@ -319,7 +326,12 @@ MAIN:
   CALL R14 1 1
   GETTABLEKS R16 R1 K21 ["Util"]
   GETTABLEKS R15 R16 K25 ["LayoutOrderIterator"]
-  DUPCLOSURE R16 K26 [PROTO_5]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K16 ["Src"]
+  GETTABLEKS R18 R19 K26 ["Flags"]
+  GETTABLEKS R17 R18 K27 ["getFFlagTextureGeneratorMuteSounds"]
+  CALL R16 1 1
+  DUPCLOSURE R17 K28 [PROTO_5]
   CAPTURE VAL R5
   CAPTURE VAL R2
   CAPTURE VAL R13
@@ -329,5 +341,6 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R7
+  CAPTURE VAL R16
   CAPTURE VAL R12
-  RETURN R16 1
+  RETURN R17 1

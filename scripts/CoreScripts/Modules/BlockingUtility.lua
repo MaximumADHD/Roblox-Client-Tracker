@@ -14,7 +14,7 @@ local FIntBlockUtilityBlockedUsersRequestMaxSize = game:DefineFastInt("BlockUtil
 local FFlagUseGetBlockedUsersBlockingUtility = game:DefineFastFlag("UseGetBlockedUsersBlockingUtility", false)
 
 local newBlockingUtilityRollout  = function()
-	return game:DefineFastInt("NewBlockingUtilityRollout_v2", 0)
+	return game:DefineFastInt("NewBlockingUtilityRollout_v3", 0)
 end
 local shouldUseNewBlockingUtility = rolloutByApplicationId(newBlockingUtilityRollout)
 
@@ -76,9 +76,7 @@ local function GetBlockedPlayersAsync(): { [string]: boolean }
 
 			return blockList
 		else
-			if not game:IsLoaded() then
-				game.Loaded:Wait()
-			end
+			repeat task.wait() until #PlayersService:GetPlayers() > 1 or game:IsLoaded()
 			local players = PlayersService:GetPlayers()
 		
 			local playerIds = {}

@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local CoreGui = game:GetService("CoreGui")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
@@ -44,6 +45,8 @@ local GetFStringNewFeatureList = require(Chrome.Flags.GetFStringNewFeatureList)
 local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFFlagEnableChromePinAnalytics = require(Chrome.Flags.GetFFlagEnableChromePinAnalytics)
 local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
+local GetFFlagChromeUsePreferredTransparency =
+	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
@@ -425,6 +428,10 @@ function SubMenu(props: SubMenuProps)
 
 	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
 
+	local preferredTransparency = if GetFFlagChromeUsePreferredTransparency()
+		then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
+		else style.Theme.BackgroundUIContrast.Transparency
+
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, 240, 0, 0),
 		AnchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0),
@@ -432,9 +439,9 @@ function SubMenu(props: SubMenuProps)
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
 		BackgroundTransparency = if GetFFlagAnimateSubMenu() and props.menuTransition
 			then props.menuTransition:map(function(v)
-				return theme.BackgroundUIContrast.Transparency + (1 - theme.BackgroundUIContrast.Transparency) * (1 - v)
+				return preferredTransparency + (1 - preferredTransparency) * (1 - v)
 			end)
-			else theme.BackgroundUIContrast.Transparency,
+			else preferredTransparency,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		ref = menuRef,
 	}, {

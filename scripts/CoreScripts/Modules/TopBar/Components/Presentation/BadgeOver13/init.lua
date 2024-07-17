@@ -16,10 +16,14 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+
 local TopBar = script.Parent.Parent.Parent
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil
+local ChromeService = if GetFFlagFixChromeReferences() 
+    then if ChromeEnabled() then require(Chrome.Service) else nil
+    else if ChromeEnabled then require(Chrome.Service) else nil 
 
 local COPY_ID_TO_LOCALIZATION_KEY = {
     TextFilter = "InGame.CommonUI.Badge.Popup.TextFilterOnlyInfo",

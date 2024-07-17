@@ -54,6 +54,7 @@ local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFla
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
 
@@ -468,6 +469,9 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe('OnPermissionRequested', function ()
 		self:showPrompt(VoiceChatPromptType.Permission)
 	end)
+	self.coreVoiceManager:subscribe('OnVoiceJoin', function ()
+		self:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
+	end)
 	return self
 end
 
@@ -533,12 +537,12 @@ type AgeVerificationOverlayData = {
 	showVoiceInExperienceUpsellVariant: string,
 }
 
-function VoiceChatServiceManager:_GetShowAgeVerificationOverlay(): nil | AgeVerificationOverlayData
-	return self.coreVoiceManager:_GetShowAgeVerificationOverlay()
+function VoiceChatServiceManager:_GetShowAgeVerificationOverlay(hasMicPermissions): nil | AgeVerificationOverlayData
+	return self.coreVoiceManager:_GetShowAgeVerificationOverlay(if GetFFlagUseMicPermForEnrollment() then hasMicPermissions else nil)
 end
 
-function VoiceChatServiceManager:FetchAgeVerificationOverlay(): nil | AgeVerificationOverlayData
-	return self.coreVoiceManager:FetchAgeVerificationOverlay()
+function VoiceChatServiceManager:FetchAgeVerificationOverlay(hasMicPermissions): nil | AgeVerificationOverlayData
+	return self.coreVoiceManager:FetchAgeVerificationOverlay(if GetFFlagUseMicPermForEnrollment() then hasMicPermissions else nil)
 end
 
 function VoiceChatServiceManager:RecordUserSeenModal(modalId: string): nil
@@ -885,7 +889,9 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 								self:GetInExpUpsellAnalyticsData()
 							)
 						end
-						self:showPrompt(VoiceChatPromptType.VoiceConsentDeclinedToast)
+						if self.inExpUpsellEntrypoint ~= VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE then
+							self:showPrompt(VoiceChatPromptType.VoiceConsentDeclinedToast)
+						end
 					end
 					else nil,
 			}),

@@ -2,19 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
--- Temporary: Remove with FFlagScriptProfilerUseNewAPI
--- Used only to work around CI where we try to get the ScriptProfilerService on versions of roblox-cli that do not implement it.
--- Can be removed once all CLI's in CI are >= 620.
-local HAS_SCRIPTPROFILERSERVICE = pcall(function()
-	game:GetService("ScriptProfilerService")
-end)
-
-local FFlagScriptProfilerUseNewAPI = game:DefineFastFlag("ScriptProfilerUseNewAPI", false)
-
 local ScriptContext = game:GetService("ScriptContext")
-local ScriptProfiler: any = if FFlagScriptProfilerUseNewAPI and HAS_SCRIPTPROFILERSERVICE
-	then game:GetService("ScriptProfilerService")
-	else nil
+local ScriptProfiler = game:GetService("ScriptProfilerService")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
@@ -67,8 +56,6 @@ local SHOW_PLUGINS_TEXT = "Plugins"
 local SHOW_GC_TEXT = "GC"
 
 local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfiler")
-
-local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerBetterStateManagement = game:DefineFastFlag("ScriptProfilerBetterStateManagement", false)
@@ -293,11 +280,7 @@ end
 
 local function OnNewProfilingData(state, oldState, jsonString: string?)
 	state.serializedData = jsonString
-	if FFlagScriptProfilerUseNewAPI then
-		state.data = ScriptProfiler:DeserializeJSON(jsonString)
-	else
-		state.data = ScriptContext:DeserializeScriptProfilerString(jsonString :: string) -- Temporary type cast to work around type-checker until RIDL defintion is updated.
-	end
+	state.data = ScriptProfiler:DeserializeJSON(jsonString)
 
 	state.gcFunctionOffsets, state.gcNodeOffsets = generateGCOverheadOffsets(state.data)
 
@@ -319,51 +302,23 @@ function MainViewScriptProfiler:init()
 			table.clear(state.expandedNodes)
 		end
 
-		if FFlagScriptProfilerUseNewAPI then
-			if isClient then
-				ScriptProfiler:ClientStart(Players.LocalPlayer :: Player, state.frequency)
-			else
-				ScriptProfiler:ServerStart(state.frequency)
-			end
+		if isClient then
+			ScriptProfiler:ClientStart(Players.LocalPlayer :: Player, state.frequency)
 		else
-			if isClient then
-				ScriptContext:StartScriptProfiling(state.frequency)
-			else
-				local clientReplicator = getClientReplicator()
-				if clientReplicator then
-					clientReplicator:RequestServerScriptProfiling(true, state.frequency)
-				end
-			end
+			ScriptProfiler:ServerStart(state.frequency)
 		end
 	end
 
 	local function StopScriptProfiling(isClient): string?
-		if FFlagScriptProfilerUseNewAPI then
-			if isClient then
-				ScriptProfiler:ClientStop(Players.LocalPlayer :: Player)
-			else
-				ScriptProfiler:ServerStop()
-			end
-			return nil
+		if isClient then
+			ScriptProfiler:ClientStop(Players.LocalPlayer :: Player)
 		else
-			if isClient then
-				local data = ScriptContext:StopScriptProfiling()
-				return data
-			else
-				local clientReplicator = getClientReplicator()
-				if clientReplicator then
-					clientReplicator:RequestServerScriptProfiling(false)
-				end
-				return nil
-			end
+			ScriptProfiler:ServerStop()
 		end
+		return nil
 	end
 
 	local function RequestNewData(isClient)
-		if not FFlagScriptProfilerUseNewAPI then
-			return
-		end
-
 		if FFlagScriptProfilerBetterStateManagement then
 			if isClient then
 				ScriptProfiler:ClientRequestData(Players.LocalPlayer :: Player)
@@ -389,21 +344,10 @@ function MainViewScriptProfiler:init()
 
 			if FFlagScriptProfilerBetterStateManagement then
 				self.props.dispatchSetIsProfiling(isClient, false)
-
-				if not FFlagScriptProfilerUseNewAPI then
-					local newState = {}
-					OnNewProfilingData(newState :: any, state, jsonString)
-
-					self.props.dispatchSetData(isClient, newState)
-				end
 			else
 				local newState = table.clone(state)
 
 				newState.isProfiling = false
-
-				if not FFlagScriptProfilerUseNewAPI then
-					OnNewProfilingData(newState, newState, jsonString)
-				end
 
 				self:UpdateState(isClient, newState)
 			end
@@ -444,32 +388,7 @@ function MainViewScriptProfiler:init()
 			local state = self:getState(isClient)
 
 			if state.liveUpdate then
-				if FFlagScriptProfilerUseNewAPI then
-					RequestNewData(isClient)
-				else
-					if isClient then
-						if FFlagScriptProfilerBetterStateManagement then
-							local newState = {}
-							local jsonString = ScriptContext:GetScriptProfilingData()
-
-							OnNewProfilingData(newState :: any, state, jsonString)
-
-							self.props.dispatchSetData(isClient, newState)
-						else
-							local newState = table.clone(state)
-							local jsonString = ScriptContext:GetScriptProfilingData()
-
-							OnNewProfilingData(newState, newState, jsonString)
-
-							self:UpdateState(isClient, newState)
-						end
-					else
-						local clientReplicator = getClientReplicator()
-						if clientReplicator then
-							clientReplicator:RequestServerScriptProfilingData()
-						end
-					end
-				end
+				RequestNewData(isClient)
 			end
 		end
 	end
@@ -539,10 +458,6 @@ function MainViewScriptProfiler:init()
 			newState.isProfiling = false
 		end
 
-		if not FFlagScriptProfilerUseNewAPI then
-			OnNewProfilingData(newState :: any, newState :: any, jsonString)
-		end
-
 		if state.timedProfilingThread then
 			task.cancel(state.timedProfilingThread)
 			newState.timedProfilingThread = nil
@@ -561,10 +476,6 @@ function MainViewScriptProfiler:init()
 		if FFlagScriptProfilerBetterStateManagement then
 			self.props.dispatchSetThreads(isClientView, {})
 			self.props.dispatchSetIsProfiling(isClientView, false)
-
-			if not FFlagScriptProfilerUseNewAPI then
-				self.props.dispatchSetData(isClientView, newState)
-			end
 		else
 			self:UpdateState(isClientView, newState)
 		end
@@ -741,61 +652,29 @@ function MainViewScriptProfiler:didMount()
 		utilTabHeight = utilSize.Y.Offset,
 	})
 
-	if FFlagScriptProfilerUseNewAPI then
-		if not HAS_SCRIPTPROFILERSERVICE then
-			return
+	self.scriptProfilerConnection = ScriptProfiler.OnNewData:Connect(function(player, jsonString)
+		local isClient = (player ~= nil)
+
+		if FFlagScriptProfilerBetterStateManagement then
+			local oldState = self:getState(isClient)
+			local newState = {}
+
+			OnNewProfilingData(newState :: any, oldState, jsonString)
+
+			self.props.dispatchSetData(isClient, newState)
+		else
+			local newState = table.clone(self:getState(isClient))
+
+			OnNewProfilingData(newState, newState, jsonString)
+
+			self:UpdateState(isClient, newState)
 		end
-
-		self.scriptProfilerConnection = ScriptProfiler.OnNewData:Connect(function(player, jsonString)
-			local isClient = (player ~= nil)
-
-			if FFlagScriptProfilerBetterStateManagement then
-				local oldState = self:getState(isClient)
-				local newState = {}
-
-				OnNewProfilingData(newState :: any, oldState, jsonString)
-
-				self.props.dispatchSetData(isClient, newState)
-			else
-				local newState = table.clone(self:getState(isClient))
-
-				OnNewProfilingData(newState, newState, jsonString)
-
-				self:UpdateState(isClient, newState)
-			end
-		end)
-	else
-		self.statsConnector = self.props.ServerProfilingData:Signal():Connect(function(jsonString)
-			if FFlagScriptProfilerBetterStateManagement then
-				local oldState = self:getState(false)
-				local newState = {}
-
-				OnNewProfilingData(newState :: any, oldState, jsonString)
-
-				self.props.dispatchSetData(false, newState)
-			else
-				local newState = table.clone(self.props.server)
-
-				OnNewProfilingData(newState, newState, jsonString)
-
-				self:UpdateState(false, newState)
-			end
-		end)
-	end
+	end)
 end
 
 function MainViewScriptProfiler:willUnmount()
-	if FFlagScriptProfilerUseNewAPI then
-		if not HAS_SCRIPTPROFILERSERVICE then
-			return
-		end
-
-		self.scriptProfilerConnection:Disconnect()
-		self.scriptProfilerConnection = nil
-	else
-		self.statsConnector:Disconnect()
-		self.statsConnector = nil
-	end
+	self.scriptProfilerConnection:Disconnect()
+	self.scriptProfilerConnection = nil
 end
 
 function MainViewScriptProfiler:didUpdate()

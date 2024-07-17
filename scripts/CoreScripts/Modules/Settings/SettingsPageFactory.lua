@@ -26,6 +26,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+local FFlagFixIGMTabTransitions = require(script.Parent.Flags.GetFFlagFixIGMTabTransitions)
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -359,6 +360,12 @@ local function Initialize()
 
 		local endPos = UDim2.new(0,0,0,0)
 		local animationComplete = function()
+			if FFlagFixIGMTabTransitions() then
+				if UserGameSettings.ReducedMotion then
+					pageParent.InnerCanvasGroupShow.GroupTransparency = 0
+				end
+				this.Page.Position = endPos
+			end
 			this.Page.Visible = true
 			displayed = true
 			this.Displayed:Fire()
@@ -409,6 +416,9 @@ local function Initialize()
 		if this.Page.Parent then
 			local endPos = UDim2.new(1 * direction,0,0,0)
 			local animationComplete = function()
+				if FFlagFixIGMTabTransitions() and UserGameSettings.ReducedMotion then
+					pageParent.InnerCanvasGroupShow.GroupTransparency = 1
+				end
 				this.Page.Visible = false
 				this.Page.Position = UDim2.new(this.TabPosition - newPagePos,0,0,0)
 				displayed = false

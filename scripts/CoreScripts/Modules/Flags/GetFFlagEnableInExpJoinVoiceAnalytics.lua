@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableInExpJoinVoiceAnalytics", false)
+game:DefineFastFlag("EnableInExpJoinVoiceAnalytics2", false)
 
 return function()
-	return game:GetFastFlag("EnableInExpJoinVoiceAnalytics")
+	return game:GetFastFlag("EnableInExpJoinVoiceAnalytics2")
 end

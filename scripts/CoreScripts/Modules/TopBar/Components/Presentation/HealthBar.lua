@@ -1,6 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -17,9 +18,13 @@ local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableC
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
+local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil
+local ChromeService = if GetFFlagFixChromeReferences() then 
+	if ChromeEnabled() then require(Chrome.Service) else nil
+	else if ChromeEnabled then require(Chrome.Service) else nil
 
 local HEALTHBAR_SIZE = UDim2.new(0, 80, 0, 6)
 local HEALTHBAR_SIZE_TENFOOT = UDim2.new(0, 220, 0, 16)

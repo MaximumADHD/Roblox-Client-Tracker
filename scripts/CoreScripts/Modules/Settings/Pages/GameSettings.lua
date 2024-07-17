@@ -44,6 +44,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local GetFFlagAddHapticsToggle = SharedFlags.GetFFlagAddHapticsToggle
+local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
 
 
 -------------- CONSTANTS --------------
@@ -128,7 +129,8 @@ local SETTINGS_MENU_LAYOUT_ORDER = {
 	["GraphicsQualityFrame"] = 72,
 	["ReducedMotionFrame"] = 73,
 	["PreferredTransparencyFrame"] = 74,
-	["UiNavigationKeyBindEnabledFrame"] = 75,
+	["PreferredTextSizeFrame"] = 75,
+	["UiNavigationKeyBindEnabledFrame"] = 76,
 	-- Performance
 	["PerformanceStatsFrame"] = 80,
 	["MicroProfilerFrame"] = 81,
@@ -295,6 +297,9 @@ local function reportSettingsForAnalytics()
 
 	stringTable["reduced_motion"] = tostring(GameSettings.ReducedMotion)
 	stringTable["preferred_transparency"] = tostring(GameSettings.PreferredTransparency)
+	if GetFFlagEnablePreferredTextSizeSettingInMenus() then 
+		stringTable["preferred_text_size"] = tostring(GameSettings.PreferredTextSize)
+	end 
 	stringTable["ui_navigation_key_bind_enabled"] = tostring(GameSettings.UiNavigationKeyBindEnabled)
 
 	stringTable["universeid"] = tostring(game.GameId)
@@ -832,6 +837,31 @@ local function Initialize()
 
 				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
 					reportSettingsChangeForAnalytics('preferred_transparency', oldValue, GameSettings.PreferredTransparency)
+				end
+				reportSettingsForAnalytics()
+			end
+		)
+	end
+
+	local function createPreferredTextSizeOptions()
+		local items = Enum.PreferredTextSize:GetEnumItems()
+		local startValue = GameSettings.PreferredTextSize.Value - 1
+
+		local preferredTextSizeLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.PreferredTextSize")
+		local preferredTextSizeDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.PreferredTextSize")
+		local preferredTextSizeLeftLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTextSize.Default")
+		local preferredTextSizeRightLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTextSize.Largest")
+ 
+		this.PreferredTextSizeFrame, this.PreferredTextSizeLabel, this.PreferredTextSizeSlider =
+			utility:AddNewRow(this, preferredTextSizeLabel, "Slider", 3, startValue, nil, preferredTextSizeDescription, preferredTextSizeLeftLabel, preferredTextSizeRightLabel)
+		this.PreferredTextSizeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["PreferredTextSizeFrame"]
+
+		this.PreferredTextSizeSlider.ValueChanged:connect(
+			function(newValue)
+				local oldValue = GameSettings.PreferredTextSize
+				GameSettings.PreferredTextSize = items[newValue+1]
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('preferred_text_size', oldValue, GameSettings.PreferredTextSize)
 				end
 				reportSettingsForAnalytics()
 			end
@@ -3351,6 +3381,11 @@ local function Initialize()
 
 	createReducedMotionOptions()
 	createPreferredTransparencyOptions()
+
+	if GetFFlagEnablePreferredTextSizeSettingInMenus() then
+		createPreferredTextSizeOptions()
+	end
+
 	if UserInputService.KeyboardEnabled then
 		createUiNavigationKeyBindOptions()
 	end

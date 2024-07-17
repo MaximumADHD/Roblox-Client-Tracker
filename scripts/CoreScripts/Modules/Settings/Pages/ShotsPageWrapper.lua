@@ -24,6 +24,7 @@ local FFlagUseNotificationsLocalization do
 	FFlagUseNotificationsLocalization = flagSuccess and flagResult
 end
 local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
+local GetFFlagFixIGMTabTransitions = require(script.Parent.Parent.Flags.GetFFlagFixIGMTabTransitions)
 
 -- Initialize page
 local this = SettingsPageFactory:CreateNewPage()
@@ -84,8 +85,20 @@ function this:ConnectHubToApp(settingsHub, pageViewClipper, screenshotsApp)
 	end
 
 	this.Hidden.Event:Connect(function()
-		screenshotsApp.closeMenu()
+		-- On flag cleanup, remove the entire this.Hidden.Event:Connect function
+		if not GetFFlagFixIGMTabTransitions() then
+			screenshotsApp.closeMenu()
+		end
 	end)
+
+
+	local hide = this.Hide
+	function this:Hide(...)
+		if GetFFlagFixIGMTabTransitions() then
+			screenshotsApp.closeMenu()
+		end
+		hide(this, ...)
+	end
 end
 
 return this

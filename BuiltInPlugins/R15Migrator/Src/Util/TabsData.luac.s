@@ -9,31 +9,23 @@ PROTO_0:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K3 ["ScriptConversion"]
   SETLIST R2 R3 4 [1]
-  GETUPVAL R3 1
-  JUMPIFNOT R3 [+9]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["ScriptConversionDeprecated"]
-  FASTCALL2 TABLE_INSERT R2 R5 [+4]
-  MOVE R4 R2
-  GETIMPORT R3 K7 [table.insert]
-  CALL R3 2 0
   NEWTABLE R3 0 0
   MOVE R4 R2
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  DUPTABLE R11 K12 [{"Tooltip", "Key", "Icon", "Disabled"}]
-  LOADK R14 K13 ["Tabs"]
+  DUPTABLE R11 K8 [{"Tooltip", "Key", "Icon", "Disabled"}]
+  LOADK R14 K9 ["Tabs"]
   MOVE R15 R8
-  NAMECALL R12 R0 K14 ["getText"]
+  NAMECALL R12 R0 K10 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K8 ["Tooltip"]
-  SETTABLEKS R8 R11 K9 ["Key"]
-  GETIMPORT R12 K17 [string.format]
-  LOADK R13 K18 ["rbxasset://textures/R15Migrator/Icon_%sTab.png"]
+  SETTABLEKS R12 R11 K4 ["Tooltip"]
+  SETTABLEKS R8 R11 K5 ["Key"]
+  GETIMPORT R12 K13 [string.format]
+  LOADK R13 K14 ["rbxasset://textures/R15Migrator/Icon_%sTab.png"]
   MOVE R14 R8
   CALL R12 2 1
-  SETTABLEKS R12 R11 K10 ["Icon"]
+  SETTABLEKS R12 R11 K6 ["Icon"]
   JUMPIFNOT R1 [+5]
   MOVE R13 R1
   MOVE R14 R8
@@ -41,10 +33,10 @@ PROTO_0:
   NOT R12 R13
   JUMP [+1]
   LOADB R12 0
-  SETTABLEKS R12 R11 K11 ["Disabled"]
+  SETTABLEKS R12 R11 K7 ["Disabled"]
   FASTCALL2 TABLE_INSERT R3 R11 [+4]
   MOVE R10 R3
-  GETIMPORT R9 K7 [table.insert]
+  GETIMPORT R9 K17 [table.insert]
   CALL R9 2 0
   FORGLOOP R4 2 [-33]
   RETURN R3 1
@@ -63,28 +55,18 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["R15MigScriptsPane"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  NEWTABLE R1 8 0
-  LOADK R2 K4 ["Summary"]
-  SETTABLEKS R2 R1 K4 ["Summary"]
-  LOADK R2 K5 ["CharacterConversion"]
-  SETTABLEKS R2 R1 K5 ["CharacterConversion"]
-  LOADK R2 K6 ["AnimationConversion"]
-  SETTABLEKS R2 R1 K6 ["AnimationConversion"]
-  LOADK R2 K7 ["ScriptConversion"]
-  SETTABLEKS R2 R1 K7 ["ScriptConversion"]
-  JUMPIFNOT R0 [+2]
-  LOADK R2 K8 ["ScriptConversionDeprecated"]
-  JUMP [+1]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K8 ["ScriptConversionDeprecated"]
-  DUPCLOSURE R2 K9 [PROTO_0]
-  CAPTURE VAL R1
+  NEWTABLE R0 8 0
+  LOADK R1 K0 ["Summary"]
+  SETTABLEKS R1 R0 K0 ["Summary"]
+  LOADK R1 K1 ["CharacterConversion"]
+  SETTABLEKS R1 R0 K1 ["CharacterConversion"]
+  LOADK R1 K2 ["AnimationConversion"]
+  SETTABLEKS R1 R0 K2 ["AnimationConversion"]
+  LOADK R1 K3 ["ScriptConversion"]
+  SETTABLEKS R1 R0 K3 ["ScriptConversion"]
+  DUPCLOSURE R1 K4 [PROTO_0]
   CAPTURE VAL R0
-  SETTABLEKS R2 R1 K10 ["getAllTabsData"]
-  DUPCLOSURE R2 K11 [PROTO_1]
-  SETTABLEKS R2 R1 K12 ["findTabData"]
-  RETURN R1 1
+  SETTABLEKS R1 R0 K5 ["getAllTabsData"]
+  DUPCLOSURE R1 K6 [PROTO_1]
+  SETTABLEKS R1 R0 K7 ["findTabData"]
+  RETURN R0 1

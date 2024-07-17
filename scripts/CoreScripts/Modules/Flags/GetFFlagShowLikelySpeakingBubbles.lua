@@ -1,5 +1,5 @@
-game:DefineFastFlag("ShowLikelySpeakingBubbles", false)
+game:DefineFastFlag("ShowLikelySpeakingBubbles2", false)
 
 return function()
-	return game:GetFastFlag("ShowLikelySpeakingBubbles")
+	return game:GetFastFlag("ShowLikelySpeakingBubbles2")
 end

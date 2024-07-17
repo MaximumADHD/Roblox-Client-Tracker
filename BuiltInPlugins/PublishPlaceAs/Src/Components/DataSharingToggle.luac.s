@@ -110,7 +110,7 @@ PROTO_2:
   SETTABLEKS R19 R18 K43 ["[link]"]
   SETTABLEKS R18 R17 K29 ["LinkMap"]
   LOADK R20 K15 ["DataSharing"]
-  LOADK R21 K44 ["CheckboxDescription"]
+  LOADK R21 K44 ["ToggleDescription"]
   NAMECALL R18 R3 K16 ["getText"]
   CALL R18 3 1
   SETTABLEKS R18 R17 K30 ["Text"]

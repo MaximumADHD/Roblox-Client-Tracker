@@ -7,6 +7,7 @@
 ]]
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Packages = CorePackages.Packages
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 local React = require(Packages.React)
@@ -38,7 +39,12 @@ local useLocalPlayer = require(script.Parent.Parent.Hooks.useLocalPlayer)
 local useTrackerMessage = require(script.Parent.Parent.Hooks.useTrackerMessage)
 local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismissal)
 local Constants = require(script.Parent.Parent.Parent.Chrome.Unibar.Constants)
-local ChromeService = require(script.Parent.Parent.Parent.Chrome.Service)
+local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+local Chrome = script.Parent.Parent.Parent.Chrome
+local ChromeEnabled = require(Chrome.Enabled)
+local ChromeService = if GetFFlagFixChromeReferences()
+	then if ChromeEnabled() then require(Chrome.Service) else nil
+	else require(script.Parent.Parent.Parent.Chrome.Service)
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewPreviewShrinkIcon = require(SelfieViewModule.Flags.GetFFlagSelfieViewPreviewShrinkIcon)
@@ -46,7 +52,6 @@ local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.Ge
 local GetFFlagSelfieViewDontStartOnOpen = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontStartOnOpen)
 local GetFFlagSelfieViewHideCameraStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewHideCameraStatusDot)
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local ICON_CONTAINER_HEIGHT: number = 44
@@ -248,9 +253,11 @@ local function Window(props: WindowProps): React.ReactNode
 				Size = Constants.CLOSE_BUTTON_FRAME,
 				BackgroundTransparency = 1,
 				onStateChanged = closeHoverState,
-				[React.Event.Activated] = function()
-					ChromeService:toggleWindow(id)
-				end,
+				[React.Event.Activated] = if ChromeService
+					then function()
+						ChromeService:toggleWindow(id)
+					end
+					else nil,
 			}, {
 				CloseImage = if GetFFlagSelfieViewPreviewShrinkIcon()
 					then React.createElement(ImageSetLabel, {

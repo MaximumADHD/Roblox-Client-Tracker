@@ -1,6 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 
@@ -16,6 +17,8 @@ local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local Images = UIBlox.App.ImageSet.Images
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
+local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
 local BackIcon = require(Presentation.BackIcon)
@@ -24,7 +27,6 @@ local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadMenu = require(Presentation.GamepadMenu)
-local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
 local BadgeOver13 = require(Presentation.BadgeOver13)
@@ -33,8 +35,8 @@ local Chrome = script.Parent.Parent.Parent.Chrome
 
 local ExperienceMenuABTestManager = require(script.Parent.Parent.Parent.ExperienceMenuABTestManager)
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.Parent.IsExperienceMenuABTestEnabled)
-local OnboardingTooltip = require(Chrome.Onboarding.OnboardingTooltip)
 local ChromeEnabled = require(Chrome.Enabled)
+local OnboardingTooltip = if not GetFFlagFixChromeReferences() or ChromeEnabled() then require(Chrome.Onboarding.OnboardingTooltip) else nil
 local UnibarConstants = require(Chrome.Unibar.Constants)
 
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
@@ -47,7 +49,7 @@ if ChromeEnabled() then
 end
 if game:GetEngineFeature("InGameChromeSignalAPI") then
 	KeepOutAreasHandler = require(Chrome.Service.KeepOutAreasHandler)
-	if FFlagEnableChromeAnalytics then
+	if FFlagEnableChromeAnalytics and (not GetFFlagFixChromeReferences() or ChromeEnabled()) then
 		ChromeAnalytics = require(Chrome.Analytics)
 	end
 end
@@ -73,7 +75,6 @@ local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFla
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local GetFFlagAddOver12TopBarBadge = require(script.Parent.Parent.Parent.Flags.GetFFlagAddOver12TopBarBadge)
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
-local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -200,9 +201,6 @@ function TopBarApp:renderWithStyle(style)
 	}, {
 		Connection = Roact.createElement(Connection),
 		GamepadMenu = Roact.createElement(GamepadMenu),
-		GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
-			then Roact.createElement(GamepadNavigationDialog)
-			else nil,
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
 		VRBottomBar = VRService.VREnabled and bottomBar or nil,
 		KeepOutAreasHandler = if FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
@@ -327,7 +325,7 @@ function TopBarApp:renderWithStyle(style)
 			}) or nil,
 		}),
 
-		UnibarOnboarding = if GetFFlagEnableChromeFTUX() then Roact.createElement(OnboardingTooltip) else nil,
+		UnibarOnboarding = if GetFFlagEnableChromeFTUX() and (not GetFFlagFixChromeReferences() or ChromeEnabled()) then Roact.createElement(OnboardingTooltip) else nil,
 
 		UnibarLeftFrame = Unibar
 				and unibarAlignment == Enum.HorizontalAlignment.Left
@@ -415,8 +413,7 @@ function TopBarApp:renderWithStyle(style)
 							})
 							else nil,
 
-						VoiceBetaBadge = if GetFFlagBetaBadge()
-								and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
+						VoiceBetaBadge = if GetFFlagBetaBadge() and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
 							then Roact.createElement(VoiceBetaBadge, {
 								layoutOrder = 6,
 								Analytics = Analytics.new(),
@@ -508,12 +505,9 @@ function TopBarApp:renderWithStyle(style)
 					showBadgeOver12 = if GetFFlagAddOver12TopBarBadge() then self.props.showBadgeOver12 else nil,
 				}),
 
-				BackIcon = not chromeEnabled
-						and GetFFlagEnableTeleportBackButton()
-						and Roact.createElement(BackIcon, {
-							layoutOrder = 2,
-						})
-					or nil,
+				BackIcon = not chromeEnabled and GetFFlagEnableTeleportBackButton() and Roact.createElement(BackIcon, {
+					layoutOrder = 2,
+				}) or nil,
 
 				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,

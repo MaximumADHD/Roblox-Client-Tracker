@@ -6,47 +6,42 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["AvatarChatSettingsEnabled2"]
+  LOADK R2 K4 ["MoveSpatialVoice"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K5 ["MoveSpatialVoice"]
+  LOADK R2 K5 ["GameSettingsExperienceGuidelines"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K6 ["GameSettingsExperienceGuidelines"]
+  LOADK R2 K6 ["GameSettingsFixGuidelinesQuestionnareInfo"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["GameSettingsFixGuidelinesQuestionnareInfo"]
+  LOADK R2 K7 ["GameSettingsExpandToggleButtonTitleWidth"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K8 ["GameSettingsExpandToggleButtonTitleWidth"]
+  LOADK R2 K8 ["StudioGameSettingsWorldPageFormatNumbersForGerman"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K9 ["StudioGameSettingsWorldPageFormatNumbersForGerman"]
+  LOADK R2 K9 ["StudioGenreOverhaulPlaceholder"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K10 ["StudioGenreOverhaulPlaceholder"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  LOADK R2 K10 ["StudioGenreOverhaulExplainationLink"]
+  LOADK R3 K11 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
+  NAMECALL R0 R0 K12 ["DefineFastString"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K11 ["StudioGenreOverhaulExplainationLink"]
-  LOADK R3 K12 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
-  NAMECALL R0 R0 K13 ["DefineFastString"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K14 ["StudioGenreOverhaulInfo"]
+  LOADK R2 K13 ["StudioGenreOverhaulInfo"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

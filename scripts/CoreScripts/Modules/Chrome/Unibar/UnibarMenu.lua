@@ -47,6 +47,8 @@ local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
 local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCapturesInChrome)
 local GetFFlagSupportChromeContainerSizing = require(Chrome.Flags.GetFFlagSupportChromeContainerSizing)
+local GetFFlagChromeUsePreferredTransparency =
+	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -618,7 +620,9 @@ function Unibar(props: UnibarProp)
 			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 0,
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
-			BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency,
+			BackgroundTransparency = if GetFFlagChromeUsePreferredTransparency()
+				then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
+				else style.Theme.BackgroundUIContrast.Transparency,
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),

@@ -16,7 +16,6 @@ local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInvit
 local GetFFlagInviteFriendsDesignUpdates = require(Modules.Settings.Flags.GetFFlagInviteFriendsDesignUpdates)
 local GetFFlagShareInviteLinkContextMenuV1Enabled =
 	require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
-local FFlagShareExperienceInviteLinkPolicy = require(Modules.Settings.Flags.FFlagShareExperienceInviteLinkPolicy)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -56,7 +55,7 @@ end
 function ShareGamePageFrame:shouldShowInviteLink(gameInfo)
 	if
 		GetFFlagShareInviteLinkContextMenuV1Enabled()
-		and (not FFlagShareExperienceInviteLinkPolicy or self.props.experienceInviteShareLinkEnabled)
+		and self.props.experienceInviteShareLinkEnabled
 		and self.state.serverType == CommonConstants.STANDARD_SERVER
 		and utility:IsExperienceOlderThanOneWeek(gameInfo)
 	then
@@ -167,12 +166,10 @@ if GetFFlagShareInviteLinkContextMenuV1Enabled() then
 	end)(ShareGamePageFrame)
 end
 
-if FFlagShareExperienceInviteLinkPolicy then
-	ShareGamePageFrame = RoactAppPolicy.connect(function(appPolicy)
-		return {
-			experienceInviteShareLinkEnabled = appPolicy.getExperienceInviteShareLinkEnabled(),
-		}
-	end)(ShareGamePageFrame)
-end
+ShareGamePageFrame = RoactAppPolicy.connect(function(appPolicy)
+	return {
+		experienceInviteShareLinkEnabled = appPolicy.getExperienceInviteShareLinkEnabled(),
+	}
+end)(ShareGamePageFrame)
 
 return ShareGamePageFrame

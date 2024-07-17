@@ -15,23 +15,33 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = CoreGui.RobloxGui.Modules
 local TopBar = Modules.TopBar
 local Reducer = require(TopBar.Reducer)
 local PresentationComponent = require(TopBar.Components.Presentation.BadgeOver13:FindFirstChild("BadgeOver13.story"))
 local AppComponent = require(TopBar.Components.Presentation.BadgeOver13)
 
+local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+
 local Chrome = Modules.Chrome
-local ChromeEnabled = Chrome.Enabled
+local ChromeEnabled : any = if GetFFlagFixChromeReferences() then require(Chrome.Enabled) else Chrome.Enabled
 
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 function CloseChrome()
 	-- New users will see Chrome open and hide BadgeOver13
 	-- In order for these tests to pass, we need to force close Chrome
-	if ChromeEnabled then
-		local ChromeService = require(Chrome.Service)
-		ChromeService:close()
+	if GetFFlagFixChromeReferences() then 
+		if ChromeEnabled() then 
+			local ChromeService = require(Chrome.Service)
+			ChromeService:close()
+		end 
+	else 
+		if ChromeEnabled then 
+			local ChromeService = require(Chrome.Service)
+			ChromeService:close()
+		end
 	end
 end
 

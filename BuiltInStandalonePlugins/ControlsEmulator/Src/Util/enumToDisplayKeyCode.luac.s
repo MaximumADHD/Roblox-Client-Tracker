@@ -1,6 +1,6 @@
 PROTO_0:
   JUMPIF R0 [+2]
-  LOADK R1 K0 ["N/A"]
+  LOADK R1 K0 ["---"]
   RETURN R1 1
   LOADK R1 K1 [""]
   MOVE R2 R0

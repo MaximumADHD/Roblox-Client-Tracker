@@ -22,13 +22,6 @@ PROTO_0:
   JUMPIF R1 [+2]
   LOADB R1 0
   RETURN R1 1
-  GETIMPORT R1 K9 [game]
-  LOADK R3 K12 ["Path2DControlPointAtomicClass4"]
-  NAMECALL R1 R1 K13 ["GetFastFlag"]
-  CALL R1 2 1
-  JUMPIF R1 [+2]
-  LOADB R1 0
-  RETURN R1 1
   LOADB R1 1
   RETURN R1 1
 
