@@ -13,7 +13,7 @@ MAIN:
   MOVE R3 R2
   LOADK R4 K10 [".Component-TextInfo"]
   NEWTABLE R5 0 0
-  NEWTABLE R6 0 5
+  NEWTABLE R6 0 6
   MOVE R7 R2
   LOADK R8 K11 ["::UIListLayout"]
   DUPTABLE R9 K13 [{"Padding"}]
@@ -24,65 +24,77 @@ MAIN:
   SETTABLEKS R10 R9 K12 ["Padding"]
   CALL R7 2 1
   MOVE R8 R2
-  LOADK R9 K17 [">> .SubtitleText"]
+  LOADK R9 K17 [">> .TitleText"]
   DUPTABLE R10 K19 [{"TextColor3"}]
-  LOADK R11 K20 ["$TextSecondary"]
+  LOADK R11 K20 ["$TextPrimary"]
   SETTABLEKS R11 R10 K18 ["TextColor3"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K21 [">> .LoadingIconContainer"]
-  DUPTABLE R11 K23 [{"Size"}]
-  LOADK R12 K24 ["$IconSize"]
-  SETTABLEKS R12 R11 K22 ["Size"]
+  LOADK R10 K21 [">> .SubtitleText"]
+  DUPTABLE R11 K19 [{"TextColor3"}]
+  LOADK R12 K22 ["$TextSecondary"]
+  SETTABLEKS R12 R11 K18 ["TextColor3"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K25 [">> .LoadingIcon"]
-  DUPTABLE R12 K30 [{"Size", "Image", "BackgroundTransparency", "AnchorPoint", "Position"}]
-  LOADK R13 K24 ["$IconSize"]
-  SETTABLEKS R13 R12 K22 ["Size"]
-  LOADK R13 K31 ["$LoadingSpinnerImage"]
-  SETTABLEKS R13 R12 K26 ["Image"]
-  LOADN R13 1
-  SETTABLEKS R13 R12 K27 ["BackgroundTransparency"]
-  GETIMPORT R13 K33 [Vector2.new]
-  LOADK R14 K34 [0.5]
-  LOADK R15 K34 [0.5]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K28 ["AnchorPoint"]
-  GETIMPORT R13 K36 [UDim2.new]
-  LOADK R14 K34 [0.5]
-  LOADN R15 0
-  LOADK R16 K34 [0.5]
-  LOADN R17 0
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K29 ["Position"]
+  LOADK R11 K23 [">> .LoadingIconContainer"]
+  DUPTABLE R12 K25 [{"Size"}]
+  LOADK R13 K26 ["$IconSize"]
+  SETTABLEKS R13 R12 K24 ["Size"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K37 [">> .StatusTextFrame"]
-  NEWTABLE R13 0 0
-  NEWTABLE R14 0 1
-  MOVE R15 R2
-  LOADK R16 K11 ["::UIListLayout"]
-  DUPTABLE R17 K13 [{"Padding"}]
-  GETIMPORT R18 K16 [UDim.new]
-  LOADN R19 0
-  LOADN R20 4
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K12 ["Padding"]
-  CALL R15 2 -1
-  SETLIST R14 R15 -1 [1]
-  CALL R11 3 -1
+  LOADK R12 K27 [">> .LoadingIcon"]
+  DUPTABLE R13 K32 [{"Size", "Image", "BackgroundTransparency", "AnchorPoint", "Position"}]
+  LOADK R14 K26 ["$IconSize"]
+  SETTABLEKS R14 R13 K24 ["Size"]
+  LOADK R14 K33 ["$LoadingSpinnerImage"]
+  SETTABLEKS R14 R13 K28 ["Image"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K29 ["BackgroundTransparency"]
+  GETIMPORT R14 K35 [Vector2.new]
+  LOADK R15 K36 [0.5]
+  LOADK R16 K36 [0.5]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K30 ["AnchorPoint"]
+  GETIMPORT R14 K38 [UDim2.new]
+  LOADK R15 K36 [0.5]
+  LOADN R16 0
+  LOADK R17 K36 [0.5]
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K31 ["Position"]
+  CALL R11 2 1
+  MOVE R12 R2
+  LOADK R13 K39 [">> .StatusTextFrame"]
+  NEWTABLE R14 0 0
+  NEWTABLE R15 0 2
+  MOVE R16 R2
+  LOADK R17 K11 ["::UIListLayout"]
+  DUPTABLE R18 K13 [{"Padding"}]
+  GETIMPORT R19 K16 [UDim.new]
+  LOADN R20 0
+  LOADN R21 4
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K12 ["Padding"]
+  CALL R16 2 1
+  MOVE R17 R2
+  LOADK R18 K40 [">> .StatusText"]
+  DUPTABLE R19 K19 [{"TextColor3"}]
+  LOADK R20 K20 ["$TextPrimary"]
+  SETTABLEKS R20 R19 K18 ["TextColor3"]
+  CALL R17 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K40 [{"IconSize", "IconToContentPadding"}]
-  GETIMPORT R8 K42 [UDim2.fromOffset]
+  DUPTABLE R7 K43 [{"IconSize", "IconToContentPadding"}]
+  GETIMPORT R8 K45 [UDim2.fromOffset]
   LOADN R9 16
   LOADN R10 16
   CALL R8 2 1
-  SETTABLEKS R8 R7 K38 ["IconSize"]
+  SETTABLEKS R8 R7 K41 ["IconSize"]
   GETIMPORT R8 K16 [UDim.new]
   LOADN R9 0
   LOADN R10 8
   CALL R8 2 1
-  SETTABLEKS R8 R7 K39 ["IconToContentPadding"]
+  SETTABLEKS R8 R7 K42 ["IconToContentPadding"]
   CALL R3 4 -1
   RETURN R3 -1

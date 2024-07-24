@@ -81,12 +81,12 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  DUPTABLE R3 K10 [{"_isMock", "_networking", "_pluginController", "explorerItems", "_groups", "_visibleGroups", "_selection", "_expansion", "OnExplorerItemsChanged", "OnExpansionChanged"}]
+  DUPTABLE R3 K10 [{"_isMock", "_networking", "_pluginController", "_explorerItems", "_groups", "_visibleGroups", "_selection", "_expansion", "OnExplorerItemsChanged", "OnExpansionChanged"}]
   SETTABLEKS R2 R3 K0 ["_isMock"]
   SETTABLEKS R1 R3 K1 ["_networking"]
   SETTABLEKS R0 R3 K2 ["_pluginController"]
   NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K3 ["explorerItems"]
+  SETTABLEKS R4 R3 K3 ["_explorerItems"]
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K4 ["_groups"]
   NEWTABLE R4 0 0
@@ -113,18 +113,18 @@ PROTO_3:
   SETTABLEKS R4 R3 K13 ["populateExplorerItems"]
   GETTABLEKS R4 R3 K13 ["populateExplorerItems"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K14 ["_explorerItems"]
+  SETTABLEKS R4 R3 K3 ["_explorerItems"]
   GETTABLEKS R4 R3 K1 ["_networking"]
   NEWCLOSURE R6 P1
   CAPTURE VAL R3
-  DUPCLOSURE R7 K15 [PROTO_2]
+  DUPCLOSURE R7 K14 [PROTO_2]
   CAPTURE UPVAL U2
-  NAMECALL R4 R4 K16 ["fetchGroupsAsync"]
+  NAMECALL R4 R4 K15 ["fetchGroupsAsync"]
   CALL R4 3 0
   GETUPVAL R6 3
   FASTCALL2 SETMETATABLE R3 R6 [+4]
   MOVE R5 R3
-  GETIMPORT R4 K18 [setmetatable]
+  GETIMPORT R4 K17 [setmetatable]
   CALL R4 2 0
   RETURN R3 1
 
@@ -138,6 +138,20 @@ PROTO_4:
   RETURN R2 -1
 
 PROTO_5:
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_explorerItems"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_groups"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_visibleGroups"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["_selection"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["_expansion"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["OnExplorerItemsChanged"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["OnExpansionChanged"]
   RETURN R0 0
 
 PROTO_6:

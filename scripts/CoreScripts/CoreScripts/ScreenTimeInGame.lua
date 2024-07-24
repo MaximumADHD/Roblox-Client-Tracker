@@ -1,9 +1,10 @@
 --!nonstrict
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local NotificationService = game:GetService("NotificationService")
 local CorePackages = game:GetService("CorePackages")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
+local NotificationService = game:GetService("NotificationService")
 local HttpService = game:GetService("HttpService")
 
 local ScreenTimeHttpRequests = require(CorePackages.Regulations.ScreenTime.HttpRequests)

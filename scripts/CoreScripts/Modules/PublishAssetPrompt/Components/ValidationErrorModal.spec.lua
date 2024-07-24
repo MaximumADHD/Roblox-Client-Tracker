@@ -7,6 +7,9 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
 
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+
 	local PublishAvatarPromptFolder = script.Parent.Parent
 	local Reducer = require(PublishAvatarPromptFolder.Reducer)
 	local OpenPublishAvatarPrompt = require(PublishAvatarPromptFolder.Actions.OpenPublishAvatarPrompt)
@@ -44,8 +47,12 @@ return function()
 				store = store,
 			}, {
 				ThemeProvider = UnitTestHelpers.createStyleProvider({
-					PublishAvatarPrompt = Roact.createElement(PublishAvatarPrompt, {
-						screenSize = Vector2.new(1920, 1080),
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = Localization.new("en-us"),
+					}, {
+						PublishAvatarPrompt = Roact.createElement(PublishAvatarPrompt, {
+							screenSize = Vector2.new(1920, 1080),
+						}),
 					}),
 				}),
 			})

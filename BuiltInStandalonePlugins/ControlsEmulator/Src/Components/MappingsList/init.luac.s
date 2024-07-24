@@ -2,9 +2,9 @@ PROTO_0:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["createElement"]
   GETUPVAL R3 1
-  DUPTABLE R4 K4 [{"key", "keyCode", "LayoutOrder"}]
+  DUPTABLE R4 K4 [{"key", "keyName", "LayoutOrder"}]
   SETTABLEKS R1 R4 K1 ["key"]
-  SETTABLEKS R1 R4 K2 ["keyCode"]
+  SETTABLEKS R1 R4 K2 ["keyName"]
   GETUPVAL R5 2
   NAMECALL R5 R5 K5 ["getNextOrder"]
   CALL R5 1 1
@@ -79,4 +79,7 @@ MAIN:
   CAPTURE VAL R4
   CAPTURE VAL R8
   CAPTURE VAL R7
-  RETURN R9 1
+  GETTABLEKS R10 R1 K19 ["memo"]
+  MOVE R11 R9
+  CALL R10 1 -1
+  RETURN R10 -1

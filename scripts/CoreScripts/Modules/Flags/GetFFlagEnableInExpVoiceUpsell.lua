@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableInExpVoiceUpsell7", false)
+game:DefineFastFlag("EnableInExpVoiceUpsell8", false)
 
 return function()
-	return game:GetFastFlag("EnableInExpVoiceUpsell7")
+	return game:GetFastFlag("EnableInExpVoiceUpsell8")
 end

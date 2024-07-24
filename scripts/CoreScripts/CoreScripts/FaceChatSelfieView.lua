@@ -53,6 +53,7 @@ local FFlagSelfViewGetRidOfFalselyRenderedFaceDecal = game:DefineFastFlag("SelfV
 local FFlagSelfViewRemoveVPFWhenClosed = game:DefineFastFlag("SelfViewRemoveVPFWhenClosed", false)
 local FFlagSelfViewTweaksPass = game:DefineFastFlag("SelfViewTweaksPass", false)
 local FFlagInExperienceUpsellSelfViewFix = game:DefineFastFlag("InExperienceUpsellSelfViewFix", false)
+local FFlagRemoveVoiceJoiceDisconnectFix = game:DefineFastFlag("RemoveVoiceJoiceDisconnectFix", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -60,7 +61,8 @@ local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
 local Promise = require(CorePackages.Promise)
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
 local RunService = game:GetService("RunService")
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Symbol = require(CorePackages.Symbol)
@@ -951,7 +953,7 @@ local function setIsOpen(shouldBeOpen)
 			playerScreenOrientationConnection = nil
 		end
 
-		if voiceJoinProgressChangedConnection then
+		if not FFlagRemoveVoiceJoiceDisconnectFix and voiceJoinProgressChangedConnection then
 			voiceJoinProgressChangedConnection:Disconnect()
 			voiceJoinProgressChangedConnection = nil
 		end
@@ -3226,6 +3228,11 @@ function Initialize(player)
 			clearClone()
 			if serviceStateSingalConnection then
 				serviceStateSingalConnection:Disconnect()
+			end
+
+			if FFlagRemoveVoiceJoiceDisconnectFix and voiceJoinProgressChangedConnection then
+				voiceJoinProgressChangedConnection:Disconnect()
+				voiceJoinProgressChangedConnection = nil
 			end
 		end
 	end)

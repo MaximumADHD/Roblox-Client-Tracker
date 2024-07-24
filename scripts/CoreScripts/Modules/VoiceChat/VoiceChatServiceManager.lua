@@ -23,32 +23,18 @@ local GetFFlagEnableCoreVoiceManagerMuteAll = require(script.Parent.Flags.GetFFl
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoiceMicPromptToastFix = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMicPromptToastFix)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
-local GetFFlagEnableErrorIconFix = require(RobloxGui.Modules.Flags.GetFFlagEnableErrorIconFix)
 local GetFFlagDeferredBlockStatusChange = require(RobloxGui.Modules.Flags.GetFFlagDeferredBlockStatusChange)
-local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
-local GetFFlagClearVoiceStateOnRejoin = require(RobloxGui.Modules.Flags.GetFFlagClearVoiceStateOnRejoin)
-local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceRccCheck)
-local GetFFlagClearUserFromRecentVoiceDataOnLeave =
-	require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
-local GetFIntVoiceUsersInteractionExpiryTimeSeconds =
-	require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
-local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagVoiceChatUseSoundServiceInputApi =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
-local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived =
-	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local GetFFlagVoiceChatServiceManagerUseAvatarChat =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
-local GetFFlagLuaConsumePlayerModerated = require(RobloxGui.Modules.Flags.GetFFlagLuaConsumePlayerModerated)
 local GetFFlagUseLuaSignalrConsumer = require(RobloxGui.Modules.Flags.GetFFlagUseLuaSignalrConsumer)
-local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceNudge)
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 local GetFFlagEnableNudgeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableNudgeAnalytics)
 local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlagVoiceUseAudioRoutingAPI)
-local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
@@ -75,13 +61,14 @@ local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagE
 local GetFFlagEnableInExpVoiceConsentAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceConsentAnalytics)
 local GetFFlagEnableInExpMicPermissionsAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpMicPermissionsAnalytics)
-local GetFFlagBatchVoiceParticipantsUpdates = require(RobloxGui.Modules.Flags.GetFFlagBatchVoiceParticipantsUpdates)
 local GetFIntThrottleParticipantsUpdateMs = require(RobloxGui.Modules.Flags.GetFIntThrottleParticipantsUpdateMs)
+local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local FStringVoiceUIImprovementsIXPLayerName =
 	game:DefineFastString("VoiceUIImprovementsIXPLayerName", "Voice.Exposure")
 local FStringThrottleParticipantsUpdateIXPLayerValue =
 	game:DefineFastString("ThrottleParticipantsUpdateIXPLayerValue", "ThrottleParticipantsUpdate")
 local GetFFlagShowLikelySpeakingBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowLikelySpeakingBubbles)
+local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 local Constants = VoiceChat.Constants
 local PostRecordUserSeenGeneralModal = VoiceChat.AgeVerificationOverlay.PostRecordUserSeenGeneralModal
@@ -106,12 +93,13 @@ local MicrophoneDevicePermissionsLogging =
 	require(RobloxGui.Modules.Settings.Resources.MicrophoneDevicePermissionsLogging)
 
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
-local FFlagEasierUnmutingPassMuteStatus = game:DefineFastFlag("EasierUnmutingPassMuteStatus", false)
-local ExperienceChat = if FFlagEasierUnmutingPassMuteStatus then require(CorePackages.ExperienceChat) else nil
+local ExperienceChat = require(CorePackages.ExperienceChat)
 
 local GetFFlagUsePostRecordUserSeenGeneralModal = VoiceChatFlags.GetFFlagUsePostRecordUserSeenGeneralModal
 
 local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol.default
+local PhoneUpsellController = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then require(CorePackages.Workspace.Packages.PhoneUpsell).PhoneUpsellController else nil
+local PostPhoneUpsellDisplayed = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then require(CorePackages.Workspace.Packages.PhoneUpsell).Http.Requests.PostPhoneUpsellDisplayed else nil
 
 local CoreVoiceManager = VoiceChatCore.CoreVoiceManager
 local CoreVoiceConstants = VoiceChatCore.Constants
@@ -377,19 +365,17 @@ function VoiceChatServiceManager.new(
 		self.getPermissionsFunction(callback, permissions, shouldNotRequestPerms, context)
 	end)
 	self.coreVoiceManager:subscribe('OnVoiceParticipantRemoved', function (userId)
-		if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantRemoved then
+		if ExperienceChat.Events.VoiceParticipantRemoved then
 			ExperienceChat.Events.VoiceParticipantRemoved(tostring(userId))
 		end
 	end)
 	self.coreVoiceManager:subscribe('OnVoiceParticipantAdded', function (userId)
-		if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantAdded then
+		if ExperienceChat.Events.VoiceParticipantAdded then
 			ExperienceChat.Events.VoiceParticipantAdded(tostring(userId))
 		end
 	end)
 	self.coreVoiceManager:subscribe('OnVoiceParticipantToggleMuted', function (userId, isMuted)
-		if
-			FFlagEasierUnmutingPassMuteStatus
-			and ExperienceChat.Events.VoiceParticipantToggleMuted
+		if ExperienceChat.Events.VoiceParticipantToggleMuted
 		then
 			ExperienceChat.Events.VoiceParticipantToggleMuted(tostring(userId), isMuted)
 		end
@@ -469,6 +455,11 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe('OnPermissionRequested', function ()
 		self:showPrompt(VoiceChatPromptType.Permission)
 	end)
+	self.coreVoiceManager:subscribe('OnVoiceReverseNudgeIconColorChange', function (details)
+		log:debug("Received a reverse nudge")
+		-- TODO: Create & Trigger new event/action that marks the toxic user in Rodux for 10 seconds
+		-- https://roblox.atlassian.net/browse/EXPR-1880
+	end)
 	self.coreVoiceManager:subscribe('OnVoiceJoin', function ()
 		self:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
 	end)
@@ -543,6 +534,10 @@ end
 
 function VoiceChatServiceManager:FetchAgeVerificationOverlay(hasMicPermissions): nil | AgeVerificationOverlayData
 	return self.coreVoiceManager:FetchAgeVerificationOverlay(if GetFFlagUseMicPermForEnrollment() then hasMicPermissions else nil)
+end
+
+function VoiceChatServiceManager:FetchPhoneVerificationUpsell(layerName: string)
+	return self.coreVoiceManager:FetchPhoneVerificationUpsell(layerName)
 end
 
 function VoiceChatServiceManager:RecordUserSeenModal(modalId: string): nil
@@ -671,6 +666,40 @@ function VoiceChatServiceManager:ShowInExperienceVoiceUpsell(entrypoint: string)
 	self:showPrompt(promptToShow)
 end
 
+function VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(entrypoint: string, layerName: string)
+	self:SetInExpUpsellEntrypoint(entrypoint)
+
+	PhoneUpsellController.openPhoneUpsell({
+		entryConfig = {
+			titleKey = "Feature.VerificationUpsell.Heading.UnlockVoiceChat",
+			descriptionKey = "Feature.VerificationUpsell.Description.UnlockVoiceChatBody",
+			buttonKey = "Feature.VerificationUpsell.Action.AddPhoneNumber",
+			extraButtonConfig = {
+				extraButtonKey = "Feature.VerificationUpsell.Action.NotNow"
+			},
+			legalTextKey = "Feature.VerificationUpsell.Description.VoiceLegalDisclaimer2"
+		},
+		onSuccessBeforeToast = function()
+			self.coreVoiceManager:DisablePhoneVerificationUpsell()
+			if GetFFlagShowLikelySpeakingBubbles() and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged then
+				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
+			end
+			PostPhoneUpsellDisplayed(bind(self, "PostRequest"), layerName, os.time(), false)
+		end,
+		onSuccess = function()
+			self:EnableVoice()
+		end,
+		closeUpsell = function()
+			if GetFFlagShowLikelySpeakingBubbles() and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged then
+				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
+			end
+			if entrypoint ~= VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE then
+				self:showPrompt(VoiceChatPromptType.VoiceConsentDeclinedToast)
+			end
+			PostPhoneUpsellDisplayed(bind(self, "PostRequest"), layerName, os.time(), true)
+		end
+	})
+end
 function VoiceChatServiceManager:SetInExpUpsellEntrypoint(entrypoint: string)
 	self.inExpUpsellEntrypoint = entrypoint
 end
@@ -1237,6 +1266,35 @@ end
 
 function VoiceChatServiceManager:GetIcon(name, folder)
 	return getIconSrc(name, folder)
+end
+
+function VoiceChatServiceManager:JoinVoice()
+	local ageVerificationResponse = self:FetchAgeVerificationOverlay()
+	local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
+
+	if GetFFlagEnableInExpJoinVoiceAnalytics() then
+		self.Analytics:reportJoinVoiceButtonEvent(
+			"clicked",
+			self:GetInExpUpsellAnalyticsData()
+		)
+	end
+
+	if self:UserOnlyEligibleForVoice() then
+		self:SetInExpUpsellEntrypoint(VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE)
+
+		local promptToShow = self:GetInExpUpsellPromptFromEnum(voiceInExpUpsellVariant)
+		self:showPrompt(promptToShow)
+	elseif self:UserVoiceEnabled() and not self.state.hasMicPermissions then
+		self:showPrompt(VoiceChatPromptType.Permission)
+	end
+end
+
+-- Show join voice button in voice enabled experiences, for voice eligible users who haven't enabled voice and voice enabled users with denied mic permissions
+function VoiceChatServiceManager:ShouldShowJoinVoice()
+	local userInInExperienceUpsellTreatment = self:UserInInExperienceUpsellTreatment()
+	local userVoiceUpsellEligible = self:UserOnlyEligibleForVoice()
+		or self:UserVoiceEnabled()
+	return userInInExperienceUpsellTreatment and userVoiceUpsellEligible
 end
 
 function VoiceChatServiceManager:GetVoiceStateFromEnum(voiceStateEnum)

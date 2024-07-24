@@ -28,7 +28,9 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local VRService = game:GetService("VRService")
 local GroupService = game:GetService("GroupService")
 local TeleportService = game:GetService("TeleportService")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CorePackages = game:GetService("CorePackages")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
@@ -46,7 +48,7 @@ local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQual
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
-local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+local RobloxTranslator = require(if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules.RobloxTranslator else RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
 local FFlagNotificationsNoLongerRequireControllerState = game:DefineFastFlag("NotificationsNoLongerRequireControllerState", false)
 
@@ -72,13 +74,15 @@ local BindableEvent_SendNotificationInfo = Instance.new("BindableEvent")
 BindableEvent_SendNotificationInfo.Name = "SendNotificationInfo"
 BindableEvent_SendNotificationInfo.Parent = RobloxGui
 local isPaused = false
-RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
+if GetFFlagReplaceWaitForChildDependancy2952() then
+	RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
+end
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local pointsNotificationsActive = true
 local badgesNotificationsActive = true
 
-local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
+local SocialUtil = require(if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules.SocialUtil else RobloxGui.Modules:WaitForChild("SocialUtil"))
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 

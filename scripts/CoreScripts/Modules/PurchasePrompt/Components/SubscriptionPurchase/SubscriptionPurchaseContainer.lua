@@ -5,6 +5,7 @@ local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 local React = require(CorePackages.Packages.React)
+local ToastRodux = require(CorePackages.Workspace.Packages.ToastRodux)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -21,8 +22,9 @@ local sendEvent = require(Root.Thunks.sendEvent)
 local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
-
 local SubscriptionPurchaseOverlay = require(script.Parent.SubscriptionPurchaseOverlay)
+
+local SetCurrentToastMessage = ToastRodux.Actions.SetCurrentToastMessage
 
 local SubscriptionPurchaseContainer = Roact.Component:extend(script.Name)
 
@@ -30,6 +32,7 @@ local SELECTION_GROUP_NAME = "SubscriptionPurchaseContainer"
 
 local GetFFlagFixPlayerGuiSelectionBugOnPromptExit = require(Root.Flags.GetFFlagFixPlayerGuiSelectionBugOnPromptExit)
 local GetFFlagEnableRobloxCreditPurchase = require(Root.Flags.GetFFlagEnableRobloxCreditPurchase)
+local GetFFlagEnableSubscriptionPurchaseToast = require(Root.Flags.GetFFlagEnableSubscriptionPurchaseToast)
 
 function SubscriptionPurchaseContainer:init()
 	self.state = {
@@ -121,6 +124,7 @@ function SubscriptionPurchaseContainer:createElement()
 				then self.endPurchase
 				else props.completeRequest,
 			onAnalyticEvent = props.onAnalyticEvent,
+			setCurrentToastMessage = props.setCurrentToastMessage,
 		}),
 		-- UIBlox components do not have Modal == true to fix FPS interaction with modals
 		ModalFix = Roact.createElement("ImageButton", {
@@ -173,6 +177,11 @@ end, function(dispatch)
 		onAnalyticEvent = function(name, data)
 			return dispatch(sendEvent(name, data))
 		end,
+		setCurrentToastMessage = if GetFFlagEnableSubscriptionPurchaseToast()
+			then function(toastMessage)
+				dispatch(SetCurrentToastMessage(toastMessage)) 
+			end
+			else nil
 	}
 end)(SubscriptionPurchaseContainer)
 

@@ -5,4 +5,7 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["UserActivationFramework"]["UserActivationFramework"])
 
+export type UserActivationSignupPageStateType = Package.UserActivationSignupPageStateType
+
+
 return Package

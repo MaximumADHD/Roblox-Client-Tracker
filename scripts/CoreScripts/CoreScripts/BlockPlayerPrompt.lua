@@ -9,17 +9,18 @@
 local StarterGui = game:GetService("StarterGui")
 local PlayersService = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
-
-local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
+local CorePackages = game:GetService("CorePackages")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiService.RobloxGui else CoreGuiService:WaitForChild("RobloxGui")
 local LocalPlayer = PlayersService.LocalPlayer
 while LocalPlayer == nil do
 	PlayersService.ChildAdded:wait()
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
-local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
+local CoreGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules else RobloxGui:WaitForChild("Modules")
+local PromptCreator = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.PromptCreator else CoreGuiModules:WaitForChild("PromptCreator"))
+local SocialUtil = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.SocialUtil else CoreGuiModules:WaitForChild("SocialUtil"))
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 
 local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150

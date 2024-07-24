@@ -1,9 +1,24 @@
 PROTO_0:
   GETTABLEKS R1 R0 K0 ["endSelectionOnDrag"]
   CALL R1 0 0
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+3]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K1 ["reachedMinimalMouseDistance"]
   RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagTerrainEditorBuildNoDragSelect"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K9 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

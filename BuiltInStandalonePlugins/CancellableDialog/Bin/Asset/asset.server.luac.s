@@ -24,7 +24,7 @@ MAIN:
   GETTABLEKS R4 R5 K14 ["Common"]
   GETTABLEKS R3 R4 K15 ["defineLuaFlags"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K16 ["getFFlagEnableCancellableDialog"]
+  GETTABLEKS R3 R2 K16 ["getFFlagStudioCancellableDialogManager"]
   CALL R3 0 1
   JUMPIF R3 [+1]
   RETURN R0 0

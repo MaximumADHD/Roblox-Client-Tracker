@@ -11,6 +11,8 @@ local UIBlox = PurchasePromptDeps.UIBlox
 local StyleProvider = UIBlox.Style.Provider
 local IAPExperience = require(CorePackages.IAPExperience)
 local LocaleProvider =  IAPExperience.Locale.LocaleProvider
+local ToastLite = require(CorePackages.Workspace.Packages.ToastLite)
+local Toast = ToastLite.Components.Toast
 
 local Reducer = require(Root.Reducers.Reducer)
 local ABTest = require(Root.Services.ABTest)
@@ -31,6 +33,7 @@ local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsell
 local SubscriptionPurchaseContainer = require(script.Parent.SubscriptionPurchase.SubscriptionPurchaseContainer)
 
 local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
+local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLiteRender)
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 
@@ -89,6 +92,7 @@ function PurchasePromptApp:render()
 								SubscriptionPurchaseContainer = Roact.createElement(SubscriptionPurchaseContainer),
 							}),
 							EventConnections = Roact.createElement(EventConnections),
+							Toast = if GetFFlagEnableToastLiteRender() then Roact.createElement(Toast) else nil
 						}),
 					}),
 				}),

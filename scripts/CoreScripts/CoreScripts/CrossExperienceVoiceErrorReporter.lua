@@ -9,7 +9,8 @@ local RunService = game:GetService("RunService")
 local ScriptContext = game:GetService("ScriptContext")
 local UserInputService = game:GetService("UserInputService")
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
 
 local RateLimiter = require(RobloxGui.Modules.ErrorReporting.RateLimiter)
 local PiiFilter = require(RobloxGui.Modules.ErrorReporting.PiiFilter)

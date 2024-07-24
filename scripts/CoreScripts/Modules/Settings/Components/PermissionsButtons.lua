@@ -54,9 +54,9 @@ local GetFFlagPassShouldRequestPermsArg = require(RobloxGui.Modules.Flags.GetFFl
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagFixPermissionsButtonsEvents = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixPermissionsButtonsEvents)
-
 local GetFStringVoiceUpsellLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringVoiceUpsellLayer
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
+local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints 
 
 if GetFFlagRemoveInGameChatBubbleChatReferences() then
 	displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
@@ -91,6 +91,7 @@ PermissionsButtons.validateProps = t.strictInterface({
 	shouldFillScreen = t.boolean,
 	selfViewOpen = t.boolean,
 	useNewMenuTheme = t.boolean,
+	hubRef = t.any,
 })
 
 local function createDivider(layoutOrder)
@@ -312,6 +313,8 @@ function PermissionsButtons:init()
 	end
 
 	self.onJoinVoicePressed = function()
+		local hasPhoneUpsell = GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints()
+			and VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER) == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 		local ageVerificationResponse = VoiceChatServiceManager:FetchAgeVerificationOverlay()
 		local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
 
@@ -329,6 +332,10 @@ function PermissionsButtons:init()
 			VoiceChatServiceManager:showPrompt(promptToShow)
 		elseif VoiceChatServiceManager:UserVoiceEnabled() and not self.state.hasMicPermissions then
 			VoiceChatServiceManager:showPrompt(VoiceChatPromptType.Permission)
+		elseif hasPhoneUpsell and not VoiceChatServiceManager:UserVoiceEnabled() then
+			-- Close menu with no animation before we open the phone upsell modal
+			self.props.hubRef:SetVisibility(false, true)
+			VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE, VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER)
 		end
 	end
 
@@ -413,6 +420,15 @@ function PermissionsButtons:getJoinVoiceButtonVisibleAtMount()
 	end
 
 	local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
+	if 
+		GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints()
+		and VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER) == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
+		and not userVoiceUpsellEligible
+		and not VoiceChatServiceManager:UserVoiceEnabled() 
+	then
+		return true
+	end
+
 	-- Don't fetch age verification overlay data if user is not only voice eligible
 	if not userVoiceUpsellEligible then
 		return false

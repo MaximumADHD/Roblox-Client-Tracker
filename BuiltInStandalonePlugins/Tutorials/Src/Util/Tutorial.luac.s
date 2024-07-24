@@ -337,41 +337,14 @@ PROTO_10:
   CAPTURE VAL R0
   CALL R4 2 1
   SETTABLEKS R4 R0 K17 ["showSpotlightTask"]
-  GETTABLEKS R5 R0 K1 ["data"]
-  GETTABLEKS R4 R5 K24 ["id"]
-  JUMPIFNOTEQKS R4 K25 ["StudioTour"] [+46]
-  GETTABLEKS R4 R3 K11 ["callout"]
-  JUMPIFNOT R4 [+42]
-  DUPTABLE R6 K33 [{"title", "description", "showNext", "hideArrow", "anchorPoint", "target", "rowName"}]
-  GETTABLEKS R7 R3 K26 ["title"]
-  SETTABLEKS R7 R6 K26 ["title"]
-  GETTABLEKS R7 R3 K27 ["description"]
-  SETTABLEKS R7 R6 K27 ["description"]
-  GETTABLEKS R7 R3 K28 ["showNext"]
-  SETTABLEKS R7 R6 K28 ["showNext"]
-  GETTABLEKS R8 R3 K11 ["callout"]
-  GETTABLEKS R7 R8 K29 ["hideArrow"]
-  SETTABLEKS R7 R6 K29 ["hideArrow"]
-  GETTABLEKS R8 R3 K11 ["callout"]
-  GETTABLEKS R7 R8 K30 ["anchorPoint"]
-  SETTABLEKS R7 R6 K30 ["anchorPoint"]
-  GETTABLEKS R8 R3 K11 ["callout"]
-  GETTABLEKS R7 R8 K31 ["target"]
-  SETTABLEKS R7 R6 K31 ["target"]
-  GETTABLEKS R8 R3 K11 ["callout"]
-  GETTABLEKS R7 R8 K32 ["rowName"]
-  SETTABLEKS R7 R6 K32 ["rowName"]
-  NAMECALL R4 R0 K34 ["showCallout"]
-  CALL R4 2 1
-  SETTABLEKS R4 R0 K2 ["currentCallout"]
-  NAMECALL R4 R0 K35 ["getCurrentStepData"]
+  NAMECALL R4 R0 K24 ["getCurrentStepData"]
   CALL R4 1 1
   GETUPVAL R5 3
   MOVE R6 R3
-  DUPCLOSURE R7 K36 [PROTO_9]
+  DUPCLOSURE R7 K25 [PROTO_9]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K37 ["step"]
-  GETTABLEKS R5 R0 K38 ["onStepChanged"]
+  SETTABLEKS R5 R4 K26 ["step"]
+  GETTABLEKS R5 R0 K27 ["onStepChanged"]
   MOVE R6 R4
   CALL R5 1 0
   RETURN R0 0

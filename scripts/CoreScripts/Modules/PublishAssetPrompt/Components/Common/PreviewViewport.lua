@@ -40,9 +40,6 @@ local Constants = require(script.Parent.Parent.Parent.Constants)
 local Images = UIBlox.App.ImageSet.Images
 local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
 
-local FFlagUIBloxUseInputResponsiveShortcutBarChanges =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxUseInputResponsiveShortcutBarChanges
-
 local FFlagPublishAvatarPromptEnabled = require(script.Parent.Parent.Parent.FFlagPublishAvatarPromptEnabled)
 
 local CAMERA_FOV = 30
@@ -472,9 +469,7 @@ function PreviewViewport:render()
 			})
 			else nil,
 
-		TooltipHint = if FFlagUIBloxUseInputResponsiveShortcutBarChanges
-				and FFlagPublishAvatarPromptEnabled
-				and self.props.asset:IsA("Model")
+		TooltipHint = if FFlagPublishAvatarPromptEnabled and self.props.asset:IsA("Model")
 			then Roact.createElement(ShortcutBar, {
 				position = UDim2.fromScale(0.5, 0.9),
 				anchorPoint = Vector2.new(0.5, 1),

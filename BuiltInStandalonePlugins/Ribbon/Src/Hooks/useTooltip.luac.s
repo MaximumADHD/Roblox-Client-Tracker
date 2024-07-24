@@ -57,7 +57,7 @@ PROTO_2:
   SETTABLE R7 R5 R6
   GETUPVAL R7 3
   GETTABLEKS R6 R7 K9 ["Tag"]
-  LOADK R7 K10 ["TooltipBackground X-RowSpace50 X-Fit X-PadTooltip X-Middle X-CornerXS"]
+  LOADK R7 K10 ["TooltipBackground X-RowSpace50 X-Fit X-PadTooltip X-Middle"]
   SETTABLE R7 R5 R6
   DUPTABLE R6 K13 [{"Icon", "Content", "StyleLink"}]
   GETTABLEKS R8 R0 K2 ["Icon"]

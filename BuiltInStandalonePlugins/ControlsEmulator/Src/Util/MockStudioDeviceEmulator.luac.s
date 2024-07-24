@@ -8,19 +8,25 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  DUPTABLE R1 K3 [{"SendGamepadEvent", "GetKeyboardShortcut", "ConnectGamepad"}]
-  DUPCLOSURE R2 K4 [PROTO_0]
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_4:
+  DUPTABLE R1 K4 [{"SendGamepadEvent", "GetKeyboardShortcut", "ConnectGamepad", "UpdateKeyMapping"}]
+  DUPCLOSURE R2 K5 [PROTO_0]
   SETTABLEKS R2 R1 K0 ["SendGamepadEvent"]
-  DUPCLOSURE R2 K5 [PROTO_1]
+  DUPCLOSURE R2 K6 [PROTO_1]
   SETTABLEKS R2 R1 K1 ["GetKeyboardShortcut"]
-  DUPCLOSURE R2 K6 [PROTO_2]
+  DUPCLOSURE R2 K7 [PROTO_2]
   SETTABLEKS R2 R1 K2 ["ConnectGamepad"]
-  DUPTABLE R4 K8 [{"__index"}]
+  DUPCLOSURE R2 K8 [PROTO_3]
+  SETTABLEKS R2 R1 K3 ["UpdateKeyMapping"]
+  DUPTABLE R4 K10 [{"__index"}]
   GETUPVAL R5 0
-  SETTABLEKS R5 R4 K7 ["__index"]
+  SETTABLEKS R5 R4 K9 ["__index"]
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K10 [setmetatable]
+  GETIMPORT R2 K12 [setmetatable]
   CALL R2 2 0
   RETURN R1 1
 
@@ -28,7 +34,7 @@ MAIN:
   PREPVARARGS 0
   NEWTABLE R0 2 0
   SETTABLEKS R0 R0 K0 ["__index"]
-  DUPCLOSURE R1 K1 [PROTO_3]
+  DUPCLOSURE R1 K1 [PROTO_4]
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K2 ["new"]
   RETURN R0 1

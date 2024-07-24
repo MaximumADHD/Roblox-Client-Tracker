@@ -16,6 +16,7 @@ local AvatarPartGrid = require(script.Parent.AvatarParts.AvatarPartGrid)
 local Components = script.Parent.Parent
 local BasePublishPrompt = require(Components.BasePublishPrompt)
 local ObjectViewport = require(Components.Common.ObjectViewport)
+local PublishInfoList = require(Components.Common.PublishInfoList)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
@@ -36,7 +37,8 @@ PublishAvatarPrompt.validateProps = t.strictInterface({
 
 function PublishAvatarPrompt:init()
 	local LocalPlayer = Players.LocalPlayer
-	assert(LocalPlayer, "Assert LocalPlayer is not nil to silence type checker")
+	-- LocalPlayer should always be available
+	assert(LocalPlayer, "LocalPlayer must not be nil")
 
 	self:setState({
 		showingPreviewView = false,
@@ -101,11 +103,15 @@ function PublishAvatarPrompt:renderPromptBody()
 			fieldOfView = CAMERA_FOV,
 			LayoutOrder = 1,
 		}),
+		InfoList = Roact.createElement(PublishInfoList, {
+			typeName = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body"),
+			LayoutOrder = 2,
+		}),
 		AvatarPartGrid = if not isLoading
 			then Roact.createElement(AvatarPartGrid, {
 				humanoidModel = self.props.humanoidModel,
 				name = self.state.name,
-				LayoutOrder = 2,
+				LayoutOrder = 3,
 				screenSize = self.props.screenSize,
 			})
 			else nil,
@@ -113,7 +119,8 @@ function PublishAvatarPrompt:renderPromptBody()
 end
 
 function PublishAvatarPrompt:render()
-	assert(Players, "Players should always be defined, silence type checker")
+	-- Players should always be available
+	assert(Players, "Players must not be nil")
 	return Roact.createElement(BasePublishPrompt, {
 		promptBody = self:renderPromptBody(),
 		screenSize = self.props.screenSize,
@@ -122,14 +129,14 @@ function PublishAvatarPrompt:render()
 		asset = self.props.humanoidModel,
 		nameLabel = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.BodyName"),
 		defaultName = self.state.name,
-		typeData = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body"),
-		titleText = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.SubmitCreation"),
+		titleText = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.BuyCreation"),
 		onNameUpdated = self.onNameUpdated,
 		canSubmit = self.canSubmit,
 		onSubmit = self.onSubmit,
 		enableInputDelayed = true,
 		isDelayedInput = true,
 		delayInputSeconds = DELAYED_INPUT_ANIM_SEC,
+		priceInRobux = self.props.priceInRobux,
 	})
 end
 
@@ -138,6 +145,7 @@ local function mapStateToProps(state)
 		humanoidModel = state.promptRequest.promptInfo.humanoidModel,
 		guid = state.promptRequest.promptInfo.guid,
 		scopes = state.promptRequest.promptInfo.scopes,
+		priceInRobux = state.promptRequest.promptInfo.priceInRobux,
 	}
 end
 

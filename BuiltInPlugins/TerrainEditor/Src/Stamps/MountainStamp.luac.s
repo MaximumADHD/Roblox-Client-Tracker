@@ -49,144 +49,66 @@ PROTO_1:
   SETTABLEKS R6 R5 K8 ["hillWidth"]
   LOADK R6 K12 [0.85]
   SETTABLEKS R6 R5 K9 ["hillHeight"]
-  DUPTABLE R6 K17 [{"frequency", "amplitude", "offset", "seed"}]
-  DIVK R7 R1 K18 [5]
-  SETTABLEKS R7 R6 K13 ["frequency"]
-  MULK R8 R2 K20 [0.16]
-  MULK R7 R8 K19 [2]
-  SETTABLEKS R7 R6 K14 ["amplitude"]
-  SETTABLEKS R3 R6 K15 ["offset"]
-  SETTABLEKS R4 R6 K16 ["seed"]
-  LOADN R8 0
-  JUMPIFNOTLT R8 R1 [+6]
-  LOADN R8 0
-  JUMPIFNOTLT R8 R2 [+3]
-  LOADB R7 1
+  LOADN R7 0
+  JUMPIFNOTLT R7 R1 [+6]
+  LOADN R7 0
+  JUMPIFNOTLT R7 R2 [+3]
+  LOADB R6 1
   JUMP [+1]
-  LOADB R7 0
-  JUMPIFNOT R7 [+10]
-  GETIMPORT R8 K23 [table.create]
-  GETTABLEKS R10 R0 K24 ["_rotatedSliceX"]
-  GETTABLEKS R11 R0 K25 ["_rotatedSliceZ"]
-  MUL R9 R10 R11
-  LOADN R10 0
-  CALL R8 2 1
+  LOADB R6 0
+  JUMPIFNOT R6 [+13]
+  DUPTABLE R7 K17 [{"frequency", "amplitude", "offset", "seed"}]
+  MULK R8 R1 K18 [0.05]
+  SETTABLEKS R8 R7 K13 ["frequency"]
+  MULK R9 R2 K20 [0.16]
+  MULK R8 R9 K19 [2]
+  SETTABLEKS R8 R7 K14 ["amplitude"]
+  SETTABLEKS R3 R7 K15 ["offset"]
+  SETTABLEKS R4 R7 K16 ["seed"]
   JUMP [+1]
-  LOADNIL R8
-  GETIMPORT R9 K23 [table.create]
-  GETTABLEKS R11 R0 K24 ["_rotatedSliceX"]
-  GETTABLEKS R12 R0 K25 ["_rotatedSliceZ"]
-  MUL R10 R11 R12
-  LOADN R11 0
-  CALL R9 2 1
-  SETTABLEKS R9 R0 K26 ["_noiseMap"]
-  LOADN R11 1
-  GETTABLEKS R9 R0 K24 ["_rotatedSliceX"]
-  LOADN R10 1
-  FORNPREP R9
-  GETTABLEKS R13 R0 K27 ["_rotatedXOffset"]
-  SUB R12 R11 R13
-  LOADN R15 1
-  GETTABLEKS R13 R0 K25 ["_rotatedSliceZ"]
-  LOADN R14 1
-  FORNPREP R13
-  GETTABLEKS R17 R0 K28 ["_rotatedZOffset"]
-  SUB R16 R15 R17
-  MOVE R19 R12
-  MOVE R20 R16
-  MOVE R21 R5
-  LOADNIL R22
-  NAMECALL R17 R0 K29 ["getGaussianHillHeight"]
-  CALL R17 5 1
-  MOVE R20 R11
-  MOVE R21 R15
-  NAMECALL R18 R0 K30 ["getSliceIndex"]
-  CALL R18 3 1
-  GETTABLEKS R19 R0 K26 ["_noiseMap"]
-  SETTABLE R17 R19 R18
-  JUMPIFNOT R7 [+9]
-  MOVE R21 R12
-  MOVE R22 R16
-  MOVE R23 R5
-  MOVE R24 R6
-  NAMECALL R19 R0 K29 ["getGaussianHillHeight"]
-  CALL R19 5 1
-  SUB R20 R19 R17
-  SETTABLE R20 R8 R18
-  FORNLOOP R13
-  FORNLOOP R9
-  JUMPIF R7 [+1]
-  RETURN R0 0
-  NAMECALL R9 R0 K31 ["addErosion"]
-  CALL R9 1 0
-  LOADN R11 1
-  GETTABLEKS R12 R0 K26 ["_noiseMap"]
-  LENGTH R9 R12
-  LOADN R10 1
-  FORNPREP R9
-  GETTABLEKS R12 R0 K26 ["_noiseMap"]
-  GETTABLE R13 R12 R11
-  GETTABLE R14 R8 R11
-  ADD R13 R13 R14
-  SETTABLE R13 R12 R11
-  FORNLOOP R9
+  LOADNIL R7
+  MOVE R10 R5
+  MOVE R11 R7
+  NAMECALL R8 R0 K21 ["generateHill"]
+  CALL R8 3 0
+  JUMPIFNOT R6 [+6]
+  NAMECALL R8 R0 K22 ["addErosion"]
+  CALL R8 1 0
+  NAMECALL R8 R0 K23 ["addMacroNoise"]
+  CALL R8 1 0
   RETURN R0 0
 
 PROTO_2:
-  GETTABLEKS R3 R0 K0 ["_sliceY"]
-  MOVE R5 R1
-  LOADN R6 255
-  LOADN R7 1
-  FASTCALL MATH_CLAMP [+2]
-  GETIMPORT R4 K3 [math.clamp]
-  CALL R4 3 1
-  MUL R2 R3 R4
-  MOVE R4 R2
-  LOADN R5 0
-  GETTABLEKS R6 R0 K0 ["_sliceY"]
-  FASTCALL MATH_CLAMP [+2]
-  GETIMPORT R3 K3 [math.clamp]
-  CALL R3 3 1
-  RETURN R3 1
-
-PROTO_3:
-  NAMECALL R1 R0 K0 ["createHeightMapWithNoise"]
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_4:
   GETIMPORT R2 K2 [table.create]
-  GETTABLEKS R4 R0 K3 ["_sliceX"]
-  GETTABLEKS R5 R0 K4 ["_sliceZ"]
-  MUL R3 R4 R5
+  GETTABLEKS R3 R0 K3 ["_heightMapSize"]
   LOADN R4 0
   CALL R2 2 1
-  SETTABLEKS R2 R0 K5 ["_blendingFactorMap"]
+  SETTABLEKS R2 R0 K4 ["_blendingFactorMap"]
   LOADN R2 0
   JUMPIFNOTLT R2 R1 [+33]
-  DUPTABLE R2 K11 [{"CurveWidth", "Distance", "PreserveDistance", "PreserveRatio", "RoundCorner"}]
+  DUPTABLE R2 K10 [{"CurveWidth", "Distance", "PreserveDistance", "PreserveRatio", "RoundCorner"}]
   LOADN R3 1
-  SETTABLEKS R3 R2 K6 ["CurveWidth"]
+  SETTABLEKS R3 R2 K5 ["CurveWidth"]
   LOADN R5 1
   SUB R4 R5 R1
-  MULK R3 R4 K12 [0.9]
-  SETTABLEKS R3 R2 K7 ["Distance"]
-  LOADK R4 K13 [0.5]
-  DIVK R5 R1 K14 [5]
+  MULK R3 R4 K11 [0.9]
+  SETTABLEKS R3 R2 K6 ["Distance"]
+  LOADK R4 K12 [0.5]
+  DIVK R5 R1 K13 [5]
   SUB R3 R4 R5
-  SETTABLEKS R3 R2 K8 ["PreserveDistance"]
+  SETTABLEKS R3 R2 K7 ["PreserveDistance"]
   LOADN R3 0
-  SETTABLEKS R3 R2 K9 ["PreserveRatio"]
+  SETTABLEKS R3 R2 K8 ["PreserveRatio"]
   LOADN R3 1
-  SETTABLEKS R3 R2 K10 ["RoundCorner"]
+  SETTABLEKS R3 R2 K9 ["RoundCorner"]
   GETUPVAL R3 0
-  GETIMPORT R4 K17 [Vector2.new]
-  GETTABLEKS R5 R0 K3 ["_sliceX"]
-  GETTABLEKS R6 R0 K4 ["_sliceZ"]
+  GETIMPORT R4 K16 [Vector2.new]
+  GETTABLEKS R5 R0 K17 ["_sliceX"]
+  GETTABLEKS R6 R0 K18 ["_sliceZ"]
   CALL R4 2 1
   MOVE R5 R2
   CALL R3 2 1
-  SETTABLEKS R3 R0 K5 ["_blendingFactorMap"]
+  SETTABLEKS R3 R0 K4 ["_blendingFactorMap"]
   RETURN R0 0
 
 MAIN:
@@ -224,10 +146,6 @@ MAIN:
   CAPTURE VAL R3
   SETTABLEKS R9 R8 K21 ["generateNoiseMap"]
   DUPCLOSURE R9 K22 [PROTO_2]
-  SETTABLEKS R9 R8 K23 ["getHeightFromNoise"]
-  DUPCLOSURE R9 K24 [PROTO_3]
-  SETTABLEKS R9 R8 K25 ["generateHeightMap"]
-  DUPCLOSURE R9 K26 [PROTO_4]
   CAPTURE VAL R7
-  SETTABLEKS R9 R8 K27 ["updateBlendingFactorMap"]
+  SETTABLEKS R9 R8 K23 ["updateBlendingFactorMap"]
   RETURN R8 1

@@ -59,7 +59,7 @@ PROTO_3:
   GETTABLEKS R3 R4 K1 ["useContext"]
   GETUPVAL R4 2
   CALL R3 1 1
-  GETTABLEKS R4 R3 K2 ["isUpdatingMappingForKeyCode"]
+  GETTABLEKS R4 R3 K2 ["isUpdatingMappingForKey"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["useContext"]
   GETUPVAL R7 3

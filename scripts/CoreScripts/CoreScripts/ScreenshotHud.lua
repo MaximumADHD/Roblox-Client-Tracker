@@ -15,7 +15,8 @@ local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
 local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 

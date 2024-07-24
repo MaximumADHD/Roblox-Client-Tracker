@@ -30,7 +30,8 @@ local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
-local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
+local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
+local isSubjectToDesktopPolicies = require(SharedFlags).isSubjectToDesktopPolicies
 local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
@@ -86,19 +87,23 @@ local GetFFlagEnableCapturesInChrome = require(RobloxGui.Modules.Chrome.Flags.Ge
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagFix10ftBottomButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagFix10ftBottomButtons)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
-local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
+local GetFStringGameInviteMenuLayer = require(SharedFlags).GetFStringGameInviteMenuLayer
+local GetFFlagGateEducationalPopupVisibilityViaGUAC = require(SharedFlags).GetFFlagGateEducationalPopupVisibilityViaGUAC
 local GetFFlagFix10ftMenuGap = require(RobloxGui.Modules.Settings.Flags.GetFFlagFix10ftMenuGap)
 local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixResumeSourceAnalytics)
 local GetFFlagShouldInitWithFirstPageWithTabHeader =  require(RobloxGui.Modules.Settings.Flags.GetFFlagShouldInitWithFirstPageWithTabHeader)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
-local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
+local GetFFlagEnableScreenshotUtility = require(SharedFlags).GetFFlagEnableScreenshotUtility
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM2", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
+local getFFlagDebugAppChatInSettingsHub = require(CorePackages.Workspace.Packages.AppChat).Flags.getFFlagDebugAppChatInSettingsHub
+local FFlagSettingsHubCurrentPageSignal = game:DefineFastFlag("SettingsHubCurrentPageSignal", false)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -935,6 +940,7 @@ local function CreateSettingsHub()
 			shouldFillScreen = shouldFillScreen,
 			selfViewOpen = this.selfViewOpen,
 			useNewMenuTheme = Theme.UIBloxThemeEnabled,
+			hubRef = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then this else nil,
 		})
 	end
 
@@ -2660,7 +2666,7 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage = pageToSwitchTo
 		this.Pages.CurrentPage.Active = true
 
-		if ChromeEnabled then
+		if ChromeEnabled or FFlagSettingsHubCurrentPageSignal then
 			this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 		end
 
@@ -2767,7 +2773,7 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage = pageToSwitchTo
 		this.Pages.CurrentPage:Display(this.PageViewInnerFrame, skipAnimation)
 		this.Pages.CurrentPage.Active = true
-		if ChromeEnabled then
+		if ChromeEnabled or FFlagSettingsHubCurrentPageSignal then
 			this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 		end
 
@@ -3058,7 +3064,7 @@ local function CreateSettingsHub()
 				this.TakingScreenshot = takingScreenshot or false
 			end
 
-			if ChromeEnabled then
+			if ChromeEnabled or FFlagSettingsHubCurrentPageSignal then
 				this.CurrentPageSignal:fire("")
 			end
 
@@ -3128,7 +3134,7 @@ local function CreateSettingsHub()
 					this.ReducedMotionCloseTween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
 					this.ReducedMotionCloseTween:Play()
 					this.ReducedMotionCloseTween.Completed:Connect(function(playbackState)
-						if FFlagFixReducedMotionStuckIGM then 
+						if FFlagFixReducedMotionStuckIGM then
 							if playbackState == Enum.PlaybackState.Completed then
 								this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 
@@ -3136,12 +3142,12 @@ local function CreateSettingsHub()
 								this.Shield.Parent = this.ClippingShield
 								this.ReducedMotionCloseTween = nil
 							end
-						else 
+						else
 							this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 
 							this.Shield.Visible = this.Visible
 							this.Shield.Parent = this.ClippingShield
-						end	
+						end
 					end)
 
 					handleShieldClose()
@@ -3450,13 +3456,25 @@ local function CreateSettingsHub()
 	end
 
 	if isSubjectToDesktopPolicies() then
-		this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
-		this.ExitModalPage:SetHub(this)
+		if GetFFlagGateEducationalPopupVisibilityViaGUAC() then
+			if InExperienceCapabilities.canViewEducationalPopup then
+				this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
+				this.ExitModalPage:SetHub(this)
+			end
+		else
+			this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
+			this.ExitModalPage:SetHub(this)
+		end
 	end
 
 	if isSubjectToDesktopPolicies() and InExperienceCapabilities.canNavigateHome then
 		this.LeaveGameToHomePage = require(RobloxGui.Modules.Settings.Pages.LeaveGameToHome)
 		this.LeaveGameToHomePage:SetHub(this)
+	end
+	
+	if getFFlagDebugAppChatInSettingsHub() then
+		this.AppChatPage = require(RobloxGui.Modules.Settings.Pages.AppChat)
+		this.AppChatPage:SetHub(this)
 	end
 
 	if not isTenFootInterface then
@@ -3501,9 +3519,9 @@ local function CreateSettingsHub()
 
 		this.ScreenshotsApp = ScreenshotsApp
 		if GetFFlagEnableScreenshotUtility() then
-			this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, Theme, GetFFlagEnableCapturesInChrome() and ChromeEnabled)
+			this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, GetFFlagEnableCapturesInChrome() and ChromeEnabled)
 		else
-			this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, Theme)
+			this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu)
 		end
 
 		this.ShotsPage = ShotsPageWrapper
@@ -3553,6 +3571,12 @@ local function CreateSettingsHub()
 		this:InitInPage(this:GetFirstPageWithTabHeader())
 	else
 		this:InitInPage(this.PlayersPage)
+	end
+	
+	if getFFlagDebugAppChatInSettingsHub() then
+		if this.AppChatPage then
+			this:AddPage(this.AppChatPage)
+		end
 	end
 
 	-- hook up to necessary signals

@@ -12,7 +12,8 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local UIBlox = InGameMenuDependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 
-local RobloxGuiModules = CoreGui:WaitForChild("RobloxGui", math.huge).Modules
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui.Modules else CoreGui:WaitForChild("RobloxGui", math.huge).Modules
 local create = require(RobloxGuiModules.Common.Create)
 local IXPServiceWrapper = require(RobloxGuiModules.Common.IXPServiceWrapper)
 local log = require(RobloxGuiModules.Logger):new(script.Name)

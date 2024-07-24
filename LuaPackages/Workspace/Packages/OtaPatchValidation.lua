@@ -5,4 +5,8 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["OtaPatchValidation"]["OtaPatchValidation"])
 
+export type otaValidator = Package.otaValidator
+export type VersionedApiInterface = Package.VersionedApiInterface
+
+
 return Package

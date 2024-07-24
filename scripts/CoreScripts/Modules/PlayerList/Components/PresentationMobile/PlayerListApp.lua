@@ -76,7 +76,7 @@ local function playerListSizeFromViewportSize(viewportSize)
 	-- Remap from min/max to x/y
 	local sX = viewportSize.x > viewportSize.y and sMax or sMin
 	local sY = viewportSize.y > viewportSize.x and sMax or sMin
-	
+
 	-- Increase y-axis border to avoid chrome overlap on landscape
 	if GetFFlagPlayerListChromePushdown() and ChromeEnabled and viewportSize.y < viewportSize.x then
 		sY -= (TopBarConstants.TopBarHeight - BORDER_SIZE)

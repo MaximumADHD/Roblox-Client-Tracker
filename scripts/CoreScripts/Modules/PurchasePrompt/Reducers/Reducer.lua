@@ -5,6 +5,7 @@ local Root = script.Parent.Parent
 
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local ToastLite = require(CorePackages.Workspace.Packages.ToastLite)
 local Rodux = PurchasePromptDeps.Rodux
 
 local PromptRequestReducer = require(script.Parent.PromptRequestReducer)
@@ -22,6 +23,9 @@ local ABVariationReducer = require(script.Parent.ABVariationReducer)
 local WindowStateReducer = require(script.Parent.WindowStateReducer)
 local ButtonStateReducer = require(script.Parent.ButtonStateReducer)
 local SubscriptionPurchaseInfoReducer = require(script.Parent.SubscriptionPurchaseInfoReducer)
+local CurrentToastMessagesReducer = ToastLite.Reducers.CurrentToastMessagesReducer
+
+local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLiteRender)
 
 local Reducer = Rodux.combineReducers({
 	promptRequest = PromptRequestReducer,
@@ -39,6 +43,7 @@ local Reducer = Rodux.combineReducers({
 	windowState = WindowStateReducer,
 	buttonState = ButtonStateReducer,
 	subscriptionPurchaseInfo = SubscriptionPurchaseInfoReducer,
+	currentToastMessages = if GetFFlagEnableToastLiteRender() then CurrentToastMessagesReducer else nil,
 })
 
 return Reducer

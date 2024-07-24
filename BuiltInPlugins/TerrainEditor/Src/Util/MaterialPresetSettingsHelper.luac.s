@@ -10,7 +10,7 @@ PROTO_0:
   NAMECALL R4 R1 K8 ["getText"]
   CALL R4 3 1
   SETTABLEKS R4 R3 K1 ["Label"]
-  NEWTABLE R4 0 5
+  NEWTABLE R4 0 4
   DUPTABLE R5 K11 [{"Id", "Label", "Schema", "Value"}]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K12 ["Unit"]
@@ -116,30 +116,7 @@ PROTO_0:
   SETTABLEKS R9 R8 K10 ["Value"]
   JUMP [+1]
   LOADNIL R8
-  GETTABLEKS R10 R0 K39 ["FillMaterial"]
-  JUMPIFNOT R10 [+31]
-  DUPTABLE R9 K11 [{"Id", "Label", "Schema", "Value"}]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K39 ["FillMaterial"]
-  SETTABLEKS R10 R9 K0 ["Id"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K6 ["ElevationSettings"]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K39 ["FillMaterial"]
-  NAMECALL R10 R1 K8 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K1 ["Label"]
-  DUPTABLE R10 K40 [{"Dropdown", "Type"}]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K31 ["Dropdown"]
-  LOADK R11 K29 ["Material"]
-  SETTABLEKS R11 R10 K14 ["Type"]
-  SETTABLEKS R10 R9 K9 ["Schema"]
-  GETTABLEKS R10 R0 K39 ["FillMaterial"]
-  SETTABLEKS R10 R9 K10 ["Value"]
-  JUMP [+1]
-  LOADNIL R9
-  SETLIST R4 R5 5 [1]
+  SETLIST R4 R5 4 [1]
   SETTABLEKS R4 R3 K2 ["Children"]
   LOADB R4 0
   SETTABLEKS R4 R3 K3 ["Expandable"]
@@ -147,37 +124,60 @@ PROTO_0:
   SETTABLEKS R4 R3 K4 ["Separator"]
   DUPTABLE R4 K5 [{"Id", "Label", "Children", "Expandable", "Separator"}]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K41 ["AdditionalSettings"]
+  GETTABLEKS R5 R6 K39 ["AdditionalSettings"]
   SETTABLEKS R5 R4 K0 ["Id"]
   LOADK R7 K7 ["Category"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K41 ["AdditionalSettings"]
+  GETTABLEKS R8 R9 K39 ["AdditionalSettings"]
   NAMECALL R5 R1 K8 ["getText"]
   CALL R5 3 1
   SETTABLEKS R5 R4 K1 ["Label"]
-  NEWTABLE R5 0 1
+  NEWTABLE R5 0 2
+  GETTABLEKS R7 R0 K40 ["FillMaterial"]
+  JUMPIFNOT R7 [+31]
   DUPTABLE R6 K11 [{"Id", "Label", "Schema", "Value"}]
   GETUPVAL R8 4
-  GETTABLEKS R7 R8 K42 ["FallbackMaterial"]
+  GETTABLEKS R7 R8 K40 ["FillMaterial"]
   SETTABLEKS R7 R6 K0 ["Id"]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K41 ["AdditionalSettings"]
+  GETTABLEKS R9 R10 K39 ["AdditionalSettings"]
   GETUPVAL R11 4
-  GETTABLEKS R10 R11 K42 ["FallbackMaterial"]
+  GETTABLEKS R10 R11 K40 ["FillMaterial"]
   NAMECALL R7 R1 K8 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K1 ["Label"]
-  DUPTABLE R7 K32 [{"AllowWater", "Dropdown", "Type"}]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K30 ["AllowWater"]
+  DUPTABLE R7 K41 [{"Dropdown", "Type"}]
   LOADB R8 1
   SETTABLEKS R8 R7 K31 ["Dropdown"]
   LOADK R8 K29 ["Material"]
   SETTABLEKS R8 R7 K14 ["Type"]
   SETTABLEKS R7 R6 K9 ["Schema"]
-  GETTABLEKS R7 R0 K42 ["FallbackMaterial"]
+  GETTABLEKS R7 R0 K40 ["FillMaterial"]
   SETTABLEKS R7 R6 K10 ["Value"]
-  SETLIST R5 R6 1 [1]
+  JUMP [+1]
+  LOADNIL R6
+  DUPTABLE R7 K11 [{"Id", "Label", "Schema", "Value"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K42 ["FallbackMaterial"]
+  SETTABLEKS R8 R7 K0 ["Id"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K39 ["AdditionalSettings"]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K42 ["FallbackMaterial"]
+  NAMECALL R8 R1 K8 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K1 ["Label"]
+  DUPTABLE R8 K32 [{"AllowWater", "Dropdown", "Type"}]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K30 ["AllowWater"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K31 ["Dropdown"]
+  LOADK R9 K29 ["Material"]
+  SETTABLEKS R9 R8 K14 ["Type"]
+  SETTABLEKS R8 R7 K9 ["Schema"]
+  GETTABLEKS R8 R0 K42 ["FallbackMaterial"]
+  SETTABLEKS R8 R7 K10 ["Value"]
+  SETLIST R5 R6 2 [1]
   SETTABLEKS R5 R4 K2 ["Children"]
   LOADB R5 0
   SETTABLEKS R5 R4 K3 ["Expandable"]
@@ -289,7 +289,7 @@ PROTO_1:
   GETTABLEKS R7 R8 K19 ["FallbackMaterial"]
   GETTABLE R6 R3 R7
   SETTABLEKS R6 R4 K19 ["FallbackMaterial"]
-  GETUPVAL R8 1
+  GETUPVAL R8 3
   GETTABLEKS R7 R8 K20 ["FillMaterial"]
   GETTABLE R6 R3 R7
   SETTABLEKS R6 R4 K20 ["FillMaterial"]

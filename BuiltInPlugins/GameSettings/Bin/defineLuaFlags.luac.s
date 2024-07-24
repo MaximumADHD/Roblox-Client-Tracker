@@ -31,19 +31,9 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K9 ["StudioGenreOverhaulPlaceholder"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K10 ["StudioGenreOverhaulExplainationLink"]
-  LOADK R3 K11 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
-  NAMECALL R0 R0 K12 ["DefineFastString"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K13 ["StudioGenreOverhaulInfo"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  LOADK R2 K9 ["StudioGenreOverhaulExplainationLink"]
+  LOADK R3 K10 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
+  NAMECALL R0 R0 K11 ["DefineFastString"]
   CALL R0 3 0
   LOADNIL R0
   RETURN R0 1

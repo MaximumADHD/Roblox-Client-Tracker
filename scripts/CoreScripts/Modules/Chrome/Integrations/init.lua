@@ -8,8 +8,11 @@ return {
 	DummyWindow2 = require(script.DummyWindow2),
 	DummyContainer = require(script.DummyContainer),
 	ToggleMic = require(script.ToggleMic),
+	JoinVoice = require(script.JoinVoice),
 	SelfieView = require(script.SelfieView),
 	Captures = require(script.CameraUtility.Captures),
 	Screenshot = require(script.CameraUtility.Screenshot),
 	CameraEntrypoint = require(script.CameraUtility.CameraEntrypoint),
+	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
+	NowPlaying = require(script.MusicUtility.NowPlaying),
 }

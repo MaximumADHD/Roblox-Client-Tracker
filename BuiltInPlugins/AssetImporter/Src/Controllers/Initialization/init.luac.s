@@ -1,0 +1,285 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["isCli"]
+  CALL R3 0 1
+  JUMPIF R3 [+2]
+  LOADK R2 K1 ["Production"]
+  JUMP [+6]
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+2]
+  LOADK R2 K2 ["FeatureTest"]
+  JUMP [+1]
+  LOADK R2 K3 ["RobloxCli"]
+  DUPTABLE R3 K9 [{"environment", "plugin", "loader", "story", "storyProps"}]
+  SETTABLEKS R2 R3 K4 ["environment"]
+  JUMPIFNOTEQKS R2 K1 ["Production"] [+3]
+  MOVE R4 R0
+  JUMP [+5]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K10 ["new"]
+  LOADK R5 K11 ["AssetImporter"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K5 ["plugin"]
+  SETTABLEKS R1 R3 K6 ["loader"]
+  GETUPVAL R4 3
+  SETTABLEKS R4 R3 K7 ["story"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K8 ["storyProps"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K12 ["Store"]
+  GETTABLEKS R4 R5 K10 ["new"]
+  GETUPVAL R5 5
+  LOADNIL R6
+  NEWTABLE R7 0 1
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K13 ["thunkMiddleware"]
+  SETLIST R7 R8 1 [1]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["store"]
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K10 ["new"]
+  MOVE R5 R3
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K15 ["contextItems"]
+  GETTABLEKS R5 R3 K4 ["environment"]
+  JUMPIFNOTEQKS R5 K1 ["Production"] [+13]
+  GETUPVAL R5 7
+  GETTABLEKS R4 R5 K16 ["mount"]
+  GETUPVAL R6 7
+  GETTABLEKS R5 R6 K17 ["createElement"]
+  GETUPVAL R6 3
+  GETTABLEKS R7 R3 K15 ["contextItems"]
+  CALL R5 2 -1
+  CALL R4 -1 1
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K18 ["handle"]
+  GETUPVAL R6 8
+  FASTCALL2 SETMETATABLE R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K20 [setmetatable]
+  CALL R4 2 1
+  RETURN R4 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["contextItems"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["contextItems"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["store"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K2 ["store"]
+  NAMECALL R1 R1 K3 ["destruct"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["store"]
+  GETTABLEKS R1 R0 K4 ["handle"]
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["unmount"]
+  GETTABLEKS R2 R0 K4 ["handle"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["handle"]
+  GETTABLEKS R1 R0 K6 ["root"]
+  JUMPIFNOT R1 [+9]
+  GETTABLEKS R1 R0 K6 ["root"]
+  LOADNIL R3
+  NAMECALL R1 R1 K7 ["render"]
+  CALL R1 2 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["root"]
+  GETTABLEKS R1 R0 K8 ["environment"]
+  JUMPIFEQKS R1 K9 ["Production"] [+17]
+  GETIMPORT R1 K11 [game]
+  LOADK R3 K12 ["CoreGui"]
+  NAMECALL R1 R1 K13 ["GetService"]
+  CALL R1 2 1
+  NAMECALL R2 R1 K14 ["GetChildren"]
+  CALL R2 1 3
+  FORGPREP R2
+  NAMECALL R7 R6 K15 ["Destroy"]
+  CALL R7 1 0
+  LOADNIL R6
+  FORGLOOP R2 2 [-5]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["root"]
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K1 ["render"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["CoreGui"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K6 [Instance.new]
+  LOADK R3 K7 ["Folder"]
+  CALL R2 1 1
+  SETTABLEKS R1 R2 K8 ["Parent"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["createBlockingRoot"]
+  MOVE R4 R2
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K10 ["root"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K11 ["createElement"]
+  GETTABLEKS R4 R0 K12 ["story"]
+  GETTABLEKS R5 R0 K13 ["storyProps"]
+  CALL R3 2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K16 [{"ContextItems", "Payload"}]
+  GETTABLEKS R7 R0 K17 ["contextItems"]
+  NAMECALL R7 R7 K18 ["getItemsAsList"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K14 ["ContextItems"]
+  SETTABLEKS R3 R6 K15 ["Payload"]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K19 ["act"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_4:
+  SETTABLEKS R1 R0 K0 ["story"]
+  RETURN R0 0
+
+PROTO_5:
+  SETTABLEKS R1 R0 K0 ["storyProps"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["environment"]
+  JUMPIFNOTEQKS R2 K1 ["FeatureTest"] [+27]
+  JUMPIFNOT R1 [+1]
+  JUMP [+3]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["BlenderCubeDefault"]
+  GETIMPORT R2 K4 [script]
+  LOADK R4 K5 ["Plugin"]
+  NAMECALL R2 R2 K6 ["FindFirstAncestorWhichIsA"]
+  CALL R2 2 1
+  LOADK R5 K7 ["FTFUtil"]
+  NAMECALL R3 R2 K8 ["GetPluginComponent"]
+  CALL R3 2 1
+  LOADK R5 K9 ["%*/%*/%*"]
+  NAMECALL R7 R3 K10 ["ClientFolderPath"]
+  CALL R7 1 1
+  LOADK R8 K11 ["AssetImport/AssetImportTest.Lib/resources"]
+  MOVE R9 R1
+  NAMECALL R5 R5 K12 ["format"]
+  CALL R5 4 1
+  MOVE R4 R5
+  RETURN R4 1
+  GETTABLEKS R2 R0 K0 ["environment"]
+  JUMPIFNOTEQKS R2 K13 ["Production"] [+6]
+  GETIMPORT R2 K15 [error]
+  LOADK R3 K16 ["This is a test-only function. Please use FileController to handle starting production sessions."]
+  CALL R2 1 0
+  JUMP [+8]
+  GETTABLEKS R2 R0 K0 ["environment"]
+  JUMPIFNOTEQKS R2 K17 ["RobloxCli"] [+5]
+  GETIMPORT R2 K15 [error]
+  LOADK R3 K18 ["AssetImportService is unavailable in RobloxCli."]
+  CALL R2 1 0
+  LOADNIL R2
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["ReactRoblox"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Rodux"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["TestLoader"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Packages"]
+  GETTABLEKS R8 R9 K12 ["PluginLoader"]
+  GETTABLEKS R7 R8 K13 ["PluginLoaderBuilder"]
+  CALL R6 1 1
+  GETTABLEKS R7 R5 K14 ["isFTF"]
+  GETTABLEKS R8 R1 K15 ["TestHelpers"]
+  GETTABLEKS R10 R8 K16 ["Instances"]
+  GETTABLEKS R9 R10 K17 ["MockPlugin"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K18 ["Src"]
+  GETTABLEKS R11 R12 K19 ["MainPlugin"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K18 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Reducers"]
+  GETTABLEKS R12 R13 K21 ["MainReducer"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K22 ["ContextItemCache"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K23 ["TestElement"]
+  CALL R13 1 1
+  DUPTABLE R14 K26 [{"BlenderCubeDefault", "CubeWithAllPbrs"}]
+  LOADK R15 K27 ["blender-cube-default.fbx"]
+  SETTABLEKS R15 R14 K24 ["BlenderCubeDefault"]
+  LOADK R15 K28 ["cube-with-all-pbrs.fbx"]
+  SETTABLEKS R15 R14 K25 ["CubeWithAllPbrs"]
+  NEWTABLE R15 0 0
+  SETTABLEKS R15 R15 K29 ["__index"]
+  SETTABLEKS R14 R15 K30 ["Resources"]
+  DUPCLOSURE R16 K31 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R2
+  CAPTURE VAL R15
+  SETTABLEKS R16 R15 K32 ["new"]
+  DUPCLOSURE R16 K33 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R16 R15 K34 ["destroy"]
+  DUPCLOSURE R16 K35 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  SETTABLEKS R16 R15 K36 ["_createTestElement"]
+  DUPCLOSURE R16 K37 [PROTO_4]
+  SETTABLEKS R16 R15 K38 ["_setStory"]
+  DUPCLOSURE R16 K39 [PROTO_5]
+  SETTABLEKS R16 R15 K40 ["_setStoryProps"]
+  DUPCLOSURE R16 K41 [PROTO_6]
+  CAPTURE VAL R14
+  SETTABLEKS R16 R15 K42 ["_getResourcePath"]
+  RETURN R15 1

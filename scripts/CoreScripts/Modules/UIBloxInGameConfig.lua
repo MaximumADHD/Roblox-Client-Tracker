@@ -8,7 +8,6 @@ return {
 		and UIBloxFlags.GetUIBloxUseNewThemeColorPalettes(),
 	enableNewMenuLayout = UIBloxFlags.GetFFlagUIBloxEnableNewMenuLayout(),
 	useRobloxGuiFocusedChangedEventInGenericButton = UIBloxFlags.FFlagUIBloxUseRobloxGuiFocused,
-	useInputResponsiveShortcutBarChanges = UIBloxFlags.FFlagUIBloxUseInputResponsiveShortcutBarChanges,
 	useGetTextBoundsAsync = UIBloxFlags.GetFFlagUIBloxUseGetTextBoundsAsync(),
 	useTokensWithScale = UIBloxFlags.GetFFlagUIBloxUseTokensWithScale(),
 	useNewHeaderBar = UIBloxFlags.GetFFlagUIBloxUseNewHeaderBar(),
@@ -20,4 +19,5 @@ return {
 	enableTooltipV2BodyFontFix = UIBloxFlags.GetFFlagUIBloxEnableTooltipV2BodyFontFix(),
 	enableTextFieldInputType = UIBloxFlags.GetFFlagUIBloxEnableTextFieldInputType(),
 	useInteractableWithTileAndCell = UIBloxFlags.GetFFlagUseInteractableWithTileAndCell(),
+	fixHeaderBarTitleFlickering = UIBloxFlags.GetFFlagUIBloxFixHeaderBarTitleFlickering(),
 }

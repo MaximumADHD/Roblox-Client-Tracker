@@ -2,9 +2,10 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local CoreGuiService = game:GetService("CoreGui")
-local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
-local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local InspectAndBuyModules = CoreGuiModules:WaitForChild("InspectAndBuy")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiService.RobloxGui else CoreGuiService:WaitForChild("RobloxGui")
+local CoreGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules else RobloxGui:WaitForChild("Modules")
+local InspectAndBuyModules = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.InspectAndBuy else CoreGuiModules:WaitForChild("InspectAndBuy")
 local Roact = require(CorePackages.Roact)
 local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
 local InspectAndBuyInstanceHandle = nil

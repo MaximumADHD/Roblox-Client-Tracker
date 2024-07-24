@@ -224,23 +224,32 @@ PROTO_14:
   RETURN R2 1
 
 PROTO_15:
-  NAMECALL R1 R0 K0 ["GetDerives"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  JUMPIFNOTEQKNIL R0 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["expecting valid stylesheet"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  NAMECALL R1 R0 K3 ["GetDerives"]
   CALL R1 1 1
-  DUPTABLE R2 K3 [{"Name", "Children"}]
-  DUPTABLE R3 K7 [{"Schema", "FullSpan", "Value"}]
+  DUPTABLE R2 K6 [{"Name", "Children"}]
+  DUPTABLE R3 K10 [{"Schema", "FullSpan", "Value"}]
   GETUPVAL R4 0
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K8 ["SelectorSchema"]
-  DUPTABLE R6 K10 [{"Editing"}]
+  GETTABLEKS R5 R6 K11 ["SelectorSchema"]
+  DUPTABLE R6 K13 [{"Editing"}]
   LOADB R7 0
-  SETTABLEKS R7 R6 K9 ["Editing"]
+  SETTABLEKS R7 R6 K12 ["Editing"]
   CALL R4 2 1
-  SETTABLEKS R4 R3 K4 ["Schema"]
+  SETTABLEKS R4 R3 K7 ["Schema"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K5 ["FullSpan"]
-  LOADK R4 K11 ["Derives"]
-  SETTABLEKS R4 R3 K6 ["Value"]
-  SETTABLEKS R3 R2 K1 ["Name"]
+  SETTABLEKS R4 R3 K8 ["FullSpan"]
+  LOADK R4 K14 ["Derives"]
+  SETTABLEKS R4 R3 K9 ["Value"]
+  SETTABLEKS R3 R2 K4 ["Name"]
   GETUPVAL R3 2
   MOVE R4 R1
   NEWCLOSURE R5 P0
@@ -249,10 +258,10 @@ PROTO_15:
   CAPTURE VAL R0
   CAPTURE UPVAL U1
   CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["Children"]
-  GETTABLEKS R4 R2 K2 ["Children"]
+  SETTABLEKS R3 R2 K5 ["Children"]
+  GETTABLEKS R4 R2 K5 ["Children"]
   GETUPVAL R6 5
-  GETTABLEKS R5 R6 K12 ["getEmptyRow"]
+  GETTABLEKS R5 R6 K15 ["getEmptyRow"]
   CALL R5 0 -1
   FASTCALL TABLE_INSERT [+1]
   GETUPVAL R3 6
@@ -261,7 +270,7 @@ PROTO_15:
   NEWTABLE R5 0 1
   MOVE R6 R2
   SETLIST R5 R6 1 [1]
-  NAMECALL R3 R3 K13 ["updatePaths"]
+  NAMECALL R3 R3 K16 ["updatePaths"]
   CALL R3 2 -1
   RETURN R3 -1
 

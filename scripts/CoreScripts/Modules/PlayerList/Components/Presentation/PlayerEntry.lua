@@ -8,7 +8,9 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
+local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 
+local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local withStyle = UIBlox.Style.withStyle
 
 local Components = script.Parent.Parent
@@ -29,6 +31,7 @@ local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
 
 local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
 
@@ -84,7 +87,13 @@ function PlayerEntry:init()
 		if self.props.selectedPlayer == self.props.player and self.props.dropDownOpen then
 			self.props.closeDropDown()
 		else
-			self.props.openDropDown(self.props.player)
+			if GetFFlagGateLeaderboardPlayerDropdownViaGUAC() then
+				if InExperienceCapabilities.canViewPlayerDropdownInLeaderboard then
+					self.props.openDropDown(self.props.player)
+				end
+			else
+				self.props.openDropDown(self.props.player)
+			end
 		end
 	end
 

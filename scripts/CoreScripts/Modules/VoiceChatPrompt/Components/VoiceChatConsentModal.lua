@@ -24,6 +24,8 @@ local BUTTON_CONTAINER_SIZE = 36
 local PADDING = 20
 local DIVIDER = 1
 local EXTRA_PADDING_HEIGHT = 7
+local BUTTON_PADDING = 12
+local TOP_PADDING = 10
 
 local turnOn = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.TurnOn")
 local notNow = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.NotNow")
@@ -127,7 +129,7 @@ local function VoiceChatConsentModal(props: Props)
 			SliceCenter = Assets.Images.RoundedRect.SliceCenter,
 		}, {
 			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, PADDING),
+				PaddingTop = UDim.new(0, TOP_PADDING),
 				PaddingBottom = UDim.new(0, PADDING),
 				PaddingLeft = UDim.new(0, PADDING),
 				PaddingRight = UDim.new(0, PADDING),
@@ -139,7 +141,7 @@ local function VoiceChatConsentModal(props: Props)
 			}),
 			TitleTextContainer = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				LayoutOrder = 2,
+				LayoutOrder = 1,
 				Size = UDim2.new(1, 0, 0, titleTextContainerHeight),
 				AutomaticSize = Enum.AutomaticSize.Y,
 			}, {
@@ -155,68 +157,35 @@ local function VoiceChatConsentModal(props: Props)
 				BackgroundColor3 = props.promptStyle.Theme.Divider.Color,
 				BackgroundTransparency = props.promptStyle.Theme.Divider.Transparency,
 				BorderSizePixel = 0,
-				LayoutOrder = 3,
-				Size = UDim2.new(0.8, 0, 0, 1),
+				LayoutOrder = 2,
+				Size = UDim2.new(1, 0, 0, 1),
 			}),
 			DividerSpaceContainer = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				LayoutOrder = 4,
+				LayoutOrder = 3,
 				Size = UDim2.new(1, 0, 0, EXTRA_PADDING_HEIGHT),
 			}),
 			BodyTextContainer = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				LayoutOrder = 5,
+				LayoutOrder = 4,
 				Size = UDim2.new(1, 0, 0, bodyTextContainerHeight),
 			}, {
 				BodyText = Roact.createElement(UIBlox.App.Text.StyledTextLabel, {
 					fontStyle = props.promptStyle.Font.Body,
 					colorStyle = props.promptStyle.Theme.TextDefault,
-					textXAlignment = Enum.TextXAlignment.Center,
+					textXAlignment = Enum.TextXAlignment.Left,
 					size = UDim2.new(1, 0, 1, 0),
 					text = props.bodyText,
-				}),
-			}),
-			SpaceContainer = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 8,
-				Size = UDim2.new(1, 0, 0, 20),
-			}),
-			ButtonContainer = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 9,
-				Size = UDim2.new(1, 0, 0, BUTTON_CONTAINER_SIZE),
-				AutomaticSize = Enum.AutomaticSize.Y,
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					Padding = UDim.new(0, PADDING),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
-				SecondaryButton = Roact.createElement(Button, {
-					buttonType = ButtonType.Secondary,
-					layoutOrder = 1,
-					size = UDim2.new(0.5, -5, 0, BUTTON_CONTAINER_SIZE),
-					text = notNow,
-					onActivated = props.handleSecondaryActivated,
-				}),
-				ConfirmButton = Roact.createElement(Button, {
-					buttonType = ButtonType.PrimarySystem,
-					layoutOrder = 2,
-					size = UDim2.new(0.5, -5, 0, BUTTON_CONTAINER_SIZE),
-					text = turnOn,
-					isDisabled = props.showCheckbox and not isSelected,
-					onActivated = props.handlePrimaryActivated,
+					lineHeight = 1.2,
 				}),
 			}),
 			InfoTextContainer = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				LayoutOrder = 10,
+				LayoutOrder = 5,
 				Size = UDim2.new(1, 0, 0, infoTextContainerHeight + PADDING),
 			}, {
 				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, PADDING),
+					PaddingTop = UDim.new(0, 15),
 				}),
 				Layout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
@@ -250,6 +219,40 @@ local function VoiceChatConsentModal(props: Props)
 						text = turnOnDisclaimer,
 						lineHeight = 1.15,
 					}),
+				}),
+			}),
+			SpaceContainer = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 6,
+				Size = UDim2.new(1, 0, 0, 10),
+			}),
+			ButtonContainer = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 7,
+				Size = UDim2.new(1, 0, 0, BUTTON_CONTAINER_SIZE),
+				AutomaticSize = Enum.AutomaticSize.Y,
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					Padding = UDim.new(0, BUTTON_PADDING),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+				SecondaryButton = Roact.createElement(Button, {
+					buttonType = ButtonType.Secondary,
+					layoutOrder = 1,
+					size = UDim2.new(0.5, -5, 0, BUTTON_CONTAINER_SIZE),
+					text = notNow,
+					onActivated = props.handleSecondaryActivated,
+				}),
+				ConfirmButton = Roact.createElement(Button, {
+					buttonType = ButtonType.PrimarySystem,
+					layoutOrder = 2,
+					size = UDim2.new(0.5, -5, 0, BUTTON_CONTAINER_SIZE),
+					text = turnOn,
+					isDisabled = props.showCheckbox and not isSelected,
+					onActivated = props.handlePrimaryActivated,
 				}),
 			}),
 		}),

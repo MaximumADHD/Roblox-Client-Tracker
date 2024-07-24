@@ -49,7 +49,6 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
-local setAppChatVisible = require(CorePackages.Workspace.Packages.AppChat).App.AppChatVisible.setAppChatVisible
 
 local FFlagUpdateFriendLabelOnChange = game:DefineFastFlag("UpdateFriendLabelOnChange", false)
 local FFlagFixPlayersExtremeTruncation = game:DefineFastFlag("FixPlayersExtremeTruncation", false)
@@ -149,7 +148,7 @@ local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeat
 local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
 local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
-local FFlagAppChatIGMEntryPoint = game:DefineFastFlag("DebugAppChatIGMEntryPoint", false)
+local getFFlagDebugAppChatInSettingsHub = require(CorePackages.Workspace.Packages.AppChat).Flags.getFFlagDebugAppChatInSettingsHub
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
 
@@ -372,24 +371,24 @@ local function Initialize()
 	local updateButtonsLayout
 	local buttonFrame
 	local buttonFrameLayout
-	
-	if FFlagAppChatIGMEntryPoint then
+
+	if getFFlagDebugAppChatInSettingsHub() then
 		updateButtonsLayout = function()
 			local buttons = {}
 			local columnLayout = utility:IsPortrait() or utility:IsSmallTouchScreen()
-			
+
 			if shareGameButton then
 				table.insert(buttons, shareGameButton)
 			end
-			
+
 			if muteAllButton then
 				table.insert(buttons, muteAllButton)
 			end
-			
+
 			if chatButton then
 				table.insert(buttons, chatButton)
 			end
-			
+
 			if #buttons > 0 then
 				local buttonSize = UDim2.new(1 / #buttons, 0, 0, BUTTON_ROW_HEIGHT)
 				local buttonFrameProperties = {
@@ -403,7 +402,7 @@ local function Initialize()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, BUTTON_ROW_HORIZONTAL_PADDING),
 				}
-				
+
 				if columnLayout then
 					buttonSize = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT)
 					buttonFrameProperties = {
@@ -418,11 +417,11 @@ local function Initialize()
 						Padding = UDim.new(0, BUTTON_ROW_VERTICAL_PADDING),
 					}
 				end
-					
+
 				for _, button in buttons do
 					button.Size = buttonSize
 				end
-				
+
 				for property, value in buttonFrameLayoutProperties do
 					buttonFrameLayout[property] = value
 				end
@@ -706,7 +705,7 @@ local function Initialize()
 				local renderName = RENDER_NAME_PREFIX.."-mutestatusbutton-"..playerStatus.userId
 				utility:MakeFocusState(muteLabel, renderName)
 			end
-			muteLabel.Parent = buttonParent			
+			muteLabel.Parent = buttonParent
 		end
 	end
 
@@ -968,11 +967,11 @@ local function Initialize()
 			if muteAllButton then
 				muteAllButton.Visible = false
 				muteAllButton:Destroy()
-				if FFlagAppChatIGMEntryPoint then
+				if getFFlagDebugAppChatInSettingsHub() then
 					muteAllButton = nil
 				end
 			end
-			if FFlagAppChatIGMEntryPoint then
+			if getFFlagDebugAppChatInSettingsHub() then
 				updateButtonsLayout()
 			else
 				if shareGameButton then
@@ -1104,7 +1103,7 @@ local function Initialize()
 		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
 		frame.SelectionImageObject = frame:Clone()
 
-		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then 
+		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
 			local SelectionOverrideObject = utility:Create'Frame'{
 					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
 					BorderSizePixel = 0,
@@ -1115,7 +1114,7 @@ local function Initialize()
 				CornerRadius = Theme.DefaultCornerRadius,
 				Parent = SelectionOverrideObject,
 			}
-		
+
 			frame.SelectionImageObject = SelectionOverrideObject
 		end
 
@@ -1175,7 +1174,7 @@ local function Initialize()
 		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
 		frame.SelectionImageObject = frame:Clone()
 
-		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then 
+		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
 			local SelectionOverrideObject = utility:Create'Frame'{
 					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
 					BorderSizePixel = 0,
@@ -1186,7 +1185,7 @@ local function Initialize()
 				CornerRadius = Theme.DefaultCornerRadius,
 				Parent = SelectionOverrideObject,
 			}
-		
+
 			frame.SelectionImageObject = SelectionOverrideObject
 		end
 
@@ -1198,7 +1197,7 @@ local function Initialize()
 		return frame
 	end
 
-	if FFlagAppChatIGMEntryPoint then
+	if getFFlagDebugAppChatInSettingsHub() then
 		createChatButton = function()
 			local frame = createRow("ImageButton")
 			local textLabel = frame.TextLabel
@@ -1230,7 +1229,7 @@ local function Initialize()
 			local setHighlighted = function(isHighlighted)
 				frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
 			end
-			
+
 			local setNotHighlighted = function(isHighlighted)
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 			end
@@ -1248,7 +1247,7 @@ local function Initialize()
 			frame.SelectionLost:connect(setNotHighlighted)
 			frame.SelectionImageObject = frame:Clone()
 
-			if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then 
+			if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
 				local SelectionOverrideObject = utility:Create'Frame'{
 						BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
 						BorderSizePixel = 0,
@@ -1259,7 +1258,7 @@ local function Initialize()
 					CornerRadius = Theme.DefaultCornerRadius,
 					Parent = SelectionOverrideObject,
 				}
-			
+
 				frame.SelectionImageObject = SelectionOverrideObject
 			end
 
@@ -1727,7 +1726,7 @@ local function Initialize()
 		local showChatButton
 		local showShareGameButton
 
-		if FFlagAppChatIGMEntryPoint then
+		if getFFlagDebugAppChatInSettingsHub() then
 			showShareGameButton = canShareCurrentGame() and not shareGameButton and not RunService:IsStudio()
 			showChatButton = not chatButton
 
@@ -1804,7 +1803,7 @@ local function Initialize()
 			end)
 
 			shareGameButton.LayoutOrder = 1
-			if FFlagAppChatIGMEntryPoint then
+			if getFFlagDebugAppChatInSettingsHub() then
 				shareGameButton.Parent = buttonFrame
 				updateButtonsLayout()
 			else
@@ -1816,13 +1815,12 @@ local function Initialize()
 				end
 			end
 		end
-		
-		if FFlagAppChatIGMEntryPoint then
+
+		if getFFlagDebugAppChatInSettingsHub() then
 			if showChatButton then
 				chatButton = createChatButton()
 				chatButton.Activated:connect(function()
-					setAppChatVisible(true)
-					this.HubRef:SetVisibility(false, true)
+					this.HubRef:SwitchToPage(this.HubRef.AppChatPage, false)
 				end)
 				chatButton.LayoutOrder = 3
 				chatButton.Parent = buttonFrame
@@ -1986,7 +1984,7 @@ local function Initialize()
 				else
 					muteAllButton.Parent = buttonFrame
         end
-				if FFlagAppChatIGMEntryPoint then
+				if getFFlagDebugAppChatInSettingsHub() then
 					updateButtonsLayout()
 				end
 			end

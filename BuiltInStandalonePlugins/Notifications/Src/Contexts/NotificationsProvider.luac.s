@@ -95,6 +95,36 @@ PROTO_4:
   GETUPVAL R7 0
   MOVE R8 R6
   CALL R7 1 1
+  GETTABLEKS R8 R7 K2 ["notificationId"]
+  GETUPVAL R9 1
+  JUMPIFNOTEQ R8 R9 [+4]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K3 ["read"]
+  FASTCALL2 TABLE_INSERT R1 R7 [+5]
+  MOVE R9 R1
+  MOVE R10 R7
+  GETIMPORT R8 K6 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R2 2 [-19]
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  NEWTABLE R1 0 0
+  GETIMPORT R2 K1 [pairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETUPVAL R7 0
+  MOVE R8 R6
+  CALL R7 1 1
   LOADB R8 1
   SETTABLEKS R8 R7 K2 ["read"]
   FASTCALL2 TABLE_INSERT R1 R7 [+5]
@@ -105,15 +135,15 @@ PROTO_4:
   FORGLOOP R2 2 [-14]
   RETURN R1 1
 
-PROTO_5:
-  GETUPVAL R1 0
-  DUPCLOSURE R2 K0 [PROTO_4]
+PROTO_7:
+  GETUPVAL R0 0
+  DUPCLOSURE R1 K0 [PROTO_6]
   CAPTURE UPVAL U1
-  CALL R1 1 0
+  CALL R0 1 0
   RETURN R0 0
 
-PROTO_6:
-  DUPTABLE R0 K10 [{"notifications", "cursor", "allLoaded", "setNotifications", "setCursor", "setAllLoaded", "markNotificationRead", "markAllNotificationsRead", "logNotificationImpressions", "notificationClient"}]
+PROTO_8:
+  DUPTABLE R0 K11 [{"notifications", "cursor", "allLoaded", "setNotifications", "setCursor", "setAllLoaded", "markNotificationRead", "markNotificationReadFromId", "markAllNotificationsRead", "logNotificationImpressions", "notificationClient"}]
   GETUPVAL R1 0
   SETTABLEKS R1 R0 K0 ["notifications"]
   GETUPVAL R1 1
@@ -129,15 +159,17 @@ PROTO_6:
   GETUPVAL R1 6
   SETTABLEKS R1 R0 K6 ["markNotificationRead"]
   GETUPVAL R1 7
-  SETTABLEKS R1 R0 K7 ["markAllNotificationsRead"]
+  SETTABLEKS R1 R0 K7 ["markNotificationReadFromId"]
   GETUPVAL R1 8
-  SETTABLEKS R1 R0 K8 ["logNotificationImpressions"]
-  GETUPVAL R2 9
-  GETTABLEKS R1 R2 K9 ["notificationClient"]
-  SETTABLEKS R1 R0 K9 ["notificationClient"]
+  SETTABLEKS R1 R0 K8 ["markAllNotificationsRead"]
+  GETUPVAL R1 9
+  SETTABLEKS R1 R0 K9 ["logNotificationImpressions"]
+  GETUPVAL R2 10
+  GETTABLEKS R1 R2 K10 ["notificationClient"]
+  SETTABLEKS R1 R0 K10 ["notificationClient"]
   RETURN R0 1
 
-PROTO_7:
+PROTO_9:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useContext"]
   GETUPVAL R2 1
@@ -204,8 +236,18 @@ PROTO_7:
   SETLIST R14 R15 2 [1]
   CALL R12 2 1
   GETUPVAL R14 0
-  GETTABLEKS R13 R14 K8 ["useMemo"]
+  GETTABLEKS R13 R14 K5 ["useCallback"]
   NEWCLOSURE R14 P4
+  CAPTURE VAL R4
+  CAPTURE UPVAL U4
+  NEWTABLE R15 0 2
+  MOVE R16 R3
+  MOVE R17 R4
+  SETLIST R15 R16 2 [1]
+  CALL R13 2 1
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K8 ["useMemo"]
+  NEWCLOSURE R15 P5
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R7
@@ -214,30 +256,32 @@ PROTO_7:
   CAPTURE VAL R8
   CAPTURE VAL R11
   CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R10
   CAPTURE VAL R0
-  NEWTABLE R15 0 10
-  MOVE R16 R3
-  MOVE R17 R5
-  MOVE R18 R7
-  MOVE R19 R4
-  MOVE R20 R6
-  MOVE R21 R8
-  MOVE R22 R11
-  MOVE R23 R12
-  MOVE R24 R10
-  GETUPVAL R25 5
-  SETLIST R15 R16 10 [1]
-  CALL R13 2 1
-  GETUPVAL R15 0
-  GETTABLEKS R14 R15 K9 ["createElement"]
-  GETUPVAL R16 6
-  GETTABLEKS R15 R16 K10 ["Provider"]
-  DUPTABLE R16 K12 [{"value"}]
-  SETTABLEKS R13 R16 K11 ["value"]
-  GETTABLEKS R17 R0 K13 ["children"]
-  CALL R14 3 -1
-  RETURN R14 -1
+  NEWTABLE R16 0 11
+  MOVE R17 R3
+  MOVE R18 R5
+  MOVE R19 R7
+  MOVE R20 R4
+  MOVE R21 R6
+  MOVE R22 R8
+  MOVE R23 R11
+  MOVE R24 R12
+  MOVE R25 R13
+  MOVE R26 R10
+  GETUPVAL R27 5
+  SETLIST R16 R17 11 [1]
+  CALL R14 2 1
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K9 ["createElement"]
+  GETUPVAL R17 6
+  GETTABLEKS R16 R17 K10 ["Provider"]
+  DUPTABLE R17 K12 [{"value"}]
+  SETTABLEKS R14 R17 K11 ["value"]
+  GETTABLEKS R18 R0 K13 ["children"]
+  CALL R15 3 -1
+  RETURN R15 -1
 
 MAIN:
   PREPVARARGS 0
@@ -279,7 +323,7 @@ MAIN:
   GETTABLEKS R10 R11 K2 ["Parent"]
   GETTABLEKS R9 R10 K20 ["NotificationsContext"]
   CALL R8 1 1
-  DUPCLOSURE R9 K21 [PROTO_7]
+  DUPCLOSURE R9 K21 [PROTO_9]
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R6

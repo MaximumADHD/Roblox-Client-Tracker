@@ -23,6 +23,9 @@ local function AvatarItemCard(props: Props)
 	local font = style.Font
 	local theme = style.Theme
 	local asset = props.asset
+
+	local titleStyle = font.CaptionHeader
+	local titleColor = theme.TextEmphasis.Color
 	assert(
 		typeof(asset) == "table" or asset:IsA("MeshPart") or asset:IsA("Accessory"),
 		"Assert that asset is a table, MeshPart, or Accessory"
@@ -49,10 +52,10 @@ local function AvatarItemCard(props: Props)
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,
 			Size = UDim2.new(1, 0, 0, 50),
-			TextColor3 = theme.TextDefault.Color,
+			TextColor3 = titleColor,
 			TextWrapped = true,
-			Font = font.Header2.Font,
-			TextSize = font.Header2.RelativeSize * font.BaseSize,
+			Font = titleStyle.Font,
+			TextSize = titleStyle.RelativeSize * font.BaseSize,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 		}),
 	})

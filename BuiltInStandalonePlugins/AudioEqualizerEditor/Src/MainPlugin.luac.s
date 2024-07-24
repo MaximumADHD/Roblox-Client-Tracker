@@ -14,15 +14,15 @@ PROTO_0:
   NAMECALL R0 R0 K5 ["Invoke"]
   CALL R0 2 0
   GETUPVAL R0 0
-  DUPTABLE R2 K10 [{"enabled", "initialEqData", "instanceId", "instanceName", "closeDMConnection"}]
+  DUPTABLE R2 K10 [{"enabled", "instanceId", "instanceName", "initialData", "closeDMConnection"}]
   LOADB R3 0
   SETTABLEKS R3 R2 K6 ["enabled"]
-  GETUPVAL R3 2
-  SETTABLEKS R3 R2 K7 ["initialEqData"]
   LOADN R3 255
-  SETTABLEKS R3 R2 K8 ["instanceId"]
+  SETTABLEKS R3 R2 K7 ["instanceId"]
   LOADK R3 K11 [""]
-  SETTABLEKS R3 R2 K9 ["instanceName"]
+  SETTABLEKS R3 R2 K8 ["instanceName"]
+  GETUPVAL R3 2
+  SETTABLEKS R3 R2 K9 ["initialData"]
   LOADNIL R3
   SETTABLEKS R3 R2 K1 ["closeDMConnection"]
   NAMECALL R0 R0 K12 ["setState"]
@@ -77,132 +77,137 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["Plugin"]
-  GETTABLEKS R4 R5 K1 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R3 R4 K2 ["FocusedDataModelSession"]
-  JUMPIFNOT R3 [+14]
-  GETTABLEKS R4 R3 K3 ["CurrentDataModelTypeAboutToChange"]
-  NEWCLOSURE R6 P0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Plugin"]
+  GETTABLEKS R1 R2 K1 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R0 R1 K2 ["FocusedDataModelSession"]
+  JUMPIFNOT R0 [+14]
+  GETTABLEKS R1 R0 K3 ["CurrentDataModelTypeAboutToChange"]
+  NEWCLOSURE R3 P0
   CAPTURE UPVAL U1
-  NAMECALL R4 R4 K4 ["Connect"]
-  CALL R4 2 1
-  GETUPVAL R5 1
-  DUPTABLE R7 K6 [{"closeDMConnection"}]
-  SETTABLEKS R4 R7 K5 ["closeDMConnection"]
-  NAMECALL R5 R5 K7 ["setState"]
-  CALL R5 2 0
-  GETUPVAL R4 1
-  DUPTABLE R6 K12 [{"enabled", "instanceId", "instanceName", "initialEqData"}]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K8 ["enabled"]
-  SETTABLEKS R1 R6 K9 ["instanceId"]
-  SETTABLEKS R2 R6 K10 ["instanceName"]
-  SETTABLEKS R0 R6 K11 ["initialEqData"]
-  NAMECALL R4 R4 K7 ["setState"]
-  CALL R4 2 0
+  NAMECALL R1 R1 K4 ["Connect"]
+  CALL R1 2 1
+  GETUPVAL R2 1
+  DUPTABLE R4 K6 [{"closeDMConnection"}]
+  SETTABLEKS R1 R4 K5 ["closeDMConnection"]
+  NAMECALL R2 R2 K7 ["setState"]
+  CALL R2 2 0
   RETURN R0 0
 
 PROTO_7:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["closeOnDMChange"]
+  CALL R3 0 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["setInstanceType"]
+  GETTABLEKS R4 R0 K2 ["InstanceType"]
+  CALL R3 1 0
+  GETUPVAL R3 0
+  DUPTABLE R5 K7 [{"enabled", "instanceId", "instanceName", "initialData"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K3 ["enabled"]
+  SETTABLEKS R1 R5 K4 ["instanceId"]
+  SETTABLEKS R2 R5 K5 ["instanceName"]
+  SETTABLEKS R0 R5 K6 ["initialData"]
+  NAMECALL R3 R3 K8 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_8:
   GETUPVAL R1 0
-  DUPTABLE R3 K1 [{"initialEqData"}]
-  SETTABLEKS R0 R3 K0 ["initialEqData"]
+  DUPTABLE R3 K1 [{"initialData"}]
+  SETTABLEKS R0 R3 K0 ["initialData"]
   NAMECALL R1 R1 K2 ["setState"]
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   NEWTABLE R0 0 0
   RETURN R0 1
 
-PROTO_9:
-  DUPTABLE R2 K4 [{"LowGain", "MidGain", "HighGain", "MidRange"}]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K0 ["LowGain"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K1 ["MidGain"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K2 ["HighGain"]
-  GETIMPORT R3 K7 [NumberRange.new]
-  LOADN R4 200
-  LOADN R5 32
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["MidRange"]
-  DUPTABLE R3 K15 [{"enabled", "instanceId", "instanceName", "initialEqData", "analysisEnabled", "closeDMConnection", "forceRerender"}]
+PROTO_10:
+  DUPTABLE R2 K2 [{"InstanceType", "Bypass"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["NO_INSTANCE"]
+  SETTABLEKS R3 R2 K0 ["InstanceType"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K1 ["Bypass"]
+  DUPTABLE R3 K11 [{"enabled", "instanceId", "instanceName", "initialData", "analysisEnabled", "closeDMConnection", "forceRerender"}]
   LOADB R4 0
-  SETTABLEKS R4 R3 K8 ["enabled"]
+  SETTABLEKS R4 R3 K4 ["enabled"]
   LOADN R4 255
-  SETTABLEKS R4 R3 K9 ["instanceId"]
-  LOADK R4 K16 [""]
-  SETTABLEKS R4 R3 K10 ["instanceName"]
-  SETTABLEKS R2 R3 K11 ["initialEqData"]
+  SETTABLEKS R4 R3 K5 ["instanceId"]
+  LOADK R4 K12 [""]
+  SETTABLEKS R4 R3 K6 ["instanceName"]
+  SETTABLEKS R2 R3 K7 ["initialData"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K12 ["analysisEnabled"]
+  SETTABLEKS R4 R3 K8 ["analysisEnabled"]
   LOADNIL R4
-  SETTABLEKS R4 R3 K13 ["closeDMConnection"]
+  SETTABLEKS R4 R3 K9 ["closeDMConnection"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K14 ["forceRerender"]
-  SETTABLEKS R3 R0 K17 ["state"]
+  SETTABLEKS R4 R3 K10 ["forceRerender"]
+  SETTABLEKS R3 R0 K13 ["state"]
   NEWCLOSURE R3 P0
   CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE VAL R2
-  SETTABLEKS R3 R0 K18 ["setDisabled"]
+  SETTABLEKS R3 R0 K14 ["setDisabled"]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
-  SETTABLEKS R3 R0 K19 ["onChanged"]
+  SETTABLEKS R3 R0 K15 ["onChanged"]
   NEWCLOSURE R3 P2
   CAPTURE VAL R1
-  SETTABLEKS R3 R0 K20 ["onAttachAnalyzer"]
+  SETTABLEKS R3 R0 K16 ["onAttachAnalyzer"]
   NEWCLOSURE R3 P3
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K21 ["setAnalysisEnabled"]
+  SETTABLEKS R3 R0 K17 ["setAnalysisEnabled"]
   NEWCLOSURE R3 P4
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K22 ["onWidgetEnabledChanged"]
-  GETTABLEKS R3 R1 K23 ["Plugin"]
-  LOADK R5 K24 ["OnOpen"]
-  NEWCLOSURE R6 P5
+  SETTABLEKS R3 R0 K18 ["onWidgetEnabledChanged"]
+  NEWCLOSURE R3 P5
   CAPTURE VAL R1
   CAPTURE VAL R0
-  NAMECALL R3 R3 K25 ["OnInvoke"]
-  CALL R3 3 0
-  GETTABLEKS R3 R1 K23 ["Plugin"]
-  LOADK R5 K26 ["OnInstanceChanged"]
+  SETTABLEKS R3 R0 K19 ["closeOnDMChange"]
+  GETTABLEKS R3 R1 K20 ["Plugin"]
+  LOADK R5 K21 ["OnOpen"]
   NEWCLOSURE R6 P6
   CAPTURE VAL R0
-  NAMECALL R3 R3 K25 ["OnInvoke"]
+  CAPTURE UPVAL U1
+  NAMECALL R3 R3 K22 ["OnInvoke"]
   CALL R3 3 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K27 ["Localization"]
-  GETTABLEKS R3 R4 K6 ["new"]
-  DUPTABLE R4 K31 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  GETUPVAL R5 1
-  SETTABLEKS R5 R4 K28 ["stringResourceTable"]
+  GETTABLEKS R3 R1 K20 ["Plugin"]
+  LOADK R5 K23 ["OnInstanceChanged"]
+  NEWCLOSURE R6 P7
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K22 ["OnInvoke"]
+  CALL R3 3 0
   GETUPVAL R5 2
-  SETTABLEKS R5 R4 K29 ["translationResourceTable"]
-  LOADK R5 K32 ["AudioEqualizerEditor"]
-  SETTABLEKS R5 R4 K30 ["pluginName"]
+  GETTABLEKS R4 R5 K24 ["Localization"]
+  GETTABLEKS R3 R4 K25 ["new"]
+  DUPTABLE R4 K29 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R5 3
+  SETTABLEKS R5 R4 K26 ["stringResourceTable"]
+  GETUPVAL R5 4
+  SETTABLEKS R5 R4 K27 ["translationResourceTable"]
+  LOADK R5 K30 ["AudioEqualizerEditor"]
+  SETTABLEKS R5 R4 K28 ["pluginName"]
   CALL R3 1 1
-  SETTABLEKS R3 R0 K33 ["localization"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K34 ["Analytics"]
-  GETTABLEKS R3 R4 K6 ["new"]
-  DUPCLOSURE R4 K35 [PROTO_8]
+  SETTABLEKS R3 R0 K31 ["localization"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K32 ["Analytics"]
+  GETTABLEKS R3 R4 K25 ["new"]
+  DUPCLOSURE R4 K33 [PROTO_9]
   NEWTABLE R5 0 0
   CALL R3 2 1
-  SETTABLEKS R3 R0 K36 ["analytics"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K6 ["new"]
+  SETTABLEKS R3 R0 K34 ["analytics"]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K25 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R0 K37 ["DEPRECATED_stylizer"]
-  GETUPVAL R3 4
-  GETTABLEKS R4 R1 K23 ["Plugin"]
+  SETTABLEKS R3 R0 K35 ["DEPRECATED_stylizer"]
+  GETUPVAL R3 6
+  GETTABLEKS R4 R1 K20 ["Plugin"]
   CALL R3 1 1
-  SETTABLEKS R3 R0 K38 ["design"]
-  RETURN R0 0
-
-PROTO_10:
+  SETTABLEKS R3 R0 K36 ["design"]
   RETURN R0 0
 
 PROTO_11:
@@ -211,112 +216,123 @@ PROTO_11:
   GETTABLEKS R3 R1 K2 ["Plugin"]
   GETTABLEKS R4 R2 K3 ["enabled"]
   NEWTABLE R5 0 0
-  LOADK R7 K4 ["AudioEqualizerEditor_"]
-  GETTABLEKS R8 R2 K5 ["instanceId"]
-  CONCAT R6 R7 R8
+  LOADK R7 K4 ["AudioEqualizerEditor_%*"]
+  GETTABLEKS R9 R2 K5 ["instanceId"]
+  NAMECALL R7 R7 K6 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETTABLEKS R7 R8 K7 ["createElement"]
   GETUPVAL R8 1
-  DUPTABLE R9 K12 [{"Enabled", "EqData", "OnChanged", "AnalysisEnabled", "SetAnalysisEnabled"}]
-  SETTABLEKS R4 R9 K7 ["Enabled"]
-  GETTABLEKS R10 R2 K13 ["initialEqData"]
-  SETTABLEKS R10 R9 K8 ["EqData"]
-  GETTABLEKS R10 R0 K14 ["onChanged"]
-  SETTABLEKS R10 R9 K9 ["OnChanged"]
+  DUPTABLE R9 K13 [{"Enabled", "Data", "OnChanged", "AnalysisEnabled", "SetAnalysisEnabled"}]
+  SETTABLEKS R4 R9 K8 ["Enabled"]
+  GETTABLEKS R10 R2 K14 ["initialData"]
+  SETTABLEKS R10 R9 K9 ["Data"]
+  GETTABLEKS R10 R0 K15 ["onChanged"]
+  SETTABLEKS R10 R9 K10 ["OnChanged"]
   GETTABLEKS R11 R0 K1 ["state"]
-  GETTABLEKS R10 R11 K15 ["analysisEnabled"]
-  SETTABLEKS R10 R9 K10 ["AnalysisEnabled"]
-  GETTABLEKS R10 R0 K16 ["setAnalysisEnabled"]
-  SETTABLEKS R10 R9 K11 ["SetAnalysisEnabled"]
+  GETTABLEKS R10 R11 K16 ["analysisEnabled"]
+  SETTABLEKS R10 R9 K11 ["AnalysisEnabled"]
+  GETTABLEKS R10 R0 K17 ["setAnalysisEnabled"]
+  SETTABLEKS R10 R9 K12 ["SetAnalysisEnabled"]
   CALL R7 2 1
   SETTABLE R7 R5 R6
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K17 ["provide"]
-  NEWTABLE R7 0 4
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K18 ["new"]
-  MOVE R9 R3
-  CALL R8 1 1
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K18 ["new"]
-  NAMECALL R10 R3 K19 ["getMouse"]
-  CALL R10 1 -1
-  CALL R9 -1 1
-  GETTABLEKS R10 R0 K20 ["localization"]
-  GETTABLEKS R11 R0 K21 ["analytics"]
-  SETLIST R7 R8 4 [1]
-  DUPTABLE R8 K23 [{"MainWidget"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K6 ["createElement"]
-  GETUPVAL R10 5
-  NEWTABLE R11 16 0
-  LOADK R12 K24 ["AudioEqualizerEditor"]
-  SETTABLEKS R12 R11 K25 ["Id"]
-  SETTABLEKS R4 R11 K7 ["Enabled"]
-  GETTABLEKS R16 R0 K20 ["localization"]
-  LOADK R18 K2 ["Plugin"]
-  LOADK R19 K26 ["Name"]
-  NAMECALL R16 R16 K27 ["getText"]
-  CALL R16 3 1
-  MOVE R13 R16
-  LOADK R14 K28 [" - "]
-  GETTABLEKS R15 R2 K29 ["instanceName"]
-  CONCAT R12 R13 R15
-  SETTABLEKS R12 R11 K30 ["Title"]
-  GETIMPORT R12 K34 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R12 R11 K32 ["ZIndexBehavior"]
-  GETIMPORT R12 K37 [Enum.InitialDockState.Float]
-  SETTABLEKS R12 R11 K35 ["InitialDockState"]
-  GETIMPORT R12 K39 [Vector2.new]
-  LOADN R13 128
-  LOADN R14 224
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K40 ["Size"]
-  GETIMPORT R12 K39 [Vector2.new]
-  LOADN R13 250
-  LOADN R14 200
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K41 ["MinSize"]
-  GETTABLEKS R12 R0 K42 ["setDisabled"]
-  SETTABLEKS R12 R11 K43 ["OnClose"]
-  GETTABLEKS R13 R1 K44 ["PluginLoaderContext"]
-  GETTABLEKS R12 R13 K45 ["mainDockWidget"]
-  SETTABLEKS R12 R11 K46 ["Widget"]
-  GETTABLEKS R12 R0 K47 ["onDockWidgetCreated"]
-  SETTABLEKS R12 R11 K48 ["OnWidgetCreated"]
-  LOADB R12 0
-  SETTABLEKS R12 R11 K49 ["ShouldRestore"]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K50 ["Change"]
-  GETTABLEKS R12 R13 K7 ["Enabled"]
-  GETTABLEKS R13 R0 K51 ["onWidgetEnabledChanged"]
-  SETTABLE R13 R11 R12
-  DUPTABLE R12 K54 [{"Wrapper", "StyleLink"}]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K6 ["createElement"]
-  GETUPVAL R14 6
-  NEWTABLE R15 1 0
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K55 ["Tag"]
-  LOADK R17 K56 ["X-Fill X-Column"]
-  SETTABLE R17 R15 R16
-  NEWTABLE R16 0 1
-  MOVE R17 R5
-  SETLIST R16 R17 1 [1]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K52 ["Wrapper"]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K6 ["createElement"]
-  LOADK R14 K53 ["StyleLink"]
-  DUPTABLE R15 K58 [{"StyleSheet"}]
-  GETTABLEKS R16 R0 K59 ["design"]
-  SETTABLEKS R16 R15 K57 ["StyleSheet"]
+  LOADK R6 K18 [""]
+  JUMPIFNOT R4 [+22]
+  LOADK R7 K19 ["%* - %*"]
+  GETTABLEKS R9 R0 K20 ["localization"]
+  LOADK R11 K2 ["Plugin"]
+  LOADK R13 K21 ["%*Editor"]
+  GETTABLEKS R16 R2 K14 ["initialData"]
+  GETTABLEKS R15 R16 K22 ["InstanceType"]
+  NAMECALL R13 R13 K6 ["format"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K53 ["StyleLink"]
+  MOVE R12 R13
+  NAMECALL R9 R9 K23 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K22 ["MainWidget"]
-  CALL R6 2 -1
-  RETURN R6 -1
+  GETTABLEKS R10 R2 K24 ["instanceName"]
+  NAMECALL R7 R7 K6 ["format"]
+  CALL R7 3 1
+  MOVE R6 R7
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K25 ["provide"]
+  NEWTABLE R8 0 5
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K26 ["new"]
+  MOVE R10 R3
+  CALL R9 1 1
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K26 ["new"]
+  NAMECALL R11 R3 K27 ["getMouse"]
+  CALL R11 1 -1
+  CALL R10 -1 1
+  GETTABLEKS R11 R0 K28 ["DEPRECATED_stylizer"]
+  GETTABLEKS R12 R0 K20 ["localization"]
+  GETTABLEKS R13 R0 K29 ["analytics"]
+  SETLIST R8 R9 5 [1]
+  DUPTABLE R9 K31 [{"MainWidget"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["createElement"]
+  GETUPVAL R11 5
+  NEWTABLE R12 16 0
+  LOADK R13 K32 ["AudioEqualizerEditor"]
+  SETTABLEKS R13 R12 K33 ["Id"]
+  SETTABLEKS R4 R12 K8 ["Enabled"]
+  SETTABLEKS R6 R12 K34 ["Title"]
+  GETIMPORT R13 K38 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R13 R12 K36 ["ZIndexBehavior"]
+  GETIMPORT R13 K41 [Enum.InitialDockState.Float]
+  SETTABLEKS R13 R12 K39 ["InitialDockState"]
+  GETIMPORT R13 K43 [Vector2.new]
+  LOADN R14 128
+  LOADN R15 224
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K44 ["Size"]
+  GETIMPORT R13 K43 [Vector2.new]
+  LOADN R14 250
+  LOADN R15 200
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K45 ["MinSize"]
+  GETTABLEKS R13 R0 K46 ["setDisabled"]
+  SETTABLEKS R13 R12 K47 ["OnClose"]
+  GETTABLEKS R14 R1 K48 ["PluginLoaderContext"]
+  GETTABLEKS R13 R14 K49 ["mainDockWidget"]
+  SETTABLEKS R13 R12 K50 ["Widget"]
+  GETTABLEKS R13 R0 K51 ["onDockWidgetCreated"]
+  SETTABLEKS R13 R12 K52 ["OnWidgetCreated"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K53 ["ShouldRestore"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K54 ["Change"]
+  GETTABLEKS R13 R14 K8 ["Enabled"]
+  GETTABLEKS R14 R0 K55 ["onWidgetEnabledChanged"]
+  SETTABLE R14 R12 R13
+  DUPTABLE R13 K58 [{"Wrapper", "StyleLink"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETUPVAL R15 6
+  NEWTABLE R16 1 0
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K59 ["Tag"]
+  LOADK R18 K60 ["X-Fill X-Column"]
+  SETTABLE R18 R16 R17
+  NEWTABLE R17 0 1
+  MOVE R18 R5
+  SETLIST R17 R18 1 [1]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K56 ["Wrapper"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  LOADK R15 K57 ["StyleLink"]
+  DUPTABLE R16 K62 [{"StyleSheet"}]
+  GETTABLEKS R17 R0 K63 ["design"]
+  SETTABLEKS R17 R16 K61 ["StyleSheet"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K57 ["StyleLink"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K30 ["MainWidget"]
+  CALL R7 2 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -361,20 +377,25 @@ MAIN:
   GETIMPORT R14 K5 [require]
   GETTABLEKS R15 R13 K2 ["AudioEqualizerEditor"]
   CALL R14 1 1
-  GETTABLEKS R15 R1 K27 ["PureComponent"]
-  LOADK R17 K28 ["MainPlugin"]
-  NAMECALL R15 R15 K29 ["extend"]
-  CALL R15 2 1
-  DUPCLOSURE R16 K30 [PROTO_9]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K20 ["Src"]
+  GETTABLEKS R17 R18 K27 ["Util"]
+  GETTABLEKS R16 R17 K28 ["PlotUtil"]
+  CALL R15 1 1
+  GETTABLEKS R16 R1 K29 ["PureComponent"]
+  LOADK R18 K30 ["MainPlugin"]
+  NAMECALL R16 R16 K31 ["extend"]
+  CALL R16 2 1
+  DUPCLOSURE R17 K32 [PROTO_10]
+  CAPTURE VAL R12
+  CAPTURE VAL R15
   CAPTURE VAL R5
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R8
   CAPTURE VAL R9
-  SETTABLEKS R16 R15 K31 ["init"]
-  DUPCLOSURE R16 K32 [PROTO_10]
-  SETTABLEKS R16 R15 K33 ["didUpdate"]
-  DUPCLOSURE R16 K34 [PROTO_11]
+  SETTABLEKS R17 R16 K33 ["init"]
+  DUPCLOSURE R17 K34 [PROTO_11]
   CAPTURE VAL R1
   CAPTURE VAL R14
   CAPTURE VAL R5
@@ -382,5 +403,5 @@ MAIN:
   CAPTURE VAL R7
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R16 R15 K35 ["render"]
-  RETURN R15 1
+  SETTABLEKS R17 R16 K35 ["render"]
+  RETURN R16 1

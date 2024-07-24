@@ -1,14 +1,12 @@
 --[[
 	The base prompt for other prompts like PublishAvatarPrompt or PublishAssetPrompt.
-    Other prompts can pass in body components that will be parented under a frame between
-    the NameTextBox and PromptRows below. For example, they can pass in the Viewport and
-    description text box.
+    Other prompts can pass in body components that will be parented under a frame under
+    the NameTextBox. For example, they can pass in the Viewport, description text box,
+	and item description rows.
 ]]
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local ExperienceAuthService = game:GetService("ExperienceAuthService")
-local Players = game:GetService("Players")
-local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local ContextActionService = game:GetService("ContextActionService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -25,17 +23,9 @@ local Overlay = UIBlox.App.Dialog.Overlay
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
 
-local httpRequest: any = require(RobloxGui.Modules.Common.httpRequest)
-
-local httpImpl = httpRequest(HttpRbxApiService :: any)
-local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
-
-local LocalPlayer = Players.LocalPlayer
-
 local Components = script.Parent
 local NameTextBox = require(Components.Common.NameTextBox)
 local CloseOpenPrompt = require(script.Parent.Parent.Actions.CloseOpenPrompt)
-local ItemInfoList = require(CorePackages.Workspace.Packages.ItemDetails).ItemInfoList
 local LeaveCreationAlert = require(script.Parent.LeaveCreationAlert)
 local Constants = require(script.Parent.Parent.Constants)
 local PreviewViewport = require(Components.Common.PreviewViewport)
@@ -50,9 +40,8 @@ local DISTANCE_FROM_TOP = 37
 
 local DISCLAIMER_TEXT = "disclaimer"
 local SUBMIT_TEXT = "submit"
-local CREATOR_TEXT = "creator"
-local ATTRIBUTION_TEXT = "madeIn"
-local TYPE_TEXT = "type"
+
+local ROBUX_EMOJI_STRING = "\u{E002}"
 
 local BasePublishPrompt = Roact.PureComponent:extend("BasePublishPrompt")
 local STICK_MAX_SPEED = 1000
@@ -64,7 +53,6 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	nameLabel = t.string,
 	defaultName = t.string,
 	promptBody = t.any,
-	typeData = t.string,
 	titleText = t.string,
 	showingPreviewView = t.boolean,
 	closePreviewView = t.callback,
@@ -75,6 +63,9 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	enableInputDelayed = t.optional(t.boolean),
 	isDelayedInput = t.optional(t.boolean),
 	delayInputSeconds = t.optional(t.number),
+	-- priceInRobux should only be nil while fetching price;
+	-- if the item is free, it should be 0
+	priceInRobux = t.optional(t.number),
 
 	-- Mapped state
 	guid = t.any,
@@ -86,7 +77,6 @@ BasePublishPrompt.validateProps = t.strictInterface({
 })
 
 function BasePublishPrompt:init()
-	self.isMounted = false
 	self.swipeScrollingFrameRef = Roact.createRef()
 	self.inputState = nil
 	self.inputObject = nil
@@ -173,29 +163,23 @@ function BasePublishPrompt:cleanupGamepad()
 end
 
 function BasePublishPrompt:didMount()
-	self.isMounted = true
 	self:setUpGamepad()
-	GetGameNameAndDescription(httpImpl :: any, game.GameId):andThen(function(result)
-		if self.isMounted and result.Name then
-			self:setState({
-				gameName = result.Name,
-			})
-		end
-	end)
 end
 
 function BasePublishPrompt:renderMiddle(localized)
 	return withStyle(function(style)
 		local font = style.Font
 		local baseSize: number = font.BaseSize
-		local relativeSize: number = font.CaptionHeader.RelativeSize
-		local textSize: number = baseSize * relativeSize
 		local theme = style.Theme
 
-		assert(LocalPlayer, "Assert LocalPlayer not nil to silence type checker")
-		local localPlayerName = LocalPlayer.Name
-		local gameName = self.state.gameName
-		local typeData = self.props.typeData
+		-- NameLabel Style
+		local nameLabelStyle = font.CaptionHeader
+		local nameLabelColor = theme.TextDefault.Color
+
+		-- Disclaimer Style
+		local disclaimerStyle = font.Footer
+		local disclaimerColor = theme.TextDefault.Color
+
 		return Roact.createFragment({
 			ScrollingFrame = Roact.createElement("ScrollingFrame", {
 				BackgroundTransparency = 1,
@@ -219,10 +203,10 @@ function BasePublishPrompt:renderMiddle(localized)
 
 				NameLabel = Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 0, LABEL_HEIGHT + LABEL_PADDING),
-					Font = font.Body.Font,
 					Text = self.props.nameLabel,
-					TextSize = textSize,
-					TextColor3 = theme.TextDefault.Color,
+					Font = nameLabelStyle.Font,
+					TextSize = baseSize * nameLabelStyle.RelativeSize,
+					TextColor3 = nameLabelColor,
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LayoutOrder = 1,
@@ -244,30 +228,6 @@ function BasePublishPrompt:renderMiddle(localized)
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
 				}, self.props.promptBody),
-				PromptRows = Roact.createElement(ItemInfoList, {
-					rowData = {
-						{
-							infoName = localized[CREATOR_TEXT],
-							infoData = localPlayerName,
-							hasVerifiedBadge = LocalPlayer.HasVerifiedBadge,
-							isLoading = localPlayerName == nil,
-							Selectable = false,
-						},
-						{
-							infoName = localized[ATTRIBUTION_TEXT],
-							infoData = gameName,
-							isLoading = gameName == nil,
-							Selectable = false,
-						},
-						{
-							infoName = localized[TYPE_TEXT],
-							infoData = typeData,
-							isLoading = typeData == nil,
-							Selectable = false,
-						},
-					},
-					LayoutOrder = 4,
-				}),
 			}),
 			BottomGradient = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, BOTTOM_GRADIENT_HEIGHT),
@@ -304,9 +264,9 @@ function BasePublishPrompt:renderMiddle(localized)
 				Disclaimer = Roact.createElement("TextLabel", {
 					Size = UDim2.fromScale(1, 1),
 					Text = localized[DISCLAIMER_TEXT],
-					Font = font.Body.Font,
-					TextSize = textSize,
-					TextColor3 = theme.TextEmphasis.Color,
+					Font = disclaimerStyle.Font,
+					TextSize = baseSize * disclaimerStyle.RelativeSize,
+					TextColor3 = disclaimerColor,
 					BackgroundTransparency = 1,
 					TextWrapped = true,
 				}),
@@ -318,6 +278,11 @@ end
 function BasePublishPrompt:renderAlertLocalized(localized)
 	return withStyle(function(style)
 		local theme = style.Theme
+
+		local submitText = if self.props.priceInRobux and self.props.priceInRobux > 0
+			then string.format("%s %i", ROBUX_EMOJI_STRING, self.props.priceInRobux)
+			else localized[SUBMIT_TEXT]
+
 		return Roact.createFragment({
 			-- Render transparent black frame over the whole screen to de-focus anything in the background.
 			Overlay = Roact.createElement(Overlay, {
@@ -346,7 +311,8 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 									enableInputDelayed = self.props.enableInputDelayed,
 									delayInputSeconds = self.props.delayInputSeconds,
 									onActivated = self.confirmAndUpload,
-									text = localized[SUBMIT_TEXT],
+									text = submitText,
+									isLoading = not self.props.priceInRobux,
 								},
 							},
 						},
@@ -388,11 +354,6 @@ end
 local function GetLocalizedStrings()
 	local strings = {}
 	strings[SUBMIT_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Submit")
-
-	strings[CREATOR_TEXT] = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Filter.Creator")
-	strings[TYPE_TEXT] = RobloxTranslator:FormatByKey("Feature.Catalog.Label.CategoryType")
-	strings[ATTRIBUTION_TEXT] = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Attribution")
-
 	strings[DISCLAIMER_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishCommon.Disclaimer")
 
 	return strings
@@ -405,7 +366,6 @@ end
 
 function BasePublishPrompt:willUnmount()
 	self:cleanupGamepad()
-	self.isMounted = false
 end
 
 local function mapStateToProps(state)

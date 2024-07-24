@@ -1,11 +1,11 @@
 PROTO_0:
-  DUPTABLE R1 K4 [{"_isMock", "impl", "OnFetchFinished", "OnFetchProgressChanged"}]
+  DUPTABLE R1 K4 [{"_isMock", "_impl", "OnFetchFinished", "OnFetchProgressChanged"}]
   SETTABLEKS R0 R1 K0 ["_isMock"]
   JUMPIFNOT R0 [+2]
   GETUPVAL R2 0
   JUMP [+1]
   GETUPVAL R2 1
-  SETTABLEKS R2 R1 K1 ["impl"]
+  SETTABLEKS R2 R1 K1 ["_impl"]
   GETUPVAL R3 2
   GETTABLEKS R2 R3 K5 ["new"]
   CALL R2 0 1
@@ -25,21 +25,24 @@ PROTO_1:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["new"]
   LOADB R1 1
-  CALL R0 1 -1
-  RETURN R0 -1
+  CALL R0 1 1
+  GETTABLEKS R2 R0 K1 ["_impl"]
+  GETTABLEKS R1 R2 K2 ["ResumeAsync"]
+  SETTABLEKS R1 R0 K2 ["ResumeAsync"]
+  RETURN R0 1
 
 PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETTABLEKS R3 R0 K0 ["impl"]
+  GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["fetchUsernameAsync"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0
 
 PROTO_4:
-  GETTABLEKS R4 R0 K0 ["impl"]
+  GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["fetchGroupsAsync"]
   MOVE R4 R1
   MOVE R5 R2
@@ -61,7 +64,7 @@ PROTO_5:
   MOVE R7 R3
   CALL R4 3 0
   RETURN R0 0
-  GETTABLEKS R5 R0 K3 ["impl"]
+  GETTABLEKS R5 R0 K3 ["_impl"]
   GETTABLEKS R4 R5 K2 ["fetchAssetsLegacyAsync"]
   MOVE R5 R1
   MOVE R6 R2
@@ -70,14 +73,14 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETTABLEKS R3 R0 K0 ["impl"]
+  GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["getThumbnailUriForScope"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
 PROTO_7:
-  GETTABLEKS R4 R0 K0 ["impl"]
+  GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["getThumbnailForScopeAsync"]
   MOVE R4 R1
   MOVE R5 R2
@@ -85,7 +88,7 @@ PROTO_7:
   RETURN R0 0
 
 PROTO_8:
-  GETTABLEKS R3 R0 K0 ["impl"]
+  GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["getThumbnailForItem"]
   MOVE R3 R1
   CALL R2 1 -1
@@ -101,7 +104,7 @@ PROTO_9:
   MOVE R5 R2
   CALL R3 2 0
   RETURN R0 0
-  GETTABLEKS R4 R0 K1 ["impl"]
+  GETTABLEKS R4 R0 K1 ["_impl"]
   GETTABLEKS R3 R4 K0 ["getThumbnailForItemAsync"]
   MOVE R4 R1
   MOVE R5 R2

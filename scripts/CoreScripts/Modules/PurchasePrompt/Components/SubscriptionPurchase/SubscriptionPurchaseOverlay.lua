@@ -4,19 +4,28 @@ local ContextActionService = game:GetService("ContextActionService")
 
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
-local Roact = PurchasePromptDeps.Roact
+local ToastRodux = require(CorePackages.Workspace.Packages.ToastRodux)
 
+local PromptState = require(Root.Enums.PromptState)
+local PurchaseError = require(Root.Enums.PurchaseError)
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local Roact = PurchasePromptDeps.Roact
+local ToastType = ToastRodux.Enums.ToastType
 local IAPExperience = PurchasePromptDeps.IAPExperience
 local SubscriptionPurchaseFlow = IAPExperience.PurchaseFlow.SubscriptionPurchaseFlow
 local SubscriptionPurchaseFlowState = IAPExperience.PurchaseFlow.SubscriptionPurchaseFlowState
 local PurchaseErrorType = IAPExperience.PurchaseFlow.PurchaseErrorType
 
-local PromptState = require(Root.Enums.PromptState)
-local PurchaseError = require(Root.Enums.PurchaseError)
-
-local SubscriptionPurchaseOverlay = Roact.PureComponent:extend(script.Name)
+local GetFFlagEnableSubscriptionPurchaseToast = require(Root.Flags.GetFFlagEnableSubscriptionPurchaseToast)
 
 local FLOW_NAME = "InGame"
+local GENERIC_SUBSCRIBE_ERROR_TEXT_KEY = "Feature.Subscription.Error.GenericSubscribeError"
+
+local SubscriptionPurchaseOverlay = Roact.PureComponent:extend(script.Name)
 
 type Props = {
 	screenSize: Vector2,
@@ -45,6 +54,7 @@ type Props = {
 	endPurchase: () -> any,
 
 	onAnalyticEvent: (string, any) -> any,
+	setCurrentToastMessage: (any) -> any,
 }
 
 function SubscriptionPurchaseOverlay:init()
@@ -115,12 +125,14 @@ function SubscriptionPurchaseOverlay:render()
 	local props: Props = self.props
 
 	local BUTTON_A_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
+	local purchaseState = self:getFlowState()
+	local errorType = self:getErrorType()
 
 	return Roact.createElement(SubscriptionPurchaseFlow, {
 		screenSize = props.screenSize,
 
-		purchaseState = self:getFlowState(),
-		errorType = self:getErrorType(),
+		purchaseState = purchaseState,
+		errorType = errorType,
 
 		subscriptionId = props.subscriptionId,
 		name = props.name,
@@ -147,6 +159,24 @@ function SubscriptionPurchaseOverlay:render()
 		onAnalyticEvent = props.onAnalyticEvent,
 		eventPrefix = FLOW_NAME,
 	})
+end
+
+function SubscriptionPurchaseOverlay:didUpdate()
+	if GetFFlagEnableSubscriptionPurchaseToast() then
+		local purchaseState = self:getFlowState()
+		local errorType = self:getErrorType()
+
+		if
+			purchaseState == SubscriptionPurchaseFlowState.Error
+			and errorType == PurchaseErrorType.Unknown
+		then
+			self.props.setCurrentToastMessage({
+				toastTitle = RobloxTranslator:FormatByKey(GENERIC_SUBSCRIBE_ERROR_TEXT_KEY),
+				toastType = ToastType.NetworkingError,
+			})
+			self.props.endPurchase()
+		end
+	end
 end
 
 return SubscriptionPurchaseOverlay

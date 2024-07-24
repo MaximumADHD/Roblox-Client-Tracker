@@ -46,7 +46,9 @@ local GetFFlagEnableScreenshotUtility =
 local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
 local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCapturesInChrome)
+local GetFFlagEnableChromeMusicIntegration = require(Chrome.Flags.GetFFlagEnableChromeMusicIntegration)
 local GetFFlagSupportChromeContainerSizing = require(Chrome.Flags.GetFFlagSupportChromeContainerSizing)
+local GetFFlagEnableJoinVoiceOnUnibar = require(Chrome.Flags.GetFFlagEnableJoinVoiceOnUnibar)
 local GetFFlagChromeUsePreferredTransparency =
 	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
 
@@ -97,12 +99,31 @@ function configureUnibar(viewportInfo)
 	if GetFFlagNewUnibarIA() and GetFFlagEnableChromePinIntegrations() then
 		if GetFFlagSupportChromeContainerSizing() then
 			ChromeService:configureMenu({
-				{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2", "dummy_container" },
+				if GetFFlagEnableJoinVoiceOnUnibar()
+					then {
+						"selfie_view",
+						"toggle_mic_mute",
+						"join_voice",
+						"chat",
+						"dummy_window",
+						"dummy_window_2",
+						"dummy_container",
+					}
+					else {
+						"selfie_view",
+						"toggle_mic_mute",
+						"chat",
+						"dummy_window",
+						"dummy_window_2",
+						"dummy_container",
+					},
 				{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
 			})
 		else
 			ChromeService:configureMenu({
-				{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
+				if GetFFlagEnableJoinVoiceOnUnibar()
+					then { "selfie_view", "toggle_mic_mute", "join_voice", "chat", "dummy_window", "dummy_window_2" }
+					else { "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
 				{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
 			})
 		end
@@ -144,6 +165,15 @@ function configureUnibar(viewportInfo)
 				"screenshot",
 				if GetFFlagUsePolishedAnimations() then "compact_utility_back" else "chrome_toggle",
 			},
+		})
+	end
+
+	if GetFFlagEnableChromeMusicIntegration() then
+		table.insert(nineDot, "music_entrypoint")
+
+		-- MUS-1214 TODO: Determine placement order in menu
+		ChromeService:configureCompactUtility("music_utility", {
+			{ "now_playing", "chrome_toggle" },
 		})
 	end
 

@@ -12,6 +12,9 @@ pcall(function()
 	PlatformService = game:GetService("PlatformService")
 end)
 
+local GetFStringVNGWebshopUrl =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringVNGWebshopUrl
+
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local UrlBuilder = PurchasePromptDeps.UrlBuilder.UrlBuilder
 
@@ -82,7 +85,7 @@ function PlatformInterface.new()
 	end
 
 	function service.openVngStore()
-		GuiService:OpenBrowserWindow("https://shop.vnggames.com/global")
+		GuiService:OpenBrowserWindow(GetFStringVNGWebshopUrl())
 	end
 
 	return service

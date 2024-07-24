@@ -10,19 +10,25 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  DUPTABLE R3 K13 [{"CancelButtonBackgroundColor", "CancelButtonHoverBackgroundColor", "LoadingSpinnerImage"}]
-  GETIMPORT R4 K16 [Color3.fromHex]
-  LOADK R5 K17 ["#FFFFFF"]
+  DUPTABLE R3 K16 [{"CancelButtonBackgroundColor", "CancelButtonHoverBackgroundColor", "LoadingSpinnerImage", "CancelButtonBorderSizePixel", "CancelButtonBorderColor3", "CancelButtonBorderTransparency"}]
+  GETIMPORT R4 K19 [Color3.fromHex]
+  LOADK R5 K20 ["#FFFFFF"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K10 ["CancelButtonBackgroundColor"]
-  GETIMPORT R4 K16 [Color3.fromHex]
-  LOADK R5 K18 ["#E4EEFE"]
+  GETIMPORT R4 K19 [Color3.fromHex]
+  LOADK R5 K21 ["#E4EEFE"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K11 ["CancelButtonHoverBackgroundColor"]
-  LOADK R4 K19 ["rbxasset://studio_svg_textures/Lua/Dialog/Light/Standard/Spinner.png"]
+  LOADK R4 K22 ["rbxasset://studio_svg_textures/Lua/Dialog/Light/Standard/Spinner.png"]
   SETTABLEKS R4 R3 K12 ["LoadingSpinnerImage"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K13 ["CancelButtonBorderSizePixel"]
+  LOADK R4 K23 ["$Gray50"]
+  SETTABLEKS R4 R3 K14 ["CancelButtonBorderColor3"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K15 ["CancelButtonBorderTransparency"]
   MOVE R4 R2
-  LOADK R5 K20 ["CancellableDialogLightTheme"]
+  LOADK R5 K24 ["CancellableDialogLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

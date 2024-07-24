@@ -10,8 +10,10 @@ game:DefineFastFlag("AvatarMoodValidateMoodAnimation", false)
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local LocalPlayer = Players.LocalPlayer
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
 
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 

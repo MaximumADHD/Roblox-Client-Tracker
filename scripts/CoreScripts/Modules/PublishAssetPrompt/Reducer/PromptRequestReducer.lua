@@ -16,6 +16,7 @@ local OpenResultModal = require(Root.Actions.OpenResultModal)
 local CloseResultModal = require(Root.Actions.CloseResultModal)
 local OpenValidationErrorModal = require(Root.Actions.OpenValidationErrorModal)
 local SetHumanoidModel = require(Root.Actions.SetHumanoidModel)
+local SetPriceInRobux = require(Root.Actions.SetPriceInRobux)
 
 local EMPTY_STATE = {
 	promptInfo = {}, -- Contains all data required by the prompt that is currently being shown
@@ -53,6 +54,14 @@ local PromptRequestReducer = Rodux.createReducer(EMPTY_STATE, {
 		return Cryo.Dictionary.join(state, {
 			promptInfo = Cryo.Dictionary.join(state.promptInfo, {
 				humanoidModel = action.humanoidModel,
+			}),
+		})
+	end,
+
+	[SetPriceInRobux.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			promptInfo = Cryo.Dictionary.join(state.promptInfo, {
+				priceInRobux = action.priceInRobux,
 			}),
 		})
 	end,

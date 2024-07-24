@@ -1154,7 +1154,7 @@ PROTO_54:
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["constructPostVoteUrl"]
   MOVE R3 R1
-  LOADB R4 0
+  LOADK R4 K1 [""]
   CALL R2 2 1
   JUMP [+6]
   GETUPVAL R3 1
@@ -1162,10 +1162,10 @@ PROTO_54:
   LOADNIL R3
   LOADNIL R4
   CALL R2 2 1
-  GETTABLEKS R3 R0 K1 ["_networkImp"]
-  DUPTABLE R5 K3 [{"assetId"}]
-  SETTABLEKS R1 R5 K2 ["assetId"]
-  NAMECALL R3 R3 K4 ["jsonEncode"]
+  GETTABLEKS R3 R0 K2 ["_networkImp"]
+  DUPTABLE R5 K4 [{"assetId"}]
+  SETTABLEKS R1 R5 K3 ["assetId"]
+  NAMECALL R3 R3 K5 ["jsonEncode"]
   CALL R3 2 1
   GETUPVAL R4 2
   NEWCLOSURE R5 P0

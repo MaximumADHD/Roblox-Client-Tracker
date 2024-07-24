@@ -114,57 +114,51 @@ MAIN:
   NAMECALL R10 R5 K43 ["ExitAsync"]
   CALL R10 2 0
   RETURN R0 0
-  GETIMPORT R6 K7 [game]
-  LOADK R8 K44 ["EnableTerrainEditor2"]
-  NAMECALL R6 R6 K45 ["GetFastFlag"]
-  CALL R6 2 1
-  JUMPIF R6 [+1]
-  RETURN R0 0
   GETIMPORT R6 K1 [require]
-  GETTABLEKS R8 R2 K46 ["PluginLoader"]
-  GETTABLEKS R7 R8 K47 ["PluginLoaderBuilder"]
+  GETTABLEKS R8 R2 K44 ["PluginLoader"]
+  GETTABLEKS R7 R8 K45 ["PluginLoaderBuilder"]
   CALL R6 1 1
   GETTABLEKS R10 R2 K12 ["Src"]
-  GETTABLEKS R9 R10 K48 ["Resources"]
-  GETTABLEKS R8 R9 K49 ["Localization"]
-  GETTABLEKS R7 R8 K50 ["SourceStrings"]
+  GETTABLEKS R9 R10 K46 ["Resources"]
+  GETTABLEKS R8 R9 K47 ["Localization"]
+  GETTABLEKS R7 R8 K48 ["SourceStrings"]
   GETTABLEKS R11 R2 K12 ["Src"]
-  GETTABLEKS R10 R11 K48 ["Resources"]
-  GETTABLEKS R9 R10 K49 ["Localization"]
-  GETTABLEKS R8 R9 K51 ["LocalizedStrings"]
-  DUPTABLE R9 K61 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-  GETIMPORT R10 K62 [plugin]
-  SETTABLEKS R10 R9 K52 ["plugin"]
+  GETTABLEKS R10 R11 K46 ["Resources"]
+  GETTABLEKS R9 R10 K47 ["Localization"]
+  GETTABLEKS R8 R9 K49 ["LocalizedStrings"]
+  DUPTABLE R9 K59 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
+  GETIMPORT R10 K60 [plugin]
+  SETTABLEKS R10 R9 K50 ["plugin"]
   LOADK R10 K10 ["TerrainEditor"]
-  SETTABLEKS R10 R9 K53 ["pluginName"]
-  SETTABLEKS R8 R9 K54 ["translationResourceTable"]
-  SETTABLEKS R7 R9 K55 ["fallbackResourceTable"]
+  SETTABLEKS R10 R9 K51 ["pluginName"]
+  SETTABLEKS R8 R9 K52 ["translationResourceTable"]
+  SETTABLEKS R7 R9 K53 ["fallbackResourceTable"]
   LOADNIL R10
-  SETTABLEKS R10 R9 K56 ["overrideLocaleId"]
+  SETTABLEKS R10 R9 K54 ["overrideLocaleId"]
   LOADNIL R10
-  SETTABLEKS R10 R9 K57 ["localizationNamespace"]
-  DUPCLOSURE R10 K63 [PROTO_1]
-  SETTABLEKS R10 R9 K58 ["getToolbarName"]
-  DUPTABLE R10 K69 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-  DUPCLOSURE R11 K70 [PROTO_2]
-  SETTABLEKS R11 R10 K64 ["getName"]
-  DUPCLOSURE R11 K71 [PROTO_3]
-  SETTABLEKS R11 R10 K65 ["getDescription"]
-  LOADK R11 K72 ["rbxlocaltheme://TerrainEditor"]
-  SETTABLEKS R11 R10 K66 ["icon"]
+  SETTABLEKS R10 R9 K55 ["localizationNamespace"]
+  DUPCLOSURE R10 K61 [PROTO_1]
+  SETTABLEKS R10 R9 K56 ["getToolbarName"]
+  DUPTABLE R10 K67 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
+  DUPCLOSURE R11 K68 [PROTO_2]
+  SETTABLEKS R11 R10 K62 ["getName"]
+  DUPCLOSURE R11 K69 [PROTO_3]
+  SETTABLEKS R11 R10 K63 ["getDescription"]
+  LOADK R11 K70 ["rbxlocaltheme://TerrainEditor"]
+  SETTABLEKS R11 R10 K64 ["icon"]
   LOADNIL R11
-  SETTABLEKS R11 R10 K67 ["text"]
+  SETTABLEKS R11 R10 K65 ["text"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K68 ["clickableWhenViewportHidden"]
-  SETTABLEKS R10 R9 K59 ["buttonInfo"]
-  DUPTABLE R10 K77 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+  SETTABLEKS R11 R10 K66 ["clickableWhenViewportHidden"]
+  SETTABLEKS R10 R9 K57 ["buttonInfo"]
+  DUPTABLE R10 K75 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
   LOADK R11 K10 ["TerrainEditor"]
-  SETTABLEKS R11 R10 K73 ["id"]
+  SETTABLEKS R11 R10 K71 ["id"]
   MOVE R12 R3
   CALL R12 0 1
   JUMPIFNOT R12 [+12]
-  GETIMPORT R11 K80 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R12 K84 [Enum.InitialDockState.Left]
+  GETIMPORT R11 K78 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R12 K82 [Enum.InitialDockState.Left]
   LOADB R13 1
   LOADB R14 0
   LOADN R15 94
@@ -173,8 +167,8 @@ MAIN:
   LOADN R18 200
   CALL R11 7 1
   JUMP [+11]
-  GETIMPORT R11 K80 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R12 K84 [Enum.InitialDockState.Left]
+  GETIMPORT R11 K78 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R12 K82 [Enum.InitialDockState.Left]
   LOADB R13 1
   LOADB R14 0
   LOADN R15 64
@@ -182,22 +176,22 @@ MAIN:
   LOADN R17 64
   LOADN R18 200
   CALL R11 7 1
-  SETTABLEKS R11 R10 K74 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R11 K85 [PROTO_4]
-  SETTABLEKS R11 R10 K75 ["getDockTitle"]
-  GETIMPORT R11 K88 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K76 ["zIndexBehavior"]
-  SETTABLEKS R10 R9 K60 ["dockWidgetInfo"]
-  GETTABLEKS R10 R6 K89 ["build"]
+  SETTABLEKS R11 R10 K72 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R11 K83 [PROTO_4]
+  SETTABLEKS R11 R10 K73 ["getDockTitle"]
+  GETIMPORT R11 K86 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K74 ["zIndexBehavior"]
+  SETTABLEKS R10 R9 K58 ["dockWidgetInfo"]
+  GETTABLEKS R10 R6 K87 ["build"]
   MOVE R11 R9
   CALL R10 1 1
-  GETTABLEKS R11 R10 K90 ["pluginLoader"]
-  NAMECALL R11 R11 K91 ["waitForUserInteraction"]
+  GETTABLEKS R11 R10 K88 ["pluginLoader"]
+  NAMECALL R11 R11 K89 ["waitForUserInteraction"]
   CALL R11 1 1
   JUMPIF R11 [+1]
   RETURN R0 0
   MOVE R12 R0
-  GETIMPORT R13 K62 [plugin]
+  GETIMPORT R13 K60 [plugin]
   MOVE R14 R10
   CALL R12 2 0
   RETURN R0 0

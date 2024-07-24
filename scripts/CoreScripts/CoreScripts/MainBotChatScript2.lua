@@ -95,7 +95,9 @@ local conversationTimedOut =        "Chat ended because you didn't reply"
 local conversationTimedOutSize = 350
 
 local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CorePackages = game:GetService("CorePackages")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local setDialogInUseEvent = RobloxReplicatedStorage:WaitForChild("SetDialogInUse", math.huge)
 
@@ -107,7 +109,7 @@ local touchControlGui = nil
 
 local gui = nil
 
-local isTenFootInterface = require(RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")):IsEnabled()
+local isTenFootInterface = require(if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules.TenFootInterface else RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")):IsEnabled()
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local isSmallTouchScreen = utility:IsSmallTouchScreen()

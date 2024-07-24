@@ -14,6 +14,7 @@ local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAsse
 local OpenPublishAvatarPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAvatarPrompt)
 local OpenResultModal = require(PublishAssetPrompt.Thunks.OpenResultModal)
 local SetHumanoidModel = require(PublishAssetPrompt.Actions.SetHumanoidModel)
+local SetPriceInRobux = require(PublishAssetPrompt.Actions.SetPriceInRobux)
 local OpenValidationErrorModal = require(PublishAssetPrompt.Actions.OpenValidationErrorModal)
 
 local FFlagInExperiencePublishDeserializeAsset = game:DefineFastFlag("InExperiencePublishDeserializeAsset", false)
@@ -100,10 +101,14 @@ local function ConnectAssetServiceEvents(store)
 			connections,
 			AvatarCreationService.UgcValidationSuccess:Connect(function(guid, serializedModel)
 				local state = store:getState()
+
 				-- check that guid matches for the prompt to update humanoid model
 				if state and state.promptRequest.promptInfo.guid == guid then
 					local deserializedModel = AssetService:DeserializeInstance(serializedModel)
 					store:dispatch(SetHumanoidModel(deserializedModel))
+					-- TODO AVBURST-13509 Update this to match + use actual token API response
+					-- Currently set to zero so the submit button is always enabled
+					store:dispatch(SetPriceInRobux(0))
 				end
 			end)
 		)

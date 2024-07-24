@@ -34,6 +34,8 @@ local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagC
 local GetFFlagFixChromeAllowlistWait = require(RobloxGui.Modules.Flags.GetFFlagFixChromeAllowlistWait)
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
+local FFlagRemoveKickWhitespaceSub = require(RobloxGui.Modules.Flags.FFlagRemoveKickWhitespaceSub)
+
 local TopBarConstant
 if not GetFFlagFixChromeAllowlistWait() then
 	TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
@@ -487,8 +489,10 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 	end
 
 	if errorCode == Enum.ConnectionError.DisconnectLuaKick then
-		-- Collapse all whitespace to single spaces, destroying any newlines.
-		errorMsg = errorMsg:gsub("%s+", " ")
+		if not FFlagRemoveKickWhitespaceSub() then
+			-- Collapse all whitespace to single spaces, destroying any newlines.
+			errorMsg = errorMsg:gsub("%s+", " ")
+		end
 		-- Limit final message length to a reasonable value
 		errorMsg = errorMsg:sub(1, fintMaxKickMessageLength)
 		

@@ -113,13 +113,17 @@ PROTO_5:
   LOADB R2 1
   SETTABLEKS R2 R1 K9 ["IsLoading"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K10 ["_networking"]
+  GETTABLEKS R1 R2 K8 ["_fetchProgressInfo"]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K10 ["FetchProgress"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K11 ["_networking"]
   MOVE R3 R0
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K11 ["_fetchAssetsCallback"]
+  GETTABLEKS R4 R5 K12 ["_fetchAssetsCallback"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K12 ["_fetchAssetsErrorCallback"]
-  NAMECALL R1 R1 K13 ["fetchAssetsLegacyAsync"]
+  GETTABLEKS R5 R6 K13 ["_fetchAssetsErrorCallback"]
+  NAMECALL R1 R1 K14 ["fetchAssetsLegacyAsync"]
   CALL R1 4 0
   RETURN R0 0
 

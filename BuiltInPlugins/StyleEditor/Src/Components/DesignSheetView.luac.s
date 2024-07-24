@@ -192,6 +192,8 @@ PROTO_7:
 
 PROTO_8:
   GETUPVAL R0 0
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R0 0
   LOADK R2 K0 ["StyleCategory"]
   LOADNIL R3
   NAMECALL R0 R0 K1 ["SetAttribute"]

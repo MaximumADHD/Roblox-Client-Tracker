@@ -125,48 +125,50 @@ function NameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 	local font = stylePalette.Font
 	local theme = stylePalette.Theme
 
+	local textboxStyle = font.Body
+
 	local isNameValid = self.state.isNameValid
 	local showWarningText = not isNameValid
 	local updatedDesignTextBox = Roact.createElement("Frame", {
-		BackgroundColor3 = theme.BackgroundContrast.Color,
-		BackgroundTransparency = 0.5,
+		BackgroundColor3 = theme.BackgroundMuted.Color,
 		LayoutOrder = 1,
 		Size = UDim2.new(1, 0, 0, TEXTBOX_HEIGHT),
 	}, {
-		TextboxBorder = Roact.createElement(ImageSetLabel, {
+		Textbox = Roact.createElement(Focusable.TextBox, {
+			Text = self.state.name,
 			BackgroundTransparency = 1,
-			Image = BUTTON_STROKE,
-			ImageColor3 = theme.UIDefault.Color,
-			ImageTransparency = theme.UIDefault.Transparency,
-			ScaleType = Enum.ScaleType.Slice,
-			Size = UDim2.new(1, 0, 1, 0),
-			SliceCenter = BACKGROUND_9S_CENTER,
-		}, {
-			Textbox = Roact.createElement(Focusable.TextBox, {
-				Text = self.state.name,
-				BackgroundTransparency = 1,
-				ClearTextOnFocus = false,
-				Font = font.CaptionBody.Font,
-				TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
-				PlaceholderColor3 = theme.PlaceHolder.Color,
-				PlaceholderText = self.props.defaultName,
-				Position = UDim2.fromOffset(TEXTBOX_PADDING, 0),
-				Size = UDim2.new(1, -TEXTBOX_PADDING * 2, 1, 0),
-				TextColor3 = theme.TextDefault.Color,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextWrapped = true,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				OverlayNativeInput = true,
-				[Roact.Change.Text] = self.onTextChanged,
-				SelectionImageObject = getSelectionCursor(CursorKind.InputFields),
-				NextSelectionDown = self.props.NextSelectionDown,
+			ClearTextOnFocus = false,
+			Font = textboxStyle.Font,
+			TextSize = font.BaseSize * textboxStyle.RelativeSize,
+			PlaceholderColor3 = theme.PlaceHolder.Color,
+			PlaceholderText = self.props.defaultName,
+			Position = UDim2.fromOffset(TEXTBOX_PADDING, 0),
+			Size = UDim2.new(1, -TEXTBOX_PADDING * 2, 1, 0),
+			TextColor3 = theme.TextDefault.Color,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			TextWrapped = true,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			OverlayNativeInput = true,
+			[Roact.Change.Text] = self.onTextChanged,
+			SelectionImageObject = getSelectionCursor(CursorKind.InputFields),
+			NextSelectionDown = self.props.NextSelectionDown,
 
-				[Roact.Ref] = self.props.nameTextBoxRef,
-				[Roact.Event.AncestryChanged] = self.tryFocusTextBox,
+			[Roact.Ref] = self.props.nameTextBoxRef,
+			[Roact.Event.AncestryChanged] = self.tryFocusTextBox,
+		}, {
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, TEXTBOX_PADDING),
+				PaddingRight = UDim.new(0, TEXTBOX_PADDING),
 			}),
 		}),
 		UICorner = Roact.createElement("UICorner", {
 			CornerRadius = UDim.new(0, 8),
+		}),
+		UIStroke = Roact.createElement("UIStroke", {
+			Thickness = 0.5,
+			Transparency = theme.Divider.Transparency,
+			Color = theme.Divider.Color,
+			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 		}),
 	})
 

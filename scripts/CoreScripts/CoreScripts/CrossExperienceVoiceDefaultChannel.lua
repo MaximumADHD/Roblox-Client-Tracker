@@ -6,11 +6,12 @@ local NotificationService = game:GetService("NotificationService")
 local Players = game:GetService("Players")
 local ExperienceService = game:GetService("ExperienceService")
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
 local CoreVoiceManager = VoiceChatCore.CoreVoiceManager.default
 
-local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local CoreGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules else RobloxGui:WaitForChild("Modules")
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)

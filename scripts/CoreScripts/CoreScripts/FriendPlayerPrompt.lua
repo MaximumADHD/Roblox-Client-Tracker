@@ -10,20 +10,23 @@ local StarterGui = game:GetService("StarterGui")
 local PlayersService = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local CorePackages = game:GetService("CorePackages")
 
-local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiService.RobloxGui else CoreGuiService:WaitForChild("RobloxGui")
 local LocalPlayer = PlayersService.LocalPlayer
 while LocalPlayer == nil do
 	PlayersService.ChildAdded:wait()
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
-local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
-local FriendingUtility = require(CoreGuiModules:WaitForChild("FriendingUtility"))
+local CoreGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules else RobloxGui:WaitForChild("Modules")
+local PromptCreator = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.PromptCreator else CoreGuiModules:WaitForChild("PromptCreator"))
+local SocialUtil = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.SocialUtil else CoreGuiModules:WaitForChild("SocialUtil"))
+local FriendingUtility = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.FriendingUtility else CoreGuiModules:WaitForChild("FriendingUtility"))
 
-local RobloxTranslator = require(CoreGuiModules:WaitForChild("RobloxTranslator"))
+local RobloxTranslator = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.RobloxTranslator else CoreGuiModules:WaitForChild("RobloxTranslator"))
 
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 

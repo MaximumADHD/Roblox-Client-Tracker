@@ -9,7 +9,8 @@ local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
+local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
