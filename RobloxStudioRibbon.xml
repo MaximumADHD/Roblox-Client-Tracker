@@ -350,9 +350,6 @@
         <addaction name="r15migratorAction" fflagList="DebugR15MigratorPlugin,StudioRibbonBetaStringUpdates" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" width="32" height="32" />
         <addaction name="r15migratorAction" fflagList="DebugR15MigratorPlugin,!StudioRibbonBetaStringUpdates" type="plugin" text="Studio.App.RobloxRibbonMainWindow.R15Migrator" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip" width="32" height="32" />
       </Group>
-      <Group name="AvatarUnification" fflag="DebugRobloxClassicPlugin" text="Studio.Common.Action.AvatarUnification" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" width="32" height="32">
-        <addaction name="robloxClassicAction" fflag="DebugRobloxClassicPlugin" type="plugin" text="Studio.App.RobloxRibbonMainWindow.RobloxClassic" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.RobloxClassicTooltip" width="32" height="32" />
-      </Group>
     </TabPage>
     <!--
       RIBBON BAR TEST TAB

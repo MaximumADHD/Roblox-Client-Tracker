@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ToastLite",
+    "tree": {
+      "$path": "../../../../../../../modules/economy/in-app-purchasing/toast-lite/src"
+    }
+  }
+}

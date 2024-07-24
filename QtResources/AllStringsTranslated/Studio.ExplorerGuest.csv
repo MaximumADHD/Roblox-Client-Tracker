@@ -1,0 +1,7 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.ExplorerGuest.CounterExample.Button,,,Push me!,Push me!,,,,,,,,,,,,,,,,,
+Studio.ExplorerGuest.Plugin.Name,,,ExplorerGuest,ExplorerGuest,,,,,,,,,,,,,,,,,
+Studio.ExplorerGuest.Plugin.Button,,,Explorer Guest,Explorer Guest,,,,,,,,,,,,,,,,,
+Studio.ExplorerGuest.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!,,,,,,,,,,,,,,,,,
+Studio.ExplorerGuest.BasicExample.Text,,,Capybaras are cute!,Capybaras are cute!,,,,,,,,,,,,,,,,,
+Studio.ExplorerGuest.CounterExample.CounterLabel,,,You pressed me {counter} times!,You pressed me {counter} times!,,,,,,,,,,,,,,,,,

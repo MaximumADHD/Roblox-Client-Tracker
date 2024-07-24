@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CancelSubscriptionApp",
+    "tree": {
+      "$path": "../../../../../../../modules/economy/in-app-purchasing/cancel-subscription-app/src"
+    }
+  }
+}

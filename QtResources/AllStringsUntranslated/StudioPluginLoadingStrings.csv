@@ -12,3 +12,4 @@ Studio.App.PluginLoader.CloudWriteFailedFmt1,error writing installed plugins to 
 Studio.App.PluginLoader.CloudLoadPermissionsFailedFmt1,error fetching plugin permissions from cloud,Failed to load plugin permissions from cloud: %1,Failed to load plugin permissions from cloud: %1
 Studio.App.PluginLoader.CloudWritePermissionsFailedFmt1,error writing plugin permissions to cloud,Failed to write plugin permissions to cloud: %1,Failed to write plugin permissions to cloud: %1
 Studio.App.PluginLoader.DownloadFailedFmt1,error downloading plugin,Failed to download plugin: %1,Failed to download plugin: %1
+Studio.App.PluginLoadingDmTaskRegister.LoadingPlugins,status message displayed while loading plugins is displayed in a dialog while a place is opening,Loading plugins...,Loading plugins...

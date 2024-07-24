@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DiscoveryOtaDependencies",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/discovery-ota-dependencies/src"
+    }
+  }
+}

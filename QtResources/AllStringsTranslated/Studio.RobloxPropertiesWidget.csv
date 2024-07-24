@@ -1,20 +1,20 @@
 Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.RobloxPropertiesWidget.Category.Accessories,,,Accessories,Accessories,,Accessoires,Accesorios,Accessoires,,Accessori,アクセサリ,장신구,,Acessórios,,,,Phụ Kiện,配饰,配饰,配件
-Studio.RobloxPropertiesWidget.Category.Advanced,,,Advanced,Advanced,,Erweitert,Avanzado,Avancé,,Avanzato,詳細設定,고급,,Avançado,,,,Nâng Cao,高级,高级,進階
-Studio.RobloxPropertiesWidget.Category.AlignOrientation,,,AlignOrientation,AlignOrientation,,AlignOrientation,AlignOrientation,AlignOrientation,,AlignOrientation,向き整列,AlignOrientation,,AlignOrientation,,,,AlignOrientation,AlignOrientation,AlignOrientation,對齊方向
-Studio.RobloxPropertiesWidget.Category.AlignPosition,,,AlignPosition,AlignPosition,,AlignPosition,AlignPosition,AlignPosition,,AlignPosition,位置整列,AlignPosition,,AlignPosition,,,,AlignPosition,AlignPosition,AlignPosition,對齊位置
-Studio.RobloxPropertiesWidget.Category.AlignmentMode,,,AlignmentMode,AlignmentMode,,AlignmentMode,AlignmentMode,AlignmentMode,,AlignmentMode,整列モード,AlignmentMode,,AlignmentMode,,,,AlignmentMode,AlignmentMode,AlignmentMode,對齊模式
-Studio.RobloxPropertiesWidget.Category.AngularLimits,,,AngularLimits,AngularLimits,,AngularLimits,AngularLimits,AngularLimits,,AngularLimits,角制限,AngularLimits,,AngularLimits,,,,AngularLimits,AngularLimits,AngularLimits,角度限制
-Studio.RobloxPropertiesWidget.Category.AngularMotor,,,AngularMotor,AngularMotor,,AngularMotor,AngularMotor,AngularMotor,,AngularMotor,角モーター,AngularMotor,,AngularMotor,,,,AngularMotor,AngularMotor,AngularMotor,角度動作
-Studio.RobloxPropertiesWidget.Category.AngularServo,,,AngularServo,AngularServo,,AngularServo,AngularServo,AngularServo,,AngularServo,角追従,AngularServo,,AngularServo,,,,AngularServo,AngularServo,AngularServo,角度伺服
-Studio.RobloxPropertiesWidget.Category.Animatable,,,Animatable,Animatable,,Animierbar,Animable,Animatable,,Animabile,アニメ化可能,애니메이션 가능,,Animável,,,,Có Thể Tạo Hiệu Ứng Động,可动画化,可动画化,可動畫化
-Studio.RobloxPropertiesWidget.Category.Animation,,,Animation,Animation,,Animation,Animación,Animation,,Animazione,アニメーション,애니메이션,,Animação,,,,Hiệu Ứng Động,动画,动画,動畫
-Studio.RobloxPropertiesWidget.Category.Appearance,,,Appearance,Appearance,,Erscheinungsbild,Aspecto,Apparence,,Aspetto,外見,모양,,Aparência,,,,Ngoại Hình,外观,外观,外觀
-Studio.RobloxPropertiesWidget.Category.Assembly,,,Assembly,Assembly,,Baugruppe,Montaje,Assemblage,,Montaggio,アセンブリ,어셈블리,,Montagem,,,,Cụm Chi Tiết,组件,组件,組件
-Studio.RobloxPropertiesWidget.Category.Asset,,,Asset,Asset,,Objekt,Recurso,Contenu,,Risorsa/Asset,アセット,애셋,,Ativo,,,,Tài Sản,素材,素材,資產
-Studio.RobloxPropertiesWidget.Category.Attachments,,,Attachments,Attachments,,Anhänge,Conexiones,Pièces jointes,,Allegati,アタッチメント,연결부,,Anexos,,,,Điểm Gắn,附件,附件,附件
-Studio.RobloxPropertiesWidget.Category.Attributes,,,Attributes,Attributes,,Attribute,Atributos,Attributs,,Attributi,属性,특성,,Atributos,,,,Thuộc Tính,属性,属性,屬性
-Studio.RobloxPropertiesWidget.Category.Audio,,,Audio,Audio,,Audio,Audio,Audio,,Audio,オーディオ,오디오,,Áudio,,,,Âm Thanh,音频,音频,音訊
+Studio.RobloxPropertiesWidget.Category.Accessories,,,Accessories,Accessories,,Accessoires,Accesorios,Accessoires,,Accessori,アクセサリ,장신구,,Acessórios,,ไอเท็มเสริม,,Phụ Kiện,配饰,配饰,配件
+Studio.RobloxPropertiesWidget.Category.Advanced,,,Advanced,Advanced,,Erweitert,Avanzado,Avancé,,Avanzato,詳細設定,고급,,Avançado,,ขั้นสูง,,Nâng Cao,高级,高级,進階
+Studio.RobloxPropertiesWidget.Category.AlignOrientation,,,AlignOrientation,AlignOrientation,,AlignOrientation,AlignOrientation,AlignOrientation,,AlignOrientation,向き整列,AlignOrientation,,AlignOrientation,,AlignOrientation,,AlignOrientation,AlignOrientation,AlignOrientation,對齊方向
+Studio.RobloxPropertiesWidget.Category.AlignPosition,,,AlignPosition,AlignPosition,,AlignPosition,AlignPosition,AlignPosition,,AlignPosition,位置整列,AlignPosition,,AlignPosition,,AlignPosition,,AlignPosition,AlignPosition,AlignPosition,對齊位置
+Studio.RobloxPropertiesWidget.Category.AlignmentMode,,,AlignmentMode,AlignmentMode,,AlignmentMode,AlignmentMode,AlignmentMode,,AlignmentMode,整列モード,AlignmentMode,,AlignmentMode,,AlignmentMode,,AlignmentMode,AlignmentMode,AlignmentMode,對齊模式
+Studio.RobloxPropertiesWidget.Category.AngularLimits,,,AngularLimits,AngularLimits,,AngularLimits,AngularLimits,AngularLimits,,AngularLimits,角制限,AngularLimits,,AngularLimits,,AngularLimits,,AngularLimits,AngularLimits,AngularLimits,角度限制
+Studio.RobloxPropertiesWidget.Category.AngularMotor,,,AngularMotor,AngularMotor,,AngularMotor,AngularMotor,AngularMotor,,AngularMotor,角モーター,AngularMotor,,AngularMotor,,AngularMotor,,AngularMotor,AngularMotor,AngularMotor,角度動作
+Studio.RobloxPropertiesWidget.Category.AngularServo,,,AngularServo,AngularServo,,AngularServo,AngularServo,AngularServo,,AngularServo,角追従,AngularServo,,AngularServo,,AngularServo,,AngularServo,AngularServo,AngularServo,角度伺服
+Studio.RobloxPropertiesWidget.Category.Animatable,,,Animatable,Animatable,,Animierbar,Animable,Animatable,,Animabile,アニメ化可能,애니메이션 가능,,Animável,,เคลื่อนไหวได้,,Có Thể Tạo Hiệu Ứng Động,可动画化,可动画化,可動畫化
+Studio.RobloxPropertiesWidget.Category.Animation,,,Animation,Animation,,Animation,Animación,Animation,,Animazione,アニメーション,애니메이션,,Animação,,แอนิเมชัน,,Hiệu Ứng Động,动画,动画,動畫
+Studio.RobloxPropertiesWidget.Category.Appearance,,,Appearance,Appearance,,Erscheinungsbild,Aspecto,Apparence,,Aspetto,外見,모양,,Aparência,,รูปลักษณ์,,Ngoại Hình,外观,外观,外觀
+Studio.RobloxPropertiesWidget.Category.Assembly,,,Assembly,Assembly,,Baugruppe,Montaje,Assemblage,,Montaggio,アセンブリ,어셈블리,,Montagem,,การประกอบ,,Cụm Chi Tiết,组件,组件,組件
+Studio.RobloxPropertiesWidget.Category.Asset,,,Asset,Asset,,Objekt,Recurso,Contenu,,Risorsa/Asset,アセット,애셋,,Ativo,,ทรัพยากร,,Tài Sản,素材,素材,資產
+Studio.RobloxPropertiesWidget.Category.Attachments,,,Attachments,Attachments,,Anhänge,Conexiones,Pièces jointes,,Allegati,アタッチメント,연결부,,Anexos,,สิ่งที่แนบมา,,Điểm Gắn,附件,附件,附件
+Studio.RobloxPropertiesWidget.Category.Attributes,,,Attributes,Attributes,,Attribute,Atributos,Attributs,,Attributi,属性,특성,,Atributos,,คุณลักษณะ,,Thuộc Tính,属性,属性,屬性
+Studio.RobloxPropertiesWidget.Category.Audio,,,Audio,Audio,,Audio,Audio,Audio,,Audio,オーディオ,오디오,,Áudio,,เสียง,,Âm Thanh,音频,音频,音訊
 Studio.RobloxPropertiesWidget.Category.AutoRecovery,,,Auto-Recovery,Auto-Recovery,,Automatische Wiederherstellung,Recuperación automática,Auto-recouvrement,,Ripristino automatico,自動復元,자동 복구,,Recuperação automática,,,,Tự Động Khôi Phục,自动恢复,自动恢复,自動復原
 Studio.RobloxPropertiesWidget.Category.Axes,,,Axes,Axes,,Achsen,Ejes,Axes,,Assi,軸,축,,Eixos,,,,Rìu,轴,轴,軸
 Studio.RobloxPropertiesWidget.Category.Balance,,,Balance,Balance,,Gleichgewicht,Equilibrio,Balance,,Saldo,バランス,균형,,Balanço,,,,Số Dư,平衡,平衡,平衡
@@ -155,4 +155,5 @@ Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,Aufnahme
 Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scripting,Scripting,Scripting,,,スクリプト作成,스크립팅,,Scripting,,,,Viết Kịch Bản,脚本,脚本,指令碼化
 Studio.RobloxPropertiesWidget.Category.ControlPoints,,,Control Points,Control Points,,Kontrollpunkte,Puntos de control,Points de contrôle,,,制御点,제어점,,Pontos de controle,,,,Điểm Điều Khiển,控制点,控制点,控制點
 Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,,Allineamento,整列,정렬,,Alinhamento,,,,Căn Chỉnh,对齐,对齐,
-Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,,,,,,,,,,,,,,,,
+Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,,Pseudo-Instances,,,擬似インスタンス,모의 인스턴스,,Pseudoinstâncias,,,,Bản giả,,,
+Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,,,,,,,,,,,,,,,,

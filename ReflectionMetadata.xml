@@ -4160,7 +4160,6 @@
         <string name="ExplorerOrder">31</string>
         <string name="ClassCategory">GUI</string>
         <string name="PreferredParent">GuiBase2d</string>
-        <bool name="FFlag">Path2DEnabled15</bool>
       </Properties>
     </Item>
 

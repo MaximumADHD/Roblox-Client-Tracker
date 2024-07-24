@@ -31,7 +31,7 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-NetworkingFriends = "github.com/roblox/networking-friends@2.11.0"
+NetworkingFriends = "github.com/roblox/networking-friends@2.12.0"
 EmojiList = { git = "https://github.com/Roblox/emoji-list", rev = "1.0.0", package = "EmojiList" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 ReactFocusNavigation = "github.com/roblox/focus-navigation@1.3.1"

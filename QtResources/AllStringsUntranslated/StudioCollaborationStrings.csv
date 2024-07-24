@@ -2,8 +2,10 @@ Key,Context,Source,en-us
 Studio.App.Collaboration.FailedToArchiveNewGame,,Failed to archive new game.,Failed to archive new game.
 Studio.App.Collaboration.FailedToUnarchive,,Failed to remove game from archive.,Failed to remove game from archive.
 Studio.App.Collaboration.FailedToUnarchiveGame,,Failed to remove game from archive.,Failed to remove game from archive.
+Studio.App.Collaboration.ConnectingtoServer,Connect to team test server,Connecting to server...,Connecting to server...
 Studio.App.IdeDoc.TeamTest,Roblox IDE Doc,Team Test,Team Test
 Studio.App.MainWindow.CloseStudio,Main Window,Close Studio,Close Studio
+Studio.App.TeamCreateJoinMessage.SettingUpServer,Team Create Join Message,Setting up server...,Setting up server...
 Studio.App.TeamCreateJoinMessage.NewConnecting,Team Create Join Message,Connecting to server...,Connecting to server...
 Studio.App.TeamCreateJoinMessage.Reconnecting,Team Create Join Message,Reconnecting to server...,Reconnecting to server...
 Studio.App.TeamCreateJoinMessage.NewConnected,Team Create Join Message,You have connected to the server.,You have connected to the server.
@@ -104,8 +106,10 @@ Studio.App.ConnectionIndicatorDialog.DelayedConnectionTitle,,Changes may be dela
 Studio.App.ConnectionIndicatorDialog.DelayedConnectionMessage,,Weak connection,Weak connection
 Studio.App.ConnectionIndicatorDialog.DelayedConnectionTip,,Check your internet connection to avoid delays during saves and collaboration.,Check your internet connection to avoid delays during saves and collaboration.
 Studio.App.ConnectionIndicatorDialog.DisconnectedTitle,,Disconnected,Disconnected
+Studio.App.TeamTestManager.DisconnectedFromTeamTestServer,Disconnect from TeamTest Server,You have been disconnected from the team test server.,You have been disconnected from the team test server.
 Studio.App.TeamCreateLoaders.Join,,Join,Join
 Studio.App.TeamCreateLoaders.ReturnToPrevious,,Return to Previous,Return to Previous
 Studio.App.TeamCreateLoaders.NoPreviousLocation,,No Previous Location,No Previous Location
 Studio.App.TeamCreateLoaders.EditingPrivateScript,,Editing a Private Script,Editing a Private Script
 Studio.App.TeamCreateLoaders.LoadingStatus,,Loading...,Loading...
+Studio.App.TeamCreateUserData.FailToRestoreCameraPosition1,,Failed to restore camera position: {{}},Failed to restore camera position: {{}}

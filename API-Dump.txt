@@ -13,9 +13,9 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property Instance.SourceAssetId: number {RobloxScriptSecurity} [Hidden]
 	Property Instance.Tags: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Instance.UniqueId: UniqueId {RobloxSecurity} [NotReplicated] [NotScriptable]
-	Property Instance.Capabilities: SecurityCapabilities {RobloxSecurity} [NotScriptable]
+	Property Instance.Capabilities: SecurityCapabilities {RobloxScriptSecurity}
 	Property Instance.DefinesCapabilities: boolean {RobloxSecurity} [Hidden] [NotScriptable]
-	Property Instance.Sandboxed: boolean {RobloxSecurity} [NotReplicated] [NotScriptable]
+	Property Instance.Sandboxed: boolean {RobloxScriptSecurity} [NotReplicated]
 	Property Instance.numExpectedDirectChildren: number [Hidden] [NotScriptable]
 	Function Instance:AddTag(tag: string) -> ()
 	Function Instance:ClearAllChildren() -> ()
@@ -438,6 +438,7 @@ Class AudioEqualizer : Instance [NotBrowsable]
 	Property AudioEqualizer.LowGain: number
 	Property AudioEqualizer.MidGain: number
 	Property AudioEqualizer.MidRange: NumberRange
+	Property AudioEqualizer.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Function AudioEqualizer:GetConnectedWires(pin: string) -> { any }
 Class AudioFader : Instance [NotBrowsable]
 	Property AudioFader.Bypass: boolean
@@ -449,6 +450,7 @@ Class AudioFilter : Instance [NotBrowsable]
 	Property AudioFilter.Frequency: number
 	Property AudioFilter.Gain: number
 	Property AudioFilter.Q: number
+	Property AudioFilter.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Function AudioFilter:GetConnectedWires(pin: string) -> { any }
 	Function AudioFilter:GetGainAt(frequency: number) -> number
 Class AudioFlanger : Instance [NotBrowsable]
@@ -457,6 +459,12 @@ Class AudioFlanger : Instance [NotBrowsable]
 	Property AudioFlanger.Mix: number
 	Property AudioFlanger.Rate: number
 	Function AudioFlanger:GetConnectedWires(pin: string) -> { any }
+Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function AudioFocusService:AcquireFocus(contextId: number, priority: number) -> boolean {RobloxScriptSecurity}
+	Function AudioFocusService:RegisterContextIdFromLua(contextId: number) -> () {RobloxScriptSecurity}
+	Function AudioFocusService:RequestFocus(contextId: number, priority: number) -> boolean {RobloxScriptSecurity}
+	Event AudioFocusService.OnDeafenVoiceAudio() {RobloxScriptSecurity}
+	Event AudioFocusService.OnUndeafenVoiceAudio() {RobloxScriptSecurity}
 Class AudioListener : Instance [NotBrowsable]
 	Property AudioListener.AudioInteractionGroup: string
 	Function AudioListener:GetAudibilityOf(emitter: AudioEmitter) -> number {RobloxScriptSecurity}
@@ -2627,6 +2635,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.NetworkPausedEnabledChanged(enabled: boolean) {RobloxScriptSecurity}
 	Event GuiService.Open9SliceEditor(selectedImageObject: Instance) {RobloxScriptSecurity}
 	Event GuiService.OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) {RobloxScriptSecurity} [Deprecated]
+	Event GuiService.OpenStyleEditor(styleBase: Instance) {RobloxScriptSecurity}
 	Event GuiService.PurchasePromptShown() {RobloxScriptSecurity}
 	Event GuiService.SafeZoneOffsetsChanged() {RobloxScriptSecurity}
 	Event GuiService.ShowLeaveConfirmation() {RobloxScriptSecurity}
@@ -2753,7 +2762,7 @@ Class Humanoid : Instance
 	Function Humanoid:GetAppliedDescription() -> HumanoidDescription
 	Function Humanoid:GetBodyPartR15(part: Instance) -> Enum.BodyPartR15
 	Function Humanoid:GetLimb(part: Instance) -> Enum.Limb
-	Function Humanoid:GetMoveVelocity() -> Vector3 [NotBrowsable]
+	Function Humanoid:GetMoveVelocity() -> Vector3
 	Function Humanoid:GetPlayingAnimationTracks() -> { any } [Deprecated]
 	Function Humanoid:GetState() -> Enum.HumanoidStateType {🧬Safe}
 	Function Humanoid:GetStateEnabled(state: Enum.HumanoidStateType) -> boolean {🧬Safe}
@@ -3605,11 +3614,9 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BasePart.ExtentsCFrame: CFrame [ReadOnly]
 	Property BasePart.ExtentsSize: Vector3 [ReadOnly]
 	Property BasePart.Orientation: Vector3 [Hidden] [NotReplicated]
-	Property BasePart.PhysicsCFrame: CFrame {RobloxSecurity} [Hidden] [NotScriptable]
-	Property BasePart.PhysicsLinearVelocity: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BasePart.PhysicsRepRootPart: BasePart? {RobloxSecurity} [Hidden] [NotScriptable]
-	Property BasePart.PhysicsRotationalVelocity: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BasePart.Position: Vector3 [Hidden] [NotReplicated]
+	Property BasePart.ReplicationPV: ReplicationPV {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BasePart.Size: Vector3 [📁 LoadOnly] [NotReplicated]
 	Property BasePart.siz: Vector3 [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
 	Function BasePart:AngularAccelerationToTorque(angAcceleration: Vector3, angVelocity: Vector3? = Vector3?.new()) -> Vector3
@@ -4717,7 +4724,9 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RibbonNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RibbonNotificationService:OnNotificationUpdateFromPlugin(newNotificationId: string, seenNotificationId: string) -> () {RobloxScriptSecurity}
+	Event RibbonNotificationService.AllNotificationsReadFromRibbon() {RobloxScriptSecurity}
 	Event RibbonNotificationService.NewNotificationFromRibbon(newNotificationId: string) {RobloxScriptSecurity}
+	Event RibbonNotificationService.NotificationReadFromRibbon(newNotificationId: string) {RobloxScriptSecurity}
 	Event RibbonNotificationService.ToggleNotificationTray(checked: boolean, newNotificationAvailable: boolean) {RobloxScriptSecurity}
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
@@ -5560,6 +5569,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property StudioService.AlignDraggedObjects: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property StudioService.DraggerSolveConstraints: boolean [ReadOnly]
 	Property StudioService.DrawConstraintsOnTop: boolean [ReadOnly] [Deprecated]
+	Property StudioService.ForceShowConstraintDetails: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StudioService.GridSize: number [ReadOnly]
 	Property StudioService.HoverInstance: Instance? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StudioService.InstalledPluginData: string {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -5789,6 +5799,21 @@ Class BubbleChatConfiguration : TextChatConfigurations [NotCreatable]
 	Property BubbleChatConfiguration.MaxDistance: number
 	Property BubbleChatConfiguration.MinimizeDistance: number
 	Property BubbleChatConfiguration.VerticalStudsOffset: number
+Class ChannelTabsConfiguration : TextChatConfigurations [NotCreatable]
+	Property ChannelTabsConfiguration.BackgroundColor3: Color3
+	Property ChannelTabsConfiguration.BackgroundTransparency: number
+	Property ChannelTabsConfiguration.FontFace: Font
+	Property ChannelTabsConfiguration.HoverBackgroundColor3: Color3
+	Property ChannelTabsConfiguration.SelectedTabTextColor3: Color3
+	Property ChannelTabsConfiguration.TextColor3: Color3
+	Property ChannelTabsConfiguration.TextSize: number
+	Property ChannelTabsConfiguration.TextStrokeColor3: Color3
+	Property ChannelTabsConfiguration.TextStrokeTransparency: number
+	Property ChannelTabsConfiguration.Enabled: boolean
+	Property ChannelTabsConfiguration.AbsolutePosition: Vector2 [ReadOnly]
+	Property ChannelTabsConfiguration.AbsoluteSize: Vector2 [ReadOnly]
+	Function ChannelTabsConfiguration:SetAbsolutePosition(value: Vector2) -> () {RobloxScriptSecurity}
+	Function ChannelTabsConfiguration:SetAbsoluteSize(value: Vector2) -> () {RobloxScriptSecurity}
 Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
 	Property ChatInputBarConfiguration.BackgroundColor3: Color3
 	Property ChatInputBarConfiguration.BackgroundTransparency: number
@@ -6000,6 +6025,8 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetPropertyValue(instance: Instance, property: string) -> any {RobloxScriptSecurity}
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:IsEditableMeshNumCoplanarIntersectionsOverLimit(editableMesh: EditableMesh, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:IsNumCoplanarIntersectionsOverLimit(meshId: string, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:RegisterUGCValidationFunction(setFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ReportUGCValidationTelemetry(assetType: string, data: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ResetCollisionFidelity(meshPart: Instance, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
@@ -6063,6 +6090,7 @@ Class UITextSizeConstraint : UIConstraint
 Class UICorner : UIComponent
 	Property UICorner.CornerRadius: UDim
 Class UIDragDetector : UIComponent [NotBrowsable]
+	Property UIDragDetector.BoundingBehavior: Enum.UIDragDetectorBoundingBehavior
 	Property UIDragDetector.BoundingUI: GuiBase2d?
 	Property UIDragDetector.DragRelativity: Enum.UIDragDetectorDragRelativity
 	Property UIDragDetector.DragSpace: Enum.UIDragDetectorDragSpace
@@ -8768,6 +8796,19 @@ Enum ScrollingDirection
 	EnumItem ScrollingDirection.X : 1
 	EnumItem ScrollingDirection.Y : 2
 	EnumItem ScrollingDirection.XY : 4
+Enum SecurityCapability
+	EnumItem SecurityCapability.RunClientScript : 0
+	EnumItem SecurityCapability.RunServerScript : 1
+	EnumItem SecurityCapability.AccessOutsideWrite : 2
+	EnumItem SecurityCapability.AssetRequire : 3
+	EnumItem SecurityCapability.LoadString : 4
+	EnumItem SecurityCapability.ScriptGlobals : 5
+	EnumItem SecurityCapability.CreateInstances : 6
+	EnumItem SecurityCapability.Basic : 7
+	EnumItem SecurityCapability.Audio : 8
+	EnumItem SecurityCapability.DataStore : 9
+	EnumItem SecurityCapability.Network : 10
+	EnumItem SecurityCapability.Physics : 11
 Enum SelectionBehavior
 	EnumItem SelectionBehavior.Escape : 0
 	EnumItem SelectionBehavior.Stop : 1
@@ -9307,6 +9348,10 @@ Enum TriStateBoolean
 Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
+Enum UIDragDetectorBoundingBehavior
+	EnumItem UIDragDetectorBoundingBehavior.Automatic : 0
+	EnumItem UIDragDetectorBoundingBehavior.EntireObject : 1
+	EnumItem UIDragDetectorBoundingBehavior.HitPoint : 2
 Enum UIDragDetectorDragRelativity
 	EnumItem UIDragDetectorDragRelativity.Absolute : 0
 	EnumItem UIDragDetectorDragRelativity.Relative : 1

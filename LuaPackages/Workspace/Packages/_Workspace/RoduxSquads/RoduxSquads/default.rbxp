@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoduxSquads",
+    "tree": {
+      "$path": "../../../../../../../modules/social/rodux/rodux-squads/src"
+    }
+  }
+}
