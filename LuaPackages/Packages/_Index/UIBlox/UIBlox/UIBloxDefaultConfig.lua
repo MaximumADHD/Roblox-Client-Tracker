@@ -23,12 +23,6 @@ return {
 	-- Set zindex on ResponsiveCell
 	setZIndexOnGridCells = false,
 
-	-- Use the new features of ShortcutBar for responding to last input type and fadeout
-	useInputResponsiveShortcutBarChanges = false,
-
-	-- Have StatGroup use vertical AutomaticSize instead of filling its parent
-	useAutomaticSizeYInStatGroup = false,
-
 	-- do not mount the Details Page Header Action Bar when the Sticky ActionBar
 	-- active
 	hideHeaderActionBarWhenStickyBarActive = false,
@@ -100,4 +94,16 @@ return {
 
 	-- Add optional max height to getTextHeight
 	getTextHeightOptionalMaxHeight = false,
+
+	-- Add support for large-scaled text in Cell
+	useAutomaticHeightInTableCell = false,
+
+	-- Indicate whether the fix for button loading shimmer panel not covering edges is enabled
+	enableButtonLoadingShimmerPanelFix = false,
+
+	-- Use automatic sizing in stat group
+	useAutomaticSizeInStatGroup = false,
+
+	-- Bugfix for HeaderBar title flickering
+	fixHeaderBarTitleFlickering = false,
 }

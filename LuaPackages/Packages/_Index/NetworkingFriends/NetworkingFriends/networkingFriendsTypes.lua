@@ -60,6 +60,7 @@ export type RequestThunks = {
 	AcceptFriendRequestWithToken: AcceptFriendRequestWithToken,
 	GetFollowersCount: GetFollowersCount,
 	GetFollowingsCount: GetFollowingsCount,
+	ValidateFriendRequestNickname: any,
 }
 
 export type RequestCurrentUser = {

@@ -57,12 +57,15 @@ ButtonStack.validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	frameRef = t.optional(t.table),
+	-- Boolean to determine if the component will use RoactGamepad for focus navigation
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 ButtonStack.defaultProps = {
 	buttonHeight = 36,
 	marginBetween = 12,
 	minHorizontalButtonPadding = 8,
+	isRoactGamepadEnabled = true,
 }
 
 function ButtonStack:init()
@@ -86,6 +89,8 @@ function ButtonStack:render()
 	return withStyle(function(stylePalette)
 		local font = stylePalette.Font
 		local textSize = font.Body.RelativeSize * font.BaseSize
+
+		local isRoactGamepadEnabled = self.props.isRoactGamepadEnabled
 
 		local buttons = self.props.buttons
 		local paddingBetween = #buttons > 1 and self.props.marginBetween or 0
@@ -124,6 +129,7 @@ function ButtonStack:render()
 				layoutOrder = isButtonStacked and (#buttons - colIndex) or colIndex,
 				size = buttonSize,
 				buttonType = button.buttonType or ButtonType.Secondary,
+				isRoactGamepadEnabled = isRoactGamepadEnabled,
 			}
 			local buttonProps = Cryo.Dictionary.join(newProps, button.props)
 
@@ -131,7 +137,7 @@ function ButtonStack:render()
 				defaultChildIndex = colIndex
 			end
 
-			if not self.props.disableGamepadRefs then
+			if not self.props.disableGamepadRefs and isRoactGamepadEnabled then
 				local gamepadProps
 
 				if self.props.disableRoactGamepadButtonSelection then
@@ -156,22 +162,28 @@ function ButtonStack:render()
 			table.insert(buttonTable, Roact.createElement(Button, buttonProps))
 		end
 
-		return Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
-			BackgroundTransparency = 1,
-			contentPadding = UDim.new(0, paddingBetween),
-			FillDirection = fillDirection,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			LayoutOrder = 3,
-			minimumSize = UDim2.new(1, 0, 0, self.props.buttonHeight),
-			[Roact.Ref] = self.props.frameRef,
-			[Roact.Change.AbsoluteSize] = self.updateFrameSize,
+		return Roact.createElement(
+			if isRoactGamepadEnabled then RoactGamepad.Focusable[FitFrameOnAxis] else FitFrameOnAxis,
+			{
+				BackgroundTransparency = 1,
+				contentPadding = UDim.new(0, paddingBetween),
+				FillDirection = fillDirection,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				LayoutOrder = 3,
+				minimumSize = UDim2.new(1, 0, 0, self.props.buttonHeight),
+				[Roact.Ref] = self.props.frameRef,
+				[Roact.Change.AbsoluteSize] = self.updateFrameSize,
 
-			NextSelectionLeft = self.props.NextSelectionLeft,
-			NextSelectionRight = self.props.NextSelectionRight,
-			NextSelectionUp = self.props.NextSelectionUp,
-			NextSelectionDown = self.props.NextSelectionDown,
-			defaultChild = defaultChildIndex and self.buttonRefs[defaultChildIndex] or nil,
-		}, buttonTable)
+				NextSelectionLeft = if isRoactGamepadEnabled then self.props.NextSelectionLeft else nil,
+				NextSelectionRight = if isRoactGamepadEnabled then self.props.NextSelectionRight else nil,
+				NextSelectionUp = if isRoactGamepadEnabled then self.props.NextSelectionUp else nil,
+				NextSelectionDown = if isRoactGamepadEnabled then self.props.NextSelectionDown else nil,
+				defaultChild = if isRoactGamepadEnabled
+					then defaultChildIndex and self.buttonRefs[defaultChildIndex] or nil
+					else nil,
+			},
+			buttonTable
+		)
 	end)
 end
 

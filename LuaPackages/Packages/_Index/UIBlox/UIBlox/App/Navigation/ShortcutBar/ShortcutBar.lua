@@ -20,7 +20,6 @@ local Types = require(script.Parent.Types)
 local Shortcut = require(script.Parent.Shortcut)
 
 local useInputType = require(UIBlox.Utility.useInputType)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local NavigationUtils = require(Navigation.Utilities)
 local InputType = require(UIBlox.Enums.InputType)
 
@@ -89,84 +88,64 @@ local function ShortcutBar(providedProps: ShortcutBarProps): React.ReactElement?
 		}),
 	}
 
-	if UIBloxConfig.useInputResponsiveShortcutBarChanges then
-		local lastInputType: InputType.InputType? = useInputType()
+	local lastInputType: InputType.InputType? = useInputType()
 
-		local currentTransparency, setCurrentTransparency = ReactOtter.useAnimatedBinding(0)
+	local currentTransparency, setCurrentTransparency = ReactOtter.useAnimatedBinding(0)
 
-		-- create action handler to set component back to opaque
-		local fadeInWithThrottleAndDelay = useDelayedActionHandler(
-			if props.transitionDelaySeconds then props.transitionDelaySeconds else 0,
-			FADE_IN_THROTTLE_SECONDS,
-			function()
-				setCurrentTransparency(ReactOtter.spring(0, SPRING_CONFIG))
-			end
-		)
-
-		local function onInputChanged()
-			if props.transitionDelaySeconds then
-				setCurrentTransparency(ReactOtter.spring(1, SPRING_CONFIG))
-				fadeInWithThrottleAndDelay()
-			end
+	-- create action handler to set component back to opaque
+	local fadeInWithThrottleAndDelay = useDelayedActionHandler(
+		if props.transitionDelaySeconds then props.transitionDelaySeconds else 0,
+		FADE_IN_THROTTLE_SECONDS,
+		function()
+			setCurrentTransparency(ReactOtter.spring(0, SPRING_CONFIG))
 		end
+	)
 
-		local items, setItems = React.useState(NavigationUtils.filterItems(props.items, lastInputType))
-
-		useEventConnection(UserInputService.InputChanged, onInputChanged)
-		React.useEffect(function()
-			setItems(NavigationUtils.filterItems(props.items, lastInputType))
-		end, {
-			lastInputType,
-			props.items,
-		} :: { any })
-
-		for index, item: Types.ShortcutInternalProps in ipairs(items) do
-			children["Item" .. tostring(index)] = React.createElement(Shortcut, {
-				index = index,
-				iconLabelGap = props.itemIconLabelGap,
-				actionTextSpacingLeading = props.actionTextSpacingLeading,
-				publicProps = item,
-			})
+	local function onInputChanged()
+		if props.transitionDelaySeconds then
+			setCurrentTransparency(ReactOtter.spring(1, SPRING_CONFIG))
+			fadeInWithThrottleAndDelay()
 		end
+	end
 
-		-- don't render anything if no items
-		if #items > 0 then
-			return React.createElement("CanvasGroup", {
-				Position = props.position,
-				AnchorPoint = props.anchorPoint,
-				BackgroundTransparency = 1,
-				GroupTransparency = if props.transitionDelaySeconds then currentTransparency else 0,
-				AutomaticSize = Enum.AutomaticSize.XY,
-			}, {
-				ShortcutBarComponent = React.createElement("Frame", {
-					Size = UDim2.fromOffset(0, 0),
-					BorderSizePixel = 0,
-					BackgroundColor3 = style.Theme.UIMuted.Color,
-					BackgroundTransparency = style.Theme.UIMuted.Transparency,
-					AutomaticSize = Enum.AutomaticSize.XY,
-				}, children :: any),
-			})
-		else
-			return nil
-		end
-	else
-		for index, item: Types.ShortcutPublicProps in ipairs(props.items) do
-			children["Item" .. tostring(index)] = React.createElement(Shortcut, {
-				index = index,
-				iconLabelGap = props.itemIconLabelGap,
-				actionTextSpacingLeading = props.actionTextSpacingLeading,
-				publicProps = (item :: any) :: Types.ShortcutInternalProps,
-			})
-		end
-		return React.createElement("Frame", {
+	local items, setItems = React.useState(NavigationUtils.filterItems(props.items, lastInputType))
+
+	useEventConnection(UserInputService.InputChanged, onInputChanged)
+	React.useEffect(function()
+		setItems(NavigationUtils.filterItems(props.items, lastInputType))
+	end, {
+		lastInputType,
+		props.items,
+	} :: { any })
+
+	for index, item: Types.ShortcutInternalProps in ipairs(items) do
+		children["Item" .. tostring(index)] = React.createElement(Shortcut, {
+			index = index,
+			iconLabelGap = props.itemIconLabelGap,
+			actionTextSpacingLeading = props.actionTextSpacingLeading,
+			publicProps = item,
+		})
+	end
+
+	-- don't render anything if no items
+	if #items > 0 then
+		return React.createElement("CanvasGroup", {
 			Position = props.position,
 			AnchorPoint = props.anchorPoint,
-			Size = UDim2.fromOffset(0, 0),
-			BorderSizePixel = 0,
-			BackgroundColor3 = style.Theme.UIMuted.Color,
-			BackgroundTransparency = style.Theme.UIMuted.Transparency,
+			BackgroundTransparency = 1,
+			GroupTransparency = if props.transitionDelaySeconds then currentTransparency else 0,
 			AutomaticSize = Enum.AutomaticSize.XY,
-		}, children :: any)
+		}, {
+			ShortcutBarComponent = React.createElement("Frame", {
+				Size = UDim2.fromOffset(0, 0),
+				BorderSizePixel = 0,
+				BackgroundColor3 = style.Theme.UIMuted.Color,
+				BackgroundTransparency = style.Theme.UIMuted.Transparency,
+				AutomaticSize = Enum.AutomaticSize.XY,
+			}, children :: any),
+		})
+	else
+		return nil
 	end
 end
 

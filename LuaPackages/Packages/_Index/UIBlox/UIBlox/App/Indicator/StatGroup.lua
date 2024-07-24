@@ -31,6 +31,8 @@ export type Props = {
 local function renderStatItem(containerProps, icon, text, stylePalette, textWidth: number?)
 	local tokens = stylePalette.Tokens
 	local font: Fonts.FontPalette = stylePalette.Font
+	local textSize = font.BaseSize * font.Body.RelativeSize
+	local MaxTextSizeConstraint = textSize + tokens.Global.Size_100
 
 	local statSpacingGap = tokens.Global.Space_25
 	local statIconSize = tokens.Semantic.Icon.Size.Small
@@ -56,19 +58,17 @@ local function renderStatItem(containerProps, icon, text, stylePalette, textWidt
 		Label = React.createElement("TextLabel", {
 			Size = UDim2.new(
 				0,
-				if textWidth then textWidth else 0,
-				if UIBloxConfig.useAutomaticSizeYInStatGroup then 0 else 1,
+				if textWidth and not UIBloxConfig.useAutomaticSizeInStatGroup then textWidth else 0,
+				if UIBloxConfig.useAutomaticSizeInStatGroup then 0 else 1,
 				0
 			),
-			AutomaticSize = if textWidth
-				then (if UIBloxConfig.useAutomaticSizeYInStatGroup then Enum.AutomaticSize.Y else nil)
-				else (if UIBloxConfig.useAutomaticSizeYInStatGroup
-					then Enum.AutomaticSize.XY
-					else Enum.AutomaticSize.X),
+			AutomaticSize = if textWidth and not UIBloxConfig.useAutomaticSizeInStatGroup
+				then nil
+				else Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
 			Text = text,
 			Font = font.Body.Font,
-			TextSize = font.BaseSize * font.Body.RelativeSize,
+			TextSize = textSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextTruncate = Enum.TextTruncate.AtEnd,
@@ -78,8 +78,16 @@ local function renderStatItem(containerProps, icon, text, stylePalette, textWidt
 			LayoutOrder = 2,
 		}, {
 			UISizeConstraint = React.createElement("UISizeConstraint", {
-				MaxSize = Vector2.new(RATING_ITEM_WIDTH, math.huge),
+				MaxSize = Vector2.new(
+					if UIBloxConfig.useAutomaticSizeInStatGroup then tokens.Global.Size_700 else RATING_ITEM_WIDTH,
+					math.huge
+				),
 			}),
+			UiTextSizeConstraint = if UIBloxConfig.useAutomaticSizeInStatGroup
+				then React.createElement("UITextSizeConstraint", {
+					MaxTextSize = MaxTextSizeConstraint,
+				})
+				else nil,
 		}),
 	})
 end
@@ -102,12 +110,17 @@ local function StatGroup(props: Props)
 
 	local spacingGap = stylePalette.Tokens.Global.Space_100
 
-	local ratingTextWidth = useTextWidth(props.ratingText, stylePalette.Font)
-	local playingTextWidth = if props.playingText then useTextWidth(props.playingText, stylePalette.Font) else nil
+	local ratingTextWidth = if not UIBloxConfig.useAutomaticSizeInStatGroup
+		then useTextWidth(props.ratingText, stylePalette.Font)
+		else nil
+	local playingTextWidth = if props.playingText and not UIBloxConfig.useAutomaticSizeInStatGroup
+		then useTextWidth(props.playingText, stylePalette.Font)
+		else nil
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
+		AutomaticSize = if UIBloxConfig.useAutomaticSizeInStatGroup then Enum.AutomaticSize.X else nil,
 	}, {
 		UIListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -116,8 +129,8 @@ local function StatGroup(props: Props)
 			Padding = UDim.new(0, spacingGap),
 		}),
 		RatingStats = renderStatItem({
-			Size = UDim2.new(0, 0, if UIBloxConfig.useAutomaticSizeYInStatGroup then 0 else 1, 0),
-			AutomaticSize = if UIBloxConfig.useAutomaticSizeYInStatGroup
+			Size = UDim2.new(0, 0, if UIBloxConfig.useAutomaticSizeInStatGroup then 0 else 1, 0),
+			AutomaticSize = if UIBloxConfig.useAutomaticSizeInStatGroup
 				then Enum.AutomaticSize.XY
 				else Enum.AutomaticSize.X,
 			BackgroundTransparency = 1,
@@ -126,8 +139,8 @@ local function StatGroup(props: Props)
 
 		PlayingStats = if props.playingText ~= nil
 			then renderStatItem({
-				Size = UDim2.new(0, 0, if UIBloxConfig.useAutomaticSizeYInStatGroup then 0 else 1, 0),
-				AutomaticSize = if UIBloxConfig.useAutomaticSizeYInStatGroup
+				Size = UDim2.new(0, 0, if UIBloxConfig.useAutomaticSizeInStatGroup then 0 else 1, 0),
+				AutomaticSize = if UIBloxConfig.useAutomaticSizeInStatGroup
 					then Enum.AutomaticSize.XY
 					else Enum.AutomaticSize.X,
 				BackgroundTransparency = 1,

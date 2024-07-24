@@ -147,6 +147,8 @@ Button.validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	buttonRef = t.optional(t.union(t.table, t.callback)),
+	-- Boolean to determine if the component will use RoactGamepad for focus navigation
+	isRoactGamepadEnabled = t.optional(t.boolean),
 	-- Optional selection cursor
 	cursor = t.optional(t.any),
 
@@ -158,54 +160,59 @@ Button.defaultProps = {
 	buttonType = ButtonType.PrimarySystem,
 	isDisabled = false,
 	isLoading = false,
+	isRoactGamepadEnabled = true,
 }
 
 function Button:render()
 	return withSelectionCursorProvider(function(getSelectionCursor)
-		return React.createElement(RoactGamepad.Focusable[GenericButton], {
-			[React.Tag] = self.props[React.Tag],
-			Size = self.props.size,
-			standardSize = self.props.standardSize,
-			maxWidth = self.props.maxWidth,
-			fitContent = self.props.fitContent,
-			AnchorPoint = self.props.anchorPoint,
-			Position = self.props.position,
-			LayoutOrder = self.props.layoutOrder,
-			SelectionImageObject = if self.props.cursor
-				then self.props.cursor
-				else getSelectionCursor(CursorKind.RoundedRectNoInset),
-			icon = self.props.icon,
-			text = self.props.text,
-			inputIcon = self.props.inputIcon,
-			fontStyle = self.props.fontStyle,
-			isDisabled = self.props.isDisabled,
-			isLoading = self.props.isLoading,
+		local isRoactGamepadEnabled = self.props.isRoactGamepadEnabled
+		return React.createElement(
+			if isRoactGamepadEnabled then RoactGamepad.Focusable[GenericButton] else GenericButton,
+			{
+				[React.Tag] = self.props[React.Tag],
+				Size = self.props.size,
+				standardSize = self.props.standardSize,
+				maxWidth = self.props.maxWidth,
+				fitContent = self.props.fitContent,
+				AnchorPoint = self.props.anchorPoint,
+				Position = self.props.position,
+				LayoutOrder = self.props.layoutOrder,
+				SelectionImageObject = if self.props.cursor
+					then self.props.cursor
+					else getSelectionCursor(CursorKind.RoundedRectNoInset),
+				icon = self.props.icon,
+				text = self.props.text,
+				inputIcon = self.props.inputIcon,
+				fontStyle = self.props.fontStyle,
+				isDisabled = self.props.isDisabled,
+				isLoading = self.props.isLoading,
 
-			isHoverBackgroundEnabled = IS_HOVER_BACKGROUND_ENABLED[self.props.buttonType],
-			isDelayedInput = self.props.isDelayedInput,
-			enableInputDelayed = self.props.enableInputDelayed,
-			delayInputSeconds = self.props.delayInputSeconds,
+				isHoverBackgroundEnabled = IS_HOVER_BACKGROUND_ENABLED[self.props.buttonType],
+				isDelayedInput = self.props.isDelayedInput,
+				enableInputDelayed = self.props.enableInputDelayed,
+				delayInputSeconds = self.props.delayInputSeconds,
 
-			onActivated = self.props.onActivated,
-			onStateChanged = self.props.onStateChanged,
-			userInteractionEnabled = self.props.userInteractionEnabled,
-			buttonImage = IMAGE[self.props.buttonType],
-			delayedInputImage = DELAYED_INPUT_IMAGE[self.props.buttonType],
-			buttonStateColorMap = BUTTON_STATE_COLOR[self.props.buttonType],
-			contentStateColorMap = CONTENT_STATE_COLOR[self.props.buttonType],
-			buttonTextOverride = self.props.buttonTextOverride,
+				onActivated = self.props.onActivated,
+				onStateChanged = self.props.onStateChanged,
+				userInteractionEnabled = self.props.userInteractionEnabled,
+				buttonImage = IMAGE[self.props.buttonType],
+				delayedInputImage = DELAYED_INPUT_IMAGE[self.props.buttonType],
+				buttonStateColorMap = BUTTON_STATE_COLOR[self.props.buttonType],
+				contentStateColorMap = CONTENT_STATE_COLOR[self.props.buttonType],
+				buttonTextOverride = self.props.buttonTextOverride,
 
-			NextSelectionUp = self.props.NextSelectionUp,
-			NextSelectionDown = self.props.NextSelectionDown,
-			NextSelectionLeft = self.props.NextSelectionLeft,
-			NextSelectionRight = self.props.NextSelectionRight,
-			ref = self.props.buttonRef,
+				NextSelectionUp = self.props.NextSelectionUp,
+				NextSelectionDown = self.props.NextSelectionDown,
+				NextSelectionLeft = self.props.NextSelectionLeft,
+				NextSelectionRight = self.props.NextSelectionRight,
+				ref = self.props.buttonRef,
 
-			feedbackType = self.props.feedbackType,
+				feedbackType = self.props.feedbackType,
 
-			[React.Change.AbsoluteSize] = self.props[React.Change.AbsoluteSize],
-			[React.Change.AbsolutePosition] = self.props[React.Change.AbsolutePosition],
-		})
+				[React.Change.AbsoluteSize] = self.props[React.Change.AbsoluteSize],
+				[React.Change.AbsolutePosition] = self.props[React.Change.AbsolutePosition],
+			}
+		)
 	end)
 end
 

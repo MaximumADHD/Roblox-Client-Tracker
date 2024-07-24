@@ -166,16 +166,24 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 					}),
 				})
 				return React.createElement(React.Fragment, nil, {
-					Text = React.createElement("TextLabel", {
-						AutomaticSize = Enum.AutomaticSize.XY,
-						BackgroundTransparency = 1,
-						Text = title,
-						Font = tokens.Semantic.Typography.Title.Font,
-						TextSize = tokens.Semantic.Typography.Title.FontSize,
-						LineHeight = tokens.Semantic.Typography.Title.LineHeight,
-						TextColor3 = tokens.Semantic.Color.Text.Emphasis.Color3,
-						TextTransparency = tokens.Semantic.Color.Text.Emphasis.Transparency,
-					}, textChildren),
+					Text = if UIBloxConfig.fixHeaderBarTitleFlickering
+						then React.createElement(GenericTextLabel, {
+							fluidSizing = true,
+							Text = title,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							fontStyle = tokens.Semantic.Typography.Title,
+							colorStyle = tokens.Semantic.Color.Text.Emphasis,
+						}, textChildren)
+						else React.createElement("TextLabel", {
+							AutomaticSize = Enum.AutomaticSize.XY,
+							BackgroundTransparency = 1,
+							Text = title,
+							Font = tokens.Semantic.Typography.Title.Font,
+							TextSize = tokens.Semantic.Typography.Title.FontSize,
+							LineHeight = tokens.Semantic.Typography.Title.LineHeight,
+							TextColor3 = tokens.Semantic.Color.Text.Emphasis.Color3,
+							TextTransparency = tokens.Semantic.Color.Text.Emphasis.Transparency,
+						}, textChildren),
 				})
 			end
 

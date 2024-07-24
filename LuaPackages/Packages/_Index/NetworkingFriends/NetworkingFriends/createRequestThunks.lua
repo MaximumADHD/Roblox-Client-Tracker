@@ -3,8 +3,8 @@ local networkingFriendsTypes = require(script.Parent.networkingFriendsTypes)
 
 local networkRequests: any = script.Parent.networkRequests
 local createGetFriendsFromUserId: (any) -> any = require(networkRequests.createGetFriendsFromUserId)
-local createFindFriendsFromUserId: (any) -> any = require(networkRequests.createFindFriendsFromUserId);
-local createSearchFriendsByQuery: (any) -> any = require(networkRequests.createSearchFriendsByQuery);
+local createFindFriendsFromUserId: (any) -> any = require(networkRequests.createFindFriendsFromUserId)
+local createSearchFriendsByQuery: (any) -> any = require(networkRequests.createSearchFriendsByQuery)
 local createGetFriendRequestsCount: (any) -> any = require(networkRequests.createGetFriendRequestsCount)
 local createUnfriendTargetUserId: (any) -> any = require(networkRequests.createUnfriendTargetUserId)
 local createGetFriendRequests: (any) -> any = require(networkRequests.createGetFriendRequests)
@@ -27,6 +27,7 @@ local createGetExtendedFriendshipStatus: (config: networkingFriendsTypes.Config)
 local createAcceptFriendRequestWithToken: (any) -> any = require(networkRequests.createAcceptFriendRequestWithToken)
 local createGetFollowersCount: (any) -> any = require(networkRequests.createGetFollowersCount)
 local createGetFollowingsCount: (any) -> any = require(networkRequests.createGetFollowingsCount)
+local createValidateFriendRequestNickname: (any) -> any = require(networkRequests.createValidateFriendRequestNickname)
 
 return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.RequestThunks
 	return {
@@ -51,5 +52,6 @@ return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.R
 		AcceptFriendRequestWithToken = createAcceptFriendRequestWithToken(config),
 		GetFollowersCount = createGetFollowersCount(config),
 		GetFollowingsCount = createGetFollowingsCount(config),
+		ValidateFriendRequestNickname = createValidateFriendRequestNickname(config),
 	}
 end

@@ -16,7 +16,7 @@ dependencies = [
     "NetworkingChat roblox/networking-chat a4ef5fb2 git+https://github.com/roblox/networking-chat#v0.2.0",
     "NetworkingContacts NetworkingContacts 1.15.0 registry",
     "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 1.15.0 registry",
-    "NetworkingFriends NetworkingFriends 2.11.0 registry",
+    "NetworkingFriends NetworkingFriends 2.12.0 registry",
     "NetworkingGames NetworkingGames 05d37b25 git+https://github.com/roblox/networking-games#v1.2.0",
     "NetworkingPremiumFeatures NetworkingPremiumFeatures 1.15.0 registry",
     "NetworkingPresence NetworkingPresence 1.15.0 registry",

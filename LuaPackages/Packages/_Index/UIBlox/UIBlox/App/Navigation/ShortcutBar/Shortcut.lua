@@ -14,6 +14,7 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
+local KeyLabel = require(App.Menu.KeyLabel.KeyLabel)
 
 local ProgressIconAnimated = require(script.Parent.ProgressIconAnimated)
 local Types = require(script.Parent.Types)
@@ -47,24 +48,64 @@ local function renderIcon(props: IconProps, style)
 		progressProps = itemProps :: Types.ShortcutProgressProps
 	end
 
+	local icon = itemProps.icon
+
+	local automaticSize = nil
+	local isKeyCode = typeof(icon) == "EnumItem"
+	local isKeyCodeList = typeof(icon) == "table" and #icon > 0
+	-- Icon should accommodate KeyLabels and other elements that vary in size
+	if isKeyCode or isKeyCodeList then
+		automaticSize = Enum.AutomaticSize.X
+	end
+
+	local image: React.ReactElement
+	-- Generate KeyLabels for KeyCode or list of KeyCodes
+	if isKeyCode then
+		image = React.createElement(KeyLabel, {
+			keyCode = icon :: Enum.KeyCode,
+			iconThemeKey = "IconEmphasis",
+		})
+	elseif isKeyCodeList then
+		local children: { [string]: React.React_Node } = {
+			Layout = React.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
+		}
+		for index, keyCode in icon :: { [number]: Enum.KeyCode } do
+			children["KeyLabel" .. index] = React.createElement(KeyLabel, {
+				keyCode = keyCode,
+				LayoutOrder = index,
+				iconThemeKey = "IconEmphasis",
+			})
+		end
+		image = React.createElement("Frame", {
+			Size = UDim2.fromScale(0, 0),
+			AutomaticSize = Enum.AutomaticSize.XY,
+			BackgroundTransparency = 1,
+		}, children)
+	else
+		image = React.createElement(ImageSetComponent.Label, {
+			Size = UDim2.fromScale(1, 1),
+			Image = icon,
+			ImageColor3 = style.Theme.TextEmphasis.Color,
+			ImageTransparency = style.Theme.TextEmphasis.Transparency,
+			BackgroundTransparency = 1,
+		})
+	end
+
 	return React.createElement("Frame", {
 		LayoutOrder = layoutOrder,
 		Size = UDim2.fromOffset(frameSize, frameSize),
+		AutomaticSize = automaticSize,
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
 	}, {
 		ProgressIcon = if hasProgress
 			then React.createElement(ProgressIconAnimated, progressProps :: Types.AnimationProps)
 			else nil,
-		Image = if hasProgress
-			then nil
-			else React.createElement(ImageSetComponent.Label, {
-				Size = UDim2.fromScale(1, 1),
-				Image = itemProps.icon,
-				ImageColor3 = style.Theme.TextEmphasis.Color,
-				ImageTransparency = style.Theme.TextEmphasis.Transparency,
-				BackgroundTransparency = 1,
-			}),
+		Image = if hasProgress then nil else image,
 	})
 end
 

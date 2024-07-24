@@ -64,15 +64,16 @@ InteractiveAlert.validateProps = t.strictInterface({
 	footerText = t.optional(t.string),
 	-- Function that returns a Roact element to render
 	footerContent = t.optional(t.callback),
+	onCloseClicked = t.optional(t.callback),
 
-	--Gamepad props
+	-- RoactGamepad props. These take effect when isRoactGamepadEnabled is true
 	defaultChildRef = t.optional(t.union(t.table, t.callback)),
 	-- Boolean to determine if the middle content is focusable with a gamepad
 	isMiddleContentFocusable = t.optional(t.boolean),
 	-- Boolean to determine if the footer content is focusable with a gamepad
 	isFooterContentFocusable = t.optional(t.boolean),
-	-- A function that is called when the X button in the Title has been clicked
-	onCloseClicked = t.optional(t.callback),
+	-- Boolean to determine if the component will use RoactGamepad for focus navigation
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 function InteractiveAlert:render()
@@ -205,8 +206,8 @@ function InteractiveAlert:render()
 			footerContent = footerContent,
 			isFooterContentFocusable = self.props.isFooterContentFocusable,
 			onCloseClicked = self.props.onCloseClicked,
-
 			defaultChildRef = self.props.defaultChildRef,
+			isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 		})
 	end)
 end

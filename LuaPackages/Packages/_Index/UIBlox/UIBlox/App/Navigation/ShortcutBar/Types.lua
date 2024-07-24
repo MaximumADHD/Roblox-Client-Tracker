@@ -71,7 +71,7 @@ export type ShortcutProps = {
 }
 
 export type ShortcutPublicProps = {
-	icon: Icon | IconMap,
+	icon: Icon | IconMap | Enum.KeyCode | { [number]: Enum.KeyCode },
 } & ShortcutNoIconProps
 
 return {}
