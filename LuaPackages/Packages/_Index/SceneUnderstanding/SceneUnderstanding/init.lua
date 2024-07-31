@@ -25,7 +25,4 @@ return {
 
 	getAudibleVolume = require(script.audio.getAudibleVolume),
 	isAudible = require(script.audio.isAudible),
-
-	-- Private members. Do not use outside of SceneUnderstanding
-	hasInternalPermission = require(script.hasInternalPermission),
 }

@@ -9,7 +9,7 @@ local networkingFriendsTypes = require(script.Parent.Parent.networkingFriendsTyp
 return function(config: networkingFriendsTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
 
-	return roduxNetworking.GET(
+	return roduxNetworking.POST(
 		{ Name = "ValidateFriendRequestNickname" },
 		function(requestBuilder: any, queryArgs: { currentUserId: number | string, senderNickname: string })
 			return requestBuilder(FRIENDS_URL, { currentUserId = queryArgs.currentUserId })
@@ -17,7 +17,7 @@ return function(config: networkingFriendsTypes.Config)
 				:path("my")
 				:path("friends")
 				:path("validate-nickname")
-				:queryArgs({
+				:body({
 					senderNickname = queryArgs.senderNickname,
 				})
 		end

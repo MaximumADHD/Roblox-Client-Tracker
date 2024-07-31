@@ -16,6 +16,7 @@ local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(App.SelectionImage.CursorKind)
+local BadgeVariant = require(App.Indicator.Enum.BadgeVariant)
 
 local ControlState = require(Core.Control.Enum.ControlState)
 local Interactable = require(Core.Control.Interactable)
@@ -73,6 +74,8 @@ MenuTile.validateProps = t.strictInterface({
 
 	-- Value displayed in the badge.
 	badgeValue = t.optional(t.union(t.string, t.number, BadgeStates.isEnumValue)),
+	-- Variant for the badge
+	badgeVariant = t.optional(BadgeVariant.isEnumValue),
 	-- Image that will be shown in the middle of the menu tile.
 	icon = t.optional(validateImage),
 	-- Text displayed below the image.
@@ -302,6 +305,7 @@ function MenuTile:render()
 					}),
 					Badge = Roact.createElement(Badge, {
 						value = badgeValue,
+						badgeVariant = self.props.badgeVariant,
 					}),
 				}),
 			}),

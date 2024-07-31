@@ -5,6 +5,7 @@ local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
+local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
 local validateMeshTriangles = require(root.validation.validateMeshTriangles)
 local validateModeration = require(root.validation.validateModeration)
@@ -30,6 +31,7 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
+local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagUGCValidateCoplanarTriTestAccessory)
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
@@ -219,6 +221,10 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 		if getFFlagUGCValidateMeshVertColors() then
 			reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, false, validationContext))
+		end
+
+		if getFFlagUGCValidateCoplanarTriTestAccessory() then
+			reasonsAccumulator:updateReasons(validateCoplanarIntersection(meshInfo, meshScale, validationContext))
 		end
 	end
 

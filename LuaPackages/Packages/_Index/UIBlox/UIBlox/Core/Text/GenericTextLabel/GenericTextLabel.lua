@@ -16,6 +16,7 @@ local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local validateColorToken = require(UIBlox.Core.Style.Validator.validateColorToken)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local OpenTypeSupport = require(UIBlox.Utility.OpenTypeSupport)
 
 local GenericTextLabel = Roact.PureComponent:extend("GenericTextLabel")
 
@@ -34,12 +35,16 @@ GenericTextLabel.validateProps = t.interface({
 	-- Whether the TextLabel is Fluid Sizing between the font's min and default sizes (optional)
 	fluidSizing = t.optional(t.boolean),
 
+	-- Indicate whether OpenType feature(which requires RichText support) is enabled
+	enableOpenType = t.optional(t.boolean),
+
 	-- Note that this component can accept all valid properties of the Roblox TextLabel instance
 })
 
 GenericTextLabel.defaultProps = {
 	maxSize = Vector2.new(MAX_BOUND, MAX_BOUND),
 	fluidSizing = false,
+	enableOpenType = false,
 }
 
 function GenericTextLabel:render()
@@ -85,6 +90,7 @@ function GenericTextLabel:render()
 			[Roact.Children] = Cryo.None,
 			fluidSizing = Cryo.None,
 			fontStyle = Cryo.None,
+			enableOpenType = Cryo.None,
 			colorStyle = Cryo.None,
 			maxSize = Cryo.None,
 			Size = size,
@@ -99,6 +105,13 @@ function GenericTextLabel:render()
 			BackgroundTransparency = 1,
 			RichText = richText,
 		})
+
+		if UIBloxConfig.enableOpenTypeSupport and self.props.enableOpenType then
+			newProps = Cryo.Dictionary.join(newProps, {
+				RichText = true,
+				OpenTypeFeatures = OpenTypeSupport:getSupportedFeatures(),
+			})
+		end
 
 		return Roact.createElement(
 			"TextLabel",

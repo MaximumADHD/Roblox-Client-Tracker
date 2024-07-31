@@ -4,6 +4,7 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local Constants = require(root.Constants)
 
+local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
 local validateMeshTriangles = require(root.validation.validateMeshTriangles)
 local validateModeration = require(root.validation.validateModeration)
@@ -28,6 +29,7 @@ local getAccessoryScale = require(root.util.getAccessoryScale)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
+local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagUGCValidateCoplanarTriTestAccessory)
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
@@ -255,6 +257,14 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 		if getFFlagUGCValidateMeshVertColors() then
 			success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+
+		if getFFlagUGCValidateCoplanarTriTestAccessory() then
+			success, failedReason = validateCoplanarIntersection(meshInfo, meshScale, validationContext)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false

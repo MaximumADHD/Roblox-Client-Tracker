@@ -9,6 +9,8 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local StudioService = if RunService:IsStudio() then game:GetService("StudioService") else nil
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
+local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
+local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagUGCValidateCoplanarTriTestAccessory)
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
@@ -140,6 +142,12 @@ Analytics.ErrorType = {
 	validateUVSpace_FailedToExecute = "validateUVSpace_FailedToExecute",
 	validateUVSpace_InvalidUVSpace = "validateUVSpace_InvalidUVSpace",
 }
+
+if getFFlagUGCValidateCoplanarTriTestBody() or getFFlagUGCValidateCoplanarTriTestAccessory() then
+	Analytics.ErrorType.validateCoplanarIntersection_FailedToExecute = "validateCoplanarIntersection_FailedToExecute"
+	Analytics.ErrorType.validateCoplanarIntersection_CoplanarIntersection =
+		"validateCoplanarIntersection_CoplanarIntersection"
+end
 
 if getFFlagUGCValidateTestInactiveControls() then
 	Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls =

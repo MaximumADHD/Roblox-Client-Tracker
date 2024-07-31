@@ -29,6 +29,7 @@ local validateMisMatchUV = require(root.validation.validateMisMatchUV)
 local validateCageMeshIntersection = require(root.validation.validateCageMeshIntersection)
 local validateCageNonManifoldAndHoles = require(root.validation.validateCageNonManifoldAndHoles)
 local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCageDeletion)
+local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
@@ -37,6 +38,7 @@ local getMeshSize = require(root.util.getMeshSize)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
+local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagUGCValidateCoplanarTriTestAccessory)
 local getFFlagUGCLCQualityReplaceLua = require(root.flags.getFFlagUGCLCQualityReplaceLua)
 local getFFlagUGCLCQualityValidation = require(root.flags.getFFlagUGCLCQualityValidation)
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
@@ -340,6 +342,14 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 
 		if getFFlagUGCValidateMeshVertColors() then
 			success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+
+		if getFFlagUGCValidateCoplanarTriTestAccessory() then
+			success, failedReason = validateCoplanarIntersection(meshInfo, meshScale, validationContext)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false

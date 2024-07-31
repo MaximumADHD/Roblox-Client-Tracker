@@ -4,7 +4,7 @@ version = "4.2.4"
 commit = "ff764ac5f3c7c426577badad3f7dbe9f4d6b9ef4"
 source = "git+https://github.com/roblox/rodux-friends#v4.2.4"
 dependencies = [
-    "FriendsNetworking NetworkingFriends 2.12.0 registry",
+    "FriendsNetworking NetworkingFriends 2.12.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "NetworkingBlocking NetworkingBlocking 1.15.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",

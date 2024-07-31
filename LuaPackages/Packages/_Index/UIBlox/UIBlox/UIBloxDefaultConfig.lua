@@ -106,4 +106,13 @@ return {
 
 	-- Bugfix for HeaderBar title flickering
 	fixHeaderBarTitleFlickering = false,
+
+	-- Bugfix for HeaderBar dependencies array
+	fixHeaderBarDependenciesArray = false,
+
+	-- Enable OpenType support
+	enableOpenTypeSupport = false,
+
+	-- Defer loading component’s code until it is rendered for the first time
+	enableCreateLazyComponent = false,
 }

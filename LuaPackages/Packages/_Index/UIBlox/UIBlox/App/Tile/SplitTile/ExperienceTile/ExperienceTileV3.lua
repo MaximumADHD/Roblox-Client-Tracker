@@ -64,8 +64,14 @@ export type Props = {
 	onHoverChanged: (() -> ())?,
 	-- Props for ExperienceActionRow
 	actionRowProps: ExperienceActionRow.Props?,
+	-- Whether the component is disabled. This will also set `Active` to false.
+	isDisabled: boolean?,
 	-- Function called when tile panel is clicked
 	onActivated: (() -> any)?,
+	-- Function called when the tile gains focus
+	onSelectionGained: (() -> any)?,
+	-- Function called when the tile loses focus
+	onSelectionLost: (() -> any)?,
 	-- Overlay rendered over the top content section
 	renderTopContentOverlay: ((isHovered: boolean, border: StyleTypes.BorderItem?) -> { [any]: React.ReactElement? }?)?,
 	-- Override for BottomContent section
@@ -265,7 +271,10 @@ local function ExperienceTileV3(props: Props)
 		Size = UDim2.new(1, 0, 1, 0),
 		SelectionImageObject = selectionCursor,
 		onStateChanged = updateControlState,
+		isDisabled = props.isDisabled,
 		[React.Event.Activated] = props.onActivated,
+		[React.Event.SelectionGained] = props.onSelectionGained,
+		[React.Event.SelectionLost] = props.onSelectionLost,
 	}, {
 		VerticalTile = React.createElement(VerticalTile, {
 			hasBackground = hasBackground,

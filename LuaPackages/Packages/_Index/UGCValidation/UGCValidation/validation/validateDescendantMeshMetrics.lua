@@ -14,6 +14,7 @@ local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
 local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
+local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
 local validateCageUVs = require(root.validation.validateCageUVs)
 local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCageDeletion)
@@ -29,6 +30,7 @@ local getMeshMinMax = require(root.util.getMeshMinMax)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local floatEquals = require(root.util.floatEquals)
 
+local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFFlagUGCValidateCageUVTriangleArea = require(root.flags.getFFlagUGCValidateCageUVTriangleArea)
@@ -166,7 +168,7 @@ local function validateMeshIsAtOrigin(
 	local meshMin = nil
 	local meshMax = nil
 
-	if getFFlagUGCValidateTotalSurfaceAreaTestBody() then
+	if getFFlagUGCValidateTotalSurfaceAreaTestBody() or getFFlagUGCValidateCoplanarTriTestBody() then
 		meshMin = meshMinIn :: Vector3
 		meshMax = meshMaxIn :: Vector3
 	else
@@ -243,14 +245,17 @@ local function validateDescendantMeshMetrics(
 		if data.instance.ClassName == "MeshPart" then
 			assert(data.fieldName == "MeshId")
 
+			local FFlagsForSurfaceAreaOrCoplanarTestsEnabled = getFFlagUGCValidateTotalSurfaceAreaTestBody()
+				or getFFlagUGCValidateCoplanarTriTestBody()
+
 			local successMinMax, failureReasonsMinMax, meshMinOpt, meshMaxOpt
-			if getFFlagUGCValidateTotalSurfaceAreaTestBody() then
+			if FFlagsForSurfaceAreaOrCoplanarTestsEnabled then
 				successMinMax, failureReasonsMinMax, meshMinOpt, meshMaxOpt = getMeshMinMax(meshInfo, validationContext)
 				if not successMinMax then
 					reasonsAccumulator:updateReasons(false, failureReasonsMinMax)
 				end
 			end
-			if not getFFlagUGCValidateTotalSurfaceAreaTestBody() or successMinMax then
+			if not FFlagsForSurfaceAreaOrCoplanarTestsEnabled or successMinMax then
 				startTime = tick()
 				reasonsAccumulator:updateReasons(
 					validateMeshIsAtOrigin(meshInfo, meshMinOpt, meshMaxOpt, validationContext)
@@ -258,7 +263,7 @@ local function validateDescendantMeshMetrics(
 				Analytics.recordScriptTime("validateMeshIsAtOrigin", startTime, validationContext)
 			end
 
-			if getFFlagUGCValidateTotalSurfaceAreaTestBody() and meshMinOpt and meshMaxOpt then
+			if FFlagsForSurfaceAreaOrCoplanarTestsEnabled and meshMinOpt and meshMaxOpt then
 				local meshSize = (meshMaxOpt :: Vector3 - meshMinOpt :: Vector3)
 				if floatEquals(meshSize.X, 0) or floatEquals(meshSize.Y, 0) or floatEquals(meshSize.Z, 0) then
 					reasonsAccumulator:updateReasons(false, {
@@ -266,7 +271,16 @@ local function validateDescendantMeshMetrics(
 					})
 				else
 					local meshScale = (data.instance :: MeshPart).Size / meshSize
-					reasonsAccumulator:updateReasons(validateTotalSurfaceArea(meshInfo, meshScale, validationContext))
+					if getFFlagUGCValidateTotalSurfaceAreaTestBody() then
+						reasonsAccumulator:updateReasons(
+							validateTotalSurfaceArea(meshInfo, meshScale, validationContext)
+						)
+					end
+					if getFFlagUGCValidateCoplanarTriTestBody() then
+						reasonsAccumulator:updateReasons(
+							validateCoplanarIntersection(meshInfo, meshScale, validationContext)
+						)
+					end
 				end
 			end
 

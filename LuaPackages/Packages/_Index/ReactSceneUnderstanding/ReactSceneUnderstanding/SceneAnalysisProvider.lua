@@ -1,9 +1,5 @@
 local Root = script:FindFirstAncestor("ReactSceneUnderstanding")
 
-local PluginGuiService = game:GetService("PluginGuiService")
-local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
-local Workspace = game:GetService("Workspace")
-
 local Cryo = require(Root.Parent.Cryo)
 local React = require(Root.Parent.React)
 local SceneUnderstanding = require(Root.Parent.SceneUnderstanding)
@@ -16,16 +12,9 @@ local enums = require(Root.enums)
 
 local getSourceAssetsInView = SceneUnderstanding.getSourceAssetsInView
 local getSourceAssetsInRange = SceneUnderstanding.getSourceAssetsInRange
-local hasInternalPermission = SceneUnderstanding.hasInternalPermission
 local useCallback = React.useCallback
 local useEffect = React.useEffect
 local useState = React.useState
-
-local SOUND_LOCATIONS = {
-	Workspace,
-	if hasInternalPermission() then PluginGuiService else nil,
-	if hasInternalPermission() then RobloxPluginGuiService else nil,
-}
 
 export type Props = {
 	-- The rate that assets in the viewport are polled at. This is used by
@@ -154,7 +143,7 @@ local function SceneAnalysisProvider(providedProps: Props)
 		end
 	end, { cameraState })
 
-	local soundsByAudibility = useAudibleSounds(SOUND_LOCATIONS)
+	local soundsByAudibility = useAudibleSounds({ game })
 
 	return React.createElement(SceneAnalysisContext.Provider, {
 		value = {

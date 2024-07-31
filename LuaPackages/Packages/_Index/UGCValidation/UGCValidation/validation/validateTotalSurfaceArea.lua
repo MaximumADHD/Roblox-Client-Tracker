@@ -16,6 +16,9 @@ local getEngineFeatureEngineUGCValidateTotalSurfaceAreaTest =
 
 local getFIntMaxTotalSurfaceArea = require(root.flags.getFIntMaxTotalSurfaceArea)
 
+local getFFlagUGCValidateFixTotalSurfaceAreaTestErrorString =
+	require(root.flags.getFFlagUGCValidateFixTotalSurfaceAreaTestErrorString)
+
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
 local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
@@ -65,11 +68,18 @@ local function validateTotalSurfaceArea(
 		Analytics.reportFailure(Analytics.ErrorType.validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded)
 		return false,
 			{
-				string.format(
-					"The total surface area of model mesh '%s' is greater than %d. You must reduce the number and/or size of all triangles.",
-					meshInfo.fullName,
-					getFIntMaxTotalSurfaceArea()
-				),
+				if getFFlagUGCValidateFixTotalSurfaceAreaTestErrorString()
+					then string.format(
+						"The total surface area of model mesh '%s' is %.2f, it cannot be greater than %d. You must reduce the number and/or size of all triangles.",
+						meshInfo.fullName,
+						result,
+						getFIntMaxTotalSurfaceArea()
+					)
+					else string.format(
+						"The total surface area of model mesh '%s' is greater than %d. You must reduce the number and/or size of all triangles.",
+						meshInfo.fullName,
+						getFIntMaxTotalSurfaceArea()
+					),
 			}
 	end
 
