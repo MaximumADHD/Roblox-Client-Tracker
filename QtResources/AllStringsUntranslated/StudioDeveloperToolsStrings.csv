@@ -6,6 +6,8 @@ Studio.App.EmulatorMainWidget.ActualResolution,,Actual Resolution,Actual Resolut
 Studio.App.EmulatorMainWidget.RotateMobileDeviceOrientation,,Rotate mobile device orientation,Rotate mobile device orientation
 Studio.App.EmulatorMainWidget.RotatePhonesTablets,,You can only rotate phones and tablets,You can only rotate phones and tablets
 Studio.App.EmulatorMainWidget.MockAndroidBackButton,,Simulate a click on the Android Back button,Simulate a click on the Android Back button
+Studio.App.EmulatorMainWidget.ShowControllerWidgetCheckBox,,Virtual Controller,Virtual Controller
+Studio.App.EmulatorMainWidget.ShowControllerWidgetCheckBoxToolTip,,Show / Hide Virtual Controller,Show / Hide Virtual Controller
 Studio.App.EmulatorMainWidget.ConsoleSectionName,,Console,Console
 Studio.App.EmulatorMainWidget.DesktopSectionName,,Desktop,Desktop
 Studio.App.EmulatorMainWidget.TabletSectionName,,Tablet,Tablet

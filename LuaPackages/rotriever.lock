@@ -108,7 +108,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.4.2 registry",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Merge Merge 0.3.1 registry",
-    "NetworkingFriends NetworkingFriends 2.12.0 registry",
+    "NetworkingFriends NetworkingFriends 2.12.1 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "NetworkingSquads NetworkingSquads 1.16.6 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
@@ -125,7 +125,7 @@ dependencies = [
     "ReactIs ReactIs 17.0.4 registry",
     "ReactOtter ReactOtter 1.1.0 registry",
     "ReactRoblox ReactRoblox 17.0.4 registry",
-    "ReactSceneUnderstanding ReactSceneUnderstanding 0.3.0 registry",
+    "ReactSceneUnderstanding ReactSceneUnderstanding 0.4.0 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
     "ReactTestingUtils ReactTestingUtils 1.2.0 registry",
     "ReactUtils ReactUtils 1.2.0 registry",
@@ -141,7 +141,7 @@ dependencies = [
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxContacts RoduxContacts ce1067fc git+https://github.com/roblox/rodux-contacts#v0.9.1",
     "RoduxDevtools RoduxDevtools 1.0.0-rc.1 registry",
-    "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
+    "RoduxFriends RoduxFriends ceacc387 git+https://github.com/roblox/rodux-friends#v4.3.0",
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#master",
     "RoduxNetworking RoduxNetworking 3.2.1 registry",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
@@ -150,9 +150,9 @@ dependencies = [
     "StringUtilities <patched> string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.12.7 registry",
-    "UIBlox UIBlox d190b684 git+https://github.com/roblox/uiblox#master",
-    "UrlBuilder UrlBuilder 7ecf93c3 git+https://github.com/roblox/url-builder#master",
+    "UGCValidation UGCValidation 1.12.8 registry",
+    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
+    "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
     "enumerate enumerate 1.1.0 registry",
@@ -339,7 +339,7 @@ dependencies = [
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox d190b684 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -358,7 +358,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.4 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox d190b684 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
     "t t 1.2.5 registry",
 ]
 
@@ -873,6 +873,15 @@ source = "git+https://github.com/roblox/lua-lazy-require#main"
 dependencies = ["React React 17.0.4 registry"]
 
 [[package]]
+name = "LazyRequire"
+version = "0.1.4"
+source = "registry"
+dependencies = [
+    "Cryo Cryo 1.1.0 registry",
+    "React React 17.0.4 registry",
+]
+
+[[package]]
 name = "LuaSocialLibrariesDeps"
 version = "1.3.1"
 commit = "6ca4d53eb657c41705e24f9d244452cc710d0680"
@@ -890,7 +899,7 @@ dependencies = [
     "NetworkingChat roblox/networking-chat a4ef5fb2 git+https://github.com/roblox/networking-chat#v0.2.0",
     "NetworkingContacts NetworkingContacts 1.15.0 registry",
     "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 1.15.0 registry",
-    "NetworkingFriends NetworkingFriends 2.12.0 registry",
+    "NetworkingFriends NetworkingFriends 2.12.1 registry",
     "NetworkingGames NetworkingGames 05d37b25 git+https://github.com/roblox/networking-games#v1.2.0",
     "NetworkingPremiumFeatures NetworkingPremiumFeatures 1.15.0 registry",
     "NetworkingPresence NetworkingPresence 1.15.0 registry",
@@ -1022,7 +1031,7 @@ dependencies = [
 
 [[package]]
 name = "NetworkingFriends"
-version = "2.12.0"
+version = "2.12.1"
 source = "registry"
 dependencies = ["enumerate enumerate 1.1.0 registry"]
 
@@ -1203,8 +1212,8 @@ dependencies = [
     "Roact RoactCompat 17.0.4 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox d190b684 git+https://github.com/roblox/uiblox#master",
-    "UrlBuilder UrlBuilder 7ecf93c3 git+https://github.com/roblox/url-builder#master",
+    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
+    "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1325,12 +1334,12 @@ dependencies = [
 
 [[package]]
 name = "ReactSceneUnderstanding"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "React React 17.0.4 registry",
-    "SceneUnderstanding SceneUnderstanding 0.3.0 registry",
+    "SceneUnderstanding SceneUnderstanding 0.4.0 registry",
 ]
 
 [[package]]
@@ -1573,7 +1582,23 @@ version = "4.2.4"
 commit = "ff764ac5f3c7c426577badad3f7dbe9f4d6b9ef4"
 source = "git+https://github.com/roblox/rodux-friends#v4.2.4"
 dependencies = [
-    "FriendsNetworking NetworkingFriends 2.12.0 registry",
+    "FriendsNetworking NetworkingFriends 2.12.1 registry",
+    "LuauPolyfill LuauPolyfill 1.2.3 registry",
+    "NetworkingBlocking NetworkingBlocking 1.15.0 registry",
+    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
+    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "enumerate enumerate 1.1.0 registry",
+    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
+    "t t 1.2.5 registry",
+]
+
+[[package]]
+name = "RoduxFriends"
+version = "4.3.0"
+commit = "ceacc387eaf478defef68e9e62d0c496a5f0e107"
+source = "git+https://github.com/roblox/rodux-friends#v4.3.0"
+dependencies = [
+    "FriendsNetworking NetworkingFriends 2.12.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "NetworkingBlocking NetworkingBlocking 1.15.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
@@ -1697,7 +1722,7 @@ commit = "4e506b43f96bd4eec9e5a666c70981545ff6d3e3"
 source = "git+https://github.com/roblox/rodux-users#v1.5.1"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "FriendsNetworking NetworkingFriends 2.12.0 registry",
+    "FriendsNetworking NetworkingFriends 2.12.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxNetworking RoduxNetworking 3.2.1 registry",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
@@ -1710,7 +1735,7 @@ source = "registry"
 
 [[package]]
 name = "SceneUnderstanding"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry"
 
 [[package]]
@@ -1760,7 +1785,7 @@ dependencies = [
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox d190b684 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1849,7 +1874,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.12.7"
+version = "1.12.8"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1859,11 +1884,12 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "d190b684383abf14c9ed1de7c90dd6a9b219452f"
+commit = "004534d3d7e9cdf0a41bebe88fccb13552645424"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
+    "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 0.1.4 registry",
@@ -1885,7 +1911,7 @@ dependencies = [
 [[package]]
 name = "UrlBuilder"
 version = "1.2.1"
-commit = "7ecf93c359c48d57500ec2da9a19dc1f590a5adc"
+commit = "c725d672491ffd17749fe97a62fb58d259a82bbd"
 source = "git+https://github.com/roblox/url-builder#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",

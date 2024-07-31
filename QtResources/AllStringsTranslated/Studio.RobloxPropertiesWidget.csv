@@ -28,7 +28,7 @@ Studio.RobloxPropertiesWidget.Category.Browsing,,,Browsing,Browsing,,Durchsuchen
 Studio.RobloxPropertiesWidget.Category.Cache,,,Cache,Cache,,Zwischenspeicher,Caché,Cache,,Cache,キャッシュ,캐시,,Cache,,,,Bộ Nhớ Đệm,缓存,缓存,快取
 Studio.RobloxPropertiesWidget.Category.Camera,,,Camera,Camera,,Kamera,Cámara,Caméra,,Fotocamera,カメラ,카메라,,Câmera,,,,Camera,镜头,镜头,相機
 Studio.RobloxPropertiesWidget.Category.Character,,,Character,Character,,Charakter,Personaje,Personnage,,Carattere,キャラクター,캐릭터,,Personagem,,,,Nhân Vật,人物,人物,人物
-Studio.RobloxPropertiesWidget.Category.CharacterJumpSettings,,,Character Jump Settings,Character Jump Settings,,Charakter-Sprungeinstellungen,Configuración de Salto de personaje,Paramètres de saut de caractère,,Impostazioni salto personaggio,キャラクターのジャンプ設定,캐릭터 점프 설정,,Configurações de pulo de personagem,,,,Cài Đặt Nhảy Cho Nhân Vật,人物跳跃设置,人物跳跃设置,人物跳躍設定
+Studio.RobloxPropertiesWidget.Category.CharacterJumpSettings,,,Character Jump Settings,Character Jump Settings,,Charakter-Sprungeinstellungen,Configuración de Salto de personaje,Paramètres de saut de caractère,,Impostazioni salto personaggio,キャラクターのジャンプ設定,캐릭터 점프 설정,,Configurações de pulo de personagem,,การตั้งค่าการกระโดดของตัวละคร,,Cài Đặt Nhảy Cho Nhân Vật,人物跳跃设置,人物跳跃设置,人物跳躍設定
 Studio.RobloxPropertiesWidget.Category.Clothes,,,Clothes,Clothes,,Kleidung,Ropa,Vêtements,,Vestiti,衣装,복장,,Roupas,,,,Trang Phục,服装,服装,衣物
 Studio.RobloxPropertiesWidget.Category.Collision,,,Collision,Collision,,Kollision,Colisión,Collision,,Collisione,衝突,충돌,,Colisão,,,,Va Chạm,碰撞,碰撞,碰撞
 Studio.RobloxPropertiesWidget.Category.Compliance,,,Compliance,Compliance,,Einhaltung,Cumplimiento,Conformité,,Conformità,コンプライアンス,규정 준수,,Conformidade,,,,Tuân Thủ,合规性,合规性,合規性
@@ -156,4 +156,5 @@ Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scriptin
 Studio.RobloxPropertiesWidget.Category.ControlPoints,,,Control Points,Control Points,,Kontrollpunkte,Puntos de control,Points de contrôle,,,制御点,제어점,,Pontos de controle,,,,Điểm Điều Khiển,控制点,控制点,控制點
 Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,,Allineamento,整列,정렬,,Alinhamento,,,,Căn Chỉnh,对齐,对齐,
 Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,,Pseudo-Instances,,,擬似インスタンス,모의 인스턴스,,Pseudoinstâncias,,,,Bản giả,,,
-Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,,,,,,,,,,,,,,,,
+Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,,Modification de l'état,,,,상태 편집,,Edição do estado,,,,Chỉnh Sửa Trạng Thái,,,
+Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,,,,,,,,Hexadecimal:,,,,,,,

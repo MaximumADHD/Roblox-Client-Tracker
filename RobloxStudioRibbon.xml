@@ -413,6 +413,8 @@
       <Group name ="Emulation" text="Studio.App.RobloxRibbonMainWindow.Emulation" modernIcon="Device">
         <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.DeviceEmulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png" modernIcon="Device"  width="32" height="32"/>
         <addseparator visible="false"/>
+        <addaction fflag="StudioDeviceEmulatorGamepadEmulation2" name="deviceEmulatorToggleControlsWidgetAction" style="textundericon" text="Studio.App.EmulatorMainWidget.ShowControllerWidgetCheckBox" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png" modernIcon="Controller" width="32" height="32" tooltip="Studio.App.EmulatorMainWidget.ShowControllerWidgetCheckBoxToolTip"/>
+        <addseparator visible="false"/>
         <addaction name="playerEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.PlayerEmulator" ischeckable="true" width="32" height="32"/>
       </Group>
       <Group name="Audio" text="Studio.App.RobloxRibbonMainWindow.Audio" modernIcon="Mute" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32">

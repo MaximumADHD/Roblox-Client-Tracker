@@ -18,3 +18,16 @@ The migration should only be used on content created under the old scaling behav
 Studio.App.TextureGenerator.PreviewRequestFailed,,Preview request failed.,Preview request failed.
 Studio.App.TextureGenerator.GenerationRequestFailed,,Generation request failed.,Generation request failed.
 Studio.App.TextureGenerator.UVUnwrappingFailed,,UV unwrapping failed.,UV unwrapping failed.
+Studio.App.ExportScene.ExportInProgress,,"Export in progress, avoid editing parts until the export has completed to prevent tearing.","Export in progress, avoid editing parts until the export has completed to prevent tearing."
+Studio.App.ExportScene.StepNone,,Missing translation for step,Missing translation for step
+Studio.App.ExportScene.StepInitializing,,Initializing export,Initializing export
+Studio.App.ExportScene.StepGatheringGeometry,,Gathering relevant Instances from place,Gathering relevant Instances from place
+Studio.App.ExportScene.StepPreloadingAssets2,,Preloading assets %1 / %2,Preloading assets %1 / %2
+Studio.App.ExportScene.StepGeneratingGeometry2,,Generating geometry for Instances %1 / %2,Generating geometry for Instances %1 / %2
+Studio.App.ExportScene.StepGeneratingTerrainGeometry2,,Generating geometry for Terrain chunk %1 / %2,Generating geometry for Terrain chunk %1 / %2
+Studio.App.ExportScene.StepPostprocessingGeometry,,Postprocessing generated geometry,Postprocessing generated geometry
+Studio.App.ExportScene.StepSavingGeometry2,,Saving generated geometry %1 / %2,Saving generated geometry %1 / %2
+Studio.App.ExportScene.StepSavingTextures2,,Saving generated textures %1 / %2,Saving generated textures %1 / %2
+Studio.App.ExportScene.FailedToExportSelection,,Failed to export selected Instances.,Failed to export selected Instances.
+Studio.App.ExportScene.FailedToExportPlace,,Failed to export the place.,Failed to export the place.
+Studio.App.ExportScene.ExportCompleted,,Export completed successfully.,Export completed successfully.

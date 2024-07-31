@@ -218,6 +218,7 @@ Studio.RobloxPropertiesWidget.Category.VectorForce,,VectorForce,VectorForce
 Studio.RobloxPropertiesWidget.Category.Video,,Video,Video
 Studio.RobloxPropertiesWidget.Category.Visualization,,Visualization,Visualization
 Studio.RobloxPropertiesWidget.Category.Winch,,Winch,Winch
+Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,Hex:,Hex:
 Studio.CapabilitiesPropertyItem.Capability.RunClientScript,,Allows scripts to run on the Client,Allows scripts to run on the Client
 Studio.CapabilitiesPropertyItem.Capability.RunServerScript,,Allows scripts to run on the Server,Allows scripts to run on the Server
 Studio.CapabilitiesPropertyItem.Capability.AccessOutsideWrite,,Allows access to the instances outside the Sandboxed container,Allows access to the instances outside the Sandboxed container

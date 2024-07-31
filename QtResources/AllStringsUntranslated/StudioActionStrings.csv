@@ -323,6 +323,8 @@ Studio.App.RBXMainWindow.SwapAttachments,,Swap Attachments,Swap Attachments
 Studio.App.RBXMainWindow.SwitchBothAttachments,,Swap both attachments on the constraint,Swap both attachments on the constraint
 Studio.App.RBXMainWindow.PropertyFilter,,Property Filter,Property Filter
 Studio.App.RobloxRibbonMainWindow.DeviceEmulator,,Device,Device
+Studio.App.RobloxRibbonMainWindow.ControlsEmulatorToggle,,Emulate Device Controllers,Emulate Device Controllers
+Studio.App.RobloxRibbonMainWindow.ControlsEmulatorToggleAlias,,Emulate Device Controllers,Emulate Device Controllers
 Studio.App.RobloxRibbonMainWindow.PlayerEmulator,,Player,Player
 Studio.App.RobloxRibbonMainWindow.Fwd,,Fwd,Fwd
 Studio.App.RobloxRibbonMainWindow.JumpToNextScriptLocation,,Jump to next script location,Jump to next script location

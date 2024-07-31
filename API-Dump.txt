@@ -430,7 +430,7 @@ Class AudioEmitter : Instance [NotBrowsable]
 	Function AudioEmitter:GetAudibilityFor(listener: AudioListener) -> number {RobloxScriptSecurity}
 	Function AudioEmitter:GetConnectedWires(pin: string) -> { any }
 	Function AudioEmitter:GetDistanceAttenuation() -> { [string]: any } [CustomLuaState]
-	Function AudioEmitter:GetInteractingListeners() -> { any } {RobloxScriptSecurity}
+	Function AudioEmitter:GetInteractingListeners() -> { any }
 	Function AudioEmitter:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 Class AudioEqualizer : Instance [NotBrowsable]
 	Property AudioEqualizer.Bypass: boolean
@@ -463,13 +463,13 @@ Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AudioFocusService:AcquireFocus(contextId: number, priority: number) -> boolean {RobloxScriptSecurity}
 	Function AudioFocusService:RegisterContextIdFromLua(contextId: number) -> () {RobloxScriptSecurity}
 	Function AudioFocusService:RequestFocus(contextId: number, priority: number) -> boolean {RobloxScriptSecurity}
-	Event AudioFocusService.OnDeafenVoiceAudio() {RobloxScriptSecurity}
-	Event AudioFocusService.OnUndeafenVoiceAudio() {RobloxScriptSecurity}
+	Event AudioFocusService.OnDeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
+	Event AudioFocusService.OnUndeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
 Class AudioListener : Instance [NotBrowsable]
 	Property AudioListener.AudioInteractionGroup: string
 	Function AudioListener:GetAudibilityOf(emitter: AudioEmitter) -> number {RobloxScriptSecurity}
 	Function AudioListener:GetConnectedWires(pin: string) -> { any }
-	Function AudioListener:GetInteractingEmitters() -> { any } {RobloxScriptSecurity}
+	Function AudioListener:GetInteractingEmitters() -> { any }
 Class AudioPitchShifter : Instance [NotBrowsable]
 	Property AudioPitchShifter.Bypass: boolean
 	Property AudioPitchShifter.Pitch: number
@@ -493,7 +493,6 @@ Class AudioPlayer : Instance [NotBrowsable]
 	Event AudioPlayer.Ended()
 	Event AudioPlayer.Looped()
 Class AudioReverb : Instance [NotBrowsable]
-	Property AudioReverb.LowShelfGain: number
 	Property AudioReverb.Bypass: boolean
 	Property AudioReverb.DecayRatio: number
 	Property AudioReverb.DecayTime: number
@@ -504,6 +503,7 @@ Class AudioReverb : Instance [NotBrowsable]
 	Property AudioReverb.HighCutFrequency: number
 	Property AudioReverb.LateDelayTime: number
 	Property AudioReverb.LowShelfFrequency: number
+	Property AudioReverb.LowShelfGain: number
 	Property AudioReverb.ReferenceFrequency: number
 	Property AudioReverb.WetLevel: number
 	Function AudioReverb:GetConnectedWires(pin: string) -> { any }
@@ -1513,6 +1513,7 @@ Class BevelMesh : DataModelMesh [NotCreatable] [NotBrowsable] [Deprecated]
 Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
 Class EditableMesh : DataModelMesh
+	Property EditableMesh.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property EditableMesh.SkinningEnabled: boolean
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
@@ -1646,6 +1647,7 @@ Class DebuggerConnectionManager : Instance [NotCreatable] [Service] [NotReplicat
 	Function DebuggerConnectionManager:ConnectLocal(dataModel: DataModel) -> number {RobloxScriptSecurity}
 	Function DebuggerConnectionManager:ConnectRemote(host: string, port: number) -> number {RobloxScriptSecurity}
 	Function DebuggerConnectionManager:FocusConnection(connection: DebuggerConnection) -> () {RobloxScriptSecurity}
+	Function DebuggerConnectionManager:GetAvailableConnection() -> DebuggerConnection {RobloxScriptSecurity}
 	Function DebuggerConnectionManager:GetConnectionById(id: number) -> DebuggerConnection {RobloxScriptSecurity}
 	Event DebuggerConnectionManager.ConnectionEnded(connection: DebuggerConnection, reason: Enum.DebuggerEndReason) {RobloxScriptSecurity}
 	Event DebuggerConnectionManager.ConnectionStarted(connection: DebuggerConnection) {RobloxScriptSecurity}
@@ -1758,6 +1760,7 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DraggerService.ShowPivotIndicator: boolean [NotReplicated]
 Class EditableImage : Instance
 	Property EditableImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
+	Property EditableImage.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property EditableImage.Size: Vector2
 	Function EditableImage:Copy(min: Vector2, max: Vector2) -> EditableImage
 	Function EditableImage:Crop(min: Vector2, max: Vector2) -> ()
@@ -2402,6 +2405,7 @@ Class AdGui : SurfaceGuiBase
 	Property AdGui.AdShape: Enum.AdShape
 	Property AdGui.EnableVideoAds: boolean
 	Function AdGui:HandleLuaUIEvent(eventType: Enum.AdUIEventType) -> () {RobloxScriptSecurity}
+	Function AdGui:forwardStateToLuaUI() -> () {RobloxScriptSecurity}
 	Event AdGui.AdEvent(adEventType: Enum.AdEventType) {RobloxSecurity} [Hidden]
 	Event AdGui.ReportIsSubscribedToVideoCompletion() {RobloxSecurity} [Hidden]
 	Event AdGui.adGuiStateChanged(adUIState: any) {RobloxScriptSecurity}
@@ -2648,6 +2652,7 @@ Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HapticService:IsMotorSupported(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> boolean
 	Function HapticService:IsVibrationSupported(inputType: Enum.UserInputType) -> boolean
 	Function HapticService:SetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor, vibrationValues: ...any) -> ()
+Class HeatmapService : Instance [NotCreatable] [Service]
 Class HeightmapImporterService : Instance [Service] [NotReplicated]
 	Function HeightmapImporterService:CancelImportHeightmap() -> () {RobloxScriptSecurity}
 	Function HeightmapImporterService:GetHeightmapPreviewAsync(heightmapAssetId: string) -> ...any {RobloxScriptSecurity} [Yields]
@@ -2965,11 +2970,14 @@ Class Motor : JointInstance
 	Property Motor.CurrentAngle: number [📁 LoadOnly] [NotReplicated]
 	Property Motor.DesiredAngle: number
 	Property Motor.MaxVelocity: number
+	Property Motor.ReplicateCurrentAngle: number {RobloxSecurity} [Hidden] [NotScriptable]
 	Function Motor:SetDesiredAngle(value: number) -> ()
 Class Motor6D : Motor
 	Property Motor6D.ChildName: string [ReadOnly] [NotScriptable]
 	Property Motor6D.ParentName: string [ReadOnly] [NotScriptable]
 	Property Motor6D.Transform: CFrame [Hidden] [NotReplicated]
+	Property Motor6D.ReplicateCurrentAngle6D: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
+	Property Motor6D.ReplicateCurrentOffset6D: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
 Class Rotate : JointInstance [Deprecated]
 Class Snap : JointInstance [Deprecated]
 Class VelocityMotor : JointInstance
@@ -3203,6 +3211,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetSubscriptionProductInfoAsync(subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptionId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:GetUserSubscriptionDetailsAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
+	Function MarketplaceService:GetUserSubscriptionDetailsInternalAsync(subscriptionId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:GetUserSubscriptionPaymentHistoryAsync(user: Player, subscriptionId: string) -> { any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionStatusAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:PerformBulkPurchase(orderRequest: { [string]: any }, options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -3216,6 +3225,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PrepareCollectiblesPurchase(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:PromptBulkPurchase(player: Player, lineItems: { any }, options: { [string]: any }) -> ()
 	Function MarketplaceService:PromptBundlePurchase(player: Instance, bundleId: number) -> ()
+	Function MarketplaceService:PromptCancelSubscription(user: Player, subscriptionId: string) -> ()
 	Function MarketplaceService:PromptCollectiblesPurchase(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:PromptGamePassPurchase(player: Instance, gamePassId: number) -> ()
 	Function MarketplaceService:PromptNativePurchase(player: Instance, productId: string) -> () {RobloxScriptSecurity}
@@ -3255,6 +3265,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptBundlePurchaseFinished(player: Instance, bundleId: number, wasPurchased: boolean)
 	Event MarketplaceService.PromptBundlePurchaseRequested(player: Instance, bundleId: number) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptCancelSubscriptionRequested(subscriptionId: string) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptCollectibleBundlePurchaseRequested(player: Instance, bundleId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number, idempotencyKey: string, purchaseAuthToken: string) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptCollectiblesPurchaseRequested(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number, idempotencyKey: string, purchaseAuthToken: string) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptGamePassPurchaseFinished(player: Instance, gamePassId: number, wasPurchased: boolean)
@@ -3795,9 +3806,6 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.TriangleCount: number [ReadOnly]
 	Property PartOperation.UsePartColor: boolean
 	Function PartOperation:SubstituteGeometry(source: Instance) -> ()
-	Event PartOperation.MeshDeltaUpdate(originalMeshHash: number, newMeshHash: number, mesh: string) {RobloxSecurity} [Hidden]
-	Event PartOperation.MeshFullUpdate(newMeshHash: number, mesh: string) {RobloxSecurity} [Hidden]
-	Event PartOperation.RequestMeshFullUpdate() {RobloxSecurity} [Hidden]
 Class IntersectOperation : PartOperation
 Class NegateOperation : PartOperation
 Class UnionOperation : PartOperation
@@ -5314,7 +5322,7 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StopWatchReporter:StartTask(reportName: string, taskName: string) -> number {RobloxScriptSecurity}
 Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:BindCodeToGuid(runCodeGuid: string, code: string) -> ...any {RobloxScriptSecurity} [Yields]
-	Function StreamingService:ExecuteCommandAsync(requestId: string, commandName: string, arg: any) -> () {RobloxScriptSecurity} [Yields]
+	Function StreamingService:ExecuteCommandAsync(requestId: string, commandName: string, arg: any) -> any {LocalUserSecurity} [Yields]
 	Function StreamingService:GetEphemeralVariable(key: string) -> any {RobloxScriptSecurity}
 	Function StreamingService:GetInstance(requestId: string, instanceId: string) -> Instance? {RobloxScriptSecurity}
 	Function StreamingService:InvokeCommand(requestId: string, commandName: string, arg: any) -> () {RobloxScriptSecurity}
@@ -6002,6 +6010,7 @@ Class Tween : TweenBase
 Class TweenService : Instance [NotCreatable] [Service]
 	Function TweenService:Create(instance: Instance, tweenInfo: TweenInfo, propertyTable: { [string]: any }) -> Tween
 	Function TweenService:GetValue(alpha: number, easingStyle: Enum.EasingStyle, easingDirection: Enum.EasingDirection) -> number
+	Function TweenService:SmoothDamp(current: any, target: any, velocity: any, smoothTime: number, maxSpeed: number?, dt: number?) -> (any, any)
 Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CalculateEditableMeshTotalSurfaceArea(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
@@ -6020,6 +6029,8 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetEditableMeshTriCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshVertColors(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshVerts(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
+	Function UGCValidationService:GetImageTransparencyWithByteString(textureId: string) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:GetImageTransparencyWithTextureID(textureId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshTriCount(meshId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVertColors(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
@@ -6114,7 +6125,7 @@ Class UIDragDetector : UIComponent [NotBrowsable]
 	Event UIDragDetector.DragContinue(inputPosition: Vector2)
 	Event UIDragDetector.DragEnd(inputPosition: Vector2)
 	Event UIDragDetector.DragStart(inputPosition: Vector2)
-Class UIFlexItem : UIComponent [NotBrowsable]
+Class UIFlexItem : UIComponent
 	Property UIFlexItem.FlexMode: Enum.UIFlexMode
 	Property UIFlexItem.GrowRatio: number
 	Property UIFlexItem.ItemLineAlignment: Enum.ItemLineAlignment
@@ -7148,6 +7159,13 @@ Enum ClientAnimatorThrottlingMode
 	EnumItem ClientAnimatorThrottlingMode.Default : 0
 	EnumItem ClientAnimatorThrottlingMode.Disabled : 1
 	EnumItem ClientAnimatorThrottlingMode.Enabled : 2
+Enum CloseReason
+	EnumItem CloseReason.Unknown : 0
+	EnumItem CloseReason.RobloxMaintenance : 1
+	EnumItem CloseReason.DeveloperShutdown : 2
+	EnumItem CloseReason.DeveloperUpdate : 3
+	EnumItem CloseReason.ServerEmpty : 4
+	EnumItem CloseReason.OutOfMemory : 5
 Enum CollaboratorStatus
 	EnumItem CollaboratorStatus.None : 0
 	EnumItem CollaboratorStatus.Editing3D : 1
@@ -8186,6 +8204,10 @@ Enum LoadDynamicHeads
 	EnumItem LoadDynamicHeads.Default : 0
 	EnumItem LoadDynamicHeads.Disabled : 1
 	EnumItem LoadDynamicHeads.Enabled : 2
+Enum LocationType
+	EnumItem LocationType.Character : 0
+	EnumItem LocationType.Camera : 1
+	EnumItem LocationType.ObjectPosition : 2
 Enum MarketplaceBulkPurchasePromptStatus
 	EnumItem MarketplaceBulkPurchasePromptStatus.Completed : 1
 	EnumItem MarketplaceBulkPurchasePromptStatus.Aborted : 2
@@ -8809,6 +8831,11 @@ Enum SecurityCapability
 	EnumItem SecurityCapability.DataStore : 9
 	EnumItem SecurityCapability.Network : 10
 	EnumItem SecurityCapability.Physics : 11
+	EnumItem SecurityCapability.UI : 12
+	EnumItem SecurityCapability.CSG : 13
+	EnumItem SecurityCapability.Chat : 14
+	EnumItem SecurityCapability.Animation : 15
+	EnumItem SecurityCapability.Avatar : 16
 Enum SelectionBehavior
 	EnumItem SelectionBehavior.Escape : 0
 	EnumItem SelectionBehavior.Stop : 1
