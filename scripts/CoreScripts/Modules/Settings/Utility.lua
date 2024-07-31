@@ -64,7 +64,12 @@ local FFlagSettingsMenuUseHardwareSafeArea = game:DefineFastFlag("SettingsMenuUs
 local GetFFlagFix10ftMenuAddFriend = require(Settings.Flags.GetFFlagFix10ftMenuAddFriend)
 local GetFFlagAddAnimatedFocusState = require(Settings.Flags.GetFFlagAddAnimatedFocusState)
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
+local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(Settings.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
 local FFlagUnbindRenderSteps = game:DefineFastFlag("UnbindRenderSteps", false)
+
+local isPreferredTextSizePropValid, _result = pcall(function() -- TODO(UIBLOX-1002): Ideally we'd use an engine feature here instead of a pcall. This will be removed when we have the EnablePreferredTextSizeAccessGuiService engine feature
+	return GuiService.PreferredTextSize
+end)
 
 ------------------ Modules --------------------
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
@@ -680,7 +685,7 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 		Font = Theme.font(Enum.Font.SourceSansBold, "Button"),
 		TextSize = Theme.textSize(24, "Button"),
 		Text = text,
-		TextScaled = true,
+		TextScaled = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then false else true,
 		TextWrapped = true,
 		ZIndex = 2,
 		Parent = button,
@@ -700,7 +705,17 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 			textLabel.TextSize = Theme.textSize(36)
 		end
 	end
-	constraint.MaxTextSize = textLabel.TextSize
+	if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() or not isPreferredTextSizePropValid then
+		constraint.MaxTextSize = textLabel.TextSize
+	else
+		local textConstraintUpScale = (GuiService.PreferredTextSize.Value - 1) * 3
+		constraint.MaxTextSize = textLabel.TextSize + textConstraintUpScale
+		local labelTextSize = textLabel.TextSize
+		GuiService:GetPropertyChangedSignal("PreferredTextSize"):Connect(function()
+			textConstraintUpScale = (GuiService.PreferredTextSize.Value - 1) * 3
+			constraint.MaxTextSize = labelTextSize + textConstraintUpScale
+		end)
+	end
 
 	return button, textLabel, setRowRef
 end
@@ -2697,7 +2712,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		Active = false,
 		AutoButtonColor = false,
 		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
-		AutomaticSize = if rowDisplayDescription or rowSliderLeftLabelText or rowSliderRightLabelText then Enum.AutomaticSize.Y else nil,
+		AutomaticSize = if rowDisplayDescription or rowSliderLeftLabelText or rowSliderRightLabelText or GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 		Position = UDim2.new(0, 0, 0, nextRowPositionY),
 		ZIndex = 2,
 		Selectable = false,
@@ -2746,6 +2761,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
+			TextWrapped = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then true else false,
 			ZIndex = 2,
 			Parent = RowLabelAndDescriptionFrame,
 			LayoutOrder = 1
@@ -2790,16 +2806,27 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			TextSize = Theme.textSize(16, "UtilityRow"),
 			TextColor3 = Color3.fromRGB(255, 255, 255),
 			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then true else false,
+			AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 200, 1, 0),
+			Size = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then UDim2.new(0.4, -20, 1, 0) else UDim2.new(0, 200, 1, 0), --keep width consistent with no-description rows
 			Position = UDim2.new(0, 10, 0, 0),
 			ZIndex = 2,
 			Parent = RowFrame,
 		})
+		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
+			Util.Create("UIPadding")({
+				Name = rowDisplayName .. "UIPadding",
+				PaddingBottom = UDim.new(0, 10), --pad w same offset values used in for labels with description s.t all UI has consistent appearance
+				PaddingTop = UDim.new(0, 10),
+				Parent = RowLabel
+			})
+		end
 	end
 
 	local RowLabelTextSizeConstraint = Instance.new("UITextSizeConstraint")
-	if FFlagUseNotificationsLocalization or Theme.UIBloxThemeEnabled or rowDisplayDescription then
+
+	if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() and (FFlagUseNotificationsLocalization or Theme.UIBloxThemeEnabled or rowDisplayDescription) then
 		if not rowDisplayDescription then
 			RowLabel.Size = UDim2.new(0.35, 0, 1, 0)
 		end
@@ -2819,7 +2846,9 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		else
 			RowLabel.TextSize = isTenFootInterface() and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
 		end
-		RowLabelTextSizeConstraint.MaxTextSize = RowLabel.TextSize
+		if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
+			RowLabelTextSizeConstraint.MaxTextSize = RowLabel.TextSize
+		end 
 	end
 	onResized(getViewportSize(), isPortrait())
 	addOnResizedCallback(RowFrame, onResized)
@@ -3167,6 +3196,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 	local RowFrame = Util.Create("ImageButton")({
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
+		AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 		BorderSizePixel = 0,
 		Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png",
 		ScaleType = Enum.ScaleType.Slice,
@@ -3205,16 +3235,29 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		TextSize = Theme.textSize(16, "UtilityRow"),
 		TextColor3 = Color3.fromRGB(255, 255, 255),
 		TextXAlignment = Enum.TextXAlignment.Left,
-		TextWrapped = autoSizeLabel,
+		TextWrapped = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then true else autoSizeLabel,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(0, 200, 1, 0),
+		AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
+		Size = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then UDim2.new(0.4, -20, 1, 0) else UDim2.new(0, 200, 1, 0), --keep width consistent with no-description rows
 		Position = UDim2.new(0, 10, 0, 0),
 		ZIndex = 2,
 		Parent = RowFrame,
 	})
+	if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
+		Util.Create("UIPadding")({
+			Name = rowDisplayName .. "UIPadding",
+			PaddingBottom = UDim.new(0, 10),	--pad w/ same offset values used in AddNewRow method (used for majority of in-game settings rows) s.t all settings have consistent appearance
+			PaddingTop = UDim.new(0, 10),
+			Parent = RowLabel
+		})
+	end
 	local function onResized(viewportSize, portrait)
 		if autoSizeLabel then
-			RowLabel.Size = UDim2.new(1 - rowObject.Size.X.Scale, -rowObject.Size.X.Offset, 1, 0)
+			if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+				UDim2.new(0, 200, 1, 0)
+			else
+				RowLabel.Size = UDim2.new(1 - rowObject.Size.X.Scale, -rowObject.Size.X.Offset, 1, 0)
+			end
 		end
 		if portrait then
 			RowLabel.TextSize = Theme.textSize(16, "UtilityRow")

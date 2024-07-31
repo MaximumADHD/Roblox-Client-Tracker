@@ -82,38 +82,44 @@ PROTO_0:
   JUMP [+1]
   LOADNIL R7
   GETTABLEKS R9 R0 K27 ["MaterialIndex"]
-  JUMPIFNOT R9 [+52]
+  JUMPIFNOT R9 [+61]
   GETTABLEKS R9 R0 K27 ["MaterialIndex"]
   GETTABLEKS R11 R0 K28 ["MaterialList"]
   LENGTH R10 R11
-  JUMPIFNOTLE R9 R10 [+46]
-  DUPTABLE R8 K11 [{"Id", "Label", "Schema", "Value"}]
+  JUMPIFNOTLE R9 R10 [+55]
+  DUPTABLE R8 K34 [{"Id", "Label", "Schema", "Value", "Tooltip"}]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K33 ["Slope"]
+  GETTABLEKS R9 R10 K35 ["Slope"]
   SETTABLEKS R9 R8 K0 ["Id"]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K6 ["ElevationSettings"]
   GETUPVAL R13 1
-  GETTABLEKS R12 R13 K33 ["Slope"]
+  GETTABLEKS R12 R13 K35 ["Slope"]
   NAMECALL R9 R1 K8 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K1 ["Label"]
   DUPTABLE R9 K26 [{"Type"}]
-  LOADK R10 K33 ["Slope"]
+  LOADK R10 K35 ["Slope"]
   SETTABLEKS R10 R9 K14 ["Type"]
   SETTABLEKS R9 R8 K9 ["Schema"]
-  DUPTABLE R9 K36 [{"Min", "Max"}]
+  DUPTABLE R9 K38 [{"Min", "Max"}]
   GETTABLEKS R12 R0 K28 ["MaterialList"]
   GETTABLEKS R13 R0 K27 ["MaterialIndex"]
   GETTABLE R11 R12 R13
-  GETTABLEKS R10 R11 K37 ["MinSlope"]
-  SETTABLEKS R10 R9 K34 ["Min"]
+  GETTABLEKS R10 R11 K39 ["MinSlope"]
+  SETTABLEKS R10 R9 K36 ["Min"]
   GETTABLEKS R12 R0 K28 ["MaterialList"]
   GETTABLEKS R13 R0 K27 ["MaterialIndex"]
   GETTABLE R11 R12 R13
-  GETTABLEKS R10 R11 K38 ["MaxSlope"]
-  SETTABLEKS R10 R9 K35 ["Max"]
+  GETTABLEKS R10 R11 K40 ["MaxSlope"]
+  SETTABLEKS R10 R9 K37 ["Max"]
   SETTABLEKS R9 R8 K10 ["Value"]
+  LOADK R11 K33 ["Tooltip"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K35 ["Slope"]
+  NAMECALL R9 R1 K8 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K33 ["Tooltip"]
   JUMP [+1]
   LOADNIL R8
   SETLIST R4 R5 4 [1]
@@ -124,46 +130,52 @@ PROTO_0:
   SETTABLEKS R4 R3 K4 ["Separator"]
   DUPTABLE R4 K5 [{"Id", "Label", "Children", "Expandable", "Separator"}]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K39 ["AdditionalSettings"]
+  GETTABLEKS R5 R6 K41 ["AdditionalSettings"]
   SETTABLEKS R5 R4 K0 ["Id"]
   LOADK R7 K7 ["Category"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K39 ["AdditionalSettings"]
+  GETTABLEKS R8 R9 K41 ["AdditionalSettings"]
   NAMECALL R5 R1 K8 ["getText"]
   CALL R5 3 1
   SETTABLEKS R5 R4 K1 ["Label"]
   NEWTABLE R5 0 2
-  GETTABLEKS R7 R0 K40 ["FillMaterial"]
-  JUMPIFNOT R7 [+31]
-  DUPTABLE R6 K11 [{"Id", "Label", "Schema", "Value"}]
+  GETTABLEKS R7 R0 K42 ["FillMaterial"]
+  JUMPIFNOT R7 [+40]
+  DUPTABLE R6 K34 [{"Id", "Label", "Schema", "Value", "Tooltip"}]
   GETUPVAL R8 4
-  GETTABLEKS R7 R8 K40 ["FillMaterial"]
+  GETTABLEKS R7 R8 K42 ["FillMaterial"]
   SETTABLEKS R7 R6 K0 ["Id"]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K39 ["AdditionalSettings"]
+  GETTABLEKS R9 R10 K41 ["AdditionalSettings"]
   GETUPVAL R11 4
-  GETTABLEKS R10 R11 K40 ["FillMaterial"]
+  GETTABLEKS R10 R11 K42 ["FillMaterial"]
   NAMECALL R7 R1 K8 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K1 ["Label"]
-  DUPTABLE R7 K41 [{"Dropdown", "Type"}]
+  DUPTABLE R7 K43 [{"Dropdown", "Type"}]
   LOADB R8 1
   SETTABLEKS R8 R7 K31 ["Dropdown"]
   LOADK R8 K29 ["Material"]
   SETTABLEKS R8 R7 K14 ["Type"]
   SETTABLEKS R7 R6 K9 ["Schema"]
-  GETTABLEKS R7 R0 K40 ["FillMaterial"]
+  GETTABLEKS R7 R0 K42 ["FillMaterial"]
   SETTABLEKS R7 R6 K10 ["Value"]
+  LOADK R9 K33 ["Tooltip"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K42 ["FillMaterial"]
+  NAMECALL R7 R1 K8 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K33 ["Tooltip"]
   JUMP [+1]
   LOADNIL R6
-  DUPTABLE R7 K11 [{"Id", "Label", "Schema", "Value"}]
+  DUPTABLE R7 K34 [{"Id", "Label", "Schema", "Value", "Tooltip"}]
   GETUPVAL R9 4
-  GETTABLEKS R8 R9 K42 ["FallbackMaterial"]
+  GETTABLEKS R8 R9 K44 ["FallbackMaterial"]
   SETTABLEKS R8 R7 K0 ["Id"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K39 ["AdditionalSettings"]
+  GETTABLEKS R10 R11 K41 ["AdditionalSettings"]
   GETUPVAL R12 4
-  GETTABLEKS R11 R12 K42 ["FallbackMaterial"]
+  GETTABLEKS R11 R12 K44 ["FallbackMaterial"]
   NAMECALL R8 R1 K8 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K1 ["Label"]
@@ -175,8 +187,14 @@ PROTO_0:
   LOADK R9 K29 ["Material"]
   SETTABLEKS R9 R8 K14 ["Type"]
   SETTABLEKS R8 R7 K9 ["Schema"]
-  GETTABLEKS R8 R0 K42 ["FallbackMaterial"]
+  GETTABLEKS R8 R0 K44 ["FallbackMaterial"]
   SETTABLEKS R8 R7 K10 ["Value"]
+  LOADK R10 K33 ["Tooltip"]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K44 ["FallbackMaterial"]
+  NAMECALL R8 R1 K8 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K33 ["Tooltip"]
   SETLIST R5 R6 2 [1]
   SETTABLEKS R5 R4 K2 ["Children"]
   LOADB R5 0

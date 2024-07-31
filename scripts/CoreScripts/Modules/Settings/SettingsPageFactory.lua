@@ -27,6 +27,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagFixIGMTabTransitions = require(script.Parent.Flags.GetFFlagFixIGMTabTransitions)
+local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(script.Parent.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -108,6 +109,9 @@ local function Initialize()
 		titleTextSizeConstraint.Parent = title
 	else
 		title.Parent = icon
+	end
+	if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() and utility:IsPortrait() and utility:IsSmallTouchScreen() then 
+		titleTextSizeConstraint.Parent = title
 	end
 
 	if utility:IsSmallTouchScreen() then

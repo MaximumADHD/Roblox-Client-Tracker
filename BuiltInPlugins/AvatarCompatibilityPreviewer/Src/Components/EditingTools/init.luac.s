@@ -20,24 +20,33 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R0 0
+  JUMPIFNOTEQKS R0 K0 ["none"] [+2]
+  RETURN R0 0
+  GETUPVAL R0 1
   LOADB R2 1
-  NAMECALL R0 R0 K0 ["Activate"]
+  NAMECALL R0 R0 K1 ["Activate"]
   CALL R0 2 0
   NEWCLOSURE R0 P0
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   RETURN R0 1
 
 PROTO_4:
-  NOT R1 R0
-  RETURN R1 1
-
-PROTO_5:
   GETUPVAL R0 0
-  DUPCLOSURE R1 K0 [PROTO_4]
+  LOADK R1 K0 ["none"]
   CALL R0 1 0
   RETURN R0 0
 
+PROTO_5:
+  NOT R1 R0
+  RETURN R1 1
+
 PROTO_6:
+  GETUPVAL R0 0
+  DUPCLOSURE R1 K0 [PROTO_5]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
   GETUPVAL R2 0
   JUMPIFNOTEQ R0 R2 [+3]
   LOADK R1 K0 ["none"]
@@ -45,14 +54,14 @@ PROTO_6:
   GETUPVAL R1 0
   RETURN R1 1
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R0 0
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U1
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   DUPTABLE R3 K7 [{"Type", "Tooltip", "Icon", "Selected", "OnClick", "Enabled", "TooltipDescription"}]
   LOADK R4 K8 ["Button"]
   SETTABLEKS R4 R3 K0 ["Type"]
@@ -79,7 +88,7 @@ PROTO_8:
   SETTABLEKS R4 R3 K6 ["TooltipDescription"]
   RETURN R3 1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R2 0
   CALL R2 0 1
   FASTCALL2K ASSERT R2 K0 [+4]
@@ -101,136 +110,147 @@ PROTO_9:
   GETUPVAL R6 2
   GETTABLEKS R5 R6 K7 ["useEffect"]
   NEWCLOSURE R6 P0
+  CAPTURE VAL R2
   CAPTURE VAL R4
-  NEWTABLE R7 0 0
+  NEWTABLE R7 0 1
+  JUMPIFEQKS R2 K5 ["none"] [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  SETLIST R7 R8 1 [1]
   CALL R5 2 0
   GETUPVAL R5 4
-  GETUPVAL R6 5
+  GETTABLEKS R6 R4 K8 ["Deactivation"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R3
+  NEWTABLE R8 0 0
+  CALL R5 3 0
+  GETUPVAL R5 5
+  GETUPVAL R6 6
   MOVE R7 R2
   CALL R5 2 2
   NEWTABLE R7 0 1
-  DUPTABLE R8 K13 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
-  LOADK R9 K14 ["Button"]
-  SETTABLEKS R9 R8 K8 ["Type"]
-  LOADK R11 K15 ["EditingTools"]
-  LOADK R12 K16 ["ShowAccessories"]
-  NAMECALL R9 R1 K17 ["getText"]
+  DUPTABLE R8 K14 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
+  LOADK R9 K15 ["Button"]
+  SETTABLEKS R9 R8 K9 ["Type"]
+  LOADK R11 K16 ["EditingTools"]
+  LOADK R12 K17 ["ShowAccessories"]
+  NAMECALL R9 R1 K18 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K9 ["Tooltip"]
+  SETTABLEKS R9 R8 K10 ["Tooltip"]
   GETUPVAL R10 2
-  GETTABLEKS R9 R10 K18 ["createElement"]
-  LOADK R10 K19 ["Frame"]
-  DUPTABLE R11 K23 [{"BackgroundColor3", "BackgroundTransparency", "Size"}]
-  GETIMPORT R12 K26 [Color3.new]
+  GETTABLEKS R9 R10 K19 ["createElement"]
+  LOADK R10 K20 ["Frame"]
+  DUPTABLE R11 K24 [{"BackgroundColor3", "BackgroundTransparency", "Size"}]
+  GETIMPORT R12 K27 [Color3.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 1
   CALL R12 3 1
-  SETTABLEKS R12 R11 K20 ["BackgroundColor3"]
+  SETTABLEKS R12 R11 K21 ["BackgroundColor3"]
   LOADN R12 0
-  SETTABLEKS R12 R11 K21 ["BackgroundTransparency"]
-  GETIMPORT R12 K29 [UDim2.fromScale]
+  SETTABLEKS R12 R11 K22 ["BackgroundTransparency"]
+  GETIMPORT R12 K30 [UDim2.fromScale]
   LOADN R13 1
   LOADN R14 1
   CALL R12 2 1
-  SETTABLEKS R12 R11 K22 ["Size"]
+  SETTABLEKS R12 R11 K23 ["Size"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K10 ["Icon"]
-  SETTABLEKS R5 R8 K11 ["Selected"]
-  NEWCLOSURE R9 P1
+  SETTABLEKS R9 R8 K11 ["Icon"]
+  SETTABLEKS R5 R8 K12 ["Selected"]
+  NEWCLOSURE R9 P2
   CAPTURE VAL R6
-  SETTABLEKS R9 R8 K12 ["OnClick"]
+  SETTABLEKS R9 R8 K13 ["OnClick"]
   SETLIST R7 R8 1 [1]
-  NEWCLOSURE R8 P2
+  NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R3
   GETUPVAL R10 2
-  GETTABLEKS R9 R10 K18 ["createElement"]
+  GETTABLEKS R9 R10 K19 ["createElement"]
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K30 ["Fragment"]
+  GETTABLEKS R10 R11 K31 ["Fragment"]
   NEWTABLE R11 0 0
   NEWTABLE R12 4 0
-  GETUPVAL R15 6
-  GETTABLEKS R14 R15 K31 ["EDITING_TOOLS_GUI_NAMES"]
-  GETTABLEKS R13 R14 K32 ["EditingToolbar"]
+  GETUPVAL R15 7
+  GETTABLEKS R14 R15 K32 ["EDITING_TOOLS_GUI_NAMES"]
+  GETTABLEKS R13 R14 K33 ["EditingToolbar"]
   GETUPVAL R15 2
-  GETTABLEKS R14 R15 K18 ["createElement"]
-  GETUPVAL R16 7
-  GETTABLEKS R15 R16 K33 ["Toolbar"]
-  DUPTABLE R16 K36 [{"InitialPosition", "VerticalItems"}]
-  LOADK R17 K37 ["Top"]
-  SETTABLEKS R17 R16 K34 ["InitialPosition"]
+  GETTABLEKS R14 R15 K19 ["createElement"]
+  GETUPVAL R16 8
+  GETTABLEKS R15 R16 K34 ["Toolbar"]
+  DUPTABLE R16 K37 [{"InitialPosition", "VerticalItems"}]
+  LOADK R17 K38 ["Top"]
+  SETTABLEKS R17 R16 K35 ["InitialPosition"]
   NEWTABLE R17 0 2
   MOVE R18 R8
-  LOADK R19 K38 ["attachments"]
-  LOADK R20 K39 ["attachments_tool"]
-  LOADK R23 K15 ["EditingTools"]
-  LOADK R24 K40 ["AttachmentsTool"]
-  NAMECALL R21 R1 K17 ["getText"]
+  LOADK R19 K39 ["attachments"]
+  LOADK R20 K40 ["attachments_tool"]
+  LOADK R23 K16 ["EditingTools"]
+  LOADK R24 K41 ["AttachmentsTool"]
+  NAMECALL R21 R1 K18 ["getText"]
   CALL R21 3 -1
   CALL R18 -1 1
   MOVE R19 R8
-  LOADK R20 K41 ["cage"]
-  LOADK R21 K42 ["cage_tool"]
-  LOADK R24 K15 ["EditingTools"]
-  LOADK R25 K43 ["CageTool"]
-  NAMECALL R22 R1 K17 ["getText"]
+  LOADK R20 K42 ["cage"]
+  LOADK R21 K43 ["cage_tool"]
+  LOADK R24 K16 ["EditingTools"]
+  LOADK R25 K44 ["CageTool"]
+  NAMECALL R22 R1 K18 ["getText"]
   CALL R22 3 -1
   CALL R19 -1 1
   SETLIST R17 R18 2 [1]
-  SETTABLEKS R17 R16 K35 ["VerticalItems"]
+  SETTABLEKS R17 R16 K36 ["VerticalItems"]
   CALL R14 2 1
   SETTABLE R14 R12 R13
   LOADB R13 0
   JUMPIFEQKS R2 K5 ["none"] [+37]
-  JUMPIFNOTEQKS R2 K38 ["attachments"] [+14]
+  JUMPIFNOTEQKS R2 K39 ["attachments"] [+14]
   GETUPVAL R14 2
-  GETTABLEKS R13 R14 K18 ["createElement"]
-  GETUPVAL R14 8
-  DUPTABLE R15 K46 [{"worldModel", "additionalToolbarItems"}]
-  GETTABLEKS R16 R0 K44 ["worldModel"]
-  SETTABLEKS R16 R15 K44 ["worldModel"]
-  SETTABLEKS R7 R15 K45 ["additionalToolbarItems"]
+  GETTABLEKS R13 R14 K19 ["createElement"]
+  GETUPVAL R14 9
+  DUPTABLE R15 K47 [{"worldModel", "additionalToolbarItems"}]
+  GETTABLEKS R16 R0 K45 ["worldModel"]
+  SETTABLEKS R16 R15 K45 ["worldModel"]
+  SETTABLEKS R7 R15 K46 ["additionalToolbarItems"]
   CALL R13 2 1
   JUMP [+21]
-  GETUPVAL R14 9
+  GETUPVAL R14 10
   CALL R14 0 1
   JUMPIFNOT R14 [+15]
-  JUMPIFNOTEQKS R2 K41 ["cage"] [+14]
+  JUMPIFNOTEQKS R2 K42 ["cage"] [+14]
   GETUPVAL R14 2
-  GETTABLEKS R13 R14 K18 ["createElement"]
-  GETUPVAL R14 10
-  DUPTABLE R15 K48 [{"mannequin", "additionalToolbarItems"}]
-  GETTABLEKS R16 R0 K44 ["worldModel"]
-  SETTABLEKS R16 R15 K47 ["mannequin"]
-  SETTABLEKS R7 R15 K45 ["additionalToolbarItems"]
+  GETTABLEKS R13 R14 K19 ["createElement"]
+  GETUPVAL R14 11
+  DUPTABLE R15 K49 [{"mannequin", "additionalToolbarItems"}]
+  GETTABLEKS R16 R0 K45 ["worldModel"]
+  SETTABLEKS R16 R15 K48 ["mannequin"]
+  SETTABLEKS R7 R15 K46 ["additionalToolbarItems"]
   CALL R13 2 1
   JUMP [+3]
-  GETUPVAL R13 11
+  GETUPVAL R13 12
   MOVE R14 R2
   CALL R13 1 1
-  SETTABLEKS R13 R12 K49 ["Tool"]
+  SETTABLEKS R13 R12 K50 ["Tool"]
   LOADB R13 0
   JUMPIFEQKS R2 K5 ["none"] [+13]
   GETUPVAL R14 2
-  GETTABLEKS R13 R14 K18 ["createElement"]
-  GETUPVAL R14 12
-  DUPTABLE R15 K51 [{"worldModel", "includeAccessories"}]
-  GETTABLEKS R16 R0 K44 ["worldModel"]
-  SETTABLEKS R16 R15 K44 ["worldModel"]
-  SETTABLEKS R5 R15 K50 ["includeAccessories"]
+  GETTABLEKS R13 R14 K19 ["createElement"]
+  GETUPVAL R14 13
+  DUPTABLE R15 K52 [{"worldModel", "includeAccessories"}]
+  GETTABLEKS R16 R0 K45 ["worldModel"]
+  SETTABLEKS R16 R15 K45 ["worldModel"]
+  SETTABLEKS R5 R15 K51 ["includeAccessories"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K52 ["RepresentEditorStateOnWorldModel"]
+  SETTABLEKS R13 R12 K53 ["RepresentEditorStateOnWorldModel"]
   LOADB R13 0
   JUMPIFEQKS R2 K5 ["none"] [+11]
   GETUPVAL R14 2
-  GETTABLEKS R13 R14 K18 ["createElement"]
-  GETUPVAL R14 13
-  DUPTABLE R15 K54 [{"dummy"}]
-  GETTABLEKS R16 R0 K44 ["worldModel"]
-  SETTABLEKS R16 R15 K53 ["dummy"]
+  GETTABLEKS R13 R14 K19 ["createElement"]
+  GETUPVAL R14 14
+  DUPTABLE R15 K55 [{"dummy"}]
+  GETTABLEKS R16 R0 K45 ["worldModel"]
+  SETTABLEKS R16 R15 K54 ["dummy"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K55 ["BindFocusOnPVInstance"]
+  SETTABLEKS R13 R12 K56 ["BindFocusOnPVInstance"]
   CALL R9 3 -1
   RETURN R9 -1
 
@@ -269,54 +289,60 @@ MAIN:
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K10 ["Src"]
   GETTABLEKS R9 R10 K15 ["Hooks"]
-  GETTABLEKS R8 R9 K16 ["useKeyedState"]
+  GETTABLEKS R8 R9 K16 ["useEventConnection"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K17 ["AttachmentTool"]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Hooks"]
+  GETTABLEKS R9 R10 K17 ["useKeyedState"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETIMPORT R11 K1 [script]
-  GETTABLEKS R10 R11 K18 ["CageEditingTool"]
+  GETTABLEKS R10 R11 K18 ["AttachmentTool"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETIMPORT R12 K1 [script]
-  GETTABLEKS R11 R12 K19 ["RepresentEditorStateOnWorldModel"]
+  GETTABLEKS R11 R12 K19 ["CageEditingTool"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K20 ["useBindFocusOnPVInstance"]
+  GETTABLEKS R12 R13 K20 ["RepresentEditorStateOnWorldModel"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K10 ["Src"]
-  GETTABLEKS R14 R15 K21 ["Flags"]
-  GETTABLEKS R13 R14 K22 ["getFFlagAvatarPreviewerEditingTools"]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K21 ["useBindFocusOnPVInstance"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R16 R0 K10 ["Src"]
-  GETTABLEKS R15 R16 K21 ["Flags"]
-  GETTABLEKS R14 R15 K23 ["getFFlagAvatarPreviewerCageEditingTools"]
+  GETTABLEKS R15 R16 K22 ["Flags"]
+  GETTABLEKS R14 R15 K23 ["getFFlagAvatarPreviewerEditingTools"]
   CALL R13 1 1
-  GETTABLEKS R15 R1 K24 ["ContextServices"]
-  GETTABLEKS R14 R15 K25 ["Localization"]
-  GETTABLEKS R16 R1 K24 ["ContextServices"]
-  GETTABLEKS R15 R16 K26 ["Plugin"]
-  DUPCLOSURE R16 K27 [PROTO_0]
-  DUPCLOSURE R17 K28 [PROTO_1]
-  CAPTURE VAL R11
-  DUPCLOSURE R18 K29 [PROTO_9]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K10 ["Src"]
+  GETTABLEKS R16 R17 K22 ["Flags"]
+  GETTABLEKS R15 R16 K24 ["getFFlagAvatarPreviewerCageEditingTools"]
+  CALL R14 1 1
+  GETTABLEKS R16 R1 K25 ["ContextServices"]
+  GETTABLEKS R15 R16 K26 ["Localization"]
+  GETTABLEKS R17 R1 K25 ["ContextServices"]
+  GETTABLEKS R16 R17 K27 ["Plugin"]
+  DUPCLOSURE R17 K28 [PROTO_0]
+  DUPCLOSURE R18 K29 [PROTO_1]
   CAPTURE VAL R12
-  CAPTURE VAL R14
-  CAPTURE VAL R2
+  DUPCLOSURE R19 K30 [PROTO_10]
+  CAPTURE VAL R13
   CAPTURE VAL R15
-  CAPTURE VAL R7
+  CAPTURE VAL R2
   CAPTURE VAL R16
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R17
   CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R8
-  CAPTURE VAL R13
   CAPTURE VAL R9
-  CAPTURE VAL R6
+  CAPTURE VAL R14
   CAPTURE VAL R10
-  CAPTURE VAL R17
-  RETURN R18 1
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  CAPTURE VAL R18
+  RETURN R19 1

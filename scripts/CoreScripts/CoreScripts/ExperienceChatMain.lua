@@ -18,6 +18,7 @@ if not GetFFlagConsolidateBubbleChat() then
 end
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local ApolloClient = require(RobloxGui.Modules.ApolloClient)
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
@@ -130,5 +131,6 @@ ExperienceChat.mountClientApp({
 	isVoiceServiceInitialized = if isVoiceServiceInitialized then isVoiceServiceInitialized else nil,
 	onClickedLikelySpeakingBubble = if onClickedLikelySpeakingBubble then onClickedLikelySpeakingBubble else nil,
 	translator = RobloxTranslator :: any,
+	gameTranslator = GameTranslator :: any,
 	parent = screenGui,
 })

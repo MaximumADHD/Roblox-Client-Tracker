@@ -135,36 +135,26 @@ PROTO_4:
   JUMPIFNOTEQKNIL R0 [+2]
   RETURN R0 0
   GETUPVAL R3 5
-  GETTABLEKS R2 R3 K15 ["InitialCameraPosition"]
+  GETTABLEKS R2 R3 K16 ["SetInitialCameraPosition"]
   JUMPIFNOTEQKNIL R2 [+2]
   LOADB R1 0 +1
   LOADB R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K16 ["LUAU_ANALYZE_ERROR"]
-  FASTCALL2 ASSERT R1 R2 [+3]
-  GETIMPORT R0 K7 [assert]
-  CALL R0 2 0
-  GETUPVAL R3 5
-  GETTABLEKS R2 R3 K17 ["SetInitialCameraPosition"]
-  JUMPIFNOTEQKNIL R2 [+2]
-  LOADB R1 0 +1
-  LOADB R1 1
-  FASTCALL2K ASSERT R1 K18 [+4]
-  LOADK R2 K18 ["InitialCameraPosition should always some with a SetInitialCameraPosition"]
+  FASTCALL2K ASSERT R1 K17 [+4]
+  LOADK R2 K17 ["InitialCameraPosition should always some with a SetInitialCameraPosition"]
   GETIMPORT R0 K7 [assert]
   CALL R0 2 0
   GETUPVAL R0 3
   GETUPVAL R2 5
   GETTABLEKS R1 R2 K15 ["InitialCameraPosition"]
-  SETTABLEKS R1 R0 K19 ["CFrame"]
+  SETTABLEKS R1 R0 K18 ["CFrame"]
   GETUPVAL R0 3
-  LOADK R2 K19 ["CFrame"]
-  NAMECALL R0 R0 K20 ["GetPropertyChangedSignal"]
+  LOADK R2 K18 ["CFrame"]
+  NAMECALL R0 R0 K19 ["GetPropertyChangedSignal"]
   CALL R0 2 1
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U5
   CAPTURE UPVAL U3
-  NAMECALL R0 R0 K21 ["Connect"]
+  NAMECALL R0 R0 K20 ["Connect"]
   CALL R0 2 1
   SETUPVAL R0 6
   RETURN R0 0

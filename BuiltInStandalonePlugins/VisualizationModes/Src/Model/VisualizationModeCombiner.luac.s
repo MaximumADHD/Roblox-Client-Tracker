@@ -122,8 +122,10 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETTABLEKS R3 R0 K0 ["title"]
-  GETTABLEKS R4 R1 K0 ["title"]
+  GETUPVAL R4 0
+  GETTABLE R3 R4 R0
+  GETUPVAL R5 0
+  GETTABLE R4 R5 R1
   JUMPIFLT R3 R4 [+2]
   LOADB R2 0 +1
   LOADB R2 1
@@ -177,43 +179,54 @@ PROTO_7:
   GETIMPORT R9 K15 [table.insert]
   CALL R9 2 0
   FORGLOOP R4 2 [-9]
-  GETIMPORT R4 K17 [table.sort]
-  MOVE R5 R3
-  DUPCLOSURE R6 K18 [PROTO_6]
-  CALL R4 2 0
   NEWTABLE R4 0 0
-  GETTABLEKS R5 R0 K19 ["_recentModeRecordList"]
+  MOVE R5 R3
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  GETTABLEKS R11 R9 K20 ["visualizationModeCategoryName"]
-  GETTABLE R10 R1 R11
-  JUMPIFEQKNIL R10 [+23]
-  GETTABLEKS R12 R10 K10 ["visualizationModes"]
-  GETTABLEKS R13 R9 K21 ["visualizationModeName"]
-  GETTABLE R11 R12 R13
-  JUMPIFEQKNIL R11 [+16]
-  GETIMPORT R12 K23 [table.clone]
-  MOVE R13 R11
-  CALL R12 1 1
-  GETTABLEKS R13 R9 K20 ["visualizationModeCategoryName"]
-  SETTABLEKS R13 R12 K20 ["visualizationModeCategoryName"]
-  FASTCALL2 TABLE_INSERT R4 R12 [+5]
-  MOVE R14 R4
-  MOVE R15 R12
-  GETIMPORT R13 K15 [table.insert]
-  CALL R13 2 0
-  FORGLOOP R5 2 [-28]
-  GETIMPORT R7 K25 [table.freeze]
-  DUPTABLE R8 K28 [{"categories", "recentModes"}]
-  SETTABLEKS R3 R8 K26 ["categories"]
-  GETIMPORT R9 K25 [table.freeze]
-  MOVE R10 R4
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K27 ["recentModes"]
-  CALL R7 1 -1
-  NAMECALL R5 R0 K29 ["_setState"]
-  CALL R5 -1 0
+  GETIMPORT R10 K18 [string.lower]
+  GETTABLEKS R11 R9 K19 ["title"]
+  CALL R10 1 1
+  SETTABLE R10 R4 R9
+  FORGLOOP R5 2 [-7]
+  GETIMPORT R5 K21 [table.sort]
+  MOVE R6 R3
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R4
+  CALL R5 2 0
+  NEWTABLE R5 0 0
+  GETTABLEKS R6 R0 K22 ["_recentModeRecordList"]
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETTABLEKS R12 R10 K23 ["visualizationModeCategoryName"]
+  GETTABLE R11 R1 R12
+  JUMPIFEQKNIL R11 [+23]
+  GETTABLEKS R13 R11 K10 ["visualizationModes"]
+  GETTABLEKS R14 R10 K24 ["visualizationModeName"]
+  GETTABLE R12 R13 R14
+  JUMPIFEQKNIL R12 [+16]
+  GETIMPORT R13 K26 [table.clone]
+  MOVE R14 R12
+  CALL R13 1 1
+  GETTABLEKS R14 R10 K23 ["visualizationModeCategoryName"]
+  SETTABLEKS R14 R13 K23 ["visualizationModeCategoryName"]
+  FASTCALL2 TABLE_INSERT R5 R13 [+5]
+  MOVE R15 R5
+  MOVE R16 R13
+  GETIMPORT R14 K15 [table.insert]
+  CALL R14 2 0
+  FORGLOOP R6 2 [-28]
+  GETIMPORT R8 K28 [table.freeze]
+  DUPTABLE R9 K31 [{"categories", "recentModes"}]
+  SETTABLEKS R3 R9 K29 ["categories"]
+  GETIMPORT R10 K28 [table.freeze]
+  MOVE R11 R5
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K30 ["recentModes"]
+  CALL R8 1 -1
+  NAMECALL R6 R0 K32 ["_setState"]
+  CALL R6 -1 0
   RETURN R0 0
 
 PROTO_8:

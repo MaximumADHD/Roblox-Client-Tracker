@@ -7,7 +7,7 @@ local FFlagSetNewDeviceToFalse = game:DefineFastFlag("SetNewDeviceToFalse", fals
 local FFlagFixNewPlayerCheck = game:DefineFastFlag("FixNewPlayerCheck", false)
 local FFlagOnlyMakeInputsForVoiceUsers = game:DefineFastFlag("OnlyMakeInputsForVoiceUsers", false)
 local FFlagSendLikelySpeakingUsers = game:DefineFastFlag("SendLikelySpeakingUsers", false)
-local FFlagReceiveLikelySpeakingUsersEvent = game:DefineFastFlag("ReceiveLikelySpeakingUsersEvent", false)
+local FFlagReceiveLikelySpeakingUsersEvent = game:DefineFastFlag("ReceiveLikelySpeakingUsersEventV3", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("VoiceDefaultUseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 
@@ -251,14 +251,17 @@ if FFlagSendLikelySpeakingUsers then
 
 	if FFlagReceiveLikelySpeakingUsersEvent then
 		-- This allows clients to poll for LikelySpeakingUsers
+		log("Setting Up ReceiveLikelySpeakingUsers")
 		local ReceiveLikelySpeakingUsers = Instance.new("RemoteEvent")
 		ReceiveLikelySpeakingUsers.Name = "ReceiveLikelySpeakingUsers"
 		ReceiveLikelySpeakingUsers.Parent = RobloxReplicatedStorage
-		SendLikelySpeakingUsers.OnServerEvent:Connect(function(player)
+		ReceiveLikelySpeakingUsers.OnServerEvent:Connect(function(player)
+			log("Got Ping Request from ", player.Name)
 			-- Players can only call this once per session
 			if canPollLikelySpeaking[player.UserId] then
 				canPollLikelySpeaking[player.UserId] = nil
-				ReceiveLikelySpeakingUsers:FireClient(player, likelySpeakingPlayers)
+				SendLikelySpeakingUsers:FireClient(player, likelySpeakingPlayers)
+				log("Sending likely speaking users to ", player.Name)
 			end
 		end)
 	end

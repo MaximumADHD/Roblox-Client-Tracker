@@ -131,46 +131,53 @@ PROTO_5:
   RETURN R2 1
 
 PROTO_6:
-  LOADK R2 K0 ["Buffer:
-"]
-  LOADN R5 1
-  GETTABLEKS R3 R0 K1 ["__size"]
-  LOADN R4 1
-  FORNPREP R3
-  MOVE R6 R2
-  GETIMPORT R7 K4 [string.format]
-  LOADK R8 K5 ["[%d]: %s
-"]
-  MOVE R9 R5
-  GETTABLEKS R12 R0 K6 ["__buffer"]
-  GETTABLE R11 R12 R5
-  FASTCALL1 TOSTRING R11 [+2]
-  GETIMPORT R10 K8 [tostring]
-  CALL R10 1 1
-  CALL R7 3 1
-  CONCAT R2 R6 R7
-  FORNLOOP R3
-  MOVE R3 R2
-  GETIMPORT R4 K4 [string.format]
-  LOADK R5 K9 ["WriteIndex: %d
-"]
-  GETTABLEKS R6 R0 K10 ["__writeIndex"]
-  CALL R4 2 1
-  CONCAT R2 R3 R4
-  MOVE R3 R2
-  GETIMPORT R4 K4 [string.format]
-  LOADK R5 K11 ["FirstIndex: %d
-"]
-  GETTABLEKS R7 R0 K13 ["__firstIndex"]
-  ORK R6 R7 K12 [-1]
-  CALL R4 2 1
-  CONCAT R2 R3 R4
   MOVE R3 R1
   JUMPIF R3 [+2]
-  GETIMPORT R3 K15 [print]
-  MOVE R4 R3
+  GETIMPORT R3 K1 [tostring]
+  LOADK R4 K2 ["Buffer:
+"]
+  LOADN R7 1
+  GETTABLEKS R5 R0 K3 ["__size"]
+  LOADN R6 1
+  FORNPREP R5
+  MOVE R8 R4
+  GETIMPORT R9 K6 [string.format]
+  LOADK R10 K7 ["[%d]: %s
+"]
+  MOVE R11 R7
+  GETTABLEKS R14 R0 K8 ["__buffer"]
+  GETTABLE R13 R14 R7
+  JUMPIFNOT R13 [+6]
+  MOVE R12 R3
+  GETTABLEKS R14 R0 K8 ["__buffer"]
+  GETTABLE R13 R14 R7
+  CALL R12 1 1
+  JUMP [+1]
+  LOADK R12 K9 ["<nil>"]
+  CALL R9 3 1
+  CONCAT R4 R8 R9
+  FORNLOOP R5
+  MOVE R5 R4
+  GETIMPORT R6 K6 [string.format]
+  LOADK R7 K10 ["WriteIndex: %d
+"]
+  GETTABLEKS R8 R0 K11 ["__writeIndex"]
+  CALL R6 2 1
+  CONCAT R4 R5 R6
+  MOVE R5 R4
+  GETIMPORT R6 K6 [string.format]
+  LOADK R7 K12 ["FirstIndex: %d
+"]
+  GETTABLEKS R9 R0 K14 ["__firstIndex"]
+  ORK R8 R9 K13 [-1]
+  CALL R6 2 1
+  CONCAT R4 R5 R6
   MOVE R5 R2
-  CALL R4 1 0
+  JUMPIF R5 [+2]
+  GETIMPORT R5 K16 [print]
+  MOVE R6 R5
+  MOVE R7 R4
+  CALL R6 1 0
   RETURN R0 0
 
 MAIN:

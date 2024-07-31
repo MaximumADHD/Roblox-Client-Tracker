@@ -5,11 +5,14 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["DiscoveryTypes"]["DiscoveryTypes"])
 
+export type GameInfoModel = Package.GameInfoModel
 export type OmniRecommendationsMetadata = Package.OmniRecommendationsMetadata
 export type OmniRecommendationsContentEntry = Package.OmniRecommendationsContentEntry
 export type OmniRecommendationsSortTopicData = Package.OmniRecommendationsSortTopicData
 export type OmniRecommendationsTopics = Package.OmniRecommendationsTopics
 export type OmniRecommendations = Package.OmniRecommendations
+export type TopicInfoModelImpl = Package.TopicInfoModelImpl
+export type TopicInfoModel = Package.TopicInfoModel
 export type TopicContentsEntryModel = Package.TopicContentsEntryModel
 export type TopicContentsModel = Package.TopicContentsModel
 export type TopicContents = Package.TopicContents
@@ -25,6 +28,7 @@ export type OmniItemsRowData = Package.OmniItemsRowData
 export type PageOmniItemsRowData = Package.PageOmniItemsRowData
 export type ItemRowData = Package.ItemRowData
 export type PersonalizationReducer = Package.PersonalizationReducer
+export type OmniAutocompleteSortTopicData = Package.OmniAutocompleteSortTopicData
 
 
 return Package

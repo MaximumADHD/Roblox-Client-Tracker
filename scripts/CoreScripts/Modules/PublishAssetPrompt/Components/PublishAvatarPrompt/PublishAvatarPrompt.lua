@@ -12,17 +12,24 @@ local t = require(CorePackages.Packages.t)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local AvatarPartGrid = require(script.Parent.AvatarParts.AvatarPartGrid)
+local UIBlox = require(CorePackages.UIBlox)
+local withStyle = UIBlox.Style.withStyle
 
 local Components = script.Parent.Parent
 local BasePublishPrompt = require(Components.BasePublishPrompt)
 local ObjectViewport = require(Components.Common.ObjectViewport)
+local NameTextBox = require(Components.Common.NameTextBox)
 local PublishInfoList = require(Components.Common.PublishInfoList)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
 local DELAYED_INPUT_ANIM_SEC = 3
+local LABEL_HEIGHT = 15
+local DESC_TEXTBOX_HEIGHT = 104
+local DESC_TEXTBOX_MAXLENGTH = 1000
 
 local NAME_METADATA_STRING = "avatarName"
+local DESC_METADATA_STRING = "avatarDescription"
 
 local PublishAvatarPrompt = Roact.PureComponent:extend("PublishAvatarPrompt")
 
@@ -45,6 +52,8 @@ function PublishAvatarPrompt:init()
 		-- UGC body creation does not localize similar text, so we don't localize here
 		name = LocalPlayer.Name .. "'s Body",
 		isNameValid = true,
+		description = "",
+		isDescValid = true,
 	})
 	self.openPreviewView = function()
 		self:setState({
@@ -57,14 +66,15 @@ function PublishAvatarPrompt:init()
 		})
 	end
 
-	-- Prompt can submit as long as name is valid
+	-- Prompt can submit as long as name and description are valid
 	self.canSubmit = function(): boolean
-		return self.state.isNameValid and self.props.humanoidModel ~= nil
+		return self.state.isNameValid and self.state.isDescValid and self.props.humanoidModel ~= nil
 	end
 
 	self.onSubmit = function()
 		local metadata = {}
 		metadata[NAME_METADATA_STRING] = self.state.name
+		metadata[DESC_METADATA_STRING] = self.state.description
 
 		ExperienceAuthService:ScopeCheckUIComplete(
 			self.props.guid,
@@ -80,42 +90,86 @@ function PublishAvatarPrompt:init()
 			isNameValid = isNameValid,
 		})
 	end
+
+	self.onDescriptionUpdated = function(newDesc, isDescValid)
+		self:setState({
+			description = newDesc,
+			isDescValid = isDescValid,
+		})
+	end
 end
 
 function PublishAvatarPrompt:renderPromptBody()
 	local isLoading = self.props.humanoidModel == nil
-	return Roact.createFragment({
-		UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = PADDING,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			FillDirection = Enum.FillDirection.Vertical,
-		}),
-		UIPadding = Roact.createElement("UIPadding", {
-			PaddingBottom = PADDING,
-			PaddingTop = PADDING,
-		}),
-		EmbeddedPreview = Roact.createElement(ObjectViewport, {
-			openPreviewView = self.openPreviewView,
-			model = self.props.humanoidModel,
-			isLoading = isLoading,
-			useFullBodyCameraSettings = true,
-			fieldOfView = CAMERA_FOV,
-			LayoutOrder = 1,
-		}),
-		InfoList = Roact.createElement(PublishInfoList, {
-			typeName = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body"),
-			LayoutOrder = 2,
-		}),
-		AvatarPartGrid = if not isLoading
-			then Roact.createElement(AvatarPartGrid, {
-				humanoidModel = self.props.humanoidModel,
-				name = self.state.name,
+	return withStyle(function(style)
+		local font = style.Font
+		local baseSize: number = font.BaseSize
+		local relativeSize: number = font.CaptionHeader.RelativeSize
+		local textSize: number = baseSize * relativeSize
+		local theme = style.Theme
+
+		return Roact.createFragment({
+			UIListLayout = Roact.createElement("UIListLayout", {
+				Padding = PADDING,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+			}),
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingBottom = PADDING,
+				PaddingTop = PADDING,
+			}),
+			EmbeddedPreview = Roact.createElement(ObjectViewport, {
+				openPreviewView = self.openPreviewView,
+				model = self.props.humanoidModel,
+				isLoading = isLoading,
+				useFullBodyCameraSettings = true,
+				fieldOfView = CAMERA_FOV,
+				LayoutOrder = 1,
+			}),
+			Description = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, LABEL_HEIGHT + DESC_TEXTBOX_HEIGHT),
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+			}, {
+				UIListLayout = Roact.createElement("UIListLayout", {
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Vertical,
+				}),
+				DescriptionLabel = Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, 0, LABEL_HEIGHT),
+					Font = font.CaptionHeader.Font,
+					Text = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.Description"),
+					TextSize = textSize,
+					TextColor3 = theme.TextDefault.Color,
+					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					LayoutOrder = 1,
+				}),
+				DescriptionInput = Roact.createElement(NameTextBox, {
+					Size = UDim2.new(1, 0, 0, DESC_TEXTBOX_HEIGHT),
+					maxLength = DESC_TEXTBOX_MAXLENGTH,
+					onNameUpdated = self.onDescriptionUpdated,
+					defaultName = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.DescriptionTitle"),
+					centerText = false,
+					LayoutOrder = 2,
+				}),
+			}),
+			InfoList = Roact.createElement(PublishInfoList, {
+				typeName = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body"),
 				LayoutOrder = 3,
-				screenSize = self.props.screenSize,
-			})
-			else nil,
-	})
+			}),
+			AvatarPartGrid = if not isLoading
+				then Roact.createElement(AvatarPartGrid, {
+					humanoidModel = self.props.humanoidModel,
+					name = self.state.name,
+					LayoutOrder = 4,
+					screenSize = self.props.screenSize,
+				})
+				else nil,
+		})
+	end)
 end
 
 function PublishAvatarPrompt:render()

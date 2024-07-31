@@ -26,6 +26,7 @@ export type GetConversationsResponse = Package.GetConversationsResponse
 export type GetConversationsParticipantsMetadataResponse = Package.GetConversationsParticipantsMetadataResponse
 export type GetMetadataResponse = Package.GetMetadataResponse
 export type GetUnfilteredThreadEligibilityResponse = Package.GetUnfilteredThreadEligibilityResponse
+export type GetConversationMetadata = Package.GetConversationMetadata
 
 
 return Package

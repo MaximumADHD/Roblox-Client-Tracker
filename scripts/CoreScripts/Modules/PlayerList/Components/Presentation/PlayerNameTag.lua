@@ -20,6 +20,7 @@ local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local getIsUserProfileOnLeaderboardEnabled = require(RobloxGui.Modules.Flags.getIsUserProfileOnLeaderboardEnabled)
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
+local GetFFlagEnablePreferredTextSizeStyleFixesInPlayerList = require(PlayerList.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInPlayerList)
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
@@ -195,13 +196,13 @@ function PlayerNameTag:render()
 						TextColor3 = self.props.textStyle.Color,
 						TextTransparency = self.props.textStyle.Transparency,
 						TextTruncate = Enum.TextTruncate.AtEnd,
-						TextScaled = true,
+						TextScaled = if GetFFlagEnablePreferredTextSizeStyleFixesInPlayerList() then false else true,
 						TextStrokeColor3 = self.props.textStyle.StrokeColor,
 						TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						BackgroundTransparency = 1,
 					}, {
-						SizeConstraint = React.createElement("UITextSizeConstraint", {
+						SizeConstraint = if GetFFlagEnablePreferredTextSizeStyleFixesInPlayerList() then nil else React.createElement("UITextSizeConstraint", {
 							MaxTextSize = textSize,
 							MinTextSize = minTextSize,
 						}),

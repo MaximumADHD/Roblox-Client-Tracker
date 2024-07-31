@@ -152,6 +152,16 @@ PROTO_9:
   RETURN R0 0
 
 PROTO_10:
+  GETUPVAL R4 0
+  GETTABLE R3 R4 R0
+  GETUPVAL R5 0
+  GETTABLE R4 R5 R1
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_11:
   NEWTABLE R1 0 0
   GETTABLEKS R2 R0 K0 ["_visualizationModeTrackers"]
   LOADNIL R3
@@ -166,28 +176,43 @@ PROTO_10:
   GETIMPORT R8 K4 [table.insert]
   CALL R8 2 0
   FORGLOOP R2 2 [-12]
-  GETIMPORT R4 K6 [table.freeze]
-  DUPTABLE R5 K12 [{"visualizationModeList", "name", "title", "enabled", "lastUpdateTimeUnixTimeStamp"}]
-  SETTABLEKS R1 R5 K7 ["visualizationModeList"]
-  GETTABLEKS R7 R0 K13 ["_visualizationModeCategory"]
-  GETTABLEKS R6 R7 K14 ["Name"]
-  SETTABLEKS R6 R5 K8 ["name"]
-  GETTABLEKS R7 R0 K13 ["_visualizationModeCategory"]
-  GETTABLEKS R6 R7 K15 ["Title"]
-  SETTABLEKS R6 R5 K9 ["title"]
-  GETTABLEKS R7 R0 K13 ["_visualizationModeCategory"]
-  GETTABLEKS R6 R7 K16 ["Enabled"]
-  SETTABLEKS R6 R5 K10 ["enabled"]
-  GETIMPORT R7 K19 [DateTime.now]
-  CALL R7 0 1
-  GETTABLEKS R6 R7 K20 ["UnixTimestamp"]
-  SETTABLEKS R6 R5 K11 ["lastUpdateTimeUnixTimeStamp"]
-  CALL R4 1 -1
-  NAMECALL R2 R0 K21 ["_setState"]
-  CALL R2 -1 0
+  NEWTABLE R2 0 0
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETIMPORT R8 K7 [string.lower]
+  GETTABLEKS R9 R7 K8 ["title"]
+  CALL R8 1 1
+  SETTABLE R8 R2 R7
+  FORGLOOP R3 2 [-7]
+  GETIMPORT R3 K10 [table.sort]
+  MOVE R4 R1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CALL R3 2 0
+  GETIMPORT R5 K12 [table.freeze]
+  DUPTABLE R6 K17 [{"visualizationModeList", "name", "title", "enabled", "lastUpdateTimeUnixTimeStamp"}]
+  SETTABLEKS R1 R6 K13 ["visualizationModeList"]
+  GETTABLEKS R8 R0 K18 ["_visualizationModeCategory"]
+  GETTABLEKS R7 R8 K19 ["Name"]
+  SETTABLEKS R7 R6 K14 ["name"]
+  GETTABLEKS R8 R0 K18 ["_visualizationModeCategory"]
+  GETTABLEKS R7 R8 K20 ["Title"]
+  SETTABLEKS R7 R6 K8 ["title"]
+  GETTABLEKS R8 R0 K18 ["_visualizationModeCategory"]
+  GETTABLEKS R7 R8 K21 ["Enabled"]
+  SETTABLEKS R7 R6 K15 ["enabled"]
+  GETIMPORT R8 K24 [DateTime.now]
+  CALL R8 0 1
+  GETTABLEKS R7 R8 K25 ["UnixTimestamp"]
+  SETTABLEKS R7 R6 K16 ["lastUpdateTimeUnixTimeStamp"]
+  CALL R5 1 -1
+  NAMECALL R3 R0 K26 ["_setState"]
+  CALL R3 -1 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   GETTABLEKS R3 R0 K0 ["_visualizationModeTrackers"]
   LOADNIL R4
   LOADNIL R5
@@ -203,18 +228,18 @@ PROTO_11:
   FORGLOOP R3 2 [-14]
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   GETTABLEKS R2 R0 K0 ["_visualizationModeCategory"]
   SETTABLEKS R1 R2 K1 ["Enabled"]
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["_queueUpdateState"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETIMPORT R0 K2 [table.find]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K3 ["_visualizationModeTrackers"]
@@ -231,7 +256,7 @@ PROTO_14:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   LOADK R4 K0 ["VisualizationMode"]
   NAMECALL R2 R1 K1 ["IsA"]
   CALL R2 2 1
@@ -269,7 +294,7 @@ PROTO_15:
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   GETTABLEKS R1 R0 K0 ["_maid"]
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
@@ -315,16 +340,16 @@ MAIN:
   SETTABLEKS R6 R5 K21 ["_startTracking"]
   DUPCLOSURE R6 K22 [PROTO_9]
   SETTABLEKS R6 R5 K23 ["_queueUpdateState"]
-  DUPCLOSURE R6 K24 [PROTO_10]
+  DUPCLOSURE R6 K24 [PROTO_11]
   SETTABLEKS R6 R5 K25 ["_updateState"]
-  DUPCLOSURE R6 K26 [PROTO_11]
+  DUPCLOSURE R6 K26 [PROTO_12]
   SETTABLEKS R6 R5 K27 ["updateVisualizationModeIsEnabled"]
-  DUPCLOSURE R6 K28 [PROTO_12]
+  DUPCLOSURE R6 K28 [PROTO_13]
   SETTABLEKS R6 R5 K29 ["setIsCategoryEnabled"]
-  DUPCLOSURE R6 K30 [PROTO_15]
+  DUPCLOSURE R6 K30 [PROTO_16]
   CAPTURE VAL R1
   CAPTURE VAL R4
   SETTABLEKS R6 R5 K31 ["_handleChildAdded"]
-  DUPCLOSURE R6 K32 [PROTO_16]
+  DUPCLOSURE R6 K32 [PROTO_17]
   SETTABLEKS R6 R5 K33 ["destroy"]
   RETURN R5 1

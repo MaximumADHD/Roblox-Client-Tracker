@@ -31,15 +31,9 @@ local LEAVE_GAME_FRAME_WAITS = 2
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
-local GetFFlagFixChromeAllowlistWait = require(RobloxGui.Modules.Flags.GetFFlagFixChromeAllowlistWait)
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
 local FFlagRemoveKickWhitespaceSub = require(RobloxGui.Modules.Flags.FFlagRemoveKickWhitespaceSub)
-
-local TopBarConstant
-if not GetFFlagFixChromeAllowlistWait() then
-	TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
-end
 
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function()
@@ -57,9 +51,6 @@ end
 
 -- use the default TopBarHeight before Chrome service loads
 local inGameGlobalGuiInset = 36
-if not GetFFlagFixChromeAllowlistWait() then
-	inGameGlobalGuiInset = TopBarConstant.TopBarHeight
-end
 
 local defaultTimeoutTime = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 
@@ -158,16 +149,14 @@ local promptOverlay = create("Frame")({
 	Parent = screenGui,
 })
 
-if GetFFlagFixChromeAllowlistWait() then
-	-- Update promptOverlay height after ChromeService fully loads
-	coroutine.wrap(function()
-		local TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
-		local updatedInGameGlobalGuiInset = TopBarConstant.TopBarHeight
+-- Update promptOverlay height after ChromeService fully loads
+coroutine.wrap(function()
+	local TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
+	local updatedInGameGlobalGuiInset = TopBarConstant.TopBarHeight
 
-		promptOverlay.Size = UDim2.new(1, 0, 1, updatedInGameGlobalGuiInset)
-		promptOverlay.Position = UDim2.new(0, 0, 0, -updatedInGameGlobalGuiInset)
-	end)()
-end
+	promptOverlay.Size = UDim2.new(1, 0, 1, updatedInGameGlobalGuiInset)
+	promptOverlay.Position = UDim2.new(0, 0, 0, -updatedInGameGlobalGuiInset)
+end)()
 
 -- Button Callbacks --
 local reconnectFunction = function()

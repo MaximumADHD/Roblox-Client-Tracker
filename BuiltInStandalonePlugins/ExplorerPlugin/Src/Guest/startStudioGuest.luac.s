@@ -12,8 +12,8 @@ PROTO_1:
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K0 ["Guest"]
   GETTABLEKS R3 R4 K1 ["startGuest"]
-  DUPTABLE R4 K3 [{"network"}]
-  SETTABLEKS R1 R4 K2 ["network"]
+  DUPTABLE R4 K3 [{"guestConnectionObserver"}]
+  SETTABLEKS R1 R4 K2 ["guestConnectionObserver"]
   CALL R3 1 1
   GETTABLEKS R4 R0 K4 ["Unloading"]
   NEWCLOSURE R6 P0
@@ -36,7 +36,7 @@ MAIN:
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K8 ["Src"]
   GETTABLEKS R4 R5 K9 ["Guest"]
-  GETTABLEKS R3 R4 K10 ["createStudioNetwork"]
+  GETTABLEKS R3 R4 K10 ["createStudioGuestConnection"]
   CALL R2 1 1
   DUPCLOSURE R3 K11 [PROTO_1]
   CAPTURE VAL R2

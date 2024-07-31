@@ -38,6 +38,7 @@ local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlag
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
+local GetFIntVoiceReverseNudgeUXDisplayTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceReverseNudgeUXDisplayTimeSeconds)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
@@ -330,6 +331,7 @@ function VoiceChatServiceManager.new(
 	self.participantsStateThrottleTime = 0
 	self.lastParticipantsStateUpdate = 0
 	self.lastStateUpdateCounter = 0
+	self.reverseNudgeToxicUserRemovalCallbacks = {}
 	if GetFIntThrottleParticipantsUpdateMs() > 0 then
 		self.participantsStateThrottleTime = GetFIntThrottleParticipantsUpdateMs() / 1000.0
 		local layerFetchSuccess, layerData = pcall(function()
@@ -456,9 +458,10 @@ function VoiceChatServiceManager.new(
 		self:showPrompt(VoiceChatPromptType.Permission)
 	end)
 	self.coreVoiceManager:subscribe('OnVoiceReverseNudgeIconColorChange', function (details)
-		log:debug("Received a reverse nudge")
-		-- TODO: Create & Trigger new event/action that marks the toxic user in Rodux for 10 seconds
-		-- https://roblox.atlassian.net/browse/EXPR-1880
+		log:debug("Showing Reverse Nudge Icon Color Change")
+		if ExperienceChat.Events.AddReverseNudgeToxicUser and ExperienceChat.Events.RemoveReverseNudgeToxicUser then
+			self:AddReverseNudgeToxicUser(details.toxicUserId, ExperienceChat.Events.AddReverseNudgeToxicUser, ExperienceChat.Events.RemoveReverseNudgeToxicUser)
+		end
 	end)
 	self.coreVoiceManager:subscribe('OnVoiceJoin', function ()
 		self:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
@@ -536,8 +539,8 @@ function VoiceChatServiceManager:FetchAgeVerificationOverlay(hasMicPermissions):
 	return self.coreVoiceManager:FetchAgeVerificationOverlay(if GetFFlagUseMicPermForEnrollment() then hasMicPermissions else nil)
 end
 
-function VoiceChatServiceManager:FetchPhoneVerificationUpsell(layerName: string)
-	return self.coreVoiceManager:FetchPhoneVerificationUpsell(layerName)
+function VoiceChatServiceManager:FetchPhoneVerificationUpsell(layerName: string, sessionStartTime: number?, forceRefetch: boolean?)
+	return self.coreVoiceManager:FetchPhoneVerificationUpsell(layerName, sessionStartTime, forceRefetch)
 end
 
 function VoiceChatServiceManager:RecordUserSeenModal(modalId: string): nil
@@ -1063,6 +1066,23 @@ function VoiceChatServiceManager:UpdateAudioDeviceInputDebugger()
 			)
 		end
 	end
+end
+
+function VoiceChatServiceManager:AddReverseNudgeToxicUser(toxicUserId: string, addReverseNudgeToxicUserEvent: any, removeReverseNudgeToxicUserEvent: any)
+	addReverseNudgeToxicUserEvent(toxicUserId, "iconColorChange")
+
+	-- Cancel existing callback for the user, if one exists
+	local existingRemovalCallback = self.reverseNudgeToxicUserRemovalCallbacks[toxicUserId]
+	if existingRemovalCallback ~= nil then 
+		task.cancel(existingRemovalCallback)
+	end
+
+	-- Schedule a callback to remove the user from state after a set delay
+	local newCallback = task.delay(GetFIntVoiceReverseNudgeUXDisplayTimeSeconds(), function()
+		removeReverseNudgeToxicUserEvent(toxicUserId)
+		self.reverseNudgeToxicUserRemovalCallbacks[toxicUserId] = nil
+	end)
+	self.reverseNudgeToxicUserRemovalCallbacks[toxicUserId] = newCallback
 end
 
 function VoiceChatServiceManager:onInstanceRemove(inst: Instance)

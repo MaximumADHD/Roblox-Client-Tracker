@@ -7,6 +7,11 @@ local RobloxTranslator = {
 		return key
 	end,
 }
+local GameTranslator = {
+	TranslateGameText = function(_, context, text)
+		return text
+	end,
+}
 
 return function()
 	beforeAll(function(c)
@@ -26,6 +31,7 @@ return function()
 					defaultTargetTextChannel = Instance.new("TextChannel"),
 					defaultSystemTextChannel = Instance.new("TextChannel"),
 					translator = RobloxTranslator :: any,
+					gameTranslator = GameTranslator :: any,
 					parent = c.screenGui,
 				})
 			end)

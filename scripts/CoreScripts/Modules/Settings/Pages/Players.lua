@@ -172,6 +172,15 @@ local function Initialize()
 		this.PageListLayout.Padding = UDim.new(0, PLAYER_ROW_SPACING - PLAYER_ROW_HEIGHT)
 	end
 
+	local unreadIndicator: GuiObject?
+	if getFFlagDebugAppChatInSettingsHub() then
+		this.UpdateAppChatUnreadMessagesCount = function(newCount)
+			if unreadIndicator then
+				unreadIndicator.Visible = newCount > 0
+			end
+		end
+	end
+
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "PlayersTab"
 	if Theme.UIBloxThemeEnabled then
@@ -1267,6 +1276,22 @@ local function Initialize()
 				utility:MakeFocusState(frame, renderName)
 			end
 
+			unreadIndicator = utility:Create'Frame'{
+				Name = "UnreadIndicator",
+				AnchorPoint = Vector2.new(1, 0.5),
+				BackgroundTransparency = Theme.transparency("White"),
+				BackgroundColor3 = Theme.color("White"),
+				Size = UDim2.new(0, 8, 0, 8),
+				Position = UDim2.new(1, -15, 0.5, 0),
+				Visible = false,
+				Parent = frame
+			}
+			utility:Create'UICorner'{
+				CornerRadius = UDim.new(1, 0),
+				Parent = unreadIndicator,
+			}
+
+
 			return frame
 		end
 	end
@@ -1822,7 +1847,7 @@ local function Initialize()
 				chatButton.Activated:connect(function()
 					this.HubRef:SwitchToPage(this.HubRef.AppChatPage, false)
 				end)
-				chatButton.LayoutOrder = 3
+				chatButton.LayoutOrder = if getFFlagDebugAppChatInSettingsHub() then 2 else 3
 				chatButton.Parent = buttonFrame
 				updateButtonsLayout()
 			end
@@ -1978,7 +2003,7 @@ local function Initialize()
 					updateAllMuteButtons()
 				end)
 
-				muteAllButton.LayoutOrder = 1
+				muteAllButton.LayoutOrder = if getFFlagDebugAppChatInSettingsHub() then 3 else 1
 				if FFlagCorrectlyPositionMuteButton then
 					layoutMuteAll()
 				else

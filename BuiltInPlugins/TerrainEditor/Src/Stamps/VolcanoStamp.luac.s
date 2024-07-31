@@ -59,7 +59,7 @@ PROTO_1:
   NAMECALL R6 R0 K15 ["addErosion"]
   CALL R6 1 0
   GETIMPORT R6 K18 [table.create]
-  GETTABLEKS R7 R0 K19 ["_heightMapSize"]
+  GETTABLEKS R7 R0 K19 ["_mapSize"]
   LOADB R8 0
   CALL R6 2 1
   SETTABLEKS R6 R0 K20 ["_fillBottomPositions"]
@@ -158,31 +158,22 @@ PROTO_1:
 
 PROTO_2:
   GETIMPORT R2 K2 [table.create]
-  GETTABLEKS R3 R0 K3 ["_heightMapSize"]
+  GETTABLEKS R3 R0 K3 ["_mapSize"]
   LOADN R4 0
   CALL R2 2 1
   SETTABLEKS R2 R0 K4 ["_blendingFactorMap"]
   LOADN R2 0
-  JUMPIFNOTLT R2 R1 [+33]
-  DUPTABLE R2 K10 [{"CurveWidth", "Distance", "PreserveDistance", "PreserveRatio", "RoundCorner"}]
+  JUMPIFNOTLT R2 R1 [+22]
+  DUPTABLE R2 K8 [{"PreserveDistance", "PreserveRatio", "BlendingStrength"}]
   LOADN R3 1
-  SETTABLEKS R3 R2 K5 ["CurveWidth"]
-  LOADN R5 1
-  SUB R4 R5 R1
-  MULK R3 R4 K11 [0.9]
-  SETTABLEKS R3 R2 K6 ["Distance"]
-  LOADK R4 K12 [0.5]
-  DIVK R5 R1 K13 [5]
-  SUB R3 R4 R5
-  SETTABLEKS R3 R2 K7 ["PreserveDistance"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K8 ["PreserveRatio"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K9 ["RoundCorner"]
+  SETTABLEKS R3 R2 K5 ["PreserveDistance"]
+  LOADK R3 K9 [0.2]
+  SETTABLEKS R3 R2 K6 ["PreserveRatio"]
+  SETTABLEKS R1 R2 K7 ["BlendingStrength"]
   GETUPVAL R3 0
-  GETIMPORT R4 K16 [Vector2.new]
-  GETTABLEKS R5 R0 K17 ["_sliceX"]
-  GETTABLEKS R6 R0 K18 ["_sliceZ"]
+  GETIMPORT R4 K12 [Vector2.new]
+  GETTABLEKS R5 R0 K13 ["_sliceX"]
+  GETTABLEKS R6 R0 K14 ["_sliceZ"]
   CALL R4 2 1
   MOVE R5 R2
   CALL R3 2 1

@@ -11,22 +11,17 @@ MAIN:
   NAMECALL R0 R0 K4 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K5 ["COLLAB5718AccessibleColors"]
+  LOADK R2 K5 ["COLLAB5863Telemetry"]
   LOADB R3 0
   NAMECALL R0 R0 K4 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K6 ["COLLAB5863Telemetry"]
+  LOADK R2 K6 ["FixSocialPresenceDropdown"]
   LOADB R3 0
   NAMECALL R0 R0 K4 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["FixSocialPresenceDropdown"]
-  LOADB R3 0
-  NAMECALL R0 R0 K4 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K8 ["COLLAB6395SocialPresenceStylesheets"]
+  LOADK R2 K7 ["COLLAB6395SocialPresenceStylesheets"]
   LOADB R3 0
   NAMECALL R0 R0 K4 ["DefineFastFlag"]
   CALL R0 3 0

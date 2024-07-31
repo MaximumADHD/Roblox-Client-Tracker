@@ -5,7 +5,4 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["TopicInfosRodux"]["TopicInfosRodux"])
 
-export type TopicInfoModel = Package.TopicInfoModel
-
-
 return Package

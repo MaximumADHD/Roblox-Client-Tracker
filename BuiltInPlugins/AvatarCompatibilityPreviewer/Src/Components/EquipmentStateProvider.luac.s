@@ -184,17 +184,12 @@ PROTO_8:
   CALL R12 1 1
   GETUPVAL R13 9
   CALL R13 0 1
-  GETUPVAL R15 10
-  CALL R15 0 1
-  JUMPIFNOT R15 [+9]
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K3 ["useCallback"]
   NEWCLOSURE R15 P4
   CAPTURE VAL R13
   NEWTABLE R16 0 0
   CALL R14 2 1
-  JUMP [+1]
-  LOADNIL R14
   DUPTABLE R15 K14 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "hideEquippedItem", "showEquippedItem", "setHideAllEquippedItems", "avatarAssets", "startIgnoringChildren", "isIgnoringChildren"}]
   SETTABLEKS R3 R15 K2 ["equippedItems"]
   SETTABLEKS R8 R15 K4 ["addEquippedItem"]
@@ -214,7 +209,7 @@ PROTO_8:
   SETTABLEKS R16 R15 K13 ["isIgnoringChildren"]
   GETUPVAL R17 1
   GETTABLEKS R16 R17 K16 ["createElement"]
-  GETUPVAL R18 11
+  GETUPVAL R18 10
   GETTABLEKS R17 R18 K17 ["Provider"]
   DUPTABLE R18 K19 [{"value"}]
   SETTABLEKS R15 R18 K18 ["value"]
@@ -288,12 +283,7 @@ MAIN:
   CALL R12 1 1
   MOVE R13 R12
   CALL R13 0 1
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R17 R0 K7 ["Src"]
-  GETTABLEKS R16 R17 K20 ["Flags"]
-  GETTABLEKS R15 R16 K22 ["getFFlagAvatarPreviewerReplicateEditorStateOnWorldModel"]
-  CALL R14 1 1
-  DUPCLOSURE R15 K23 [PROTO_8]
+  DUPCLOSURE R14 K22 [PROTO_8]
   CAPTURE VAL R11
   CAPTURE VAL R1
   CAPTURE VAL R3
@@ -304,6 +294,5 @@ MAIN:
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R10
-  CAPTURE VAL R14
   CAPTURE VAL R2
-  RETURN R15 1
+  RETURN R14 1

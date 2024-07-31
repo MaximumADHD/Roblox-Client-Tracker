@@ -1,6 +1,13 @@
 PROTO_0:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["OnCancel"]
+  GETTABLEKS R0 R1 K0 ["getFFlagStudioCancellableDialogDesignUpdates"]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+4]
+  GETIMPORT R0 K2 [print]
+  LOADK R1 K3 ["CancellableDialog::DialogContainer::OnClosed - Dialog closed via X button in title bar"]
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K4 ["OnCancel"]
   CALL R0 0 0
   RETURN R0 0
 
@@ -50,20 +57,21 @@ PROTO_3:
   CALL R6 3 1
   SETTABLEKS R6 R4 K4 ["Title"]
   NEWCLOSURE R6 P0
+  CAPTURE UPVAL U3
   CAPTURE VAL R0
   SETTABLEKS R6 R4 K5 ["OnClosed"]
-  GETUPVAL R7 3
+  GETUPVAL R7 4
   GETTABLEKS R6 R7 K12 ["createElement"]
   LOADK R7 K13 ["Frame"]
   NEWTABLE R8 1 0
-  GETUPVAL R10 3
+  GETUPVAL R10 4
   GETTABLEKS R9 R10 K14 ["Tag"]
   LOADK R10 K15 ["X-FitY X-Column Component-DialogContainer"]
   SETTABLE R10 R8 R9
   DUPTABLE R9 K18 [{"ThumbnailAndTextInfo", "CancelButton"}]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K12 ["createElement"]
   GETUPVAL R11 4
+  GETTABLEKS R10 R11 K12 ["createElement"]
+  GETUPVAL R11 5
   DUPTABLE R12 K22 [{"LayoutOrder", "Title", "Subtitle", "Status"}]
   NAMECALL R13 R1 K23 ["getNextOrder"]
   CALL R13 1 1
@@ -76,9 +84,9 @@ PROTO_3:
   SETTABLEKS R13 R12 K21 ["Status"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K16 ["ThumbnailAndTextInfo"]
-  GETUPVAL R11 3
+  GETUPVAL R11 4
   GETTABLEKS R10 R11 K12 ["createElement"]
-  GETUPVAL R11 5
+  GETUPVAL R11 6
   DUPTABLE R12 K26 [{"LayoutOrder", "Enabled", "OnCancel"}]
   NAMECALL R13 R1 K23 ["getNextOrder"]
   CALL R13 1 1
@@ -93,7 +101,7 @@ PROTO_3:
   CALL R6 3 1
   SETTABLEKS R6 R4 K6 ["Contents"]
   CALL R3 1 3
-  GETUPVAL R7 3
+  GETUPVAL R7 4
   GETTABLEKS R6 R7 K28 ["useEffect"]
   NEWCLOSURE R7 P2
   CAPTURE VAL R0
@@ -129,19 +137,25 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["useDialogWidget"]
   GETTABLEKS R7 R2 K14 ["Util"]
   GETTABLEKS R6 R7 K15 ["LayoutOrderIterator"]
-  GETTABLEKS R8 R0 K16 ["Src"]
-  GETTABLEKS R7 R8 K17 ["Components"]
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R9 R7 K18 ["CancelButton"]
-  CALL R8 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K16 ["Bin"]
+  GETTABLEKS R9 R10 K17 ["Common"]
+  GETTABLEKS R8 R9 K18 ["defineLuaFlags"]
+  CALL R7 1 1
+  GETTABLEKS R9 R0 K19 ["Src"]
+  GETTABLEKS R8 R9 K20 ["Components"]
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R7 K19 ["ThumbnailAndTextInfo"]
+  GETTABLEKS R10 R8 K21 ["CancelButton"]
   CALL R9 1 1
-  DUPCLOSURE R10 K20 [PROTO_3]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R8 K22 ["ThumbnailAndTextInfo"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K23 [PROTO_3]
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R5
+  CAPTURE VAL R7
   CAPTURE VAL R1
+  CAPTURE VAL R10
   CAPTURE VAL R9
-  CAPTURE VAL R8
-  RETURN R10 1
+  RETURN R11 1

@@ -20,4 +20,5 @@ return {
 	enableTextFieldInputType = UIBloxFlags.GetFFlagUIBloxEnableTextFieldInputType(),
 	useInteractableWithTileAndCell = UIBloxFlags.GetFFlagUseInteractableWithTileAndCell(),
 	fixHeaderBarTitleFlickering = UIBloxFlags.GetFFlagUIBloxFixHeaderBarTitleFlickering(),
+	fixHeaderBarDependenciesArray = UIBloxFlags.GetFFlagUIBloxFixHeaderBarDependenciesArray(),
 }

@@ -44,6 +44,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local GetFFlagOptimizeHelpMenuInputEvent = require(RobloxGui.Modules.Flags.GetFFlagOptimizeHelpMenuInputEvent)
 local FFlagFixGamepadHelpImage = game:DefineFastFlag("FixGamepadHelpImage", false)
+local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
 local FFlagShowUpdatedScreenshotHotkey = game:DefineFastFlag("ShowUpdatedScreenshotHotkey_v2", false)
 
 ----------- CLASS DECLARATION --------------
@@ -91,10 +92,20 @@ local function Initialize()
 
 		  local pcGroupFrame = utility:Create'Frame'
 		  {
-			Size = UDim2.new(1/3,-PC_TABLE_SPACING,1,0),
+			Size = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then UDim2.new(1/3,-PC_TABLE_SPACING,0,0) else UDim2.new(1/3,-PC_TABLE_SPACING,1,0),
+			AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 			BackgroundTransparency = 1,
 			Name = "PCGroupFrame" .. tostring(title)
 		  };
+		  if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
+			local _pcGroupLayout = utility:Create'UIListLayout'
+			{
+				FillDirection = Enum.FillDirection.Vertical,
+				Padding = UDim.new(0, 2),
+				Parent = pcGroupFrame,
+				SortOrder = Enum.SortOrder.LayoutOrder
+			};
+		  end
 		  local pcGroupTitle = utility:Create'TextLabel'
 		  {
 			Position = UDim2.new(0,textIndent,0,0),
@@ -107,6 +118,7 @@ local function Initialize()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			Name = "PCGroupTitle" .. tostring(title),
 			ZIndex = 2,
+			LayoutOrder = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 1 else nil,
 			Parent = pcGroupFrame
 		  };
 
@@ -121,6 +133,8 @@ local function Initialize()
 				Size = UDim2.new(1,0,0,frameHeight),
 				Position = UDim2.new(0,0,0, offset + ((frameHeight + spacing) * count)),
 				BackgroundTransparency = Theme.transparency("InputActionBackground",0.65),
+				AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
+				LayoutOrder = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then i+1 else nil,
 				BorderSizePixel = 0,
 				ZIndex = 2,
 				Name = "ActionInputBinding" .. tostring(actionName),
@@ -172,12 +186,15 @@ local function Initialize()
 				ZIndex = 2,
 				Parent = actionInputFrame,
 				TextWrapped = true,
-				TextScaled = true
+				TextScaled = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then false else true,
+				AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 			  };
-			  do
-				local textSizeConstraint = Instance.new("UITextSizeConstraint",inputLabel)
-				textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
-			  end
+			if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+				do
+					local textSizeConstraint = Instance.new("UITextSizeConstraint",inputLabel)
+					textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
+				end
+			end
 
 			  count = count + 1
 			end
@@ -549,7 +566,8 @@ local function Initialize()
 		local helpContents = nil
 		local helpFrame = utility:Create'Frame'
 		{
-		  Size = UDim2.new(1,0,1,0),
+		  Size = if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then UDim2.new(1,0,0,0) else UDim2.new(1,0,1,0),
+		  AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 		  BackgroundTransparency = 1,
 		  Name = "HelpFrame" .. tostring(typeOfHelp)
 		};

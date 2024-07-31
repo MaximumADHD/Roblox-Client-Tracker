@@ -60,6 +60,8 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 local BOTTOM_BUTTON_BAR_HEIGHT = 80
 local BOTTOM_BUTTON_10FT_SIZE = 72
 
+local CHECK_LEAVE_GAME_UPSELL_COOLDOWN = game:DefineFastInt("CheckLeaveGameUpsellCooldown", 300)
+
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
@@ -104,6 +106,7 @@ local getFFlagDebugAppChatInSettingsHub = require(CorePackages.Workspace.Package
 local FFlagSettingsHubCurrentPageSignal = game:DefineFastFlag("SettingsHubCurrentPageSignal", false)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
+local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -171,6 +174,7 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
@@ -294,6 +298,11 @@ local function CreateSettingsHub()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
 	this.hasMicPermissions = false
+	if GetFFlagEnableLeaveGameUpsellEntrypoint() then
+		this.checkedUpsell = false
+		this.leaveGameUpsellProp = VoiceConstants.PHONE_UPSELL_VALUE_PROP.None
+		this.sessionStartTime = os.time()
+	end
 	this.isFetchingMicPermissions = true
 
 	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "SettingsHub")
@@ -1822,7 +1831,12 @@ local function CreateSettingsHub()
 			this:AddToMenuStack(this.Pages.CurrentPage)
 			this.HubBar.Visible = false
 			removeBottomBarBindings()
-			this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
+			if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
+				-- TODO Go to upsell page
+				this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
+			else 
+				this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
+			end
 		end
 
 		local resumeFunc = function(source)
@@ -2838,6 +2852,19 @@ local function CreateSettingsHub()
 		end
 	end
 
+	function checkLeaveGameUpsell()
+		if not GetFFlagEnableLeaveGameUpsellEntrypoint() then
+			return
+		end
+		if not this.checkedUpsell and this.leaveGameUpsellProp == VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
+			this.checkedUpsell = true
+			this.leaveGameUpsellProp = 
+			VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, this.sessionStartTime, true)
+			task.delay(CHECK_LEAVE_GAME_UPSELL_COOLDOWN, function()
+				this.checkedUpsell = false
+			end)
+		end
+	end
 	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
@@ -3242,6 +3269,9 @@ local function CreateSettingsHub()
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
 					source = analyticsContext,
 				})
+				if GetFFlagEnableLeaveGameUpsellEntrypoint() then
+					task.spawn(checkLeaveGameUpsell)
+				end
 			else
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {
 					source = analyticsContext,

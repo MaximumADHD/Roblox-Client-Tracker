@@ -543,7 +543,7 @@ MAIN:
   NAMECALL R9 R5 K17 ["add"]
   CALL R9 2 0
   GETTABLEKS R9 R5 K220 ["TerrainTypeRenderer"]
-  DUPTABLE R10 K222 [{"BorderColor", "Height", "IconSize", "ItemsPerRow", "Spacing"}]
+  DUPTABLE R10 K223 [{"BorderColor", "Height", "IconSize", "ItemsPerRow", "ItemMinWidth", "Spacing"}]
   GETTABLEKS R11 R3 K119 ["DialogMainButton"]
   SETTABLEKS R11 R10 K118 ["BorderColor"]
   LOADN R11 32
@@ -552,6 +552,8 @@ MAIN:
   SETTABLEKS R11 R10 K20 ["IconSize"]
   LOADN R11 3
   SETTABLEKS R11 R10 K221 ["ItemsPerRow"]
+  LOADN R11 130
+  SETTABLEKS R11 R10 K222 ["ItemMinWidth"]
   LOADN R11 6
   SETTABLEKS R11 R10 K56 ["Spacing"]
   SETTABLE R10 R7 R9

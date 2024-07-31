@@ -34,6 +34,31 @@ local function shouldShowBasedOnCountInAppStorage(key, maxShown)
 	return count < maxShown, HttpService:JSONEncode(userIdToCount)
 end
 
+type TextButtonProps = {
+	selectButtonDismissesGamepadNavigationDialog: boolean,
+	onDismissed: () -> (),
+	onCleanup: () -> (),
+}
+
+local function GamepadNavigationDialogTextButton(props: TextButtonProps): React.ReactElement?
+	React.useEffect(function()
+		return props.onCleanup
+	end, {})
+
+	return React.createElement("TextButton", {
+		Text = "",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = UDim2.new(1, 0, 1, 0),
+		[React.Event.Activated] = props.onDismissed,
+	}, {
+		GamepadNavigationDialog = React.createElement(GamepadNavigationDialog, {
+			selectButtonDismissesGamepadNavigationDialog = props.selectButtonDismissesGamepadNavigationDialog,
+			onDismissed = props.onDismissed,
+		}),
+	})
+end
+
 local function GamepadNavigationDialogShowCounter(props: Props): React.ReactElement?
 	if not (props.isGamepadNavigationDialogEnabled and props.isGamepadNavigationDialogOpen) then
 		return nil
@@ -44,28 +69,15 @@ local function GamepadNavigationDialogShowCounter(props: Props): React.ReactElem
 		return nil
 	end
 
-	React.useEffect(function()
-		return function()
+	return React.createElement(GamepadNavigationDialogTextButton, {
+		selectButtonDismissesGamepadNavigationDialog = props.selectButtonDismissesGamepadNavigationDialog,
+		onDismissed = function()
+			props.SetGamepadNavigationDialogOpen(false)
+		end,
+		onCleanup = function()
 			AppStorageService:SetItem(props.appStorageKey, newAppStorageValue)
 			AppStorageService:Flush()
-		end
-	end)
-
-	local function dismiss()
-		props.SetGamepadNavigationDialogOpen(false)
-	end
-
-	return React.createElement("TextButton", {
-		Text = "",
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		Size = UDim2.new(1, 0, 1, 0),
-		[React.Event.Activated] = dismiss,
-	}, {
-		GamepadNavigationDialog = React.createElement(GamepadNavigationDialog, {
-			selectButtonDismissesGamepadNavigationDialog = props.selectButtonDismissesGamepadNavigationDialog,
-			onDismissed = dismiss,
-		}),
+		end,
 	})
 end
 

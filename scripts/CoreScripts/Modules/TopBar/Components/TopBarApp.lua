@@ -27,6 +27,7 @@ local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadMenu = require(Presentation.GamepadMenu)
+local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
 local BadgeOver13 = require(Presentation.BadgeOver13)
@@ -75,6 +76,7 @@ local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFla
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local GetFFlagAddOver12TopBarBadge = require(script.Parent.Parent.Parent.Flags.GetFFlagAddOver12TopBarBadge)
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
+local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -201,6 +203,9 @@ function TopBarApp:renderWithStyle(style)
 	}, {
 		Connection = Roact.createElement(Connection),
 		GamepadMenu = Roact.createElement(GamepadMenu),
+		GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
+			then Roact.createElement(GamepadNavigationDialog)
+			else nil,
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
 		VRBottomBar = VRService.VREnabled and bottomBar or nil,
 		KeepOutAreasHandler = if FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler

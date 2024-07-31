@@ -61,7 +61,27 @@ PROTO_2:
   GETTABLEKS R2 R1 K1 ["Plugin"]
   NAMECALL R2 R2 K2 ["get"]
   CALL R2 1 1
-  GETTABLEKS R3 R0 K3 ["Id"]
+  GETTABLEKS R3 R0 K3 ["Data"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["SetSkipLimit"]
+  MOVE R5 R3
+  CALL R4 1 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["SETTINGS"]
+  GETTABLEKS R6 R7 K6 ["SkipUIFrames"]
+  MOVE R7 R3
+  NAMECALL R4 R2 K7 ["SetSetting"]
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Plugin"]
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K3 ["Data"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["props"]
   GETTABLEKS R4 R5 K4 ["SetFrameBufferDuration"]
@@ -81,57 +101,60 @@ PROTO_2:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R1 R0 K1 ["Localization"]
   GETTABLEKS R2 R0 K2 ["Plugin"]
   NAMECALL R2 R2 K3 ["get"]
   CALL R2 1 1
-  NEWTABLE R3 0 3
-  GETUPVAL R4 0
-  NAMECALL R4 R4 K4 ["makeReplaySubmenu"]
-  CALL R4 1 1
-  DUPTABLE R5 K9 [{"Id", "Text", "Checked", "OnItemClicked"}]
-  LOADK R6 K10 ["ToggleCrossFade"]
-  SETTABLEKS R6 R5 K5 ["Id"]
-  LOADK R8 K11 ["Settings"]
-  LOADK R9 K10 ["ToggleCrossFade"]
-  NAMECALL R6 R1 K12 ["getText"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K6 ["Text"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K0 ["props"]
-  GETTABLEKS R8 R9 K14 ["LayerFilters"]
-  GETTABLEKS R7 R8 K13 ["CrossFade"]
-  NOT R6 R7
-  SETTABLEKS R6 R5 K7 ["Checked"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K15 ["toggleCrossFadeFilter"]
-  SETTABLEKS R6 R5 K8 ["OnItemClicked"]
-  DUPTABLE R6 K9 [{"Id", "Text", "Checked", "OnItemClicked"}]
-  LOADK R7 K16 ["ToggleActiveLayers"]
-  SETTABLEKS R7 R6 K5 ["Id"]
-  LOADK R9 K11 ["Settings"]
-  LOADK R10 K16 ["ToggleActiveLayers"]
-  NAMECALL R7 R1 K12 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K6 ["Text"]
+  NEWTABLE R3 0 4
+  DUPTABLE R4 K8 [{"Id", "Text", "Checked", "OnItemClicked"}]
+  LOADK R5 K9 ["ToggleCrossFade"]
+  SETTABLEKS R5 R4 K4 ["Id"]
+  LOADK R7 K10 ["Settings"]
+  LOADK R8 K9 ["ToggleCrossFade"]
+  NAMECALL R5 R1 K11 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K5 ["Text"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K0 ["props"]
-  GETTABLEKS R7 R8 K17 ["ActiveLayersFilter"]
-  SETTABLEKS R7 R6 K7 ["Checked"]
+  GETTABLEKS R7 R8 K13 ["LayerFilters"]
+  GETTABLEKS R6 R7 K12 ["CrossFade"]
+  NOT R5 R6
+  SETTABLEKS R5 R4 K6 ["Checked"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K14 ["toggleCrossFadeFilter"]
+  SETTABLEKS R5 R4 K7 ["OnItemClicked"]
+  DUPTABLE R5 K8 [{"Id", "Text", "Checked", "OnItemClicked"}]
+  LOADK R6 K15 ["ToggleActiveLayers"]
+  SETTABLEKS R6 R5 K4 ["Id"]
+  LOADK R8 K10 ["Settings"]
+  LOADK R9 K15 ["ToggleActiveLayers"]
+  NAMECALL R6 R1 K11 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K5 ["Text"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K18 ["toggleActiveLayersFilter"]
-  SETTABLEKS R7 R6 K8 ["OnItemClicked"]
-  SETLIST R3 R4 3 [1]
+  GETTABLEKS R7 R8 K0 ["props"]
+  GETTABLEKS R6 R7 K16 ["ActiveLayersFilter"]
+  SETTABLEKS R6 R5 K6 ["Checked"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K17 ["toggleActiveLayersFilter"]
+  SETTABLEKS R6 R5 K7 ["OnItemClicked"]
+  GETUPVAL R6 0
+  NAMECALL R6 R6 K18 ["makeReplaySubmenu"]
+  CALL R6 1 1
+  GETUPVAL R7 0
+  NAMECALL R7 R7 K19 ["makeSkipUIFramesSubmenu"]
+  CALL R7 1 -1
+  SETLIST R3 R4 -1 [1]
   GETUPVAL R4 1
   MOVE R5 R2
   MOVE R6 R3
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
@@ -143,14 +166,64 @@ PROTO_4:
   NEWCLOSURE R1 P2
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K2 ["onReplayDurationChanged"]
+  SETTABLEKS R1 R0 K2 ["onSkipUIFramesChanged"]
   NEWCLOSURE R1 P3
   CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K3 ["onReplayDurationChanged"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
   CAPTURE UPVAL U1
-  SETTABLEKS R1 R0 K3 ["onButtonClicked"]
+  SETTABLEKS R1 R0 K4 ["onButtonClicked"]
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["SkipLimit"]
+  NEWTABLE R4 2 0
+  GETUPVAL R8 0
+  GETTABLEKS R5 R8 K3 ["SKIP_UI_FRAMES"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  DUPTABLE R12 K9 [{"Id", "Data", "Text", "Checked", "OnItemClicked"}]
+  GETIMPORT R13 K12 [string.format]
+  LOADK R14 K13 ["SkipUIFrames_%d"]
+  MOVE R15 R9
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K4 ["Id"]
+  SETTABLEKS R9 R12 K5 ["Data"]
+  LOADK R15 K14 ["SkipUIFrames"]
+  LOADK R16 K15 ["Frames"]
+  DUPTABLE R17 K17 [{"frames"}]
+  SETTABLEKS R9 R17 K16 ["frames"]
+  NAMECALL R13 R2 K18 ["getText"]
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K6 ["Text"]
+  JUMPIFEQ R9 R3 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R12 K7 ["Checked"]
+  GETTABLEKS R13 R0 K19 ["onSkipUIFramesChanged"]
+  SETTABLEKS R13 R12 K8 ["OnItemClicked"]
+  FASTCALL2 TABLE_INSERT R4 R12 [+4]
+  MOVE R11 R4
+  GETIMPORT R10 K22 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R5 2 [-37]
+  LOADK R5 K14 ["SkipUIFrames"]
+  SETTABLEKS R5 R4 K4 ["Id"]
+  LOADK R7 K23 ["Settings"]
+  LOADK R8 K14 ["SkipUIFrames"]
+  DUPTABLE R9 K17 [{"frames"}]
+  SETTABLEKS R3 R9 K16 ["frames"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K6 ["Text"]
+  RETURN R4 1
+
+PROTO_7:
   GETTABLEKS R3 R0 K0 ["Id"]
   GETTABLEKS R4 R1 K0 ["Id"]
   JUMPIFLT R3 R4 [+2]
@@ -158,7 +231,7 @@ PROTO_5:
   LOADB R2 1
   RETURN R2 1
 
-PROTO_6:
+PROTO_8:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Localization"]
   GETTABLEKS R4 R1 K2 ["FrameBuffer"]
@@ -177,40 +250,47 @@ PROTO_6:
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  DUPTABLE R12 K10 [{"Id", "Text", "Checked", "OnItemClicked"}]
-  SETTABLEKS R8 R12 K6 ["Id"]
-  LOADK R15 K11 ["Replay"]
-  LOADK R16 K12 ["Seconds"]
-  DUPTABLE R17 K14 [{"duration"}]
-  SETTABLEKS R8 R17 K13 ["duration"]
-  NAMECALL R13 R2 K15 ["getText"]
+  DUPTABLE R12 K11 [{"Id", "Data", "Text", "Checked", "OnItemClicked"}]
+  GETIMPORT R13 K14 [string.format]
+  LOADK R14 K15 ["Replay_%d"]
+  MOVE R15 R8
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K6 ["Id"]
+  SETTABLEKS R8 R12 K7 ["Data"]
+  LOADK R15 K16 ["Replay"]
+  LOADK R16 K17 ["Seconds"]
+  DUPTABLE R17 K19 [{"duration"}]
+  SETTABLEKS R8 R17 K18 ["duration"]
+  NAMECALL R13 R2 K20 ["getText"]
   CALL R13 4 1
-  SETTABLEKS R13 R12 K7 ["Text"]
+  SETTABLEKS R13 R12 K8 ["Text"]
   JUMPIFEQ R8 R3 [+2]
   LOADB R13 0 +1
   LOADB R13 1
-  SETTABLEKS R13 R12 K8 ["Checked"]
-  GETTABLEKS R13 R0 K16 ["onReplayDurationChanged"]
-  SETTABLEKS R13 R12 K9 ["OnItemClicked"]
+  SETTABLEKS R13 R12 K9 ["Checked"]
+  GETTABLEKS R13 R0 K21 ["onReplayDurationChanged"]
+  SETTABLEKS R13 R12 K10 ["OnItemClicked"]
   FASTCALL2 TABLE_INSERT R4 R12 [+4]
   MOVE R11 R4
-  GETIMPORT R10 K19 [table.insert]
+  GETIMPORT R10 K24 [table.insert]
   CALL R10 2 0
-  FORGLOOP R5 2 [-30]
-  GETIMPORT R5 K21 [table.sort]
+  FORGLOOP R5 2 [-37]
+  GETIMPORT R5 K26 [table.sort]
   MOVE R6 R4
-  DUPCLOSURE R7 K22 [PROTO_5]
+  DUPCLOSURE R7 K27 [PROTO_7]
   CALL R5 2 0
-  LOADK R5 K23 ["ReplayLength"]
+  LOADK R5 K28 ["ReplayLength"]
   SETTABLEKS R5 R4 K6 ["Id"]
-  LOADK R7 K24 ["Settings"]
-  LOADK R8 K23 ["ReplayLength"]
-  NAMECALL R5 R2 K15 ["getText"]
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K7 ["Text"]
+  LOADK R7 K29 ["Settings"]
+  LOADK R8 K28 ["ReplayLength"]
+  DUPTABLE R9 K19 [{"duration"}]
+  SETTABLEKS R3 R9 K18 ["duration"]
+  NAMECALL R5 R2 K20 ["getText"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K8 ["Text"]
   RETURN R4 1
 
-PROTO_7:
+PROTO_9:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Stylizer"]
   GETUPVAL R4 0
@@ -245,33 +325,36 @@ PROTO_7:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_8:
-  DUPTABLE R2 K2 [{"ActiveLayersFilter", "LayerFilters"}]
-  GETTABLEKS R4 R0 K3 ["Status"]
+PROTO_10:
+  DUPTABLE R2 K3 [{"ActiveLayersFilter", "LayerFilters", "SkipLimit"}]
+  GETTABLEKS R4 R0 K4 ["Status"]
   GETTABLEKS R3 R4 K0 ["ActiveLayersFilter"]
   SETTABLEKS R3 R2 K0 ["ActiveLayersFilter"]
-  GETTABLEKS R4 R0 K3 ["Status"]
+  GETTABLEKS R4 R0 K4 ["Status"]
   GETTABLEKS R3 R4 K1 ["LayerFilters"]
   SETTABLEKS R3 R2 K1 ["LayerFilters"]
+  GETTABLEKS R4 R0 K4 ["Status"]
+  GETTABLEKS R3 R4 K2 ["SkipLimit"]
+  SETTABLEKS R3 R2 K2 ["SkipLimit"]
   RETURN R2 1
 
-PROTO_9:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_10:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
 PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_13:
   GETUPVAL R2 0
   GETUPVAL R3 1
   MOVE R4 R0
@@ -280,8 +363,16 @@ PROTO_11:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_12:
-  DUPTABLE R1 K3 [{"SetActiveLayersFilter", "SetFrameBufferDuration", "SetLayerFilter"}]
+PROTO_14:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_15:
+  DUPTABLE R1 K4 [{"SetActiveLayersFilter", "SetFrameBufferDuration", "SetLayerFilter", "SetSkipLimit"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
@@ -294,6 +385,10 @@ PROTO_12:
   CAPTURE VAL R0
   CAPTURE UPVAL U2
   SETTABLEKS R2 R1 K2 ["SetLayerFilter"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["SetSkipLimit"]
   RETURN R1 1
 
 MAIN:
@@ -326,61 +421,68 @@ MAIN:
   GETIMPORT R9 K5 [require]
   GETTABLEKS R10 R7 K17 ["SetLayerFilter"]
   CALL R9 1 1
-  GETTABLEKS R11 R0 K14 ["Src"]
-  GETTABLEKS R10 R11 K18 ["Thunks"]
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R12 R10 K19 ["SetFrameBufferDuration"]
-  CALL R11 1 1
-  GETTABLEKS R13 R0 K14 ["Src"]
-  GETTABLEKS R12 R13 K20 ["Util"]
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R14 R12 K21 ["Constants"]
-  CALL R13 1 1
-  GETTABLEKS R14 R3 K22 ["UI"]
-  GETTABLEKS R15 R14 K23 ["showContextMenu"]
-  GETIMPORT R16 K5 [require]
-  GETTABLEKS R18 R0 K14 ["Src"]
-  GETTABLEKS R17 R18 K24 ["Types"]
-  CALL R16 1 1
-  GETTABLEKS R17 R1 K25 ["PureComponent"]
-  LOADK R19 K26 ["SettingsButton"]
-  NAMECALL R17 R17 K27 ["extend"]
-  CALL R17 2 1
-  DUPCLOSURE R18 K28 [PROTO_4]
-  CAPTURE VAL R13
-  CAPTURE VAL R15
-  SETTABLEKS R18 R17 K29 ["init"]
-  DUPCLOSURE R18 K30 [PROTO_6]
-  CAPTURE VAL R13
-  SETTABLEKS R18 R17 K31 ["makeReplaySubmenu"]
-  DUPCLOSURE R18 K32 [PROTO_7]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R7 K18 ["SetSkipLimit"]
+  CALL R10 1 1
+  GETTABLEKS R12 R0 K14 ["Src"]
+  GETTABLEKS R11 R12 K19 ["Thunks"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R13 R11 K20 ["SetFrameBufferDuration"]
+  CALL R12 1 1
+  GETTABLEKS R14 R0 K14 ["Src"]
+  GETTABLEKS R13 R14 K21 ["Util"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R13 K22 ["Constants"]
+  CALL R14 1 1
+  GETTABLEKS R15 R3 K23 ["UI"]
+  GETTABLEKS R16 R15 K24 ["showContextMenu"]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R19 R0 K14 ["Src"]
+  GETTABLEKS R18 R19 K25 ["Types"]
+  CALL R17 1 1
+  GETTABLEKS R18 R1 K26 ["PureComponent"]
+  LOADK R20 K27 ["SettingsButton"]
+  NAMECALL R18 R18 K28 ["extend"]
+  CALL R18 2 1
+  DUPCLOSURE R19 K29 [PROTO_5]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  SETTABLEKS R19 R18 K30 ["init"]
+  DUPCLOSURE R19 K31 [PROTO_6]
+  CAPTURE VAL R14
+  SETTABLEKS R19 R18 K32 ["makeSkipUIFramesSubmenu"]
+  DUPCLOSURE R19 K33 [PROTO_8]
+  CAPTURE VAL R14
+  SETTABLEKS R19 R18 K34 ["makeReplaySubmenu"]
+  DUPCLOSURE R19 K35 [PROTO_9]
   CAPTURE VAL R1
-  SETTABLEKS R18 R17 K33 ["render"]
-  MOVE R18 R5
-  DUPTABLE R19 K37 [{"Analytics", "Localization", "Plugin", "Stylizer"}]
-  GETTABLEKS R20 R4 K34 ["Analytics"]
-  SETTABLEKS R20 R19 K34 ["Analytics"]
-  GETTABLEKS R20 R4 K35 ["Localization"]
-  SETTABLEKS R20 R19 K35 ["Localization"]
-  GETTABLEKS R20 R4 K36 ["Plugin"]
-  SETTABLEKS R20 R19 K36 ["Plugin"]
-  GETTABLEKS R21 R3 K12 ["Style"]
-  GETTABLEKS R20 R21 K13 ["Stylizer"]
-  SETTABLEKS R20 R19 K13 ["Stylizer"]
-  CALL R18 1 1
-  MOVE R19 R17
-  CALL R18 1 1
-  MOVE R17 R18
-  DUPCLOSURE R18 K38 [PROTO_8]
-  DUPCLOSURE R19 K39 [PROTO_12]
+  SETTABLEKS R19 R18 K36 ["render"]
+  MOVE R19 R5
+  DUPTABLE R20 K40 [{"Analytics", "Localization", "Plugin", "Stylizer"}]
+  GETTABLEKS R21 R4 K37 ["Analytics"]
+  SETTABLEKS R21 R20 K37 ["Analytics"]
+  GETTABLEKS R21 R4 K38 ["Localization"]
+  SETTABLEKS R21 R20 K38 ["Localization"]
+  GETTABLEKS R21 R4 K39 ["Plugin"]
+  SETTABLEKS R21 R20 K39 ["Plugin"]
+  GETTABLEKS R22 R3 K12 ["Style"]
+  GETTABLEKS R21 R22 K13 ["Stylizer"]
+  SETTABLEKS R21 R20 K13 ["Stylizer"]
+  CALL R19 1 1
+  MOVE R20 R18
+  CALL R19 1 1
+  MOVE R18 R19
+  DUPCLOSURE R19 K41 [PROTO_10]
+  DUPCLOSURE R20 K42 [PROTO_15]
   CAPTURE VAL R8
-  CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R9
-  GETTABLEKS R20 R2 K40 ["connect"]
-  MOVE R21 R18
+  CAPTURE VAL R10
+  GETTABLEKS R21 R2 K43 ["connect"]
   MOVE R22 R19
-  CALL R20 2 1
-  MOVE R21 R17
-  CALL R20 1 1
-  MOVE R17 R20
-  RETURN R17 1
+  MOVE R23 R20
+  CALL R21 2 1
+  MOVE R22 R18
+  CALL R21 1 1
+  MOVE R18 R21
+  RETURN R18 1

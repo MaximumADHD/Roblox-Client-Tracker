@@ -185,7 +185,7 @@ PROTO_8:
   LOADNIL R13
   FORGPREP R11
   LOADN R16 4
-  JUMPIFLT R16 R14 [+95]
+  JUMPIFLT R16 R14 [+80]
   GETTABLEKS R16 R15 K25 ["UserId"]
   GETUPVAL R18 0
   GETTABLEKS R17 R18 K9 ["createElement"]
@@ -211,24 +211,14 @@ PROTO_8:
   GETTABLEKS R25 R4 K41 ["ribbonItem"]
   GETTABLEKS R24 R25 K42 ["size"]
   SETTABLEKS R24 R23 K26 ["Size"]
-  GETIMPORT R25 K44 [game]
-  LOADK R27 K45 ["COLLAB5718AccessibleColors"]
-  NAMECALL R25 R25 K46 ["GetFastFlag"]
-  CALL R25 2 1
-  JUMPIF R25 [+8]
-  GETIMPORT R25 K48 [BrickColor.new]
-  GETTABLEKS R26 R15 K49 ["CollaboratorColor"]
-  CALL R25 1 1
-  GETTABLEKS R24 R25 K50 ["Color"]
-  JUMP [+2]
-  GETTABLEKS R24 R15 K51 ["CollaboratorColor3"]
+  GETTABLEKS R24 R15 K43 ["CollaboratorColor3"]
   SETTABLEKS R24 R23 K37 ["RingColor"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R25 R4 K41 ["ribbonItem"]
-  GETTABLEKS R24 R25 K52 ["buttonHover"]
+  GETTABLEKS R24 R25 K44 ["buttonHover"]
   JUMPIF R24 [+4]
   GETTABLEKS R25 R4 K41 ["ribbonItem"]
-  GETTABLEKS R24 R25 K53 ["background"]
+  GETTABLEKS R24 R25 K45 ["background"]
   SETTABLEKS R24 R23 K38 ["BackgroundColor3"]
   LOADN R24 0
   SETTABLEKS R24 R23 K39 ["BackgroundTransparency"]
@@ -236,18 +226,18 @@ PROTO_8:
   SETTABLEKS R21 R20 K32 ["Avatar"]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K9 ["createElement"]
-  LOADK R22 K54 ["UICorner"]
-  DUPTABLE R23 K56 [{"CornerRadius"}]
-  GETIMPORT R24 K58 [UDim.new]
-  LOADK R25 K59 [0.5]
+  LOADK R22 K46 ["UICorner"]
+  DUPTABLE R23 K48 [{"CornerRadius"}]
+  GETIMPORT R24 K50 [UDim.new]
+  LOADK R25 K51 [0.5]
   LOADN R26 0
   CALL R24 2 1
-  SETTABLEKS R24 R23 K55 ["CornerRadius"]
+  SETTABLEKS R24 R23 K47 ["CornerRadius"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K33 ["Corner"]
   CALL R17 3 1
   SETTABLE R17 R10 R16
-  FORGLOOP R11 2 [-96]
+  FORGLOOP R11 2 [-81]
   LENGTH R11 R8
   LOADN R12 4
   JUMPIFNOTLT R12 R11 [+84]
@@ -255,87 +245,87 @@ PROTO_8:
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K9 ["createElement"]
   GETUPVAL R14 7
-  DUPTABLE R15 K61 [{"Size", "BackgroundColor3", "BackgroundTransparency", "LayoutOrder", "ZIndex", "OnClick"}]
+  DUPTABLE R15 K53 [{"Size", "BackgroundColor3", "BackgroundTransparency", "LayoutOrder", "ZIndex", "OnClick"}]
   GETTABLEKS R17 R4 K41 ["ribbonItem"]
   GETTABLEKS R16 R17 K42 ["size"]
   SETTABLEKS R16 R15 K26 ["Size"]
   GETTABLEKS R17 R4 K41 ["ribbonItem"]
-  GETTABLEKS R16 R17 K62 ["overflowBackground"]
+  GETTABLEKS R16 R17 K54 ["overflowBackground"]
   SETTABLEKS R16 R15 K38 ["BackgroundColor3"]
   LOADN R16 0
   SETTABLEKS R16 R15 K39 ["BackgroundTransparency"]
   LOADN R16 4
   SETTABLEKS R16 R15 K15 ["LayoutOrder"]
   LOADN R16 4
-  SETTABLEKS R16 R15 K60 ["ZIndex"]
+  SETTABLEKS R16 R15 K52 ["ZIndex"]
   GETTABLEKS R16 R0 K27 ["OnClick"]
   SETTABLEKS R16 R15 K27 ["OnClick"]
-  DUPTABLE R16 K64 [{"Corner", "Text"}]
+  DUPTABLE R16 K56 [{"Corner", "Text"}]
   GETUPVAL R18 0
   GETTABLEKS R17 R18 K9 ["createElement"]
-  LOADK R18 K54 ["UICorner"]
-  DUPTABLE R19 K56 [{"CornerRadius"}]
-  GETIMPORT R20 K58 [UDim.new]
-  LOADK R21 K59 [0.5]
+  LOADK R18 K46 ["UICorner"]
+  DUPTABLE R19 K48 [{"CornerRadius"}]
+  GETIMPORT R20 K50 [UDim.new]
+  LOADK R21 K51 [0.5]
   LOADN R22 0
   CALL R20 2 1
-  SETTABLEKS R20 R19 K55 ["CornerRadius"]
+  SETTABLEKS R20 R19 K47 ["CornerRadius"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K33 ["Corner"]
   GETUPVAL R18 0
   GETTABLEKS R17 R18 K9 ["createElement"]
   GETUPVAL R18 9
-  DUPTABLE R19 K68 [{"Text", "Position", "TextSize", "Font", "ZIndex"}]
-  LOADK R21 K69 ["+"]
+  DUPTABLE R19 K60 [{"Text", "Position", "TextSize", "Font", "ZIndex"}]
+  LOADK R21 K61 ["+"]
   LENGTH R23 R8
-  SUBK R22 R23 K70 [4]
+  SUBK R22 R23 K62 [4]
   CONCAT R20 R21 R22
-  SETTABLEKS R20 R19 K63 ["Text"]
+  SETTABLEKS R20 R19 K55 ["Text"]
   GETIMPORT R20 K31 [UDim2.fromOffset]
   LOADN R21 255
   LOADN R22 255
   CALL R20 2 1
-  SETTABLEKS R20 R19 K65 ["Position"]
+  SETTABLEKS R20 R19 K57 ["Position"]
   LOADN R20 13
-  SETTABLEKS R20 R19 K66 ["TextSize"]
-  GETIMPORT R20 K72 [Enum.Font.SourceSansSemibold]
-  SETTABLEKS R20 R19 K67 ["Font"]
+  SETTABLEKS R20 R19 K58 ["TextSize"]
+  GETIMPORT R20 K64 [Enum.Font.SourceSansSemibold]
+  SETTABLEKS R20 R19 K59 ["Font"]
   LOADN R20 5
-  SETTABLEKS R20 R19 K60 ["ZIndex"]
+  SETTABLEKS R20 R19 K52 ["ZIndex"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K63 ["Text"]
+  SETTABLEKS R17 R16 K55 ["Text"]
   CALL R13 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R11 K75 [table.insert]
+  GETIMPORT R11 K67 [table.insert]
   CALL R11 -1 0
-  GETTABLEKS R11 R0 K76 ["Widget"]
+  GETTABLEKS R11 R0 K68 ["Widget"]
   JUMPIFNOT R11 [+38]
-  GETIMPORT R11 K44 [game]
-  LOADK R13 K77 ["StudioWidgetsService"]
-  NAMECALL R11 R11 K78 ["GetService"]
+  GETIMPORT R11 K70 [game]
+  LOADK R13 K71 ["StudioWidgetsService"]
+  NAMECALL R11 R11 K72 ["GetService"]
   CALL R11 2 1
-  GETIMPORT R12 K44 [game]
-  LOADK R14 K79 ["RunService"]
-  NAMECALL R12 R12 K78 ["GetService"]
+  GETIMPORT R12 K70 [game]
+  LOADK R14 K73 ["RunService"]
+  NAMECALL R12 R12 K72 ["GetService"]
   CALL R12 2 1
-  GETTABLEKS R15 R0 K76 ["Widget"]
-  NAMECALL R13 R11 K80 ["GetWidgetFromPluginGui"]
+  GETTABLEKS R15 R0 K68 ["Widget"]
+  NAMECALL R13 R11 K74 ["GetWidgetFromPluginGui"]
   CALL R13 2 1
-  NAMECALL R14 R12 K81 ["IsEdit"]
+  NAMECALL R14 R12 K75 ["IsEdit"]
   CALL R14 1 1
   JUMPIFNOT R14 [+12]
   GETUPVAL R14 10
   LENGTH R15 R8
   LOADB R16 1
   CALL R14 2 1
-  GETTABLEKS R17 R14 K82 ["X"]
-  GETTABLEKS R18 R14 K83 ["Y"]
-  NAMECALL R15 R13 K84 ["SetFixedSize"]
+  GETTABLEKS R17 R14 K76 ["X"]
+  GETTABLEKS R18 R14 K77 ["Y"]
+  NAMECALL R15 R13 K78 ["SetFixedSize"]
   CALL R15 3 0
   JUMP [+5]
   LOADN R16 1
   LOADN R17 24
-  NAMECALL R14 R13 K84 ["SetFixedSize"]
+  NAMECALL R14 R13 K78 ["SetFixedSize"]
   CALL R14 3 0
   GETUPVAL R11 10
   LENGTH R12 R8
@@ -344,32 +334,32 @@ PROTO_8:
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K9 ["createElement"]
   GETUPVAL R13 7
-  DUPTABLE R14 K86 [{"Spacing", "BackgroundColor3"}]
+  DUPTABLE R14 K80 [{"Spacing", "BackgroundColor3"}]
   LOADN R15 0
-  SETTABLEKS R15 R14 K85 ["Spacing"]
+  SETTABLEKS R15 R14 K79 ["Spacing"]
   GETTABLEKS R16 R4 K41 ["ribbonItem"]
-  GETTABLEKS R15 R16 K53 ["background"]
+  GETTABLEKS R15 R16 K45 ["background"]
   SETTABLEKS R15 R14 K38 ["BackgroundColor3"]
   NEWTABLE R15 1 1
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K9 ["createElement"]
   GETUPVAL R17 7
   NEWTABLE R18 8 0
-  LOADK R19 K87 ["Box"]
-  SETTABLEKS R19 R18 K88 ["Style"]
-  GETIMPORT R19 K89 [UDim2.new]
+  LOADK R19 K81 ["Box"]
+  SETTABLEKS R19 R18 K82 ["Style"]
+  GETIMPORT R19 K83 [UDim2.new]
   LOADN R20 0
-  GETTABLEKS R21 R11 K82 ["X"]
+  GETTABLEKS R21 R11 K76 ["X"]
   LOADN R22 1
   LOADN R23 0
   CALL R19 4 1
   SETTABLEKS R19 R18 K26 ["Size"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R20 R4 K41 ["ribbonItem"]
-  GETTABLEKS R19 R20 K52 ["buttonHover"]
+  GETTABLEKS R19 R20 K44 ["buttonHover"]
   JUMPIF R19 [+4]
   GETTABLEKS R20 R4 K41 ["ribbonItem"]
-  GETTABLEKS R19 R20 K53 ["background"]
+  GETTABLEKS R19 R20 K45 ["background"]
   SETTABLEKS R19 R18 K38 ["BackgroundColor3"]
   LENGTH R20 R8
   LOADN R21 0
@@ -377,18 +367,18 @@ PROTO_8:
   LOADN R19 2
   JUMP [+1]
   LOADN R19 0
-  SETTABLEKS R19 R18 K90 ["Padding"]
+  SETTABLEKS R19 R18 K84 ["Padding"]
   GETTABLEKS R19 R0 K27 ["OnClick"]
   SETTABLEKS R19 R18 K27 ["OnClick"]
   GETUPVAL R21 0
-  GETTABLEKS R20 R21 K91 ["Event"]
-  GETTABLEKS R19 R20 K92 ["MouseEnter"]
+  GETTABLEKS R20 R21 K85 ["Event"]
+  GETTABLEKS R19 R20 K86 ["MouseEnter"]
   NEWCLOSURE R20 P2
   CAPTURE VAL R2
   SETTABLE R20 R18 R19
   GETUPVAL R21 0
-  GETTABLEKS R20 R21 K91 ["Event"]
-  GETTABLEKS R19 R20 K93 ["MouseLeave"]
+  GETTABLEKS R20 R21 K85 ["Event"]
+  GETTABLEKS R19 R20 K87 ["MouseLeave"]
   NEWCLOSURE R20 P3
   CAPTURE VAL R2
   SETTABLE R20 R18 R19
@@ -398,15 +388,15 @@ PROTO_8:
   GETUPVAL R18 0
   GETTABLEKS R17 R18 K9 ["createElement"]
   GETUPVAL R18 7
-  DUPTABLE R19 K94 [{"LayoutOrder"}]
+  DUPTABLE R19 K88 [{"LayoutOrder"}]
   LOADN R20 100
   SETTABLEKS R20 R19 K15 ["LayoutOrder"]
   NEWTABLE R20 0 1
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K9 ["createElement"]
   GETUPVAL R22 11
-  DUPTABLE R23 K100 [{"AutomaticSize", "Size", "Position", "AnchorPoint", "LeftIcon", "OnClick", "Spacing", "Padding", "HoverColor", "Text", "BackgroundStyle", "BackgroundColor"}]
-  GETIMPORT R24 K101 [Enum.AutomaticSize.X]
+  DUPTABLE R23 K94 [{"AutomaticSize", "Size", "Position", "AnchorPoint", "LeftIcon", "OnClick", "Spacing", "Padding", "HoverColor", "Text", "BackgroundStyle", "BackgroundColor"}]
+  GETIMPORT R24 K95 [Enum.AutomaticSize.X]
   SETTABLEKS R24 R23 K19 ["AutomaticSize"]
   GETTABLEKS R25 R4 K41 ["ribbonItem"]
   GETTABLEKS R24 R25 K42 ["size"]
@@ -414,57 +404,57 @@ PROTO_8:
   LENGTH R25 R8
   LOADN R26 0
   JUMPIFNOTLT R26 R25 [+9]
-  GETIMPORT R24 K89 [UDim2.new]
+  GETIMPORT R24 K83 [UDim2.new]
   LOADN R25 1
   LOADN R26 0
   LOADN R27 0
   LOADN R28 0
   CALL R24 4 1
   JUMPIF R24 [+7]
-  GETIMPORT R24 K89 [UDim2.new]
+  GETIMPORT R24 K83 [UDim2.new]
   LOADN R25 1
   LOADN R26 250
   LOADN R27 0
   LOADN R28 0
   CALL R24 4 1
-  SETTABLEKS R24 R23 K65 ["Position"]
-  GETIMPORT R24 K103 [Vector2.new]
+  SETTABLEKS R24 R23 K57 ["Position"]
+  GETIMPORT R24 K97 [Vector2.new]
   LOADN R25 1
   LOADN R26 0
   CALL R24 2 1
-  SETTABLEKS R24 R23 K95 ["AnchorPoint"]
+  SETTABLEKS R24 R23 K89 ["AnchorPoint"]
   GETTABLEKS R25 R4 K41 ["ribbonItem"]
-  GETTABLEKS R24 R25 K104 ["addIcon"]
-  SETTABLEKS R24 R23 K96 ["LeftIcon"]
+  GETTABLEKS R24 R25 K98 ["addIcon"]
+  SETTABLEKS R24 R23 K90 ["LeftIcon"]
   NEWCLOSURE R24 P4
   CAPTURE VAL R6
   CAPTURE VAL R3
   SETTABLEKS R24 R23 K27 ["OnClick"]
   LOADN R24 4
-  SETTABLEKS R24 R23 K85 ["Spacing"]
+  SETTABLEKS R24 R23 K79 ["Spacing"]
   LOADN R24 4
-  SETTABLEKS R24 R23 K90 ["Padding"]
+  SETTABLEKS R24 R23 K84 ["Padding"]
   GETTABLEKS R25 R4 K41 ["ribbonItem"]
-  GETTABLEKS R24 R25 K52 ["buttonHover"]
-  SETTABLEKS R24 R23 K97 ["HoverColor"]
+  GETTABLEKS R24 R25 K44 ["buttonHover"]
+  SETTABLEKS R24 R23 K91 ["HoverColor"]
   LENGTH R25 R8
-  JUMPIFNOTEQKN R25 K105 [0] [+7]
-  LOADK R26 K106 ["Ribbon"]
-  LOADK R27 K107 ["Collaborate"]
-  NAMECALL R24 R5 K108 ["getText"]
+  JUMPIFNOTEQKN R25 K99 [0] [+7]
+  LOADK R26 K100 ["Ribbon"]
+  LOADK R27 K101 ["Collaborate"]
+  NAMECALL R24 R5 K102 ["getText"]
   CALL R24 3 1
   JUMPIF R24 [+1]
   LOADNIL R24
-  SETTABLEKS R24 R23 K63 ["Text"]
-  LOADK R24 K109 ["RoundBox"]
-  SETTABLEKS R24 R23 K98 ["BackgroundStyle"]
+  SETTABLEKS R24 R23 K55 ["Text"]
+  LOADK R24 K103 ["RoundBox"]
+  SETTABLEKS R24 R23 K92 ["BackgroundStyle"]
   GETTABLEKS R25 R4 K41 ["ribbonItem"]
-  GETTABLEKS R24 R25 K53 ["background"]
-  SETTABLEKS R24 R23 K99 ["BackgroundColor"]
+  GETTABLEKS R24 R25 K45 ["background"]
+  SETTABLEKS R24 R23 K93 ["BackgroundColor"]
   CALL R21 2 -1
   SETLIST R20 R21 -1 [1]
   CALL R17 3 1
-  SETTABLEKS R17 R15 K110 ["AddCollaboratorButton"]
+  SETTABLEKS R17 R15 K104 ["AddCollaboratorButton"]
   CALL R12 3 -1
   RETURN R12 -1
 

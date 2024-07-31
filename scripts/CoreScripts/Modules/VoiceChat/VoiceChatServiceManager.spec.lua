@@ -85,6 +85,7 @@ return function()
 	local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 	local BlockMock = Instance.new("BindableEvent")
 	local VoiceChatServiceManager
+	local AvatarChatServiceStub = MockAvatarChatService.new(stub(true), stub(true), stub(Instance.new("BindableEvent")), stub(true))
 
 	local tutils = require(CorePackages.tutils)
 
@@ -133,7 +134,7 @@ return function()
 			voiceChatServiceStub,
 			nil,
 			notificationMock,
-			avatarChatServiceStub
+			avatarChatServiceStub or AvatarChatServiceStub
 		)
 	end
 
@@ -158,7 +159,8 @@ return function()
 			BlockMock.Event,
 			nil,
 			NotificationMock,
-			getPermissionsFunction
+			getPermissionsFunction,
+			AvatarChatServiceStub
 		)
 		VoiceChatServiceManager.policyMapper = mockPolicyMapper
 		VoiceChatServiceManager:SetupParticipantListeners()
@@ -487,10 +489,23 @@ return function()
 			end
 
 			it("Doesn't show place prompt if universe is not enabled for voice", function()
+				local function isEnabled(this, _enum, permission)
+					if permission == Enum.AvatarChatServiceFeature.UniverseAudio or permission == Enum.AvatarChatServiceFeature.PlaceAudio then
+						return false
+					end
+					return true
+				end
+				local avatar = MockAvatarChatService.new(isEnabled, stub(0xFF), stub(Instance.new("BindableEvent")), stub(true))
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, nil, nil, nil, nil, avatar),
 					VoiceChatServiceStub,
-					HTTPServiceStub
+					HTTPServiceStub,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					avatar
 				)
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
 					universePlaceVoiceEnabledSettings = {
@@ -509,6 +524,46 @@ return function()
 				expect(VoiceChatServiceManager:userAndPlaceCanUseVoice("12345")).toBe(false)
 				waitForEvents.act()
 				expect(mock).never.toHaveBeenCalled()
+			end)
+		end)
+
+		describe("Reverse Nudge", function()
+			local reverseNudgeUXDisplayTimeSeconds = 0.1
+
+			beforeAll(function(context)
+				context.fintVoiceReverseNudgeUXDisplayTimeSeconds =
+					game:SetFastIntForTesting("VoiceReverseNudgeUXDisplayTimeSeconds", reverseNudgeUXDisplayTimeSeconds)
+			end)
+
+			afterAll(function(context)
+				game:SetFastIntForTesting(
+					"VoiceReverseNudgeUXDisplayTimeSeconds",
+					context.fintVoiceReverseNudgeUXDisplayTimeSeconds
+				)
+			end)
+
+			it("Reverse nudge toxic user removal callback is cleared after a set delay", function()
+				local testUserId = "12345"
+				local addReverseNudgeToxicUserEventMock, addReverseNudgeToxicUserEventMockFn = jest.fn()
+				local removeReverseNudgeToxicUserEventMock, removeReverseNudgeToxicUserEventMockFn = jest.fn()
+				VoiceChatServiceManager:AddReverseNudgeToxicUser(testUserId, addReverseNudgeToxicUserEventMockFn, removeReverseNudgeToxicUserEventMockFn)
+				waitForEvents()
+				expect(removeReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(0)
+				task.wait(reverseNudgeUXDisplayTimeSeconds + 0.1)
+				expect(addReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(1)
+				expect(removeReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(1)
+			end)
+
+			it("Reverse nudge toxic user removal callback is cancelled upon multiple notifications for the same user", function()
+				local testUserId = "12345"
+				local addReverseNudgeToxicUserEventMock, addReverseNudgeToxicUserEventMockFn = jest.fn()
+				local removeReverseNudgeToxicUserEventMock, removeReverseNudgeToxicUserEventMockFn = jest.fn()
+				VoiceChatServiceManager:AddReverseNudgeToxicUser(testUserId, addReverseNudgeToxicUserEventMockFn, removeReverseNudgeToxicUserEventMockFn)
+				VoiceChatServiceManager:AddReverseNudgeToxicUser(testUserId, addReverseNudgeToxicUserEventMockFn, removeReverseNudgeToxicUserEventMockFn)
+				VoiceChatServiceManager:AddReverseNudgeToxicUser(testUserId, addReverseNudgeToxicUserEventMockFn, removeReverseNudgeToxicUserEventMockFn)
+				task.wait(reverseNudgeUXDisplayTimeSeconds + 0.1)
+				expect(addReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(3)
+				expect(removeReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(1)
 			end)
 		end)
 
@@ -593,13 +648,30 @@ return function()
 			end)
 
 			it("shows correct ban modal for ban reason 7 when calling userAndPlaceCanUseVoice", function()
+				local core = createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub)
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					core,
 					VoiceChatServiceStub,
 					HTTPServiceStub
 				)
 				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				VoiceChatServiceManager.runService = runServiceStub
+				core.communicationPermissionsResult = {
+					universePlaceVoiceEnabledSettings = {
+						isUniverseEnabledForVoice = true,
+						isPlaceEnabledForVoice = false,
+					},
+					voiceSettings = {
+						isVoiceEnabled = false,
+						isBanned = true,
+						bannedUntil = { Seconds = 1 },
+						banReason = 7,
+					},
+					isBanned = true,
+					bannedUntil = { Seconds = 1 },
+					banReason = 7,
+					informedOfBan = false,
+				}
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
 					universePlaceVoiceEnabledSettings = {
 						isUniverseEnabledForVoice = true,

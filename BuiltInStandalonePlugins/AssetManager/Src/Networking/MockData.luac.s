@@ -53,37 +53,34 @@ PROTO_0:
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K12 ["Scope"]
   GETTABLEKS R10 R11 K14 ["Group"]
-  DUPTABLE R13 K21 [{"AssetId", "AssetType", "DisplayName", "VersionNumber", "Created", "Modified", "ModerationStatus", "Owner"}]
-  SETTABLEKS R5 R13 K15 ["AssetId"]
-  SETTABLEKS R7 R13 K9 ["AssetType"]
-  LOADK R15 K22 ["Test %*"]
-  MOVE R17 R7
-  NAMECALL R15 R15 K23 ["format"]
-  CALL R15 2 1
-  MOVE R14 R15
-  SETTABLEKS R14 R13 K16 ["DisplayName"]
-  SETTABLEKS R9 R13 K17 ["VersionNumber"]
-  GETIMPORT R14 K26 [DateTime.now]
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K18 ["Created"]
-  GETIMPORT R14 K26 [DateTime.now]
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K19 ["Modified"]
-  SETTABLEKS R8 R13 K10 ["ModerationStatus"]
-  DUPTABLE R14 K29 [{"Id", "Name", "Scope"}]
-  SETTABLEKS R6 R14 K27 ["Id"]
-  LOADK R16 K30 ["Owner %*"]
-  MOVE R18 R6
-  NAMECALL R16 R16 K23 ["format"]
-  CALL R16 2 1
-  MOVE R15 R16
-  SETTABLEKS R15 R14 K28 ["Name"]
-  SETTABLEKS R10 R14 K12 ["Scope"]
-  SETTABLEKS R14 R13 K20 ["Owner"]
-  FASTCALL2 TABLE_INSERT R1 R13 [+4]
-  MOVE R12 R1
-  GETIMPORT R11 K33 [table.insert]
-  CALL R11 2 0
+  DUPTABLE R11 K21 [{"AssetId", "AssetType", "DisplayName", "VersionNumber", "Created", "Modified", "ModerationStatus", "Owner"}]
+  SETTABLEKS R5 R11 K15 ["AssetId"]
+  SETTABLEKS R7 R11 K9 ["AssetType"]
+  LOADK R13 K22 ["Test %*"]
+  MOVE R15 R7
+  NAMECALL R13 R13 K23 ["format"]
+  CALL R13 2 1
+  MOVE R12 R13
+  SETTABLEKS R12 R11 K16 ["DisplayName"]
+  SETTABLEKS R9 R11 K17 ["VersionNumber"]
+  GETIMPORT R12 K26 [DateTime.now]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K18 ["Created"]
+  GETIMPORT R12 K26 [DateTime.now]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K19 ["Modified"]
+  SETTABLEKS R8 R11 K10 ["ModerationStatus"]
+  DUPTABLE R12 K29 [{"Id", "Name", "Scope"}]
+  SETTABLEKS R6 R12 K27 ["Id"]
+  LOADK R14 K30 ["Owner %*"]
+  MOVE R16 R6
+  NAMECALL R14 R14 K23 ["format"]
+  CALL R14 2 1
+  MOVE R13 R14
+  SETTABLEKS R13 R12 K28 ["Name"]
+  SETTABLEKS R10 R12 K12 ["Scope"]
+  SETTABLEKS R12 R11 K20 ["Owner"]
+  SETTABLE R11 R1 R5
   FORNLOOP R2
   RETURN R1 1
 

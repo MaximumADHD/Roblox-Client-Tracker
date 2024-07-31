@@ -82,7 +82,7 @@ MAIN:
   SETTABLEKS R4 R3 K24 ["getName"]
   DUPCLOSURE R4 K30 [PROTO_1]
   SETTABLEKS R4 R3 K25 ["getDescription"]
-  LOADK R4 K31 ["rbxlocaltheme://GameSettings"]
+  LOADK R4 K31 ["rbxlocaltheme://AssetManager"]
   SETTABLEKS R4 R3 K26 ["icon"]
   LOADB R4 1
   SETTABLEKS R4 R3 K27 ["enabled"]

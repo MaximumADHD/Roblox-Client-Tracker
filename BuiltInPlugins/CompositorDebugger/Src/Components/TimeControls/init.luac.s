@@ -1,26 +1,52 @@
 PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
-  GETTABLEKS R2 R0 K1 ["HistoryOffset"]
+  GETTABLEKS R2 R0 K1 ["HistoryFrame"]
   JUMPIFEQKNIL R2 [+2]
   LOADB R1 0 +1
   LOADB R1 1
   GETTABLEKS R2 R0 K2 ["SetScrubberOffset"]
   LOADN R3 0
-  CALL R2 1 0
-  JUMPIF R1 [+4]
+  LOADN R4 1
+  CALL R2 2 0
+  JUMPIF R1 [+5]
   GETTABLEKS R2 R0 K2 ["SetScrubberOffset"]
   LOADNIL R3
-  CALL R2 1 0
+  LOADNIL R4
+  CALL R2 2 0
   RETURN R0 0
 
 PROTO_1:
-  NEWCLOSURE R1 P0
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K0 ["onPlayPauseClicked"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["SetScrubberOffset"]
+  LOADNIL R2
+  LOADN R3 1
+  CALL R1 2 0
   RETURN R0 0
 
 PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["SetScrubberOffset"]
+  LOADNIL R2
+  LOADN R3 255
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["onPlayPauseClicked"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["onPreviousClicked"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["onNextClicked"]
+  RETURN R0 0
+
+PROTO_4:
   GETTABLEKS R1 R0 K0 ["state"]
   GETTABLEKS R2 R0 K1 ["props"]
   GETTABLEKS R3 R2 K2 ["Stylizer"]
@@ -50,150 +76,220 @@ PROTO_2:
   SUB R7 R8 R9
   JUMP [+1]
   LOADN R7 0
-  GETTABLEKS R9 R2 K7 ["HistoryOffset"]
+  GETTABLEKS R9 R2 K11 ["HistoryFrame"]
   JUMPIFEQKNIL R9 [+2]
   LOADB R8 0 +1
   LOADB R8 1
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETTABLEKS R9 R10 K12 ["createElement"]
   GETUPVAL R10 2
-  DUPTABLE R11 K17 [{"Padding", "Size", "Layout", "VerticalAlignment", "HorizontalAlignment"}]
-  DUPTABLE R12 K20 [{"Left", "Right"}]
+  DUPTABLE R11 K18 [{"Padding", "Size", "Layout", "VerticalAlignment", "HorizontalAlignment"}]
+  DUPTABLE R12 K21 [{"Left", "Right"}]
   LOADN R13 24
-  SETTABLEKS R13 R12 K18 ["Left"]
+  SETTABLEKS R13 R12 K19 ["Left"]
   LOADN R13 24
-  SETTABLEKS R13 R12 K19 ["Right"]
-  SETTABLEKS R12 R11 K12 ["Padding"]
-  GETTABLEKS R12 R2 K13 ["Size"]
-  SETTABLEKS R12 R11 K13 ["Size"]
-  GETIMPORT R12 K24 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R12 R11 K14 ["Layout"]
-  GETIMPORT R12 K26 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R12 R11 K15 ["VerticalAlignment"]
-  GETIMPORT R12 K27 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R12 R11 K16 ["HorizontalAlignment"]
-  DUPTABLE R12 K30 [{"Timeline", "PlayPauseButton"}]
+  SETTABLEKS R13 R12 K20 ["Right"]
+  SETTABLEKS R12 R11 K13 ["Padding"]
+  GETTABLEKS R12 R2 K14 ["Size"]
+  SETTABLEKS R12 R11 K14 ["Size"]
+  GETIMPORT R12 K25 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R12 R11 K15 ["Layout"]
+  GETIMPORT R12 K27 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R12 R11 K16 ["VerticalAlignment"]
+  GETIMPORT R12 K28 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R12 R11 K17 ["HorizontalAlignment"]
+  DUPTABLE R12 K33 [{"Timeline", "Previous", "PlayPauseButton", "Next"}]
   GETTABLEKS R14 R2 K3 ["FrameBuffer"]
-  JUMPIFNOT R14 [+105]
+  JUMPIFNOT R14 [+114]
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETTABLEKS R13 R14 K12 ["createElement"]
   GETUPVAL R14 3
-  DUPTABLE R15 K37 [{"Style", "Size", "Timespan", "MajorInterval", "MinorInterval", "LayoutOrder", "ZIndez"}]
-  SETTABLEKS R3 R15 K31 ["Style"]
-  GETIMPORT R16 K40 [UDim2.new]
+  DUPTABLE R15 K40 [{"Style", "Size", "Timespan", "MajorInterval", "MinorInterval", "LayoutOrder", "ZIndez"}]
+  SETTABLEKS R3 R15 K34 ["Style"]
+  GETIMPORT R16 K43 [UDim2.new]
   LOADN R17 1
-  LOADN R18 232
+  GETTABLEKS R23 R3 K45 ["ControlButtons"]
+  GETTABLEKS R22 R23 K46 ["ButtonSize"]
+  GETTABLEKS R21 R22 K47 ["X"]
+  GETTABLEKS R20 R21 K48 ["Offset"]
+  MINUS R19 R20
+  MULK R18 R19 K44 [3]
   LOADN R19 1
   LOADN R20 0
   CALL R16 4 1
-  SETTABLEKS R16 R15 K13 ["Size"]
-  SETTABLEKS R5 R15 K32 ["Timespan"]
-  GETTABLEKS R16 R2 K33 ["MajorInterval"]
-  SETTABLEKS R16 R15 K33 ["MajorInterval"]
-  GETTABLEKS R16 R2 K34 ["MinorInterval"]
-  SETTABLEKS R16 R15 K34 ["MinorInterval"]
+  SETTABLEKS R16 R15 K14 ["Size"]
+  SETTABLEKS R5 R15 K35 ["Timespan"]
+  GETTABLEKS R16 R2 K36 ["MajorInterval"]
+  SETTABLEKS R16 R15 K36 ["MajorInterval"]
+  GETTABLEKS R16 R2 K37 ["MinorInterval"]
+  SETTABLEKS R16 R15 K37 ["MinorInterval"]
   LOADN R16 1
-  SETTABLEKS R16 R15 K35 ["LayoutOrder"]
-  GETTABLEKS R16 R2 K41 ["ZIndex"]
-  SETTABLEKS R16 R15 K36 ["ZIndez"]
-  DUPTABLE R16 K44 [{"Scrubber", "BufferBar"}]
+  SETTABLEKS R16 R15 K38 ["LayoutOrder"]
+  GETTABLEKS R16 R2 K49 ["ZIndex"]
+  SETTABLEKS R16 R15 K39 ["ZIndez"]
+  DUPTABLE R16 K52 [{"Scrubber", "BufferBar"}]
   GETUPVAL R18 1
-  GETTABLEKS R17 R18 K11 ["createElement"]
+  GETTABLEKS R17 R18 K12 ["createElement"]
   GETUPVAL R18 4
-  DUPTABLE R19 K46 [{"Style", "Position", "ZIndex"}]
-  SETTABLEKS R3 R19 K31 ["Style"]
-  GETIMPORT R20 K48 [UDim2.fromScale]
+  DUPTABLE R19 K54 [{"Style", "Position", "ZIndex"}]
+  SETTABLEKS R3 R19 K34 ["Style"]
+  GETIMPORT R20 K56 [UDim2.fromScale]
   MOVE R21 R6
   LOADN R22 0
   CALL R20 2 1
-  SETTABLEKS R20 R19 K45 ["Position"]
+  SETTABLEKS R20 R19 K53 ["Position"]
   LOADN R20 2
-  SETTABLEKS R20 R19 K41 ["ZIndex"]
+  SETTABLEKS R20 R19 K49 ["ZIndex"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K42 ["Scrubber"]
+  SETTABLEKS R17 R16 K50 ["Scrubber"]
   GETUPVAL R18 1
-  GETTABLEKS R17 R18 K11 ["createElement"]
+  GETTABLEKS R17 R18 K12 ["createElement"]
   GETUPVAL R18 2
-  DUPTABLE R19 K51 [{"ZIndex", "AnchorPoint", "Size", "Position", "BackgroundColor"}]
+  DUPTABLE R19 K59 [{"ZIndex", "AnchorPoint", "Size", "Position", "BackgroundColor"}]
   LOADN R20 2
-  SETTABLEKS R20 R19 K41 ["ZIndex"]
-  GETIMPORT R20 K53 [Vector2.new]
+  SETTABLEKS R20 R19 K49 ["ZIndex"]
+  GETIMPORT R20 K61 [Vector2.new]
   LOADN R21 1
   LOADN R22 1
   CALL R20 2 1
-  SETTABLEKS R20 R19 K49 ["AnchorPoint"]
-  GETIMPORT R20 K40 [UDim2.new]
+  SETTABLEKS R20 R19 K57 ["AnchorPoint"]
+  GETIMPORT R20 K43 [UDim2.new]
   DIV R22 R7 R5
   LOADN R23 0
   LOADN R24 1
   FASTCALL MATH_CLAMP [+2]
-  GETIMPORT R21 K56 [math.clamp]
+  GETIMPORT R21 K64 [math.clamp]
   CALL R21 3 1
   LOADN R22 0
   LOADN R23 0
-  GETTABLEKS R25 R3 K43 ["BufferBar"]
-  GETTABLEKS R24 R25 K57 ["Height"]
+  GETTABLEKS R25 R3 K51 ["BufferBar"]
+  GETTABLEKS R24 R25 K65 ["Height"]
   CALL R20 4 1
-  SETTABLEKS R20 R19 K13 ["Size"]
-  GETIMPORT R20 K48 [UDim2.fromScale]
+  SETTABLEKS R20 R19 K14 ["Size"]
+  GETIMPORT R20 K56 [UDim2.fromScale]
   LOADN R21 1
   LOADN R22 1
   CALL R20 2 1
-  SETTABLEKS R20 R19 K45 ["Position"]
-  GETTABLEKS R21 R3 K43 ["BufferBar"]
-  GETTABLEKS R20 R21 K58 ["Color"]
-  SETTABLEKS R20 R19 K50 ["BackgroundColor"]
+  SETTABLEKS R20 R19 K53 ["Position"]
+  GETTABLEKS R21 R3 K51 ["BufferBar"]
+  GETTABLEKS R20 R21 K66 ["Color"]
+  SETTABLEKS R20 R19 K58 ["BackgroundColor"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K43 ["BufferBar"]
+  SETTABLEKS R17 R16 K51 ["BufferBar"]
   CALL R13 3 1
   JUMP [+15]
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETTABLEKS R13 R14 K12 ["createElement"]
   GETUPVAL R14 2
-  DUPTABLE R15 K59 [{"Size"}]
-  GETIMPORT R16 K40 [UDim2.new]
+  DUPTABLE R15 K67 [{"Size"}]
+  GETIMPORT R16 K43 [UDim2.new]
   LOADN R17 1
   LOADN R18 232
   LOADN R19 1
   LOADN R20 0
   CALL R16 4 1
-  SETTABLEKS R16 R15 K13 ["Size"]
+  SETTABLEKS R16 R15 K14 ["Size"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K28 ["Timeline"]
+  SETTABLEKS R13 R12 K29 ["Timeline"]
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETTABLEKS R13 R14 K12 ["createElement"]
   GETUPVAL R14 5
-  DUPTABLE R15 K63 [{"Style", "ScrubberOffset", "OnButtonClicked", "IsPlaying", "LayoutOrder"}]
-  GETTABLEKS R16 R3 K29 ["PlayPauseButton"]
-  SETTABLEKS R16 R15 K31 ["Style"]
-  GETTABLEKS R16 R2 K7 ["HistoryOffset"]
-  SETTABLEKS R16 R15 K60 ["ScrubberOffset"]
-  GETTABLEKS R16 R0 K64 ["onPlayPauseClicked"]
-  SETTABLEKS R16 R15 K61 ["OnButtonClicked"]
-  SETTABLEKS R8 R15 K62 ["IsPlaying"]
+  DUPTABLE R15 K72 [{"LayoutOrder", "Size", "IconSize", "LeftIcon", "ImageColor3", "OnClick"}]
   LOADN R16 2
-  SETTABLEKS R16 R15 K35 ["LayoutOrder"]
+  SETTABLEKS R16 R15 K38 ["LayoutOrder"]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K46 ["ButtonSize"]
+  SETTABLEKS R16 R15 K14 ["Size"]
+  GETTABLEKS R19 R3 K45 ["ControlButtons"]
+  GETTABLEKS R18 R19 K46 ["ButtonSize"]
+  GETTABLEKS R17 R18 K47 ["X"]
+  GETTABLEKS R16 R17 K48 ["Offset"]
+  SETTABLEKS R16 R15 K68 ["IconSize"]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K30 ["Previous"]
+  SETTABLEKS R16 R15 K69 ["LeftIcon"]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K66 ["Color"]
+  SETTABLEKS R16 R15 K70 ["ImageColor3"]
+  GETTABLEKS R16 R0 K73 ["onPreviousClicked"]
+  SETTABLEKS R16 R15 K71 ["OnClick"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K29 ["PlayPauseButton"]
+  SETTABLEKS R13 R12 K30 ["Previous"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K12 ["createElement"]
+  GETUPVAL R14 5
+  DUPTABLE R15 K72 [{"LayoutOrder", "Size", "IconSize", "LeftIcon", "ImageColor3", "OnClick"}]
+  LOADN R16 3
+  SETTABLEKS R16 R15 K38 ["LayoutOrder"]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K46 ["ButtonSize"]
+  SETTABLEKS R16 R15 K14 ["Size"]
+  GETTABLEKS R19 R3 K45 ["ControlButtons"]
+  GETTABLEKS R18 R19 K46 ["ButtonSize"]
+  GETTABLEKS R17 R18 K47 ["X"]
+  GETTABLEKS R16 R17 K48 ["Offset"]
+  SETTABLEKS R16 R15 K68 ["IconSize"]
+  JUMPIFNOT R8 [+5]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K74 ["Pause"]
+  JUMP [+4]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K75 ["Play"]
+  SETTABLEKS R16 R15 K69 ["LeftIcon"]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K66 ["Color"]
+  SETTABLEKS R16 R15 K70 ["ImageColor3"]
+  GETTABLEKS R16 R0 K76 ["onPlayPauseClicked"]
+  SETTABLEKS R16 R15 K71 ["OnClick"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K31 ["PlayPauseButton"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K12 ["createElement"]
+  GETUPVAL R14 5
+  DUPTABLE R15 K72 [{"LayoutOrder", "Size", "IconSize", "LeftIcon", "ImageColor3", "OnClick"}]
+  LOADN R16 4
+  SETTABLEKS R16 R15 K38 ["LayoutOrder"]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K46 ["ButtonSize"]
+  SETTABLEKS R16 R15 K14 ["Size"]
+  GETTABLEKS R19 R3 K45 ["ControlButtons"]
+  GETTABLEKS R18 R19 K46 ["ButtonSize"]
+  GETTABLEKS R17 R18 K47 ["X"]
+  GETTABLEKS R16 R17 K48 ["Offset"]
+  SETTABLEKS R16 R15 K68 ["IconSize"]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K32 ["Next"]
+  SETTABLEKS R16 R15 K69 ["LeftIcon"]
+  GETTABLEKS R17 R3 K45 ["ControlButtons"]
+  GETTABLEKS R16 R17 K66 ["Color"]
+  SETTABLEKS R16 R15 K70 ["ImageColor3"]
+  GETTABLEKS R16 R0 K77 ["onNextClicked"]
+  SETTABLEKS R16 R15 K71 ["OnClick"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K32 ["Next"]
   CALL R9 3 -1
   RETURN R9 -1
 
-PROTO_3:
-  DUPTABLE R2 K1 [{"HistoryOffset"}]
-  GETTABLEKS R4 R0 K2 ["Status"]
-  GETTABLEKS R3 R4 K0 ["HistoryOffset"]
-  SETTABLEKS R3 R2 K0 ["HistoryOffset"]
+PROTO_5:
+  DUPTABLE R2 K2 [{"HistoryFrame", "HistoryOffset"}]
+  GETTABLEKS R4 R0 K3 ["Status"]
+  GETTABLEKS R3 R4 K0 ["HistoryFrame"]
+  SETTABLEKS R3 R2 K0 ["HistoryFrame"]
+  GETTABLEKS R4 R0 K3 ["Status"]
+  GETTABLEKS R3 R4 K1 ["HistoryOffset"]
+  SETTABLEKS R3 R2 K1 ["HistoryOffset"]
   RETURN R2 1
 
-PROTO_4:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
+PROTO_6:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_7:
   DUPTABLE R1 K1 [{"SetScrubberOffset"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -224,72 +320,73 @@ MAIN:
   GETTABLEKS R6 R3 K12 ["Dash"]
   GETTABLEKS R7 R6 K13 ["join"]
   GETTABLEKS R8 R3 K14 ["UI"]
-  GETTABLEKS R9 R8 K15 ["Pane"]
-  GETTABLEKS R11 R0 K16 ["Src"]
-  GETTABLEKS R10 R11 K17 ["Actions"]
-  GETTABLEKS R12 R0 K16 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Components"]
-  GETIMPORT R12 K5 [require]
-  GETIMPORT R14 K1 [script]
-  GETTABLEKS R13 R14 K19 ["playPauseButton"]
-  CALL R12 1 1
+  GETTABLEKS R9 R8 K15 ["IconButton"]
+  GETTABLEKS R10 R8 K16 ["Pane"]
+  GETTABLEKS R12 R0 K17 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Actions"]
+  GETTABLEKS R13 R0 K17 ["Src"]
+  GETTABLEKS R12 R13 K19 ["Components"]
   GETIMPORT R13 K5 [require]
   GETIMPORT R15 K1 [script]
-  GETTABLEKS R14 R15 K20 ["scrubber"]
+  GETTABLEKS R14 R15 K20 ["playPauseButton"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
   GETIMPORT R16 K1 [script]
-  GETTABLEKS R15 R16 K21 ["timeline"]
+  GETTABLEKS R15 R16 K21 ["scrubber"]
   CALL R14 1 1
-  GETTABLEKS R16 R0 K16 ["Src"]
-  GETTABLEKS R15 R16 K22 ["Thunks"]
-  GETIMPORT R16 K5 [require]
-  GETTABLEKS R17 R15 K23 ["SetScrubberOffset"]
-  CALL R16 1 1
+  GETIMPORT R15 K5 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K22 ["timeline"]
+  CALL R15 1 1
+  GETTABLEKS R17 R0 K17 ["Src"]
+  GETTABLEKS R16 R17 K23 ["Thunks"]
   GETIMPORT R17 K5 [require]
-  GETTABLEKS R19 R0 K16 ["Src"]
-  GETTABLEKS R18 R19 K24 ["Types"]
+  GETTABLEKS R18 R16 K24 ["SetScrubberOffset"]
   CALL R17 1 1
-  GETTABLEKS R19 R0 K16 ["Src"]
-  GETTABLEKS R18 R19 K25 ["Util"]
-  GETIMPORT R19 K5 [require]
-  GETTABLEKS R20 R18 K26 ["Constants"]
-  CALL R19 1 1
-  GETTABLEKS R20 R1 K27 ["PureComponent"]
-  LOADK R22 K28 ["TimeControls"]
-  NAMECALL R20 R20 K29 ["extend"]
-  CALL R20 2 1
-  DUPCLOSURE R21 K30 [PROTO_1]
-  SETTABLEKS R21 R20 K31 ["init"]
-  DUPCLOSURE R21 K32 [PROTO_2]
-  CAPTURE VAL R19
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R20 R0 K17 ["Src"]
+  GETTABLEKS R19 R20 K25 ["Types"]
+  CALL R18 1 1
+  GETTABLEKS R20 R0 K17 ["Src"]
+  GETTABLEKS R19 R20 K26 ["Util"]
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R21 R19 K27 ["Constants"]
+  CALL R20 1 1
+  GETTABLEKS R21 R1 K28 ["PureComponent"]
+  LOADK R23 K29 ["TimeControls"]
+  NAMECALL R21 R21 K30 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K31 [PROTO_3]
+  SETTABLEKS R22 R21 K32 ["init"]
+  DUPCLOSURE R22 K33 [PROTO_4]
+  CAPTURE VAL R20
   CAPTURE VAL R1
-  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R15
   CAPTURE VAL R14
-  CAPTURE VAL R13
-  CAPTURE VAL R12
-  SETTABLEKS R21 R20 K33 ["render"]
-  MOVE R21 R5
-  DUPTABLE R22 K37 [{"Analytics", "Localization", "Stylizer"}]
-  GETTABLEKS R23 R4 K34 ["Analytics"]
-  SETTABLEKS R23 R22 K34 ["Analytics"]
-  GETTABLEKS R23 R4 K35 ["Localization"]
-  SETTABLEKS R23 R22 K35 ["Localization"]
-  GETTABLEKS R24 R3 K38 ["Style"]
-  GETTABLEKS R23 R24 K36 ["Stylizer"]
-  SETTABLEKS R23 R22 K36 ["Stylizer"]
-  CALL R21 1 1
-  MOVE R22 R20
-  CALL R21 1 1
-  MOVE R20 R21
-  DUPCLOSURE R21 K39 [PROTO_3]
+  CAPTURE VAL R9
+  SETTABLEKS R22 R21 K34 ["render"]
+  MOVE R22 R5
+  DUPTABLE R23 K38 [{"Analytics", "Localization", "Stylizer"}]
+  GETTABLEKS R24 R4 K35 ["Analytics"]
+  SETTABLEKS R24 R23 K35 ["Analytics"]
+  GETTABLEKS R24 R4 K36 ["Localization"]
+  SETTABLEKS R24 R23 K36 ["Localization"]
+  GETTABLEKS R25 R3 K39 ["Style"]
+  GETTABLEKS R24 R25 K37 ["Stylizer"]
+  SETTABLEKS R24 R23 K37 ["Stylizer"]
+  CALL R22 1 1
+  MOVE R23 R21
+  CALL R22 1 1
+  MOVE R21 R22
   DUPCLOSURE R22 K40 [PROTO_5]
-  CAPTURE VAL R16
-  GETTABLEKS R23 R2 K41 ["connect"]
-  MOVE R24 R21
+  DUPCLOSURE R23 K41 [PROTO_7]
+  CAPTURE VAL R17
+  GETTABLEKS R24 R2 K42 ["connect"]
   MOVE R25 R22
-  CALL R23 2 1
-  MOVE R24 R20
-  CALL R23 1 1
-  MOVE R20 R23
-  RETURN R20 1
+  MOVE R26 R23
+  CALL R24 2 1
+  MOVE R25 R21
+  CALL R24 1 1
+  MOVE R21 R24
+  RETURN R21 1

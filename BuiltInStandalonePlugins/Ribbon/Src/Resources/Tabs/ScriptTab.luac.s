@@ -15,7 +15,7 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R1 K10 ["fromAction"]
   GETTABLEKS R4 R1 K11 ["fromSetting"]
-  NEWTABLE R5 0 24
+  NEWTABLE R5 0 25
   DUPTABLE R6 K15 [{"Id", "Type", "Action"}]
   LOADK R7 K16 ["Back"]
   SETTABLEKS R7 R6 K12 ["Id"]
@@ -234,16 +234,28 @@ MAIN:
   LOADK R13 K23 ["Large"]
   SETTABLEKS R13 R12 K20 ["Size"]
   DUPTABLE R13 K50 [{"Id", "Type", "Action", "FastFlag"}]
-  LOADK R22 K51 ["CodeSnippets"]
-  SETTABLEKS R22 R13 K12 ["Id"]
+  LOADK R14 K51 ["CodeSnippets"]
+  SETTABLEKS R14 R13 K12 ["Id"]
+  LOADK R14 K17 ["IconButton"]
+  SETTABLEKS R14 R13 K13 ["Type"]
+  MOVE R14 R3
+  LOADK R15 K51 ["CodeSnippets"]
+  LOADK R16 K39 ["Toggle"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K14 ["Action"]
+  LOADK R14 K52 ["CodeSnippet_Alpha4"]
+  SETTABLEKS R14 R13 K49 ["FastFlag"]
+  DUPTABLE R14 K50 [{"Id", "Type", "Action", "FastFlag"}]
+  LOADK R22 K53 ["ControlsEmulator"]
+  SETTABLEKS R22 R14 K12 ["Id"]
   LOADK R22 K17 ["IconButton"]
-  SETTABLEKS R22 R13 K13 ["Type"]
+  SETTABLEKS R22 R14 K13 ["Type"]
   MOVE R22 R3
-  LOADK R23 K51 ["CodeSnippets"]
+  LOADK R23 K53 ["ControlsEmulator"]
   LOADK R24 K39 ["Toggle"]
   CALL R22 2 1
-  SETTABLEKS R22 R13 K14 ["Action"]
-  LOADK R22 K52 ["CodeSnippet_Alpha4"]
-  SETTABLEKS R22 R13 K49 ["FastFlag"]
-  SETLIST R5 R6 8 [17]
+  SETTABLEKS R22 R14 K14 ["Action"]
+  LOADK R22 K54 ["StudioDeviceEmulatorGamepadEmulation"]
+  SETTABLEKS R22 R14 K49 ["FastFlag"]
+  SETLIST R5 R6 9 [17]
   RETURN R5 1

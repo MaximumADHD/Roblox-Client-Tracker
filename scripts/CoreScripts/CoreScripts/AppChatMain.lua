@@ -13,6 +13,7 @@ local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChat = AppChat.App.InExperienceAppChat
 local SettingsHubPageChangedSignalProvider = AppChat.Contexts.SettingsHubPageChangedSignalProvider
+local UnreadMessagesProvider = AppChat.Contexts.UnreadMessagesProvider
 local AppChatReducer = AppChat.App.AppChatReducer
 
 local folder = Instance.new("Folder")
@@ -27,17 +28,25 @@ local store = Rodux.Store.new(AppChatReducer, nil, {
 local tree = React.createElement(SettingsHubPageChangedSignalProvider, {
 	signal = SettingsHub.CurrentPageSignal,
 }, {
-	React.createElement(RoactRodux.StoreProvider, {
-		store = store,
+	unreadMessagesDispatch = React.createElement(UnreadMessagesProvider, {
+		dispatch = SettingsHub.Instance.PlayersPage.UpdateAppChatUnreadMessagesCount,
 	}, {
-		appChat = React.createElement(InExperienceAppChat, {
-			apolloClient = ApolloClient,
-			parentContainer = SettingsHub.Instance.MenuContainer,
-			popSettingsHub = function()
-				if SettingsHub:GetVisibility() then
-					SettingsHub.Instance:PopMenu(false, true)
-				end
-			end,
+		store = React.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			appChat = React.createElement(InExperienceAppChat, {
+				apolloClient = ApolloClient,
+				parentContainer = SettingsHub.Instance.MenuContainer,
+				navigateToChat = function()
+					SettingsHub.Instance:SetVisibility(true, false)
+					SettingsHub:SwitchToPage(SettingsHub.Instance.AppChatPage)
+				end,
+				popSettingsHub = function()
+					if SettingsHub:GetVisibility() then
+						SettingsHub.Instance:PopMenu(false, true)
+					end
+				end,
+			})
 		})
 	})
 })
