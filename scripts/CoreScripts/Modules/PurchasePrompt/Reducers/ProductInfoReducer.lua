@@ -15,6 +15,7 @@ local getPreviewImageUrl = require(Root.getPreviewImageUrl)
 local USER_OUTFIT = "UserOutfit"
 
 local GetFFlagTranslateDevProducts = require(Root.Flags.GetFFlagTranslateDevProducts)
+local GetFFlagFixBundlePromptThumbnail = require(Root.Flags.GetFFlagFixBundlePromptThumbnail)
 
 local ProductInfoReducer = Rodux.createReducer({}, {
 	[ProductInfoReceived.name] = function(state, action)
@@ -50,6 +51,9 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 		for _, item in ipairs(bundleProductInfo.items) do
 			if item.type == USER_OUTFIT then
 				costumeId = item.id
+				if GetFFlagFixBundlePromptThumbnail() then
+					break
+				end
 			end
 		end
 		bundleProductInfo.costumeId = costumeId
