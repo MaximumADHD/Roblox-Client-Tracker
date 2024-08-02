@@ -6212,6 +6212,7 @@
 [C++] FFlagFixBacktraceUniqueID
 [C++] FFlagFixBacktraceUniqueID2
 [C++] FFlagFixBaseScriptHangOnShutdown
+[Lua] FFlagFixBundlePromptThumbnail
 [C++] FFlagFixCalloutResizeOgreWidget
 [C++] FFlagFixCaptureFocusReleasePrevFocus
 [Lua] FFlagFixChatLanguageSwitcherLabel

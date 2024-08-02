@@ -2432,6 +2432,7 @@ AstExprVarargs
 AstStatFor
 AstStatFunction
 AstTypePack
+AStudio.App.Tooltip.Variadic
 ASWDepthDownsize
 ASYNC_init_thread
 ASYNC_INTERSECTION
@@ -61755,7 +61756,7 @@ WildcardCount
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.636.3600
+Win64.636.3634
 WinchEnabled
 WinchForce
 WinchResponsiveness
