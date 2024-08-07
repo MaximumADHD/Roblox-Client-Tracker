@@ -47,6 +47,9 @@ TileThumbnail.validateProps = t.strictInterface({
 
 	-- Scale type of image thumbnail
 	scaleType = t.optional(t.enum(Enum.ScaleType)),
+
+	-- Optional callback for when the image is loaded
+	onThumbnailLoaded = t.optional(t.callback),
 })
 
 TileThumbnail.defaultProps = {
@@ -117,6 +120,7 @@ function TileThumbnail:render()
 						showFailedStateWhenLoadingFailed = true,
 						useShimmerAnimationWhileLoading = true,
 						ScaleType = scaleType,
+						onLoaded = self.props.onThumbnailLoaded,
 					}),
 					UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
 						CornerRadius = cornerRadius,

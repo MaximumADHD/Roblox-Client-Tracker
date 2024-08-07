@@ -21,6 +21,11 @@ local IconButton = require(App.Button.IconButton)
 local ThumbnailButton = require(MediaGallery.ThumbnailButton)
 local getShowItems = require(MediaGallery.getShowItems)
 
+local calcMediaGallerySizesFromWidth = require(MediaGallery.calcMediaGallerySizesFromWidth)
+local calcMediaGallerySizesFromHeight = require(MediaGallery.calcMediaGallerySizesFromHeight)
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local ICON_CYCLE_LEFT = "icons/actions/cycleLeft"
 local ICON_CYCLE_RIGHT = "icons/actions/cycleRight"
 
@@ -531,7 +536,13 @@ function MediaGalleryPreview:didUpdate(_, prevState)
 	end
 end
 
+-- remove with UIBloxConfig.useSeparatedCalcFunction
 function MediaGalleryPreview:calcSizesFromWidth(containerWidth, numberOfThumbnails)
+	if UIBloxConfig.useSeparatedCalcFunction then
+		assert(false, "Deprecated usage, use `UIBlox.App.Container.calcMediaGallerySizesFromWidth` instead")
+		return
+	end
+
 	local previewWidth = containerWidth - PAGINATION_ARROW_WIDTH * 2
 	local previewHeight = math.floor(previewWidth / IMAGE_RATIO)
 	local thumbnailWidth = math.floor(
@@ -548,8 +559,14 @@ function MediaGalleryPreview:calcSizesFromWidth(containerWidth, numberOfThumbnai
 	}
 end
 
+-- remove with UIBloxConfig.useSeparatedCalcFunction
 function MediaGalleryPreview:calcSizesFromHeight(containerHeight, numberOfThumbnails)
 	-- reverse calculation of calcSizesFromWidth()
+	if UIBloxConfig.useSeparatedCalcFunction then
+		assert(false, "Deprecated usage, use `calcMediaGallerySizesFromHeight()` instead")
+		return
+	end
+
 	local contentWidth = math.floor(
 		(
 			math.floor((containerHeight - PADDING_MIDDLE) * IMAGE_RATIO * numberOfThumbnails)
@@ -567,9 +584,13 @@ function MediaGalleryPreview:updateSizes(container)
 	local containerHeight = container.AbsoluteSize.Y
 	local numberOfThumbnails = self.props.numberOfThumbnails
 
-	local sizes = self:calcSizesFromWidth(containerWidth, numberOfThumbnails)
+	local sizes = if UIBloxConfig.useSeparatedCalcFunction
+		then calcMediaGallerySizesFromWidth(containerWidth, numberOfThumbnails)
+		else self:calcSizesFromWidth(containerWidth, numberOfThumbnails)
 	if sizes.contentSize.Y.Offset > containerHeight then
-		sizes = self:calcSizesFromHeight(containerHeight, numberOfThumbnails)
+		sizes = if UIBloxConfig.useSeparatedCalcFunction
+			then calcMediaGallerySizesFromHeight(containerHeight, numberOfThumbnails)
+			else self:calcSizesFromHeight(containerHeight, numberOfThumbnails)
 	end
 
 	self.updateContentSize(sizes.contentSize)

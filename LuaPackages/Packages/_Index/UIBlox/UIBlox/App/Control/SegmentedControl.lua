@@ -20,6 +20,8 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local getContentStyle = require(Core.Button.getContentStyle)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local FRAME_PADDING = 4
 local MIN_TAB_WIDTH = 80
@@ -86,6 +88,9 @@ SegmentedControl.validateProps = t.strictInterface({
 	-- optionally specifies the height of this component.
 	height = t.optional(t.number),
 
+	-- optionally specifies a width constraint for this component
+	maxWidth = t.optional(t.number),
+
 	-- sets which tab is currently selected
 	selectedTabIndex = t.number,
 
@@ -121,6 +126,7 @@ function SegmentedControl:init()
 
 	self:setState({
 		tabWidth = 0,
+		computedMinFrameWidth = 0,
 	})
 
 	self.onTabActivated = function(index)
@@ -128,7 +134,9 @@ function SegmentedControl:init()
 	end
 
 	self.setSize = function(rbx)
-		local frameWidth = rbx.AbsoluteSize.X
+		local frameWidth = if UIBloxConfig.recomputeTabSizeSegmentedControl
+			then math.max(rbx.AbsoluteSize.X, self.state.computedMinFrameWidth)
+			else rbx.AbsoluteSize.X
 		local totalTabWidth = frameWidth - FRAME_PADDING * 2
 		local tabWidth = math.floor(totalTabWidth / #self.props.tabs)
 		self.selectedBackgroundMotor:setGoal(
@@ -144,6 +152,7 @@ function SegmentedControl:render()
 	return withStyle(function(style)
 		-- render params
 		local currentState = self.state.controlState
+		local numTabs = #self.props.tabs
 		local selectedTab = self.props.tabs[self.props.selectedTabIndex]
 		local isDisabled = selectedTab.isDisabled
 		local forceSelectedBGState = isDisabled and ControlState.Disabled or currentState
@@ -159,9 +168,32 @@ function SegmentedControl:render()
 		local BACKGROUND_HEIGHT = self.props.height - 12
 		local TAB_HEIGHT = self.props.height - 16
 
+		-- compute actual tab size to account for preferred text size text scaling
+		if UIBloxConfig.recomputeTabSizeSegmentedControl then
+			local tabFontSize = style.Font.Header2.RelativeSize * style.Font.BaseSize
+			if self.state.computedMinFrameWidth == 0 then
+				local largestTabWidth = 0
+				for i = 1, numTabs do
+					local curTab = self.props.tabs[i].tabName
+					largestTabWidth = math.max(
+						largestTabWidth,
+						GetTextSize(curTab, tabFontSize, Enum.Font.BuilderSans, Vector2.new(math.huge, math.huge)).X
+					)
+				end
+				local minTabWidth = largestTabWidth + FRAME_PADDING * 2
+				local defaultMinFrameWidth = (iconWidth + MIN_TAB_WIDTH) * numTabs + FRAME_PADDING * 2
+				local minFrameWidth = (iconWidth + minTabWidth) * numTabs + FRAME_PADDING * 2
+				self:setState({
+					computedMinFrameWidth = if self.props.maxWidth
+						then math.min(minFrameWidth, self.props.maxWidth)
+						else math.max(minFrameWidth, defaultMinFrameWidth),
+				})
+			end
+		end
+
 		-- dividers between tabs
 		local dividers = {}
-		for i = 1, #self.props.tabs - 1, 1 do
+		for i = 1, numTabs - 1, 1 do
 			if i ~= self.props.selectedTabIndex and i ~= self.props.selectedTabIndex - 1 then
 				table.insert(
 					dividers,
@@ -186,7 +218,7 @@ function SegmentedControl:render()
 				end
 			end
 			local moveToNext = function(index)
-				if index < #self.props.tabs then
+				if index < numTabs then
 					focusController.moveFocusTo(self.tabRefs[index + 1])
 				end
 			end
@@ -203,7 +235,7 @@ function SegmentedControl:render()
 					BackgroundTransparency = 1,
 					[Roact.Ref] = self.tabRefs[index],
 					NextSelectionLeft = index > 1 and self.tabRefs[index - 1] or nil,
-					NextSelectionRight = index < #self.props.tabs and self.tabRefs[index + 1] or nil,
+					NextSelectionRight = index < numTabs and self.tabRefs[index + 1] or nil,
 					inputBindings = {
 						LeaveA = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, moveToParent),
 						LeaveB = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonB, moveToParent),
@@ -248,10 +280,12 @@ function SegmentedControl:render()
 				LayoutOrder = self.props.layoutOrder,
 			}, {
 				SizeConstraint = Roact.createElement("UISizeConstraint", {
-					MinSize = Vector2.new(
-						(iconWidth + MIN_TAB_WIDTH) * #self.props.tabs + FRAME_PADDING * 2,
-						INTERACTION_HEIGHT
-					),
+					MinSize = if UIBloxConfig.recomputeTabSizeSegmentedControl
+						then Vector2.new(self.state.computedMinFrameWidth, INTERACTION_HEIGHT)
+						else Vector2.new(
+							(iconWidth + MIN_TAB_WIDTH) * numTabs + FRAME_PADDING * 2,
+							INTERACTION_HEIGHT
+						),
 					MaxSize = Vector2.new(MAX_WIDTH, INTERACTION_HEIGHT),
 				}),
 				-- tab group background

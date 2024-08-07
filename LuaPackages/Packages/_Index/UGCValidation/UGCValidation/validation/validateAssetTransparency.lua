@@ -6,6 +6,8 @@
 local root = script.Parent.Parent
 
 local getEngineFeatureEngineUGCValidateTransparency = require(root.flags.getEngineFeatureEngineUGCValidateTransparency)
+local getEngineFeatureEngineUGCValidationGetImageTransparency =
+	require(root.flags.getEngineFeatureEngineUGCValidationGetImageTransparency)
 local getFFlagUGCValidationValidateTransparencyClient =
 	require(root.flags.getFFlagUGCValidationValidateTransparencyClient)
 local getFFlagUGCValidationValidateTransparencyServer =
@@ -46,6 +48,15 @@ local floatEquals = require(root.util.floatEquals)
 local CAMERA_FOV: number = 70
 local IMAGE_SIZE: number = 100
 local CAMERA_POSITIONS: { Vector3 } = { Vector3.new(0, 0, -1), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0) }
+local CAMERA_ANGLE_NAMES: { [Vector3]: string } = nil
+if getEngineFeatureEngineUGCValidationGetImageTransparency() then
+	CAMERA_ANGLE_NAMES = {
+		[CAMERA_POSITIONS[1]] = "front",
+		[CAMERA_POSITIONS[2]] = "back",
+		[CAMERA_POSITIONS[3]] = "side",
+	}
+end
+
 local DEFAULT_BG_COLOR_1: Color3 = Color3.fromRGB(0, 0, 0) -- remove with FFlagUseThumbnailerUtil
 local TRANSPARENT_PART_COLOR: Color3 = Color3.fromRGB(7, 32, 91) --magic number, doesn't really matter
 
@@ -122,6 +133,11 @@ end
 local CAPTURE_ERROR_STRING = "Unable to capture snapshot of %s"
 local READ_FAILED_ERROR_STRING = "Failed to read data from snapshot of (%s)"
 local VALIDATION_FAILED_ERROR_STRING = "%s is too transparent. Please fill in more of the mesh."
+local VALIDATION_FAILED_ERROR_STRING_NEW = nil
+if getEngineFeatureEngineUGCValidationGetImageTransparency() then
+	VALIDATION_FAILED_ERROR_STRING_NEW =
+		"%s is difficult to see from the %s. %d%% of the bounding box is visible, but over %d%% is required. Please expand the body part to fill in more room."
+end
 
 -- remove with FFlagUseThumbnailerUtil
 local function validateOnServer(assetTypeEnum: Enum.AssetType, dir: Vector3): (boolean, { string }?)
@@ -537,22 +553,39 @@ return function(inst: Instance?, assetTypeEnum: Enum.AssetType, isServerNullable
 			end
 		end
 
-		local success, passesValidation
+		local success, passesValidation, opacityValue
 		if getEngineFeatureEngineUGCValidateOrthographicTransparency() then
-			if isServer then
-				success, passesValidation = pcall(function()
-					return UGCValidationService:ValidateImageTransparencyThresholdByteString_V2(
-						img :: string,
-						assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-					)
-				end)
+			if getEngineFeatureEngineUGCValidationGetImageTransparency() then
+				if isServer then
+					success, opacityValue = pcall(function()
+						return UGCValidationService:getImageTransparencyWithByteString(img :: string)
+					end)
+				else
+					success, opacityValue = pcall(function()
+						return UGCValidationService:getImageTransparencyWithTextureID(img :: string)
+					end)
+				end
+
+				if success then
+					local threshold = assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
+					passesValidation = opacityValue > threshold
+				end
 			else
-				success, passesValidation = pcall(function()
-					return UGCValidationService:ValidateImageTransparencyThresholdTextureID_V2(
-						img :: string,
-						assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-					)
-				end)
+				if isServer then
+					success, passesValidation = pcall(function()
+						return UGCValidationService:ValidateImageTransparencyThresholdByteString_V2(
+							img :: string,
+							assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
+						)
+					end)
+				else
+					success, passesValidation = pcall(function()
+						return UGCValidationService:ValidateImageTransparencyThresholdTextureID_V2(
+							img :: string,
+							assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
+						)
+					end)
+				end
 			end
 		else
 			if isServer then
@@ -584,7 +617,20 @@ return function(inst: Instance?, assetTypeEnum: Enum.AssetType, isServerNullable
 
 		if not passesValidation then
 			thumbnailer:cleanup()
-			return false, { string.format(VALIDATION_FAILED_ERROR_STRING, assetTypeEnum.Name) }
+			if getEngineFeatureEngineUGCValidationGetImageTransparency() then
+				return false,
+					{
+						string.format(
+							VALIDATION_FAILED_ERROR_STRING_NEW,
+							assetTypeEnum.Name,
+							CAMERA_ANGLE_NAMES[dir],
+							math.floor(opacityValue * 100),
+							math.floor(assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir] * 100)
+						),
+					}
+			else
+				return false, { string.format(VALIDATION_FAILED_ERROR_STRING, assetTypeEnum.Name) }
+			end
 		end
 	end
 

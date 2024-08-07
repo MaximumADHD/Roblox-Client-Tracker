@@ -21,6 +21,7 @@ local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 
@@ -152,6 +153,12 @@ function SegmentedControlTabName:render()
 						LayoutOrder = 1,
 					}) or nil,
 					Text = text and Roact.createElement(GenericTextLabel, {
+						AutomaticSize = if UIBloxConfig.recomputeTabSizeSegmentedControl
+							then Enum.AutomaticSize.X
+							else Enum.AutomaticSize.None,
+						TextTruncate = if UIBloxConfig.recomputeTabSizeSegmentedControl
+							then Enum.TextTruncate.AtEnd
+							else Enum.TextTruncate.None,
 						BackgroundTransparency = 1,
 						Text = text,
 						fontStyle = fontStyle,

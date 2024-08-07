@@ -10,6 +10,7 @@ local FitFrameVertical = RoactFitComponents.FitFrameVertical
 
 local UIBlox = require(Packages.UIBlox)
 local PartialPageModal = UIBlox.App.Dialog.Modal.PartialPageModal
+local getPartialPageModalMiddleContentWidth = UIBlox.App.Dialog.Modal.getPartialPageModalMiddleContentWidth
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
@@ -25,6 +26,7 @@ local PREMIUM_ICON = "icons/graphic/premium_large"
 local PREMIUM_MODAL_LOC_KEY = "IAPExperience.PremiumUpsell.%s"
 
 local SwitchPremiumUIToSubscriptionUI = require(IAPExperienceRoot.Flags.getFFlagSwitchPremiumUIToSubscriptionUI)
+local UIBloxUseSeparatedCalcFunctionIAP = require(IAPExperienceRoot.Flags.getFFlagUIBloxUseSeparatedCalcFunctionIAP)
 
 local MARGIN = 24
 local CONTENT_PADDING = 24
@@ -286,7 +288,9 @@ function PremiumUpsellPrompt:renderBulletInfo(locMap: { [string]: string })
 		local fonts = stylePalette.Font
 
 		-- Can also use self.contentSize.X
-		local middleContentSize = PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
+		local middleContentSize = if UIBloxUseSeparatedCalcFunctionIAP()
+			then getPartialPageModalMiddleContentWidth(self.props.screenSize.X)
+			else PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
 
 		return Roact.createElement("Frame", {
 			LayoutOrder = 2,
@@ -376,13 +380,7 @@ end
 function PremiumUpsellPrompt:renderLandscapePrompt(locMap: { [string]: string })
 	local props: Props = self.props
 
-	return withStyle(function(stylePalette)
-		local theme = stylePalette.Theme
-		local fonts = stylePalette.Font
-
-		-- Can also use self.contentSize.X
-		local middleContentSize = PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
-
+	return withStyle(function(_stylePalette)
 		return Roact.createElement(PartialPageModal, {
 			title = locMap.titleLocalizedText,
 			screenSize = props.screenSize,
@@ -433,13 +431,7 @@ end
 function PremiumUpsellPrompt:renderPortraitPrompt(locMap: { [string]: string })
 	local props: Props = self.props
 
-	return withStyle(function(stylePalette)
-		local theme = stylePalette.Theme
-		local fonts = stylePalette.Font
-
-		-- Can also use self.contentSize.X
-		local middleContentSize = PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
-
+	return withStyle(function(_stylePalette)
 		return Roact.createElement(PartialPageModal, {
 			title = locMap.titleLocalizedText,
 			screenSize = props.screenSize,
@@ -484,7 +476,9 @@ function PremiumUpsellPrompt:renderUpdatedPrompt(locMap: { [string]: string })
 		local fonts = stylePalette.Font
 
 		-- Can also use self.contentSize.X
-		local middleContentSize = PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
+		local middleContentSize = if UIBloxUseSeparatedCalcFunctionIAP()
+			then getPartialPageModalMiddleContentWidth(self.props.screenSize.X)
+			else PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
 
 		return Roact.createElement(PartialPageModal, {
 			title = locMap.titleLocalizedText,
@@ -626,7 +620,9 @@ function PremiumUpsellPrompt:renderRegularPrompt(locMap: { [string]: string })
 		local fonts = stylePalette.Font
 
 		-- Can also use self.contentSize.X
-		local middleContentSize = PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
+		local middleContentSize = if UIBloxUseSeparatedCalcFunctionIAP()
+			then getPartialPageModalMiddleContentWidth(self.props.screenSize.X)
+			else PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
 
 		local bulletPoint1Text =
 			locMap.bulletPoint1Text:gsub("{robux}", utf8.char(0xE002) .. tostring(props.robuxAmount))

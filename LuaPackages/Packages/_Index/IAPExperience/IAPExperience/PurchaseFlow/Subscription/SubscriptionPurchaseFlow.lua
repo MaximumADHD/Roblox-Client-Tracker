@@ -9,6 +9,7 @@ local Roact = require(Packages.Roact)
 
 local UIBlox = require(Packages.UIBlox)
 local PartialPageModal = UIBlox.App.Dialog.Modal.PartialPageModal
+local getPartialPageModalMiddleContentWidth = UIBlox.App.Dialog.Modal.getPartialPageModalMiddleContentWidth
 
 local SubscriptionPurchaseFlowState = require(SubscriptionPurchase.SubscriptionPurchaseFlowState)
 
@@ -25,6 +26,7 @@ local getEnableDisableSubPurchase = require(IAPExperienceRoot.Flags.getEnableDis
 local formatSubscriptionPurchaseEventData = require(IAPExperienceRoot.Utility.formatSubscriptionPurchaseEventData)
 
 local GetFFlagEnableRobloxCreditPurchase = require(IAPExperienceRoot.Flags.GetFFlagEnableRobloxCreditPurchase)
+local UIBloxUseSeparatedCalcFunctionIAP = require(IAPExperienceRoot.Flags.getFFlagUIBloxUseSeparatedCalcFunctionIAP)
 
 local SubscriptionPurchaseFlow = Roact.Component:extend(script.Name)
 
@@ -125,6 +127,10 @@ function SubscriptionPurchaseFlow:render()
 	local props: Props = self.props
 	local purchaseState = props.purchaseState
 
+	local middleContentWidth = if UIBloxUseSeparatedCalcFunctionIAP()
+		then getPartialPageModalMiddleContentWidth(props.screenSize.X)
+		else PartialPageModal:getMiddleContentWidth(props.screenSize.X)
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
@@ -132,7 +138,7 @@ function SubscriptionPurchaseFlow:render()
 		SubscriptionPurchasePromptAnimator = Roact.createElement(Animator, {
 			shouldShow = purchaseState == SubscriptionPurchaseFlowState.PurchaseModal,
 			shouldAnimate = true,
-			animateDown = PartialPageModal:getMiddleContentWidth(props.screenSize.X) == 492,
+			animateDown = middleContentWidth == 492,
 			renderChildren = function()
 				return Roact.createElement(SubscriptionPurchasePrompt, {
 					name = props.name,

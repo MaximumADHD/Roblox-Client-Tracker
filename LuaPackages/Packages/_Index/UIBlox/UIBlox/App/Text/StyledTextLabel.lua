@@ -47,8 +47,7 @@ StyledTextLabel.validateProps = t.strictInterface({
 	lineHeight = t.optional(t.number),
 	clipsDescendants = t.optional(t.boolean),
 	onAbsoluteSizeChange = t.optional(t.callback),
-	-- Whether OpenType feature should enabled
-	enableOpenType = t.optional(t.boolean),
+	openTypeFeatures = t.optional(t.string),
 })
 
 StyledTextLabel.defaultProps = {
@@ -59,7 +58,7 @@ StyledTextLabel.defaultProps = {
 	automaticSize = Enum.AutomaticSize.None,
 	lineHeight = 1.4,
 	clipsDescendants = false,
-	enableOpenType = false,
+	openTypeFeatures = nil,
 }
 
 function StyledTextLabel:render()
@@ -80,7 +79,7 @@ function StyledTextLabel:render()
 		AutomaticSize = self.props.automaticSize,
 		LineHeight = self.props.lineHeight,
 		ClipsDescendants = self.props.clipsDescendants,
-		enableOpenType = self.props.enableOpenType,
+		openTypeFeatures = self.props.openTypeFeatures,
 		[Roact.Change.AbsoluteSize] = self.props.onAbsoluteSizeChange,
 	})
 end

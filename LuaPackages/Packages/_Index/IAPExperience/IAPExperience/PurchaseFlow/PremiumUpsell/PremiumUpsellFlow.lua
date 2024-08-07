@@ -10,6 +10,7 @@ local Roact = require(Packages.Roact)
 
 local UIBlox = require(Packages.UIBlox)
 local PartialPageModal = UIBlox.App.Dialog.Modal.PartialPageModal
+local getPartialPageModalMiddleContentWidth = UIBlox.App.Dialog.Modal.getPartialPageModalMiddleContentWidth
 
 local PremiumUpsellFlowState = require(PremiumUpsellRoot.PremiumUpsellFlowState)
 
@@ -23,6 +24,7 @@ local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEv
 local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 
 local getEnableCentralOverlayForUpsellPrompt = require(IAPExperienceRoot.Flags.getEnableCentralOverlayForUpsellPrompt)
+local UIBloxUseSeparatedCalcFunctionIAP = require(IAPExperienceRoot.Flags.getFFlagUIBloxUseSeparatedCalcFunctionIAP)
 
 local FFlagCompleteFlowInStudioAccept = game:DefineFastFlag("CompleteFlowInStudioAccept", false)
 
@@ -82,7 +84,6 @@ function PremiumUpsellFlow:didUpdate(prevProps: Props, prevState: State)
 	end
 end
 
-
 function PremiumUpsellFlow:UnbindActions()
 	if getEnableCentralOverlayForUpsellPrompt() and self.props.dispatchCentralOverlay then
 		ContextActionService:UnbindAction(Constants.CLOSE_MODAL_ACTION)
@@ -107,14 +108,17 @@ function PremiumUpsellFlow:closeCentralOverlay()
 	end
 end
 
-
 function PremiumUpsellFlow:constructPremiumUpsellPromptAnimatorObj()
 	local props: Props = self.props
+
+	local middleContentWidth = if UIBloxUseSeparatedCalcFunctionIAP()
+		then getPartialPageModalMiddleContentWidth(props.screenSize.X)
+		else PartialPageModal:getMiddleContentWidth(props.screenSize.X)
 
 	return {
 		shouldShow = props.purchaseState == PremiumUpsellFlowState.PurchaseModal,
 		shouldAnimate = true,
-		animateDown = PartialPageModal:getMiddleContentWidth(props.screenSize.X) == 492,
+		animateDown = middleContentWidth == 492,
 		renderChildren = function()
 			return Roact.createElement(PremiumUpsellPrompt, {
 				screenSize = props.screenSize,

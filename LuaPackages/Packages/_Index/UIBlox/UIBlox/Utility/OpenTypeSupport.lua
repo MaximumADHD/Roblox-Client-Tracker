@@ -6,4 +6,12 @@ function OpenTypeSupport:getSupportedFeatures()
 	return "zero, ss03"
 end
 
+function OpenTypeSupport:getPasswordStylisticAlternative()
+	return "zero, ss03"
+end
+
+function OpenTypeSupport:getUserNameStylisticAlternative()
+	return "zero, ss03"
+end
+
 return OpenTypeSupport

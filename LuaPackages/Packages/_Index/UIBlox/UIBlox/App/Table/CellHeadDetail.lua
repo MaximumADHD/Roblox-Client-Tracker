@@ -4,6 +4,7 @@ local App = Table.Parent
 local UIBlox = App.Parent
 local Core = UIBlox.Core
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local t = require(Packages.t)
 local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
@@ -24,6 +25,7 @@ CellHeadDetail.validateProps = t.strictInterface({
 	subLabelText = t.optional(t.string),
 	subLabelTextColor = t.optional(validateColorInfo),
 	subLabelTextFont = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
+	openTypeFeatures = t.optional(t.string),
 })
 
 function CellHeadDetail:render()
@@ -51,7 +53,9 @@ function CellHeadDetail:render()
 				Text = labelText,
 				colorStyle = labelTextColor,
 				fontStyle = labelTextFont,
+				openTypeFeatures = self.props.openTypeFeatures,
 				BackgroundTransparency = 1,
+				TextXAlignment = if UIBloxConfig.leftAlignCellHeadDetailText then Enum.TextXAlignment.Left else nil,
 			}),
 			SubLabel = subLabelText and Roact.createElement(GenericTextLabel, {
 				LayoutOrder = 2,
@@ -60,6 +64,7 @@ function CellHeadDetail:render()
 				colorStyle = subLabelTextColor,
 				fontStyle = subLabelTextFont,
 				BackgroundTransparency = 1,
+				TextXAlignment = if UIBloxConfig.leftAlignCellHeadDetailText then Enum.TextXAlignment.Left else nil,
 			}) or nil,
 		})
 	end)

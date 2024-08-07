@@ -167,6 +167,8 @@ return{
 	["IAPExperience.RobuxUpsell.Text.PurchaseNotAvailableOnHeadSet"] = [[Der Kauf von Robux wird auf Headset-Geräten noch nicht unterstützt. Bitte versuche es auf einem anderen Gerät.]],
 	["IAPExperience.RobuxUpsell.Text.RemainingBalance"] = [[Die verbleibenden {robux} werden deinem Kontostand gutgeschrieben.]],
 	["IAPExperience.RobuxUpsell.Text.TermsOfUse"] = [[Nutzungsbedingungen]],
+	["IAPExperience.RobuxUpsell.Text.VNGDisclosureTerms"] = [[Es gelten die Nutzungsbedingungen von Roblox-VNG.]],
+	["IAPExperience.RobuxUpsell.Text.VNGDisclosureTermsURL"] = [[Roblox-VNG' {termsofuse} gelten.]],
 	["IAPExperience.RobuxUpsell.Text.WouldYouBuy"] = [[Möchtest du ein {robux}-Paket kaufen?]],
 	["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[Nicht genügend Guthaben]],
 	["IAPExperience.RobuxUpsell.Title.InsufficientRobux"] = [[Nicht genügend Robux]],

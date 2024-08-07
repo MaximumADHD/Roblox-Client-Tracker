@@ -104,6 +104,9 @@ return {
 	-- Use automatic sizing in stat group
 	useAutomaticSizeInStatGroup = false,
 
+	-- Recompute minimum tab size based on text bounds to support larger/longer text
+	recomputeTabSizeSegmentedControl = false,
+
 	-- Bugfix for HeaderBar title flickering
 	fixHeaderBarTitleFlickering = false,
 
@@ -113,6 +116,15 @@ return {
 	-- Enable OpenType support
 	enableOpenTypeSupport = false,
 
+	-- Align text on the left of CellHeadDetail
+	leftAlignCellHeadDetailText = false,
+
 	-- Defer loading component’s code until it is rendered for the first time
 	enableCreateLazyComponent = false,
+
+	-- Some components expose calculate functions as member function, move it out as a separate function
+	useSeparatedCalcFunction = false,
+
+	-- Add the option to pass in callbacks for AccordionView that run on expansion and collapse
+	addCallbacksToAccordionView = false,
 }

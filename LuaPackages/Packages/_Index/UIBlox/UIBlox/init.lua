@@ -98,9 +98,7 @@ local function initializeLibrary(configs)
 				return require(script.Core.Control.StateLayer)
 			end),
 			-- TODO: UIBLOX-707 remove once package dependency is resolved
-			FeedbackManagerInjectionContext = lazify(function()
-				return require(script.Core.Control.FeedbackManagerInjectionContext)
-			end),
+			FeedbackManagerInjectionContext = require(script.Core.Control.FeedbackManagerInjectionContext),
 		}),
 
 		Spatial = strict({
@@ -113,6 +111,8 @@ local function initializeLibrary(configs)
 			Provider = require(script.Core.Style.StyleProvider),
 			withStyle = require(script.Core.Style.withStyle),
 			useStyle = require(script.Core.Style.useStyle),
+			useTextSizeOffset = require(script.Core.Style.useTextSizeOffset),
+			withTextSizeOffset = require(script.Core.Style.withTextSizeOffset),
 		}),
 
 		VR = strict({
@@ -297,7 +297,10 @@ local function initializeLibrary(configs)
 			HorizontalPageMargin = lazify(function()
 				return require(script.App.Container.HorizontalPageMargin)
 			end),
-			MediaGalleryPreview = require(script.App.Container.MediaGallery.MediaGalleryPreview),
+			calcMediaGallerySizesFromWidth = require(script.App.Container.MediaGallery.calcMediaGallerySizesFromWidth),
+			MediaGalleryPreview = lazify(function()
+				return require(script.App.Container.MediaGallery.MediaGalleryPreview)
+			end),
 			MediaGalleryFullScreen = lazify(function()
 				return require(script.App.Container.MediaGallery.MediaGalleryFullScreen)
 			end),
@@ -391,6 +394,9 @@ local function initializeLibrary(configs)
 				FullPageModal = lazify(function()
 					return require(script.App.Dialog.Modal.FullPageModal)
 				end),
+				getPartialPageModalMiddleContentWidth = require(
+					script.App.Dialog.Modal.getPartialPageModalMiddleContentWidth
+				),
 				PartialPageModal = lazify(function()
 					return require(script.App.Dialog.Modal.PartialPageModal)
 				end),
@@ -462,9 +468,7 @@ local function initializeLibrary(configs)
 				BadgeVariant = require(script.App.Indicator.Enum.BadgeVariant),
 				VoteStates = require(script.App.Indicator.Enum.VoteStates),
 			}),
-			PlayerContext = lazify(function()
-				return require(script.App.Indicator.PlayerContext)
-			end),
+			PlayerContext = require(script.App.Indicator.PlayerContext),
 			PlayerCount = lazify(function()
 				return require(script.App.Indicator.PlayerCount)
 			end),
@@ -662,6 +666,7 @@ local function initializeLibrary(configs)
 		-- Keeping for backwards compatibility - consumers should use ReactUtils directly.
 		ExternalEventConnection = ReactUtils.EventConnection,
 		SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),
+		OpenTypeSupport = require(script.Utility.OpenTypeSupport),
 	}
 
 	-- DEPRECATED SECTION

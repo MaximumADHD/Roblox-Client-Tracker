@@ -15,6 +15,8 @@ local FitFrameVertical = FitFrame.FitFrameVertical
 local ModalTitle = require(ModalRoot.ModalTitle)
 local ModalWindow = require(ModalRoot.ModalWindow)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local PartialPageModal = Roact.PureComponent:extend("PartialPageModal")
 
 local MARGIN = 24
@@ -61,7 +63,13 @@ PartialPageModal.defaultProps = {
 
 -- Used to determine width of middle content for dynamically sizing children in the content
 -- Example: Multi-lined text that requires to know the width of its space that can also dynamically change its height.
+-- remove with UIBloxConfig.useSeparatedCalcFunction
 function PartialPageModal:getMiddleContentWidth(screenWidth, modalMarginSize)
+	if UIBloxConfig.useSeparatedCalcFunction then
+		assert(false, "Deprecated usage, use `UIBlox.App.Dialog.Modal.getPartialPageModalMiddleContentWidth` instead")
+		return
+	end
+
 	return ModalWindow:getWidth(screenWidth) - 2 * (modalMarginSize or MARGIN)
 end
 

@@ -73,6 +73,7 @@ PlayerTile.validateProps = t.strictInterface({
 	-- A function that fires when the tile is pressed
 	onActivated = t.optional(t.callback),
 	forwardedRef = t.optional(t.table),
+	openTypeFeatures = t.optional(t.string),
 })
 
 PlayerTile.defaultProps = {
@@ -82,6 +83,7 @@ PlayerTile.defaultProps = {
 	onActivated = function() end,
 	Selectable = false,
 	isCircular = false,
+	openTypeFeatures = nil,
 }
 
 local ANIMATION_SPRING_SETTINGS = {
@@ -316,6 +318,7 @@ function PlayerTile:render()
 				isCircular = self.props.isCircular,
 				horizontalAlignment = self.props.horizontalAlignment,
 				thumbnailFrameSize = self.props.thumbnailFrameSize,
+				openTypeFeatures = self.props.openTypeFeatures,
 			}),
 		})
 	end)

@@ -5,6 +5,7 @@ local Roact = require(UIBlox.Parent.Roact)
 local t = require(UIBlox.Parent.t)
 local validateStyle = require(AppStyle.Validator.validateStyle)
 local StyleContext = require(Style.StyleContext)
+local getTextSizeOffset = require(UIBlox.Utility.getTextSizeOffset)
 
 local StyleTypes = require(AppStyle.StyleTypes)
 local Themes = require(AppStyle.Themes)
@@ -17,6 +18,8 @@ local getTokens = Tokens.getTokens
 local Packages = UIBlox.Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
+local GetEngineFeatureSafe = require(Packages.UIBlox.Core.Utility.GetEngineFeatureSafe)
+local EngineFeaturedPreferredTextSizeExists = GetEngineFeatureSafe("EnablePreferredTextSizeSetting")
 
 type DeviceType = Constants.DeviceType
 type ThemeName = Constants.ThemeName
@@ -26,6 +29,7 @@ local StyleProvider = Roact.Component:extend("StyleProvider")
 StyleProvider.validateProps = t.strictInterface({
 	-- The initial style of the app.
 	style = t.optional(validateStyle),
+	derivedValues = t.optional(t.table),
 	[Roact.Children] = t.table,
 })
 
@@ -37,7 +41,12 @@ local DEFAULT_STYLE = {
 	Settings = {
 		PreferredTransparency = 1,
 		ReducedMotion = false,
+		PreferredTextSize = if EngineFeaturedPreferredTextSizeExists then Enum.PreferredTextSize.Medium else nil,
 	},
+}
+
+local DEFAULT_DERIVED_VALUES = {
+	textSizeOffset = 0,
 }
 
 function StyleProvider:init()
@@ -45,11 +54,34 @@ function StyleProvider:init()
 	-- way to preserve the behavior that these context solutions employed
 	self:setState({
 		style = self.props.style,
+		derivedValues = self.props.derivedValues,
 	})
+end
+
+function StyleProvider:updateTextSizeOffset(font)
+	local success, newTextSizeOffset = getTextSizeOffset(font)
+	if success then
+		self:setState({
+			derivedValues = {
+				textSizeOffset = newTextSizeOffset,
+			},
+		})
+	end
+end
+
+function StyleProvider:didUpdate(prevProps, prevState)
+	if
+		prevState.style
+		and prevState.style.Settings.PreferredTextSize ~= self.state.style.Settings.PreferredTextSize
+	then
+		self:updateTextSizeOffset(self.state.style.Font.Body.Font)
+	end
 end
 
 function StyleProvider:render()
 	local style: StyleTypes.AppStyle = Object.assign({}, DEFAULT_STYLE, self.state.style)
+	local derivedValues = Object.assign({}, DEFAULT_DERIVED_VALUES, self.state.derivedValues)
+
 	if style.Tokens == nil then
 		-- If tokens were not passed in, fetch them with the style object now that defaults are applied.
 		style.Tokens = getTokens(
@@ -65,6 +97,7 @@ function StyleProvider:render()
 				self:setState({ style = newStyle })
 			end
 		end,
+		derivedValues = derivedValues,
 	}
 
 	return Roact.createElement(StyleContext.Provider, {

@@ -1,6 +1,6 @@
 [package]
 name = "ReactSceneUnderstanding"
-version = "0.4.0"
+version = "0.4.1"
 content_root = "src"
 files = [
     "*",
@@ -16,4 +16,4 @@ version = "^17.0.2"
 
 [dependencies.SceneUnderstanding]
 package = "SceneUnderstanding"
-version = "^0.4.0"
+version = "^0.4.1"

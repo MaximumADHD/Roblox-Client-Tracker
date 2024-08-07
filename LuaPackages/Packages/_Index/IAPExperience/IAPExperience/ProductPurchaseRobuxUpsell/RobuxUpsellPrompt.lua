@@ -36,6 +36,7 @@ type Props = {
 	enableInputDelayed: boolean?,
 	inputDelaySec: number?,
 	isQuest: boolean?,
+	isVng: boolean?,
 
 	model: any?,
 	itemIcon: any?,
@@ -63,6 +64,7 @@ RobuxUpsellPrompt.defaultProps = {
 	isQuest = false,
 	enableInputDelayed = false,
 	inputDelaySec = DELAYED_INPUT_ANIM_SEC,
+	isVng = false,
 }
 
 type State = {
@@ -117,6 +119,8 @@ function RobuxUpsellPrompt:init()
 end
 
 function RobuxUpsellPrompt:render()
+	local disclosureTermsURLText = if self.props.isVng then "Text.VNGDisclosureTermsURL" else "Text.DisclosureTermsURL"
+	
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			InsufficientRobuxTitle = {
@@ -132,7 +136,7 @@ function RobuxUpsellPrompt:render()
 				key = LOC_KEY:format("Text.DisclosurePayment"),
 			},
 			DisclosureTermsURL = {
-				key = LOC_KEY:format("Text.DisclosureTermsURL"),
+				key = LOC_KEY:format(disclosureTermsURLText),
 			},
 			TermsOfUse = {
 				key = LOC_KEY:format("Text.TermsOfUse"),

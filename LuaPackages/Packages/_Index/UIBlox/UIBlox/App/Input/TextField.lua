@@ -44,6 +44,7 @@ type TextFieldProps = {
 	-- On successful focus of the textbox (doesn't call if focus is attempted while the input is disabled)
 	onFocusGained: (() -> ())?,
 	LayoutOrder: number?,
+	openTypeFeatures: string?,
 }
 
 local defaultProps = {
@@ -235,6 +236,10 @@ local function TextField(props: TextFieldProps)
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
 						Font = textFieldStyle.Base.Field.Typography.Font,
+						RichText = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures then true else nil,
+						OpenTypeFeatures = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures
+							then props.openTypeFeatures
+							else nil,
 						TextSize = textFieldStyle.Base.Field.Typography.FontSize,
 						LineHeight = 1,
 						TextColor3 = textFieldStyle.Base.FieldValue.ContentColor.Color3,

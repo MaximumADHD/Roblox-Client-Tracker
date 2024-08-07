@@ -1,3 +1,7 @@
+local Packages = script.Parent.Parent.Parent.Parent
+local GetEngineFeatureSafe = require(Packages.UIBlox.Core.Utility.GetEngineFeatureSafe)
+local EngineFeaturedPreferredTextSizeExists = GetEngineFeatureSafe("EnablePreferredTextSizeSetting")
+
 local Constants = {}
 
 export type ThemeName = "Dark" | "Light"
@@ -37,6 +41,7 @@ Constants.DefaultDeviceType = Constants.DeviceType.Desktop
 Constants.DefaultSettings = {
 	preferredTransparency = 1,
 	reducedMotion = false,
+	preferredTextSize = if EngineFeaturedPreferredTextSizeExists then Enum.PreferredTextSize.Medium else nil,
 }
 
 return Constants

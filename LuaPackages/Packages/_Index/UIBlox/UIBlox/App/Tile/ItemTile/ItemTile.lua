@@ -123,6 +123,9 @@ ItemTile.validateProps = t.strictInterface({
 
 	-- The thumbnail scale type
 	scaleType = t.optional(t.enum(Enum.ScaleType)),
+
+	-- Callback for when the image is loaded
+	onThumbnailLoaded = t.optional(t.callback),
 })
 
 ItemTile.defaultProps = {
@@ -227,6 +230,7 @@ function ItemTile:render()
 		inputBindings = self.props.inputBindings,
 		ref = self.props.thumbnailRef,
 		[React.Tag] = self.props[React.Tag],
+		onThumbnailLoaded = self.props.onThumbnailLoaded,
 	})
 end
 

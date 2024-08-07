@@ -53,6 +53,7 @@ ProductPurchaseRobuxUpsell.validateProps = t.strictInterface({
 	cancelPurchaseActivated = t.callback,
 
 	isLuobu = t.optional(t.boolean),
+	isVng = t.optional(t.boolean),
 })
 
 ProductPurchaseRobuxUpsell.defaultProps = {
@@ -92,6 +93,7 @@ end
 
 function ProductPurchaseRobuxUpsell:render()
 	local buyRobuxQuestionText = self.props.isLuobu and "Text.BuyRobuxQuestionWithWarning" or "Text.BuyRobuxQuestion"
+	local disclosureTermsText = if self.props.isVng then "Text.VNGDisclosureTerms" else "Text.DisclosureTerms"
 
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
@@ -105,7 +107,7 @@ function ProductPurchaseRobuxUpsell:render()
 				key = LOC_KEY:format("Text.DisclosurePayment"),
 			},
 			DisclosureTerms = {
-				key = LOC_KEY:format("Text.DisclosureTerms"),
+				key = LOC_KEY:format(disclosureTermsText),
 			},
 			RemainingBalance = {
 				key = LOC_KEY:format("Text.RemainingBalance"),

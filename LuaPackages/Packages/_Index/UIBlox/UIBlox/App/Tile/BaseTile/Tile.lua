@@ -160,6 +160,11 @@ local tileInterface = t.strictInterface({
 
 	-- Alignment of the title and subtitle to the tile
 	horizontalAlignment = t.optional(t.EnumItem),
+
+	openTypeFeatures = t.optional(t.string),
+
+	-- Optional callback for when the image is loaded
+	onThumbnailLoaded = t.optional(t.callback),
 })
 
 local function tileBannerUseValidator(props)
@@ -380,6 +385,7 @@ function Tile:render()
 							imageTransparency = thumbnailTransparency,
 							backgroundImage = backgroundImage,
 							scaleType = self.props.thumbnailScaleType,
+							onThumbnailLoaded = self.props.onThumbnailLoaded,
 						}),
 						TileInset = renderTileInset and renderTileInset() or nil,
 						UIAspectRatioConstraint = if self.props.thumbnailAspectRatio ~= nil
@@ -426,6 +432,7 @@ function Tile:render()
 							text = subtitle,
 							colorStyle = theme.TextDefault,
 							fontStyle = subtitleFontStyle,
+							openTypeFeatures = self.props.openTypeFeatures,
 							layoutOrder = 2,
 							fluidSizing = false,
 							textTruncate = Enum.TextTruncate.AtEnd,

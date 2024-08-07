@@ -8,6 +8,7 @@ local React = require(Packages.React)
 
 local UIBlox = require(Packages.UIBlox)
 local PartialPageModal = UIBlox.App.Dialog.Modal.PartialPageModal
+local getPartialPageModalMiddleContentWidth = UIBlox.App.Dialog.Modal.getPartialPageModalMiddleContentWidth
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
@@ -19,6 +20,7 @@ local SubscriptionTitle = require(IAPExperienceRoot.Subscription.SubscriptionTit
 local GetFFlagEnableRobloxCreditPurchase = require(IAPExperienceRoot.Flags.GetFFlagEnableRobloxCreditPurchase)
 
 local getEnableDisableSubPurchase = require(IAPExperienceRoot.Flags.getEnableDisableSubPurchase)
+local UIBloxUseSeparatedCalcFunctionIAP = require(IAPExperienceRoot.Flags.getFFlagUIBloxUseSeparatedCalcFunctionIAP)
 
 local CONTENT_PADDING = 24
 local CONDENSED_CONTENT_PADDING = 12
@@ -205,7 +207,9 @@ local function SubscriptionPurchasePrompt(props)
 			return withStyle(function(stylePalette)
 				local theme = stylePalette.Theme
 				local fonts = stylePalette.Font
-				local middleContentSize = PartialPageModal:getMiddleContentWidth(props.screenSize.X)
+				local middleContentSize = if UIBloxUseSeparatedCalcFunctionIAP()
+					then getPartialPageModalMiddleContentWidth(props.screenSize.X)
+					else PartialPageModal:getMiddleContentWidth(props.screenSize.X)
 				return React.createElement(PartialPageModal, {
 					title = locMap.titleText,
 					screenSize = props.screenSize,

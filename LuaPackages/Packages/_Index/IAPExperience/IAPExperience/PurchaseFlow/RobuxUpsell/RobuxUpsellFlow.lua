@@ -68,6 +68,8 @@ type Props = {
 	isQuest: boolean?,
 
 	dispatchCentralOverlay: (any, any) -> any,
+
+	isVng: boolean?,
 }
 
 type State = {
@@ -189,6 +191,7 @@ function RobuxUpsellFlow:constructRobuxUpsellPromptAnimatorObj()
 					props.showTermsOfUse()
 				end or nil,
 				isQuest = self.props.isQuest,
+				isVng = self.props.isVng,
 			})
 		end,
 	}

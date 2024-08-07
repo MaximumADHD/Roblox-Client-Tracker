@@ -3,6 +3,7 @@ local AccordionRoot = script.Parent
 local AppRoot = AccordionRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -34,6 +35,11 @@ AccordionView.validateProps = t.strictInterface({
 
 	LayoutOrder = t.optional(t.integer),
 	maxItemsInCompactView = t.numberPositive,
+
+	-- Callback to run when accordion expands
+	onExpand = t.optional(t.callback),
+	-- Callback to run when accordion collapses
+	onCollapse = t.optional(t.callback),
 })
 
 AccordionView.defaultProps = {
@@ -47,6 +53,9 @@ function AccordionView:init()
 	}
 
 	self.onExpandButtonActivated = function()
+		if UIBloxConfig.addCallbacksToAccordionView and self.props.onExpand then
+			self.props.onExpand()
+		end
 		self:setState({
 			expanded = true,
 			isExpandButtonPressed = false,
@@ -54,6 +63,9 @@ function AccordionView:init()
 	end
 
 	self.onCollapseButtonActivated = function()
+		if UIBloxConfig.addCallbacksToAccordionView and self.props.onCollapse then
+			self.props.onCollapse()
+		end
 		self:setState({
 			expanded = false,
 		})

@@ -59,6 +59,7 @@ return{
 	["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[الاشتراك باستخدام بطاقة الائتمان/الخصم]],
 	["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[الاشتراك باستخدام رصيد Roblox]],
 	["Feature.Subscription.Email.PricePerMonthLabel"] = [[{purchasePrice}/شهريًا]],
+	["Feature.Subscription.Error.GenericSubscribeError"] = [[حدث خطأ ما خلال محاولة الاشتراك. يرجى المحاولة مرة أخرى لاحقًا.]],
 	["Feature.Subscription.Heading.Subscriptions"] = [[الاشتراكات]],
 	["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[لقد وصلت إلى حد الشراء الشهري المحدد في أدوات رقابة الوالدين. لن تتمكن من إجراء عملية شراء جديدة حتى الشهر المقبل.]],
 	["Feature.Subscription.Message.ReportSubmitted"] = [[تم تقديم البلاغ وسيطّلع عليه فريقنا قريبًا.]],
