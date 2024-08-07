@@ -960,8 +960,33 @@
             }
         },
         {
+            "RdlSemanticColorSurface0": {
+                "Default": "#111216"
+            }
+        },
+        {
+            "RdlSemanticColorSurface100": {
+                "Default": "#1F2024"
+            }
+        },
+        {
+            "RdlSemanticColorSurface200": {
+                "Default": "#25262C"
+            }
+        },
+        {
+            "RdlSemanticColorComponentInputFill": {
+                "Default": "#323339"
+            }
+        },
+        {
             "RdlSemanticColorContentStandard": {
                 "Default": "#F9F9F9"
+            }
+        },
+        {
+            "RdlSemanticColorContentDisabled": {
+                "Default": "#696A6D"
             }
         },
         {
@@ -970,8 +995,18 @@
             }
         },
         {
-            "RdlSemanticColorContentDisabled": {
-                "Default": "#696A6D"
+            "RdlSemanticColorDivider": {
+                "Default": "#3A3B3E"
+            }
+        },
+        {
+            "RdlSemanticColorStatesHovered": {
+                "Default": "#2B2D32"
+            }
+        },
+        {
+            "RdlSemanticColorStatesSelected": {
+                "Default": "#383A40"
             }
         },
         {
@@ -982,16 +1017,6 @@
         {
             "RdlSemanticColorStatesHoverOverForegroundMain": {
                 "Default": "#38393A"
-            }
-        },
-        {
-            "RdlSemanticColorStatesPressOverForegroundContrast": {
-                "Default": "#505153"
-            }
-        },
-        {
-            "RdlSemanticColorStatesPressOverForegroundMain": {
-                "Default": "#434446"
             }
         }
     ],

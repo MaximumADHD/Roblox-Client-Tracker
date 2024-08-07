@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "LocalStorage",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/local-storage/src"
+    }
+  }
+}

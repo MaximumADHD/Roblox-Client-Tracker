@@ -97,7 +97,7 @@ dependencies = [
     "GraphQL GraphQL 15.6.1 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
-    "IAPExperience IAPExperience b0445ee3 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 2452260b git+https://github.com/roblox/iapexperience#master",
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "InputHandlers InputHandlers 1.3.1 registry",
     "Jest Jest 3.8.1 registry",
@@ -125,7 +125,7 @@ dependencies = [
     "ReactIs ReactIs 17.0.4 registry",
     "ReactOtter ReactOtter 1.1.0 registry",
     "ReactRoblox ReactRoblox 17.0.4 registry",
-    "ReactSceneUnderstanding ReactSceneUnderstanding 0.4.0 registry",
+    "ReactSceneUnderstanding ReactSceneUnderstanding 0.4.1 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
     "ReactTestingUtils ReactTestingUtils 1.2.0 registry",
     "ReactUtils ReactUtils 1.2.0 registry",
@@ -150,8 +150,8 @@ dependencies = [
     "StringUtilities <patched> string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.12.8 registry",
-    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
+    "UGCValidation UGCValidation 1.12.9 registry",
+    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
@@ -329,7 +329,7 @@ dependencies = [
 [[package]]
 name = "IAPExperience"
 version = "1.0.0"
-commit = "b0445ee341449db1f8485503c46392c2fc6b8f0e"
+commit = "2452260b4eb81101cf8a589064466bea5dbbd3f7"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Otter Otter 0.1.4 registry",
@@ -339,7 +339,7 @@ dependencies = [
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -358,7 +358,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.4 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
     "t t 1.2.5 registry",
 ]
 
@@ -1205,14 +1205,14 @@ source = "git+https://github.com/roblox/purchase-prompt-deps#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame <patched> RoactFitComponents 2.0.0 registry",
-    "IAPExperience IAPExperience b0445ee3 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 2452260b git+https://github.com/roblox/iapexperience#master",
     "Otter Otter 0.1.4 registry",
     "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "Roact RoactCompat 17.0.4 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
@@ -1334,12 +1334,12 @@ dependencies = [
 
 [[package]]
 name = "ReactSceneUnderstanding"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "React React 17.0.4 registry",
-    "SceneUnderstanding SceneUnderstanding 0.4.0 registry",
+    "SceneUnderstanding SceneUnderstanding 0.4.1 registry",
 ]
 
 [[package]]
@@ -1735,7 +1735,7 @@ source = "registry"
 
 [[package]]
 name = "SceneUnderstanding"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry"
 
 [[package]]
@@ -1785,7 +1785,7 @@ dependencies = [
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 004534d3 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1874,7 +1874,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.12.8"
+version = "1.12.9"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1884,7 +1884,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "004534d3d7e9cdf0a41bebe88fccb13552645424"
+commit = "4b28202ff25061e679e6ee310e5b8581b406128c"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",

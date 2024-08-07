@@ -1,160 +1,160 @@
 Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.RobloxPropertiesWidget.Category.Accessories,,,Accessories,Accessories,,Accessoires,Accesorios,Accessoires,,Accessori,アクセサリ,장신구,,Acessórios,,ไอเท็มเสริม,,Phụ Kiện,配饰,配饰,配件
-Studio.RobloxPropertiesWidget.Category.Advanced,,,Advanced,Advanced,,Erweitert,Avanzado,Avancé,,Avanzato,詳細設定,고급,,Avançado,,ขั้นสูง,,Nâng Cao,高级,高级,進階
-Studio.RobloxPropertiesWidget.Category.AlignOrientation,,,AlignOrientation,AlignOrientation,,AlignOrientation,AlignOrientation,AlignOrientation,,AlignOrientation,向き整列,AlignOrientation,,AlignOrientation,,AlignOrientation,,AlignOrientation,AlignOrientation,AlignOrientation,對齊方向
-Studio.RobloxPropertiesWidget.Category.AlignPosition,,,AlignPosition,AlignPosition,,AlignPosition,AlignPosition,AlignPosition,,AlignPosition,位置整列,AlignPosition,,AlignPosition,,AlignPosition,,AlignPosition,AlignPosition,AlignPosition,對齊位置
-Studio.RobloxPropertiesWidget.Category.AlignmentMode,,,AlignmentMode,AlignmentMode,,AlignmentMode,AlignmentMode,AlignmentMode,,AlignmentMode,整列モード,AlignmentMode,,AlignmentMode,,AlignmentMode,,AlignmentMode,AlignmentMode,AlignmentMode,對齊模式
-Studio.RobloxPropertiesWidget.Category.AngularLimits,,,AngularLimits,AngularLimits,,AngularLimits,AngularLimits,AngularLimits,,AngularLimits,角制限,AngularLimits,,AngularLimits,,AngularLimits,,AngularLimits,AngularLimits,AngularLimits,角度限制
-Studio.RobloxPropertiesWidget.Category.AngularMotor,,,AngularMotor,AngularMotor,,AngularMotor,AngularMotor,AngularMotor,,AngularMotor,角モーター,AngularMotor,,AngularMotor,,AngularMotor,,AngularMotor,AngularMotor,AngularMotor,角度動作
-Studio.RobloxPropertiesWidget.Category.AngularServo,,,AngularServo,AngularServo,,AngularServo,AngularServo,AngularServo,,AngularServo,角追従,AngularServo,,AngularServo,,AngularServo,,AngularServo,AngularServo,AngularServo,角度伺服
-Studio.RobloxPropertiesWidget.Category.Animatable,,,Animatable,Animatable,,Animierbar,Animable,Animatable,,Animabile,アニメ化可能,애니메이션 가능,,Animável,,เคลื่อนไหวได้,,Có Thể Tạo Hiệu Ứng Động,可动画化,可动画化,可動畫化
-Studio.RobloxPropertiesWidget.Category.Animation,,,Animation,Animation,,Animation,Animación,Animation,,Animazione,アニメーション,애니메이션,,Animação,,แอนิเมชัน,,Hiệu Ứng Động,动画,动画,動畫
-Studio.RobloxPropertiesWidget.Category.Appearance,,,Appearance,Appearance,,Erscheinungsbild,Aspecto,Apparence,,Aspetto,外見,모양,,Aparência,,รูปลักษณ์,,Ngoại Hình,外观,外观,外觀
-Studio.RobloxPropertiesWidget.Category.Assembly,,,Assembly,Assembly,,Baugruppe,Montaje,Assemblage,,Montaggio,アセンブリ,어셈블리,,Montagem,,การประกอบ,,Cụm Chi Tiết,组件,组件,組件
-Studio.RobloxPropertiesWidget.Category.Asset,,,Asset,Asset,,Objekt,Recurso,Contenu,,Risorsa/Asset,アセット,애셋,,Ativo,,ทรัพยากร,,Tài Sản,素材,素材,資產
-Studio.RobloxPropertiesWidget.Category.Attachments,,,Attachments,Attachments,,Anhänge,Conexiones,Pièces jointes,,Allegati,アタッチメント,연결부,,Anexos,,สิ่งที่แนบมา,,Điểm Gắn,附件,附件,附件
-Studio.RobloxPropertiesWidget.Category.Attributes,,,Attributes,Attributes,,Attribute,Atributos,Attributs,,Attributi,属性,특성,,Atributos,,คุณลักษณะ,,Thuộc Tính,属性,属性,屬性
-Studio.RobloxPropertiesWidget.Category.Audio,,,Audio,Audio,,Audio,Audio,Audio,,Audio,オーディオ,오디오,,Áudio,,เสียง,,Âm Thanh,音频,音频,音訊
-Studio.RobloxPropertiesWidget.Category.AutoRecovery,,,Auto-Recovery,Auto-Recovery,,Automatische Wiederherstellung,Recuperación automática,Auto-recouvrement,,Ripristino automatico,自動復元,자동 복구,,Recuperação automática,,,,Tự Động Khôi Phục,自动恢复,自动恢复,自動復原
-Studio.RobloxPropertiesWidget.Category.Axes,,,Axes,Axes,,Achsen,Ejes,Axes,,Assi,軸,축,,Eixos,,,,Rìu,轴,轴,軸
-Studio.RobloxPropertiesWidget.Category.Balance,,,Balance,Balance,,Gleichgewicht,Equilibrio,Balance,,Saldo,バランス,균형,,Balanço,,,,Số Dư,平衡,平衡,平衡
-Studio.RobloxPropertiesWidget.Category.BallSocket,,,BallSocket,BallSocket,,BallSocket,Conector de bola,BallSocket,,Connettore a sfera,旋回軸,BallSocket,,BallSocket,,,,BallSocket,BallSocket,BallSocket,球窩關節
-Studio.RobloxPropertiesWidget.Category.Behavior,,,Behavior,Behavior,,Verhalten,Comportamiento,Comportement,,Comportamento,動作,동작,,Comportamento,,,,Hành Vi,行为,行为,行為
-Studio.RobloxPropertiesWidget.Category.Benchmarking,,,Benchmarking,Benchmarking,,Benchmarking,Punto de referencia,Analyse comparative,,Analisi comparata,ベンチマーキング,벤치마킹,,Avaliação comparativa,,,,Đánh Giá,基准测试,基准测试,基準測試
-Studio.RobloxPropertiesWidget.Category.BodyColors,,,Body Colors,Body Colors,,Körperfarben,Colores del cuerpo,Couleurs du corps,,Colori del corpo,ボディの色,신체 색상,,Cores do corpo,,,,Màu Sắc Thân,身体颜色,身体颜色,身體顏色
-Studio.RobloxPropertiesWidget.Category.BodyParts,,,Body Parts,Body Parts,,Körperteile,Partes del cuerpo,Parties du corps,,Parti del corpo,ボディパーツ,신체 파트,,Partes do corpo,,,,Bộ Phận Thân,身体部件,身体部件,身體零件
-Studio.RobloxPropertiesWidget.Category.Brows,,,Brows,Brows,,Augenbrauen,Cejas,Sourcils,,Sopracciglia,まゆ毛,눈썹,,Sobrancelhas,,,,Lông Mày,眉毛,眉毛,眉毛
-Studio.RobloxPropertiesWidget.Category.Browsing,,,Browsing,Browsing,,Durchsuchen,Navegación,Parcourir,,Navigare,閲覧,둘러보기,,Navegando,,,,Đang Duyệt Qua,浏览,浏览,瀏覽
-Studio.RobloxPropertiesWidget.Category.Cache,,,Cache,Cache,,Zwischenspeicher,Caché,Cache,,Cache,キャッシュ,캐시,,Cache,,,,Bộ Nhớ Đệm,缓存,缓存,快取
-Studio.RobloxPropertiesWidget.Category.Camera,,,Camera,Camera,,Kamera,Cámara,Caméra,,Fotocamera,カメラ,카메라,,Câmera,,,,Camera,镜头,镜头,相機
-Studio.RobloxPropertiesWidget.Category.Character,,,Character,Character,,Charakter,Personaje,Personnage,,Carattere,キャラクター,캐릭터,,Personagem,,,,Nhân Vật,人物,人物,人物
-Studio.RobloxPropertiesWidget.Category.CharacterJumpSettings,,,Character Jump Settings,Character Jump Settings,,Charakter-Sprungeinstellungen,Configuración de Salto de personaje,Paramètres de saut de caractère,,Impostazioni salto personaggio,キャラクターのジャンプ設定,캐릭터 점프 설정,,Configurações de pulo de personagem,,การตั้งค่าการกระโดดของตัวละคร,,Cài Đặt Nhảy Cho Nhân Vật,人物跳跃设置,人物跳跃设置,人物跳躍設定
-Studio.RobloxPropertiesWidget.Category.Clothes,,,Clothes,Clothes,,Kleidung,Ropa,Vêtements,,Vestiti,衣装,복장,,Roupas,,,,Trang Phục,服装,服装,衣物
-Studio.RobloxPropertiesWidget.Category.Collision,,,Collision,Collision,,Kollision,Colisión,Collision,,Collisione,衝突,충돌,,Colisão,,,,Va Chạm,碰撞,碰撞,碰撞
-Studio.RobloxPropertiesWidget.Category.Compliance,,,Compliance,Compliance,,Einhaltung,Cumplimiento,Conformité,,Conformità,コンプライアンス,규정 준수,,Conformidade,,,,Tuân Thủ,合规性,合规性,合規性
-Studio.RobloxPropertiesWidget.Category.Configuration,,,Configuration,Configuration,,Konfiguration,Configuración,Configuration,,Configurazione,環境設定,구성,,Configuração,,,,Cấu Hình,配置,配置,配置
-Studio.RobloxPropertiesWidget.Category.Control,,,Control,Control,,Steuerung,Control,Contrôle,,Controllo,操作,제어,,Controles,,,,Điều Khiển,控制,控制,控制
-Studio.RobloxPropertiesWidget.Category.Controls,,,Controls,Controls,,Steuerelemente,Controles,Contrôles,,Controlli,操作,제어,,Controles,,,,Điều Khiển,控制,控制,控制
-Studio.RobloxPropertiesWidget.Category.Cylinder,,,Cylinder,Cylinder,,Zylinder,Cilindro,Cylindre,,Cilindro,円柱,원통,,Cilindro,,,,Hình Trụ,圆柱,圆柱,圓柱
-Studio.RobloxPropertiesWidget.Category.Data,,,Data,Data,,Daten,Datos,Données,,Dati,データ,데이터,,Dados,,,,Dữ Liệu,数据,数据,資料
-Studio.RobloxPropertiesWidget.Category.Debug,,,Debug,Debug,,Debuggen,Depuración,Debug,,Debug,デバッグ,디버그,,Depuração,,,,Gỡ Lỗi,调试,调试,偵錯
-Studio.RobloxPropertiesWidget.Category.Debugging,,,Debugging,Debugging,,Debuggen,Depuración,Debugging,,Debugging,デバッグ,디버깅,,Depurando,,,,Đang Gỡ Lỗi,正在调试,正在调试,正在偵錯
-Studio.RobloxPropertiesWidget.Category.Derived,,,Derived,Derived,,Abgeleitet,Derivado,Dérivé,,Derivato,派生,파생,,Derivado,,,,Dẫn Xuất,衍生,衍生,衍生
-Studio.RobloxPropertiesWidget.Category.DerivedData,,,Derived Data,Derived Data,,Abgeleitete Daten,Datos derivados,Données dérivées,,Dati derivati,派生データ,파생 데이터,,Dados derivados,,,,Dữ Liệu Dẫn Xuất,衍生数据,衍生数据,衍生資料
-Studio.RobloxPropertiesWidget.Category.DerivedWorldData,,,Derived World Data,Derived World Data,,Abgeleitete Weltdaten,Datos del mundo derivados,Données mondiales dérivées,,Dati derivati del mondo,派生世界のデータ,파생 월드 데이터,,Dados do mundo derivado,,,,Dữ Liệu Dẫn Xuất Về Thế Giới,衍生世界数据,衍生世界数据,衍生世界資料
-Studio.RobloxPropertiesWidget.Category.Diagnostics,,,Diagnostics,Diagnostics,,Diagnose,Diagnósticos,Diagnostiques,,Diagnostici,診断,진단,,Diagnósticos,,,,Chẩn Đoán,诊断,诊断,診斷
-Studio.RobloxPropertiesWidget.Category.Directories,,,Directories,Directories,,Verzeichnisse,Directorios,Répertoires,,Elenchi,一覧,디렉터리,,Diretórios,,,,Thư Mục,目录,目录,目錄
-Studio.RobloxPropertiesWidget.Category.Display,,,Display,Display,,Anzeige,Visualización,Afficher,,Display,表示,표시,,Tela,,,,Hiển Thị,显示,显示,顯示
-Studio.RobloxPropertiesWidget.Category.Emission,,,Emission,Emission,,Emission,Emisión,Émission,,Emissione,放射,이미션,,Emissão,,,,Phát Thải,释放,释放,發射
-Studio.RobloxPropertiesWidget.Category.Emitter,,,Emitter,Emitter,,Emitter,Emisor,Émetteur,,Emettitore,放射器,이미터,,Emissor,,,,Nguồn Phát,释放器,释放器,發射器
-Studio.RobloxPropertiesWidget.Category.EmitterShape,,,EmitterShape,EmitterShape,,EmitterShape,EmitterShape,Forme de l'émetteur,,EmitterShape,放射器の形状,EmitterShape,,EmitterShape,,,,EmitterShape,EmitterShape,EmitterShape,發射器形狀
-Studio.RobloxPropertiesWidget.Category.Errors,,,Errors,Errors,,Fehler,Errores,Erreurs,,Errori,エラー,오류,,Erros,,,,Lỗi,错误,错误,錯誤
-Studio.RobloxPropertiesWidget.Category.Explorer,,,Explorer,Explorer,,Explorer,Explorador,Explorateur,,Esploratore,エクスプローラ,탐색기,,Explorador,,,,Cửa Sổ Khám Phá,项目管理器,项目管理器,瀏覽
-Studio.RobloxPropertiesWidget.Category.Exposure,,,Exposure,Exposure,,Belichtung,Exposición,Exposition,,Esposizione,露出,노출,,Exposição,,,,Phơi Nhiễm,曝光,曝光,曝光
-Studio.RobloxPropertiesWidget.Category.Eyes,,,Eyes,Eyes,,Augen,Ojos,Yeux,,Occhi,目,눈,,Olhos,,,,Mắt,眼睛,眼睛,眼睛
-Studio.RobloxPropertiesWidget.Category.Flipbook,,,Flipbook,Flipbook,,Flipbook,Flipbook,Carnet à feuilles,,Flipbook,フリップブック,플립북,,Flipbook,,,,Sách Lật,翻页动画,翻页动画,翻頁動畫
-Studio.RobloxPropertiesWidget.Category.Fog,,,Fog,Fog,,Nebel,Neblina,Brouillard,,Nebbia,霧,안개,,Neblina,,,,Sương Mù,雾,雾,霧化
-Studio.RobloxPropertiesWidget.Category.Forcefield,,,Forcefield,Forcefield,,Kraftfeld,Campo de fuerza,Champ de force,,Forcefield,力場,포스필드,,Campo de força,,,,Forcefield,力场,力场,力場
-Studio.RobloxPropertiesWidget.Category.Friction,,,Friction,Friction,,Reibung,Fricción,Friction,,Attrito,摩擦,마찰,,Atrito,,,,Ma Sát,摩擦力,摩擦力,摩擦力
-Studio.RobloxPropertiesWidget.Category.Game,,,Game,Game,,Spiel,Juego,Jeu,,Gioco,ゲーム,게임,,Jogo,,,,Trò Chơi,游戏,游戏,遊戲
-Studio.RobloxPropertiesWidget.Category.General,,,General,General,,Allgemein,General,Général,,Generale,全般,일반,,Geral,,,,Chung,通用,通用,一般
-Studio.RobloxPropertiesWidget.Category.Goals,,,Goals,Goals,,Ziele,Goles,Objectifs,,Obiettivi,目標,목표,,Objetivos,,,,Mục Tiêu,目标,目标,目標
-Studio.RobloxPropertiesWidget.Category.Hinge,,,Hinge,Hinge,,Scharnier,Bisagra,Charnière,,Cerniera,ヒンジ,힌지,,Dobradiça,,,,Bản Lề,铰链,铰链,樞紐
-Studio.RobloxPropertiesWidget.Category.Image,,,Image,Image,,Bild,Imagen,Image ,,Immagine,画像,이미지,,Imagem,,,,Hình Ảnh,图片,图片,圖像
-Studio.RobloxPropertiesWidget.Category.Input,,,Input,Input,,Eingabe,Entrada,Entrée,,Input,入力,입력,,Entrada,,,,Đầu Vào,输入,输入,輸入
-Studio.RobloxPropertiesWidget.Category.Internal,,,Internal,Internal,,Intern,Interno,Interne,,Interne,内部,내부,,Interno,,,,Nội Bộ,内部,内部,內部
-Studio.RobloxPropertiesWidget.Category.Jaw,,,Jaw,Jaw,,Kiefer,Mandíbula,Mâchoire,,Mascella,あご,턱,,Mandíbula,,,,Hàm,下巴,下巴,下巴
-Studio.RobloxPropertiesWidget.Category.JobInfo,,,JobInfo,JobInfo,,JobInfo,JobInfo,Informations sur l'emploi,,Job Informazione,作業の情報,JobInfo,,JobInfo,,,,JobInfo,JobInfo,JobInfo,工作資訊
-Studio.RobloxPropertiesWidget.Category.JumpSettings,,,Jump Settings,Jump Settings,,Sprungeinstellungen,Configuración de salto,Paramètres de saut,,Impostazioni salta,ジャンプ設定,점프 설정,,Configurações de pulo,,,,Cài Đặt Nhảy,跳跃设置,跳跃设置,跳躍設定
-Studio.RobloxPropertiesWidget.Category.Limits,,,Limits,Limits,,Grenzen,Límites,Limites,,Limiti,制限,제한,,Limites,,,,Giới Hạn,范围,范围,限制
-Studio.RobloxPropertiesWidget.Category.Line,,,Line,Line,,Zeile,Línea,Ligne,,Riga,行,줄,,Linha,,,,Dòng,行,行,行
-Studio.RobloxPropertiesWidget.Category.LineForce,,,LineForce,LineForce,,LineForce,LineForce,Force linéaire,,LineForce,力線,LineForce,,LineForce,,,,LineForce,LineForce,LineForce,直線力
-Studio.RobloxPropertiesWidget.Category.Link,,,Link,Link,,Link,Enlace,Lien,,Link,リンク,링크,,Link,,,,Liên Kết,链接,链接,連結
-Studio.RobloxPropertiesWidget.Category.Localization,,,Localization,Localization,,Lokalisierung,Localización,Localisation,,Localizzazione,多言語化,로컬라이제이션,,Localização,,,,Bản Địa Hóa,本地化,本地化,本地化
-Studio.RobloxPropertiesWidget.Category.LuaDebugger,,,Lua Debugger,Lua Debugger,,Lua-Debugger,Depurador Lua,Debugger Lua,,Debugger Lua,Luaデバッガー,Lua 디버거,,Depurador Lua,,,,Trình Gỡ Lỗi Lua,Lua 调试器,Lua 调试器,Lua 偵錯工具
-Studio.RobloxPropertiesWidget.Category.Material,,,Material,Material,,Material,Material,Matériel,,Materiale,素材,재질,,Material,,,,Vật Liệu,材质,材质,材質
-Studio.RobloxPropertiesWidget.Category.MaterialOverrides,,,Material Overrides,Material Overrides,,Materialüberschreibungen,Cambios de material,Remplacements de matériaux,,Sostituzione materiale,素材のオーバーライド,재질 재정의,,Substituições de material,,,,Ghi Đè Vật Liệu,材质覆盖,材质覆盖,材料覆蓋
-Studio.RobloxPropertiesWidget.Category.MaterialPack,,,Material Pack,Material Pack,,Materialpaket,Paquete de material,Pack de matériel,,Pacchetto materiale,素材セット,재질 팩,,Pacote de materiais,,,,Gói Vật Liệu,材质包,材质包,材料包
-Studio.RobloxPropertiesWidget.Category.Mobile,,,Mobile,Mobile,,Mobil,Móvil,Mobile (portable),,Cellulare,モバイル,모바일,,Celular,,,,Di Động,移动,移动,移動
-Studio.RobloxPropertiesWidget.Category.Mode,,,Mode,Mode,,Modus,Modo,Mode,,Modalità,モード,모드,,Modo,,,,Chế Độ,模式,模式,模式
-Studio.RobloxPropertiesWidget.Category.Motion,,,Motion,Motion,,Bewegung,Movimiento,Mouvement,,Movimento,動き,동작,,Movimento,,,,Chuyển Động,运动,运动,運動
-Studio.RobloxPropertiesWidget.Category.Motor,,,Motor,Motor,,Motor,Motor,Moteur,,Motore,モーター,모터,,Motor,,,,Động Cơ,马达,马达,馬達
-Studio.RobloxPropertiesWidget.Category.Mouth,,,Mouth,Mouth,,Mund,Boca,Bouche,,Bocca,口,입,,Boca,,,,Miệng,嘴巴,嘴巴,嘴巴
-Studio.RobloxPropertiesWidget.Category.Movement,,,Movement,Movement,,Bewegung,Movimiento,Mouvement,,Movimento,動き,이동,,Movimento,,,,Chuyển Động,移动,移动,移動
-Studio.RobloxPropertiesWidget.Category.Networking,,,Networking,Networking,,Netzwerk,Red,Réseaux,,Rete,ネットワーク,네트워킹,,Networking,,,,Mạng,网络,网络,網路
-Studio.RobloxPropertiesWidget.Category.Output,,,Output,Output,,Ausgabe,Salida,Sortie,,Output,出力,출력,,Saída,,,,Đầu Ra,输出,输出,輸出
-Studio.RobloxPropertiesWidget.Category.Part,,,Part,Part,,Teil,Pieza,Partie ,,Parte,パーツ,파트,,Parte,,,,Bộ Phận,部件,部件,零件
-Studio.RobloxPropertiesWidget.Category.Particles,,,Particles,Particles,,Partikel,Partículas,Particules,,Particelle,パーティクル,파티클,,Partículas,,,,Hạt,粒子,粒子,粒子
-Studio.RobloxPropertiesWidget.Category.Parts,,,Parts,Parts,,Teile,Piezas,Parties,,Parti,パーツ,파트,,Partes,,,,Bộ Phận,部件,部件,零件
-Studio.RobloxPropertiesWidget.Category.Performance,,,Performance,Performance,,Leistung,Rendimiento,Performances,,Prestazioni,パフォーマンス,성능,,Desempenho,,,,Hiệu Suất,性能,性能,效能
-Studio.RobloxPropertiesWidget.Category.Physics,,,Physics,Physics,,Physik,Física,Physique,,Fisica,物理,물리,,Física,,,,Vật Lý,物理,物理,物理
-Studio.RobloxPropertiesWidget.Category.Pivot,,,Pivot,Pivot,,Drehpunkt,Pivote,Pivot,,Pivot,ピボット,피벗,,Pivô,,,,Điểm Xoay,枢轴,枢轴,中心點
-Studio.RobloxPropertiesWidget.Category.Plane,,,Plane,Plane,,Ebene,Plano,Plan,,Piano,平面,비행기,,Avião,,,,Máy Bay,平面,平面,平面
-Studio.RobloxPropertiesWidget.Category.Playback,,,Playback,Playback,,Wiedergabe,Reproducción,Relecture,,Riproduzione,再生,재생,,Reprodução,,,,Phát Lại,回放,回放,倒轉
-Studio.RobloxPropertiesWidget.Category.PrimaryPart,,,Primary Part,Primary Part,,Primärteil,Pieza principal,Partie principale,,Parte primaria,メインパーツ,기본 파트,,Parte primária,,,,Bộ Phận Chính,主要部件,主要部件,主要零件
-Studio.RobloxPropertiesWidget.Category.Profile,,,Profile,Profile,,Profil,Perfil,Profil,,Profilo,プロフィール,프로필,,Perfil,,,,Hồ Sơ,配置,配置,個人檔
-Studio.RobloxPropertiesWidget.Category.ProxySettings,,,Proxy Settings,Proxy Settings,,Proxy-Einstellungen,Configuración del proxy,Paramètres du proxy,,Impostazioni proxy,プロキシ設定,프록시 설정,,Configurações de proxy,,,,Cài Đặt Proxy,代理设置,代理设置,Proxy 設定
-Studio.RobloxPropertiesWidget.Category.Reflection,,,Reflection,Reflection,,Reflexion,Reflexión,Reflet,,Riflessione,反射,반사,,Reflexão,,,,Phản Xạ,反射,反射,反射
-Studio.RobloxPropertiesWidget.Category.Regions,,,Regions,Regions,,Regionen,Regiones,Régions,,Regioni,地域,영역,,Regiões,,,,Khu Vực,区域,区域,地區
-Studio.RobloxPropertiesWidget.Category.RenderingTest,,,RenderingTest,RenderingTest,,RenderingTest,Prueba de renderizado,Test de rendu,,Test Rendering,レンダリングテスト,RenderingTest,,RenderingTest,,,,RenderingTest,渲染测试,渲染测试,成像測試
-Studio.RobloxPropertiesWidget.Category.Results,,,Results,Results,,Ergebnisse,Resultados,Résultats,,Risultati,結果,결과,,Resultados,,,,Kết Quả,结果,结果,結果
-Studio.RobloxPropertiesWidget.Category.Rod,,,Rod,Rod,,Stange,Barra,Barre,,Bastone,ロッド,막대,,Vara,,,,Thanh,杆,杆,連桿
-Studio.RobloxPropertiesWidget.Category.Rope,,,Rope,Rope,,Seil,Cuerda,Corde,,Fune,ロープ,밧줄,,Corda,,,,Dây Thừng,绳索,绳索,繩索
-Studio.RobloxPropertiesWidget.Category.Routing,,,Routing,Routing,,Routing,Ruta,Routage,,Percorso,ルーティング,라우팅,,Roteamento,,,,Định Tuyến,路由,路由,路由
-Studio.RobloxPropertiesWidget.Category.Scale,,,Scale,Scale,,Skalierung,Escalar,Échelle,,Bilancia,拡大/縮小,스케일,,Escala,,,,Đổi Tỷ Lệ,缩放,缩放,比例
-Studio.RobloxPropertiesWidget.Category.ScriptEditor,,,Script Editor,Script Editor,,Skript-Editor,Editor de script,Éditeur de script,,Editor Script,スクリプト編集,스크립트 편집기,,Editor de script,,,,Trình Chỉnh Sửa Kịch Bản,脚本编辑器,脚本编辑器,指令碼編輯器
-Studio.RobloxPropertiesWidget.Category.ScriptEditorColors,,,Script Editor Colors,Script Editor Colors,,Skript-Editor-Farben,Colores del Editor de script,Couleurs de l'éditeur de script,,Script editor colori,スクリプト編集の色,스크립트 편집기 색상,,Cores do editor de script,,,,Màu Sắc của Trình Chỉnh Sửa Kịch Bản,脚本编辑器颜色,脚本编辑器颜色,指令碼編輯器顏色
-Studio.RobloxPropertiesWidget.Category.Scrolling,,,Scrolling,Scrolling,,Scrollen,Desplazamiento,Défilement,,Scorrimento,スクロール,스크롤,,Rolagem,,,,Cuộn,滑动,滑动,捲動
-Studio.RobloxPropertiesWidget.Category.Selection,,,Selection,Selection,,Auswahl,Selección,Sélection ,,Selezione,選択肢,선택 항목,,Seleção,,,,Lựa Chọn,选择,选择,選項
-Studio.RobloxPropertiesWidget.Category.Servo,,,Servo,Servo,,Servo,Servo,Servo,,Servo,追従,서보,,Servo,,,,Servo,服务,服务,伺服
-Studio.RobloxPropertiesWidget.Category.Settings,,,Settings,Settings,,Einstellungen,Configuraciones,Paramètres,,Impostazioni,設定,설정,,Configurações,,,,Cài Đặt,设置,设置,設定
-Studio.RobloxPropertiesWidget.Category.Shape,,,Shape,Shape,,Form,Forma,Forme,,Forma,形状,형태,,Forma,,,,Hình Dạng,形状,形状,形狀
-Studio.RobloxPropertiesWidget.Category.Sizing,,,Sizing,Sizing,,Größe,Tamaño,Taille,,Dimensionamento,サイズ,크기 조정,,Dimensionamento,,,,Định Cỡ,尺寸,尺寸,尺寸
-Studio.RobloxPropertiesWidget.Category.Slider,,,Slider,Slider,,Schieber,Deslizador,Curseur,,Scorrevole,スライダー,슬라이더,,Deslizador,,,,Thanh Trượt,滑块,滑块,滑軌
-Studio.RobloxPropertiesWidget.Category.Spring,,,Spring,Spring,,Feder,Resorte,Ressort,,Primavera,ばね,용수철,,Mola,,,,Mùa Xuân,弹簧,弹簧,彈簧
-Studio.RobloxPropertiesWidget.Category.State,,,State,State,,Status,Estado,État,,Stato,状況,상태,,Estado,,,,Tiểu Bang,状态,状态,狀態
-Studio.RobloxPropertiesWidget.Category.Streaming,,,Streaming,Streaming,,Streaming,Transmisión,Streaming en cours,,Streaming,配信,스트리밍,,Streaming,,,,Phát Trực Tuyến,串流,串流,串流
-Studio.RobloxPropertiesWidget.Category.Surface,,,Surface,Surface,,Oberfläche,Superficie,Surface,,Superficie,表面,표면,,Superfície,,,,Bề Mặt,表面,表面,表面
-Studio.RobloxPropertiesWidget.Category.SurfaceInputs,,,Surface Inputs,Surface Inputs,,Oberflächeneingänge,Entradas de superficie,Entrées de la surface,,Input Superficie,表面の入力,표면 입력,,Entradas de superfície,,,,Thông Tin Bề Mặt,表面输入,表面输入,表面輸入
-Studio.RobloxPropertiesWidget.Category.TargetOrientation,,,TargetOrientation,TargetOrientation,,TargetOrientation,TargetOrientation,TargetOrientation,,TargetOrientation,対象の向き,TargetOrientation,,TargetOrientation,,,,TargetOrientation,TargetOrientation,TargetOrientation,目標方向
-Studio.RobloxPropertiesWidget.Category.Team,,,Team,Team,,Team,Equipo,Équipe,,Team,チーム,팀,,Equipe,,,,Nhóm,团队,团队,團隊
-Studio.RobloxPropertiesWidget.Category.Teams,,,Teams,Teams,,Teams,Equipos,Équipes,,Squadre,チーム,팀,,Equipes,,,,Các Nhóm,团队,团队,團隊
-Studio.RobloxPropertiesWidget.Category.Text,,,Text,Text,,Text,Texto,Texte,,Testo,テキスト,텍스트,,Texto,,,,Văn Bản,文本,文本,文字
-Studio.RobloxPropertiesWidget.Category.Thrust,,,Thrust,Thrust,,Schub,Impulso,Impulsion,,Spinta,衝上,추력,,Propulsão,,,,Sức Ép,推力,推力,推力
-Studio.RobloxPropertiesWidget.Category.Tongue,,,Tongue,Tongue,,Zunge,Lengua,Langue,,Lingua,舌,혀,,Língua,,,,Lưỡi,舌头,舌头,舌頭
-Studio.RobloxPropertiesWidget.Category.Tools,,,Tools,Tools,,Tools,Herramientas,Outils,,Strumenti,ツール,도구,,Ferramentas,,,,Công Cụ,工具,工具,工具
-Studio.RobloxPropertiesWidget.Category.Torque,,,Torque,Torque,,Drehmoment,Torsión mecánica,Torsion mécanique,,Coppia,トルク,토크,,Torque,,,,Mô Men Xoắn,力矩,力矩,扭力
-Studio.RobloxPropertiesWidget.Category.Transform,,,Transform,Transform,,Transformieren,Transformar,Transformer,,Trasforma,変換,변환,,Transformar,,,,Biến Đổi,变换,变换,轉換
-Studio.RobloxPropertiesWidget.Category.Tuning,,,Tuning,Tuning,,Tuning,Ajuste,Réglage,,Regolazione,チューニング,튜닝,,Sintonização,,,,Điều Chỉnh,调整,调整,調整
-Studio.RobloxPropertiesWidget.Category.Turn,,,Turn,Turn,,Drehen,Girar,Tourner,,Gira,回転,회전,,Virar,,,,Quay,转动,转动,轉向
-Studio.RobloxPropertiesWidget.Category.TwistLimits,,,TwistLimits,TwistLimits,,TwistLimits,Límites de torsión,Limites de torsion,,TwistLimits,ねじれ制限,TwistLimits,,TwistLimits,,,,TwistLimits,扭曲限制,扭曲限制,扭轉限制
-Studio.RobloxPropertiesWidget.Category.Undo,,,Undo,Undo,,Rückgängig,Deshacer,Défaire,,Annulla,取り消す,실행 취소,,Desfazer,,,,Hoàn Tác,撤消,撤消,撤銷
-Studio.RobloxPropertiesWidget.Category.Universal,,,Universal,Universal,,Universell,Universal,Universel,,Universale,ユニバーサル,유니버설,,Universal,,,,Phổ Dụng,通用,通用,通用
-Studio.RobloxPropertiesWidget.Category.Vector,,,Vector,Vector,,Vektor,Vector,Vecteur,,Vettore,ベクトル,벡터,,Vetor,,,,Vector,向量,向量,向量
-Studio.RobloxPropertiesWidget.Category.VectorForce,,,VectorForce,VectorForce,,VectorForce,VectorForce,Force vectorielle,,VectorForce,ベクトル力,VectorForce,,VectorForce,,,,VectorForce,VectorForce,VectorForce,向量力
-Studio.RobloxPropertiesWidget.Category.Video,,,Video,Video,,Video,Video,Vidéo,,Video,ビデオ,비디오,,Vídeo,,,,Video,视频,视频,影片
-Studio.RobloxPropertiesWidget.Category.Visualization,,,Visualization,Visualization,,Visualisierung,Visualización,Visualisation,,Visualizzazione,視覚化,시각화,,Visualização,,,,Hiển Thị,可视化,可视化,視覺效果
-Studio.RobloxPropertiesWidget.Category.Winch,,,Winch,Winch,,Winde,Manivela,Treuil,,Manovella,ウインチ,윈치,,Guincho,,,,Tời,绞盘,绞盘,絞盤
-Studio.RobloxPropertiesWidget.Category.Orientation,,,Orientation,Orientation,,Ausrichtung,Orientación,Orientation,,Orientamento,向き,방향,,Orientação,,,,Định Hướng,方向,方向,方向
-Studio.RobloxPropertiesWidget.Category.DragDirections,,,Drag Directions,Drag Directions,,Richtungen ziehen,Arrastrar direcciones,Faire glisser les directions,,Direzione di trascinamento,ドラッグの方向,드래그 방향,,Arrastar direções,,,,Kéo Để Điều Hướng,拖曳方向,拖曳方向,拖曳方向
-Studio.RobloxPropertiesWidget.Category.DraggedAmount,,,Dragged Amount,Dragged Amount,,Gezogener Betrag,Cantidad arrastrada,Montant glissé,,Importo trascinato,ドラッグした分,드래그한 양,,Quantidade arrastada,,,,Lượng Vật Thể Bị Kéo,已拖拽数量,已拖拽数量,已拖曳數量
-Studio.RobloxPropertiesWidget.Category.DragLimits,,,Drag Limits,Drag Limits,,Zieh-Grenzen,Límites de arrastre,Limites de glissement,,Limiti di trascina,ドラッグ制限,드래그 제한,,Limites de arraste,,,,Giới Hạn Kéo,拖曳上限,拖曳上限,拖曳上限
-Studio.RobloxPropertiesWidget.Category.ModeSwitching,,,Mode Switching,Mode Switching,,Modusumschaltung,Cambio de modo,Changer de mode,,Cambio modalità,モード切りかえ,모드 전환,,Troca de modo,,,,Chuyển Đổi Chế Độ,模式切换,模式切换,模式切換
-Studio.RobloxPropertiesWidget.Category.PhysicsResponse,,,Physics Response,Physics Response,,Physikantwort,Respuesta física,Réponse en matière de physique,,Risposta fisica,物理応答,물리적 응답,,Resposta física,,,,Phản Ứng Vật Lý,物理响应,物理响应,物理回應
-Studio.RobloxPropertiesWidget.Category.Aerodynamics,,,Aerodynamics,Aerodynamics,,Aerodynamik,Aerodinámico,Aérodynamique,,Aerodinamica,空気力学,공기 역학,,Aerodinâmica,,,,Khí Động Lực Học,空气动力学,空气动力学,空氣動力學
-Studio.RobloxPropertiesWidget.Category.AirProperties,,,AirProperties,AirProperties,,AirProperties,AirProperties,Propriétés de l'air,,AirProperties,AirProperties,AirProperties,,Propriedades aéreas,,,,AirProperties,空气属性,空气属性,AirProperties
-Studio.RobloxPropertiesWidget.Category.Tags,,,Tags,Tags,,Tags,Etiquetas,Étiquettes,,Etichette,タグ,태그,,Marcadores,,,,Thẻ,标签,标签,標籤
-Studio.RobloxPropertiesWidget.AddTagPopup.LineEditText,,,Search for or create a tag,Search for or create a tag,,Nach einem Tag suchen oder ein Tag erstellen,Busca o crea una etiqueta,Rechercher ou créer un tag,,,タグを検索または作成,태그 검색 또는 만들기,,Procure ou crie um marcador,,,,Tìm kiếm hoặc tạo một thẻ,搜索或创建标签,搜索或创建标签,搜尋或建立標籤
-Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,,,No tags have been created yet,No tags have been created yet,,Es wurden noch keine Tags erstellt,Aún no se han creado etiquetas,Aucun tag n'a encore été créé,,,タグがまだ作成されていません,아직 만든 태그가 없습니다,,Nenhum marcador foi criado ainda,,,,Chưa có thẻ nào được tạo,尚未创建任何标签,尚未创建任何标签,尚未建立標籤
-Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,,,Create tag: %1,Create tag: %1,,Tag erstellen: %1,Crear etiqueta: %1,Créer un tag : %1,,,タグ作成: %1,태그 만들기: %1,,Criar marcador: %1,,,,Tạo thẻ: %1,创建标签：%1,创建标签：%1,建立標籤：%1
-Studio.RobloxPropertiesWidget.Category.Connections,,,Connections,Connections,,Verbindungen,Conexiones,Connexions,,Connessioni,接続,연결,,Conexões,,,,Kết Nối,连接,连接,連線
-Studio.RobloxPropertiesWidget.Category.Interactions,,,Interactions,Interactions,,Interaktionen,Interacciones,Interactions,,Interazione,交流,상호 작용,,Interações,,,,Tương Tác,互动,互动,互動
-Studio.RobloxPropertiesWidget.Category.Metering,,,Metering,Metering,,Messung,Medición,Comptage,,Misurazione,計測,측정,,Medição,,,,Đo Lường,计量,计量,計量
-Studio.RobloxPropertiesWidget.Category.Permissions,,,Permissions,Permissions,,Berechtigungen,Permisos,Permissions,,Autorizzazioni,権限,권한,,Permissões,,,,Quyền,权限,权限,權限
-Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,Aufnahme,Grabando,Enregistrement,,Registrazione,録画,기록,,Gravação,,,,Bản Ghi,记录,记录,錄製
-Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scripting,Scripting,Scripting,,,スクリプト作成,스크립팅,,Scripting,,,,Viết Kịch Bản,脚本,脚本,指令碼化
-Studio.RobloxPropertiesWidget.Category.ControlPoints,,,Control Points,Control Points,,Kontrollpunkte,Puntos de control,Points de contrôle,,,制御点,제어점,,Pontos de controle,,,,Điểm Điều Khiển,控制点,控制点,控制點
-Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,,Allineamento,整列,정렬,,Alinhamento,,,,Căn Chỉnh,对齐,对齐,
-Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,,Pseudo-Instances,,,擬似インスタンス,모의 인스턴스,,Pseudoinstâncias,,,,Bản giả,,,
-Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,,Modification de l'état,,,,상태 편집,,Edição do estado,,,,Chỉnh Sửa Trạng Thái,,,
-Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,,,,,,,,Hexadecimal:,,,,,,,
+Studio.RobloxPropertiesWidget.Category.Accessories,,,Accessories,Accessories,,Accessoires,Accesorios,Accessoires,,Accessori,アクセサリ,장신구,,Acessórios,,ไอเท็มเสริม,Aksesuarlar,Phụ Kiện,配饰,配饰,配件
+Studio.RobloxPropertiesWidget.Category.Advanced,,,Advanced,Advanced,,Erweitert,Avanzado,Avancé,,Avanzato,詳細設定,고급,,Avançado,,ขั้นสูง,Gelişmiş,Nâng Cao,高级,高级,進階
+Studio.RobloxPropertiesWidget.Category.AlignOrientation,,,AlignOrientation,AlignOrientation,,AlignOrientation,AlignOrientation,AlignOrientation,,AlignOrientation,向き整列,AlignOrientation,,AlignOrientation,,AlignOrientation,Yön Hizalama,AlignOrientation,AlignOrientation,AlignOrientation,對齊方向
+Studio.RobloxPropertiesWidget.Category.AlignPosition,,,AlignPosition,AlignPosition,,AlignPosition,AlignPosition,AlignPosition,,AlignPosition,位置整列,AlignPosition,,AlignPosition,,AlignPosition,Pozisyon Hizalama,AlignPosition,AlignPosition,AlignPosition,對齊位置
+Studio.RobloxPropertiesWidget.Category.AlignmentMode,,,AlignmentMode,AlignmentMode,,AlignmentMode,AlignmentMode,AlignmentMode,,AlignmentMode,整列モード,AlignmentMode,,AlignmentMode,,AlignmentMode,Hizalama Modu,AlignmentMode,AlignmentMode,AlignmentMode,對齊模式
+Studio.RobloxPropertiesWidget.Category.AngularLimits,,,AngularLimits,AngularLimits,,AngularLimits,AngularLimits,AngularLimits,,AngularLimits,角制限,AngularLimits,,AngularLimits,,AngularLimits,Açı Sınırları,AngularLimits,AngularLimits,AngularLimits,角度限制
+Studio.RobloxPropertiesWidget.Category.AngularMotor,,,AngularMotor,AngularMotor,,AngularMotor,AngularMotor,AngularMotor,,AngularMotor,角モーター,AngularMotor,,AngularMotor,,AngularMotor,Açısal Motor,AngularMotor,AngularMotor,AngularMotor,角度動作
+Studio.RobloxPropertiesWidget.Category.AngularServo,,,AngularServo,AngularServo,,AngularServo,AngularServo,AngularServo,,AngularServo,角追従,AngularServo,,AngularServo,,AngularServo,Açısal Servo,AngularServo,AngularServo,AngularServo,角度伺服
+Studio.RobloxPropertiesWidget.Category.Animatable,,,Animatable,Animatable,,Animierbar,Animable,Animatable,,Animabile,アニメ化可能,애니메이션 가능,,Animável,,เคลื่อนไหวได้,Animasyonlanabilir,Có Thể Tạo Hiệu Ứng Động,可动画化,可动画化,可動畫化
+Studio.RobloxPropertiesWidget.Category.Animation,,,Animation,Animation,,Animation,Animación,Animation,,Animazione,アニメーション,애니메이션,,Animação,,แอนิเมชัน,Animasyon,Hiệu Ứng Động,动画,动画,動畫
+Studio.RobloxPropertiesWidget.Category.Appearance,,,Appearance,Appearance,,Erscheinungsbild,Aspecto,Apparence,,Aspetto,外見,모양,,Aparência,,รูปลักษณ์,Görünüm,Ngoại Hình,外观,外观,外觀
+Studio.RobloxPropertiesWidget.Category.Assembly,,,Assembly,Assembly,,Baugruppe,Montaje,Assemblage,,Montaggio,アセンブリ,어셈블리,,Montagem,,การประกอบ,Derleme,Cụm Chi Tiết,组件,组件,組件
+Studio.RobloxPropertiesWidget.Category.Asset,,,Asset,Asset,,Objekt,Recurso,Contenu,,Risorsa/Asset,アセット,애셋,,Ativo,,ทรัพยากร,Varlık,Tài Sản,素材,素材,資產
+Studio.RobloxPropertiesWidget.Category.Attachments,,,Attachments,Attachments,,Anhänge,Conexiones,Pièces jointes,,Allegati,アタッチメント,연결부,,Anexos,,สิ่งที่แนบมา,Eklentiler,Điểm Gắn,附件,附件,附件
+Studio.RobloxPropertiesWidget.Category.Attributes,,,Attributes,Attributes,,Attribute,Atributos,Attributs,,Attributi,属性,특성,,Atributos,,คุณลักษณะ,Nitelikler,Thuộc Tính,属性,属性,屬性
+Studio.RobloxPropertiesWidget.Category.Audio,,,Audio,Audio,,Audio,Audio,Audio,,Audio,オーディオ,오디오,,Áudio,,เสียง,Ses,Âm Thanh,音频,音频,音訊
+Studio.RobloxPropertiesWidget.Category.AutoRecovery,,,Auto-Recovery,Auto-Recovery,,Automatische Wiederherstellung,Recuperación automática,Auto-recouvrement,,Ripristino automatico,自動復元,자동 복구,,Recuperação automática,,การกู้คืนอัตโนมัติ,Otomatik Kurtarma,Tự Động Khôi Phục,自动恢复,自动恢复,自動復原
+Studio.RobloxPropertiesWidget.Category.Axes,,,Axes,Axes,,Achsen,Ejes,Axes,,Assi,軸,축,,Eixos,,แกน,Eksenler,Rìu,轴,轴,軸
+Studio.RobloxPropertiesWidget.Category.Balance,,,Balance,Balance,,Gleichgewicht,Equilibrio,Balance,,Saldo,バランス,균형,,Balanço,,ความสมดุล,Denge,Số Dư,平衡,平衡,平衡
+Studio.RobloxPropertiesWidget.Category.BallSocket,,,BallSocket,BallSocket,,BallSocket,Conector de bola,BallSocket,,Connettore a sfera,旋回軸,BallSocket,,BallSocket,,BallSocket,Küresel Mafsal,BallSocket,BallSocket,BallSocket,球窩關節
+Studio.RobloxPropertiesWidget.Category.Behavior,,,Behavior,Behavior,,Verhalten,Comportamiento,Comportement,,Comportamento,動作,동작,,Comportamento,,พฤติกรรม,Davranış,Hành Vi,行为,行为,行為
+Studio.RobloxPropertiesWidget.Category.Benchmarking,,,Benchmarking,Benchmarking,,Benchmarking,Punto de referencia,Analyse comparative,,Analisi comparata,ベンチマーキング,벤치마킹,,Avaliação comparativa,,การเปรียบเทียบสมรรถนะ,Kıyaslama,Đánh Giá,基准测试,基准测试,基準測試
+Studio.RobloxPropertiesWidget.Category.BodyColors,,,Body Colors,Body Colors,,Körperfarben,Colores del cuerpo,Couleurs du corps,,Colori del corpo,ボディの色,신체 색상,,Cores do corpo,,สีร่างกาย,Vücut Renkleri,Màu Sắc Thân,身体颜色,身体颜色,身體顏色
+Studio.RobloxPropertiesWidget.Category.BodyParts,,,Body Parts,Body Parts,,Körperteile,Partes del cuerpo,Parties du corps,,Parti del corpo,ボディパーツ,신체 파트,,Partes do corpo,,ส่วนของร่างกาย,Vücut Parçaları,Bộ Phận Thân,身体部件,身体部件,身體零件
+Studio.RobloxPropertiesWidget.Category.Brows,,,Brows,Brows,,Augenbrauen,Cejas,Sourcils,,Sopracciglia,まゆ毛,눈썹,,Sobrancelhas,,คิ้ว,Kaşlar,Lông Mày,眉毛,眉毛,眉毛
+Studio.RobloxPropertiesWidget.Category.Browsing,,,Browsing,Browsing,,Durchsuchen,Navegación,Parcourir,,Navigare,閲覧,둘러보기,,Navegando,,การเรียกดู,Göz Atma,Đang Duyệt Qua,浏览,浏览,瀏覽
+Studio.RobloxPropertiesWidget.Category.Cache,,,Cache,Cache,,Zwischenspeicher,Caché,Cache,,Cache,キャッシュ,캐시,,Cache,,แคช,Önbellek,Bộ Nhớ Đệm,缓存,缓存,快取
+Studio.RobloxPropertiesWidget.Category.Camera,,,Camera,Camera,,Kamera,Cámara,Caméra,,Fotocamera,カメラ,카메라,,Câmera,,กล้อง,Kamera,Camera,镜头,镜头,相機
+Studio.RobloxPropertiesWidget.Category.Character,,,Character,Character,,Charakter,Personaje,Personnage,,Carattere,キャラクター,캐릭터,,Personagem,,ตัวละคร,Karakter,Nhân Vật,人物,人物,人物
+Studio.RobloxPropertiesWidget.Category.CharacterJumpSettings,,,Character Jump Settings,Character Jump Settings,,Charakter-Sprungeinstellungen,Configuración de Salto de personaje,Paramètres de saut de caractère,,Impostazioni salto personaggio,キャラクターのジャンプ設定,캐릭터 점프 설정,,Configurações de pulo de personagem,,การตั้งค่าการกระโดดของตัวละคร,Karakter Zıplama Ayarları,Cài Đặt Nhảy Cho Nhân Vật,人物跳跃设置,人物跳跃设置,人物跳躍設定
+Studio.RobloxPropertiesWidget.Category.Clothes,,,Clothes,Clothes,,Kleidung,Ropa,Vêtements,,Vestiti,衣装,복장,,Roupas,,เสื้อผ้า,Kıyafetler,Trang Phục,服装,服装,衣物
+Studio.RobloxPropertiesWidget.Category.Collision,,,Collision,Collision,,Kollision,Colisión,Collision,,Collisione,衝突,충돌,,Colisão,,การชนกัน,Çarpışma,Va Chạm,碰撞,碰撞,碰撞
+Studio.RobloxPropertiesWidget.Category.Compliance,,,Compliance,Compliance,,Einhaltung,Cumplimiento,Conformité,,Conformità,コンプライアンス,규정 준수,,Conformidade,,การปฏิบัติตาม,Uyumluluk,Tuân Thủ,合规性,合规性,合規性
+Studio.RobloxPropertiesWidget.Category.Configuration,,,Configuration,Configuration,,Konfiguration,Configuración,Configuration,,Configurazione,環境設定,구성,,Configuração,,การกำหนดค่า,Yapılandırma,Cấu Hình,配置,配置,配置
+Studio.RobloxPropertiesWidget.Category.Control,,,Control,Control,,Steuerung,Control,Contrôle,,Controllo,操作,제어,,Controles,,การควบคุม,Kontrol,Điều Khiển,控制,控制,控制
+Studio.RobloxPropertiesWidget.Category.Controls,,,Controls,Controls,,Steuerelemente,Controles,Contrôles,,Controlli,操作,제어,,Controles,,การควบคุม,Kontroller,Điều Khiển,控制,控制,控制
+Studio.RobloxPropertiesWidget.Category.Cylinder,,,Cylinder,Cylinder,,Zylinder,Cilindro,Cylindre,,Cilindro,円柱,원통,,Cilindro,,กระบอก,Silindir,Hình Trụ,圆柱,圆柱,圓柱
+Studio.RobloxPropertiesWidget.Category.Data,,,Data,Data,,Daten,Datos,Données,,Dati,データ,데이터,,Dados,,ข้อมูล,Veri,Dữ Liệu,数据,数据,資料
+Studio.RobloxPropertiesWidget.Category.Debug,,,Debug,Debug,,Debuggen,Depuración,Debug,,Debug,デバッグ,디버그,,Depuração,,Debug,Hata Ayıkla,Gỡ Lỗi,调试,调试,偵錯
+Studio.RobloxPropertiesWidget.Category.Debugging,,,Debugging,Debugging,,Debuggen,Depuración,Debugging,,Debugging,デバッグ,디버깅,,Depurando,,การ Debug,Hata Ayıklama,Đang Gỡ Lỗi,正在调试,正在调试,正在偵錯
+Studio.RobloxPropertiesWidget.Category.Derived,,,Derived,Derived,,Abgeleitet,Derivado,Dérivé,,Derivato,派生,파생,,Derivado,,,Türev,Dẫn Xuất,衍生,衍生,衍生
+Studio.RobloxPropertiesWidget.Category.DerivedData,,,Derived Data,Derived Data,,Abgeleitete Daten,Datos derivados,Données dérivées,,Dati derivati,派生データ,파생 데이터,,Dados derivados,,,Türetilmiş Veri,Dữ Liệu Dẫn Xuất,衍生数据,衍生数据,衍生資料
+Studio.RobloxPropertiesWidget.Category.DerivedWorldData,,,Derived World Data,Derived World Data,,Abgeleitete Weltdaten,Datos del mundo derivados,Données mondiales dérivées,,Dati derivati del mondo,派生世界のデータ,파생 월드 데이터,,Dados do mundo derivado,,,Türetilmiş Dünya Verisi,Dữ Liệu Dẫn Xuất Về Thế Giới,衍生世界数据,衍生世界数据,衍生世界資料
+Studio.RobloxPropertiesWidget.Category.Diagnostics,,,Diagnostics,Diagnostics,,Diagnose,Diagnósticos,Diagnostiques,,Diagnostici,診断,진단,,Diagnósticos,,,Tanılama,Chẩn Đoán,诊断,诊断,診斷
+Studio.RobloxPropertiesWidget.Category.Directories,,,Directories,Directories,,Verzeichnisse,Directorios,Répertoires,,Elenchi,一覧,디렉터리,,Diretórios,,,Dizinler,Thư Mục,目录,目录,目錄
+Studio.RobloxPropertiesWidget.Category.Display,,,Display,Display,,Anzeige,Visualización,Afficher,,Display,表示,표시,,Tela,,,Görüntüleme,Hiển Thị,显示,显示,顯示
+Studio.RobloxPropertiesWidget.Category.Emission,,,Emission,Emission,,Emission,Emisión,Émission,,Emissione,放射,이미션,,Emissão,,,Emisyon,Phát Thải,释放,释放,發射
+Studio.RobloxPropertiesWidget.Category.Emitter,,,Emitter,Emitter,,Emitter,Emisor,Émetteur,,Emettitore,放射器,이미터,,Emissor,,,Yayıcı,Nguồn Phát,释放器,释放器,發射器
+Studio.RobloxPropertiesWidget.Category.EmitterShape,,,EmitterShape,EmitterShape,,EmitterShape,EmitterShape,Forme de l'émetteur,,EmitterShape,放射器の形状,EmitterShape,,EmitterShape,,,Yayıcı Şekli,EmitterShape,EmitterShape,EmitterShape,發射器形狀
+Studio.RobloxPropertiesWidget.Category.Errors,,,Errors,Errors,,Fehler,Errores,Erreurs,,Errori,エラー,오류,,Erros,,,Hatalar,Lỗi,错误,错误,錯誤
+Studio.RobloxPropertiesWidget.Category.Explorer,,,Explorer,Explorer,,Explorer,Explorador,Explorateur,,Esploratore,エクスプローラ,탐색기,,Explorador,,,Gezgin,Cửa Sổ Khám Phá,项目管理器,项目管理器,瀏覽
+Studio.RobloxPropertiesWidget.Category.Exposure,,,Exposure,Exposure,,Belichtung,Exposición,Exposition,,Esposizione,露出,노출,,Exposição,,,Maruz Kalma,Phơi Nhiễm,曝光,曝光,曝光
+Studio.RobloxPropertiesWidget.Category.Eyes,,,Eyes,Eyes,,Augen,Ojos,Yeux,,Occhi,目,눈,,Olhos,,,Gözler,Mắt,眼睛,眼睛,眼睛
+Studio.RobloxPropertiesWidget.Category.Flipbook,,,Flipbook,Flipbook,,Flipbook,Flipbook,Carnet à feuilles,,Flipbook,フリップブック,플립북,,Flipbook,,,Çevirmeli Defter,Sách Lật,翻页动画,翻页动画,翻頁動畫
+Studio.RobloxPropertiesWidget.Category.Fog,,,Fog,Fog,,Nebel,Neblina,Brouillard,,Nebbia,霧,안개,,Neblina,,,Sis,Sương Mù,雾,雾,霧化
+Studio.RobloxPropertiesWidget.Category.Forcefield,,,Forcefield,Forcefield,,Kraftfeld,Campo de fuerza,Champ de force,,Forcefield,力場,포스필드,,Campo de força,,,Güç Alanı,Forcefield,力场,力场,力場
+Studio.RobloxPropertiesWidget.Category.Friction,,,Friction,Friction,,Reibung,Fricción,Friction,,Attrito,摩擦,마찰,,Atrito,,,Sürtünme,Ma Sát,摩擦力,摩擦力,摩擦力
+Studio.RobloxPropertiesWidget.Category.Game,,,Game,Game,,Spiel,Juego,Jeu,,Gioco,ゲーム,게임,,Jogo,,,Oyun,Trò Chơi,游戏,游戏,遊戲
+Studio.RobloxPropertiesWidget.Category.General,,,General,General,,Allgemein,General,Général,,Generale,全般,일반,,Geral,,,Genel,Chung,通用,通用,一般
+Studio.RobloxPropertiesWidget.Category.Goals,,,Goals,Goals,,Ziele,Goles,Objectifs,,Obiettivi,目標,목표,,Objetivos,,,Hedefler,Mục Tiêu,目标,目标,目標
+Studio.RobloxPropertiesWidget.Category.Hinge,,,Hinge,Hinge,,Scharnier,Bisagra,Charnière,,Cerniera,ヒンジ,힌지,,Dobradiça,,,Mafsal,Bản Lề,铰链,铰链,樞紐
+Studio.RobloxPropertiesWidget.Category.Image,,,Image,Image,,Bild,Imagen,Image ,,Immagine,画像,이미지,,Imagem,,,Görüntü,Hình Ảnh,图片,图片,圖像
+Studio.RobloxPropertiesWidget.Category.Input,,,Input,Input,,Eingabe,Entrada,Entrée,,Input,入力,입력,,Entrada,,,Giriş,Đầu Vào,输入,输入,輸入
+Studio.RobloxPropertiesWidget.Category.Internal,,,Internal,Internal,,Intern,Interno,Interne,,Interne,内部,내부,,Interno,,,Dâhilî,Nội Bộ,内部,内部,內部
+Studio.RobloxPropertiesWidget.Category.Jaw,,,Jaw,Jaw,,Kiefer,Mandíbula,Mâchoire,,Mascella,あご,턱,,Mandíbula,,,Çene,Hàm,下巴,下巴,下巴
+Studio.RobloxPropertiesWidget.Category.JobInfo,,,JobInfo,JobInfo,,JobInfo,JobInfo,Informations sur l'emploi,,Job Informazione,作業の情報,JobInfo,,JobInfo,,,İş Bilgisi,JobInfo,JobInfo,JobInfo,工作資訊
+Studio.RobloxPropertiesWidget.Category.JumpSettings,,,Jump Settings,Jump Settings,,Sprungeinstellungen,Configuración de salto,Paramètres de saut,,Impostazioni salta,ジャンプ設定,점프 설정,,Configurações de pulo,,,Zıplama Ayarları,Cài Đặt Nhảy,跳跃设置,跳跃设置,跳躍設定
+Studio.RobloxPropertiesWidget.Category.Limits,,,Limits,Limits,,Grenzen,Límites,Limites,,Limiti,制限,제한,,Limites,,,Sınırlar,Giới Hạn,范围,范围,限制
+Studio.RobloxPropertiesWidget.Category.Line,,,Line,Line,,Zeile,Línea,Ligne,,Riga,行,줄,,Linha,,,Çizgi,Dòng,行,行,行
+Studio.RobloxPropertiesWidget.Category.LineForce,,,LineForce,LineForce,,LineForce,LineForce,Force linéaire,,LineForce,力線,LineForce,,LineForce,,,Çizgi Kuvveti,LineForce,LineForce,LineForce,直線力
+Studio.RobloxPropertiesWidget.Category.Link,,,Link,Link,,Link,Enlace,Lien,,Link,リンク,링크,,Link,,,Bağlantı,Liên Kết,链接,链接,連結
+Studio.RobloxPropertiesWidget.Category.Localization,,,Localization,Localization,,Lokalisierung,Localización,Localisation,,Localizzazione,多言語化,로컬라이제이션,,Localização,,,Yerelleştirme,Bản Địa Hóa,本地化,本地化,本地化
+Studio.RobloxPropertiesWidget.Category.LuaDebugger,,,Lua Debugger,Lua Debugger,,Lua-Debugger,Depurador Lua,Debugger Lua,,Debugger Lua,Luaデバッガー,Lua 디버거,,Depurador Lua,,,Lua Hata Ayıklayıcısı,Trình Gỡ Lỗi Lua,Lua 调试器,Lua 调试器,Lua 偵錯工具
+Studio.RobloxPropertiesWidget.Category.Material,,,Material,Material,,Material,Material,Matériel,,Materiale,素材,재질,,Material,,,Malzeme,Vật Liệu,材质,材质,材質
+Studio.RobloxPropertiesWidget.Category.MaterialOverrides,,,Material Overrides,Material Overrides,,Materialüberschreibungen,Cambios de material,Remplacements de matériaux,,Sostituzione materiale,素材のオーバーライド,재질 재정의,,Substituições de material,,,Malzeme Üstünlükleri,Ghi Đè Vật Liệu,材质覆盖,材质覆盖,材料覆蓋
+Studio.RobloxPropertiesWidget.Category.MaterialPack,,,Material Pack,Material Pack,,Materialpaket,Paquete de material,Pack de matériel,,Pacchetto materiale,素材セット,재질 팩,,Pacote de materiais,,,Malzeme Paketi,Gói Vật Liệu,材质包,材质包,材料包
+Studio.RobloxPropertiesWidget.Category.Mobile,,,Mobile,Mobile,,Mobil,Móvil,Mobile (portable),,Cellulare,モバイル,모바일,,Celular,,,Mobil,Di Động,移动,移动,移動
+Studio.RobloxPropertiesWidget.Category.Mode,,,Mode,Mode,,Modus,Modo,Mode,,Modalità,モード,모드,,Modo,,,Mod,Chế Độ,模式,模式,模式
+Studio.RobloxPropertiesWidget.Category.Motion,,,Motion,Motion,,Bewegung,Movimiento,Mouvement,,Movimento,動き,동작,,Movimento,,,Devinim,Chuyển Động,运动,运动,運動
+Studio.RobloxPropertiesWidget.Category.Motor,,,Motor,Motor,,Motor,Motor,Moteur,,Motore,モーター,모터,,Motor,,,Motor,Động Cơ,马达,马达,馬達
+Studio.RobloxPropertiesWidget.Category.Mouth,,,Mouth,Mouth,,Mund,Boca,Bouche,,Bocca,口,입,,Boca,,,Ağız,Miệng,嘴巴,嘴巴,嘴巴
+Studio.RobloxPropertiesWidget.Category.Movement,,,Movement,Movement,,Bewegung,Movimiento,Mouvement,,Movimento,動き,이동,,Movimento,,,Hareket,Chuyển Động,移动,移动,移動
+Studio.RobloxPropertiesWidget.Category.Networking,,,Networking,Networking,,Netzwerk,Red,Réseaux,,Rete,ネットワーク,네트워킹,,Networking,,,Ağ,Mạng,网络,网络,網路
+Studio.RobloxPropertiesWidget.Category.Output,,,Output,Output,,Ausgabe,Salida,Sortie,,Output,出力,출력,,Saída,,,Çıkış,Đầu Ra,输出,输出,輸出
+Studio.RobloxPropertiesWidget.Category.Part,,,Part,Part,,Teil,Pieza,Partie ,,Parte,パーツ,파트,,Parte,,,Parça,Bộ Phận,部件,部件,零件
+Studio.RobloxPropertiesWidget.Category.Particles,,,Particles,Particles,,Partikel,Partículas,Particules,,Particelle,パーティクル,파티클,,Partículas,,,Parçacıklar,Hạt,粒子,粒子,粒子
+Studio.RobloxPropertiesWidget.Category.Parts,,,Parts,Parts,,Teile,Piezas,Parties,,Parti,パーツ,파트,,Partes,,,Parçalar,Bộ Phận,部件,部件,零件
+Studio.RobloxPropertiesWidget.Category.Performance,,,Performance,Performance,,Leistung,Rendimiento,Performances,,Prestazioni,パフォーマンス,성능,,Desempenho,,,Performans,Hiệu Suất,性能,性能,效能
+Studio.RobloxPropertiesWidget.Category.Physics,,,Physics,Physics,,Physik,Física,Physique,,Fisica,物理,물리,,Física,,,Fizik,Vật Lý,物理,物理,物理
+Studio.RobloxPropertiesWidget.Category.Pivot,,,Pivot,Pivot,,Drehpunkt,Pivote,Pivot,,Pivot,ピボット,피벗,,Pivô,,,Eksen,Điểm Xoay,枢轴,枢轴,中心點
+Studio.RobloxPropertiesWidget.Category.Plane,,,Plane,Plane,,Ebene,Plano,Plan,,Piano,平面,비행기,,Avião,,,Düzlem,Máy Bay,平面,平面,平面
+Studio.RobloxPropertiesWidget.Category.Playback,,,Playback,Playback,,Wiedergabe,Reproducción,Relecture,,Riproduzione,再生,재생,,Reprodução,,,Oynatma,Phát Lại,回放,回放,倒轉
+Studio.RobloxPropertiesWidget.Category.PrimaryPart,,,Primary Part,Primary Part,,Primärteil,Pieza principal,Partie principale,,Parte primaria,メインパーツ,기본 파트,,Parte primária,,,Birincil Parça,Bộ Phận Chính,主要部件,主要部件,主要零件
+Studio.RobloxPropertiesWidget.Category.Profile,,,Profile,Profile,,Profil,Perfil,Profil,,Profilo,プロフィール,프로필,,Perfil,,,Profil,Hồ Sơ,配置,配置,個人檔
+Studio.RobloxPropertiesWidget.Category.ProxySettings,,,Proxy Settings,Proxy Settings,,Proxy-Einstellungen,Configuración del proxy,Paramètres du proxy,,Impostazioni proxy,プロキシ設定,프록시 설정,,Configurações de proxy,,,Proxy Ayarları,Cài Đặt Proxy,代理设置,代理设置,Proxy 設定
+Studio.RobloxPropertiesWidget.Category.Reflection,,,Reflection,Reflection,,Reflexion,Reflexión,Reflet,,Riflessione,反射,반사,,Reflexão,,,Yansıtma,Phản Xạ,反射,反射,反射
+Studio.RobloxPropertiesWidget.Category.Regions,,,Regions,Regions,,Regionen,Regiones,Régions,,Regioni,地域,영역,,Regiões,,,Bölgeler,Khu Vực,区域,区域,地區
+Studio.RobloxPropertiesWidget.Category.RenderingTest,,,RenderingTest,RenderingTest,,RenderingTest,Prueba de renderizado,Test de rendu,,Test Rendering,レンダリングテスト,RenderingTest,,RenderingTest,,,İşleme Testi,RenderingTest,渲染测试,渲染测试,成像測試
+Studio.RobloxPropertiesWidget.Category.Results,,,Results,Results,,Ergebnisse,Resultados,Résultats,,Risultati,結果,결과,,Resultados,,,Sonuçlar,Kết Quả,结果,结果,結果
+Studio.RobloxPropertiesWidget.Category.Rod,,,Rod,Rod,,Stange,Barra,Barre,,Bastone,ロッド,막대,,Vara,,,Çubuk,Thanh,杆,杆,連桿
+Studio.RobloxPropertiesWidget.Category.Rope,,,Rope,Rope,,Seil,Cuerda,Corde,,Fune,ロープ,밧줄,,Corda,,,İp,Dây Thừng,绳索,绳索,繩索
+Studio.RobloxPropertiesWidget.Category.Routing,,,Routing,Routing,,Routing,Ruta,Routage,,Percorso,ルーティング,라우팅,,Roteamento,,,Yönlendirme,Định Tuyến,路由,路由,路由
+Studio.RobloxPropertiesWidget.Category.Scale,,,Scale,Scale,,Skalierung,Escalar,Échelle,,Bilancia,拡大/縮小,스케일,,Escala,,,Ölçek,Đổi Tỷ Lệ,缩放,缩放,比例
+Studio.RobloxPropertiesWidget.Category.ScriptEditor,,,Script Editor,Script Editor,,Skript-Editor,Editor de script,Éditeur de script,,Editor Script,スクリプト編集,스크립트 편집기,,Editor de script,,,Betik Düzenleyici,Trình Chỉnh Sửa Kịch Bản,脚本编辑器,脚本编辑器,指令碼編輯器
+Studio.RobloxPropertiesWidget.Category.ScriptEditorColors,,,Script Editor Colors,Script Editor Colors,,Skript-Editor-Farben,Colores del Editor de script,Couleurs de l'éditeur de script,,Script editor colori,スクリプト編集の色,스크립트 편집기 색상,,Cores do editor de script,,,Betik Düzenleyici Renkleri,Màu Sắc của Trình Chỉnh Sửa Kịch Bản,脚本编辑器颜色,脚本编辑器颜色,指令碼編輯器顏色
+Studio.RobloxPropertiesWidget.Category.Scrolling,,,Scrolling,Scrolling,,Scrollen,Desplazamiento,Défilement,,Scorrimento,スクロール,스크롤,,Rolagem,,,Kaydırma,Cuộn,滑动,滑动,捲動
+Studio.RobloxPropertiesWidget.Category.Selection,,,Selection,Selection,,Auswahl,Selección,Sélection ,,Selezione,選択肢,선택 항목,,Seleção,,,Seçim,Lựa Chọn,选择,选择,選項
+Studio.RobloxPropertiesWidget.Category.Servo,,,Servo,Servo,,Servo,Servo,Servo,,Servo,追従,서보,,Servo,,,Servo,Servo,服务,服务,伺服
+Studio.RobloxPropertiesWidget.Category.Settings,,,Settings,Settings,,Einstellungen,Configuraciones,Paramètres,,Impostazioni,設定,설정,,Configurações,,,Ayarlar,Cài Đặt,设置,设置,設定
+Studio.RobloxPropertiesWidget.Category.Shape,,,Shape,Shape,,Form,Forma,Forme,,Forma,形状,형태,,Forma,,,Şekil,Hình Dạng,形状,形状,形狀
+Studio.RobloxPropertiesWidget.Category.Sizing,,,Sizing,Sizing,,Größe,Tamaño,Taille,,Dimensionamento,サイズ,크기 조정,,Dimensionamento,,,Boyutlandırma,Định Cỡ,尺寸,尺寸,尺寸
+Studio.RobloxPropertiesWidget.Category.Slider,,,Slider,Slider,,Schieber,Deslizador,Curseur,,Scorrevole,スライダー,슬라이더,,Deslizador,,,Kaydıraç,Thanh Trượt,滑块,滑块,滑軌
+Studio.RobloxPropertiesWidget.Category.Spring,,,Spring,Spring,,Feder,Resorte,Ressort,,Primavera,ばね,용수철,,Mola,,,Yaylanma,Mùa Xuân,弹簧,弹簧,彈簧
+Studio.RobloxPropertiesWidget.Category.State,,,State,State,,Status,Estado,État,,Stato,状況,상태,,Estado,,,Durum,Tiểu Bang,状态,状态,狀態
+Studio.RobloxPropertiesWidget.Category.Streaming,,,Streaming,Streaming,,Streaming,Transmisión,Streaming en cours,,Streaming,配信,스트리밍,,Streaming,,,Yayın,Phát Trực Tuyến,串流,串流,串流
+Studio.RobloxPropertiesWidget.Category.Surface,,,Surface,Surface,,Oberfläche,Superficie,Surface,,Superficie,表面,표면,,Superfície,,,Yüzey,Bề Mặt,表面,表面,表面
+Studio.RobloxPropertiesWidget.Category.SurfaceInputs,,,Surface Inputs,Surface Inputs,,Oberflächeneingänge,Entradas de superficie,Entrées de la surface,,Input Superficie,表面の入力,표면 입력,,Entradas de superfície,,,Yüzey Girişleri,Thông Tin Bề Mặt,表面输入,表面输入,表面輸入
+Studio.RobloxPropertiesWidget.Category.TargetOrientation,,,TargetOrientation,TargetOrientation,,TargetOrientation,TargetOrientation,TargetOrientation,,TargetOrientation,対象の向き,TargetOrientation,,TargetOrientation,,,Hedef Yönlendirme,TargetOrientation,TargetOrientation,TargetOrientation,目標方向
+Studio.RobloxPropertiesWidget.Category.Team,,,Team,Team,,Team,Equipo,Équipe,,Team,チーム,팀,,Equipe,,,Takım,Nhóm,团队,团队,團隊
+Studio.RobloxPropertiesWidget.Category.Teams,,,Teams,Teams,,Teams,Equipos,Équipes,,Squadre,チーム,팀,,Equipes,,,Takımlar,Các Nhóm,团队,团队,團隊
+Studio.RobloxPropertiesWidget.Category.Text,,,Text,Text,,Text,Texto,Texte,,Testo,テキスト,텍스트,,Texto,,,Metin,Văn Bản,文本,文本,文字
+Studio.RobloxPropertiesWidget.Category.Thrust,,,Thrust,Thrust,,Schub,Impulso,Impulsion,,Spinta,衝上,추력,,Propulsão,,,İtme,Sức Ép,推力,推力,推力
+Studio.RobloxPropertiesWidget.Category.Tongue,,,Tongue,Tongue,,Zunge,Lengua,Langue,,Lingua,舌,혀,,Língua,,,Dil,Lưỡi,舌头,舌头,舌頭
+Studio.RobloxPropertiesWidget.Category.Tools,,,Tools,Tools,,Tools,Herramientas,Outils,,Strumenti,ツール,도구,,Ferramentas,,,Araçlar,Công Cụ,工具,工具,工具
+Studio.RobloxPropertiesWidget.Category.Torque,,,Torque,Torque,,Drehmoment,Torsión mecánica,Torsion mécanique,,Coppia,トルク,토크,,Torque,,,Tork,Mô Men Xoắn,力矩,力矩,扭力
+Studio.RobloxPropertiesWidget.Category.Transform,,,Transform,Transform,,Transformieren,Transformar,Transformer,,Trasforma,変換,변환,,Transformar,,,Dönüştürme,Biến Đổi,变换,变换,轉換
+Studio.RobloxPropertiesWidget.Category.Tuning,,,Tuning,Tuning,,Tuning,Ajuste,Réglage,,Regolazione,チューニング,튜닝,,Sintonização,,,Ayarlama,Điều Chỉnh,调整,调整,調整
+Studio.RobloxPropertiesWidget.Category.Turn,,,Turn,Turn,,Drehen,Girar,Tourner,,Gira,回転,회전,,Virar,,,Dönüş,Quay,转动,转动,轉向
+Studio.RobloxPropertiesWidget.Category.TwistLimits,,,TwistLimits,TwistLimits,,TwistLimits,Límites de torsión,Limites de torsion,,TwistLimits,ねじれ制限,TwistLimits,,TwistLimits,,,Büküm Sınırları,TwistLimits,扭曲限制,扭曲限制,扭轉限制
+Studio.RobloxPropertiesWidget.Category.Undo,,,Undo,Undo,,Rückgängig,Deshacer,Défaire,,Annulla,取り消す,실행 취소,,Desfazer,,,Geri Al,Hoàn Tác,撤消,撤消,撤銷
+Studio.RobloxPropertiesWidget.Category.Universal,,,Universal,Universal,,Universell,Universal,Universel,,Universale,ユニバーサル,유니버설,,Universal,,,Evrensel,Phổ Dụng,通用,通用,通用
+Studio.RobloxPropertiesWidget.Category.Vector,,,Vector,Vector,,Vektor,Vector,Vecteur,,Vettore,ベクトル,벡터,,Vetor,,,Vektör,Vector,向量,向量,向量
+Studio.RobloxPropertiesWidget.Category.VectorForce,,,VectorForce,VectorForce,,VectorForce,VectorForce,Force vectorielle,,VectorForce,ベクトル力,VectorForce,,VectorForce,,,Vektör Kuvveti,VectorForce,VectorForce,VectorForce,向量力
+Studio.RobloxPropertiesWidget.Category.Video,,,Video,Video,,Video,Video,Vidéo,,Video,ビデオ,비디오,,Vídeo,,,Video,Video,视频,视频,影片
+Studio.RobloxPropertiesWidget.Category.Visualization,,,Visualization,Visualization,,Visualisierung,Visualización,Visualisation,,Visualizzazione,視覚化,시각화,,Visualização,,,Görselleştirme,Hiển Thị,可视化,可视化,視覺效果
+Studio.RobloxPropertiesWidget.Category.Winch,,,Winch,Winch,,Winde,Manivela,Treuil,,Manovella,ウインチ,윈치,,Guincho,,,Kaldırma,Tời,绞盘,绞盘,絞盤
+Studio.RobloxPropertiesWidget.Category.Orientation,,,Orientation,Orientation,,Ausrichtung,Orientación,Orientation,,Orientamento,向き,방향,,Orientação,,,Yön,Định Hướng,方向,方向,方向
+Studio.RobloxPropertiesWidget.Category.DragDirections,,,Drag Directions,Drag Directions,,Richtungen ziehen,Arrastrar direcciones,Faire glisser les directions,,Direzione di trascinamento,ドラッグの方向,드래그 방향,,Arrastar direções,,,Sürükleme Yönleri,Kéo Để Điều Hướng,拖曳方向,拖曳方向,拖曳方向
+Studio.RobloxPropertiesWidget.Category.DraggedAmount,,,Dragged Amount,Dragged Amount,,Gezogener Betrag,Cantidad arrastrada,Montant glissé,,Importo trascinato,ドラッグした分,드래그한 양,,Quantidade arrastada,,,Sürüklenen Miktar,Lượng Vật Thể Bị Kéo,已拖拽数量,已拖拽数量,已拖曳數量
+Studio.RobloxPropertiesWidget.Category.DragLimits,,,Drag Limits,Drag Limits,,Zieh-Grenzen,Límites de arrastre,Limites de glissement,,Limiti di trascina,ドラッグ制限,드래그 제한,,Limites de arraste,,,Sürükleme Sınırları,Giới Hạn Kéo,拖曳上限,拖曳上限,拖曳上限
+Studio.RobloxPropertiesWidget.Category.ModeSwitching,,,Mode Switching,Mode Switching,,Modusumschaltung,Cambio de modo,Changer de mode,,Cambio modalità,モード切りかえ,모드 전환,,Troca de modo,,,Mod Değişimi,Chuyển Đổi Chế Độ,模式切换,模式切换,模式切換
+Studio.RobloxPropertiesWidget.Category.PhysicsResponse,,,Physics Response,Physics Response,,Physikantwort,Respuesta física,Réponse en matière de physique,,Risposta fisica,物理応答,물리적 응답,,Resposta física,,,Fizik Tepkisi,Phản Ứng Vật Lý,物理响应,物理响应,物理回應
+Studio.RobloxPropertiesWidget.Category.Aerodynamics,,,Aerodynamics,Aerodynamics,,Aerodynamik,Aerodinámico,Aérodynamique,,Aerodinamica,空気力学,공기 역학,,Aerodinâmica,,,Aerodinamik,Khí Động Lực Học,空气动力学,空气动力学,空氣動力學
+Studio.RobloxPropertiesWidget.Category.AirProperties,,,AirProperties,AirProperties,,AirProperties,AirProperties,Propriétés de l'air,,AirProperties,AirProperties,AirProperties,,Propriedades aéreas,,,Hava Özellikleri,AirProperties,空气属性,空气属性,AirProperties
+Studio.RobloxPropertiesWidget.Category.Tags,,,Tags,Tags,,Tags,Etiquetas,Étiquettes,,Etichette,タグ,태그,,Marcadores,,,Etiketler,Thẻ,标签,标签,標籤
+Studio.RobloxPropertiesWidget.AddTagPopup.LineEditText,,,Search for or create a tag,Search for or create a tag,,Nach einem Tag suchen oder ein Tag erstellen,Busca o crea una etiqueta,Rechercher ou créer un tag,,,タグを検索または作成,태그 검색 또는 만들기,,Procure ou crie um marcador,,,Etiket ara ya da oluştur,Tìm kiếm hoặc tạo một thẻ,搜索或创建标签,搜索或创建标签,搜尋或建立標籤
+Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,,,No tags have been created yet,No tags have been created yet,,Es wurden noch keine Tags erstellt,Aún no se han creado etiquetas,Aucun tag n'a encore été créé,,,タグがまだ作成されていません,아직 만든 태그가 없습니다,,Nenhum marcador foi criado ainda,,,Henüz etiket oluşturulmadı,Chưa có thẻ nào được tạo,尚未创建任何标签,尚未创建任何标签,尚未建立標籤
+Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,,,Create tag: %1,Create tag: %1,,Tag erstellen: %1,Crear etiqueta: %1,Créer un tag : %1,,,タグ作成: %1,태그 만들기: %1,,Criar marcador: %1,,,Etiket oluştur: %1,Tạo thẻ: %1,创建标签：%1,创建标签：%1,建立標籤：%1
+Studio.RobloxPropertiesWidget.Category.Connections,,,Connections,Connections,,Verbindungen,Conexiones,Connexions,,Connessioni,接続,연결,,Conexões,,,Bağlantılar,Kết Nối,连接,连接,連線
+Studio.RobloxPropertiesWidget.Category.Interactions,,,Interactions,Interactions,,Interaktionen,Interacciones,Interactions,,Interazione,交流,상호 작용,,Interações,,,Etkileşimler,Tương Tác,互动,互动,互動
+Studio.RobloxPropertiesWidget.Category.Metering,,,Metering,Metering,,Messung,Medición,Comptage,,Misurazione,計測,측정,,Medição,,,Ölçme,Đo Lường,计量,计量,計量
+Studio.RobloxPropertiesWidget.Category.Permissions,,,Permissions,Permissions,,Berechtigungen,Permisos,Permissions,,Autorizzazioni,権限,권한,,Permissões,,,İzinler,Quyền,权限,权限,權限
+Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,Aufnahme,Grabando,Enregistrement,,Registrazione,録画,기록,,Gravação,,,Kayıt,Bản Ghi,记录,记录,錄製
+Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scripting,Scripting,Scripting,,,スクリプト作成,스크립팅,,Scripting,,,Betik,Viết Kịch Bản,脚本,脚本,指令碼化
+Studio.RobloxPropertiesWidget.Category.ControlPoints,,,Control Points,Control Points,,Kontrollpunkte,Puntos de control,Points de contrôle,,,制御点,제어점,,Pontos de controle,,,Kontrol Noktaları,Điểm Điều Khiển,控制点,控制点,控制點
+Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,,Allineamento,整列,정렬,,Alinhamento,,,Hizalama,Căn Chỉnh,对齐,对齐,
+Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,PseudoInstances,Pseudo-Instances,,,擬似インスタンス,모의 인스턴스,,Pseudoinstâncias,,,Sahte Örnekler,Bản giả,,,
+Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,Edición de estado,Modification de l'état,,,,상태 편집,,Edição do estado,,,,Chỉnh Sửa Trạng Thái,,,
+Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,Hexadecimal:,Hex :,,,,육각형:,,Hexadecimal:,,,,Hex:,,,

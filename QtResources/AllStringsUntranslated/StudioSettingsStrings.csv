@@ -1,4 +1,6 @@
 Key,Context,Source,en-us
+Studio.App.BetaFeatures.PreferredTextSizeSettingTitle,,Preferred Text Size Setting,Preferred Text Size Setting
+Studio.App.BetaFeatures.PreferredTextSizeSettingDescription,,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.
 Studio.App.BetaFeatures.LuauFileSyncTitle,,Luau File Sync,Luau File Sync
 Studio.App.BetaFeatures.LuauFileSyncDescription,,Enables syncing of scripts between Studio and local disk.,Enables syncing of scripts between Studio and local disk.
 Studio.App.BetaFeatures.AvatarJointUpgradeTitle,,Avatar Joint Upgrade,Avatar Joint Upgrade
@@ -42,6 +44,8 @@ Studio.App.BetaFeatures.CreateAnimationFromVideoTitle,,Live Animation Creator,Li
 Studio.App.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar.","Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar."
 Studio.App.BetaFeatures.DragDetectorsTitle,,DragDetectors,DragDetectors
 Studio.App.BetaFeatures.DragDetectorsDescription,,New Instance type DragDetector that enables click-drag-release interactions. Enabling this beta feature allows using DragDetectors only within Roblox Studio.,New Instance type DragDetector that enables click-drag-release interactions. Enabling this beta feature allows using DragDetectors only within Roblox Studio.
+Studio.App.BetaFeatures.LuaConstraintToolTitle,,Improved Constraint Tool,Improved Constraint Tool
+Studio.App.BetaFeatures.LuaConstraintToolDescription,,Quality of life improvements to the existing constraint tool that utilizes the new dragger improvements. Enabling this beta feature will automatically enable the 'Dragger QoL Improvements' beta feature.,Quality of life improvements to the existing constraint tool that utilizes the new dragger improvements. Enabling this beta feature will automatically enable the 'Dragger QoL Improvements' beta feature.
 Studio.App.BetaFeatures.DraggerImprovementsTitle,,Dragger QoL Improvements,Dragger QoL Improvements
 Studio.App.BetaFeatures.DraggerImprovementsDescription,,Many small quality of life improvements to the core Studio draggers. See the DevForum announcement for a full list of what's been changed.,Many small quality of life improvements to the core Studio draggers. See the DevForum announcement for a full list of what's been changed.
 Studio.App.BetaFeatures.FacialAnimationRecordingTitle,,Face Capture,Face Capture
@@ -170,5 +174,7 @@ Studio.App.BetaFeatures.UIDragDetectorTitle,,UIDragDetectors,UIDragDetectors
 Studio.App.BetaFeatures.UIDragDetectorDescription,,New Instance type UIDragDetector that enables click-drag-release interactions for UI Elements. Enabling this beta feature allows adding and using UIDragDetectors only within Roblox Studio.,New Instance type UIDragDetector that enables click-drag-release interactions for UI Elements. Enabling this beta feature allows adding and using UIDragDetectors only within Roblox Studio.
 Studio.App.BetaFeatures.NextGenStudioTitle,"The title for the preview version of the ""Next Gen Studio"" feature",Next Gen Studio Preview,Next Gen Studio Preview
 Studio.App.BetaFeatures.NextGenStudioDescription,"Description for the checkbox to enable the ""Next Gen Studio"" feature which updates many pieces of the core studio UI","Enable the preview of Next Gen Studio core - introducing system menus, new categorization and look & feel of the top toolbar, upcoming customization features.","Enable the preview of Next Gen Studio core - introducing system menus, new categorization and look & feel of the top toolbar, upcoming customization features."
+Studio.App.BetaFeatures.SurfaceAppearanceTintingTitle,,SurfaceAppearance Tinting,SurfaceAppearance Tinting
+Studio.App.BetaFeatures.SurfaceAppearanceTintingDescription,,SurfaceAppearance Tinting allows you to multiply a Color property with your SurfaceAppearance’s ColorMap to create color variations.,SurfaceAppearance Tinting allows you to multiply a Color property with your SurfaceAppearance’s ColorMap to create color variations.
 Studio.App.BetaFeatures.TerrainGenerationTitle,,Improved Terrain Generation,Improved Terrain Generation
 Studio.App.BetaFeatures.TerrainGenerationDescription,,Enables the build tool in the Terrain Editor which allows for more intentional creation of large scale Terrain features.,Enables the build tool in the Terrain Editor which allows for more intentional creation of large scale Terrain features.

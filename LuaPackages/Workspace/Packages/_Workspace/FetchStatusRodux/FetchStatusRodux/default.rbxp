@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "FetchStatusRodux",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/fetch-status-rodux/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "TopicContentsRodux",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/topic-contents-rodux/src"
+    }
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ExperienceAnalytics",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/experience-analytics/src"
-    }
-  }
-}

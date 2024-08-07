@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DiscoveryAnalytics",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/discovery-analytics/src"
+    }
+  }
+}
