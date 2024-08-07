@@ -142,6 +142,7 @@ local GetFStringMuteTogglesIXPLayerName = require(RobloxGui.Modules.Settings.Fla
 local GetFFlagUseFriendsPropsInMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagUseFriendsPropsInMuteToggles)
 local GetFFlagFixInviteTextVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixInviteTextVisibility)
 local GetFFlagDefaultFriendingLabelTextNonEmpty = require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
+local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
@@ -741,7 +742,11 @@ local function Initialize()
 	end
 
 	local leaveGameFunc = function()
-		this.HubRef:SwitchToPage(this.HubRef.LeaveGamePage, false, 1)
+		if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.HubRef.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
+			this.HubRef:SwitchToPage(this.HubRef.LeaveGameUpsellPage, nil, 1, true)
+		else 
+			this.HubRef:SwitchToPage(this.HubRef.LeaveGamePage, false, 1)
+		end
 	end
 
 	local leaveGameText = "Leave"
@@ -1216,7 +1221,7 @@ local function Initialize()
 			textLabel.TextTruncate = Enum.TextTruncate.AtEnd
 			textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 			textLabel.AutoLocalize = false
-			textLabel.Text = "Chat"
+			textLabel.Text = "Roblox Connect"
 
 			icon.Size = UDim2.new(0, 24, 0, 24)
 			icon.Position = UDim2.new(0, 18, 0, 18)

@@ -10,26 +10,50 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  DUPTABLE R3 K16 [{"CancelButtonBackgroundColor", "CancelButtonHoverBackgroundColor", "LoadingSpinnerImage", "CancelButtonBorderSizePixel", "CancelButtonBorderColor3", "CancelButtonBorderTransparency"}]
-  GETIMPORT R4 K19 [Color3.fromHex]
-  LOADK R5 K20 ["#FFFFFF"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K10 ["CancelButtonBackgroundColor"]
-  GETIMPORT R4 K19 [Color3.fromHex]
-  LOADK R5 K21 ["#E4EEFE"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K11 ["CancelButtonHoverBackgroundColor"]
-  LOADK R4 K22 ["rbxasset://studio_svg_textures/Lua/Dialog/Light/Standard/Spinner.png"]
-  SETTABLEKS R4 R3 K12 ["LoadingSpinnerImage"]
-  LOADN R4 1
-  SETTABLEKS R4 R3 K13 ["CancelButtonBorderSizePixel"]
-  LOADK R4 K23 ["$Gray50"]
-  SETTABLEKS R4 R3 K14 ["CancelButtonBorderColor3"]
-  LOADN R4 0
-  SETTABLEKS R4 R3 K15 ["CancelButtonBorderTransparency"]
-  MOVE R4 R2
-  LOADK R5 K24 ["CancellableDialogLightTheme"]
-  NEWTABLE R6 0 0
-  MOVE R7 R3
-  CALL R4 3 -1
-  RETURN R4 -1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Bin"]
+  GETTABLEKS R5 R6 K11 ["Common"]
+  GETTABLEKS R4 R5 K12 ["defineLuaFlags"]
+  CALL R3 1 1
+  DUPTABLE R4 K20 [{"CancelButtonBackgroundColor", "CancelButtonHoverBackgroundColor", "LoadingSpinnerImage", "CancelButtonBorderSizePixel", "CancelButtonBorderColor3", "CancelButtonBorderTransparency", "SemanticColorBackdrop"}]
+  GETTABLEKS R6 R3 K21 ["getFFlagStudioCancellableDialogDesignUpdates"]
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+4]
+  GETIMPORT R5 K24 [Color3.fromHex]
+  LOADK R6 K25 ["#FFFFFF"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K13 ["CancelButtonBackgroundColor"]
+  GETTABLEKS R6 R3 K21 ["getFFlagStudioCancellableDialogDesignUpdates"]
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+4]
+  GETIMPORT R5 K24 [Color3.fromHex]
+  LOADK R6 K26 ["#E4EEFE"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K14 ["CancelButtonHoverBackgroundColor"]
+  LOADK R5 K27 ["rbxasset://studio_svg_textures/Lua/Dialog/Light/Standard/Spinner.png"]
+  SETTABLEKS R5 R4 K15 ["LoadingSpinnerImage"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K16 ["CancelButtonBorderSizePixel"]
+  LOADK R5 K28 ["$Gray50"]
+  SETTABLEKS R5 R4 K17 ["CancelButtonBorderColor3"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K18 ["CancelButtonBorderTransparency"]
+  GETTABLEKS R6 R3 K21 ["getFFlagStudioCancellableDialogDesignUpdates"]
+  CALL R6 0 1
+  JUMPIFNOT R6 [+5]
+  GETIMPORT R5 K24 [Color3.fromHex]
+  LOADK R6 K29 ["#000000"]
+  CALL R5 1 1
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K19 ["SemanticColorBackdrop"]
+  MOVE R5 R2
+  LOADK R6 K30 ["CancellableDialogLightTheme"]
+  NEWTABLE R7 0 0
+  MOVE R8 R4
+  CALL R5 3 -1
+  RETURN R5 -1

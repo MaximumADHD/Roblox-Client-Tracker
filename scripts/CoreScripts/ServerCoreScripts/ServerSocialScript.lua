@@ -20,6 +20,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
+local FFlagFetchBlockListFromServer = require(RobloxGui.Modules.Common.Flags.FFlagFetchBlockListFromServer)
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -71,6 +72,14 @@ RemoteEvent_PlayerGroupDetails.Parent = RobloxReplicatedStorage
 local RemoveEvent_NewPlayerCanManageDetails = Instance.new('RemoteEvent')
 RemoveEvent_NewPlayerCanManageDetails.Name = 'NewPlayerCanManageDetails'
 RemoveEvent_NewPlayerCanManageDetails.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_SendPlayerBlockList = Instance.new("RemoteEvent")
+RemoteEvent_SendPlayerBlockList.Name = "SendPlayerBlockList"
+RemoteEvent_SendPlayerBlockList.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_UpdateLocalPlayerBlockList = Instance.new("RemoteEvent")
+RemoteEvent_UpdateLocalPlayerBlockList.Name = "UpdateLocalPlayerBlockList"
+RemoteEvent_UpdateLocalPlayerBlockList.Parent = RobloxReplicatedStorage
 
 -- Map: { UserId -> { UserId -> NumberOfNotificationsSent } }
 local FollowNotificationsBetweenMap = {}
@@ -181,7 +190,68 @@ local function getPlayerCanManage(player)
 	end
 end
 
+local fetchBlockList = function(player, playerIds)
+	return pcall(function()
+		local apiPath = "user-blocking-api/v1/users/rcc/batch-check-reciprocal-block"
+		local url = string.format(Url.APIS_URL..apiPath)
+
+		local request = HttpService:JSONEncode(
+			{
+				userIds = playerIds,
+				requesterUserId = player.UserId
+			}
+		)
+
+		local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
+		return HttpService:JSONDecode(response)
+	end)
+end
+
+local function sendPlayerBlockList(player)
+	if player.UserId <= 0 then
+		return
+	end
+
+	local players = Players:GetPlayers()
+	local playerIds = {}
+	for _, otherPlayer in players do
+		if player ~= otherPlayer then
+			local uid = otherPlayer.UserId
+			table.insert(playerIds, uid)
+		end
+	end
+
+	local success, result = fetchBlockList(player, playerIds)
+
+	local blockedUserIds = {}
+	local blockedUserSet = {}
+	if success and result then
+		for _, user in result.users do
+			if user.isBlocked then
+				blockedUserSet[user.userId] = true
+				table.insert(blockedUserIds, user.userId)
+			end
+
+			if user.isBlockingViewer then
+				local otherPlayer = Players:GetPlayerByUserId(user.userId)
+				otherPlayer:UpdatePlayerBlocked(player.UserId, true)
+				RemoteEvent_UpdateLocalPlayerBlockList:FireClient(otherPlayer, player.UserId, true)
+			end
+		end
+	end
+
+	player:AddToBlockList(blockedUserIds)
+	if game:GetFastFlag("EnableSetUserBlocklistInitialized") then
+		player:SetBlockListInitialized()
+	end
+
+	RemoteEvent_SendPlayerBlockList:FireClient(player, blockedUserSet)
+end
+
 local function onPlayerAdded(newPlayer)
+	if FFlagFetchBlockListFromServer then
+		coroutine.wrap(sendPlayerBlockList)(newPlayer)
+	end
 	sendPlayerAllGroupDetails(newPlayer)
 	if newPlayer.UserId > 0 then
 		coroutine.wrap(getPlayerGroupDetails)(newPlayer)

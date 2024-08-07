@@ -274,7 +274,7 @@ PROTO_3:
   GETTABLEKS R2 R0 K3 ["_mapSize"]
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K4 ["_heightMap"]
+  SETTABLEKS R1 R0 K4 ["_heightMapFromNoise"]
   GETTABLEKS R3 R0 K5 ["_sliceY"]
   GETTABLEKS R4 R0 K6 ["_medianHeightCache"]
   SUB R2 R3 R4
@@ -306,7 +306,7 @@ PROTO_3:
   LOADN R9 1
   SUB R8 R9 R6
   MUL R7 R5 R8
-  GETTABLEKS R8 R0 K4 ["_heightMap"]
+  GETTABLEKS R8 R0 K4 ["_heightMapFromNoise"]
   FASTCALL2K MATH_MAX R7 K14 [+5]
   MOVE R10 R7
   LOADK R11 K14 [1]
@@ -341,54 +341,55 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
-  GETTABLEKS R1 R0 K0 ["_sliceY"]
-  SETTABLEKS R1 R0 K1 ["_minWaterPoint"]
-  GETTABLEKS R1 R0 K0 ["_sliceY"]
-  SETTABLEKS R1 R0 K2 ["_maxWaterPoint"]
+  GETIMPORT R1 K2 [table.clone]
+  GETTABLEKS R2 R0 K3 ["_heightMapFromNoise"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K4 ["_heightMap"]
+  GETTABLEKS R1 R0 K5 ["_sliceY"]
+  SETTABLEKS R1 R0 K6 ["_minWaterPoint"]
+  GETTABLEKS R1 R0 K5 ["_sliceY"]
+  SETTABLEKS R1 R0 K7 ["_maxWaterPoint"]
   LOADN R3 1
-  GETTABLEKS R4 R0 K3 ["_heightMap"]
-  LENGTH R1 R4
+  GETTABLEKS R1 R0 K8 ["_mapSize"]
   LOADN R2 1
   FORNPREP R1
-  GETTABLEKS R5 R0 K3 ["_heightMap"]
+  GETTABLEKS R5 R0 K3 ["_heightMapFromNoise"]
   GETTABLE R4 R5 R3
-  GETTABLEKS R6 R0 K4 ["_heightmapCache"]
+  GETTABLEKS R6 R0 K9 ["_heightmapCache"]
   GETTABLE R5 R6 R3
-  GETTABLEKS R7 R0 K5 ["_lakeAreaPositions"]
+  GETTABLEKS R7 R0 K10 ["_lakeAreaPositions"]
   GETTABLE R6 R7 R3
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["Bank"]
-  JUMPIFNOTEQ R6 R7 [+14]
-  GETTABLEKS R7 R0 K2 ["_maxWaterPoint"]
-  GETTABLEKS R9 R0 K3 ["_heightMap"]
-  GETTABLE R8 R9 R3
-  FASTCALL2 MATH_MIN R7 R8 [+3]
-  GETIMPORT R6 K9 [math.min]
-  CALL R6 2 1
-  SETTABLEKS R6 R0 K2 ["_maxWaterPoint"]
-  JUMP [+20]
-  GETTABLEKS R7 R0 K5 ["_lakeAreaPositions"]
-  GETTABLE R6 R7 R3
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K10 ["Ground"]
-  JUMPIFEQ R6 R7 [+13]
-  GETTABLEKS R7 R0 K1 ["_minWaterPoint"]
-  GETTABLEKS R9 R0 K3 ["_heightMap"]
-  GETTABLE R8 R9 R3
-  FASTCALL2 MATH_MIN R7 R8 [+3]
-  GETIMPORT R6 K9 [math.min]
-  CALL R6 2 1
-  SETTABLEKS R6 R0 K1 ["_minWaterPoint"]
-  GETTABLEKS R6 R0 K11 ["_addBlending"]
-  JUMPIFNOT R6 [+19]
-  GETTABLEKS R7 R0 K5 ["_lakeAreaPositions"]
-  GETTABLE R6 R7 R3
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["Bank"]
+  GETTABLEKS R7 R8 K11 ["Bank"]
   JUMPIFNOTEQ R6 R7 [+12]
-  GETTABLEKS R7 R0 K12 ["_blendingFactorMap"]
+  GETTABLEKS R7 R0 K7 ["_maxWaterPoint"]
+  FASTCALL2 MATH_MIN R7 R4 [+4]
+  MOVE R8 R4
+  GETIMPORT R6 K14 [math.min]
+  CALL R6 2 1
+  SETTABLEKS R6 R0 K7 ["_maxWaterPoint"]
+  JUMP [+18]
+  GETTABLEKS R7 R0 K10 ["_lakeAreaPositions"]
   GETTABLE R6 R7 R3
-  GETTABLEKS R7 R0 K3 ["_heightMap"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K15 ["Ground"]
+  JUMPIFEQ R6 R7 [+11]
+  GETTABLEKS R7 R0 K6 ["_minWaterPoint"]
+  FASTCALL2 MATH_MIN R7 R4 [+4]
+  MOVE R8 R4
+  GETIMPORT R6 K14 [math.min]
+  CALL R6 2 1
+  SETTABLEKS R6 R0 K6 ["_minWaterPoint"]
+  GETTABLEKS R6 R0 K16 ["_addBlending"]
+  JUMPIFNOT R6 [+19]
+  GETTABLEKS R7 R0 K10 ["_lakeAreaPositions"]
+  GETTABLE R6 R7 R3
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K11 ["Bank"]
+  JUMPIFNOTEQ R6 R7 [+12]
+  GETTABLEKS R7 R0 K17 ["_blendingFactorMap"]
+  GETTABLE R6 R7 R3
+  GETTABLEKS R7 R0 K4 ["_heightMap"]
   LOADN R11 1
   SUB R10 R11 R6
   MUL R9 R10 R4

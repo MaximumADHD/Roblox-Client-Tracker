@@ -117,7 +117,7 @@ PROTO_2:
   GETTABLEKS R6 R0 K8 ["_mapSize"]
   LOADN R7 0
   CALL R5 2 1
-  SETTABLEKS R5 R0 K9 ["_heightMap"]
+  SETTABLEKS R5 R0 K9 ["_heightMapFromNoise"]
   LOADN R7 1
   GETTABLEKS R5 R0 K8 ["_mapSize"]
   LOADN R6 1
@@ -128,7 +128,7 @@ PROTO_2:
   MUL R10 R11 R3
   MUL R9 R10 R8
   ADD R10 R4 R9
-  GETTABLEKS R11 R0 K9 ["_heightMap"]
+  GETTABLEKS R11 R0 K9 ["_heightMapFromNoise"]
   MOVE R13 R10
   LOADN R14 1
   GETTABLEKS R15 R0 K4 ["_sliceY"]

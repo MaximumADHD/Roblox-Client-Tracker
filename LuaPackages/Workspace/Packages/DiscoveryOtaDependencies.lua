@@ -8,6 +8,7 @@ local Package = require(PackageIndex["DiscoveryOtaDependencies"]["DiscoveryOtaDe
 export type ColorToken = Package.ColorToken
 export type DesignTokens = Package.DesignTokens
 export type TypographyToken = Package.TypographyToken
+export type SquadModel = Package.SquadModel
 
 
 return Package

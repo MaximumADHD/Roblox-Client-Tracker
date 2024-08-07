@@ -1,16 +1,16 @@
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["SocialPresence"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["ContextServices"]
-  GETTABLEKS R2 R3 K8 ["ContextItem"]
-  LOADK R5 K9 ["CollaboratorsService"]
-  NAMECALL R3 R2 K10 ["createSimple"]
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R2 R3 K9 ["ContextItem"]
+  LOADK R5 K10 ["CollaboratorsService"]
+  NAMECALL R3 R2 K11 ["createSimple"]
   CALL R3 2 -1
   RETURN R3 -1

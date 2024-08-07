@@ -41,6 +41,8 @@ PROTO_0:
   SETTABLEKS R1 R0 K14 ["_collectorStore"]
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K15 ["_boundCodeGuids"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K16 ["_pluginInfoCallback"]
   RETURN R0 1
 
 PROTO_1:
@@ -89,22 +91,35 @@ PROTO_8:
   RETURN R2 1
 
 PROTO_9:
-  SETTABLEKS R1 R3 K0 ["requestId"]
-  GETTABLEKS R5 R0 K1 ["_commandStore"]
-  GETTABLE R4 R5 R2
-  MOVE R5 R3
-  CALL R4 1 0
+  MOVE R4 R3
+  JUMPIF R4 [+2]
+  NEWTABLE R4 0 0
+  SETTABLEKS R1 R4 K0 ["requestId"]
+  DUPTABLE R5 K2 [{"requestId", "arguments"}]
+  SETTABLEKS R1 R5 K0 ["requestId"]
+  SETTABLEKS R4 R5 K1 ["arguments"]
+  GETTABLEKS R7 R0 K3 ["_commandStore"]
+  GETTABLE R6 R7 R2
+  MOVE R7 R5
+  CALL R6 1 0
   RETURN R0 0
 
 PROTO_10:
-  SETTABLEKS R1 R3 K0 ["requestId"]
-  GETTABLEKS R5 R0 K1 ["_commandStore"]
-  GETTABLE R4 R5 R2
-  MOVE R5 R3
-  CALL R4 1 0
-  RETURN R0 0
+  MOVE R4 R3
+  JUMPIF R4 [+2]
+  NEWTABLE R4 0 0
+  SETTABLEKS R1 R4 K0 ["requestId"]
+  DUPTABLE R5 K2 [{"requestId", "arguments"}]
+  SETTABLEKS R1 R5 K0 ["requestId"]
+  SETTABLEKS R4 R5 K1 ["arguments"]
+  GETTABLEKS R7 R0 K3 ["_commandStore"]
+  GETTABLE R6 R7 R2
+  MOVE R7 R5
+  CALL R6 1 -1
+  RETURN R6 -1
 
 PROTO_11:
+  SETTABLEKS R1 R0 K0 ["_pluginInfoCallback"]
   RETURN R0 0
 
 PROTO_12:
@@ -250,6 +265,16 @@ PROTO_17:
   CALL R3 3 0
   RETURN R0 0
 
+PROTO_18:
+  GETTABLEKS R3 R0 K0 ["_pluginInfoCallback"]
+  JUMPIFNOT R3 [+6]
+  GETTABLEKS R3 R0 K0 ["_pluginInfoCallback"]
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 -1
+  RETURN R3 -1
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -298,4 +323,6 @@ MAIN:
   SETTABLEKS R4 R3 K40 ["_replaceInstances"]
   DUPCLOSURE R4 K41 [PROTO_17]
   SETTABLEKS R4 R3 K42 ["CollectContexts"]
+  DUPCLOSURE R4 K43 [PROTO_18]
+  SETTABLEKS R4 R3 K44 ["GetPluginInfo"]
   RETURN R3 1

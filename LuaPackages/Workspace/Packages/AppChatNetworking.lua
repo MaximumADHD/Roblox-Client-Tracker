@@ -17,6 +17,7 @@ export type ModalActionType = Package.ModalActionType
 export type ModerationType = Package.ModerationType
 export type ParticipantMetadata = Package.ParticipantMetadata
 export type UnfilteredThreadsFailureReason = Package.UnfilteredThreadsFailureReason
+export type UnfilteredThreadsConversationBanner = Package.UnfilteredThreadsConversationBanner
 export type UnfilteredThreadsFtux = Package.UnfilteredThreadsFtux
 export type UserPendingStatus = Package.UserPendingStatus
 export type CreateConversationsResponse = Package.CreateConversationsResponse

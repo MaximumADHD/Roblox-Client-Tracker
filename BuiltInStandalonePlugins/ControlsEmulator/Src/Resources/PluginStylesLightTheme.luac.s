@@ -15,8 +15,14 @@ MAIN:
   SETTABLEKS R4 R3 K11 ["RightArrow"]
   LOADK R4 K12 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowDown.png"]
   SETTABLEKS R4 R3 K13 ["DownArrow"]
+  GETIMPORT R4 K16 [Color3.fromRGB]
+  LOADN R5 209
+  LOADN R6 209
+  LOADN R7 209
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K17 ["BlueprintBackgroundColor"]
   MOVE R4 R2
-  LOADK R5 K14 ["ControlsEmulatorLightTheme"]
+  LOADK R5 K18 ["ControlsEmulatorLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

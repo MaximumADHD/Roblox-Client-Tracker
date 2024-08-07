@@ -15,28 +15,24 @@ PROTO_0:
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K1 ["createElement"]
   GETUPVAL R8 4
-  NEWTABLE R9 2 0
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K5 ["Tag"]
-  LOADK R11 K6 ["Component-WidgetHeader"]
-  SETTABLE R11 R9 R10
+  DUPTABLE R9 K6 [{"LayoutOrder"}]
   GETUPVAL R10 5
   NAMECALL R10 R10 K7 ["getNextOrder"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K8 ["LayoutOrder"]
-  DUPTABLE R10 K11 [{"DeviceDropdown", "MappingsButton", "MappingsButton"}]
+  SETTABLEKS R10 R9 K5 ["LayoutOrder"]
+  DUPTABLE R10 K10 [{"DeviceDropdown", "MappingsButton", "MappingsButton"}]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K1 ["createElement"]
   GETUPVAL R12 6
   NEWTABLE R13 8 0
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K5 ["Tag"]
+  GETTABLEKS R14 R15 K11 ["Tag"]
   LOADK R15 K12 ["DeviceSelectorDropdown"]
   SETTABLE R15 R13 R14
   GETUPVAL R14 5
   NAMECALL R14 R14 K7 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K8 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K5 ["LayoutOrder"]
   GETIMPORT R14 K15 [UDim2.new]
   LOADN R15 0
   LOADN R16 250
@@ -52,39 +48,39 @@ PROTO_0:
   ORK R14 R15 K20 [101]
   SETTABLEKS R14 R13 K22 ["selectedGamepadId"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K9 ["DeviceDropdown"]
+  SETTABLEKS R11 R10 K8 ["DeviceDropdown"]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K1 ["createElement"]
   LOADK R12 K23 ["TextButton"]
   NEWTABLE R13 4 0
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K5 ["Tag"]
+  GETTABLEKS R14 R15 K11 ["Tag"]
   LOADK R15 K24 ["DeviceSelectorMappingsButton"]
   SETTABLE R15 R13 R14
   GETUPVAL R14 5
   NAMECALL R14 R14 K7 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K8 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K5 ["LayoutOrder"]
   LOADK R14 K25 ["Save"]
   SETTABLEKS R14 R13 K26 ["Text"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K10 ["MappingsButton"]
+  SETTABLEKS R11 R10 K9 ["MappingsButton"]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K1 ["createElement"]
   LOADK R12 K23 ["TextButton"]
   NEWTABLE R13 4 0
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K5 ["Tag"]
+  GETTABLEKS R14 R15 K11 ["Tag"]
   LOADK R15 K24 ["DeviceSelectorMappingsButton"]
   SETTABLE R15 R13 R14
   GETUPVAL R14 5
   NAMECALL R14 R14 K7 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K8 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K5 ["LayoutOrder"]
   LOADK R14 K27 ["Reset"]
   SETTABLEKS R14 R13 K26 ["Text"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K10 ["MappingsButton"]
+  SETTABLEKS R11 R10 K9 ["MappingsButton"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K2 ["WidgetHeader"]
   GETUPVAL R8 0

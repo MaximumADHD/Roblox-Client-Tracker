@@ -35,6 +35,14 @@ PROTO_1:
   CALL R2 9 0
   RETURN R0 0
 
+PROTO_2:
+  LOADK R5 K0 ["ResolveAnnotation"]
+  GETTABLEKS R6 R1 K1 ["Name"]
+  MOVE R7 R2
+  NAMECALL R3 R0 K2 ["Invoke"]
+  CALL R3 4 0
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -48,10 +56,12 @@ MAIN:
   NEWTABLE R2 1 0
   DUPCLOSURE R3 K8 [PROTO_0]
   SETTABLEKS R3 R2 K9 ["beginAddAnnotation"]
-  NEWTABLE R3 1 0
+  NEWTABLE R3 2 0
   DUPCLOSURE R4 K10 [PROTO_1]
   SETTABLEKS R4 R3 K11 ["createAnnotation"]
-  DUPTABLE R4 K14 [{"Standalone", "Edit"}]
-  SETTABLEKS R2 R4 K12 ["Standalone"]
-  SETTABLEKS R3 R4 K13 ["Edit"]
+  DUPCLOSURE R4 K12 [PROTO_2]
+  SETTABLEKS R4 R3 K13 ["setAnnotationResolved"]
+  DUPTABLE R4 K16 [{"Standalone", "Edit"}]
+  SETTABLEKS R2 R4 K14 ["Standalone"]
+  SETTABLEKS R3 R4 K15 ["Edit"]
   RETURN R4 1

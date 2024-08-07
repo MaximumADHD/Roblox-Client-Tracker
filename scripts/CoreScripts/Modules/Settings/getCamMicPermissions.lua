@@ -40,9 +40,6 @@ local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagSelfieViewEnabled = require(CoreGui.RobloxGui.Modules.SelfieView.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
-local getFFlagDecoupleHasAndRequestPermissions = require(RobloxGui.Modules.Flags.getFFlagDecoupleHasAndRequestPermissions)
-local getFFlagPermissionsEarlyOutStallsQueue = require(RobloxGui.Modules.Flags.getFFlagPermissionsEarlyOutStallsQueue)
-local getFFlagUseCameraDeviceGrantedSignal = require(RobloxGui.Modules.Flags.getFFlagUseCameraDeviceGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAnalyticsForCameraDevicePermissions = require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
@@ -123,14 +120,12 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 		}
 
 		callback(response)
-		if getFFlagPermissionsEarlyOutStallsQueue() then
-			inProgress = false
-			invokeNextRequest()
-		end
+		inProgress = false
+		invokeNextRequest()
 		return
 	end
 
-	if getFFlagDecoupleHasAndRequestPermissions() and shouldNotRequestPerms == true then
+	if shouldNotRequestPerms == true then
 		-- Call PermissionsProtocol:hasPermissions but do not requestPermissions when denied
 		return Promise.new(function(resolve, _)
 			local hasPermissionAuthorizedResult = {}
@@ -189,15 +184,13 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 					hasMicPermissions = if cacheMic then hasMicPermissionsResponse else nil
 
 					-- If camera permissions were authorized, we want to fire the granted signal
-					if getFFlagUseCameraDeviceGrantedSignal() and hasCameraPermissions then
+					if hasCameraPermissions then
 						cameraDevicePermissionGrantedSignal:fire()
 					end
 				else
 					-- If all permissions were authorized
 					if requestPermissionsResult == PermissionsProtocol.Status.AUTHORIZED then
-						if getFFlagUseCameraDeviceGrantedSignal() then
-							cameraDevicePermissionGrantedSignal:fire()
-						end
+						cameraDevicePermissionGrantedSignal:fire()
 						hasCameraPermissions = checkingCamera
 						hasMicPermissions = checkingMic
 					else
@@ -298,11 +291,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 		if requestPermissionsQueue[1] then
 			local nextRequest = requestPermissionsQueue[1]
 			table.remove(requestPermissionsQueue, 1)
-			if getFFlagDecoupleHasAndRequestPermissions() then
-				getCamMicPermissions(nextRequest.callback, nextRequest.permissionsToRequest, nextRequest.shouldNotRequestPerms, nextRequest.context)
-			else
-				getCamMicPermissions(nextRequest.callback, nextRequest.permsToCheck, nil, nextRequest.context)
-			end
+			getCamMicPermissions(nextRequest.callback, nextRequest.permissionsToRequest, nextRequest.shouldNotRequestPerms, nextRequest.context)
 		end
 	end
 
@@ -320,7 +309,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 		table.insert(requestPermissionsQueue, {
 			callback = callback,
 			permissionsToRequest = permissionsToRequest,
-			shouldNotRequestPerms = getFFlagDecoupleHasAndRequestPermissions() and shouldNotRequestPerms,
+			shouldNotRequestPerms = shouldNotRequestPerms,
 			context = context
 		})
 

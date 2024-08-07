@@ -1,5 +1,13 @@
 PROTO_0:
   GETIMPORT R1 K1 [plugin]
+  LOADK R3 K2 ["DmChanged"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K3 ["Invoke"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R1 K1 [plugin]
   GETTABLEKS R0 R1 K2 ["HostDataModelTypeIsCurrent"]
   JUMPIF R0 [+1]
   RETURN R0 0
@@ -24,33 +32,37 @@ PROTO_0:
   SETTABLEKS R4 R3 K8 ["Title"]
   NAMECALL R0 R0 K13 ["CreateQWidgetPluginGui"]
   CALL R0 3 1
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K14 ["createElement"]
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+3]
+  LOADK R1 K3 ["Ribbon"]
+  SETTABLEKS R1 R0 K14 ["Name"]
   GETUPVAL R2 1
-  DUPTABLE R3 K18 [{"Plugin", "Widget", "EditMode"}]
+  GETTABLEKS R1 R2 K15 ["createElement"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K19 [{"Plugin", "Widget", "EditMode"}]
   GETIMPORT R4 K1 [plugin]
-  SETTABLEKS R4 R3 K15 ["Plugin"]
-  SETTABLEKS R0 R3 K16 ["Widget"]
+  SETTABLEKS R4 R3 K16 ["Plugin"]
+  SETTABLEKS R0 R3 K17 ["Widget"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K17 ["EditMode"]
+  SETTABLEKS R4 R3 K18 ["EditMode"]
   CALL R1 2 1
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K19 ["createRoot"]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K20 ["createRoot"]
   MOVE R3 R0
   CALL R2 1 1
-  SETUPVAL R2 2
-  GETUPVAL R3 2
-  FASTCALL2K ASSERT R3 K20 [+4]
-  LOADK R4 K20 ["Luau does not refine the type of `root` to be non-nil here"]
-  GETIMPORT R2 K22 [assert]
+  SETUPVAL R2 3
+  GETUPVAL R3 3
+  FASTCALL2K ASSERT R3 K21 [+4]
+  LOADK R4 K21 ["Luau does not refine the type of `root` to be non-nil here"]
+  GETIMPORT R2 K23 [assert]
   CALL R2 2 0
-  GETUPVAL R2 2
+  GETUPVAL R2 3
   MOVE R4 R1
-  NAMECALL R2 R2 K23 ["render"]
+  NAMECALL R2 R2 K24 ["render"]
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R0 0
   JUMPIFNOT R0 [+6]
   GETUPVAL R0 0
@@ -60,7 +72,7 @@ PROTO_1:
   SETUPVAL R0 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   GETIMPORT R0 K1 [require]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K2 ["Packages"]
@@ -81,6 +93,7 @@ PROTO_2:
   GETTABLEKS R4 R3 K10 ["FocusedDataModelSession"]
   LOADNIL R5
   NEWCLOSURE R6 P0
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE REF R5
@@ -102,51 +115,83 @@ PROTO_2:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["StudioService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  NAMECALL R0 R0 K4 ["HasInternalPermission"]
-  CALL R0 1 1
+  GETIMPORT R0 K1 [plugin]
   JUMPIF R0 [+1]
   RETURN R0 0
-  GETIMPORT R1 K6 [plugin]
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETIMPORT R1 K8 [script]
-  LOADK R3 K9 ["Ribbon"]
-  NAMECALL R1 R1 K10 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETTABLEKS R3 R1 K11 ["Bin"]
-  GETTABLEKS R2 R3 K12 ["Common"]
-  GETIMPORT R3 K14 [require]
-  GETTABLEKS R4 R2 K15 ["defineLuaFlags"]
-  CALL R3 1 0
-  GETIMPORT R3 K14 [require]
-  GETTABLEKS R5 R1 K16 ["Packages"]
-  GETTABLEKS R4 R5 K17 ["TestLoader"]
+  GETIMPORT R0 K3 [script]
+  LOADK R2 K4 ["Ribbon"]
+  NAMECALL R0 R0 K5 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K6 ["Bin"]
+  GETTABLEKS R1 R2 K7 ["Common"]
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R3 R1 K10 ["defineLuaFlags"]
+  CALL R2 1 0
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R5 R0 K11 ["Src"]
+  GETTABLEKS R4 R5 K12 ["SharedFlags"]
+  GETTABLEKS R3 R4 K13 ["getFFlagLuaRibbonSocialPresence"]
+  CALL R2 1 1
+  CALL R2 0 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R0 K14 ["Packages"]
+  GETTABLEKS R4 R5 K15 ["TestLoader"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K18 ["launch"]
-  LOADK R5 K9 ["Ribbon"]
-  GETTABLEKS R6 R1 K19 ["Src"]
+  GETTABLEKS R4 R3 K16 ["launch"]
+  LOADK R5 K4 ["Ribbon"]
+  GETTABLEKS R6 R0 K11 ["Src"]
   CALL R4 2 0
-  GETTABLEKS R4 R3 K20 ["isCli"]
+  GETTABLEKS R4 R3 K17 ["isCli"]
   CALL R4 0 1
   JUMPIFNOT R4 [+1]
   RETURN R0 0
-  GETIMPORT R4 K1 [game]
-  LOADK R6 K21 ["EnableRibbonPlugin"]
-  NAMECALL R4 R4 K22 ["GetFastFlag"]
+  GETIMPORT R4 K19 [game]
+  LOADK R6 K20 ["EnableRibbonPlugin"]
+  NAMECALL R4 R4 K21 ["GetFastFlag"]
   CALL R4 2 1
   JUMPIF R4 [+1]
   RETURN R0 0
-  DUPCLOSURE R4 K23 [PROTO_2]
-  CAPTURE VAL R1
-  GETIMPORT R5 K1 [game]
-  LOADK R7 K24 ["DebugTestRibbonInAssetDM"]
-  NAMECALL R5 R5 K22 ["GetFastFlag"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+2]
-  MOVE R6 R4
-  CALL R6 0 0
+  JUMPIFNOT R2 [+42]
+  GETIMPORT R5 K1 [plugin]
+  GETTABLEKS R4 R5 K22 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R5 R4 K23 ["FocusedDataModelSession"]
+  GETTABLEKS R6 R5 K24 ["CurrentDataModelTypeAboutToChange"]
+  DUPCLOSURE R8 K25 [PROTO_0]
+  NAMECALL R6 R6 K26 ["Connect"]
+  CALL R6 2 0
+  GETTABLEKS R6 R5 K27 ["CurrentDataModelType"]
+  GETIMPORT R7 K31 [Enum.StudioDataModelType.Edit]
+  JUMPIFNOTEQ R6 R7 [+17]
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K32 ["Util"]
+  GETTABLEKS R8 R9 K33 ["SocialPresence"]
+  GETTABLEKS R7 R8 K34 ["SocialPresenceDmBridge"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K35 ["initAssetDm"]
+  GETIMPORT R8 K1 [plugin]
+  CALL R7 1 0
+  GETIMPORT R6 K1 [plugin]
+  LOADK R8 K36 ["DmChanged"]
+  GETTABLEKS R9 R5 K27 ["CurrentDataModelType"]
+  NAMECALL R6 R6 K37 ["Invoke"]
+  CALL R6 3 0
+  GETIMPORT R4 K19 [game]
+  LOADK R6 K38 ["StudioService"]
+  NAMECALL R4 R4 K39 ["GetService"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K40 ["HasInternalPermission"]
+  CALL R4 1 1
+  JUMPIF R4 [+1]
+  RETURN R0 0
+  DUPCLOSURE R5 K41 [PROTO_3]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  GETIMPORT R6 K19 [game]
+  LOADK R8 K42 ["DebugTestRibbonInAssetDM"]
+  NAMECALL R6 R6 K21 ["GetFastFlag"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R7 R5
+  CALL R7 0 0
   RETURN R0 0

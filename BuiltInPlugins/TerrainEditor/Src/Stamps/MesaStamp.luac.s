@@ -64,7 +64,7 @@ PROTO_1:
   GETTABLEKS R12 R13 K1 ["BuildSettings"]
   GETTABLE R10 R11 R12
   GETUPVAL R12 1
-  GETTABLEKS R11 R12 K10 ["TalusSlope"]
+  GETTABLEKS R11 R12 K10 ["TalusHeight"]
   GETTABLE R9 R10 R11
   SUB R7 R8 R9
   DUPTABLE R8 K14 [{"center2d", "hillWidth", "hillHeight"}]

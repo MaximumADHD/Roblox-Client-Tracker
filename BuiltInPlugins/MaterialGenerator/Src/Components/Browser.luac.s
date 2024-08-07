@@ -241,7 +241,7 @@ PROTO_10:
   DUPTABLE R5 K11 [{"BackgroundTransparency", "Image", "ImageColor3", "Position", "Size"}]
   LOADN R6 1
   SETTABLEKS R6 R5 K6 ["BackgroundTransparency"]
-  LOADK R6 K12 ["rbxasset://textures/MaterialGenerator/material_uploaded.png"]
+  LOADK R6 K12 ["rbxasset://textures/StudioSharedUI/ready@2x.png"]
   SETTABLEKS R6 R5 K7 ["Image"]
   GETUPVAL R7 3
   GETTABLEKS R6 R7 K13 ["StatusIconImageColor"]

@@ -646,27 +646,41 @@ PROTO_20:
   LOADK R3 K19 ["TrackerStreamAnimation"]
   CALL R2 1 1
   SETTABLEKS R2 R0 K20 ["animation"]
-  GETTABLEKS R2 R0 K21 ["Animator"]
-  GETTABLEKS R4 R0 K20 ["animation"]
-  NAMECALL R2 R2 K22 ["LoadStreamAnimation"]
+  GETIMPORT R2 K22 [game]
+  LOADK R4 K23 ["UseNewLoadStreamAnimationAPI"]
+  NAMECALL R2 R2 K24 ["GetEngineFeature"]
   CALL R2 2 1
-  SETTABLEKS R2 R0 K23 ["track"]
-  GETTABLEKS R2 R0 K23 ["track"]
+  JUMPIFNOT R2 [+13]
+  GETTABLEKS R2 R0 K25 ["Animator"]
+  GETTABLEKS R4 R0 K20 ["animation"]
+  LOADNIL R5
+  LOADB R6 0
+  LOADB R7 0
+  NAMECALL R2 R2 K26 ["LoadStreamAnimationV2"]
+  CALL R2 5 1
+  SETTABLEKS R2 R0 K27 ["track"]
+  JUMP [+9]
+  GETTABLEKS R2 R0 K25 ["Animator"]
+  GETTABLEKS R4 R0 K20 ["animation"]
+  NAMECALL R2 R2 K28 ["LoadStreamAnimation"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K27 ["track"]
+  GETTABLEKS R2 R0 K27 ["track"]
   JUMPIF R2 [+1]
   RETURN R0 0
-  GETTABLEKS R2 R0 K23 ["track"]
-  NAMECALL R2 R2 K24 ["Play"]
+  GETTABLEKS R2 R0 K27 ["track"]
+  NAMECALL R2 R2 K29 ["Play"]
   CALL R2 1 0
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K25 ["Heartbeat"]
+  GETTABLEKS R2 R3 K30 ["Heartbeat"]
   NEWCLOSURE R4 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  NAMECALL R2 R2 K26 ["Connect"]
+  NAMECALL R2 R2 K31 ["Connect"]
   CALL R2 2 1
-  SETTABLEKS R2 R0 K27 ["heartbeatSignal"]
+  SETTABLEKS R2 R0 K32 ["heartbeatSignal"]
   RETURN R0 0
 
 PROTO_21:

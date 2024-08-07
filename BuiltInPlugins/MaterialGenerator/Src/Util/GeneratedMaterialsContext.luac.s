@@ -17,7 +17,7 @@ MAIN:
   GETTABLEKS R6 R0 K10 ["Src"]
   GETTABLEKS R5 R6 K11 ["Types"]
   CALL R4 1 1
-  DUPTABLE R5 K21 [{"promptGroups", "materialStates", "addMaterials", "removeMaterial", "removeAllMaterials", "hasBaseMaterial", "markHasBaseMaterial", "getMaterialStatus", "setMaterialStatus"}]
+  DUPTABLE R5 K22 [{"promptGroups", "materialStates", "addMaterials", "removeMaterial", "removeAllMaterials", "hasBaseMaterial", "markHasBaseMaterial", "getMaterialStatus", "setMaterialStatus", "getMaterialIdentifiers"}]
   NEWTABLE R6 0 0
   SETTABLEKS R6 R5 K12 ["promptGroups"]
   NEWTABLE R6 0 0
@@ -50,7 +50,11 @@ MAIN:
   LOADK R7 K20 ["setMaterialStatus"]
   CALL R6 1 1
   SETTABLEKS R6 R5 K20 ["setMaterialStatus"]
-  GETTABLEKS R6 R1 K22 ["createContext"]
+  MOVE R6 R3
+  LOADK R7 K21 ["getMaterialIdentifiers"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K21 ["getMaterialIdentifiers"]
+  GETTABLEKS R6 R1 K23 ["createContext"]
   MOVE R7 R5
   CALL R6 1 1
   RETURN R6 1

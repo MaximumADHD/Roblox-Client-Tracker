@@ -34,18 +34,25 @@ MAIN:
   GETTABLEKS R5 R3 K18 ["Standalone"]
   JUMPIFEQ R4 R5 [+2]
   RETURN R0 0
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Bin"]
-  GETTABLEKS R6 R7 K7 ["Common"]
-  GETTABLEKS R5 R6 K19 ["setup"]
+  GETIMPORT R4 K21 [Instance.new]
+  LOADK R5 K22 ["Folder"]
   CALL R4 1 1
+  GETIMPORT R5 K24 [plugin]
+  SETTABLEKS R5 R4 K25 ["Parent"]
+  LOADK R5 K26 ["AnnotationInstances"]
+  SETTABLEKS R5 R4 K27 ["Name"]
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K6 ["Bin"]
   GETTABLEKS R7 R8 K7 ["Common"]
-  GETTABLEKS R6 R7 K20 ["setupMain"]
+  GETTABLEKS R6 R7 K28 ["setup"]
   CALL R5 1 1
-  MOVE R6 R4
-  GETIMPORT R7 K22 [plugin]
-  MOVE R8 R5
-  CALL R6 2 0
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Bin"]
+  GETTABLEKS R8 R9 K7 ["Common"]
+  GETTABLEKS R7 R8 K29 ["setupMain"]
+  CALL R6 1 1
+  MOVE R7 R5
+  GETIMPORT R8 K24 [plugin]
+  MOVE R9 R6
+  CALL R7 2 0
   RETURN R0 0

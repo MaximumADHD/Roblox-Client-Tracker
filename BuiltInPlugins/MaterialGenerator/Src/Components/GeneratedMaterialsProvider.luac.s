@@ -118,14 +118,16 @@ PROTO_7:
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  DUPTABLE R10 K7 [{"generationId", "hasBaseMaterial", "status"}]
+  DUPTABLE R10 K8 [{"generationId", "sampleId", "hasBaseMaterial", "status"}]
   SETTABLEKS R3 R10 K4 ["generationId"]
+  SUBK R11 R8 K9 [1]
+  SETTABLEKS R11 R10 K5 ["sampleId"]
   LOADB R11 0
-  SETTABLEKS R11 R10 K5 ["hasBaseMaterial"]
-  LOADK R11 K8 ["None"]
-  SETTABLEKS R11 R10 K6 ["status"]
+  SETTABLEKS R11 R10 K6 ["hasBaseMaterial"]
+  LOADK R11 K10 ["None"]
+  SETTABLEKS R11 R10 K7 ["status"]
   SETTABLE R10 R4 R9
-  FORGLOOP R5 2 [-11]
+  FORGLOOP R5 2 [-14]
   GETUPVAL R5 2
   MOVE R6 R0
   MOVE R7 R1
@@ -139,7 +141,7 @@ PROTO_7:
   MOVE R7 R4
   CALL R6 1 0
   GETUPVAL R6 6
-  LOADK R7 K9 ["Update Materials"]
+  LOADK R7 K11 ["Update Materials"]
   MOVE R8 R5
   CALL R6 2 0
   RETURN R0 0
@@ -236,6 +238,18 @@ PROTO_12:
   RETURN R0 0
 
 PROTO_13:
+  GETUPVAL R2 0
+  GETTABLE R1 R2 R0
+  FASTCALL2K ASSERT R1 K0 [+5]
+  MOVE R3 R1
+  LOADK R4 K0 ["Missing state for MaterialVariant"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K3 ["generationId"]
+  GETTABLEKS R3 R1 K4 ["sampleId"]
+  RETURN R2 2
+
+PROTO_14:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useState"]
   NEWTABLE R2 0 0
@@ -351,25 +365,34 @@ PROTO_13:
   MOVE R18 R3
   SETLIST R17 R18 1 [1]
   CALL R15 2 1
-  DUPTABLE R16 K16 [{"promptGroups", "materialStates", "addMaterials", "removeMaterial", "removeAllMaterials", "hasBaseMaterial", "markHasBaseMaterial", "getMaterialStatus", "setMaterialStatus"}]
-  SETTABLEKS R1 R16 K7 ["promptGroups"]
-  SETTABLEKS R3 R16 K8 ["materialStates"]
-  SETTABLEKS R10 R16 K9 ["addMaterials"]
-  SETTABLEKS R9 R16 K10 ["removeMaterial"]
-  SETTABLEKS R11 R16 K11 ["removeAllMaterials"]
-  SETTABLEKS R12 R16 K12 ["hasBaseMaterial"]
-  SETTABLEKS R13 R16 K13 ["markHasBaseMaterial"]
-  SETTABLEKS R14 R16 K14 ["getMaterialStatus"]
-  SETTABLEKS R15 R16 K15 ["setMaterialStatus"]
-  GETUPVAL R18 0
-  GETTABLEKS R17 R18 K17 ["createElement"]
-  GETUPVAL R19 7
-  GETTABLEKS R18 R19 K18 ["Provider"]
-  DUPTABLE R19 K20 [{"value"}]
-  SETTABLEKS R16 R19 K19 ["value"]
-  GETTABLEKS R20 R0 K21 ["children"]
-  CALL R17 3 -1
-  RETURN R17 -1
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K6 ["useCallback"]
+  NEWCLOSURE R17 P11
+  CAPTURE VAL R3
+  NEWTABLE R18 0 1
+  MOVE R19 R3
+  SETLIST R18 R19 1 [1]
+  CALL R16 2 1
+  DUPTABLE R17 K17 [{"promptGroups", "materialStates", "addMaterials", "removeMaterial", "removeAllMaterials", "hasBaseMaterial", "markHasBaseMaterial", "getMaterialStatus", "setMaterialStatus", "getMaterialIdentifiers"}]
+  SETTABLEKS R1 R17 K7 ["promptGroups"]
+  SETTABLEKS R3 R17 K8 ["materialStates"]
+  SETTABLEKS R10 R17 K9 ["addMaterials"]
+  SETTABLEKS R9 R17 K10 ["removeMaterial"]
+  SETTABLEKS R11 R17 K11 ["removeAllMaterials"]
+  SETTABLEKS R12 R17 K12 ["hasBaseMaterial"]
+  SETTABLEKS R13 R17 K13 ["markHasBaseMaterial"]
+  SETTABLEKS R14 R17 K14 ["getMaterialStatus"]
+  SETTABLEKS R15 R17 K15 ["setMaterialStatus"]
+  SETTABLEKS R16 R17 K16 ["getMaterialIdentifiers"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K18 ["createElement"]
+  GETUPVAL R20 7
+  GETTABLEKS R19 R20 K19 ["Provider"]
+  DUPTABLE R20 K21 [{"value"}]
+  SETTABLEKS R17 R20 K20 ["value"]
+  GETTABLEKS R21 R0 K22 ["children"]
+  CALL R18 3 -1
+  RETURN R18 -1
 
 MAIN:
   PREPVARARGS 0
@@ -409,7 +432,7 @@ MAIN:
   GETTABLEKS R13 R0 K12 ["Src"]
   GETTABLEKS R12 R13 K18 ["Types"]
   CALL R11 1 1
-  DUPCLOSURE R12 K19 [PROTO_13]
+  DUPCLOSURE R12 K19 [PROTO_14]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R5

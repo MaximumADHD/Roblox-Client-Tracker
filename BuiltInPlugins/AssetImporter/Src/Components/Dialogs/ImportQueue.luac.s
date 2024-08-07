@@ -17,12 +17,12 @@ PROTO_2:
   GETTABLEKS R3 R1 K1 ["Stylizer"]
   GETTABLEKS R2 R3 K2 ["ImportQueue"]
   GETTABLEKS R3 R2 K3 ["ControlsHeight"]
-  GETTABLEKS R4 R2 K4 ["ProgressBarHeight"]
-  GETTABLEKS R6 R1 K5 ["Uploading"]
-  JUMPIFNOT R6 [+2]
-  ADD R5 R3 R4
+  GETTABLEKS R5 R1 K4 ["ShowProgress"]
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R4 R2 K5 ["ProgressBarHeight"]
   JUMP [+1]
-  MOVE R5 R3
+  LOADN R4 0
+  ADD R5 R3 R4
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K6 ["createElement"]
   GETUPVAL R7 1
@@ -79,8 +79,6 @@ PROTO_2:
   SETTABLEKS R17 R16 K9 ["Size"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K31 ["AssetList"]
-  GETTABLEKS R15 R1 K5 ["Uploading"]
-  JUMPIFNOT R15 [+19]
   GETUPVAL R15 0
   GETTABLEKS R14 R15 K6 ["createElement"]
   GETUPVAL R15 5
@@ -95,8 +93,6 @@ PROTO_2:
   CALL R17 4 1
   SETTABLEKS R17 R16 K9 ["Size"]
   CALL R14 2 1
-  JUMP [+1]
-  LOADNIL R14
   SETTABLEKS R14 R13 K32 ["ImportProgressBar"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K20 ["Queue"]
@@ -120,13 +116,13 @@ PROTO_4:
   RETURN R1 1
 
 PROTO_5:
-  DUPTABLE R1 K2 [{"ShowQueue", "Uploading"}]
+  DUPTABLE R1 K2 [{"ShowQueue", "ShowProgress"}]
   GETTABLEKS R3 R0 K3 ["Dialogs"]
   GETTABLEKS R2 R3 K4 ["showQueue"]
   SETTABLEKS R2 R1 K0 ["ShowQueue"]
   GETTABLEKS R3 R0 K3 ["Dialogs"]
-  GETTABLEKS R2 R3 K5 ["uploading"]
-  SETTABLEKS R2 R1 K1 ["Uploading"]
+  GETTABLEKS R2 R3 K5 ["showProgress"]
+  SETTABLEKS R2 R1 K1 ["ShowProgress"]
   RETURN R1 1
 
 MAIN:

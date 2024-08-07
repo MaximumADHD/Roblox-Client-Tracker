@@ -71,6 +71,8 @@ local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExpe
 local FFlagEnableBulkPurchaseApp = game:DefineFastFlag("EnableBulkPurchaseApp3", false)
 local FFlagEnablePremiumSponsoredExperienceReporting = game:DefineFastFlag("EnablePremiumSponsoredExperienceReporting", false)
 local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FFlagMoveUGCValidationFunctionFeature)
+local FFlagEnableCancelSubscriptionApp = game:GetEngineFeature("EnableCancelSubscriptionApp")
+local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSubscriptionAppLua", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -468,4 +470,8 @@ end
 
 if GetFFlagEnableAppChatInExperience() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/AppChatMain", RobloxGui)
+end
+
+if FFlagEnableCancelSubscriptionApp and FFlagEnableCancelSubscriptionAppLua then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/CancelSubscriptionApp", RobloxGui)
 end

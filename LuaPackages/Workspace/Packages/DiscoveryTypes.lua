@@ -28,6 +28,10 @@ export type OmniItemsRowData = Package.OmniItemsRowData
 export type PageOmniItemsRowData = Package.PageOmniItemsRowData
 export type ItemRowData = Package.ItemRowData
 export type PersonalizationReducer = Package.PersonalizationReducer
+export type FetchStatusGroup = Package.FetchStatusGroup
+export type FetchStatus = Package.FetchStatus
+export type NextDataExpirationTimeGroup = Package.NextDataExpirationTimeGroup
+export type NextDataExpirationTime = Package.NextDataExpirationTime
 export type OmniAutocompleteSortTopicData = Package.OmniAutocompleteSortTopicData
 
 

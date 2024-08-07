@@ -34,74 +34,108 @@ PROTO_1:
   GETTABLEKS R2 R3 K1 ["useRef"]
   LOADNIL R3
   CALL R2 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["getFFlagStudioCancellableDialogDesignUpdates"]
+  CALL R3 0 1
+  JUMPIF R3 [+10]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K2 ["useEffect"]
+  GETTABLEKS R3 R4 K3 ["useEffect"]
   NEWCLOSURE R4 P0
   CAPTURE VAL R2
-  CAPTURE UPVAL U2
   CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   NEWTABLE R5 0 0
   CALL R3 2 0
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K3 ["createElement"]
-  LOADK R4 K4 ["Frame"]
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  LOADK R4 K5 ["Frame"]
   NEWTABLE R5 2 0
-  NAMECALL R6 R1 K5 ["getNextOrder"]
+  NAMECALL R6 R1 K6 ["getNextOrder"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K6 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K7 ["LayoutOrder"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K7 ["Tag"]
-  LOADK R7 K8 ["X-FitY X-Row Component-ThumbnailAndTextInfo"]
+  GETTABLEKS R6 R7 K8 ["Tag"]
+  LOADK R7 K9 ["X-FitY X-Row Component-ThumbnailAndTextInfo"]
   SETTABLE R7 R5 R6
-  DUPTABLE R6 K11 [{"ShimmerContainer", "TextInfo"}]
+  DUPTABLE R6 K13 [{"ShimmerContainer", "Shimmer", "TextInfo"}]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K2 ["getFFlagStudioCancellableDialogDesignUpdates"]
+  CALL R8 0 1
+  JUMPIFNOT R8 [+2]
+  LOADNIL R7
+  JUMP [+34]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K3 ["createElement"]
-  LOADK R8 K12 ["CanvasGroup"]
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  LOADK R8 K14 ["CanvasGroup"]
   NEWTABLE R9 2 0
-  NAMECALL R10 R1 K5 ["getNextOrder"]
+  NAMECALL R10 R1 K6 ["getNextOrder"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K6 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K7 ["LayoutOrder"]
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K7 ["Tag"]
-  LOADK R11 K9 ["ShimmerContainer"]
+  GETTABLEKS R10 R11 K8 ["Tag"]
+  LOADK R11 K10 ["ShimmerContainer"]
   SETTABLE R11 R9 R10
-  DUPTABLE R10 K14 [{"Shimmer"}]
+  DUPTABLE R10 K15 [{"Shimmer"}]
   GETUPVAL R12 1
-  GETTABLEKS R11 R12 K3 ["createElement"]
-  LOADK R12 K4 ["Frame"]
+  GETTABLEKS R11 R12 K4 ["createElement"]
+  LOADK R12 K5 ["Frame"]
   NEWTABLE R13 2 0
-  SETTABLEKS R2 R13 K15 ["ref"]
+  SETTABLEKS R2 R13 K16 ["ref"]
   GETUPVAL R15 1
-  GETTABLEKS R14 R15 K7 ["Tag"]
-  LOADK R15 K13 ["Shimmer"]
+  GETTABLEKS R14 R15 K8 ["Tag"]
+  LOADK R15 K11 ["Shimmer"]
   SETTABLE R15 R13 R14
   CALL R11 2 1
-  SETTABLEKS R11 R10 K13 ["Shimmer"]
+  SETTABLEKS R11 R10 K11 ["Shimmer"]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K9 ["ShimmerContainer"]
+  SETTABLEKS R7 R6 K10 ["ShimmerContainer"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K2 ["getFFlagStudioCancellableDialogDesignUpdates"]
+  CALL R8 0 1
+  JUMPIFNOT R8 [+21]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K3 ["createElement"]
-  GETUPVAL R8 4
-  DUPTABLE R9 K20 [{"Title", "Subtitle", "Status", "Size", "LayoutOrder"}]
-  GETTABLEKS R10 R0 K16 ["Title"]
-  SETTABLEKS R10 R9 K16 ["Title"]
-  GETTABLEKS R10 R0 K17 ["Subtitle"]
-  SETTABLEKS R10 R9 K17 ["Subtitle"]
-  GETTABLEKS R10 R0 K18 ["Status"]
-  SETTABLEKS R10 R9 K18 ["Status"]
-  GETIMPORT R10 K22 [UDim2.new]
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K18 [{"Size", "LayoutOrder"}]
+  GETIMPORT R10 K20 [UDim2.new]
+  LOADN R11 0
+  LOADN R12 50
+  LOADN R13 0
+  LOADN R14 50
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K17 ["Size"]
+  NAMECALL R10 R1 K6 ["getNextOrder"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K7 ["LayoutOrder"]
+  CALL R7 2 1
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K11 ["Shimmer"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  GETUPVAL R8 6
+  DUPTABLE R9 K25 [{"Title", "Subtitle", "Status", "Size", "LayoutOrder", "OnShown"}]
+  GETTABLEKS R10 R0 K21 ["Title"]
+  SETTABLEKS R10 R9 K21 ["Title"]
+  GETTABLEKS R10 R0 K22 ["Subtitle"]
+  SETTABLEKS R10 R9 K22 ["Subtitle"]
+  GETTABLEKS R10 R0 K23 ["Status"]
+  SETTABLEKS R10 R9 K23 ["Status"]
+  GETIMPORT R10 K20 [UDim2.new]
   LOADN R11 1
-  GETUPVAL R13 5
+  GETUPVAL R13 7
   MINUS R12 R13
   LOADN R13 0
   LOADN R14 0
   CALL R10 4 1
-  SETTABLEKS R10 R9 K19 ["Size"]
-  NAMECALL R10 R1 K5 ["getNextOrder"]
+  SETTABLEKS R10 R9 K17 ["Size"]
+  NAMECALL R10 R1 K6 ["getNextOrder"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K6 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K7 ["LayoutOrder"]
+  GETTABLEKS R10 R0 K24 ["OnShown"]
+  SETTABLEKS R10 R9 K24 ["OnShown"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K10 ["TextInfo"]
+  SETTABLEKS R7 R6 K12 ["TextInfo"]
   CALL R3 3 -1
   RETURN R3 -1
 
@@ -125,41 +159,51 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R5 R2 K11 ["Util"]
   GETTABLEKS R4 R5 K12 ["LayoutOrderIterator"]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Components"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R5 K14 ["TextInfo"]
-  CALL R6 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K13 ["Bin"]
+  GETTABLEKS R7 R8 K14 ["Common"]
+  GETTABLEKS R6 R7 K15 ["defineLuaFlags"]
+  CALL R5 1 1
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K16 ["Components"]
   GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K15 ["styles"]
+  GETTABLEKS R8 R6 K17 ["Shimmer"]
   CALL R7 1 1
-  LOADK R13 K16 ["ThumbnailSize"]
-  NAMECALL R11 R7 K17 ["GetAttribute"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R6 K18 ["TextInfo"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K19 ["styles"]
+  CALL R9 1 1
+  LOADK R15 K20 ["ThumbnailSize"]
+  NAMECALL R13 R9 K21 ["GetAttribute"]
+  CALL R13 2 1
+  GETTABLEKS R12 R13 K22 ["X"]
+  GETTABLEKS R11 R12 K23 ["Offset"]
+  LOADK R15 K24 ["ThumbnailToContentPadding"]
+  NAMECALL R13 R9 K21 ["GetAttribute"]
+  CALL R13 2 1
+  GETTABLEKS R12 R13 K23 ["Offset"]
+  ADD R10 R11 R12
+  GETIMPORT R11 K26 [game]
+  LOADK R13 K27 ["TweenService"]
+  NAMECALL R11 R11 K28 ["GetService"]
   CALL R11 2 1
-  GETTABLEKS R10 R11 K18 ["X"]
-  GETTABLEKS R9 R10 K19 ["Offset"]
-  LOADK R13 K20 ["ThumbnailToContentPadding"]
-  NAMECALL R11 R7 K17 ["GetAttribute"]
-  CALL R11 2 1
-  GETTABLEKS R10 R11 K19 ["Offset"]
-  ADD R8 R9 R10
-  GETIMPORT R9 K22 [game]
-  LOADK R11 K23 ["TweenService"]
-  NAMECALL R9 R9 K24 ["GetService"]
-  CALL R9 2 1
-  GETIMPORT R10 K27 [TweenInfo.new]
-  LOADK R11 K28 [1.5]
-  GETIMPORT R12 K32 [Enum.EasingStyle.Linear]
-  GETIMPORT R13 K35 [Enum.EasingDirection.InOut]
-  LOADN R14 255
-  LOADB R15 1
-  CALL R10 5 1
-  DUPCLOSURE R11 K36 [PROTO_1]
+  GETIMPORT R12 K31 [TweenInfo.new]
+  LOADK R13 K32 [1.5]
+  GETIMPORT R14 K36 [Enum.EasingStyle.Linear]
+  GETIMPORT R15 K39 [Enum.EasingDirection.InOut]
+  LOADN R16 255
+  LOADB R17 1
+  CALL R12 5 1
+  DUPCLOSURE R13 K40 [PROTO_1]
   CAPTURE VAL R4
   CAPTURE VAL R1
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R7
   CAPTURE VAL R8
-  RETURN R11 1
+  CAPTURE VAL R10
+  RETURN R13 1

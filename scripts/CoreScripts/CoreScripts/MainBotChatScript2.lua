@@ -34,7 +34,7 @@ local YPOS_OFFSET = -math.floor(STYLE_PADDING / 2)
 local usingGamepad = false
 
 local FFlagFixDialogInstanceGamepadImages = game:DefineFastFlag("FixDialogInstanceGamepadImages", false)
-local FFlagFixDialogTouchNotWorking = game:DefineFastFlag("FixDialogTouchNotWorking", false)
+local FFlagFixDialogTouchNotWorking = game:DefineFastFlag("FixDialogTouchNotWorking2", false)
 
 local FlagHasReportedPlace = false
 local localPlayer = playerService.LocalPlayer
@@ -49,6 +49,10 @@ if FFlagFixDialogTouchNotWorking then
 	if not character or character.Parent == nil then
 		character = localPlayer.CharacterAdded:Wait()
 	end
+
+	localPlayer.CharacterAdded:Connect(function(updatedCharacter)
+		character = updatedCharacter
+	end)
 end
 
 function setUsingGamepad(input, processed)

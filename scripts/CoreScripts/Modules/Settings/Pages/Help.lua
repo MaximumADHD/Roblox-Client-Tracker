@@ -46,6 +46,7 @@ local GetFFlagOptimizeHelpMenuInputEvent = require(RobloxGui.Modules.Flags.GetFF
 local FFlagFixGamepadHelpImage = game:DefineFastFlag("FixGamepadHelpImage", false)
 local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
 local FFlagShowUpdatedScreenshotHotkey = game:DefineFastFlag("ShowUpdatedScreenshotHotkey_v2", false)
+local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
 
 ----------- CLASS DECLARATION --------------
 
@@ -714,10 +715,12 @@ do
       if GetFFlagOptimizeHelpMenuInputEvent() then
         PageInstance:PageDisplayed()
       end
-      local isPortrait = utility:IsPortrait()
-      if PageInstance:GetCurrentInputType() == TOUCH_TAG then
-        if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
-          PageInstance.HubRef.BottomButtonFrame.Visible = false
+      if not GetFFlagFixIGMBottomBarVisibility() then
+        local isPortrait = utility:IsPortrait()
+        if PageInstance:GetCurrentInputType() == TOUCH_TAG then
+            if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
+                PageInstance.HubRef.BottomButtonFrame.Visible = false
+            end
         end
       end
 	  if PageInstance.HubRef.VersionContainer then
@@ -733,11 +736,13 @@ do
       PageInstance.HubRef.PageView.ClipsDescendants = true
 
       PageInstance.HubRef:ShowShield()
-
-      local isPortrait = utility:IsPortrait()
-      if PageInstance:GetCurrentInputType() == TOUCH_TAG then
-        if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
-          PageInstance.HubRef.BottomButtonFrame.Visible = true
+      
+      if not GetFFlagFixIGMBottomBarVisibility() then
+        local isPortrait = utility:IsPortrait()
+        if PageInstance:GetCurrentInputType() == TOUCH_TAG then
+            if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
+                PageInstance.HubRef.BottomButtonFrame.Visible = true
+            end
         end
       end
 	  if PageInstance.HubRef.VersionContainer then

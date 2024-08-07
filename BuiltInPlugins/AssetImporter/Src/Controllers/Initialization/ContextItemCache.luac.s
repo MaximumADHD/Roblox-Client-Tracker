@@ -32,7 +32,7 @@ PROTO_0:
   GETTABLEKS R5 R6 K10 ["mock"]
   MOVE R6 R1
   CALL R5 1 1
-  DUPTABLE R6 K22 [{"Plugin", "Loader", "Analytics", "Focus", "Localization", "Mouse", "Store", "Theme", "CalloutController", "FileController", "PresetController"}]
+  DUPTABLE R6 K22 [{"Plugin", "PluginLoaderContextItem", "Analytics", "Focus", "Localization", "Mouse", "Store", "Theme", "CalloutController", "FileController", "PresetController"}]
   GETUPVAL R9 4
   GETTABLEKS R8 R9 K11 ["Plugin"]
   GETTABLEKS R7 R8 K4 ["new"]
@@ -40,7 +40,7 @@ PROTO_0:
   CALL R7 1 1
   SETTABLEKS R7 R6 K11 ["Plugin"]
   GETTABLEKS R7 R0 K23 ["loader"]
-  SETTABLEKS R7 R6 K12 ["Loader"]
+  SETTABLEKS R7 R6 K12 ["PluginLoaderContextItem"]
   JUMPIFNOT R2 [+6]
   GETUPVAL R8 5
   GETTABLEKS R7 R8 K4 ["new"]
@@ -119,7 +119,7 @@ PROTO_0:
 PROTO_1:
   NEWTABLE R1 0 12
   GETTABLEKS R2 R0 K0 ["Plugin"]
-  GETTABLEKS R3 R0 K1 ["Loader"]
+  GETTABLEKS R3 R0 K1 ["PluginLoaderContextItem"]
   GETTABLEKS R4 R0 K2 ["Analytics"]
   GETTABLEKS R5 R0 K3 ["Localization"]
   GETTABLEKS R6 R0 K4 ["Mouse"]

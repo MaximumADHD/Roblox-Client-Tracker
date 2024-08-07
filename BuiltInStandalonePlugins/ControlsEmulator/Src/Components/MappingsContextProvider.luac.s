@@ -168,6 +168,10 @@ PROTO_3:
   GETIMPORT R3 K5 [Enum.GamepadType.XboxOne]
   NAMECALL R0 R0 K6 ["ConnectGamepad"]
   CALL R0 3 0
+  GETUPVAL R0 2
+  GETUPVAL R2 3
+  NAMECALL R0 R0 K7 ["SetActiveGamepad"]
+  CALL R0 2 0
   RETURN R0 0
 
 PROTO_4:

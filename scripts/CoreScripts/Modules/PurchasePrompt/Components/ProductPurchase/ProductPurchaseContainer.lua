@@ -70,6 +70,11 @@ local DELAYED_INPUT_SEC = 2.5
 
 local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMessage", false)
 
+local GetFFlagOpenVngTosForVngRobuxUpsell =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagOpenVngTosForVngRobuxUpsell
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
+local getAppFeaturePolicies = UniversalAppPolicy.getAppFeaturePolicies
+
 local function isRelevantRequestType(requestType, purchaseFlow)
 	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
 		return false
@@ -434,6 +439,7 @@ function ProductPurchaseContainer:render()
 			cancelPurchaseActivated = self.cancelButtonPressed,
 
 			isLuobu = self.state.isLuobu,
+			isVng = GetFFlagOpenVngTosForVngRobuxUpsell() and getAppFeaturePolicies().getShowVNGTosForRobuxUpsell()
 		})
 	elseif promptState == PromptState.LeaveRobloxWarning then
 		prompt = Roact.createElement(LeaveRobloxAlert, {

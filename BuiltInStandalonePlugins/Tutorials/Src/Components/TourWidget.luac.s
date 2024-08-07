@@ -955,7 +955,7 @@ MAIN:
   GETIMPORT R4 K4 [require]
   GETTABLEKS R7 R0 K11 ["Src"]
   GETTABLEKS R6 R7 K12 ["Flags"]
-  GETTABLEKS R5 R6 K14 ["getFFlagPluginCalloutBindToCloseCrash3"]
+  GETTABLEKS R5 R6 K14 ["getFFlagPluginCalloutBindToCloseCrash4"]
   CALL R4 1 1
   CALL R4 0 1
   GETIMPORT R5 K4 [require]

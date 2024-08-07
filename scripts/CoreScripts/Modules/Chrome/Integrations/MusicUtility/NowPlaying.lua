@@ -9,13 +9,13 @@ local NowPlaying = require(CorePackages.Workspace.Packages.NowPlaying)
 local ContainerSlotSignal = require(Chrome.Service.ContainerSlotSignal)
 
 local GetFFlagEnableChromeMusicIntegration = require(Chrome.Flags.GetFFlagEnableChromeMusicIntegration)
-local GetFStringChromeMusicIntegrationNowPlayingLabel =
-	require(Chrome.Flags.GetFStringChromeMusicIntegrationNowPlayingLabel)
+local GetFStringChromeMusicIntegrationUtilityLabel = require(Chrome.Flags.GetFStringChromeMusicIntegrationUtilityLabel)
+local GetFStringChromeMusicIntegrationId = require(Chrome.Flags.GetFStringChromeMusicIntegrationId)
 
 return if GetFFlagEnableChromeMusicIntegration()
 	then ChromeService:register({
-		id = "now_playing",
-		label = GetFStringChromeMusicIntegrationNowPlayingLabel(),
+		id = GetFStringChromeMusicIntegrationId(),
+		label = GetFStringChromeMusicIntegrationUtilityLabel(),
 		initialAvailability = ChromeService.AvailabilitySignal.Available,
 		containerWidthSlots = ContainerSlotSignal.new(6),
 		components = {

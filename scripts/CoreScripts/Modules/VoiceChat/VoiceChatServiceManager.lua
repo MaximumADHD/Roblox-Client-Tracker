@@ -38,6 +38,7 @@ local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlag
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
+local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 local GetFIntVoiceReverseNudgeUXDisplayTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceReverseNudgeUXDisplayTimeSeconds)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
@@ -50,6 +51,8 @@ local FFlagFixNonSelfCalls = game:DefineFastFlag("FixNonSelfCalls", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
 local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermissionsAnalytics", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
+local FFlagDebugSimulateConnectDisconnect = game:DefineFastFlag("DebugSimulateConnectDisconnect", false)
+local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
 local FFlagOverwriteIsMutedLocally = require(VoiceChatCore.Flags.GetFFlagOverwriteIsMutedLocally)()
 local FFlagHideVoiceUIUntilInputExists = require(VoiceChatCore.Flags.GetFFlagHideVoiceUIUntilInputExists)()
 
@@ -178,6 +181,9 @@ local VoiceChatServiceManager = {
 	muteChanged = Instance.new("BindableEvent"),
 	muteAllChanged = Instance.new("BindableEvent"),
 	attemptVoiceRejoin = Instance.new("BindableEvent"),
+	showVoiceUI = Instance.new("BindableEvent"),
+	hideVoiceUI = Instance.new("BindableEvent"),
+	voiceUIVisible = false,
 	mutedNonFriends = if FFlagMuteNonFriendsEvent then Instance.new("BindableEvent") else nil,
 	userAgencySelected = if GetFFlagShowMuteToggles() then Instance.new("BindableEvent") else nil,
 	audioDeviceInputAdded = if FFlagHideVoiceUIUntilInputExists then Instance.new("BindableEvent") else nil,
@@ -422,9 +428,15 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe('OnDeviceMuteChanged', function ()
 		self:UpdateAudioDeviceInputDebugger()
 	end)
-	self.coreVoiceManager:subscribe('OnStateChanged', function ()
+	self.coreVoiceManager:subscribe('OnStateChanged', function (oldState, newState)
 		if getFFlagMicrophoneDevicePermissionsPromptLogging() then
 			MicrophoneDevicePermissionsLogging:setClientSessionId(self.coreVoiceManager:GetSessionId())
+		end
+		if GetFFlagEnableShowVoiceUI() then
+			local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
+			if inEndedState then
+				self:HideVoiceUI()
+			end
 		end
 	end)
 	self.coreVoiceManager:subscribe('OnPlayerMuted', function ()
@@ -433,6 +445,17 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe('OnAudioDeviceInputAdded', function ()
 		self:UpdateAudioDeviceInputDebugger()
 	end)
+
+	if GetFFlagEnableShowVoiceUI() then
+		self.coreVoiceManager:subscribe('OnVoiceChatServiceInitialized', function ()
+			self:ShowVoiceUI()
+			if FFlagDebugSimulateConnectDisconnect then
+				log:debug("Simulating join voice")
+				self:simulateVoiceConnectDisconnect()
+			end
+		end)
+	end
+
 	self.coreVoiceManager:subscribe('OnAudioDeviceInputRemoved', function ()
 		self:UpdateAudioDeviceInputDebugger()
 	end)
@@ -533,6 +556,21 @@ type AgeVerificationOverlayData = {
 
 function VoiceChatServiceManager:_GetShowAgeVerificationOverlay(hasMicPermissions): nil | AgeVerificationOverlayData
 	return self.coreVoiceManager:_GetShowAgeVerificationOverlay(if GetFFlagUseMicPermForEnrollment() then hasMicPermissions else nil)
+end
+
+function VoiceChatServiceManager:simulateVoiceConnectDisconnect()
+	task.spawn(function()
+		while true do
+			task.wait(FIntDebugConnectDisconnectInterval)
+			if self.voiceUIVisible then
+				log:debug("Hiding Voice")
+				self:HideVoiceUI()
+			else
+				log:debug("Showing Voice")
+				self:ShowVoiceUI()
+			end
+		end
+	end)
 end
 
 function VoiceChatServiceManager:FetchAgeVerificationOverlay(hasMicPermissions): nil | AgeVerificationOverlayData
@@ -703,6 +741,11 @@ function VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(entrypoint: st
 		end
 	})
 end
+
+function VoiceChatServiceManager:DisablePhoneVerificationUpsell()
+	self.coreVoiceManager:DisablePhoneVerificationUpsell()
+end
+
 function VoiceChatServiceManager:SetInExpUpsellEntrypoint(entrypoint: string)
 	self.inExpUpsellEntrypoint = entrypoint
 end
@@ -796,6 +839,30 @@ end
 
 function VoiceChatServiceManager:calculateBanDuration(startTimestamp: number, endTimestamp: number)
 	return math.ceil((endTimestamp - startTimestamp) / 60)
+end
+
+function VoiceChatServiceManager:ShowVoiceUI()
+	if not GetFFlagEnableShowVoiceUI() then
+		return
+	end
+	self.voiceUIVisible = true
+	self.showVoiceUI:Fire()
+
+	if ExperienceChat.Events.VoiceUIVisibilityChanged then
+		ExperienceChat.Events.VoiceUIVisibilityChanged(true)
+	end
+end
+
+function VoiceChatServiceManager:HideVoiceUI()
+	if not GetFFlagEnableShowVoiceUI() then
+		return
+	end
+	self.voiceUIVisible = false
+	self.hideVoiceUI:Fire()
+
+	if ExperienceChat.Events.VoiceUIVisibilityChanged then
+		ExperienceChat.Events.VoiceUIVisibilityChanged(false)
+	end
 end
 
 function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptType)

@@ -1,0 +1,67 @@
+PROTO_0:
+  NEWTABLE R0 0 0
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [setmetatable]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_1:
+  GETIMPORT R3 K2 [table.create]
+  MOVE R4 R2
+  CALL R3 1 1
+  LOADN R6 1
+  MOVE R4 R2
+  LOADN R5 1
+  FORNPREP R4
+  MOVE R8 R3
+  GETIMPORT R9 K5 [Instance.new]
+  LOADK R10 K6 ["MaterialVariant"]
+  CALL R9 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R7 K8 [table.insert]
+  CALL R7 -1 0
+  FORNLOOP R4
+  DUPTABLE R4 K11 [{"materialVariants", "generationId"}]
+  SETTABLEKS R3 R4 K9 ["materialVariants"]
+  LOADK R5 K12 ["mockGenerationId"]
+  SETTABLEKS R5 R4 K10 ["generationId"]
+  RETURN R4 1
+
+PROTO_2:
+  GETIMPORT R3 K2 [table.create]
+  MOVE R4 R2
+  CALL R3 1 1
+  LOADN R6 1
+  MOVE R4 R2
+  LOADN R5 1
+  FORNPREP R4
+  MOVE R8 R3
+  GETIMPORT R9 K5 [Instance.new]
+  LOADK R10 K6 ["MaterialVariant"]
+  CALL R9 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R7 K8 [table.insert]
+  CALL R7 -1 0
+  FORNLOOP R4
+  RETURN R3 1
+
+PROTO_3:
+  LOADNIL R2
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  SETTABLEKS R0 R0 K0 ["__index"]
+  DUPCLOSURE R1 K1 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["new"]
+  DUPCLOSURE R1 K3 [PROTO_1]
+  SETTABLEKS R1 R0 K4 ["GenerateMaterialVariantsAsync"]
+  DUPCLOSURE R1 K5 [PROTO_2]
+  SETTABLEKS R1 R0 K6 ["DEPRECATED_GenerateMaterialVariantsAync"]
+  DUPCLOSURE R1 K7 [PROTO_3]
+  SETTABLEKS R1 R0 K8 ["UploadMaterialVariantsAsync"]
+  RETURN R0 1

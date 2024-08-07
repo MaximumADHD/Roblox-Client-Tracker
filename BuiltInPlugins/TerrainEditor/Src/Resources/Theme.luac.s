@@ -428,8 +428,10 @@ MAIN:
   CALL R12 4 1
   SETTABLEKS R12 R11 K188 ["SliceCenter"]
   SETTABLEKS R11 R10 K177 ["PreviewBorder"]
-  DUPTABLE R11 K186 [{"Image"}]
-  LOADK R12 K193 ["rbxasset://textures/TagEditor/Close.png"]
+  DUPTABLE R11 K183 [{"Color", "Image"}]
+  GETTABLEKS R12 R3 K184 ["TextPrimary"]
+  SETTABLEKS R12 R11 K92 ["Color"]
+  LOADK R12 K193 ["rbxasset://textures/TagEditor/Remove.png"]
   SETTABLEKS R12 R11 K182 ["Image"]
   SETTABLEKS R11 R10 K178 ["RemoveStyle"]
   GETIMPORT R11 K29 [UDim2.fromOffset]
@@ -554,6 +556,18 @@ MAIN:
   SETTABLEKS R11 R10 K221 ["ItemsPerRow"]
   LOADN R11 130
   SETTABLEKS R11 R10 K222 ["ItemMinWidth"]
+  LOADN R11 6
+  SETTABLEKS R11 R10 K56 ["Spacing"]
+  SETTABLE R10 R7 R9
+  LOADK R11 K224 ["SeedRenderer"]
+  NAMECALL R9 R5 K17 ["add"]
+  CALL R9 2 0
+  GETTABLEKS R9 R5 K224 ["SeedRenderer"]
+  DUPTABLE R10 K82 [{"Height", "Icon", "Spacing"}]
+  LOADN R11 24
+  SETTABLEKS R11 R10 K80 ["Height"]
+  GETTABLEKS R11 R3 K225 ["Randomize"]
+  SETTABLEKS R11 R10 K81 ["Icon"]
   LOADN R11 6
   SETTABLEKS R11 R10 K56 ["Spacing"]
   SETTABLE R10 R7 R9

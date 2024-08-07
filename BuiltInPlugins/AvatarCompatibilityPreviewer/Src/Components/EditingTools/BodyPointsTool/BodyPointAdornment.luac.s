@@ -48,125 +48,145 @@ PROTO_2:
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K6 ["Fragment"]
   NEWTABLE R7 0 0
-  DUPTABLE R8 K11 [{"Sphere", "X", "Y", "Z"}]
+  DUPTABLE R8 K12 [{"Sphere", "SphereOverModel", "X", "Y", "Z"}]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
-  LOADK R10 K12 ["SphereHandleAdornment"]
+  LOADK R10 K13 ["SphereHandleAdornment"]
   NEWTABLE R11 16 0
-  GETTABLEKS R12 R0 K13 ["adornee"]
-  SETTABLEKS R12 R11 K14 ["Adornee"]
+  GETTABLEKS R12 R0 K14 ["adornee"]
+  SETTABLEKS R12 R11 K15 ["Adornee"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K15 ["AlwaysOnTop"]
-  GETTABLEKS R12 R0 K16 ["cframe"]
-  SETTABLEKS R12 R11 K17 ["CFrame"]
-  GETTABLEKS R12 R0 K18 ["color"]
-  SETTABLEKS R12 R11 K19 ["Color3"]
-  LOADK R12 K20 [0.1]
-  SETTABLEKS R12 R11 K21 ["Radius"]
-  GETTABLEKS R12 R0 K22 ["transparency"]
-  SETTABLEKS R12 R11 K23 ["Transparency"]
+  SETTABLEKS R12 R11 K16 ["AlwaysOnTop"]
+  GETTABLEKS R12 R0 K17 ["cframe"]
+  SETTABLEKS R12 R11 K18 ["CFrame"]
+  GETTABLEKS R12 R0 K19 ["color"]
+  SETTABLEKS R12 R11 K20 ["Color3"]
+  LOADK R12 K21 [0.1]
+  SETTABLEKS R12 R11 K22 ["Radius"]
+  GETTABLEKS R12 R0 K23 ["transparency"]
+  SETTABLEKS R12 R11 K24 ["Transparency"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K24 ["ZIndex"]
+  SETTABLEKS R12 R11 K25 ["ZIndex"]
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K25 ["Event"]
-  GETTABLEKS R12 R13 K26 ["MouseEnter"]
+  GETTABLEKS R13 R14 K26 ["Event"]
+  GETTABLEKS R12 R13 K27 ["MouseEnter"]
   SETTABLE R2 R11 R12
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K25 ["Event"]
-  GETTABLEKS R12 R13 K27 ["MouseLeave"]
+  GETTABLEKS R13 R14 K26 ["Event"]
+  GETTABLEKS R12 R13 K28 ["MouseLeave"]
   SETTABLE R3 R11 R12
   CALL R9 2 1
   SETTABLEKS R9 R8 K7 ["Sphere"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  LOADK R10 K13 ["SphereHandleAdornment"]
+  DUPTABLE R11 K29 [{"Adornee", "AlwaysOnTop", "CFrame", "Color3", "Radius", "Transparency", "ZIndex"}]
+  GETTABLEKS R12 R0 K14 ["adornee"]
+  SETTABLEKS R12 R11 K15 ["Adornee"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K16 ["AlwaysOnTop"]
+  GETTABLEKS R12 R0 K17 ["cframe"]
+  SETTABLEKS R12 R11 K18 ["CFrame"]
+  GETTABLEKS R12 R0 K19 ["color"]
+  SETTABLEKS R12 R11 K20 ["Color3"]
+  LOADK R12 K21 [0.1]
+  SETTABLEKS R12 R11 K22 ["Radius"]
+  GETTABLEKS R12 R0 K30 ["transparencyOverModel"]
+  SETTABLEKS R12 R11 K24 ["Transparency"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K25 ["ZIndex"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K8 ["SphereOverModel"]
   MOVE R9 R4
   JUMPIFNOT R9 [+41]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
-  LOADK R10 K28 ["LineHandleAdornment"]
-  DUPTABLE R11 K31 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "CFrame", "ZIndex"}]
-  GETTABLEKS R12 R0 K13 ["adornee"]
-  SETTABLEKS R12 R11 K14 ["Adornee"]
+  LOADK R10 K31 ["LineHandleAdornment"]
+  DUPTABLE R11 K34 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "CFrame", "ZIndex"}]
+  GETTABLEKS R12 R0 K14 ["adornee"]
+  SETTABLEKS R12 R11 K15 ["Adornee"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K15 ["AlwaysOnTop"]
-  LOADK R12 K32 [0.25]
-  SETTABLEKS R12 R11 K29 ["Length"]
+  SETTABLEKS R12 R11 K16 ["AlwaysOnTop"]
+  LOADK R12 K35 [0.25]
+  SETTABLEKS R12 R11 K32 ["Length"]
   LOADN R12 3
-  SETTABLEKS R12 R11 K30 ["Thickness"]
-  GETIMPORT R12 K34 [Color3.new]
+  SETTABLEKS R12 R11 K33 ["Thickness"]
+  GETIMPORT R12 K37 [Color3.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
   CALL R12 3 1
-  SETTABLEKS R12 R11 K19 ["Color3"]
-  GETTABLEKS R13 R0 K16 ["cframe"]
-  GETIMPORT R14 K36 [CFrame.Angles]
+  SETTABLEKS R12 R11 K20 ["Color3"]
+  GETTABLEKS R13 R0 K17 ["cframe"]
+  GETIMPORT R14 K39 [CFrame.Angles]
   LOADN R15 0
-  LOADK R16 K37 [1.5707963267949]
+  LOADK R16 K40 [1.5707963267949]
   LOADN R17 0
   CALL R14 3 1
   MUL R12 R13 R14
-  SETTABLEKS R12 R11 K17 ["CFrame"]
+  SETTABLEKS R12 R11 K18 ["CFrame"]
   LOADN R12 2
-  SETTABLEKS R12 R11 K24 ["ZIndex"]
+  SETTABLEKS R12 R11 K25 ["ZIndex"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K8 ["X"]
+  SETTABLEKS R9 R8 K9 ["X"]
   MOVE R9 R4
   JUMPIFNOT R9 [+41]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
-  LOADK R10 K28 ["LineHandleAdornment"]
-  DUPTABLE R11 K31 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "CFrame", "ZIndex"}]
-  GETTABLEKS R12 R0 K13 ["adornee"]
-  SETTABLEKS R12 R11 K14 ["Adornee"]
+  LOADK R10 K31 ["LineHandleAdornment"]
+  DUPTABLE R11 K34 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "CFrame", "ZIndex"}]
+  GETTABLEKS R12 R0 K14 ["adornee"]
+  SETTABLEKS R12 R11 K15 ["Adornee"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K15 ["AlwaysOnTop"]
-  LOADK R12 K32 [0.25]
-  SETTABLEKS R12 R11 K29 ["Length"]
+  SETTABLEKS R12 R11 K16 ["AlwaysOnTop"]
+  LOADK R12 K35 [0.25]
+  SETTABLEKS R12 R11 K32 ["Length"]
   LOADN R12 3
-  SETTABLEKS R12 R11 K30 ["Thickness"]
-  GETIMPORT R12 K34 [Color3.new]
+  SETTABLEKS R12 R11 K33 ["Thickness"]
+  GETIMPORT R12 K37 [Color3.new]
   LOADN R13 0
   LOADN R14 1
   LOADN R15 0
   CALL R12 3 1
-  SETTABLEKS R12 R11 K19 ["Color3"]
-  GETTABLEKS R13 R0 K16 ["cframe"]
-  GETIMPORT R14 K36 [CFrame.Angles]
-  LOADK R15 K37 [1.5707963267949]
+  SETTABLEKS R12 R11 K20 ["Color3"]
+  GETTABLEKS R13 R0 K17 ["cframe"]
+  GETIMPORT R14 K39 [CFrame.Angles]
+  LOADK R15 K40 [1.5707963267949]
   LOADN R16 0
   LOADN R17 0
   CALL R14 3 1
   MUL R12 R13 R14
-  SETTABLEKS R12 R11 K17 ["CFrame"]
+  SETTABLEKS R12 R11 K18 ["CFrame"]
   LOADN R12 2
-  SETTABLEKS R12 R11 K24 ["ZIndex"]
+  SETTABLEKS R12 R11 K25 ["ZIndex"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K9 ["Y"]
+  SETTABLEKS R9 R8 K10 ["Y"]
   MOVE R9 R4
   JUMPIFNOT R9 [+34]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
-  LOADK R10 K28 ["LineHandleAdornment"]
-  DUPTABLE R11 K31 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "CFrame", "ZIndex"}]
-  GETTABLEKS R12 R0 K13 ["adornee"]
-  SETTABLEKS R12 R11 K14 ["Adornee"]
+  LOADK R10 K31 ["LineHandleAdornment"]
+  DUPTABLE R11 K34 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "CFrame", "ZIndex"}]
+  GETTABLEKS R12 R0 K14 ["adornee"]
+  SETTABLEKS R12 R11 K15 ["Adornee"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K15 ["AlwaysOnTop"]
-  LOADK R12 K32 [0.25]
-  SETTABLEKS R12 R11 K29 ["Length"]
+  SETTABLEKS R12 R11 K16 ["AlwaysOnTop"]
+  LOADK R12 K35 [0.25]
+  SETTABLEKS R12 R11 K32 ["Length"]
   LOADN R12 3
-  SETTABLEKS R12 R11 K30 ["Thickness"]
-  GETIMPORT R12 K34 [Color3.new]
+  SETTABLEKS R12 R11 K33 ["Thickness"]
+  GETIMPORT R12 K37 [Color3.new]
   LOADN R13 0
   LOADN R14 0
   LOADN R15 1
   CALL R12 3 1
-  SETTABLEKS R12 R11 K19 ["Color3"]
-  GETTABLEKS R12 R0 K16 ["cframe"]
-  SETTABLEKS R12 R11 K17 ["CFrame"]
+  SETTABLEKS R12 R11 K20 ["Color3"]
+  GETTABLEKS R12 R0 K17 ["cframe"]
+  SETTABLEKS R12 R11 K18 ["CFrame"]
   LOADN R12 2
-  SETTABLEKS R12 R11 K24 ["ZIndex"]
+  SETTABLEKS R12 R11 K25 ["ZIndex"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K10 ["Z"]
+  SETTABLEKS R9 R8 K11 ["Z"]
   CALL R5 3 -1
   RETURN R5 -1
 

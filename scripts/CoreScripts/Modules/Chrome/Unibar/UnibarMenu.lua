@@ -47,6 +47,7 @@ local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
 local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCapturesInChrome)
 local GetFFlagEnableChromeMusicIntegration = require(Chrome.Flags.GetFFlagEnableChromeMusicIntegration)
+local GetFStringChromeMusicIntegrationId = require(Chrome.Flags.GetFStringChromeMusicIntegrationId)
 local GetFFlagSupportChromeContainerSizing = require(Chrome.Flags.GetFFlagSupportChromeContainerSizing)
 local GetFFlagEnableJoinVoiceOnUnibar = require(Chrome.Flags.GetFFlagEnableJoinVoiceOnUnibar)
 local GetFFlagChromeUsePreferredTransparency =
@@ -173,7 +174,7 @@ function configureUnibar(viewportInfo)
 
 		-- MUS-1214 TODO: Determine placement order in menu
 		ChromeService:configureCompactUtility("music_utility", {
-			{ "now_playing", "chrome_toggle" },
+			{ GetFStringChromeMusicIntegrationId(), "chrome_toggle" },
 		})
 	end
 

@@ -140,5 +140,20 @@ MAIN:
   LOADN R3 30
   NAMECALL R0 R0 K18 ["DefineFastInt"]
   CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K33 ["ToolboxLogInsertDuration"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K34 ["ToolboxYieldWhenInserting"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K35 ["ToolboxYieldInsertPerInstanceModulus"]
+  LOADN R3 0
+  NAMECALL R0 R0 K18 ["DefineFastInt"]
+  CALL R0 3 0
   LOADNIL R0
   RETURN R0 1

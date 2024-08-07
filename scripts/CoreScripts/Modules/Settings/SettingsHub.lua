@@ -101,12 +101,14 @@ local GetFFlagEnableScreenshotUtility = require(SharedFlags).GetFFlagEnableScree
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM2", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
+local GetFFlagEnableShowVoiceUI = require(SharedFlags).GetFFlagEnableShowVoiceUI
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
 local getFFlagDebugAppChatInSettingsHub = require(CorePackages.Workspace.Packages.AppChat).Flags.getFFlagDebugAppChatInSettingsHub
 local FFlagSettingsHubCurrentPageSignal = game:DefineFastFlag("SettingsHubCurrentPageSignal", false)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
+local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -292,6 +294,7 @@ local function CreateSettingsHub()
 	this.PreferredTransparencyChangedConnection = nil
 	this.TabConnection = nil
 	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
+	this.LeaveGameUpsellPage = if GetFFlagEnableLeaveGameUpsellEntrypoint() then require(RobloxGui.Modules.Settings.Pages.LeaveGameUpsell.LeaveGameUpsell) else nil
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
 	this.SettingsShowSignal = utility:CreateSignal()
 	this.CurrentPageSignal = utility:CreateSignal()
@@ -347,7 +350,14 @@ local function CreateSettingsHub()
 		whichPage = whichPage or this.Pages.CurrentPage
 
 		if utility:IsPortrait() or utility:IsSmallTouchScreen() then
-			return Theme.AlwaysShowBottomBar()
+			-- If ShouldShowBottomBar is false, it should should take precedence, even if AlwaysShowBottomBar() is true
+			if GetFFlagFixIGMBottomBarVisibility() then
+				if not Theme.AlwaysShowBottomBar() then
+					return false
+				end
+			else
+				return Theme.AlwaysShowBottomBar()
+			end
 		end
 
 		return whichPage ~= nil and whichPage.ShouldShowBottomBar == true
@@ -807,86 +817,175 @@ local function CreateSettingsHub()
 
 	local voiceChatServiceConnected = false
 	local voiceEnabled = false
+	local muteChangedEvent = nil
+	local settingShowSignalEvent = nil
 	local function setupVoiceListeners()
 		if game:GetEngineFeature("VoiceChatSupported")
 			and not voiceChatServiceConnected
 		then
 			voiceChatServiceConnected = true
-			VoiceChatServiceManager:asyncInit():andThen(function()
-				voiceEnabled = true
-				if GetFFlagVoiceRecordingIndicatorsEnabled() then
-					this.VoiceRecordingText.Visible = true
-					local VCS = VoiceChatServiceManager:getService()
-					VCS.StateChanged:Connect(function(_oldState, newState)
-						if newState == (Enum :: any).VoiceChatState.Ended then
-							this.VoiceRecordingText.Visible = false
-							voiceEnabled = false
-							hideVoiceUx()
-						elseif newState == (Enum :: any).VoiceChatState.Joined then
-							-- If voice has been turned off, but now rejoined
-							if voiceEnabled == false then
-								addMuteButtonToBar()
-							end
-							this.VoiceRecordingText.Visible = true
-						end
-					end)
-				end
-				VoiceChatServiceManager:SetupParticipantListeners()
-				if GetFFlagEnableInExpJoinVoiceAnalytics() then
-					local callback = function(response)
-						this.hasMicPermissions = response.hasMicPermissions
-					end
-					getCamMicPermissions(callback, nil, true, "PermissionsButtons.getPermissions")
-				end
-				addMuteButtonToBar()
-				if GetFFlagMuteButtonRaceConditionFix() then
-					VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-						updateIcon()
-						if GetFFlagVoiceRecordingIndicatorsEnabled() then
-							this.isMuted = muted
-							this.lastVoiceRecordingIndicatorTextUpdated = tick()
-							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-							if this.isMuted then
-								this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
-							else
-								this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
-							end
-						end
-					end)
-
-					if GetFFlagPlayerListAnimateMic() then
-						local renderStepName = 'settings-hub-renderstep'
-						this.SettingsShowSignal:connect(function(isOpen)
-							local frame = 0
-							local renderSteppedConnected = false
-							if isOpen and not renderSteppedConnected then
-								renderSteppedConnected = true
-								RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
-									frame = frame + 1
-									-- This looks a little less flickery if we only do it once every 3 frames
-									if frame % 3 == 0 then
-										updateIcon()
-									end
-								end)
-							elseif renderSteppedConnected then
-								renderSteppedConnected = false
-								RunService:UnbindFromRenderStep(renderStepName)
-							end
-
-							if GetFFlagVoiceRecordingIndicatorsEnabled() then
-								if isOpen then
-									this.lastVoiceRecordingIndicatorTextUpdated = tick()
-									this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+			if GetFFlagEnableShowVoiceUI() then
+				local function showUI()
+					voiceEnabled = true
+					if GetFFlagVoiceRecordingIndicatorsEnabled() then
+						this.VoiceRecordingText.Visible = true
+						local VCS = VoiceChatServiceManager:getService()
+						VCS.StateChanged:Connect(function(_oldState, newState)
+							if newState == (Enum :: any).VoiceChatState.Joined then
+								-- If voice has been turned off, but now rejoined
+								if voiceEnabled == false then
+									addMuteButtonToBar()
 								end
+								this.VoiceRecordingText.Visible = true
 							end
 						end)
 					end
+					VoiceChatServiceManager:SetupParticipantListeners()
+					if GetFFlagEnableInExpJoinVoiceAnalytics() then
+						local callback = function(response)
+							this.hasMicPermissions = response.hasMicPermissions
+						end
+						getCamMicPermissions(callback, nil, true, "PermissionsButtons.getPermissions")
+					end
+					addMuteButtonToBar()
+					if GetFFlagMuteButtonRaceConditionFix() then
+						muteChangedEvent = VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+							updateIcon()
+							if GetFFlagVoiceRecordingIndicatorsEnabled() then
+								this.isMuted = muted
+								this.lastVoiceRecordingIndicatorTextUpdated = tick()
+								this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+								if this.isMuted then
+									this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
+								else
+									this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
+								end
+							end
+						end)
+
+						if GetFFlagPlayerListAnimateMic() then
+							local renderStepName = 'settings-hub-renderstep'
+							settingShowSignalEvent = this.SettingsShowSignal:connect(function(isOpen)
+								local frame = 0
+								local renderSteppedConnected = false
+								if isOpen and not renderSteppedConnected then
+									renderSteppedConnected = true
+									RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
+										frame = frame + 1
+										-- This looks a little less flickery if we only do it once every 3 frames
+										if frame % 3 == 0 then
+											updateIcon()
+										end
+									end)
+								elseif renderSteppedConnected then
+									renderSteppedConnected = false
+									RunService:UnbindFromRenderStep(renderStepName)
+								end
+
+								if GetFFlagVoiceRecordingIndicatorsEnabled() then
+									if isOpen then
+										this.lastVoiceRecordingIndicatorTextUpdated = tick()
+										this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+									end
+								end
+							end)
+						end
+					end
 				end
-			end):catch(function(err)
-				if GetFFlagVoiceChatUILogging() then
-					log:warning("Failed to init VoiceChatServiceManager {}", err)
+				local function hideUI()
+					this.VoiceRecordingText.Visible = false
+					voiceEnabled = false
+					hideVoiceUx()
+					if muteChangedEvent then
+						muteChangedEvent:Disconnect()
+					end
+					if settingShowSignalEvent then
+						settingShowSignalEvent:Disconnect()
+					end
 				end
-			end)
+
+				if VoiceChatServiceManager.voiceUIVisible then
+					showUI()
+				end
+				VoiceChatServiceManager.showVoiceUI.Event:Connect(showUI)
+				VoiceChatServiceManager.hideVoiceUI.Event:Connect(hideUI)
+			else
+				VoiceChatServiceManager:asyncInit():andThen(function()
+					voiceEnabled = true
+					if GetFFlagVoiceRecordingIndicatorsEnabled() then
+						this.VoiceRecordingText.Visible = true
+						local VCS = VoiceChatServiceManager:getService()
+						VCS.StateChanged:Connect(function(_oldState, newState)
+							if newState == (Enum :: any).VoiceChatState.Ended then
+								this.VoiceRecordingText.Visible = false
+								voiceEnabled = false
+								hideVoiceUx()
+							elseif newState == (Enum :: any).VoiceChatState.Joined then
+								-- If voice has been turned off, but now rejoined
+								if voiceEnabled == false then
+									addMuteButtonToBar()
+								end
+								this.VoiceRecordingText.Visible = true
+							end
+						end)
+					end
+					VoiceChatServiceManager:SetupParticipantListeners()
+					if GetFFlagEnableInExpJoinVoiceAnalytics() then
+						local callback = function(response)
+							this.hasMicPermissions = response.hasMicPermissions
+						end
+						getCamMicPermissions(callback, nil, true, "PermissionsButtons.getPermissions")
+					end
+					addMuteButtonToBar()
+					if GetFFlagMuteButtonRaceConditionFix() then
+						VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+							updateIcon()
+							if GetFFlagVoiceRecordingIndicatorsEnabled() then
+								this.isMuted = muted
+								this.lastVoiceRecordingIndicatorTextUpdated = tick()
+								this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+								if this.isMuted then
+									this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
+								else
+									this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
+								end
+							end
+						end)
+
+						if GetFFlagPlayerListAnimateMic() then
+							local renderStepName = 'settings-hub-renderstep'
+							this.SettingsShowSignal:connect(function(isOpen)
+								local frame = 0
+								local renderSteppedConnected = false
+								if isOpen and not renderSteppedConnected then
+									renderSteppedConnected = true
+									RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
+										frame = frame + 1
+										-- This looks a little less flickery if we only do it once every 3 frames
+										if frame % 3 == 0 then
+											updateIcon()
+										end
+									end)
+								elseif renderSteppedConnected then
+									renderSteppedConnected = false
+									RunService:UnbindFromRenderStep(renderStepName)
+								end
+
+								if GetFFlagVoiceRecordingIndicatorsEnabled() then
+									if isOpen then
+										this.lastVoiceRecordingIndicatorTextUpdated = tick()
+										this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+									end
+								end
+							end)
+						end
+					end
+				end):catch(function(err)
+					if GetFFlagVoiceChatUILogging() then
+						log:warning("Failed to init VoiceChatServiceManager {}", err)
+					end
+				end)
+			end
 		end
 	end
 
@@ -1832,8 +1931,7 @@ local function CreateSettingsHub()
 			this.HubBar.Visible = false
 			removeBottomBarBindings()
 			if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
-				-- TODO Go to upsell page
-				this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
+				this:SwitchToPage(this.LeaveGameUpsellPage, nil, 1, true)
 			else 
 				this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
 			end
@@ -2169,7 +2267,7 @@ local function CreateSettingsHub()
 			else
 				barSize = this.HubBar.Size.Y.Offset + this.BottomButtonFrame.Size.Y.Offset
 			end
-			extraSpace = bufferSize*2+barSize
+			extraSpace = bufferSize*2+(if this.Pages.CurrentPage.DisableTopPadding then 0 else barSize)
 			extraTopPadding = (GetFFlagEnableTeleportBackButton() and getBackBarVisible() and this.BackBarRef:getValue()) and this.BackBarRef:getValue().Size.Y.Offset or 0
 		end
 
@@ -2709,7 +2807,7 @@ local function CreateSettingsHub()
 			local bottomExtra = UDim.new(0, 0)
 			local hasBottomButtons = (not (utility:IsPortrait() or utility:IsSmallTouchScreen())) or Theme.AlwaysShowBottomBar()
 
-			if this.HubBar and not shouldShowHubBar(pageToSwitchTo) then
+			if this.HubBar and not shouldShowHubBar(pageToSwitchTo) and not pageToSwitchTo.DisableTopPadding then
 				topExtra = UDim.new(0, this.HubBar.AbsoluteSize.Y)
 			end
 
@@ -2807,6 +2905,11 @@ local function CreateSettingsHub()
 			end
 		end
 
+		-- When switching page, we want to call this to expand PageViewClipper size if needed by TopPadding being disabled
+		if pageToSwitchTo.DisableTopPadding then 
+			onScreenSizeChanged()
+		end
+
 		local eventTable = {}
 		eventTable["universeid"] = tostring(game.GameId)
 		if GetFFlagReportAbuseMenuEntrypointAnalytics() and eventData then
@@ -2856,10 +2959,12 @@ local function CreateSettingsHub()
 		if not GetFFlagEnableLeaveGameUpsellEntrypoint() then
 			return
 		end
+
 		if not this.checkedUpsell and this.leaveGameUpsellProp == VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
 			this.checkedUpsell = true
 			this.leaveGameUpsellProp = 
 			VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, this.sessionStartTime, true)
+			this.LeaveGameUpsellPage:SetUpsellProp(this.leaveGameUpsellProp)
 			task.delay(CHECK_LEAVE_GAME_UPSELL_COOLDOWN, function()
 				this.checkedUpsell = false
 			end)
@@ -3456,6 +3561,10 @@ local function CreateSettingsHub()
 	end
 
 	-- full page initialization
+	if GetFFlagEnableLeaveGameUpsellEntrypoint() then
+		this.LeaveGameUpsellPage:SetHub(this)
+	end
+
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
@@ -3567,6 +3676,10 @@ local function CreateSettingsHub()
 
 	if this.LeaveGamePage then
 		this:AddPage(this.LeaveGamePage)
+	end
+
+	if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.LeaveGameUpsellPage then
+		this:AddPage(this.LeaveGameUpsellPage)
 	end
 
 	this:AddPage(this.GameSettingsPage)

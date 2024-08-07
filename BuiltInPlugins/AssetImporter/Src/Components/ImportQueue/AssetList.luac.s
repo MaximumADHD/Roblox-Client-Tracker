@@ -36,7 +36,7 @@ PROTO_2:
   GETUPVAL R2 1
   GETTABLEKS R3 R1 K1 ["SessionQueue"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K2 ["UpdateQueueItem"]
+  GETTABLEKS R3 R1 K2 ["UpdateSessionInfo"]
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K3 ["update"]
   GETTABLE R5 R2 R0
@@ -170,11 +170,11 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  DUPTABLE R1 K1 [{"UpdateQueueItem"}]
+  DUPTABLE R1 K1 [{"UpdateSessionInfo"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  SETTABLEKS R2 R1 K0 ["UpdateQueueItem"]
+  SETTABLEKS R2 R1 K0 ["UpdateSessionInfo"]
   RETURN R1 1
 
 PROTO_7:
@@ -234,8 +234,8 @@ MAIN:
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K10 ["Src"]
-  GETTABLEKS R17 R18 K24 ["Actions"]
-  GETTABLEKS R16 R17 K25 ["UpdateQueueItem"]
+  GETTABLEKS R17 R18 K24 ["Thunks"]
+  GETTABLEKS R16 R17 K25 ["UpdateSessionInfo"]
   CALL R15 1 1
   GETTABLEKS R17 R0 K10 ["Src"]
   GETTABLEKS R16 R17 K26 ["Components"]

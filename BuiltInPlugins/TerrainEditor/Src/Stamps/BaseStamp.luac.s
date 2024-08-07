@@ -29,145 +29,173 @@ PROTO_2:
   GETTABLE R4 R2 R5
   JUMP [+1]
   LOADNIL R4
-  JUMPIFNOT R4 [+39]
+  JUMPIFNOT R4 [+33]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K4 ["OperationSource"]
+  GETTABLEKS R6 R7 K4 ["Transform"]
   GETTABLE R5 R4 R6
-  JUMPIFNOTEQKS R5 K5 ["Gizmo"] [+34]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K6 ["Transform"]
-  GETTABLE R5 R4 R6
-  GETTABLEKS R8 R0 K7 ["_payload"]
+  GETTABLEKS R8 R0 K5 ["_payload"]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K3 ["BuildSettings"]
   GETTABLE R7 R8 R9
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K6 ["Transform"]
+  GETTABLEKS R8 R9 K4 ["Transform"]
   GETTABLE R6 R7 R8
   JUMPIFNOTEQ R5 R6 [+18]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K8 ["Size"]
+  GETTABLEKS R6 R7 K6 ["Size"]
   GETTABLE R5 R4 R6
-  GETTABLEKS R8 R0 K7 ["_payload"]
+  GETTABLEKS R8 R0 K5 ["_payload"]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K3 ["BuildSettings"]
   GETTABLE R7 R8 R9
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K8 ["Size"]
+  GETTABLEKS R8 R9 K6 ["Size"]
   GETTABLE R6 R7 R8
   JUMPIFNOTEQ R5 R6 [+2]
   RETURN R0 0
-  SETTABLEKS R1 R0 K7 ["_payload"]
-  LOADB R5 1
-  LOADB R6 0
-  GETTABLEKS R11 R0 K7 ["_payload"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K3 ["BuildSettings"]
-  GETTABLE R10 R11 R12
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K10 ["AdvancedNoise"]
-  GETTABLE R9 R10 R11
-  GETTABLEKS R8 R9 K9 ["Children"]
+  SETTABLEKS R1 R0 K5 ["_payload"]
+  DUPTABLE R5 K11 [{"noiseMap", "heightMap", "heightMapCacheTopDown", "heightMapCacheBottomUp"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K7 ["noiseMap"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K8 ["heightMap"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K9 ["heightMapCacheTopDown"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K10 ["heightMapCacheBottomUp"]
+  JUMPIFNOT R4 [+121]
+  LOADB R6 1
+  LOADB R7 1
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["Rotation"]
-  GETTABLE R7 R8 R9
-  JUMPIFNOT R4 [+60]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K6 ["Transform"]
+  GETTABLEKS R9 R10 K4 ["Transform"]
   GETTABLE R8 R4 R9
   JUMPIF R8 [+5]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K8 ["Size"]
+  GETTABLEKS R9 R10 K6 ["Size"]
   GETTABLE R8 R4 R9
-  JUMPIFNOT R8 [+19]
+  JUMPIFNOT R8 [+43]
   GETTABLEKS R9 R0 K12 ["_region"]
-  GETTABLEKS R8 R9 K8 ["Size"]
+  GETTABLEKS R8 R9 K6 ["Size"]
   GETTABLEKS R11 R0 K12 ["_region"]
   NAMECALL R9 R0 K13 ["revertRegion"]
   CALL R9 2 0
   NAMECALL R9 R0 K14 ["setupRegion"]
   CALL R9 1 0
   GETTABLEKS R10 R0 K12 ["_region"]
-  GETTABLEKS R9 R10 K8 ["Size"]
-  JUMPIFEQ R8 R9 [+2]
-  LOADB R6 1
+  GETTABLEKS R9 R10 K6 ["Size"]
+  JUMPIFNOTEQ R8 R9 [+4]
+  LOADB R6 0
+  LOADB R7 0
+  JUMP [+28]
+  GETTABLEKS R9 R8 K15 ["X"]
+  GETTABLEKS R12 R0 K12 ["_region"]
+  GETTABLEKS R11 R12 K6 ["Size"]
+  GETTABLEKS R10 R11 K15 ["X"]
+  JUMPIFNOTEQ R9 R10 [+19]
+  GETTABLEKS R9 R8 K16 ["Z"]
+  GETTABLEKS R12 R0 K12 ["_region"]
+  GETTABLEKS R11 R12 K6 ["Size"]
+  GETTABLEKS R10 R11 K16 ["Z"]
+  JUMPIFNOTEQ R9 R10 [+9]
+  LOADB R7 0
+  JUMP [+6]
+  LOADB R8 0
+  SETTABLEKS R8 R5 K9 ["heightMapCacheTopDown"]
+  LOADB R8 0
+  SETTABLEKS R8 R5 K10 ["heightMapCacheBottomUp"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K15 ["BlendingEdge"]
+  GETTABLEKS R9 R10 K17 ["BlendingEdge"]
   GETTABLE R8 R4 R9
-  JUMPIFNOT R8 [+4]
-  MOVE R11 R8
-  NAMECALL R9 R0 K16 ["updateBlendingFactorMap"]
-  CALL R9 2 0
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K6 ["Transform"]
-  GETTABLE R9 R4 R10
-  JUMPIFNOT R9 [+1]
-  JUMPIFNOT R6 [+15]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K17 ["Material"]
-  GETTABLE R9 R4 R10
-  JUMPIF R9 [+10]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K18 ["MaterialLUT"]
-  GETTABLE R9 R4 R10
-  JUMPIF R9 [+5]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K19 ["WaterLevel"]
-  GETTABLE R9 R4 R10
-  JUMPIFNOT R9 [+1]
-  LOADB R5 0
-  GETTABLEKS R10 R0 K7 ["_payload"]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K3 ["BuildSettings"]
-  GETTABLE R9 R10 R11
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K15 ["BlendingEdge"]
-  GETTABLE R8 R9 R10
-  MOVE R9 R8
-  JUMPIFNOT R9 [+5]
+  JUMPIFNOT R8 [+11]
   LOADN R10 0
   JUMPIFLT R10 R8 [+2]
   LOADB R9 0 +1
   LOADB R9 1
-  SETTABLEKS R9 R0 K20 ["_addBlending"]
-  JUMPIFNOT R7 [+8]
-  LOADN R10 0
-  JUMPIFNOTLT R10 R7 [+6]
-  LOADN R10 104
-  JUMPIFNOTLT R7 R10 [+3]
-  MOVE R9 R7
-  JUMP [+1]
-  LOADN R9 0
-  SETTABLEKS R9 R0 K21 ["_rotationY"]
-  GETUPVAL R9 2
-  GETTABLEKS R10 R0 K22 ["_sliceX"]
-  GETTABLEKS R11 R0 K23 ["_sliceZ"]
-  GETTABLEKS R13 R0 K21 ["_rotationY"]
-  FASTCALL1 MATH_RAD R13 [+2]
-  GETIMPORT R12 K26 [math.rad]
-  CALL R12 1 1
-  CALL R9 3 1
-  SETTABLEKS R9 R0 K27 ["_getRotatedPoint"]
-  MOVE R11 R5
-  NAMECALL R9 R0 K28 ["generateStamp"]
+  SETTABLEKS R9 R0 K18 ["_addBlending"]
+  MOVE R11 R8
+  NAMECALL R9 R0 K19 ["updateBlendingFactorMap"]
   CALL R9 2 0
-  GETTABLEKS R9 R0 K29 ["_time"]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K30 ["NormalizeRegionTimer"]
-  MOVE R11 R3
-  GETTABLEKS R14 R0 K7 ["_payload"]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K3 ["BuildSettings"]
-  GETTABLE R13 R14 R15
-  GETUPVAL R15 1
-  GETTABLEKS R14 R15 K8 ["Size"]
-  GETTABLE R12 R13 R14
-  CALL R10 2 1
-  ADD R9 R9 R10
-  SETTABLEKS R9 R0 K29 ["_time"]
-  GETTABLEKS R9 R0 K31 ["_timeTotals"]
-  ADDK R9 R9 K32 [1]
-  SETTABLEKS R9 R0 K31 ["_timeTotals"]
+  JUMPIF R6 [+6]
+  LOADB R9 0
+  SETTABLEKS R9 R5 K7 ["noiseMap"]
+  LOADB R9 0
+  SETTABLEKS R9 R5 K8 ["heightMap"]
+  JUMPIF R7 [+3]
+  LOADB R9 0
+  SETTABLEKS R9 R5 K7 ["noiseMap"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K20 ["Material"]
+  GETTABLE R9 R4 R10
+  JUMPIF R9 [+15]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K21 ["MaterialLUT"]
+  GETTABLE R9 R4 R10
+  JUMPIF R9 [+10]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K22 ["WaterLevel"]
+  GETTABLE R9 R4 R10
+  JUMPIF R9 [+5]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K17 ["BlendingEdge"]
+  GETTABLE R9 R4 R10
+  JUMPIFNOT R9 [+6]
+  LOADB R9 0
+  SETTABLEKS R9 R5 K7 ["noiseMap"]
+  LOADB R9 0
+  SETTABLEKS R9 R5 K8 ["heightMap"]
+  GETTABLEKS R9 R5 K8 ["heightMap"]
+  JUMPIF R9 [+2]
+  GETTABLEKS R9 R5 K10 ["heightMapCacheBottomUp"]
+  SETTABLEKS R9 R5 K10 ["heightMapCacheBottomUp"]
+  GETTABLEKS R10 R0 K5 ["_payload"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K3 ["BuildSettings"]
+  GETTABLE R9 R10 R11
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K24 ["AdvancedNoise"]
+  GETTABLE R8 R9 R10
+  GETTABLEKS R7 R8 K23 ["Children"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K25 ["Rotation"]
+  GETTABLE R6 R7 R8
+  JUMPIFNOT R6 [+8]
+  LOADN R8 0
+  JUMPIFNOTLT R8 R6 [+6]
+  LOADN R8 104
+  JUMPIFNOTLT R6 R8 [+3]
+  MOVE R7 R6
+  JUMP [+1]
+  LOADN R7 0
+  SETTABLEKS R7 R0 K26 ["_rotationY"]
+  GETUPVAL R7 2
+  GETTABLEKS R8 R0 K27 ["_sliceX"]
+  GETTABLEKS R9 R0 K28 ["_sliceZ"]
+  GETTABLEKS R11 R0 K26 ["_rotationY"]
+  FASTCALL1 MATH_RAD R11 [+2]
+  GETIMPORT R10 K31 [math.rad]
+  CALL R10 1 1
+  CALL R7 3 1
+  SETTABLEKS R7 R0 K32 ["_getRotatedPoint"]
+  MOVE R9 R5
+  NAMECALL R7 R0 K33 ["generateStamp"]
+  CALL R7 2 0
+  GETTABLEKS R7 R0 K34 ["_time"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K35 ["NormalizeRegionTimer"]
+  MOVE R9 R3
+  GETTABLEKS R12 R0 K5 ["_payload"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K3 ["BuildSettings"]
+  GETTABLE R11 R12 R13
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K6 ["Size"]
+  GETTABLE R10 R11 R12
+  CALL R8 2 1
+  ADD R7 R7 R8
+  SETTABLEKS R7 R0 K34 ["_time"]
+  GETTABLEKS R7 R0 K36 ["_timeTotals"]
+  ADDK R7 R7 K37 [1]
+  SETTABLEKS R7 R0 K36 ["_timeTotals"]
   RETURN R0 0
 
 PROTO_3:
@@ -265,103 +293,110 @@ PROTO_7:
   GETIMPORT R3 K4 [Vector3.zero]
   JUMPIFNOTEQ R2 R3 [+2]
   RETURN R0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K8 ["TG_GenerateHeightCacheTopDown"]
+  GETTABLEKS R2 R1 K5 ["heightMapCacheTopDown"]
+  JUMPIFNOT R2 [+10]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K9 ["TG_GenerateHeightCacheTopDown"]
   CALL R2 1 0
-  NAMECALL R2 R0 K9 ["generateHeightMapCacheTopDown"]
+  NAMECALL R2 R0 K10 ["generateHeightMapCacheTopDown"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  JUMPIFNOT R1 [+20]
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K12 ["TG_GenerateNoise"]
+  GETTABLEKS R2 R1 K13 ["noiseMap"]
+  JUMPIFNOT R2 [+10]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K14 ["TG_GenerateNoise"]
   CALL R2 1 0
-  NAMECALL R2 R0 K13 ["generateNoiseMap"]
+  NAMECALL R2 R0 K15 ["generateNoiseMap"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K14 ["TG_GenerateHeight"]
+  GETTABLEKS R2 R1 K16 ["heightMap"]
+  JUMPIFNOT R2 [+10]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K17 ["TG_GenerateHeight"]
   CALL R2 1 0
-  NAMECALL R2 R0 K15 ["generateHeightMap"]
+  NAMECALL R2 R0 K18 ["generateHeightMap"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K16 ["TG_GenerateHeightCacheBottomUp"]
+  GETTABLEKS R2 R1 K19 ["heightMapCacheBottomUp"]
+  JUMPIFNOT R2 [+10]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K20 ["TG_GenerateHeightCacheBottomUp"]
   CALL R2 1 0
-  NAMECALL R2 R0 K17 ["generateHeightMapCacheBottomUp"]
+  NAMECALL R2 R0 K21 ["generateHeightMapCacheBottomUp"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K18 ["TG_BlendHeight"]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K22 ["TG_BlendHeight"]
   CALL R2 1 0
-  NAMECALL R2 R0 K19 ["blendHeightMap"]
+  NAMECALL R2 R0 K23 ["blendHeightMap"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K20 ["TG_GenerateOccupancyMap"]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K24 ["TG_GenerateOccupancyMap"]
   CALL R2 1 0
-  NAMECALL R2 R0 K21 ["generateOccupancyMap"]
+  NAMECALL R2 R0 K25 ["generateOccupancyMap"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K22 ["TG_GenerateSlopeMap"]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K26 ["TG_GenerateSlopeMap"]
   CALL R2 1 0
-  NAMECALL R2 R0 K23 ["generateSlopeMap"]
+  NAMECALL R2 R0 K27 ["generateSlopeMap"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K24 ["TG_GenerateMaterial"]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K28 ["TG_GenerateMaterial"]
   CALL R2 1 0
-  NAMECALL R2 R0 K25 ["generateMaterialMap"]
+  NAMECALL R2 R0 K29 ["generateMaterialMap"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K26 ["TG_BlendMaterialMap"]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K30 ["TG_BlendMaterialMap"]
   CALL R2 1 0
-  NAMECALL R2 R0 K27 ["blendMaterialMap"]
+  NAMECALL R2 R0 K31 ["blendMaterialMap"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
-  GETIMPORT R2 K7 [debug.profilebegin]
-  LOADK R3 K28 ["TG_PostProcessing"]
+  GETIMPORT R2 K8 [debug.profilebegin]
+  LOADK R3 K32 ["TG_PostProcessing"]
   CALL R2 1 0
-  NAMECALL R2 R0 K29 ["postProcessing"]
+  NAMECALL R2 R0 K33 ["postProcessing"]
   CALL R2 1 0
-  GETIMPORT R2 K11 [debug.profileend]
+  GETIMPORT R2 K12 [debug.profileend]
   CALL R2 0 0
   GETUPVAL R2 0
   CALL R2 0 1
   JUMPIFNOT R2 [+3]
-  NAMECALL R2 R0 K30 ["debugDraw"]
+  NAMECALL R2 R0 K34 ["debugDraw"]
   CALL R2 1 0
-  GETTABLEKS R3 R0 K31 ["_services"]
-  GETTABLEKS R2 R3 K32 ["Terrain"]
+  GETTABLEKS R3 R0 K35 ["_services"]
+  GETTABLEKS R2 R3 K36 ["Terrain"]
   GETTABLEKS R4 R0 K0 ["_region"]
   GETUPVAL R5 1
-  DUPTABLE R6 K35 [{"SolidMaterial", "SolidOccupancy"}]
-  GETTABLEKS R7 R0 K36 ["_materialMap"]
-  SETTABLEKS R7 R6 K33 ["SolidMaterial"]
-  GETTABLEKS R7 R0 K37 ["_occupancyMap"]
-  SETTABLEKS R7 R6 K34 ["SolidOccupancy"]
-  NAMECALL R2 R2 K38 ["WriteVoxelChannels"]
+  DUPTABLE R6 K39 [{"SolidMaterial", "SolidOccupancy"}]
+  GETTABLEKS R7 R0 K40 ["_materialMap"]
+  SETTABLEKS R7 R6 K37 ["SolidMaterial"]
+  GETTABLEKS R7 R0 K41 ["_occupancyMap"]
+  SETTABLEKS R7 R6 K38 ["SolidOccupancy"]
+  NAMECALL R2 R2 K42 ["WriteVoxelChannels"]
   CALL R2 4 0
-  GETTABLEKS R2 R0 K39 ["_waterMap"]
+  GETTABLEKS R2 R0 K43 ["_waterMap"]
   JUMPIFNOT R2 [+15]
-  GETTABLEKS R3 R0 K31 ["_services"]
-  GETTABLEKS R2 R3 K32 ["Terrain"]
+  GETTABLEKS R3 R0 K35 ["_services"]
+  GETTABLEKS R2 R3 K36 ["Terrain"]
   GETTABLEKS R4 R0 K0 ["_region"]
   GETUPVAL R5 1
-  DUPTABLE R6 K41 [{"LiquidOccupancy"}]
-  GETTABLEKS R7 R0 K39 ["_waterMap"]
-  SETTABLEKS R7 R6 K40 ["LiquidOccupancy"]
-  NAMECALL R2 R2 K38 ["WriteVoxelChannels"]
+  DUPTABLE R6 K45 [{"LiquidOccupancy"}]
+  GETTABLEKS R7 R0 K43 ["_waterMap"]
+  SETTABLEKS R7 R6 K44 ["LiquidOccupancy"]
+  NAMECALL R2 R2 K42 ["WriteVoxelChannels"]
   CALL R2 4 0
   RETURN R0 0
 
@@ -401,7 +436,7 @@ PROTO_9:
   GETTABLEKS R6 R0 K9 ["_mapSize"]
   LOADN R7 0
   CALL R5 2 1
-  SETTABLEKS R5 R0 K10 ["_heightMap"]
+  SETTABLEKS R5 R0 K10 ["_heightMapFromNoise"]
   LOADN R7 1
   GETTABLEKS R5 R0 K9 ["_mapSize"]
   LOADN R6 1
@@ -412,7 +447,7 @@ PROTO_9:
   MUL R10 R11 R3
   MUL R9 R10 R8
   ADD R10 R4 R9
-  GETTABLEKS R11 R0 K10 ["_heightMap"]
+  GETTABLEKS R11 R0 K10 ["_heightMapFromNoise"]
   MOVE R13 R10
   LOADN R14 0
   GETTABLEKS R15 R0 K5 ["_sliceY"]
@@ -889,20 +924,24 @@ PROTO_14:
   RETURN R0 0
 
 PROTO_15:
-  GETTABLEKS R1 R0 K0 ["_addBlending"]
+  GETIMPORT R1 K2 [table.clone]
+  GETTABLEKS R2 R0 K3 ["_heightMapFromNoise"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K4 ["_heightMap"]
+  GETTABLEKS R1 R0 K5 ["_addBlending"]
   JUMPIF R1 [+1]
   RETURN R0 0
   LOADN R3 1
-  GETTABLEKS R1 R0 K1 ["_mapSize"]
+  GETTABLEKS R1 R0 K6 ["_mapSize"]
   LOADN R2 1
   FORNPREP R1
-  GETTABLEKS R5 R0 K2 ["_heightMap"]
+  GETTABLEKS R5 R0 K3 ["_heightMapFromNoise"]
   GETTABLE R4 R5 R3
-  GETTABLEKS R6 R0 K3 ["_heightmapCache"]
+  GETTABLEKS R6 R0 K7 ["_heightmapCache"]
   GETTABLE R5 R6 R3
-  GETTABLEKS R7 R0 K4 ["_blendingFactorMap"]
+  GETTABLEKS R7 R0 K8 ["_blendingFactorMap"]
   GETTABLE R6 R7 R3
-  GETTABLEKS R7 R0 K2 ["_heightMap"]
+  GETTABLEKS R7 R0 K4 ["_heightMap"]
   LOADN R11 1
   SUB R10 R11 R6
   MUL R9 R10 R4
@@ -1022,7 +1061,7 @@ PROTO_21:
   MOVE R10 R6
   NAMECALL R7 R0 K7 ["getIndex"]
   CALL R7 3 1
-  GETTABLEKS R9 R0 K8 ["_heightMap"]
+  GETTABLEKS R9 R0 K8 ["_heightMapFromNoise"]
   GETTABLE R8 R9 R7
   GETTABLEKS R10 R0 K9 ["_sliceY"]
   FASTCALL1 MATH_CEIL R8 [+3]
@@ -1404,86 +1443,85 @@ MAIN:
   GETTABLEKS R13 R14 K13 ["Util"]
   GETTABLEKS R12 R13 K20 ["AnalyticsHelper"]
   CALL R11 1 1
-  GETIMPORT R12 K24 [Enum.Material.Ground]
-  NEWTABLE R13 32 0
-  GETIMPORT R14 K26 [game]
-  LOADK R16 K27 ["StarterGui"]
-  NAMECALL R14 R14 K28 ["GetService"]
-  CALL R14 2 1
-  SETTABLEKS R13 R13 K29 ["__index"]
-  DUPCLOSURE R15 K30 [PROTO_0]
-  SETTABLEKS R15 R13 K31 ["new"]
-  DUPCLOSURE R15 K32 [PROTO_1]
-  SETTABLEKS R15 R13 K33 ["init"]
-  DUPCLOSURE R15 K34 [PROTO_2]
+  NEWTABLE R12 32 0
+  GETIMPORT R13 K22 [game]
+  LOADK R15 K23 ["StarterGui"]
+  NAMECALL R13 R13 K24 ["GetService"]
+  CALL R13 2 1
+  SETTABLEKS R12 R12 K25 ["__index"]
+  DUPCLOSURE R14 K26 [PROTO_0]
+  SETTABLEKS R14 R12 K27 ["new"]
+  DUPCLOSURE R14 K28 [PROTO_1]
+  SETTABLEKS R14 R12 K29 ["init"]
+  DUPCLOSURE R14 K30 [PROTO_2]
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R9
   CAPTURE VAL R11
-  SETTABLEKS R15 R13 K35 ["update"]
-  DUPCLOSURE R15 K36 [PROTO_3]
-  SETTABLEKS R15 R13 K37 ["getAverageFrameTime"]
-  DUPCLOSURE R15 K38 [PROTO_4]
-  SETTABLEKS R15 R13 K39 ["getTerrainType"]
-  DUPCLOSURE R15 K40 [PROTO_5]
+  SETTABLEKS R14 R12 K31 ["update"]
+  DUPCLOSURE R14 K32 [PROTO_3]
+  SETTABLEKS R14 R12 K33 ["getAverageFrameTime"]
+  DUPCLOSURE R14 K34 [PROTO_4]
+  SETTABLEKS R14 R12 K35 ["getTerrainType"]
+  DUPCLOSURE R14 K36 [PROTO_5]
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R2
-  SETTABLEKS R15 R13 K41 ["setupRegion"]
-  DUPCLOSURE R15 K42 [PROTO_6]
-  SETTABLEKS R15 R13 K43 ["getIndex"]
-  DUPCLOSURE R15 K44 [PROTO_7]
+  SETTABLEKS R14 R12 K37 ["setupRegion"]
+  DUPCLOSURE R14 K38 [PROTO_6]
+  SETTABLEKS R14 R12 K39 ["getIndex"]
+  DUPCLOSURE R14 K40 [PROTO_7]
   CAPTURE VAL R10
   CAPTURE VAL R2
-  SETTABLEKS R15 R13 K45 ["generateStamp"]
-  DUPCLOSURE R15 K46 [PROTO_8]
-  SETTABLEKS R15 R13 K47 ["generateNoiseMap"]
-  DUPCLOSURE R15 K48 [PROTO_9]
+  SETTABLEKS R14 R12 K41 ["generateStamp"]
+  DUPCLOSURE R14 K42 [PROTO_8]
+  SETTABLEKS R14 R12 K43 ["generateNoiseMap"]
+  DUPCLOSURE R14 K44 [PROTO_9]
   CAPTURE VAL R5
   CAPTURE VAL R4
-  SETTABLEKS R15 R13 K49 ["generateHeightMap"]
-  DUPCLOSURE R15 K50 [PROTO_10]
-  SETTABLEKS R15 R13 K51 ["generateSlopeMap"]
-  DUPCLOSURE R15 K52 [PROTO_11]
-  SETTABLEKS R15 R13 K53 ["generateOccupancyMap"]
-  DUPCLOSURE R15 K54 [PROTO_12]
+  SETTABLEKS R14 R12 K45 ["generateHeightMap"]
+  DUPCLOSURE R14 K46 [PROTO_10]
+  SETTABLEKS R14 R12 K47 ["generateSlopeMap"]
+  DUPCLOSURE R14 K48 [PROTO_11]
+  SETTABLEKS R14 R12 K49 ["generateOccupancyMap"]
+  DUPCLOSURE R14 K50 [PROTO_12]
   CAPTURE VAL R5
   CAPTURE VAL R4
-  SETTABLEKS R15 R13 K55 ["generateMaterialMap"]
-  DUPCLOSURE R15 K56 [PROTO_13]
+  SETTABLEKS R14 R12 K51 ["generateMaterialMap"]
+  DUPCLOSURE R14 K52 [PROTO_13]
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R2
-  SETTABLEKS R15 R13 K57 ["fillInternalMaterial"]
-  DUPCLOSURE R15 K58 [PROTO_14]
+  SETTABLEKS R14 R12 K53 ["fillInternalMaterial"]
+  DUPCLOSURE R14 K54 [PROTO_14]
   CAPTURE VAL R7
-  SETTABLEKS R15 R13 K59 ["updateBlendingFactorMap"]
-  DUPCLOSURE R15 K60 [PROTO_15]
-  SETTABLEKS R15 R13 K61 ["blendHeightMap"]
-  DUPCLOSURE R15 K62 [PROTO_16]
-  SETTABLEKS R15 R13 K63 ["blendMaterialMap"]
-  DUPCLOSURE R15 K64 [PROTO_17]
-  SETTABLEKS R15 R13 K65 ["postProcessing"]
-  DUPCLOSURE R15 K66 [PROTO_18]
-  SETTABLEKS R15 R13 K67 ["commit"]
-  DUPCLOSURE R15 K68 [PROTO_19]
-  SETTABLEKS R15 R13 K69 ["destroy"]
-  DUPCLOSURE R15 K70 [PROTO_20]
-  SETTABLEKS R15 R13 K71 ["generateHeightMapCacheTopDown"]
-  DUPCLOSURE R15 K72 [PROTO_21]
-  SETTABLEKS R15 R13 K73 ["generateHeightMapCacheBottomUp"]
-  DUPCLOSURE R15 K74 [PROTO_22]
+  SETTABLEKS R14 R12 K55 ["updateBlendingFactorMap"]
+  DUPCLOSURE R14 K56 [PROTO_15]
+  SETTABLEKS R14 R12 K57 ["blendHeightMap"]
+  DUPCLOSURE R14 K58 [PROTO_16]
+  SETTABLEKS R14 R12 K59 ["blendMaterialMap"]
+  DUPCLOSURE R14 K60 [PROTO_17]
+  SETTABLEKS R14 R12 K61 ["postProcessing"]
+  DUPCLOSURE R14 K62 [PROTO_18]
+  SETTABLEKS R14 R12 K63 ["commit"]
+  DUPCLOSURE R14 K64 [PROTO_19]
+  SETTABLEKS R14 R12 K65 ["destroy"]
+  DUPCLOSURE R14 K66 [PROTO_20]
+  SETTABLEKS R14 R12 K67 ["generateHeightMapCacheTopDown"]
+  DUPCLOSURE R14 K68 [PROTO_21]
+  SETTABLEKS R14 R12 K69 ["generateHeightMapCacheBottomUp"]
+  DUPCLOSURE R14 K70 [PROTO_22]
   CAPTURE VAL R2
-  SETTABLEKS R15 R13 K75 ["cacheRegion"]
-  DUPCLOSURE R15 K76 [PROTO_23]
+  SETTABLEKS R14 R12 K71 ["cacheRegion"]
+  DUPCLOSURE R14 K72 [PROTO_23]
   CAPTURE VAL R2
-  SETTABLEKS R15 R13 K77 ["revertRegion"]
-  DUPCLOSURE R15 K78 [PROTO_24]
-  SETTABLEKS R15 R13 K79 ["clearRegionCache"]
-  DUPCLOSURE R15 K80 [PROTO_25]
-  CAPTURE VAL R14
-  SETTABLEKS R15 R13 K81 ["debugDrawArray"]
-  DUPCLOSURE R15 K82 [PROTO_26]
-  CAPTURE VAL R14
-  SETTABLEKS R15 R13 K83 ["debugDraw"]
-  RETURN R13 1
+  SETTABLEKS R14 R12 K73 ["revertRegion"]
+  DUPCLOSURE R14 K74 [PROTO_24]
+  SETTABLEKS R14 R12 K75 ["clearRegionCache"]
+  DUPCLOSURE R14 K76 [PROTO_25]
+  CAPTURE VAL R13
+  SETTABLEKS R14 R12 K77 ["debugDrawArray"]
+  DUPCLOSURE R14 K78 [PROTO_26]
+  CAPTURE VAL R13
+  SETTABLEKS R14 R12 K79 ["debugDraw"]
+  RETURN R12 1
