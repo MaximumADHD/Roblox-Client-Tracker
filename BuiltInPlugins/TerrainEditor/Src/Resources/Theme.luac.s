@@ -380,21 +380,19 @@ MAIN:
   NAMECALL R9 R5 K17 ["add"]
   CALL R9 2 0
   GETTABLEKS R9 R5 K168 ["ElevationRenderer"]
-  DUPTABLE R10 K181 [{"AddStyle", "ArrowSize", "ArrowStyle", "ButtonSize", "Corner", "ImageColor", "ImageColorSelected", "MaterialPreviewSize", "PreviewBorder", "RemoveStyle", "SliderSize", "TextBoxSize", "Spacing"}]
-  DUPTABLE R11 K183 [{"Color", "Image"}]
-  GETTABLEKS R12 R3 K184 ["TextPrimary"]
-  SETTABLEKS R12 R11 K92 ["Color"]
-  LOADK R12 K185 ["rbxasset://textures/TagEditor/Add.png"]
-  SETTABLEKS R12 R11 K182 ["Image"]
+  DUPTABLE R10 K182 [{"AddStyle", "ArrowSize", "ArrowStyle", "ButtonSize", "Corner", "ImageColor", "ImageColorSelected", "MaterialPreviewSize", "PreviewBorder", "RemoveStyle", "SliderAreaSize", "SliderSize", "TextBoxSize", "Spacing"}]
+  DUPTABLE R11 K184 [{"Image"}]
+  GETTABLEKS R12 R3 K185 ["Add"]
+  SETTABLEKS R12 R11 K183 ["Image"]
   SETTABLEKS R11 R10 K169 ["AddStyle"]
   GETIMPORT R11 K29 [UDim2.fromOffset]
   LOADN R12 10
   LOADN R13 5
   CALL R11 2 1
   SETTABLEKS R11 R10 K170 ["ArrowSize"]
-  DUPTABLE R11 K186 [{"Image"}]
-  LOADK R12 K187 ["rbxasset://textures/TerrainEditor/trianglesmallinverted.png"]
-  SETTABLEKS R12 R11 K182 ["Image"]
+  DUPTABLE R11 K184 [{"Image"}]
+  LOADK R12 K186 ["rbxasset://textures/TerrainEditor/trianglesmallinverted.png"]
+  SETTABLEKS R12 R11 K183 ["Image"]
   SETTABLEKS R11 R10 K171 ["ArrowStyle"]
   GETIMPORT R11 K29 [UDim2.fromOffset]
   LOADN R12 16
@@ -406,7 +404,7 @@ MAIN:
   LOADN R13 4
   CALL R11 2 1
   SETTABLEKS R11 R10 K173 ["Corner"]
-  GETTABLEKS R11 R3 K184 ["TextPrimary"]
+  GETTABLEKS R11 R3 K187 ["TextPrimary"]
   SETTABLEKS R11 R10 K174 ["ImageColor"]
   GETTABLEKS R11 R3 K119 ["DialogMainButton"]
   SETTABLEKS R11 R10 K175 ["ImageColorSelected"]
@@ -419,7 +417,7 @@ MAIN:
   GETTABLEKS R12 R3 K119 ["DialogMainButton"]
   SETTABLEKS R12 R11 K92 ["Color"]
   LOADK R12 K190 ["rbxasset://textures/StudioToolbox/RoundedBorder.png"]
-  SETTABLEKS R12 R11 K182 ["Image"]
+  SETTABLEKS R12 R11 K183 ["Image"]
   GETIMPORT R12 K192 [Rect.new]
   LOADN R13 3
   LOADN R14 3
@@ -428,22 +426,25 @@ MAIN:
   CALL R12 4 1
   SETTABLEKS R12 R11 K188 ["SliceCenter"]
   SETTABLEKS R11 R10 K177 ["PreviewBorder"]
-  DUPTABLE R11 K183 [{"Color", "Image"}]
-  GETTABLEKS R12 R3 K184 ["TextPrimary"]
-  SETTABLEKS R12 R11 K92 ["Color"]
-  LOADK R12 K193 ["rbxasset://textures/TagEditor/Remove.png"]
-  SETTABLEKS R12 R11 K182 ["Image"]
+  DUPTABLE R11 K184 [{"Image"}]
+  GETTABLEKS R12 R3 K193 ["Remove"]
+  SETTABLEKS R12 R11 K183 ["Image"]
   SETTABLEKS R11 R10 K178 ["RemoveStyle"]
+  GETIMPORT R11 K29 [UDim2.fromOffset]
+  LOADN R12 20
+  LOADN R13 182
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K179 ["SliderAreaSize"]
   GETIMPORT R11 K29 [UDim2.fromOffset]
   LOADN R12 20
   LOADN R13 200
   CALL R11 2 1
-  SETTABLEKS R11 R10 K179 ["SliderSize"]
+  SETTABLEKS R11 R10 K180 ["SliderSize"]
   GETIMPORT R11 K29 [UDim2.fromOffset]
   LOADN R12 50
   LOADN R13 20
   CALL R11 2 1
-  SETTABLEKS R11 R10 K180 ["TextBoxSize"]
+  SETTABLEKS R11 R10 K181 ["TextBoxSize"]
   LOADN R11 10
   SETTABLEKS R11 R10 K56 ["Spacing"]
   SETTABLE R10 R7 R9
@@ -481,7 +482,7 @@ MAIN:
   LOADN R12 0
   SETTABLEKS R12 R11 K205 ["BorderSizePixel"]
   LOADK R12 K210 ["rbxasset://textures/DeveloperFramework/AssetPreview/close_button.png"]
-  SETTABLEKS R12 R11 K182 ["Image"]
+  SETTABLEKS R12 R11 K183 ["Image"]
   GETIMPORT R12 K212 [Color3.fromRGB]
   LOADN R13 255
   LOADN R14 255

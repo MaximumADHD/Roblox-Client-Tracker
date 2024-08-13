@@ -45,6 +45,7 @@ local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSetting
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local GetFFlagAddHapticsToggle = SharedFlags.GetFFlagAddHapticsToggle
 local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
+local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding", false)
 local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(script.Parent.Parent.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
 
 
@@ -175,6 +176,7 @@ local GetHasGuiHidingPermission = require(RobloxGui.Modules.Common.GetHasGuiHidi
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Cryo = require(CorePackages.Cryo)
 local GfxReset = require(script.Parent.Parent.GfxReset)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -222,7 +224,6 @@ local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProf
 local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flags.GetFIntVoiceChatDeviceChangeDebounceDelay)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
-local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
 local GetFFlagGameSettingsCameraModeFixEnabled = SharedFlags.GetFFlagGameSettingsCameraModeFixEnabled
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
@@ -920,7 +921,7 @@ local function Initialize()
 		this.PerformanceStatsFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["PerformanceStatsFrame"]
 
 		this.PerformanceStatsOverrideText =
-			utility:Create "TextLabel" {
+			Create "TextLabel" {
 			Name = "PerformanceStatsLabel",
 			Text = "Set by Developer",
 			TextColor3 = Color3.new(1, 1, 1),
@@ -976,7 +977,7 @@ local function Initialize()
 		this.InformationFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 
 		this.InformationText =
-			utility:Create "TextLabel" {
+			Create "TextLabel" {
 			Name = "InformationLabel",
 			Text = "Information Loading",
 			Font = Theme.font(Enum.Font.SourceSans),
@@ -1154,7 +1155,7 @@ local function Initialize()
 				settingsDisabledInVR[this.ShiftLockFrame] = true
 
 				this.ShiftLockOverrideText =
-					utility:Create "TextLabel" {
+					Create "TextLabel" {
 					Name = "ShiftLockOverrideLabel",
 					Text = "Set by Developer",
 					TextColor3 = Color3.new(1, 1, 1),
@@ -1317,7 +1318,7 @@ local function Initialize()
 			settingsDisabledInVR[this.CameraMode] = true
 
 			this.CameraModeOverrideText =
-				utility:Create "TextLabel" {
+				Create "TextLabel" {
 				Name = "CameraDevOverrideLabel",
 				Text = "Set by Developer",
 				TextColor3 = Color3.new(1, 1, 1),
@@ -1617,7 +1618,7 @@ local function Initialize()
 			settingsDisabledInVR[this.MovementMode] = true
 
 			this.MovementModeOverrideText =
-				utility:Create "TextLabel" {
+				Create "TextLabel" {
 				Name = "MovementDevOverrideLabel",
 				Text = "Set by Developer",
 				TextColor3 = Color3.new(1, 1, 1),
@@ -2549,6 +2550,7 @@ local function Initialize()
 		-- affects both first and third person.
 		local AdvancedMouseSteps = 10
 		local textBoxWidth = 60
+		local textBoxPadding = 20
 		local canSetSensitivity = true
 		local _MouseAdvancedStart = tostring(GameSettings.MouseSensitivityFirstPerson.X)
 
@@ -2560,14 +2562,18 @@ local function Initialize()
 		this.MouseAdvancedEntry.SliderFrame.Size =
 			UDim2.new(
 			this.MouseAdvancedEntry.SliderFrame.Size.X.Scale,
-			this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth,
+			if FFlagCameraSensitivityPadding 
+				then this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth - textBoxPadding
+				else this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth,
 			this.MouseAdvancedEntry.SliderFrame.Size.Y.Scale,
 			this.MouseAdvancedEntry.SliderFrame.Size.Y.Offset - 6
 		)
 		this.MouseAdvancedEntry.SliderFrame.Position =
 			UDim2.new(
 			this.MouseAdvancedEntry.SliderFrame.Position.X.Scale,
-			this.MouseAdvancedEntry.SliderFrame.Position.X.Offset - textBoxWidth,
+			if FFlagCameraSensitivityPadding 
+				then this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth - textBoxPadding
+				else this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth,
 			this.MouseAdvancedEntry.SliderFrame.Position.Y.Scale,
 			this.MouseAdvancedEntry.SliderFrame.Position.Y.Offset
 		)
@@ -2575,7 +2581,7 @@ local function Initialize()
 		this.MouseAdvancedEntry:SetInteractable(true)
 
 		local textBox =
-			utility:Create "TextBox" {
+			Create "TextBox" {
 			Name = "CameraSensitivityTextBox",
 			TextColor3 = Color3.new(1, 1, 1),
 			BorderColor3 = Color3.new(0.8, 0.8, 0.8),
@@ -2583,7 +2589,7 @@ local function Initialize()
 			Font = Theme.font(Enum.Font.SourceSans),
 			TextSize = Theme.textSize(18),
 			Size = UDim2.new(0, textBoxWidth, 0.8, 0),
-			Position = UDim2.new(1, -2, 0.5, 0),
+			Position = UDim2.new(1, if FFlagCameraSensitivityPadding then textBoxPadding / 2 else -2, 0.5, 0),
 			AnchorPoint = Vector2.new(0, 0.5),
 			ZIndex = 3,
 			Selectable = false,
@@ -2592,7 +2598,7 @@ local function Initialize()
 		}
 
 		if Theme.UIBloxThemeEnabled then
-			utility:Create'UICorner'
+			Create'UICorner'
 			{
 				CornerRadius = Theme.DefaultCornerRadius,
 				Parent = textBox,
@@ -3149,7 +3155,7 @@ local function Initialize()
 
 		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
 			if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-				if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
+				if game:GetEngineFeature("UseFmodForInputDevices") then
 					return SoundService:GetInputDevices()
 				else
 					return VoiceChatService:GetMicDevices()

@@ -21,4 +21,6 @@ return {
 	useInteractableWithTileAndCell = UIBloxFlags.GetFFlagUseInteractableWithTileAndCell(),
 	fixHeaderBarTitleFlickering = UIBloxFlags.GetFFlagUIBloxFixHeaderBarTitleFlickering(),
 	fixHeaderBarDependenciesArray = UIBloxFlags.GetFFlagUIBloxFixHeaderBarDependenciesArray(),
+	enableCreateLazyComponent = UIBloxFlags.GetFFlagEnableCreateLazyComponent(),
+	enableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport(),
 }

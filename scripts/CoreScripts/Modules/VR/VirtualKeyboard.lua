@@ -12,9 +12,10 @@ local ContextActionService = game:GetService('ContextActionService')
 local PlayersService = game:GetService('Players')
 local SoundService = game:GetService('SoundService')
 local TextService = game:GetService('TextService')
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local Util = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local BACKGROUND_OPACITY = 0.3
 local NORMAL_KEY_COLOR = Color3.new(49/255,49/255,49/255)
@@ -320,7 +321,7 @@ local function CreateVRButton(instance)
 	return newButton
 end
 
-local selectionRing = Util:Create'ImageLabel'
+local selectionRing = Create'ImageLabel'
 {
 	Name = 'SelectionRing';
 	Size = UDim2.new(1, -6, 1, -6);
@@ -339,7 +340,7 @@ local KEY_ICONS =
 local function CreateKeyboardKey(keyboard, layoutData, keyData)
 	local isSpecialShapeKey = layoutData['width2'] and layoutData['height2'] and layoutData['x2'] and layoutData['y2']
 
-	local newKeyElement = Util:Create'ImageButton'
+	local newKeyElement = Create'ImageButton'
 	{
 		Name = keyData[1];
 		Position = UDim2.new(layoutData['x'], 0, layoutData['y'], 0);
@@ -349,7 +350,7 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 		BackgroundTransparency = 1;
 		ZIndex = 1;
 	}
-	local keyText = Util:Create'TextLabel'
+	local keyText = Create'TextLabel'
 	{
 		Name = "KeyText";
 		Text = keyData[#keyData];
@@ -363,7 +364,7 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 		ZIndex = 2;
 		Parent = newKeyElement;
 	}
-	local backgroundImage = Util:Create'Frame'
+	local backgroundImage = Create'Frame'
 	{
 		Name = 'KeyBackground';
 		Size = UDim2.new(1,-10,1,-10);
@@ -374,7 +375,7 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 		Parent = newKeyElement;
 	}
 
-	local selectionObject = Util:Create'ImageLabel'
+	local selectionObject = Create'ImageLabel'
 	{
 		Name = 'SelectionObject';
 		Size = UDim2.new(1,0,1,0);
@@ -386,7 +387,7 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 		BorderSizePixel = 0;
 	}
 
-	newKeyElement.SelectionImageObject = Util:Create'ImageLabel'
+	newKeyElement.SelectionImageObject = Create'ImageLabel'
 	{
 		Visible = false;
 	}
@@ -395,7 +396,7 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 	local secondBackgroundImage = nil
 	local specialSelectionObject, specialSelectionObject2, specialSelectionObject3 = nil, nil, nil
 	if isSpecialShapeKey then
-		secondBackgroundImage = Util:Create'ImageButton'
+		secondBackgroundImage = Create'ImageButton'
 		{
 			Name = 'KeyBackground';
 			Position = UDim2.new(layoutData['x2'] / layoutData['width'], -5, layoutData['y2'] / layoutData['height'], -5);
@@ -414,14 +415,14 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 		end
 
 		do
-			specialSelectionObject = Util:Create'Frame'
+			specialSelectionObject = Create'Frame'
 			{
 				Name = 'SpecialSelectionObject';
 				Size = UDim2.new(1,0,0.5,0);
 				Position = UDim2.new(0,0,0.5,0);
 				BackgroundTransparency = 1;
 				ClipsDescendants = true;
-				Util:Create'ImageLabel'
+				Create'ImageLabel'
 				{
 					Name = 'Borders';
 					Position = UDim2.new(-1,0,-1,0);
@@ -458,7 +459,7 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 	local icon = nil
 	if keyData[1] and KEY_ICONS[keyData[1]] then
 		keyText.Visible = false
-		icon = Util:Create'ImageLabel'
+		icon = Create'ImageLabel'
 		{
 			Name = 'KeyIcon';
 			Size = UDim2.new(KEY_ICONS[keyData[1]].AspectRatio, -20, 1, -20);
@@ -719,7 +720,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 
 	local buttons = {}
 
-	local keyboardContainer = Util:Create'Frame'
+	local keyboardContainer = Create'Frame'
 	{
 		Name = 'VirtualKeyboard';
 		Size = UDim2.new(1, 0, 1, 0);
@@ -729,7 +730,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 		Visible = false;
 	};
 
-	local textEntryBackground = Util:Create'ImageLabel'
+	local textEntryBackground = Create'ImageLabel'
 	{
 		Name = 'TextEntryBackground';
 		Size = UDim2.new(0.5,0,0.125,0);
@@ -741,7 +742,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 		ClipsDescendants = true;
 		Parent = keyboardContainer;
 	}
-		local textfieldBackground = Util:Create'Frame'
+		local textfieldBackground = Create'Frame'
 		{
 			Name = 'TextfieldBackground';
 			Position = UDim2.new(0,2,0,2);
@@ -752,7 +753,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 			Visible = true;
 			Parent = textEntryBackground;
 		};
-			local textEntryField = Util:Create'TextButton'
+			local textEntryField = Create'TextButton'
 			{
 				Name = "TextEntryField";
 				Text = "";
@@ -765,7 +766,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 				BorderSizePixel = 0;
 				Parent = textfieldBackground;
 			}
-				local textfieldCursor = Util:Create'Frame'
+				local textfieldCursor = Create'Frame'
 				{
 					Name = 'TextfieldCursor';
 					Size = UDim2.new(0, 5, 0.9, 0);
@@ -778,7 +779,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 					Parent = textEntryField;
 				};
 
-	local closeButtonElement = Util:Create'ImageButton'
+	local closeButtonElement = Create'ImageButton'
 	{
 		Name = 'CloseButton';
 		Size = UDim2.new(0.075,-10,0.198,-10);
@@ -789,7 +790,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 		Parent = keyboardContainer;
 	}
 	do
-		closeButtonElement.SelectionImageObject = Util:Create'ImageLabel'
+		closeButtonElement.SelectionImageObject = Create'ImageLabel'
 		{
 			Name = 'Selection';
 			Size = UDim2.new(0.9,0,0.9,0);
@@ -797,7 +798,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 			Image = "rbxasset://textures/ui/Keyboard/close_button_selection.png";
 			BackgroundTransparency = 1;
 		}
-		Util:Create'ImageLabel'
+		Create'ImageLabel'
 		{
 			Name = 'Icon';
 			Size = UDim2.new(0.5,0,0.5,0);
@@ -810,7 +811,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 	local closeButton = CreateVRButton(closeButtonElement)
 	table.insert(buttons, closeButton)
 
-	local voiceRecognitionContainer = Util:Create'Frame'
+	local voiceRecognitionContainer = Create'Frame'
 	{
 		Name = 'VoiceRecognitionContainer';
 		Size = UDim2.new(1, 0, 0.85, 0);
@@ -821,7 +822,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 		Parent = keyboardContainer;
 	};
 	do
-		local voiceRecognitionBackground1 = Util:Create'Frame'
+		local voiceRecognitionBackground1 = Create'Frame'
 		{
 			Name = 'voiceRecognitionBackground1';
 			Size = UDim2.new(1, 0, 0.75, 0);
@@ -838,7 +839,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 		voiceRecognitionBackground2.Parent = voiceRecognitionContainer
 	end
 
-	local voiceDoneButton = CreateVRButton(Util:Create'TextButton'
+	local voiceDoneButton = CreateVRButton(Create'TextButton'
 	{
 		Name = 'DoneButton';
 		Size = UDim2.new(0.2, -5, 0.25, -5);
@@ -855,7 +856,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 	})
 	table.insert(buttons, voiceDoneButton)
 
-	local voiceProcessingStatus = Util:Create'TextLabel'
+	local voiceProcessingStatus = Create'TextLabel'
 	{
 		Name = 'VoiceProcessingStatus';
 		Size = UDim2.new(0, 0, 0, 0);
@@ -878,7 +879,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 		local numOfWaves = 4
 		local waveSpeed = 2.5
 
-		local container = Util:Create'Frame'
+		local container = Create'Frame'
 		{
 			Name = 'VoiceVisualizerContainer';
 			Size = UDim2.new(1, 0, 1, 0);
@@ -887,7 +888,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 		this.Container = container
 
 		for i = 1, numOfBars do
-			local bar = Util:Create'Frame'
+			local bar = Create'Frame'
 			{
 				Name = 'Bar';
 				Size = UDim2.new(1/numOfBars, -4, 1, 0);
@@ -1230,7 +1231,7 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 	do -- Parse input definition
 		for _, keyboardKeyset in pairs(keyboardLayoutDefinitions) do
 			local keys = {}
-			local keyboardSizeConstrainer = Util:Create'Frame'
+			local keyboardSizeConstrainer = Create'Frame'
 			{
 				Name = 'KeyboardSizeConstrainer';
 				Size = UDim2.new(1, 0, 1, -20);

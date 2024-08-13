@@ -4,7 +4,7 @@ local CoreGui 		= game:GetService("CoreGui")
 local CorePackages	= game:GetService("CorePackages")
 
 local RobloxGui 	= CoreGui.RobloxGui
-local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local MATERIAL = Enum.Material.Granite
 local SCALE = Vector3.new(0.032, 0.032, 0.032)
@@ -16,12 +16,12 @@ function RiftController.new(userCFrame)
 	local self = setmetatable({}, RiftController)
 	self.userCFrame = userCFrame
 
-	self.model = CommonUtil.Create("Model") {
+	self.model = Create("Model") {
 		Name = "RiftController",
 		Archivable = false
 	}	
 
-	self.origin = CommonUtil.Create("Part") {
+	self.origin = Create("Part") {
 		Parent = self.model,		
 		Name = "Origin",
 		Anchored = true,
@@ -34,7 +34,7 @@ function RiftController.new(userCFrame)
 	
 	self.parts = {}
 	local partName = "body"
-	local part = CommonUtil.Create("Part") {
+	local part = Create("Part") {
 		Parent = self.model,
 		Name = partName,
 		Anchored = true,
@@ -46,7 +46,7 @@ function RiftController.new(userCFrame)
 		CanQuery = false,
 		CanTouch = false,
 	}
-	local mesh = CommonUtil.Create("SpecialMesh") {
+	local mesh = Create("SpecialMesh") {
 		Parent = part,
 		Name = "Mesh",
 		MeshId = userCFrame == Enum.UserCFrame.LeftHand and "rbxassetid://9597097835" or "rbxassetid://9597101144",
@@ -54,7 +54,7 @@ function RiftController.new(userCFrame)
 		Scale = SCALE,
 	}
 	self.mesh = mesh
-	local weld = CommonUtil.Create("Weld") {
+	local weld = Create("Weld") {
 		Parent = part,
 		Name = "Weld",
 		Part0 = self.origin,

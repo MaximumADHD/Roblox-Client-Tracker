@@ -21,8 +21,14 @@ MAIN:
   LOADN R7 46
   CALL R4 3 1
   SETTABLEKS R4 R3 K17 ["BlueprintBackgroundColor"]
+  GETIMPORT R4 K16 [Color3.fromRGB]
+  LOADN R5 255
+  LOADN R6 255
+  LOADN R7 255
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K18 ["BlueprintLabelsColor"]
   MOVE R4 R2
-  LOADK R5 K18 ["ControlsEmulatorDarkTheme"]
+  LOADK R5 K19 ["ControlsEmulatorDarkTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

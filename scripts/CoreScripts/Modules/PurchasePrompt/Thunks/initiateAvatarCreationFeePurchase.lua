@@ -21,25 +21,22 @@ local requiredServices = {
 	ExternalSettings,
 }
 
-local function initiateAvatarCreationFeePurchase(name, guid, serializedModel)
+local function initiateAvatarCreationFeePurchase(avatarPublishMetadata, guid, serializedModel, priceInRobux)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 		local externalSettings = services[ExternalSettings]
 
-		store:dispatch(RequestAvatarCreationFeePurchase(serializedModel))
+	store:dispatch(RequestAvatarCreationFeePurchase(serializedModel, guid))
 
 		return Promise.all({
 			accountInfo = getAccountInfo(network, externalSettings),
 			balanceInfo = getBalanceInfo(network, externalSettings),
 		})
 		:andThen(function(results)
-			local priceInRobux = 0 -- TODO: AVBURST-13509 Get PriceInRobux from relevant token source
-			-- Once we've finished all of our async data fetching, we'll
-			-- resolve the state of the prompt
 			local productInfo = {
 				PriceInRobux = priceInRobux,
-				Name = name,
-				ProductId = guid
+				Name = avatarPublishMetadata.name,
+				Description = avatarPublishMetadata.description,
 			}
 			store:dispatch(resolvePromptState(
 				productInfo,

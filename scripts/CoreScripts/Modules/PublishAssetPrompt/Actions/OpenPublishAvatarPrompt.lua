@@ -11,22 +11,17 @@ export type Action = {
 	type: string,
 	promptInfo: {
 		promptType: string,
-		humanoidModel: Model?,
 		guid: string,
 		scopes: any,
 	},
 }
 
-return Rodux.makeActionCreator(
-	script.Name,
-	function(promptType: string, humanoidModel: Model?, guid: string, scopes: any)
-		return {
-			promptInfo = {
-				promptType = promptType,
-				humanoidModel = humanoidModel,
-				guid = guid,
-				scopes = scopes,
-			},
-		}
-	end
-)
+return Rodux.makeActionCreator(script.Name, function(promptType: string, guid: string, scopes: any)
+	return {
+		promptInfo = {
+			promptType = promptType,
+			guid = guid,
+			scopes = scopes,
+		},
+	}
+end)

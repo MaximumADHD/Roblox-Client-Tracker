@@ -270,6 +270,11 @@ function Analytics.new()
 		end
 	end
 
+	function service.signalAvatarCreationPurchaseSubmit()
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "AvatarCreationPurchaseSubmit", { gameID = game.GameId })
+		ReportPlatformCounter("AvatarCreationPurchaseSubmit")
+	end
+
 	return service
 end
 

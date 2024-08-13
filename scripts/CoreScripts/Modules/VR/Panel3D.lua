@@ -16,6 +16,7 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GamepadService = game:GetService("GamepadService")
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 local CorePackages = game:GetService("CorePackages")
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local FFlagVRFreeUIPanel = game:DefineFastFlag("VRFreeUIPanel", false)
 local FFlagVRHeadLockedFixUIPosition = game:DefineFastFlag("VRHeadLockedFixUIPosition", false)
@@ -53,17 +54,17 @@ local currentCursorPos = zeroVector2
 local lastClosest = nil
 local panels = {}
 local floorRotation = CFrame.new()
-local cursor = Utility:Create "ImageLabel" {
+local cursor = Create "ImageLabel" {
 	Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
 	ImageColor3 = Color3.new(0, 1, 0),
 	BackgroundTransparency = 1,
 	ZIndex = 1e9
 }
-local partFolder = Utility:Create "Folder" {
+local partFolder = Create "Folder" {
 	Name = "VRCorePanelParts",
 	Archivable = false
 }
-local effectFolder = Utility:Create "Folder" {
+local effectFolder = Create "Folder" {
 	Name = "VRCoreEffectParts",
 	Archivable = false
 }
@@ -87,7 +88,7 @@ Panel3D.Type = {
 	PositionLocked = 7,
 }
 
-Panel3D.OnPanelClosed = Utility:Create 'BindableEvent' {
+Panel3D.OnPanelClosed = Create 'BindableEvent' {
 	Name = 'OnPanelClosed'
 }
 
@@ -248,7 +249,7 @@ end
 --Panel accessor methods
 function Panel:GetPart()
 	if not self.part then
-		self.part = Utility:Create("Part")({
+		self.part = Create("Part")({
 			Name = self.name,
 			Parent = partFolder,
 
@@ -267,7 +268,7 @@ end
 function Panel:GetGUI()
 	if not self.gui then
 		local part = self:GetPart()
-		self.gui = Utility:Create("SurfaceGui")({
+		self.gui = Create("SurfaceGui")({
 			Parent = CoreGui,
 			Name = self.name,
 			Archivable = false,
@@ -1055,7 +1056,7 @@ function Subpanel:GetGUI()
 		return self.gui
 	end
 
-	self.gui = Utility:Create("SurfaceGui")({
+	self.gui = Create("SurfaceGui")({
 		Parent = CoreGui,
 		Adornee = self:GetPart(),
 		Active = true,
@@ -1064,7 +1065,7 @@ function Subpanel:GetGUI()
 		Enabled = self.parentPanel.isEnabled,
 		AlwaysOnTop = true,
 	})
-	self.guiSurrogate = Utility:Create("Frame")({
+	self.guiSurrogate = Create("Frame")({
 		Parent = self.gui,
 
 		Active = false,

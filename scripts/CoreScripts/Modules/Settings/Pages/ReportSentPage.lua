@@ -2,6 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local PlayersService = game:GetService("Players")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxGuiModules = RobloxGui:WaitForChild("Modules")
@@ -13,6 +14,7 @@ local onBlockButtonActivated = require(script:FindFirstAncestor("Settings").onBl
 local BlockingAnalytics = require(script:FindFirstAncestor("Settings").Analytics.BlockingAnalytics)
 local Utility = require(RobloxGuiModules.Settings.Utility)
 local Theme = require(RobloxGuiModules.Settings.Theme)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local localPlayer = PlayersService.LocalPlayer
 while not localPlayer do
@@ -43,14 +45,14 @@ local function Initialize()
 	instance.Page.Size = UDim2.fromScale(1, 0)
 	instance.Page.AutomaticSize = Enum.AutomaticSize.Y
 
-	instance.Root = Utility:Create("Frame")({
+	instance.Root = Create("Frame")({
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 1),
 		Name = "ReportSentContents",
 		Parent = instance.Page,
 	})
 
-	instance.RootLayout = Utility:Create("UIListLayout")({
+	instance.RootLayout = Create("UIListLayout")({
 		Name = "RootLayout",
 		FillDirection = Enum.FillDirection.Vertical,
 		VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -60,7 +62,7 @@ local function Initialize()
 	})
 
 	local function createTextLabel(name, text, size, layoutOrder)
-		return Utility:Create("TextLabel")({
+		return Create("TextLabel")({
 			Name = name,
 			LayoutOrder = layoutOrder,
 			Size = UDim2.fromScale(1, 0),
@@ -85,7 +87,7 @@ local function Initialize()
 	end
 
 	local function createSpacer(size, layoutOrder)
-		return Utility:Create("Frame")({
+		return Create("Frame")({
 			LayoutOrder = layoutOrder,
 			Name = "Spacer" .. tostring(layoutOrder),
 			Size = UDim2.fromOffset(0, size),

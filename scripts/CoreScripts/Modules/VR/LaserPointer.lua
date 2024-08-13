@@ -13,6 +13,7 @@ local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local CorePackages = game:GetService("CorePackages")
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 require(RobloxGui.Modules.VR.Panel3D)
 
@@ -224,7 +225,7 @@ function LaserPointer.new(laserDistance)
 	self.showPlopBallOnPointer = false
 
 	do --Create the instances that make up the Laser Pointer
-		self.parabola = Utility:Create("ParabolaAdornment")({
+		self.parabola = Create("ParabolaAdornment")({
 			Name = "LaserPointerParabola",
 			Parent = CoreGui,
 			A = -1,
@@ -235,7 +236,7 @@ function LaserPointer.new(laserDistance)
 			Visible = false,
 		})
 
-		self.originPart = Utility:Create("Part")({
+		self.originPart = Create("Part")({
 			Name = "LaserPointerOrigin",
 			Anchored = true,
 			CanCollide = false,
@@ -247,7 +248,7 @@ function LaserPointer.new(laserDistance)
 		})
 		self.parabola.Adornee = self.originPart
 
-		self.parabolaOffhand = Utility:Create("ParabolaAdornment")({
+		self.parabolaOffhand = Create("ParabolaAdornment")({
 			Name = "LaserPointerparabolaOffhand",
 			Parent = CoreGui,
 			A = 0,
@@ -259,7 +260,7 @@ function LaserPointer.new(laserDistance)
 			Visible = false,
 		})
 
-		self.originPartOffhand = Utility:Create("Part")({
+		self.originPartOffhand = Create("Part")({
 			Name = "LaserPointerOriginOffhand",
 			Anchored = true,
 			CanCollide = false,
@@ -271,14 +272,14 @@ function LaserPointer.new(laserDistance)
 		})
 		self.parabolaOffhand.Adornee = self.originPartOffhand
 
-		self.plopPart = Utility:Create("Part")({
+		self.plopPart = Create("Part")({
 			Name = "LaserPointerTeleportPlop",
 			Anchored = true,
 			CanCollide = false,
 			Size = minimumPartSize,
 			Transparency = 1,
 		})
-		self.plopBall = Utility:Create("Part")({
+		self.plopBall = Create("Part")({
 			Name = "LaserPointerTeleportPlopBall",
 			Anchored = true,
 			CanCollide = false,
@@ -289,14 +290,14 @@ function LaserPointer.new(laserDistance)
 			Shape = Enum.PartType.Ball,
 			Size = identityVector3 * TELEPORT.PLOP_BALL_SIZE,
 		})
-		self.plopAdorn = Utility:Create("ImageHandleAdornment")({
+		self.plopAdorn = Create("ImageHandleAdornment")({
 			Name = "LaserPointerTeleportPlopAdorn",
 			Parent = self.plopPart,
 			Adornee = self.plopPart,
 			Size = identityVector2 * TELEPORT.PLOP_SIZE,
 			Image = TELEPORT.PLOP_GOOD,
 		})
-		self.plopAdornPulse = Utility:Create("ImageHandleAdornment")({
+		self.plopAdornPulse = Create("ImageHandleAdornment")({
 			Name = "LaserPointerTeleportPlopAdornPulse",
 			Parent = self.plopPart,
 			Adornee = self.plopPart,
@@ -305,7 +306,7 @@ function LaserPointer.new(laserDistance)
 			Transparency = 0.5,
 		})
 
-		self.cursorPart = Utility:Create("Part")({
+		self.cursorPart = Create("Part")({
 			Name = "Cursor",
 			CanCollide = false,
 			CanQuery = false,
@@ -313,7 +314,7 @@ function LaserPointer.new(laserDistance)
 			Anchored = true,
 			Transparency = 1,
 		})
-		self.cursorSurfaceGui = Utility:Create("SurfaceGui")({
+		self.cursorSurfaceGui = Create("SurfaceGui")({
 			Name = "CursorSurfaceGui",
 			Active = false,
 			AlwaysOnTop = true,
@@ -321,7 +322,7 @@ function LaserPointer.new(laserDistance)
 			ZOffset = 10,
 			Parent = self.cursorPart,
 		})
-		self.cursorImage = Utility:Create("ImageLabel")({
+		self.cursorImage = Create("ImageLabel")({
 			Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
 			ImageColor3 = Color3.new(0, 1, 0),
 			BackgroundTransparency = 1,

@@ -7,7 +7,29 @@
 local VRService = game:GetService("VRService")
 local MAX_TWEEN_RATE = 2.8 -- per second
 
+-- Classes with a LocalTransparencyModifier property that we should hide in first person
+local HIDE_IN_FIRST_PERSON_CLASSES = {
+	"BasePart",
+	"Decal",
+	"Beam",
+	"ParticleEmitter",
+	"Trail",
+	"Fire",
+	"Smoke",
+	"Sparkles",
+	"Explosion"
+}
+
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
+
+local FFlagUserHideCharacterParticlesInFirstPerson
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserHideCharacterParticlesInFirstPerson")
+	end)
+	FFlagUserHideCharacterParticlesInFirstPerson = success and result
+end
+
 
 --[[ The Module ]]--
 local TransparencyController = {}
@@ -36,11 +58,20 @@ function TransparencyController:HasToolAncestor(object: Instance)
 end
 
 function TransparencyController:IsValidPartToModify(part: BasePart)
-	if part:IsA('BasePart') or part:IsA('Decal') then
-		return not self:HasToolAncestor(part)
+	if FFlagUserHideCharacterParticlesInFirstPerson then
+		for _, className in HIDE_IN_FIRST_PERSON_CLASSES do
+			if part:IsA(className) then
+				return not self:HasToolAncestor(part)
+			end
+		end
+	else
+		if part:IsA('BasePart') or part:IsA('Decal') then
+			return not self:HasToolAncestor(part)
+		end
 	end
 	return false
 end
+
 
 function TransparencyController:CachePartsRecursive(object)
 	if object then
@@ -167,7 +198,7 @@ function TransparencyController:Update(dt)
 
 		transparency = math.clamp(Util.Round(transparency, 2), 0, 1)
 
-		-- update transparencies 
+		-- update transparencies
 		if self.transparencyDirty or self.lastTransparency ~= transparency then
 			for child, _ in pairs(self.cachedParts) do
 				if VRService.VREnabled and VRService.AvatarGestures then

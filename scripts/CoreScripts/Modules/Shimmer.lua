@@ -1,7 +1,8 @@
 -- add a shimmer effect to the parent GuiObject on CoreGui
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local create = require(RobloxGui.Modules.Common.Create)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local TweenService = game:GetService("TweenService")
 local Constants = require(RobloxGui.Modules.Common.Constants)
 
@@ -12,7 +13,7 @@ Shimmer.__index = Shimmer
 
 local shimmerStyles = {
 	["PrimaryButton"] = function(parent)
-		return create 'ImageLabel' {
+		return Create 'ImageLabel' {
 			Name = "ShimmerFrame",
 			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
 			BackgroundTransparency = 0.7,
@@ -22,7 +23,7 @@ local shimmerStyles = {
 			Visible = false,
 			Parent = parent,
 			ZIndex = 8,
-			create 'ImageLabel' {
+			Create 'ImageLabel' {
 				Name = "Shimmer",
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 2, 0),
@@ -31,7 +32,7 @@ local shimmerStyles = {
 				BorderSizePixel = 0,
 				ZIndex = 8,
 			},
-			create 'ImageLabel' {
+			Create 'ImageLabel' {
 				Name = "ShimmerOverlay",
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = Rect.new(8, 8, 9, 9),

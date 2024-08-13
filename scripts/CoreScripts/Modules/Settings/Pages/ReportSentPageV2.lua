@@ -13,7 +13,7 @@ local EventIngest = require(CorePackages.Workspace.Packages.Analytics).Analytics
 local Roact = require(CorePackages.Roact)
 local Settings = script:FindFirstAncestor("Settings")
 local settingsPageFactory = require(RobloxGuiModules.Settings.SettingsPageFactory)
-local Utility = require(RobloxGuiModules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local ReportAbuseAnalytics = require(CorePackages.Workspace.Packages.AbuseReportMenu).ReportAbuseAnalytics
 local BlockingAnalytics = require(Settings.Analytics.BlockingAnalytics)
 
@@ -54,7 +54,7 @@ local function Initialize()
 	instance.Page.Size = UDim2.fromScale(1, 0)
 	instance.Page.AutomaticSize = Enum.AutomaticSize.Y
 
-	instance.Root = Utility:Create("Frame")({
+	instance.Root = Create("Frame")({
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 1),
 		Name = "ReportSentContents",

@@ -9,8 +9,9 @@ local LocalizationService = game:GetService("LocalizationService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local VRService = game:GetService("VRService")
+local CorePackages = game:GetService("CorePackages")
 
-local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
+local Create = require(CorePackages:WaitForChild("Workspace"):WaitForChild("Packages"):WaitForChild("AppCommonLib")).Create -- WaitForChild used here because Workspace is not available on startup
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
 
@@ -130,7 +131,7 @@ local function fetchStarterPlaceId(universeId)
 end
 
 -- Screengui holding the prompt and make it on top of blur
-local screenGui = create("ScreenGui")({
+local screenGui = Create("ScreenGui")({
 	Parent = CoreGui,
 	Name = "RobloxPromptGui",
 	OnTopOfCoreBlur = true,
@@ -139,7 +140,7 @@ local screenGui = create("ScreenGui")({
 })
 
 -- semi-transparent frame overlay
-local promptOverlay = create("Frame")({
+local promptOverlay = Create("Frame")({
 	Name = "promptOverlay",
 	BackgroundColor3 = Color3.new(0, 0, 0),
 	BackgroundTransparency = 1,

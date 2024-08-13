@@ -83,39 +83,11 @@ local Create = AppCommonLib.Create
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
 
 ----------- UTILITIES --------------
-local Util = {}
-do
-	-- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
-	function Util.Create(instanceType)
-		if Create.GetFFlagLuaAppUnifiedCreateUtility() then
-			return Create(instanceType)
-		end
-
-		return function(data)
-			local obj = Instance.new(instanceType)
-			local parent = nil
-			for k, v in pairs(data) do
-				if type(k) == "number" then
-					v.Parent = obj
-				elseif k == "Parent" then
-					parent = v
-				else
-					obj[k] = v
-				end
-			end
-			if parent then
-				obj.Parent = parent
-			end
-			return obj
-		end
-	end
-end
-
 local onResizedCallbacks = {}
 setmetatable(onResizedCallbacks, { __mode = "k" })
 
 -- used by several guis to show no selection adorn
-local noSelectionObject = Util.Create("ImageLabel")({
+local noSelectionObject = Create("ImageLabel")({
 	Image = "",
 	BackgroundTransparency = 1,
 })
@@ -346,7 +318,7 @@ local gamepadSet = {
 }
 
 local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
-	local SelectionOverrideObject = Util.Create("ImageLabel")({
+	local SelectionOverrideObject = Create("ImageLabel")({
 		Image = "",
 		BackgroundTransparency = 1,
 	})
@@ -365,7 +337,7 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 			backgroundColor = "ImageButton"
 		end
 
-		button = Util.Create("ImageButton")({
+		button = Create("ImageButton")({
 			Name = name .. "Button",
 			AutoButtonColor = false,
 			BackgroundColor3 = Theme.color(backgroundColor),
@@ -374,11 +346,11 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 			ZIndex = 2,
 			SelectionImageObject = SelectionOverrideObject,
 		})
-		Util.Create("UICorner")({
+		Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = button,
 		})
-		buttonUIStroke = Util.Create("UIStroke")({
+		buttonUIStroke = Create("UIStroke")({
 			Name = "Border",
 			Color = Theme.color(borderColor),
 			Transparency = Theme.transparency(borderColor),
@@ -386,7 +358,7 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 			Parent = button,
 		})
 	else
-		button = Util.Create("ImageButton")({
+		button = Create("ImageButton")({
 			Name = name .. "Button",
 			Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
 			ScaleType = Enum.ScaleType.Slice,
@@ -399,7 +371,7 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 		})
 	end
 
-	local _enabled = Util.Create("BoolValue")({
+	local _enabled = Create("BoolValue")({
 		Name = "Enabled",
 		Parent = button,
 		Value = true,
@@ -507,7 +479,7 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 end
 
 local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef)
-	local SelectionOverrideObject = Util.Create("ImageLabel")({
+	local SelectionOverrideObject = Create("ImageLabel")({
 		Image = "",
 		BackgroundTransparency = 1,
 	})
@@ -536,14 +508,14 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 	local size = getSize(iconSizeMeasurement)
 	local frameSize = size + UDim2.new(0, 0, 0, 18)
 
-	local ButtonLabel = Util.Create("Frame")({
+	local ButtonLabel = Create("Frame")({
 		Name = name .. "IconButton",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Size = frameSize,
 	})
 
-	Util.Create("UIListLayout")({
+	Create("UIListLayout")({
 		Name = "MenuListLayout",
 		Padding = UDim.new(0, 2),
 		FillDirection = Enum.FillDirection.Vertical,
@@ -552,7 +524,7 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		Parent = ButtonLabel,
 	})
 
-	Util.Create("TextLabel")({
+	Create("TextLabel")({
 		Name = name .. "TextLabel",
 		AutomaticSize = Enum.AutomaticSize.Y,
 		AnchorPoint = Vector2.new(0.5, 1.0),
@@ -571,7 +543,7 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		LayoutOrder = 2,
 	})
 
-	local Button = Util.Create("ImageButton")({
+	local Button = Create("ImageButton")({
 		Name = "Button",
 		Size = size,
 		BackgroundTransparency = 1,
@@ -579,7 +551,7 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		SelectionImageObject = SelectionOverrideObject,
 		Parent = ButtonLabel,
 	})
-	local Background = Util.Create("ImageLabel")({
+	local Background = Create("ImageLabel")({
 		Name = "Background",
 		BackgroundTransparency = Theme.transparency("IconButton"),
 		BorderSizePixel = 0,
@@ -588,7 +560,7 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		Parent = Button,
 	})
 
-	Util.Create("UICorner")({
+	Create("UICorner")({
 		CornerRadius = UDim.new(0, 8),
 		Parent = Background,
 	})
@@ -599,7 +571,7 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		ImageRectSize = Vector2.new(),
 	}
 
-	local Icon = Util.Create("ImageLabel")({
+	local Icon = Create("ImageLabel")({
 		Name = name .. "Icon",
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
@@ -673,7 +645,7 @@ end
 local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 	local button, setRowRef = MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 
-	local textLabel = Util.Create("TextLabel")({
+	local textLabel = Create("TextLabel")({
 		Name = name .. "TextLabel",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -735,7 +707,7 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 		image = image.Image
 	end
 
-	local imageLabel = Util.Create("ImageLabel")({
+	local imageLabel = Create("ImageLabel")({
 		Name = name .. "ImageLabel",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -757,7 +729,7 @@ end
 
 local function AddButtonRow(pageToAddTo, name, text, size, clickFunc, hubRef)
 	local button, textLabel, setRowRef = MakeButton(name, text, size, clickFunc, pageToAddTo, hubRef)
-	local row = Util.Create("Frame")({
+	local row = Create("Frame")({
 		Name = name .. "Row",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, size.Y.Scale, size.Y.Offset),
@@ -777,25 +749,25 @@ local function MakeRoundedRectFocusState(instance, renderStepName)
 	end
 
 
-	local focusState = Util.Create("Frame")({
+	local focusState = Create("Frame")({
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, FOCUS_INSET_ADJUSTMENT * 2, 1, FOCUS_INSET_ADJUSTMENT * 2),
 		Position = UDim2.fromOffset(-FOCUS_INSET_ADJUSTMENT, -FOCUS_INSET_ADJUSTMENT),
 	})
 
-	Util.Create("UICorner") ({
+	Create("UICorner") ({
 		CornerRadius = FOCUS_CORNER_RADIUS,
 		Parent = focusState,
 	})
 
-	local stroke = Util.Create("UIStroke")({
+	local stroke = Create("UIStroke")({
 		Color = Theme.selectionCursor.AnimatedColor,
 		Transparency = 0,
 		Thickness = FOCUS_BORDER_WIDTH,
 		Parent = focusState,
 	})
 
-	local gradient = Util.Create("UIGradient")({
+	local gradient = Create("UIGradient")({
 		Rotation = 0,
 		Color = Theme.selectionCursor.GradientColorSequence,
 		Transparency = Theme.selectionCursor.GradientTransparencySequence,
@@ -875,7 +847,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	local lastStringTable = dropDownStringTable
 
 	----------------- GUI SETUP ------------------------
-	local DropDownFullscreenFrame = Util.Create("ImageButton")({
+	local DropDownFullscreenFrame = Create("ImageButton")({
 		Name = "DropDownFullscreenFrame",
 		BackgroundTransparency = DROPDOWN_BG_TRANSPARENCY,
 		BorderSizePixel = 0,
@@ -910,7 +882,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	VRService.Changed:Connect(onVREnabled)
 	onVREnabled("VREnabled")
 
-	local DropDownSelectionFrame = Util.Create("ImageLabel")({
+	local DropDownSelectionFrame = Create("ImageLabel")({
 		Name = "DropDownSelectionFrame",
 		Image = if Theme.UIBloxThemeEnabled then "" else "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
 		ScaleType = if Theme.UIBloxThemeEnabled then Enum.ScaleType.Stretch else Enum.ScaleType.Slice,
@@ -925,13 +897,13 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	})
 
 	if Theme.UIBloxThemeEnabled then
-		Util.Create("UICorner")({
+		Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = DropDownSelectionFrame,
 		})
 	end
 
-	local DropDownScrollingFrame = Util.Create("ScrollingFrame")({
+	local DropDownScrollingFrame = Create("ScrollingFrame")({
 		Name = "DropDownScrollingFrame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -1048,7 +1020,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	end
 	selectedTextLabel.ClipsDescendants = true
 	selectedTextLabel.TextXAlignment = Enum.TextXAlignment.Left
-	local dropDownImage = Util.Create("ImageLabel")({
+	local dropDownImage = Create("ImageLabel")({
 		Name = "DropDownImage",
 		Image = "rbxasset://textures/ui/Settings/DropDown/DropDown.png",
 		BackgroundTransparency = 1,
@@ -1188,13 +1160,13 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		local subtitleTotalOffset = 0
 
 		for i, v in pairs(dropDownStringTable) do
-			local SelectionOverrideObject = Util.Create("Frame")({
+			local SelectionOverrideObject = Create("Frame")({
 				BackgroundTransparency = 0.7,
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 1, 0),
 			})
 			if Theme.UIBloxThemeEnabled then
-				Util.Create("UICorner")({
+				Create("UICorner")({
 					CornerRadius = Theme.DefaultCornerRadius,
 					Parent = SelectionOverrideObject,
 				})
@@ -1212,7 +1184,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			local nextSelection
 
 			if UseSubtitle then
-				nextSelection = Util.Create("TextButton")({
+				nextSelection = Create("TextButton")({
 					Name = "Selection" .. tostring(i),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
@@ -1231,7 +1203,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 				local subtitleSize = 0.8
 				local subtitlePadding = 15
-				local _Subtitle = Util.Create("TextLabel")({
+				local _Subtitle = Create("TextLabel")({
 					Name = "Subtitle" .. tostring(i),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
@@ -1245,7 +1217,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 					Parent = nextSelection,
 				})
 			else
-				nextSelection = Util.Create("TextButton")({
+				nextSelection = Create("TextButton")({
 					Name = "Selection" .. tostring(i),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
@@ -1355,7 +1327,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 	this.CurrentIndex = 0
 
 	----------------- GUI SETUP ------------------------
-	this.SelectorFrame = Util.Create("ImageButton")({
+	this.SelectorFrame = Create("ImageButton")({
 		Name = "Selector",
 		Image = "",
 		AutoButtonColor = false,
@@ -1369,7 +1341,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		SelectionImageObject = noSelectionObject,
 	})
 
-	local leftButton = Util.Create("ImageButton")({
+	local leftButton = Create("ImageButton")({
 		Name = "LeftButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0, 0.5),
@@ -1381,7 +1353,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		SelectionImageObject = noSelectionObject,
 		Parent = this.SelectorFrame,
 	})
-	local rightButton = Util.Create("ImageButton")({
+	local rightButton = Create("ImageButton")({
 		Name = "RightButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(1, 0.5),
@@ -1394,7 +1366,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		Parent = this.SelectorFrame,
 	})
 
-	local leftButtonImage = Util.Create("ImageLabel")({
+	local leftButtonImage = Create("ImageLabel")({
 		Name = "LeftButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -1405,7 +1377,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		ZIndex = 4,
 		Parent = leftButton,
 	})
-	local rightButtonImage = Util.Create("ImageLabel")({
+	local rightButtonImage = Create("ImageLabel")({
 		Name = "RightButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -1431,7 +1403,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 	local isSelectionLabelVisible = {}
 	local isAutoSelectButton = {}
 
-	local autoSelectButton = Util.Create("ImageButton")({
+	local autoSelectButton = Create("ImageButton")({
 		Name = "AutoSelectButton",
 		BackgroundTransparency = 1,
 		Image = "",
@@ -1629,7 +1601,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		this.Selections = {}
 
 		for i, v in pairs(selectionStringTable) do
-			local nextSelection = Util.Create("TextLabel")({
+			local nextSelection = Create("TextLabel")({
 				Name = "Selection" .. tostring(i),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -1841,7 +1813,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 	end
 	local vrEnabledConn = VRService.Changed:Connect(onVREnabled)
 
-	AlertViewBacking = Util.Create("ImageLabel")({
+	AlertViewBacking = Create("ImageLabel")({
 		Name = "AlertViewBacking",
 		Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
 		ScaleType = Enum.ScaleType.Slice,
@@ -1878,7 +1850,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 	end
 
 	if Theme.UIBloxThemeEnabled and not hasBackground then
-		Util.Create("UICorner")({
+		Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = AlertViewBacking,
 		})
@@ -1886,7 +1858,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		AlertViewBacking.BackgroundTransparency = Theme.transparency("MenuContainer")
 	end
 
-	local _AlertViewText = Util.Create("TextLabel")({
+	local _AlertViewText = Create("TextLabel")({
 		Name = "AlertViewText",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0.95, 0, 0.6, 0),
@@ -1902,7 +1874,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		Parent = AlertViewBacking,
 	})
 
-	local _SelectionOverrideObject = Util.Create("ImageLabel")({
+	local _SelectionOverrideObject = Create("ImageLabel")({
 		Image = "",
 		BackgroundTransparency = 1,
 	})
@@ -2013,7 +1985,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		valueChangedSignal = Signal.new()
 	end
 	----------------- GUI SETUP ------------------------
-	this.SliderFrame = Util.Create("ImageButton")({
+	this.SliderFrame = Create("ImageButton")({
 		Name = "Slider",
 		Image = "",
 		AutoButtonColor = false,
@@ -2030,7 +2002,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 
 	local StepsAndButtonsContainer = nil
 	if shouldDisplayLabels then
-		StepsAndButtonsContainer = Util.Create("Frame")({
+		StepsAndButtonsContainer = Create("Frame")({
 			Name = "StepsAndButtonsContainer",
 			Size = UDim2.new(1, 0, 0, 50),
 			BackgroundTransparency = 1,
@@ -2038,7 +2010,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 			Parent = this.SliderFrame
 		})
 
-		Util.Create("UIListLayout")({
+		Create("UIListLayout")({
 			Name = "UIListLayout",
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -2046,7 +2018,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		})
 
 		-- Create left and right labels below steps
-		local SliderLabels = Util.Create("Frame")({
+		local SliderLabels = Create("Frame")({
 			Name = "SliderLabels",
 			Size = UDim2.new(1, 0, 0, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -2055,7 +2027,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 			LayoutOrder = 2,
 		})
 
-		Util.Create("UIPadding")({
+		Create("UIPadding")({
 			Name = "UIPadding",
 			PaddingRight = UDim.new(0, 50),
 			PaddingLeft = UDim.new(0, 50),
@@ -2066,7 +2038,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 			return RobloxGui.AbsoluteSize.X > 460
 		end
 		if leftLabelText then
-			this.LeftLabel = Util.Create("TextLabel")({
+			this.LeftLabel = Create("TextLabel")({
 				Name = "LeftLabel",
 				Text = leftLabelText,
 				Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
@@ -2084,7 +2056,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		end
 
 		if rightLabelText then
-			this.RightLabel = Util.Create("TextLabel")({
+			this.RightLabel = Create("TextLabel")({
 				Name = "RightLabel",
 				Text = rightLabelText,
 				Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
@@ -2112,7 +2084,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		end)
 	end
 
-	this.StepsContainer = Util.Create("Frame")({
+	this.StepsContainer = Create("Frame")({
 		Name = "StepsContainer",
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		Size = UDim2.new(1, -100, 1, 0),
@@ -2121,7 +2093,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		Parent = if shouldDisplayLabels then StepsAndButtonsContainer else this.SliderFrame,
 	})
 
-	local leftButton = Util.Create("ImageButton")({
+	local leftButton = Create("ImageButton")({
 		Name = "LeftButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0, 0.5),
@@ -2134,7 +2106,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		Active = true,
 		Parent = if shouldDisplayLabels then StepsAndButtonsContainer else this.SliderFrame,
 	})
-	local rightButton = Util.Create("ImageButton")({
+	local rightButton = Create("ImageButton")({
 		Name = "RightButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(1, 0.5),
@@ -2148,7 +2120,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		Parent = if shouldDisplayLabels then StepsAndButtonsContainer else this.SliderFrame,
 	})
 
-	local leftButtonImage = Util.Create("ImageLabel")({
+	local leftButtonImage = Create("ImageLabel")({
 		Name = "LeftButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -2159,7 +2131,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		Parent = leftButton,
 		ImageColor3 = UserInputService.TouchEnabled and ARROW_COLOR_TOUCH or ARROW_COLOR,
 	})
-	local rightButtonImage = Util.Create("ImageLabel")({
+	local rightButtonImage = Create("ImageLabel")({
 		Name = "RightButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -2187,7 +2159,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 	local stepXScale = 1 / steps
 
 	for i = 1, steps do
-		local nextStep = Util.Create("ImageButton")({
+		local nextStep = Create("ImageButton")({
 			Name = "Step" .. tostring(i),
 			BackgroundColor3 = SELECTED_COLOR,
 			BackgroundTransparency = if Theme.UIBloxThemeEnabled then 0 else 0.36,
@@ -2213,11 +2185,11 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 
 		if i == 1 or i == steps then
 			if Theme.UIBloxThemeEnabled then
-				Util.Create("UICorner")({
+				Create("UICorner")({
 					CornerRadius = Theme.DefaultCornerRadius,
 					Parent = nextStep,
 				})
-				Util.Create("Frame")({
+				Create("Frame")({
 					Name = "Filler",
 					BackgroundColor3 = nextStep.BackgroundColor3,
 					Parent = nextStep,
@@ -2701,7 +2673,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	end
 
 	local RowFrame = nil
-	RowFrame = Util.Create("ImageButton")({
+	RowFrame = Create("ImageButton")({
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -2722,7 +2694,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 	if Theme.UIBloxThemeEnabled then
 		RowFrame.BackgroundColor3 = Theme.color("RowFrameBackground")
-		Util.Create("UICorner")({
+		Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = RowFrame,
 		})
@@ -2742,7 +2714,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	local RowLabelAndDescriptionFrame = nil
 	local RowLabel = nil
 	if rowDisplayDescription then
-		RowLabelAndDescriptionFrame = Util.Create("Frame")({
+		RowLabelAndDescriptionFrame = Create("Frame")({
 			Name = rowDisplayName .. "RowLabelAndDescriptionFrame",
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, 10, 0, 0),
@@ -2751,7 +2723,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			Parent = RowFrame
 		})
 
-		RowLabel = Util.Create("TextLabel")({
+		RowLabel = Create("TextLabel")({
 			Name = rowDisplayName .. "Label",
 			Text = rowDisplayName,
 			Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
@@ -2767,7 +2739,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			LayoutOrder = 1
 		})
 
-		Util.Create("TextLabel")({
+		Create("TextLabel")({
 			Name = rowDisplayName .. "Description",
 			Text = rowDisplayDescription,
 			Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
@@ -2784,7 +2756,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			LayoutOrder = 2
 		})
 
-		Util.Create("UIListLayout")({
+		Create("UIListLayout")({
 			Name = rowDisplayName .. "UIListLayout",
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -2792,14 +2764,14 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			Parent = RowLabelAndDescriptionFrame
 		})
 
-		Util.Create("UIPadding")({
+		Create("UIPadding")({
 			Name = rowDisplayName .. "UIListLayout",
 			PaddingBottom = UDim.new(0, 10),
 			PaddingTop = UDim.new(0, 10),
 			Parent = RowLabelAndDescriptionFrame
 		})
 	else
-		RowLabel = Util.Create("TextLabel")({
+		RowLabel = Create("TextLabel")({
 			Name = rowDisplayName .. "Label",
 			Text = rowDisplayName,
 			Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
@@ -2815,7 +2787,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			Parent = RowFrame,
 		})
 		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
-			Util.Create("UIPadding")({
+			Create("UIPadding")({
 				Name = rowDisplayName .. "UIPadding",
 				PaddingBottom = UDim.new(0, 10), --pad w same offset values used in for labels with description s.t all UI has consistent appearance
 				PaddingTop = UDim.new(0, 10),
@@ -2868,7 +2840,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		ValueChangerInstance.DropDownFrame.Parent = RowFrame
 		ValueChangerSelection = ValueChangerInstance.DropDownFrame
 	elseif selectionType == "TextBox" then
-		local SelectionOverrideObject = Util.Create("ImageLabel")({
+		local SelectionOverrideObject = Create("ImageLabel")({
 			Image = "",
 			BackgroundTransparency = 1,
 		})
@@ -2876,7 +2848,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		ValueChangerInstance = {}
 		ValueChangerInstance.HubRef = nil
 
-		local box = Util.Create("TextBox")({
+		local box = Create("TextBox")({
 			AnchorPoint = Vector2.new(1, 0.5),
 			Size = UDim2.new(0.6, 0, 1, 0),
 			Position = UDim2.new(1, 0, 0.5, 0),
@@ -2960,7 +2932,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 		UserInputService.InputBegan:Connect(processInput)
 	elseif selectionType == "TextEntry" then
-		local SelectionOverrideObject = Util.Create("ImageLabel")({
+		local SelectionOverrideObject = Create("ImageLabel")({
 			Image = "",
 			BackgroundTransparency = 1,
 		})
@@ -2968,7 +2940,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		ValueChangerInstance = {}
 		ValueChangerInstance.HubRef = nil
 
-		local box = Util.Create("TextBox")({
+		local box = Create("TextBox")({
 			AnchorPoint = Vector2.new(1, 0.5),
 			Size = UDim2.new(0.4, -10, 0, 40),
 			Position = UDim2.new(1, 0, 0.5, 0),
@@ -3193,7 +3165,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		nextRowPositionY = nextPosTable[pageToAddTo]
 	end
 
-	local RowFrame = Util.Create("ImageButton")({
+	local RowFrame = Create("ImageButton")({
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
 		AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
@@ -3214,7 +3186,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 
 	if Theme.UIBloxThemeEnabled then
 		RowFrame.BackgroundColor3 = Theme.color("RowFrameBackground")
-		Util.Create("UICorner")({
+		Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = RowFrame,
 		})
@@ -3228,7 +3200,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		RowFrame.BackgroundTransparency = 1
 	end)
 
-	local RowLabel = Util.Create("TextLabel")({
+	local RowLabel = Create("TextLabel")({
 		Name = rowDisplayName .. "Label",
 		Text = rowDisplayName,
 		Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
@@ -3244,7 +3216,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		Parent = RowFrame,
 	})
 	if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
-		Util.Create("UIPadding")({
+		Create("UIPadding")({
 			Name = rowDisplayName .. "UIPadding",
 			PaddingBottom = UDim.new(0, 10),	--pad w/ same offset values used in AddNewRow method (used for majority of in-game settings rows) s.t all settings have consistent appearance
 			PaddingTop = UDim.new(0, 10),
@@ -3314,31 +3286,6 @@ end
 
 -------- public facing API ----------------
 local moduleApiTable = {}
-
--- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
-function moduleApiTable:Create(instanceType)
-	if Create.GetFFlagLuaAppUnifiedCreateUtility() then
-		return Create(instanceType)
-	end
-
-	return function(data)
-		local obj = Instance.new(instanceType)
-		local parent = nil
-		for k, v in pairs(data) do
-			if type(k) == "number" then
-				v.Parent = obj
-			elseif k == "Parent" then
-				parent = v
-			else
-				obj[k] = v
-			end
-		end
-		if parent then
-			obj.Parent = parent
-		end
-		return obj
-	end
-end
 
 -- RayPlaneIntersection (shortened)
 -- http://www.siggraph.org/education/materials/HyperGraph/raytrace/rayplane_intersection.htm

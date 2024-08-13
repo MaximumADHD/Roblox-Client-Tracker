@@ -97,11 +97,11 @@ PROTO_5:
   MOVE R4 R1
   GETIMPORT R2 K15 [table.insert]
   CALL R2 2 0
-  GETTABLEKS R3 R0 K3 ["MaterialList"]
-  LENGTH R2 R3
+  GETTABLEKS R2 R0 K16 ["MaterialIndex"]
+  ADDK R2 R2 K17 [1]
   SETTABLEKS R2 R0 K16 ["MaterialIndex"]
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K17 ["OnChanged"]
+  GETTABLEKS R2 R3 K18 ["OnChanged"]
   MOVE R3 R0
   CALL R2 1 0
   RETURN R0 0

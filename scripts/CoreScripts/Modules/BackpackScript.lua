@@ -94,13 +94,12 @@ local CoreGui = game:GetService('CoreGui')
 local ContextActionService = game:GetService('ContextActionService')
 local VRService = game:GetService("VRService")
 local GamepadService = game:GetService("GamepadService")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
-local Utility = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
-
-local Util = require(RobloxGui.Modules.Settings.Utility)
 
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
@@ -180,15 +179,15 @@ local function ShowVRBackpackPopup()
 	end
 end
 
-BackpackScript.BackpackEmpty = Util:Create "BindableEvent" {
+BackpackScript.BackpackEmpty = Create "BindableEvent" {
 	Name = "BackpackEmpty"
 }
 
-BackpackScript.BackpackItemAdded = Util:Create "BindableEvent" {
+BackpackScript.BackpackItemAdded = Create "BindableEvent" {
 	Name = "BackpackAdded"
 }
 
-BackpackScript.BackpackItemRemoved = Util:Create "BindableEvent" {
+BackpackScript.BackpackItemRemoved = Create "BindableEvent" {
 	Name = "BackpackRemoved"
 }
 
@@ -1584,7 +1583,7 @@ end)
 UpdateBackpackLayout()
 
 --Make the gamepad hint frame
-local gamepadHintsFrame = Utility:Create'Frame'
+local gamepadHintsFrame = Create'Frame'
 {
 	Name = "GamepadHintsFrame",
 	Size = UDim2.new(0, HotbarFrame.Size.X.Offset, 0, (IsTenFootInterface and 95 or 60)),
@@ -1594,7 +1593,7 @@ local gamepadHintsFrame = Utility:Create'Frame'
 }
 
 local function addGamepadHint(hintImage, hintImageLarge, hintText)
-	local hintFrame = Utility:Create'Frame'
+	local hintFrame = Create'Frame'
 	{
 		Name = "HintFrame",
 		Size = UDim2.new(1, 0, 1, -5),
@@ -1603,7 +1602,7 @@ local function addGamepadHint(hintImage, hintImageLarge, hintText)
 		Parent = gamepadHintsFrame
 	}
 
-	local hintImage = Utility:Create'ImageLabel'
+	local hintImage = Create'ImageLabel'
 	{
 		Name = "HintImage",
 		Size = (IsTenFootInterface and UDim2.new(0,90,0,90) or UDim2.new(0,60,0,60)),
@@ -1612,7 +1611,7 @@ local function addGamepadHint(hintImage, hintImageLarge, hintText)
 		Parent = hintFrame
 	}
 
-	local hintText = Utility:Create'TextLabel'
+	local hintText = Create'TextLabel'
 	{
 		Name = "HintText",
 		Position = UDim2.new(0, (IsTenFootInterface and 100 or 70), 0, 0),

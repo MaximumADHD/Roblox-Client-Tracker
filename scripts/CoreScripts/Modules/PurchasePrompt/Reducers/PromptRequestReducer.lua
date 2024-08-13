@@ -87,6 +87,7 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 		return {
 			requestType = RequestType.AvatarCreationFee,
 			serializedModel = action.serializedModel,
+			id = action.guid,
 		}
 	end,
 	[CompleteRequest.name] = function(state, action)

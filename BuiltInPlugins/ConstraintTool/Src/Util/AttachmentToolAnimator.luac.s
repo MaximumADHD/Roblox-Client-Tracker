@@ -83,15 +83,14 @@ PROTO_3:
   MOVE R11 R4
   NAMECALL R8 R8 K10 ["Lerp"]
   CALL R8 3 1
-  GETTABLEKS R9 R3 K4 ["targetPart"]
-  MUL R11 R6 R8
-  MUL R10 R11 R7
-  GETTABLEKS R12 R0 K0 ["_constraintToolModel"]
-  GETTABLEKS R11 R12 K2 ["_attachmentMover"]
-  MOVE R13 R10
-  MOVE R14 R9
-  NAMECALL R11 R11 K5 ["moveTo"]
-  CALL R11 3 0
+  MUL R10 R6 R8
+  MUL R9 R10 R7
+  GETTABLEKS R10 R0 K0 ["_constraintToolModel"]
+  GETTABLEKS R13 R0 K0 ["_constraintToolModel"]
+  GETTABLEKS R12 R13 K14 ["_attachmentAdornment"]
+  MOVE R13 R9
+  NAMECALL R10 R10 K15 ["_orientAttachmentAdornment"]
+  CALL R10 3 0
   RETURN R0 0
 
 PROTO_4:

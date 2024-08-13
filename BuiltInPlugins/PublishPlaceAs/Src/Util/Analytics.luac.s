@@ -35,6 +35,30 @@ PROTO_0:
   CALL R3 5 0
   RETURN R0 0
 
+PROTO_1:
+  GETUPVAL R5 0
+  CALL R5 0 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R4 K1 [assert]
+  CALL R4 -1 0
+  DUPTABLE R4 K7 [{"userId", "dataSharingFetchState", "dataSharingEnabled", "universeId", "groupId"}]
+  GETUPVAL R5 1
+  NAMECALL R5 R5 K8 ["GetUserId"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K2 ["userId"]
+  SETTABLEKS R0 R4 K3 ["dataSharingFetchState"]
+  SETTABLEKS R1 R4 K4 ["dataSharingEnabled"]
+  SETTABLEKS R2 R4 K5 ["universeId"]
+  SETTABLEKS R3 R4 K6 ["groupId"]
+  GETUPVAL R5 2
+  LOADK R7 K9 ["studio"]
+  LOADK R8 K10 ["CreateNewGame"]
+  LOADK R9 K11 ["DataSharingUniverseCreation"]
+  MOVE R10 R4
+  NAMECALL R5 R5 K12 ["SendEventDeferred"]
+  CALL R5 5 0
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -53,10 +77,20 @@ MAIN:
   GETTABLEKS R5 R2 K10 ["Packages"]
   GETTABLEKS R4 R5 K11 ["Cryo"]
   CALL R3 1 1
-  NEWTABLE R4 1 0
-  DUPCLOSURE R5 K12 [PROTO_0]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R7 R2 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Flags"]
+  GETTABLEKS R5 R6 K14 ["getFFlagCAPDataSharingToEventIngest"]
+  CALL R4 1 1
+  NEWTABLE R5 2 0
+  DUPCLOSURE R6 K15 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R0
   CAPTURE VAL R3
-  SETTABLEKS R5 R4 K13 ["reportSaveCancel"]
-  RETURN R4 1
+  SETTABLEKS R6 R5 K16 ["reportSaveCancel"]
+  DUPCLOSURE R6 K17 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K18 ["reportDataSharingToEventIngest"]
+  RETURN R5 1

@@ -37,28 +37,6 @@ if FORCE_TEN_FOOT_INTERFACE then
 	tenFootInterfaceEnabled = true
 end
 
-local Util = {}
-do
-	-- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
-	function Util.Create(instanceType)
-		if Create.GetFFlagLuaAppUnifiedCreateUtility() then
-			return Create(instanceType)
-		end
-
-		return function(data)
-			local obj = Instance.new(instanceType)
-			for k, v in pairs(data) do
-				if type(k) == 'number' then
-					v.Parent = obj
-				else
-					obj[k] = v
-				end
-			end
-			return obj
-		end
-	end
-end
-
 local function CreateModule()
 	local this = {}
 	this.Container = nil
@@ -70,7 +48,7 @@ local function CreateModule()
 	-- setup base gui
 	local function createContainer()
 		if not this.Container then
-			this.Container = Util.Create'ImageButton'
+			this.Container = Create'ImageButton'
 			{
 				Name = "TopRightContainer";
 				Size = UDim2.new(0, 350, 0, 100);
@@ -156,7 +134,7 @@ local function CreateModule()
 	end
 
 	function this:CreateHealthBar()
-		this.HealthContainer = Util.Create'Frame'{
+		this.HealthContainer = Create'Frame'{
 			Name = "HealthContainer";
 			Size = UDim2.new(1, -86, 0, 50);
 			Position = UDim2.new(0, 92, 0, 0);
@@ -165,7 +143,7 @@ local function CreateModule()
 			BackgroundTransparency = 0.5;
 		};
 
-		local healthFillHolder = Util.Create'Frame'{
+		local healthFillHolder = Create'Frame'{
 			Name = "HealthFillHolder";
 			Size = UDim2.new(1, -10, 1, -10);
 			Position = UDim2.new(0, 5, 0, 5);
@@ -175,7 +153,7 @@ local function CreateModule()
 			Parent = this.HealthContainer;
 		};
 
-		local healthFill = Util.Create'Frame'{
+		local healthFill = Create'Frame'{
 			Name = "HealthFill";
 			Size = UDim2.new(1, 0, 1, 0);
 			Position = UDim2.new(0, 0, 0, 0);
@@ -185,7 +163,7 @@ local function CreateModule()
 			Parent = healthFillHolder;
 		};
 
-		local healthText = Util.Create'TextLabel'{
+		local healthText = Create'TextLabel'{
 			Name = "HealthText";
 			Size = UDim2.new(0, 98, 0, 50);
 			Position = UDim2.new(0, -100, 0, 0);
@@ -199,11 +177,11 @@ local function CreateModule()
 			Parent = this.HealthContainer;
 		};
 
-		local username = Util.Create'TextLabel'{
+		local username = Create'TextLabel'{
 			Visible = false
 		}
 
-		local accountType = Util.Create'TextLabel'{
+		local accountType = Create'TextLabel'{
 			Visible = false
 		}
 
@@ -218,7 +196,7 @@ local function CreateModule()
 	end
 
 	function this:CreateAccountType(accountTypeTextShort)
-		this.AccountTypeContainer = Util.Create'Frame'{
+		this.AccountTypeContainer = Create'Frame'{
 			Name = "AccountTypeContainer";
 			Size = UDim2.new(0, 50, 0, 50);
 			Position = UDim2.new(1, -55, 0, 10);
@@ -228,7 +206,7 @@ local function CreateModule()
 			Parent = RobloxGui;
 		};
 
-		local accountTypeTextLabel = Util.Create'TextLabel'{
+		local accountTypeTextLabel = Create'TextLabel'{
 			Name = "AccountTypeText";
 			Size = UDim2.new(1, 0, 1, 0);
 			Position = UDim2.new(0, 0, 0, 0);
@@ -256,14 +234,14 @@ local function CreateModule()
 		local function makeTenFootInterfaceStat()
 			if tenFootInterfaceStat then return end
 
-			tenFootInterfaceStat = Util.Create'Frame'{
+			tenFootInterfaceStat = Create'Frame'{
 				Name = "OneStatFrame";
 				Size = UDim2.new(1, 0, 0, 36);
 				Position = UDim2.new(0, 0, 0, 0);
 				BorderSizePixel = 0;
 				BackgroundTransparency = 1;
 			};
-			local statName = Util.Create'TextLabel'{
+			local statName = Create'TextLabel'{
 				Name = "StatName";
 				Size = UDim2.new(0.5,0,0,36);
 				BackgroundTransparency = 1;

@@ -4,7 +4,7 @@ local CoreGui 		= game:GetService("CoreGui")
 local CorePackages	= game:GetService("CorePackages")
 
 local RobloxGui 	= CoreGui.RobloxGui
-local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local FIntVRTouchControllerTransparency = require(RobloxGui.Modules.Flags.FIntVRTouchControllerTransparency)
 
@@ -122,12 +122,12 @@ function TouchController.new(userCFrame)
 	local self = setmetatable({}, TouchController)
 	self.userCFrame = userCFrame
 
-	self.model = CommonUtil.Create("Model") {
+	self.model = Create("Model") {
 		Name = "TouchController",
 		Archivable = false
 	}	
 
-	self.origin = CommonUtil.Create("Part") {
+	self.origin = Create("Part") {
 		Parent = self.model,		
 		Name = "Origin",
 		Anchored = true,
@@ -147,7 +147,7 @@ function TouchController.new(userCFrame)
 			partScale = partScale * partInfo.scale
 		end
 
-		local part = CommonUtil.Create("Part") {
+		local part = Create("Part") {
 			Parent = self.model,
 			Name = partName,
 			Anchored = true,
@@ -159,14 +159,14 @@ function TouchController.new(userCFrame)
 			CanTouch = false,
 			Transparency = FIntVRTouchControllerTransparency/100,
 		}
-		local mesh = CommonUtil.Create("SpecialMesh") {
+		local mesh = Create("SpecialMesh") {
 			Parent = part,
 			Name = "Mesh",
 			MeshId = partInfo.meshId,
 			TextureId = partInfo.textureId,
 			Scale = partScale
 		}
-		local weld = CommonUtil.Create("Weld") {
+		local weld = Create("Weld") {
 			Parent = part,
 			Name = "Weld",
 			Part0 = self.origin,

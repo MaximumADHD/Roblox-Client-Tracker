@@ -289,7 +289,11 @@ local function onAnimatorAdded(player, animator)
 	local setupAnimator = function()
 		local playerAnimation = {}
 		playerAnimation.animation = Instance.new("TrackerStreamAnimation")
-		playerAnimation.animationTrack = animator:LoadStreamAnimation(playerAnimation.animation)
+		if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
+			playerAnimation.animationTrack = animator:LoadStreamAnimationV2(playerAnimation.animation, player)
+		else
+			playerAnimation.animationTrack = animator:LoadStreamAnimation(playerAnimation.animation)
+		end
 
 		if FFlagLoadStreamAnimationReplaceErrorsWithTelemetry then
 			if not playerAnimation.animationTrack then

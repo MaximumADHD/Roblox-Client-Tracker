@@ -61,6 +61,23 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
+  GETUPVAL R0 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["state"]
+  GETTABLEKS R2 R3 K1 ["enabled"]
+  NAMECALL R0 R0 K2 ["SetGamepadEmulationEnabled"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETIMPORT R0 K1 [pcall]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["PluginLoaderContext"]
@@ -76,9 +93,16 @@ PROTO_7:
   CAPTURE UPVAL U2
   NAMECALL R0 R0 K4 ["Connect"]
   CALL R0 2 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K6 ["GamepadEmulatorStartUp"]
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
+  NAMECALL R0 R0 K4 ["Connect"]
+  CALL R0 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_10:
   GETUPVAL R0 0
   DUPTABLE R2 K1 [{"editMappingsVisible"}]
   GETUPVAL R6 0
@@ -90,11 +114,11 @@ PROTO_8:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_11:
   NEWTABLE R0 0 0
   RETURN R0 1
 
-PROTO_10:
+PROTO_12:
   DUPTABLE R2 K4 [{"enabled", "wrapperRef", "editMappingsVisible", "activeInputs"}]
   LOADB R3 0
   SETTABLEKS R3 R2 K0 ["enabled"]
@@ -140,7 +164,7 @@ PROTO_10:
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K20 ["Analytics"]
   GETTABLEKS R2 R3 K13 ["new"]
-  DUPCLOSURE R3 K21 [PROTO_9]
+  DUPCLOSURE R3 K21 [PROTO_11]
   NEWTABLE R4 0 0
   CALL R2 2 1
   SETTABLEKS R2 R0 K22 ["analytics"]
@@ -154,7 +178,7 @@ PROTO_10:
   SETTABLEKS R2 R0 K25 ["design"]
   RETURN R0 0
 
-PROTO_11:
+PROTO_13:
   GETUPVAL R0 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K0 ["state"]
@@ -163,7 +187,7 @@ PROTO_11:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_14:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["PluginLoaderContext"]
   GETTABLEKS R1 R2 K2 ["mainButton"]
@@ -178,7 +202,7 @@ PROTO_12:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_15:
   GETUPVAL R0 0
   DUPTABLE R2 K1 [{"editMappingsVisible"}]
   LOADB R3 0
@@ -187,7 +211,7 @@ PROTO_13:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_16:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["provide"]
   NEWTABLE R2 0 5
@@ -253,41 +277,45 @@ PROTO_14:
   GETTABLEKS R8 R9 K35 ["onWidgetEnabledChanged"]
   SETTABLE R8 R6 R7
   DUPTABLE R7 K38 [{"LayoutContainer", "StyleLink"}]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K39 ["state"]
+  GETTABLEKS R9 R10 K40 ["enabled"]
+  JUMPIFNOT R9 [+189]
   GETUPVAL R9 6
   GETTABLEKS R8 R9 K8 ["createElement"]
-  LOADK R9 K39 ["Frame"]
+  LOADK R9 K41 ["Frame"]
   NEWTABLE R10 1 0
   GETUPVAL R12 6
-  GETTABLEKS R11 R12 K40 ["Tag"]
-  LOADK R12 K41 ["LayoutContainer X-Column X-Center"]
+  GETTABLEKS R11 R12 K42 ["Tag"]
+  LOADK R12 K43 ["LayoutContainer X-Column X-Center"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K44 [{"WidgetHeader", "Scrollable"}]
+  DUPTABLE R11 K46 [{"WidgetHeader", "Scrollable"}]
   GETUPVAL R13 6
   GETTABLEKS R12 R13 K8 ["createElement"]
   GETUPVAL R13 11
   NEWTABLE R14 2 0
   GETUPVAL R16 6
-  GETTABLEKS R15 R16 K40 ["Tag"]
-  LOADK R16 K45 ["Component-WidgetHeader"]
+  GETTABLEKS R15 R16 K42 ["Tag"]
+  LOADK R16 K47 ["Component-WidgetHeader"]
   SETTABLE R16 R14 R15
   GETUPVAL R15 12
-  NAMECALL R15 R15 K46 ["getNextOrder"]
+  NAMECALL R15 R15 K48 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K47 ["LayoutOrder"]
-  DUPTABLE R15 K50 [{"DeviceDropdown", "MappingsButton"}]
+  SETTABLEKS R15 R14 K49 ["LayoutOrder"]
+  DUPTABLE R15 K52 [{"DeviceDropdown", "MappingsButton"}]
   GETUPVAL R17 6
   GETTABLEKS R16 R17 K8 ["createElement"]
   GETUPVAL R17 13
   NEWTABLE R18 8 0
   GETUPVAL R20 6
-  GETTABLEKS R19 R20 K40 ["Tag"]
-  LOADK R20 K51 ["DeviceSelectorDropdown"]
+  GETTABLEKS R19 R20 K42 ["Tag"]
+  LOADK R20 K53 ["DeviceSelectorDropdown"]
   SETTABLE R20 R18 R19
   GETUPVAL R19 12
-  NAMECALL R19 R19 K46 ["getNextOrder"]
+  NAMECALL R19 R19 K48 ["getNextOrder"]
   CALL R19 1 1
-  SETTABLEKS R19 R18 K47 ["LayoutOrder"]
-  GETIMPORT R19 K53 [UDim2.new]
+  SETTABLEKS R19 R18 K49 ["LayoutOrder"]
+  GETIMPORT R19 K55 [UDim2.new]
   LOADN R20 0
   LOADN R21 250
   LOADN R22 0
@@ -295,100 +323,104 @@ PROTO_14:
   CALL R19 4 1
   SETTABLEKS R19 R18 K26 ["Size"]
   GETUPVAL R20 14
-  GETTABLEKS R19 R20 K54 ["connectGamepadId"]
-  SETTABLEKS R19 R18 K55 ["onChanged"]
+  GETTABLEKS R19 R20 K56 ["connectGamepadId"]
+  SETTABLEKS R19 R18 K57 ["onChanged"]
   GETUPVAL R19 15
-  SETTABLEKS R19 R18 K56 ["deviceIds"]
-  GETTABLEKS R19 R0 K57 ["gamepadId"]
-  SETTABLEKS R19 R18 K58 ["selectedGamepadId"]
+  SETTABLEKS R19 R18 K58 ["deviceIds"]
+  GETTABLEKS R19 R0 K59 ["gamepadId"]
+  SETTABLEKS R19 R18 K60 ["selectedGamepadId"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K48 ["DeviceDropdown"]
+  SETTABLEKS R16 R15 K50 ["DeviceDropdown"]
   GETUPVAL R17 6
   GETTABLEKS R16 R17 K8 ["createElement"]
-  LOADK R17 K59 ["TextButton"]
+  LOADK R17 K61 ["TextButton"]
   NEWTABLE R18 4 0
   GETUPVAL R20 6
-  GETTABLEKS R19 R20 K40 ["Tag"]
-  LOADK R20 K60 ["DeviceSelectorMappingsButton"]
+  GETTABLEKS R19 R20 K42 ["Tag"]
+  LOADK R20 K62 ["DeviceSelectorMappingsButton"]
   SETTABLE R20 R18 R19
   GETUPVAL R19 12
-  NAMECALL R19 R19 K46 ["getNextOrder"]
+  NAMECALL R19 R19 K48 ["getNextOrder"]
   CALL R19 1 1
-  SETTABLEKS R19 R18 K47 ["LayoutOrder"]
-  LOADK R19 K61 ["Device Mappings"]
-  SETTABLEKS R19 R18 K62 ["Text"]
+  SETTABLEKS R19 R18 K49 ["LayoutOrder"]
+  LOADK R19 K63 ["Device Mappings"]
+  SETTABLEKS R19 R18 K64 ["Text"]
   GETUPVAL R21 6
-  GETTABLEKS R20 R21 K63 ["Event"]
-  GETTABLEKS R19 R20 K64 ["Activated"]
+  GETTABLEKS R20 R21 K65 ["Event"]
+  GETTABLEKS R19 R20 K66 ["Activated"]
   GETUPVAL R21 5
-  GETTABLEKS R20 R21 K65 ["onDeviceMappingsActivated"]
+  GETTABLEKS R20 R21 K67 ["onDeviceMappingsActivated"]
   SETTABLE R20 R18 R19
   CALL R16 2 1
-  SETTABLEKS R16 R15 K49 ["MappingsButton"]
+  SETTABLEKS R16 R15 K51 ["MappingsButton"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K42 ["WidgetHeader"]
+  SETTABLEKS R12 R11 K44 ["WidgetHeader"]
   GETUPVAL R13 6
   GETTABLEKS R12 R13 K8 ["createElement"]
-  LOADK R13 K66 ["ScrollingFrame"]
+  LOADK R13 K68 ["ScrollingFrame"]
   NEWTABLE R14 2 0
   GETUPVAL R16 6
-  GETTABLEKS R15 R16 K40 ["Tag"]
-  LOADK R16 K67 ["Component-ScrollableBlueprintContainer"]
+  GETTABLEKS R15 R16 K42 ["Tag"]
+  LOADK R16 K69 ["Component-ScrollableBlueprintContainer"]
   SETTABLE R16 R14 R15
   GETUPVAL R15 12
-  NAMECALL R15 R15 K46 ["getNextOrder"]
+  NAMECALL R15 R15 K48 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K47 ["LayoutOrder"]
-  DUPTABLE R15 K69 [{"InputTrackingWrapper"}]
+  SETTABLEKS R15 R14 K49 ["LayoutOrder"]
+  DUPTABLE R15 K71 [{"InputTrackingWrapper"}]
   GETUPVAL R17 6
   GETTABLEKS R16 R17 K8 ["createElement"]
   GETUPVAL R17 16
   NEWTABLE R18 0 0
-  DUPTABLE R19 K72 [{"KeyboardInputsForwarder", "DeviceBlueprint"}]
+  DUPTABLE R19 K74 [{"KeyboardInputsForwarder", "DeviceBlueprint"}]
   GETUPVAL R21 6
   GETTABLEKS R20 R21 K8 ["createElement"]
   GETUPVAL R21 17
   CALL R20 1 1
-  SETTABLEKS R20 R19 K70 ["KeyboardInputsForwarder"]
-  GETTABLEKS R21 R0 K57 ["gamepadId"]
+  SETTABLEKS R20 R19 K72 ["KeyboardInputsForwarder"]
+  GETTABLEKS R21 R0 K59 ["gamepadId"]
   GETUPVAL R23 9
-  GETTABLEKS R22 R23 K73 ["NO_CONNECTED_GAMEPAD_ID"]
-  JUMPIFEQ R21 R22 [+31]
+  GETTABLEKS R22 R23 K75 ["NO_CONNECTED_GAMEPAD_ID"]
+  JUMPIFEQ R21 R22 [+34]
   GETUPVAL R21 6
   GETTABLEKS R20 R21 K8 ["createElement"]
   GETUPVAL R21 18
-  NEWTABLE R22 4 0
+  NEWTABLE R22 8 0
   GETUPVAL R24 6
-  GETTABLEKS R23 R24 K40 ["Tag"]
-  LOADK R24 K74 ["Component-DeviceBlueprint"]
+  GETTABLEKS R23 R24 K42 ["Tag"]
+  LOADK R24 K76 ["Component-DeviceBlueprint"]
   SETTABLE R24 R22 R23
   GETUPVAL R23 12
-  NAMECALL R23 R23 K46 ["getNextOrder"]
+  NAMECALL R23 R23 K48 ["getNextOrder"]
   CALL R23 1 1
-  SETTABLEKS R23 R22 K47 ["LayoutOrder"]
-  GETTABLEKS R23 R0 K57 ["gamepadId"]
-  SETTABLEKS R23 R22 K58 ["selectedGamepadId"]
+  SETTABLEKS R23 R22 K49 ["LayoutOrder"]
+  GETTABLEKS R23 R0 K59 ["gamepadId"]
+  SETTABLEKS R23 R22 K60 ["selectedGamepadId"]
   GETUPVAL R25 5
-  GETTABLEKS R24 R25 K75 ["state"]
-  GETTABLEKS R23 R24 K76 ["activeInputs"]
-  SETTABLEKS R23 R22 K76 ["activeInputs"]
+  GETTABLEKS R24 R25 K39 ["state"]
+  GETTABLEKS R23 R24 K77 ["activeInputs"]
+  SETTABLEKS R23 R22 K77 ["activeInputs"]
+  LOADB R23 1
+  SETTABLEKS R23 R22 K78 ["displayMappings"]
   CALL R20 2 1
   JUMP [+1]
   LOADNIL R20
-  SETTABLEKS R20 R19 K71 ["DeviceBlueprint"]
+  SETTABLEKS R20 R19 K73 ["DeviceBlueprint"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K68 ["InputTrackingWrapper"]
+  SETTABLEKS R16 R15 K70 ["InputTrackingWrapper"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K43 ["Scrollable"]
+  SETTABLEKS R12 R11 K45 ["Scrollable"]
   CALL R8 3 1
+  JUMP [+1]
+  LOADNIL R8
   SETTABLEKS R8 R7 K36 ["LayoutContainer"]
   GETUPVAL R9 6
   GETTABLEKS R8 R9 K8 ["createElement"]
   LOADK R9 K37 ["StyleLink"]
-  DUPTABLE R10 K78 [{"StyleSheet"}]
+  DUPTABLE R10 K80 [{"StyleSheet"}]
   GETUPVAL R12 5
-  GETTABLEKS R11 R12 K79 ["design"]
-  SETTABLEKS R11 R10 K77 ["StyleSheet"]
+  GETTABLEKS R11 R12 K81 ["design"]
+  SETTABLEKS R11 R10 K79 ["StyleSheet"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K37 ["StyleLink"]
   CALL R4 3 1
@@ -396,18 +428,18 @@ PROTO_14:
   GETUPVAL R5 6
   GETTABLEKS R4 R5 K8 ["createElement"]
   GETUPVAL R5 7
-  DUPTABLE R6 K81 [{"Id", "Enabled", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose"}]
-  LOADK R7 K82 ["ControlsEmulatorMappings"]
+  DUPTABLE R6 K83 [{"Id", "Enabled", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose"}]
+  LOADK R7 K84 ["ControlsEmulatorMappings"]
   SETTABLEKS R7 R6 K10 ["Id"]
   GETUPVAL R9 5
-  GETTABLEKS R8 R9 K75 ["state"]
-  GETTABLEKS R7 R8 K83 ["editMappingsVisible"]
+  GETTABLEKS R8 R9 K39 ["state"]
+  GETTABLEKS R7 R8 K85 ["editMappingsVisible"]
   SETTABLEKS R7 R6 K11 ["Enabled"]
-  LOADK R7 K84 ["Edit Mappings"]
+  LOADK R7 K86 ["Edit Mappings"]
   SETTABLEKS R7 R6 K15 ["Title"]
   GETIMPORT R7 K20 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R7 R6 K18 ["ZIndexBehavior"]
-  GETIMPORT R7 K86 [Enum.InitialDockState.Float]
+  GETIMPORT R7 K88 [Enum.InitialDockState.Float]
   SETTABLEKS R7 R6 K21 ["InitialDockState"]
   GETIMPORT R7 K25 [Vector2.new]
   LOADN R8 128
@@ -418,11 +450,11 @@ PROTO_14:
   LOADN R8 250
   LOADN R9 200
   CALL R7 2 1
-  SETTABLEKS R7 R6 K80 ["MinSize"]
+  SETTABLEKS R7 R6 K82 ["MinSize"]
   NEWCLOSURE R7 P0
   CAPTURE UPVAL U5
   SETTABLEKS R7 R6 K28 ["OnClose"]
-  DUPTABLE R7 K69 [{"InputTrackingWrapper"}]
+  DUPTABLE R7 K71 [{"InputTrackingWrapper"}]
   GETUPVAL R9 6
   GETTABLEKS R8 R9 K8 ["createElement"]
   GETUPVAL R9 16
@@ -436,20 +468,20 @@ PROTO_14:
   GETUPVAL R14 6
   GETTABLEKS R13 R14 K8 ["createElement"]
   LOADK R14 K37 ["StyleLink"]
-  DUPTABLE R15 K78 [{"StyleSheet"}]
+  DUPTABLE R15 K80 [{"StyleSheet"}]
   GETUPVAL R17 5
-  GETTABLEKS R16 R17 K79 ["design"]
-  SETTABLEKS R16 R15 K77 ["StyleSheet"]
+  GETTABLEKS R16 R17 K81 ["design"]
+  SETTABLEKS R16 R15 K79 ["StyleSheet"]
   CALL R13 2 1
   SETTABLEKS R13 R11 K37 ["StyleLink"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K68 ["InputTrackingWrapper"]
+  SETTABLEKS R8 R7 K70 ["InputTrackingWrapper"]
   CALL R4 3 1
   SETTABLEKS R4 R3 K6 ["MappingsDialog"]
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_15:
+PROTO_17:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R3 1
@@ -479,7 +511,7 @@ PROTO_15:
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_16:
+PROTO_18:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
@@ -513,7 +545,7 @@ PROTO_16:
   CALL R5 3 -1
   RETURN R5 -1
 
-PROTO_17:
+PROTO_19:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
@@ -640,7 +672,7 @@ MAIN:
   GETTABLEKS R31 R27 K47 ["values"]
   GETTABLEKS R32 R19 K48 ["GAMEPAD_TYPE_TO_ID"]
   CALL R31 1 1
-  DUPCLOSURE R32 K49 [PROTO_10]
+  DUPCLOSURE R32 K49 [PROTO_12]
   CAPTURE VAL R25
   CAPTURE VAL R29
   CAPTURE VAL R6
@@ -649,10 +681,10 @@ MAIN:
   CAPTURE VAL R10
   CAPTURE VAL R11
   SETTABLEKS R32 R30 K50 ["init"]
-  DUPCLOSURE R32 K51 [PROTO_12]
+  DUPCLOSURE R32 K51 [PROTO_14]
   CAPTURE VAL R25
   SETTABLEKS R32 R30 K52 ["didUpdate"]
-  DUPCLOSURE R32 K53 [PROTO_16]
+  DUPCLOSURE R32 K53 [PROTO_18]
   CAPTURE VAL R1
   CAPTURE VAL R23
   CAPTURE VAL R22
@@ -673,7 +705,7 @@ MAIN:
   SETTABLEKS R32 R30 K54 ["render"]
   GETTABLEKS R32 R19 K55 ["NAME"]
   SETTABLEKS R32 R30 K56 ["Name"]
-  DUPCLOSURE R32 K57 [PROTO_17]
+  DUPCLOSURE R32 K57 [PROTO_19]
   CAPTURE VAL R1
   CAPTURE VAL R21
   CAPTURE VAL R30

@@ -1,10 +1,10 @@
 --[[
 	The prompt UI opened for Avatar body part outfit publishing.
 ]]
+local AssetService = game:GetService("AssetService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
-local ExperienceAuthService = game:GetService("ExperienceAuthService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -20,6 +20,7 @@ local BasePublishPrompt = require(Components.BasePublishPrompt)
 local ObjectViewport = require(Components.Common.ObjectViewport)
 local NameTextBox = require(Components.Common.NameTextBox)
 local PublishInfoList = require(Components.Common.PublishInfoList)
+local PurchasePrompt = require(RobloxGui.Modules.PurchasePrompt)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
@@ -28,14 +29,12 @@ local LABEL_HEIGHT = 15
 local DESC_TEXTBOX_HEIGHT = 104
 local DESC_TEXTBOX_MAXLENGTH = 1000
 
-local NAME_METADATA_STRING = "avatarName"
-local DESC_METADATA_STRING = "avatarDescription"
-
 local PublishAvatarPrompt = Roact.PureComponent:extend("PublishAvatarPrompt")
 
 PublishAvatarPrompt.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
-	humanoidModel = t.instanceOf("Model"),
+	serializedModel = t.optional(t.string),
+	humanoidModel = t.optional(t.instanceOf("Model")),
 
 	-- Mapped state
 	guid = t.any,
@@ -72,15 +71,15 @@ function PublishAvatarPrompt:init()
 	end
 
 	self.onSubmit = function()
-		local metadata = {}
-		metadata[NAME_METADATA_STRING] = self.state.name
-		metadata[DESC_METADATA_STRING] = self.state.description
+		local avatarPublishMetadata = {}
+		avatarPublishMetadata.name = self.state.name
+		avatarPublishMetadata.description = self.state.description
 
-		ExperienceAuthService:ScopeCheckUIComplete(
+		PurchasePrompt.initiateAvatarCreationFeePurchase(
+			avatarPublishMetadata,
 			self.props.guid,
-			self.props.scopes,
-			Enum.ScopeCheckResult.ConsentAccepted,
-			metadata
+			self.props.serializedModel,
+			self.props.priceInRobux
 		)
 	end
 
@@ -187,16 +186,17 @@ function PublishAvatarPrompt:render()
 		onNameUpdated = self.onNameUpdated,
 		canSubmit = self.canSubmit,
 		onSubmit = self.onSubmit,
-		enableInputDelayed = true,
-		isDelayedInput = true,
 		delayInputSeconds = DELAYED_INPUT_ANIM_SEC,
 		priceInRobux = self.props.priceInRobux,
 	})
 end
 
 local function mapStateToProps(state)
+	local serializedModel = state.promptRequest.promptInfo.serializedModel
+	local humanoidModel = if serializedModel then AssetService:DeserializeInstance(serializedModel) else nil
 	return {
-		humanoidModel = state.promptRequest.promptInfo.humanoidModel,
+		serializedModel = serializedModel,
+		humanoidModel = humanoidModel,
 		guid = state.promptRequest.promptInfo.guid,
 		scopes = state.promptRequest.promptInfo.scopes,
 		priceInRobux = state.promptRequest.promptInfo.priceInRobux,

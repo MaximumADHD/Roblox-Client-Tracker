@@ -74,20 +74,22 @@ PROTO_4:
   GETTABLEKS R1 R0 K1 ["_parent"]
   GETTABLEKS R2 R0 K3 ["_cachedAnchoredState"]
   SETTABLEKS R2 R1 K2 ["Anchored"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K4 ["_attachment"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K1 ["_parent"]
-  LOADB R1 0
-  SETTABLEKS R1 R0 K3 ["_cachedAnchoredState"]
-  RETURN R0 0
-
-PROTO_5:
-  GETTABLEKS R3 R0 K0 ["_attachment"]
-  JUMPIFEQ R3 R1 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
+  GETIMPORT R1 K6 [Instance.new]
+  LOADK R2 K7 ["Attachment"]
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K8 ["_attachment"]
+  GETTABLEKS R2 R3 K9 ["Parent"]
+  GETTABLEKS R5 R0 K8 ["_attachment"]
+  GETTABLEKS R4 R5 K10 ["WorldCFrame"]
+  NAMECALL R2 R2 K11 ["ToObjectSpace"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K12 ["CFrame"]
+  GETTABLEKS R3 R0 K8 ["_attachment"]
+  GETTABLEKS R2 R3 K9 ["Parent"]
+  SETTABLEKS R2 R1 K9 ["Parent"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K3 ["_cachedAnchoredState"]
+  RETURN R1 1
 
 MAIN:
   PREPVARARGS 0
@@ -111,6 +113,4 @@ MAIN:
   DUPCLOSURE R2 K13 [PROTO_4]
   CAPTURE VAL R0
   SETTABLEKS R2 R1 K14 ["commit"]
-  DUPCLOSURE R2 K15 [PROTO_5]
-  SETTABLEKS R2 R1 K16 ["isMovingThisAttachment"]
   RETURN R1 1

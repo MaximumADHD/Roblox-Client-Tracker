@@ -6,13 +6,14 @@ local NotifierHint = {}
 
 local CoreGui = game:GetService('CoreGui')
 local RunService = game:GetService('RunService')
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Util = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 
-local NotificationObject = Util:Create'ImageLabel'
+local NotificationObject = Create'ImageLabel'
 {
 	Name = 'NotificationObject';
 	-- These numbers are a bit funny to fit the screen of ROBLOX VR

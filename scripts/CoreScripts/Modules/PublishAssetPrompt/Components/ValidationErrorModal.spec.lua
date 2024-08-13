@@ -1,6 +1,5 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local Players = game:GetService("Players")
 
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
@@ -29,15 +28,9 @@ return function()
 				Rodux.thunkMiddleware,
 			})
 
-			local humanoidModel = Players:CreateHumanoidModelFromDescription(
-				Instance.new("HumanoidDescription"),
-				Enum.HumanoidRigType.R15
-			)
-
 			store:dispatch(
 				OpenPublishAvatarPrompt(
 					PromptType.PublishAvatar,
-					humanoidModel,
 					"12345",
 					{ Enum.ExperienceAuthScope.CreatorAssetsCreate }
 				)

@@ -20,6 +20,7 @@ local AnalyticsEnums = require(CorePackages.Workspace.Packages.SocialLuaAnalytic
 local EventNames = require(CorePackages.Workspace.Packages.Screenshots).Analytics.EventNames
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -81,7 +82,7 @@ local function Initialize()
 			leftPadding, rightPadding, bottomPadding, textSize, font = 10, 0, 0, Theme.textSize(36), Theme.font(Enum.Font.SourceSansBold, "Bold")
 		end
 
-		local container = utility:Create'Frame'
+		local container = Create'Frame'
 		{
 			Name = name .. "Container",
 			BackgroundTransparency = 1,
@@ -89,7 +90,7 @@ local function Initialize()
 			LayoutOrder = layoutOrder,
 			Parent = parent
 		};
-		local textLabel = utility:Create'TextLabel'
+		local textLabel = Create'TextLabel'
 		{
 			Name = name,
 			BackgroundTransparency = 1,

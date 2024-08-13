@@ -33,22 +33,23 @@ PROTO_1:
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K6 ["Offset"]
   GETTABLE R3 R4 R5
-  GETTABLEKS R8 R0 K0 ["_payload"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K1 ["BuildSettings"]
+  GETTABLEKS R9 R0 K0 ["_payload"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K1 ["BuildSettings"]
+  GETTABLE R8 R9 R10
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["AdvancedNoise"]
   GETTABLE R7 R8 R9
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K5 ["AdvancedNoise"]
-  GETTABLE R6 R7 R8
-  GETTABLEKS R5 R6 K4 ["Children"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K7 ["Seed"]
-  GETTABLE R4 R5 R6
-  DUPTABLE R5 K10 [{"hillWidth", "hillHeight"}]
-  LOADK R6 K11 [0.2]
-  SETTABLEKS R6 R5 K8 ["hillWidth"]
-  LOADK R6 K12 [0.85]
-  SETTABLEKS R6 R5 K9 ["hillHeight"]
+  GETTABLEKS R6 R7 K4 ["Children"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K8 ["Seed"]
+  GETTABLE R5 R6 R7
+  MULK R4 R5 K7 [3.14159265358979]
+  DUPTABLE R5 K11 [{"hillWidth", "hillHeight"}]
+  LOADK R6 K12 [0.2]
+  SETTABLEKS R6 R5 K9 ["hillWidth"]
+  LOADK R6 K13 [0.85]
+  SETTABLEKS R6 R5 K10 ["hillHeight"]
   LOADN R7 0
   JUMPIFNOTLT R7 R1 [+6]
   LOADN R7 0
@@ -57,24 +58,24 @@ PROTO_1:
   JUMP [+1]
   LOADB R6 0
   JUMPIFNOT R6 [+13]
-  DUPTABLE R7 K17 [{"frequency", "amplitude", "offset", "seed"}]
-  MULK R8 R1 K18 [0.05]
-  SETTABLEKS R8 R7 K13 ["frequency"]
-  MULK R9 R2 K20 [0.16]
-  MULK R8 R9 K19 [2]
-  SETTABLEKS R8 R7 K14 ["amplitude"]
-  SETTABLEKS R3 R7 K15 ["offset"]
-  SETTABLEKS R4 R7 K16 ["seed"]
+  DUPTABLE R7 K18 [{"frequency", "amplitude", "offset", "seed"}]
+  MULK R8 R1 K19 [0.05]
+  SETTABLEKS R8 R7 K14 ["frequency"]
+  MULK R9 R2 K21 [0.16]
+  MULK R8 R9 K20 [2]
+  SETTABLEKS R8 R7 K15 ["amplitude"]
+  SETTABLEKS R3 R7 K16 ["offset"]
+  SETTABLEKS R4 R7 K17 ["seed"]
   JUMP [+1]
   LOADNIL R7
   MOVE R10 R5
   MOVE R11 R7
-  NAMECALL R8 R0 K21 ["generateHill"]
+  NAMECALL R8 R0 K22 ["generateHill"]
   CALL R8 3 0
   JUMPIFNOT R6 [+6]
-  NAMECALL R8 R0 K22 ["addErosion"]
+  NAMECALL R8 R0 K23 ["addErosion"]
   CALL R8 1 0
-  NAMECALL R8 R0 K23 ["addMacroNoise"]
+  NAMECALL R8 R0 K24 ["addMacroNoise"]
   CALL R8 1 0
   RETURN R0 0
 

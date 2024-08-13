@@ -9,7 +9,7 @@ local LocalizationService = game:GetService("LocalizationService")
 local VRService = game:GetService("VRService")
 local UserInputService = game:GetService("UserInputService")
 
-local create = require(RobloxGui.Modules.Common.Create)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
@@ -48,7 +48,7 @@ end
 -- Frame styles for different platforms
 local styledFrame = {
 	["Default"] = function()
-		return create 'Frame' {
+		return Create 'Frame' {
 			Name = 'ErrorPrompt',
 			BackgroundTransparency = 0,
 			BorderSizePixel = 0,
@@ -59,28 +59,28 @@ local styledFrame = {
 			Visible = false,
 			AutoLocalize = false,
 			ZIndex = 8,
-			create 'UIListLayout' {
+			Create 'UIListLayout' {
 				Name = "PromptLayout",
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			},
-			create 'UIScale' {
+			Create 'UIScale' {
 				Name = "PromptScale",
 				Scale = 0,
 			},
-			create 'Frame' {
+			Create 'Frame' {
 				Name = "TitleFrame",
 				LayoutOrder = 1,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 0, Constants.ERROR_TITLE_FRAME_HEIGHT.Default),
 				BorderSizePixel = 0,
 				ZIndex = 8,
-				create 'UIPadding' {
+				Create 'UIPadding' {
 					Name = "TitleFramePadding",
 					PaddingBottom = UDim.new(0, 11),
 					PaddingTop = UDim.new(0, 11),
 				},
-				create 'TextLabel' {
+				Create 'TextLabel' {
 					Name = "ErrorTitle",
 					TextColor3 = Constants.COLORS.WHITE,
 					TextSize = 25,
@@ -92,7 +92,7 @@ local styledFrame = {
 					ZIndex = 8,
 				},
 			},
-			create 'Frame' {
+			Create 'Frame' {
 				Name = "SplitLine",
 				LayoutOrder = 2,
 				Size = UDim2.new(1, -2 * Constants.SIDE_PADDING, 0, Constants.SPLIT_LINE_THICKNESS),
@@ -100,32 +100,32 @@ local styledFrame = {
 				BorderSizePixel = 0,
 				ZIndex = 8,
 			},
-			create 'Frame' {
+			Create 'Frame' {
 				Name = "MessageArea",
 				LayoutOrder = 3,
 				Size = UDim2.new(1, 0, 1, - Constants.ERROR_TITLE_FRAME_HEIGHT.Default - Constants.SPLIT_LINE_THICKNESS),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				ZIndex = 8,
-				create 'UIPadding' {
+				Create 'UIPadding' {
 					Name = "MessageAreaPadding",
 					PaddingBottom = UDim.new(0, Constants.SIDE_PADDING),
 					PaddingLeft = UDim.new(0, Constants.SIDE_PADDING),
 					PaddingRight = UDim.new(0, Constants.SIDE_PADDING),
 					PaddingTop = UDim.new(0, Constants.SIDE_PADDING),
 				},
-				create 'Frame' {
+				Create 'Frame' {
 					Name = "ErrorFrame",
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 1, 0),
 					ZIndex = 8,
-					create 'UIListLayout' {
+					Create 'UIListLayout' {
 						Name = "ErrorFrameLayout",
 						Padding = UDim.new(0, Constants.LAYOUT_PADDING),
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 					},
-					create 'TextLabel' {
+					Create 'TextLabel' {
 						Name = "ErrorMessage",
 						LayoutOrder = 1,
 						Size = UDim2.new(1, 0, 1, -Constants.BUTTON_HEIGHT - Constants.LAYOUT_PADDING),
@@ -136,7 +136,7 @@ local styledFrame = {
 						TextWrapped = true,
 						Font = Enum.Font.SourceSans,
 					},
-					create 'Frame' {
+					Create 'Frame' {
 						Name = "ButtonArea",
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, 0, 0, Constants.BUTTON_HEIGHT),
@@ -147,7 +147,7 @@ local styledFrame = {
 						SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
 						SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
 						SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
-						create 'UIGridLayout' {
+						Create 'UIGridLayout' {
 							Name = "ButtonLayout",
 							CellPadding = UDim2.new(0, Constants.BUTTON_CELL_PADDING, 0, 0),
 							CellSize = UDim2.new(1, 0, 0, Constants.BUTTON_HEIGHT),
@@ -164,7 +164,7 @@ local styledFrame = {
 
 local styledButton = {
 	["Default"] = function(name, layoutOrder, primary)
-		return create 'ImageButton' {
+		return Create 'ImageButton' {
 			Name = name.."Button",
 			BackgroundTransparency = 1,
 			ImageColor3 = primary and Constants.COLORS.WHITE or Constants.COLORS.PUMICE,
@@ -175,7 +175,7 @@ local styledButton = {
 			SliceCenter = Rect.new(8, 8, 9, 9),
 			LayoutOrder = layoutOrder,
 			ZIndex = 8,
-			create 'TextLabel' {
+			Create 'TextLabel' {
 				Name = "ButtonText",
 				Text = name,
 				Size = UDim2.new(1, 0, 1, 0),

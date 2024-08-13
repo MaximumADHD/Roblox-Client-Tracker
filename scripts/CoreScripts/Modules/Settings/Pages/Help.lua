@@ -25,6 +25,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local TextService = game:GetService("TextService")
+local CorePackages = game:GetService("CorePackages")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
@@ -33,6 +34,7 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -91,7 +93,7 @@ local function Initialize()
 		local function createPCGroup(title, actionInputBindings)
 		  local textIndent = 9
 
-		  local pcGroupFrame = utility:Create'Frame'
+		  local pcGroupFrame = Create'Frame'
 		  {
 			Size = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then UDim2.new(1/3,-PC_TABLE_SPACING,0,0) else UDim2.new(1/3,-PC_TABLE_SPACING,1,0),
 			AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
@@ -99,7 +101,7 @@ local function Initialize()
 			Name = "PCGroupFrame" .. tostring(title)
 		  };
 		  if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
-			local _pcGroupLayout = utility:Create'UIListLayout'
+			local _pcGroupLayout = Create'UIListLayout'
 			{
 				FillDirection = Enum.FillDirection.Vertical,
 				Padding = UDim.new(0, 2),
@@ -107,21 +109,30 @@ local function Initialize()
 				SortOrder = Enum.SortOrder.LayoutOrder
 			};
 		  end
-		  local pcGroupTitle = utility:Create'TextLabel'
+		  local pcGroupTitle = Create'TextLabel'
 		  {
 			Position = UDim2.new(0,textIndent,0,0),
 			Size = UDim2.new(1,-textIndent,0,30),
+			AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 			BackgroundTransparency = 1,
 			Text = title,
 			Font = Theme.font(Enum.Font.SourceSansBold, "HelpTitle"),
 			FontSize = Theme.fontSize(Enum.FontSize.Size18, "HelpTitle"),
 			TextColor3 = Color3.new(1,1,1),
 			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then true else nil, 
 			Name = "PCGroupTitle" .. tostring(title),
 			ZIndex = 2,
 			LayoutOrder = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 1 else nil,
 			Parent = pcGroupFrame
 		  };
+		  if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+			local _pcGroupTitlePadding = Create'UIPadding'
+			{
+				PaddingLeft = UDim.new(0, textIndent),
+				Parent = pcGroupTitle,
+			};
+		  end
 
 		  local count = 0
 		  local frameHeight = 42
@@ -129,7 +140,7 @@ local function Initialize()
 		  local offset = pcGroupTitle.Size.Y.Offset
 		  for i = 1, #actionInputBindings do
 			for actionName, inputName in pairs(actionInputBindings[i]) do
-			  local actionInputFrame = utility:Create'Frame'
+			  local actionInputFrame = Create'Frame'
 			  {
 				Size = UDim2.new(1,0,0,frameHeight),
 				Position = UDim2.new(0,0,0, offset + ((frameHeight + spacing) * count)),
@@ -144,16 +155,17 @@ local function Initialize()
 
 			  if Theme.UIBloxThemeEnabled then
 				actionInputFrame.BackgroundColor3 = Theme.color("InputActionBackground")
-				utility:Create'UICorner'
+				Create'UICorner'
 				{
 					CornerRadius = UDim.new(0, 3),
 					Parent = actionInputFrame,
 				}
 			  end
 
-			  local nameLabel = utility:Create'TextLabel'
+			  local nameLabel = Create'TextLabel'
 			  {
 				Size = UDim2.new(0.4,-textIndent,0,frameHeight),
+				AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 				Position = UDim2.new(0,textIndent,0,0),
 				BackgroundTransparency = 1,
 				Text = actionName,
@@ -165,15 +177,20 @@ local function Initialize()
 				ZIndex = 2,
 				Parent = actionInputFrame,
 				TextWrapped = true,
-				TextScaled = true
+				TextScaled = if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then true else nil,
 			  };
-			  do
+			do
 				local textSizeConstraint = Instance.new("UITextSizeConstraint",nameLabel)
-				textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
-			  end
+				if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+					textSizeConstraint.MaxTextSize = Theme.textSize(28)
+				else 
+					textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
+				end
+			end
+	
 
 
-			  local inputLabel = utility:Create'TextLabel'
+			  local inputLabel = Create'TextLabel'
 			  {
 				Size = UDim2.new(0.5,0,0,frameHeight),
 				Position = UDim2.new(0.5,-4,0,0),
@@ -221,6 +238,9 @@ local function Initialize()
 							..RobloxTranslator:FormatByKey("InGame.HelpMenu.RightArrow")},
 			[5] = {["Jump"] = "Space"}} )
 		charMoveFrame.Parent = parentFrame
+		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+			charMoveFrame.LayoutOrder = 1
+		end
 
 		local oneChar = UserInputService:GetStringForKeyCode(Enum.KeyCode.One)
 		local twoChar = UserInputService:GetStringForKeyCode(Enum.KeyCode.Two)
@@ -233,6 +253,9 @@ local function Initialize()
 			[4] = {["Use Tool"] = "Left Mouse Button"} })
 		accessoriesFrame.Position = UDim2.new(1/3,PC_TABLE_SPACING,0,0)
 		accessoriesFrame.Parent = parentFrame
+		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+			accessoriesFrame.LayoutOrder = 2
+		end
 
 		local miscActions = {}
 
@@ -269,6 +292,9 @@ local function Initialize()
 
 		miscFrame.Position = UDim2.new(2/3,PC_TABLE_SPACING * 2,0,0)
 		miscFrame.Parent = parentFrame
+		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+			miscFrame.LayoutOrder = 3
+		end
 
 		local camFrame = createPCGroup("Camera Movement", {
 			[1] = {["Rotate"] = "Right Mouse Button"},
@@ -278,6 +304,9 @@ local function Initialize()
 		})
 		camFrame.Position = UDim2.new(0,0,charMoveFrame.Size.Y.Scale,charMoveFrame.Size.Y.Offset + rowOffset)
 		camFrame.Parent = parentFrame
+		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+			camFrame.LayoutOrder = 4
+		end
 
 		local menuFrame = createPCGroup("Menu Items", {
 			[1] = {["Roblox Menu"] = "Esc"},
@@ -286,6 +315,9 @@ local function Initialize()
 			[4] = {["Chat"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.Slash)} })
 		menuFrame.Position = UDim2.new(1/3,PC_TABLE_SPACING,charMoveFrame.Size.Y.Scale,charMoveFrame.Size.Y.Offset + rowOffset)
 		menuFrame.Parent = parentFrame
+		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
+			menuFrame.LayoutOrder = 5
+		end
 
 		parentFrame.Size = UDim2.new(parentFrame.Size.X.Scale, parentFrame.Size.X.Offset, 0,
 		  menuFrame.Size.Y.Offset + menuFrame.Position.Y.Offset)
@@ -297,7 +329,7 @@ local function Initialize()
 		local imageSize = if FFlagFixGamepadHelpImage then UDim2.new(0, controllerWidth, 0, controllerWidth * CONTROLLER_WIDTH_HEIGHT_RATIO) else UDim2.new(0, 700, 0, 448)
 		local imagePosition = UDim2.new(0.5, (-imageSize.X.Offset/2) + CONTROLLER_IMAGE_OFFSET_X, 0.5, -imageSize.Y.Offset/2 + CONTROLLER_IMAGE_OFFSET_Y)
 
-		local gamepadImageLabel = utility:Create'ImageLabel'
+		local gamepadImageLabel = Create'ImageLabel'
 		{
 		  Name = "GamepadImage",
 		  Size = imageSize,
@@ -314,7 +346,7 @@ local function Initialize()
 		local function createGamepadLabel(text, position, size, rightAligned)
 			local nameLabel = nil
 			if FFlagUseNotificationsLocalization == true then
-				nameLabel = utility:Create'TextLabel'{
+				nameLabel = Create'TextLabel'{
 				  Position = position,
 				  Size = size,
 				  BackgroundTransparency = 1,
@@ -332,7 +364,7 @@ local function Initialize()
 				  TextTruncate = if FFlagFixGamepadHelpImage then Enum.TextTruncate.AtEnd else nil,				
 				};
 			else
-				nameLabel = utility:Create'TextLabel'{
+				nameLabel = Create'TextLabel'{
 				  Position = position,
 				  Size = size,
 				  BackgroundTransparency = 1,
@@ -474,7 +506,7 @@ local function Initialize()
 		parentFrame.Size = UDim2.new(1,0,0,ySize)
 
 		local function createTouchLabel(text, position, size, parent)
-			local nameFrame = utility:Create'TextLabel'
+			local nameFrame = Create'TextLabel'
 			{
 				Position = position,
 				Size = size,
@@ -483,7 +515,7 @@ local function Initialize()
 				Parent = parent,
 			}
 
-			local nameLabel = utility:Create'TextLabel'
+			local nameLabel = Create'TextLabel'
 			{
 				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(1, 0, 1, 0),
@@ -504,7 +536,7 @@ local function Initialize()
 				nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabel.Size.X.Offset, nameLabel.Size.Y.Scale, nameLabel.Size.Y.Offset + 4)
 			end
 
-			local _nameBackgroundImage = utility:Create'ImageLabel'
+			local _nameBackgroundImage = Create'ImageLabel'
 			{
 				Name = text .. "BackgroundImage",
 				Size = UDim2.new(1.25,0,1.25,0),
@@ -524,7 +556,7 @@ local function Initialize()
 		end
 
 		local function createTouchGestureImage(name, image, position, size, parent)
-			local gestureImage = utility:Create'ImageLabel'
+			local gestureImage = Create'ImageLabel'
 			{
 			Name = name,
 			Size = size,
@@ -565,13 +597,23 @@ local function Initialize()
 
 	local function createHelpDisplay(typeOfHelp)
 		local helpContents = nil
-		local helpFrame = utility:Create'Frame'
+		local helpFrame = Create'Frame'
 		{
 		  Size = if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then UDim2.new(1,0,0,0) else UDim2.new(1,0,1,0),
 		  AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
 		  BackgroundTransparency = 1,
 		  Name = "HelpFrame" .. tostring(typeOfHelp)
 		};
+		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() and typeOfHelp == KEYBOARD_MOUSE_TAG then
+			local _helpListLayout = Create'UIListLayout'
+			{
+				FillDirection = Enum.FillDirection.Horizontal,
+				Wraps = true,
+				Parent = helpFrame,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, PC_TABLE_SPACING)
+			};
+		end
 
 
 		if typeOfHelp == KEYBOARD_MOUSE_TAG then

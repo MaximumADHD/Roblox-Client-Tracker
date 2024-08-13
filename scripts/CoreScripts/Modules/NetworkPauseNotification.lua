@@ -14,7 +14,7 @@ local CorePackages = game:GetService("CorePackages")
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local RobloxTranslator = require(CoreGuiModules.RobloxTranslator)
-local create = require(CoreGuiModules.Common.Create)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 -- animations presets
 local fadeTweenInfo = TweenInfo.new(FADE_DURATION, Enum.EasingStyle.Sine)
@@ -29,7 +29,7 @@ local function build()
 
 	local initTransparency = if FFlagNetworkPauseNoAnimation then 0 else 1
 
-	return create "ImageLabel" {
+	return Create "ImageLabel" {
 
 		Name = "NetworkPause",
 		Image = "rbxasset://textures/ui/PurchasePrompt/LoadingBG.png",
@@ -42,18 +42,18 @@ local function build()
 		ImageTransparency = initTransparency,
 		BackgroundTransparency = 1,
 	
-		create "UISizeConstraint" {
+		Create "UISizeConstraint" {
 			MaxSize = Vector2.new(312, 251)
 		},
 	
-		create "UIPadding" {
+		Create "UIPadding" {
 			PaddingTop = UDim.new(0, 24),
 			PaddingLeft = UDim.new(0, 24),
 			PaddingRight = UDim.new(0, 24),
 			PaddingBottom = UDim.new(0, 24)
 		},
 	
-		create "Frame" {
+		Create "Frame" {
 			Name = "Accent",
 			BorderSizePixel = 0,
 			BackgroundColor3 = Color3.fromRGB(66, 66, 66),
@@ -62,13 +62,13 @@ local function build()
 			BackgroundTransparency = initTransparency
 		},
 	
-		create "Frame" {
+		Create "Frame" {
 	
 			Name = "Upper",
 			Size = UDim2.new(1, 0, 0, 88),
 			BackgroundTransparency = 1,
 	
-			create "Frame" {
+			Create "Frame" {
 	
 				Name = "IconContainer",
 				Size = UDim2.new(0, 40, 0, 37),
@@ -76,7 +76,7 @@ local function build()
 				Position = UDim2.new(0.5, 0, 0, 0),
 				BackgroundTransparency = 1,
 	
-				create "ImageLabel" {
+				Create "ImageLabel" {
 					Name = "Icon",
 					BackgroundTransparency = 1,
 					Image = "rbxasset://textures/ui/NetworkPause/no connection.png",
@@ -88,7 +88,7 @@ local function build()
 	
 			},
 	
-			create "TextLabel" {
+			Create "TextLabel" {
 				Name = "Label",
 				Font = AppFonts.default:getBold(),
 				Text = FFlagLocalizeGameplayPaused and RobloxTranslator:FormatByKey("InGame.GameplayPaused.Title")
@@ -104,7 +104,7 @@ local function build()
 	
 		},
 	
-		create "TextLabel" {
+		Create "TextLabel" {
 			Name = "Lower",
 			Font = AppFonts.default:getDefault(),
 			Text = FFlagLocalizeGameplayPaused and RobloxTranslator:FormatByKey("InGame.GameplayPaused.Body")

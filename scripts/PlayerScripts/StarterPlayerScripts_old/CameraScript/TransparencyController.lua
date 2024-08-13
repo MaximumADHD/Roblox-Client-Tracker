@@ -1,6 +1,27 @@
 --!nonstrict
 -- SolarCrane
 
+local FFlagUserHideCharacterParticlesInFirstPerson
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserHideCharacterParticlesInFirstPerson")
+	end)
+	FFlagUserHideCharacterParticlesInFirstPerson = success and result
+end
+
+-- Classes with a LocalTransparencyModifier property that we should hide in first person
+local HIDE_IN_FIRST_PERSON_CLASSES = {
+	"BasePart",
+	"Decal",
+	"Beam",
+	"ParticleEmitter",
+	"Trail",
+	"Fire",
+	"Smoke",
+	"Sparkles",
+	"Explosion"
+}
+
 local MAX_TWEEN_RATE = 2.8 -- per second
 
 local function clamp(low, high, num)
@@ -34,8 +55,16 @@ local function CreateTransparencyController()
 	end
 
 	local function IsValidPartToModify(part)
-		if part:IsA('BasePart') or part:IsA('Decal') then
-			return not HasToolAncestor(part)
+		if FFlagUserHideCharacterParticlesInFirstPerson then
+			for _, className in HIDE_IN_FIRST_PERSON_CLASSES do
+				if part:IsA(className) then
+					return not HasToolAncestor(part)
+				end
+			end
+		else
+			if part:IsA('BasePart') or part:IsA('Decal') then
+				return not HasToolAncestor(part)
+			end
 		end
 		return false
 	end

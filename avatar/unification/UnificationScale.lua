@@ -1,43 +1,14 @@
 -- UnificationScale.lua
 -- Module script implementing scaling and positioning of R15 parts to target positions.
--- The target in this script is defined according to R6 characters
-local UnificationScale = {}
-
-local PART_NAMES = {
-	"RightFoot",
-	"LeftFoot",
-	"RightHand",
-	"LeftHand",
-	"RightLowerArm",
-	"LeftLowerArm",
-	"RightLowerLeg",
-	"LeftLowerLeg",
-	"RightUpperArm",
-	"LeftUpperArm",
-	"RightUpperLeg",
-	"LeftUpperLeg",
-	"LowerTorso",
-	"UpperTorso",
-	"Head",
+local R6_TARGET_SIZES: { [string]: Vector3 } = {
+	Torso = Vector3.new(2, 2, 1),
+	Head = Vector3.new(1.2, 1.2, 1.2),
+	Arm = Vector3.new(1, 2, 1),
+	Leg = Vector3.new(1, 2, 1),
+	HumanoidRootPart = Vector3.new(2, 2, 1),
 }
 
-local MOTOR_MAPPINGS: { [string]: string } = {
-	RightFoot = "RightAnkle",
-	LeftFoot = "LeftAnkle",
-	RightHand = "RightWrist",
-	LeftHand = "LeftWrist",
-	RightLowerArm = "RightElbow",
-	LeftLowerArm = "LeftElbow",
-	RightLowerLeg = "RightKnee",
-	LeftLowerLeg = "LeftKnee",
-	RightUpperArm = "RightShoulder",
-	LeftUpperArm = "LeftShoulder",
-	RightUpperLeg = "RightHip",
-	LeftUpperLeg = "LeftHip",
-	LowerTorso = "Root",
-	UpperTorso = "Waist",
-	Head = "Neck",
-}
+local R6_HIP_HEIGHT = 2
 
 local ACCESSORY_MAPPINGS: { [string]: string } = {
 	FaceCenterAttachment = "Head",
@@ -70,187 +41,88 @@ local ACCESSORY_MAPPINGS: { [string]: string } = {
 	RootAttachment = "HumanoidRootPart",
 }
 
-type R15Hitboxes = {
-	RightFoot: Vector3,
-	LeftFoot: Vector3,
-	RightHand: Vector3,
-	LeftHand: Vector3,
-	RightLowerArm: Vector3,
-	LeftLowerArm: Vector3,
-	RightLowerLeg: Vector3,
-	LeftLowerLeg: Vector3,
-	RightUpperArm: Vector3,
-	LeftUpperArm: Vector3,
-	RightUpperLeg: Vector3,
-	LeftUpperLeg: Vector3,
-	LowerTorso: Vector3,
-	UpperTorso: Vector3,
-	Head: Vector3,
-	HumanoidRootPart: Vector3,
-}
+local function GetExtentsSize(instances: { BasePart })
+	assert(#instances > 0, "instances must not be empty for GetExtentsSize")
+	local abs = math.abs
+	local inf = math.huge
 
-type RiggingAttachment = {
-	C0: Vector3,
-	C1: Vector3,
-	Part0: Part,
-	Part1: Part,
-}
+	local minx, miny, minz = inf, inf, inf
+	local maxx, maxy, maxz = -inf, -inf, -inf
 
-type R15Attachments = {
-	RightFoot: RiggingAttachment,
-	LeftFoot: RiggingAttachment,
-	RightHand: RiggingAttachment,
-	LeftHand: RiggingAttachment,
-	RightLowerArm: RiggingAttachment,
-	LeftLowerArm: RiggingAttachment,
-	RightLowerLeg: RiggingAttachment,
-	LeftLowerLeg: RiggingAttachment,
-	RightUpperArm: RiggingAttachment,
-	LeftUpperArm: RiggingAttachment,
-	RightUpperLeg: RiggingAttachment,
-	LeftUpperLeg: RiggingAttachment,
-	LowerTorso: RiggingAttachment,
-	UpperTorso: RiggingAttachment,
-	Head: RiggingAttachment,
-	HumanoidRootPart: RiggingAttachment,
-}
-
-type R15Definition = {
-	Sizes: { [string]: Vector3 },
-	Rigging: { [string]: { C0: CFrame, C1: CFrame } },
-}
-
-UnificationScale.Target = {
-	Sizes = {
-		RightFoot = Vector3.new(1, 0.3, 1),
-		LeftFoot = Vector3.new(1, 0.3, 1),
-		RightHand = Vector3.new(1, 0.3, 1),
-		LeftHand = Vector3.new(1, 0.3, 1),
-		RightLowerArm = Vector3.new(1, 1.0518989562988281, 1),
-		LeftLowerArm = Vector3.new(1, 1.0518989562988281, 1),
-		RightLowerLeg = Vector3.new(1, 1.1930999755859375, 1),
-		LeftLowerLeg = Vector3.new(1, 1.193100094795227, 1),
-		RightUpperArm = Vector3.new(1, 1.1686992645263672, 1),
-		LeftUpperArm = Vector3.new(1, 1.1686992645263672, 1),
-		RightUpperLeg = Vector3.new(1, 1.2166004180908203, 1),
-		LeftUpperLeg = Vector3.new(1, 1.2166005373001099, 1),
-		LowerTorso = Vector3.new(2, 0.4, 1),
-		UpperTorso = Vector3.new(2, 1.6, 1),
-		Head = Vector3.new(1.2, 1.2, 1.2),
-		HumanoidRootPart = Vector3.new(2, 2, 1),
-	},
-	Rigging = {
-		RightAnkle = {
-			C0 = CFrame.new(0, -0.547157168, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, 0.101939559, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		LeftAnkle = {
-			C0 = CFrame.new(0, -0.547157228, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, 0.101939693, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		RightWrist = {
-			C0 = CFrame.new(0, -0.5009287, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, 0.125045404, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		LeftWrist = {
-			C0 = CFrame.new(0.000478625298, -0.5009287, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0.000478982925, 0.125045404, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		RightElbow = {
-			C0 = CFrame.new(0, -0.334165096, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, 0.258579493, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		LeftElbow = {
-			C0 = CFrame.new(0.000479221344, -0.334056377, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0.000478625298, 0.258688211, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		RightKnee = {
-			C0 = CFrame.new(0, -0.400946498, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, 0.379174292, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		LeftKnee = {
-			C0 = CFrame.new(0, -0.401102424, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, 0.379018486, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		RightShoulder = {
-			C0 = CFrame.new(0.99999994, 0.56301713, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(-0.500000715, 0.394326687, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		LeftShoulder = {
-			C0 = CFrame.new(-1, 0.56301713, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0.500000358, 0.394326687, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		RightHip = {
-			C0 = CFrame.new(0.499999881, -0.199972257, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, 0.420782268, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		LeftHip = {
-			C0 = CFrame.new(-0.500000119, -0.199972257, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, 0.420782208, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		Root = {
-			C0 = CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, -0.199972257, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		Waist = {
-			C0 = CFrame.new(0, 0.200024918, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, -0.799985707, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-		Neck = {
-			C0 = CFrame.new(0, 0.800017118, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			C1 = CFrame.new(0, -0.500000119, -0.000272244215, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-		},
-	},
-} :: R15Definition
-
-local function GetHitboxes(character: Model): R15Hitboxes
-	local ret = {}
-	for _, name in PART_NAMES do
-		local part = character[name]
-		ret[name] = part.Size
-	end
-	ret.HumanoidRootPart = character.HumanoidRootPart.Size
-	return ret
-end
-
-local function GetOffset(attachment: RiggingAttachment, part: Part | MeshPart): Vector3
-	if attachment.Part0 == part then
-		return attachment.C0
-	elseif attachment.Part1 == part then
-		return attachment.C1
-	else
-		error("part not element of attachment")
-	end
-end
-
-local function GetRelativeRigging(motor: Motor6D): RiggingAttachment
-	if motor.Part0 == nil or motor.Part1 == nil then
-		error("Missing attachment parts")
-	end
-
-	return {
-		C0 = motor.C0.Position / motor.Part0.Size,
-		C1 = motor.C1.Position / motor.Part1.Size,
-		Part0 = motor.Part0,
-		Part1 = motor.Part1,
-	}
-end
-
-local function GetRelativeAttachments(character: Model): R15Attachments
-	local ret = {}
-	for _, name in PART_NAMES do
-		local part = character[name] :: MeshPart
-
-		if MOTOR_MAPPINGS[name] ~= nil then
-			local motor = part:WaitForChild(MOTOR_MAPPINGS[name]) :: Motor6D
-			ret[name] = GetRelativeRigging(motor)
+	for _, obj in instances do
+		if obj:IsA("BasePart") then
+			local cf = obj.ExtentsCFrame
+			local size = obj.ExtentsSize
+			local sx, sy, sz = size.X, size.Y, size.Z
+			local x, y, z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = cf:GetComponents()
+			local wsx = 0.5 * (abs(R00) * sx + abs(R01) * sy + abs(R02) * sz)
+			local wsy = 0.5 * (abs(R10) * sx + abs(R11) * sy + abs(R12) * sz)
+			local wsz = 0.5 * (abs(R20) * sx + abs(R21) * sy + abs(R22) * sz)
+			minx = math.min(minx, x - wsx)
+			miny = math.min(miny, y - wsy)
+			minz = math.min(minz, z - wsz)
+			maxx = math.max(maxx, x + wsx)
+			maxy = math.max(maxy, y + wsy)
+			maxz = math.max(maxz, z + wsz)
 		end
 	end
 
-	return ret
+	local omin, omax = Vector3.new(minx, miny, minz), Vector3.new(maxx, maxy, maxz)
+	local size = (omax - omin)
+	return size
 end
 
-local function ResetScaling(humanoid: Humanoid)
+local function JoinArrays(...)
+	local arg = { ... }
+	local result = {}
+	for _, array in arg do
+		for _, value in array do
+			table.insert(result, value)
+		end
+	end
+	return result
+end
+
+local UnificationScale = {}
+
+UnificationScale.UnificationModes = {
+	CLAMP_WIDTH = "ClampWidth",
+	FULL = "Full",
+}
+
+UnificationScale.__index = UnificationScale
+UnificationScale.ScaleCharacter = function(character: Model, unificationMode: string?)
+	local self = setmetatable({}, UnificationScale)
+	self.UnificationMode = unificationMode or UnificationScale.UnificationModes.CLAMP_WIDTH
+	local humanoid: Humanoid = character:WaitForChild("Humanoid") :: Humanoid
+	self.Humanoid = humanoid
+	self.Character = character
+	self.ScalingFactors = {}
+	self:ScaleParts()
+	humanoid.HipHeight = R6_HIP_HEIGHT
+	humanoid:BuildRigFromAttachments()
+	self:MoveAndScaleAccessories()
+	return self
+end
+
+function UnificationScale:ScaleParts()
+	self:ResetScaling()
+	self.BodyHeightScalingFactor = self:GetBodyHeightScalingFactor()
+	self.BodyWidthScalingFactor = self:GetBodyWidthScalingFactor()
+	self:ScaleHead()
+	self:ScaleHumanoidRootPart()
+	self:MoveRootRigAttachmentToHipHeight()
+
+	self:ScaleArm("Left")
+	self:ScaleArm("Right")
+
+	self:ScaleBodyPartGroupWithDepth({ self.Character.UpperTorso, self.Character.LowerTorso })
+	self:ScaleBodyPartGroupWithDepth(self:GetLeg("Left"))
+	self:ScaleBodyPartGroupWithDepth(self:GetLeg("Right"))
+end
+
+function UnificationScale:ResetScaling()
+	local humanoid = self.Humanoid
 	humanoid.AutomaticScalingEnabled = false
 	local bodyWidthScaleValue = humanoid:FindFirstChild("BodyWidthScale")
 	if bodyWidthScaleValue then
@@ -278,271 +150,155 @@ local function ResetScaling(humanoid: Humanoid)
 	end
 end
 
-local function MoveAndScalePart(part: MeshPart, newSize: Vector3): MeshPart
-	part.Archivable = true
-	local oldSize = part.Size
-	part.Size = newSize
+function UnificationScale:GetBodyWidthScalingFactor()
+	if self.BodyWidthScalingFactor then
+		return self.BodyWidthScalingFactor
+	end
+	local leftArm = self:GetArm("Left")
+	local rightArm = self:GetArm("Right")
+	local leftLeg = self:GetLeg("Left")
+	local rightLeg = self:GetLeg("Right")
+	local torso = self:GetTorso()
+	local bodySize = GetExtentsSize(JoinArrays(torso, leftArm, rightArm, leftLeg, rightLeg))
+	local targetWidth = R6_TARGET_SIZES["Torso"].X + 2 * R6_TARGET_SIZES["Arm"].X
+	local scaleFactorX = targetWidth / bodySize.X
+	if self.UnificationMode == UnificationScale.UnificationModes.CLAMP_WIDTH then
+		local scaleFactorXSmall = R6_TARGET_SIZES["Torso"].X / bodySize.X
+		scaleFactorX = math.clamp(scaleFactorX, 0, math.max(scaleFactorXSmall, self:GetBodyHeightScalingFactor(), 1))
+	end
+	self.BodyWidthScalingFactor = scaleFactorX
+	return self.BodyWidthScalingFactor
+end
 
+function UnificationScale:GetBodyHeightScalingFactor()
+	if self.BodyHeightScalingFactor then
+		return self.BodyHeightScalingFactor
+	end
+	local character = self.Character
+	local upperTorso = character.UpperTorso
+	local leftLeg = self:GetLeg("Left")
+	local rightLeg = self:GetLeg("Right")
+	local torso = self:GetTorso()
+	local neckToTorsoHeight = upperTorso.ExtentsCFrame.Y
+		+ upperTorso.ExtentsSize.Y / 2
+		- upperTorso.NeckRigAttachment.WorldCFrame.Position.Y
+
+	local parts = JoinArrays(torso, leftLeg, rightLeg)
+	local extentSize = GetExtentsSize(parts)
+	local targetSizeY = R6_TARGET_SIZES["Torso"].Y + R6_TARGET_SIZES["Leg"].Y
+	self.BodyHeightScalingFactor = targetSizeY / (extentSize.Y - neckToTorsoHeight)
+	return self.BodyHeightScalingFactor
+end
+
+function UnificationScale:GetLeg(side: "Left" | "Right")
+	if self[side .. "Leg"] then
+		return self[side .. "Leg"]
+	end
+	local character = self.Character
+	local upperLeg = character[side .. "UpperLeg"]
+	local lowerLeg = character[side .. "LowerLeg"]
+	local foot = character[side .. "Foot"]
+	self[side .. "Leg"] = { upperLeg, lowerLeg, foot }
+	return self[side .. "Leg"]
+end
+
+function UnificationScale:GetArm(side: "Left" | "Right")
+	if self[side .. "Arm"] then
+		return self[side .. "Arm"]
+	end
+	local character = self.Character
+	local upperArm = character[side .. "UpperArm"]
+	local lowerArm = character[side .. "LowerArm"]
+	local hand = character[side .. "Hand"]
+	self[side .. "Arm"] = { upperArm, lowerArm, hand }
+	return self[side .. "Arm"]
+end
+
+function UnificationScale:GetTorso()
+	if self.Torso then
+		return self.Torso
+	end
+	local character = self.Character
+	local upperTorso = character.UpperTorso
+	local lowerTorso = character.LowerTorso
+	self.Torso = { upperTorso, lowerTorso }
+	return self.Torso
+end
+
+function UnificationScale:MoveRootRigAttachmentToHipHeight()
+	local lowerTorso = self.Character.LowerTorso
+	local leftFoot = self.Character.LeftFoot
+	local footToLowerTorsoOffset = leftFoot.ExtentsCFrame:ToObjectSpace(lowerTorso.ExtentsCFrame)
+	local groundToLowerTorsoHeight = footToLowerTorsoOffset.Y + leftFoot.ExtentsSize.Y / 2
+	local hipHeightAfterScaling = groundToLowerTorsoHeight * self.BodyHeightScalingFactor
+	local newRootRigWorldCFrame = lowerTorso.ExtentsCFrame + Vector3.new(0, R6_HIP_HEIGHT - hipHeightAfterScaling, 0)
+	lowerTorso.RootRigAttachment.WorldCFrame = newRootRigWorldCFrame
+end
+
+function UnificationScale:ScaleHead()
+	local head = self.Character.Head
+	local extentSize = head.ExtentsSize
+	local scaleFactor = Vector3.one * (R6_TARGET_SIZES["Head"].Y / extentSize.Y)
+	self:ScalePart(head, scaleFactor)
+end
+
+function UnificationScale:ScalePart(part: MeshPart, scaleFactor)
+	part.Archivable = true
+	part.Size = scaleFactor * part.Size
 	if part:FindFirstChild("OriginalSize") then
 		part.OriginalSize.Value = part.Size
 	end
-
-	local scaleFactor = newSize / oldSize
 	for _, child in pairs(part:GetChildren()) do
 		if child.ClassName == "Attachment" then
+			if child.Name == "RootRigAttachment" then
+				--We handle RootRigAttachment separately since it is involved in hip height for MoveRootRigAttachmentToHipHeight
+				continue
+			end
 			child.CFrame = child.CFrame + child.CFrame.Position * (scaleFactor - Vector3.one)
 			if child:FindFirstChild("OriginalPosition") then
 				child.OriginalPosition.Value = child.Position
 			end
 		end
 	end
+	if self.ScalingFactors[part.Name] then
+		self.ScalingFactors[part.Name] *= scaleFactor
+	else
+		self.ScalingFactors[part.Name] = scaleFactor
+	end
 end
 
-local function MoveAndScaleUpperTorso(
-	upperTorso: MeshPart,
-	oldRelativeRigging: R15Attachments,
-	oldHitboxes: R15Hitboxes,
-	targetRig: R15Definition,
-	scalingFactors: { [string]: Vector3 }
-)
-	local left = GetOffset(oldRelativeRigging.LeftUpperArm, upperTorso)
-	local right = GetOffset(oldRelativeRigging.RightUpperArm, upperTorso)
-	local top = GetOffset(oldRelativeRigging.Head, upperTorso)
-	local bottom = GetOffset(oldRelativeRigging.UpperTorso, upperTorso)
-	local relativeX = (targetRig.Rigging.RightShoulder.C0.X - targetRig.Rigging.LeftShoulder.C0.X)
-		/ (right.X - left.X)
-		/ targetRig.Sizes.UpperTorso.X
-
-	-- Clamp height so characters can't get too tall
-	local relativeY = (targetRig.Rigging.Neck.C0.Y - targetRig.Rigging.Waist.C1.Y)
-		/ (top.Y - bottom.Y)
-		/ targetRig.Sizes.UpperTorso.Y
-	local relativeZ = oldHitboxes.UpperTorso.Z / targetRig.Sizes.UpperTorso.Z
-
-	relativeX = math.clamp(relativeX, 0, 1)
-	relativeY = math.clamp(relativeY, 0, 0.9)
-	relativeZ = math.clamp(relativeZ, 0, 1.5)
-
-	local scaleFactor = Vector3.new(relativeX, relativeY, relativeZ)
-
-	scalingFactors["UpperTorso"] = scaleFactor
-
-	MoveAndScalePart(upperTorso, targetRig.Sizes.UpperTorso * scaleFactor)
+function UnificationScale:ScaleArm(side: "Left" | "Right")
+	local arm = self:GetArm(side)
+	local extentsSize = GetExtentsSize(arm)
+	local scaleFactor = R6_TARGET_SIZES["Arm"] / extentsSize
+	for _, part in arm do
+		self:ScalePart(part, Vector3.new(self.BodyWidthScalingFactor, scaleFactor.Y, scaleFactor.Z))
+	end
 end
 
-local function MoveAndScaleLowerTorso(
-	lowerTorso: MeshPart,
-	oldRelativeRigging: R15Attachments,
-	oldHitboxes: R15Hitboxes,
-	targetRig: R15Definition,
-	scalingFactors: { [string]: Vector3 }
-)
-	local lowerTop = GetOffset(oldRelativeRigging.UpperTorso, lowerTorso)
-	local lowerBotttom = GetOffset(oldRelativeRigging.LeftUpperLeg, lowerTorso)
-	local lowerLeft = GetOffset(oldRelativeRigging.LeftUpperLeg, lowerTorso)
-	local lowerRight = GetOffset(oldRelativeRigging.RightUpperLeg, lowerTorso)
-
-	local relativeX = (targetRig.Rigging.RightHip.C0.Position.X - targetRig.Rigging.LeftHip.C0.Position.X)
-		/ (lowerRight.X - lowerLeft.X)
-		/ targetRig.Sizes.LowerTorso.X
-	local relativeY = (targetRig.Rigging.Waist.C0.Position.Y - targetRig.Rigging.LeftHip.C0.Position.Y)
-		/ (lowerTop.Y - lowerBotttom.Y)
-		/ targetRig.Sizes.LowerTorso.Y
-	local relativeZ = oldHitboxes.LowerTorso.Z / targetRig.Sizes.LowerTorso.Z
-
-	relativeX = math.clamp(relativeX, 0, 0.9)
-	relativeY = math.clamp(relativeY, 0, 5)
-	relativeZ = math.clamp(relativeZ, 0, 0.9)
-
-	local scaleFactor = Vector3.new(relativeX, relativeY, relativeZ)
-
-	scalingFactors["LowerTorso"] = scaleFactor
-
-	MoveAndScalePart(lowerTorso, targetRig.Sizes.LowerTorso * scaleFactor)
+function UnificationScale:ScaleBodyPartGroupWithDepth(bodyParts: { MeshPart })
+	local extentSize = GetExtentsSize(bodyParts)
+	local scalingFactorZ = R6_TARGET_SIZES["Torso"].Z / extentSize.Z
+	local scaleFactor = Vector3.new(self.BodyWidthScalingFactor, self.BodyHeightScalingFactor, scalingFactorZ)
+	for _, part in bodyParts do
+		self:ScalePart(part, scaleFactor)
+	end
 end
 
-local function MoveAndScaleTorso(
-	character: Model,
-	oldRelativeRigging: R15Attachments,
-	oldHitboxes: R15Hitboxes,
-	targetRig: R15Definition,
-	scalingFactors: { [string]: Vector3 }
-)
-	MoveAndScaleUpperTorso(character.UpperTorso, oldRelativeRigging, oldHitboxes, targetRig, scalingFactors)
-	MoveAndScaleLowerTorso(character.LowerTorso, oldRelativeRigging, oldHitboxes, targetRig, scalingFactors)
+function UnificationScale:ScaleHumanoidRootPart()
+	local humanoidRootPart = self.Character.HumanoidRootPart
+	local extentSize = humanoidRootPart.ExtentsSize
+	local scaleFactor = R6_TARGET_SIZES["HumanoidRootPart"] / extentSize
+	self:ScalePart(humanoidRootPart, scaleFactor)
+	self.Humanoid.HipHeight = R6_HIP_HEIGHT
+	humanoidRootPart.RootRigAttachment.CFrame = CFrame.new(0, -R6_HIP_HEIGHT / 2, 0) -- enforce distance from root rig to ground == 2
 end
 
-local function calculateCombinedPartsHeight(
-	secondPartPos: Vector3,
-	thirdPartPos: Vector3,
-	firstPartSize: Vector3,
-	secondPartSize: Vector3,
-	thirdPartSize: Vector3
-): Vector3
-	-- Set first part to origin
-	local firstPartPos = Vector3.zero
-
-	local minFirstPos = firstPartPos - firstPartSize / 2
-	local minSecondPos = secondPartPos - secondPartSize / 2
-	local minThirdPos = thirdPartPos - thirdPartSize / 2
-
-	local maxFirstPos = firstPartPos + firstPartSize / 2
-	local maxSecondPos = secondPartPos + secondPartSize / 2
-	local maxThirdPos = thirdPartPos + thirdPartSize / 2
-
-	local partHeight = maxFirstPos:Max(maxSecondPos, maxThirdPos) - minFirstPos:Min(minSecondPos, minThirdPos)
-	return partHeight
-end
-
-local function MoveAndScaleArm(
-	character: Model,
-	oldHitboxes: R15Hitboxes,
-	side: "Left" | "Right",
-	scalingFactors: { [string]: Vector3 }
-)
-	local upperArm = character[side .. "UpperArm"]
-	local lowerArm = character[side .. "LowerArm"]
-	local hand = character[side .. "Hand"]
-
-	local oldUpperSize = oldHitboxes[side .. "UpperArm"]
-	local oldLowerSize = oldHitboxes[side .. "LowerArm"]
-	local oldHandSize = oldHitboxes[side .. "Hand"]
-
-	-- Calculate current {old} arm height by traversing joints, showing upperArmPos as Vector3.zero for readability, not actual usage
-	local upperArmPos = Vector3.zero
-	local lowerArmPos = upperArmPos
-		+ upperArm[side .. "ElbowRigAttachment"].Position
-		- lowerArm[side .. "ElbowRigAttachment"].Position
-	local handPos = lowerArmPos
-		+ lowerArm[side .. "WristRigAttachment"].Position
-		- hand[side .. "WristRigAttachment"].Position
-	local armSize = calculateCombinedPartsHeight(lowerArmPos, handPos, oldUpperSize, oldLowerSize, oldHandSize)
-
-	local targetSize = Vector3.new(1, 2, 1)
-
-	local scaleFactor = Vector3.new(
-		math.max(math.clamp(targetSize.X / armSize.X, 0, 2.5), 1),
-		targetSize.Y / armSize.Y,
-		math.max(math.clamp(targetSize.Z / armSize.Z, 0, 1), 1)
-	)
-
-	MoveAndScalePart(upperArm, scaleFactor * oldUpperSize)
-	MoveAndScalePart(lowerArm, scaleFactor * oldLowerSize)
-	MoveAndScalePart(hand, scaleFactor * oldHandSize)
-	scalingFactors[side .. "UpperArm"] = scaleFactor
-	scalingFactors[side .. "LowerArm"] = scaleFactor
-	scalingFactors[side .. "Hand"] = scaleFactor
-end
-
-local function MoveAndScaleArms(character: Model, oldHitboxes: R15Hitboxes, scalingFactors: { [string]: Vector3 })
-	MoveAndScaleArm(character, oldHitboxes, "Left", scalingFactors)
-	MoveAndScaleArm(character, oldHitboxes, "Right", scalingFactors)
-end
-
-local function MoveAndScaleLeg(
-	character: Model,
-	oldHitboxes: R15Hitboxes,
-	side: "Left" | "Right",
-	scalingFactors: { [string]: Vector3 }
-)
-	local upperLeg = character[side .. "UpperLeg"]
-	local lowerLeg = character[side .. "LowerLeg"]
-	local foot = character[side .. "Foot"]
-	local humanoidRootPart = character["HumanoidRootPart"]
-	local lowerTorso = character["LowerTorso"]
-
-	local oldUpperSize = oldHitboxes[side .. "UpperLeg"]
-	local oldLowerSize = oldHitboxes[side .. "LowerLeg"]
-	local oldFootSize = oldHitboxes[side .. "Foot"]
-
-	-- Calculate current {old} leg height
-	local upperLegPos = Vector3.zero
-	local lowerLegPos = upperLegPos
-		+ upperLeg[side .. "KneeRigAttachment"].Position
-		- lowerLeg[side .. "KneeRigAttachment"].Position
-	local footPos = lowerLegPos
-		+ lowerLeg[side .. "AnkleRigAttachment"].Position
-		- foot[side .. "AnkleRigAttachment"].Position
-	local legSize = calculateCombinedPartsHeight(lowerLegPos, footPos, oldUpperSize, oldLowerSize, oldFootSize)
-
-	-- Need to calculate leg height based on the HipHeight so that characters don't look like they are floating or sinking into the ground
-	local HRPPos = Vector3.zero
-	upperLegPos = HRPPos
-		+ humanoidRootPart["RootRigAttachment"].Position
-		- lowerTorso["RootRigAttachment"].Position
-		+ lowerTorso[side .. "HipRigAttachment"].Position
-		- upperLeg[side .. "HipRigAttachment"].Position
-	lowerLegPos = upperLegPos
-		+ upperLeg[side .. "KneeRigAttachment"].Position
-		- lowerLeg[side .. "KneeRigAttachment"].Position
-	footPos = lowerLegPos
-		+ lowerLeg[side .. "AnkleRigAttachment"].Position
-		- foot[side .. "AnkleRigAttachment"].Position
-	local maxUpper = upperLegPos + oldUpperSize / 2
-	local maxLower = lowerLegPos + oldLowerSize / 2
-	local maxFoot = footPos + oldFootSize / 2
-
-	local maxLegPos = maxUpper:Max(maxLower, maxFoot) :: Vector3
-	local HRPIntersection = maxLegPos.Y - (HRPPos.Y - humanoidRootPart.Size.Y / 2)
-	local percentageIntersection = HRPIntersection / legSize.Y
-
-	local targetSize = Vector3.new(1, 2, 1)
-	-- Get the part of the Leg OUTSIDE of the HRP to be the same length as the HipHeight (Humanoid.HipHeight == 2 for R6)
-	local targetHeight = 2 / (1 - percentageIntersection)
-
-	local scaleFactor = Vector3.new(
-		math.max(1, math.clamp(targetSize.X / legSize.X, 0, 1.4)),
-		targetHeight / legSize.Y,
-		math.max(1, math.clamp(targetSize.Z / legSize.Z, 0, 1.4))
-	)
-
-	MoveAndScalePart(upperLeg, scaleFactor * oldUpperSize)
-	MoveAndScalePart(lowerLeg, scaleFactor * oldLowerSize)
-	MoveAndScalePart(foot, scaleFactor * oldFootSize)
-	scalingFactors[side .. "UpperLeg"] = scaleFactor
-	scalingFactors[side .. "LowerLeg"] = scaleFactor
-	scalingFactors[side .. "Foot"] = scaleFactor
-end
-
-local function MoveAndScaleLegs(character: Model, oldHitboxes: R15Hitboxes, scalingFactors: { [string]: Vector3 })
-	MoveAndScaleLeg(character, oldHitboxes, "Left", scalingFactors)
-	MoveAndScaleLeg(character, oldHitboxes, "Right", scalingFactors)
-end
-
-local function MoveAndScaleHead(character: Model, scalingFactors: { [string]: Vector3 })
-	local EPSILON = 0.00000001
-	local head = character.Head
-	local neck = head.NeckRigAttachment
-	local hat = head.HatAttachment
-	local height = (hat.Position.Y - neck.Position.Y)
-	height = math.max(height, EPSILON)
-	local scaleFactor = 1 / height
-	local headSize = head.Size
-	scaleFactor = math.clamp(scaleFactor, 0, 2 / math.max(headSize.Y, EPSILON))
-	local scaleFactorVec = Vector3.new(scaleFactor, scaleFactor, scaleFactor)
-
-	scalingFactors["Head"] = scaleFactorVec
-
-	MoveAndScalePart(head, scaleFactorVec * headSize)
-end
-
-local function MoveAndScaleParts(
-	character: Model,
-	oldRelativeRigging: R15Attachments,
-	oldHitboxes: R15Hitboxes,
-	targetRig: R15Definition,
-	scalingFactors: { [string]: Vector3 }
-)
-	character.HumanoidRootPart.Size = targetRig.Sizes.HumanoidRootPart
-	MoveAndScaleTorso(character, oldRelativeRigging, oldHitboxes, targetRig, scalingFactors)
-	MoveAndScaleArms(character, oldHitboxes, scalingFactors)
-	MoveAndScaleLegs(character, oldHitboxes, scalingFactors)
-	MoveAndScaleHead(character, scalingFactors)
-end
-
-local function MoveAndScaleAccessories(character: Model, scalingFactors: { [string]: Vector3 })
-	local humanoid = character:WaitForChild("Humanoid")
-	for _, accessory in pairs(humanoid:GetAccessories()) do
+function UnificationScale:MoveAndScaleAccessories()
+	local humanoid = self.Humanoid
+	local MIN_ACCESSORY_SCALE = 0.7
+	local MAX_ACCESSORY_SCALE = 1.3
+	for _, accessory in humanoid:GetAccessories() do
 		local accessoryHandle = accessory:WaitForChild("Handle") :: MeshPart
 		if not accessoryHandle or accessoryHandle:FindFirstChildWhichIsA("WrapLayer") then
 			continue
@@ -555,11 +311,10 @@ local function MoveAndScaleAccessories(character: Model, scalingFactors: { [stri
 		end
 
 		local partName = ACCESSORY_MAPPINGS[accessoryAttachment.Name]
-		if partName == "UpperTorso" or partName == "LowerTorso" then
-			continue
-		end
-		local partScaling = scalingFactors[partName]
-
+		local partScaling = self.ScalingFactors[partName] or Vector3.one
+		partScaling = Vector3.one * math.min(partScaling.X, partScaling.Y, partScaling.Z) -- scale accessories uniformly
+		partScaling = partScaling:Min(Vector3.one * MAX_ACCESSORY_SCALE)
+		partScaling = partScaling:Max(Vector3.one * MIN_ACCESSORY_SCALE)
 		accessoryHandle.Size = accessoryHandle.Size * partScaling
 		if accessoryHandle:FindFirstChild("OriginalSize") then
 			accessoryHandle.OriginalSize.Value = accessoryHandle.OriginalSize.Value * partScaling
@@ -568,20 +323,6 @@ local function MoveAndScaleAccessories(character: Model, scalingFactors: { [stri
 			+ (accessoryAttachment.CFrame.Position * (partScaling - Vector3.one))
 		accessoryWeld.C1 = accessoryWeld.C1 + (accessoryWeld.C1.Position * (partScaling - Vector3.one))
 	end
-end
-
-function UnificationScale.ScaleCharacter(character: Model, targetRig: R15Definition)
-	local humanoid: Humanoid = character.Humanoid :: Humanoid
-
-	ResetScaling(humanoid)
-
-	local oldHitboxes = GetHitboxes(character)
-	local oldRelativeRigging = GetRelativeAttachments(character)
-	local scalingFactors = {}
-	MoveAndScaleParts(character, oldRelativeRigging, oldHitboxes, targetRig, scalingFactors)
-	MoveAndScaleAccessories(character, scalingFactors)
-	humanoid.HipHeight = 2
-	humanoid:BuildRigFromAttachments()
 end
 
 return UnificationScale

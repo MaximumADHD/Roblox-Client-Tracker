@@ -169,18 +169,42 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["current"]
+  NAMECALL R1 R0 K1 ["resetCurrentContextTo"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  NAMECALL R1 R1 K1 ["getMeshesData"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["current"]
+  RETURN R0 0
+
+PROTO_9:
   GETUPVAL R0 0
   LOADK R1 K0 ["right"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_10:
   GETUPVAL R0 0
   LOADK R1 K0 ["left"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_11:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
@@ -230,223 +254,271 @@ PROTO_9:
   GETTABLEKS R13 R14 K6 ["useRef"]
   LOADNIL R14
   CALL R13 1 1
-  GETUPVAL R14 10
-  CALL R14 0 1
-  GETUPVAL R16 4
-  GETTABLEKS R15 R16 K6 ["useRef"]
-  LOADNIL R16
-  CALL R15 1 1
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K6 ["useRef"]
+  LOADNIL R15
+  CALL R14 1 1
+  GETUPVAL R15 10
+  CALL R15 0 1
   GETUPVAL R17 4
   GETTABLEKS R16 R17 K6 ["useRef"]
   LOADNIL R17
   CALL R16 1 1
   GETUPVAL R18 4
-  GETTABLEKS R17 R18 K7 ["useCallback"]
-  NEWCLOSURE R18 P2
+  GETTABLEKS R17 R18 K6 ["useRef"]
+  LOADNIL R18
+  CALL R17 1 1
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K7 ["useCallback"]
+  NEWCLOSURE R19 P2
   CAPTURE VAL R11
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
   CAPTURE VAL R0
-  CAPTURE VAL R14
+  CAPTURE VAL R15
   CAPTURE UPVAL U13
+  CAPTURE VAL R17
   CAPTURE VAL R16
-  CAPTURE VAL R15
-  NEWTABLE R19 0 2
-  GETTABLEKS R20 R0 K5 ["mannequin"]
-  MOVE R21 R11
-  SETLIST R19 R20 2 [1]
-  CALL R17 2 1
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K7 ["useCallback"]
-  NEWCLOSURE R19 P3
-  CAPTURE VAL R13
-  CAPTURE UPVAL U11
-  CAPTURE VAL R3
-  CAPTURE VAL R16
-  CAPTURE VAL R15
-  NEWTABLE R20 0 0
+  NEWTABLE R20 0 2
+  GETTABLEKS R21 R0 K5 ["mannequin"]
+  MOVE R22 R11
+  SETLIST R20 R21 2 [1]
   CALL R18 2 1
   GETUPVAL R20 4
   GETTABLEKS R19 R20 K7 ["useCallback"]
-  NEWCLOSURE R20 P4
+  NEWCLOSURE R20 P3
   CAPTURE VAL R13
   CAPTURE UPVAL U11
   CAPTURE VAL R3
-  CAPTURE VAL R15
+  CAPTURE VAL R17
   CAPTURE VAL R16
   NEWTABLE R21 0 0
   CALL R19 2 1
-  GETUPVAL R20 14
-  MOVE R21 R18
-  MOVE R22 R19
-  CALL R20 2 0
-  GETUPVAL R21 15
-  GETTABLEKS R20 R21 K8 ["provide"]
-  NEWTABLE R21 0 1
-  GETUPVAL R23 16
-  GETTABLEKS R22 R23 K2 ["new"]
-  DUPTABLE R23 K10 [{"BrushTool"}]
-  GETTABLEKS R24 R3 K11 ["current"]
-  SETTABLEKS R24 R23 K9 ["BrushTool"]
-  CALL R22 1 -1
-  SETLIST R21 R22 -1 [1]
-  NEWTABLE R22 2 0
-  LOADK R24 K12 ["CageEditingTool%*"]
-  GETTABLEKS R26 R14 K13 ["amount"]
-  NAMECALL R24 R24 K14 ["format"]
-  CALL R24 2 1
-  MOVE R23 R24
-  GETUPVAL R25 4
-  GETTABLEKS R24 R25 K15 ["createElement"]
-  GETUPVAL R25 17
-  DUPTABLE R26 K23 [{"mannequin", "falloff", "radius", "segmentationMap", "symmetrical", "symmetryMap", "onChangeSelectedPositions", "outerCageContextRef"}]
-  GETTABLEKS R27 R0 K5 ["mannequin"]
-  SETTABLEKS R27 R26 K5 ["mannequin"]
-  DIVK R29 R4 K24 [100]
-  MUL R28 R29 R6
-  GETUPVAL R30 11
-  GETTABLEKS R29 R30 K25 ["FALLOFF_CURSOR_ADJUSTMENT"]
-  DIV R27 R28 R29
-  SETTABLEKS R27 R26 K16 ["falloff"]
-  SETTABLEKS R6 R26 K17 ["radius"]
-  SETTABLEKS R12 R26 K18 ["segmentationMap"]
-  GETTABLEKS R27 R8 K26 ["enabled"]
-  SETTABLEKS R27 R26 K19 ["symmetrical"]
-  SETTABLEKS R11 R26 K20 ["symmetryMap"]
-  SETTABLEKS R10 R26 K21 ["onChangeSelectedPositions"]
-  SETTABLEKS R13 R26 K22 ["outerCageContextRef"]
-  CALL R24 2 1
-  SETTABLE R24 R22 R23
-  GETUPVAL R25 11
-  GETTABLEKS R24 R25 K27 ["EDITING_TOOLS_GUI_NAMES"]
-  GETTABLEKS R23 R24 K28 ["CageEditingToolToolbar"]
-  GETUPVAL R25 4
-  GETTABLEKS R24 R25 K15 ["createElement"]
-  GETUPVAL R26 18
-  GETTABLEKS R25 R26 K29 ["Toolbar"]
-  DUPTABLE R26 K31 [{"HorizontalItems"}]
-  NEWTABLE R27 0 7
-  DUPTABLE R28 K38 [{"Type", "Icon", "Tooltip", "TooltipDescription", "OnClick", "Selected"}]
-  LOADK R29 K39 ["Button"]
-  SETTABLEKS R29 R28 K32 ["Type"]
-  GETTABLEKS R29 R2 K40 ["SymmetryImage"]
-  SETTABLEKS R29 R28 K33 ["Icon"]
-  LOADK R31 K1 ["CageEditingTool"]
-  LOADK R32 K41 ["Symmetry"]
-  NAMECALL R29 R1 K42 ["getText"]
-  CALL R29 3 1
-  SETTABLEKS R29 R28 K34 ["Tooltip"]
-  LOADK R31 K1 ["CageEditingTool"]
-  LOADK R32 K43 ["SymmetryDescription"]
-  NAMECALL R29 R1 K42 ["getText"]
-  CALL R29 3 1
-  SETTABLEKS R29 R28 K35 ["TooltipDescription"]
-  GETTABLEKS R29 R8 K44 ["toggle"]
-  SETTABLEKS R29 R28 K36 ["OnClick"]
-  GETTABLEKS R29 R8 K26 ["enabled"]
-  SETTABLEKS R29 R28 K37 ["Selected"]
-  DUPTABLE R29 K46 [{"Type", "Options"}]
-  LOADK R30 K47 ["SplitButton"]
-  SETTABLEKS R30 R29 K32 ["Type"]
-  NEWTABLE R30 0 2
-  DUPTABLE R31 K49 [{"Icon", "Text", "OnClick"}]
-  GETUPVAL R33 4
-  GETTABLEKS R32 R33 K15 ["createElement"]
-  LOADK R33 K50 ["ImageLabel"]
-  DUPTABLE R34 K53 [{"Image", "Size"}]
-  GETTABLEKS R35 R2 K54 ["MirrorToRightImage"]
-  SETTABLEKS R35 R34 K51 ["Image"]
-  GETIMPORT R35 K57 [UDim2.fromScale]
-  LOADN R36 1
-  LOADN R37 1
-  CALL R35 2 1
-  SETTABLEKS R35 R34 K52 ["Size"]
-  CALL R32 2 1
-  SETTABLEKS R32 R31 K33 ["Icon"]
-  LOADK R34 K1 ["CageEditingTool"]
-  LOADK R35 K58 ["MirrorLeft"]
-  NAMECALL R32 R1 K42 ["getText"]
-  CALL R32 3 1
-  SETTABLEKS R32 R31 K48 ["Text"]
-  NEWCLOSURE R32 P5
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K7 ["useCallback"]
+  NEWCLOSURE R21 P4
+  CAPTURE VAL R13
+  CAPTURE UPVAL U11
+  CAPTURE VAL R3
+  CAPTURE VAL R16
   CAPTURE VAL R17
-  SETTABLEKS R32 R31 K36 ["OnClick"]
-  DUPTABLE R32 K49 [{"Icon", "Text", "OnClick"}]
-  GETUPVAL R34 4
-  GETTABLEKS R33 R34 K15 ["createElement"]
-  LOADK R34 K50 ["ImageLabel"]
-  DUPTABLE R35 K53 [{"Image", "Size"}]
-  GETTABLEKS R36 R2 K59 ["MirrorToLeftImage"]
-  SETTABLEKS R36 R35 K51 ["Image"]
-  GETIMPORT R36 K57 [UDim2.fromScale]
-  LOADN R37 1
+  NEWTABLE R22 0 0
+  CALL R20 2 1
+  GETUPVAL R22 4
+  GETTABLEKS R21 R22 K7 ["useCallback"]
+  NEWCLOSURE R22 P5
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  NEWTABLE R23 0 0
+  CALL R21 2 1
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K8 ["useEffect"]
+  NEWCLOSURE R23 P6
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  NEWTABLE R24 0 1
+  GETTABLEKS R25 R0 K5 ["mannequin"]
+  SETLIST R24 R25 1 [1]
+  CALL R22 2 0
+  GETUPVAL R22 14
+  MOVE R23 R19
+  MOVE R24 R20
+  CALL R22 2 0
+  GETUPVAL R23 15
+  GETTABLEKS R22 R23 K9 ["provide"]
+  NEWTABLE R23 0 1
+  GETUPVAL R25 16
+  GETTABLEKS R24 R25 K2 ["new"]
+  DUPTABLE R25 K11 [{"BrushTool"}]
+  GETTABLEKS R26 R3 K12 ["current"]
+  SETTABLEKS R26 R25 K10 ["BrushTool"]
+  CALL R24 1 -1
+  SETLIST R23 R24 -1 [1]
+  NEWTABLE R24 2 0
+  LOADK R26 K13 ["CageEditingTool%*"]
+  GETTABLEKS R28 R15 K14 ["amount"]
+  NAMECALL R26 R26 K15 ["format"]
+  CALL R26 2 1
+  MOVE R25 R26
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K16 ["createElement"]
+  GETUPVAL R27 17
+  DUPTABLE R28 K24 [{"mannequin", "falloff", "radius", "segmentationMap", "symmetrical", "symmetryMap", "onChangeSelectedPositions", "outerCageContextRef"}]
+  GETTABLEKS R29 R0 K5 ["mannequin"]
+  SETTABLEKS R29 R28 K5 ["mannequin"]
+  DIVK R31 R4 K25 [100]
+  MUL R30 R31 R6
+  GETUPVAL R32 11
+  GETTABLEKS R31 R32 K26 ["FALLOFF_CURSOR_ADJUSTMENT"]
+  DIV R29 R30 R31
+  SETTABLEKS R29 R28 K17 ["falloff"]
+  SETTABLEKS R6 R28 K18 ["radius"]
+  SETTABLEKS R12 R28 K19 ["segmentationMap"]
+  GETTABLEKS R29 R8 K27 ["enabled"]
+  SETTABLEKS R29 R28 K20 ["symmetrical"]
+  SETTABLEKS R11 R28 K21 ["symmetryMap"]
+  SETTABLEKS R10 R28 K22 ["onChangeSelectedPositions"]
+  SETTABLEKS R13 R28 K23 ["outerCageContextRef"]
+  CALL R26 2 1
+  SETTABLE R26 R24 R25
+  GETUPVAL R27 11
+  GETTABLEKS R26 R27 K28 ["EDITING_TOOLS_GUI_NAMES"]
+  GETTABLEKS R25 R26 K29 ["CageEditingToolToolbar"]
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K16 ["createElement"]
+  GETUPVAL R28 18
+  GETTABLEKS R27 R28 K30 ["Toolbar"]
+  DUPTABLE R28 K32 [{"HorizontalItems"}]
+  NEWTABLE R29 0 8
+  DUPTABLE R30 K39 [{"Type", "Icon", "Tooltip", "TooltipDescription", "OnClick", "Selected"}]
+  LOADK R31 K40 ["Button"]
+  SETTABLEKS R31 R30 K33 ["Type"]
+  GETTABLEKS R31 R2 K41 ["SymmetryImage"]
+  SETTABLEKS R31 R30 K34 ["Icon"]
+  LOADK R33 K1 ["CageEditingTool"]
+  LOADK R34 K42 ["Symmetry"]
+  NAMECALL R31 R1 K43 ["getText"]
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K35 ["Tooltip"]
+  LOADK R33 K1 ["CageEditingTool"]
+  LOADK R34 K44 ["SymmetryDescription"]
+  NAMECALL R31 R1 K43 ["getText"]
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K36 ["TooltipDescription"]
+  GETTABLEKS R31 R8 K45 ["toggle"]
+  SETTABLEKS R31 R30 K37 ["OnClick"]
+  GETTABLEKS R31 R8 K27 ["enabled"]
+  SETTABLEKS R31 R30 K38 ["Selected"]
+  DUPTABLE R31 K47 [{"Type", "Options"}]
+  LOADK R32 K48 ["SplitButton"]
+  SETTABLEKS R32 R31 K33 ["Type"]
+  NEWTABLE R32 0 2
+  DUPTABLE R33 K50 [{"Icon", "Text", "OnClick"}]
+  GETUPVAL R35 4
+  GETTABLEKS R34 R35 K16 ["createElement"]
+  LOADK R35 K51 ["ImageLabel"]
+  DUPTABLE R36 K54 [{"Image", "Size"}]
+  GETTABLEKS R37 R2 K55 ["MirrorToRightImage"]
+  SETTABLEKS R37 R36 K52 ["Image"]
+  GETIMPORT R37 K58 [UDim2.fromScale]
   LOADN R38 1
-  CALL R36 2 1
-  SETTABLEKS R36 R35 K52 ["Size"]
-  CALL R33 2 1
-  SETTABLEKS R33 R32 K33 ["Icon"]
-  LOADK R35 K1 ["CageEditingTool"]
-  LOADK R36 K60 ["MirrorRight"]
-  NAMECALL R33 R1 K42 ["getText"]
-  CALL R33 3 1
-  SETTABLEKS R33 R32 K48 ["Text"]
-  NEWCLOSURE R33 P6
-  CAPTURE VAL R17
-  SETTABLEKS R33 R32 K36 ["OnClick"]
-  SETLIST R30 R31 2 [1]
-  SETTABLEKS R30 R29 K45 ["Options"]
-  DUPTABLE R30 K61 [{"Type"}]
-  LOADK R31 K62 ["Separator"]
-  SETTABLEKS R31 R30 K32 ["Type"]
-  DUPTABLE R31 K67 [{"Type", "Value", "OnChange", "Icon", "Tooltip", "Min", "Max"}]
-  LOADK R32 K68 ["Slider"]
-  SETTABLEKS R32 R31 K32 ["Type"]
-  SETTABLEKS R6 R31 K63 ["Value"]
-  SETTABLEKS R7 R31 K64 ["OnChange"]
-  LOADK R32 K69 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/radius@2x.png"]
-  SETTABLEKS R32 R31 K33 ["Icon"]
-  LOADK R34 K1 ["CageEditingTool"]
-  LOADK R35 K70 ["Radius"]
-  NAMECALL R32 R1 K42 ["getText"]
-  CALL R32 3 1
-  SETTABLEKS R32 R31 K34 ["Tooltip"]
-  LOADK R32 K71 [0.01]
-  SETTABLEKS R32 R31 K65 ["Min"]
-  LOADN R32 2
-  SETTABLEKS R32 R31 K66 ["Max"]
-  DUPTABLE R32 K74 [{"Type", "Value", "OnChange", "Icon", "Tooltip", "Min", "Max", "InputPrecision", "DisplayFormat"}]
-  LOADK R33 K68 ["Slider"]
-  SETTABLEKS R33 R32 K32 ["Type"]
-  SETTABLEKS R4 R32 K63 ["Value"]
-  SETTABLEKS R5 R32 K64 ["OnChange"]
-  LOADK R33 K69 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/radius@2x.png"]
-  SETTABLEKS R33 R32 K33 ["Icon"]
-  LOADK R35 K1 ["CageEditingTool"]
-  LOADK R36 K75 ["Falloff"]
-  NAMECALL R33 R1 K42 ["getText"]
-  CALL R33 3 1
-  SETTABLEKS R33 R32 K34 ["Tooltip"]
-  LOADN R33 1
-  SETTABLEKS R33 R32 K65 ["Min"]
-  LOADN R33 100
-  SETTABLEKS R33 R32 K66 ["Max"]
-  LOADN R33 0
-  SETTABLEKS R33 R32 K72 ["InputPrecision"]
-  LOADK R33 K76 ["%d%%"]
-  SETTABLEKS R33 R32 K73 ["DisplayFormat"]
-  DUPTABLE R33 K61 [{"Type"}]
-  LOADK R34 K62 ["Separator"]
-  SETTABLEKS R34 R33 K32 ["Type"]
-  GETTABLEKS R35 R0 K77 ["additionalToolbarItems"]
-  FASTCALL1 TABLE_UNPACK R35 [+2]
-  GETIMPORT R34 K79 [unpack]
-  CALL R34 1 -1
-  SETLIST R27 R28 -1 [1]
-  SETTABLEKS R27 R26 K30 ["HorizontalItems"]
-  CALL R24 2 1
-  SETTABLE R24 R22 R23
-  CALL R20 2 -1
-  RETURN R20 -1
+  LOADN R39 1
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K53 ["Size"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K34 ["Icon"]
+  LOADK R36 K1 ["CageEditingTool"]
+  LOADK R37 K59 ["MirrorLeft"]
+  NAMECALL R34 R1 K43 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K49 ["Text"]
+  NEWCLOSURE R34 P7
+  CAPTURE VAL R18
+  SETTABLEKS R34 R33 K37 ["OnClick"]
+  DUPTABLE R34 K50 [{"Icon", "Text", "OnClick"}]
+  GETUPVAL R36 4
+  GETTABLEKS R35 R36 K16 ["createElement"]
+  LOADK R36 K51 ["ImageLabel"]
+  DUPTABLE R37 K54 [{"Image", "Size"}]
+  GETTABLEKS R38 R2 K60 ["MirrorToLeftImage"]
+  SETTABLEKS R38 R37 K52 ["Image"]
+  GETIMPORT R38 K58 [UDim2.fromScale]
+  LOADN R39 1
+  LOADN R40 1
+  CALL R38 2 1
+  SETTABLEKS R38 R37 K53 ["Size"]
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K34 ["Icon"]
+  LOADK R37 K1 ["CageEditingTool"]
+  LOADK R38 K61 ["MirrorRight"]
+  NAMECALL R35 R1 K43 ["getText"]
+  CALL R35 3 1
+  SETTABLEKS R35 R34 K49 ["Text"]
+  NEWCLOSURE R35 P8
+  CAPTURE VAL R18
+  SETTABLEKS R35 R34 K37 ["OnClick"]
+  SETLIST R32 R33 2 [1]
+  SETTABLEKS R32 R31 K46 ["Options"]
+  DUPTABLE R32 K62 [{"Type"}]
+  LOADK R33 K63 ["Separator"]
+  SETTABLEKS R33 R32 K33 ["Type"]
+  DUPTABLE R33 K68 [{"Type", "Value", "OnChange", "Icon", "Tooltip", "Min", "Max"}]
+  LOADK R34 K69 ["Slider"]
+  SETTABLEKS R34 R33 K33 ["Type"]
+  SETTABLEKS R6 R33 K64 ["Value"]
+  SETTABLEKS R7 R33 K65 ["OnChange"]
+  LOADK R34 K70 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/radius@2x.png"]
+  SETTABLEKS R34 R33 K34 ["Icon"]
+  LOADK R36 K1 ["CageEditingTool"]
+  LOADK R37 K71 ["Radius"]
+  NAMECALL R34 R1 K43 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K35 ["Tooltip"]
+  LOADK R34 K72 [0.01]
+  SETTABLEKS R34 R33 K66 ["Min"]
+  LOADN R34 2
+  SETTABLEKS R34 R33 K67 ["Max"]
+  DUPTABLE R34 K75 [{"Type", "Value", "OnChange", "Icon", "Tooltip", "Min", "Max", "InputPrecision", "DisplayFormat"}]
+  LOADK R35 K69 ["Slider"]
+  SETTABLEKS R35 R34 K33 ["Type"]
+  SETTABLEKS R4 R34 K64 ["Value"]
+  SETTABLEKS R5 R34 K65 ["OnChange"]
+  LOADK R35 K70 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/radius@2x.png"]
+  SETTABLEKS R35 R34 K34 ["Icon"]
+  LOADK R37 K1 ["CageEditingTool"]
+  LOADK R38 K76 ["Falloff"]
+  NAMECALL R35 R1 K43 ["getText"]
+  CALL R35 3 1
+  SETTABLEKS R35 R34 K35 ["Tooltip"]
+  LOADN R35 1
+  SETTABLEKS R35 R34 K66 ["Min"]
+  LOADN R35 100
+  SETTABLEKS R35 R34 K67 ["Max"]
+  LOADN R35 0
+  SETTABLEKS R35 R34 K73 ["InputPrecision"]
+  LOADK R35 K77 ["%d%%"]
+  SETTABLEKS R35 R34 K74 ["DisplayFormat"]
+  DUPTABLE R35 K62 [{"Type"}]
+  LOADK R36 K63 ["Separator"]
+  SETTABLEKS R36 R35 K33 ["Type"]
+  DUPTABLE R36 K78 [{"Type", "Tooltip", "Icon", "OnClick"}]
+  LOADK R37 K40 ["Button"]
+  SETTABLEKS R37 R36 K33 ["Type"]
+  LOADK R39 K79 ["EditingTools"]
+  LOADK R40 K80 ["ResetEdits"]
+  NAMECALL R37 R1 K43 ["getText"]
+  CALL R37 3 1
+  SETTABLEKS R37 R36 K35 ["Tooltip"]
+  GETUPVAL R38 4
+  GETTABLEKS R37 R38 K16 ["createElement"]
+  LOADK R38 K81 ["Frame"]
+  DUPTABLE R39 K84 [{"BackgroundColor3", "BackgroundTransparency", "Size"}]
+  GETIMPORT R40 K86 [Color3.new]
+  LOADN R41 1
+  LOADN R42 0
+  LOADN R43 1
+  CALL R40 3 1
+  SETTABLEKS R40 R39 K82 ["BackgroundColor3"]
+  LOADN R40 0
+  SETTABLEKS R40 R39 K83 ["BackgroundTransparency"]
+  GETIMPORT R40 K58 [UDim2.fromScale]
+  LOADN R41 1
+  LOADN R42 1
+  CALL R40 2 1
+  SETTABLEKS R40 R39 K53 ["Size"]
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K34 ["Icon"]
+  SETTABLEKS R21 R36 K37 ["OnClick"]
+  GETTABLEKS R38 R0 K87 ["additionalToolbarItems"]
+  FASTCALL1 TABLE_UNPACK R38 [+2]
+  GETIMPORT R37 K89 [unpack]
+  CALL R37 1 -1
+  SETLIST R29 R30 -1 [1]
+  SETTABLEKS R29 R28 K31 ["HorizontalItems"]
+  CALL R26 2 1
+  SETTABLE R26 R24 R25
+  CALL R22 2 -1
+  RETURN R22 -1
 
 MAIN:
   PREPVARARGS 0
@@ -563,7 +635,7 @@ MAIN:
   GETTABLEKS R26 R1 K39 ["Contexts"]
   GETTABLEKS R25 R26 K40 ["LuaMeshEditingModuleContext"]
   GETTABLEKS R26 R23 K41 ["Stylizer"]
-  DUPCLOSURE R27 K42 [PROTO_9]
+  DUPCLOSURE R27 K42 [PROTO_11]
   CAPTURE VAL R24
   CAPTURE VAL R26
   CAPTURE VAL R17

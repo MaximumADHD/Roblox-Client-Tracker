@@ -39,6 +39,7 @@ local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local ScreenshotsPolicy  = require(CorePackages.Workspace.Packages.Screenshots).ScreenshotsPolicy
 local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 local getCamMicPermissions = require(CoreGui.RobloxGui.Modules.Settings.getCamMicPermissions)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local Theme = require(script.Parent.Theme)
 
@@ -95,7 +96,6 @@ local GetFFlagFix10ftMenuGap = require(RobloxGui.Modules.Settings.Flags.GetFFlag
 local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixResumeSourceAnalytics)
-local GetFFlagShouldInitWithFirstPageWithTabHeader =  require(RobloxGui.Modules.Settings.Flags.GetFFlagShouldInitWithFirstPageWithTabHeader)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local GetFFlagEnableScreenshotUtility = require(SharedFlags).GetFFlagEnableScreenshotUtility
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
@@ -177,26 +177,14 @@ local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
-local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
 
-local MuteStatusIcons = {
-	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
-	MicOff = "rbxasset://textures/ui/Settings/Players/Muted@2x.png",
-	MicDisabled = "rbxasset://textures/ui/Settings/Players/Blocked@2x.png",
-	Loading = "rbxasset://textures/ui/Settings/Players/Unmuted-White@2x.png",
-}
-
-local PlayerMuteStatusIcons = MuteStatusIcons
-
-if GetFFlagOldMenuNewIcons() then
-	MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
-	PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
-end
+local MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
+local PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
 
 local SPRING_PARAMS = {}
 if GetFFlagVoiceRecordingIndicatorsEnabled() then
@@ -580,7 +568,7 @@ local function CreateSettingsHub()
 				image = keyboardImage
 			end
 
-			hintLabel = utility:Create'ImageLabel'
+			hintLabel = Create'ImageLabel'
 			{
 				Name = hintName,
 				ZIndex = this.Shield.ZIndex + 2,
@@ -681,7 +669,7 @@ local function CreateSettingsHub()
 				image = fnOrValue(keyboardImage)
 			end
 
-			hintLabel = utility:Create'ImageLabel'
+			hintLabel = Create'ImageLabel'
 			{
 				Name = hintName,
 				ZIndex = this.Shield.ZIndex + 2,
@@ -691,7 +679,7 @@ local function CreateSettingsHub()
 			};
 
 			hintLabel.AnchorPoint = Vector2.new(0.5,0.5)
-			local imageSize = GetFFlagOldMenuNewIcons() and UDim2.fromOffset(50, 50) or UDim2.fromOffset(30, 40)
+			local imageSize = UDim2.fromOffset(50, 50)
 			hintLabel.Size = text == "" and imageSize or UDim2.new(0,50,0,50)
 			hintLabel.Position = text == "" and UDim2.new(0.5,0,0.475,0) or UDim2.new(0.15,0,0.475,0)
 
@@ -1054,7 +1042,7 @@ local function CreateSettingsHub()
 
 	this.createBackgroundFadeGui = function()
 		if not this.FullscreenGui then
-			this.FullscreenGui = utility:Create("ScreenGui")
+			this.FullscreenGui = Create("ScreenGui")
 			{
 				Name = "FSSettingsMenuBackground",
 				ScreenInsets = Enum.ScreenInsets.None,
@@ -1066,7 +1054,7 @@ local function CreateSettingsHub()
 		end
 
 		if not this.FullscreenBackgroundCover then
-			this.FullscreenBackgroundCover = utility:Create("Frame")
+			this.FullscreenBackgroundCover = Create("Frame")
 			{
 				Name = "BackgroundCover",
 				Size = UDim2.fromScale(1, 1),
@@ -1086,7 +1074,7 @@ local function CreateSettingsHub()
 			PageViewSizeReducer = 5
 		end
 
-		this.ClippingShield = utility:Create'Frame'
+		this.ClippingShield = Create'Frame'
 		{
 			Name = "SettingsClippingShield",
 			Size = SETTINGS_SHIELD_SIZE,
@@ -1105,7 +1093,7 @@ local function CreateSettingsHub()
 			ShieldInstanceType = "ImageButton"
 		end
 
-		this.CanvasGroup = utility:Create("CanvasGroup")
+		this.CanvasGroup = Create("CanvasGroup")
 		{
 			Name = "CanvasGroup",
 			Size = UDim2.fromScale(1, 1),
@@ -1114,7 +1102,7 @@ local function CreateSettingsHub()
 			Parent = this.ClippingShield
 		}
 
-		this.Shield = utility:Create(ShieldInstanceType)
+		this.Shield = Create(ShieldInstanceType)
 		{
 			Name = "SettingsShield",
 			Size = UDim2.new(1,0,1,0),
@@ -1127,7 +1115,7 @@ local function CreateSettingsHub()
 			ZIndex = SETTINGS_BASE_ZINDEX,
 			Parent = this.ClippingShield
 		};
-		this.VRShield = utility:Create("Frame") {
+		this.VRShield = Create("Frame") {
 			Name = "VRBackground",
 			Parent = this.Shield,
 
@@ -1143,7 +1131,7 @@ local function CreateSettingsHub()
 		local canGetCoreScriptVersion = game:GetEngineFeature("CoreScriptVersionEnabled")
 
 		if canGetCoreScriptVersion then
-			this.VersionContainer = utility:Create("ScrollingFrame") {
+			this.VersionContainer = Create("ScrollingFrame") {
 				Name = "VersionContainer",
 				Parent = this.Shield,
 
@@ -1163,7 +1151,7 @@ local function CreateSettingsHub()
 				Visible = false
 			}
 		else
-			this.VersionContainer = utility:Create("Frame") {
+			this.VersionContainer = Create("Frame") {
 				Name = "VersionContainer",
 				Parent = this.Shield,
 
@@ -1181,7 +1169,7 @@ local function CreateSettingsHub()
 			}
 		end
 
-		local _versionContainerLayout = utility:Create("UIListLayout") {
+		local _versionContainerLayout = Create("UIListLayout") {
 			Name = "VersionContainer",
 			Parent = this.VersionContainer,
 
@@ -1198,7 +1186,7 @@ local function CreateSettingsHub()
 			label.Size = canGetCoreScriptVersion and UDim2.new(0, label.TextBounds.X + marginSize, 0, VERSION_BAR_HEIGHT) or defaultSize
 		end
 
-		this.ServerVersionLabel = utility:Create("TextLabel") {
+		this.ServerVersionLabel = Create("TextLabel") {
 			Name = "ServerVersionLabel",
 			Parent = this.VersionContainer,
 			LayoutOrder = 2,
@@ -1235,7 +1223,7 @@ local function CreateSettingsHub()
 			robloxVersion = string.format("%s (%.6s)", robloxVersion, result)
 		end
 
-		this.ClientVersionLabel = utility:Create("TextLabel") {
+		this.ClientVersionLabel = Create("TextLabel") {
 			Name = "ClientVersionLabel",
 			Parent = this.VersionContainer,
 			LayoutOrder = 1,
@@ -1251,7 +1239,7 @@ local function CreateSettingsHub()
 		addSizeToLabel(this.ClientVersionLabel)
 		this.ClientVersionLabel.TextScaled = not (canGetCoreScriptVersion or this.ClientVersionLabel.TextFits)
 
-		this.PlaceVersionLabel = utility:Create("TextLabel") {
+		this.PlaceVersionLabel = Create("TextLabel") {
 			Name = "PlaceVersionLabel",
 			Parent = this.VersionContainer,
 			BackgroundTransparency = 1,
@@ -1279,7 +1267,7 @@ local function CreateSettingsHub()
 		local shouldShowEnvLabel = not PolicyService:IsSubjectToChinaPolicies()
 
 		if shouldShowEnvLabel then
-			this.EnvironmentLabel = utility:Create("TextLabel") {
+			this.EnvironmentLabel = Create("TextLabel") {
 				Name = "EnvironmentLabel",
 				Parent = this.VersionContainer,
 				AnchorPoint = Vector2.new(0.5,0),
@@ -1305,7 +1293,7 @@ local function CreateSettingsHub()
 				if RobloxTranslator then
 					playSessionIdString = RobloxTranslator:FormatByKey("InGame.HelpMenu.Label.PlaySessionId", { RBX_STR = playSessionId })
 				end
-				this.PlaySessionIdLabel = utility:Create("TextLabel") {
+				this.PlaySessionIdLabel = Create("TextLabel") {
 					Name = "PlaySessionIdLabel",
 					Parent = this.VersionContainer,
 					BackgroundTransparency = 1,
@@ -1363,7 +1351,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		this.OverridesPlayerScriptsLabel = utility:Create("TextLabel") {
+		this.OverridesPlayerScriptsLabel = Create("TextLabel") {
 			Name = "OverridesPlayerScriptsLabel",
 			Parent = this.VersionContainer,
 			AnchorPoint = Vector2.new(0.5,0),
@@ -1410,7 +1398,7 @@ local function CreateSettingsHub()
 			if shouldTryLocalizeVersionLabels then
 				coreScriptVersionString = tryTranslate("InGame.HelpMenu.Label.ClientCoreScriptVersion", "Client CoreScript Version: ")
 			end
-			this.CoreScriptVersionLabel = utility:Create("TextLabel") {
+			this.CoreScriptVersionLabel = Create("TextLabel") {
 				Name = "CoreScriptVersionLabel",
 				Parent = this.VersionContainer,
 				LayoutOrder = 6,
@@ -1431,7 +1419,7 @@ local function CreateSettingsHub()
 			end)
 		end
 
-		this.Modal = utility:Create'TextButton' -- Force unlocks the mouse, really need a way to do this via UIS
+		this.Modal = Create'TextButton' -- Force unlocks the mouse, really need a way to do this via UIS
 		{
 			Name = 'Modal',
 			BackgroundTransparency = 1,
@@ -1444,7 +1432,7 @@ local function CreateSettingsHub()
 		}
 
 		if Theme.EnableDarkenBackground then
-			this.DarkenBackground = utility:Create("Frame")
+			this.DarkenBackground = Create("Frame")
 			{
 				Name = 'DarkenBackground',
 				ZIndex = this.Shield.ZIndex-1,
@@ -1456,7 +1444,7 @@ local function CreateSettingsHub()
 		end
 
 		local menuPos = Theme.MenuContainerPosition()
-		this.MenuContainer = utility:Create(ShieldInstanceType)
+		this.MenuContainer = Create(ShieldInstanceType)
 		{
 			Name = 'MenuContainer',
 			ZIndex = this.Shield.ZIndex,
@@ -1468,7 +1456,7 @@ local function CreateSettingsHub()
 			AutomaticSize = menuPos.AutomaticSize,
 			Parent = this.Shield
 		}
-		this.MenuContainerPadding = utility:Create'UIPadding'
+		this.MenuContainerPadding = Create'UIPadding'
 		{
 			Parent = this.MenuContainer,
 		}
@@ -1492,7 +1480,7 @@ local function CreateSettingsHub()
 			this.MenuContainerPadding.PaddingBottom = pad.PaddingBottom
 			this.MenuContainerPadding.PaddingTop = pad.PaddingTop
 
-			utility:Create'UICorner'
+			Create'UICorner'
 			{
 				CornerRadius = Theme.MenuContainerCornerRadius,
 				Parent = this.MenuContainer,
@@ -1500,7 +1488,7 @@ local function CreateSettingsHub()
 
 			if Theme.EnableVerticalBottomBar then
 
-				this.MainColumn = utility:Create'Frame'
+				this.MainColumn = Create'Frame'
 				{
 					Name = 'MainColumn',
 					BackgroundTransparency =1,
@@ -1512,7 +1500,7 @@ local function CreateSettingsHub()
 
 				menuParent = this.MainColumn
 
-				this.VerticalMenuDivider = utility:Create'Frame'
+				this.VerticalMenuDivider = Create'Frame'
 				{
 					Name = 'VerticalMenuDivider',
 					BackgroundTransparency = Theme.transparency("Divider"),
@@ -1521,7 +1509,7 @@ local function CreateSettingsHub()
 					Visible = true,
 					Parent = this.MenuContainer
 				}
-				this.VerticalMenu = utility:Create'Frame'
+				this.VerticalMenu = Create'Frame'
 				{
 					Name = 'VerticalMenu',
 					BackgroundTransparency =1,
@@ -1529,7 +1517,7 @@ local function CreateSettingsHub()
 					Visible = false,
 					Parent = this.MenuContainer
 				}
-				utility:Create'UIListLayout'
+				Create'UIListLayout'
 				{
 					Name = "MenuListLayout",
 					Padding = UDim.new(0, 10),
@@ -1540,7 +1528,7 @@ local function CreateSettingsHub()
 					Parent = this.VerticalMenu
 				}
 
-				this.MenuListLayout = utility:Create'UIListLayout'
+				this.MenuListLayout = Create'UIListLayout'
 				{
 					Name = "MenuListLayout",
 					FillDirection = Enum.FillDirection.Horizontal,
@@ -1579,15 +1567,15 @@ local function CreateSettingsHub()
 								return
 							end
 						end
-	
+
 						local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
 							or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
-					
+
 						-- Don't fetch age verification overlay data if user is not eligible for upsell
 						if not userVoiceUpsellEligible then
 							return
 						end
-	
+
 						local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
 						if userInInExperienceUpsellTreatment then
 							local sessionId = ""
@@ -1612,7 +1600,7 @@ local function CreateSettingsHub()
 			end)
 		end
 
-		this.MenuListLayout = utility:Create'UIListLayout'
+		this.MenuListLayout = Create'UIListLayout'
 		{
 			Name = "MenuListLayout",
 			FillDirection = Enum.FillDirection.Vertical,
@@ -1621,7 +1609,7 @@ local function CreateSettingsHub()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Parent = menuParent
 		}
-		this.MenuAspectRatio = utility:Create'UIAspectRatioConstraint'
+		this.MenuAspectRatio = Create'UIAspectRatioConstraint'
 		{
 			Name = 'MenuAspectRatio',
 			AspectRatio = 800 / 600,
@@ -1630,7 +1618,7 @@ local function CreateSettingsHub()
 		}
 
 		if Theme.UIBloxThemeEnabled then
-			this.HubBar = utility:Create'ImageLabel'
+			this.HubBar = Create'ImageLabel'
 			{
 				Name = "HubBar",
 				BackgroundColor3 = Theme.color("HubBarContainer"),
@@ -1641,7 +1629,7 @@ local function CreateSettingsHub()
 				LayoutOrder = 0,
 				Parent = menuParent
 			}
-			utility:Create'Frame'
+			Create'Frame'
 			{
 				BackgroundColor3 = Theme.color("Divider"),
 				BackgroundTransparency = Theme.transparency("Divider"),
@@ -1653,7 +1641,7 @@ local function CreateSettingsHub()
 			}
 
 		else
-			this.HubBar = utility:Create'ImageLabel'
+			this.HubBar = Create'ImageLabel'
 			{
 				Name = "HubBar",
 				ZIndex = this.Shield.ZIndex + 1,
@@ -1669,7 +1657,7 @@ local function CreateSettingsHub()
 			}
 		end
 
-		this.HubBarListLayout = utility:Create'UIListLayout'
+		this.HubBarListLayout = Create'UIListLayout'
 		{
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -1702,7 +1690,7 @@ local function CreateSettingsHub()
 			this.HubBar.Position = UDim2.new(0.5,0,0.1,0)
 		end
 
-		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() and not FFlagAvatarChatCoreScriptSupport then utility:Create'Frame'
+		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() and not FFlagAvatarChatCoreScriptSupport then Create'Frame'
 			{
 				Size = if GetFFlagRightAlignMicText() and ChromeEnabled then UDim2.new(1, 0, 0, 100) else UDim2.fromOffset(0, 100),
 				Position = UDim2.new(0,0,0,0),
@@ -1710,7 +1698,7 @@ local function CreateSettingsHub()
 				BackgroundTransparency = 1,
 			} else nil
 
-		this.VoiceRecordingText = if GetFFlagVoiceRecordingIndicatorsEnabled() then utility:Create'TextLabel'
+		this.VoiceRecordingText = if GetFFlagVoiceRecordingIndicatorsEnabled() then Create'TextLabel'
 			{
 				Parent = this.VoiceRecordingIndicatorFrame,
 				Text = "",
@@ -1775,7 +1763,7 @@ local function CreateSettingsHub()
 			end)
 		end
 
-		this.PageViewClipper = utility:Create'Frame'
+		this.PageViewClipper = Create'Frame'
 		{
 			Name = 'PageViewClipper',
 			BackgroundTransparency = 1,
@@ -1788,7 +1776,7 @@ local function CreateSettingsHub()
 			LayoutOrder = 1,
 			Parent = menuParent,
 
-			utility:Create'ImageButton'{
+			Create'ImageButton'{
 				Name = 'InputCapture',
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
@@ -1796,7 +1784,7 @@ local function CreateSettingsHub()
 			}
 		}
 
-		this.PageView = utility:Create'ScrollingFrame'
+		this.PageView = Create'ScrollingFrame'
 		{
 			Name = "PageView",
 			AnchorPoint = Vector2.new(0.5, 0.5),
@@ -1840,7 +1828,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		this.PageViewInnerFrame = utility:Create'Frame'
+		this.PageViewInnerFrame = Create'Frame'
 		{
 			Name = "PageViewInnerFrame",
 			Position = UDim2.new(0, 0, 0, 0),
@@ -1853,14 +1841,14 @@ local function CreateSettingsHub()
 			LayoutOrder = 1,
 		};
 		if Theme.UIBloxThemeEnabled then
-			utility:Create'UIPadding'
+			Create'UIPadding'
 			{
 				PaddingTop = UDim.new(0, 5),
 				Parent = this.PageViewInnerFrame,
 			}
 		end
 
-		this.InnerCanvasGroupShow = utility:Create("CanvasGroup")
+		this.InnerCanvasGroupShow = Create("CanvasGroup")
 		{
 			Name = "InnerCanvasGroupShow",
 			Size = UDim2.fromScale(1, 1),
@@ -1869,7 +1857,7 @@ local function CreateSettingsHub()
 			Parent = this.PageViewInnerFrame
 		}
 
-		this.InnerCanvasGroupHide = utility:Create("CanvasGroup")
+		this.InnerCanvasGroupHide = Create("CanvasGroup")
 		{
 			Name = "InnerCanvasGroupHide",
 			Size = UDim2.fromScale(1, 1),
@@ -1880,7 +1868,7 @@ local function CreateSettingsHub()
 
 		if Theme.UseStickyBar() then
 			this.PageView.AutomaticCanvasSize = Enum.AutomaticSize.Y
-			utility:Create'UIListLayout'
+			Create'UIListLayout'
 			{
 				FillDirection = Enum.FillDirection.Vertical,
 				VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -1897,7 +1885,7 @@ local function CreateSettingsHub()
 				0.5, -(this.HubBar.Position.Y.Offset - this.HubBar.Size.Y.Offset))
 		end
 
-		this.BottomButtonFrame = utility:Create'Frame'
+		this.BottomButtonFrame = Create'Frame'
 		{
 			Name = "BottomButtonFrame",
 			Size = this.HubBar.Size,
@@ -1910,7 +1898,7 @@ local function CreateSettingsHub()
 
 		if Theme.UIBloxThemeEnabled then
 			this.BottomButtonFrame.Size = UDim2.new(1,0, 0, 80)
-			this.MenuListLayout = utility:Create'UIListLayout'
+			this.MenuListLayout = Create'UIListLayout'
 			{
 				Padding = UDim.new(0, 12),
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -2008,7 +1996,7 @@ local function CreateSettingsHub()
 
 		if Theme.UIBloxThemeEnabled or isSubjectToDesktopPolicies() then
 			if Theme.UIBloxThemeEnabled then
-				this.HubBarContainer = utility:Create'ImageLabel'
+				this.HubBarContainer = Create'ImageLabel'
 				{
 					Name = "HubBarContainer",
 					ZIndex = this.Shield.ZIndex + 2,
@@ -2020,7 +2008,7 @@ local function CreateSettingsHub()
 					Parent = this.HubBar
 				}
 			else
-				this.HubBarContainer = utility:Create'ImageLabel'
+				this.HubBarContainer = Create'ImageLabel'
 				{
 					Name = "HubBarContainer",
 					ZIndex = this.Shield.ZIndex + 2,
@@ -2040,7 +2028,7 @@ local function CreateSettingsHub()
 
 			if Theme.ShowHomeButton then
 				if Theme.UIBloxThemeEnabled then
-					this.HubBarHomeButton = utility:Create'ImageButton'
+					this.HubBarHomeButton = Create'ImageButton'
 					{
 						Name = "HubBarHomeButton",
 						ZIndex = this.Shield.ZIndex + 2,
@@ -2052,13 +2040,13 @@ local function CreateSettingsHub()
 						Position = UDim2.new(0, 0, 0, 0),
 						Parent = this.HubBar
 					}
-					utility:Create'UICorner'
+					Create'UICorner'
 					{
 						CornerRadius = Theme.DefaultCornerRadius,
 						Parent = this.HubBarHomeButton,
 					}
 				else
-					this.HubBarHomeButton = utility:Create'ImageButton'
+					this.HubBarHomeButton = Create'ImageButton'
 					{
 						Name = "HubBarHomeButton",
 						ZIndex = this.Shield.ZIndex + 2,
@@ -2072,13 +2060,13 @@ local function CreateSettingsHub()
 						Parent = this.HubBar
 					}
 				end
-				this.HubBarHomeButtonAspectRatio = utility:Create'UIAspectRatioConstraint'
+				this.HubBarHomeButtonAspectRatio = Create'UIAspectRatioConstraint'
 				{
 					AspectRatio = 1,
 					DominantAxis = Enum.DominantAxis.Height,
 					Parent = this.HubBarHomeButton
 				}
-				this.HubBarHomeButtonIcon = utility:Create'ImageLabel'
+				this.HubBarHomeButtonIcon = Create'ImageLabel'
 				{
 					Name = "HubBarHomeButtonIcon",
 					ZIndex = this.Shield.ZIndex + 3,
@@ -2962,13 +2950,21 @@ local function CreateSettingsHub()
 
 		if not this.checkedUpsell and this.leaveGameUpsellProp == VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
 			this.checkedUpsell = true
-			this.leaveGameUpsellProp = 
+			this.leaveGameUpsellProp =
 			VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, this.sessionStartTime, true)
 			this.LeaveGameUpsellPage:SetUpsellProp(this.leaveGameUpsellProp)
 			task.delay(CHECK_LEAVE_GAME_UPSELL_COOLDOWN, function()
 				this.checkedUpsell = false
 			end)
+		elseif this.checkedUpsell then
+			-- This just checks local cache unless it hasn't been set yet
+			local newUpsellProp = VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, this.sessionStartTime, false)
+			if this.leaveGameUpsellProp ~= newUpsellProp then
+				this.leaveGameUpsellProp = newUpsellProp
+				this.LeaveGameUpsellPage:SetUpsellProp(this.leaveGameUpsellProp)
+			end
 		end
+
 	end
 	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
@@ -3171,11 +3167,7 @@ local function CreateSettingsHub()
 				removeBottomBarBindings()
 				this:SwitchToPage(customStartPage, nil, 1, true)
 			else
-				if GetFFlagShouldInitWithFirstPageWithTabHeader() then
-					this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1, true)
-				else
-					this:SwitchToPage(this.PlayersPage, nil, 1, true)
-				end
+				this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1, true)
 			end
 
 			playerList:HideTemp('SettingsMenu', true)
@@ -3610,7 +3602,7 @@ local function CreateSettingsHub()
 		this.LeaveGameToHomePage = require(RobloxGui.Modules.Settings.Pages.LeaveGameToHome)
 		this.LeaveGameToHomePage:SetHub(this)
 	end
-	
+
 	if getFFlagDebugAppChatInSettingsHub() then
 		this.AppChatPage = require(RobloxGui.Modules.Settings.Pages.AppChat)
 		this.AppChatPage:SetHub(this)
@@ -3710,12 +3702,8 @@ local function CreateSettingsHub()
 		this:AddPage(this.LeaveGameToHomePage)
 	end
 
-	if GetFFlagShouldInitWithFirstPageWithTabHeader() then
-		this:InitInPage(this:GetFirstPageWithTabHeader())
-	else
-		this:InitInPage(this.PlayersPage)
-	end
-	
+	this:InitInPage(this:GetFirstPageWithTabHeader())
+
 	if getFFlagDebugAppChatInSettingsHub() then
 		if this.AppChatPage then
 			this:AddPage(this.AppChatPage)
@@ -3728,11 +3716,7 @@ local function CreateSettingsHub()
 	GuiService.ShowLeaveConfirmation:connect(function()
 		if #this.MenuStack == 0 then
 			this:SetVisibility(true, nil, nil, nil, Constants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
-			if GetFFlagShouldInitWithFirstPageWithTabHeader() then
-				this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1)
-			else
-				this:SwitchToPage(this.PlayersPage, nil, 1)
-			end
+			this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1)
 		else
 			this:PopMenu(false, true)
 		end

@@ -56,7 +56,8 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	titleText = t.string,
 	showingPreviewView = t.boolean,
 	closePreviewView = t.callback,
-	asset = t.union(t.instanceOf("Model"), t.instanceIsA("AnimationClip")),
+	-- If we need to fetch the model, the asset may temporarily be nil
+	asset = t.optional(t.union(t.instanceOf("Model"), t.instanceIsA("AnimationClip"))),
 	onNameUpdated = t.callback,
 	canSubmit = t.callback,
 	onSubmit = t.callback,

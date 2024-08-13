@@ -6,7 +6,7 @@ local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local GetFFlagEnableChromeMusicIntegration = require(Chrome.Flags.GetFFlagEnableChromeMusicIntegration)
 local GetFStringChromeMusicIntegrationLabel = require(Chrome.Flags.GetFStringChromeMusicIntegrationLabel)
 
--- MUS-1215 TODO: Allow the whole Now Playing integration to be disabled by creators
+-- MUS-1215 TODO: Allow the whole Songbird integration to be disabled by creators
 return if GetFFlagEnableChromeMusicIntegration()
 	then ChromeService:register({
 		initialAvailability = ChromeService.AvailabilitySignal.Available,
@@ -17,7 +17,7 @@ return if GetFFlagEnableChromeMusicIntegration()
 		end,
 		components = {
 			Icon = function(props)
-				-- MUS-1201 TODO: Add Music icon
+				-- MUS-1201 TODO: Add final icon
 				return CommonIcon("icons/controls/emoteOff")
 			end,
 		},

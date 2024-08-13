@@ -26,6 +26,7 @@ local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -123,7 +124,7 @@ local function Initialize()
 
 	local leaveGameConfirmationText = "Are you sure you want to leave the experience?"
 
-	local leaveGameText =  utility:Create'TextLabel'
+	local leaveGameText =  Create'TextLabel'
 	{
 		Name = "LeaveGameText",
 		Text = leaveGameConfirmationText,
@@ -138,7 +139,7 @@ local function Initialize()
 		Position = isTenFootInterface and UDim2.new(0,0,0,100) or UDim2.new(0,0,0,0)
 	};
 
-	local leaveButtonContainer = utility:Create"Frame"
+	local leaveButtonContainer = Create"Frame"
 	{
 		Name = "LeaveButtonContainer",
 		Parent = leaveGameText,
@@ -147,7 +148,7 @@ local function Initialize()
 		Position = UDim2.new(0,0,1,0)
 	};
 
-	local _leaveButtonLayout = utility:Create'UIGridLayout'
+	local _leaveButtonLayout = Create'UIGridLayout'
 	{
 		Name = "LeavetButtonsLayout",
 		CellSize = isTenFootInterface and UDim2.new(0, 300, 0, 80) or UDim2.new(0, 200, 0, 50),

@@ -18,6 +18,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Util = require(RobloxGui.Modules.Settings.Utility)
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local function FadeElements(element, newValue, duration)
 	duration = duration or 0.5
@@ -109,14 +110,14 @@ end
 
 local LoadingScreen = {}
 
-local loadingContainer = Util:Create("Frame")({
+local loadingContainer = Create("Frame")({
 	Name = "VRLoadingScreenContainer",
 	Size = UDim2.new(1, 0, 1, 0),
 	BackgroundTransparency = 1,
 	BackgroundColor3 = Color3.new(0, 0, 0),
 })
 
-local backgroundImage = Util:Create("ImageLabel")({
+local backgroundImage = Create("ImageLabel")({
 	Name = "LoadingBackground",
 	Position = UDim2.new(0.25, 0, 0.25, 0),
 	Size = UDim2.new(0.5, 0, 0.5, 0),
@@ -129,7 +130,7 @@ local backgroundImage = Util:Create("ImageLabel")({
 })
 
 local spinnerRotation = 0
-local spinnerImage = Util:Create("ImageLabel")({
+local spinnerImage = Create("ImageLabel")({
 	Name = "Spinner",
 	Size = UDim2.new(0.25, 0, 0.25, 0),
 	Position = UDim2.new(0.5 - (0.25 / 2), 0, 0.45 - (0.25 / 2), 0),
@@ -138,7 +139,7 @@ local spinnerImage = Util:Create("ImageLabel")({
 	Parent = backgroundImage,
 })
 
-local loadingText = Util:Create("TextLabel")({
+local loadingText = Create("TextLabel")({
 	Name = "LoadingText",
 	Text = "Loading...",
 	BackgroundTransparency = 1,
@@ -149,7 +150,7 @@ local loadingText = Util:Create("TextLabel")({
 	TextColor3 = Color3.new(77 / 255, 163 / 255, 224 / 255),
 })
 
-local gameNameText = Util:Create("TextLabel")({
+local gameNameText = Create("TextLabel")({
 	Name = "GameNameText",
 	Text = "",
 	BackgroundTransparency = 1,
@@ -162,7 +163,7 @@ local gameNameText = Util:Create("TextLabel")({
 	TextColor3 = Color3.new(15 / 255, 237 / 255, 255 / 255),
 })
 
-local creatorTextContainer = Util:Create("Frame")({
+local creatorTextContainer = Create("Frame")({
 	Name = "CreatorTextContainer",
 	Size = UDim2.new(0.9, 0, 0.1, 0),
 	Position = UDim2.new(0.05, 0, 0.77, 0),
@@ -172,7 +173,7 @@ local creatorTextContainer = Util:Create("Frame")({
 })
 
 local creatorTextPosition = 0
-local creatorText = Util:Create("TextLabel")({
+local creatorText = Create("TextLabel")({
 	Name = "CreatorText",
 	Text = "",
 	BackgroundTransparency = 1,

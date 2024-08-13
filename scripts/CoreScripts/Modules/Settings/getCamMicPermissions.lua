@@ -43,6 +43,7 @@ local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFla
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAnalyticsForCameraDevicePermissions = require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
+local GetFFlagRawMicrophonePermissions = require(RobloxGui.Modules.Flags.GetFFlagGetRawMicrophonePermissions)
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local FFlagCheckCameraAvailabilityBeforePermissions = game:DefineFastFlag("CheckCameraAvailabilityBeforePermissions", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
@@ -148,6 +149,7 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 			invokeNextRequest()
 
 			resolve(hasPermissionAuthorizedResult)
+			return
 		end)
 	end
 
@@ -275,7 +277,7 @@ end
 -- TODO Make callback required with removal of FFlagUpdateCamMicPermissioning
 -- If shouldNotRequestPerms is true, we only obtain the current state of device permissions instead of requesting them.
 -- When called, please include context parameter--it is used for telemetry.
-local function getCamMicPermissions(callback, permissionsToRequest: Array<string>?, shouldNotRequestPerms: boolean?, context: string?)
+local function getCamMicPermissions(callback, permissionsToRequest: Array<string>?, shouldNotRequestPerms: boolean?, context: string?, getRawPermission: boolean?)
 	local permsToCheck: Array<string> = {}
 	if permissionsToRequest then
 		permsToCheck = permissionsToRequest
@@ -291,11 +293,13 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 		if requestPermissionsQueue[1] then
 			local nextRequest = requestPermissionsQueue[1]
 			table.remove(requestPermissionsQueue, 1)
-			getCamMicPermissions(nextRequest.callback, nextRequest.permissionsToRequest, nextRequest.shouldNotRequestPerms, nextRequest.context)
+			getCamMicPermissions(nextRequest.callback, nextRequest.permissionsToRequest, nextRequest.shouldNotRequestPerms, nextRequest.context, nextRequest.getRawPermission)
 		end
 	end
 
-	if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled() then
+	if (FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled())
+		and (if GetFFlagRawMicrophonePermissions() then not getRawPermission else true)
+	then
 		local cachedResults = tryGetCachedResults(permsToCheck)
 		if cachedResults then
 			callback(cachedResults)
@@ -310,13 +314,22 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 			callback = callback,
 			permissionsToRequest = permissionsToRequest,
 			shouldNotRequestPerms = shouldNotRequestPerms,
-			context = context
+			context = context,
+			getRawPermission = getRawPermission,
 		})
 
 		return
 	end
 
 	inProgress = true
+
+	if GetFFlagRawMicrophonePermissions() and getRawPermission then
+		return PermissionsProtocol:hasPermissions(permsToCheck):andThen(function(results)
+			callback(results)
+			inProgress = false
+			invokeNextRequest()
+		end)
+	end
 
 	if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled() then
 		if GetFFlagAvatarChatServiceEnabled() then

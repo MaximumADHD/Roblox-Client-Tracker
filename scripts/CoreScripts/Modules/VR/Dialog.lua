@@ -7,7 +7,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
-local Utility = require(RobloxGui.Modules.Settings.Utility)
+local CorePackages = game:GetService("CorePackages")
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 
 local DIALOG_BG_COLOR = Color3.new(0.2, 0.2, 0.2)
@@ -20,7 +21,7 @@ local TITLE_COLOR = Color3.new(1, 1, 1)
 
 local PANEL_OFFSET_CF = CFrame.new(0, 0, -7) * CFrame.Angles(0, math.pi, 0)
 
-local emptySelectionImage = Utility:Create "ImageLabel" { 
+local emptySelectionImage = Create "ImageLabel" { 
 	Name = "EmptySelectionImage", 
 	Image = "", 
 	BackgroundTransparency = 1, 

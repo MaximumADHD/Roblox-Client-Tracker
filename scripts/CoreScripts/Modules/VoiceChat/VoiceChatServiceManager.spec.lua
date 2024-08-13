@@ -28,6 +28,7 @@ return function()
 	local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 	local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 	local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
+	local GetFFlagRawMicrophonePermissions = require(RobloxGui.Modules.Flags.GetFFlagGetRawMicrophonePermissions)
 
 	local CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatCore).CoreVoiceManager
 
@@ -106,9 +107,10 @@ return function()
 
 	local getPermissionsFunction = function(resolution)
 		return function(callback)
-			return callback({
-				hasMicPermissions = resolution == PermissionsProtocol.Status.AUTHORIZED,
-			})
+			return callback(if GetFFlagRawMicrophonePermissions()
+				then { status = resolution }
+				else { hasMicPermissions = resolution == PermissionsProtocol.Status.AUTHORIZED }
+			)
 		end
 	end
 
@@ -344,7 +346,9 @@ return function()
 			it("requestMicPermission rejects when permissions protocol response is denied", function()
 				PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
 				PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
-				local permFn = getPermissionsFunction(PermissionsProtocol.Status.DENIED)
+				local permFn = if GetFFlagRawMicrophonePermissions()
+					then getPermissionsFunction(PermissionsProtocol.Status.DENIED)
+					else stub({ status = PermissionsProtocol.Status.DENIED })
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn),
 					VoiceChatServiceStub,
@@ -568,14 +572,12 @@ return function()
 		end)
 
 		describe("Enable voice mic prompt toasts", function()
-			local oldToasts, oldToastsFix
+			local oldToasts
 			beforeEach(function()
 				oldToasts = game:SetFastFlagForTesting("EnableUniveralVoiceToasts", true)
-				oldToastsFix = game:SetFastFlagForTesting("EnableVoiceMicPromptToastFix", true)
 			end)
 			afterEach(function()
 				game:SetFastFlagForTesting("EnableUniveralVoiceToasts", oldToasts)
-				game:SetFastFlagForTesting("EnableVoiceMicPromptToastFix", oldToastsFix)
 			end)
 			if not GetFFlagJoinWithoutMicPermissions() then
 				it("shows correct prompt when user does not give voice permission", function()

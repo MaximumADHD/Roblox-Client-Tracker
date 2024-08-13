@@ -12,21 +12,23 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
   MOVE R3 R2
   LOADK R4 K10 [".Widget-Thumbstick"]
-  DUPTABLE R5 K13 [{"BackgroundColor3", "AnchorPoint"}]
-  LOADK R6 K14 ["$ForegroundMuted"]
+  DUPTABLE R5 K14 [{"BackgroundColor3", "AnchorPoint", "BackgroundTransparency"}]
+  LOADK R6 K15 ["$ForegroundMuted"]
   SETTABLEKS R6 R5 K11 ["BackgroundColor3"]
-  GETIMPORT R6 K17 [Vector2.new]
-  LOADK R7 K18 [0.5]
-  LOADK R8 K18 [0.5]
+  GETIMPORT R6 K18 [Vector2.new]
+  LOADK R7 K19 [0.5]
+  LOADK R8 K19 [0.5]
   CALL R6 2 1
   SETTABLEKS R6 R5 K12 ["AnchorPoint"]
+  LOADK R6 K19 [0.5]
+  SETTABLEKS R6 R5 K13 ["BackgroundTransparency"]
   NEWTABLE R6 0 1
   MOVE R7 R2
-  LOADK R8 K19 ["> .Widget-Thumbstick-Stick"]
-  DUPTABLE R9 K20 [{"AnchorPoint"}]
-  GETIMPORT R10 K17 [Vector2.new]
-  LOADK R11 K18 [0.5]
-  LOADK R12 K18 [0.5]
+  LOADK R8 K20 ["> .Widget-Thumbstick-Stick"]
+  DUPTABLE R9 K21 [{"AnchorPoint"}]
+  GETIMPORT R10 K18 [Vector2.new]
+  LOADK R11 K19 [0.5]
+  LOADK R12 K19 [0.5]
   CALL R10 2 1
   SETTABLEKS R10 R9 K12 ["AnchorPoint"]
   CALL R7 2 -1

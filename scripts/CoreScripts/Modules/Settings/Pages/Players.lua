@@ -32,6 +32,7 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
@@ -85,16 +86,6 @@ if Theme.UIBloxThemeEnabled then
 	FRIEND_IMAGE = Theme.Images["icons/menu/friends"]
 end
 
-local MuteStatusIcons = {
-	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
-	MicOff = "rbxasset://textures/ui/Settings/Players/Muted@2x.png",
-	MicDisabled = "rbxasset://textures/ui/Settings/Players/Blocked@2x.png",
-	Loading = "rbxasset://textures/ui/Settings/Players/Unmuted-White@2x.png",
-	Error = VoiceChatServiceManager:GetIcon("Error", "MicLight"),
-}
-
-local PlayerMuteStatusIcons = MuteStatusIcons
-
 local PLAYER_ROW_HEIGHT = 62
 local PLAYER_ROW_HEIGHT_PORTRAIT = 105
 local PLAYER_ROW_SPACING = 80
@@ -128,7 +119,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
-local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPauseMuteFix = require(RobloxGui.Modules.Flags.GetFFlagPauseMuteFix)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
@@ -157,10 +147,9 @@ local FFlagEnablePlatformName = game:DefineFastFlag("EnablePlatformName", false)
 local FFlagCheckForNilUserIdOnPlayerList = game:DefineFastFlag("CheckForNilUserIdOnPlayerList", false)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
-if GetFFlagOldMenuNewIcons() then
-	MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
-	PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
-end
+
+local MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
+local PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -632,8 +621,8 @@ local function Initialize()
 			return
 		end
 
-		local imageSize = GetFFlagOldMenuNewIcons() and UDim2.fromOffset(36, 36) or UDim2.fromOffset(20, 26)
-		local imageOffset = GetFFlagOldMenuNewIcons() and UDim2.fromOffset(0, 0) or UDim2.new(0, 0, 0, 1)
+		local imageSize = UDim2.fromOffset(36, 36)
+		local imageOffset = UDim2.fromOffset(0, 0)
 		local imageTransparency = 0
 
 		local image = playerStatus.isMuted
@@ -651,12 +640,10 @@ local function Initialize()
 			end
 		elseif playerStatus.isMutedLocally then
 			image = MuteStatusIcons.MicDisabled
-			if GetFFlagOldMenuNewIcons() then
-				imageTransparency = 0.5
-			end
+			imageTransparency = 0.5
 		elseif not playerStatus.subscriptionCompleted then
 			image = MuteStatusIcons.Loading
-		elseif GetFFlagOldMenuNewIcons() and GetFFlagPlayerListAnimateMic() and playerStatus.isSignalActive then
+		elseif GetFFlagPlayerListAnimateMic() and playerStatus.isSignalActive then
 			local level = math.random()
 			local roundedLevel = 20 * math.floor(0.5 + 5*level)
 			image = VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), if GetFFlagOldMenuUseSpeakerIcons() then "SpeakerLight" else "MicLight")
@@ -671,9 +658,7 @@ local function Initialize()
 			end
 			muteStatusLabel.Image = image
 			muteStatusLabel.Size = imageSize
-			if GetFFlagOldMenuNewIcons() then
-				muteStatusLabel.ImageTransparency = imageTransparency
-			end
+			muteStatusLabel.ImageTransparency = imageTransparency
 		else
 			local muteLabel, muteLabelText = utility:MakeStyledImageButton(
 				"MuteStatus",
@@ -708,9 +693,7 @@ local function Initialize()
 			end
 			muteLabelText.ZIndex = 3
 			muteLabelText.Position = muteLabelText.Position + imageOffset
-			if GetFFlagOldMenuNewIcons() then
-				muteLabelText.ImageTransparency = imageTransparency
-			end
+			muteLabelText.ImageTransparency = imageTransparency
 			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
 				local renderName = RENDER_NAME_PREFIX.."-mutestatusbutton-"..playerStatus.userId
 				utility:MakeFocusState(muteLabel, renderName)
@@ -719,7 +702,7 @@ local function Initialize()
 		end
 	end
 
-	local buttonsContainer = utility:Create("Frame") {
+	local buttonsContainer = Create("Frame") {
 		Name = "ButtonsContainer",
 		Size = UDim2.new(1, 0, 0, 62),
 		BackgroundTransparency = 1,
@@ -730,7 +713,7 @@ local function Initialize()
 
 	local buttonPadding = 5;
 	if Theme.UIBloxThemeEnabled then
-		utility:Create("UIPadding") {
+		Create("UIPadding") {
 			PaddingBottom = UDim.new(0, 1),
 			PaddingTop = UDim.new(0, 1),
 			PaddingLeft = UDim.new(0, 1),
@@ -874,7 +857,7 @@ local function Initialize()
 			muteButton.Position = UDim2.new(1, 0, 0, 0)
 			muteButton.Size = UDim2.new(1 / 7, -12, 1, 0)
 			imageLabel.Size = UDim2.new(1, -6, 1, -4)
-			utility:Create'UIAspectRatioConstraint'
+			Create'UIAspectRatioConstraint'
 			{
 				AspectRatio = 1,
 				Parent = imageLabel
@@ -1004,7 +987,7 @@ local function Initialize()
 		if Theme.UIBloxThemeEnabled then
 			frame.BackgroundColor3 = Theme.color("PlayerRowFrame")
 			frame.BackgroundTransparency = Theme.transparency("PlayerRowFrame")
-			utility:Create'UICorner'
+			Create'UICorner'
 			{
 				CornerRadius = Theme.DefaultCornerRadius,
 				Parent = frame,
@@ -1118,13 +1101,13 @@ local function Initialize()
 		frame.SelectionImageObject = frame:Clone()
 
 		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
-			local SelectionOverrideObject = utility:Create'Frame'{
+			local SelectionOverrideObject = Create'Frame'{
 					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = Theme.color("PlayerRowSelection")
 				}
-			utility:Create'UICorner'{
+			Create'UICorner'{
 				CornerRadius = Theme.DefaultCornerRadius,
 				Parent = SelectionOverrideObject,
 			}
@@ -1154,13 +1137,9 @@ local function Initialize()
 		textLabel.AutoLocalize = false
 		textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
 
-		icon.Size = UDim2.new(0, 24, 0, 24)
-		icon.Position = UDim2.new(0, 18, 0, 18)
-		if GetFFlagOldMenuNewIcons() then
-			icon.Size = UDim2.new(0, 32, 0, 32)
-			icon.Position = UDim2.new(0, 18, 0, 16)
-			icon.Image = VoiceChatServiceManager:GetIcon("UnmuteAll", "Misc")
-		end
+		icon.Size = UDim2.new(0, 32, 0, 32)
+		icon.Position = UDim2.new(0, 18, 0, 16)
+		icon.Image = VoiceChatServiceManager:GetIcon("UnmuteAll", "Misc")
 
 		if Theme.UIBloxThemeEnabled then
 			icon.AnchorPoint = Vector2.new(0, 0.5)
@@ -1189,13 +1168,13 @@ local function Initialize()
 		frame.SelectionImageObject = frame:Clone()
 
 		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
-			local SelectionOverrideObject = utility:Create'Frame'{
+			local SelectionOverrideObject = Create'Frame'{
 					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = Theme.color("PlayerRowSelection")
 				}
-			utility:Create'UICorner'{
+			Create'UICorner'{
 				CornerRadius = Theme.DefaultCornerRadius,
 				Parent = SelectionOverrideObject,
 			}
@@ -1223,12 +1202,8 @@ local function Initialize()
 			textLabel.AutoLocalize = false
 			textLabel.Text = "Roblox Connect"
 
-			icon.Size = UDim2.new(0, 24, 0, 24)
-			icon.Position = UDim2.new(0, 18, 0, 18)
-			if GetFFlagOldMenuNewIcons() then
-				icon.Size = UDim2.new(0, 32, 0, 32)
-				icon.Position = UDim2.new(0, 18, 0, 16)
-			end
+			icon.Size = UDim2.new(0, 32, 0, 32)
+			icon.Position = UDim2.new(0, 18, 0, 16)
 
 			if Theme.UIBloxThemeEnabled then
 				icon.AnchorPoint = Vector2.new(0, 0.5)
@@ -1262,13 +1237,13 @@ local function Initialize()
 			frame.SelectionImageObject = frame:Clone()
 
 			if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
-				local SelectionOverrideObject = utility:Create'Frame'{
+				local SelectionOverrideObject = Create'Frame'{
 						BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
 						BorderSizePixel = 0,
 						Size = UDim2.new(1, 0, 1, 0),
 						BackgroundColor3 = Theme.color("PlayerRowSelection")
 					}
-				utility:Create'UICorner'{
+				Create'UICorner'{
 					CornerRadius = Theme.DefaultCornerRadius,
 					Parent = SelectionOverrideObject,
 				}
@@ -1281,7 +1256,7 @@ local function Initialize()
 				utility:MakeFocusState(frame, renderName)
 			end
 
-			unreadIndicator = utility:Create'Frame'{
+			unreadIndicator = Create'Frame'{
 				Name = "UnreadIndicator",
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = Theme.transparency("White"),
@@ -1291,7 +1266,7 @@ local function Initialize()
 				Visible = false,
 				Parent = frame
 			}
-			utility:Create'UICorner'{
+			Create'UICorner'{
 				CornerRadius = UDim.new(1, 0),
 				Parent = unreadIndicator,
 			}
@@ -1406,7 +1381,7 @@ local function Initialize()
 		-- create platform icon
 		local platformIcon = "rbxasset://textures/ui/Shell/Icons/PlatformLogo@3x.png"
 
-		local iconLabel = utility:Create("ImageLabel"){
+		local iconLabel = Create("ImageLabel"){
 			Name = "iconLabel",
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
@@ -1418,7 +1393,7 @@ local function Initialize()
 		}
 		iconLabel.Parent = consoleNameContainer
 
-		local layout = utility:Create("UIListLayout"){
+		local layout = Create("UIListLayout"){
 			Name = "PLatformNameUIListLayout",
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -1431,7 +1406,7 @@ local function Initialize()
 		iconLabel.LayoutOrder = 1
 		consoleNameText.LayoutOrder = 2
 
-		utility:Create("UIPadding") {
+		Create("UIPadding") {
 			PaddingLeft = UDim.new(0, 12),
 			PaddingRight = UDim.new(0, 12),
 			Parent = consoleNameContainer,
@@ -1717,9 +1692,7 @@ local function Initialize()
 				return
 			end
 			muteAllButton.TextLabel.Text = text
-			if GetFFlagOldMenuNewIcons() then
-				muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
-			end
+			muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
 		end
 	end
 
@@ -1761,7 +1734,7 @@ local function Initialize()
 			showChatButton = not chatButton
 
 			if (showShareGameButton or showMuteAllButton or showChatButton) and not buttonFrame then
-				buttonFrame = utility:Create'Frame'
+				buttonFrame = Create'Frame'
 				{
 					Name = "Holder",
 					BackgroundTransparency = 1,
@@ -1770,7 +1743,7 @@ local function Initialize()
 					Parent = this.Page,
 					LayoutOrder = 1,
 				}
-				buttonFrameLayout = utility:Create'UIListLayout'
+				buttonFrameLayout = Create'UIListLayout'
 				{
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -1783,7 +1756,7 @@ local function Initialize()
 		else
 			if not shouldShowMuteToggles then
 				if showMuteAllButton then
-					buttonFrame = utility:Create'Frame'
+					buttonFrame = Create'Frame'
 					{
 						Name = "Holder",
 						BackgroundTransparency = 1,
@@ -1797,7 +1770,7 @@ local function Initialize()
 
 		local function layoutMuteAll()
 			if not buttonFrame then
-				buttonFrame = utility:Create'Frame'
+				buttonFrame = Create'Frame'
 					{
 						Name = "Holder",
 						BackgroundTransparency = 1,
@@ -1993,9 +1966,7 @@ local function Initialize()
 					muteAllState = not muteAllState
 					local text = muteAllState and RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.UnmuteAll") or RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
 					muteAllButton.TextLabel.Text = text
-					if GetFFlagOldMenuNewIcons() then
-						muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
-					end
+					muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
 					if GetFFlagVoiceChatUILogging() then
 						log:debug("{} all players", muteAllState and "Muting" or "Unmuting")
 					end

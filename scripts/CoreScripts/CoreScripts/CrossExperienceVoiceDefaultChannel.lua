@@ -40,7 +40,7 @@ local localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 
 local onPlayerAdded = function(player)
 	CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_ADDED, {
-		userId = tostring(player.UserId),
+		userId = player.UserId,
 		isLocalUser = player.UserId == localUserId,
 		username = player.Name,
 		displayname = player.DisplayName,
@@ -49,7 +49,7 @@ end
 
 local onPlayerRemoved = function(player)
 	CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_REMOVED, {
-		userId = tostring(player.UserId),
+		userId = player.UserId,
 		isLocalUser = player.UserId == localUserId,
 	})
 end
@@ -57,7 +57,7 @@ end
 local onLocalPlayerActiveChanged = function(result)
 	local eventName = if result.isActive then CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_IS_ACTIVE else CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_IS_INACTIVE
 	CrossExperience.Communication.notify(eventName, {
-		userId = tostring(localUserId),
+		userId = localUserId,
 		isLocalUser = true,
 	})
 end
@@ -65,7 +65,7 @@ end
 local onLocalPlayerMuteChanged = function (isMuted)
 	local eventName = if isMuted then CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_MUTED else CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_UNMUTED
 	CrossExperience.Communication.notify(eventName, {
-		userId = tostring(localUserId),
+		userId = localUserId,
 		isLocalUser = true,
 	})
 end
@@ -79,7 +79,7 @@ local onParticipantsUpdated = function (participants)
 		local mutedEventName = if isMuted then CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_MUTED else CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_UNMUTED
 
 		local eventPayload = {
-			userId = tostring(userId),
+			userId = userId,
 			isLocalUser = userId == localUserId,
 		}
 

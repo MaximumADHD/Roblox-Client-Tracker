@@ -213,7 +213,6 @@ local function mapStateToProps(state)
 		promptType = state.promptRequest.promptInfo.promptType,
 		assetInstance = state.promptRequest.promptInfo.assetInstance,
 		assetType = state.promptRequest.promptInfo.assetType,
-		humanoidModel = if FFlagPublishAvatarPromptEnabled then state.promptRequest.promptInfo.humanoidModel else nil,
 	}
 end
 

@@ -7,10 +7,11 @@
 --]]
 ----------------- SERVICES ------------------------------
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 ----------- UTILITIES --------------
-local utility = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 ----------- CLASS DECLARATION --------------
 --[[ Classes ]]--
@@ -20,7 +21,7 @@ local StyleWidgets = {}
 StyleWidgets.TabSelectionHeight = 6
 
 function StyleWidgets.MakeTabSelectionWidget(parent)
-  local tabSelection = utility:Create'ImageLabel'
+  local tabSelection = Create'ImageLabel'
   {
     Name = "TabSelection",
     Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuSelection.png",

@@ -2,10 +2,12 @@
 
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Util = require(RobloxGui.Modules.Settings.Utility)
 local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local PANEL_OFFSET_CFRAME = CFrame.Angles(math.rad(-5), 0, 0) * CFrame.new(0, 4, 0) * CFrame.Angles(math.rad(-15), 0, 0)
 
@@ -49,7 +51,7 @@ local CLOSE_BUTTON_SIZE = 32
 local CLOSE_BUTTON_OFFSET = 22
 local CLOSE_BUTTON_HOVER_OFFSET = 22
 
-local emptySelectionImage = Util:Create "ImageLabel" {
+local emptySelectionImage = Create "ImageLabel" {
 	BackgroundTransparency = 1,
 	Image = ""
 }
@@ -110,7 +112,7 @@ do
 			instance:SetPopOut(true)
 		end
 
-		instance.titlebar = Util:Create "ImageLabel" {
+		instance.titlebar = Create "ImageLabel" {
 			Parent = parent,
 			Name = "TitlebarBackground",
 
@@ -124,7 +126,7 @@ do
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(10, 10, 10, 10)
 		}
-		instance.titleText = Util:Create "TextLabel" {
+		instance.titleText = Create "TextLabel" {
 			Parent = instance.titlebar,
 			Name = "TitleText",
 
@@ -139,7 +141,7 @@ do
 			BackgroundTransparency = 1
 		}
 
-		instance.content = Util:Create "ImageLabel" {
+		instance.content = Create "ImageLabel" {
 			Parent = parent,
 			Name = "ContentFrame",
 
@@ -163,7 +165,7 @@ do
 	end
 
 	function WindowFrame:AddCloseButton(callback)
-		self.closeButton = Util:Create "ImageButton" {
+		self.closeButton = Create "ImageButton" {
 			Parent = self.titlebar,
 			Name = "CloseButton",
 
@@ -173,7 +175,7 @@ do
 			BackgroundTransparency = 1, 
 
 			Image = CLOSE_BUTTON_IMG,
-			SelectionImageObject = Util:Create "ImageButton" {
+			SelectionImageObject = Create "ImageButton" {
 				Name = "CloseButtonHover",
 				Position = UDim2.new(0, CLOSE_BUTTON_HOVER_OFFSET / -2, 0, CLOSE_BUTTON_HOVER_OFFSET / -2),
 				Size = UDim2.new(1, CLOSE_BUTTON_HOVER_OFFSET, 1, CLOSE_BUTTON_HOVER_OFFSET),
@@ -244,7 +246,7 @@ do
 	notificationsPanel:SetVisible(false)
 	notificationsPanel:SetCanFade(false)
 	notificationsPanel:ResizeStuds(leftPanelWidth, totalHeight, PIXELS_PER_STUD)
-	local notificationsFrame = Util:Create "TextButton" {
+	local notificationsFrame = Create "TextButton" {
 		Parent = notificationsPanel:GetGUI(),
 		Name = "NotificationsListFrame",
 
@@ -272,7 +274,7 @@ do
 	detailsPanel:SetVisible(false)
 	detailsPanel:SetCanFade(false)
 	detailsPanel:ResizeStuds(rightPanelWidth, totalHeight, PIXELS_PER_STUD)
-	local detailsFrame = Util:Create "TextButton" {
+	local detailsFrame = Create "TextButton" {
 		Parent = detailsPanel:GetGUI(),
 		Name = "NotificationsDetailFrame",
 
@@ -365,12 +367,12 @@ do
 		self.order = order
 		self.notifications = {}
 		self.notificationsDirty = false
-		self.frame = Util:Create "Frame" {
+		self.frame = Create "Frame" {
 			Parent = notificationsWindow.content,
 			Name = "NotificationGroup",
 			BackgroundTransparency = 1
 		}
-		self.detailsFrame = Util:Create "Frame" {
+		self.detailsFrame = Create "Frame" {
 			Parent = nil,
 			BackgroundTransparency = 1,
 
@@ -485,7 +487,7 @@ do
 	function Notification.new(group, notificationInfo)
 		local self = setmetatable({}, Notification_mt)
 		self.group = group
-		self.frame = Util:Create "ImageButton" {
+		self.frame = Create "ImageButton" {
 			Parent = group.frame,
 			Size = UDim2.new(1, 0, 0, NOTIFICATION_HEIGHT_OFFSET),
 
@@ -496,7 +498,7 @@ do
 		self.frame.MouseButton1Click:connect(function()
 			self:OnClicked()
 		end)
-		self.background = Util:Create "ImageLabel" { --this is the stand-in background for that smoooooooth edge rendering
+		self.background = Create "ImageLabel" { --this is the stand-in background for that smoooooooth edge rendering
 			Parent = self.frame,
 			Position = UDim2.new(0, -1, 0, -1),
 			Size = UDim2.new(1, 2, 1, 2),
@@ -509,7 +511,7 @@ do
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(10, 10, 10, 10)
 		}
-		self.imageBackground = Util:Create "ImageLabel" {
+		self.imageBackground = Create "ImageLabel" {
 			Parent = self.frame,
 			Position = UDim2.new(0, 5, 0, 5),
 			Size = UDim2.new(0, 70, 0, 70),
@@ -519,7 +521,7 @@ do
 			Image = "rbxasset://textures/ui/VR/circleWhite.png",
 			ImageColor3 = notificationInfo.imgBackgroundColor or Color3.new(1, 1, 1)
 		}
-		self.image = Util:Create "ImageLabel" {
+		self.image = Create "ImageLabel" {
 			Parent = self.imageBackground,
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
@@ -533,7 +535,7 @@ do
 		if notificationInfo.Title and notificationInfo.Text then
 			text = ("%s\n%s"):format(notificationInfo.Title, notificationInfo.Text)
 		end
-		self.text = Util:Create "TextLabel" {
+		self.text = Create "TextLabel" {
 			Parent = self.frame,
 
 			Position = UDim2.new(0, NOTIFICATION_HEIGHT_OFFSET, 0, 0),
@@ -549,7 +551,7 @@ do
 			TextColor3 = TEXT_COLOR
 		}
 
-		self.detailsFrame = Util:Create "Frame" {
+		self.detailsFrame = Create "Frame" {
 			Parent = group.detailsFrame,
 			BackgroundTransparency = 1
 		}
@@ -559,7 +561,7 @@ do
 		self.detailsFrame.MouseLeave:connect(function()
 			detailsPanel:SetSubpanelDepth(self.detailsFrame, 0)
 		end)
-		self.detailsBackground = Util:Create "ImageLabel" {
+		self.detailsBackground = Create "ImageLabel" {
 			Parent = self.detailsFrame,
 			Position = UDim2.new(0, -1, 0, -1),
 			Size = UDim2.new(1, 2, 1, 2),
@@ -573,7 +575,7 @@ do
 			SliceCenter = Rect.new(10,10,10,10)
 		}
 
-		self.detailsIconBackground = Util:Create "ImageLabel" {
+		self.detailsIconBackground = Create "ImageLabel" {
 			Parent = self.detailsFrame,
 			Position = UDim2.new(0, 20, 0, 10),
 			Size = UDim2.new(0, 80, 0, 80),
@@ -583,7 +585,7 @@ do
 			Image = "rbxasset://textures/ui/VR/circleWhite.png",
 			ImageColor3 = notificationInfo.imgBackgroundColor or Color3.new(1, 1, 1)
 		}
-		self.detailsIcon = Util:Create "ImageLabel" {
+		self.detailsIcon = Create "ImageLabel" {
 			Parent = self.detailsIconBackground,
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
@@ -594,7 +596,7 @@ do
 		}
 
 		local detailText = notificationInfo.DetailText or notificationInfo.Title
-		self.detailsText = Util:Create "TextLabel" {
+		self.detailsText = Create "TextLabel" {
 			Parent = self.detailsFrame,
 			Position = UDim2.new(0, 110, 0, 10),
 			Size = UDim2.new(1, -120, 0, 90),
@@ -610,7 +612,7 @@ do
 		}
 
 		local function createButton(xPosScale, xSizeScale, text)
-			local button, text = Util:Create "ImageButton" {
+			local button, text = Create "ImageButton" {
 				Parent = self.detailsFrame,
 				Position = UDim2.new(xPosScale, 0, BUTTON_Y_POS, 0),
 				Size = UDim2.new(xSizeScale, 0, BUTTON_Y_SIZE, 0),
@@ -622,7 +624,7 @@ do
 				SliceCenter = Rect.new(8,6,46,44),
 
 				SelectionImageObject = emptySelectionImage
-			}, Util:Create "TextLabel" {
+			}, Create "TextLabel" {
 				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(1, 0, 1, -6),
 
@@ -717,7 +719,7 @@ do
 		end
 	end
 
-	NotificationHubModule.VisibilityStateChanged = Util:Create "BindableEvent" {
+	NotificationHubModule.VisibilityStateChanged = Create "BindableEvent" {
 		Name = "VisibilityStateChanged"
 	}
 

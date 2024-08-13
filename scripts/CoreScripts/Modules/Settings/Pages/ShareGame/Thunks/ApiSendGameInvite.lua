@@ -4,15 +4,13 @@ local Players = game:GetService("Players")
 
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
-local GetFFlagReplaceWaitForChildDependancy2964 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2964
-
 local DEPRECATED_ChatSendMessage
 	= Requests.DEPRECATED_ChatSendMessage
 
 local DEPRECATED_ChatStartOneToOneConversation = Requests.DEPRECATED_ChatStartOneToOneConversation
 
 local CoreGui = game:GetService("CoreGui")
-local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2964() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
+local RobloxGui = CoreGui.RobloxGui
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 

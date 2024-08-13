@@ -13,7 +13,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui.RobloxGui
-local Util = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 
@@ -232,7 +232,7 @@ function VRHub:GetOpenedModules()
 	return result
 end
 
-VRHub.ModuleOpened = Util:Create("BindableEvent")({
+VRHub.ModuleOpened = Create("BindableEvent")({
 	Name = "VRModuleOpened",
 })
 --Wrapper function to document the arguments to the event
@@ -247,7 +247,7 @@ function VRHub:FireModuleOpened(moduleName)
 	end
 end
 
-VRHub.ModuleClosed = Util:Create("BindableEvent")({
+VRHub.ModuleClosed = Create("BindableEvent")({
 	Name = "VRModuleClosed",
 })
 --Wrapper function to document the arguments to the event
@@ -273,7 +273,7 @@ end
 
 VRHub.ShowHighlightedLeaveGameIcon = false
 
-VRHub.ShowHighlightedLeaveGameIconToggled = Util:Create("BindableEvent")({
+VRHub.ShowHighlightedLeaveGameIconToggled = Create("BindableEvent")({
 	Name = "ShowHighlightedLeaveGameIconToggled",
 })
 
@@ -287,11 +287,11 @@ end
 VRHub.ShowTopBar = true
 VRHub.ShowMoreMenu = false
 
-VRHub.ShowTopBarChanged = Util:Create("BindableEvent")({
+VRHub.ShowTopBarChanged = Create("BindableEvent")({
 	Name = "ShowTopBarChanged",
 })
 
-VRHub.ShowMoreMenuChanged = Util:Create("BindableEvent")({
+VRHub.ShowMoreMenuChanged = Create("BindableEvent")({
 	Name = "ShowMoreMenuChanged",
 })
 

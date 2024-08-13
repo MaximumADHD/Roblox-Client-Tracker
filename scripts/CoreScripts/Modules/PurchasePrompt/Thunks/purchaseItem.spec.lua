@@ -21,18 +21,29 @@ return function()
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 	local Thunk = require(Root.Thunk)
 
+	local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
+
 	local function getDefaultState()
 		return {
 			productInfo = {
 				productId = 50,
 			},
-			requestType = RequestType.Asset,
 			accountInfo = {
 				AgeBracket = 0,
 			},
 			promptRequest = {
 				id = 50,
 				requestType = RequestType.Product,
+				infoType = Enum.InfoType.Product
+			},
+		}
+	end
+
+	local function getAvatarCreationState()
+		return {
+			promptRequest = {
+				id = 50,
+				requestType = RequestType.AvatarCreationFee,
 				infoType = Enum.InfoType.Product
 			},
 		}
@@ -58,6 +69,27 @@ return function()
 		expect(analytics.spies.signalPurchaseSuccess).toHaveBeenCalledTimes(1)
 		expect(state.promptState).toBe(PromptState.PurchaseInProgress)
 	end)
+
+	if (GetFFlagEnableAvatarCreationFeePurchase()) then
+		it("should run without errors with Avatar Creation", function()
+			local store = Rodux.Store.new(Reducer, getAvatarCreationState())
+
+			local network = MockNetwork.new()
+			local analytics = MockAnalytics.new()
+
+			Thunk.test(purchaseItem(), store, {
+				[Network] = network,
+				[Analytics] = analytics.mockService,
+				[ExternalSettings] = MockExternalSettings.new(false, false, {}),
+			})
+
+			local state = store:getState()
+
+			expect(state.promptRequest.requestType).toBe(RequestType.AvatarCreationFee)
+
+			expect(analytics.spies.signalAvatarCreationPurchaseSubmit).toHaveBeenCalledTimes(1)
+		end)
+	end
 
 	it("should resolve to an error state if a network error occurs", function()
 		local store = Rodux.Store.new(Reducer, getDefaultState())

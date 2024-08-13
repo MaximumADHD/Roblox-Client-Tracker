@@ -4,7 +4,7 @@ local CoreGui 		= game:GetService("CoreGui")
 local CorePackages	= game:GetService("CorePackages")
 
 local RobloxGui 	= CoreGui.RobloxGui
-local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local PARTS_INFO = {
 	Body = {
@@ -116,12 +116,12 @@ function ViveController.new(userCFrame)
 		self:onTouchpadModeChanged(...)
 	end)
 
-	self.model = CommonUtil.Create("Model") {
+	self.model = Create("Model") {
 		Name = "ViveController",
 		Archivable = false
 	}	
 	
-	self.origin = CommonUtil.Create("Part") {
+	self.origin = Create("Part") {
 		Parent = self.model,		
 		Name = "Origin",
 		Anchored = true,
@@ -141,7 +141,7 @@ function ViveController.new(userCFrame)
 			partScale = partScale * partInfo.scale
 		end
 
-		local part = CommonUtil.Create("Part") {
+		local part = Create("Part") {
 			Parent = self.model,
 			Name = partName,
 			Anchored = true,
@@ -152,14 +152,14 @@ function ViveController.new(userCFrame)
 			CanQuery = false,
 			CanTouch = false,
 		}
-		local mesh = CommonUtil.Create("SpecialMesh") {
+		local mesh = Create("SpecialMesh") {
 			Parent = part,
 			Name = "Mesh",
 			MeshId = partInfo.meshId,
 			TextureId = partInfo.textureId,
 			Scale = partScale
 		}
-		local weld = CommonUtil.Create("Weld") {
+		local weld = Create("Weld") {
 			Parent = part,
 			Name = "Weld",
 			Part0 = self.origin,
@@ -170,7 +170,7 @@ function ViveController.new(userCFrame)
 		self.parts[partName] = part
 	end
 
-	local trackpadIndicator = CommonUtil.Create("Part") {
+	local trackpadIndicator = Create("Part") {
 		Parent = self.model,
 		Name = "TrackpadIndicator",
 		Material = Enum.Material.Neon,
@@ -183,7 +183,7 @@ function ViveController.new(userCFrame)
 		CanQuery = false,
 		CanTouch = false,
 	}
-	CommonUtil.Create("Weld") {
+	Create("Weld") {
 		Parent = trackpadIndicator,
 		Name = "Weld",
 		Part0 = self.origin,

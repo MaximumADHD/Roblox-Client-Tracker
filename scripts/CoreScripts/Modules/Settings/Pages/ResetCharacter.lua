@@ -16,10 +16,12 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local CorePackages = game:GetService("CorePackages")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -62,7 +64,7 @@ local function Initialize()
 	this.ShouldShowBottomBar = false
 	this.ShouldShowHubBar = false
 
-	local resetCharacterText =  utility:Create'TextLabel'
+	local resetCharacterText =  Create'TextLabel'
 	{
 		Name = "ResetCharacterText",
 		Text = "Are you sure you want to reset your character?",
@@ -77,7 +79,7 @@ local function Initialize()
 		Position = isTenFootInterface and UDim2.new(0,0,0,100) or UDim2.new(0,0,0,0)
 	};
 
-	local resetButtonContainer = utility:Create"Frame"
+	local resetButtonContainer = Create"Frame"
 	{
 		Name = "ResetButtonContainer",
 		Parent = resetCharacterText,
@@ -86,7 +88,7 @@ local function Initialize()
 		Position = UDim2.new(0,0,1,0)
 	};
 
-	local _resetButtonLayout = utility:Create'UIGridLayout'
+	local _resetButtonLayout = Create'UIGridLayout'
 	{
 		Name = "ResetButtonsLayout",
 		CellSize = isTenFootInterface and UDim2.new(0, 300, 0, 80) or UDim2.new(0, 200, 0, 50),

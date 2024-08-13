@@ -21,12 +21,8 @@ local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
 local GetFFlagEnableCoreVoiceManagerMuteAll = require(script.Parent.Flags.GetFFlagEnableCoreVoiceManagerMuteAll)
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
-local GetFFlagEnableVoiceMicPromptToastFix = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMicPromptToastFix)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
-local GetFFlagDeferredBlockStatusChange = require(RobloxGui.Modules.Flags.GetFFlagDeferredBlockStatusChange)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
-local GetFFlagVoiceChatUseSoundServiceInputApi =
-	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local GetFFlagVoiceChatServiceManagerUseAvatarChat =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
@@ -365,12 +361,12 @@ function VoiceChatServiceManager.new(
 		Error = self:GetIcon("Error", "MicLight"),
 	}
 
-	self.coreVoiceManager:subscribe('GetPermissions', function (callback, permissions, shouldNotRequestPerms)
+	self.coreVoiceManager:subscribe('GetPermissions', function (callback, permissions, shouldNotRequestPerms, rawGet)
 		local context = "VoiceChatServiceManager.requestMicPermission"
 		if GetFFlagEnableInExpMicPermissionsAnalytics() and self.inExpUpsellEntrypoint ~= nil then
 			context = self.inExpUpsellEntrypoint
 		end
-		self.getPermissionsFunction(callback, permissions, shouldNotRequestPerms, context)
+		self.getPermissionsFunction(callback, permissions, shouldNotRequestPerms, context, rawGet)
 	end)
 	self.coreVoiceManager:subscribe('OnVoiceParticipantRemoved', function (userId)
 		if ExperienceChat.Events.VoiceParticipantRemoved then
@@ -711,6 +707,8 @@ function VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(entrypoint: st
 	self:SetInExpUpsellEntrypoint(entrypoint)
 
 	PhoneUpsellController.openPhoneUpsell({
+		origin = "inExperience",
+		eventContext = "verificationUpsell",
 		entryConfig = {
 			titleKey = "Feature.VerificationUpsell.Heading.UnlockVoiceChat",
 			descriptionKey = "Feature.VerificationUpsell.Description.UnlockVoiceChatBody",
@@ -1017,7 +1015,7 @@ end
 
 function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 	local function showPrompt()
-		local userEligible = GetFFlagEnableVoiceMicPromptToastFix() and self.userEligible
+		local userEligible = self.userEligible
 		if self.voiceEnabled or userEligible then
 			-- we already checked and requested permissions above. If we got here then Mic permissions were denied.
 			if GetFFlagJoinWithoutMicPermissions() then
@@ -1514,7 +1512,7 @@ end
 
 function VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid)
 	if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-		if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
+		if game:GetEngineFeature("UseFmodForInputDevices") then
 			SoundService:SetInputDevice(deviceName, deviceGuid)
 			log:info("[InputDeviceSelection] Setting SS Mic Device To {} {}", deviceName, deviceGuid)
 		else
@@ -1534,7 +1532,7 @@ end
 function VoiceChatServiceManager:GetDevices(deviceType)
 	local soundServiceSuccess, deviceNames, deviceGuids, selectedIndex = pcall(function()
 		if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-			if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
+			if game:GetEngineFeature("UseFmodForInputDevices") then
 				return SoundService:GetInputDevices()
 			else
 				return self.service:GetMicDevices()
@@ -1544,7 +1542,7 @@ function VoiceChatServiceManager:GetDevices(deviceType)
 		end
 	end)
 
-	if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
+	if game:GetEngineFeature("UseFmodForInputDevices") then
 		return soundServiceSuccess, deviceNames, deviceGuids, selectedIndex
 	end
 
@@ -1604,8 +1602,7 @@ VoiceChatServiceManager.default = VoiceChatServiceManager.new(
 	nil,
 	HttpRbxApiService,
 	PermissionsProtocol.default,
-	GetFFlagDeferredBlockStatusChange() and BlockingUtility:GetAfterBlockedStatusChangedEvent()
-		or BlockingUtility:GetBlockedStatusChangedEvent()
+	BlockingUtility:GetAfterBlockedStatusChangedEvent()
 )
 
 export type VoiceChatServiceManager = typeof(VoiceChatServiceManager.default)

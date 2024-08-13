@@ -159,7 +159,12 @@ local function syncTrack(animator: Animator, track: AnimationTrack)
 	elseif track.Animation and track.Animation:IsA("TrackerStreamAnimation") then
 		newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
 		assert(newTrackerStreamAnimation ~= nil)
-		cloneStreamTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, LocalPlayer)
+		if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
+			cloneStreamTrack = animator:LoadStreamAnimationV2(newTrackerStreamAnimation, LocalPlayer, false, false)
+		else
+			cloneStreamTrack =
+				animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, LocalPlayer)
+		end
 		cloneTrack = cloneStreamTrack
 	else
 		warn("No animation to clone in SelfView")

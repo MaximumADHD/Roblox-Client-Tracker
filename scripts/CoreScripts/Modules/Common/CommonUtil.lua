@@ -6,7 +6,6 @@
 --]]
 
 local CorePackages = game:GetService("CorePackages")
-local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 --[[ Classes ]]--
 local CommonUtil = {}
@@ -27,43 +26,6 @@ function CommonUtil.SortByName(items)
 	end
 	table.sort(items, compareInstanceNames)
 	return items
-end
-
--- Provides a nice syntax for creating Roblox instances.
--- Example:
---	local newPart = Utility.Create("Part") {
---		Parent = workspace,
---		Anchored = true,
---
---		--Create a SpecialMesh as a child of this part too
---		Utility.Create("SpecialMesh") {
---			MeshId = "rbxassetid://...",
---			Scale = Vector3.new(0.5, 0.2, 10)
---		}
---	}
--- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
-function CommonUtil.Create(instanceType)
-	if Create.GetFFlagLuaAppUnifiedCreateUtility() then
-		return Create(instanceType)
-	end
-
-	return function(data)
-		local obj = Instance.new(instanceType)
-		local parent = nil
-		for k, v in pairs(data) do
-			if type(k) == 'number' then
-				v.Parent = obj
-			elseif k == 'Parent' then
-				parent = v
-			else
-				obj[k] = v
-			end
-		end
-		if parent then
-			obj.Parent = parent
-		end
-		return obj
-	end
 end
 
 return CommonUtil

@@ -2,9 +2,10 @@
 local CoreGui = game:GetService("CoreGui")
 local ContextActionService = game:GetService("ContextActionService")
 local TweenService = game:GetService("TweenService")
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local Utility = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local INPUT_TYPE_ROW_HEIGHT = 30
 local ACTION_ROW_HEIGHT = 20
@@ -71,13 +72,13 @@ local function sortActionRows(a, b)
  end
 
 local function createEmptyRow(name, height)
-	local row = Utility:Create("Frame") {
+	local row = Create("Frame") {
 		Name = name,
 		BackgroundTransparency = 1,
 		ZIndex = 6,
 		Size = UDim2.new(1, 0, 0, height or 0)
 	}
-	local columnList = Utility:Create("UIListLayout") {
+	local columnList = Create("UIListLayout") {
 		FillDirection = Enum.FillDirection.Horizontal,
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		Padding = UDim.new(0, COLUMN_PADDING),
@@ -87,14 +88,14 @@ local function createEmptyRow(name, height)
 end
 
 local function createButtonRow(name, height)
-	local row = Utility:Create("TextButton") {
+	local row = Create("TextButton") {
 		Name = name,
 		BackgroundTransparency = 1,
 		ZIndex = 6,
 		Text = "",
 		Size = UDim2.new(1, 0, 0, height or 0),
 	}
-	local columnList = Utility:Create("UIListLayout") {
+	local columnList = Create("UIListLayout") {
 		FillDirection = Enum.FillDirection.Horizontal,
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		Padding = UDim.new(0, COLUMN_PADDING),
@@ -104,7 +105,7 @@ local function createButtonRow(name, height)
 end
 
 local function createEmptyColumn(row, columnName)
-	local column = Utility:Create("Frame") {
+	local column = Create("Frame") {
 		Name = columnName,
 		BackgroundColor3 = Color3.new(0, 0, 0),
 		BackgroundTransparency = 0.75,
@@ -121,12 +122,12 @@ end
 local function createImageColumn(row, columnName, image, aspectRatio, imageSize)
 	local column = createEmptyColumn(row, columnName)
 
-	local aspectRatioConstraint = Utility:Create("UIAspectRatioConstraint") {
+	local aspectRatioConstraint = Create("UIAspectRatioConstraint") {
 		AspectRatio = aspectRatio or 1,
 		Parent = column 
 	}
 
-	local imageLabel = Utility:Create("ImageLabel") {
+	local imageLabel = Create("ImageLabel") {
 		Name = "ColumnImage",
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -143,7 +144,7 @@ end
 local function createTextColumn(row, columnName, text)
 	local column = createEmptyColumn(row, columnName)
 
-	local textLabel = Utility:Create("TextLabel") {
+	local textLabel = Create("TextLabel") {
 		Name = "ColumnText",
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -249,7 +250,7 @@ end
 local ActionBindingsTab = {}
 
 function ActionBindingsTab.initializeGui(tabFrame)
-	local scrollingFrame = Utility:Create("ScrollingFrame") {
+	local scrollingFrame = Create("ScrollingFrame") {
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		Size = UDim2.new(1, -10, 1, -10),
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -261,7 +262,7 @@ function ActionBindingsTab.initializeGui(tabFrame)
 	}
 	container = scrollingFrame
 
-	local listLayout = Utility:Create("UIListLayout") {
+	local listLayout = Create("UIListLayout") {
 		Padding = UDim.new(0, ROW_PADDING),
 		Parent = scrollingFrame
 	}

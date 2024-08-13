@@ -2,7 +2,6 @@
 local Root = script.Parent.Parent.Parent
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
-local ExperienceAuthService = game:GetService("ExperienceAuthService")
 local AssetService = game:GetService("AssetService")
 
 local CorePackages = game:GetService("CorePackages")
@@ -52,7 +51,6 @@ local Animator = require(script.Parent.Animator)
 
 local ProductPurchaseContainer = Roact.Component:extend(script.Name)
 
-local AVATAR_NAME_KEY = "avatarName"
 local CONFIRM_BUTTON_BIND = "ProductPurchaseConfirmButtonBind"
 local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 
@@ -152,35 +150,9 @@ function ProductPurchaseContainer:init()
 
 		return isDoneAnimating
 	end
-
-	self.onAvatarCreationFeePurchase = function()
-		-- Avatar Creation Purchase is handled by
-		-- AvatarCreationService:PromptCreateAvatarAsync
-		-- We use ExperienceAuthService to continue the API call
-		-- as the user has confirmed their purchase here
-		local metadata = {}
-		metadata[AVATAR_NAME_KEY] = self.props.productInfo.name
-
-		local scopes = {}
-		scopes[1] = Enum.ExperienceAuthScope.CreatorAssetsCreate
-
-		ExperienceAuthService:ScopeCheckUIComplete(
-			self.props.productInfo.productId,
-			scopes,
-			Enum.ScopeCheckResult.ConsentAccepted,
-			metadata
-		)
-
-		-- TODO: AVBURST-13509 Handle underlying avatar creation prompt
-		-- being opened upon payment prompting and completion
-		self.props.completePurchase()
-	end
-
 	self.getConfirmButtonAction = function(promptState, requestType, purchaseError)
 		if promptState == PromptState.None or not isRelevantRequestType(requestType) then
 			return nil
-		elseif GetFFlagEnableAvatarCreationFeePurchase() and requestType == RequestType.AvatarCreationFee then
-			return self.onAvatarCreationFeePurchase
 		elseif promptState == PromptState.PromptPurchase
 				or promptState == PromptState.PurchaseInProgress then
 			return self.props.onBuy

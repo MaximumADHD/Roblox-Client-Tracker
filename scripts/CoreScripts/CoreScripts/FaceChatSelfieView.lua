@@ -1960,11 +1960,19 @@ local function syncTrack(animator, track)
 		if EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled then
 			log:trace("using LoadStreamAnimationForClone!")
 			newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
-			cloneStreamTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, Players.LocalPlayer)
+			if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
+				cloneStreamTrack = animator:LoadStreamAnimationV2(newTrackerStreamAnimation, Players.LocalPlayer, false, false)
+			else
+				cloneStreamTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, Players.LocalPlayer)
+			end
 			cloneTrack = cloneStreamTrack
 		else
 			log:trace("animator:LoadStreamAnimation, not EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled")
-			cloneTrack = animator:LoadStreamAnimation(track.Animation)
+			if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
+				cloneTrack = animator:LoadStreamAnimationV2(track.Animation, Players.LocalPlayer, false, false)
+			else
+				cloneTrack = animator:LoadStreamAnimation(track.Animation)
+			end
 		end
 		foundStreamTrack = true
 		debugPrint("foundStreamTrack = true")

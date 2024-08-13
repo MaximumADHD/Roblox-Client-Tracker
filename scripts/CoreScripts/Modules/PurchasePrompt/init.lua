@@ -75,12 +75,12 @@ end
 -- API for other modules to be able to initiate the purchase
 -- of an avatar creation fee. Currently utilized by the
 -- AvatarCreationService:PromptCreateAvatarAsync API flow
-local function initiateAvatarCreationFeePurchase(name, guid, serializedModel)
+local function initiateAvatarCreationFeePurchase(avatarPublishMetadata, guid, serializedModel, priceInRobux)
 	if not store then
 		error("initiateAvatarCreationFeePurchase cannot be called when the PurchasePrompt has not been mounted")
 	end
 
-	store:dispatch(initiateAvatarCreationFeePurchaseThunk(name, guid, serializedModel))
+	store:dispatch(initiateAvatarCreationFeePurchaseThunk(avatarPublishMetadata, guid, serializedModel, priceInRobux))
 end
 
 return {

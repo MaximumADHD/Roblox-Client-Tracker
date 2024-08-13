@@ -1,10 +1,11 @@
 local InputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
-local Util = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local cancelShortcutName = "CancelRecenterShortcut"
 local visible = false
@@ -21,7 +22,7 @@ countdownPanel:SetType(Panel3D.Type.HorizontalFollow)
 countdownPanel:ResizeStuds(5, 3, 128)
 countdownPanel:SetCanFade(false)
 
-local countdown = Util:Create "TextLabel" {
+local countdown = Create "TextLabel" {
 	Parent = countdownPanel:GetGUI(),
 
 	Position = UDim2.new(0.5, -64, 0.5, -64),
@@ -37,7 +38,7 @@ local countdown = Util:Create "TextLabel" {
 
 	Visible = true
 }
-local recenterFrame = Util:Create "ImageLabel" {
+local recenterFrame = Create "ImageLabel" {
 	Parent = countdownPanel:GetGUI(),
 
 	Position = UDim2.new(0, 0, 0, 0),

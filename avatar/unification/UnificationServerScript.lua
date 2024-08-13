@@ -21,6 +21,6 @@ CollisionHead.Parent = nil
 -- rig building/scaling will be done after this script runs
 task.wait()
 local tables = SetupAdapterParts.setupCharacter(Character, AdapterReference, CollisionHead)
-Scale.ScaleCharacter(Character, Scale.Target)
+Scale.ScaleCharacter(Character, Scale.UnificationModes.CLAMP_WIDTH)
 
 MoveHitboxes.moveHitboxes(Character)

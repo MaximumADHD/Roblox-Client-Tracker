@@ -15,7 +15,7 @@ PROTO_1:
   GETTABLEKS R2 R0 K0 ["_draggerContext"]
   NAMECALL R3 R2 K1 ["shouldShowTargetGrids"]
   CALL R3 1 1
-  JUMPIFNOT R3 [+68]
+  JUMPIFNOT R3 [+65]
   GETTABLEKS R5 R1 K2 ["softSnaps"]
   LENGTH R4 R5
   LOADN R5 0
@@ -38,30 +38,29 @@ PROTO_1:
   CALL R4 1 1
   JUMP [+1]
   LOADNIL R4
-  GETTABLEKS R6 R0 K9 ["_constraintToolModel"]
-  GETTABLEKS R5 R6 K10 ["_selectionInfo"]
-  NAMECALL R5 R5 K11 ["getLocalBoundingBox"]
-  CALL R5 1 3
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K3 ["createElement"]
-  GETUPVAL R9 2
-  DUPTABLE R10 K17 [{"DragTarget", "SourceSize", "Scale", "GridSize", "Color", "PrimaryColor"}]
-  SETTABLEKS R1 R10 K4 ["DragTarget"]
-  SETTABLEKS R7 R10 K12 ["SourceSize"]
-  GETTABLEKS R14 R1 K18 ["targetMatrix"]
-  GETTABLEKS R13 R14 K19 ["Position"]
-  NAMECALL R11 R2 K20 ["getHandleScale"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K13 ["Scale"]
-  SETTABLEKS R4 R10 K14 ["GridSize"]
-  NAMECALL R11 R2 K21 ["getGridColor"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K15 ["Color"]
-  NAMECALL R11 R2 K22 ["getChosenColor"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K16 ["PrimaryColor"]
-  CALL R8 2 -1
-  RETURN R8 -1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K14 [{"DragTarget", "SourceSize", "Scale", "GridSize", "Color", "PrimaryColor"}]
+  SETTABLEKS R1 R7 K4 ["DragTarget"]
+  FASTCALL VECTOR [+2]
+  GETIMPORT R8 K17 [Vector3.new]
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K9 ["SourceSize"]
+  GETTABLEKS R11 R1 K18 ["targetMatrix"]
+  GETTABLEKS R10 R11 K19 ["Position"]
+  NAMECALL R8 R2 K20 ["getHandleScale"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K10 ["Scale"]
+  SETTABLEKS R4 R7 K11 ["GridSize"]
+  NAMECALL R8 R2 K21 ["getGridColor"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K12 ["Color"]
+  NAMECALL R8 R2 K22 ["getChosenColor"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K13 ["PrimaryColor"]
+  CALL R5 2 -1
+  RETURN R5 -1
   LOADNIL R3
   RETURN R3 1
 
@@ -87,31 +86,18 @@ PROTO_2:
 
 PROTO_3:
   GETTABLEKS R1 R0 K0 ["_draggerContext"]
-  NEWTABLE R2 0 2
+  NEWTABLE R2 0 3
   GETUPVAL R3 0
   GETUPVAL R4 1
-  SETLIST R2 R3 2 [1]
-  NAMECALL R3 R1 K1 ["isAltKeyDown"]
-  CALL R3 1 1
-  JUMPIFNOT R3 [+8]
   GETUPVAL R5 2
-  FASTCALL2 TABLE_INSERT R2 R5 [+4]
-  MOVE R4 R2
-  GETIMPORT R3 K4 [table.insert]
-  CALL R3 2 0
-  JUMP [+7]
-  GETUPVAL R5 3
-  FASTCALL2 TABLE_INSERT R2 R5 [+4]
-  MOVE R4 R2
-  GETIMPORT R3 K4 [table.insert]
-  CALL R3 2 0
-  GETUPVAL R4 4
-  GETTABLEKS R3 R4 K5 ["addGridSnap"]
+  SETLIST R2 R3 3 [1]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K1 ["addGridSnap"]
   MOVE R4 R2
   MOVE R5 R1
   CALL R3 2 0
-  GETUPVAL R4 4
-  GETTABLEKS R3 R4 K6 ["addHelp"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["addHelp"]
   MOVE R4 R2
   CALL R3 1 0
   RETURN R2 1
@@ -214,29 +200,21 @@ MAIN:
   CALL R9 1 1
   GETIMPORT R10 K24 [table.freeze]
   DUPTABLE R11 K27 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R12 K32 ["⬇Alt"]
+  LOADK R12 K32 ["Esc"]
   SETTABLEKS R12 R11 K25 ["Hotkey"]
-  LOADK R12 K33 ["HoldOrientation"]
+  LOADK R12 K33 ["Escape"]
   SETTABLEKS R12 R11 K26 ["LabelLocEntry"]
   CALL R10 1 1
-  GETIMPORT R11 K24 [table.freeze]
-  DUPTABLE R12 K27 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R13 K34 ["⬆Alt"]
-  SETTABLEKS R13 R12 K25 ["Hotkey"]
-  LOADK R13 K35 ["UnholdOrientation"]
-  SETTABLEKS R13 R12 K26 ["LabelLocEntry"]
-  CALL R11 1 1
-  DUPCLOSURE R12 K36 [PROTO_3]
+  DUPCLOSURE R11 K34 [PROTO_3]
+  CAPTURE VAL R10
   CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R11
-  CAPTURE VAL R10
   CAPTURE VAL R6
-  SETTABLEKS R12 R7 K37 ["_getHotkeyList"]
-  DUPCLOSURE R12 K38 [PROTO_4]
-  SETTABLEKS R12 R7 K39 ["setMouseCursor"]
-  DUPCLOSURE R12 K40 [PROTO_5]
+  SETTABLEKS R11 R7 K35 ["_getHotkeyList"]
+  DUPCLOSURE R11 K36 [PROTO_4]
+  SETTABLEKS R11 R7 K37 ["setMouseCursor"]
+  DUPCLOSURE R11 K38 [PROTO_5]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  SETTABLEKS R12 R7 K41 ["render"]
+  SETTABLEKS R11 R7 K39 ["render"]
   RETURN R7 1

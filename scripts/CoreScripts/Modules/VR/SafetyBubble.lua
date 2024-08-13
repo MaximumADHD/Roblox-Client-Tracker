@@ -7,6 +7,7 @@
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local CorePackages = game:GetService("CorePackages")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 --[[ The Module ]]--
@@ -16,7 +17,7 @@ SafetyBubble.__index = SafetyBubble
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Util = require(RobloxGui.Modules.Settings.Utility)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local MAX_SAFETY_DIST = require(RobloxGui.Modules.Flags.FIntSafetyBubbleRadius) -- this is using a 2d distance
 local MAX_TRANSPARENCY = require(RobloxGui.Modules.Flags.FIntSafetyBubbleTransparencyPercent) * 0.01 -- how transparent do we get
 
@@ -31,7 +32,7 @@ function SafetyBubble.new()
 	self.enabled = self.mode ~= Enum.VRSafetyBubbleMode.Anyone
 	self.updateCadence = UPDATE_CADENCE
 
-	self.Toggled = Util:Create("BindableEvent")({
+	self.Toggled = Create("BindableEvent")({
 		Name = "SafetyBubbleToggled",
 	})
 

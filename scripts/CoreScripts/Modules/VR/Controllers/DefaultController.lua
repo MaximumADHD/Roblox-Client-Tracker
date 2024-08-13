@@ -1,9 +1,10 @@
 --!nonstrict
 local VRService 	= game:GetService("VRService")
 local CoreGui 		= game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui 	= CoreGui.RobloxGui
-local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local MATERIAL = Enum.Material.Granite
 local SCALE = Vector3.new(1, 1, 1)
@@ -15,12 +16,12 @@ function DefaultController.new(userCFrame)
 	local self = setmetatable({}, DefaultController)
 	self.userCFrame = userCFrame
 
-	self.model = CommonUtil.Create("Model") {
+	self.model = Create("Model") {
 		Name = "TouchController",
 		Archivable = false
 	}	
 
-	self.origin = CommonUtil.Create("Part") {
+	self.origin = Create("Part") {
 		Parent = self.model,		
 		Name = "Origin",
 		Anchored = true,
@@ -33,7 +34,7 @@ function DefaultController.new(userCFrame)
 
 	self.parts = {}
 	local partName = "body"
-	local part = CommonUtil.Create("Part") {
+	local part = Create("Part") {
 		Parent = self.model,
 		Name = partName,
 		Anchored = false,
@@ -45,14 +46,14 @@ function DefaultController.new(userCFrame)
 		Transparency = 0.5,
 		CFrame = self.origin.CFrame
 	}
-	local mesh = CommonUtil.Create("SpecialMesh") {
+	local mesh = Create("SpecialMesh") {
 		Parent = part,
 		Name = "Mesh",
 		MeshId = userCFrame == Enum.UserCFrame.LeftHand and "rbxassetid://8650168403" or "rbxassetid://8650168401",
 		--TextureId = partInfo.textureId,
 		Scale = SCALE
 	}
-	local weld = CommonUtil.Create("Weld") {
+	local weld = Create("Weld") {
 		Parent = part,
 		Name = "Weld",
 		Part0 = self.origin,

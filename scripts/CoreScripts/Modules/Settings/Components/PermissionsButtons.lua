@@ -43,8 +43,6 @@ local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAv
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
 local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
-local getFFlagDoNotPromptCameraPermissionsOnMount =
-	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local GetFFlagRemoveInGameChatBubbleChatReferences =
 	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
@@ -57,6 +55,7 @@ local GetFFlagFixPermissionsButtonsEvents = require(RobloxGui.Modules.Settings.F
 local GetFStringVoiceUpsellLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringVoiceUpsellLayer
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints 
+local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI 
 
 if GetFFlagRemoveInGameChatBubbleChatReferences() then
 	displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
@@ -119,14 +118,17 @@ function PermissionsButtons:init()
 		then true
 		else false
 
-	local showSelfView = FFlagAvatarChatCoreScriptSupport
-		and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
-		and (self.state.hasCameraPermissions or self.state.hasMicPermissions)
-	if getFFlagDoNotPromptCameraPermissionsOnMount() then
+	local showSelfView = nil
+	if GetFFlagEnableShowVoiceUI() then
+		showSelfView = FFlagAvatarChatCoreScriptSupport
+			and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+			and (isCamEnabledForUserAndPlace() or (self.state.hasMicPermissions and VoiceChatServiceManager.voiceUIVisible) or self.state.hasCameraPermissions)
+	else
 		showSelfView = FFlagAvatarChatCoreScriptSupport
 			and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 			and (isCamEnabledForUserAndPlace() or self.state.hasMicPermissions or self.state.hasCameraPermissions)
-	end
+	end		
+
 	self:setState({
 		allPlayersMuted = false,
 		microphoneEnabled = microphoneEnabled,
@@ -216,6 +218,24 @@ function PermissionsButtons:init()
 		})
 	end
 
+	-- voice UI visibility
+	if GetFFlagEnableShowVoiceUI() then
+		self:setState({
+			isVoiceUIVisible = if VoiceChatServiceManager.voiceUIVisible ~= nil then VoiceChatServiceManager.voiceUIVisible else false,
+		})
+
+		VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+			self:setState({
+				isVoiceUIVisible = true,
+			})
+		end)
+		VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+			self:setState({
+				isVoiceUIVisible = false,
+			})
+		end)
+	end
+
 	-- toggle video permissions
 	self.toggleVideo = function()
 		if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
@@ -233,7 +253,7 @@ function PermissionsButtons:init()
 
 	-- toggle video permissions and request device permissions if denied
 	self.onVideoButtonPressed = function()
-		if getFFlagDoNotPromptCameraPermissionsOnMount() and not self.state.hasCameraPermissions then
+		if not self.state.hasCameraPermissions then
 			-- If the user has not granted permissions
 			local callback = function(response)
 				self:setState({
@@ -275,10 +295,16 @@ function PermissionsButtons:init()
 	self.onCoreGuiChanged = function()
 		local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 		if self.state.showSelfView ~= coreGuiState then
-			local showSelfView = FFlagAvatarChatCoreScriptSupport
-				and coreGuiState
-				and (self.state.hasCameraPermissions or self.state.hasMicPermissions)
-			if getFFlagDoNotPromptCameraPermissionsOnMount() then
+			local showSelfView = nil
+			if GetFFlagEnableShowVoiceUI() then
+				showSelfView = FFlagAvatarChatCoreScriptSupport
+					and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+					and (
+						isCamEnabledForUserAndPlace()
+						or (self.state.hasMicPermissions and self.state.isVoiceUIVisible)
+						or self.state.hasCameraPermissions
+					)
+			else
 				showSelfView = FFlagAvatarChatCoreScriptSupport
 					and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 					and (
@@ -438,15 +464,17 @@ function PermissionsButtons:getJoinVoiceButtonVisibleAtMount()
 end
 
 function PermissionsButtons:didUpdate(prevProps, prevState)
-	local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 	if
 		self.state.hasCameraPermissions ~= prevState.hasCameraPermissions
 		or self.state.hasMicPermissions ~= prevState.hasMicPermissions
+		or (GetFFlagEnableShowVoiceUI() and self.state.isVoiceUIVisible ~= prevState.isVoiceUIVisible)
 	then
-		local showSelfView = FFlagAvatarChatCoreScriptSupport
-			and coreGuiState
-			and (self.state.hasCameraPermissions or self.state.hasMicPermissions)
-		if getFFlagDoNotPromptCameraPermissionsOnMount() then
+		local showSelfView = nil
+		if GetFFlagEnableShowVoiceUI() then
+			showSelfView = FFlagAvatarChatCoreScriptSupport
+				and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+				and (isCamEnabledForUserAndPlace() or (self.state.hasMicPermissions and self.state.isVoiceUIVisible) or self.state.hasCameraPermissions)
+		else
 			showSelfView = FFlagAvatarChatCoreScriptSupport
 				and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 				and (isCamEnabledForUserAndPlace() or self.state.hasMicPermissions or self.state.hasCameraPermissions)
@@ -458,23 +486,24 @@ function PermissionsButtons:didUpdate(prevProps, prevState)
 end
 
 function PermissionsButtons:didMount()
-	if getFFlagDoNotPromptCameraPermissionsOnMount() then
-		self:getMicPermission()
-		self:getCameraPermissionWithoutRequest()
-	else
-		self:getPermissions()
-	end
+	self:getMicPermission()
+	self:getCameraPermissionWithoutRequest()
 end
 
 function PermissionsButtons:isShowingPermissionButtons()
-	if getFFlagDoNotPromptCameraPermissionsOnMount() then
+	if GetFFlagEnableShowVoiceUI() then
+		return (self.state.hasMicPermissions and self.state.isVoiceUIVisible)
+			or self.state.hasCameraPermissions
+			or self.state.showSelfView
+			or self:getCameraButtonVisibleAtMount()
+			or (GetFFlagEnableInExpVoiceUpsell() and self:getJoinVoiceButtonVisibleAtMount())
+	else
 		return self.state.hasMicPermissions
 			or self.state.hasCameraPermissions
 			or self.state.showSelfView
 			or self:getCameraButtonVisibleAtMount()
 			or (GetFFlagEnableInExpVoiceUpsell() and self:getJoinVoiceButtonVisibleAtMount())
 	end
-	return self.state.hasMicPermissions or self.state.hasCameraPermissions or self.state.showSelfView
 end
 
 function PermissionsButtons:GetInExpJoinVoiceAnalyticsData()
@@ -493,11 +522,13 @@ function PermissionsButtons:render()
 	if GetFFlagJoinWithoutMicPermissions() then
 		shouldShowMicButtons = self.state.voiceServiceInitialized and not VoiceChatServiceManager:VoiceChatEnded()
 	end
-	local shouldShowCameraButtons = self.state.hasCameraPermissions
-	if getFFlagDoNotPromptCameraPermissionsOnMount() then
-		-- Show the camera button if the camera is enabled + eligible in user settings and camera is enabled in experience
-		shouldShowCameraButtons = self:getCameraButtonVisibleAtMount()
+
+	if GetFFlagEnableShowVoiceUI() then
+		-- Mic button should only show if voice UI is visible
+		shouldShowMicButtons = shouldShowMicButtons and self.state.isVoiceUIVisible
 	end
+	-- Show the camera button if the camera is enabled + eligible in user settings and camera is enabled in experience
+	local shouldShowCameraButtons = self:getCameraButtonVisibleAtMount()
 	-- Show join voice button in voice enabled experiences, for voice eligible users who haven't enabled voice and voice enabled users with denied mic permissions
 	local shouldShowJoinVoiceButton = GetFFlagEnableInExpVoiceUpsell() and self:getJoinVoiceButtonVisibleAtMount()
 
@@ -591,9 +622,7 @@ function PermissionsButtons:render()
 					EnableVideoButton = shouldShowCameraButtons and Roact.createElement(PermissionButton, {
 						LayoutOrder = if GetFFlagEnableInExpVoiceUpsell() then 4 else 3,
 						image = if self.state.cameraEnabled then VIDEO_IMAGE else VIDEO_OFF_IMAGE,
-						callback = if getFFlagDoNotPromptCameraPermissionsOnMount()
-							then self.onVideoButtonPressed
-							else self.toggleVideo,
+						callback = self.onVideoButtonPressed,
 						useNewMenuTheme = self.props.useNewMenuTheme,
 					}),
 					EnableSelfViewButton = self.state.showSelfView and Roact.createElement(PermissionButton, {
@@ -719,9 +748,7 @@ function PermissionsButtons:render()
 					EnableVideoButton = shouldShowCameraButtons and Roact.createElement(PermissionButton, {
 						LayoutOrder = if GetFFlagEnableInExpVoiceUpsell() then 4 else 3,
 						image = if self.state.cameraEnabled then VIDEO_IMAGE else VIDEO_OFF_IMAGE,
-						callback = if getFFlagDoNotPromptCameraPermissionsOnMount()
-							then self.onVideoButtonPressed
-							else self.toggleVideo,
+						callback = self.onVideoButtonPressed,
 						useNewMenuTheme = self.props.useNewMenuTheme,
 					}),
 					EnableSelfViewButton = self.state.showSelfView and Roact.createElement(PermissionButton, {

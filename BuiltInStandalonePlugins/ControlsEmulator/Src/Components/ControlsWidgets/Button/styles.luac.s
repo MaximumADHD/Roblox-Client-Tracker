@@ -31,7 +31,7 @@ MAIN:
   SETTABLEKS R6 R5 K14 ["AnchorPoint"]
   LOADB R6 1
   SETTABLEKS R6 R5 K15 ["TextScaled"]
-  NEWTABLE R6 0 2
+  NEWTABLE R6 0 1
   MOVE R7 R2
   LOADK R8 K26 ["::UICorner"]
   DUPTABLE R9 K28 [{"CornerRadius"}]
@@ -40,13 +40,7 @@ MAIN:
   LOADN R12 0
   CALL R10 2 1
   SETTABLEKS R10 R9 K27 ["CornerRadius"]
-  CALL R7 2 1
-  MOVE R8 R2
-  LOADK R9 K31 [":hover"]
-  DUPTABLE R10 K33 [{"BackgroundColor3"}]
-  LOADK R11 K34 ["$BackgroundHover"]
-  SETTABLEKS R11 R10 K32 ["BackgroundColor3"]
-  CALL R8 2 -1
+  CALL R7 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

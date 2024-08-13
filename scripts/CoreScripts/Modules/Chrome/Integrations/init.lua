@@ -14,5 +14,5 @@ return {
 	Screenshot = require(script.CameraUtility.Screenshot),
 	CameraEntrypoint = require(script.CameraUtility.CameraEntrypoint),
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
-	NowPlaying = require(script.MusicUtility.NowPlaying),
+	Songbird = require(script.MusicUtility.Songbird),
 }

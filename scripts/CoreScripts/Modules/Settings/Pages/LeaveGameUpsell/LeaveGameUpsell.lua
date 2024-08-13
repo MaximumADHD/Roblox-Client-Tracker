@@ -26,12 +26,22 @@ local RoactNetworking = require(CorePackages.Workspace.Packages.RoactServiceTags
 local useAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).useAppPolicy
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 local useRoactService = require(CorePackages.Workspace.Packages.RobloxAppHooks).useRoactService
+local useInputType = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.useInputType
+local InputTypeConstants = require(CorePackages.Workspace.Packages.InputType).InputTypeConstants
+local ReactUtils = require(CorePackages.Workspace.Packages.ReactUtils)
+local useEventConnection = ReactUtils.useEventConnection
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 
 local Constants =
 	require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+
+local UpsellStates = {
+	Incomplete = "Incomplete",
+	Completed = "Completed",
+	CompletedAndClosed = "CompletedAndClosed",
+}
 
 local LEAVE_GAME_ACTION = "LeaveGameCancelAction"
 
@@ -138,6 +148,8 @@ local function Initialize()
 				onActivated = function()
 					this.HubRef:SetVisibility(false, true)
 					PhoneUpsellController.openPhoneUpsell({
+						origin = props.origin,
+						eventContext = "verificationUpsell",
 						onSuccessBeforeToast = function()
 							VoiceChatServiceManager:DisablePhoneVerificationUpsell()
 							props.onUpsellComplete()
@@ -185,42 +197,63 @@ local function Initialize()
 			dontLeave = "Feature.VerificationUpsell.Action.DontLeave",
 			returnWithVoice = "Feature.VerificationUpsell.Action.ReturnWithVoice",
 		})
-		local upsellCompleted, setUpsellCompleted = React.useState(false)
-		local showUpsell = not upsellCompleted
+		local upsellState, setUpsellState = React.useState(UpsellStates.Incomplete)
+		local showUpsell = upsellState == UpsellStates.Incomplete
 		local upsellType = this.upsellType
+		local origin = if upsellType == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
+			then "exitConfirmationScreenVoice"
+			else "exitConfirmationScreenSecurity"
 		local leaveButtonRef = React.useRef(nil)
 		local voiceEnabled, setVoiceEnabled = React.useState(false)
 
 		local networking = useRoactService(RoactNetworking)
 
-		React.useEffect(function()
-			this.Displayed.Event:connect(function()
-				GuiService.SelectedCoreObject = leaveButtonRef.current
-				ContextActionService:BindCoreAction(
-					LEAVE_GAME_ACTION,
-					this.DontLeaveFromHotkey,
-					false,
-					Enum.KeyCode.ButtonB
-				)
+		local inputType = useInputType()
 
-				if not this.postSent then
-					local result = PostPhoneUpsellDisplayed(
-						networking,
-						VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER,
-						os.time(),
-						true,
-						true
-					)
-					result:catch(function(error)
-						-- It's fine if this fails, just means the user will see upsell again on next session.
-					end)
-					this.postSent = true
-				end
-			end)
-		end, {})
+		local displayedCallback = function()
+			if inputType ~= InputTypeConstants.Touch then
+				GuiService.SelectedCoreObject = leaveButtonRef.current
+			end
+			ContextActionService:BindCoreAction(
+				LEAVE_GAME_ACTION,
+				this.DontLeaveFromHotkey,
+				false,
+				Enum.KeyCode.ButtonB
+			)
+
+			if not this.postSent then
+				local result = PostPhoneUpsellDisplayed(
+					networking,
+					VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER,
+					os.time(),
+					true,
+					true
+				)
+				result:catch(function(error)
+					-- It's fine if this fails, just means the user will see upsell again on next session.
+				end)
+				this.postSent = true
+			end
+		end
+
+		local hiddenCallback = function()
+			ContextActionService:UnbindCoreAction(LEAVE_GAME_ACTION)
+			if upsellState == UpsellStates.Completed then
+				setUpsellState(UpsellStates.CompletedAndClosed)
+			end
+		end
+
+		useEventConnection(this.Displayed.Event, displayedCallback)
+		useEventConnection(this.Hidden.Event, hiddenCallback)
+
+		-- Really this should be responsive, but setting up the responsive container when this component is getting modified for Up Next
+		-- Isn't worth the effort / perf cost. If this comment still exists after a few months then replace this with responsive breakpoint
+		-- TODO ACCID-1431 change this as described above
+		local verticalOffset = if RobloxGui.AbsoluteSize.Y < 500 or RobloxGui.AbsoluteSize.X < 500 then 0 else 200
 
 		return React.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, 0),
+			Position = UDim2.new(0, 0, 0, verticalOffset),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 		}, {
@@ -251,7 +284,7 @@ local function Initialize()
 									-- If user tries to leave before the phone verified toast is finished showing, make sure we send enable voice call first
 									if
 										not voiceEnabled
-										and upsellCompleted
+										and (upsellState == UpsellStates.Completed or upsellState == UpsellStates.CompletedAndClosed)
 										and upsellType == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 									then
 										VoiceChatServiceManager:EnableVoice()
@@ -266,7 +299,7 @@ local function Initialize()
 							buttonType = ButtonType.Secondary,
 							props = {
 								layoutOrder = 2,
-								text = if upsellCompleted
+								text = if upsellState == UpsellStates.Completed
 										and upsellType == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 									then localizedText.returnWithVoice
 									else localizedText.dontLeave,
@@ -299,10 +332,11 @@ local function Initialize()
 						Size = UDim2.new(1, 0, 0, style.Tokens.Global.Space_300),
 					}),
 					Upsell = React.createElement(this.UpsellComponent, {
+						origin = origin,
 						LayoutOrder = 5,
 						showWebpage = props.showWebpage,
 						onUpsellComplete = function()
-							setUpsellCompleted(true)
+							setUpsellState(UpsellStates.Completed)
 						end,
 						setVoiceEnabled = setVoiceEnabled,
 					}),
@@ -327,11 +361,6 @@ end
 
 ----------- Public Facing API Additions --------------
 PageInstance = Initialize()
-
--- We connect to the Displayed event in React tree so that we can access ref, but can connect to Hidden event here
-PageInstance.Hidden.Event:connect(function()
-	ContextActionService:UnbindCoreAction(LEAVE_GAME_ACTION)
-end)
 
 function PageInstance:SetUpsellProp(upsellProp)
 	self.upsellType = upsellProp

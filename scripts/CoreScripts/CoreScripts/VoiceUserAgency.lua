@@ -14,7 +14,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
 local RobloxGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui.Modules else CoreGui:WaitForChild("RobloxGui", math.huge).Modules
-local create = require(RobloxGuiModules.Common.Create)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local IXPServiceWrapper = require(RobloxGuiModules.Common.IXPServiceWrapper)
 local log = require(RobloxGuiModules.Logger):new(script.Name)
 local RobloxTranslator = require(RobloxGuiModules.RobloxTranslator)
@@ -201,7 +201,7 @@ local function showUserAgencyPrompt()
 	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	screenGui.Parent = CoreGui
 
-	local muteAllButton = create("TextButton")({
+	local muteAllButton = Create("TextButton")({
 		Name = "MuteAllButton",
 		BorderSizePixel = 0,
 		Size = UDim2.new(0.5, -6, 0, 36),
@@ -212,11 +212,11 @@ local function showUserAgencyPrompt()
 		TextColor3 = Color3.fromRGB(178, 178, 178),
 		LayoutOrder = 1,
 
-		create("UICorner")({
+		Create("UICorner")({
 			CornerRadius = UDim.new(0, 8),
 		}),
 
-		create("UIStroke")({
+		Create("UIStroke")({
 			Thickness = 1,
 			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 			Color = Color3.fromRGB(178, 178, 178),
@@ -228,7 +228,7 @@ local function showUserAgencyPrompt()
 		removeUserAgencyPrompt(screenGui, shouldRememberSetting, isMuteAll)
 	end)
 
-	local unmuteAllButton = create("TextButton")({
+	local unmuteAllButton = Create("TextButton")({
 		Name = "UnmuteAllButton",
 		BorderSizePixel = 0,
 		Size = UDim2.new(0.5, -6, 0, 36),
@@ -239,7 +239,7 @@ local function showUserAgencyPrompt()
 		TextColor3 = Color3.fromRGB(57, 59, 61),
 		LayoutOrder = 2,
 
-		create("UICorner")({
+		Create("UICorner")({
 			CornerRadius = UDim.new(0, 8),
 		}),
 	})
@@ -249,7 +249,7 @@ local function showUserAgencyPrompt()
 		removeUserAgencyPrompt(screenGui, shouldRememberSetting, isMuteAll)
 	end)
 
-	local timerBar = create("Frame")({
+	local timerBar = Create("Frame")({
 		Name = "TimerBar",
 		BorderSizePixel = 0,
 		Size = UDim2.new(0, 0, 1, 0),
@@ -266,14 +266,14 @@ local function showUserAgencyPrompt()
 		end
 	end)
 
-	local checkboxButtonOverlay = create("ImageLabel")({
+	local checkboxButtonOverlay = Create("ImageLabel")({
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		Image = Images["icons/status/success_small"].Image,
 		ImageRectOffset = Images["icons/status/success_small"].ImageRectOffset,
 		ImageRectSize = Images["icons/status/success_small"].ImageRectSize,
 	})
-	local checkboxButton = create("ImageButton")({
+	local checkboxButton = Create("ImageButton")({
 		Size = UDim2.new(0, 14, 0, 14),
 		BackgroundTransparency = 1,
 		Image = Images["squircles/hollow"].Image,
@@ -295,7 +295,7 @@ local function showUserAgencyPrompt()
 		})
 	end)
 
-	local checkboxTextLabel = create("TextLabel")({
+	local checkboxTextLabel = Create("TextLabel")({
 		Name = "CheckboxTextLabel",
 		Font = AppFonts.default:getDefault(),
 		Text = CHECKBOX_TEXT,
@@ -315,7 +315,7 @@ local function showUserAgencyPrompt()
 	)
 	checkboxTextLabel.Size = UDim2.new(0, checkboxTextSize.X + 10, 0, 24)
 
-	local dialog = create("Frame")({
+	local dialog = Create("Frame")({
 		Name = "VoiceUserAgencyFrame",
 		AnchorPoint = Vector2.new(0.5, 0),
 		Size = UDim2.new(0.9, 0, 1, 0),
@@ -323,27 +323,27 @@ local function showUserAgencyPrompt()
 		BackgroundColor3 = Color3.fromRGB(57, 59, 61),
 		BorderSizePixel = 0,
 
-		create("UICorner")({
+		Create("UICorner")({
 			CornerRadius = UDim.new(0, 8),
 		}),
 
-		create("UISizeConstraint")({
+		Create("UISizeConstraint")({
 			MaxSize = Vector2.new(400, 216),
 		}),
 
-		create("UIPadding")({
+		Create("UIPadding")({
 			PaddingTop = UDim.new(0, 24),
 			PaddingLeft = UDim.new(0, 24),
 			PaddingRight = UDim.new(0, 24),
 			PaddingBottom = UDim.new(0, 24),
 		}),
 
-		create("UIListLayout")({
+		Create("UIListLayout")({
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		create("TextLabel")({
+		Create("TextLabel")({
 			Name = "Title",
 			Font = AppFonts.default:getBold(),
 			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.JoinUnmuted.Title"),
@@ -356,7 +356,7 @@ local function showUserAgencyPrompt()
 			LayoutOrder = 1,
 		}),
 
-		create("TextLabel")({
+		Create("TextLabel")({
 			Name = "Lower",
 			Font = AppFonts.default:getDefault(),
 			Text = FFlagVoiceUserAgencyAdjustDescriptionText and RobloxTranslator:FormatByKey(
@@ -371,7 +371,7 @@ local function showUserAgencyPrompt()
 			LayoutOrder = 2,
 		}),
 
-		create("Frame")({
+		Create("Frame")({
 			Name = "TimerFrame",
 			BorderSizePixel = 0,
 			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
@@ -382,14 +382,14 @@ local function showUserAgencyPrompt()
 			timerBar,
 		}),
 
-		create("Frame")({
+		Create("Frame")({
 			Name = "ButtonsContainer",
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 0, 62),
 			BackgroundTransparency = 1,
 			LayoutOrder = 4,
 
-			create("UIListLayout")({
+			Create("UIListLayout")({
 				FillDirection = Enum.FillDirection.Horizontal,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -401,14 +401,14 @@ local function showUserAgencyPrompt()
 			muteAllButton,
 		}),
 
-		create("Frame")({
+		Create("Frame")({
 			Name = "CheckboxContainer",
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 0, 28),
 			BackgroundTransparency = 1,
 			LayoutOrder = 5,
 
-			create("UIListLayout")({
+			Create("UIListLayout")({
 				FillDirection = Enum.FillDirection.Horizontal,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
