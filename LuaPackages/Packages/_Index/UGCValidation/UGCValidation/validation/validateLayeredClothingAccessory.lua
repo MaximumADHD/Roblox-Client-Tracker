@@ -31,6 +31,8 @@ local validateCageNonManifoldAndHoles = require(root.validation.validateCageNonM
 local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCageDeletion)
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 
+local validateMaxCubeDensity = require(root.validation.validateMaxCubeDensity)
+
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
 local getAttachment = require(root.util.getAttachment)
@@ -47,6 +49,9 @@ local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationN
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+local getEngineFeatureEngineUGCValidationMaxVerticesCollision =
+	require(root.flags.getEngineFeatureEngineUGCValidationMaxVerticesCollision)
+
 local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
 	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
 local getFFlagUGCValidateCageOrigin = require(root.flags.getFFlagUGCValidateCageOrigin)
@@ -362,6 +367,14 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
 			end
+		end
+	end
+
+	if getEngineFeatureEngineUGCValidationMaxVerticesCollision() then
+		success, failedReason = validateMaxCubeDensity(meshInfo, validationContext, meshScale)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 	end
 

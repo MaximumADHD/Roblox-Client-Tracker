@@ -5,6 +5,7 @@ local App = Template.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local ContentPositionEnum = require(DetailsPage.Enum.ContentPosition)
 local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPageComponentList)
 
@@ -82,6 +83,7 @@ function DetailsPageBody:renderSinglePanel()
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			LayoutOrder = v.portraitLayoutOrder,
+			Visible = if UIBloxConfig.addEdpComponentVisibility then v.visible else nil,
 		}, {
 			[k] = v.renderComponent(),
 		})
@@ -130,6 +132,7 @@ function DetailsPageBody:renderDualPanel()
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			LayoutOrder = v.landscapeLayoutOrder,
+			Visible = if UIBloxConfig.addEdpComponentVisibility then v.visible else nil,
 		}, {
 			[k] = v.renderComponent(),
 		})

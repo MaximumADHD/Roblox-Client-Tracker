@@ -22,6 +22,7 @@ export type ComponentList = {
 		renderComponent: () -> React.React_Node,
 		showCornerGradient: boolean?,
 		useSelectionBumper: boolean?,
+		visible: boolean?,
 	},
 }
 

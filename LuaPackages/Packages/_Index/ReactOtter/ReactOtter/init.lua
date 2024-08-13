@@ -8,6 +8,7 @@ export type SpringOptions = Otter.SpringOptions
 return {
 	useAnimatedBinding = useAnimatedBinding,
 	useMotor = useMotor,
+	ease = Otter.ease,
 	spring = Otter.spring,
 	instant = Otter.instant,
 }

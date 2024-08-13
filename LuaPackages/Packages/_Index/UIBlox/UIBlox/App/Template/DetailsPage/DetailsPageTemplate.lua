@@ -90,6 +90,9 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 
 	-- design tokens
 	tokens = t.optional(t.table),
+
+	-- focus ref
+	containerRef = t.optional(t.union(t.table, t.callback)),
 })
 
 DetailsPageTemplate.defaultProps = {
@@ -219,7 +222,7 @@ function DetailsPageTemplate:render()
 			BackgroundTransparency = theme.BackgroundDefault.Transparency,
 			BorderSizePixel = 0,
 			ClipsDescendants = true,
-			[Roact.Ref] = self.containerRef,
+			[Roact.Ref] = if self.props.containerRef then self.props.containerRef else self.containerRef,
 			[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
 		}, {
 			CloseButtonFrame = Roact.createElement("Frame", {

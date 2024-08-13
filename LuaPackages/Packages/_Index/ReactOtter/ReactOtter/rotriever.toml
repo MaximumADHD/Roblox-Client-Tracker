@@ -1,0 +1,21 @@
+[package]
+name = "ReactOtter"
+version = "1.2.1"
+content_root = "src"
+files = [
+    "*",
+    "!*.spec.lua",
+    "!**/__tests__/**",
+]
+publish = true
+authors = ["Roblox"]
+license = "MIT"
+[dependencies.Dash]
+version = "^0.1.0"
+
+[dependencies.Otter]
+package = "Otter"
+version = "^1.2.1"
+
+[dependencies.React]
+version = "^17.0.1-rc.19"

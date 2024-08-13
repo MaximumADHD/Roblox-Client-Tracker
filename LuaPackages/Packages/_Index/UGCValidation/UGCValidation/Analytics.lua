@@ -141,6 +141,8 @@ Analytics.ErrorType = {
 	validateThumbnailConfiguration_OutsideView = "validateThumbnailConfiguration_OutsideView",
 	validateUVSpace_FailedToExecute = "validateUVSpace_FailedToExecute",
 	validateUVSpace_InvalidUVSpace = "validateUVSpace_InvalidUVSpace",
+	validateVertexDensity_FailedToExecute = "validateVertexDensity_FailedToExecute",
+	validateVertexDensity_MaxDensityExceeded = "validateVertexDensity_MaxDensityExceeded",
 }
 
 if getFFlagUGCValidateCoplanarTriTestBody() or getFFlagUGCValidateCoplanarTriTestAccessory() then

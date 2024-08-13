@@ -23,5 +23,7 @@ return t.map(
 		showCornerGradient = t.optional(t.boolean),
 		-- 10ft UI only, adds focus navigation bumpers to ensure consistent gamepad navigation
 		useSelectionBumper = t.optional(t.boolean),
+		-- Sets the visibility of the component
+		visible = t.optional(t.boolean),
 	})
 )

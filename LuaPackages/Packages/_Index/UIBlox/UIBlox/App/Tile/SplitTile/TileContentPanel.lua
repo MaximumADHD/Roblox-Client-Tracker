@@ -8,6 +8,7 @@ local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 local useStyle = require(Core.Style.useStyle)
+local useTextSizeOffset = require(UIBlox.Core.Style.useTextSizeOffset)
 
 local Fonts = require(UIBlox.App.Style.Fonts)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
@@ -44,9 +45,9 @@ export type Props = {
 local function TileContentPanel(props: Props)
 	local stylePalette = useStyle()
 	local settings = stylePalette.Settings
+	local textSizeOffset = useTextSizeOffset()
 
 	local titlePaddingDefault = if settings.ReducedMotion then TITLE_PADDING_REDUCED_MOTION else TITLE_PADDING
-
 	local contentTitle = props.contentTitle
 	local contentFooter = props.contentFooter
 	local titleTextLineCount = setDefault(props.textLineCount, TEXT_LINE_COUNT)
@@ -72,7 +73,9 @@ local function TileContentPanel(props: Props)
 	local titleFont = setDefault(props.titleFont, font.Header2)
 	local theme = stylePalette.Theme
 
-	local maxTextHeight = font.BaseSize * titleFont.RelativeSize * titleTextLineCount
+	local maxTextHeight = if UIBloxConfig.useTextSizeOffsetTileContentPanel
+		then (font.BaseSize + textSizeOffset) * titleFont.RelativeSize * titleTextLineCount
+		else font.BaseSize * titleFont.RelativeSize * titleTextLineCount
 
 	local titleColorStyle = if UIBloxConfig.useNewThemeColorPalettes then theme.TextDefault else theme.TextEmphasis
 

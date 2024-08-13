@@ -1,0 +1,17 @@
+[package]
+name = "Otter"
+version = "1.2.1"
+content_root = "src"
+files = [
+    "*",
+    "!*.spec.lua",
+    "!**/__tests__/**",
+]
+publish = true
+authors = ["Roblox"]
+license = "MIT"
+[dependencies.Collections]
+version = "^1.2.2"
+
+[dependencies.Signal]
+version = "^1.0"

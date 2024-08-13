@@ -6,12 +6,12 @@ source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Otter Otter 0.1.4 registry",
     "React React 17.0.4 registry",
-    "ReactOtter ReactOtter 1.1.0 registry",
+    "ReactOtter ReactOtter 1.2.1 registry",
     "Roact RoactCompat 17.0.4 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4832ff97 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]

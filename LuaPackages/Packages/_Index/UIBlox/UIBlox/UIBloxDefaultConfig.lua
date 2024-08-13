@@ -104,6 +104,9 @@ return {
 	-- Use automatic sizing in stat group
 	useAutomaticSizeInStatGroup = false,
 
+	-- Use GetTextSize and AutomaticSize to add support for larger than default text in Tile and TileName
+	refactorTileTextHeights = false,
+
 	-- Recompute minimum tab size based on text bounds to support larger/longer text
 	recomputeTabSizeSegmentedControl = false,
 
@@ -116,6 +119,9 @@ return {
 	-- Enable OpenType support
 	enableOpenTypeSupport = false,
 
+	-- Fixes input button to better suppot large text
+	ensureTextWrapsInputButton = false,
+
 	-- Align text on the left of CellHeadDetail
 	leftAlignCellHeadDetailText = false,
 
@@ -125,6 +131,18 @@ return {
 	-- Some components expose calculate functions as member function, move it out as a separate function
 	useSeparatedCalcFunction = false,
 
+	-- Use automatic size Y in header bar s.t text does not get cut off at larger-than-default sizes
+	useAutomaticSizeYHeaderBar = false,
+
 	-- Add the option to pass in callbacks for AccordionView that run on expansion and collapse
 	addCallbacksToAccordionView = false,
+
+	-- Define size and reposition ModalTitle s.t text does not overflow container bounds
+	resizeModalTitle = false,
+
+	-- Use textSizeOffset to better support large text in TileContentPanel
+	useTextSizeOffsetTileContentPanel = false,
+
+	-- Add the option to pass in a visibility property for Experience Details Page components
+	addEdpComponentVisibility = false,
 }
