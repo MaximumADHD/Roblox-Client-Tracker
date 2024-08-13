@@ -22,8 +22,8 @@ PurchasePromptDeps = { git = "https://github.com/Roblox/purchase-prompt-deps" }
 IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master" }
 UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
 Thumbnailing = { git = "https://github.com/Roblox/Thumbnailing", rev = "main" }
-Otter = "github.com/roblox/otter@1.1.0"
-ReactOtter = "github.com/roblox/otter@1.1.0"
+Otter = "github.com/roblox/otter@1.2.1"
+ReactOtter = "github.com/roblox/otter@1.2.1"
 t = "github.com/roblox/t@3.0.0"
 enumerate = "github.com/roblox/enumerate@1.0.0"
 PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", rev = "master" }
@@ -56,7 +56,7 @@ QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.3.1"
 GraphqlToolsUtils = { target = "github.com/Roblox/graphql-tools-lua", version = "0.3.1", package = "Utils" }
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
-UGCValidation = "github.com/roblox/ugc-validation@1.12.9"
+UGCValidation = "github.com/roblox/ugc-validation@1.12.11"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.3.0" }

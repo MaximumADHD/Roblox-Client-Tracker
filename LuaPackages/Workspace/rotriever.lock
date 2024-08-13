@@ -48,6 +48,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "Localization Localization 0.1.0",
+    "Loggers Loggers 0.1.0",
     "Navigation Navigation 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
@@ -67,6 +68,7 @@ dependencies = [
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "t t 0.1.0",
+    "tutils tutils 0.1.0",
 ]
 
 [[package]]
@@ -157,6 +159,7 @@ version = "0.1.0"
 dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
     "Roact RoactCompat 0.1.0",
     "UIBlox UIBlox 0.1.0",
 ]
@@ -440,6 +443,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "AppDebug"
+version = "0.1.0"
+dependencies = [
+    "Dash Dash 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Lumberyak Lumberyak 0.1.0",
+]
+
+[[package]]
 name = "AppHeaderBar"
 version = "0.1.0"
 dependencies = [
@@ -590,6 +603,7 @@ dependencies = [
     "Otter Otter 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
+    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
     "RoactAppExperiment RoactAppExperiment 0.1.0",
@@ -653,7 +667,9 @@ dependencies = [
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
     "Promise Promise 0.1.0",
+    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "Time Time 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
@@ -893,8 +909,16 @@ dependencies = [
 name = "ChatLineReporting"
 version = "0.1.0"
 dependencies = [
+    "Dash Dash 0.1.0",
+    "InExperienceLocales InExperienceLocales 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "Otter Otter 0.1.0",
+    "React React 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "Style Style 0.1.0",
+    "UIBlox UIBlox 0.1.0",
 ]
 
 [[package]]
@@ -1172,10 +1196,15 @@ name = "CrossExperienceVoice"
 version = "0.1.0"
 dependencies = [
     "CrossExperience CrossExperience 0.1.0",
+    "Cryo Cryo 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Lumberyak Lumberyak 0.1.0",
     "React React 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "t t 0.1.0",
 ]
 
 [[package]]
@@ -1275,6 +1304,7 @@ dependencies = [
     "RoduxSquads RoduxSquads 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SplashScreenManager SplashScreenManager 0.1.0",
+    "Squads Squads 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UniversalAppPolicy UniversalAppPolicy 0.1.0",
@@ -1334,6 +1364,7 @@ dependencies = ["Style Style 0.1.0"]
 name = "DiscoveryTestHelpers"
 version = "0.1.0"
 dependencies = [
+    "AppInteractionFeedbackConfig RobloxAppInteractionFeedbackConfig 0.1.0",
     "Cryo Cryo 0.1.0",
     "DiscoveryStyleApi DiscoveryStyleApi 0.1.0",
     "DiscoveryTypes DiscoveryTypes 0.1.0",
@@ -1420,6 +1451,7 @@ dependencies = [
     "Localization Localization 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
+    "Navigation Navigation 0.1.0",
     "NavigationRodux NavigationRodux 0.1.0",
     "NetworkingUsers NetworkingUsers 0.1.0",
     "Promise Promise 0.1.0",
@@ -1434,6 +1466,7 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "RobloxAppNavigation RobloxAppNavigation 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "RoduxNetworking RoduxNetworking 0.1.0",
@@ -1473,10 +1506,12 @@ version = "4.3.2"
 dependencies = [
     "ApolloClient ApolloClient 0.1.0",
     "ChatIntervention ChatIntervention 0.1.0",
+    "ChatLineReporting ChatLineReporting 0.1.0",
     "CollisionMatchers CollisionMatchers2D 0.1.0",
     "EmojiList EmojiList 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
+    "Localization Localization 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "Otter Otter 0.1.0",
     "Promise Promise 0.1.0",
@@ -1487,11 +1522,33 @@ dependencies = [
     "Roact RoactCompat 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppLocales RobloxAppLocales 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "VirtualizedList VirtualizedList 0.1.0",
     "VoiceChat VoiceChat 0.1.0",
+    "llama llama 0.1.0",
+]
+
+[[package]]
+name = "ExpChatServer"
+version = "0.1.0"
+dependencies = [
+    "ExpChatShared ExpChatShared 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "llama llama 0.1.0",
+]
+
+[[package]]
+name = "ExpChatShared"
+version = "0.1.0"
+dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
+    "Lumberyak Lumberyak 0.1.0",
+    "Promise Promise 0.1.0",
+    "Rodux Rodux 0.1.0",
     "llama llama 0.1.0",
 ]
 
@@ -1826,6 +1883,7 @@ dependencies = [
     "Impressions Impressions 0.1.0",
     "InputHandlers InputHandlers 0.1.0",
     "InputType InputType 0.1.0",
+    "InteractionFeedback InteractionFeedback 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "LinkingProtocol LinkingProtocol 0.1.0",
@@ -2074,7 +2132,6 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.1.0",
     "NavigationRodux NavigationRodux 0.1.0",
     "NextDataExpirationTimeRodux NextDataExpirationTimeRodux 0.1.0",
-    "OtaPatchValidation OtaPatchValidation 0.1.0",
     "Otter Otter 0.1.0",
     "PlayabilityRodux PlayabilityRodux 0.1.0",
     "Promise Promise 0.1.0",
@@ -2121,13 +2178,13 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "Lumberyak Lumberyak 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "ReactUtils ReactUtils 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppLoggers Loggers 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
@@ -2151,11 +2208,14 @@ dependencies = [
     "React React 0.1.0",
     "Roact RoactCompat 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
     "RoactServiceTags RoactServiceTags 0.1.0",
+    "RoactServices RoactServices 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppLocales RobloxAppLocales 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
     "UrlBuilder UrlBuilder 0.1.0",
     "enumerate enumerate 0.1.0",
 ]
@@ -2271,6 +2331,7 @@ dependencies = [
     "ReactRoblox ReactRoblox 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
 ]
 
 [[package]]
@@ -2711,6 +2772,7 @@ version = "0.1.0"
 dependencies = [
     "AppBlox AppBlox 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
+    "AuthCommon AuthCommon 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
@@ -2893,6 +2955,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
+    "LoggingProtocol LoggingProtocol 0.1.0",
     "NotificationModalsManager NotificationModalsManager 0.1.0",
     "NotificationsCommon NotificationsCommon 0.1.0",
     "PermissionsProtocol PermissionsProtocol 0.1.0",
@@ -2906,24 +2969,6 @@ dependencies = [
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
-    "UIBlox UIBlox 0.1.0",
-]
-
-[[package]]
-name = "NowPlaying"
-version = "0.1.0"
-dependencies = [
-    "Cryo Cryo 0.1.0",
-    "JestConfigs JestConfigs 0.1.0",
-    "JestGlobals JestGlobals3 0.1.0",
-    "React React 0.1.0",
-    "ReactOtter ReactOtter 0.1.0",
-    "ReactSceneUnderstanding ReactSceneUnderstanding 0.1.0",
-    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
-    "ReactTestingUtils ReactTestingUtils 0.1.0",
-    "ReactUtils ReactUtils 0.1.0",
-    "RoactCompat RoactCompat 0.1.0",
-    "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
 ]
 
@@ -3585,6 +3630,7 @@ version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "Cryo Cryo 0.1.0",
+    "GuiObjectUtils GuiObjectUtils 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "React React 0.1.0",
     "ReactOtter ReactOtter 0.1.0",
@@ -3604,9 +3650,11 @@ dependencies = [
 name = "RobloxAppInteractionFeedbackConfig"
 version = "0.1.0"
 dependencies = [
+    "ExperimentLayers ExperimentLayers 0.1.0",
     "InteractionFeedback InteractionFeedback 0.1.0",
     "React React 0.1.0",
     "Responsive Responsive 0.1.0",
+    "RoactAppExperiment RoactAppExperiment 0.1.0",
     "SoundManager SoundManager 0.1.0",
 ]
 
@@ -4086,6 +4134,7 @@ dependencies = [
     "JestGlobals JestGlobals3 0.1.0",
     "Rodux Rodux 0.1.0",
     "RoduxNetworking RoduxNetworking 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "SocialLinksNetworking SocialLinksNetworking 0.1.0",
 ]
 
@@ -4286,6 +4335,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "Songbird"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactOtter ReactOtter 0.1.0",
+    "ReactSceneUnderstanding ReactSceneUnderstanding 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "ReactTestingUtils ReactTestingUtils 0.1.0",
+    "ReactUtils ReactUtils 0.1.0",
+    "RoactCompat RoactCompat 0.1.0",
+    "Style Style 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+]
+
+[[package]]
 name = "SoundManager"
 version = "0.1.0"
 dependencies = [
@@ -4334,6 +4401,7 @@ dependencies = [
     "Promise Promise 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
+    "Responsive Responsive 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
@@ -4384,6 +4452,7 @@ dependencies = [
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UniversalAppPolicy UniversalAppPolicy 0.1.0",
     "UrlBuilder UrlBuilder 0.1.0",
 ]
 
@@ -4693,12 +4762,14 @@ dependencies = [
     "ReactRoblox ReactRoblox 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "Roact RoactCompat 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactServiceTags RoactServiceTags 0.1.0",
     "RoactServices RoactServices 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "RobloxAppLocales RobloxAppLocales 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",

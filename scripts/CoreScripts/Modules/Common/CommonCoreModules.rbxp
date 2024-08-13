@@ -55,12 +55,6 @@
                     "$path": ".robloxrc"
                 }
             },
-            "Create": {
-                "$path": "Create.lua",
-                ".robloxrc": {
-                    "$path": ".robloxrc"
-                }
-            },
             "Constants": {
                 "$path": "Constants.lua",
                 ".robloxrc": {

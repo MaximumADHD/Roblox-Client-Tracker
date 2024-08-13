@@ -112,7 +112,7 @@ dependencies = [
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "NetworkingSquads NetworkingSquads 1.16.6 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
-    "Otter Otter 1.1.0 registry",
+    "Otter Otter 1.2.1 registry",
     "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "PremiumUpsellDeps PremiumUpsellDeps 6aa73b7f git+https://github.com/roblox/premium-upsell-deps#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
@@ -123,12 +123,12 @@ dependencies = [
     "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.0.4 registry",
     "ReactFocusNavigation ReactFocusNavigation 1.3.1 registry",
     "ReactIs ReactIs 17.0.4 registry",
-    "ReactOtter ReactOtter 1.1.0 registry",
+    "ReactOtter ReactOtter 1.2.1 registry",
     "ReactRoblox ReactRoblox 17.0.4 registry",
     "ReactSceneUnderstanding ReactSceneUnderstanding 0.4.1 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
     "ReactTestingUtils ReactTestingUtils 1.2.0 registry",
-    "ReactUtils ReactUtils 1.2.0 registry",
+    "ReactUtils ReactUtils 1.3.1 registry",
     "RecordPlayback RecordPlayback 0.1.1 registry",
     "RegExp RegExp 0.2.1 registry",
     "Result roblox/lua-result c6817c84 git+https://github.com/roblox/lua-result#master",
@@ -150,8 +150,8 @@ dependencies = [
     "StringUtilities <patched> string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.12.9 registry",
-    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
+    "UGCValidation UGCValidation 1.12.11 registry",
+    "UIBlox UIBlox 4832ff97 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
@@ -334,12 +334,12 @@ source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Otter Otter 0.1.4 registry",
     "React React 17.0.4 registry",
-    "ReactOtter ReactOtter 1.1.0 registry",
+    "ReactOtter ReactOtter 1.2.1 registry",
     "Roact RoactCompat 17.0.4 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4832ff97 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -358,7 +358,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.4 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4832ff97 git+https://github.com/roblox/uiblox#master",
     "t t 1.2.5 registry",
 ]
 
@@ -1106,7 +1106,7 @@ source = "registry"
 
 [[package]]
 name = "Otter"
-version = "1.1.0"
+version = "1.2.1"
 source = "registry"
 dependencies = [
     "Collections Collections 1.2.3 registry",
@@ -1212,7 +1212,7 @@ dependencies = [
     "Roact RoactCompat 17.0.4 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4832ff97 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
@@ -1301,10 +1301,11 @@ dependencies = ["Shared Shared 17.0.4 registry"]
 
 [[package]]
 name = "ReactOtter"
-version = "1.1.0"
+version = "1.2.1"
 source = "registry"
 dependencies = [
-    "Otter Otter 1.1.0 registry",
+    "Dash Dash 0.1.9 registry",
+    "Otter Otter 1.2.1 registry",
     "React React 17.0.4 registry",
 ]
 
@@ -1364,22 +1365,12 @@ source = "registry"
 dependencies = [
     "React React 17.0.4 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
-    "ReactUtils ReactUtils 1.2.0 registry",
+    "ReactUtils ReactUtils 1.3.1 registry",
 ]
 
 [[package]]
 name = "ReactUtils"
-version = "0.3.0"
-source = "registry"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 17.0.4 registry",
-    "ReactRoblox ReactRoblox 17.0.4 registry",
-]
-
-[[package]]
-name = "ReactUtils"
-version = "1.2.0"
+version = "1.3.1"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
@@ -1785,7 +1776,7 @@ dependencies = [
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 4b28202f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4832ff97 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1874,7 +1865,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.12.9"
+version = "1.12.11"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1884,7 +1875,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "4b28202ff25061e679e6ee310e5b8581b406128c"
+commit = "4832ff9754fd57ecec0dc227f8e61b021333b226"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1896,9 +1887,9 @@ dependencies = [
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RbxDesignFoundations RbxDesignFoundations fd2e104b git+https://github.com/roblox/rbx-design-foundations#1.1.105",
     "React React 17.0.4 registry",
-    "ReactOtter ReactOtter 1.1.0 registry",
+    "ReactOtter ReactOtter 1.2.1 registry",
     "ReactRoblox ReactRoblox 17.0.4 registry",
-    "ReactUtils ReactUtils 0.3.0 registry",
+    "ReactUtils ReactUtils 1.3.1 registry",
     "Roact RoactCompat 17.0.4 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Shared Shared 17.0.4 registry",
@@ -1969,7 +1960,7 @@ version = "1.4.3"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Otter Otter 1.1.0 registry",
+    "Otter Otter 1.2.1 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "React React 17.0.4 registry",
 ]

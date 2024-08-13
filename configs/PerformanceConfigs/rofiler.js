@@ -396,7 +396,7 @@ function InitDataVars()
 	window.CounterInfo = undefined;
 	window.Frames = undefined;
 	
-	window.FeatureList = undefined;
+	window.ExtensionList = undefined;
 	window.CGlobalLabels = undefined;
 	window.CSwitchThreadInOutCpu = undefined;
 	window.CSwitchTime = undefined;
@@ -589,6 +589,7 @@ function InitViewerVars()
 	// Part 3
 	window.IsMac = navigator.platform.indexOf("Mac") === 0;
 	window.IsHtmlSavable = !window.g_wasReloaded && (GetHtmlSource(true) != null);
+	window.MaxStackDepthToVisualize = 50;
 }
 
 function RangeInit()
@@ -3945,6 +3946,12 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled)
 				}
 
 				context.fillStyle = 'white';
+				const MaxStackCapped = Math.min(g_MaxStack[nLog], window.MaxStackDepthToVisualize);
+				const IsStackCapped = g_MaxStack[nLog] >= window.MaxStackDepthToVisualize;
+				if (IsStackCapped) {
+					ThreadName += ' [StackLimit/' + g_MaxStack[nLog] + ']';
+					context.fillStyle = 'red';
+				}
 				if (ThreadClobbered.length > 0)
 				{
 					var capacity = ThreadBufferSizes[nLog];
@@ -4011,8 +4018,10 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled)
 							var Y = fOffsetY + StackPos * BoxHeight;
 							var W = (timeend-timestart)*fScaleX;
 
-							if(W > MinWidth && X < nWidth && X+W > 0)
+							if(StackPos < window.MaxStackDepthToVisualize && W > MinWidth && X < nWidth && X+W > 0)
 							{
+								const isMaxDepth = (StackPos == window.MaxStackDepthToVisualize - 1);
+								
 								if(bDrawEnabled || index == nHoverToken)
 								{
 									Batches[index].push(X);
@@ -4030,6 +4039,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled)
 									var BarTextLen = Math.floor((WText-2)/FontWidth);
 									var TimeText = TimeToMsString(timeend-timestart);
 									var TimeTextLen = TimeText.length;
+									if (isMaxDepth) {
+										Name = "(STACK_LIMIT) " + Name;
+									}
 
 									var txNorm;
 									if (g_Ext.xray.viewEnabled || g_Ext.xray.barEnabled) {
@@ -4099,7 +4111,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled)
 						}
 					}
 				}
-				fOffsetY += (1+g_MaxStack[nLog]) * BoxHeight;
+				fOffsetY += (1+MaxStackCapped) * BoxHeight;
 			}
 			ThreadY[nLog+1] = fOffsetY;
 		}
@@ -6476,9 +6488,9 @@ function InitToolsExportMenu() {
 			}
 			if (entry.featuresNeeded != undefined) {
 				var hasNeededFeatures = false;
-				var featureList = (window.FeatureList == undefined) ? [] : window.FeatureList;
-				for (const featureName of entry.featuresNeeded) {
-					if (featureList.includes(featureName)) {
+				var extensionList = (window.ExtensionList == undefined) ? [] : window.ExtensionList;
+				for (const extensionName of entry.rawExtensionsNeeded) {
+					if (extensionList.includes(extensionName)) {
 						hasNeededFeatures = true;
 						break;
 					}

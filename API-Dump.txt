@@ -537,6 +537,8 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Event AvatarChatService.RefreshClientFeatures() {RobloxSecurity} [Hidden]
 Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:CreateAvatarGenerationSessionAsync(player: Player) -> AvatarGenerationSession [Yields]
+	Function AvatarCreationService:GenerateAvatarModelAsync(player: Player, previewJobId: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
+	Function AvatarCreationService:GenerateAvatarPreviewAsync(player: Player, textPrompt: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
 	Function AvatarCreationService:GetAvatarGenerationConfig() -> { [string]: any } [Yields]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
 	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
@@ -1588,8 +1590,8 @@ Class DataStoreOptions : Instance [NotReplicated]
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DataStoreService.AutomaticRetry: boolean {LocalUserSecurity} [NotReplicated]
 	Property DataStoreService.LegacyNamingScheme: boolean {LocalUserSecurity} [Hidden] [Deprecated]
-	Function DataStoreService:GetDataStore(name: string, scope: string? = "global", options: Instance? = nil) -> GlobalDataStore
-	Function DataStoreService:GetGlobalDataStore() -> GlobalDataStore
+	Function DataStoreService:GetDataStore(name: string, scope: string? = "global", options: Instance? = nil) -> DataStore
+	Function DataStoreService:GetGlobalDataStore() -> DataStore
 	Function DataStoreService:GetOrderedDataStore(name: string, scope: string? = "global") -> OrderedDataStore
 	Function DataStoreService:GetRequestBudgetForRequestType(requestType: Enum.DataStoreRequestType) -> number
 	Function DataStoreService:ListDataStoresAsync(prefix: string? = "", pageSize: number? = 0, cursor: string? = "") -> DataStoreListingPages [Yields]
@@ -2651,6 +2653,14 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.UiMessageChanged(msgType: Enum.UiMessageType, newUiMessage: string) {RobloxScriptSecurity}
 	Callback GuiService.SendCoreUiNotification(title: string, text: string) -> () {RobloxScriptSecurity}
 Class GuidRegistryService : Instance [NotCreatable] [Service]
+Class HapticEffect : Instance
+	Property HapticEffect.Looped: boolean
+	Property HapticEffect.Position: Vector3 {RobloxScriptSecurity}
+	Property HapticEffect.Radius: number {RobloxScriptSecurity}
+	Property HapticEffect.Type: Enum.HapticEffectType
+	Property HapticEffect.Waveform: FloatCurve? {RobloxScriptSecurity}
+	Function HapticEffect:Play() -> ()
+	Function HapticEffect:Stop() -> ()
 Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HapticService:GetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> ...any
 	Function HapticService:IsMotorSupported(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> boolean
@@ -4565,11 +4575,6 @@ Class SunRaysEffect : PostEffect
 	Property SunRaysEffect.Intensity: number
 	Property SunRaysEffect.Spread: number
 Class ProcessInstancePhysicsService : Instance [NotCreatable] [Service]
-Class ProjectFolderService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function ProjectFolderService:ExportScripts(path: string) -> () {RobloxScriptSecurity} [Yields]
-	Function ProjectFolderService:ImportScripts(path: string) -> () {RobloxScriptSecurity} [Yields]
-	Function ProjectFolderService:SelectFolder() -> string {RobloxScriptSecurity} [Yields]
-	Event ProjectFolderService.FileChangedAfterSync() {RobloxScriptSecurity}
 Class ProximityPrompt : Instance
 	Property ProximityPrompt.ActionText: string
 	Property ProximityPrompt.ClickablePrompt: boolean
@@ -4831,6 +4836,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptContext:GetLuauHeapInstanceReferenceReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetLuauHeapMemoryReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetScriptProfilingData() -> string {RobloxScriptSecurity}
+	Function ScriptContext:ReportLuaRequireCount() -> () {RobloxScriptSecurity}
 	Function ScriptContext:SaveScriptProfilingData(jsonString: string, filename: string) -> string {RobloxScriptSecurity}
 	Function ScriptContext:SetTimeout(seconds: number) -> () {PluginSecurity}
 	Function ScriptContext:StartScriptProfiling(frequency: number?) -> () {RobloxScriptSecurity}
@@ -6318,6 +6324,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UserInputService:GetConnectedGamepads() -> { any }
 	Function UserInputService:GetDeviceAcceleration() -> InputObject
 	Function UserInputService:GetDeviceGravity() -> InputObject
+	Function UserInputService:GetDeviceLevel() -> Enum.DeviceLevel {RobloxScriptSecurity}
 	Function UserInputService:GetDeviceRotation() -> ...any
 	Function UserInputService:GetDeviceType() -> Enum.DeviceType {RobloxScriptSecurity}
 	Function UserInputService:GetFocusedTextBox() -> TextBox
@@ -6373,8 +6380,10 @@ Class UserService : Instance [NotCreatable] [Service]
 Class VRService : Instance [NotCreatable] [Service]
 	Property VRService.AutomaticScaling: Enum.VRScaling
 	Property VRService.AvatarGestures: boolean
+	Property VRService.ControllerModels: Enum.VRControllerModelMode
 	Property VRService.FadeOutViewOnCollision: boolean
 	Property VRService.GuiInputUserCFrame: Enum.UserCFrame [NotReplicated]
+	Property VRService.LaserPointer: Enum.VRLaserPointerMode
 	Property VRService.DidPointerHit: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.LaserDistance: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.PointerHitCFrame: CFrame {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -6962,11 +6971,12 @@ Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.InspectMenu : 3
 Enum AvatarGenerationError
 	EnumItem AvatarGenerationError.None : 0
-	EnumItem AvatarGenerationError.Timeout : 1
+	EnumItem AvatarGenerationError.Unknown : 1
 	EnumItem AvatarGenerationError.DownloadFailed : 2
 	EnumItem AvatarGenerationError.Canceled : 3
 	EnumItem AvatarGenerationError.Offensive : 4
-	EnumItem AvatarGenerationError.Unknown : 5
+	EnumItem AvatarGenerationError.Timeout : 5
+	EnumItem AvatarGenerationError.JobNotFound : 6
 Enum AvatarGenerationJobStatus
 	EnumItem AvatarGenerationJobStatus.NotStarted : 0
 	EnumItem AvatarGenerationJobStatus.InProgress : 1
@@ -7462,6 +7472,10 @@ Enum DeveloperMemoryTag
 	EnumItem DeveloperMemoryTag.GeometryCSG : 24
 Enum DeviceFeatureType
 	EnumItem DeviceFeatureType.DeviceCapture : 0
+Enum DeviceLevel
+	EnumItem DeviceLevel.Low : 0
+	EnumItem DeviceLevel.Medium : 1
+	EnumItem DeviceLevel.High : 2
 Enum DeviceType
 	EnumItem DeviceType.Unknown : 0
 	EnumItem DeviceType.Desktop : 1
@@ -7751,6 +7765,12 @@ Enum GuiType
 Enum HandlesStyle
 	EnumItem HandlesStyle.Resize : 0
 	EnumItem HandlesStyle.Movement : 1
+Enum HapticEffectType
+	EnumItem HapticEffectType.UIHover : 0
+	EnumItem HapticEffectType.UIClick : 1
+	EnumItem HapticEffectType.UINotification : 2
+	EnumItem HapticEffectType.GameplayExplosion : 3
+	EnumItem HapticEffectType.GameplayCollision : 4
 Enum HighlightDepthMode
 	EnumItem HighlightDepthMode.AlwaysOnTop : 0
 	EnumItem HighlightDepthMode.Occluded : 1
@@ -9468,6 +9488,13 @@ Enum VRComfortSetting
 	EnumItem VRComfortSetting.Normal : 1
 	EnumItem VRComfortSetting.Expert : 2
 	EnumItem VRComfortSetting.Custom : 3
+Enum VRControllerModelMode
+	EnumItem VRControllerModelMode.Disabled : 0
+	EnumItem VRControllerModelMode.Transparent : 1
+Enum VRLaserPointerMode
+	EnumItem VRLaserPointerMode.Disabled : 0
+	EnumItem VRLaserPointerMode.Pointer : 1
+	EnumItem VRLaserPointerMode.DualPointer : 2
 Enum VRSafetyBubbleMode
 	EnumItem VRSafetyBubbleMode.NoOne : 0
 	EnumItem VRSafetyBubbleMode.OnlyFriends : 1

@@ -1,7 +1,7 @@
 Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.ExplorerHost.Plugin.Button,,,Explorer Host,Explorer Host,,,,,,,,,,,,,,,,,
-Studio.ExplorerHost.CounterExample.Button,,,Push me!,Push me!,,,,,,,,,,,,,,,,,
-Studio.ExplorerHost.Plugin.Name,,,ExplorerHost,ExplorerHost,,,,,,,,,,,,,,,,,
-Studio.ExplorerHost.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!,,,,,,,,,,,,,,,,,
-Studio.ExplorerHost.BasicExample.Text,,,Capybaras are cute!,Capybaras are cute!,,,,,,,,,,,,,,,,,
-Studio.ExplorerHost.CounterExample.CounterLabel,,,You pressed me {counter} times!,You pressed me {counter} times!,,,,,,,,,,,,,,,,,
+Studio.ExplorerHost.Plugin.Button,,,Explorer Host,Explorer Host,,Gastgeberforscher,Anfitrión explorador,Hôte de l'explorateur,,,,,,Explorer Host,,โฮสต์ Explorer,,,,,
+Studio.ExplorerHost.CounterExample.Button,,,Push me!,Push me!,,Drück mich!,¡Presióname!,Pousse-moi !,,,押す,,,Me aperte!,,กดฉันสิ!,,,,,
+Studio.ExplorerHost.Plugin.Name,,,ExplorerHost,ExplorerHost,,ExplorerHost,ExplorerHost,ExplorerHost,,,,,,ExplorerHost,,ExplorerHost,,,,,
+Studio.ExplorerHost.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!,,Eine Vorlage für alle deine Studio-Plugins!,Una plantilla para todos tus plugins de Studio.,Un modèle pour tous tes besoins de plugin Studio !,,,,,,Um modelo para todas as suas necessidades de plugins do Studio!,,เทมเพลตสำหรับทุกความต้องการของปลั๊กอิน Studio ของคุณ!,,,,,
+Studio.ExplorerHost.BasicExample.Text,,,Capybaras are cute!,Capybaras are cute!,,Capybaras sind süß!,¡Los capibaras son lindos!,Les capybaras sont mignons !,,,,,,Capivaras são fofas!,,พวกคาปิบาร่าน่ารักจัง!,,,,,
+Studio.ExplorerHost.CounterExample.CounterLabel,,,You pressed me {counter} times!,You pressed me {counter} times!,,Du hast mich {counter} mal gedrückt!,Me presionaste {counter} veces.,Tu m'as pressé {counter} fois !,,,,,,Você me pressionou {counter} vezes!,,คุณกดฉัน {counter} ครั้งแล้ว!,,,,,
