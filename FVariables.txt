@@ -5889,7 +5889,6 @@
 [C++] FFlagEnableCustomVideoUpload
 [Lua] FFlagEnableDarkerShimmerTransparencyLegacyChatService
 [C++] FFlagEnableDeeplinkReceivedEvent
-[Lua] FFlagEnableDeferredBlockStatusChange
 [Lua] FFlagEnableDisableSubPurchase
 [C++] FFlagEnableDistanceAttenuationCurveEditor
 [C++] FFlagEnableDrawProjectionImage
@@ -6133,7 +6132,6 @@
 [Lua] FFlagEnableVoiceChatVoiceUISync
 [Lua] FFlagEnableVoiceDefaultChannel
 [Lua] FFlagEnableVoiceDefaultServerScript
-[Lua] FFlagEnableVoiceMicPromptToastFix
 [Lua] FFlagEnableVoiceMuteAnalytics
 [Lua] FFlagEnableVoiceNudge
 [Lua] FFlagEnableVoicePromptReasonText
@@ -7049,7 +7047,6 @@
 [C++] FFlagNullCheckCloudsRendering
 [C++] FFlagNullCheckNodeName
 [C++] FFlagOffCenterOriginImporter
-[Lua] FFlagOldMenuNewIcons
 [Lua] FFlagOldMenuUseSpeakerIcons
 [Lua] FFlagOnlyMakeInputsForVoiceUsers
 [Lua] FFlagOnlyShowToastOnce2
@@ -7537,7 +7534,6 @@
 [C++] FFlagShorelines_AutoUpgradeAll
 [C++] FFlagShorelines_Tooling
 [C++] FFlagShorthandPropertiesColorAdjustments
-[Lua] FFlagShouldInitWithFirstPageWithTabHeader
 [Lua] FFlagShouldMuteUnlocalizedError
 [C++] FFlagShowBehaviorCategory
 [C++] FFlagShowConnectionErrorCode
@@ -8561,7 +8557,6 @@
 [Lua] FFlagVoiceChatUILogging
 [C++] FFlagVoiceChatUpdateSourcesOnSeparateThread
 [C++] FFlagVoiceChatUseChannelIdToGroupVoiceSessions
-[Lua] FFlagVoiceChatUseSoundServiceInputApi
 [C++] FFlagVoiceChatV2EnableSignalRKickUser
 [C++] FFlagVoiceChatV2EnableSignalRKickUser3
 [C++] FFlagVoiceChatV2SubOnlyRetry_Client
