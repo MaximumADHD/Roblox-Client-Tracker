@@ -1,4 +1,0 @@
---!nocheck
-return {
-	testMatch = { "**/*.spec" },
-}
