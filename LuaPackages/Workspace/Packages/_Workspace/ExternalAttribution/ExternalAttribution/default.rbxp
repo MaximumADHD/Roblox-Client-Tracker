@@ -2,7 +2,7 @@
   "instanceHierarchy": {
     "name": "ExternalAttribution",
     "tree": {
-      "$path": "../../../../../../../modules/external-attribution/src"
+      "$path": "../../../../../../../modules/creator-hub/external-attribution/src"
     }
   }
 }

@@ -6486,7 +6486,7 @@ function InitToolsExportMenu() {
 				if (!hasNeededEvents)
 					return;
 			}
-			if (entry.featuresNeeded != undefined) {
+			if (entry.rawExtensionsNeeded != undefined) {
 				var hasNeededFeatures = false;
 				var extensionList = (window.ExtensionList == undefined) ? [] : window.ExtensionList;
 				for (const extensionName of entry.rawExtensionsNeeded) {

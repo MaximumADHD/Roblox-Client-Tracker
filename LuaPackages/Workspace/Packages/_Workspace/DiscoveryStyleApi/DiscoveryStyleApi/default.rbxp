@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "DiscoveryStyleApi",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/discovery-dependencies/discovery-style-api/src"
-    }
-  }
-}

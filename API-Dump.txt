@@ -777,7 +777,7 @@ Class BaseWrap : Instance [NotCreatable]
 	Function BaseWrap:GetVertices(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
 	Function BaseWrap:IsHSRReady() -> boolean {RobloxScriptSecurity}
 	Function BaseWrap:ModifyVertices(cageType: Enum.CageType, vertices: { any }) -> () {RobloxScriptSecurity}
-	Event BaseWrap.VerticesModified() {RobloxScriptSecurity}
+	Event BaseWrap.VerticesModified(vertices: { any }) {RobloxScriptSecurity}
 Class WrapDeformer : BaseWrap [NotBrowsable]
 	Property WrapDeformer.RenderMeshID: string {✏️PluginSecurity}
 	Property WrapDeformer.Enabled: boolean
@@ -2410,6 +2410,7 @@ Class AdGui : SurfaceGuiBase
 	Property AdGui.Status: Enum.AdUnitStatus [ReadOnly]
 	Property AdGui.AdShape: Enum.AdShape
 	Property AdGui.EnableVideoAds: boolean
+	Function AdGui:GetSingleReportAdInfo() -> { [string]: any } {RobloxScriptSecurity}
 	Function AdGui:HandleLuaUIEvent(eventType: Enum.AdUIEventType) -> () {RobloxScriptSecurity}
 	Function AdGui:forwardStateToLuaUI() -> () {RobloxScriptSecurity}
 	Event AdGui.AdEvent(adEventType: Enum.AdEventType) {RobloxSecurity} [Hidden]
@@ -3229,6 +3230,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetUserSubscriptionPaymentHistoryAsync(user: Player, subscriptionId: string) -> { any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionStatusAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:PerformBulkPurchase(orderRequest: { [string]: any }, options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function MarketplaceService:PerformCancelSubscription(subscriptionId: string) -> () {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformPurchase(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectibleItemId: string? = "", collectibleProductId: string? = "", idempotencyKey: string? = "", purchaseAuthToken: string? = "") -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformPurchaseV2(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectiblesProductDetails: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformSubscriptionPurchase(subscriptionId: string) -> string {RobloxScriptSecurity} [Yields]
@@ -3263,6 +3265,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:SignalPromptPurchaseFinished(player: Instance, assetId: number, success: boolean) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:SignalPromptSubscriptionPurchaseFinished(subscriptionId: string, didTryPurchasing: boolean) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:SignalServerLuaDialogClosed(value: boolean) -> () {RobloxScriptSecurity}
+	Function MarketplaceService:SignalUserSubscriptionStatusChanged(subscriptionId: string) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:UserOwnsGamePassAsync(userId: number, gamePassId: number) -> boolean [Yields]
 	Event MarketplaceService.AssetTypePurchased(player: Instance, assetType: Enum.AssetType) {RobloxScriptSecurity} [Hidden]
 	Event MarketplaceService.ClientLuaDialogRequested(arguments: ...any) {RobloxScriptSecurity}
@@ -3299,6 +3302,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptThirdPartyPurchaseRequested(player: Instance, productId: string) {RobloxSecurity} [Hidden]
 	Event MarketplaceService.ServerPurchaseVerification(serverResponseTable: { [string]: any }) {RobloxScriptSecurity}
 	Event MarketplaceService.ThirdPartyPurchaseFinished(player: Instance, productId: string, receipt: string, wasPurchased: boolean) {LocalUserSecurity}
+	Event MarketplaceService.UserSubscriptionStatusChanged(subscriptionId: string) {RobloxScriptSecurity}
 	Callback MarketplaceService.ProcessReceipt(receiptInfo: { [string]: any }) -> Enum.ProductPurchaseDecision
 Class MaterialGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function MaterialGenerationService:DEPRECATED_GenerateMaterialVariantsAync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
@@ -4564,7 +4568,7 @@ Class ColorCorrectionEffect : PostEffect
 	Property ColorCorrectionEffect.Contrast: number
 	Property ColorCorrectionEffect.Saturation: number
 	Property ColorCorrectionEffect.TintColor: Color3
-Class ColorGradingEffect : PostEffect [NotBrowsable]
+Class ColorGradingEffect : PostEffect
 	Property ColorGradingEffect.TonemapperPreset: Enum.TonemapperPreset
 Class DepthOfFieldEffect : PostEffect
 	Property DepthOfFieldEffect.FarIntensity: number
@@ -4623,6 +4627,7 @@ Class RTAnimationTracker : Instance [NotReplicated]
 	Property RTAnimationTracker.SessionName: string [Hidden] [NotReplicated]
 	Property RTAnimationTracker.TrackerMode: Enum.TrackerMode [Hidden] [ReadOnly]
 	Property RTAnimationTracker.TrackerType: Enum.TrackerType [Hidden] [NotReplicated]
+	Function RTAnimationTracker:Step() -> () {RobloxScriptSecurity}
 	Event RTAnimationTracker.TrackerError(errorCode: Enum.TrackerError, msg: string)
 	Event RTAnimationTracker.TrackerPrompt(prompt: Enum.TrackerPromptEvent)
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
@@ -8533,7 +8538,8 @@ Enum Platform
 	EnumItem Platform.BeOS : 17
 	EnumItem Platform.UWP : 18
 	EnumItem Platform.PS5 : 19
-	EnumItem Platform.None : 20
+	EnumItem Platform.MetaOS : 20
+	EnumItem Platform.None : 21
 Enum PlaybackState
 	EnumItem PlaybackState.Begin : 0
 	EnumItem PlaybackState.Delayed : 1
@@ -9491,6 +9497,12 @@ Enum VRComfortSetting
 Enum VRControllerModelMode
 	EnumItem VRControllerModelMode.Disabled : 0
 	EnumItem VRControllerModelMode.Transparent : 1
+Enum VRDeviceType
+	EnumItem VRDeviceType.Unknown : 0
+	EnumItem VRDeviceType.OculusRift : 1
+	EnumItem VRDeviceType.HTCVive : 2
+	EnumItem VRDeviceType.ValveIndex : 3
+	EnumItem VRDeviceType.OculusQuest : 4
 Enum VRLaserPointerMode
 	EnumItem VRLaserPointerMode.Disabled : 0
 	EnumItem VRLaserPointerMode.Pointer : 1

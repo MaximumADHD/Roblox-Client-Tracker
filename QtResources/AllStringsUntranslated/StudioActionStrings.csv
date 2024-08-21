@@ -147,6 +147,11 @@ Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects,,View Lua API objects that c
 Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
 Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers,,Start server and players,Start server and players
 Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
+Studio.App.RBXMainWindow.StartScriptSync,,Start Sync,Start Sync
+Studio.App.RBXMainWindow.StartScriptSyncsTooltip,,"Start Sync between Script, LocalScript, and ModuleScript instances and Disk","Start Sync between Script, LocalScript, and ModuleScript instances and Disk"
+Studio.App.RBXMainWindow.StopScriptSync,,Stop Sync,Stop Sync
+Studio.App.RBXMainWindow.StopScriptSyncsTooltip,,"Stop Sync between Script, LocalScript, and ModuleScript instances and Disk","Stop Sync between Script, LocalScript, and ModuleScript instances and Disk"
+Studio.App.ScriptVerbs.SelectSyncDir,,Select Sync Directory,Select Sync Directory
 Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...

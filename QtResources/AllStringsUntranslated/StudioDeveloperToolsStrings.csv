@@ -12,6 +12,7 @@ Studio.App.EmulatorMainWidget.ConsoleSectionName,,Console,Console
 Studio.App.EmulatorMainWidget.DesktopSectionName,,Desktop,Desktop
 Studio.App.EmulatorMainWidget.TabletSectionName,,Tablet,Tablet
 Studio.App.EmulatorMainWidget.PhoneSectionName,,Phone,Phone
+Studio.App.EmulatorMainWidget.VrSectionName,,VR,VR
 Studio.App.EmulatorMainWidget.CustomDeviceSectionName,,Custom Device,Custom Device
 Studio.App.EmulatorMainWidget.ManageDevices,,Manage Devices,Manage Devices
 Studio.App.EmulatorMainWidget.ModeNotEnabledTitle,,%1 Not Enabled,%1 Not Enabled
@@ -46,6 +47,8 @@ Studio.App.EmulatorMainWidget.WebOS,,WebOS,WebOS
 Studio.App.EmulatorMainWidget.DOS,,DOS,DOS
 Studio.App.EmulatorMainWidget.BeOS,,BeOS,BeOS
 Studio.App.EmulatorMainWidget.UWP,,UWP,UWP
+Studio.App.EmulatorMainWidget.PS5,,PS5,PS5
+Studio.App.EmulatorMainWidget.MetaOS,,MetaOS,MetaOS
 Studio.App.EmulatorMainWidget.None,,None,None
 Studio.App.EmulatorMainWidget.CustomDevicesSectionName,,Custom Devices,Custom Devices
 Studio.App.EmulatorMainWidget.StandardDevicesSectionName,,Standard Devices,Standard Devices
@@ -113,3 +116,5 @@ Studio.App.EmulatorMainWidget.UnknownDevice,Emulation devices,Unknown Device,Unk
 Studio.App.EmulatorMainWidget.SamsungGalaxyA51,Emulation devices,Samsung Galaxy A51,Samsung Galaxy A51
 Studio.App.EmulatorMainWidget.XiaomiRedmiNote9,Emulation devices,Xiaomi Redmi Note 9,Xiaomi Redmi Note 9
 Studio.App.EmulatorMainWidget.IPhone14Pro,Emulation devices,iPhone 14 Pro,iPhone 14 Pro
+Studio.App.EmulatorMainWidget.MetaQuest2,VR Emulation devices,Meta Quest 2,Meta Quest 2
+Studio.App.EmulatorMainWidget.MetaQuest3,VR Emulation devices,Meta Quest 3,Meta Quest 3
