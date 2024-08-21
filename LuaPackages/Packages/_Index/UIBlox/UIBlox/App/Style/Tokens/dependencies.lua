@@ -37,6 +37,19 @@ return {
 			return nil
 		end
 	end,
+	GetFoundationTokens = function(themeName: ThemeName | string)
+		local RbxDesignFoundationsV2 = require(Packages.RbxDesignFoundationsV2)
+		local foundationTokens = RbxDesignFoundationsV2.Tokens
+		local theme = themeName:lower()
+
+		if theme == Constants.ThemeName.Dark:lower() then
+			return foundationTokens.FoundationDark
+		elseif theme == Constants.ThemeName.Light:lower() then
+			return foundationTokens.FoundationLight
+		else
+			return nil
+		end
+	end,
 	SchemaPackage = {
 		Validators = {
 			Global = require(RbxDesignFoundations.tokens.Schema.Validators.validateGlobal)(t),

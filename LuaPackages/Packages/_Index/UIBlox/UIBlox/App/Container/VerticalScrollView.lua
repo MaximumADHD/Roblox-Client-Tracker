@@ -45,6 +45,7 @@ VerticalScrollView.validateProps = t.strictInterface({
 	-- Determines how elastic scrolling behaves for touch input
 	elasticBehavior = t.optional(t.EnumItem),
 	canvasSizeY = t.optional(t.UDim),
+	automaticSize = t.optional(t.enum(Enum.AutomaticSize)),
 	-- When true, automatically detects Canvas Size Y based on its child elements
 	useAutomaticCanvasSize = t.optional(t.boolean),
 	-- If the vertical scrolling list should be focusable by gamepad or not
@@ -78,6 +79,7 @@ VerticalScrollView.validateProps = t.strictInterface({
 VerticalScrollView.defaultProps = {
 	size = UDim2.new(1, 0, 1, 0),
 	canvasSizeY = UDim.new(2, 0),
+	automaticSize = Enum.AutomaticSize.None,
 	useAutomaticCanvasSize = false,
 	isGamepadFocusable = false,
 	selectable = nil,
@@ -274,7 +276,8 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 	local size = self.props.size
 	local layoutOrder = self.props.layoutOrder
 	local canvasSizeY = self.props.canvasSizeY
-	local automaticSize = self.props.useAutomaticCanvasSize and Enum.AutomaticSize.Y or nil
+	local automaticSize = self.props.automaticSize
+	local automaticCanvasSize = self.props.useAutomaticCanvasSize and Enum.AutomaticSize.Y or nil
 	local isGamepadFocusable = self.props.isGamepadFocusable
 	local scrollingEnabled = self.props.scrollingEnabled
 
@@ -282,6 +285,7 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 		BackgroundTransparency = 1,
 		Position = position,
 		Size = size,
+		AutomaticSize = automaticSize,
 		LayoutOrder = layoutOrder,
 		ClipsDescendants = true,
 
@@ -289,13 +293,14 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 	}, {
 		MainCanvas = Roact.createElement(isGamepadFocusable and Focusable.ScrollingFrame or "ScrollingFrame", {
 			Active = false,
+			AutomaticSize = automaticSize,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Size = UDim2.fromScale(1, 1),
 			ElasticBehavior = self.props.elasticBehavior,
 			-- ScrollingFrame Specific
 			CanvasSize = UDim2.new(UDim.new(1, 0), canvasSizeY),
-			AutomaticCanvasSize = automaticSize,
+			AutomaticCanvasSize = automaticCanvasSize,
 			CanvasPosition = self.mainCanvasPosition,
 
 			ScrollingEnabled = scrollingEnabled,

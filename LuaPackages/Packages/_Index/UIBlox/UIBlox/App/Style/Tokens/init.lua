@@ -7,6 +7,7 @@ local t = require(Packages.t)
 local TokenPackageIndexMap = dependencies.TokenPackageIndexMap
 local GetTokenGenerators = dependencies.GetTokenGenerators
 local Validators = dependencies.SchemaPackage.Validators
+local GetFoundationTokens = dependencies.GetFoundationTokens
 
 local Types = require(script.Types)
 local Constants = require(script.Parent.Constants)
@@ -70,4 +71,11 @@ return {
 		Component = t.strictInterface(Validators.Component),
 	}),
 	Types = Types,
+	getFoundationTokens = function(deviceType: DeviceType, themeName: ThemeName | string)
+		local foundationTokens = GetFoundationTokens(themeName) or GetFoundationTokens(Constants.DefaultThemeName)
+		local scale = getPlatformScale(deviceType)
+
+		return foundationTokens(scale)
+	end,
+	Mappers = require(script.mappers),
 }

@@ -5,6 +5,8 @@ local AppRoot = DialogRoot.Parent
 local UIBlox = AppRoot.Parent
 local Packages = UIBlox.Parent
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
@@ -57,6 +59,7 @@ function FullPageModal:init()
 		titleContainerSize = Vector2.new(0, ModalTitle:GetHeight()),
 	}
 
+	self.buttonFrameRef = if UIBloxConfig.didMountUpdateFullPageModal then Roact.createRef() else nil
 	self.changeButtonFrameSize = function(rbx)
 		if self.state.buttonFrameSize ~= rbx.AbsoluteSize then
 			self:setState({
@@ -65,6 +68,7 @@ function FullPageModal:init()
 		end
 	end
 
+	self.footerContentRef = if UIBloxConfig.didMountUpdateFullPageModal then Roact.createRef() else nil
 	self.changeFooterContentSize = function(rbx)
 		if self.state.footerContentSize ~= rbx.AbsoluteSize then
 			self:setState({
@@ -77,6 +81,21 @@ function FullPageModal:init()
 		if self.state.titleContainerSize ~= rbx.AbsoluteSize then
 			self:setState({
 				titleContainerSize = rbx.AbsoluteSize,
+			})
+		end
+	end
+end
+
+if UIBloxConfig.didMountUpdateFullPageModal then
+	function FullPageModal:didMount()
+		if self.buttonFrameRef.current then
+			self:setState({
+				buttonFrameSize = self.buttonFrameRef.current.AbsoluteSize,
+			})
+		end
+		if self.footerContentRef.current then
+			self:setState({
+				footerContentSize = self.footerContentRef.current.AbsoluteSize,
 			})
 		end
 	end
@@ -125,6 +144,7 @@ function FullPageModal:render()
 				width = UDim.new(1, 0),
 				LayoutOrder = 2,
 				[Roact.Change.AbsoluteSize] = self.changeButtonFrameSize,
+				[Roact.Ref] = if UIBloxConfig.didMountUpdateFullPageModal then self.buttonFrameRef else nil,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, MARGIN),
@@ -139,6 +159,7 @@ function FullPageModal:render()
 					BackgroundTransparency = 1,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					[Roact.Change.AbsoluteSize] = self.changeFooterContentSize,
+					[Roact.Ref] = if UIBloxConfig.didMountUpdateFullPageModal then self.footerContentRef else nil,
 				}, {
 					ContentPadding = Roact.createElement("UIPadding", {
 						PaddingTop = UDim.new(0, MARGIN),

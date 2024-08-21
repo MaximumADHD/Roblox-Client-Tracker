@@ -114,8 +114,8 @@ IconButton.defaultProps = {
 	icon = "",
 	iconSize = IconSize.Medium,
 
-	colorStyleDefault = "SystemPrimaryDefault",
-	colorStyleHover = "SystemPrimaryDefault",
+	colorStyleDefault = if UIBloxConfig.useFoundationColors then "IconEmphasis" else "SystemPrimaryDefault",
+	colorStyleHover = if UIBloxConfig.useFoundationColors then "IconEmphasis" else "SystemPrimaryDefault",
 
 	iconColor3 = nil,
 	iconTransparency = nil,

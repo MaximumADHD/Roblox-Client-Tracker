@@ -22,6 +22,8 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local getTokens = TokenPackage.getTokens
 local validateTokens = TokenPackage.validateTokens
+local getFoundationTokens = TokenPackage.getFoundationTokens
+local TokensMappers = TokenPackage.Mappers
 
 type AppStyle = StyleTypes.AppStyle
 type Tokens = StyleTypes.Tokens
@@ -62,12 +64,20 @@ local function AppStyleProvider(props: Props)
 	local themeName, setThemeName = React.useState(style.themeName)
 	local tokens: Tokens = getTokens(style.deviceType, themeName, UIBloxConfig.useTokensWithScale) :: Tokens
 	local textSizeOffset, setTextSizeOffset = React.useState(0)
+	local theme = getThemeFromName(themeName)
+
+	local foundationTokens
+	if UIBloxConfig.useFoundationColors then
+		foundationTokens = getFoundationTokens(style.deviceType, themeName)
+		tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
+		theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
+	end
 
 	-- TODO: Add additional validation for tokens here to make it safe. We can remove the call after design token stuff is fully stable.
 	assert(validateTokens(tokens), "Invalid tokens!")
 	local appStyle: AppStyle = {
 		Font = getFontFromName(style.fontName, tokens),
-		Theme = getThemeFromName(themeName),
+		Theme = theme,
 		Tokens = tokens,
 		Settings = if style.settings
 			then {
@@ -107,6 +117,7 @@ local function AppStyleProvider(props: Props)
 			derivedValues = {
 				textSizeOffset = textSizeOffset,
 			},
+			foundationTokens = if UIBloxConfig.useFoundationColors then foundationTokens else nil,
 		},
 	}, Roact.oneChild(props.children :: any))
 end

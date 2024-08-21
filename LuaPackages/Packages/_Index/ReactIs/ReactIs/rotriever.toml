@@ -1,6 +1,6 @@
 [package]
 name = "ReactIs"
-version = "17.0.4"
+version = "17.0.6"
 content_root = "src"
 files = [
     "*",
@@ -18,4 +18,4 @@ authors = [
 ]
 [dependencies.Shared]
 package = "Shared"
-version = "^17.0.4"
+version = "^17.0.6"

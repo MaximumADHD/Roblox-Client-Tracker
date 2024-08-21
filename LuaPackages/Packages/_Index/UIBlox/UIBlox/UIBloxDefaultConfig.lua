@@ -145,4 +145,13 @@ return {
 
 	-- Add the option to pass in a visibility property for Experience Details Page components
 	addEdpComponentVisibility = false,
+
+	-- Indicate whether the fix for the additional NavigationBar#onSelectionChanged call is enabled
+	enableNavigationBarSelectionChangeFix = false,
+
+	-- Use colors from Foundation tokens
+	useFoundationColors = false,
+
+	-- Update FullPageModal sizing on mount
+	didMountUpdateFullPageModal = false,
 }

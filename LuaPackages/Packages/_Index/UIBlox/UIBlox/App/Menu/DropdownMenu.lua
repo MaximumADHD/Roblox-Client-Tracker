@@ -114,6 +114,9 @@ DropdownMenu.validateProps = t.strictInterface({
 
 	-- Override the menu list position (keeping it mounted directly under the DropdownMenu component instead of the bottom of the screen)
 	dropdownMenuListPositionFixed = t.optional(t.boolean),
+
+	-- Initial key to select upon loading. Replaces placeholder text if present.
+	defaultKey = t.optional(t.string),
 })
 
 DropdownMenu.defaultProps = {
@@ -121,6 +124,7 @@ DropdownMenu.defaultProps = {
 	fixedListHeight = nil,
 	enableTokenOverride = false,
 	dropdownMenuListPositionFixed = false,
+	defaultKey = nil,
 }
 
 function DropdownMenu:didUpdate(prevProps, prevState)
@@ -132,7 +136,7 @@ end
 function DropdownMenu:init()
 	self:setState({
 		menuOpen = false,
-		selectedKey = nil,
+		selectedKey = self.props.defaultKey,
 		absoluteSize = Vector2.new(0, 0),
 	})
 

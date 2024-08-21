@@ -10,6 +10,7 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local InteractableList = require(UIBlox.Core.Control.InteractableList)
 local ControlStateEnum = require(UIBlox.Core.Control.Enum.ControlState)
 local NavigationBarAlignment = require(App.Navigation.Enum.NavigationBarAlignment)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local defaultProps = {
 	visible = true,
@@ -212,9 +213,17 @@ local function NavigationBar(providedProps: Props)
 	local selection = props.selection
 	if selection then
 		if props.items[selection] == nil then
-			selection = nil
+			if UIBloxConfig.enableNavigationBarSelectionChangeFix then
+				selection = { nil }
+			else
+				selection = nil
+			end
 		else
 			selection = { selection }
+		end
+	else
+		if UIBloxConfig.enableNavigationBarSelectionChangeFix then
+			selection = { nil }
 		end
 	end
 

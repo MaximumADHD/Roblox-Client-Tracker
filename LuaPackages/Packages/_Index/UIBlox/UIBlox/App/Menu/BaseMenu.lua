@@ -385,7 +385,7 @@ function BaseMenu:render()
 					),
 					Position = if showHeader then UDim2.fromOffset(0, headerHeight) else nil,
 					BorderSizePixel = 0,
-					ScrollBarThickness = 4,
+					ScrollBarThickness = if needsScrollbar then 4 else 0,
 					ScrollBarImageColor3 = theme.UIEmphasis.Color,
 					ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
 					ScrollingDirection = Enum.ScrollingDirection.Y,

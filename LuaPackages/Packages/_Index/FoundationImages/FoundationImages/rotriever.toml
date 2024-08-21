@@ -1,0 +1,12 @@
+[package]
+name = "FoundationImages"
+version = "1.0.1"
+content_root = "src"
+files = ["*"]
+publish = true
+authors = [
+    "Nick Winans <nwinans@roblox.com>",
+    "Andrea Fletcher <afletcher@roblox.com>",
+]
+description = "Source for all images used in Foundation."
+repository = "https://github.com/Roblox/foundation-images"
