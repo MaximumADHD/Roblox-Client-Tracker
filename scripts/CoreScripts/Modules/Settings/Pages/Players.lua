@@ -28,6 +28,7 @@ local getCombinedNameFromId = UserProfiles.Selectors.getCombinedNameFromId
 local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
+local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
@@ -51,15 +52,15 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
-local FFlagUpdateFriendLabelOnChange = game:DefineFastFlag("UpdateFriendLabelOnChange", false)
 local FFlagFixPlayersExtremeTruncation = game:DefineFastFlag("FixPlayersExtremeTruncation", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
-local GetFFlagAddAnimatedFocusState = require(script.Parent.Parent.Flags.GetFFlagAddAnimatedFocusState)
 
 local GameInviteAnalyticsManager
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInviteAnalyticsManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalyticsManager
 end
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 
 local _, PlatformFriendsService = pcall(function()
 	return game:GetService('PlatformFriendsService')
@@ -130,7 +131,6 @@ local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.G
 local GetFFlagMuteTogglesEnableIXP = require(RobloxGui.Modules.Settings.Flags.GetFFlagMuteTogglesEnableIXP)
 local GetFStringMuteTogglesIXPLayerName = require(RobloxGui.Modules.Settings.Flags.GetFStringMuteTogglesIXPLayerName)
 local GetFFlagUseFriendsPropsInMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagUseFriendsPropsInMuteToggles)
-local GetFFlagFixInviteTextVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixInviteTextVisibility)
 local GetFFlagDefaultFriendingLabelTextNonEmpty = require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 
@@ -139,7 +139,7 @@ local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeat
 local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
 local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
-local getFFlagDebugAppChatInSettingsHub = require(CorePackages.Workspace.Packages.AppChat).Flags.getFFlagDebugAppChatInSettingsHub
+local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
 
@@ -163,7 +163,7 @@ local function Initialize()
 	end
 
 	local unreadIndicator: GuiObject?
-	if getFFlagDebugAppChatInSettingsHub() then
+	if GetFFlagEnableAppChatInExperience() then
 		this.UpdateAppChatUnreadMessagesCount = function(newCount)
 			if unreadIndicator then
 				unreadIndicator.Visible = newCount > 0
@@ -371,7 +371,7 @@ local function Initialize()
 	local buttonFrame
 	local buttonFrameLayout
 
-	if getFFlagDebugAppChatInSettingsHub() then
+	if GetFFlagEnableAppChatInExperience() then
 		updateButtonsLayout = function()
 			local buttons = {}
 			local columnLayout = utility:IsPortrait() or utility:IsSmallTouchScreen()
@@ -466,7 +466,7 @@ local function Initialize()
 			friendLabel.Name = "FriendStatus"
 			friendLabel.LayoutOrder = 5
 			friendLabel.Selectable = true
-			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+			if Theme.UIBloxThemeEnabled then
 				local renderName = RENDER_NAME_PREFIX.."-friendstatuslabel-"..player.Name
 				utility:MakeFocusState(friendLabel, renderName)
 			end
@@ -491,10 +491,8 @@ local function Initialize()
 				end
 			end
 
-			if FFlagUpdateFriendLabelOnChange then
-				-- create a new friend label with updated status
-				resizeFriendButton(friendLabelParent, player, utility:IsPortrait(), nil)
-			end
+			-- create a new friend label with updated status
+			resizeFriendButton(friendLabelParent, player, utility:IsPortrait(), nil)
 		end
 	end
 
@@ -591,7 +589,7 @@ local function Initialize()
 			blockButton.Name = "BlockButton"
 			blockButton.LayoutOrder = 4
 			blockButton.Selectable = true
-			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+			if Theme.UIBloxThemeEnabled then
 				local renderName = RENDER_NAME_PREFIX.."-blockbutton-"..player.Name
 				utility:MakeFocusState(blockButton, renderName)
 			end
@@ -694,7 +692,7 @@ local function Initialize()
 			muteLabelText.ZIndex = 3
 			muteLabelText.Position = muteLabelText.Position + imageOffset
 			muteLabelText.ImageTransparency = imageTransparency
-			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+			if Theme.UIBloxThemeEnabled then
 				local renderName = RENDER_NAME_PREFIX.."-mutestatusbutton-"..playerStatus.userId
 				utility:MakeFocusState(muteLabel, renderName)
 			end
@@ -727,7 +725,7 @@ local function Initialize()
 	local leaveGameFunc = function()
 		if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.HubRef.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
 			this.HubRef:SwitchToPage(this.HubRef.LeaveGameUpsellPage, nil, 1, true)
-		else 
+		else
 			this.HubRef:SwitchToPage(this.HubRef.LeaveGamePage, false, 1)
 		end
 	end
@@ -939,7 +937,7 @@ local function Initialize()
 				reportButton.Position = UDim2.new(1, -260, 0, 7)
 				reportButton.LayoutOrder = 3
 				reportButton.Selectable = true
-				if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+				if Theme.UIBloxThemeEnabled then
 					local renderName = RENDER_NAME_PREFIX.."-reportplayer-"..player.Name
 					utility:MakeFocusState(reportButton, renderName)
 				end
@@ -964,11 +962,11 @@ local function Initialize()
 			if muteAllButton then
 				muteAllButton.Visible = false
 				muteAllButton:Destroy()
-				if getFFlagDebugAppChatInSettingsHub() then
+				if GetFFlagEnableAppChatInExperience() then
 					muteAllButton = nil
 				end
 			end
-			if getFFlagDebugAppChatInSettingsHub() then
+			if GetFFlagEnableAppChatInExperience() then
 				updateButtonsLayout()
 			else
 				if shareGameButton then
@@ -1100,22 +1098,7 @@ local function Initialize()
 		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
 		frame.SelectionImageObject = frame:Clone()
 
-		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
-			local SelectionOverrideObject = Create'Frame'{
-					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
-					BorderSizePixel = 0,
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundColor3 = Theme.color("PlayerRowSelection")
-				}
-			Create'UICorner'{
-				CornerRadius = Theme.DefaultCornerRadius,
-				Parent = SelectionOverrideObject,
-			}
-
-			frame.SelectionImageObject = SelectionOverrideObject
-		end
-
-		if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+		if Theme.UIBloxThemeEnabled then
 			local renderName = RENDER_NAME_PREFIX.."-sharegame"
 			utility:MakeFocusState(frame, renderName)
 		end
@@ -1167,22 +1150,7 @@ local function Initialize()
 		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
 		frame.SelectionImageObject = frame:Clone()
 
-		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
-			local SelectionOverrideObject = Create'Frame'{
-					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
-					BorderSizePixel = 0,
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundColor3 = Theme.color("PlayerRowSelection")
-				}
-			Create'UICorner'{
-				CornerRadius = Theme.DefaultCornerRadius,
-				Parent = SelectionOverrideObject,
-			}
-
-			frame.SelectionImageObject = SelectionOverrideObject
-		end
-
-		if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+		if Theme.UIBloxThemeEnabled then
 			local renderName = RENDER_NAME_PREFIX.."-muteall"
 			utility:MakeFocusState(frame, renderName)
 		end
@@ -1190,7 +1158,7 @@ local function Initialize()
 		return frame
 	end
 
-	if getFFlagDebugAppChatInSettingsHub() then
+	if GetFFlagEnableAppChatInExperience() then
 		createChatButton = function()
 			local frame = createRow("ImageButton")
 			local textLabel = frame.TextLabel
@@ -1236,22 +1204,7 @@ local function Initialize()
 			frame.SelectionLost:connect(setNotHighlighted)
 			frame.SelectionImageObject = frame:Clone()
 
-			if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then
-				local SelectionOverrideObject = Create'Frame'{
-						BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
-						BorderSizePixel = 0,
-						Size = UDim2.new(1, 0, 1, 0),
-						BackgroundColor3 = Theme.color("PlayerRowSelection")
-					}
-				Create'UICorner'{
-					CornerRadius = Theme.DefaultCornerRadius,
-					Parent = SelectionOverrideObject,
-				}
-
-				frame.SelectionImageObject = SelectionOverrideObject
-			end
-
-			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+			if Theme.UIBloxThemeEnabled then
 				local renderName = RENDER_NAME_PREFIX.."-chat"
 				utility:MakeFocusState(frame, renderName)
 			end
@@ -1319,7 +1272,7 @@ local function Initialize()
 		inspectButton.LayoutOrder = 2
 		inspectButton.Selectable = true
 		inspectButton.Parent = parent
-		if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+		if Theme.UIBloxThemeEnabled then
 			local renderName = RENDER_NAME_PREFIX.."-inspect-"..player.Name
 			utility:MakeFocusState(inspectButton, renderName)
 		end
@@ -1420,7 +1373,10 @@ local function Initialize()
 		local frame = createRow("ImageLabel", showDisplayName)
 		frame.TextLabel.Name = "DisplayNameLabel"
 		frame.SecondRow.Name = "NameLabel"
-
+		if GetFFlagLuaAppEnableOpenTypeSupport() then
+			frame.NameLabel.OpenTypeFeatures = OpenTypeSupport:getUserNameStylisticAlternative()
+			frame.NameLabel.RichText = true
+		end
 		local rightSideButtons = Instance.new("Frame")
 		rightSideButtons.Name = "RightSideButtons"
 		rightSideButtons.BackgroundTransparency = 1
@@ -1729,7 +1685,7 @@ local function Initialize()
 		local showChatButton
 		local showShareGameButton
 
-		if getFFlagDebugAppChatInSettingsHub() then
+		if GetFFlagEnableAppChatInExperience() then
 			showShareGameButton = canShareCurrentGame() and not shareGameButton and not RunService:IsStudio()
 			showChatButton = not chatButton
 
@@ -1806,7 +1762,7 @@ local function Initialize()
 			end)
 
 			shareGameButton.LayoutOrder = 1
-			if getFFlagDebugAppChatInSettingsHub() then
+			if GetFFlagEnableAppChatInExperience() then
 				shareGameButton.Parent = buttonFrame
 				updateButtonsLayout()
 			else
@@ -1819,13 +1775,13 @@ local function Initialize()
 			end
 		end
 
-		if getFFlagDebugAppChatInSettingsHub() then
+		if GetFFlagEnableAppChatInExperience() then
 			if showChatButton then
 				chatButton = createChatButton()
 				chatButton.Activated:connect(function()
 					this.HubRef:SwitchToPage(this.HubRef.AppChatPage, false)
 				end)
-				chatButton.LayoutOrder = if getFFlagDebugAppChatInSettingsHub() then 2 else 3
+				chatButton.LayoutOrder = if GetFFlagEnableAppChatInExperience() then 2 else 3
 				chatButton.Parent = buttonFrame
 				updateButtonsLayout()
 			end
@@ -1979,13 +1935,13 @@ local function Initialize()
 					updateAllMuteButtons()
 				end)
 
-				muteAllButton.LayoutOrder = if getFFlagDebugAppChatInSettingsHub() then 3 else 1
+				muteAllButton.LayoutOrder = if GetFFlagEnableAppChatInExperience() then 3 else 1
 				if FFlagCorrectlyPositionMuteButton then
 					layoutMuteAll()
 				else
 					muteAllButton.Parent = buttonFrame
         end
-				if getFFlagDebugAppChatInSettingsHub() then
+				if GetFFlagEnableAppChatInExperience() then
 					updateButtonsLayout()
 				end
 			end

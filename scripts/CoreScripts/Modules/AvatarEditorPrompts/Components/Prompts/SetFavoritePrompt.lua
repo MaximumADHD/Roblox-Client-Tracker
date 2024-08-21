@@ -19,6 +19,10 @@ local AvatarEditorPrompts = Components.Parent
 local PerformSetFavorite = require(AvatarEditorPrompts.Thunks.PerformSetFavorite)
 local SignalSetFavoritePermissionDenied = require(AvatarEditorPrompts.Thunks.SignalSetFavoritePermissionDenied)
 
+local DELAYED_INPUT_ANIM_SEC = 3
+
+local FFlagSetFavoritePromptDelayedInput = game:DefineFastFlag("EnableDelayedInputForSetFavorite", false)
+
 local SetFavoritePrompt = Roact.PureComponent:extend("SetFavoritePrompt")
 
 SetFavoritePrompt.validateProps = t.strictInterface({
@@ -93,6 +97,9 @@ function SetFavoritePrompt:render()
 					props = {
 						onActivated = self.props.performSetFavorite,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.FavouriteItemPromptYes"),
+						isDelayedInput = if FFlagSetFavoritePromptDelayedInput then true else nil,
+						enableInputDelayed = if FFlagSetFavoritePromptDelayedInput then true else nil,
+						delayInputSeconds = if FFlagSetFavoritePromptDelayedInput then DELAYED_INPUT_ANIM_SEC else nil,
 					},
 					isDefaultChild = false,
 				},

@@ -1,4 +1,7 @@
 PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
   JUMPIFNOT R1 [+38]
   GETUPVAL R2 0
   CALL R2 0 1
@@ -38,55 +41,65 @@ PROTO_0:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_1:
-  DUPTABLE R4 K8 [{"_isMock", "_networking", "_plugin", "_pressedKeys", "_user", "OnUsernameFetched", "OnSelectionChanged", "OnInputChanged"}]
+PROTO_2:
+  DUPTABLE R4 K9 [{"_isMock", "_networking", "_plugin", "_pressedKeys", "_user", "_bulkImportService", "OnUsernameFetched", "OnSelectionChanged", "OnInputChanged"}]
   SETTABLEKS R3 R4 K0 ["_isMock"]
   SETTABLEKS R1 R4 K1 ["_networking"]
   SETTABLEKS R0 R4 K2 ["_plugin"]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K3 ["_pressedKeys"]
-  DUPTABLE R5 K12 [{"Id", "Name", "Scope"}]
+  DUPTABLE R5 K13 [{"Id", "Name", "Scope"}]
   GETUPVAL R6 0
-  NAMECALL R6 R6 K13 ["GetUserId"]
+  NAMECALL R6 R6 K14 ["GetUserId"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K9 ["Id"]
-  LOADK R8 K14 ["Plugin"]
-  LOADK R9 K15 ["PlaceholderUsername"]
-  NAMECALL R6 R2 K16 ["getText"]
+  SETTABLEKS R6 R5 K10 ["Id"]
+  LOADK R8 K15 ["Plugin"]
+  LOADK R9 K16 ["PlaceholderUsername"]
+  NAMECALL R6 R2 K17 ["getText"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K10 ["Name"]
+  SETTABLEKS R6 R5 K11 ["Name"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K11 ["Scope"]
-  GETTABLEKS R6 R7 K17 ["User"]
-  SETTABLEKS R6 R5 K11 ["Scope"]
+  GETTABLEKS R7 R8 K12 ["Scope"]
+  GETTABLEKS R6 R7 K18 ["User"]
+  SETTABLEKS R6 R5 K12 ["Scope"]
   SETTABLEKS R5 R4 K4 ["_user"]
+  JUMPIFNOT R3 [+5]
+  DUPTABLE R5 K20 [{"LaunchBulkImport"}]
+  DUPCLOSURE R6 K21 [PROTO_0]
+  SETTABLEKS R6 R5 K19 ["LaunchBulkImport"]
+  JUMP [+6]
+  GETIMPORT R5 K23 [game]
+  LOADK R7 K24 ["BulkImportService"]
+  NAMECALL R5 R5 K25 ["GetService"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K5 ["_bulkImportService"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K18 ["new"]
+  GETTABLEKS R5 R6 K26 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K5 ["OnUsernameFetched"]
+  SETTABLEKS R5 R4 K6 ["OnUsernameFetched"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K18 ["new"]
+  GETTABLEKS R5 R6 K26 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K6 ["OnSelectionChanged"]
+  SETTABLEKS R5 R4 K7 ["OnSelectionChanged"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K18 ["new"]
+  GETTABLEKS R5 R6 K26 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K7 ["OnInputChanged"]
+  SETTABLEKS R5 R4 K8 ["OnInputChanged"]
   GETTABLEKS R5 R4 K1 ["_networking"]
-  NEWCLOSURE R7 P0
+  NEWCLOSURE R7 P1
   CAPTURE UPVAL U3
   CAPTURE VAL R2
   CAPTURE VAL R4
-  NAMECALL R5 R5 K19 ["fetchUsernameAsync"]
+  NAMECALL R5 R5 K27 ["fetchUsernameAsync"]
   CALL R5 2 0
   GETUPVAL R7 4
   FASTCALL2 SETMETATABLE R4 R7 [+4]
   MOVE R6 R4
-  GETIMPORT R5 K21 [setmetatable]
+  GETIMPORT R5 K29 [setmetatable]
   CALL R5 2 0
   RETURN R4 1
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["new"]
   MOVE R4 R0
@@ -96,7 +109,7 @@ PROTO_2:
   CALL R3 4 -1
   RETURN R3 -1
 
-PROTO_3:
+PROTO_4:
   LOADNIL R1
   SETTABLEKS R1 R0 K0 ["_pressedKeys"]
   LOADNIL R1
@@ -109,11 +122,11 @@ PROTO_3:
   SETTABLEKS R1 R0 K4 ["OnInputChanged"]
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETTABLEKS R1 R0 K0 ["_plugin"]
   RETURN R1 1
 
-PROTO_5:
+PROTO_6:
   GETTABLEKS R2 R0 K0 ["_pressedKeys"]
   LOADB R3 1
   SETTABLE R3 R2 R1
@@ -123,7 +136,7 @@ PROTO_5:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETTABLEKS R2 R0 K0 ["_pressedKeys"]
   LOADNIL R3
   SETTABLE R3 R2 R1
@@ -133,9 +146,16 @@ PROTO_6:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETTABLEKS R1 R0 K0 ["_user"]
   RETURN R1 1
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["_bulkImportService"]
+  LOADN R3 0
+  NAMECALL R1 R1 K1 ["LaunchBulkImport"]
+  CALL R1 2 0
+  RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
@@ -167,24 +187,26 @@ MAIN:
   LOADK R10 K20 ["PluginController"]
   NAMECALL R8 R3 K21 ["extend"]
   CALL R8 2 1
-  DUPCLOSURE R9 K22 [PROTO_1]
+  DUPCLOSURE R9 K22 [PROTO_2]
   CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R7
   CAPTURE VAL R8
   SETTABLEKS R9 R8 K23 ["new"]
-  DUPCLOSURE R9 K24 [PROTO_2]
+  DUPCLOSURE R9 K24 [PROTO_3]
   CAPTURE VAL R8
   SETTABLEKS R9 R8 K25 ["mock"]
-  DUPCLOSURE R9 K26 [PROTO_3]
+  DUPCLOSURE R9 K26 [PROTO_4]
   SETTABLEKS R9 R8 K27 ["destroy"]
-  DUPCLOSURE R9 K28 [PROTO_4]
+  DUPCLOSURE R9 K28 [PROTO_5]
   SETTABLEKS R9 R8 K29 ["getPlugin"]
-  DUPCLOSURE R9 K30 [PROTO_5]
+  DUPCLOSURE R9 K30 [PROTO_6]
   SETTABLEKS R9 R8 K31 ["addKeyPress"]
-  DUPCLOSURE R9 K32 [PROTO_6]
+  DUPCLOSURE R9 K32 [PROTO_7]
   SETTABLEKS R9 R8 K33 ["removeKeyPress"]
-  DUPCLOSURE R9 K34 [PROTO_7]
+  DUPCLOSURE R9 K34 [PROTO_8]
   SETTABLEKS R9 R8 K35 ["getUser"]
+  DUPCLOSURE R9 K36 [PROTO_9]
+  SETTABLEKS R9 R8 K37 ["launchBulkImport"]
   RETURN R8 1

@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
 local React = require(CorePackages.Packages.React)
+
 local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local Chrome = script.Parent.Parent
@@ -40,6 +41,8 @@ local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChrom
 local GetFFlagOpenControlsOnMenuOpen = require(Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
+local GetFFlagEnablePartyIconInChrome =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInChrome
 local GetFFlagUsePolishedAnimations = require(Chrome.Flags.GetFFlagUsePolishedAnimations)
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
@@ -52,6 +55,8 @@ local GetFFlagSupportChromeContainerSizing = require(Chrome.Flags.GetFFlagSuppor
 local GetFFlagEnableJoinVoiceOnUnibar = require(Chrome.Flags.GetFFlagEnableJoinVoiceOnUnibar)
 local GetFFlagChromeUsePreferredTransparency =
 	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
+
+local PartyConstants = require(Chrome.Integrations.Party.Constants)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -122,6 +127,7 @@ function configureUnibar(viewportInfo)
 			})
 		else
 			ChromeService:configureMenu({
+				if GetFFlagEnablePartyIconInChrome() then { PartyConstants.INTEGRATION_ID } else {},
 				if GetFFlagEnableJoinVoiceOnUnibar()
 					then { "selfie_view", "toggle_mic_mute", "join_voice", "chat", "dummy_window", "dummy_window_2" }
 					else { "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },

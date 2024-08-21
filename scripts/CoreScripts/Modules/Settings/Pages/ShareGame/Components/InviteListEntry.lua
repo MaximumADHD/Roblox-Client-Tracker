@@ -7,6 +7,9 @@ local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
+local UIBlox = require(CorePackages.UIBlox)
+local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
+
 local Constants = require(Modules.Common.Constants)
 local Theme = require(Modules.Settings.Theme)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
@@ -23,6 +26,8 @@ local GetFFlagAbuseReportAnalyticsHasLaunchData =
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
+local GetFFlagLuaAppEnableOpenTypeSupport =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableOpenTypeSupport
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
@@ -185,6 +190,10 @@ return function(props: Props)
 				Font = AppFonts.default:getDefault(),
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
+				OpenTypeFeatures = if GetFFlagLuaAppEnableOpenTypeSupport()
+					then OpenTypeSupport:getUserNameStylisticAlternative()
+					else nil,
+				RichText = if GetFFlagLuaAppEnableOpenTypeSupport() then true else nil,
 			}),
 		}),
 		InviteButton = React.createElement(InviteButton, {

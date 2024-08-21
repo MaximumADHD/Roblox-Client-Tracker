@@ -35,7 +35,7 @@ MAIN:
   LOADN R9 0
   CALL R7 2 1
   SETTABLEKS R7 R6 K16 ["AnchorPoint"]
-  NEWTABLE R7 0 9
+  NEWTABLE R7 0 8
   MOVE R8 R3
   LOADK R9 K26 ["::UIAspectRatioConstraint"]
   DUPTABLE R10 K28 [{"AspectRatio"}]
@@ -62,7 +62,7 @@ MAIN:
   SETTABLEKS R13 R12 K36 ["FillDirection"]
   CALL R10 2 1
   MOVE R11 R3
-  LOADK R12 K45 ["> .Component-ControllerLayout"]
+  LOADK R12 K45 ["> #ControllerLayout"]
   DUPTABLE R13 K46 [{"BackgroundColor3"}]
   LOADK R14 K18 ["$BlueprintBackgroundColor"]
   SETTABLEKS R14 R13 K14 ["BackgroundColor3"]
@@ -88,87 +88,77 @@ MAIN:
   SETLIST R14 R15 -1 [1]
   CALL R11 3 1
   MOVE R12 R3
-  LOADK R13 K56 [">> .Component-GamepadControls"]
-  DUPTABLE R14 K58 [{"BackgroundTransparency"}]
+  LOADK R13 K56 [">> #GamepadBlueprint"]
+  DUPTABLE R14 K60 [{"Size", "ZIndex", "BackgroundTransparency"}]
+  GETIMPORT R15 K21 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADK R18 K61 [0.75]
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K57 ["Size"]
+  LOADN R15 255
+  SETTABLEKS R15 R14 K58 ["ZIndex"]
   LOADN R15 1
-  SETTABLEKS R15 R14 K57 ["BackgroundTransparency"]
+  SETTABLEKS R15 R14 K59 ["BackgroundTransparency"]
   CALL R12 2 1
   MOVE R13 R3
-  LOADK R14 K59 [">> .Blueprint-Image"]
-  DUPTABLE R15 K62 [{"Size", "ZIndex", "BackgroundTransparency"}]
+  LOADK R14 K62 ["> TextLabel"]
+  DUPTABLE R15 K67 [{"TextSize", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
+  GETTABLEKS R16 R2 K68 ["normalFontSize"]
+  SETTABLEKS R16 R15 K63 ["TextSize"]
+  LOADK R16 K69 ["$TextPrimary"]
+  SETTABLEKS R16 R15 K64 ["TextColor3"]
   GETIMPORT R16 K21 [UDim2.new]
   LOADN R17 1
   LOADN R18 0
-  LOADK R19 K63 [0.75]
-  LOADN R20 0
+  LOADN R19 0
+  LOADN R20 30
   CALL R16 4 1
-  SETTABLEKS R16 R15 K60 ["Size"]
-  LOADN R16 255
-  SETTABLEKS R16 R15 K61 ["ZIndex"]
+  SETTABLEKS R16 R15 K57 ["Size"]
   LOADN R16 1
-  SETTABLEKS R16 R15 K57 ["BackgroundTransparency"]
+  SETTABLEKS R16 R15 K59 ["BackgroundTransparency"]
+  GETIMPORT R16 K70 [Enum.TextXAlignment.Center]
+  SETTABLEKS R16 R15 K65 ["TextXAlignment"]
+  GETIMPORT R16 K71 [Enum.TextYAlignment.Center]
+  SETTABLEKS R16 R15 K66 ["TextYAlignment"]
   CALL R13 2 1
   MOVE R14 R3
-  LOADK R15 K64 ["> TextLabel"]
-  DUPTABLE R16 K70 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-  GETTABLEKS R17 R2 K71 ["normalFontSize"]
-  SETTABLEKS R17 R16 K65 ["TextSize"]
-  GETIMPORT R17 K73 [Enum.Font.Gotham]
-  SETTABLEKS R17 R16 K66 ["Font"]
-  LOADK R17 K74 ["$TextPrimary"]
-  SETTABLEKS R17 R16 K67 ["TextColor3"]
+  LOADK R15 K72 ["> TextButton"]
+  DUPTABLE R16 K67 [{"TextSize", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
+  GETTABLEKS R17 R2 K68 ["normalFontSize"]
+  SETTABLEKS R17 R16 K63 ["TextSize"]
+  LOADK R17 K69 ["$TextPrimary"]
+  SETTABLEKS R17 R16 K64 ["TextColor3"]
   GETIMPORT R17 K21 [UDim2.new]
   LOADN R18 1
   LOADN R19 0
   LOADN R20 0
-  LOADN R21 30
+  LOADN R21 60
   CALL R17 4 1
-  SETTABLEKS R17 R16 K60 ["Size"]
+  SETTABLEKS R17 R16 K57 ["Size"]
   LOADN R17 1
-  SETTABLEKS R17 R16 K57 ["BackgroundTransparency"]
-  GETIMPORT R17 K75 [Enum.TextXAlignment.Center]
-  SETTABLEKS R17 R16 K68 ["TextXAlignment"]
-  GETIMPORT R17 K76 [Enum.TextYAlignment.Center]
-  SETTABLEKS R17 R16 K69 ["TextYAlignment"]
+  SETTABLEKS R17 R16 K59 ["BackgroundTransparency"]
+  GETIMPORT R17 K70 [Enum.TextXAlignment.Center]
+  SETTABLEKS R17 R16 K65 ["TextXAlignment"]
+  GETIMPORT R17 K71 [Enum.TextYAlignment.Center]
+  SETTABLEKS R17 R16 K66 ["TextYAlignment"]
   CALL R14 2 1
   MOVE R15 R3
-  LOADK R16 K77 ["> TextButton"]
-  DUPTABLE R17 K70 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-  GETTABLEKS R18 R2 K71 ["normalFontSize"]
-  SETTABLEKS R18 R17 K65 ["TextSize"]
-  GETIMPORT R18 K73 [Enum.Font.Gotham]
-  SETTABLEKS R18 R17 K66 ["Font"]
-  LOADK R18 K74 ["$TextPrimary"]
-  SETTABLEKS R18 R17 K67 ["TextColor3"]
-  GETIMPORT R18 K21 [UDim2.new]
-  LOADN R19 1
-  LOADN R20 0
-  LOADN R21 0
-  LOADN R22 60
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K60 ["Size"]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K57 ["BackgroundTransparency"]
-  GETIMPORT R18 K75 [Enum.TextXAlignment.Center]
-  SETTABLEKS R18 R17 K68 ["TextXAlignment"]
-  GETIMPORT R18 K76 [Enum.TextYAlignment.Center]
-  SETTABLEKS R18 R17 K69 ["TextYAlignment"]
-  CALL R15 2 1
-  MOVE R16 R3
-  LOADK R17 K78 [">> .X-Circle"]
-  NEWTABLE R18 0 0
-  NEWTABLE R19 0 1
-  MOVE R20 R3
-  LOADK R21 K79 ["::UICorner"]
-  DUPTABLE R22 K81 [{"CornerRadius"}]
-  GETIMPORT R23 K54 [UDim.new]
-  LOADN R24 1
-  LOADN R25 0
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K80 ["CornerRadius"]
-  CALL R20 2 -1
-  SETLIST R19 R20 -1 [1]
-  CALL R16 3 -1
+  LOADK R16 K73 [">> .X-Circle"]
+  NEWTABLE R17 0 0
+  NEWTABLE R18 0 1
+  MOVE R19 R3
+  LOADK R20 K74 ["::UICorner"]
+  DUPTABLE R21 K76 [{"CornerRadius"}]
+  GETIMPORT R22 K54 [UDim.new]
+  LOADN R23 1
+  LOADN R24 0
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K75 ["CornerRadius"]
+  CALL R19 2 -1
+  SETLIST R18 R19 -1 [1]
+  CALL R15 3 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1
   RETURN R4 -1

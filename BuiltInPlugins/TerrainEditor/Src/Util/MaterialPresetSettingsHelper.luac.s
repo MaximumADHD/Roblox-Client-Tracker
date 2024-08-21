@@ -1,208 +1,215 @@
 PROTO_0:
-  NEWTABLE R2 0 2
-  DUPTABLE R3 K5 [{"Id", "Label", "Children", "Expandable", "Separator"}]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["ElevationSettings"]
-  SETTABLEKS R4 R3 K0 ["Id"]
-  LOADK R6 K7 ["Category"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["ElevationSettings"]
-  NAMECALL R4 R1 K8 ["getText"]
-  CALL R4 3 1
-  SETTABLEKS R4 R3 K1 ["Label"]
-  NEWTABLE R4 0 4
-  DUPTABLE R5 K11 [{"Id", "Label", "Schema", "Value"}]
+  GETUPVAL R3 0
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 1
+  NEWTABLE R4 0 2
+  DUPTABLE R5 K5 [{"Id", "Label", "Children", "Expandable", "Separator"}]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K12 ["Unit"]
+  GETTABLEKS R6 R7 K6 ["ElevationSettings"]
   SETTABLEKS R6 R5 K0 ["Id"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K6 ["ElevationSettings"]
+  LOADK R8 K7 ["Category"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K12 ["Unit"]
+  GETTABLEKS R9 R10 K6 ["ElevationSettings"]
   NAMECALL R6 R1 K8 ["getText"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K1 ["Label"]
-  DUPTABLE R6 K15 [{"Items", "Type"}]
-  GETUPVAL R7 2
-  MOVE R8 R1
-  LOADNIL R9
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K16 ["MaterialUnit"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K13 ["Items"]
-  LOADK R7 K17 ["Select"]
-  SETTABLEKS R7 R6 K14 ["Type"]
-  SETTABLEKS R6 R5 K9 ["Schema"]
-  GETTABLEKS R6 R0 K12 ["Unit"]
-  SETTABLEKS R6 R5 K10 ["Value"]
-  DUPTABLE R6 K19 [{"Id", "Label", "Layout", "Schema", "Value"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K20 ["Elevation"]
-  SETTABLEKS R7 R6 K0 ["Id"]
-  LOADK R7 K21 [""]
-  SETTABLEKS R7 R6 K1 ["Label"]
-  GETIMPORT R7 K25 [Enum.FillDirection.Vertical]
-  SETTABLEKS R7 R6 K18 ["Layout"]
-  DUPTABLE R7 K26 [{"Type"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K20 ["Elevation"]
-  SETTABLEKS R8 R7 K14 ["Type"]
-  SETTABLEKS R7 R6 K9 ["Schema"]
-  SETTABLEKS R0 R6 K10 ["Value"]
-  GETTABLEKS R8 R0 K27 ["MaterialIndex"]
-  JUMPIFNOT R8 [+46]
-  GETTABLEKS R8 R0 K27 ["MaterialIndex"]
-  GETTABLEKS R10 R0 K28 ["MaterialList"]
-  LENGTH R9 R10
-  JUMPIFNOTLE R8 R9 [+40]
+  NEWTABLE R6 0 4
   DUPTABLE R7 K11 [{"Id", "Label", "Schema", "Value"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K29 ["Material"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K12 ["Unit"]
   SETTABLEKS R8 R7 K0 ["Id"]
-  GETUPVAL R11 0
+  GETUPVAL R11 1
   GETTABLEKS R10 R11 K6 ["ElevationSettings"]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K29 ["Material"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K12 ["Unit"]
   NAMECALL R8 R1 K8 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K1 ["Label"]
-  DUPTABLE R8 K32 [{"AllowWater", "Dropdown", "Type"}]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K30 ["AllowWater"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K31 ["Dropdown"]
-  LOADK R9 K29 ["Material"]
+  DUPTABLE R8 K15 [{"Items", "Type"}]
+  GETUPVAL R9 3
+  MOVE R10 R1
+  LOADNIL R11
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K16 ["MaterialUnit"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K13 ["Items"]
+  LOADK R9 K17 ["Select"]
   SETTABLEKS R9 R8 K14 ["Type"]
   SETTABLEKS R8 R7 K9 ["Schema"]
-  GETTABLEKS R10 R0 K28 ["MaterialList"]
-  GETTABLEKS R11 R0 K27 ["MaterialIndex"]
-  GETTABLE R9 R10 R11
-  GETTABLEKS R8 R9 K29 ["Material"]
+  GETTABLEKS R8 R0 K12 ["Unit"]
   SETTABLEKS R8 R7 K10 ["Value"]
-  JUMP [+1]
-  LOADNIL R7
-  GETTABLEKS R9 R0 K27 ["MaterialIndex"]
-  JUMPIFNOT R9 [+61]
-  GETTABLEKS R9 R0 K27 ["MaterialIndex"]
-  GETTABLEKS R11 R0 K28 ["MaterialList"]
-  LENGTH R10 R11
-  JUMPIFNOTLE R9 R10 [+55]
-  DUPTABLE R8 K34 [{"Id", "Label", "Schema", "Value", "Tooltip"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K35 ["Slope"]
+  DUPTABLE R8 K19 [{"Id", "Label", "Layout", "Schema", "Value"}]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K20 ["Elevation"]
   SETTABLEKS R9 R8 K0 ["Id"]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K6 ["ElevationSettings"]
+  LOADK R9 K21 [""]
+  SETTABLEKS R9 R8 K1 ["Label"]
+  GETIMPORT R9 K25 [Enum.FillDirection.Vertical]
+  SETTABLEKS R9 R8 K18 ["Layout"]
+  DUPTABLE R9 K26 [{"Type"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K20 ["Elevation"]
+  SETTABLEKS R10 R9 K14 ["Type"]
+  SETTABLEKS R9 R8 K9 ["Schema"]
+  SETTABLEKS R0 R8 K10 ["Value"]
+  GETTABLEKS R10 R0 K27 ["MaterialIndex"]
+  JUMPIFNOT R10 [+48]
+  GETTABLEKS R10 R0 K27 ["MaterialIndex"]
+  GETTABLEKS R12 R0 K28 ["MaterialList"]
+  LENGTH R11 R12
+  JUMPIFNOTLE R10 R11 [+42]
+  DUPTABLE R9 K30 [{"Id", "Label", "MinWidth", "Schema", "Value"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K31 ["Material"]
+  SETTABLEKS R10 R9 K0 ["Id"]
   GETUPVAL R13 1
-  GETTABLEKS R12 R13 K35 ["Slope"]
+  GETTABLEKS R12 R13 K6 ["ElevationSettings"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K31 ["Material"]
+  NAMECALL R10 R1 K8 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K1 ["Label"]
+  SETTABLEKS R3 R9 K29 ["MinWidth"]
+  DUPTABLE R10 K34 [{"AllowWater", "Dropdown", "Type"}]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K32 ["AllowWater"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K33 ["Dropdown"]
+  LOADK R11 K31 ["Material"]
+  SETTABLEKS R11 R10 K14 ["Type"]
+  SETTABLEKS R10 R9 K9 ["Schema"]
+  GETTABLEKS R12 R0 K28 ["MaterialList"]
+  GETTABLEKS R13 R0 K27 ["MaterialIndex"]
+  GETTABLE R11 R12 R13
+  GETTABLEKS R10 R11 K31 ["Material"]
+  SETTABLEKS R10 R9 K10 ["Value"]
+  JUMP [+1]
+  LOADNIL R9
+  GETTABLEKS R11 R0 K27 ["MaterialIndex"]
+  JUMPIFNOT R11 [+61]
+  GETTABLEKS R11 R0 K27 ["MaterialIndex"]
+  GETTABLEKS R13 R0 K28 ["MaterialList"]
+  LENGTH R12 R13
+  JUMPIFNOTLE R11 R12 [+55]
+  DUPTABLE R10 K36 [{"Id", "Label", "Schema", "Value", "Tooltip"}]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K37 ["Slope"]
+  SETTABLEKS R11 R10 K0 ["Id"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K6 ["ElevationSettings"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K37 ["Slope"]
+  NAMECALL R11 R1 K8 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K1 ["Label"]
+  DUPTABLE R11 K26 [{"Type"}]
+  LOADK R12 K37 ["Slope"]
+  SETTABLEKS R12 R11 K14 ["Type"]
+  SETTABLEKS R11 R10 K9 ["Schema"]
+  DUPTABLE R11 K40 [{"Min", "Max"}]
+  GETTABLEKS R14 R0 K28 ["MaterialList"]
+  GETTABLEKS R15 R0 K27 ["MaterialIndex"]
+  GETTABLE R13 R14 R15
+  GETTABLEKS R12 R13 K41 ["MinSlope"]
+  SETTABLEKS R12 R11 K38 ["Min"]
+  GETTABLEKS R14 R0 K28 ["MaterialList"]
+  GETTABLEKS R15 R0 K27 ["MaterialIndex"]
+  GETTABLE R13 R14 R15
+  GETTABLEKS R12 R13 K42 ["MaxSlope"]
+  SETTABLEKS R12 R11 K39 ["Max"]
+  SETTABLEKS R11 R10 K10 ["Value"]
+  LOADK R13 K35 ["Tooltip"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K37 ["Slope"]
+  NAMECALL R11 R1 K8 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K35 ["Tooltip"]
+  JUMP [+1]
+  LOADNIL R10
+  SETLIST R6 R7 4 [1]
+  SETTABLEKS R6 R5 K2 ["Children"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K3 ["Expandable"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K4 ["Separator"]
+  DUPTABLE R6 K5 [{"Id", "Label", "Children", "Expandable", "Separator"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K43 ["AdditionalSettings"]
+  SETTABLEKS R7 R6 K0 ["Id"]
+  LOADK R9 K7 ["Category"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K43 ["AdditionalSettings"]
+  NAMECALL R7 R1 K8 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K1 ["Label"]
+  NEWTABLE R7 0 2
+  GETTABLEKS R9 R0 K44 ["FillMaterial"]
+  JUMPIFNOT R9 [+42]
+  DUPTABLE R8 K45 [{"Id", "Label", "MinWidth", "Schema", "Value", "Tooltip"}]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K44 ["FillMaterial"]
+  SETTABLEKS R9 R8 K0 ["Id"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K43 ["AdditionalSettings"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K44 ["FillMaterial"]
   NAMECALL R9 R1 K8 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K1 ["Label"]
-  DUPTABLE R9 K26 [{"Type"}]
-  LOADK R10 K35 ["Slope"]
+  SETTABLEKS R3 R8 K29 ["MinWidth"]
+  DUPTABLE R9 K46 [{"Dropdown", "Type"}]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K33 ["Dropdown"]
+  LOADK R10 K31 ["Material"]
   SETTABLEKS R10 R9 K14 ["Type"]
   SETTABLEKS R9 R8 K9 ["Schema"]
-  DUPTABLE R9 K38 [{"Min", "Max"}]
-  GETTABLEKS R12 R0 K28 ["MaterialList"]
-  GETTABLEKS R13 R0 K27 ["MaterialIndex"]
-  GETTABLE R11 R12 R13
-  GETTABLEKS R10 R11 K39 ["MinSlope"]
-  SETTABLEKS R10 R9 K36 ["Min"]
-  GETTABLEKS R12 R0 K28 ["MaterialList"]
-  GETTABLEKS R13 R0 K27 ["MaterialIndex"]
-  GETTABLE R11 R12 R13
-  GETTABLEKS R10 R11 K40 ["MaxSlope"]
-  SETTABLEKS R10 R9 K37 ["Max"]
+  GETTABLEKS R9 R0 K44 ["FillMaterial"]
   SETTABLEKS R9 R8 K10 ["Value"]
-  LOADK R11 K33 ["Tooltip"]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K35 ["Slope"]
+  LOADK R11 K35 ["Tooltip"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K44 ["FillMaterial"]
   NAMECALL R9 R1 K8 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K33 ["Tooltip"]
+  SETTABLEKS R9 R8 K35 ["Tooltip"]
   JUMP [+1]
   LOADNIL R8
-  SETLIST R4 R5 4 [1]
-  SETTABLEKS R4 R3 K2 ["Children"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K3 ["Expandable"]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K4 ["Separator"]
-  DUPTABLE R4 K5 [{"Id", "Label", "Children", "Expandable", "Separator"}]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K41 ["AdditionalSettings"]
-  SETTABLEKS R5 R4 K0 ["Id"]
-  LOADK R7 K7 ["Category"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K41 ["AdditionalSettings"]
-  NAMECALL R5 R1 K8 ["getText"]
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K1 ["Label"]
-  NEWTABLE R5 0 2
-  GETTABLEKS R7 R0 K42 ["FillMaterial"]
-  JUMPIFNOT R7 [+40]
-  DUPTABLE R6 K34 [{"Id", "Label", "Schema", "Value", "Tooltip"}]
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K42 ["FillMaterial"]
-  SETTABLEKS R7 R6 K0 ["Id"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K41 ["AdditionalSettings"]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K42 ["FillMaterial"]
-  NAMECALL R7 R1 K8 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K1 ["Label"]
-  DUPTABLE R7 K43 [{"Dropdown", "Type"}]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K31 ["Dropdown"]
-  LOADK R8 K29 ["Material"]
-  SETTABLEKS R8 R7 K14 ["Type"]
-  SETTABLEKS R7 R6 K9 ["Schema"]
-  GETTABLEKS R7 R0 K42 ["FillMaterial"]
-  SETTABLEKS R7 R6 K10 ["Value"]
-  LOADK R9 K33 ["Tooltip"]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K42 ["FillMaterial"]
-  NAMECALL R7 R1 K8 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K33 ["Tooltip"]
-  JUMP [+1]
-  LOADNIL R6
-  DUPTABLE R7 K34 [{"Id", "Label", "Schema", "Value", "Tooltip"}]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K44 ["FallbackMaterial"]
-  SETTABLEKS R8 R7 K0 ["Id"]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K41 ["AdditionalSettings"]
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K44 ["FallbackMaterial"]
-  NAMECALL R8 R1 K8 ["getText"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K1 ["Label"]
-  DUPTABLE R8 K32 [{"AllowWater", "Dropdown", "Type"}]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K30 ["AllowWater"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K31 ["Dropdown"]
-  LOADK R9 K29 ["Material"]
-  SETTABLEKS R9 R8 K14 ["Type"]
-  SETTABLEKS R8 R7 K9 ["Schema"]
-  GETTABLEKS R8 R0 K44 ["FallbackMaterial"]
-  SETTABLEKS R8 R7 K10 ["Value"]
-  LOADK R10 K33 ["Tooltip"]
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K44 ["FallbackMaterial"]
-  NAMECALL R8 R1 K8 ["getText"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K33 ["Tooltip"]
-  SETLIST R5 R6 2 [1]
-  SETTABLEKS R5 R4 K2 ["Children"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K3 ["Expandable"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K4 ["Separator"]
-  SETLIST R2 R3 2 [1]
-  RETURN R2 1
+  DUPTABLE R9 K45 [{"Id", "Label", "MinWidth", "Schema", "Value", "Tooltip"}]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K47 ["FallbackMaterial"]
+  SETTABLEKS R10 R9 K0 ["Id"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K43 ["AdditionalSettings"]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K47 ["FallbackMaterial"]
+  NAMECALL R10 R1 K8 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K1 ["Label"]
+  SETTABLEKS R3 R9 K29 ["MinWidth"]
+  DUPTABLE R10 K34 [{"AllowWater", "Dropdown", "Type"}]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K32 ["AllowWater"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K33 ["Dropdown"]
+  LOADK R11 K31 ["Material"]
+  SETTABLEKS R11 R10 K14 ["Type"]
+  SETTABLEKS R10 R9 K9 ["Schema"]
+  GETTABLEKS R10 R0 K47 ["FallbackMaterial"]
+  SETTABLEKS R10 R9 K10 ["Value"]
+  LOADK R12 K35 ["Tooltip"]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K47 ["FallbackMaterial"]
+  NAMECALL R10 R1 K8 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K35 ["Tooltip"]
+  SETLIST R7 R8 2 [1]
+  SETTABLEKS R7 R6 K2 ["Children"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K3 ["Expandable"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K4 ["Separator"]
+  SETLIST R4 R5 2 [1]
+  RETURN R4 1
 
 PROTO_1:
   GETTABLEN R4 R0 1
@@ -353,26 +360,32 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["getItems"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Types"]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K8 ["Util"]
+  GETTABLEKS R5 R6 K12 ["getMaterialsMinWidth"]
   CALL R4 1 1
-  GETTABLEKS R5 R4 K13 ["AdditionalSettings"]
-  GETTABLEKS R6 R4 K14 ["Category"]
-  GETTABLEKS R7 R4 K15 ["EnumType"]
-  GETTABLEKS R8 R4 K16 ["ElevationSettings"]
-  GETTABLEKS R9 R4 K17 ["MaterialUnit"]
-  NEWTABLE R10 2 0
-  DUPCLOSURE R11 K18 [PROTO_0]
-  CAPTURE VAL R6
-  CAPTURE VAL R8
-  CAPTURE VAL R3
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Types"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K14 ["AdditionalSettings"]
+  GETTABLEKS R7 R5 K15 ["Category"]
+  GETTABLEKS R8 R5 K16 ["EnumType"]
+  GETTABLEKS R9 R5 K17 ["ElevationSettings"]
+  GETTABLEKS R10 R5 K18 ["MaterialUnit"]
+  NEWTABLE R11 2 0
+  DUPCLOSURE R12 K19 [PROTO_0]
+  CAPTURE VAL R4
   CAPTURE VAL R7
-  CAPTURE VAL R5
-  SETTABLEKS R11 R10 K19 ["Get"]
-  DUPCLOSURE R11 K20 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R5
-  SETTABLEKS R11 R10 K21 ["Set"]
-  RETURN R10 1
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R12 R11 K20 ["Get"]
+  DUPCLOSURE R12 K21 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  SETTABLEKS R12 R11 K22 ["Set"]
+  RETURN R11 1

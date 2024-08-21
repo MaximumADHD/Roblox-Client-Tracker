@@ -88,11 +88,9 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local GetFFlagOpenControlsOnMenuOpen = require(RobloxGui.Modules.Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagEnableCapturesInChrome = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableCapturesInChrome)
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
-local GetFFlagFix10ftBottomButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagFix10ftBottomButtons)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(SharedFlags).GetFStringGameInviteMenuLayer
 local GetFFlagGateEducationalPopupVisibilityViaGUAC = require(SharedFlags).GetFFlagGateEducationalPopupVisibilityViaGUAC
-local GetFFlagFix10ftMenuGap = require(RobloxGui.Modules.Settings.Flags.GetFFlagFix10ftMenuGap)
 local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixResumeSourceAnalytics)
@@ -103,7 +101,7 @@ local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuck
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableShowVoiceUI = require(SharedFlags).GetFFlagEnableShowVoiceUI
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
-local getFFlagDebugAppChatInSettingsHub = require(CorePackages.Workspace.Packages.AppChat).Flags.getFFlagDebugAppChatInSettingsHub
+local GetFFlagEnableAppChatInExperience = require(SharedFlags).GetFFlagEnableAppChatInExperience
 local FFlagSettingsHubCurrentPageSignal = game:DefineFastFlag("SettingsHubCurrentPageSignal", false)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
@@ -215,7 +213,7 @@ local chat = require(RobloxGui.Modules.ChatSelector)
 
 local SETTINGS_SHIELD_ACTIVE_POSITION
 local SETTINGS_SHIELD_SIZE
-if not (GetFFlagFix10ftMenuGap() and Theme.UIBloxThemeEnabled) and isTenFootInterface then
+if not Theme.UIBloxThemeEnabled and isTenFootInterface then
 	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
 	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
 else
@@ -493,7 +491,7 @@ local function CreateSettingsHub()
 			wholeButton.Visible = false
 			wholeButton:Destroy()
 		end
-		local tenFootButtonHeight = if GetFFlagFix10ftBottomButtons() and Theme.UIBloxThemeEnabled then BOTTOM_BUTTON_10FT_SIZE else 120
+		local tenFootButtonHeight = if Theme.UIBloxThemeEnabled then BOTTOM_BUTTON_10FT_SIZE else 120
 		local buttonSize = if isTenFootInterface then UDim2.new(0, 320, 0, tenFootButtonHeight) else UDim2.new(0, 260, 0, Theme.LargeButtonHeight)
 
 		updateButtonPosition("LeaveGame", UDim2.new(0.5, if isTenFootInterface then -160 else -130, 0.5, -25), buttonSize)
@@ -530,7 +528,7 @@ local function CreateSettingsHub()
 
 		local size = UDim2.new(0,260,0,Theme.LargeButtonHeight)
 		if isTenFootInterface then
-			size = if Theme.UIBloxThemeEnabled and GetFFlagFix10ftBottomButtons() then UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE) else UDim2.new(0,320,0,120)
+			size = if Theme.UIBloxThemeEnabled then UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE) else UDim2.new(0,320,0,120)
 		end
 
 		this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
@@ -639,7 +637,7 @@ local function CreateSettingsHub()
 
 		local size = sizeOverride or UDim2.new(0,260,0,70)
 		if isTenFootInterface then
-			size = if Theme.UIBloxThemeEnabled and GetFFlagFix10ftBottomButtons() then UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE) else UDim2.new(0,320,0,120)
+			size = if Theme.UIBloxThemeEnabled then UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE) else UDim2.new(0,320,0,120)
 		end
 
 		this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
@@ -2729,7 +2727,7 @@ local function CreateSettingsHub()
 		if firstPageWithTabHeader == nil then
 			error("No page with tab header found")
 			return nil
-		end
+		end 
 
 		return firstPageWithTabHeader
 	end
@@ -2945,6 +2943,14 @@ local function CreateSettingsHub()
 
 	function checkLeaveGameUpsell()
 		if not GetFFlagEnableLeaveGameUpsellEntrypoint() then
+			return
+		end
+
+		-- os.time seems to fail occasionally, so if its nil we'll try once to recover during the check
+		if not this.sessionStartTime then
+				this.sessionStartTime = os.time()
+			end
+		if not this.sessionStartTime then
 			return
 		end
 
@@ -3603,7 +3609,7 @@ local function CreateSettingsHub()
 		this.LeaveGameToHomePage:SetHub(this)
 	end
 
-	if getFFlagDebugAppChatInSettingsHub() then
+	if GetFFlagEnableAppChatInExperience() then
 		this.AppChatPage = require(RobloxGui.Modules.Settings.Pages.AppChat)
 		this.AppChatPage:SetHub(this)
 	end
@@ -3704,7 +3710,7 @@ local function CreateSettingsHub()
 
 	this:InitInPage(this:GetFirstPageWithTabHeader())
 
-	if getFFlagDebugAppChatInSettingsHub() then
+	if GetFFlagEnableAppChatInExperience() then
 		if this.AppChatPage then
 			this:AddPage(this.AppChatPage)
 		end

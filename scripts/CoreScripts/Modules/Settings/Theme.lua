@@ -16,10 +16,8 @@ local EnableInGameMenuControls = require(RobloxGui.Modules.Flags.GetFFlagEnableI
 local EnableInGameMenuModernization = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernization)
 local EnableInGameMenuModernizationBigText = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationBigText)
 local EnableInGameMenuModernizationStickyBar = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationStickyBar)
-local GetFFlagAddAnimatedFocusState = require(script.Parent.Flags.GetFFlagAddAnimatedFocusState)
 local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
-local FFlagIncreasePlayerNameSizeConsole = game:DefineFastFlag("IncreasePlayerNameSizeConsole", false)
 local FFlagIncreaseUtilityRowTextSizeConsole = game:DefineFastFlag("IncreaseUtilityRowTextSizeConsole", false)
 
 local AppFontBaseSize = 16 * 1.2
@@ -104,11 +102,10 @@ local AppFont = {
 		TextSize = 22 * nominalSizeFactor,
 	},
 	Username = {
-		RelativeSize = if UseBiggerText or (FFlagIncreasePlayerNameSizeConsole and isTenFootInterface) then fontSizeMap[Enum.FontSize.Size24] else fontSizeMap[Enum.FontSize.Size18],
+		RelativeSize = if UseBiggerText or isTenFootInterface then fontSizeMap[Enum.FontSize.Size24] else fontSizeMap[Enum.FontSize.Size18],
 	},
 	DisplayName = {
-		
-		RelativeSize = if FFlagIncreasePlayerNameSizeConsole and isTenFootInterface then Enum.FontSize.Size24 else Enum.FontSize.Size18,
+		RelativeSize = if isTenFootInterface then Enum.FontSize.Size24 else Enum.FontSize.Size18,
 		Font = AppFonts.default:getMedium(),
 	},
 	Settings_Font = {
@@ -442,7 +439,7 @@ if ThemeEnabled then
 		end,
 		platformNameTextSize = 18,
 		platformNameIconSize = UDim2.fromOffset(36, 36),
-		selectionCursor = if GetFFlagAddAnimatedFocusState() then AppTheme.SelectionCursor else nil,
+		selectionCursor = AppTheme.SelectionCursor,
 	}
 else
 	return {

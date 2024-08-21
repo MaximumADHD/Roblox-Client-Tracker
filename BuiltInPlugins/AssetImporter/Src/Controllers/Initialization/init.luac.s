@@ -63,71 +63,112 @@ PROTO_0:
   RETURN R4 1
 
 PROTO_1:
+  JUMPIFNOT R0 [+11]
+  GETTABLEKS R2 R0 K0 ["Cancel"]
+  FASTCALL1 TYPEOF R2 [+2]
+  GETIMPORT R1 K2 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K3 ["function"] [+4]
+  NAMECALL R1 R0 K0 ["Cancel"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
   GETTABLEKS R1 R0 K0 ["contextItems"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K0 ["contextItems"]
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
   GETTABLEKS R1 R0 K2 ["store"]
-  JUMPIFNOT R1 [+38]
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+27]
-  GETTABLEKS R3 R0 K2 ["store"]
-  NAMECALL R3 R3 K3 ["getState"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K4 ["Sessions"]
-  GETTABLEKS R1 R2 K5 ["sessionQueue"]
-  MOVE R2 R1
-  LOADNIL R3
+  JUMPIFNOT R1 [+86]
+  DUPCLOSURE R1 K3 [PROTO_1]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+29]
+  GETTABLEKS R4 R0 K2 ["store"]
+  NAMECALL R4 R4 K4 ["getState"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K5 ["Sessions"]
+  GETTABLEKS R2 R3 K6 ["sessionQueue"]
+  MOVE R3 R2
   LOADNIL R4
-  FORGPREP R2
-  JUMPIFNOT R6 [+11]
-  GETTABLEKS R8 R6 K6 ["Cancel"]
-  FASTCALL1 TYPEOF R8 [+2]
-  GETIMPORT R7 K8 [typeof]
-  CALL R7 1 1
-  JUMPIFNOTEQKS R7 K9 ["function"] [+4]
-  NAMECALL R7 R6 K6 ["Cancel"]
-  CALL R7 1 0
-  FORGLOOP R2 2 [-13]
-  GETTABLEKS R1 R0 K2 ["store"]
-  NAMECALL R1 R1 K10 ["destruct"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K2 ["store"]
-  GETTABLEKS R1 R0 K11 ["handle"]
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K7 ["session"]
+  JUMPIFNOT R8 [+11]
+  GETTABLEKS R10 R8 K8 ["Cancel"]
+  FASTCALL1 TYPEOF R10 [+2]
+  GETIMPORT R9 K10 [typeof]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K11 ["function"] [+4]
+  NAMECALL R9 R8 K8 ["Cancel"]
+  CALL R9 1 0
+  FORGLOOP R3 2 [-15]
+  GETTABLEKS R4 R0 K2 ["store"]
+  NAMECALL R4 R4 K4 ["getState"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K12 ["Preview"]
+  GETTABLEKS R2 R3 K13 ["activeQueueItem"]
+  JUMPIFNOT R2 [+14]
+  GETTABLEKS R3 R2 K7 ["session"]
+  JUMPIFNOT R3 [+11]
+  GETTABLEKS R5 R3 K8 ["Cancel"]
+  FASTCALL1 TYPEOF R5 [+2]
+  GETIMPORT R4 K10 [typeof]
+  CALL R4 1 1
+  JUMPIFNOTEQKS R4 K11 ["function"] [+4]
+  NAMECALL R4 R3 K8 ["Cancel"]
+  CALL R4 1 0
+  GETTABLEKS R5 R0 K2 ["store"]
+  NAMECALL R5 R5 K4 ["getState"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K12 ["Preview"]
+  GETTABLEKS R3 R4 K14 ["assetImportSession"]
+  JUMPIFNOT R3 [+11]
+  GETTABLEKS R5 R3 K8 ["Cancel"]
+  FASTCALL1 TYPEOF R5 [+2]
+  GETIMPORT R4 K10 [typeof]
+  CALL R4 1 1
+  JUMPIFNOTEQKS R4 K11 ["function"] [+4]
+  NAMECALL R4 R3 K8 ["Cancel"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K2 ["store"]
+  NAMECALL R4 R4 K15 ["destruct"]
+  CALL R4 1 0
+  LOADNIL R4
+  SETTABLEKS R4 R0 K2 ["store"]
+  GETTABLEKS R1 R0 K16 ["handle"]
   JUMPIFNOT R1 [+9]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K12 ["unmount"]
-  GETTABLEKS R2 R0 K11 ["handle"]
+  GETTABLEKS R1 R2 K17 ["unmount"]
+  GETTABLEKS R2 R0 K16 ["handle"]
   CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K11 ["handle"]
-  GETTABLEKS R1 R0 K13 ["root"]
+  SETTABLEKS R1 R0 K16 ["handle"]
+  GETTABLEKS R1 R0 K18 ["root"]
   JUMPIFNOT R1 [+9]
-  GETTABLEKS R1 R0 K13 ["root"]
+  GETTABLEKS R1 R0 K18 ["root"]
   LOADNIL R3
-  NAMECALL R1 R1 K14 ["render"]
+  NAMECALL R1 R1 K19 ["render"]
   CALL R1 2 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K13 ["root"]
-  GETTABLEKS R1 R0 K15 ["environment"]
-  JUMPIFEQKS R1 K16 ["Production"] [+17]
-  GETIMPORT R1 K18 [game]
-  LOADK R3 K19 ["CoreGui"]
-  NAMECALL R1 R1 K20 ["GetService"]
+  SETTABLEKS R1 R0 K18 ["root"]
+  GETTABLEKS R1 R0 K20 ["environment"]
+  JUMPIFEQKS R1 K21 ["Production"] [+17]
+  GETIMPORT R1 K23 [game]
+  LOADK R3 K24 ["CoreGui"]
+  NAMECALL R1 R1 K25 ["GetService"]
   CALL R1 2 1
-  NAMECALL R2 R1 K21 ["GetChildren"]
+  NAMECALL R2 R1 K26 ["GetChildren"]
   CALL R2 1 3
   FORGPREP R2
-  NAMECALL R7 R6 K22 ["Destroy"]
+  NAMECALL R7 R6 K27 ["Destroy"]
   CALL R7 1 0
   LOADNIL R6
   FORGLOOP R2 2 [-5]
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["root"]
   GETUPVAL R2 1
@@ -135,70 +176,67 @@ PROTO_2:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  GETTABLEKS R2 R0 K1 ["story"]
-  GETTABLEKS R3 R0 K2 ["storyProps"]
-  CALL R1 2 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["createElement"]
-  GETUPVAL R3 1
-  DUPTABLE R4 K5 [{"ContextItems", "Payload"}]
-  GETTABLEKS R5 R0 K6 ["contextItems"]
-  NAMECALL R5 R5 K7 ["getItemsAsList"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K3 ["ContextItems"]
-  SETTABLEKS R1 R4 K4 ["Payload"]
-  CALL R2 2 1
-  GETUPVAL R3 2
-  CALL R3 0 1
-  JUMPIFNOT R3 [+27]
-  GETIMPORT R3 K9 [game]
-  LOADK R5 K10 ["CoreGui"]
-  NAMECALL R3 R3 K11 ["GetService"]
-  CALL R3 2 1
-  GETIMPORT R4 K14 [Instance.new]
-  LOADK R5 K15 ["Folder"]
-  CALL R4 1 1
-  SETTABLEKS R3 R4 K16 ["Parent"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K17 ["createBlockingRoot"]
-  MOVE R6 R4
-  CALL R5 1 1
-  SETTABLEKS R5 R0 K18 ["root"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K19 ["act"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R2
-  CALL R5 1 0
-  RETURN R0 0
-  GETIMPORT R3 K9 [game]
-  LOADK R5 K10 ["CoreGui"]
-  NAMECALL R3 R3 K11 ["GetService"]
-  CALL R3 2 1
-  GETIMPORT R4 K14 [Instance.new]
-  LOADK R5 K15 ["Folder"]
-  CALL R4 1 1
-  SETTABLEKS R3 R4 K16 ["Parent"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K20 ["mount"]
-  MOVE R6 R2
-  MOVE R7 R3
-  CALL R5 2 1
-  SETTABLEKS R5 R0 K21 ["handle"]
-  RETURN R0 0
-
 PROTO_4:
-  SETTABLEKS R1 R0 K0 ["story"]
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K2 ["CoreGui"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K6 [Instance.new]
+  LOADK R4 K7 ["Folder"]
+  CALL R3 1 1
+  SETTABLEKS R2 R3 K8 ["Parent"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["createElement"]
+  GETTABLEKS R5 R0 K10 ["story"]
+  GETTABLEKS R6 R0 K11 ["storyProps"]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K14 [{"ContextItems", "Payload"}]
+  GETTABLEKS R8 R0 K15 ["contextItems"]
+  NAMECALL R8 R8 K16 ["getItemsAsList"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K12 ["ContextItems"]
+  SETTABLEKS R4 R7 K13 ["Payload"]
+  CALL R5 2 1
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+20]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K17 ["createBlockingRoot"]
+  MOVE R7 R3
+  CALL R6 1 1
+  SETTABLEKS R6 R0 K18 ["root"]
+  JUMPIFNOT R1 [+4]
+  MOVE R6 R1
+  MOVE R7 R5
+  CALL R6 1 0
+  RETURN R0 0
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K19 ["act"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CALL R6 1 0
+  RETURN R0 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K20 ["mount"]
+  MOVE R7 R5
+  MOVE R8 R2
+  CALL R6 2 1
+  SETTABLEKS R6 R0 K21 ["handle"]
   RETURN R0 0
 
 PROTO_5:
-  SETTABLEKS R1 R0 K0 ["storyProps"]
+  SETTABLEKS R1 R0 K0 ["story"]
   RETURN R0 0
 
 PROTO_6:
+  SETTABLEKS R1 R0 K0 ["storyProps"]
+  RETURN R0 0
+
+PROTO_7:
   GETTABLEKS R2 R0 K0 ["environment"]
   JUMPIFNOTEQKS R2 K1 ["FeatureTest"] [+27]
   JUMPIFNOT R1 [+1]
@@ -297,17 +335,21 @@ MAIN:
   GETTABLEKS R17 R18 K24 ["Flags"]
   GETTABLEKS R16 R17 K26 ["getFFlagAssetImporterUseReactCompat"]
   CALL R15 1 1
-  DUPTABLE R16 K30 [{"BlenderCubeDefault", "CubeWithAllPbrs", "CorruptedFile"}]
-  LOADK R17 K31 ["blender-cube-default.fbx"]
+  DUPTABLE R16 K32 [{"BlenderCubeDefault", "CubeWithAllPbrs", "CorruptedFile", "BlenderCubeRigged", "RootTwoGroupFiveCube"}]
+  LOADK R17 K33 ["blender-cube-default.fbx"]
   SETTABLEKS R17 R16 K27 ["BlenderCubeDefault"]
-  LOADK R17 K32 ["cube-with-all-pbrs.fbx"]
+  LOADK R17 K34 ["cube-with-all-pbrs.fbx"]
   SETTABLEKS R17 R16 K28 ["CubeWithAllPbrs"]
-  LOADK R17 K33 ["corrupted-file.fbx"]
+  LOADK R17 K35 ["corrupted-file.fbx"]
   SETTABLEKS R17 R16 K29 ["CorruptedFile"]
+  LOADK R17 K36 ["blender-cube-rigged.fbx"]
+  SETTABLEKS R17 R16 K30 ["BlenderCubeRigged"]
+  LOADK R17 K37 ["root-two-group-five-cube.fbx"]
+  SETTABLEKS R17 R16 K31 ["RootTwoGroupFiveCube"]
   NEWTABLE R17 0 0
-  SETTABLEKS R17 R17 K34 ["__index"]
-  SETTABLEKS R16 R17 K35 ["Resources"]
-  DUPCLOSURE R18 K36 [PROTO_0]
+  SETTABLEKS R17 R17 K38 ["__index"]
+  SETTABLEKS R16 R17 K39 ["Resources"]
+  DUPCLOSURE R18 K40 [PROTO_0]
   CAPTURE VAL R5
   CAPTURE VAL R7
   CAPTURE VAL R9
@@ -317,22 +359,22 @@ MAIN:
   CAPTURE VAL R12
   CAPTURE VAL R2
   CAPTURE VAL R17
-  SETTABLEKS R18 R17 K37 ["new"]
-  DUPCLOSURE R18 K38 [PROTO_1]
+  SETTABLEKS R18 R17 K41 ["new"]
+  DUPCLOSURE R18 K42 [PROTO_2]
   CAPTURE VAL R14
   CAPTURE VAL R2
-  SETTABLEKS R18 R17 K39 ["destroy"]
-  DUPCLOSURE R18 K40 [PROTO_3]
+  SETTABLEKS R18 R17 K43 ["destroy"]
+  DUPCLOSURE R18 K44 [PROTO_4]
   CAPTURE VAL R2
   CAPTURE VAL R13
   CAPTURE VAL R15
   CAPTURE VAL R3
-  SETTABLEKS R18 R17 K41 ["_createTestElement"]
-  DUPCLOSURE R18 K42 [PROTO_4]
-  SETTABLEKS R18 R17 K43 ["_setStory"]
-  DUPCLOSURE R18 K44 [PROTO_5]
-  SETTABLEKS R18 R17 K45 ["_setStoryProps"]
-  DUPCLOSURE R18 K46 [PROTO_6]
+  SETTABLEKS R18 R17 K45 ["_createTestElement"]
+  DUPCLOSURE R18 K46 [PROTO_5]
+  SETTABLEKS R18 R17 K47 ["_setStory"]
+  DUPCLOSURE R18 K48 [PROTO_6]
+  SETTABLEKS R18 R17 K49 ["_setStoryProps"]
+  DUPCLOSURE R18 K50 [PROTO_7]
   CAPTURE VAL R16
-  SETTABLEKS R18 R17 K47 ["_getResourcePath"]
+  SETTABLEKS R18 R17 K51 ["_getResourcePath"]
   RETURN R17 1

@@ -47,8 +47,7 @@ PROTO_0:
   GETTABLEKS R12 R13 K32 ["Normal"]
   DUPTABLE R13 K39 [{"Size", "LayoutOrder", "Text", "BackgroundTransparency", "BorderSizePixel", "TextXAlignment", "TextTruncate"}]
   GETIMPORT R14 K41 [UDim2.new]
-  LOADN R16 1
-  DIV R15 R16 R5
+  DIVRK R15 R42 K5 ["FillDirection"]
   LOADN R16 0
   LOADN R17 1
   LOADN R18 0
@@ -61,9 +60,9 @@ PROTO_0:
   SETTABLEKS R14 R13 K35 ["BackgroundTransparency"]
   LOADN R14 0
   SETTABLEKS R14 R13 K36 ["BorderSizePixel"]
-  GETIMPORT R14 K42 [Enum.TextXAlignment.Left]
+  GETIMPORT R14 K43 [Enum.TextXAlignment.Left]
   SETTABLEKS R14 R13 K37 ["TextXAlignment"]
-  GETIMPORT R14 K44 [Enum.TextTruncate.AtEnd]
+  GETIMPORT R14 K45 [Enum.TextTruncate.AtEnd]
   SETTABLEKS R14 R13 K38 ["TextTruncate"]
   CALL R11 2 -1
   CALL R9 -1 1
@@ -72,12 +71,12 @@ PROTO_0:
   JUMPIFNOT R3 [+30]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K3 ["createElement"]
-  LOADK R7 K45 ["Frame"]
-  DUPTABLE R8 K46 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADK R7 K46 ["Frame"]
+  DUPTABLE R8 K47 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
   LOADN R9 1
   SETTABLEKS R9 R8 K35 ["BackgroundTransparency"]
   LENGTH R10 R2
-  ADDK R9 R10 K47 [1]
+  ADDK R9 R10 K42 [1]
   SETTABLEKS R9 R8 K17 ["LayoutOrder"]
   GETIMPORT R9 K41 [UDim2.new]
   LOADN R10 0
@@ -91,7 +90,7 @@ PROTO_0:
   SETLIST R9 R10 1 [1]
   CALL R6 3 1
   LENGTH R8 R2
-  ADDK R7 R8 K47 [1]
+  ADDK R7 R8 K42 [1]
   SETTABLE R6 R4 R7
   RETURN R4 1
 

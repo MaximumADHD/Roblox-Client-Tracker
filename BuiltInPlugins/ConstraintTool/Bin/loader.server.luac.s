@@ -354,40 +354,40 @@ MAIN:
   CAPTURE VAL R0
   NAMECALL R15 R15 K31 ["Connect"]
   CALL R15 2 0
-  GETIMPORT R15 K33 [pairs]
-  MOVE R16 R3
-  CALL R15 1 3
-  FORGPREP_NEXT R15
+  MOVE R15 R3
+  LOADNIL R16
+  LOADNIL R17
+  FORGPREP R15
   MOVE R23 R18
-  NAMECALL R21 R0 K34 ["GetClassIcon"]
+  NAMECALL R21 R0 K32 ["GetClassIcon"]
   CALL R21 2 1
-  GETTABLEKS R20 R21 K35 ["Image"]
-  LOADK R22 K36 ["Standard"]
-  LOADK R23 K37 ["Large"]
-  NAMECALL R20 R20 K38 ["gsub"]
+  GETTABLEKS R20 R21 K33 ["Image"]
+  LOADK R22 K34 ["Standard"]
+  LOADK R23 K35 ["Large"]
+  NAMECALL R20 R20 K36 ["gsub"]
   CALL R20 3 1
-  DUPTABLE R21 K43 [{"getName", "getDescription", "icon", "enabled"}]
-  DUPCLOSURE R22 K44 [PROTO_4]
-  SETTABLEKS R22 R21 K39 ["getName"]
-  DUPCLOSURE R22 K45 [PROTO_5]
-  SETTABLEKS R22 R21 K40 ["getDescription"]
-  SETTABLEKS R20 R21 K41 ["icon"]
+  DUPTABLE R21 K41 [{"getName", "getDescription", "icon", "enabled"}]
+  DUPCLOSURE R22 K42 [PROTO_4]
+  SETTABLEKS R22 R21 K37 ["getName"]
+  DUPCLOSURE R22 K43 [PROTO_5]
+  SETTABLEKS R22 R21 K38 ["getDescription"]
+  SETTABLEKS R20 R21 K39 ["icon"]
   LOADB R22 0
-  SETTABLEKS R22 R21 K42 ["enabled"]
-  DUPTABLE R22 K51 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
+  SETTABLEKS R22 R21 K40 ["enabled"]
+  DUPTABLE R22 K49 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
   GETIMPORT R23 K21 [plugin]
   SETTABLEKS R23 R22 K20 ["plugin"]
   LOADK R23 K13 ["ConstraintTool"]
-  SETTABLEKS R23 R22 K46 ["pluginName"]
-  SETTABLEKS R6 R22 K47 ["translationResourceTable"]
-  SETTABLEKS R5 R22 K48 ["fallbackResourceTable"]
+  SETTABLEKS R23 R22 K44 ["pluginName"]
+  SETTABLEKS R6 R22 K45 ["translationResourceTable"]
+  SETTABLEKS R5 R22 K46 ["fallbackResourceTable"]
   NEWCLOSURE R23 P6
   CAPTURE VAL R18
-  SETTABLEKS R23 R22 K49 ["getToolbarName"]
-  SETTABLEKS R21 R22 K50 ["buttonInfo"]
+  SETTABLEKS R23 R22 K47 ["getToolbarName"]
+  SETTABLEKS R21 R22 K48 ["buttonInfo"]
   LOADB R23 1
-  SETTABLEKS R23 R21 K42 ["enabled"]
-  GETTABLEKS R23 R7 K52 ["build"]
+  SETTABLEKS R23 R21 K40 ["enabled"]
+  GETTABLEKS R23 R7 K50 ["build"]
   MOVE R24 R22
   CALL R23 1 1
   NEWCLOSURE R24 P7
@@ -396,19 +396,19 @@ MAIN:
   CAPTURE REF R8
   CAPTURE REF R11
   CAPTURE VAL R0
-  DUPTABLE R25 K55 [{"pluginLoaderContext", "enabled", "closeCallback"}]
-  SETTABLEKS R23 R25 K53 ["pluginLoaderContext"]
+  DUPTABLE R25 K53 [{"pluginLoaderContext", "enabled", "closeCallback"}]
+  SETTABLEKS R23 R25 K51 ["pluginLoaderContext"]
   LOADB R26 0
-  SETTABLEKS R26 R25 K42 ["enabled"]
-  SETTABLEKS R24 R25 K54 ["closeCallback"]
+  SETTABLEKS R26 R25 K40 ["enabled"]
+  SETTABLEKS R24 R25 K52 ["closeCallback"]
   SETTABLE R25 R9 R18
   GETIMPORT R25 K1 [require]
   GETIMPORT R28 K3 [script]
   GETTABLEKS R27 R28 K4 ["Parent"]
-  GETTABLEKS R26 R27 K56 ["main"]
+  GETTABLEKS R26 R27 K54 ["main"]
   CALL R25 1 1
   GETTABLE R26 R9 R18
-  GETTABLEKS R27 R23 K57 ["mainButtonClickedSignal"]
+  GETTABLEKS R27 R23 K55 ["mainButtonClickedSignal"]
   NEWCLOSURE R29 P8
   CAPTURE VAL R26
   CAPTURE VAL R18
@@ -419,7 +419,7 @@ MAIN:
   CAPTURE REF R10
   NAMECALL R27 R27 K31 ["Connect"]
   CALL R27 2 0
-  GETIMPORT R27 K60 [task.spawn]
+  GETIMPORT R27 K58 [task.spawn]
   NEWCLOSURE R28 P9
   CAPTURE VAL R23
   CAPTURE VAL R25

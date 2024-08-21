@@ -5,4 +5,9 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["CollectionViews"]["CollectionViews"])
 
+export type CollectionItemSize = Package.CollectionItemSize
+export type CollectionLayoutCalculators = Package.CollectionLayoutCalculators
+export type CollectionLayoutParams = Package.CollectionLayoutParams
+
+
 return Package

@@ -30,7 +30,12 @@ local useInputType = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.u
 local InputTypeConstants = require(CorePackages.Workspace.Packages.InputType).InputTypeConstants
 local ReactUtils = require(CorePackages.Workspace.Packages.ReactUtils)
 local useEventConnection = ReactUtils.useEventConnection
+local getPlatformTarget = require(CorePackages.Workspace.Packages.Analytics).getPlatformTarget
+local EventStreamConstants = require(CorePackages.Workspace.Packages.AuthAnalytics).EventStreamConstants
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
+
+local GetFFlagAddMorePhoneUpsellEvents =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAddMorePhoneUpsellEvents
 
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 
@@ -42,6 +47,8 @@ local UpsellStates = {
 	Completed = "Completed",
 	CompletedAndClosed = "CompletedAndClosed",
 }
+
+local eventContext = "verificationUpsell"
 
 local LEAVE_GAME_ACTION = "LeaveGameCancelAction"
 
@@ -147,6 +154,18 @@ local function Initialize()
 				text = localizedText.button,
 				onActivated = function()
 					this.HubRef:SetVisibility(false, true)
+					if GetFFlagAddMorePhoneUpsellEvents() then
+						AnalyticsService:SendEventDeferred(
+							getPlatformTarget(),
+							eventContext,
+							"modalAction",
+							{
+								origin = props.origin,
+								btn = EventStreamConstants.Button.Continue,
+								section = props.section,
+							}
+						)
+					end
 					PhoneUpsellController.openPhoneUpsell({
 						origin = props.origin,
 						eventContext = "verificationUpsell",
@@ -180,9 +199,25 @@ local function Initialize()
 					setLegalChecked(not legalChecked)
 				end,
 				onTermsOfUseClick = function()
+					if GetFFlagAddMorePhoneUpsellEvents() then
+						AnalyticsService:SendEventDeferred(
+							getPlatformTarget(),
+							eventContext,
+							"modalAction",
+							{ origin = props.origin, field = "termsOfService", section = props.section }
+						)
+					end
 					props.showWebpage(PhoneConstants.TERMS_OF_SERVICE_URL)
 				end,
 				onPrivacyPolicyClick = function()
+					if GetFFlagAddMorePhoneUpsellEvents() then
+						AnalyticsService:SendEventDeferred(
+							getPlatformTarget(),
+							eventContext,
+							"modalAction",
+							{ origin = props.origin, field = "privacyPolicy", section = props.section }
+						)
+					end
 					props.showWebpage(PhoneConstants.PRIVACY_POLICY_URL)
 				end,
 				LayoutOrder = 4,
@@ -203,6 +238,9 @@ local function Initialize()
 		local origin = if upsellType == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 			then "exitConfirmationScreenVoice"
 			else "exitConfirmationScreenSecurity"
+		local section = if GetFFlagAddMorePhoneUpsellEvents()
+			then (if upsellState == UpsellStates.Incomplete then "entry" else "verifyPhoneSuccess")
+			else nil
 		local leaveButtonRef = React.useRef(nil)
 		local voiceEnabled, setVoiceEnabled = React.useState(false)
 
@@ -232,6 +270,19 @@ local function Initialize()
 				result:catch(function(error)
 					-- It's fine if this fails, just means the user will see upsell again on next session.
 				end)
+
+				if GetFFlagAddMorePhoneUpsellEvents() then
+					AnalyticsService:SendEventDeferred(
+						getPlatformTarget(),
+						eventContext,
+						"modalAction",
+						{
+							origin = props.origin,
+							aType = EventStreamConstants.ActionType.Shown,
+							section = props.section,
+						}
+					)
+				end
 				this.postSent = true
 			end
 		end
@@ -290,6 +341,14 @@ local function Initialize()
 										VoiceChatServiceManager:EnableVoice()
 										setVoiceEnabled(true)
 									end
+									if GetFFlagAddMorePhoneUpsellEvents() then
+										AnalyticsService:SendEventDeferred(
+											getPlatformTarget(),
+											eventContext,
+											"formInteraction",
+											{ origin = origin, btn = "confirmLeave", section = section }
+										)
+									end
 									leaveGame(false)
 								end,
 								buttonRef = leaveButtonRef,
@@ -303,7 +362,33 @@ local function Initialize()
 										and upsellType == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 									then localizedText.returnWithVoice
 									else localizedText.dontLeave,
-								onActivated = this.DontLeaveFromButton,
+								onActivated = function()
+									if GetFFlagAddMorePhoneUpsellEvents() then
+										if
+											upsellState == UpsellStates.Completed
+											and upsellType == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
+										then
+											AnalyticsService:SendEventDeferred(
+												getPlatformTarget(),
+												eventContext,
+												"formInteraction",
+												{ origin = origin, btn = "returnWithVoice", section = section }
+											)
+										elseif upsellState == UpsellStates.Incomplete then
+											AnalyticsService:SendEventDeferred(
+												getPlatformTarget(),
+												eventContext,
+												"modalAction",
+												{
+													origin = origin,
+													aType = EventStreamConstants.ActionType.Dismiss,
+													section = section,
+												}
+											)
+										end
+									end
+									this.DontLeaveFromButton()
+								end,
 							},
 						},
 					},
@@ -333,6 +418,7 @@ local function Initialize()
 					}),
 					Upsell = React.createElement(this.UpsellComponent, {
 						origin = origin,
+						section = section,
 						LayoutOrder = 5,
 						showWebpage = props.showWebpage,
 						onUpsellComplete = function()
@@ -363,6 +449,12 @@ end
 PageInstance = Initialize()
 
 function PageInstance:SetUpsellProp(upsellProp)
+	-- This page doesn't get shown if theres no upsell. This prevents the logic on this page from getting
+	-- messed up after the upsell finishes and all entrypoints are disabled
+	if upsellProp == VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
+		return
+	end
+
 	self.upsellType = upsellProp
 	self.handle = Roact.update(
 		self.handle,

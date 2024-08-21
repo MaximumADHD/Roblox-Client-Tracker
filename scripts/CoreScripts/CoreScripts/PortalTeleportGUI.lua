@@ -22,8 +22,7 @@ local runCount = 0
 local pi = math.pi
 
 -- Modules
-local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
-local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
+local RobloxGui = CoreGui.RobloxGui
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 

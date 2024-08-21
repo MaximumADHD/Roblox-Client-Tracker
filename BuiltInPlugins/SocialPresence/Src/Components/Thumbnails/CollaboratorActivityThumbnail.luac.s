@@ -21,123 +21,122 @@ PROTO_1:
   CALL R2 3 1
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K1 ["Stylizer"]
-  LOADN R6 1
-  GETTABLEKS R8 R3 K3 ["userThumbnail"]
-  GETTABLEKS R7 R8 K4 ["avatarSizeRatio"]
-  SUB R5 R6 R7
+  GETTABLEKS R7 R3 K4 ["userThumbnail"]
+  GETTABLEKS R6 R7 K5 ["avatarSizeRatio"]
+  SUBRK R5 R3 K6 ["IsIdle"]
   DIVK R4 R5 K2 [2]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K5 ["IsIdle"]
+  GETTABLEKS R6 R7 K6 ["IsIdle"]
   JUMPIFNOT R6 [+5]
-  GETTABLEKS R6 R3 K3 ["userThumbnail"]
-  GETTABLEKS R5 R6 K6 ["avatarIdleBackground"]
+  GETTABLEKS R6 R3 K4 ["userThumbnail"]
+  GETTABLEKS R5 R6 K7 ["avatarIdleBackground"]
   JUMPIF R5 [+4]
-  GETTABLEKS R6 R3 K3 ["userThumbnail"]
-  GETTABLEKS R5 R6 K7 ["avatarBackground"]
+  GETTABLEKS R6 R3 K4 ["userThumbnail"]
+  GETTABLEKS R5 R6 K8 ["avatarBackground"]
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K8 ["createElement"]
+  GETTABLEKS R6 R7 K9 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K11 [{"BackgroundColor3", "BackgroundTransparency"}]
+  DUPTABLE R8 K12 [{"BackgroundColor3", "BackgroundTransparency"}]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K9 ["BackgroundColor3"]
-  SETTABLEKS R9 R8 K9 ["BackgroundColor3"]
+  GETTABLEKS R9 R10 K10 ["BackgroundColor3"]
+  SETTABLEKS R9 R8 K10 ["BackgroundColor3"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K10 ["BackgroundTransparency"]
-  SETTABLEKS R9 R8 K10 ["BackgroundTransparency"]
-  DUPTABLE R9 K15 [{"ActivityRing", "Avatar", "Corner"}]
+  GETTABLEKS R9 R10 K11 ["BackgroundTransparency"]
+  SETTABLEKS R9 R8 K11 ["BackgroundTransparency"]
+  DUPTABLE R9 K16 [{"ActivityRing", "Avatar", "Corner"}]
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETTABLEKS R10 R11 K9 ["createElement"]
   GETUPVAL R11 4
-  DUPTABLE R12 K20 [{"Image", "ImageColor3", "Style", "Size"}]
+  DUPTABLE R12 K21 [{"Image", "ImageColor3", "Style", "Size"}]
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K1 ["Stylizer"]
-  GETTABLEKS R13 R14 K21 ["activityRing"]
-  SETTABLEKS R13 R12 K16 ["Image"]
+  GETTABLEKS R13 R14 K22 ["activityRing"]
+  SETTABLEKS R13 R12 K17 ["Image"]
   GETUPVAL R15 1
-  GETTABLEKS R14 R15 K5 ["IsIdle"]
+  GETTABLEKS R14 R15 K6 ["IsIdle"]
   JUMPIFNOT R14 [+5]
-  GETTABLEKS R14 R3 K3 ["userThumbnail"]
-  GETTABLEKS R13 R14 K22 ["idleTint"]
+  GETTABLEKS R14 R3 K4 ["userThumbnail"]
+  GETTABLEKS R13 R14 K23 ["idleTint"]
   JUMPIF R13 [+3]
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K23 ["RingColor"]
-  SETTABLEKS R13 R12 K17 ["ImageColor3"]
-  DUPTABLE R13 K25 [{"Transparency"}]
+  GETTABLEKS R13 R14 K24 ["RingColor"]
+  SETTABLEKS R13 R12 K18 ["ImageColor3"]
+  DUPTABLE R13 K26 [{"Transparency"}]
   GETUPVAL R16 1
-  GETTABLEKS R15 R16 K5 ["IsIdle"]
+  GETTABLEKS R15 R16 K6 ["IsIdle"]
   JUMPIFNOT R15 [+2]
-  LOADK R14 K26 [0.2]
+  LOADK R14 K27 [0.2]
   JUMP [+1]
   LOADN R14 0
-  SETTABLEKS R14 R13 K24 ["Transparency"]
-  SETTABLEKS R13 R12 K18 ["Style"]
-  GETIMPORT R13 K29 [UDim2.fromScale]
+  SETTABLEKS R14 R13 K25 ["Transparency"]
+  SETTABLEKS R13 R12 K19 ["Style"]
+  GETIMPORT R13 K30 [UDim2.fromScale]
   LOADN R14 1
   LOADN R15 1
   CALL R13 2 1
-  SETTABLEKS R13 R12 K19 ["Size"]
+  SETTABLEKS R13 R12 K20 ["Size"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K12 ["ActivityRing"]
+  SETTABLEKS R10 R9 K13 ["ActivityRing"]
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K8 ["createElement"]
-  LOADK R11 K30 ["ImageLabel"]
-  DUPTABLE R12 K33 [{"Image", "Size", "Position", "BackgroundColor3", "BackgroundTransparency", "ImageColor3", "ImageTransparency"}]
-  SETTABLEKS R2 R12 K16 ["Image"]
-  GETIMPORT R13 K29 [UDim2.fromScale]
-  GETTABLEKS R15 R3 K3 ["userThumbnail"]
-  GETTABLEKS R14 R15 K4 ["avatarSizeRatio"]
-  GETTABLEKS R16 R3 K3 ["userThumbnail"]
-  GETTABLEKS R15 R16 K4 ["avatarSizeRatio"]
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  LOADK R11 K31 ["ImageLabel"]
+  DUPTABLE R12 K34 [{"Image", "Size", "Position", "BackgroundColor3", "BackgroundTransparency", "ImageColor3", "ImageTransparency"}]
+  SETTABLEKS R2 R12 K17 ["Image"]
+  GETIMPORT R13 K30 [UDim2.fromScale]
+  GETTABLEKS R15 R3 K4 ["userThumbnail"]
+  GETTABLEKS R14 R15 K5 ["avatarSizeRatio"]
+  GETTABLEKS R16 R3 K4 ["userThumbnail"]
+  GETTABLEKS R15 R16 K5 ["avatarSizeRatio"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K19 ["Size"]
-  GETIMPORT R13 K29 [UDim2.fromScale]
+  SETTABLEKS R13 R12 K20 ["Size"]
+  GETIMPORT R13 K30 [UDim2.fromScale]
   MOVE R14 R4
   MOVE R15 R4
   CALL R13 2 1
-  SETTABLEKS R13 R12 K31 ["Position"]
-  SETTABLEKS R5 R12 K9 ["BackgroundColor3"]
+  SETTABLEKS R13 R12 K32 ["Position"]
+  SETTABLEKS R5 R12 K10 ["BackgroundColor3"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K10 ["BackgroundTransparency"]
+  SETTABLEKS R13 R12 K11 ["BackgroundTransparency"]
   GETUPVAL R15 1
-  GETTABLEKS R14 R15 K5 ["IsIdle"]
+  GETTABLEKS R14 R15 K6 ["IsIdle"]
   JUMPIFNOT R14 [+5]
-  GETTABLEKS R14 R3 K3 ["userThumbnail"]
-  GETTABLEKS R13 R14 K22 ["idleTint"]
+  GETTABLEKS R14 R3 K4 ["userThumbnail"]
+  GETTABLEKS R13 R14 K23 ["idleTint"]
   JUMPIF R13 [+1]
   LOADNIL R13
-  SETTABLEKS R13 R12 K17 ["ImageColor3"]
+  SETTABLEKS R13 R12 K18 ["ImageColor3"]
   GETUPVAL R15 1
-  GETTABLEKS R14 R15 K5 ["IsIdle"]
+  GETTABLEKS R14 R15 K6 ["IsIdle"]
   JUMPIFNOT R14 [+2]
-  LOADK R13 K26 [0.2]
+  LOADK R13 K27 [0.2]
   JUMP [+1]
   LOADN R13 0
-  SETTABLEKS R13 R12 K32 ["ImageTransparency"]
-  DUPTABLE R13 K34 [{"Corner"}]
+  SETTABLEKS R13 R12 K33 ["ImageTransparency"]
+  DUPTABLE R13 K35 [{"Corner"}]
   GETUPVAL R15 2
-  GETTABLEKS R14 R15 K8 ["createElement"]
-  LOADK R15 K35 ["UICorner"]
-  DUPTABLE R16 K37 [{"CornerRadius"}]
-  GETIMPORT R17 K40 [UDim.new]
-  LOADK R18 K41 [0.5]
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  LOADK R15 K36 ["UICorner"]
+  DUPTABLE R16 K38 [{"CornerRadius"}]
+  GETIMPORT R17 K41 [UDim.new]
+  LOADK R18 K42 [0.5]
   LOADN R19 0
   CALL R17 2 1
-  SETTABLEKS R17 R16 K36 ["CornerRadius"]
+  SETTABLEKS R17 R16 K37 ["CornerRadius"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K14 ["Corner"]
+  SETTABLEKS R14 R13 K15 ["Corner"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K13 ["Avatar"]
+  SETTABLEKS R10 R9 K14 ["Avatar"]
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K8 ["createElement"]
-  LOADK R11 K35 ["UICorner"]
-  DUPTABLE R12 K37 [{"CornerRadius"}]
-  GETIMPORT R13 K40 [UDim.new]
-  LOADK R14 K41 [0.5]
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  LOADK R11 K36 ["UICorner"]
+  DUPTABLE R12 K38 [{"CornerRadius"}]
+  GETIMPORT R13 K41 [UDim.new]
+  LOADK R14 K42 [0.5]
   LOADN R15 0
   CALL R13 2 1
-  SETTABLEKS R13 R12 K36 ["CornerRadius"]
+  SETTABLEKS R13 R12 K37 ["CornerRadius"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K14 ["Corner"]
+  SETTABLEKS R10 R9 K15 ["Corner"]
   CALL R6 3 -1
   RETURN R6 -1
 

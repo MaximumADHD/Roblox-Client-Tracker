@@ -7,7 +7,7 @@ PROTO_0:
   DUPTABLE R5 K4 [{"Size"}]
   GETIMPORT R6 K7 [UDim2.new]
   LOADN R7 0
-  LOADN R8 44
+  LOADN R8 244
   LOADN R9 1
   LOADN R10 0
   CALL R6 4 1
@@ -106,21 +106,28 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K0 ["getByText"]
-  LOADK R9 K1 ["Studio.Test.%*.%*:[]"]
-  MOVE R11 R0
-  MOVE R12 R1
-  NAMECALL R9 R9 K2 ["format"]
-  CALL R9 3 1
-  MOVE R8 R9
-  CALL R7 1 1
-  GETTABLEKS R6 R7 K3 ["Parent"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["getByText"]
+  LOADK R8 K1 ["Studio.Test.%*.%*:[]"]
+  MOVE R10 R0
+  MOVE R11 R1
+  NAMECALL R8 R8 K2 ["format"]
+  CALL R8 3 1
+  MOVE R7 R8
+  CALL R6 1 1
   GETTABLEKS R5 R6 K3 ["Parent"]
   GETTABLEKS R4 R5 K3 ["Parent"]
-  GETTABLEKS R3 R4 K4 ["Property"]
-  GETTABLEKS R2 R3 K5 ["Content"]
-  RETURN R2 1
+  GETTABLEKS R3 R4 K3 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Property"]
+  LOADK R5 K5 ["PropertyCell"]
+  NAMECALL R3 R2 K6 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R4 R2 K5 ["PropertyCell"]
+  GETTABLEKS R3 R4 K7 ["Content"]
+  RETURN R3 1
+  GETTABLEKS R3 R2 K7 ["Content"]
+  RETURN R3 1
 
 PROTO_7:
   GETUPVAL R4 0
@@ -588,28 +595,31 @@ PROTO_20:
   CALL R4 3 1
   MOVE R3 R4
   CALL R2 1 1
+  LOADK R4 K3 ["TextButton"]
+  NAMECALL R2 R2 K4 ["FindFirstAncestorWhichIsA"]
+  CALL R2 2 1
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K3 ["fireEvent"]
-  GETTABLEKS R3 R4 K4 ["click"]
+  GETTABLEKS R4 R5 K5 ["fireEvent"]
+  GETTABLEKS R3 R4 K6 ["click"]
   MOVE R4 R2
   CALL R3 1 0
   RETURN R0 0
 
 PROTO_21:
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["getByText"]
-  LOADK R6 K1 ["Studio.Test.TerrainType.%*:[]"]
-  MOVE R8 R0
-  NAMECALL R6 R6 K2 ["format"]
-  CALL R6 2 1
-  MOVE R5 R6
-  CALL R4 1 1
-  GETTABLEKS R3 R4 K3 ["Parent"]
-  GETTABLEKS R2 R3 K3 ["Parent"]
-  GETTABLEKS R1 R2 K3 ["Parent"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getByText"]
+  LOADK R3 K1 ["Studio.Test.TerrainType.%*:[]"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K2 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 1
+  LOADK R3 K3 ["TextButton"]
+  NAMECALL R1 R1 K4 ["FindFirstAncestorWhichIsA"]
+  CALL R1 2 1
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K4 ["fireEvent"]
-  GETTABLEKS R2 R3 K5 ["click"]
+  GETTABLEKS R3 R4 K5 ["fireEvent"]
+  GETTABLEKS R2 R3 K6 ["click"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0

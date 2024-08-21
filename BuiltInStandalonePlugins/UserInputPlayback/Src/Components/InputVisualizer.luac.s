@@ -565,12 +565,10 @@ PROTO_18:
   CALL R1 1 0
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K7 ["updateBackgroundTransparency"]
-  LOADN R3 1
-  LOADN R6 1
-  GETTABLEKS R7 R0 K6 ["transparency"]
-  SUB R5 R6 R7
-  MULK R4 R5 K8 [0.6]
-  SUB R2 R3 R4
+  GETTABLEKS R5 R0 K6 ["transparency"]
+  SUBRK R4 R8 K5 ["updateForegroundTransparency"]
+  MULK R3 R4 K9 [0.6]
+  SUBRK R2 R8 K3 [UDim2.fromOffset]
   CALL R1 1 0
   RETURN R0 0
 

@@ -11,10 +11,10 @@ PROTO_1:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["state"]
   GETTABLEKS R2 R3 K1 ["MouseDown"]
-  JUMPIFNOT R2 [+35]
+  JUMPIFNOT R2 [+34]
   GETTABLEKS R2 R1 K2 ["UserInputType"]
   GETIMPORT R3 K5 [Enum.UserInputType.MouseMovement]
-  JUMPIFNOTEQ R2 R3 [+30]
+  JUMPIFNOTEQ R2 R3 [+29]
   GETIMPORT R3 K8 [Vector2.new]
   GETTABLEKS R5 R1 K9 ["Position"]
   GETTABLEKS R4 R5 K10 ["X"]
@@ -29,20 +29,19 @@ PROTO_1:
   GETTABLEKS R4 R5 K14 ["props"]
   GETTABLEKS R3 R4 K15 ["OnHueSaturationChanged"]
   GETTABLEKS R4 R2 K16 ["x"]
-  LOADN R6 1
-  GETTABLEKS R7 R2 K17 ["y"]
-  SUB R5 R6 R7
+  GETTABLEKS R6 R2 K18 ["y"]
+  SUBRK R5 R17 K6 ["Vector2"]
   CALL R3 2 0
   RETURN R0 0
 
 PROTO_2:
   GETTABLEKS R2 R1 K0 ["UserInputType"]
   GETIMPORT R3 K3 [Enum.UserInputType.MouseButton1]
-  JUMPIFNOTEQ R2 R3 [+66]
+  JUMPIFNOTEQ R2 R3 [+65]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K4 ["state"]
   GETTABLEKS R2 R3 K5 ["MouseDown"]
-  JUMPIFNOT R2 [+59]
+  JUMPIFNOT R2 [+58]
   GETTABLEKS R4 R1 K6 ["Position"]
   GETTABLEKS R2 R4 K7 ["X"]
   GETTABLEKS R4 R1 K6 ["Position"]
@@ -80,9 +79,8 @@ PROTO_2:
   GETTABLEKS R6 R7 K21 ["props"]
   GETTABLEKS R5 R6 K22 ["OnHueSaturationChanged"]
   GETTABLEKS R6 R4 K14 ["x"]
-  LOADN R8 1
-  GETTABLEKS R9 R4 K18 ["y"]
-  SUB R7 R8 R9
+  GETTABLEKS R8 R4 K18 ["y"]
+  SUBRK R7 R23 K8 ["Y"]
   CALL R5 2 0
   RETURN R0 0
 
@@ -121,49 +119,47 @@ PROTO_4:
   SETTABLEKS R6 R5 K10 ["BackgroundColor3"]
   LOADB R6 0
   SETTABLEKS R6 R5 K11 ["AutoButtonColor"]
-  LOADN R7 1
-  GETTABLEKS R8 R1 K12 ["Value"]
-  SUB R6 R7 R8
-  SETTABLEKS R6 R5 K13 ["ImageTransparency"]
+  GETTABLEKS R7 R1 K13 ["Value"]
+  SUBRK R6 R12 K7 ["GradientImage"]
+  SETTABLEKS R6 R5 K14 ["ImageTransparency"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K14 ["Event"]
-  GETTABLEKS R6 R7 K15 ["MouseButton1Down"]
-  GETTABLEKS R7 R0 K16 ["onMouseDown"]
+  GETTABLEKS R7 R8 K15 ["Event"]
+  GETTABLEKS R6 R7 K16 ["MouseButton1Down"]
+  GETTABLEKS R7 R0 K17 ["onMouseDown"]
   SETTABLE R7 R5 R6
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K14 ["Event"]
-  GETTABLEKS R6 R7 K17 ["InputEnded"]
-  GETTABLEKS R7 R0 K18 ["onInputEnded"]
+  GETTABLEKS R7 R8 K15 ["Event"]
+  GETTABLEKS R6 R7 K18 ["InputEnded"]
+  GETTABLEKS R7 R0 K19 ["onInputEnded"]
   SETTABLE R7 R5 R6
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K14 ["Event"]
-  GETTABLEKS R6 R7 K19 ["InputChanged"]
-  GETTABLEKS R7 R0 K20 ["onInputChanged"]
+  GETTABLEKS R7 R8 K15 ["Event"]
+  GETTABLEKS R6 R7 K20 ["InputChanged"]
+  GETTABLEKS R7 R0 K21 ["onInputChanged"]
   SETTABLE R7 R5 R6
-  DUPTABLE R6 K22 [{"PositionIndicator"}]
+  DUPTABLE R6 K23 [{"PositionIndicator"}]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K3 ["createElement"]
-  LOADK R8 K23 ["ImageLabel"]
-  DUPTABLE R9 K28 [{"Size", "BackgroundTransparency", "Position", "AnchorPoint", "Image", "ImageColor3"}]
-  GETTABLEKS R10 R2 K29 ["PositionIndicatorSize"]
+  LOADK R8 K24 ["ImageLabel"]
+  DUPTABLE R9 K29 [{"Size", "BackgroundTransparency", "Position", "AnchorPoint", "Image", "ImageColor3"}]
+  GETTABLEKS R10 R2 K30 ["PositionIndicatorSize"]
   SETTABLEKS R10 R9 K6 ["Size"]
   LOADN R10 1
-  SETTABLEKS R10 R9 K24 ["BackgroundTransparency"]
-  GETIMPORT R10 K32 [UDim2.fromScale]
-  GETTABLEKS R11 R1 K33 ["Hue"]
-  LOADN R13 1
-  GETTABLEKS R14 R1 K34 ["Saturation"]
-  SUB R12 R13 R14
+  SETTABLEKS R10 R9 K25 ["BackgroundTransparency"]
+  GETIMPORT R10 K33 [UDim2.fromScale]
+  GETTABLEKS R11 R1 K34 ["Hue"]
+  GETTABLEKS R13 R1 K35 ["Saturation"]
+  SUBRK R12 R12 K13 ["Value"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K25 ["Position"]
-  GETTABLEKS R10 R2 K35 ["PositionIndicatorAnchor"]
-  SETTABLEKS R10 R9 K26 ["AnchorPoint"]
-  GETTABLEKS R10 R2 K36 ["PositionIndicatorImage"]
+  SETTABLEKS R10 R9 K26 ["Position"]
+  GETTABLEKS R10 R2 K36 ["PositionIndicatorAnchor"]
+  SETTABLEKS R10 R9 K27 ["AnchorPoint"]
+  GETTABLEKS R10 R2 K37 ["PositionIndicatorImage"]
   SETTABLEKS R10 R9 K8 ["Image"]
   GETTABLEKS R10 R2 K9 ["Black"]
-  SETTABLEKS R10 R9 K27 ["ImageColor3"]
+  SETTABLEKS R10 R9 K28 ["ImageColor3"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K21 ["PositionIndicator"]
+  SETTABLEKS R7 R6 K22 ["PositionIndicator"]
   CALL R3 3 -1
   RETURN R3 -1
 

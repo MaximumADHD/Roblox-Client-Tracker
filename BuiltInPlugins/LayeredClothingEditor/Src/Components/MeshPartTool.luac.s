@@ -470,41 +470,36 @@ PROTO_13:
   SUB R15 R12 R13
   GETTABLEKS R14 R15 K3 ["Magnitude"]
   GETIMPORT R15 K6 [CFrame.new]
-  LOADN R17 0
-  LOADN R18 0
-  LOADN R19 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R16 K8 [Vector3.new]
-  CALL R16 3 1
+  LOADK R16 K7 [{0, 0, 0}]
   SUB R18 R13 R12
-  GETTABLEKS R17 R18 K9 ["Unit"]
+  GETTABLEKS R17 R18 K8 ["Unit"]
   CALL R15 2 1
   ADD R15 R15 R12
   MOVE R17 R6
   GETUPVAL R19 1
-  GETTABLEKS R18 R19 K10 ["createElement"]
-  LOADK R19 K11 ["LineHandleAdornment"]
-  DUPTABLE R20 K20 [{"Length", "CFrame", "Adornee", "Transparency", "Color3", "Thickness", "ZIndex", "Archivable", "AlwaysOnTop"}]
-  SETTABLEKS R14 R20 K12 ["Length"]
+  GETTABLEKS R18 R19 K9 ["createElement"]
+  LOADK R19 K10 ["LineHandleAdornment"]
+  DUPTABLE R20 K19 [{"Length", "CFrame", "Adornee", "Transparency", "Color3", "Thickness", "ZIndex", "Archivable", "AlwaysOnTop"}]
+  SETTABLEKS R14 R20 K11 ["Length"]
   SETTABLEKS R15 R20 K4 ["CFrame"]
-  SETTABLEKS R5 R20 K13 ["Adornee"]
+  SETTABLEKS R5 R20 K12 ["Adornee"]
   LOADN R21 0
-  SETTABLEKS R21 R20 K14 ["Transparency"]
-  GETTABLEKS R21 R1 K21 ["LineColor"]
-  SETTABLEKS R21 R20 K15 ["Color3"]
-  GETTABLEKS R21 R1 K22 ["LineThickness"]
-  SETTABLEKS R21 R20 K16 ["Thickness"]
+  SETTABLEKS R21 R20 K13 ["Transparency"]
+  GETTABLEKS R21 R1 K20 ["LineColor"]
+  SETTABLEKS R21 R20 K14 ["Color3"]
+  GETTABLEKS R21 R1 K21 ["LineThickness"]
+  SETTABLEKS R21 R20 K15 ["Thickness"]
   LOADN R21 1
-  SETTABLEKS R21 R20 K17 ["ZIndex"]
+  SETTABLEKS R21 R20 K16 ["ZIndex"]
   LOADB R21 0
-  SETTABLEKS R21 R20 K18 ["Archivable"]
+  SETTABLEKS R21 R20 K17 ["Archivable"]
   LOADB R21 0
-  SETTABLEKS R21 R20 K19 ["AlwaysOnTop"]
+  SETTABLEKS R21 R20 K18 ["AlwaysOnTop"]
   CALL R18 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R16 K25 [table.insert]
+  GETIMPORT R16 K24 [table.insert]
   CALL R16 -1 0
-  FORGLOOP R7 2 [inext] [-63]
+  FORGLOOP R7 2 [inext] [-57]
   RETURN R6 1
 
 PROTO_14:

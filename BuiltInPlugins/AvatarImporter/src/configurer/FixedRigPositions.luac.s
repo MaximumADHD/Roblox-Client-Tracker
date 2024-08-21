@@ -2,702 +2,207 @@ MAIN:
   PREPVARARGS 0
   NEWTABLE R0 4 0
   NEWTABLE R1 64 0
-  LOADN R3 0
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K3 ["RootRigAttachment"]
-  LOADN R3 0
-  LOADK R4 K4 [0.4]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K5 ["WaistRigAttachment"]
-  LOADN R3 0
-  LOADN R4 2
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K6 ["NeckRigAttachment"]
-  LOADN R3 255
-  LOADK R4 K7 [1.763]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K8 ["LeftShoulderRigAttachment"]
-  LOADN R3 1
-  LOADK R4 K7 [1.763]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K0 [{0, 0, 0}]
+  SETTABLEKS R2 R1 K1 ["RootRigAttachment"]
+  LOADK R2 K2 [{0, 0.4, 0}]
+  SETTABLEKS R2 R1 K3 ["WaistRigAttachment"]
+  LOADK R2 K4 [{0, 2, 0}]
+  SETTABLEKS R2 R1 K5 ["NeckRigAttachment"]
+  LOADK R2 K6 [{-1, 1.763, 0}]
+  SETTABLEKS R2 R1 K7 ["LeftShoulderRigAttachment"]
+  LOADK R2 K8 [{1, 1.763, 0}]
   SETTABLEKS R2 R1 K9 ["RightShoulderRigAttachment"]
-  LOADK R3 K10 [1.5]
-  LOADK R4 K11 [1.035]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K12 ["RightElbowRigAttachment"]
-  LOADK R3 K10 [1.5]
-  LOADK R4 K13 [0.275]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K14 ["RightWristRigAttachment"]
-  LOADK R3 K15 [-1.5]
-  LOADK R4 K11 [1.035]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K16 ["LeftElbowRigAttachment"]
-  LOADK R3 K15 [-1.5]
-  LOADK R4 K13 [0.275]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K10 [{1.5, 1.035, 0}]
+  SETTABLEKS R2 R1 K11 ["RightElbowRigAttachment"]
+  LOADK R2 K12 [{1.5, 0.275, 0}]
+  SETTABLEKS R2 R1 K13 ["RightWristRigAttachment"]
+  LOADK R2 K14 [{-1.5, 1.035, 0}]
+  SETTABLEKS R2 R1 K15 ["LeftElbowRigAttachment"]
+  LOADK R2 K16 [{-1.5, 0.275, 0}]
   SETTABLEKS R2 R1 K17 ["LeftWristRigAttachment"]
-  LOADK R3 K18 [0.5]
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K18 [{0.5, 0, 0}]
   SETTABLEKS R2 R1 K19 ["RightHipRigAttachment"]
-  LOADK R3 K18 [0.5]
-  LOADK R4 K20 [-0.822]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K20 [{0.5, -0.822, 0}]
   SETTABLEKS R2 R1 K21 ["RightKneeRigAttachment"]
-  LOADK R3 K18 [0.5]
-  LOADK R4 K22 [-1.748]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K22 [{0.5, -1.748, 0}]
   SETTABLEKS R2 R1 K23 ["RightAnkleRigAttachment"]
-  LOADK R3 K24 [-0.5]
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K24 [{-0.5, 0, 0}]
   SETTABLEKS R2 R1 K25 ["LeftHipRigAttachment"]
-  LOADK R3 K24 [-0.5]
-  LOADK R4 K20 [-0.822]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K26 ["LeftKneeRigAttachment"]
-  LOADK R3 K24 [-0.5]
-  LOADK R4 K22 [-1.748]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K27 ["LeftAnkleRigAttachment"]
-  LOADK R3 K15 [-1.5]
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K28 ["LeftGripAttachment"]
-  LOADK R3 K15 [-1.5]
-  LOADK R4 K29 [1.953]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K30 ["LeftShoulderAttachment"]
-  LOADK R3 K10 [1.5]
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K31 ["RightGripAttachment"]
-  LOADK R3 K10 [1.5]
-  LOADK R4 K29 [1.953]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K32 ["RightShoulderAttachment"]
-  LOADN R3 0
-  LOADN R4 1
-  LOADK R5 K24 [-0.5]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K33 ["BodyFrontAttachment"]
-  LOADN R3 0
-  LOADN R4 1
-  LOADK R5 K18 [0.5]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K34 ["BodyBackAttachment"]
-  LOADN R3 255
-  LOADN R4 2
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K35 ["LeftCollarAttachment"]
-  LOADN R3 1
-  LOADN R4 2
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K36 ["RightCollarAttachment"]
-  LOADN R3 0
-  LOADN R4 2
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K37 ["NeckAttachment"]
-  LOADK R3 K24 [-0.5]
-  LOADN R4 254
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K38 ["LeftFootAttachment"]
-  LOADK R3 K18 [0.5]
-  LOADN R4 254
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K39 ["RightFootAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K40 ["WaistCenterAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADK R5 K24 [-0.5]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K41 ["WaistFrontAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADK R5 K18 [0.5]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K42 ["WaistBackAttachment"]
-  LOADN R3 0
-  LOADK R4 K43 [2.5]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K44 ["FaceCenterAttachment"]
-  LOADN R3 0
-  LOADK R4 K43 [2.5]
-  LOADK R5 K45 [-0.6]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K46 ["FaceFrontAttachment"]
-  LOADN R3 0
-  LOADK R4 K47 [3.1]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K48 ["HairAttachment"]
-  LOADN R3 0
-  LOADK R4 K47 [3.1]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K49 ["HatAttachment"]
-  SETTABLEKS R1 R0 K50 ["R15FixedRigAttachmentMap"]
+  LOADK R2 K26 [{-0.5, -0.822, 0}]
+  SETTABLEKS R2 R1 K27 ["LeftKneeRigAttachment"]
+  LOADK R2 K28 [{-0.5, -1.748, 0}]
+  SETTABLEKS R2 R1 K29 ["LeftAnkleRigAttachment"]
+  LOADK R2 K30 [{-1.5, 0, 0}]
+  SETTABLEKS R2 R1 K31 ["LeftGripAttachment"]
+  LOADK R2 K32 [{-1.5, 1.953, 0}]
+  SETTABLEKS R2 R1 K33 ["LeftShoulderAttachment"]
+  LOADK R2 K34 [{1.5, 0, 0}]
+  SETTABLEKS R2 R1 K35 ["RightGripAttachment"]
+  LOADK R2 K36 [{1.5, 1.953, 0}]
+  SETTABLEKS R2 R1 K37 ["RightShoulderAttachment"]
+  LOADK R2 K38 [{0, 1, -0.5}]
+  SETTABLEKS R2 R1 K39 ["BodyFrontAttachment"]
+  LOADK R2 K40 [{0, 1, 0.5}]
+  SETTABLEKS R2 R1 K41 ["BodyBackAttachment"]
+  LOADK R2 K42 [{-1, 2, 0}]
+  SETTABLEKS R2 R1 K43 ["LeftCollarAttachment"]
+  LOADK R2 K44 [{1, 2, 0}]
+  SETTABLEKS R2 R1 K45 ["RightCollarAttachment"]
+  LOADK R2 K4 [{0, 2, 0}]
+  SETTABLEKS R2 R1 K46 ["NeckAttachment"]
+  LOADK R2 K47 [{-0.5, -2, 0}]
+  SETTABLEKS R2 R1 K48 ["LeftFootAttachment"]
+  LOADK R2 K49 [{0.5, -2, 0}]
+  SETTABLEKS R2 R1 K50 ["RightFootAttachment"]
+  LOADK R2 K0 [{0, 0, 0}]
+  SETTABLEKS R2 R1 K51 ["WaistCenterAttachment"]
+  LOADK R2 K52 [{0, 0, -0.5}]
+  SETTABLEKS R2 R1 K53 ["WaistFrontAttachment"]
+  LOADK R2 K54 [{0, 0, 0.5}]
+  SETTABLEKS R2 R1 K55 ["WaistBackAttachment"]
+  LOADK R2 K56 [{0, 2.5, 0}]
+  SETTABLEKS R2 R1 K57 ["FaceCenterAttachment"]
+  LOADK R2 K58 [{0, 2.5, -0.6}]
+  SETTABLEKS R2 R1 K59 ["FaceFrontAttachment"]
+  LOADK R2 K60 [{0, 3.1, 0}]
+  SETTABLEKS R2 R1 K61 ["HairAttachment"]
+  LOADK R2 K60 [{0, 3.1, 0}]
+  SETTABLEKS R2 R1 K62 ["HatAttachment"]
+  SETTABLEKS R1 R0 K63 ["R15FixedRigAttachmentMap"]
   NEWTABLE R1 64 0
-  LOADN R3 0
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K3 ["RootRigAttachment"]
-  LOADN R3 0
-  LOADK R4 K51 [0.488]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K5 ["WaistRigAttachment"]
-  LOADN R3 0
-  LOADK R4 K52 [1.807]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K6 ["NeckRigAttachment"]
-  LOADK R3 K53 [-0.67]
-  LOADK R4 K54 [1.612]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K8 ["LeftShoulderRigAttachment"]
-  LOADK R3 K55 [0.67]
-  LOADK R4 K54 [1.612]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K0 [{0, 0, 0}]
+  SETTABLEKS R2 R1 K1 ["RootRigAttachment"]
+  LOADK R2 K64 [{0, 0.488, 0}]
+  SETTABLEKS R2 R1 K3 ["WaistRigAttachment"]
+  LOADK R2 K65 [{0, 1.807, 0}]
+  SETTABLEKS R2 R1 K5 ["NeckRigAttachment"]
+  LOADK R2 K66 [{-0.67, 1.612, 0}]
+  SETTABLEKS R2 R1 K7 ["LeftShoulderRigAttachment"]
+  LOADK R2 K67 [{0.67, 1.612, 0}]
   SETTABLEKS R2 R1 K9 ["RightShoulderRigAttachment"]
-  LOADN R3 1
-  LOADK R4 K56 [0.592]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K12 ["RightElbowRigAttachment"]
-  LOADN R3 1
-  LOADK R4 K57 [-0.331]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K14 ["RightWristRigAttachment"]
-  LOADN R3 255
-  LOADK R4 K56 [0.592]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K16 ["LeftElbowRigAttachment"]
-  LOADN R3 255
-  LOADK R4 K57 [-0.331]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K68 [{1, 0.592, 0}]
+  SETTABLEKS R2 R1 K11 ["RightElbowRigAttachment"]
+  LOADK R2 K69 [{1, -0.331, 0}]
+  SETTABLEKS R2 R1 K13 ["RightWristRigAttachment"]
+  LOADK R2 K70 [{-1, 0.592, 0}]
+  SETTABLEKS R2 R1 K15 ["LeftElbowRigAttachment"]
+  LOADK R2 K71 [{-1, -0.331, 0}]
   SETTABLEKS R2 R1 K17 ["LeftWristRigAttachment"]
-  LOADK R3 K58 [0.325]
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K72 [{0.325, 0, 0}]
   SETTABLEKS R2 R1 K19 ["RightHipRigAttachment"]
-  LOADK R3 K58 [0.325]
-  LOADK R4 K59 [-1.431]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K73 [{0.325, -1.431, 0}]
   SETTABLEKS R2 R1 K21 ["RightKneeRigAttachment"]
-  LOADK R3 K58 [0.325]
-  LOADK R4 K60 [-3.031]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K74 [{0.325, -3.031, 0}]
   SETTABLEKS R2 R1 K23 ["RightAnkleRigAttachment"]
-  LOADK R3 K61 [-0.325]
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K75 [{-0.325, 0, 0}]
   SETTABLEKS R2 R1 K25 ["LeftHipRigAttachment"]
-  LOADK R3 K61 [-0.325]
-  LOADK R4 K59 [-1.431]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K26 ["LeftKneeRigAttachment"]
-  LOADK R3 K61 [-0.325]
-  LOADK R4 K60 [-3.031]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K27 ["LeftAnkleRigAttachment"]
-  LOADN R3 255
-  LOADK R4 K62 [-0.606]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K28 ["LeftGripAttachment"]
-  LOADN R3 255
-  LOADK R4 K63 [1.877]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K30 ["LeftShoulderAttachment"]
-  LOADN R3 1
-  LOADK R4 K62 [-0.606]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K31 ["RightGripAttachment"]
-  LOADN R3 1
-  LOADK R4 K63 [1.877]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K32 ["RightShoulderAttachment"]
-  LOADN R3 0
-  LOADK R4 K64 [0.983]
-  LOADK R5 K65 [-0.335]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K33 ["BodyFrontAttachment"]
-  LOADN R3 0
-  LOADK R4 K64 [0.983]
-  LOADK R5 K66 [0.335]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K34 ["BodyBackAttachment"]
-  LOADK R3 K53 [-0.67]
-  LOADK R4 K52 [1.807]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K35 ["LeftCollarAttachment"]
-  LOADK R3 K55 [0.67]
-  LOADK R4 K52 [1.807]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K36 ["RightCollarAttachment"]
-  LOADN R3 0
-  LOADK R4 K52 [1.807]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K37 ["NeckAttachment"]
-  LOADK R3 K61 [-0.325]
-  LOADK R4 K67 [-3.602]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K38 ["LeftFootAttachment"]
-  LOADK R3 K58 [0.325]
-  LOADK R4 K67 [-3.602]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K39 ["RightFootAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K40 ["WaistCenterAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADK R5 K65 [-0.335]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K41 ["WaistFrontAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADK R5 K66 [0.335]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K42 ["WaistBackAttachment"]
-  LOADN R3 0
-  LOADK R4 K68 [2.261]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K44 ["FaceCenterAttachment"]
-  LOADN R3 0
-  LOADK R4 K68 [2.261]
-  LOADK R5 K69 [-0.45]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K46 ["FaceFrontAttachment"]
-  LOADN R3 0
-  LOADK R4 K70 [2.807]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K48 ["HairAttachment"]
-  LOADN R3 0
-  LOADK R4 K70 [2.807]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K49 ["HatAttachment"]
-  SETTABLEKS R1 R0 K71 ["AnthroNormalFixedRigAttachmentMap"]
+  LOADK R2 K76 [{-0.325, -1.431, 0}]
+  SETTABLEKS R2 R1 K27 ["LeftKneeRigAttachment"]
+  LOADK R2 K77 [{-0.325, -3.031, 0}]
+  SETTABLEKS R2 R1 K29 ["LeftAnkleRigAttachment"]
+  LOADK R2 K78 [{-1, -0.606, 0}]
+  SETTABLEKS R2 R1 K31 ["LeftGripAttachment"]
+  LOADK R2 K79 [{-1, 1.877, 0}]
+  SETTABLEKS R2 R1 K33 ["LeftShoulderAttachment"]
+  LOADK R2 K80 [{1, -0.606, 0}]
+  SETTABLEKS R2 R1 K35 ["RightGripAttachment"]
+  LOADK R2 K81 [{1, 1.877, 0}]
+  SETTABLEKS R2 R1 K37 ["RightShoulderAttachment"]
+  LOADK R2 K82 [{0, 0.983, -0.335}]
+  SETTABLEKS R2 R1 K39 ["BodyFrontAttachment"]
+  LOADK R2 K83 [{0, 0.983, 0.335}]
+  SETTABLEKS R2 R1 K41 ["BodyBackAttachment"]
+  LOADK R2 K84 [{-0.67, 1.807, 0}]
+  SETTABLEKS R2 R1 K43 ["LeftCollarAttachment"]
+  LOADK R2 K85 [{0.67, 1.807, 0}]
+  SETTABLEKS R2 R1 K45 ["RightCollarAttachment"]
+  LOADK R2 K65 [{0, 1.807, 0}]
+  SETTABLEKS R2 R1 K46 ["NeckAttachment"]
+  LOADK R2 K86 [{-0.325, -3.602, 0}]
+  SETTABLEKS R2 R1 K48 ["LeftFootAttachment"]
+  LOADK R2 K87 [{0.325, -3.602, 0}]
+  SETTABLEKS R2 R1 K50 ["RightFootAttachment"]
+  LOADK R2 K0 [{0, 0, 0}]
+  SETTABLEKS R2 R1 K51 ["WaistCenterAttachment"]
+  LOADK R2 K88 [{0, 0, -0.335}]
+  SETTABLEKS R2 R1 K53 ["WaistFrontAttachment"]
+  LOADK R2 K89 [{0, 0, 0.335}]
+  SETTABLEKS R2 R1 K55 ["WaistBackAttachment"]
+  LOADK R2 K90 [{0, 2.261, 0}]
+  SETTABLEKS R2 R1 K57 ["FaceCenterAttachment"]
+  LOADK R2 K91 [{0, 2.261, -0.45}]
+  SETTABLEKS R2 R1 K59 ["FaceFrontAttachment"]
+  LOADK R2 K92 [{0, 2.807, 0}]
+  SETTABLEKS R2 R1 K61 ["HairAttachment"]
+  LOADK R2 K92 [{0, 2.807, 0}]
+  SETTABLEKS R2 R1 K62 ["HatAttachment"]
+  SETTABLEKS R1 R0 K93 ["AnthroNormalFixedRigAttachmentMap"]
   NEWTABLE R1 64 0
-  LOADN R3 0
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K3 ["RootRigAttachment"]
-  LOADN R3 0
-  LOADK R4 K72 [0.375]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K5 ["WaistRigAttachment"]
-  LOADN R3 0
-  LOADK R4 K73 [1.587]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K6 ["NeckRigAttachment"]
-  LOADK R3 K74 [-0.587]
-  LOADK R4 K75 [1.408]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K8 ["LeftShoulderRigAttachment"]
-  LOADK R3 K76 [0.587]
-  LOADK R4 K75 [1.408]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K0 [{0, 0, 0}]
+  SETTABLEKS R2 R1 K1 ["RootRigAttachment"]
+  LOADK R2 K94 [{0, 0.375, 0}]
+  SETTABLEKS R2 R1 K3 ["WaistRigAttachment"]
+  LOADK R2 K95 [{0, 1.587, 0}]
+  SETTABLEKS R2 R1 K5 ["NeckRigAttachment"]
+  LOADK R2 K96 [{-0.587, 1.408, 0}]
+  SETTABLEKS R2 R1 K7 ["LeftShoulderRigAttachment"]
+  LOADK R2 K97 [{0.587, 1.408, 0}]
   SETTABLEKS R2 R1 K9 ["RightShoulderRigAttachment"]
-  LOADK R3 K77 [0.881]
-  LOADK R4 K78 [0.49]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K12 ["RightElbowRigAttachment"]
-  LOADK R3 K77 [0.881]
-  LOADK R4 K79 [-0.341]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K14 ["RightWristRigAttachment"]
-  LOADK R3 K80 [-0.881]
-  LOADK R4 K78 [0.49]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K16 ["LeftElbowRigAttachment"]
-  LOADK R3 K80 [-0.881]
-  LOADK R4 K79 [-0.341]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K98 [{0.881, 0.49, 0}]
+  SETTABLEKS R2 R1 K11 ["RightElbowRigAttachment"]
+  LOADK R2 K99 [{0.881, -0.341, 0}]
+  SETTABLEKS R2 R1 K13 ["RightWristRigAttachment"]
+  LOADK R2 K100 [{-0.881, 0.49, 0}]
+  SETTABLEKS R2 R1 K15 ["LeftElbowRigAttachment"]
+  LOADK R2 K101 [{-0.881, -0.341, 0}]
   SETTABLEKS R2 R1 K17 ["LeftWristRigAttachment"]
-  LOADK R3 K81 [0.31]
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K102 [{0.31, 0, 0}]
   SETTABLEKS R2 R1 K19 ["RightHipRigAttachment"]
-  LOADK R3 K81 [0.31]
-  LOADK R4 K82 [-1.332]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K103 [{0.31, -1.332, 0}]
   SETTABLEKS R2 R1 K21 ["RightKneeRigAttachment"]
-  LOADK R3 K81 [0.31]
-  LOADK R4 K83 [-2.715]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K104 [{0.31, -2.715, 0}]
   SETTABLEKS R2 R1 K23 ["RightAnkleRigAttachment"]
-  LOADK R3 K84 [-0.31]
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
+  LOADK R2 K105 [{-0.31, 0, 0}]
   SETTABLEKS R2 R1 K25 ["LeftHipRigAttachment"]
-  LOADK R3 K84 [-0.31]
-  LOADK R4 K82 [-1.332]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K26 ["LeftKneeRigAttachment"]
-  LOADK R3 K84 [-0.31]
-  LOADK R4 K83 [-2.715]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K27 ["LeftAnkleRigAttachment"]
-  LOADK R3 K80 [-0.881]
-  LOADK R4 K85 [-0.616]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K28 ["LeftGripAttachment"]
-  LOADK R3 K80 [-0.881]
-  LOADK R4 K86 [1.647]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K30 ["LeftShoulderAttachment"]
-  LOADK R3 K77 [0.881]
-  LOADK R4 K85 [-0.616]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K31 ["RightGripAttachment"]
-  LOADK R3 K77 [0.881]
-  LOADK R4 K86 [1.647]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K32 ["RightShoulderAttachment"]
-  LOADN R3 0
-  LOADK R4 K87 [0.83]
-  LOADK R5 K88 [-0.294]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K33 ["BodyFrontAttachment"]
-  LOADN R3 0
-  LOADK R4 K87 [0.83]
-  LOADK R5 K89 [0.293]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K34 ["BodyBackAttachment"]
-  LOADK R3 K74 [-0.587]
-  LOADK R4 K73 [1.587]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K35 ["LeftCollarAttachment"]
-  LOADK R3 K76 [0.587]
-  LOADK R4 K73 [1.587]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K36 ["RightCollarAttachment"]
-  LOADN R3 0
-  LOADK R4 K73 [1.587]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K37 ["NeckAttachment"]
-  LOADK R3 K84 [-0.31]
-  LOADK R4 K90 [-3.084]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K38 ["LeftFootAttachment"]
-  LOADK R3 K81 [0.31]
-  LOADK R4 K90 [-3.084]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K39 ["RightFootAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K40 ["WaistCenterAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADK R5 K88 [-0.294]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K41 ["WaistFrontAttachment"]
-  LOADN R3 0
-  LOADN R4 0
-  LOADK R5 K91 [0.294]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K42 ["WaistBackAttachment"]
-  LOADN R3 0
-  LOADK R4 K92 [2.042]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K44 ["FaceCenterAttachment"]
-  LOADN R3 0
-  LOADK R4 K92 [2.042]
-  LOADK R5 K93 [-0.428]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K46 ["FaceFrontAttachment"]
-  LOADN R3 0
-  LOADK R4 K94 [2.587]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K48 ["HairAttachment"]
-  LOADN R3 0
-  LOADK R4 K94 [2.587]
-  LOADN R5 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K2 [Vector3.new]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K49 ["HatAttachment"]
-  SETTABLEKS R1 R0 K95 ["AnthroSlenderFixedRigAttachmentMap"]
+  LOADK R2 K106 [{-0.31, -1.332, 0}]
+  SETTABLEKS R2 R1 K27 ["LeftKneeRigAttachment"]
+  LOADK R2 K107 [{-0.31, -2.715, 0}]
+  SETTABLEKS R2 R1 K29 ["LeftAnkleRigAttachment"]
+  LOADK R2 K108 [{-0.881, -0.616, 0}]
+  SETTABLEKS R2 R1 K31 ["LeftGripAttachment"]
+  LOADK R2 K109 [{-0.881, 1.647, 0}]
+  SETTABLEKS R2 R1 K33 ["LeftShoulderAttachment"]
+  LOADK R2 K110 [{0.881, -0.616, 0}]
+  SETTABLEKS R2 R1 K35 ["RightGripAttachment"]
+  LOADK R2 K111 [{0.881, 1.647, 0}]
+  SETTABLEKS R2 R1 K37 ["RightShoulderAttachment"]
+  LOADK R2 K112 [{0, 0.83, -0.294}]
+  SETTABLEKS R2 R1 K39 ["BodyFrontAttachment"]
+  LOADK R2 K113 [{0, 0.83, 0.293}]
+  SETTABLEKS R2 R1 K41 ["BodyBackAttachment"]
+  LOADK R2 K114 [{-0.587, 1.587, 0}]
+  SETTABLEKS R2 R1 K43 ["LeftCollarAttachment"]
+  LOADK R2 K115 [{0.587, 1.587, 0}]
+  SETTABLEKS R2 R1 K45 ["RightCollarAttachment"]
+  LOADK R2 K95 [{0, 1.587, 0}]
+  SETTABLEKS R2 R1 K46 ["NeckAttachment"]
+  LOADK R2 K116 [{-0.31, -3.084, 0}]
+  SETTABLEKS R2 R1 K48 ["LeftFootAttachment"]
+  LOADK R2 K117 [{0.31, -3.084, 0}]
+  SETTABLEKS R2 R1 K50 ["RightFootAttachment"]
+  LOADK R2 K0 [{0, 0, 0}]
+  SETTABLEKS R2 R1 K51 ["WaistCenterAttachment"]
+  LOADK R2 K118 [{0, 0, -0.294}]
+  SETTABLEKS R2 R1 K53 ["WaistFrontAttachment"]
+  LOADK R2 K119 [{0, 0, 0.294}]
+  SETTABLEKS R2 R1 K55 ["WaistBackAttachment"]
+  LOADK R2 K120 [{0, 2.042, 0}]
+  SETTABLEKS R2 R1 K57 ["FaceCenterAttachment"]
+  LOADK R2 K121 [{0, 2.042, -0.428}]
+  SETTABLEKS R2 R1 K59 ["FaceFrontAttachment"]
+  LOADK R2 K122 [{0, 2.587, 0}]
+  SETTABLEKS R2 R1 K61 ["HairAttachment"]
+  LOADK R2 K122 [{0, 2.587, 0}]
+  SETTABLEKS R2 R1 K62 ["HatAttachment"]
+  SETTABLEKS R1 R0 K123 ["AnthroSlenderFixedRigAttachmentMap"]
   RETURN R0 1

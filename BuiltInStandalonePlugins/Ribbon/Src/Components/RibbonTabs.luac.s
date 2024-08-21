@@ -1,50 +1,51 @@
 PROTO_0:
-  GETUPVAL R1 0
-  JUMPIFNOTEQKS R1 K0 ["Custom"] [+54]
-  GETUPVAL R1 1
-  NEWTABLE R2 0 1
-  DUPTABLE R3 K5 [{"Id", "Type", "Text", "Tooltip"}]
-  LOADK R4 K0 ["Custom"]
-  SETTABLEKS R4 R3 K1 ["Id"]
-  LOADK R4 K3 ["Text"]
-  SETTABLEKS R4 R3 K2 ["Type"]
-  GETUPVAL R4 2
-  LOADK R6 K6 ["Plugin"]
-  LOADK R7 K7 ["Tab_Custom"]
-  NAMECALL R4 R4 K8 ["getText"]
-  CALL R4 3 1
-  SETTABLEKS R4 R3 K3 ["Text"]
-  GETUPVAL R4 2
-  LOADK R6 K6 ["Plugin"]
-  LOADK R7 K9 ["Tab_Custom_Tooltip"]
-  NAMECALL R4 R4 K8 ["getText"]
-  CALL R4 3 1
-  SETTABLEKS R4 R3 K4 ["Tooltip"]
-  SETLIST R2 R3 1 [1]
-  GETUPVAL R3 3
-  DUPTABLE R4 K13 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  GETIMPORT R5 K16 [Vector2.new]
-  LOADN R6 1
-  LOADN R7 0
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K10 ["SubjectAnchorPoint"]
-  GETIMPORT R5 K16 [Vector2.new]
-  LOADN R6 1
-  LOADN R7 1
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K11 ["TargetAnchorPoint"]
-  GETIMPORT R5 K16 [Vector2.new]
-  LOADN R6 0
-  LOADN R7 0
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K12 ["Offset"]
-  CALL R1 3 0
-  RETURN R0 0
-  GETUPVAL R2 4
-  GETTABLEKS R1 R2 K17 ["OnSelectTab"]
   GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R1 2 0
+  JUMPIFNOTEQKS R2 K0 ["Custom"] [+54]
+  GETUPVAL R2 1
+  NEWTABLE R3 0 1
+  DUPTABLE R4 K5 [{"Id", "Type", "Text", "Tooltip"}]
+  LOADK R5 K0 ["Custom"]
+  SETTABLEKS R5 R4 K1 ["Id"]
+  LOADK R5 K3 ["Text"]
+  SETTABLEKS R5 R4 K2 ["Type"]
+  GETUPVAL R5 2
+  LOADK R7 K6 ["Plugin"]
+  LOADK R8 K7 ["Tab_Custom"]
+  NAMECALL R5 R5 K8 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K3 ["Text"]
+  GETUPVAL R5 2
+  LOADK R7 K6 ["Plugin"]
+  LOADK R8 K9 ["Tab_Custom_Tooltip"]
+  NAMECALL R5 R5 K8 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K4 ["Tooltip"]
+  SETLIST R3 R4 1 [1]
+  GETUPVAL R4 3
+  DUPTABLE R5 K13 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  GETIMPORT R6 K16 [Vector2.new]
+  LOADN R7 1
+  LOADN R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K10 ["SubjectAnchorPoint"]
+  GETIMPORT R6 K16 [Vector2.new]
+  LOADN R7 1
+  LOADN R8 1
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K11 ["TargetAnchorPoint"]
+  GETIMPORT R6 K16 [Vector2.new]
+  LOADN R7 0
+  LOADN R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K12 ["Offset"]
+  CALL R2 3 0
+  RETURN R0 0
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K17 ["OnSelectTab"]
+  GETUPVAL R3 0
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_1:

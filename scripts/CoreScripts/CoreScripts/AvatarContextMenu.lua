@@ -55,15 +55,14 @@ StarterGui:RegisterGetCore("AvatarContextMenuEnabled", function()
 end)
 
 --- MODULES
-local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
-local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiService.RobloxGui else CoreGuiService:WaitForChild("RobloxGui")
-local CoreGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules else RobloxGui:WaitForChild("Modules")
-local AvatarMenuModules = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.AvatarContextMenu else CoreGuiModules:WaitForChild("AvatarContextMenu")
+local RobloxGui = CoreGuiService.RobloxGui
+local CoreGuiModules = RobloxGui.Modules
+local AvatarMenuModules = CoreGuiModules.AvatarContextMenu
 
-local ContextMenuGui = require(if GetFFlagReplaceWaitForChildDependancy2952() then AvatarMenuModules.ContextMenuGui else AvatarMenuModules:WaitForChild("ContextMenuGui"))
-local ContextMenuItemsModule = require(if GetFFlagReplaceWaitForChildDependancy2952() then AvatarMenuModules.ContextMenuItems else AvatarMenuModules:WaitForChild("ContextMenuItems"))
-local ContextMenuUtil = require(if GetFFlagReplaceWaitForChildDependancy2952() then AvatarMenuModules.ContextMenuUtil else AvatarMenuModules:WaitForChild("ContextMenuUtil"))
-local SelectedCharacterIndicator = require(if GetFFlagReplaceWaitForChildDependancy2952() then AvatarMenuModules.SelectedCharacterIndicator else AvatarMenuModules:WaitForChild("SelectedCharacterIndicator"))
+local ContextMenuGui = require(AvatarMenuModules.ContextMenuGui)
+local ContextMenuItemsModule = require(AvatarMenuModules.ContextMenuItems)
+local ContextMenuUtil = require(AvatarMenuModules.ContextMenuUtil)
+local SelectedCharacterIndicator = require(AvatarMenuModules.SelectedCharacterIndicator)
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
 local Backpack = require(CoreGuiModules.BackpackScript)

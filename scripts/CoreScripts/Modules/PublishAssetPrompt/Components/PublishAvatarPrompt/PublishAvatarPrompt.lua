@@ -14,6 +14,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local AvatarPartGrid = require(script.Parent.AvatarParts.AvatarPartGrid)
 local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
+local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
 
 local Components = script.Parent.Parent
 local BasePublishPrompt = require(Components.BasePublishPrompt)
@@ -21,6 +22,9 @@ local ObjectViewport = require(Components.Common.ObjectViewport)
 local NameTextBox = require(Components.Common.NameTextBox)
 local PublishInfoList = require(Components.Common.PublishInfoList)
 local PurchasePrompt = require(RobloxGui.Modules.PurchasePrompt)
+
+local Actions = script.Parent.Parent.Parent.Actions
+local SetPromptVisibility = require(Actions.SetPromptVisibility)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
@@ -39,6 +43,9 @@ PublishAvatarPrompt.validateProps = t.strictInterface({
 	-- Mapped state
 	guid = t.any,
 	scopes = t.any,
+
+	-- Dispatch props
+	SetPromptVisibility = t.callback,
 })
 
 function PublishAvatarPrompt:init()
@@ -53,6 +60,7 @@ function PublishAvatarPrompt:init()
 		isNameValid = true,
 		description = "",
 		isDescValid = true,
+		showTopScrim = false,
 	})
 	self.openPreviewView = function()
 		self:setState({
@@ -75,12 +83,19 @@ function PublishAvatarPrompt:init()
 		avatarPublishMetadata.name = self.state.name
 		avatarPublishMetadata.description = self.state.description
 
-		PurchasePrompt.initiateAvatarCreationFeePurchase(
-			avatarPublishMetadata,
-			self.props.guid,
-			self.props.serializedModel,
-			self.props.priceInRobux
-		)
+		if PurchasePrompt.initiateAvatarCreationFeePurchase then
+			self:setState({
+				showTopScrim = true,
+			})
+			PurchasePrompt.initiateAvatarCreationFeePurchase(
+				avatarPublishMetadata,
+				self.props.guid,
+				self.props.serializedModel,
+				self.props.priceInRobux
+			)
+		else
+			mutedError("PurchasePrompt.initiateAvatarCreationFeePurchase is not available")
+		end
 	end
 
 	self.onNameUpdated = function(newName, isNameValid)
@@ -95,6 +110,37 @@ function PublishAvatarPrompt:init()
 			description = newDesc,
 			isDescValid = isDescValid,
 		})
+	end
+
+	self.onPurchasePromptClosed = function(promptTable)
+		local hasCompletedPurchase = promptTable.hasCompletedPurchase
+
+		if hasCompletedPurchase then
+			-- Avatar creation fee purchase was successful
+			self.props.SetPromptVisibility(false)
+		else
+			-- Avatar creation fee purchase was cancelled
+			self:setState({
+				showTopScrim = false,
+			})
+		end
+	end
+end
+
+function PublishAvatarPrompt:didMount()
+	local purchasePromptClosedEvent = PurchasePrompt.purchasePromptClosedEvent
+	if purchasePromptClosedEvent then
+		self.purchasePromptClosedConnection = purchasePromptClosedEvent:Connect(self.onPurchasePromptClosed)
+	else
+		mutedError("PurchasePrompt.purchasePromptClosedEvent is not available")
+	end
+end
+
+function PublishAvatarPrompt:willUnmount()
+	if self.purchasePromptClosedConnection then
+		self.purchasePromptClosedConnection:Disconnect()
+	else
+		mutedError("purchasePromptClosedConnection was not established")
 	end
 end
 
@@ -188,6 +234,7 @@ function PublishAvatarPrompt:render()
 		onSubmit = self.onSubmit,
 		delayInputSeconds = DELAYED_INPUT_ANIM_SEC,
 		priceInRobux = self.props.priceInRobux,
+		showTopScrim = self.state.showTopScrim,
 	})
 end
 
@@ -203,4 +250,12 @@ local function mapStateToProps(state)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps)(PublishAvatarPrompt)
+local function mapDispatchToProps(dispatch)
+	return {
+		SetPromptVisibility = function(promptVisible)
+			dispatch(SetPromptVisibility(promptVisible))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PublishAvatarPrompt)

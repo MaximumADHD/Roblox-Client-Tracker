@@ -7,7 +7,6 @@
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContextActionService = game:GetService("ContextActionService")
-local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
@@ -15,13 +14,16 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 local CorePackages = game:GetService("CorePackages")
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
+local ConnectionUtil-- inline with FFlagVRServiceControllerAPIs
 require(RobloxGui.Modules.VR.Panel3D)
 
 local FFlagVRFixCursorJitterLua = game:DefineFastFlag("VRFixCursorJitterLua", false)
-local FFlagVRLaserPointerOptimization = game:DefineFastFlag("VRLaserPointerOptimization", false)
 local FFlagEnableUserInputCFrameLogging = game:DefineFastFlag("EnableUserInputCFrameLogging", false)
 local FFlagEnableUpdateduserInputCFrameUpdate = game:DefineFastFlag("EnableUpdateduserInputCFrameUpdate", false)
-local ContextActionService = game:GetService("ContextActionService")
+local FFlagVRServiceControllerAPIs = require(RobloxGui.Modules.Flags.FFlagVRServiceControllerAPIs)
+if FFlagVRServiceControllerAPIs then
+	ConnectionUtil = require(RobloxGui.Modules.Common.ConnectionUtil) -- inline with FFlagVRServiceControllerAPIs
+end
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -97,6 +99,7 @@ local OFFHAND_LASER_LENGTH = 3
 
 local BUTTON_LONG_PRESS_TIME = 0.75
 
+-- Deprecated in favor of VRService.LaserPointer = Enum.VRLaserPointerMode.<Value>
 local LaserPointerMode = {
 	Disabled = 0,
 	Pointer = 1,
@@ -199,8 +202,10 @@ function LaserPointer.new(laserDistance)
 
 	self.laserMaxDistance = VRService.LaserDistance
 
-	self.mode = LaserPointerMode.Disabled
-	self.lastMode = self.mode
+	if not FFlagVRServiceControllerAPIs then
+		self.mode = LaserPointerMode.Disabled
+		self.lastMode = self.mode
+	end
 
 	self.laserHand = LaserHand.Right
 
@@ -333,6 +338,14 @@ function LaserPointer.new(laserDistance)
 		})
 	end
 
+	if FFlagVRServiceControllerAPIs then
+		-- Utility to help with event connections
+		self.connections = ConnectionUtil.new()
+		-- track changes to the API
+		self.connections:connect("LaserPointer", VRService:GetPropertyChangedSignal("LaserPointer"), function() self:onModeChanged() end)
+		self:onModeChanged() -- initialize laser pointer
+	end
+
 	do --Event connections and final setup
 		GuiService.MenuOpened:connect(function()
 			self.guiMenuIsOpen = true
@@ -381,9 +394,9 @@ function LaserPointer.new(laserDistance)
 			end)
 		end
 	end
-
-	self:onModeChanged(self.mode)
-
+	if not FFlagVRServiceControllerAPIs then
+		self:onModeChanged(self.mode)
+	end
 	self:updateInputUserCFrame()
 
 	return self
@@ -430,8 +443,10 @@ end
 function LaserPointer:onModeChanged(newMode)
 	self:updateInputUserCFrame()
 
-	--Disabled mode
-	if newMode == LaserPointerMode.Disabled or newMode == LaserPointerMode.Hidden then
+	-- Disabled mode
+	if (if FFlagVRServiceControllerAPIs then VRService.LaserPointer == Enum.VRLaserPointerMode.Disabled else 
+		(newMode == LaserPointerMode.Disabled or newMode == LaserPointerMode.Hidden)) then
+
 		-- this enabled the target dot only
 		addPartsToGame(self.originPart, self.cursorPart)
 		removePartsFromGame(self.plopPart, self.plopBall, self.originPartOffhand)
@@ -439,24 +454,26 @@ function LaserPointer:onModeChanged(newMode)
 		self.parabola.Visible = false
 		self.parabolaOffhand.Visible = false
 		self:setNavigationActionEnabled(false)
-	--Pointer mode
-	elseif newMode == LaserPointerMode.Pointer then
+	-- Pointer mode
+	elseif (if FFlagVRServiceControllerAPIs then VRService.LaserPointer == Enum.VRLaserPointerMode.Pointer else
+		newMode == LaserPointerMode.Pointer) then
 		addPartsToGame(self.originPart, self.cursorPart)
 		removePartsFromGame(self.plopPart, self.plopBall, self.originPartOffhand)
 		self.parabola.Visible = true
 		self.parabolaOffhand.Visible = false
 		self:setNavigationActionEnabled(false)
 		self.forceDotActive = false
-	--Pointer mode
-	elseif newMode == LaserPointerMode.DualPointer then
+	-- DualPointer mode
+	elseif (if FFlagVRServiceControllerAPIs then VRService.LaserPointer == Enum.VRLaserPointerMode.DualPointer else
+		newMode == LaserPointerMode.DualPointer) then
 		addPartsToGame(self.originPart, self.originPartOffhand, self.cursorPart)
 		removePartsFromGame(self.plopPart, self.plopBall)
 		self.parabola.Visible = true
 		self.parabolaOffhand.Visible = true
 		self:setNavigationActionEnabled(false)
 		self.forceDotActive = false
-	--Navigation mode
-	elseif newMode == LaserPointerMode.Navigation then
+	--Navigation Mode (remove with FFlagVRServiceControllerAPIs)
+	elseif (if FFlagVRServiceControllerAPIs then false else newMode == LaserPointerMode.Navigation) then
 		addPartsToGame(self.originPart, self.plopPart, self.plopBall, self.cursorPart)
 		self.parabola.Visible = true
 		self:setNavigationActionEnabled(true)
@@ -464,29 +481,37 @@ function LaserPointer:onModeChanged(newMode)
 	end
 end
 
+-- This function exists to support the deprecated lua API
+-- game.StarterGui:SetCore("VRLaserPointerMode", "<value>")
+-- Any usage of these old APIs should redirect to the newer VRService.LaserPointer = Enum.VRLaserPointerMode.<Value>
 function LaserPointer:setMode(mode)
-	if FFlagVRLaserPointerOptimization then
-		-- We no longer support navigation mode
+	if FFlagVRServiceControllerAPIs then
+		-- redirect to new API
+		if mode == LaserPointerMode.Disabled or mode == LaserPointerMode.Hidden then
+			VRService.LaserPointer = Enum.VRLaserPointerMode.Disabled
+		elseif mode == LaserPointerMode.Pointer or mode == LaserPointerMode.Navigation then
+			VRService.LaserPointer = Enum.VRLaserPointerMode.Pointer
+		elseif mode == LaserPointerMode.DualPointer then
+			VRService.LaserPointer = Enum.VRLaserPointerMode.DualPointer
+		end
+	else
+
 		if mode == LaserPointerMode.Navigation then
 			mode = LaserPointerMode.Pointer
 		end
-	end
-	
-	if mode == self.mode then
-		return
-	end
+		
+		if mode == self.mode then
+			return
+		end
 
-	local oldMode = self.mode
-	self.mode = mode
-	self.lastMode = oldMode
-	self:onModeChanged(mode)
+		local oldMode = self.mode
+		self.mode = mode
+		self.lastMode = oldMode
+		self:onModeChanged(mode)
+	end
 end
 
 function LaserPointer:setEnableAmbidexterousPointer(enabled)
-end
-
-function LaserPointer:getMode()
-	return self.mode
 end
 
 local cosMax = math.cos(math.pi / 4)
@@ -795,125 +820,9 @@ function LaserPointer:updateCursor_DEPRECATED()
 	self.cursorSurfaceGui.Enabled = VRService.DidPointerHit
 end
 
-function LaserPointer:update_DEPRECATED(dt)
-	if self.mode == LaserPointerMode.Disabled and not self.forceDotActive then
-		return
-	end
-
-	local humanoid = getLocalHumanoid()
-
-	local ignore = {
-		LocalPlayer.Character or LocalPlayer,
-		self.originPart,
-		self.plopPart,
-		self.plopBall,
-		GuiService.CoreEffectFolder,
-	}
-	local thickness0, thickness1 = LASER.ARC_THICKNESS, TELEPORT.ARC_THICKNESS
-	local gravity0, gravity1 = LASER.G, TELEPORT.G
-
-	if not FFlagVRFixCursorJitterLua then
-		self:updateCursor_DEPRECATED()
-	end
-
-	if self:isHeadMounted() then
-		self.parabola.Thickness = LASER.ARC_THICKNESS * HEAD_MOUNT_THICKNESS_MULTIPLIER
-
-		--cast ray from center of camera, then render laser going from offset point to hit point
-		local originCFrame = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
-		local originPos, originLook = originCFrame.p, originCFrame.lookVector
-
-		local laserHitPart, laserHitPoint, laserHitNormal, laserHitT = self:getLaserHit(originPos, originLook, ignore)
-		self:checkHeadMountedMode(laserHitPart)
-
-		--we actually want to render the laser from an offset from the head though
-
-		if not self.forceDotActive then -- this only renders the target dot
-			local offsetPosition = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
-			self:renderAsLaser(offsetPosition, laserHitPoint)
-
-			if self.showPlopBallOnPointer then
-				self:updateNavPlop(laserHitPoint, laserHitNormal)
-			end
-
-			if self.mode == LaserPointerMode.Navigation then
-				self:updateNavigationMode(laserHitPoint, laserHitNormal, laserHitPart, laserHitPoint)
-			else
-				self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
-			end
-		end
-	else
-		local originCFrame = VRUtil.GetUserCFrameWorldSpace(self.inputUserCFrame)
-		local originPos, originLook = originCFrame.p, originCFrame.lookVector
-
-		local gravity = TELEPORT.G
-
-		local launchAngle = math.asin(originLook.Y)
-		local offsetHeight = humanoid and originPos.Y - self:getNavigationOrigin().Y or 0
-
-		local desiredRange = TELEPORT.MAX_VALID_DISTANCE
-		local launchVelocity = self:calculateLaunchVelocity(gravity, desiredRange, offsetHeight)
-
-		self:setArcLaunchParams(launchAngle, launchVelocity, gravity, desiredRange)
-
-		-- TODO: remove navigation mode and clean these up.
-		-- These values were received from a parabola arc cast.  We no longer support navigation mode so these won't be used.
-		local parabHitPart = nil
-		local parabHitPoint = nil
-		local parabHitNormal = nil
-		local parabHitT = nil
-
-		--Clear the gui folder out of our ignore table and cast so we might hit SurfaceGuis with the laser
-		ignore[6] = nil
-		local laserHitPart, laserHitPoint, laserHitNormal, laserHitT = self:getLaserHit(originPos, originLook, ignore)
-
-		if not self.forceDotActive then
-			self:setMode(LaserPointerMode.Pointer)
-		end
-
-		if self.mode == LaserPointerMode.Navigation then
-			self.parabola.Range = self.parabola.Range * parabHitT
-			self.parabola.Thickness = TELEPORT.ARC_THICKNESS
-			self:updateNavigationMode(parabHitPoint, parabHitNormal, parabHitPart)
-		else
-			self.parabola.Thickness = LASER.ARC_THICKNESS
-			self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
-
-			if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool") then
-				self.parabola.Color3 = LASER.ARC_COLOR_BAD -- item equipped means RT action bound
-			end
-
-			if VRService.DidPointerHit then
-				if FFlagVRFixCursorJitterLua then
-					local laserLength = (VRService.PointerHitCFrame.Position - originPos).magnitude
-					laserHitPoint = originPos + originLook * laserLength
-				else
-					laserHitPoint = VRService.PointerHitCFrame.Position
-				end
-			else
-				laserHitPoint = originPos + originLook * self.laserMaxDistance
-			end
-
-			self.parabola.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
-			
-			if not self.forceDotActive then -- this only renders the target dot
-				self:renderAsLaser(originPos, laserHitPoint)
-
-				if self.showPlopBallOnPointer then
-					self:updateNavPlop(laserHitPoint, laserHitNormal)
-				end
-			end
-		end
-	end
-end
-
 function LaserPointer:update(dt)
-	if not FFlagVRLaserPointerOptimization then
-		self:update_DEPRECATED(dt)
-		return
-	end
-
-	if self.mode ~= LaserPointerMode.Pointer and self.mode ~= LaserPointerMode.DualPointer then
+	if (if FFlagVRServiceControllerAPIs then VRService.LaserPointer == Enum.VRLaserPointerMode.Disabled else
+		self.mode ~= LaserPointerMode.Pointer and self.mode ~= LaserPointerMode.DualPointer) then
 		return
 	end
 
@@ -945,7 +854,9 @@ function LaserPointer:update(dt)
 		self:renderAsLaser(originPos, laserHitPoint)
 	end
 
-	if self.mode == LaserPointerMode.DualPointer then
+	if (if FFlagVRServiceControllerAPIs then VRService.LaserPointer == Enum.VRLaserPointerMode.DualPointer else 
+		self.mode == LaserPointerMode.DualPointer) then
+
 		if self:isHeadMounted() then
 			self.parabolaOffhand.Visible = false
 		else

@@ -11,6 +11,7 @@ export type DesignTokens = Package.DesignTokens
 export type StyleProviderWithDefaultThemeConfig = Package.StyleProviderWithDefaultThemeConfig
 export type ColorToken = Package.ColorToken
 export type TypographyToken = Package.TypographyToken
+export type UiModeStyleProviderProps = Package.UiModeStyleProviderProps
 
 
 return Package

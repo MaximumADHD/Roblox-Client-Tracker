@@ -43,7 +43,7 @@ PROTO_1:
   NEWTABLE R10 2 0
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K15 ["Tag"]
-  LOADK R12 K16 ["Component-RootContainerInputContextProvider Width-Scaling"]
+  LOADK R12 K16 ["Component-RootContainerInputContextProvider X-Fill"]
   SETTABLE R12 R10 R11
   NEWCLOSURE R11 P0
   CAPTURE VAL R1

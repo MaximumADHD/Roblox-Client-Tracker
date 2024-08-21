@@ -346,8 +346,8 @@ PROTO_11:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K7 ["createElement"]
   GETUPVAL R7 1
-  DUPTABLE R8 K10 [{"ActiveQueueItem", "Enabled"}]
-  SETTABLEKS R2 R8 K8 ["ActiveQueueItem"]
+  DUPTABLE R8 K10 [{"QueueItem", "Enabled"}]
+  SETTABLEKS R2 R8 K8 ["QueueItem"]
   GETTABLEKS R9 R2 K11 ["enabled"]
   SETTABLEKS R9 R8 K9 ["Enabled"]
   CALL R6 2 1
@@ -368,71 +368,70 @@ PROTO_12:
   GETTABLEKS R3 R2 K2 ["ImportQueue"]
   GETTABLEKS R4 R3 K3 ["Padding"]
   GETTABLEKS R5 R1 K4 ["Width"]
-  JUMPIF R5 [+9]
+  JUMPIF R5 [+8]
   GETIMPORT R5 K7 [UDim.new]
-  LOADN R7 1
-  GETTABLEKS R9 R1 K8 ["Columns"]
-  LENGTH R8 R9
-  DIV R6 R7 R8
+  GETTABLEKS R8 R1 K9 ["Columns"]
+  LENGTH R7 R8
+  DIVRK R6 R8 K7 [UDim.new]
   LOADN R7 0
   CALL R5 2 1
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K9 ["createFragment"]
-  DUPTABLE R7 K11 [{"Padding", "Path"}]
+  GETTABLEKS R6 R7 K10 ["createFragment"]
+  DUPTABLE R7 K12 [{"Padding", "Path"}]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K12 ["createElement"]
-  LOADK R9 K13 ["UIPadding"]
-  DUPTABLE R10 K16 [{"PaddingLeft", "PaddingRight"}]
+  GETTABLEKS R8 R9 K13 ["createElement"]
+  LOADK R9 K14 ["UIPadding"]
+  DUPTABLE R10 K17 [{"PaddingLeft", "PaddingRight"}]
   GETIMPORT R11 K7 [UDim.new]
   LOADN R12 0
   MOVE R13 R4
   CALL R11 2 1
-  SETTABLEKS R11 R10 K14 ["PaddingLeft"]
+  SETTABLEKS R11 R10 K15 ["PaddingLeft"]
   GETIMPORT R11 K7 [UDim.new]
   LOADN R12 0
   MOVE R13 R4
   CALL R11 2 1
-  SETTABLEKS R11 R10 K15 ["PaddingRight"]
+  SETTABLEKS R11 R10 K16 ["PaddingRight"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K3 ["Padding"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K12 ["createElement"]
+  GETTABLEKS R8 R9 K13 ["createElement"]
   GETUPVAL R9 1
-  DUPTABLE R10 K21 [{"Layout", "HorizontalAlignment", "Spacing", "ClipsDescendants"}]
-  GETIMPORT R11 K25 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R11 R10 K17 ["Layout"]
-  GETIMPORT R11 K27 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R11 R10 K18 ["HorizontalAlignment"]
-  SETTABLEKS R4 R10 K19 ["Spacing"]
+  DUPTABLE R10 K22 [{"Layout", "HorizontalAlignment", "Spacing", "ClipsDescendants"}]
+  GETIMPORT R11 K26 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R11 R10 K18 ["Layout"]
+  GETIMPORT R11 K28 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R11 R10 K19 ["HorizontalAlignment"]
+  SETTABLEKS R4 R10 K20 ["Spacing"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K20 ["ClipsDescendants"]
-  DUPTABLE R11 K29 [{"PathText"}]
+  SETTABLEKS R11 R10 K21 ["ClipsDescendants"]
+  DUPTABLE R11 K30 [{"PathText"}]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K12 ["createElement"]
+  GETTABLEKS R12 R13 K13 ["createElement"]
   GETUPVAL R13 2
-  DUPTABLE R14 K36 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextWrapped", "OnClick"}]
+  DUPTABLE R14 K37 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextWrapped", "OnClick"}]
   LOADN R15 1
-  SETTABLEKS R15 R14 K30 ["LayoutOrder"]
-  GETIMPORT R15 K38 [UDim2.new]
-  GETTABLEKS R16 R5 K39 ["Scale"]
-  GETTABLEKS R17 R5 K40 ["Offset"]
+  SETTABLEKS R15 R14 K31 ["LayoutOrder"]
+  GETIMPORT R15 K39 [UDim2.new]
+  GETTABLEKS R16 R5 K40 ["Scale"]
+  GETTABLEKS R17 R5 K41 ["Offset"]
   LOADN R18 1
   LOADN R19 0
   CALL R15 4 1
-  SETTABLEKS R15 R14 K31 ["Size"]
-  GETIMPORT R15 K42 [Enum.AutomaticSize.Y]
-  SETTABLEKS R15 R14 K32 ["AutomaticSize"]
-  GETTABLEKS R16 R1 K43 ["Row"]
-  GETTABLEKS R15 R16 K44 ["filepath"]
-  SETTABLEKS R15 R14 K33 ["Text"]
+  SETTABLEKS R15 R14 K32 ["Size"]
+  GETIMPORT R15 K43 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K33 ["AutomaticSize"]
+  GETTABLEKS R16 R1 K44 ["Row"]
+  GETTABLEKS R15 R16 K45 ["filepath"]
+  SETTABLEKS R15 R14 K34 ["Text"]
   LOADB R15 0
-  SETTABLEKS R15 R14 K34 ["TextWrapped"]
-  GETTABLEKS R15 R0 K45 ["reopenFileSelection"]
-  SETTABLEKS R15 R14 K35 ["OnClick"]
+  SETTABLEKS R15 R14 K35 ["TextWrapped"]
+  GETTABLEKS R15 R0 K46 ["reopenFileSelection"]
+  SETTABLEKS R15 R14 K36 ["OnClick"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K28 ["PathText"]
+  SETTABLEKS R12 R11 K29 ["PathText"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K10 ["Path"]
+  SETTABLEKS R8 R7 K11 ["Path"]
   CALL R6 1 -1
   RETURN R6 -1
 
@@ -465,41 +464,40 @@ PROTO_14:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Style"]
   GETTABLEKS R3 R1 K2 ["Width"]
-  JUMPIF R3 [+9]
+  JUMPIF R3 [+8]
   GETIMPORT R3 K5 [UDim.new]
-  LOADN R5 1
-  GETTABLEKS R7 R1 K6 ["Columns"]
-  LENGTH R6 R7
-  DIV R4 R5 R6
+  GETTABLEKS R6 R1 K7 ["Columns"]
+  LENGTH R5 R6
+  DIVRK R4 R6 K5 [UDim.new]
   LOADN R5 0
   CALL R3 2 1
-  GETTABLEKS R4 R2 K7 ["BackgroundOdd"]
+  GETTABLEKS R4 R2 K8 ["BackgroundOdd"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETTABLEKS R5 R6 K9 ["createElement"]
   GETUPVAL R6 1
-  DUPTABLE R7 K16 [{"LayoutOrder", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants", "OnRightClick"}]
-  GETTABLEKS R8 R1 K17 ["ColumnIndex"]
-  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
-  SETTABLEKS R4 R7 K10 ["BackgroundColor3"]
+  DUPTABLE R7 K17 [{"LayoutOrder", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants", "OnRightClick"}]
+  GETTABLEKS R8 R1 K18 ["ColumnIndex"]
+  SETTABLEKS R8 R7 K10 ["LayoutOrder"]
+  SETTABLEKS R4 R7 K11 ["BackgroundColor3"]
   LOADN R8 1
-  SETTABLEKS R8 R7 K11 ["BorderSizePixel"]
-  GETTABLEKS R8 R2 K18 ["Border"]
-  SETTABLEKS R8 R7 K12 ["BorderColor3"]
-  GETIMPORT R8 K20 [UDim2.new]
-  GETTABLEKS R9 R3 K21 ["Scale"]
-  GETTABLEKS R10 R3 K22 ["Offset"]
+  SETTABLEKS R8 R7 K12 ["BorderSizePixel"]
+  GETTABLEKS R8 R2 K19 ["Border"]
+  SETTABLEKS R8 R7 K13 ["BorderColor3"]
+  GETIMPORT R8 K21 [UDim2.new]
+  GETTABLEKS R9 R3 K22 ["Scale"]
+  GETTABLEKS R10 R3 K23 ["Offset"]
   LOADN R11 1
   LOADN R12 0
   CALL R8 4 1
-  SETTABLEKS R8 R7 K13 ["Size"]
+  SETTABLEKS R8 R7 K14 ["Size"]
   LOADB R8 1
-  SETTABLEKS R8 R7 K14 ["ClipsDescendants"]
-  GETTABLEKS R8 R0 K23 ["showContextMenu"]
-  SETTABLEKS R8 R7 K15 ["OnRightClick"]
-  DUPTABLE R8 K25 [{"Content"}]
-  NAMECALL R9 R0 K26 ["getContent"]
+  SETTABLEKS R8 R7 K15 ["ClipsDescendants"]
+  GETTABLEKS R8 R0 K24 ["showContextMenu"]
+  SETTABLEKS R8 R7 K16 ["OnRightClick"]
+  DUPTABLE R8 K26 [{"Content"}]
+  NAMECALL R9 R0 K27 ["getContent"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K24 ["Content"]
+  SETTABLEKS R9 R8 K25 ["Content"]
   CALL R5 3 -1
   RETURN R5 -1
 

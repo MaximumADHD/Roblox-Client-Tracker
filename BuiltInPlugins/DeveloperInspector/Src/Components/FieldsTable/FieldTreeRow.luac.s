@@ -225,13 +225,12 @@ PROTO_5:
   SETTABLEKS R27 R26 K37 ["Position"]
   GETIMPORT R27 K20 [UDim2.new]
   LOADN R28 1
-  LOADN R30 251
-  SUB R29 R30 R15
+  SUBRK R29 R75 K15 ["Indent"]
   LOADN R30 1
   LOADN R31 252
   CALL R27 4 1
   SETTABLEKS R27 R26 K23 ["Size"]
-  GETIMPORT R27 K76 [Enum.TextTruncate.AtEnd]
+  GETIMPORT R27 K77 [Enum.TextTruncate.AtEnd]
   SETTABLEKS R27 R26 K65 ["TextTruncate"]
   CALL R24 2 1
   SETTABLEKS R24 R23 K46 ["NameLabel"]
@@ -242,9 +241,9 @@ PROTO_5:
   GETUPVAL R21 1
   GETTABLEKS R20 R21 K25 ["createElement"]
   LOADK R21 K26 ["Frame"]
-  DUPTABLE R22 K77 [{"Size", "Position", "BackgroundColor3", "BorderColor3"}]
+  DUPTABLE R22 K78 [{"Size", "Position", "BackgroundColor3", "BorderColor3"}]
   GETIMPORT R23 K20 [UDim2.new]
-  LOADK R24 K78 [0.65]
+  LOADK R24 K79 [0.65]
   LOADN R25 0
   LOADN R26 1
   LOADN R27 0
@@ -260,12 +259,12 @@ PROTO_5:
   SETTABLEKS R11 R22 K41 ["BackgroundColor3"]
   GETTABLEKS R23 R3 K44 ["BorderColor"]
   SETTABLEKS R23 R22 K42 ["BorderColor3"]
-  DUPTABLE R23 K80 [{"SummaryLabel"}]
+  DUPTABLE R23 K81 [{"SummaryLabel"}]
   GETUPVAL R25 1
   GETTABLEKS R24 R25 K25 ["createElement"]
   GETUPVAL R25 2
   DUPTABLE R26 K66 [{"Text", "Font", "TextXAlignment", "Position", "Size", "TextTruncate"}]
-  GETTABLEKS R28 R8 K81 ["Summary"]
+  GETTABLEKS R28 R8 K82 ["Summary"]
   FASTCALL1 TOSTRING R28 [+2]
   GETIMPORT R27 K69 [tostring]
   CALL R27 1 1
@@ -291,10 +290,10 @@ PROTO_5:
   LOADN R31 252
   CALL R27 4 1
   SETTABLEKS R27 R26 K23 ["Size"]
-  GETIMPORT R27 K76 [Enum.TextTruncate.AtEnd]
+  GETIMPORT R27 K77 [Enum.TextTruncate.AtEnd]
   SETTABLEKS R27 R26 K65 ["TextTruncate"]
   CALL R24 2 1
-  SETTABLEKS R24 R23 K79 ["SummaryLabel"]
+  SETTABLEKS R24 R23 K80 ["SummaryLabel"]
   CALL R20 3 1
   SETTABLEKS R20 R19 K39 ["SummaryCell"]
   CALL R16 3 -1

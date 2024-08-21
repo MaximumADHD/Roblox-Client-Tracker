@@ -36,7 +36,6 @@ local newTrackerStreamAnimation = nil
 local cloneStreamTrack = nil
 
 local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
-local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 local EngineFeatureAnimatorAndADFRefactorInternal = game:GetEngineFeature("AnimatorAndADFRefactorInternal")
 local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerViewRemoteEventSupport")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
@@ -54,6 +53,7 @@ local FFlagSelfViewRemoveVPFWhenClosed = game:DefineFastFlag("SelfViewRemoveVPFW
 local FFlagSelfViewTweaksPass = game:DefineFastFlag("SelfViewTweaksPass", false)
 local FFlagInExperienceUpsellSelfViewFix = game:DefineFastFlag("InExperienceUpsellSelfViewFix", false)
 local FFlagRemoveVoiceJoiceDisconnectFix = game:DefineFastFlag("RemoveVoiceJoiceDisconnectFix", false)
+local FFlagFixUpdateMicIconCallBeforeReady = game:DefineFastFlag("FixUpdateMicIconCallBeforeReady", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -61,8 +61,7 @@ local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
 local Promise = require(CorePackages.Promise)
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
-local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
-local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
+local RobloxGui = CoreGui.RobloxGui
 local RunService = game:GetService("RunService")
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Symbol = require(CorePackages.Symbol)
@@ -313,7 +312,7 @@ local TYPES_TRIGGERING_DIRTY_ON_ADDREMOVE = {
 	SurfaceAppearance = "SurfaceAppearance",
 }
 
-log:trace("Self View 03-20-2024__1!!")
+log:trace("Self View 08-13-2024__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -1957,23 +1956,13 @@ local function syncTrack(animator, track)
 	if track.Animation:IsA("Animation") then
 		--regular animation sync handled further below
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
-		if EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled then
-			log:trace("using LoadStreamAnimationForClone!")
-			newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
-			if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
-				cloneStreamTrack = animator:LoadStreamAnimationV2(newTrackerStreamAnimation, Players.LocalPlayer, false, false)
-			else
-				cloneStreamTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, Players.LocalPlayer)
-			end
-			cloneTrack = cloneStreamTrack
+		newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
+		if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
+			cloneStreamTrack = animator:LoadStreamAnimationV2(newTrackerStreamAnimation, Players.LocalPlayer, false, false)
 		else
-			log:trace("animator:LoadStreamAnimation, not EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled")
-			if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
-				cloneTrack = animator:LoadStreamAnimationV2(track.Animation, Players.LocalPlayer, false, false)
-			else
-				cloneTrack = animator:LoadStreamAnimation(track.Animation)
-			end
+			cloneStreamTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, Players.LocalPlayer)
 		end
+		cloneTrack = cloneStreamTrack
 		foundStreamTrack = true
 		debugPrint("foundStreamTrack = true")
 	else
@@ -3216,6 +3205,10 @@ function Initialize(player)
 		triggerAnalyticsReportUserAccountSettings_deprecated(player.UserId)
 	end
 
+	if FFlagFixUpdateMicIconCallBeforeReady then
+		createViewport()
+	end
+
 	if getFFlagDoNotPromptCameraPermissionsOnMount() then
 		getMicPermission()
 		getCameraPermissionWithoutRequest()
@@ -3223,7 +3216,9 @@ function Initialize(player)
 	else
 		getPermissions()
 	end
-	createViewport()
+	if not FFlagFixUpdateMicIconCallBeforeReady then
+		createViewport()
+	end
 
 	playerAdded(player)
 

@@ -1,9 +1,8 @@
 PROTO_0:
   NEWTABLE R3 0 0
-  LOADN R5 1
-  LENGTH R7 R1
-  ADDK R6 R7 K0 [1]
-  DIV R4 R5 R6
+  LENGTH R6 R1
+  ADDK R5 R6 K0 [1]
+  DIVRK R4 R0 K5 ["BackgroundTransparency"]
   LOADN R7 0
   LENGTH R5 R1
   LOADN R6 1
@@ -149,7 +148,7 @@ PROTO_1:
   GETTABLE R6 R1 R5
   LOADNIL R7
   LENGTH R8 R1
-  JUMPIFEQ R5 R8 [+64]
+  JUMPIFEQ R5 R8 [+63]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K0 ["createElement"]
   LOADK R9 K1 ["TextLabel"]
@@ -160,38 +159,37 @@ PROTO_1:
   GETTABLEKS R11 R12 K5 ["Smaller"]
   DUPTABLE R12 K12 [{"Size", "LayoutOrder", "Text", "BackgroundTransparency", "TextXAlignment", "TextTruncate"}]
   GETIMPORT R13 K15 [UDim2.new]
-  LOADN R15 1
-  LENGTH R16 R1
-  DIV R14 R15 R16
+  LENGTH R15 R1
+  DIVRK R14 R16 K15 [UDim2.new]
   LOADN R15 0
   LOADN R16 0
-  GETTABLEKS R19 R0 K16 ["table"]
-  GETTABLEKS R18 R19 K17 ["item"]
-  GETTABLEKS R17 R18 K18 ["height"]
+  GETTABLEKS R19 R0 K17 ["table"]
+  GETTABLEKS R18 R19 K18 ["item"]
+  GETTABLEKS R17 R18 K19 ["height"]
   CALL R13 4 1
   SETTABLEKS R13 R12 K6 ["Size"]
   SETTABLEKS R5 R12 K7 ["LayoutOrder"]
   SETTABLEKS R6 R12 K8 ["Text"]
   LOADN R13 1
   SETTABLEKS R13 R12 K9 ["BackgroundTransparency"]
-  GETIMPORT R13 K21 [Enum.TextXAlignment.Left]
+  GETIMPORT R13 K22 [Enum.TextXAlignment.Left]
   SETTABLEKS R13 R12 K10 ["TextXAlignment"]
-  GETIMPORT R13 K23 [Enum.TextTruncate.AtEnd]
+  GETIMPORT R13 K24 [Enum.TextTruncate.AtEnd]
   SETTABLEKS R13 R12 K11 ["TextTruncate"]
   CALL R10 2 1
-  DUPTABLE R11 K25 [{"Tooltip"}]
+  DUPTABLE R11 K26 [{"Tooltip"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K0 ["createElement"]
   GETUPVAL R13 2
-  DUPTABLE R14 K27 [{"Text", "Enabled"}]
+  DUPTABLE R14 K28 [{"Text", "Enabled"}]
   SETTABLEKS R6 R14 K8 ["Text"]
   LOADB R15 1
-  SETTABLEKS R15 R14 K26 ["Enabled"]
+  SETTABLEKS R15 R14 K27 ["Enabled"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K24 ["Tooltip"]
+  SETTABLEKS R12 R11 K25 ["Tooltip"]
   CALL R8 3 1
   MOVE R7 R8
-  JUMP [+68]
+  JUMP [+67]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K0 ["createElement"]
   LOADK R9 K1 ["TextLabel"]
@@ -202,38 +200,37 @@ PROTO_1:
   GETTABLEKS R11 R12 K5 ["Smaller"]
   DUPTABLE R12 K12 [{"Size", "LayoutOrder", "Text", "BackgroundTransparency", "TextXAlignment", "TextTruncate"}]
   GETIMPORT R13 K15 [UDim2.new]
-  LOADN R15 1
-  LENGTH R16 R1
-  DIV R14 R15 R16
-  GETTABLEKS R18 R0 K16 ["table"]
-  GETTABLEKS R17 R18 K28 ["menu"]
-  GETTABLEKS R16 R17 K29 ["buttonSize"]
+  LENGTH R15 R1
+  DIVRK R14 R16 K15 [UDim2.new]
+  GETTABLEKS R18 R0 K17 ["table"]
+  GETTABLEKS R17 R18 K29 ["menu"]
+  GETTABLEKS R16 R17 K30 ["buttonSize"]
   MINUS R15 R16
   LOADN R16 0
-  GETTABLEKS R19 R0 K16 ["table"]
-  GETTABLEKS R18 R19 K17 ["item"]
-  GETTABLEKS R17 R18 K18 ["height"]
+  GETTABLEKS R19 R0 K17 ["table"]
+  GETTABLEKS R18 R19 K18 ["item"]
+  GETTABLEKS R17 R18 K19 ["height"]
   CALL R13 4 1
   SETTABLEKS R13 R12 K6 ["Size"]
   SETTABLEKS R5 R12 K7 ["LayoutOrder"]
   SETTABLEKS R6 R12 K8 ["Text"]
   LOADN R13 1
   SETTABLEKS R13 R12 K9 ["BackgroundTransparency"]
-  GETIMPORT R13 K21 [Enum.TextXAlignment.Left]
+  GETIMPORT R13 K22 [Enum.TextXAlignment.Left]
   SETTABLEKS R13 R12 K10 ["TextXAlignment"]
-  GETIMPORT R13 K23 [Enum.TextTruncate.AtEnd]
+  GETIMPORT R13 K24 [Enum.TextTruncate.AtEnd]
   SETTABLEKS R13 R12 K11 ["TextTruncate"]
   CALL R10 2 1
-  DUPTABLE R11 K25 [{"Tooltip"}]
+  DUPTABLE R11 K26 [{"Tooltip"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K0 ["createElement"]
   GETUPVAL R13 2
-  DUPTABLE R14 K27 [{"Text", "Enabled"}]
+  DUPTABLE R14 K28 [{"Text", "Enabled"}]
   SETTABLEKS R6 R14 K8 ["Text"]
   LOADB R15 1
-  SETTABLEKS R15 R14 K26 ["Enabled"]
+  SETTABLEKS R15 R14 K27 ["Enabled"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K24 ["Tooltip"]
+  SETTABLEKS R12 R11 K25 ["Tooltip"]
   CALL R8 3 1
   MOVE R7 R8
   SETTABLE R7 R2 R5

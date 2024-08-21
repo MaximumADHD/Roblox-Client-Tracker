@@ -5,7 +5,7 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["GameCollectionViews"]["GameCollectionViews"])
 
-export type GameCollectionLayoutParams = Package.GameCollectionLayoutParams
+export type GameSortData = Package.GameSortData
 
 
 return Package

@@ -43,7 +43,7 @@ local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
 local FFlagPublishAvatarPromptEnabled = require(script.Parent.Parent.Parent.FFlagPublishAvatarPromptEnabled)
 
 local CAMERA_FOV = 30
-local INITIAL_ZOOM_FACTOR = 1
+local INITIAL_ZOOM_FACTOR = if FFlagPublishAvatarPromptEnabled then 0.8 else 1
 local ANIMATION_CLIP_INITIAL_ZOOM_FACTOR = 0.75
 local MAX_ZOOM_FACTOR = 10
 local MIN_ZOOM_FACTOR = 0.3

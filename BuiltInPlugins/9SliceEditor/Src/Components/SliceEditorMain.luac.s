@@ -376,11 +376,10 @@ PROTO_7:
   LOADN R21 1
   SETTABLEKS R21 R20 K88 ["layoutOrder"]
   GETIMPORT R21 K72 [UDim2.new]
-  LOADN R23 1
-  GETTABLEKS R24 R2 K96 ["TextAreaXWindowScaleFactor"]
-  SUB R22 R23 R24
-  GETTABLEKS R26 R2 K97 ["TextAreaSize"]
-  GETTABLEKS R25 R26 K98 ["X"]
+  GETTABLEKS R23 R2 K97 ["TextAreaXWindowScaleFactor"]
+  SUBRK R22 R96 K23 [UDim2.fromOffset]
+  GETTABLEKS R26 R2 K98 ["TextAreaSize"]
+  GETTABLEKS R25 R26 K99 ["X"]
   GETTABLEKS R24 R25 K75 ["Offset"]
   MINUS R23 R24
   LOADN R24 1
@@ -403,16 +402,16 @@ PROTO_7:
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K13 ["createElement"]
   GETUPVAL R19 9
-  DUPTABLE R20 K99 [{"layoutOrder", "size", "pixelDimensions", "setSliceRect", "sliceRect"}]
+  DUPTABLE R20 K100 [{"layoutOrder", "size", "pixelDimensions", "setSliceRect", "sliceRect"}]
   LOADN R21 2
   SETTABLEKS R21 R20 K88 ["layoutOrder"]
   GETIMPORT R21 K72 [UDim2.new]
-  GETTABLEKS R22 R2 K96 ["TextAreaXWindowScaleFactor"]
-  GETTABLEKS R25 R2 K97 ["TextAreaSize"]
-  GETTABLEKS R24 R25 K98 ["X"]
+  GETTABLEKS R22 R2 K97 ["TextAreaXWindowScaleFactor"]
+  GETTABLEKS R25 R2 K98 ["TextAreaSize"]
+  GETTABLEKS R24 R25 K99 ["X"]
   GETTABLEKS R23 R24 K75 ["Offset"]
   LOADN R24 0
-  GETTABLEKS R27 R2 K97 ["TextAreaSize"]
+  GETTABLEKS R27 R2 K98 ["TextAreaSize"]
   GETTABLEKS R26 R27 K74 ["Y"]
   GETTABLEKS R25 R26 K75 ["Offset"]
   CALL R21 4 1
@@ -427,9 +426,9 @@ PROTO_7:
   GETUPVAL R15 0
   GETTABLEKS R14 R15 K13 ["createElement"]
   GETUPVAL R15 1
-  DUPTABLE R16 K101 [{"LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Size", "Position", "Spacing"}]
+  DUPTABLE R16 K102 [{"LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Size", "Position", "Spacing"}]
   LOADN R17 2
-  SETTABLEKS R17 R16 K100 ["LayoutOrder"]
+  SETTABLEKS R17 R16 K101 ["LayoutOrder"]
   GETIMPORT R17 K77 [Enum.FillDirection.Horizontal]
   SETTABLEKS R17 R16 K55 ["Layout"]
   GETIMPORT R17 K64 [Enum.HorizontalAlignment.Center]
@@ -447,56 +446,56 @@ PROTO_7:
   SETTABLEKS R17 R16 K15 ["Size"]
   GETIMPORT R17 K23 [UDim2.fromOffset]
   LOADN R18 0
-  GETTABLEKS R19 R2 K102 ["ButtonsAreaYPos"]
+  GETTABLEKS R19 R2 K103 ["ButtonsAreaYPos"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K16 ["Position"]
-  GETTABLEKS R17 R2 K103 ["ButtonsSpacing"]
+  GETTABLEKS R17 R2 K104 ["ButtonsSpacing"]
   SETTABLEKS R17 R16 K56 ["Spacing"]
-  DUPTABLE R17 K106 [{"CloseButton", "RevertButton"}]
+  DUPTABLE R17 K107 [{"CloseButton", "RevertButton"}]
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K13 ["createElement"]
   GETUPVAL R19 10
-  DUPTABLE R20 K108 [{"OnClick", "Size", "Style", "LayoutOrder", "Text"}]
-  GETTABLEKS R21 R1 K109 ["onClose"]
-  SETTABLEKS R21 R20 K107 ["OnClick"]
+  DUPTABLE R20 K109 [{"OnClick", "Size", "Style", "LayoutOrder", "Text"}]
+  GETTABLEKS R21 R1 K110 ["onClose"]
+  SETTABLEKS R21 R20 K108 ["OnClick"]
   GETTABLEKS R21 R8 K15 ["Size"]
   SETTABLEKS R21 R20 K15 ["Size"]
   GETTABLEKS R21 R8 K14 ["Style"]
   SETTABLEKS R21 R20 K14 ["Style"]
   LOADN R21 1
-  SETTABLEKS R21 R20 K100 ["LayoutOrder"]
+  SETTABLEKS R21 R20 K101 ["LayoutOrder"]
   LOADK R23 K8 ["SliceEditor"]
-  LOADK R24 K104 ["CloseButton"]
+  LOADK R24 K105 ["CloseButton"]
   NAMECALL R21 R7 K10 ["getText"]
   CALL R21 3 1
   SETTABLEKS R21 R20 K39 ["Text"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K104 ["CloseButton"]
+  SETTABLEKS R18 R17 K105 ["CloseButton"]
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K13 ["createElement"]
   GETUPVAL R19 10
-  DUPTABLE R20 K111 [{"OnClick", "Size", "Style", "StyleModifier", "LayoutOrder", "Text"}]
-  GETTABLEKS R21 R0 K112 ["onRevert"]
-  SETTABLEKS R21 R20 K107 ["OnClick"]
+  DUPTABLE R20 K112 [{"OnClick", "Size", "Style", "StyleModifier", "LayoutOrder", "Text"}]
+  GETTABLEKS R21 R0 K113 ["onRevert"]
+  SETTABLEKS R21 R20 K108 ["OnClick"]
   GETTABLEKS R21 R8 K15 ["Size"]
   SETTABLEKS R21 R20 K15 ["Size"]
   GETTABLEKS R21 R8 K14 ["Style"]
   SETTABLEKS R21 R20 K14 ["Style"]
   JUMPIF R9 [+4]
   GETUPVAL R22 11
-  GETTABLEKS R21 R22 K113 ["Disabled"]
+  GETTABLEKS R21 R22 K114 ["Disabled"]
   JUMPIF R21 [+1]
   LOADNIL R21
-  SETTABLEKS R21 R20 K110 ["StyleModifier"]
+  SETTABLEKS R21 R20 K111 ["StyleModifier"]
   LOADN R21 2
-  SETTABLEKS R21 R20 K100 ["LayoutOrder"]
+  SETTABLEKS R21 R20 K101 ["LayoutOrder"]
   LOADK R23 K8 ["SliceEditor"]
-  LOADK R24 K105 ["RevertButton"]
+  LOADK R24 K106 ["RevertButton"]
   NAMECALL R21 R7 K10 ["getText"]
   CALL R21 3 1
   SETTABLEKS R21 R20 K39 ["Text"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K105 ["RevertButton"]
+  SETTABLEKS R18 R17 K106 ["RevertButton"]
   CALL R14 3 1
   SETTABLEKS R14 R13 K68 ["Lower"]
   CALL R10 3 -1

@@ -5,11 +5,33 @@ PROTO_0:
   NEWTABLE R3 2 0
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K2 ["Tag"]
-  LOADK R5 K3 ["Component-WidgetHeader X-RowM data-testid=Component-WidgetHeader"]
+  LOADK R5 K3 ["Component-WidgetHeader data-testid=Component-WidgetHeader"]
   SETTABLE R5 R3 R4
   GETTABLEKS R4 R0 K4 ["LayoutOrder"]
   SETTABLEKS R4 R3 K4 ["LayoutOrder"]
-  GETTABLEKS R4 R0 K5 ["children"]
+  DUPTABLE R4 K7 [{"LeftContents", "RightContents"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K1 ["Frame"]
+  NEWTABLE R7 1 0
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["Tag"]
+  LOADK R9 K5 ["LeftContents"]
+  SETTABLE R9 R7 R8
+  GETTABLEKS R8 R0 K8 ["leftContents"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K5 ["LeftContents"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K1 ["Frame"]
+  NEWTABLE R7 1 0
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["Tag"]
+  LOADK R9 K6 ["RightContents"]
+  SETTABLE R9 R7 R8
+  GETTABLEKS R8 R0 K9 ["rightContents"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K6 ["RightContents"]
   CALL R1 3 -1
   RETURN R1 -1
 

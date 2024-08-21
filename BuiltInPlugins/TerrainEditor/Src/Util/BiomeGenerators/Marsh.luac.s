@@ -80,21 +80,19 @@ PROTO_0:
   LOADN R15 1
   JUMPIFNOTLE R15 R10 [+4]
   GETIMPORT R14 K17 [Enum.Material.Grass]
-  JUMP [+18]
-  LOADN R16 1
-  SUB R15 R16 R1
-  SUBK R16 R7 K18 [0.01]
+  JUMP [+16]
+  SUBRK R15 R18 K1 ["Y"]
+  SUBK R16 R7 K19 [0.01]
   JUMPIFNOTLT R15 R16 [+4]
-  GETIMPORT R14 K20 [Enum.Material.Mud]
-  JUMP [+10]
-  LOADN R16 1
-  SUB R15 R16 R1
-  ADDK R16 R7 K18 [0.01]
+  GETIMPORT R14 K21 [Enum.Material.Mud]
+  JUMP [+9]
+  SUBRK R15 R18 K1 ["Y"]
+  ADDK R16 R7 K19 [0.01]
   JUMPIFNOTLT R15 R16 [+4]
-  GETIMPORT R14 K22 [Enum.Material.Ground]
+  GETIMPORT R14 K23 [Enum.Material.Ground]
   JUMP [+2]
   GETIMPORT R14 K17 [Enum.Material.Grass]
-  GETIMPORT R15 K24 [Enum.Material.Slate]
+  GETIMPORT R15 K25 [Enum.Material.Slate]
   RETURN R13 3
 
 PROTO_1:

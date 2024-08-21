@@ -27,8 +27,20 @@ MAIN:
   LOADN R7 0
   CALL R4 3 1
   SETTABLEKS R4 R3 K18 ["BlueprintLabelsColor"]
+  GETIMPORT R4 K16 [Color3.fromRGB]
+  LOADN R5 220
+  LOADN R6 220
+  LOADN R7 220
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K19 ["MappingLabelHover"]
+  GETIMPORT R4 K16 [Color3.fromRGB]
+  LOADN R5 202
+  LOADN R6 202
+  LOADN R7 202
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K20 ["MappingLabel"]
   MOVE R4 R2
-  LOADK R5 K19 ["ControlsEmulatorLightTheme"]
+  LOADK R5 K21 ["ControlsEmulatorLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

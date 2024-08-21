@@ -544,19 +544,9 @@ MAIN:
   SETTABLEKS R6 R5 K298 ["TwistLowerAngle"]
   LOADN R6 3
   SETTABLEKS R6 R5 K299 ["TwistUpperAngle"]
-  LOADN R7 0
-  LOADN R8 255
-  LOADN R9 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R6 K309 [Vector3.new]
-  CALL R6 3 1
+  LOADK R6 K52 [Vector2.new]
   SETTABLEKS R6 R5 K305 ["Axis"]
-  LOADN R7 0
-  LOADN R8 0
-  LOADN R9 1
-  FASTCALL VECTOR [+2]
-  GETIMPORT R6 K309 [Vector3.new]
-  CALL R6 3 1
+  LOADK R6 K53 ["MAIN_FLOATING_SIZE"]
   SETTABLEKS R6 R5 K306 ["SecondaryAxis"]
   SETTABLEKS R5 R4 K286 ["Hip"]
   DUPTABLE R5 K303 [{"Type", "LimitsEnabled", "LowerAngle", "Restitution", "UpperAngle"}]

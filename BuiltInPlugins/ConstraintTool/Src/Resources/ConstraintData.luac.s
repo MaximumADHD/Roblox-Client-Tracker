@@ -97,43 +97,28 @@ MAIN:
   LOADN R2 1
   SETTABLEKS R2 R1 K0 ["Attachments"]
   DUPTABLE R2 K31 [{"Torque"}]
-  LOADN R4 208
-  LOADN R5 0
-  LOADN R6 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K34 [Vector3.new]
-  CALL R3 3 1
+  LOADK R3 K32 [{2000, 0, 0}]
   SETTABLEKS R3 R2 K30 ["Torque"]
   SETTABLEKS R2 R1 K15 ["Properties"]
   SETTABLEKS R1 R0 K30 ["Torque"]
   DUPTABLE R1 K21 [{"Attachments", "Properties"}]
   LOADN R2 1
   SETTABLEKS R2 R1 K0 ["Attachments"]
-  DUPTABLE R2 K36 [{"AngularVelocity", "MaxTorque"}]
-  LOADN R4 0
-  LOADN R5 1
-  LOADN R6 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K34 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K35 ["AngularVelocity"]
+  DUPTABLE R2 K34 [{"AngularVelocity", "MaxTorque"}]
+  LOADK R3 K35 [{0, 1, 0}]
+  SETTABLEKS R3 R2 K33 ["AngularVelocity"]
   LOADN R3 32
   SETTABLEKS R3 R2 K24 ["MaxTorque"]
   SETTABLEKS R2 R1 K15 ["Properties"]
-  SETTABLEKS R1 R0 K35 ["AngularVelocity"]
+  SETTABLEKS R1 R0 K33 ["AngularVelocity"]
   DUPTABLE R1 K21 [{"Attachments", "Properties"}]
   LOADN R2 1
   SETTABLEKS R2 R1 K0 ["Attachments"]
-  DUPTABLE R2 K39 [{"MaxForce", "VectorVelocity"}]
+  DUPTABLE R2 K38 [{"MaxForce", "VectorVelocity"}]
   LOADN R3 16
-  SETTABLEKS R3 R2 K37 ["MaxForce"]
-  LOADN R4 0
-  LOADN R5 1
-  LOADN R6 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K34 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K38 ["VectorVelocity"]
+  SETTABLEKS R3 R2 K36 ["MaxForce"]
+  LOADK R3 K35 [{0, 1, 0}]
+  SETTABLEKS R3 R2 K37 ["VectorVelocity"]
   SETTABLEKS R2 R1 K15 ["Properties"]
-  SETTABLEKS R1 R0 K40 ["LinearVelocity"]
+  SETTABLEKS R1 R0 K39 ["LinearVelocity"]
   RETURN R0 1

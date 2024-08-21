@@ -73,6 +73,7 @@ local FFlagEnablePremiumSponsoredExperienceReporting = game:DefineFastFlag("Enab
 local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FFlagMoveUGCValidationFunctionFeature)
 local FFlagEnableCancelSubscriptionApp = game:GetEngineFeature("EnableCancelSubscriptionApp")
 local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSubscriptionAppLua", false)
+local AudioFocusManagementEnabled = game:GetEngineFeature("EnableAudioFocusManagement")
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -470,6 +471,11 @@ end
 
 if GetFFlagEnableAppChatInExperience() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/AppChatMain", RobloxGui)
+end
+
+
+if AudioFocusManagementEnabled then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceAudioFocusBinder", RobloxGui)
 end
 
 if FFlagEnableCancelSubscriptionApp and FFlagEnableCancelSubscriptionAppLua then

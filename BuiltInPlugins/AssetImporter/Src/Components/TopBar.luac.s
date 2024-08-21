@@ -103,16 +103,16 @@ PROTO_2:
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K11 ["createElement"]
   GETUPVAL R11 4
-  DUPTABLE R12 K51 [{"LayoutOrder", "ActiveQueueItem", "Size"}]
+  DUPTABLE R12 K51 [{"LayoutOrder", "QueueItem", "Size"}]
   LOADN R13 3
   SETTABLEKS R13 R12 K28 ["LayoutOrder"]
   GETUPVAL R14 5
   CALL R14 0 1
   JUMPIFNOT R14 [+3]
-  GETTABLEKS R13 R1 K50 ["ActiveQueueItem"]
+  GETTABLEKS R13 R1 K52 ["ActiveQueueItem"]
   JUMP [+1]
   LOADNIL R13
-  SETTABLEKS R13 R12 K50 ["ActiveQueueItem"]
+  SETTABLEKS R13 R12 K50 ["QueueItem"]
   GETUPVAL R14 5
   CALL R14 0 1
   JUMPIFNOT R14 [+3]
@@ -125,7 +125,7 @@ PROTO_2:
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K11 ["createElement"]
   GETUPVAL R11 6
-  DUPTABLE R12 K52 [{"LayoutOrder"}]
+  DUPTABLE R12 K53 [{"LayoutOrder"}]
   LOADN R13 4
   SETTABLEKS R13 R12 K28 ["LayoutOrder"]
   CALL R10 2 1
@@ -296,7 +296,7 @@ MAIN:
   GETIMPORT R20 K5 [require]
   GETTABLEKS R23 R0 K19 ["Src"]
   GETTABLEKS R22 R23 K33 ["Flags"]
-  GETTABLEKS R21 R22 K34 ["getFFlagAssetImportEnableMultipleFiles"]
+  GETTABLEKS R21 R22 K34 ["getFFlagAssetImportUseQueueItem"]
   CALL R20 1 1
   GETTABLEKS R21 R1 K35 ["PureComponent"]
   LOADK R23 K36 ["TopBar"]

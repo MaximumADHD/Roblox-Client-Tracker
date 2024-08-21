@@ -26,6 +26,7 @@ local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils
 local Components = script.Parent
 local NameTextBox = require(Components.Common.NameTextBox)
 local CloseOpenPrompt = require(script.Parent.Parent.Actions.CloseOpenPrompt)
+local SetPromptVisibility = require(script.Parent.Parent.Actions.SetPromptVisibility)
 local LeaveCreationAlert = require(script.Parent.LeaveCreationAlert)
 local Constants = require(script.Parent.Parent.Constants)
 local PreviewViewport = require(Components.Common.PreviewViewport)
@@ -67,14 +68,18 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	-- priceInRobux should only be nil while fetching price;
 	-- if the item is free, it should be 0
 	priceInRobux = t.optional(t.number),
+	-- If an additional contrast overlay should be shown on top of the prompt
+	showTopScrim = t.optional(t.boolean),
 
 	-- Mapped state
 	guid = t.any,
 	scopes = t.any,
 	errorMessage = t.optional(t.string),
+	promptVisible = t.optional(t.boolean),
 
 	-- Mapped dispatch functions
 	closePrompt = t.callback,
+	SetPromptVisibility = t.callback,
 })
 
 function BasePublishPrompt:init()
@@ -82,6 +87,9 @@ function BasePublishPrompt:init()
 	self.inputState = nil
 	self.inputObject = nil
 	self.connection = nil
+
+	-- Prompt should be visible when this component is mounted
+	self.props.SetPromptVisibility(true)
 
 	self.storeInput = function(actionName, inputState, inputObject)
 		self.inputState = inputState
@@ -98,6 +106,7 @@ function BasePublishPrompt:init()
 	-- TODO: AVBURST-13016 Add back checking name for spaces or special characters after investigating
 	self.closePrompt = function()
 		self.props.closePrompt()
+		self.props.SetPromptVisibility(false)
 	end
 
 	self.showUnsavedDataWarning = function()
@@ -126,7 +135,6 @@ function BasePublishPrompt:init()
 	self.confirmAndUpload = function()
 		if self.props.canSubmit() then
 			self.props.onSubmit()
-			self.closePrompt()
 		end
 	end
 end
@@ -165,6 +173,16 @@ end
 
 function BasePublishPrompt:didMount()
 	self:setUpGamepad()
+end
+
+function BasePublishPrompt:didUpdate(prevProps)
+	--[[
+		When the purchase is confirmed via the economy prompt, the promptVisible
+		prop will change to false, so we close the prompt here.
+	]]
+	if prevProps.promptVisible ~= self.props.promptVisible and self.props.promptVisible == false then
+		self.closePrompt()
+	end
 end
 
 function BasePublishPrompt:renderMiddle(localized)
@@ -286,7 +304,7 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 
 		return Roact.createFragment({
 			-- Render transparent black frame over the whole screen to de-focus anything in the background.
-			Overlay = Roact.createElement(Overlay, {
+			BottomScrim = Roact.createElement(Overlay, {
 				showGradient = false,
 				ZIndex = -1,
 			}),
@@ -348,6 +366,14 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 					closePreviewView = self.props.closePreviewView,
 				}),
 			}) or nil,
+
+			-- Render when opening economy prompt
+			TopScrim = if self.props.showTopScrim
+				then Roact.createElement(Overlay, {
+					showGradient = false,
+					ZIndex = 2,
+				})
+				else nil,
 		})
 	end)
 end
@@ -374,6 +400,7 @@ local function mapStateToProps(state)
 		guid = state.promptRequest.promptInfo.guid,
 		scopes = state.promptRequest.promptInfo.scopes,
 		errorMessage = state.promptRequest.promptInfo.errorMessage,
+		promptVisible = state.promptRequest.promptInfo.promptVisible,
 	}
 end
 
@@ -381,6 +408,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		closePrompt = function()
 			return dispatch(CloseOpenPrompt())
+		end,
+		SetPromptVisibility = function(promptVisible)
+			return dispatch(SetPromptVisibility(promptVisible))
 		end,
 	}
 end

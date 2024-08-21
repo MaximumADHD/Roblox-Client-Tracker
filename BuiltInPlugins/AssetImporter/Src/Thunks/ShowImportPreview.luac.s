@@ -143,7 +143,7 @@ MAIN:
   GETIMPORT R10 K7 [require]
   GETTABLEKS R13 R0 K4 ["Src"]
   GETTABLEKS R12 R13 K17 ["Flags"]
-  GETTABLEKS R11 R12 K18 ["getFFlagAssetImportEnableMultipleFiles"]
+  GETTABLEKS R11 R12 K18 ["getFFlagAssetImportUseQueueItem"]
   CALL R10 1 1
   DUPCLOSURE R11 K19 [PROTO_1]
   CAPTURE VAL R10

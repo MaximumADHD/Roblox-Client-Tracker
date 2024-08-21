@@ -19,11 +19,7 @@ local CurrentVehicleSeat = nil
 local VehicleSeatHeartbeatCn = nil
 local VehicleSeatHUDChangedCn = nil
 
-local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
-local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then game:GetService("CoreGui").RobloxGui else game:GetService("CoreGui"):WaitForChild("RobloxGui")
-if GetFFlagReplaceWaitForChildDependancy2952() then
-	RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
-end
+local RobloxGui = game:GetService("CoreGui").RobloxGui
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 --[[ Images ]]--

@@ -304,97 +304,96 @@ PROTO_8:
   GETTABLEKS R1 R0 K0 ["Value"]
   GETTABLEKS R2 R0 K1 ["Style"]
   GETTABLEKS R3 R0 K2 ["Width"]
-  JUMPIF R3 [+9]
+  JUMPIF R3 [+8]
   GETIMPORT R3 K5 [UDim.new]
-  LOADN R5 1
-  GETTABLEKS R7 R0 K6 ["Columns"]
-  LENGTH R6 R7
-  DIV R4 R5 R6
+  GETTABLEKS R6 R0 K7 ["Columns"]
+  LENGTH R5 R6
+  DIVRK R4 R6 K5 [UDim.new]
   LOADN R5 0
   CALL R3 2 1
-  GETTABLEKS R5 R0 K7 ["Emphasis"]
+  GETTABLEKS R5 R0 K8 ["Emphasis"]
   JUMPIFNOT R5 [+3]
-  GETTABLEKS R4 R2 K8 ["BackgroundOdd"]
+  GETTABLEKS R4 R2 K9 ["BackgroundOdd"]
   JUMP [+2]
-  GETTABLEKS R4 R2 K9 ["BackgroundEven"]
+  GETTABLEKS R4 R2 K10 ["BackgroundEven"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K4 ["new"]
   CALL R5 0 1
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K10 ["createElement"]
+  GETTABLEKS R6 R7 K11 ["createElement"]
   GETUPVAL R7 2
-  DUPTABLE R8 K22 [{"LayoutOrder", "Padding", "Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants", "Layout", "Spacing", "HorizontalAlignment", "VerticalAlignment"}]
-  GETTABLEKS R9 R0 K23 ["ColumnIndex"]
-  SETTABLEKS R9 R8 K11 ["LayoutOrder"]
-  DUPTABLE R9 K28 [{"Top", "Bottom", "Left", "Right"}]
+  DUPTABLE R8 K23 [{"LayoutOrder", "Padding", "Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants", "Layout", "Spacing", "HorizontalAlignment", "VerticalAlignment"}]
+  GETTABLEKS R9 R0 K24 ["ColumnIndex"]
+  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
+  DUPTABLE R9 K29 [{"Top", "Bottom", "Left", "Right"}]
   LOADN R10 1
-  SETTABLEKS R10 R9 K24 ["Top"]
+  SETTABLEKS R10 R9 K25 ["Top"]
   LOADN R10 1
-  SETTABLEKS R10 R9 K25 ["Bottom"]
+  SETTABLEKS R10 R9 K26 ["Bottom"]
   LOADN R10 5
-  SETTABLEKS R10 R9 K26 ["Left"]
+  SETTABLEKS R10 R9 K27 ["Left"]
   LOADN R10 5
-  SETTABLEKS R10 R9 K27 ["Right"]
-  SETTABLEKS R9 R8 K12 ["Padding"]
-  LOADK R9 K29 ["Box"]
+  SETTABLEKS R10 R9 K28 ["Right"]
+  SETTABLEKS R9 R8 K13 ["Padding"]
+  LOADK R9 K30 ["Box"]
   SETTABLEKS R9 R8 K1 ["Style"]
-  SETTABLEKS R4 R8 K13 ["BackgroundColor3"]
+  SETTABLEKS R4 R8 K14 ["BackgroundColor3"]
   LOADN R9 1
-  SETTABLEKS R9 R8 K14 ["BorderSizePixel"]
-  GETTABLEKS R9 R2 K30 ["Border"]
-  SETTABLEKS R9 R8 K15 ["BorderColor3"]
-  GETIMPORT R9 K32 [UDim2.new]
-  GETTABLEKS R10 R3 K33 ["Scale"]
-  GETTABLEKS R11 R3 K34 ["Offset"]
+  SETTABLEKS R9 R8 K15 ["BorderSizePixel"]
+  GETTABLEKS R9 R2 K31 ["Border"]
+  SETTABLEKS R9 R8 K16 ["BorderColor3"]
+  GETIMPORT R9 K33 [UDim2.new]
+  GETTABLEKS R10 R3 K34 ["Scale"]
+  GETTABLEKS R11 R3 K35 ["Offset"]
   LOADN R12 1
   LOADN R13 0
   CALL R9 4 1
-  SETTABLEKS R9 R8 K16 ["Size"]
+  SETTABLEKS R9 R8 K17 ["Size"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K17 ["ClipsDescendants"]
-  GETIMPORT R9 K38 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R9 R8 K18 ["Layout"]
+  SETTABLEKS R9 R8 K18 ["ClipsDescendants"]
+  GETIMPORT R9 K39 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K19 ["Layout"]
   LOADN R9 8
-  SETTABLEKS R9 R8 K19 ["Spacing"]
-  GETIMPORT R9 K39 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R9 R8 K20 ["HorizontalAlignment"]
-  GETIMPORT R9 K41 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R9 R8 K21 ["VerticalAlignment"]
-  DUPTABLE R9 K44 [{"Input", "DotDotDot"}]
+  SETTABLEKS R9 R8 K20 ["Spacing"]
+  GETIMPORT R9 K40 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K21 ["HorizontalAlignment"]
+  GETIMPORT R9 K42 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R9 R8 K22 ["VerticalAlignment"]
+  DUPTABLE R9 K45 [{"Input", "DotDotDot"}]
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K10 ["createElement"]
+  GETTABLEKS R10 R11 K11 ["createElement"]
   GETUPVAL R11 3
-  DUPTABLE R12 K45 [{"Value", "LayoutOrder", "Size"}]
+  DUPTABLE R12 K46 [{"Value", "LayoutOrder", "Size"}]
   SETTABLEKS R1 R12 K0 ["Value"]
-  NAMECALL R13 R5 K46 ["getNextOrder"]
+  NAMECALL R13 R5 K47 ["getNextOrder"]
   CALL R13 1 1
-  SETTABLEKS R13 R12 K11 ["LayoutOrder"]
-  GETIMPORT R13 K32 [UDim2.new]
+  SETTABLEKS R13 R12 K12 ["LayoutOrder"]
+  GETIMPORT R13 K33 [UDim2.new]
   LOADN R14 0
   LOADN R15 110
   LOADN R16 1
   LOADN R17 0
   CALL R13 4 1
-  SETTABLEKS R13 R12 K16 ["Size"]
+  SETTABLEKS R13 R12 K17 ["Size"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K42 ["Input"]
+  SETTABLEKS R10 R9 K43 ["Input"]
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K10 ["createElement"]
+  GETTABLEKS R10 R11 K11 ["createElement"]
   GETUPVAL R11 4
-  DUPTABLE R12 K48 [{"LayoutOrder", "Size", "OnClick"}]
-  NAMECALL R13 R5 K46 ["getNextOrder"]
+  DUPTABLE R12 K49 [{"LayoutOrder", "Size", "OnClick"}]
+  NAMECALL R13 R5 K47 ["getNextOrder"]
   CALL R13 1 1
-  SETTABLEKS R13 R12 K11 ["LayoutOrder"]
-  GETIMPORT R13 K50 [UDim2.fromOffset]
+  SETTABLEKS R13 R12 K12 ["LayoutOrder"]
+  GETIMPORT R13 K51 [UDim2.fromOffset]
   LOADN R14 22
   LOADN R15 22
   CALL R13 2 1
-  SETTABLEKS R13 R12 K16 ["Size"]
+  SETTABLEKS R13 R12 K17 ["Size"]
   NEWCLOSURE R13 P0
   CAPTURE VAL R0
-  SETTABLEKS R13 R12 K47 ["OnClick"]
+  SETTABLEKS R13 R12 K48 ["OnClick"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K43 ["DotDotDot"]
+  SETTABLEKS R10 R9 K44 ["DotDotDot"]
   CALL R6 3 -1
   RETURN R6 -1
 

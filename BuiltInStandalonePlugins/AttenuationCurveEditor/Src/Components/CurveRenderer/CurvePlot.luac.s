@@ -50,12 +50,11 @@ PROTO_0:
   CALL R14 1 1
   SUB R13 R3 R14
   DIVK R12 R13 K20 [0.397940008672038]
-  LOADN R15 1
-  SUB R14 R15 R12
+  SUBRK R14 R21 K12 ["createElement"]
   LOADN R15 0
   LOADN R16 1
   FASTCALL MATH_CLAMP [+2]
-  GETIMPORT R13 K22 [math.clamp]
+  GETIMPORT R13 K23 [math.clamp]
   CALL R13 3 1
   MOVE R12 R13
   LOADN R13 0
@@ -66,13 +65,13 @@ PROTO_0:
   FORNPREP R13
   MUL R17 R5 R15
   ADD R16 R10 R17
-  LOADK R18 K23 ["GridLine_Inner_V_"]
+  LOADK R18 K24 ["GridLine_Inner_V_"]
   MOVE R19 R16
   CONCAT R17 R18 R19
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K12 ["createElement"]
   GETUPVAL R19 1
-  DUPTABLE R20 K25 [{"Position", "PlotRect", "PlotAbsoluteSize", "PlotFramePadding", "Orientation", "InnerAlpha"}]
+  DUPTABLE R20 K26 [{"Position", "PlotRect", "PlotAbsoluteSize", "PlotFramePadding", "Orientation", "InnerAlpha"}]
   SETTABLEKS R16 R20 K13 ["Position"]
   SETTABLEKS R0 R20 K14 ["PlotRect"]
   SETTABLEKS R1 R20 K15 ["PlotAbsoluteSize"]
@@ -80,19 +79,19 @@ PROTO_0:
   SETTABLEKS R21 R20 K16 ["PlotFramePadding"]
   LOADK R21 K19 ["Vertical"]
   SETTABLEKS R21 R20 K17 ["Orientation"]
-  SETTABLEKS R12 R20 K24 ["InnerAlpha"]
+  SETTABLEKS R12 R20 K25 ["InnerAlpha"]
   CALL R18 2 1
   SETTABLE R18 R2 R17
   FORNLOOP R13
   FORNLOOP R8
   GETTABLEKS R11 R0 K8 ["Min"]
-  GETTABLEKS R10 R11 K26 ["Y"]
+  GETTABLEKS R10 R11 K27 ["Y"]
   GETTABLEKS R11 R0 K10 ["Max"]
-  GETTABLEKS R8 R11 K26 ["Y"]
-  GETTABLEKS R11 R0 K28 ["Height"]
-  DIVK R9 R11 K27 [5]
+  GETTABLEKS R8 R11 K27 ["Y"]
+  GETTABLEKS R11 R0 K29 ["Height"]
+  DIVK R9 R11 K28 [5]
   FORNPREP R8
-  LOADK R12 K29 ["GridLine_H_"]
+  LOADK R12 K30 ["GridLine_H_"]
   MOVE R13 R10
   CONCAT R11 R12 R13
   GETUPVAL R13 0
@@ -104,7 +103,7 @@ PROTO_0:
   SETTABLEKS R1 R14 K15 ["PlotAbsoluteSize"]
   LOADN R15 50
   SETTABLEKS R15 R14 K16 ["PlotFramePadding"]
-  LOADK R15 K30 ["Horizontal"]
+  LOADK R15 K31 ["Horizontal"]
   SETTABLEKS R15 R14 K17 ["Orientation"]
   CALL R12 2 1
   SETTABLE R12 R2 R11

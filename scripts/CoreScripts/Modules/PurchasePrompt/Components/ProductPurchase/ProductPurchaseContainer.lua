@@ -12,6 +12,7 @@ local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local UIBlox = PurchasePromptDeps.UIBlox
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
@@ -54,6 +55,7 @@ local ProductPurchaseContainer = Roact.Component:extend(script.Name)
 local CONFIRM_BUTTON_BIND = "ProductPurchaseConfirmButtonBind"
 local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 
+-- ProductPurchaseContainer localization keys
 local PURCHASE_MESSAGE_KEY = "CoreScripts.PurchasePrompt.PurchaseMessage.%s"
 
 local BUY_ITEM_LOCALE_KEY = "CoreScripts.PurchasePrompt.Title.BuyItem"
@@ -61,6 +63,11 @@ local SETTINGS_LOCALE_KEY = "CoreScripts.PurchasePrompt.Button.Settings"
 local OK_LOCALE_KEY = "CoreScripts.PurchasePrompt.Button.OK"
 local CANCEL_LOCALE_KEY = "CoreScripts.PurchasePrompt.CancelPurchase.Cancel"
 local ERROR_LOCALE_KEY = "CoreScripts.PremiumModal.Title.Error"
+
+-- RobloxTranslator localization keys
+local PURCHASE_COMPLETE_HEADER_KEY = "CoreScripts.BulkPurchasePrompt.CompletedPrompt.SuccessHeading"
+local PURCHASE_COMPLETE_DESC_KEY = "CoreScripts.PublishAvatarPrompt.PurchaseCompleteDescription"
+local OK_BUTTON_KEY = "CoreScripts.PublishAssetPrompt.ResultModalOk"
 
 local ERROR_ICON = "icons/status/error_large"
 
@@ -420,6 +427,28 @@ function ProductPurchaseContainer:render()
 				cancelActivated = self.cancelButtonPressed,
 				continueActivated = self.confirmButtonPressed,
 			})
+	elseif
+		GetFFlagEnableAvatarCreationFeePurchase()
+		and promptState == PromptState.PurchaseComplete
+		and requestType == RequestType.AvatarCreationFee
+	then
+		prompt = Roact.createElement(InteractiveAlert, {
+			bodyText = RobloxTranslator:FormatByKey(PURCHASE_COMPLETE_DESC_KEY),
+			buttonStackInfo = {
+				buttons = {
+					{
+						buttonType = ButtonType.PrimarySystem,
+						props = {
+							onActivated = self.confirmButtonPressed,
+							text = RobloxTranslator:FormatByKey(OK_BUTTON_KEY),
+							inputIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
+						},
+					},
+				},
+			},
+			screenSize = self.state.screenSize,
+			title = RobloxTranslator:FormatByKey(PURCHASE_COMPLETE_HEADER_KEY),
+		})
 	elseif (promptState == PromptState.Error
 			and purchaseError == PurchaseError.TwoFactorNeededSettings) or
 			isGenericChallengeResponse(purchaseError) then

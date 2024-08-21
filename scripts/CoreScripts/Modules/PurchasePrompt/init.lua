@@ -18,9 +18,12 @@ local ExternalSettings = require(Root.Services.ExternalSettings)
 local Thunk = require(Root.Thunk)
 local initiateAvatarCreationFeePurchaseThunk = require(Root.Thunks.initiateAvatarCreationFeePurchase)
 local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
+local WindowState = require(Root.Enums.WindowState)
 
 local handle
 local store
+
+local purchasePromptClosedBindable = Instance.new("BindableEvent")
 
 -- Create the store outside of the PurchasePromptApp so
 -- we can utilize the store in APIs that can be accessed
@@ -41,6 +44,15 @@ local function createStore()
 			[ExternalSettings] = externalSettings,
 		}),
 	})
+
+	store.changed:connect(function(currentState, previousState)
+		-- Check if the prompt has been closed
+		if previousState.windowState ~= currentState.windowState and currentState.windowState == WindowState.Hidden then
+			purchasePromptClosedBindable:Fire({
+				hasCompletedPurchase = currentState.hasCompletedPurchase,
+			})
+		end
+	end)
 end
 
 local mountPurchasePrompt
@@ -86,4 +98,6 @@ end
 return {
 	mountPurchasePrompt = mountPurchasePrompt,
 	initiateAvatarCreationFeePurchase = if GetFFlagEnableAvatarCreationFeePurchase() then initiateAvatarCreationFeePurchase else nil,
+	-- This event fires when the prompt closes and returns hasCompletedPurchase
+	purchasePromptClosedEvent = if GetFFlagEnableAvatarCreationFeePurchase() then purchasePromptClosedBindable.Event else nil,
 }

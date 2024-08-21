@@ -1,0 +1,169 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R2 K0 [95206881]
+  LOADB R3 0
+  NAMECALL R0 R0 K1 ["openPlace"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["new"]
+  CALL R2 0 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  LOADK R4 K3 ["Frame"]
+  NEWTABLE R5 4 0
+  GETTABLEKS R6 R0 K4 ["Size"]
+  SETTABLEKS R6 R5 K4 ["Size"]
+  GETTABLEKS R6 R0 K5 ["Position"]
+  SETTABLEKS R6 R5 K5 ["Position"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K6 ["Tag"]
+  LOADK R7 K7 ["X-Center X-Middle StartPage-NoBackground X-Column"]
+  SETTABLE R7 R5 R6
+  DUPTABLE R6 K13 [{"NoDisplayImage", "EmptySpace", "Title", "EmptySpace2", "Button"}]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  LOADK R8 K3 ["Frame"]
+  NEWTABLE R9 2 0
+  NAMECALL R10 R2 K14 ["getNextOrder"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K15 ["LayoutOrder"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K6 ["Tag"]
+  LOADK R11 K16 ["X-FitY X-Center X-Middle StartPage-NoBackground"]
+  SETTABLE R11 R9 R10
+  NEWTABLE R10 0 1
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K2 ["createElement"]
+  GETUPVAL R12 3
+  NEWTABLE R13 1 0
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K6 ["Tag"]
+  LOADK R15 K17 ["StartPage-NoExperiences"]
+  SETTABLE R15 R13 R14
+  CALL R11 2 -1
+  SETLIST R10 R11 -1 [1]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K8 ["NoDisplayImage"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  LOADK R8 K3 ["Frame"]
+  NEWTABLE R9 4 0
+  GETIMPORT R10 K19 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 32
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K4 ["Size"]
+  NAMECALL R10 R2 K14 ["getNextOrder"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K15 ["LayoutOrder"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K6 ["Tag"]
+  LOADK R11 K20 ["StartPage-NoBackground"]
+  SETTABLE R11 R9 R10
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K9 ["EmptySpace"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  LOADK R8 K21 ["TextLabel"]
+  NEWTABLE R9 8 0
+  GETTABLEKS R10 R0 K10 ["Title"]
+  SETTABLEKS R10 R9 K22 ["Text"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K23 ["TextWrapped"]
+  GETIMPORT R10 K27 [Enum.TextXAlignment.Center]
+  SETTABLEKS R10 R9 K25 ["TextXAlignment"]
+  NAMECALL R10 R2 K14 ["getNextOrder"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K15 ["LayoutOrder"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K6 ["Tag"]
+  LOADK R11 K28 ["X-Fit StartPage-Font StartPage-TextSize StartPage-NoBackground StartPage-TextColor"]
+  SETTABLE R11 R9 R10
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K10 ["Title"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  LOADK R8 K3 ["Frame"]
+  NEWTABLE R9 4 0
+  GETIMPORT R10 K19 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 16
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K4 ["Size"]
+  NAMECALL R10 R2 K14 ["getNextOrder"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K15 ["LayoutOrder"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K6 ["Tag"]
+  LOADK R11 K20 ["StartPage-NoBackground"]
+  SETTABLE R11 R9 R10
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K11 ["EmptySpace2"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  LOADK R8 K29 ["TextButton"]
+  NEWTABLE R9 4 0
+  LOADK R12 K30 ["Plugin"]
+  LOADK R13 K31 ["CreateANewExperience"]
+  NAMECALL R10 R1 K32 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K22 ["Text"]
+  NAMECALL R10 R2 K14 ["getNextOrder"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K15 ["LayoutOrder"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K33 ["Event"]
+  GETTABLEKS R10 R11 K34 ["Activated"]
+  DUPCLOSURE R11 K35 [PROTO_0]
+  CAPTURE UPVAL U4
+  SETTABLE R11 R9 R10
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K6 ["Tag"]
+  LOADK R11 K36 ["X-Fit X-Middle StartPage-ButtonBackgroundColor StartPage-FontBold StartPage-TextSize StartPage-ButtonPadding StartPage-RoundedCorner8 StartPage-StandardTextColor"]
+  SETTABLE R11 R9 R10
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K12 ["Button"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["LayoutOrderIterator"]
+  GETTABLEKS R5 R2 K11 ["ContextServices"]
+  GETTABLEKS R4 R5 K12 ["Localization"]
+  GETTABLEKS R5 R2 K13 ["UI"]
+  GETTABLEKS R6 R5 K14 ["Image"]
+  GETIMPORT R7 K16 [game]
+  LOADK R9 K17 ["StartPageService"]
+  NAMECALL R7 R7 K18 ["GetService"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K19 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  RETURN R8 1

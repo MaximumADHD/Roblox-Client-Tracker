@@ -1,0 +1,20 @@
+PROTO_0:
+  JUMPIF R0 [+2]
+  LOADK R1 K0 [""]
+  RETURN R1 1
+  GETIMPORT R1 K3 [DateTime.fromIsoDate]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADK R2 K0 [""]
+  RETURN R2 1
+  LOADK R4 K4 ["L LT"]
+  LOADK R5 K5 ["en-us"]
+  NAMECALL R2 R1 K6 ["FormatLocalTime"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

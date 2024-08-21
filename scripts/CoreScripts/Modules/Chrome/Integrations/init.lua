@@ -15,4 +15,5 @@ return {
 	CameraEntrypoint = require(script.CameraUtility.CameraEntrypoint),
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
 	Songbird = require(script.MusicUtility.Songbird),
+	Party = require(script.Party),
 }

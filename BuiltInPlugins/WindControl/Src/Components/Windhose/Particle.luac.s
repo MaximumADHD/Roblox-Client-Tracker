@@ -1,34 +1,14 @@
 PROTO_0:
-  LOADN R4 0
-  LOADN R5 0
-  LOADN R6 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K2 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R0 K3 ["velocity"]
-  SETTABLEKS R2 R0 K4 ["mass"]
-  LOADN R4 0
-  LOADN R5 0
-  LOADN R6 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K2 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R0 K5 ["acceleration"]
-  LOADN R4 0
-  LOADN R5 0
-  LOADN R6 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K2 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R0 K6 ["momentum"]
-  LOADN R4 0
-  LOADN R5 0
-  LOADN R6 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K2 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R0 K7 ["force"]
-  SETTABLEKS R1 R0 K8 ["position"]
+  LOADK R3 K0 [{0, 0, 0}]
+  SETTABLEKS R3 R0 K1 ["velocity"]
+  SETTABLEKS R2 R0 K2 ["mass"]
+  LOADK R3 K0 [{0, 0, 0}]
+  SETTABLEKS R3 R0 K3 ["acceleration"]
+  LOADK R3 K0 [{0, 0, 0}]
+  SETTABLEKS R3 R0 K4 ["momentum"]
+  LOADK R3 K0 [{0, 0, 0}]
+  SETTABLEKS R3 R0 K5 ["force"]
+  SETTABLEKS R1 R0 K6 ["position"]
   RETURN R0 0
 
 PROTO_1:
@@ -38,37 +18,30 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  LOADN R5 1
-  GETTABLEKS R6 R0 K0 ["mass"]
-  DIV R4 R5 R6
-  GETTABLEKS R5 R0 K1 ["force"]
+  GETTABLEKS R5 R0 K1 ["mass"]
+  DIVRK R4 R0 K5 [0.00015]
+  GETTABLEKS R5 R0 K2 ["force"]
   MUL R3 R4 R5
-  SETTABLEKS R3 R0 K2 ["acceleration"]
-  GETTABLEKS R3 R0 K3 ["velocity"]
-  LOADN R5 1
-  LOADK R7 K4 [0.00015]
-  MUL R6 R7 R1
-  SUB R4 R5 R6
+  SETTABLEKS R3 R0 K3 ["acceleration"]
+  GETTABLEKS R3 R0 K4 ["velocity"]
+  LOADK R6 K5 [0.00015]
+  MUL R5 R6 R1
+  SUBRK R4 R0 K5 [0.00015]
   MUL R3 R3 R4
-  SETTABLEKS R3 R0 K3 ["velocity"]
-  GETTABLEKS R4 R0 K3 ["velocity"]
-  GETTABLEKS R6 R0 K2 ["acceleration"]
+  SETTABLEKS R3 R0 K4 ["velocity"]
+  GETTABLEKS R4 R0 K4 ["velocity"]
+  GETTABLEKS R6 R0 K3 ["acceleration"]
   MUL R5 R6 R1
   ADD R3 R4 R5
-  SETTABLEKS R3 R0 K3 ["velocity"]
+  SETTABLEKS R3 R0 K4 ["velocity"]
   JUMPIF R2 [+8]
-  GETTABLEKS R4 R0 K5 ["position"]
-  GETTABLEKS R6 R0 K3 ["velocity"]
+  GETTABLEKS R4 R0 K6 ["position"]
+  GETTABLEKS R6 R0 K4 ["velocity"]
   MUL R5 R6 R1
   ADD R3 R4 R5
-  SETTABLEKS R3 R0 K5 ["position"]
-  LOADN R4 0
-  LOADN R5 0
-  LOADN R6 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K8 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R0 K1 ["force"]
+  SETTABLEKS R3 R0 K6 ["position"]
+  LOADK R3 K7 [{0, 0, 0}]
+  SETTABLEKS R3 R0 K2 ["force"]
   RETURN R0 0
 
 MAIN:

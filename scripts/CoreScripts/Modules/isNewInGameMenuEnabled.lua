@@ -12,7 +12,6 @@ game:DefineFastFlag("NewInGameMenuDisabledInVR", false)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagDisableNewIGMinDUA = game:DefineFastFlag("DisableNewIGMinDUA", false)
 
 local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
 
@@ -20,12 +19,6 @@ return function()
 	-- new IGM is always on in VR
 	if VRService.VREnabled then
 		return true
-	end
-
-	if not FFlagDisableNewIGMinDUA then
-		if isSubjectToDesktopPolicies() then
-			return true
-		end
 	end
 
 	local localPlayer = Players.LocalPlayer

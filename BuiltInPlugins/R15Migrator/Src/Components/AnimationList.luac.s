@@ -495,67 +495,66 @@ PROTO_21:
   SETTABLEKS R16 R15 K40 ["Name"]
   GETIMPORT R16 K32 [UDim.new]
   LOADN R17 1
-  LOADN R22 0
-  GETTABLEKS R23 R4 K33 ["SelectedColumnWidth"]
-  SUB R21 R22 R23
-  GETTABLEKS R22 R4 K45 ["OriginalColumnWidth"]
+  GETTABLEKS R22 R4 K33 ["SelectedColumnWidth"]
+  SUBRK R21 R45 K22 [table.insert]
+  GETTABLEKS R22 R4 K46 ["OriginalColumnWidth"]
   SUB R20 R21 R22
-  GETTABLEKS R21 R4 K46 ["ConvertedColumnWidth"]
+  GETTABLEKS R21 R4 K47 ["ConvertedColumnWidth"]
   SUB R19 R20 R21
-  GETTABLEKS R20 R4 K47 ["StatusColumnWidth"]
+  GETTABLEKS R20 R4 K48 ["StatusColumnWidth"]
   SUB R18 R19 R20
   CALL R16 2 1
   SETTABLEKS R16 R15 K24 ["Width"]
-  DUPTABLE R16 K48 [{"Key", "Name", "Width", "CellComponent"}]
+  DUPTABLE R16 K49 [{"Key", "Name", "Width", "CellComponent"}]
   LOADK R17 K14 ["original"]
   SETTABLEKS R17 R16 K23 ["Key"]
   LOADK R19 K42 ["AnimationList"]
-  LOADK R20 K49 ["OriginalColumn"]
+  LOADK R20 K50 ["OriginalColumn"]
   NAMECALL R17 R3 K44 ["getText"]
   CALL R17 3 1
   SETTABLEKS R17 R16 K40 ["Name"]
   GETIMPORT R17 K32 [UDim.new]
   LOADN R18 0
-  GETTABLEKS R19 R4 K45 ["OriginalColumnWidth"]
+  GETTABLEKS R19 R4 K46 ["OriginalColumnWidth"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K24 ["Width"]
   GETUPVAL R17 2
   SETTABLEKS R17 R16 K27 ["CellComponent"]
-  DUPTABLE R17 K50 [{"Key", "Name", "Width", "CellComponent", "CellComponentProps"}]
+  DUPTABLE R17 K51 [{"Key", "Name", "Width", "CellComponent", "CellComponentProps"}]
   LOADK R18 K15 ["converted"]
   SETTABLEKS R18 R17 K23 ["Key"]
   LOADK R20 K42 ["AnimationList"]
-  LOADK R21 K51 ["ConvertedColumn"]
+  LOADK R21 K52 ["ConvertedColumn"]
   NAMECALL R18 R3 K44 ["getText"]
   CALL R18 3 1
   SETTABLEKS R18 R17 K40 ["Name"]
   GETIMPORT R18 K32 [UDim.new]
   LOADN R19 0
-  GETTABLEKS R20 R4 K46 ["ConvertedColumnWidth"]
+  GETTABLEKS R20 R4 K47 ["ConvertedColumnWidth"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K24 ["Width"]
   GETUPVAL R18 3
   SETTABLEKS R18 R17 K27 ["CellComponent"]
-  DUPTABLE R18 K53 [{"OnContextButtonClick"}]
+  DUPTABLE R18 K54 [{"OnContextButtonClick"}]
   NEWCLOSURE R19 P1
   CAPTURE VAL R12
   CAPTURE VAL R0
-  SETTABLEKS R19 R18 K52 ["OnContextButtonClick"]
+  SETTABLEKS R19 R18 K53 ["OnContextButtonClick"]
   SETTABLEKS R18 R17 K28 ["CellComponentProps"]
-  DUPTABLE R18 K48 [{"Key", "Name", "Width", "CellComponent"}]
+  DUPTABLE R18 K49 [{"Key", "Name", "Width", "CellComponent"}]
   LOADK R19 K17 ["status"]
   SETTABLEKS R19 R18 K23 ["Key"]
-  LOADK R19 K54 [""]
+  LOADK R19 K55 [""]
   SETTABLEKS R19 R18 K40 ["Name"]
   GETIMPORT R19 K32 [UDim.new]
   LOADN R20 0
-  GETTABLEKS R21 R4 K47 ["StatusColumnWidth"]
+  GETTABLEKS R21 R4 K48 ["StatusColumnWidth"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K24 ["Width"]
   GETUPVAL R19 4
   SETTABLEKS R19 R18 K27 ["CellComponent"]
   SETLIST R13 R14 5 [1]
-  GETIMPORT R14 K56 [table.sort]
+  GETIMPORT R14 K57 [table.sort]
   MOVE R15 R12
   NEWCLOSURE R16 P2
   CAPTURE VAL R13
@@ -574,114 +573,114 @@ PROTO_21:
   GETTABLEKS R15 R16 K31 ["new"]
   CALL R15 0 1
   GETUPVAL R17 6
-  GETTABLEKS R16 R17 K57 ["createElement"]
+  GETTABLEKS R16 R17 K58 ["createElement"]
   GETUPVAL R17 7
-  DUPTABLE R18 K61 [{"LayoutOrder", "Size", "Layout", "VerticalAlignment", "Padding"}]
+  DUPTABLE R18 K62 [{"LayoutOrder", "Size", "Layout", "VerticalAlignment", "Padding"}]
   SETTABLEKS R11 R18 K10 ["LayoutOrder"]
   SETTABLEKS R7 R18 K6 ["Size"]
-  GETIMPORT R19 K65 [Enum.FillDirection.Vertical]
-  SETTABLEKS R19 R18 K58 ["Layout"]
-  GETIMPORT R19 K67 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R19 R18 K59 ["VerticalAlignment"]
-  DUPTABLE R19 K71 [{"Top", "Left", "Right", "Bottom"}]
+  GETIMPORT R19 K66 [Enum.FillDirection.Vertical]
+  SETTABLEKS R19 R18 K59 ["Layout"]
+  GETIMPORT R19 K68 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R19 R18 K60 ["VerticalAlignment"]
+  DUPTABLE R19 K72 [{"Top", "Left", "Right", "Bottom"}]
   LOADN R20 12
-  SETTABLEKS R20 R19 K66 ["Top"]
+  SETTABLEKS R20 R19 K67 ["Top"]
   LOADN R20 12
-  SETTABLEKS R20 R19 K68 ["Left"]
+  SETTABLEKS R20 R19 K69 ["Left"]
   LOADN R20 12
-  SETTABLEKS R20 R19 K69 ["Right"]
+  SETTABLEKS R20 R19 K70 ["Right"]
   LOADN R20 12
-  SETTABLEKS R20 R19 K70 ["Bottom"]
-  SETTABLEKS R19 R18 K60 ["Padding"]
-  DUPTABLE R19 K75 [{"Controls", "Table", "KeyboardListener"}]
+  SETTABLEKS R20 R19 K71 ["Bottom"]
+  SETTABLEKS R19 R18 K61 ["Padding"]
+  DUPTABLE R19 K76 [{"Controls", "Table", "KeyboardListener"}]
   GETUPVAL R21 6
-  GETTABLEKS R20 R21 K57 ["createElement"]
+  GETTABLEKS R20 R21 K58 ["createElement"]
   GETUPVAL R21 7
-  DUPTABLE R22 K76 [{"LayoutOrder", "Size"}]
-  NAMECALL R23 R15 K77 ["getNextOrder"]
+  DUPTABLE R22 K77 [{"LayoutOrder", "Size"}]
+  NAMECALL R23 R15 K78 ["getNextOrder"]
   CALL R23 1 1
   SETTABLEKS R23 R22 K10 ["LayoutOrder"]
-  GETIMPORT R23 K79 [UDim2.new]
+  GETIMPORT R23 K80 [UDim2.new]
   LOADN R24 1
   LOADN R25 0
   LOADN R26 0
   LOADN R27 40
   CALL R23 4 1
   SETTABLEKS R23 R22 K6 ["Size"]
-  DUPTABLE R23 K81 [{"Refresh"}]
+  DUPTABLE R23 K82 [{"Refresh"}]
   GETUPVAL R25 6
-  GETTABLEKS R24 R25 K57 ["createElement"]
+  GETTABLEKS R24 R25 K58 ["createElement"]
   GETUPVAL R25 8
-  DUPTABLE R26 K88 [{"LeftIcon", "Cursor", "OnClick", "Size", "AnchorPoint", "Position", "BackgroundStyle", "TooltipText"}]
-  GETTABLEKS R28 R4 K89 ["RefreshButton"]
-  GETTABLEKS R27 R28 K90 ["Icon"]
-  SETTABLEKS R27 R26 K82 ["LeftIcon"]
-  LOADK R27 K91 ["PointingHand"]
-  SETTABLEKS R27 R26 K83 ["Cursor"]
+  DUPTABLE R26 K89 [{"LeftIcon", "Cursor", "OnClick", "Size", "AnchorPoint", "Position", "BackgroundStyle", "TooltipText"}]
+  GETTABLEKS R28 R4 K90 ["RefreshButton"]
+  GETTABLEKS R27 R28 K91 ["Icon"]
+  SETTABLEKS R27 R26 K83 ["LeftIcon"]
+  LOADK R27 K92 ["PointingHand"]
+  SETTABLEKS R27 R26 K84 ["Cursor"]
   SETTABLEKS R10 R26 K35 ["OnClick"]
-  GETTABLEKS R28 R4 K89 ["RefreshButton"]
+  GETTABLEKS R28 R4 K90 ["RefreshButton"]
   GETTABLEKS R27 R28 K6 ["Size"]
   SETTABLEKS R27 R26 K6 ["Size"]
-  GETIMPORT R27 K93 [Vector2.new]
+  GETIMPORT R27 K94 [Vector2.new]
   LOADN R28 1
-  LOADK R29 K94 [0.5]
+  LOADK R29 K95 [0.5]
   CALL R27 2 1
-  SETTABLEKS R27 R26 K84 ["AnchorPoint"]
-  GETIMPORT R27 K79 [UDim2.new]
+  SETTABLEKS R27 R26 K85 ["AnchorPoint"]
+  GETIMPORT R27 K80 [UDim2.new]
   LOADN R28 1
   LOADN R29 240
-  LOADK R30 K94 [0.5]
+  LOADK R30 K95 [0.5]
   LOADN R31 0
   CALL R27 4 1
-  SETTABLEKS R27 R26 K85 ["Position"]
-  GETTABLEKS R28 R4 K89 ["RefreshButton"]
-  GETTABLEKS R27 R28 K86 ["BackgroundStyle"]
-  SETTABLEKS R27 R26 K86 ["BackgroundStyle"]
-  LOADK R29 K95 ["Summary"]
-  LOADK R30 K80 ["Refresh"]
+  SETTABLEKS R27 R26 K86 ["Position"]
+  GETTABLEKS R28 R4 K90 ["RefreshButton"]
+  GETTABLEKS R27 R28 K87 ["BackgroundStyle"]
+  SETTABLEKS R27 R26 K87 ["BackgroundStyle"]
+  LOADK R29 K96 ["Summary"]
+  LOADK R30 K81 ["Refresh"]
   NAMECALL R27 R3 K44 ["getText"]
   CALL R27 3 1
-  SETTABLEKS R27 R26 K87 ["TooltipText"]
+  SETTABLEKS R27 R26 K88 ["TooltipText"]
   CALL R24 2 1
-  SETTABLEKS R24 R23 K80 ["Refresh"]
+  SETTABLEKS R24 R23 K81 ["Refresh"]
   CALL R20 3 1
-  SETTABLEKS R20 R19 K72 ["Controls"]
+  SETTABLEKS R20 R19 K73 ["Controls"]
   GETUPVAL R21 6
-  GETTABLEKS R20 R21 K57 ["createElement"]
+  GETTABLEKS R20 R21 K58 ["createElement"]
   GETUPVAL R21 9
-  DUPTABLE R22 K104 [{"LayoutOrder", "Columns", "Rows", "SelectedRow", "SortIndex", "SortOrder", "OnSelectRow", "OnRightClickRow", "OnSortChange"}]
-  NAMECALL R23 R15 K77 ["getNextOrder"]
+  DUPTABLE R22 K105 [{"LayoutOrder", "Columns", "Rows", "SelectedRow", "SortIndex", "SortOrder", "OnSelectRow", "OnRightClickRow", "OnSortChange"}]
+  NAMECALL R23 R15 K78 ["getNextOrder"]
   CALL R23 1 1
   SETTABLEKS R23 R22 K10 ["LayoutOrder"]
-  SETTABLEKS R13 R22 K96 ["Columns"]
-  SETTABLEKS R12 R22 K97 ["Rows"]
-  SETTABLEKS R14 R22 K98 ["SelectedRow"]
-  GETTABLEKS R23 R1 K105 ["sortIndex"]
-  SETTABLEKS R23 R22 K99 ["SortIndex"]
-  GETTABLEKS R23 R1 K106 ["sortOrder"]
-  SETTABLEKS R23 R22 K100 ["SortOrder"]
+  SETTABLEKS R13 R22 K97 ["Columns"]
+  SETTABLEKS R12 R22 K98 ["Rows"]
+  SETTABLEKS R14 R22 K99 ["SelectedRow"]
+  GETTABLEKS R23 R1 K106 ["sortIndex"]
+  SETTABLEKS R23 R22 K100 ["SortIndex"]
+  GETTABLEKS R23 R1 K107 ["sortOrder"]
+  SETTABLEKS R23 R22 K101 ["SortOrder"]
   NEWCLOSURE R23 P3
   CAPTURE VAL R0
   CAPTURE VAL R9
-  SETTABLEKS R23 R22 K101 ["OnSelectRow"]
+  SETTABLEKS R23 R22 K102 ["OnSelectRow"]
   NEWCLOSURE R23 P4
   CAPTURE VAL R0
-  SETTABLEKS R23 R22 K102 ["OnRightClickRow"]
+  SETTABLEKS R23 R22 K103 ["OnRightClickRow"]
   NEWCLOSURE R23 P5
   CAPTURE VAL R0
-  SETTABLEKS R23 R22 K103 ["OnSortChange"]
+  SETTABLEKS R23 R22 K104 ["OnSortChange"]
   CALL R20 2 1
-  SETTABLEKS R20 R19 K73 ["Table"]
+  SETTABLEKS R20 R19 K74 ["Table"]
   GETUPVAL R21 6
-  GETTABLEKS R20 R21 K57 ["createElement"]
+  GETTABLEKS R20 R21 K58 ["createElement"]
   GETUPVAL R21 10
-  DUPTABLE R22 K109 [{"OnKeyPressed", "OnKeyReleased"}]
-  GETTABLEKS R23 R0 K110 ["onKeyPressed"]
-  SETTABLEKS R23 R22 K107 ["OnKeyPressed"]
-  GETTABLEKS R23 R0 K111 ["onKeyReleased"]
-  SETTABLEKS R23 R22 K108 ["OnKeyReleased"]
+  DUPTABLE R22 K110 [{"OnKeyPressed", "OnKeyReleased"}]
+  GETTABLEKS R23 R0 K111 ["onKeyPressed"]
+  SETTABLEKS R23 R22 K108 ["OnKeyPressed"]
+  GETTABLEKS R23 R0 K112 ["onKeyReleased"]
+  SETTABLEKS R23 R22 K109 ["OnKeyReleased"]
   CALL R20 2 1
-  SETTABLEKS R20 R19 K74 ["KeyboardListener"]
+  SETTABLEKS R20 R19 K75 ["KeyboardListener"]
   CALL R16 3 -1
   RETURN R16 -1
 

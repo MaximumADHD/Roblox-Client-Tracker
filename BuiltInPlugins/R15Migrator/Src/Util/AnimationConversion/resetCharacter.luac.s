@@ -452,13 +452,13 @@ PROTO_6:
   LOADK R4 K8 ["HumanoidRootPart"]
   NAMECALL R2 R0 K9 ["FindFirstChild"]
   CALL R2 2 1
-  JUMPIF R2 [+31]
+  JUMPIF R2 [+25]
   LOADK R6 K3 ["Humanoid"]
   NAMECALL R4 R0 K4 ["FindFirstChildWhichIsA"]
   CALL R4 2 1
   GETTABLEKS R3 R4 K10 ["RigType"]
   GETIMPORT R4 K14 [Enum.HumanoidRigType.R6]
-  JUMPIFNOTEQ R3 R4 [+22]
+  JUMPIFNOTEQ R3 R4 [+16]
   GETIMPORT R3 K16 [Instance.new]
   LOADK R4 K17 ["Part"]
   MOVE R5 R0
@@ -466,15 +466,10 @@ PROTO_6:
   MOVE R2 R3
   LOADK R3 K8 ["HumanoidRootPart"]
   SETTABLEKS R3 R2 K18 ["Name"]
-  LOADN R4 2
-  LOADN R5 2
-  LOADN R6 1
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K20 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K21 ["Size"]
+  LOADK R3 K19 [{2, 2, 1}]
+  SETTABLEKS R3 R2 K20 ["Size"]
   LOADN R3 1
-  SETTABLEKS R3 R2 K22 ["Transparency"]
+  SETTABLEKS R3 R2 K21 ["Transparency"]
   JUMPIF R2 [+1]
   RETURN R0 0
   GETUPVAL R3 0

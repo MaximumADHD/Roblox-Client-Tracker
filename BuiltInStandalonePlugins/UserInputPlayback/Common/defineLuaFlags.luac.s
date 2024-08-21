@@ -1,27 +1,22 @@
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["UserInputPlaybackPluginShowMouseCursorAfterPlayback"]
+  LOADK R2 K2 ["UserInputPlaybackPluginDeferPackageLoading"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["UserInputPlaybackPluginDeferPackageLoading"]
+  LOADK R2 K4 ["UserInputPlaybackPluginFixRecordingFileSelectorNotUpdating"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K5 ["UserInputPlaybackPluginFixRecordingFileSelectorNotUpdating"]
+  LOADK R2 K5 ["UserInputPlaybackPluginFixTabInitiallySelected"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K6 ["UserInputPlaybackPluginFixTabInitiallySelected"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["UserInputPlaybackPluginChooseRecordingNamePopUpFixStyle"]
+  LOADK R2 K6 ["UserInputPlaybackPluginChooseRecordingNamePopUpFixStyle"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

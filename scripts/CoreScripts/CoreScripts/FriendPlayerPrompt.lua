@@ -12,21 +12,20 @@ local CoreGuiService = game:GetService("CoreGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 
-local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
 
-local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiService.RobloxGui else CoreGuiService:WaitForChild("RobloxGui")
+local RobloxGui = CoreGuiService.RobloxGui
 local LocalPlayer = PlayersService.LocalPlayer
 while LocalPlayer == nil do
 	PlayersService.ChildAdded:wait()
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local CoreGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules else RobloxGui:WaitForChild("Modules")
-local PromptCreator = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.PromptCreator else CoreGuiModules:WaitForChild("PromptCreator"))
-local SocialUtil = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.SocialUtil else CoreGuiModules:WaitForChild("SocialUtil"))
-local FriendingUtility = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.FriendingUtility else CoreGuiModules:WaitForChild("FriendingUtility"))
+local CoreGuiModules = RobloxGui.Modules
+local PromptCreator = require(CoreGuiModules.PromptCreator)
+local SocialUtil = require(CoreGuiModules.SocialUtil)
+local FriendingUtility = require(CoreGuiModules.FriendingUtility)
 
-local RobloxTranslator = require(if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiModules.RobloxTranslator else CoreGuiModules:WaitForChild("RobloxTranslator"))
+local RobloxTranslator = require(CoreGuiModules.RobloxTranslator)
 
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 

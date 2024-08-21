@@ -66,13 +66,7 @@ PROTO_9:
   LOADK R4 K8 ["Button"]
   SETTABLEKS R4 R3 K0 ["Type"]
   SETTABLEKS R2 R3 K1 ["Tooltip"]
-  LOADK R5 K9 ["%*/%*.png"]
-  LOADK R7 K10 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
-  MOVE R8 R1
-  NAMECALL R5 R5 K11 ["format"]
-  CALL R5 3 1
-  MOVE R4 R5
-  SETTABLEKS R4 R3 K2 ["Icon"]
+  SETTABLEKS R1 R3 K2 ["Icon"]
   GETUPVAL R5 0
   JUMPIFEQ R5 R0 [+2]
   LOADB R4 0 +1
@@ -98,161 +92,148 @@ PROTO_10:
   GETUPVAL R1 1
   NAMECALL R1 R1 K3 ["use"]
   CALL R1 1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K4 ["useState"]
-  LOADK R3 K5 ["none"]
-  CALL R2 1 2
+  GETUPVAL R2 2
+  LOADK R4 K4 ["EditingTools"]
+  NAMECALL R2 R2 K3 ["use"]
+  CALL R2 2 1
   GETUPVAL R4 3
-  NAMECALL R4 R4 K3 ["use"]
-  CALL R4 1 1
-  NAMECALL R4 R4 K6 ["get"]
-  CALL R4 1 1
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K7 ["useEffect"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  NEWTABLE R7 0 1
-  JUMPIFEQKS R2 K5 ["none"] [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  SETLIST R7 R8 1 [1]
-  CALL R5 2 0
+  GETTABLEKS R3 R4 K5 ["useState"]
+  LOADK R4 K6 ["none"]
+  CALL R3 1 2
   GETUPVAL R5 4
-  GETTABLEKS R6 R4 K8 ["Deactivation"]
-  NEWCLOSURE R7 P1
+  NAMECALL R5 R5 K3 ["use"]
+  CALL R5 1 1
+  NAMECALL R5 R5 K7 ["get"]
+  CALL R5 1 1
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K8 ["useEffect"]
+  NEWCLOSURE R7 P0
   CAPTURE VAL R3
-  NEWTABLE R8 0 0
-  CALL R5 3 0
-  GETUPVAL R5 5
+  CAPTURE VAL R5
+  NEWTABLE R8 0 1
+  JUMPIFEQKS R3 K6 ["none"] [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 0
+  GETUPVAL R6 5
+  GETTABLEKS R7 R5 K9 ["Deactivation"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R4
+  NEWTABLE R9 0 0
+  CALL R6 3 0
   GETUPVAL R6 6
-  MOVE R7 R2
-  CALL R5 2 2
-  NEWTABLE R7 0 1
-  DUPTABLE R8 K14 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
-  LOADK R9 K15 ["Button"]
-  SETTABLEKS R9 R8 K9 ["Type"]
-  LOADK R11 K16 ["EditingTools"]
-  LOADK R12 K17 ["ShowAccessories"]
-  NAMECALL R9 R1 K18 ["getText"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K10 ["Tooltip"]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K19 ["createElement"]
-  LOADK R10 K20 ["Frame"]
-  DUPTABLE R11 K24 [{"BackgroundColor3", "BackgroundTransparency", "Size"}]
-  GETIMPORT R12 K27 [Color3.new]
-  LOADN R13 1
-  LOADN R14 0
-  LOADN R15 1
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K21 ["BackgroundColor3"]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K22 ["BackgroundTransparency"]
-  GETIMPORT R12 K30 [UDim2.fromScale]
-  LOADN R13 1
-  LOADN R14 1
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K23 ["Size"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["Icon"]
-  SETTABLEKS R5 R8 K12 ["Selected"]
-  NEWCLOSURE R9 P2
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K13 ["OnClick"]
-  SETLIST R7 R8 1 [1]
-  NEWCLOSURE R8 P3
-  CAPTURE VAL R2
+  GETUPVAL R7 7
+  MOVE R8 R3
+  CALL R6 2 2
+  NEWTABLE R8 0 1
+  DUPTABLE R9 K15 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
+  LOADK R10 K16 ["Button"]
+  SETTABLEKS R10 R9 K10 ["Type"]
+  LOADK R12 K4 ["EditingTools"]
+  LOADK R13 K17 ["ShowAccessories"]
+  NAMECALL R10 R1 K18 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K11 ["Tooltip"]
+  GETTABLEKS R10 R2 K19 ["ShowClothingImage"]
+  SETTABLEKS R10 R9 K12 ["Icon"]
+  SETTABLEKS R6 R9 K13 ["Selected"]
+  NEWCLOSURE R10 P2
+  CAPTURE VAL R7
+  SETTABLEKS R10 R9 K14 ["OnClick"]
+  SETLIST R8 R9 1 [1]
+  NEWCLOSURE R9 P3
   CAPTURE VAL R3
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K19 ["createElement"]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K31 ["Fragment"]
-  NEWTABLE R11 0 0
-  NEWTABLE R12 4 0
-  GETUPVAL R15 7
-  GETTABLEKS R14 R15 K32 ["EDITING_TOOLS_GUI_NAMES"]
-  GETTABLEKS R13 R14 K33 ["EditingToolbar"]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K19 ["createElement"]
+  CAPTURE VAL R4
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K20 ["createElement"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K21 ["Fragment"]
+  NEWTABLE R12 0 0
+  NEWTABLE R13 4 0
   GETUPVAL R16 8
-  GETTABLEKS R15 R16 K34 ["Toolbar"]
-  DUPTABLE R16 K37 [{"InitialPosition", "VerticalItems"}]
-  LOADK R17 K38 ["Top"]
-  SETTABLEKS R17 R16 K35 ["InitialPosition"]
-  NEWTABLE R17 0 2
-  MOVE R18 R8
-  LOADK R19 K39 ["attachments"]
-  LOADK R20 K40 ["attachments_tool"]
-  LOADK R23 K16 ["EditingTools"]
-  LOADK R24 K41 ["AttachmentsTool"]
-  NAMECALL R21 R1 K18 ["getText"]
-  CALL R21 3 -1
-  CALL R18 -1 1
-  MOVE R19 R8
-  LOADK R20 K42 ["cage"]
-  LOADK R21 K43 ["cage_tool"]
-  LOADK R24 K16 ["EditingTools"]
-  LOADK R25 K44 ["CageTool"]
+  GETTABLEKS R15 R16 K22 ["EDITING_TOOLS_GUI_NAMES"]
+  GETTABLEKS R14 R15 K23 ["EditingToolbar"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K20 ["createElement"]
+  GETUPVAL R17 9
+  GETTABLEKS R16 R17 K24 ["Toolbar"]
+  DUPTABLE R17 K27 [{"InitialPosition", "VerticalItems"}]
+  LOADK R18 K28 ["Top"]
+  SETTABLEKS R18 R17 K25 ["InitialPosition"]
+  NEWTABLE R18 0 2
+  MOVE R19 R9
+  LOADK R20 K29 ["attachments"]
+  GETTABLEKS R21 R2 K30 ["AttachmentToolImage"]
+  LOADK R24 K4 ["EditingTools"]
+  LOADK R25 K31 ["AttachmentsTool"]
   NAMECALL R22 R1 K18 ["getText"]
   CALL R22 3 -1
   CALL R19 -1 1
-  SETLIST R17 R18 2 [1]
-  SETTABLEKS R17 R16 K36 ["VerticalItems"]
+  MOVE R20 R9
+  LOADK R21 K32 ["cage"]
+  GETTABLEKS R22 R2 K33 ["CageEditingToolImage"]
+  LOADK R25 K4 ["EditingTools"]
+  LOADK R26 K34 ["CageTool"]
+  NAMECALL R23 R1 K18 ["getText"]
+  CALL R23 3 -1
+  CALL R20 -1 1
+  SETLIST R18 R19 2 [1]
+  SETTABLEKS R18 R17 K26 ["VerticalItems"]
+  CALL R15 2 1
+  SETTABLE R15 R13 R14
+  LOADB R14 0
+  JUMPIFEQKS R3 K6 ["none"] [+37]
+  JUMPIFNOTEQKS R3 K29 ["attachments"] [+14]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K20 ["createElement"]
+  GETUPVAL R15 10
+  DUPTABLE R16 K37 [{"worldModel", "additionalToolbarItems"}]
+  GETTABLEKS R17 R0 K35 ["worldModel"]
+  SETTABLEKS R17 R16 K35 ["worldModel"]
+  SETTABLEKS R8 R16 K36 ["additionalToolbarItems"]
   CALL R14 2 1
-  SETTABLE R14 R12 R13
-  LOADB R13 0
-  JUMPIFEQKS R2 K5 ["none"] [+37]
-  JUMPIFNOTEQKS R2 K39 ["attachments"] [+14]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K19 ["createElement"]
-  GETUPVAL R14 9
-  DUPTABLE R15 K47 [{"worldModel", "additionalToolbarItems"}]
-  GETTABLEKS R16 R0 K45 ["worldModel"]
-  SETTABLEKS R16 R15 K45 ["worldModel"]
-  SETTABLEKS R7 R15 K46 ["additionalToolbarItems"]
-  CALL R13 2 1
   JUMP [+21]
-  GETUPVAL R14 10
-  CALL R14 0 1
-  JUMPIFNOT R14 [+15]
-  JUMPIFNOTEQKS R2 K42 ["cage"] [+14]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K19 ["createElement"]
-  GETUPVAL R14 11
-  DUPTABLE R15 K49 [{"mannequin", "additionalToolbarItems"}]
-  GETTABLEKS R16 R0 K45 ["worldModel"]
-  SETTABLEKS R16 R15 K48 ["mannequin"]
-  SETTABLEKS R7 R15 K46 ["additionalToolbarItems"]
-  CALL R13 2 1
+  GETUPVAL R15 11
+  CALL R15 0 1
+  JUMPIFNOT R15 [+15]
+  JUMPIFNOTEQKS R3 K32 ["cage"] [+14]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K20 ["createElement"]
+  GETUPVAL R15 12
+  DUPTABLE R16 K39 [{"mannequin", "additionalToolbarItems"}]
+  GETTABLEKS R17 R0 K35 ["worldModel"]
+  SETTABLEKS R17 R16 K38 ["mannequin"]
+  SETTABLEKS R8 R16 K36 ["additionalToolbarItems"]
+  CALL R14 2 1
   JUMP [+3]
-  GETUPVAL R13 12
-  MOVE R14 R2
-  CALL R13 1 1
-  SETTABLEKS R13 R12 K50 ["Tool"]
-  LOADB R13 0
-  JUMPIFEQKS R2 K5 ["none"] [+13]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K19 ["createElement"]
   GETUPVAL R14 13
-  DUPTABLE R15 K52 [{"worldModel", "includeAccessories"}]
-  GETTABLEKS R16 R0 K45 ["worldModel"]
-  SETTABLEKS R16 R15 K45 ["worldModel"]
-  SETTABLEKS R5 R15 K51 ["includeAccessories"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K53 ["RepresentEditorStateOnWorldModel"]
-  LOADB R13 0
-  JUMPIFEQKS R2 K5 ["none"] [+11]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K19 ["createElement"]
-  GETUPVAL R14 14
-  DUPTABLE R15 K55 [{"dummy"}]
-  GETTABLEKS R16 R0 K45 ["worldModel"]
-  SETTABLEKS R16 R15 K54 ["dummy"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K56 ["BindFocusOnPVInstance"]
-  CALL R9 3 -1
-  RETURN R9 -1
+  MOVE R15 R3
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K40 ["Tool"]
+  LOADB R14 0
+  JUMPIFEQKS R3 K6 ["none"] [+13]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K20 ["createElement"]
+  GETUPVAL R15 14
+  DUPTABLE R16 K42 [{"worldModel", "includeAccessories"}]
+  GETTABLEKS R17 R0 K35 ["worldModel"]
+  SETTABLEKS R17 R16 K35 ["worldModel"]
+  SETTABLEKS R6 R16 K41 ["includeAccessories"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K43 ["RepresentEditorStateOnWorldModel"]
+  LOADB R14 0
+  JUMPIFEQKS R3 K6 ["none"] [+11]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K20 ["createElement"]
+  GETUPVAL R15 15
+  DUPTABLE R16 K45 [{"dummy"}]
+  GETTABLEKS R17 R0 K35 ["worldModel"]
+  SETTABLEKS R17 R16 K44 ["dummy"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K46 ["BindFocusOnPVInstance"]
+  CALL R10 3 -1
+  RETURN R10 -1
 
 MAIN:
   PREPVARARGS 0
@@ -278,71 +259,77 @@ MAIN:
   GETTABLEKS R5 R6 K12 ["Constants"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Types"]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Resources"]
+  GETTABLEKS R6 R7 K14 ["Theme"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Util"]
-  GETTABLEKS R7 R8 K14 ["exhaustiveMatch"]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Types"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K10 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Hooks"]
-  GETTABLEKS R8 R9 K16 ["useEventConnection"]
+  GETTABLEKS R9 R10 K11 ["Util"]
+  GETTABLEKS R8 R9 K16 ["exhaustiveMatch"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K15 ["Hooks"]
-  GETTABLEKS R9 R10 K17 ["useKeyedState"]
+  GETTABLEKS R10 R11 K17 ["Hooks"]
+  GETTABLEKS R9 R10 K18 ["useEventConnection"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETIMPORT R11 K1 [script]
-  GETTABLEKS R10 R11 K18 ["AttachmentTool"]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Hooks"]
+  GETTABLEKS R10 R11 K19 ["useKeyedState"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETIMPORT R12 K1 [script]
-  GETTABLEKS R11 R12 K19 ["CageEditingTool"]
+  GETTABLEKS R11 R12 K20 ["AttachmentTool"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K20 ["RepresentEditorStateOnWorldModel"]
+  GETTABLEKS R12 R13 K21 ["CageEditingTool"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETIMPORT R14 K1 [script]
-  GETTABLEKS R13 R14 K21 ["useBindFocusOnPVInstance"]
+  GETTABLEKS R13 R14 K22 ["RepresentEditorStateOnWorldModel"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K10 ["Src"]
-  GETTABLEKS R15 R16 K22 ["Flags"]
-  GETTABLEKS R14 R15 K23 ["getFFlagAvatarPreviewerEditingTools"]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K23 ["useBindFocusOnPVInstance"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K10 ["Src"]
-  GETTABLEKS R16 R17 K22 ["Flags"]
-  GETTABLEKS R15 R16 K24 ["getFFlagAvatarPreviewerCageEditingTools"]
+  GETTABLEKS R16 R17 K24 ["Flags"]
+  GETTABLEKS R15 R16 K25 ["getFFlagAvatarPreviewerEditingTools"]
   CALL R14 1 1
-  GETTABLEKS R16 R1 K25 ["ContextServices"]
-  GETTABLEKS R15 R16 K26 ["Localization"]
-  GETTABLEKS R17 R1 K25 ["ContextServices"]
-  GETTABLEKS R16 R17 K27 ["Plugin"]
-  DUPCLOSURE R17 K28 [PROTO_0]
-  DUPCLOSURE R18 K29 [PROTO_1]
-  CAPTURE VAL R12
-  DUPCLOSURE R19 K30 [PROTO_10]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K10 ["Src"]
+  GETTABLEKS R17 R18 K24 ["Flags"]
+  GETTABLEKS R16 R17 K26 ["getFFlagAvatarPreviewerCageEditingTools"]
+  CALL R15 1 1
+  GETTABLEKS R16 R1 K27 ["ContextServices"]
+  GETTABLEKS R17 R16 K28 ["Localization"]
+  GETTABLEKS R18 R16 K29 ["Plugin"]
+  GETTABLEKS R19 R16 K30 ["Stylizer"]
+  DUPCLOSURE R20 K31 [PROTO_0]
+  DUPCLOSURE R21 K32 [PROTO_1]
   CAPTURE VAL R13
-  CAPTURE VAL R15
-  CAPTURE VAL R2
-  CAPTURE VAL R16
-  CAPTURE VAL R7
-  CAPTURE VAL R8
+  DUPCLOSURE R22 K33 [PROTO_10]
+  CAPTURE VAL R14
   CAPTURE VAL R17
+  CAPTURE VAL R19
+  CAPTURE VAL R2
+  CAPTURE VAL R18
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R20
   CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R9
-  CAPTURE VAL R14
   CAPTURE VAL R10
-  CAPTURE VAL R6
+  CAPTURE VAL R15
   CAPTURE VAL R11
-  CAPTURE VAL R18
-  RETURN R19 1
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R21
+  RETURN R22 1

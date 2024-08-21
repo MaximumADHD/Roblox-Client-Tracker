@@ -260,7 +260,7 @@ MAIN:
   GETIMPORT R24 K5 [require]
   GETTABLEKS R27 R0 K8 ["Src"]
   GETTABLEKS R26 R27 K9 ["Flags"]
-  GETTABLEKS R25 R26 K34 ["getFFlagAssetImportEnableMultipleFiles"]
+  GETTABLEKS R25 R26 K34 ["getFFlagAssetImportUseQueueItem"]
   CALL R24 1 1
   DUPTABLE R25 K49 [{"activeQueueItem", "assetImportSession", "currentPreset", "errorNodeChecked", "filename", "hasInvalidPackageId", "importDataChecked", "importDataCheckedCount", "importDataExpansion", "importTree", "managedGroups", "previewInstance", "selectedImportItem", "settingsChanged"}]
   MOVE R27 R24

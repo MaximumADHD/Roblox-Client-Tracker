@@ -1,0 +1,45 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K2 ["table"] [+3]
+  LOADB R1 0
+  RETURN R1 1
+  GETTABLEKS R1 R0 K3 ["gameTemplateType"]
+  JUMPIFNOT R1 [+10]
+  GETTABLEKS R2 R0 K3 ["gameTemplateType"]
+  FASTCALL1 TYPEOF R2 [+2]
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K4 ["string"] [+3]
+  LOADB R1 0
+  RETURN R1 1
+  GETTABLEKS R1 R0 K5 ["universe"]
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["validate"]
+  GETTABLEKS R2 R0 K5 ["universe"]
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  LOADB R1 1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Models"]
+  GETTABLEKS R2 R3 K8 ["UniverseModel"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K9 [PROTO_0]
+  CAPTURE VAL R1
+  DUPTABLE R3 K11 [{"validate"}]
+  SETTABLEKS R2 R3 K10 ["validate"]
+  RETURN R3 1

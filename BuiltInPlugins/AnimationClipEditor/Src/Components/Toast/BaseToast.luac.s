@@ -27,9 +27,8 @@ PROTO_0:
   JUMP [+1]
   LOADN R8 0
   GETTABLEKS R10 R3 K10 ["shadowTransparency"]
-  LOADN R13 1
-  GETTABLEKS R14 R3 K10 ["shadowTransparency"]
-  SUB R12 R13 R14
+  GETTABLEKS R13 R3 K10 ["shadowTransparency"]
+  SUBRK R12 R8 K13 [{"Priority"}]
   MUL R11 R12 R6
   ADD R9 R10 R11
   GETUPVAL R11 0

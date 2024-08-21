@@ -61,8 +61,6 @@ local FFlagUseNotificationsLocalization = success and result
 
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 local FFlagSettingsMenuUseHardwareSafeArea = game:DefineFastFlag("SettingsMenuUseHardwareSafeArea", false)
-local GetFFlagFix10ftMenuAddFriend = require(Settings.Flags.GetFFlagFix10ftMenuAddFriend)
-local GetFFlagAddAnimatedFocusState = require(Settings.Flags.GetFFlagAddAnimatedFocusState)
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
 local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(Settings.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
 local FFlagUnbindRenderSteps = game:DefineFastFlag("UnbindRenderSteps", false)
@@ -673,7 +671,7 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 		end
 	elseif isTenFootInterface() then
 		local isButtonWithOverflowingText = name == "FriendStatus" or name == "BlockButton"
-		if not (GetFFlagFix10ftMenuAddFriend() and Theme.UIBloxThemeEnabled and isButtonWithOverflowingText) then 
+		if not (Theme.UIBloxThemeEnabled and isButtonWithOverflowingText) then 
 			textLabel.TextSize = Theme.textSize(36)
 		end
 	end
@@ -744,7 +742,7 @@ end
 -- adds a SelectionImageObject to instance to act as a focusState based off of UIBlox CursorKind.RoundedRect
 -- focus state is unbound when instance is un-parented
 local function MakeRoundedRectFocusState(instance, renderStepName)
-	if not GetFFlagAddAnimatedFocusState() or not Theme.UIBloxThemeEnabled then
+	if not Theme.UIBloxThemeEnabled then
 		return
 	end
 

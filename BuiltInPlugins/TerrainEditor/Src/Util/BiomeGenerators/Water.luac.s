@@ -9,14 +9,13 @@ PROTO_0:
   CALL R6 -1 1
   MULK R5 R6 K1 [0.08]
   ADD R3 R4 R5
-  LOADN R6 1
-  SUB R5 R6 R1
-  LOADK R6 K2 [0.44]
+  SUBRK R5 R2 K1 [0.08]
+  LOADK R6 K3 [0.44]
   JUMPIFNOTLT R5 R6 [+4]
-  GETIMPORT R4 K6 [Enum.Material.Slate]
+  GETIMPORT R4 K7 [Enum.Material.Slate]
   JUMP [+2]
-  GETIMPORT R4 K8 [Enum.Material.Sand]
-  GETIMPORT R5 K10 [Enum.Material.Rock]
+  GETIMPORT R4 K9 [Enum.Material.Sand]
+  GETIMPORT R5 K11 [Enum.Material.Rock]
   RETURN R3 3
 
 PROTO_1:

@@ -511,21 +511,11 @@ PROTO_19:
   GETIMPORT R20 K34 [Enum.CameraType.Scriptable]
   SETTABLEKS R20 R19 K28 ["CameraType"]
   GETIMPORT R20 K36 [CFrame.new]
-  LOADN R22 0
-  LOADN R23 0
-  LOADN R24 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R21 K38 [Vector3.new]
-  CALL R21 3 1
-  LOADN R23 0
-  LOADN R24 0
-  LOADN R25 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R22 K38 [Vector3.new]
-  CALL R22 3 1
+  LOADK R21 K37 [{0, 0, 0}]
+  LOADK R22 K37 [{0, 0, 0}]
   CALL R20 2 1
   SETTABLEKS R20 R19 K29 ["CFrame"]
-  GETTABLEKS R20 R2 K39 ["CameraFOV"]
+  GETTABLEKS R20 R2 K38 ["CameraFOV"]
   SETTABLEKS R20 R19 K30 ["FieldOfView"]
   GETTABLEKS R20 R0 K20 ["cameraRef"]
   SETTABLEKS R20 R19 K18 ["ref"]
@@ -535,7 +525,7 @@ PROTO_19:
   GETTABLEKS R17 R18 K6 ["createElement"]
   LOADK R18 K24 ["ImageButton"]
   NEWTABLE R19 8 0
-  GETIMPORT R20 K42 [UDim2.fromScale]
+  GETIMPORT R20 K41 [UDim2.fromScale]
   LOADN R21 1
   LOADN R22 1
   CALL R20 2 1
@@ -543,26 +533,26 @@ PROTO_19:
   LOADN R20 1
   SETTABLEKS R20 R19 K17 ["BackgroundTransparency"]
   GETUPVAL R22 1
-  GETTABLEKS R21 R22 K43 ["Event"]
-  GETTABLEKS R20 R21 K44 ["MouseEnter"]
+  GETTABLEKS R21 R22 K42 ["Event"]
+  GETTABLEKS R20 R21 K43 ["MouseEnter"]
   NEWCLOSURE R21 P0
   CAPTURE VAL R0
   SETTABLE R21 R19 R20
   GETUPVAL R22 1
-  GETTABLEKS R21 R22 K43 ["Event"]
-  GETTABLEKS R20 R21 K45 ["MouseLeave"]
+  GETTABLEKS R21 R22 K42 ["Event"]
+  GETTABLEKS R20 R21 K44 ["MouseLeave"]
   NEWCLOSURE R21 P1
   CAPTURE VAL R0
   SETTABLE R21 R19 R20
   GETUPVAL R22 1
-  GETTABLEKS R21 R22 K43 ["Event"]
-  GETTABLEKS R20 R21 K46 ["MouseButton1Down"]
+  GETTABLEKS R21 R22 K42 ["Event"]
+  GETTABLEKS R20 R21 K45 ["MouseButton1Down"]
   NEWCLOSURE R21 P2
   CAPTURE VAL R0
   SETTABLE R21 R19 R20
   GETUPVAL R22 1
-  GETTABLEKS R21 R22 K43 ["Event"]
-  GETTABLEKS R20 R21 K47 ["MouseMoved"]
+  GETTABLEKS R21 R22 K42 ["Event"]
+  GETTABLEKS R20 R21 K46 ["MouseMoved"]
   NEWCLOSURE R21 P3
   CAPTURE VAL R0
   SETTABLE R21 R19 R20
@@ -571,25 +561,25 @@ PROTO_19:
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K6 ["createElement"]
   GETUPVAL R18 3
-  DUPTABLE R19 K55 [{"Windspeed", "WindDirection", "isChangingPitch", "isChangingYaw", "yawStateRequested", "pitchStateRequested", "speedStateRequested"}]
-  GETTABLEKS R21 R0 K56 ["state"]
-  GETTABLEKS R20 R21 K57 ["windspeed"]
-  SETTABLEKS R20 R19 K48 ["Windspeed"]
-  GETTABLEKS R21 R0 K56 ["state"]
-  GETTABLEKS R20 R21 K58 ["windDirection"]
-  SETTABLEKS R20 R19 K49 ["WindDirection"]
-  GETTABLEKS R21 R0 K56 ["state"]
-  GETTABLEKS R20 R21 K50 ["isChangingPitch"]
-  SETTABLEKS R20 R19 K50 ["isChangingPitch"]
-  GETTABLEKS R21 R0 K56 ["state"]
-  GETTABLEKS R20 R21 K51 ["isChangingYaw"]
-  SETTABLEKS R20 R19 K51 ["isChangingYaw"]
-  GETTABLEKS R20 R0 K59 ["onYawStateRequested"]
-  SETTABLEKS R20 R19 K52 ["yawStateRequested"]
-  GETTABLEKS R20 R0 K60 ["onPitchStateRequested"]
-  SETTABLEKS R20 R19 K53 ["pitchStateRequested"]
-  GETTABLEKS R20 R0 K61 ["onSpeedStateRequested"]
-  SETTABLEKS R20 R19 K54 ["speedStateRequested"]
+  DUPTABLE R19 K54 [{"Windspeed", "WindDirection", "isChangingPitch", "isChangingYaw", "yawStateRequested", "pitchStateRequested", "speedStateRequested"}]
+  GETTABLEKS R21 R0 K55 ["state"]
+  GETTABLEKS R20 R21 K56 ["windspeed"]
+  SETTABLEKS R20 R19 K47 ["Windspeed"]
+  GETTABLEKS R21 R0 K55 ["state"]
+  GETTABLEKS R20 R21 K57 ["windDirection"]
+  SETTABLEKS R20 R19 K48 ["WindDirection"]
+  GETTABLEKS R21 R0 K55 ["state"]
+  GETTABLEKS R20 R21 K49 ["isChangingPitch"]
+  SETTABLEKS R20 R19 K49 ["isChangingPitch"]
+  GETTABLEKS R21 R0 K55 ["state"]
+  GETTABLEKS R20 R21 K50 ["isChangingYaw"]
+  SETTABLEKS R20 R19 K50 ["isChangingYaw"]
+  GETTABLEKS R20 R0 K58 ["onYawStateRequested"]
+  SETTABLEKS R20 R19 K51 ["yawStateRequested"]
+  GETTABLEKS R20 R0 K59 ["onPitchStateRequested"]
+  SETTABLEKS R20 R19 K52 ["pitchStateRequested"]
+  GETTABLEKS R20 R0 K60 ["onSpeedStateRequested"]
+  SETTABLEKS R20 R19 K53 ["speedStateRequested"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K25 ["WindspeedDisplay"]
   CALL R13 3 1

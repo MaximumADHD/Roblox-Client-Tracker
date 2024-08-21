@@ -13,9 +13,8 @@ local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 
-local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
-local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGuiService.RobloxGui else CoreGuiService:WaitForChild("RobloxGui")
-local CoreGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules else RobloxGui:WaitForChild("Modules")
+local RobloxGui = CoreGuiService.RobloxGui
+local CoreGuiModules = RobloxGui.Modules
 
 local Player = PlayerService.LocalPlayer
 

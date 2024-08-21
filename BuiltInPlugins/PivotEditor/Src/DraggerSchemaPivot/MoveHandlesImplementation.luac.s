@@ -155,24 +155,19 @@ PROTO_7:
   GETIMPORT R2 K2 [Instance.new]
   LOADK R3 K3 ["Part"]
   CALL R2 1 1
-  LOADK R4 K4 [0.01]
-  LOADK R5 K4 [0.01]
-  LOADK R6 K4 [0.01]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K6 [Vector3.new]
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K7 ["Size"]
-  GETTABLEKS R3 R1 K8 ["Position"]
-  SETTABLEKS R3 R2 K8 ["Position"]
+  LOADK R3 K4 [{0.01, 0.01, 0.01}]
+  SETTABLEKS R3 R2 K5 ["Size"]
+  GETTABLEKS R3 R1 K6 ["Position"]
+  SETTABLEKS R3 R2 K6 ["Position"]
   LOADB R3 0
-  SETTABLEKS R3 R2 K9 ["Archivable"]
-  GETIMPORT R4 K11 [workspace]
-  GETTABLEKS R3 R4 K12 ["Terrain"]
-  SETTABLEKS R3 R2 K13 ["Parent"]
+  SETTABLEKS R3 R2 K7 ["Archivable"]
+  GETIMPORT R4 K9 [workspace]
+  GETTABLEKS R3 R4 K10 ["Terrain"]
+  SETTABLEKS R3 R2 K11 ["Parent"]
   MOVE R5 R2
-  NAMECALL R3 R0 K14 ["_findNewSnapTargetImpl"]
+  NAMECALL R3 R0 K12 ["_findNewSnapTargetImpl"]
   CALL R3 2 0
-  NAMECALL R3 R2 K15 ["Destroy"]
+  NAMECALL R3 R2 K13 ["Destroy"]
   CALL R3 1 0
   RETURN R0 0
 

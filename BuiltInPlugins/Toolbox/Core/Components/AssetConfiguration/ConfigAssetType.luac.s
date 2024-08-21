@@ -2016,7 +2016,7 @@ PROTO_51:
   SETTABLEKS R40 R39 K152 ["visibleDropDownCount"]
   CALL R37 2 1
   SETTABLEKS R37 R36 K142 ["Dropdown"]
-  JUMPIF R6 [+46]
+  JUMPIF R6 [+45]
   GETUPVAL R38 7
   GETTABLEKS R37 R38 K35 ["createElement"]
   GETUPVAL R38 17
@@ -2029,16 +2029,15 @@ PROTO_51:
   ADD R43 R44 R7
   ADDK R42 R43 K160 [16]
   LOADN R43 0
-  LOADN R46 40
-  SUB R45 R46 R8
+  SUBRK R45 R162 K8 ["currentAssetType"]
   DIVK R44 R45 K161 [2]
   CALL R40 4 1
   SETTABLEKS R40 R39 K157 ["Position"]
-  NAMECALL R40 R0 K162 ["getValidationStatusMessage"]
+  NAMECALL R40 R0 K163 ["getValidationStatusMessage"]
   CALL R40 1 1
   SETTABLEKS R40 R39 K70 ["Text"]
   MOVE R42 R4
-  NAMECALL R40 R0 K163 ["getValidationStatusColor"]
+  NAMECALL R40 R0 K164 ["getValidationStatusColor"]
   CALL R40 2 1
   SETTABLEKS R40 R39 K158 ["TextColor"]
   LOADB R40 1
@@ -2054,16 +2053,16 @@ PROTO_51:
   JUMPIFNOT R6 [+47]
   GETUPVAL R38 7
   GETTABLEKS R37 R38 K35 ["createElement"]
-  LOADK R38 K164 ["ImageButton"]
+  LOADK R38 K165 ["ImageButton"]
   NEWTABLE R39 8 0
   LOADB R40 0
-  SETTABLEKS R40 R39 K165 ["AutoButtonColor"]
+  SETTABLEKS R40 R39 K166 ["AutoButtonColor"]
   LOADN R40 1
   SETTABLEKS R40 R39 K38 ["BackgroundTransparency"]
   LOADK R40 K78 ["rbxasset://textures/ui/ErrorIcon.png"]
   SETTABLEKS R40 R39 K115 ["Image"]
   MOVE R42 R4
-  NAMECALL R40 R0 K163 ["getValidationStatusColor"]
+  NAMECALL R40 R0 K164 ["getValidationStatusColor"]
   CALL R40 2 1
   SETTABLEKS R40 R39 K116 ["ImageColor3"]
   GETIMPORT R40 K108 [UDim2.new]
@@ -2079,18 +2078,18 @@ PROTO_51:
   CALL R40 2 1
   SETTABLEKS R40 R39 K105 ["Size"]
   GETUPVAL R42 7
-  GETTABLEKS R41 R42 K166 ["Event"]
-  GETTABLEKS R40 R41 K167 ["Activated"]
-  GETTABLEKS R41 R0 K168 ["openValidationErrorMessageBox"]
+  GETTABLEKS R41 R42 K167 ["Event"]
+  GETTABLEKS R40 R41 K168 ["Activated"]
+  GETTABLEKS R41 R0 K169 ["openValidationErrorMessageBox"]
   SETTABLE R41 R39 R40
   CALL R37 2 1
   JUMP [+1]
   LOADNIL R37
   SETTABLEKS R37 R36 K144 ["ErrorIconButton"]
-  JUMPIFNOT R6 [+64]
+  JUMPIFNOT R6 [+63]
   GETUPVAL R38 7
   GETTABLEKS R37 R38 K35 ["createElement"]
-  LOADK R38 K169 ["TextButton"]
+  LOADK R38 K170 ["TextButton"]
   NEWTABLE R39 16 0
   GETIMPORT R40 K47 [Enum.AutomaticSize.XY]
   SETTABLEKS R40 R39 K36 ["AutomaticSize"]
@@ -2104,16 +2103,15 @@ PROTO_51:
   ADD R43 R44 R7
   ADDK R42 R43 K160 [16]
   LOADN R43 0
-  LOADN R46 40
-  SUB R45 R46 R8
+  SUBRK R45 R162 K8 ["currentAssetType"]
   DIVK R44 R45 K161 [2]
   CALL R40 4 1
   SETTABLEKS R40 R39 K157 ["Position"]
-  NAMECALL R40 R0 K162 ["getValidationStatusMessage"]
+  NAMECALL R40 R0 K163 ["getValidationStatusMessage"]
   CALL R40 1 1
   SETTABLEKS R40 R39 K70 ["Text"]
   MOVE R42 R4
-  NAMECALL R40 R0 K163 ["getValidationStatusColor"]
+  NAMECALL R40 R0 K164 ["getValidationStatusColor"]
   CALL R40 2 1
   SETTABLEKS R40 R39 K124 ["TextColor3"]
   GETUPVAL R41 2
@@ -2124,9 +2122,9 @@ PROTO_51:
   GETIMPORT R40 K141 [Enum.TextYAlignment.Center]
   SETTABLEKS R40 R39 K127 ["TextYAlignment"]
   GETUPVAL R42 7
-  GETTABLEKS R41 R42 K166 ["Event"]
-  GETTABLEKS R40 R41 K167 ["Activated"]
-  GETTABLEKS R41 R0 K168 ["openValidationErrorMessageBox"]
+  GETTABLEKS R41 R42 K167 ["Event"]
+  GETTABLEKS R40 R41 K168 ["Activated"]
+  GETTABLEKS R41 R0 K169 ["openValidationErrorMessageBox"]
   SETTABLE R41 R39 R40
   CALL R37 2 1
   JUMP [+1]
@@ -2136,9 +2134,9 @@ PROTO_51:
   SETTABLEKS R33 R32 K61 ["AssetCategoryDropDown"]
   JUMPIFNOT R11 [+161]
   GETTABLEKS R35 R0 K1 ["state"]
-  GETTABLEKS R34 R35 K170 ["ugcBundleValidationResults"]
+  GETTABLEKS R34 R35 K171 ["ugcBundleValidationResults"]
   GETUPVAL R36 18
-  GETTABLEKS R35 R36 K171 ["None"]
+  GETTABLEKS R35 R36 K172 ["None"]
   JUMPIFEQ R34 R35 [+153]
   GETUPVAL R34 7
   GETTABLEKS R33 R34 K35 ["createElement"]
@@ -2150,7 +2148,7 @@ PROTO_51:
   CALL R36 1 1
   SETTABLEKS R36 R35 K41 ["LayoutOrder"]
   SETTABLEKS R24 R35 K71 ["Title"]
-  DUPTABLE R36 K173 [{"ValidationPane"}]
+  DUPTABLE R36 K174 [{"ValidationPane"}]
   GETUPVAL R38 5
   CALL R38 0 1
   JUMPIF R38 [+2]
@@ -2159,8 +2157,8 @@ PROTO_51:
   GETUPVAL R38 7
   GETTABLEKS R37 R38 K35 ["createElement"]
   GETUPVAL R38 8
-  DUPTABLE R39 K174 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "Spacing"}]
-  GETIMPORT R40 K176 [Enum.AutomaticSize.Y]
+  DUPTABLE R39 K175 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "Spacing"}]
+  GETIMPORT R40 K177 [Enum.AutomaticSize.Y]
   SETTABLEKS R40 R39 K36 ["AutomaticSize"]
   GETIMPORT R40 K54 [Enum.FillDirection.Vertical]
   SETTABLEKS R40 R39 K40 ["Layout"]
@@ -2173,26 +2171,26 @@ PROTO_51:
   SETTABLEKS R40 R39 K105 ["Size"]
   GETUPVAL R40 19
   SETTABLEKS R40 R39 K43 ["Spacing"]
-  DUPTABLE R40 K180 [{"UGCBundleValidation", "MissingOptionalAccessoriesMsg", "UnknownMeshPartsMsgChildren"}]
+  DUPTABLE R40 K181 [{"UGCBundleValidation", "MissingOptionalAccessoriesMsg", "UnknownMeshPartsMsgChildren"}]
   GETUPVAL R42 7
   GETTABLEKS R41 R42 K35 ["createElement"]
   GETUPVAL R42 20
-  DUPTABLE R43 K183 [{"LayoutOrder", "onClickError", "validationResults"}]
+  DUPTABLE R43 K184 [{"LayoutOrder", "onClickError", "validationResults"}]
   LOADN R44 1
   SETTABLEKS R44 R43 K41 ["LayoutOrder"]
-  GETTABLEKS R44 R0 K168 ["openValidationErrorMessageBox"]
-  SETTABLEKS R44 R43 K181 ["onClickError"]
+  GETTABLEKS R44 R0 K169 ["openValidationErrorMessageBox"]
+  SETTABLEKS R44 R43 K182 ["onClickError"]
   GETTABLEKS R45 R0 K1 ["state"]
-  GETTABLEKS R44 R45 K170 ["ugcBundleValidationResults"]
-  SETTABLEKS R44 R43 K182 ["validationResults"]
+  GETTABLEKS R44 R45 K171 ["ugcBundleValidationResults"]
+  SETTABLEKS R44 R43 K183 ["validationResults"]
   CALL R41 2 1
-  SETTABLEKS R41 R40 K177 ["UGCBundleValidation"]
+  SETTABLEKS R41 R40 K178 ["UGCBundleValidation"]
   JUMPIFNOT R25 [+26]
   GETUPVAL R42 7
   GETTABLEKS R41 R42 K35 ["createElement"]
   GETUPVAL R42 8
-  DUPTABLE R43 K184 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
-  GETIMPORT R44 K176 [Enum.AutomaticSize.Y]
+  DUPTABLE R43 K185 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
+  GETIMPORT R44 K177 [Enum.AutomaticSize.Y]
   SETTABLEKS R44 R43 K36 ["AutomaticSize"]
   GETIMPORT R44 K54 [Enum.FillDirection.Vertical]
   SETTABLEKS R44 R43 K40 ["Layout"]
@@ -2207,13 +2205,13 @@ PROTO_51:
   CALL R41 3 1
   JUMP [+1]
   LOADNIL R41
-  SETTABLEKS R41 R40 K178 ["MissingOptionalAccessoriesMsg"]
+  SETTABLEKS R41 R40 K179 ["MissingOptionalAccessoriesMsg"]
   JUMPIFNOT R26 [+26]
   GETUPVAL R42 7
   GETTABLEKS R41 R42 K35 ["createElement"]
   GETUPVAL R42 8
-  DUPTABLE R43 K184 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
-  GETIMPORT R44 K176 [Enum.AutomaticSize.Y]
+  DUPTABLE R43 K185 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
+  GETIMPORT R44 K177 [Enum.AutomaticSize.Y]
   SETTABLEKS R44 R43 K36 ["AutomaticSize"]
   GETIMPORT R44 K54 [Enum.FillDirection.Vertical]
   SETTABLEKS R44 R43 K40 ["Layout"]
@@ -2228,20 +2226,20 @@ PROTO_51:
   CALL R41 3 1
   JUMP [+1]
   LOADNIL R41
-  SETTABLEKS R41 R40 K179 ["UnknownMeshPartsMsgChildren"]
+  SETTABLEKS R41 R40 K180 ["UnknownMeshPartsMsgChildren"]
   CALL R37 3 1
   JUMP [+16]
   GETUPVAL R38 7
   GETTABLEKS R37 R38 K35 ["createElement"]
   GETUPVAL R38 20
-  DUPTABLE R39 K185 [{"onClickError", "validationResults"}]
-  GETTABLEKS R40 R0 K168 ["openValidationErrorMessageBox"]
-  SETTABLEKS R40 R39 K181 ["onClickError"]
+  DUPTABLE R39 K186 [{"onClickError", "validationResults"}]
+  GETTABLEKS R40 R0 K169 ["openValidationErrorMessageBox"]
+  SETTABLEKS R40 R39 K182 ["onClickError"]
   GETTABLEKS R41 R0 K1 ["state"]
-  GETTABLEKS R40 R41 K170 ["ugcBundleValidationResults"]
-  SETTABLEKS R40 R39 K182 ["validationResults"]
+  GETTABLEKS R40 R41 K171 ["ugcBundleValidationResults"]
+  SETTABLEKS R40 R39 K183 ["validationResults"]
   CALL R37 2 1
-  SETTABLEKS R37 R36 K172 ["ValidationPane"]
+  SETTABLEKS R37 R36 K173 ["ValidationPane"]
   CALL R33 3 1
   JUMP [+1]
   LOADNIL R33
@@ -2249,20 +2247,20 @@ PROTO_51:
   GETUPVAL R34 21
   CALL R34 0 1
   JUMPIFNOT R34 [+24]
-  GETTABLEKS R34 R1 K186 ["dataSharingEnabled"]
+  GETTABLEKS R34 R1 K187 ["dataSharingEnabled"]
   JUMPIFNOT R34 [+21]
   JUMPIFNOT R11 [+20]
   GETUPVAL R34 7
   GETTABLEKS R33 R34 K35 ["createElement"]
   GETUPVAL R34 22
-  DUPTABLE R35 K189 [{"LayoutOrder", "dataSharingToggled", "onDataConsentToggleClick"}]
+  DUPTABLE R35 K190 [{"LayoutOrder", "dataSharingToggled", "onDataConsentToggleClick"}]
   NAMECALL R36 R5 K83 ["getNextOrder"]
   CALL R36 1 1
   SETTABLEKS R36 R35 K41 ["LayoutOrder"]
-  GETTABLEKS R36 R1 K187 ["dataSharingToggled"]
-  SETTABLEKS R36 R35 K187 ["dataSharingToggled"]
-  GETTABLEKS R36 R1 K188 ["onDataConsentToggleClick"]
-  SETTABLEKS R36 R35 K188 ["onDataConsentToggleClick"]
+  GETTABLEKS R36 R1 K188 ["dataSharingToggled"]
+  SETTABLEKS R36 R35 K188 ["dataSharingToggled"]
+  GETTABLEKS R36 R1 K189 ["onDataConsentToggleClick"]
+  SETTABLEKS R36 R35 K189 ["onDataConsentToggleClick"]
   CALL R33 2 1
   JUMP [+1]
   LOADNIL R33

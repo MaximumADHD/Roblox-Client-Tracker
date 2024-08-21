@@ -339,8 +339,6 @@ function PermissionsButtons:init()
 	end
 
 	self.onJoinVoicePressed = function()
-		local hasPhoneUpsell = GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints()
-			and VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER) == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 		local ageVerificationResponse = VoiceChatServiceManager:FetchAgeVerificationOverlay()
 		local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
 
@@ -358,7 +356,9 @@ function PermissionsButtons:init()
 			VoiceChatServiceManager:showPrompt(promptToShow)
 		elseif VoiceChatServiceManager:UserVoiceEnabled() and not self.state.hasMicPermissions then
 			VoiceChatServiceManager:showPrompt(VoiceChatPromptType.Permission)
-		elseif hasPhoneUpsell and not VoiceChatServiceManager:UserVoiceEnabled() then
+		elseif GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints()
+			and not VoiceChatServiceManager:UserVoiceEnabled()
+			and VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER) == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat then
 			-- Close menu with no animation before we open the phone upsell modal
 			self.props.hubRef:SetVisibility(false, true)
 			VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE, VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER)
@@ -446,11 +446,12 @@ function PermissionsButtons:getJoinVoiceButtonVisibleAtMount()
 	end
 
 	local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
+	-- Order matters here, we want to short circuit to avoid the fetch when the user is already voice enabled
 	if 
 		GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints()
-		and VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER) == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 		and not userVoiceUpsellEligible
 		and not VoiceChatServiceManager:UserVoiceEnabled() 
+		and VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER) == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 	then
 		return true
 	end

@@ -27,10 +27,9 @@ PROTO_0:
   GETIMPORT R9 K22 [UDim2.new]
   LOADN R10 1
   LOADN R11 0
-  LOADN R13 1
-  GETTABLEKS R15 R0 K0 ["TagName"]
-  LENGTH R14 R15
-  DIV R12 R13 R14
+  GETTABLEKS R14 R0 K0 ["TagName"]
+  LENGTH R13 R14
+  DIVRK R12 R23 K13 ["Font"]
   LOADN R13 0
   CALL R9 4 1
   SETTABLEKS R9 R8 K9 ["Size"]
@@ -39,16 +38,16 @@ PROTO_0:
   SETTABLEKS R9 R8 K11 ["TextScaled"]
   LOADN R9 20
   SETTABLEKS R9 R8 K12 ["TextSize"]
-  GETIMPORT R9 K24 [Enum.Font.SourceSansBold]
+  GETIMPORT R9 K25 [Enum.Font.SourceSansBold]
   SETTABLEKS R9 R8 K13 ["Font"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K25 ["White"]
+  GETTABLEKS R9 R10 K26 ["White"]
   SETTABLEKS R9 R8 K14 ["TextColor3"]
   LOADN R9 1
   SETTABLEKS R9 R8 K15 ["BackgroundTransparency"]
-  GETIMPORT R9 K27 [Enum.TextXAlignment.Left]
+  GETIMPORT R9 K28 [Enum.TextXAlignment.Left]
   SETTABLEKS R9 R8 K16 ["TextXAlignment"]
-  GETIMPORT R9 K29 [Enum.TextYAlignment.Bottom]
+  GETIMPORT R9 K30 [Enum.TextYAlignment.Bottom]
   SETTABLEKS R9 R8 K17 ["TextYAlignment"]
   LOADN R9 0
   SETTABLEKS R9 R8 K18 ["TextStrokeTransparency"]
@@ -57,10 +56,10 @@ PROTO_0:
   FORNLOOP R2
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["createElement"]
-  LOADK R3 K30 ["BillboardGui"]
-  DUPTABLE R4 K35 [{"Adornee", "Size", "SizeOffset", "ExtentsOffsetWorldSpace", "AlwaysOnTop"}]
-  GETTABLEKS R5 R0 K31 ["Adornee"]
-  SETTABLEKS R5 R4 K31 ["Adornee"]
+  LOADK R3 K31 ["BillboardGui"]
+  DUPTABLE R4 K36 [{"Adornee", "Size", "SizeOffset", "ExtentsOffsetWorldSpace", "AlwaysOnTop"}]
+  GETTABLEKS R5 R0 K32 ["Adornee"]
+  SETTABLEKS R5 R4 K32 ["Adornee"]
   GETIMPORT R5 K22 [UDim2.new]
   LOADN R6 10
   LOADN R7 0
@@ -69,20 +68,15 @@ PROTO_0:
   LOADN R9 0
   CALL R5 4 1
   SETTABLEKS R5 R4 K9 ["Size"]
-  GETIMPORT R5 K37 [Vector2.new]
-  LOADK R6 K38 [0.5]
-  LOADK R7 K38 [0.5]
+  GETIMPORT R5 K38 [Vector2.new]
+  LOADK R6 K39 [0.5]
+  LOADK R7 K39 [0.5]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K32 ["SizeOffset"]
-  LOADN R6 1
-  LOADN R7 1
-  LOADN R8 1
-  FASTCALL VECTOR [+2]
-  GETIMPORT R5 K40 [Vector3.new]
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K33 ["ExtentsOffsetWorldSpace"]
-  GETTABLEKS R5 R0 K34 ["AlwaysOnTop"]
-  SETTABLEKS R5 R4 K34 ["AlwaysOnTop"]
+  SETTABLEKS R5 R4 K33 ["SizeOffset"]
+  LOADK R5 K40 [{1, 1, 1}]
+  SETTABLEKS R5 R4 K34 ["ExtentsOffsetWorldSpace"]
+  GETTABLEKS R5 R0 K35 ["AlwaysOnTop"]
+  SETTABLEKS R5 R4 K35 ["AlwaysOnTop"]
   MOVE R5 R1
   CALL R2 3 -1
   RETURN R2 -1

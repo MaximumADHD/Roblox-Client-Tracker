@@ -55,22 +55,34 @@ MAIN:
   CALL R6 2 1
   MOVE R5 R6
   SETTABLEKS R5 R4 K25 ["ICON_GROUP_LARGE_DEFAULT"]
-  LOADK R6 K26 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
+  LOADK R6 K26 ["rbxasset://studio_svg_textures/Lua/FileSync/%*/Large/Import.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K27 ["PLACEHOLDER_ASSET"]
-  LOADK R6 K26 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
+  SETTABLEKS R5 R4 K27 ["ICON_IMPORT"]
+  LOADK R6 K28 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K28 ["PLACEHOLDER"]
-  LOADK R6 K29 ["rbxasset://studio_svg_textures/Lua/FileSync/%*/Standard/Refresh.png"]
+  SETTABLEKS R5 R4 K29 ["PLACEHOLDER_ASSET"]
+  LOADK R6 K28 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K30 ["REFRESH_ICON"]
+  SETTABLEKS R5 R4 K30 ["PLACEHOLDER"]
+  LOADK R6 K31 ["rbxasset://studio_svg_textures/Lua/AssetManager/%*/Standard/Sort.png"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K12 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K32 ["SORT_ICON"]
+  LOADK R6 K33 ["rbxasset://studio_svg_textures/Lua/FileSync/%*/Standard/Refresh.png"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K12 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K34 ["REFRESH_ICON"]
   RETURN R4 1

@@ -472,11 +472,11 @@ PROTO_11:
   SETTABLEKS R2 R1 K0 ["ActiveQueueItem"]
   GETUPVAL R3 0
   CALL R3 0 1
-  JUMPIFNOT R3 [+5]
+  JUMPIFNOT R3 [+2]
+  LOADNIL R2
+  JUMP [+4]
   GETTABLEKS R3 R0 K5 ["Preview"]
   GETTABLEKS R2 R3 K7 ["assetImportSession"]
-  JUMP [+1]
-  LOADNIL R2
   SETTABLEKS R2 R1 K1 ["AssetImportSession"]
   GETUPVAL R3 0
   CALL R3 0 1
@@ -534,7 +534,7 @@ MAIN:
   GETIMPORT R16 K5 [require]
   GETTABLEKS R19 R0 K21 ["Src"]
   GETTABLEKS R18 R19 K27 ["Flags"]
-  GETTABLEKS R17 R18 K28 ["getFFlagAssetImportEnableMultipleFiles"]
+  GETTABLEKS R17 R18 K28 ["getFFlagAssetImportUseQueueItem"]
   CALL R16 1 1
   GETTABLEKS R17 R2 K29 ["PureComponent"]
   LOADK R19 K30 ["PresetMenu"]

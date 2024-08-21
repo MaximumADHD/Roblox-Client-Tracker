@@ -6,36 +6,36 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
+  GETTABLEKS R2 R3 K7 ["TestLoader"]
   CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["launch"]
+  LOADK R3 K2 ["StartPage"]
+  GETTABLEKS R4 R0 K9 ["Src"]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K10 ["isCli"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K12 [game]
+  LOADK R4 K13 ["EnableLuaStartPage"]
+  NAMECALL R2 R2 K14 ["GetFastFlag"]
+  CALL R2 2 1
+  JUMPIF R2 [+1]
+  RETURN R0 0
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["ReactRoblox"]
+  GETTABLEKS R3 R4 K15 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["MainPlugin"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K16 ["ReactRoblox"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K11 ["TestLoader"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K17 ["MainPlugin"]
   CALL R4 1 1
-  GETTABLEKS R5 R4 K12 ["launch"]
-  LOADK R6 K2 ["StartPage"]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  CALL R5 2 0
-  GETTABLEKS R5 R4 K13 ["isCli"]
-  CALL R5 0 1
-  JUMPIFNOT R5 [+1]
-  RETURN R0 0
-  GETIMPORT R5 K15 [game]
-  LOADK R7 K16 ["EnableLuaStartPage"]
-  NAMECALL R5 R5 K17 ["GetFastFlag"]
-  CALL R5 2 1
-  JUMPIF R5 [+1]
-  RETURN R0 0
-  GETTABLEKS R5 R1 K18 ["createElement"]
-  MOVE R6 R3
+  GETTABLEKS R5 R2 K18 ["createElement"]
+  MOVE R6 R4
   DUPTABLE R7 K20 [{"Plugin"}]
   GETIMPORT R8 K22 [plugin]
   SETTABLEKS R8 R7 K19 ["Plugin"]
@@ -43,7 +43,7 @@ MAIN:
   GETIMPORT R6 K25 [Instance.new]
   LOADK R7 K26 ["Frame"]
   CALL R6 1 1
-  GETTABLEKS R7 R2 K27 ["createRoot"]
+  GETTABLEKS R7 R3 K27 ["createRoot"]
   MOVE R8 R6
   CALL R7 1 1
   MOVE R10 R5

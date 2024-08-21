@@ -5,14 +5,16 @@ local CorePackages = game:GetService("CorePackages")
 local NotificationService = game:GetService("NotificationService")
 local Players = game:GetService("Players")
 local ExperienceService = game:GetService("ExperienceService")
+local Promise = require(CorePackages.Promise)
 
-local GetFFlagReplaceWaitForChildDependancy2952 = require(CorePackages.Workspace.Packages.SharedFlags).ReplaceWaitForChildDependancyFlags.GetFFlag2952
-local RobloxGui = if GetFFlagReplaceWaitForChildDependancy2952() then CoreGui.RobloxGui else CoreGui:WaitForChild("RobloxGui")
+local RobloxGui = CoreGui.RobloxGui
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
+local Rodux = require(CorePackages.Packages.Rodux)
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
 local CoreVoiceManager = VoiceChatCore.CoreVoiceManager.default
+local createPersistenceMiddleware = CrossExperience.Middlewares.createPersistenceMiddleware
 
-local CoreGuiModules = if GetFFlagReplaceWaitForChildDependancy2952() then RobloxGui.Modules else RobloxGui:WaitForChild("Modules")
+local CoreGuiModules = RobloxGui.Modules
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
@@ -25,11 +27,41 @@ local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetF
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
+local AudioFocusManagementEnabled = game:GetEngineFeature("EnableAudioFocusManagement")
 
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local Analytics = VoiceChatCore.Analytics.new()
 
 local VoiceChatService = game:GetService("VoiceChatService")
+
+local PersistenceMiddleware = createPersistenceMiddleware({
+	storeKey = CrossExperience.Constants.STORAGE_CEV_STORE_KEY,
+})
+
+local createReducers = function()
+	-- In order to simplify the data sync between this background state and foreground state I am using the expected foreground store shape
+	return Rodux.combineReducers({
+		Squad = Rodux.combineReducers({
+			CrossExperienceVoice = CrossExperience.installReducer(),
+		})
+	})
+end
+
+local initialState = PersistenceMiddleware.restore()
+local store = Rodux.Store.new(createReducers(), nil, {
+	Rodux.thunkMiddleware,
+	PersistenceMiddleware.getMiddleware(),
+})
+
+local CEVStore = CrossExperience.Store.new()
+-- For debugging purposes can pass "log" as a second parameter
+CEVStore:subscribe(store)
+
+CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_EXPERIENCE_STARTED, {
+	jobId = game.JobId,
+	placeId = game.PlaceId,
+	gameId = game.GameId,
+})
 
 -- Since this script starts significantly faster due to small Lua size for CEV DM, VoiceChatService.UseNewAudioApi is not yet replicated and has incorrect value, hence the game.Loaded wait
 if not game:IsLoaded() then
@@ -226,6 +258,81 @@ CoreVoiceManager:asyncInit():andThen(function()
 		-- TODO: We should communicate to foreground experience that it failed similar to VoiceChatServiceManager:InitialJoinFailedPrompt()
 	else
 		onCoreVoiceManagerInitialized()
+	end
+	
+	if AudioFocusManagementEnabled then
+		local success, AudioFocusService = pcall(function()
+			return game:GetService("AudioFocusService")
+		end)
+		if success and AudioFocusService then
+			local contextId = CrossExperience.Constants.AUDIO_FOCUS_MANAGEMENT.CEV.CONTEXT_ID
+			local focusPriority = CrossExperience.Constants.AUDIO_FOCUS_MANAGEMENT.CEV.FOCUS_PRIORITY
+			AudioFocusService:RegisterContextIdFromLua(contextId)
+
+			local deafenAll = function()
+				CoreVoiceManager:MuteAll(true, "AudioFocusManagement CEV")
+				if not CoreVoiceManager.localMuted then
+					CoreVoiceManager:ToggleMic()
+				end
+			end
+
+			local undeafenAll = function()
+				CoreVoiceManager:MuteAll(false, "AudioFocusManagement CEV")
+				if CoreVoiceManager.localMuted then
+					CoreVoiceManager:ToggleMic()
+				end
+			end
+
+			AudioFocusService.OnDeafenVoiceAudio:Connect(function(serviceContextId)
+				if serviceContextId == contextId then
+					log:info("CEV OnDeafenVoiceAudio fired" .. serviceContextId)
+					deafenAll()
+				end
+			end)
+
+			AudioFocusService.OnUndeafenVoiceAudio:Connect(function(serviceContextId)
+				if serviceContextId == contextId then
+					log:info("CEV OnUndeafenVoiceAudio fired" .. serviceContextId)
+					undeafenAll()
+				end
+			end)
+
+
+			local requestAudioFocusWithPromise = function(id, prio)
+				return Promise.new(function(resolve, reject)
+					local requestSuccess, focusGranted = pcall(AudioFocusService.RequestFocus, AudioFocusService, id, prio)
+					if requestSuccess then
+						resolve(focusGranted) -- Still resolve, but indicate failure to grant focus
+					else
+						reject('Failed to call RequestFocus due to an error') -- Reject the promise in case of an error
+					end
+				end)
+			end
+
+			requestAudioFocusWithPromise(contextId, focusPriority)
+			:andThen(function(focusGranted)
+				if focusGranted then
+					log:info("CEV audio focus request granted, preparing to undeafen.")
+					CoreVoiceManager.muteChanged.Event:Once(function(muted)
+						if muted ~= nil then
+							CoreVoiceManager:MuteAll(false, "AudioFocusManagement CEV")
+						end
+					end)
+				else
+					log:info("CEV audio focus request denied, preparing to deafen.")
+					CoreVoiceManager.muteChanged.Event:Once(function(muted)
+						if muted ~= nil then
+							CoreVoiceManager:MuteAll(true, "AudioFocusManagement CEV")
+						end
+					end)
+				end
+			end)
+			:catch(function(err)
+				warn('[CEV] Error requesting focus inside CEV')
+			end)
+		else
+			log:info("AudioFocusService did not initialize")
+		end
 	end
 end):catch(function(err)
 	-- If voice chat doesn't initialize, silently halt rather than throwing

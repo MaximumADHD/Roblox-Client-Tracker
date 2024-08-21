@@ -56,12 +56,11 @@ PROTO_1:
   JUMP [+2]
   GETTABLEKS R3 R2 K6 ["BackgroundEven"]
   GETTABLEKS R4 R1 K7 ["Width"]
-  JUMPIF R4 [+9]
+  JUMPIF R4 [+8]
   GETIMPORT R4 K10 [UDim.new]
-  LOADN R6 1
-  GETTABLEKS R8 R1 K11 ["Columns"]
-  LENGTH R7 R8
-  DIV R5 R6 R7
+  GETTABLEKS R7 R1 K11 ["Columns"]
+  LENGTH R6 R7
+  DIVRK R5 R4 K6 ["BackgroundEven"]
   LOADN R6 0
   CALL R4 2 1
   GETTABLEKS R6 R1 K12 ["Value"]

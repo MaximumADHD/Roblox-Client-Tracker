@@ -9,6 +9,7 @@ local LocalizationService = game:GetService("LocalizationService")
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
+local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
@@ -59,6 +60,10 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagEnableGamepadMenuSelector = SharedFlags.FFlagEnableGamepadMenuSelector
 local FFlagGamepadNavigationDialogABTest = require(script.Flags.FFlagGamepadNavigationDialogABTest)
+
+-- Cross Experience Voice
+local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
+local CrossExperienceVoiceComponent = CrossExperienceVoice.Component
 
 -- FTUX
 local FTUX = RobloxGui.Modules.FTUX
@@ -166,9 +171,11 @@ function TopBar.new()
 									value = IXPService,
 								}, {
 									TopBarApp = TopBarWithProviders,
+									CrossExperienceVoice = GetFFlagEnableCrossExpVoice() and Roact.createElement(CrossExperienceVoiceComponent) or nil,
 								})
 							or nil,
 						TopBarApp = (not GetFFlagEnableTeleportBackButton()) and TopBarWithProviders or nil,
+						CrossExperienceVoice = GetFFlagEnableCrossExpVoice() and Roact.createElement(CrossExperienceVoiceComponent) or nil,
 					}),
 				}),
 			})

@@ -18,15 +18,14 @@ PROTO_0:
   GETUPVAL R2 1
   JUMPIFNOTEQKN R1 K8 [0] [+3]
   LOADN R3 1
-  JUMP [+2]
-  LOADN R4 1
-  DIV R3 R4 R1
-  SETTABLEKS R3 R2 K9 ["fadeMultiplier"]
+  JUMP [+1]
+  DIVRK R3 R9 K1 ["ShowTime"]
+  SETTABLEKS R3 R2 K10 ["fadeMultiplier"]
   GETUPVAL R2 1
-  DUPTABLE R4 K11 [{"fadeAmount"}]
+  DUPTABLE R4 K12 [{"fadeAmount"}]
   LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["fadeAmount"]
-  NAMECALL R2 R2 K12 ["setState"]
+  SETTABLEKS R5 R4 K11 ["fadeAmount"]
+  NAMECALL R2 R2 K13 ["setState"]
   CALL R2 2 0
   RETURN R0 0
 

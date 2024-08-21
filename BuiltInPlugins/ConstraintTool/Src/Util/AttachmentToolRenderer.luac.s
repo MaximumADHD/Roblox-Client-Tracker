@@ -91,55 +91,54 @@ PROTO_3:
   GETUPVAL R4 1
   GETUPVAL R5 2
   SETLIST R2 R3 3 [1]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K1 ["addGridSnap"]
+  GETUPVAL R3 3
+  JUMPIFNOT R3 [+14]
+  GETTABLEKS R7 R0 K1 ["_constraintToolModel"]
+  GETTABLEKS R6 R7 K2 ["_partPassthroughEnabled"]
+  JUMPIFNOT R6 [+2]
+  GETUPVAL R5 4
+  JUMPIF R5 [+1]
+  GETUPVAL R5 5
+  FASTCALL2 TABLE_INSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K5 [table.insert]
+  CALL R3 2 0
+  GETUPVAL R4 6
+  GETTABLEKS R3 R4 K6 ["addGridSnap"]
   MOVE R4 R2
   MOVE R5 R1
   CALL R3 2 0
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K2 ["addHelp"]
+  GETUPVAL R4 6
+  GETTABLEKS R3 R4 K7 ["addHelp"]
   MOVE R4 R2
   CALL R3 1 0
   RETURN R2 1
 
 PROTO_4:
-  GETTABLEKS R2 R0 K0 ["_mouseCursor"]
-  JUMPIFEQ R2 R1 [+9]
-  SETTABLEKS R1 R0 K0 ["_mouseCursor"]
-  GETTABLEKS R2 R0 K1 ["_draggerContext"]
-  MOVE R4 R1
-  NAMECALL R2 R2 K2 ["setMouseIcon"]
-  CALL R2 2 0
-  RETURN R0 0
-
-PROTO_5:
-  LOADK R3 K0 ["rbxasset://textures/ConstraintCursor.png"]
-  NAMECALL R1 R0 K1 ["setMouseCursor"]
-  CALL R1 2 0
-  NAMECALL R1 R0 K2 ["_renderSnap"]
+  NAMECALL R1 R0 K0 ["_renderSnap"]
   CALL R1 1 1
   LOADNIL R2
-  GETTABLEKS R3 R0 K3 ["_draggerContext"]
-  LOADK R5 K4 ["HotkeyUsageHidden"]
-  NAMECALL R3 R3 K5 ["getSetting"]
+  GETTABLEKS R3 R0 K1 ["_draggerContext"]
+  LOADK R5 K2 ["HotkeyUsageHidden"]
+  NAMECALL R3 R3 K3 ["getSetting"]
   CALL R3 2 1
   JUMPIF R3 [+16]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K6 ["createElement"]
+  GETTABLEKS R3 R4 K4 ["createElement"]
   GETUPVAL R4 1
-  DUPTABLE R5 K9 [{"DraggerContext", "HotkeyList"}]
-  GETTABLEKS R6 R0 K3 ["_draggerContext"]
-  SETTABLEKS R6 R5 K7 ["DraggerContext"]
-  NAMECALL R6 R0 K10 ["_getHotkeyList"]
+  DUPTABLE R5 K7 [{"DraggerContext", "HotkeyList"}]
+  GETTABLEKS R6 R0 K1 ["_draggerContext"]
+  SETTABLEKS R6 R5 K5 ["DraggerContext"]
+  NAMECALL R6 R0 K8 ["_getHotkeyList"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K8 ["HotkeyList"]
+  SETTABLEKS R6 R5 K6 ["HotkeyList"]
   CALL R3 2 1
   MOVE R2 R3
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K11 ["createFragment"]
-  DUPTABLE R4 K14 [{"DraggerElements", "HotkeyUsageInfo"}]
-  SETTABLEKS R1 R4 K12 ["DraggerElements"]
-  SETTABLEKS R2 R4 K13 ["HotkeyUsageInfo"]
+  GETTABLEKS R3 R4 K9 ["createFragment"]
+  DUPTABLE R4 K12 [{"DraggerElements", "HotkeyUsageInfo"}]
+  SETTABLEKS R1 R4 K10 ["DraggerElements"]
+  SETTABLEKS R2 R4 K11 ["HotkeyUsageInfo"]
   CALL R3 1 -1
   RETURN R3 -1
 
@@ -171,50 +170,69 @@ MAIN:
   GETTABLEKS R8 R1 K13 ["Utility"]
   GETTABLEKS R7 R8 K14 ["HotkeyHelpBuilder"]
   CALL R6 1 1
-  NEWTABLE R7 8 0
-  SETTABLEKS R7 R7 K15 ["__index"]
-  DUPCLOSURE R8 K16 [PROTO_0]
-  CAPTURE VAL R7
-  SETTABLEKS R8 R7 K17 ["new"]
-  DUPCLOSURE R8 K18 [PROTO_1]
+  GETIMPORT R7 K16 [game]
+  LOADK R9 K17 ["EnableConstraintToolPartPassthroughFeature"]
+  NAMECALL R7 R7 K18 ["GetFastFlag"]
+  CALL R7 2 1
+  NEWTABLE R8 8 0
+  SETTABLEKS R8 R8 K19 ["__index"]
+  DUPCLOSURE R9 K20 [PROTO_0]
+  CAPTURE VAL R8
+  SETTABLEKS R9 R8 K21 ["new"]
+  DUPCLOSURE R9 K22 [PROTO_1]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R3
-  SETTABLEKS R8 R7 K19 ["_renderSnapTarget"]
-  DUPCLOSURE R8 K20 [PROTO_2]
+  SETTABLEKS R9 R8 K23 ["_renderSnapTarget"]
+  DUPCLOSURE R9 K24 [PROTO_2]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K21 ["_renderSnap"]
-  GETIMPORT R8 K24 [table.freeze]
-  DUPTABLE R9 K27 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R10 K28 ["T"]
-  SETTABLEKS R10 R9 K25 ["Hotkey"]
-  LOADK R10 K29 ["DragTilt"]
-  SETTABLEKS R10 R9 K26 ["LabelLocEntry"]
-  CALL R8 1 1
-  GETIMPORT R9 K24 [table.freeze]
-  DUPTABLE R10 K27 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R11 K30 ["R"]
-  SETTABLEKS R11 R10 K25 ["Hotkey"]
-  LOADK R11 K31 ["DragRotate"]
-  SETTABLEKS R11 R10 K26 ["LabelLocEntry"]
+  SETTABLEKS R9 R8 K25 ["_renderSnap"]
+  GETIMPORT R9 K28 [table.freeze]
+  DUPTABLE R10 K31 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R11 K32 ["T"]
+  SETTABLEKS R11 R10 K29 ["Hotkey"]
+  LOADK R11 K33 ["DragTilt"]
+  SETTABLEKS R11 R10 K30 ["LabelLocEntry"]
   CALL R9 1 1
-  GETIMPORT R10 K24 [table.freeze]
-  DUPTABLE R11 K27 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R12 K32 ["Esc"]
-  SETTABLEKS R12 R11 K25 ["Hotkey"]
-  LOADK R12 K33 ["Escape"]
-  SETTABLEKS R12 R11 K26 ["LabelLocEntry"]
+  GETIMPORT R10 K28 [table.freeze]
+  DUPTABLE R11 K31 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R12 K34 ["R"]
+  SETTABLEKS R12 R11 K29 ["Hotkey"]
+  LOADK R12 K35 ["DragRotate"]
+  SETTABLEKS R12 R11 K30 ["LabelLocEntry"]
   CALL R10 1 1
-  DUPCLOSURE R11 K34 [PROTO_3]
-  CAPTURE VAL R10
-  CAPTURE VAL R8
+  GETIMPORT R11 K28 [table.freeze]
+  DUPTABLE R12 K31 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R13 K36 ["F"]
+  SETTABLEKS R13 R12 K29 ["Hotkey"]
+  LOADK R13 K37 ["EnablePartPassthrough"]
+  SETTABLEKS R13 R12 K30 ["LabelLocEntry"]
+  CALL R11 1 1
+  GETIMPORT R12 K28 [table.freeze]
+  DUPTABLE R13 K31 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R14 K36 ["F"]
+  SETTABLEKS R14 R13 K29 ["Hotkey"]
+  LOADK R14 K38 ["DisablePartPassthrough"]
+  SETTABLEKS R14 R13 K30 ["LabelLocEntry"]
+  CALL R12 1 1
+  GETIMPORT R13 K28 [table.freeze]
+  DUPTABLE R14 K31 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R15 K39 ["Esc"]
+  SETTABLEKS R15 R14 K29 ["Hotkey"]
+  LOADK R15 K40 ["Escape"]
+  SETTABLEKS R15 R14 K30 ["LabelLocEntry"]
+  CALL R13 1 1
+  DUPCLOSURE R14 K41 [PROTO_3]
+  CAPTURE VAL R13
   CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R11
   CAPTURE VAL R6
-  SETTABLEKS R11 R7 K35 ["_getHotkeyList"]
-  DUPCLOSURE R11 K36 [PROTO_4]
-  SETTABLEKS R11 R7 K37 ["setMouseCursor"]
-  DUPCLOSURE R11 K38 [PROTO_5]
+  SETTABLEKS R14 R8 K42 ["_getHotkeyList"]
+  DUPCLOSURE R14 K43 [PROTO_4]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  SETTABLEKS R11 R7 K39 ["render"]
-  RETURN R7 1
+  SETTABLEKS R14 R8 K44 ["render"]
+  RETURN R8 1

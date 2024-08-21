@@ -494,86 +494,61 @@ PROTO_16:
   LOADK R5 K41 ["FaceCenterAttachment"]
   NAMECALL R3 R1 K38 ["FindFirstChild"]
   CALL R3 2 1
-  JUMPIF R3 [+18]
+  JUMPIF R3 [+12]
   GETIMPORT R3 K19 [Instance.new]
   LOADK R4 K32 ["Attachment"]
   CALL R3 1 1
   LOADK R4 K41 ["FaceCenterAttachment"]
   SETTABLEKS R4 R3 K14 ["Name"]
-  LOADN R5 0
-  LOADN R6 0
-  LOADN R7 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R4 K43 [Vector3.new]
-  CALL R4 3 1
+  LOADK R4 K42 [{0, 0, 0}]
   SETTABLEKS R4 R3 K34 ["Position"]
   SETTABLEKS R1 R3 K21 ["Parent"]
-  LOADK R5 K44 ["FaceFrontAttachment"]
+  LOADK R5 K43 ["FaceFrontAttachment"]
   NAMECALL R3 R1 K38 ["FindFirstChild"]
   CALL R3 2 1
-  JUMPIF R3 [+18]
+  JUMPIF R3 [+12]
   GETIMPORT R3 K19 [Instance.new]
   LOADK R4 K32 ["Attachment"]
   CALL R3 1 1
-  LOADK R4 K44 ["FaceFrontAttachment"]
+  LOADK R4 K43 ["FaceFrontAttachment"]
   SETTABLEKS R4 R3 K14 ["Name"]
-  LOADN R5 0
-  LOADN R6 0
-  LOADK R7 K45 [-0.6]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R4 K43 [Vector3.new]
-  CALL R4 3 1
+  LOADK R4 K44 [{0, 0, -0.6}]
   SETTABLEKS R4 R3 K34 ["Position"]
   SETTABLEKS R1 R3 K21 ["Parent"]
-  LOADK R5 K46 ["HairAttachment"]
+  LOADK R5 K45 ["HairAttachment"]
   NAMECALL R3 R1 K38 ["FindFirstChild"]
   CALL R3 2 1
-  JUMPIF R3 [+18]
+  JUMPIF R3 [+12]
   GETIMPORT R3 K19 [Instance.new]
   LOADK R4 K32 ["Attachment"]
   CALL R3 1 1
-  LOADK R4 K46 ["HairAttachment"]
+  LOADK R4 K45 ["HairAttachment"]
   SETTABLEKS R4 R3 K14 ["Name"]
-  LOADN R5 0
-  LOADK R6 K47 [0.6]
-  LOADN R7 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R4 K43 [Vector3.new]
-  CALL R4 3 1
+  LOADK R4 K46 [{0, 0.6, 0}]
   SETTABLEKS R4 R3 K34 ["Position"]
   SETTABLEKS R1 R3 K21 ["Parent"]
-  LOADK R5 K48 ["HatAttachment"]
+  LOADK R5 K47 ["HatAttachment"]
   NAMECALL R3 R1 K38 ["FindFirstChild"]
   CALL R3 2 1
-  JUMPIF R3 [+18]
+  JUMPIF R3 [+12]
   GETIMPORT R3 K19 [Instance.new]
   LOADK R4 K32 ["Attachment"]
   CALL R3 1 1
-  LOADK R4 K48 ["HatAttachment"]
+  LOADK R4 K47 ["HatAttachment"]
   SETTABLEKS R4 R3 K14 ["Name"]
-  LOADN R5 0
-  LOADK R6 K47 [0.6]
-  LOADN R7 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R4 K43 [Vector3.new]
-  CALL R4 3 1
+  LOADK R4 K46 [{0, 0.6, 0}]
   SETTABLEKS R4 R3 K34 ["Position"]
   SETTABLEKS R1 R3 K21 ["Parent"]
-  LOADK R5 K49 ["NeckRigAttachment"]
+  LOADK R5 K48 ["NeckRigAttachment"]
   NAMECALL R3 R1 K38 ["FindFirstChild"]
   CALL R3 2 1
-  JUMPIF R3 [+18]
+  JUMPIF R3 [+12]
   GETIMPORT R3 K19 [Instance.new]
   LOADK R4 K32 ["Attachment"]
   CALL R3 1 1
-  LOADK R4 K49 ["NeckRigAttachment"]
+  LOADK R4 K48 ["NeckRigAttachment"]
   SETTABLEKS R4 R3 K14 ["Name"]
-  LOADN R5 0
-  LOADK R6 K50 [-0.5]
-  LOADN R7 0
-  FASTCALL VECTOR [+2]
-  GETIMPORT R4 K43 [Vector3.new]
-  CALL R4 3 1
+  LOADK R4 K49 [{0, -0.5, 0}]
   SETTABLEKS R4 R3 K34 ["Position"]
   SETTABLEKS R1 R3 K21 ["Parent"]
   RETURN R1 1

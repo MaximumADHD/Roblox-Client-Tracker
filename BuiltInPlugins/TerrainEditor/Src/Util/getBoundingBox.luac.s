@@ -85,18 +85,8 @@ PROTO_0:
   GETIMPORT R11 K6 [Vector3.new]
   CALL R11 3 1
   SETLIST R3 R4 8 [1]
-  LOADK R5 K7 [∞]
-  LOADK R6 K7 [∞]
-  LOADK R7 K7 [∞]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R4 K6 [Vector3.new]
-  CALL R4 3 1
-  LOADK R6 K8 [-∞]
-  LOADK R7 K8 [-∞]
-  LOADK R8 K8 [-∞]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R5 K6 [Vector3.new]
-  CALL R5 3 1
+  LOADK R4 K7 [{∞, ∞, ∞}]
+  LOADK R5 K8 [{-∞, -∞, -∞}]
   MOVE R6 R3
   LOADNIL R7
   LOADNIL R8

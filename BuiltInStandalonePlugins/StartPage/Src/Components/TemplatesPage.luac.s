@@ -1,0 +1,303 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["Id"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K1 ["RootPlaceId"]
+  LOADB R4 0
+  NAMECALL R1 R1 K2 ["openPlace"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  DUPTABLE R5 K6 [{"ImageSize", "OnClick", "IsPrivacyVisible", "IsDateModifiedVisible", "IsDropdownMenuVisible"}]
+  GETIMPORT R6 K9 [UDim2.new]
+  LOADN R7 0
+  LOADN R8 200
+  LOADN R9 0
+  LOADN R10 200
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K1 ["ImageSize"]
+  DUPCLOSURE R6 K10 [PROTO_0]
+  CAPTURE UPVAL U3
+  SETTABLEKS R6 R5 K2 ["OnClick"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K3 ["IsPrivacyVisible"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K4 ["IsDateModifiedVisible"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K5 ["IsDropdownMenuVisible"]
+  CALL R3 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  DUPTABLE R5 K5 [{"Query", "CellComponent", "CellSize", "FetchItems"}]
+  GETUPVAL R6 2
+  GETUPVAL R7 3
+  DUPTABLE R8 K7 [{"search"}]
+  GETTABLEKS R9 R0 K8 ["Search"]
+  SETTABLEKS R9 R8 K6 ["search"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K1 ["Query"]
+  GETUPVAL R6 4
+  SETTABLEKS R6 R5 K2 ["CellComponent"]
+  GETUPVAL R6 5
+  SETTABLEKS R6 R5 K3 ["CellSize"]
+  GETUPVAL R6 6
+  SETTABLEKS R6 R5 K4 ["FetchItems"]
+  CALL R3 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  DUPTABLE R5 K2 [{"Search"}]
+  LOADK R6 K3 ["All"]
+  SETTABLEKS R6 R5 K1 ["Search"]
+  CALL R3 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  DUPTABLE R5 K2 [{"Search"}]
+  LOADK R6 K3 ["Generic"]
+  SETTABLEKS R6 R5 K1 ["Search"]
+  CALL R3 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  DUPTABLE R5 K2 [{"Search"}]
+  LOADK R6 K3 ["Gameplay"]
+  SETTABLEKS R6 R5 K1 ["Search"]
+  CALL R3 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  DUPTABLE R5 K2 [{"Search"}]
+  LOADK R6 K3 ["Theme"]
+  SETTABLEKS R6 R5 K1 ["Search"]
+  CALL R3 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K9 [{"Size", "Position", "PageName", "Tabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar"}]
+  GETTABLEKS R5 R0 K2 ["Size"]
+  SETTABLEKS R5 R4 K2 ["Size"]
+  GETTABLEKS R5 R0 K3 ["Position"]
+  SETTABLEKS R5 R4 K3 ["Position"]
+  LOADK R5 K10 ["Templates"]
+  SETTABLEKS R5 R4 K4 ["PageName"]
+  NEWTABLE R5 0 4
+  DUPTABLE R6 K16 [{"Title", "FailedTitle", "Label", "Key", "PageComponent"}]
+  LOADK R9 K17 ["Plugin"]
+  LOADK R10 K18 ["TemplatesPage.All"]
+  NAMECALL R7 R1 K19 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K11 ["Title"]
+  LOADK R9 K17 ["Plugin"]
+  LOADK R10 K20 ["NoTemplatesToDisplay"]
+  NAMECALL R7 R1 K19 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K12 ["FailedTitle"]
+  LOADK R9 K17 ["Plugin"]
+  LOADK R10 K21 ["TemplatesPage.AllLabel"]
+  NAMECALL R7 R1 K19 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K13 ["Label"]
+  LOADK R7 K22 ["All"]
+  SETTABLEKS R7 R6 K14 ["Key"]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K15 ["PageComponent"]
+  DUPTABLE R7 K23 [{"Title", "FailedTitle", "Key", "PageComponent"}]
+  LOADK R10 K17 ["Plugin"]
+  LOADK R11 K24 ["TemplatesPage.Generic"]
+  NAMECALL R8 R1 K19 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K11 ["Title"]
+  LOADK R10 K17 ["Plugin"]
+  LOADK R11 K20 ["NoTemplatesToDisplay"]
+  NAMECALL R8 R1 K19 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K12 ["FailedTitle"]
+  LOADK R8 K25 ["Generic"]
+  SETTABLEKS R8 R7 K14 ["Key"]
+  GETUPVAL R8 4
+  SETTABLEKS R8 R7 K15 ["PageComponent"]
+  DUPTABLE R8 K23 [{"Title", "FailedTitle", "Key", "PageComponent"}]
+  LOADK R11 K17 ["Plugin"]
+  LOADK R12 K26 ["TemplatesPage.Gameplay"]
+  NAMECALL R9 R1 K19 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K11 ["Title"]
+  LOADK R11 K17 ["Plugin"]
+  LOADK R12 K20 ["NoTemplatesToDisplay"]
+  NAMECALL R9 R1 K19 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K12 ["FailedTitle"]
+  LOADK R9 K27 ["Gameplay"]
+  SETTABLEKS R9 R8 K14 ["Key"]
+  GETUPVAL R9 5
+  SETTABLEKS R9 R8 K15 ["PageComponent"]
+  DUPTABLE R9 K23 [{"Title", "FailedTitle", "Key", "PageComponent"}]
+  LOADK R12 K17 ["Plugin"]
+  LOADK R13 K28 ["TemplatesPage.Theme"]
+  NAMECALL R10 R1 K19 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K11 ["Title"]
+  LOADK R12 K17 ["Plugin"]
+  LOADK R13 K20 ["NoTemplatesToDisplay"]
+  NAMECALL R10 R1 K19 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K12 ["FailedTitle"]
+  LOADK R10 K29 ["Theme"]
+  SETTABLEKS R10 R9 K14 ["Key"]
+  GETUPVAL R10 6
+  SETTABLEKS R10 R9 K15 ["PageComponent"]
+  SETLIST R5 R6 4 [1]
+  SETTABLEKS R5 R4 K5 ["Tabs"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K6 ["CanSwapBetweenViews"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K7 ["IsDefaultGridView"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K8 ["HasSearchBar"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["TypedDash"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K11 ["join"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K13 ["ContextServices"]
+  GETTABLEKS R5 R6 K14 ["Localization"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Components"]
+  GETTABLEKS R7 R8 K16 ["NetworkView"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Components"]
+  GETTABLEKS R8 R9 K17 ["InfoTile"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Components"]
+  GETTABLEKS R9 R10 K18 ["GamePage"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K19 ["Network"]
+  GETTABLEKS R10 R11 K20 ["DiscoverExperiences"]
+  CALL R9 1 1
+  GETIMPORT R10 K22 [game]
+  LOADK R12 K23 ["StartPageService"]
+  NAMECALL R10 R10 K24 ["GetService"]
+  CALL R10 2 1
+  DUPTABLE R11 K29 [{"searchKey", "search", "isTemplates", "pageSize"}]
+  LOADK R12 K30 ["Templates"]
+  SETTABLEKS R12 R11 K25 ["searchKey"]
+  LOADK R12 K31 ["All"]
+  SETTABLEKS R12 R11 K26 ["search"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K27 ["isTemplates"]
+  LOADN R12 20
+  SETTABLEKS R12 R11 K28 ["pageSize"]
+  GETIMPORT R12 K34 [UDim2.new]
+  LOADN R13 0
+  LOADN R14 225
+  LOADN R15 0
+  LOADN R16 252
+  CALL R12 4 1
+  DUPCLOSURE R13 K35 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  DUPCLOSURE R14 K36 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R9
+  DUPCLOSURE R15 K37 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R3
+  DUPCLOSURE R16 K38 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R3
+  DUPCLOSURE R17 K39 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R3
+  DUPCLOSURE R18 K40 [PROTO_6]
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R3
+  DUPCLOSURE R19 K41 [PROTO_7]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  RETURN R19 1

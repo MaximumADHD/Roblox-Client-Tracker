@@ -30,16 +30,15 @@ PROTO_0:
   DUPTABLE R8 K17 [{"Name", "Size", "Style", "TextScaled"}]
   SETTABLEKS R5 R8 K13 ["Name"]
   GETIMPORT R9 K19 [UDim2.new]
-  LOADN R11 1
-  GETTABLEKS R13 R0 K0 ["Icon"]
-  LENGTH R12 R13
-  DIV R10 R11 R12
+  GETTABLEKS R12 R0 K0 ["Icon"]
+  LENGTH R11 R12
+  DIVRK R10 R20 K11 [UDim.new]
   LOADN R11 0
   LOADN R12 1
   LOADN R13 0
   CALL R9 4 1
   SETTABLEKS R9 R8 K14 ["Size"]
-  LOADK R9 K20 ["WorldView"]
+  LOADK R9 K21 ["WorldView"]
   SETTABLEKS R9 R8 K15 ["Style"]
   LOADB R9 1
   SETTABLEKS R9 R8 K16 ["TextScaled"]
@@ -48,10 +47,10 @@ PROTO_0:
   FORNLOOP R2
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["createElement"]
-  LOADK R3 K21 ["BillboardGui"]
-  DUPTABLE R4 K26 [{"Adornee", "Size", "SizeOffset", "ExtentsOffsetWorldSpace", "AlwaysOnTop"}]
-  GETTABLEKS R5 R0 K22 ["Adornee"]
-  SETTABLEKS R5 R4 K22 ["Adornee"]
+  LOADK R3 K22 ["BillboardGui"]
+  DUPTABLE R4 K27 [{"Adornee", "Size", "SizeOffset", "ExtentsOffsetWorldSpace", "AlwaysOnTop"}]
+  GETTABLEKS R5 R0 K23 ["Adornee"]
+  SETTABLEKS R5 R4 K23 ["Adornee"]
   GETIMPORT R5 K19 [UDim2.new]
   GETTABLEKS R7 R0 K0 ["Icon"]
   LENGTH R6 R7
@@ -60,20 +59,15 @@ PROTO_0:
   LOADN R9 0
   CALL R5 4 1
   SETTABLEKS R5 R4 K14 ["Size"]
-  GETIMPORT R5 K28 [Vector2.new]
-  LOADK R6 K29 [0.5]
-  LOADK R7 K29 [0.5]
+  GETIMPORT R5 K29 [Vector2.new]
+  LOADK R6 K30 [0.5]
+  LOADK R7 K30 [0.5]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K23 ["SizeOffset"]
-  LOADN R6 1
-  LOADN R7 1
-  LOADN R8 1
-  FASTCALL VECTOR [+2]
-  GETIMPORT R5 K31 [Vector3.new]
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K24 ["ExtentsOffsetWorldSpace"]
-  GETTABLEKS R5 R0 K25 ["AlwaysOnTop"]
-  SETTABLEKS R5 R4 K25 ["AlwaysOnTop"]
+  SETTABLEKS R5 R4 K24 ["SizeOffset"]
+  LOADK R5 K31 [{1, 1, 1}]
+  SETTABLEKS R5 R4 K25 ["ExtentsOffsetWorldSpace"]
+  GETTABLEKS R5 R0 K26 ["AlwaysOnTop"]
+  SETTABLEKS R5 R4 K26 ["AlwaysOnTop"]
   MOVE R5 R1
   CALL R2 3 -1
   RETURN R2 -1
