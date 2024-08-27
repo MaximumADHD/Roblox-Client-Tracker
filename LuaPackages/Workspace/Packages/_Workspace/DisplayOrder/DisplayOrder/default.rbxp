@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DisplayOrder",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/display-order/src"
+    }
+  }
+}

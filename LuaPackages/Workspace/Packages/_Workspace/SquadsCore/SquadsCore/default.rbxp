@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SquadsCore",
+    "tree": {
+      "$path": "../../../../../../../modules/social/squads-core/src"
+    }
+  }
+}

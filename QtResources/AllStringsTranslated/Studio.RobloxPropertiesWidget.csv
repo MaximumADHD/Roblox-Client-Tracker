@@ -49,7 +49,7 @@ Studio.RobloxPropertiesWidget.Category.Emission,,,Emission,Emission,,Emission,Em
 Studio.RobloxPropertiesWidget.Category.Emitter,,,Emitter,Emitter,,Emitter,Emisor,Émetteur,Pemancar,Emettitore,放射器,이미터,,Emissor,,ตัวปล่อย,Yayıcı,Nguồn Phát,释放器,释放器,發射器
 Studio.RobloxPropertiesWidget.Category.EmitterShape,,,EmitterShape,EmitterShape,,EmitterShape,EmitterShape,Forme de l'émetteur,EmitterShape,EmitterShape,放射器の形状,EmitterShape,,EmitterShape,,EmitterShape,Yayıcı Şekli,EmitterShape,EmitterShape,EmitterShape,發射器形狀
 Studio.RobloxPropertiesWidget.Category.Errors,,,Errors,Errors,,Fehler,Errores,Erreurs,Eror,Errori,エラー,오류,,Erros,,ข้อผิดพลาด,Hatalar,Lỗi,错误,错误,錯誤
-Studio.RobloxPropertiesWidget.Category.Explorer,,,Explorer,Explorer,,Explorer,Explorador,Explorateur,Eksplorer,Esploratore,エクスプローラ,탐색기,,Explorador,,Explorer,Gezgin,Cửa Sổ Khám Phá,项目管理器,项目管理器,瀏覽
+Studio.RobloxPropertiesWidget.Category.Explorer,,,Explorer,Explorer,,Explorer,Explorador,Explorateur,Eksplorer,Esploratore,エクスプローラ,탐색기,,Explorador,,การสำรวจ,Gezgin,Cửa Sổ Khám Phá,项目管理器,项目管理器,瀏覽
 Studio.RobloxPropertiesWidget.Category.Exposure,,,Exposure,Exposure,,Belichtung,Exposición,Exposition,Eksposur,Esposizione,露出,노출,,Exposição,,การสัมผัส,Maruz Kalma,Phơi Nhiễm,曝光,曝光,曝光
 Studio.RobloxPropertiesWidget.Category.Eyes,,,Eyes,Eyes,,Augen,Ojos,Yeux,Mata,Occhi,目,눈,,Olhos,,ตา,Gözler,Mắt,眼睛,眼睛,眼睛
 Studio.RobloxPropertiesWidget.Category.Flipbook,,,Flipbook,Flipbook,,Flipbook,Flipbook,Carnet à feuilles,Flipbook,Flipbook,フリップブック,플립북,,Flipbook,,หนังสือกรีด,Döngü,Sách Lật,翻页动画,翻页动画,翻頁動畫
@@ -91,7 +91,7 @@ Studio.RobloxPropertiesWidget.Category.Physics,,,Physics,Physics,,Physik,Física
 Studio.RobloxPropertiesWidget.Category.Pivot,,,Pivot,Pivot,,Drehpunkt,Pivote,Pivot,Pivot,Pivot,ピボット,피벗,,Pivô,,จุดหมุน,Eksen,Điểm Xoay,枢轴,枢轴,中心點
 Studio.RobloxPropertiesWidget.Category.Plane,,,Plane,Plane,,Ebene,Plano,Plan,Plane,Piano,平面,비행기,,Avião,,ระนาบ,Düzlem,Máy Bay,平面,平面,平面
 Studio.RobloxPropertiesWidget.Category.Playback,,,Playback,Playback,,Wiedergabe,Reproducción,Relecture,Playback,Riproduzione,再生,재생,,Reprodução,,การเล่น,Oynatma,Phát Lại,回放,回放,倒轉
-Studio.RobloxPropertiesWidget.Category.PrimaryPart,,,Primary Part,Primary Part,,Primärteil,Pieza principal,Partie principale,Komponen Primer,Parte primaria,メインパーツ,기본 파트,,Parte primária,,ส่วนหลัก,Birincil Parça,Bộ Phận Chính,主要部件,主要部件,主要零件
+Studio.RobloxPropertiesWidget.Category.PrimaryPart,,,Primary Part,Primary Part,,Primärteil,Pieza principal,Partie principale,Komponen Primer,Parte primaria,メインパーツ,기본 파트,,Parte primária,,ส่วนประกอบหลัก,Birincil Parça,Bộ Phận Chính,主要部件,主要部件,主要零件
 Studio.RobloxPropertiesWidget.Category.Profile,,,Profile,Profile,,Profil,Perfil,Profil,Profil,Profilo,プロフィール,프로필,,Perfil,,โปรไฟล์,Profil,Hồ Sơ,配置,配置,個人檔
 Studio.RobloxPropertiesWidget.Category.ProxySettings,,,Proxy Settings,Proxy Settings,,Proxy-Einstellungen,Configuración del proxy,Paramètres du proxy,Pengaturan Proksi,Impostazioni proxy,プロキシ設定,프록시 설정,,Configurações de proxy,,การตั้งค่าตัวบริการแทน,Proxy Ayarları,Cài Đặt Proxy,代理设置,代理设置,Proxy 設定
 Studio.RobloxPropertiesWidget.Category.Reflection,,,Reflection,Reflection,,Reflexion,Reflexión,Reflet,Refleksi,Riflessione,反射,반사,,Reflexão,,การสะท้อน,Yansıtma,Phản Xạ,反射,反射,反射
@@ -156,5 +156,5 @@ Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scriptin
 Studio.RobloxPropertiesWidget.Category.ControlPoints,,,Control Points,Control Points,,Kontrollpunkte,Puntos de control,Points de contrôle,Titik Kontrol,,制御点,제어점,,Pontos de controle,,จุดควบคุม,Kontrol Noktaları,Điểm Điều Khiển,控制点,控制点,控制點
 Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,Penyelarasan,Allineamento,整列,정렬,,Alinhamento,,การจัดตําแหน่ง,Hizalama,Căn Chỉnh,对齐,对齐,
 Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,PseudoInstances,Pseudo-Instances,PseudoInstances,,擬似インスタンス,모의 인스턴스,,Pseudoinstâncias,,PseudoInstances,Sahte Örnekler,Bản giả,,,
-Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,Edición de estado,Modification de l'état,,,,상태 편집,,Edição do estado,,การแก้ไขสถานะ,,Chỉnh Sửa Trạng Thái,,,
-Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,Hexadecimal:,Hex :,,,,육각형:,,Hexadecimal:,,Hex:,,Hex:,,,
+Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,Edición de estado,Modification de l'état,,,状況編集,상태 편집,,Edição do estado,,การแก้ไขสถานะ,,Chỉnh Sửa Trạng Thái,,,
+Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,Hexadecimal:,Hex :,,,Hex値:,육각형:,,Hexadecimal:,,Hex:,,Hex:,,,

@@ -7012,6 +7012,12 @@
             <string name="Name">FallenPartsDestroyHeight</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PathfindingUseImprovedSearch</string>
+            <string name="FFlag">PathfindingUseImprovedSearch</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -7412,13 +7418,11 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SafeAreaCompatibility</string>
-            <string name="FFlag">GuiObjectSafeAreaBackgroundExtension</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">ClipToDeviceSafeArea</string>
-            <string name="FFlag">GuiObjectSafeAreaBackgroundExtension</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

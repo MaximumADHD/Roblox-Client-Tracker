@@ -1,3 +1,3 @@
 Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.Actions.TBD,,,TBD,TBD,,TBD,POR DETERMINAR,TBD,,,未定,미정,,Indefinido,,TBD,,Xác định sau (TBD),待定,待定,待確認
-Studio.Actions.ConnectionIndicator,,,Connection Status,Connection Status,,Verbindungsstatus,Estado de la conexión,État de la connexion,,,接続状況,연결 상태,,Estado da conexão,,สถานะการเชื่อมต่อ,,Trạng Thái Kết Nối,连接状态,连接状态,連線狀態
+Studio.Actions.TBD,,,TBD,TBD,,TBD,POR DETERMINAR,TBD,,,未定,미정,,Indefinido,,TBD,TBD,Xác định sau (TBD),待定,待定,待確認
+Studio.Actions.ConnectionIndicator,,,Connection Status,Connection Status,,Verbindungsstatus,Estado de la conexión,État de la connexion,,,接続状況,연결 상태,,Estado da conexão,,สถานะการเชื่อมต่อ,Bağlantı durumu,Trạng Thái Kết Nối,连接状态,连接状态,連線狀態

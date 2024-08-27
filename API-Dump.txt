@@ -278,6 +278,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetImportService:RemovePreset(name: string) -> () {RobloxScriptSecurity}
 	Function AssetImportService:SavePreset(name: string, preset: { [string]: any }) -> boolean {RobloxScriptSecurity}
 	Function AssetImportService:StartSessionWithPath(filePath: string) -> AssetImportSession {RobloxScriptSecurity}
+	Function AssetImportService:StartSessionWithPathAsync(filePath: string) -> AssetImportSession {RobloxScriptSecurity} [Yields]
 	Function AssetImportService:StartSessionWithPrompt() -> AssetImportSession {RobloxScriptSecurity} [Yields]
 Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function AssetImportSession:ApplyPreset(preset: { [string]: any }) -> () {RobloxScriptSecurity}
@@ -540,6 +541,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:GenerateAvatarModelAsync(player: Player, previewJobId: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarPreviewAsync(player: Player, textPrompt: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
 	Function AvatarCreationService:GetAvatarGenerationConfig() -> { [string]: any } [Yields]
+	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
 	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
@@ -1174,9 +1176,12 @@ Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CommandService:RegisterCommand(plugin: Plugin, name: string, context: string, permission: Enum.CommandPermission? = "LocalUser") -> CommandInstance {RobloxScriptSecurity} [Yields]
 	Event CommandService.CommandExecuting(name: string, params: any) {RobloxScriptSecurity}
 Class CommerceService : Instance [NotCreatable] [Service]
+	Function CommerceService:PromptCommerceProductPurchase(user: Player, commerceProductId: number) -> ()
 	Function CommerceService:PromptRealWorldCommerceBrowser(player: Player, url: string) -> ()
 	Function CommerceService:UserEligibleForRealWorldCommerceAsync() -> boolean [Yields]
 	Event CommerceService.InExperienceBrowserRequested(url: string) {RobloxSecurity}
+	Event CommerceService.PromptCommerceProductPurchaseFinished(user: Player, productId: number)
+	Event CommerceService.PromptCommerceProductPurchaseRequested(commerceProductId: number) {RobloxSecurity} [Hidden]
 Class Configuration : Instance
 Class ConfigureServerService : Instance [NotCreatable] [Service]
 Class ConnectivityService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1373,6 +1378,7 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ContentProvider:CalculateNumTrianglesInMeshSync(meshId: string) -> number {RobloxScriptSecurity}
 	Function ContentProvider:GetAssetFetchStatus(contentId: string) -> Enum.AssetFetchStatus
 	Function ContentProvider:GetAssetFetchStatusChangedSignal(contentId: string) -> RBXScriptSignal
+	Function ContentProvider:GetDependencyContentIds(root: Instance) -> { any } {RobloxScriptSecurity}
 	Function ContentProvider:GetDetailedFailedRequests() -> { any } {RobloxScriptSecurity}
 	Function ContentProvider:GetFailedRequests() -> { any } {RobloxScriptSecurity}
 	Function ContentProvider:ListEncryptedAssets() -> { any }
@@ -1522,30 +1528,60 @@ Class EditableMesh : DataModelMesh
 	Property EditableMesh.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property EditableMesh.SkinningEnabled: boolean
+	Function EditableMesh:AddColor(color: Color3, alpha: number) -> number
+	Function EditableMesh:AddNormal(normal: Vector3?) -> number
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
+	Function EditableMesh:AddUV(uv: Vector2) -> number
 	Function EditableMesh:AddVertex(p: Vector3) -> number
 	Function EditableMesh:CreateMeshPartAsync(options: { [string]: any }? = nil) -> MeshPart [Yields]
 	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any
 	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number
 	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any }
-	Function EditableMesh:GetAdjacentTriangles(triangleId: number) -> { any }
+	Function EditableMesh:GetAdjacentFaces(faceId: number) -> { any }
+	Function EditableMesh:GetAdjacentTriangles(triangleId: number) -> { any } [Deprecated]
 	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any }
+	Function EditableMesh:GetColor(colorId: number) -> Color3?
+	Function EditableMesh:GetColorAlpha(colorId: number) -> number?
+	Function EditableMesh:GetColors() -> { any }
+	Function EditableMesh:GetFaceColors(faceId: number) -> { any }
+	Function EditableMesh:GetFaceNormals(faceId: number) -> { any }
+	Function EditableMesh:GetFaceUVs(faceId: number) -> { any }
+	Function EditableMesh:GetFaceVertices(faceId: number) -> { any }
+	Function EditableMesh:GetFaces() -> { any }
+	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any }
+	Function EditableMesh:GetNormal(normalId: number) -> Vector3?
+	Function EditableMesh:GetNormals() -> { any }
 	Function EditableMesh:GetPosition(vertexId: number) -> Vector3
-	Function EditableMesh:GetTriangleVertices(triangleId: number) -> ...any
-	Function EditableMesh:GetTriangles() -> { any }
-	Function EditableMesh:GetUV(vertexId: number) -> Vector2
-	Function EditableMesh:GetVertexColor(vertexId: number) -> Color3
-	Function EditableMesh:GetVertexColorAlpha(vertexId: number) -> number
-	Function EditableMesh:GetVertexNormal(vertexId: number) -> Vector3
+	Function EditableMesh:GetTriangleVertices(triangleId: number) -> ...any [Deprecated]
+	Function EditableMesh:GetTriangles() -> { any } [Deprecated]
+	Function EditableMesh:GetUV(uvId: number) -> Vector2?
+	Function EditableMesh:GetUVs() -> { any }
+	Function EditableMesh:GetVertexColor(vertexId: number) -> Color3 [Deprecated]
+	Function EditableMesh:GetVertexColorAlpha(vertexId: number) -> number [Deprecated]
+	Function EditableMesh:GetVertexNormal(vertexId: number) -> Vector3 [Deprecated]
 	Function EditableMesh:GetVertices() -> { any }
+	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any }
+	Function EditableMesh:IdDebugString(id: number) -> string
+	Function EditableMesh:MergeVertices(mergeTolerance: number) -> { [string]: any }
 	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any
-	Function EditableMesh:RemoveTriangle(triangleId: number) -> ()
-	Function EditableMesh:RemoveVertex(vertexId: number) -> ()
+	Function EditableMesh:RemoveFace(faceId: number) -> ()
+	Function EditableMesh:RemoveTriangle(triangleId: number) -> () [Deprecated]
+	Function EditableMesh:RemoveUnused() -> { any }
+	Function EditableMesh:RemoveVertex(vertexId: number) -> () [Deprecated]
+	Function EditableMesh:ResetNormal(normalId: number) -> ()
+	Function EditableMesh:SetColor(colorId: number, color: Color3) -> ()
+	Function EditableMesh:SetColorAlpha(colorId: number, alpha: number) -> ()
+	Function EditableMesh:SetFaceColors(faceId: number, ids: { any }) -> ()
+	Function EditableMesh:SetFaceNormals(faceId: number, ids: { any }) -> ()
+	Function EditableMesh:SetFaceUVs(faceId: number, ids: { any }) -> ()
+	Function EditableMesh:SetFaceVertices(faceId: number, ids: { any }) -> ()
+	Function EditableMesh:SetNormal(normalId: number, normal: Vector3) -> ()
 	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> ()
-	Function EditableMesh:SetUV(vertexId: number, uv: Vector2) -> ()
-	Function EditableMesh:SetVertexColor(vertexId: number, color: Color3) -> ()
-	Function EditableMesh:SetVertexColorAlpha(vertexId: number, alpha: number) -> ()
-	Function EditableMesh:SetVertexNormal(vertexId: number, vnormal: Vector3) -> ()
+	Function EditableMesh:SetUV(uvId: number, uv: Vector2) -> ()
+	Function EditableMesh:SetVertexColor(vertexId: number, color: Color3) -> () [Deprecated]
+	Function EditableMesh:SetVertexColorAlpha(vertexId: number, alpha: number) -> () [Deprecated]
+	Function EditableMesh:SetVertexNormal(vertexId: number, vnormal: Vector3) -> () [Deprecated]
+	Function EditableMesh:Triangulate() -> ()
 Class RobloxEditableMesh : EditableMesh
 	Property RobloxEditableMesh.MeshDataSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class FileMesh : DataModelMesh
@@ -1776,9 +1812,11 @@ Class EditableImage : Instance
 	Function EditableImage:DrawProjectionImage(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
 	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:ReadPixels(position: Vector2, size: Vector2) -> { any } [CustomLuaState] {🧬Safe}
+	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer [CustomLuaState] {🧬Safe}
 	Function EditableImage:Resize(size: Vector2) -> ()
 	Function EditableImage:Rotate(degrees: number, changeSize: boolean) -> ()
 	Function EditableImage:WritePixels(position: Vector2, size: Vector2, pixels: { any }) -> () [CustomLuaState]
+	Function EditableImage:WritePixelsBuffer(position: Vector2, size: Vector2, buffer: buffer) -> () [CustomLuaState]
 Class RobloxEditableImage : EditableImage
 	Property RobloxEditableImage.ImageDataSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class EulerRotationCurve : Instance
@@ -3221,6 +3259,7 @@ Class MarkerCurve : Instance
 	Function MarkerCurve:RemoveMarkerAtIndex(startingIndex: number, count: number? = 1) -> number
 Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetDeveloperProductsAsync() -> Instance? [Yields]
+	Function MarketplaceService:GetDeveloperProductsForExperienceDetailsPageAsync() -> Instance? {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:GetProductInfo(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } [Yields]
 	Function MarketplaceService:GetRobuxBalance() -> number {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:GetSubscriptionProductInfoAsync(subscriptionId: string) -> { [string]: any } [Yields]
@@ -3956,6 +3995,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
+	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable] [NotBrowsable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
 	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
@@ -5051,6 +5091,7 @@ Class SessionService : Instance [NotCreatable] [Service]
 	Function SessionService:GetCreatedTimestampUtcMs(sid: string) -> number {RobloxScriptSecurity}
 	Function SessionService:GetMetadata(sid: string, key: string) -> any {RobloxScriptSecurity}
 	Function SessionService:GetRootSID() -> string {RobloxScriptSecurity}
+	Function SessionService:GetSessionID(structuralId: string) -> string {RobloxScriptSecurity}
 	Function SessionService:GetSessionTag(sid: string) -> string {RobloxScriptSecurity}
 	Function SessionService:IsContextFocused(context: string) -> boolean {RobloxScriptSecurity}
 	Function SessionService:ReleaseContextFocus(context: string) -> () {RobloxScriptSecurity}
@@ -5258,6 +5299,25 @@ Class StackFrame : Instance [NotCreatable] [NotReplicated]
 	Property StackFrame.Upvalues: DebuggerVariable? {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property StackFrame.Populated: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class StandalonePluginScripts : Instance
+Class StartPageService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function StartPageService:generateTempUrlInContentProvider(url: string) -> () {RobloxScriptSecurity}
+	Function StartPageService:getDaysSinceFirstUserLogin() -> number {RobloxScriptSecurity}
+	Function StartPageService:getStartPageVersionForUser() -> number {RobloxScriptSecurity}
+	Function StartPageService:getTempUrlInContentProvider(url: string) -> string {RobloxScriptSecurity}
+	Function StartPageService:isTutorialBannerClosed() -> boolean {RobloxScriptSecurity}
+	Function StartPageService:isTutorialPopupClosed() -> boolean {RobloxScriptSecurity}
+	Function StartPageService:openLink(link: string) -> () {RobloxScriptSecurity}
+	Function StartPageService:openLocalFile(filePath: string) -> () {RobloxScriptSecurity}
+	Function StartPageService:openPlace(placeId: number, launchTutorial: boolean) -> () {RobloxScriptSecurity}
+	Function StartPageService:refreshRegistryDataInStartPage() -> () {RobloxScriptSecurity}
+	Function StartPageService:removeAPIGameFromRegistry(gameId: number) -> () {RobloxScriptSecurity}
+	Function StartPageService:removeLocalFileFromRegistry(fileName: string) -> () {RobloxScriptSecurity}
+	Function StartPageService:setTutorialBannerClosed(closed: boolean) -> () {RobloxScriptSecurity}
+	Function StartPageService:setTutorialPopupClosed(closed: boolean) -> () {RobloxScriptSecurity}
+	Function StartPageService:startTutorial() -> () {RobloxScriptSecurity}
+	Event StartPageService.ImageImportedSignal(urlImported: string, temporaryId: string) {RobloxScriptSecurity}
+	Event StartPageService.LocalGamesFromRegistryUpdatedSignal(localGames: { any }) {RobloxScriptSecurity}
+	Event StartPageService.RecentApiGamesFromRegistryUpdatedSignal(recentGames: { any }) {RobloxScriptSecurity}
 Class StarterGear : Instance
 Class StarterPack : Instance [NotCreatable] [Service]
 Class StarterPlayer : Instance [NotCreatable] [Service]
@@ -5592,7 +5652,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property StudioService.AlignDraggedObjects: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property StudioService.DraggerSolveConstraints: boolean [ReadOnly]
 	Property StudioService.DrawConstraintsOnTop: boolean [ReadOnly] [Deprecated]
-	Property StudioService.ForceShowConstraintDetails: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StudioService.GridSize: number [ReadOnly]
 	Property StudioService.HoverInstance: Instance? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StudioService.InstalledPluginData: string {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -5600,6 +5659,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property StudioService.RotateIncrement: number [ReadOnly]
 	Property StudioService.Secrets: string {RobloxScriptSecurity}
 	Property StudioService.ShowConstraintDetails: boolean [ReadOnly]
+	Property StudioService.ShowWeldDetails: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property StudioService.UseLocalSpace: boolean [📁 LoadOnly] [NotReplicated]
 	Property StudioService.ActiveScript: Instance? [ReadOnly]
 	Property StudioService.StudioLocaleId: string [ReadOnly]
@@ -5654,7 +5714,8 @@ Class StyleBase : Instance [NotCreatable]
 	Function StyleBase:SetStyleRules(rules: { Instance }) -> ()
 	Event StyleBase.StyleRulesChanged()
 Class StyleRule : StyleBase
-	Property StyleRule.Index: number [Hidden] [NotScriptable]
+	Property StyleRule.Index: number [📁 LoadOnly] [Hidden] [NotScriptable]
+	Property StyleRule.Priority: number
 	Property StyleRule.PropertiesSerialize: BinaryString [Hidden] [NotScriptable]
 	Property StyleRule.Selector: string
 	Property StyleRule.SelectorError: string [ReadOnly]
@@ -5768,8 +5829,8 @@ Class TerrainRegion : Instance
 Class TestService : Instance [Service]
 	Property TestService.Description: string
 	Property TestService.AutoRuns: boolean
-	Property TestService.Is30FpsThrottleEnabled: boolean [📁 LoadOnly] [Hidden] [NotReplicated]
-	Property TestService.IsPhysicsEnvironmentalThrottled: boolean [📁 LoadOnly] [Hidden] [NotReplicated]
+	Property TestService.Is30FpsThrottleEnabled: boolean
+	Property TestService.IsPhysicsEnvironmentalThrottled: boolean
 	Property TestService.IsSleepAllowed: boolean
 	Property TestService.ErrorCount: number [ReadOnly]
 	Property TestService.TestCount: number [ReadOnly]
@@ -6222,7 +6283,9 @@ Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
 	Function UnvalidatedAssetService:AppendVantagePoint(userId: number, id: number, lookAt: Vector3, camPos: Vector3) -> boolean {RobloxScriptSecurity}
 	Function UnvalidatedAssetService:UpgradeTempAssetId(userId: number, tempId: number, assetId: number) -> boolean {RobloxScriptSecurity}
 Class UserGameSettings : Instance [NotCreatable] [UserSettings]
+	Property UserGameSettings.GraphicsOptimizationMode: Enum.GraphicsOptimizationMode {RobloxScriptSecurity}
 	Property UserGameSettings.GraphicsQualityLevel: number {RobloxScriptSecurity}
+	Property UserGameSettings.MaxQualityEnabled: boolean {RobloxScriptSecurity}
 	Property UserGameSettings.SavedQualityLevel: Enum.SavedQualitySetting
 	Property UserGameSettings.CameraMode: Enum.CustomCameraMode {RobloxScriptSecurity}
 	Property UserGameSettings.ComputerCameraMovementMode: Enum.ComputerCameraMovementMode
@@ -7075,7 +7138,7 @@ Enum ButtonStyle
 Enum CSGAsyncDynamicCollision
 	EnumItem CSGAsyncDynamicCollision.Default : 0
 	EnumItem CSGAsyncDynamicCollision.Disabled : 1
-	EnumItem CSGAsyncDynamicCollision.Experimental : 2
+	EnumItem CSGAsyncDynamicCollision.Enabled : 2
 Enum CageType
 	EnumItem CageType.Inner : 0
 	EnumItem CageType.Outer : 1
@@ -7756,6 +7819,10 @@ Enum GraphicsMode
 	EnumItem GraphicsMode.Metal : 5
 	EnumItem GraphicsMode.Vulkan : 6
 	EnumItem GraphicsMode.NoGraphics : 9
+Enum GraphicsOptimizationMode
+	EnumItem GraphicsOptimizationMode.Performance : 0
+	EnumItem GraphicsOptimizationMode.Balanced : 1
+	EnumItem GraphicsOptimizationMode.Quality : 2
 Enum GuiState
 	EnumItem GuiState.Idle : 0
 	EnumItem GuiState.Hover : 1
@@ -8424,6 +8491,9 @@ Enum NormalId
 	EnumItem NormalId.Left : 3
 	EnumItem NormalId.Bottom : 4
 	EnumItem NormalId.Front : 5
+Enum NotificationButtonType
+	EnumItem NotificationButtonType.Primary : 0
+	EnumItem NotificationButtonType.Secondary : 1
 Enum OperationType
 	EnumItem OperationType.Null : 0
 	EnumItem OperationType.Union : 1
@@ -8503,6 +8573,10 @@ Enum PathWaypointAction
 	EnumItem PathWaypointAction.Walk : 0
 	EnumItem PathWaypointAction.Jump : 1
 	EnumItem PathWaypointAction.Custom : 2
+Enum PathfindingUseImprovedSearch
+	EnumItem PathfindingUseImprovedSearch.Default : 0
+	EnumItem PathfindingUseImprovedSearch.Disabled : 1
+	EnumItem PathfindingUseImprovedSearch.Enabled : 2
 Enum PermissionLevelShown
 	EnumItem PermissionLevelShown.Game : 0
 	EnumItem PermissionLevelShown.RobloxGame : 1

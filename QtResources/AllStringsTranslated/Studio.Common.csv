@@ -26,7 +26,7 @@ Studio.Common.Action.Paste,,,Paste,Paste,,Einfügen,Pegar,Coller,,Incolla,貼り
 Studio.Common.Action.Pause,,,Pause,Pause,,Pause,Pausar,Pause,,Pausa,一時停止,일시 중지,,Pausar,Приостановить,หยุดชั่วคราว,Duraklat,Tạm Dừng,暂停,暂停,暫停
 Studio.Common.Action.Play,,,Play,Play,,Spielen,Jugar,Jouer,,Gioca,プレイ,플레이,,Jogar,Воспроизвести,เล่น,Oynat,Chơi,开始游戏,开始游戏,開始
 Studio.Common.Action.Previous,,,Previous,Previous,,Zurück,Anterior,Précédent,,Precedente,前へ,이전,,Anterior,Предыдущий,ก่อนหน้า,Önceki,Trước,上一个,上一个,上一步
-Studio.Common.Action.Reload,,,Reload,Reload,,Erneut laden,Volver a cargar,Recharger,,Ricarica,リロード,다시 불러오기,,Recarregar,Перезагрузить,โหลดอีกครั้ง,Yeniden yükle,Tải Lại,重新加载,重新加载,重新載入
+Studio.Common.Action.Reload,,,Reload,Reload,,Erneut laden,Volver a cargar,Recharger,,Ricarica,再読み込み,다시 불러오기,,Recarregar,Перезагрузить,โหลดอีกครั้ง,Yeniden yükle,Tải Lại,重新加载,重新加载,重新載入
 Studio.Common.Action.Remove,,,Remove,Remove,,Entfernen,Eliminar,Supprimer,,Rimuovi,削除,제거,,Remover,Удалить,ลบ,Kaldır,Bỏ,移除,移除,移除
 Studio.Common.Action.Rename,,,Rename,Rename,,Umbenennen,Renombrar,Renommer,,Rinomina,名前を変更,이름 변경,,Renomear,Переименовать,เปลี่ยนชื่อ,Yeniden adlandır,Đổi Tên,重命名,重命名,重新命名
 Studio.Common.Action.Replace,,,Replace,Replace,,Ersetzen,Reemplazar,Remplacer,,Sostituisci,置き換え,바꾸기,,Substituir,Заменить,แทนที่,Değiştir,Thay Thế,替换,替换,取代

@@ -26,7 +26,7 @@ Studio.TerrainToolsV2.Action.Pause,,,Pause,Pause,,Pausieren,Pausar,Pause,Jeda,Pa
 Studio.TerrainToolsV2.Action.Play,,,Play,Play,,Spielen,Jugar,Jouer,Mainkan,Gioca,プレイ,플레이,,Jogar,Воспроизвести,เล่น,Oynat,Chơi,开始游戏,开始游戏,開始
 Studio.TerrainToolsV2.Action.Previous,,,Previous,Previous,,Zurück,Anterior,Précédent,Sebelumnya,Precedente,前へ,이전,,Anterior,Предыдущий,ก่อนหน้า,Önceki,Trước,上一个,上一个,上一個
 Studio.TerrainToolsV2.Action.Redo,,,Redo,Redo,,Wiederholen,Rehacer,Refaire,Ulangi,Ripeti,やり直す,다시 실행,,Refazer,Вернуть,ทำใหม่,Yinele,Làm Lại,重做,重做,重做
-Studio.TerrainToolsV2.Action.Reload,,,Reload,Reload,,Erneut laden,Volver a cargar,Recharger,Muat Ulang,Ricarica,リロード,다시 불러오기,,Recarregar,Перезагрузить,โหลดอีกครั้ง,Yeniden Yükle,Tải Lại,重新加载,重新加载,重新載入
+Studio.TerrainToolsV2.Action.Reload,,,Reload,Reload,,Erneut laden,Volver a cargar,Recharger,Muat Ulang,Ricarica,再読み込み,다시 불러오기,,Recarregar,Перезагрузить,โหลดอีกครั้ง,Yeniden Yükle,Tải Lại,重新加载,重新加载,重新載入
 Studio.TerrainToolsV2.Action.Remove,,,Remove,Remove,,Entfernen,Eliminar,Retirer,Hapus,Rimuovi,削除,제거,,Remover,Удалить,ลบ,Kaldır,Bỏ,移除,移除,移除
 Studio.TerrainToolsV2.Action.Rename,,,Rename,Rename,,Umbenennen,Renombrar,Renommer,Ubah Nama,Rinomina,名前を変更,이름 변경,,Renomear,Переименовать,เปลี่ยนชื่อ,Yeniden Adlandır,Đổi Tên,重命名,重命名,重新命名
 Studio.TerrainToolsV2.Action.Replace,,,Replace,Replace,,Ersetzen,Reemplazar,Remplacer,Ganti,Sostituisci,置き換え,바꾸기,,Substituir,Заменить,แทนที่,Değiştir,Thay Thế,替换,替换,取代

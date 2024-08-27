@@ -37,3 +37,4 @@ Studio.App.IdeDoc.PlaceUploadErrorMessage.NoUsersInServer,Roblox IDE Doc,No vali
 Studio.App.IdeDoc.PlaceUploadErrorMessage.MissingUserId,Roblox IDE Doc,Failed due to missing user id.,Failed due to missing user id.
 Studio.App.IdeDoc.PlaceUploadErrorMessage.Success,Roblox IDE Doc,Place uploaded successfully.,Place uploaded successfully.
 Studio.App.IdeDoc.PlaceUploadErrorMessage.Unknown,Roblox IDE Doc,Internal server error.,Internal server error.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.NetworkError,Roblox IDE Doc,Request did not reach the server. Please check your internet connection and try again.,Request did not reach the server. Please check your internet connection and try again.
