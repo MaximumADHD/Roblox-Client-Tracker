@@ -1,3 +1,7 @@
+local Root = script:FindFirstAncestor("SceneUnderstanding")
+
+local safelyAccessProperty = require(Root.safelyAccessProperty)
+
 --[=[
 	Checks if an Instance is a Source Asset.
 
@@ -20,7 +24,7 @@
 	@within SceneUnderstanding
 ]=]
 local function isSourceAsset(instance: Instance): boolean
-	return instance.SourceAssetId > 0
+	return safelyAccessProperty(instance, "SourceAssetId", -1) > 0
 end
 
 return isSourceAsset

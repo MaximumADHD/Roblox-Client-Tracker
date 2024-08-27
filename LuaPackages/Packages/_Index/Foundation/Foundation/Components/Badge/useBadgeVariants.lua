@@ -26,7 +26,7 @@ return function(variant: BadgeVariant)
 			contentStyle = tokens.Color.Content.Emphasis,
 		},
 		[BadgeVariant.Alert] = {
-			backgroundStyle = tokens.Color.System.Red,
+			backgroundStyle = tokens.Color.System.Alert,
 			contentStyle = tokens.DarkMode.Content.Emphasis,
 		},
 	}

@@ -13,16 +13,11 @@ To browse icons available for use through this component, visit [[Images]].
 ```lua
 ...
 local Foundation = require(Packages.Foundation)
-local Icon = Foundation.Icon
 local IconButton = Foundation.IconButton
 local IconSize = Foundation.Enums.IconSize
 ...
 return React.createElement(IconButton, {
   size = IconSize.Medium,
-}, {
-  React.createElement(Icon, {
-    name = "icons/common/search_small",
-    size = IconSize.Medium,
-  }),
+  icon = "icons/common/search_small",
 })
 ```

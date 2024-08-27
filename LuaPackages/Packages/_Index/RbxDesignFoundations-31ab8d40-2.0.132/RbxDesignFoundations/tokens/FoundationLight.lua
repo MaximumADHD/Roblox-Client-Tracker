@@ -721,65 +721,65 @@ return function(scale)
 			},
 			Surface = {
 				Surface_0 = {
-					Color3 = Color3.new(0.07059, 0.07059, 0.08235),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 0,
 				},
 				Surface_100 = {
-					Color3 = Color3.new(0.09804, 0.10196, 0.12157),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 				Surface_200 = {
-					Color3 = Color3.new(0.12549, 0.13333, 0.15294),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 0,
 				},
 				Surface_300 = {
-					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 			},
 			OverMedia = {
 				OverMedia_0 = {
-					Color3 = Color3.new(0.07059, 0.07059, 0.08235),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 0,
 				},
 				OverMedia_100 = {
-					Color3 = Color3.new(0.09804, 0.10196, 0.12157),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 				OverMedia_200 = {
-					Color3 = Color3.new(0.12549, 0.13333, 0.15294),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 0,
 				},
 				OverMedia_300 = {
-					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 			},
 			Shift = {
 				Shift_100 = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.96,
 				},
 				Shift_200 = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.92,
 				},
 				Shift_300 = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.88,
 				},
 				Shift_400 = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.84,
 				},
 			},
 			Content = {
 				Emphasis = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 					Transparency = 0,
 				},
 				Default = {
-					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+					Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 					Transparency = 0,
 				},
 				Muted = {
@@ -787,53 +787,53 @@ return function(scale)
 					Transparency = 0,
 				},
 				Link = {
-					Color3 = Color3.new(0.32157, 0.5451, 1),
+					Color3 = Color3.new(0.07843, 0.27451, 1),
 					Transparency = 0,
 				},
 			},
 			Stroke = {
 				Emphasis = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.84,
 				},
 				Default = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.88,
 				},
 				Muted = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.92,
 				},
 			},
 			System = {
 				Contrast = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 					Transparency = 0,
 				},
 				Neutral = {
-					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+					Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 					Transparency = 0,
 				},
-				Blue = {
+				Emphasis = {
 					Color3 = Color3.new(0.2, 0.37255, 1),
 					Transparency = 0,
 				},
-				Green = {
+				Success = {
 					Color3 = Color3.new(0.22353, 0.77255, 0.5098),
 					Transparency = 0,
 				},
-				Yellow = {
+				Warning = {
 					Color3 = Color3.new(0.94902, 0.72941, 0.16471),
 					Transparency = 0,
 				},
-				Red = {
+				Alert = {
 					Color3 = Color3.new(0.87451, 0.15686, 0.12157),
 					Transparency = 0,
 				},
 			},
 			Common = {
 				Shimmer = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.88,
 				},
 				Scrim = {
@@ -845,31 +845,31 @@ return function(scale)
 					Transparency = 0.5,
 				},
 				NavigationBar = {
-					Color3 = Color3.new(0.07059, 0.07059, 0.08235),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 0,
 				},
 			},
 			Selection = {
 				Start = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
 					Transparency = 0,
 				},
 				End = {
-					Color3 = Color3.new(1, 1, 1),
-					Transparency = 0.5,
+					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+					Transparency = 0,
 				},
 			},
 			State = {
 				Idle = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0, 0, 0),
 					Transparency = 1,
 				},
 				Hover = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0, 0, 0),
 					Transparency = 0.85,
 				},
 				Press = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0, 0, 0),
 					Transparency = 0.8,
 				},
 			},
@@ -903,11 +903,11 @@ return function(scale)
 			},
 			ActionStandard = {
 				Background = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.88,
 				},
 				Foreground = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 					Transparency = 0,
 				},
 				Border = {
@@ -921,11 +921,11 @@ return function(scale)
 					Transparency = 1,
 				},
 				Foreground = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 					Transparency = 0,
 				},
 				Border = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.88,
 				},
 			},
@@ -935,7 +935,7 @@ return function(scale)
 					Transparency = 1,
 				},
 				Foreground = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 					Transparency = 0,
 				},
 				Border = {
@@ -965,16 +965,17 @@ return function(scale)
 				IsUIBlox = "false",
 			},
 			ColorMode = {
-				Name = "Dark",
-				IsDark = "true",
-				IsLight = "false",
+				Name = "Light",
+				IsDark = "false",
+				IsLight = "true",
 			},
 			UI = {
-				Interval = 8,
+				Interval = 4,
 				Scale = 1,
 				StrokeBase = 1,
 			},
 			Text = {
+				Interval = 5.040,
 				Scale = 1,
 				Font = "Builder Sans",
 				NominalScale = 1.26,
@@ -1081,19 +1082,19 @@ return function(scale)
 					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
 					Transparency = 0,
 				},
-				Blue = {
+				Emphasis = {
 					Color3 = Color3.new(0.2, 0.37255, 1),
 					Transparency = 0,
 				},
-				Green = {
+				Success = {
 					Color3 = Color3.new(0.22353, 0.77255, 0.5098),
 					Transparency = 0,
 				},
-				Yellow = {
+				Warning = {
 					Color3 = Color3.new(0.94902, 0.72941, 0.16471),
 					Transparency = 0,
 				},
-				Red = {
+				Alert = {
 					Color3 = Color3.new(0.87451, 0.15686, 0.12157),
 					Transparency = 0,
 				},
@@ -1325,19 +1326,19 @@ return function(scale)
 					Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 					Transparency = 0,
 				},
-				Blue = {
+				Emphasis = {
 					Color3 = Color3.new(0.2, 0.37255, 1),
 					Transparency = 0,
 				},
-				Green = {
+				Success = {
 					Color3 = Color3.new(0.22353, 0.77255, 0.5098),
 					Transparency = 0,
 				},
-				Yellow = {
+				Warning = {
 					Color3 = Color3.new(0.94902, 0.72941, 0.16471),
 					Transparency = 0,
 				},
-				Red = {
+				Alert = {
 					Color3 = Color3.new(0.87451, 0.15686, 0.12157),
 					Transparency = 0,
 				},
@@ -1476,65 +1477,65 @@ return function(scale)
 			},
 			Surface = {
 				Surface_0 = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0.07059, 0.07059, 0.08235),
 					Transparency = 0,
 				},
 				Surface_100 = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.09804, 0.10196, 0.12157),
 					Transparency = 0,
 				},
 				Surface_200 = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0.12549, 0.13333, 0.15294),
 					Transparency = 0,
 				},
 				Surface_300 = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 					Transparency = 0,
 				},
 			},
 			OverMedia = {
 				OverMedia_0 = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0.07059, 0.07059, 0.08235),
 					Transparency = 0,
 				},
 				OverMedia_100 = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.09804, 0.10196, 0.12157),
 					Transparency = 0,
 				},
 				OverMedia_200 = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0.12549, 0.13333, 0.15294),
 					Transparency = 0,
 				},
 				OverMedia_300 = {
-					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 					Transparency = 0,
 				},
 			},
 			Shift = {
 				Shift_100 = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.96,
 				},
 				Shift_200 = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.92,
 				},
 				Shift_300 = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.88,
 				},
 				Shift_400 = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.84,
 				},
 			},
 			Content = {
 				Emphasis = {
-					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 				Default = {
-					Color3 = Color3.new(0.28627, 0.30196, 0.35294),
+					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
 					Transparency = 0,
 				},
 				Muted = {
@@ -1542,53 +1543,53 @@ return function(scale)
 					Transparency = 0,
 				},
 				Link = {
-					Color3 = Color3.new(0.07843, 0.27451, 1),
+					Color3 = Color3.new(0.32157, 0.5451, 1),
 					Transparency = 0,
 				},
 			},
 			Stroke = {
 				Emphasis = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.84,
 				},
 				Default = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.88,
 				},
 				Muted = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.92,
 				},
 			},
 			System = {
 				Contrast = {
-					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 				Neutral = {
-					Color3 = Color3.new(0.28627, 0.30196, 0.35294),
+					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
 					Transparency = 0,
 				},
-				Blue = {
+				Emphasis = {
 					Color3 = Color3.new(0.2, 0.37255, 1),
 					Transparency = 0,
 				},
-				Green = {
+				Success = {
 					Color3 = Color3.new(0.22353, 0.77255, 0.5098),
 					Transparency = 0,
 				},
-				Yellow = {
+				Warning = {
 					Color3 = Color3.new(0.94902, 0.72941, 0.16471),
 					Transparency = 0,
 				},
-				Red = {
+				Alert = {
 					Color3 = Color3.new(0.87451, 0.15686, 0.12157),
 					Transparency = 0,
 				},
 			},
 			Common = {
 				Shimmer = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.88,
 				},
 				Scrim = {
@@ -1600,31 +1601,31 @@ return function(scale)
 					Transparency = 0.5,
 				},
 				NavigationBar = {
-					Color3 = Color3.new(1, 1, 1),
+					Color3 = Color3.new(0.07059, 0.07059, 0.08235),
 					Transparency = 0,
 				},
 			},
 			Selection = {
 				Start = {
-					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 0,
 				},
 				End = {
-					Color3 = Color3.new(0.64706, 0.66275, 0.71373),
-					Transparency = 0,
+					Color3 = Color3.new(1, 1, 1),
+					Transparency = 0.5,
 				},
 			},
 			State = {
 				Idle = {
-					Color3 = Color3.new(0, 0, 0),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 1,
 				},
 				Hover = {
-					Color3 = Color3.new(0, 0, 0),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 0.85,
 				},
 				Press = {
-					Color3 = Color3.new(0, 0, 0),
+					Color3 = Color3.new(1, 1, 1),
 					Transparency = 0.8,
 				},
 			},
@@ -1658,11 +1659,11 @@ return function(scale)
 			},
 			ActionStandard = {
 				Background = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.88,
 				},
 				Foreground = {
-					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 				Border = {
@@ -1676,11 +1677,11 @@ return function(scale)
 					Transparency = 1,
 				},
 				Foreground = {
-					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 				Border = {
-					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
+					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
 					Transparency = 0.88,
 				},
 			},
@@ -1690,7 +1691,7 @@ return function(scale)
 					Transparency = 1,
 				},
 				Foreground = {
-					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 				Border = {
@@ -1866,90 +1867,90 @@ return function(scale)
 			Color = {
 				Background = {
 					Default = {
-						Color3 = Color3.new(0.07059, 0.07059, 0.08235),
+						Color3 = Color3.new(1, 1, 1),
 						Transparency = 0,
 					},
 					Contrast = {
-						Color3 = Color3.new(0.09804, 0.10196, 0.12157),
+						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 						Transparency = 0,
 					},
 					Muted = {
-						Color3 = Color3.new(0.12549, 0.13333, 0.15294),
+						Color3 = Color3.new(1, 1, 1),
 						Transparency = 0,
 					},
 					OnHover = {
-						Color3 = Color3.new(1, 1, 1),
+						Color3 = Color3.new(0, 0, 0),
 						Transparency = 0.85,
 					},
 					OnPress = {
-						Color3 = Color3.new(1, 1, 1),
+						Color3 = Color3.new(0, 0, 0),
 						Transparency = 0.8,
 					},
 				},
 				BackgroundUi = {
 					Default = {
-						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 						Transparency = 0,
 					},
 					Contrast = {
-						Color3 = Color3.new(0.07059, 0.07059, 0.08235),
+						Color3 = Color3.new(1, 1, 1),
 						Transparency = 0,
 					},
 				},
 				Ui = {
 					Default = {
-						Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+						Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 						Transparency = 0.92,
 					},
 					Muted = {
-						Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+						Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 						Transparency = 0.96,
 					},
 					Emphasis = {
-						Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+						Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 						Transparency = 0.84,
 					},
 				},
 				Focus = {
 					Start = {
-						Color3 = Color3.new(1, 1, 1),
+						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
 						Transparency = 0,
 					},
 					End = {
-						Color3 = Color3.new(1, 1, 1),
-						Transparency = 0.5,
+						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+						Transparency = 0,
 					},
 					Gradient = {
-						Color3 = Color3.new(1, 1, 1),
+						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
 						Transparency = 0,
 					},
 				},
 				State = {
 					Standard = {
 						Default = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 1,
 						},
 						Hover = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 0.85,
 						},
 						Pressed = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 0.8,
 						},
 					},
 					Inverse = {
 						Default = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 1,
 						},
 						Hover = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 0.85,
 						},
 						Pressed = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 0.8,
 						},
 					},
@@ -1984,11 +1985,11 @@ return function(scale)
 				},
 				Text = {
 					Emphasis = {
-						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 						Transparency = 0,
 					},
 					Default = {
-						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+						Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 						Transparency = 0,
 					},
 					Muted = {
@@ -1996,31 +1997,31 @@ return function(scale)
 						Transparency = 0,
 					},
 					Link = {
-						Color3 = Color3.new(0.32157, 0.5451, 1),
+						Color3 = Color3.new(0.07843, 0.27451, 1),
 						Transparency = 0,
 					},
 					Inverse = {
-						Color3 = Color3.new(0.28627, 0.30196, 0.35294),
+						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
 						Transparency = 0,
 					},
 				},
 				Icon = {
 					Emphasis = {
-						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 						Transparency = 0,
 					},
 					Default = {
-						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+						Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 						Transparency = 0,
 					},
 					OnHover = {
-						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 						Transparency = 0,
 					},
 				},
 				Common = {
 					Divider = {
-						Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+						Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 						Transparency = 0.84,
 					},
 					Overlay = {
@@ -2032,19 +2033,19 @@ return function(scale)
 						Transparency = 0.5,
 					},
 					NavigationBar = {
-						Color3 = Color3.new(0.07059, 0.07059, 0.08235),
+						Color3 = Color3.new(1, 1, 1),
 						Transparency = 0,
 					},
 					Placeholder = {
-						Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+						Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 						Transparency = 0.88,
 					},
 					Badge = {
-						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 						Transparency = 0,
 					},
 					BadgeContent = {
-						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 						Transparency = 0,
 					},
 					Online = {
@@ -2052,7 +2053,7 @@ return function(scale)
 						Transparency = 0,
 					},
 					Offline = {
-						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+						Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 						Transparency = 0,
 					},
 					Alert = {
@@ -2095,11 +2096,11 @@ return function(scale)
 					},
 					Secondary = {
 						Background = {
-							Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+							Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 							Transparency = 0.88,
 						},
 						Content = {
-							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 							Transparency = 0,
 						},
 						Border = {
@@ -2113,7 +2114,7 @@ return function(scale)
 							Transparency = 1,
 						},
 						Content = {
-							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 							Transparency = 0,
 						},
 						Border = {
@@ -2223,31 +2224,40 @@ return function(scale)
 		},
 		Size = {
 			Size_0 = 0,
-			Size_25 = 2 * scale,
-			Size_50 = 4 * scale,
-			Size_75 = 6 * scale,
-			Size_100 = 8 * scale,
-			Size_125 = 10 * scale,
-			Size_150 = 12 * scale,
-			Size_175 = 14 * scale,
-			Size_200 = 16 * scale,
-			Size_250 = 20 * scale,
-			Size_300 = 24 * scale,
-			Size_350 = 28 * scale,
-			Size_400 = 32 * scale,
-			Size_450 = 36 * scale,
-			Size_500 = 40 * scale,
-			Size_550 = 44 * scale,
-			Size_600 = 48 * scale,
-			Size_650 = 52 * scale,
-			Size_700 = 56 * scale,
-			Size_800 = 64 * scale,
-			Size_900 = 72 * scale,
-			Size_1000 = 80 * scale,
-			Size_1100 = 88 * scale,
-			Size_1200 = 96 * scale,
-			Size_1300 = 104 * scale,
-			Size_1400 = 112 * scale,
+			Size_50 = 2 * scale,
+			Size_100 = 4 * scale,
+			Size_150 = 6 * scale,
+			Size_200 = 8 * scale,
+			Size_250 = 10 * scale,
+			Size_300 = 12 * scale,
+			Size_350 = 14 * scale,
+			Size_400 = 16 * scale,
+			Size_500 = 20 * scale,
+			Size_600 = 24 * scale,
+			Size_700 = 28 * scale,
+			Size_800 = 32 * scale,
+			Size_900 = 36 * scale,
+			Size_1000 = 40 * scale,
+			Size_1100 = 44 * scale,
+			Size_1200 = 48 * scale,
+			Size_1300 = 52 * scale,
+			Size_1400 = 56 * scale,
+			Size_1500 = 60 * scale,
+			Size_1600 = 64 * scale,
+			Size_1700 = 68 * scale,
+			Size_1800 = 72 * scale,
+			Size_1900 = 76 * scale,
+			Size_2000 = 80 * scale,
+			Size_2100 = 84 * scale,
+			Size_2200 = 88 * scale,
+			Size_2300 = 92 * scale,
+			Size_2400 = 96 * scale,
+			Size_2500 = 100 * scale,
+			Size_2600 = 104 * scale,
+			Size_2700 = 108 * scale,
+			Size_2800 = 112 * scale,
+			Size_2900 = 116 * scale,
+			Size_3000 = 120 * scale,
 		},
 		Padding = {
 			XXSmall = 2 * scale,
@@ -2298,25 +2308,37 @@ return function(scale)
 			Loose = 0.01,
 		},
 		FontSize = {
-			FontSize_100 = 10.080 * scale,
-			FontSize_125 = 12.600 * scale,
-			FontSize_150 = 15.120 * scale,
-			FontSize_175 = 17.640 * scale,
-			FontSize_200 = 20.160 * scale,
-			FontSize_250 = 25.200 * scale,
-			FontSize_300 = 30.240 * scale,
-			FontSize_350 = 35.280 * scale,
-			FontSize_400 = 40.320 * scale,
-			FontSize_500 = 50.400 * scale,
-			FontSize_600 = 60.480 * scale,
-			FontSize_700 = 70.560 * scale,
-			FontSize_800 = 80.640 * scale,
-			FontSize_900 = 90.720 * scale,
-			FontSize_1000 = 100.800 * scale,
-			FontSize_1100 = 110.880 * scale,
-			FontSize_1200 = 120.960 * scale,
-			FontSize_1300 = 131.040 * scale,
-			FontSize_1400 = 141.120 * scale,
+			FontSize_200 = 10.080 * scale,
+			FontSize_250 = 12.600 * scale,
+			FontSize_300 = 15.120 * scale,
+			FontSize_350 = 17.640 * scale,
+			FontSize_400 = 20.160 * scale,
+			FontSize_500 = 25.200 * scale,
+			FontSize_600 = 30.240 * scale,
+			FontSize_700 = 35.280 * scale,
+			FontSize_800 = 40.320 * scale,
+			FontSize_900 = 45.360 * scale,
+			FontSize_1000 = 50.400 * scale,
+			FontSize_1100 = 55.440 * scale,
+			FontSize_1200 = 60.480 * scale,
+			FontSize_1300 = 65.520 * scale,
+			FontSize_1400 = 70.560 * scale,
+			FontSize_1500 = 75.600 * scale,
+			FontSize_1600 = 80.640 * scale,
+			FontSize_1700 = 85.680 * scale,
+			FontSize_1800 = 90.720 * scale,
+			FontSize_1900 = 95.760 * scale,
+			FontSize_2000 = 100.800 * scale,
+			FontSize_2100 = 105.840 * scale,
+			FontSize_2200 = 110.880 * scale,
+			FontSize_2300 = 115.920 * scale,
+			FontSize_2400 = 120.960 * scale,
+			FontSize_2500 = 126 * scale,
+			FontSize_2600 = 131.040 * scale,
+			FontSize_2700 = 136.080 * scale,
+			FontSize_2800 = 141.120 * scale,
+			FontSize_2900 = 146.160 * scale,
+			FontSize_3000 = 151.200 * scale,
 		},
 		FontWeight = {
 			FontWeight_300 = "Light",
@@ -2434,12 +2456,12 @@ return function(scale)
 				Base = {
 					Container = {
 						Background = {
-							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 							Transparency = 0,
 						},
 						BorderWidth = 1 * scale,
 						BorderColor = {
-							Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+							Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 							Transparency = 0.84,
 						},
 						DropShadow = {
@@ -2490,11 +2512,11 @@ return function(scale)
 					Image = {
 						Size = 96 * scale,
 						BackgroundColor = {
-							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 							Transparency = 0,
 						},
 						BorderColor = {
-							Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+							Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 							Transparency = 0.84,
 						},
 						BorderRadius = 9999,
@@ -2507,7 +2529,7 @@ return function(scale)
 							Transparency = 0,
 						},
 						BorderColor = {
-							Color3 = Color3.new(0.07059, 0.07059, 0.08235),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 0,
 						},
 						BorderWidth = 2.500 * scale,
@@ -2521,7 +2543,7 @@ return function(scale)
 							LetterSpacing = 0.01,
 						},
 						ContentColor = {
-							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 							Transparency = 0,
 						},
 					},
@@ -2530,7 +2552,7 @@ return function(scale)
 					},
 					Presence = {
 						ContentColor = {
-							Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+							Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 							Transparency = 0,
 						},
 					},
@@ -2545,12 +2567,12 @@ return function(scale)
 				},
 				Face = {
 					BackgroundColor = {
-						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+						Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 						Transparency = 0,
 					},
 					BorderWidth = 2 * scale,
 					BorderColor = {
-						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 						Transparency = 0,
 					},
 					BorderRadius = 9999,
@@ -2564,7 +2586,7 @@ return function(scale)
 					},
 					BorderWidth = 2 * scale,
 					BorderColor = {
-						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 						Transparency = 0,
 					},
 					BorderRadius = 9999,
@@ -2597,7 +2619,7 @@ return function(scale)
 			},
 			ControllerBar = {
 				BackgroundColor = {
-					Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+					Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 					Transparency = 0.96,
 				},
 				BorderRadius = {
@@ -2618,7 +2640,7 @@ return function(scale)
 				Container = {
 					Gap = 4 * scale,
 					ContentColor = {
-						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 						Transparency = 0,
 					},
 				},
@@ -2640,12 +2662,12 @@ return function(scale)
 				Inset = 0,
 				Gradient = {
 					Start = {
-						Color3 = Color3.new(1, 1, 1),
+						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
 						Transparency = 0,
 					},
 					End = {
-						Color3 = Color3.new(1, 1, 1),
-						Transparency = 0.5,
+						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+						Transparency = 0,
 					},
 				},
 			},
@@ -2656,43 +2678,43 @@ return function(scale)
 				Standard = {
 					Initialize = {
 						Color = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 1,
 						},
 					},
 					Default = {
 						Color = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 1,
 						},
 					},
 					Hover = {
 						Color = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 0.85,
 						},
 					},
 					Pressed = {
 						Color = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 0.8,
 						},
 					},
 					Selected = {
 						Color = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 1,
 						},
 					},
 					SelectedPressed = {
 						Color = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 0.8,
 						},
 					},
 					Disabled = {
 						Color = {
-							Color3 = Color3.new(1, 1, 1),
+							Color3 = Color3.new(0, 0, 0),
 							Transparency = 1,
 						},
 					},
@@ -2744,43 +2766,43 @@ return function(scale)
 				Inverse = {
 					Initialize = {
 						Color = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 1,
 						},
 					},
 					Default = {
 						Color = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 1,
 						},
 					},
 					Hover = {
 						Color = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 0.85,
 						},
 					},
 					Pressed = {
 						Color = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 0.8,
 						},
 					},
 					Selected = {
 						Color = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 1,
 						},
 					},
 					SelectedPressed = {
 						Color = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 0.8,
 						},
 					},
 					Disabled = {
 						Color = {
-							Color3 = Color3.new(0, 0, 0),
+							Color3 = Color3.new(1, 1, 1),
 							Transparency = 1,
 						},
 					},
@@ -2835,15 +2857,15 @@ return function(scale)
 					Container = {
 						Height = 56 * scale,
 						ContentColor = {
-							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
-							Transparency = 0,
-						},
-						BackgroundColor = {
 							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 							Transparency = 0,
 						},
+						BackgroundColor = {
+							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+							Transparency = 0,
+						},
 						BorderColor = {
-							Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+							Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 							Transparency = 0.84,
 						},
 						BorderRadius = {
@@ -2891,7 +2913,7 @@ return function(scale)
 				Disabled = {
 					Container = {
 						ContentColor = {
-							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 							Transparency = 0.5,
 						},
 					},
@@ -2916,7 +2938,7 @@ return function(scale)
 			BaseMenu = {
 				BorderRadius = 8 * scale,
 				BackgroundColor = {
-					Color3 = Color3.new(0.15294, 0.16078, 0.18824),
+					Color3 = Color3.new(0.95686, 0.95686, 0.96471),
 					Transparency = 0,
 				},
 			},
@@ -2955,7 +2977,7 @@ return function(scale)
 				Container = {
 					Gap = 8 * scale,
 					ContentColor = {
-						Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+						Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 						Transparency = 0,
 					},
 				},
@@ -2988,7 +3010,7 @@ return function(scale)
 					Gap = 8 * scale,
 					BorderRadius = 8 * scale,
 					BackgroundColor = {
-						Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+						Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 						Transparency = 0.84,
 					},
 				},
@@ -3010,11 +3032,11 @@ return function(scale)
 				Base = {
 					Handle = {
 						BackgroundColor = {
-							Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+							Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 							Transparency = 0.84,
 						},
 						ContentColor = {
-							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 							Transparency = 0,
 						},
 						BorderRadius = 9999,
@@ -3059,7 +3081,7 @@ return function(scale)
 				Base = {
 					Field = {
 						BorderColor = {
-							Color3 = Color3.new(0.81569, 0.85098, 0.98431),
+							Color3 = Color3.new(0.10588, 0.1451, 0.29412),
 							Transparency = 0.84,
 						},
 						BorderRadius = 8 * scale,
@@ -3084,7 +3106,7 @@ return function(scale)
 					},
 					FieldValue = {
 						ContentColor = {
-							Color3 = Color3.new(0.95686, 0.95686, 0.96471),
+							Color3 = Color3.new(0.15294, 0.16078, 0.18824),
 							Transparency = 0,
 						},
 					},
@@ -3119,7 +3141,7 @@ return function(scale)
 						LetterSpacing = 0,
 					},
 					ContentColor = {
-						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+						Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 						Transparency = 0,
 					},
 					Spacing = {
@@ -3140,7 +3162,7 @@ return function(scale)
 						LetterSpacing = 0.01,
 					},
 					ContentColor = {
-						Color3 = Color3.new(0.64706, 0.66275, 0.71373),
+						Color3 = Color3.new(0.28627, 0.30196, 0.35294),
 						Transparency = 0,
 					},
 					Padding = {

@@ -125,11 +125,6 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 		offset = selectionBorderThickness,
 		borderWidth = selectionBorderThickness,
 	})
-	local buttonCursor = useCursor({
-		radius = UDim.new(0.5),
-		offset = iconSize / 2,
-		borderWidth = selectionBorderThickness,
-	})
 
 	local iconTrailing = if props.iconTrailing
 		then React.createElement(Icon, {
@@ -166,7 +161,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 				LayoutOrder = 2,
 				GroupTransparency = if props.isDisabled then 0.32 else nil, -- TODO(tokens): replace opacity with token
 
-				tag = "size-full-600",
+				tag = "size-full-1200",
 			}, {
 				Input = React.createElement(View, {
 					Size = UDim2.new(1, -outerBorderOffset, 1, -outerBorderOffset),
@@ -177,10 +172,10 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					},
 					stroke = {
 						Color = if props.hasError
-							then tokens.Color.System.Red.Color3
+							then tokens.Color.System.Alert.Color3
 							else tokens.Color.Stroke.Emphasis.Color3,
 						Transparency = if props.hasError
-							then tokens.Color.System.Red.Transparency
+							then tokens.Color.System.Alert.Transparency
 							else if focus then 0 else tokens.Color.Stroke.Emphasis.Transparency,
 						Thickness = outerBorderThickness,
 					},
@@ -238,10 +233,8 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 								onActivated = props.iconTrailing.onActivated,
 								isDisabled = props.isDisabled,
 								size = IconSize.Small,
-								SelectionImageObject = buttonCursor,
+								icon = props.iconTrailing.name,
 								LayoutOrder = 3,
-							}, {
-								Icon = iconTrailing,
 							})
 							else iconTrailing,
 					}),

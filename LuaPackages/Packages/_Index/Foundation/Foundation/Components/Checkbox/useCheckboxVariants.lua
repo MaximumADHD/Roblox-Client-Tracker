@@ -61,11 +61,11 @@ function variantsFactory(tokens: Tokens)
 				tag = "gap-small",
 			},
 			checkbox = {
-				size = getCheckboxSize(tokens.Size.Size_200),
+				size = getCheckboxSize(tokens.Size.Size_400),
 				tag = "radius-small",
 			},
 			checkmark = {
-				tag = "size-150",
+				tag = "size-300",
 			},
 			label = {
 				size = InputLabelSize.Small,
@@ -76,11 +76,11 @@ function variantsFactory(tokens: Tokens)
 				tag = "gap-medium",
 			},
 			checkbox = {
-				size = getCheckboxSize(tokens.Size.Size_250),
+				size = getCheckboxSize(tokens.Size.Size_500),
 				tag = "radius-small",
 			},
 			checkmark = {
-				tag = "size-175",
+				tag = "size-350",
 			},
 			label = {
 				size = InputLabelSize.Medium,
@@ -91,11 +91,11 @@ function variantsFactory(tokens: Tokens)
 				tag = "gap-small",
 			},
 			checkbox = {
-				size = getCheckboxSize(tokens.Size.Size_300),
+				size = getCheckboxSize(tokens.Size.Size_600),
 				tag = "radius-medium",
 			},
 			checkmark = {
-				tag = "size-200",
+				tag = "size-400",
 			},
 			label = {
 				size = InputLabelSize.Large,

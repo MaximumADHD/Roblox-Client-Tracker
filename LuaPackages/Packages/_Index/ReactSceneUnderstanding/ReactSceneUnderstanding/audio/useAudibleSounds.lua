@@ -1,34 +1,41 @@
 local Root = script:FindFirstAncestor("ReactSceneUnderstanding")
 
 local React = require(Root.Parent.React)
+local SceneUnderstanding = require(Root.Parent.SceneUnderstanding)
 local enums = require(Root.enums)
 local useCameraState = require(Root.useCameraState)
 local sortByAudibleVolume = require(Root.audio.sortByAudibleVolume)
-local useSounds = require(Root.audio.useSounds)
+local useLazyInstanceCollector = require(Root.traversal.useLazyInstanceCollector)
 
 local useEffect = React.useEffect
 local useState = React.useState
 
-local function useAudibleSounds(parents: { Instance })
-	local sounds = useSounds(parents)
+type DataModelTraversalOptions = SceneUnderstanding.DataModelTraversalOptions
+
+local function isSound(instance: Instance)
+	return instance:IsA("Sound")
+end
+
+local function useAudibleSounds(parents: { Instance }, options: DataModelTraversalOptions?)
+	local sounds = useLazyInstanceCollector(parents, isSound, options)
 	local cameraState = useCameraState()
 
 	local audibleSounds: { Sound }, setAudibleSounds = useState(function()
 		return sortByAudibleVolume(sounds)
 	end)
 
-	useEffect(function()
+	local function updateAudibleSounds()
+		setAudibleSounds(sortByAudibleVolume(sounds))
+	end
+
+	useEffect(function(): any
 		local connections = {}
 
 		for _, sound in sounds do
-			local connection = sound.Changed:Connect(function()
-				setAudibleSounds(sortByAudibleVolume(sounds))
-			end)
-
-			table.insert(connections, connection)
+			table.insert(connections, sound.Changed:Connect(updateAudibleSounds))
 		end
 
-		setAudibleSounds(sortByAudibleVolume(sounds))
+		updateAudibleSounds()
 
 		return function()
 			for _, connection in connections do
@@ -39,7 +46,7 @@ local function useAudibleSounds(parents: { Instance })
 
 	useEffect(function()
 		if cameraState == enums.CameraState.Idle then
-			setAudibleSounds(sortByAudibleVolume(sounds))
+			updateAudibleSounds()
 		end
 	end, { cameraState })
 

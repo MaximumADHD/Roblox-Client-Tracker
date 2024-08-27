@@ -154,4 +154,10 @@ return {
 
 	-- Update FullPageModal sizing on mount
 	didMountUpdateFullPageModal = false,
+
+	-- Removes math error absoluteSize setting statement
+	fixLayerCollectorProviderAbsoluteSize = false,
+
+	-- Fix the horizontalAlignment prop on Tile
+	tileHorizontalAlignmentFix = false,
 }

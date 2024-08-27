@@ -66,9 +66,9 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 				Transparency = tokens.Color.Surface.Surface_100.Transparency,
 			},
 			sizeConstraint = {
-				MinSize = Vector2.new(tokens.Size.Size_100, tokens.Size.Size_100),
+				MinSize = Vector2.new(tokens.Size.Size_200, tokens.Size.Size_200),
 				-- Closest we have to 60 as per design spec
-				MaxSize = Vector2.new(tokens.Size.Size_800, math.huge),
+				MaxSize = Vector2.new(tokens.Size.Size_1600, math.huge),
 			},
 			tag = {
 				["auto-xy radius-circle row align-y-center align-x-center stroke-thick"] = true,
@@ -101,7 +101,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 						then {
 							-- Necessary to ensure that the ... fits inside badge
 							MaxSize = Vector2.new(
-								tokens.Size.Size_800
+								tokens.Size.Size_1600
 									- tokens.Semantic.Icon.Size.Small -- TODO(tokens): replace with non-semantic value
 									- horizontalPadding,
 								math.huge

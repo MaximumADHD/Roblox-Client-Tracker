@@ -20,6 +20,7 @@ local Foundation = strict({
 	Checkbox = require(script.Components.Checkbox),
 	Empty = require(script.Components.Empty),
 	Icon = require(script.Components.Icon),
+	IconButton = require(script.Components.IconButton),
 	Image = require(script.Components.Image),
 	Loading = require(script.Components.Loading),
 	Pill = require(script.Components.Pill),

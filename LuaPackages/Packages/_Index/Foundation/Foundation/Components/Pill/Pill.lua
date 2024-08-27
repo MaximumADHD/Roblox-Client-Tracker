@@ -73,7 +73,7 @@ local function Pill(pillProps: PillProps, ref: React.Ref<GuiObject>?)
 			onActivated = props.onActivated,
 			isDisabled = props.isDisabled,
 			tag = {
-				["row gap-xsmall size-0-350 padding-medium auto-x align-y-center align-x-center clip radius-circle"] = true,
+				["row gap-xsmall size-0-700 padding-medium auto-x align-y-center align-x-center clip radius-circle"] = true,
 				["bg-action-sub-emphasis"] = props.isChecked,
 				["bg-shift-200"] = not props.isChecked,
 			},

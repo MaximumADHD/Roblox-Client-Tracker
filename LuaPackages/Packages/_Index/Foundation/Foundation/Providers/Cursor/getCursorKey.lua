@@ -23,7 +23,7 @@ local function getCursorKey(tokens: Tokens, radius: UDim?, offset: number?, bord
 	if offset ~= nil then
 		pOffset = (offset - pBorderWidth)
 	else
-		pOffset = (tokens.Size.Size_75 - pBorderWidth)
+		pOffset = (tokens.Size.Size_150 - pBorderWidth)
 	end
 
 	return encodeKey(pRadius, pOffset, pBorderWidth)

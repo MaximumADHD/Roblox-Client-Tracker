@@ -66,9 +66,8 @@ local function AppStyleProvider(props: Props)
 	local textSizeOffset, setTextSizeOffset = React.useState(0)
 	local theme = getThemeFromName(themeName)
 
-	local foundationTokens
 	if UIBloxConfig.useFoundationColors then
-		foundationTokens = getFoundationTokens(style.deviceType, themeName)
+		local foundationTokens = getFoundationTokens(style.deviceType, themeName)
 		tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
 		theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
 	end
@@ -117,7 +116,6 @@ local function AppStyleProvider(props: Props)
 			derivedValues = {
 				textSizeOffset = textSizeOffset,
 			},
-			foundationTokens = if UIBloxConfig.useFoundationColors then foundationTokens else nil,
 		},
 	}, Roact.oneChild(props.children :: any))
 end

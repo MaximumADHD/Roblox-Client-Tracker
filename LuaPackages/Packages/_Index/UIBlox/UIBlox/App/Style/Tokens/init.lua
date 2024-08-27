@@ -77,5 +77,9 @@ return {
 
 		return foundationTokens(scale)
 	end,
+	getFoundationTokensDefaultScale = function(themeName: ThemeName | string)
+		local foundationTokens = GetFoundationTokens(themeName) or GetFoundationTokens(Constants.DefaultThemeName)
+		return foundationTokens(1)
+	end,
 	Mappers = require(script.mappers),
 }

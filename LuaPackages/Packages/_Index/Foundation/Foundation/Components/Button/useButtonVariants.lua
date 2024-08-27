@@ -64,19 +64,19 @@ local variants = function(tokens: Tokens)
 		[ButtonSize.XSmall] = {
 			container = {
 				tag = "padding-small radius-small",
-				height = tokens.Size.Size_350,
+				height = tokens.Size.Size_700,
 			},
 		},
 		[ButtonSize.Small] = {
 			container = {
 				tag = "padding-small radius-medium",
-				height = tokens.Size.Size_450,
+				height = tokens.Size.Size_900,
 			},
 		},
 		[ButtonSize.Medium] = {
 			container = {
 				tag = "padding-medium radius-medium",
-				height = tokens.Size.Size_600,
+				height = tokens.Size.Size_1200,
 			},
 		},
 	}

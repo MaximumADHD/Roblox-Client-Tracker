@@ -14,6 +14,9 @@ local ShimmerPanel = require(App.Loading.ShimmerPanel)
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local OpenTypeSupport = require(UIBlox.Utility.OpenTypeSupport)
+
 export type ItemStyleProps = {
 	-- Spacing between icon and label
 	iconLabelSpacing: number?,
@@ -71,6 +74,7 @@ type InnerItemProps = {
 	itemProps: ItemProps,
 	itemStyleDefaults: ItemStyleProps,
 	onActivated: (() -> ())?,
+	openTypeFeatures: string?,
 }
 
 local function getStyleDefaults(tokens: StyleTypes.Tokens): ItemStyleProps
@@ -199,6 +203,10 @@ local function NameItem(props: InnerItemProps)
 				TextColor3 = labelColorStyle.Color3,
 				TextTransparency = labelColorStyle.Transparency,
 				Selectable = false,
+				RichText = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures then true else nil,
+				OpenTypeFeatures = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures
+					then props.openTypeFeatures
+					else nil,
 			})
 			else nil,
 	})
@@ -246,6 +254,9 @@ local function PlayerName(props: Props)
 			then React.createElement(NameItem, {
 				layoutOrder = 2,
 				itemProps = userNameItem,
+				openTypeFeatures = if UIBloxConfig.enableOpenTypeSupport
+					then OpenTypeSupport:getUserNameStylisticAlternative()
+					else nil,
 				itemStyleDefaults = getUserNameStyleDefaults(style.Tokens),
 			})
 			else nil,

@@ -25,7 +25,6 @@ local PremiumUpsellPrompt = Roact.Component:extend(script.Name)
 local PREMIUM_ICON = "icons/graphic/premium_large"
 local PREMIUM_MODAL_LOC_KEY = "IAPExperience.PremiumUpsell.%s"
 
-local SwitchPremiumUIToSubscriptionUI = require(IAPExperienceRoot.Flags.getFFlagSwitchPremiumUIToSubscriptionUI)
 local UIBloxUseSeparatedCalcFunctionIAP = require(IAPExperienceRoot.Flags.getFFlagUIBloxUseSeparatedCalcFunctionIAP)
 
 local MARGIN = 24
@@ -112,35 +111,21 @@ function PremiumUpsellPrompt:render()
 
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
-			titleLocalizedText = if props.isCatalog and SwitchPremiumUIToSubscriptionUI()
-				then {
-					key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription",
-				}
-				elseif props.isCatalog and not SwitchPremiumUIToSubscriptionUI() then {
-					key = PREMIUM_MODAL_LOC_KEY:format("Title.GetPremium"), -- delete upon flag removal
-				}
-				elseif not props.isCatalog and SwitchPremiumUIToSubscriptionUI() then {
-					key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription",
-				}
-				else {
-					key = PREMIUM_MODAL_LOC_KEY:format("Title.PremiumRequired"), -- delete upon flag removal
-				},
+			titleLocalizedText = {
+				key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription",
+			},
 			monthlyLocalizedText = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Action.Subscribe"),
 			},
 			descLocalizedText = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Label.PremiumBenefitListDesc"),
 			},
-			bulletPoint1Text = if SwitchPremiumUIToSubscriptionUI()
-				then {
-					key = PREMIUM_MODAL_LOC_KEY:format("Label.RobuxPerMonth"),
-					params = {
-						robux = utf8.char(0xE002) .. tostring(props.robuxAmount),
-					},
-				}
-				else {
-					key = PREMIUM_MODAL_LOC_KEY:format("Label.RobuxPerMonth"), -- delete upon flag removal
+			bulletPoint1Text = {
+				key = PREMIUM_MODAL_LOC_KEY:format("Label.RobuxPerMonth"),
+				params = {
+					robux = utf8.char(0xE002) .. tostring(props.robuxAmount),
 				},
+			},
 			bulletPoint2Text = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Label.PremiumOnlyBenefits"),
 			},
@@ -612,128 +597,15 @@ function PremiumUpsellPrompt:renderUpdatedPrompt(locMap: { [string]: string })
 	end)
 end
 
-function PremiumUpsellPrompt:renderRegularPrompt(locMap: { [string]: string })
-	local props: Props = self.props
-
-	return withStyle(function(stylePalette)
-		local theme = stylePalette.Theme
-		local fonts = stylePalette.Font
-
-		-- Can also use self.contentSize.X
-		local middleContentSize = if UIBloxUseSeparatedCalcFunctionIAP()
-			then getPartialPageModalMiddleContentWidth(self.props.screenSize.X)
-			else PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
-
-		local bulletPoint1Text =
-			locMap.bulletPoint1Text:gsub("{robux}", utf8.char(0xE002) .. tostring(props.robuxAmount))
-
-		return Roact.createElement(PartialPageModal, {
-			title = locMap.titleLocalizedText,
-			screenSize = props.screenSize,
-			buttonStackProps = {
-				buttons = {
-					{
-						buttonType = ButtonType.PrimarySystem,
-						props = {
-							onActivated = props.purchasePremiumActivated,
-							text = locMap.monthlyLocalizedText,
-							inputIcon = props.acceptControllerIcon,
-						},
-					},
-				},
-				buttonHeight = 48,
-			},
-			onCloseClicked = props.cancelPurchaseActivated,
-		}, {
-			Roact.createElement(FitFrameVertical, {
-				BackgroundTransparency = 1,
-				width = UDim.new(1, 0),
-				contentPadding = UDim.new(0, 24),
-				margin = {
-					top = 24,
-					bottom = 24,
-				},
-				[Roact.Change.AbsoluteSize] = function(rbx)
-					-- I don't know why, but first time we reference rbx.AbsoluteSize, it is empty
-					-- Do not remove this line
-					local test = rbx.AbsoluteSize
-					if self.contentSize.X ~= rbx.AbsoluteSize.X or self.contentSize.Y ~= rbx.AbsoluteSize.Y then
-						self.updateContentSizes(self.props.screenSize, rbx.AbsoluteSize)
-					end
-				end,
-			}, {
-				Icon = Roact.createElement(ImageSetLabel, {
-					LayoutOrder = 1,
-					BackgroundTransparency = 1,
-					Size = self.state.iconSize,
-					ScaleType = Enum.ScaleType.Fit,
-					Image = Images[PREMIUM_ICON],
-				}),
-				BulletListText = Roact.createElement("TextLabel", {
-					LayoutOrder = 2,
-					BackgroundTransparency = 1,
-					Size = UDim2.new(0, middleContentSize, 0, 0),
-					AutomaticSize = Enum.AutomaticSize.Y,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Font = fonts.Body.Font,
-					Text = locMap.descLocalizedText,
-					TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
-					TextColor3 = theme.TextDefault.Color,
-					TextTransparency = theme.TextDefault.Transparency,
-				}),
-				BulletList = Roact.createElement(FitFrameVertical, {
-					LayoutOrder = 3,
-					BackgroundTransparency = 1,
-					width = UDim.new(1, 0),
-					contentPadding = self.state.padding,
-				}, {
-					BulletText1 = Roact.createElement(BulletPoint, {
-						text = bulletPoint1Text,
-						width = middleContentSize,
-						layoutOrder = 1,
-					}),
-					BulletText2 = Roact.createElement(BulletPoint, {
-						text = locMap.bulletPoint2Text,
-						width = middleContentSize,
-						layoutOrder = 2,
-					}),
-					BulletText3 = Roact.createElement(BulletPoint, {
-						text = locMap.bulletPoint3Text,
-						width = middleContentSize,
-						layoutOrder = 3,
-					}),
-				}),
-				Disclosure = Roact.createElement("TextLabel", {
-					LayoutOrder = 4,
-					BackgroundTransparency = 1,
-					AutomaticSize = Enum.AutomaticSize.XY,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					RichText = true,
-					TextWrapped = true,
-					Font = fonts.Body.Font,
-					Text = locMap.disclosure,
-					TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
-					TextColor3 = theme.TextDefault.Color,
-					TextTransparency = theme.TextDefault.Transparency,
-				}),
-			}),
-		})
-	end)
-end
-
 function PremiumUpsellPrompt:renderPrompt(locMap: { [string]: string })
 	local props: Props = self.props
 
-	if SwitchPremiumUIToSubscriptionUI() then
-		if props.screenSize.Y < CONDENSE_THRESHOLD then
-			return self:renderLandscapePrompt(locMap)
-		elseif props.screenSize.X < CONDENSE_THRESHOLD then
-			return self:renderPortraitPrompt(locMap)
-		else
-			return self:renderUpdatedPrompt(locMap)
-		end
+	if props.screenSize.Y < CONDENSE_THRESHOLD then
+		return self:renderLandscapePrompt(locMap)
+	elseif props.screenSize.X < CONDENSE_THRESHOLD then
+		return self:renderPortraitPrompt(locMap)
 	else
-		return self:renderRegularPrompt(locMap) -- delete upon removal of the flag
+		return self:renderUpdatedPrompt(locMap)
 	end
 end
 

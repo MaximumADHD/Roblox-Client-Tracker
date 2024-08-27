@@ -104,17 +104,19 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 
 	local cursor = useCursor({
 		radius = UDim.new(0, tokens.Radius.Medium),
-		offset = tokens.Size.Size_100,
+		offset = tokens.Size.Size_200,
 		borderWidth = tokens.Stroke.Thicker,
 	})
 
+	local hasText = props.text and props.text ~= ""
+
 	local formatText = React.useCallback(function(guiState)
 		local richTextFormat = BUTTON_VARIANT_TO_RICH_TEXT_FORMAT[props.variant]
-		if props.text and richTextFormat and table.find(richTextFormat.controlState, guiState) then
+		if hasText and richTextFormat and table.find(richTextFormat.controlState, guiState) then
 			return richTextFormat.format:format(props.text) :: string?
 		end
 		return props.text
-	end, { props.text, props.variant })
+	end, { props.text :: any, props.variant, hasText })
 
 	return React.createElement(
 		View,
@@ -140,6 +142,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 				0,
 				variantProps.container.height
 			),
+			aspectRatio = if not hasText and props.fillBehavior ~= FillBehavior.Fill then 1 else nil,
 			-- Allow focus to be set if inputDelay is responsible for disabling the button
 			selection = {
 				Selectable = not props.isDisabled,
@@ -160,7 +163,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 					LayoutOrder = 1,
 				})
 				else nil,
-			Text = if props.text and props.text ~= ""
+			Text = if hasText
 				then React.createElement(Text, {
 					Text = controlState:map(formatText) :: any,
 					RichText = if BUTTON_VARIANT_TO_RICH_TEXT_FORMAT[props.variant] ~= nil then true else false,

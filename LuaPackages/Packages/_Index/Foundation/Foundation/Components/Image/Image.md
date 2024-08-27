@@ -34,6 +34,6 @@ end, {})
 return React.createElement(Image, {
     Image = "icons/graphic/blocktheft_2xl",
     onStateChanged = onStateChanged,
-    tag = "padding-small grow size-1400",
+    tag = "padding-small grow size-2800",
 })
 ```

@@ -1,0 +1,16 @@
+[package]
+name = "RbxDesignFoundations"
+version = "2.0.132"
+readme = "README.md"
+content_root = "src"
+files = [
+    "*",
+    "!*.spec.lua",
+    "!stories/*",
+    "!styles/*",
+]
+publish = true
+authors = ["Roblox"]
+[dependencies.t]
+target = "https://github.com/roblox/t"
+version = "^1.2.5"

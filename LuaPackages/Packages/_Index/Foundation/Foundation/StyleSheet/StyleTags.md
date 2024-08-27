@@ -86,17 +86,6 @@ React.createElement(View, {
 })
 ```
 
-## Modifiers
-
-All tags accept modifiers to change when they're applied. Currently only `hover` is supported, but plans to support all GUI states is on the roadmap.
-
-```lua
-React.createElement(View, {
-  tag = "bg-surface-100 hover-bg-surface-200",
-})
-```
-*Default background of `bg-surface-100`, changes to `bg-surface-200` on hover.*
-
 ## Why?
 
 > Now I know what you’re thinking, *"this is an atrocity, what a horrible mess!"* and you’re right, it’s kind of ugly. In fact it’s just about impossible to think this is a good idea the first time you see it — **you have to actually try it**.

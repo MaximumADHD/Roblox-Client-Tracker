@@ -32,6 +32,6 @@ end, {})
 return React.createElement(Text, {
     Text = "Hello world!",
     onStateChanged = onStateChanged,
-    tag = "padding-small grow size-1400",
+    tag = "padding-small grow size-2800",
 })
 ```

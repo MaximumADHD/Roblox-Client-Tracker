@@ -4,4 +4,4 @@ CommonUI.Controls.Action.Confirm,,,Confirm,Bestätigen,Confirm,Confirmar,Confirm
 CommonUI.Controls.Input.Optional,,,{inputLabel} (optional),{inputLabel} (optional),{inputLabel} (optional),{inputLabel} (opcional),{inputLabel} (opcional),{inputLabel} (facultatif),{inputLabel} (opsional),{inputLabel} (facoltativo),{inputLabel} （オプション）,{inputLabel}(선택 사항),{inputLabel} (opcional),{inputLabel} (opcional),{inputLabel} (необязательно),{inputLabel} (ไม่จำเป็น),{inputLabel}（可选）,{inputLabel}（選填）,{inputLabel}（可选）
 CommonUI.Controls.Action.Yes,,,Yes,Ja,Yes,Sí,Sí,Oui,Ya,Sì,はい,예,Sim,Sim,Да,ใช่,是,是,是
 CommonUI.Controls.Action.Refresh,,,Refresh,Aktualisieren,Refresh,Actualizar,Actualizar,Rafraîchir,Refresh,Aggiorna,リフレッシュ,새로 고침,Atualizar,Atualizar,Обновить,รีเฟรช,刷新,重新整理,刷新
-CommonUI.Controls.NoResultsFound,,,No results found,,No results found,,,,,,,,,,,,,,
+CommonUI.Controls.NoResultsFound,,,No results found,Keine Ergebnisse gefunden,No results found,Sin resultados,Sin resultados,Aucun résultat trouvé,Tidak ada hasil,Nessun risultato trovato,結果が見つかりません,검색 결과 없음,Nenhum resultado encontrado,Nenhum resultado encontrado,Ничего не найдено,ไม่พบผลการค้นหา,未找到结果,找不到結果,未找到结果

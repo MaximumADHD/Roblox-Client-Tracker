@@ -79,7 +79,7 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 		local radius = if hasLabel then UDim.new(0, tokens.Radius.Small) else UDim.new(0.5, 0)
 		return {
 			radius = radius,
-			offset = tokens.Size.Size_100,
+			offset = tokens.Size.Size_200,
 			borderWidth = tokens.Stroke.Thicker,
 		}
 	end, { tokens :: any, hasLabel })

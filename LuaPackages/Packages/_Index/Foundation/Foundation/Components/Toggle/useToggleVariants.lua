@@ -75,15 +75,15 @@ local function variantsFactory(tokens: Tokens)
 	}
 	local sizes: { [ToggleSize]: VariantProps } = {
 		[ToggleSize.Medium] = computeProps({
-			size = { width = tokens.Size.Size_500, height = tokens.Size.Size_250 },
-			knobSize = tokens.Size.Size_200,
+			size = { width = tokens.Size.Size_1000, height = tokens.Size.Size_500 },
+			knobSize = tokens.Size.Size_400,
 			cornerRadius = tokens.Radius.Large,
 			knobShadowPadding = tokens.Padding.XSmall,
 			labelSize = InputLabelSize.Medium,
 		}),
 		[ToggleSize.Large] = computeProps({
-			size = { width = tokens.Size.Size_800, height = tokens.Size.Size_450 },
-			knobSize = tokens.Size.Size_350,
+			size = { width = tokens.Size.Size_1600, height = tokens.Size.Size_900 },
+			knobSize = tokens.Size.Size_700,
 			cornerRadius = tokens.Radius.Circle,
 			knobShadowPadding = tokens.Padding.Small,
 			labelSize = InputLabelSize.Large,

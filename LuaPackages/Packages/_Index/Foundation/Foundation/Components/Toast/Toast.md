@@ -1,5 +1,5 @@
 ---
-category: Interactable
+category: Display
 ---
 
 ## Overview

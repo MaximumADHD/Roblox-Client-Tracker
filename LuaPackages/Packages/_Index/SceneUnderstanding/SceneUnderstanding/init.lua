@@ -10,16 +10,20 @@
 
 local ViewportQueryOptions = require(script.options.ViewportQueryOptions)
 local RangeQueryOptions = require(script.options.RangeQueryOptions)
+local DataModelTraversalOptions = require(script.options.DataModelTraversalOptions)
 
 export type ViewportQueryOptions = ViewportQueryOptions.ViewportQueryOptions
 export type RangeQueryOptions = RangeQueryOptions.RangeQueryOptions
+export type DataModelTraversalOptions = DataModelTraversalOptions.DataModelTraversalOptions
 
 return {
 	ViewportQueryOptions = ViewportQueryOptions,
 	RangeQueryOptions = RangeQueryOptions,
+	DataModelTraversalOptions = DataModelTraversalOptions,
 
 	getSourceAssetsInView = require(script.getSourceAssetsInView),
 	getSourceAssetsInRange = require(script.getSourceAssetsInRange),
+	createLazyInstanceCollector = require(script.traversal.createLazyInstanceCollector),
 
 	isSourceAsset = require(script.isSourceAsset),
 

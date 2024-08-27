@@ -7,6 +7,7 @@ local Package = require(PackageIndex["SceneUnderstanding"]["SceneUnderstanding"]
 
 export type ViewportQueryOptions = Package.ViewportQueryOptions
 export type RangeQueryOptions = Package.RangeQueryOptions
+export type DataModelTraversalOptions = Package.DataModelTraversalOptions
 
 
 return Package

@@ -28,7 +28,7 @@ local useTokens = Foundation.Hooks.useStyle
 
 local function MyImage()
   local tokens = useTokens()
-  local size = tokens.Size.Size_1200
+  local size = tokens.Size.Size_2400
 
   return React.createElement(Image, {
     Image = "icons/graphic/blocktheft_2xl",

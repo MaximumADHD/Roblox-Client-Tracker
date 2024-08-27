@@ -29,6 +29,9 @@ export type Props = {
 	-- Controls the behavior of range-based querying
 	rangeQueryOptions: SceneUnderstanding.RangeQueryOptions?,
 
+	-- Controls the behavior of DataModel traversal
+	dataModelTraversalOptions: SceneUnderstanding.DataModelTraversalOptions?,
+
 	children: React.Node?,
 }
 
@@ -143,7 +146,7 @@ local function SceneAnalysisProvider(providedProps: Props)
 		end
 	end, { cameraState })
 
-	local soundsByAudibility = useAudibleSounds({ game })
+	local soundsByAudibility = useAudibleSounds({ game }, props.dataModelTraversalOptions)
 
 	return React.createElement(SceneAnalysisContext.Provider, {
 		value = {

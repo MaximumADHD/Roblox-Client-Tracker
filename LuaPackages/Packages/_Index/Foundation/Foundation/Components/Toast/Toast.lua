@@ -48,7 +48,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local cursor = useCursor({
 		radius = UDim.new(0, tokens.Radius.Medium),
-		offset = tokens.Size.Size_100,
+		offset = tokens.Size.Size_200,
 		borderWidth = tokens.Stroke.Thicker,
 	})
 
@@ -80,7 +80,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			Size = UDim2.new(0, tokens.Size.Size_500 * 9, 0, 0),
+			Size = UDim2.new(0, tokens.Size.Size_1000 * 9, 0, 0),
 			Position = UDim2.new(0.5, 0, 0.1, 0),
 			selection = {
 				-- We do not currently have an action associated with the toast itself, nor do we support it on consoles,
@@ -96,7 +96,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 				then React.createElement(Image, {
 					LayoutOrder = 1,
 					Image = props.icon,
-					tag = "radius-circle bg-transparency-100 size-600-600",
+					tag = "radius-circle bg-transparency-100 size-1200-1200",
 				})
 				else nil,
 			Content = React.createElement(View, {

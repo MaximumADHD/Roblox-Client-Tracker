@@ -45,7 +45,7 @@ local function RadioGroupItem(props: Props, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local cursor = useCursor({
 		radius = UDim.new(0, tokens.Radius.Small),
-		offset = tokens.Size.Size_100,
+		offset = tokens.Size.Size_200,
 		borderWidth = tokens.Stroke.Thicker,
 	})
 
@@ -67,7 +67,7 @@ local function RadioGroupItem(props: Props, ref: React.Ref<GuiObject>?)
 		setIsHovering(newState == ControlState.Hover)
 	end, {})
 
-	local buttonSize = tokens.Size.Size_300 - math.ceil(tokens.Stroke.Standard) * 2
+	local buttonSize = tokens.Size.Size_600 - math.ceil(tokens.Stroke.Standard) * 2
 
 	local radioGroupItem = React.createElement(View, {
 		Size = UDim2.new(0, buttonSize, 0, buttonSize),
@@ -83,7 +83,7 @@ local function RadioGroupItem(props: Props, ref: React.Ref<GuiObject>?)
 	}, {
 		Center = if isChecked
 			then React.createElement(View, {
-				tag = "position-center-center anchor-center-center radius-circle size-200 bg-action-sub-emphasis",
+				tag = "position-center-center anchor-center-center radius-circle size-400 bg-action-sub-emphasis",
 			})
 			else nil,
 	})

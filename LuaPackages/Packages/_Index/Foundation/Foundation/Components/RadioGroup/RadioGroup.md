@@ -1,5 +1,5 @@
 ---
-category: Input
+category: Inputs
 ---
 
 ## Overview

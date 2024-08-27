@@ -787,7 +787,7 @@ return function(scale)
 					Transparency = 0.3,
 				},
 				Link = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
+					Color3 = Color3.new(0.43922, 0.62745, 1),
 					Transparency = 0,
 				},
 			},
@@ -814,19 +814,19 @@ return function(scale)
 					Color3 = Color3.new(0.74118, 0.7451, 0.7451),
 					Transparency = 0,
 				},
-				Blue = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
-					Transparency = 0,
-				},
-				Green = {
+				Emphasis = {
 					Color3 = Color3.new(0, 0.70588, 0.42745),
 					Transparency = 0,
 				},
-				Yellow = {
+				Success = {
+					Color3 = Color3.new(0, 0.70588, 0.42745),
+					Transparency = 0,
+				},
+				Warning = {
 					Color3 = Color3.new(0.94902, 0.72941, 0.16471),
 					Transparency = 0,
 				},
-				Red = {
+				Alert = {
 					Color3 = Color3.new(0.96863, 0.29412, 0.32157),
 					Transparency = 0,
 				},
@@ -970,11 +970,12 @@ return function(scale)
 				IsLight = "false",
 			},
 			UI = {
-				Interval = 8,
+				Interval = 4,
 				Scale = 1,
 				StrokeBase = 1,
 			},
 			Text = {
+				Interval = 5.040,
 				Scale = 1,
 				Font = "Builder Sans",
 				NominalScale = 1.26,
@@ -1054,7 +1055,7 @@ return function(scale)
 					Transparency = 0.3,
 				},
 				Link = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
+					Color3 = Color3.new(0.43922, 0.62745, 1),
 					Transparency = 0,
 				},
 			},
@@ -1081,19 +1082,19 @@ return function(scale)
 					Color3 = Color3.new(0.74118, 0.7451, 0.7451),
 					Transparency = 0,
 				},
-				Blue = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
-					Transparency = 0,
-				},
-				Green = {
+				Emphasis = {
 					Color3 = Color3.new(0, 0.70588, 0.42745),
 					Transparency = 0,
 				},
-				Yellow = {
+				Success = {
+					Color3 = Color3.new(0, 0.70588, 0.42745),
+					Transparency = 0,
+				},
+				Warning = {
 					Color3 = Color3.new(0.94902, 0.72941, 0.16471),
 					Transparency = 0,
 				},
-				Red = {
+				Alert = {
 					Color3 = Color3.new(0.96863, 0.29412, 0.32157),
 					Transparency = 0,
 				},
@@ -1298,7 +1299,7 @@ return function(scale)
 					Transparency = 0.4,
 				},
 				Link = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
+					Color3 = Color3.new(0.43922, 0.62745, 1),
 					Transparency = 0,
 				},
 			},
@@ -1325,19 +1326,19 @@ return function(scale)
 					Color3 = Color3.new(0.37647, 0.38039, 0.38431),
 					Transparency = 0,
 				},
-				Blue = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
-					Transparency = 0,
-				},
-				Green = {
+				Emphasis = {
 					Color3 = Color3.new(0, 0.70588, 0.42745),
 					Transparency = 0,
 				},
-				Yellow = {
+				Success = {
+					Color3 = Color3.new(0, 0.70588, 0.42745),
+					Transparency = 0,
+				},
+				Warning = {
 					Color3 = Color3.new(0.94902, 0.72941, 0.16471),
 					Transparency = 0,
 				},
-				Red = {
+				Alert = {
 					Color3 = Color3.new(0.96863, 0.29412, 0.32157),
 					Transparency = 0,
 				},
@@ -1542,7 +1543,7 @@ return function(scale)
 					Transparency = 0.4,
 				},
 				Link = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
+					Color3 = Color3.new(0.43922, 0.62745, 1),
 					Transparency = 0,
 				},
 			},
@@ -1569,19 +1570,19 @@ return function(scale)
 					Color3 = Color3.new(0.37647, 0.38039, 0.38431),
 					Transparency = 0,
 				},
-				Blue = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
-					Transparency = 0,
-				},
-				Green = {
+				Emphasis = {
 					Color3 = Color3.new(0, 0.70588, 0.42745),
 					Transparency = 0,
 				},
-				Yellow = {
+				Success = {
+					Color3 = Color3.new(0, 0.70588, 0.42745),
+					Transparency = 0,
+				},
+				Warning = {
 					Color3 = Color3.new(0.94902, 0.72941, 0.16471),
 					Transparency = 0,
 				},
-				Red = {
+				Alert = {
 					Color3 = Color3.new(0.96863, 0.29412, 0.32157),
 					Transparency = 0,
 				},
@@ -1772,7 +1773,7 @@ return function(scale)
 					Transparency = 0,
 				},
 				Blue = {
-					Color3 = Color3.new(0.32157, 0.67843, 0.95686),
+					Color3 = Color3.new(0, 0.70588, 0.42745),
 					Transparency = 0,
 				},
 				None = {
@@ -1996,7 +1997,7 @@ return function(scale)
 						Transparency = 0.3,
 					},
 					Link = {
-						Color3 = Color3.new(0.32157, 0.67843, 0.95686),
+						Color3 = Color3.new(0.43922, 0.62745, 1),
 						Transparency = 0,
 					},
 					Inverse = {
@@ -2223,31 +2224,40 @@ return function(scale)
 		},
 		Size = {
 			Size_0 = 0,
-			Size_25 = 2 * scale,
-			Size_50 = 4 * scale,
-			Size_75 = 6 * scale,
-			Size_100 = 8 * scale,
-			Size_125 = 10 * scale,
-			Size_150 = 12 * scale,
-			Size_175 = 14 * scale,
-			Size_200 = 16 * scale,
-			Size_250 = 20 * scale,
-			Size_300 = 24 * scale,
-			Size_350 = 28 * scale,
-			Size_400 = 32 * scale,
-			Size_450 = 36 * scale,
-			Size_500 = 40 * scale,
-			Size_550 = 44 * scale,
-			Size_600 = 48 * scale,
-			Size_650 = 52 * scale,
-			Size_700 = 56 * scale,
-			Size_800 = 64 * scale,
-			Size_900 = 72 * scale,
-			Size_1000 = 80 * scale,
-			Size_1100 = 88 * scale,
-			Size_1200 = 96 * scale,
-			Size_1300 = 104 * scale,
-			Size_1400 = 112 * scale,
+			Size_50 = 2 * scale,
+			Size_100 = 4 * scale,
+			Size_150 = 6 * scale,
+			Size_200 = 8 * scale,
+			Size_250 = 10 * scale,
+			Size_300 = 12 * scale,
+			Size_350 = 14 * scale,
+			Size_400 = 16 * scale,
+			Size_500 = 20 * scale,
+			Size_600 = 24 * scale,
+			Size_700 = 28 * scale,
+			Size_800 = 32 * scale,
+			Size_900 = 36 * scale,
+			Size_1000 = 40 * scale,
+			Size_1100 = 44 * scale,
+			Size_1200 = 48 * scale,
+			Size_1300 = 52 * scale,
+			Size_1400 = 56 * scale,
+			Size_1500 = 60 * scale,
+			Size_1600 = 64 * scale,
+			Size_1700 = 68 * scale,
+			Size_1800 = 72 * scale,
+			Size_1900 = 76 * scale,
+			Size_2000 = 80 * scale,
+			Size_2100 = 84 * scale,
+			Size_2200 = 88 * scale,
+			Size_2300 = 92 * scale,
+			Size_2400 = 96 * scale,
+			Size_2500 = 100 * scale,
+			Size_2600 = 104 * scale,
+			Size_2700 = 108 * scale,
+			Size_2800 = 112 * scale,
+			Size_2900 = 116 * scale,
+			Size_3000 = 120 * scale,
 		},
 		Padding = {
 			XXSmall = 2 * scale,
@@ -2298,25 +2308,37 @@ return function(scale)
 			Loose = 0.01,
 		},
 		FontSize = {
-			FontSize_100 = 10.080 * scale,
-			FontSize_125 = 12.600 * scale,
-			FontSize_150 = 15.120 * scale,
-			FontSize_175 = 17.640 * scale,
-			FontSize_200 = 20.160 * scale,
-			FontSize_250 = 25.200 * scale,
-			FontSize_300 = 30.240 * scale,
-			FontSize_350 = 35.280 * scale,
-			FontSize_400 = 40.320 * scale,
-			FontSize_500 = 50.400 * scale,
-			FontSize_600 = 60.480 * scale,
-			FontSize_700 = 70.560 * scale,
-			FontSize_800 = 80.640 * scale,
-			FontSize_900 = 90.720 * scale,
-			FontSize_1000 = 100.800 * scale,
-			FontSize_1100 = 110.880 * scale,
-			FontSize_1200 = 120.960 * scale,
-			FontSize_1300 = 131.040 * scale,
-			FontSize_1400 = 141.120 * scale,
+			FontSize_200 = 10.080 * scale,
+			FontSize_250 = 12.600 * scale,
+			FontSize_300 = 15.120 * scale,
+			FontSize_350 = 17.640 * scale,
+			FontSize_400 = 20.160 * scale,
+			FontSize_500 = 25.200 * scale,
+			FontSize_600 = 30.240 * scale,
+			FontSize_700 = 35.280 * scale,
+			FontSize_800 = 40.320 * scale,
+			FontSize_900 = 45.360 * scale,
+			FontSize_1000 = 50.400 * scale,
+			FontSize_1100 = 55.440 * scale,
+			FontSize_1200 = 60.480 * scale,
+			FontSize_1300 = 65.520 * scale,
+			FontSize_1400 = 70.560 * scale,
+			FontSize_1500 = 75.600 * scale,
+			FontSize_1600 = 80.640 * scale,
+			FontSize_1700 = 85.680 * scale,
+			FontSize_1800 = 90.720 * scale,
+			FontSize_1900 = 95.760 * scale,
+			FontSize_2000 = 100.800 * scale,
+			FontSize_2100 = 105.840 * scale,
+			FontSize_2200 = 110.880 * scale,
+			FontSize_2300 = 115.920 * scale,
+			FontSize_2400 = 120.960 * scale,
+			FontSize_2500 = 126 * scale,
+			FontSize_2600 = 131.040 * scale,
+			FontSize_2700 = 136.080 * scale,
+			FontSize_2800 = 141.120 * scale,
+			FontSize_2900 = 146.160 * scale,
+			FontSize_3000 = 151.200 * scale,
 		},
 		FontWeight = {
 			FontWeight_300 = "Light",
