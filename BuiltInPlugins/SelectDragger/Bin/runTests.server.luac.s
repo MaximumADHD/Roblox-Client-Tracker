@@ -3,70 +3,62 @@ MAIN:
   GETIMPORT R2 K1 [script]
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Packages"]
-  GETTABLEKS R1 R2 K4 ["DraggerFramework"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R4 R1 K7 ["Utility"]
-  GETTABLEKS R3 R4 K8 ["isFTF"]
-  CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R5 R1 K7 ["Utility"]
-  GETTABLEKS R4 R5 K9 ["isCli"]
+  GETTABLEKS R1 R0 K3 ["Tests"]
+  GETTABLEKS R3 R0 K4 ["Packages"]
+  GETTABLEKS R2 R3 K5 ["DraggerFramework"]
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R5 R2 K8 ["Utility"]
+  GETTABLEKS R4 R5 K9 ["isFTF"]
   CALL R3 1 1
-  LOADB R4 0
-  MOVE R5 R2
-  CALL R5 0 1
-  JUMPIFNOT R5 [+1]
-  LOADB R4 1
-  JUMPIFNOT R4 [+65]
-  GETTABLEKS R6 R0 K3 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["DraggerSchemaCore"]
-  GETIMPORT R6 K6 [require]
-  GETTABLEKS R9 R0 K3 ["Packages"]
-  GETTABLEKS R8 R9 K11 ["Dev"]
-  GETTABLEKS R7 R8 K12 ["TestEZ"]
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K13 ["TestBootstrap"]
-  GETTABLEKS R9 R6 K14 ["Reporters"]
-  GETTABLEKS R8 R9 K15 ["TeamCityReporter"]
-  GETTABLEKS R10 R6 K14 ["Reporters"]
-  GETTABLEKS R9 R10 K16 ["TextReporter"]
-  GETIMPORT R12 K19 [_G]
-  GETTABLEKS R11 R12 K17 ["TEAMCITY"]
-  JUMPIFNOT R11 [+2]
-  MOVE R10 R8
-  JUMPIF R10 [+1]
-  MOVE R10 R9
-  GETIMPORT R11 K21 [print]
-  LOADK R12 K22 ["----- All DraggerFramework Tests ------"]
-  CALL R11 1 0
-  NEWTABLE R13 0 1
-  MOVE R14 R1
-  SETLIST R13 R14 1 [1]
-  MOVE R14 R10
-  NAMECALL R11 R7 K23 ["run"]
-  CALL R11 3 0
-  GETIMPORT R11 K21 [print]
-  LOADK R12 K24 ["----------------------------------"]
-  CALL R11 1 0
-  GETIMPORT R11 K21 [print]
-  LOADK R12 K25 ["----- All DraggerSchemaCore Tests ------"]
-  CALL R11 1 0
-  NEWTABLE R13 0 1
-  MOVE R14 R5
-  SETLIST R13 R14 1 [1]
-  MOVE R14 R10
-  NAMECALL R11 R7 K23 ["run"]
-  CALL R11 3 0
-  GETIMPORT R11 K21 [print]
-  LOADK R12 K24 ["----------------------------------"]
-  CALL R11 1 0
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R6 R2 K8 ["Utility"]
+  GETTABLEKS R5 R6 K10 ["isCli"]
+  CALL R4 1 1
   MOVE R5 R3
   CALL R5 0 1
+  JUMPIF R5 [+1]
+  JUMP [+58]
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R8 R0 K4 ["Packages"]
+  GETTABLEKS R7 R8 K11 ["Dev"]
+  GETTABLEKS R6 R7 K12 ["Jest"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K13 ["runCLI"]
+  MOVE R7 R1
+  NEWTABLE R8 0 0
+  NEWTABLE R9 0 2
+  GETTABLEKS R10 R1 K14 ["DraggerSchemaCore"]
+  GETTABLEKS R11 R1 K5 ["DraggerFramework"]
+  SETLIST R9 R10 2 [1]
+  CALL R6 3 1
+  NAMECALL R6 R6 K15 ["awaitStatus"]
+  CALL R6 1 2
+  JUMPIFNOTEQKS R6 K16 ["Resolved"] [+15]
+  GETTABLEKS R9 R7 K17 ["results"]
+  GETTABLEKS R8 R9 K18 ["numFailedTestSuites"]
+  LOADN R9 0
+  JUMPIFLT R9 R8 [+8]
+  GETTABLEKS R9 R7 K17 ["results"]
+  GETTABLEKS R8 R9 K19 ["numFailedTests"]
+  LOADN R9 0
+  JUMPIFNOTLT R9 R8 [+17]
+  JUMPIFNOTEQKS R6 K20 ["Rejected"] [+5]
+  GETIMPORT R8 K22 [print]
+  MOVE R9 R7
+  CALL R8 1 0
+  GETIMPORT R8 K24 [game]
+  LOADK R10 K25 ["TestService"]
+  NAMECALL R8 R8 K26 ["GetService"]
+  CALL R8 2 1
+  LOADK R10 K27 ["Jest 3 test run failed"]
+  NAMECALL R8 R8 K28 ["Error"]
+  CALL R8 2 0
+  MOVE R5 R4
+  CALL R5 0 1
   JUMPIFNOT R5 [+10]
-  GETIMPORT R5 K27 [game]
-  LOADK R7 K28 ["ProcessService"]
-  NAMECALL R5 R5 K29 ["GetService"]
+  GETIMPORT R5 K24 [game]
+  LOADK R7 K29 ["ProcessService"]
+  NAMECALL R5 R5 K26 ["GetService"]
   CALL R5 2 1
   LOADN R7 0
   NAMECALL R5 R5 K30 ["ExitAsync"]

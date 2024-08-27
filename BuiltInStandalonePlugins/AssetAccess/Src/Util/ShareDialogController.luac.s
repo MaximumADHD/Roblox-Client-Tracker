@@ -172,7 +172,7 @@ PROTO_12:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["_assetAccessController"]
   GETUPVAL R2 1
-  NAMECALL R0 R0 K1 ["GetAssetMetadata"]
+  NAMECALL R0 R0 K1 ["GetAssetMetadataAsync"]
   CALL R0 2 -1
   RETURN R0 -1
 
@@ -341,7 +341,7 @@ PROTO_17:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["_assetAccessController"]
   GETUPVAL R2 1
-  NAMECALL R0 R0 K1 ["ShareAccessToInaccessibleAssets"]
+  NAMECALL R0 R0 K1 ["ShareAccessToInaccessibleAssetsAsync"]
   CALL R0 2 -1
   RETURN R0 -1
 

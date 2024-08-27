@@ -6,10 +6,12 @@ local PackageIndex = script.Parent._Workspace
 local Package = require(PackageIndex["CrossExperience"]["CrossExperience"])
 
 export type CrossExperienceEvent = Package.CrossExperienceEvent
+export type ExperienceType = Package.ExperienceType
 export type ParticipantModel = Package.ParticipantModel
 export type ParticipantsState = Package.ParticipantsState
 export type ExperienceState = Package.ExperienceState
-export type ExperienceStartedParams = Package.ExperienceStartedParams
+export type ExperienceJoinedParams = Package.ExperienceJoinedParams
+export type ExperienceJoinedPayload = Package.ExperienceJoinedPayload
 export type ParticipantAddedParams = Package.ParticipantAddedParams
 export type ParticipantRemovedParams = Package.ParticipantRemovedParams
 export type ParticipantStateChangedParams = Package.ParticipantStateChangedParams

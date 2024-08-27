@@ -720,39 +720,46 @@ PROTO_46:
   RETURN R1 -1
 
 PROTO_47:
-  GETUPVAL R9 0
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K0 ["makeQueryString"]
-  DUPTABLE R11 K9 [{"assetid", "type", "name", "description", "genreTypeId", "ispublic", "allowComments", "groupId"}]
-  SETTABLEKS R0 R11 K1 ["assetid"]
+  GETUPVAL R10 0
+  CALL R10 0 1
+  NOT R9 R10
+  FASTCALL2K ASSERT R9 K0 [+4]
+  LOADK R10 K0 ["Urls.constructPostUploadAssetUrl is marked for deprecation"]
+  GETIMPORT R8 K2 [assert]
+  CALL R8 2 0
+  GETUPVAL R9 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K3 ["makeQueryString"]
+  DUPTABLE R11 K12 [{"assetid", "type", "name", "description", "genreTypeId", "ispublic", "allowComments", "groupId"}]
+  SETTABLEKS R0 R11 K4 ["assetid"]
   FASTCALL1 TOSTRING R1 [+3]
   MOVE R13 R1
-  GETIMPORT R12 K11 [tostring]
+  GETIMPORT R12 K14 [tostring]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K2 ["type"]
+  SETTABLEKS R12 R11 K5 ["type"]
   FASTCALL1 TOSTRING R2 [+3]
   MOVE R13 R2
-  GETIMPORT R12 K11 [tostring]
+  GETIMPORT R12 K14 [tostring]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K3 ["name"]
+  SETTABLEKS R12 R11 K6 ["name"]
   FASTCALL1 TOSTRING R3 [+3]
   MOVE R13 R3
-  GETIMPORT R12 K11 [tostring]
+  GETIMPORT R12 K14 [tostring]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K4 ["description"]
-  SETTABLEKS R4 R11 K5 ["genreTypeId"]
+  SETTABLEKS R12 R11 K7 ["description"]
+  SETTABLEKS R4 R11 K8 ["genreTypeId"]
   JUMPIFNOT R5 [+2]
-  LOADK R12 K12 ["True"]
+  LOADK R12 K15 ["True"]
   JUMP [+1]
-  LOADK R12 K13 ["False"]
-  SETTABLEKS R12 R11 K6 ["ispublic"]
+  LOADK R12 K16 ["False"]
+  SETTABLEKS R12 R11 K9 ["ispublic"]
   JUMPIFNOT R6 [+2]
-  LOADK R12 K12 ["True"]
+  LOADK R12 K15 ["True"]
   JUMP [+1]
-  LOADK R12 K13 ["False"]
-  SETTABLEKS R12 R11 K7 ["allowComments"]
-  ORK R12 R7 K14 [""]
-  SETTABLEKS R12 R11 K8 ["groupId"]
+  LOADK R12 K16 ["False"]
+  SETTABLEKS R12 R11 K10 ["allowComments"]
+  ORK R12 R7 K17 [""]
+  SETTABLEKS R12 R11 K11 ["groupId"]
   CALL R10 1 1
   CONCAT R8 R9 R10
   RETURN R8 1
@@ -783,12 +790,19 @@ PROTO_51:
   RETURN R1 -1
 
 PROTO_52:
-  GETUPVAL R3 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["makeQueryString"]
-  DUPTABLE R5 K3 [{"assetid", "type"}]
-  SETTABLEKS R0 R5 K1 ["assetid"]
-  SETTABLEKS R1 R5 K2 ["type"]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["Urls.constructOverrideAssetsUrl is marked for deprecation"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["makeQueryString"]
+  DUPTABLE R5 K6 [{"assetid", "type"}]
+  SETTABLEKS R0 R5 K4 ["assetid"]
+  SETTABLEKS R1 R5 K5 ["type"]
   CALL R4 1 1
   CONCAT R2 R3 R4
   RETURN R2 1
@@ -1286,33 +1300,31 @@ MAIN:
   NAMECALL R10 R10 K11 ["GetFastFlag"]
   CALL R10 2 1
   GETIMPORT R11 K15 [require]
-  GETTABLEKS R15 R0 K4 ["Core"]
-  GETTABLEKS R14 R15 K5 ["Util"]
-  GETTABLEKS R13 R14 K16 ["SharedFlags"]
-  GETTABLEKS R12 R13 K22 ["getFFlagEnableUGCUploadingDataSharing"]
+  GETTABLEKS R13 R1 K16 ["SharedFlags"]
+  GETTABLEKS R12 R13 K22 ["getFFlagToolboxAddBuyerStatus"]
   CALL R11 1 1
   GETIMPORT R12 K15 [require]
   GETTABLEKS R14 R1 K16 ["SharedFlags"]
-  GETTABLEKS R13 R14 K23 ["getFFlagToolboxAddBuyerStatus"]
+  GETTABLEKS R13 R14 K23 ["getFFlagToolboxRemoveRobuxProductEntirely"]
   CALL R12 1 1
   GETIMPORT R13 K15 [require]
-  GETTABLEKS R15 R1 K16 ["SharedFlags"]
-  GETTABLEKS R14 R15 K24 ["getFFlagToolboxRemoveRobuxProductEntirely"]
+  GETTABLEKS R17 R0 K4 ["Core"]
+  GETTABLEKS R16 R17 K5 ["Util"]
+  GETTABLEKS R15 R16 K16 ["SharedFlags"]
+  GETTABLEKS R14 R15 K24 ["getFFlagToolboxAssetConfigOnboardingLink"]
   CALL R13 1 1
   GETIMPORT R14 K15 [require]
-  GETTABLEKS R18 R0 K4 ["Core"]
-  GETTABLEKS R17 R18 K5 ["Util"]
-  GETTABLEKS R16 R17 K16 ["SharedFlags"]
-  GETTABLEKS R15 R16 K25 ["getFFlagToolboxAssetConfigOnboardingLink"]
+  GETTABLEKS R16 R1 K16 ["SharedFlags"]
+  GETTABLEKS R15 R16 K25 ["getFFlagEnableUnknownErrorCreatorDashboardMessage"]
   CALL R14 1 1
-  GETIMPORT R15 K15 [require]
-  GETTABLEKS R17 R1 K16 ["SharedFlags"]
-  GETTABLEKS R16 R17 K26 ["getFFlagEnableUnknownErrorCreatorDashboardMessage"]
-  CALL R15 1 1
-  GETIMPORT R16 K7 [game]
-  LOADK R18 K27 ["ToolboxSampleProductMUS418"]
-  NAMECALL R16 R16 K28 ["GetEngineFeature"]
-  CALL R16 2 1
+  GETIMPORT R15 K7 [game]
+  LOADK R17 K26 ["ToolboxSampleProductMUS418"]
+  NAMECALL R15 R15 K27 ["GetEngineFeature"]
+  CALL R15 2 1
+  GETIMPORT R16 K15 [require]
+  GETTABLEKS R18 R1 K16 ["SharedFlags"]
+  GETTABLEKS R17 R18 K28 ["getFFlagToolboxMigrateToOpenCloudUpload"]
+  CALL R16 1 1
   GETTABLEKS R17 R0 K29 ["Packages"]
   GETIMPORT R18 K15 [require]
   GETTABLEKS R19 R17 K30 ["Framework"]
@@ -1428,22 +1440,12 @@ MAIN:
   GETTABLEKS R53 R28 K52 ["ITEM_CONFIGURATION_URL"]
   LOADK R54 K73 ["v1/bundles/status"]
   CONCAT R52 R53 R54
-  MOVE R54 R11
-  CALL R54 0 1
-  JUMPIFNOT R54 [+5]
   GETTABLEKS R54 R28 K74 ["APIS_URL"]
   LOADK R55 K75 ["resource-settings/v1/preferences:batchGet?preferenceTypes=AvatarBundles"]
   CONCAT R53 R54 R55
-  JUMP [+1]
-  LOADNIL R53
-  MOVE R55 R11
-  CALL R55 0 1
-  JUMPIFNOT R55 [+5]
   GETTABLEKS R55 R28 K74 ["APIS_URL"]
   LOADK R56 K76 ["resource-settings/v1/bundles"]
   CONCAT R54 R55 R56
-  JUMP [+1]
-  LOADNIL R54
   MOVE R56 R6
   CALL R56 0 1
   JUMPIFNOT R56 [+5]
@@ -1547,7 +1549,7 @@ MAIN:
   GETTABLEKS R87 R28 K74 ["APIS_URL"]
   LOADK R88 K111 ["marketplace-fiat-service/v1/product/purchase"]
   CONCAT R86 R87 R88
-  MOVE R88 R12
+  MOVE R88 R11
   CALL R88 0 1
   JUMPIFNOT R88 [+5]
   GETTABLEKS R88 R28 K74 ["APIS_URL"]
@@ -1555,7 +1557,7 @@ MAIN:
   CONCAT R87 R88 R89
   JUMP [+1]
   LOADNIL R87
-  MOVE R89 R14
+  MOVE R89 R13
   CALL R89 0 1
   JUMPIFNOT R89 [+5]
   GETTABLEKS R89 R28 K74 ["APIS_URL"]
@@ -1571,7 +1573,7 @@ MAIN:
   LOADK R90 K116 ["/creations/bundle/%d/configure"]
   JUMP [+1]
   LOADNIL R90
-  MOVE R92 R15
+  MOVE R92 R14
   CALL R92 0 1
   JUMPIFNOT R92 [+2]
   LOADK R91 K117 ["/creations"]
@@ -1667,7 +1669,7 @@ MAIN:
   GETTABLEKS R121 R28 K50 ["DEVELOP_URL"]
   LOADK R122 K145 ["v1/universes/%d"]
   CONCAT R120 R121 R122
-  JUMPIFNOT R16 [+5]
+  JUMPIFNOT R15 [+5]
   GETTABLEKS R122 R28 K146 ["INVENTORY_URL"]
   LOADK R123 K147 ["v1/users/%d/items/%s/%d/is-owned"]
   CONCAT R121 R122 R123
@@ -1753,9 +1755,6 @@ MAIN:
   DUPCLOSURE R124 K186 [PROTO_15]
   CAPTURE VAL R52
   SETTABLEKS R124 R33 K187 ["constructGetBundleCreationStatusUrl"]
-  MOVE R124 R11
-  CALL R124 0 1
-  JUMPIFNOT R124 [+8]
   DUPCLOSURE R124 K188 [PROTO_16]
   CAPTURE VAL R53
   SETTABLEKS R124 R33 K189 ["constructGetDefaultCreateBundleDataSharingUrl"]
@@ -1864,6 +1863,7 @@ MAIN:
   CAPTURE VAL R75
   SETTABLEKS R124 R33 K249 ["constructPatchAssetUrl"]
   DUPCLOSURE R124 K250 [PROTO_47]
+  CAPTURE VAL R16
   CAPTURE VAL R76
   CAPTURE VAL R28
   SETTABLEKS R124 R33 K251 ["constructPostUploadAssetUrl"]
@@ -1880,6 +1880,7 @@ MAIN:
   CAPTURE VAL R73
   SETTABLEKS R124 R33 K259 ["constructPostOverwriteAnimationUrl"]
   DUPCLOSURE R124 K260 [PROTO_52]
+  CAPTURE VAL R16
   CAPTURE VAL R76
   CAPTURE VAL R28
   SETTABLEKS R124 R33 K261 ["constructOverrideAssetsUrl"]
@@ -1914,18 +1915,18 @@ MAIN:
   CAPTURE VAL R95
   SETTABLEKS R124 R33 K281 ["constructAssetCheckPermissionsBatchUrl"]
   DUPCLOSURE R124 K282 [PROTO_63]
-  CAPTURE VAL R13
+  CAPTURE VAL R12
   CAPTURE VAL R86
   CAPTURE VAL R85
   CAPTURE VAL R84
   SETTABLEKS R124 R33 K283 ["constructAssetPurchaseUrl"]
-  MOVE R124 R12
+  MOVE R124 R11
   CALL R124 0 1
   JUMPIFNOT R124 [+4]
   DUPCLOSURE R124 K284 [PROTO_64]
   CAPTURE VAL R87
   SETTABLEKS R124 R33 K285 ["constructPurchaserStatusUrl"]
-  MOVE R124 R14
+  MOVE R124 R13
   CALL R124 0 1
   JUMPIFNOT R124 [+4]
   DUPCLOSURE R124 K286 [PROTO_65]
@@ -2004,7 +2005,7 @@ MAIN:
   CAPTURE VAL R29
   CAPTURE VAL R89
   SETTABLEKS R124 R33 K327 ["constructCreatorDashboardAvatarAssetUrl"]
-  MOVE R124 R15
+  MOVE R124 R14
   CALL R124 0 1
   JUMPIFNOT R124 [+5]
   DUPCLOSURE R124 K328 [PROTO_86]
@@ -2032,7 +2033,7 @@ MAIN:
   CAPTURE VAL R114
   CAPTURE VAL R30
   SETTABLEKS R124 R33 K339 ["constructGetFiatProductUrl"]
-  JUMPIFNOT R16 [+4]
+  JUMPIFNOT R15 [+4]
   DUPCLOSURE R124 K340 [PROTO_92]
   CAPTURE VAL R121
   SETTABLEKS R124 R33 K341 ["constructAssetIsOwnedUrl"]

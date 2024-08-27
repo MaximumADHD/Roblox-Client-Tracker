@@ -44,21 +44,24 @@ MAIN:
   CALL R4 2 1
   NAMECALL R4 R4 K24 ["IsEdit"]
   CALL R4 1 1
-  JUMPIFNOT R4 [+23]
-  DUPTABLE R4 K29 [{"DataModel", "PluginId", "Category", "ItemId"}]
-  LOADK R5 K30 ["Standalone"]
-  SETTABLEKS R5 R4 K25 ["DataModel"]
-  LOADK R5 K31 ["RunTools"]
-  SETTABLEKS R5 R4 K26 ["PluginId"]
-  LOADK R5 K32 ["Actions"]
-  SETTABLEKS R5 R4 K27 ["Category"]
-  LOADK R5 K33 ["Run"]
-  SETTABLEKS R5 R4 K28 ["ItemId"]
+  JUMPIFNOT R4 [+27]
+  GETIMPORT R4 K26 [wait]
+  LOADN R5 5
+  CALL R4 1 0
+  DUPTABLE R4 K31 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R5 K32 ["Standalone"]
+  SETTABLEKS R5 R4 K27 ["DataModel"]
+  LOADK R5 K33 ["RunTools"]
+  SETTABLEKS R5 R4 K28 ["PluginId"]
+  LOADK R5 K34 ["Actions"]
+  SETTABLEKS R5 R4 K29 ["Category"]
+  LOADK R5 K35 ["Run"]
+  SETTABLEKS R5 R4 K30 ["ItemId"]
   GETIMPORT R5 K1 [plugin]
-  LOADK R7 K32 ["Actions"]
-  NAMECALL R5 R5 K34 ["GetPluginComponent"]
+  LOADK R7 K34 ["Actions"]
+  NAMECALL R5 R5 K36 ["GetPluginComponent"]
   CALL R5 2 1
   MOVE R8 R4
-  NAMECALL R6 R5 K35 ["Activate"]
+  NAMECALL R6 R5 K37 ["ActivateAsync"]
   CALL R6 2 0
   RETURN R0 0

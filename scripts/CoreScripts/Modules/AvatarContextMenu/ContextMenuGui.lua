@@ -107,7 +107,8 @@ function ContextMenuGui:CreateMenuFrame(theme)
 	menu.ClipsDescendants = true
 	menu.Modal = true
 
-	GuiService:AddSelectionParent("AvatarContextMenuGroup", menu)
+	-- AddSelectionParent is deprecated
+	(GuiService :: any):AddSelectionParent("AvatarContextMenuGroup", menu)
 
 		local aspectConstraint = Instance.new("UIAspectRatioConstraint")
 		aspectConstraint.AspectType = Enum.AspectType.ScaleWithParentSize

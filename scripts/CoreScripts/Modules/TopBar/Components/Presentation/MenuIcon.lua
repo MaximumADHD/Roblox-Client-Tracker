@@ -29,7 +29,6 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 
 local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 local FFlagEnableChromeBackwardsSignalAPI = require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
-local GetFFlagAddOver12TopBarBadge = require(script.Parent.Parent.Parent.Parent.Flags.GetFFlagAddOver12TopBarBadge)
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -178,7 +177,7 @@ function MenuIcon:render()
 		callback = self.showTopBarCallback,
 	})
 
-	local badgeOver12 = if GetFFlagAddOver12TopBarBadge() and self.props.showBadgeOver12 then Roact.createElement(BadgeOver12, {
+	local badgeOver12 = if self.props.showBadgeOver12 then Roact.createElement(BadgeOver12, {
 		position = if ChromeEnabled() then UDim2.new(0, BADGE_INDENT, 1, -(Constants.TopBarButtonPadding + BADGE_INDENT)) else UDim2.new(0, -BADGE_OFFSET, 1, BADGE_OFFSET)
 	}) else nil
 

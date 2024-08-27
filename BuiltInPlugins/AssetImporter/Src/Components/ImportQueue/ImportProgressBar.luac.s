@@ -11,102 +11,96 @@ PROTO_0:
   LOADNIL R5
   RETURN R5 1
   DIV R5 R3 R4
-  JUMPIFNOTEQKN R5 K6 [1] [+7]
-  LOADK R8 K7 ["ImportQueue"]
-  LOADK R9 K8 ["Complete"]
-  NAMECALL R6 R2 K9 ["getText"]
-  CALL R6 3 1
-  JUMP [+13]
-  LOADK R8 K7 ["ImportQueue"]
-  LOADK R9 K10 ["MinutesRemaining1"]
-  DUPTABLE R10 K12 [{"minutesRemaining"}]
-  LOADN R12 0
-  FASTCALL1 TOSTRING R12 [+2]
-  GETIMPORT R11 K14 [tostring]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K11 ["minutesRemaining"]
-  NAMECALL R6 R2 K9 ["getText"]
-  CALL R6 4 1
+  JUMPIFEQKN R5 K6 [1] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
   LOADK R9 K7 ["ImportQueue"]
-  LOADK R10 K15 ["FilesRemaining2"]
-  DUPTABLE R11 K18 [{"currentFileIndex", "totalFiles"}]
-  FASTCALL1 TOSTRING R3 [+3]
-  MOVE R13 R3
-  GETIMPORT R12 K14 [tostring]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K16 ["currentFileIndex"]
-  FASTCALL1 TOSTRING R4 [+3]
-  MOVE R13 R4
-  GETIMPORT R12 K14 [tostring]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K17 ["totalFiles"]
+  LOADK R10 K8 ["Complete"]
   NAMECALL R7 R2 K9 ["getText"]
-  CALL R7 4 1
-  LOADK R9 K19 ["%* - %*"]
-  MOVE R11 R7
-  MOVE R12 R6
-  NAMECALL R9 R9 K20 ["format"]
-  CALL R9 3 1
-  MOVE R8 R9
-  GETTABLEKS R10 R1 K21 ["Stylizer"]
-  GETTABLEKS R9 R10 K7 ["ImportQueue"]
-  GETTABLEKS R10 R9 K22 ["Padding"]
-  GETTABLEKS R11 R9 K23 ["LoadingBarWidth"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K24 ["createElement"]
-  GETUPVAL R13 1
-  DUPTABLE R14 K30 [{"Size", "LayoutOrder", "Layout", "VerticalAlignment", "Padding", "Spacing"}]
-  GETTABLEKS R15 R1 K25 ["Size"]
-  SETTABLEKS R15 R14 K25 ["Size"]
-  GETTABLEKS R15 R1 K26 ["LayoutOrder"]
-  SETTABLEKS R15 R14 K26 ["LayoutOrder"]
-  GETIMPORT R15 K34 [Enum.FillDirection.Vertical]
-  SETTABLEKS R15 R14 K27 ["Layout"]
-  GETIMPORT R15 K36 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R15 R14 K28 ["VerticalAlignment"]
-  SETTABLEKS R10 R14 K22 ["Padding"]
-  SETTABLEKS R10 R14 K29 ["Spacing"]
-  DUPTABLE R15 K39 [{"LoadingBar", "LoadingText"}]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K24 ["createElement"]
-  GETUPVAL R17 2
-  DUPTABLE R18 K40 [{"LayoutOrder", "Size", "Progress"}]
-  LOADN R19 1
-  SETTABLEKS R19 R18 K26 ["LayoutOrder"]
-  GETIMPORT R19 K43 [UDim2.new]
+  CALL R7 3 1
+  LOADK R10 K7 ["ImportQueue"]
+  LOADK R11 K10 ["FilesRemaining2"]
+  DUPTABLE R12 K13 [{"currentFileIndex", "totalFiles"}]
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R14 R3
+  GETIMPORT R13 K15 [tostring]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K11 ["currentFileIndex"]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R14 R4
+  GETIMPORT R13 K15 [tostring]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K12 ["totalFiles"]
+  NAMECALL R8 R2 K9 ["getText"]
+  CALL R8 4 1
+  JUMPIFNOT R6 [+8]
+  LOADK R10 K16 ["%* - %*"]
+  MOVE R12 R8
+  MOVE R13 R7
+  NAMECALL R10 R10 K17 ["format"]
+  CALL R10 3 1
+  MOVE R9 R10
+  JUMP [+1]
+  MOVE R9 R8
+  GETTABLEKS R11 R1 K18 ["Stylizer"]
+  GETTABLEKS R10 R11 K7 ["ImportQueue"]
+  GETTABLEKS R11 R10 K19 ["Padding"]
+  GETTABLEKS R12 R10 K20 ["LoadingBarWidth"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K21 ["createElement"]
+  GETUPVAL R14 1
+  DUPTABLE R15 K27 [{"Size", "LayoutOrder", "Layout", "VerticalAlignment", "Padding", "Spacing"}]
+  GETTABLEKS R16 R1 K22 ["Size"]
+  SETTABLEKS R16 R15 K22 ["Size"]
+  GETTABLEKS R16 R1 K23 ["LayoutOrder"]
+  SETTABLEKS R16 R15 K23 ["LayoutOrder"]
+  GETIMPORT R16 K31 [Enum.FillDirection.Vertical]
+  SETTABLEKS R16 R15 K24 ["Layout"]
+  GETIMPORT R16 K33 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R16 R15 K25 ["VerticalAlignment"]
+  SETTABLEKS R11 R15 K19 ["Padding"]
+  SETTABLEKS R11 R15 K26 ["Spacing"]
+  DUPTABLE R16 K36 [{"LoadingBar", "LoadingText"}]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K21 ["createElement"]
+  GETUPVAL R18 2
+  DUPTABLE R19 K37 [{"LayoutOrder", "Size", "Progress"}]
   LOADN R20 1
-  LOADN R21 0
-  LOADN R22 0
-  MOVE R23 R11
-  CALL R19 4 1
-  SETTABLEKS R19 R18 K25 ["Size"]
-  SETTABLEKS R5 R18 K3 ["Progress"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K37 ["LoadingBar"]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K24 ["createElement"]
-  GETUPVAL R17 3
-  DUPTABLE R18 K48 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextXAlignment", "TextWrapped"}]
-  LOADN R19 2
-  SETTABLEKS R19 R18 K26 ["LayoutOrder"]
-  GETIMPORT R19 K43 [UDim2.new]
-  LOADN R20 1
-  LOADN R21 0
+  SETTABLEKS R20 R19 K23 ["LayoutOrder"]
+  GETIMPORT R20 K40 [UDim2.new]
+  LOADN R21 1
   LOADN R22 0
   LOADN R23 0
-  CALL R19 4 1
-  SETTABLEKS R19 R18 K25 ["Size"]
-  GETIMPORT R19 K50 [Enum.AutomaticSize.Y]
-  SETTABLEKS R19 R18 K44 ["AutomaticSize"]
-  SETTABLEKS R8 R18 K45 ["Text"]
-  GETIMPORT R19 K52 [Enum.TextXAlignment.Left]
-  SETTABLEKS R19 R18 K46 ["TextXAlignment"]
-  LOADB R19 1
-  SETTABLEKS R19 R18 K47 ["TextWrapped"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K38 ["LoadingText"]
-  CALL R12 3 -1
-  RETURN R12 -1
+  MOVE R24 R12
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K22 ["Size"]
+  SETTABLEKS R5 R19 K3 ["Progress"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K34 ["LoadingBar"]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K21 ["createElement"]
+  GETUPVAL R18 3
+  DUPTABLE R19 K45 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextXAlignment", "TextWrapped"}]
+  LOADN R20 2
+  SETTABLEKS R20 R19 K23 ["LayoutOrder"]
+  GETIMPORT R20 K40 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 0
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K22 ["Size"]
+  GETIMPORT R20 K47 [Enum.AutomaticSize.Y]
+  SETTABLEKS R20 R19 K41 ["AutomaticSize"]
+  SETTABLEKS R9 R19 K42 ["Text"]
+  GETIMPORT R20 K49 [Enum.TextXAlignment.Left]
+  SETTABLEKS R20 R19 K43 ["TextXAlignment"]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K44 ["TextWrapped"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K35 ["LoadingText"]
+  CALL R13 3 -1
+  RETURN R13 -1
 
 PROTO_1:
   DUPTABLE R1 K5 [{"SessionQueue", "ShowProgress", "Progress", "ProgressGoal", "Uploading"}]

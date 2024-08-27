@@ -91,9 +91,11 @@ function PlayerContextualMenu:renderContextualMenuFocusHandler(isRooted, childre
 				return Enum.ContextActionResult.Pass
 			end, false, Enum.KeyCode.ButtonB)
 
-			GuiService:RemoveSelectionGroup(SELECTION_PARENT_NAME)
+			-- RemoveSelectionGroup is deprecated
+			;(GuiService :: any):RemoveSelectionGroup(SELECTION_PARENT_NAME)
 			if GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport() then
-				GuiService:AddSelectionParent(SELECTION_PARENT_NAME, self.containerRef:getValue())
+				-- AddSelectionParent is deprecated
+				(GuiService :: any):AddSelectionParent(SELECTION_PARENT_NAME, self.containerRef:getValue())
 
 				if GetFFlagIGMGamepadSelectionHistory() then
 					GuiService.SelectedCoreObject = previousSelection or self.firstOptionRef:getValue()
@@ -101,7 +103,8 @@ function PlayerContextualMenu:renderContextualMenuFocusHandler(isRooted, childre
 					GuiService.SelectedCoreObject = self.firstOptionRef:getValue()
 				end
 			else
-				GuiService:AddSelectionParent(SELECTION_PARENT_NAME, self.state.containerRef)
+				-- AddSelectionParent is deprecated
+				(GuiService :: any):AddSelectionParent(SELECTION_PARENT_NAME, self.state.containerRef)
 
 				if GetFFlagIGMGamepadSelectionHistory() then
 					GuiService.SelectedCoreObject = previousSelection or self.state.firstOptionRef

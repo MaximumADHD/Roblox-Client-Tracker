@@ -6,8 +6,8 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Clients"]
-  GETTABLEKS R2 R3 K7 ["ActivityHistoryClient"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["SharedTypes"]
   CALL R1 1 1
   NEWTABLE R2 0 0
   LOADN R5 1

@@ -40,27 +40,29 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["LuaMeshEditingModule"]
-  GETTABLEKS R2 R3 K8 ["Types"]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K7 ["_Index"]
+  GETTABLEKS R4 R5 K8 ["LuaMeshEditingModule"]
+  GETTABLEKS R3 R4 K8 ["LuaMeshEditingModule"]
+  GETTABLEKS R2 R3 K9 ["Types"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["RhodiumTests"]
-  GETTABLEKS R3 R4 K10 ["RhodiumTestHelpers"]
+  GETTABLEKS R4 R0 K10 ["RhodiumTests"]
+  GETTABLEKS R3 R4 K11 ["RhodiumTestHelpers"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K11 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Types"]
+  GETTABLEKS R5 R0 K12 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Types"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Components"]
-  GETTABLEKS R6 R7 K13 ["EditingTools"]
-  GETTABLEKS R5 R6 K14 ["createSymmetryMapAsync"]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Components"]
+  GETTABLEKS R6 R7 K14 ["EditingTools"]
+  GETTABLEKS R5 R6 K15 ["createSymmetryMapAsync"]
   CALL R4 1 1
   NEWTABLE R5 1 0
-  DUPCLOSURE R6 K15 [PROTO_1]
+  DUPCLOSURE R6 K16 [PROTO_1]
   CAPTURE VAL R2
   CAPTURE VAL R4
-  SETTABLEKS R6 R5 K16 ["createLizardAndSymmetryMapAsync"]
+  SETTABLEKS R6 R5 K17 ["createLizardAndSymmetryMapAsync"]
   RETURN R5 1

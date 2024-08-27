@@ -211,10 +211,10 @@ PROTO_9:
   GETUPVAL R2 0
   GETUPVAL R3 2
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["_owners"]
+  GETTABLEKS R4 R5 K4 ["_creators"]
   MOVE R5 R1
   CALL R3 2 1
-  SETTABLEKS R3 R2 K4 ["_owners"]
+  SETTABLEKS R3 R2 K4 ["_creators"]
   GETUPVAL R2 0
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["_items"]
@@ -271,7 +271,7 @@ PROTO_11:
   SETTABLEKS R1 R0 K0 ["_items"]
   GETUPVAL R0 0
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K1 ["_owners"]
+  SETTABLEKS R1 R0 K1 ["_creators"]
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K2 ["OnItemsChanged"]
   GETUPVAL R3 0
@@ -321,7 +321,7 @@ PROTO_12:
   RETURN R0 0
 
 PROTO_13:
-  DUPTABLE R3 K24 [{"_isMock", "_pluginController", "_networking", "_visibleProperties", "_scope", "_layout", "_columnWidths", "_items", "_renderItems", "_owners", "_filters", "_sorts", "_selection", "_prevClickIndex", "_usingShift", "_usingCtrl", "_fetchProgressInfo", "OnFetchProgressInfoChanged", "OnLayoutChanged", "OnVisiblePropertiesChanged", "OnColumnWidthsChanged", "OnItemsChanged", "OnItemSelectionChanged", "OnSortFilterChanged"}]
+  DUPTABLE R3 K24 [{"_isMock", "_pluginController", "_networking", "_visibleProperties", "_scope", "_layout", "_columnWidths", "_items", "_renderItems", "_creators", "_filters", "_sorts", "_selection", "_prevClickIndex", "_usingShift", "_usingCtrl", "_fetchProgressInfo", "OnFetchProgressInfoChanged", "OnLayoutChanged", "OnVisiblePropertiesChanged", "OnColumnWidthsChanged", "OnItemsChanged", "OnItemSelectionChanged", "OnSortFilterChanged"}]
   SETTABLEKS R2 R3 K0 ["_isMock"]
   SETTABLEKS R0 R3 K1 ["_pluginController"]
   SETTABLEKS R1 R3 K2 ["_networking"]
@@ -335,7 +335,7 @@ PROTO_13:
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K28 ["Created"]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K29 ["Owner"]
+  GETTABLEKS R9 R10 K29 ["Creator"]
   SETLIST R4 R5 5 [1]
   SETTABLEKS R4 R3 K3 ["_visibleProperties"]
   NAMECALL R4 R0 K30 ["getUser"]
@@ -356,7 +356,7 @@ PROTO_13:
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K8 ["_renderItems"]
   NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K9 ["_owners"]
+  SETTABLEKS R4 R3 K9 ["_creators"]
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K10 ["_filters"]
   NEWTABLE R4 0 0
@@ -521,7 +521,7 @@ PROTO_15:
   LOADNIL R1
   SETTABLEKS R1 R0 K7 ["_items"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K8 ["_owners"]
+  SETTABLEKS R1 R0 K8 ["_creators"]
   LOADNIL R1
   SETTABLEKS R1 R0 K9 ["_filters"]
   LOADNIL R1
@@ -581,7 +581,7 @@ PROTO_24:
 
 PROTO_25:
   GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["_owners"]
+  GETTABLEKS R2 R0 K0 ["_creators"]
   CALL R1 1 1
   GETIMPORT R2 K3 [table.sort]
   MOVE R3 R1
@@ -879,7 +879,7 @@ MAIN:
   SETTABLEKS R25 R20 K58 ["getRenderItems"]
   DUPCLOSURE R25 K59 [PROTO_25]
   CAPTURE VAL R7
-  SETTABLEKS R25 R20 K60 ["getOwners"]
+  SETTABLEKS R25 R20 K60 ["getCreators"]
   DUPCLOSURE R25 K61 [PROTO_26]
   CAPTURE VAL R5
   SETTABLEKS R25 R20 K62 ["_updateSortFilter"]

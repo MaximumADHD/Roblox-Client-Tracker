@@ -234,6 +234,7 @@ local FFlagEnableTFFeedbackModeEntryCheck = game:DefineFastFlag("EnableTFFeedbac
 local FFlagFeedbackEntryPointButtonSizeAdjustment = game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment2", false)
 local FFlagFeedbackEntryPointImprovedStrictnessCheck = game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
 local FFlagFixSensitivityTextPrecision = game:DefineFastFlag("FixSensitivityTextPrecision", false)
+local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -3298,6 +3299,16 @@ local function Initialize()
 				-- Check volume settings. Show prompt if volume is 0
 				if not GetFFlagEnableUniveralVoiceToasts() then
 					VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
+				end
+				if GetFFlagEnableShowVoiceUI() then
+					VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+						this.VoiceChatOptionsEnabled = true
+						this[VOICE_CHAT_DEVICE_TYPE.Input.."DeviceFrame"].Visible = true
+					end)
+					VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+						this.VoiceChatOptionsEnabled = false
+						this[VOICE_CHAT_DEVICE_TYPE.Input.."DeviceFrame"].Visible = false
+					end)
 				end
 			end):catch(function()
 				if GetFFlagVoiceChatUILogging() then

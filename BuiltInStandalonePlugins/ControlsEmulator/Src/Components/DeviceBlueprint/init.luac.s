@@ -58,66 +58,66 @@ PROTO_5:
 
 PROTO_6:
   GETTABLEKS R1 R0 K0 ["type"]
-  JUMPIFNOTEQKS R1 K1 ["Thumbstick"] [+34]
+  JUMPIFNOTEQKS R1 K1 ["Thumbstick"] [+42]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["createElement"]
   GETUPVAL R2 1
-  DUPTABLE R3 K7 [{"Position", "keyCode", "inputState", "clickInputState"}]
+  DUPTABLE R3 K9 [{"Position", "keyCode", "inputState", "clickInputState", "relativeSocketSize", "relativeStickSize"}]
   GETTABLEKS R4 R0 K3 ["Position"]
   SETTABLEKS R4 R3 K3 ["Position"]
   GETTABLEKS R4 R0 K4 ["keyCode"]
   SETTABLEKS R4 R3 K4 ["keyCode"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K8 ["activeInputs"]
+  GETTABLEKS R5 R6 K10 ["activeInputs"]
   GETTABLEKS R6 R0 K4 ["keyCode"]
   GETTABLE R4 R5 R6
   SETTABLEKS R4 R3 K5 ["inputState"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K8 ["activeInputs"]
+  GETTABLEKS R5 R6 K10 ["activeInputs"]
   GETUPVAL R7 3
   GETTABLEKS R8 R0 K4 ["keyCode"]
   GETTABLE R6 R7 R8
   GETTABLE R4 R5 R6
   SETTABLEKS R4 R3 K6 ["clickInputState"]
+  GETTABLEKS R4 R0 K7 ["relativeSocketSize"]
+  SETTABLEKS R4 R3 K7 ["relativeSocketSize"]
+  GETTABLEKS R4 R0 K8 ["relativeStickSize"]
+  SETTABLEKS R4 R3 K8 ["relativeStickSize"]
   CALL R1 2 -1
   RETURN R1 -1
   GETTABLEKS R1 R0 K0 ["type"]
-  JUMPIFNOTEQKS R1 K9 ["Button"] [+32]
+  JUMPIFNOTEQKS R1 K11 ["Button"] [+28]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["createElement"]
   GETUPVAL R2 4
-  DUPTABLE R3 K12 [{"Text", "Position", "Size", "keyCode", "inputState"}]
-  GETTABLEKS R4 R0 K10 ["Text"]
-  SETTABLEKS R4 R3 K10 ["Text"]
+  DUPTABLE R3 K13 [{"Position", "Size", "keyCode", "inputState"}]
   GETTABLEKS R4 R0 K3 ["Position"]
   SETTABLEKS R4 R3 K3 ["Position"]
-  GETTABLEKS R4 R0 K11 ["Size"]
-  SETTABLEKS R4 R3 K11 ["Size"]
+  GETTABLEKS R4 R0 K12 ["Size"]
+  SETTABLEKS R4 R3 K12 ["Size"]
   GETTABLEKS R4 R0 K4 ["keyCode"]
   SETTABLEKS R4 R3 K4 ["keyCode"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K8 ["activeInputs"]
+  GETTABLEKS R5 R6 K10 ["activeInputs"]
   GETTABLEKS R6 R0 K4 ["keyCode"]
   GETTABLE R4 R5 R6
   SETTABLEKS R4 R3 K5 ["inputState"]
   CALL R1 2 -1
   RETURN R1 -1
   GETTABLEKS R1 R0 K0 ["type"]
-  JUMPIFNOTEQKS R1 K13 ["Trigger"] [+32]
+  JUMPIFNOTEQKS R1 K14 ["Trigger"] [+28]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["createElement"]
   GETUPVAL R2 4
-  DUPTABLE R3 K12 [{"Text", "Position", "Size", "keyCode", "inputState"}]
-  GETTABLEKS R4 R0 K10 ["Text"]
-  SETTABLEKS R4 R3 K10 ["Text"]
+  DUPTABLE R3 K13 [{"Position", "Size", "keyCode", "inputState"}]
   GETTABLEKS R4 R0 K3 ["Position"]
   SETTABLEKS R4 R3 K3 ["Position"]
-  GETTABLEKS R4 R0 K11 ["Size"]
-  SETTABLEKS R4 R3 K11 ["Size"]
+  GETTABLEKS R4 R0 K12 ["Size"]
+  SETTABLEKS R4 R3 K12 ["Size"]
   GETTABLEKS R4 R0 K4 ["keyCode"]
   SETTABLEKS R4 R3 K4 ["keyCode"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K8 ["activeInputs"]
+  GETTABLEKS R5 R6 K10 ["activeInputs"]
   GETTABLEKS R6 R0 K4 ["keyCode"]
   GETTABLE R4 R5 R6
   SETTABLEKS R4 R3 K5 ["inputState"]

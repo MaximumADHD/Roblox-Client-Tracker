@@ -117,12 +117,15 @@ end
 local TextChatService = game:GetService("TextChatService")
 local chatVersion = TextChatService.ChatVersion
 if chatVersion == Enum.ChatVersion.TextChatService then
-	-- initialize UIBlox here since requiring ExperienceChat will otherwise trigger a UIBlox config error...
-	local UIBlox = require(CorePackages.UIBlox)
-	UIBlox.init()
+	local FFlagUseExpChatServerModule = game:DefineFastFlag("UseExpChatServerModule", false)
+	if not FFlagUseExpChatServerModule then
+		-- initialize UIBlox here since requiring ExperienceChat will otherwise trigger a UIBlox config error...
+		local UIBlox = require(CorePackages.UIBlox)
+		UIBlox.init()
+	end
 
-	local ExperienceChat = require(CorePackages.ExperienceChat)
-	ExperienceChat.mountServerApp({})
+	local ExperienceChatServer = require(CorePackages.Workspace.Packages.ExpChatServer)
+	ExperienceChatServer.mountServerApp({})
 end
 
 

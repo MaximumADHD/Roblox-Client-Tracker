@@ -33,7 +33,7 @@ function VoiceChatPrompt:render()
 	}, {
 		PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
 			policy = { self.props.policyMapper or InGameMenuPolicy.Mapper },
-		}, {Content = Roact.createElement(VoiceChatPromptFrame, self.props)})
+		}, { Content = Roact.createElement(VoiceChatPromptFrame, self.props) }),
 	})
 end
 

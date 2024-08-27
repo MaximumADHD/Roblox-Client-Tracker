@@ -3,9 +3,9 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
-local Squads = require(CorePackages.Workspace.Packages.Squads)
+local SquadsCore = require(CorePackages.Workspace.Packages.SquadsCore)
 
-local getColorFromUserId = Squads.Common.getColorFromUserId
+local getColorFromUserId = SquadsCore.Common.getColorFromUserId
 local useLastActiveParticipant = CrossExperienceVoice.Hooks.useLastActiveParticipant
 
 local Images = UIBlox.App.ImageSet.Images

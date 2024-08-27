@@ -15,7 +15,6 @@ local GuiService = game:GetService("GuiService")
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
-local GetFFlagNewUnibarIA = require(script.Parent.Parent.Flags.GetFFlagNewUnibarIA)
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -79,7 +78,6 @@ ChatSelector.MessagesChanged:connect(function(messages: number)
 	lastMessagesChangedValue = messages
 end)
 
-local viewportConn: any? = nil
 coroutine.wrap(function()
 	local LocalPlayer = Players.LocalPlayer
 	while not LocalPlayer do
@@ -97,25 +95,11 @@ coroutine.wrap(function()
 
 	if canChat and chatChromeIntegration.availability then
 		ChromeUtils.setCoreGuiAvailability(chatChromeIntegration, Enum.CoreGuiType.Chat, function(enabled)
-			if viewportConn and not GetFFlagNewUnibarIA then
-				viewportConn:disconnect()
-				viewportConn = nil
-			end
 			if enabled then
-				if GetFFlagNewUnibarIA then
-					if EnabledPinnedChat then
-						chatChromeIntegration.availability:pinned()
-					else
-						chatChromeIntegration.availability:available()
-					end
+				if EnabledPinnedChat then
+					chatChromeIntegration.availability:pinned()
 				else
-					viewportConn = ViewportUtil.viewport:connect(function(viewportInfo)
-						if EnabledPinnedChat and not viewportInfo.tinyPortrait then
-							chatChromeIntegration.availability:pinned()
-						else
-							chatChromeIntegration.availability:available()
-						end
-					end, true)
+					chatChromeIntegration.availability:available()
 				end
 			else
 				chatChromeIntegration.availability:unavailable()

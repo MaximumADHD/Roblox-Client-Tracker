@@ -7,7 +7,7 @@ PROTO_0:
   LOADN R4 0
   LOADN R5 0
   CALL R3 2 -1
-  NAMECALL R0 R0 K5 ["SetSize"]
+  NAMECALL R0 R0 K5 ["SetSizeAsync"]
   CALL R0 -1 0
   RETURN R0 0
 
@@ -165,7 +165,7 @@ PROTO_4:
   MOVE R7 R1
   MOVE R8 R2
   CALL R6 2 -1
-  NAMECALL R3 R3 K12 ["SetSize"]
+  NAMECALL R3 R3 K12 ["SetSizeAsync"]
   CALL R3 -1 0
   RETURN R0 0
 
@@ -184,7 +184,7 @@ PROTO_5:
   GETUPVAL R5 2
   CALL R4 1 1
   SETTABLEKS R4 R3 K4 ["sourceData"]
-  NAMECALL R1 R0 K9 ["ReportInteraction"]
+  NAMECALL R1 R0 K9 ["ReportInteractionAsync"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -301,7 +301,7 @@ PROTO_6:
   CALL R11 2 1
   MOVE R14 R8
   MOVE R15 R11
-  NAMECALL R12 R10 K40 ["SetAttachment"]
+  NAMECALL R12 R10 K40 ["SetAttachmentAsync"]
   CALL R12 3 0
   GETTABLEKS R12 R9 K41 ["panel"]
   LOADB R13 1

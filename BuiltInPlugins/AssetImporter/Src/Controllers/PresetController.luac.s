@@ -119,7 +119,7 @@ PROTO_9:
   RETURN R3 -1
 
 PROTO_10:
-  GETTABLEKS R1 R0 K0 ["mock"]
+  GETTABLEKS R1 R0 K0 ["_mock"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K1 ["_assetImportServiceWrapper"]
   NAMECALL R1 R1 K2 ["_clearPresets"]
@@ -420,11 +420,13 @@ PROTO_20:
   LOADNIL R4
   LOADNIL R5
   FORGPREP R3
+  GETTABLEKS R8 R7 K4 ["validSession"]
+  JUMPIFNOT R8 [+5]
   MOVE R10 R1
   MOVE R11 R7
-  NAMECALL R8 R0 K4 ["resolvePreset"]
+  NAMECALL R8 R0 K5 ["resolvePreset"]
   CALL R8 3 0
-  FORGLOOP R3 2 [-6]
+  FORGLOOP R3 2 [-9]
   RETURN R0 0
 
 PROTO_21:

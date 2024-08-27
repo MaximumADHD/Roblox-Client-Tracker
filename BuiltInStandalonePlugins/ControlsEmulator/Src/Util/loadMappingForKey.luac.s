@@ -3,7 +3,7 @@ PROTO_0:
   GETUPVAL R2 1
   GETUPVAL R3 2
   GETUPVAL R4 3
-  NAMECALL R0 R0 K0 ["GetKeyboardShortcut"]
+  NAMECALL R0 R0 K0 ["GetKeyboardShortcutAsync"]
   CALL R0 4 -1
   RETURN R0 -1
 
@@ -17,16 +17,7 @@ PROTO_1:
   CALL R3 1 2
   JUMPIFNOT R3 [+1]
   RETURN R4 1
-  GETIMPORT R5 K3 [print]
-  LOADK R6 K4 ["Failed to get shortcut for "]
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R8 R1
-  GETIMPORT R7 K6 [tostring]
-  CALL R7 1 1
-  LOADK R8 K7 [":"]
-  MOVE R9 R4
-  CALL R5 4 0
-  LOADNIL R5
+  NEWTABLE R5 0 0
   RETURN R5 1
 
 MAIN:

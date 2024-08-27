@@ -27,9 +27,7 @@ local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnab
 local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
 local GetFFlagEnableChromeEscapeFix = require(script.Parent.Parent.Flags.GetFFlagEnableChromeEscapeFix)
 local GetFFlagEnableChromeDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableChromeDefaultOpen)
-local GetFFlagNewUnibarIA = require(script.Parent.Parent.Flags.GetFFlagNewUnibarIA)
 local GetFFlagEnableChromePinIntegrations = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinIntegrations)
-local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 local GetFFlagOpenControlsOnMenuOpen = require(script.Parent.Parent.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
@@ -39,6 +37,7 @@ local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFla
 local GetFFlagEnableUserPinPortraitFix = require(script.Parent.Parent.Flags.GetFFlagEnableUserPinPortraitFix)
 local GetFFlagSupportChromeContainerSizing = require(script.Parent.Parent.Flags.GetFFlagSupportChromeContainerSizing)
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+local GetFFlagDisableCompactUtilityCore = require(script.Parent.Parent.Flags.GetFFlagDisableCompactUtilityCore)
 local FFlagPreserveWindowsCompactUtility = game:DefineFastFlag("PreserveWindowsCompactUtility", false)
 
 local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
@@ -389,10 +388,6 @@ function ChromeService:updateScreenSize(
 			mostRecentlyUsedAndPinnedSlots = if GetFFlagSupportChromeContainerSizing()
 				then Constants.MOBILE_LANDSCAPE_SLOTS - Constants.CORE_SLOTS
 				else 2
-		end
-
-		if EnabledPinnedChat and not GetFFlagNewUnibarIA() then
-			mostRecentlyUsedAndPinnedSlots = math.max(0, mostRecentlyUsedAndPinnedSlots - 1)
 		end
 	else
 		mostRecentlyUsedAndPinnedSlots = if GetFFlagSupportChromeContainerSizing()
@@ -1147,7 +1142,7 @@ function ChromeService:configureSubMenu(parent: Types.IntegrationId, menuConfig:
 end
 
 function ChromeService:configureCompactUtility(utility: Types.CompactUtilityId, menuConfig: Types.MenuConfig)
-	if GetFFlagSupportCompactUtility() then
+	if GetFFlagSupportCompactUtility() and not GetFFlagDisableCompactUtilityCore() then
 		self._compactUtilityConfig[utility] = menuConfig
 		self:updateMenuList()
 	end
@@ -1155,7 +1150,7 @@ end
 
 function ChromeService:toggleCompactUtility(utility: Types.CompactUtilityId)
 	local currentUtility = self._currentCompactUtility:get()
-	if GetFFlagSupportCompactUtility() then
+	if GetFFlagSupportCompactUtility() and not GetFFlagDisableCompactUtilityCore() then
 		-- turn utility on if no current compact utility or a different utility turned on
 		if not currentUtility or currentUtility ~= utility then
 			self._currentCompactUtility:set(utility)

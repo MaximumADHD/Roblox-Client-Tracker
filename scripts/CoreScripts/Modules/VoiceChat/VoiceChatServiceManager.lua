@@ -43,7 +43,6 @@ local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
 
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
-local FFlagFixNonSelfCalls = game:DefineFastFlag("FixNonSelfCalls", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
 local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermissionsAnalytics", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
@@ -1465,7 +1464,7 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 			self.service:Leave()
 			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted, true)
 			if not joinInProgress then
-				(if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):InitialJoinFailedPrompt()
+				self:InitialJoinFailedPrompt()
 			end
 		end
 	end)

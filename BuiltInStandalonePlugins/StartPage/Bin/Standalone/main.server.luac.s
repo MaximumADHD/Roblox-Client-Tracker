@@ -22,31 +22,39 @@ MAIN:
   CALL R2 2 1
   JUMPIF R2 [+1]
   RETURN R0 0
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K15 ["React"]
-  CALL R2 1 1
+  GETIMPORT R2 K12 [game]
+  LOADK R4 K15 ["StartPageService"]
+  NAMECALL R2 R2 K16 ["GetService"]
+  CALL R2 2 1
+  NAMECALL R3 R2 K17 ["getStartPageVersionForUser"]
+  CALL R3 1 1
+  JUMPIFNOTEQKN R3 K18 [1] [+2]
+  RETURN R0 0
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K16 ["ReactRoblox"]
+  GETTABLEKS R4 R5 K19 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K17 ["MainPlugin"]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K20 ["ReactRoblox"]
   CALL R4 1 1
-  GETTABLEKS R5 R2 K18 ["createElement"]
-  MOVE R6 R4
-  DUPTABLE R7 K20 [{"Plugin"}]
-  GETIMPORT R8 K22 [plugin]
-  SETTABLEKS R8 R7 K19 ["Plugin"]
-  CALL R5 2 1
-  GETIMPORT R6 K25 [Instance.new]
-  LOADK R7 K26 ["Frame"]
-  CALL R6 1 1
-  GETTABLEKS R7 R3 K27 ["createRoot"]
-  MOVE R8 R6
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K21 ["MainPlugin"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K22 ["createElement"]
+  MOVE R7 R5
+  DUPTABLE R8 K24 [{"Plugin"}]
+  GETIMPORT R9 K26 [plugin]
+  SETTABLEKS R9 R8 K23 ["Plugin"]
+  CALL R6 2 1
+  GETIMPORT R7 K29 [Instance.new]
+  LOADK R8 K30 ["Frame"]
   CALL R7 1 1
-  MOVE R10 R5
-  NAMECALL R8 R7 K28 ["render"]
-  CALL R8 2 0
+  GETTABLEKS R8 R4 K31 ["createRoot"]
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R11 R6
+  NAMECALL R9 R8 K32 ["render"]
+  CALL R9 2 0
   RETURN R0 0

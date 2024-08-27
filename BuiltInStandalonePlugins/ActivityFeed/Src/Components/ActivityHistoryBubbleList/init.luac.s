@@ -45,17 +45,58 @@ PROTO_3:
   LOADK R7 K4 ["X-Fill"]
   LOADK R8 K5 ["CX-Invisible"]
   LOADK R9 K6 ["Component-BubbleFrame"]
-  CALL R5 4 1
+  LOADK R10 K7 ["X-Column"]
+  CALL R5 5 1
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K8 [{"BubbleContainer"}]
+  DUPTABLE R4 K11 [{"BubbleHeader", "BubbleContainer", "BubbleFooter"}]
+  GETTABLEKS R7 R0 K12 ["item"]
+  GETTABLEKS R6 R7 K13 ["headerText"]
+  JUMPIFEQKNIL R6 [+20]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
   GETUPVAL R6 2
-  DUPTABLE R7 K10 [{"Bubble"}]
-  GETTABLEKS R8 R0 K11 ["item"]
-  SETTABLEKS R8 R7 K9 ["Bubble"]
+  DUPTABLE R7 K16 [{"title", "layoutOrder"}]
+  GETTABLEKS R9 R0 K12 ["item"]
+  GETTABLEKS R8 R9 K13 ["headerText"]
+  SETTABLEKS R8 R7 K14 ["title"]
+  GETUPVAL R8 3
+  NAMECALL R8 R8 K17 ["getNextOrder"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K15 ["layoutOrder"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K7 ["BubbleContainer"]
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K8 ["BubbleHeader"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 4
+  DUPTABLE R7 K20 [{"Bubble", "LayoutOrder"}]
+  GETTABLEKS R8 R0 K12 ["item"]
+  SETTABLEKS R8 R7 K18 ["Bubble"]
+  GETUPVAL R8 3
+  NAMECALL R8 R8 K17 ["getNextOrder"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K19 ["LayoutOrder"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K9 ["BubbleContainer"]
+  GETTABLEKS R7 R0 K12 ["item"]
+  GETTABLEKS R6 R7 K21 ["footerText"]
+  JUMPIFEQKNIL R6 [+20]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 5
+  DUPTABLE R7 K16 [{"title", "layoutOrder"}]
+  GETTABLEKS R9 R0 K12 ["item"]
+  GETTABLEKS R8 R9 K21 ["footerText"]
+  SETTABLEKS R8 R7 K14 ["title"]
+  GETUPVAL R8 3
+  NAMECALL R8 R8 K17 ["getNextOrder"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K15 ["layoutOrder"]
+  CALL R5 2 1
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K10 ["BubbleFooter"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -94,9 +135,15 @@ PROTO_5:
   GETUPVAL R11 2
   GETTABLEKS R12 R7 K2 ["id"]
   GETTABLE R10 R11 R12
-  JUMPIF R10 [+13]
+  JUMPIFNOT R10 [+12]
+  GETTABLEKS R11 R10 K3 ["headerText"]
+  GETTABLEKS R12 R7 K3 ["headerText"]
+  JUMPIFNOTEQ R11 R12 [+7]
+  GETTABLEKS R11 R10 K4 ["footerText"]
+  GETTABLEKS R12 R7 K4 ["footerText"]
+  JUMPIFEQ R11 R12 [+14]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K3 ["translateEvent"]
+  GETTABLEKS R11 R12 K5 ["translateEvent"]
   MOVE R12 R9
   GETUPVAL R13 1
   MOVE R14 R7
@@ -109,12 +156,12 @@ PROTO_5:
   FASTCALL2 TABLE_INSERT R1 R10 [+5]
   MOVE R12 R1
   MOVE R13 R10
-  GETIMPORT R11 K6 [table.insert]
+  GETIMPORT R11 K8 [table.insert]
   CALL R11 2 0
   CLOSEUPVALS R8
-  FORGLOOP R3 2 [-33]
+  FORGLOOP R3 2 [-45]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["fetchUsernames"]
+  GETTABLEKS R3 R4 K9 ["fetchUsernames"]
   GETUPVAL R4 4
   MOVE R5 R2
   CALL R4 1 -1
@@ -229,10 +276,10 @@ PROTO_11:
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
   GETUPVAL R10 5
-  DUPTABLE R11 K28 [{"keyExtractor", "ref", "data", "getItem", "getItemCount", "getItemLayout", "renderItem", "windowSize", "viewabilityConfigCallbackPairs", "showsVerticalScrollIndicator", "showsHorizontalScrollIndicator", "showDefaultLoadingIndicators", "ListHeaderComponent", "ListFooterComponent", "onScroll"}]
-  DUPCLOSURE R12 K29 [PROTO_10]
+  DUPTABLE R11 K29 [{"keyExtractor", "ref", "data", "getItem", "getItemCount", "getItemLayout", "renderItem", "windowSize", "viewabilityConfigCallbackPairs", "showsVerticalScrollIndicator", "showsHorizontalScrollIndicator", "showDefaultLoadingIndicators", "ListHeaderComponent", "ListFooterComponent", "onScroll", "ListEmptyComponent"}]
+  DUPCLOSURE R12 K30 [PROTO_10]
   SETTABLEKS R12 R11 K13 ["keyExtractor"]
-  GETTABLEKS R12 R0 K30 ["Vlref"]
+  GETTABLEKS R12 R0 K31 ["Vlref"]
   SETTABLEKS R12 R11 K14 ["ref"]
   SETTABLEKS R2 R11 K15 ["data"]
   GETUPVAL R12 6
@@ -255,20 +302,28 @@ PROTO_11:
   SETTABLEKS R12 R11 K23 ["showsHorizontalScrollIndicator"]
   LOADB R12 0
   SETTABLEKS R12 R11 K24 ["showDefaultLoadingIndicators"]
-  GETTABLEKS R13 R0 K31 ["ShowHeaderLoadingIndicator"]
+  GETTABLEKS R13 R0 K32 ["ShowHeaderLoadingIndicator"]
   JUMPIFNOT R13 [+2]
   GETUPVAL R12 10
   JUMPIF R12 [+1]
   LOADNIL R12
   SETTABLEKS R12 R11 K25 ["ListHeaderComponent"]
-  GETTABLEKS R13 R0 K32 ["ShowFooterLoadingIndicator"]
+  GETTABLEKS R13 R0 K33 ["ShowFooterLoadingIndicator"]
   JUMPIFNOT R13 [+2]
   GETUPVAL R12 10
   JUMPIF R12 [+1]
   LOADNIL R12
   SETTABLEKS R12 R11 K26 ["ListFooterComponent"]
-  GETTABLEKS R12 R0 K33 ["OnScroll"]
+  GETTABLEKS R12 R0 K34 ["OnScroll"]
   SETTABLEKS R12 R11 K27 ["onScroll"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  GETUPVAL R13 11
+  DUPTABLE R14 K36 [{"openFiltersFn"}]
+  GETTABLEKS R15 R0 K37 ["OpenFiltersFn"]
+  SETTABLEKS R15 R14 K35 ["openFiltersFn"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K28 ["ListEmptyComponent"]
   CALL R9 2 1
   SETTABLEKS R9 R8 K11 ["VirtualizedList"]
   CALL R5 3 -1
@@ -303,8 +358,8 @@ MAIN:
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
   GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Clients"]
-  GETTABLEKS R7 R8 K14 ["ActivityHistoryClient"]
+  GETTABLEKS R8 R9 K13 ["Util"]
+  GETTABLEKS R7 R8 K14 ["SharedTypes"]
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
   GETTABLEKS R10 R0 K10 ["Src"]
@@ -314,62 +369,83 @@ MAIN:
   GETIMPORT R8 K4 [require]
   GETTABLEKS R11 R0 K10 ["Src"]
   GETTABLEKS R10 R11 K15 ["Components"]
-  GETTABLEKS R9 R10 K17 ["ActivityHistoryLoadingIndicator"]
+  GETTABLEKS R9 R10 K17 ["ActivityHistoryBubbleListSectionHeader"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
   GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Util"]
-  GETTABLEKS R10 R11 K19 ["ActivityHistoryEventTranslated"]
+  GETTABLEKS R11 R12 K15 ["Components"]
+  GETTABLEKS R10 R11 K18 ["ActivityHistoryBubbleListFooter"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
   GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K20 ["Hooks"]
-  GETTABLEKS R11 R12 K21 ["UsernameCache"]
+  GETTABLEKS R12 R13 K13 ["Util"]
+  GETTABLEKS R11 R12 K19 ["ActivityHistoryEventTranslated"]
   CALL R10 1 1
-  GETTABLEKS R11 R4 K9 ["VirtualizedList"]
-  GETTABLEKS R12 R2 K22 ["UI"]
-  GETTABLEKS R14 R2 K23 ["ContextServices"]
-  GETTABLEKS R13 R14 K24 ["Localization"]
-  GETTABLEKS R15 R3 K25 ["Dictionary"]
-  GETTABLEKS R14 R15 K26 ["keys"]
-  GETTABLEKS R16 R3 K25 ["Dictionary"]
-  GETTABLEKS R15 R16 K27 ["values"]
-  GETTABLEKS R16 R12 K28 ["Button"]
-  GETTABLEKS R18 R2 K29 ["Styling"]
-  GETTABLEKS R17 R18 K30 ["joinTags"]
-  DUPCLOSURE R18 K31 [PROTO_0]
-  DUPCLOSURE R19 K32 [PROTO_1]
-  DUPCLOSURE R20 K33 [PROTO_2]
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K10 ["Src"]
+  GETTABLEKS R13 R14 K15 ["Components"]
+  GETTABLEKS R12 R13 K20 ["ListLoadingIndicator"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K10 ["Src"]
+  GETTABLEKS R14 R15 K15 ["Components"]
+  GETTABLEKS R13 R14 K21 ["ListEmptyComponent"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R16 R0 K10 ["Src"]
+  GETTABLEKS R15 R16 K22 ["Hooks"]
+  GETTABLEKS R14 R15 K23 ["UsernameCache"]
+  CALL R13 1 1
+  GETTABLEKS R14 R4 K9 ["VirtualizedList"]
+  GETTABLEKS R16 R2 K24 ["ContextServices"]
+  GETTABLEKS R15 R16 K25 ["Localization"]
+  GETTABLEKS R17 R3 K26 ["Dictionary"]
+  GETTABLEKS R16 R17 K27 ["keys"]
+  GETTABLEKS R18 R3 K26 ["Dictionary"]
+  GETTABLEKS R17 R18 K28 ["values"]
+  GETTABLEKS R19 R2 K29 ["Styling"]
+  GETTABLEKS R18 R19 K30 ["joinTags"]
+  GETTABLEKS R20 R2 K13 ["Util"]
+  GETTABLEKS R19 R20 K31 ["LayoutOrderIterator"]
+  GETTABLEKS R20 R19 K32 ["new"]
+  CALL R20 0 1
+  DUPCLOSURE R21 K33 [PROTO_0]
+  DUPCLOSURE R22 K34 [PROTO_1]
+  DUPCLOSURE R23 K35 [PROTO_2]
   CAPTURE VAL R5
-  DUPCLOSURE R21 K34 [PROTO_3]
+  DUPCLOSURE R24 K36 [PROTO_3]
   CAPTURE VAL R1
-  CAPTURE VAL R17
+  CAPTURE VAL R18
+  CAPTURE VAL R8
+  CAPTURE VAL R20
   CAPTURE VAL R7
-  DUPCLOSURE R22 K35 [PROTO_6]
-  CAPTURE VAL R10
-  CAPTURE VAL R1
-  CAPTURE VAL R13
   CAPTURE VAL R9
-  CAPTURE VAL R14
-  DUPTABLE R23 K40 [{"minimumViewTime", "viewAreaCoveragePercentThreshold", "itemVisiblePercentThreshold", "waitForInteraction"}]
-  LOADN R24 208
-  SETTABLEKS R24 R23 K36 ["minimumViewTime"]
-  LOADN R24 80
-  SETTABLEKS R24 R23 K37 ["viewAreaCoveragePercentThreshold"]
-  LOADNIL R24
-  SETTABLEKS R24 R23 K38 ["itemVisiblePercentThreshold"]
-  LOADB R24 0
-  SETTABLEKS R24 R23 K39 ["waitForInteraction"]
-  DUPCLOSURE R24 K41 [PROTO_11]
-  CAPTURE VAL R22
+  DUPCLOSURE R25 K37 [PROTO_6]
+  CAPTURE VAL R13
   CAPTURE VAL R1
   CAPTURE VAL R15
-  CAPTURE VAL R23
+  CAPTURE VAL R10
+  CAPTURE VAL R16
+  DUPTABLE R26 K42 [{"minimumViewTime", "viewAreaCoveragePercentThreshold", "itemVisiblePercentThreshold", "waitForInteraction"}]
+  LOADN R27 208
+  SETTABLEKS R27 R26 K38 ["minimumViewTime"]
+  LOADN R27 80
+  SETTABLEKS R27 R26 K39 ["viewAreaCoveragePercentThreshold"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K40 ["itemVisiblePercentThreshold"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K41 ["waitForInteraction"]
+  DUPCLOSURE R27 K43 [PROTO_11]
+  CAPTURE VAL R25
+  CAPTURE VAL R1
   CAPTURE VAL R17
-  CAPTURE VAL R11
+  CAPTURE VAL R26
   CAPTURE VAL R18
-  CAPTURE VAL R19
-  CAPTURE VAL R20
+  CAPTURE VAL R14
   CAPTURE VAL R21
-  CAPTURE VAL R8
-  RETURN R24 1
+  CAPTURE VAL R22
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  RETURN R27 1

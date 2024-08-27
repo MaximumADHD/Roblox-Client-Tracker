@@ -55,13 +55,45 @@ PROTO_1:
   RETURN R2 1
 
 PROTO_2:
-  NEWTABLE R0 1 0
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["table"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["Instances must be a table"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  GETIMPORT R2 K7 [ipairs]
+  MOVE R3 R1
+  CALL R2 1 3
+  FORGPREP_INEXT R2
+  LOADK R10 K8 ["Instance"]
+  NAMECALL R8 R6 K9 ["IsA"]
+  CALL R8 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R7 K5 [assert]
+  CALL R7 -1 0
+  FORGLOOP R2 2 [inext] [-9]
+  LOADK R2 K10 ["TEST"]
+  RETURN R2 1
+
+PROTO_3:
+  NEWTABLE R0 2 0
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+4]
   DUPCLOSURE R1 K0 [PROTO_1]
-  SETTABLEKS R1 R0 K1 ["DEPRECATED_SerializeInstances"]
+  SETTABLEKS R1 R0 K1 ["SerializeInstances"]
+  JUMP [+3]
+  DUPCLOSURE R1 K2 [PROTO_2]
+  SETTABLEKS R1 R0 K3 ["DEPRECATED_SerializeInstances"]
   NEWTABLE R1 0 1
-  GETUPVAL R2 0
-  DUPTABLE R3 K3 [{"StudioAssetService"}]
-  SETTABLEKS R0 R3 K2 ["StudioAssetService"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K5 [{"StudioAssetService"}]
+  SETTABLEKS R0 R3 K4 ["StudioAssetService"]
   CALL R2 1 -1
   SETLIST R1 R2 -1 [1]
   RETURN R1 1
@@ -80,11 +112,18 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R5 R3 K8 ["Util"]
   GETTABLEKS R4 R5 K9 ["ThunkWithArgsMiddleware"]
-  DUPCLOSURE R5 K10 [PROTO_0]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Core"]
+  GETTABLEKS R8 R9 K8 ["Util"]
+  GETTABLEKS R7 R8 K11 ["SharedFlags"]
+  GETTABLEKS R6 R7 K12 ["getFFlagToolboxMigrateToOpenCloudUpload"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K13 [PROTO_0]
   CAPTURE VAL R2
-  DUPCLOSURE R6 K11 [PROTO_2]
+  DUPCLOSURE R7 K14 [PROTO_3]
+  CAPTURE VAL R5
   CAPTURE VAL R4
-  DUPTABLE R7 K14 [{"createThunkMiddleware", "mustSetFlag"}]
-  SETTABLEKS R6 R7 K12 ["createThunkMiddleware"]
-  SETTABLEKS R5 R7 K13 ["mustSetFlag"]
-  RETURN R7 1
+  DUPTABLE R8 K17 [{"createThunkMiddleware", "mustSetFlag"}]
+  SETTABLEKS R7 R8 K15 ["createThunkMiddleware"]
+  SETTABLEKS R6 R8 K16 ["mustSetFlag"]
+  RETURN R8 1

@@ -76,7 +76,6 @@ type AnalyticsWrapperMeta = {
 	reportBanMessageEvent: (AnalyticsWrapper, string) -> (),
 	reportReconnectDueToMissedSequence: (AnalyticsWrapper) -> (),
 	reportOutOfOrderSequence: (AnalyticsWrapper) -> (),
-	reportReceivedNudge: (AnalyticsWrapper, { type: string, deliveryTime: string }, number, string) -> (),
 	reportClosedNudge: (AnalyticsWrapper, number, string) -> (),
 	reportAcknowledgedNudge: (AnalyticsWrapper, number, string) -> (),
 	reportDeniedNudge: (AnalyticsWrapper, number, string) -> (),
@@ -188,23 +187,6 @@ end
 
 function Analytics:reportOutOfOrderSequence()
 	self._impl:ReportCounter("voiceChat-outOfOrderSequence", 1)
-end
-
-function Analytics:reportReceivedNudge(
-	report: { type: string, deliveryTime: string },
-	userId: number,
-	voiceSessionId: string
-)
-	local deliveryTime = (DateTime.fromIsoDate(report.deliveryTime) :: DateTime).UnixTimestampMillis
-	local durationInMs = DateTime.now().UnixTimestampMillis - deliveryTime
-	self._impl:ReportCounter("voicechat-receivednudge", 1)
-	self._impl:ReportCounter("voicechat-receivednudgeduration", durationInMs)
-	self._impl:SendEventDeferred("client", "voiceChat", "receivedNudge", {
-		type = report.type,
-		durationInMs = durationInMs,
-		userId = userId,
-		voiceSessionId = voiceSessionId,
-	})
 end
 
 function Analytics:reportClosedNudge(userId: number, voiceSessionId: string)

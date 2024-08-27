@@ -58,66 +58,58 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Cryo"]
+  GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Dash"]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Components"]
+  GETTABLEKS R3 R4 K10 ["AnimationController"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["React"]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Components"]
+  GETTABLEKS R4 R5 K11 ["EquippedItemsSidebar"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Components"]
-  GETTABLEKS R5 R6 K12 ["AnimationController"]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K12 ["Parent"]
+  GETTABLEKS R5 R6 K13 ["StageType"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Components"]
-  GETTABLEKS R6 R7 K13 ["EquippedItemsSidebar"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Util"]
+  GETTABLEKS R6 R7 K15 ["Constants"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K14 ["Parent"]
-  GETTABLEKS R7 R8 K15 ["StageType"]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Util"]
+  GETTABLEKS R7 R8 K16 ["EquipmentStateContext"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K10 ["Src"]
-  GETTABLEKS R9 R10 K16 ["Util"]
-  GETTABLEKS R8 R9 K17 ["Constants"]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K17 ["Types"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K16 ["Util"]
-  GETTABLEKS R9 R10 K18 ["EquipmentStateContext"]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Hooks"]
+  GETTABLEKS R9 R10 K19 ["useOnClothingLayerOrderChanged"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K19 ["Types"]
-  CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K20 ["Hooks"]
-  GETTABLEKS R11 R12 K21 ["useOnClothingLayerOrderChanged"]
-  CALL R10 1 1
-  DUPCLOSURE R11 K22 [PROTO_0]
-  CAPTURE VAL R3
+  DUPCLOSURE R9 K20 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
   CAPTURE VAL R8
-  CAPTURE VAL R10
-  CAPTURE VAL R7
   CAPTURE VAL R5
-  CAPTURE VAL R4
-  DUPTABLE R12 K26 [{"tabs", "render", "getPreviewCameraModifications"}]
-  NEWTABLE R13 0 4
-  LOADK R14 K27 ["animations"]
-  LOADK R15 K28 ["clothing"]
-  LOADK R16 K29 ["accessories"]
-  LOADK R17 K30 ["body"]
-  SETLIST R13 R14 4 [1]
-  SETTABLEKS R13 R12 K23 ["tabs"]
-  SETTABLEKS R11 R12 K24 ["render"]
-  DUPCLOSURE R13 K31 [PROTO_1]
-  SETTABLEKS R13 R12 K25 ["getPreviewCameraModifications"]
-  RETURN R12 1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  DUPTABLE R10 K24 [{"tabs", "render", "getPreviewCameraModifications"}]
+  NEWTABLE R11 0 4
+  LOADK R12 K25 ["animations"]
+  LOADK R13 K26 ["clothing"]
+  LOADK R14 K27 ["accessories"]
+  LOADK R15 K28 ["body"]
+  SETLIST R11 R12 4 [1]
+  SETTABLEKS R11 R10 K21 ["tabs"]
+  SETTABLEKS R9 R10 K22 ["render"]
+  DUPCLOSURE R11 K29 [PROTO_1]
+  SETTABLEKS R11 R10 K23 ["getPreviewCameraModifications"]
+  RETURN R10 1

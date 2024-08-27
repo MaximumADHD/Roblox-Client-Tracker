@@ -47,36 +47,48 @@ PROTO_5:
   LOADB R3 0
   SETTABLEKS R3 R2 K2 ["enabled"]
   SETTABLEKS R2 R0 K4 ["state"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["new"]
+  GETTABLEKS R3 R1 K0 ["Plugin"]
+  NAMECALL R3 R3 K6 ["GetMouse"]
+  CALL R3 1 -1
+  CALL R2 -1 1
+  SETTABLEKS R2 R0 K7 ["mouse"]
+  GETTABLEKS R2 R0 K7 ["mouse"]
+  LOADK R4 K8 ["Arrow"]
+  LOADN R5 0
+  NAMECALL R2 R2 K9 ["__pushCursor"]
+  CALL R2 3 0
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K5 ["toggleEnabled"]
+  SETTABLEKS R2 R0 K10 ["toggleEnabled"]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K6 ["onClose"]
+  SETTABLEKS R2 R0 K11 ["onClose"]
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K7 ["onRestore"]
+  SETTABLEKS R2 R0 K12 ["onRestore"]
   NEWCLOSURE R2 P3
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K8 ["onWidgetEnabledChanged"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K9 ["Localization"]
-  GETTABLEKS R2 R3 K10 ["new"]
-  DUPTABLE R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R2 R0 K13 ["onWidgetEnabledChanged"]
   GETUPVAL R4 2
-  SETTABLEKS R4 R3 K11 ["stringResourceTable"]
+  GETTABLEKS R3 R4 K14 ["Localization"]
+  GETTABLEKS R2 R3 K5 ["new"]
+  DUPTABLE R3 K18 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R4 3
-  SETTABLEKS R4 R3 K12 ["translationResourceTable"]
-  LOADK R4 K15 ["ActivityFeed"]
-  SETTABLEKS R4 R3 K13 ["pluginName"]
+  SETTABLEKS R4 R3 K15 ["stringResourceTable"]
+  GETUPVAL R4 4
+  SETTABLEKS R4 R3 K16 ["translationResourceTable"]
+  LOADK R4 K19 ["ActivityFeed"]
+  SETTABLEKS R4 R3 K17 ["pluginName"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K16 ["localization"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K17 ["Analytics"]
-  GETTABLEKS R2 R3 K10 ["new"]
-  GETUPVAL R3 4
+  SETTABLEKS R2 R0 K20 ["localization"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K21 ["Analytics"]
+  GETTABLEKS R2 R3 K5 ["new"]
+  GETUPVAL R3 5
   CALL R2 1 1
-  SETTABLEKS R2 R0 K18 ["analytics"]
+  SETTABLEKS R2 R0 K22 ["analytics"]
   RETURN R0 0
 
 PROTO_6:
@@ -258,6 +270,7 @@ MAIN:
   CALL R17 2 1
   DUPCLOSURE R18 K30 [PROTO_5]
   CAPTURE VAL R11
+  CAPTURE VAL R9
   CAPTURE VAL R7
   CAPTURE VAL R12
   CAPTURE VAL R13

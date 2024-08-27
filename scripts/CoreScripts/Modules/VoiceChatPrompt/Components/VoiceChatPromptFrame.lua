@@ -22,6 +22,7 @@ local validateStyle = UIBlox.Style.Validator.validateStyle
 local PromptType = require(script.Parent.Parent.PromptType)
 local InGameMenuPolicy = require(script.Parent.Parent.Parent.InGameMenu.InGameMenuPolicy)
 local VoiceChatConsentModal = require(script.Parent.VoiceChatConsentModal)
+local VoiceChatTooltip = require(script.Parent.VoiceChatTooltip)
 
 local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 
@@ -42,6 +43,9 @@ local GetFFlagEnableInExpVoiceConsentAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceConsentAnalytics)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+local GetFFlagEnableSeamlessVoiceUX = require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceUX)
+local GetFIntVoiceJoinM3ToastDurationSeconds =
+	require(RobloxGui.Modules.Flags.GetFIntVoiceJoinM3ToastDurationSeconds)
 
 local RobloxTranslator
 if FFlagEnableVoiceChatStorybookFix() then
@@ -95,6 +99,12 @@ local PromptTitle = {
 	[PromptType.VoiceConsentModalV1] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
 	[PromptType.VoiceConsentModalV2] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatWithOthers"),
 	[PromptType.VoiceConsentModalV3] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
+	[PromptType.JoinVoiceAndRequestMicPermissions] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.JoinedVoiceChat"
+	),
+	[PromptType.JoinVoiceSTUX] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
+	[PromptType.LeaveVoice] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.LeaveVoiceChat"),
+	[PromptType.JoinVoice] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChatV2"),
 }
 local PromptSubTitle = {
 	[PromptType.None] = "",
@@ -146,6 +156,12 @@ local PromptSubTitle = {
 	[PromptType.VoiceConsentModalV3] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.Subtitle.InExpVoiceUpsell2"
 	),
+	[PromptType.JoinVoiceAndRequestMicPermissions] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.DisconnectOrMuteAndAccessMic"
+	),
+	[PromptType.JoinVoiceSTUX] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.DisconnectOrMuteHere"
+	),
 }
 
 if runService:IsStudio() then
@@ -186,6 +202,10 @@ end
 
 local function PromptTypeIsVoiceConsent(promptType)
 	return promptType == PromptType.VoiceConsentDeclinedToast or promptType == PromptType.VoiceConsentAcceptedToast
+end
+
+local function PromptTypeIsConnectDisconnectToast(promptType)
+	return promptType == PromptType.JoinVoice or promptType == PromptType.LeaveVoice
 end
 
 local function ShouldShowBannedUntil(promptType)
@@ -284,9 +304,17 @@ function VoiceChatPromptFrame:init()
 				end
 			end
 
-			local iconImage = if GetFFlagEnableInExpVoiceUpsell() and PromptTypeIsVoiceConsent(promptType)
-				then Images["icons/controls/publicAudioJoin"]
-				else Images["icons/status/alert"]
+			local iconImage
+			if
+				(GetFFlagEnableInExpVoiceUpsell() and PromptTypeIsVoiceConsent(promptType))
+				or (GetFFlagEnableSeamlessVoiceUX() and promptType == PromptType.JoinVoiceAndRequestMicPermissions)
+			then
+				iconImage = Images["icons/controls/publicAudioJoin"]
+			elseif GetFFlagEnableSeamlessVoiceUX() and PromptTypeIsConnectDisconnectToast(promptType) then
+				iconImage = Images["icons/actions/info"]
+			else
+				iconImage = Images["icons/status/alert"]
+			end
 			self:setState({
 				showPrompt = true,
 				promptType = promptType,
@@ -609,14 +637,38 @@ function VoiceChatPromptFrame:render()
 					}),
 				}),
 		})
+	elseif GetFFlagEnableSeamlessVoiceUX() and self.state.promptType == PromptType.JoinVoiceSTUX then
+		voiceChatPromptFrame = Roact.createElement(VoiceChatTooltip, {
+			titleText = PromptTitle[self.state.promptType],
+			subtitleText = PromptSubTitle[self.state.promptType],
+			promptStyle = self.promptStyle,
+			showPrompt = self.state.showPrompt,
+			onClose = function()
+				self:setState({
+					showPrompt = false,
+				})
+			end,
+			onMenuOpen = self.hideOnMenuOpen,
+		})
 	else
+		local toastDuration = nil
+		if GetFFlagEnableSeamlessVoiceUX() then
+			if isNudgeToast then
+				toastDuration = GetFIntVoiceToxicityToastDurationSeconds()
+			elseif self.state.promptType == PromptType.JoinVoiceAndRequestMicPermissions then
+				toastDuration = GetFIntVoiceJoinM3ToastDurationSeconds()
+			else
+				toastDuration = TOAST_DURATION
+			end
+		end
+
 		voiceChatPromptFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 			[Roact.Change.AbsoluteSize] = self.onScreenSizeChanged,
 		}, {
 			Toast = self.state.promptType ~= PromptType.None and Roact.createElement(SlideFromTopToast, {
-				duration = if isNudgeToast then GetFIntVoiceToxicityToastDurationSeconds() else TOAST_DURATION,
+				duration = if isNudgeToast then GetFIntVoiceToxicityToastDurationSeconds() elseif GetFFlagEnableSeamlessVoiceUX() then toastDuration else TOAST_DURATION,
 				toastContent = self.state.toastContent,
 			}),
 			EventConnection = self.props.promptSignal and Roact.createElement(ExternalEventConnection, {

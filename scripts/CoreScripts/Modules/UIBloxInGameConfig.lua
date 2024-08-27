@@ -35,4 +35,6 @@ return {
 	enableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport(),
 	enableNavigationBarSelectionChangeFix = UIBloxFlags.GetFFlagUIBloxEnableNavigationBarSelectionCallbackFix(),
 	didMountUpdateFullPageModal = UIBloxFlags.GetFFlagUIBloxDidMountUpdateFullPageModal(),
+	useFoundationColors = SharedFlags.GetFFlagLuaAppEnableFoundationColors(),
+	fixLayerCollectorProviderAbsoluteSize = UIBloxFlags.GetFFlagFixLayerCollectorProviderAbsoluteSize(),
 }

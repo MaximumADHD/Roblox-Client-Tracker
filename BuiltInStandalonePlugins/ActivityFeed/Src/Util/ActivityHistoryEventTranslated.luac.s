@@ -14,31 +14,46 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  LOADK R2 K0 ["<b>"]
-  MOVE R3 R0
-  LOADK R4 K1 ["</b>"]
+  LOADK R2 K0 [""]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K2 [tostring]
+  CALL R5 1 1
+  MOVE R3 R5
+  LOADK R4 K0 [""]
   CONCAT R1 R2 R4
   RETURN R1 1
 
 PROTO_2:
-  LOADK R2 K0 ["<b><u>"]
-  MOVE R3 R0
-  LOADK R4 K1 ["</u></b>"]
+  LOADK R2 K0 [""]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K2 [tostring]
+  CALL R5 1 1
+  MOVE R3 R5
+  LOADK R4 K0 [""]
   CONCAT R1 R2 R4
   RETURN R1 1
 
 PROTO_3:
-  LOADK R2 K0 ["<b><u>"]
-  MOVE R3 R0
-  LOADK R4 K1 ["</u></b>"]
+  LOADK R2 K0 [""]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K2 [tostring]
+  CALL R5 1 1
+  MOVE R3 R5
+  LOADK R4 K0 [""]
   CONCAT R1 R2 R4
   RETURN R1 1
 
 PROTO_4:
   GETIMPORT R1 K2 [string.lower]
-  MOVE R2 R0
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K4 [tostring]
+  CALL R2 1 1
   CALL R1 1 1
-  JUMPIFNOTEQKS R1 K3 ["true"] [+3]
+  JUMPIFNOTEQKS R1 K5 ["true"] [+3]
   LOADB R1 1
   RETURN R1 1
   LOADB R1 0
@@ -139,12 +154,12 @@ PROTO_11:
   FORGPREP_NEXT R3
   GETUPVAL R9 1
   GETTABLE R8 R9 R7
-  JUMPIFEQKNIL R8 [+55]
+  JUMPIFEQKNIL R8 [+60]
   GETUPVAL R9 2
   GETUPVAL R11 1
   GETTABLE R10 R11 R7
   GETTABLE R8 R9 R10
-  JUMPIFEQKNIL R8 [+49]
+  JUMPIFEQKNIL R8 [+54]
   GETUPVAL R13 2
   GETUPVAL R15 1
   GETTABLE R14 R15 R7
@@ -175,15 +190,19 @@ PROTO_11:
   NAMECALL R15 R15 K12 ["getText"]
   CALL R15 4 1
   MOVE R11 R15
-  LOADK R12 K13 ["<b>"]
-  MOVE R13 R11
-  LOADK R14 K14 ["</b>"]
+  LOADK R12 K11 [""]
+  FASTCALL1 TOSTRING R11 [+3]
+  MOVE R16 R11
+  GETIMPORT R15 K14 [tostring]
+  CALL R15 1 1
+  MOVE R13 R15
+  LOADK R14 K11 [""]
   CONCAT R10 R12 R14
   FASTCALL2 TABLE_INSERT R2 R10 [+4]
   MOVE R9 R2
   GETIMPORT R8 K17 [table.insert]
   CALL R8 2 0
-  FORGLOOP R3 2 [-59]
+  FORGLOOP R3 2 [-64]
   LENGTH R3 R2
   LOADN R4 0
   JUMPIFNOTLT R4 R3 [+14]
@@ -343,16 +362,16 @@ PROTO_13:
   CAPTURE VAL R1
   CAPTURE VAL R12
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K18 [0] [+86]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K18 [0] [+94]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K28 ["Init"]
+  LOADK R15 K30 ["Init"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -360,18 +379,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K34 ["Description.Init"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K36 ["Description.Init"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -379,14 +398,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -396,25 +415,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K37 [1] [+135]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K39 [1] [+147]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K41 ["ArchivedExperience"]
+  LOADK R15 K43 ["ArchivedExperience"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -422,28 +445,31 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
-  GETTABLEKS R18 R2 K44 ["metaData"]
-  GETTABLEKS R17 R18 K43 ["Action"]
-  GETIMPORT R18 K47 [string.lower]
-  MOVE R19 R17
+  GETTABLEKS R18 R2 K46 ["metaData"]
+  GETTABLEKS R17 R18 K45 ["Action"]
+  GETIMPORT R18 K49 [string.lower]
+  FASTCALL1 TOSTRING R17 [+3]
+  MOVE R20 R17
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
   CALL R18 1 1
-  JUMPIFNOTEQKS R18 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R18 K50 ["true"] [+3]
   LOADB R16 1
   JUMP [+1]
   LOADB R16 0
   JUMPIFNOT R16 [+35]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K49 ["Description.ArchivedExperience"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K51 ["Description.ArchivedExperience"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -451,26 +477,26 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   JUMPIF R15 [+34]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K50 ["Description.RestoredExperience"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K52 ["Description.RestoredExperience"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -478,14 +504,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -495,25 +521,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K51 [2] [+189]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K53 [2] [+202]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K54 ["PlayabilityChanged"]
+  LOADK R15 K56 ["PlayabilityChanged"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -521,24 +551,24 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K55 ["Description.PlayabilityChanged"]
-  DUPTABLE R17 K57 [{"playability"}]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K58 ["Playability"]
-  JUMPIFNOTEQKS R20 K59 ["Public"] [+36]
+  LOADK R16 K57 ["Description.PlayabilityChanged"]
+  DUPTABLE R17 K59 [{"playability"}]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K60 ["Playability"]
+  JUMPIFNOTEQKS R20 K61 ["Public"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K60 ["Description.ActionPublic"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K62 ["Description.ActionPublic"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -546,29 +576,29 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+75]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K58 ["Playability"]
-  JUMPIFNOTEQKS R20 K61 ["Private"] [+36]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K60 ["Playability"]
+  JUMPIFNOTEQKS R20 K63 ["Private"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K62 ["Description.ActionPrivate"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K64 ["Description.ActionPrivate"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -576,26 +606,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K63 ["Description.ActionFriends"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K65 ["Description.ActionFriends"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -603,21 +633,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K56 ["playability"]
+  SETTABLEKS R18 R17 K58 ["playability"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -626,14 +660,18 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
@@ -641,19 +679,19 @@ PROTO_13:
   MOVE R17 R19
   LOADK R18 K11 ["/configure"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K66 [3] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K66 [3] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K67 ["NotificationStringCreated"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -661,17 +699,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K68 ["Description.NotificationStringCreated"]
   DUPTABLE R17 K70 [{"stringName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K71 ["StringName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K69 ["stringName"]
   CALL R15 2 1
@@ -682,14 +724,18 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
@@ -697,19 +743,19 @@ PROTO_13:
   MOVE R17 R19
   LOADK R18 K72 ["/notifications"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K73 [4] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K73 [4] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K74 ["NotificationStringDeleted"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -717,17 +763,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K75 ["Description.NotificationStringDeleted"]
   DUPTABLE R17 K70 [{"stringName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K71 ["StringName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K69 ["stringName"]
   CALL R15 2 1
@@ -738,14 +788,18 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
@@ -753,19 +807,19 @@ PROTO_13:
   MOVE R17 R19
   LOADK R18 K72 ["/notifications"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K76 [5] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K76 [5] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K77 ["NotificationStringUpdated"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -773,17 +827,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K78 ["Description.NotificationStringUpdated"]
   DUPTABLE R17 K70 [{"stringName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K71 ["StringName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K69 ["stringName"]
   CALL R15 2 1
@@ -794,14 +852,18 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
@@ -809,19 +871,19 @@ PROTO_13:
   MOVE R17 R19
   LOADK R18 K72 ["/notifications"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K79 [6] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K79 [6] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K80 ["AvatarSettingsAvatarType"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -829,17 +891,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K81 ["Description.AvatarSettingsAvatarType"]
   DUPTABLE R17 K83 [{"avatarType"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K84 ["AvatarType"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K82 ["avatarType"]
   CALL R15 2 1
@@ -850,25 +916,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K85 [7] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K85 [7] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K86 ["AvatarSettingsAnimation"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -876,17 +946,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K87 ["Description.AvatarSettingsAnimation"]
   DUPTABLE R17 K89 [{"animation"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K90 ["Animation"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K88 ["animation"]
   CALL R15 2 1
@@ -897,25 +971,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K91 [8] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K91 [8] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K92 ["AvatarSettingsCollision"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -923,17 +1001,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K93 ["Description.AvatarSettingsCollision"]
   DUPTABLE R17 K95 [{"collision"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K96 ["Collision"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K94 ["collision"]
   CALL R15 2 1
@@ -944,25 +1026,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K97 [9] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K97 [9] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K98 ["AvatarSettingsScaleHeight"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -970,17 +1056,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K99 ["Description.AvatarSettingsScaleHeight"]
   DUPTABLE R17 K101 [{"scale"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K102 ["Scale"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K100 ["scale"]
   CALL R15 2 1
@@ -991,25 +1081,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K103 [10] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K103 [10] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K104 ["AvatarSettingsScaleWidth"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1017,17 +1111,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K105 ["Description.AvatarSettingsScaleWidth"]
   DUPTABLE R17 K101 [{"scale"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K102 ["Scale"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K100 ["scale"]
   CALL R15 2 1
@@ -1038,25 +1136,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K106 [11] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K106 [11] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K107 ["AvatarSettingsScaleHead"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1064,17 +1166,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K108 ["Description.AvatarSettingsScaleHead"]
   DUPTABLE R17 K101 [{"scale"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K102 ["Scale"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K100 ["scale"]
   CALL R15 2 1
@@ -1085,25 +1191,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K109 [12] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K109 [12] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K110 ["AvatarSettingsScaleBodyType"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1111,17 +1221,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K111 ["Description.AvatarSettingsScaleBodyType"]
   DUPTABLE R17 K101 [{"scale"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K102 ["Scale"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K100 ["scale"]
   CALL R15 2 1
@@ -1132,25 +1246,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K112 [13] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K112 [13] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K113 ["AvatarSettingsScaleProportions"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1158,17 +1276,21 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K114 ["Description.AvatarSettingsScaleProportions"]
   DUPTABLE R17 K101 [{"scale"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K102 ["Scale"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K100 ["scale"]
   CALL R15 2 1
@@ -1179,25 +1301,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K115 [14] [+86]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K115 [14] [+94]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K116 ["AvatarSettingsBodyParts"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1205,18 +1331,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
   LOADK R19 K117 ["Description.AvatarSettingsBodyParts"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -1224,14 +1350,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -1241,25 +1367,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K118 [15] [+86]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K118 [15] [+94]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K119 ["AvatarSettingsClothing"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1267,18 +1397,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
   LOADK R19 K120 ["Description.AvatarSettingsClothing"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -1286,14 +1416,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -1303,25 +1433,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K121 [16] [+87]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K121 [16] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K122 ["ExperienceName"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1329,24 +1463,32 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
   LOADK R16 K123 ["Description.ExperienceName"]
   DUPTABLE R17 K126 [{"newName", "oldName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K127 ["NewName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K124 ["newName"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K130 ["OldName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K128 ["OldName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K125 ["oldName"]
   CALL R15 2 1
@@ -1357,14 +1499,18 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
@@ -1372,19 +1518,19 @@ PROTO_13:
   MOVE R17 R19
   LOADK R18 K11 ["/configure"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K131 [17] [+97]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K129 [17] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K132 ["ExperienceDescription"]
+  LOADK R15 K130 ["ExperienceDescription"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1392,18 +1538,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K133 ["Description.ExperienceDescription"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K131 ["Description.ExperienceDescription"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -1411,14 +1557,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -1428,14 +1574,18 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
@@ -1443,19 +1593,19 @@ PROTO_13:
   MOVE R17 R19
   LOADK R18 K11 ["/configure"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K134 [18] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K132 [18] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K135 ["ExperienceGenre"]
+  LOADK R15 K133 ["ExperienceGenre"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1463,19 +1613,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K136 ["Description.ExperienceGenre"]
-  DUPTABLE R17 K138 [{"genre"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K139 ["Genre"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K134 ["Description.ExperienceGenre"]
+  DUPTABLE R17 K136 [{"genre"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K137 ["Genre"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K137 ["genre"]
+  SETTABLEKS R18 R17 K135 ["genre"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -1484,14 +1638,18 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
@@ -1499,19 +1657,19 @@ PROTO_13:
   MOVE R17 R19
   LOADK R18 K11 ["/configure"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K140 [19] [+145]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K138 [19] [+162]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K141 ["SecuritySettingsHTTPRequests"]
+  LOADK R15 K139 ["SecuritySettingsHTTPRequests"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1519,31 +1677,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K142 ["Description.SecuritySettingsHTTPRequests"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K140 ["Description.SecuritySettingsHTTPRequests"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -1551,26 +1712,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -1578,21 +1739,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -1601,25 +1766,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K147 [20] [+156]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K145 [20] [+173]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K148 ["SecuritySettingsStudioAccessToAPI"]
+  LOADK R15 K146 ["SecuritySettingsStudioAccessToAPI"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1627,31 +1796,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K149 ["Description.SecuritySettingsStudioAccessToAPI"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K147 ["Description.SecuritySettingsStudioAccessToAPI"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -1659,26 +1831,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -1686,21 +1858,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -1709,14 +1885,18 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
@@ -1724,19 +1904,19 @@ PROTO_13:
   MOVE R17 R19
   LOADK R18 K11 ["/configure"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K150 [21] [+145]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K148 [21] [+162]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K151 ["SecuritySettingsThirdPartySales"]
+  LOADK R15 K149 ["SecuritySettingsThirdPartySales"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1744,31 +1924,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K152 ["Description.SecuritySettingsThirdPartySales"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K150 ["Description.SecuritySettingsThirdPartySales"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -1776,26 +1959,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -1803,21 +1986,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -1826,25 +2013,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K153 [22] [+145]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K151 [22] [+162]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K154 ["SecuritySettingsThirdPartyTeleports"]
+  LOADK R15 K152 ["SecuritySettingsThirdPartyTeleports"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1852,31 +2043,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K155 ["Description.SecuritySettingsThirdPartyTeleports"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K153 ["Description.SecuritySettingsThirdPartyTeleports"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -1884,26 +2078,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -1911,21 +2105,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -1934,25 +2132,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K156 [23] [+86]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K154 [23] [+94]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K157 ["ExperienceShutDown"]
+  LOADK R15 K155 ["ExperienceShutDown"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -1960,18 +2162,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K158 ["Description.ExperienceShutDown"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K156 ["Description.ExperienceShutDown"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -1979,14 +2181,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -1996,25 +2198,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K159 [24] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K157 [24] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K160 ["SocialLinksAdded"]
+  LOADK R15 K158 ["SocialLinksAdded"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2022,19 +2228,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K161 ["Description.SocialLinksAdded"]
-  DUPTABLE R17 K163 [{"channel"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K164 ["Channel"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K159 ["Description.SocialLinksAdded"]
+  DUPTABLE R17 K161 [{"channel"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K162 ["Channel"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K162 ["channel"]
+  SETTABLEKS R18 R17 K160 ["channel"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2043,34 +2253,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K165 ["/social-links"]
+  LOADK R18 K163 ["/social-links"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K166 [25] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K164 [25] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K167 ["SocialLinksRemoved"]
+  LOADK R15 K165 ["SocialLinksRemoved"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2078,19 +2292,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K168 ["Description.SocialLinksRemoved"]
-  DUPTABLE R17 K163 [{"channel"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K164 ["Channel"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K166 ["Description.SocialLinksRemoved"]
+  DUPTABLE R17 K161 [{"channel"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K162 ["Channel"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K162 ["channel"]
+  SETTABLEKS R18 R17 K160 ["channel"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2099,34 +2317,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K165 ["/social-links"]
+  LOADK R18 K163 ["/social-links"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K169 [26] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K167 [26] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K170 ["SocialLinksUpdated"]
+  LOADK R15 K168 ["SocialLinksUpdated"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2134,19 +2356,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K171 ["Description.SocialLinksUpdated"]
-  DUPTABLE R17 K163 [{"channel"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K164 ["Channel"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K169 ["Description.SocialLinksUpdated"]
+  DUPTABLE R17 K161 [{"channel"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K162 ["Channel"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K162 ["channel"]
+  SETTABLEKS R18 R17 K160 ["channel"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2155,34 +2381,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K165 ["/social-links"]
+  LOADK R18 K163 ["/social-links"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K172 [27] [+145]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K170 [27] [+162]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K173 ["SpatialVoice"]
+  LOADK R15 K171 ["SpatialVoice"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2190,31 +2420,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K174 ["Description.SpatialVoice"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K172 ["Description.SpatialVoice"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2222,26 +2455,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2249,21 +2482,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2272,25 +2509,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K175 [28] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K173 [28] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K176 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R15 K174 ["WorldSettingsWorkSpaceGravity"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2298,19 +2539,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K177 ["Description.WorldSettingsWorkSpaceGravity"]
-  DUPTABLE R17 K179 [{"gravity"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K180 ["Gravity"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K175 ["Description.WorldSettingsWorkSpaceGravity"]
+  DUPTABLE R17 K177 [{"gravity"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K178 ["Gravity"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K178 ["gravity"]
+  SETTABLEKS R18 R17 K176 ["gravity"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2319,25 +2564,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K181 [29] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K179 [29] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K182 ["WorldSettingsJumpHeight"]
+  LOADK R15 K180 ["WorldSettingsJumpHeight"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2345,19 +2594,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K183 ["Description.WorldSettingsJumpHeight"]
-  DUPTABLE R17 K185 [{"jumpHeight"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K186 ["JumpHeight"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K181 ["Description.WorldSettingsJumpHeight"]
+  DUPTABLE R17 K183 [{"jumpHeight"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K184 ["JumpHeight"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K184 ["jumpHeight"]
+  SETTABLEKS R18 R17 K182 ["jumpHeight"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2366,25 +2619,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K187 [30] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K185 [30] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K188 ["WorldSettingsJumpPower"]
+  LOADK R15 K186 ["WorldSettingsJumpPower"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2392,19 +2649,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K189 ["Description.WorldSettingsJumpPower"]
-  DUPTABLE R17 K191 [{"jumpPower"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K192 ["JumpPower"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K187 ["Description.WorldSettingsJumpPower"]
+  DUPTABLE R17 K189 [{"jumpPower"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K190 ["JumpPower"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K190 ["jumpPower"]
+  SETTABLEKS R18 R17 K188 ["jumpPower"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2413,25 +2674,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K193 [31] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K191 [31] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K194 ["WorldSettingsWalkSpeed"]
+  LOADK R15 K192 ["WorldSettingsWalkSpeed"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2439,19 +2704,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K195 ["Description.WorldSettingsWalkSpeed"]
-  DUPTABLE R17 K197 [{"walkSpeed"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K198 ["WalkSpeed"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K193 ["Description.WorldSettingsWalkSpeed"]
+  DUPTABLE R17 K195 [{"walkSpeed"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K196 ["WalkSpeed"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K196 ["walkSpeed"]
+  SETTABLEKS R18 R17 K194 ["walkSpeed"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2460,25 +2729,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K199 [32] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K197 [32] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K200 ["WorldSettingsMaxSlopeAngle"]
+  LOADK R15 K198 ["WorldSettingsMaxSlopeAngle"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2486,19 +2759,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K201 ["Description.WorldSettingsMaxSlopeAngle"]
-  DUPTABLE R17 K203 [{"maxSlopeAngle"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K204 ["MaxSlopeAngle"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K199 ["Description.WorldSettingsMaxSlopeAngle"]
+  DUPTABLE R17 K201 [{"maxSlopeAngle"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K202 ["MaxSlopeAngle"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K202 ["maxSlopeAngle"]
+  SETTABLEKS R18 R17 K200 ["maxSlopeAngle"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2507,25 +2784,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K205 [33] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K203 [33] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K206 ["SentUpdate"]
+  LOADK R15 K204 ["SentUpdate"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2533,19 +2814,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K207 ["Description.SentUpdate"]
-  DUPTABLE R17 K209 [{"update"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K210 ["Update"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K205 ["Description.SentUpdate"]
+  DUPTABLE R17 K207 [{"update"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K208 ["Update"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K208 ["update"]
+  SETTABLEKS R18 R17 K206 ["update"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2554,34 +2839,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K212 [34] [+166]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K210 [34] [+188]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K213 ["SupportedLanguages"]
+  LOADK R15 K211 ["SupportedLanguages"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2589,38 +2878,45 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K215 ["Description.SupportedLanguages"]
-  DUPTABLE R17 K217 [{"language", "action"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K213 ["Description.SupportedLanguages"]
+  DUPTABLE R17 K215 [{"language", "action"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K219 ["Description.ActionAdded"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K217 ["Description.ActionAdded"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2628,26 +2924,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K220 ["Description.ActionRemoved"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K218 ["Description.ActionRemoved"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2655,21 +2951,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2678,34 +2978,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K221 ["/localization"]
+  LOADK R18 K219 ["/localization"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K222 [35] [+166]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K220 [35] [+188]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K223 ["AutoTranslationExperienceInformation"]
+  LOADK R15 K221 ["AutoTranslationExperienceInformation"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2713,38 +3017,45 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K224 ["Description.AutoTranslationExperienceInformation"]
-  DUPTABLE R17 K217 [{"language", "action"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K222 ["Description.AutoTranslationExperienceInformation"]
+  DUPTABLE R17 K215 [{"language", "action"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2752,26 +3063,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2779,21 +3090,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2802,34 +3117,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K221 ["/localization"]
+  LOADK R18 K219 ["/localization"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K225 [36] [+166]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K223 [36] [+188]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K226 ["AutoTranslationExperienceStringsAndProducts"]
+  LOADK R15 K224 ["AutoTranslationExperienceStringsAndProducts"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2837,38 +3156,45 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K227 ["Description.AutoTranslationExperienceStringsAndProducts"]
-  DUPTABLE R17 K217 [{"language", "action"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K225 ["Description.AutoTranslationExperienceStringsAndProducts"]
+  DUPTABLE R17 K215 [{"language", "action"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2876,26 +3202,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2903,21 +3229,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -2926,34 +3256,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K221 ["/localization"]
+  LOADK R18 K219 ["/localization"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K228 [37] [+156]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K226 [37] [+173]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K229 ["LocalizationSettingsAutomaticTextCapture"]
+  LOADK R15 K227 ["LocalizationSettingsAutomaticTextCapture"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -2961,31 +3295,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K230 ["Description.LocalizationSettingsAutomaticTextCapture"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K228 ["Description.LocalizationSettingsAutomaticTextCapture"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -2993,26 +3330,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -3020,21 +3357,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3043,34 +3384,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K221 ["/localization"]
+  LOADK R18 K219 ["/localization"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K231 [38] [+156]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K229 [38] [+173]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K232 ["LocalizationSettingsUserTranslatedContent"]
+  LOADK R15 K230 ["LocalizationSettingsUserTranslatedContent"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3078,31 +3423,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K233 ["Description.LocalizationSettingsUserTranslatedContent"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K231 ["Description.LocalizationSettingsUserTranslatedContent"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -3110,26 +3458,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -3137,21 +3485,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3160,34 +3512,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K221 ["/localization"]
+  LOADK R18 K219 ["/localization"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K234 [39] [+53]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K232 [39] [+61]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K235 ["ClearUnmodifiedAutoCaptureEntries"]
+  LOADK R15 K233 ["ClearUnmodifiedAutoCaptureEntries"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3195,10 +3551,10 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
   SETTABLEKS R15 R14 K23 ["actorId"]
@@ -3206,25 +3562,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K236 [40] [+53]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K234 [40] [+61]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K237 ["AnalyticsReport"]
+  LOADK R15 K235 ["AnalyticsReport"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3232,10 +3592,10 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
   SETTABLEKS R15 R14 K23 ["actorId"]
@@ -3243,25 +3603,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K238 [41] [+106]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K236 [41] [+124]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K241 ["TranslationIconAdded"]
+  LOADK R15 K239 ["TranslationIconAdded"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3269,26 +3633,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K242 ["Description.TranslationIconAdded"]
-  DUPTABLE R17 K244 [{"language", "iconName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K240 ["Description.TranslationIconAdded"]
+  DUPTABLE R17 K242 [{"language", "iconName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K245 ["IconName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K243 ["IconName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K243 ["iconName"]
+  SETTABLEKS R18 R17 K241 ["iconName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3297,49 +3669,53 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K248 [42] [+106]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K246 [42] [+124]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K249 ["TranslationIconDeleted"]
+  LOADK R15 K247 ["TranslationIconDeleted"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3347,26 +3723,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K250 ["Description.TranslationIconDeleted"]
-  DUPTABLE R17 K244 [{"language", "iconName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K248 ["Description.TranslationIconDeleted"]
+  DUPTABLE R17 K242 [{"language", "iconName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K245 ["IconName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K243 ["IconName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K243 ["iconName"]
+  SETTABLEKS R18 R17 K241 ["iconName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3375,49 +3759,53 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K251 [43] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K249 [43] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K252 ["TranslationExperienceName"]
+  LOADK R15 K250 ["TranslationExperienceName"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3425,19 +3813,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K253 ["Description.TranslationExperienceName"]
-  DUPTABLE R17 K254 [{"language"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K251 ["Description.TranslationExperienceName"]
+  DUPTABLE R17 K252 [{"language"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
+  SETTABLEKS R18 R17 K214 ["language"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3446,34 +3838,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K255 [44] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K253 [44] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K0 ["getLocale"]
+  LOADK R15 K254 ["TranslationExperienceDescription"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3481,19 +3877,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K1 ["dashboard/creations/experiences/"]
-  DUPTABLE R17 K254 [{"language"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K255 ["Description.TranslationExperienceDescription"]
+  DUPTABLE R17 K252 [{"language"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
+  SETTABLEKS R18 R17 K214 ["language"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3502,34 +3902,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K258 [45] [+87]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K256 [45] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K3 ["tostring"]
+  LOADK R15 K1 ["dashboard/creations/experiences/"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3537,26 +3941,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K4 [tostring]
-  DUPTABLE R17 K262 [{"language", "thumbnailName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K2 ["universeId"]
+  DUPTABLE R17 K260 [{"language", "thumbnailName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K263 ["ThumbnailName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K261 ["ThumbnailName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K261 ["thumbnailName"]
+  SETTABLEKS R18 R17 K259 ["thumbnailName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3565,34 +3977,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K264 [46] [+87]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K262 [46] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K9 ["/overview"]
+  LOADK R15 K7 ["/badges/"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3600,26 +4016,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K10 ["/developer-products/"]
-  DUPTABLE R17 K262 [{"language", "thumbnailName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K8 ["resourceId"]
+  DUPTABLE R17 K260 [{"language", "thumbnailName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K263 ["ThumbnailName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K261 ["ThumbnailName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K261 ["thumbnailName"]
+  SETTABLEKS R18 R17 K259 ["thumbnailName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3628,34 +4052,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K267 [47] [+87]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K265 [47] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K12 ["/passes/"]
+  LOADK R15 K10 ["/developer-products/"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3663,26 +4091,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K13 ["users/"]
-  DUPTABLE R17 K262 [{"language", "thumbnailName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K11 ["/configure"]
+  DUPTABLE R17 K260 [{"language", "thumbnailName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K263 ["ThumbnailName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K261 ["ThumbnailName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K261 ["thumbnailName"]
+  SETTABLEKS R18 R17 K259 ["thumbnailName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3691,34 +4127,79 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K270 [48] [+53]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K268 [48] [+61]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
+  GETTABLEKS R15 R2 K19 ["id"]
+  SETTABLEKS R15 R14 K19 ["id"]
+  LOADK R15 K13 ["users/"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K31 ["Unknown"]
+  SETTABLEKS R15 R14 K20 ["eventCategory"]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K21 ["date"]
+  LOADK R15 K40 [""]
+  SETTABLEKS R15 R14 K22 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K23 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K24 ["actorName"]
+  LOADK R15 K42 ["Universe"]
+  SETTABLEKS R15 R14 K25 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K26 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K270 [49] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K15 ["/profile"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3726,63 +4207,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R15 R14 K21 ["date"]
-  LOADK R15 K38 [""]
-  SETTABLEKS R15 R14 K22 ["translation"]
-  GETTABLEKS R15 R2 K14 ["userId"]
-  SETTABLEKS R15 R14 K23 ["actorId"]
-  MOVE R15 R0
-  GETTABLEKS R16 R2 K14 ["userId"]
-  CALL R15 1 1
-  SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
-  SETTABLEKS R15 R14 K25 ["iconType"]
-  GETTABLEKS R15 R2 K2 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R15 R14 K26 ["iconId"]
-  GETTABLEKS R15 R2 K2 ["universeId"]
-  SETTABLEKS R15 R14 K2 ["universeId"]
-  RETURN R14 1
-  GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K272 [49] [+87]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
-  GETTABLEKS R15 R2 K19 ["id"]
-  SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K17 ["eventType"]
-  SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
-  SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
-  NEWCLOSURE R18 P2
-  CAPTURE VAL R16
-  CAPTURE VAL R3
-  CALL R17 1 2
-  JUMPIFNOT R17 [+2]
-  MOVE R15 R18
-  JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K18 [0]
-  DUPTABLE R17 K276 [{"stringKey", "language"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K277 ["StringKey"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K16 ["groups/"]
+  DUPTABLE R17 K274 [{"stringKey", "language"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K275 ["StringKey"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K275 ["stringKey"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K273 ["stringKey"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
+  SETTABLEKS R18 R17 K214 ["language"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3791,34 +4243,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K278 [50] [+87]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K276 [50] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K23 ["actorId"]
+  LOADK R15 K21 ["date"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3826,26 +4282,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K24 ["actorName"]
-  DUPTABLE R17 K276 [{"stringKey", "language"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K277 ["StringKey"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K22 ["translation"]
+  DUPTABLE R17 K274 [{"stringKey", "language"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K275 ["StringKey"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K275 ["stringKey"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K273 ["stringKey"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
+  SETTABLEKS R18 R17 K214 ["language"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3854,34 +4318,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K281 [51] [+87]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K279 [51] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K26 ["iconId"]
+  LOADK R15 K24 ["actorName"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3889,26 +4357,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
-  DUPTABLE R17 K276 [{"stringKey", "language"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K277 ["StringKey"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K25 ["iconType"]
+  DUPTABLE R17 K274 [{"stringKey", "language"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K275 ["StringKey"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K275 ["stringKey"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K273 ["stringKey"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
+  SETTABLEKS R18 R17 K214 ["language"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3917,34 +4393,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K284 [52] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K282 [52] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K27 ["headerText"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -3952,26 +4432,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K30 ["createdUnixTimeMs"]
-  DUPTABLE R17 K288 [{"language", "badgeName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K28 ["footerText"]
+  DUPTABLE R17 K286 [{"language", "badgeName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K289 ["BadgeName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K287 ["BadgeName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K287 ["badgeName"]
+  SETTABLEKS R18 R17 K285 ["badgeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -3980,7 +4468,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K34 ["Description.Init"]
+  LOADK R15 K32 ["createdUnixTimeMs"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -3988,42 +4476,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K291 [53] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K289 [53] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K36 ["gmatch"]
+  LOADK R15 K34 [pcall]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4031,26 +4523,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K37 [1]
-  DUPTABLE R17 K288 [{"language", "badgeName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K35 ["🤷🏻‍♀️"]
+  DUPTABLE R17 K286 [{"language", "badgeName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K289 ["BadgeName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K287 ["BadgeName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K287 ["badgeName"]
+  SETTABLEKS R18 R17 K285 ["badgeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4059,7 +4559,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K34 ["Description.Init"]
+  LOADK R15 K32 ["createdUnixTimeMs"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4067,42 +4567,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K294 [54] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K292 [54] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K39 ["getText"]
+  LOADK R15 K37 ["([^.]+)"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4110,26 +4614,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K40 ["Universe"]
-  DUPTABLE R17 K288 [{"language", "badgeName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K38 ["gmatch"]
+  DUPTABLE R17 K286 [{"language", "badgeName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K289 ["BadgeName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K287 ["BadgeName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K287 ["badgeName"]
+  SETTABLEKS R18 R17 K285 ["badgeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4138,7 +4650,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K34 ["Description.Init"]
+  LOADK R15 K32 ["createdUnixTimeMs"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4146,42 +4658,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K297 [55] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K295 [55] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4189,26 +4705,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K43 ["Action"]
-  DUPTABLE R17 K288 [{"language", "badgeName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K41 ["getText"]
+  DUPTABLE R17 K286 [{"language", "badgeName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K289 ["BadgeName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K287 ["BadgeName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K287 ["badgeName"]
+  SETTABLEKS R18 R17 K285 ["badgeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4217,7 +4741,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K34 ["Description.Init"]
+  LOADK R15 K32 ["createdUnixTimeMs"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4225,42 +4749,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K246 ["/localization/translation"]
+  LOADK R18 K244 ["/localization/translation"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K300 [56] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K298 [56] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K45 ["string"]
+  LOADK R15 K43 ["ArchivedExperience"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4268,26 +4796,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K46 ["lower"]
-  DUPTABLE R17 K304 [{"language", "productName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K44 ["Experience"]
+  DUPTABLE R17 K302 [{"language", "productName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K305 ["ProductName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K303 ["ProductName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K303 ["productName"]
+  SETTABLEKS R18 R17 K301 ["productName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4296,7 +4832,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4304,42 +4840,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K51 [2]
+  LOADK R18 K49 [string.lower]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K308 [57] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K306 [57] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K51 ["Description.ArchivedExperience"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4347,26 +4887,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K54 ["PlayabilityChanged"]
-  DUPTABLE R17 K304 [{"language", "productName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K52 ["Description.RestoredExperience"]
+  DUPTABLE R17 K302 [{"language", "productName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K305 ["ProductName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K303 ["ProductName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K303 ["productName"]
+  SETTABLEKS R18 R17 K301 ["productName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4375,7 +4923,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4383,42 +4931,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K51 [2]
+  LOADK R18 K49 [string.lower]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K311 [58] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K309 [58] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K56 ["playability"]
+  LOADK R15 K54 ["viewBasicSettingsLink"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4426,26 +4978,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K57 [{"playability"}]
-  DUPTABLE R17 K304 [{"language", "productName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
+  DUPTABLE R17 K302 [{"language", "productName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K305 ["ProductName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K303 ["ProductName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K303 ["productName"]
+  SETTABLEKS R18 R17 K301 ["productName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4454,7 +5014,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4462,42 +5022,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K51 [2]
+  LOADK R18 K49 [string.lower]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K314 [59] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K312 [59] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K59 ["Public"]
+  LOADK R15 K57 ["Description.PlayabilityChanged"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4505,26 +5069,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K60 ["Description.ActionPublic"]
-  DUPTABLE R17 K304 [{"language", "productName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K58 ["playability"]
+  DUPTABLE R17 K302 [{"language", "productName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K305 ["ProductName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K303 ["ProductName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K303 ["productName"]
+  SETTABLEKS R18 R17 K301 ["productName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4533,7 +5105,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4541,42 +5113,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K51 [2]
+  LOADK R18 K49 [string.lower]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K317 [60] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K315 [60] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K62 ["Description.ActionPrivate"]
+  LOADK R15 K60 ["Playability"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4584,26 +5160,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K63 ["Description.ActionFriends"]
-  DUPTABLE R17 K321 [{"language", "passName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K61 ["Public"]
+  DUPTABLE R17 K319 [{"language", "passName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K322 ["PassName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K320 ["PassName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K320 ["passName"]
+  SETTABLEKS R18 R17 K318 ["passName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4612,7 +5196,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4620,42 +5204,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K68 ["Description.NotificationStringCreated"]
+  LOADK R18 K66 [3]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K325 [61] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K323 [61] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K70 [{"stringName"}]
+  LOADK R15 K68 ["Description.NotificationStringCreated"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4663,26 +5251,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K71 ["StringName"]
-  DUPTABLE R17 K321 [{"language", "passName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K69 ["stringName"]
+  DUPTABLE R17 K319 [{"language", "passName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K322 ["PassName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K320 ["PassName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K320 ["passName"]
+  SETTABLEKS R18 R17 K318 ["passName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4691,7 +5287,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4699,42 +5295,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K68 ["Description.NotificationStringCreated"]
+  LOADK R18 K66 [3]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K328 [62] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K326 [62] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K73 [4]
+  LOADK R15 K71 ["StringName"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4742,26 +5342,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K74 ["NotificationStringDeleted"]
-  DUPTABLE R17 K321 [{"language", "passName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K72 ["/notifications"]
+  DUPTABLE R17 K319 [{"language", "passName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K322 ["PassName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K320 ["PassName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K320 ["passName"]
+  SETTABLEKS R18 R17 K318 ["passName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4770,7 +5378,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4778,42 +5386,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K68 ["Description.NotificationStringCreated"]
+  LOADK R18 K66 [3]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K331 [63] [+107]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K329 [63] [+125]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K76 [5]
+  LOADK R15 K74 ["NotificationStringDeleted"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4821,26 +5433,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K77 ["NotificationStringUpdated"]
-  DUPTABLE R17 K321 [{"language", "passName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K218 ["Language"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K75 ["Description.NotificationStringDeleted"]
+  DUPTABLE R17 K319 [{"language", "passName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K216 ["Language"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K216 ["language"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K322 ["PassName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K214 ["language"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K320 ["PassName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K320 ["passName"]
+  SETTABLEKS R18 R17 K318 ["passName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4849,7 +5469,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -4857,42 +5477,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K68 ["Description.NotificationStringCreated"]
+  LOADK R18 K66 [3]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K247 ["/catalog/"]
+  LOADK R18 K245 ["/catalog/"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K334 [64] [+85]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K332 [64] [+98]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K79 [6]
+  LOADK R15 K77 ["NotificationStringUpdated"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4900,12 +5524,12 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K80 ["AvatarSettingsAvatarType"]
-  DUPTABLE R17 K338 [{"userName"}]
+  LOADK R16 K78 ["Description.NotificationStringUpdated"]
+  DUPTABLE R17 K336 [{"userName"}]
   MOVE R19 R0
   GETTABLEKS R21 R2 K8 ["resourceId"]
   JUMPIFNOT R21 [+3]
@@ -4913,11 +5537,15 @@ PROTO_13:
   JUMPIF R20 [+1]
   LOADN R20 255
   CALL R19 1 1
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K337 ["userName"]
+  SETTABLEKS R18 R17 K335 ["userName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4926,36 +5554,40 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
+  LOADK R15 K81 ["Description.AvatarSettingsAvatarType"]
+  SETTABLEKS R15 R14 K25 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K26 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K219 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  SETTABLEKS R10 R14 K237 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K338 [65] [+93]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  GETTABLEKS R15 R2 K19 ["id"]
+  SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K83 [{"avatarType"}]
-  SETTABLEKS R15 R14 K25 ["iconType"]
-  GETTABLEKS R16 R2 K8 ["resourceId"]
-  ORK R15 R16 K18 [0]
-  JUMP [0]
-  SETTABLEKS R15 R14 K26 ["iconId"]
-  GETTABLEKS R15 R2 K2 ["universeId"]
-  SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
-  FASTCALL1 TOSTRING R4 [+3]
-  MOVE R20 R4
-  GETIMPORT R19 K4 [tostring]
-  CALL R19 1 1
-  MOVE R17 R19
-  LOADK R18 K221 ["/localization"]
-  CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  SETTABLEKS R10 R14 K239 ["viewOnRobloxLink"]
-  RETURN R14 1
-  GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K340 [65] [+80]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
-  GETTABLEKS R15 R2 K19 ["id"]
-  SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K85 [7]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K214 ["Localization"]
+  LOADK R15 K212 ["Localization"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -4963,19 +5595,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K86 ["AvatarSettingsAnimation"]
-  DUPTABLE R17 K344 [{"groupName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K345 ["GroupName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K84 ["AvatarType"]
+  DUPTABLE R17 K342 [{"groupName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K343 ["GroupName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K343 ["groupName"]
+  SETTABLEKS R18 R17 K341 ["groupName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -4984,36 +5620,40 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
+  LOADK R15 K88 ["animation"]
+  SETTABLEKS R15 R14 K25 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K26 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K219 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  SETTABLEKS R11 R14 K237 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K345 [66] [+162]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
+  GETTABLEKS R15 R2 K19 ["id"]
+  SETTABLEKS R15 R14 K19 ["id"]
   LOADK R15 K90 ["Animation"]
-  SETTABLEKS R15 R14 K25 ["iconType"]
-  GETTABLEKS R16 R2 K8 ["resourceId"]
-  ORK R15 R16 K18 [0]
-  JUMP [0]
-  SETTABLEKS R15 R14 K26 ["iconId"]
-  GETTABLEKS R15 R2 K2 ["universeId"]
-  SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
-  FASTCALL1 TOSTRING R4 [+3]
-  MOVE R20 R4
-  GETIMPORT R19 K4 [tostring]
-  CALL R19 1 1
-  MOVE R17 R19
-  LOADK R18 K221 ["/localization"]
-  CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  SETTABLEKS R11 R14 K239 ["viewOnRobloxLink"]
-  RETURN R14 1
-  GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K347 [66] [+145]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
-  GETTABLEKS R15 R2 K19 ["id"]
-  SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K92 ["AvatarSettingsCollision"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5021,31 +5661,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K94 ["collision"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K92 ["AvatarSettingsCollision"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K95 [{"collision"}]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5053,26 +5696,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K220 ["Description.ActionRemoved"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K218 ["Description.ActionRemoved"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5080,21 +5723,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -5103,25 +5750,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K352 [67] [+156]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K350 [67] [+173]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K97 [9]
+  LOADK R15 K95 [{"collision"}]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5129,31 +5780,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K98 ["AvatarSettingsScaleHeight"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K96 ["Collision"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K63 ["Description.ActionFriends"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K65 ["Description.ActionFriends"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5161,26 +5815,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K60 ["Description.ActionPublic"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K62 ["Description.ActionPublic"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5188,21 +5842,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -5211,34 +5869,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R18 K97 [9]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K356 [68] [+156]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K354 [68] [+173]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K101 [{"scale"}]
+  LOADK R15 K99 ["Description.AvatarSettingsScaleHeight"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5246,31 +5908,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K102 ["Scale"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K100 ["scale"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5278,26 +5943,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5305,21 +5970,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -5328,34 +5997,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R18 K97 [9]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K359 [69] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K357 [69] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K104 ["AvatarSettingsScaleWidth"]
+  LOADK R15 K102 ["Scale"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5363,19 +6036,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K105 ["Description.AvatarSettingsScaleWidth"]
-  DUPTABLE R17 K363 [{"price"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K364 ["Price"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K103 [10]
+  DUPTABLE R17 K361 [{"price"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K362 ["Price"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K362 ["price"]
+  SETTABLEKS R18 R17 K360 ["price"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -5384,34 +6061,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R18 K97 [9]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K365 [70] [+78]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K363 [70] [+86]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K110 ["AvatarSettingsScaleBodyType"]
+  LOADK R15 K108 ["Description.AvatarSettingsScaleHead"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5419,12 +6100,12 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
-  GETTABLEKS R16 R2 K44 ["metaData"]
-  LOADK R17 K38 [""]
-  GETIMPORT R18 K32 [pcall]
+  GETTABLEKS R16 R2 K46 ["metaData"]
+  LOADK R17 K40 [""]
+  GETIMPORT R18 K34 [pcall]
   NEWCLOSURE R19 P3
   CAPTURE VAL R16
   CAPTURE UPVAL U2
@@ -5442,34 +6123,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R18 K97 [9]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K367 [71] [+156]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K365 [71] [+173]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K112 [13]
+  LOADK R15 K110 ["AvatarSettingsScaleBodyType"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5477,31 +6162,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K113 ["AvatarSettingsScaleProportions"]
-  DUPTABLE R17 K144 [{"action"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K111 ["Description.AvatarSettingsScaleBodyType"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5509,26 +6197,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5536,21 +6224,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -5559,34 +6251,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R18 K97 [9]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K370 [72] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K368 [72] [+90]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K115 [14]
+  LOADK R15 K113 ["AvatarSettingsScaleProportions"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5594,19 +6290,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K116 ["AvatarSettingsBodyParts"]
-  DUPTABLE R17 K363 [{"price"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K364 ["Price"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K114 ["Description.AvatarSettingsScaleProportions"]
+  DUPTABLE R17 K361 [{"price"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K362 ["Price"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K362 ["price"]
+  SETTABLEKS R18 R17 K360 ["price"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -5615,34 +6315,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R18 K97 [9]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K373 [73] [+155]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K371 [73] [+177]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K118 [15]
+  LOADK R15 K116 ["AvatarSettingsBodyParts"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5650,38 +6354,45 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K119 ["AvatarSettingsClothing"]
-  DUPTABLE R17 K377 [{"adName", "action"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K378 ["AdName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K117 ["Description.AvatarSettingsBodyParts"]
+  DUPTABLE R17 K375 [{"adName", "action"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K376 ["AdName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K376 ["adName"]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  SETTABLEKS R18 R17 K374 ["adName"]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K123 ["Description.ExperienceName"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K121 [16]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5689,26 +6400,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K124 ["newName"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K122 ["ExperienceName"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -5716,21 +6427,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -5739,25 +6454,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K381 [74] [+115]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K379 [74] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5765,24 +6484,32 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K126 [{"newName", "oldName"}]
+  LOADK R16 K124 ["newName"]
   DUPTABLE R17 K126 [{"newName", "oldName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K127 ["NewName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K124 ["newName"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K130 ["OldName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K128 ["OldName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K125 ["oldName"]
   CALL R15 2 1
@@ -5793,7 +6520,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K34 ["Description.Init"]
+  LOADK R15 K32 ["createdUnixTimeMs"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -5801,7 +6528,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -5815,8 +6546,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -5828,21 +6559,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K383 [75] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K381 [75] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K128 ["<b><u>"]
+  LOADK R15 K126 [{"newName", "oldName"}]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5850,18 +6581,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K129 ["</u></b>"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K127 ["NewName"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -5869,14 +6600,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -5886,7 +6617,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K34 ["Description.Init"]
+  LOADK R15 K32 ["createdUnixTimeMs"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -5894,7 +6625,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -5908,8 +6643,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -5921,21 +6656,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K386 [76] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K384 [76] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K131 [17]
+  LOADK R15 K129 [17]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -5943,18 +6678,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K132 ["ExperienceDescription"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K130 ["ExperienceDescription"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -5962,14 +6697,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -5979,7 +6714,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K34 ["Description.Init"]
+  LOADK R15 K32 ["createdUnixTimeMs"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -5987,7 +6722,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6001,8 +6740,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -6014,21 +6753,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K389 [77] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K387 [77] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K134 [18]
+  LOADK R15 K132 [18]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6036,18 +6775,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K135 ["ExperienceGenre"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K133 ["ExperienceGenre"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -6055,14 +6794,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -6072,7 +6811,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K34 ["Description.Init"]
+  LOADK R15 K32 ["createdUnixTimeMs"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6080,7 +6819,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6094,8 +6837,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K9 ["/overview"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -6107,21 +6850,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K392 [78] [+115]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K390 [78] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K137 ["genre"]
+  LOADK R15 K135 ["genre"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6129,24 +6872,32 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K138 [{"genre"}]
+  LOADK R16 K136 [{"genre"}]
   DUPTABLE R17 K126 [{"newName", "oldName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K127 ["NewName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K124 ["newName"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K130 ["OldName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K128 ["OldName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K125 ["oldName"]
   CALL R15 2 1
@@ -6157,7 +6908,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6165,7 +6916,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6179,8 +6934,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -6192,21 +6947,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K395 [79] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K393 [79] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K140 [19]
+  LOADK R15 K138 [19]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6214,18 +6969,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K141 ["SecuritySettingsHTTPRequests"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K139 ["SecuritySettingsHTTPRequests"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -6233,14 +6988,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -6250,7 +7005,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6258,7 +7013,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6272,8 +7031,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -6285,21 +7044,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K398 [80] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K396 [80] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K143 ["action"]
+  LOADK R15 K141 ["action"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6307,18 +7066,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K144 [{"action"}]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K142 [{"action"}]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -6326,14 +7085,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -6343,7 +7102,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6351,7 +7110,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6365,8 +7128,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -6378,21 +7141,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K401 [81] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K399 [81] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K146 ["Description.ActionDisabled"]
+  LOADK R15 K144 ["Description.ActionDisabled"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6400,19 +7163,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K147 [20]
-  DUPTABLE R17 K363 [{"price"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K364 ["Price"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K145 [20]
+  DUPTABLE R17 K361 [{"price"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K362 ["Price"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K362 ["price"]
+  SETTABLEKS R18 R17 K360 ["price"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -6421,7 +7188,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6429,7 +7196,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6443,8 +7214,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -6456,21 +7227,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K404 [82] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K402 [82] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K149 ["Description.SecuritySettingsStudioAccessToAPI"]
+  LOADK R15 K147 ["Description.SecuritySettingsStudioAccessToAPI"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6478,18 +7249,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K150 [21]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K148 [21]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -6497,14 +7268,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -6514,7 +7285,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K50 ["Description.RestoredExperience"]
+  LOADK R15 K48 ["lower"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6522,7 +7293,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6536,8 +7311,8 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
@@ -6549,21 +7324,21 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K407 [83] [+115]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K405 [83] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K152 ["Description.SecuritySettingsThirdPartySales"]
+  LOADK R15 K150 ["Description.SecuritySettingsThirdPartySales"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6571,24 +7346,32 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K153 [22]
+  LOADK R16 K151 [22]
   DUPTABLE R17 K126 [{"newName", "oldName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K127 ["NewName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K124 ["newName"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K130 ["OldName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K128 ["OldName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K125 ["oldName"]
   CALL R15 2 1
@@ -6599,7 +7382,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6607,7 +7390,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6621,34 +7408,34 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K154 ["SecuritySettingsThirdPartyTeleports"]
+  LOADK R18 K152 ["SecuritySettingsThirdPartyTeleports"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K411 [84] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K409 [84] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K156 [23]
+  LOADK R15 K154 [23]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6656,18 +7443,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K157 ["ExperienceShutDown"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K155 ["ExperienceShutDown"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -6675,14 +7462,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -6692,7 +7479,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6700,7 +7487,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6714,34 +7505,34 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K154 ["SecuritySettingsThirdPartyTeleports"]
+  LOADK R18 K152 ["SecuritySettingsThirdPartyTeleports"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K414 [85] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K412 [85] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K159 [24]
+  LOADK R15 K157 [24]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6749,18 +7540,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K160 ["SocialLinksAdded"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K158 ["SocialLinksAdded"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -6768,14 +7559,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -6785,7 +7576,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6793,7 +7584,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6807,34 +7602,34 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K154 ["SecuritySettingsThirdPartyTeleports"]
+  LOADK R18 K152 ["SecuritySettingsThirdPartyTeleports"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K417 [86] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K415 [86] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K162 ["channel"]
+  LOADK R15 K160 ["channel"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6842,19 +7637,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K163 [{"channel"}]
-  DUPTABLE R17 K363 [{"price"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K364 ["Price"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K161 [{"channel"}]
+  DUPTABLE R17 K361 [{"price"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K362 ["Price"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K362 ["price"]
+  SETTABLEKS R18 R17 K360 ["price"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -6863,7 +7662,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6871,7 +7670,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6883,36 +7686,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K164 ["Channel"]
+  LOADK R20 K162 ["Channel"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K154 ["SecuritySettingsThirdPartyTeleports"]
+  LOADK R18 K152 ["SecuritySettingsThirdPartyTeleports"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K421 [87] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K419 [87] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K166 [25]
+  LOADK R15 K164 [25]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K93 ["Description.AvatarSettingsCollision"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -6920,18 +7723,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K167 ["SocialLinksRemoved"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K165 ["SocialLinksRemoved"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -6939,14 +7742,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -6956,7 +7759,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K67 ["NotificationStringCreated"]
+  LOADK R15 K65 ["Description.ActionFriends"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -6964,7 +7767,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -6978,34 +7785,34 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K154 ["SecuritySettingsThirdPartyTeleports"]
+  LOADK R18 K152 ["SecuritySettingsThirdPartyTeleports"]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K424 [88] [+150]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K422 [88] [+168]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K170 ["SocialLinksUpdated"]
+  LOADK R15 K168 ["SocialLinksUpdated"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K171 ["Description.SocialLinksUpdated"]
+  LOADK R15 K169 ["Description.SocialLinksUpdated"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -7013,32 +7820,36 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K172 [27]
-  DUPTABLE R17 K430 [{"userName", "role"}]
+  LOADK R16 K170 [27]
+  DUPTABLE R17 K428 [{"userName", "role"}]
   MOVE R19 R0
   GETTABLEKS R20 R2 K8 ["resourceId"]
   CALL R19 1 1
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K337 ["userName"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K43 ["Action"]
-  JUMPIFNOTEQKS R20 K431 ["Edit"] [+36]
+  SETTABLEKS R18 R17 K335 ["userName"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K45 ["Action"]
+  JUMPIFNOTEQKS R20 K429 ["Edit"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K176 ["WorldSettingsWorkSpaceGravity"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K174 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7046,26 +7857,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K177 ["Description.WorldSettingsWorkSpaceGravity"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K175 ["Description.WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7073,21 +7884,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K429 ["role"]
+  SETTABLEKS R18 R17 K427 ["role"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -7096,7 +7911,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K83 [{"avatarType"}]
+  LOADK R15 K81 ["Description.AvatarSettingsAvatarType"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -7104,19 +7919,23 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  SETTABLEKS R10 R14 K239 ["viewOnRobloxLink"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  SETTABLEKS R10 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K434 [89] [+177]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K432 [89] [+200]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K179 [{"gravity"}]
+  LOADK R15 K177 [{"gravity"}]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K171 ["Description.SocialLinksUpdated"]
+  LOADK R15 K169 ["Description.SocialLinksUpdated"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -7124,38 +7943,46 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K180 ["Gravity"]
-  DUPTABLE R17 K438 [{"groupRole", "groupName", "role"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K439 ["RolesetName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K178 ["Gravity"]
+  DUPTABLE R17 K436 [{"groupRole", "groupName", "role"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K437 ["RolesetName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K437 ["groupRole"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K345 ["GroupName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K435 ["groupRole"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K343 ["GroupName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K343 ["groupName"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K43 ["Action"]
-  JUMPIFNOTEQKS R20 K431 ["Edit"] [+36]
+  SETTABLEKS R18 R17 K341 ["groupName"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K45 ["Action"]
+  JUMPIFNOTEQKS R20 K429 ["Edit"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K184 ["jumpHeight"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K174 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7163,26 +7990,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K185 [{"jumpHeight"}]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K182 ["jumpHeight"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7190,21 +8017,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K429 ["role"]
+  SETTABLEKS R18 R17 K427 ["role"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -7213,7 +8044,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K90 ["Animation"]
+  LOADK R15 K88 ["animation"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -7221,33 +8052,37 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K186 ["JumpHeight"]
+  LOADK R18 K183 [{"jumpHeight"}]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K443 [90] [+231]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K440 [90] [+254]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K188 ["WorldSettingsJumpPower"]
+  LOADK R15 K185 [30]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K171 ["Description.SocialLinksUpdated"]
+  LOADK R15 K169 ["Description.SocialLinksUpdated"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -7255,32 +8090,36 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K189 ["Description.WorldSettingsJumpPower"]
-  DUPTABLE R17 K448 [{"userName", "oldRole", "newRole"}]
+  LOADK R16 K186 ["WorldSettingsJumpPower"]
+  DUPTABLE R17 K445 [{"userName", "oldRole", "newRole"}]
   MOVE R19 R0
   GETTABLEKS R20 R2 K8 ["resourceId"]
   CALL R19 1 1
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K337 ["userName"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K43 ["Action"]
-  JUMPIFNOTEQKS R20 K431 ["Edit"] [+36]
+  SETTABLEKS R18 R17 K335 ["userName"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K45 ["Action"]
+  JUMPIFNOTEQKS R20 K429 ["Edit"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K185 [{"jumpHeight"}]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K182 ["jumpHeight"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7288,26 +8127,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K184 ["jumpHeight"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K174 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7315,33 +8154,37 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K446 ["oldRole"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K43 ["Action"]
-  JUMPIFNOTEQKS R20 K431 ["Edit"] [+36]
+  SETTABLEKS R18 R17 K443 ["oldRole"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K45 ["Action"]
+  JUMPIFNOTEQKS R20 K429 ["Edit"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K184 ["jumpHeight"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K174 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7349,26 +8192,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K185 [{"jumpHeight"}]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K182 ["jumpHeight"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7376,21 +8219,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K447 ["newRole"]
+  SETTABLEKS R18 R17 K444 ["newRole"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -7399,7 +8246,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K83 [{"avatarType"}]
+  LOADK R15 K81 ["Description.AvatarSettingsAvatarType"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -7407,19 +8254,23 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  SETTABLEKS R10 R14 K239 ["viewOnRobloxLink"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  SETTABLEKS R10 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K449 [91] [+150]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K446 [91] [+168]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K194 ["WorldSettingsWalkSpeed"]
+  LOADK R15 K191 [31]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K171 ["Description.SocialLinksUpdated"]
+  LOADK R15 K169 ["Description.SocialLinksUpdated"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -7427,32 +8278,36 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K195 ["Description.WorldSettingsWalkSpeed"]
-  DUPTABLE R17 K430 [{"userName", "role"}]
+  LOADK R16 K192 ["WorldSettingsWalkSpeed"]
+  DUPTABLE R17 K428 [{"userName", "role"}]
   MOVE R19 R0
   GETTABLEKS R20 R2 K8 ["resourceId"]
   CALL R19 1 1
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K337 ["userName"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K43 ["Action"]
-  JUMPIFNOTEQKS R20 K431 ["Edit"] [+36]
+  SETTABLEKS R18 R17 K335 ["userName"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K45 ["Action"]
+  JUMPIFNOTEQKS R20 K429 ["Edit"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K176 ["WorldSettingsWorkSpaceGravity"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K193 ["Description.WorldSettingsWalkSpeed"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7460,26 +8315,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K177 ["Description.WorldSettingsWorkSpaceGravity"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K175 ["Description.WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7487,21 +8342,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K429 ["role"]
+  SETTABLEKS R18 R17 K427 ["role"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -7510,7 +8369,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K83 [{"avatarType"}]
+  LOADK R15 K81 ["Description.AvatarSettingsAvatarType"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -7518,19 +8377,23 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  SETTABLEKS R10 R14 K239 ["viewOnRobloxLink"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  SETTABLEKS R10 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K452 [92] [+258]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K450 [92] [+286]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K197 [{"walkSpeed"}]
+  LOADK R15 K195 [{"walkSpeed"}]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K171 ["Description.SocialLinksUpdated"]
+  LOADK R15 K169 ["Description.SocialLinksUpdated"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -7538,38 +8401,46 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K198 ["WalkSpeed"]
-  DUPTABLE R17 K455 [{"groupRole", "groupName", "oldRole", "newRole"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K439 ["RolesetName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K196 ["WalkSpeed"]
+  DUPTABLE R17 K453 [{"groupRole", "groupName", "oldRole", "newRole"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K437 ["RolesetName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K437 ["groupRole"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K345 ["GroupName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K435 ["groupRole"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K343 ["GroupName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K343 ["groupName"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K43 ["Action"]
-  JUMPIFNOTEQKS R20 K431 ["Edit"] [+36]
+  SETTABLEKS R18 R17 K341 ["groupName"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K45 ["Action"]
+  JUMPIFNOTEQKS R20 K429 ["Edit"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K185 [{"jumpHeight"}]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K182 ["jumpHeight"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7577,26 +8448,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K184 ["jumpHeight"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K174 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7604,33 +8475,37 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K446 ["oldRole"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K43 ["Action"]
-  JUMPIFNOTEQKS R20 K431 ["Edit"] [+36]
+  SETTABLEKS R18 R17 K443 ["oldRole"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K45 ["Action"]
+  JUMPIFNOTEQKS R20 K429 ["Edit"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K184 ["jumpHeight"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K174 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7638,26 +8513,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K185 [{"jumpHeight"}]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K182 ["jumpHeight"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7665,21 +8540,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K447 ["newRole"]
+  SETTABLEKS R18 R17 K444 ["newRole"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -7688,7 +8567,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K90 ["Animation"]
+  LOADK R15 K88 ["animation"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -7696,33 +8575,37 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K186 ["JumpHeight"]
+  LOADK R18 K183 [{"jumpHeight"}]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K456 [93] [+177]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K454 [93] [+200]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K201 ["Description.WorldSettingsMaxSlopeAngle"]
+  LOADK R15 K199 ["Description.WorldSettingsMaxSlopeAngle"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K171 ["Description.SocialLinksUpdated"]
+  LOADK R15 K169 ["Description.SocialLinksUpdated"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -7730,38 +8613,46 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K202 ["maxSlopeAngle"]
-  DUPTABLE R17 K438 [{"groupRole", "groupName", "role"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K439 ["RolesetName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K200 ["maxSlopeAngle"]
+  DUPTABLE R17 K436 [{"groupRole", "groupName", "role"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K437 ["RolesetName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K437 ["groupRole"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K345 ["GroupName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K435 ["groupRole"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K343 ["GroupName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K343 ["groupName"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K43 ["Action"]
-  JUMPIFNOTEQKS R20 K431 ["Edit"] [+36]
+  SETTABLEKS R18 R17 K341 ["groupName"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K45 ["Action"]
+  JUMPIFNOTEQKS R20 K429 ["Edit"] [+36]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K176 ["WorldSettingsWorkSpaceGravity"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K193 ["Description.WorldSettingsWalkSpeed"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7769,26 +8660,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K177 ["Description.WorldSettingsWorkSpaceGravity"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K175 ["Description.WorldSettingsWorkSpaceGravity"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -7796,21 +8687,25 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K429 ["role"]
+  SETTABLEKS R18 R17 K427 ["role"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -7819,7 +8714,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K90 ["Animation"]
+  LOADK R15 K88 ["animation"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K8 ["resourceId"]
   ORK R15 R16 K18 [0]
@@ -7827,33 +8722,37 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K186 ["JumpHeight"]
+  LOADK R18 K183 [{"jumpHeight"}]
   GETTABLEKS R22 R2 K8 ["resourceId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K459 [94] [+66]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K457 [94] [+79]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K204 ["MaxSlopeAngle"]
+  LOADK R15 K202 ["MaxSlopeAngle"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K171 ["Description.SocialLinksUpdated"]
+  LOADK R15 K169 ["Description.SocialLinksUpdated"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -7861,20 +8760,24 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K205 [33]
-  DUPTABLE R17 K338 [{"userName"}]
+  LOADK R16 K203 [33]
+  DUPTABLE R17 K336 [{"userName"}]
   MOVE R19 R0
   GETTABLEKS R20 R2 K8 ["resourceId"]
   CALL R19 1 1
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K337 ["userName"]
+  SETTABLEKS R18 R17 K335 ["userName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -7883,25 +8786,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K462 [95] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K460 [95] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K207 ["Description.SentUpdate"]
+  LOADK R15 K205 ["Description.SentUpdate"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -7909,18 +8816,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K209 [{"update"}]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K207 [{"update"}]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -7928,14 +8835,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -7945,7 +8852,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -7953,7 +8860,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -7965,36 +8876,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K210 ["Update"]
+  LOADK R20 K208 ["Update"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K468 [96] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K466 [96] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K213 ["SupportedLanguages"]
+  LOADK R15 K211 ["SupportedLanguages"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8002,18 +8913,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K214 ["Localization"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K212 ["Localization"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -8021,14 +8932,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -8038,7 +8949,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8046,7 +8957,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8058,36 +8973,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K210 ["Update"]
+  LOADK R20 K208 ["Update"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K471 [97] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K469 [97] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K216 ["language"]
+  LOADK R15 K214 ["language"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8095,18 +9010,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K217 [{"language", "action"}]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K215 [{"language", "action"}]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -8114,14 +9029,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -8131,7 +9046,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8139,7 +9054,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8151,36 +9070,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K210 ["Update"]
+  LOADK R20 K208 ["Update"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K474 [98] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K472 [98] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K219 ["Description.ActionAdded"]
+  LOADK R15 K217 ["Description.ActionAdded"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8188,18 +9107,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K220 ["Description.ActionRemoved"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K218 ["Description.ActionRemoved"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -8207,14 +9126,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -8224,7 +9143,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8232,7 +9151,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8244,36 +9167,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K221 ["/localization"]
+  LOADK R20 K219 ["/localization"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K478 [99] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K476 [99] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K223 ["AutoTranslationExperienceInformation"]
+  LOADK R15 K221 ["AutoTranslationExperienceInformation"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8281,18 +9204,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K224 ["Description.AutoTranslationExperienceInformation"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K222 ["Description.AutoTranslationExperienceInformation"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -8300,14 +9223,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -8317,7 +9240,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8325,7 +9248,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8337,36 +9264,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K221 ["/localization"]
+  LOADK R20 K219 ["/localization"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K481 [100] [+108]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K479 [100] [+121]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K226 ["AutoTranslationExperienceStringsAndProducts"]
+  LOADK R15 K224 ["AutoTranslationExperienceStringsAndProducts"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8374,21 +9301,25 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K227 ["Description.AutoTranslationExperienceStringsAndProducts"]
-  DUPTABLE R17 K485 [{"gearTypes"}]
-  GETGLOBAL R19 K486 ["joinStrings"]
-  GETTABLEKS R21 R2 K44 ["metaData"]
-  GETTABLEKS R20 R21 K487 ["GearTypes"]
+  LOADK R16 K225 ["Description.AutoTranslationExperienceStringsAndProducts"]
+  DUPTABLE R17 K483 [{"gearTypes"}]
+  GETGLOBAL R19 K484 ["joinStrings"]
+  GETTABLEKS R21 R2 K46 ["metaData"]
+  GETTABLEKS R20 R21 K485 ["GearTypes"]
   CALL R19 1 1
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K484 ["gearTypes"]
+  SETTABLEKS R18 R17 K482 ["gearTypes"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -8397,7 +9328,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8405,7 +9336,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8417,36 +9352,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K221 ["/localization"]
+  LOADK R20 K219 ["/localization"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K488 [101] [+194]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K486 [101] [+216]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K233 ["Description.LocalizationSettingsUserTranslatedContent"]
+  LOADK R15 K231 ["Description.LocalizationSettingsUserTranslatedContent"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8454,31 +9389,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K234 [39]
-  DUPTABLE R17 K492 [{"action", "placeName"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K232 [39]
+  DUPTABLE R17 K490 [{"action", "placeName"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -8486,26 +9424,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -8513,28 +9451,36 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K493 ["PlaceName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  SETTABLEKS R18 R17 K141 ["action"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K491 ["PlaceName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K491 ["placeName"]
+  SETTABLEKS R18 R17 K489 ["placeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -8543,7 +9489,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8551,7 +9497,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8563,36 +9513,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K221 ["/localization"]
+  LOADK R20 K219 ["/localization"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K494 [102] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K492 [102] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K239 ["viewOnRobloxLink"]
+  LOADK R15 K237 ["viewOnRobloxLink"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8600,19 +9550,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
-  DUPTABLE R17 K138 [{"genre"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K139 ["Genre"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  DUPTABLE R17 K136 [{"genre"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K137 ["Genre"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K137 ["genre"]
+  SETTABLEKS R18 R17 K135 ["genre"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -8621,7 +9575,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8629,7 +9583,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8643,34 +9601,34 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K497 [103] [+115]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K495 [103] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K237 ["AnalyticsReport"]
+  LOADK R15 K235 ["AnalyticsReport"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8678,24 +9636,32 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K242 ["Description.TranslationIconAdded"]
+  LOADK R16 K240 ["Description.TranslationIconAdded"]
   DUPTABLE R17 K126 [{"newName", "oldName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
   GETTABLEKS R19 R20 K127 ["NewName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K124 ["newName"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K130 ["OldName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K128 ["OldName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
   SETTABLEKS R18 R17 K125 ["oldName"]
   CALL R15 2 1
@@ -8706,7 +9672,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8714,7 +9680,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8728,34 +9698,34 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K499 [104] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K497 [104] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K244 [{"language", "iconName"}]
+  LOADK R15 K242 [{"language", "iconName"}]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8763,19 +9733,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K245 ["IconName"]
-  DUPTABLE R17 K502 [{"placeName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K493 ["PlaceName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R16 K243 ["IconName"]
+  DUPTABLE R17 K500 [{"placeName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K491 ["PlaceName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K491 ["placeName"]
+  SETTABLEKS R18 R17 K489 ["placeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -8784,7 +9758,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8792,7 +9766,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8806,34 +9784,34 @@ PROTO_13:
   MOVE R19 R21
   LOADK R20 K11 ["/configure"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K503 [105] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K501 [105] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K248 [42]
+  LOADK R15 K246 [42]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8841,19 +9819,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K249 ["TranslationIconDeleted"]
-  DUPTABLE R17 K507 [{"count"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K508 ["Count"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K247 ["TranslationIconDeleted"]
+  DUPTABLE R17 K505 [{"count"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K506 ["Count"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K506 ["count"]
+  SETTABLEKS R18 R17 K504 ["count"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -8862,7 +9844,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8870,7 +9852,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8882,36 +9868,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R20 K97 [9]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K509 [106] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K507 [106] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K254 [{"language"}]
+  LOADK R15 K252 [{"language"}]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -8919,18 +9905,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K255 [44]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K253 [44]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -8938,14 +9924,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -8955,7 +9941,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -8963,7 +9949,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -8975,36 +9965,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R20 K97 [9]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K512 [107] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K510 [107] [+133]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K1 ["dashboard/creations/experiences/"]
+  LOADK R15 K255 ["Description.TranslationExperienceDescription"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9012,18 +10002,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K2 ["universeId"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K0 ["getLocale"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -9031,14 +10021,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -9048,7 +10038,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9056,7 +10046,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -9068,36 +10062,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R20 K97 [9]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K515 [108] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K513 [108] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K4 [tostring]
+  LOADK R15 K2 ["universeId"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9105,19 +10099,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K5 ["/places/"]
-  DUPTABLE R17 K507 [{"count"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K508 ["Count"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K3 ["tostring"]
+  DUPTABLE R17 K505 [{"count"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K506 ["Count"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K506 ["count"]
+  SETTABLEKS R18 R17 K504 ["count"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -9126,7 +10124,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9134,7 +10132,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -9146,36 +10148,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R20 K97 [9]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K518 [109] [+194]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K516 [109] [+216]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K7 ["/badges/"]
+  LOADK R15 K5 ["/places/"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9183,31 +10185,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K8 ["resourceId"]
-  DUPTABLE R17 K492 [{"action", "placeName"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K6 ["placeId"]
+  DUPTABLE R17 K490 [{"action", "placeName"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -9215,26 +10220,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -9242,28 +10247,36 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K493 ["PlaceName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  SETTABLEKS R18 R17 K141 ["action"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K491 ["PlaceName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K491 ["placeName"]
+  SETTABLEKS R18 R17 K489 ["placeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -9272,7 +10285,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9280,7 +10293,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -9292,36 +10309,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K221 ["/localization"]
+  LOADK R20 K219 ["/localization"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K521 [110] [+194]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K519 [110] [+216]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K10 ["/developer-products/"]
+  LOADK R15 K8 ["resourceId"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9329,31 +10346,34 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K11 ["/configure"]
-  DUPTABLE R17 K492 [{"action", "placeName"}]
-  GETTABLEKS R22 R2 K44 ["metaData"]
-  GETTABLEKS R21 R22 K43 ["Action"]
-  GETIMPORT R22 K47 [string.lower]
-  MOVE R23 R21
+  LOADK R16 K9 ["/overview"]
+  DUPTABLE R17 K490 [{"action", "placeName"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
   CALL R22 1 1
-  JUMPIFNOTEQKS R22 K48 ["true"] [+3]
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
   LOADB R20 1
   JUMP [+1]
   LOADB R20 0
   JUMPIFNOT R20 [+35]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K145 ["Description.ActionEnabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -9361,26 +10381,26 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
   JUMPIF R19 [+34]
   LOADNIL R20
   NEWTABLE R22 0 0
-  LOADK R23 K146 ["Description.ActionDisabled"]
-  LOADK R25 K35 ["([^.]+)"]
-  NAMECALL R23 R23 K36 ["gmatch"]
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
   CALL R23 2 3
   FORGPREP R23
   LENGTH R29 R22
-  ADDK R28 R29 K37 [1]
+  ADDK R28 R29 K39 [1]
   SETTABLE R26 R22 R28
   FORGLOOP R23 1 [-4]
   MOVE R21 R22
@@ -9388,28 +10408,36 @@ PROTO_13:
   JUMPIFEQKNIL R22 [+4]
   GETTABLEN R22 R21 2
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R19 K38 [""]
+  LOADK R19 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R20 [+3]
   NEWTABLE R20 0 0
   GETTABLEN R24 R21 1
   GETTABLEN R25 R21 2
   MOVE R26 R20
-  NAMECALL R22 R1 K39 ["getText"]
+  NAMECALL R22 R1 K41 ["getText"]
   CALL R22 4 1
   MOVE R19 R22
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K143 ["action"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K493 ["PlaceName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  SETTABLEKS R18 R17 K141 ["action"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K491 ["PlaceName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K491 ["placeName"]
+  SETTABLEKS R18 R17 K489 ["placeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -9418,7 +10446,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9426,7 +10454,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -9438,36 +10470,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K221 ["/localization"]
+  LOADK R20 K219 ["/localization"]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K524 [111] [+125]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K522 [111] [+148]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K13 ["users/"]
+  LOADK R15 K11 ["/configure"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9475,33 +10507,45 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K14 ["userId"]
-  DUPTABLE R17 K529 [{"placeName", "oldVersion", "newVersion"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K493 ["PlaceName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R16 K12 ["/passes/"]
+  DUPTABLE R17 K527 [{"placeName", "oldVersion", "newVersion"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K491 ["PlaceName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K491 ["placeName"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K530 ["OldVersion"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K489 ["placeName"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K528 ["OldVersion"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K527 ["oldVersion"]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K531 ["NewVersion"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  SETTABLEKS R18 R17 K525 ["oldVersion"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K529 ["NewVersion"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K528 ["newVersion"]
+  SETTABLEKS R18 R17 K526 ["newVersion"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -9510,7 +10554,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9518,7 +10562,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -9530,36 +10578,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K20 ["eventCategory"]
+  LOADK R20 K18 [0]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K533 [112] [+106]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K531 [112] [+114]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K22 ["translation"]
+  LOADK R15 K20 ["eventCategory"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9567,18 +10615,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K23 ["actorId"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K21 ["date"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -9586,14 +10634,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -9603,7 +10651,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9611,33 +10659,37 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K536 [113] [+106]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K534 [113] [+114]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K25 ["iconType"]
+  LOADK R15 K23 ["actorId"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9645,18 +10697,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K26 ["iconId"]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K24 ["actorName"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -9664,14 +10716,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -9681,7 +10733,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9689,33 +10741,37 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K539 [114] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K537 [114] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K28 ["Init"]
+  LOADK R15 K26 ["iconId"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9723,19 +10779,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K29 ["Unknown"]
-  DUPTABLE R17 K542 [{"thumbnailName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K263 ["ThumbnailName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K27 ["headerText"]
+  DUPTABLE R17 K540 [{"thumbnailName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K261 ["ThumbnailName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K261 ["thumbnailName"]
+  SETTABLEKS R18 R17 K259 ["thumbnailName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -9744,7 +10804,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9752,7 +10812,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -9764,36 +10828,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K31 ["pcall"]
+  LOADK R20 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K544 [115] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K542 [115] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9801,19 +10865,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K34 ["Description.Init"]
-  DUPTABLE R17 K542 [{"thumbnailName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K263 ["ThumbnailName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K32 ["createdUnixTimeMs"]
+  DUPTABLE R17 K540 [{"thumbnailName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K261 ["ThumbnailName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K261 ["thumbnailName"]
+  SETTABLEKS R18 R17 K259 ["thumbnailName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -9822,7 +10890,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9830,7 +10898,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -9842,36 +10914,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K31 ["pcall"]
+  LOADK R20 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K547 [116] [+53]
-  DUPTABLE R14 K27 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  JUMPIFNOTEQKN R14 K545 [116] [+61]
+  DUPTABLE R14 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K36 ["gmatch"]
+  LOADK R15 K34 [pcall]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9879,10 +10951,10 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
   SETTABLEKS R15 R14 K23 ["actorId"]
@@ -9890,25 +10962,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K549 [117] [+105]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K547 [117] [+118]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K38 [""]
+  LOADK R15 K36 ["Description.Init"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9916,19 +10992,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K39 ["getText"]
-  DUPTABLE R17 K542 [{"thumbnailName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K263 ["ThumbnailName"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K37 ["([^.]+)"]
+  DUPTABLE R17 K540 [{"thumbnailName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K261 ["ThumbnailName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K261 ["thumbnailName"]
+  SETTABLEKS R18 R17 K259 ["thumbnailName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -9937,7 +11017,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -9945,7 +11025,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R22 R4
   GETIMPORT R21 K4 [tostring]
@@ -9957,36 +11041,36 @@ PROTO_13:
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K31 ["pcall"]
+  LOADK R20 K29 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText"}]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K552 [118] [+97]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K550 [118] [+110]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K41 ["ArchivedExperience"]
+  LOADK R15 K39 [1]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -9994,19 +11078,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K43 ["Action"]
-  DUPTABLE R17 K502 [{"placeName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K493 ["PlaceName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R16 K41 ["getText"]
+  DUPTABLE R17 K500 [{"placeName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K491 ["PlaceName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K491 ["placeName"]
+  SETTABLEKS R18 R17 K489 ["placeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -10015,7 +11103,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -10023,42 +11111,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K44 ["metaData"]
+  LOADK R18 K42 ["Universe"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K557 [119] [+97]
-  DUPTABLE R14 K240 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K555 [119] [+110]
+  DUPTABLE R14 K238 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K46 ["lower"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -10066,19 +11158,23 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K47 [string.lower]
-  DUPTABLE R17 K502 [{"placeName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K493 ["PlaceName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R16 K45 ["Action"]
+  DUPTABLE R17 K500 [{"placeName"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K491 ["PlaceName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K491 ["placeName"]
+  SETTABLEKS R18 R17 K489 ["placeName"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -10087,7 +11183,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -10095,42 +11191,46 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K44 ["metaData"]
+  LOADK R18 K42 ["Universe"]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
-  LOADK R16 K38 [""]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K560 [120] [+86]
-  DUPTABLE R14 K425 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  JUMPIFNOTEQKN R14 K558 [120] [+109]
+  DUPTABLE R14 K423 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewOnRobloxLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K49 ["Description.ArchivedExperience"]
+  LOADK R15 K47 ["string"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -10138,19 +11238,29 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K50 ["Description.RestoredExperience"]
-  DUPTABLE R17 K502 [{"placeName"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K493 ["PlaceName"]
-  LOADK R20 K128 ["<b><u>"]
-  MOVE R21 R19
-  LOADK R22 K129 ["</u></b>"]
+  LOADK R16 K48 ["lower"]
+  DUPTABLE R17 K561 [{"placeName", "newVersion"}]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K491 ["PlaceName"]
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K491 ["placeName"]
+  SETTABLEKS R18 R17 K489 ["placeName"]
+  GETTABLEKS R20 R2 K46 ["metaData"]
+  GETTABLEKS R19 R20 K529 ["NewVersion"]
+  FASTCALL1 TOSTRING R19 [+2]
+  GETIMPORT R18 K4 [tostring]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K526 ["newVersion"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -10159,7 +11269,7 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K208 ["update"]
+  LOADK R15 K206 ["update"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R16 R2 K6 ["placeId"]
   ORK R15 R16 K18 [0]
@@ -10167,33 +11277,37 @@ PROTO_13:
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   GETUPVAL R22 1
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R17 R21
-  LOADK R18 K211 ["/updates"]
+  LOADK R18 K209 ["/updates"]
   GETTABLEKS R22 R2 K6 ["placeId"]
   FASTCALL1 TOSTRING R22 [+2]
   GETIMPORT R21 K4 [tostring]
   CALL R21 1 1
   MOVE R19 R21
-  LOADK R20 K38 [""]
+  LOADK R20 K40 [""]
   CONCAT R15 R16 R20
-  SETTABLEKS R15 R14 K239 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K563 [121] [+97]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K562 [121] [+105]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K52 ["viewBasicSettingsLink"]
+  LOADK R15 K51 ["Description.ArchivedExperience"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K42 ["Experience"]
+  LOADK R15 K44 ["Experience"]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -10201,18 +11315,18 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   LOADNIL R16
   NEWTABLE R18 0 0
-  LOADK R19 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
-  LOADK R21 K35 ["([^.]+)"]
-  NAMECALL R19 R19 K36 ["gmatch"]
+  LOADK R19 K52 ["Description.RestoredExperience"]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
   FORGPREP R19
   LENGTH R25 R18
-  ADDK R24 R25 K37 [1]
+  ADDK R24 R25 K39 [1]
   SETTABLE R22 R18 R24
   FORGLOOP R19 1 [-4]
   MOVE R17 R18
@@ -10220,14 +11334,14 @@ PROTO_13:
   JUMPIFEQKNIL R18 [+4]
   GETTABLEN R18 R17 2
   JUMPIFNOTEQKNIL R18 [+3]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   JUMP [+11]
   JUMPIFNOTEQKNIL R16 [+3]
   NEWTABLE R16 0 0
   GETTABLEN R20 R17 1
   GETTABLEN R21 R17 2
   MOVE R22 R16
-  NAMECALL R18 R1 K39 ["getText"]
+  NAMECALL R18 R1 K41 ["getText"]
   CALL R18 4 1
   MOVE R15 R18
   SETTABLEKS R15 R14 K22 ["translation"]
@@ -10237,34 +11351,38 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K54 ["PlayabilityChanged"]
+  LOADK R18 K53 [2]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K567 [122] [+77]
-  DUPTABLE R14 K53 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  JUMPIFNOTEQKN R14 K566 [122] [+173]
+  DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K56 ["playability"]
+  LOADK R15 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
-  GETTABLEKS R16 R2 K30 ["createdUnixTimeMs"]
-  GETIMPORT R17 K32 [pcall]
+  GETTABLEKS R16 R2 K32 ["createdUnixTimeMs"]
+  GETIMPORT R17 K34 [pcall]
   NEWCLOSURE R18 P2
   CAPTURE VAL R16
   CAPTURE VAL R3
@@ -10272,19 +11390,87 @@ PROTO_13:
   JUMPIFNOT R17 [+2]
   MOVE R15 R18
   JUMP [+2]
-  LOADK R15 K33 ["🤷🏻‍♀️"]
+  LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K57 [{"playability"}]
-  DUPTABLE R17 K363 [{"price"}]
-  GETTABLEKS R20 R2 K44 ["metaData"]
-  GETTABLEKS R19 R20 K364 ["Price"]
-  LOADK R20 K64 ["<b>"]
-  MOVE R21 R19
-  LOADK R22 K65 ["</b>"]
+  LOADK R16 K56 ["PlayabilityChanged"]
+  DUPTABLE R17 K142 [{"action"}]
+  GETTABLEKS R22 R2 K46 ["metaData"]
+  GETTABLEKS R21 R22 K45 ["Action"]
+  GETIMPORT R22 K49 [string.lower]
+  FASTCALL1 TOSTRING R21 [+3]
+  MOVE R24 R21
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  CALL R22 1 1
+  JUMPIFNOTEQKS R22 K50 ["true"] [+3]
+  LOADB R20 1
+  JUMP [+1]
+  LOADB R20 0
+  JUMPIFNOT R20 [+35]
+  LOADNIL R20
+  NEWTABLE R22 0 0
+  LOADK R23 K143 ["Description.ActionEnabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
+  CALL R23 2 3
+  FORGPREP R23
+  LENGTH R29 R22
+  ADDK R28 R29 K39 [1]
+  SETTABLE R26 R22 R28
+  FORGLOOP R23 1 [-4]
+  MOVE R21 R22
+  GETTABLEN R22 R21 1
+  JUMPIFEQKNIL R22 [+4]
+  GETTABLEN R22 R21 2
+  JUMPIFNOTEQKNIL R22 [+3]
+  LOADK R19 K40 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R20 [+3]
+  NEWTABLE R20 0 0
+  GETTABLEN R24 R21 1
+  GETTABLEN R25 R21 2
+  MOVE R26 R20
+  NAMECALL R22 R1 K41 ["getText"]
+  CALL R22 4 1
+  MOVE R19 R22
+  JUMPIF R19 [+34]
+  LOADNIL R20
+  NEWTABLE R22 0 0
+  LOADK R23 K144 ["Description.ActionDisabled"]
+  LOADK R25 K37 ["([^.]+)"]
+  NAMECALL R23 R23 K38 ["gmatch"]
+  CALL R23 2 3
+  FORGPREP R23
+  LENGTH R29 R22
+  ADDK R28 R29 K39 [1]
+  SETTABLE R26 R22 R28
+  FORGLOOP R23 1 [-4]
+  MOVE R21 R22
+  GETTABLEN R22 R21 1
+  JUMPIFEQKNIL R22 [+4]
+  GETTABLEN R22 R21 2
+  JUMPIFNOTEQKNIL R22 [+3]
+  LOADK R19 K40 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R20 [+3]
+  NEWTABLE R20 0 0
+  GETTABLEN R24 R21 1
+  GETTABLEN R25 R21 2
+  MOVE R26 R20
+  NAMECALL R22 R1 K41 ["getText"]
+  CALL R22 4 1
+  MOVE R19 R22
+  LOADK R20 K40 [""]
+  FASTCALL1 TOSTRING R19 [+3]
+  MOVE R24 R19
+  GETIMPORT R23 K4 [tostring]
+  CALL R23 1 1
+  MOVE R21 R23
+  LOADK R22 K40 [""]
   CONCAT R18 R20 R22
-  SETTABLEKS R18 R17 K362 ["price"]
+  SETTABLEKS R18 R17 K141 ["action"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["translation"]
   GETTABLEKS R15 R2 K14 ["userId"]
@@ -10293,25 +11479,29 @@ PROTO_13:
   GETTABLEKS R16 R2 K14 ["userId"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K24 ["actorName"]
-  LOADK R15 K40 ["Universe"]
+  LOADK R15 K42 ["Universe"]
   SETTABLEKS R15 R14 K25 ["iconType"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   JUMP [0]
   SETTABLEKS R15 R14 K26 ["iconId"]
   GETTABLEKS R15 R2 K2 ["universeId"]
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R16 K38 [""]
+  GETTABLEKS R15 R2 K27 ["headerText"]
+  SETTABLEKS R15 R14 K27 ["headerText"]
+  GETTABLEKS R15 R2 K28 ["footerText"]
+  SETTABLEKS R15 R14 K28 ["footerText"]
+  LOADK R16 K40 [""]
   FASTCALL1 TOSTRING R4 [+3]
   MOVE R20 R4
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K99 ["Description.AvatarSettingsScaleHeight"]
+  LOADK R18 K97 [9]
   CONCAT R15 R16 R18
-  SETTABLEKS R15 R14 K52 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
-  DUPTABLE R14 K570 [{"id", "universeId", "eventType", "date", "translation", "actorId", "actorName", "iconId", "iconType", "eventCategory"}]
-  GETIMPORT R16 K573 [math.random]
+  DUPTABLE R14 K569 [{"id", "universeId", "eventType", "date", "translation", "actorId", "actorName", "iconId", "iconType", "eventCategory"}]
+  GETIMPORT R16 K572 [math.random]
   CALL R16 0 -1
   FASTCALL TOSTRING [+2]
   GETIMPORT R15 K4 [tostring]
@@ -10319,21 +11509,21 @@ PROTO_13:
   SETTABLEKS R15 R14 K19 ["id"]
   LOADN R15 0
   SETTABLEKS R15 R14 K2 ["universeId"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K17 ["eventType"]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K21 ["date"]
-  LOADK R15 K62 ["Description.ActionPrivate"]
+  LOADK R15 K61 ["Public"]
   SETTABLEKS R15 R14 K22 ["translation"]
   LOADN R15 0
   SETTABLEKS R15 R14 K23 ["actorId"]
-  LOADK R15 K63 ["Description.ActionFriends"]
+  LOADK R15 K62 ["Description.ActionPublic"]
   SETTABLEKS R15 R14 K24 ["actorName"]
   LOADN R15 0
   SETTABLEKS R15 R14 K26 ["iconId"]
-  LOADK R15 K29 ["Unknown"]
+  LOADK R15 K31 ["Unknown"]
   SETTABLEKS R15 R14 K25 ["iconType"]
-  LOADK R15 K38 [""]
+  LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
   RETURN R14 1
 
@@ -10705,7 +11895,7 @@ PROTO_14:
   LOADK R1 K3 ["Experience"]
   RETURN R1 1
   JUMPIFNOTEQKN R0 K129 [122] [+3]
-  LOADK R1 K1 ["Unknown"]
+  LOADK R1 K70 ["Monetization"]
   RETURN R1 1
   LOADK R1 K1 ["Unknown"]
   RETURN R1 1
@@ -10718,8 +11908,8 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Clients"]
-  GETTABLEKS R2 R3 K7 ["ActivityHistoryClient"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["SharedTypes"]
   CALL R1 1 1
   LOADK R2 K8 ["https://www.roblox.com"]
   LOADK R3 K9 ["https://create.roblox.com"]

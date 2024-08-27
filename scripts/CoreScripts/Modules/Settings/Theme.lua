@@ -12,17 +12,15 @@ local UIBloxImages = UIBlox.App.ImageSet.Images
 local getIconSize = UIBlox.App.ImageSet.getIconSize
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
-local EnableInGameMenuControls = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuControls)
 local EnableInGameMenuModernization = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernization)
 local EnableInGameMenuModernizationBigText = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationBigText)
 local EnableInGameMenuModernizationStickyBar = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationStickyBar)
-local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
 local FFlagIncreaseUtilityRowTextSizeConsole = game:DefineFastFlag("IncreaseUtilityRowTextSizeConsole", false)
 
 local AppFontBaseSize = 16 * 1.2
 
-local ThemeEnabled = EnableInGameMenuControls() or EnableInGameMenuModernization() or ChromeEnabled()
+local ThemeEnabled = EnableInGameMenuModernization() or ChromeEnabled()
 
 local UseBiggerText = EnableInGameMenuModernizationBigText()
 local UseStickyBarEnabled = EnableInGameMenuModernizationStickyBar()
@@ -350,7 +348,7 @@ if ThemeEnabled then
 		end,
 		UIBloxThemeEnabled = true,
 		UseIconButtons = UseIconButtons,
-		ShowHomeButton = ExperienceMenuABTestManager.default:shouldShowHomeButton(),
+		ShowHomeButton = false,
 		EnableVerticalBottomBar = UseBottomButtonBarOnMobile,
 		UseBiggerText = UseBiggerText,
 		UseStickyBar = UseStickyBar,

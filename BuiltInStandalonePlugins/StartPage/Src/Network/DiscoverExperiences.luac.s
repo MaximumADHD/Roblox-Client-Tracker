@@ -64,30 +64,41 @@ PROTO_2:
   JUMPIF R2 [+2]
   LOADNIL R2
   RETURN R2 1
-  DUPTABLE R2 K14 [{"IsGame", "Name", "CreatorName", "CreatorTargetId", "Type", "Description", "Created", "Updated", "PrivacyType", "Id", "RootPlaceId"}]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K3 ["IsGame"]
-  GETTABLEKS R3 R1 K0 ["name"]
-  SETTABLEKS R3 R2 K4 ["Name"]
-  GETTABLEKS R3 R1 K15 ["creatorName"]
-  SETTABLEKS R3 R2 K5 ["CreatorName"]
-  GETTABLEKS R3 R1 K16 ["creatorTargetId"]
-  SETTABLEKS R3 R2 K6 ["CreatorTargetId"]
-  LOADK R3 K17 ["Experience"]
-  SETTABLEKS R3 R2 K7 ["Type"]
-  GETTABLEKS R3 R1 K18 ["description"]
-  SETTABLEKS R3 R2 K8 ["Description"]
-  GETTABLEKS R3 R1 K19 ["created"]
-  SETTABLEKS R3 R2 K9 ["Created"]
-  GETTABLEKS R3 R1 K20 ["updated"]
-  SETTABLEKS R3 R2 K10 ["Updated"]
-  GETTABLEKS R3 R1 K21 ["privacyType"]
-  SETTABLEKS R3 R2 K11 ["PrivacyType"]
-  GETTABLEKS R3 R1 K1 ["id"]
-  SETTABLEKS R3 R2 K12 ["Id"]
-  GETTABLEKS R3 R1 K2 ["rootPlaceId"]
-  SETTABLEKS R3 R2 K13 ["RootPlaceId"]
-  RETURN R2 1
+  GETTABLEKS R2 R1 K3 ["privacyType"]
+  JUMPIFNOT R2 [+15]
+  JUMPIFEQKS R2 K4 ["Public"] [+14]
+  JUMPIFEQKS R2 K5 ["Private"] [+12]
+  JUMPIFEQKS R2 K6 ["Draft"] [+10]
+  GETIMPORT R3 K8 [error]
+  LOADK R5 K9 ["Invalid value for privacyType: \"%*\""]
+  MOVE R7 R2
+  NAMECALL R5 R5 K10 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  DUPTABLE R3 K22 [{"IsGame", "Name", "CreatorName", "CreatorTargetId", "Type", "Description", "Created", "Updated", "PrivacyType", "Id", "RootPlaceId"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K11 ["IsGame"]
+  GETTABLEKS R4 R1 K0 ["name"]
+  SETTABLEKS R4 R3 K12 ["Name"]
+  GETTABLEKS R4 R1 K23 ["creatorName"]
+  SETTABLEKS R4 R3 K13 ["CreatorName"]
+  GETTABLEKS R4 R1 K24 ["creatorTargetId"]
+  SETTABLEKS R4 R3 K14 ["CreatorTargetId"]
+  LOADK R4 K25 ["Experience"]
+  SETTABLEKS R4 R3 K15 ["Type"]
+  GETTABLEKS R4 R1 K26 ["description"]
+  SETTABLEKS R4 R3 K16 ["Description"]
+  GETTABLEKS R4 R1 K27 ["created"]
+  SETTABLEKS R4 R3 K17 ["Created"]
+  GETTABLEKS R4 R1 K28 ["updated"]
+  SETTABLEKS R4 R3 K18 ["Updated"]
+  SETTABLEKS R2 R3 K19 ["PrivacyType"]
+  GETTABLEKS R4 R1 K1 ["id"]
+  SETTABLEKS R4 R3 K20 ["Id"]
+  GETTABLEKS R4 R1 K2 ["rootPlaceId"]
+  SETTABLEKS R4 R3 K21 ["RootPlaceId"]
+  RETURN R3 1
 
 PROTO_3:
   GETTABLEKS R1 R0 K0 ["data"]

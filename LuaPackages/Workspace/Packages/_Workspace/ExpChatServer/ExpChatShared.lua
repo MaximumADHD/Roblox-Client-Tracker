@@ -5,7 +5,6 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["ExpChatShared"]["ExpChatShared"])
 
-export type ActiveChannelTabChanged = Package.ActiveChannelTabChanged
 export type CharacterAdded = Package.CharacterAdded
 export type ChatInputBarActivatedTeamMode = Package.ChatInputBarActivatedTeamMode
 export type ChatInputBarActivatedWhisperMode = Package.ChatInputBarActivatedWhisperMode

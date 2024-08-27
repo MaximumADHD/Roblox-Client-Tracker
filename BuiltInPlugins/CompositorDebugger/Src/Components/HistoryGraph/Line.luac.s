@@ -57,29 +57,33 @@ PROTO_0:
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K16 ["createElement"]
   LOADK R9 K17 ["Frame"]
-  DUPTABLE R10 K27 [{"Position", "Size", "AnchorPoint", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Rotation", "ZIndex"}]
+  NEWTABLE R10 16 0
   SETTABLEKS R4 R10 K18 ["Position"]
   SETTABLEKS R6 R10 K19 ["Size"]
-  GETIMPORT R11 K29 [Vector2.new]
-  LOADK R12 K30 [0.5]
-  LOADK R13 K30 [0.5]
+  GETIMPORT R11 K21 [Vector2.new]
+  LOADK R12 K22 [0.5]
+  LOADK R13 K22 [0.5]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K20 ["AnchorPoint"]
-  GETTABLEKS R11 R1 K31 ["Transparency"]
-  SETTABLEKS R11 R10 K21 ["BackgroundTransparency"]
-  GETTABLEKS R11 R1 K32 ["Color"]
-  SETTABLEKS R11 R10 K22 ["BackgroundColor3"]
+  SETTABLEKS R11 R10 K23 ["AnchorPoint"]
+  GETTABLEKS R11 R1 K24 ["Transparency"]
+  SETTABLEKS R11 R10 K25 ["BackgroundTransparency"]
   LOADN R11 0
-  SETTABLEKS R11 R10 K23 ["BorderSizePixel"]
-  GETTABLEKS R11 R1 K32 ["Color"]
-  SETTABLEKS R11 R10 K24 ["BorderColor3"]
+  SETTABLEKS R11 R10 K26 ["BorderSizePixel"]
+  GETTABLEKS R11 R1 K27 ["Color"]
+  SETTABLEKS R11 R10 K28 ["BorderColor3"]
   FASTCALL1 MATH_DEG R7 [+3]
   MOVE R12 R7
-  GETIMPORT R11 K34 [math.deg]
+  GETIMPORT R11 K30 [math.deg]
   CALL R11 1 1
-  SETTABLEKS R11 R10 K25 ["Rotation"]
-  GETTABLEKS R11 R1 K26 ["ZIndex"]
-  SETTABLEKS R11 R10 K26 ["ZIndex"]
+  SETTABLEKS R11 R10 K31 ["Rotation"]
+  GETTABLEKS R11 R1 K32 ["ZIndex"]
+  SETTABLEKS R11 R10 K32 ["ZIndex"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K33 ["Tag"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K33 ["Tag"]
+  GETTABLE R12 R1 R13
+  SETTABLE R12 R10 R11
   CALL R8 2 -1
   RETURN R8 -1
 

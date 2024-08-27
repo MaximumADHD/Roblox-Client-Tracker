@@ -940,8 +940,10 @@ MAIN:
   GETTABLEKS R4 R1 K10 ["Packages"]
   GETTABLEKS R3 R4 K11 ["Dash"]
   CALL R2 1 1
-  GETTABLEKS R4 R1 K10 ["Packages"]
-  GETTABLEKS R3 R4 K12 ["DraggerFramework"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["DraggerFramework"]
+  CALL R3 1 1
   GETIMPORT R4 K9 [require]
   GETTABLEKS R6 R1 K10 ["Packages"]
   GETTABLEKS R5 R6 K13 ["Framework"]
@@ -978,30 +980,22 @@ MAIN:
   GETIMPORT R14 K5 [script]
   GETTABLEKS R13 R14 K21 ["useBodyMoveHandles"]
   CALL R12 1 1
-  GETIMPORT R13 K9 [require]
-  GETTABLEKS R15 R3 K22 ["Implementation"]
-  GETTABLEKS R14 R15 K23 ["DraggerContext_PluginImpl"]
-  CALL R13 1 1
+  GETTABLEKS R14 R3 K22 ["Implementation"]
+  GETTABLEKS R13 R14 K23 ["DraggerContext_PluginImpl"]
   GETIMPORT R14 K9 [require]
   GETIMPORT R16 K5 [script]
   GETTABLEKS R15 R16 K24 ["DraggerSchema"]
   CALL R14 1 1
-  GETIMPORT R15 K9 [require]
-  GETTABLEKS R17 R3 K25 ["DraggerTools"]
-  GETTABLEKS R16 R17 K26 ["DraggerToolComponent"]
-  CALL R15 1 1
+  GETTABLEKS R16 R3 K25 ["DraggerTools"]
+  GETTABLEKS R15 R16 K26 ["DraggerToolComponent"]
   GETIMPORT R16 K9 [require]
   GETIMPORT R18 K5 [script]
   GETTABLEKS R17 R18 K27 ["DraggerSelection"]
   CALL R16 1 1
-  GETIMPORT R17 K9 [require]
+  GETTABLEKS R18 R3 K28 ["Handles"]
+  GETTABLEKS R17 R18 K29 ["MoveHandles"]
   GETTABLEKS R19 R3 K28 ["Handles"]
-  GETTABLEKS R18 R19 K29 ["MoveHandles"]
-  CALL R17 1 1
-  GETIMPORT R18 K9 [require]
-  GETTABLEKS R20 R3 K28 ["Handles"]
-  GETTABLEKS R19 R20 K30 ["RotateHandles"]
-  CALL R18 1 1
+  GETTABLEKS R18 R19 K30 ["RotateHandles"]
   GETIMPORT R19 K9 [require]
   GETTABLEKS R22 R1 K17 ["Src"]
   GETTABLEKS R21 R22 K31 ["Util"]

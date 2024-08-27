@@ -8,27 +8,22 @@ PROTO_0:
   RETURN R2 2
 
 PROTO_1:
-  GETUPVAL R1 0
-  CALL R1 0 -1
-  FASTCALL ASSERT [+2]
-  GETIMPORT R0 K1 [assert]
-  CALL R0 -1 0
-  DUPTABLE R0 K4 [{"Url", "Method"}]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K5 ["BuildRobloxUrl"]
-  LOADK R2 K6 ["apis"]
-  LOADK R3 K7 ["resource-settings/v1/preferences:batchGet?preferenceTypes=Universes"]
+  DUPTABLE R0 K2 [{"Url", "Method"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["BuildRobloxUrl"]
+  LOADK R2 K4 ["apis"]
+  LOADK R3 K5 ["resource-settings/v1/preferences:batchGet?preferenceTypes=Universes"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K2 ["Url"]
-  LOADK R1 K8 ["GET"]
-  SETTABLEKS R1 R0 K3 ["Method"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K9 ["RequestInternal"]
+  SETTABLEKS R1 R0 K0 ["Url"]
+  LOADK R1 K6 ["GET"]
+  SETTABLEKS R1 R0 K1 ["Method"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K7 ["RequestInternal"]
   MOVE R2 R0
   CALL R1 1 1
-  DUPCLOSURE R3 K10 [PROTO_0]
-  CAPTURE UPVAL U2
-  NAMECALL R1 R1 K11 ["andThen"]
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE UPVAL U1
+  NAMECALL R1 R1 K9 ["andThen"]
   CALL R1 2 -1
   RETURN R1 -1
 
@@ -45,16 +40,10 @@ MAIN:
   GETTABLEKS R1 R2 K6 ["Parent"]
   GETIMPORT R2 K8 [require]
   GETTABLEKS R5 R1 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Flags"]
-  GETTABLEKS R3 R4 K11 ["getFFlagCAP1107"]
+  GETTABLEKS R4 R5 K10 ["Network"]
+  GETTABLEKS R3 R4 K11 ["Http"]
   CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R6 R1 K9 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Network"]
-  GETTABLEKS R4 R5 K13 ["Http"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K14 [PROTO_1]
+  DUPCLOSURE R3 K12 [PROTO_1]
   CAPTURE VAL R2
-  CAPTURE VAL R3
   CAPTURE VAL R0
-  RETURN R4 1
+  RETURN R3 1

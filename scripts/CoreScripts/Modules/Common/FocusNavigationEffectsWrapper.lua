@@ -45,18 +45,21 @@ local function FocusNavigationEffects(props: Props)
 		if focusRef then
 			registerFocusNavigationRoot(props.focusNavigableSurfaceIdentifier, focusRef)
 			if props.selectionGroupName then
-				GuiService:AddSelectionParent(props.selectionGroupName, focusRef)
+				-- AddSelectionParent is deprecated
+				(GuiService :: any):AddSelectionParent(props.selectionGroupName, focusRef)
 			end
 		else
 			deregisterFocusNavigationRoot(props.focusNavigableSurfaceIdentifier, focusRef)
 			if props.selectionGroupName then
-				GuiService:RemoveSelectionGroup(props.selectionGroupName)
+				-- RemoveSelectionGroup is deprecated
+				(GuiService :: any):RemoveSelectionGroup(props.selectionGroupName)
 			end
 		end
 		return function()
 			deregisterFocusNavigationRoot(props.focusNavigableSurfaceIdentifier, focusRef)
 			if props.selectionGroupName then
-				GuiService:RemoveSelectionGroup(props.selectionGroupName)
+				-- RemoveSelectionGroup is deprecated
+				(GuiService :: any):RemoveSelectionGroup(props.selectionGroupName)
 			end
 		end
 	end, { focusRef, props.focusNavigableSurfaceIdentifier, props.selectionGroupName } :: { any })

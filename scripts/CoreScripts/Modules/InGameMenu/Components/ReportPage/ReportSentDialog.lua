@@ -39,8 +39,10 @@ function ReportSentDialog:renderFocusHandler()
 	return Roact.createElement(FocusHandler, {
 		isFocused = self.props.inputType == Constants.InputType.Gamepad and self.props.isReportSentOpen,
 		didFocus = function()
-			GuiService:RemoveSelectionGroup(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME)
-			GuiService:AddSelectionParent(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME, self.buttonRef:getValue())
+			-- RemoveSelectionGroup is deprecated
+			(GuiService :: any):RemoveSelectionGroup(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME)
+			-- AddSelectionParent is deprecated
+			;(GuiService :: any):AddSelectionParent(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME, self.buttonRef:getValue())
 			GuiService.SelectedCoreObject = self.buttonRef:getValue()
 
 			ContextActionService:BindCoreAction(REPORT_SENT_DIALOG_SINK_ACTION, function(actionName, inputState)
@@ -49,7 +51,8 @@ function ReportSentDialog:renderFocusHandler()
 		end,
 		didBlur = function()
 			ContextActionService:UnbindCoreAction(REPORT_SENT_DIALOG_SINK_ACTION)
-			GuiService:RemoveSelectionGroup(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME)
+			-- RemoveSelectionGroup is deprecated
+			;(GuiService :: any):RemoveSelectionGroup(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME)
 		end
 	})
 end

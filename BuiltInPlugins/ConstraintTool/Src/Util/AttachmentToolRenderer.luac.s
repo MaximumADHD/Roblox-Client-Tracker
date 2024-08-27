@@ -86,30 +86,36 @@ PROTO_2:
 
 PROTO_3:
   GETTABLEKS R1 R0 K0 ["_draggerContext"]
-  NEWTABLE R2 0 3
+  NEWTABLE R2 0 5
   GETUPVAL R3 0
   GETUPVAL R4 1
   GETUPVAL R5 2
-  SETLIST R2 R3 3 [1]
-  GETUPVAL R3 3
-  JUMPIFNOT R3 [+14]
-  GETTABLEKS R7 R0 K1 ["_constraintToolModel"]
-  GETTABLEKS R6 R7 K2 ["_partPassthroughEnabled"]
-  JUMPIFNOT R6 [+2]
-  GETUPVAL R5 4
-  JUMPIF R5 [+1]
-  GETUPVAL R5 5
+  GETUPVAL R7 3
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K1 ["ShowWeldDetails"]
+  GETTABLE R6 R7 R8
+  GETUPVAL R8 5
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K2 ["ShowConstraintDetails"]
+  GETTABLE R7 R8 R9
+  SETLIST R2 R3 5 [1]
+  GETUPVAL R3 6
+  JUMPIFNOT R3 [+12]
+  GETUPVAL R6 7
+  GETTABLEKS R8 R0 K3 ["_constraintToolModel"]
+  GETTABLEKS R7 R8 K4 ["_partPassthroughEnabled"]
+  GETTABLE R5 R6 R7
   FASTCALL2 TABLE_INSERT R2 R5 [+4]
   MOVE R4 R2
-  GETIMPORT R3 K5 [table.insert]
+  GETIMPORT R3 K7 [table.insert]
   CALL R3 2 0
-  GETUPVAL R4 6
-  GETTABLEKS R3 R4 K6 ["addGridSnap"]
+  GETUPVAL R4 8
+  GETTABLEKS R3 R4 K8 ["addGridSnap"]
   MOVE R4 R2
   MOVE R5 R1
   CALL R3 2 0
-  GETUPVAL R4 6
-  GETTABLEKS R3 R4 K7 ["addHelp"]
+  GETUPVAL R4 8
+  GETTABLEKS R3 R4 K9 ["addHelp"]
   MOVE R4 R2
   CALL R3 1 0
   RETURN R2 1
@@ -148,91 +154,134 @@ MAIN:
   LOADK R2 K2 ["ConstraintTool"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETTABLEKS R2 R0 K4 ["Packages"]
-  GETTABLEKS R1 R2 K5 ["DraggerFramework"]
-  GETIMPORT R2 K7 [require]
-  GETTABLEKS R4 R0 K4 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K7 [require]
-  GETTABLEKS R5 R1 K9 ["Components"]
-  GETTABLEKS R4 R5 K10 ["TargetGridView"]
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["StudioService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R3 R0 K8 ["Packages"]
+  GETTABLEKS R2 R3 K9 ["DraggerFramework"]
+  GETIMPORT R3 K11 [require]
+  GETTABLEKS R5 R0 K8 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Roact"]
   CALL R3 1 1
-  GETIMPORT R4 K7 [require]
-  GETTABLEKS R6 R1 K9 ["Components"]
-  GETTABLEKS R5 R6 K11 ["TargetSoftSnapView"]
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R6 R2 K13 ["Components"]
+  GETTABLEKS R5 R6 K14 ["TargetGridView"]
   CALL R4 1 1
-  GETIMPORT R5 K7 [require]
-  GETTABLEKS R7 R1 K9 ["Components"]
-  GETTABLEKS R6 R7 K12 ["HotkeyUsageInfo"]
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R7 R2 K13 ["Components"]
+  GETTABLEKS R6 R7 K15 ["TargetSoftSnapView"]
   CALL R5 1 1
-  GETIMPORT R6 K7 [require]
-  GETTABLEKS R8 R1 K13 ["Utility"]
-  GETTABLEKS R7 R8 K14 ["HotkeyHelpBuilder"]
+  GETIMPORT R6 K11 [require]
+  GETTABLEKS R8 R2 K13 ["Components"]
+  GETTABLEKS R7 R8 K16 ["HotkeyUsageInfo"]
   CALL R6 1 1
-  GETIMPORT R7 K16 [game]
-  LOADK R9 K17 ["EnableConstraintToolPartPassthroughFeature"]
-  NAMECALL R7 R7 K18 ["GetFastFlag"]
-  CALL R7 2 1
-  NEWTABLE R8 8 0
-  SETTABLEKS R8 R8 K19 ["__index"]
-  DUPCLOSURE R9 K20 [PROTO_0]
-  CAPTURE VAL R8
-  SETTABLEKS R9 R8 K21 ["new"]
-  DUPCLOSURE R9 K22 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  SETTABLEKS R9 R8 K23 ["_renderSnapTarget"]
-  DUPCLOSURE R9 K24 [PROTO_2]
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K25 ["_renderSnap"]
-  GETIMPORT R9 K28 [table.freeze]
-  DUPTABLE R10 K31 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R11 K32 ["T"]
-  SETTABLEKS R11 R10 K29 ["Hotkey"]
-  LOADK R11 K33 ["DragTilt"]
-  SETTABLEKS R11 R10 K30 ["LabelLocEntry"]
-  CALL R9 1 1
-  GETIMPORT R10 K28 [table.freeze]
-  DUPTABLE R11 K31 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R12 K34 ["R"]
-  SETTABLEKS R12 R11 K29 ["Hotkey"]
-  LOADK R12 K35 ["DragRotate"]
-  SETTABLEKS R12 R11 K30 ["LabelLocEntry"]
-  CALL R10 1 1
-  GETIMPORT R11 K28 [table.freeze]
-  DUPTABLE R12 K31 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R13 K36 ["F"]
-  SETTABLEKS R13 R12 K29 ["Hotkey"]
-  LOADK R13 K37 ["EnablePartPassthrough"]
-  SETTABLEKS R13 R12 K30 ["LabelLocEntry"]
-  CALL R11 1 1
-  GETIMPORT R12 K28 [table.freeze]
-  DUPTABLE R13 K31 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R14 K36 ["F"]
-  SETTABLEKS R14 R13 K29 ["Hotkey"]
-  LOADK R14 K38 ["DisablePartPassthrough"]
-  SETTABLEKS R14 R13 K30 ["LabelLocEntry"]
-  CALL R12 1 1
-  GETIMPORT R13 K28 [table.freeze]
-  DUPTABLE R14 K31 [{"Hotkey", "LabelLocEntry"}]
-  LOADK R15 K39 ["Esc"]
-  SETTABLEKS R15 R14 K29 ["Hotkey"]
-  LOADK R15 K40 ["Escape"]
-  SETTABLEKS R15 R14 K30 ["LabelLocEntry"]
-  CALL R13 1 1
-  DUPCLOSURE R14 K41 [PROTO_3]
-  CAPTURE VAL R13
+  GETIMPORT R7 K11 [require]
+  GETTABLEKS R9 R2 K17 ["Utility"]
+  GETTABLEKS R8 R9 K18 ["HotkeyHelpBuilder"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [game]
+  LOADK R10 K19 ["EnableConstraintToolPartPassthroughFeature"]
+  NAMECALL R8 R8 K20 ["GetFastFlag"]
+  CALL R8 2 1
+  NEWTABLE R9 8 0
+  SETTABLEKS R9 R9 K21 ["__index"]
+  DUPCLOSURE R10 K22 [PROTO_0]
   CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R7
-  CAPTURE VAL R12
-  CAPTURE VAL R11
-  CAPTURE VAL R6
-  SETTABLEKS R14 R8 K42 ["_getHotkeyList"]
-  DUPCLOSURE R14 K43 [PROTO_4]
-  CAPTURE VAL R2
+  SETTABLEKS R10 R9 K23 ["new"]
+  DUPCLOSURE R10 K24 [PROTO_1]
+  CAPTURE VAL R3
   CAPTURE VAL R5
-  SETTABLEKS R14 R8 K44 ["render"]
-  RETURN R8 1
+  CAPTURE VAL R4
+  SETTABLEKS R10 R9 K25 ["_renderSnapTarget"]
+  DUPCLOSURE R10 K26 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K27 ["_renderSnap"]
+  GETIMPORT R10 K30 [table.freeze]
+  DUPTABLE R11 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R12 K34 ["T"]
+  SETTABLEKS R12 R11 K31 ["Hotkey"]
+  LOADK R12 K35 ["DragTilt"]
+  SETTABLEKS R12 R11 K32 ["LabelLocEntry"]
+  CALL R10 1 1
+  GETIMPORT R11 K30 [table.freeze]
+  DUPTABLE R12 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R13 K36 ["R"]
+  SETTABLEKS R13 R12 K31 ["Hotkey"]
+  LOADK R13 K37 ["DragRotate"]
+  SETTABLEKS R13 R12 K32 ["LabelLocEntry"]
+  CALL R11 1 1
+  GETIMPORT R12 K30 [table.freeze]
+  NEWTABLE R13 2 0
+  LOADB R14 1
+  DUPTABLE R15 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R16 K38 ["G"]
+  SETTABLEKS R16 R15 K31 ["Hotkey"]
+  LOADK R16 K39 ["DisablePartPassthrough"]
+  SETTABLEKS R16 R15 K32 ["LabelLocEntry"]
+  SETTABLE R15 R13 R14
+  LOADB R14 0
+  DUPTABLE R15 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R16 K38 ["G"]
+  SETTABLEKS R16 R15 K31 ["Hotkey"]
+  LOADK R16 K40 ["EnablePartPassthrough"]
+  SETTABLEKS R16 R15 K32 ["LabelLocEntry"]
+  SETTABLE R15 R13 R14
+  CALL R12 1 1
+  GETIMPORT R13 K30 [table.freeze]
+  NEWTABLE R14 2 0
+  LOADB R15 1
+  DUPTABLE R16 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R17 K41 ["Alt+W"]
+  SETTABLEKS R17 R16 K31 ["Hotkey"]
+  LOADK R17 K42 ["DisableWeldVisualization"]
+  SETTABLEKS R17 R16 K32 ["LabelLocEntry"]
+  SETTABLE R16 R14 R15
+  LOADB R15 0
+  DUPTABLE R16 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R17 K41 ["Alt+W"]
+  SETTABLEKS R17 R16 K31 ["Hotkey"]
+  LOADK R17 K43 ["EnableWeldVisualization"]
+  SETTABLEKS R17 R16 K32 ["LabelLocEntry"]
+  SETTABLE R16 R14 R15
+  CALL R13 1 1
+  GETIMPORT R14 K30 [table.freeze]
+  NEWTABLE R15 2 0
+  LOADB R16 1
+  DUPTABLE R17 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R18 K44 ["Alt+D"]
+  SETTABLEKS R18 R17 K31 ["Hotkey"]
+  LOADK R18 K45 ["DisableConstraintVisualization"]
+  SETTABLEKS R18 R17 K32 ["LabelLocEntry"]
+  SETTABLE R17 R15 R16
+  LOADB R16 0
+  DUPTABLE R17 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R18 K44 ["Alt+D"]
+  SETTABLEKS R18 R17 K31 ["Hotkey"]
+  LOADK R18 K46 ["EnableConstraintVisualization"]
+  SETTABLEKS R18 R17 K32 ["LabelLocEntry"]
+  SETTABLE R17 R15 R16
+  CALL R14 1 1
+  GETIMPORT R15 K30 [table.freeze]
+  DUPTABLE R16 K33 [{"Hotkey", "LabelLocEntry"}]
+  LOADK R17 K47 ["Esc"]
+  SETTABLEKS R17 R16 K31 ["Hotkey"]
+  LOADK R17 K48 ["Escape"]
+  SETTABLEKS R17 R16 K32 ["LabelLocEntry"]
+  CALL R15 1 1
+  DUPCLOSURE R16 K49 [PROTO_3]
+  CAPTURE VAL R15
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  SETTABLEKS R16 R9 K50 ["_getHotkeyList"]
+  DUPCLOSURE R16 K51 [PROTO_4]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R16 R9 K52 ["render"]
+  RETURN R9 1

@@ -1,4 +1,32 @@
 PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIF R1 [+4]
+  GETIMPORT R1 K1 [error]
+  LOADK R2 K2 ["This function can only be called in a FTF test runner"]
+  CALL R1 1 0
+  JUMPIFNOT R0 [+1]
+  JUMP [+3]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["BlenderCubeDefault"]
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["Plugin"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestorWhichIsA"]
+  CALL R1 2 1
+  LOADK R4 K8 ["FTFUtil"]
+  NAMECALL R2 R1 K9 ["GetPluginComponent"]
+  CALL R2 2 1
+  LOADK R4 K10 ["%*/%*/%*"]
+  NAMECALL R6 R2 K11 ["ClientFolderPathAsync"]
+  CALL R6 1 1
+  LOADK R7 K12 ["AssetImport/AssetImportTest.Lib/resources"]
+  MOVE R8 R0
+  NAMECALL R4 R4 K13 ["format"]
+  CALL R4 4 1
+  MOVE R3 R4
+  RETURN R3 1
+
+PROTO_1:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["isCli"]
   CALL R3 0 1
@@ -62,7 +90,7 @@ PROTO_0:
   CALL R4 2 1
   RETURN R4 1
 
-PROTO_1:
+PROTO_2:
   JUMPIFNOT R0 [+11]
   GETTABLEKS R2 R0 K0 ["Cancel"]
   FASTCALL1 TYPEOF R2 [+2]
@@ -73,7 +101,7 @@ PROTO_1:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   GETTABLEKS R1 R0 K0 ["contextItems"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K0 ["contextItems"]
@@ -81,7 +109,7 @@ PROTO_2:
   CALL R1 1 0
   GETTABLEKS R1 R0 K2 ["store"]
   JUMPIFNOT R1 [+86]
-  DUPCLOSURE R1 K3 [PROTO_1]
+  DUPCLOSURE R1 K3 [PROTO_2]
   GETUPVAL R2 0
   CALL R2 0 1
   JUMPIFNOT R2 [+29]
@@ -168,7 +196,7 @@ PROTO_2:
   FORGLOOP R2 2 [-5]
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["root"]
   GETUPVAL R2 1
@@ -176,7 +204,7 @@ PROTO_3:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETIMPORT R2 K1 [game]
   LOADK R4 K2 ["CoreGui"]
   NAMECALL R2 R2 K3 ["GetService"]
@@ -228,50 +256,13 @@ PROTO_4:
   SETTABLEKS R6 R0 K21 ["handle"]
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   SETTABLEKS R1 R0 K0 ["story"]
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   SETTABLEKS R1 R0 K0 ["storyProps"]
   RETURN R0 0
-
-PROTO_7:
-  GETTABLEKS R2 R0 K0 ["environment"]
-  JUMPIFNOTEQKS R2 K1 ["FeatureTest"] [+27]
-  JUMPIFNOT R1 [+1]
-  JUMP [+3]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["BlenderCubeDefault"]
-  GETIMPORT R2 K4 [script]
-  LOADK R4 K5 ["Plugin"]
-  NAMECALL R2 R2 K6 ["FindFirstAncestorWhichIsA"]
-  CALL R2 2 1
-  LOADK R5 K7 ["FTFUtil"]
-  NAMECALL R3 R2 K8 ["GetPluginComponent"]
-  CALL R3 2 1
-  LOADK R5 K9 ["%*/%*/%*"]
-  NAMECALL R7 R3 K10 ["ClientFolderPath"]
-  CALL R7 1 1
-  LOADK R8 K11 ["AssetImport/AssetImportTest.Lib/resources"]
-  MOVE R9 R1
-  NAMECALL R5 R5 K12 ["format"]
-  CALL R5 4 1
-  MOVE R4 R5
-  RETURN R4 1
-  GETTABLEKS R2 R0 K0 ["environment"]
-  JUMPIFNOTEQKS R2 K13 ["Production"] [+6]
-  GETIMPORT R2 K15 [error]
-  LOADK R3 K16 ["This is a test-only function. Please use FileController to handle starting production sessions."]
-  CALL R2 1 0
-  JUMP [+8]
-  GETTABLEKS R2 R0 K0 ["environment"]
-  JUMPIFNOTEQKS R2 K17 ["RobloxCli"] [+5]
-  GETIMPORT R2 K15 [error]
-  LOADK R3 K18 ["AssetImportService is unavailable in RobloxCli."]
-  CALL R2 1 0
-  LOADNIL R2
-  RETURN R2 1
 
 MAIN:
   PREPVARARGS 0
@@ -350,6 +341,10 @@ MAIN:
   SETTABLEKS R17 R17 K38 ["__index"]
   SETTABLEKS R16 R17 K39 ["Resources"]
   DUPCLOSURE R18 K40 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R16
+  SETTABLEKS R18 R17 K41 ["getResourcePathForTesting"]
+  DUPCLOSURE R18 K42 [PROTO_1]
   CAPTURE VAL R5
   CAPTURE VAL R7
   CAPTURE VAL R9
@@ -359,22 +354,19 @@ MAIN:
   CAPTURE VAL R12
   CAPTURE VAL R2
   CAPTURE VAL R17
-  SETTABLEKS R18 R17 K41 ["new"]
-  DUPCLOSURE R18 K42 [PROTO_2]
+  SETTABLEKS R18 R17 K43 ["new"]
+  DUPCLOSURE R18 K44 [PROTO_3]
   CAPTURE VAL R14
   CAPTURE VAL R2
-  SETTABLEKS R18 R17 K43 ["destroy"]
-  DUPCLOSURE R18 K44 [PROTO_4]
+  SETTABLEKS R18 R17 K45 ["destroy"]
+  DUPCLOSURE R18 K46 [PROTO_5]
   CAPTURE VAL R2
   CAPTURE VAL R13
   CAPTURE VAL R15
   CAPTURE VAL R3
-  SETTABLEKS R18 R17 K45 ["_createTestElement"]
-  DUPCLOSURE R18 K46 [PROTO_5]
-  SETTABLEKS R18 R17 K47 ["_setStory"]
+  SETTABLEKS R18 R17 K47 ["_createTestElement"]
   DUPCLOSURE R18 K48 [PROTO_6]
-  SETTABLEKS R18 R17 K49 ["_setStoryProps"]
+  SETTABLEKS R18 R17 K49 ["_setStory"]
   DUPCLOSURE R18 K50 [PROTO_7]
-  CAPTURE VAL R16
-  SETTABLEKS R18 R17 K51 ["_getResourcePath"]
+  SETTABLEKS R18 R17 K51 ["_setStoryProps"]
   RETURN R17 1

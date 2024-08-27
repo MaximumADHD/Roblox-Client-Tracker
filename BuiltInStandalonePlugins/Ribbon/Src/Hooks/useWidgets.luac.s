@@ -2,7 +2,7 @@ PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["Widgets"]
   GETUPVAL R2 1
-  NAMECALL R0 R0 K1 ["Deregister"]
+  NAMECALL R0 R0 K1 ["DeregisterAsync"]
   CALL R0 2 0
   RETURN R0 0
 
@@ -40,7 +40,7 @@ PROTO_1:
   JUMPIFNOTLT R4 R3 [+11]
   GETTABLEKS R3 R0 K5 ["Widgets"]
   MOVE R5 R2
-  NAMECALL R3 R3 K6 ["Register"]
+  NAMECALL R3 R3 K6 ["RegisterAsync"]
   CALL R3 2 0
   NEWTABLE R3 0 0
   SETTABLEKS R3 R0 K4 ["pendingRegisters"]

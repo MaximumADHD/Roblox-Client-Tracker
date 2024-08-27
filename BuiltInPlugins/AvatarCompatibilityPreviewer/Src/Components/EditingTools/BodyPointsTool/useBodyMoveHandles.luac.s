@@ -91,27 +91,27 @@ MAIN:
   LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETTABLEKS R2 R0 K4 ["Packages"]
-  GETTABLEKS R1 R2 K5 ["DraggerFramework"]
-  GETIMPORT R2 K7 [require]
-  GETTABLEKS R4 R0 K4 ["Packages"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["DraggerFramework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["React"]
   CALL R2 1 1
-  GETIMPORT R3 K7 [require]
+  GETIMPORT R3 K5 [require]
   GETTABLEKS R8 R0 K9 ["Src"]
   GETTABLEKS R7 R8 K10 ["Components"]
   GETTABLEKS R6 R7 K11 ["EditingTools"]
   GETTABLEKS R5 R6 K12 ["BodyPointsTool"]
   GETTABLEKS R4 R5 K13 ["Types"]
   CALL R3 1 1
-  GETIMPORT R4 K7 [require]
+  GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
   GETTABLEKS R5 R6 K13 ["Types"]
   CALL R4 1 1
-  GETIMPORT R5 K7 [require]
-  GETTABLEKS R7 R1 K14 ["Handles"]
-  GETTABLEKS R6 R7 K15 ["MoveHandles"]
-  CALL R5 1 1
+  GETTABLEKS R6 R1 K14 ["Handles"]
+  GETTABLEKS R5 R6 K15 ["MoveHandles"]
   DUPCLOSURE R6 K16 [PROTO_6]
   CAPTURE VAL R2
   CAPTURE VAL R5

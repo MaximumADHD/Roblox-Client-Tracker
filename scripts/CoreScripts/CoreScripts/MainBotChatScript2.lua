@@ -692,7 +692,8 @@ function onLoad()
 	frame.Size = UDim2.new(0, 0, 0, 0)
 	frame.BackgroundTransparency = 1
 	frame.RobloxLocked = true
-	game:GetService("GuiService"):AddSelectionParent("RBXDialogGroup", frame)
+	-- AddSelectionParent is deprecated
+	(game:GetService("GuiService") :: any):AddSelectionParent("RBXDialogGroup", frame)
 
 	if (touchEnabled and not isSmallTouchScreen) then
 		frame.Position = UDim2.new(0, 20, 0.5, 0)

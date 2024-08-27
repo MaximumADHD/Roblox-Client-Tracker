@@ -1663,8 +1663,15 @@ PROTO_80:
   RETURN R13 -1
 
 PROTO_81:
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K0 ["constructPostUploadAssetUrl"]
+  GETUPVAL R12 0
+  CALL R12 0 1
+  NOT R11 R12
+  FASTCALL2K ASSERT R11 K0 [+4]
+  LOADK R12 K0 ["NetworkInterface:postUploadAsset is marked for deprecation"]
+  GETIMPORT R10 K2 [assert]
+  CALL R10 2 0
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K3 ["constructPostUploadAssetUrl"]
   MOVE R11 R1
   MOVE R12 R2
   MOVE R13 R3
@@ -1674,34 +1681,41 @@ PROTO_81:
   MOVE R17 R7
   MOVE R18 R8
   CALL R10 8 1
-  GETUPVAL R11 1
-  LOADK R12 K1 ["postUploadAsset"]
-  LOADK R13 K2 ["POST"]
+  GETUPVAL R11 2
+  LOADK R12 K4 ["postUploadAsset"]
+  LOADK R13 K5 ["POST"]
   MOVE R14 R10
   MOVE R15 R9
   CALL R11 4 0
-  GETTABLEKS R11 R0 K3 ["_networkImp"]
+  GETTABLEKS R11 R0 K6 ["_networkImp"]
   MOVE R13 R10
   MOVE R14 R9
-  NAMECALL R11 R11 K4 ["httpPost"]
+  NAMECALL R11 R11 K7 ["httpPost"]
   CALL R11 3 -1
   RETURN R11 -1
 
 PROTO_82:
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["constructOverrideAssetsUrl"]
+  GETUPVAL R6 0
+  CALL R6 0 1
+  NOT R5 R6
+  FASTCALL2K ASSERT R5 K0 [+4]
+  LOADK R6 K0 ["NetworkInterface:postOverrideAsset is marked for deprecation"]
+  GETIMPORT R4 K2 [assert]
+  CALL R4 2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["constructOverrideAssetsUrl"]
   MOVE R5 R1
   MOVE R6 R2
   CALL R4 2 1
-  GETUPVAL R5 1
-  LOADK R6 K1 ["postOverrideAsset"]
-  LOADK R7 K2 ["POST"]
+  GETUPVAL R5 2
+  LOADK R6 K4 ["postOverrideAsset"]
+  LOADK R7 K5 ["POST"]
   MOVE R8 R4
   CALL R5 3 0
-  GETTABLEKS R5 R0 K3 ["_networkImp"]
+  GETTABLEKS R5 R0 K6 ["_networkImp"]
   MOVE R7 R4
   MOVE R8 R3
-  NAMECALL R5 R5 K4 ["httpPost"]
+  NAMECALL R5 R5 K7 ["httpPost"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -3041,7 +3055,7 @@ MAIN:
   CALL R14 2 1
   GETIMPORT R15 K11 [require]
   GETTABLEKS R17 R1 K12 ["SharedFlags"]
-  GETTABLEKS R16 R17 K26 ["getFFlagEnableUGCUploadingDataSharing"]
+  GETTABLEKS R16 R17 K26 ["getFFlagToolboxMigrateToOpenCloudUpload"]
   CALL R15 1 1
   GETIMPORT R16 K11 [require]
   GETTABLEKS R19 R0 K27 ["Libs"]
@@ -3250,9 +3264,6 @@ MAIN:
   CAPTURE VAL R40
   CAPTURE VAL R39
   SETTABLEKS R42 R36 K99 ["getBundleCreationStatus"]
-  MOVE R42 R15
-  CALL R42 0 1
-  JUMPIFNOT R42 [+12]
   DUPCLOSURE R42 K100 [PROTO_40]
   CAPTURE VAL R25
   CAPTURE VAL R40
@@ -3378,10 +3389,12 @@ MAIN:
   CAPTURE VAL R39
   SETTABLEKS R42 R36 K151 ["patchAsset"]
   DUPCLOSURE R42 K152 [PROTO_81]
+  CAPTURE VAL R15
   CAPTURE VAL R25
   CAPTURE VAL R39
   SETTABLEKS R42 R36 K153 ["postUploadAsset"]
   DUPCLOSURE R42 K154 [PROTO_82]
+  CAPTURE VAL R15
   CAPTURE VAL R25
   CAPTURE VAL R39
   SETTABLEKS R42 R36 K155 ["postOverrideAsset"]

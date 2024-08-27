@@ -20,58 +20,67 @@ PROTO_1:
   GETTABLEKS R6 R7 K4 ["Tag"]
   GETUPVAL R7 3
   LOADK R8 K5 ["X-Column"]
-  LOADK R9 K6 ["X-Middle"]
-  LOADK R10 K7 ["X-Center"]
-  LOADK R11 K8 ["Component-EnableTeamCreate"]
-  CALL R7 4 1
+  LOADK R9 K6 ["X-Center"]
+  LOADK R10 K7 ["Component-EnableTeamCreate"]
+  CALL R7 3 1
   SETTABLE R7 R5 R6
-  DUPTABLE R6 K11 [{"Text", "Button"}]
+  DUPTABLE R6 K11 [{"UnsavedExperienceIcon", "Text", "Button"}]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K2 ["createElement"]
-  LOADK R8 K12 ["TextLabel"]
+  LOADK R8 K12 ["ImageLabel"]
+  DUPTABLE R9 K14 [{"LayoutOrder"}]
+  GETUPVAL R10 4
+  NAMECALL R10 R10 K15 ["getNextOrder"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K8 ["UnsavedExperienceIcon"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  LOADK R8 K16 ["TextLabel"]
   NEWTABLE R9 4 0
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K4 ["Tag"]
   GETUPVAL R11 3
-  LOADK R12 K13 ["CX-Invisible"]
-  LOADK R13 K14 ["X-Fit"]
+  LOADK R12 K17 ["CX-Invisible"]
+  LOADK R13 K18 ["X-Fit"]
   CALL R11 2 1
   SETTABLE R11 R9 R10
   GETUPVAL R10 4
   NAMECALL R10 R10 K15 ["getNextOrder"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K16 ["LayoutOrder"]
-  LOADK R12 K17 ["EnableTeamCreate"]
-  LOADK R13 K18 ["SaveText"]
-  NAMECALL R10 R2 K19 ["getText"]
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  LOADK R12 K19 ["EnableTeamCreate"]
+  LOADK R13 K20 ["SaveText"]
+  NAMECALL R10 R2 K21 ["getText"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K9 ["Text"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K9 ["Text"]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K2 ["createElement"]
-  LOADK R8 K20 ["TextButton"]
+  LOADK R8 K22 ["TextButton"]
   NEWTABLE R9 4 0
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K4 ["Tag"]
   GETUPVAL R11 3
-  LOADK R12 K21 ["X-Corner"]
-  LOADK R13 K14 ["X-Fit"]
+  LOADK R12 K23 ["X-Corner"]
+  LOADK R13 K18 ["X-Fit"]
   CALL R11 2 1
   SETTABLE R11 R9 R10
   GETUPVAL R10 4
   NAMECALL R10 R10 K15 ["getNextOrder"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K16 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
   GETUPVAL R12 0
-  GETTABLEKS R11 R12 K22 ["Event"]
-  GETTABLEKS R10 R11 K23 ["Activated"]
+  GETTABLEKS R11 R12 K24 ["Event"]
+  GETTABLEKS R10 R11 K25 ["Activated"]
   NEWCLOSURE R11 P0
   CAPTURE VAL R1
   SETTABLE R11 R9 R10
-  LOADK R12 K17 ["EnableTeamCreate"]
-  LOADK R13 K24 ["SaveToRobloxButtonText"]
-  NAMECALL R10 R2 K19 ["getText"]
+  LOADK R12 K19 ["EnableTeamCreate"]
+  LOADK R13 K26 ["SaveToRobloxButtonText"]
+  NAMECALL R10 R2 K21 ["getText"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K9 ["Text"]
   CALL R7 2 1

@@ -1,13 +1,9 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["getFFlagStudioCancellableDialogDesignUpdates"]
-  CALL R0 0 1
-  JUMPIFNOT R0 [+4]
-  GETIMPORT R0 K2 [print]
-  LOADK R1 K3 ["CancellableDialog::DialogContainer::OnClosed - Dialog closed via X button in title bar"]
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["CancellableDialog::DialogContainer::OnClosed - Dialog closed via X button in title bar"]
   CALL R0 1 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K4 ["OnCancel"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["OnCancel"]
   CALL R0 0 0
   RETURN R0 0
 
@@ -72,7 +68,6 @@ PROTO_4:
   CALL R8 3 1
   SETTABLEKS R8 R6 K5 ["Title"]
   NEWCLOSURE R8 P0
-  CAPTURE UPVAL U4
   CAPTURE VAL R0
   SETTABLEKS R8 R6 K6 ["OnClosed"]
   GETIMPORT R9 K15 [game]
@@ -95,7 +90,7 @@ PROTO_4:
   DUPTABLE R11 K24 [{"ThumbnailAndTextInfo", "CancelButton"}]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K18 ["createElement"]
-  GETUPVAL R13 5
+  GETUPVAL R13 4
   DUPTABLE R14 K29 [{"LayoutOrder", "Title", "Subtitle", "Status", "OnShown"}]
   NAMECALL R15 R1 K30 ["getNextOrder"]
   CALL R15 1 1
@@ -113,7 +108,7 @@ PROTO_4:
   SETTABLEKS R12 R11 K22 ["ThumbnailAndTextInfo"]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K18 ["createElement"]
-  GETUPVAL R13 6
+  GETUPVAL R13 5
   DUPTABLE R14 K33 [{"LayoutOrder", "Enabled", "OnCancel"}]
   NAMECALL R15 R1 K30 ["getNextOrder"]
   CALL R15 1 1
@@ -173,25 +168,19 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["useDialogWidget"]
   GETTABLEKS R7 R2 K14 ["Util"]
   GETTABLEKS R6 R7 K15 ["LayoutOrderIterator"]
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K16 ["Bin"]
-  GETTABLEKS R9 R10 K17 ["Common"]
-  GETTABLEKS R8 R9 K18 ["defineLuaFlags"]
-  CALL R7 1 1
-  GETTABLEKS R9 R0 K19 ["Src"]
-  GETTABLEKS R8 R9 K20 ["Components"]
+  GETTABLEKS R8 R0 K16 ["Src"]
+  GETTABLEKS R7 R8 K17 ["Components"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R7 K18 ["CancelButton"]
+  CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R8 K21 ["CancelButton"]
+  GETTABLEKS R10 R7 K19 ["ThumbnailAndTextInfo"]
   CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R11 R8 K22 ["ThumbnailAndTextInfo"]
-  CALL R10 1 1
-  DUPCLOSURE R11 K23 [PROTO_4]
+  DUPCLOSURE R10 K20 [PROTO_4]
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE VAL R10
   CAPTURE VAL R9
-  RETURN R11 1
+  CAPTURE VAL R8
+  RETURN R10 1

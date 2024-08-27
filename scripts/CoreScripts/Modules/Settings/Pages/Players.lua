@@ -52,7 +52,6 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
-local FFlagFixPlayersExtremeTruncation = game:DefineFastFlag("FixPlayersExtremeTruncation", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 
 local GameInviteAnalyticsManager
@@ -123,7 +122,6 @@ local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoice
 local GetFFlagPauseMuteFix = require(RobloxGui.Modules.Flags.GetFFlagPauseMuteFix)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
-local GetFFlagInviteTextTruncateFix = require(RobloxGui.Modules.Flags.GetFFlagInviteTextTruncateFix)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
@@ -133,6 +131,7 @@ local GetFStringMuteTogglesIXPLayerName = require(RobloxGui.Modules.Settings.Fla
 local GetFFlagUseFriendsPropsInMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagUseFriendsPropsInMuteToggles)
 local GetFFlagDefaultFriendingLabelTextNonEmpty = require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
+local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
@@ -371,7 +370,7 @@ local function Initialize()
 	local buttonFrame
 	local buttonFrameLayout
 
-	if GetFFlagEnableAppChatInExperience() then
+	if GetFFlagEnableAppChatInExperience() or GetFFlagEnableShowVoiceUI() then
 		updateButtonsLayout = function()
 			local buttons = {}
 			local columnLayout = utility:IsPortrait() or utility:IsSmallTouchScreen()
@@ -962,11 +961,11 @@ local function Initialize()
 			if muteAllButton then
 				muteAllButton.Visible = false
 				muteAllButton:Destroy()
-				if GetFFlagEnableAppChatInExperience() then
+				if GetFFlagEnableAppChatInExperience() or GetFFlagEnableShowVoiceUI() then
 					muteAllButton = nil
 				end
 			end
-			if GetFFlagEnableAppChatInExperience() then
+			if GetFFlagEnableAppChatInExperience() or GetFFlagEnableShowVoiceUI() then
 				updateButtonsLayout()
 			else
 				if shareGameButton then
@@ -1048,13 +1047,8 @@ local function Initialize()
 			if not shouldShowMuteToggles then
 				frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
 			end
-			if FFlagFixPlayersExtremeTruncation then
-				textLabel.Size = UDim2.new(1, -LABEL_POSX, 0, 0)
-				textLabel.TextTruncate = Enum.TextTruncate.AtEnd
-			elseif GetFFlagInviteTextTruncateFix() then
-				textLabel.Size = UDim2.new(0.5, 0, 0, 0)
-				textLabel.TextTruncate = Enum.TextTruncate.AtEnd
-			end
+			textLabel.Size = UDim2.new(1, -LABEL_POSX, 0, 0)
+			textLabel.TextTruncate = Enum.TextTruncate.AtEnd
 			frame.AnchorPoint = Vector2.new(0, 0)
 		end
 
@@ -1114,7 +1108,7 @@ local function Initialize()
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
 
-		textLabel.Size = if FFlagFixPlayersExtremeTruncation then UDim2.new(1, -LABEL_POSX, 0, 0) else UDim2.new(0.5, 0, 0, 0)
+		textLabel.Size = UDim2.new(1, -LABEL_POSX, 0, 0)
 		textLabel.TextTruncate = Enum.TextTruncate.AtEnd
 		textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 		textLabel.AutoLocalize = false
@@ -1164,7 +1158,7 @@ local function Initialize()
 			local textLabel = frame.TextLabel
 			local icon = frame.Icon
 
-			textLabel.Size = if FFlagFixPlayersExtremeTruncation then UDim2.new(1, -LABEL_POSX, 0, 0) else UDim2.new(0.5, 0, 0, 0)
+			textLabel.Size = UDim2.new(1, -LABEL_POSX, 0, 0)
 			textLabel.TextTruncate = Enum.TextTruncate.AtEnd
 			textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 			textLabel.AutoLocalize = false
@@ -1685,7 +1679,7 @@ local function Initialize()
 		local showChatButton
 		local showShareGameButton
 
-		if GetFFlagEnableAppChatInExperience() then
+		if GetFFlagEnableAppChatInExperience() or GetFFlagEnableShowVoiceUI() then
 			showShareGameButton = canShareCurrentGame() and not shareGameButton and not RunService:IsStudio()
 			showChatButton = not chatButton
 
@@ -1941,7 +1935,7 @@ local function Initialize()
 				else
 					muteAllButton.Parent = buttonFrame
         end
-				if GetFFlagEnableAppChatInExperience() then
+				if GetFFlagEnableAppChatInExperience() or GetFFlagEnableShowVoiceUI() then
 					updateButtonsLayout()
 				end
 			end
@@ -2109,6 +2103,19 @@ local function Initialize()
 		end):catch(function(err)
 			if GetFFlagVoiceChatUILogging() then
 				log:warning("Failed to init VoiceChatServiceManager")
+			end
+		end)
+	end
+
+	if GetFFlagEnableShowVoiceUI() then
+		VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+			if not muteAllButton then
+				rebuildPlayerList()
+			end
+		end)
+		VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+			if muteAllButton then
+				muteAllButtonRemove()
 			end
 		end)
 	end

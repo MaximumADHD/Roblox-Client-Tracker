@@ -3,28 +3,46 @@ PROTO_0:
   MOVE R2 R0
   GETIMPORT R1 K1 [typeof]
   CALL R1 1 1
-  JUMPIFEQKS R1 K2 ["table"] [+3]
-  LOADB R1 0
+  JUMPIFEQKS R1 K2 ["table"] [+12]
+  LOADK R2 K3 ["Expected table, got %*"]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  NAMECALL R2 R2 K4 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
   RETURN R1 1
-  GETTABLEKS R1 R0 K3 ["gameTemplateType"]
-  JUMPIFNOT R1 [+10]
-  GETTABLEKS R2 R0 K3 ["gameTemplateType"]
+  GETTABLEKS R1 R0 K5 ["gameTemplateType"]
+  JUMPIFNOT R1 [+20]
+  GETTABLEKS R2 R0 K5 ["gameTemplateType"]
   FASTCALL1 TYPEOF R2 [+2]
   GETIMPORT R1 K1 [typeof]
   CALL R1 1 1
-  JUMPIFEQKS R1 K4 ["string"] [+3]
-  LOADB R1 0
+  JUMPIFEQKS R1 K6 ["string"] [+13]
+  LOADK R2 K7 ["\"gameTemplateType\" > Expected string, got %*"]
+  GETTABLEKS R5 R0 K5 ["gameTemplateType"]
+  FASTCALL1 TYPEOF R5 [+2]
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  NAMECALL R2 R2 K4 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
   RETURN R1 1
-  GETTABLEKS R1 R0 K5 ["universe"]
-  JUMPIFNOT R1 [+9]
+  GETTABLEKS R1 R0 K8 ["universe"]
+  JUMPIFNOT R1 [+14]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["validate"]
-  GETTABLEKS R2 R0 K5 ["universe"]
+  GETTABLEKS R1 R2 K9 ["validate"]
+  GETTABLEKS R2 R0 K8 ["universe"]
   CALL R1 1 1
-  JUMPIF R1 [+2]
-  LOADB R1 0
-  RETURN R1 1
-  LOADB R1 1
+  JUMPIFNOT R1 [+7]
+  LOADK R3 K10 ["\"universe\" > %*"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K4 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  LOADNIL R1
   RETURN R1 1
 
 MAIN:

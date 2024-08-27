@@ -30,35 +30,45 @@ PROTO_0:
   JUMP [+3]
   GETUPVAL R4 5
   GETTABLEKS R2 R4 K8 ["CREATOR_ROBLOX"]
+  DUPTABLE R3 K19 [{"audioSearchInfo", "additionalAudioSearchInfo", "categoryName", "creator", "searchTerm", "sortIndex", "targetPage", "currentPage", "requestReason", "queryParams"}]
   GETUPVAL R5 6
-  GETUPVAL R6 7
-  GETUPVAL R7 8
-  DUPTABLE R8 K19 [{"audioSearchInfo", "additionalAudioSearchInfo", "categoryName", "creator", "searchTerm", "sortIndex", "targetPage", "currentPage", "requestReason", "queryParams"}]
-  GETUPVAL R10 9
-  GETTABLEKS R9 R10 K20 ["None"]
-  SETTABLEKS R9 R8 K9 ["audioSearchInfo"]
-  GETUPVAL R10 9
-  GETTABLEKS R9 R10 K20 ["None"]
-  SETTABLEKS R9 R8 K10 ["additionalAudioSearchInfo"]
-  GETUPVAL R9 2
-  SETTABLEKS R9 R8 K11 ["categoryName"]
-  SETTABLEKS R2 R8 K12 ["creator"]
-  LOADK R9 K21 [""]
-  SETTABLEKS R9 R8 K13 ["searchTerm"]
-  SETTABLEKS R1 R8 K14 ["sortIndex"]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K15 ["targetPage"]
-  LOADN R9 0
-  SETTABLEKS R9 R8 K16 ["currentPage"]
-  GETUPVAL R10 10
-  GETTABLEKS R9 R10 K22 ["ChangeCategory"]
-  SETTABLEKS R9 R8 K17 ["requestReason"]
-  GETUPVAL R10 9
-  GETTABLEKS R9 R10 K20 ["None"]
-  SETTABLEKS R9 R8 K18 ["queryParams"]
-  CALL R5 3 -1
-  NAMECALL R3 R0 K0 ["dispatch"]
-  CALL R3 -1 0
+  GETTABLEKS R4 R5 K20 ["None"]
+  SETTABLEKS R4 R3 K9 ["audioSearchInfo"]
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K20 ["None"]
+  SETTABLEKS R4 R3 K10 ["additionalAudioSearchInfo"]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K11 ["categoryName"]
+  SETTABLEKS R2 R3 K12 ["creator"]
+  LOADK R4 K21 [""]
+  SETTABLEKS R4 R3 K13 ["searchTerm"]
+  SETTABLEKS R1 R3 K14 ["sortIndex"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K15 ["targetPage"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K16 ["currentPage"]
+  GETUPVAL R5 7
+  GETTABLEKS R4 R5 K22 ["ChangeCategory"]
+  SETTABLEKS R4 R3 K17 ["requestReason"]
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K20 ["None"]
+  SETTABLEKS R4 R3 K18 ["queryParams"]
+  GETUPVAL R4 8
+  CALL R4 0 1
+  JUMPIFNOT R4 [+10]
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K20 ["None"]
+  SETTABLEKS R4 R3 K23 ["uiSortIntent"]
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K20 ["None"]
+  SETTABLEKS R4 R3 K24 ["sortDirection"]
+  GETUPVAL R6 9
+  GETUPVAL R7 10
+  GETUPVAL R8 11
+  MOVE R9 R3
+  CALL R6 3 -1
+  NAMECALL R4 R0 K0 ["dispatch"]
+  CALL R4 -1 0
   RETURN R0 0
 
 PROTO_1:
@@ -70,10 +80,11 @@ PROTO_1:
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  CAPTURE VAL R0
-  CAPTURE VAL R1
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE VAL R0
+  CAPTURE VAL R1
   RETURN R3 1
 
 MAIN:
@@ -124,13 +135,20 @@ MAIN:
   GETTABLEKS R11 R12 K19 ["ToolboxUtilities"]
   CALL R10 1 1
   GETTABLEKS R9 R10 K20 ["showRobloxCreatedAssets"]
-  DUPCLOSURE R10 K21 [PROTO_1]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R14 R0 K5 ["Core"]
+  GETTABLEKS R13 R14 K12 ["Util"]
+  GETTABLEKS R12 R13 K21 ["SharedFlags"]
+  GETTABLEKS R11 R12 K22 ["getFFlagResetSortingOnCategoryChange"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K23 [PROTO_1]
   CAPTURE VAL R8
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R6
   CAPTURE VAL R1
-  CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R3
-  RETURN R10 1
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  RETURN R11 1

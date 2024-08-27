@@ -34,8 +34,11 @@ local Players = game:GetService("Players")
 
 ----------- UTILITIES --------------
 
+local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
-local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
+local GetFFlagChromeSurveySupport = require(SharedFlags).GetFFlagChromeSurveySupport
+local GetFFlagGateEducationalPopupVisibilityViaGUAC = require(SharedFlags).GetFFlagGateEducationalPopupVisibilityViaGUAC
+local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Roact)
@@ -260,7 +263,8 @@ end
 PageInstance = Initialize()
 
 PageInstance.Displayed.Event:connect(function()
-	if not PageInstance.ShouldShow() then
+	if not PageInstance.ShouldShow() or
+	(GetFFlagGateEducationalPopupVisibilityViaGUAC() and not InExperienceCapabilities.canViewEducationalPopup) then
 		PageInstance.LeaveAppFunc(true)
 	end
 

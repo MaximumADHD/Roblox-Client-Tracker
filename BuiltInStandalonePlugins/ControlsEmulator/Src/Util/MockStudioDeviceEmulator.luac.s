@@ -12,15 +12,15 @@ PROTO_3:
   RETURN R0 1
 
 PROTO_4:
-  DUPTABLE R1 K4 [{"SendGamepadEvent", "GetKeyboardShortcut", "ConnectGamepad", "UpdateKeyMapping"}]
+  DUPTABLE R1 K4 [{"SendGamepadEventAsync", "GetKeyboardShortcutAsync", "ConnectGamepadAsync", "UpdateKeyMappingAsync"}]
   DUPCLOSURE R2 K5 [PROTO_0]
-  SETTABLEKS R2 R1 K0 ["SendGamepadEvent"]
+  SETTABLEKS R2 R1 K0 ["SendGamepadEventAsync"]
   DUPCLOSURE R2 K6 [PROTO_1]
-  SETTABLEKS R2 R1 K1 ["GetKeyboardShortcut"]
+  SETTABLEKS R2 R1 K1 ["GetKeyboardShortcutAsync"]
   DUPCLOSURE R2 K7 [PROTO_2]
-  SETTABLEKS R2 R1 K2 ["ConnectGamepad"]
+  SETTABLEKS R2 R1 K2 ["ConnectGamepadAsync"]
   DUPCLOSURE R2 K8 [PROTO_3]
-  SETTABLEKS R2 R1 K3 ["UpdateKeyMapping"]
+  SETTABLEKS R2 R1 K3 ["UpdateKeyMappingAsync"]
   DUPTABLE R4 K10 [{"__index"}]
   GETUPVAL R5 0
   SETTABLEKS R5 R4 K9 ["__index"]

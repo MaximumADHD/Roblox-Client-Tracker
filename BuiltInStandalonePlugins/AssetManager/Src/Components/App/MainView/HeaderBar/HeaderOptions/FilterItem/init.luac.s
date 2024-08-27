@@ -6,7 +6,7 @@ PROTO_0:
   GETTABLEKS R3 R0 K2 ["FilterType"]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K3 ["AssetInfoField"]
-  GETTABLEKS R4 R5 K4 ["Owner"]
+  GETTABLEKS R4 R5 K4 ["Creator"]
   JUMPIFNOTEQ R3 R4 [+4]
   GETTABLEKS R2 R0 K5 ["Item"]
   JUMP [+24]

@@ -195,12 +195,12 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["Dash"]
   CALL R1 1 1
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K8 ["DraggerFramework"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R2 K9 ["Utility"]
-  GETTABLEKS R4 R5 K10 ["Signal"]
-  CALL R3 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["DraggerFramework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K9 ["Utility"]
+  GETTABLEKS R3 R4 K10 ["Signal"]
   GETIMPORT R4 K5 [require]
   GETTABLEKS R9 R0 K11 ["Src"]
   GETTABLEKS R8 R9 K12 ["Components"]

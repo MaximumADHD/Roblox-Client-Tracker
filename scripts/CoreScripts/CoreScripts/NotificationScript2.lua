@@ -41,8 +41,6 @@ local FFlagUseNotificationsLocalization = success and result
 
 local FFlagLogAcceptFriendshipEvent = game:DefineFastFlag("LogAcceptFriendshipEvent", false)
 
-local FFlagChangePlayerNameToDisplayName = game:DefineFastFlag("ChangePlayerNameToDisplayName", false)
-
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
@@ -448,7 +446,8 @@ local function createNotification(title, text, image)
 
 	notificationFrame.Parent = nil
 
-	GuiService:AddSelectionParent(HttpService:GenerateGUID(false), notificationFrame)
+	-- AddSelectionParent is deprecated
+	(GuiService :: any):AddSelectionParent(HttpService:GenerateGUID(false), notificationFrame)
 
 	return notificationFrame
 end
@@ -750,15 +749,9 @@ local function sendFriendNotification(fromPlayer)
 	local declineText = "Decline"
 	sendNotificationInfo({
 		GroupName = "Friends",
-		Title = if FFlagChangePlayerNameToDisplayName then 
-				fromPlayer.DisplayName 
-			else 
-				fromPlayer.Name,
+		Title = fromPlayer.DisplayName,
 		Text = "Sent you a friend request!",
-		DetailText = if FFlagChangePlayerNameToDisplayName then 
-				fromPlayer.DisplayName 
-			else 
-				fromPlayer.Name,
+		DetailText = fromPlayer.DisplayName,
 		Image = getFriendImage(fromPlayer.UserId),
 		Duration = 8,
 		Callback = function(buttonChosen)

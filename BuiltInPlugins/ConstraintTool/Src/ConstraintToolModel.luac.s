@@ -115,19 +115,27 @@ PROTO_0:
   RETURN R13 1
 
 PROTO_1:
-  GETTABLEKS R2 R0 K0 ["_undoAttachmentStack"]
-  GETTABLEN R1 R2 1
-  JUMPIFNOT R1 [+17]
-  GETTABLEKS R3 R1 K1 ["attachment"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  JUMPIFNOT R2 [+12]
-  GETTABLEKS R2 R1 K3 ["type"]
-  JUMPIFNOTEQKS R2 K4 ["initial"] [+9]
-  GETTABLEKS R4 R1 K1 ["attachment"]
-  NAMECALL R2 R0 K5 ["_selectInitialInstance"]
-  CALL R2 2 0
-  NAMECALL R2 R0 K6 ["_updateAttachment"]
-  CALL R2 1 0
+  GETTABLEKS R3 R0 K0 ["_undoAttachmentStack"]
+  GETTABLEN R2 R3 1
+  JUMPIFNOT R2 [+18]
+  GETTABLEKS R4 R2 K1 ["attachment"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  JUMPIFNOT R3 [+13]
+  GETTABLEKS R3 R2 K3 ["type"]
+  JUMPIFNOTEQKS R3 K4 ["initial"] [+10]
+  GETTABLEKS R5 R2 K1 ["attachment"]
+  NAMECALL R3 R0 K5 ["_selectInitialInstance"]
+  CALL R3 2 0
+  NAMECALL R3 R0 K6 ["_updateAttachment"]
+  CALL R3 1 0
+  RETURN R0 0
+  JUMPIFNOT R1 [+9]
+  GETTABLEKS R3 R1 K7 ["attachmentParent"]
+  JUMPIFNOT R3 [+6]
+  LOADN R5 0
+  GETTABLEKS R6 R1 K7 ["attachmentParent"]
+  NAMECALL R3 R0 K8 ["_setInitialInstanceTransparency"]
+  CALL R3 3 0
   RETURN R0 0
 
 PROTO_2:
@@ -154,7 +162,7 @@ PROTO_3:
   SETTABLEKS R2 R1 K4 ["AlwaysOnTop"]
   LOADN R2 1
   SETTABLEKS R2 R1 K5 ["ZIndex"]
-  LOADK R2 K6 [0.15]
+  LOADK R2 K6 [0.14]
   SETTABLEKS R2 R1 K7 ["Radius"]
   GETUPVAL R2 0
   SETTABLEKS R2 R1 K8 ["Color3"]
@@ -524,28 +532,26 @@ PROTO_18:
   RETURN R1 1
 
 PROTO_19:
-  GETTABLEKS R3 R0 K0 ["_initialInstance"]
-  GETTABLEKS R2 R3 K1 ["Parent"]
-  JUMPIFNOT R2 [+5]
-  GETUPVAL R3 0
-  GETTABLEKS R4 R0 K2 ["_constraintType"]
-  GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+1]
+  MOVE R3 R2
+  JUMPIF R3 [+4]
+  GETTABLEKS R4 R0 K0 ["_initialInstance"]
+  GETTABLEKS R3 R4 K1 ["Parent"]
+  JUMPIFNOT R3 [+5]
+  GETUPVAL R5 0
+  GETTABLEKS R6 R0 K2 ["_constraintType"]
+  GETTABLE R4 R5 R6
+  JUMPIFNOT R4 [+1]
   RETURN R0 0
-  GETTABLEKS R3 R0 K0 ["_initialInstance"]
-  GETTABLEKS R2 R3 K1 ["Parent"]
-  SETTABLEKS R1 R2 K3 ["LocalTransparencyModifier"]
-  GETTABLEKS R3 R0 K0 ["_initialInstance"]
-  GETTABLEKS R2 R3 K1 ["Parent"]
-  NAMECALL R2 R2 K4 ["GetChildren"]
-  CALL R2 1 3
-  FORGPREP R2
-  LOADK R9 K5 ["Decal"]
-  NAMECALL R7 R6 K6 ["IsA"]
-  CALL R7 2 1
-  JUMPIFNOT R7 [+2]
-  SETTABLEKS R1 R6 K3 ["LocalTransparencyModifier"]
-  FORGLOOP R2 2 [-8]
+  SETTABLEKS R1 R3 K3 ["LocalTransparencyModifier"]
+  NAMECALL R4 R3 K4 ["GetChildren"]
+  CALL R4 1 3
+  FORGPREP R4
+  LOADK R11 K5 ["Decal"]
+  NAMECALL R9 R8 K6 ["IsA"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+2]
+  SETTABLEKS R1 R8 K3 ["LocalTransparencyModifier"]
+  FORGLOOP R4 2 [-8]
   RETURN R0 0
 
 PROTO_20:
@@ -675,14 +681,19 @@ PROTO_20:
   CALL R4 -1 1
   LOADNIL R5
   LOADNIL R6
-  JUMPIFNOT R4 [+15]
+  JUMPIFNOT R4 [+25]
   GETTABLEKS R7 R4 K5 ["Instance"]
-  JUMPIFNOT R7 [+12]
+  JUMPIFNOT R7 [+22]
   GETTABLEKS R7 R4 K5 ["Instance"]
   LOADK R9 K38 ["Attachment"]
   NAMECALL R7 R7 K39 ["IsA"]
   CALL R7 2 1
-  JUMPIFNOT R7 [+5]
+  JUMPIFNOT R7 [+15]
+  GETTABLEKS R7 R4 K5 ["Instance"]
+  GETTABLEKS R8 R0 K9 ["_initialInstance"]
+  JUMPIFEQ R7 R8 [+10]
+  GETTABLEKS R7 R0 K2 ["_constraintType"]
+  JUMPIFEQKS R7 K38 ["Attachment"] [+6]
   GETTABLEKS R6 R4 K5 ["Instance"]
   GETTABLEKS R5 R6 K40 ["WorldCFrame"]
   JUMP [+8]
@@ -703,7 +714,7 @@ PROTO_20:
   SETTABLEKS R8 R7 K21 ["Enabled"]
   GETTABLEKS R7 R0 K4 ["_selectionHighlight"]
   SETTABLEKS R6 R7 K6 ["Adornee"]
-  JUMPIFNOT R6 [+185]
+  JUMPIFNOT R6 [+183]
   GETUPVAL R7 6
   JUMPIFNOT R7 [+78]
   GETTABLEKS R7 R0 K43 ["_ghostAssembly"]
@@ -769,7 +780,7 @@ PROTO_20:
   NAMECALL R7 R0 K61 ["_orientAttachmentAdornment"]
   CALL R7 3 0
   GETTABLEKS R7 R0 K9 ["_initialInstance"]
-  JUMPIFNOT R7 [+79]
+  JUMPIFNOT R7 [+77]
   GETTABLEKS R8 R0 K9 ["_initialInstance"]
   GETTABLEKS R7 R8 K40 ["WorldCFrame"]
   GETTABLEKS R11 R0 K9 ["_initialInstance"]
@@ -788,8 +799,7 @@ PROTO_20:
   GETTABLEKS R14 R0 K9 ["_initialInstance"]
   GETTABLEKS R13 R14 K40 ["WorldCFrame"]
   GETTABLEKS R12 R13 K63 ["p"]
-  GETTABLEKS R14 R3 K42 ["mainCFrame"]
-  GETTABLEKS R13 R14 K63 ["p"]
+  GETTABLEKS R13 R5 K63 ["p"]
   CALL R11 2 1
   GETIMPORT R12 K13 [CFrame.new]
   LOADN R13 0
@@ -1047,7 +1057,7 @@ PROTO_32:
   NAMECALL R2 R0 K15 ["_scheduleRender"]
   CALL R2 1 0
   RETURN R0 0
-  GETIMPORT R2 K17 [Enum.KeyCode.F]
+  GETIMPORT R2 K17 [Enum.KeyCode.G]
   JUMPIFNOTEQ R1 R2 [+15]
   GETUPVAL R2 0
   JUMPIFNOT R2 [+12]
@@ -1338,21 +1348,23 @@ PROTO_38:
   FORGPREP R7
   SETTABLE R11 R6 R10
   FORGLOOP R7 2 [-2]
-  JUMPIFNOT R1 [+12]
+  JUMPIFNOT R1 [+16]
   GETTABLEKS R7 R0 K48 ["_undoAttachmentStack"]
   LOADN R8 1
-  DUPTABLE R9 K51 [{"attachment", "type"}]
+  DUPTABLE R9 K52 [{"attachment", "attachmentParent", "type"}]
   SETTABLEKS R1 R9 K49 ["attachment"]
-  SETTABLEKS R5 R9 K50 ["type"]
+  GETTABLEKS R10 R1 K29 ["Parent"]
+  SETTABLEKS R10 R9 K50 ["attachmentParent"]
+  SETTABLEKS R5 R9 K51 ["type"]
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K54 [table.insert]
+  GETIMPORT R6 K55 [table.insert]
   CALL R6 3 0
   GETUPVAL R6 0
   MOVE R8 R2
   MOVE R9 R3
-  NAMECALL R6 R6 K55 ["FinishRecording"]
+  NAMECALL R6 R6 K56 ["FinishRecording"]
   CALL R6 3 0
-  NAMECALL R6 R0 K56 ["_updateAttachment"]
+  NAMECALL R6 R0 K57 ["_updateAttachment"]
   CALL R6 1 0
   RETURN R0 0
 

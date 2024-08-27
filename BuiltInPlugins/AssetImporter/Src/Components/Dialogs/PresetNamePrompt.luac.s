@@ -285,12 +285,14 @@ PROTO_5:
   SETTABLEKS R16 R15 K27 ["OnClose"]
   GETIMPORT R16 K44 [Enum.HorizontalAlignment.Center]
   SETTABLEKS R16 R15 K28 ["ButtonHorizontalAlignment"]
-  LOADB R16 1
+  GETUPVAL R17 4
+  CALL R17 0 1
+  NOT R16 R17
   SETTABLEKS R16 R15 K29 ["Modal"]
   DUPTABLE R16 K46 [{"Pane"}]
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K22 ["createElement"]
-  GETUPVAL R18 4
+  GETUPVAL R18 5
   DUPTABLE R19 K51 [{"Layout", "VerticalAlignment", "Spacing", "Size"}]
   GETIMPORT R20 K54 [Enum.FillDirection.Vertical]
   SETTABLEKS R20 R19 K47 ["Layout"]
@@ -306,7 +308,7 @@ PROTO_5:
   DUPTABLE R20 K63 [{"TextBox", "Message"}]
   GETUPVAL R22 1
   GETTABLEKS R21 R22 K22 ["createElement"]
-  GETUPVAL R22 4
+  GETUPVAL R22 5
   DUPTABLE R23 K66 [{"AutomaticSize", "Layout", "VerticalAlignment", "Size", "LayoutOrder", "Spacing"}]
   GETIMPORT R24 K68 [Enum.AutomaticSize.XY]
   SETTABLEKS R24 R23 K64 ["AutomaticSize"]
@@ -323,7 +325,7 @@ PROTO_5:
   DUPTABLE R24 K74 [{"Label", "Input"}]
   GETUPVAL R26 1
   GETTABLEKS R25 R26 K22 ["createElement"]
-  GETUPVAL R26 5
+  GETUPVAL R26 6
   DUPTABLE R27 K76 [{"Text", "TextXAlignment", "Size", "LayoutOrder"}]
   GETTABLEKS R29 R0 K0 ["props"]
   GETTABLEKS R28 R29 K1 ["Localization"]
@@ -342,7 +344,7 @@ PROTO_5:
   SETTABLEKS R25 R24 K72 ["Label"]
   GETUPVAL R26 1
   GETTABLEKS R25 R26 K22 ["createElement"]
-  GETUPVAL R26 6
+  GETUPVAL R26 7
   DUPTABLE R27 K84 [{"Text", "MaxLength", "LayoutOrder", "OnTextChanged", "Size"}]
   GETTABLEKS R29 R0 K13 ["state"]
   GETTABLEKS R28 R29 K14 ["currentText"]
@@ -408,35 +410,41 @@ MAIN:
   GETTABLEKS R17 R18 K23 ["Flags"]
   GETTABLEKS R16 R17 K25 ["getFIntAssetImportMaxPresetCount"]
   CALL R15 1 1
-  GETTABLEKS R16 R2 K26 ["PureComponent"]
-  LOADK R18 K27 ["PresetNamePrompt"]
-  NAMECALL R16 R16 K28 ["extend"]
-  CALL R16 2 1
-  DUPCLOSURE R17 K29 [PROTO_2]
-  SETTABLEKS R17 R16 K30 ["init"]
-  DUPCLOSURE R17 K31 [PROTO_3]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K20 ["Src"]
+  GETTABLEKS R18 R19 K23 ["Flags"]
+  GETTABLEKS R17 R18 K26 ["getFFlagDebugAssetImportPlugin"]
+  CALL R16 1 1
+  GETTABLEKS R17 R2 K27 ["PureComponent"]
+  LOADK R19 K28 ["PresetNamePrompt"]
+  NAMECALL R17 R17 K29 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K30 [PROTO_2]
+  SETTABLEKS R18 R17 K31 ["init"]
+  DUPCLOSURE R18 K32 [PROTO_3]
   CAPTURE VAL R15
-  SETTABLEKS R17 R16 K32 ["_getInitialPresetName"]
-  DUPCLOSURE R17 K33 [PROTO_4]
+  SETTABLEKS R18 R17 K33 ["_getInitialPresetName"]
+  DUPCLOSURE R18 K34 [PROTO_4]
   CAPTURE VAL R2
   CAPTURE VAL R11
-  SETTABLEKS R17 R16 K34 ["_createMessage"]
-  DUPCLOSURE R17 K35 [PROTO_5]
+  SETTABLEKS R18 R17 K35 ["_createMessage"]
+  DUPCLOSURE R18 K36 [PROTO_5]
   CAPTURE VAL R14
   CAPTURE VAL R2
   CAPTURE VAL R10
   CAPTURE VAL R12
+  CAPTURE VAL R16
   CAPTURE VAL R8
   CAPTURE VAL R11
   CAPTURE VAL R9
-  SETTABLEKS R17 R16 K36 ["render"]
-  MOVE R17 R4
-  DUPTABLE R18 K37 [{"Stylizer", "Localization", "PresetController"}]
-  SETTABLEKS R5 R18 K11 ["Stylizer"]
-  SETTABLEKS R6 R18 K12 ["Localization"]
-  SETTABLEKS R13 R18 K22 ["PresetController"]
-  CALL R17 1 1
-  MOVE R18 R16
-  CALL R17 1 1
-  MOVE R16 R17
-  RETURN R16 1
+  SETTABLEKS R18 R17 K37 ["render"]
+  MOVE R18 R4
+  DUPTABLE R19 K38 [{"Stylizer", "Localization", "PresetController"}]
+  SETTABLEKS R5 R19 K11 ["Stylizer"]
+  SETTABLEKS R6 R19 K12 ["Localization"]
+  SETTABLEKS R13 R19 K22 ["PresetController"]
+  CALL R18 1 1
+  MOVE R19 R17
+  CALL R18 1 1
+  MOVE R17 R18
+  RETURN R17 1

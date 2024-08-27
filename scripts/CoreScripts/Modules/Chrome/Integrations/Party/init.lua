@@ -25,13 +25,10 @@ local integration = ChromeService:register({
 
 if GetFFlagEnablePartyIconInChrome() then
 	observeCurrentPartyId(function(currentPartyId)
-		local integration = ChromeService:integrations()[Constants.INTEGRATION_ID]
-		if integration then
-			if currentPartyId == "" then
-				integration.availability:unavailable()
-			else
-				integration.availability:pinned()
-			end
+		if currentPartyId == "" then
+			integration.availability:unavailable()
+		else
+			integration.availability:pinned()
 		end
 	end)
 end

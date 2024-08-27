@@ -32,11 +32,7 @@ PROTO_3:
   GETTABLEKS R6 R7 K6 ["createElement"]
   GETUPVAL R7 3
   DUPTABLE R8 K17 [{"Id", "Enabled", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose", "ShouldRestore", "OnWidgetRestored"}]
-  GETUPVAL R10 4
-  JUMPIFNOT R10 [+2]
   LOADK R9 K18 ["GuiDevEnv"]
-  JUMP [+1]
-  LOADNIL R9
   SETTABLEKS R9 R8 K7 ["Id"]
   LOADB R9 0
   SETTABLEKS R9 R8 K8 ["Enabled"]
@@ -69,36 +65,31 @@ PROTO_3:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["StudioFixPluginWidgetLocalizedIds"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  GETIMPORT R3 K5 [script]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R4 R1 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Roact"]
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
   CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K12 ["ContextServices"]
-  GETTABLEKS R5 R4 K13 ["Plugin"]
-  GETTABLEKS R6 R3 K14 ["UI"]
-  GETTABLEKS R7 R6 K15 ["DockWidget"]
-  GETTABLEKS R8 R2 K16 ["PureComponent"]
-  LOADK R10 K17 ["MainPlugin"]
-  NAMECALL R8 R8 K18 ["extend"]
-  CALL R8 2 1
-  DUPCLOSURE R9 K19 [PROTO_2]
-  SETTABLEKS R9 R8 K20 ["init"]
-  DUPCLOSURE R9 K21 [PROTO_3]
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["Plugin"]
+  GETTABLEKS R5 R2 K10 ["UI"]
+  GETTABLEKS R6 R5 K11 ["DockWidget"]
+  GETTABLEKS R7 R1 K12 ["PureComponent"]
+  LOADK R9 K13 ["MainPlugin"]
+  NAMECALL R7 R7 K14 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K15 [PROTO_2]
+  SETTABLEKS R8 R7 K16 ["init"]
+  DUPCLOSURE R8 K17 [PROTO_3]
+  CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R2
-  CAPTURE VAL R7
-  CAPTURE VAL R0
-  SETTABLEKS R9 R8 K22 ["render"]
-  RETURN R8 1
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K18 ["render"]
+  RETURN R7 1

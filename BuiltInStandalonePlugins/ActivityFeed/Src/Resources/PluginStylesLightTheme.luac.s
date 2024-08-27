@@ -13,14 +13,20 @@ MAIN:
   NEWTABLE R3 0 0
   LOADK R4 K9 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowDown.png"]
   SETTABLEKS R4 R3 K10 ["arrowdownicon"]
-  LOADK R4 K11 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/More.png"]
-  SETTABLEKS R4 R3 K12 ["threedotsicon"]
-  LOADK R4 K9 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowDown.png"]
-  SETTABLEKS R4 R3 K13 ["toggleicon"]
-  LOADK R4 K14 ["rbxasset://studio_svg_textures/Lua/DeveloperFramework/Light/Standard/Search.png"]
-  SETTABLEKS R4 R3 K15 ["search"]
+  LOADK R4 K11 ["rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/Close.png"]
+  SETTABLEKS R4 R3 K12 ["close"]
+  LOADK R4 K13 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Standard/Filter.png"]
+  SETTABLEKS R4 R3 K14 ["filter"]
+  LOADK R4 K15 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Standard/FilterDisabled.png"]
+  SETTABLEKS R4 R3 K16 ["filterdisabled"]
+  LOADK R4 K17 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/NoFilterResults.png"]
+  SETTABLEKS R4 R3 K18 ["nofilterresults"]
+  LOADK R4 K19 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/More.png"]
+  SETTABLEKS R4 R3 K20 ["threedotsicon"]
+  LOADK R4 K21 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/UnsavedExperience.png"]
+  SETTABLEKS R4 R3 K22 ["unsavedexperience"]
   MOVE R4 R2
-  LOADK R5 K16 ["NotificationsPluginLightTheme"]
+  LOADK R5 K23 ["NotificationsPluginLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

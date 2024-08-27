@@ -10,7 +10,7 @@ PROTO_0:
   LOADB R4 1
   JUMP [+1]
   LOADB R4 0
-  NAMECALL R0 R0 K5 ["SendKeyboardEvent"]
+  NAMECALL R0 R0 K5 ["SendKeyboardEventAsync"]
   CALL R0 4 0
   RETURN R0 0
 

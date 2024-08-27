@@ -56,27 +56,43 @@ PROTO_5:
   GETTABLEKS R5 R4 K1 ["Stylizer"]
   GETTABLEKS R7 R5 K2 ["ImportQueue"]
   GETTABLEKS R6 R7 K3 ["IconButtonSize"]
-  GETTABLEKS R7 R4 K4 ["Uploading"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K5 ["createElement"]
-  GETUPVAL R9 1
-  DUPTABLE R10 K13 [{"OnClick", "LeftIcon", "Size", "LayoutOrder", "Disabled", "TooltipText", "Style"}]
-  SETTABLEKS R2 R10 K6 ["OnClick"]
-  SETTABLEKS R1 R10 K7 ["LeftIcon"]
-  GETIMPORT R11 K16 [UDim2.fromOffset]
-  MOVE R12 R6
-  MOVE R13 R6
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K8 ["Size"]
-  LOADN R11 2
-  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
-  SETTABLEKS R7 R10 K10 ["Disabled"]
-  ORK R11 R3 K17 []
-  SETTABLEKS R11 R10 K11 ["TooltipText"]
-  LOADK R11 K18 ["IconOnly"]
-  SETTABLEKS R11 R10 K12 ["Style"]
-  CALL R8 2 -1
-  RETURN R8 -1
+  GETTABLEKS R8 R5 K4 ["Icons"]
+  GETTABLEKS R7 R8 K5 ["SmallLength"]
+  GETTABLEKS R9 R5 K2 ["ImportQueue"]
+  GETTABLEKS R8 R9 K6 ["DisabledTransparancy"]
+  GETTABLEKS R9 R4 K7 ["Uploading"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K16 [{"OnClick", "LeftIcon", "Size", "LayoutOrder", "Disabled", "TooltipText", "Style"}]
+  SETTABLEKS R2 R12 K9 ["OnClick"]
+  DUPTABLE R13 K19 [{"Image", "ImageTransparency", "Size"}]
+  SETTABLEKS R1 R13 K17 ["Image"]
+  JUMPIFNOT R9 [+2]
+  MOVE R14 R8
+  JUMP [+1]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K18 ["ImageTransparency"]
+  GETIMPORT R14 K22 [UDim2.fromOffset]
+  MOVE R15 R7
+  MOVE R16 R7
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K11 ["Size"]
+  SETTABLEKS R13 R12 K10 ["LeftIcon"]
+  GETIMPORT R13 K22 [UDim2.fromOffset]
+  MOVE R14 R6
+  MOVE R15 R6
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K11 ["Size"]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K12 ["LayoutOrder"]
+  SETTABLEKS R9 R12 K13 ["Disabled"]
+  ORK R13 R3 K23 []
+  SETTABLEKS R13 R12 K14 ["TooltipText"]
+  LOADK R13 K24 ["IconOnly"]
+  SETTABLEKS R13 R12 K15 ["Style"]
+  CALL R10 2 -1
+  RETURN R10 -1
 
 PROTO_6:
   GETTABLEKS R1 R0 K0 ["props"]

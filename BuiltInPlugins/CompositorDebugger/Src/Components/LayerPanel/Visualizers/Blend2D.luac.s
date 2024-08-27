@@ -4,13 +4,9 @@ PROTO_0:
   GETUPVAL R2 1
   GETUPVAL R3 2
   GETTABLEKS R4 R0 K1 ["props"]
-  DUPTABLE R5 K4 [{"Show2D", "Stylizer"}]
+  DUPTABLE R5 K3 [{"Show2D"}]
   LOADB R6 1
   SETTABLEKS R6 R5 K2 ["Show2D"]
-  GETTABLEKS R8 R0 K1 ["props"]
-  GETTABLEKS R7 R8 K3 ["Stylizer"]
-  GETTABLEKS R6 R7 K5 ["Blend"]
-  SETTABLEKS R6 R5 K3 ["Stylizer"]
   CALL R3 2 -1
   CALL R1 -1 -1
   RETURN R1 -1

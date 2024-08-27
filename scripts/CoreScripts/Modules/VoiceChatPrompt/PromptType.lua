@@ -19,4 +19,8 @@ return {
 	VoiceConsentModalV1 = "VoiceConsentModalV1",
 	VoiceConsentModalV2 = "VoiceConsentModalV2",
 	VoiceConsentModalV3 = "VoiceConsentModalV3",
+	JoinVoiceAndRequestMicPermissions = "JoinVoiceAndRequestMicPermissions",
+	JoinVoiceSTUX = "JoinVoiceSTUX",
+	JoinVoice = "JoinVoice",
+	LeaveVoice = "LeaveVoice",
 }

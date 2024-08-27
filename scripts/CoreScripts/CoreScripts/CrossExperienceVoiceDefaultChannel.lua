@@ -38,6 +38,8 @@ local PersistenceMiddleware = createPersistenceMiddleware({
 	storeKey = CrossExperience.Constants.STORAGE_CEV_STORE_KEY,
 })
 
+local PartySoundsAudioPlayer = CrossExperience.PartySoundsAudioPlayer
+
 local createReducers = function()
 	-- In order to simplify the data sync between this background state and foreground state I am using the expected foreground store shape
 	return Rodux.combineReducers({
@@ -53,11 +55,13 @@ local store = Rodux.Store.new(createReducers(), nil, {
 	PersistenceMiddleware.getMiddleware(),
 })
 
-local CEVStore = CrossExperience.Store.new()
--- For debugging purposes can pass "log" as a second parameter
-CEVStore:subscribe(store)
+local experienceType = CrossExperience.Constants.EXPERIENCE_TYPE_VOICE
+local cevEventListener = CrossExperience.EventListener.new(experienceType)
 
-CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_EXPERIENCE_STARTED, {
+-- For debugging purposes can pass "log" as a second parameter
+cevEventListener:subscribe(store)
+
+CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_EXPERIENCE_JOINED, {
 	jobId = game.JobId,
 	placeId = game.PlaceId,
 	gameId = game.GameId,
@@ -84,6 +88,7 @@ local onPlayerRemoved = function(player)
 		userId = player.UserId,
 		isLocalUser = player.UserId == localUserId,
 	})
+	PartySoundsAudioPlayer.default:PlaySound("leave")
 end
 
 local onLocalPlayerActiveChanged = function(result)
@@ -131,24 +136,30 @@ local toggleMutePlayer = function (params)
 end
 
 function handleParticipants()
+	Players.PlayerAdded:Connect(function(player)
+		onPlayerAdded(player)
+		PartySoundsAudioPlayer.default:PlaySound("join")
+	end)
+	Players.PlayerRemoving:Connect(onPlayerRemoved)
+
 	for _, player in pairs(Players:GetPlayers()) do
 		if player:IsA("Player") then
 			onPlayerAdded(player)
+			if player.UserId == localUserId then
+				PartySoundsAudioPlayer.default:PlaySound("join")
+			end
 		end
 	end
-
-	Players.PlayerAdded:Connect(onPlayerAdded)
-	Players.PlayerRemoving:Connect(onPlayerRemoved)
 end
 
 function handleMicrophone()
 	CoreVoiceManager.muteChanged.Event:Connect(onLocalPlayerMuteChanged)
 
-	CrossExperience.Communication.addObserver(CrossExperience.Constants.EVENTS.MUTE_PARTY_VOICE_PARTICIPANT, function (params)
+	CrossExperience.Communication.addObserver(experienceType, CrossExperience.Constants.EVENTS.MUTE_PARTY_VOICE_PARTICIPANT, function (params)
 		toggleMutePlayer(params)
 	end)
 
-	CrossExperience.Communication.addObserver(CrossExperience.Constants.EVENTS.UNMUTE_PARTY_VOICE_PARTICIPANT, function (params)
+	CrossExperience.Communication.addObserver(experienceType, CrossExperience.Constants.EVENTS.UNMUTE_PARTY_VOICE_PARTICIPANT, function (params)
 		toggleMutePlayer(params)
 	end)
 end
@@ -259,7 +270,7 @@ CoreVoiceManager:asyncInit():andThen(function()
 	else
 		onCoreVoiceManagerInitialized()
 	end
-	
+
 	if AudioFocusManagementEnabled then
 		local success, AudioFocusService = pcall(function()
 			return game:GetService("AudioFocusService")
@@ -327,8 +338,8 @@ CoreVoiceManager:asyncInit():andThen(function()
 					end)
 				end
 			end)
-			:catch(function(err)
-				warn('[CEV] Error requesting focus inside CEV')
+			:catch(function()
+				log:info('[CEV] Error requesting focus inside CEV')
 			end)
 		else
 			log:info("AudioFocusService did not initialize")

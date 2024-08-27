@@ -48,6 +48,8 @@ local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 local GetFFlagChromeUsePreferredTransparency =
 	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
 
+local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
+
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
 local SCROLL_OFFSET = ROW_HEIGHT * 0.5
@@ -202,7 +204,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 				onStateChanged = stateChange,
 			})
 			else nil,
-		RowLabel = if GetFFlagEnableChromePinIntegrations()
+		RowLabel = if FFlagFixChromeIntegrationLayoutBug or GetFFlagEnableChromePinIntegrations()
 			then React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BorderSizePixel = 0,

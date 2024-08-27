@@ -14,7 +14,8 @@ local function Initialize()
 	this.IsPageClipped = true
 
 	this.Page.Name = "AppChatPage"
-	this.Page.Size = UDim2.new(1, 0, 1, 0)
+	this.Page.Size = UDim2.new(1, 0, 0, 0)
+	this.Page.AutomaticSize = Enum.AutomaticSize.Y
 
 	return this
 end

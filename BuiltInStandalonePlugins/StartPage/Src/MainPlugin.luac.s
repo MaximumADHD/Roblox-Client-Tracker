@@ -29,107 +29,104 @@ PROTO_0:
   GETTABLEKS R3 R1 K15 ["Plugin"]
   CALL R2 1 1
   SETTABLEKS R2 R0 K16 ["design"]
+  GETUPVAL R3 6
+  GETTABLEKS R2 R3 K1 ["new"]
+  GETTABLEKS R3 R1 K15 ["Plugin"]
+  NAMECALL R3 R3 K17 ["GetMouse"]
+  CALL R3 1 -1
+  CALL R2 -1 1
+  SETTABLEKS R2 R0 K18 ["mouse"]
+  GETTABLEKS R2 R0 K18 ["mouse"]
+  LOADK R4 K19 ["Arrow"]
+  LOADN R5 0
+  NAMECALL R2 R2 K20 ["__pushCursor"]
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_1:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Plugin"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["new"]
-  NAMECALL R4 R2 K3 ["GetMouse"]
-  CALL R4 1 -1
-  CALL R3 -1 1
-  SETTABLEKS R3 R0 K4 ["mouse"]
-  GETTABLEKS R3 R0 K4 ["mouse"]
-  LOADK R5 K5 ["Arrow"]
-  LOADN R6 0
-  NAMECALL R3 R3 K6 ["__pushCursor"]
-  CALL R3 3 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K7 ["provide"]
-  DUPTABLE R4 K13 [{"Plugin", "Mouse", "Stylizer", "Localization", "Analytics", "Design"}]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K2 ["new"]
+  GETTABLEKS R3 R4 K2 ["provide"]
+  DUPTABLE R4 K8 [{"Plugin", "Mouse", "Stylizer", "Localization", "Analytics", "Design"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K9 ["new"]
   MOVE R6 R2
   CALL R5 1 1
   SETTABLEKS R5 R4 K1 ["Plugin"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["new"]
-  NAMECALL R6 R2 K14 ["getMouse"]
-  CALL R6 1 -1
-  CALL R5 -1 1
-  SETTABLEKS R5 R4 K8 ["Mouse"]
-  GETTABLEKS R5 R0 K15 ["DEPRECATED_stylizer"]
-  SETTABLEKS R5 R4 K9 ["Stylizer"]
-  GETTABLEKS R5 R0 K16 ["localization"]
-  SETTABLEKS R5 R4 K10 ["Localization"]
-  GETTABLEKS R5 R0 K17 ["analytics"]
-  SETTABLEKS R5 R4 K11 ["Analytics"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K2 ["new"]
-  GETTABLEKS R6 R0 K18 ["design"]
+  GETTABLEKS R5 R0 K10 ["mouse"]
+  SETTABLEKS R5 R4 K3 ["Mouse"]
+  GETTABLEKS R5 R0 K11 ["DEPRECATED_stylizer"]
+  SETTABLEKS R5 R4 K4 ["Stylizer"]
+  GETTABLEKS R5 R0 K12 ["localization"]
+  SETTABLEKS R5 R4 K5 ["Localization"]
+  GETTABLEKS R5 R0 K13 ["analytics"]
+  SETTABLEKS R5 R4 K6 ["Analytics"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K9 ["new"]
+  GETTABLEKS R6 R0 K14 ["design"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K12 ["Design"]
-  DUPTABLE R5 K20 [{"MainWidget"}]
+  SETTABLEKS R5 R4 K7 ["Design"]
+  DUPTABLE R5 K16 [{"MainWidget"}]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K17 ["createElement"]
   GETUPVAL R7 4
-  GETTABLEKS R6 R7 K21 ["createElement"]
-  GETUPVAL R7 5
-  DUPTABLE R8 K31 [{"Id", "Enabled", "ShouldRestore", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "CreateWidgetImmediately"}]
-  LOADK R9 K32 ["StartPage"]
-  SETTABLEKS R9 R8 K22 ["Id"]
+  DUPTABLE R8 K27 [{"Id", "Enabled", "ShouldRestore", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "CreateWidgetImmediately"}]
+  LOADK R9 K28 ["StartPage"]
+  SETTABLEKS R9 R8 K18 ["Id"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K23 ["Enabled"]
+  SETTABLEKS R9 R8 K19 ["Enabled"]
   LOADB R9 0
-  SETTABLEKS R9 R8 K24 ["ShouldRestore"]
-  GETTABLEKS R9 R0 K16 ["localization"]
+  SETTABLEKS R9 R8 K20 ["ShouldRestore"]
+  GETTABLEKS R9 R0 K12 ["localization"]
   LOADK R11 K1 ["Plugin"]
-  LOADK R12 K33 ["Name"]
-  NAMECALL R9 R9 K34 ["getText"]
+  LOADK R12 K29 ["Name"]
+  NAMECALL R9 R9 K30 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K25 ["Title"]
-  GETIMPORT R9 K37 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R9 R8 K26 ["ZIndexBehavior"]
-  GETIMPORT R9 K39 [Enum.InitialDockState.Float]
-  SETTABLEKS R9 R8 K27 ["InitialDockState"]
-  GETIMPORT R9 K41 [Vector2.new]
+  SETTABLEKS R9 R8 K21 ["Title"]
+  GETIMPORT R9 K33 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R9 R8 K22 ["ZIndexBehavior"]
+  GETIMPORT R9 K35 [Enum.InitialDockState.Float]
+  SETTABLEKS R9 R8 K23 ["InitialDockState"]
+  GETIMPORT R9 K37 [Vector2.new]
   LOADN R10 232
   LOADN R11 232
   CALL R9 2 1
-  SETTABLEKS R9 R8 K28 ["Size"]
-  GETIMPORT R9 K41 [Vector2.new]
+  SETTABLEKS R9 R8 K24 ["Size"]
+  GETIMPORT R9 K37 [Vector2.new]
   LOADN R10 232
   LOADN R11 232
   CALL R9 2 1
-  SETTABLEKS R9 R8 K29 ["MinSize"]
+  SETTABLEKS R9 R8 K25 ["MinSize"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K30 ["CreateWidgetImmediately"]
-  DUPTABLE R9 K44 [{"Wrapper", "StyleLink"}]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K21 ["createElement"]
-  GETUPVAL R11 6
+  SETTABLEKS R9 R8 K26 ["CreateWidgetImmediately"]
+  DUPTABLE R9 K40 [{"Wrapper", "StyleLink"}]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K17 ["createElement"]
+  GETUPVAL R11 5
   NEWTABLE R12 1 0
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K45 ["Tag"]
-  LOADK R14 K46 ["X-Fill X-Column"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K41 ["Tag"]
+  LOADK R14 K42 ["X-Fill X-Column"]
   SETTABLE R14 R12 R13
-  DUPTABLE R13 K48 [{"PageController"}]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K21 ["createElement"]
-  GETUPVAL R15 7
+  DUPTABLE R13 K44 [{"PageController"}]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K17 ["createElement"]
+  GETUPVAL R15 6
   CALL R14 1 1
-  SETTABLEKS R14 R13 K47 ["PageController"]
+  SETTABLEKS R14 R13 K43 ["PageController"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K42 ["Wrapper"]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K21 ["createElement"]
-  LOADK R11 K43 ["StyleLink"]
-  DUPTABLE R12 K50 [{"StyleSheet"}]
-  GETTABLEKS R13 R0 K18 ["design"]
-  SETTABLEKS R13 R12 K49 ["StyleSheet"]
+  SETTABLEKS R10 R9 K38 ["Wrapper"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K17 ["createElement"]
+  LOADK R11 K39 ["StyleLink"]
+  DUPTABLE R12 K46 [{"StyleSheet"}]
+  GETTABLEKS R13 R0 K14 ["design"]
+  SETTABLEKS R13 R12 K45 ["StyleSheet"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K43 ["StyleLink"]
+  SETTABLEKS R10 R9 K39 ["StyleLink"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K19 ["MainWidget"]
+  SETTABLEKS R6 R5 K15 ["MainWidget"]
   CALL R3 2 -1
   RETURN R3 -1
 
@@ -188,9 +185,9 @@ MAIN:
   CAPTURE VAL R14
   CAPTURE VAL R10
   CAPTURE VAL R11
+  CAPTURE VAL R8
   SETTABLEKS R18 R17 K33 ["init"]
   DUPCLOSURE R18 K34 [PROTO_1]
-  CAPTURE VAL R8
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R9

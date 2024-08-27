@@ -171,7 +171,6 @@ function TopBar.new()
 									value = IXPService,
 								}, {
 									TopBarApp = TopBarWithProviders,
-									CrossExperienceVoice = GetFFlagEnableCrossExpVoice() and Roact.createElement(CrossExperienceVoiceComponent) or nil,
 								})
 							or nil,
 						TopBarApp = (not GetFFlagEnableTeleportBackButton()) and TopBarWithProviders or nil,

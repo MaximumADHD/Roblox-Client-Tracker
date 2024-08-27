@@ -4,11 +4,15 @@ local React = require(CorePackages.Packages.React)
 local ChromeService = require(script.Parent.Parent.Service)
 local ContainerSlotSignal = require(script.Parent.Parent.Service.ContainerSlotSignal)
 
+local GetFFlagDebugEnableUnibarDummyIntegrations =
+	require(script.Parent.Parent.Flags.GetFFlagDebugEnableUnibarDummyIntegrations)
+
 local containerSlots = ContainerSlotSignal.new(5)
 
 local dummyContainerIntegration = ChromeService:register({
-	-- initialAvailability = ChromeService.AvailabilitySignal.Available,
-	initialAvailability = ChromeService.AvailabilitySignal.Unavailable,
+	initialAvailability = if GetFFlagDebugEnableUnibarDummyIntegrations()
+		then ChromeService.AvailabilitySignal.Available
+		else ChromeService.AvailabilitySignal.Unavailable,
 	id = "dummy_container",
 	label = "CoreScripts.TopBar.Menu",
 	containerWidthSlots = containerSlots,

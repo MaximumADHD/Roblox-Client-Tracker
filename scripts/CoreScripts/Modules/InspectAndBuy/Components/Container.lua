@@ -38,7 +38,8 @@ function Container:didMount()
 	end)
 
 	if gamepadEnabled then
-		GuiService:AddSelectionParent("InspectMenu", self.frameRef.current)
+		-- AddSelectionParent is deprecated
+		(GuiService :: any):AddSelectionParent("InspectMenu", self.frameRef.current)
 	end
 end
 
@@ -47,13 +48,15 @@ function Container:didUpdate(prevProps)
 	local gamepadEnabled = self.props.gamepadEnabled
 
 	if visible and gamepadEnabled and self.frameRef.current then
-		GuiService:RemoveSelectionGroup("InspectMenu")
-		GuiService:AddSelectionParent("InspectMenu", self.frameRef.current)
+		(GuiService :: any):RemoveSelectionGroup("InspectMenu")
+		-- AddSelectionParent is deprecated
+		;(GuiService :: any):AddSelectionParent("InspectMenu", self.frameRef.current)
 		if self.lastSavedSelectedCoreGui then
 			GuiService.SelectedCoreObject = self.lastSavedSelectedCoreGui
 		end
 	elseif (not gamepadEnabled and prevProps.gamepadEnabled) or not visible then
-		GuiService:RemoveSelectionGroup("InspectMenu")
+		-- AddSelectionParent/RemoveSelectionGroup is deprecated
+		(GuiService :: any):RemoveSelectionGroup("InspectMenu")
 	end
 
 	if visible and not prevProps.visible then
@@ -63,7 +66,8 @@ end
 
 function Container:willUnmount()
 	self.selectedCoreObjectChangedSignal:disconnect()
-	GuiService:RemoveSelectionGroup("InspectMenu")
+	-- AddSelectionParent/RemoveSelectionGroup is deprecated
+	;(GuiService :: any):RemoveSelectionGroup("InspectMenu")
 	GuiService.SelectedCoreObject = nil
 end
 

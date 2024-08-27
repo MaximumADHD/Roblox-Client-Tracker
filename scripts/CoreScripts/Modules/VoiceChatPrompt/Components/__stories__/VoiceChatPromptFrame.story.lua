@@ -15,7 +15,7 @@ function Story:init()
 end
 
 function Story:render()
-	return  Roact.createElement("Frame", {
+	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 1),
 	}, {

@@ -221,7 +221,7 @@ PROTO_7:
   GETTABLEKS R2 R0 K8 ["Panels"]
   GETUPVAL R4 2
   MOVE R5 R1
-  NAMECALL R2 R2 K9 ["SetAttachment"]
+  NAMECALL R2 R2 K9 ["SetAttachmentAsync"]
   CALL R2 3 0
   RETURN R0 0
   GETUPVAL R2 3

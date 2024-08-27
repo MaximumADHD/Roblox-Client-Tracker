@@ -7,11 +7,7 @@ PROTO_0:
   GETTABLEKS R5 R6 K4 ["createElement"]
   GETUPVAL R6 1
   NEWTABLE R7 16 0
-  GETUPVAL R9 2
-  JUMPIFNOT R9 [+2]
   LOADK R8 K5 ["Breakpoints"]
-  JUMP [+1]
-  LOADNIL R8
   SETTABLEKS R8 R7 K6 ["Id"]
   LOADK R10 K7 ["BreakpointsWindow"]
   LOADK R11 K8 ["WindowName"]
@@ -46,7 +42,7 @@ PROTO_0:
   DUPTABLE R8 K29 [{"BreakpointsTable"}]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K4 ["createElement"]
-  GETUPVAL R10 3
+  GETUPVAL R10 2
   CALL R9 1 1
   SETTABLEKS R9 R8 K28 ["BreakpointsTable"]
   CALL R5 3 -1
@@ -54,48 +50,43 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["StudioFixPluginWidgetLocalizedIds"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  GETIMPORT R5 K5 [script]
-  GETTABLEKS R4 R5 K6 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R4 R1 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Roact"]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
   CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K12 ["UI"]
-  GETTABLEKS R5 R4 K13 ["DockWidget"]
-  GETTABLEKS R6 R3 K14 ["ContextServices"]
-  GETTABLEKS R7 R6 K15 ["Localization"]
-  GETIMPORT R8 K8 [require]
-  GETTABLEKS R12 R1 K16 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Components"]
-  GETTABLEKS R10 R11 K18 ["Breakpoints"]
-  GETTABLEKS R9 R10 K19 ["BreakpointsTable"]
-  CALL R8 1 1
-  GETTABLEKS R9 R2 K20 ["PureComponent"]
-  LOADK R11 K21 ["BreakpointWindow"]
-  NAMECALL R9 R9 K22 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K23 [PROTO_0]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R0
-  CAPTURE VAL R8
-  SETTABLEKS R10 R9 K24 ["render"]
-  GETTABLEKS R10 R6 K25 ["withContext"]
-  DUPTABLE R11 K26 [{"Localization"}]
-  SETTABLEKS R7 R11 K15 ["Localization"]
-  CALL R10 1 1
-  MOVE R11 R9
-  CALL R10 1 1
-  MOVE R9 R10
-  RETURN R9 1
+  GETTABLEKS R3 R2 K8 ["UI"]
+  GETTABLEKS R4 R3 K9 ["DockWidget"]
+  GETTABLEKS R5 R2 K10 ["ContextServices"]
+  GETTABLEKS R6 R5 K11 ["Localization"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R11 R0 K12 ["Src"]
+  GETTABLEKS R10 R11 K13 ["Components"]
+  GETTABLEKS R9 R10 K14 ["Breakpoints"]
+  GETTABLEKS R8 R9 K15 ["BreakpointsTable"]
+  CALL R7 1 1
+  GETTABLEKS R8 R1 K16 ["PureComponent"]
+  LOADK R10 K17 ["BreakpointWindow"]
+  NAMECALL R8 R8 K18 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K19 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  SETTABLEKS R9 R8 K20 ["render"]
+  GETTABLEKS R9 R5 K21 ["withContext"]
+  DUPTABLE R10 K22 [{"Localization"}]
+  SETTABLEKS R6 R10 K11 ["Localization"]
+  CALL R9 1 1
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
+  RETURN R8 1

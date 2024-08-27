@@ -1,109 +1,68 @@
-PROTO_0:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ProcessService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  LOADN R2 0
-  NAMECALL R0 R0 K4 ["ExitAsync"]
-  CALL R0 2 0
-  RETURN R0 0
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R2 K1 [script]
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Flags"]
-  GETTABLEKS R2 R3 K7 ["getFFlagImprovePluginSpeedPivotEditor"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Utility"]
-  GETTABLEKS R3 R4 K9 ["DebugFlags"]
-  CALL R2 1 1
-  LOADNIL R3
-  MOVE R4 R1
-  CALL R4 0 1
-  JUMPIF R4 [+8]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K10 ["Packages"]
-  GETTABLEKS R5 R6 K11 ["Framework"]
+  GETTABLEKS R2 R0 K3 ["Packages"]
+  GETTABLEKS R1 R2 K4 ["DraggerFramework"]
+  GETTABLEKS R2 R0 K5 ["Tests"]
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R5 R1 K8 ["Utility"]
+  GETTABLEKS R4 R5 K9 ["isFTF"]
+  CALL R3 1 1
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R6 R1 K8 ["Utility"]
+  GETTABLEKS R5 R6 K10 ["isCli"]
   CALL R4 1 1
-  MOVE R3 R4
-  GETTABLEKS R4 R2 K12 ["RunningUnderCLI"]
-  CALL R4 0 1
-  JUMPIF R4 [+4]
-  GETTABLEKS R4 R2 K13 ["RunTests"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+93]
-  MOVE R4 R1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+8]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K10 ["Packages"]
-  GETTABLEKS R5 R6 K11 ["Framework"]
-  CALL R4 1 1
-  MOVE R3 R4
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K10 ["Packages"]
-  GETTABLEKS R6 R7 K14 ["Dev"]
-  GETTABLEKS R5 R6 K15 ["TestEZ"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K16 ["TestBootstrap"]
-  GETTABLEKS R7 R4 K17 ["Reporters"]
-  GETTABLEKS R6 R7 K18 ["TeamCityReporter"]
-  GETTABLEKS R8 R4 K17 ["Reporters"]
-  GETTABLEKS R7 R8 K19 ["TextReporter"]
-  GETIMPORT R10 K22 [_G]
-  GETTABLEKS R9 R10 K20 ["TEAMCITY"]
-  JUMPIFNOT R9 [+2]
-  MOVE R8 R6
-  JUMPIF R8 [+1]
-  MOVE R8 R7
-  GETTABLEKS R9 R0 K5 ["Src"]
-  GETIMPORT R10 K24 [print]
-  LOADK R12 K25 ["----- All "]
-  GETTABLEKS R13 R0 K26 ["Name"]
-  LOADK R14 K27 [" Tests ------"]
-  CONCAT R11 R12 R14
-  CALL R10 1 0
-  GETIMPORT R10 K4 [require]
-  GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K2 ["Parent"]
-  GETTABLEKS R11 R12 K28 ["defineLuaFlags"]
-  CALL R10 1 0
-  NEWTABLE R12 0 1
-  MOVE R13 R9
-  SETLIST R12 R13 1 [1]
-  MOVE R13 R8
-  NAMECALL R10 R5 K29 ["run"]
-  CALL R10 3 0
-  GETIMPORT R10 K24 [print]
-  LOADK R11 K30 ["----------------------------------"]
-  CALL R10 1 0
-  GETTABLEKS R10 R2 K31 ["RunDeveloperFrameworkTests"]
-  CALL R10 0 1
-  JUMPIFNOT R10 [+19]
-  GETIMPORT R10 K24 [print]
-  LOADK R11 K32 [""]
-  CALL R10 1 0
-  GETIMPORT R10 K24 [print]
-  LOADK R11 K33 ["----- All DeveloperFramework Tests ------"]
-  CALL R10 1 0
-  GETTABLEKS R11 R3 K34 ["TestHelpers"]
-  GETTABLEKS R10 R11 K35 ["runFrameworkTests"]
-  MOVE R11 R4
-  MOVE R12 R8
-  CALL R10 2 0
-  GETIMPORT R10 K24 [print]
-  LOADK R11 K30 ["----------------------------------"]
-  CALL R10 1 0
-  GETTABLEKS R4 R2 K12 ["RunningUnderCLI"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+4]
-  GETIMPORT R4 K37 [pcall]
-  DUPCLOSURE R5 K38 [PROTO_0]
-  CALL R4 1 0
+  MOVE R5 R3
+  CALL R5 0 1
+  JUMPIF R5 [+1]
+  JUMP [+60]
+  GETIMPORT R5 K12 [_G]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K13 ["__ROACT_17_MOCK_SCHEDULER__"]
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R8 R0 K3 ["Packages"]
+  GETTABLEKS R7 R8 K14 ["Dev"]
+  GETTABLEKS R6 R7 K15 ["Jest"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K16 ["runCLI"]
+  MOVE R7 R2
+  NEWTABLE R8 0 0
+  NEWTABLE R9 0 1
+  MOVE R10 R2
+  SETLIST R9 R10 1 [1]
+  CALL R6 3 1
+  NAMECALL R6 R6 K17 ["awaitStatus"]
+  CALL R6 1 2
+  JUMPIFNOTEQKS R6 K18 ["Resolved"] [+15]
+  GETTABLEKS R9 R7 K19 ["results"]
+  GETTABLEKS R8 R9 K20 ["numFailedTestSuites"]
+  LOADN R9 0
+  JUMPIFLT R9 R8 [+8]
+  GETTABLEKS R9 R7 K19 ["results"]
+  GETTABLEKS R8 R9 K21 ["numFailedTests"]
+  LOADN R9 0
+  JUMPIFNOTLT R9 R8 [+17]
+  JUMPIFNOTEQKS R6 K22 ["Rejected"] [+5]
+  GETIMPORT R8 K24 [print]
+  MOVE R9 R7
+  CALL R8 1 0
+  GETIMPORT R8 K26 [game]
+  LOADK R10 K27 ["TestService"]
+  NAMECALL R8 R8 K28 ["GetService"]
+  CALL R8 2 1
+  LOADK R10 K29 ["Jest 3 test run failed"]
+  NAMECALL R8 R8 K30 ["Error"]
+  CALL R8 2 0
+  MOVE R5 R4
+  CALL R5 0 1
+  JUMPIFNOT R5 [+10]
+  GETIMPORT R5 K26 [game]
+  LOADK R7 K31 ["ProcessService"]
+  NAMECALL R5 R5 K28 ["GetService"]
+  CALL R5 2 1
+  LOADN R7 0
+  NAMECALL R5 R5 K32 ["ExitAsync"]
+  CALL R5 2 0
   RETURN R0 0

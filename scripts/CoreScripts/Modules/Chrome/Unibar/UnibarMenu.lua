@@ -8,7 +8,6 @@ local useStyle = UIBlox.Core.Style.useStyle
 local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.Service.ChromeUtils)
-local ViewportUtil = require(Chrome.Service.ViewportUtil)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 
 local _integrations = require(Chrome.Integrations)
@@ -31,13 +30,14 @@ local ContainerHost = require(script.Parent.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
+local FFlagEnableUnibarV4IA = game:DefineFastFlag("EnableUnibarV4IA", false)
+local GetFFlagDebugEnableUnibarDummyIntegrations = require(Chrome.Flags.GetFFlagDebugEnableUnibarDummyIntegrations)
+local GetFFlagDisableCompactUtilityCore = require(Chrome.Flags.GetFFlagDisableCompactUtilityCore)
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 local GetFFlagEnableSaveUserPins = require(Chrome.Flags.GetFFlagEnableSaveUserPins)
 local GetFFlagEnableChromePinAnalytics = require(Chrome.Flags.GetFFlagEnableChromePinAnalytics)
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
-local GetFFlagNewUnibarIA = require(Chrome.Flags.GetFFlagNewUnibarIA)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
-local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagOpenControlsOnMenuOpen = require(Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
@@ -61,7 +61,7 @@ local PartyConstants = require(Chrome.Integrations.Party.Constants)
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
 
-function configureUnibar(viewportInfo)
+function configureUnibar()
 	-- Configure the menu.  Top level ordering, integration availability.
 	-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
 	-- ie. Voice Mute integration will only be shown is voice is enabled/active
@@ -70,10 +70,8 @@ function configureUnibar(viewportInfo)
 		-- append to end of nine-dot
 		table.insert(nineDot, "respawn")
 	end
-	if GetFFlagNewUnibarIA() then
-		-- prepend trust_and_safety to nine-dot menu
-		table.insert(nineDot, 1, "trust_and_safety")
-	end
+	-- prepend trust_and_safety to nine-dot menu
+	table.insert(nineDot, 1, "trust_and_safety")
 
 	-- insert leaderboard into MRU if it's shown on startup and not already a pin
 	if PlayerListInitialVisibleState() then
@@ -86,11 +84,7 @@ function configureUnibar(viewportInfo)
 	end
 
 	-- insert trust and safety into MRU/pin, prioritize over leaderboard
-	if
-		GetFFlagNewUnibarIA()
-		and GetFFlagEnableChromePinIntegrations()
-		and not ChromeService:isUserPinned("trust_and_safety")
-	then
+	if GetFFlagEnableChromePinIntegrations() and not ChromeService:isUserPinned("trust_and_safety") then
 		if not GetFFlagEnableSaveUserPins() then
 			ChromeService:setUserPin("trust_and_safety", true)
 
@@ -98,11 +92,32 @@ function configureUnibar(viewportInfo)
 				ChromeAnalytics.default:setPin("trust_and_safety", true, ChromeService:userPins())
 			end
 		end
-	elseif GetFFlagNewUnibarIA() and not ChromeService:isMostRecentlyUsed("trust_and_safety") then
+	elseif not ChromeService:isMostRecentlyUsed("trust_and_safety") then
 		ChromeService:setRecentlyUsed("trust_and_safety", true)
 	end
 
-	if GetFFlagNewUnibarIA() and GetFFlagEnableChromePinIntegrations() then
+	-- This codepath is the source of truth for Unibar v4 experiment. Other paths will be deprecated if successful.
+	if FFlagEnableUnibarV4IA then
+		local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
+		table.insert(v4Ordering, "chrome_toggle")
+
+		if GetFFlagEnableJoinVoiceOnUnibar() then
+			table.insert(v4Ordering, 2, "join_voice")
+		end
+
+		if GetFFlagDebugEnableUnibarDummyIntegrations() then
+			table.insert(v4Ordering, 1, "dummy_window")
+			table.insert(v4Ordering, 1, "dummy_window_2")
+			if GetFFlagSupportChromeContainerSizing() then
+				table.insert(v4Ordering, 1, "dummy_container")
+			end
+		end
+
+		ChromeService:configureMenu({
+			if GetFFlagEnablePartyIconInChrome() then { PartyConstants.INTEGRATION_ID } else {},
+			v4Ordering,
+		})
+	elseif GetFFlagEnableChromePinIntegrations() then
 		if GetFFlagSupportChromeContainerSizing() then
 			ChromeService:configureMenu({
 				if GetFFlagEnableJoinVoiceOnUnibar()
@@ -134,29 +149,11 @@ function configureUnibar(viewportInfo)
 				{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
 			})
 		end
-	elseif GetFFlagNewUnibarIA() then
+	else
 		ChromeService:configureMenu({
 			{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
 			{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
 		})
-	elseif EnabledPinnedChat and not viewportInfo.tinyPortrait then
-		ChromeService:removeRecentlyUsed("chat")
-		ChromeService:configureMenu({
-			{ "trust_and_safety" },
-			{ "selfie_view", "toggle_mic_mute", "dummy_window", "dummy_window_2" },
-			{ "chat", ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
-		})
-	else
-		ChromeService:configureMenu({
-			{ "trust_and_safety" },
-			{ "selfie_view", "toggle_mic_mute", "dummy_window", "dummy_window_2" },
-			{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
-		})
-		-- prepend chat to nine-dot menu
-		table.insert(nineDot, 1, "chat")
-		if not ChromeService:isMostRecentlyUsed("chat") then
-			ChromeService:setRecentlyUsed("chat", true)
-		end
 	end
 
 	if GetFFlagEnableScreenshotUtility() and GetFFlagEnableCapturesInChrome() then
@@ -166,40 +163,36 @@ function configureUnibar(viewportInfo)
 			table.insert(nineDot, "camera_entrypoint")
 		end
 
-		ChromeService:configureCompactUtility("camera_utility", {
-			{
-				"captures",
-				"screenshot",
-				if GetFFlagUsePolishedAnimations() then "compact_utility_back" else "chrome_toggle",
-			},
-		})
+		if not GetFFlagDisableCompactUtilityCore() then
+			ChromeService:configureCompactUtility("camera_utility", {
+				{
+					"captures",
+					"screenshot",
+					if GetFFlagUsePolishedAnimations() then "compact_utility_back" else "chrome_toggle",
+				},
+			})
+		end
+	end
+
+	if FFlagEnableUnibarV4IA then
+		table.insert(nineDot, 2, "selfie_view")
 	end
 
 	if GetFFlagEnableChromeMusicIntegration() then
 		table.insert(nineDot, "music_entrypoint")
-
 		-- MUS-1214 TODO: Determine placement order in menu
-		ChromeService:configureCompactUtility("music_utility", {
-			{ GetFStringChromeMusicIntegrationId(), "chrome_toggle" },
-		})
+
+		if not GetFFlagDisableCompactUtilityCore() then
+			ChromeService:configureCompactUtility("music_utility", {
+				{ GetFStringChromeMusicIntegrationId(), "chrome_toggle" },
+			})
+		end
 	end
 
 	ChromeService:configureSubMenu("nine_dot", nineDot)
 end
 
-if GetFFlagNewUnibarIA() then
-	configureUnibar({ tinyPortrait = false })
-else
-	local priorTinyPortrait = nil
-
-	ViewportUtil.viewport:connect(function(viewportInfo)
-		local tinyPortrait = viewportInfo.tinyPortrait
-		if tinyPortrait ~= priorTinyPortrait then
-			configureUnibar(viewportInfo)
-			priorTinyPortrait = tinyPortrait
-		end
-	end, true)
-end
+configureUnibar()
 
 export type IconDividerProps = {
 	toggleTransition: any?,
@@ -678,7 +671,7 @@ function Unibar(props: UnibarProp)
 	} :: Array<any>)
 end
 
-type UnibarMenuProp = {
+export type UnibarMenuProp = {
 	layoutOrder: number,
 	onAreaChanged: (id: string, position: Vector2, size: Vector2) -> nil,
 	onMinWidthChanged: (width: number) -> (),

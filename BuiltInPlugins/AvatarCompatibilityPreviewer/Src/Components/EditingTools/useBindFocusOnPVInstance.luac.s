@@ -55,17 +55,17 @@ MAIN:
   LOADK R3 K6 ["AvatarCompatibilityPreviewer"]
   NAMECALL R1 R1 K7 ["FindFirstAncestor"]
   CALL R1 2 1
-  GETTABLEKS R3 R1 K8 ["Packages"]
-  GETTABLEKS R2 R3 K9 ["DraggerFramework"]
-  GETIMPORT R3 K11 [require]
-  GETTABLEKS R5 R1 K8 ["Packages"]
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["DraggerFramework"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
   GETTABLEKS R4 R5 K12 ["React"]
   CALL R3 1 1
-  GETIMPORT R4 K11 [require]
-  GETTABLEKS R6 R2 K13 ["Utility"]
-  GETTABLEKS R5 R6 K14 ["BoundingBox"]
-  CALL R4 1 1
-  GETIMPORT R5 K11 [require]
+  GETTABLEKS R5 R2 K13 ["Utility"]
+  GETTABLEKS R4 R5 K14 ["BoundingBox"]
+  GETIMPORT R5 K9 [require]
   GETTABLEKS R8 R1 K15 ["Src"]
   GETTABLEKS R7 R8 K16 ["Util"]
   GETTABLEKS R6 R7 K17 ["Constants"]

@@ -90,10 +90,8 @@ local GetFFlagEnableCapturesInChrome = require(RobloxGui.Modules.Chrome.Flags.Ge
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(SharedFlags).GetFStringGameInviteMenuLayer
-local GetFFlagGateEducationalPopupVisibilityViaGUAC = require(SharedFlags).GetFFlagGateEducationalPopupVisibilityViaGUAC
 local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
-local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixResumeSourceAnalytics)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local GetFFlagEnableScreenshotUtility = require(SharedFlags).GetFFlagEnableScreenshotUtility
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
@@ -619,11 +617,7 @@ local function CreateSettingsHub()
 
 		local hotKeyFunc = function(contextName, inputState, inputObject)
 			if inputState == Enum.UserInputState.Begin then
-				if GetFFlagFixResumeSourceAnalytics() then
-					hotFunc()
-				else
-					clickFunc()
-				end
+				hotFunc()
 			end
 		end
 
@@ -1918,7 +1912,7 @@ local function CreateSettingsHub()
 			removeBottomBarBindings()
 			if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
 				this:SwitchToPage(this.LeaveGameUpsellPage, nil, 1, true)
-			else 
+			else
 				this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
 			end
 		end
@@ -1929,16 +1923,14 @@ local function CreateSettingsHub()
 				Constants.AnalyticsTargetName,
 				Constants.AnalyticsResumeGameName,
 				Constants.AnalyticsMenuActionName,
-				{ source = if Theme.UIBloxThemeEnabled then
-					if GetFFlagFixResumeSourceAnalytics() then source else Constants.AnalyticsResumeShieldSource
-				else Constants.AnalyticsResumeButtonSource }
+				{ source = if Theme.UIBloxThemeEnabled then source else Constants.AnalyticsResumeButtonSource }
 			)
 		end
 
 		if Theme.UIBloxThemeEnabled then
-			this.Shield.Activated:Connect(if GetFFlagFixResumeSourceAnalytics() then
-				function() resumeFunc(Constants.AnalyticsResumeShieldSource) end
-				else resumeFunc
+			this.Shield.Activated:Connect(function()
+				resumeFunc(Constants.AnalyticsResumeShieldSource)
+			end
 			)
 		end
 
@@ -1981,12 +1973,12 @@ local function CreateSettingsHub()
 		end
 
 		local resumeGameText = "Resume"
-		local resumeButtonFunc = if GetFFlagFixResumeSourceAnalytics() then
-			function() resumeFunc(Constants.AnalyticsResumeButtonSource) end
-			else resumeFunc
-		local resumeHotkeyFunc = if GetFFlagFixResumeSourceAnalytics() then
-			function() resumeFunc(Constants.AnalyticsResumeGamepadSource) end
-			else nil
+		local resumeButtonFunc = function()
+			resumeFunc(Constants.AnalyticsResumeButtonSource)
+		end
+		local resumeHotkeyFunc = function()
+			resumeFunc(Constants.AnalyticsResumeGamepadSource)
+		end
 		addBottomBarButtonOld("Resume", resumeGameText, buttonB,
 			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
 			resumeButtonFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}, resumeHotkeyFunc
@@ -2727,7 +2719,7 @@ local function CreateSettingsHub()
 		if firstPageWithTabHeader == nil then
 			error("No page with tab header found")
 			return nil
-		end 
+		end
 
 		return firstPageWithTabHeader
 	end
@@ -2892,7 +2884,7 @@ local function CreateSettingsHub()
 		end
 
 		-- When switching page, we want to call this to expand PageViewClipper size if needed by TopPadding being disabled
-		if pageToSwitchTo.DisableTopPadding then 
+		if pageToSwitchTo.DisableTopPadding then
 			onScreenSizeChanged()
 		end
 
@@ -3593,15 +3585,8 @@ local function CreateSettingsHub()
 	end
 
 	if isSubjectToDesktopPolicies() then
-		if GetFFlagGateEducationalPopupVisibilityViaGUAC() then
-			if InExperienceCapabilities.canViewEducationalPopup then
-				this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
-				this.ExitModalPage:SetHub(this)
-			end
-		else
-			this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
-			this.ExitModalPage:SetHub(this)
-		end
+		this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
+		this.ExitModalPage:SetHub(this)
 	end
 
 	if isSubjectToDesktopPolicies() and InExperienceCapabilities.canNavigateHome then

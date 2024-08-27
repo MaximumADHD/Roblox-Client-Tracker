@@ -52,11 +52,11 @@ PROTO_4:
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K2 ["fn"]
   CALL R1 0 1
-  SETTABLEKS R1 R0 K3 ["GetAssetMetadata"]
+  SETTABLEKS R1 R0 K3 ["GetAssetMetadataAsync"]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K2 ["fn"]
   CALL R1 0 1
-  SETTABLEKS R1 R0 K4 ["ShareAccessToInaccessibleAssets"]
+  SETTABLEKS R1 R0 K4 ["ShareAccessToInaccessibleAssetsAsync"]
   RETURN R0 1
 
 MAIN:

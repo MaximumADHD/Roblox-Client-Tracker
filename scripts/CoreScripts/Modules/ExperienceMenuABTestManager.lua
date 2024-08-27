@@ -45,12 +45,6 @@ local MENU_VERSION_V2 = "v2"..TEST_VERSION
 local MENU_VERSION_V3 = "v3"..TEST_VERSION
 local REPORT_ABUSE_MENU_VERSION_V2 = "ARv2"..REPORT_ABUSE_MENU_TEST_VERSION
 
-local MENU_VERSION_CONTROLS_ENUM = {
-	BASELINE = "v4.1"..TEST_VERSION,
-	OLD_LAYOUT = "v4.2"..TEST_VERSION,
-	HOME_BUTTON = "v4.3"..TEST_VERSION,
-}
-
 local MENU_VERSION_MODERNIZATION_ENUM = {
 	MODERNIZED = "v5.1"..TEST_VERSION,
 	BIG_TEXT = "v5.2"..TEST_VERSION,
@@ -82,9 +76,6 @@ local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
 	[MENU_VERSION_V2] = false,
 	[MENU_VERSION_V3] = false,
-	[MENU_VERSION_CONTROLS_ENUM.BASELINE] = false,
-	[MENU_VERSION_CONTROLS_ENUM.OLD_LAYOUT] = false,
-	[MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON] = false,
 	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = true,
 	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = false,
 	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = false,
@@ -141,18 +132,6 @@ end
 
 function ExperienceMenuABTestManager.reportAbuseMenuV2VersionId()
 	return REPORT_ABUSE_MENU_VERSION_V2
-end
-
-function ExperienceMenuABTestManager.controlsBaselineVersionId()
-	return MENU_VERSION_CONTROLS_ENUM.BASELINE
-end
-
-function ExperienceMenuABTestManager.controlsOldLayoutVersionId()
-	return MENU_VERSION_CONTROLS_ENUM.OLD_LAYOUT
-end
-
-function ExperienceMenuABTestManager.controlsHomeButtonVersionId()
-	return MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON
 end
 
 function ExperienceMenuABTestManager.modernizationModernizedVersionId()
@@ -263,24 +242,6 @@ end
 
 function ExperienceMenuABTestManager:isReportAbuseMenuV2Enabled()
 	return self:getVersion() == REPORT_ABUSE_MENU_VERSION_V2
-end
-
-function ExperienceMenuABTestManager:areMenuControlsEnabled()
-	for _, version in pairs(MENU_VERSION_CONTROLS_ENUM) do 
-		if(self:getVersion() == version) then
-			return true
-		end
-	end
-
-	return false
-end
-
-function ExperienceMenuABTestManager:shouldShowNewNavigationLayout()
-	return self:getVersion() == MENU_VERSION_CONTROLS_ENUM.BASELINE or self:getVersion() == MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON
-end
-
-function ExperienceMenuABTestManager:shouldShowHomeButton()
-	return self:getVersion() == MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON
 end
 
 function ExperienceMenuABTestManager:isMenuModernizationEnabled()

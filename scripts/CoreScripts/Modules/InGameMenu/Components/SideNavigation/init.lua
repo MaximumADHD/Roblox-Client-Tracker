@@ -61,8 +61,9 @@ function SideNavigation:init()
 
 	self.onContainerRendered = function(rbx)
 		if rbx then
-			GuiService:RemoveSelectionGroup(SELECTION_PARENT_NAME)
-			GuiService:AddSelectionParent(SELECTION_PARENT_NAME, rbx)
+			-- AddSelectionParent is deprecated
+			(GuiService :: any):RemoveSelectionGroup(SELECTION_PARENT_NAME)
+			;(GuiService :: any):AddSelectionParent(SELECTION_PARENT_NAME, rbx)
 		end
 	end
 end

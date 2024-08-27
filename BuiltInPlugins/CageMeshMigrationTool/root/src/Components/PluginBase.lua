@@ -1,5 +1,3 @@
-local FFlagStudioFixPluginWidgetLocalizedIds = game:GetFastFlag("StudioFixPluginWidgetLocalizedIds")
-
 local root = script:FindFirstAncestor("root")
 
 local Roact = require(root.Packages.Roact)
@@ -22,7 +20,7 @@ function PluginBase:render()
 	local props = self.props
 
 	return Roact.createElement(DockWidget, {
-		Id = if FFlagStudioFixPluginWidgetLocalizedIds then "CageMeshMigration" else nil,
+		Id = "CageMeshMigration",
 		Title = constants.TITLE,
 		Enabled = props.enabled,
 		Size = constants.WINDOW_SIZE,

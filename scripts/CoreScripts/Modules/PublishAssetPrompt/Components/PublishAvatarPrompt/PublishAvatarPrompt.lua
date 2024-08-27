@@ -19,7 +19,7 @@ local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
 local Components = script.Parent.Parent
 local BasePublishPrompt = require(Components.BasePublishPrompt)
 local ObjectViewport = require(Components.Common.ObjectViewport)
-local NameTextBox = require(Components.Common.NameTextBox)
+local LabeledTextBox = require(Components.Common.LabeledTextBox)
 local PublishInfoList = require(Components.Common.PublishInfoList)
 local PurchasePrompt = require(RobloxGui.Modules.PurchasePrompt)
 
@@ -29,9 +29,11 @@ local SetPromptVisibility = require(Actions.SetPromptVisibility)
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
 local DELAYED_INPUT_ANIM_SEC = 3
-local LABEL_HEIGHT = 15
 local DESC_TEXTBOX_HEIGHT = 104
 local DESC_TEXTBOX_MAXLENGTH = 1000
+
+local DESC_LABEL_KEY = "CoreScripts.PublishAvatarPrompt.Description"
+local DESC_TEXT_KEY = "CoreScripts.PublishAvatarPrompt.DescriptionTitle"
 
 local PublishAvatarPrompt = Roact.PureComponent:extend("PublishAvatarPrompt")
 
@@ -61,6 +63,7 @@ function PublishAvatarPrompt:init()
 		description = "",
 		isDescValid = true,
 		showTopScrim = false,
+		purchasePromptReady = true,
 	})
 	self.openPreviewView = function()
 		self:setState({
@@ -75,7 +78,10 @@ function PublishAvatarPrompt:init()
 
 	-- Prompt can submit as long as name and description are valid
 	self.canSubmit = function(): boolean
-		return self.state.isNameValid and self.state.isDescValid and self.props.humanoidModel ~= nil
+		return self.state.isNameValid
+			and self.state.isDescValid
+			and self.props.humanoidModel ~= nil
+			and self.state.purchasePromptReady
 	end
 
 	self.onSubmit = function()
@@ -86,6 +92,7 @@ function PublishAvatarPrompt:init()
 		if PurchasePrompt.initiateAvatarCreationFeePurchase then
 			self:setState({
 				showTopScrim = true,
+				purchasePromptReady = false,
 			})
 			PurchasePrompt.initiateAvatarCreationFeePurchase(
 				avatarPublishMetadata,
@@ -125,14 +132,25 @@ function PublishAvatarPrompt:init()
 			})
 		end
 	end
+
+	self.onPromptStateSetToNone = function()
+		self:setState({
+			showTopScrim = false,
+			purchasePromptReady = true,
+		})
+	end
 end
 
 function PublishAvatarPrompt:didMount()
 	local purchasePromptClosedEvent = PurchasePrompt.purchasePromptClosedEvent
-	if purchasePromptClosedEvent then
+	local promptStateSetToNoneEvent = PurchasePrompt.promptStateSetToNoneEvent
+	if purchasePromptClosedEvent and promptStateSetToNoneEvent then
 		self.purchasePromptClosedConnection = purchasePromptClosedEvent:Connect(self.onPurchasePromptClosed)
+		self.promptStateSetToNoneConnection = promptStateSetToNoneEvent:Connect(self.onPromptStateSetToNone)
 	else
-		mutedError("PurchasePrompt.purchasePromptClosedEvent is not available")
+		mutedError(
+			"PurchasePrompt.purchasePromptClosedEvent or PurchasePrompt.promptStateSetToNoneEvent is not available"
+		)
 	end
 end
 
@@ -142,17 +160,17 @@ function PublishAvatarPrompt:willUnmount()
 	else
 		mutedError("purchasePromptClosedConnection was not established")
 	end
+
+	if self.promptStateSetToNoneConnection then
+		self.promptStateSetToNoneConnection:Disconnect()
+	else
+		mutedError("promptStateSetToNoneConnection was not established")
+	end
 end
 
 function PublishAvatarPrompt:renderPromptBody()
 	local isLoading = self.props.humanoidModel == nil
 	return withStyle(function(style)
-		local font = style.Font
-		local baseSize: number = font.BaseSize
-		local relativeSize: number = font.CaptionHeader.RelativeSize
-		local textSize: number = baseSize * relativeSize
-		local theme = style.Theme
-
 		return Roact.createFragment({
 			UIListLayout = Roact.createElement("UIListLayout", {
 				Padding = PADDING,
@@ -172,47 +190,25 @@ function PublishAvatarPrompt:renderPromptBody()
 				fieldOfView = CAMERA_FOV,
 				LayoutOrder = 1,
 			}),
-			Description = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, LABEL_HEIGHT + DESC_TEXTBOX_HEIGHT),
-				BackgroundTransparency = 1,
+			DescriptionInput = Roact.createElement(LabeledTextBox, {
 				LayoutOrder = 2,
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Vertical,
-				}),
-				DescriptionLabel = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 0, LABEL_HEIGHT),
-					Font = font.CaptionHeader.Font,
-					Text = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.Description"),
-					TextSize = textSize,
-					TextColor3 = theme.TextDefault.Color,
-					BackgroundTransparency = 1,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					LayoutOrder = 1,
-				}),
-				DescriptionInput = Roact.createElement(NameTextBox, {
-					Size = UDim2.new(1, 0, 0, DESC_TEXTBOX_HEIGHT),
-					maxLength = DESC_TEXTBOX_MAXLENGTH,
-					onNameUpdated = self.onDescriptionUpdated,
-					defaultName = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.DescriptionTitle"),
-					centerText = false,
-					LayoutOrder = 2,
-				}),
+				labelText = RobloxTranslator:FormatByKey(DESC_LABEL_KEY),
+				centerText = false,
+				defaultText = RobloxTranslator:FormatByKey(DESC_TEXT_KEY),
+				maxLength = DESC_TEXTBOX_MAXLENGTH,
+				onTextUpdated = self.onDescriptionUpdated,
+				textBoxHeight = DESC_TEXTBOX_HEIGHT,
 			}),
 			InfoList = Roact.createElement(PublishInfoList, {
 				typeName = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body"),
 				LayoutOrder = 3,
 			}),
-			AvatarPartGrid = if not isLoading
-				then Roact.createElement(AvatarPartGrid, {
-					humanoidModel = self.props.humanoidModel,
-					name = self.state.name,
-					LayoutOrder = 4,
-					screenSize = self.props.screenSize,
-				})
-				else nil,
+			AvatarPartGrid = Roact.createElement(AvatarPartGrid, {
+				humanoidModel = self.props.humanoidModel,
+				name = self.state.name,
+				LayoutOrder = 4,
+				screenSize = self.props.screenSize,
+			}),
 		})
 	end)
 end

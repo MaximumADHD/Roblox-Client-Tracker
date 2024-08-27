@@ -10,6 +10,7 @@ local ExperienceAuthService = game:GetService("ExperienceAuthService")
 local ContextActionService = game:GetService("ContextActionService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local GuiService = game:GetService("GuiService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -24,7 +25,7 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
 
 local Components = script.Parent
-local NameTextBox = require(Components.Common.NameTextBox)
+local LabeledTextBox = require(Components.Common.LabeledTextBox)
 local CloseOpenPrompt = require(script.Parent.Parent.Actions.CloseOpenPrompt)
 local SetPromptVisibility = require(script.Parent.Parent.Actions.SetPromptVisibility)
 local LeaveCreationAlert = require(script.Parent.LeaveCreationAlert)
@@ -34,7 +35,6 @@ local ValidationErrorModal = require(Components.ValidationErrorModal)
 
 local NAME_HEIGHT_PIXELS = 30
 local DISCLAIMER_HEIGHT_PIXELS = 50
-local LABEL_HEIGHT = 15
 local LABEL_PADDING = 24
 local BOTTOM_GRADIENT_HEIGHT = 5
 local DISTANCE_FROM_TOP = 37
@@ -191,10 +191,6 @@ function BasePublishPrompt:renderMiddle(localized)
 		local baseSize: number = font.BaseSize
 		local theme = style.Theme
 
-		-- NameLabel Style
-		local nameLabelStyle = font.CaptionHeader
-		local nameLabelColor = theme.TextDefault.Color
-
 		-- Disclaimer Style
 		local disclaimerStyle = font.Footer
 		local disclaimerColor = theme.TextDefault.Color
@@ -219,33 +215,20 @@ function BasePublishPrompt:renderMiddle(localized)
 					PaddingLeft = UDim.new(0, Constants.PromptSidePadding),
 					PaddingRight = UDim.new(0, Constants.PromptSidePadding),
 				}),
-
-				NameLabel = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 0, LABEL_HEIGHT + LABEL_PADDING),
-					Text = self.props.nameLabel,
-					Font = nameLabelStyle.Font,
-					TextSize = baseSize * nameLabelStyle.RelativeSize,
-					TextColor3 = nameLabelColor,
-					BackgroundTransparency = 1,
-					TextXAlignment = Enum.TextXAlignment.Left,
+				NameInput = Roact.createElement(LabeledTextBox, {
 					LayoutOrder = 1,
-				}, {
-					Padding = Roact.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, LABEL_PADDING),
-					}),
-				}),
-				NameInput = Roact.createElement(NameTextBox, {
-					Size = UDim2.new(1, 0, 0, NAME_HEIGHT_PIXELS),
+					labelText = self.props.nameLabel,
+					topPadding = LABEL_PADDING,
+					defaultText = self.props.defaultName,
 					-- TODO: Investigate previous name updated AVBURST-13016 and name moderation AVBURST-12725, for now use placeholder
-					onNameUpdated = self.props.onNameUpdated,
-					defaultName = self.props.defaultName,
-					LayoutOrder = 2,
+					onTextUpdated = self.props.onNameUpdated,
+					textBoxHeight = NAME_HEIGHT_PIXELS,
 				}),
 				PromptBody = Roact.createElement("Frame", {
 					Size = UDim2.fromScale(1, 0),
 					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
-					LayoutOrder = 3,
+					LayoutOrder = 2,
 				}, self.props.promptBody),
 			}),
 			BottomGradient = Roact.createElement("Frame", {
@@ -295,6 +278,10 @@ function BasePublishPrompt:renderMiddle(localized)
 end
 
 function BasePublishPrompt:renderAlertLocalized(localized)
+	local topCornerInset, _ = GuiService:GetGuiInset()
+	local overlayPosition = UDim2.new(0, 0, 0, -topCornerInset.Y)
+	local overlaySize = UDim2.new(1, 0, 1, topCornerInset.Y)
+
 	return withStyle(function(style)
 		local theme = style.Theme
 
@@ -304,9 +291,20 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 
 		return Roact.createFragment({
 			-- Render transparent black frame over the whole screen to de-focus anything in the background.
-			BottomScrim = Roact.createElement(Overlay, {
-				showGradient = false,
+			BottomScrim = Roact.createElement("Frame", {
+				Position = overlayPosition,
+				Size = overlaySize,
 				ZIndex = -1,
+				BackgroundTransparency = 1,
+			}, {
+				Overlay = Roact.createElement(Overlay, {
+					showGradient = false,
+				}),
+				InputSink = Roact.createElement("TextButton", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundTransparency = 1,
+					Text = "",
+				}),
 			}),
 
 			PublishPrompt = Roact.createElement("Frame", {
@@ -368,12 +366,22 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 			}) or nil,
 
 			-- Render when opening economy prompt
-			TopScrim = if self.props.showTopScrim
-				then Roact.createElement(Overlay, {
+			TopScrim = Roact.createElement("Frame", {
+				Position = overlayPosition,
+				Size = overlaySize,
+				ZIndex = 2,
+				BackgroundTransparency = 1,
+				Visible = self.props.showTopScrim,
+			}, {
+				Overlay = Roact.createElement(Overlay, {
 					showGradient = false,
-					ZIndex = 2,
-				})
-				else nil,
+				}),
+				InputSink = Roact.createElement("TextButton", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundTransparency = 1,
+					Text = "",
+				}),
+			}),
 		})
 	end)
 end

@@ -5,8 +5,13 @@ local ChromeService = require(script.Parent.Parent.Service)
 local CommonIcon = require(script.Parent.CommonIcon)
 local Constants = require(script.Parent.Parent.Unibar.Constants)
 
+local GetFFlagDebugEnableUnibarDummyIntegrations =
+	require(script.Parent.Parent.Flags.GetFFlagDebugEnableUnibarDummyIntegrations)
+
 return ChromeService:register({
-	initialAvailability = ChromeService.AvailabilitySignal.Unavailable,
+	initialAvailability = if GetFFlagDebugEnableUnibarDummyIntegrations()
+		then ChromeService.AvailabilitySignal.Available
+		else ChromeService.AvailabilitySignal.Unavailable,
 	id = "dummy_window_2",
 	label = "CoreScripts.TopBar.Menu",
 	startingWindowPosition = UDim2.new(1, -245, 0, 95),

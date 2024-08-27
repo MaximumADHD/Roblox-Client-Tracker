@@ -13,7 +13,6 @@ export type Message = Package.Message
 export type MessageUser = Package.MessageUser
 export type MessageSystem = Package.MessageSystem
 export type MessageType = Package.MessageType
-export type ModalActionType = Package.ModalActionType
 export type ModerationType = Package.ModerationType
 export type ParticipantMetadata = Package.ParticipantMetadata
 export type UnfilteredThreadsFailureReason = Package.UnfilteredThreadsFailureReason

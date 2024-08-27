@@ -10,10 +10,13 @@ local DefaultMetricsGridView = UIBlox.App.Grid.DefaultMetricsGridView
 local Constants = require(script.Parent.Parent.Parent.Parent.Constants)
 
 local AvatarItemCard = require(script.Parent.AvatarItemCard)
+local ItemTile = UIBlox.Tile.ItemTile
 
 local ITEM_HEIGHT_RATIO = 4 / 3
 local ITEM_PADDING = Vector2.new(20, 20)
 local MIN_ITEMS_PER_ROW = 2
+
+local NUM_PREVIEW_ITEMS = 6
 
 type Props = {
 	LayoutOrder: number?,
@@ -118,19 +121,36 @@ end
 local function AvatarPartGrid(props: Props)
 	local items, setItems = React.useState({})
 	React.useEffect(function()
-		local modelClone = props.humanoidModel:Clone()
-		setItems(getItems(modelClone, props.name))
+		if props.humanoidModel then
+			-- We can only get the item props if the humanoidModel is available
+			local modelClone = props.humanoidModel:Clone()
+			setItems(getItems(modelClone, props.name))
+		else
+			-- If the humanoidModel is not available, show shimmer tiles
+			-- We set this up by creating a table of empty items
+			local loadingItems = {}
+			for i = 1, NUM_PREVIEW_ITEMS do
+				loadingItems[i] = {}
+			end
+			setItems(loadingItems)
+		end
 	end, { props.humanoidModel, props.name } :: { any })
 
 	local isPortrait = props.screenSize.Y > props.screenSize.X
 	local itemCardWidth = if isPortrait then Constants.ItemCardWidthPortrait else Constants.ItemCardWidthLandscape
 
 	local renderItem = React.useCallback(function(item: AvatarItemCard.Props)
-		return React.createElement(AvatarItemCard, {
-			asset = item.asset,
-			titleText = item.titleText,
-			viewportSize = itemCardWidth,
-		})
+		if item.asset then
+			-- If the item has viewport info, show the AvatarItemCard
+			return React.createElement(AvatarItemCard, {
+				asset = item.asset,
+				titleText = item.titleText,
+				viewportSize = itemCardWidth,
+			})
+		else
+			-- If the item is empty, show a shimmer tile
+			return React.createElement(ItemTile)
+		end
 	end, { itemCardWidth })
 
 	return React.createElement("Frame", {

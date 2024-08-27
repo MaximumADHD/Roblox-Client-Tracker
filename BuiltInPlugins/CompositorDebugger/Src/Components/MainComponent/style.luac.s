@@ -1,6 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  DUPTABLE R0 K1 [{"ToolbarHeight"}]
-  LOADN R1 24
-  SETTABLEKS R1 R0 K0 ["ToolbarHeight"]
-  RETURN R0 1

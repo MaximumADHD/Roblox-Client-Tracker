@@ -301,90 +301,78 @@ MAIN:
   SETTABLEKS R6 R5 K15 ["props"]
   SETLIST R4 R5 1 [1]
   SETTABLEKS R4 R3 K10 ["children"]
-  DUPTABLE R4 K93 [{"mockPayload1", "mockPayload2", "sortByIndex", "sortByName", "sortByClassName", "sortById", "clipLayerView", "blend1DLayerView", "blend1DLayerViewWrongType", "blend2DLayerViewWrongType", "blend2DLayerView", "state"}]
-  SETTABLEKS R3 R4 K82 ["mockPayload1"]
-  DUPTABLE R5 K11 [{"id", "name", "children"}]
-  LOADK R6 K94 ["{CF1A4FDB-7386-4AFA-B6B3-2BFEF9335871}"]
-  SETTABLEKS R6 R5 K8 ["id"]
-  LOADK R6 K95 ["Mock Compositor 2"]
-  SETTABLEKS R6 R5 K9 ["name"]
-  NEWTABLE R6 0 1
-  DUPTABLE R7 K96 [{"children", "className", "name", "id", "props"}]
-  NEWTABLE R8 0 1
-  DUPTABLE R9 K98 [{"children", "className", "id", "name", "props", "state", "data"}]
+  DUPTABLE R4 K11 [{"id", "name", "children"}]
+  LOADK R5 K82 ["{CF1A4FDB-7386-4AFA-B6B3-2BFEF9335871}"]
+  SETTABLEKS R5 R4 K8 ["id"]
+  LOADK R5 K83 ["Mock Compositor 2"]
+  SETTABLEKS R5 R4 K9 ["name"]
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K84 [{"children", "className", "name", "id", "props"}]
+  NEWTABLE R7 0 1
+  DUPTABLE R8 K86 [{"children", "className", "id", "name", "props", "state", "data"}]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K10 ["children"]
+  LOADK R9 K34 ["ClipLayer"]
+  SETTABLEKS R9 R8 K14 ["className"]
+  LOADK R9 K87 ["{4017A81C-9EB4-4017-A496-87F0570B99F9}"]
+  SETTABLEKS R9 R8 K8 ["id"]
+  LOADK R9 K88 ["My Layer"]
+  SETTABLEKS R9 R8 K9 ["name"]
+  DUPTABLE R9 K40 [{"animationId", "isLooping", "speed"}]
+  LOADK R10 K49 ["rbxassetid://10899968825"]
+  SETTABLEKS R10 R9 K37 ["animationId"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K38 ["isLooping"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K39 ["speed"]
+  SETTABLEKS R9 R8 K15 ["props"]
+  DUPTABLE R9 K89 [{"length", "timePositionNormalized"}]
+  LOADN R10 4
+  SETTABLEKS R10 R9 K43 ["length"]
+  LOADK R10 K27 [0.5]
+  SETTABLEKS R10 R9 K42 ["timePositionNormalized"]
+  SETTABLEKS R9 R8 K32 ["state"]
+  NEWTABLE R9 2 0
+  DUPCLOSURE R10 K90 [PROTO_4]
+  SETTABLEKS R10 R9 K51 ["function"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K10 ["children"]
-  LOADK R10 K34 ["ClipLayer"]
-  SETTABLEKS R10 R9 K14 ["className"]
-  LOADK R10 K99 ["{4017A81C-9EB4-4017-A496-87F0570B99F9}"]
-  SETTABLEKS R10 R9 K8 ["id"]
-  LOADK R10 K100 ["My Layer"]
-  SETTABLEKS R10 R9 K9 ["name"]
-  DUPTABLE R10 K40 [{"animationId", "isLooping", "speed"}]
-  LOADK R11 K49 ["rbxassetid://10899968825"]
-  SETTABLEKS R11 R10 K37 ["animationId"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K38 ["isLooping"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K39 ["speed"]
-  SETTABLEKS R10 R9 K15 ["props"]
-  DUPTABLE R10 K101 [{"length", "timePositionNormalized"}]
-  LOADN R11 4
-  SETTABLEKS R11 R10 K43 ["length"]
-  LOADK R11 K27 [0.5]
-  SETTABLEKS R11 R10 K42 ["timePositionNormalized"]
-  SETTABLEKS R10 R9 K32 ["state"]
-  NEWTABLE R10 2 0
-  DUPCLOSURE R11 K102 [PROTO_4]
-  SETTABLEKS R11 R10 K51 ["function"]
-  NEWTABLE R11 0 0
-  SETTABLEKS R11 R10 K52 ["table"]
-  SETTABLEKS R10 R9 K97 ["data"]
-  SETLIST R8 R9 1 [1]
-  SETTABLEKS R8 R7 K10 ["children"]
-  LOADK R8 K34 ["ClipLayer"]
-  SETTABLEKS R8 R7 K14 ["className"]
-  LOADK R8 K69 ["Debug F"]
-  SETTABLEKS R8 R7 K9 ["name"]
-  LOADK R8 K103 ["{43E9A4EF-8775-4B8E-9A89-1DBD6F4A739B}"]
-  SETTABLEKS R8 R7 K8 ["id"]
-  DUPTABLE R8 K40 [{"animationId", "isLooping", "speed"}]
-  LOADK R9 K73 ["rbxassetid://10921258489"]
-  SETTABLEKS R9 R8 K37 ["animationId"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K38 ["isLooping"]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K39 ["speed"]
-  SETTABLEKS R8 R7 K15 ["props"]
-  SETLIST R6 R7 1 [1]
-  SETTABLEKS R6 R5 K10 ["children"]
-  SETTABLEKS R5 R4 K83 ["mockPayload2"]
-  DUPTABLE R5 K11 [{"id", "name", "children"}]
-  MOVE R6 R2
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K8 ["id"]
-  LOADK R6 K104 ["Sort by Index"]
-  SETTABLEKS R6 R5 K9 ["name"]
-  NEWTABLE R6 0 3
-  DUPTABLE R7 K106 [{"id", "name", "index", "className", "children"}]
-  MOVE R8 R2
-  CALL R8 0 1
-  SETTABLEKS R8 R7 K8 ["id"]
-  LOADK R8 K107 ["Third"]
-  SETTABLEKS R8 R7 K9 ["name"]
-  LOADN R8 3
-  SETTABLEKS R8 R7 K105 ["index"]
-  LOADK R8 K34 ["ClipLayer"]
-  SETTABLEKS R8 R7 K14 ["className"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K10 ["children"]
+  SETTABLEKS R10 R9 K52 ["table"]
+  SETTABLEKS R9 R8 K85 ["data"]
+  SETLIST R7 R8 1 [1]
+  SETTABLEKS R7 R6 K10 ["children"]
+  LOADK R7 K34 ["ClipLayer"]
+  SETTABLEKS R7 R6 K14 ["className"]
+  LOADK R7 K69 ["Debug F"]
+  SETTABLEKS R7 R6 K9 ["name"]
+  LOADK R7 K91 ["{43E9A4EF-8775-4B8E-9A89-1DBD6F4A739B}"]
+  SETTABLEKS R7 R6 K8 ["id"]
+  DUPTABLE R7 K40 [{"animationId", "isLooping", "speed"}]
+  LOADK R8 K73 ["rbxassetid://10921258489"]
+  SETTABLEKS R8 R7 K37 ["animationId"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K38 ["isLooping"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K39 ["speed"]
+  SETTABLEKS R7 R6 K15 ["props"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K10 ["children"]
+  DUPTABLE R5 K103 [{"mockPayload1", "mockPayload2", "sortByIndex", "sortByName", "sortByClassName", "sortById", "clipLayerView", "blend1DLayerView", "blend1DLayerViewWrongType", "blend2DLayerViewWrongType", "blend2DLayerView", "state"}]
+  SETTABLEKS R3 R5 K92 ["mockPayload1"]
+  SETTABLEKS R4 R5 K93 ["mockPayload2"]
+  DUPTABLE R6 K11 [{"id", "name", "children"}]
+  MOVE R7 R2
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K8 ["id"]
+  LOADK R7 K104 ["Sort by Index"]
+  SETTABLEKS R7 R6 K9 ["name"]
+  NEWTABLE R7 0 3
   DUPTABLE R8 K106 [{"id", "name", "index", "className", "children"}]
   MOVE R9 R2
   CALL R9 0 1
   SETTABLEKS R9 R8 K8 ["id"]
-  LOADK R9 K108 ["First"]
+  LOADK R9 K107 ["Third"]
   SETTABLEKS R9 R8 K9 ["name"]
-  LOADN R9 1
+  LOADN R9 3
   SETTABLEKS R9 R8 K105 ["index"]
   LOADK R9 K34 ["ClipLayer"]
   SETTABLEKS R9 R8 K14 ["className"]
@@ -394,39 +382,41 @@ MAIN:
   MOVE R10 R2
   CALL R10 0 1
   SETTABLEKS R10 R9 K8 ["id"]
-  LOADK R10 K109 ["Second"]
+  LOADK R10 K108 ["First"]
   SETTABLEKS R10 R9 K9 ["name"]
-  LOADN R10 2
+  LOADN R10 1
   SETTABLEKS R10 R9 K105 ["index"]
   LOADK R10 K34 ["ClipLayer"]
   SETTABLEKS R10 R9 K14 ["className"]
   NEWTABLE R10 0 0
   SETTABLEKS R10 R9 K10 ["children"]
-  SETLIST R6 R7 3 [1]
-  SETTABLEKS R6 R5 K10 ["children"]
-  SETTABLEKS R5 R4 K84 ["sortByIndex"]
-  DUPTABLE R5 K11 [{"id", "name", "children"}]
-  MOVE R6 R2
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K8 ["id"]
-  LOADK R6 K110 ["Sort by Name"]
-  SETTABLEKS R6 R5 K9 ["name"]
-  NEWTABLE R6 0 3
-  DUPTABLE R7 K111 [{"id", "name", "className", "children"}]
-  MOVE R8 R2
-  CALL R8 0 1
-  SETTABLEKS R8 R7 K8 ["id"]
-  LOADK R8 K112 ["[C] Third"]
-  SETTABLEKS R8 R7 K9 ["name"]
-  LOADK R8 K34 ["ClipLayer"]
-  SETTABLEKS R8 R7 K14 ["className"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K10 ["children"]
+  DUPTABLE R10 K106 [{"id", "name", "index", "className", "children"}]
+  MOVE R11 R2
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K8 ["id"]
+  LOADK R11 K109 ["Second"]
+  SETTABLEKS R11 R10 K9 ["name"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K105 ["index"]
+  LOADK R11 K34 ["ClipLayer"]
+  SETTABLEKS R11 R10 K14 ["className"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K10 ["children"]
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K10 ["children"]
+  SETTABLEKS R6 R5 K94 ["sortByIndex"]
+  DUPTABLE R6 K11 [{"id", "name", "children"}]
+  MOVE R7 R2
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K8 ["id"]
+  LOADK R7 K110 ["Sort by Name"]
+  SETTABLEKS R7 R6 K9 ["name"]
+  NEWTABLE R7 0 3
   DUPTABLE R8 K111 [{"id", "name", "className", "children"}]
   MOVE R9 R2
   CALL R9 0 1
   SETTABLEKS R9 R8 K8 ["id"]
-  LOADK R9 K113 ["[B] Second"]
+  LOADK R9 K112 ["[C] Third"]
   SETTABLEKS R9 R8 K9 ["name"]
   LOADK R9 K34 ["ClipLayer"]
   SETTABLEKS R9 R8 K14 ["className"]
@@ -436,35 +426,37 @@ MAIN:
   MOVE R10 R2
   CALL R10 0 1
   SETTABLEKS R10 R9 K8 ["id"]
-  LOADK R10 K114 ["[A] First"]
+  LOADK R10 K113 ["[B] Second"]
   SETTABLEKS R10 R9 K9 ["name"]
   LOADK R10 K34 ["ClipLayer"]
   SETTABLEKS R10 R9 K14 ["className"]
   NEWTABLE R10 0 0
   SETTABLEKS R10 R9 K10 ["children"]
-  SETLIST R6 R7 3 [1]
-  SETTABLEKS R6 R5 K10 ["children"]
-  SETTABLEKS R5 R4 K85 ["sortByName"]
-  DUPTABLE R5 K11 [{"id", "name", "children"}]
-  MOVE R6 R2
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K8 ["id"]
-  LOADK R6 K115 ["Sort by Classname"]
-  SETTABLEKS R6 R5 K9 ["name"]
-  NEWTABLE R6 0 3
-  DUPTABLE R7 K116 [{"id", "className", "children"}]
-  MOVE R8 R2
-  CALL R8 0 1
-  SETTABLEKS R8 R7 K8 ["id"]
-  LOADK R8 K117 ["SequenceLayer"]
-  SETTABLEKS R8 R7 K14 ["className"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K10 ["children"]
+  DUPTABLE R10 K111 [{"id", "name", "className", "children"}]
+  MOVE R11 R2
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K8 ["id"]
+  LOADK R11 K114 ["[A] First"]
+  SETTABLEKS R11 R10 K9 ["name"]
+  LOADK R11 K34 ["ClipLayer"]
+  SETTABLEKS R11 R10 K14 ["className"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K10 ["children"]
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K10 ["children"]
+  SETTABLEKS R6 R5 K95 ["sortByName"]
+  DUPTABLE R6 K11 [{"id", "name", "children"}]
+  MOVE R7 R2
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K8 ["id"]
+  LOADK R7 K115 ["Sort by Classname"]
+  SETTABLEKS R7 R6 K9 ["name"]
+  NEWTABLE R7 0 3
   DUPTABLE R8 K116 [{"id", "className", "children"}]
   MOVE R9 R2
   CALL R9 0 1
   SETTABLEKS R9 R8 K8 ["id"]
-  LOADK R9 K53 ["Blend1D"]
+  LOADK R9 K117 ["SequenceLayer"]
   SETTABLEKS R9 R8 K14 ["className"]
   NEWTABLE R9 0 0
   SETTABLEKS R9 R8 K10 ["children"]
@@ -472,28 +464,28 @@ MAIN:
   MOVE R10 R2
   CALL R10 0 1
   SETTABLEKS R10 R9 K8 ["id"]
-  LOADK R10 K34 ["ClipLayer"]
+  LOADK R10 K53 ["Blend1D"]
   SETTABLEKS R10 R9 K14 ["className"]
   NEWTABLE R10 0 0
   SETTABLEKS R10 R9 K10 ["children"]
-  SETLIST R6 R7 3 [1]
-  SETTABLEKS R6 R5 K10 ["children"]
-  SETTABLEKS R5 R4 K86 ["sortByClassName"]
-  DUPTABLE R5 K11 [{"id", "name", "children"}]
-  MOVE R6 R2
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K8 ["id"]
-  LOADK R6 K118 ["Sort by Id"]
-  SETTABLEKS R6 R5 K9 ["name"]
-  NEWTABLE R6 0 3
-  DUPTABLE R7 K116 [{"id", "className", "children"}]
-  MOVE R8 R2
-  CALL R8 0 1
-  SETTABLEKS R8 R7 K8 ["id"]
-  LOADK R8 K34 ["ClipLayer"]
-  SETTABLEKS R8 R7 K14 ["className"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K10 ["children"]
+  DUPTABLE R10 K116 [{"id", "className", "children"}]
+  MOVE R11 R2
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K8 ["id"]
+  LOADK R11 K34 ["ClipLayer"]
+  SETTABLEKS R11 R10 K14 ["className"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K10 ["children"]
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K10 ["children"]
+  SETTABLEKS R6 R5 K96 ["sortByClassName"]
+  DUPTABLE R6 K11 [{"id", "name", "children"}]
+  MOVE R7 R2
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K8 ["id"]
+  LOADK R7 K118 ["Sort by Id"]
+  SETTABLEKS R7 R6 K9 ["name"]
+  NEWTABLE R7 0 3
   DUPTABLE R8 K116 [{"id", "className", "children"}]
   MOVE R9 R2
   CALL R9 0 1
@@ -510,164 +502,172 @@ MAIN:
   SETTABLEKS R10 R9 K14 ["className"]
   NEWTABLE R10 0 0
   SETTABLEKS R10 R9 K10 ["children"]
-  SETLIST R6 R7 3 [1]
-  SETTABLEKS R6 R5 K10 ["children"]
-  SETTABLEKS R5 R4 K87 ["sortById"]
-  DUPTABLE R5 K121 [{"ExpandedSections", "LayerData"}]
-  NEWTABLE R6 4 0
-  LOADB R7 1
-  SETTABLEKS R7 R6 K122 ["LayerDetails"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K123 ["Properties"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K124 ["State"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K125 ["Watches"]
-  SETTABLEKS R6 R5 K119 ["ExpandedSections"]
-  GETTABLEKS R11 R3 K10 ["children"]
-  GETTABLEN R10 R11 1
-  GETTABLEKS R9 R10 K10 ["children"]
-  GETTABLEN R8 R9 1
-  GETTABLEKS R7 R8 K10 ["children"]
-  GETTABLEN R6 R7 3
-  SETTABLEKS R6 R5 K120 ["LayerData"]
-  SETTABLEKS R5 R4 K88 ["clipLayerView"]
-  DUPTABLE R5 K121 [{"ExpandedSections", "LayerData"}]
-  NEWTABLE R6 2 0
-  LOADB R7 1
-  SETTABLEKS R7 R6 K122 ["LayerDetails"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K123 ["Properties"]
-  SETTABLEKS R6 R5 K119 ["ExpandedSections"]
-  GETTABLEKS R9 R3 K10 ["children"]
-  GETTABLEN R8 R9 1
-  GETTABLEKS R7 R8 K10 ["children"]
-  GETTABLEN R6 R7 1
-  SETTABLEKS R6 R5 K120 ["LayerData"]
-  SETTABLEKS R5 R4 K89 ["blend1DLayerView"]
-  DUPTABLE R5 K121 [{"ExpandedSections", "LayerData"}]
-  NEWTABLE R6 2 0
-  LOADB R7 1
-  SETTABLEKS R7 R6 K122 ["LayerDetails"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K123 ["Properties"]
-  SETTABLEKS R6 R5 K119 ["ExpandedSections"]
-  DUPTABLE R6 K18 [{"children", "className", "name", "id", "props", "weight"}]
-  NEWTABLE R7 0 4
-  DUPTABLE R8 K126 [{"linkData"}]
-  DUPTABLE R9 K26 [{"position"}]
-  GETIMPORT R10 K62 [Vector2.new]
-  LOADN R11 1
+  DUPTABLE R10 K116 [{"id", "className", "children"}]
+  MOVE R11 R2
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K8 ["id"]
+  LOADK R11 K34 ["ClipLayer"]
+  SETTABLEKS R11 R10 K14 ["className"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K10 ["children"]
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K10 ["children"]
+  SETTABLEKS R6 R5 K97 ["sortById"]
+  DUPTABLE R6 K121 [{"ExpandedSections", "LayerData"}]
+  NEWTABLE R7 4 0
+  LOADB R8 1
+  SETTABLEKS R8 R7 K122 ["LayerDetails"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K123 ["Properties"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K124 ["State"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K125 ["Watches"]
+  SETTABLEKS R7 R6 K119 ["ExpandedSections"]
+  GETTABLEKS R12 R3 K10 ["children"]
+  GETTABLEN R11 R12 1
+  GETTABLEKS R10 R11 K10 ["children"]
+  GETTABLEN R9 R10 1
+  GETTABLEKS R8 R9 K10 ["children"]
+  GETTABLEN R7 R8 3
+  SETTABLEKS R7 R6 K120 ["LayerData"]
+  SETTABLEKS R6 R5 K98 ["clipLayerView"]
+  DUPTABLE R6 K121 [{"ExpandedSections", "LayerData"}]
+  NEWTABLE R7 2 0
+  LOADB R8 1
+  SETTABLEKS R8 R7 K122 ["LayerDetails"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K123 ["Properties"]
+  SETTABLEKS R7 R6 K119 ["ExpandedSections"]
+  GETTABLEKS R10 R3 K10 ["children"]
+  GETTABLEN R9 R10 1
+  GETTABLEKS R8 R9 K10 ["children"]
+  GETTABLEN R7 R8 1
+  SETTABLEKS R7 R6 K120 ["LayerData"]
+  SETTABLEKS R6 R5 K99 ["blend1DLayerView"]
+  DUPTABLE R6 K121 [{"ExpandedSections", "LayerData"}]
+  NEWTABLE R7 2 0
+  LOADB R8 1
+  SETTABLEKS R8 R7 K122 ["LayerDetails"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K123 ["Properties"]
+  SETTABLEKS R7 R6 K119 ["ExpandedSections"]
+  DUPTABLE R7 K18 [{"children", "className", "name", "id", "props", "weight"}]
+  NEWTABLE R8 0 4
+  DUPTABLE R9 K126 [{"linkData"}]
+  DUPTABLE R10 K26 [{"position"}]
+  GETIMPORT R11 K62 [Vector2.new]
   LOADN R12 1
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K25 ["position"]
-  SETTABLEKS R9 R8 K19 ["linkData"]
-  DUPTABLE R9 K126 [{"linkData"}]
-  DUPTABLE R10 K26 [{"position"}]
-  LOADK R11 K127 [{3, 0, 0}]
-  SETTABLEKS R11 R10 K25 ["position"]
-  SETTABLEKS R10 R9 K19 ["linkData"]
-  DUPTABLE R10 K126 [{"linkData"}]
-  DUPTABLE R11 K26 [{"position"}]
-  DUPTABLE R12 K129 [{"X"}]
-  LOADN R13 5
-  SETTABLEKS R13 R12 K128 ["X"]
-  SETTABLEKS R12 R11 K25 ["position"]
-  SETTABLEKS R11 R10 K19 ["linkData"]
-  DUPTABLE R11 K126 [{"linkData"}]
-  DUPTABLE R12 K26 [{"position"}]
-  LOADK R13 K28 ["FOO"]
-  SETTABLEKS R13 R12 K25 ["position"]
-  SETTABLEKS R12 R11 K19 ["linkData"]
-  SETLIST R7 R8 4 [1]
-  SETTABLEKS R7 R6 K10 ["children"]
-  LOADK R7 K53 ["Blend1D"]
-  SETTABLEKS R7 R6 K14 ["className"]
-  LOADK R7 K130 ["WrongTargets"]
-  SETTABLEKS R7 R6 K9 ["name"]
-  LOADK R7 K131 ["{275F34E0-57F4-4534-A5CB-38518EF2EB37}"]
-  SETTABLEKS R7 R6 K8 ["id"]
-  DUPTABLE R7 K57 [{"targetPosition", "speed"}]
-  LOADN R8 2
-  SETTABLEKS R8 R7 K56 ["targetPosition"]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K39 ["speed"]
-  SETTABLEKS R7 R6 K15 ["props"]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K17 ["weight"]
-  SETTABLEKS R6 R5 K120 ["LayerData"]
-  SETTABLEKS R5 R4 K90 ["blend1DLayerViewWrongType"]
-  DUPTABLE R5 K121 [{"ExpandedSections", "LayerData"}]
-  NEWTABLE R6 2 0
-  LOADB R7 1
-  SETTABLEKS R7 R6 K122 ["LayerDetails"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K123 ["Properties"]
-  SETTABLEKS R6 R5 K119 ["ExpandedSections"]
-  DUPTABLE R6 K18 [{"children", "className", "name", "id", "props", "weight"}]
-  NEWTABLE R7 0 4
-  DUPTABLE R8 K126 [{"linkData"}]
-  DUPTABLE R9 K26 [{"position"}]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K25 ["position"]
-  SETTABLEKS R9 R8 K19 ["linkData"]
-  DUPTABLE R9 K126 [{"linkData"}]
-  DUPTABLE R10 K26 [{"position"}]
-  LOADK R11 K132 [{3, 2, 0}]
-  SETTABLEKS R11 R10 K25 ["position"]
-  SETTABLEKS R10 R9 K19 ["linkData"]
-  DUPTABLE R10 K126 [{"linkData"}]
-  DUPTABLE R11 K26 [{"position"}]
-  DUPTABLE R12 K134 [{"X", "Y"}]
-  LOADN R13 5
-  SETTABLEKS R13 R12 K128 ["X"]
   LOADN R13 1
-  SETTABLEKS R13 R12 K133 ["Y"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K25 ["position"]
+  SETTABLEKS R10 R9 K19 ["linkData"]
+  DUPTABLE R10 K126 [{"linkData"}]
+  DUPTABLE R11 K26 [{"position"}]
+  LOADK R12 K127 [{3, 0, 0}]
   SETTABLEKS R12 R11 K25 ["position"]
   SETTABLEKS R11 R10 K19 ["linkData"]
   DUPTABLE R11 K126 [{"linkData"}]
   DUPTABLE R12 K26 [{"position"}]
-  LOADK R13 K28 ["FOO"]
+  DUPTABLE R13 K129 [{"X"}]
+  LOADN R14 5
+  SETTABLEKS R14 R13 K128 ["X"]
   SETTABLEKS R13 R12 K25 ["position"]
   SETTABLEKS R12 R11 K19 ["linkData"]
-  SETLIST R7 R8 4 [1]
-  SETTABLEKS R7 R6 K10 ["children"]
-  LOADK R7 K68 ["Blend2D"]
-  SETTABLEKS R7 R6 K14 ["className"]
-  LOADK R7 K130 ["WrongTargets"]
-  SETTABLEKS R7 R6 K9 ["name"]
-  LOADK R7 K131 ["{275F34E0-57F4-4534-A5CB-38518EF2EB37}"]
-  SETTABLEKS R7 R6 K8 ["id"]
-  DUPTABLE R7 K57 [{"targetPosition", "speed"}]
-  GETIMPORT R8 K62 [Vector2.new]
-  LOADK R9 K27 [0.5]
-  LOADK R10 K27 [0.5]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K56 ["targetPosition"]
+  DUPTABLE R12 K126 [{"linkData"}]
+  DUPTABLE R13 K26 [{"position"}]
+  LOADK R14 K28 ["FOO"]
+  SETTABLEKS R14 R13 K25 ["position"]
+  SETTABLEKS R13 R12 K19 ["linkData"]
+  SETLIST R8 R9 4 [1]
+  SETTABLEKS R8 R7 K10 ["children"]
+  LOADK R8 K53 ["Blend1D"]
+  SETTABLEKS R8 R7 K14 ["className"]
+  LOADK R8 K130 ["WrongTargets"]
+  SETTABLEKS R8 R7 K9 ["name"]
+  LOADK R8 K131 ["{275F34E0-57F4-4534-A5CB-38518EF2EB37}"]
+  SETTABLEKS R8 R7 K8 ["id"]
+  DUPTABLE R8 K57 [{"targetPosition", "speed"}]
+  LOADN R9 2
+  SETTABLEKS R9 R8 K56 ["targetPosition"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K39 ["speed"]
+  SETTABLEKS R8 R7 K15 ["props"]
   LOADN R8 1
-  SETTABLEKS R8 R7 K39 ["speed"]
-  SETTABLEKS R7 R6 K15 ["props"]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K17 ["weight"]
-  SETTABLEKS R6 R5 K120 ["LayerData"]
-  SETTABLEKS R5 R4 K91 ["blend2DLayerViewWrongType"]
-  DUPTABLE R5 K121 [{"ExpandedSections", "LayerData"}]
-  NEWTABLE R6 2 0
-  LOADB R7 1
-  SETTABLEKS R7 R6 K122 ["LayerDetails"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K123 ["Properties"]
-  SETTABLEKS R6 R5 K119 ["ExpandedSections"]
-  GETTABLEKS R9 R3 K10 ["children"]
-  GETTABLEN R8 R9 1
-  GETTABLEKS R7 R8 K10 ["children"]
-  GETTABLEN R6 R7 2
-  SETTABLEKS R6 R5 K120 ["LayerData"]
-  SETTABLEKS R5 R4 K92 ["blend2DLayerView"]
-  DUPTABLE R5 K44 [{"timePositionNormalized", "length"}]
-  LOADK R6 K27 [0.5]
-  SETTABLEKS R6 R5 K42 ["timePositionNormalized"]
-  LOADN R6 4
-  SETTABLEKS R6 R5 K43 ["length"]
-  SETTABLEKS R5 R4 K32 ["state"]
-  RETURN R4 1
+  SETTABLEKS R8 R7 K17 ["weight"]
+  SETTABLEKS R7 R6 K120 ["LayerData"]
+  SETTABLEKS R6 R5 K100 ["blend1DLayerViewWrongType"]
+  DUPTABLE R6 K121 [{"ExpandedSections", "LayerData"}]
+  NEWTABLE R7 2 0
+  LOADB R8 1
+  SETTABLEKS R8 R7 K122 ["LayerDetails"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K123 ["Properties"]
+  SETTABLEKS R7 R6 K119 ["ExpandedSections"]
+  DUPTABLE R7 K18 [{"children", "className", "name", "id", "props", "weight"}]
+  NEWTABLE R8 0 4
+  DUPTABLE R9 K126 [{"linkData"}]
+  DUPTABLE R10 K26 [{"position"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K25 ["position"]
+  SETTABLEKS R10 R9 K19 ["linkData"]
+  DUPTABLE R10 K126 [{"linkData"}]
+  DUPTABLE R11 K26 [{"position"}]
+  LOADK R12 K132 [{3, 2, 0}]
+  SETTABLEKS R12 R11 K25 ["position"]
+  SETTABLEKS R11 R10 K19 ["linkData"]
+  DUPTABLE R11 K126 [{"linkData"}]
+  DUPTABLE R12 K26 [{"position"}]
+  DUPTABLE R13 K134 [{"X", "Y"}]
+  LOADN R14 5
+  SETTABLEKS R14 R13 K128 ["X"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K133 ["Y"]
+  SETTABLEKS R13 R12 K25 ["position"]
+  SETTABLEKS R12 R11 K19 ["linkData"]
+  DUPTABLE R12 K126 [{"linkData"}]
+  DUPTABLE R13 K26 [{"position"}]
+  LOADK R14 K28 ["FOO"]
+  SETTABLEKS R14 R13 K25 ["position"]
+  SETTABLEKS R13 R12 K19 ["linkData"]
+  SETLIST R8 R9 4 [1]
+  SETTABLEKS R8 R7 K10 ["children"]
+  LOADK R8 K68 ["Blend2D"]
+  SETTABLEKS R8 R7 K14 ["className"]
+  LOADK R8 K130 ["WrongTargets"]
+  SETTABLEKS R8 R7 K9 ["name"]
+  LOADK R8 K131 ["{275F34E0-57F4-4534-A5CB-38518EF2EB37}"]
+  SETTABLEKS R8 R7 K8 ["id"]
+  DUPTABLE R8 K57 [{"targetPosition", "speed"}]
+  GETIMPORT R9 K62 [Vector2.new]
+  LOADK R10 K27 [0.5]
+  LOADK R11 K27 [0.5]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K56 ["targetPosition"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K39 ["speed"]
+  SETTABLEKS R8 R7 K15 ["props"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K17 ["weight"]
+  SETTABLEKS R7 R6 K120 ["LayerData"]
+  SETTABLEKS R6 R5 K101 ["blend2DLayerViewWrongType"]
+  DUPTABLE R6 K121 [{"ExpandedSections", "LayerData"}]
+  NEWTABLE R7 2 0
+  LOADB R8 1
+  SETTABLEKS R8 R7 K122 ["LayerDetails"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K123 ["Properties"]
+  SETTABLEKS R7 R6 K119 ["ExpandedSections"]
+  GETTABLEKS R10 R3 K10 ["children"]
+  GETTABLEN R9 R10 1
+  GETTABLEKS R8 R9 K10 ["children"]
+  GETTABLEN R7 R8 2
+  SETTABLEKS R7 R6 K120 ["LayerData"]
+  SETTABLEKS R6 R5 K102 ["blend2DLayerView"]
+  DUPTABLE R6 K44 [{"timePositionNormalized", "length"}]
+  LOADK R7 K27 [0.5]
+  SETTABLEKS R7 R6 K42 ["timePositionNormalized"]
+  LOADN R7 4
+  SETTABLEKS R7 R6 K43 ["length"]
+  SETTABLEKS R6 R5 K32 ["state"]
+  RETURN R5 1

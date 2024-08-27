@@ -53,11 +53,13 @@ function ControlsPage:render()
 					isFocused = self.props.canCaptureFocus,
 					didFocus = function()
 						local buttonRef = self.closeButtonRef:getValue()
-						GuiService:AddSelectionParent(CLOSE_BUTTON_SELECTION_GROUP_NAME, buttonRef)
+						-- AddSelectionParent is deprecated
+						;(GuiService :: any):AddSelectionParent(CLOSE_BUTTON_SELECTION_GROUP_NAME, buttonRef)
 						GuiService.SelectedCoreObject = buttonRef
 					end,
 					didBlur = function()
-						GuiService:RemoveSelectionGroup(CLOSE_BUTTON_SELECTION_GROUP_NAME)
+						-- AddSelectionParent is deprecated
+						(GuiService :: any):RemoveSelectionGroup(CLOSE_BUTTON_SELECTION_GROUP_NAME)
 					end,
 				}),
 			})

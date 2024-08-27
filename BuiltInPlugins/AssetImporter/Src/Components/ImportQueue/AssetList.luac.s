@@ -150,10 +150,13 @@ PROTO_4:
   SETTABLEKS R14 R13 K15 ["Scroll"]
   GETUPVAL R14 3
   SETTABLEKS R14 R13 K16 ["CellComponent"]
-  DUPTABLE R14 K27 [{"OnCheckboxToggle", "StatusIconSize"}]
-  GETTABLEKS R15 R0 K28 ["onCheckboxToggle"]
+  DUPTABLE R14 K28 [{"OnCheckboxToggle", "StatusIconSize", "ActionSelectedOverride"}]
+  GETTABLEKS R15 R0 K29 ["onCheckboxToggle"]
   SETTABLEKS R15 R14 K25 ["OnCheckboxToggle"]
   SETTABLEKS R4 R14 K26 ["StatusIconSize"]
+  GETTABLEKS R16 R3 K30 ["AssetListCell"]
+  GETTABLEKS R15 R16 K27 ["ActionSelectedOverride"]
+  SETTABLEKS R15 R14 K27 ["ActionSelectedOverride"]
   SETTABLEKS R14 R13 K17 ["CellProps"]
   SETTABLEKS R6 R13 K7 ["RowHeight"]
   CALL R11 2 1

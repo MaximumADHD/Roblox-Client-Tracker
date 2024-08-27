@@ -133,7 +133,8 @@ function InviteToGamePrompt:hide(sentToUserIds)
 
 	ContextActionService:UnbindCoreAction(HIDE_INVITE_CONTEXT_BIND)
 	GuiService.SelectedCoreObject = nil
-	GuiService:RemoveSelectionGroup("invitePrompt")
+	-- AddSelectionParent/RemoveSelectionGroup is deprecated
+	;(GuiService :: any):RemoveSelectionGroup("invitePrompt")
 end
 
 function InviteToGamePrompt:destruct()

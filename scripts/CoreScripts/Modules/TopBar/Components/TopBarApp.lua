@@ -37,7 +37,9 @@ local Chrome = script.Parent.Parent.Parent.Chrome
 local ExperienceMenuABTestManager = require(script.Parent.Parent.Parent.ExperienceMenuABTestManager)
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.Parent.IsExperienceMenuABTestEnabled)
 local ChromeEnabled = require(Chrome.Enabled)
-local OnboardingTooltip = if not GetFFlagFixChromeReferences() or ChromeEnabled() then require(Chrome.Onboarding.OnboardingTooltip) else nil
+local OnboardingTooltip = if not GetFFlagFixChromeReferences() or ChromeEnabled()
+	then require(Chrome.Onboarding.OnboardingTooltip)
+	else nil
 local UnibarConstants = require(Chrome.Unibar.Constants)
 
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
@@ -74,9 +76,9 @@ local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
 local FFlagControlBetaBadgeWithGuac = game:DefineFastFlag("ControlBetaBadgeWithGuac", false)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
-local GetFFlagAddOver12TopBarBadge = require(script.Parent.Parent.Parent.Flags.GetFFlagAddOver12TopBarBadge)
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
+local GetFFlagUnibarContextStack = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUnibarContextStack
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -238,7 +240,7 @@ function TopBarApp:renderWithStyle(style)
 			MenuIcon = Roact.createElement(MenuIcon, {
 				iconScale = if self.props.menuOpen then 1.25 else 1,
 				layoutOrder = 1,
-				showBadgeOver12 = if GetFFlagAddOver12TopBarBadge() then self.props.showBadgeOver12 else nil,
+				showBadgeOver12 = self.props.showBadgeOver12,
 			}),
 		}),
 
@@ -330,7 +332,10 @@ function TopBarApp:renderWithStyle(style)
 			}) or nil,
 		}),
 
-		UnibarOnboarding = if GetFFlagEnableChromeFTUX() and (not GetFFlagFixChromeReferences() or ChromeEnabled()) then Roact.createElement(OnboardingTooltip) else nil,
+		UnibarOnboarding = if GetFFlagEnableChromeFTUX()
+				and (not GetFFlagFixChromeReferences() or ChromeEnabled())
+			then Roact.createElement(OnboardingTooltip)
+			else nil,
 
 		UnibarLeftFrame = Unibar
 				and unibarAlignment == Enum.HorizontalAlignment.Left
@@ -357,17 +362,29 @@ function TopBarApp:renderWithStyle(style)
 						PaddingLeft = UDim.new(0, screenSideOffset + Constants.Padding + Constants.TopBarHeight + 2),
 					}),
 
-					VoiceStateContext = Roact.createElement(VoiceStateContext.Provider, {}, {
-						CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-							Unibar = Roact.createElement(Unibar, {
-								layoutOrder = 1,
-								onAreaChanged = self.props.setKeepOutArea,
-								onMinWidthChanged = function(width: number)
-									self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
-								end,
+					Unibar = if GetFFlagUnibarContextStack()
+						then Roact.createElement(Unibar, {
+							layoutOrder = 1,
+							onAreaChanged = self.props.setKeepOutArea,
+							onMinWidthChanged = function(width: number)
+								self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+							end,
+						})
+						else nil,
+
+					VoiceStateContext = if GetFFlagUnibarContextStack()
+						then nil
+						else Roact.createElement(VoiceStateContext.Provider, {}, {
+							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+								Unibar = Roact.createElement(Unibar, {
+									layoutOrder = 1,
+									onAreaChanged = self.props.setKeepOutArea,
+									onMinWidthChanged = function(width: number)
+										self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+									end,
+								}),
 							}),
 						}),
-					}),
 
 					StackedElements = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
@@ -418,7 +435,8 @@ function TopBarApp:renderWithStyle(style)
 							})
 							else nil,
 
-						VoiceBetaBadge = if GetFFlagBetaBadge() and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
+						VoiceBetaBadge = if GetFFlagBetaBadge()
+								and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
 							then Roact.createElement(VoiceBetaBadge, {
 								layoutOrder = 6,
 								Analytics = Analytics.new(),
@@ -462,14 +480,24 @@ function TopBarApp:renderWithStyle(style)
 					HealthBar = Roact.createElement(HealthBar, {
 						layoutOrder = 1,
 					}),
-					VoiceStateContext = Roact.createElement(VoiceStateContext.Provider, {}, {
-						CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-							Unibar = Roact.createElement(Unibar, {
-								onAreaChanged = self.props.setKeepOutArea,
-								layoutOrder = 2,
+
+					Unibar = if GetFFlagUnibarContextStack()
+						then Roact.createElement(Unibar, {
+							onAreaChanged = self.props.setKeepOutArea,
+							layoutOrder = 2,
+						})
+						else nil,
+
+					VoiceStateContext = if GetFFlagUnibarContextStack()
+						then nil
+						else Roact.createElement(VoiceStateContext.Provider, {}, {
+							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+								Unibar = Roact.createElement(Unibar, {
+									onAreaChanged = self.props.setKeepOutArea,
+									layoutOrder = 2,
+								}),
 							}),
 						}),
-					}),
 				})
 			or nil,
 
@@ -507,12 +535,15 @@ function TopBarApp:renderWithStyle(style)
 
 				MenuIcon = not isNewTiltIconEnabled() and Roact.createElement(MenuIcon, {
 					layoutOrder = 1,
-					showBadgeOver12 = if GetFFlagAddOver12TopBarBadge() then self.props.showBadgeOver12 else nil,
+					showBadgeOver12 = self.props.showBadgeOver12,
 				}),
 
-				BackIcon = not chromeEnabled and GetFFlagEnableTeleportBackButton() and Roact.createElement(BackIcon, {
-					layoutOrder = 2,
-				}) or nil,
+				BackIcon = not chromeEnabled
+						and GetFFlagEnableTeleportBackButton()
+						and Roact.createElement(BackIcon, {
+							layoutOrder = 2,
+						})
+					or nil,
 
 				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,
@@ -575,7 +606,7 @@ end
 local TopBarAppWithPolicy = TopBarAppPolicy.connect(function(appPolicy, props)
 	return {
 		displayBetaBadge = appPolicy.getDisplayVoiceBetaBadge(),
-		showBadgeOver12 = if GetFFlagAddOver12TopBarBadge() then appPolicy.showBadgeOver12() else nil,
+		showBadgeOver12 = appPolicy.showBadgeOver12(),
 	}
 end)(TopBarApp)
 

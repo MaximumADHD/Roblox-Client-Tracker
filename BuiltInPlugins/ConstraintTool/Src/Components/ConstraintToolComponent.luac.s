@@ -125,11 +125,30 @@ PROTO_9:
   LOADB R2 0
   SETTABLEKS R2 R1 K4 ["_viewBoundsAreDirty"]
   LOADB R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["_prevConstraintDetails"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K6 ["ShowConstraintDetails"]
+  JUMPIFNOTEQ R1 R2 [+9]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K7 ["_prevWeldDetails"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K8 ["ShowWeldDetails"]
+  JUMPIFEQ R1 R2 [+2]
+  LOADB R0 1
   JUMPIFNOT R0 [+6]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["_constraintToolModel"]
-  NAMECALL R1 R1 K5 ["_processViewChanged"]
+  NAMECALL R1 R1 K9 ["_processViewChanged"]
   CALL R1 1 0
+  GETUPVAL R1 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K6 ["ShowConstraintDetails"]
+  SETTABLEKS R2 R1 K5 ["_prevConstraintDetails"]
+  GETUPVAL R1 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K8 ["ShowWeldDetails"]
+  SETTABLEKS R2 R1 K7 ["_prevWeldDetails"]
   RETURN R0 0
 
 PROTO_10:
@@ -157,81 +176,88 @@ PROTO_10:
   SETTABLEKS R2 R0 K7 ["_selectionBoundsAreDirty"]
   LOADB R2 0
   SETTABLEKS R2 R0 K8 ["_viewBoundsAreDirty"]
-  LOADK R2 K9 ["ConstraintToolViewUpdate"]
-  SETTABLEKS R2 R0 K10 ["_bindName"]
-  GETUPVAL R2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["ShowConstraintDetails"]
+  SETTABLEKS R2 R0 K10 ["_prevConstraintDetails"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K11 ["ShowWeldDetails"]
+  SETTABLEKS R2 R0 K12 ["_prevWeldDetails"]
+  LOADK R2 K13 ["ConstraintToolViewUpdate"]
+  SETTABLEKS R2 R0 K14 ["_bindName"]
+  GETUPVAL R2 1
   LOADB R4 0
-  NAMECALL R2 R2 K11 ["GenerateGUID"]
+  NAMECALL R2 R2 K15 ["GenerateGUID"]
   CALL R2 2 1
-  GETTABLEKS R4 R0 K10 ["_bindName"]
+  GETTABLEKS R4 R0 K14 ["_bindName"]
   MOVE R5 R2
   CONCAT R3 R4 R5
-  SETTABLEKS R3 R0 K10 ["_bindName"]
+  SETTABLEKS R3 R0 K14 ["_bindName"]
   NEWCLOSURE R3 P0
   CAPTURE VAL R0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K12 ["new"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K16 ["new"]
   GETTABLEKS R5 R1 K0 ["DraggerContext"]
   GETTABLEKS R6 R1 K3 ["DraggerSchema"]
   GETTABLEKS R7 R1 K4 ["DraggerSettings"]
   GETTABLEKS R8 R1 K5 ["ClosePluginCallback"]
-  GETTABLEKS R9 R1 K13 ["undoAttachmentStack"]
-  GETTABLEKS R10 R1 K14 ["redoAttachmentStack"]
-  GETTABLEKS R11 R1 K15 ["recordingName"]
-  GETTABLEKS R12 R1 K16 ["plugin"]
-  GETTABLEKS R13 R1 K17 ["SetConstraintToolModelReference"]
+  GETTABLEKS R9 R1 K17 ["undoAttachmentStack"]
+  GETTABLEKS R10 R1 K18 ["redoAttachmentStack"]
+  GETTABLEKS R11 R1 K19 ["recordingName"]
+  GETTABLEKS R12 R1 K20 ["plugin"]
+  GETTABLEKS R13 R1 K21 ["SetConstraintToolModelReference"]
   MOVE R14 R3
   NEWCLOSURE R15 P1
   CAPTURE VAL R0
   CALL R4 11 1
-  SETTABLEKS R4 R0 K18 ["_constraintToolModel"]
-  GETTABLEKS R4 R0 K18 ["_constraintToolModel"]
-  NAMECALL R4 R4 K19 ["_processSelected"]
+  SETTABLEKS R4 R0 K22 ["_constraintToolModel"]
+  GETTABLEKS R4 R0 K22 ["_constraintToolModel"]
+  NAMECALL R4 R4 K23 ["_processSelected"]
   CALL R4 1 0
-  GETTABLEKS R4 R0 K18 ["_constraintToolModel"]
+  GETTABLEKS R4 R0 K22 ["_constraintToolModel"]
   GETTABLEKS R6 R1 K6 ["constraintType"]
-  NAMECALL R4 R4 K20 ["_setConstraintType"]
+  NAMECALL R4 R4 K24 ["_setConstraintType"]
   CALL R4 2 0
-  GETTABLEKS R4 R0 K18 ["_constraintToolModel"]
-  NAMECALL R4 R4 K21 ["_initSelectionHighlight"]
+  GETTABLEKS R4 R0 K22 ["_constraintToolModel"]
+  NAMECALL R4 R4 K25 ["_initSelectionHighlight"]
   CALL R4 1 0
-  GETTABLEKS R4 R0 K18 ["_constraintToolModel"]
-  NAMECALL R4 R4 K22 ["_initAttachmentAdornment"]
+  GETTABLEKS R4 R0 K22 ["_constraintToolModel"]
+  NAMECALL R4 R4 K26 ["_initAttachmentAdornment"]
   CALL R4 1 0
-  GETUPVAL R4 2
+  GETUPVAL R4 3
   NEWTABLE R6 0 0
-  NAMECALL R4 R4 K23 ["Set"]
+  NAMECALL R4 R4 K27 ["Set"]
   CALL R4 2 0
-  GETTABLEKS R4 R1 K24 ["Mouse"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K25 ["InputBegan"]
+  GETTABLEKS R4 R1 K28 ["Mouse"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K29 ["InputBegan"]
   NEWCLOSURE R7 P2
   CAPTURE VAL R0
-  NAMECALL R5 R5 K26 ["Connect"]
+  NAMECALL R5 R5 K30 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K27 ["_inputBeganConnection"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K28 ["InputEnded"]
+  SETTABLEKS R5 R0 K31 ["_inputBeganConnection"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K32 ["InputEnded"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R0
-  NAMECALL R5 R5 K26 ["Connect"]
+  NAMECALL R5 R5 K30 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K29 ["_inputEndedConnection"]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K12 ["new"]
+  SETTABLEKS R5 R0 K33 ["_inputEndedConnection"]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K16 ["new"]
   MOVE R6 R4
   CALL R5 1 1
-  GETUPVAL R6 5
-  GETTABLEKS R8 R0 K10 ["_bindName"]
-  GETIMPORT R10 K33 [Enum.RenderPriority.First]
-  GETTABLEKS R9 R10 K34 ["Value"]
+  GETUPVAL R6 6
+  GETTABLEKS R8 R0 K14 ["_bindName"]
+  GETIMPORT R10 K37 [Enum.RenderPriority.First]
+  GETTABLEKS R9 R10 K38 ["Value"]
   NEWCLOSURE R10 P4
   CAPTURE VAL R0
   CAPTURE VAL R5
-  NAMECALL R6 R6 K35 ["BindToRenderStep"]
+  CAPTURE UPVAL U0
+  NAMECALL R6 R6 K39 ["BindToRenderStep"]
   CALL R6 4 0
   LOADB R6 1
-  SETTABLEKS R6 R0 K36 ["_isMounted"]
+  SETTABLEKS R6 R0 K40 ["_isMounted"]
   RETURN R0 0
 
 PROTO_11:
@@ -278,43 +304,48 @@ MAIN:
   LOADK R6 K10 ["Selection"]
   NAMECALL R4 R4 K7 ["GetService"]
   CALL R4 2 1
-  GETTABLEKS R6 R0 K11 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["DraggerFramework"]
-  GETIMPORT R6 K14 [require]
-  GETTABLEKS R8 R0 K11 ["Packages"]
-  GETTABLEKS R7 R8 K15 ["Roact"]
-  CALL R6 1 1
-  GETIMPORT R7 K14 [require]
-  GETTABLEKS R9 R0 K16 ["Src"]
-  GETTABLEKS R8 R9 K17 ["ConstraintToolModel"]
+  GETIMPORT R5 K5 [game]
+  LOADK R7 K11 ["StudioService"]
+  NAMECALL R5 R5 K7 ["GetService"]
+  CALL R5 2 1
+  GETTABLEKS R7 R0 K12 ["Packages"]
+  GETTABLEKS R6 R7 K13 ["DraggerFramework"]
+  GETIMPORT R7 K15 [require]
+  GETTABLEKS R9 R0 K12 ["Packages"]
+  GETTABLEKS R8 R9 K16 ["Roact"]
   CALL R7 1 1
-  GETIMPORT R8 K14 [require]
-  GETTABLEKS R10 R5 K18 ["Utility"]
-  GETTABLEKS R9 R10 K19 ["ViewChangeDetector"]
+  GETIMPORT R8 K15 [require]
+  GETTABLEKS R10 R0 K17 ["Src"]
+  GETTABLEKS R9 R10 K18 ["ConstraintToolModel"]
   CALL R8 1 1
-  GETTABLEKS R9 R6 K20 ["PureComponent"]
-  LOADK R11 K21 ["ConstraintToolComponent"]
-  NAMECALL R9 R9 K22 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K23 [PROTO_0]
-  SETTABLEKS R10 R9 K24 ["init"]
-  DUPCLOSURE R10 K25 [PROTO_1]
-  SETTABLEKS R10 R9 K26 ["didMount"]
-  DUPCLOSURE R10 K27 [PROTO_2]
-  SETTABLEKS R10 R9 K28 ["willUnmount"]
-  DUPCLOSURE R10 K29 [PROTO_3]
-  SETTABLEKS R10 R9 K30 ["willUpdate"]
-  DUPCLOSURE R10 K31 [PROTO_4]
-  SETTABLEKS R10 R9 K32 ["render"]
-  DUPCLOSURE R10 K33 [PROTO_10]
+  GETIMPORT R9 K15 [require]
+  GETTABLEKS R11 R6 K19 ["Utility"]
+  GETTABLEKS R10 R11 K20 ["ViewChangeDetector"]
+  CALL R9 1 1
+  GETTABLEKS R10 R7 K21 ["PureComponent"]
+  LOADK R12 K22 ["ConstraintToolComponent"]
+  NAMECALL R10 R10 K23 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K24 [PROTO_0]
+  SETTABLEKS R11 R10 K25 ["init"]
+  DUPCLOSURE R11 K26 [PROTO_1]
+  SETTABLEKS R11 R10 K27 ["didMount"]
+  DUPCLOSURE R11 K28 [PROTO_2]
+  SETTABLEKS R11 R10 K29 ["willUnmount"]
+  DUPCLOSURE R11 K30 [PROTO_3]
+  SETTABLEKS R11 R10 K31 ["willUpdate"]
+  DUPCLOSURE R11 K32 [PROTO_4]
+  SETTABLEKS R11 R10 K33 ["render"]
+  DUPCLOSURE R11 K34 [PROTO_10]
+  CAPTURE VAL R5
   CAPTURE VAL R3
-  CAPTURE VAL R7
+  CAPTURE VAL R8
   CAPTURE VAL R4
   CAPTURE VAL R2
-  CAPTURE VAL R8
+  CAPTURE VAL R9
   CAPTURE VAL R1
-  SETTABLEKS R10 R9 K34 ["setup"]
-  DUPCLOSURE R10 K35 [PROTO_11]
+  SETTABLEKS R11 R10 K35 ["setup"]
+  DUPCLOSURE R11 K36 [PROTO_11]
   CAPTURE VAL R1
-  SETTABLEKS R10 R9 K36 ["teardown"]
-  RETURN R9 1
+  SETTABLEKS R11 R10 K37 ["teardown"]
+  RETURN R10 1

@@ -65,7 +65,7 @@ PROTO_7:
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K0 ["state"]
   GETTABLEKS R2 R3 K1 ["enabled"]
-  NAMECALL R0 R0 K2 ["SetGamepadEmulationEnabled"]
+  NAMECALL R0 R0 K2 ["SetGamepadEmulationEnabledAsync"]
   CALL R0 2 0
   RETURN R0 0
 
@@ -170,7 +170,7 @@ PROTO_12:
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K0 ["state"]
   GETTABLEKS R2 R3 K1 ["enabled"]
-  NAMECALL R0 R0 K2 ["SetGamepadEmulationEnabled"]
+  NAMECALL R0 R0 K2 ["SetGamepadEmulationEnabledAsync"]
   CALL R0 2 0
   RETURN R0 0
 
@@ -445,7 +445,7 @@ PROTO_17:
   GETIMPORT R8 K87 [Enum.InitialDockState.Float]
   SETTABLEKS R8 R7 K24 ["InitialDockState"]
   GETIMPORT R8 K28 [Vector2.new]
-  LOADN R9 179
+  LOADN R9 204
   LOADN R10 169
   CALL R8 2 1
   SETTABLEKS R8 R7 K29 ["Size"]

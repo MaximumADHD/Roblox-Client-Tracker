@@ -8,13 +8,15 @@ PROTO_0:
   GETIMPORT R1 K5 [Instance.fromExisting]
   MOVE R2 R0
   CALL R1 1 1
-  NAMECALL R2 R0 K6 ["GetChildren"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K6 ["Archivable"]
+  NAMECALL R2 R0 K7 ["GetChildren"]
   CALL R2 1 3
   FORGPREP R2
   GETUPVAL R7 1
   MOVE R8 R6
   CALL R7 1 1
-  SETTABLEKS R1 R7 K7 ["Parent"]
+  SETTABLEKS R1 R7 K8 ["Parent"]
   FORGLOOP R2 2 [-6]
   RETURN R1 1
 

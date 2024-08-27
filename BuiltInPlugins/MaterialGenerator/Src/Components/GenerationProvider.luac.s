@@ -495,7 +495,7 @@ PROTO_17:
   NEWTABLE R3 0 1
   GETUPVAL R4 2
   SETLIST R3 R4 1 [1]
-  NAMECALL R0 R0 K0 ["UploadMaterials"]
+  NAMECALL R0 R0 K0 ["UploadMaterialsAsync"]
   CALL R0 3 -1
   RETURN R0 -1
 

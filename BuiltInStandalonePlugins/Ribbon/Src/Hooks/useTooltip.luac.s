@@ -240,7 +240,7 @@ PROTO_4:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R4 R0 K0 ["AbsoluteSize"]
-  NAMECALL R1 R1 K1 ["SetSize"]
+  NAMECALL R1 R1 K1 ["SetSizeAsync"]
   CALL R1 3 0
   RETURN R0 0
 
@@ -306,7 +306,7 @@ PROTO_6:
   LOADN R13 0
   CALL R11 2 1
   SETTABLEKS R11 R10 K15 ["Offset"]
-  NAMECALL R7 R6 K21 ["SetAttachment"]
+  NAMECALL R7 R6 K21 ["SetAttachmentAsync"]
   CALL R7 3 0
   GETUPVAL R7 5
   GETTABLEKS R8 R7 K22 ["uniqueTooltipId"]

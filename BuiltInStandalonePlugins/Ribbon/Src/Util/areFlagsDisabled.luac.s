@@ -19,7 +19,7 @@ PROTO_2:
   LOADK R3 K0 ["FFlagRespectFlagsWhenBinding must be enabled"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
-  GETTABLEKS R1 R0 K3 ["FastFlag"]
+  GETTABLEKS R1 R0 K3 ["DEPRECATED_FastFlag"]
   JUMPIFNOT R1 [+32]
   FASTCALL1 TYPEOF R1 [+3]
   MOVE R3 R1

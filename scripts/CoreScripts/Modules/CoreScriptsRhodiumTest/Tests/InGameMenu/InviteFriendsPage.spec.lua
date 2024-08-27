@@ -248,7 +248,8 @@ return function()
 				local pageContainer = Element.new(pageContainerPath)
 				expect(pageContainer:waitForRbxInstance(1)).never.toBeNil()
 				local pageContainerInstance = pageContainer.rbxInstance
-				GuiService:AddSelectionParent("invite_friends_test_selection_parent", pageContainerInstance)
+				-- AddSelectionParent is deprecated
+				;(GuiService :: any):AddSelectionParent("invite_friends_test_selection_parent", pageContainerInstance)
 
 				expect(tostring(GuiService.SelectedCoreObject)).toBe("friend_1")
 				expect(GuiService.SelectedCoreObject.DisplayNameLabel.Text).toBe("AAAAA")

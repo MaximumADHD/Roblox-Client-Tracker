@@ -10,6 +10,9 @@ local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local IconButton = UIBlox.App.Button.IconButton
 
+local GetFFlagDebugEnableUnibarDummyIntegrations =
+	require(script.Parent.Parent.Flags.GetFFlagDebugEnableUnibarDummyIntegrations)
+
 local sizeIcon = Images["icons/navigation/cycleUp"]
 local isLargeSize = false
 local windowSize = WindowSizeSignal.new(Constants.DEFAULT_WIDTH, Constants.DEFAULT_HEIGHT)
@@ -18,7 +21,9 @@ local startingWindowPosition = UDim2.new(1, -95, 0, 165)
 ChromeService:updateWindowPosition("dummy_window", startingWindowPosition)
 
 local dummyWindowIntegration = ChromeService:register({
-	initialAvailability = ChromeService.AvailabilitySignal.Unavailable,
+	initialAvailability = if GetFFlagDebugEnableUnibarDummyIntegrations()
+		then ChromeService.AvailabilitySignal.Available
+		else ChromeService.AvailabilitySignal.Unavailable,
 	id = "dummy_window",
 	label = "CoreScripts.TopBar.Menu",
 	draggable = true,

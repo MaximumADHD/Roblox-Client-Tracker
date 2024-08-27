@@ -49,16 +49,16 @@ VoiceChatServiceManager:asyncInit()
 
 			local requestAudioFocusWithPromise = function(id, prio)
 				return Promise.new(function(resolve, reject)
-					local requestSuccess, focusGranted = pcall(AudioFocusService.RequestFocus, AudioFocusService, id, prio)
+					local requestSuccess, focusGranted =
+						pcall(AudioFocusService.RequestFocus, AudioFocusService, id, prio)
 					if requestSuccess then
 						resolve(focusGranted) -- Still resolve, but indicate failure to grant focus
 					else
-						reject('Failed to call RequestFocus due to an error') -- Reject the promise in case of an error
+						reject("Failed to call RequestFocus due to an error") -- Reject the promise in case of an error
 					end
 				end)
 			end
-			
-			
+
 			requestAudioFocusWithPromise(contextId, focusPriority)
 				:andThen(function(focusGranted)
 					if focusGranted then
@@ -77,10 +77,11 @@ VoiceChatServiceManager:asyncInit()
 						end)
 					end
 				end)
-				:catch(function(err)
-					warn("[UGC] Error requesting focus inside UGCdatamodel")
+				:catch(function()
+					log:info("[UGC] Error requesting focus inside UGCdatamodel")
 				end)
 		end
-	end):catch(function(err)
-        warn("VCSM was not initialized [CEV ExperienceAudioFocusBinder]")
-    end)
+	end)
+	:catch(function()
+		log:info("VCSM was not initialized [CEV ExperienceAudioFocusBinder]")
+	end)

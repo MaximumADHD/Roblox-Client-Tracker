@@ -1,7 +1,4 @@
 PROTO_0:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+7]
   FASTCALL1 TYPEOF R0 [+3]
   MOVE R2 R0
   GETIMPORT R1 K1 [typeof]
@@ -65,11 +62,5 @@ MAIN:
   LOADK R2 K2 ["TerrainEditor"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagTerrainEditorAdvancedNoiseValidation"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K9 [PROTO_0]
-  CAPTURE VAL R1
-  RETURN R2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  RETURN R1 1

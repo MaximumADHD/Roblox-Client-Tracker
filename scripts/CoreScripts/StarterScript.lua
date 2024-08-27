@@ -346,13 +346,6 @@ if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")
 end
 
-if GetFFlagLuaAppEnableSquadPage() then
-	coroutine.wrap(function()
-		local squad = safeRequire(CorePackages.Workspace.Packages.Squads).renderCoreScriptSquad
-		squad.new()
-	end)()
-end
-
 if game:GetEngineFeature("FacialAnimationStreaming2") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
 end

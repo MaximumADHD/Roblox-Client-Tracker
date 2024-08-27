@@ -6,6 +6,8 @@ local PackageIndex = script.Parent._Workspace
 local Package = require(PackageIndex["VoiceChat"]["VoiceChat"])
 
 export type WatchedMessageTypes = Package.WatchedMessageTypes
+export type VoiceIconFolder = Package.VoiceIconFolder
+export type VoiceIconName = Package.VoiceIconName
 
 
 return Package

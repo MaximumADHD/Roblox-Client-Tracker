@@ -115,52 +115,63 @@ PROTO_7:
   FORGPREP R4
   GETTABLEKS R9 R8 K0 ["asset"]
   GETTABLEKS R10 R8 K1 ["creator"]
-  GETTABLEKS R12 R10 K2 ["type"]
-  JUMPIFNOTEQKN R12 K3 [1] [+7]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K4 ["Scope"]
-  GETTABLEKS R11 R13 K5 ["User"]
+  GETTABLEKS R12 R10 K2 ["latestGroupUpdaterUserId"]
+  JUMPIFNOT R12 [+7]
+  GETTABLEKS R12 R10 K2 ["latestGroupUpdaterUserId"]
+  JUMPIFEQKN R12 K3 [0] [+4]
+  GETTABLEKS R11 R10 K2 ["latestGroupUpdaterUserId"]
+  JUMP [+2]
+  GETTABLEKS R11 R10 K4 ["id"]
+  GETTABLEKS R13 R10 K5 ["latestGroupUpdaterUserName"]
+  JUMPIFNOT R13 [+7]
+  GETTABLEKS R13 R10 K2 ["latestGroupUpdaterUserId"]
+  JUMPIFEQKN R13 K3 [0] [+4]
+  GETTABLEKS R12 R10 K5 ["latestGroupUpdaterUserName"]
+  JUMP [+2]
+  GETTABLEKS R12 R10 K6 ["name"]
+  GETTABLEKS R14 R10 K7 ["type"]
+  JUMPIFNOTEQKN R14 K8 [1] [+7]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K9 ["Scope"]
+  GETTABLEKS R13 R15 K10 ["User"]
   JUMP [+13]
-  JUMPIFNOTEQKN R12 K6 [2] [+7]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K4 ["Scope"]
-  GETTABLEKS R11 R13 K7 ["Group"]
+  JUMPIFNOTEQKN R14 K11 [2] [+7]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K9 ["Scope"]
+  GETTABLEKS R13 R15 K12 ["Group"]
   JUMP [+5]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K4 ["Scope"]
-  GETTABLEKS R11 R13 K8 ["Unknown"]
-  DUPTABLE R12 K16 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Owner"}]
-  GETTABLEKS R13 R9 K17 ["id"]
-  SETTABLEKS R13 R12 K9 ["AssetId"]
-  SETTABLEKS R1 R12 K10 ["AssetType"]
-  GETTABLEKS R13 R9 K18 ["name"]
-  SETTABLEKS R13 R12 K11 ["DisplayName"]
-  GETIMPORT R13 K21 [DateTime.fromIsoDate]
-  GETTABLEKS R14 R9 K22 ["createdUtc"]
-  CALL R13 1 1
-  SETTABLEKS R13 R12 K12 ["Created"]
-  GETIMPORT R13 K21 [DateTime.fromIsoDate]
-  GETTABLEKS R14 R9 K23 ["updatedUtc"]
-  CALL R13 1 1
-  SETTABLEKS R13 R12 K13 ["Modified"]
-  GETTABLEKS R13 R9 K24 ["moderationStatus"]
-  SETTABLEKS R13 R12 K14 ["ModerationStatus"]
-  DUPTABLE R13 K27 [{"Id", "Name", "Scope"}]
-  GETTABLEKS R14 R10 K17 ["id"]
-  SETTABLEKS R14 R13 K25 ["Id"]
-  GETTABLEKS R14 R10 K18 ["name"]
-  SETTABLEKS R14 R13 K26 ["Name"]
-  SETTABLEKS R11 R13 K4 ["Scope"]
-  SETTABLEKS R13 R12 K15 ["Owner"]
-  FASTCALL2 TABLE_INSERT R2 R12 [+5]
-  MOVE R14 R2
-  MOVE R15 R12
-  GETIMPORT R13 K30 [table.insert]
-  CALL R13 2 0
-  GETTABLEKS R13 R10 K18 ["name"]
-  GETTABLEKS R14 R12 K15 ["Owner"]
-  SETTABLE R14 R3 R13
-  FORGLOOP R4 2 [-82]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K9 ["Scope"]
+  GETTABLEKS R13 R15 K13 ["Unknown"]
+  DUPTABLE R14 K21 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator"}]
+  GETTABLEKS R15 R9 K4 ["id"]
+  SETTABLEKS R15 R14 K14 ["AssetId"]
+  SETTABLEKS R1 R14 K15 ["AssetType"]
+  GETTABLEKS R15 R9 K6 ["name"]
+  SETTABLEKS R15 R14 K16 ["DisplayName"]
+  GETIMPORT R15 K24 [DateTime.fromIsoDate]
+  GETTABLEKS R16 R9 K25 ["createdUtc"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K17 ["Created"]
+  GETIMPORT R15 K24 [DateTime.fromIsoDate]
+  GETTABLEKS R16 R9 K26 ["updatedUtc"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K18 ["Modified"]
+  GETTABLEKS R15 R9 K27 ["moderationStatus"]
+  SETTABLEKS R15 R14 K19 ["ModerationStatus"]
+  DUPTABLE R15 K30 [{"Id", "Name", "Scope"}]
+  SETTABLEKS R11 R15 K28 ["Id"]
+  SETTABLEKS R12 R15 K29 ["Name"]
+  SETTABLEKS R13 R15 K9 ["Scope"]
+  SETTABLEKS R15 R14 K20 ["Creator"]
+  FASTCALL2 TABLE_INSERT R2 R14 [+5]
+  MOVE R16 R2
+  MOVE R17 R14
+  GETIMPORT R15 K33 [table.insert]
+  CALL R15 2 0
+  GETTABLEKS R15 R14 K20 ["Creator"]
+  SETTABLE R15 R3 R12
+  FORGLOOP R4 2 [-100]
   RETURN R2 2
 
 PROTO_8:

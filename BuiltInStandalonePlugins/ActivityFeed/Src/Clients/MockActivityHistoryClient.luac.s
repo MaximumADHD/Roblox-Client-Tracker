@@ -272,24 +272,25 @@ MAIN:
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["React"]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["SharedTypes"]
   CALL R1 1 1
   GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R5 R0 K5 ["Src"]
   GETTABLEKS R4 R5 K8 ["Clients"]
   GETTABLEKS R3 R4 K9 ["ActivityHistoryClient"]
   CALL R2 1 1
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K7 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["MockActivityHistoryEvents"]
+  GETTABLEKS R6 R0 K5 ["Src"]
+  GETTABLEKS R5 R6 K6 ["Util"]
+  GETTABLEKS R4 R5 K10 ["MockActivityHistoryEvents"]
   CALL R3 1 1
   GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R6 R0 K11 ["Packages"]
   GETTABLEKS R5 R6 K12 ["Framework"]
   CALL R4 1 1
-  GETTABLEKS R6 R4 K10 ["Util"]
+  GETTABLEKS R6 R4 K6 ["Util"]
   GETTABLEKS R5 R6 K13 ["Promise"]
   GETIMPORT R7 K16 [DateTime.now]
   CALL R7 0 1

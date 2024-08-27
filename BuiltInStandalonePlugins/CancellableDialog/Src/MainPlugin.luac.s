@@ -77,7 +77,7 @@ PROTO_6:
 PROTO_7:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["cancellableDialogManager"]
-  NAMECALL R0 R0 K1 ["OnPluginInitialized"]
+  NAMECALL R0 R0 K1 ["OnPluginInitializedAsync"]
   CALL R0 1 0
   RETURN R0 0
 
@@ -179,7 +179,7 @@ PROTO_8:
 PROTO_9:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["cancellableDialogManager"]
-  NAMECALL R0 R0 K1 ["OnDialogShown"]
+  NAMECALL R0 R0 K1 ["OnDialogShownAsync"]
   CALL R0 1 0
   RETURN R0 0
 
@@ -193,7 +193,7 @@ PROTO_10:
 PROTO_11:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["cancellableDialogManager"]
-  NAMECALL R0 R0 K1 ["Cancel"]
+  NAMECALL R0 R0 K1 ["CancelAsync"]
   CALL R0 1 0
   RETURN R0 0
 

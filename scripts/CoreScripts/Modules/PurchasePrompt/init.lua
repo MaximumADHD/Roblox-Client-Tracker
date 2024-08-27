@@ -19,11 +19,13 @@ local Thunk = require(Root.Thunk)
 local initiateAvatarCreationFeePurchaseThunk = require(Root.Thunks.initiateAvatarCreationFeePurchase)
 local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
 local WindowState = require(Root.Enums.WindowState)
+local PromptState = require(Root.Enums.PromptState)
 
 local handle
 local store
 
 local purchasePromptClosedBindable = Instance.new("BindableEvent")
+local promptStateSetToNoneBindable = Instance.new("BindableEvent")
 
 -- Create the store outside of the PurchasePromptApp so
 -- we can utilize the store in APIs that can be accessed
@@ -51,6 +53,9 @@ local function createStore()
 			purchasePromptClosedBindable:Fire({
 				hasCompletedPurchase = currentState.hasCompletedPurchase,
 			})
+		end
+		if previousState.promptState ~= currentState.promptState and currentState.promptState == PromptState.None then
+			promptStateSetToNoneBindable:Fire()
 		end
 	end)
 end
@@ -100,4 +105,6 @@ return {
 	initiateAvatarCreationFeePurchase = if GetFFlagEnableAvatarCreationFeePurchase() then initiateAvatarCreationFeePurchase else nil,
 	-- This event fires when the prompt closes and returns hasCompletedPurchase
 	purchasePromptClosedEvent = if GetFFlagEnableAvatarCreationFeePurchase() then purchasePromptClosedBindable.Event else nil,
+	-- This event fires when the prompt state is set to PromptState.None
+	promptStateSetToNoneEvent = if GetFFlagEnableAvatarCreationFeePurchase() then promptStateSetToNoneBindable.Event else nil,
 }

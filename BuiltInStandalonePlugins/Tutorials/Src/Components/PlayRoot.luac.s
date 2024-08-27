@@ -64,7 +64,7 @@ PROTO_1:
   LOADN R8 20
   CALL R6 2 1
   SETTABLEKS R6 R5 K8 ["Offset"]
-  NAMECALL R2 R1 K13 ["SetAttachment"]
+  NAMECALL R2 R1 K13 ["SetAttachmentAsync"]
   CALL R2 3 0
   RETURN R0 0
   GETUPVAL R1 5
