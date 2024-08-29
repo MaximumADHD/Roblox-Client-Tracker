@@ -12084,7 +12084,7 @@ CC583B11E29A3DBD856014A660
 CCCC0C1CCCCCCCCCCCCCC2CC345CCCCCCCC6CCCC789
 CCCCCCCCCCCCCCC
 CCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCACCB
+CCCCCCCCCCCCCCCCCCCCCCCCACCBE
 CCCCCCCCCCCCCCCCCCCCCCCCCC
 CCCCCCCCCCCCCDC
 CCCCCCCCCCCCCDCCCCCCC0123CCCCCCCCCC
@@ -21581,7 +21581,7 @@ ExcessFmodAllocsTriggerOom
 Excessively
 ExcessivelyLoudAudio
 ExcessTime
-ExcludeAltAccoun
+ExcludeAltAccounh
 ExcludeAltAccounts
 ExcludeNonMeshNodesWhenFindingParentPart
 ExclusiveAverage
@@ -27326,7 +27326,7 @@ IkSolverFixLock
 IkSolverFixResolveFabrikWithLimits
 IkSolverFreeUseOgFabrikSolver
 ILegacyStudioBridge
-IllegalMessageTo`
+IllegalMessageTo
 IllegalObjectToRunInUIThread
 IllegalOperation
 IllegalTeleport
@@ -53317,11 +53317,13 @@ StudioFixInstanceHandlerCrash
 StudioFixInstanceSignalStackOverflow
 StudioFixLowMemoryWarningDialogButtonRoles
 StudioFixMiscCrashesForOpenPlace
+StudioFixNewOpenPlaceCameraSaving
 StudioFixNoPlayDocCrash
 StudioFixNullLuaToolbarRelayCrash
 StudioFixOpenPlaceOverhaulLayout
 StudioFixPlaySoloTestService
 StudioFixPluginFilePathUtils
+StudioFixStackOverflowInOpenPlace
 StudioFixStartPageFetchingNoResult
 StudioFixToggleStatsForVerb
 StudioFixUnsafeAccessInExplorer
@@ -63301,7 +63303,7 @@ WildcardCount
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.640.43706
+Win64.640.43739
 WinchEnabled
 WinchForce
 WinchResponsiveness

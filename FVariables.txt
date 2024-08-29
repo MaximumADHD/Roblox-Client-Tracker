@@ -7903,12 +7903,14 @@
 [C++] FFlagStudioFixInstanceSignalStackOverflow
 [C++] FFlagStudioFixLowMemoryWarningDialogButtonRoles
 [C++] FFlagStudioFixMiscCrashesForOpenPlace
+[C++] FFlagStudioFixNewOpenPlaceCameraSaving
 [C++] FFlagStudioFixNoPlayDocCrash
 [C++] FFlagStudioFixNullLuaToolbarRelayCrash
 [C++] FFlagStudioFixOpenPlaceOverhaulLayout
 [C++] FFlagStudioFixOpenPlaceOverhaulLayout2
 [C++] FFlagStudioFixPlaySoloTestService
 [C++] FFlagStudioFixPluginFilePathUtils
+[C++] FFlagStudioFixStackOverflowInOpenPlace
 [C++] FFlagStudioFixStartPageFetchingNoResult
 [C++] FFlagStudioFixToggleStatsForVerb
 [C++] FFlagStudioFixUnsafeAccessInExplorer
@@ -7923,6 +7925,7 @@
 [C++] FFlagStudioHideWithDataModelContextImpl
 [C++] FFlagStudioIgnoreFixedLayoutPositionOnAboutToShow
 [C++] FFlagStudioIgnoreKeyPressEventWhenDisableTitle
+[C++] FFlagStudioIgnoreKeyPressEventWhenDisableTitle3
 [C++] FFlagStudioIgnoreQSGRenderLoop
 [C++] FFlagStudioIgnoreQtAnglePlatform
 [C++] FFlagStudioImproveCommandsObservability
