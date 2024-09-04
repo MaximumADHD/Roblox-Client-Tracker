@@ -6,22 +6,20 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETTABLEKS R2 R3 K6 ["enumerate"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["enumerate"]
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Types"]
-  CALL R3 1 1
-  MOVE R4 R2
-  LOADK R5 K11 ["TokenValidationError"]
-  NEWTABLE R6 0 5
-  LOADK R7 K12 ["None"]
-  LOADK R8 K13 ["InvalidSyntax"]
-  LOADK R9 K14 ["DoesNotExist"]
-  LOADK R10 K15 ["IncorrectType"]
-  LOADK R11 K16 ["CyclicReference"]
-  SETLIST R6 R7 5 [1]
-  CALL R4 2 1
-  RETURN R4 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Src"]
+  GETTABLEKS R3 R4 K8 ["Types"]
+  CALL R2 1 1
+  MOVE R3 R1
+  LOADK R4 K9 ["TokenValidationError"]
+  NEWTABLE R5 0 5
+  LOADK R6 K10 ["None"]
+  LOADK R7 K11 ["InvalidSyntax"]
+  LOADK R8 K12 ["DoesNotExist"]
+  LOADK R9 K13 ["IncorrectType"]
+  LOADK R10 K14 ["CyclicReference"]
+  SETLIST R5 R6 5 [1]
+  CALL R3 2 1
+  RETURN R3 1

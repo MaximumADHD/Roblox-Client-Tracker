@@ -714,7 +714,7 @@ end
 
 
 local function ConstructKeyboardUI(keyboardLayoutDefinitions)
-	local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+	local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 	local panel = Panel3D.Get("Keyboard")
 	panel:SetVisible(false)
 

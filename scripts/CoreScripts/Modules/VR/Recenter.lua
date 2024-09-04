@@ -3,7 +3,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 

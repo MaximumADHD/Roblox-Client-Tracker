@@ -35,13 +35,19 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
+  GETTABLEKS R2 R0 K0 ["_impl"]
+  GETTABLEKS R1 R2 K1 ["incrementFetchSessionId"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_4:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["fetchUsernameAsync"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["fetchGroupsAsync"]
   MOVE R4 R1
@@ -49,37 +55,59 @@ PROTO_4:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETTABLEKS R4 R0 K0 ["OnFetchFinished"]
   SETTABLEKS R4 R1 K0 ["OnFetchFinished"]
   GETTABLEKS R4 R0 K1 ["OnFetchProgressChanged"]
   SETTABLEKS R4 R1 K1 ["OnFetchProgressChanged"]
   GETUPVAL R4 0
   CALL R4 0 1
+  JUMPIFNOT R4 [+19]
+  GETTABLEKS R4 R1 K2 ["IsSearch"]
   JUMPIFNOT R4 [+8]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["fetchAssetsLegacyAsync"]
+  GETTABLEKS R4 R5 K3 ["fetchSearchAssetsLegacyAsync"]
   MOVE R5 R1
   MOVE R6 R2
   MOVE R7 R3
   CALL R4 3 0
   RETURN R0 0
-  GETTABLEKS R5 R0 K3 ["_impl"]
-  GETTABLEKS R4 R5 K2 ["fetchAssetsLegacyAsync"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["fetchAssetsLegacyAsync"]
+  MOVE R5 R1
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R4 3 0
+  RETURN R0 0
+  GETTABLEKS R5 R0 K5 ["_impl"]
+  GETTABLEKS R4 R5 K4 ["fetchAssetsLegacyAsync"]
   MOVE R5 R1
   MOVE R6 R2
   MOVE R7 R3
   CALL R4 3 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
+  GETTABLEKS R4 R0 K0 ["OnFetchFinished"]
+  SETTABLEKS R4 R1 K0 ["OnFetchFinished"]
+  GETTABLEKS R4 R0 K1 ["OnFetchProgressChanged"]
+  SETTABLEKS R4 R1 K1 ["OnFetchProgressChanged"]
+  GETTABLEKS R5 R0 K2 ["_impl"]
+  GETTABLEKS R4 R5 K3 ["fetchSearchAssetsLegacyAsync"]
+  MOVE R5 R1
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_8:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["getThumbnailUriForScope"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_7:
+PROTO_9:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["getThumbnailForScopeAsync"]
   MOVE R4 R1
@@ -87,14 +115,14 @@ PROTO_7:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_10:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["getThumbnailForItem"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_9:
+PROTO_11:
   GETUPVAL R3 0
   CALL R3 0 1
   JUMPIFNOT R3 [+7]
@@ -157,21 +185,25 @@ MAIN:
   DUPCLOSURE R11 K24 [PROTO_2]
   SETTABLEKS R11 R10 K25 ["destroy"]
   DUPCLOSURE R11 K26 [PROTO_3]
-  SETTABLEKS R11 R10 K27 ["fetchUsernameAsync"]
+  SETTABLEKS R11 R10 K27 ["makeFetchRequestsStale"]
   DUPCLOSURE R11 K28 [PROTO_4]
-  SETTABLEKS R11 R10 K29 ["fetchGroupsAsync"]
+  SETTABLEKS R11 R10 K29 ["fetchUsernameAsync"]
   DUPCLOSURE R11 K30 [PROTO_5]
-  CAPTURE VAL R9
-  CAPTURE VAL R7
-  SETTABLEKS R11 R10 K31 ["fetchAssetsLegacyAsync"]
+  SETTABLEKS R11 R10 K31 ["fetchGroupsAsync"]
   DUPCLOSURE R11 K32 [PROTO_6]
-  SETTABLEKS R11 R10 K33 ["getThumbnailUriForScope"]
-  DUPCLOSURE R11 K34 [PROTO_7]
-  SETTABLEKS R11 R10 K35 ["getThumbnailForScopeAsync"]
-  DUPCLOSURE R11 K36 [PROTO_8]
-  SETTABLEKS R11 R10 K37 ["getThumbnailForItem"]
-  DUPCLOSURE R11 K38 [PROTO_9]
   CAPTURE VAL R9
   CAPTURE VAL R7
-  SETTABLEKS R11 R10 K39 ["getThumbnailForItemAsync"]
+  SETTABLEKS R11 R10 K33 ["fetchAssetsLegacyAsync"]
+  DUPCLOSURE R11 K34 [PROTO_7]
+  SETTABLEKS R11 R10 K35 ["fetchSearchAssetsLegacyAsync"]
+  DUPCLOSURE R11 K36 [PROTO_8]
+  SETTABLEKS R11 R10 K37 ["getThumbnailUriForScope"]
+  DUPCLOSURE R11 K38 [PROTO_9]
+  SETTABLEKS R11 R10 K39 ["getThumbnailForScopeAsync"]
+  DUPCLOSURE R11 K40 [PROTO_10]
+  SETTABLEKS R11 R10 K41 ["getThumbnailForItem"]
+  DUPCLOSURE R11 K42 [PROTO_11]
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K43 ["getThumbnailForItemAsync"]
   RETURN R10 1

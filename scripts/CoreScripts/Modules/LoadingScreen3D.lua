@@ -13,9 +13,15 @@ local MarketPlaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local GuiService = game:GetService("GuiService")
+local TweenService = game:GetService("TweenService")
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local Util = require(RobloxGui.Modules.Settings.Utility)
+local FFlagLoadingScreen3DUseTweenService = game:DefineFastFlag("LoadingScreen3DUseTweenService", false)
+local Util
+if not FFlagLoadingScreen3DUseTweenService then
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+	Util = require(RobloxGui.Modules.Settings.Utility)
+end
+
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
@@ -25,35 +31,50 @@ local function FadeElements(element, newValue, duration)
 	if element == nil then
 		return
 	end
+
+	local tweenInfo = if FFlagLoadingScreen3DUseTweenService then TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut) else nil
+
 	if element:IsA("ImageLabel") or element:IsA("ImageButton") then
-		Util:TweenProperty(
-			element,
-			"ImageTransparency",
-			element.ImageTransparency,
-			newValue,
-			duration,
-			Util:GetEaseInOutQuad()
-		)
+		if FFlagLoadingScreen3DUseTweenService then
+			TweenService:Create(element, tweenInfo, { ImageTransparency = newValue }):Play()
+		else
+			Util:TweenProperty(
+				element,
+				"ImageTransparency",
+				element.ImageTransparency,
+				newValue,
+				duration,
+				Util:GetEaseInOutQuad()
+			)
+		end
 	end
 	if element:IsA("GuiObject") then
-		Util:TweenProperty(
-			element,
-			"BackgroundTransparency",
-			element.BackgroundTransparency,
-			newValue,
-			duration,
-			Util:GetEaseInOutQuad()
-		)
+		if FFlagLoadingScreen3DUseTweenService then
+			TweenService:Create(element, tweenInfo, { BackgroundTransparency = newValue }):Play()
+		else
+			Util:TweenProperty(
+				element,
+				"BackgroundTransparency",
+				element.BackgroundTransparency,
+				newValue,
+				duration,
+				Util:GetEaseInOutQuad()
+			)
+		end
 	end
 	if element:IsA("TextLabel") or element:IsA("TextBox") or element:IsA("TextButton") then
-		Util:TweenProperty(
-			element,
-			"TextTransparency",
-			element.TextTransparency,
-			newValue,
-			duration,
-			Util:GetEaseInOutQuad()
-		)
+		if FFlagLoadingScreen3DUseTweenService then
+			TweenService:Create(element, tweenInfo, { TextTransparency = newValue }):Play()
+		else
+			Util:TweenProperty(
+				element,
+				"TextTransparency",
+				element.TextTransparency,
+				newValue,
+				duration,
+				Util:GetEaseInOutQuad()
+			)
+		end
 	end
 	for _, child in pairs(element:GetChildren()) do
 		FadeElements(child, newValue, duration)
@@ -212,27 +233,37 @@ local function UpdateLayout(delta)
 			if newX + creatorText.AbsoluteSize.X < creatorTextContainer.AbsoluteSize.X then
 				freeze = true
 				spawn(function()
-					Util:TweenProperty(
-						creatorText,
-						"TextTransparency",
-						creatorText.TextTransparency,
-						1,
-						1,
-						Util:GetEaseInOutQuad()
-					)
+					local tweenInfo = if FFlagLoadingScreen3DUseTweenService then TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut) else nil
+					
+					if FFlagLoadingScreen3DUseTweenService then
+						TweenService:Create(creatorText, tweenInfo, { TextTransparency = 1 }):Play()
+					else
+						Util:TweenProperty(
+							creatorText,
+							"TextTransparency",
+							creatorText.TextTransparency,
+							1,
+							1,
+							Util:GetEaseInOutQuad()
+						)
+					end
 					wait(1.5)
 					if CleanedUp then
 						return
 					end
 					creatorTextPosition = 0
-					Util:TweenProperty(
-						creatorText,
-						"TextTransparency",
-						creatorText.TextTransparency,
-						0,
-						1,
-						Util:GetEaseInOutQuad()
-					)
+					if FFlagLoadingScreen3DUseTweenService then
+						TweenService:Create(creatorText, tweenInfo, { TextTransparency = 0 }):Play()
+					else
+						Util:TweenProperty(
+							creatorText,
+							"TextTransparency",
+							creatorText.TextTransparency,
+							0,
+							1,
+							Util:GetEaseInOutQuad()
+						)
+					end
 					wait(1.5)
 					freeze = false
 				end)

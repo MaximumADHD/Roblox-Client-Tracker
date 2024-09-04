@@ -164,7 +164,7 @@ MAIN:
   SETLIST R5 R6 -1 [1]
   DUPTABLE R6 K76 [{"BlueprintWithMappingsPadding", "PrimaryButtonColor", "PrimaryButtonTextColor"}]
   GETIMPORT R7 K78 [UDim.new]
-  LOADK R8 K79 [0.15]
+  LOADK R8 K79 [0.16]
   LOADN R9 0
   CALL R7 2 1
   SETTABLEKS R7 R6 K73 ["BlueprintWithMappingsPadding"]

@@ -32,6 +32,8 @@ local GetFFlagDisableChromeV3StaticSelfView = require(script.Parent.Flags.GetFFl
 local GetFFlagDisableChromeV3Icon = require(script.Parent.Flags.GetFFlagDisableChromeV3Icon)()
 local GetFFlagDisableChromeV3DockedMic = require(script.Parent.Flags.GetFFlagDisableChromeV3DockedMic)()
 
+local GetFFlagSongbirdIXPVariants = require(script.Parent.Flags.GetFFlagSongbirdIXPVariants)
+
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
@@ -39,6 +41,7 @@ local ACTION_TRIGGER_LATCHED = 10000
 local TEST_VERSION = "t10" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
 local CONSOLE_MODERNIZATION_TEST_VERSION = "m2"
+local SONGBIRD_TEST_VERSION = "s1"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
@@ -70,6 +73,13 @@ local MENU_VERSION_CHROME_V3_ENUM = {
 	STATIC_SELF_VIEW = "v8.3"..TEST_VERSION,
 	ICON = "v8.4"..TEST_VERSION,
 	DOCKED_MIC = "v8.5"..TEST_VERSION,
+
+}
+
+local MENU_VERSION_SONGBIRD_ENUM =  {
+	SONGBIRD = "v9.1" .. SONGBIRD_TEST_VERSION,
+	SONGBIRD_UNIBAR = "v9.2" .. SONGBIRD_TEST_VERSION,
+	SONGBIRD_PEEK = "v9.3" .. SONGBIRD_TEST_VERSION,
 }
 
 local validVersion = {
@@ -87,7 +97,10 @@ local validVersion = {
 	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.UNIBAR] = not GetFFlagDisableChromeFollowupUnibar,
 	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.FTUX] = not GetFFlagDisableChromeFollowupFTUX,
 	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.OCCLUSION] = not GetFFlagDisableChromeFollowupOcclusion,
-	
+	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD] = true,
+	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR] = true,
+	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK] = true,
+
 	-- Invalidate Unibar test variants if the respective disable flag is turned on
 	[MENU_VERSION_CHROME_V3_ENUM.BASELINE] = not GetFFlagDisableChromeV3Baseline,
 	[MENU_VERSION_CHROME_V3_ENUM.CAPTURES] = not GetFFlagDisableChromeV3Captures,
@@ -194,6 +207,20 @@ function ExperienceMenuABTestManager.chromeDockedMicVersionId()
 	return MENU_VERSION_CHROME_V3_ENUM.DOCKED_MIC
 end
 
+if GetFFlagSongbirdIXPVariants() then
+	function ExperienceMenuABTestManager.chromeSongbirdVersionId()
+		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD
+	end
+
+	function ExperienceMenuABTestManager.chromeSongbirdUnibarVersionId()
+		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR
+	end
+
+	function ExperienceMenuABTestManager.chromeSongbirdPeekVersionId()
+		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK
+	end
+end
+
 function parseCountData(data)
 	if not data or typeof(data) ~= "string" then
 		return nil, nil
@@ -245,7 +272,7 @@ function ExperienceMenuABTestManager:isReportAbuseMenuV2Enabled()
 end
 
 function ExperienceMenuABTestManager:isMenuModernizationEnabled()
-	for _, version in pairs(MENU_VERSION_MODERNIZATION_ENUM) do 
+	for _, version in pairs(MENU_VERSION_MODERNIZATION_ENUM) do
 		if(self:getVersion() == version) then
 			return true
 		end
@@ -263,21 +290,29 @@ function ExperienceMenuABTestManager:shouldShowStickyBar()
 end
 
 function ExperienceMenuABTestManager:isChromeEnabled()
-	for _, version in MENU_VERSION_CHROME_V3_ENUM do 
+	for _, version in MENU_VERSION_CHROME_V3_ENUM do
 		if self:getVersion() == version then
 			return true
 		end
 	end
 
-	for _, version in MENU_VERSION_CHROME_ENUM do 
+	for _, version in MENU_VERSION_CHROME_ENUM do
 		if self:getVersion() == version then
 			return true
 		end
 	end
 
-	for _, version in MENU_VERSION_CHROME_FOLLOWUP_ENUM do 
+	for _, version in MENU_VERSION_CHROME_FOLLOWUP_ENUM do
 		if self:getVersion() == version then
 			return true
+		end
+	end
+
+	if GetFFlagSongbirdIXPVariants() then
+		for _, version in MENU_VERSION_SONGBIRD_ENUM do
+			if self:getVersion() == version then
+				return true
+			end
 		end
 	end
 
@@ -286,25 +321,25 @@ end
 
 function ExperienceMenuABTestManager:shouldPinChat()
 	-- All variants in Unibar v3 have pinned chat
-	for _, version in MENU_VERSION_CHROME_V3_ENUM do 
+	for _, version in MENU_VERSION_CHROME_V3_ENUM do
 		if self:getVersion() == version then
 			return true
 		end
 	end
 
 	-- All variants in follow up Unibar test have pinned chat
-	for _, version in MENU_VERSION_CHROME_FOLLOWUP_ENUM do 
+	for _, version in MENU_VERSION_CHROME_FOLLOWUP_ENUM do
 		if self:getVersion() == version then
 			return true
 		end
-	end 
+	end
 
 	return self:getVersion() == MENU_VERSION_CHROME_ENUM.PINNED_CHAT
 end
 
 function ExperienceMenuABTestManager:shouldDefaultOpen()
 	-- All variants in Unibar v3 default open
-	for _, version in MENU_VERSION_CHROME_V3_ENUM do 
+	for _, version in MENU_VERSION_CHROME_V3_ENUM do
 		if self:getVersion() == version then
 			return true
 		end
@@ -332,6 +367,18 @@ end
 
 function ExperienceMenuABTestManager:shouldDockMic()
 	return self:getVersion() == MENU_VERSION_CHROME_V3_ENUM.DOCKED_MIC
+end
+
+if GetFFlagSongbirdIXPVariants() then
+	function ExperienceMenuABTestManager:shouldShowSongbirdUnibar()
+		local version = self:getVersion()
+		return version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR
+	end
+
+	function ExperienceMenuABTestManager:shouldShowSongbirdPeek()
+		local version = self:getVersion()
+		return version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK
+	end
 end
 
 -- this is called on the assumption that IXP layers are initialized

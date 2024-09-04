@@ -7,7 +7,10 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
-local Url = require(RobloxGui.Modules.Common.Url)
+
+local FFlagBlockingUtiltyReplaceUrls = game:DefineFastFlag("BlockingUtiltyReplaceUrls", false)
+local Url = if FFlagBlockingUtiltyReplaceUrls then require(CorePackages.Workspace.Packages.Http).Url else require(RobloxGui.Modules.Common.Url)
+
 local rolloutByApplicationId = require(CorePackages.Workspace.Packages.AppCommonLib).rolloutByApplicationId
 
 local FIntBlockUtilityBlockedUsersRequestMaxSize = game:DefineFastInt("BlockUtilityBlockedUsersRequestMaxSize", 50)

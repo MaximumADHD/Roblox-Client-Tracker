@@ -18,6 +18,8 @@ local GetFFlagDisableChromeV3StaticSelfView = require(script.Parent.Parent.Flags
 local GetFFlagDisableChromeV3Icon = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3Icon)()
 local GetFFlagDisableChromeV3DockedMic = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3DockedMic)()
 
+local GetFFlagSongbirdIXPVariants = require(script.Parent.Parent.Flags.GetFFlagSongbirdIXPVariants)
+
 local isV2Valid = false
 local isV3Valid = false
 local isModernizationValid = false
@@ -239,7 +241,7 @@ return function()
 				expect(manager:shouldShowStickyBar()).toBe(false)
 			end
 		end)
-		
+
 		it("returns report abuse V2 for user in the variant", function()
 			if IsExperienceMenuABTestEnabled() and isReportAbuseV2Valid then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
@@ -439,6 +441,94 @@ return function()
 				expect(manager:shouldDockMic()).toBe(not GetFFlagDisableChromeV3DockedMic)
 			end
 		end)
+
+		it("returns chrome v3 with songbird for user in the variant, if not disabled", function()
+			if GetFFlagSongbirdIXPVariants() and IsExperienceMenuABTestEnabled() then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeSongbirdUnibarVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdUnibarVersionId() )
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdUnibarVersionId())
+
+				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldShowSongbirdUnibar()).toBe(true)
+				expect(manager:shouldShowSongbirdPeek()).toBe(false)
+			end
+		end)
+
+		it("returns songbird peek view for user in the variant, if not disabled", function()
+			if GetFFlagSongbirdIXPVariants() and IsExperienceMenuABTestEnabled() then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeSongbirdPeekVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdPeekVersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdPeekVersionId())
+
+				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldShowSongbirdUnibar()).toBe(false)
+				expect(manager:shouldShowSongbirdPeek()).toBe(true)
+			end
+		end)
+
+		it("returns songbird peek view and unibar integration for user in the variant, if not disabled", function()
+			if GetFFlagSongbirdIXPVariants() and IsExperienceMenuABTestEnabled() then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeSongbirdVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdVersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdVersionId())
+
+				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldShowSongbirdUnibar()).toBe(true)
+				expect(manager:shouldShowSongbirdPeek()).toBe(true)
+			end
+		end)
+
 
 		it("returns default menu if ixp service is not providing valid value", function()
 			if IsExperienceMenuABTestEnabled() then

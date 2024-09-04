@@ -59,11 +59,13 @@ PROTO_3:
 PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
-  GETTABLEKS R2 R0 K1 ["CellProps"]
-  GETTABLEKS R1 R2 K2 ["OnCheckboxToggle"]
+  GETTABLEKS R1 R0 K1 ["Uploading"]
+  JUMPIF R1 [+10]
+  GETTABLEKS R2 R0 K2 ["CellProps"]
+  GETTABLEKS R1 R2 K3 ["OnCheckboxToggle"]
   MOVE R2 R1
-  GETTABLEKS R4 R0 K3 ["Row"]
-  GETTABLEKS R3 R4 K4 ["filepath"]
+  GETTABLEKS R4 R0 K4 ["Row"]
+  GETTABLEKS R3 R4 K5 ["filepath"]
   CALL R2 1 0
   RETURN R0 0
 
@@ -126,10 +128,14 @@ PROTO_8:
   GETTABLEKS R0 R1 K1 ["Row"]
   GETTABLEKS R2 R0 K2 ["enabled"]
   NOT R1 R2
-  JUMPIF R1 [+5]
+  JUMPIF R1 [+11]
   GETTABLEKS R1 R0 K3 ["uploaded"]
-  JUMPIF R1 [+2]
+  JUMPIF R1 [+8]
   GETTABLEKS R1 R0 K4 ["importDataError"]
+  JUMPIF R1 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K5 ["Uploading"]
   RETURN R1 1
 
 PROTO_9:
@@ -147,15 +153,22 @@ PROTO_10:
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["Row"]
   GETTABLEKS R1 R0 K2 ["validSession"]
-  JUMPIFNOT R1 [+7]
-  GETTABLEKS R2 R0 K3 ["uploaded"]
-  NOT R1 R2
-  JUMPIFNOT R1 [+3]
-  GETTABLEKS R2 R0 K4 ["importDataError"]
-  NOT R1 R2
   RETURN R1 1
 
 PROTO_11:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Row"]
+  GETTABLEKS R1 R0 K2 ["uploaded"]
+  JUMPIF R1 [+8]
+  GETTABLEKS R1 R0 K3 ["importDataError"]
+  JUMPIF R1 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K4 ["Uploading"]
+  RETURN R1 1
+
+PROTO_12:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K0 ["openImportPreview"]
@@ -186,47 +199,55 @@ PROTO_11:
   NEWCLOSURE R3 P9
   CAPTURE VAL R0
   SETTABLEKS R3 R0 K8 ["showCheckbox"]
+  NEWCLOSURE R3 P10
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K9 ["disableCheckbox"]
   RETURN R0 0
 
-PROTO_12:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R3 R0 K1 ["showCheckbox"]
-  CALL R3 0 1
-  JUMPIFNOT R3 [+48]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["createFragment"]
-  DUPTABLE R3 K5 [{"Layout", "Checkbox"}]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["createElement"]
-  LOADK R5 K7 ["UIListLayout"]
-  DUPTABLE R6 K11 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
-  GETIMPORT R7 K14 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R7 R6 K8 ["FillDirection"]
-  GETIMPORT R7 K16 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R7 R6 K9 ["HorizontalAlignment"]
-  GETIMPORT R7 K17 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R7 R6 K10 ["VerticalAlignment"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K3 ["Layout"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["createElement"]
-  GETUPVAL R5 1
-  DUPTABLE R6 K21 [{"OnClick", "Key", "Checked"}]
-  GETTABLEKS R7 R0 K22 ["toggleCheckbox"]
-  SETTABLEKS R7 R6 K18 ["OnClick"]
-  GETTABLEKS R7 R1 K23 ["RowIndex"]
-  SETTABLEKS R7 R6 K19 ["Key"]
-  GETTABLEKS R8 R1 K24 ["Row"]
-  GETTABLEKS R7 R8 K25 ["enabled"]
-  SETTABLEKS R7 R6 K20 ["Checked"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K4 ["Checkbox"]
-  CALL R2 1 1
-  RETURN R2 1
-  LOADNIL R2
-  RETURN R2 1
-
 PROTO_13:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Row"]
+  GETTABLEKS R3 R2 K2 ["enabled"]
+  JUMPIF R3 [+2]
+  GETTABLEKS R3 R2 K3 ["uploaded"]
+  GETTABLEKS R5 R0 K4 ["showCheckbox"]
+  CALL R5 0 1
+  JUMPIFNOT R5 [+49]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["createFragment"]
+  DUPTABLE R5 K8 [{"Layout", "Checkbox"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  LOADK R7 K10 ["UIListLayout"]
+  DUPTABLE R8 K14 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R9 K17 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K11 ["FillDirection"]
+  GETIMPORT R9 K19 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R9 R8 K12 ["HorizontalAlignment"]
+  GETIMPORT R9 K20 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R9 R8 K13 ["VerticalAlignment"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["Layout"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K25 [{"OnClick", "Key", "Checked", "Disabled"}]
+  GETTABLEKS R9 R0 K26 ["toggleCheckbox"]
+  SETTABLEKS R9 R8 K21 ["OnClick"]
+  GETTABLEKS R9 R1 K27 ["RowIndex"]
+  SETTABLEKS R9 R8 K22 ["Key"]
+  SETTABLEKS R3 R8 K23 ["Checked"]
+  GETTABLEKS R9 R0 K28 ["disableCheckbox"]
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K24 ["Disabled"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["Checkbox"]
+  CALL R4 1 1
+  RETURN R4 1
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_14:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Localization"]
   GETTABLEKS R3 R1 K2 ["Style"]
@@ -388,7 +409,7 @@ PROTO_13:
   CALL R21 3 -1
   RETURN R21 -1
 
-PROTO_14:
+PROTO_15:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Row"]
   GETTABLEKS R3 R1 K2 ["Style"]
@@ -434,7 +455,7 @@ PROTO_14:
   CALL R5 1 -1
   RETURN R5 -1
 
-PROTO_15:
+PROTO_16:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Style"]
   GETTABLEKS R3 R2 K2 ["ImportQueue"]
@@ -514,7 +535,7 @@ PROTO_15:
   CALL R6 1 -1
   RETURN R6 -1
 
-PROTO_16:
+PROTO_17:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R4 R1 K1 ["Columns"]
   GETTABLEKS R5 R1 K2 ["ColumnIndex"]
@@ -539,7 +560,7 @@ PROTO_16:
   LOADNIL R3
   RETURN R3 1
 
-PROTO_17:
+PROTO_18:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Style"]
   GETTABLEKS R3 R1 K2 ["Width"]
@@ -638,14 +659,14 @@ MAIN:
   LOADK R21 K30 ["AssetListCell"]
   NAMECALL R19 R19 K31 ["extend"]
   CALL R19 2 1
-  DUPCLOSURE R20 K32 [PROTO_11]
+  DUPCLOSURE R20 K32 [PROTO_12]
   CAPTURE VAL R11
   SETTABLEKS R20 R19 K33 ["init"]
-  DUPCLOSURE R20 K34 [PROTO_12]
+  DUPCLOSURE R20 K34 [PROTO_13]
   CAPTURE VAL R1
   CAPTURE VAL R7
   SETTABLEKS R20 R19 K35 ["renderCheckboxCell"]
-  DUPCLOSURE R20 K36 [PROTO_13]
+  DUPCLOSURE R20 K36 [PROTO_14]
   CAPTURE VAL R12
   CAPTURE VAL R9
   CAPTURE VAL R1
@@ -653,19 +674,19 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R13
   SETTABLEKS R20 R19 K37 ["renderAssetCell"]
-  DUPCLOSURE R20 K38 [PROTO_14]
+  DUPCLOSURE R20 K38 [PROTO_15]
   CAPTURE VAL R1
   CAPTURE VAL R15
   CAPTURE VAL R12
   SETTABLEKS R20 R19 K39 ["renderPresetCell"]
-  DUPCLOSURE R20 K40 [PROTO_15]
+  DUPCLOSURE R20 K40 [PROTO_16]
   CAPTURE VAL R1
   CAPTURE VAL R10
   CAPTURE VAL R9
   SETTABLEKS R20 R19 K41 ["renderPathCell"]
-  DUPCLOSURE R20 K42 [PROTO_16]
+  DUPCLOSURE R20 K42 [PROTO_17]
   SETTABLEKS R20 R19 K43 ["getContent"]
-  DUPCLOSURE R20 K44 [PROTO_17]
+  DUPCLOSURE R20 K44 [PROTO_18]
   CAPTURE VAL R5
   CAPTURE VAL R1
   CAPTURE VAL R10

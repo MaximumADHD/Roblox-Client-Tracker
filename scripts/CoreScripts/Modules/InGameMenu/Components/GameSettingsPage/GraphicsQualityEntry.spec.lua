@@ -21,7 +21,6 @@ return function()
 
 
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-	local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 	local SendNotificationInfo = Instance.new("BindableEvent")
 	SendNotificationInfo.Name = "SendNotificationInfo"
 	SendNotificationInfo.Parent = RobloxGui
@@ -81,28 +80,15 @@ return function()
 			}),
 		})
 
-		if GetFixGraphicsQuality() then
-			UserGameSettings.GraphicsQualityLevel = 11
+		UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel2
 
-			local instance = Roact.mount(element)
-			expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level11)
-			Roact.unmount(instance)
+		local instance = Roact.mount(element)
+		expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level03)
+		Roact.unmount(instance)
 
-			UserGameSettings.GraphicsQualityLevel = 21
-			instance = Roact.mount(element)
-			expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level21)
-			Roact.unmount(instance)
-		else
-			UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel2
-
-			local instance = Roact.mount(element)
-			expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level03)
-			Roact.unmount(instance)
-
-			UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel10
-			instance = Roact.mount(element)
-			expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level21)
-			Roact.unmount(instance)
-		end
+		UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel10
+		instance = Roact.mount(element)
+		expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level21)
+		Roact.unmount(instance)
 	end)
 end

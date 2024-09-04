@@ -17,7 +17,7 @@ MAIN:
   JUMPIFNOT R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K12 [game]
-  LOADK R4 K13 ["EnableLuaStartPage"]
+  LOADK R4 K13 ["EnableLuaStartPage2"]
   NAMECALL R2 R2 K14 ["GetFastFlag"]
   CALL R2 2 1
   JUMPIF R2 [+1]

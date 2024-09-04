@@ -54,19 +54,35 @@ PROTO_1:
   RETURN R2 1
 
 PROTO_2:
+  GETUPVAL R3 0
+  LENGTH R2 R3
+  JUMPIFNOTEQKN R2 K0 [0] [+22]
+  GETTABLEKS R2 R0 K1 ["SearchRank"]
+  JUMPIFNOT R2 [+18]
+  GETTABLEKS R2 R1 K1 ["SearchRank"]
+  JUMPIFNOT R2 [+15]
+  GETTABLEKS R2 R0 K1 ["SearchRank"]
+  GETTABLEKS R3 R1 K1 ["SearchRank"]
+  JUMPIFEQ R2 R3 [+10]
+  GETTABLEKS R3 R0 K1 ["SearchRank"]
+  GETTABLEKS R4 R1 K1 ["SearchRank"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
   GETUPVAL R2 0
   LOADNIL R3
   LOADNIL R4
   FORGPREP R2
   GETUPVAL R8 1
-  GETTABLEKS R9 R6 K0 ["Key"]
+  GETTABLEKS R9 R6 K2 ["Key"]
   GETTABLE R7 R8 R9
   MOVE R8 R0
   MOVE R9 R1
-  GETTABLEKS R10 R6 K1 ["IsAscending"]
+  GETTABLEKS R10 R6 K3 ["IsAscending"]
   CALL R7 3 1
-  JUMPIFEQKN R7 K2 [0] [+6]
-  JUMPIFEQKN R7 K3 [1] [+2]
+  JUMPIFEQKN R7 K0 [0] [+6]
+  JUMPIFEQKN R7 K4 [1] [+2]
   LOADB R8 0 +1
   LOADB R8 1
   RETURN R8 1
@@ -75,13 +91,10 @@ PROTO_2:
   RETURN R2 1
 
 PROTO_3:
-  LENGTH R2 R1
-  JUMPIFNOTEQKN R2 K0 [0] [+2]
-  RETURN R0 0
   NEWCLOSURE R2 P0
   CAPTURE VAL R1
   CAPTURE UPVAL U0
-  GETIMPORT R3 K3 [table.sort]
+  GETIMPORT R3 K2 [table.sort]
   MOVE R4 R0
   MOVE R5 R2
   CALL R3 2 0
@@ -92,19 +105,38 @@ PROTO_4:
   MOVE R4 R0
   MOVE R5 R2
   CALL R3 2 1
-  LENGTH R4 R1
-  JUMPIFNOTEQKN R4 K0 [0] [+2]
-  RETURN R3 1
   NEWCLOSURE R4 P0
   CAPTURE VAL R1
   CAPTURE UPVAL U1
-  GETIMPORT R5 K3 [table.sort]
+  GETIMPORT R5 K2 [table.sort]
   MOVE R6 R3
   MOVE R7 R4
   CALL R5 2 0
   RETURN R3 1
 
 PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_fetchProgressInfo"]
+  JUMPIFEQKNIL R0 [+3]
+  MOVE R3 R0
+  JUMP [+2]
+  GETTABLEKS R3 R2 K1 ["FetchProgress"]
+  SETTABLEKS R3 R2 K1 ["FetchProgress"]
+  JUMPIFEQKNIL R1 [+3]
+  MOVE R3 R1
+  JUMP [+2]
+  GETTABLEKS R3 R2 K2 ["IsLoading"]
+  SETTABLEKS R3 R2 K2 ["IsLoading"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["OnFetchProgressInfoChanged"]
+  GETUPVAL R5 1
+  MOVE R6 R2
+  CALL R5 1 -1
+  NAMECALL R3 R3 K4 ["Fire"]
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R0 0
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["_items"]
@@ -116,27 +148,24 @@ PROTO_5:
   MOVE R6 R2
   MOVE R7 R4
   CALL R5 2 1
-  LENGTH R6 R3
-  JUMPIFNOTEQKN R6 K3 [0] [+2]
-  JUMP [+8]
   NEWCLOSURE R6 P0
   CAPTURE VAL R3
   CAPTURE UPVAL U2
-  GETIMPORT R7 K6 [table.sort]
+  GETIMPORT R7 K5 [table.sort]
   MOVE R8 R5
   MOVE R9 R6
   CALL R7 2 0
   MOVE R1 R5
-  SETTABLEKS R1 R0 K7 ["_renderItems"]
+  SETTABLEKS R1 R0 K6 ["_renderItems"]
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K8 ["OnItemsChanged"]
+  GETTABLEKS R0 R1 K7 ["OnItemsChanged"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K7 ["_renderItems"]
-  NAMECALL R0 R0 K9 ["Fire"]
+  GETTABLEKS R2 R3 K6 ["_renderItems"]
+  NAMECALL R0 R0 K8 ["Fire"]
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R1 0
   GETIMPORT R3 K3 [Enum.KeyCode.LeftShift]
   GETTABLE R2 R0 R3
@@ -159,32 +188,46 @@ PROTO_6:
   SETTABLEKS R2 R1 K15 ["_usingCtrl"]
   RETURN R0 0
 
-PROTO_7:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["_fetchProgressInfo"]
-  SETTABLEKS R0 R1 K1 ["FetchProgress"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["OnFetchProgressInfoChanged"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["_fetchProgressInfo"]
-  NAMECALL R1 R1 K3 ["Fire"]
-  CALL R1 2 0
-  RETURN R0 0
-
 PROTO_8:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["_fetchProgressInfo"]
-  LOADB R1 0
-  SETTABLEKS R1 R0 K1 ["IsLoading"]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K2 ["OnFetchProgressInfoChanged"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["_fetchProgressInfo"]
-  NAMECALL R0 R0 K3 ["Fire"]
-  CALL R0 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_updateProgressInfo"]
+  MOVE R2 R0
+  CALL R1 1 0
   RETURN R0 0
 
 PROTO_9:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_updateProgressInfo"]
+  LOADNIL R1
+  LOADB R2 0
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_networking"]
+  NAMECALL R0 R0 K1 ["makeFetchRequestsStale"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["_items"]
+  GETUPVAL R0 0
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K3 ["_creators"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K4 ["OnItemsChanged"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_items"]
+  NAMECALL R0 R0 K5 ["Fire"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K6 ["_updateProgressInfo"]
+  LOADN R1 0
+  LOADB R2 0
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_11:
   MOVE R2 R0
   LOADNIL R3
   LOADNIL R4
@@ -226,27 +269,24 @@ PROTO_9:
   MOVE R8 R4
   MOVE R9 R6
   CALL R7 2 1
-  LENGTH R8 R5
-  JUMPIFNOTEQKN R8 K7 [0] [+2]
-  JUMP [+8]
   NEWCLOSURE R8 P0
   CAPTURE VAL R5
   CAPTURE UPVAL U4
-  GETIMPORT R9 K10 [table.sort]
+  GETIMPORT R9 K9 [table.sort]
   MOVE R10 R7
   MOVE R11 R8
   CALL R9 2 0
   MOVE R3 R7
-  SETTABLEKS R3 R2 K11 ["_renderItems"]
+  SETTABLEKS R3 R2 K10 ["_renderItems"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K12 ["OnItemsChanged"]
+  GETTABLEKS R2 R3 K11 ["OnItemsChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K11 ["_renderItems"]
-  NAMECALL R2 R2 K13 ["Fire"]
+  GETTABLEKS R4 R5 K10 ["_renderItems"]
+  NAMECALL R2 R2 K12 ["Fire"]
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_12:
   GETUPVAL R2 0
   CALL R2 0 1
   JUMPIFNOT R2 [+16]
@@ -265,48 +305,38 @@ PROTO_10:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_11:
-  GETUPVAL R0 0
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["_items"]
-  GETUPVAL R0 0
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K1 ["_creators"]
+PROTO_13:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K2 ["OnItemsChanged"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["_items"]
-  NAMECALL R0 R0 K3 ["Fire"]
-  CALL R0 2 0
-  DUPTABLE R0 K6 [{"Id", "Scope"}]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K7 ["_scope"]
-  GETTABLEKS R1 R2 K4 ["Id"]
-  SETTABLEKS R1 R0 K4 ["Id"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K7 ["_scope"]
-  GETTABLEKS R1 R2 K5 ["Scope"]
-  SETTABLEKS R1 R0 K5 ["Scope"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K8 ["_fetchProgressInfo"]
+  GETTABLEKS R0 R1 K0 ["_clearItems"]
+  CALL R0 0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["_updateProgressInfo"]
+  LOADN R1 0
   LOADB R2 1
-  SETTABLEKS R2 R1 K9 ["IsLoading"]
+  CALL R0 2 0
+  DUPTABLE R0 K5 [{"Id", "Scope", "IsSearch"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["_scope"]
+  GETTABLEKS R1 R2 K2 ["Id"]
+  SETTABLEKS R1 R0 K2 ["Id"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["_scope"]
+  GETTABLEKS R1 R2 K3 ["Scope"]
+  SETTABLEKS R1 R0 K3 ["Scope"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K4 ["IsSearch"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K8 ["_fetchProgressInfo"]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K10 ["FetchProgress"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K11 ["_networking"]
+  GETTABLEKS R1 R2 K7 ["_networking"]
   MOVE R3 R0
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K12 ["_fetchAssetsCallback"]
+  GETTABLEKS R4 R5 K8 ["_fetchAssetsCallback"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K13 ["_fetchAssetsErrorCallback"]
-  NAMECALL R1 R1 K14 ["fetchAssetsLegacyAsync"]
+  GETTABLEKS R5 R6 K9 ["_fetchAssetsErrorCallback"]
+  NAMECALL R1 R1 K10 ["fetchAssetsLegacyAsync"]
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_14:
   GETTABLEKS R1 R0 K0 ["Id"]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K1 ["_scope"]
@@ -320,180 +350,316 @@ PROTO_12:
   CALL R1 0 0
   RETURN R0 0
 
-PROTO_13:
-  DUPTABLE R3 K24 [{"_isMock", "_pluginController", "_networking", "_visibleProperties", "_scope", "_layout", "_columnWidths", "_items", "_renderItems", "_creators", "_filters", "_sorts", "_selection", "_prevClickIndex", "_usingShift", "_usingCtrl", "_fetchProgressInfo", "OnFetchProgressInfoChanged", "OnLayoutChanged", "OnVisiblePropertiesChanged", "OnColumnWidthsChanged", "OnItemsChanged", "OnItemSelectionChanged", "OnSortFilterChanged"}]
-  SETTABLEKS R2 R3 K0 ["_isMock"]
-  SETTABLEKS R0 R3 K1 ["_pluginController"]
-  SETTABLEKS R1 R3 K2 ["_networking"]
-  NEWTABLE R4 0 5
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K25 ["DisplayName"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K26 ["AssetId"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K27 ["AssetType"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K28 ["Created"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K29 ["Creator"]
-  SETLIST R4 R5 5 [1]
-  SETTABLEKS R4 R3 K3 ["_visibleProperties"]
-  NAMECALL R4 R0 K30 ["getUser"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K4 ["_scope"]
-  DUPTABLE R4 K33 [{"GridSize", "ViewType"}]
-  LOADN R5 100
-  SETTABLEKS R5 R4 K31 ["GridSize"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K32 ["ViewType"]
-  GETTABLEKS R5 R6 K34 ["List"]
-  SETTABLEKS R5 R4 K32 ["ViewType"]
-  SETTABLEKS R4 R3 K5 ["_layout"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K6 ["_columnWidths"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K7 ["_items"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K8 ["_renderItems"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K9 ["_creators"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K10 ["_filters"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K11 ["_sorts"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K12 ["_selection"]
-  LOADN R4 1
-  SETTABLEKS R4 R3 K13 ["_prevClickIndex"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K14 ["_usingShift"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K15 ["_usingCtrl"]
-  DUPTABLE R4 K37 [{"FetchProgress", "IsLoading"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K35 ["FetchProgress"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K36 ["IsLoading"]
-  SETTABLEKS R4 R3 K16 ["_fetchProgressInfo"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K38 ["new"]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K17 ["OnFetchProgressInfoChanged"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K38 ["new"]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K18 ["OnLayoutChanged"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K38 ["new"]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K19 ["OnVisiblePropertiesChanged"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K38 ["new"]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K20 ["OnColumnWidthsChanged"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K38 ["new"]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K21 ["OnItemsChanged"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K38 ["new"]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K22 ["OnItemSelectionChanged"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K38 ["new"]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K23 ["OnSortFilterChanged"]
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R3
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  SETTABLEKS R4 R3 K39 ["_updateRenderItems"]
-  GETTABLEKS R5 R3 K1 ["_pluginController"]
-  GETTABLEKS R4 R5 K40 ["OnInputChanged"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R3
-  NAMECALL R4 R4 K41 ["Connect"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K42 ["_inputConnection"]
-  GETTABLEKS R5 R3 K2 ["_networking"]
-  GETTABLEKS R4 R5 K43 ["OnFetchProgressChanged"]
-  NEWCLOSURE R6 P2
-  CAPTURE VAL R3
-  NAMECALL R4 R4 K41 ["Connect"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K44 ["_progressConnection"]
-  GETTABLEKS R5 R3 K2 ["_networking"]
-  GETTABLEKS R4 R5 K45 ["OnFetchFinished"]
-  NEWCLOSURE R6 P3
-  CAPTURE VAL R3
-  NAMECALL R4 R4 K41 ["Connect"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K46 ["_fetchFinishedConnection"]
-  GETTABLEKS R4 R3 K3 ["_visibleProperties"]
-  LOADNIL R5
-  LOADNIL R6
-  FORGPREP R4
-  GETTABLEKS R9 R3 K6 ["_columnWidths"]
-  GETUPVAL R10 5
-  SETTABLE R10 R9 R7
-  FORGLOOP R4 2 [-5]
-  NEWCLOSURE R4 P4
-  CAPTURE VAL R3
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  SETTABLEKS R4 R3 K47 ["_fetchAssetsCallback"]
-  DUPCLOSURE R4 K48 [PROTO_10]
-  CAPTURE UPVAL U7
-  SETTABLEKS R4 R3 K49 ["_fetchAssetsErrorCallback"]
-  DUPTABLE R4 K52 [{"Id", "Scope"}]
-  GETTABLEKS R6 R3 K1 ["_pluginController"]
-  NAMECALL R6 R6 K30 ["getUser"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K50 ["Id"]
-  SETTABLEKS R5 R4 K50 ["Id"]
-  GETTABLEKS R6 R3 K1 ["_pluginController"]
-  NAMECALL R6 R6 K30 ["getUser"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K51 ["Scope"]
-  SETTABLEKS R5 R4 K51 ["Scope"]
-  GETTABLEKS R5 R3 K16 ["_fetchProgressInfo"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K36 ["IsLoading"]
-  GETTABLEKS R5 R3 K2 ["_networking"]
-  MOVE R7 R4
-  GETTABLEKS R8 R3 K47 ["_fetchAssetsCallback"]
-  GETTABLEKS R9 R3 K49 ["_fetchAssetsErrorCallback"]
-  NAMECALL R5 R5 K53 ["fetchAssetsLegacyAsync"]
-  CALL R5 4 0
-  NEWCLOSURE R5 P6
-  CAPTURE VAL R3
-  SETTABLEKS R5 R3 K54 ["_clearAndFetchNewItems"]
-  GETTABLEKS R6 R3 K1 ["_pluginController"]
-  GETTABLEKS R5 R6 K55 ["OnSelectionChanged"]
-  NEWCLOSURE R7 P7
-  CAPTURE VAL R3
-  NAMECALL R5 R5 K41 ["Connect"]
-  CALL R5 2 1
-  SETTABLEKS R5 R3 K56 ["_explorerSelectionConnection"]
-  GETUPVAL R7 8
-  FASTCALL2 SETMETATABLE R3 R7 [+4]
-  MOVE R6 R3
-  GETIMPORT R5 K58 [setmetatable]
-  CALL R5 2 0
-  RETURN R3 1
-
-PROTO_14:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["new"]
-  MOVE R3 R0
-  MOVE R4 R1
-  LOADB R5 1
-  CALL R2 3 -1
-  RETURN R2 -1
-
 PROTO_15:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_clearItems"]
+  CALL R0 0 0
+  GETUPVAL R0 0
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K1 ["_sorts"]
+  GETUPVAL R0 0
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["_filters"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["OnSortFilterChanged"]
+  GETUPVAL R2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["_sorts"]
+  CALL R2 1 1
+  GETUPVAL R3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["_filters"]
+  CALL R3 1 -1
+  NAMECALL R0 R0 K4 ["Fire"]
+  CALL R0 -1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K5 ["_updateProgressInfo"]
+  LOADN R1 0
+  LOADB R2 1
+  CALL R0 2 0
+  DUPTABLE R0 K11 [{"Id", "Scope", "IsSearch", "SearchTerm", "SearchOptions"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K12 ["_pluginController"]
+  NAMECALL R2 R2 K13 ["getUser"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K6 ["Id"]
+  SETTABLEKS R1 R0 K6 ["Id"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K12 ["_pluginController"]
+  NAMECALL R2 R2 K13 ["getUser"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K7 ["Scope"]
+  SETTABLEKS R1 R0 K7 ["Scope"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K8 ["IsSearch"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K14 ["_searchController"]
+  NAMECALL R1 R1 K15 ["getSearchTerm"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K9 ["SearchTerm"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K14 ["_searchController"]
+  NAMECALL R1 R1 K16 ["getSearchOptions"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K10 ["SearchOptions"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K17 ["_networking"]
+  MOVE R3 R0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K18 ["_fetchAssetsCallback"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K19 ["_fetchAssetsErrorCallback"]
+  NAMECALL R1 R1 K20 ["fetchSearchAssetsLegacyAsync"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_clearAndFetchSearchItems"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_17:
+  JUMPIFNOTEQKS R0 K0 [""] [+6]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["_clearItems"]
+  CALL R1 0 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["_clearAndFetchSearchItems"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_18:
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_clearItems"]
+  CALL R1 0 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["_clearAndFetchNewItems"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_19:
+  DUPTABLE R4 K25 [{"_isMock", "_pluginController", "_searchController", "_networking", "_visibleProperties", "_scope", "_layout", "_columnWidths", "_items", "_renderItems", "_creators", "_filters", "_sorts", "_selection", "_prevClickIndex", "_usingShift", "_usingCtrl", "_fetchProgressInfo", "OnFetchProgressInfoChanged", "OnLayoutChanged", "OnVisiblePropertiesChanged", "OnColumnWidthsChanged", "OnItemsChanged", "OnItemSelectionChanged", "OnSortFilterChanged"}]
+  SETTABLEKS R3 R4 K0 ["_isMock"]
+  SETTABLEKS R0 R4 K1 ["_pluginController"]
+  SETTABLEKS R1 R4 K2 ["_searchController"]
+  SETTABLEKS R2 R4 K3 ["_networking"]
+  NEWTABLE R5 0 5
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K26 ["DisplayName"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K27 ["AssetId"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K28 ["AssetType"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K29 ["Modified"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K30 ["Creator"]
+  SETLIST R5 R6 5 [1]
+  SETTABLEKS R5 R4 K4 ["_visibleProperties"]
+  NAMECALL R5 R0 K31 ["getUser"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K5 ["_scope"]
+  DUPTABLE R5 K34 [{"GridSize", "ViewType"}]
+  LOADN R6 100
+  SETTABLEKS R6 R5 K32 ["GridSize"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K33 ["ViewType"]
+  GETTABLEKS R6 R7 K35 ["List"]
+  SETTABLEKS R6 R5 K33 ["ViewType"]
+  SETTABLEKS R5 R4 K6 ["_layout"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K7 ["_columnWidths"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K8 ["_items"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K9 ["_renderItems"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K10 ["_creators"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K11 ["_filters"]
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K38 [{"Key", "IsAscending"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K39 ["AssetInfoField"]
+  GETTABLEKS R7 R8 K29 ["Modified"]
+  SETTABLEKS R7 R6 K36 ["Key"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K37 ["IsAscending"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K12 ["_sorts"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K13 ["_selection"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K14 ["_prevClickIndex"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K15 ["_usingShift"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K16 ["_usingCtrl"]
+  DUPTABLE R5 K42 [{"FetchProgress", "IsLoading"}]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K40 ["FetchProgress"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K41 ["IsLoading"]
+  SETTABLEKS R5 R4 K17 ["_fetchProgressInfo"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K43 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K18 ["OnFetchProgressInfoChanged"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K43 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K19 ["OnLayoutChanged"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K43 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K20 ["OnVisiblePropertiesChanged"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K43 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K21 ["OnColumnWidthsChanged"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K43 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K22 ["OnItemsChanged"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K43 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K23 ["OnItemSelectionChanged"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K43 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K24 ["OnSortFilterChanged"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R4
+  CAPTURE UPVAL U3
+  SETTABLEKS R5 R4 K44 ["_updateProgressInfo"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R4
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  SETTABLEKS R5 R4 K45 ["_updateRenderItems"]
+  GETTABLEKS R6 R4 K1 ["_pluginController"]
+  GETTABLEKS R5 R6 K46 ["OnInputChanged"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R4
+  NAMECALL R5 R5 K47 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K48 ["_inputConnection"]
+  GETTABLEKS R6 R4 K3 ["_networking"]
+  GETTABLEKS R5 R6 K49 ["OnFetchProgressChanged"]
+  NEWCLOSURE R7 P3
+  CAPTURE VAL R4
+  NAMECALL R5 R5 K47 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K50 ["_progressConnection"]
+  GETTABLEKS R6 R4 K3 ["_networking"]
+  GETTABLEKS R5 R6 K51 ["OnFetchFinished"]
+  NEWCLOSURE R7 P4
+  CAPTURE VAL R4
+  NAMECALL R5 R5 K47 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K52 ["_fetchFinishedConnection"]
+  GETTABLEKS R5 R4 K4 ["_visibleProperties"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLEKS R10 R4 K7 ["_columnWidths"]
+  GETUPVAL R11 6
+  SETTABLE R11 R10 R8
+  FORGLOOP R5 2 [-5]
+  NEWCLOSURE R5 P5
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K53 ["_clearItems"]
+  NEWCLOSURE R5 P6
+  CAPTURE VAL R4
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  SETTABLEKS R5 R4 K54 ["_fetchAssetsCallback"]
+  DUPCLOSURE R5 K55 [PROTO_12]
+  CAPTURE UPVAL U8
+  SETTABLEKS R5 R4 K56 ["_fetchAssetsErrorCallback"]
+  DUPTABLE R5 K60 [{"Id", "Scope", "IsSearch"}]
+  GETTABLEKS R7 R4 K1 ["_pluginController"]
+  NAMECALL R7 R7 K31 ["getUser"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K57 ["Id"]
+  SETTABLEKS R6 R5 K57 ["Id"]
+  GETTABLEKS R7 R4 K1 ["_pluginController"]
+  NAMECALL R7 R7 K31 ["getUser"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K58 ["Scope"]
+  SETTABLEKS R6 R5 K58 ["Scope"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K59 ["IsSearch"]
+  GETTABLEKS R6 R4 K44 ["_updateProgressInfo"]
+  LOADN R7 0
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R6 R4 K3 ["_networking"]
+  MOVE R8 R5
+  GETTABLEKS R9 R4 K54 ["_fetchAssetsCallback"]
+  GETTABLEKS R10 R4 K56 ["_fetchAssetsErrorCallback"]
+  NAMECALL R6 R6 K61 ["fetchAssetsLegacyAsync"]
+  CALL R6 4 0
+  NEWCLOSURE R6 P8
+  CAPTURE VAL R4
+  SETTABLEKS R6 R4 K62 ["_clearAndFetchNewItems"]
+  GETTABLEKS R7 R4 K1 ["_pluginController"]
+  GETTABLEKS R6 R7 K63 ["OnSelectionChanged"]
+  NEWCLOSURE R8 P9
+  CAPTURE VAL R4
+  NAMECALL R6 R6 K47 ["Connect"]
+  CALL R6 2 1
+  SETTABLEKS R6 R4 K64 ["_explorerSelectionConnection"]
+  NEWCLOSURE R6 P10
+  CAPTURE VAL R4
+  CAPTURE UPVAL U3
+  SETTABLEKS R6 R4 K65 ["_clearAndFetchSearchItems"]
+  GETTABLEKS R7 R4 K2 ["_searchController"]
+  GETTABLEKS R6 R7 K66 ["OnSearchOptionsChanged"]
+  NEWCLOSURE R8 P11
+  CAPTURE VAL R4
+  NAMECALL R6 R6 K47 ["Connect"]
+  CALL R6 2 1
+  SETTABLEKS R6 R4 K67 ["_searchOptionsConnection"]
+  GETTABLEKS R7 R4 K2 ["_searchController"]
+  GETTABLEKS R6 R7 K68 ["OnSearchTermChanged"]
+  NEWCLOSURE R8 P12
+  CAPTURE VAL R4
+  NAMECALL R6 R6 K47 ["Connect"]
+  CALL R6 2 1
+  SETTABLEKS R6 R4 K69 ["_searchTermConnection"]
+  GETTABLEKS R7 R4 K2 ["_searchController"]
+  GETTABLEKS R6 R7 K70 ["OnShowSearchOptionsChanged"]
+  NEWCLOSURE R8 P13
+  CAPTURE VAL R4
+  NAMECALL R6 R6 K47 ["Connect"]
+  CALL R6 2 1
+  SETTABLEKS R6 R4 K71 ["_searchShowOptionsConnection"]
+  GETUPVAL R8 9
+  FASTCALL2 SETMETATABLE R4 R8 [+4]
+  MOVE R7 R4
+  GETIMPORT R6 K73 [setmetatable]
+  CALL R6 2 0
+  RETURN R4 1
+
+PROTO_20:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["new"]
+  MOVE R4 R0
+  MOVE R5 R1
+  MOVE R6 R2
+  LOADB R7 1
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_21:
   GETTABLEKS R1 R0 K0 ["_explorerSelectionConnection"]
   NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
@@ -514,32 +680,47 @@ PROTO_15:
   CALL R1 1 0
   LOADNIL R1
   SETTABLEKS R1 R0 K4 ["_fetchFinishedConnection"]
+  GETTABLEKS R1 R0 K5 ["_searchOptionsConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K5 ["_visibleProperties"]
+  SETTABLEKS R1 R0 K5 ["_searchOptionsConnection"]
+  GETTABLEKS R1 R0 K6 ["_searchTermConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K6 ["_columnWidths"]
+  SETTABLEKS R1 R0 K6 ["_searchTermConnection"]
+  GETTABLEKS R1 R0 K7 ["_searchShowOptionsConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K7 ["_items"]
+  SETTABLEKS R1 R0 K7 ["_searchShowOptionsConnection"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K8 ["_creators"]
+  SETTABLEKS R1 R0 K8 ["_visibleProperties"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K9 ["_filters"]
+  SETTABLEKS R1 R0 K9 ["_columnWidths"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K10 ["_sorts"]
+  SETTABLEKS R1 R0 K10 ["_items"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K11 ["_selection"]
+  SETTABLEKS R1 R0 K11 ["_creators"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K12 ["_filters"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K13 ["_sorts"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K14 ["_selection"]
   RETURN R0 0
 
-PROTO_16:
+PROTO_22:
   GETTABLEKS R1 R0 K0 ["_clearAndFetchNewItems"]
   CALL R1 0 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_23:
   GETTABLEKS R1 R0 K0 ["_layout"]
   RETURN R1 1
 
-PROTO_18:
+PROTO_24:
   SETTABLEKS R1 R0 K0 ["_layout"]
   GETTABLEKS R2 R0 K1 ["OnLayoutChanged"]
   GETTABLEKS R4 R0 K0 ["_layout"]
@@ -547,11 +728,42 @@ PROTO_18:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_25:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["_columnWidths"]
+  CALL R1 1 1
+  GETUPVAL R4 1
+  FASTCALL2 TABLE_INSERT R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K3 [table.insert]
+  CALL R2 2 0
+  SETTABLEKS R1 R0 K0 ["_columnWidths"]
+  GETTABLEKS R2 R0 K4 ["OnColumnWidthsChanged"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K5 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_26:
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["_columnWidths"]
+  CALL R2 1 1
+  GETIMPORT R3 K3 [table.remove]
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 0
+  SETTABLEKS R2 R0 K0 ["_columnWidths"]
+  GETTABLEKS R3 R0 K4 ["OnColumnWidthsChanged"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K5 ["Fire"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_27:
   GETTABLEKS R1 R0 K0 ["_columnWidths"]
   RETURN R1 1
 
-PROTO_20:
+PROTO_28:
   SETTABLEKS R1 R0 K0 ["_columnWidths"]
   GETTABLEKS R2 R0 K1 ["OnColumnWidthsChanged"]
   GETTABLEKS R4 R0 K0 ["_columnWidths"]
@@ -559,27 +771,74 @@ PROTO_20:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_29:
   GETTABLEKS R1 R0 K0 ["_visibleProperties"]
   RETURN R1 1
 
-PROTO_22:
+PROTO_30:
   SETTABLEKS R1 R0 K0 ["_visibleProperties"]
   GETTABLEKS R2 R0 K1 ["OnVisiblePropertiesChanged"]
-  GETTABLEKS R4 R0 K0 ["_visibleProperties"]
+  GETUPVAL R4 0
+  GETTABLEKS R5 R0 K0 ["_visibleProperties"]
+  CALL R4 1 -1
   NAMECALL R2 R2 K2 ["Fire"]
-  CALL R2 2 0
+  CALL R2 -1 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_31:
+  GETUPVAL R2 0
+  JUMPIFEQ R2 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_32:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["findIndex"]
+  GETTABLEKS R3 R0 K1 ["_visibleProperties"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_33:
+  GETTABLEKS R2 R0 K0 ["_visibleProperties"]
+  MOVE R5 R1
+  NAMECALL R3 R0 K1 ["getVisiblePropertyIndex"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+10]
+  GETIMPORT R4 K4 [table.remove]
+  MOVE R5 R2
+  MOVE R6 R3
+  CALL R4 2 0
+  MOVE R6 R3
+  NAMECALL R4 R0 K5 ["_removeColumnWidth"]
+  CALL R4 2 0
+  JUMP [+10]
+  FASTCALL2 TABLE_INSERT R2 R1 [+5]
+  MOVE R5 R2
+  MOVE R6 R1
+  GETIMPORT R4 K7 [table.insert]
+  CALL R4 2 0
+  NAMECALL R4 R0 K8 ["_addColumnWidth"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K9 ["OnVisiblePropertiesChanged"]
+  GETUPVAL R6 0
+  GETTABLEKS R7 R0 K0 ["_visibleProperties"]
+  CALL R6 1 -1
+  NAMECALL R4 R4 K10 ["Fire"]
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_34:
   GETTABLEKS R1 R0 K0 ["_items"]
   RETURN R1 1
 
-PROTO_24:
+PROTO_35:
   GETTABLEKS R1 R0 K0 ["_renderItems"]
   RETURN R1 1
 
-PROTO_25:
+PROTO_36:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["_creators"]
   CALL R1 1 1
@@ -588,7 +847,7 @@ PROTO_25:
   CALL R2 1 0
   RETURN R1 1
 
-PROTO_26:
+PROTO_37:
   NAMECALL R1 R0 K0 ["_updateRenderItems"]
   CALL R1 1 0
   GETTABLEKS R1 R0 K1 ["OnSortFilterChanged"]
@@ -602,35 +861,35 @@ PROTO_26:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_38:
   GETTABLEKS R1 R0 K0 ["_filters"]
   RETURN R1 1
 
-PROTO_28:
+PROTO_39:
   GETTABLEKS R3 R0 K0 ["_filters"]
   SETTABLE R2 R3 R1
   NAMECALL R3 R0 K1 ["_updateSortFilter"]
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_40:
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K0 ["_filters"]
   NAMECALL R1 R0 K1 ["_updateSortFilter"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_41:
   GETTABLEKS R1 R0 K0 ["_sorts"]
   RETURN R1 1
 
-PROTO_31:
+PROTO_42:
   SETTABLEKS R1 R0 K0 ["_sorts"]
   NAMECALL R2 R0 K1 ["_updateSortFilter"]
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_43:
   LOADB R2 0
   GETTABLEKS R3 R0 K0 ["_sorts"]
   LOADNIL R4
@@ -659,11 +918,11 @@ PROTO_32:
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_44:
   GETTABLEKS R1 R0 K0 ["_selection"]
   RETURN R1 1
 
-PROTO_34:
+PROTO_45:
   NEWTABLE R2 0 0
   SETTABLEKS R2 R0 K0 ["_selection"]
   MOVE R2 R1
@@ -680,7 +939,7 @@ PROTO_34:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_35:
+PROTO_46:
   MOVE R2 R1
   LOADNIL R3
   LOADNIL R4
@@ -704,11 +963,11 @@ PROTO_35:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_36:
+PROTO_47:
   GETTABLEKS R1 R0 K0 ["_prevClickIndex"]
   RETURN R1 1
 
-PROTO_37:
+PROTO_48:
   GETUPVAL R5 0
   MOVE R6 R2
   GETTABLEKS R7 R0 K0 ["_prevClickIndex"]
@@ -742,7 +1001,7 @@ PROTO_37:
   SETTABLEKS R3 R0 K0 ["_prevClickIndex"]
   RETURN R0 0
 
-PROTO_38:
+PROTO_49:
   GETTABLEKS R5 R0 K0 ["_selection"]
   GETTABLE R4 R5 R1
   JUMPIF R4 [+10]
@@ -752,22 +1011,37 @@ PROTO_38:
   NAMECALL R4 R0 K1 ["setSelection"]
   CALL R4 2 0
   SETTABLEKS R2 R0 K2 ["_prevClickIndex"]
-  GETUPVAL R4 0
-  GETUPVAL R5 1
-  NAMECALL R6 R0 K3 ["getSelection"]
-  CALL R6 1 -1
-  CALL R5 -1 1
+  GETUPVAL R5 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K3 ["MenuContext"]
+  GETTABLEKS R6 R7 K4 ["Asset"]
+  GETTABLE R4 R5 R6
+  MOVE R5 R0
   MOVE R6 R3
-  GETTABLEKS R7 R0 K4 ["_pluginController"]
-  NAMECALL R7 R7 K5 ["getPlugin"]
-  CALL R7 1 1
-  GETTABLEKS R8 R0 K6 ["_isMock"]
-  CALL R4 4 0
+  GETTABLEKS R7 R0 K5 ["_isMock"]
+  CALL R4 3 0
   RETURN R0 0
 
-PROTO_39:
+PROTO_50:
+  GETUPVAL R3 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["MenuContext"]
+  GETTABLEKS R4 R5 K1 ["Column"]
+  GETTABLE R2 R3 R4
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_51:
   GETTABLEKS R1 R0 K0 ["_fetchProgressInfo"]
   RETURN R1 1
+
+PROTO_52:
+  GETTABLEKS R1 R0 K0 ["_pluginController"]
+  NAMECALL R1 R1 K1 ["getPlugin"]
+  CALL R1 1 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0
@@ -843,10 +1117,11 @@ MAIN:
   DUPCLOSURE R24 K35 [PROTO_4]
   CAPTURE VAL R22
   CAPTURE VAL R16
-  DUPCLOSURE R25 K36 [PROTO_13]
+  DUPCLOSURE R25 K36 [PROTO_19]
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R10
+  CAPTURE VAL R5
   CAPTURE VAL R22
   CAPTURE VAL R16
   CAPTURE VAL R19
@@ -854,64 +1129,84 @@ MAIN:
   CAPTURE VAL R18
   CAPTURE VAL R20
   SETTABLEKS R25 R20 K28 ["new"]
-  DUPCLOSURE R25 K37 [PROTO_14]
+  DUPCLOSURE R25 K37 [PROTO_20]
   CAPTURE VAL R20
   SETTABLEKS R25 R20 K38 ["mock"]
-  DUPCLOSURE R25 K39 [PROTO_15]
+  DUPCLOSURE R25 K39 [PROTO_21]
   SETTABLEKS R25 R20 K40 ["destroy"]
-  DUPCLOSURE R25 K41 [PROTO_16]
+  DUPCLOSURE R25 K41 [PROTO_22]
   SETTABLEKS R25 R20 K42 ["refreshItems"]
-  DUPCLOSURE R25 K43 [PROTO_17]
+  DUPCLOSURE R25 K43 [PROTO_23]
   SETTABLEKS R25 R20 K44 ["getLayout"]
-  DUPCLOSURE R25 K45 [PROTO_18]
+  DUPCLOSURE R25 K45 [PROTO_24]
   SETTABLEKS R25 R20 K46 ["setLayout"]
-  DUPCLOSURE R25 K47 [PROTO_19]
-  SETTABLEKS R25 R20 K48 ["getColumnWidths"]
-  DUPCLOSURE R25 K49 [PROTO_20]
-  SETTABLEKS R25 R20 K50 ["setColumnWidths"]
-  DUPCLOSURE R25 K51 [PROTO_21]
-  SETTABLEKS R25 R20 K52 ["getVisibleProperties"]
-  DUPCLOSURE R25 K53 [PROTO_22]
-  SETTABLEKS R25 R20 K54 ["setVisibleProperties"]
-  DUPCLOSURE R25 K55 [PROTO_23]
-  SETTABLEKS R25 R20 K56 ["getItems"]
-  DUPCLOSURE R25 K57 [PROTO_24]
-  SETTABLEKS R25 R20 K58 ["getRenderItems"]
-  DUPCLOSURE R25 K59 [PROTO_25]
+  DUPCLOSURE R25 K47 [PROTO_25]
+  CAPTURE VAL R5
+  CAPTURE VAL R19
+  SETTABLEKS R25 R20 K48 ["_addColumnWidth"]
+  DUPCLOSURE R25 K49 [PROTO_26]
+  CAPTURE VAL R5
+  SETTABLEKS R25 R20 K50 ["_removeColumnWidth"]
+  DUPCLOSURE R25 K51 [PROTO_27]
+  SETTABLEKS R25 R20 K52 ["getColumnWidths"]
+  DUPCLOSURE R25 K53 [PROTO_28]
+  SETTABLEKS R25 R20 K54 ["setColumnWidths"]
+  DUPCLOSURE R25 K55 [PROTO_29]
+  SETTABLEKS R25 R20 K56 ["getVisibleProperties"]
+  DUPCLOSURE R25 K57 [PROTO_30]
+  CAPTURE VAL R5
+  SETTABLEKS R25 R20 K58 ["setVisibleProperties"]
+  DUPCLOSURE R25 K59 [PROTO_32]
+  CAPTURE VAL R4
+  SETTABLEKS R25 R20 K60 ["getVisiblePropertyIndex"]
+  DUPCLOSURE R25 K61 [PROTO_33]
+  CAPTURE VAL R5
+  SETTABLEKS R25 R20 K62 ["toggleVisibleProperty"]
+  DUPCLOSURE R25 K63 [PROTO_34]
+  SETTABLEKS R25 R20 K64 ["getItems"]
+  DUPCLOSURE R25 K65 [PROTO_35]
+  SETTABLEKS R25 R20 K66 ["getRenderItems"]
+  DUPCLOSURE R25 K67 [PROTO_36]
   CAPTURE VAL R7
-  SETTABLEKS R25 R20 K60 ["getCreators"]
-  DUPCLOSURE R25 K61 [PROTO_26]
+  SETTABLEKS R25 R20 K68 ["getCreators"]
+  DUPCLOSURE R25 K69 [PROTO_37]
   CAPTURE VAL R5
-  SETTABLEKS R25 R20 K62 ["_updateSortFilter"]
-  DUPCLOSURE R25 K63 [PROTO_27]
-  SETTABLEKS R25 R20 K64 ["getFilters"]
-  DUPCLOSURE R25 K65 [PROTO_28]
-  SETTABLEKS R25 R20 K66 ["addFilter"]
-  DUPCLOSURE R25 K67 [PROTO_29]
-  SETTABLEKS R25 R20 K68 ["clearFilters"]
-  DUPCLOSURE R25 K69 [PROTO_30]
-  SETTABLEKS R25 R20 K70 ["getSorts"]
-  DUPCLOSURE R25 K71 [PROTO_31]
-  SETTABLEKS R25 R20 K72 ["setSorts"]
-  DUPCLOSURE R25 K73 [PROTO_32]
-  SETTABLEKS R25 R20 K74 ["addSort"]
-  DUPCLOSURE R25 K75 [PROTO_33]
-  SETTABLEKS R25 R20 K76 ["getSelection"]
-  DUPCLOSURE R25 K77 [PROTO_34]
-  SETTABLEKS R25 R20 K78 ["setSelection"]
-  DUPCLOSURE R25 K79 [PROTO_35]
+  SETTABLEKS R25 R20 K70 ["_updateSortFilter"]
+  DUPCLOSURE R25 K71 [PROTO_38]
+  SETTABLEKS R25 R20 K72 ["getFilters"]
+  DUPCLOSURE R25 K73 [PROTO_39]
+  SETTABLEKS R25 R20 K74 ["addFilter"]
+  DUPCLOSURE R25 K75 [PROTO_40]
+  SETTABLEKS R25 R20 K76 ["clearFilters"]
+  DUPCLOSURE R25 K77 [PROTO_41]
+  SETTABLEKS R25 R20 K78 ["getSorts"]
+  DUPCLOSURE R25 K79 [PROTO_42]
+  SETTABLEKS R25 R20 K80 ["setSorts"]
+  DUPCLOSURE R25 K81 [PROTO_43]
+  SETTABLEKS R25 R20 K82 ["addSort"]
+  DUPCLOSURE R25 K83 [PROTO_44]
+  SETTABLEKS R25 R20 K84 ["getSelection"]
+  DUPCLOSURE R25 K85 [PROTO_45]
+  SETTABLEKS R25 R20 K86 ["setSelection"]
+  DUPCLOSURE R25 K87 [PROTO_46]
   CAPTURE VAL R5
-  SETTABLEKS R25 R20 K80 ["modifySelection"]
-  DUPCLOSURE R25 K81 [PROTO_36]
-  SETTABLEKS R25 R20 K82 ["getPrevClickIndex"]
-  DUPCLOSURE R25 K83 [PROTO_37]
+  SETTABLEKS R25 R20 K88 ["modifySelection"]
+  DUPCLOSURE R25 K89 [PROTO_47]
+  SETTABLEKS R25 R20 K90 ["getPrevClickIndex"]
+  DUPCLOSURE R25 K91 [PROTO_48]
   CAPTURE VAL R11
   CAPTURE VAL R12
-  SETTABLEKS R25 R20 K84 ["handleClick"]
-  DUPCLOSURE R25 K85 [PROTO_38]
+  SETTABLEKS R25 R20 K92 ["handleClick"]
+  DUPCLOSURE R25 K93 [PROTO_49]
   CAPTURE VAL R15
-  CAPTURE VAL R7
-  SETTABLEKS R25 R20 K86 ["handleRightClick"]
-  DUPCLOSURE R25 K87 [PROTO_39]
-  SETTABLEKS R25 R20 K88 ["getProgressInfo"]
+  CAPTURE VAL R13
+  SETTABLEKS R25 R20 K94 ["handleRightClick"]
+  DUPCLOSURE R25 K95 [PROTO_50]
+  CAPTURE VAL R15
+  CAPTURE VAL R13
+  SETTABLEKS R25 R20 K96 ["handleSortRightClick"]
+  DUPCLOSURE R25 K97 [PROTO_51]
+  SETTABLEKS R25 R20 K98 ["getProgressInfo"]
+  DUPCLOSURE R25 K99 [PROTO_52]
+  SETTABLEKS R25 R20 K100 ["getPlugin"]
   RETURN R20 1

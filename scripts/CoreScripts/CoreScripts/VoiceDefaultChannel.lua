@@ -17,6 +17,7 @@ local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsin
 local FFlagDefaultChannelDontWaitOnCharacterWithAudioApi = game:DefineFastFlag("DefaultChannelDontWaitOnCharacterWithAudioApi", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+local GetFFlagSeamlessVoiceFTUX = require(RobloxGui.Modules.Flags.GetFFlagSeamlessVoiceFTUX)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
@@ -114,3 +115,9 @@ CallProtocol:getCallState():andThen(function(params)
 		log:info("VoiceChatServiceManager did not initialize")
 	end)
 end)
+
+if GetFFlagSeamlessVoiceFTUX() then
+	task.spawn(function()
+		VoiceChatServiceManager:VoiceChatFirstTimeUX(game:GetService("AppStorageService"))
+	end)
+end

@@ -79,7 +79,7 @@ PROTO_3:
   JUMP [+2]
   GETTABLEKS R11 R1 K10 ["PausedAnimationAlpha"]
   CALL R7 4 0
-  JUMPIFNOT R4 [+81]
+  JUMPIFNOT R4 [+86]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K11 ["createElement"]
   GETUPVAL R8 5
@@ -94,41 +94,45 @@ PROTO_3:
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K13 ["Event"]
   GETTABLEKS R10 R11 K16 ["MouseLeave"]
+  GETUPVAL R12 6
+  JUMPIFNOT R12 [+3]
+  GETTABLEKS R11 R6 K17 ["disable"]
+  JUMP [+2]
   GETTABLEKS R11 R6 K15 ["enable"]
   SETTABLE R11 R9 R10
-  DUPTABLE R10 K18 [{"Model"}]
+  DUPTABLE R10 K19 [{"Model"}]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K11 ["createElement"]
-  GETUPVAL R12 6
-  DUPTABLE R13 K26 [{"Ambient", "Camera", "FocusDirection", "InitialDistance", "Model", "ShouldClone", "Static", "ImageTransparency"}]
-  GETIMPORT R14 K28 [Color3.new]
+  GETUPVAL R12 7
+  DUPTABLE R13 K27 [{"Ambient", "Camera", "FocusDirection", "InitialDistance", "Model", "ShouldClone", "Static", "ImageTransparency"}]
+  GETIMPORT R14 K29 [Color3.new]
   LOADN R15 1
   LOADN R16 1
   LOADN R17 1
   CALL R14 3 1
-  SETTABLEKS R14 R13 K19 ["Ambient"]
-  SETTABLEKS R3 R13 K20 ["Camera"]
-  GETTABLEKS R16 R4 K29 ["PrimaryPart"]
-  GETTABLEKS R15 R16 K30 ["CFrame"]
-  GETTABLEKS R14 R15 K31 ["LookVector"]
-  GETTABLEKS R18 R4 K29 ["PrimaryPart"]
-  GETTABLEKS R17 R18 K30 ["CFrame"]
-  GETTABLEKS R16 R17 K32 ["RightVector"]
-  GETTABLEKS R17 R1 K33 ["FrontRightAngleLerp"]
-  NAMECALL R14 R14 K34 ["Lerp"]
+  SETTABLEKS R14 R13 K20 ["Ambient"]
+  SETTABLEKS R3 R13 K21 ["Camera"]
+  GETTABLEKS R16 R4 K30 ["PrimaryPart"]
+  GETTABLEKS R15 R16 K31 ["CFrame"]
+  GETTABLEKS R14 R15 K32 ["LookVector"]
+  GETTABLEKS R18 R4 K30 ["PrimaryPart"]
+  GETTABLEKS R17 R18 K31 ["CFrame"]
+  GETTABLEKS R16 R17 K33 ["RightVector"]
+  GETTABLEKS R17 R1 K34 ["FrontRightAngleLerp"]
+  NAMECALL R14 R14 K35 ["Lerp"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K21 ["FocusDirection"]
-  GETTABLEKS R14 R1 K22 ["InitialDistance"]
-  SETTABLEKS R14 R13 K22 ["InitialDistance"]
-  SETTABLEKS R2 R13 K17 ["Model"]
+  SETTABLEKS R14 R13 K22 ["FocusDirection"]
+  GETTABLEKS R14 R1 K23 ["InitialDistance"]
+  SETTABLEKS R14 R13 K23 ["InitialDistance"]
+  SETTABLEKS R2 R13 K18 ["Model"]
   LOADB R14 0
-  SETTABLEKS R14 R13 K23 ["ShouldClone"]
+  SETTABLEKS R14 R13 K24 ["ShouldClone"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K24 ["Static"]
-  GETTABLEKS R14 R0 K35 ["Transparency"]
-  SETTABLEKS R14 R13 K25 ["ImageTransparency"]
+  SETTABLEKS R14 R13 K25 ["Static"]
+  GETTABLEKS R14 R0 K36 ["Transparency"]
+  SETTABLEKS R14 R13 K26 ["ImageTransparency"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K17 ["Model"]
+  SETTABLEKS R11 R10 K18 ["Model"]
   CALL R7 3 1
   RETURN R7 1
   LOADNIL R7
@@ -171,17 +175,23 @@ MAIN:
   GETTABLEKS R9 R10 K17 ["Hooks"]
   GETTABLEKS R8 R9 K19 ["useToggleState"]
   CALL R7 1 1
-  GETTABLEKS R9 R2 K20 ["ContextServices"]
-  GETTABLEKS R8 R9 K21 ["Stylizer"]
-  GETTABLEKS R9 R2 K22 ["UI"]
-  GETTABLEKS R10 R9 K23 ["AssetRenderModel"]
-  GETTABLEKS R11 R9 K24 ["Pane"]
-  DUPCLOSURE R12 K25 [PROTO_3]
-  CAPTURE VAL R8
+  GETIMPORT R8 K1 [game]
+  LOADK R10 K20 ["AvatarPreviewerAnimateOnlyOnHover"]
+  LOADB R11 0
+  NAMECALL R8 R8 K21 ["DefineFastFlag"]
+  CALL R8 3 1
+  GETTABLEKS R10 R2 K22 ["ContextServices"]
+  GETTABLEKS R9 R10 K23 ["Stylizer"]
+  GETTABLEKS R10 R2 K24 ["UI"]
+  GETTABLEKS R11 R10 K25 ["AssetRenderModel"]
+  GETTABLEKS R12 R10 K26 ["Pane"]
+  DUPCLOSURE R13 K27 [PROTO_3]
+  CAPTURE VAL R9
   CAPTURE VAL R3
   CAPTURE VAL R0
   CAPTURE VAL R7
   CAPTURE VAL R6
+  CAPTURE VAL R12
+  CAPTURE VAL R8
   CAPTURE VAL R11
-  CAPTURE VAL R10
-  RETURN R12 1
+  RETURN R13 1

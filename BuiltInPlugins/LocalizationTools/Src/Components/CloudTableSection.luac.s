@@ -151,7 +151,7 @@ PROTO_7:
   LOADB R7 0 +1
   LOADB R7 1
   LOADNIL R8
-  JUMPIFNOT R7 [+199]
+  JUMPIFNOT R7 [+209]
   DUPTABLE R9 K15 [{"Padding", "Download", "Update", "Collapsible", "LinkTextFrame"}]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
@@ -159,133 +159,141 @@ PROTO_7:
   DUPTABLE R12 K20 [{"PaddingTop", "PaddingLeft"}]
   GETIMPORT R13 K23 [UDim.new]
   LOADN R14 0
+  GETUPVAL R16 2
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R2 K24 ["SectionPadding"]
+  JUMP [+2]
   GETTABLEKS R15 R2 K18 ["PaddingTop"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K18 ["PaddingTop"]
   GETIMPORT R13 K23 [UDim.new]
   LOADN R14 0
-  GETTABLEKS R15 R2 K24 ["LeftIndent"]
+  GETUPVAL R16 2
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R2 K24 ["SectionPadding"]
+  JUMP [+2]
+  GETTABLEKS R15 R2 K25 ["LeftIndent"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K19 ["PaddingLeft"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K10 ["Padding"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
-  GETUPVAL R11 2
-  DUPTABLE R12 K29 [{"Active", "ButtonText", "LabelText", "LayoutOrder", "OnButtonClick"}]
-  SETTABLEKS R5 R12 K25 ["Active"]
-  LOADK R15 K30 ["CloudTableSection"]
-  LOADK R16 K31 ["DownloadButton"]
-  NAMECALL R13 R3 K32 ["getText"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K30 [{"Active", "ButtonText", "LabelText", "LayoutOrder", "OnButtonClick"}]
+  SETTABLEKS R5 R12 K26 ["Active"]
+  LOADK R15 K31 ["CloudTableSection"]
+  LOADK R16 K32 ["DownloadButton"]
+  NAMECALL R13 R3 K33 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K26 ["ButtonText"]
-  LOADK R15 K30 ["CloudTableSection"]
-  LOADK R16 K33 ["DownloadTableLabel"]
-  NAMECALL R13 R3 K32 ["getText"]
+  SETTABLEKS R13 R12 K27 ["ButtonText"]
+  LOADK R15 K31 ["CloudTableSection"]
+  LOADK R16 K34 ["DownloadTableLabel"]
+  NAMECALL R13 R3 K33 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K27 ["LabelText"]
+  SETTABLEKS R13 R12 K28 ["LabelText"]
   LOADN R13 1
   SETTABLEKS R13 R12 K3 ["LayoutOrder"]
-  GETTABLEKS R13 R0 K34 ["downloadCloudTable"]
-  SETTABLEKS R13 R12 K28 ["OnButtonClick"]
+  GETTABLEKS R13 R0 K35 ["downloadCloudTable"]
+  SETTABLEKS R13 R12 K29 ["OnButtonClick"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K11 ["Download"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
-  GETUPVAL R11 2
-  DUPTABLE R12 K29 [{"Active", "ButtonText", "LabelText", "LayoutOrder", "OnButtonClick"}]
-  SETTABLEKS R5 R12 K25 ["Active"]
-  LOADK R15 K30 ["CloudTableSection"]
-  LOADK R16 K35 ["UpdateButton"]
-  NAMECALL R13 R3 K32 ["getText"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K30 [{"Active", "ButtonText", "LabelText", "LayoutOrder", "OnButtonClick"}]
+  SETTABLEKS R5 R12 K26 ["Active"]
+  LOADK R15 K31 ["CloudTableSection"]
+  LOADK R16 K36 ["UpdateButton"]
+  NAMECALL R13 R3 K33 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K26 ["ButtonText"]
-  LOADK R15 K30 ["CloudTableSection"]
-  LOADK R16 K36 ["UpdateTableLabel"]
-  NAMECALL R13 R3 K32 ["getText"]
+  SETTABLEKS R13 R12 K27 ["ButtonText"]
+  LOADK R15 K31 ["CloudTableSection"]
+  LOADK R16 K37 ["UpdateTableLabel"]
+  NAMECALL R13 R3 K33 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K27 ["LabelText"]
+  SETTABLEKS R13 R12 K28 ["LabelText"]
   LOADN R13 2
   SETTABLEKS R13 R12 K3 ["LayoutOrder"]
   NEWCLOSURE R13 P0
   CAPTURE VAL R0
-  SETTABLEKS R13 R12 K28 ["OnButtonClick"]
+  SETTABLEKS R13 R12 K29 ["OnButtonClick"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K12 ["Update"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
-  GETUPVAL R11 3
-  DUPTABLE R12 K39 [{"Active", "LayoutOrder", "RenderContent", "Title"}]
-  SETTABLEKS R5 R12 K25 ["Active"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K40 [{"Active", "LayoutOrder", "RenderContent", "Title"}]
+  SETTABLEKS R5 R12 K26 ["Active"]
   LOADN R13 3
   SETTABLEKS R13 R12 K3 ["LayoutOrder"]
   NEWCLOSURE R13 P1
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R0
-  SETTABLEKS R13 R12 K37 ["RenderContent"]
-  LOADK R15 K30 ["CloudTableSection"]
-  LOADK R16 K40 ["AdvancedButton"]
-  NAMECALL R13 R3 K32 ["getText"]
+  SETTABLEKS R13 R12 K38 ["RenderContent"]
+  LOADK R15 K31 ["CloudTableSection"]
+  LOADK R16 K41 ["AdvancedButton"]
+  NAMECALL R13 R3 K33 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K38 ["Title"]
+  SETTABLEKS R13 R12 K39 ["Title"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K13 ["Collapsible"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
-  LOADK R11 K41 ["Frame"]
-  DUPTABLE R12 K44 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADK R11 K42 ["Frame"]
+  DUPTABLE R12 K45 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
   LOADN R13 1
-  SETTABLEKS R13 R12 K42 ["BackgroundTransparency"]
+  SETTABLEKS R13 R12 K43 ["BackgroundTransparency"]
   LOADN R13 4
   SETTABLEKS R13 R12 K3 ["LayoutOrder"]
-  GETIMPORT R13 K46 [UDim2.new]
+  GETIMPORT R13 K47 [UDim2.new]
   LOADN R14 1
   LOADN R15 0
   LOADN R16 0
-  GETTABLEKS R17 R2 K47 ["LinkTextHeight"]
+  GETTABLEKS R17 R2 K48 ["LinkTextHeight"]
   CALL R13 4 1
-  SETTABLEKS R13 R12 K43 ["Size"]
-  DUPTABLE R13 K49 [{"LinkText"}]
+  SETTABLEKS R13 R12 K44 ["Size"]
+  DUPTABLE R13 K50 [{"LinkText"}]
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K16 ["createElement"]
-  GETUPVAL R15 4
-  DUPTABLE R16 K54 [{"AnchorPoint", "Position", "OnClick", "Text"}]
-  GETIMPORT R17 K56 [Vector2.new]
+  GETUPVAL R15 5
+  DUPTABLE R16 K55 [{"AnchorPoint", "Position", "OnClick", "Text"}]
+  GETIMPORT R17 K57 [Vector2.new]
   LOADN R18 0
-  LOADK R19 K57 [0.5]
+  LOADK R19 K58 [0.5]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K50 ["AnchorPoint"]
-  GETIMPORT R17 K46 [UDim2.new]
+  SETTABLEKS R17 R16 K51 ["AnchorPoint"]
+  GETIMPORT R17 K47 [UDim2.new]
   LOADN R18 0
   LOADN R19 0
-  LOADK R20 K57 [0.5]
+  LOADK R20 K58 [0.5]
   LOADN R21 0
   CALL R17 4 1
-  SETTABLEKS R17 R16 K51 ["Position"]
-  GETTABLEKS R17 R0 K58 ["openLocalizationSettings"]
-  SETTABLEKS R17 R16 K52 ["OnClick"]
-  LOADK R19 K30 ["CloudTableSection"]
-  LOADK R20 K59 ["CloudTablePageLinkText"]
-  NAMECALL R17 R3 K32 ["getText"]
+  SETTABLEKS R17 R16 K52 ["Position"]
+  GETTABLEKS R17 R0 K59 ["openLocalizationSettings"]
+  SETTABLEKS R17 R16 K53 ["OnClick"]
+  LOADK R19 K31 ["CloudTableSection"]
+  LOADK R20 K60 ["CloudTablePageLinkText"]
+  NAMECALL R17 R3 K33 ["getText"]
   CALL R17 3 1
-  SETTABLEKS R17 R16 K53 ["Text"]
+  SETTABLEKS R17 R16 K54 ["Text"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K48 ["LinkText"]
+  SETTABLEKS R14 R13 K49 ["LinkText"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K14 ["LinkTextFrame"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
-  GETUPVAL R11 5
-  DUPTABLE R12 K63 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
-  GETIMPORT R13 K66 [Enum.AutomaticSize.Y]
-  SETTABLEKS R13 R12 K60 ["AutomaticSize"]
-  GETIMPORT R13 K68 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R13 R12 K61 ["HorizontalAlignment"]
-  GETIMPORT R13 K71 [Enum.FillDirection.Vertical]
-  SETTABLEKS R13 R12 K62 ["Layout"]
+  GETUPVAL R11 6
+  DUPTABLE R12 K64 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
+  GETIMPORT R13 K67 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K61 ["AutomaticSize"]
+  GETIMPORT R13 K69 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R13 R12 K62 ["HorizontalAlignment"]
+  GETIMPORT R13 K72 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K63 ["Layout"]
   LOADN R13 2
   SETTABLEKS R13 R12 K3 ["LayoutOrder"]
   MOVE R13 R9
@@ -294,95 +302,95 @@ PROTO_7:
   JUMP [+113]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K16 ["createElement"]
-  GETUPVAL R11 6
+  GETUPVAL R11 7
   JUMPIFNOT R11 [+2]
-  GETUPVAL R10 5
+  GETUPVAL R10 6
   JUMP [+1]
-  LOADK R10 K41 ["Frame"]
-  DUPTABLE R11 K75 [{"Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "BorderColor3", "LayoutOrder", "Layout"}]
-  GETIMPORT R12 K46 [UDim2.new]
+  LOADK R10 K42 ["Frame"]
+  DUPTABLE R11 K76 [{"Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "BorderColor3", "LayoutOrder", "Layout"}]
+  GETIMPORT R12 K47 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
-  GETTABLEKS R16 R2 K76 ["PublishMessageHeight"]
+  GETTABLEKS R16 R2 K77 ["PublishMessageHeight"]
   CALL R12 4 1
-  SETTABLEKS R12 R11 K43 ["Size"]
-  GETTABLEKS R12 R2 K77 ["MessageFrameBackground"]
-  SETTABLEKS R12 R11 K72 ["BackgroundColor3"]
+  SETTABLEKS R12 R11 K44 ["Size"]
+  GETTABLEKS R12 R2 K78 ["MessageFrameBackground"]
+  SETTABLEKS R12 R11 K73 ["BackgroundColor3"]
   LOADN R12 0
-  SETTABLEKS R12 R11 K42 ["BackgroundTransparency"]
+  SETTABLEKS R12 R11 K43 ["BackgroundTransparency"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K73 ["BorderSizePixel"]
-  GETTABLEKS R12 R2 K78 ["MessageFrameBorder"]
-  SETTABLEKS R12 R11 K74 ["BorderColor3"]
+  SETTABLEKS R12 R11 K74 ["BorderSizePixel"]
+  GETTABLEKS R12 R2 K79 ["MessageFrameBorder"]
+  SETTABLEKS R12 R11 K75 ["BorderColor3"]
   LOADN R12 2
   SETTABLEKS R12 R11 K3 ["LayoutOrder"]
-  GETUPVAL R13 6
+  GETUPVAL R13 7
   JUMPIFNOT R13 [+3]
-  GETIMPORT R12 K71 [Enum.FillDirection.Vertical]
+  GETIMPORT R12 K72 [Enum.FillDirection.Vertical]
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K62 ["Layout"]
-  DUPTABLE R12 K80 [{"PublishPlaceMessage"}]
+  SETTABLEKS R12 R11 K63 ["Layout"]
+  DUPTABLE R12 K81 [{"PublishPlaceMessage"}]
   GETUPVAL R14 1
   GETTABLEKS R13 R14 K16 ["createElement"]
-  GETUPVAL R14 7
-  DUPTABLE R15 K82 [{"AnchorPoint", "AutomaticSize", "Position", "Size", "Text", "TextWrapped"}]
-  GETUPVAL R17 6
+  GETUPVAL R14 8
+  DUPTABLE R15 K83 [{"AnchorPoint", "AutomaticSize", "Position", "Size", "Text", "TextWrapped"}]
+  GETUPVAL R17 7
   JUMPIFNOT R17 [+2]
   LOADNIL R16
   JUMP [+5]
-  GETIMPORT R16 K56 [Vector2.new]
-  LOADK R17 K57 [0.5]
-  LOADK R18 K57 [0.5]
+  GETIMPORT R16 K57 [Vector2.new]
+  LOADK R17 K58 [0.5]
+  LOADK R18 K58 [0.5]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K50 ["AnchorPoint"]
-  GETUPVAL R17 6
+  SETTABLEKS R16 R15 K51 ["AnchorPoint"]
+  GETUPVAL R17 7
   JUMPIFNOT R17 [+3]
-  GETIMPORT R16 K66 [Enum.AutomaticSize.Y]
+  GETIMPORT R16 K67 [Enum.AutomaticSize.Y]
   JUMP [+2]
-  GETIMPORT R16 K84 [Enum.AutomaticSize.XY]
-  SETTABLEKS R16 R15 K60 ["AutomaticSize"]
-  GETUPVAL R17 6
+  GETIMPORT R16 K85 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K61 ["AutomaticSize"]
+  GETUPVAL R17 7
   JUMPIFNOT R17 [+2]
   LOADNIL R16
   JUMP [+7]
-  GETIMPORT R16 K46 [UDim2.new]
-  LOADK R17 K57 [0.5]
+  GETIMPORT R16 K47 [UDim2.new]
+  LOADK R17 K58 [0.5]
   LOADN R18 0
-  LOADK R19 K57 [0.5]
+  LOADK R19 K58 [0.5]
   LOADN R20 0
   CALL R16 4 1
-  SETTABLEKS R16 R15 K51 ["Position"]
-  GETUPVAL R17 6
+  SETTABLEKS R16 R15 K52 ["Position"]
+  GETUPVAL R17 7
   JUMPIFNOT R17 [+6]
-  GETIMPORT R16 K86 [UDim2.fromScale]
+  GETIMPORT R16 K87 [UDim2.fromScale]
   LOADN R17 1
   LOADN R18 0
   CALL R16 2 1
   JUMP [+1]
   LOADNIL R16
-  SETTABLEKS R16 R15 K43 ["Size"]
-  LOADK R18 K30 ["CloudTableSection"]
-  LOADK R19 K79 ["PublishPlaceMessage"]
-  NAMECALL R16 R3 K32 ["getText"]
+  SETTABLEKS R16 R15 K44 ["Size"]
+  LOADK R18 K31 ["CloudTableSection"]
+  LOADK R19 K80 ["PublishPlaceMessage"]
+  NAMECALL R16 R3 K33 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K53 ["Text"]
-  GETUPVAL R17 6
+  SETTABLEKS R16 R15 K54 ["Text"]
+  GETUPVAL R17 7
   JUMPIFNOT R17 [+2]
   LOADB R16 1
   JUMP [+1]
   LOADNIL R16
-  SETTABLEKS R16 R15 K81 ["TextWrapped"]
+  SETTABLEKS R16 R15 K82 ["TextWrapped"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K79 ["PublishPlaceMessage"]
+  SETTABLEKS R13 R12 K80 ["PublishPlaceMessage"]
   CALL R9 3 1
   MOVE R8 R9
-  DUPTABLE R9 K89 [{"Padding", "SectionLabel", "Content"}]
+  DUPTABLE R9 K90 [{"Padding", "SectionLabel", "Content"}]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
   LOADK R11 K17 ["UIPadding"]
-  DUPTABLE R12 K90 [{"PaddingTop"}]
+  DUPTABLE R12 K91 [{"PaddingTop"}]
   GETIMPORT R13 K23 [UDim.new]
   LOADN R14 0
   GETTABLEKS R15 R2 K18 ["PaddingTop"]
@@ -392,32 +400,32 @@ PROTO_7:
   SETTABLEKS R10 R9 K10 ["Padding"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
-  GETUPVAL R11 7
-  DUPTABLE R12 K92 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
-  GETIMPORT R13 K84 [Enum.AutomaticSize.XY]
-  SETTABLEKS R13 R12 K60 ["AutomaticSize"]
+  GETUPVAL R11 8
+  DUPTABLE R12 K93 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
+  GETIMPORT R13 K85 [Enum.AutomaticSize.XY]
+  SETTABLEKS R13 R12 K61 ["AutomaticSize"]
   LOADN R13 1
   SETTABLEKS R13 R12 K3 ["LayoutOrder"]
-  LOADK R13 K93 ["Subtitle"]
-  SETTABLEKS R13 R12 K91 ["Style"]
-  LOADK R15 K30 ["CloudTableSection"]
-  LOADK R16 K87 ["SectionLabel"]
-  NAMECALL R13 R3 K32 ["getText"]
+  LOADK R13 K94 ["Subtitle"]
+  SETTABLEKS R13 R12 K92 ["Style"]
+  LOADK R15 K31 ["CloudTableSection"]
+  LOADK R16 K88 ["SectionLabel"]
+  NAMECALL R13 R3 K33 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K53 ["Text"]
+  SETTABLEKS R13 R12 K54 ["Text"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K87 ["SectionLabel"]
-  SETTABLEKS R8 R9 K88 ["Content"]
+  SETTABLEKS R10 R9 K88 ["SectionLabel"]
+  SETTABLEKS R8 R9 K89 ["Content"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K16 ["createElement"]
-  GETUPVAL R11 5
-  DUPTABLE R12 K63 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
-  GETIMPORT R13 K66 [Enum.AutomaticSize.Y]
-  SETTABLEKS R13 R12 K60 ["AutomaticSize"]
-  GETIMPORT R13 K68 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R13 R12 K61 ["HorizontalAlignment"]
-  GETIMPORT R13 K71 [Enum.FillDirection.Vertical]
-  SETTABLEKS R13 R12 K62 ["Layout"]
+  GETUPVAL R11 6
+  DUPTABLE R12 K64 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
+  GETIMPORT R13 K67 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K61 ["AutomaticSize"]
+  GETIMPORT R13 K69 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R13 R12 K62 ["HorizontalAlignment"]
+  GETIMPORT R13 K72 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K63 ["Layout"]
   SETTABLEKS R4 R12 K3 ["LayoutOrder"]
   MOVE R13 R9
   CALL R10 3 -1
@@ -486,109 +494,114 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 1
   GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["GuiService"]
-  NAMECALL R1 R1 K5 ["GetService"]
+  LOADK R3 K4 ["LocalizationToolsUpdateTextScraperUI"]
+  NAMECALL R1 R1 K5 ["GetFastFlag"]
   CALL R1 2 1
-  GETIMPORT R5 K7 [script]
-  GETTABLEKS R4 R5 K8 ["Parent"]
-  GETTABLEKS R3 R4 K8 ["Parent"]
-  GETTABLEKS R2 R3 K8 ["Parent"]
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R5 R2 K11 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Roact"]
-  CALL R3 1 1
-  GETIMPORT R4 K10 [require]
-  GETTABLEKS R6 R2 K11 ["Packages"]
-  GETTABLEKS R5 R6 K13 ["RoactRodux"]
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K6 ["GuiService"]
+  NAMECALL R2 R2 K7 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R6 K9 [script]
+  GETTABLEKS R5 R6 K10 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["Parent"]
+  GETTABLEKS R3 R4 K10 ["Parent"]
+  GETIMPORT R4 K12 [require]
+  GETTABLEKS R6 R3 K13 ["Packages"]
+  GETTABLEKS R5 R6 K14 ["Roact"]
   CALL R4 1 1
-  GETIMPORT R5 K10 [require]
-  GETTABLEKS R7 R2 K11 ["Packages"]
-  GETTABLEKS R6 R7 K14 ["Framework"]
+  GETIMPORT R5 K12 [require]
+  GETTABLEKS R7 R3 K13 ["Packages"]
+  GETTABLEKS R6 R7 K15 ["RoactRodux"]
   CALL R5 1 1
-  GETTABLEKS R6 R5 K15 ["ContextServices"]
-  GETTABLEKS R7 R6 K16 ["withContext"]
-  GETTABLEKS R8 R5 K17 ["UI"]
-  GETTABLEKS R9 R8 K18 ["LinkText"]
-  GETTABLEKS R10 R8 K19 ["Pane"]
-  GETTABLEKS R11 R8 K20 ["TextLabel"]
-  GETIMPORT R12 K10 [require]
-  GETTABLEKS R15 R2 K21 ["Src"]
-  GETTABLEKS R14 R15 K15 ["ContextServices"]
-  GETTABLEKS R13 R14 K22 ["AnalyticsContext"]
-  CALL R12 1 1
-  GETIMPORT R13 K10 [require]
-  GETTABLEKS R16 R2 K21 ["Src"]
-  GETTABLEKS R15 R16 K23 ["Components"]
-  GETTABLEKS R14 R15 K24 ["LabeledTextButton"]
+  GETIMPORT R6 K12 [require]
+  GETTABLEKS R8 R3 K13 ["Packages"]
+  GETTABLEKS R7 R8 K16 ["Framework"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K17 ["ContextServices"]
+  GETTABLEKS R8 R7 K18 ["withContext"]
+  GETTABLEKS R9 R6 K19 ["UI"]
+  GETTABLEKS R10 R9 K20 ["LinkText"]
+  GETTABLEKS R11 R9 K21 ["Pane"]
+  GETTABLEKS R12 R9 K22 ["TextLabel"]
+  GETIMPORT R13 K12 [require]
+  GETTABLEKS R16 R3 K23 ["Src"]
+  GETTABLEKS R15 R16 K17 ["ContextServices"]
+  GETTABLEKS R14 R15 K24 ["AnalyticsContext"]
   CALL R13 1 1
-  GETIMPORT R14 K10 [require]
-  GETTABLEKS R17 R2 K21 ["Src"]
-  GETTABLEKS R16 R17 K23 ["Components"]
-  GETTABLEKS R15 R16 K25 ["Collapsible"]
+  GETIMPORT R14 K12 [require]
+  GETTABLEKS R17 R3 K23 ["Src"]
+  GETTABLEKS R16 R17 K25 ["Components"]
+  GETTABLEKS R15 R16 K26 ["LabeledTextButton"]
   CALL R14 1 1
-  GETIMPORT R15 K10 [require]
-  GETTABLEKS R18 R2 K21 ["Src"]
-  GETTABLEKS R17 R18 K26 ["Util"]
-  GETTABLEKS R16 R17 K27 ["isEmpty"]
+  GETIMPORT R15 K12 [require]
+  GETTABLEKS R18 R3 K23 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Components"]
+  GETTABLEKS R16 R17 K27 ["Collapsible"]
   CALL R15 1 1
-  GETIMPORT R16 K10 [require]
-  GETTABLEKS R19 R2 K21 ["Src"]
-  GETTABLEKS R18 R19 K26 ["Util"]
-  GETTABLEKS R17 R18 K28 ["ShowDialog"]
+  GETIMPORT R16 K12 [require]
+  GETTABLEKS R19 R3 K23 ["Src"]
+  GETTABLEKS R18 R19 K28 ["Util"]
+  GETTABLEKS R17 R18 K29 ["isEmpty"]
   CALL R16 1 1
-  GETIMPORT R17 K10 [require]
-  GETTABLEKS R20 R2 K21 ["Src"]
-  GETTABLEKS R19 R20 K29 ["Thunks"]
-  GETTABLEKS R18 R19 K30 ["DownloadCloudTable"]
+  GETIMPORT R17 K12 [require]
+  GETTABLEKS R20 R3 K23 ["Src"]
+  GETTABLEKS R19 R20 K28 ["Util"]
+  GETTABLEKS R18 R19 K30 ["ShowDialog"]
   CALL R17 1 1
-  GETIMPORT R18 K10 [require]
-  GETTABLEKS R21 R2 K21 ["Src"]
-  GETTABLEKS R20 R21 K29 ["Thunks"]
-  GETTABLEKS R19 R20 K31 ["UploadCloudTable"]
+  GETIMPORT R18 K12 [require]
+  GETTABLEKS R21 R3 K23 ["Src"]
+  GETTABLEKS R20 R21 K31 ["Thunks"]
+  GETTABLEKS R19 R20 K32 ["DownloadCloudTable"]
   CALL R18 1 1
-  GETTABLEKS R19 R3 K32 ["PureComponent"]
-  LOADK R21 K33 ["CloudTableSection"]
-  NAMECALL R19 R19 K34 ["extend"]
-  CALL R19 2 1
-  DUPCLOSURE R20 K35 [PROTO_3]
-  CAPTURE VAL R16
-  CAPTURE VAL R1
-  SETTABLEKS R20 R19 K36 ["init"]
-  DUPCLOSURE R20 K37 [PROTO_7]
-  CAPTURE VAL R15
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R14
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R0
-  CAPTURE VAL R11
-  SETTABLEKS R20 R19 K38 ["render"]
-  MOVE R20 R7
-  DUPTABLE R21 K45 [{"Plugin", "Stylizer", "Localization", "API", "Mouse", "Analytics"}]
-  GETTABLEKS R22 R6 K39 ["Plugin"]
-  SETTABLEKS R22 R21 K39 ["Plugin"]
-  GETTABLEKS R22 R6 K40 ["Stylizer"]
-  SETTABLEKS R22 R21 K40 ["Stylizer"]
-  GETTABLEKS R22 R6 K41 ["Localization"]
-  SETTABLEKS R22 R21 K41 ["Localization"]
-  GETTABLEKS R22 R6 K42 ["API"]
-  SETTABLEKS R22 R21 K42 ["API"]
-  GETTABLEKS R22 R6 K43 ["Mouse"]
-  SETTABLEKS R22 R21 K43 ["Mouse"]
-  SETTABLEKS R12 R21 K44 ["Analytics"]
-  CALL R20 1 1
-  MOVE R21 R19
-  CALL R20 1 1
-  MOVE R19 R20
-  DUPCLOSURE R20 K46 [PROTO_8]
-  DUPCLOSURE R21 K47 [PROTO_11]
+  GETIMPORT R19 K12 [require]
+  GETTABLEKS R22 R3 K23 ["Src"]
+  GETTABLEKS R21 R22 K31 ["Thunks"]
+  GETTABLEKS R20 R21 K33 ["UploadCloudTable"]
+  CALL R19 1 1
+  GETTABLEKS R20 R4 K34 ["PureComponent"]
+  LOADK R22 K35 ["CloudTableSection"]
+  NAMECALL R20 R20 K36 ["extend"]
+  CALL R20 2 1
+  DUPCLOSURE R21 K37 [PROTO_3]
   CAPTURE VAL R17
+  CAPTURE VAL R2
+  SETTABLEKS R21 R20 K38 ["init"]
+  DUPCLOSURE R21 K39 [PROTO_7]
+  CAPTURE VAL R16
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R0
+  CAPTURE VAL R12
+  SETTABLEKS R21 R20 K40 ["render"]
+  MOVE R21 R8
+  DUPTABLE R22 K47 [{"Plugin", "Stylizer", "Localization", "API", "Mouse", "Analytics"}]
+  GETTABLEKS R23 R7 K41 ["Plugin"]
+  SETTABLEKS R23 R22 K41 ["Plugin"]
+  GETTABLEKS R23 R7 K42 ["Stylizer"]
+  SETTABLEKS R23 R22 K42 ["Stylizer"]
+  GETTABLEKS R23 R7 K43 ["Localization"]
+  SETTABLEKS R23 R22 K43 ["Localization"]
+  GETTABLEKS R23 R7 K44 ["API"]
+  SETTABLEKS R23 R22 K44 ["API"]
+  GETTABLEKS R23 R7 K45 ["Mouse"]
+  SETTABLEKS R23 R22 K45 ["Mouse"]
+  SETTABLEKS R13 R22 K46 ["Analytics"]
+  CALL R21 1 1
+  MOVE R22 R20
+  CALL R21 1 1
+  MOVE R20 R21
+  DUPCLOSURE R21 K48 [PROTO_8]
+  DUPCLOSURE R22 K49 [PROTO_11]
   CAPTURE VAL R18
-  GETTABLEKS R22 R4 K48 ["connect"]
-  MOVE R23 R20
+  CAPTURE VAL R19
+  GETTABLEKS R23 R5 K50 ["connect"]
   MOVE R24 R21
-  CALL R22 2 1
-  MOVE R23 R19
-  CALL R22 1 -1
-  RETURN R22 -1
+  MOVE R25 R22
+  CALL R23 2 1
+  MOVE R24 R20
+  CALL R23 1 -1
+  RETURN R23 -1

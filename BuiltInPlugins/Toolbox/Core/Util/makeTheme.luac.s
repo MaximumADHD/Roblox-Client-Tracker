@@ -1759,6 +1759,16 @@ PROTO_1:
   JUMP [+1]
   LOADNIL R9
   SETTABLEKS R9 R8 K398 ["recentSearchesCloseButton"]
+  DUPTABLE R9 K399 [{"Top", "Bottom", "Right", "Left"}]
+  LOADN R10 8
+  SETTABLEKS R10 R9 K379 ["Top"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K381 ["Bottom"]
+  LOADN R10 8
+  SETTABLEKS R10 R9 K382 ["Right"]
+  LOADN R10 8
+  SETTABLEKS R10 R9 K380 ["Left"]
+  SETTABLEKS R9 R8 K400 ["wideIconButtonPadding"]
   GETUPVAL R10 12
   GETTABLEKS R9 R10 K328 ["Button"]
   GETUPVAL R11 16
@@ -1772,90 +1782,90 @@ PROTO_1:
   CALL R11 1 1
   NEWTABLE R12 1 0
   NEWTABLE R13 2 0
-  DUPTABLE R14 K400 [{"Color"}]
+  DUPTABLE R14 K402 [{"Color"}]
   GETUPVAL R16 3
-  GETTABLEKS R15 R16 K401 ["ForegroundMain"]
-  SETTABLEKS R15 R14 K399 ["Color"]
-  SETTABLEKS R14 R13 K402 ["BackgroundStyle"]
+  GETTABLEKS R15 R16 K403 ["ForegroundMain"]
+  SETTABLEKS R15 R14 K401 ["Color"]
+  SETTABLEKS R14 R13 K404 ["BackgroundStyle"]
   GETUPVAL R15 17
-  GETTABLEKS R14 R15 K403 ["Hover"]
-  DUPTABLE R15 K404 [{"BackgroundStyle"}]
-  DUPTABLE R16 K400 [{"Color"}]
+  GETTABLEKS R14 R15 K405 ["Hover"]
+  DUPTABLE R15 K406 [{"BackgroundStyle"}]
+  DUPTABLE R16 K402 [{"Color"}]
   GETUPVAL R18 3
-  GETTABLEKS R17 R18 K405 ["ActionHover"]
-  SETTABLEKS R17 R16 K399 ["Color"]
-  SETTABLEKS R16 R15 K402 ["BackgroundStyle"]
+  GETTABLEKS R17 R18 K407 ["ActionHover"]
+  SETTABLEKS R17 R16 K401 ["Color"]
+  SETTABLEKS R16 R15 K404 ["BackgroundStyle"]
   SETTABLE R15 R13 R14
-  SETTABLEKS R13 R12 K406 ["&ToolboxRecentSearchesButton"]
+  SETTABLEKS R13 R12 K408 ["&ToolboxRecentSearchesButton"]
   CALL R10 2 1
   JUMP [+1]
   LOADNIL R10
   SETTABLE R10 R8 R9
   GETUPVAL R10 12
-  GETTABLEKS R9 R10 K407 ["TextLabel"]
+  GETTABLEKS R9 R10 K409 ["TextLabel"]
   GETUPVAL R11 13
   GETTABLEKS R10 R11 K1 ["join"]
   GETUPVAL R11 14
-  LOADK R12 K151 ["assetName"]
+  LOADK R12 K153 ["dropShadowSize"]
   CALL R11 1 1
   NEWTABLE R12 2 0
-  DUPTABLE R13 K408 [{"TextColor", "TextSize"}]
+  DUPTABLE R13 K410 [{"TextColor", "TextSize"}]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K187 ["SubText"]
   SETTABLEKS R14 R13 K364 ["TextColor"]
   LOADN R14 16
   SETTABLEKS R14 R13 K363 ["TextSize"]
-  SETTABLEKS R13 R12 K409 ["&ToolboxItemRowText"]
-  DUPTABLE R13 K408 [{"TextColor", "TextSize"}]
+  SETTABLEKS R13 R12 K411 ["&ToolboxItemRowText"]
+  DUPTABLE R13 K410 [{"TextColor", "TextSize"}]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K37 ["Toolbox_ItemRowHeaderTextColor"]
   SETTABLEKS R14 R13 K364 ["TextColor"]
   LOADN R14 14
   SETTABLEKS R14 R13 K363 ["TextSize"]
-  SETTABLEKS R13 R12 K410 ["&ToolboxItemRowHeader"]
+  SETTABLEKS R13 R12 K412 ["&ToolboxItemRowHeader"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
   GETUPVAL R10 12
-  GETTABLEKS R9 R10 K411 ["TextLabelWithRobloxLinks"]
+  GETTABLEKS R9 R10 K413 ["TextLabelWithRobloxLinks"]
   GETUPVAL R11 13
   GETTABLEKS R10 R11 K1 ["join"]
   GETUPVAL R11 14
-  LOADK R12 K155 ["outline"]
+  LOADK R12 K157 ["strokeThickness"]
   CALL R11 1 1
   NEWTABLE R12 1 0
-  DUPTABLE R13 K412 [{"TextColor"}]
+  DUPTABLE R13 K414 [{"TextColor"}]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K41 ["Toolbox_ItemRowTextColor"]
   SETTABLEKS R14 R13 K364 ["TextColor"]
-  SETTABLEKS R13 R12 K413 ["&ToolboxItemRowInnerText"]
+  SETTABLEKS R13 R12 K415 ["&ToolboxItemRowInnerText"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
-  NAMECALL R6 R2 K414 ["extend"]
+  NAMECALL R6 R2 K416 ["extend"]
   CALL R6 2 0
   JUMPIFNOT R0 [+4]
   MOVE R8 R0
-  NAMECALL R6 R2 K414 ["extend"]
+  NAMECALL R6 R2 K416 ["extend"]
   CALL R6 2 0
   NEWTABLE R8 1 0
   GETUPVAL R10 12
-  GETTABLEKS R9 R10 K415 ["DropdownMenu"]
+  GETTABLEKS R9 R10 K417 ["DropdownMenu"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K0 ["Dictionary"]
   GETTABLEKS R10 R11 K1 ["join"]
   GETUPVAL R11 14
-  LOADK R12 K159 ["voting"]
+  LOADK R12 K161 [{"assetName", "background", "dropShadowSize", "icon", "outline", "textColor", "strokeThickness", "strokeColor", "voting", "packages"}]
   CALL R11 1 1
   NEWTABLE R12 1 0
-  DUPTABLE R13 K417 [{"Offset"}]
-  GETIMPORT R14 K419 [Vector2.new]
+  DUPTABLE R13 K419 [{"Offset"}]
+  GETIMPORT R14 K421 [Vector2.new]
   LOADN R15 0
   LOADN R16 4
   CALL R14 2 1
-  SETTABLEKS R14 R13 K416 ["Offset"]
-  SETTABLEKS R13 R12 K420 ["&ToolboxSearchBarDropdown"]
+  SETTABLEKS R14 R13 K418 ["Offset"]
+  SETTABLEKS R13 R12 K422 ["&ToolboxSearchBarDropdown"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
-  NAMECALL R6 R2 K414 ["extend"]
+  NAMECALL R6 R2 K416 ["extend"]
   CALL R6 2 0
   RETURN R2 1
 

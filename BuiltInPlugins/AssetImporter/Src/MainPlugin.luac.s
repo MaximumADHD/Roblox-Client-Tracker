@@ -76,7 +76,7 @@ PROTO_4:
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K11 ["provide"]
   MOVE R5 R3
-  DUPTABLE R6 K16 [{"ImportQueue", "Preview", "ProgressWidget", "ErrorWidget"}]
+  DUPTABLE R6 K16 [{"ImportQueue", "Preview", "UploadWidget", "ErrorWidget"}]
   GETUPVAL R8 2
   CALL R8 0 1
   JUMPIFNOT R8 [+14]
@@ -119,7 +119,7 @@ PROTO_4:
   CALL R7 2 1
   JUMP [+1]
   LOADNIL R7
-  SETTABLEKS R7 R6 K14 ["ProgressWidget"]
+  SETTABLEKS R7 R6 K14 ["UploadWidget"]
   GETUPVAL R8 2
   CALL R8 0 1
   JUMPIF R8 [+14]
@@ -161,7 +161,7 @@ MAIN:
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
   GETTABLEKS R8 R4 K11 ["Dialogs"]
-  GETTABLEKS R7 R8 K13 ["ProgressWidget"]
+  GETTABLEKS R7 R8 K13 ["UploadWidget"]
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
   GETTABLEKS R9 R4 K11 ["Dialogs"]

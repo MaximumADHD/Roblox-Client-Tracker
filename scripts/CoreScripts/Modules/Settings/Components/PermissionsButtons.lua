@@ -492,8 +492,8 @@ function PermissionsButtons:didMount()
 end
 
 function PermissionsButtons:isShowingPermissionButtons()
-	if GetFFlagEnableShowVoiceUI() then
-		return (self.state.hasMicPermissions and self.state.isVoiceUIVisible)
+	if GetFFlagEnableShowVoiceUI() and GetFFlagJoinWithoutMicPermissions() then
+		return (self.state.voiceServiceInitialized and not VoiceChatServiceManager:VoiceChatEnded() and self.state.isVoiceUIVisible)
 			or self.state.hasCameraPermissions
 			or self.state.showSelfView
 			or self:getCameraButtonVisibleAtMount()

@@ -9,7 +9,7 @@ local InputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
-local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 
 local DIALOG_BG_COLOR = Color3.new(0.2, 0.2, 0.2)
 local DIALOG_BG_TRANSPARENCY = 0.3

@@ -30,7 +30,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
-local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
+local VRUtil = require(CorePackages.Workspace.Packages.VrCommon).VRUtil
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 

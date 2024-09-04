@@ -1938,7 +1938,7 @@ end)
 if not FFlagVRBackpackImproved then
 	local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil
 	local function OnVREnabled()
-		local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+		local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 
 		IsVR = false
 		OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))

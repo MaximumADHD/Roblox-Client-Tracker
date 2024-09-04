@@ -1,0 +1,94 @@
+PROTO_0:
+  FASTCALL2K ASSERT R0 K0 [+5]
+  MOVE R2 R0
+  LOADK R3 K0 ["TelemetryContext.new expects a Telemetry instance."]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K4 [{"telemetry"}]
+  SETTABLEKS R0 R1 K3 ["telemetry"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K6 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["telemetry"]
+  RETURN R1 1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["telemetry"]
+  MOVE R5 R1
+  LOADNIL R6
+  GETUPVAL R7 0
+  DUPTABLE R8 K3 [{"studioSessionId", "clientId"}]
+  GETUPVAL R9 1
+  NAMECALL R9 R9 K4 ["GetSessionId"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K1 ["studioSessionId"]
+  GETUPVAL R9 1
+  NAMECALL R9 R9 K5 ["GetClientId"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K2 ["clientId"]
+  MOVE R9 R2
+  CALL R7 2 -1
+  NAMECALL R3 R3 K6 ["logRobloxTelemetryEvent"]
+  CALL R3 -1 -1
+  RETURN R3 -1
+
+PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  DUPTABLE R1 K2 [{"logRobloxTelemetryEvent"}]
+  DUPCLOSURE R2 K3 [PROTO_3]
+  SETTABLEKS R2 R1 K1 ["logRobloxTelemetryEvent"]
+  CALL R0 1 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RbxAnalyticsService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETIMPORT R4 K7 [script]
+  GETTABLEKS R3 R4 K8 ["Parent"]
+  GETTABLEKS R2 R3 K9 ["TelemetryProtocolTypes"]
+  CALL R1 1 1
+  GETIMPORT R6 K7 [script]
+  GETTABLEKS R5 R6 K8 ["Parent"]
+  GETTABLEKS R4 R5 K8 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Parent"]
+  GETTABLEKS R2 R3 K8 ["Parent"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R2 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R2 K10 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Dash"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K13 ["join"]
+  GETTABLEKS R7 R3 K14 ["ContextServices"]
+  GETTABLEKS R6 R7 K15 ["ContextItem"]
+  LOADK R9 K16 ["Telemetry"]
+  NAMECALL R7 R6 K17 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K18 [PROTO_0]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K19 ["new"]
+  DUPCLOSURE R8 K20 [PROTO_1]
+  SETTABLEKS R8 R7 K21 ["get"]
+  DUPCLOSURE R8 K22 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K23 ["log"]
+  DUPCLOSURE R8 K24 [PROTO_4]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K25 ["mock"]
+  RETURN R7 1

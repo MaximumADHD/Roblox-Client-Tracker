@@ -11,7 +11,7 @@ PROTO_0:
   LENGTH R7 R1
   JUMPIFLE R5 R7 [+4]
   LENGTH R7 R0
-  JUMPIFNOTLE R4 R7 [+150]
+  JUMPIFNOTLE R4 R7 [+170]
   NAMECALL R7 R6 K2 ["lower"]
   CALL R7 1 1
   LENGTH R8 R0
@@ -32,7 +32,7 @@ PROTO_0:
   CALL R10 2 1
   JUMPIF R10 [+2]
   ADDK R4 R4 K11 [1]
-  JUMP [+119]
+  JUMP [+139]
   LENGTH R8 R1
   JUMPIFNOTLE R5 R8 [+24]
   GETTABLE R8 R1 R5
@@ -51,11 +51,11 @@ PROTO_0:
   CALL R10 2 1
   JUMPIF R10 [+2]
   ADDK R5 R5 K11 [1]
-  JUMP [+93]
+  JUMP [+113]
   LENGTH R8 R1
-  JUMPIFNOTLE R5 R8 [+68]
+  JUMPIFNOTLE R5 R8 [+88]
   LENGTH R8 R0
-  JUMPIFNOTLE R4 R8 [+65]
+  JUMPIFNOTLE R4 R8 [+85]
   GETTABLE R8 R1 R5
   GETTABLE R9 R0 R4
   GETTABLEKS R12 R8 K3 ["IsPlaceholder"]
@@ -70,35 +70,47 @@ PROTO_0:
   LOADK R12 K4 ["Data returned from network should not be a placeholder sentinel value"]
   GETIMPORT R10 K6 [assert]
   CALL R10 2 0
-  GETTABLEKS R11 R8 K12 ["Updated"]
+  GETTABLEKS R11 R8 K12 ["LastViewed"]
   FASTCALL2K ASSERT R11 K13 [+4]
   LOADK R12 K13 ["Local game file must have an updated date value"]
   GETIMPORT R10 K6 [assert]
   CALL R10 2 0
-  GETTABLEKS R11 R9 K12 ["Updated"]
+  GETTABLEKS R11 R9 K12 ["LastViewed"]
   FASTCALL2K ASSERT R11 K14 [+4]
   LOADK R12 K14 ["Recent game must have an updated date value"]
   GETIMPORT R10 K6 [assert]
   CALL R10 2 0
-  GETUPVAL R10 0
-  GETTABLEKS R11 R8 K12 ["Updated"]
+  GETIMPORT R10 K17 [DateTime.fromIsoDate]
+  GETTABLEKS R11 R8 K12 ["LastViewed"]
   CALL R10 1 1
-  GETUPVAL R11 0
-  GETTABLEKS R12 R9 K12 ["Updated"]
+  GETIMPORT R11 K17 [DateTime.fromIsoDate]
+  GETTABLEKS R12 R9 K12 ["LastViewed"]
   CALL R11 1 1
-  JUMPIFNOTLT R11 R10 [+10]
-  FASTCALL2 TABLE_INSERT R3 R8 [+5]
-  MOVE R13 R3
-  MOVE R14 R8
-  GETIMPORT R12 K17 [table.insert]
+  FASTCALL2K ASSERT R10 K18 [+5]
+  MOVE R13 R10
+  LOADK R14 K18 ["LastViewed of local games must be converted to DateTime"]
+  GETIMPORT R12 K6 [assert]
   CALL R12 2 0
+  FASTCALL2K ASSERT R11 K19 [+5]
+  MOVE R13 R11
+  LOADK R14 K19 ["LastViewed of recent games must be converted ot DateTime"]
+  GETIMPORT R12 K6 [assert]
+  CALL R12 2 0
+  GETTABLEKS R12 R10 K20 ["UnixTimestampMillis"]
+  GETTABLEKS R13 R11 K20 ["UnixTimestampMillis"]
+  JUMPIFNOTLT R13 R12 [+10]
+  FASTCALL2 TABLE_INSERT R3 R8 [+5]
+  MOVE R15 R3
+  MOVE R16 R8
+  GETIMPORT R14 K23 [table.insert]
+  CALL R14 2 0
   ADDK R5 R5 K11 [1]
   JUMP [+32]
   FASTCALL2 TABLE_INSERT R3 R9 [+5]
-  MOVE R13 R3
-  MOVE R14 R9
-  GETIMPORT R12 K17 [table.insert]
-  CALL R12 2 0
+  MOVE R15 R3
+  MOVE R16 R9
+  GETIMPORT R14 K23 [table.insert]
+  CALL R14 2 0
   ADDK R4 R4 K11 [1]
   JUMP [+23]
   LENGTH R8 R1
@@ -106,7 +118,7 @@ PROTO_0:
   GETTABLE R10 R1 R5
   FASTCALL2 TABLE_INSERT R3 R10 [+4]
   MOVE R9 R3
-  GETIMPORT R8 K17 [table.insert]
+  GETIMPORT R8 K23 [table.insert]
   CALL R8 2 0
   ADDK R5 R5 K11 [1]
   JUMP [+11]
@@ -115,10 +127,10 @@ PROTO_0:
   GETTABLE R10 R0 R4
   FASTCALL2 TABLE_INSERT R3 R10 [+4]
   MOVE R9 R3
-  GETIMPORT R8 K17 [table.insert]
+  GETIMPORT R8 K23 [table.insert]
   CALL R8 2 0
   ADDK R4 R4 K11 [1]
-  JUMPBACK [-155]
+  JUMPBACK [-175]
   RETURN R3 1
 
 PROTO_1:
@@ -204,10 +216,10 @@ PROTO_6:
   CALL R9 1 1
   AND R11 R8 R9
   FASTCALL2K ASSERT R11 K4 [+4]
-  LOADK R12 K4 ["IDs returned from StartPageService must be numeric"]
+  LOADK R12 K4 ["IDs returned from StartPageManager must be numeric"]
   GETIMPORT R10 K6 [assert]
   CALL R10 2 0
-  DUPTABLE R12 K11 [{"Name", "Id", "RootPlaceId", "Updated", "CreatorName", "PrivacyType"}]
+  DUPTABLE R12 K12 [{"Name", "Id", "RootPlaceId", "Updated", "CreatorName", "PrivacyType", "LastViewed"}]
   GETTABLEKS R13 R7 K7 ["Name"]
   SETTABLEKS R13 R12 K7 ["Name"]
   SETTABLEKS R8 R12 K0 ["Id"]
@@ -218,29 +230,31 @@ PROTO_6:
   SETTABLEKS R13 R12 K9 ["CreatorName"]
   GETTABLEKS R13 R7 K10 ["PrivacyType"]
   SETTABLEKS R13 R12 K10 ["PrivacyType"]
+  GETTABLEKS R13 R7 K11 ["LastViewed"]
+  SETTABLEKS R13 R12 K11 ["LastViewed"]
   FASTCALL2 TABLE_INSERT R1 R12 [+4]
   MOVE R11 R1
-  GETIMPORT R10 K14 [table.insert]
+  GETIMPORT R10 K15 [table.insert]
   CALL R10 2 0
   FASTCALL2 TABLE_INSERT R2 R8 [+5]
   MOVE R11 R2
   MOVE R12 R8
-  GETIMPORT R10 K14 [table.insert]
+  GETIMPORT R10 K15 [table.insert]
   CALL R10 2 0
-  FORGLOOP R3 2 [-54]
+  FORGLOOP R3 2 [-58]
   GETUPVAL R3 0
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U1
   CAPTURE VAL R1
   CAPTURE UPVAL U2
   CALL R3 1 0
-  DUPTABLE R3 K17 [{"gameIds", "setter"}]
-  SETTABLEKS R2 R3 K15 ["gameIds"]
+  DUPTABLE R3 K18 [{"gameIds", "setter"}]
+  SETTABLEKS R2 R3 K16 ["gameIds"]
   NEWCLOSURE R4 P1
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  SETTABLEKS R4 R3 K16 ["setter"]
+  SETTABLEKS R4 R3 K17 ["setter"]
   RETURN R3 1
 
 PROTO_7:
@@ -326,6 +340,16 @@ PROTO_11:
   RETURN R0 0
 
 PROTO_12:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["DiscoverRecents experienced an error: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_13:
   LOADN R4 1
   JUMPIFNOTLT R4 R1 [+2]
   RETURN R0 0
@@ -364,8 +388,8 @@ PROTO_12:
   CAPTURE VAL R0
   NAMECALL R4 R4 K1 ["andThen"]
   CALL R4 2 1
-  GETIMPORT R6 K4 [warn]
-  NAMECALL R4 R4 K5 ["catch"]
+  DUPCLOSURE R6 K3 [PROTO_12]
+  NAMECALL R4 R4 K4 ["catch"]
   CALL R4 2 0
   RETURN R0 0
 
@@ -402,17 +426,13 @@ MAIN:
   GETIMPORT R6 K5 [require]
   GETTABLEKS R9 R0 K6 ["Src"]
   GETTABLEKS R8 R9 K7 ["Util"]
-  GETTABLEKS R7 R8 K14 ["formatISOTimestamp"]
+  GETTABLEKS R7 R8 K14 ["Services"]
   CALL R6 1 1
-  GETIMPORT R7 K16 [game]
-  LOADK R9 K17 ["StartPageService"]
-  NAMECALL R7 R7 K18 ["GetService"]
-  CALL R7 2 1
-  GETTABLEKS R8 R7 K19 ["RecentApiGamesFromRegistryUpdatedSignal"]
-  GETTABLEKS R9 R7 K20 ["LocalGamesFromRegistryUpdatedSignal"]
-  DUPCLOSURE R10 K21 [PROTO_0]
-  CAPTURE VAL R6
-  DUPCLOSURE R11 K22 [PROTO_12]
+  GETTABLEKS R7 R6 K15 ["StartPageManager"]
+  GETTABLEKS R8 R7 K16 ["RecentApiGamesFromRegistryUpdatedSignal"]
+  GETTABLEKS R9 R7 K17 ["LocalGamesFromRegistryUpdatedSignal"]
+  DUPCLOSURE R10 K18 [PROTO_0]
+  DUPCLOSURE R11 K19 [PROTO_13]
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R8

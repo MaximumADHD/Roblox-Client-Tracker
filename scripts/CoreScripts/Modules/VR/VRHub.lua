@@ -15,15 +15,15 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui.RobloxGui
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
-local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
+local LaserPointer = require(CorePackages.Workspace.Packages.VrCommon).LaserPointer
 
-local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
+local VRControllerModel = require(CorePackages.Workspace.Packages.VrCommon).VRControllerModel
 
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
 
 local SafetyBubble = require(script.Parent.SafetyBubble)
 
-local FFlagVRServiceControllerAPIs = require(RobloxGui.Modules.Flags.FFlagVRServiceControllerAPIs)
+local FFlagVRServiceControllerAPIs = require(CorePackages.Workspace.Packages.VrCommon).FFlagVRServiceControllerAPIs
 
 local VRHub = {}
 local RegisteredModules = {}

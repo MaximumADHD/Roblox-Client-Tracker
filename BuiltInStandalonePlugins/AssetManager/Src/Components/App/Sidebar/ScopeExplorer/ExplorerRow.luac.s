@@ -36,7 +36,7 @@ PROTO_1:
   GETTABLEKS R9 R0 K2 ["Item"]
   GETTABLEKS R8 R9 K8 ["Id"]
   JUMPIFNOTEQ R7 R8 [+3]
-  LOADK R6 K9 ["Paper"]
+  LOADK R6 K9 ["Selected"]
   JUMP [+1]
   LOADK R6 K10 [""]
   GETUPVAL R8 6

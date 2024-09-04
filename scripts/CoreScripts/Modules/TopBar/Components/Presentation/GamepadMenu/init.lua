@@ -79,9 +79,9 @@ local LocalPlayer = Players.LocalPlayer
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
-local FFlagEnableGamepadMenuSelector = SharedFlags.FFlagEnableGamepadMenuSelector
 local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagSupportCompactUtility = SharedFlags.GetFFlagSupportCompactUtility
+local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -107,9 +107,6 @@ function GamepadMenu:init()
 	self:setState({
 		selectedIndex = 1,
 		menuActions = {},
-		shouldShowMenuNavigationPrompt = if FFlagEnableGamepadMenuSelector
-			then MenuNavigationPromptLocalStorage.getShouldShowMenuNavigationPrompt()
-			else nil,
 	})
 
 	self.boundMenuOpenActions = false
@@ -227,14 +224,6 @@ function GamepadMenu:init()
 			return Enum.ContextActionResult.Pass
 		end
 
-		if FFlagEnableGamepadMenuSelector and self.state.shouldShowMenuNavigationPrompt then
-			self:setState({
-				shouldShowMenuNavigationPrompt = false,
-			})
-			MenuNavigationPromptLocalStorage.setMenuNavigationPromptShown()
-			return Enum.ContextActionResult.Sink
-		end
-
 		local action = self.state.menuActions[self.state.selectedIndex]
 		self.props.setGamepadMenuOpen(false)
 
@@ -266,7 +255,10 @@ end
 
 function GamepadMenu.openUnibarMenu()
 	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-	if GetFFlagEnableUnibarSneakPeak() then
+
+	if GetFFlagEnableAlwaysOpenUnibar() then
+		ChromeService:enableFocusNav()
+	elseif GetFFlagEnableUnibarSneakPeak() then
 		ChromeService:open()
 	else
 		ChromeService:toggleOpen()
@@ -275,8 +267,9 @@ end
 
 function GamepadMenu.closeUnibarMenu()
 	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-
-	if GetFFlagSupportCompactUtility() then
+	if GetFFlagEnableAlwaysOpenUnibar() then
+		ChromeService:disableFocusNav()
+	elseif GetFFlagSupportCompactUtility() then
 		ChromeService:close(true)
 	else
 		ChromeService:close()
@@ -518,14 +511,7 @@ function GamepadMenu:render()
 		local visible = self.props.isGamepadMenuOpen
 		local controllerBarComponent = visible and Roact.createElement(ControllerBar) or nil
 
-		local menuNavigationPromptItems = {
-			MenuNavigationDismissablePrompt = Roact.createElement(MenuNavigationDismissablePrompt, {
-				Position = UDim2.fromScale(0.5, 0.5),
-				Visible = self.props.isGamepadMenuOpen,
-			}),
-		}
-
-		local defaultMenuItems = {
+		local children = {
 			Menu = Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,
 				Image = MENU_BACKGROUND_ASSET,
@@ -545,10 +531,6 @@ function GamepadMenu:render()
 				})
 				else nil,
 		}
-
-		local children = if FFlagEnableGamepadMenuSelector and self.state.shouldShowMenuNavigationPrompt
-			then menuNavigationPromptItems
-			else defaultMenuItems
 
 		return Roact.createElement("TextButton", {
 			Visible = visible,

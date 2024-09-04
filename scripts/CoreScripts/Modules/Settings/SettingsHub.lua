@@ -178,6 +178,7 @@ local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.No
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
+local FFlagFixReportButtonCutOff = game:DefineFastFlag("FixReportButtonCutOff", false)
 
 local MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
 local PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
@@ -2780,6 +2781,14 @@ local function CreateSettingsHub()
 			return
 		end
 
+		if FFlagFixReportButtonCutOff then
+			if pageToSwitchTo.Page.Name == "ReportAbuseMenuNewContainerPage" then
+				this.PageViewInnerFrame.UIPadding.PaddingTop = UDim.new(0, 0)
+			else
+				this.PageViewInnerFrame.UIPadding.PaddingTop = UDim.new(0, 5)
+			end
+		end
+
 		if Theme.UIBloxThemeEnabled then
 			local topExtra = UDim.new(0, 0)
 			local bottomExtra = UDim.new(0, 0)
@@ -3471,7 +3480,7 @@ local function CreateSettingsHub()
 	local vrMenuOpened, vrMenuClosed = nil, nil
 	local function enableVR()
 		local VRHub = require(RobloxGui.Modules.VR.VRHub)
-		local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+		local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 		local panel = Panel3D.Get(thisModuleName)
 		panel:ResizeStuds(4, 4, 250)
 		panel:SetType(Panel3D.Type.Standard)
@@ -3516,7 +3525,7 @@ local function CreateSettingsHub()
 			vrMenuClosed = nil
 		end
 
-		local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+		local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 		local panel = Panel3D.Get(thisModuleName)
 		panel:SetVisible(false)
 	end

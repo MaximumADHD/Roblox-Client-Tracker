@@ -40,6 +40,10 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_4:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["isMocking"]
   CALL R0 1 1
@@ -63,71 +67,75 @@ PROTO_3:
   SETTABLEKS R1 R0 K10 ["updatePlane"]
   LOADB R1 0
   SETTABLEKS R1 R0 K2 ["Mock"]
-  DUPTABLE R1 K14 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
-  GETUPVAL R2 5
-  NAMECALL R2 R2 K15 ["getMouse"]
-  CALL R2 1 1
-  SETTABLEKS R2 R1 K11 ["Mouse"]
-  SETTABLEKS R0 R1 K1 ["DraggerContext"]
+  GETUPVAL R1 5
+  JUMPIFNOT R1 [+3]
+  DUPCLOSURE R1 K11 [PROTO_3]
+  SETTABLEKS R1 R0 K12 ["shouldExtendSelection"]
+  DUPTABLE R1 K16 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
   GETUPVAL R2 6
-  SETTABLEKS R2 R1 K12 ["DraggerSchema"]
-  DUPTABLE R2 K22 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
-  LOADK R3 K23 ["AdjustablePlaneLock"]
-  SETTABLEKS R3 R2 K16 ["AnalyticsName"]
+  NAMECALL R2 R2 K17 ["getMouse"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K13 ["Mouse"]
+  SETTABLEKS R0 R1 K1 ["DraggerContext"]
+  GETUPVAL R2 7
+  SETTABLEKS R2 R1 K14 ["DraggerSchema"]
+  DUPTABLE R2 K24 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
+  LOADK R3 K25 ["AdjustablePlaneLock"]
+  SETTABLEKS R3 R2 K18 ["AnalyticsName"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K17 ["AllowDragSelect"]
+  SETTABLEKS R3 R2 K19 ["AllowDragSelect"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K18 ["AllowFreeformDrag"]
+  SETTABLEKS R3 R2 K20 ["AllowFreeformDrag"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K19 ["ShowLocalSpaceIndicator"]
+  SETTABLEKS R3 R2 K21 ["ShowLocalSpaceIndicator"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K20 ["ShowPivotIndicator"]
+  SETTABLEKS R3 R2 K22 ["ShowPivotIndicator"]
   NEWTABLE R3 0 2
-  GETUPVAL R5 7
+  GETUPVAL R5 8
   GETTABLEKS R4 R5 K4 ["new"]
   MOVE R5 R0
-  DUPTABLE R6 K27 [{"ShowBoundingBox", "Summonable", "Outset"}]
+  DUPTABLE R6 K29 [{"ShowBoundingBox", "Summonable", "Outset"}]
   LOADB R7 0
-  SETTABLEKS R7 R6 K24 ["ShowBoundingBox"]
+  SETTABLEKS R7 R6 K26 ["ShowBoundingBox"]
   LOADB R7 0
-  SETTABLEKS R7 R6 K25 ["Summonable"]
+  SETTABLEKS R7 R6 K27 ["Summonable"]
   LOADN R7 1
-  SETTABLEKS R7 R6 K26 ["Outset"]
-  GETUPVAL R9 6
-  GETTABLEKS R8 R9 K28 ["TransformHandlesImplementation"]
+  SETTABLEKS R7 R6 K28 ["Outset"]
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K30 ["TransformHandlesImplementation"]
   GETTABLEKS R7 R8 K4 ["new"]
   MOVE R8 R0
   CALL R7 1 -1
   CALL R4 -1 1
-  GETUPVAL R6 8
+  GETUPVAL R6 9
   GETTABLEKS R5 R6 K4 ["new"]
   MOVE R6 R0
-  DUPTABLE R7 K27 [{"ShowBoundingBox", "Summonable", "Outset"}]
+  DUPTABLE R7 K29 [{"ShowBoundingBox", "Summonable", "Outset"}]
   LOADB R8 0
-  SETTABLEKS R8 R7 K24 ["ShowBoundingBox"]
+  SETTABLEKS R8 R7 K26 ["ShowBoundingBox"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K25 ["Summonable"]
+  SETTABLEKS R8 R7 K27 ["Summonable"]
   LOADN R8 1
-  SETTABLEKS R8 R7 K26 ["Outset"]
-  GETUPVAL R10 6
-  GETTABLEKS R9 R10 K28 ["TransformHandlesImplementation"]
+  SETTABLEKS R8 R7 K28 ["Outset"]
+  GETUPVAL R10 7
+  GETTABLEKS R9 R10 K30 ["TransformHandlesImplementation"]
   GETTABLEKS R8 R9 K4 ["new"]
   MOVE R9 R0
   CALL R8 1 -1
   CALL R5 -1 -1
   SETLIST R3 R4 -1 [1]
-  SETTABLEKS R3 R2 K21 ["HandlesList"]
-  SETTABLEKS R2 R1 K13 ["DraggerSettings"]
+  SETTABLEKS R3 R2 K23 ["HandlesList"]
+  SETTABLEKS R2 R1 K15 ["DraggerSettings"]
   RETURN R1 1
 
-PROTO_4:
+PROTO_5:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["DraggerContext"]
   GETUPVAL R1 1
   SETTABLEKS R1 R0 K1 ["updatePlane"]
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K0 ["BrushSettings"]
@@ -146,7 +154,7 @@ PROTO_5:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R4 0
   NAMECALL R4 R4 K0 ["use"]
   CALL R4 1 1
@@ -197,15 +205,16 @@ PROTO_6:
   CAPTURE UPVAL U9
   CAPTURE VAL R6
   CAPTURE VAL R10
+  CAPTURE UPVAL U10
   CAPTURE VAL R5
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U10
   CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
   NEWTABLE R13 0 1
   MOVE R14 R0
   SETLIST R13 R14 1 [1]
   CALL R11 2 1
-  GETUPVAL R12 12
+  GETUPVAL R12 13
   NEWCLOSURE R13 P4
   CAPTURE VAL R11
   CAPTURE VAL R10
@@ -213,7 +222,7 @@ PROTO_6:
   MOVE R15 R10
   SETLIST R14 R15 1 [1]
   CALL R12 2 0
-  GETUPVAL R12 12
+  GETUPVAL R12 13
   NEWCLOSURE R13 P5
   CAPTURE VAL R1
   CAPTURE UPVAL U4
@@ -284,7 +293,12 @@ MAIN:
   CALL R13 1 1
   GETTABLEKS R14 R13 K25 ["BrushSettings"]
   GETTABLEKS R15 R13 K26 ["Category"]
-  DUPCLOSURE R16 K27 [PROTO_6]
+  GETIMPORT R16 K28 [game]
+  LOADK R18 K29 ["TerrainEditorPlaneSelectionFix"]
+  LOADB R19 0
+  NAMECALL R16 R16 K30 ["DefineFastFlag"]
+  CALL R16 3 1
+  DUPCLOSURE R17 K31 [PROTO_7]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R5
@@ -295,7 +309,8 @@ MAIN:
   CAPTURE VAL R3
   CAPTURE VAL R10
   CAPTURE VAL R0
+  CAPTURE VAL R16
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R4
-  RETURN R16 1
+  RETURN R17 1

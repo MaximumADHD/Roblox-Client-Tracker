@@ -66,7 +66,7 @@ PROTO_1:
   SETTABLEKS R18 R17 K17 ["Text"]
   GETUPVAL R19 2
   GETTABLEKS R18 R19 K10 ["Tag"]
-  LOADK R19 K18 ["X-Fit StartPage-NoBackground StartPage-FontBold StartPage-PillPadding StartPage-TextSize StartPage-TextColor"]
+  LOADK R19 K18 ["X-Fit X-Transparent StartPage-FontBold StartPage-PillPadding StartPage-TextSize StartPage-TextColor"]
   SETTABLE R19 R17 R18
   CALL R15 2 -1
   SETLIST R14 R15 -1 [1]
@@ -90,7 +90,7 @@ PROTO_1:
   SETTABLEKS R9 R8 K26 ["Size"]
   GETUPVAL R10 2
   GETTABLEKS R9 R10 K10 ["Tag"]
-  LOADK R10 K27 ["X-Fit X-RowM StartPage-NoBackground"]
+  LOADK R10 K27 ["X-Fit X-RowM X-Transparent"]
   SETTABLE R10 R8 R9
   MOVE R9 R5
   CALL R6 3 -1

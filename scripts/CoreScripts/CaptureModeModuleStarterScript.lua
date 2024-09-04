@@ -5,7 +5,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
 local UIBlox = require(CorePackages.UIBlox)
-local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
+local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
 UIBlox.init(uiBloxConfig)
 
 -- Flags

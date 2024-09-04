@@ -9,28 +9,27 @@ PROTO_1:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["new"]
+  GETUPVAL R2 1
   CALL R2 0 1
   GETUPVAL R3 2
-  LOADK R4 K2 ["PointingHand"]
+  LOADK R4 K1 ["PointingHand"]
   CALL R3 1 2
   NEWTABLE R5 0 0
-  GETTABLEKS R6 R0 K3 ["Pages"]
+  GETTABLEKS R6 R0 K2 ["Pages"]
   LOADNIL R7
   LOADNIL R8
   FORGPREP R6
-  GETTABLEKS R12 R0 K4 ["SelectedPage"]
+  GETTABLEKS R12 R0 K3 ["SelectedPage"]
   JUMPIFNOTEQ R10 R12 [+3]
-  LOADK R11 K5 ["StartPage-Selected"]
+  LOADK R11 K4 ["StartPage-Selected"]
   JUMP [+1]
-  LOADK R11 K6 ["StartPage-MenuBackground"]
+  LOADK R11 K5 ["StartPage-MenuBackground"]
   MOVE R13 R5
   GETUPVAL R15 3
-  GETTABLEKS R14 R15 K7 ["createElement"]
-  LOADK R15 K8 ["ImageButton"]
+  GETTABLEKS R14 R15 K6 ["createElement"]
+  LOADK R15 K7 ["ImageButton"]
   NEWTABLE R16 8 0
-  SETTABLEKS R9 R16 K9 ["LayoutOrder"]
+  SETTABLEKS R9 R16 K8 ["LayoutOrder"]
   GETIMPORT R17 K11 [UDim2.new]
   LOADN R18 0
   LOADN R19 3
@@ -62,16 +61,16 @@ PROTO_1:
   SETTABLE R18 R16 R17
   DUPTABLE R17 K21 [{"Icon", "Label"}]
   GETUPVAL R19 3
-  GETTABLEKS R18 R19 K7 ["createElement"]
+  GETTABLEKS R18 R19 K6 ["createElement"]
   LOADK R19 K22 ["Frame"]
   NEWTABLE R20 1 0
   GETUPVAL R22 3
   GETTABLEKS R21 R22 K17 ["Tag"]
-  LOADK R22 K23 ["X-FitX X-Left X-Middle StartPage-NoBackground"]
+  LOADK R22 K23 ["X-FitX X-Left X-Middle X-Transparent"]
   SETTABLE R22 R20 R21
   NEWTABLE R21 0 1
   GETUPVAL R23 3
-  GETTABLEKS R22 R23 K7 ["createElement"]
+  GETTABLEKS R22 R23 K6 ["createElement"]
   GETUPVAL R23 5
   NEWTABLE R24 1 0
   GETUPVAL R26 3
@@ -83,16 +82,16 @@ PROTO_1:
   CALL R18 3 1
   SETTABLEKS R18 R17 K19 ["Icon"]
   GETUPVAL R19 3
-  GETTABLEKS R18 R19 K7 ["createElement"]
+  GETTABLEKS R18 R19 K6 ["createElement"]
   LOADK R19 K22 ["Frame"]
   NEWTABLE R20 1 0
   GETUPVAL R22 3
   GETTABLEKS R21 R22 K17 ["Tag"]
-  LOADK R22 K23 ["X-FitX X-Left X-Middle StartPage-NoBackground"]
+  LOADK R22 K23 ["X-FitX X-Left X-Middle X-Transparent"]
   SETTABLE R22 R20 R21
   NEWTABLE R21 0 1
   GETUPVAL R23 3
-  GETTABLEKS R22 R23 K7 ["createElement"]
+  GETTABLEKS R22 R23 K6 ["createElement"]
   LOADK R23 K24 ["TextLabel"]
   NEWTABLE R24 4 0
   LOADK R27 K25 ["Plugin"]
@@ -104,7 +103,7 @@ PROTO_1:
   SETTABLEKS R25 R24 K30 ["TextXAlignment"]
   GETUPVAL R26 3
   GETTABLEKS R25 R26 K17 ["Tag"]
-  LOADK R26 K33 ["X-Fit X-Pad StartPage-TextColor StartPage-NoBackground StartPage-FontBold StartPage-TextSize"]
+  LOADK R26 K33 ["X-Fit X-Pad StartPage-TextColor X-Transparent StartPage-FontBold StartPage-TextSize"]
   SETTABLE R26 R24 R25
   CALL R22 2 -1
   SETLIST R21 R22 -1 [1]
@@ -116,7 +115,7 @@ PROTO_1:
   CALL R12 -1 0
   FORGLOOP R6 2 [-134]
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K7 ["createElement"]
+  GETTABLEKS R6 R7 K6 ["createElement"]
   LOADK R7 K22 ["Frame"]
   NEWTABLE R8 4 0
   GETTABLEKS R9 R0 K37 ["Position"]
@@ -129,7 +128,7 @@ PROTO_1:
   SETTABLE R10 R8 R9
   NEWTABLE R9 0 1
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K7 ["createElement"]
+  GETTABLEKS R10 R11 K6 ["createElement"]
   LOADK R11 K22 ["Frame"]
   NEWTABLE R12 4 0
   GETIMPORT R13 K11 [UDim2.new]
@@ -148,11 +147,11 @@ PROTO_1:
   SETTABLEKS R13 R12 K12 ["Size"]
   GETUPVAL R14 3
   GETTABLEKS R13 R14 K17 ["Tag"]
-  LOADK R14 K39 ["X-Fit X-Column StartPage-NoBackground"]
+  LOADK R14 K39 ["X-Fit X-Column X-Transparent"]
   SETTABLE R14 R12 R13
   DUPTABLE R13 K41 [{"NewButton", "Pages"}]
   GETUPVAL R15 3
-  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETTABLEKS R14 R15 K6 ["createElement"]
   LOADK R15 K22 ["Frame"]
   NEWTABLE R16 4 0
   GETIMPORT R17 K11 [UDim2.new]
@@ -162,18 +161,18 @@ PROTO_1:
   LOADN R21 80
   CALL R17 4 1
   SETTABLEKS R17 R16 K12 ["Size"]
-  NAMECALL R17 R2 K42 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K9 ["LayoutOrder"]
+  MOVE R17 R2
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K8 ["LayoutOrder"]
   GETUPVAL R18 3
   GETTABLEKS R17 R18 K17 ["Tag"]
-  LOADK R18 K43 ["StartPage-NoBackground"]
+  LOADK R18 K42 ["X-Transparent"]
   SETTABLE R18 R16 R17
   NEWTABLE R17 0 1
   GETUPVAL R19 3
-  GETTABLEKS R18 R19 K7 ["createElement"]
+  GETTABLEKS R18 R19 K6 ["createElement"]
   GETUPVAL R19 6
-  DUPTABLE R20 K44 [{"Size"}]
+  DUPTABLE R20 K43 [{"Size"}]
   GETIMPORT R21 K11 [UDim2.new]
   LOADN R22 0
   LOADN R23 3
@@ -186,19 +185,19 @@ PROTO_1:
   CALL R14 3 1
   SETTABLEKS R14 R13 K40 ["NewButton"]
   GETUPVAL R15 3
-  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETTABLEKS R14 R15 K6 ["createElement"]
   LOADK R15 K22 ["Frame"]
   NEWTABLE R16 2 0
-  NAMECALL R17 R2 K42 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K9 ["LayoutOrder"]
+  MOVE R17 R2
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K8 ["LayoutOrder"]
   GETUPVAL R18 3
   GETTABLEKS R17 R18 K17 ["Tag"]
-  LOADK R18 K45 ["X-Fit X-Top X-Left X-ColumnS StartPage-NoBackground"]
+  LOADK R18 K44 ["X-Fit X-Top X-Left X-ColumnS X-Transparent"]
   SETTABLE R18 R16 R17
   MOVE R17 R5
   CALL R14 3 1
-  SETTABLEKS R14 R13 K3 ["Pages"]
+  SETTABLEKS R14 R13 K2 ["Pages"]
   CALL R10 3 -1
   SETLIST R9 R10 -1 [1]
   CALL R6 3 -1
@@ -219,7 +218,7 @@ MAIN:
   GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
   GETTABLEKS R4 R2 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["LayoutOrderIterator"]
+  GETTABLEKS R3 R4 K10 ["counter"]
   GETTABLEKS R5 R2 K11 ["ContextServices"]
   GETTABLEKS R4 R5 K12 ["Localization"]
   GETTABLEKS R5 R2 K13 ["UI"]

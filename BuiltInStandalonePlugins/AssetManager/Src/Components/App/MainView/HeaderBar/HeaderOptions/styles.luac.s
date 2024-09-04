@@ -17,63 +17,51 @@ MAIN:
   MOVE R4 R2
   LOADK R5 K13 [".HeaderOptions"]
   NEWTABLE R6 0 0
-  NEWTABLE R7 0 4
+  NEWTABLE R7 0 3
   MOVE R8 R2
   LOADK R9 K14 ["> .ClearFilter"]
   DUPTABLE R10 K16 [{"Size"}]
   SETTABLEKS R3 R10 K15 ["Size"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K17 ["> .BulkImportButton"]
-  NEWTABLE R11 0 0
-  NEWTABLE R12 0 1
-  MOVE R13 R2
-  LOADK R14 K18 ["> Image .Disabled"]
-  DUPTABLE R15 K20 [{"ImageColor3"}]
-  LOADK R16 K21 ["$TextSecondary"]
-  SETTABLEKS R16 R15 K19 ["ImageColor3"]
-  CALL R13 2 -1
-  SETLIST R12 R13 -1 [1]
-  CALL R9 3 1
+  LOADK R10 K17 ["::UIPadding"]
+  DUPTABLE R11 K21 [{"PaddingRight", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R12 K24 [UDim.new]
+  LOADN R13 0
+  LOADN R14 20
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K18 ["PaddingRight"]
+  GETIMPORT R12 K24 [UDim.new]
+  LOADN R13 0
+  LOADN R14 5
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K19 ["PaddingTop"]
+  GETIMPORT R12 K24 [UDim.new]
+  LOADN R13 0
+  LOADN R14 5
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K20 ["PaddingBottom"]
+  CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K22 ["::UIPadding"]
-  DUPTABLE R12 K26 [{"PaddingRight", "PaddingTop", "PaddingBottom"}]
-  GETIMPORT R13 K29 [UDim.new]
+  LOADK R11 K25 ["::UIListLayout"]
+  DUPTABLE R12 K29 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R13 K32 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R13 R12 K26 ["FillDirection"]
+  GETIMPORT R13 K24 [UDim.new]
   LOADN R14 0
   LOADN R15 20
   CALL R13 2 1
-  SETTABLEKS R13 R12 K23 ["PaddingRight"]
-  GETIMPORT R13 K29 [UDim.new]
-  LOADN R14 0
-  LOADN R15 5
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K24 ["PaddingTop"]
-  GETIMPORT R13 K29 [UDim.new]
-  LOADN R14 0
-  LOADN R15 5
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K25 ["PaddingBottom"]
-  CALL R10 2 1
-  MOVE R11 R2
-  LOADK R12 K30 ["::UIListLayout"]
-  DUPTABLE R13 K34 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R14 K37 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R14 R13 K31 ["FillDirection"]
-  GETIMPORT R14 K29 [UDim.new]
-  LOADN R15 0
-  LOADN R16 20
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K32 ["Padding"]
-  GETIMPORT R14 K39 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R14 R13 K33 ["SortOrder"]
-  CALL R11 2 -1
+  SETTABLEKS R13 R12 K27 ["Padding"]
+  GETIMPORT R13 K34 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R13 R12 K28 ["SortOrder"]
+  CALL R10 2 -1
   SETLIST R7 R8 -1 [1]
-  DUPTABLE R8 K42 [{"FilterSize", "FilterIconSize"}]
+  DUPTABLE R8 K37 [{"FilterSize", "FilterIconSize"}]
   GETIMPORT R9 K12 [UDim2.fromOffset]
   LOADN R10 80
   LOADN R11 32
   CALL R9 2 1
-  SETTABLEKS R9 R8 K40 ["FilterSize"]
-  SETTABLEKS R3 R8 K41 ["FilterIconSize"]
+  SETTABLEKS R9 R8 K35 ["FilterSize"]
+  SETTABLEKS R3 R8 K36 ["FilterIconSize"]
   CALL R4 4 -1
   RETURN R4 -1

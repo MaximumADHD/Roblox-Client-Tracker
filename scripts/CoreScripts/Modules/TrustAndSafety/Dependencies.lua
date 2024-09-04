@@ -19,6 +19,5 @@ return {
 	Localization = if SwitchTnSTranslationsPackage then require(CorePackages.Workspace.Packages.InExperienceLocales).Localization else require(InGameMenu.Localization.Localization),
 	LocalizationProvider = InGameMenu.Localization.LocalizationProvider,
 	withLocalization = InGameMenu.Localization.withLocalization,
-	UIBloxInGameConfig = script.Parent.Parent.UIBloxInGameConfig,
 	playerInterface = script.Parent.Parent.Interfaces.playerInterface,
 }

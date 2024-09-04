@@ -40,12 +40,12 @@ PROTO_1:
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K8 ["createElement"]
   GETUPVAL R13 1
-  DUPTABLE R14 K32 [{"LayoutOrder", "Size", "Text", "StyleModifier", "TextXAlignment"}]
+  DUPTABLE R14 K33 [{"LayoutOrder", "Size", "Text", "StyleModifier", "TextXAlignment", "TextWrapped"}]
   LOADN R15 1
   SETTABLEKS R15 R14 K2 ["LayoutOrder"]
   GETIMPORT R15 K15 [UDim2.new]
   LOADN R16 0
-  GETTABLEKS R17 R2 K33 ["LabelWidth"]
+  GETTABLEKS R17 R2 K34 ["LabelWidth"]
   LOADN R18 1
   LOADN R19 0
   CALL R15 4 1
@@ -55,10 +55,12 @@ PROTO_1:
   LOADNIL R15
   JUMP [+3]
   GETUPVAL R16 2
-  GETTABLEKS R15 R16 K34 ["Disabled"]
+  GETTABLEKS R15 R16 K35 ["Disabled"]
   SETTABLEKS R15 R14 K30 ["StyleModifier"]
-  GETIMPORT R15 K36 [Enum.TextXAlignment.Left]
+  GETIMPORT R15 K37 [Enum.TextXAlignment.Left]
   SETTABLEKS R15 R14 K31 ["TextXAlignment"]
+  GETUPVAL R15 3
+  SETTABLEKS R15 R14 K32 ["TextWrapped"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K18 ["Label"]
   GETUPVAL R13 0
@@ -71,53 +73,53 @@ PROTO_1:
   SETTABLEKS R15 R14 K2 ["LayoutOrder"]
   GETIMPORT R15 K15 [UDim2.new]
   LOADN R16 0
-  GETTABLEKS R17 R2 K37 ["ButtonWidth"]
+  GETTABLEKS R17 R2 K38 ["ButtonWidth"]
   LOADN R18 1
   LOADN R19 0
   CALL R15 4 1
   SETTABLEKS R15 R14 K11 ["Size"]
-  DUPTABLE R15 K39 [{"Button"}]
+  DUPTABLE R15 K40 [{"Button"}]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K8 ["createElement"]
-  GETUPVAL R17 3
-  DUPTABLE R18 K44 [{"AnchorPoint", "OnClick", "Position", "Size", "Style", "Text"}]
-  GETIMPORT R19 K46 [Vector2.new]
-  LOADK R20 K47 [0.5]
-  LOADK R21 K47 [0.5]
+  GETUPVAL R17 4
+  DUPTABLE R18 K45 [{"AnchorPoint", "OnClick", "Position", "Size", "Style", "Text"}]
+  GETIMPORT R19 K47 [Vector2.new]
+  LOADK R20 K48 [0.5]
+  LOADK R21 K48 [0.5]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K40 ["AnchorPoint"]
-  SETTABLEKS R7 R18 K41 ["OnClick"]
+  SETTABLEKS R19 R18 K41 ["AnchorPoint"]
+  SETTABLEKS R7 R18 K42 ["OnClick"]
   GETIMPORT R19 K15 [UDim2.new]
-  LOADK R20 K47 [0.5]
+  LOADK R20 K48 [0.5]
   LOADN R21 0
-  LOADK R22 K47 [0.5]
+  LOADK R22 K48 [0.5]
   LOADN R23 0
   CALL R19 4 1
-  SETTABLEKS R19 R18 K42 ["Position"]
+  SETTABLEKS R19 R18 K43 ["Position"]
   GETIMPORT R19 K15 [UDim2.new]
   LOADN R20 1
   LOADN R21 0
   LOADN R22 0
-  GETTABLEKS R23 R2 K48 ["ButtonHeight"]
+  GETTABLEKS R23 R2 K49 ["ButtonHeight"]
   CALL R19 4 1
   SETTABLEKS R19 R18 K11 ["Size"]
   JUMPIFNOT R6 [+2]
-  LOADK R19 K49 ["TextButton"]
+  LOADK R19 K50 ["TextButton"]
   JUMP [+1]
-  LOADK R19 K50 ["DisabledTextButton"]
-  SETTABLEKS R19 R18 K43 ["Style"]
+  LOADK R19 K51 ["DisabledTextButton"]
+  SETTABLEKS R19 R18 K44 ["Style"]
   SETTABLEKS R5 R18 K29 ["Text"]
   NEWTABLE R19 0 1
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K8 ["createElement"]
-  GETUPVAL R21 4
-  DUPTABLE R22 K52 [{"Cursor"}]
-  LOADK R23 K53 ["PointingHand"]
-  SETTABLEKS R23 R22 K51 ["Cursor"]
+  GETUPVAL R21 5
+  DUPTABLE R22 K53 [{"Cursor"}]
+  LOADK R23 K54 ["PointingHand"]
+  SETTABLEKS R23 R22 K52 ["Cursor"]
   CALL R20 2 -1
   SETLIST R19 R20 -1 [1]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K38 ["Button"]
+  SETTABLEKS R16 R15 K39 ["Button"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K19 ["ButtonContainer"]
   CALL R8 3 -1
@@ -145,23 +147,28 @@ MAIN:
   GETTABLEKS R8 R5 K13 ["TextLabel"]
   GETTABLEKS R10 R2 K14 ["Util"]
   GETTABLEKS R9 R10 K15 ["StyleModifier"]
-  GETTABLEKS R10 R1 K16 ["PureComponent"]
-  LOADK R12 K17 ["LabeledTextButton"]
-  NAMECALL R10 R10 K18 ["extend"]
+  GETIMPORT R10 K17 [game]
+  LOADK R12 K18 ["LocalizationToolsUpdateTextScraperUI"]
+  NAMECALL R10 R10 K19 ["GetFastFlag"]
   CALL R10 2 1
-  DUPCLOSURE R11 K19 [PROTO_1]
+  GETTABLEKS R11 R1 K20 ["PureComponent"]
+  LOADK R13 K21 ["LabeledTextButton"]
+  NAMECALL R11 R11 K22 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K23 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R8
   CAPTURE VAL R9
+  CAPTURE VAL R10
   CAPTURE VAL R6
   CAPTURE VAL R7
-  SETTABLEKS R11 R10 K20 ["render"]
-  MOVE R11 R4
-  DUPTABLE R12 K22 [{"Stylizer"}]
-  GETTABLEKS R13 R3 K21 ["Stylizer"]
-  SETTABLEKS R13 R12 K21 ["Stylizer"]
-  CALL R11 1 1
-  MOVE R12 R10
-  CALL R11 1 1
-  MOVE R10 R11
-  RETURN R10 1
+  SETTABLEKS R12 R11 K24 ["render"]
+  MOVE R12 R4
+  DUPTABLE R13 K26 [{"Stylizer"}]
+  GETTABLEKS R14 R3 K25 ["Stylizer"]
+  SETTABLEKS R14 R13 K25 ["Stylizer"]
+  CALL R12 1 1
+  MOVE R13 R11
+  CALL R12 1 1
+  MOVE R11 R12
+  RETURN R11 1

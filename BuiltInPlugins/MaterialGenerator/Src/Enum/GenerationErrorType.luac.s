@@ -6,25 +6,23 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETTABLEKS R2 R3 K6 ["enumerate"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["enumerate"]
-  MOVE R3 R2
-  LOADK R4 K9 ["GenerationErrorType"]
-  NEWTABLE R5 0 12
-  LOADK R6 K10 ["None"]
-  LOADK R7 K11 ["Unknown"]
-  LOADK R8 K12 ["CustomMessage"]
-  LOADK R9 K13 ["NoSession"]
-  LOADK R10 K14 ["NoSelectedMaterial"]
-  LOADK R11 K15 ["FailedToGenerateMaps"]
-  LOADK R12 K16 ["TooManyRequests"]
-  LOADK R13 K17 ["ServerError500"]
-  LOADK R14 K18 ["ServerError504"]
-  LOADK R15 K19 ["TextFullyFiltered"]
-  LOADK R16 K20 ["AccountingFailedDecrement"]
-  LOADK R17 K21 ["FailedToSetImage"]
-  SETLIST R5 R6 12 [1]
-  CALL R3 2 -1
-  RETURN R3 -1
+  MOVE R2 R1
+  LOADK R3 K7 ["GenerationErrorType"]
+  NEWTABLE R4 0 12
+  LOADK R5 K8 ["None"]
+  LOADK R6 K9 ["Unknown"]
+  LOADK R7 K10 ["CustomMessage"]
+  LOADK R8 K11 ["NoSession"]
+  LOADK R9 K12 ["NoSelectedMaterial"]
+  LOADK R10 K13 ["FailedToGenerateMaps"]
+  LOADK R11 K14 ["TooManyRequests"]
+  LOADK R12 K15 ["ServerError500"]
+  LOADK R13 K16 ["ServerError504"]
+  LOADK R14 K17 ["TextFullyFiltered"]
+  LOADK R15 K18 ["AccountingFailedDecrement"]
+  LOADK R16 K19 ["FailedToSetImage"]
+  SETLIST R4 R5 12 [1]
+  CALL R2 2 -1
+  RETURN R2 -1

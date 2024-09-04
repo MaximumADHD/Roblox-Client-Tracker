@@ -37,7 +37,6 @@ local Presentation = TopBar.Components.Presentation
 local GamepadMenu = require(Presentation.GamepadMenu)
 local Reducer = require(TopBar.Reducer)
 local MenuNavigationPromptTokenMapper = require(TopBar.TokenMappers.MenuNavigationPromptTokenMapper)
-local FFlagEnableGamepadMenuSelector = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableGamepadMenuSelector
 
 local ChromeEnabled = require(Modules.Chrome.Enabled)
 
@@ -48,12 +47,6 @@ return function()
 		afterAll(function(context)
 			if EmotesMenuMaster:isOpen() then
 				EmotesMenuMaster:close()
-			end
-		end)
-
-		beforeEach(function()
-			if FFlagEnableGamepadMenuSelector then
-				AppStorageService:SetItem("GamepadMenuVirtualCursorPromptShown", "true")
 			end
 		end)
 

@@ -32,6 +32,8 @@ local GetFStringVoiceExposureIXPLayerName = require(script.Parent.Parent.Flags.G
 local GetFFlagAddPhoneVerificationLayers = require(script.Parent.Parent.Flags.GetFFlagAddPhoneVerificationLayers)
 local GetFStringAndroidPhoneVerificationLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringAndroidPhoneVerificationLayer
 local GetFStringIOSPhoneVerificationLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringIOSPhoneVerificationLayer
+local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
+local getFStringAppChatInExperienceIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).getFStringAppChatInExperienceIXPLayer
 
 return function()
 	local layers = {
@@ -105,6 +107,10 @@ return function()
 
 	if GetFFlagAddPhoneVerificationLayers() and GetFStringIOSPhoneVerificationLayer() then
 		table.insert(layers, GetFStringIOSPhoneVerificationLayer())
+	end
+
+	if GetFFlagEnableAppChatInExperience() then
+		table.insert(layers, getFStringAppChatInExperienceIXPLayer())
 	end
 
 	return layers

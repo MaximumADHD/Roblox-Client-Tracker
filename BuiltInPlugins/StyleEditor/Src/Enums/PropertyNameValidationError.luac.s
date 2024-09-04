@@ -6,21 +6,19 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETTABLEKS R2 R3 K6 ["enumerate"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["enumerate"]
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Types"]
-  CALL R3 1 1
-  MOVE R4 R2
-  LOADK R5 K11 ["PropertyNameValidationError"]
-  NEWTABLE R6 0 4
-  LOADK R7 K12 ["None"]
-  LOADK R8 K13 ["DoesNotExist"]
-  LOADK R9 K14 ["DoesNotExistOnType"]
-  LOADK R10 K15 ["AlreadyDefined"]
-  SETLIST R6 R7 4 [1]
-  CALL R4 2 1
-  RETURN R4 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Src"]
+  GETTABLEKS R3 R4 K8 ["Types"]
+  CALL R2 1 1
+  MOVE R3 R1
+  LOADK R4 K9 ["PropertyNameValidationError"]
+  NEWTABLE R5 0 4
+  LOADK R6 K10 ["None"]
+  LOADK R7 K11 ["DoesNotExist"]
+  LOADK R8 K12 ["DoesNotExistOnType"]
+  LOADK R9 K13 ["AlreadyDefined"]
+  SETLIST R5 R6 4 [1]
+  CALL R3 2 1
+  RETURN R3 1

@@ -150,13 +150,15 @@ PROTO_4:
   SETTABLEKS R14 R13 K15 ["Scroll"]
   GETUPVAL R14 3
   SETTABLEKS R14 R13 K16 ["CellComponent"]
-  DUPTABLE R14 K28 [{"OnCheckboxToggle", "StatusIconSize", "ActionSelectedOverride"}]
-  GETTABLEKS R15 R0 K29 ["onCheckboxToggle"]
+  DUPTABLE R14 K29 [{"OnCheckboxToggle", "Uploading", "StatusIconSize", "ActionSelectedOverride"}]
+  GETTABLEKS R15 R0 K30 ["onCheckboxToggle"]
   SETTABLEKS R15 R14 K25 ["OnCheckboxToggle"]
-  SETTABLEKS R4 R14 K26 ["StatusIconSize"]
-  GETTABLEKS R16 R3 K30 ["AssetListCell"]
-  GETTABLEKS R15 R16 K27 ["ActionSelectedOverride"]
-  SETTABLEKS R15 R14 K27 ["ActionSelectedOverride"]
+  GETTABLEKS R15 R1 K26 ["Uploading"]
+  SETTABLEKS R15 R14 K26 ["Uploading"]
+  SETTABLEKS R4 R14 K27 ["StatusIconSize"]
+  GETTABLEKS R16 R3 K31 ["AssetListCell"]
+  GETTABLEKS R15 R16 K28 ["ActionSelectedOverride"]
+  SETTABLEKS R15 R14 K28 ["ActionSelectedOverride"]
   SETTABLEKS R14 R13 K17 ["CellProps"]
   SETTABLEKS R6 R13 K7 ["RowHeight"]
   CALL R11 2 1
@@ -181,13 +183,16 @@ PROTO_6:
   RETURN R1 1
 
 PROTO_7:
-  DUPTABLE R1 K2 [{"SessionQueue", "SearchTerm"}]
-  GETTABLEKS R3 R0 K3 ["Sessions"]
-  GETTABLEKS R2 R3 K4 ["sessionQueue"]
+  DUPTABLE R1 K3 [{"SessionQueue", "SearchTerm", "Uploading"}]
+  GETTABLEKS R3 R0 K4 ["Sessions"]
+  GETTABLEKS R2 R3 K5 ["sessionQueue"]
   SETTABLEKS R2 R1 K0 ["SessionQueue"]
-  GETTABLEKS R3 R0 K3 ["Sessions"]
-  GETTABLEKS R2 R3 K5 ["searchTerm"]
+  GETTABLEKS R3 R0 K4 ["Sessions"]
+  GETTABLEKS R2 R3 K6 ["searchTerm"]
   SETTABLEKS R2 R1 K1 ["SearchTerm"]
+  GETTABLEKS R3 R0 K7 ["Dialogs"]
+  GETTABLEKS R2 R3 K8 ["uploading"]
+  SETTABLEKS R2 R1 K2 ["Uploading"]
   RETURN R1 1
 
 MAIN:
@@ -209,83 +214,73 @@ MAIN:
   GETTABLEKS R4 R5 K9 ["Framework"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Flags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagAssetImporterPackageMigration"]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Dash"]
   CALL R4 1 1
-  MOVE R6 R4
-  CALL R6 0 1
-  JUMPIFNOT R6 [+8]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Packages"]
-  GETTABLEKS R6 R7 K13 ["Dash"]
-  CALL R5 1 1
-  JUMP [+2]
-  GETTABLEKS R5 R3 K13 ["Dash"]
-  GETTABLEKS R6 R3 K14 ["ContextServices"]
-  GETTABLEKS R7 R6 K15 ["withContext"]
-  GETTABLEKS R8 R6 K16 ["Localization"]
-  GETTABLEKS R10 R3 K17 ["Style"]
-  GETTABLEKS R9 R10 K18 ["Stylizer"]
-  GETTABLEKS R10 R3 K19 ["UI"]
-  GETTABLEKS R11 R10 K20 ["Table"]
-  GETTABLEKS R12 R10 K21 ["Pane"]
-  GETTABLEKS R13 R5 K22 ["copy"]
+  GETTABLEKS R5 R3 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["withContext"]
+  GETTABLEKS R7 R5 K13 ["Localization"]
+  GETTABLEKS R9 R3 K14 ["Style"]
+  GETTABLEKS R8 R9 K15 ["Stylizer"]
+  GETTABLEKS R9 R3 K16 ["UI"]
+  GETTABLEKS R10 R9 K17 ["Table"]
+  GETTABLEKS R11 R9 K18 ["Pane"]
+  GETTABLEKS R12 R4 K19 ["copy"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R15 R0 K20 ["Src"]
+  GETTABLEKS R14 R15 K21 ["Types"]
+  CALL R13 1 1
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R16 R0 K10 ["Src"]
-  GETTABLEKS R15 R16 K23 ["Types"]
+  GETTABLEKS R17 R0 K20 ["Src"]
+  GETTABLEKS R16 R17 K22 ["Thunks"]
+  GETTABLEKS R15 R16 K23 ["UpdateSessionInfo"]
   CALL R14 1 1
-  GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K10 ["Src"]
-  GETTABLEKS R17 R18 K24 ["Thunks"]
-  GETTABLEKS R16 R17 K25 ["UpdateSessionInfo"]
-  CALL R15 1 1
-  GETTABLEKS R17 R0 K10 ["Src"]
-  GETTABLEKS R16 R17 K26 ["Components"]
+  GETTABLEKS R16 R0 K20 ["Src"]
+  GETTABLEKS R15 R16 K24 ["Components"]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R18 R15 K25 ["ImportQueue"]
+  GETTABLEKS R17 R18 K26 ["AssetListCell"]
+  CALL R16 1 1
   GETIMPORT R17 K5 [require]
-  GETTABLEKS R19 R16 K27 ["ImportQueue"]
-  GETTABLEKS R18 R19 K28 ["AssetListCell"]
+  GETTABLEKS R20 R0 K20 ["Src"]
+  GETTABLEKS R19 R20 K27 ["Controllers"]
+  GETTABLEKS R18 R19 K28 ["QueueController"]
   CALL R17 1 1
   GETIMPORT R18 K5 [require]
-  GETTABLEKS R21 R0 K10 ["Src"]
-  GETTABLEKS R20 R21 K29 ["Controllers"]
-  GETTABLEKS R19 R20 K30 ["QueueController"]
+  GETTABLEKS R21 R0 K20 ["Src"]
+  GETTABLEKS R20 R21 K29 ["DataTypes"]
+  GETTABLEKS R19 R20 K30 ["QueuedSession"]
   CALL R18 1 1
-  GETIMPORT R19 K5 [require]
-  GETTABLEKS R22 R0 K10 ["Src"]
-  GETTABLEKS R21 R22 K31 ["DataTypes"]
-  GETTABLEKS R20 R21 K32 ["QueuedSession"]
-  CALL R19 1 1
-  GETTABLEKS R20 R1 K33 ["PureComponent"]
-  LOADK R22 K34 ["AssetList"]
-  NAMECALL R20 R20 K35 ["extend"]
-  CALL R20 2 1
-  DUPCLOSURE R21 K36 [PROTO_3]
-  CAPTURE VAL R13
-  CAPTURE VAL R19
-  SETTABLEKS R21 R20 K37 ["init"]
-  DUPCLOSURE R21 K38 [PROTO_4]
-  CAPTURE VAL R1
+  GETTABLEKS R19 R1 K31 ["PureComponent"]
+  LOADK R21 K32 ["AssetList"]
+  NAMECALL R19 R19 K33 ["extend"]
+  CALL R19 2 1
+  DUPCLOSURE R20 K34 [PROTO_3]
   CAPTURE VAL R12
+  CAPTURE VAL R18
+  SETTABLEKS R20 R19 K35 ["init"]
+  DUPCLOSURE R20 K36 [PROTO_4]
+  CAPTURE VAL R1
   CAPTURE VAL R11
-  CAPTURE VAL R17
-  SETTABLEKS R21 R20 K39 ["render"]
-  MOVE R21 R7
-  DUPTABLE R22 K40 [{"Localization", "Stylizer", "QueueController"}]
-  SETTABLEKS R8 R22 K16 ["Localization"]
-  SETTABLEKS R9 R22 K18 ["Stylizer"]
-  SETTABLEKS R18 R22 K30 ["QueueController"]
-  CALL R21 1 1
-  MOVE R22 R20
-  CALL R21 1 1
-  MOVE R20 R21
-  DUPCLOSURE R21 K41 [PROTO_6]
-  CAPTURE VAL R15
-  DUPCLOSURE R22 K42 [PROTO_7]
-  GETTABLEKS R23 R2 K43 ["connect"]
-  MOVE R24 R22
-  MOVE R25 R21
-  CALL R23 2 1
+  CAPTURE VAL R10
+  CAPTURE VAL R16
+  SETTABLEKS R20 R19 K37 ["render"]
+  MOVE R20 R6
+  DUPTABLE R21 K38 [{"Localization", "Stylizer", "QueueController"}]
+  SETTABLEKS R7 R21 K13 ["Localization"]
+  SETTABLEKS R8 R21 K15 ["Stylizer"]
+  SETTABLEKS R17 R21 K28 ["QueueController"]
+  CALL R20 1 1
+  MOVE R21 R19
+  CALL R20 1 1
+  MOVE R19 R20
+  DUPCLOSURE R20 K39 [PROTO_6]
+  CAPTURE VAL R14
+  DUPCLOSURE R21 K40 [PROTO_7]
+  GETTABLEKS R22 R2 K41 ["connect"]
+  MOVE R23 R21
   MOVE R24 R20
-  CALL R23 1 -1
-  RETURN R23 -1
+  CALL R22 2 1
+  MOVE R23 R19
+  CALL R22 1 -1
+  RETURN R22 -1

@@ -14,6 +14,11 @@ local ReactTestingLibrary
 local render
 local cleanup
 
+local MockVRService = require(CorePackages.Workspace.Packages.MockEngineServices).MockVRService
+
+local MockableProxyServices
+local mockVRService
+
 local InGameMenuDependencies
 local UIBlox
 local Roact
@@ -41,6 +46,11 @@ end)
 
 local function resetModules()
 	jest.resetModules()
+
+	MockableProxyServices = require(CorePackages.Workspace.Packages.MockableProxyServices)
+	mockVRService = MockVRService:new()
+	MockableProxyServices.VRService = mockVRService
+
 	-- All the ReactTestingLibrary stuff needs to be re-imported
 	ReactTestingLibrary = require(CorePackages.Workspace.Packages.ReactTestingLibrary)
 	render = ReactTestingLibrary.render
@@ -102,14 +112,9 @@ if game:GetEngineFeature("EnableVRUpdate3") then
 		end)
 
 		it("Should render VR gamepad in VR when last input is gamepad", function()
-			jest.mock(RobloxGui.Modules.VR.VRServiceWrapper, function()
-				return {
-					VREnabled = true,
-					VRDeviceName = "Meta",
-				}
-			end)
+			mockVRService.VREnabled = true
+			mockVRService.VRDeviceName = "Meta"
 
-			resetModules()
 			local element = getMountableTreeAndStore()
 			local result = render(element)
 
@@ -118,14 +123,9 @@ if game:GetEngineFeature("EnableVRUpdate3") then
 		end)
 
 		it("Should render console gamepad in when last input is gamepad and we are not in VR", function()
-			jest.mock(RobloxGui.Modules.VR.VRServiceWrapper, function()
-				return {
-					VREnabled = false,
-					VRDeviceName = nil,
-				}
-			end)
+			mockVRService.VREnabled = false
+			mockVRService.VRDeviceName = nil
 
-			resetModules()
 			local element = getMountableTreeAndStore()
 			local result = render(element)
 

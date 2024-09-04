@@ -6,6 +6,8 @@ local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
+local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
+
 local PlayerInfo = {}
 PlayerInfo.__index = PlayerInfo
 
@@ -14,8 +16,10 @@ function PlayerInfo.new(player: Player)
 	self.player = player
 	self.pendingGroupData = {}
 	self.pendingCanManage = {}
+	self.pendingProfileSettings = {}
 	self.groupData = nil
 	self.canManage = nil
+	self.profileSettings = nil
 	return self
 end
 
@@ -41,6 +45,17 @@ function PlayerInfo:getCanManageAsync()
 	return self.canManage
 end
 
+function PlayerInfo:getProfileSettingsAsync()
+	if self.profileSettings ~= nil then
+		return self.profileSettings
+	end
+
+	local thread = coroutine.running()
+	table.insert(self.pendingProfileSettings, thread)
+	coroutine.yield()
+	return self.profileSettings
+end
+
 function PlayerInfo:setGroupData(data)
 	self.groupData = data
 	local pending = self.pendingGroupData
@@ -60,6 +75,15 @@ function PlayerInfo:setCanManage(value)
 	end
 end
 
+function PlayerInfo:setProfileSettings(data)
+	self.profileSettings = data
+	local pending = self.pendingProfileSettings
+	self.pendingProfileSettings = {}
+	for _, thread in pairs(pending) do
+		coroutine.resume(thread)
+	end
+end
+
 function PlayerInfo:destroy()
 	-- Resume waiting threads so that they don't get stuck hanging. Async getters
 	-- will return nil.
@@ -68,6 +92,11 @@ function PlayerInfo:destroy()
 	end
 	for _, thread in pairs(self.pendingCanManage) do
 		coroutine.resume(thread)
+	end
+	if FFlagInExperienceUserProfileSettingsEnabled then
+		for _, thread in pairs(self.pendingProfileSettings) do
+			coroutine.resume(thread)
+		end
 	end
 end
 
@@ -134,6 +163,25 @@ coroutine.wrap(function()
 	end)
 end)()
 
+if FFlagInExperienceUserProfileSettingsEnabled then
+	coroutine.wrap(function()
+		local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+		local RemoteEvent_SendPlayerProfileSettings = RobloxReplicatedStorage:WaitForChild(
+			"SendPlayerProfileSettings",
+			math.huge
+		)
+		RemoteEvent_SendPlayerProfileSettings.OnClientEvent:Connect(function(userIdStr, profileSettings)
+			local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
+			if player then
+				local info = getPlayerInfo(player)
+				if info then
+					info:setProfileSettings(profileSettings)
+				end
+			end
+		end)
+	end)()
+end
+
 PlayersService.PlayerRemoving:Connect(function(player)
 	if playerInfoMap[player] then
 		local info = playerInfoMap[player]
@@ -191,11 +239,25 @@ local function CanPlayerManagePlace(player)
 	return false
 end
 
+local function IsPlayerInExperienceNameEnabled(player)
+	local info = getPlayerInfo(player)
+	if info then
+		local profileSettings = info:getProfileSettingsAsync()
+		if profileSettings then
+			return profileSettings.isInExperienceNameEnabled
+		end
+	end
+	return false
+end
+
 PlayerPermissionsModule.IsPlayerAdminAsync = NewInGroupFunctionFactory("Admin")
 PlayerPermissionsModule.IsPlayerInternAsync = NewInGroupFunctionFactory("Intern")
 PlayerPermissionsModule.IsPlayerStarAsync = NewInGroupFunctionFactory("Star")
 PlayerPermissionsModule.IsPlayerLocalizationExpertAsync = NewIsLocalizationExpertFunctionFactory()
 PlayerPermissionsModule.IsPlayerPlaceOwnerAsync = IsPlaceOwnerFunctionFactory()
 PlayerPermissionsModule.CanPlayerManagePlaceAsync = CanPlayerManagePlace
+if FFlagInExperienceUserProfileSettingsEnabled then
+	PlayerPermissionsModule.IsPlayerInExperienceNameEnabledAsync = IsPlayerInExperienceNameEnabled
+end
 
 return PlayerPermissionsModule

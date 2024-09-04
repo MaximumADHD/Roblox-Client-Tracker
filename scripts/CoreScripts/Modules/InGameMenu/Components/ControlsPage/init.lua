@@ -1,7 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
-local CoreGui = game:GetService("CoreGui")
 
+local MockableProxyServices = require(CorePackages.Workspace.Packages.MockableProxyServices)
+local VRService = MockableProxyServices.VRService :: VRService
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -15,10 +16,7 @@ local KeyboardControls = require(script.ControlLayouts.KeyboardControls)
 local GamepadControls = require(script.ControlLayouts.GamepadControls)
 local VRGamepadControls = require(script.ControlLayouts.VRGamepadControls)
 
-local RobloxGui = CoreGui.RobloxGui
-local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
-
-local VRService = require(RobloxGui.Modules.VR.VRServiceWrapper)
+local VRUtil = require(CorePackages.Workspace.Packages.VrCommon).VRUtil
 
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 

@@ -130,141 +130,150 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R3 0
-  GETTABLEKS R4 R0 K0 ["Name"]
-  LOADK R5 K1 ["_"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+8]
+  GETIMPORT R3 K2 [string.split]
+  GETTABLEKS R4 R0 K3 ["Name"]
+  LOADK R5 K4 ["_"]
   CALL R3 2 1
   GETTABLEN R2 R3 1
-  LOADK R5 K2 ["Humanoid"]
-  NAMECALL R3 R0 K3 ["WaitForChild"]
+  JUMP [+6]
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K3 ["Name"]
+  LOADK R5 K4 ["_"]
   CALL R3 2 1
-  GETIMPORT R4 K7 [Enum.HumanoidDisplayDistanceType.None]
-  SETTABLEKS R4 R3 K8 ["DisplayDistanceType"]
-  LOADK R6 K9 ["Head"]
-  NAMECALL R4 R0 K3 ["WaitForChild"]
+  GETTABLEN R2 R3 1
+  LOADK R5 K5 ["Humanoid"]
+  NAMECALL R3 R0 K6 ["WaitForChild"]
+  CALL R3 2 1
+  GETIMPORT R4 K10 [Enum.HumanoidDisplayDistanceType.None]
+  SETTABLEKS R4 R3 K11 ["DisplayDistanceType"]
+  LOADK R6 K12 ["Head"]
+  NAMECALL R4 R0 K6 ["WaitForChild"]
   CALL R4 2 1
   JUMPIF R1 [+44]
-  NAMECALL R5 R0 K10 ["GetChildren"]
+  NAMECALL R5 R0 K13 ["GetChildren"]
   CALL R5 1 1
-  GETIMPORT R6 K12 [pairs]
+  GETIMPORT R6 K15 [pairs]
   MOVE R7 R5
   CALL R6 1 3
   FORGPREP_NEXT R6
-  GETTABLEKS R11 R10 K0 ["Name"]
-  JUMPIFEQKS R11 K9 ["Head"] [+9]
-  LOADK R13 K13 ["MeshPart"]
-  NAMECALL R11 R10 K14 ["IsA"]
+  GETTABLEKS R11 R10 K3 ["Name"]
+  JUMPIFEQKS R11 K12 ["Head"] [+9]
+  LOADK R13 K16 ["MeshPart"]
+  NAMECALL R11 R10 K17 ["IsA"]
   CALL R11 2 1
   JUMPIFNOT R11 [+3]
-  NAMECALL R11 R10 K15 ["Destroy"]
+  NAMECALL R11 R10 K18 ["Destroy"]
   CALL R11 1 0
   FORGLOOP R6 2 [-13]
-  LOADK R8 K16 ["Neck"]
-  NAMECALL R6 R4 K17 ["FindFirstChild"]
+  LOADK R8 K19 ["Neck"]
+  NAMECALL R6 R4 K20 ["FindFirstChild"]
   CALL R6 2 1
   JUMPIFEQKNIL R6 [+4]
-  NAMECALL R7 R6 K15 ["Destroy"]
+  NAMECALL R7 R6 K18 ["Destroy"]
   CALL R7 1 0
-  SETTABLEKS R4 R0 K18 ["PrimaryPart"]
-  GETTABLEKS R7 R0 K18 ["PrimaryPart"]
-  GETIMPORT R8 K21 [CFrame.new]
+  SETTABLEKS R4 R0 K21 ["PrimaryPart"]
+  GETTABLEKS R7 R0 K21 ["PrimaryPart"]
+  GETIMPORT R8 K24 [CFrame.new]
   LOADN R9 0
   LOADN R10 0
   LOADN R11 0
   CALL R8 3 1
-  SETTABLEKS R8 R7 K22 ["PivotOffset"]
+  SETTABLEKS R8 R7 K25 ["PivotOffset"]
   JUMP [+34]
-  NAMECALL R5 R0 K10 ["GetChildren"]
+  NAMECALL R5 R0 K13 ["GetChildren"]
   CALL R5 1 1
   LOADB R6 0
-  GETIMPORT R7 K12 [pairs]
+  GETIMPORT R7 K15 [pairs]
   MOVE R8 R5
   CALL R7 1 3
   FORGPREP_NEXT R7
-  GETTABLEKS R12 R11 K0 ["Name"]
-  JUMPIFEQKS R12 K9 ["Head"] [+7]
-  LOADK R14 K13 ["MeshPart"]
-  NAMECALL R12 R11 K14 ["IsA"]
+  GETTABLEKS R12 R11 K3 ["Name"]
+  JUMPIFEQKS R12 K12 ["Head"] [+7]
+  LOADK R14 K16 ["MeshPart"]
+  NAMECALL R12 R11 K17 ["IsA"]
   CALL R12 2 1
   JUMPIFNOT R12 [+1]
   LOADB R6 1
   FORGLOOP R7 2 [-11]
   JUMPIF R6 [+12]
-  SETTABLEKS R4 R0 K18 ["PrimaryPart"]
-  GETTABLEKS R7 R0 K18 ["PrimaryPart"]
-  GETIMPORT R8 K21 [CFrame.new]
+  SETTABLEKS R4 R0 K21 ["PrimaryPart"]
+  GETTABLEKS R7 R0 K21 ["PrimaryPart"]
+  GETIMPORT R8 K24 [CFrame.new]
   LOADN R9 0
   LOADN R10 0
   LOADN R11 0
   CALL R8 3 1
-  SETTABLEKS R8 R7 K22 ["PivotOffset"]
+  SETTABLEKS R8 R7 K25 ["PivotOffset"]
   NEWTABLE R5 8 0
-  LOADK R6 K23 ["rbxassetid://12259863451"]
-  SETTABLEKS R6 R5 K24 ["ChiseledGoodLooks"]
-  LOADK R6 K23 ["rbxassetid://12259863451"]
-  SETTABLEKS R6 R5 K25 ["Man"]
-  LOADK R6 K26 ["rbxassetid://12651328744"]
-  SETTABLEKS R6 R5 K27 ["StevieStandard"]
-  LOADK R6 K26 ["rbxassetid://12651328744"]
-  SETTABLEKS R6 R5 K28 ["Stevie"]
-  LOADK R6 K29 ["rbxassetid://12262506468"]
-  SETTABLEKS R6 R5 K30 ["MakeupMinimalist"]
-  LOADK R6 K29 ["rbxassetid://12262506468"]
-  SETTABLEKS R6 R5 K31 ["Woman"]
-  LOADK R6 K32 ["rbxassetid://12431828460"]
-  SETTABLEKS R6 R5 K33 ["ClassicVampire"]
+  LOADK R6 K26 ["rbxassetid://12259863451"]
+  SETTABLEKS R6 R5 K27 ["ChiseledGoodLooks"]
+  LOADK R6 K26 ["rbxassetid://12259863451"]
+  SETTABLEKS R6 R5 K28 ["Man"]
+  LOADK R6 K29 ["rbxassetid://12651328744"]
+  SETTABLEKS R6 R5 K30 ["StevieStandard"]
+  LOADK R6 K29 ["rbxassetid://12651328744"]
+  SETTABLEKS R6 R5 K31 ["Stevie"]
+  LOADK R6 K32 ["rbxassetid://12262506468"]
+  SETTABLEKS R6 R5 K33 ["MakeupMinimalist"]
+  LOADK R6 K32 ["rbxassetid://12262506468"]
+  SETTABLEKS R6 R5 K34 ["Woman"]
+  LOADK R6 K35 ["rbxassetid://12431828460"]
+  SETTABLEKS R6 R5 K36 ["ClassicVampire"]
   NEWCLOSURE R6 P0
   CAPTURE VAL R5
   JUMPIFEQKNIL R4 [+57]
-  LOADK R7 K9 ["Head"]
-  SETTABLEKS R7 R4 K0 ["Name"]
+  LOADK R7 K12 ["Head"]
+  SETTABLEKS R7 R4 K3 ["Name"]
   LOADB R7 1
-  SETTABLEKS R7 R4 K34 ["Anchored"]
-  GETIMPORT R7 K36 [BrickColor.new]
-  LOADK R8 K37 ["Bright orange"]
+  SETTABLEKS R7 R4 K37 ["Anchored"]
+  GETIMPORT R7 K39 [BrickColor.new]
+  LOADK R8 K40 ["Bright orange"]
   CALL R7 1 1
-  SETTABLEKS R7 R4 K35 ["BrickColor"]
-  GETIMPORT R7 K40 [Enum.Material.SmoothPlastic]
-  SETTABLEKS R7 R4 K38 ["Material"]
-  LOADK R9 K41 ["face"]
-  NAMECALL R7 R4 K17 ["FindFirstChild"]
+  SETTABLEKS R7 R4 K38 ["BrickColor"]
+  GETIMPORT R7 K43 [Enum.Material.SmoothPlastic]
+  SETTABLEKS R7 R4 K41 ["Material"]
+  LOADK R9 K44 ["face"]
+  NAMECALL R7 R4 K20 ["FindFirstChild"]
   CALL R7 2 1
   JUMPIFEQKNIL R7 [+4]
-  NAMECALL R8 R7 K15 ["Destroy"]
+  NAMECALL R8 R7 K18 ["Destroy"]
   CALL R8 1 0
-  LOADK R8 K42 [""]
-  GETTABLEKS R9 R4 K43 ["TextureID"]
-  JUMPIFEQKS R9 K42 [""] [+4]
-  GETTABLEKS R8 R4 K43 ["TextureID"]
+  LOADK R8 K45 [""]
+  GETTABLEKS R9 R4 K46 ["TextureID"]
+  JUMPIFEQKS R9 K45 [""] [+4]
+  GETTABLEKS R8 R4 K46 ["TextureID"]
   JUMP [+4]
   MOVE R9 R6
   MOVE R10 R2
   CALL R9 1 1
   MOVE R8 R9
   LOADNIL R9
-  LOADK R12 K44 ["SurfaceAppearance"]
-  NAMECALL R10 R4 K17 ["FindFirstChild"]
+  LOADK R12 K47 ["SurfaceAppearance"]
+  NAMECALL R10 R4 K20 ["FindFirstChild"]
   CALL R10 2 1
   MOVE R9 R10
   JUMPIFEQKNIL R9 [+4]
-  NAMECALL R10 R9 K15 ["Destroy"]
+  NAMECALL R10 R9 K18 ["Destroy"]
   CALL R10 1 0
-  GETIMPORT R10 K46 [Instance.new]
-  LOADK R11 K44 ["SurfaceAppearance"]
+  GETIMPORT R10 K49 [Instance.new]
+  LOADK R11 K47 ["SurfaceAppearance"]
   MOVE R12 R4
   CALL R10 2 1
   MOVE R9 R10
-  SETTABLEKS R8 R9 K47 ["ColorMap"]
-  LOADK R9 K48 ["HumanoidRootPart"]
-  NAMECALL R7 R0 K3 ["WaitForChild"]
+  SETTABLEKS R8 R9 K50 ["ColorMap"]
+  LOADK R9 K51 ["HumanoidRootPart"]
+  NAMECALL R7 R0 K6 ["WaitForChild"]
   CALL R7 2 1
   LOADB R8 1
-  SETTABLEKS R8 R7 K34 ["Anchored"]
-  LOADK R10 K49 ["Script"]
-  NAMECALL R8 R0 K17 ["FindFirstChild"]
+  SETTABLEKS R8 R7 K37 ["Anchored"]
+  LOADK R10 K52 ["Script"]
+  NAMECALL R8 R0 K20 ["FindFirstChild"]
   CALL R8 2 1
   JUMPIFNOTEQKNIL R8 [+6]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K50 ["attachScript"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K53 ["attachScript"]
   MOVE R10 R0
   CALL R9 1 0
   RETURN R0 0
@@ -452,22 +461,30 @@ PROTO_8:
   RETURN R1 1
 
 PROTO_9:
-  GETUPVAL R1 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+6]
+  GETIMPORT R1 K2 [string.split]
   MOVE R2 R0
-  LOADK R3 K0 ["/"]
+  LOADK R3 K3 ["/"]
   CALL R1 2 1
-  GETIMPORT R2 K3 [string.gsub]
+  JUMP [+4]
+  GETUPVAL R1 1
+  MOVE R2 R0
+  LOADK R3 K3 ["/"]
+  CALL R1 2 1
+  GETIMPORT R2 K5 [string.gsub]
   LENGTH R4 R1
   GETTABLE R3 R1 R4
-  LOADK R4 K4 [".fbx"]
-  LOADK R5 K5 [""]
+  LOADK R4 K6 [".fbx"]
+  LOADK R5 K7 [""]
   CALL R2 3 1
-  GETIMPORT R3 K7 [game]
-  LOADK R5 K8 ["AssetImportService"]
-  NAMECALL R3 R3 K9 ["GetService"]
+  GETIMPORT R3 K9 [game]
+  LOADK R5 K10 ["AssetImportService"]
+  NAMECALL R3 R3 K11 ["GetService"]
   CALL R3 2 1
   MOVE R6 R0
-  NAMECALL R4 R3 K10 ["StartSessionWithPath"]
+  NAMECALL R4 R3 K12 ["StartSessionWithPath"]
   CALL R4 2 1
   MOVE R5 R4
   MOVE R6 R2
@@ -475,46 +492,62 @@ PROTO_9:
 
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 8 0
-  GETIMPORT R1 K1 [require]
-  GETIMPORT R4 K3 [script]
-  GETTABLEKS R3 R4 K4 ["Parent"]
-  GETTABLEKS R2 R3 K5 ["animateModule"]
-  CALL R1 1 1
-  GETIMPORT R2 K1 [require]
-  GETIMPORT R5 K3 [script]
-  GETTABLEKS R4 R5 K4 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["avatarUtils"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["BulkFaceImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  NEWTABLE R1 8 0
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Flags"]
+  GETTABLEKS R3 R4 K8 ["getFFlagBulkFaceImporterRemoveDashSplitOn"]
   CALL R2 1 1
-  GETIMPORT R3 K1 [require]
-  GETIMPORT R12 K3 [script]
-  GETTABLEKS R11 R12 K4 ["Parent"]
-  GETTABLEKS R10 R11 K4 ["Parent"]
-  GETTABLEKS R9 R10 K4 ["Parent"]
-  GETTABLEKS R8 R9 K7 ["Packages"]
-  GETTABLEKS R7 R8 K8 ["_Index"]
-  GETTABLEKS R6 R7 K9 ["Dash"]
-  GETTABLEKS R5 R6 K9 ["Dash"]
-  GETTABLEKS R4 R5 K10 ["splitOn"]
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K9 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["animateModule"]
   CALL R3 1 1
-  DUPCLOSURE R4 K11 [PROTO_0]
-  CAPTURE VAL R1
-  SETTABLEKS R4 R0 K12 ["attachScript"]
-  DUPCLOSURE R4 K13 [PROTO_1]
-  SETTABLEKS R4 R0 K14 ["alignFaceModels"]
-  DUPCLOSURE R4 K15 [PROTO_3]
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K9 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["avatarUtils"]
+  CALL R4 1 1
+  MOVE R6 R2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+21]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K9 ["Parent"]
+  GETTABLEKS R12 R13 K9 ["Parent"]
+  GETTABLEKS R11 R12 K9 ["Parent"]
+  GETTABLEKS R10 R11 K12 ["Packages"]
+  GETTABLEKS R9 R10 K13 ["_Index"]
+  GETTABLEKS R8 R9 K14 ["Dash"]
+  GETTABLEKS R7 R8 K14 ["Dash"]
+  GETTABLEKS R6 R7 K15 ["splitOn"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_0]
   CAPTURE VAL R3
-  CAPTURE VAL R0
-  SETTABLEKS R4 R0 K16 ["setUpFaceModel"]
-  DUPCLOSURE R4 K17 [PROTO_4]
-  SETTABLEKS R4 R0 K18 ["setCameraPosition"]
-  DUPCLOSURE R4 K19 [PROTO_7]
-  CAPTURE VAL R0
+  SETTABLEKS R6 R1 K17 ["attachScript"]
+  DUPCLOSURE R6 K18 [PROTO_1]
+  SETTABLEKS R6 R1 K19 ["alignFaceModels"]
+  DUPCLOSURE R6 K20 [PROTO_3]
   CAPTURE VAL R2
-  SETTABLEKS R4 R0 K20 ["importAvatars"]
-  DUPCLOSURE R4 K21 [PROTO_8]
-  SETTABLEKS R4 R0 K22 ["selectFiles"]
-  DUPCLOSURE R4 K23 [PROTO_9]
-  CAPTURE VAL R3
-  SETTABLEKS R4 R0 K24 ["setUploadSession"]
-  RETURN R0 1
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  SETTABLEKS R6 R1 K21 ["setUpFaceModel"]
+  DUPCLOSURE R6 K22 [PROTO_4]
+  SETTABLEKS R6 R1 K23 ["setCameraPosition"]
+  DUPCLOSURE R6 K24 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R1 K25 ["importAvatars"]
+  DUPCLOSURE R6 K26 [PROTO_8]
+  SETTABLEKS R6 R1 K27 ["selectFiles"]
+  DUPCLOSURE R6 K28 [PROTO_9]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  SETTABLEKS R6 R1 K29 ["setUploadSession"]
+  RETURN R1 1

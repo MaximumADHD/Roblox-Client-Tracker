@@ -7,6 +7,8 @@ local Package = require(PackageIndex["FocusNavigationUtils"]["FocusNavigationUti
 
 export type FocusNavigationEventName = Package.FocusNavigationEventName
 export type FocusNavigableSurfaceIdentifier = Package.FocusNavigableSurfaceIdentifier
+export type ButtonHoldState = Package.ButtonHoldState
+export type ButtonHoldDetails = Package.ButtonHoldDetails
 
 
 return Package

@@ -30,6 +30,16 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["DiscoverGroups experienced an error: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["new"]
   CALL R1 0 1
@@ -61,8 +71,8 @@ PROTO_3:
   CAPTURE UPVAL U5
   NAMECALL R4 R4 K8 ["andThen"]
   CALL R4 2 1
-  GETIMPORT R6 K10 [warn]
-  NAMECALL R4 R4 K11 ["catch"]
+  DUPCLOSURE R6 K9 [PROTO_3]
+  NAMECALL R4 R4 K10 ["catch"]
   CALL R4 2 0
   RETURN R0 0
 
@@ -90,32 +100,33 @@ MAIN:
   GETTABLEKS R6 R7 K12 ["Network"]
   GETTABLEKS R5 R6 K13 ["Urls"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Util"]
-  GETTABLEKS R6 R7 K15 ["TypedNetworking"]
-  CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R9 R0 K8 ["Src"]
   GETTABLEKS R8 R9 K14 ["Util"]
-  GETTABLEKS R7 R8 K16 ["createResponseValidator"]
+  GETTABLEKS R7 R8 K15 ["Services"]
   CALL R6 1 1
-  GETTABLEKS R8 R1 K17 ["RobloxAPI"]
-  GETTABLEKS R7 R8 K18 ["Url"]
-  GETTABLEKS R8 R5 K19 ["new"]
-  DUPTABLE R9 K22 [{"isInternal", "loggingLevel"}]
+  GETTABLEKS R5 R6 K16 ["Networking"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Util"]
+  GETTABLEKS R7 R8 K17 ["createResponseValidator"]
+  CALL R6 1 1
+  GETTABLEKS R8 R1 K18 ["RobloxAPI"]
+  GETTABLEKS R7 R8 K19 ["Url"]
+  GETTABLEKS R8 R5 K20 ["new"]
+  DUPTABLE R9 K23 [{"isInternal", "loggingLevel"}]
   LOADB R10 1
-  SETTABLEKS R10 R9 K20 ["isInternal"]
+  SETTABLEKS R10 R9 K21 ["isInternal"]
   LOADN R10 0
-  SETTABLEKS R10 R9 K21 ["loggingLevel"]
+  SETTABLEKS R10 R9 K22 ["loggingLevel"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K8 ["Src"]
   GETTABLEKS R11 R12 K14 ["Util"]
-  GETTABLEKS R10 R11 K23 ["TypedDash"]
+  GETTABLEKS R10 R11 K24 ["TypedDash"]
   CALL R9 1 1
-  GETTABLEKS R10 R9 K24 ["collectArray"]
-  DUPCLOSURE R11 K25 [PROTO_3]
+  GETTABLEKS R10 R9 K25 ["collectArray"]
+  DUPCLOSURE R11 K26 [PROTO_4]
   CAPTURE VAL R7
   CAPTURE VAL R4
   CAPTURE VAL R8

@@ -58,7 +58,6 @@ local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
-local FFlagEnableGamepadMenuSelector = SharedFlags.FFlagEnableGamepadMenuSelector
 local FFlagGamepadNavigationDialogABTest = require(script.Flags.FFlagGamepadNavigationDialogABTest)
 
 -- Cross Experience Voice
@@ -144,7 +143,7 @@ function TopBar.new()
 	if FFlagAddMenuNavigationToggleDialog or FFlagGamepadNavigationDialogABTest then
 		TopBarWithProviders = Roact.createElement(DesignTokenProvider, {
 			tokenMappers = {
-				MenuNavigationPrompt = if (FFlagEnableGamepadMenuSelector or FFlagGamepadNavigationDialogABTest)
+				MenuNavigationPrompt = if FFlagGamepadNavigationDialogABTest
 					then MenuNavigationPromptTokenMapper
 					else nil,
 			},

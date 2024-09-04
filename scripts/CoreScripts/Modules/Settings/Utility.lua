@@ -864,7 +864,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			return
 		end
 		if VRService.VREnabled then
-			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
+			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 			DropDownFullscreenFrame.Parent = Panel3D.Get("SettingsMenu"):GetGUI()
 			DropDownFullscreenFrame.BackgroundTransparency = 1
 		else
@@ -939,7 +939,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		active = false
 
 		if VRService.VREnabled then
-			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
+			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0)
 		end
 	end
@@ -955,7 +955,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 		DropDownFullscreenFrame.Visible = true
 		if VRService.VREnabled then
-			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
+			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0.5)
 		end
 
@@ -1796,7 +1796,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		end
 		local Panel3D, settingsPanel = nil, nil
 		if VRService.VREnabled then
-			Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
+			Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 			settingsPanel = Panel3D.Get("SettingsMenu")
 			parent = settingsPanel:GetGUI()
 		else
@@ -1890,7 +1890,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 			return
 		end
 		if VRService.VREnabled then
-			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
+			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(AlertViewBacking, 0)
 		end
 		AlertViewBacking:Destroy()
@@ -3284,26 +3284,6 @@ end
 
 -------- public facing API ----------------
 local moduleApiTable = {}
-
--- RayPlaneIntersection (shortened)
--- http://www.siggraph.org/education/materials/HyperGraph/raytrace/rayplane_intersection.htm
-function moduleApiTable:RayPlaneIntersection(ray, planeNormal, pointOnPlane)
-	planeNormal = planeNormal.unit
-	ray = ray.Unit
-
-	local Vd = planeNormal:Dot(ray.Direction)
-	if Vd == 0 then -- parallel, no intersection
-		return nil
-	end
-
-	local V0 = planeNormal:Dot(pointOnPlane - ray.Origin)
-	local t = V0 / Vd
-	if t < 0 then --plane is behind ray origin, and thus there is no intersection
-		return nil
-	end
-
-	return ray.Origin + ray.Direction * t
-end
 
 function moduleApiTable:GetEaseLinear()
 	return Linear

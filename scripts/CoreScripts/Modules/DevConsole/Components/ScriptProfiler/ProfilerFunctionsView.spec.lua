@@ -1,11 +1,11 @@
 return function()
-	local ScriptContext = game:GetService("ScriptContext")
+	local ScriptProfiler = game:GetService("ScriptProfilerService")
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 
 	local ProfilerFunctionsView = require(script.Parent.ProfilerFunctionsView)
 
-	local TEST_DATA = ScriptContext:DeserializeScriptProfilerString(require(script.Parent.TestData))
+	local TEST_DATA = ScriptProfiler:DeserializeJSON(require(script.Parent.TestData))
 
 	local sessionLength = TEST_DATA.SessionEndTime - TEST_DATA.SessionStartTime
 

@@ -23,6 +23,7 @@ local PresentationComponent = require(TopBar.Components.Presentation.BadgeOver13
 local AppComponent = require(TopBar.Components.Presentation.BadgeOver13)
 
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 
 local Chrome = Modules.Chrome
 local ChromeEnabled : any = if GetFFlagFixChromeReferences() then require(Chrome.Enabled) else Chrome.Enabled
@@ -30,6 +31,10 @@ local ChromeEnabled : any = if GetFFlagFixChromeReferences() then require(Chrome
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 function CloseChrome()
+	-- Closing Chrome is a no-op when always open unibar is enabled
+	if GetFFlagEnableAlwaysOpenUnibar() then
+		return
+	end
 	-- New users will see Chrome open and hide BadgeOver13
 	-- In order for these tests to pass, we need to force close Chrome
 	if GetFFlagFixChromeReferences() then 
@@ -216,183 +221,185 @@ return function()
 		end)
 	end)
 
-	describe("WHEN app is mounted", function()
+	if not GetFFlagEnableAlwaysOpenUnibar() or not ChromeEnabled() then 
+		describe("WHEN app is mounted", function()
 
-		beforeAll(function()
-			CloseChrome()
-		end)
-		local setRBXEventStream = jest.fn()
+			beforeAll(function()
+				CloseChrome()
+			end)
+			local setRBXEventStream = jest.fn()
 
-		local function mountWithConfig(config)
-			local parent = Instance.new("ScreenGui")
-			parent.Parent = game:GetService("CoreGui")
+			local function mountWithConfig(config)
+				local parent = Instance.new("ScreenGui")
+				parent.Parent = game:GetService("CoreGui")
 
-			local PropertyChangedSignal = Instance.new("BindableEvent")
-			local player = {
-				UnfilteredChat = config.isUnfilteredChat,
-				GetPropertyChangedSignal = function()
-					return PropertyChangedSignal.Event
-				end,
-				PropertyChangedSignal = PropertyChangedSignal,
-				UserId = "123",
-			} :: any
+				local PropertyChangedSignal = Instance.new("BindableEvent")
+				local player = {
+					UnfilteredChat = config.isUnfilteredChat,
+					GetPropertyChangedSignal = function()
+						return PropertyChangedSignal.Event
+					end,
+					PropertyChangedSignal = PropertyChangedSignal,
+					UserId = "123",
+				} :: any
 
-			local store = Rodux.Store.new(Reducer, nil, {
-				Rodux.thunkMiddleware,
-			})
+				local store = Rodux.Store.new(Reducer, nil, {
+					Rodux.thunkMiddleware,
+				})
 
-			local root = ReactRoblox.createRoot(parent)
-			ReactRoblox.act(function()
-				root:render(
-					React.createElement(RoactRodux.StoreProvider, {
-						store = store
-					}, {
-						ThemeProvider = React.createElement(AppStyleProvider, {
-							style = {
-								themeName = "Light",
-								fontName = "Gotham",
-							},
+				local root = ReactRoblox.createRoot(parent)
+				ReactRoblox.act(function()
+					root:render(
+						React.createElement(RoactRodux.StoreProvider, {
+							store = store
 						}, {
-							test = React.createElement(AppComponent, {
-								analytics = {
-									EventStream = {
-										setRBXEventStream = setRBXEventStream,
+							ThemeProvider = React.createElement(AppStyleProvider, {
+								style = {
+									themeName = "Light",
+									fontName = "Gotham",
+								},
+							}, {
+								test = React.createElement(AppComponent, {
+									analytics = {
+										EventStream = {
+											setRBXEventStream = setRBXEventStream,
+										},
 									},
-								},
-								layoutOrder = 0,
-								player = player,
-								voiceChatServiceManager = {
-									asyncInit = function()
-										if config.isVoiceEnabled == true then
-											return Promise.resolve()
-										else
-											return Promise.reject()
-										end
-									end,
-								},
-								VRService = {
-									VREnabled = config.isVREnabled,
-								},
-								visibilityChanged = function() end,
+									layoutOrder = 0,
+									player = player,
+									voiceChatServiceManager = {
+										asyncInit = function()
+											if config.isVoiceEnabled == true then
+												return Promise.resolve()
+											else
+												return Promise.reject()
+											end
+										end,
+									},
+									VRService = {
+										VREnabled = config.isVREnabled,
+									},
+									visibilityChanged = function() end,
+								})
 							})
-						})
-					}))
+						}))
+				end)
+
+				return {
+					player = player,
+					parent = parent,
+					cleanup = function()
+						ReactRoblox.act(function()
+							root:unmount()
+						end)
+						parent:Destroy()
+					end,
+				}
+			end
+
+			it("SHOULD display badge if user is enrolled in voice only", function()
+				local result = mountWithConfig({
+					isUnfilteredChat = false,
+					isVoiceEnabled = true,
+					isVREnabled = false,
+				})
+
+				local badge = result.parent:FindFirstChild("badge", true)
+				expect(badge).toHaveProperty("Visible", true)
+
+				result.cleanup()
 			end)
 
-			return {
-				player = player,
-				parent = parent,
-				cleanup = function()
-					ReactRoblox.act(function()
-						root:unmount()
-					end)
-					parent:Destroy()
-				end,
-			}
-		end
+			it("SHOULD display badge if user is enrolled in unfiltered chat only", function()
+				local result = mountWithConfig({
+					isUnfilteredChat = true,
+					isVoiceEnabled = false,
+					isVREnabled = false,
+				})
 
-		it("SHOULD display badge if user is enrolled in voice only", function()
-			local result = mountWithConfig({
-				isUnfilteredChat = false,
-				isVoiceEnabled = true,
-				isVREnabled = false,
-			})
+				local badge = result.parent:FindFirstChild("badge", true)
+				expect(badge).toHaveProperty("Visible", true)
 
-			local badge = result.parent:FindFirstChild("badge", true)
-			expect(badge).toHaveProperty("Visible", true)
-
-			result.cleanup()
-		end)
-
-		it("SHOULD display badge if user is enrolled in unfiltered chat only", function()
-			local result = mountWithConfig({
-				isUnfilteredChat = true,
-				isVoiceEnabled = false,
-				isVREnabled = false,
-			})
-
-			local badge = result.parent:FindFirstChild("badge", true)
-			expect(badge).toHaveProperty("Visible", true)
-
-			result.cleanup()
-		end)
-
-		it("SHOULD display badge if user is enrolled in unfiltered chat and voice", function()
-			local result = mountWithConfig({
-				isUnfilteredChat = true,
-				isVoiceEnabled = true,
-				isVREnabled = false,
-			})
-
-			local badge = result.parent:FindFirstChild("badge", true)
-			expect(badge).toHaveProperty("Visible", true)
-
-			result.cleanup()
-		end)
-
-		it("SHOULD NOT display badge if user is not enrolled in unfiltered chat or voice", function()
-			local result = mountWithConfig({
-				isUnfilteredChat = false,
-				isVoiceEnabled = false,
-				isVREnabled = false,
-			})
-
-			local badge = result.parent:FindFirstChild("badge", true)
-			expect(badge).toHaveProperty("Visible", false)
-
-			result.cleanup()
-		end)
-
-		it("SHOULD ONLY display badge if user is using VR with a GamepadCursor", function()
-			game:GetService("GamepadService").GamepadCursorEnabled = false
-
-			local result = mountWithConfig({
-				isUnfilteredChat = true,
-				isVoiceEnabled = true,
-				isVREnabled = true,
-			})
-
-			local badge = result.parent:FindFirstChild("badge", true)
-
-			-- start not visible in VR
-			expect(badge).toHaveProperty("Visible", false)
-
-			-- gamepad cursor was turned on
-			ReactRoblox.act(function()
-				game:GetService("GamepadService").GamepadCursorEnabled = true
+				result.cleanup()
 			end)
-			waitForEvents.act()
-			expect(badge).toHaveProperty("Visible", true)
 
-			-- gamepad cursor was turned off
-			ReactRoblox.act(function()
+			it("SHOULD display badge if user is enrolled in unfiltered chat and voice", function()
+				local result = mountWithConfig({
+					isUnfilteredChat = true,
+					isVoiceEnabled = true,
+					isVREnabled = false,
+				})
+
+				local badge = result.parent:FindFirstChild("badge", true)
+				expect(badge).toHaveProperty("Visible", true)
+
+				result.cleanup()
+			end)
+
+			it("SHOULD NOT display badge if user is not enrolled in unfiltered chat or voice", function()
+				local result = mountWithConfig({
+					isUnfilteredChat = false,
+					isVoiceEnabled = false,
+					isVREnabled = false,
+				})
+
+				local badge = result.parent:FindFirstChild("badge", true)
+				expect(badge).toHaveProperty("Visible", false)
+
+				result.cleanup()
+			end)
+
+			it("SHOULD ONLY display badge if user is using VR with a GamepadCursor", function()
 				game:GetService("GamepadService").GamepadCursorEnabled = false
+
+				local result = mountWithConfig({
+					isUnfilteredChat = true,
+					isVoiceEnabled = true,
+					isVREnabled = true,
+				})
+
+				local badge = result.parent:FindFirstChild("badge", true)
+
+				-- start not visible in VR
+				expect(badge).toHaveProperty("Visible", false)
+
+				-- gamepad cursor was turned on
+				ReactRoblox.act(function()
+					game:GetService("GamepadService").GamepadCursorEnabled = true
+				end)
+				waitForEvents.act()
+				expect(badge).toHaveProperty("Visible", true)
+
+				-- gamepad cursor was turned off
+				ReactRoblox.act(function()
+					game:GetService("GamepadService").GamepadCursorEnabled = false
+				end)
+				waitForEvents.act()
+				expect(badge).toHaveProperty("Visible", false)
+
+				result.cleanup()
 			end)
-			waitForEvents.act()
-			expect(badge).toHaveProperty("Visible", false)
 
-			result.cleanup()
-		end)
+			it("SHOULD display if unfiltered chat enrollment changes at runtime", function()
+				local result = mountWithConfig({
+					isUnfilteredChat = false,
+					isVoiceEnabled = false,
+					isVREnabled = false,
+				})
 
-		it("SHOULD display if unfiltered chat enrollment changes at runtime", function()
-			local result = mountWithConfig({
-				isUnfilteredChat = false,
-				isVoiceEnabled = false,
-				isVREnabled = false,
-			})
+				local badge = result.parent:FindFirstChild("badge", true)
+				expect(badge).toHaveProperty("Visible", false)
 
-			local badge = result.parent:FindFirstChild("badge", true)
-			expect(badge).toHaveProperty("Visible", false)
+				-- change enrollment at runtime
+				ReactRoblox.act(function()
+					result.player.UnfilteredChat = true
+					result.player.PropertyChangedSignal:Fire()
+				end)
+				waitForEvents.act()
+				expect(badge).toHaveProperty("Visible", true)
 
-			-- change enrollment at runtime
-			ReactRoblox.act(function()
-				result.player.UnfilteredChat = true
-				result.player.PropertyChangedSignal:Fire()
+				result.cleanup()
 			end)
-			waitForEvents.act()
-			expect(badge).toHaveProperty("Visible", true)
-
-			result.cleanup()
 		end)
-	end)
+	end
 end

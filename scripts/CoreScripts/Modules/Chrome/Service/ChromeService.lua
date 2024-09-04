@@ -38,6 +38,7 @@ local GetFFlagEnableUserPinPortraitFix = require(script.Parent.Parent.Flags.GetF
 local GetFFlagSupportChromeContainerSizing = require(script.Parent.Parent.Flags.GetFFlagSupportChromeContainerSizing)
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
 local GetFFlagDisableCompactUtilityCore = require(script.Parent.Parent.Flags.GetFFlagDisableCompactUtilityCore)
+local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local FFlagPreserveWindowsCompactUtility = game:DefineFastFlag("PreserveWindowsCompactUtility", false)
 
 local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
@@ -75,6 +76,7 @@ export type ObservableIntegrationList = utils.ObservableValue<Types.IntegrationL
 export type ObservableIntegrationId = utils.ObservableValue<string?>
 export type ObservableMenuLayout = utils.ObservableValue<UnibarLayoutInfo>
 export type ObservableCompactUtility = utils.ObservableValue<Types.CompactUtilityId?>
+export type ObservableInFocusNav = utils.ObservableValue<boolean>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
 
@@ -100,6 +102,9 @@ export type ChromeService = {
 	open: (ChromeService, preventFocusCapture: boolean?) -> (),
 	close: (ChromeService, forceUtilityClosed: boolean?) -> (),
 	getLastInputToOpenMenu: (ChromeService) -> Enum.UserInputType,
+	inFocusNav: (ChromeService) -> ObservableInFocusNav,
+	enableFocusNav: (ChromeService) -> (),
+	disableFocusNav: (ChromeService) -> (),
 	status: (ChromeService) -> ObservableMenuStatus,
 	layout: (ChromeService) -> ObservableMenuLayout,
 	setMenuAbsolutePosition: (ChromeService, position: Vector2) -> (),
@@ -217,6 +222,7 @@ export type ChromeService = {
 	_selectedItem: ObservableIntegrationId,
 	_selectedItemIdx: number,
 	_orderAlignment: ObservableAlignment,
+	_inFocusNav: ObservableInFocusNav,
 }
 
 local DummyIntegration = {
@@ -241,7 +247,10 @@ function ChromeService.new(): ChromeService
 	local self = {}
 	self._chromeSeenCount = if GetFFlagEnableUnibarMaxDefaultOpen() then getChromeSeenCount() else 0
 
-	local status: ObservableMenuStatus = if GetFFlagEnableChromeDefaultOpen()
+	local status: ObservableMenuStatus = if GetFFlagEnableAlwaysOpenUnibar()
+		then utils.ObservableValue.new(ChromeService.MenuStatus.Open)
+		elseif
+			GetFFlagEnableChromeDefaultOpen()
 			and (GetFFlagEnableUnibarSneakPeak() or GetFFlagEnableUnibarMaxDefaultOpen())
 		then getInitialStatus(self._chromeSeenCount)
 		else utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
@@ -288,6 +297,9 @@ function ChromeService.new(): ChromeService
 			and status:get() == ChromeService.MenuStatus.Open
 		then Enum.UserInputType.MouseButton1
 		else Enum.UserInputType.None
+	if GetFFlagEnableAlwaysOpenUnibar() then
+		self._inFocusNav = ObservableValue.new(false)
+	end
 
 	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
 
@@ -592,6 +604,10 @@ function ChromeService:toggleOpen()
 end
 
 function ChromeService:open(preventFocusCapture: boolean?)
+	if GetFFlagEnableAlwaysOpenUnibar() then
+		return
+	end
+
 	local menuStatus: ObservableMenuStatus = self._status
 
 	if menuStatus:get() == ChromeService.MenuStatus.Closed then
@@ -610,6 +626,10 @@ function ChromeService:open(preventFocusCapture: boolean?)
 end
 
 function ChromeService:close(forceUtilityClosed: boolean?)
+	if GetFFlagEnableAlwaysOpenUnibar() then
+		return
+	end
+
 	local menuStatus: ObservableMenuStatus = self._status
 	local subMenu: ObservableSubMenu = self._currentSubMenu
 	local currentCompactUtility: ObservableCompactUtility = self._currentCompactUtility
@@ -631,6 +651,25 @@ function ChromeService:close(forceUtilityClosed: boolean?)
 		subMenu:set(nil)
 		menuStatus:set(ChromeService.MenuStatus.Closed)
 		self._lastInputToOpenMenu = Enum.UserInputType.None
+	end
+end
+
+function ChromeService:inFocusNav()
+	return self._inFocusNav
+end
+
+function ChromeService:enableFocusNav()
+	if GetFFlagEnableAlwaysOpenUnibar() and not self._inFocusNav:get() then
+		self._inFocusNav:set(true)
+	end
+end
+
+function ChromeService:disableFocusNav()
+	if GetFFlagEnableAlwaysOpenUnibar() and self._inFocusNav:get() then
+		self._inFocusNav:set(false)
+		self._selectedItem:set(nil)
+		-- close any current submenu
+		self._currentSubMenu:set(nil)
 	end
 end
 

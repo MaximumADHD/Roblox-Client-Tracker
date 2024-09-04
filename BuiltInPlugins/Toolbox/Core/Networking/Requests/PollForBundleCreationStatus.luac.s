@@ -123,40 +123,26 @@ MAIN:
   LOADN R6 5
   NAMECALL R3 R3 K12 ["DefineFastInt"]
   CALL R3 3 1
-  GETIMPORT R4 K7 [require]
-  GETTABLEKS R6 R1 K13 ["SharedFlags"]
-  GETTABLEKS R5 R6 K14 ["getFFlagEnableCreateUGCBundleCreationFeeErrorCodes"]
-  CALL R4 1 1
-  DUPTABLE R5 K22 [{"Unknown", "InProgress", "Success", "ValidationFailed", "InsufficientFunds", "Failed", "CreationFeeMismatch"}]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K15 ["Unknown"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K16 ["InProgress"]
-  LOADN R6 2
-  SETTABLEKS R6 R5 K17 ["Success"]
-  LOADN R6 3
-  SETTABLEKS R6 R5 K18 ["ValidationFailed"]
-  LOADN R6 4
-  SETTABLEKS R6 R5 K19 ["InsufficientFunds"]
-  MOVE R7 R4
-  CALL R7 0 1
-  JUMPIFNOT R7 [+2]
-  LOADN R6 5
-  JUMP [+1]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K20 ["Failed"]
-  MOVE R7 R4
-  CALL R7 0 1
-  JUMPIFNOT R7 [+2]
-  LOADN R6 6
-  JUMP [+1]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K21 ["CreationFeeMismatch"]
-  DUPCLOSURE R6 K23 [PROTO_3]
-  CAPTURE VAL R5
+  DUPTABLE R4 K20 [{"Unknown", "InProgress", "Success", "ValidationFailed", "InsufficientFunds", "Failed", "CreationFeeMismatch"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K13 ["Unknown"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K14 ["InProgress"]
+  LOADN R5 2
+  SETTABLEKS R5 R4 K15 ["Success"]
+  LOADN R5 3
+  SETTABLEKS R5 R4 K16 ["ValidationFailed"]
+  LOADN R5 4
+  SETTABLEKS R5 R4 K17 ["InsufficientFunds"]
+  LOADN R5 5
+  SETTABLEKS R5 R4 K18 ["Failed"]
+  LOADN R5 6
+  SETTABLEKS R5 R4 K19 ["CreationFeeMismatch"]
+  DUPCLOSURE R5 K21 [PROTO_3]
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R6
+  CAPTURE VAL R5
   CAPTURE VAL R2
-  DUPCLOSURE R7 K24 [PROTO_5]
-  CAPTURE VAL R6
-  RETURN R7 1
+  DUPCLOSURE R6 K22 [PROTO_5]
+  CAPTURE VAL R5
+  RETURN R6 1

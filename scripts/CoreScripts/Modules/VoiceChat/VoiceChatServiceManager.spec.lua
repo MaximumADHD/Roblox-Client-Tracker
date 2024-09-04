@@ -17,6 +17,7 @@ return function()
 	local log = require(RobloxGui.Modules.Logger)
 	local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 	local MockAvatarChatService = require(RobloxGui.Modules.VoiceChat.Mocks.MockAvatarChatService)
+	local MockAppStorageService = require(RobloxGui.Modules.VoiceChat.Mocks.MockAppStorageService)
 	local act = require(CorePackages.Roact).act
 	local VCSS = require(script.Parent.VoiceChatServiceStub)
 	local VoiceChatServiceStub = VCSS.VoiceChatServiceStub
@@ -83,6 +84,7 @@ return function()
 	})
 
 	local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
+	local VoiceChatConstants = require(script.Parent.Constants)
 	local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 	local BlockMock = Instance.new("BindableEvent")
 	local VoiceChatServiceManager
@@ -968,6 +970,45 @@ return function()
 			VoiceChatServiceManager:RejoinCurrentChannel()
 			expect(deepEqual(VoiceChatServiceManager.participants, {})).toBe(true)
 			game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", ClearStateOnRejoinOld)
+		end)
+	end)
+
+	describe("Voice FTUX and STUX", function()
+		local appStorageService
+		local appStorageServiceDefaults = {
+			[VoiceChatConstants.SEAMLESS_VOICE_FTUX_KEY] = "false",
+			[VoiceChatConstants.SEAMLESS_VOICE_STUX_KEY] = "0",
+		}
+		beforeEach(function()
+			appStorageService = MockAppStorageService.new(appStorageServiceDefaults)
+		end)
+		it("Shows FTUX when cookie is set", function()
+			expect(VoiceChatServiceManager.isShowingFTUX).toBe(false)
+			VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService)
+			expect(VoiceChatServiceManager.isShowingFTUX).toBe(true)
+		end)
+		it("Shows STUX when cookie is set", function()
+			appStorageService = MockAppStorageService.new({
+				[VoiceChatConstants.SEAMLESS_VOICE_FTUX_KEY] = "true",
+				[VoiceChatConstants.SEAMLESS_VOICE_STUX_KEY] = "0",
+			})
+			VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService)
+			expect(appStorageService:_DeepEquals({
+				[VoiceChatConstants.SEAMLESS_VOICE_FTUX_KEY] = "true",
+				[VoiceChatConstants.SEAMLESS_VOICE_STUX_KEY] = "1",
+			})).toBe(true)
+		end)
+		it("Doesn't show STUX after set threshold", function()
+			local displayCount = game:GetFastInt("SeamlessVoiceSTUXDisplayCount")
+			appStorageService = MockAppStorageService.new({
+				[VoiceChatConstants.SEAMLESS_VOICE_FTUX_KEY] = "true",
+				[VoiceChatConstants.SEAMLESS_VOICE_STUX_KEY] = tostring(displayCount),
+			})
+			VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService)
+			expect(appStorageService:_DeepEquals({
+				[VoiceChatConstants.SEAMLESS_VOICE_FTUX_KEY] = "true",
+				[VoiceChatConstants.SEAMLESS_VOICE_STUX_KEY] = tostring(displayCount),
+			})).toBe(true)
 		end)
 	end)
 

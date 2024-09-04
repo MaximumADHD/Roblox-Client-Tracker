@@ -1,5 +1,5 @@
 return function()
-	local ScriptContext = game:GetService("ScriptContext")
+	local ScriptProfiler = game:GetService("ScriptProfilerService")
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -8,7 +8,7 @@ return function()
 
 	local ProfilerFunctionViewEntry = require(script.Parent.ProfilerFunctionViewEntry)
 
-	local TEST_DATA = ScriptContext:DeserializeScriptProfilerString(require(script.Parent.TestData))
+	local TEST_DATA = ScriptProfiler:DeserializeJSON(require(script.Parent.TestData))
 
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()

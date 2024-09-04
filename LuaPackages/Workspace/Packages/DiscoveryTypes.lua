@@ -33,6 +33,10 @@ export type FetchStatus = Package.FetchStatus
 export type NextDataExpirationTimeGroup = Package.NextDataExpirationTimeGroup
 export type NextDataExpirationTime = Package.NextDataExpirationTime
 export type OmniAutocompleteSortTopicData = Package.OmniAutocompleteSortTopicData
+export type GameFilters = Package.GameFilters
+export type GameFilterModel = Package.GameFilterModel
+export type GameFilterOptionModel = Package.GameFilterOptionModel
+export type SearchTypeSelection = Package.SearchTypeSelection
 
 
 return Package

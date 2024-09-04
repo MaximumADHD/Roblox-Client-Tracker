@@ -18,6 +18,8 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 local GetGameProductInfo = require(Modules.LoadingScreen.Thunks.GetGameProductInfo)
 local GetIsSubjectToChinaPolicies = require(Modules.LoadingScreen.Thunks.GetIsSubjectToChinaPolicies)
 local GetUniverseId = require(Modules.LoadingScreen.Thunks.GetUniverseId)
+-- Components
+local AppTopBannerContainer = require(Modules.LoadingScreen.Components.AppTopBannerContainer)
 
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
@@ -27,13 +29,22 @@ local withStyle = UIBlox.Style.withStyle
 
 local CoreScriptTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 
-local httpRequest = require(Modules.Common.httpRequest)
+local FFlagLoadingScreenReplaceHttp = game:DefineFastFlag("LoadingScreenReplaceHttp", false)
 
-local networking = httpRequest(HttpRbxApiService)
+local networking
+if FFlagLoadingScreenReplaceHttp then
+	local requestInternalWrapper = require(CorePackages.Workspace.Packages.Http).NetworkLayers.requestInternalWrapper
+	networking = requestInternalWrapper(HttpRbxApiService)
+else
+	local httpRequest = require(Modules.Common.httpRequest)
+	networking = httpRequest(HttpRbxApiService)
+end
+
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
 local GetFFlagReportFirstExperienceCancelled = require(RobloxGui.Modules.Flags.GetFFlagReportFirstExperienceCancelled)
 local FFlagLoadingScriptCancelButtonBeforeWait = game:DefineFastFlag("LoadingScriptCancelButtonBeforeWait", false)
+local GetFFlagEnableTopBannerInLoadingScreen = require(RobloxGui.Modules.Flags.GetFFlagEnableTopBannerInLoadingScreen)
 
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
@@ -187,6 +198,34 @@ function LoadingScreen:stopAnimation()
 		self.renderSteppedConnection:Disconnect()
 		self.renderSteppedConnection = nil
 	end
+end
+
+function LoadingScreen:renderAppTopBanner()
+	return Roact.createElement(AppTopBannerContainer, {
+		displayOrder = BASE_SCREEN_ORDER + 2,
+	})
+end
+
+function LoadingScreen:getPaddingWithTopBanner(isPortrait)
+	local padding = getPadding(isPortrait)
+	local topBannerOffset = math.max(0, self.props.appTopBannerHeight - GuiService:GetSafeZoneOffsets().top)
+	return {
+		TOP = padding.TOP + topBannerOffset,
+		BOTTOM = padding.BOTTOM,
+		LEFT = padding.LEFT,
+		RIGHT = padding.RIGHT,
+	}
+end
+
+function LoadingScreen:renderWithTopBanner(content)
+	local topOffset = math.max(self.props.appTopBannerHeight - GuiService:GetSafeZoneOffsets().top, 0)
+	return Roact.createElement("Frame", {
+		Position = UDim2.new(0.5, 0, 0, topOffset),
+		AnchorPoint = Vector2.new(0.5, 0),
+		Size = UDim2.new(1, 0, 1, -topOffset),
+		BackgroundTransparency = 0,
+		BackgroundColor3 = Color3.fromRGB(230, 15, 15),
+	}, content)
 end
 
 function LoadingScreen:renderBackground(style)
@@ -403,7 +442,7 @@ function LoadingScreen:renderInfoFrame(style)
 end
 
 function LoadingScreen:renderMain(style)
-	local padding = getPadding(self.isPortrait)
+	local padding = if GetFFlagEnableTopBannerInLoadingScreen() then self:getPaddingWithTopBanner(self.isPortrait) else getPadding(self.isPortrait)
 
 	local reducedMotion = style.Settings.ReducedMotion
 	return Roact.createElement("ScreenGui", {
@@ -747,6 +786,7 @@ function LoadingScreen:render()
 		return self.state.visible and Roact.createElement("Folder", {}, { 
 			BackgroundScreen = self:renderBackground(style), 
 			MainScreen = self:renderMain(style),
+			AppTopBannerScreen = if GetFFlagEnableTopBannerInLoadingScreen() then self:renderAppTopBanner() else nil,
 		})
 	end)
 end
@@ -793,6 +833,7 @@ LoadingScreen = RoactRodux.connect(
 			placeId = state.gameIds and state.gameIds.placeId or props.placeId,
 			universeId = state.gameIds and state.gameIds.universeId or 0,
 			settings = state.settings,
+			appTopBannerHeight = if GetFFlagEnableTopBannerInLoadingScreen() then state.AppTopBanner.appTopBannerHeight else 0,
 		}
 	end,
 	function(dispatch)

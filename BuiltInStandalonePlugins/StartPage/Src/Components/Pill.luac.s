@@ -22,7 +22,7 @@ PROTO_0:
   SETTABLEKS R8 R7 K8 ["TextSize"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K4 ["Tag"]
-  LOADK R9 K9 ["X-Fit StartPage-TextColor StartPage-FontBold StartPage-NoBackground"]
+  LOADK R9 K9 ["X-Fit StartPage-TextColor StartPage-FontBold X-Transparent"]
   SETTABLE R9 R7 R8
   CALL R5 2 -1
   SETLIST R4 R5 -1 [1]

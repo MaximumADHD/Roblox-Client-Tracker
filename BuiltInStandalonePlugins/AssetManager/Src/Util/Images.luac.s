@@ -25,64 +25,76 @@ MAIN:
   CALL R6 2 1
   MOVE R5 R6
   SETTABLEKS R5 R4 K15 ["ARROW_UP_ICON"]
-  LOADK R6 K16 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%*/Standard/Cleanup.png"]
+  LOADK R6 K16 ["rbxasset://studio_svg_textures/Lua/Tutorials/%*/Standard/Checkmark.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K17 ["CLEAR_ICON"]
-  LOADK R6 K18 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/User.png"]
+  SETTABLEKS R5 R4 K17 ["CHECKMARK"]
+  LOADK R6 K18 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%*/Standard/Cleanup.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K19 ["ICON_USER_DEFAULT"]
-  LOADK R6 K20 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/Group.png"]
+  SETTABLEKS R5 R4 K19 ["CLEAR_ICON"]
+  LOADK R6 K20 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/User.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K21 ["ICON_GROUP_DEFAULT"]
-  LOADK R6 K22 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Large/User.png"]
+  SETTABLEKS R5 R4 K21 ["ICON_USER_DEFAULT"]
+  LOADK R6 K22 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/Group.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K23 ["ICON_USER_LARGE_DEFAULT"]
-  LOADK R6 K24 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Large/Group.png"]
+  SETTABLEKS R5 R4 K23 ["ICON_GROUP_DEFAULT"]
+  LOADK R6 K24 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Large/User.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K25 ["ICON_GROUP_LARGE_DEFAULT"]
-  LOADK R6 K26 ["rbxasset://studio_svg_textures/Lua/FileSync/%*/Large/Import.png"]
+  SETTABLEKS R5 R4 K25 ["ICON_USER_LARGE_DEFAULT"]
+  LOADK R6 K26 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Large/Group.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K27 ["ICON_IMPORT"]
-  LOADK R6 K28 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
+  SETTABLEKS R5 R4 K27 ["ICON_GROUP_LARGE_DEFAULT"]
+  LOADK R6 K28 ["rbxasset://studio_svg_textures/Lua/FileSync/%*/Large/Import.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K29 ["PLACEHOLDER_ASSET"]
-  LOADK R6 K28 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
+  SETTABLEKS R5 R4 K29 ["ICON_IMPORT"]
+  LOADK R6 K30 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K30 ["PLACEHOLDER"]
-  LOADK R6 K31 ["rbxasset://studio_svg_textures/Lua/AssetManager/%*/Standard/Sort.png"]
+  SETTABLEKS R5 R4 K31 ["PLACEHOLDER_ASSET"]
+  LOADK R6 K30 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K32 ["SORT_ICON"]
-  LOADK R6 K33 ["rbxasset://studio_svg_textures/Lua/FileSync/%*/Standard/Refresh.png"]
+  SETTABLEKS R5 R4 K32 ["PLACEHOLDER"]
+  LOADK R6 K33 ["rbxasset://studio_svg_textures/Lua/AssetManager/%*/Standard/Sort.png"]
   MOVE R8 R3
   NAMECALL R6 R6 K12 ["format"]
   CALL R6 2 1
   MOVE R5 R6
-  SETTABLEKS R5 R4 K34 ["REFRESH_ICON"]
+  SETTABLEKS R5 R4 K34 ["SORT_ICON"]
+  LOADK R6 K35 ["rbxasset://studio_svg_textures/Lua/FileSync/%*/Standard/Refresh.png"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K12 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K36 ["REFRESH_ICON"]
+  LOADK R6 K37 ["rbxasset://studio_svg_textures/Lua/DeveloperFramework/%*/Standard/Search.png"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K12 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K38 ["ICON_SEARCH"]
   RETURN R4 1

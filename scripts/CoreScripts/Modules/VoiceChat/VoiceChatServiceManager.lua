@@ -3,7 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local PlayersService = game:GetService("Players")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
-local Cryo = require(CorePackages.Cryo)
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local CoreGui = game:GetService("CoreGui")
@@ -29,6 +28,7 @@ local GetFFlagVoiceChatServiceManagerUseAvatarChat =
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagUseLuaSignalrConsumer = require(RobloxGui.Modules.Flags.GetFFlagUseLuaSignalrConsumer)
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
+local GetFFlagSeamlessVoiceFTUX = require(RobloxGui.Modules.Flags.GetFFlagSeamlessVoiceFTUX)
 local GetFFlagEnableNudgeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableNudgeAnalytics)
 local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlagVoiceUseAudioRoutingAPI)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
@@ -47,6 +47,7 @@ local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDev
 local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermissionsAnalytics", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
 local FFlagDebugSimulateConnectDisconnect = game:DefineFastFlag("DebugSimulateConnectDisconnect", false)
+local FFlagDebugSkipSeamlessVoiceAPICheck = game:DefineFastFlag("DebugSkipSeamlessVoiceAPICheck", false)
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
 local FFlagOverwriteIsMutedLocally = require(VoiceChatCore.Flags.GetFFlagOverwriteIsMutedLocally)()
 local FFlagHideVoiceUIUntilInputExists = require(VoiceChatCore.Flags.GetFFlagHideVoiceUIUntilInputExists)()
@@ -66,6 +67,8 @@ local FStringVoiceUIImprovementsIXPLayerName =
 	game:DefineFastString("VoiceUIImprovementsIXPLayerName", "Voice.Exposure")
 local FStringThrottleParticipantsUpdateIXPLayerValue =
 	game:DefineFastString("ThrottleParticipantsUpdateIXPLayerValue", "ThrottleParticipantsUpdate")
+local FIntSeamlessVoiceSTUXDisplayCount =
+	game:DefineFastInt("SeamlessVoiceSTUXDisplayCount", 3)
 local GetFFlagShowLikelySpeakingBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowLikelySpeakingBubbles)
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
@@ -206,6 +209,8 @@ local VoiceChatServiceManager = {
 	getPermissionsFunction = getCamMicPermissions,
 	AvatarChatService = AvatarChatService,
 	inExpUpsellEntrypoint = nil,
+	isShowingFTUX = false,
+	hideFTUXSignal = Instance.new("BindableEvent"),
 }
 
 -- Getting/Setting these properties on VoiceChatServiceManager passes through to CoreVoiceManager instance.
@@ -618,6 +623,102 @@ end
 
 function VoiceChatServiceManager:EnableVoice()
 	return self.coreVoiceManager:EnableVoice()
+end
+
+function VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService: AppStorageService)
+	local hasShownFTUX, STUXCount
+	local success = pcall(function()
+		local rawHasShownFTUX = appStorageService:GetItem(VoiceConstants.SEAMLESS_VOICE_FTUX_KEY)
+		local RawSTUXCount = appStorageService:GetItem(VoiceConstants.SEAMLESS_VOICE_STUX_KEY)
+		hasShownFTUX = rawHasShownFTUX == "true"
+		STUXCount = if RawSTUXCount == nil then 0 else tonumber(RawSTUXCount)
+	end)
+
+	if not success then
+		log:warning("Failed to read FTUX/STUX from AppStorage")
+		return
+	end
+
+	log:trace("hasShownFTUX: {}. STUXCount: {}", hasShownFTUX, STUXCount)
+
+	if not hasShownFTUX then
+		log:debug("Showing FTUX")
+		self.isShowingFTUX = true
+		self:MuteAll(true, "FTUX")
+		if ExperienceChat.Events.ShowLikelySpeakingBubblesChanged and ExperienceChat.Events.LikelySpeakingUsersUpdated then
+			log:debug("Showing likely speaking bubbles")
+			local likelySpeakingUsers = {}
+			ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(true)
+			for k in self.participants do
+				likelySpeakingUsers[k] = true
+			end
+			ExperienceChat.Events.LikelySpeakingUsersUpdated(likelySpeakingUsers)
+			local joinedEvent = self.participantJoined.Event:Connect(function(userId)
+				likelySpeakingUsers[userId] = true
+				ExperienceChat.Events.LikelySpeakingUsersUpdated(likelySpeakingUsers)
+			end)
+			self.hideFTUXSignal.Event:Connect(function()
+				joinedEvent:Disconnect()
+				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
+				ExperienceChat.Events.LikelySpeakingUsersUpdated({})
+			end)
+			self.hideVoiceUI.Event:Once(function()
+				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
+				ExperienceChat.Events.LikelySpeakingUsersUpdated({})
+			end)
+		end
+		-- Show FTUX Toast
+	elseif STUXCount < FIntSeamlessVoiceSTUXDisplayCount then
+		log:debug("Showing STUX")
+		self:showPrompt(VoiceChatPromptType.JoinVoiceSTUX)
+		pcall(function()
+			appStorageService:SetItem(VoiceConstants.SEAMLESS_VOICE_STUX_KEY, tostring(STUXCount + 1))
+			appStorageService:Flush()
+		end)
+	end
+end
+
+function VoiceChatServiceManager:VoiceChatFirstTimeUX(appStorageService: AppStorageService)
+	-- We only want to do this once per voice session
+	if not FFlagDebugSkipSeamlessVoiceAPICheck then
+		local permissions = self:FetchAgeVerificationOverlay()
+		if permissions.voiceSettings
+			and permissions.voiceSettings.seamlessVoiceStatus ~= VoiceConstants.SEAMLESS_VOICE_STATUS_ENABLED_NEW_USER
+		then
+			log:debug("User not eligible for FTUX/STUX")
+			return
+		end
+	end
+	local function startFTUX()
+		log:debug("Starting FTUX")
+		self:_VoiceChatFirstTimeUX(appStorageService)
+		self.talkingChanged.Event:Once(function()
+			self:HideFTUX(appStorageService)
+		end)
+	end
+	self:asyncInit():andThen(function()
+		local stateChangedConnection: RBXScriptConnection
+		if self.service.VoiceChatState and self.service.VoiceChatState == (Enum :: any).VoiceChatState.Joined then
+			startFTUX()
+		end
+		stateChangedConnection = self.service.StateChanged:Connect(function(_oldState, newState)
+			if newState == (Enum :: any).VoiceChatState.Joined then
+				startFTUX()
+				stateChangedConnection:Disconnect()
+			end
+		end)
+	end)
+end
+
+function VoiceChatServiceManager:HideFTUX(appStorageService: AppStorageService)
+	self.isShowingFTUX = false
+	self.hideFTUXSignal:Fire()
+	self:MuteAll(false, "FTUX")
+	pcall(function()
+		appStorageService:SetItem(VoiceConstants.SEAMLESS_VOICE_FTUX_KEY, "true")
+		appStorageService:Flush()
+	end)
+	self:showPrompt(VoiceChatPromptType.JoinVoice)
 end
 
 function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings, universePlaceSettings)
@@ -1368,8 +1469,6 @@ function VoiceChatServiceManager:JoinVoice()
 
 		local promptToShow = self:GetInExpUpsellPromptFromEnum(voiceInExpUpsellVariant)
 		self:showPrompt(promptToShow)
-	elseif self:UserVoiceEnabled() and not self.state.hasMicPermissions then
-		self:showPrompt(VoiceChatPromptType.Permission)
 	end
 end
 

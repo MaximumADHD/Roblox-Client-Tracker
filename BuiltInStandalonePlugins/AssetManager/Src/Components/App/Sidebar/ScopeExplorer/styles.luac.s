@@ -24,27 +24,51 @@ MAIN:
   LOADN R14 24
   CALL R10 4 1
   SETTABLEKS R10 R9 K12 ["Size"]
-  NEWTABLE R10 0 1
+  NEWTABLE R10 0 3
   MOVE R11 R2
-  LOADK R12 K17 ["> .ScopeIcon"]
-  NEWTABLE R13 0 0
-  NEWTABLE R14 0 1
-  MOVE R15 R2
-  LOADK R16 K18 ["::UICorner"]
-  DUPTABLE R17 K20 [{"CornerRadius"}]
-  GETIMPORT R18 K22 [UDim.new]
-  LOADN R19 1
-  LOADN R20 0
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K19 ["CornerRadius"]
-  CALL R15 2 -1
-  SETLIST R14 R15 -1 [1]
-  CALL R11 3 -1
+  LOADK R12 K17 [":hover"]
+  DUPTABLE R13 K20 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R14 K21 ["$ActionHover"]
+  SETTABLEKS R14 R13 K18 ["BackgroundColor3"]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K19 ["BackgroundTransparency"]
+  CALL R11 2 1
+  MOVE R12 R2
+  LOADK R13 K22 [".Selected"]
+  DUPTABLE R14 K20 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R15 K23 ["$ActionSelected"]
+  SETTABLEKS R15 R14 K18 ["BackgroundColor3"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K19 ["BackgroundTransparency"]
+  NEWTABLE R15 0 1
+  MOVE R16 R2
+  LOADK R17 K17 [":hover"]
+  DUPTABLE R18 K24 [{"BackgroundColor3"}]
+  LOADK R19 K21 ["$ActionHover"]
+  SETTABLEKS R19 R18 K18 ["BackgroundColor3"]
+  CALL R16 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 1
+  MOVE R13 R2
+  LOADK R14 K25 ["> .ScopeIcon"]
+  NEWTABLE R15 0 0
+  NEWTABLE R16 0 1
+  MOVE R17 R2
+  LOADK R18 K26 ["::UICorner"]
+  DUPTABLE R19 K28 [{"CornerRadius"}]
+  GETIMPORT R20 K30 [UDim.new]
+  LOADN R21 1
+  LOADN R22 0
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K27 ["CornerRadius"]
+  CALL R17 2 -1
+  SETLIST R16 R17 -1 [1]
+  CALL R13 3 -1
   SETLIST R10 R11 -1 [1]
   CALL R7 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K24 [{"RowHeight"}]
+  DUPTABLE R7 K32 [{"RowHeight"}]
   LOADN R8 24
-  SETTABLEKS R8 R7 K23 ["RowHeight"]
+  SETTABLEKS R8 R7 K31 ["RowHeight"]
   CALL R3 4 -1
   RETURN R3 -1

@@ -30,6 +30,16 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["DiscoverCreatorEligibilityAndOpenPlace experienced an error: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["new"]
   CALL R5 0 1
@@ -75,8 +85,8 @@ PROTO_1:
   CAPTURE VAL R2
   NAMECALL R8 R8 K13 ["andThen"]
   CALL R8 2 1
-  GETIMPORT R10 K15 [warn]
-  NAMECALL R8 R8 K16 ["catch"]
+  DUPCLOSURE R10 K14 [PROTO_1]
+  NAMECALL R8 R8 K15 ["catch"]
   CALL R8 2 0
   RETURN R0 0
 
@@ -100,39 +110,42 @@ MAIN:
   GETTABLEKS R5 R6 K11 ["Network"]
   GETTABLEKS R4 R5 K12 ["Urls"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Util"]
-  GETTABLEKS R5 R6 K14 ["TypedNetworking"]
-  CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K8 ["Src"]
   GETTABLEKS R7 R8 K13 ["Util"]
-  GETTABLEKS R6 R7 K15 ["createResponseValidator"]
+  GETTABLEKS R6 R7 K14 ["Services"]
   CALL R5 1 1
-  GETTABLEKS R7 R1 K16 ["RobloxAPI"]
-  GETTABLEKS R6 R7 K17 ["Url"]
-  GETTABLEKS R7 R4 K18 ["new"]
-  DUPTABLE R8 K22 [{"isInternal", "loggingLevel", "retryAmount"}]
+  GETTABLEKS R4 R5 K15 ["Networking"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Util"]
+  GETTABLEKS R6 R7 K16 ["createResponseValidator"]
+  CALL R5 1 1
+  GETTABLEKS R7 R1 K17 ["RobloxAPI"]
+  GETTABLEKS R6 R7 K18 ["Url"]
+  GETTABLEKS R7 R4 K19 ["new"]
+  DUPTABLE R8 K23 [{"isInternal", "loggingLevel", "retryAmount"}]
   LOADB R9 1
-  SETTABLEKS R9 R8 K19 ["isInternal"]
+  SETTABLEKS R9 R8 K20 ["isInternal"]
   LOADN R9 0
-  SETTABLEKS R9 R8 K20 ["loggingLevel"]
+  SETTABLEKS R9 R8 K21 ["loggingLevel"]
   LOADN R9 3
-  SETTABLEKS R9 R8 K21 ["retryAmount"]
+  SETTABLEKS R9 R8 K22 ["retryAmount"]
   CALL R7 1 1
   NEWTABLE R8 1 0
-  LOADK R9 K23 ["application/json"]
-  SETTABLEKS R9 R8 K24 ["Content-Type"]
-  GETIMPORT R9 K26 [game]
-  LOADK R11 K27 ["HttpService"]
-  NAMECALL R9 R9 K28 ["GetService"]
+  LOADK R9 K24 ["application/json"]
+  SETTABLEKS R9 R8 K25 ["Content-Type"]
+  GETIMPORT R9 K27 [game]
+  LOADK R11 K28 ["HttpService"]
+  NAMECALL R9 R9 K29 ["GetService"]
   CALL R9 2 1
-  GETIMPORT R10 K26 [game]
-  LOADK R12 K29 ["StartPageService"]
-  NAMECALL R10 R10 K28 ["GetService"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K30 [PROTO_1]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K8 ["Src"]
+  GETTABLEKS R12 R13 K13 ["Util"]
+  GETTABLEKS R11 R12 K14 ["Services"]
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K30 ["StartPageManager"]
+  DUPCLOSURE R12 K31 [PROTO_2]
   CAPTURE VAL R6
   CAPTURE VAL R3
   CAPTURE VAL R7
@@ -140,5 +153,5 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R5
   CAPTURE VAL R2
-  CAPTURE VAL R10
-  RETURN R11 1
+  CAPTURE VAL R11
+  RETURN R12 1

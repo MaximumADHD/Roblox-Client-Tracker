@@ -1,8 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local VRService = require(RobloxGui.Modules.VR.VRServiceWrapper)
+local VRService = game:GetService("VRService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact

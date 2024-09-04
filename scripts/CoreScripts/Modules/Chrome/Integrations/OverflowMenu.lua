@@ -12,6 +12,7 @@ local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local Types = require(script.Parent.Parent.Service.Types)
 
 local GetFFlagUnpinUnavailable = require(script.Parent.Parent.Flags.GetFFlagUnpinUnavailable)
+local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 
 function checkCoreGui(
 	integration: { availability: ChromeUtils.AvailabilitySignal, id: Types.IntegrationId },
@@ -194,7 +195,9 @@ if ChromeService:orderAlignment():get() == Enum.HorizontalAlignment.Right then
 end
 
 return ChromeService:register({
-	initialAvailability = ChromeService.AvailabilitySignal.Available,
+	initialAvailability = if GetFFlagEnableAlwaysOpenUnibar()
+		then ChromeService.AvailabilitySignal.Pinned
+		else ChromeService.AvailabilitySignal.Available,
 	notification = ChromeService:subMenuNotifications("nine_dot"),
 	id = "nine_dot",
 	label = "CoreScripts.TopBar.MoreMenu",

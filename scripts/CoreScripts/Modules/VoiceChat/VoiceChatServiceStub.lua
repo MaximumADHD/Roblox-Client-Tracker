@@ -98,6 +98,14 @@ function VoiceChatServiceStub:setUserStates(userStates)
 	waitForEvents()
 end
 
+function VoiceChatServiceStub:GetSessionId()
+	return 1
+end
+
+function VoiceChatServiceStub:GetChannelId()
+	return 1
+end
+
 function VoiceChatServiceStub:resetMocks()
 	ParticipantsStateChangedMock = Instance.new("BindableEvent")
 	StateChangedMock = Instance.new("BindableEvent")

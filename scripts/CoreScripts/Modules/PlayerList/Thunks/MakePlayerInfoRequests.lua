@@ -12,6 +12,8 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 
+local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
+
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 
@@ -48,7 +50,13 @@ local function getGroupsPermissionsInfo(store, player)
 	if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
 		dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
 	elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
-		dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+		if FFlagInExperienceUserProfileSettingsEnabled then
+			if not PlayerPermissionsModule.IsPlayerInExperienceNameEnabledAsync(player) then
+				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+			end
+		else
+			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+		end
 	elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
 		dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
 	end

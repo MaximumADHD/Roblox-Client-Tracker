@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableChromeMusicIntegration", false)
+game:DefineFastFlag("EnableChromeMusicIntegration2", false)
 
 return function()
-	return game:GetFastFlag("EnableChromeMusicIntegration")
+	return game:GetFastFlag("EnableChromeMusicIntegration2")
 end

@@ -40,8 +40,8 @@ end)
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagLogAcceptFriendshipEvent = game:DefineFastFlag("LogAcceptFriendshipEvent", false)
-
-local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
+local FFlagClientToastNotificationsRedirect = game:DefineFastFlag("ClientToastNotificationsRedirect", false)
+local FFlagClientToastNotificationsEnabled = game:GetEngineFeature("ClientToastNotificationsEnabled")
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
@@ -600,6 +600,48 @@ local function onSendNotificationInfo(notificationInfo)
 	local button1Text = notificationInfo.Button1Text
 	local button2Text = notificationInfo.Button2Text
 
+    if FFlagClientToastNotificationsEnabled and FFlagClientToastNotificationsRedirect then
+        local newNotificationInfo = {
+            Title = notificationInfo.Title,
+            Text = notificationInfo.Text,
+            Icon = notificationInfo.Image,
+            Buttons = {
+                if button1Text then 
+                {
+                    Text = button1Text,
+                    ButtonType = Enum.NotificationButtonType.Secondary,
+                    OnActivated = function()
+                        if callback and type(callback) ~= "function" then -- callback should be a bindable
+                            pcall(function()
+                                callback:Invoke(button1Text)
+                            end)
+                        elseif type(callback) == "function" then
+                            callback(button1Text)
+                        end        
+                    end
+                }
+                else nil,
+                if button2Text then
+                {
+                    Text = button2Text,
+                    ButtonType = Enum.NotificationButtonType.Primary,
+                    OnActivated = function()
+                        if callback and type(callback) ~= "function" then -- callback should be a bindable
+                            pcall(function()
+                                callback:Invoke(button2Text)
+                            end)
+                        elseif type(callback) == "function" then
+                            callback(button2Text)
+                        end        
+                    end
+                }
+                else nil,
+            }
+        }
+        GuiService:SendNotification(newNotificationInfo)
+        return
+    end
+
 	local notification = {}
 	local notificationFrame
 
@@ -697,8 +739,16 @@ local function createDeveloperNotification(notificationTable)
 					and notificationTable.Callback
 				or nil
 			)
-			local button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or "")
-			local button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or "")
+
+			local button1Text
+			local button2Text
+            if FFlagClientToastNotificationsEnabled and FFlagClientToastNotificationsRedirect then
+                button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or nil)
+                button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or nil)    
+            else
+                button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or "")
+                button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or "")    
+            end
 
 			-- AutoLocalize allows developers to disable automatic localization if they have pre-localized it. Defaults true.
 			local autoLocalize = notificationTable.AutoLocalize == nil or notificationTable.AutoLocalize == true
@@ -907,7 +957,6 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 	end
 end
 
--- DEPRECATED Remove with FixGraphicsQuality
 function onGameSettingsChanged(property, amount)
 	if property == "SavedQualityLevel" then
 		local level = GameSettings.SavedQualityLevel.Value + amount
@@ -959,11 +1008,9 @@ if not isTenFootInterface then
 	PointsService.PointsAwarded:connect(onPointsAwarded)
 	--GameSettings.Changed:connect(onGameSettingsChanged)
 
-	if not GetFixGraphicsQuality() then
-		game.GraphicsQualityChangeRequest:Connect(function(graphicsIncrease) --graphicsIncrease is a boolean
-			onGameSettingsChanged("SavedQualityLevel", graphicsIncrease == true and 1 or -1)
-		end)
-	end
+	game.GraphicsQualityChangeRequest:Connect(function(graphicsIncrease) --graphicsIncrease is a boolean
+		onGameSettingsChanged("SavedQualityLevel", graphicsIncrease == true and 1 or -1)
+	end)
 end
 
 local allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()

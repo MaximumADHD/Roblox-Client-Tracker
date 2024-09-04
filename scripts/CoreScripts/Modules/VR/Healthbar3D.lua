@@ -19,6 +19,7 @@ local PlayersService = game:GetService('Players')
 local CoreGui = game:GetService('CoreGui')
 local StarterGui = game:GetService('StarterGui')
 local UserInputService = game:GetService('UserInputService')
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -195,7 +196,7 @@ local function OnVREnabled(prop)
 	if prop == "VREnabled" then
 		if UserInputService.VREnabled then
 			local VRHub = require(RobloxGui.Modules.VR.VRHub)
-			local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 
 			local HealthbarPanel = Panel3D.Get("Healthbar")
 			HealthbarPanel:ResizeStuds(1.5, 0.25, 128)

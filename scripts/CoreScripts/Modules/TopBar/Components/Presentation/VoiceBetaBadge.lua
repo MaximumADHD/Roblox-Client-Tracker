@@ -34,6 +34,7 @@ local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
 
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -137,7 +138,7 @@ end
 function VoiceBetaBadge:render()
 	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon) and self.state.voiceChatServiceConnected
 
-	if self.state.chromeMenuOpen then
+	if not GetFFlagEnableAlwaysOpenUnibar() and self.state.chromeMenuOpen then
 		visible = false
 	end
 	local onAreaChanged = function(rbx)

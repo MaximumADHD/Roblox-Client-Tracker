@@ -13,7 +13,8 @@ PROTO_0:
   LOADNIL R2
   LOADNIL R3
   FORGPREP R1
-  DUPTABLE R6 K9 [{"Name", "Id", "Scope"}]
+  DUPTABLE R6 K9 [{"Id", "Name", "Scope"}]
+  SETTABLEKS R5 R6 K6 ["Id"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K10 ["_groups"]
   GETTABLE R7 R8 R5
@@ -22,8 +23,7 @@ PROTO_0:
   MOVE R8 R5
   GETIMPORT R7 K12 [tostring]
   CALL R7 1 1
-  SETTABLEKS R7 R6 K6 ["Name"]
-  SETTABLEKS R5 R6 K7 ["Id"]
+  SETTABLEKS R7 R6 K7 ["Name"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K8 ["Scope"]
   GETTABLEKS R7 R8 K13 ["Group"]
@@ -155,8 +155,10 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETTABLEKS R1 R0 K0 ["_explorerItems"]
-  RETURN R1 1
+  GETIMPORT R1 K2 [table.clone]
+  GETTABLEKS R2 R0 K3 ["_explorerItems"]
+  CALL R1 1 -1
+  RETURN R1 -1
 
 PROTO_7:
   GETTABLEKS R1 R0 K0 ["_expansion"]

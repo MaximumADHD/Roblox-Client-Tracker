@@ -5,6 +5,7 @@ local CorePackages = game:GetService("CorePackages")
 local NotificationService = game:GetService("NotificationService")
 local Players = game:GetService("Players")
 local ExperienceService = game:GetService("ExperienceService")
+local HttpService = game:GetService("HttpService")
 local Promise = require(CorePackages.Promise)
 
 local RobloxGui = CoreGui.RobloxGui
@@ -22,6 +23,7 @@ local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificat
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
 local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
 local FFlagDefaultChannelDontWaitOnCharacterWithAudioApi = game:DefineFastFlag("DefaultChannelDontWaitOnCharacterWithAudioApi", false)
+local FFlagEnableCrossExpVoiceDebug = game:DefineFastFlag("EnableCrossExpVoiceDebug", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
@@ -49,7 +51,6 @@ local createReducers = function()
 	})
 end
 
-local initialState = PersistenceMiddleware.restore()
 local store = Rodux.Store.new(createReducers(), nil, {
 	Rodux.thunkMiddleware,
 	PersistenceMiddleware.getMiddleware(),
@@ -262,6 +263,28 @@ handleMicrophone()
 
 -- unmute mic at the start once muted state is initialized
 unmuteMicrophoneOnce()
+
+if FFlagEnableCrossExpVoiceDebug then
+	CrossExperience.Communication.addObserver(experienceType, CrossExperience.Constants.EVENTS.DEBUG_COMMAND, function(params)
+		if params.name == "dump_session" then
+			print('----------- CEV BACKGROUND -----------')
+			print('Store State', HttpService:JSONEncode(store:getState()))
+			print('--------------------------------------')
+			print('CoreVoiceManager State:')
+			print('Participants', HttpService:JSONEncode(CoreVoiceManager.participants))
+			print('Local Muted', HttpService:JSONEncode({ value = CoreVoiceManager.localMuted }))
+			print('Mute All', HttpService:JSONEncode({ value = CoreVoiceManager.muteAll }))
+			print('Muted Anyone', HttpService:JSONEncode({ value = CoreVoiceManager._mutedAnyone }))
+			print('Is Talking', HttpService:JSONEncode({ value = CoreVoiceManager.isTalking }))
+			print('Muted Players', HttpService:JSONEncode(CoreVoiceManager.mutedPlayers))
+			print('Audio Devices', HttpService:JSONEncode(CoreVoiceManager.audioDevices))
+			print('Voice Enabled', HttpService:JSONEncode({ value = CoreVoiceManager.voiceEnabled }))
+			print('Permissions Result', HttpService:JSONEncode(CoreVoiceManager.communicationPermissionsResult))
+			print('Voice Join Progress', HttpService:JSONEncode({ value = CoreVoiceManager.VoiceJoinProgress }))
+			print('-----------------------------')
+		end
+	end)
+end
 
 CoreVoiceManager:asyncInit():andThen(function()
 	local joinInProgress = initializeDefaultChannel(false)

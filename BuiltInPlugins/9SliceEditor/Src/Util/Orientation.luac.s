@@ -6,22 +6,20 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETTABLEKS R2 R3 K6 ["enumerate"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["enumerate"]
-  MOVE R3 R2
-  LOADK R4 K9 ["Orientation"]
-  DUPTABLE R5 K15 [{"Undefined", "Left", "Right", "Top", "Bottom"}]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K10 ["Undefined"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K11 ["Left"]
-  LOADN R6 2
-  SETTABLEKS R6 R5 K12 ["Right"]
-  LOADN R6 3
-  SETTABLEKS R6 R5 K13 ["Top"]
-  LOADN R6 4
-  SETTABLEKS R6 R5 K14 ["Bottom"]
-  CALL R3 2 1
-  RETURN R3 1
+  MOVE R2 R1
+  LOADK R3 K7 ["Orientation"]
+  DUPTABLE R4 K13 [{"Undefined", "Left", "Right", "Top", "Bottom"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K8 ["Undefined"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K9 ["Left"]
+  LOADN R5 2
+  SETTABLEKS R5 R4 K10 ["Right"]
+  LOADN R5 3
+  SETTABLEKS R5 R4 K11 ["Top"]
+  LOADN R5 4
+  SETTABLEKS R5 R4 K12 ["Bottom"]
+  CALL R2 2 1
+  RETURN R2 1

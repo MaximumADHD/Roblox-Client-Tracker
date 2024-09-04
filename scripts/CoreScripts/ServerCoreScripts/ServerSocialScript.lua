@@ -21,6 +21,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
 local FFlagFetchBlockListFromServer = require(RobloxGui.Modules.Common.Flags.FFlagFetchBlockListFromServer)
+local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
+local FStringRccInExperienceNameEnabledAllowList = require(RobloxGui.Modules.Common.Flags.FStringRccInExperienceNameEnabledAllowList)
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -80,6 +82,10 @@ RemoteEvent_SendPlayerBlockList.Parent = RobloxReplicatedStorage
 local RemoteEvent_UpdateLocalPlayerBlockList = Instance.new("RemoteEvent")
 RemoteEvent_UpdateLocalPlayerBlockList.Name = "UpdateLocalPlayerBlockList"
 RemoteEvent_UpdateLocalPlayerBlockList.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_SendPlayerProfileSettings = Instance.new("RemoteEvent")
+RemoteEvent_SendPlayerProfileSettings.Name = "SendPlayerProfileSettings"
+RemoteEvent_SendPlayerProfileSettings.Parent = RobloxReplicatedStorage
 
 -- Map: { UserId -> { UserId -> NumberOfNotificationsSent } }
 local FollowNotificationsBetweenMap = {}
@@ -248,6 +254,33 @@ local function sendPlayerBlockList(player)
 	RemoteEvent_SendPlayerBlockList:FireClient(player, blockedUserSet)
 end
 
+local fetchPlayerProfileSettings = function(player)
+	return pcall(function()
+		local apiPath = `user-profile-api/v1/user/profiles/rcc/settings?userId={player.UserId}`
+		local url = Url.APIS_URL .. apiPath
+
+		local response = HttpRbxApiService:GetAsyncFullUrl(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
+		return HttpService:JSONDecode(response)
+	end)
+end
+
+local sendPlayerProfileSettings = function(player)
+	if player.UserId <= 0 then
+		return
+	end
+
+	local isInExperienceNameEnabled = false
+	if FStringRccInExperienceNameEnabledAllowList.isAllowListedUserId(player.UserId) then
+		local success, result = fetchPlayerProfileSettings(player)
+		if success and result then
+			isInExperienceNameEnabled = result.isSettingsEnabled and result.userProfileSettings and result.userProfileSettings.isInExperienceNameEnabled
+		end
+	end
+
+	local userIdStr = tostring(player.UserId)
+	RemoteEvent_SendPlayerProfileSettings:FireAllClients(userIdStr, { isInExperienceNameEnabled = isInExperienceNameEnabled })
+end
+
 local function onPlayerAdded(newPlayer)
 	if FFlagFetchBlockListFromServer then
 		coroutine.wrap(sendPlayerBlockList)(newPlayer)
@@ -255,6 +288,9 @@ local function onPlayerAdded(newPlayer)
 	sendPlayerAllGroupDetails(newPlayer)
 	if newPlayer.UserId > 0 then
 		coroutine.wrap(getPlayerGroupDetails)(newPlayer)
+	end
+	if FFlagInExperienceUserProfileSettingsEnabled then
+		coroutine.wrap(sendPlayerProfileSettings)(newPlayer)
 	end
 
 	sendPlayerAllCanManage(newPlayer)

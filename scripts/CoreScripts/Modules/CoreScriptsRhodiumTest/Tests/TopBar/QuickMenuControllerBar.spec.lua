@@ -18,15 +18,10 @@ local TopBar = Modules.TopBar
 local QuickMenu = require(TopBar.Components.Presentation.GamepadMenu)
 local SetGamepadMenuOpen = require(TopBar.Actions.SetGamepadMenuOpen)
 
-local FFlagEnableGamepadMenuSelector = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableGamepadMenuSelector
-
 local act = require(CorePackages.Roact).act
 
 return function()
 	beforeEach(function(c)
-		if FFlagEnableGamepadMenuSelector then
-			AppStorageService:SetItem("GamepadMenuVirtualCursorPromptShown", "true")
-		end
 		GuiService.SelectedCoreObject = nil
 		Players.LocalPlayer.PlayerGui:ClearAllChildren()
 		local path, store, cleanup, gamepad = c.mountTopBar({

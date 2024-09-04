@@ -26,7 +26,7 @@ PROTO_1:
   SETTABLEKS R6 R5 K8 ["ZIndex"]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K9 ["Tag"]
-  LOADK R7 K10 ["StartPage-NoBackground"]
+  LOADK R7 K10 ["X-Transparent"]
   SETTABLE R7 R5 R6
   DUPTABLE R6 K13 [{"UIGradientFrame", "Chevron"}]
   GETUPVAL R8 1

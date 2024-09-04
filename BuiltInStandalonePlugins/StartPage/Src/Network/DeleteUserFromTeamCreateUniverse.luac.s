@@ -29,6 +29,16 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["DeleteUserFromTeamCreateUniverse experienced an error: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["new"]
   CALL R3 0 1
@@ -68,8 +78,8 @@ PROTO_3:
   CAPTURE VAL R0
   NAMECALL R7 R7 K15 ["andThen"]
   CALL R7 2 1
-  GETIMPORT R9 K17 [warn]
-  NAMECALL R7 R7 K18 ["catch"]
+  DUPCLOSURE R9 K16 [PROTO_3]
+  NAMECALL R7 R7 K17 ["catch"]
   CALL R7 2 0
   RETURN R0 0
 
@@ -92,33 +102,34 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["Network"]
   GETTABLEKS R4 R5 K11 ["Urls"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Util"]
-  GETTABLEKS R5 R6 K13 ["TypedNetworking"]
-  CALL R4 1 1
-  GETTABLEKS R6 R2 K14 ["RobloxAPI"]
-  GETTABLEKS R5 R6 K15 ["Url"]
-  GETTABLEKS R6 R4 K16 ["new"]
-  DUPTABLE R7 K19 [{"isInternal", "loggingLevel"}]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Util"]
+  GETTABLEKS R6 R7 K13 ["Services"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K14 ["Networking"]
+  GETTABLEKS R6 R2 K15 ["RobloxAPI"]
+  GETTABLEKS R5 R6 K16 ["Url"]
+  GETTABLEKS R6 R4 K17 ["new"]
+  DUPTABLE R7 K20 [{"isInternal", "loggingLevel"}]
   LOADB R8 1
-  SETTABLEKS R8 R7 K17 ["isInternal"]
+  SETTABLEKS R8 R7 K18 ["isInternal"]
   LOADN R8 0
-  SETTABLEKS R8 R7 K18 ["loggingLevel"]
+  SETTABLEKS R8 R7 K19 ["loggingLevel"]
   CALL R6 1 1
   NEWTABLE R7 1 0
-  LOADK R8 K20 ["application/json"]
-  SETTABLEKS R8 R7 K21 ["Content-Type"]
-  GETIMPORT R8 K23 [game]
-  LOADK R10 K24 ["HttpService"]
-  NAMECALL R8 R8 K25 ["GetService"]
+  LOADK R8 K21 ["application/json"]
+  SETTABLEKS R8 R7 K22 ["Content-Type"]
+  GETIMPORT R8 K24 [game]
+  LOADK R10 K25 ["HttpService"]
+  NAMECALL R8 R8 K26 ["GetService"]
   CALL R8 2 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K6 ["Src"]
   GETTABLEKS R11 R12 K12 ["Util"]
-  GETTABLEKS R10 R11 K26 ["RemoveHandlerFromNetworkData"]
+  GETTABLEKS R10 R11 K27 ["RemoveHandlerFromNetworkData"]
   CALL R9 1 1
-  DUPCLOSURE R10 K27 [PROTO_3]
+  DUPCLOSURE R10 K28 [PROTO_4]
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R6

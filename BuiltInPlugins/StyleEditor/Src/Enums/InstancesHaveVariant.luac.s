@@ -6,16 +6,14 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETTABLEKS R2 R3 K6 ["enumerate"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["enumerate"]
-  MOVE R3 R2
-  LOADK R4 K9 ["InstancesHaveVariant"]
-  NEWTABLE R5 0 3
-  LOADK R6 K10 ["All"]
-  LOADK R7 K11 ["Mixed"]
-  LOADK R8 K12 ["None"]
-  SETLIST R5 R6 3 [1]
-  CALL R3 2 -1
-  RETURN R3 -1
+  MOVE R2 R1
+  LOADK R3 K7 ["InstancesHaveVariant"]
+  NEWTABLE R4 0 3
+  LOADK R5 K8 ["All"]
+  LOADK R6 K9 ["Mixed"]
+  LOADK R7 K10 ["None"]
+  SETLIST R4 R5 3 [1]
+  CALL R2 2 -1
+  RETURN R2 -1

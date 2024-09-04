@@ -151,7 +151,7 @@ PROTO_8:
   SETTABLE R14 R12 R13
   GETUPVAL R14 3
   GETTABLEKS R13 R14 K17 ["Tag"]
-  LOADK R14 K18 ["StartPage-NoBackground"]
+  LOADK R14 K18 ["X-Transparent"]
   SETTABLE R14 R12 R13
   NEWTABLE R13 0 3
   GETIMPORT R16 K2 [Vector2.new]
@@ -213,7 +213,7 @@ PROTO_8:
   SETTABLEKS R7 R17 K37 ["OnScrollUpdate"]
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K17 ["Tag"]
-  LOADK R19 K38 ["X-RowM X-Middle StartPage-PadScrollingCarouselLeft StartPage-NoBackground"]
+  LOADK R19 K38 ["X-RowM X-Middle StartPage-PadScrollingCarouselLeft X-Transparent"]
   SETTABLE R19 R17 R18
   MOVE R18 R8
   CALL R15 3 1

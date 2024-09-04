@@ -6,14 +6,12 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETTABLEKS R2 R3 K6 ["enumerate"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["enumerate"]
-  MOVE R3 R2
-  LOADK R4 K9 ["NotificationChannel"]
-  DUPTABLE R5 K11 [{"Studio"}]
-  LOADN R6 7
-  SETTABLEKS R6 R5 K10 ["Studio"]
-  CALL R3 2 -1
-  RETURN R3 -1
+  MOVE R2 R1
+  LOADK R3 K7 ["NotificationChannel"]
+  DUPTABLE R4 K9 [{"Studio"}]
+  LOADN R5 7
+  SETTABLEKS R5 R4 K8 ["Studio"]
+  CALL R2 2 -1
+  RETURN R2 -1
