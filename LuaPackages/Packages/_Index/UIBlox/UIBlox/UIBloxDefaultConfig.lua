@@ -51,9 +51,6 @@ return {
 	-- Support ControlState.Selected in the hover controller for TooltipV2
 	supportControlStateSelectedForTooltipHover = false,
 
-	-- Make expansion animation happen immediately when selection changes instead of in separate useEffect
-	mediaGalleryExpandedViewImmediateAnimation = false,
-
 	-- Use new designed HeaderBar
 	useNewHeaderBar = false,
 
@@ -64,12 +61,6 @@ return {
 	updateMediaGallerySingle = false,
 	-- Multiply FontSizeMax by line height to get the correct textbound in GenericTextLabel
 	fixGenericTextLabelTextBound = false,
-
-	-- Use design tokens to set interactive alert's min/max size
-	interactiveAlertDesignTokenMinMaxSize = false,
-
-	-- Use design tokens to set alert title's header font size
-	alertTitleDesignTokenHeader = false,
 
 	-- Indicate whether the fix for the unexpected TooltipV2 Re-Render issue is enabled
 	enableTooltipV2HoverControllerReRenderFix = false,
@@ -160,4 +151,7 @@ return {
 
 	-- Fix the horizontalAlignment prop on Tile
 	tileHorizontalAlignmentFix = false,
+
+	-- Set name text in playertile to richtext
+	enableRichTextPlayerTileName = false,
 }

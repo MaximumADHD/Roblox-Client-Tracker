@@ -78,22 +78,6 @@ local function MediaGalleryExpandableView(providedProps: Props)
 	local titleTextColor: StyleTypes.ThemeItem = styleProps.titleTextColor
 	-- size animation of expandable area's expanding and collapsing
 	local heightOffset, animateHeightOffset = ReactOtter.useAnimatedBinding(0)
-	local isExpanded, setExpanded
-	if not UIBloxConfig.mediaGalleryExpandedViewImmediateAnimation then
-		isExpanded, setExpanded = React.useState(false)
-		React.useEffect(function()
-			if isExpanded then
-				animateHeightOffset(ReactOtter.spring(props.expandableAreaHeightOffset, props.animationConfig))
-			else
-				animateHeightOffset(ReactOtter.spring(0, props.animationConfig))
-			end
-			return nil
-		end, {
-			isExpanded,
-			props.expandableAreaHeightOffset,
-			props.animationConfig,
-		} :: { any })
-	end
 
 	-- calculate itemSize from absoluteSize, itemAspectRatio and numItemsShown
 	local itemSize, setItemSize = React.useState(Vector2.zero)
@@ -128,11 +112,7 @@ local function MediaGalleryExpandableView(providedProps: Props)
 
 			if gainedSelection then
 				-- expand when gains selection
-				if UIBloxConfig.mediaGalleryExpandedViewImmediateAnimation then
-					animateHeightOffset(ReactOtter.spring(props.expandableAreaHeightOffset, props.animationConfig))
-				else
-					setExpanded(true)
-				end
+				animateHeightOffset(ReactOtter.spring(props.expandableAreaHeightOffset, props.animationConfig))
 				props.mediaGalleryGainFocused(true)
 				return nil
 			end
@@ -141,12 +121,8 @@ local function MediaGalleryExpandableView(providedProps: Props)
 				-- collapse when cursor moves up, not moves down
 				local shouldStayExpanded = newSelection ~= nil
 					and newSelection.AbsolutePosition.Y > (oldSelection :: GuiObject).AbsolutePosition.Y
-				if UIBloxConfig.mediaGalleryExpandedViewImmediateAnimation then
-					if not shouldStayExpanded then
-						animateHeightOffset(ReactOtter.spring(0, props.animationConfig))
-					end
-				else
-					setExpanded(shouldStayExpanded)
+				if not shouldStayExpanded then
+					animateHeightOffset(ReactOtter.spring(0, props.animationConfig))
 				end
 				props.exitFullscreen()
 				props.mediaGalleryGainFocused(false)
@@ -156,8 +132,8 @@ local function MediaGalleryExpandableView(providedProps: Props)
 			return nil
 		end,
 		{
-			if UIBloxConfig.mediaGalleryExpandedViewImmediateAnimation then props.expandableAreaHeightOffset else nil,
-			if UIBloxConfig.mediaGalleryExpandedViewImmediateAnimation then props.animationConfig else nil,
+			props.expandableAreaHeightOffset,
+			props.animationConfig,
 			props.exitFullscreen,
 			props.mediaGalleryGainFocused,
 		} :: { any }

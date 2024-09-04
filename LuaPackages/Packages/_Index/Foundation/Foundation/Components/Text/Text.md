@@ -35,3 +35,6 @@ return React.createElement(Text, {
     tag = "padding-small grow size-2800",
 })
 ```
+
+!!! warning "Line Height and Padding"
+    When using `fontStyle.LineHeight` and the Builder Sans font, padding will be set automatically to ensure that line height behaves the same as Figma. If you also set padding, it will override the automatic padding. A longer term engine solution is being looked into.

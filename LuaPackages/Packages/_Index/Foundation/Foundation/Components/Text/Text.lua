@@ -24,6 +24,8 @@ local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 type StateChangedCallback = Types.StateChangedCallback
 type Bindable<T> = Types.Bindable<T>
 
+local FontScales = require(script.Parent.FontScales)
+
 type TextProps = {
 	textStyle: ColorStyle?,
 	fontStyle: FontStyle?,
@@ -68,6 +70,38 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 			end
 		end
 	end, { props.fontStyle })
+
+	local lineHeightPaddingOffset = React.useMemo(function()
+		if
+			props.fontStyle == nil
+			or props.fontStyle.LineHeight == nil
+			or props.fontStyle.FontSize == nil
+			or fontFace == nil
+		then
+			return 0
+		end
+
+		local fontFamily = nil
+
+		if ReactIs.isBinding(fontFace) then
+			local fontFaceBinding = fontFace :: React.Binding<Font>
+			fontFamily = fontFaceBinding:getValue().Family
+		else
+			fontFamily = (fontFace :: Font).Family
+		end
+
+		local nominalScale = FontScales[fontFamily]
+
+		if nominalScale == nil then
+			return 0
+		end
+
+		local rawTextSize = props.fontStyle.FontSize / nominalScale
+		local rawLineHeight = props.fontStyle.LineHeight * nominalScale
+		local heightOffset = rawTextSize * rawLineHeight - props.fontStyle.FontSize
+		local paddingOffset = heightOffset / 2
+		return paddingOffset
+	end, { fontFace :: any, props.fontStyle })
 
 	local engineComponent = if isInteractable then "TextButton" else "TextLabel"
 
@@ -124,7 +158,13 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 		SizeConstraint = if props.sizeConstraint ~= nil
 			then React.createElement("UISizeConstraint", props.sizeConstraint)
 			else nil,
-		Padding = if props.padding ~= nil then React.createElement(Padding, { value = props.padding }) else nil,
+		Padding = if props.padding ~= nil or lineHeightPaddingOffset ~= 0
+			then React.createElement(Padding, {
+				value = if props.padding
+					then props.padding
+					else if lineHeightPaddingOffset then Vector2.new(0, lineHeightPaddingOffset) else nil,
+			})
+			else nil,
 		Scale = if props.scale ~= nil
 			then React.createElement("UIScale", {
 				Scale = props.scale,

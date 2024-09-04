@@ -17,6 +17,7 @@ local getEngineFeatureViewportFrameSnapshotEngineFeature =
 local getFFlagUseThumbnailerUtil = require(root.flags.getFFlagUseThumbnailerUtil)
 local getEngineFeatureEngineUGCValidateOrthographicTransparency =
 	require(root.flags.getEngineFeatureEngineUGCValidateOrthographicTransparency)
+local getFFlagUGCValidationRemoveRotationCheck = require(root.flags.getFFlagUGCValidationRemoveRotationCheck)
 
 local FIntUGCValidationHeadThreshold = game:DefineFastInt("UGCValidationHeadThreshold", 30)
 local FIntUGCValidationTorsoThresholdFront = game:DefineFastInt("UGCValidationTorsoThresholdFront", 50)
@@ -250,7 +251,12 @@ local function validate_DEPRECATED(
 		AssetTraversalUtils.calculateBounds(assetTypeEnum, instClone :: MeshPart, CFrame.new(), minMaxBounds)
 		instClone.Parent = if isServer then workspace else worldModel
 		transparentPart.Parent = if isServer then workspace else worldModel
-		transparentPart.Position = (instClone :: MeshPart).Position
+		if getFFlagUGCValidationRemoveRotationCheck() then
+			transparentPart.CFrame = CFrame.new();
+			(instClone :: MeshPart).CFrame = CFrame.new()
+		else
+			transparentPart.Position = (instClone :: MeshPart).Position
+		end
 		transparentPart.Size = (instClone :: MeshPart).Size
 	else
 		local hierarchy = AssetTraversalUtils.assetHierarchy[assetTypeEnum :: Enum.AssetType]
@@ -466,12 +472,16 @@ return function(inst: Instance?, assetTypeEnum: Enum.AssetType, isServerNullable
 		return true
 	end
 
-	if
-		getEngineFeatureEngineUGCValidateOrthographicTransparency()
-		and arePartsRotated(inst :: Instance, assetTypeEnum)
-	then
-		return false,
-			{ "Transparency validation failed as some parts are rotated. You must reset all rotation values to zero." }
+	if not getFFlagUGCValidationRemoveRotationCheck() then
+		if
+			getEngineFeatureEngineUGCValidateOrthographicTransparency()
+			and arePartsRotated(inst :: Instance, assetTypeEnum)
+		then
+			return false,
+				{
+					"Transparency validation failed as some parts are rotated. You must reset all rotation values to zero.",
+				}
+		end
 	end
 
 	local instClone: Instance = (inst :: Instance):Clone()

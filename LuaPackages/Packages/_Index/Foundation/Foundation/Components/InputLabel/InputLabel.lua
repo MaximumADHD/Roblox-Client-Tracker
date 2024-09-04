@@ -19,12 +19,10 @@ type InputLabelSize = InputLabelSize.InputLabelSize
 local REQUIRED_INDICATOR = "*"
 
 type InputLabelProps = {
-	-- Determines the string rendered by the UI element
-	text: string,
 	-- Optional text style override
 	textStyle: Types.ColorStyle?,
 	-- Whether the input is required or not. Leave nil for the majority case
-	required: boolean?,
+	isRequired: boolean?,
 	-- Size of the input label
 	size: InputLabelSize,
 	-- Callback for when the input label is activated.
@@ -33,16 +31,20 @@ type InputLabelProps = {
 	-- Callback for when the input label is hovered over.
 	-- This should trigger the hover state of the associated input button.
 	onHover: (boolean) -> ()?,
+	-- Whether the input label should be rich text or not
+	RichText: boolean?,
+	-- Determines the string rendered by the UI element
+	Text: string,
 } & Types.CommonProps
 
-local function labelText(text: string, required: boolean?): string
-	if required == nil or required == React.None then
-		return text
+local function labelText(Text: string, isRequired: boolean?): string
+	if isRequired == nil or isRequired == React.None then
+		return Text
 	end
 
-	return if required
-		then text .. REQUIRED_INDICATOR
-		else Translator:FormatByKey("CommonUI.Controls.Input.Optional", { inputLabel = text })
+	return if isRequired
+		then Text .. REQUIRED_INDICATOR
+		else Translator:FormatByKey("CommonUI.Controls.Input.Optional", { inputLabel = Text })
 end
 
 local function InputLabel(props: InputLabelProps, ref: React.Ref<GuiObject>?)
@@ -59,7 +61,8 @@ local function InputLabel(props: InputLabelProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(
 		Text,
 		withCommonProps(props, {
-			Text = labelText(props.text, props.required),
+			Text = labelText(props.Text, props.isRequired),
+			RichText = props.RichText,
 
 			-- InputLabel is not selectable because the associated
 			-- input button is what we want to focus with directional input

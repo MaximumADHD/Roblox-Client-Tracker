@@ -8,9 +8,10 @@ category: Actions
 
 There are 6 basic button types defined in [[ButtonVariant]]
 
-* PrimaryBrand
-* Primary
-* Secondary
+* Emphasis
+* SubEmphasis
+* Standard
+* Subtle
 * Alert
 * Text
 * Link

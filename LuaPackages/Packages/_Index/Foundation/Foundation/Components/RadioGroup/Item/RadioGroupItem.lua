@@ -32,7 +32,7 @@ type Props = {
 	isDisabled: boolean?,
 	-- A label for the radio item. To omit, set it to an empty string.
 	-- When nil, defaults to `value`.
-	label: string?,
+	label: string | React.ReactNode?,
 } & Types.CommonProps
 
 local function RadioGroupItem(props: Props, ref: React.Ref<GuiObject>?)
@@ -117,14 +117,16 @@ local function RadioGroupItem(props: Props, ref: React.Ref<GuiObject>?)
 		}),
 		{
 			RadioGroupItem = radioGroupItem,
-			InputLabel = React.createElement(InputLabel, {
-				text = label,
-				textStyle = isHovering:map(function(hovering)
-					return getContentStyle(hovering)
-				end),
-				size = InputLabelSize.Large,
-				LayoutOrder = 2,
-			}),
+			Label = if type(label) == "string"
+				then React.createElement(InputLabel, {
+					Text = label,
+					textStyle = isHovering:map(function(hovering)
+						return getContentStyle(hovering)
+					end),
+					size = InputLabelSize.Large,
+					LayoutOrder = 2,
+				})
+				else label,
 		}
 	)
 end

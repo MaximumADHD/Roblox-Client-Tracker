@@ -3,6 +3,9 @@ local GuiService = game:GetService("GuiService")
 local CorePackages = script:FindFirstAncestor("CorePackages")
 local success, scale = pcall(GuiService.GetResolutionScale, GuiService)
 
+local FoundationImages = script.Parent
+local GetImageSetData = require(FoundationImages.Generated.GetImageSetData)
+
 if not success or not CorePackages then
 	scale = 1
 end
@@ -14,7 +17,8 @@ if GuiService:IsTenFootInterface() then
 end
 
 local function getResolutionScale(): number
-	return scale
+	local _, imageScale = GetImageSetData(scale)
+	return imageScale
 end
 
 return getResolutionScale

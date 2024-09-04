@@ -78,10 +78,8 @@ InteractiveAlert.validateProps = t.strictInterface({
 
 function InteractiveAlert:render()
 	return withStyle(function(stylePalette)
-		if UIBloxConfig.interactiveAlertDesignTokenMinMaxSize then
-			MIN_WIDTH = stylePalette.Tokens.Global.Size_200 * 17 -- 16 * 17 = 272
-			MAX_WIDTH = stylePalette.Tokens.Global.Size_500 * 10 -- 40 * 10 = 400
-		end
+		MIN_WIDTH = stylePalette.Tokens.Global.Size_200 * 17 -- 16 * 17 = 272
+		MAX_WIDTH = stylePalette.Tokens.Global.Size_500 * 10 -- 40 * 10 = 400
 		local theme = stylePalette.Theme
 		local font = stylePalette.Font
 		local textFont = font.Body.Font

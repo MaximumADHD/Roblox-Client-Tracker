@@ -51,6 +51,9 @@ local tileInterface = t.strictInterface({
 	-- If the name should be overlayed on top of the thumbnail
 	nameOverThumbnail = t.optional(t.boolean),
 
+	-- If the name should be richtext
+	titleRichText = t.optional(t.boolean),
+
 	-- Text content to be displayed as a subtitle that will be hidden if nil
 	subtitle = t.optional(t.string),
 
@@ -192,6 +195,7 @@ Tile.defaultProps = {
 	isCircular = false,
 	horizontalAlignment = nil,
 	thumbnailFrameSize = UDim2.new(1, 0, 1, 0),
+	titleRichText = false,
 }
 
 function Tile:init()
@@ -248,6 +252,7 @@ function Tile:render()
 				local tileWidth = self.state.tileWidth
 
 				local titleFontStyle = self.props.titleFontStyle or font.Header2
+				local titleRichText = self.props.titleRichText
 				local subtitleFontStyle = self.props.subtitleFontStyle or font.CaptionHeader
 
 				local titleFontSize = if titleFontStyle.RelativeSize
@@ -444,6 +449,7 @@ function Tile:render()
 								LayoutOrder = 1,
 								useMaxHeight = useMaxTitleHeight,
 								titleFontStyle = titleFontStyle,
+								richText = titleRichText,
 							}),
 							Subtitle = (subtitle ~= "" and subtitle ~= nil) and React.createElement(StyledTextLabel, {
 								size = if UIBloxConfig.playerTileAutomaticSizeXY

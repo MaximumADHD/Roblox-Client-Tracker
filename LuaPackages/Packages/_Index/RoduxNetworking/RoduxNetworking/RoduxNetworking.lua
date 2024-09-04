@@ -1,42 +1,31 @@
+--!strict
 local GET = require(script.Parent.GET)
 local POST = require(script.Parent.POST)
 local PATCH = require(script.Parent.PATCH)
+local Types = require(script.Parent.Types)
 
-local RoduxNetworking = {}
-RoduxNetworking.__index = RoduxNetworking
-
-function RoduxNetworking.new(options)
+return function(options: Types.ConfigOptions)
 	assert(options, "Expected options to be passed into RoduxNetworking")
 	assert(options.keyPath, "Expected options.keyPath to be passed into RoduxNetworking")
 	assert(options.networkImpl, "Expected options.networkImpl to be passed into RoduxNetworking")
 
-	local self = {
-		options = options,
+	return {
+		GET = function(moduleScript, constructBuilderFunction)
+			assert(moduleScript, "RoduxNetworking:GET expects moduleScript argument")
+			assert(moduleScript, "RoduxNetworking:GET expects constructBuilderFunction argument")
+			return GET(options)(moduleScript, constructBuilderFunction)
+		end,
+		POST = function(moduleScript, constructBuilderFunction)
+			return POST(options)(moduleScript, constructBuilderFunction)
+		end,
+		PATCH = function(moduleScript, constructBuilderFunction)
+			return PATCH(options)(moduleScript, constructBuilderFunction)
+		end,
+		getNetworkImpl = function()
+			return options.networkImpl
+		end,
+		setNetworkImpl = function(networkImpl)
+			options.networkImpl = networkImpl
+		end,
 	}
-
-	return setmetatable(self, RoduxNetworking)
 end
-
-function RoduxNetworking:GET(moduleScript, constructBuilderFunction)
-	assert(moduleScript, "RoduxNetworking:GET expects moduleScript argument")
-	assert(moduleScript, "RoduxNetworking:GET expects constructBuilderFunction argument")
-	return GET(self.options)(moduleScript, constructBuilderFunction)
-end
-
-function RoduxNetworking:POST(...)
-	return POST(self.options)(...)
-end
-
-function RoduxNetworking:PATCH(...)
-	return PATCH(self.options)(...)
-end
-
-function RoduxNetworking:getNetworkImpl()
-	return self.options.networkImpl
-end
-
-function RoduxNetworking:setNetworkImpl(networkImpl)
-	self.options.networkImpl = networkImpl
-end
-
-return RoduxNetworking

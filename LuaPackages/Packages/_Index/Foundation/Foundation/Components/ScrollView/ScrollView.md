@@ -34,7 +34,7 @@ return React.createElement(ScrollView, {
     onStateChanged = onStateChanged,
     scroll = {
         scrollBarVisibility = ScrollBarVisibility.Always,
-	    ScrollingDirection = Enum.ScrollingDirection.Horizontal,
+	    ScrollingDirection = Enum.ScrollingDirection.Y,
     },
     tag = "row align-y-center padding-small",
 }, {

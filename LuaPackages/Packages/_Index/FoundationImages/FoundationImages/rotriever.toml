@@ -1,6 +1,7 @@
 [package]
 name = "FoundationImages"
-version = "1.0.2"
+version = "1.1.1"
+readme = "README.md"
 content_root = "src"
 files = ["*"]
 publish = true
@@ -10,3 +11,10 @@ authors = [
 ]
 description = "Source for all images used in Foundation."
 repository = "https://github.com/Roblox/foundation-images"
+keywords = [
+    "images",
+    "foundation",
+    "icons",
+]
+homepage = "https://foundation.roblox.com/Images/"
+documentation = "https://foundation.roblox.com/Images/"

@@ -1,6 +1,11 @@
+type Options = {
+	state: any?,
+	dispatch: ((self: any, thunk: (self: any) -> nil) -> nil)?,
+}
+
 return {
-	config = function(options)
-		options = options or {}
+	config = function(passedOptions: Options?)
+		local options: any = passedOptions or {}
 
 		local state = options.state or {}
 		return {

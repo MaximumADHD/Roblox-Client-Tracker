@@ -149,7 +149,7 @@ local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
 		{
 			Checkbox = checkbox,
 			InputLabel = React.createElement(InputLabel, {
-				text = props.label,
+				Text = props.label,
 				textStyle = variantProps.label.style,
 				size = variantProps.label.size,
 				LayoutOrder = 2,

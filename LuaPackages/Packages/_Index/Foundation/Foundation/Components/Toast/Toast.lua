@@ -20,11 +20,12 @@ local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local ButtonSize = require(Foundation.Enums.ButtonSize)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 
+type ButtonVariant = ButtonVariant.ButtonVariant
 type FillBehavior = FillBehavior.FillBehavior
 
-type ToastButtonProps = {
+export type ToastButtonProps = {
 	onActivated: () -> nil,
-	variant: ButtonVariant.ButtonVariant?,
+	variant: ButtonVariant?,
 	text: string,
 }
 

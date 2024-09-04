@@ -1,9 +1,17 @@
+--!nonstrict
 local root = script.Parent
 local Action = require(root.Action)
 
-return function(networkRequestScript)
+return function(networkRequestScript: ModuleScript | string)
+	local name
+	if type(networkRequestScript) == "string" then
+		name = networkRequestScript
+	else
+		name = networkRequestScript.Name
+	end
+
 	return {
-		Succeeded = Action(networkRequestScript.Name .. "_Succeeded", function(ids, responseBody, namedIds, requestOptions, additionalData)
+		Succeeded = Action(name .. "_Succeeded", function(ids, responseBody, namedIds, requestOptions, additionalData)
 			return {
 				ids = ids,
 				responseBody = responseBody,
@@ -13,7 +21,7 @@ return function(networkRequestScript)
 				additionalData = additionalData,
 			}
 		end),
-		Failed = Action(networkRequestScript.Name .. "_Failed", function(ids, error, namedIds, requestOptions, additionalData)
+		Failed = Action(name .. "_Failed", function(ids, error, namedIds, requestOptions, additionalData)
 			return {
 				ids = ids,
 				error = error,

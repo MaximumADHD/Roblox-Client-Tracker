@@ -23,6 +23,7 @@ local function FoundationProvider(props: FoundationProviderProps)
 			theme = props.theme,
 			device = props.device,
 			derives = props.derives,
+			DONOTUSE_colorUpdate = props.DONOTUSE_colorUpdate,
 		}, {
 			CursorProvider = React.createElement(CursorProvider, nil, props.children),
 		}),

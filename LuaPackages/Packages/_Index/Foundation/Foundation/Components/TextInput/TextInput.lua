@@ -146,9 +146,9 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 		{
 			InputLabel = if #props.label > 0
 				then React.createElement(InputLabel, {
-					text = props.label,
+					Text = props.label,
 					size = InputLabelSize.Small,
-					required = props.isRequired,
+					isRequired = props.isRequired,
 					onActivated = focusTextBox,
 					onHover = function(hovering)
 						setHover(hovering)

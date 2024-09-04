@@ -8,11 +8,18 @@ local Types = require(root.util.Types)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
 local ConstantsInterface = require(root.ConstantsInterface)
 
+local getFFlagUGCValidationRemoveRotationCheck = require(root.flags.getFFlagUGCValidationRemoveRotationCheck)
+
 return function(transparentPart: MeshPart, inst: Instance, assetTypeEnum: Enum.AssetType): boolean
 	local minMaxBounds: Types.BoundsData = {}
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
 		AssetTraversalUtils.calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
-		transparentPart.Position = (inst :: MeshPart).Position
+		if getFFlagUGCValidationRemoveRotationCheck() then
+			transparentPart.CFrame = CFrame.new();
+			(inst :: MeshPart).CFrame = CFrame.new()
+		else
+			transparentPart.Position = (inst :: MeshPart).Position
+		end
 		transparentPart.Size = (inst :: MeshPart).Size
 	else
 		local hierarchy = AssetTraversalUtils.assetHierarchy[assetTypeEnum :: Enum.AssetType]

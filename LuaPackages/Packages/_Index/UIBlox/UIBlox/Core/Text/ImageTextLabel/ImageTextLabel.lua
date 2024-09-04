@@ -48,6 +48,7 @@ ImageTextLabel.validateProps = t.interface({
 		TextYAlignment = t.None,
 		TextScaled = t.None,
 		maxSize = t.None,
+		richText = t.optional(t.boolean),
 	}),
 
 	frameProps = t.optional(t.interface({
@@ -72,6 +73,7 @@ function ImageTextLabel:render()
 	local text = self.props.genericTextLabelProps.Text
 	local maxSize = self.props.maxSize
 	local useMaxHeight = self.props.useMaxHeight
+	local richText = self.props.richText
 
 	return withStyle(function(stylePalette)
 		local fontStyle = genericTextLabelProps.fontStyle
@@ -106,6 +108,7 @@ function ImageTextLabel:render()
 						TextYAlignment = Enum.TextYAlignment.Top,
 						fluidSizing = if imageProps then false else self.props.fluidSizing,
 						maxSize = maxSize,
+						RichText = richText,
 					})
 				),
 			}

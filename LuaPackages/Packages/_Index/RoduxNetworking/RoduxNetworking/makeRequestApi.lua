@@ -3,8 +3,13 @@ local makeActionCreator = require(root.makeActionCreator)
 local RequestBuilder = require(root.RequestBuilder)
 local NetworkStatus = require(root.NetworkStatus)
 local Promise = require(root.Promise)
+local Types = require(root.Types)
 
-return function(options, methodType)
+type RequestBuilder = RequestBuilder.RequestBuilder
+type BuilderFunc <T> =((string, unknown) -> (RequestBuilder), T, ... any) -> (RequestBuilder)
+type RoduxStore = {dispatch: (any, any) -> (), getState: (any) -> (any)}
+
+return function(options: Types.ConfigOptions, methodType)
 	local keyPath = options.keyPath
 	local killRequestWithFilteredIds = options.killRequestWithFilteredIds
 
@@ -13,11 +18,16 @@ return function(options, methodType)
 		killRequestWithFilteredIds = killRequestWithFilteredIds,
 	})
 
-	return function(moduleScript, constructBuilderFunction)
-		local self = makeActionCreator(moduleScript)
-		local mockNetworkImpl = nil
+	return function<T>(moduleScript: ModuleScript | string, constructBuilderFunction: BuilderFunc<T>)
+		local actionCreators = makeActionCreator(moduleScript)
+		local mockNetworkImpl: any = nil
 
-		local mockResolver = function(mockResponse, options)
+		local mockResolver = function(mockResponse: any, options: {
+			defaultResolveMethod : "resolve"|"reject",
+			argumentName : "mockResponse" | "mockError",
+			defaultType : "table" | "string",
+			mockNetworkImpl : (any) -> (any) | nil,
+		})
 			if options.mockNetworkImpl then
 				error("Request already mocked - you may need to call `Mock.clear` between tests/uses")
 			end
@@ -33,12 +43,12 @@ return function(options, methodType)
 			end
 		end
 
-		self.API = function(...)
-			local userRequestBuilder = constructBuilderFunction(function(...)
-				return RequestBuilder:new(...)
-			end, ...)
+		local API = function(T: T, ...)
+			local userRequestBuilder = constructBuilderFunction(function(baseUrl: string, additionalData: any?)
+				return RequestBuilder.new(baseUrl, additionalData)
+			end, T :: any, ...)
 
-			return function(store)
+			return function(store: RoduxStore)
 				return myNetworkStatus.setStatus(store, userRequestBuilder:getIds(), userRequestBuilder:makeKeyMapper(), function(store, filteredIds)
 					local networkImpl = mockNetworkImpl or options.networkImpl
 					local requestOptions = userRequestBuilder:makeOptions()
@@ -46,11 +56,11 @@ return function(options, methodType)
 
 					return networkImpl(userRequestBuilder:makeUrl(filteredIds), methodType, requestOptions):andThen(
 						function(payload)
-							store:dispatch(self.Succeeded(filteredIds, payload.responseBody, namedIds, requestOptions, userRequestBuilder:getAdditionalData()))
+							store:dispatch(actionCreators.Succeeded(filteredIds, payload.responseBody, namedIds, requestOptions, userRequestBuilder:getAdditionalData()))
 							return payload
 						end,
 						function(errorString)
-							store:dispatch(self.Failed(filteredIds, errorString, namedIds, requestOptions, userRequestBuilder:getAdditionalData()))
+							store:dispatch(actionCreators.Failed(filteredIds, errorString, namedIds, requestOptions, userRequestBuilder:getAdditionalData()))
 							-- Throw again so we can catch it outside of library
 							return Promise.reject(errorString)
 						end
@@ -59,9 +69,9 @@ return function(options, methodType)
 			end
 		end
 
-		self.getStatus = function(state, key)
-			local userRequestBuilder = constructBuilderFunction(function(...)
-				return RequestBuilder:new(...)
+		local getStatus = function(state, key:any)
+			local userRequestBuilder = constructBuilderFunction(function(baseUrl: string, additionalData: any?)
+				return RequestBuilder.new(baseUrl, additionalData)
 			end, key)
 
 			local keymapper = userRequestBuilder:makeKeyMapper()
@@ -70,7 +80,7 @@ return function(options, methodType)
 			return myNetworkStatus.getStatus(state, mappedKey)
 		end
 
-		self.Mock = {
+		local Mock = {
 			reply = function(mockResponse)
 				return mockResolver(mockResponse, {
 					defaultResolveMethod = "resolve",
@@ -94,6 +104,12 @@ return function(options, methodType)
 			end,
 		}
 
-		return self
+		return {
+			Mock = Mock,
+			getStatus = getStatus,
+			API = API,
+			Succeeded = actionCreators.Succeeded,
+			Failed = actionCreators.Failed,
+		}
 	end
 end

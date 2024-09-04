@@ -7,6 +7,6 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FriendsNetworking NetworkingFriends 2.12.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
 ]

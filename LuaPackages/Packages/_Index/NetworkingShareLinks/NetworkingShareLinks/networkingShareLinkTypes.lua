@@ -25,6 +25,8 @@ export type GenerateLinkRequest = {
 	placeId: number?,
 	itemType: string?,
 	itemId: string?,
+	postId: string?,
+	postCreatorId: number?
 }
 
 export type GenerateLinkResponse = {

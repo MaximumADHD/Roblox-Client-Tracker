@@ -4,6 +4,7 @@ local enumerate = require(Packages.enumerate)
 
 return enumerate(script.Name, {
 	Unset = "Unset",
+	ContentPost = "ContentPost",
 	ExperienceInvite = "ExperienceInvite",
 	FriendInvite = "FriendInvite",
 	ScreenshotInvite = "ScreenshotInvite",

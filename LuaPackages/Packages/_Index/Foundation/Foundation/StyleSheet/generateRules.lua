@@ -12,6 +12,7 @@ export type StyleRule = {
 	properties: {
 		[string]: any,
 	},
+	children: { StyleRule }?,
 }
 
 type Colors = {
@@ -544,13 +545,28 @@ local function ContentRules(colors: ColorScopes, variants: Variants)
 	return rules
 end
 
-local function TypographyRules(typography: Typography)
+local function TypographyRules(typography: Typography, nominalScale: number)
 	local rules = {}
 
 	for name, type in typography do
+		local rawTextSize = type.TextSize / nominalScale
+		local rawLineHeight = type.LineHeight * nominalScale
+		local heightOffset = rawTextSize * rawLineHeight - type.TextSize -- The difference between the desired line height and the Roblox text size
+		local padding = UDim.new(0, heightOffset / 2)
+
 		table.insert(rules, {
 			tag = `text-{name}`,
 			properties = type,
+			children = {
+				{
+					tag = `text-{name}`,
+					pseudo = "UIPadding",
+					properties = {
+						PaddingTop = padding,
+						PaddingBottom = padding,
+					},
+				},
+			},
 		})
 	end
 
@@ -771,7 +787,7 @@ local function generateRules(tokens: Tokens)
 		BackgroundRules(colors, variants),
 		StrokeRules(strokes, colors, variants),
 		ContentRules(colors, variants),
-		TypographyRules(typography),
+		TypographyRules(typography, tokens.Config.Text.NominalScale),
 		TextRules(),
 		PaddingRules(paddings),
 		AutomaticSizeRules(),

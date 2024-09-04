@@ -38,8 +38,7 @@ return function(options)
 		return promiseFunction(store, filteredIds):andThen(function(result)
 			store:dispatch(actionCreator(filteredIds, keymapper, EnumNetworkStatus.Done))
 			return result
-		end,
-		function(errorString)
+		end, function(errorString)
 			store:dispatch(actionCreator(filteredIds, keymapper, EnumNetworkStatus.Failed))
 			return Promise.reject(errorString)
 		end)

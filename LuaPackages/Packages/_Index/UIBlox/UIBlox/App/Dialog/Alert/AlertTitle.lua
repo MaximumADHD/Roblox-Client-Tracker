@@ -12,7 +12,6 @@ local t = require(Packages.t)
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(AppRoot.ImageSet.Images)
@@ -57,16 +56,10 @@ function AlertTitle:render()
 	local innerWidth = totalWidth - self.props.margin.left - self.props.margin.right
 
 	return withStyle(function(stylePalette)
-		local font = stylePalette.Font
 		local theme = stylePalette.Theme
 
-		local headerToken, headerSize
-		if UIBloxConfig.alertTitleDesignTokenHeader then
-			headerToken = stylePalette.Tokens.Semantic.Typography.Header
-			headerSize = headerToken.FontSize
-		else
-			headerSize = font.BaseSize * font.Header1.RelativeSize
-		end
+		local headerToken = stylePalette.Tokens.Semantic.Typography.Header
+		local headerSize = headerToken.FontSize
 
 		return Roact.createElement(FitFrameOnAxis, {
 			BackgroundTransparency = 1,
@@ -115,7 +108,7 @@ function AlertTitle:render()
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							colorStyle = theme.TextEmphasis,
-							fontStyle = if UIBloxConfig.alertTitleDesignTokenHeader then headerToken else font.Header1,
+							fontStyle = headerToken,
 							Size = UDim2.new(1, -(2 * (X_BUTTON_SIZE + self.props.titlePadding)), 0, headerSize * 2),
 							LayoutOrder = 1,
 							Text = self.props.title,
@@ -125,7 +118,7 @@ function AlertTitle:render()
 					})
 					else Roact.createElement(GenericTextLabel, {
 						colorStyle = theme.TextEmphasis,
-						fontStyle = if UIBloxConfig.alertTitleDesignTokenHeader then headerToken else font.Header1,
+						fontStyle = headerToken,
 						maxSize = Vector2.new(innerWidth, headerSize * 2),
 						LayoutOrder = 1,
 						Text = self.props.title,

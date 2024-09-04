@@ -9,8 +9,32 @@ local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local prettyPrintVector3 = require(root.util.prettyPrintVector3)
 local floatEquals = require(root.util.floatEquals)
+local getDiffBetweenOrientations = require(root.util.getDiffBetweenOrientations)
+local ANGLE_EPSILON = 0.01
 
 local getFFlagCheckOrientationOnAllAttachments = require(root.flags.getFFlagCheckOrientationOnAllAttachments)
+
+local maxOrientationOffsets = {
+	["RootAttachment"] = game:DefineFastInt("UGCValidationRootAttachmentThreshold", 0),
+	["LeftGripAttachment"] = game:DefineFastInt("UGCValidationLeftGripAttachmentThreshold", 0),
+	["RightGripAttachment"] = game:DefineFastInt("UGCValidationRightGripAttachmentThreshold", 0),
+	["FaceFrontAttachment"] = game:DefineFastInt("UGCValidationFaceFrontAttachmentThreshold", 90),
+	["HatAttachment"] = game:DefineFastInt("UGCValidationHatAttachmentThreshold", 90),
+	["HairAttachment"] = game:DefineFastInt("UGCValidationHairAttachmentThreshold", 90),
+	["FaceCenterAttachment"] = game:DefineFastInt("UGCValidationFaceCenterAttachmentThreshold", 90),
+	["RightFootAttachment"] = game:DefineFastInt("UGCValidationRightFootAttachmentThreshold", 90),
+	["LeftFootAttachment"] = game:DefineFastInt("UGCValidationLeftFootAttachmentThreshold", 90),
+	["BodyFrontAttachment"] = game:DefineFastInt("UGCValidationBodyFrontAttachmentThreshold", 90),
+	["BodyBackAttachment"] = game:DefineFastInt("UGCValidationBodyBackAttachmentThreshold", 90),
+	["LeftCollarAttachment"] = game:DefineFastInt("UGCValidationLeftCollarAttachmentThreshold", 90),
+	["RightCollarAttachment"] = game:DefineFastInt("UGCValidationRightCollarAttachmentThreshold", 90),
+	["NeckAttachment"] = game:DefineFastInt("UGCValidationNeckAttachmentThreshold", 90),
+	["WaistCenterAttachment"] = game:DefineFastInt("UGCValidationWaistCenterAttachmentThreshold", 90),
+	["WaistFrontAttachment"] = game:DefineFastInt("UGCValidationWaistFrontAttachmentThreshold", 90),
+	["WaistBackAttachment"] = game:DefineFastInt("UGCValidationWaistBackAttachmentThreshold", 90),
+	["LeftShoulderAttachment"] = game:DefineFastInt("UGCValidationLeftShoulderAttachmentThreshold", 90),
+	["RightShoulderAttachment"] = game:DefineFastInt("UGCValidationRightShoulderAttachmentThreshold", 90),
+}
 
 -- this function relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
 local function validateInMeshSpace(att: Attachment, part: MeshPart, boundsInfoMeshSpace: any): (boolean, { string }?)
@@ -73,22 +97,53 @@ local function validateAttachmentRotation(inst: Instance): (boolean, { string }?
 			if not isAttachment then
 				continue
 			end
+
+			local isRigAttachment = string.find(desc.Name, "RigAttachment")
+			if isRigAttachment then
+				local x, y, z = desc.CFrame:ToOrientation()
+				if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
+					Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
+					reasonsAccumulator:updateReasons(false, {
+						string.format(
+							"Detected rotation in Attachment '%s'. You must reset all rotation values for this attachment to zero.",
+							desc:GetFullName()
+						),
+					})
+				end
+			elseif maxOrientationOffsets[desc.Name] ~= nil then
+				local isGrip = string.find(desc.Name, "Grip") -- Left and Right arm grips have a unique orientation (-90, 0, 0)
+				local requiredOrientation = isGrip and CFrame.Angles(math.rad(-90), 0, 0) or CFrame.Angles(0, 0, 0)
+
+				local orientationOffset = getDiffBetweenOrientations(requiredOrientation, desc.CFrame)
+				local maxOffset: number = maxOrientationOffsets[desc.Name]
+				if orientationOffset > maxOffset + ANGLE_EPSILON then
+					Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
+					reasonsAccumulator:updateReasons(false, {
+						string.format(
+							"Detected invalid orientation for '%s'. Attachment orientation should be %s, but can be rotated up to %d degrees in total",
+							desc.Name,
+							prettyPrintVector3(Vector3.new(isGrip and -90 or 0, 0, 0)),
+							math.floor(maxOffset)
+						),
+					})
+				end
+			end
 		else
 			local isRigAttachment = desc.ClassName == "Attachment" and string.find(desc.Name, "RigAttachment")
 			if not isRigAttachment then
 				continue
 			end
-		end
 
-		local x, y, z = desc.CFrame:ToOrientation()
-		if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
-			Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
-			reasonsAccumulator:updateReasons(false, {
-				string.format(
-					"Detected rotation in Attachment '%s'. You must reset all rotation values for this attachment to zero.",
-					desc:GetFullName()
-				),
-			})
+			local x, y, z = desc.CFrame:ToOrientation()
+			if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
+				Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
+				reasonsAccumulator:updateReasons(false, {
+					string.format(
+						"Detected rotation in Attachment '%s'. You must reset all rotation values for this attachment to zero.",
+						desc:GetFullName()
+					),
+				})
+			end
 		end
 	end
 

@@ -16,6 +16,7 @@ local EmojiTextLabel = require(UIBlox.Core.Text.EmojiTextLabel.EmojiTextLabel)
 local Emoji = require(UIBlox.Core.Emoji.Enum.Emoji)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ICON_PADDING = 4
 local LINE_PADDING = 4
@@ -41,6 +42,9 @@ ItemTileName.validateProps = t.strictInterface({
 	-- Optional text transparency to use for tile name
 	nameTextTransparency = t.optional(t.number),
 
+	-- Optional use richtext for tile name
+	richText = t.optional(t.boolean),
+
 	-- Optional boolean to determine whether a VerifiedBadge is shown
 	hasVerifiedBadge = t.optional(t.boolean),
 
@@ -62,6 +66,7 @@ function ItemTileName:render()
 	local useMaxHeight = self.props.useMaxHeight
 	local useFluidSizing = self.props.fluidSizing
 	local hasVerifiedBadge = self.props.hasVerifiedBadge
+	local richText = self.props.richText
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
@@ -83,13 +88,16 @@ function ItemTileName:render()
 
 			if hasVerifiedBadge then
 				return Roact.createElement(EmojiTextLabel, {
+					RichText = richText,
 					maxSize = maxSize,
 					fluidSizing = useFluidSizing,
 					emoji = Emoji.Verified,
 					fontStyle = titleFontStyle,
 					colorStyle = colorStyle,
 					Text = name,
-					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextTruncate = if UIBloxConfig.enableRichTextPlayerTileName
+						then Enum.TextTruncate.SplitWord
+						else Enum.TextTruncate.AtEnd,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					LayoutOrder = layoutOrder,
@@ -115,7 +123,10 @@ function ItemTileName:render()
 					fontStyle = titleFontStyle,
 					colorStyle = colorStyle,
 					Text = name,
-					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextTruncate = if UIBloxConfig.enableRichTextPlayerTileName
+						then Enum.TextTruncate.SplitWord
+						else Enum.TextTruncate.AtEnd,
+					RichText = richText,
 				},
 
 				frameProps = {

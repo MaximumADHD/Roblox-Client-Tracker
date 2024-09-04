@@ -19,6 +19,7 @@ export type StyleProviderProps = {
 	theme: Theme,
 	device: Device?,
 	derives: { StyleSheet }?,
+	DONOTUSE_colorUpdate: boolean?,
 	children: React.ReactNode,
 }
 
@@ -43,8 +44,8 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local useVariants = VariantsContext.useVariantsState()
 
 	local tokens: Tokens = React.useMemo(function()
-		return getTokens(props.device, props.theme)
-	end, { props.device :: any, props.theme })
+		return getTokens(props.device, props.theme, styleProviderProps.DONOTUSE_colorUpdate)
+	end, { props.device :: any, props.theme, styleProviderProps.DONOTUSE_colorUpdate })
 
 	return React.createElement(TokensContext.Provider, {
 		value = tokens,
@@ -60,6 +61,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 				device = props.device :: Device,
 				tags = tags,
 				derives = styleProviderProps.derives,
+				DONOTUSE_colorUpdate = styleProviderProps.DONOTUSE_colorUpdate,
 			}),
 		}),
 	})

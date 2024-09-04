@@ -5,4 +5,8 @@ local PackageIndex = script.Parent.Parent.Parent._Index
 
 local Package = require(PackageIndex["RoduxNetworking"]["RoduxNetworking"])
 
+export type ConfigOptions = Package.ConfigOptions
+export type MethodType = Package.MethodType
+
+
 return Package

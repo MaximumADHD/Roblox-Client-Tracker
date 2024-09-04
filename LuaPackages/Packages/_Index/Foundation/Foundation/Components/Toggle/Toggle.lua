@@ -236,7 +236,7 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 		}, interactionProps),
 		{
 			InputLabel = React.createElement(InputLabel, {
-				text = props.label,
+				Text = props.label,
 				textStyle = isHovering:map(getLabelStyle),
 				size = variantProps.label.size,
 				LayoutOrder = 0,

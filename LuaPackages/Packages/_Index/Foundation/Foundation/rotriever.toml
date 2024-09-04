@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.0.1"
+version = "1.1.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -73,7 +73,7 @@ version = "^0.1.0"
 [dependencies.UsageTracker]
 version = "^0.1"
 [dev_dependencies.DocUtils]
-version = "^0.1.12"
+version = "^0.1.13"
 
 [dev_dependencies.Jest]
 version = "^3.8.0"
