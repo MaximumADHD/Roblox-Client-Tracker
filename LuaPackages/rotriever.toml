@@ -47,7 +47,7 @@ Promise = "3.3.0"
 VirtualizedList = "1.4.3"
 LuauPolyfill = "0.4.0"
 RegExp = "0.2.1"
-RoduxNetworking = "3.1.1"
+RoduxNetworking = "3.3.1"
 NetworkingGames = "1.2.0"
 NetworkingSquads = "1.9.0"
 NetworkingUsers = "1.2.1"
@@ -58,7 +58,7 @@ QRCode = "0.1.0"
 Merge = "0.3.1"
 GraphqlToolsUtils = { version = "0.3.1", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.12.11"
+UGCValidation = "1.12.12"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.3.0" }

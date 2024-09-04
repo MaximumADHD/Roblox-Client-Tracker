@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "HoldToPlay",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/hold-to-play/src"
+    }
+  }
+}

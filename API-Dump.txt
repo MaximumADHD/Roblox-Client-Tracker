@@ -37,6 +37,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetFullName() -> string {🧬Safe}
 	Function Instance:GetPropertyChangedSignal(property: string) -> RBXScriptSignal
+	Function Instance:GetStyled(name: string) -> any
 	Function Instance:GetTags() -> { any } {🧬Safe}
 	Function Instance:HasTag(tag: string) -> boolean {🧬Safe}
 	Function Instance:IsA(className: string) -> boolean [CustomLuaState] {🧬Safe}
@@ -471,9 +472,12 @@ Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AudioFocusService.OnUndeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
 Class AudioListener : Instance [NotBrowsable]
 	Property AudioListener.AudioInteractionGroup: string
+	Property AudioListener.DistanceAttenuation: BinaryString {RobloxSecurity}
 	Function AudioListener:GetAudibilityOf(emitter: AudioEmitter) -> number {RobloxScriptSecurity}
 	Function AudioListener:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioListener:GetDistanceAttenuation() -> { [string]: any } [CustomLuaState]
 	Function AudioListener:GetInteractingEmitters() -> { Instance }
+	Function AudioListener:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 Class AudioPitchShifter : Instance [NotBrowsable]
 	Property AudioPitchShifter.Bypass: boolean
 	Property AudioPitchShifter.Pitch: number
@@ -537,14 +541,17 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Event AvatarChatService.OnClientFeatures(features: number) {RobloxSecurity} [Hidden]
 	Event AvatarChatService.RefreshClientFeatures() {RobloxSecurity} [Hidden]
 Class AvatarCreationService : Instance [NotCreatable] [Service]
-	Function AvatarCreationService:CreateAvatarGenerationSessionAsync(player: Player) -> AvatarGenerationSession [Yields]
+	Function AvatarCreationService:GenerateAvatarAsync(sessionId: string, previewId: string) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarModelAsync(player: Player, previewJobId: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarPreviewAsync(player: Player, textPrompt: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
+	Function AvatarCreationService:GenerateAvatarPreviewAsync2(sessionId: string, fileId: string, textPrompt: string) -> string [Yields]
 	Function AvatarCreationService:GetAvatarGenerationConfig() -> { [string]: any } [Yields]
 	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
+	Function AvatarCreationService:LoadAvatarHumanoidDescriptionAsync(id: string) -> HumanoidDescription [Yields]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
 	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
+	Function AvatarCreationService:RequestAvatarGenerationSessionAsync(player: Player, callback: (...any) -> ...any) -> ...any [Yields]
 	Function AvatarCreationService:SendAnalyticsEvent(eventName: string, params: { [string]: any }) -> ()
 	Function AvatarCreationService:ValidateUGCAccessoryAsync(player: Player, accessory: Instance, accessoryType: Enum.AccessoryType) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCBodyPartAsync(player: Player, instance: Instance, bodyPart: Enum.BodyPart) -> ...any [Yields]
@@ -615,21 +622,6 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.PromptSaveAvatarThumbnailCustomizationCompleted(result: Enum.AvatarPromptResult, failureType: any) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptSetFavoriteCompleted(result: Enum.AvatarPromptResult)
 	Event AvatarEditorService.PromptUpdateOutfitCompleted(result: Enum.AvatarPromptResult)
-Class AvatarGenerationJob : Instance [NotCreatable]
-	Property AvatarGenerationJob.Error: Enum.AvatarGenerationError
-	Property AvatarGenerationJob.ErrorMessage: string
-	Property AvatarGenerationJob.Progress: number
-	Property AvatarGenerationJob.Status: Enum.AvatarGenerationJobStatus
-	Function AvatarGenerationJob:Cancel() -> () [Yields]
-	Function AvatarGenerationJob:GetOutput() -> { [string]: any }
-	Function AvatarGenerationJob:Wait() -> () [Yields]
-Class Avatar2DGenerationJob : AvatarGenerationJob [NotCreatable]
-	Property Avatar2DGenerationJob.Result: string
-Class Avatar3DGenerationJob : AvatarGenerationJob [NotCreatable]
-	Property Avatar3DGenerationJob.Result: string
-Class AvatarGenerationSession : Instance [NotCreatable]
-	Function AvatarGenerationSession:GenerateAvatarModel(previewJob: Avatar2DGenerationJob, options: { [string]: any }) -> Avatar3DGenerationJob
-	Function AvatarGenerationSession:GenerateAvatarPreview(textPrompt: string, options: { [string]: any }) -> Avatar2DGenerationJob
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarImportService:ImportFBXAnimationFromFilePathUserMayChooseModel(fbxFilePath: string, selectedRig: Instance, userChooseModelThenImportCB: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
 	Function AvatarImportService:ImportFBXAnimationUserMayChooseModel(selectedRig: Instance, userChooseModelThenImportCB: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
@@ -972,6 +964,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:GetCaptureFilePathAsync(captureContentId: string) -> string {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureSizeAsync(captureContentId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
+	Function CaptureService:GetCaptureUploadDataAsync(capturePath: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
@@ -1491,6 +1484,7 @@ Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [Not
 	Function ConversationalAIAcceptanceService:ErrorTelemetry(requestId: string, errorType: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:InstanceInserted(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:RecordingActionEnded(requestId: string, waypointName: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:ReportJSONEncodeFailure(instanceName: string, className: string) -> () {RobloxScriptSecurity}
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptDebuggingManagerHelper : Instance [NotCreatable] [Service]
@@ -2624,6 +2618,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:ClearError() -> () {RobloxScriptSecurity}
 	Function GuiService:CloseInspectMenu() -> ()
 	Function GuiService:CloseStatsBasedOnInputString(input: string) -> boolean {RobloxScriptSecurity}
+	Function GuiService:DismissNotification(notificationId: string) -> boolean
 	Function GuiService:ForceTenFootInterface(isForced: boolean) -> () {RobloxScriptSecurity}
 	Function GuiService:GetBrickCount() -> number {RobloxScriptSecurity}
 	Function GuiService:GetClosestDialogToPosition(position: Vector3) -> Instance? {RobloxScriptSecurity}
@@ -2646,6 +2641,8 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:InspectPlayerFromUserIdWithCtx(userId: number, ctx: string) -> () {RobloxScriptSecurity}
 	Function GuiService:IsMemoryTrackerEnabled() -> boolean {RobloxScriptSecurity}
 	Function GuiService:IsTenFootInterface() -> boolean
+	Function GuiService:NotificationDismissed(notificationId: string) -> () {RobloxScriptSecurity}
+	Function GuiService:NotificationDisplayed(notificationId: string) -> () {RobloxScriptSecurity}
 	Function GuiService:OpenBrowserWindow(url: string) -> () {RobloxScriptSecurity} [Deprecated]
 	Function GuiService:OpenNativeOverlay(title: string, url: string) -> () {RobloxScriptSecurity} [Deprecated]
 	Function GuiService:RemoveCenterDialog(dialog: Instance) -> () {RobloxScriptSecurity}
@@ -2653,6 +2650,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:RemoveSelectionGroup(selectionName: string) -> ()
 	Function GuiService:RemoveSpecialKey(key: Enum.SpecialKey) -> () {RobloxScriptSecurity}
 	Function GuiService:Select(selectionParent: Instance) -> ()
+	Function GuiService:SendNotification(notificationInfo: { [string]: any }) -> string
 	Function GuiService:SendUIOcclusionMetricsForQueryRegion(position: UDim2, size: UDim2, regionName: string) -> () {RobloxScriptSecurity}
 	Function GuiService:SetEmotesMenuOpen(isOpen: boolean) -> ()
 	Function GuiService:SetGameplayPausedNotificationEnabled(enabled: boolean) -> ()
@@ -2668,6 +2666,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:ToggleFullscreen() -> () {RobloxScriptSecurity}
 	Function GuiService:ToggleGuiIsVisibleForCaptures(guiType: Enum.GuiType) -> () {RobloxScriptSecurity}
 	Function GuiService:ToggleGuiIsVisibleIfAllowed(guiType: Enum.GuiType) -> () {RobloxScriptSecurity}
+	Function GuiService:UserInteractedWithNotification(notificationId: string, buttonIndex: number) -> () {RobloxScriptSecurity}
 	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.CloseInspectMenuRequest() {RobloxScriptSecurity}
 	Event GuiService.CoreGuiRenderOverflowed() {RobloxScriptSecurity}
@@ -2979,13 +2978,13 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function InsertService:CreateMeshPartAsync(meshId: string, collisionFidelity: Enum.CollisionFidelity, renderFidelity: Enum.RenderFidelity) -> MeshPart [Yields]
 	Function InsertService:GetBaseCategories() -> { any } [Yields] [Deprecated]
 	Function InsertService:GetBaseSets() -> { any } [Yields] [Deprecated]
-	Function InsertService:GetCollection(categoryId: number) -> { any } [Yields]
+	Function InsertService:GetCollection(categoryId: number) -> { any } [Yields] [Deprecated]
 	Function InsertService:GetFreeDecals(searchText: string, pageNum: number) -> { any } [Yields]
 	Function InsertService:GetFreeModels(searchText: string, pageNum: number) -> { any } [Yields]
 	Function InsertService:GetLatestAssetVersionAsync(assetId: number) -> number [Yields]
 	Function InsertService:GetLocalFileContents(contentId: string) -> string {RobloxScriptSecurity}
 	Function InsertService:GetUserCategories(userId: number) -> { any } [Yields] [Deprecated]
-	Function InsertService:GetUserSets(userId: number) -> { any } [Yields]
+	Function InsertService:GetUserSets(userId: number) -> { any } [Yields] [Deprecated]
 	Function InsertService:Insert(instance: Instance) -> () [Deprecated]
 	Function InsertService:LoadAsset(assetId: number) -> Instance? [Yields]
 	Function InsertService:LoadAssetVersion(assetVersionId: number) -> Instance? [Yields]
@@ -3089,8 +3088,10 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Lighting.EnvironmentDiffuseScale: number
 	Property Lighting.EnvironmentSpecularScale: number
 	Property Lighting.GlobalShadows: boolean
+	Property Lighting.Intent: Enum.Intent [NotScriptable]
 	Property Lighting.OutdoorAmbient: Color3
 	Property Lighting.Outlines: boolean [Deprecated]
+	Property Lighting.Quality: Enum.Quality [NotScriptable]
 	Property Lighting.ShadowColor: Color3 [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Lighting.ShadowSoftness: number
 	Property Lighting.Technology: Enum.Technology {RobloxScriptSecurity}
@@ -7045,11 +7046,6 @@ Enum AvatarGenerationError
 	EnumItem AvatarGenerationError.Offensive : 4
 	EnumItem AvatarGenerationError.Timeout : 5
 	EnumItem AvatarGenerationError.JobNotFound : 6
-Enum AvatarGenerationJobStatus
-	EnumItem AvatarGenerationJobStatus.NotStarted : 0
-	EnumItem AvatarGenerationJobStatus.InProgress : 1
-	EnumItem AvatarGenerationJobStatus.Completed : 2
-	EnumItem AvatarGenerationJobStatus.Failed : 3
 Enum AvatarItemType
 	EnumItem AvatarItemType.Asset : 1
 	EnumItem AvatarItemType.Bundle : 2
@@ -7976,6 +7972,9 @@ Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12
 	EnumItem InputType.Sin : 13
+Enum Intent
+	EnumItem Intent.Realistic : 0
+	EnumItem Intent.Flat : 1
 Enum InterpolationThrottlingMode
 	EnumItem InterpolationThrottlingMode.Default : 0
 	EnumItem InterpolationThrottlingMode.Disabled : 1
@@ -8717,6 +8716,9 @@ Enum ProximityPromptInputType
 Enum ProximityPromptStyle
 	EnumItem ProximityPromptStyle.Default : 0
 	EnumItem ProximityPromptStyle.Custom : 1
+Enum Quality
+	EnumItem Quality.Performance : 0
+	EnumItem Quality.Quality : 1
 Enum QualityLevel
 	EnumItem QualityLevel.Automatic : 0
 	EnumItem QualityLevel.Level01 : 1
@@ -9293,6 +9295,7 @@ Enum Technology
 	EnumItem Technology.Compatibility : 2
 	EnumItem Technology.ShadowMap : 3
 	EnumItem Technology.Future : 4
+	EnumItem Technology.Unified : 5 [Deprecated]
 Enum TeleportMethod
 	EnumItem TeleportMethod.TeleportToSpawnByName : 0
 	EnumItem TeleportMethod.TeleportToPlaceInstance : 1

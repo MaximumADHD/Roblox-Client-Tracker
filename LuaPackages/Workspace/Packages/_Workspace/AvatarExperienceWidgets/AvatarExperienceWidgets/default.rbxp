@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AvatarExperienceWidgets",
+    "tree": {
+      "$path": "../../../../../../../modules/economy/avatar-experience/widgets/src"
+    }
+  }
+}

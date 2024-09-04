@@ -453,12 +453,15 @@ Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints,,View existing breakpo
 Studio.App.Watch.Watch,,Watch,Watch
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,View currently watched variables,View currently watched variables
 Studio.App.RobloxRibbonMainWindow.ScreenGUI,,ScreenGUI,ScreenGUI
+Studio.App.Actions.ScreenGui,The main storage object for 2D GuiObjects displayed on the user's screen.,ScreenGui,ScreenGui
 Studio.App.Actions.SurfaceGui,,SurfaceGui,SurfaceGui
 Studio.App.Actions.BillboardGui,,BillboardGui,BillboardGui
+Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
 Studio.App.RobloxRibbonMainWindow.CoreGuiObject,,The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay,The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay
 Studio.App.RobloxRibbonMainWindow.Frame,,Frame,Frame
 Studio.App.RobloxRibbonMainWindow.ContainerLayoutTooltip,,A container object used to layout other GUI objects,A container object used to layout other GUI objects
 Studio.App.UIEditor.ScrollingFrame,ui editor menu,Scrolling Frame,Scrolling Frame
+Studio.App.Actions.ScrollingFrame,"A container object used to layout other GUI objects, and allows for scrolling. A special Frame that handles all scrolling for you, with a range of different ways to customize how the scrolling works.",ScrollingFrame,ScrollingFrame
 Studio.App.Actions.VideoFrame,,VideoFrame,VideoFrame
 Studio.App.Actions.ViewportFrame,,ViewportFrame,ViewportFrame
 Studio.App.Actions.CanvasGroup,,CanvasGroup,CanvasGroup
@@ -470,20 +473,27 @@ Studio.App.Actions.UIGridLayout,,UIGridLayout,UIGridLayout
 Studio.App.Actions.UIListLayout,,UIListLayout,UIListLayout
 Studio.App.Actions.UIPageLayout,,UIPageLayout,UIPageLayout
 Studio.App.Actions.UITableLayout,,UITableLayout,UITableLayout
+Studio.Ribbon.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
 Studio.App.Actions.UIAspectRatioConstraint,,UIAspectRatioConstraint,UIAspectRatioConstraint
 Studio.App.Actions.UIScale,,UIScale,UIScale
 Studio.App.Actions.UISizeConstraint,,UISizeConstraint,UISizeConstraint
 Studio.App.Actions.UITextSizeConstraint,,UITextSizeConstraint,UITextSizeConstraint
+Studio.App.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
 Studio.App.RobloxRibbonMainWindow.ScrollingFrameTooltip,,"A container object used to layout other GUI objects, and allows for scrolling","A container object used to layout other GUI objects, and allows for scrolling"
 Studio.App.UIEditor.TextLabel,ui editor menu,Text Label,Text Label
+Studio.App.Actions.TextLabel,"A TextLabel renders a rectangle, like a Frame, with styled text.",TextLabel,TextLabel
 Studio.App.RobloxRibbonMainWindow.AGUIObjectContainingText,,A GUI object containing text,A GUI object containing text
 Studio.App.UIEditor.TextButton,ui editor menu,Text Button,Text Button
+Studio.App.Actions.TextButton,A TextButton behaves similarly to TextLabel in regards to rendering with the additional behaviors of a GuiButton.,TextButton,TextButton
 Studio.App.RobloxRibbonMainWindow.AGUIButtonContainingText,,A GUI button containing text,A GUI button containing text
 Studio.App.RobloxRibbonMainWindow.TextBox,,Text Box,Text Box
+Studio.App.Actions.TextBox,"Allows the player to provide text input. It behaves similarly to a TextButton, except that a single TextBox can be put in focus by clicking, tapping or gamepad selection.",TextBox,TextBox
 Studio.App.RobloxRibbonMainWindow.ATextEntryBox,,A text entry box,A text entry box
 Studio.App.RobloxRibbonMainWindow.ImageButton,,Image Button,Image Button
+Studio.App.Actions.ImageButton,An ImageButton behaves similarly to an ImageLabel in regards to rendering with the additional behaviors of a GuiButton.,ImageButton,ImageButton
 Studio.App.RobloxRibbonMainWindow.AGUIButtonContainingAnImage,,A GUI button containing an Image,A GUI button containing an Image
 Studio.App.RobloxRibbonMainWindow.ImageLabel,,Image Label,Image Label
+Studio.App.Actions.ImageLabel,"An ImageLabel renders a rectangle, like a Frame does, with an image.",ImageLabel,ImageLabel
 Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display
 Studio.App.Actions.LogoutMenu,,Username,Username
 Studio.App.Help.OpenDocumentationUrl,Launches documentation DevHub URL,Documentation,Documentation

@@ -361,12 +361,6 @@
                     "$path": "../.robloxrc"
                 }
             },
-            "UIBloxInGameConfig": {
-                "$path": "UIBloxInGameConfig.lua",
-                ".robloxrc": {
-                    "$path": "../.robloxrc"
-                }
-            },
             "ShareInviteLinkABTestManager": {
                 "$path": "ShareInviteLinkABTestManager.lua",
                 ".robloxrc": {

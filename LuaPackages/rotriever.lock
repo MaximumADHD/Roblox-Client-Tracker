@@ -94,7 +94,7 @@ dependencies = [
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
     "FitFrame <patched> RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.0.1 registry",
+    "Foundation Foundation 1.1.0 registry",
     "GraphQL GraphQL 15.6.1 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
@@ -105,7 +105,7 @@ dependencies = [
     "JestBenchmark JestBenchmark 3.8.1 registry",
     "JestGlobals JestGlobals 2.4.1 registry",
     "JestGlobals3 JestGlobals 3.8.1 registry",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 6ca4d53e git+https://github.com/roblox/lua-social-libraries-deps#master",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps eb74852d git+https://github.com/roblox/lua-social-libraries-deps#master",
     "LuauPolyfill LuauPolyfill 0.4.2 registry",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Merge Merge 0.3.1 registry",
@@ -144,15 +144,15 @@ dependencies = [
     "RoduxDevtools RoduxDevtools 1.0.0-rc.1 registry",
     "RoduxFriends RoduxFriends ceacc387 git+https://github.com/roblox/rodux-friends#v4.3.0",
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#master",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "RoduxUsers RoduxUsers 4e506b43 git+https://github.com/roblox/rodux-users#v1.5.1",
     "Signal Signal 1.0.0 registry",
     "StringUtilities <patched> string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.12.11 registry",
-    "UIBlox UIBlox 227a36ba git+https://github.com/roblox/uiblox#master",
+    "UGCValidation UGCValidation 1.12.12 registry",
+    "UIBlox UIBlox f298a968 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
@@ -293,12 +293,12 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.0.1"
+version = "1.1.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 0.1.9 registry",
-    "FoundationImages FoundationImages 1.0.2 registry",
+    "FoundationImages FoundationImages 1.1.1 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.2.1 registry",
     "RbxDesignFoundations RbxDesignFoundations 2.0.132 registry",
@@ -314,7 +314,7 @@ dependencies = [
 
 [[package]]
 name = "FoundationImages"
-version = "1.0.2"
+version = "1.1.1"
 source = "registry"
 
 [[package]]
@@ -367,7 +367,7 @@ dependencies = [
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 227a36ba git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f298a968 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -386,7 +386,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.6 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 227a36ba git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f298a968 git+https://github.com/roblox/uiblox#master",
     "t t 1.2.5 registry",
 ]
 
@@ -911,8 +911,8 @@ dependencies = [
 
 [[package]]
 name = "LuaSocialLibrariesDeps"
-version = "1.3.1"
-commit = "6ca4d53eb657c41705e24f9d244452cc710d0680"
+version = "1.4.1"
+commit = "eb74852d489324728310e287aadc6a65a165885a"
 source = "git+https://github.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
     "CollisionMatchers 2D-Collision-Matchers 89b7a343 git+https://github.com/roblox/2d-collision-matchers#v1.0.1",
@@ -931,7 +931,7 @@ dependencies = [
     "NetworkingGames NetworkingGames 05d37b25 git+https://github.com/roblox/networking-games#v1.2.0",
     "NetworkingPremiumFeatures NetworkingPremiumFeatures 1.15.0 registry",
     "NetworkingPresence NetworkingPresence 1.15.0 registry",
-    "NetworkingShareLinks NetworkingShareLinks 1612d269 git+https://github.com/roblox/networking-sharelinks#v1.4.0",
+    "NetworkingShareLinks NetworkingShareLinks aa454263 git+https://github.com/roblox/networking-sharelinks#v1.4.1",
     "NetworkingSquads NetworkingSquads 1.16.6 registry",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
     "NetworkingUsers NetworkingUsers 5eb39145 git+https://github.com/roblox/networking-users#v1.2.1",
@@ -941,10 +941,9 @@ dependencies = [
     "RoduxContacts RoduxContacts 0.8.4 registry",
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#v1.4.1",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "RoduxPresence RoduxPresence dc416d59 git+https://github.com/roblox/rodux-presence#v3.2.3",
-    "RoduxShareLinks RoduxShareLinks f205067e git+https://github.com/roblox/rodux-sharelinks#v1.4.0",
-    "RoduxSquads RoduxSquads 955a0dfb git+https://github.com/roblox/rodux-squads#v5.0.0",
+    "RoduxShareLinks RoduxShareLinks 2198b997 git+https://github.com/roblox/rodux-sharelinks#v1.5.0",
     "RoduxUserPermissions RoduxUserPermissions 0.5.0 registry",
     "RoduxUsers RoduxUsers 4e506b43 git+https://github.com/roblox/rodux-users#v1.5.1",
     "SocialLibraries SocialLibraries 76b22ff7 git+https://github.com/roblox/social-libraries#v4.0.1",
@@ -1094,9 +1093,9 @@ dependencies = ["Util Util 1.16.6 registry"]
 
 [[package]]
 name = "NetworkingShareLinks"
-version = "1.4.0"
-commit = "1612d269dcc0f72e9cd9f73c55cebbfc8873ea0d"
-source = "git+https://github.com/roblox/networking-sharelinks#v1.4.0"
+version = "1.4.1"
+commit = "aa4542634e034e24ec8710e08b68a6121ebbeb8f"
+source = "git+https://github.com/roblox/networking-sharelinks#v1.4.1"
 dependencies = ["tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master"]
 
 [[package]]
@@ -1240,7 +1239,7 @@ dependencies = [
     "Roact RoactCompat 17.0.6 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 227a36ba git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f298a968 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
@@ -1552,7 +1551,7 @@ source = "git+https://github.com/roblox/rodux-aliases#v2.2.0"
 dependencies = [
     "AliasNetworking NetworkingAliases 1.15.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
 
@@ -1565,7 +1564,7 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "NetworkingCall NetworkingCall 1.16.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "t t 1.2.5 registry",
 ]
 
@@ -1577,7 +1576,7 @@ dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1591,7 +1590,7 @@ dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1611,7 +1610,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "NetworkingBlocking NetworkingBlocking 1.15.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1627,7 +1626,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "NetworkingBlocking NetworkingBlocking 1.15.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1642,7 +1641,7 @@ dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1656,14 +1655,14 @@ dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
 
 [[package]]
 name = "RoduxNetworking"
-version = "3.2.1"
+version = "3.3.2"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1681,7 +1680,7 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "NetworkingPresence NetworkingPresence 0.8.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1695,37 +1694,23 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "NetworkingPresence NetworkingPresence 1.15.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
 
 [[package]]
 name = "RoduxShareLinks"
-version = "1.4.0"
-commit = "f205067ed550d6dd9c8c4708a166a76a0d89d836"
-source = "git+https://github.com/roblox/rodux-sharelinks#v1.4.0"
+version = "1.5.0"
+commit = "2198b997332ef18e4940b352abf7c4ad931fa662"
+source = "git+https://github.com/roblox/rodux-sharelinks#v1.5.0"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
-    "ShareLinksNetworking NetworkingShareLinks 1612d269 git+https://github.com/roblox/networking-sharelinks#v1.4.0",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "ShareLinksNetworking NetworkingShareLinks aa454263 git+https://github.com/roblox/networking-sharelinks#v1.4.1",
     "enumerate enumerate 1.1.0 registry",
     "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",
-]
-
-[[package]]
-name = "RoduxSquads"
-version = "5.0.0"
-commit = "955a0dfbe4d92d08718d92489e5925f0c01283b2"
-source = "git+https://github.com/roblox/rodux-squads#v5.0.0"
-dependencies = [
-    "Cryo Cryo 1.1.0 registry",
-    "NetworkingSquads NetworkingSquads 1.16.6 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
-    "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
 ]
 
 [[package]]
@@ -1737,7 +1722,7 @@ dependencies = [
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 registry",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
 ]
 
 [[package]]
@@ -1749,7 +1734,7 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FriendsNetworking NetworkingFriends 2.12.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 registry",
+    "RoduxNetworking RoduxNetworking 3.3.2 registry",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
 ]
 
@@ -1810,7 +1795,7 @@ dependencies = [
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 227a36ba git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f298a968 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1899,7 +1884,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.12.11"
+version = "1.12.12"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1909,12 +1894,12 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "227a36ba7ab8518b15c866744922263603ac3c69"
+commit = "f298a9680db2902d495477cd398225b7c6cf5f11"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "FoundationImages FoundationImages 1.0.2 registry",
+    "FoundationImages FoundationImages 1.1.1 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Lumberyak lumberyak 0.1.1 registry",

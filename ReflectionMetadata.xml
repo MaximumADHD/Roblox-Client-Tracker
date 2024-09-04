@@ -7428,7 +7428,6 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">ScreenInsets</string>
-            <string name="FFlag">ScreenGuiShowScreenInsetsInStudio</string>
           </Properties>
         </Item>
       </Item>

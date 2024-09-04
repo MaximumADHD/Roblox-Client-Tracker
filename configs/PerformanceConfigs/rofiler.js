@@ -131,6 +131,91 @@ li a{ float:none; }
 .filterinput0{z-index:3;position:fixed;bottom:20px;left:25px;background-color: #313131}
 .filterinput1{z-index:3;position:fixed;bottom:20px;left:175px;background-color: #313131}
 .filterinputTooltip{z-index:2;position:fixed;bottom:5px;left:25px;background-color: #313131}
+
+/* Diff UI */
+.tooltip-area .tooltip-text {
+    visibility: hidden;
+    font-weight: normal;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 5px;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip-area:hover .tooltip-text {
+    visibility: visible;
+}
+
+.tooltip-area:hover {
+    background-color: #555555;
+}
+
+.delete-button {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    color: #000;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+    display: none;
+}
+
+.delete-button:hover {
+    background-color: #d33;
+    color: #fff;
+}
+
+.tr-highlight {
+    position: relative;
+}
+
+.tr-highlight:hover .delete-button {
+    display: block;
+}
+
+.td-highlight {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.td-highlight:hover {
+    background-color: #555;
+}
+
+.drop-zone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 9999;
+    visibility:hidden;
+}
+
+.drop-sign {
+    font-size: 90px;
+    color: #777;
+    text-shadow:
+        -1px -1px 0 #333,
+         1px -1px 0 #333,
+        -1px  1px 0 #333,
+         1px  1px 0 #333;
+    pointer-events: none;
+}
 `;
 
 g_Loader.bodyText = `
@@ -140,7 +225,7 @@ g_Loader.bodyText = `
 <div class="filterinput1">Timer/Thread<br><input type="text" id="filtertimer"></div>
 <div class="filterinputTooltip">Left/Right keys = navigate</div>
 </div>
-<canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas><canvas id="DetailedView" height="200" style="background-color:#474747;margin:0px;padding:0px;" ondrop="DropHandler(event);" ondragover="DragOverHandler(event);"></canvas>
+<canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas><canvas id="DetailedView" height="200" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
 <div id="root" class="root" style="display: none;">
 <div class="helpstart" id="helpwindow" style="left:20px;top:20px">
 History View:<br>
@@ -174,8 +259,6 @@ Esc: Exit &amp; Clear filter
 <td width="50%" align="right"><a href='javascript:void(0)' onclick="ShowHelp(0, 1);">Close, Never Show</a></td>
 </tr>
 </table>
-</div>
-<div id="eventswindow" style="display:none;">
 </div>
 <ul id="nav">
 <li><a href="javascript:void(0)" onclick="ToggleDebugMode();">?</a>
@@ -244,6 +327,7 @@ Esc: Exit &amp; Clear filter
 </li>
 </ul>
 </div>
+<div id="eventswindow" style="display:none;"></div>
 <span id="progressDotSample" style="position: absolute; top: 0px; left: 0px; visibility: hidden;">.</span>
 <div id="progressDots" style="position: absolute; top: 0px; left: 0px; width: 100%;"></div>
 <div id="progressSpinner" class="spinner-container" style="display: none;"><div class="spinner"></div></div>
@@ -397,6 +481,7 @@ function InitDataVars()
 	window.Frames = undefined;
 	
 	window.ExtensionList = undefined;
+	window.EnabledFastFlags = undefined;
 	window.CGlobalLabels = undefined;
 	window.CSwitchThreadInOutCpu = undefined;
 	window.CSwitchTime = undefined;
@@ -5190,6 +5275,7 @@ function MouseDrag(Source, Event)
 	{
 		// Hide the Events window when starting to drag the mouse
 		ShowEvents(false);
+		ShowDiffWindow(false);
 
 		if(Source == MouseDragUp)
 		{
@@ -5504,10 +5590,10 @@ function KeyUp(evt)
 			ToggleFilterInput(0);
 			evt.preventDefault();
 		}
-		else if (evt.keyCode == 13)
+		else if (evt.keyCode == 13 && (FilterInputTimerString || FilterInputGroupString))
 		{
-			var tokenCompareString = FilterInputTimerString.toLowerCase();
-			var tokenGroupCompareString = FilterInputGroupString.toLowerCase();
+			var tokenCompareString = FilterInputTimerString ? FilterInputTimerString.toLowerCase() : "";
+			var tokenGroupCompareString = FilterInputGroupString ? FilterInputGroupString.toLowerCase() : "";
 			var Token = 0;
 			while (Token < TimerInfo.length)
 			{
@@ -5761,7 +5847,12 @@ function RegisterInputListeners()
 	window.addEventListener('keyup', KeyUp);
 	window.addEventListener('resize', ResizeCanvas, false);
 }
-
+function RegisterDragDropListeners() {
+	window.addEventListener('dragover', DragOverHandler);
+	window.addEventListener('dragend', DragEndHandler);
+	window.addEventListener('dragleave', DragEndHandler);
+	window.addEventListener('drop', DropHandler);
+}
 
 
 function CalcAverage()
@@ -6327,6 +6418,26 @@ async function UnzipData(compressedData, prefix, postfix, hasSize, method) {
 	return resData;
 }
 
+function Base64StringToUint8Array(base64Str) {
+	return Uint8Array.from(atob(base64Str), c => c.charCodeAt(0));
+}
+
+function Base64ArrayToUint8Array(base64Arr) {
+	const base64Str = new TextDecoder().decode(base64Arr);
+	return Base64StringToUint8Array(base64Str);
+}
+
+async function UnzipDataCallback(compressedData, prefix, postfix, hasSize, method, callback) {
+	return UnzipData(compressedData, prefix, postfix, hasSize, method)
+		.then(data => {
+			callback(data);
+		})
+		.catch(error => {
+			console.error("Error unzipping data: ", error);
+			callback(new Uint8Array);
+		});
+}
+
 async function ExtractDataFromComment(nodeId, magic, prefix, postfix, hasSize, method, callback) {
 	var orig = null;
 	if (nodeId < document.childNodes.length) {
@@ -6340,18 +6451,9 @@ async function ExtractDataFromComment(nodeId, magic, prefix, postfix, hasSize, m
 		callback(new Uint8Array);
 		return;
 	}
-	
-	const base64Data = orig;
-	const compressedData = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
-
-	return UnzipData(compressedData, prefix, postfix, hasSize, method)
-		.then(data => {
-			callback(data);
-		})
-		.catch(error => {
-			console.error("Error unzipping data: ", error);
-			callback(new Uint8Array);
-		});
+	const base64Str = orig;
+	const compressedData = Base64StringToUint8Array(base64Str);
+	return UnzipDataCallback(compressedData, prefix, postfix, hasSize, method, callback);
 }
 
 function UpdateLoadingProgress() {
@@ -6414,37 +6516,41 @@ function ComposeOrigDatetime(forTitle) {
 	return res;
 }
 
+function ComposeOrigFilename() {
+	var res = "microprofile-" + ComposeOrigDatetime() + ".html";
+	return res;
+}
+
+function GetExportFilename(shortName) {
+	var filename = "";
+	var pathname = window.location.pathname;
+	if (pathname.endsWith('.htm') || pathname.endsWith('.html')) {
+		var parts = pathname.split('/');
+		filename = parts.pop();
+	} else {
+		filename = ComposeOrigFilename();
+	}
+	if (shortName != "") {
+		var dotIndex = filename.lastIndexOf('.');
+		var baseName = filename.substring(0, dotIndex);
+		var extension = filename.substring(dotIndex);
+		filename = baseName + '_' + shortName + extension;
+	}
+	return filename;
+}
+
 function OpenNewExportTab(shortName, fullName, forceDownload) {
 	var tabOpened = false;
-
-	function ComposeOrigFilename() {
-		var res = "microprofile-" + ComposeOrigDatetime() + ".html";
-		return res;
-	}
-
-	function GetExportFilename(shortName) {
-		var filename = "";
-		var pathname = window.location.pathname;
-		if (pathname.endsWith('.htm') || pathname.endsWith('.html')) {
-			var parts = pathname.split('/');
-			filename = parts.pop();
-		} else {
-			filename = ComposeOrigFilename();
-		}
-		if (shortName != "") {
-			var dotIndex = filename.lastIndexOf('.');
-			var baseName = filename.substring(0, dotIndex);
-			var extension = filename.substring(dotIndex);
-			filename = baseName + '_' + shortName + extension;
-		}
-		return filename;
-	}
 
 	var pageBlob = new Blob(
 		[ g_Loader.toolsData.exportResult ],
 		{ type: 'text/html' }
 	);
 	var pageObj = URL.createObjectURL(pageBlob);
+
+	if (g_Loader.toolsData.bExportToFile) {
+		forceDownload =  true;
+	}
 
 	if (!forceDownload) {
 		if (window.open(pageObj)) {
@@ -6470,11 +6576,20 @@ function InitToolsExportMenu() {
 		return;
 	
 	g_Loader.toolsData.isExportMenuInitialized = true;
+	g_Loader.toolsData.bExportToFile = false;
+	var EnabledFastFlags = (window.EnabledFastFlags == undefined) ? [] : window.EnabledFastFlags;
 	var ExportMenu = document.getElementById('ExportSubMenu');
 	
 	if (g_Loader.toolsData.exportOptions && g_Loader.toolsData.exportOptions.length > 0) {
+		var comboDiffDisplayName = "";
 		MenuAddEntry(ExportMenu, '', 'Extra tools', null, true);
 		g_Loader.toolsData.exportOptions.forEach(entry => {
+			if (entry.comboDiff && EnabledFastFlags.includes('MicroprofilerDiff')) {
+				g_Loader.toolsData.ComboDiffFuncName = entry.funcName;
+				comboDiffDisplayName = entry.displayName;
+			}
+			if (entry.hidden)
+				return;
 			if (entry.eventIdsNeeded != undefined) {
 				var hasNeededEvents = false;
 				for (const eventId of entry.eventIdsNeeded) {
@@ -6509,6 +6624,27 @@ function InitToolsExportMenu() {
 				ShowSpinner(false);
 			});
 		});
+
+		if (g_Loader.toolsData.ComboDiffFuncName) {
+			MenuAddEntry(ExportMenu, '', comboDiffDisplayName, function() {
+				ShowDiffWindow(true);
+				ShowDropSigns(true);
+				setTimeout(function() {
+					if (!g_Loader.isDragInProgress)
+						ShowDropSigns(false);
+				}, 1100); // Brief highlighting of file drop areas. The timeout value is based on visual perception tests.
+			});
+		}
+
+		function UpdateExportToFile() {
+			MenuUpdateEntry('export_to_file', g_Loader.toolsData.bExportToFile);
+		}
+		MenuAddEntry(ExportMenu, '', 'Export options', null, true);
+		MenuAddEntry(ExportMenu, 'export_to_file', 'Save result as file', function() {
+			g_Loader.toolsData.bExportToFile = !g_Loader.toolsData.bExportToFile;
+			UpdateExportToFile();
+		});
+		UpdateExportToFile();
 	}
 	
 	AdjustMenuItemsWidth(ExportMenu);
@@ -6596,55 +6732,195 @@ function InitAuxMenus() {
 	}
 }
 
-async function ExtractAndExportRaw(funcName) {
+async function ExtractAndExportRaw(funcName, rawFileStructs) {
+	rawFileStructs = rawFileStructs ? rawFileStructs : [ { isSelf: true } ];
 	await ExtractRawData();
 	if (!funcName && (!g_Loader.rawDataArr || g_Loader.rawDataArr.length == 0)) {
 		return Promise.reject("No data");
 	}
 	if (window.ToolsModule != undefined) {
-		await ParseRawModule(funcName);
+		await ParseRawModule(funcName, rawFileStructs);
 	} else {
 		await ExtractToolsJs();
-		await ParseRawWorker(funcName);
+		await ParseRawWorker(funcName, rawFileStructs);
 	}
 }
 
-function ParseRawModule(exporterFuncName) {
-	var funcName = exporterFuncName ? exporterFuncName : "ParseRaw";
-	return ToolsModule().then(Module => {
-		window.Tools = Module;
-		Tools.ccall('Init', 'number', []);
-		g_Loader.toolsData.exportOptions = JSON.parse(g_Loader.toolsData.exportResult);
-		g_Loader.toolsData.exportResult = null;
-		
-		var dataPtr = Tools._malloc(g_Loader.rawDataArr.length);
-		Tools.HEAPU8.set(g_Loader.rawDataArr, dataPtr);
-		var func = Tools.cwrap(funcName, 'number', ['number', 'number']);
-		func(dataPtr, g_Loader.rawDataArr.length);
-		g_Loader.isDataInitialized = true;
-		g_Loader.rawDataArr = null;
-		window.Tools = null;
-	});
+function FindStringBytesInUint8Array(dataArray, start, pattern) {
+	for (var i = start; i < dataArray.length - pattern.length + 1; i++) {
+		const bytes = dataArray.slice(i, i + pattern.length);
+		if (CompareUint8ArrayWithStringBytes(bytes, pattern)) {
+			return i;
+		}
+	}
+	return -1;
 }
 
-function ParseRawWorker(exporterFuncName) {
-	var funcName = exporterFuncName ? exporterFuncName : "";
+async function ExtractRawDataFromFile(file) {
+	try {
+		const errorText = "Incorrect input file format";
+		const rawMagic = "\0\0\0\0R0FL";
+		const htmlMagic = "<!--R0FL";
+		const htmlEndMarker = "-->";
+		const fileDataArray = await ReadFileToUint8Array(file);
+		if (CheckFileMagic(fileDataArray, rawMagic))
+			return fileDataArray;
+		if (!CheckFileMagic(fileDataArray, htmlMagic))
+			throw new Error(errorText);
+
+		const magicFullSize = htmlMagic.length;
+		const b64EndPos = FindStringBytesInUint8Array(fileDataArray, magicFullSize, htmlEndMarker);
+		if (b64EndPos < 0)
+			throw new Error(errorText);
+
+		var rawDataArray;
+		const b64Arr = fileDataArray.slice(magicFullSize, b64EndPos);
+		const compressedData = Base64ArrayToUint8Array(b64Arr);
+		await UnzipDataCallback(compressedData, rawMagic, "", true, "deflate",
+			function(dataArr){
+				rawDataArray = dataArr;
+			});
+
+		return rawDataArray;
+	} catch (error) {
+		console.error("Error extracting data from file:", error);
+		return new Uint8Array();
+	}
+}
+
+function ComposeExporterFuncMetaArg(funcName, rawFilename, localId, localGroupId) {
+	var res = {
+		fileName: rawFilename ? rawFilename : "",
+		localId: localId ? localId : 0,
+		localGroupId: localGroupId ? localGroupId : 0,
+	};
+	return JSON.stringify(res);
+}
+
+function GetExporterFuncOptions(funcName) {
+	var res = null;
+	g_Loader.toolsData.exportOptions.forEach(entry => {
+		if (entry.funcName == funcName) {
+			res = entry;
+		}
+	});
+	return res;
+}
+
+async function GetFileDataAndMeta(funcName, rawFileStructs, fileStructId, localId) {
+	var res = {};
+	var fileStruct = rawFileStructs[fileStructId];
+	var fileName;
+	if (fileStruct.isSelf) {
+		res.data = g_Loader.rawDataArr;
+		fileName = GetExportFilename("");
+	} else {
+		res.data = await ExtractRawDataFromFile(fileStruct.file);
+		fileName = fileStruct.file.name;
+	}
+	res.meta = ComposeExporterFuncMetaArg(funcName, fileName, localId, fileStruct.localGroupId);
+	res.isInvalid = (!res.data || res.data.length == 0);
+	return res;
+}
+
+async function ParseRawModule(exporterFuncName, rawFileStructs) {
+	var funcName = exporterFuncName ? exporterFuncName : "ParseRaw";
+	var Module = await ToolsModule();
+
+	window.Tools = Module;
+	Tools.ccall('Init', 'number', []);
+	g_Loader.toolsData.exportOptions = JSON.parse(g_Loader.toolsData.exportResult);
+	g_Loader.toolsData.exportResult = null;
+
+	var func = Tools.cwrap(funcName, 'number', ['string', 'number', 'number']);
+
+	function CallFunc(meta, rawDataArr) {
+		var localRawDataArr = meta ? rawDataArr : new Uint8Array(1);
+		var dataPtr = Tools._malloc(localRawDataArr.length);
+		Tools.HEAPU8.set(localRawDataArr, dataPtr);
+		func(meta, dataPtr, localRawDataArr.length);
+		Tools._free(dataPtr);
+	}
+
+	var localId = 0;
+	for (var i = 0; i < rawFileStructs.length; i++) {
+		var fileInfo = await GetFileDataAndMeta(funcName, rawFileStructs, i, localId);
+		if (!fileInfo.isInvalid) {
+			CallFunc(fileInfo.meta, fileInfo.data);
+			localId++;
+		}
+	}
+
+	var options = GetExporterFuncOptions(funcName);
+	if (options && options.multiRaw) {
+		CallFunc("", null);
+	}
+
+	g_Loader.isDataInitialized = true;
+	g_Loader.rawDataArr = null;
+	window.Tools = null;
+}
+
+function ParseRawWorker(exporterFuncName, rawFileStructs) {
+	const funcName = exporterFuncName ? exporterFuncName : "";
+	var isMultiRawFunc = false;
+
+	function TerminateWorker() {
+		g_Loader.isDataInitialized = true;
+		g_Loader.worker.instance.terminate();
+		URL.revokeObjectURL(g_Loader.worker.urlObj);
+		g_Loader.worker = {};
+	}
+
 	return new Promise((resolve, reject) => {
+		var localId = 0;
+		var fileStructId = 0;
 		g_Loader.worker.isReady = false;
 		g_Loader.worker.instance = new Worker(g_Loader.worker.urlObj);
-		g_Loader.worker.instance.onmessage = function(event){
+		g_Loader.worker.instance.onmessage = async function(event){
 			if (event.data == "") {
-				if (g_Loader.worker.isReady) {
-					g_Loader.isDataInitialized = true;
-					g_Loader.worker.instance.terminate();
-					URL.revokeObjectURL(g_Loader.worker.urlObj);
-					g_Loader.worker = {};
+				if (g_Loader.worker.isReady && g_Loader.worker.hasAllData) {
+					TerminateWorker();
 					resolve();
 				} else {
 					g_Loader.worker.isReady = true;
-					g_Loader.worker.instance.postMessage(funcName);
-					g_Loader.worker.instance.postMessage(g_Loader.rawDataArr.buffer, [g_Loader.rawDataArr.buffer]);
-					g_Loader.rawDataArr = null;
+
+					var fileInfo = {}
+					fileInfo.meta = "";
+					fileInfo.data = null;
+					fileInfo.isInvalid = true;
+					for ( ; fileStructId < rawFileStructs.length; ) {
+						fileInfo = await GetFileDataAndMeta(funcName, rawFileStructs, fileStructId, localId);
+
+						fileStructId++;
+						if (!fileInfo.isInvalid) {
+							localId++;
+							break;
+						}
+					}
+
+					if (fileInfo.isInvalid) {
+						fileInfo.meta = "";
+						fileInfo.data = new Uint8Array(1);
+						g_Loader.worker.hasAllData = true;
+					}
+
+					if (!isMultiRawFunc) {
+						g_Loader.worker.hasAllData = true;
+					}
+
+					if (!isMultiRawFunc && fileInfo.isInvalid) {
+						TerminateWorker();
+						g_Loader.rawDataArr = null;
+						resolve();
+					} else {
+						g_Loader.worker.instance.postMessage({
+							func: funcName,
+							meta: fileInfo.meta,
+							payload: fileInfo.data.buffer
+						}, [fileInfo.data.buffer]);
+						g_Loader.rawDataArr = null;
+					}
 				}
 			} else {
 				if (g_Loader.worker.isReady) {
@@ -6656,6 +6932,8 @@ function ParseRawWorker(exporterFuncName) {
 					}
 				} else {
 					g_Loader.toolsData.exportOptions = JSON.parse(event.data);
+					const options = GetExporterFuncOptions(funcName);
+					isMultiRawFunc = (options && options.multiRaw);
 				}
 			}
 		};
@@ -6726,6 +7004,7 @@ async function InitData() {
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // Drag and drop
+// Diff / Combine
 
 async function ZipData(inputData, skipFirstBytes, addPrefix) {
 	const zipPrefixSize = 2 * 4;
@@ -6835,19 +7114,338 @@ async function RawToHtml(file) {
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+function ChangeCssClassAttr(className, attrName, attrValue) {
+	const stylesheet = document.styleSheets[0];
+	for (let i = 0; i < stylesheet.cssRules.length; i++) {
+		const rule = stylesheet.cssRules[i];
+		if (rule.selectorText === className) {
+			rule.style[attrName] = attrValue;
+			break;
+		}
+	}
+}
+
+function ShowDropSigns(show) {
+	ChangeCssClassAttr('.drop-zone', 'visibility', (show ? '' : 'hidden'));
+}
+
 function DragOverHandler(evt) {
+	evt.stopPropagation(); 
 	evt.preventDefault();
+
+	if (g_Loader.isDragInProgress)
+		return;
+
+	// Check if the data is a file
+	var hasFiles = false;
+	const types = evt.dataTransfer.types;
+	for (let i = 0; i < types.length; i++) {
+		if (types[i] == 'Files') {
+			hasFiles = true;
+			break;
+		}
+	}
+
+	if (hasFiles) {
+		ShowDiffWindow(true);
+		ShowDropSigns(true);
+		g_Loader.isDragInProgress = true;
+	}
+}
+
+function DragEndHandler(evt, bForce) {
+	evt.stopPropagation(); 
+	evt.preventDefault();
+
+	if (!g_Loader.isDragInProgress)
+		return;
+
+	const isDragEnded = bForce ||
+		(evt.x == 0 && evt.y == 0) ||
+		(evt.x < 0 || evt.y < 0 || evt.x >= window.innerWidth || evt.y >= window.innerHeight);
+	if (isDragEnded) {
+		ShowDropSigns(false);
+		g_Loader.isDragInProgress = false;
+	}
+}
+
+function DragOverSideHandler(evt, color) {
+	evt.stopPropagation(); 
+	evt.preventDefault();
+
+	var signEl = evt.target.querySelector('.drop-sign');
+	signEl.style.color = color;
+}
+
+function DragEndSideHandler(evt) {
+	evt.stopPropagation(); 
+	evt.preventDefault();
+	
+	var signEl = evt.target.querySelector('.drop-sign'); 
+	signEl.style.color = "";
+}
+
+function DropSideHandler(evt, sideId) {
+	evt.stopPropagation();
+	evt.preventDefault();
+		
+	DragEndSideHandler(evt);
+	DragEndHandler(evt, true);
+
+	for (var i = 0; i < evt.dataTransfer.files.length; i++) {
+		const file = evt.dataTransfer.files[i];
+		AddToDiffSide(sideId, file);
+	}
+	UpdateDiffSideTableHtml(sideId);
 }
 
 async function DropHandler(evt) {
+	evt.stopPropagation();
 	evt.preventDefault();
+
+	DragEndHandler(evt, true);
+	
 	var files = evt.dataTransfer.files;
-	if (!files)
+	if (!files || files.length == 0)
 		return;
+
 	const file = files[0];
-	if (window.IsHtmlSavable && file.name.endsWith(".raw")) {
-		return RawToHtml(file);
+
+	// Raw to HTML
+	if (files.length == 1 && file.name.endsWith(".raw")) {
+		if (window.IsHtmlSavable) {
+			return RawToHtml(file);
+		}
+		return;
 	}
+	
+	if (!g_Loader.toolsData.ComboDiffFuncName)
+		return;
+	if (files.length == 1 && !IsSupportedDumpFileExt(file.name))
+		return;
+	
+	// Generate a Diff either with the current dump or between the two dropped files
+	var rawFileStructs = [ { isSelf: true, localGroupId: 0 }, { file: file, localGroupId: 1 } ];
+	if (files.length > 1) {
+		rawFileStructs = [ { file: files[0], localGroupId: 0 }, { file: files[1], localGroupId: 1 } ];
+	}
+	ShowSpinner(true);
+	await ExtractAndExportRaw(g_Loader.toolsData.ComboDiffFuncName, rawFileStructs);
+	OpenNewExportTab("Diff");
+	ShowSpinner(false);
+}
+
+function IsSupportedDumpFileExt(fileName) {
+	return fileName.endsWith(".html") || fileName.endsWith(".htm") || fileName.endsWith(".raw");
+}
+
+function ClearDiffSides() {
+	g_Loader.DiffSides = [];
+}
+
+function InitDiffSides() {
+	g_Loader.DiffSides = [[],[]];
+	var selfEntry = {
+		title: GetExportFilename("") + " (this file)",
+		name: GetExportFilename(""), 
+		size: 0,
+		isSelf: true,
+	};
+	g_Loader.DiffSides[0].push(selfEntry);
+}
+
+function AddToDiffSide(sideId, file) {
+	if (!IsSupportedDumpFileExt(file.name))
+		return;
+	var side = g_Loader.DiffSides[sideId];
+	for (var j = 0; j < side.length; j++) {
+		var entry = side[j];
+		if (entry.name == file.name)
+			return;
+	}
+	var selfEntry = {
+		title: file.name,
+		name: file.name, 
+		size: 0,
+		file: file
+	};
+	g_Loader.DiffSides[sideId].push(selfEntry);
+}
+
+function RemoveFromDiffSide(sideId, j) {
+	var side = g_Loader.DiffSides[sideId];
+	side.splice(j, 1);
+	UpdateDiffSideTableHtml(sideId);
+}
+
+function DiffSidesToFileStructs(sideId) {
+	var rawFileStructs = [];
+	
+	function PushFileStructs(side, localGroupId) {
+		for (var j = 0; j < side.length; j++) {
+			var entry = side[j];
+			var fileStruct = {};
+			fileStruct.localGroupId = localGroupId;
+			if (entry.isSelf) {
+				fileStruct.isSelf = true;
+			} else {
+				fileStruct.file = entry.file;
+			}
+			rawFileStructs.push(fileStruct);
+		}
+	}
+	
+	if (sideId < 0) {
+		for (var i = 0; i < 2; i++) {
+			var side = g_Loader.DiffSides[i];
+			PushFileStructs(side, i);
+		}
+	} else {
+		var side = g_Loader.DiffSides[sideId];
+		PushFileStructs(side, 0);
+	}
+
+	return rawFileStructs;
+}
+
+function UpdateDiffSideTableHtml(sideId) {
+	var html = "";
+	var side = g_Loader.DiffSides[sideId];
+	for (var j = 0; j < side.length; j++) {
+		var entry = side[j];
+		html += '<tr class="tr-highlight"><td class="td-highlight">' + entry.title +
+			'<span class="delete-button" onclick="RemoveFromDiffSide(' + sideId + ', ' + j + ');">&#10006;</span>' +
+			'</td></tr>';
+	}
+	var tableBodyEl = document.getElementById('xtooltip_diff_tbody_' + sideId);
+	tableBodyEl.innerHTML = html;
+}
+
+async function ExportDiffSides(sideId) {
+	if (g_Loader.isExportInProgress)
+		return;
+	if (sideId < 0 && g_Loader.DiffSides[0].length == 0 && g_Loader.DiffSides[1].length == 0)
+		return;
+	if (sideId >= 0 && g_Loader.DiffSides[sideId].length == 0)
+		return;
+
+	ShowSpinner(true);
+	var rawFileStructs = DiffSidesToFileStructs(sideId);
+	await ExtractAndExportRaw(g_Loader.toolsData.ComboDiffFuncName, rawFileStructs);
+	const exportFilePostfix = (sideId < 0) ? "Diff" : "Combo";
+	OpenNewExportTab(exportFilePostfix);
+	ShowSpinner(false);
+}
+
+function ShowDiffWindow(Show) {
+	if (!g_Loader.toolsData.ComboDiffFuncName)
+		return;
+	if (Show && g_Loader.isDiffWindowVisible)
+		return;
+	
+	if (Show && !g_Loader.isDiffWindowVisible) {
+		ShowEvents(false);
+	}
+	
+	// Initial window setup
+	var EventsWindow = document.getElementById('eventswindow');
+	EventsWindow.innerHTML = '';
+	EventsWindow.style.cssText = `
+		user-select: none; font: 12px Courier New;
+		flex-direction: column; overflow: hidden; scrollbar-color: #ffffff #000000;
+		position: absolute; z-index: 5; text-align: left;
+		padding: 0px; background-color: #000000;
+		left: 50%; top: 50%;
+		transform: translate(-50%, -50%);
+		width: 880px; height: 330px;`;
+
+	if (Show) {
+		g_Loader.isDiffWindowVisible = true;
+		EventsWindow.style.display = 'flex';
+	} else {
+		g_Loader.isDiffWindowVisible = false;
+		EventsWindow.style.display = 'none';
+		ClearDiffSides();
+		return;
+	}
+
+	function SideHtml(baseDiv, color, id, text, sideId, tableBodyId) {
+		var html = `
+			<div style="` + baseDiv + ` display: flex;">
+				<div style="background-color: ` + color + `; display: flex;">
+					<div class="tooltip-area" id="` + id + `" style="cursor: pointer; margin: 2px; padding: 5px; text-align: left; font-weight: bold; flex-grow: 1;">
+						` + text + `
+						<span class="tooltip-text">Click to combine</span>
+					</div>
+				</div>
+				<div style="position: relative; flex-grow: 1; display: flex;">
+					<div class="drop-zone"
+						ondragover="DragOverSideHandler(event, '` + color + `');"
+						ondragend="DragEndSideHandler(event);" ondragleave="DragEndSideHandler(event);"
+						ondrop="DropSideHandler(event, ` + sideId + `);"
+					>
+						<span class="drop-sign">&DownArrowBar;</span>
+					</div>
+					<div style="background-color:#333333; overflow-y: scroll; overflow-x: hidden;">
+						<table style="padding: 2px; white-space: nowrap; text-overflow: ellipsis; table-layout:fixed; width:100%; height: 0%;">
+							<colgroup></colgroup>
+							<tbody id="` + tableBodyId + `">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>`;
+		return html;
+	};
+	
+	var html = `
+		<div style="padding: 2px;">
+			<div id="xtooltip_list_header" style="display: flex;">
+				<div id="xtooltip_list_close" style="cursor: pointer;">&#10006;&nbsp;Close</div>
+				<div id="xtooltip_list_title" style="flex-grow: 1; text-align: right;"></div>
+			</div>
+		</div>
+		<div style="flex-grow: 1; flex-direction: column; display: flex;">
+			<div style="width: 100%; height: 0px; flex-grow: 1; display: flex;">`
+			   + SideHtml('width: 50%;', '#22c222', 'xtooltip_combine_0', 'Left&nbsp;<br/>side', 0, "xtooltip_diff_tbody_0")
+			   + SideHtml('width: 0%; flex-grow: 1;', '#5252d2', 'xtooltip_combine_1', 'Right<br/>side', 1, "xtooltip_diff_tbody_1") + `
+			</div>
+			<div style="padding: 2px;">
+				<div id="xtooltip_diff" style="cursor: pointer; padding: 7px; text-align: center; font-weight: bold;">Combine & Compare</div>
+			</div>
+		</div>`;
+	
+	EventsWindow.innerHTML = html;
+
+	InitDiffSides();
+	UpdateDiffSideTableHtml(0);
+	UpdateDiffSideTableHtml(1);
+
+	var DivOnFn = function() {
+		this.style.backgroundColor = '#555555';
+	};
+	var DivOffFn = function() {
+		this.style.backgroundColor = '';
+	};
+
+	var XTitle = document.getElementById('xtooltip_list_title');
+	XTitle.textContent = 'MicroProfiler Dump Combine/Compare Tool';
+
+	var XClose = document.getElementById('xtooltip_list_close');
+	XClose.addEventListener('click', function() { ShowDiffWindow(false); });
+	XClose.addEventListener('mouseover', DivOnFn);
+	XClose.addEventListener('mouseout', DivOffFn);
+	
+	var XCombine0 = document.getElementById('xtooltip_combine_0');
+	var XCombine1 = document.getElementById('xtooltip_combine_1');
+	XCombine0.addEventListener('click', async function() { return ExportDiffSides(0); });
+	XCombine1.addEventListener('click', async function() { return ExportDiffSides(1); });
+
+	var XDiff = document.getElementById('xtooltip_diff');
+	XDiff.addEventListener('click', async function() { return ExportDiffSides(-1); });
+	XDiff.addEventListener('mouseover', DivOnFn);
+	XDiff.addEventListener('mouseout', DivOffFn);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -7167,6 +7765,10 @@ function PrepareEvents() {
 }
 
 function ShowEvents(Show) {
+	if (Show) {
+		ShowDiffWindow(false);
+	}
+
 	// Initial window setup
 	var EventsWindow = document.getElementById('eventswindow');
 	EventsWindow.innerHTML = '';
@@ -7219,7 +7821,7 @@ function ShowEvents(Show) {
 				<div id="xtooltip_list_close" style="">&#10006;&nbsp;Close</div>
 				<div id="xtooltip_list_title" style="flex-grow: 1; text-align: right;"></div>
 			</div>
-				<div id="xtooltip_details_header" style="display: none;"> <!-- flex -->
+			<div id="xtooltip_details_header" style="display: none;"> <!-- flex -->
 				<div id="xtooltip_details_back">&#x1F868;&nbsp;Back</div>
 			</div>
 		</div>
@@ -7476,6 +8078,20 @@ function MenuAddEntry(menuElement, id, text, clickFn, isCategory) {
 	menuElement.appendChild(newLi);
 }
 
+function MenuUpdateEntry(elId, isSel, isHid, text) {
+	var el = document.getElementById(elId);
+	var a = el.getElementsByTagName('a')[0];
+	if (a) {
+		if (isSel != undefined) {
+			a.style['text-decoration'] = isSel ? 'underline' : 'none';
+		}
+		if (text != undefined) {
+			a.innerHTML = text;
+		}
+		a.style.display = (isHid == true) ? 'none' : '';
+	}
+};
+    
 function AdjustMenuItemsWidth(MenuElement) {
 	// Adjust the width of all menu items according to max text length
 	var maxLen = 0;
@@ -7593,19 +8209,7 @@ function InitPluginUi() {
 
 function PluginUiUpdate(isInitialCall, onlyThresholds) {
 	// Update a regular menu item
-	var UpdateElement = function(elId, isSel, isHid, text) {
-		var el = document.getElementById(elId);
-		var a = el.getElementsByTagName('a')[0];
-		if (a) {
-			if (isSel != undefined) {
-				a.style['text-decoration'] = isSel ? 'underline' : 'none';
-			}
-			if (text != undefined) {
-				a.innerHTML = text;
-			}
-			a.style.display = (isHid == true) ? 'none' : '';
-		}
-	};
+	var UpdateElement = MenuUpdateEntry;
 	// Update a value selector
 	var UpdateSelector = function (elId, thresholds, isHid) {
 		var el = document.getElementById(elId);
@@ -8063,7 +8667,8 @@ function InitMain() {
 	ShowUiRoot();
 	InitViewerVars();
 	InitPluginVars();
-	RegisterInputListeners()
+	RegisterInputListeners();
+	RegisterDragDropListeners();
 	InitGroups();
 
 	ScanEvents(); // Events
