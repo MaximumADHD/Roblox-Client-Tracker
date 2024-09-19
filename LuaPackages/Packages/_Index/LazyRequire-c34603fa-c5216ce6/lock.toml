@@ -3,4 +3,4 @@ name = "LazyRequire"
 version = "0.1.1"
 commit = "c5216ce6a220a1ba65d5da12ac07a6041a39c179"
 source = "git+https://github.com/roblox/lua-lazy-require#main"
-dependencies = ["React React 17.0.6 registry"]
+dependencies = ["React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main"]

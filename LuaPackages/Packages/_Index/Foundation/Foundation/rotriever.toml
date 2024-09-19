@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.1.0"
+version = "1.2.3"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -33,7 +33,7 @@ documentation = "https://foundation.roblox.com"
 version = "^1.1.0"
 
 [dependencies.Dash]
-version = "^0.1.0"
+version = "^1.0.0"
 
 [dependencies.FoundationImages]
 version = "^1.0.1"

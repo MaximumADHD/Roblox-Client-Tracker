@@ -210,7 +210,7 @@ function DropdownMenuCell:render()
 			local selectionCursor = self.props.selectionCursor
 				or (getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset))
 			local getStyleFunc
-			if UIBloxConfig.enableNewMenuLayout and self.props.enableTokenOverride then
+			if self.props.enableTokenOverride then
 				getStyleFunc = getColorFromMap
 			else
 				getStyleFunc = ButtonGetContentStyle
@@ -238,7 +238,7 @@ function DropdownMenuCell:render()
 				)
 			local buttonImage = self.props.buttonImage
 			local fontStyle
-			if UIBloxConfig.enableNewMenuLayout and self.props.enableTokenOverride then
+			if self.props.enableTokenOverride then
 				fontStyle = self.props.textFont
 			else
 				fontStyle = style.Font.Header2
@@ -346,7 +346,7 @@ function DropdownMenuCell:render()
 			local interactableProps
 			local buttonBackgroundLayer
 			local buttonContentSize
-			if UIBloxConfig.enableNewMenuLayout and self.props.enableTokenOverride then
+			if self.props.enableTokenOverride then
 				local borderSize = self.props.border.size
 				buttonContentSize = UDim2.new(1, -2 * borderSize, 1, -2 * borderSize)
 				buttonBackgroundLayer = {
@@ -382,7 +382,7 @@ end
 
 return function(providedProps: any)
 	local props = providedProps
-	if UIBloxConfig.enableNewMenuLayout and providedProps.enableTokenOverride then
+	if providedProps.enableTokenOverride then
 		local style = useStyle()
 		props = Cryo.Dictionary.join(StyleDefaults.getDropdownMenuCellDefaultTokens(style), providedProps)
 	end

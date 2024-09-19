@@ -8,6 +8,7 @@ local GuiService = game:GetService("GuiService")
 local Roact = require(Packages.Roact)
 
 local RoactGamepad = require(Packages.RoactGamepad)
+local Cryo = require(Packages.Cryo)
 
 local UIBlox = require(Packages.UIBlox)
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
@@ -17,6 +18,7 @@ local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
 local DarkTheme = UIBlox.App.Style.Themes.DarkTheme
+local StyleConstants = UIBlox.App.Style.Constants
 
 local RoactFitComponents = require(Packages.RoactFitComponents)
 local FitFrameHorizontal = RoactFitComponents.FitFrameHorizontal
@@ -27,6 +29,7 @@ local formatNumber = require(IAPExperienceRoot.Utility.formatNumber)
 local Animator = require(IAPExperienceRoot.Generic.Animator)
 
 local getEnableCompensatingScrollingFrame = require(IAPExperienceRoot.Flags.getEnableCompensatingScrollingFrame)
+local getFFlagEnableRobuxPageUseStyleMetadata = require(IAPExperienceRoot.Flags.getFFlagEnableRobuxPageUseStyleMetadata)
 
 local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 
@@ -73,6 +76,8 @@ type Props = {
 	robuxPackageActivated: (string) -> any,
 	onPageClose: () -> any,
 	onAnalyticEvent: (string, table) -> any?,
+
+	themeName: string?,
 }
 
 type State = {
@@ -306,11 +311,17 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 				BackgroundImage = Roact.createElement('ImageLabel', {
 					BackgroundTransparency = 1,
 					ImageTransparency = 0,
-					Image = if theme == DarkTheme then DARK_BACKGROUND else LIGHT_BACKGROUND,
+					Image = if getFFlagEnableRobuxPageUseStyleMetadata()
+						then (if props.themeName == StyleConstants.ThemeName.Dark
+							then DARK_BACKGROUND
+							else LIGHT_BACKGROUND)
+						else (if theme == DarkTheme then DARK_BACKGROUND else LIGHT_BACKGROUND),
 					Size = UDim2.new(1, 0, 1, 0)
 				}),
 				Backdrop = Roact.createElement("Frame", {
-					BackgroundTransparency = if theme == DarkTheme then 0.5 else 0.7,
+					BackgroundTransparency = if getFFlagEnableRobuxPageUseStyleMetadata()
+						then (if props.themeName == StyleConstants.ThemeName.Dark then 0.5 else 0.7)
+						else (if theme == DarkTheme then 0.5 else 0.7),
 					BackgroundColor3 = Color3.new(0, 0, 0),
 					Size = UDim2.new(1, 0, 1, 0)
 				}),
@@ -346,7 +357,13 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 						AnchorPoint = Vector2.new(0, 0),
 
 						BackgroundTransparency = 0,
-						BackgroundColor3 = if theme == DarkTheme then Color3.fromRGB(17, 18, 20) else Color3.fromRGB(198, 203, 206),
+						BackgroundColor3 = if getFFlagEnableRobuxPageUseStyleMetadata()
+							then (if props.themeName == StyleConstants.ThemeName.Dark
+								then Color3.fromRGB(17, 18, 20)
+								else Color3.fromRGB(198, 203, 206))
+							else (if theme == DarkTheme
+								then Color3.fromRGB(17, 18, 20)
+								else Color3.fromRGB(198, 203, 206)),
 
 						Position = UDim2.fromOffset(SIDE_PADDING / 2 * self:getScale(), 40 * self:getScale()),
 						Size = UDim2.new(1, -1 * SIDE_PADDING * self:getScale(), 0, balanceTextHeight * 2),
@@ -483,4 +500,19 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 	end)
 end
 
-return BuyRobuxPage
+if getFFlagEnableRobuxPageUseStyleMetadata() then
+	return function(props)
+		local useStyleMetadata = UIBlox.Core.Style.useStyleMetadata
+		local styleMetadata = useStyleMetadata()
+		local themeName = styleMetadata.ThemeName
+
+		return Roact.createElement(
+			BuyRobuxPage,
+			Cryo.Dictionary.join(props, {
+				themeName = themeName,
+			})
+		)
+	end
+else
+	return BuyRobuxPage
+end

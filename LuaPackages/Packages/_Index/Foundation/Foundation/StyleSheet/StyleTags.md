@@ -18,6 +18,10 @@ This will apply the Surface-100 background color and a small corner radius to th
 
 ### Engine Components
 
+!!! warning "Styling Polyfill"
+    A styling polyfill has been added to Foundation while the Engine UI team works on improving the Styling Engine's performance. This polyfill does not support `useStyleTags`. While the polyfill is in place, you will need to use [[View]], [[Image]], and [[Text]] components to apply style tags.
+
+
 Not every tag listed below is rendered. Instead, we conditionally render the tags that are in use to maintain performance and avoid mounting tens of thousands of style rules. Our base components automatically add tags you give them to the rendered list. You can still use style tags with Engine components, but you need to make sure to wrap the tags in the `useStyleTags` hook; this will add them to the list of rendered tags.
 
 Since hooks shouldn't be used in the render function, you'll need to move the hook call to the body of the component. This is what Foundation components do internally.

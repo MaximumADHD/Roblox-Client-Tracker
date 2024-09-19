@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
@@ -14,6 +15,7 @@ local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useDefaultTags = require(Foundation.Utility.useDefaultTags)
 local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
+local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 
@@ -26,7 +28,6 @@ type GuiObjectProps = Types.GuiObjectProps
 type CommonProps = Types.CommonProps
 
 export type ViewProps = {
-	layout: ListLayout?,
 	GroupTransparency: Bindable<number>?,
 } & GuiObjectProps & CommonProps
 
@@ -42,7 +43,11 @@ local defaultProps = {
 local defaultTags = "gui-object-defaults"
 
 local function View(viewProps: ViewProps, ref: React.Ref<GuiObject>?)
-	local props = withDefaults(viewProps, defaultProps)
+	local defaultPropsWithStyles = if Flags.FoundationStylingPolyfill
+		then useStyledDefaults("View", viewProps.tag, defaultTags, defaultProps)
+		else nil
+	local props =
+		withDefaults(viewProps, if Flags.FoundationStylingPolyfill then defaultPropsWithStyles else defaultProps)
 
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)
 	local tag = useStyleTags(tagsWithDefaults)

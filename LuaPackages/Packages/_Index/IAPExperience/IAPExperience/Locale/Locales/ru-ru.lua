@@ -59,6 +59,7 @@ return{
 	["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Подписаться с кредитной/дебетовой картой]],
 	["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Подписаться, используя баланс Roblox]],
 	["Feature.Subscription.Email.PricePerMonthLabel"] = [[{purchasePrice}/мес.]],
+	["Feature.Subscription.Error.GenericSubscribeError"] = [[Что-то пошло не так при попытке подписаться. Повтори попытку позже.]],
 	["Feature.Subscription.Heading.Subscriptions"] = [[Подписки]],
 	["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Достигнут месячный лимит на покупку, установленный в родительском контроле. Ты не сможешь совершить новую покупку до следующего месяца.]],
 	["Feature.Subscription.Message.ReportSubmitted"] = [[Сообщение получено и будет рассмотрено в ближайшее время.]],

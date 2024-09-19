@@ -36,8 +36,12 @@ local function renderStatItem(containerProps, icon, text, stylePalette, textWidt
 
 	local statSpacingGap = tokens.Global.Space_25
 	local statIconSize = tokens.Semantic.Icon.Size.Small
-	local statIconContentColor = tokens.Semantic.Color.Text.Muted
-	local statLabelContentColor = tokens.Semantic.Color.Text.Muted
+	local statIconContentColor = if UIBloxConfig.useFoundationColors
+		then tokens.Semantic.Color.Text.Default
+		else tokens.Semantic.Color.Text.Muted
+	local statLabelContentColor = if UIBloxConfig.useFoundationColors
+		then tokens.Semantic.Color.Text.Default
+		else tokens.Semantic.Color.Text.Muted
 
 	return React.createElement("Frame", containerProps, {
 		UIListLayout = React.createElement("UIListLayout", {

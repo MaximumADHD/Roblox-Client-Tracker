@@ -37,6 +37,8 @@ export type Props = {
 	icon: Images.ImageSetImage?,
 	-- The feedback type for interaction feedback manager
 	feedbackType: string?,
+	-- ButtonType override for the button
+	buttonType: string?,
 }
 
 local function ExperienceActionRow(props: Props)
@@ -51,7 +53,7 @@ local function ExperienceActionRow(props: Props)
 	end
 
 	return React.createElement(Button, {
-		buttonType = ButtonType.PrimaryContextual,
+		buttonType = if props.buttonType then props.buttonType else ButtonType.PrimaryContextual,
 		text = text,
 		icon = icon,
 		size = UDim2.new(1, -2 * horizontalPadding, 0, height - 2 * verticalPadding),

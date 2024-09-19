@@ -33,6 +33,7 @@ local Foundation = strict({
 	TextInput = require(script.Components.TextInput),
 	Toast = require(script.Components.Toast),
 	View = require(script.Components.View),
+	KeyLabel = require(script.Components.KeyLabel),
 
 	-- Providers
 	FoundationProvider = require(script.Providers.Foundation),

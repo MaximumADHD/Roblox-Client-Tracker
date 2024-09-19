@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
@@ -9,6 +10,8 @@ local ScrollingFrame = require(script.Parent.ScrollingFrame)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local withDefaults = require(Foundation.Utility.withDefaults)
+local useDefaultTags = require(Foundation.Utility.useDefaultTags)
+local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 
@@ -31,14 +34,10 @@ export type Scroll = {
 }
 
 export type ScrollViewProps = {
-	layout: ListLayout?,
 	scroll: Scroll?,
 } & GuiObjectProps & CommonProps
 
 local defaultProps = {
-	backgroundStyle = {
-		Transparency = 1,
-	},
 	layout = {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	} :: ListLayout,
@@ -50,9 +49,19 @@ local defaultProps = {
 	isDisabled = false,
 }
 
+local defaultTags = "gui-object-defaults"
+
 local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiObject>?)
-	local props = withDefaults(scrollViewProps, defaultProps)
-	local tag = useStyleTags(props.tag)
+	local defaultPropsWithStyles = if Flags.FoundationStylingPolyfill
+		then useStyledDefaults("View", scrollViewProps.tag, defaultTags, defaultProps)
+		else nil
+	local props = withDefaults(
+		scrollViewProps,
+		(if Flags.FoundationStylingPolyfill then defaultPropsWithStyles else defaultProps) :: typeof(defaultProps)
+	)
+
+	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)
+	local tag = useStyleTags(tagsWithDefaults)
 
 	local controlState, setControlState = React.useState(ControlState.Initialize :: ControlState)
 

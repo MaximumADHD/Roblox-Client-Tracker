@@ -22,7 +22,6 @@ local CursorKind = require(App.SelectionImage.CursorKind)
 local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
-local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
@@ -97,8 +96,8 @@ TextButton.defaultProps = {
 	showBackground = false,
 
 	fontStyle = "Header2",
-	colorStyleDefault = "SystemPrimaryDefault",
-	colorStyleHover = "SystemPrimaryDefault",
+	colorStyleDefault = if UIBloxConfig.useFoundationColors then "TextEmphasis" else "SystemPrimaryDefault",
+	colorStyleHover = if UIBloxConfig.useFoundationColors then "TextEmphasis" else "SystemPrimaryDefault",
 	hoverBackgroundEnabled = true,
 	richText = false,
 
@@ -167,11 +166,7 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 	local horizontalPadding = self.props.horizontalPadding
 
 	local backgroundHover = style.Theme.BackgroundOnHover
-	if
-		UIBloxConfig.consolidateBackgroundsTextButton
-		and self.props.hoverBackgroundEnabled
-		and currentState == ControlState.Hover
-	then
+	if self.props.hoverBackgroundEnabled and currentState == ControlState.Hover then
 		-- Lerp between the backgroundColor and the backgroundHover color
 		backgroundColor = if backgroundColor.Color
 			then {
@@ -179,16 +174,6 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 				Transparency = backgroundColor.Transparency,
 			}
 			else backgroundHover
-
-		-- backgroundTransparency does not exist as a prop - not referencing here as a way
-		-- to ensure safe cleanup with this flag.
-		-- else
-		-- 	if self.props.backgroundTransparency then
-		-- 		return {
-		-- 			Transparency = self.props.backgroundTransparency,
-		-- 			Color = backgroundColor.Color
-		-- 		}
-		-- 	end
 	end
 
 	return Roact.createElement(Interactable, {
@@ -201,10 +186,8 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		isDisabled = self.props.isDisabled,
 		onStateChanged = self.onStateChanged,
 		userInteractionEnabled = self.props.userInteractionEnabled,
-		BackgroundColor3 = if UIBloxConfig.consolidateBackgroundsTextButton then backgroundColor.Color else nil,
-		BackgroundTransparency = if UIBloxConfig.consolidateBackgroundsTextButton
-			then backgroundColor.Transparency
-			else 1,
+		BackgroundColor3 = backgroundColor.Color,
+		BackgroundTransparency = backgroundColor.Transparency,
 		AutoButtonColor = false,
 
 		SelectionImageObject = if getCursor
@@ -212,11 +195,9 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 			else (getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset)),
 		[Roact.Event.Activated] = self.props.onActivated,
 	}, {
-		corner = if UIBloxConfig.consolidateBackgroundsTextButton
-			then Roact.createElement("UICorner", {
-				CornerRadius = CORNER_RADIUS,
-			})
-			else nil,
+		corner = Roact.createElement("UICorner", {
+			CornerRadius = CORNER_RADIUS,
+		}),
 		sizeConstraint = Roact.createElement("UISizeConstraint", {
 			MinSize = Vector2.new(textWidth + horizontalPadding * 2, fontSize + verticalPadding * 2),
 		}),
@@ -229,23 +210,6 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 			colorStyle = textStyle,
 			RichText = self.props.richText,
 		}),
-		hoverBackground = if not UIBloxConfig.consolidateBackgroundsTextButton
-				and self.props.hoverBackgroundEnabled
-				and currentState == ControlState.Hover
-			then Roact.createElement(HoverButtonBackground)
-			else nil,
-		background = if not UIBloxConfig.consolidateBackgroundsTextButton and showBackground
-			then Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
-				BackgroundColor3 = backgroundColor.Color,
-				BackgroundTransparency = self.props.backgroundTransparency or backgroundColor.Transparency,
-				ZIndex = if UIBloxConfig.useNewThemeColorPalettes then -10 else 0,
-			}, {
-				corner = Roact.createElement("UICorner", {
-					CornerRadius = CORNER_RADIUS,
-				}),
-			})
-			else nil,
 	})
 end
 

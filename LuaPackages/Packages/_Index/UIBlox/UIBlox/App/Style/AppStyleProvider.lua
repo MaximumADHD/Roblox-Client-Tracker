@@ -109,6 +109,18 @@ local function AppStyleProvider(props: Props)
 		end
 	end, { isMountedRef, setThemeName } :: { any })
 
+	local themeNameConstant = if UIBloxConfig.enableUseStyleMetadata
+		then React.useMemo(function()
+			if themeName:lower() == Constants.ThemeName.Dark:lower() then
+				return Constants.ThemeName.Dark
+			elseif themeName:lower() == Constants.ThemeName.Light:lower() then
+				return Constants.ThemeName.Light
+			else
+				return Constants.DefaultThemeName
+			end
+		end, { themeName })
+		else nil
+
 	return React.createElement(StyleContext.Provider, {
 		value = {
 			style = appStyle,
@@ -116,6 +128,11 @@ local function AppStyleProvider(props: Props)
 			derivedValues = {
 				textSizeOffset = textSizeOffset,
 			},
+			styleMetadata = if UIBloxConfig.enableUseStyleMetadata
+				then {
+					ThemeName = themeNameConstant,
+				}
+				else nil,
 		},
 	}, Roact.oneChild(props.children :: any))
 end

@@ -248,8 +248,11 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		Consts.CARET_DISTANCE + math.min(0, caretOffset) + distanceOffset
 	) + props.contentOffsetVector
 
-	local backgroundColor = props.backgroundColor or theme.UIDefault.Color
-	local backgroundTransparency = (props.backgroundTransparency or theme.UIDefault.Transparency)
+	local defaultBackgroundStyle = if UIBloxConfig.useFoundationColors
+		then theme.BackgroundUIDefault
+		else theme.UIDefault
+	local backgroundColor = props.backgroundColor or defaultBackgroundStyle.Color
+	local backgroundTransparency = (props.backgroundTransparency or defaultBackgroundStyle.Transparency)
 		* settings.PreferredTransparency
 
 	return React.createElement("CanvasGroup", {

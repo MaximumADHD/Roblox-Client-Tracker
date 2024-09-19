@@ -161,8 +161,6 @@ function BuyRobuxFlow:purchaseStateToOverlayState(purchaseState: any?): any?
 		return LoadingOverlayState.WaitingForRobux
 	elseif purchaseState == BuyRobuxFlowState.PurchaseWarning then
 		return LoadingOverlayState.None -- Show faded overlay
-	elseif purchaseState == BuyRobuxFlowState.PurchaseWarning then
-		return LoadingOverlayState.None -- Show faded overlay
 	elseif purchaseState == BuyRobuxFlowState.None then
 		return LoadingOverlayState.None -- Show faded overlay
 	else

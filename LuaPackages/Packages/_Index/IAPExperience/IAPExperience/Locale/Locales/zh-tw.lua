@@ -169,7 +169,7 @@ return{
 	["IAPExperience.RobuxUpsell.Text.RemainingBalance"] = [[剩餘的 {robux} 將會加到您的餘額。]],
 	["IAPExperience.RobuxUpsell.Text.TermsOfUse"] = [[使用條款]],
 	["IAPExperience.RobuxUpsell.Text.VNGDisclosureTerms"] = [[交易將受到 Roblox-VNG 使用條款規範。]],
-	["IAPExperience.RobuxUpsell.Text.VNGDisclosureTermsURL"] = [[受到 Roblox-VNG {termsofuse}規範。]],
+	["IAPExperience.RobuxUpsell.Text.VNGDisclosureTermsURL"] = [[交易將受到 Roblox-VNG {termsofuse}規範。]],
 	["IAPExperience.RobuxUpsell.Text.WouldYouBuy"] = [[購買 {robux} 禮包？]],
 	["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[資金不足]],
 	["IAPExperience.RobuxUpsell.Title.InsufficientRobux"] = [[Robux 不足]],

@@ -13,21 +13,36 @@ local function createLazyInstanceCollector(
 )
 	local internalOptions = DataModelTraversalOptions.new(options)
 
+	local isRunning = false
 	local instances: { Instance } = {}
 	local instancesProcessedRecently = 0
 	local connections: { RBXScriptConnection } = {}
-	local stackThread: thread
+	local stackThread: thread?
 	local stack: { Instance } = {}
 	local steppedCallbacks: { [SteppedCallback]: boolean } = {}
 
+	local function getBatchCount()
+		return math.min(#stack, internalOptions.instanceProcessingLimit)
+	end
+
+	local function onAncestryChanged(instance: Instance)
+		if instance.Parent == nil then
+			local index = table.find(instances, instance)
+			if index then
+				table.remove(instances, index)
+			end
+		end
+	end
+
 	local function processStack(): boolean
-		local batchCount = math.min(#stack, internalOptions.instanceProcessingLimit)
+		local batchCount = getBatchCount()
 
 		for _ = 1, batchCount do
 			local popped = table.remove(stack, #stack)
 
 			if not predicate or predicate(popped) then
 				table.insert(instances, popped)
+				table.insert(connections, popped.AncestryChanged:Connect(onAncestryChanged))
 			end
 
 			for _, child in popped:GetChildren() do
@@ -43,6 +58,12 @@ local function createLazyInstanceCollector(
 			end)
 		end
 
+		if #stack == 0 then
+			isRunning = false
+			-- Stack is empty so no need to backoff
+			return false
+		end
+
 		-- If the max number of instances was processed, backoff to give some
 		-- breathing room between runs. Otherwise we're processing few enough
 		-- instances that yielding won't make a difference
@@ -54,11 +75,33 @@ local function createLazyInstanceCollector(
 		end
 	end
 
+	local function startProcessingLoop()
+		if isRunning or getBatchCount() == 0 then
+			return
+		end
+
+		isRunning = true
+
+		processStack()
+
+		stackThread = task.spawn(function()
+			task.wait()
+
+			while isRunning do
+				local shouldBackoff = processStack()
+
+				if isRunning and shouldBackoff then
+					task.wait()
+				end
+			end
+		end)
+	end
+
 	local function onDescendantAdded(instance: Instance)
 		table.insert(stack, instance)
 
-		if coroutine.status(stackThread) == "dead" then
-			processStack()
+		if not isRunning then
+			startProcessingLoop()
 		end
 	end
 
@@ -71,19 +114,7 @@ local function createLazyInstanceCollector(
 			end
 		end
 
-		processStack()
-
-		stackThread = task.spawn(function()
-			task.wait()
-
-			while #stack > 0 do
-				local shouldBackoff = processStack()
-
-				if shouldBackoff then
-					task.wait()
-				end
-			end
-		end)
+		startProcessingLoop()
 	end
 
 	local function onStepped(callback: (instances: { Instance }) -> ())
@@ -94,15 +125,22 @@ local function createLazyInstanceCollector(
 	end
 
 	local function destroy()
+		isRunning = false
+
 		for _, connection in connections do
 			connection:Disconnect()
 		end
+
 		steppedCallbacks = {}
-		task.cancel(stackThread)
+
+		if stackThread then
+			task.cancel(stackThread)
+		end
 	end
 
 	local function setInstancesProcessedPerFrame(newValue: number)
 		internalOptions.instanceProcessingLimit = math.clamp(newValue, 0, math.huge)
+		startProcessingLoop()
 	end
 
 	local function get()

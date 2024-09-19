@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 
@@ -117,8 +118,11 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 		setHover(newState == ControlState.Hover)
 	end, {})
 
-	local textBoxTag =
-		useStyleTags("gui-object-defaults clip text-align-x-left text-align-y-center text-body-large content-emphasis")
+	local textBoxTag = if Flags.FoundationStylingPolyfill
+		then nil
+		else useStyleTags(
+			"gui-object-defaults clip text-align-x-left text-align-y-center text-body-large content-emphasis"
+		)
 
 	local inputCursor = useCursor({
 		radius = UDim.new(0, tokens.Radius.Medium),
@@ -219,6 +223,17 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 							PlaceholderText = props.placeholder,
 							Selectable = false,
 							LayoutOrder = 2,
+
+							-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+							BackgroundTransparency = 1,
+							ClipsDescendants = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextYAlignment = Enum.TextYAlignment.Center,
+							Font = tokens.Typography.BodyLarge.Font,
+							TextSize = tokens.Typography.BodyLarge.FontSize,
+							TextColor3 = tokens.Color.Content.Emphasis.Color3,
+							TextTransparency = tokens.Color.Content.Emphasis.Transparency,
+							-- END: Remove when Flags.FoundationStylingPolyfill is removed
 
 							[React.Tag] = textBoxTag :: any,
 

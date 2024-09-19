@@ -73,6 +73,7 @@ export type GuiObjectProps = {
 	aspectRatio: AspectRatio?,
 	cornerRadius: Bindable<UDim>?,
 	flexItem: FlexItem?,
+	layout: ListLayout?,
 	padding: Padding?,
 	scale: Bindable<number>?,
 	sizeConstraint: SizeConstraint?,

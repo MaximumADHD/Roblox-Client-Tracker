@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
@@ -17,6 +18,7 @@ local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useDefaultTags = require(Foundation.Utility.useDefaultTags)
 local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
+local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
 local indexBindable = require(Foundation.Utility.indexBindable)
 type ColorStyle = Types.ColorStyle
 
@@ -56,7 +58,13 @@ local defaultProps = {
 local defaultTags = "gui-object-defaults"
 
 local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
-	local props = withDefaults(imageProps, defaultProps)
+	local defaultPropsWithStyles = if Flags.FoundationStylingPolyfill
+		then useStyledDefaults("Image", imageProps.tag, defaultTags, defaultProps)
+		else nil
+	local props = withDefaults(
+		imageProps,
+		(if Flags.FoundationStylingPolyfill then defaultPropsWithStyles else defaultProps) :: typeof(defaultProps)
+	)
 
 	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil
 
@@ -136,6 +144,19 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 				GrowRatio = props.flexItem.GrowRatio,
 				ShrinkRatio = props.flexItem.ShrinkRatio,
 				ItemLineAlignment = props.flexItem.ItemLineAlignment,
+			})
+			else nil,
+		ListLayout = if props.layout ~= nil and props.layout.FillDirection ~= nil
+			then React.createElement("UIListLayout", {
+				FillDirection = props.layout.FillDirection,
+				ItemLineAlignment = props.layout.ItemLineAlignment,
+				HorizontalAlignment = props.layout.HorizontalAlignment,
+				HorizontalFlex = props.layout.HorizontalFlex,
+				VerticalAlignment = props.layout.VerticalAlignment,
+				VerticalFlex = props.layout.VerticalFlex,
+				Padding = props.layout.Padding,
+				SortOrder = props.layout.SortOrder,
+				Wraps = props.layout.Wraps,
 			})
 			else nil,
 		SizeConstraint = if props.sizeConstraint ~= nil

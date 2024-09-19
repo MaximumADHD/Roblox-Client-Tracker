@@ -8,6 +8,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local ButtonStack = require(AppRoot.Button.ButtonStack)
+local CloseButtonIcon = require(script.Parent.Enum.CloseButtonIcon)
 
 local FitFrame = require(Packages.FitFrame)
 local FitFrameVertical = FitFrame.FitFrameVertical
@@ -51,6 +52,8 @@ PartialPageModal.validateProps = t.strictInterface({
 
 	-- Accepts any element
 	footerContent = t.optional(t.callback),
+	-- The type of close button icon to use
+	closeButtonIcon = t.optional(CloseButtonIcon.isEnumValue),
 	-- A function that is called when the X button in the Title has been clicked
 	onCloseClicked = t.optional(t.callback),
 
@@ -59,6 +62,7 @@ PartialPageModal.validateProps = t.strictInterface({
 
 PartialPageModal.defaultProps = {
 	marginSize = 24,
+	closeButtonIcon = CloseButtonIcon.Close,
 }
 
 -- Used to determine width of middle content for dynamically sizing children in the content
@@ -92,6 +96,7 @@ function PartialPageModal:render()
 		TitleContainer = Roact.createElement(ModalTitle, {
 			title = self.props.title,
 			titleBackgroundImageProps = self.props.titleBackgroundImageProps,
+			closeButtonIcon = self.props.closeButtonIcon,
 			onCloseClicked = self.props.onCloseClicked,
 		}),
 		Content = Roact.createElement(FitFrameVertical, {

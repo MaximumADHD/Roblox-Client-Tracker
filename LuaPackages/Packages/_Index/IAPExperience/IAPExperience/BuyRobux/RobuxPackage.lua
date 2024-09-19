@@ -16,6 +16,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 local DarkTheme = UIBlox.App.Style.Themes.DarkTheme
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local useCursor = UIBlox.App.SelectionCursor.useCursor
+local StyleConstants = UIBlox.App.Style.Constants
 
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -27,6 +28,7 @@ local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
 local formatNumber = require(IAPExperienceRoot.Utility.formatNumber)
 
 local getEnableRobuxPageNewSelectionCursor = require(IAPExperienceRoot.Flags.getEnableRobuxPageNewSelectionCursor)
+local getFFlagEnableRobuxPageUseStyleMetadata = require(IAPExperienceRoot.Flags.getFFlagEnableRobuxPageUseStyleMetadata)
 
 local RobuxPackage = Roact.Component:extend(script.Name)
 
@@ -60,7 +62,7 @@ type Props = {
 	nextSelectionRight: React.Ref<any>?,
 }
 
-local function renderWithProviders(props: Props, locMap, stylePalette, getSelectionCursor, cursor)
+local function renderWithProviders(props: Props, locMap, stylePalette, getSelectionCursor, cursor, themeName)
 	if props.robuxAmount == nil then
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -76,9 +78,23 @@ local function renderWithProviders(props: Props, locMap, stylePalette, getSelect
 
 		local balanceTextHeight = 64 * props.scale
 
-		local tileBackground = if theme == DarkTheme then Color3.fromRGB(25, 27, 29) else Color3.fromRGB(242, 244, 245)
-		if props.selected then
-			tileBackground = if theme == DarkTheme then Color3.fromRGB(57, 59, 61) else Color3.fromRGB(255, 255, 255)
+		local tileBackground
+		if getFFlagEnableRobuxPageUseStyleMetadata() then
+			tileBackground = if themeName == StyleConstants.ThemeName.Dark
+				then Color3.fromRGB(25, 27, 29)
+				else Color3.fromRGB(242, 244, 245)
+			if props.selected then
+				tileBackground = if themeName == StyleConstants.ThemeName.Dark
+					then Color3.fromRGB(57, 59, 61)
+					else Color3.fromRGB(255, 255, 255)
+			end
+		else
+			tileBackground = if theme == DarkTheme then Color3.fromRGB(25, 27, 29) else Color3.fromRGB(242, 244, 245)
+			if props.selected then
+				tileBackground = if theme == DarkTheme
+					then Color3.fromRGB(57, 59, 61)
+					else Color3.fromRGB(255, 255, 255)
+			end
 		end
 
 		return Roact.createElement(RoactGamepad.Focusable[ImageSetButton], {
@@ -249,6 +265,13 @@ end
 
 return function(props: Props)
 	local cursor = if getEnableRobuxPageNewSelectionCursor() then useCursor(UDim.new(0, CORNER_SIZE)) else nil
+
+	local useStyleMetadata = if getFFlagEnableRobuxPageUseStyleMetadata()
+		then UIBlox.Core.Style.useStyleMetadata
+		else nil
+	local styleMetadata = if getFFlagEnableRobuxPageUseStyleMetadata() then useStyleMetadata() else nil
+	local themeName = if getFFlagEnableRobuxPageUseStyleMetadata() then styleMetadata.ThemeName else nil
+
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			moreRobux = {
@@ -264,7 +287,7 @@ return function(props: Props)
 					if props.scale == nil then
 						props.scale = 0.65
 					end
-					return renderWithProviders(props, locMap, stylePalette, getSelectionCursor, cursor)
+					return renderWithProviders(props, locMap, stylePalette, getSelectionCursor, cursor, themeName)
 				end)
 			end)
 		end,

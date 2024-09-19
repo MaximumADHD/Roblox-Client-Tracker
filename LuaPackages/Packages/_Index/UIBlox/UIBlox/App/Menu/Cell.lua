@@ -187,8 +187,6 @@ function Cell:getImageProperties()
 end
 
 function Cell:renderRoundedBackground(zIndex: number, background: StyleTypes.ThemeItem)
-	assert(UIBloxConfig.enableNewMenuLayout, "enableNewMenuLayout must be enabled to call renderRoundedBackground")
-
 	local borderRadius = UDim.new(0, self.props.borderCornerRadius)
 	return Roact.createElement(RoundedFrame, {
 		zIndex = zIndex,
@@ -284,14 +282,10 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 		cellStyle.Transparency = cellStyle.Transparency * settings.PreferredTransparency
 
 		local isElementBackgroundVisible = self.props.isElementBackgroundVisible
-		-- When UIBloxConfig.enableNewMenuLayout is enabled, we will use the `RoundedFrame` instead of image asset for background
-		local isImageAssetBackgroundVisible = isElementBackgroundVisible and not UIBloxConfig.enableNewMenuLayout
 
 		local children = {
 
-			Background = if UIBloxConfig.enableNewMenuLayout and isElementBackgroundVisible
-				then self:renderRoundedBackground(-1, cellStyle)
-				else nil,
+			Background = if isElementBackgroundVisible then self:renderRoundedBackground(-1, cellStyle) else nil,
 
 			Divider = Roact.createElement("Frame", {
 				BackgroundColor3 = theme.Divider.Color,
@@ -303,24 +297,7 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 				Visible = self.props.hasDivider,
 			}),
 
-			StateOverlay = if UIBloxConfig.enableNewMenuLayout
-				then self:renderRoundedBackground(2, overlayTheme)
-				else Roact.createElement("ImageLabel", {
-					BackgroundTransparency = 1,
-
-					Image = CELL_BACKGROUND_ASSET.Image,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceCenter = sliceCenter,
-					ImageRectSize = imageRectSize,
-					ImageRectOffset = imageRectOffset,
-					SliceScale = 1 / Images.ImagesResolutionScale,
-
-					ImageColor3 = overlayTheme.Color,
-					ImageTransparency = overlayTheme.Transparency,
-					BorderSizePixel = 0,
-					Size = UDim2.fromScale(1, 1),
-					ZIndex = 2,
-				}),
+			StateOverlay = self:renderRoundedBackground(2, overlayTheme),
 
 			LeftAlignedContent = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
@@ -414,13 +391,13 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 				Size = UDim2.new(1, 0, 0, self.props.elementHeight),
 				BackgroundTransparency = 1,
 
-				Image = if UIBloxConfig.enableNewMenuLayout then nil else CELL_BACKGROUND_ASSET.Image,
+				Image = nil,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = sliceCenter,
 				ImageRectSize = imageRectSize,
 				ImageRectOffset = imageRectOffset,
 				SliceScale = 1 / Images.ImagesResolutionScale,
-				ImageTransparency = if isImageAssetBackgroundVisible then cellStyle.Transparency else 1,
+				ImageTransparency = 1,
 				ImageColor3 = cellStyle.Color,
 				AutoButtonColor = false,
 				LayoutOrder = self.props.layoutOrder,
@@ -450,13 +427,13 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 						Size = UDim2.new(1, 0, 0, self.props.elementHeight),
 						BackgroundTransparency = 1,
 
-						Image = if UIBloxConfig.enableNewMenuLayout then nil else CELL_BACKGROUND_ASSET.Image,
+						Image = nil,
 						ScaleType = Enum.ScaleType.Slice,
 						SliceCenter = sliceCenter,
 						ImageRectSize = imageRectSize,
 						ImageRectOffset = imageRectOffset,
 						SliceScale = 1 / Images.ImagesResolutionScale,
-						ImageTransparency = if isImageAssetBackgroundVisible then cellStyle.Transparency else 1,
+						ImageTransparency = 1,
 						ImageColor3 = cellStyle.Color,
 						AutoButtonColor = false,
 						LayoutOrder = self.props.layoutOrder,

@@ -22,7 +22,7 @@ React.createElement(Checkbox, {
 	isChecked = false,
 	isDisabled = false,
 	onActivated = function() return end,
-	layoutOrder = 2,
 	size = CheckboxSize.Medium
+	LayoutOrder = 1,
 }),
 ...

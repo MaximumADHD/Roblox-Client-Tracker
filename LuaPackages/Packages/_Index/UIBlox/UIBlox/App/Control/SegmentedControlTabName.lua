@@ -90,8 +90,8 @@ SegmentedControlTabName.defaultProps = {
 	isSelectedStyle = false,
 	SliceCenter = Rect.new(8, 8, 9, 9),
 	textStateColorMap = {
-		[ControlState.Default] = "SecondaryContent",
-		[ControlState.Hover] = "SecondaryOnHover",
+		[ControlState.Default] = if UIBloxConfig.useFoundationColors then "TextDefault" else "SecondaryContent",
+		[ControlState.Hover] = if UIBloxConfig.useFoundationColors then "TextEmphasis" else "SecondaryOnHover",
 	},
 	buttonStateColorMap = {
 		[ControlState.Default] = "SecondaryContent",
@@ -153,12 +153,8 @@ function SegmentedControlTabName:render()
 						LayoutOrder = 1,
 					}) or nil,
 					Text = text and Roact.createElement(GenericTextLabel, {
-						AutomaticSize = if UIBloxConfig.recomputeTabSizeSegmentedControl
-							then Enum.AutomaticSize.X
-							else Enum.AutomaticSize.None,
-						TextTruncate = if UIBloxConfig.recomputeTabSizeSegmentedControl
-							then Enum.TextTruncate.AtEnd
-							else Enum.TextTruncate.None,
+						AutomaticSize = Enum.AutomaticSize.X,
+						TextTruncate = Enum.TextTruncate.AtEnd,
 						BackgroundTransparency = 1,
 						Text = text,
 						fontStyle = fontStyle,

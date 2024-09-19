@@ -26,6 +26,6 @@ React.createElement(TextInput, {
 	onChanged = function(txt)
 		setText(txt)
 	end,
-	layoutOrder = 1,
+	LayoutOrder = 1,
 }),
 ```

@@ -15,7 +15,6 @@ local DropdownMenuCell = require(UIBlox.App.Menu.DropdownMenuCell)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
 local bind = require(UIBlox.Utility.bind)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local StyleDefaults = require(script.Parent.StyleDefaults)
 
@@ -40,7 +39,7 @@ DropdownMenu.validateProps = t.strictInterface({
 	onChange = t.callback,
 
 	-- Height of the DropdownCell.
-	height = if UIBloxConfig.enableNewMenuLayout then t.optional(t.UDim) else t.UDim,
+	height = t.optional(t.UDim),
 
 	-- The total size of the screen, used for the dismiss background and the DropdownMenuList's position on the compact width
 	screenSize = t.Vector2,
@@ -210,7 +209,7 @@ function DropdownMenu:render()
 	local limitMenuWidth = absoluteSize.X > 640
 
 	local buttonStateColorMap, contentStateColorMap
-	if UIBloxConfig.enableNewMenuLayout and self.props.enableTokenOverride then
+	if self.props.enableTokenOverride then
 		local buttonDefault = self.props.menuStateColors.buttonDefault
 		local contentDefault = self.props.menuStateColors.contentDefault
 
@@ -311,7 +310,7 @@ end
 
 return Roact.forwardRef(function(providedProps: any, ref: any)
 	local props
-	if UIBloxConfig.enableNewMenuLayout and providedProps.enableTokenOverride then
+	if providedProps.enableTokenOverride then
 		local style = useStyle()
 		local styleDefaults = StyleDefaults.getDropdownMenuDefaultTokens(style)
 

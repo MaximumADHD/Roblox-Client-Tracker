@@ -3,6 +3,6 @@ name = "RoactRodux"
 version = "0.5.1"
 source = "registry"
 dependencies = [
-    "Roact <patched> RoactCompat 17.0.6 registry",
+    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
 ]

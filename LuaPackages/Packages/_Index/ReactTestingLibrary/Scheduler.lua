@@ -3,9 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["Scheduler"]["Scheduler"])
-
-export type Interaction = Package.Interaction
-
+local Package = require(PackageIndex["SchedulerProxy"]["SchedulerProxy"])
 
 return Package

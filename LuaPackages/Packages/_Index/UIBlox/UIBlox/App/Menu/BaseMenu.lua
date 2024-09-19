@@ -31,7 +31,6 @@ local StyleDefaults = require(script.Parent.StyleDefaults)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DROP_SHADOW_ASSET = Images["component_assets/dropshadow_17_8"]
-local MENU_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 
 local MAXIMUM_ELEMENTS = 7
 
@@ -279,23 +278,13 @@ function BaseMenu:render()
 			Transparency = defaultBackgroundColor.Transparency,
 		})
 
-		local imageSize = MENU_BACKGROUND_ASSET.ImageRectSize
-		local imageOffset = MENU_BACKGROUND_ASSET.ImageRectOffset
-
-		local imageRectOffset = imageOffset
-		local imageWidth = imageSize.X
-		local halfImageWidth = imageWidth / 2
 		local isElementBackgroundVisible = self.props.isElementBackgroundVisible
 		local needsTopRoundedBar = needsScrollbar and self.props.topElementRounded and isElementBackgroundVisible
 		local needsBottomRoundedBar = needsScrollbar and self.props.bottomElementRounded and isElementBackgroundVisible
 		local roundedBarCount = (needsTopRoundedBar and 1 or 0) + (needsBottomRoundedBar and 1 or 0)
 
 		local renderHeader = self.props.renderHeader
-		local showHeader = if UIBloxConfig.enableNewMenuLayout
-				and not needsTopRoundedBar
-				and renderHeader
-			then true
-			else false
+		local showHeader = if not needsTopRoundedBar and renderHeader then true else false
 
 		if self.props.fixedListHeight then
 			return self:renderFixedHeightMenu(self.props, stylePalette, children)
@@ -321,8 +310,7 @@ function BaseMenu:render()
 				SliceCenter = Rect.new(16, 16, 16, 16),
 			}) or nil,
 
-			Background = if UIBloxConfig.enableNewMenuLayout
-					and (needsTopRoundedBar or needsBottomRoundedBar)
+			Background = if (needsTopRoundedBar or needsBottomRoundedBar)
 				then Roact.createElement(RoundedFrame, {
 					zIndex = -1,
 					background = baseMenuBackground,
@@ -330,25 +318,6 @@ function BaseMenu:render()
 					bottomCornerRadius = if needsBottomRoundedBar
 						then UDim.new(0, self.props.borderCornerRadius)
 						else nil,
-				})
-				else nil,
-
-			TopRoundedCorner = if (needsTopRoundedBar and not UIBloxConfig.enableNewMenuLayout)
-				then Roact.createElement("ImageLabel", {
-					ZIndex = 3,
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, self.props.borderCornerRadius),
-					Position = UDim2.fromScale(0, 0),
-
-					Image = MENU_BACKGROUND_ASSET.Image,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceScale = 0.5 / Images.ImagesResolutionScale,
-					SliceCenter = Rect.new(halfImageWidth - 1, halfImageWidth - 1, halfImageWidth + 1, halfImageWidth),
-					ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
-					ImageRectOffset = imageRectOffset,
-
-					ImageTransparency = baseMenuBackground.Transparency,
-					ImageColor3 = baseMenuBackground.Color,
 				})
 				else nil,
 
@@ -393,33 +362,13 @@ function BaseMenu:render()
 					ClipsDescendants = showHeader,
 				}, children),
 			}),
-
-			BottomRoundedCorner = if (needsBottomRoundedBar and not UIBloxConfig.enableNewMenuLayout)
-				then Roact.createElement("ImageLabel", {
-					ZIndex = 2,
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, self.props.borderCornerRadius),
-					Position = UDim2.fromScale(0, 1),
-					AnchorPoint = Vector2.new(0, 1),
-
-					Image = MENU_BACKGROUND_ASSET.Image,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceScale = 0.5 / Images.ImagesResolutionScale,
-					SliceCenter = Rect.new(halfImageWidth - 1, 0, halfImageWidth + 1, 1),
-					ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
-					ImageRectOffset = imageOffset + Vector2.new(0, halfImageWidth),
-
-					ImageTransparency = baseMenuBackground.Transparency,
-					ImageColor3 = baseMenuBackground.Color,
-				})
-				else nil,
 		})
 	end)
 end
 
 local function BaseMenuFn(props)
 	local propsWithOverride = props
-	if UIBloxConfig.enableNewMenuLayout and props.enableTokenOverride then
+	if props.enableTokenOverride then
 		local style = useStyle()
 		local buttonPropsWithToken = {}
 		for index, cellProps in ipairs(props.buttonProps) do

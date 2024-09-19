@@ -40,7 +40,7 @@ local DIVIDER_COLOR_STATE_MAP = {
 	[ControlState.Default] = "Divider",
 }
 local SELECTED_BACKGROUND_COLOR_STATE_MAP = {
-	[ControlState.Default] = "UIDefault",
+	[ControlState.Default] = if UIBloxConfig.useFoundationColors then "UIEmphasis" else "UIDefault",
 }
 local DROPSHADOW_COLOR_STATE_MAP = {
 	[ControlState.Default] = "DropShadow",
@@ -134,9 +134,7 @@ function SegmentedControl:init()
 	end
 
 	self.setSize = function(rbx)
-		local frameWidth = if UIBloxConfig.recomputeTabSizeSegmentedControl
-			then math.max(rbx.AbsoluteSize.X, self.state.computedMinFrameWidth)
-			else rbx.AbsoluteSize.X
+		local frameWidth = math.max(rbx.AbsoluteSize.X, self.state.computedMinFrameWidth)
 		local totalTabWidth = frameWidth - FRAME_PADDING * 2
 		local tabWidth = math.floor(totalTabWidth / #self.props.tabs)
 		self.selectedBackgroundMotor:setGoal(
@@ -169,26 +167,24 @@ function SegmentedControl:render()
 		local TAB_HEIGHT = self.props.height - 16
 
 		-- compute actual tab size to account for preferred text size text scaling
-		if UIBloxConfig.recomputeTabSizeSegmentedControl then
-			local tabFontSize = style.Font.Header2.RelativeSize * style.Font.BaseSize
-			if self.state.computedMinFrameWidth == 0 then
-				local largestTabWidth = 0
-				for i = 1, numTabs do
-					local curTab = self.props.tabs[i].tabName
-					largestTabWidth = math.max(
-						largestTabWidth,
-						GetTextSize(curTab, tabFontSize, Enum.Font.BuilderSans, Vector2.new(math.huge, math.huge)).X
-					)
-				end
-				local minTabWidth = largestTabWidth + FRAME_PADDING * 2
-				local defaultMinFrameWidth = (iconWidth + MIN_TAB_WIDTH) * numTabs + FRAME_PADDING * 2
-				local minFrameWidth = (iconWidth + minTabWidth) * numTabs + FRAME_PADDING * 2
-				self:setState({
-					computedMinFrameWidth = if self.props.maxWidth
-						then math.min(minFrameWidth, self.props.maxWidth)
-						else math.max(minFrameWidth, defaultMinFrameWidth),
-				})
+		local tabFontSize = style.Font.Header2.RelativeSize * style.Font.BaseSize
+		if self.state.computedMinFrameWidth == 0 then
+			local largestTabWidth = 0
+			for i = 1, numTabs do
+				local curTab = self.props.tabs[i].tabName
+				largestTabWidth = math.max(
+					largestTabWidth,
+					GetTextSize(curTab, tabFontSize, Enum.Font.BuilderSans, Vector2.new(math.huge, math.huge)).X
+				)
 			end
+			local minTabWidth = largestTabWidth + FRAME_PADDING * 2
+			local defaultMinFrameWidth = (iconWidth + MIN_TAB_WIDTH) * numTabs + FRAME_PADDING * 2
+			local minFrameWidth = (iconWidth + minTabWidth) * numTabs + FRAME_PADDING * 2
+			self:setState({
+				computedMinFrameWidth = if self.props.maxWidth
+					then math.min(minFrameWidth, self.props.maxWidth)
+					else math.max(minFrameWidth, defaultMinFrameWidth),
+			})
 		end
 
 		-- dividers between tabs
@@ -280,12 +276,7 @@ function SegmentedControl:render()
 				LayoutOrder = self.props.layoutOrder,
 			}, {
 				SizeConstraint = Roact.createElement("UISizeConstraint", {
-					MinSize = if UIBloxConfig.recomputeTabSizeSegmentedControl
-						then Vector2.new(self.state.computedMinFrameWidth, INTERACTION_HEIGHT)
-						else Vector2.new(
-							(iconWidth + MIN_TAB_WIDTH) * numTabs + FRAME_PADDING * 2,
-							INTERACTION_HEIGHT
-						),
+					MinSize = Vector2.new(self.state.computedMinFrameWidth, INTERACTION_HEIGHT),
 					MaxSize = Vector2.new(MAX_WIDTH, INTERACTION_HEIGHT),
 				}),
 				-- tab group background
@@ -334,19 +325,21 @@ function SegmentedControl:render()
 					ZIndex = 4,
 				}),
 				-- the shadow for selected tab background
-				SelectedBackgroundShadow = not isDisabled and Roact.createElement(ImageSetComponent.Label, {
-					Size = UDim2.fromOffset(tabWidth + 6 * 2, TAB_HEIGHT + 6 * 2),
-					Position = self.selectedBackgroundPositionX:map(function(value)
-						return UDim2.fromOffset(value - 6, (INTERACTION_HEIGHT - TAB_HEIGHT) / 2 - 6 + 2)
-					end),
-					BackgroundTransparency = 1,
-					Image = SHADOW_IMAGE,
-					ImageColor3 = dropshadowStyle.Color,
-					ImageTransparency = 0.3,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceCenter = Rect.new(27, 27, 29, 29),
-					ZIndex = 3,
-				}),
+				SelectedBackgroundShadow = if UIBloxConfig.useFoundationColors
+					then nil
+					else (not isDisabled and Roact.createElement(ImageSetComponent.Label, {
+						Size = UDim2.fromOffset(tabWidth + 6 * 2, TAB_HEIGHT + 6 * 2),
+						Position = self.selectedBackgroundPositionX:map(function(value)
+							return UDim2.fromOffset(value - 6, (INTERACTION_HEIGHT - TAB_HEIGHT) / 2 - 6 + 2)
+						end),
+						BackgroundTransparency = 1,
+						Image = SHADOW_IMAGE,
+						ImageColor3 = dropshadowStyle.Color,
+						ImageTransparency = 0.3,
+						ScaleType = Enum.ScaleType.Slice,
+						SliceCenter = Rect.new(27, 27, 29, 29),
+						ZIndex = 3,
+					})),
 				-- container for tabs
 				TabContainer = Roact.createElement(RoactGamepad.Focusable.Frame, {
 					Size = UDim2.fromScale(1, 1),

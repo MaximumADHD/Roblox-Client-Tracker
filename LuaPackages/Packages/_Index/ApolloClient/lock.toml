@@ -9,7 +9,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauRegExp <patched> RegExp 0.2.1 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React React 17.0.6 registry",
+    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
     "RobloxRequests RobloxRequests 0.1.0 registry",
     "ZenObservable ZenObservable 0.8.16-roblox.0 registry",
 ]

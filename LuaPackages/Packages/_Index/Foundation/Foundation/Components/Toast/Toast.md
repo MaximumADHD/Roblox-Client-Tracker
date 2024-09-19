@@ -26,20 +26,16 @@ type ToastButtonProps = {
 }
 ```
 
-If buttonVariant is not provided, it will default to one of two options:
-
-action1: [[ButtonVariant]].Secondary
-
-action2: [[ButtonVariant]].PrimaryBrand
+If buttonVariant is not provided, it will default to [[ButtonVariant]].Standard
 
 ```lua
-local UIBlox = require(Packages.UIBlox)
-local Toast = require(UIBlox.Components.Toast)
-local ButtonVariant = require(UIBlox.Enums.ButtonVariant)
+local Foundation = require(Packages.Foundation)
+local Toast = Foundation.Toast
+local ButtonVariant = Foundation.Enums.ButtonVariant
 ...
 return React.createElement(Toast, {
-    header = "Toast Notification",
-    body = "This is a toast.",
+    title = "Toast Notification",
+    text = "This is a toast.",
     icon = "rbxthumb://type=AvatarHeadShot&id=6181525679&w=420&h=420",
     actions = {
         {

@@ -113,6 +113,9 @@ local function initializeLibrary(configs)
 			useStyle = require(script.Core.Style.useStyle),
 			useTextSizeOffset = require(script.Core.Style.useTextSizeOffset),
 			withTextSizeOffset = require(script.Core.Style.withTextSizeOffset),
+			useStyleMetadata = if configs.enableUseStyleMetadata
+				then require(script.Core.Style.useStyleMetadata)
+				else nil,
 		}),
 
 		VR = strict({
@@ -420,6 +423,7 @@ local function initializeLibrary(configs)
 			}),
 			Enum = strict({
 				AlertType = require(script.App.Dialog.Alert.Enum.AlertType),
+				CloseButtonIcon = require(script.App.Dialog.Modal.Enum.CloseButtonIcon),
 				TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),
 			}),
 			Toast = lazify(function()

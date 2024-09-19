@@ -4,5 +4,5 @@ version = "0.1.4"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React React 17.0.6 registry",
+    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
 ]

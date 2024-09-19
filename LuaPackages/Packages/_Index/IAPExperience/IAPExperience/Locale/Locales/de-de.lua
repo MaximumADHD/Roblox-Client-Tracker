@@ -59,6 +59,7 @@ return{
 	["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Mit Kreditkarte/Debitkarte abonnieren]],
 	["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Mit Roblox-Guthaben abonnieren]],
 	["Feature.Subscription.Email.PricePerMonthLabel"] = [[{purchasePrice}/Monat]],
+	["Feature.Subscription.Error.GenericSubscribeError"] = [[Beim Abonnieren ist etwas schiefgelaufen. Bitte versuche es später erneut.]],
 	["Feature.Subscription.Heading.Subscriptions"] = [[Abonnements]],
 	["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Du hast das in der Kindersicherung festgelegte monatliche Kauflimit erreicht. Du kannst erst im nächsten Monat einen neuen Kauf tätigen.]],
 	["Feature.Subscription.Message.ReportSubmitted"] = [[Meldung wurde eingereicht und wird in Kürze von unserem Team überprüft.]],

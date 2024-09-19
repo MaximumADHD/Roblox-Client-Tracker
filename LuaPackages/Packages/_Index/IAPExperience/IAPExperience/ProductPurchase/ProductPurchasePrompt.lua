@@ -1,5 +1,3 @@
-local RunService = game:GetService("RunService")
-
 local ProductPurchaseRoot = script.Parent
 local IAPExperienceRoot = ProductPurchaseRoot.Parent
 local Packages = IAPExperienceRoot.Parent
@@ -16,7 +14,6 @@ local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 
 local HumanoidViewport = require(script.Parent.Parent.Generic.HumanoidViewport)
@@ -26,7 +23,6 @@ local getEnableHumanoidViewportItemIcon = require(IAPExperienceRoot.Flags.getEna
 
 local LOC_KEY = "IAPExperience.PurchasePrompt.%s"
 
-local ROBUX_ICON_SMALL = Images["icons/common/robux_small"]
 local ROBUX_ICON = Images["icons/common/robux"]
 local ROBUX_ICON_CHAR = utf8.char(0xE002)
 
@@ -35,9 +31,6 @@ local DELAYED_INPUT_ANIM_SEC = 3
 local FOOTER_WIDTH_MULTIPLIER = 0.85 -- multiplier used to constrain the width of the footer s.t it only fills 85% of it's container's width
 
 local ProductPurchasePrompt = Roact.Component:extend(script.Name)
-
-local GetFFlagEnablePreferredTextSizeStyleFixesInPurchasePrompt = require(IAPExperienceRoot.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInPurchasePrompt)
-local EnablePreferredTextSizeStyleFixes = GetFFlagEnablePreferredTextSizeStyleFixesInPurchasePrompt()
 
 ProductPurchasePrompt.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
@@ -147,15 +140,13 @@ function ProductPurchasePrompt:renderAlert(locMap)
 		local robuxIconColorRGB = string.format('rgb(%d,%d,%d)', r, g, b)
 		local footerWidth = self.state.contentSize.X * FOOTER_WIDTH_MULTIPLIER
 
-		local remainingBalanceFormatted = if EnablePreferredTextSizeStyleFixes then 
-			string.format(
-				'%s <font color="%s">%s</font>%d',
-				locMap.RemainingBalance,
-				robuxIconColorRGB,
-				ROBUX_ICON_CHAR,
-				self.props.currentBalance - self.props.itemRobuxCost
-			)
-		else nil
+		local remainingBalanceFormatted = string.format(
+			'%s <font color="%s">%s</font>%d',
+			locMap.RemainingBalance,
+			robuxIconColorRGB,
+			ROBUX_ICON_CHAR,
+			self.props.currentBalance - self.props.itemRobuxCost
+		)
 
 		-- Render 3D Model in a ViewportFrame if given. Otherwise,
 		-- render thumbnail as the image of purchase
@@ -249,54 +240,19 @@ function ProductPurchasePrompt:renderAlert(locMap)
 						[Roact.Ref] = self.footerRef,
 						[Roact.Change.AbsoluteSize] = self.changeFooterSize,
 					}, {
-						RemainingBalanceText = if EnablePreferredTextSizeStyleFixes then 
-							Roact.createElement("TextLabel", {
-								LayoutOrder = 1,
-								BackgroundTransparency = 1,
-								RichText = true,
-								Position = UDim2.fromScale(0, 0.5),
-								Size = UDim2.fromOffset(footerWidth, 0),
-								AutomaticSize = Enum.AutomaticSize.Y,
-								TextWrapped = if EnablePreferredTextSizeStyleFixes then true else nil,
-								Font = fonts.Footer.Font,
-								Text = remainingBalanceFormatted,
-								TextSize = fonts.BaseSize * fonts.Footer.RelativeSize,
-								TextColor3 = theme.TextDefault.Color,
-							})
-						else 
-							Roact.createElement(FitTextLabel, {
-								LayoutOrder = 1,
-								BackgroundTransparency = 1,
-
-								width = FitTextLabel.Width.FitToText,
-
-								Font = fonts.Footer.Font,
-								Text = locMap.RemainingBalance,
-								TextSize = fonts.BaseSize * fonts.Footer.RelativeSize,
-								TextColor3 = theme.TextDefault.Color,
-						}),
-						RobuxIcon = if not EnablePreferredTextSizeStyleFixes then Roact.createElement(ImageSetLabel, {
-							LayoutOrder = 2,
+						RemainingBalanceText = Roact.createElement("TextLabel", {
+							LayoutOrder = 1,
 							BackgroundTransparency = 1,
-
-							Position = UDim2.new(0, 5, 0, 5),
-							Size = UDim2.new(0, UIBloxIconSize.Small, 0, UIBloxIconSize.Small),
-							ScaleType = Enum.ScaleType.Stretch,
-							Image = ROBUX_ICON_SMALL,
-							ImageColor3 = theme.IconEmphasis.Color,
-							ImageTransparency = theme.IconEmphasis.Transparency,
-						}) else nil,
-						BalanceAmount = if not EnablePreferredTextSizeStyleFixes then Roact.createElement(FitTextLabel, {
-							LayoutOrder = 3,
-							BackgroundTransparency = 1,
-
-							width = FitTextLabel.Width.FitToText,
-
+							RichText = true,
+							Position = UDim2.fromScale(0, 0.5),
+							Size = UDim2.fromOffset(footerWidth, 0),
+							AutomaticSize = Enum.AutomaticSize.Y,
+							TextWrapped = true,
 							Font = fonts.Footer.Font,
-							Text = tostring(self.props.currentBalance - self.props.itemRobuxCost),
+							Text = remainingBalanceFormatted,
 							TextSize = fonts.BaseSize * fonts.Footer.RelativeSize,
 							TextColor3 = theme.TextDefault.Color,
-						}) else nil,
+						})
 					})
 				else
 					return Roact.createElement(FitFrameVertical, {

@@ -2,9 +2,6 @@ return {
 	-- New color palettes of color system 1.1
 	useNewThemeColorPalettes = false,
 
-	-- Indicate whether to enable the new layout for menu/cell
-	enableNewMenuLayout = false,
-
 	-- enable trace level log
 	enableTraceLevelLog = false,
 
@@ -77,9 +74,6 @@ return {
 	-- Use automatic sizing for the text under PlayerTile
 	playerTileAutomaticSizeXY = false,
 
-	-- Combine redundant button backgrounds into base component for TextButton
-	consolidateBackgroundsTextButton = false,
-
 	-- Flag for updating tile and cell to use Interactable
 	useInteractableWithTileAndCell = false,
 
@@ -97,9 +91,6 @@ return {
 
 	-- Use GetTextSize and AutomaticSize to add support for larger than default text in Tile and TileName
 	refactorTileTextHeights = false,
-
-	-- Recompute minimum tab size based on text bounds to support larger/longer text
-	recomputeTabSizeSegmentedControl = false,
 
 	-- Bugfix for HeaderBar title flickering
 	fixHeaderBarTitleFlickering = false,
@@ -154,4 +145,7 @@ return {
 
 	-- Set name text in playertile to richtext
 	enableRichTextPlayerTileName = false,
+
+	-- Enable useStyleMetadata hook
+	enableUseStyleMetadata = false,
 }

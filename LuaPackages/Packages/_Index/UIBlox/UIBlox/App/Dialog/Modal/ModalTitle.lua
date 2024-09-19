@@ -16,15 +16,17 @@ local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
 local Controllable = require(CoreRoot.Control.Controllable)
 local GenericTextLabel = require(CoreRoot.Text.GenericTextLabel.GenericTextLabel)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local CloseButtonIcon = require(script.Parent.Enum.CloseButtonIcon)
 
-local X_BUTTON_SIZE = 36
-local X_HORIZONTAL_PADDING = 8
+local CLOSE_BUTTON_SIZE = 36
+local CLOSE_HORIZONTAL_PADDING = 8
 local TEXT_VERTICAL_PADDING = 8
 local X_IMAGE = "icons/navigation/close"
+local BACK_IMAGE = "icons/actions/cycleLeft"
 local TITLE_HEIGHT = 48
 local TITLE_MAX_HEIGHT_WITH_IMAGE = 261
 local TITLE_RADIUS = 8
-local TOTAL_X_BUTTON_SPACE = X_BUTTON_SIZE + (X_HORIZONTAL_PADDING * 2)
+local TOTAL_X_BUTTON_SPACE = CLOSE_BUTTON_SIZE + (CLOSE_HORIZONTAL_PADDING * 2)
 
 local ModalTitle = Roact.PureComponent:extend("ModalTitle")
 
@@ -32,6 +34,7 @@ ModalTitle.validateProps = t.strictInterface({
 	title = t.string,
 	position = t.optional(t.UDim2),
 	anchor = t.optional(t.Vector2),
+	closeButtonIcon = t.optional(CloseButtonIcon.isEnumValue),
 	onCloseClicked = t.optional(t.callback),
 	titleBackgroundImageProps = t.optional(t.strictInterface({
 		image = t.string,
@@ -45,10 +48,21 @@ ModalTitle.defaultProps = {
 	title = "",
 	position = UDim2.new(0.5, 0, 0, 0),
 	anchor = Vector2.new(0.5, 0),
+	closeButtonIcon = CloseButtonIcon.Close,
 }
 
 function ModalTitle:GetHeight()
 	return TITLE_HEIGHT
+end
+
+local function getCloseButtonIcon(closeButtonIcon)
+	if closeButtonIcon == CloseButtonIcon.Close then
+		return X_IMAGE
+	elseif closeButtonIcon == CloseButtonIcon.Back then
+		return BACK_IMAGE
+	end
+
+	return nil
 end
 
 local function renderBackgroundImage(titleBackgroundImageProps, stylePalette, contents)
@@ -154,15 +168,15 @@ function ModalTitle:render()
 					props = {
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0, TITLE_HEIGHT * 0.5 + X_HORIZONTAL_PADDING, 0.5, 0),
+						Position = UDim2.new(0, TITLE_HEIGHT * 0.5 + CLOSE_HORIZONTAL_PADDING, 0.5, 0),
 						Size = UDim2.new(0, TITLE_HEIGHT, 0, TITLE_HEIGHT),
 						[Roact.Event.Activated] = self.props.onCloseClicked,
 					},
 					children = {
 						InputFillImage = Roact.createElement(ImageSetComponent.Label, {
 							BackgroundTransparency = 1,
-							Size = UDim2.new(0, X_BUTTON_SIZE, 0, X_BUTTON_SIZE),
-							Image = Images[X_IMAGE],
+							Size = UDim2.new(0, CLOSE_BUTTON_SIZE, 0, CLOSE_BUTTON_SIZE),
+							Image = Images[getCloseButtonIcon(self.props.closeButtonIcon)],
 							ImageColor3 = theme.IconEmphasis.Color,
 							ImageTransparency = theme.IconEmphasis.Transparency,
 							AnchorPoint = Vector2.new(0.5, 0.5),

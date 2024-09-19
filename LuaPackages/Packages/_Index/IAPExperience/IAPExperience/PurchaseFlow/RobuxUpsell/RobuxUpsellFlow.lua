@@ -1,5 +1,6 @@
 local HttpService = game:GetService("HttpService")
 local ContextActionService = game:GetService("ContextActionService")
+local CorePackages = game:GetService("CorePackages")
 
 local RobuxUpsellRoot = script.Parent
 local PurchaseFlowRoot = RobuxUpsellRoot.Parent
@@ -30,6 +31,11 @@ local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEven
 local getEnableCentralOverlayForUpsellPrompt = require(IAPExperienceRoot.Flags.getEnableCentralOverlayForUpsellPrompt)
 
 local RobuxUpsellFlow = Roact.Component:extend(script.Name)
+
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
+local eventConfig = require(RobuxUpsellRoot.Events.InGameRobuxUpsellEvent)
+game:DefineFastFlag("DisableNonSchematizedInGameRobuxUpsellEvent", false)
+game:DefineFastFlag("EnableSchematizedInGameRobuxUpsellEvent", false)
 
 type Props = {
 	screenSize: Vector2,
@@ -491,8 +497,24 @@ function RobuxUpsellFlow:reportUserInput(inputType: string)
 		RobuxUpsellFlowState.toRawValue(props.purchaseState),
 		inputType
 	)
+	if not game:GetFastFlag("DisableNonSchematizedInGameRobuxUpsellEvent") then
+		props.onAnalyticEvent("UserPurchaseFlow", data)
+	end
 
-	props.onAnalyticEvent("UserPurchaseFlow", data)
+	if game:GetFastFlag("EnableSchematizedInGameRobuxUpsellEvent") then
+		loggingProtocol:logTelemetryEvent(
+			eventConfig,
+			{ LoggingProtocol.StandardizedField.addOSInfo, LoggingProtocol.StandardizedField.addSessionId },
+			{
+				universe_id = game.GameId,
+				price = props.itemRobuxCost,
+				view_name = data.view_name,
+				purchase_event_type = data.purchase_event_type,
+				input_type = inputType,
+				user_key = data.userKey
+			}
+		)
+	end
 end
 
 function RobuxUpsellFlow:purchaseStateToOverlayState(purchaseState: any?): any?

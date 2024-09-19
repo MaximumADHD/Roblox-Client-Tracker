@@ -4,6 +4,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local StyleRule = require(StyleSheetRoot.StyleRule)
 local generateRules = require(StyleSheetRoot.generateRules)
+local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
 
 local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
@@ -11,7 +12,7 @@ type Theme = Theme.Theme
 type Device = Device.Device
 type StyleRule = generateRules.StyleRule
 
-type StyleRuleNoTag = {
+export type StyleRuleNoTag = {
 	modifier: string?,
 	properties: { [string]: any },
 	pseudo: string?,
@@ -70,40 +71,9 @@ type StyleSheetProps = {
 local function StyleSheet(props: StyleSheetProps)
 	local sheet = React.useRef(nil)
 
-	local rules = React.useMemo(function(): any
-		if props.DONOTUSE_colorUpdate then
-			if props.theme == Theme.Dark then
-				if props.device == Device.Console then
-					return require(Foundation.Generated.StyleRules["Console-Dark-Foundation"])
-				else
-					return require(Foundation.Generated.StyleRules["Desktop-Dark-Foundation"])
-				end
-			elseif props.theme == Theme.Light then
-				if props.device == Device.Console then
-					return require(Foundation.Generated.StyleRules["Console-Light-Foundation"])
-				else
-					return require(Foundation.Generated.StyleRules["Desktop-Light-Foundation"])
-				end
-			end
-		else
-			if props.theme == Theme.Dark then
-				if props.device == Device.Console then
-					return require(Foundation.Generated.StyleRules["Console-Dark-UIBlox"])
-				else
-					return require(Foundation.Generated.StyleRules["Desktop-Dark-UIBlox"])
-				end
-			elseif props.theme == Theme.Light then
-				if props.device == Device.Console then
-					return require(Foundation.Generated.StyleRules["Console-Light-UIBlox"])
-				else
-					return require(Foundation.Generated.StyleRules["Desktop-Light-UIBlox"])
-				end
-			end
-		end
-		return {}
-	end, { props.theme :: any, props.device })
+	local rules = useGeneratedRules(props.theme, props.device, props.DONOTUSE_colorUpdate == true)
 
-	React.useEffect(function()
+	React.useLayoutEffect(function()
 		if sheet.current then
 			sheet.current:SetDerives(props.derives or {})
 		end

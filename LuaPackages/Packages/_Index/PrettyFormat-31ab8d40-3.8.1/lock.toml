@@ -6,7 +6,7 @@ dependencies = [
     "ChalkLua ChalkLua 0.2.0 registry",
     "JestGetType JestGetType 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactIs ReactIs 17.0.6 registry",
+    "ReactIs <patched> ReactIsProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
     "RegExp RegExp 0.2.1 registry",
     "RobloxShared RobloxShared 3.8.1 registry",
 ]

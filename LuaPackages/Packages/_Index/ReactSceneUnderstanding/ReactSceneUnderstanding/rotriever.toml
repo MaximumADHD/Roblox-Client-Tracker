@@ -1,6 +1,6 @@
 [package]
 name = "ReactSceneUnderstanding"
-version = "0.5.0"
+version = "0.6.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -25,12 +25,16 @@ version = "^1.1.0"
 target = "https://github.com/roblox/roact-alignment"
 version = "^17.0.2"
 
+[dependencies.ReactUtils]
+target = "https://github.com/roblox/react-utils"
+version = "^1.2.0"
+
 [dependencies.SceneUnderstanding]
 package = "SceneUnderstanding"
-version = "^0.5.0"
+version = "^0.6.0"
 [dev_dependencies.InternalTestUtils]
 package = "InternalTestUtils"
-version = "^0.5.0"
+version = "^0.6.0"
 
 [dev_dependencies.Jest]
 target = "https://github.com/roblox/jest-roblox"

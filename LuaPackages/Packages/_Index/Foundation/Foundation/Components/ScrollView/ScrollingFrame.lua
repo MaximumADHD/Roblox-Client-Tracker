@@ -49,7 +49,7 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 		end
 
 		if isVisible then
-			updateScrollBarTransparency(ReactOtter.spring(tokens.Color.Shift.Shift_300.Transparency, ANIMATION_CONFIG))
+			updateScrollBarTransparency(ReactOtter.spring(tokens.Color.Shift.Shift_200.Transparency, ANIMATION_CONFIG))
 		end
 
 		if delay ~= nil then
@@ -79,7 +79,7 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 		AutomaticCanvasSize = props.AutomaticCanvasSize,
 		CanvasSize = props.CanvasSize,
 		ScrollingDirection = props.ScrollingDirection,
-		ScrollBarImageColor3 = tokens.Color.Shift.Shift_300.Color3,
+		ScrollBarImageColor3 = tokens.Color.Shift.Shift_200.Color3,
 		ScrollBarImageTransparency = scrollBarTransparency,
 
 		-- Support insets when they are fixed at the engine level
