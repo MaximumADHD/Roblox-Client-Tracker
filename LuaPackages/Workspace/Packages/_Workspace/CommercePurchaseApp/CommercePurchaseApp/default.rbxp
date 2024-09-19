@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CommercePurchaseApp",
+    "tree": {
+      "$path": "../../../../../../../modules/economy/in-app-purchasing/commerce-purchase-app/src"
+    }
+  }
+}

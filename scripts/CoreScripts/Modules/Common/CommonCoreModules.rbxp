@@ -121,12 +121,6 @@
                     "$path": ".robloxrc"
                 }
             },
-            "CoreScriptsRootProvider": {
-                "$path": "CoreScriptsRootProvider.lua",
-                ".robloxrc": {
-                    "$path": ".robloxrc"
-                }
-            },
             "FocusNavigationEffectsWrapper": {
                 "$path": "FocusNavigationEffectsWrapper.lua",
                 ".robloxrc": {

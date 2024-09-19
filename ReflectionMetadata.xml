@@ -2626,7 +2626,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -2635,7 +2634,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2664,7 +2662,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -2673,7 +2670,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -2682,7 +2678,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2702,7 +2697,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -2711,7 +2705,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2747,7 +2740,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2766,7 +2758,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2802,7 +2793,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2912,7 +2902,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2955,7 +2944,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2999,7 +2987,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -3019,7 +3006,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -3061,7 +3047,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3070,7 +3055,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -3090,7 +3074,6 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -5247,6 +5230,15 @@
         <string name="ClassCategory">Sensors</string>
         <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">BasePart</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">FluidForceSensor</string>
+        <string name="ClassCategory">Sensors</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">BasePart</string>
+        <bool name="FFlag">SimAeroEnableFluidForceSensor</bool>
       </Properties>
     </Item>
 

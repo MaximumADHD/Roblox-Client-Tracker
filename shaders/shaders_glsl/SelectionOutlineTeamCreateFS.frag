@@ -3,7 +3,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
-uniform vec4 CB1[10];
+uniform vec4 CB1[15];
 uniform vec4 CB7[512];
 uniform sampler2D Texture0Texture;
 uniform sampler2D Texture1Texture;
@@ -13,7 +13,7 @@ varying vec2 VARYING0;
 
 void main()
 {
-    float f0 = CB1[1].x * 0.5;
+    float f0 = CB1[2].x * 0.5;
     float f1 = floor(f0);
     float f2 = ceil(f0);
     vec2 f3 = VARYING0 - (CB1[0].zw * f1);
@@ -49,7 +49,7 @@ void main()
     bvec2 f33 = bvec2(f32);
     vec2 f34 = vec2(f33.x ? f6.x : f31.x, f33.y ? f6.y : f31.y);
     int f35 = int(floor(texture2DLod(Texture0Texture, VARYING0, 0.0).x * 255.5));
-    float f36 = (texture2DLod(Texture1Texture, f34, 0.0).x < texture2DLod(Texture2Texture, f34, 0.0).x) ? CB1[1].y : 1.0;
+    float f36 = (texture2DLod(Texture1Texture, f34, 0.0).x < texture2DLod(Texture2Texture, f34, 0.0).x) ? CB1[2].y : 1.0;
     vec4 f37 = CB7[f35 * 1 + 0];
     f37.w = min(CB7[f35 * 1 + 0].w, f36);
     vec4 f38 = mix(f37, vec4(CB7[(int(floor((f32 ? f14 : (f29 ? f12 : (f25 ? f10 : (f21 ? f8 : 0.0)))) * 255.5)) + 256) * 1 + 0].xyz, f36), vec4(clamp(255.0 * max(abs(f10 - f8), abs(f14 - f12)), 0.0, 1.0)));

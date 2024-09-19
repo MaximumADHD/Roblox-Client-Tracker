@@ -20,6 +20,10 @@ AdvSkyEnvFS,Fragment
 AdvSkyFS,Fragment
 AdvSkyLinearEnvFS,Fragment
 AdvSkyLinearFS,Fragment
+AdvSkyRGBEEnvFS,Fragment
+AdvSkyRGBEFS,Fragment
+AdvSkyRGBELinearEnvFS,Fragment
+AdvSkyRGBELinearFS,Fragment
 AdvSkyVS,Vertex
 AdvStarsFS,Fragment
 AdvStarsVS,Vertex
@@ -170,7 +174,6 @@ DefaultSurfaceHQVS_04000006,Vertex
 DefaultSurfaceHQVS_04001006,Vertex
 DefaultSurfaceHQVS_04800006,Vertex
 DefaultSurfaceHQVS_04801006,Vertex
-DefaultTiledEmissiveHideDiffuseRepHQFS_00000000,Fragment
 DefaultTiledHideAllRepHQFS_00000000,Fragment
 DefaultTiledHideDiffuseRepHQFS_00000000,Fragment
 DefaultTiledHQFS_00000000,Fragment
@@ -249,6 +252,7 @@ DefaultVS_04801406,Vertex
 DefaultWangHQFS_00000000,Fragment
 DownSample4x4AvgFS,Fragment
 DownSample4x4MaxFS,Fragment
+DownSample4x4ViewportVS,Vertex
 DownSample4x4VS,Vertex
 DownSampleGjoel8UVVS,Vertex
 DownSampleGjoelFS,Fragment
@@ -256,7 +260,6 @@ DownSampleGjoelLinearFS,Fragment
 DownSampleGjoelMipFS,Fragment
 DownSampleGlowTemporal8x8FS,Fragment
 DownSampleGlowTemporalLinear8x8FS,Fragment
-DownSampleScaled4x4VS,Vertex
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
 GlassTintFS,Fragment
@@ -330,8 +333,6 @@ LowQMaterialDetiledFS_00000000,Fragment
 LowQMaterialFS_00000000,Fragment
 LowQMaterialWangFallbackFS,Fragment
 LowQMaterialWangFS,Fragment
-OutlineEffectFS,Fragment
-OutlineEffectLQFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveCrazyFS,Fragment
 ParticleCurveCrazySparklesFS,Fragment
@@ -345,14 +346,13 @@ ParticleLightingVS,Vertex
 PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
 PassThroughFS,Fragment
-PassThroughGlobalScaleResolutionVS,Vertex
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
 PassThroughModifyVS,Vertex
 PassThroughNoOpVS,Vertex
+PassThroughPosViewportVS,Vertex
 PassThroughPosVS,Vertex
-PassThroughScaledFS,Fragment
-PassThroughScaleResolutionVS,Vertex
+PassThroughViewportVS,Vertex
 PassThroughVS,Vertex
 PerformanceOverlayFS_00000000,Fragment
 PerformanceOverlayLightPS,Fragment
@@ -374,6 +374,9 @@ ShadowBlurMarkVS,Vertex
 SkyFS,Fragment
 SkyLinearFS,Fragment
 SkyLinearVColorFS,Fragment
+SkyRGBEFS,Fragment
+SkyRGBELinearFS,Fragment
+SkyRGBELinearVColorFS,Fragment
 SkyVS,Vertex
 SmoothClusterDepthFS,Fragment
 SmoothClusterDepthVS,Vertex
@@ -449,7 +452,6 @@ SSAOCompositVS,Vertex
 SSAODepthDownFS,Fragment
 SSAOFS,Fragment
 SSAOScalingCompositFS,Fragment
-SSAOScalingVS,Vertex
 SSAOVS,Vertex
 StarsFS,Fragment
 StarsVS,Vertex

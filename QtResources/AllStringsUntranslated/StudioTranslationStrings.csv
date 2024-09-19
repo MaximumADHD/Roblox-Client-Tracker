@@ -11,6 +11,7 @@ Studio.App.FileType.ObjModelFiles,,Object Model Files,Object Model Files
 Studio.App.FileType.ScriptFiles,,Script Files,Script Files
 Studio.App.FileType.LocalizationTableCSV,,LocalizationTable CSV,LocalizationTable CSV
 Studio.App.FileType.RobloxLuaScriptFiles,,Roblox Lua Scripts,Roblox Lua Scripts
+Studio.App.FileType.RobloxLuauAndLuaScriptFiles,,Roblox Luau and Lua Scripts,Roblox Luau and Lua Scripts
 Studio.App.FileType.RobloxModelFiles,,Roblox Model Files,Roblox Model Files
 Studio.App.FileType.RobloxXMLModelFiles,,Roblox XML Model Files,Roblox XML Model Files
 Studio.App.FileType.RobloxAllModelFiles,,All Roblox Model Files,All Roblox Model Files

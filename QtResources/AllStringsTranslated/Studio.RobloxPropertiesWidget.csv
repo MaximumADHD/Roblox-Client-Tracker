@@ -60,7 +60,7 @@ Studio.RobloxPropertiesWidget.Category.Game,,,Game,Game,,Spiel,Juego,Jeu,Game,Gi
 Studio.RobloxPropertiesWidget.Category.General,,,General,General,,Allgemein,General,Général,Umum,Generale,全般,일반,Ogólne,Geral,,ทั่วไป,Genel,Chung,通用,通用,一般
 Studio.RobloxPropertiesWidget.Category.Goals,,,Goals,Goals,,Ziele,Goles,Objectifs,Target,Obiettivi,目標,목표,Cele,Objetivos,,เป้าหมาย,Hedefler,Mục Tiêu,目标,目标,目標
 Studio.RobloxPropertiesWidget.Category.Hinge,,,Hinge,Hinge,,Scharnier,Bisagra,Charnière,Engsel,Cerniera,ヒンジ,힌지,Zawias,Dobradiça,,บานพับ,Mafsal,Bản Lề,铰链,铰链,樞紐
-Studio.RobloxPropertiesWidget.Category.Image,,,Image,Image,,Bild,Imagen,Image ,Gambar,Immagine,画像,이미지,Obraz,Imagem,,ภาพ,Görüntü,Hình Ảnh,图片,图片,圖像
+Studio.RobloxPropertiesWidget.Category.Image,,,Image,Image,,Bild,Imagen,Image ,Gambar,Immagine,画像,이미지,Obraz,Imagem,,ภาพ,Görsel,Hình Ảnh,图片,图片,圖像
 Studio.RobloxPropertiesWidget.Category.Input,,,Input,Input,,Eingabe,Entrada,Entrée,Input,Input,入力,입력,Wejście,Entrada,,อินพุต,Giriş,Đầu Vào,输入,输入,輸入
 Studio.RobloxPropertiesWidget.Category.Internal,,,Internal,Internal,,Intern,Interno,Interne,Internal,Interne,内部,내부,Wewnętrzne,Interno,,ภายใน,Dâhilî,Nội Bộ,内部,内部,內部
 Studio.RobloxPropertiesWidget.Category.Jaw,,,Jaw,Jaw,,Kiefer,Mandíbula,Mâchoire,Rahang,Mascella,あご,턱,Szczęka,Mandíbula,,ขากรรไกร,Çene,Hàm,下巴,下巴,下巴
@@ -158,4 +158,4 @@ Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausricht
 Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,PseudoInstances,Pseudo-Instances,PseudoInstances,,擬似インスタンス,모의 인스턴스,Pseudoinstancje,Pseudoinstâncias,,PseudoInstances,Sahte Örnekler,Bản giả,,,
 Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,Edición de estado,Modification de l'état,,,状況編集,상태 편집,,Edição do estado,,การแก้ไขสถานะ,,Chỉnh Sửa Trạng Thái,,,
 Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,Hexadecimal:,Hex :,,,Hex値:,육각형:,,Hexadecimal:,,Hex:,,Hex:,,,
-Studio.RobloxPropertiesWidget.Category.Listening,,,Listening,Listening,,Hören,,,,,,,,,,การฟัง,,,,,
+Studio.RobloxPropertiesWidget.Category.Listening,,,Listening,Listening,,Hören,Escucha,Écoute,,,,듣기,,Escutando,,การฟัง,,Đang nghe,,,

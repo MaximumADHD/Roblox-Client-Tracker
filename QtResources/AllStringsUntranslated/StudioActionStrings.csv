@@ -151,7 +151,12 @@ Studio.App.RBXMainWindow.StartScriptSync,,Start Sync,Start Sync
 Studio.App.RBXMainWindow.StartScriptSyncsTooltip,,"Start Sync between Script, LocalScript, and ModuleScript instances and Disk","Start Sync between Script, LocalScript, and ModuleScript instances and Disk"
 Studio.App.RBXMainWindow.StopScriptSync,,Stop Sync,Stop Sync
 Studio.App.RBXMainWindow.StopScriptSyncsTooltip,,"Stop Sync between Script, LocalScript, and ModuleScript instances and Disk","Stop Sync between Script, LocalScript, and ModuleScript instances and Disk"
-Studio.App.ScriptVerbs.SelectSyncDir,,Select Sync Directory,Select Sync Directory
+Studio.App.ScriptVerbs.SelectSyncDir,,Save File Sync Path,Save File Sync Path
+Studio.App.ScriptVerbs.StopSync,,Stop Synchronization,Stop Synchronization
+Studio.App.ScriptVerbs.DeleteFile,,"<b>The file(s) are no longer syncing to disk</b><br/><div>You can delete the local file if you want. You can also stop this dialog in <a href=""settings"">Studio Settings</a></div>","<b>The file(s) are no longer syncing to disk</b><br/><div>You can delete the local file if you want. You can also stop this dialog in <a href=""settings"">Studio Settings</a></div>"
+Studio.App.ScriptVerbs.FilePathEmpty,,StartScriptSyncAction: not deleting local file since path is empty,StartScriptSyncAction: not deleting local file since path is empty
+Studio.App.ScriptVerbs.DeleteButton,,Delete local file,Delete local file
+Studio.App.ScriptVerbs.DoneButton,,Done,Done
 Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...
@@ -330,6 +335,7 @@ Studio.App.RBXMainWindow.PropertyFilter,,Property Filter,Property Filter
 Studio.App.RobloxRibbonMainWindow.DeviceEmulator,,Device,Device
 Studio.App.RobloxRibbonMainWindow.ControlsEmulatorToggle,,Emulate Device Controllers,Emulate Device Controllers
 Studio.App.RobloxRibbonMainWindow.ControlsEmulatorToggleAlias,,Emulate Device Controllers,Emulate Device Controllers
+Studio.App.RobloxRibbonMainWindow.DeviceControllerToggle,,Controller,Controller
 Studio.App.RobloxRibbonMainWindow.PlayerEmulator,,Player,Player
 Studio.App.RobloxRibbonMainWindow.Fwd,,Fwd,Fwd
 Studio.App.RobloxRibbonMainWindow.JumpToNextScriptLocation,,Jump to next script location,Jump to next script location

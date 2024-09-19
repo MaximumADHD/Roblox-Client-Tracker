@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CoreScriptsRoactCommon",
+    "tree": {
+      "$path": "../../../../../../../modules/core-scripts/core-scripts-roact-common/src"
+    }
+  }
+}

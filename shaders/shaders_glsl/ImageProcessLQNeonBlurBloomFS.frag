@@ -2,9 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
-#include <Globals.h>
-uniform vec4 CB1[10];
-uniform vec4 CB0[58];
+uniform vec4 CB1[15];
 uniform vec4 CB6[64];
 uniform sampler2D Texture5Texture;
 uniform sampler2D Texture0Texture;
@@ -17,31 +15,30 @@ void main()
 {
     vec4 f0 = texture2D(Texture0Texture, VARYING0);
     vec3 f1 = f0.xyz;
-    vec3 f2 = texture2D(Texture3Texture, VARYING0).xyz + ((f1 * ((vec3(max(max(max(f0.x, f0.y), f0.z) - CB1[9].y, 0.0)) * CB1[9].x) * 3.2999999523162841796875)) * 2.0);
-    vec3 f3 = texture2D(Texture1Texture, VARYING0).xyz;
-    vec3 f4 = mix(((f1 * f1) * 4.0) + ((f2 * f2) * 4.0), (f3 * f3) * 4.0, vec3(CB1[4].x));
-    vec3 f5 = f4 * CB1[5].x;
-    vec3 f6 = ((f4 * (f5 + vec3(CB1[5].y))) / ((f4 * (f5 + vec3(CB1[5].z))) + vec3(CB1[5].w))) * CB1[6].x;
+    vec3 f2 = texture2D(Texture3Texture, min(VARYING0, CB1[12].zw)).xyz + ((f1 * ((vec3(max(max(max(f0.x, f0.y), f0.z) - CB1[10].y, 0.0)) * CB1[10].x) * 3.2999999523162841796875)) * 2.0);
+    vec3 f3 = texture2D(Texture1Texture, min(VARYING0, CB1[11].zw)).xyz;
+    vec3 f4 = mix(((f1 * f1) * 4.0) + ((f2 * f2) * 4.0), (f3 * f3) * 4.0, vec3(CB1[5].x));
+    vec3 f5 = f4 * CB1[6].x;
+    vec3 f6 = ((f4 * (f5 + vec3(CB1[6].y))) / ((f4 * (f5 + vec3(CB1[6].z))) + vec3(CB1[6].w))) * CB1[7].x;
     vec3 f7 = vec3(0.0);
-    f7.x = dot(f6, CB1[1].xyz) + CB1[1].w;
+    f7.x = dot(f6, CB1[2].xyz) + CB1[2].w;
     vec3 f8 = f7;
-    f8.y = dot(f6, CB1[2].xyz) + CB1[2].w;
+    f8.y = dot(f6, CB1[3].xyz) + CB1[3].w;
     vec3 f9 = f8;
-    f9.z = dot(f6, CB1[3].xyz) + CB1[3].w;
-    vec2 f10 = VARYING0 * CB0[50].zw;
-    vec4 f11 = texture2D(Texture5Texture, f10);
-    float f12 = f11.x;
-    vec4 f13 = texture2D(Texture5Texture, f10 + vec2(CB1[0].z, 0.0));
-    float f14 = f13.x;
-    vec4 f15 = texture2D(Texture5Texture, f10 + vec2(-CB1[0].z, 0.0));
-    float f16 = f15.x;
-    vec4 f17 = texture2D(Texture5Texture, f10 + vec2(0.0, CB1[0].w));
-    float f18 = f17.x;
-    vec4 f19 = texture2D(Texture5Texture, f10 + vec2(0.0, -CB1[0].w));
-    float f20 = f19.x;
-    int f21 = int(floor(((f12 > 0.0) ? f12 : max(max(f14, f16), max(f18, f20))) * 255.5));
-    vec4 f22 = mix(CB6[f21 * 1 + 0], CB6[(f21 + 32) * 1 + 0], vec4(clamp(255.0 * max(abs(f14 - f16), abs(f18 - f20)), 0.0, 1.0)));
-    gl_FragData[0] = vec4(mix(f9, f22.xyz, vec3(f22.w)), 1.0);
+    f9.z = dot(f6, CB1[4].xyz) + CB1[4].w;
+    vec4 f10 = texture2D(Texture5Texture, VARYING0);
+    float f11 = f10.x;
+    vec4 f12 = texture2D(Texture5Texture, VARYING0 + vec2(CB1[0].z, 0.0));
+    float f13 = f12.x;
+    vec4 f14 = texture2D(Texture5Texture, VARYING0 + vec2(-CB1[0].z, 0.0));
+    float f15 = f14.x;
+    vec4 f16 = texture2D(Texture5Texture, VARYING0 + vec2(0.0, CB1[0].w));
+    float f17 = f16.x;
+    vec4 f18 = texture2D(Texture5Texture, VARYING0 + vec2(0.0, -CB1[0].w));
+    float f19 = f18.x;
+    int f20 = int(floor(((f11 > 0.0) ? f11 : max(max(f13, f15), max(f17, f19))) * 255.5));
+    vec4 f21 = mix(CB6[f20 * 1 + 0], CB6[(f20 + 32) * 1 + 0], vec4(clamp(255.0 * max(abs(f13 - f15), abs(f17 - f19)), 0.0, 1.0)));
+    gl_FragData[0] = vec4(mix(f9, f21.xyz, vec3(f21.w)), 1.0);
 }
 
 //$$Texture5Texture=s5

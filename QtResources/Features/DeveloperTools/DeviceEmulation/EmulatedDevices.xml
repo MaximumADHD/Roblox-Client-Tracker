@@ -456,6 +456,18 @@
         resolution_scale="1.0"
         user_agent="ROBLOX/PS4 ROBLOX PS4 App 0.0.0.3RobloxApp/0.0.0.2 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
+    <Device name="PS5"
+        device_id="ps5"
+        translation_id = "Studio.App.EmulatorMainWidget.PS5"
+        dpi="96"
+        memoryMB="16384"
+        width="1920"
+        height="1440"
+        device_form="console"
+        platform="PS5"
+        resolution_scale="1.0"
+        user_agent="Roblox/PS5 ROBLOX PS5 App 0.0.0.3RobloxApp/0.0.0.2 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
+    ></Device>
     <Device name="Average Laptop"
         device_id="average_laptop"
         translation_id = "Studio.App.EmulatorMainWidget.AverageLaptop"
