@@ -5,4 +5,9 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["HoldToPlay"]["HoldToPlay"])
 
+export type onHoldableFocused = Package.onHoldableFocused
+export type onHoldableUnfocused = Package.onHoldableUnfocused
+export type shouldDisableHoldable = Package.shouldDisableHoldable
+
+
 return Package

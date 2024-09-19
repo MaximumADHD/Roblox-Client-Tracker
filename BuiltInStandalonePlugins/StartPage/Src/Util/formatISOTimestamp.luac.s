@@ -2,15 +2,25 @@ PROTO_0:
   JUMPIF R0 [+2]
   LOADK R1 K0 [""]
   RETURN R1 1
-  GETIMPORT R1 K3 [DateTime.fromIsoDate]
+  FASTCALL2K ASSERT R0 K1 [+5]
+  MOVE R2 R0
+  LOADK R3 K1 ["Luau: Ensure this is defined"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  GETIMPORT R1 K6 [DateTime.fromIsoDate]
   MOVE R2 R0
   CALL R1 1 1
   JUMPIF R1 [+2]
   LOADK R2 K0 [""]
   RETURN R2 1
-  LOADK R4 K4 ["L LT"]
-  LOADK R5 K5 ["en-us"]
-  NAMECALL R2 R1 K6 ["FormatLocalTime"]
+  FASTCALL2K ASSERT R1 K1 [+5]
+  MOVE R3 R1
+  LOADK R4 K1 ["Luau: Ensure this is defined"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  LOADK R4 K7 ["L LT"]
+  LOADK R5 K8 ["en-us"]
+  NAMECALL R2 R1 K9 ["FormatLocalTime"]
   CALL R2 3 -1
   RETURN R2 -1
 

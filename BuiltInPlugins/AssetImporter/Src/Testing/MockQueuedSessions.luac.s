@@ -21,7 +21,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K29 ["my/path/Cube"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 1
@@ -36,7 +36,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K33 ["my/path/Sphere"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 1
@@ -51,7 +51,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K34 ["my/path/Octahedron"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 1
@@ -66,7 +66,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K35 ["my/path/Dodecahedron"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 1
@@ -81,7 +81,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K36 ["my/path/Rhombicosidodecahedron"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 1
@@ -96,7 +96,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K37 ["my/path/RigAsset"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 1
@@ -111,7 +111,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K38 ["my/path/EnvironmentalAsset"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 1
@@ -126,7 +126,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K39 ["my/path/InvalidAsset"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 0
@@ -141,7 +141,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K42 ["my/path/HasImportDataError"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 1
@@ -158,7 +158,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K43 ["my/path/EnabledInvalidAsset"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 0
@@ -173,7 +173,7 @@ MAIN:
   SETTABLEKS R5 R4 K24 ["enabled"]
   LOADK R5 K46 ["my/path/UploadedAsset"]
   SETTABLEKS R5 R4 K25 ["filepath"]
-  GETIMPORT R5 K32 [os.time]
+  GETIMPORT R5 K32 [DateTime.now]
   CALL R5 0 1
   SETTABLEKS R5 R4 K26 ["timestamp"]
   LOADB R5 0

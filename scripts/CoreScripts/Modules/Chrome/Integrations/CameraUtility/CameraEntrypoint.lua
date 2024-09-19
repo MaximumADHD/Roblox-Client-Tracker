@@ -1,13 +1,19 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ChromeService = require(script.Parent.Parent.Parent.Service)
 local CommonIcon = require(script.Parent.Parent.CommonIcon)
 local ChromeUtils = require(script.Parent.Parent.Parent.Service.ChromeUtils)
+local ScreenshotsApp = require(RobloxGui.Modules.Screenshots.ScreenshotsApp)
+local MappedSignal = ChromeUtils.MappedSignal
 
 local GetFFlagChromeCapturesToggle = require(script.Parent.Parent.Parent.Flags.GetFFlagChromeCapturesToggle)
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
+local GetFFlagEnableToggleCaptureIntegration =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableToggleCaptureIntegration
 
 local initialAvailability = ChromeService.AvailabilitySignal.Available
 if GetFFlagChromeCapturesToggle() then
@@ -20,17 +26,32 @@ if GetFFlagChromeCapturesToggle() then
 	end
 end
 
+local isActive
+if GetFFlagEnableToggleCaptureIntegration() then
+	isActive = MappedSignal.new(ScreenshotsApp.onIsActiveChanged, function()
+		return ScreenshotsApp.getIsActive()
+	end)
+end
+
 local cameraEntrypointIntegration = GetFFlagEnableScreenshotUtility()
 		and ChromeService:register({
 			initialAvailability = initialAvailability,
 			id = "camera_entrypoint",
 			label = "Feature.SettingsHub.Label.Captures",
 			activated = function(self)
-				ChromeService:toggleCompactUtility("camera_utility")
+				if GetFFlagEnableToggleCaptureIntegration() then
+					ScreenshotsApp.onToggleActivationFromChrome()
+				else
+					ChromeService:toggleCompactUtility("camera_utility")
+				end
 			end,
 			components = {
 				Icon = function(props)
-					return CommonIcon("icons/controls/cameraOff")
+					if GetFFlagEnableToggleCaptureIntegration() then
+						return CommonIcon("icons/controls/cameraOff", "icons/controls/cameraOn", isActive)
+					else
+						return CommonIcon("icons/controls/cameraOff")
+					end
 				end,
 			},
 		})

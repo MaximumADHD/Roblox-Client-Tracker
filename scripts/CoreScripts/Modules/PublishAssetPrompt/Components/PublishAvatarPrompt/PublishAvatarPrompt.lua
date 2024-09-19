@@ -90,10 +90,6 @@ function PublishAvatarPrompt:init()
 		avatarPublishMetadata.description = self.state.description
 
 		if PurchasePrompt.initiateAvatarCreationFeePurchase then
-			self:setState({
-				showTopScrim = true,
-				purchasePromptReady = false,
-			})
 			PurchasePrompt.initiateAvatarCreationFeePurchase(
 				avatarPublishMetadata,
 				self.props.guid,
@@ -119,46 +115,57 @@ function PublishAvatarPrompt:init()
 		})
 	end
 
-	self.onPurchasePromptClosed = function(promptTable)
+	self.onWindowStateChanged = function(promptTable)
 		local hasCompletedPurchase = promptTable.hasCompletedPurchase
+		local isShown = promptTable.isShown
 
-		if hasCompletedPurchase then
-			-- Avatar creation fee purchase was successful
+		if hasCompletedPurchase and not isShown then
+			-- Avatar creation fee purchase was successful, we should close the
+			-- prompt and return to the experience
 			self.props.SetPromptVisibility(false)
 		else
-			-- Avatar creation fee purchase was cancelled
+			--[[
+				Avatar creation fee purchase opened or closed.
+				Prompt should remain open, and scrim should be shown or hidden.
+				If opened, we should disable the submit button.
+			]]
 			self:setState({
-				showTopScrim = false,
+				showTopScrim = isShown,
 			})
+			if isShown then
+				self:setState({
+					purchasePromptReady = false,
+				})
+			end
 		end
 	end
 
 	self.onPromptStateSetToNone = function()
 		self:setState({
-			showTopScrim = false,
 			purchasePromptReady = true,
 		})
 	end
 end
 
 function PublishAvatarPrompt:didMount()
-	local purchasePromptClosedEvent = PurchasePrompt.purchasePromptClosedEvent
+	local windowStateChangedEvent = PurchasePrompt.windowStateChangedEvent
 	local promptStateSetToNoneEvent = PurchasePrompt.promptStateSetToNoneEvent
-	if purchasePromptClosedEvent and promptStateSetToNoneEvent then
-		self.purchasePromptClosedConnection = purchasePromptClosedEvent:Connect(self.onPurchasePromptClosed)
+
+	if windowStateChangedEvent and promptStateSetToNoneEvent then
+		self.windowStateChangedConnection = windowStateChangedEvent:Connect(self.onWindowStateChanged)
 		self.promptStateSetToNoneConnection = promptStateSetToNoneEvent:Connect(self.onPromptStateSetToNone)
 	else
 		mutedError(
-			"PurchasePrompt.purchasePromptClosedEvent or PurchasePrompt.promptStateSetToNoneEvent is not available"
+			"PurchasePrompt.windowStateChangedEvent or PurchasePrompt.promptStateSetToNoneEvent is not available"
 		)
 	end
 end
 
 function PublishAvatarPrompt:willUnmount()
-	if self.purchasePromptClosedConnection then
-		self.purchasePromptClosedConnection:Disconnect()
+	if self.windowStateChangedConnection then
+		self.windowStateChangedConnection:Disconnect()
 	else
-		mutedError("purchasePromptClosedConnection was not established")
+		mutedError("windowStateChangedConnection was not established")
 	end
 
 	if self.promptStateSetToNoneConnection then

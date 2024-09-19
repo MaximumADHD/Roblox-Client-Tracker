@@ -70,60 +70,53 @@ PROTO_4:
   NEWCLOSURE R8 P0
   CAPTURE VAL R0
   SETTABLEKS R8 R6 K6 ["OnClosed"]
-  GETIMPORT R9 K15 [game]
-  LOADK R11 K16 ["StudioPluginDisableTitleBarOption"]
-  NAMECALL R9 R9 K17 ["GetFastFlag"]
-  CALL R9 2 1
-  JUMPIFNOT R9 [+2]
   LOADB R8 1
-  JUMP [+1]
-  LOADNIL R8
   SETTABLEKS R8 R6 K7 ["DisableTitleBar"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K18 ["createElement"]
-  LOADK R9 K19 ["Frame"]
+  GETTABLEKS R8 R9 K14 ["createElement"]
+  LOADK R9 K15 ["Frame"]
   NEWTABLE R10 1 0
   GETUPVAL R12 2
-  GETTABLEKS R11 R12 K20 ["Tag"]
-  LOADK R12 K21 ["X-FitY X-Column Component-DialogContainer"]
+  GETTABLEKS R11 R12 K16 ["Tag"]
+  LOADK R12 K17 ["X-FitY X-Column Component-DialogContainer"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K24 [{"ThumbnailAndTextInfo", "CancelButton"}]
+  DUPTABLE R11 K20 [{"ThumbnailAndTextInfo", "CancelButton"}]
   GETUPVAL R13 2
-  GETTABLEKS R12 R13 K18 ["createElement"]
+  GETTABLEKS R12 R13 K14 ["createElement"]
   GETUPVAL R13 4
-  DUPTABLE R14 K29 [{"LayoutOrder", "Title", "Subtitle", "Status", "OnShown"}]
-  NAMECALL R15 R1 K30 ["getNextOrder"]
+  DUPTABLE R14 K25 [{"LayoutOrder", "Title", "Subtitle", "Status", "OnShown"}]
+  NAMECALL R15 R1 K26 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K25 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K21 ["LayoutOrder"]
   GETTABLEKS R15 R0 K5 ["Title"]
   SETTABLEKS R15 R14 K5 ["Title"]
-  GETTABLEKS R15 R0 K26 ["Subtitle"]
-  SETTABLEKS R15 R14 K26 ["Subtitle"]
-  GETTABLEKS R15 R0 K27 ["Status"]
-  SETTABLEKS R15 R14 K27 ["Status"]
+  GETTABLEKS R15 R0 K22 ["Subtitle"]
+  SETTABLEKS R15 R14 K22 ["Subtitle"]
+  GETTABLEKS R15 R0 K23 ["Status"]
+  SETTABLEKS R15 R14 K23 ["Status"]
   NEWCLOSURE R15 P1
   CAPTURE VAL R4
-  SETTABLEKS R15 R14 K28 ["OnShown"]
+  SETTABLEKS R15 R14 K24 ["OnShown"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K22 ["ThumbnailAndTextInfo"]
+  SETTABLEKS R12 R11 K18 ["ThumbnailAndTextInfo"]
   GETUPVAL R13 2
-  GETTABLEKS R12 R13 K18 ["createElement"]
+  GETTABLEKS R12 R13 K14 ["createElement"]
   GETUPVAL R13 5
-  DUPTABLE R14 K33 [{"LayoutOrder", "Enabled", "OnCancel"}]
-  NAMECALL R15 R1 K30 ["getNextOrder"]
+  DUPTABLE R14 K29 [{"LayoutOrder", "Enabled", "OnCancel"}]
+  NAMECALL R15 R1 K26 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K25 ["LayoutOrder"]
-  GETTABLEKS R15 R0 K34 ["CancelButtonEnabled"]
-  SETTABLEKS R15 R14 K31 ["Enabled"]
-  GETTABLEKS R15 R0 K32 ["OnCancel"]
-  SETTABLEKS R15 R14 K32 ["OnCancel"]
+  SETTABLEKS R15 R14 K21 ["LayoutOrder"]
+  GETTABLEKS R15 R0 K30 ["CancelButtonEnabled"]
+  SETTABLEKS R15 R14 K27 ["Enabled"]
+  GETTABLEKS R15 R0 K28 ["OnCancel"]
+  SETTABLEKS R15 R14 K28 ["OnCancel"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K23 ["CancelButton"]
+  SETTABLEKS R12 R11 K19 ["CancelButton"]
   CALL R8 3 1
   SETTABLEKS R8 R6 K8 ["Contents"]
   CALL R5 1 3
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K35 ["useEffect"]
+  GETTABLEKS R8 R9 K31 ["useEffect"]
   NEWCLOSURE R9 P2
   CAPTURE VAL R3
   CAPTURE VAL R0
@@ -132,7 +125,7 @@ PROTO_4:
   SETLIST R10 R11 1 [1]
   CALL R8 2 0
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K35 ["useEffect"]
+  GETTABLEKS R8 R9 K31 ["useEffect"]
   NEWCLOSURE R9 P3
   CAPTURE VAL R0
   CAPTURE VAL R7
@@ -140,7 +133,7 @@ PROTO_4:
   CAPTURE VAL R6
   CAPTURE VAL R4
   NEWTABLE R10 0 2
-  GETTABLEKS R11 R0 K31 ["Enabled"]
+  GETTABLEKS R11 R0 K27 ["Enabled"]
   MOVE R12 R7
   SETLIST R10 R11 2 [1]
   CALL R8 2 0

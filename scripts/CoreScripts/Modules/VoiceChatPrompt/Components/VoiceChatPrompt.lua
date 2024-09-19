@@ -21,6 +21,7 @@ VoiceChatPrompt.validateProps = t.strictInterface({
 	Analytics = t.optional(t.table),
 	VoiceChatServiceManager = t.optional(t.table),
 	policyMapper = t.optional(t.callback),
+	settingsAppAvailable = t.optional(t.boolean),
 })
 
 function VoiceChatPrompt:render()

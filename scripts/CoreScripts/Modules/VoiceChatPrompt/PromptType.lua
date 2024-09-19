@@ -23,4 +23,5 @@ return {
 	JoinVoiceSTUX = "JoinVoiceSTUX",
 	JoinVoice = "JoinVoice",
 	LeaveVoice = "LeaveVoice",
+	DevicePermissionsModal = "DevicePermissionsModal",
 }

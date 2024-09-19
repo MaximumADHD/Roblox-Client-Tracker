@@ -40,27 +40,16 @@ PROTO_1:
   LOADN R6 20
   CALL R4 2 1
   SETTABLEKS R4 R3 K5 ["Offset"]
-  JUMP [+23]
+  JUMP [+11]
   DUPTABLE R3 K22 [{"target", "offset"}]
-  GETUPVAL R5 1
-  JUMPIFNOT R5 [+2]
   LOADK R4 K23 ["playGameActionGroupRibbonControl"]
-  JUMP [+1]
-  LOADK R4 K24 ["simulationToggleAccuratePlaySoloAction"]
   SETTABLEKS R4 R3 K20 ["target"]
-  GETUPVAL R5 1
-  JUMPIFNOT R5 [+6]
   GETIMPORT R4 K19 [Vector2.new]
   LOADN R5 0
   LOADN R6 5
   CALL R4 2 1
-  JUMP [+5]
-  GETIMPORT R4 K19 [Vector2.new]
-  LOADN R5 221
-  LOADN R6 50
-  CALL R4 2 1
   SETTABLEKS R4 R3 K21 ["offset"]
-  NAMECALL R1 R1 K25 ["attachTo"]
+  NAMECALL R1 R1 K24 ["attachTo"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -83,22 +72,17 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["getFFlagTutorialsUseLuaRibbon"]
   CALL R1 1 1
   CALL R1 0 1
-  GETIMPORT R2 K11 [game]
-  LOADK R4 K12 ["LabelRibbonControlGroups"]
-  NAMECALL R2 R2 K13 ["GetFastFlag"]
-  CALL R2 2 1
-  GETIMPORT R3 K6 [require]
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K2 ["Parent"]
-  GETTABLEKS R4 R5 K14 ["TutorialStep"]
+  GETIMPORT R2 K6 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K10 ["TutorialStep"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K11 ["extend"]
+  LOADK R4 K12 ["StartPlaytest"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K15 ["extend"]
-  LOADK R5 K16 ["StartPlaytest"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K17 [PROTO_1]
+  DUPCLOSURE R4 K13 [PROTO_1]
   CAPTURE VAL R1
-  CAPTURE VAL R2
-  SETTABLEKS R5 R4 K18 ["bind"]
-  DUPCLOSURE R5 K19 [PROTO_2]
-  SETTABLEKS R5 R4 K20 ["unbind"]
-  RETURN R4 1
+  SETTABLEKS R4 R3 K14 ["bind"]
+  DUPCLOSURE R4 K15 [PROTO_2]
+  SETTABLEKS R4 R3 K16 ["unbind"]
+  RETURN R3 1

@@ -14,11 +14,14 @@ local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 
 local GetFFlagDisableChromeV3Baseline = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3Baseline)()
 local GetFFlagDisableChromeV3Captures = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3Captures)()
-local GetFFlagDisableChromeV3StaticSelfView = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3StaticSelfView)()
+local GetFFlagDisableChromeV3StaticSelfView =
+	require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3StaticSelfView)()
 local GetFFlagDisableChromeV3Icon = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3Icon)()
 local GetFFlagDisableChromeV3DockedMic = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV3DockedMic)()
+local GetFFlagDisableChromeV4Baseline = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV4Baseline)()
+local GetFFlagDisableChromeV4ClosedSelfView = require(script.Parent.Parent.Flags.GetFFlagDisableChromeV4ClosedSelfView)()
 
-local GetFFlagSongbirdIXPVariants = require(script.Parent.Parent.Flags.GetFFlagSongbirdIXPVariants)
+local GetFFlagSongbirdIXPVariants = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdIXPVariants
 
 local isV2Valid = false
 local isV3Valid = false
@@ -116,7 +119,7 @@ return function()
 
 				-- version should now be version controls
 				expect(manager:getVersion()).toBe(
-				ExperienceMenuABTestManager.default.modernizationModernizedVersionId()
+					ExperienceMenuABTestManager.default.modernizationModernizedVersionId()
 				)
 
 				-- beginning of second session
@@ -124,7 +127,7 @@ return function()
 
 				-- on second session, we will read from the cache which is controls
 				expect(manager:getVersion()).toBe(
-				ExperienceMenuABTestManager.default.modernizationModernizedVersionId()
+					ExperienceMenuABTestManager.default.modernizationModernizedVersionId()
 				)
 				expect(manager:isMenuModernizationEnabled()).toBe(true)
 				expect(manager:isV2MenuEnabled()).toBe(false)
@@ -150,17 +153,13 @@ return function()
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).toBe(
-				ExperienceMenuABTestManager.default.modernizationBigTextVersionId()
-				)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.modernizationBigTextVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(
-				ExperienceMenuABTestManager.default.modernizationBigTextVersionId()
-				)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.modernizationBigTextVersionId())
 				expect(manager:isMenuModernizationEnabled()).toBe(true)
 				expect(manager:isV2MenuEnabled()).toBe(false)
 
@@ -186,17 +185,13 @@ return function()
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).toBe(
-				ExperienceMenuABTestManager.default.modernizationStickyBarVersionId()
-				)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.modernizationStickyBarVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(
-				ExperienceMenuABTestManager.default.modernizationStickyBarVersionId()
-				)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.modernizationStickyBarVersionId())
 				expect(manager:isMenuModernizationEnabled()).toBe(true)
 				expect(manager:isV2MenuEnabled()).toBe(false)
 
@@ -222,17 +217,13 @@ return function()
 				manager:initialize()
 
 				-- version should now be version modernization
-				expect(manager:getVersion()).toBe(
-				ExperienceMenuABTestManager.default.consoleModernizationVersionId()
-				)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.consoleModernizationVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is modernization
-				expect(manager:getVersion()).toBe(
-				ExperienceMenuABTestManager.default.consoleModernizationVersionId()
-				)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.consoleModernizationVersionId())
 				expect(manager:isMenuModernizationEnabled()).toBe(true)
 				expect(manager:isChromeEnabled()).toBe(false)
 				expect(manager:isV2MenuEnabled()).toBe(false)
@@ -259,17 +250,13 @@ return function()
 				manager:initialize()
 
 				-- version should now be Report Abuse v2
-				expect(manager:getVersion()).toBe(
-					ExperienceMenuABTestManager.default.reportAbuseMenuV2VersionId()
-				)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.reportAbuseMenuV2VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is Report Abuse v2
-				expect(manager:getVersion()).toBe(
-					ExperienceMenuABTestManager.default.reportAbuseMenuV2VersionId()
-				)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.reportAbuseMenuV2VersionId())
 				expect(manager:isReportAbuseMenuV2Enabled()).toBe(true)
 				expect(manager:isMenuModernizationEnabled()).toBe(false)
 				expect(manager:isV2MenuEnabled()).toBe(false)
@@ -292,13 +279,21 @@ return function()
 				manager:initialize()
 
 				-- version should now be chrome, unless disabled
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3Baseline then ExperienceMenuABTestManager.default.chromeV3BaselineVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3Baseline
+						then ExperienceMenuABTestManager.default.chromeV3BaselineVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3Baseline then ExperienceMenuABTestManager.default.chromeV3BaselineVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3Baseline
+						then ExperienceMenuABTestManager.default.chromeV3BaselineVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeV3Baseline)
 				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromeV3Baseline)
 				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeV3Baseline)
@@ -325,13 +320,21 @@ return function()
 				manager:initialize()
 
 				-- version should now be chrome, unless disabled
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3Captures then ExperienceMenuABTestManager.default.chromeCapturesVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3Captures
+						then ExperienceMenuABTestManager.default.chromeCapturesVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3Captures then ExperienceMenuABTestManager.default.chromeCapturesVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3Captures
+						then ExperienceMenuABTestManager.default.chromeCapturesVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeV3Captures)
 				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromeV3Captures)
 				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeV3Captures)
@@ -358,13 +361,21 @@ return function()
 				manager:initialize()
 
 				-- version should now be chrome, unless disabled
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3StaticSelfView then ExperienceMenuABTestManager.default.chromeStaticSelfViewVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3StaticSelfView
+						then ExperienceMenuABTestManager.default.chromeStaticSelfViewVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3StaticSelfView then ExperienceMenuABTestManager.default.chromeStaticSelfViewVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3StaticSelfView
+						then ExperienceMenuABTestManager.default.chromeStaticSelfViewVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeV3StaticSelfView)
 				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromeV3StaticSelfView)
 				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeV3StaticSelfView)
@@ -391,13 +402,21 @@ return function()
 				manager:initialize()
 
 				-- version should now be chrome, unless disabled
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3Icon then ExperienceMenuABTestManager.default.chromeIconVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3Icon
+						then ExperienceMenuABTestManager.default.chromeIconVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3Icon then ExperienceMenuABTestManager.default.chromeIconVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3Icon
+						then ExperienceMenuABTestManager.default.chromeIconVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeV3Icon)
 				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromeV3Icon)
 				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeV3Icon)
@@ -424,13 +443,21 @@ return function()
 				manager:initialize()
 
 				-- version should now be chrome, unless disabled
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3DockedMic then ExperienceMenuABTestManager.default.chromeDockedMicVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3DockedMic
+						then ExperienceMenuABTestManager.default.chromeDockedMicVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeV3DockedMic then ExperienceMenuABTestManager.default.chromeDockedMicVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV3DockedMic
+						then ExperienceMenuABTestManager.default.chromeDockedMicVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
 				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeV3DockedMic)
 				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromeV3DockedMic)
 				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeV3DockedMic)
@@ -457,7 +484,7 @@ return function()
 				manager:initialize()
 
 				-- version should now be chrome
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdUnibarVersionId() )
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdUnibarVersionId())
 
 				-- beginning of second session
 				manager:initialize()
@@ -466,8 +493,111 @@ return function()
 				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdUnibarVersionId())
 
 				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldEnableSceneAnalysis()).toBe(true)
 				expect(manager:shouldShowSongbirdUnibar()).toBe(true)
 				expect(manager:shouldShowSongbirdPeek()).toBe(false)
+			end
+		end)
+
+		it("returns chrome v4 for user in the baseline variant, if not disabled", function()
+			if IsExperienceMenuABTestEnabled() then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeV4BaselineVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV4Baseline
+						then ExperienceMenuABTestManager.default.chromeV4BaselineVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV4Baseline
+						then ExperienceMenuABTestManager.default.chromeV4BaselineVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
+				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeV4Baseline)
+				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeV4Baseline)
+				expect(manager:shouldCloseSelfViewAtStartup()).toBe(false)
+			end
+		end)
+
+		it("returns chrome v4 for user in closed self view variant, if not disabled", function()
+			if IsExperienceMenuABTestEnabled() then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeV4ClosedSelfViewVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV4ClosedSelfView
+						then ExperienceMenuABTestManager.default.chromeV4ClosedSelfViewVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(
+					if not GetFFlagDisableChromeV4ClosedSelfView
+						then ExperienceMenuABTestManager.default.chromeV4ClosedSelfViewVersionId()
+						else ExperienceMenuABTestManager.default.v1VersionId()
+				)
+				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeV4ClosedSelfView)
+				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeV4ClosedSelfView)
+				expect(manager:shouldCloseSelfViewAtStartup()).toBe(not GetFFlagDisableChromeV4ClosedSelfView)
+			end
+		end)
+
+		it("returns legacy controls for user in holdout", function()
+			if IsExperienceMenuABTestEnabled() then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeV4ControlVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(
+					ExperienceMenuABTestManager.default.chromeV4ControlVersionId()
+				)
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeV4ControlVersionId())
+				expect(manager:isChromeEnabled()).toBe(false)
+				expect(manager:shouldDefaultOpen()).toBe(false)
+				expect(manager:shouldCloseSelfViewAtStartup()).toBe(false)
 			end
 		end)
 
@@ -495,6 +625,7 @@ return function()
 				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdPeekVersionId())
 
 				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldEnableSceneAnalysis()).toBe(true)
 				expect(manager:shouldShowSongbirdUnibar()).toBe(false)
 				expect(manager:shouldShowSongbirdPeek()).toBe(true)
 			end
@@ -524,11 +655,41 @@ return function()
 				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeSongbirdVersionId())
 
 				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldEnableSceneAnalysis()).toBe(true)
 				expect(manager:shouldShowSongbirdUnibar()).toBe(true)
 				expect(manager:shouldShowSongbirdPeek()).toBe(true)
 			end
 		end)
 
+		it("enables scene analysis for user in the variant", function()
+			if GetFFlagSongbirdIXPVariants() and IsExperienceMenuABTestEnabled() then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.sceneAnalysisVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.sceneAnalysisVersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.sceneAnalysisVersionId())
+
+				expect(manager:shouldEnableSceneAnalysis()).toBe(true)
+				expect(manager:isChromeEnabled()).toBe(false)
+				expect(manager:shouldShowSongbirdUnibar()).toBe(false)
+				expect(manager:shouldShowSongbirdPeek()).toBe(false)
+			end
+		end)
 
 		it("returns default menu if ixp service is not providing valid value", function()
 			if IsExperienceMenuABTestEnabled() then

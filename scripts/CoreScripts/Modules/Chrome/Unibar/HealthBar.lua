@@ -1,4 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local React = require(CorePackages.Packages.React)
 local Constants = require(script.Parent.Constants)
 
@@ -7,6 +10,8 @@ local useHealthBinding = require(Chrome.Hooks.useHealthBinding)
 local useCoreGuiEnabled = require(Chrome.Hooks.useCoreGuiEnabled)
 local useChromeMenuStatus = require(Chrome.Hooks.useChromeMenuStatus)
 local ChromeService = require(Chrome.Service)
+
+local FFlagUpdateHealthBar = require(RobloxGui.Modules.Flags.GetFFlagUpdateHealthBar)()
 
 export type HealthBarProps = {
 	size: React.Binding<UDim2>,
@@ -80,7 +85,7 @@ end
 
 function HealthBarToggled(props: HealthBarProps)
 	local menuOpen = useChromeMenuStatus() == ChromeService.MenuStatus.Open
-	local healthEnabled = useCoreGuiEnabled(Enum.CoreGuiType.Health)
+	local healthEnabled = FFlagUpdateHealthBar == false and useCoreGuiEnabled(Enum.CoreGuiType.Health)
 	if healthEnabled and menuOpen then
 		return React.createElement(HealthBar, props)
 	end

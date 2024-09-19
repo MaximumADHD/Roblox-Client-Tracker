@@ -146,7 +146,7 @@ PROTO_6:
   GETTABLEKS R2 R0 K0 ["HostDataModelType"]
   GETTABLEKS R1 R2 K1 ["Name"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["Observer"]
+  GETTABLEKS R3 R4 K2 ["Observable"]
   GETTABLEKS R2 R3 K3 ["create"]
   LOADNIL R3
   CALL R2 1 2

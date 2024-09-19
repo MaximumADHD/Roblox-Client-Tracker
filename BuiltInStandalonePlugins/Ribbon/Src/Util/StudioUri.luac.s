@@ -2,64 +2,67 @@ PROTO_0:
   GETIMPORT R1 K2 [table.create]
   LOADN R2 5
   CALL R1 1 1
-  GETTABLEKS R2 R0 K3 ["DataModel"]
+  JUMPIF R0 [+2]
+  LOADK R2 K3 [""]
+  RETURN R2 1
+  GETTABLEKS R2 R0 K4 ["DataModel"]
   JUMPIFNOT R2 [+13]
-  LOADK R5 K4 ["DataModel:%*"]
-  GETTABLEKS R7 R0 K3 ["DataModel"]
-  NAMECALL R5 R5 K5 ["format"]
+  LOADK R5 K5 ["DataModel:%*"]
+  GETTABLEKS R7 R0 K4 ["DataModel"]
+  NAMECALL R5 R5 K6 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   FASTCALL2 TABLE_INSERT R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K7 [table.insert]
+  GETIMPORT R2 K8 [table.insert]
   CALL R2 2 0
-  GETTABLEKS R2 R0 K8 ["PluginType"]
+  GETTABLEKS R2 R0 K9 ["PluginType"]
   JUMPIFNOT R2 [+13]
-  LOADK R5 K9 ["PluginType:%*"]
-  GETTABLEKS R7 R0 K8 ["PluginType"]
-  NAMECALL R5 R5 K5 ["format"]
+  LOADK R5 K10 ["PluginType:%*"]
+  GETTABLEKS R7 R0 K9 ["PluginType"]
+  NAMECALL R5 R5 K6 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   FASTCALL2 TABLE_INSERT R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K7 [table.insert]
+  GETIMPORT R2 K8 [table.insert]
   CALL R2 2 0
-  GETTABLEKS R2 R0 K10 ["PluginId"]
+  GETTABLEKS R2 R0 K11 ["PluginId"]
   JUMPIFNOT R2 [+13]
-  LOADK R5 K11 ["PluginId:%*"]
-  GETTABLEKS R7 R0 K10 ["PluginId"]
-  NAMECALL R5 R5 K5 ["format"]
+  LOADK R5 K12 ["PluginId:%*"]
+  GETTABLEKS R7 R0 K11 ["PluginId"]
+  NAMECALL R5 R5 K6 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   FASTCALL2 TABLE_INSERT R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K7 [table.insert]
+  GETIMPORT R2 K8 [table.insert]
   CALL R2 2 0
-  GETTABLEKS R2 R0 K12 ["Category"]
+  GETTABLEKS R2 R0 K13 ["Category"]
   JUMPIFNOT R2 [+13]
-  LOADK R5 K13 ["Category:%*"]
-  GETTABLEKS R7 R0 K12 ["Category"]
-  NAMECALL R5 R5 K5 ["format"]
+  LOADK R5 K14 ["Category:%*"]
+  GETTABLEKS R7 R0 K13 ["Category"]
+  NAMECALL R5 R5 K6 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   FASTCALL2 TABLE_INSERT R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K7 [table.insert]
+  GETIMPORT R2 K8 [table.insert]
   CALL R2 2 0
-  GETTABLEKS R2 R0 K14 ["ItemId"]
+  GETTABLEKS R2 R0 K15 ["ItemId"]
   JUMPIFNOT R2 [+13]
-  LOADK R5 K15 ["ItemId:%*"]
-  GETTABLEKS R7 R0 K14 ["ItemId"]
-  NAMECALL R5 R5 K5 ["format"]
+  LOADK R5 K16 ["ItemId:%*"]
+  GETTABLEKS R7 R0 K15 ["ItemId"]
+  NAMECALL R5 R5 K6 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   FASTCALL2 TABLE_INSERT R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K7 [table.insert]
+  GETIMPORT R2 K8 [table.insert]
   CALL R2 2 0
-  GETIMPORT R2 K17 [table.concat]
+  GETIMPORT R2 K18 [table.concat]
   MOVE R3 R1
-  LOADK R4 K18 [", "]
+  LOADK R4 K19 [", "]
   CALL R2 2 -1
   RETURN R2 -1
 

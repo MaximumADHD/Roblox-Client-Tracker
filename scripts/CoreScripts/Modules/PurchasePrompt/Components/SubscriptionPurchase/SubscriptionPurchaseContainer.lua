@@ -9,7 +9,7 @@ local ToastRodux = require(CorePackages.Workspace.Packages.ToastRodux)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
+local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum

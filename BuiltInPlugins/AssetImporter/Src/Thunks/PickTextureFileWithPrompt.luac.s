@@ -1,6 +1,6 @@
 PROTO_0:
   GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["PickFileWithPrompt"]
+  NAMECALL R1 R1 K0 ["PickImageFileWithPrompt"]
   CALL R1 1 1
   NAMECALL R2 R0 K1 ["getState"]
   CALL R2 1 1

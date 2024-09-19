@@ -5,16 +5,6 @@
 	// Written by: Xsitsu
 	// Description: Bridges the topbar in corescripts to any chat system running in the non-corescripts environment.
 ]]
-
-local FFlagUserHandleChatHotKeyWithContextActionService = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserHandleChatHotKeyWithContextActionService")
-	end)
-	if ok then
-		FFlagUserHandleChatHotKeyWithContextActionService = value
-	end
-end
-
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 
@@ -193,16 +183,16 @@ do
 			end
 		end)
 
-        if not FFlagUserHandleChatHotKeyWithContextActionService then
-            GuiService:AddSpecialKey(Enum.SpecialKey.ChatHotkey)
-			GuiService.SpecialKeyPressed:connect(function(key, modifiers)
-				if GuiService.MenuIsOpen then
-					return
-				end
 
-                DispatchEvent("SpecialKeyPressed", key, modifiers)
-            end)
-        end
+		GuiService:AddSpecialKey(Enum.SpecialKey.ChatHotkey)
+		GuiService.SpecialKeyPressed:connect(function(key, modifiers)
+			if GuiService.MenuIsOpen then
+				return
+			end
+
+			DispatchEvent("SpecialKeyPressed", key, modifiers)
+		end)
+
 
 		function DoConnectSetCore(setCoreName)
 			StarterGui:RegisterSetCore(setCoreName, function(data)
@@ -251,10 +241,7 @@ do
 					communicationsConnections.ChatWindow.EnterWhisperState = FindInCollectionByKeyAndType(chatWindowCollection, "EnterWhisperState", "BindableEvent")
 					communicationsConnections.ChatWindow.TopbarEnabledChanged = FindInCollectionByKeyAndType(chatWindowCollection, "TopbarEnabledChanged", "BindableEvent")
 					communicationsConnections.ChatWindow.IsFocused = FindInCollectionByKeyAndType(chatWindowCollection, "IsFocused", "BindableFunction")
-                    if not FFlagUserHandleChatHotKeyWithContextActionService then
-                        -- TODO: remove this connector when FFlagUserHandleChatHotKeyWithContextActionService is removed
-                        communicationsConnections.ChatWindow.SpecialKeyPressed = FindInCollectionByKeyAndType(chatWindowCollection, "SpecialKeyPressed", "BindableEvent")
-                    end
+					communicationsConnections.ChatWindow.SpecialKeyPressed = FindInCollectionByKeyAndType(chatWindowCollection, "SpecialKeyPressed", "BindableEvent")
 
 					local function DoConnect(index)
 						communicationsConnections.ChatWindow[index] = FindInCollectionByKeyAndType(chatWindowCollection, index, "BindableEvent")

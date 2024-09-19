@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["Dash"]["Dash"])
+local Package = require(PackageIndex["Dash-31ab8d40-0.1.9"]["Dash"])
 
 export type Array<Value> = Package.Array<Value> 
 export type Args<Value> = Package.Args<Value> 

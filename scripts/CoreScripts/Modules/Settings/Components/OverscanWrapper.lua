@@ -2,7 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
+local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
 
 local React = require(CorePackages.Packages.React)

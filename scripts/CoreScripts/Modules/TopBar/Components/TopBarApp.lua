@@ -18,6 +18,7 @@ local Images = UIBlox.App.ImageSet.Images
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+local GetFFlagChromePeekArchitecture = require(RobloxGui.Modules.Flags.GetFFlagChromePeekArchitecture)
 
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
@@ -45,10 +46,15 @@ local UnibarConstants = require(Chrome.Unibar.Constants)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 
 local Unibar
+local Peek
 local KeepOutAreasHandler
 local ChromeAnalytics
 if ChromeEnabled() then
 	Unibar = require(Chrome.Unibar)
+
+	if GetFFlagChromePeekArchitecture() then
+		Peek = require(Chrome.Peek)
+	end
 end
 if game:GetEngineFeature("InGameChromeSignalAPI") then
 	KeepOutAreasHandler = require(Chrome.Service.KeepOutAreasHandler)
@@ -83,6 +89,9 @@ local GetFFlagUnibarContextStack = require(CorePackages.Workspace.Packages.Share
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 local TopBarAppPolicy = require(script.Parent.Parent.TopBarAppPolicy)
+
+local GetFFlagUpdateHealthBar = require(RobloxGui.Modules.Flags.GetFFlagUpdateHealthBar)
+local UseUpdatedHealthBar = GetFFlagUpdateHealthBar() and ChromeEnabled()
 
 -- vr bottom bar
 local VRBottomBar = require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
@@ -332,6 +341,8 @@ function TopBarApp:renderWithStyle(style)
 			}) or nil,
 		}),
 
+		Peek = GetFFlagChromePeekArchitecture() and Roact.createElement(Peek),
+
 		UnibarOnboarding = if GetFFlagEnableChromeFTUX()
 				and (not GetFFlagFixChromeReferences() or ChromeEnabled())
 			then Roact.createElement(OnboardingTooltip)
@@ -386,6 +397,9 @@ function TopBarApp:renderWithStyle(style)
 							}),
 						}),
 
+					
+					HealthBar = if UseUpdatedHealthBar then Roact.createElement(HealthBar, {}) else nil,
+
 					StackedElements = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
 						Position = self.unibarRightSidePosition,
@@ -406,7 +420,7 @@ function TopBarApp:renderWithStyle(style)
 							layoutOrder = 1,
 						}) or nil,
 
-						HealthBar = Roact.createElement(HealthBar, {
+						HealthBar = if UseUpdatedHealthBar then nil else Roact.createElement(HealthBar, {
 							layoutOrder = 10,
 						}),
 

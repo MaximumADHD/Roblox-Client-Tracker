@@ -129,6 +129,8 @@ if GetFFlagShowLikelySpeakingBubbles() then
 	GlobalFlags.ShowLikelySpeakingBubbles = true
 end
 
+local FFlagInExperienceInterventionApp = game:DefineFastFlag("InExperienceInterventionApp", false)
+
 -- Since prop validation can be expensive in certain scenarios, you can enable
 -- this flag locally to validate props to Roact components.
 if FFlagUseRoactGlobalConfigInCoreScripts and RunService:IsStudio() then
@@ -171,6 +173,11 @@ if game:GetEngineFeature("LuobuModerationStatus") then
 	coroutine.wrap(function()
 		safeRequire(CoreGuiModules.Watermark)
 	end)()
+end
+
+-- InExperienceIntervention
+if FFlagInExperienceInterventionApp then
+	coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.InExperienceIntervention)
 end
 
 -- MainBotChatScript (the Lua part of Dialogs)
@@ -365,15 +372,13 @@ if game:GetEngineFeature("PortalAdPrompt") then
 	end
 end
 
-if game:GetEngineFeature("EnableAdsEudsaStaticDisclosure") then
-	coroutine.wrap(function()
-		local AdsEudsaInit = safeRequire(CorePackages.Workspace.Packages.AdsEudsa)
+coroutine.wrap(function()
+	local AdsEudsaInit = safeRequire(CorePackages.Workspace.Packages.AdsEudsa)
 
-		if AdsEudsaInit and AdsEudsaInit.starterScript then
-			AdsEudsaInit.starterScript()
-		end
-	end)()
-end
+	if AdsEudsaInit and AdsEudsaInit.starterScript then
+		AdsEudsaInit.starterScript()
+	end
+end)()
 
 -- premium sponsored experience reporting
 if FFlagEnablePremiumSponsoredExperienceReporting then

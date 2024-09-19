@@ -2,6 +2,7 @@
 local CollectionService = game:GetService("CollectionService")
 local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
+local GetFFlagSelfieViewFixMigration = require(script.Parent.Parent.Flags.GetFFlagSelfieViewFixMigration)
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
 --so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
@@ -63,7 +64,15 @@ local function getHead(character: Model): MeshPart?
 	--lookup for dynamic heads
 	local faceControls: FaceControls? = getFaceControls(character)
 	if faceControls ~= nil then
-		head = faceControls.Parent :: MeshPart
+		if GetFFlagSelfieViewFixMigration() then
+			if faceControls.Parent then
+				if faceControls.Parent.ClassName == "MeshPart" or faceControls.Parent.ClassName == "Part" then
+					head = faceControls.Parent :: MeshPart
+				end
+			end
+		else
+			head = faceControls.Parent :: MeshPart
+		end
 	end
 
 	--fallback lookup attempts in case non dynamic head avatar
@@ -206,14 +215,26 @@ local function removeTags(character: Model)
 	local charactersTags = CollectionService:GetTags(character)
 	for _, v in ipairs(charactersTags) do
 		--log:trace("removing tag:"..v)
-		CollectionService:RemoveTag(character, v)
+		if GetFFlagSelfieViewFixMigration() then
+			if v ~= "NoFace" then
+				CollectionService:RemoveTag(character, v)
+			end
+		else
+			CollectionService:RemoveTag(character, v)
+		end
 	end
 
 	for _, part in ipairs(character:GetDescendants()) do
 		local descendantTags = CollectionService:GetTags(part)
 		for _, v2 in ipairs(descendantTags) do
-			--log:trace("removing tag:"..v2)
-			CollectionService:RemoveTag(part, v2)
+			--log:trace("removing tag2:"..v2)
+			if GetFFlagSelfieViewFixMigration() then
+				if v2 ~= "NoFace" then
+					CollectionService:RemoveTag(part, v2)
+				end
+			else
+				CollectionService:RemoveTag(part, v2)
+			end
 		end
 	end
 
@@ -248,7 +269,11 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	WrapLayer = "WrapLayer",
 	WeldConstraint = "WeldConstraint",
 	AccessoryWeld = "AccessoryWeld",
+	--PackageLink is here since one can't nill out the parent of a PackageLink
 	PackageLink = "PackageLink",
+	Folder = if GetFFlagSelfieViewFixMigration() then "Folder" else nil,
+	--some games like Winds of Fortune connect things like hair with constraints so we keep those in
+	RigidConstraint = if GetFFlagSelfieViewFixMigration() then "RigidConstraint" else nil,
 }
 local function disableScripts(instance: Instance)
 	for _, child in instance:GetChildren() do

@@ -6,8 +6,10 @@ local SetIsSubjectToChinaPolicies = require(CoreGui.RobloxGui.Modules.LoadingScr
 local SetGameProductInfo = require(CoreGui.RobloxGui.Modules.LoadingScreen.Actions.SetGameProductInfo)
 local SetUniverseId = require(CoreGui.RobloxGui.Modules.LoadingScreen.Actions.SetUniverseId)
 local AppTopBannerReducer = require(CorePackages.Workspace.Packages.AppTopBanner).Reducers.AppTopBannerReducer
+local SquadsCore = require(CorePackages.Workspace.Packages.SquadsCore)
 
 local GetFFlagEnableTopBannerInLoadingScreen = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagEnableTopBannerInLoadingScreen)
+local GetFFlagLuaAppEnableSquadPage = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableSquadPage
 
 local GameProductInfoReducer = Rodux.createReducer(nil, {
 	[SetGameProductInfo.name] = function(state, action)
@@ -35,4 +37,5 @@ return Rodux.combineReducers({
 	productInfo = GameProductInfoReducer,
 	gameIds = GameIdReducer,
 	AppTopBanner = if GetFFlagEnableTopBannerInLoadingScreen() then AppTopBannerReducer else nil,
+	Squad = if GetFFlagLuaAppEnableSquadPage() then SquadsCore.installReducer() else nil,
 })

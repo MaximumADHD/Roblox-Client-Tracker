@@ -15,7 +15,7 @@ PROTO_1:
   GETTABLEKS R2 R0 K0 ["_draggerContext"]
   NAMECALL R3 R2 K1 ["shouldShowTargetGrids"]
   CALL R3 1 1
-  JUMPIFNOT R3 [+65]
+  JUMPIFNOT R3 [+63]
   GETTABLEKS R5 R1 K2 ["softSnaps"]
   LENGTH R4 R5
   LOADN R5 0
@@ -43,9 +43,7 @@ PROTO_1:
   GETUPVAL R6 2
   DUPTABLE R7 K14 [{"DragTarget", "SourceSize", "Scale", "GridSize", "Color", "PrimaryColor"}]
   SETTABLEKS R1 R7 K4 ["DragTarget"]
-  FASTCALL VECTOR [+2]
-  GETIMPORT R8 K17 [Vector3.new]
-  CALL R8 0 1
+  GETIMPORT R8 K17 [Vector3.zero]
   SETTABLEKS R8 R7 K9 ["SourceSize"]
   GETTABLEKS R11 R1 K18 ["targetMatrix"]
   GETTABLEKS R10 R11 K19 ["Position"]

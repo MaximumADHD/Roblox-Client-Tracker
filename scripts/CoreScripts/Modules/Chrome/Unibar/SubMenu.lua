@@ -49,6 +49,7 @@ local GetFFlagChromeUsePreferredTransparency =
 	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
 
 local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
+local FFlagSubmenuV4Layout = game:DefineFastFlag("SubmenuV4Layout2", false)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
@@ -145,7 +146,10 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 
 	local rowFragment = React.createElement(React.Fragment, nil, {
 		UIPadding = React.createElement("UIPadding", {
-			PaddingLeft = if GetFFlagEnableChromePinIntegrations() then UDim.new(0, 12) else UDim.new(0, 24),
+			PaddingLeft = if FFlagSubmenuV4Layout
+				then UDim.new(0, Constants.SUBMENU_PADDING)
+				elseif GetFFlagEnableChromePinIntegrations() then UDim.new(0, 12)
+				else UDim.new(0, 24),
 			PaddingRight = UDim.new(0, 8),
 		}),
 
@@ -162,6 +166,10 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		} :: any),
 
 		StyledTextLabel = React.createElement(StyledTextLabel, {
+			size = if FFlagSubmenuV4Layout
+				then UDim2.new(1, -Constants.ICON_SIZE - Constants.SUBMENU_PADDING * 2, 1, 0)
+				else nil,
+			lineHeight = if FFlagSubmenuV4Layout then 1 else nil,
 			fontStyle = font.Header2,
 			colorStyle = if GetFFlagAnimateSubMenu() and menuTransition
 				then {
@@ -435,9 +443,15 @@ function SubMenu(props: SubMenuProps)
 		else style.Theme.BackgroundUIContrast.Transparency
 
 	return React.createElement("Frame", {
-		Size = UDim2.new(0, 240, 0, 0),
+
+		Size = if FFlagSubmenuV4Layout
+			then UDim2.new(0, TopBarConstants.TopBarHeight + Constants.ICON_CELL_WIDTH * 3, 0, 0)
+			else UDim2.new(0, 240, 0, 0),
 		AnchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0),
-		Position = if leftAlign then UDim2.new(0, 0, 0, 0) else UDim2.new(1, 0, 0, 0),
+		Position = if FFlagSubmenuV4Layout
+			then UDim2.new(0, -TopBarConstants.TopBarHeight + 2, 0, 0)
+			elseif leftAlign then UDim2.new(0, 0, 0, 0)
+			else UDim2.new(1, 0, 0, 0),
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
 		BackgroundTransparency = if GetFFlagAnimateSubMenu() and props.menuTransition
 			then props.menuTransition:map(function(v)

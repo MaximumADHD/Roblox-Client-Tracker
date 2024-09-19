@@ -24,7 +24,7 @@ local PromptState = require(Root.Enums.PromptState)
 local handle
 local store
 
-local purchasePromptClosedBindable = Instance.new("BindableEvent")
+local windowStateChangedBindable = Instance.new("BindableEvent")
 local promptStateSetToNoneBindable = Instance.new("BindableEvent")
 
 -- Create the store outside of the PurchasePromptApp so
@@ -48,12 +48,15 @@ local function createStore()
 	})
 
 	store.changed:connect(function(currentState, previousState)
-		-- Check if the prompt has been closed
-		if previousState.windowState ~= currentState.windowState and currentState.windowState == WindowState.Hidden then
-			purchasePromptClosedBindable:Fire({
+		-- Check if the prompt has been opened or closed
+		if previousState.windowState ~= currentState.windowState then
+			windowStateChangedBindable:Fire({
+				isShown = currentState.windowState == WindowState.Shown,
 				hasCompletedPurchase = currentState.hasCompletedPurchase,
 			})
 		end
+
+		-- Check if the prompt state has been set to PromptState.None
 		if previousState.promptState ~= currentState.promptState and currentState.promptState == PromptState.None then
 			promptStateSetToNoneBindable:Fire()
 		end
@@ -103,8 +106,9 @@ end
 return {
 	mountPurchasePrompt = mountPurchasePrompt,
 	initiateAvatarCreationFeePurchase = if GetFFlagEnableAvatarCreationFeePurchase() then initiateAvatarCreationFeePurchase else nil,
-	-- This event fires when the prompt closes and returns hasCompletedPurchase
-	purchasePromptClosedEvent = if GetFFlagEnableAvatarCreationFeePurchase() then purchasePromptClosedBindable.Event else nil,
+	-- This event fires when the window state is changed, i.e. prompt opens or closes.
+	-- It returns isShown if the window is shown, and hasCompletedPurchase if the purchase was completed.
+	windowStateChangedEvent = if GetFFlagEnableAvatarCreationFeePurchase() then windowStateChangedBindable.Event else nil,
 	-- This event fires when the prompt state is set to PromptState.None
 	promptStateSetToNoneEvent = if GetFFlagEnableAvatarCreationFeePurchase() then promptStateSetToNoneBindable.Event else nil,
 }

@@ -32,6 +32,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
+local GetFFlagLuaAppEnableFoundationColors = require(SharedFlags).GetFFlagLuaAppEnableFoundationColors
 
 local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
 
@@ -200,7 +201,7 @@ function PlayerEntry:getTextStyle(layoutValues, style)
 		return style.Theme.TextEmphasis
 	end
 
-	return style.Theme.TextMuted
+	return if GetFFlagLuaAppEnableFoundationColors() then style.Theme.TextDefault else style.Theme.TextMuted
 end
 
 function PlayerEntry:getPlayerNameFont(layoutValues, style)

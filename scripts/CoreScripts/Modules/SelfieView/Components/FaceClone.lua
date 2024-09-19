@@ -1,6 +1,8 @@
 --!strict
 local CorePackages = game:GetService("CorePackages")
 local ModelUtils = require(script.Parent.Parent.Utils.ModelUtils)
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
 local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
@@ -15,6 +17,7 @@ local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
 local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
+local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 
 local RunService = game:GetService("RunService")
 
@@ -726,7 +729,7 @@ function startRenderStepped(player: Player)
 		--but it did not fire reliably in a more involved test place, so as fallback for now we also check manually for changes..
 
 		if GetFFlagSelfViewVisibilityFix() then
-			if clone and not isFrameVisible then
+			if clone and (not GetFFlagSelfieViewV4() or outerContainerFrame) and not isFrameVisible then
 				if cloneAnimator ~= nil then
 					-- stop any playing animation
 					local playingAnimations = cloneAnimator:GetPlayingAnimationTracks()

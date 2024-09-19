@@ -1,0 +1,268 @@
+local CorePackages = game:GetService("CorePackages")
+local TextService = game:GetService("TextService")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local React = require(CorePackages.Packages.React)
+local t = require(CorePackages.Packages.t)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
+
+local UIBlox = require(CorePackages.UIBlox)
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local Images = UIBlox.App.ImageSet.Images
+local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
+
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local getMicDeeplinkDirections = require(script.Parent.Parent.Helpers.getMicDeeplinkDirections)
+
+-- Constants
+local OVERLAY_WIDTH = 365
+local BUTTON_CONTAINER_SIZE = 36
+local PADDING = 20
+local DIVIDER = 1
+local SMALLER_PADDING = 15
+local BUTTON_PADDING = 12
+local ICON_SIZE = 55
+
+local openSettings = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.OpenSettings")
+local ok = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Ok")
+local notNow = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.NotNow")
+
+local micIcon = Images["icons/controls/microphone"]
+
+type Props = {
+	titleText: string,
+	bodyText: string,
+	handlePrimaryActivated: () -> nil,
+	handleSecondaryActivated: () -> nil,
+	Analytics: { [string]: any? },
+	promptStyle: { [string]: any? },
+	showPrompt: boolean,
+	settingsAppAvailable: boolean,
+	UserInputService: { [string]: any },
+}
+
+export type DevicePermissionsModalType = (props: Props) -> React.ReactElement
+
+local validateProps = ArgCheck.wrap(t.strictInterface({
+	titleText = t.string,
+	bodyText = t.string,
+	handlePrimaryActivated = t.callback,
+	handleSecondaryActivated = t.callback,
+	Analytics = t.table,
+	promptStyle = t.table,
+	showPrompt = t.boolean,
+	settingsAppAvailable = t.boolean,
+	UserInputService = t.table,
+}))
+
+local function DevicePermissionsModal(props: Props)
+	assert(validateProps(props))
+
+	-- local sampleText = getMicDeeplinkDirections(props.settingsAppAvailable, props.UserInputService)
+	local infoText = getMicDeeplinkDirections(props.settingsAppAvailable, props.UserInputService)
+
+	local titleFont = props.promptStyle.Font.Header1.Font
+	local titleFontSize = props.promptStyle.Font.Header1.RelativeSize * props.promptStyle.Font.BaseSize
+	local titleTextHeight = TextService:GetTextSize(
+		props.titleText,
+		titleFontSize,
+		titleFont,
+		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
+	).Y
+	local titleTextContainerHeight = PADDING + titleTextHeight
+
+	local bodyFont = props.promptStyle.Font.Body.Font
+	local bodyFontSize = props.promptStyle.Font.Body.RelativeSize * props.promptStyle.Font.BaseSize
+	local bodyTextHeight = TextService:GetTextSize(
+		props.bodyText,
+		bodyFontSize,
+		bodyFont,
+		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
+	).Y
+	local bodyTextContainerHeight = PADDING + bodyTextHeight
+
+	local infoTextContainerHeight = 0
+	if infoText then
+		local infoFont = props.promptStyle.Font.Body.Font
+		local infoFontSize = props.promptStyle.Font.Body.RelativeSize * props.promptStyle.Font.BaseSize
+		local infoTextHeight = TextService:GetTextSize(
+			infoText,
+			infoFontSize,
+			infoFont,
+			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
+		).Y
+		infoTextContainerHeight = PADDING + infoTextHeight
+	end
+
+	local paddingMultiplier = if infoText then 4.5 else 4
+
+	return React.createElement("ScreenGui", {
+		DisplayOrder = 8,
+		IgnoreGuiInset = true,
+		OnTopOfCoreBlur = true,
+		Enabled = props.showPrompt,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+	}, {
+		Overlay = React.createElement("TextButton", {
+			AutoButtonColor = false,
+			BackgroundColor3 = props.promptStyle.Theme.Overlay.Color,
+			BackgroundTransparency = props.promptStyle.Theme.Overlay.Transparency,
+			BorderSizePixel = 0,
+			Size = UDim2.new(1, 0, 1, 0),
+			Text = "",
+		}),
+		DialogMainFrame = React.createElement(UIBlox.Core.ImageSet.ImageSetLabel, {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			BackgroundTransparency = 1,
+			Image = Assets.Images.RoundedRect.Image,
+			ImageColor3 = props.promptStyle.Theme.BackgroundUIDefault.Color,
+			ImageTransparency = props.promptStyle.Theme.BackgroundUIDefault.Transparency,
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			ScaleType = Assets.Images.RoundedRect.ScaleType,
+			Size = UDim2.new(
+				0,
+				OVERLAY_WIDTH,
+				0,
+				titleTextContainerHeight
+					+ 5 * DIVIDER
+					+ bodyTextContainerHeight
+					+ BUTTON_CONTAINER_SIZE
+					+ paddingMultiplier * PADDING
+					+ infoTextContainerHeight
+					+ ICON_SIZE
+			),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			SliceCenter = Assets.Images.RoundedRect.SliceCenter,
+		}, {
+			Padding = React.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, SMALLER_PADDING),
+				PaddingBottom = UDim.new(0, PADDING),
+				PaddingLeft = UDim.new(0, PADDING),
+				PaddingRight = UDim.new(0, PADDING),
+			}),
+			Layout = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			Icon = React.createElement(UIBlox.Core.ImageSet.ImageSetLabel, {
+				Position = UDim2.fromScale(0.5, 0.5),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Image = micIcon,
+				Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+				LayoutOrder = 1,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+			}),
+			TitleTextContainer = React.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+				Size = UDim2.new(1, 0, 0, titleTextContainerHeight),
+				AutomaticSize = Enum.AutomaticSize.Y,
+			}, {
+				Padding = React.createElement("UIPadding", {
+					PaddingBottom = UDim.new(0, 7),
+				}),
+				TitleText = React.createElement(UIBlox.App.Text.StyledTextLabel, {
+					fontStyle = props.promptStyle.Font.Header1,
+					colorStyle = props.promptStyle.Theme.SystemPrimaryDefault,
+					textXAlignment = Enum.TextXAlignment.Center,
+					size = UDim2.new(1, 0, 1, 0),
+					text = props.titleText,
+				}),
+			}),
+			Divider = React.createElement("Frame", {
+				BackgroundColor3 = props.promptStyle.Theme.Divider.Color,
+				BackgroundTransparency = props.promptStyle.Theme.Divider.Transparency,
+				BorderSizePixel = 0,
+				LayoutOrder = 3,
+				Size = UDim2.new(1, 0, 0, 1),
+			}),
+			DividerSpaceContainer = React.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 4,
+				Size = UDim2.new(1, 0, 0, SMALLER_PADDING),
+			}),
+			BodyTextContainer = React.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 5,
+				Size = UDim2.new(1, 0, 0, bodyTextContainerHeight),
+			}, {
+				BodyText = React.createElement(UIBlox.App.Text.StyledTextLabel, {
+					fontStyle = props.promptStyle.Font.Body,
+					colorStyle = props.promptStyle.Theme.TextDefault,
+					textXAlignment = Enum.TextXAlignment.Left,
+					size = UDim2.new(1, 0, 1, 0),
+					text = props.bodyText,
+					lineHeight = 1.2,
+				}),
+			}),
+			InfoTextContainer = if infoText
+				then React.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = 6,
+					Size = UDim2.new(1, 0, 0, infoTextContainerHeight + PADDING),
+				}, {
+					Padding = React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, SMALLER_PADDING),
+						PaddingLeft = UDim.new(0, 8),
+					}),
+					TextContainer = React.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+						Size = UDim2.new(1, 0, 0, infoTextContainerHeight),
+					}, {
+						InfoText = React.createElement(UIBlox.App.Text.StyledTextLabel, {
+							fontStyle = props.promptStyle.Font.Body,
+							colorStyle = props.promptStyle.Theme.TextEmphasis,
+							textXAlignment = Enum.TextXAlignment.Left,
+							textYAlignment = Enum.TextYAlignment.Top,
+							size = UDim2.new(1, 0, 1, 0),
+							text = infoText,
+							lineHeight = 1.25,
+						}),
+					}),
+				})
+				else nil,
+			SpaceContainer = React.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 7,
+				Size = UDim2.new(1, 0, 0, if infoText then 10 else 20),
+			}),
+			ButtonContainer = React.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 8,
+				Size = UDim2.new(1, 0, 0, BUTTON_CONTAINER_SIZE),
+			}, {
+				Layout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					Padding = UDim.new(0, BUTTON_PADDING),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+				SecondaryButton = if props.settingsAppAvailable
+					then React.createElement(Button, {
+						buttonType = ButtonType.Secondary,
+						layoutOrder = 1,
+						size = UDim2.new(0.5, -5, 0, BUTTON_CONTAINER_SIZE),
+						text = notNow,
+						onActivated = props.handleSecondaryActivated,
+					})
+					else nil,
+				ConfirmButton = React.createElement(Button, {
+					buttonType = ButtonType.PrimarySystem,
+					layoutOrder = 2,
+					size = UDim2.new(if props.settingsAppAvailable then 0.5 else 1, -5, 0, BUTTON_CONTAINER_SIZE),
+					text = if props.settingsAppAvailable then openSettings else ok,
+					onActivated = props.handlePrimaryActivated,
+				}),
+			}),
+		}),
+	})
+end
+
+return DevicePermissionsModal :: DevicePermissionsModalType

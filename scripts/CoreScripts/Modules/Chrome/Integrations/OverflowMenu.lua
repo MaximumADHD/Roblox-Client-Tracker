@@ -1,3 +1,6 @@
+local CorePackages = game:GetService("CorePackages")
+local React = require(CorePackages.Packages.React)
+
 local ChromeService = require(script.Parent.Parent.Service)
 local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
@@ -10,9 +13,22 @@ local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local Types = require(script.Parent.Parent.Service.Types)
+local useMappedSignal = require(script.Parent.Parent.Hooks.useMappedSignal)
 
+local UIBlox = require(CorePackages.UIBlox)
+local Images = UIBlox.App.ImageSet.Images
+local useStyle = UIBlox.Core.Style.useStyle
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+
+local Constants = require(script.Parent.Parent.Unibar.Constants)
+local SelfieView = require(RobloxGui.Modules.SelfieView)
+
+local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 local GetFFlagUnpinUnavailable = require(script.Parent.Parent.Flags.GetFFlagUnpinUnavailable)
+local GetFFlagEnableHamburgerIcon = require(script.Parent.Parent.Flags.GetFFlagEnableHamburgerIcon)
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
+
+local SELFIE_ID = Constants.SELFIE_VIEW_ID
 
 function checkCoreGui(
 	integration: { availability: ChromeUtils.AvailabilitySignal, id: Types.IntegrationId },
@@ -194,6 +210,86 @@ if ChromeService:orderAlignment():get() == Enum.HorizontalAlignment.Right then
 	end)
 end
 
+function HamburgerButton(props)
+	local toggleIconTransition = props.toggleTransition
+	local style = useStyle()
+	local iconColor = style.Theme.IconEmphasis
+
+	local submenuOpen = submenuVisibility and useMappedSignal(submenuVisibility) or false
+
+	return React.createElement("Frame", {
+		Size = UDim2.new(0, 36, 0, 36),
+		BorderSizePixel = 0,
+		BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
+		BackgroundTransparency = toggleIconTransition:map(function(value): any
+			return 1 - ((1 - style.Theme.BackgroundOnHover.Transparency) * value)
+		end),
+	}, {
+		React.createElement("UICorner", {
+			Name = "Corner",
+			CornerRadius = UDim.new(1, 0),
+		}) :: any,
+		React.createElement(ImageSetLabel, {
+			Name = "Overflow",
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			BackgroundTransparency = 1,
+			Image = Images["icons/common/hamburgermenu"],
+			Size = toggleIconTransition:map(function(value: any): any
+				value = 1 - value
+				return UDim2.new(0, Constants.ICON_SIZE * value, 0, Constants.ICON_SIZE * value)
+			end),
+			ImageColor3 = style.Theme.IconEmphasis.Color,
+
+			ImageTransparency = toggleIconTransition:map(function(value: any): any
+				return value * style.Theme.IconEmphasis.Transparency
+			end),
+		}) :: any,
+		React.createElement("Frame", {
+			Name = "X1",
+			Position = toggleIconTransition:map(function(value): any
+				return UDim2.new(0.5, 0, 0.5, 0)
+			end),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Size = toggleIconTransition:map(function(value: any): any
+				return UDim2.new(0, 16 * value, 0, 2)
+			end),
+			BorderSizePixel = 0,
+			BackgroundColor3 = iconColor.Color,
+			BackgroundTransparency = toggleIconTransition:map(function(value: any): any
+				return 1 - value
+			end),
+			Rotation = 45,
+		}) :: any,
+		React.createElement("Frame", {
+			Name = "X2",
+			Position = toggleIconTransition:map(function(value): any
+				return UDim2.new(0.5, 0, 0.5, 0)
+			end),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Size = toggleIconTransition:map(function(value: any): any
+				return UDim2.new(0, 16 * value, 0, 2)
+			end),
+			BorderSizePixel = 0,
+			BackgroundColor3 = iconColor.Color,
+			BackgroundTransparency = toggleIconTransition:map(function(value: any): any
+				return 1 - value
+			end),
+			Rotation = -45,
+		}) :: any,
+		if GetFFlagSelfieViewV4()
+				and SelfieView.useCameraOn()
+				and not ChromeService:isWindowOpen(SELFIE_ID)
+				and not submenuOpen
+			then React.createElement(SelfieView.CameraStatusDot, {
+				Name = "CameraStatusDot",
+				Position = UDim2.new(1, -4, 1, -7),
+				ZIndex = 2,
+			})
+			else nil,
+	})
+end
+
 return ChromeService:register({
 	initialAvailability = if GetFFlagEnableAlwaysOpenUnibar()
 		then ChromeService.AvailabilitySignal.Pinned
@@ -203,7 +299,11 @@ return ChromeService:register({
 	label = "CoreScripts.TopBar.MoreMenu",
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/9dot", "icons/menu/9dot", submenuVisibility)
+			if GetFFlagEnableHamburgerIcon() then
+				return React.createElement(HamburgerButton, props)
+			else
+				return CommonIcon("icons/menu/9dot", "icons/menu/9dot", submenuVisibility)
+			end
 		end,
 	},
 })

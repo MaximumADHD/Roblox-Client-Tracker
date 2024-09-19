@@ -13,6 +13,14 @@ export type IntegrationIdList = { [number]: string }
 export type MenuConfig = { [number]: IntegrationIdList }
 export type CompactUtilityId = string
 export type CompactUtilityConfig = { [CompactUtilityId]: MenuConfig }
+export type PeekId = string
+export type PeekLifetimeConfig = {
+	duration: number?,
+}
+export type PeekConfig = {
+	integrations: IntegrationIdList,
+	lifetime: PeekLifetimeConfig?,
+}
 export type SecondaryAction = {
 	label: string,
 	activated: (IntegrationComponentProps) -> (),
@@ -29,6 +37,8 @@ export type IntegrationProps = {
 	notification: ChromeUtils.NotifySignal,
 	hideNotificationCountWhileOpen: boolean,
 	startingWindowPosition: UDim2?,
+	windowDefaultOpen: boolean?,
+	windowAnchorPoint: Vector2?,
 	windowSize: WindowSizeSignal.WindowSizeSignal?,
 	containerWidthSlots: ContainerSlotSignal.ContainerSlotSignal?,
 	cachePosition: boolean?,
@@ -51,6 +61,8 @@ export type IntegrationRegisterProps = {
 	containerWidthSlots: ContainerSlotSignal.ContainerSlotSignal?,
 	cachePosition: boolean?,
 	startingWindowPosition: UDim2?,
+	windowDefaultOpen: boolean?,
+	windowAnchorPoint: Vector2?,
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,
 	flashNotificationSource: boolean?,
@@ -70,5 +82,6 @@ export type IntegrationComponentProps = {
 export type IntegrationList = { [IntegrationId]: IntegrationProps }
 export type MenuList = { [number]: IntegrationComponentProps }
 export type WindowList = { [number]: IntegrationComponentProps }
+export type PeekList = { IntegrationComponentProps }
 
 return nil

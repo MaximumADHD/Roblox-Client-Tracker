@@ -36,6 +36,15 @@ return function()
 		VCSMStub.reportBanMessage(str)
 	end
 
+	local UserInputServiceStub = {
+		GetPlatform = function() end,
+	}
+
+	local UserInputServiceMock = {}
+	function UserInputServiceMock:GetPlatform()
+		UserInputServiceStub.GetPlatform()
+	end
+
 	describe("VoiceChatPromptFrame", function()
 		it("should create and destroy without errors", function()
 			local element = Roact.createElement(VoiceChatPromptFrame)
@@ -439,6 +448,382 @@ return function()
 			jestExpect(turnOnLabel).toBeDefined()
 			jestExpect(notNowLabel).toBeDefined()
 			jestExpect(turnOnDisclaimer).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display device permissions modal for Windows with deeplink correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local userInputServiceMock, userInputServiceMockFn = jest.fn()
+			userInputServiceMockFn.mockReturnValueOnce(Enum.Platform.Windows)
+			UserInputServiceStub.GetPlatform = userInputServiceMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+				UserInputService = UserInputServiceMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.DevicePermissionsModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.NeedMicrophoneAccess"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"),
+			})
+			local openSettingsLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.OpenSettings"),
+			})
+			local notNowLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.NotNow"),
+			})
+			local deeplinkDirections = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.WindowsWithDeeplink"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(openSettingsLabel).toBeDefined()
+			jestExpect(notNowLabel).toBeDefined()
+			jestExpect(deeplinkDirections).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display device permissions modal for Windows without deeplink correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local userInputServiceMock, userInputServiceMockFn = jest.fn()
+			userInputServiceMockFn.mockReturnValueOnce(Enum.Platform.Windows)
+			UserInputServiceStub.GetPlatform = userInputServiceMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+				UserInputService = UserInputServiceMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.DevicePermissionsModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.NeedMicrophoneAccess"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"),
+			})
+			local okLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.Ok"),
+			})
+			local deeplinkDirections = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.WindowsWithoutDeeplink"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(okLabel).toBeDefined()
+			jestExpect(deeplinkDirections).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display device permissions modal for OSX with deeplink correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local userInputServiceMock, userInputServiceMockFn = jest.fn()
+			userInputServiceMockFn.mockReturnValueOnce(Enum.Platform.OSX)
+			UserInputServiceStub.GetPlatform = userInputServiceMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+				UserInputService = UserInputServiceMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.DevicePermissionsModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.NeedMicrophoneAccess"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"),
+			})
+			local openSettingsLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.OpenSettings"),
+			})
+			local notNowLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.NotNow"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(openSettingsLabel).toBeDefined()
+			jestExpect(notNowLabel).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display device permissions modal for OSX without deeplink correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local userInputServiceMock, userInputServiceMockFn = jest.fn()
+			userInputServiceMockFn.mockReturnValueOnce(Enum.Platform.OSX)
+			UserInputServiceStub.GetPlatform = userInputServiceMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+				UserInputService = UserInputServiceMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.DevicePermissionsModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.NeedMicrophoneAccess"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"),
+			})
+			local okLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.Ok"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(okLabel).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display device permissions modal for iOS with deeplink correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local userInputServiceMock, userInputServiceMockFn = jest.fn()
+			userInputServiceMockFn.mockReturnValueOnce(Enum.Platform.IOS)
+			UserInputServiceStub.GetPlatform = userInputServiceMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+				UserInputService = UserInputServiceMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.DevicePermissionsModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.NeedMicrophoneAccess"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"),
+			})
+			local openSettingsLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.OpenSettings"),
+			})
+			local notNowLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.NotNow"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(openSettingsLabel).toBeDefined()
+			jestExpect(notNowLabel).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display device permissions modal for iOS without deeplink correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local userInputServiceMock, userInputServiceMockFn = jest.fn()
+			userInputServiceMockFn.mockReturnValueOnce(Enum.Platform.IOS)
+			UserInputServiceStub.GetPlatform = userInputServiceMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+				UserInputService = UserInputServiceMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.DevicePermissionsModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.NeedMicrophoneAccess"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"),
+			})
+			local okLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.Ok"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(okLabel).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display device permissions modal for Android with deeplink correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local userInputServiceMock, userInputServiceMockFn = jest.fn()
+			userInputServiceMockFn.mockReturnValueOnce(Enum.Platform.Android)
+			UserInputServiceStub.GetPlatform = userInputServiceMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+				UserInputService = UserInputServiceMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.DevicePermissionsModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.NeedMicrophoneAccess"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"),
+			})
+			local openSettingsLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.OpenSettings"),
+			})
+			local notNowLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.NotNow"),
+			})
+			local deeplinkDirections = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.AndroidWithDeeplink"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(openSettingsLabel).toBeDefined()
+			jestExpect(notNowLabel).toBeDefined()
+			jestExpect(deeplinkDirections).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display device permissions modal for Android without deeplink correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local userInputServiceMock, userInputServiceMockFn = jest.fn()
+			userInputServiceMockFn.mockReturnValueOnce(Enum.Platform.Android)
+			UserInputServiceStub.GetPlatform = userInputServiceMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+				UserInputService = UserInputServiceMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.DevicePermissionsModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.NeedMicrophoneAccess"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"),
+			})
+			local okLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.Ok"),
+			})
+			local deeplinkDirections = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.AndroidWithoutDeeplink"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(okLabel).toBeDefined()
+			jestExpect(deeplinkDirections).toBeDefined()
 
 			Roact.unmount(instance)
 		end)

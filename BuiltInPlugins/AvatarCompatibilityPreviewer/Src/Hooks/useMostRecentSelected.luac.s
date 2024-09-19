@@ -1,75 +1,108 @@
 PROTO_0:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  CALL R0 0 1
+  JUMPIFNOT R0 [+32]
+  GETUPVAL R0 2
+  CALL R0 0 2
+  GETUPVAL R2 3
+  MOVE R3 R0
+  CALL R2 1 2
+  JUMPIFNOT R0 [+8]
+  JUMPIFNOT R1 [+7]
+  DUPTABLE R4 K2 [{"autoSetupTarget", "avatar"}]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K0 ["autoSetupTarget"]
+  SETTABLEKS R0 R4 K1 ["avatar"]
+  RETURN R4 1
+  JUMPIFNOT R2 [+8]
+  JUMPIFNOT R3 [+7]
+  DUPTABLE R4 K2 [{"autoSetupTarget", "avatar"}]
+  SETTABLEKS R2 R4 K0 ["autoSetupTarget"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K1 ["avatar"]
+  RETURN R4 1
+  JUMPIFNOT R0 [+6]
+  DUPTABLE R4 K2 [{"autoSetupTarget", "avatar"}]
+  SETTABLEKS R2 R4 K0 ["autoSetupTarget"]
+  SETTABLEKS R0 R4 K1 ["avatar"]
+  RETURN R4 1
+  LOADNIL R4
+  RETURN R4 1
   LOADNIL R0
   LOADNIL R1
-  GETUPVAL R2 0
-  JUMPIFNOT R2 [+4]
   GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 3
   CALL R2 0 2
   MOVE R0 R2
   MOVE R1 R3
   GETUPVAL R2 2
   CALL R2 0 2
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K0 ["useRef"]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K3 ["useRef"]
   LOADNIL R5
   CALL R4 1 1
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K0 ["useRef"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K3 ["useRef"]
   LOADNIL R6
   CALL R5 1 1
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K0 ["useRef"]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K3 ["useRef"]
   LOADNIL R7
   CALL R6 1 1
-  GETTABLEKS R7 R5 K1 ["current"]
+  GETTABLEKS R7 R5 K4 ["current"]
   JUMPIFNOTEQ R7 R0 [+2]
   JUMPIFNOT R1 [+38]
   JUMPIFNOTEQKNIL R0 [+15]
-  GETTABLEKS R7 R6 K1 ["current"]
+  GETTABLEKS R7 R6 K4 ["current"]
   JUMPIFEQKNIL R7 [+11]
-  GETTABLEKS R8 R6 K1 ["current"]
-  GETTABLEKS R7 R8 K2 ["autoSetupTarget"]
+  GETTABLEKS R8 R6 K4 ["current"]
+  GETTABLEKS R7 R8 K0 ["autoSetupTarget"]
   JUMPIFEQKNIL R7 [+5]
   LOADNIL R7
-  SETTABLEKS R7 R6 K1 ["current"]
+  SETTABLEKS R7 R6 K4 ["current"]
   JUMP [+20]
   JUMPIFEQKNIL R0 [+19]
-  GETTABLEKS R7 R6 K1 ["current"]
+  GETTABLEKS R7 R6 K4 ["current"]
   JUMPIFEQKNIL R7 [+7]
-  GETTABLEKS R8 R6 K1 ["current"]
-  GETTABLEKS R7 R8 K2 ["autoSetupTarget"]
+  GETTABLEKS R8 R6 K4 ["current"]
+  GETTABLEKS R7 R8 K0 ["autoSetupTarget"]
   JUMPIFEQ R7 R0 [+9]
-  DUPTABLE R7 K4 [{"avatar", "autoSetupTarget"}]
+  DUPTABLE R7 K5 [{"avatar", "autoSetupTarget"}]
   LOADNIL R8
-  SETTABLEKS R8 R7 K3 ["avatar"]
-  SETTABLEKS R0 R7 K2 ["autoSetupTarget"]
-  SETTABLEKS R7 R6 K1 ["current"]
-  SETTABLEKS R0 R5 K1 ["current"]
-  GETTABLEKS R7 R4 K1 ["current"]
+  SETTABLEKS R8 R7 K1 ["avatar"]
+  SETTABLEKS R0 R7 K0 ["autoSetupTarget"]
+  SETTABLEKS R7 R6 K4 ["current"]
+  SETTABLEKS R0 R5 K4 ["current"]
+  GETTABLEKS R7 R4 K4 ["current"]
   JUMPIFNOTEQ R7 R2 [+2]
   JUMPIFNOT R3 [+38]
   JUMPIFNOTEQKNIL R2 [+15]
-  GETTABLEKS R7 R6 K1 ["current"]
+  GETTABLEKS R7 R6 K4 ["current"]
   JUMPIFEQKNIL R7 [+11]
-  GETTABLEKS R8 R6 K1 ["current"]
-  GETTABLEKS R7 R8 K3 ["avatar"]
+  GETTABLEKS R8 R6 K4 ["current"]
+  GETTABLEKS R7 R8 K1 ["avatar"]
   JUMPIFEQKNIL R7 [+5]
   LOADNIL R7
-  SETTABLEKS R7 R6 K1 ["current"]
+  SETTABLEKS R7 R6 K4 ["current"]
   JUMP [+20]
   JUMPIFEQKNIL R2 [+19]
-  GETTABLEKS R7 R6 K1 ["current"]
+  GETTABLEKS R7 R6 K4 ["current"]
   JUMPIFEQKNIL R7 [+7]
-  GETTABLEKS R8 R6 K1 ["current"]
-  GETTABLEKS R7 R8 K3 ["avatar"]
+  GETTABLEKS R8 R6 K4 ["current"]
+  GETTABLEKS R7 R8 K1 ["avatar"]
   JUMPIFEQ R7 R2 [+9]
-  DUPTABLE R7 K4 [{"avatar", "autoSetupTarget"}]
-  SETTABLEKS R2 R7 K3 ["avatar"]
+  DUPTABLE R7 K5 [{"avatar", "autoSetupTarget"}]
+  SETTABLEKS R2 R7 K1 ["avatar"]
   LOADNIL R8
-  SETTABLEKS R8 R7 K2 ["autoSetupTarget"]
-  SETTABLEKS R7 R6 K1 ["current"]
-  SETTABLEKS R2 R4 K1 ["current"]
-  GETTABLEKS R7 R6 K1 ["current"]
+  SETTABLEKS R8 R7 K0 ["autoSetupTarget"]
+  SETTABLEKS R7 R6 K4 ["current"]
+  SETTABLEKS R2 R4 K4 ["current"]
+  GETTABLEKS R7 R6 K4 ["current"]
   RETURN R7 1
 
 MAIN:
@@ -101,11 +134,15 @@ MAIN:
   GETTABLEKS R7 R8 K13 ["Flags"]
   GETTABLEKS R6 R7 K14 ["getFFlagAvatarPreviewerAutoSetup"]
   CALL R5 1 1
-  MOVE R6 R5
-  CALL R6 0 1
-  DUPCLOSURE R7 K15 [PROTO_0]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Flags"]
+  GETTABLEKS R7 R8 K15 ["getFFlagAvatarPreviewerUseAnyModel"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_0]
   CAPTURE VAL R6
-  CAPTURE VAL R3
+  CAPTURE VAL R5
   CAPTURE VAL R4
+  CAPTURE VAL R3
   CAPTURE VAL R1
   RETURN R7 1

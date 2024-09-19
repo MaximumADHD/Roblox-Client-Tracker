@@ -11,6 +11,7 @@ export type ChannelList = Package.ChannelList
 export type VisualItemThumbnail = Package.VisualItemThumbnail
 export type VisualItem = Package.VisualItem
 export type VisualItemMetaAction = Package.VisualItemMetaAction
+export type VisualItemSingleMetaAction = Package.VisualItemSingleMetaAction
 export type NotificationTimer = Package.NotificationTimer
 export type VisualItemButton = Package.VisualItemButton
 export type VisualItemText = Package.VisualItemText

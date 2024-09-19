@@ -7,7 +7,7 @@ local Roact = require(CorePackages.Roact)
 local Promise = require(CorePackages.Promise)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
+local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 
 local BlockingModalScreen = require(script.Parent.Components.Blocking.BlockingModalScreen)
 local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.GetFFlagWrapBlockModalScreenInProvider)

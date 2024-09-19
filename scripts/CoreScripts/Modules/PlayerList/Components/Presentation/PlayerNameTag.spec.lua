@@ -18,6 +18,7 @@ return function()
 	local PlayerNameTag = require(script.Parent.PlayerNameTag)
 
 	local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
+	local FFlagInExperienceNameQueryEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagInExperienceNameQueryEnabled
 
 	it("should create and destroy without errors", function()
 		local container = Instance.new("Folder")
@@ -45,7 +46,11 @@ return function()
 			waitUntil(function()
 				Roact.act(function() end)
 				local nameTag = container:FindFirstChild("PlayerName", true) :: TextLabel
-				expect(nameTag.Text).toEqual("combinedName12345678")
+				if FFlagInExperienceNameQueryEnabled then
+					expect(nameTag.Text).toEqual("inExperienceCombinedName12345678")
+				else
+					expect(nameTag.Text).toEqual("combinedName12345678")
+				end
 				return true
 			end, 1)
 		end
@@ -80,7 +85,11 @@ return function()
 			waitUntil(function()
 				Roact.act(function() end)
 				local nameTag = container:FindFirstChild("PlayerName", true) :: TextLabel
-				expect(nameTag.Text).toEqual("combinedName12345678")
+				if FFlagInExperienceNameQueryEnabled then
+					expect(nameTag.Text).toEqual("inExperienceCombinedName12345678")
+				else
+					expect(nameTag.Text).toEqual("combinedName12345678")
+				end
 				return true
 			end, 1)
 		end

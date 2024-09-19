@@ -85,10 +85,10 @@ PROTO_4:
   LOADK R4 K9 ["Removed item is invalid even though we checked bounds"]
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
-  MOVE R3 R0
   GETUPVAL R4 1
+  FASTCALL3 TABLE_INSERT R0 R4 R1
+  MOVE R3 R0
   MOVE R5 R1
-  FASTCALL TABLE_INSERT [+2]
   GETIMPORT R2 K11 [table.insert]
   CALL R2 3 0
   RETURN R0 1

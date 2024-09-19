@@ -42,6 +42,7 @@ local function TestProviders(props: any)
                 displayName = `displayName{userId}`,
                 username = `username{userId}`,
                 platformName = `platformName{userId}`,
+                inExperienceCombinedName = `inExperienceCombinedName{userId}`,
               },
             }
           end)

@@ -16,24 +16,24 @@ PROTO_0:
 
 PROTO_1:
   NEWTABLE R2 0 0
-  GETIMPORT R3 K1 [pairs]
-  GETUPVAL R4 0
-  CALL R3 1 3
-  FORGPREP_NEXT R3
+  GETUPVAL R3 0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
   MOVE R9 R7
-  JUMPIFEQKS R9 K2 [""] [+2]
+  JUMPIFEQKS R9 K0 [""] [+2]
   JUMP [+1]
   LOADNIL R9
-  DUPTABLE R8 K7 [{"id", "text", "defaultShortcut", "allowBinding"}]
-  SETTABLEKS R6 R8 K3 ["id"]
-  LOADK R12 K8 ["Actions"]
+  DUPTABLE R8 K5 [{"id", "text", "defaultShortcut", "allowBinding"}]
+  SETTABLEKS R6 R8 K1 ["id"]
+  LOADK R12 K6 ["Actions"]
   MOVE R13 R6
-  NAMECALL R10 R1 K9 ["getText"]
+  NAMECALL R10 R1 K7 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R8 K4 ["text"]
-  SETTABLEKS R9 R8 K5 ["defaultShortcut"]
+  SETTABLEKS R10 R8 K2 ["text"]
+  SETTABLEKS R9 R8 K3 ["defaultShortcut"]
   LOADB R10 0
-  SETTABLEKS R10 R8 K6 ["allowBinding"]
+  SETTABLEKS R10 R8 K4 ["allowBinding"]
   SETTABLE R8 R2 R6
   FORGLOOP R3 2 [-22]
   RETURN R2 1

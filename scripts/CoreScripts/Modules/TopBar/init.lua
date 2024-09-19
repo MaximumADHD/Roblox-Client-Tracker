@@ -26,6 +26,8 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
+local GetFFlagEnableSceneAnalysis = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagEnableSceneAnalysis)
+
 if ChromeEnabled and not TenFootInterface:IsEnabled() then
 	-- set this prior to TopBarApp require
 	local guiInsetTopLeft, guiInsetBottomRight = GuiService:GetGuiInset()
@@ -38,6 +40,7 @@ if ChromeEnabled and not TenFootInterface:IsEnabled() then
 end
 
 local TopBarApp = require(script.Components.TopBarApp)
+local SceneAnalysisExperimentProvider = require(script.Components.SceneAnalysisExperimentProvider)
 local Reducer = require(script.Reducer)
 local TopBarAppPolicy = require(script.TopBarAppPolicy)
 
@@ -179,6 +182,10 @@ function TopBar.new()
 			})
 		),
 	})
+
+	if GetFFlagEnableSceneAnalysis() then
+		self.root = Roact.createElement(SceneAnalysisExperimentProvider, {}, self.root)
+	end
 
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 

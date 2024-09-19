@@ -3,15 +3,6 @@
 --	// Written by: Xsitsu
 --	// Description: Hooks main chat module up to Topbar in corescripts.
 
-local FFlagUserHandleChatHotKeyWithContextActionService = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserHandleChatHotKeyWithContextActionService")
-	end)
-	if ok then
-		FFlagUserHandleChatHotKeyWithContextActionService = value
-	end
-end
-
 local StarterGui = game:GetService("StarterGui")
 local GuiService = game:GetService("GuiService")
 local ChatService = game:GetService("Chat")
@@ -107,10 +98,8 @@ local function DoEverything()
 	ConnectGetCore("ChatWindowSize")
 	ConnectSetCore("ChatBarDisabled")
 	ConnectGetCore("ChatBarDisabled")
+	ConnectEvent("SpecialKeyPressed")
 
-    if not FFlagUserHandleChatHotKeyWithContextActionService then
-        ConnectEvent("SpecialKeyPressed")
-    end
 
 	SetCoreGuiChatConnections(containerTable)
 end

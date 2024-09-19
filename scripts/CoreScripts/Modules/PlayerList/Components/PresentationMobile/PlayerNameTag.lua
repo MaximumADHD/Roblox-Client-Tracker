@@ -18,9 +18,11 @@ local usePlayerCombinedName = require(PlayerList.Hooks.usePlayerCombinedName)
 
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local getInExperienceCombinedNameFromId = UserProfiles.Selectors.getInExperienceCombinedNameFromId
 
 local getIsUserProfileOnLeaderboardEnabled = require(RobloxGui.Modules.Flags.getIsUserProfileOnLeaderboardEnabled)
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
+local FFlagInExperienceNameQueryEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagInExperienceNameQueryEnabled
 
 local PlayerNameTag = React.PureComponent:extend("PlayerNameTag")
 
@@ -67,12 +69,12 @@ if not FFlagRefactorPlayerNameTag then
 			})
 
 			ApolloClient:query({
-				query = UserProfiles.Queries.userProfilesCombinedNameByUserIds,
+				query = if FFlagInExperienceNameQueryEnabled then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds else UserProfiles.Queries.userProfilesCombinedNameByUserIds,
 				variables = {
 					userIds = { tostring(self.props.player.UserId) },
 				},
 			}):andThen(function(response)
-				local name = response.data.userProfiles[1].names.combinedName
+				local name = if FFlagInExperienceNameQueryEnabled then getInExperienceCombinedNameFromId(response.data, self.props.player.UserId) else response.data.userProfiles[1].names.combinedName
 				self:setState({
 					name = name,
 				})

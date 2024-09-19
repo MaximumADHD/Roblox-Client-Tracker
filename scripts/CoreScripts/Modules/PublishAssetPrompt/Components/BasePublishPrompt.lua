@@ -95,9 +95,6 @@ function BasePublishPrompt:init()
 	self.inputObject = nil
 	self.connection = nil
 
-	-- Prompt should be visible when this component is mounted
-	self.props.SetPromptVisibility(true)
-
 	self.storeInput = function(actionName, inputState, inputObject)
 		self.inputState = inputState
 		self.inputObject = inputObject
@@ -180,6 +177,9 @@ end
 
 function BasePublishPrompt:didMount()
 	self:setUpGamepad()
+
+	-- Prompt should be visible when this component is mounted
+	self.props.SetPromptVisibility(true)
 end
 
 function BasePublishPrompt:didUpdate(prevProps)
@@ -409,6 +409,9 @@ end
 
 function BasePublishPrompt:willUnmount()
 	self:cleanupGamepad()
+
+	-- Make sure state reflects that the prompt is no longer visible
+	self.props.SetPromptVisibility(false)
 end
 
 local function mapStateToProps(state)

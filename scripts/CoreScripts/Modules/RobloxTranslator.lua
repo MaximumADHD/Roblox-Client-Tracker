@@ -4,32 +4,16 @@ local CoreGui = game:GetService('CoreGui')
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-game:DefineFastFlag("LuaAppUpdateRobloxTranslatorFallback", false)
-local function GetFFlagLuaAppUpdateRobloxTranslatorFallback()
-    return game:GetFastFlag("LuaAppUpdateRobloxTranslatorFallback")
-end
-
 local FALLBACK_ENGLISH_TRANSLATOR
-local getFallbackTranslator
-if GetFFlagLuaAppUpdateRobloxTranslatorFallback() then
-    function getFallbackTranslator()
-        if not FALLBACK_ENGLISH_TRANSLATOR then
-            FALLBACK_ENGLISH_TRANSLATOR = CoreGui.CoreScriptLocalization:GetTranslator("en-us")
-        end
-        return FALLBACK_ENGLISH_TRANSLATOR
+local function getFallbackTranslator()
+    if not FALLBACK_ENGLISH_TRANSLATOR then
+        FALLBACK_ENGLISH_TRANSLATOR = CoreGui.CoreScriptLocalization:GetTranslator("en-us")
     end
-else
-    FALLBACK_ENGLISH_TRANSLATOR = CoreGui.CoreScriptLocalization:GetTranslator("en-us")
+    return FALLBACK_ENGLISH_TRANSLATOR
 end
 
 -- Waiting for the player ensures that the RobloxLocaleId has been set.
-if GetFFlagLuaAppUpdateRobloxTranslatorFallback() then
-    if RunService:IsClient() then
-        if Players.LocalPlayer == nil then
-            Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-        end
-    end
-else
+if RunService:IsClient() then
     if Players.LocalPlayer == nil then
         Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
     end
@@ -37,11 +21,9 @@ end
 
 local coreScriptTableTranslator
 local function getTranslator()
-    if GetFFlagLuaAppUpdateRobloxTranslatorFallback() then
-        if not LocalizationService.RobloxLocaleId then
+    if not LocalizationService.RobloxLocaleId then
             return getFallbackTranslator()
         end
-    end
 
     if coreScriptTableTranslator == nil then
         coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(
@@ -74,9 +56,7 @@ local function formatByKeyWithFallback(key, args, translator)
     elseif translator.LocaleId == "zh-cjv" then
         return ""
     else
-        if GetFFlagLuaAppUpdateRobloxTranslatorFallback() then
-            getFallbackTranslator()
-        end
+        getFallbackTranslator()
 
         return FALLBACK_ENGLISH_TRANSLATOR:FormatByKey(key, args)
     end

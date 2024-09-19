@@ -16,4 +16,5 @@ return {
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
 	Songbird = require(script.MusicUtility.Songbird),
 	Party = require(script.Party),
+	PeekCloseButton = require(script.PeekCloseButton),
 }

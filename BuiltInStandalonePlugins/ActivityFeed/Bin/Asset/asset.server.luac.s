@@ -25,6 +25,18 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioPublishService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  LOADB R3 0
+  LOADB R4 0
+  GETIMPORT R5 K7 [Enum.StudioCloseMode.None]
+  NAMECALL R1 R0 K8 ["ShowSaveOrPublishPlaceToRoblox"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_3:
   GETIMPORT R0 K1 [plugin]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["Name"]
@@ -49,7 +61,7 @@ PROTO_2:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R0 0
   JUMPIFNOT R0 [+7]
   GETUPVAL R0 0
@@ -70,61 +82,71 @@ MAIN:
   GETTABLEKS R1 R2 K6 ["defineLuaFlags"]
   CALL R0 1 0
   GETIMPORT R0 K8 [game]
-  LOADK R2 K9 ["RunService"]
-  NAMECALL R0 R0 K10 ["GetService"]
+  LOADK R2 K9 ["COLLAB6856FixAHPublish"]
+  NAMECALL R0 R0 K10 ["getFastFlag"]
   CALL R0 2 1
-  NAMECALL R0 R0 K11 ["IsEdit"]
-  CALL R0 1 1
-  JUMPIFNOT R0 [+48]
   GETIMPORT R1 K8 [game]
-  GETTABLEKS R0 R1 K12 ["PlaceId"]
+  LOADK R3 K11 ["RunService"]
+  NAMECALL R1 R1 K12 ["GetService"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K13 ["IsEdit"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+56]
   GETIMPORT R2 K8 [game]
-  GETTABLEKS R1 R2 K13 ["GameId"]
-  GETIMPORT R2 K15 [plugin]
-  LOADK R4 K16 ["placeid"]
-  MOVE R5 R0
-  NAMECALL R2 R2 K17 ["SetItem"]
-  CALL R2 3 0
-  GETIMPORT R2 K15 [plugin]
-  LOADK R4 K18 ["universeid"]
-  MOVE R5 R1
-  NAMECALL R2 R2 K17 ["SetItem"]
-  CALL R2 3 0
-  GETIMPORT R2 K15 [plugin]
-  LOADK R4 K19 ["idsupdated"]
-  NAMECALL R2 R2 K20 ["Invoke"]
-  CALL R2 2 0
-  GETIMPORT R2 K8 [game]
-  LOADK R4 K12 ["PlaceId"]
-  NAMECALL R2 R2 K21 ["GetPropertyChangedSignal"]
-  CALL R2 2 1
-  DUPCLOSURE R4 K22 [PROTO_0]
-  NAMECALL R2 R2 K23 ["Connect"]
-  CALL R2 2 0
-  GETIMPORT R2 K8 [game]
-  LOADK R4 K13 ["GameId"]
-  NAMECALL R2 R2 K21 ["GetPropertyChangedSignal"]
-  CALL R2 2 1
-  DUPCLOSURE R4 K24 [PROTO_1]
-  NAMECALL R2 R2 K23 ["Connect"]
-  CALL R2 2 0
-  GETIMPORT R0 K15 [plugin]
-  JUMPIF R0 [+1]
+  GETTABLEKS R1 R2 K14 ["PlaceId"]
+  GETIMPORT R3 K8 [game]
+  GETTABLEKS R2 R3 K15 ["GameId"]
+  GETIMPORT R3 K17 [plugin]
+  LOADK R5 K18 ["placeid"]
+  MOVE R6 R1
+  NAMECALL R3 R3 K19 ["SetItem"]
+  CALL R3 3 0
+  GETIMPORT R3 K17 [plugin]
+  LOADK R5 K20 ["universeid"]
+  MOVE R6 R2
+  NAMECALL R3 R3 K19 ["SetItem"]
+  CALL R3 3 0
+  GETIMPORT R3 K17 [plugin]
+  LOADK R5 K21 ["idsupdated"]
+  NAMECALL R3 R3 K22 ["Invoke"]
+  CALL R3 2 0
+  GETIMPORT R3 K8 [game]
+  LOADK R5 K14 ["PlaceId"]
+  NAMECALL R3 R3 K23 ["GetPropertyChangedSignal"]
+  CALL R3 2 1
+  DUPCLOSURE R5 K24 [PROTO_0]
+  NAMECALL R3 R3 K25 ["Connect"]
+  CALL R3 2 0
+  GETIMPORT R3 K8 [game]
+  LOADK R5 K15 ["GameId"]
+  NAMECALL R3 R3 K23 ["GetPropertyChangedSignal"]
+  CALL R3 2 1
+  DUPCLOSURE R5 K26 [PROTO_1]
+  NAMECALL R3 R3 K25 ["Connect"]
+  CALL R3 2 0
+  JUMPIFNOT R0 [+7]
+  GETIMPORT R3 K17 [plugin]
+  LOADK R5 K27 ["publishgame"]
+  DUPCLOSURE R6 K28 [PROTO_2]
+  NAMECALL R3 R3 K29 ["OnInvoke"]
+  CALL R3 3 0
+  GETIMPORT R1 K17 [plugin]
+  JUMPIF R1 [+1]
   RETURN R0 0
-  GETIMPORT R3 K3 [script]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
   GETTABLEKS R2 R3 K4 ["Parent"]
   GETTABLEKS R1 R2 K4 ["Parent"]
-  GETTABLEKS R0 R1 K4 ["Parent"]
-  GETIMPORT R1 K1 [require]
-  GETTABLEKS R3 R0 K25 ["Packages"]
-  GETTABLEKS R2 R3 K26 ["TestLoader"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K27 ["launch"]
-  LOADK R3 K28 ["ActivityFeed"]
-  GETTABLEKS R4 R0 K29 ["Src"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K30 ["isCli"]
-  CALL R2 0 1
-  JUMPIFNOT R2 [+1]
+  GETIMPORT R2 K1 [require]
+  GETTABLEKS R4 R1 K30 ["Packages"]
+  GETTABLEKS R3 R4 K31 ["TestLoader"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K32 ["launch"]
+  LOADK R4 K33 ["ActivityFeed"]
+  GETTABLEKS R5 R1 K34 ["Src"]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K35 ["isCli"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+1]
   RETURN R0 0
   RETURN R0 0

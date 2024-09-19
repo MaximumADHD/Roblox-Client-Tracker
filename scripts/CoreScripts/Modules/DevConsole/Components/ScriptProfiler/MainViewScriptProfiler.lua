@@ -59,6 +59,7 @@ local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfile
 
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerBetterStateManagement = game:DefineFastFlag("ScriptProfilerBetterStateManagement", false)
+local FFlagScriptProfilerNoClientRepl = game:DefineFastFlag("ScriptProfilerNoClientRepl", false)
 
 local FIntScriptProfilerLiveUpdateIntervalMS = game:DefineFastInt("ScriptProfilerLiveUpdateIntervalMS", 1000)
 
@@ -1099,6 +1100,10 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(
-	DataConsumer(MainViewScriptProfiler, "ServerProfilingData")
-)
+if FFlagScriptProfilerNoClientRepl then
+	return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(MainViewScriptProfiler)
+else
+	return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(
+		DataConsumer(MainViewScriptProfiler, "ServerProfilingData")
+	)
+end

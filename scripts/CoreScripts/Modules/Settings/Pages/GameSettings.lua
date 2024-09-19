@@ -45,7 +45,7 @@ local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSetting
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local GetFFlagAddHapticsToggle = SharedFlags.GetFFlagAddHapticsToggle
 local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
-local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding", false)
+local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding2", false)
 local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(script.Parent.Parent.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
 
 
@@ -2366,7 +2366,7 @@ local function Initialize()
 			UDim2.new(
 			this.MouseAdvancedEntry.SliderFrame.Position.X.Scale,
 			if FFlagCameraSensitivityPadding 
-				then this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth - textBoxPadding
+				then this.MouseAdvancedEntry.SliderFrame.Position.X.Offset - textBoxWidth - textBoxPadding
 				else this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth,
 			this.MouseAdvancedEntry.SliderFrame.Position.Y.Scale,
 			this.MouseAdvancedEntry.SliderFrame.Position.Y.Offset

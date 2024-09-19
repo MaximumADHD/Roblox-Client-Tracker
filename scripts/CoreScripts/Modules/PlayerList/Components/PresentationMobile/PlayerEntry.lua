@@ -31,6 +31,7 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
+local GetFFlagLuaAppEnableFoundationColors = require(SharedFlags).GetFFlagLuaAppEnableFoundationColors
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 
@@ -154,7 +155,7 @@ function PlayerEntry:getTextStyle(layoutValues, style)
 		return style.Theme.TextEmphasis
 	end
 
-	return style.Theme.TextMuted
+	return if GetFFlagLuaAppEnableFoundationColors() then style.Theme.TextDefault else style.Theme.TextMuted
 end
 
 function PlayerEntry:getPlayerNameFont(layoutValues, style)

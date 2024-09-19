@@ -8,6 +8,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local GetFFlagFixMissingPlayerGuiCrash = require(RobloxGui.Modules.Flags.GetFFlagFixMissingPlayerGuiCrash)
+local FFlagFixVirtualCursorErrorOnDyingGuiObject = game:DefineFastFlag("FixVirtualCursorErrorOnDyingGuiObject", false)
 
 local PlayerGui
 
@@ -229,8 +230,15 @@ return function(VirtualCursorMain, dt)
 			GuiService.SelectedCoreObject = VirtualCursorMain.SelectedObject
 			GuiService.SelectedObject = nil
 		else
-			GuiService.SelectedObject = VirtualCursorMain.SelectedObject
-			GuiService.SelectedCoreObject = nil
+			if FFlagFixVirtualCursorErrorOnDyingGuiObject then
+				if VirtualCursorMain.SelectedObject:IsDescendantOf(PlayerGui) then
+					GuiService.SelectedObject = VirtualCursorMain.SelectedObject
+					GuiService.SelectedCoreObject = nil
+				end
+			else
+				GuiService.SelectedObject = VirtualCursorMain.SelectedObject
+				GuiService.SelectedCoreObject = nil
+			end
 		end
 	end
 end

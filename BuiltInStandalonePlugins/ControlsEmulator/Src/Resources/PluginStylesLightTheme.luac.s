@@ -39,8 +39,12 @@ MAIN:
   LOADN R7 202
   CALL R4 3 1
   SETTABLEKS R4 R3 K20 ["MappingLabel"]
+  LOADK R4 K21 ["$Gray10"]
+  SETTABLEKS R4 R3 K22 ["SeparatorColor"]
+  LOADK R4 K21 ["$Gray10"]
+  SETTABLEKS R4 R3 K23 ["InfoTooltipBackgroundColor"]
   MOVE R4 R2
-  LOADK R5 K21 ["ControlsEmulatorLightTheme"]
+  LOADK R5 K24 ["ControlsEmulatorLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

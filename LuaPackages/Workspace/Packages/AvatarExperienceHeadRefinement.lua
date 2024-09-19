@@ -5,4 +5,8 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["AvatarExperienceHeadRefinement"]["AvatarExperienceHeadRefinement"])
 
+export type HeadShapeName = Package.HeadShapeName
+export type HeadRefinementReducerState = Package.HeadRefinementReducerState
+
+
 return Package

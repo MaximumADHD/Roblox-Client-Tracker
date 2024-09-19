@@ -19,6 +19,7 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+local GetFFlagUpdateHealthBar = require(RobloxGui.Modules.Flags.GetFFlagUpdateHealthBar)
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -26,8 +27,19 @@ local ChromeService = if GetFFlagFixChromeReferences() then
 	if ChromeEnabled() then require(Chrome.Service) else nil
 	else if ChromeEnabled then require(Chrome.Service) else nil
 
+local UseUpdatedHealthBar = GetFFlagUpdateHealthBar() and ChromeEnabled()
+
+
 local HEALTHBAR_SIZE = UDim2.new(0, 80, 0, 6)
+if UseUpdatedHealthBar then
+	HEALTHBAR_SIZE = UDim2.new(0, 125, 0, 20)
+end
+local HEALTHBAR_SIZE_XSMALL = UDim2.new(0, 50, 0, 16)
+local HEALTHBAR_SIZE_SMALL = UDim2.new(0, 80, 0, 20)
 local HEALTHBAR_SIZE_TENFOOT = UDim2.new(0, 220, 0, 16)
+
+local HEALTHBAR_SIZE_BREAKPOINT_XSMALL = 320
+local HEALTHBAR_SIZE_BREAKPOINT_SMALL = 393
 
 local HEALTHBAR_OFFSET = 4
 local HEALTHBAR_OFFSET_TENFOOT = 0
@@ -35,8 +47,9 @@ local HEALTHBAR_OFFSET_TENFOOT = 0
 local HealthBar = Roact.PureComponent:extend("HealthBar")
 
 HealthBar.validateProps = t.strictInterface({
-	layoutOrder = t.integer,
+	layoutOrder = t.optional(t.integer),
 
+	screenSize = t.Vector2,
 	healthEnabled = t.boolean,
 	health = t.number,
 	maxHealth = t.number,
@@ -94,19 +107,23 @@ function HealthBar:init()
 end
 
 function HealthBar:didMount()
-	if ChromeService then
-		self.chromeMenuStatusConn = ChromeService:status():connect(function()
-			self:setState({
-				chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
-			})
-		end)
+	if not UseUpdatedHealthBar then
+		if ChromeService then
+			self.chromeMenuStatusConn = ChromeService:status():connect(function()
+				self:setState({
+					chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
+				})
+			end)
+		end
 	end
 end
 
 function HealthBar:onUnmount()
-	if self.chromeMenuStatusConn then
-		self.chromeMenuStatusConn:Disconnect()
-		self.chromeMenuStatusConn = nil
+	if not UseUpdatedHealthBar then
+		if self.chromeMenuStatusConn then
+			self.chromeMenuStatusConn:Disconnect()
+			self.chromeMenuStatusConn = nil
+		end
 	end
 end
 
@@ -114,7 +131,11 @@ function HealthBar:render()
 	local healthVisible = self.props.healthEnabled
 		and self.props.health < self.props.maxHealth
 
-	healthVisible = healthVisible and not self.state.chromeMenuOpen
+	if UseUpdatedHealthBar then
+		healthVisible = healthVisible
+	else
+		healthVisible = healthVisible and not self.state.chromeMenuOpen
+	end
 
 	local healthPercent = 1
 	if self.props.isDead then
@@ -123,9 +144,24 @@ function HealthBar:render()
 		healthPercent = self.props.health / self.props.maxHealth
 	end
 
-	local healthBarSize = HEALTHBAR_SIZE
-	if TenFootInterface:IsEnabled() then
-		healthBarSize = HEALTHBAR_SIZE_TENFOOT
+	local healthBarSize
+	if UseUpdatedHealthBar then
+		if self.props.screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_XSMALL then
+			healthBarSize = HEALTHBAR_SIZE_XSMALL
+		elseif self.props.screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_SMALL then
+			healthBarSize = HEALTHBAR_SIZE_SMALL
+		else
+			healthBarSize = HEALTHBAR_SIZE
+		end
+
+		if TenFootInterface:IsEnabled() then
+			healthBarSize = HEALTHBAR_SIZE_TENFOOT
+		end
+	else
+		healthBarSize = HEALTHBAR_SIZE
+		if TenFootInterface:IsEnabled() then
+			healthBarSize = HEALTHBAR_SIZE_TENFOOT
+		end
 	end
 
 	local healthBarOffset = HEALTHBAR_OFFSET
@@ -133,20 +169,31 @@ function HealthBar:render()
 		healthBarOffset = HEALTHBAR_OFFSET_TENFOOT
 	end
 
-	local healthBarBase = "rbxasset://textures/ui/TopBar/HealthBarBase.png"
-	local healthBar = "rbxasset://textures/ui/TopBar/HealthBar.png"
-	local sliceCenter = Rect.new(3, 3, 4, 4)
-	if TenFootInterface:IsEnabled() then
+	local healthBarBase
+	local healthBar
+	local sliceCenter
+	if UseUpdatedHealthBar then
 		healthBarBase = "rbxasset://textures/ui/TopBar/HealthBarBaseTV.png"
 		healthBar = "rbxasset://textures/ui/TopBar/HealthBarTV.png"
 		sliceCenter = Rect.new(8, 8, 9, 9)
+	else
+		healthBarBase = "rbxasset://textures/ui/TopBar/HealthBarBase.png"
+		healthBar = "rbxasset://textures/ui/TopBar/HealthBar.png"
+		sliceCenter = Rect.new(3, 3, 4, 4)
+		if TenFootInterface:IsEnabled() then
+			healthBarBase = "rbxasset://textures/ui/TopBar/HealthBarBaseTV.png"
+			healthBar = "rbxasset://textures/ui/TopBar/HealthBarTV.png"
+			sliceCenter = Rect.new(8, 8, 9, 9)
+		end
 	end
 
 	local onAreaChanged = function(rbx)
-		if healthVisible and rbx then
-			self.props.setKeepOutArea(Constants.HealthBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
-		else
-			self.props.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
+		if not UseUpdatedHealthBar then
+			if healthVisible and rbx then
+				self.props.setKeepOutArea(Constants.HealthBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+			else
+				self.props.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
+			end
 		end
 	end
 
@@ -158,6 +205,8 @@ function HealthBar:render()
 
 	local healthBarColor = getHealthBarColor(healthPercent)
 	return Roact.createElement("Frame", {
+		AnchorPoint = if UseUpdatedHealthBar then Vector2.new(1, 0) else nil,
+		Position = if UseUpdatedHealthBar then UDim2.new(1, 0, 0, 0) else nil,
 		Visible = healthVisible,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(healthBarSize.X, UDim.new(1, 0)),
@@ -193,6 +242,7 @@ end
 
 local function mapStateToProps(state)
 	return {
+		screenSize = state.displayOptions.screenSize,
 		health = state.health.currentHealth,
 		maxHealth = state.health.maxHealth,
 		healthEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Health],

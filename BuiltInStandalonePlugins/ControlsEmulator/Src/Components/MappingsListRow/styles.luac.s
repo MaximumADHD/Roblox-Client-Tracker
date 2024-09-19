@@ -18,7 +18,7 @@ MAIN:
   LOADN R7 1
   LOADN R8 0
   LOADN R9 0
-  LOADN R10 15
+  LOADN R10 20
   CALL R6 4 1
   SETTABLEKS R6 R5 K10 ["Size"]
   GETIMPORT R6 K15 [UDim2.new]
@@ -49,18 +49,29 @@ MAIN:
   LOADN R15 0
   CALL R11 4 1
   SETTABLEKS R11 R10 K10 ["Size"]
-  CALL R8 2 1
+  NEWTABLE R11 0 1
+  MOVE R12 R2
+  LOADK R13 K29 ["::UIPadding"]
+  DUPTABLE R14 K31 [{"PaddingRight"}]
+  GETIMPORT R15 K33 [UDim.new]
+  LOADN R16 0
+  LOADN R17 8
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K30 ["PaddingRight"]
+  CALL R12 2 -1
+  SETLIST R11 R12 -1 [1]
+  CALL R8 3 1
   MOVE R9 R2
-  LOADK R10 K29 [">> .SrcKey"]
-  DUPTABLE R11 K31 [{"TextColor3", "TextXAlignment", "BackgroundColor3", "Size"}]
-  LOADK R12 K32 ["$TextPrimary"]
+  LOADK R10 K34 [">> .SrcKey"]
+  DUPTABLE R11 K36 [{"TextColor3", "TextXAlignment", "BackgroundColor3", "Size"}]
+  LOADK R12 K37 ["$TextPrimary"]
   SETTABLEKS R12 R11 K21 ["TextColor3"]
-  GETIMPORT R12 K34 [Enum.TextXAlignment.Center]
+  GETIMPORT R12 K39 [Enum.TextXAlignment.Center]
   SETTABLEKS R12 R11 K22 ["TextXAlignment"]
-  LOADK R12 K35 ["$MappingLabel"]
-  SETTABLEKS R12 R11 K30 ["BackgroundColor3"]
+  LOADK R12 K40 ["$MappingLabel"]
+  SETTABLEKS R12 R11 K35 ["BackgroundColor3"]
   GETIMPORT R12 K15 [UDim2.new]
-  LOADK R13 K36 [0.4]
+  LOADK R13 K41 [0.4]
   LOADN R14 0
   LOADN R15 1
   LOADN R16 0
@@ -68,10 +79,10 @@ MAIN:
   SETTABLEKS R12 R11 K10 ["Size"]
   NEWTABLE R12 0 1
   MOVE R13 R2
-  LOADK R14 K37 [":hover"]
-  DUPTABLE R15 K38 [{"BackgroundColor3"}]
-  LOADK R16 K39 ["$MappingLabelHover"]
-  SETTABLEKS R16 R15 K30 ["BackgroundColor3"]
+  LOADK R14 K42 [":hover"]
+  DUPTABLE R15 K43 [{"BackgroundColor3"}]
+  LOADK R16 K44 ["$MappingLabelHover"]
+  SETTABLEKS R16 R15 K35 ["BackgroundColor3"]
   CALL R13 2 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 -1

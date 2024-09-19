@@ -16,60 +16,63 @@ PROTO_0:
   MOVE R8 R2
   NAMECALL R5 R4 K8 ["FormatLocalTime"]
   CALL R5 3 1
+  GETIMPORT R6 K10 [print]
+  MOVE R7 R5
+  CALL R6 1 0
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K9 ["createElement"]
-  LOADK R7 K10 ["Frame"]
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  LOADK R7 K12 ["Frame"]
   NEWTABLE R8 2 0
   GETUPVAL R10 2
-  GETTABLEKS R9 R10 K11 ["Tag"]
-  LOADK R10 K12 ["Component-ReviewedNote X-FitY"]
+  GETTABLEKS R9 R10 K13 ["Tag"]
+  LOADK R10 K14 ["Component-ReviewedNote X-FitY"]
   SETTABLE R10 R8 R9
-  GETTABLEKS R9 R0 K13 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
-  DUPTABLE R9 K16 [{"ReviewedDateTime", "ModeratorNote"}]
+  GETTABLEKS R9 R0 K15 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K15 ["LayoutOrder"]
+  DUPTABLE R9 K18 [{"ReviewedDateTime", "ModeratorNote"}]
   MOVE R10 R5
   JUMPIFNOT R10 [+27]
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K9 ["createElement"]
-  LOADK R11 K17 ["TextLabel"]
+  GETTABLEKS R10 R11 K11 ["createElement"]
+  LOADK R11 K19 ["TextLabel"]
   NEWTABLE R12 4 0
-  LOADK R15 K18 ["ReviewedNote"]
-  LOADK R16 K19 ["ReviewedDateTime1"]
-  DUPTABLE R17 K21 [{"dateTime"}]
-  SETTABLEKS R5 R17 K20 ["dateTime"]
-  NAMECALL R13 R1 K22 ["getText"]
+  LOADK R15 K20 ["ReviewedNote"]
+  LOADK R16 K21 ["ReviewedDateTime1"]
+  DUPTABLE R17 K23 [{"dateTime"}]
+  SETTABLEKS R5 R17 K22 ["dateTime"]
+  NAMECALL R13 R1 K24 ["getText"]
   CALL R13 4 1
-  SETTABLEKS R13 R12 K23 ["Text"]
-  NAMECALL R13 R3 K24 ["getNextOrder"]
+  SETTABLEKS R13 R12 K25 ["Text"]
+  NAMECALL R13 R3 K26 ["getNextOrder"]
   CALL R13 1 1
-  SETTABLEKS R13 R12 K13 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K15 ["LayoutOrder"]
   GETUPVAL R14 2
-  GETTABLEKS R13 R14 K11 ["Tag"]
-  LOADK R14 K25 ["X-FitY"]
+  GETTABLEKS R13 R14 K13 ["Tag"]
+  LOADK R14 K27 ["X-FitY"]
   SETTABLE R14 R12 R13
   CALL R10 2 1
-  SETTABLEKS R10 R9 K14 ["ReviewedDateTime"]
+  SETTABLEKS R10 R9 K16 ["ReviewedDateTime"]
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K9 ["createElement"]
-  LOADK R11 K17 ["TextLabel"]
+  GETTABLEKS R10 R11 K11 ["createElement"]
+  LOADK R11 K19 ["TextLabel"]
   NEWTABLE R12 4 0
-  LOADK R15 K18 ["ReviewedNote"]
-  LOADK R16 K26 ["ModeratorNote1"]
-  DUPTABLE R17 K28 [{"note"}]
-  GETTABLEKS R18 R0 K15 ["ModeratorNote"]
-  SETTABLEKS R18 R17 K27 ["note"]
-  NAMECALL R13 R1 K22 ["getText"]
+  LOADK R15 K20 ["ReviewedNote"]
+  LOADK R16 K28 ["ModeratorNote1"]
+  DUPTABLE R17 K30 [{"note"}]
+  GETTABLEKS R18 R0 K17 ["ModeratorNote"]
+  SETTABLEKS R18 R17 K29 ["note"]
+  NAMECALL R13 R1 K24 ["getText"]
   CALL R13 4 1
-  SETTABLEKS R13 R12 K23 ["Text"]
-  NAMECALL R13 R3 K24 ["getNextOrder"]
+  SETTABLEKS R13 R12 K25 ["Text"]
+  NAMECALL R13 R3 K26 ["getNextOrder"]
   CALL R13 1 1
-  SETTABLEKS R13 R12 K13 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K15 ["LayoutOrder"]
   GETUPVAL R14 2
-  GETTABLEKS R13 R14 K11 ["Tag"]
-  LOADK R14 K25 ["X-FitY"]
+  GETTABLEKS R13 R14 K13 ["Tag"]
+  LOADK R14 K27 ["X-FitY"]
   SETTABLE R14 R12 R13
   CALL R10 2 1
-  SETTABLEKS R10 R9 K15 ["ModeratorNote"]
+  SETTABLEKS R10 R9 K17 ["ModeratorNote"]
   CALL R6 3 -1
   RETURN R6 -1
 

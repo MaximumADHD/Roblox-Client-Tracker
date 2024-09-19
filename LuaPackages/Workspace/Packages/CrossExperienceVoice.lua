@@ -5,7 +5,7 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["CrossExperienceVoice"]["CrossExperienceVoice"])
 
-export type AnimationCurveType = Package.AnimationCurveType
+export type AnimationStep = Package.AnimationStep
 
 
 return Package

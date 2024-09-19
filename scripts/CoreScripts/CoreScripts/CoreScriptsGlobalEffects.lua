@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
+local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local usePlayerCurrentScreenOrientation = require(RobloxGui.Modules.Common.Hooks.usePlayerCurrentScreenOrientation)
 
 local CoreScriptsGamepadDisconnectListener = require(RobloxGui.Modules.GamepadDisconnect.CoreScriptsGamepadDisconnectListener)

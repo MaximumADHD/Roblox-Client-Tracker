@@ -38,26 +38,73 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R3 0
-  DUPTABLE R4 K3 [{"analyticsEventType", "eventtype", "deeplinktype"}]
-  LOADK R5 K4 ["deeplink"]
-  SETTABLEKS R5 R4 K0 ["analyticsEventType"]
-  SETTABLEKS R1 R4 K1 ["eventtype"]
-  SETTABLEKS R2 R4 K2 ["deeplinktype"]
-  CALL R3 1 0
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K2 ["ActivityHistoryFeatureTelemetry"]
+  NAMECALL R5 R5 K3 ["GetFastFlag"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+15]
+  GETUPVAL R5 0
+  DUPTABLE R6 K9 [{"analyticsEventType", "eventtype", "deeplinktype", "placeId", "universeId"}]
+  LOADK R7 K10 ["deeplink"]
+  SETTABLEKS R7 R6 K4 ["analyticsEventType"]
+  SETTABLEKS R1 R6 K5 ["eventtype"]
+  SETTABLEKS R2 R6 K6 ["deeplinktype"]
+  SETTABLEKS R3 R6 K7 ["placeId"]
+  SETTABLEKS R4 R6 K8 ["universeId"]
+  CALL R5 1 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  DUPTABLE R6 K11 [{"analyticsEventType", "eventtype", "deeplinktype"}]
+  LOADK R7 K10 ["deeplink"]
+  SETTABLEKS R7 R6 K4 ["analyticsEventType"]
+  SETTABLEKS R1 R6 K5 ["eventtype"]
+  SETTABLEKS R2 R6 K6 ["deeplinktype"]
+  CALL R5 1 0
   RETURN R0 0
 
 PROTO_3:
+  GETUPVAL R9 0
+  DUPTABLE R10 K9 [{"analyticsEventType", "filterUsersNumSelected", "filterUsersNumOptions", "filterEventCategoriesNumSelected", "filterEventCategoriesNumOptions", "filterEventCategoriesSelected", "filterJumpToDaysAgo", "placeId", "universeId"}]
+  LOADK R11 K10 ["applyFilters"]
+  SETTABLEKS R11 R10 K0 ["analyticsEventType"]
+  SETTABLEKS R1 R10 K1 ["filterUsersNumSelected"]
+  SETTABLEKS R2 R10 K2 ["filterUsersNumOptions"]
+  SETTABLEKS R3 R10 K3 ["filterEventCategoriesNumSelected"]
+  SETTABLEKS R4 R10 K4 ["filterEventCategoriesNumOptions"]
+  SETTABLEKS R5 R10 K5 ["filterEventCategoriesSelected"]
+  SETTABLEKS R6 R10 K6 ["filterJumpToDaysAgo"]
+  SETTABLEKS R7 R10 K7 ["placeId"]
+  SETTABLEKS R8 R10 K8 ["universeId"]
+  CALL R9 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R3 0
+  DUPTABLE R4 K3 [{"analyticsEventType", "placeId", "universeId"}]
+  LOADK R5 K4 ["clearFilters"]
+  SETTABLEKS R5 R4 K0 ["analyticsEventType"]
+  SETTABLEKS R1 R4 K1 ["placeId"]
+  SETTABLEKS R2 R4 K2 ["universeId"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_5:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  DUPTABLE R2 K2 [{"bubblesSeenOnSessionEnd", "deeplink"}]
+  DUPTABLE R2 K4 [{"bubblesSeenOnSessionEnd", "deeplink", "applyFilters", "clearFilters"}]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K0 ["bubblesSeenOnSessionEnd"]
   NEWCLOSURE R3 P2
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K1 ["deeplink"]
+  NEWCLOSURE R3 P3
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K2 ["applyFilters"]
+  NEWCLOSURE R3 P4
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K3 ["clearFilters"]
   RETURN R2 1
 
 MAIN:
@@ -70,6 +117,6 @@ MAIN:
   GETTABLEKS R3 R0 K5 ["Packages"]
   GETTABLEKS R2 R3 K6 ["Cryo"]
   CALL R1 1 1
-  DUPCLOSURE R2 K7 [PROTO_3]
+  DUPCLOSURE R2 K7 [PROTO_5]
   CAPTURE VAL R1
   RETURN R2 1

@@ -55,6 +55,7 @@ PROTO_1:
 
 PROTO_2:
   GETUPVAL R6 0
+  CALL R6 0 1
   JUMPIF R6 [+1]
   RETURN R0 0
   GETUPVAL R6 1
@@ -69,39 +70,39 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R5 0
-  JUMPIF R5 [+1]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIF R4 [+1]
   RETURN R0 0
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K0 ["isEnumValue"]
-  MOVE R7 R3
-  CALL R6 1 1
-  FASTCALL2K ASSERT R6 K1 [+4]
-  LOADK R7 K1 ["Expected errorType to be a GenerationErrorType"]
-  GETIMPORT R5 K3 [assert]
-  CALL R5 2 0
-  LOADNIL R5
-  JUMPIFNOT R4 [+10]
-  JUMPIFEQKS R4 K4 [""] [+9]
-  LOADK R6 K5 ["%*: '%*'"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["isEnumValue"]
+  MOVE R6 R2
+  CALL R5 1 1
+  FASTCALL2K ASSERT R5 K1 [+4]
+  LOADK R6 K1 ["Expected errorType to be a GenerationErrorType"]
+  GETIMPORT R4 K3 [assert]
+  CALL R4 2 0
+  LOADNIL R4
+  JUMPIFNOT R3 [+10]
+  JUMPIFEQKS R3 K4 [""] [+9]
+  LOADK R5 K5 ["%*: '%*'"]
+  MOVE R7 R2
   MOVE R8 R3
-  MOVE R9 R4
-  NAMECALL R6 R6 K6 ["format"]
-  CALL R6 3 1
-  MOVE R5 R6
+  NAMECALL R5 R5 K6 ["format"]
+  CALL R5 3 1
+  MOVE R4 R5
   JUMP [+6]
-  FASTCALL1 TOSTRING R3 [+3]
-  MOVE R7 R3
-  GETIMPORT R6 K8 [tostring]
-  CALL R6 1 1
-  MOVE R5 R6
-  GETUPVAL R6 2
-  LOADK R7 K9 ["GenerateMaterialsError"]
-  DUPTABLE R8 K13 [{"promptText", "initialImageId", "errorMessage"}]
-  SETTABLEKS R1 R8 K10 ["promptText"]
-  SETTABLEKS R2 R8 K11 ["initialImageId"]
-  SETTABLEKS R5 R8 K12 ["errorMessage"]
-  CALL R6 2 0
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  MOVE R4 R5
+  GETUPVAL R5 2
+  LOADK R6 K9 ["GenerateMaterialsError"]
+  DUPTABLE R7 K12 [{"promptText", "errorMessage"}]
+  SETTABLEKS R1 R7 K10 ["promptText"]
+  SETTABLEKS R4 R7 K11 ["errorMessage"]
+  CALL R5 2 0
   RETURN R0 0
 
 PROTO_4:
@@ -117,6 +118,7 @@ PROTO_4:
   GETTABLEKS R4 R5 K1 ["Name"]
   GETUPVAL R5 0
   GETUPVAL R7 1
+  CALL R7 0 1
   JUMPIFNOT R7 [+2]
   LOADK R6 K3 ["SaveGeneratedMaterial"]
   JUMP [+1]
@@ -180,10 +182,11 @@ MAIN:
   GETTABLEKS R4 R5 K10 ["Util"]
   GETTABLEKS R3 R4 K11 ["DebugFlags"]
   CALL R2 1 1
-  GETIMPORT R3 K1 [game]
-  LOADK R5 K12 ["MaterialGeneratorErrorAnalytics"]
-  NAMECALL R3 R3 K13 ["GetFastFlag"]
-  CALL R3 2 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Flags"]
+  GETTABLEKS R4 R5 K13 ["getFFlagMaterialGeneratorFixAnalytics"]
+  CALL R3 1 1
   GETIMPORT R4 K8 [require]
   GETTABLEKS R7 R1 K9 ["Src"]
   GETTABLEKS R6 R7 K14 ["Enum"]

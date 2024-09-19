@@ -83,7 +83,10 @@ type AnalyticsWrapperMeta = {
 	reportVoiceMuteGroup: (AnalyticsWrapper, VoiceMuteGroupArgs) -> (),
 	reportVoiceMuteSelf: (AnalyticsWrapper, VoiceMuteSelfArgs) -> (),
 	reportJoinVoiceButtonEvent: (AnalyticsWrapper, string, number, number, string) -> (),
+	reportJoinVoiceButtonEventWithVoiceSessionId: (AnalyticsWrapper, string, number, number, string, string) -> (),
+	reportLeaveVoiceButtonEvent: (AnalyticsWrapper, string, number, number, string, string) -> (),
 	reportInExpConsent: (AnalyticsWrapper, string, string, number, number, string) -> (),
+	reportDevicePermissionsModalEvent: (AnalyticsWrapper, string, string, number, number, string) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -103,6 +106,9 @@ local closedNudgeType = "closedNudge"
 
 type InExpConsentEventType = "shown" | "accepted" | "denied"
 local InExpConsentEventName = "inExpConsentModalEvent"
+
+type DevicePermissionsModalEventType = "Shown" | "OpenedSettings" | "Acknowledged" | "Denied"
+local DevicePermissionsModalEventName = "devicePermissionsModalEvent"
 
 function Analytics.new(impl: AnalyticsService?)
 	if not impl then
@@ -262,6 +268,38 @@ function Analytics:reportJoinVoiceButtonEvent(
 	})
 end
 
+function Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+	eventType: string,
+	universe_id: number,
+	place_id: number,
+	play_session_id: string,
+	voice_session_id: string
+)
+	self._impl:SendEventDeferred("client", "voice", "joinVoiceButtonEvent", {
+		eventType = eventType,
+		universeId = universe_id,
+		placeId = place_id,
+		playSessionId = play_session_id,
+		voiceSessionId = voice_session_id
+	})
+end
+
+function Analytics:reportLeaveVoiceButtonEvent(
+	eventType: string,
+	universe_id: number,
+	place_id: number,
+	play_session_id: string,
+	voice_session_id: string
+)
+	self._impl:SendEventDeferred("client", "voice", "leaveVoiceButtonEvent", {
+		eventType = eventType,
+		universeId = universe_id,
+		placeId = place_id,
+		playSessionId = play_session_id,
+		voiceSessionId = voice_session_id
+	})
+end
+
 function Analytics:reportInExpConsent(
 	eventType: string,
 	entry: string,
@@ -275,6 +313,25 @@ function Analytics:reportInExpConsent(
 		universeId = universe_id,
 		placeId = place_id,
 		playSessionId = play_session_id,
+	})
+end
+
+function Analytics:reportDevicePermissionsModalEvent(
+	eventType: string,
+	voiceSessionId: string,
+	universeId: number,
+	placeId: number,
+	playSessionId: string
+)
+	-- playSessionId always comes with two double quotes at the start and the end that DSA wanted removed
+	local modifiedPlaySessionId = string.sub(playSessionId, 2, #playSessionId - 1)
+
+	self._impl:SendEventDeferred("client", "voiceChat", DevicePermissionsModalEventName, {
+		eventType = eventType :: DevicePermissionsModalEventType,
+		universeId = universeId,
+		placeId = placeId,
+		playSessionId = modifiedPlaySessionId,
+		voiceSessionId = voiceSessionId,
 	})
 end
 

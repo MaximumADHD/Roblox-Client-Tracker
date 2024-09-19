@@ -253,7 +253,7 @@ MAIN:
   GETTABLEKS R1 R2 K5 ["defineLuaFlags"]
   CALL R0 1 0
   GETIMPORT R0 K7 [game]
-  LOADK R2 K8 ["EnableConstraintToolLuaPlugin"]
+  LOADK R2 K8 ["EnableConstraintToolLuaPlugin2"]
   NAMECALL R0 R0 K9 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIF R0 [+1]

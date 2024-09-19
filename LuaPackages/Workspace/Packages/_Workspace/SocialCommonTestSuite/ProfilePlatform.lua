@@ -7,6 +7,7 @@ local Package = require(PackageIndex["ProfilePlatform"]["ProfilePlatform"])
 
 export type ProfileWrapperContext = Package.ProfileWrapperContext
 export type ProfileTypeEnums = Package.ProfileTypeEnums
+export type ProfileSources = Package.ProfileSources
 
 
 return Package

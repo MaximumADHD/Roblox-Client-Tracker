@@ -3,9 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ReactRoblox"]["ReactRoblox"])
-
-export type RootType = Package.RootType
-
+local Package = require(PackageIndex["ReactRobloxProxy"]["ReactRobloxProxy"])
 
 return Package

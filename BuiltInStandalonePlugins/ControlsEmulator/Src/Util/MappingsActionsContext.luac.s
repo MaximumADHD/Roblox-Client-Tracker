@@ -9,7 +9,7 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["createContext"]
-  DUPTABLE R3 K16 [{"connectGamepadId", "setMapping", "loadMappingsForGamepad", "setIsUpdatingMappingFor", "restoreDefaults", "saveMappings", "setIsMappingsDialogOpen"}]
+  DUPTABLE R3 K18 [{"connectGamepadId", "setMapping", "loadMappingsForGamepad", "setIsUpdatingMappingFor", "restoreDefaults", "saveMappings", "setIsMappingsDialogOpen", "setVRConnected", "changeEmulatedDevice"}]
   LOADNIL R4
   SETTABLEKS R4 R3 K9 ["connectGamepadId"]
   LOADNIL R4
@@ -24,5 +24,9 @@ MAIN:
   SETTABLEKS R4 R3 K14 ["saveMappings"]
   LOADNIL R4
   SETTABLEKS R4 R3 K15 ["setIsMappingsDialogOpen"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K16 ["setVRConnected"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K17 ["changeEmulatedDevice"]
   CALL R2 1 1
   RETURN R2 1

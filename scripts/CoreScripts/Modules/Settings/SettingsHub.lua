@@ -97,6 +97,7 @@ local GetFFlagEnableScreenshotUtility = require(SharedFlags).GetFFlagEnableScree
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM2", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
+local GetFFlagEnableConnectDisconnectButtonAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectButtonAnalytics)
 local GetFFlagEnableShowVoiceUI = require(SharedFlags).GetFFlagEnableShowVoiceUI
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
 local GetFFlagEnableAppChatInExperience = require(SharedFlags).GetFFlagEnableAppChatInExperience
@@ -1554,6 +1555,12 @@ local function CreateSettingsHub()
 			this.SettingsShowSignal:connect(function(isOpen)
 				if GetFFlagUseMicPermForEnrollment() then
 					if isOpen then
+						if GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.voiceUIVisible then
+							VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
+						elseif GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and VoiceChatServiceManager.voiceUIVisible then
+							VoiceChatServiceManager.Analytics:reportLeaveVoiceButtonEvent("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
+						end
+
 						if VoiceChatServiceManager:UserVoiceEnabled() then
 							-- We may still be waiting for user to accept or deny mic permissions. If we are still waiting, don't fire the analytic event
 							if this.isFetchingMicPermissions then
@@ -1569,20 +1576,26 @@ local function CreateSettingsHub()
 							return
 						end
 
-						local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
-						if userInInExperienceUpsellTreatment then
-							local sessionId = ""
-							if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-								sessionId = AnalyticsService:GetPlaySessionId()
+						if not GetFFlagEnableConnectDisconnectButtonAnalytics() then
+							local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
+							if userInInExperienceUpsellTreatment then
+								local sessionId = ""
+								if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+									sessionId = AnalyticsService:GetPlaySessionId()
+								end
+								VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent("shown", game.GameId, game.PlaceId, sessionId)
 							end
-							VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent("shown", game.GameId, game.PlaceId, sessionId)
 						end
 					end
 				else
 					local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
 					local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
 						or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
-					if isOpen and userInInExperienceUpsellTreatment and userVoiceUpsellEligible then
+					if isOpen and GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.voiceUIVisible then
+						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
+					elseif isOpen and GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and VoiceChatServiceManager.voiceUIVisible then
+						VoiceChatServiceManager.Analytics:reportLeaveVoiceButtonEvent("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
+					elseif isOpen and userInInExperienceUpsellTreatment and userVoiceUpsellEligible then
 						local sessionId = ""
 						if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
 							sessionId = AnalyticsService:GetPlaySessionId()

@@ -35,21 +35,41 @@ PROTO_0:
   GETTABLEKS R2 R3 K1 ["Model"]
   GETTABLEKS R1 R2 K12 ["PrimaryPart"]
   SETTABLEKS R1 R0 K12 ["PrimaryPart"]
-  GETIMPORT R3 K14 [CFrame.new]
+  GETUPVAL R1 4
+  CALL R1 0 1
+  JUMPIFNOT R1 [+24]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K1 ["Model"]
+  LOADK R3 K13 ["Humanoid"]
+  NAMECALL R1 R1 K14 ["FindFirstChildWhichIsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+7]
+  GETIMPORT R3 K16 [CFrame.new]
   CALL R3 0 -1
-  NAMECALL R1 R0 K15 ["PivotTo"]
+  NAMECALL R1 R0 K17 ["PivotTo"]
+  CALL R1 -1 0
+  JUMP [+15]
+  NAMECALL R4 R0 K18 ["GetPivot"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K19 ["Rotation"]
+  NAMECALL R1 R0 K17 ["PivotTo"]
+  CALL R1 2 0
+  JUMP [+6]
+  GETIMPORT R3 K16 [CFrame.new]
+  CALL R3 0 -1
+  NAMECALL R1 R0 K17 ["PivotTo"]
   CALL R1 -1 0
   GETUPVAL R1 1
   MOVE R2 R0
   CALL R1 1 0
-  GETUPVAL R1 4
+  GETUPVAL R1 5
   MOVE R2 R0
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K1 ["Model"]
-  GETUPVAL R5 5
-  GETTABLEKS R4 R5 K16 ["PlatformHeight"]
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K17 ["PlatformSize"]
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K20 ["PlatformHeight"]
+  GETUPVAL R6 6
+  GETTABLEKS R5 R6 K21 ["PlatformSize"]
   CALL R1 4 -1
   RETURN R1 -1
 
@@ -281,6 +301,7 @@ PROTO_11:
   CAPTURE VAL R0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
   CAPTURE VAL R1
   NEWTABLE R6 0 1
   GETTABLEKS R7 R0 K3 ["Model"]
@@ -363,10 +384,10 @@ PROTO_11:
   MOVE R11 R2
   SETLIST R10 R11 1 [1]
   CALL R8 2 0
-  JUMPIFNOT R2 [+91]
+  JUMPIFNOT R2 [+87]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K27 ["createElement"]
-  GETUPVAL R9 6
+  GETUPVAL R9 7
   DUPTABLE R10 K43 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "EnableSky", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded", "ShowResetCamera"}]
   SETTABLEKS R4 R10 K13 ["Camera"]
   SETTABLEKS R2 R10 K3 ["Model"]
@@ -387,11 +408,7 @@ PROTO_11:
   SETTABLEKS R11 R10 K30 ["Size"]
   GETTABLEKS R11 R1 K31 ["Ambient"]
   SETTABLEKS R11 R10 K31 ["Ambient"]
-  GETUPVAL R12 7
-  JUMPIFNOT R12 [+3]
   GETTABLEKS R11 R1 K32 ["EnableSky"]
-  JUMP [+1]
-  LOADNIL R11
   SETTABLEKS R11 R10 K32 ["EnableSky"]
   GETTABLEKS R11 R1 K33 ["LightColor"]
   SETTABLEKS R11 R10 K33 ["LightColor"]
@@ -474,8 +491,11 @@ MAIN:
   JUMP [+4]
   GETTABLEKS R12 R1 K25 ["StudioUI"]
   GETTABLEKS R11 R12 K24 ["AssetRenderModel"]
-  GETTABLEKS R12 R9 K26 ["getFFlagDevFrameworkAssetRenderModelEnableSky"]
-  CALL R12 0 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K9 ["Src"]
+  GETTABLEKS R14 R15 K17 ["Flags"]
+  GETTABLEKS R13 R14 K26 ["getFFlagAvatarPreviewerUseAnyModel"]
+  CALL R12 1 1
   GETTABLEKS R14 R1 K27 ["ContextServices"]
   GETTABLEKS R13 R14 K28 ["Stylizer"]
   GETIMPORT R14 K5 [require]
@@ -498,9 +518,9 @@ MAIN:
   CAPTURE VAL R13
   CAPTURE VAL R2
   CAPTURE VAL R14
+  CAPTURE VAL R12
   CAPTURE VAL R3
   CAPTURE VAL R11
-  CAPTURE VAL R12
   CAPTURE VAL R6
   GETTABLEKS R18 R2 K34 ["memo"]
   MOVE R19 R17

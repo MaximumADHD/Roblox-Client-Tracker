@@ -18,6 +18,8 @@ local ServerProfilingData = require(Components.ScriptProfiler.ServerProfilingDat
 local LuauHeapData = require(Components.LuauHeap.LuauHeapData)
 local DataContext = require(Components.DataContext)
 
+local FFlagScriptProfilerNoClientRepl = game:DefineFastFlag("ScriptProfilerNoClientRepl", false)
+
 local DataProvider = Roact.Component:extend("DataProvider")
 
 function DataProvider:init()
@@ -35,7 +37,7 @@ function DataProvider:init()
 			ActionBindingsData = ActionBindingsData.new(),
 			ServerJobsData = ServerJobsData.new(),
 			DebugVisualizationsData = DebugVisualizationsData.new(),
-			ServerProfilingData = ServerProfilingData.new(),
+			ServerProfilingData = if FFlagScriptProfilerNoClientRepl then nil else ServerProfilingData.new(),
 			LuauHeapData = LuauHeapData.new(),
 		},
 	})

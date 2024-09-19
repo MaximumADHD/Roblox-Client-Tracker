@@ -42,21 +42,44 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R0 0
+  JUMPIFNOT R0 [+8]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["plugin"]
+  LOADK R2 K1 ["publishgame"]
+  NAMECALL R0 R0 K2 ["Invoke"]
+  CALL R0 2 0
+  RETURN R0 0
+  GETUPVAL R0 2
   LOADB R2 0
   LOADB R3 0
-  GETIMPORT R4 K3 [Enum.StudioCloseMode.None]
-  NAMECALL R0 R0 K4 ["ShowSaveOrPublishPlaceToRoblox"]
+  GETIMPORT R4 K6 [Enum.StudioCloseMode.None]
+  NAMECALL R0 R0 K7 ["ShowSaveOrPublishPlaceToRoblox"]
   CALL R0 4 0
   RETURN R0 0
 
 PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["plugin"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_5:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["OpenBrowserWindow"]
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["plugin"]
+  LOADK R2 K1 ["ActivityHistoryManager"]
+  NAMECALL R0 R0 K2 ["GetPluginComponent"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_7:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["plugin"]
   CALL R1 1 2
@@ -74,36 +97,45 @@ PROTO_5:
   LOADK R8 K6 ["StudioPublishService"]
   NAMECALL R6 R6 K5 ["GetService"]
   CALL R6 2 1
-  DUPTABLE R7 K14 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "usePlaceAndUniverseId", "useConnectToDataModelSessionEffect", "openBrowserLink", "contextType"}]
+  DUPTABLE R7 K16 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "DEPRECATED_usePlaceAndUniverseId", "usePlaceAndUniverseId", "useConnectToDataModelSessionEffect", "openBrowserLink", "contextType", "getActivityHistoryManager"}]
   GETUPVAL R8 2
   SETTABLEKS R8 R7 K7 ["activityHistoryClient"]
   NEWCLOSURE R8 P1
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
   CAPTURE VAL R6
   SETTABLEKS R8 R7 K8 ["showSaveOrPublishPlaceToRobloxFn"]
-  GETUPVAL R8 3
+  GETUPVAL R8 4
   SETTABLEKS R8 R7 K9 ["useCollaborators"]
   GETUPVAL R8 0
-  SETTABLEKS R8 R7 K10 ["usePlaceAndUniverseId"]
-  SETTABLEKS R4 R7 K11 ["useConnectToDataModelSessionEffect"]
+  SETTABLEKS R8 R7 K10 ["DEPRECATED_usePlaceAndUniverseId"]
   NEWCLOSURE R8 P2
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K11 ["usePlaceAndUniverseId"]
+  SETTABLEKS R4 R7 K12 ["useConnectToDataModelSessionEffect"]
+  NEWCLOSURE R8 P3
   CAPTURE VAL R5
-  SETTABLEKS R8 R7 K12 ["openBrowserLink"]
-  LOADK R8 K15 ["real context"]
-  SETTABLEKS R8 R7 K13 ["contextType"]
+  SETTABLEKS R8 R7 K13 ["openBrowserLink"]
+  LOADK R8 K17 ["real context"]
+  SETTABLEKS R8 R7 K14 ["contextType"]
+  NEWCLOSURE R8 P4
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K15 ["getActivityHistoryManager"]
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K16 ["createElement"]
-  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K18 ["createElement"]
+  GETUPVAL R9 5
   MOVE R10 R7
-  DUPTABLE R11 K18 [{"ActivityHistoryMain"}]
+  DUPTABLE R11 K20 [{"ActivityHistoryMain"}]
   GETUPVAL R13 1
-  GETTABLEKS R12 R13 K16 ["createElement"]
-  GETUPVAL R13 5
-  DUPTABLE R14 K20 [{"plugin", "isPublishedGame"}]
+  GETTABLEKS R12 R13 K18 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K22 [{"plugin", "isPublishedGame"}]
   GETTABLEKS R15 R0 K0 ["plugin"]
   SETTABLEKS R15 R14 K0 ["plugin"]
-  SETTABLEKS R3 R14 K19 ["isPublishedGame"]
+  SETTABLEKS R3 R14 K21 ["isPublishedGame"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K17 ["ActivityHistoryMain"]
+  SETTABLEKS R12 R11 K19 ["ActivityHistoryMain"]
   CALL R8 3 -1
   RETURN R8 -1
 
@@ -152,11 +184,16 @@ MAIN:
   GETTABLEKS R10 R11 K16 ["Hooks"]
   GETTABLEKS R9 R10 K18 ["usePlaceAndUniverseId"]
   CALL R8 1 1
-  DUPCLOSURE R9 K19 [PROTO_5]
+  GETIMPORT R9 K20 [game]
+  LOADK R11 K21 ["COLLAB6856FixAHPublish"]
+  NAMECALL R9 R9 K22 ["getFastFlag"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K23 [PROTO_7]
   CAPTURE VAL R8
   CAPTURE VAL R1
   CAPTURE VAL R2
+  CAPTURE VAL R9
   CAPTURE VAL R7
   CAPTURE VAL R4
   CAPTURE VAL R5
-  RETURN R9 1
+  RETURN R10 1

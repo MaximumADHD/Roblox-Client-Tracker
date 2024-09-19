@@ -22,19 +22,20 @@ PROTO_1:
   RETURN R1 1
 
 PROTO_2:
-  LOADK R1 K0 [0.5]
-  JUMPIFNOTLT R0 R1 [+6]
-  LOADK R2 K0 [0.5]
-  DIVK R4 R0 K0 [0.5]
-  POWK R3 R4 K1 [4]
+  LOADN R3 0
+  LOADN R4 1
+  FASTCALL3 MATH_CLAMP R0 R3 R4
+  MOVE R2 R0
+  GETIMPORT R1 K2 [math.clamp]
+  CALL R1 3 1
+  MOVE R0 R1
+  POWK R2 R0 K3 [3]
+  LOADN R7 6
+  MUL R6 R7 R0
+  SUBK R5 R6 K5 [15]
+  MUL R4 R0 R5
+  ADDK R3 R4 K4 [10]
   MUL R1 R2 R3
-  RETURN R1 1
-  LOADK R3 K0 [0.5]
-  SUBRK R6 R2 K0 [0.5]
-  DIVK R5 R6 K0 [0.5]
-  POWK R4 R5 K1 [4]
-  MUL R2 R3 R4
-  SUBRK R1 R2 K2 [1]
   RETURN R1 1
 
 PROTO_3:
@@ -48,44 +49,45 @@ PROTO_3:
   NAMECALL R4 R4 K5 ["moveTo"]
   CALL R4 3 0
   RETURN R0 0
-  LOADK R5 K6 [0.5]
-  JUMPIFNOTLT R1 R5 [+6]
-  LOADK R5 K6 [0.5]
-  DIVK R7 R1 K6 [0.5]
-  POWK R6 R7 K7 [4]
-  MUL R4 R5 R6
-  JUMP [+7]
-  LOADK R6 K6 [0.5]
-  SUBRK R9 R8 K1 ["_lastDragTarget"]
-  DIVK R8 R9 K6 [0.5]
-  POWK R7 R8 K7 [4]
-  MUL R5 R6 R7
-  SUBRK R4 R8 K5 ["moveTo"]
-  JUMP [0]
-  GETTABLEKS R5 R0 K9 ["_animateFrom"]
-  GETTABLEKS R6 R5 K10 ["baseCFrame"]
-  GETTABLEKS R8 R3 K10 ["baseCFrame"]
-  MOVE R9 R4
-  NAMECALL R6 R6 K11 ["Lerp"]
+  MOVE R5 R1
+  LOADN R8 0
+  LOADN R9 1
+  FASTCALL3 MATH_CLAMP R5 R8 R9
+  MOVE R7 R5
+  GETIMPORT R6 K8 [math.clamp]
   CALL R6 3 1
-  GETTABLEKS R7 R5 K12 ["offsetCFrame"]
-  GETTABLEKS R9 R3 K12 ["offsetCFrame"]
+  MOVE R5 R6
+  POWK R6 R5 K9 [3]
+  LOADN R11 6
+  MUL R10 R11 R5
+  SUBK R9 R10 K11 [15]
+  MUL R8 R5 R9
+  ADDK R7 R8 K10 [10]
+  MUL R4 R6 R7
+  GETTABLEKS R5 R0 K12 ["_animateFrom"]
+  GETTABLEKS R6 R5 K13 ["baseCFrame"]
+  GETTABLEKS R8 R3 K13 ["baseCFrame"]
+  MOVE R9 R4
+  NAMECALL R6 R6 K14 ["Lerp"]
+  CALL R6 3 1
+  GETTABLEKS R7 R5 K15 ["offsetCFrame"]
+  GETTABLEKS R9 R3 K15 ["offsetCFrame"]
   MOVE R10 R4
-  NAMECALL R7 R7 K11 ["Lerp"]
+  NAMECALL R7 R7 K14 ["Lerp"]
   CALL R7 3 1
-  GETTABLEKS R8 R5 K13 ["tiltRotate"]
+  GETTABLEKS R8 R5 K16 ["tiltRotate"]
   GETTABLEKS R11 R0 K0 ["_constraintToolModel"]
-  GETTABLEKS R10 R11 K14 ["_tiltRotate"]
+  GETTABLEKS R10 R11 K17 ["_tiltRotate"]
   MOVE R11 R4
-  NAMECALL R8 R8 K11 ["Lerp"]
+  NAMECALL R8 R8 K14 ["Lerp"]
   CALL R8 3 1
   MUL R10 R6 R8
   MUL R9 R10 R7
   GETTABLEKS R10 R0 K0 ["_constraintToolModel"]
   GETTABLEKS R13 R0 K0 ["_constraintToolModel"]
-  GETTABLEKS R12 R13 K15 ["_attachmentAdornment"]
+  GETTABLEKS R12 R13 K18 ["_attachmentAdornment"]
   MOVE R13 R9
-  NAMECALL R10 R10 K16 ["_orientAttachmentAdornment"]
+  NAMECALL R10 R10 K19 ["_orientAttachmentAdornment"]
   CALL R10 3 0
   RETURN R0 0
 

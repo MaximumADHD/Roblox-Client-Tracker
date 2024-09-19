@@ -51,18 +51,21 @@ local GetFFlagSelfieViewPreviewShrinkIcon = require(SelfieViewModule.Flags.GetFF
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
 local GetFFlagSelfieViewDontStartOnOpen = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontStartOnOpen)
 local GetFFlagSelfieViewHideCameraStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewHideCameraStatusDot)
+local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local ICON_CONTAINER_HEIGHT: number = 44
 local ICON_SIZE: number = 28
-local BUTTON_PADDING: number = 10
+local BUTTON_SIZE: number = 36
+local BUTTON_PADDING: number = if GetFFlagSelfieViewV4() then 4 else 10
 local UNFOCUS_DELAY_MS: number = 2000
 -- This should never be greater than UNFOCUS_DELAY_MS as that will
 -- cause the tooltip to show when the icon is hidden
 local HIDE_TOOLTIP_DELAY_MS = 2000
 
 local CLOSE_ICON = Images["icons/actions/previewShrink"]
+local EXPAND_ICON = Images["icons/actions/previewExpand"]
 local CLOSE_BUTTON_HOVER_PADDING = 2
 local CLOSE_BUTTON_PADDING = 4
 local CLOSE_BUTTON_POSITION = UDim2.fromOffset(14, 14)
@@ -115,6 +118,7 @@ local function Window(props: WindowProps): React.ReactNode
 	local focused: boolean, setFocused: (boolean) -> () = React.useState(true)
 	local closeButtonHover, setCloseButtonHover = React.useState(false)
 	local cameraButtonHover, setCameraButtonHover = React.useState(false)
+	local expandButtonHover, setExpandButtonHover = React.useState(false)
 	local unfocusTimeoutID: { current: number? } = React.useRef(nil)
 	local userInteracted = function()
 		if unfocusTimeoutID.current then
@@ -167,7 +171,7 @@ local function Window(props: WindowProps): React.ReactNode
 	end, { FaceChatUtils, ModelUtils, localized, player } :: { any })
 
 	local onActivated = React.useCallback(function()
-		if focused then
+		if not GetFFlagSelfieViewV4() and focused then
 			props.windowSize:toggleIsLarge()
 		end
 		userInteracted()
@@ -205,24 +209,53 @@ local function Window(props: WindowProps): React.ReactNode
 		setCloseButtonHover(newState == ControlState.Hover)
 	end, { setCloseButtonHover })
 
+	local expandHoverState = if GetFFlagSelfieViewV4()
+		then React.useCallback(function(_, newState)
+			setExpandButtonHover(newState == ControlState.Hover)
+		end, { setExpandButtonHover })
+		else nil
+
 	local tooltipCallback = React.useCallback(function(triggerPointChanged): React.ReactNode
-		return React.createElement(Interactable, {
-			Size = UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
-			BackgroundTransparency = 1,
-			onStateChanged = cameraHoverState,
-			Position = UDim2.fromScale(0.5, 0.5),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			[React.Change.AbsoluteSize] = triggerPointChanged,
-			[React.Change.AbsolutePosition] = triggerPointChanged,
-			[React.Event.Activated] = cameraButtonClicked,
-		})
+		return React.createElement(
+			Interactable,
+			{
+				Size = if GetFFlagSelfieViewV4()
+					then UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE)
+					else UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
+				BackgroundColor3 = if GetFFlagSelfieViewV4()
+					then if cameraButtonHover and FaceChatUtils.getPermissions().userCamEnabled
+						then style.Theme.BackgroundOnHover.Color
+						else style.Theme.BackgroundUIContrast.Color
+					else nil,
+				BackgroundTransparency = if GetFFlagSelfieViewV4() then style.Theme.Overlay.Transparency else 1,
+				onStateChanged = cameraHoverState,
+				Position = UDim2.fromScale(0.5, 0.5),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				[React.Change.AbsoluteSize] = triggerPointChanged,
+				[React.Change.AbsolutePosition] = triggerPointChanged,
+				[React.Event.Activated] = cameraButtonClicked,
+			},
+			if GetFFlagSelfieViewV4()
+				then {
+					Corner = React.createElement("UICorner", {
+						CornerRadius = UDim.new(1, 0),
+					}),
+					CameraStatusIcon = React.createElement(CameraStatusIcon, {
+						iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+						transparency = not FaceChatUtils.getPermissions().userCamEnabled and 0.5 or 0,
+					}),
+				}
+				else {}
+		)
 	end, { cameraHoverState, cameraButtonClicked } :: { any })
 
 	return React.createElement("Frame", {
 		Name = "SelfieViewFrame",
 		Active = true,
 		Size = UDim2.fromScale(1, 1),
-		BackgroundColor3 = Color3.new(0, 0, 0),
+		BackgroundColor3 = if GetFFlagSelfieViewV4()
+			then style.Theme.BackgroundUIDefault.Color
+			else Color3.new(0, 0, 0),
 		BackgroundTransparency = 0,
 		[React.Event.MouseEnter] = userInteracted,
 		[React.Event.MouseMoved] = userInteracted,
@@ -241,17 +274,34 @@ local function Window(props: WindowProps): React.ReactNode
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			}),
-			CloseButtonPadding = if GetFFlagSelfieViewPreviewShrinkIcon()
-				then React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, CLOSE_BUTTON_PADDING),
-					PaddingLeft = UDim.new(0, CLOSE_BUTTON_PADDING),
-					PaddingRight = UDim.new(0, CLOSE_BUTTON_PADDING),
-					PaddingBottom = UDim.new(0, CLOSE_BUTTON_PADDING),
-				})
+			CloseButtonPadding = if GetFFlagSelfieViewPreviewShrinkIcon() and not GetFFlagSelfieViewV4()
+				then React.createElement(
+					"UIPadding",
+					if GetFFlagSelfieViewV4()
+						then {
+							PaddingTop = UDim.new(0, BUTTON_PADDING),
+							PaddingLeft = UDim.new(0, BUTTON_PADDING),
+							PaddingRight = UDim.new(0, BUTTON_PADDING),
+							PaddingBottom = UDim.new(0, BUTTON_PADDING),
+						}
+						else {
+							PaddingTop = UDim.new(0, CLOSE_BUTTON_PADDING),
+							PaddingLeft = UDim.new(0, CLOSE_BUTTON_PADDING),
+							PaddingRight = UDim.new(0, CLOSE_BUTTON_PADDING),
+							PaddingBottom = UDim.new(0, CLOSE_BUTTON_PADDING),
+						}
+				)
 				else nil,
 			CloseButtonInteractable = React.createElement(Interactable, {
-				Size = Constants.CLOSE_BUTTON_FRAME,
-				BackgroundTransparency = 1,
+				Size = if GetFFlagSelfieViewV4()
+					then UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE)
+					else Constants.CLOSE_BUTTON_FRAME,
+				BackgroundColor3 = if GetFFlagSelfieViewV4()
+					then if closeButtonHover
+						then style.Theme.BackgroundOnHover.Color
+						else style.Theme.BackgroundUIContrast.Color
+					else nil,
+				BackgroundTransparency = if GetFFlagSelfieViewV4() then 0.8 else 1,
 				onStateChanged = closeHoverState,
 				[React.Event.Activated] = if ChromeService
 					then function()
@@ -259,47 +309,74 @@ local function Window(props: WindowProps): React.ReactNode
 					end
 					else nil,
 			}, {
-				CloseImage = if GetFFlagSelfieViewPreviewShrinkIcon()
+				Corner = if GetFFlagSelfieViewV4()
+					then React.createElement("UICorner", {
+						CornerRadius = UDim.new(1, 0),
+					})
+					else nil,
+				CloseImage = if GetFFlagSelfieViewPreviewShrinkIcon() and not GetFFlagSelfieViewV4()
 					then React.createElement(ImageSetLabel, {
+						AnchorPoint = if GetFFlagSelfieViewV4() then Vector2.new(0.5, 0.5) else nil,
 						BackgroundTransparency = 1,
 						Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-						Position = UDim2.fromOffset(CLOSE_BUTTON_HOVER_PADDING, CLOSE_BUTTON_HOVER_PADDING),
+						Position = if GetFFlagSelfieViewV4()
+							then UDim2.new(0.5, 0, 0.5, 0)
+							else UDim2.fromOffset(CLOSE_BUTTON_HOVER_PADDING, CLOSE_BUTTON_HOVER_PADDING),
 						Image = CLOSE_ICON,
 						ImageColor3 = theme.TextEmphasis.Color,
 						ImageTransparency = theme.TextEmphasis.Transparency,
 					})
 					else nil,
-				Fragment = if not GetFFlagSelfieViewPreviewShrinkIcon()
+				Fragment = if not GetFFlagSelfieViewPreviewShrinkIcon() or GetFFlagSelfieViewV4()
 					then React.createElement(React.Fragment, nil, {
 						React.createElement("Frame", {
 							Name = "X1",
-							Position = CLOSE_BUTTON_POSITION,
-							AnchorPoint = Vector2.new(0.5, 0),
+							Position = if GetFFlagSelfieViewV4()
+								then UDim2.new(0.5, 0, 0.5, 0)
+								else CLOSE_BUTTON_POSITION,
+							AnchorPoint = if GetFFlagSelfieViewV4() then Vector2.new(0.5, 0.5) else Vector2.new(0.5, 0),
 							Size = UDim2.new(0, 16, 0, 2),
 							BorderSizePixel = 0,
 							BackgroundColor3 = style.Theme.IconEmphasis.Color,
 							BackgroundTransparency = 0,
 							Rotation = 45,
 						}, {
-							Corner = React.createElement("UICorner"),
+							Corner = React.createElement(
+								"UICorner",
+								if GetFFlagSelfieViewV4()
+									then {
+										CornerRadius = UDim.new(1, 0),
+									}
+									else nil
+							),
 						}) :: any,
 						React.createElement("Frame", {
 							Name = "X2",
-							Position = CLOSE_BUTTON_POSITION,
-							AnchorPoint = Vector2.new(0.5, 0),
+							Position = if GetFFlagSelfieViewV4()
+								then UDim2.new(0.5, 0, 0.5, 0)
+								else CLOSE_BUTTON_POSITION,
+							AnchorPoint = if GetFFlagSelfieViewV4() then Vector2.new(0.5, 0.5) else Vector2.new(0.5, 0),
 							Size = UDim2.new(0, 16, 0, 2),
 							BorderSizePixel = 0,
 							BackgroundColor3 = style.Theme.IconEmphasis.Color,
 							BackgroundTransparency = 0,
 							Rotation = -45,
 						}, {
-							Corner = React.createElement("UICorner"),
+							Corner = React.createElement(
+								"UICorner",
+								if GetFFlagSelfieViewV4()
+									then {
+										CornerRadius = UDim.new(1, 0),
+									}
+									else nil
+							),
 						}) :: any,
 					})
 					else nil,
-				Hover = React.createElement("Frame", {
+				Hover = not GetFFlagSelfieViewV4() and React.createElement("Frame", {
 					Size = CLOSE_BUTTON_HOVER,
-					Position = if GetFFlagSelfieViewPreviewShrinkIcon()
+
+					Position = if GetFFlagSelfieViewPreviewShrinkIcon() and not GetFFlagSelfieViewV4()
 						then UDim2.fromOffset(CLOSE_BUTTON_HOVER_PADDING / 2, CLOSE_BUTTON_HOVER_PADDING / 2)
 						else nil,
 					Visible = closeButtonHover,
@@ -313,7 +390,59 @@ local function Window(props: WindowProps): React.ReactNode
 			}),
 		}),
 
-		Corners = React.createElement("UICorner", {}),
+		ExpandButtonWrapper = if GetFFlagSelfieViewV4() and focused
+			then React.createElement("Frame", {
+				ZIndex = 2,
+				BackgroundTransparency = 1,
+				Size = Constants.CLOSE_BUTTON_FRAME,
+				AnchorPoint = Vector2.new(1, 0),
+				Position = UDim2.new(1, 0, 0, 0),
+			}, {
+
+				ExpandButtonLayout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				}),
+				ExpandButtonPadding = React.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, BUTTON_PADDING),
+					PaddingLeft = UDim.new(0, BUTTON_PADDING),
+					PaddingRight = UDim.new(0, BUTTON_PADDING),
+					PaddingBottom = UDim.new(0, BUTTON_PADDING),
+				}),
+				ExpandButtonInteractable = React.createElement(Interactable, {
+					Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
+					BackgroundColor3 = if expandButtonHover
+						then style.Theme.BackgroundOnHover.Color
+						else style.Theme.BackgroundUIContrast.Color,
+					BackgroundTransparency = 0.8,
+					onStateChanged = expandHoverState,
+					[React.Event.Activated] = if ChromeService
+						then function()
+							props.windowSize:toggleIsLarge()
+						end
+						else nil,
+				}, {
+					Corner = React.createElement("UICorner", {
+						CornerRadius = UDim.new(1, 0),
+					}),
+					ExpandImage = React.createElement(ImageSetLabel, {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Image = if GetFFlagSelfieViewV4() and large then CLOSE_ICON else EXPAND_ICON,
+						ImageColor3 = theme.TextEmphasis.Color,
+						ImageTransparency = theme.TextEmphasis.Transparency,
+					}),
+				}),
+			})
+			else nil,
+
+		Corners = React.createElement("UICorner", {
+			CornerRadius = if GetFFlagSelfieViewV4() then UDim.new(0, 20) else nil,
+		}),
 		ControlMessage = React.createElement("Frame", {
 			AnchorPoint = Vector2.new(0.5, 1),
 			Position = UDim2.new(0.5, 0, 1, -ICON_CONTAINER_HEIGHT),
@@ -354,7 +483,9 @@ local function Window(props: WindowProps): React.ReactNode
 		}),
 		IconFrame = focused and showCameraButton and React.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, ICON_CONTAINER_HEIGHT),
+			Size = if GetFFlagSelfieViewV4()
+				then Constants.CLOSE_BUTTON_FRAME
+				else UDim2.new(1, 0, 0, ICON_CONTAINER_HEIGHT),
 			Position = UDim2.fromScale(0.5, 1),
 			AnchorPoint = Vector2.new(0.5, 1),
 			ZIndex = 2,
@@ -371,7 +502,6 @@ local function Window(props: WindowProps): React.ReactNode
 			}, tooltipCallback),
 			Hover = React.createElement("Frame", {
 				Size = UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
-				Visible = cameraButtonHover,
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				BackgroundTransparency = style.Theme.BackgroundOnHover.Transparency,
@@ -381,21 +511,30 @@ local function Window(props: WindowProps): React.ReactNode
 					CornerRadius = UDim.new(0, 8),
 				}),
 			}),
-			CameraStatusIcon = React.createElement(CameraStatusIcon, {
-				iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-				transparency = not FaceChatUtils.getPermissions().userCamEnabled and 0.5 or 0,
-			}),
+			CameraStatusIcon = if not GetFFlagSelfieViewV4()
+				then React.createElement(CameraStatusIcon, {
+					iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+					transparency = not FaceChatUtils.getPermissions().userCamEnabled and 0.5 or 0,
+				})
+				else nil,
 		}) or nil,
-		FocusDarken = focused and React.createElement("Frame", {
-			Size = UDim2.fromScale(1, 1),
-			BackgroundTransparency = 0.7,
-			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-			ZIndex = 2,
-		}, {
-			Corners = React.createElement("UICorner", {}),
-		}) or nil,
-		CameraStatusDot = if GetFFlagSelfieViewHideCameraStatusDot()
-			then nil
+		FocusDarken = if not GetFFlagSelfieViewV4() and focused
+			then React.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 0.7,
+				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+				ZIndex = 2,
+			}, {
+				Corners = React.createElement("UICorner", {}),
+			})
+			else nil,
+		CameraStatusDot = if GetFFlagSelfieViewV4()
+			then cameraOn and React.createElement(CameraStatusDot, {
+				Position = UDim2.new(1, -12, 1, -12),
+				ZIndex = 2,
+				Size = UDim2.fromOffset(8, 8),
+			})
+			elseif GetFFlagSelfieViewHideCameraStatusDot() then nil
 			else cameraOn and React.createElement(CameraStatusDot, {
 				Position = UDim2.new(1, -5, 0, 5),
 				AnchorPoint = Vector2.new(1, 0),

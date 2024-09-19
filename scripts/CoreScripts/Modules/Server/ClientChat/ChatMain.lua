@@ -17,15 +17,6 @@ moduleApiTable.VisibilityStateChanged = nil
 --// the rest of the code can interface with and have the guarantee that the RemoteEvents they want
 --// exist with their desired names.
 
-local FFlagUserHandleChatHotKeyWithContextActionService = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserHandleChatHotKeyWithContextActionService")
-	end)
-	if ok then
-		FFlagUserHandleChatHotKeyWithContextActionService = value
-	end
-end
-
 local FFlagUserHandleFriendJoinNotifierOnClient = false
 do
 	local success, value = pcall(function()
@@ -552,22 +543,10 @@ do
 		return not ChatBar:GetEnabled()
 	end
 
-	if FFlagUserHandleChatHotKeyWithContextActionService then
-		local TOGGLE_CHAT_ACTION_NAME = "ToggleChat"
-
-		-- Callback when chat hotkey is pressed
-		local function handleAction(actionName, inputState, inputObject)
-			if actionName == TOGGLE_CHAT_ACTION_NAME and inputState == Enum.UserInputState.Begin and canChat and inputObject.UserInputType == Enum.UserInputType.Keyboard then
+	function moduleApiTable:SpecialKeyPressed(key, modifiers)
+		if (key == Enum.SpecialKey.ChatHotkey) then
+			if canChat then
 				DoChatBarFocus()
-			end
-		end
-		ContextActionService:BindAction(TOGGLE_CHAT_ACTION_NAME, handleAction, true, Enum.KeyCode.Slash)
-	else
-		function moduleApiTable:SpecialKeyPressed(key, modifiers)
-			if (key == Enum.SpecialKey.ChatHotkey) then
-				if canChat then
-					DoChatBarFocus()
-				end
 			end
 		end
 	end

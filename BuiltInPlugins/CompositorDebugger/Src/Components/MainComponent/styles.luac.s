@@ -12,37 +12,31 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
   MOVE R3 R2
   LOADK R4 K10 [".MainPane"]
-  DUPTABLE R5 K13 [{"BackgroundColor", "BorderSizePixel"}]
-  GETIMPORT R6 K16 [Color3.new]
-  LOADN R7 1
-  LOADN R8 1
-  LOADN R9 0
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K11 ["BackgroundColor"]
+  DUPTABLE R5 K12 [{"BorderSizePixel"}]
   LOADN R6 0
-  SETTABLEKS R6 R5 K12 ["BorderSizePixel"]
+  SETTABLEKS R6 R5 K11 ["BorderSizePixel"]
   NEWTABLE R6 0 2
   MOVE R7 R2
-  LOADK R8 K17 [">> #Toolbar"]
-  DUPTABLE R9 K19 [{"Size"}]
-  GETIMPORT R10 K21 [UDim2.new]
+  LOADK R8 K13 [">> #Toolbar"]
+  DUPTABLE R9 K15 [{"Size"}]
+  GETIMPORT R10 K18 [UDim2.new]
   LOADN R11 1
   LOADN R12 0
   LOADN R13 0
   LOADN R14 24
   CALL R10 4 1
-  SETTABLEKS R10 R9 K18 ["Size"]
+  SETTABLEKS R10 R9 K14 ["Size"]
   CALL R7 2 1
   MOVE R8 R2
-  LOADK R9 K22 [">> #LayerTree"]
-  DUPTABLE R10 K19 [{"Size"}]
-  GETIMPORT R11 K21 [UDim2.new]
+  LOADK R9 K19 [">> #LayerTree"]
+  DUPTABLE R10 K15 [{"Size"}]
+  GETIMPORT R11 K18 [UDim2.new]
   LOADN R12 1
   LOADN R13 0
   LOADN R14 1
   LOADN R15 232
   CALL R11 4 1
-  SETTABLEKS R11 R10 K18 ["Size"]
+  SETTABLEKS R11 R10 K14 ["Size"]
   CALL R8 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1

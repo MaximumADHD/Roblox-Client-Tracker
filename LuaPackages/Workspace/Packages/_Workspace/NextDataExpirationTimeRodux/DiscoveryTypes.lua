@@ -6,7 +6,6 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 local Package = require(PackageIndex["DiscoveryTypes"]["DiscoveryTypes"])
 
 export type GameInfoModel = Package.GameInfoModel
-export type OmniRecommendationsMetadata = Package.OmniRecommendationsMetadata
 export type OmniRecommendationsContentEntry = Package.OmniRecommendationsContentEntry
 export type OmniRecommendationsSortTopicData = Package.OmniRecommendationsSortTopicData
 export type OmniRecommendationsTopics = Package.OmniRecommendationsTopics

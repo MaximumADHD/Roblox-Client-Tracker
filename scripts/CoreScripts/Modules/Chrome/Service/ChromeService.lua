@@ -21,6 +21,7 @@ local AvailabilitySignal = utils.AvailabilitySignal
 local Types = require(script.Parent.Types)
 local Constants = require(script.Parent.Parent.Unibar.Constants)
 local ChromeEnabled = require(script.Parent.Parent.Enabled)
+local PeekService = require(script.Parent.PeekService)
 
 local GetFFlagEnableUnibarSneakPeak = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)
@@ -38,8 +39,10 @@ local GetFFlagEnableUserPinPortraitFix = require(script.Parent.Parent.Flags.GetF
 local GetFFlagSupportChromeContainerSizing = require(script.Parent.Parent.Flags.GetFFlagSupportChromeContainerSizing)
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
 local GetFFlagDisableCompactUtilityCore = require(script.Parent.Parent.Flags.GetFFlagDisableCompactUtilityCore)
+local GetFFlagChromePeekArchitecture = require(RobloxGui.Modules.Flags.GetFFlagChromePeekArchitecture)
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local FFlagPreserveWindowsCompactUtility = game:DefineFastFlag("PreserveWindowsCompactUtility", false)
+local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 
 local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
 
@@ -79,6 +82,7 @@ export type ObservableCompactUtility = utils.ObservableValue<Types.CompactUtilit
 export type ObservableInFocusNav = utils.ObservableValue<boolean>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
+export type ObservablePeekList = utils.ObservableValue<Types.PeekList>
 
 export type ObservableDragConnection = utils.ObservableValue<{ current: RBXScriptConnection? }?>
 type DragConnectionObjectType = any
@@ -168,6 +172,17 @@ export type ChromeService = {
 	orderAlignment: (ChromeService) -> ObservableAlignment,
 	configureOrderAlignment: (ChromeService, alignment: Enum.HorizontalAlignment) -> (),
 
+	configurePeek: (ChromeService, peekId: Types.PeekId, config: Types.PeekConfig) -> (),
+	queuePeek: (ChromeService, peekId: Types.PeekId) -> (),
+	dismissPeek: (ChromeService, peekId: Types.PeekId) -> (),
+	dismissCurrentPeek: (ChromeService) -> (),
+	updatePeekList: (ChromeService) -> (),
+	peekList: (ChromeService) -> ObservablePeekList,
+	onPeekShown: SignalLib.Signal,
+	onPeekHidden: SignalLib.Signal,
+	_peekList: ObservablePeekList,
+	_peekService: PeekService.PeekService,
+
 	onIntegrationRegistered: (ChromeService) -> SignalLib.Signal,
 	onIntegrationActivated: (ChromeService) -> SignalLib.Signal,
 	onIntegrationStatusChanged: (ChromeService) -> SignalLib.Signal,
@@ -247,6 +262,8 @@ function ChromeService.new(): ChromeService
 	local self = {}
 	self._chromeSeenCount = if GetFFlagEnableUnibarMaxDefaultOpen() then getChromeSeenCount() else 0
 
+	self._peekService = if GetFFlagChromePeekArchitecture() then PeekService.new() else nil :: never
+
 	local status: ObservableMenuStatus = if GetFFlagEnableAlwaysOpenUnibar()
 		then utils.ObservableValue.new(ChromeService.MenuStatus.Open)
 		elseif
@@ -272,6 +289,7 @@ function ChromeService.new(): ChromeService
 	self._subMenuNotifications = {}
 	self._menuList = ObservableValue.new({})
 	self._windowList = ObservableValue.new({})
+	self._peekList = ObservableValue.new({})
 	self._dragConnection = {}
 	self._windowPositions = ObservableValue.new({})
 	self._totalNotifications = NotifySignal.new(true)
@@ -320,6 +338,12 @@ function ChromeService.new(): ChromeService
 			viewportInfo.tinyPortrait
 		)
 	end, true)
+
+	if GetFFlagChromePeekArchitecture() then
+		self._peekService.onPeekChanged:connect(function()
+			service:updateMenuList()
+		end)
+	end
 
 	if GetFFlagEnableUnibarMaxDefaultOpen() then
 		service:storeChromeSeen()
@@ -712,6 +736,12 @@ function ChromeService:windowList()
 	return self._windowList
 end
 
+if GetFFlagChromePeekArchitecture() then
+	function ChromeService:peekList()
+		return self._peekList
+	end
+end
+
 function ChromeService:dragConnection(componentId: Types.IntegrationId)
 	if self._integrations[componentId] then
 		return self._dragConnection[componentId]
@@ -804,6 +834,11 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	-- Add a windowSize signal for integrations with windows if missing
 	if component.windowSize == nil and component.components and component.components.Window then
 		component.windowSize = WindowSizeSignal.new()
+	end
+
+	if GetFFlagSelfieViewV4() and component.windowDefaultOpen then
+		self._integrationsStatus[component.id] = ChromeService.IntegrationStatus.Window
+		self._onIntegrationStatusChanged:fire(component.id, self._integrationsStatus[component.id])
 	end
 
 	-- Add a containerWidthSlots signal for integrations with containers if missing
@@ -1038,6 +1073,17 @@ function ChromeService:updateMenuList()
 		collectMenu(self._menuConfig, root, windowList)
 	end
 
+	local peekRoot
+	if GetFFlagChromePeekArchitecture() then
+		peekRoot = { children = {} }
+		local currentPeekId = self._peekService:getCurrentPeek()
+		local peekConfig = if currentPeekId then self._peekService:getPeekConfig(currentPeekId) else nil
+
+		if peekConfig then
+			collectMenu(peekConfig.integrations, peekRoot, windowList)
+		end
+	end
+
 	-- Remove dangling dividers
 	if #root.children and root.children[#root.children] and root.children[#root.children].isDivider then
 		table.remove(root.children, #root.children)
@@ -1065,6 +1111,9 @@ function ChromeService:updateMenuList()
 	-- todo: nice to have optimization, only update if we fail an equality check
 	self._menuList:set(root.children)
 	self._windowList:set(windowList)
+	if GetFFlagChromePeekArchitecture() then
+		self._peekList:set(peekRoot.children)
+	end
 	self:repairSelected()
 end
 
@@ -1184,6 +1233,27 @@ function ChromeService:configureCompactUtility(utility: Types.CompactUtilityId, 
 	if GetFFlagSupportCompactUtility() and not GetFFlagDisableCompactUtilityCore() then
 		self._compactUtilityConfig[utility] = menuConfig
 		self:updateMenuList()
+	end
+end
+
+if GetFFlagChromePeekArchitecture() then
+	function ChromeService:configurePeek(peekId: Types.PeekId, config: Types.PeekConfig)
+		self._peekService:configurePeek(peekId, config)
+	end
+
+	function ChromeService:queuePeek(peekId: Types.PeekId)
+		self._peekService:queuePeek(peekId)
+	end
+
+	function ChromeService:dismissPeek(peekId: Types.PeekId)
+		self._peekService:dismissPeek(peekId)
+	end
+
+	function ChromeService:dismissCurrentPeek()
+		local peekId = self._peekService:getCurrentPeek()
+		if peekId then
+			self:dismissPeek(peekId)
+		end
 	end
 end
 

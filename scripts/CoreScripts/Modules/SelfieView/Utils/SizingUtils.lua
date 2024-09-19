@@ -1,4 +1,9 @@
 local UserInputService = game:GetService("UserInputService")
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
+
 local KEYS = {
 	DESKTOP = "Desktop",
 	MOBILE_PORTRAIT = "Portrait",
@@ -39,7 +44,10 @@ local SIZING_RULES = {
 		},
 	},
 }
-local WIDTH_TO_HEIGHT_RATIO = 86 / 185
+local WIDTH_TO_HEIGHT_RATIO = if GetFFlagSelfieViewV4() then 188 / 285 else 86 / 185
+local SMALL_TO_LARGE_RATIO = 130 / 285
+local MAX_HEIGHT = 285
+local MAX_RATIO = 0.7
 local PLATFORM = UserInputService:GetPlatform()
 
 local function getWidth(height: number): number
@@ -54,13 +62,24 @@ local function getSizingKey(screenSize: Vector2): string
 end
 
 local function getSize(screenSize: Vector2, large: boolean): Vector2
-	local sizingRule: { ratio: number, max: number } =
-		SIZING_RULES[getSizingKey(screenSize)][large and KEYS.LARGE or KEYS.SMALL]
+	if GetFFlagSelfieViewV4() then
+		local height: number = math.min(math.round(screenSize.Y * MAX_RATIO), MAX_HEIGHT)
+		local width: number = getWidth(height)
 
-	local height: number = math.min(math.round(screenSize.Y * sizingRule.ratio), sizingRule.max)
-	local width: number = getWidth(height)
+		if not large then
+			height *= SMALL_TO_LARGE_RATIO
+		end
 
-	return Vector2.new(width, height)
+		return Vector2.new(width, height)
+	else
+		local sizingRule: { ratio: number, max: number } =
+			SIZING_RULES[getSizingKey(screenSize)][large and KEYS.LARGE or KEYS.SMALL]
+
+		local height: number = math.min(math.round(screenSize.Y * sizingRule.ratio), sizingRule.max)
+		local width: number = getWidth(height)
+
+		return Vector2.new(width, height)
+	end
 end
 
 return {

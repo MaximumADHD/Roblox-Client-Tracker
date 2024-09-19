@@ -15,7 +15,7 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R1 K10 ["fromAction"]
   GETTABLEKS R4 R1 K11 ["fromSetting"]
-  NEWTABLE R5 0 24
+  NEWTABLE R5 0 25
   DUPTABLE R6 K15 [{"Id", "Type", "Action"}]
   LOADK R7 K16 ["Select"]
   SETTABLEKS R7 R6 K12 ["Id"]
@@ -278,125 +278,146 @@ MAIN:
   CALL R22 2 1
   SETTABLEKS R22 R21 K14 ["Action"]
   SETLIST R5 R6 16 [1]
-  DUPTABLE R6 K15 [{"Id", "Type", "Action"}]
-  LOADK R7 K68 ["Color"]
+  DUPTABLE R6 K69 [{"Id", "Type", "Action", "FastFlag"}]
+  LOADK R7 K70 ["Color"]
   SETTABLEKS R7 R6 K12 ["Id"]
   LOADK R7 K17 ["IconButton"]
   SETTABLEKS R7 R6 K13 ["Type"]
   MOVE R7 R3
   LOADK R8 K18 ["BuilderTools"]
-  LOADK R9 K69 ["SelectColor"]
+  LOADK R9 K71 ["SelectColor"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K14 ["Action"]
-  DUPTABLE R7 K58 [{"Id", "Type", "Setting", "DefaultAction", "ShowSettingOptions"}]
-  LOADK R8 K70 ["Group"]
+  LOADK R7 K72 ["!ColorPickerSplitButton"]
+  SETTABLEKS R7 R6 K68 ["FastFlag"]
+  DUPTABLE R7 K75 [{"Id", "Type", "Action", "ChildAction", "FastFlag", "DEPRECATED_FastFlag"}]
+  LOADK R8 K70 ["Color"]
   SETTABLEKS R8 R7 K12 ["Id"]
   LOADK R8 K31 ["SplitButton"]
   SETTABLEKS R8 R7 K13 ["Type"]
-  MOVE R8 R4
-  LOADK R9 K18 ["BuilderTools"]
-  LOADK R10 K70 ["Group"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K27 ["Setting"]
   MOVE R8 R3
   LOADK R9 K18 ["BuilderTools"]
-  LOADK R10 K71 ["GroupAsModel"]
+  LOADK R10 K76 ["ApplyColor"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K48 ["DefaultAction"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K49 ["ShowSettingOptions"]
-  DUPTABLE R8 K72 [{"Id", "Type", "Action", "Children"}]
-  LOADK R9 K73 ["Lock"]
+  SETTABLEKS R8 R7 K14 ["Action"]
+  MOVE R8 R3
+  LOADK R9 K18 ["BuilderTools"]
+  LOADK R10 K71 ["SelectColor"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K73 ["ChildAction"]
+  LOADK R8 K77 ["ColorPickerSplitButton"]
+  SETTABLEKS R8 R7 K68 ["FastFlag"]
+  LOADK R8 K77 ["ColorPickerSplitButton"]
+  SETTABLEKS R8 R7 K74 ["DEPRECATED_FastFlag"]
+  DUPTABLE R8 K58 [{"Id", "Type", "Setting", "DefaultAction", "ShowSettingOptions"}]
+  LOADK R9 K78 ["Group"]
   SETTABLEKS R9 R8 K12 ["Id"]
   LOADK R9 K31 ["SplitButton"]
   SETTABLEKS R9 R8 K13 ["Type"]
+  MOVE R9 R4
+  LOADK R10 K18 ["BuilderTools"]
+  LOADK R11 K78 ["Group"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K27 ["Setting"]
   MOVE R9 R3
   LOADK R10 K18 ["BuilderTools"]
-  LOADK R11 K73 ["Lock"]
+  LOADK R11 K79 ["GroupAsModel"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K14 ["Action"]
-  NEWTABLE R9 0 1
-  DUPTABLE R10 K74 [{"Type", "Children"}]
-  LOADK R11 K41 ["Row"]
-  SETTABLEKS R11 R10 K13 ["Type"]
-  NEWTABLE R11 0 1
-  DUPTABLE R12 K15 [{"Id", "Type", "Action"}]
-  LOADK R13 K75 ["LockMode"]
-  SETTABLEKS R13 R12 K12 ["Id"]
-  LOADK R13 K76 ["RibbonToggle"]
-  SETTABLEKS R13 R12 K13 ["Type"]
-  MOVE R13 R3
-  LOADK R14 K18 ["BuilderTools"]
-  LOADK R15 K75 ["LockMode"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K14 ["Action"]
-  SETLIST R11 R12 1 [1]
-  SETTABLEKS R11 R10 K28 ["Children"]
-  SETLIST R9 R10 1 [1]
-  SETTABLEKS R9 R8 K28 ["Children"]
-  DUPTABLE R9 K72 [{"Id", "Type", "Action", "Children"}]
-  LOADK R10 K77 ["Anchor"]
+  SETTABLEKS R9 R8 K48 ["DefaultAction"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K49 ["ShowSettingOptions"]
+  DUPTABLE R9 K80 [{"Id", "Type", "Action", "Children"}]
+  LOADK R10 K81 ["Lock"]
   SETTABLEKS R10 R9 K12 ["Id"]
   LOADK R10 K31 ["SplitButton"]
   SETTABLEKS R10 R9 K13 ["Type"]
   MOVE R10 R3
   LOADK R11 K18 ["BuilderTools"]
-  LOADK R12 K77 ["Anchor"]
+  LOADK R12 K81 ["Lock"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K14 ["Action"]
   NEWTABLE R10 0 1
-  DUPTABLE R11 K74 [{"Type", "Children"}]
+  DUPTABLE R11 K82 [{"Type", "Children"}]
   LOADK R12 K41 ["Row"]
   SETTABLEKS R12 R11 K13 ["Type"]
   NEWTABLE R12 0 1
   DUPTABLE R13 K15 [{"Id", "Type", "Action"}]
-  LOADK R14 K78 ["AnchorMode"]
+  LOADK R14 K83 ["LockMode"]
   SETTABLEKS R14 R13 K12 ["Id"]
-  LOADK R14 K76 ["RibbonToggle"]
+  LOADK R14 K84 ["RibbonToggle"]
   SETTABLEKS R14 R13 K13 ["Type"]
   MOVE R14 R3
   LOADK R15 K18 ["BuilderTools"]
-  LOADK R16 K78 ["AnchorMode"]
+  LOADK R16 K83 ["LockMode"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K14 ["Action"]
   SETLIST R12 R13 1 [1]
   SETTABLEKS R12 R11 K28 ["Children"]
   SETLIST R10 R11 1 [1]
   SETTABLEKS R10 R9 K28 ["Children"]
-  DUPTABLE R10 K24 [{"Type", "Size"}]
-  LOADK R11 K25 ["Separator"]
+  DUPTABLE R10 K80 [{"Id", "Type", "Action", "Children"}]
+  LOADK R11 K85 ["Anchor"]
+  SETTABLEKS R11 R10 K12 ["Id"]
+  LOADK R11 K31 ["SplitButton"]
   SETTABLEKS R11 R10 K13 ["Type"]
-  LOADK R11 K26 ["Large"]
-  SETTABLEKS R11 R10 K23 ["Size"]
-  DUPTABLE R11 K15 [{"Id", "Type", "Action"}]
-  LOADK R12 K79 ["Explorer"]
-  SETTABLEKS R12 R11 K12 ["Id"]
-  LOADK R12 K17 ["IconButton"]
+  MOVE R11 R3
+  LOADK R12 K18 ["BuilderTools"]
+  LOADK R13 K85 ["Anchor"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K14 ["Action"]
+  NEWTABLE R11 0 1
+  DUPTABLE R12 K82 [{"Type", "Children"}]
+  LOADK R13 K41 ["Row"]
+  SETTABLEKS R13 R12 K13 ["Type"]
+  NEWTABLE R13 0 1
+  DUPTABLE R14 K15 [{"Id", "Type", "Action"}]
+  LOADK R15 K86 ["AnchorMode"]
+  SETTABLEKS R15 R14 K12 ["Id"]
+  LOADK R15 K84 ["RibbonToggle"]
+  SETTABLEKS R15 R14 K13 ["Type"]
+  MOVE R15 R3
+  LOADK R16 K18 ["BuilderTools"]
+  LOADK R17 K86 ["AnchorMode"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K14 ["Action"]
+  SETLIST R13 R14 1 [1]
+  SETTABLEKS R13 R12 K28 ["Children"]
+  SETLIST R11 R12 1 [1]
+  SETTABLEKS R11 R10 K28 ["Children"]
+  DUPTABLE R11 K24 [{"Type", "Size"}]
+  LOADK R12 K25 ["Separator"]
   SETTABLEKS R12 R11 K13 ["Type"]
-  MOVE R12 R3
-  LOADK R13 K79 ["Explorer"]
-  LOADK R14 K56 ["Toggle"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K14 ["Action"]
+  LOADK R12 K26 ["Large"]
+  SETTABLEKS R12 R11 K23 ["Size"]
   DUPTABLE R12 K15 [{"Id", "Type", "Action"}]
-  LOADK R13 K80 ["Properties"]
+  LOADK R13 K87 ["Explorer"]
   SETTABLEKS R13 R12 K12 ["Id"]
   LOADK R13 K17 ["IconButton"]
   SETTABLEKS R13 R12 K13 ["Type"]
   MOVE R13 R3
-  LOADK R14 K80 ["Properties"]
+  LOADK R14 K87 ["Explorer"]
   LOADK R15 K56 ["Toggle"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K14 ["Action"]
   DUPTABLE R13 K15 [{"Id", "Type", "Action"}]
-  LOADK R22 K81 ["Toolbox"]
-  SETTABLEKS R22 R13 K12 ["Id"]
+  LOADK R14 K88 ["Properties"]
+  SETTABLEKS R14 R13 K12 ["Id"]
+  LOADK R14 K17 ["IconButton"]
+  SETTABLEKS R14 R13 K13 ["Type"]
+  MOVE R14 R3
+  LOADK R15 K88 ["Properties"]
+  LOADK R16 K56 ["Toggle"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K14 ["Action"]
+  DUPTABLE R14 K15 [{"Id", "Type", "Action"}]
+  LOADK R22 K89 ["Toolbox"]
+  SETTABLEKS R22 R14 K12 ["Id"]
   LOADK R22 K17 ["IconButton"]
-  SETTABLEKS R22 R13 K13 ["Type"]
+  SETTABLEKS R22 R14 K13 ["Type"]
   MOVE R22 R3
-  LOADK R23 K81 ["Toolbox"]
+  LOADK R23 K89 ["Toolbox"]
   LOADK R24 K56 ["Toggle"]
   CALL R22 2 1
-  SETTABLEKS R22 R13 K14 ["Action"]
-  SETLIST R5 R6 8 [17]
+  SETTABLEKS R22 R14 K14 ["Action"]
+  SETLIST R5 R6 9 [17]
   RETURN R5 1

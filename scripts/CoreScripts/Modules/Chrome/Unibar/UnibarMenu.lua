@@ -50,9 +50,11 @@ local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
 local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCapturesInChrome)
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
-local GetFStringChromeMusicIntegrationId = require(Chrome.Flags.GetFStringChromeMusicIntegrationId)
+local GetFStringChromeMusicIntegrationId =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationId
 local GetFFlagSupportChromeContainerSizing = require(Chrome.Flags.GetFFlagSupportChromeContainerSizing)
 local GetFFlagEnableJoinVoiceOnUnibar = require(Chrome.Flags.GetFFlagEnableJoinVoiceOnUnibar)
+local GetFFlagEnableHamburgerIcon = require(Chrome.Flags.GetFFlagEnableHamburgerIcon)
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local GetFFlagChromeUsePreferredTransparency =
 	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
@@ -235,9 +237,17 @@ function AnimationStateHelper(props)
 	local wasUnibarForcedOpen = React.useRef(false)
 	local wasUnibarClosedByUser = React.useRef(false)
 	local menuStatusOpen = useChromeMenuStatus() == ChromeService.MenuStatus.Open
+	local currentSubmenu
+	if GetFFlagEnableHamburgerIcon() then
+		currentSubmenu = useObservableValue(ChromeService:currentSubMenu())
+	end
+
 	local selectedItem = useObservableValue(ChromeService:selectedItem())
 	local utility = useObservableValue(ChromeService:getCurrentUtility())
-	local inFocusNav = useObservableValue(ChromeService:inFocusNav())
+	local inFocusNav
+	if GetFFlagEnableAlwaysOpenUnibar() then
+		inFocusNav = useObservableValue(ChromeService:inFocusNav())
+	end
 
 	if GetFFlagEnableAlwaysOpenUnibar() then
 		React.useEffect(function()
@@ -362,6 +372,16 @@ function AnimationStateHelper(props)
 		end, { menuStatusOpen, utility ~= nil })
 	end
 
+	if GetFFlagEnableHamburgerIcon() then
+		React.useEffect(function()
+			if currentSubmenu == "nine_dot" then
+				props.setToggleSubmenuTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING) :: any)
+			else
+				props.setToggleSubmenuTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING) :: any)
+			end
+		end, { currentSubmenu })
+	end
+
 	React.useEffect(function()
 		if GetFFlagUsePolishedAnimations() then
 			local updateSelection = coroutine.create(function()
@@ -459,6 +479,13 @@ function Unibar(props: UnibarProp)
 	local iconReflow, setIconReflow = ReactOtter.useAnimatedBinding(1)
 	local flipLerp = React.useRef(false)
 	local positionUpdateCount = React.useRef(0)
+
+	local submenuOpen, toggleSubmenuTransition, setToggleSubmenuTransition
+	if GetFFlagEnableHamburgerIcon() then
+		submenuOpen = ChromeService:currentSubMenu():get() == "nine_dot"
+		toggleSubmenuTransition, setToggleSubmenuTransition =
+			ReactOtter.useAnimatedBinding(if submenuOpen then 1 else 0)
+	end
 
 	local children: Table = {} -- Icons and Dividers to be rendered
 	local pinnedCount = 0 -- number of icons to support when closed
@@ -602,8 +629,9 @@ function Unibar(props: UnibarProp)
 				children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
 					position = positionBinding :: any,
 					visible = pinned or visibleBinding :: any,
-					toggleTransition = if GetFFlagUsePolishedAnimations()
-						then toggleIconTransition
+					toggleTransition = if GetFFlagEnableHamburgerIcon()
+						then toggleSubmenuTransition
+						elseif GetFFlagUsePolishedAnimations() then toggleIconTransition
 						else toggleTransition,
 					integration = item,
 				}) :: any
@@ -669,6 +697,7 @@ function Unibar(props: UnibarProp)
 			setToggleTransition = setToggleTransition,
 			setToggleIconTransition = setToggleIconTransition,
 			setToggleWidthTransition = setToggleWidthTransition,
+			setToggleSubmenuTransition = setToggleSubmenuTransition,
 			menuFrameRef = props.menuFrameRef,
 		}),
 		-- Background

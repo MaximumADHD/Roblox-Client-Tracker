@@ -3,9 +3,10 @@ PROTO_0:
   GETTABLEKS R0 R1 K0 ["props"]
   GETUPVAL R1 1
   CALL R1 0 1
-  JUMPIFNOT R1 [+4]
+  JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K1 ["SetShowUploadWidget"]
-  CALL R1 0 0
+  LOADB R2 0
+  CALL R1 1 0
   JUMP [+4]
   GETTABLEKS R1 R0 K2 ["SetShowProgress"]
   LOADB R2 0
@@ -53,12 +54,15 @@ PROTO_3:
   GETTABLEKS R3 R4 K5 ["uploadResults"]
   JUMP [+2]
   GETTABLEKS R3 R1 K5 ["uploadResults"]
-  JUMPIFNOT R2 [+86]
+  JUMPIFNOT R2 [+89]
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIF R4 [+15]
   GETTABLEKS R4 R0 K6 ["Uploading"]
   JUMPIFNOT R4 [+12]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K7 ["createElement"]
   GETUPVAL R5 3
+  GETTABLEKS R4 R5 K7 ["createElement"]
+  GETUPVAL R5 4
   DUPTABLE R6 K9 [{"OnImportCompleted"}]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K10 ["onImportCompleted"]
@@ -77,9 +81,9 @@ PROTO_3:
   CALL R4 1 1
   JUMP [+2]
   GETTABLEKS R4 R0 K14 ["RootImportData"]
-  GETUPVAL R6 2
+  GETUPVAL R6 3
   GETTABLEKS R5 R6 K7 ["createElement"]
-  GETUPVAL R6 4
+  GETUPVAL R6 5
   DUPTABLE R7 K16 [{"AddedToInventory"}]
   GETTABLEKS R8 R4 K17 ["AddModelToInventory"]
   SETTABLEKS R8 R7 K15 ["AddedToInventory"]
@@ -99,9 +103,9 @@ PROTO_3:
   CALL R4 1 1
   JUMP [+1]
   LOADNIL R4
-  GETUPVAL R6 2
+  GETUPVAL R6 3
   GETTABLEKS R5 R6 K7 ["createElement"]
-  GETUPVAL R6 5
+  GETUPVAL R6 6
   DUPTABLE R7 K21 [{"LayoutOrder", "ErrorMap", "ExistingPackageId"}]
   LOADN R8 1
   SETTABLEKS R8 R7 K18 ["LayoutOrder"]
@@ -145,6 +149,7 @@ PROTO_4:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   SETTABLEKS R1 R0 K8 ["getWidgetContent"]
   RETURN R0 0
 
@@ -153,6 +158,9 @@ PROTO_5:
   GETTABLEKS R2 R1 K1 ["Localization"]
   GETTABLEKS R3 R1 K2 ["Stylizer"]
   GETTABLEKS R4 R3 K3 ["UploadWidget"]
+  GETUPVAL R6 0
+  CALL R6 0 1
+  JUMPIF R6 [+6]
   GETTABLEKS R6 R1 K4 ["Uploading"]
   JUMPIFNOT R6 [+3]
   NEWTABLE R5 0 0
@@ -167,11 +175,11 @@ PROTO_5:
   CALL R7 3 1
   SETTABLEKS R7 R6 K6 ["Text"]
   SETLIST R5 R6 1 [1]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K11 ["createElement"]
   GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  GETUPVAL R7 2
   DUPTABLE R8 K21 [{"Enabled", "MinContentSize", "Modal", "Resizable", "Title", "Buttons", "OnClose", "OnButtonPressed", "ButtonHorizontalAlignment"}]
-  GETUPVAL R10 2
+  GETUPVAL R10 3
   CALL R10 0 1
   JUMPIFNOT R10 [+3]
   GETTABLEKS R9 R1 K22 ["ShowUploadWidget"]
@@ -259,7 +267,7 @@ PROTO_10:
   CALL R3 0 1
   JUMPIFNOT R3 [+5]
   GETTABLEKS R3 R0 K6 ["Dialogs"]
-  GETTABLEKS R2 R3 K0 ["ShowUploadWidget"]
+  GETTABLEKS R2 R3 K7 ["showUploadWidget"]
   JUMP [+1]
   LOADNIL R2
   SETTABLEKS R2 R1 K0 ["ShowUploadWidget"]
@@ -267,18 +275,18 @@ PROTO_10:
   CALL R3 0 1
   JUMPIFNOT R3 [+5]
   GETTABLEKS R3 R0 K6 ["Dialogs"]
-  GETTABLEKS R2 R3 K7 ["uploadWidgetItem"]
+  GETTABLEKS R2 R3 K8 ["uploadWidgetItem"]
   JUMP [+1]
   LOADNIL R2
   SETTABLEKS R2 R1 K1 ["UploadWidgetItem"]
   GETTABLEKS R3 R0 K6 ["Dialogs"]
-  GETTABLEKS R2 R3 K8 ["uploading"]
+  GETTABLEKS R2 R3 K9 ["uploading"]
   SETTABLEKS R2 R1 K2 ["Uploading"]
   GETUPVAL R3 0
   CALL R3 0 1
   JUMPIF R3 [+5]
-  GETTABLEKS R3 R0 K9 ["Preview"]
-  GETTABLEKS R2 R3 K10 ["importTree"]
+  GETTABLEKS R3 R0 K10 ["Preview"]
+  GETTABLEKS R2 R3 K11 ["importTree"]
   JUMP [+1]
   LOADNIL R2
   SETTABLEKS R2 R1 K3 ["RootImportData"]
@@ -286,7 +294,7 @@ PROTO_10:
   CALL R3 0 1
   JUMPIF R3 [+5]
   GETTABLEKS R3 R0 K6 ["Dialogs"]
-  GETTABLEKS R2 R3 K11 ["showProgress"]
+  GETTABLEKS R2 R3 K12 ["showProgress"]
   JUMP [+1]
   LOADNIL R2
   SETTABLEKS R2 R1 K4 ["ShowProgress"]
@@ -355,42 +363,49 @@ MAIN:
   GETTABLEKS R20 R21 K30 ["Flags"]
   GETTABLEKS R19 R20 K31 ["getFFlagAssetImportRefactorUploadWidgets"]
   CALL R18 1 1
-  GETTABLEKS R19 R1 K32 ["PureComponent"]
-  LOADK R21 K33 ["UploadWidget"]
-  NAMECALL R19 R19 K34 ["extend"]
-  CALL R19 2 1
-  DUPCLOSURE R20 K35 [PROTO_4]
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K17 ["Src"]
+  GETTABLEKS R21 R22 K30 ["Flags"]
+  GETTABLEKS R20 R21 K32 ["getFFlagAssetImportEnableMultipleFiles"]
+  CALL R19 1 1
+  GETTABLEKS R20 R1 K33 ["PureComponent"]
+  LOADK R22 K34 ["UploadWidget"]
+  NAMECALL R20 R20 K35 ["extend"]
+  CALL R20 2 1
+  DUPCLOSURE R21 K36 [PROTO_4]
   CAPTURE VAL R18
+  CAPTURE VAL R19
   CAPTURE VAL R1
   CAPTURE VAL R13
   CAPTURE VAL R11
   CAPTURE VAL R12
-  SETTABLEKS R20 R19 K36 ["init"]
-  DUPCLOSURE R20 K37 [PROTO_5]
+  SETTABLEKS R21 R20 K37 ["init"]
+  DUPCLOSURE R21 K38 [PROTO_5]
+  CAPTURE VAL R19
   CAPTURE VAL R1
   CAPTURE VAL R9
   CAPTURE VAL R18
-  SETTABLEKS R20 R19 K38 ["render"]
-  MOVE R20 R5
-  DUPTABLE R21 K39 [{"Localization", "Stylizer", "FileController"}]
-  SETTABLEKS R6 R21 K12 ["Localization"]
-  SETTABLEKS R7 R21 K14 ["Stylizer"]
-  SETTABLEKS R14 R21 K25 ["FileController"]
-  CALL R20 1 1
-  MOVE R21 R19
-  CALL R20 1 1
-  MOVE R19 R20
-  DUPCLOSURE R20 K40 [PROTO_9]
+  SETTABLEKS R21 R20 K39 ["render"]
+  MOVE R21 R5
+  DUPTABLE R22 K40 [{"Localization", "Stylizer", "FileController"}]
+  SETTABLEKS R6 R22 K12 ["Localization"]
+  SETTABLEKS R7 R22 K14 ["Stylizer"]
+  SETTABLEKS R14 R22 K25 ["FileController"]
+  CALL R21 1 1
+  MOVE R22 R20
+  CALL R21 1 1
+  MOVE R20 R21
+  DUPCLOSURE R21 K41 [PROTO_9]
   CAPTURE VAL R18
   CAPTURE VAL R15
   CAPTURE VAL R17
   CAPTURE VAL R16
-  DUPCLOSURE R21 K41 [PROTO_10]
+  DUPCLOSURE R22 K42 [PROTO_10]
   CAPTURE VAL R18
-  GETTABLEKS R22 R2 K42 ["connect"]
-  MOVE R23 R21
+  GETTABLEKS R23 R2 K43 ["connect"]
+  MOVE R24 R22
+  MOVE R25 R21
+  CALL R23 2 1
   MOVE R24 R20
-  CALL R22 2 1
-  MOVE R23 R19
-  CALL R22 1 -1
-  RETURN R22 -1
+  CALL R23 1 -1
+  RETURN R23 -1

@@ -424,9 +424,7 @@ MAIN:
   SETLIST R4 R5 16 [1]
   MOVE R5 R2
   LOADK R6 K119 [".VisualizationModesStrokePane"]
-  DUPTABLE R7 K121 [{"Name", "BackgroundTransparency", "Size", "AnchorPoint", "Position"}]
-  LOADK R8 K122 ["UIStrokePane"]
-  SETTABLEKS R8 R7 K120 ["Name"]
+  DUPTABLE R7 K120 [{"BackgroundTransparency", "Size", "AnchorPoint", "Position"}]
   LOADN R8 1
   SETTABLEKS R8 R7 K15 ["BackgroundTransparency"]
   GETIMPORT R8 K19 [UDim2.new]
@@ -449,16 +447,16 @@ MAIN:
   NEWTABLE R8 0 1
   MOVE R9 R2
   LOADK R10 K76 ["::UIStroke"]
-  DUPTABLE R11 K124 [{"Color"}]
-  LOADK R12 K125 ["$Divider"]
-  SETTABLEKS R12 R11 K123 ["Color"]
+  DUPTABLE R11 K122 [{"Color"}]
+  LOADK R12 K123 ["$Divider"]
+  SETTABLEKS R12 R11 K121 ["Color"]
   CALL R9 2 -1
   SETLIST R8 R9 -1 [1]
   CALL R5 3 1
   MOVE R6 R2
-  LOADK R7 K126 [".VisualizationModes-HiddenCountLabel"]
-  DUPTABLE R8 K127 [{"TextXAlignment", "TextYAlignment", "TextColor3", "Size", "BackgroundTransparency"}]
-  GETIMPORT R9 K128 [Enum.TextXAlignment.Center]
+  LOADK R7 K124 [".VisualizationModes-HiddenCountLabel"]
+  DUPTABLE R8 K125 [{"TextXAlignment", "TextYAlignment", "TextColor3", "Size", "BackgroundTransparency"}]
+  GETIMPORT R9 K126 [Enum.TextXAlignment.Center]
   SETTABLEKS R9 R8 K46 ["TextXAlignment"]
   GETIMPORT R9 K53 [Enum.TextYAlignment.Center]
   SETTABLEKS R9 R8 K47 ["TextYAlignment"]

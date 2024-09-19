@@ -8,9 +8,12 @@ local React = require(CorePackages.Packages.React)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local ContainerSlotSignal = require(Chrome.Service.ContainerSlotSignal)
 
-local GetFFlagEnableChromeMusicIntegration = require(Chrome.Flags.GetFFlagEnableChromeMusicIntegration)
-local GetFStringChromeMusicIntegrationUtilityLabel = require(Chrome.Flags.GetFStringChromeMusicIntegrationUtilityLabel)
-local GetFStringChromeMusicIntegrationId = require(Chrome.Flags.GetFStringChromeMusicIntegrationId)
+local GetFFlagEnableChromeMusicIntegration =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeMusicIntegration
+local GetFStringChromeMusicIntegrationUtilityLabel =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationUtilityLabel
+local GetFStringChromeMusicIntegrationId =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationId
 
 return if GetFFlagEnableChromeMusicIntegration()
 	then ChromeService:register({

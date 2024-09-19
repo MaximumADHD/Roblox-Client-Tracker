@@ -140,26 +140,32 @@ PROTO_11:
   GETTABLEKS R2 R3 K3 ["uploading"]
   GETUPVAL R3 0
   CALL R3 0 1
-  JUMPIFNOT R3 [+2]
-  JUMPIFNOT R2 [+1]
+  JUMPIFNOT R3 [+6]
+  JUMPIFNOT R2 [+5]
+  GETIMPORT R3 K5 [warn]
+  LOADK R4 K6 ["The importer is currently uploading. To close, please press the `X` button on the plugin."]
+  CALL R3 1 0
   RETURN R0 0
   GETTABLEKS R4 R1 K2 ["Dialogs"]
-  GETTABLEKS R3 R4 K4 ["showPreview"]
-  JUMPIF R3 [+12]
-  GETTABLEKS R4 R1 K2 ["Dialogs"]
-  GETTABLEKS R3 R4 K5 ["showError"]
+  GETTABLEKS R3 R4 K7 ["showPreview"]
   JUMPIF R3 [+7]
   GETTABLEKS R4 R1 K2 ["Dialogs"]
-  GETTABLEKS R3 R4 K6 ["showProgress"]
+  GETTABLEKS R3 R4 K8 ["showError"]
   JUMPIF R3 [+2]
-  GETTABLEKS R3 R0 K7 ["promptRequested"]
+  GETTABLEKS R3 R0 K9 ["promptRequested"]
   GETUPVAL R4 0
   CALL R4 0 1
-  JUMPIFNOT R4 [+7]
+  JUMPIFNOT R4 [+8]
   MOVE R4 R3
   JUMPIF R4 [+4]
   GETTABLEKS R5 R1 K2 ["Dialogs"]
-  GETTABLEKS R4 R5 K8 ["showQueue"]
+  GETTABLEKS R4 R5 K10 ["showQueue"]
+  MOVE R3 R4
+  JUMP [+7]
+  MOVE R4 R3
+  JUMPIF R4 [+4]
+  GETTABLEKS R5 R1 K2 ["Dialogs"]
+  GETTABLEKS R4 R5 K11 ["showProgress"]
   MOVE R3 R4
   JUMPIF R3 [+22]
   GETUPVAL R4 0
@@ -169,30 +175,30 @@ PROTO_11:
   GETUPVAL R6 1
   LOADB R7 1
   CALL R6 1 -1
-  NAMECALL R4 R4 K9 ["dispatch"]
+  NAMECALL R4 R4 K12 ["dispatch"]
   CALL R4 -1 0
   GETTABLEKS R4 R0 K0 ["_store"]
   GETUPVAL R6 2
   CALL R6 0 -1
-  NAMECALL R4 R4 K9 ["dispatch"]
+  NAMECALL R4 R4 K12 ["dispatch"]
   CALL R4 -1 0
-  NAMECALL R4 R0 K10 ["requestFilePicker"]
+  NAMECALL R4 R0 K13 ["requestFilePicker"]
   CALL R4 1 0
   RETURN R0 0
-  GETTABLEKS R4 R0 K7 ["promptRequested"]
+  GETTABLEKS R4 R0 K9 ["promptRequested"]
   JUMPIFNOT R4 [+1]
   RETURN R0 0
   GETTABLEKS R4 R0 K0 ["_store"]
   GETUPVAL R6 3
   LOADB R7 0
   CALL R6 1 -1
-  NAMECALL R4 R4 K9 ["dispatch"]
+  NAMECALL R4 R4 K12 ["dispatch"]
   CALL R4 -1 0
   GETTABLEKS R4 R0 K0 ["_store"]
   GETUPVAL R6 4
   LOADB R7 0
   CALL R6 1 -1
-  NAMECALL R4 R4 K9 ["dispatch"]
+  NAMECALL R4 R4 K12 ["dispatch"]
   CALL R4 -1 0
   GETUPVAL R4 0
   CALL R4 0 1
@@ -201,7 +207,7 @@ PROTO_11:
   GETUPVAL R6 1
   LOADB R7 0
   CALL R6 1 -1
-  NAMECALL R4 R4 K9 ["dispatch"]
+  NAMECALL R4 R4 K12 ["dispatch"]
   CALL R4 -1 0
   RETURN R0 0
 
@@ -341,18 +347,30 @@ PROTO_18:
   GETTABLEKS R4 R5 K2 ["Sessions"]
   GETTABLEKS R3 R4 K3 ["sessionQueue"]
   GETTABLE R4 R3 R1
-  GETTABLEKS R6 R2 K4 ["currentPreset"]
-  JUMPIFEQKS R6 K5 [""] [+4]
-  GETTABLEKS R5 R2 K4 ["currentPreset"]
+  GETTABLEKS R7 R0 K0 ["_store"]
+  NAMECALL R7 R7 K1 ["getState"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K4 ["Dialogs"]
+  GETTABLEKS R5 R6 K5 ["showPreview"]
+  JUMPIFNOT R5 [+8]
+  GETTABLEKS R5 R0 K0 ["_store"]
+  GETUPVAL R7 0
+  MOVE R8 R4
+  CALL R7 1 -1
+  NAMECALL R5 R5 K6 ["dispatch"]
+  CALL R5 -1 0
+  GETTABLEKS R6 R2 K7 ["currentPreset"]
+  JUMPIFEQKS R6 K8 [""] [+4]
+  GETTABLEKS R5 R2 K7 ["currentPreset"]
   JUMP [+4]
-  GETTABLEKS R6 R0 K6 ["_presetController"]
-  GETTABLEKS R5 R6 K7 ["defaultName"]
-  GETTABLEKS R6 R4 K4 ["currentPreset"]
+  GETTABLEKS R6 R0 K9 ["_presetController"]
+  GETTABLEKS R5 R6 K10 ["defaultName"]
+  GETTABLEKS R6 R4 K7 ["currentPreset"]
   JUMPIFEQ R5 R6 [+8]
-  GETTABLEKS R6 R0 K6 ["_presetController"]
+  GETTABLEKS R6 R0 K9 ["_presetController"]
   MOVE R8 R5
   MOVE R9 R4
-  NAMECALL R6 R6 K8 ["resolvePreset"]
+  NAMECALL R6 R6 K11 ["resolvePreset"]
   CALL R6 3 0
   RETURN R0 0
 
@@ -556,6 +574,7 @@ MAIN:
   DUPCLOSURE R21 K48 [PROTO_17]
   SETTABLEKS R21 R20 K49 ["requestFileSwap"]
   DUPCLOSURE R21 K50 [PROTO_18]
+  CAPTURE VAL R14
   SETTABLEKS R21 R20 K51 ["_onFileSwapped"]
   DUPCLOSURE R21 K52 [PROTO_20]
   CAPTURE VAL R14

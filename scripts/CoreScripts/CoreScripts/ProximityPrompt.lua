@@ -12,7 +12,6 @@ local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
-local FFlagProximityPromptGamepadIcons = require(RobloxGui.Modules.Flags.FFlagProximityPromptGamepadIcons)
 local FFlagFixProximityPromptAncestry = require(RobloxGui.Modules.Flags.FFlagFixProximityPromptAncestry)
 
 local LocalPlayer = Players.LocalPlayer
@@ -22,28 +21,6 @@ while LocalPlayer == nil do
 end
 
 local PlayerGui = CoreUtility.waitForChildOfClass(LocalPlayer, "PlayerGui")
-
--- Remove with FFlagProximityPromptGamepadIcons
-local GamepadButtonImage = {
-	[Enum.KeyCode.ButtonX] = "rbxasset://textures/ui/Controls/xboxX.png",
-	[Enum.KeyCode.ButtonY] = "rbxasset://textures/ui/Controls/xboxY.png",
-	[Enum.KeyCode.ButtonA] = "rbxasset://textures/ui/Controls/xboxA.png",
-	[Enum.KeyCode.ButtonB] = "rbxasset://textures/ui/Controls/xboxB.png",
-	[Enum.KeyCode.DPadLeft] = "rbxasset://textures/ui/Controls/dpadLeft.png",
-	[Enum.KeyCode.DPadRight] = "rbxasset://textures/ui/Controls/dpadRight.png",
-	[Enum.KeyCode.DPadUp] = "rbxasset://textures/ui/Controls/dpadUp.png",
-	[Enum.KeyCode.DPadDown] = "rbxasset://textures/ui/Controls/dpadDown.png",
-	[Enum.KeyCode.ButtonSelect] = "rbxasset://textures/ui/Controls/xboxView.png",
-	[Enum.KeyCode.ButtonStart] = "rbxasset://textures/ui/Controls/xboxmenu.png",
-	[Enum.KeyCode.ButtonL1] = "rbxasset://textures/ui/Controls/xboxLB.png",
-	[Enum.KeyCode.ButtonR1] = "rbxasset://textures/ui/Controls/xboxRB.png",
-	[Enum.KeyCode.ButtonL2] = "rbxasset://textures/ui/Controls/xboxLT.png",
-	[Enum.KeyCode.ButtonR2] = "rbxasset://textures/ui/Controls/xboxRT.png",
-	[Enum.KeyCode.ButtonL3] = "rbxasset://textures/ui/Controls/xboxLS.png",
-	[Enum.KeyCode.ButtonR3] = "rbxasset://textures/ui/Controls/xboxRS.png",
-	[Enum.KeyCode.Thumbstick1] = "rbxasset://textures/ui/Controls/xboxLSDirectional.png",
-	[Enum.KeyCode.Thumbstick2] = "rbxasset://textures/ui/Controls/xboxRSDirectional.png",
-}
 
 local KeyboardButtonImage = {
 	[Enum.KeyCode.Backspace] = "rbxasset://textures/ui/Controls/backspace.png",
@@ -308,9 +285,7 @@ local function createPrompt(prompt, inputType, gui)
 
 	if inputType == Enum.ProximityPromptInputType.Gamepad then
 
-		local mappedIconImage = if FFlagProximityPromptGamepadIcons and game:GetEngineFeature("GetImageForKeyCode") then
-			UserInputService:GetImageForKeyCode(prompt.GamepadKeyCode) else
-			GamepadButtonImage[prompt.GamepadKeyCode]
+		local mappedIconImage = UserInputService:GetImageForKeyCode(prompt.GamepadKeyCode)
 
 		if mappedIconImage then
 			local icon = Instance.new("ImageLabel")

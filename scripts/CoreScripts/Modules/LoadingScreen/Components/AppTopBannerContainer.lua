@@ -10,6 +10,11 @@ local AppTopBannerType = require(CorePackages.Workspace.Packages.AppTopBanner).E
 local GetFFlagLuaAppEnableSquadPage =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableSquadPage
 
+local SquadExternalContractProvider
+if GetFFlagLuaAppEnableSquadPage() then
+    SquadExternalContractProvider = require(CorePackages.Workspace.Packages.SquadsCore).SquadExternalContractProvider
+end
+
 local contentMaps = {
     [AppTopBannerType.None] = nil,
     [AppTopBannerType.ActiveSquad] = if GetFFlagLuaAppEnableSquadPage() then require(CorePackages.Workspace.Packages.SquadsCore).SquadTopBanner else nil,
@@ -44,10 +49,20 @@ local function AppTopBannerContainer(props: AppTopBannerContainerProps)
         ClipToDeviceSafeArea = false,
         SafeAreaCompatibility = Enum.SafeAreaCompatibility.None,
     }, {
-        AppTopBanner = React.createElement(AppTopBanner, {
+        SquadExternalContractProvider = if GetFFlagLuaAppEnableSquadPage() then React.createElement(SquadExternalContractProvider.SquadExternalContractProvider, {
+            contract = SquadExternalContractProvider.makeSquadContract(),
+        }, {
+            AppTopBanner = React.createElement(AppTopBanner, {
+                contentMaps = contentMaps,
+                deviceStatusBarHeight = safeZoneTopHeight,
+            }),
+
+        }) else nil,
+
+        AppTopBanner = if not GetFFlagLuaAppEnableSquadPage() then React.createElement(AppTopBanner, {
             contentMaps = contentMaps,
             deviceStatusBarHeight = safeZoneTopHeight,
-        }),
+        }) else nil,
     })
 end
 

@@ -2,6 +2,10 @@ local CorePackages = game:GetService("CorePackages")
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local UIBlox = require(CorePackages.UIBlox)
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
+
 type SpringOptions = ReactOtter.SpringOptions
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
@@ -26,6 +30,7 @@ return {
 	DIVIDER_CELL_WIDTH = 5,
 	ICON_SIZE = 36,
 	SUB_MENU_ROW_HEIGHT = 56,
+	SUBMENU_PADDING = 8,
 	CONTAINER_PADDING_TOP_BOTTOM = UDim.new(0, 4),
 	CONTAINER_PADDING_LEFT_RIGHT = UDim.new(0, 2),
 	PIN_ICON_SIZE = UDim2.new(0, 18, 0, 18),
@@ -39,6 +44,7 @@ return {
 		restingVelocityLimit = 0.05,
 	} :: SpringOptions,
 	UNIBAR_KEEP_OUT_AREA_ID = "unibar",
+	SELFIE_VIEW_ID = "selfie_view",
 
 	-- WindowHost constants
 	WINDOW_HOST_GUI_NAME = "WindowHost",
@@ -46,21 +52,22 @@ return {
 	CLOSE_BUTTON_SIZE = UDim2.fromOffset(22, 22),
 	CLOSE_ICON_SIZE = IconSize.Small,
 	CORNER_RADIUS = UDim.new(0, 8),
+	WINDOW_DEFAULT_PADDING = 8,
 
 	WINDOW_ACTIVE_SECONDS = 2,
 
 	-- the amount of travel to activate a WindowHost from dragging an icon
 	DRAG_MAGNITUDE_THRESHOLD = 10,
 
-	DEFAULT_HEIGHT_LARGE = 324,
-	DEFAULT_WIDTH_LARGE = 150,
-	DEFAULT_HEIGHT = 185,
-	DEFAULT_WIDTH = 86,
+	DEFAULT_HEIGHT_LARGE = if GetFFlagSelfieViewV4() then 285 else 324,
+	DEFAULT_WIDTH_LARGE = if GetFFlagSelfieViewV4() then 176 else 150,
+	DEFAULT_HEIGHT = if GetFFlagSelfieViewV4() then 130 else 185,
+	DEFAULT_WIDTH = if GetFFlagSelfieViewV4() then 176 else 86,
 
-	MAX_HEIGHT_PORTRAIT = 324,
-	MAX_WIDTH_PORTRAIT = 150,
-	MAX_HEIGHT_LANDSCAPE = 240,
-	MAX_WIDTH_LANDSCAPE = 112,
+	MAX_HEIGHT_PORTRAIT = if GetFFlagSelfieViewV4() then 285 else 324,
+	MAX_WIDTH_PORTRAIT = if GetFFlagSelfieViewV4() then 176 else 150,
+	MAX_HEIGHT_LANDSCAPE = if GetFFlagSelfieViewV4() then 285 else 240,
+	MAX_WIDTH_LANDSCAPE = if GetFFlagSelfieViewV4() then 176 else 112,
 
 	-- Integration Constraints per device type
 	SOCIAL_SLOTS = socialSlots, -- Chat, mic, and self view always present in open standard unibar (when available)

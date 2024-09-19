@@ -34,7 +34,7 @@ PROTO_0:
   SETTABLEKS R4 R3 K8 ["filepath"]
   GETUPVAL R4 2
   SETTABLEKS R4 R3 K9 ["session"]
-  GETIMPORT R4 K16 [os.time]
+  GETIMPORT R4 K16 [DateTime.now]
   CALL R4 0 1
   SETTABLEKS R4 R3 K10 ["timestamp"]
   JUMPIFNOTEQKNIL R1 [+2]

@@ -75,140 +75,134 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R2 0
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+2]
+  LOADK R1 K0 ["rbxasset://mock"]
+  RETURN R1 1
+  GETIMPORT R1 K2 [game]
+  LOADK R3 K3 ["StudioAssetService"]
+  NAMECALL R1 R1 K4 ["GetService"]
+  CALL R1 2 1
+  NEWTABLE R4 0 1
+  MOVE R5 R0
+  SETLIST R4 R5 1 [1]
+  NAMECALL R2 R1 K5 ["SerializeInstances"]
+  CALL R2 2 1
+  DUPTABLE R3 K15 [{"AssetType", "AssetName", "Description", "AssetId", "CreatorId", "CreatorType", "ContentType", "Token", "AdditionalParameters"}]
+  LOADK R4 K16 ["Model"]
+  SETTABLEKS R4 R3 K6 ["AssetType"]
+  LOADK R4 K17 ["Auto-setup character model"]
+  SETTABLEKS R4 R3 K7 ["AssetName"]
+  LOADK R4 K17 ["Auto-setup character model"]
+  SETTABLEKS R4 R3 K8 ["Description"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K9 ["AssetId"]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K18 ["GetUserId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K10 ["CreatorId"]
+  GETIMPORT R4 K22 [Enum.AssetCreatorType.User]
+  SETTABLEKS R4 R3 K11 ["CreatorType"]
+  LOADK R4 K23 ["model/x-rbxm"]
+  SETTABLEKS R4 R3 K12 ["ContentType"]
+  LOADK R4 K24 [""]
+  SETTABLEKS R4 R3 K13 ["Token"]
+  DUPTABLE R4 K26 [{"PublishAsPackage"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K25 ["PublishAsPackage"]
+  SETTABLEKS R4 R3 K14 ["AdditionalParameters"]
+  GETUPVAL R4 2
+  MOVE R6 R2
+  MOVE R7 R3
+  NAMECALL R4 R4 K27 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
+  CALL R4 3 1
+  LOADK R6 K28 ["rbxassetid://%*"]
+  GETTABLEKS R8 R4 K9 ["AssetId"]
+  NAMECALL R6 R6 K29 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  RETURN R5 1
+
+PROTO_4:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["FFlag::AvatarPreviewerUseAnyModel is not enabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETUPVAL R2 1
   CALL R2 0 1
   JUMPIFNOT R2 [+4]
-  GETUPVAL R2 1
+  GETUPVAL R2 2
   MOVE R3 R1
   CALL R2 1 1
   RETURN R2 1
-  GETIMPORT R2 K1 [game]
-  LOADK R4 K2 ["StudioAssetService"]
-  NAMECALL R2 R2 K3 ["GetService"]
+  GETIMPORT R2 K4 [game]
+  LOADK R4 K5 ["StudioAssetService"]
+  NAMECALL R2 R2 K6 ["GetService"]
   CALL R2 2 1
-  GETUPVAL R3 2
+  MOVE R5 R0
+  MOVE R6 R1
+  NAMECALL R3 R2 K7 ["AutoSetupAvatarAsync"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_5:
+  LOADK R5 K0 ["MeshPart"]
+  NAMECALL R3 R0 K1 ["IsA"]
+  CALL R3 2 1
+  FASTCALL2K ASSERT R3 K2 [+4]
+  LOADK R4 K2 ["Expected MeshPart"]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K5 [+4]
+  LOADK R4 K5 ["FFlag::AvatarPreviewerUseAnyModel is enabled"]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 2 0
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 2
+  MOVE R3 R1
+  CALL R2 1 1
+  RETURN R2 1
+  GETIMPORT R2 K7 [game]
+  LOADK R4 K8 ["StudioAssetService"]
+  NAMECALL R2 R2 K9 ["GetService"]
+  CALL R2 2 1
+  GETUPVAL R3 3
+  CALL R3 0 1
   JUMPIFNOT R3 [+28]
-  LOADK R5 K4 ["SurfaceAppearance"]
-  NAMECALL R3 R0 K5 ["FindFirstChildWhichIsA"]
+  LOADK R5 K10 ["SurfaceAppearance"]
+  NAMECALL R3 R0 K11 ["FindFirstChildWhichIsA"]
   CALL R3 2 1
   JUMPIFNOT R3 [+7]
-  GETTABLEKS R5 R3 K6 ["ColorMap"]
-  JUMPIFEQKS R5 K7 [""] [+4]
-  GETTABLEKS R4 R3 K6 ["ColorMap"]
+  GETTABLEKS R5 R3 K12 ["ColorMap"]
+  JUMPIFEQKS R5 K13 [""] [+4]
+  GETTABLEKS R4 R3 K12 ["ColorMap"]
   JUMP [+2]
-  GETTABLEKS R4 R0 K8 ["TextureID"]
-  GETTABLEKS R7 R0 K9 ["MeshId"]
+  GETTABLEKS R4 R0 K14 ["TextureID"]
+  GETTABLEKS R7 R0 K15 ["MeshId"]
   MOVE R8 R4
   MOVE R9 R1
-  NAMECALL R5 R2 K10 ["RequestAvatarAutosetupAsync"]
+  NAMECALL R5 R2 K16 ["RequestAvatarAutosetupAsync"]
   CALL R5 4 1
   JUMPIFEQKNIL R3 [+5]
-  GETUPVAL R6 3
+  GETUPVAL R6 4
   MOVE R7 R3
   MOVE R8 R5
   CALL R6 2 0
   RETURN R5 1
-  GETTABLEKS R5 R0 K9 ["MeshId"]
-  GETTABLEKS R6 R0 K8 ["TextureID"]
+  GETTABLEKS R5 R0 K15 ["MeshId"]
+  GETTABLEKS R6 R0 K14 ["TextureID"]
   MOVE R7 R1
-  NAMECALL R3 R2 K10 ["RequestAvatarAutosetupAsync"]
+  NAMECALL R3 R2 K16 ["RequestAvatarAutosetupAsync"]
   CALL R3 4 -1
   RETURN R3 -1
-
-PROTO_4:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["updateEtaSignal"]
-  JUMPIFNOT R2 [+7]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["updateEtaSignal"]
-  MOVE R4 R1
-  NAMECALL R2 R2 K1 ["Connect"]
-  CALL R2 2 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["signal"]
-  JUMPIFEQKNIL R3 [+7]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["signal"]
-  NAMECALL R3 R3 K3 ["Wait"]
-  CALL R3 1 0
-  JUMPIFEQKNIL R2 [+4]
-  NAMECALL R3 R2 K4 ["Disconnect"]
-  CALL R3 1 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K5 ["result"]
-  RETURN R3 1
-
-PROTO_5:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useCallback"]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  NEWTABLE R3 0 3
-  GETTABLEKS R4 R0 K1 ["signal"]
-  GETTABLEKS R5 R0 K2 ["result"]
-  GETTABLEKS R6 R0 K3 ["updateEtaSignal"]
-  SETLIST R3 R4 3 [1]
-  CALL R1 2 1
-  DUPTABLE R2 K6 [{"startAutoSetupAsync", "autoSetupClickedSignal"}]
-  SETTABLEKS R1 R2 K4 ["startAutoSetupAsync"]
-  GETTABLEKS R3 R0 K5 ["autoSetupClickedSignal"]
-  SETTABLEKS R3 R2 K5 ["autoSetupClickedSignal"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["createElement"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["Provider"]
-  DUPTABLE R5 K10 [{"value"}]
-  SETTABLEKS R2 R5 K9 ["value"]
-  GETTABLEKS R6 R0 K11 ["children"]
-  CALL R3 3 -1
-  RETURN R3 -1
-
-PROTO_6:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["signal"]
-  NAMECALL R0 R0 K1 ["Wait"]
-  CALL R0 1 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K2 ["current"]
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K3 ["result"]
-  RETURN R0 1
-  GETUPVAL R0 1
-  LOADB R1 1
-  SETTABLEKS R1 R0 K2 ["current"]
-  GETIMPORT R0 K5 [error]
-  LOADK R1 K6 ["Mock error"]
-  CALL R0 1 -1
-  RETURN R0 -1
-
-PROTO_7:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useRef"]
-  LOADB R2 0
-  CALL R1 1 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["useCallback"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  NEWTABLE R4 0 1
-  GETTABLEKS R5 R0 K2 ["signal"]
-  SETLIST R4 R5 1 [1]
-  CALL R2 2 1
-  DUPTABLE R3 K5 [{"startAutoSetupAsync", "autoSetupClickedSignal"}]
-  SETTABLEKS R2 R3 K3 ["startAutoSetupAsync"]
-  GETTABLEKS R4 R0 K4 ["autoSetupClickedSignal"]
-  SETTABLEKS R4 R3 K4 ["autoSetupClickedSignal"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["createElement"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K7 ["Provider"]
-  DUPTABLE R6 K9 [{"value"}]
-  SETTABLEKS R3 R6 K8 ["value"]
-  GETTABLEKS R7 R0 K10 ["children"]
-  CALL R4 3 -1
-  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -216,61 +210,73 @@ MAIN:
   LOADK R2 K2 ["Players"]
   NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["PublishService"]
+  NAMECALL R1 R1 K3 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R1 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R1 K12 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Util"]
-  GETTABLEKS R4 R5 K14 ["Constants"]
-  CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R1 K12 ["Src"]
-  GETTABLEKS R5 R6 K15 ["Types"]
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["StudioService"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K7 [script]
+  LOADK R5 K8 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R3 R3 K9 ["FindFirstAncestor"]
+  CALL R3 2 1
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R7 R3 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Util"]
+  GETTABLEKS R5 R6 K14 ["Constants"]
   CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R1 K12 ["Src"]
-  GETTABLEKS R7 R8 K16 ["Flags"]
-  GETTABLEKS R6 R7 K17 ["getFFlagDebugAvatarPreviewerMockAutoSetup"]
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R8 R3 K12 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Flags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagAvatarAutosetupUseSurfaceAppearance"]
   CALL R5 1 1
-  GETIMPORT R6 K1 [game]
-  LOADK R8 K18 ["AvatarAutosetupUseSurfaceAppearance"]
-  LOADB R9 0
-  NAMECALL R6 R6 K19 ["DefineFastFlag"]
-  CALL R6 3 1
-  DUPCLOSURE R7 K20 [PROTO_0]
+  GETIMPORT R6 K11 [require]
+  GETTABLEKS R9 R3 K12 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["getFFlagAvatarPreviewerUseAnyModel"]
+  CALL R6 1 1
+  GETIMPORT R7 K11 [require]
+  GETTABLEKS R10 R3 K12 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Flags"]
+  GETTABLEKS R8 R9 K18 ["getFFlagDebugAvatarPreviewerMockAutoSetup"]
+  CALL R7 1 1
+  GETIMPORT R8 K11 [require]
+  GETTABLEKS R10 R3 K19 ["Packages"]
+  GETTABLEKS R9 R10 K20 ["React"]
+  CALL R8 1 1
+  GETIMPORT R9 K11 [require]
+  GETTABLEKS R11 R3 K12 ["Src"]
+  GETTABLEKS R10 R11 K21 ["Types"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K22 [PROTO_0]
   CAPTURE VAL R0
-  CAPTURE VAL R3
-  DUPCLOSURE R8 K21 [PROTO_1]
-  DUPCLOSURE R9 K22 [PROTO_2]
-  CAPTURE VAL R8
-  DUPCLOSURE R10 K23 [PROTO_3]
-  CAPTURE VAL R5
+  CAPTURE VAL R4
+  DUPCLOSURE R11 K23 [PROTO_1]
+  DUPCLOSURE R12 K24 [PROTO_2]
+  CAPTURE VAL R11
+  DUPCLOSURE R13 K25 [PROTO_3]
   CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  DUPCLOSURE R14 K26 [PROTO_4]
   CAPTURE VAL R6
-  CAPTURE VAL R9
-  DUPTABLE R11 K26 [{"startAutoSetupAsync", "autoSetupClickedSignal"}]
-  SETTABLEKS R10 R11 K24 ["startAutoSetupAsync"]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K25 ["autoSetupClickedSignal"]
-  GETTABLEKS R12 R2 K27 ["createContext"]
-  MOVE R13 R11
-  CALL R12 1 1
-  DUPCLOSURE R13 K28 [PROTO_5]
-  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  DUPCLOSURE R15 K27 [PROTO_5]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R5
   CAPTURE VAL R12
-  DUPCLOSURE R14 K29 [PROTO_7]
-  CAPTURE VAL R2
-  CAPTURE VAL R12
-  DUPTABLE R15 K32 [{"Context", "MockProviders"}]
-  SETTABLEKS R12 R15 K30 ["Context"]
-  DUPTABLE R16 K35 [{"Success", "FailsOnce"}]
-  SETTABLEKS R13 R16 K33 ["Success"]
-  SETTABLEKS R14 R16 K34 ["FailsOnce"]
-  SETTABLEKS R16 R15 K31 ["MockProviders"]
-  RETURN R15 1
+  DUPTABLE R16 K32 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal"}]
+  SETTABLEKS R13 R16 K28 ["uploadModelAsync"]
+  SETTABLEKS R14 R16 K29 ["startAutoSetupAsync"]
+  SETTABLEKS R15 R16 K30 ["DEPRECATED_startAutoSetupAsync"]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K31 ["autoSetupClickedSignal"]
+  GETTABLEKS R17 R8 K33 ["createContext"]
+  MOVE R18 R16
+  CALL R17 1 1
+  RETURN R17 1

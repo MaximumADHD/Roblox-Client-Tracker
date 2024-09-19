@@ -121,8 +121,8 @@ local onParticipantsUpdated = function (participants)
 			isLocalUser = userId == localUserId,
 		}
 
-		CrossExperience.Communication.notify(activeEventName, eventPayload)
 		CrossExperience.Communication.notify(mutedEventName, eventPayload)
+		CrossExperience.Communication.notify(activeEventName, eventPayload)
 	end
 end
 

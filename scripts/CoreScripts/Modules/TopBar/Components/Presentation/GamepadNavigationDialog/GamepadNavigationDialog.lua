@@ -14,7 +14,7 @@ local useLocalization = require(CorePackages.Workspace.Packages.Localization).Ho
 local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
 local FocusNavigableSurfaceIdentifierEnum =
 	require(CorePackages.Workspace.Packages.FocusNavigationUtils).FocusNavigableSurfaceIdentifierEnum
-local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
+	local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 
 local TopBar = script:FindFirstAncestor("TopBar")
 local TopBarAnalytics = require(TopBar.Analytics).default

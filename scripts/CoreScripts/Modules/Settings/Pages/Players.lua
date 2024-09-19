@@ -25,6 +25,7 @@ local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local formatUsername = UserProfiles.Formatters.formatUsername
 local getCombinedNameFromId = UserProfiles.Selectors.getCombinedNameFromId
+local getInExperienceCombinedNameFromId = UserProfiles.Selectors.getInExperienceCombinedNameFromId
 local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
@@ -55,6 +56,7 @@ local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
+local FFlagInExperienceNameQueryEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagInExperienceNameQueryEnabled
 
 local GameInviteAnalyticsManager
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
@@ -163,15 +165,6 @@ local function Initialize()
 		this.PageListLayout.Padding = UDim.new(0, PLAYER_ROW_SPACING - PLAYER_ROW_HEIGHT)
 	end
 
-	local unreadIndicator: GuiObject?
-	if GetFFlagEnableAppChatInExperience() then
-		this.UpdateAppChatUnreadMessagesCount = function(newCount)
-			if unreadIndicator then
-				unreadIndicator.Visible = newCount > 0
-			end
-		end
-	end
-
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "PlayersTab"
 	if Theme.UIBloxThemeEnabled then
@@ -209,7 +202,7 @@ local function Initialize()
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Players"
-	
+
 	local function getShowAppChatTreatment()
 		return GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.default:getShowPlatformChatEntryPoint()
 	end
@@ -1175,6 +1168,17 @@ local function Initialize()
 	end
 
 	if GetFFlagEnableAppChatInExperience() then
+		local unreadIndicator: GuiObject?
+		local shouldUnreadIndicatorBeVisible = false
+
+		this.UpdateAppChatUnreadMessagesCount = function(newCount)
+			shouldUnreadIndicatorBeVisible = newCount > 0
+
+			if unreadIndicator then
+				unreadIndicator.Visible = shouldUnreadIndicatorBeVisible
+			end
+		end
+
 		createChatButton = function()
 			local frame = createRow("ImageButton")
 			local textLabel = frame.TextLabel
@@ -1232,7 +1236,7 @@ local function Initialize()
 				BackgroundColor3 = Theme.color("White"),
 				Size = UDim2.new(0, 8, 0, 8),
 				Position = UDim2.new(1, -15, 0.5, 0),
-				Visible = false,
+				Visible = shouldUnreadIndicatorBeVisible,
 				Parent = frame
 			}
 			Create'UICorner'{
@@ -1495,12 +1499,12 @@ local function Initialize()
 				reportFlagChanged(reportFlag, "AbsolutePosition")
 			else
 				ApolloClient:query({
-					query = UserProfiles.Queries.userProfilesAllNamesByUserIds,
+					query = if FFlagInExperienceNameQueryEnabled then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds else UserProfiles.Queries.userProfilesAllNamesByUserIds,
 					variables = {
 						userIds = { tostring(player.UserId) },
 					},
 				}):andThen(function(result)
-					reportFlagChanged(reportFlag, "AbsolutePosition", getCombinedNameFromId(result.data, player.UserId))
+					reportFlagChanged(reportFlag, "AbsolutePosition", if FFlagInExperienceNameQueryEnabled then getInExperienceCombinedNameFromId(result.data, player.UserId) else getCombinedNameFromId(result.data, player.UserId))
 				end):catch(function()
 					reportFlagChanged(reportFlag, "AbsolutePosition")
 				end)
@@ -1540,12 +1544,12 @@ local function Initialize()
 						frame.DisplayNameLabel.Text = player.DisplayName
 					else
 						ApolloClient:query({
-							query = UserProfiles.Queries.userProfilesAllNamesByUserIds,
+							query = if FFlagInExperienceNameQueryEnabled then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds else UserProfiles.Queries.userProfilesAllNamesByUserIds,
 							variables = {
 								userIds = { tostring(player.UserId) },
 							},
 						}):andThen(function(result)
-							frame.DisplayNameLabel.Text = getCombinedNameFromId(result.data, player.UserId)
+							frame.DisplayNameLabel.Text = if FFlagInExperienceNameQueryEnabled then getInExperienceCombinedNameFromId(result.data, player.UserId) else getCombinedNameFromId(result.data, player.UserId)
 						end):catch(function()
 							frame.DisplayNameLabel.Text = player.DisplayName
 						end)
@@ -1591,12 +1595,12 @@ local function Initialize()
 				frame.DisplayNameLabel.Text = player.DisplayName
 			else
 				ApolloClient:query({
-					query = UserProfiles.Queries.userProfilesAllNamesByUserIds,
+					query = if FFlagInExperienceNameQueryEnabled then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds else UserProfiles.Queries.userProfilesAllNamesByUserIds,
 					variables = {
 						userIds = { tostring(player.UserId) },
 					},
 				}):andThen(function(result)
-					frame.DisplayNameLabel.Text = getCombinedNameFromId(result.data, player.UserId)
+					frame.DisplayNameLabel.Text = if FFlagInExperienceNameQueryEnabled then getInExperienceCombinedNameFromId(result.data, player.UserId) else getCombinedNameFromId(result.data, player.UserId)
 				end):catch(function()
 					frame.DisplayNameLabel.Text = player.DisplayName
 				end)
@@ -1732,7 +1736,7 @@ local function Initialize()
 		if getShowAppChatTreatment() or GetFFlagEnableShowVoiceUI() then
 			showShareGameButton = canShareCurrentGame() and not shareGameButton and not RunService:IsStudio()
 			showChatButton = not chatButton
-			
+
 
 			if (showShareGameButton or showMuteAllButton or showChatButton) and not buttonFrame then
 				buttonFrame = Create'Frame'
@@ -2009,7 +2013,7 @@ local function Initialize()
 		end
 
 		ApolloClient:query({
-			query = UserProfiles.Queries.userProfilesAllNamesByUserIds,
+			query = if FFlagInExperienceNameQueryEnabled then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds else UserProfiles.Queries.userProfilesAllNamesByUserIds,
 			variables = {
 				userIds = playerIds,
 			},
@@ -2018,7 +2022,7 @@ local function Initialize()
 				local labelFrame = existingPlayerLabels[userProfile.names.username]
 
 				if labelFrame then
-					labelFrame.DisplayNameLabel.Text = userProfile.names.combinedName
+					labelFrame.DisplayNameLabel.Text = if FFlagInExperienceNameQueryEnabled then userProfile.names.inExperienceCombinedName else userProfile.names.combinedName
 
 					if FFlagEnablePlatformName then
 						local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")
