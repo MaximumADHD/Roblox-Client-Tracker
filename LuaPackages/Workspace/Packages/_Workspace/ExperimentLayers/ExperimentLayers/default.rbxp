@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ExperimentLayers",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/experiment-layers/src"
-    }
-  }
-}

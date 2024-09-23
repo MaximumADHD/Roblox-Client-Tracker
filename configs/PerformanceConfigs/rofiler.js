@@ -66,48 +66,48 @@ a {
     text-decoration:none;
     display: inline;
     text-align: center;
-	padding:5px;
-	padding-bottom:0px;
-	padding-top:0px;
+    padding:5px;
+    padding-bottom:0px;
+    padding-top:0px;
     color: #FFFFFF;
     background-color: #474747;
-	user-select: none;
+    user-select: none;
 }
 a:hover, a:active{
-	background-color: #000000;
+    background-color: #000000;
 }
 
 .highlighted-background {
-	background-color: #707070;
+    background-color: #707070;
 }
 .highlighted-text {
-	font-weight: bold;
+    font-weight: bold;
     color: #ffcc77;
 }
 .spinner-container {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 9999;
-	pointer-events: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    pointer-events: none;
 }
 .spinner {
-	width: 48px;
-	height: 48px;
-	border-radius: 50%;
-	border: 8px solid rgba(0, 0, 0, 0.2);
-	border-top: 8px solid #000000;
-	animation: spin 1s linear infinite;
-	pointer-events: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 8px solid rgba(0, 0, 0, 0.2);
+    border-top: 8px solid #000000;
+    animation: spin 1s linear infinite;
+    pointer-events: none;
 }
 @keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 ul ul {
@@ -266,12 +266,12 @@ Esc: Exit &amp; Clear filter
 </li>
 <li><a id='ModeSubMenuText'>Mode</a>
     <ul id='ModeSubMenu'>
-		<li><a href="javascript:void(0)" onclick="SetMode('timers', 0);" id="buttonTimers">Timers</a></li>
-		<li><a href="javascript:void(0)" onclick="SetMode('timers', 1);" id="buttonGroups">Groups</a></li> 
-		<li><a href="javascript:void(0)" onclick="SetMode('timers', 2);" id="buttonThreads">Threads</a></li>
-		<li><a href="javascript:void(0)" onclick="SetMode('detailed', 0);" id="buttonDetailed">Detailed</a></li>
-		<li><a href="javascript:void(0)" onclick="SetMode('counters', 0);" id="buttonCounters">Counters</a></li>
-	</ul>
+        <li><a href="javascript:void(0)" onclick="SetMode('timers', 0);" id="buttonTimers">Timers</a></li>
+        <li><a href="javascript:void(0)" onclick="SetMode('timers', 1);" id="buttonGroups">Groups</a></li> 
+        <li><a href="javascript:void(0)" onclick="SetMode('timers', 2);" id="buttonThreads">Threads</a></li>
+        <li><a href="javascript:void(0)" onclick="SetMode('detailed', 0);" id="buttonDetailed">Detailed</a></li>
+        <li><a href="javascript:void(0)" onclick="SetMode('counters', 0);" id="buttonCounters">Counters</a></li>
+    </ul>
 </li>
 <li><a>Reference</a>
     <ul id='ReferenceSubMenu'>
@@ -307,11 +307,11 @@ Esc: Exit &amp; Clear filter
     <ul id="HighlightSubMenu">
         <li><a href="javascript:void(0)" onclick="SwitchHighlight('None');">None</a></li>
         <li><a href="javascript:void(0)" onclick="SwitchHighlight('Render');">Render</a></li>
-		<li><a href="javascript:void(0)" onclick="SwitchHighlight('Jobs');">Jobs</a></li>
-		<li><a href="javascript:void(0)" onclick="SwitchHighlight('Physics');">Physics</a></li>
-		<li><a href="javascript:void(0)" onclick="SwitchHighlight('Sound');">Sound</a></li>
-		<li><a href="javascript:void(0)" onclick="SwitchHighlight('Network');">Network</a></li>
-		<li><a href="javascript:void(0)" onclick="SwitchHighlight('Script');">Script</a></li>
+        <li><a href="javascript:void(0)" onclick="SwitchHighlight('Jobs');">Jobs</a></li>
+        <li><a href="javascript:void(0)" onclick="SwitchHighlight('Physics');">Physics</a></li>
+        <li><a href="javascript:void(0)" onclick="SwitchHighlight('Sound');">Sound</a></li>
+        <li><a href="javascript:void(0)" onclick="SwitchHighlight('Network');">Network</a></li>
+        <li><a href="javascript:void(0)" onclick="SwitchHighlight('Script');">Script</a></li>
     </ul>
 </li>
 <li id="ilExport"><a class="highlighted-background">Export</a>
@@ -323,13 +323,13 @@ Esc: Exit &amp; Clear filter
 <li id="ilOptions"><a>Options</a>
     <ul id='OptionsMenu'>
         <li><a href="javascript:void(0)" onclick="ToggleContextSwitch();">Context Switch</a></li>
-		<li><a href="javascript:void(0)" onclick="ToggleDisableMerge();">MergeDisable</a></li>
-		<li><a href="javascript:void(0)" onclick="ToggleDisableLod();">LodDisable</a></li>
-		<li id='GroupColors'><a href="javascript:void(0)" onclick="ToggleGroupColors();">Group Colors</a></li>
+        <li><a href="javascript:void(0)" onclick="ToggleDisableMerge();">MergeDisable</a></li>
+        <li><a href="javascript:void(0)" onclick="ToggleDisableLod();">LodDisable</a></li>
+        <li id='GroupColors'><a href="javascript:void(0)" onclick="ToggleGroupColors();">Group Colors</a></li>
         <li id='TimersMeta'><a href="javascript:void(0)" onclick="ToggleTimersMeta();">Meta</a></li>
         <li id='ZeroBasedBars'><a href="javascript:void(0)" onclick="ToggleZeroBasedBars();">0-based Bars</a></li>
         <li id='ShowHelp'><a href="javascript:void(0)" onclick="ShowHelp(1,1);">Help</a></li>
-<!--      	<li><a href="javascript:void(0)" onclick="ToggleDebug();">DEBUG</a></li> -->
+<!-- <li><a href="javascript:void(0)" onclick="ToggleDebug();">DEBUG</a></li> -->
     </ul>
 </li>
 <li id="ilReload" title="Re-capture" style="cursor: pointer; display: none;"><a class="highlighted-text">&nbsp;&#8635;&nbsp;</a>
@@ -412,7 +412,7 @@ function MakeGroup(id, name, category, numtimers, isgpu, total, average, max, co
 }
 
 function MakeTimer(id, name, group, color, colordark, average, max, min, exclaverage, exclmax, callaverage, callcount, total, meta, metaagg, metamax) {
-    var timer = { "id": id, "name": name, "namelabel": name.startsWith("$"), "color": color, "colordark": colordark, "timercolor": color, "textcolor": InvertColor(color), "group": group, "average": average, "max": max, "min": min, "exclaverage": exclaverage, "exclmax": exclmax, "callaverage": callaverage, "callcount": callcount, "total": total, "meta": meta, "textcolorindex": InvertColorIndex(color), "metaagg": metaagg, "metamax": metamax, "worst": 0, "worststart": 0, "worstend": 0 };
+    var timer = { "id": id, "name": name, "color": color, "colordark": colordark, "timercolor": color, "textcolor": InvertColor(color), "group": group, "average": average, "max": max, "min": min, "exclaverage": exclaverage, "exclmax": exclmax, "callaverage": callaverage, "callcount": callcount, "total": total, "meta": meta, "textcolorindex": InvertColorIndex(color), "metaagg": metaagg, "metamax": metamax, "worst": 0, "worststart": 0, "worstend": 0 };
     return timer;
 }
 
@@ -1475,10 +1475,10 @@ function ExportMarkersCSV(returnAsText) {
         }
         var nNumLogs = Frames[0].ts.length;
         for (var nLog = 0; nLog < nNumLogs; ++nLog) {
-            var ts = fr.ts[nLog];		// timestamp (ms)	ts.length gives number of log entries. Indexes ts, ti, tt, tl
-            var ti = fr.ti[nLog];		// timer index
-            var tt = fr.tt[nLog];		// timer type	enter = 1, leave = 0, label = 3
-            var tl = fr.tl[nLog];		// timer label
+            var ts = fr.ts[nLog];        // timestamp (ms)    ts.length gives number of log entries. Indexes ts, ti, tt, tl
+            var ti = fr.ti[nLog];        // timer index
+            var tt = fr.tt[nLog];        // timer type    enter = 1, leave = 0, label = 3
+            var tl = fr.tl[nLog];        // timer label
             var numEntries = ts.length;
             if (numEntries == 0)
                 continue;
@@ -1933,70 +1933,61 @@ function CalculateTimers(GroupInfo, TimerInfo, nFrameFirst, nFrameLast, nToken, 
     }
 }
 
-function PreprocessTimerSubstitions(SubstituteGroup, SubstituteTimer) {
-    var SubIndex = TimerInfo.findIndex((element) => (element.name == SubstituteTimer && GroupInfo[element.group].name == SubstituteGroup));
-    if (SubIndex == -1)
-        return;
-    if (!TimerInfo[SubIndex].namelabel)
-        return;
-    ProfileEnter('PreprocessTimerSubstitions');
-    var SubstituteName = TimerInfo[SubIndex].name.slice(1) + '_';
-    var TimerInfoStartLength = TimerInfo.length;
-    var ReferenceTimer = Object.assign({}, TimerInfo[SubIndex]);
-    var NewTimers = [];
-    var nNumLogs = Frames[0].ts.length;
-    for (nLog = 0; nLog < nNumLogs; nLog++) {
-        var Discard = 0;
-        var NewTimerIndex = -1;
-        var NewTimerStack = Array();
-        for (var i = 0; i < Frames.length; i++) {
-            var Frame_ = Frames[i];
-            var FrameDiscard = OverflowAllowance(nLog, Frame_);
-            var tt = Frame_.tt[nLog];
-            var ts = Frame_.ts[nLog];
-            var ti = Frame_.ti[nLog];
-            var tl = Frame_.tl[nLog];
-            var len = tt.length;
-            for (var xx = 0; xx < len; ++xx) {
-                var Skip = (tt[xx] == 4) ? DiscardLast : (tt[xx] < EventBaseId && ts[xx] > FrameDiscard);
-                if (Skip) {
-                    Discard++;
-                    DiscardLast = 1;
-                }
-                else {
-                    DiscardLast = 0;
-
-                    // Use label after the region instead of the region name for some regions
-                    if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && ti[xx] == SubIndex) {
-                        // ENTER
-                        var Label = tl[ti[xx + 1]];
-                        var NewName = SubstituteName + Label;
-                        NewTimerIndex = NewTimers.findIndex((element) => (element == NewName));
-                        if (NewTimerIndex == -1) {
-                            NewTimerIndex = NewTimers.length;
-                            NewTimers.push(NewName);
-                            var finalIndex = TimerInfo.length;
-                            TimerInfo[finalIndex] = Object.assign({}, ReferenceTimer);
-                            TimerInfo[finalIndex].name = NewName;
-                            TimerInfo[finalIndex].id = finalIndex;
-                            TimerInfo[finalIndex].namelabel = 0;
+// For all timers matching the predicate, substitute it for a timer given by the NewTimerNameFunc function
+// NewTimerNameFunc: group name, timer name, timer label -> new timer name
+function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc)
+{
+    ProfileEnter('PreprocessTimerSubstitutions');
+    for (const subTimer of TimerInfo.filter(timerPredicate)) {
+        const nTimersWhenStarted = TimerInfo.length;
+        for (let nLog = 0; nLog < Frames[0].tt.length; nLog++) {
+            let discardLast = false;
+            const newTimerStack = [];
+            for (let i = 0; i < Frames.length; i++) {
+                const frame = Frames[i];
+                const frameDiscard = OverflowAllowance(nLog, frame);
+                const [tt, ts, ti, tl] = [frame.tt[nLog], frame.ts[nLog], frame.ti[nLog], frame.tl[nLog]];
+                for (let xx = 0; xx < tt.length; xx++) {
+                    // discard markers that are from the ring buffer wrap around
+                    if ((tt[xx] === 4) ? discardLast : (tt[xx] < EventBaseId && ts[xx] > frameDiscard)) {
+                        discardLast = true;
+                        continue;
+                    }
+                    discardLast = false;
+                    // ENTER SCOPE
+                    if (tt[xx] === 1 && ti[xx] === subTimer.id) {
+                        // get label from next log entry
+                        if (xx + 1 >= tt.length || tt[xx + 1] !== 3)
+                            continue;
+                        const label = tl[ti[xx + 1]];
+                        // get new timer name
+                        const oldTimer = TimerInfo[ti[xx]];
+                        const newTimerName = newTimerNameFunc(oldTimer.group.name, oldTimer.name, label);
+                        // make a new timer only iff it doesn't exist already
+                        let newTimer = TimerInfo.find(t => t.group === oldTimer.group && t.name === newTimerName);
+                        if (!newTimer) {
+                            newTimer = { ...oldTimer, name: newTimerName, id: TimerInfo.length }
+                            TimerInfo.push(newTimer);
                         }
-
-                        NewTimerIndex += TimerInfoStartLength;
-                        Frame_.ti[nLog][xx] = NewTimerIndex;
-                        NewTimerStack.push(NewTimerIndex);
+                        // replace timer index
+                        ti[xx] = newTimer.id;
+                        newTimerStack.push(newTimer.id);
                     }
-                    else if (tt[xx] == 0 && ti[xx] == SubIndex && NewTimerStack.length > 0) {
-                        // EXIT
-                        Frame_.ti[nLog][xx] = NewTimerStack.pop();
+                    // EXIT SCOPE
+                    else if (tt[xx] === 0 && ti[xx] === subTimer.id && newTimerStack.length > 0) {
+                        ti[xx] = newTimerStack.pop();
                     }
-                }
-            }
+                } // for xx (log entries)
+            } // for i (frames)
+        } // for nLog
+        const nTimersWhenFinished = TimerInfo.length;
+        const nTimersAdded = nTimersWhenFinished - nTimersWhenStarted;
+        if (nTimersAdded > 0) {
+            const groupNum = subTimer.group;
+            GroupInfo[groupNum].numtimers += nTimersAdded;
+            console.log(`Substitution for ${subTimer.name} increased timer count from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
         }
-    }
-    var GroupNum = ReferenceTimer.group;
-    GroupInfo[GroupNum].numtimers += NewTimers.length;
-    console.log('Substitution for ' + SubstituteTimer + ' increased timer count by ' + NewTimers.length + ' to ' + TimerInfo.length);
+    } // for SubTimer
     ProfileLeave();
 }
 
@@ -5514,7 +5505,8 @@ function PreprocessGlobalArray() {
 
                     // Use label after the region instead of the region name for some regions
                     var Label = null;
-                    if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && TimerInfo[ti[xx]].namelabel) {
+                    if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && TimerInfo[ti[xx]].name.startsWith("$"))
+                    {
                         Label = tl[ti[xx + 1]];
                     }
 
@@ -5623,10 +5615,10 @@ function Preprocess() {
     ProfileMode = 1;
     ProfileModeClear();
     ProfileEnter("Preprocess");
-    PreprocessTimerSubstitions('Lua', '$Script');
-    PreprocessTimerSubstitions('LuaBridge', '$namecall');
-    PreprocessTimerSubstitions('LuaBridge', '$index');
-    PreprocessTimerSubstitions('LuaBridge', '$newindex');
+    PreprocessTimerSubstitutions(
+        timer => timer.name.startsWith("$"),
+        (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label
+    );
     PreprocessCalculateAllTimers();
     PreprocessFindFirstFrames();
     PreprocessGlobalArray();
@@ -6667,13 +6659,13 @@ function ShowDiffWindow(Show) {
     var EventsWindow = document.getElementById('eventswindow');
     EventsWindow.innerHTML = '';
     EventsWindow.style.cssText = `
-		user-select: none; font: 12px Courier New;
-		flex-direction: column; overflow: hidden; scrollbar-color: #ffffff #000000;
-		position: absolute; z-index: 5; text-align: left;
-		padding: 0px; background-color: #000000;
-		left: 50%; top: 50%;
-		transform: translate(-50%, -50%);
-		width: 880px; height: 330px;`;
+        user-select: none; font: 12px Courier New;
+        flex-direction: column; overflow: hidden; scrollbar-color: #ffffff #000000;
+        position: absolute; z-index: 5; text-align: left;
+        padding: 0px; background-color: #000000;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        width: 880px; height: 330px;`;
 
     if (Show) {
         g_Loader.isDiffWindowVisible = true;
@@ -6687,49 +6679,49 @@ function ShowDiffWindow(Show) {
 
     function SideHtml(baseDiv, color, id, text, sideId, tableBodyId) {
         var html = `
-			<div style="` + baseDiv + ` display: flex;">
-				<div style="background-color: ` + color + `; display: flex;">
-					<div class="tooltip-area" id="` + id + `" style="cursor: pointer; margin: 2px; padding: 5px; text-align: left; font-weight: bold; flex-grow: 1;">
-						` + text + `
-						<span class="tooltip-text">Click to combine</span>
-					</div>
-				</div>
-				<div style="position: relative; flex-grow: 1; display: flex;">
-					<div class="drop-zone"
-						ondragover="DragOverSideHandler(event, '` + color + `');"
-						ondragend="DragEndSideHandler(event);" ondragleave="DragEndSideHandler(event);"
-						ondrop="DropSideHandler(event, ` + sideId + `);"
-					>
-						<span class="drop-sign">&DownArrowBar;</span>
-					</div>
-					<div style="background-color:#333333; overflow-y: scroll; overflow-x: hidden;">
-						<table style="padding: 2px; white-space: nowrap; text-overflow: ellipsis; table-layout:fixed; width:100%; height: 0%;">
-							<colgroup></colgroup>
-							<tbody id="` + tableBodyId + `">
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>`;
+            <div style="` + baseDiv + ` display: flex;">
+                <div style="background-color: ` + color + `; display: flex;">
+                    <div class="tooltip-area" id="` + id + `" style="cursor: pointer; margin: 2px; padding: 5px; text-align: left; font-weight: bold; flex-grow: 1;">
+                        ` + text + `
+                        <span class="tooltip-text">Click to combine</span>
+                    </div>
+                </div>
+                <div style="position: relative; flex-grow: 1; display: flex;">
+                    <div class="drop-zone"
+                        ondragover="DragOverSideHandler(event, '` + color + `');"
+                        ondragend="DragEndSideHandler(event);" ondragleave="DragEndSideHandler(event);"
+                        ondrop="DropSideHandler(event, ` + sideId + `);"
+                    >
+                        <span class="drop-sign">&DownArrowBar;</span>
+                    </div>
+                    <div style="background-color:#333333; overflow-y: scroll; overflow-x: hidden;">
+                        <table style="padding: 2px; white-space: nowrap; text-overflow: ellipsis; table-layout:fixed; width:100%; height: 0%;">
+                            <colgroup></colgroup>
+                            <tbody id="` + tableBodyId + `">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>`;
         return html;
     };
 
     var html = `
-		<div style="padding: 2px;">
-			<div id="xtooltip_list_header" style="display: flex;">
-				<div id="xtooltip_list_close" style="cursor: pointer;">&#10006;&nbsp;Close</div>
-				<div id="xtooltip_list_title" style="flex-grow: 1; text-align: right;"></div>
-			</div>
-		</div>
-		<div style="flex-grow: 1; flex-direction: column; display: flex;">
-			<div style="width: 100%; height: 0px; flex-grow: 1; display: flex;">`
+        <div style="padding: 2px;">
+            <div id="xtooltip_list_header" style="display: flex;">
+                <div id="xtooltip_list_close" style="cursor: pointer;">&#10006;&nbsp;Close</div>
+                <div id="xtooltip_list_title" style="flex-grow: 1; text-align: right;"></div>
+            </div>
+        </div>
+        <div style="flex-grow: 1; flex-direction: column; display: flex;">
+            <div style="width: 100%; height: 0px; flex-grow: 1; display: flex;">`
         + SideHtml('width: 50%;', '#22c222', 'xtooltip_combine_0', 'Left&nbsp;<br/>side', 0, "xtooltip_diff_tbody_0")
         + SideHtml('width: 0%; flex-grow: 1;', '#5252d2', 'xtooltip_combine_1', 'Right<br/>side', 1, "xtooltip_diff_tbody_1") + `
-			</div>
-			<div style="padding: 2px;">
-				<div id="xtooltip_diff" style="cursor: pointer; padding: 7px; text-align: center; font-weight: bold;">Combine & Compare</div>
-			</div>
-		</div>`;
+            </div>
+            <div style="padding: 2px;">
+                <div id="xtooltip_diff" style="cursor: pointer; padding: 7px; text-align: center; font-weight: bold;">Combine & Compare</div>
+            </div>
+        </div>`;
 
     EventsWindow.innerHTML = html;
 
@@ -7084,11 +7076,11 @@ function ShowEvents(Show) {
     var EventsWindow = document.getElementById('eventswindow');
     EventsWindow.innerHTML = '';
     EventsWindow.style.cssText = `
-		cursor: pointer; user-select: none; font: 12px Courier New;
-		flex-direction: column; overflow: hidden; scrollbar-color: #ffffff #000000;
-		position: absolute; z-index: 5; text-align: left;
-		padding: 0px; background-color: #000000;
-		display: none;`;
+        cursor: pointer; user-select: none; font: 12px Courier New;
+        flex-direction: column; overflow: hidden; scrollbar-color: #ffffff #000000;
+        position: absolute; z-index: 5; text-align: left;
+        padding: 0px; background-color: #000000;
+        display: none;`;
     var hoverEvents;
     if (Show) {
         hoverEvents = GatherHoverEvents(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame)
@@ -7127,30 +7119,30 @@ function ShowEvents(Show) {
     // Compose the final html that contains the header and 2 switchable divs for
     // the list of events and the detailed info about 1 selected event
     var html = `
-		<div style="padding: 2px;">
-			<div id="xtooltip_list_header" style="display: none;"> <!-- flex -->
-				<div id="xtooltip_list_close" style="">&#10006;&nbsp;Close</div>
-				<div id="xtooltip_list_title" style="flex-grow: 1; text-align: right;"></div>
-			</div>
-			<div id="xtooltip_details_header" style="display: none;"> <!-- flex -->
-				<div id="xtooltip_details_back">&#x1F868;&nbsp;Back</div>
-			</div>
-		</div>
-		<div id="xtooltip_list" style="flex-grow: 1; overflow: auto; display: none;">
-			<table style="white-space: nowrap;">
-				<colgroup></colgroup>
-				<thead>
-					<tr>
-		` + head + `
-					</tr>
-				</thead>
-				<tbody>
-		` + rows + `
-				</tbody>
-			</table>
-		</div>
-		<div id="xtooltip_details" style="cursor: auto; user-select: text; flex-grow: 1; overflow: auto; display: none;">
-		</div>`;
+        <div style="padding: 2px;">
+            <div id="xtooltip_list_header" style="display: none;"> <!-- flex -->
+                <div id="xtooltip_list_close" style="">&#10006;&nbsp;Close</div>
+                <div id="xtooltip_list_title" style="flex-grow: 1; text-align: right;"></div>
+            </div>
+            <div id="xtooltip_details_header" style="display: none;"> <!-- flex -->
+                <div id="xtooltip_details_back">&#x1F868;&nbsp;Back</div>
+            </div>
+        </div>
+        <div id="xtooltip_list" style="flex-grow: 1; overflow: auto; display: none;">
+            <table style="white-space: nowrap;">
+                <colgroup></colgroup>
+                <thead>
+                    <tr>
+        ` + head + `
+                    </tr>
+                </thead>
+                <tbody>
+        ` + rows + `
+                </tbody>
+            </table>
+        </div>
+        <div id="xtooltip_details" style="cursor: auto; user-select: text; flex-grow: 1; overflow: auto; display: none;">
+        </div>`;
     EventsWindow.innerHTML = html;
 
     // Install mouse handlers

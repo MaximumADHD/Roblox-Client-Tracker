@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "NetworkingGames",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/networking-games/src"
-    }
-  }
-}

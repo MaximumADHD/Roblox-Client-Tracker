@@ -16,7 +16,7 @@ out vec4 VARYING3;
 out vec4 VARYING4;
 out vec4 VARYING5;
 out vec4 VARYING6;
-out vec3 VARYING7;
+flat out vec3 VARYING7;
 
 void main()
 {

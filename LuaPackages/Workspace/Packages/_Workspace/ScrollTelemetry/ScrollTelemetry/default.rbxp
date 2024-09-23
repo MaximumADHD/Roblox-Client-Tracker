@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ScrollTelemetry",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/scroll-telemetry/src"
-    }
-  }
-}

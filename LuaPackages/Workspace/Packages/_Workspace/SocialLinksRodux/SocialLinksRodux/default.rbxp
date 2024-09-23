@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "SocialLinksRodux",
-    "tree": {
-      "$path": "../../../../../../../modules/social/rodux/social-links-rodux/src"
-    }
-  }
-}

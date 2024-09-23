@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AppBlox",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/app-blox/src"
-    }
-  }
-}

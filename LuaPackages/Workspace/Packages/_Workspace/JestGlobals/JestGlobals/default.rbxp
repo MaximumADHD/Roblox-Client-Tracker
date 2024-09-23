@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "JestGlobals",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/jest-globals/src"
-    }
-  }
-}

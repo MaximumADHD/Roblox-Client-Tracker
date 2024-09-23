@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GamePlayButton",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/game-play-button/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "CoreScriptsInitializer",
-    "tree": {
-      "$path": "../../../../../../../modules/core-scripts/core-scripts-initializer/src"
-    }
-  }
-}

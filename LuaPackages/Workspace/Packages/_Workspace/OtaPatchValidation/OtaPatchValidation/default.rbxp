@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "OtaPatchValidation",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/ota-patch-validation/src"
-    }
-  }
-}

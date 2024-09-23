@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "InGameMenuDependencies",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/in-game-menu-dependencies/src"
-    }
-  }
-}

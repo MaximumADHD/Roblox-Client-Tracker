@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "EditProfile",
-    "tree": {
-      "$path": "../../../../../../../modules/social/edit-profile/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ExperienceService",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/experience/src"
-    }
-  }
-}

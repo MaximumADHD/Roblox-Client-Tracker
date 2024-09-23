@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "InteractionFeedback",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/interaction-feedback/src"
-    }
-  }
-}

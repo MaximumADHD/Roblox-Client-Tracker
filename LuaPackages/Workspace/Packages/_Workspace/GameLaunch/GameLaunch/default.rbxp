@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GameLaunch",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/game-launch/src"
-    }
-  }
-}

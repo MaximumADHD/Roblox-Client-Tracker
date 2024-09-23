@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "IxpUtils",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/ixp-utils/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "PurchasePromptDeps",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/purchase-prompt-deps/src"
-    }
-  }
-}

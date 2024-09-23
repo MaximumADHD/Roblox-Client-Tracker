@@ -29,6 +29,10 @@ AdvStarsFS,Fragment
 AdvStarsVS,Vertex
 AdvSunFS,Fragment
 AdvSunVS,Vertex
+Blur1FS,Fragment
+Blur3FS,Fragment
+Blur5FS,Fragment
+Blur7FS,Fragment
 BokehFarCoCFS,Fragment
 BokehNearCoCFS,Fragment
 CheapBokehFS,Fragment
@@ -405,11 +409,14 @@ DOFResolveFarFS,Fragment
 DOFResolveNearFS,Fragment
 DownSample4x4AvgFS,Fragment
 DownSample4x4MaxFS,Fragment
-DownSample4x4ViewportVS,Vertex
 DownSample4x4VS,Vertex
 DownSampleGjoel8UVVS,Vertex
+DownSampleGjoelFS,Fragment
+DownSampleGjoelLinearFS,Fragment
+DownSampleGjoelMipFS,Fragment
 DownSampleGlowTemporal8x8FS,Fragment
 DownSampleGlowTemporalLinear8x8FS,Fragment
+DownSampleScaled4x4VS,Vertex
 EnvGlassFS,Fragment
 FastConvDownsamplePS,Fragment
 FastConvolutionPS,Fragment
@@ -483,6 +490,7 @@ HighlightStudioSelectionAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment
+ImageProcessAlphaFS,Fragment
 ImGui2DArrayFS,Fragment
 ImGui3DFS,Fragment
 ImGuiCubeFS,Fragment
@@ -515,13 +523,14 @@ ParticleLightingVS,Vertex
 PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
 PassThroughFS,Fragment
+PassThroughGlobalScaleResolutionVS,Vertex
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
 PassThroughModifyVS,Vertex
 PassThroughNoOpVS,Vertex
-PassThroughPosViewportVS,Vertex
 PassThroughPosVS,Vertex
-PassThroughViewportVS,Vertex
+PassThroughScaledFS,Fragment
+PassThroughScaleResolutionVS,Vertex
 PassThroughVS,Vertex
 PerformanceOverlayFS_00000000,Fragment
 PerformanceOverlayLightPS,Fragment
@@ -686,6 +695,7 @@ SSAOCompositVS,Vertex
 SSAODepthDownFS,Fragment
 SSAOFS,Fragment
 SSAOScalingCompositFS,Fragment
+SSAOScalingVS,Vertex
 SSAOVS,Vertex
 StarsFS,Fragment
 StarsVS,Vertex
@@ -715,3 +725,4 @@ UITransformedLitFogVS,Vertex
 UITransformedLitFogVSShadowed,Vertex
 UITransformedVS,Vertex
 UIVS,Vertex
+UpSampleTentFS,Fragment

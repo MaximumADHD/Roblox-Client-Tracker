@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GraphQL",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/graphql/src"
-    }
-  }
-}

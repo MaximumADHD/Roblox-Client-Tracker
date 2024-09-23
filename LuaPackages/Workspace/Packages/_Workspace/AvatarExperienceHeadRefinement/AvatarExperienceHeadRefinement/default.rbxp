@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AvatarExperienceHeadRefinement",
-    "tree": {
-      "$path": "../../../../../../../modules/economy/avatar-experience/head-refinement/src"
-    }
-  }
-}

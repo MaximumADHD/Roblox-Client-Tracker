@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "VoiceChat",
-    "tree": {
-      "$path": "../../../../../../../modules/communication/voice-chat/src"
-    }
-  }
-}

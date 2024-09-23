@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ExperimentCacheManager",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/experiment-cache-manager/src"
-    }
-  }
-}

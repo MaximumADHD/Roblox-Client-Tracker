@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "Dash",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/dash/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "FitFrame",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/fit-frame/src"
-    }
-  }
-}

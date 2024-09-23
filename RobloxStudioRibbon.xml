@@ -463,7 +463,7 @@
         <addaction fflag="DebugStudioAssetProxy" name="remoteDebugDockWidgetAction" style="textbesideicon" text="Studio.App.RemoteDebugger.Title" tooltip="Studio.App.RemoteDebugger.Title"/>
 
         <addaction fflag="COLLAB4260ActivityFeed" name="toggleStudioActivityFeedAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip" modernIcon="ActivityHistory" ischeckable="true" />
-        <addaction fflag="AICOChatBot" name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
+        <addaction name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
 
       </Group>

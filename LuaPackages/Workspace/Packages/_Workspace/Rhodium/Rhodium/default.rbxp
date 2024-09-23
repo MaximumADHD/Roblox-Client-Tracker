@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "Rhodium",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/rhodium/src"
-    }
-  }
-}

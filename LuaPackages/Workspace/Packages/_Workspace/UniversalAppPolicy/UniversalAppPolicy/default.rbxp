@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "UniversalAppPolicy",
-    "tree": {
-      "$path": "../../../../../../../modules/roblox-app/universal-app-policy/src"
-    }
-  }
-}

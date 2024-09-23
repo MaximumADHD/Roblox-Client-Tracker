@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AccountSwitching",
-    "tree": {
-      "$path": "../../../../../../../modules/account-authentication/account-switching/src"
-    }
-  }
-}

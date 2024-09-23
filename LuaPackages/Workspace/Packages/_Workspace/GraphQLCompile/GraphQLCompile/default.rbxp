@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GraphQLCompile",
-    "tree": {
-      "$path": "../../../../../../../modules/graphql/graphql-compile/src"
-    }
-  }
-}

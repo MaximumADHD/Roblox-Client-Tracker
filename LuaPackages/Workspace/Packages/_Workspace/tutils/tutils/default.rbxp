@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "tutils",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/tutils/src"
-    }
-  }
-}

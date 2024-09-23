@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "SocialStopwatch",
-    "tree": {
-      "$path": "../../../../../../../modules/social/social-stopwatch/src"
-    }
-  }
-}

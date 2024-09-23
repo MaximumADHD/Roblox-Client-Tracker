@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "LuauPolyfill",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/luau-polyfill/src"
-    }
-  }
-}

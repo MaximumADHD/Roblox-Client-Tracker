@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ExpChat",
-    "tree": {
-      "$path": "../../../../../../../modules/social/exp-chat/exp-chat/src"
-    }
-  }
-}

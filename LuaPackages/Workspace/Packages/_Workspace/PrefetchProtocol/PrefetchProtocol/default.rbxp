@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "PrefetchProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/prefetch/src"
-    }
-  }
-}

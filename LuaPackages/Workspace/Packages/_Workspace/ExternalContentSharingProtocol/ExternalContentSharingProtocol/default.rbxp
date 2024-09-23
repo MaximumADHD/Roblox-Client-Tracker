@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ExternalContentSharingProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/external-content-sharing/src"
-    }
-  }
-}

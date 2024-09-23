@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "Otter",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/otter/src"
-    }
-  }
-}

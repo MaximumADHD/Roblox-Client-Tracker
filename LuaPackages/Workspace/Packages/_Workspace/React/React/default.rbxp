@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "React",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/react/src"
-    }
-  }
-}

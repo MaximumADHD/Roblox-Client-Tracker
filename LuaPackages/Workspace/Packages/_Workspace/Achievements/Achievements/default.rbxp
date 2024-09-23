@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "Achievements",
-    "tree": {
-      "$path": "../../../../../../../modules/ten-foot-ui/achievements/src"
-    }
-  }
-}

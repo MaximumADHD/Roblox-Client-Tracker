@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "StringUtilities",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/string-utilities/src"
-    }
-  }
-}

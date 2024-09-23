@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "SystemInfoProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/system-info-protocol/src"
-    }
-  }
-}

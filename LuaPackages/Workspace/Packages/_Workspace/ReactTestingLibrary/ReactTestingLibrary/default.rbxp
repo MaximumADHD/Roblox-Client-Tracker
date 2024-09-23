@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ReactTestingLibrary",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/react-testing-library-lua/src"
-    }
-  }
-}

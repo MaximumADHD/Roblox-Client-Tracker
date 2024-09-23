@@ -16,4 +16,3 @@ Studio.App.RobloxExplorerWidget.AutoupdateDisabled,,Package auto-update is disab
 Studio.App.RobloxExplorerWidget.UnpublishedChanges,,Package has unpublished changes,Package has unpublished changes
 Studio.App.RobloxExplorerWidget.UpdateAvailable,,Package update available,Package update available
 Studio.App.RobloxExplorerWidget.FileSyncScriptSyncing,,Local changes are being synced with Studio,Local changes are being synced with Studio
-Studio.App.RobloxExplorerWidget.FileSyncScriptErrored,,The file in disk might have been renamed or changed location,The file in disk might have been renamed or changed location

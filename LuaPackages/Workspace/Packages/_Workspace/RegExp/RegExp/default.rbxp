@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "RegExp",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/reg-exp/src"
-    }
-  }
-}

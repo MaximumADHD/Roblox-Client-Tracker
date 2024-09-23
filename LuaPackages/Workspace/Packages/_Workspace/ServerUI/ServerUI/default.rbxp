@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ServerUI",
-    "tree": {
-      "$path": "../../../../../../../modules/core-ui/server-ui/src"
-    }
-  }
-}

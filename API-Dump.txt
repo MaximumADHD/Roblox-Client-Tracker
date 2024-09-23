@@ -58,7 +58,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Event Instance.DescendantAdded(descendant: Instance)
 	Event Instance.DescendantRemoving(descendant: Instance)
 	Event Instance.Destroying()
-Class AccessoryDescription : Instance [NotBrowsable]
+Class AccessoryDescription : Instance
 	Property AccessoryDescription.AccessoryType: Enum.AccessoryType
 	Property AccessoryDescription.AssetId: number
 	Property AccessoryDescription.Instance: Instance?
@@ -242,15 +242,23 @@ Class Annotation : Instance
 	Property Annotation.LastModifiedTimeUnix: number {RobloxScriptSecurity} [Hidden]
 	Property Annotation.Resolved: boolean {RobloxScriptSecurity} [Hidden]
 	Property Annotation.TaggedUsers: string {RobloxScriptSecurity} [Hidden]
+	Function Annotation:GetStringUniqueId() -> string {RobloxScriptSecurity}
 Class WorkspaceAnnotation : Annotation
 	Property WorkspaceAnnotation.Adornee: PVInstance? {RobloxScriptSecurity} [Hidden]
 	Property WorkspaceAnnotation.Position: CFrame {RobloxScriptSecurity} [Hidden]
 Class AnnotationsService : Instance [NotCreatable] [Service]
 	Property AnnotationsService.Hovered: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property AnnotationsService.Mode: Enum.AnnotationEditingMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Function AnnotationsService:createAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
-	Function AnnotationsService:createWorkspaceAnnotation(adornee: PVInstance, position: CFrame, contents: string) -> () {RobloxScriptSecurity}
-	Event AnnotationsService.AnnotationAdded(annotation: Annotation, parentId: UniqueId) {RobloxScriptSecurity}
+	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:DeleteAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
+	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation, count: number? = 25) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:ResolveAnnotation(annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationAdded(annotation: Annotation, parentId: string) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationDeleted(annotation: Annotation) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationResolved(annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
+	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppLifecycleObserverService:GetCurrentState() -> Enum.AppLifecycleManagerState {RobloxScriptSecurity}
 	Function AppLifecycleObserverService:IsDidDetachSupported() -> boolean {RobloxScriptSecurity}
@@ -409,6 +417,7 @@ Class AudioDeviceInput : Instance
 	Property AudioDeviceInput.Active: boolean {✏️RobloxScriptSecurity}
 	Property AudioDeviceInput.IsReady: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property AudioDeviceInput.Muted: boolean
+	Property AudioDeviceInput.MutedByLocalUser: boolean {RobloxScriptSecurity} [NotReplicated]
 	Property AudioDeviceInput.Player: Player?
 	Property AudioDeviceInput.Volume: number
 	Function AudioDeviceInput:GetConnectedWires(pin: string) -> { Instance }
@@ -464,9 +473,13 @@ Class AudioFlanger : Instance
 	Property AudioFlanger.Rate: number
 	Function AudioFlanger:GetConnectedWires(pin: string) -> { Instance }
 Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function AudioFocusService:AcquireFocus(contextId: number, priority: number) -> boolean {RobloxScriptSecurity}
+	Function AudioFocusService:AcquireFocus(contextId: number) -> boolean {RobloxScriptSecurity}
+	Function AudioFocusService:GetFocusedContextId() -> number {RobloxScriptSecurity}
+	Function AudioFocusService:GetRegisteredContexts() -> { any } {RobloxScriptSecurity}
 	Function AudioFocusService:RegisterContextIdFromLua(contextId: number) -> () {RobloxScriptSecurity}
 	Function AudioFocusService:RequestFocus(contextId: number, priority: number) -> boolean {RobloxScriptSecurity}
+	Event AudioFocusService.OnContextRegistered(contextId: number) {RobloxScriptSecurity}
+	Event AudioFocusService.OnContextUnregistered(contextId: number) {RobloxScriptSecurity}
 	Event AudioFocusService.OnDeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
 	Event AudioFocusService.OnUndeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
 Class AudioListener : Instance
@@ -869,7 +882,7 @@ Class RocketPropulsion : BodyMover [Deprecated]
 	Function RocketPropulsion:Abort() -> () [Deprecated]
 	Function RocketPropulsion:Fire() -> () [Deprecated]
 	Event RocketPropulsion.ReachedTarget() [Deprecated]
-Class BodyPartDescription : Instance [NotBrowsable]
+Class BodyPartDescription : Instance
 	Property BodyPartDescription.AssetId: number
 	Property BodyPartDescription.BodyPart: Enum.BodyPart
 	Property BodyPartDescription.Color: Color3
@@ -971,6 +984,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
+	Function CaptureService:PostToFeedAsync(capturePath: string, feedCategory: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:PromptSaveCapturesToGallery(contentIds: { any }, resultCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptShareCapture(contentId: string, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
@@ -1490,6 +1504,7 @@ Class CoreScriptDebuggingManagerHelper : Instance [NotCreatable] [Service]
 Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CoreScriptSyncService:GetScriptFilePath(script: Instance) -> any {RobloxScriptSecurity}
 Class CreationDBService : Instance [NotCreatable] [Service] [NotReplicated]
+Class CreatorStoreService : Instance [NotCreatable] [Service]
 Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CrossDMScriptChangeListener:IsWatchingScriptLine(scriptRef: string, lineNumber: number) -> boolean {RobloxScriptSecurity}
 	Function CrossDMScriptChangeListener:StartWatchingScriptLine(scriptRef: string, debuggerConnectionId: number, lineNumber: number) -> () {RobloxScriptSecurity}
@@ -1535,20 +1550,20 @@ Class EditableMesh : DataModelMesh
 	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any }
 	Function EditableMesh:GetColor(colorId: number) -> Color3?
 	Function EditableMesh:GetColorAlpha(colorId: number) -> number?
-	Function EditableMesh:GetColors() -> { any }
-	Function EditableMesh:GetFaceColors(faceId: number) -> { any }
-	Function EditableMesh:GetFaceNormals(faceId: number) -> { any }
-	Function EditableMesh:GetFaceUVs(faceId: number) -> { any }
-	Function EditableMesh:GetFaceVertices(faceId: number) -> { any }
-	Function EditableMesh:GetFaces() -> { any }
+	Function EditableMesh:GetColors() -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaceColors(faceId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaceNormals(faceId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaceUVs(faceId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaceVertices(faceId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaces() -> { any } [CustomLuaState]
 	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any }
 	Function EditableMesh:GetNormal(normalId: number) -> Vector3?
-	Function EditableMesh:GetNormals() -> { any }
+	Function EditableMesh:GetNormals() -> { any } [CustomLuaState]
 	Function EditableMesh:GetPosition(vertexId: number) -> Vector3
 	Function EditableMesh:GetTriangleVertices(triangleId: number) -> ...any [Deprecated]
 	Function EditableMesh:GetTriangles() -> { any } [Deprecated]
 	Function EditableMesh:GetUV(uvId: number) -> Vector2?
-	Function EditableMesh:GetUVs() -> { any }
+	Function EditableMesh:GetUVs() -> { any } [CustomLuaState]
 	Function EditableMesh:GetVertexColor(vertexId: number) -> Color3 [Deprecated]
 	Function EditableMesh:GetVertexColorAlpha(vertexId: number) -> number [Deprecated]
 	Function EditableMesh:GetVertexNormal(vertexId: number) -> Vector3 [Deprecated]
@@ -1564,10 +1579,10 @@ Class EditableMesh : DataModelMesh
 	Function EditableMesh:ResetNormal(normalId: number) -> ()
 	Function EditableMesh:SetColor(colorId: number, color: Color3) -> ()
 	Function EditableMesh:SetColorAlpha(colorId: number, alpha: number) -> ()
-	Function EditableMesh:SetFaceColors(faceId: number, ids: { any }) -> ()
-	Function EditableMesh:SetFaceNormals(faceId: number, ids: { any }) -> ()
-	Function EditableMesh:SetFaceUVs(faceId: number, ids: { any }) -> ()
-	Function EditableMesh:SetFaceVertices(faceId: number, ids: { any }) -> ()
+	Function EditableMesh:SetFaceColors(faceId: number, ids: { any }) -> () [CustomLuaState]
+	Function EditableMesh:SetFaceNormals(faceId: number, ids: { any }) -> () [CustomLuaState]
+	Function EditableMesh:SetFaceUVs(faceId: number, ids: { any }) -> () [CustomLuaState]
+	Function EditableMesh:SetFaceVertices(faceId: number, ids: { any }) -> () [CustomLuaState]
 	Function EditableMesh:SetNormal(normalId: number, normal: Vector3) -> ()
 	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> ()
 	Function EditableMesh:SetUV(uvId: number, uv: Vector2) -> ()
@@ -1804,6 +1819,7 @@ Class EditableImage : Instance
 	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:DrawProjectionImage(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
 	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
+	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {RobloxScriptSecurity}
 	Function EditableImage:ReadPixels(position: Vector2, size: Vector2) -> { any } [CustomLuaState] {🧬Safe}
 	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer [CustomLuaState] {🧬Safe}
 	Function EditableImage:Resize(size: Vector2) -> ()
@@ -1865,6 +1881,16 @@ Class ExperienceStateCaptureService : Instance [NotCreatable] [Service] [NotRepl
 	Function ExperienceStateCaptureService:ResetHighlight() -> () {RobloxScriptSecurity}
 	Function ExperienceStateCaptureService:ToggleCaptureMode() -> () {RobloxScriptSecurity}
 	Event ExperienceStateCaptureService.ItemSelectedInCaptureMode(instance: Instance) {RobloxScriptSecurity}
+Class ExplorerFilterAutocompleterInstance : Instance [NotCreatable] [NotReplicated]
+	Property ExplorerFilterAutocompleterInstance.ReplaceRange: Vector2 [ReadOnly]
+	Property ExplorerFilterAutocompleterInstance.RequiresOutsideContext: boolean [ReadOnly]
+	Function ExplorerFilterAutocompleterInstance:GetSuggestions() -> { any }
+Class ExplorerFilterInstance : Instance [NotReplicated]
+	Function ExplorerFilterInstance:GetAutocompleter() -> ExplorerFilterAutocompleterInstance
+	Function ExplorerFilterInstance:GetErrors() -> { any }
+	Function ExplorerFilterInstance:GetLexemes() -> { any }
+	Function ExplorerFilterInstance:InstancePassesFilter(instance: Instance) -> boolean
+	Function ExplorerFilterInstance:SetFilter(search: string) -> ()
 Class Explosion : Instance
 	Property Explosion.BlastPressure: number
 	Property Explosion.BlastRadius: number
@@ -3095,7 +3121,6 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Lighting.ShadowColor: Color3 [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Lighting.ShadowSoftness: number
 	Property Lighting.Technology: Enum.Technology {RobloxScriptSecurity}
-	Property Lighting.TempUseNewSkyRemovalBehaviour: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Lighting.ClockTime: number [📁 LoadOnly] [NotReplicated]
 	Property Lighting.GeographicLatitude: number
 	Property Lighting.TimeOfDay: string
@@ -5948,6 +5973,7 @@ Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
 	Property ChatWindowConfiguration.VerticalAlignment: Enum.VerticalAlignment {🧬Unsafe}
 Class TextChatMessage : Instance [NotCreatable]
 	Property TextChatMessage.BubbleChatMessageProperties: BubbleChatMessageProperties?
+	Property TextChatMessage.ChatWindowMessageProperties: ChatWindowMessageProperties?
 	Property TextChatMessage.MessageId: string
 	Property TextChatMessage.Metadata: string
 	Property TextChatMessage.PrefixText: string
@@ -5961,6 +5987,13 @@ Class TextChatMessageProperties : Instance
 	Property TextChatMessageProperties.PrefixText: string
 	Property TextChatMessageProperties.Text: string
 	Property TextChatMessageProperties.Translation: string
+Class ChatWindowMessageProperties : TextChatMessageProperties [NotCreatable]
+	Property ChatWindowMessageProperties.FontFace: Font
+	Property ChatWindowMessageProperties.PrefixTextProperties: ChatWindowMessageProperties?
+	Property ChatWindowMessageProperties.TextColor3: Color3
+	Property ChatWindowMessageProperties.TextSize: number
+	Property ChatWindowMessageProperties.TextStrokeColor3: Color3
+	Property ChatWindowMessageProperties.TextStrokeTransparency: number
 Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.ChatTranslationEnabled: boolean {✏️RobloxScriptSecurity} [NotReplicated]
 	Property TextChatService.ChatTranslationFTUXShown: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -6116,12 +6149,14 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetEditableMeshMaxNearbyVerticesCollisions(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshTriCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshVertColors(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshVerticesSimilarityRate(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshVerts(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
 	Function UGCValidationService:GetImageTransparencyWithByteString(textureId: string) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetImageTransparencyWithTextureID(textureId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMaxNearbyVerticesCollisions(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshTriCount(meshId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVertColors(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:GetMeshVerticesSimilarityRate(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetPropertyValue(instance: Instance, property: string) -> any {RobloxScriptSecurity}
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
@@ -6853,6 +6888,10 @@ Enum AnimatorRetargetingMode
 	EnumItem AnimatorRetargetingMode.Default : 0
 	EnumItem AnimatorRetargetingMode.Disabled : 1
 	EnumItem AnimatorRetargetingMode.Enabled : 2
+Enum AnnotationEditingMode
+	EnumItem AnnotationEditingMode.None : 0
+	EnumItem AnnotationEditingMode.PlacingNew : 1
+	EnumItem AnnotationEditingMode.WritingNew : 2
 Enum AppLifecycleManagerState
 	EnumItem AppLifecycleManagerState.Detached : 0
 	EnumItem AppLifecycleManagerState.Active : 1
@@ -7251,6 +7290,10 @@ Enum ChatPrivacyMode
 	EnumItem ChatPrivacyMode.AllUsers : 0
 	EnumItem ChatPrivacyMode.NoOne : 1
 	EnumItem ChatPrivacyMode.Friends : 2
+Enum ChatRestrictionStatus
+	EnumItem ChatRestrictionStatus.Unknown : 0
+	EnumItem ChatRestrictionStatus.NotRestricted : 1
+	EnumItem ChatRestrictionStatus.Restricted : 2
 Enum ChatStyle
 	EnumItem ChatStyle.Classic : 0
 	EnumItem ChatStyle.Bubble : 1
@@ -7660,6 +7703,26 @@ Enum FieldOfViewMode
 Enum FillDirection
 	EnumItem FillDirection.Horizontal : 0
 	EnumItem FillDirection.Vertical : 1
+Enum FilterErrorType
+	EnumItem FilterErrorType.BackslashNotEscapingAnything : 0
+	EnumItem FilterErrorType.BadBespokeFilter : 1
+	EnumItem FilterErrorType.BadName : 2
+	EnumItem FilterErrorType.IncompleteOr : 3
+	EnumItem FilterErrorType.IncompleteParenthesis : 4
+	EnumItem FilterErrorType.InvalidDoubleStar : 5
+	EnumItem FilterErrorType.InvalidTilde : 6
+	EnumItem FilterErrorType.PropertyBadOperator : 7
+	EnumItem FilterErrorType.PropertyDoesNotExist : 8
+	EnumItem FilterErrorType.PropertyInvalidField : 9
+	EnumItem FilterErrorType.PropertyInvalidValue : 10
+	EnumItem FilterErrorType.PropertyUnsupportedFields : 11
+	EnumItem FilterErrorType.PropertyUnsupportedProperty : 12
+	EnumItem FilterErrorType.UnexpectedNameIndex : 13
+	EnumItem FilterErrorType.UnexpectedToken : 14
+	EnumItem FilterErrorType.UnfinishedBinaryOperator : 15
+	EnumItem FilterErrorType.UnfinishedQuote : 16
+	EnumItem FilterErrorType.UnknownBespokeFilter : 17
+	EnumItem FilterErrorType.WildcardInProperty : 18
 Enum FilterResult
 	EnumItem FilterResult.Accepted : 0
 	EnumItem FilterResult.Rejected : 1
@@ -8292,6 +8355,26 @@ Enum LeftRight
 	EnumItem LeftRight.Left : 0
 	EnumItem LeftRight.Center : 1
 	EnumItem LeftRight.Right : 2
+Enum LexemeType
+	EnumItem LexemeType.Eof : 0
+	EnumItem LexemeType.Name : 1
+	EnumItem LexemeType.QuotedString : 2
+	EnumItem LexemeType.Number : 3
+	EnumItem LexemeType.And : 4
+	EnumItem LexemeType.Or : 5
+	EnumItem LexemeType.Equal : 6
+	EnumItem LexemeType.TildeEqual : 7
+	EnumItem LexemeType.GreaterThan : 8
+	EnumItem LexemeType.GreaterThanEqual : 9
+	EnumItem LexemeType.LessThan : 10
+	EnumItem LexemeType.LessThanEqual : 11
+	EnumItem LexemeType.Colon : 12
+	EnumItem LexemeType.Dot : 13
+	EnumItem LexemeType.LeftParenthesis : 14
+	EnumItem LexemeType.RightParenthesis : 15
+	EnumItem LexemeType.Star : 16
+	EnumItem LexemeType.DoubleStar : 17
+	EnumItem LexemeType.ReservedSpecial : 18
 Enum Limb
 	EnumItem Limb.Head : 0
 	EnumItem Limb.Torso : 1

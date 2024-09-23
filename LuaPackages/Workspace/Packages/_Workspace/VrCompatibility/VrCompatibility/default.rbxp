@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "VrCompatibility",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/vr-compatibility/src"
-    }
-  }
-}

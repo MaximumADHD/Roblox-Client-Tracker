@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "UserProfileSettingsNetworking",
-    "tree": {
-      "$path": "../../../../../../../modules/social/networking/user-profile-settings-networking/src"
-    }
-  }
-}

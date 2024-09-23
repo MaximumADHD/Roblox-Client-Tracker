@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "TestUtils",
-    "tree": {
-      "$path": "../../../../../../../modules/not-for-production-use/test-utils/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GameFilters",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/game-filters/src"
-    }
-  }
-}

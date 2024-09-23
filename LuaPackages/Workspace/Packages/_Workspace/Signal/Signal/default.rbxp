@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "Signal",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/signal/src"
-    }
-  }
-}

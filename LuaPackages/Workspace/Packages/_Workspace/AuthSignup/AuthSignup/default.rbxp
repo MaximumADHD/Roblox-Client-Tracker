@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AuthSignup",
-    "tree": {
-      "$path": "../../../../../../../modules/account-authentication/auth-signup/src"
-    }
-  }
-}

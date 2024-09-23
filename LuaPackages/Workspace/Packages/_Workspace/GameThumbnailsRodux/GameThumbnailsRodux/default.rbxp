@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GameThumbnailsRodux",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/game-thumbnails-rodux/src"
-    }
-  }
-}

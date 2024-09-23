@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AppCommonLib",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/app-common-lib/src"
-    }
-  }
-}

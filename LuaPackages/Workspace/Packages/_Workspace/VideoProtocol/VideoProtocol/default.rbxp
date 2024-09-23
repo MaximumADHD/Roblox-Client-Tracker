@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "VideoProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/video/src"
-    }
-  }
-}

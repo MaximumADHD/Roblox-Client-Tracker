@@ -1,7 +1,10 @@
 Key,Context,Source,en-us
-Studio.App.LiveSync.ErrorWritingToFile,,Error while syncing %1 to the disk: Unable to write to file.,Error while syncing %1 to the disk: Unable to write to file.
-Studio.App.LiveSync.ErrorReadingFromFile,,Error while syncing %1 to the disk: Unable to read from file.,Error while syncing %1 to the disk: Unable to read from file.
-Studio.App.LiveSync.ErrorWritingToScript,,Error while syncing %1 to the disk: Unable to write to the datamodel.,Error while syncing %1 to the disk: Unable to write to the datamodel.
+Studio.App.LiveSync.ErrorWritingToFile,,Error while syncing %1 to the disk: Unable to write to file,Error while syncing %1 to the disk: Unable to write to file
+Studio.App.LiveSync.ErrorReadingFromFile,,Error while syncing %1 to the disk: Unable to read from file,Error while syncing %1 to the disk: Unable to read from file
+Studio.App.LiveSync.ErrorWritingToScript,,Error while syncing %1 to the disk: Unable to write to the datamodel,Error while syncing %1 to the disk: Unable to write to the datamodel
 Studio.App.LiveSync.StartingSyncInfo,,Started syncing %1 with %2,Started syncing %1 with %2
-Studio.App.LiveSync.ErrorCreatingDirectory,,Error while syncing %1 to the disk: Failed to create directory.,Error while syncing %1 to the disk: Failed to create directory.
-Studio.App.LiveSync.InstanceDeletedStoppingSync,,Error while syncing %1 to the disk: Instance was deleted.,Error while syncing %1 to the disk: Instance was deleted.
+Studio.App.LiveSync.ErrorCreatingDirectory,,Error while syncing %1 to the disk: Failed to create directory,Error while syncing %1 to the disk: Failed to create directory
+Studio.App.LiveSync.InstanceDeletedStoppingSync,,Error while syncing %1 to the disk: Instance was deleted,Error while syncing %1 to the disk: Instance was deleted
+Studio.App.LiveSync.FileDeletedStoppingSync,,Error while syncing %1 to the disk: File was deleted,Error while syncing %1 to the disk: File was deleted
+Studio.App.LiveSync.PathAlreadyInUse,,Error while syncing %1 to the disk: Path %2 is already in use. Please select a different path,Error while syncing %1 to the disk: Path %2 is already in use. Please select a different path
+Studio.App.LiveSync.SyncLimitReached,,Error while syncing %1 to the disk: Too many files being synced,Error while syncing %1 to the disk: Too many files being synced

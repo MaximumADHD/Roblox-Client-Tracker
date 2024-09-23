@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "Songbird",
-    "tree": {
-      "$path": "../../../../../../../modules/music/songbird/src"
-    }
-  }
-}

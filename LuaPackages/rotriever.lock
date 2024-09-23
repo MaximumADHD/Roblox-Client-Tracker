@@ -20,7 +20,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauRegExp <patched> RegExp 0.2.1 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
     "RobloxRequests RobloxRequests 0.1.0 registry",
     "ZenObservable ZenObservable 0.8.16-roblox.0 registry",
 ]
@@ -38,7 +38,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauRegExp RegExp 0.2.1 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
     "ZenObservable ZenObservable 0.8.16-roblox.0 registry",
 ]
@@ -95,11 +95,11 @@ dependencies = [
     "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
     "FitFrame <patched> RoactFitComponents 2.0.0 registry",
     "Foundation Foundation 1.2.3 registry",
-    "FoundationImages FoundationImages 1.2.0 registry",
+    "FoundationImages FoundationImages 1.3.0 registry",
     "GraphQL GraphQL 15.6.1 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
-    "IAPExperience IAPExperience 276e0688 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 0bf775a2 git+https://github.com/roblox/iapexperience#master",
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "InputHandlers InputHandlers 1.3.1 registry",
     "Jest Jest 3.8.1 registry",
@@ -121,12 +121,12 @@ dependencies = [
     "PurchasePromptDeps PurchasePromptDeps fdaad921 git+https://github.com/roblox/purchase-prompt-deps#master",
     "QRCode QRCode 0.1.0 registry",
     "RbxDesignFoundations RbxDesignFoundations a744f1a5 git+https://github.com/roblox/rbx-design-foundations#main",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactDevtoolsExtensions ReactDevtoolsExtensionsProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.1.0 registry",
     "ReactFocusNavigation ReactFocusNavigation 1.3.1 registry",
-    "ReactIs <patched> ReactIsProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactIs ReactIs 17.1.0 registry",
     "ReactOtter ReactOtter 1.2.1 registry",
-    "ReactRoblox <patched> ReactRobloxProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactRoblox ReactRoblox 17.1.0 registry",
     "ReactSceneUnderstanding ReactSceneUnderstanding 0.6.0 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
     "ReactTestingUtils ReactTestingUtils 1.3.1 registry",
@@ -135,7 +135,7 @@ dependencies = [
     "RegExp RegExp 0.2.1 registry",
     "Result roblox/lua-result c6817c84 git+https://github.com/roblox/lua-result#master",
     "Rhodium Rhodium 0.5.0 registry",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact RoactCompat 17.1.0 registry",
     "RoactAppExperiment RoactAppExperiment 0.4.1 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
@@ -152,8 +152,8 @@ dependencies = [
     "StringUtilities <patched> string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.12.12 registry",
-    "UIBlox UIBlox d23a5d83 git+https://github.com/roblox/uiblox#master",
+    "UGCValidation UGCValidation 1.12.13 registry",
+    "UIBlox UIBlox 373351e0 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
@@ -304,15 +304,15 @@ source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 1.0.0 registry",
-    "FoundationImages FoundationImages 1.2.0 registry",
+    "FoundationImages FoundationImages 1.3.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.2.1 registry",
     "RbxDesignFoundations RbxDesignFoundations 2.0.132 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactIs <patched> ReactIsProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "ReactIs ReactIs 17.1.0 registry",
     "ReactOtter ReactOtter 1.2.1 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact RoactCompat 17.1.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
@@ -320,7 +320,7 @@ dependencies = [
 
 [[package]]
 name = "FoundationImages"
-version = "1.2.0"
+version = "1.3.0"
 source = "registry"
 
 [[package]]
@@ -363,18 +363,18 @@ dependencies = [
 [[package]]
 name = "IAPExperience"
 version = "1.0.0"
-commit = "276e0688ad690b6853ba4ba2be17c13b66b942d8"
+commit = "0bf775a26f36ef412c2923eadacdf4b2141b5cc1"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Otter Otter 0.1.4 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
     "ReactOtter ReactOtter 1.2.1 registry",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact RoactCompat 17.1.0 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox d23a5d83 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 373351e0 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -390,10 +390,10 @@ dependencies = [
     "Otter Otter 0.1.4 registry",
     "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.1.0 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox d23a5d83 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 373351e0 git+https://github.com/roblox/uiblox#master",
     "t t 1.2.5 registry",
 ]
 
@@ -905,7 +905,7 @@ name = "LazyRequire"
 version = "0.1.1"
 commit = "c5216ce6a220a1ba65d5da12ac07a6041a39c179"
 source = "git+https://github.com/roblox/lua-lazy-require#main"
-dependencies = ["React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main"]
+dependencies = ["React React 17.1.0 registry"]
 
 [[package]]
 name = "LazyRequire"
@@ -913,7 +913,7 @@ version = "0.1.4"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
 ]
 
 [[package]]
@@ -1184,7 +1184,7 @@ dependencies = [
     "ChalkLua ChalkLua 0.1.3 registry",
     "JestGetType JestGetType 2.4.1 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
-    "ReactIs <patched> ReactIsProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactIs ReactIs 17.1.0 registry",
     "RegExp RegExp 0.2.1 registry",
     "RobloxShared RobloxShared 2.4.1 registry",
 ]
@@ -1197,7 +1197,7 @@ dependencies = [
     "ChalkLua ChalkLua 0.2.0 registry",
     "JestGetType JestGetType 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactIs <patched> ReactIsProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactIs ReactIs 17.1.0 registry",
     "RegExp RegExp 0.2.1 registry",
     "RobloxShared RobloxShared 3.8.1 registry",
 ]
@@ -1239,14 +1239,14 @@ source = "git+https://github.com/roblox/purchase-prompt-deps#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame <patched> RoactFitComponents 2.0.0 registry",
-    "IAPExperience IAPExperience 276e0688 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 0bf775a2 git+https://github.com/roblox/iapexperience#master",
     "Otter Otter 0.1.4 registry",
     "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact RoactCompat 17.1.0 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox d23a5d83 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 373351e0 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder c725d672 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
@@ -1279,111 +1279,47 @@ dependencies = ["t t 1.2.5 registry"]
 
 [[package]]
 name = "React"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-]
-
-[[package]]
-name = "React"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
 name = "ReactDebugTools"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactReconciler ReactReconciler 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-]
-
-[[package]]
-name = "ReactDebugTools"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactReconciler ReactReconciler c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
+    "ReactReconciler ReactReconciler 17.1.0 registry",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
 name = "ReactDevtoolsExtensions"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactDevtoolsShared ReactDevtoolsShared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactRoblox ReactRoblox 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-]
-
-[[package]]
-name = "ReactDevtoolsExtensions"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "ReactDevtoolsShared ReactDevtoolsShared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "ReactRoblox ReactRoblox c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-]
-
-[[package]]
-name = "ReactDevtoolsExtensionsProxy"
-version = "0.0.1"
-commit = "958b7e163132116b3e30ab129cfe79d165020021"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "ReactDevtoolsExtensions_17_0_6 ReactDevtoolsExtensions 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactDevtoolsExtensions_17_0_7 ReactDevtoolsExtensions c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Roact17UpgradeFlag Roact17UpgradeFlag 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "ReactDevtoolsShared ReactDevtoolsShared 17.1.0 registry",
+    "ReactRoblox ReactRoblox 17.1.0 registry",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
 name = "ReactDevtoolsShared"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactDebugTools ReactDebugTools 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactIs ReactIs 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactReconciler ReactReconciler 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactRoblox ReactRoblox 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-]
-
-[[package]]
-name = "ReactDevtoolsShared"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "ReactDebugTools ReactDebugTools c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "ReactIs ReactIs c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "ReactReconciler ReactReconciler c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "ReactRoblox ReactRoblox c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
+    "React React 17.1.0 registry",
+    "ReactDebugTools ReactDebugTools 17.1.0 registry",
+    "ReactIs ReactIs 17.1.0 registry",
+    "ReactReconciler ReactReconciler 17.1.0 registry",
+    "ReactRoblox ReactRoblox 17.1.0 registry",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
@@ -1394,33 +1330,14 @@ dependencies = [
     "FocusBehaviors FocusBehaviors 1.3.1 registry",
     "FocusNavigation FocusNavigation 1.3.1 registry",
     "FocusNavigationUtils FocusNavigationUtils 1.3.1 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
 ]
 
 [[package]]
 name = "ReactIs"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
-dependencies = ["Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6"]
-
-[[package]]
-name = "ReactIs"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = ["Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7"]
-
-[[package]]
-name = "ReactIsProxy"
-version = "0.0.1"
-commit = "958b7e163132116b3e30ab129cfe79d165020021"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "ReactIs_17_0_6 ReactIs 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactIs_17_0_7 ReactIs c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Roact17UpgradeFlag Roact17UpgradeFlag 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-]
+version = "17.1.0"
+source = "registry"
+dependencies = ["Shared Shared 17.1.0 registry"]
 
 [[package]]
 name = "ReactOtter"
@@ -1429,81 +1346,31 @@ source = "registry"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "Otter Otter 1.2.1 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-]
-
-[[package]]
-name = "ReactProxy"
-version = "0.0.1"
-commit = "958b7e163132116b3e30ab129cfe79d165020021"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "React_17_0_6 React 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "React_17_0_7 React c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Roact17UpgradeFlag Roact17UpgradeFlag 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
 ]
 
 [[package]]
 name = "ReactReconciler"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React React 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Scheduler Scheduler 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-]
-
-[[package]]
-name = "ReactReconciler"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React React c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Scheduler Scheduler c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
+    "React React 17.1.0 registry",
+    "Scheduler Scheduler 17.1.0 registry",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
 name = "ReactRoblox"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactReconciler ReactReconciler 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Scheduler Scheduler 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-]
-
-[[package]]
-name = "ReactRoblox"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "ReactReconciler ReactReconciler c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Scheduler Scheduler c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-]
-
-[[package]]
-name = "ReactRobloxProxy"
-version = "0.0.1"
-commit = "958b7e163132116b3e30ab129cfe79d165020021"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "ReactRoblox_17_0_6 ReactRoblox 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactRoblox_17_0_7 ReactRoblox c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Roact17UpgradeFlag Roact17UpgradeFlag 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "ReactReconciler ReactReconciler 17.1.0 registry",
+    "Scheduler Scheduler 17.1.0 registry",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
@@ -1512,7 +1379,7 @@ version = "0.6.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
     "SceneUnderstanding SceneUnderstanding 0.6.0 registry",
 ]
@@ -1526,10 +1393,10 @@ dependencies = [
     "JestGlobals JestGlobals 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactRoblox <patched> ReactRobloxProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Scheduler <patched> SchedulerProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Shared <patched> SharedProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "ReactRoblox ReactRoblox 17.1.0 registry",
+    "Scheduler Scheduler 17.1.0 registry",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
@@ -1537,7 +1404,7 @@ name = "ReactTestingUtils"
 version = "1.3.1"
 source = "registry"
 dependencies = [
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
 ]
@@ -1548,8 +1415,8 @@ version = "1.3.1"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactRoblox <patched> ReactRobloxProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "ReactRoblox ReactRoblox 17.1.0 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
 ]
 
@@ -1589,45 +1456,26 @@ source = "registry"
 dependencies = ["LuauTagUtils TagUtils 0.1.0 registry"]
 
 [[package]]
-name = "Roact17UpgradeFlag"
-version = "0.0.1"
-commit = "958b7e163132116b3e30ab129cfe79d165020021"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-
-[[package]]
 name = "RoactAppExperiment"
 version = "0.4.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactRoblox <patched> ReactRobloxProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "ReactRoblox ReactRoblox 17.1.0 registry",
+    "Roact RoactCompat 17.1.0 registry",
     "t t 1.2.5 registry",
 ]
 
 [[package]]
 name = "RoactCompat"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "ReactRoblox ReactRoblox 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-]
-
-[[package]]
-name = "RoactCompat"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "ReactRoblox ReactRoblox c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-    "Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
+    "React React 17.1.0 registry",
+    "ReactRoblox ReactRoblox 17.1.0 registry",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
@@ -1636,7 +1484,7 @@ version = "2.0.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.1.0 registry",
 ]
 
 [[package]]
@@ -1645,8 +1493,8 @@ version = "0.5.13"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "Roact RoactCompat 17.1.0 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1658,19 +1506,8 @@ source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Otter Otter 0.1.4 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
     "RegExp RegExp 0.2.1 registry",
-]
-
-[[package]]
-name = "RoactProxy"
-version = "0.0.1"
-commit = "958b7e163132116b3e30ab129cfe79d165020021"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "Roact17UpgradeFlag Roact17UpgradeFlag 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "RoactCompat_17_0_6 RoactCompat 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "RoactCompat_17_0_7 RoactCompat c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
 ]
 
 [[package]]
@@ -1678,7 +1515,7 @@ name = "RoactRodux"
 version = "0.5.1"
 source = "registry"
 dependencies = [
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.1.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
 ]
 
@@ -1921,59 +1758,18 @@ source = "registry"
 
 [[package]]
 name = "Scheduler"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Shared Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-]
-
-[[package]]
-name = "Scheduler"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Shared Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-]
-
-[[package]]
-name = "SchedulerProxy"
-version = "0.0.1"
-commit = "958b7e163132116b3e30ab129cfe79d165020021"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "Roact17UpgradeFlag Roact17UpgradeFlag 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Scheduler_17_0_6 Scheduler 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Scheduler_17_0_7 Scheduler c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
+    "Shared Shared 17.1.0 registry",
 ]
 
 [[package]]
 name = "Shared"
-version = "17.0.6"
-commit = "810586e5e3333ea2e4a2f6da4429dbd6d8b3c02a"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.6"
+version = "17.1.0"
+source = "registry"
 dependencies = ["LuauPolyfill LuauPolyfill 1.2.3 registry"]
-
-[[package]]
-name = "Shared"
-version = "17.0.7"
-commit = "c225a387a6f69f8e4168b00e34a71349ecf97dc1"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.7"
-dependencies = ["LuauPolyfill LuauPolyfill 1.2.3 registry"]
-
-[[package]]
-name = "SharedProxy"
-version = "0.0.1"
-commit = "958b7e163132116b3e30ab129cfe79d165020021"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "Roact17UpgradeFlag Roact17UpgradeFlag 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Shared_17_0_6 Shared 810586e5 git+https://github.com/roblox/roact-alignment#v17.0.6",
-    "Shared_17_0_7 Shared c225a387 git+https://github.com/roblox/roact-alignment#v17.0.7",
-]
 
 [[package]]
 name = "SharedUtils"
@@ -1999,15 +1795,15 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter Otter 0.1.4 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "Roact RoactCompat 17.1.0 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox d23a5d83 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 373351e0 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -2096,7 +1892,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.12.12"
+version = "1.12.13"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -2106,12 +1902,12 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "d23a5d8387ab0e6a42005b69684d3abe0d316107"
+commit = "373351e0cd98c7c4234d3d71c4813d71bd7c3867"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "FoundationImages FoundationImages 1.2.0 registry",
+    "FoundationImages FoundationImages 1.3.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -2119,13 +1915,13 @@ dependencies = [
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RbxDesignFoundations RbxDesignFoundations fd2e104b git+https://github.com/roblox/rbx-design-foundations#1.1.105",
     "RbxDesignFoundationsV2 RbxDesignFoundations 2.0.132 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
     "ReactOtter ReactOtter 1.2.1 registry",
-    "ReactRoblox <patched> ReactRobloxProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactRoblox ReactRoblox 17.1.0 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact RoactCompat 17.1.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
-    "Shared <patched> SharedProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Shared Shared 17.1.0 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
     "enumerate enumerate 1.1.0 registry",
@@ -2148,7 +1944,7 @@ version = "0.1.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "ReactIs <patched> ReactIsProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactIs ReactIs 17.1.0 registry",
 ]
 
 [[package]]
@@ -2195,7 +1991,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Otter Otter 1.2.1 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
 ]
 
 [[package]]
@@ -2272,7 +2068,7 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Mock jtaylor/mock d2c4005c git+https://github.com/roblox/mock#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.1.0 registry",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
     "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",
 ]

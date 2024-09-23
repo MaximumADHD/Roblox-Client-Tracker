@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "CrossExperience",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/cross-experience/src"
-    }
-  }
-}

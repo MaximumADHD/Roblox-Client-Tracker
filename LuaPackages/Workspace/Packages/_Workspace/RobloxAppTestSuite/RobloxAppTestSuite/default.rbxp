@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "RobloxAppTestSuite",
-    "tree": {
-      "$path": "../../../../../../../modules/roblox-app/roblox-app-test-suite/src"
-    }
-  }
-}

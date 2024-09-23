@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "OtpLogin",
-    "tree": {
-      "$path": "../../../../../../../modules/account-authentication/otp-login/src"
-    }
-  }
-}

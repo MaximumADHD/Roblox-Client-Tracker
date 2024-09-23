@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "PlayerContextualMenu",
-    "tree": {
-      "$path": "../../../../../../../modules/social/player-contextual-menu/src"
-    }
-  }
-}

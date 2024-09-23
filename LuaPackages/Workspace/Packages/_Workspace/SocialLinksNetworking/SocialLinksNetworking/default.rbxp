@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "SocialLinksNetworking",
-    "tree": {
-      "$path": "../../../../../../../modules/social/networking/social-links-networking/src"
-    }
-  }
-}

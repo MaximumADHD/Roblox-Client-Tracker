@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "InGameAssetReporting",
-    "tree": {
-      "$path": "../../../../../../../modules/trust-and-safety/in-game-asset-reporting/src"
-    }
-  }
-}

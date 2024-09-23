@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GameProductInfoRodux",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/game-product-info-rodux/src"
-    }
-  }
-}

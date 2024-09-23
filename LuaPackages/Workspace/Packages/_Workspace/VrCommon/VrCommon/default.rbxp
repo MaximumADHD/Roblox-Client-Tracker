@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "VrCommon",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/vr-common/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ChatLineReporting",
-    "tree": {
-      "$path": "../../../../../../../modules/trust-and-safety/chat-line-reporting/src"
-    }
-  }
-}

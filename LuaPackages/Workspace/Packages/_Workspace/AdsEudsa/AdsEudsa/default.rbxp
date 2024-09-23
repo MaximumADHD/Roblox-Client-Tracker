@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AdsEudsa",
-    "tree": {
-      "$path": "../../../../../../../modules/core-scripts/ads-eudsa/src"
-    }
-  }
-}

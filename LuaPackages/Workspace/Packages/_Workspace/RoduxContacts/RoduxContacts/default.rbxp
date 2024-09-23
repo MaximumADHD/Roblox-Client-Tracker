@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "RoduxContacts",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/rodux-contacts/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "FriendRequestNicknames",
-    "tree": {
-      "$path": "../../../../../../../modules/social/friend-request-nicknames/src"
-    }
-  }
-}

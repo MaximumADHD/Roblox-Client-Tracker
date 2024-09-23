@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "PhoneUpsell",
-    "tree": {
-      "$path": "../../../../../../../modules/account-identity/phone-upsell/src"
-    }
-  }
-}

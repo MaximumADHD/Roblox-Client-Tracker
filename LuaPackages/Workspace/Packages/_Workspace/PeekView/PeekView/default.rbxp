@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "PeekView",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/peek-view/src"
-    }
-  }
-}

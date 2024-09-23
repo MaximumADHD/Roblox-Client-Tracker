@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "TemplateTestSuite",
-    "tree": {
-      "$path": "../../../../../../../modules/template-packages/template-test-suite/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "WebViewProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/web-view/src"
-    }
-  }
-}

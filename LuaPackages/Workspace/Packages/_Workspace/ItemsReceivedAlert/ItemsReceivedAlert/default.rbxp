@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ItemsReceivedAlert",
-    "tree": {
-      "$path": "../../../../../../../modules/avatar/items-received-alert/src"
-    }
-  }
-}

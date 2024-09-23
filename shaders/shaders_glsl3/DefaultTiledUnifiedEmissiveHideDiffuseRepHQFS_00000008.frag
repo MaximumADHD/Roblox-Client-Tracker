@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <LightShadowTransformGPU.h>
-#include <MaterialParams.h>
+#include <PartMaterialParams.h>
 uniform vec4 CB0[58];
 uniform vec4 CB8[24];
 uniform vec4 CB2[4];

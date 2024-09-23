@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "NotificationsCommon",
-    "tree": {
-      "$path": "../../../../../../../modules/notifications/notifications-common/src"
-    }
-  }
-}

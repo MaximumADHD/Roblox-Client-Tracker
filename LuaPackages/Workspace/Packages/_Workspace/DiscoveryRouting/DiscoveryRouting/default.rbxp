@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "DiscoveryRouting",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/discovery-routing/src"
-    }
-  }
-}

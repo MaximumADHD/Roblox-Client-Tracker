@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "NativeUtilProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/NativeUtil/src"
-    }
-  }
-}

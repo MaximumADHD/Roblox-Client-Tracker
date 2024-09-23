@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "SocialExperienceJoin",
-    "tree": {
-      "$path": "../../../../../../../modules/social/social-experience-join/src"
-    }
-  }
-}

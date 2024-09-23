@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GameIconRodux",
-    "tree": {
-      "$path": "../../../../../../../modules/discovery/game-icon-rodux/src"
-    }
-  }
-}

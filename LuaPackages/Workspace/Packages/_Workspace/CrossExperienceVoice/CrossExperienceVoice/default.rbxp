@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "CrossExperienceVoice",
-    "tree": {
-      "$path": "../../../../../../../modules/social/cross-experience-voice/src"
-    }
-  }
-}

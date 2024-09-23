@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "SocialLuaAnalytics",
-    "tree": {
-      "$path": "../../../../../../../modules/social/social-lua-analytics/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ApolloFriends",
-    "tree": {
-      "$path": "../../../../../../../modules/social/apollo/apollo-friends/src"
-    }
-  }
-}

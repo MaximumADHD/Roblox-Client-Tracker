@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AppDebug",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/app-debug/src"
-    }
-  }
-}

@@ -17,7 +17,7 @@ in vec4 VARYING3;
 in vec4 VARYING4;
 in vec4 VARYING5;
 in vec4 VARYING6;
-in vec3 VARYING7;
+flat in vec3 VARYING7;
 out vec4 _entryPointOutput;
 
 void main()

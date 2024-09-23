@@ -3,7 +3,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
-uniform vec4 CB1[15];
+uniform vec4 CB1[10];
 uniform sampler2D depthBufferTexture;
 uniform sampler2D randMapTexture;
 
@@ -17,7 +17,7 @@ void main()
     vec4 f3 = (f2 * 2.0) - vec4(1.0);
     float f4 = f3.y;
     mat2 f5 = mat2(vec2(f4, f3.x), vec2(-f3.x, f4));
-    vec2 f6 = clamp(CB1[2].xy * (0.0040000001899898052215576171875 / f1), CB1[0].zw * 10.0, CB1[0].zw * 100.0);
+    vec2 f6 = clamp(CB1[1].xy * (0.0040000001899898052215576171875 / f1), CB1[0].zw * 10.0, CB1[0].zw * 100.0);
     float f7 = log2(0.100000001490116119384765625 * length(f6 * CB1[0].xy)) - 2.0;
     float f8;
     float f9;

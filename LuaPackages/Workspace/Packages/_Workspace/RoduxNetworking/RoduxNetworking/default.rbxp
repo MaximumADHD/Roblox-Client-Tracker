@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "RoduxNetworking",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/rodux-networking/src"
-    }
-  }
-}

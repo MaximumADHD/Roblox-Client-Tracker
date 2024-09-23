@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ContentSharingRodux",
-    "tree": {
-      "$path": "../../../../../../../modules/social/rodux/content-sharing-rodux/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ToastNotificationsProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/toast-notifications/src"
-    }
-  }
-}

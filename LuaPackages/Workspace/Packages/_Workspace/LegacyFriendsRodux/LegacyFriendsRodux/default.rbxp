@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "LegacyFriendsRodux",
-    "tree": {
-      "$path": "../../../../../../../modules/social-legacy/legacy-friends-rodux/src"
-    }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GenericAbuseReporting",
-    "tree": {
-      "$path": "../../../../../../../modules/trust-and-safety/generic-abuse-reporting/src"
-    }
-  }
-}

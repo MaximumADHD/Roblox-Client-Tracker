@@ -94,6 +94,7 @@ Studio.App.RobloxRibbonMainWindow.Network,,Network,Network
 Studio.App.RobloxRibbonMainWindow.Physics,,Physics,Physics
 Studio.App.RobloxRibbonMainWindow.Summary,,Summary,Summary
 Studio.App.RBXMainWindow.MoveEdit,,Move - Edit,Move - Edit
+Studio.App.RBXMainWindow.ResumeScriptSync,,Resume sync,Resume sync
 Studio.App.RBXMainWindow.ResizeCustomIncrement,,Set the resize grid to a custom increment,Set the resize grid to a custom increment
 Studio.App.RBXMainWindow.RotateEdit,,Rotate - Edit,Rotate - Edit
 Studio.App.RBXMainWindow.RotateCustomIncrement,,Set the rotate grid to a custom increment,Set the rotate grid to a custom increment
@@ -154,9 +155,13 @@ Studio.App.RBXMainWindow.StopScriptSyncsTooltip,,"Stop Sync between Script, Loca
 Studio.App.ScriptVerbs.SelectSyncDir,,Save File Sync Path,Save File Sync Path
 Studio.App.ScriptVerbs.StopSync,,Stop Synchronization,Stop Synchronization
 Studio.App.ScriptVerbs.DeleteFile,,"<b>The file(s) are no longer syncing to disk</b><br/><div>You can delete the local file if you want. You can also stop this dialog in <a href=""settings"">Studio Settings</a></div>","<b>The file(s) are no longer syncing to disk</b><br/><div>You can delete the local file if you want. You can also stop this dialog in <a href=""settings"">Studio Settings</a></div>"
-Studio.App.ScriptVerbs.FilePathEmpty,,StartScriptSyncAction: not deleting local file since path is empty,StartScriptSyncAction: not deleting local file since path is empty
+Studio.App.ScriptVerbs.FileNotFound,,File Not Found,File Not Found
+Studio.App.ScriptVerbs.CannotFindFileSyncing,,Cannot find File Syncing,Cannot find File Syncing
+Studio.App.ScriptVerbs.FilePathEmpty,,Error while deleting file from disk: Path is empty,Error while deleting file from disk: Path is empty
+Studio.App.ScriptVerbs.FileNotTrashed,,Error while deleting file from disk: Unable to move to trash,Error while deleting file from disk: Unable to move to trash
 Studio.App.ScriptVerbs.DeleteButton,,Delete local file,Delete local file
 Studio.App.ScriptVerbs.DoneButton,,Done,Done
+Studio.App.RBXMainWindow.ShowInFolder,,Show In Folder,Show In Folder
 Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...
@@ -463,6 +468,7 @@ Studio.App.Actions.ScreenGui,The main storage object for 2D GuiObjects displayed
 Studio.App.Actions.SurfaceGui,,SurfaceGui,SurfaceGui
 Studio.App.Actions.BillboardGui,,BillboardGui,BillboardGui
 Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
+Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currently selected test mode,Launch Test Mode,Launch Test Mode
 Studio.App.RobloxRibbonMainWindow.CoreGuiObject,,The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay,The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay
 Studio.App.RobloxRibbonMainWindow.Frame,,Frame,Frame
 Studio.App.RobloxRibbonMainWindow.ContainerLayoutTooltip,,A container object used to layout other GUI objects,A container object used to layout other GUI objects

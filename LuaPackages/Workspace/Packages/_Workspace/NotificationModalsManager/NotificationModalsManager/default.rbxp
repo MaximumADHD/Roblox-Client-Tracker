@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "NotificationModalsManager",
-    "tree": {
-      "$path": "../../../../../../../modules/notifications/notification-modals-manager/src"
-    }
-  }
-}

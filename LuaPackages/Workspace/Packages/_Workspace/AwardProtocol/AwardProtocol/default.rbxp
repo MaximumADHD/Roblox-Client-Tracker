@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AwardProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/award/src"
-    }
-  }
-}

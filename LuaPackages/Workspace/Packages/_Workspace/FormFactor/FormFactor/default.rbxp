@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "FormFactor",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/form-factor/src"
-    }
-  }
-}

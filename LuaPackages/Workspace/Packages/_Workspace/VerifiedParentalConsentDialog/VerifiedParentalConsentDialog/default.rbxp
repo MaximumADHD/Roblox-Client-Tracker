@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "VerifiedParentalConsentDialog",
-    "tree": {
-      "$path": "../../../../../../../modules/account-management/verified-parental-consent-dialog/src"
-    }
-  }
-}

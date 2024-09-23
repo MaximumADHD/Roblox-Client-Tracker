@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "SMSProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/sms/src"
-    }
-  }
-}

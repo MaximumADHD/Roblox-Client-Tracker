@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "EconomyCommonCoreScriptHooks",
-    "tree": {
-      "$path": "../../../../../../../modules/economy/economy-common/economy-common-corescript-hooks/src"
-    }
-  }
-}

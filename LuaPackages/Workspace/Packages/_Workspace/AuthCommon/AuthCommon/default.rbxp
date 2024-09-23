@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AuthCommon",
-    "tree": {
-      "$path": "../../../../../../../modules/account-authentication/auth-common/src"
-    }
-  }
-}

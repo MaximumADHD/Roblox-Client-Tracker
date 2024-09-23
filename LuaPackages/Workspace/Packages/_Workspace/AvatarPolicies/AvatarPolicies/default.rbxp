@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AvatarPolicies",
-    "tree": {
-      "$path": "../../../../../../../modules/avatar/avatar-policies/src"
-    }
-  }
-}

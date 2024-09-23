@@ -6,7 +6,7 @@
 #include <Globals.h>
 #include <CBMatrix.h>
 uniform vec4 CB4[2];
-uniform vec4 CB1[15];
+uniform vec4 CB1[10];
 uniform vec4 CB0[58];
 uniform vec4 CB3[8];
 uniform sampler2D distTexture;
@@ -52,12 +52,12 @@ void main()
     vec4 f21 = textureLod(distLastFrameTexture, f20.xy, 0.0);
     float f22 = f21.y * 7.0;
     vec2 f23 = (CB4[0].zw * (((f20.xy * CB1[0].xy) * CB4[0].xy) - vec2(1.0))) + f3;
-    vec3 f24 = normalize(((CB1[2].xyz * f23.x) + (CB1[3].xyz * f23.y)) - CB1[4].xyz);
+    vec3 f24 = normalize(((CB1[1].xyz * f23.x) + (CB1[2].xyz * f23.y)) - CB1[3].xyz);
     vec3 f25 = normalize(vec3(dot(f24, CB0[8].xyz), dot(f24, CB0[9].xyz), -dot(f24, CB0[10].xyz))) * (f21.x * 500.0);
     vec4 f26 = textureLod(oldCloudColorTexture, f20.xy, 0.0);
     vec2 f27;
     vec4 f28;
-    if (((((dot(f25, f25) > 0.0) ? abs(1.0 - (length(f14.xyz * 0.00028000000747852027416229248046875) / (9.9999997473787516355514526367188e-06 + length(f25)))) : 0.0) >= 0.001000000047497451305389404296875) || (CB1[5].w > 0.5)) || (abs(dot(f11, vec4(1.0)) - dot(f26, vec4(1.0))) > 0.15299999713897705078125))
+    if (((((dot(f25, f25) > 0.0) ? abs(1.0 - (length(f14.xyz * 0.00028000000747852027416229248046875) / (9.9999997473787516355514526367188e-06 + length(f25)))) : 0.0) >= 0.001000000047497451305389404296875) || (CB1[4].w > 0.5)) || (abs(dot(f11, vec4(1.0)) - dot(f26, vec4(1.0))) > 0.15299999713897705078125))
     {
         vec4 f29 = f11;
         f29.w = mix(f11.w, 0.0, f13);

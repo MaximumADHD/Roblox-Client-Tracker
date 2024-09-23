@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ContentSharingNetworking",
-    "tree": {
-      "$path": "../../../../../../../modules/social/networking/content-sharing-networking/src"
-    }
-  }
-}

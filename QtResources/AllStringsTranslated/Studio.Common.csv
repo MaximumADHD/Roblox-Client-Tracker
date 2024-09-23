@@ -34,7 +34,7 @@ Studio.Common.Action.Resize,,,Resize,Resize,,Größe anpassen,Ajustar,Redimensio
 Studio.Common.Action.Retry,,,Retry,Retry,,Erneut versuchen,Reintentar,Réessayer,Coba Lagi,Riprova,再試行,다시 시도,Spróbuj ponownie,Tentar novamente,Повтор,ลองอีกครั้ง,Tekrar dene,Thử Lại,重试,重试,重試
 Studio.Common.Action.Save,,,Save,Save,,Speichern,Guardar,Enregistrer,Simpan,Salva,保存,저장,Zapisz,Salvar,Сохранить,บันทึก,Kaydet,Lưu,保存,保存,儲存
 Studio.Common.Action.Select,,,Select,Select,,Auswählen,Seleccionar,Sélectionner,Pilih,Seleziona,選択,선택,Wybierz,Selecionar,Выбрать,เลือก,Seç,Chọn,选择,选择,選擇
-Studio.Common.Action.Share,,,Share,Share,,Teilen,Compartir,Partager,Bagikan,Condividi,シェア,공유,Udostępnij,Compartilhar,Поделиться,แบ่งปัน,Paylaş,Chia Sẻ,分享,分享,分享
+Studio.Common.Action.Share,,,Share,Share,,Teilen,Compartir,Partager,Bagikan,Condividi,シェア,공유,Udostępnij,Compartilhar,Поделиться,แชร์,Paylaş,Chia Sẻ,分享,分享,分享
 Studio.Common.Action.Stop,,,Stop,Stop,,Stoppen,Detener,Arrêter,Berhenti,Interrompi,停止,중지,Zatrzymaj,Parar,Остановить,หยุด,Durdur,Dừng,停止,停止,停止
 Studio.Common.Action.Yes,,,Yes,Yes,,Ja,Sí,Oui,Ya,Sì,はい,예,Tak,Sim,Да,ใช่,Evet,Có,是,是,是
 Studio.Common.Action.Continue,,,Continue,Continue,,Fortfahren,Continuar,Continuer,Lanjutkan,Continua,続ける,계속,Kontynuuj,Continuar,Продолжить,ดำเนินการต่อ,Devam,Tiếp Tục,继续,继续,繼續

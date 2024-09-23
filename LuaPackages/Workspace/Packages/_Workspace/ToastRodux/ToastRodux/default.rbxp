@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "ToastRodux",
-    "tree": {
-      "$path": "../../../../../../../modules/app-common/toast-rodux/src"
-    }
-  }
-}

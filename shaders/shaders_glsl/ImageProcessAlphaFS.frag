@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
-uniform vec4 CB1[15];
+uniform vec4 CB1[10];
 uniform sampler2D Texture0Texture;
 
 varying vec2 VARYING0;
@@ -17,7 +17,7 @@ void main()
     f3.y = f1.y;
     vec4 f4 = f3;
     f4.z = f1.z;
-    gl_FragData[0] = vec4(dot(f4.xyz, CB1[2].xyz) + CB1[2].w, dot(f4.xyz, CB1[3].xyz) + CB1[3].w, dot(f4.xyz, CB1[4].xyz) + CB1[4].w, f0.w);
+    gl_FragData[0] = vec4(dot(f4.xyz, CB1[1].xyz) + CB1[1].w, dot(f4.xyz, CB1[2].xyz) + CB1[2].w, dot(f4.xyz, CB1[3].xyz) + CB1[3].w, f0.w);
 }
 
 //$$Texture0Texture=s0
