@@ -1,4 +1,5 @@
 local HttpService = game:GetService("HttpService")
+local CorePackages = game:GetService("CorePackages")
 
 local BuyRobuxRoot = script.Parent
 local PurchaseFlowRoot = BuyRobuxRoot.Parent
@@ -19,6 +20,11 @@ local U13ConfirmPrompt = require(IAPExperienceRoot.Generic.U13ConfirmPrompt)
 local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEventData)
 local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 
+local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
+local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
+local VPCModalTypes = VerifiedParentalConsentDialog.VPCModalType 
+type VPCModalType = VPCModalTypes.VPCModalType
+
 local BuyRobuxFlow = Roact.Component:extend(script.Name)
 
 type Props = {
@@ -33,6 +39,7 @@ type Props = {
 
 	-- TODO: Add enum type?
 	purchaseState: any?,
+	purchaseVPCType: any?,
 	errorType: any?,
 	u13ConfirmType: any?,
 
@@ -116,6 +123,24 @@ function BuyRobuxFlow:dispatchAndRenderModal(props: Props)
 			end,
 		})
 		return
+	end
+
+	if props.purchaseState == BuyRobuxFlowState.PurchaseVPC then
+			props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = props.purchaseState == BuyRobuxFlowState.PurchaseVPC,
+			renderChildren = function()
+				return Roact.createElement(VPCModal, {
+					screenSize = props.screenSize,
+					isActionable = false,
+					modalType = props.purchaseVPCType :: VPCModalType,
+					onDismiss= function()
+						self:reportUserInput("Close")
+						props.flowComplete()
+						props.dispatchCentralOverlay() -- close the modal
+					end,})
+			end,
+		})
 	end
 end
 

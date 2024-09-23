@@ -1,9 +1,12 @@
 local LocalizationService = game:GetService("LocalizationService")
+local CorePackages = game:GetService("CorePackages")
 
 local ProductPurchaseRoot = script.Parent
 local IAPExperienceRoot = ProductPurchaseRoot.Parent
 local Packages = IAPExperienceRoot.Parent
+local Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
 local LocaleProvider = require(IAPExperienceRoot.Locale.LocaleProvider)
+local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
 local Roact = require(Packages.Roact)
 local Otter = require(Packages.Otter)
@@ -109,9 +112,13 @@ function Animator:render()
 	-- And deprecate this provider from IAPExperience package.
 	-- Have to wrap it here to make the CentralOverlay work with this module.
 	return Roact.createElement(LocaleProvider, {
-		locale = LocalizationService and LocalizationService.RobloxLocaleId,
-	}, {
-		self:renderWithoutLocale()
+			locale = LocalizationService and LocalizationService.RobloxLocaleId,
+		}, {
+			Roact.createElement(LocalizationProvider, {
+				localization = Localization.new(LocalizationService.RobloxLocaleId),
+			}, {
+				self:renderWithoutLocale()
+			})
 	})
 end
 

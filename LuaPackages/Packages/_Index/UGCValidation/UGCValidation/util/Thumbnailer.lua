@@ -7,9 +7,6 @@
 local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 
-local getEngineFeatureEngineUGCValidateOrthographicTransparency =
-	require(root.flags.getEngineFeatureEngineUGCValidateOrthographicTransparency)
-
 local Thumbnailer = {}
 Thumbnailer.__index = Thumbnailer
 
@@ -49,7 +46,7 @@ function Thumbnailer:setupViewportFrame()
 	self.worldModel.Parent = vpf
 
 	-- reconfigure camera because seomtimes worldmodel without parent wont cause joints to move.
-	if getEngineFeatureEngineUGCValidateOrthographicTransparency() and self.cameraOptions.cameraTransform then
+	if self.cameraOptions.cameraTransform then
 		self:setCameraTransform(self.cameraOptions.cameraTransform)
 	else
 		self:setCamera(self.cameraOptions.fill, self.cameraOptions.maxDim, self.cameraOptions.dir)

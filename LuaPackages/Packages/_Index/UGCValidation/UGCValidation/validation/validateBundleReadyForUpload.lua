@@ -1,9 +1,7 @@
 --!strict
 local root = script.Parent.Parent
 
-local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
 local getFFlagUGCValidateFixAccessories = require(root.flags.getFFlagUGCValidateFixAccessories)
-local getFFlagUGCValidateHandleRestrictedUserIds = require(root.flags.getFFlagUGCValidateHandleRestrictedUserIds)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
@@ -202,7 +200,7 @@ local function validateBundleReadyForUpload(
 			instances = instances :: { Instance },
 			assetTypeEnum = piece.assetType :: Enum.AssetType,
 			allowUnreviewedAssets = false,
-			restrictedUserIds = if getFFlagUGCValidateHandleRestrictedUserIds() then getRestrictedUserTable() else {},
+			restrictedUserIds = getRestrictedUserTable(),
 			isServer = false,
 			isAsync = false,
 			allowEditableInstances = allowEditableInstances,
@@ -252,7 +250,7 @@ local function validateBundleReadyForUpload(
 		progressCallback(response)
 	end)
 		:andThen(function()
-			if getFFlagUGCValidateFullBody() and bundleType == "Body" then
+			if bundleType == "Body" then
 				local function createFullBodyData(inputPieces: { AvatarValidationPiece }): Types.FullBodyData
 					local results: Types.FullBodyData = {}
 					for _, individualPiece in inputPieces do

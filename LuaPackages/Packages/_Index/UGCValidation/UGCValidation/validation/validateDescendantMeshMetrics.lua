@@ -29,6 +29,7 @@ local ParseContentIds = require(root.util.ParseContentIds)
 local getMeshMinMax = require(root.util.getMeshMinMax)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local floatEquals = require(root.util.floatEquals)
+local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
@@ -270,7 +271,12 @@ local function validateDescendantMeshMetrics(
 						"Mesh size is zero for " .. meshInfo.fullName .. ". You need to rescale your mesh.",
 					})
 				else
-					local meshScale = (data.instance :: MeshPart).Size / meshSize
+					local meshScale
+					if getEngineFeatureUGCValidateEditableMeshAndImage() then
+						meshScale = getExpectedPartSize(data.instance, validationContext) / meshSize
+					else
+						meshScale = (data.instance :: MeshPart).Size / meshSize
+					end
 					if getFFlagUGCValidateTotalSurfaceAreaTestBody() then
 						reasonsAccumulator:updateReasons(
 							validateTotalSurfaceArea(meshInfo, meshScale, validationContext)

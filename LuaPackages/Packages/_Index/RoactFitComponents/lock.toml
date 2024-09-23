@@ -4,5 +4,5 @@ version = "2.0.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.1.0 registry",
 ]

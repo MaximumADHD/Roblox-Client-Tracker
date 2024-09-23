@@ -16,6 +16,7 @@ local Constants = require(root.Constants)
 local validateMeshComparison = require(root.validation.validateMeshComparison)
 local getMeshSize = require(root.util.getMeshSize)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
+local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
@@ -185,7 +186,13 @@ local function validateInternal(
 	if (not success) or not meshSize then
 		return success, failureReasons
 	end
-	local meshScale = meshHandle.Size / meshSize :: Vector3
+
+	local meshScale
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		meshScale = getExpectedPartSize(meshHandle, validationContext) / meshSize
+	else
+		meshScale = meshHandle.Size / meshSize :: Vector3
+	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 	if getFFlagUGCValidateCageOrigin() then

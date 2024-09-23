@@ -33,7 +33,6 @@ local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagU
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
-local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
@@ -187,14 +186,12 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	if getFFlagUGCValidateAccessoriesScaleType() then
-		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
-		if partScaleType and partScaleType:IsA("StringValue") then
-			success, failedReason = validateScaleType(partScaleType)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
+	local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
+	if partScaleType and partScaleType:IsA("StringValue") then
+		success, failedReason = validateScaleType(partScaleType)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 	end
 

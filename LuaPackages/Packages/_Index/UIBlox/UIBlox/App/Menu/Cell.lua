@@ -150,6 +150,10 @@ function Cell:init()
 			controlState = controlState,
 		})
 	end
+
+	self.onStateChanged = function(_, newState)
+		self.setControlState(newState)
+	end
 end
 
 function Cell:getImageProperties()
@@ -407,16 +411,8 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 					then self.props.selectionCursor
 					else getSelectionCursor(self.props.cursorKind),
 				SelectionOrder = self.props.selectionOrder,
-				onStateChanged = function(oldState, newState)
-					if oldState == ControlState.Pressed or oldState == ControlState.SelectedPressed then
-						if self.props.onActivated then
-							self.props.onActivated()
-						end
-					end
-					if self.props.setControlState then
-						self.setControlState(newState)
-					end
-				end,
+				onStateChanged = self.onStateChanged,
+				[Roact.Event.Activated] = self.props.onActivated,
 				isDisabled = self.props.disabled,
 			}, children)
 		else

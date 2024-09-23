@@ -24,8 +24,10 @@ export type EditableImageInfo = {
 export type BypassFlags = {
 	skipSnapshot: boolean?,
 	skipValidateHSR: boolean?,
+	skipPhysicsDataReset: boolean?,
 }
 export type ScriptTimes = { [string]: number }
+export type PartSizes = { [Instance]: Vector3 }
 export type EditableMeshes = { [Instance]: { [string]: EditableMeshInfo } }
 export type EditableImages = { [Instance]: { [string]: EditableImageInfo } }
 export type ValidationContext = {
@@ -45,6 +47,7 @@ export type ValidationContext = {
 	lastTickSeconds: number?,
 	shouldYield: boolean?,
 	scriptTimes: ScriptTimes?,
+	partSizes: PartSizes?,
 }
 
 export type MeshInfo = {

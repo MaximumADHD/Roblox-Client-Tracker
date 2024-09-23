@@ -6,17 +6,11 @@
 
 local root = script.Parent.Parent
 
-local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
-
 local Constants = require(root.Constants)
 
 local Analytics = require(root.Analytics)
 
 local function validateScaleType(partScaleTypeNullable: StringValue?): (boolean, { string }?)
-	if not getFFlagUGCValidateAccessoriesScaleType() then
-		return true
-	end
-
 	if not partScaleTypeNullable then
 		return true -- a missing partScaleType is ok as it is optional in some schemas
 	end

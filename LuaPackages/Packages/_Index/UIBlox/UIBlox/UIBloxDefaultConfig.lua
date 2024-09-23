@@ -5,9 +5,6 @@ return {
 	-- enable trace level log
 	enableTraceLevelLog = false,
 
-	-- Bugfix for the fixed-height basemenu's outer frame is selectable
-	fixFixedHeightMenuFrameSelectable = false,
-
 	-- Add gamepad support to LinkButton
 	enableLinkButtonGamepadSupport = false,
 

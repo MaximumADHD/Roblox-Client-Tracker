@@ -6,9 +6,6 @@
 
 local root = script.Parent.Parent
 
-local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
-local getFFlagUGCValidationFixResetPhysicsError = require(root.flags.getFFlagUGCValidationFixResetPhysicsError)
-
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
@@ -164,11 +161,9 @@ local function validateInstanceHierarchy(
 			}
 	end
 
-	if getFFlagUGCValidationFixResetPhysicsError() then
-		local success, errorMessage = validateMeshIds(fullBodyData)
-		if not success then
-			return false, errorMessage
-		end
+	local success, errorMessage = validateMeshIds(fullBodyData)
+	if not success then
+		return false, errorMessage
 	end
 
 	return true
@@ -188,9 +183,6 @@ local function resetAllPhysicsData(validationContext: Types.ValidationContext): 
 end
 
 local function validateFullBody(validationContext: Types.ValidationContext): (boolean, { string }?)
-	if not getFFlagUGCValidateFullBody() then
-		return true
-	end
 	assert(validationContext.fullBodyData ~= nil, "fullBodyData required in validationContext for validateFullBody")
 	local fullBodyData = validationContext.fullBodyData :: Types.FullBodyData
 	local isServer = validationContext.isServer

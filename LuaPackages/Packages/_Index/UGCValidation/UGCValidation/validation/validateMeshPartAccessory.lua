@@ -30,12 +30,14 @@ local getMeshSize = require(root.util.getMeshSize)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
+local getExpectedPartSize = require(root.util.getExpectedPartSize)
+local pcallDeferred = require(root.util.pcallDeferred)
 
 local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagUGCValidateCoplanarTriTestAccessory)
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
-local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
@@ -160,7 +162,15 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		end
 	end
 
-	local meshSizeSuccess, meshSize = pcall(getMeshSize, meshInfo)
+	local meshSizeSuccess, meshSize
+	if getFFlagUGCValidationShouldYield() then
+		meshSizeSuccess, meshSize = pcallDeferred(function()
+			return getMeshSize(meshInfo)
+		end, validationContext)
+	else
+		meshSizeSuccess, meshSize = pcall(getMeshSize, meshInfo)
+	end
+
 	if not meshSizeSuccess then
 		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartAccessory_FailedToLoadMesh)
 		return false,
@@ -172,7 +182,13 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 			}
 	end
 
-	local meshScale = handle.Size / meshSize
+	local meshScale
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		meshScale = getExpectedPartSize(handle, validationContext) / meshSize
+	else
+		meshScale = handle.Size / meshSize
+	end
+
 	local attachment = getAttachment(handle, assetInfo.attachmentNames)
 	assert(attachment)
 
@@ -230,11 +246,9 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance))
 
-	if getFFlagUGCValidateAccessoriesScaleType() then
-		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
-		if partScaleType and partScaleType:IsA("StringValue") then
-			reasonsAccumulator:updateReasons(validateScaleType(partScaleType))
-		end
+	local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
+	if partScaleType and partScaleType:IsA("StringValue") then
+		reasonsAccumulator:updateReasons(validateScaleType(partScaleType))
 	end
 
 	return reasonsAccumulator:getFinalResults()

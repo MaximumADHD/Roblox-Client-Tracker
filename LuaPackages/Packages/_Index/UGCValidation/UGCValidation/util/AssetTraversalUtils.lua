@@ -11,8 +11,11 @@ assetHierarchy:
 local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local calculateMinMax = require(root.util.calculateMinMax)
+local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local ConstantsInterface = require(root.ConstantsInterface)
-local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
+
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local AssetTraversalUtils = {}
 
@@ -20,22 +23,40 @@ function AssetTraversalUtils.calculateBounds(
 	singleAsset: Enum.AssetType?,
 	part: MeshPart,
 	cframe: CFrame,
-	minMaxBounds: Types.BoundsData
+	minMaxBounds: Types.BoundsData,
+	validationContext: Types.ValidationContext?
 )
 	-- this relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
-	minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
-		minMaxBounds.minMeshCorner,
-		minMaxBounds.maxMeshCorner,
-		cframe:PointToWorldSpace(-(part.Size / 2)),
-		cframe:PointToWorldSpace(-(part.Size / 2))
-	)
+	if getEngineFeatureUGCValidateEditableMeshAndImage() and validationContext then
+		local partSize = getExpectedPartSize(part, validationContext)
+		minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
+			minMaxBounds.minMeshCorner,
+			minMaxBounds.maxMeshCorner,
+			cframe:PointToWorldSpace(-(partSize / 2)),
+			cframe:PointToWorldSpace(-(partSize / 2))
+		)
 
-	minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
-		minMaxBounds.minMeshCorner,
-		minMaxBounds.maxMeshCorner,
-		cframe:PointToWorldSpace(part.Size / 2),
-		cframe:PointToWorldSpace(part.Size / 2)
-	)
+		minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
+			minMaxBounds.minMeshCorner,
+			minMaxBounds.maxMeshCorner,
+			cframe:PointToWorldSpace(partSize / 2),
+			cframe:PointToWorldSpace(partSize / 2)
+		)
+	else
+		minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
+			minMaxBounds.minMeshCorner,
+			minMaxBounds.maxMeshCorner,
+			cframe:PointToWorldSpace(-(part.Size / 2)),
+			cframe:PointToWorldSpace(-(part.Size / 2))
+		)
+
+		minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
+			minMaxBounds.minMeshCorner,
+			minMaxBounds.maxMeshCorner,
+			cframe:PointToWorldSpace(part.Size / 2),
+			cframe:PointToWorldSpace(part.Size / 2)
+		)
+	end
 
 	for _, attachName in ConstantsInterface.getAttachments(singleAsset, part.Name) do
 		local attach: Attachment? = part:FindFirstChild(attachName) :: Attachment
@@ -78,15 +99,14 @@ function AssetTraversalUtils.traverseHierarchy(
 	parentCFrame: CFrame,
 	name: string,
 	details: any,
-	minMaxBounds: Types.BoundsData
+	minMaxBounds: Types.BoundsData,
+	validationContext: Types.ValidationContext?
 )
-	if getFFlagUGCValidateFullBody() then
-		local isSingleInstance = folder and singleAsset
-		assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
-	end
+	local isSingleInstance = folder and singleAsset
+	assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
 
 	local meshHandle: MeshPart?
-	if getFFlagUGCValidateFullBody() and fullBodyAssets then
+	if fullBodyAssets then
 		meshHandle = (fullBodyAssets :: Types.AllBodyParts)[name] :: MeshPart
 	else
 		meshHandle = (folder :: Folder):FindFirstChild(name) :: MeshPart
@@ -96,7 +116,7 @@ function AssetTraversalUtils.traverseHierarchy(
 	local cframe = parentCFrame
 	if parentName then
 		local parentMeshHandle: MeshPart?
-		if getFFlagUGCValidateFullBody() and fullBodyAssets then
+		if fullBodyAssets then
 			parentMeshHandle = (fullBodyAssets :: Types.AllBodyParts)[parentName] :: MeshPart
 		else
 			parentMeshHandle = (folder :: Folder):FindFirstChild(parentName) :: MeshPart
@@ -113,7 +133,7 @@ function AssetTraversalUtils.traverseHierarchy(
 	else
 		cframe = CFrame.new()
 	end
-	AssetTraversalUtils.calculateBounds(singleAsset, meshHandle, cframe, minMaxBounds)
+	AssetTraversalUtils.calculateBounds(singleAsset, meshHandle, cframe, minMaxBounds, validationContext)
 
 	if details.children then
 		for childName, childDetails in details.children do
@@ -125,7 +145,8 @@ function AssetTraversalUtils.traverseHierarchy(
 				cframe,
 				childName,
 				childDetails,
-				minMaxBounds
+				minMaxBounds,
+				validationContext
 			)
 		end
 	end

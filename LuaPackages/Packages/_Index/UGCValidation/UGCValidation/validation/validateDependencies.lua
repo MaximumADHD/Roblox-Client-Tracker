@@ -10,7 +10,6 @@ local root = script.Parent.Parent
 
 local getFFlagDebugUGCDisableRCCOwnershipCheck = require(root.flags.getFFlagDebugUGCDisableRCCOwnershipCheck)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
-local getFFlagUGCValidateAssetStatusNameChange = require(root.flags.getFFlagUGCValidateAssetStatusNameChange)
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local FFlagValidateUserAndUniverseNoModeration = game:DefineFastFlag("ValidateUserAndUniverseNoModeration", false)
 
@@ -42,20 +41,10 @@ local function validateExistance(contentIdMap: any)
 	end
 end
 
-local ASSET_STATUS_RCC = nil
-local ASSET_STATUS_RCC_deprecated = nil
-if getFFlagUGCValidateAssetStatusNameChange() then
-	ASSET_STATUS_RCC = {
-		MODERATION_STATE_REVIEWING = { ["MODERATION_STATE_REVIEWING"] = true, ["Reviewing"] = true },
-		MODERATION_STATE_APPROVED = { ["MODERATION_STATE_APPROVED"] = true, ["Approved"] = true },
-	}
-else
-	ASSET_STATUS_RCC_deprecated = {
-		MODERATION_STATE_REVIEWING = "MODERATION_STATE_REVIEWING",
-		MODERATION_STATE_REJECTED = "MODERATION_STATE_REJECTED",
-		MODERATION_STATE_APPROVED = "MODERATION_STATE_APPROVED",
-	}
-end
+local ASSET_STATUS_RCC = {
+	MODERATION_STATE_REVIEWING = { ["MODERATION_STATE_REVIEWING"] = true, ["Reviewing"] = true },
+	MODERATION_STATE_APPROVED = { ["MODERATION_STATE_APPROVED"] = true, ["Approved"] = true },
+}
 
 local function validateCreatorId(idsHashTable, creatorId, instance, fieldName, id): (boolean, { string }?)
 	if not idsHashTable[tonumber(creatorId)] then
@@ -69,9 +58,7 @@ local function validateCreatorId(idsHashTable, creatorId, instance, fieldName, i
 end
 
 local function validateModerationState(moderationState, instance, fieldName, id): (boolean, { string }?)
-	local isReviewing = if getFFlagUGCValidateAssetStatusNameChange()
-		then ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING[moderationState]
-		else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_REVIEWING == moderationState
+	local isReviewing = ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING[moderationState]
 	if isReviewing then
 		-- throw an error here, which means that the validation of this asset will be run again, rather than returning false. This is because we can't
 		-- conclusively say it failed. It's inconclusive / in-progress, so we need to try again later
@@ -81,10 +68,7 @@ local function validateModerationState(moderationState, instance, fieldName, id)
 		)
 	end
 
-	local isApproved = if getFFlagUGCValidateAssetStatusNameChange()
-		then ASSET_STATUS_RCC.MODERATION_STATE_APPROVED[moderationState]
-		else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_APPROVED == moderationState
-
+	local isApproved = ASSET_STATUS_RCC.MODERATION_STATE_APPROVED[moderationState]
 	if not isApproved then
 		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsNotApproved)
 		return false,
@@ -141,18 +125,14 @@ local function validateModerationRCC(
 
 			reasonsAccumulator:updateReasons(idsHashTable[tonumber(creatorId)], { failureMessage })
 
-			local isReviewing = if getFFlagUGCValidateAssetStatusNameChange()
-				then ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING[response.moderationResult.moderationState]
-				else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_REVIEWING == response.moderationResult.moderationState
+			local isReviewing = ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING[response.moderationResult.moderationState]
 			if isReviewing then
 				-- throw an error here, which means that the validation of this asset will be run again, rather than returning false. This is because we can't
 				-- conclusively say it failed. It's inconclusive / in-progress, so we need to try again later
 				error("Asset is under review")
 			end
 
-			local isApproved = if getFFlagUGCValidateAssetStatusNameChange()
-				then ASSET_STATUS_RCC.MODERATION_STATE_APPROVED[response.moderationResult.moderationState]
-				else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_APPROVED == response.moderationResult.moderationState
+			local isApproved = ASSET_STATUS_RCC.MODERATION_STATE_APPROVED[response.moderationResult.moderationState]
 			reasonsAccumulator:updateReasons(isApproved, { failureMessage })
 		end
 	end

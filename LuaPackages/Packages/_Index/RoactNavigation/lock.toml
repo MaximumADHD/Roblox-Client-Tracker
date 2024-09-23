@@ -5,6 +5,6 @@ source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Otter Otter 0.1.4 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
     "RegExp RegExp 0.2.1 registry",
 ]

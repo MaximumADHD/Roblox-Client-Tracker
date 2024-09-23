@@ -15,6 +15,7 @@ local rawKeyToRawValue = {
 	RobuxGrantPending = "RobuxGrantPending",
 	Error = "Error",
 	Succeed = "Succeed",
+	PurchaseVPC = "PurchaseVPC",
 }
 
 -- The values here correspond to values in the requested web view.

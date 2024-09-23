@@ -34,6 +34,10 @@ local RobuxUpsellFlow = Roact.Component:extend(script.Name)
 
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 local eventConfig = require(RobuxUpsellRoot.Events.InGameRobuxUpsellEvent)
+
+local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
+local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
+
 game:DefineFastFlag("DisableNonSchematizedInGameRobuxUpsellEvent", false)
 game:DefineFastFlag("EnableSchematizedInGameRobuxUpsellEvent", false)
 
@@ -56,6 +60,7 @@ type Props = {
 	purchaseState: any?,
 	errorType: any?,
 	u13ConfirmType: any?,
+	purchaseVPCType: any?,
 
 	acceptControllerIcon: { [string]: any? },
 	cancelControllerIcon: { [string]: any? },
@@ -415,6 +420,29 @@ function RobuxUpsellFlow:constructLeaveRobloxPromptAnimatorObj()
 	}
 end
 
+function RobuxUpsellFlow:constructPurchaseVPCPromptAnimatorObj()
+	local props: Props = self.props
+
+	self:BindCancelAction()
+
+	return {
+		shouldAnimate = props.shouldAnimate,
+		shouldShow = props.purchaseState == RobuxUpsellFlowState.PurchaseVPCModal,
+		renderChildren = function()
+			return Roact.createElement(VPCModal, {
+				screenSize = props.screenSize,
+				isActionable = false,
+				modalType = props.purchaseVPCType,
+				onDismiss = function()
+					self:reportUserInput("Cancel")
+					props.cancelPurchase()
+					self:closeCentralOverlay()
+				end,
+			})
+		end,
+	}
+end
+
 -- Use CentralOverlay to render the modals so that they could get the gamepad focus on Console in app
 -- This method won't be used when it's in game
 function RobuxUpsellFlow:dispatchCentralOverlayAndRenderModal(props: Props)
@@ -461,6 +489,10 @@ function RobuxUpsellFlow:dispatchCentralOverlayAndRenderModal(props: Props)
 
 	if purchaseState == RobuxUpsellFlowState.LeaveRobloxWarning then
 		props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, self:constructLeaveRobloxPromptAnimatorObj())
+	end
+
+	if purchaseState == RobuxUpsellFlowState.PurchaseVPCModal then
+		props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, self:constructPurchaseVPCPromptAnimatorObj())
 	end
 end
 
@@ -545,6 +577,7 @@ function RobuxUpsellFlow:getChildrenElements()
 		RobuxUpsellSuccessPromptAnimator = Roact.createElement(Animator, self:constructRobuxUpsellSuccessPromptAnimatorObj()),
 		InsufficientRobuxAnimator = Roact.createElement(Animator, self:constructInsufficientRobuxAnimatorObj()),
 		InsufficientRobuxProductAnimator = Roact.createElement(Animator, self:constructInsufficientRobuxProductAnimatorObj()),
+		PurchaseVPCPromptAnimator = Roact.createElement(Animator, self:constructPurchaseVPCPromptAnimatorObj()),
 	}
 end
 

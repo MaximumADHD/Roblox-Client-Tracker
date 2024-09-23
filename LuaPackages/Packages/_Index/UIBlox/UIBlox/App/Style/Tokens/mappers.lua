@@ -50,9 +50,9 @@ local function mapThemeToFoundation(theme, foundationTokens)
 	mapping.ContextualPrimaryDefault = foundationTokens.Semantic.Color.Action.PrimaryBrand.Background
 	mapping.ContextualPrimaryOnHover = getOnHoverColor(mapping.ContextualPrimaryDefault, foundationTokens)
 	mapping.ContextualPrimaryContent = foundationTokens.Semantic.Color.Action.PrimaryBrand.Content
-	mapping.SystemPrimaryDefault = foundationTokens.Semantic.Color.Action.Primary.Background
+	mapping.SystemPrimaryDefault = foundationTokens.Color.ActionStandard.Background
 	mapping.SystemPrimaryOnHover = getOnHoverColor(mapping.SystemPrimaryDefault, foundationTokens)
-	mapping.SystemPrimaryContent = foundationTokens.Semantic.Color.Action.Primary.Content
+	mapping.SystemPrimaryContent = foundationTokens.Color.ActionStandard.Foreground
 	mapping.IconDefault = foundationTokens.Semantic.Color.Icon.Default
 	mapping.IconEmphasis = foundationTokens.Semantic.Color.Icon.Emphasis
 	mapping.IconOnHover = foundationTokens.Semantic.Color.Icon.OnHover

@@ -11,7 +11,6 @@ local Analytics = require(root.Analytics)
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
-local getFFlagUGCValidationFixResetPhysicsError = require(root.flags.getFFlagUGCValidationFixResetPhysicsError)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
@@ -45,14 +44,6 @@ local function validateMeshPartBodyPart(
 	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
 	local restrictedUserIds = validationContext.restrictedUserIds
 
-	if not getFFlagUGCValidationFixResetPhysicsError() then
-		-- do this ASAP
-		local success, errorMessage = resetPhysicsData({ inst }, validationContext)
-		if not success then
-			return false, { errorMessage }
-		end
-	end
-
 	local validationResult = validateWithSchema(schema, inst)
 	if not validationResult.success then
 		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartBodyPart_ValidateWithSchema)
@@ -77,15 +68,13 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	if getFFlagUGCValidationFixResetPhysicsError() then
-		--[[
-			call resetPhysicsData() after checks above which are making sure mesh ids exist (as resetPhysicsData() uses meshIds) but before any checks
-			for mesh size happen, as this removes physics data to ensure those size checks return accurate results
-		]]
-		local success, errorMessage = resetPhysicsData({ inst }, validationContext)
-		if not success then
-			return false, { errorMessage }
-		end
+	--[[
+		call resetPhysicsData() after checks above which are making sure mesh ids exist (as resetPhysicsData() uses meshIds) but before any checks
+		for mesh size happen, as this removes physics data to ensure those size checks return accurate results
+	]]
+	local success, errorMessage = resetPhysicsData({ inst }, validationContext)
+	if not success then
+		return false, { errorMessage }
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()

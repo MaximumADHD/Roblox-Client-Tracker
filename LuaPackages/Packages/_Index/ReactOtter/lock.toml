@@ -5,5 +5,5 @@ source = "registry"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "Otter Otter 1.2.1 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
 ]

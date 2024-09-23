@@ -28,7 +28,6 @@ local TileBanner = require(BaseTile.TileBanner)
 local StyledTextLabel = require(App.Text.StyledTextLabel)
 local Images = require(UIBlox.App.ImageSet.Images)
 local Interactable = require(UIBlox.Core.Control.Interactable)
-local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 
 local ICON_PADDING = 4
 local THUMBNAIL_CORNER_RADIUS = UDim.new(0, 10)
@@ -346,24 +345,10 @@ function Tile:render()
 					if UIBloxConfig.useInteractableWithTileAndCell then Interactable else "TextButton",
 					{
 						Text = if UIBloxConfig.useInteractableWithTileAndCell then nil else "",
-						onStateChanged = if UIBloxConfig.useInteractableWithTileAndCell
-							then function(oldState, newState)
-								if not isDisabled then
-									if oldState == ControlState.Pressed or oldState == ControlState.SelectedPressed then
-										if onActivated then
-											onActivated()
-										end
-									end
-								end
-							end
-							else nil,
 						Size = UDim2.new(1, 0, 1, 0),
 						BackgroundTransparency = 1,
 						Selectable = self.props.Selectable,
-						[React.Event.Activated] = if not UIBloxConfig.useInteractableWithTileAndCell
-								and not isDisabled
-							then onActivated
-							else nil,
+						[React.Event.Activated] = if isDisabled then nil else onActivated,
 						[React.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 						ref = self.props.textButtonRef,
 						SelectionImageObject = if self.props.cursor

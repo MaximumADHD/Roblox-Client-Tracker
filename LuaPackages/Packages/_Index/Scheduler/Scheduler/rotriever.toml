@@ -1,0 +1,24 @@
+[package]
+name = "Scheduler"
+version = "17.1.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = false
+authors = [
+    "Paul Doyle <pdoyle@roblox.com>",
+    "Matt Hargett <mhargett@roblox.com>",
+    "Max Mines <mmines@roblox.com>",
+    "Carlo Conte <cconte@roblox.com>",
+    "Henry Allen <hallen@roblox.com>",
+    "Olivier Trepanier <otrepanier@roblox.com>",
+    "Hugh Collins <hcollins@roblox.com>",
+]
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.Shared]
+package = "Shared"
+version = "^17.1.0"

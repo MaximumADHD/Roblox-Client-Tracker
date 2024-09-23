@@ -8,15 +8,8 @@ local root = script.Parent.Parent
 local getEngineFeatureEngineUGCValidateTransparency = require(root.flags.getEngineFeatureEngineUGCValidateTransparency)
 local getEngineFeatureEngineUGCValidationGetImageTransparency =
 	require(root.flags.getEngineFeatureEngineUGCValidationGetImageTransparency)
-local getFFlagUGCValidationValidateTransparencyClient =
-	require(root.flags.getFFlagUGCValidationValidateTransparencyClient)
-local getFFlagUGCValidationValidateTransparencyServer =
-	require(root.flags.getFFlagUGCValidationValidateTransparencyServer)
 local getEngineFeatureViewportFrameSnapshotEngineFeature =
 	require(root.flags.getEngineFeatureViewportFrameSnapshotEngineFeature)
-local getFFlagUseThumbnailerUtil = require(root.flags.getFFlagUseThumbnailerUtil)
-local getEngineFeatureEngineUGCValidateOrthographicTransparency =
-	require(root.flags.getEngineFeatureEngineUGCValidateOrthographicTransparency)
 local getFFlagUGCValidationRemoveRotationCheck = require(root.flags.getFFlagUGCValidationRemoveRotationCheck)
 
 local FIntUGCValidationHeadThreshold = game:DefineFastInt("UGCValidationHeadThreshold", 30)
@@ -39,9 +32,6 @@ local FIntUGCValidationRightLegThresholdSide = game:DefineFastInt("UGCValidation
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local Constants = require(root.Constants)
-local Types = require(root.util.Types) -- remove with FFlagUseThumbnailerUtil
-local AssetTraversalUtils = require(root.util.AssetTraversalUtils) -- remove with FFlagUseThumbnailerUtil
-local ConstantsInterface = require(root.ConstantsInterface) -- remove with FFlagUseThumbnailerUtil
 local Thumbnailer = require(root.util.Thumbnailer)
 local setupTransparentPartSize = require(root.util.setupTransparentPartSize)
 local floatEquals = require(root.util.floatEquals)
@@ -57,9 +47,6 @@ if getEngineFeatureEngineUGCValidationGetImageTransparency() then
 		[CAMERA_POSITIONS[3]] = "side",
 	}
 end
-
-local DEFAULT_BG_COLOR_1: Color3 = Color3.fromRGB(0, 0, 0) -- remove with FFlagUseThumbnailerUtil
-local TRANSPARENT_PART_COLOR: Color3 = Color3.fromRGB(7, 32, 91) --magic number, doesn't really matter
 
 local assetTypeEnumToPartsToValidIDs = {
 	[Enum.AssetType.DynamicHead] = {
@@ -94,43 +81,6 @@ local assetTypeEnumToPartsToValidIDs = {
 	},
 }
 
--- remove with FFlagUseThumbnailerUtil
-local function setupViewportFrame()
-	local screenGui: ScreenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
-	local vpf: ViewportFrame = Instance.new("ViewportFrame", screenGui)
-	vpf.BackgroundTransparency = 1
-	vpf.BorderSizePixel = 0
-	vpf.BackgroundColor3 = DEFAULT_BG_COLOR_1
-	local worldModel = Instance.new("WorldModel", vpf)
-	vpf.Size = UDim2.fromOffset(IMAGE_SIZE, IMAGE_SIZE)
-
-	return screenGui, worldModel, vpf
-end
-
--- remove with FFlagUseThumbnailerUtil
-local function setupCamera(part: MeshPart, direction: Vector3): Camera?
-	local partPos: Vector3, partSize: Vector3
-	partPos = part.CFrame.Position
-	partSize = part.Size
-	if not partPos then
-		return nil
-	end
-
-	local plane: Vector3 = Vector3.new(1, 1, 1)
-		- Vector3.new(math.abs(direction.X), math.abs(direction.Y), math.abs(direction.Z))
-
-	local camera: Camera = Instance.new("Camera")
-
-	local maskedSize: Vector3 = partSize * plane
-	local maxDim: number = math.max(maskedSize.X, maskedSize.Y, maskedSize.Z)
-	local cameraFov: number = CAMERA_FOV
-	local dist: number = (maxDim / 1.9) / math.tan(math.rad(CAMERA_FOV / 2)) -- maxDim/2 makes the object's biggest dimension perfectly in position, but we want to allow for a bit of "Fudge" factor
-	camera.CFrame = CFrame.lookAt(partPos + direction * dist + direction * partSize / 2, partPos)
-	camera.FieldOfView = cameraFov
-
-	return camera
-end
-
 local CAPTURE_ERROR_STRING = "Unable to capture snapshot of %s"
 local READ_FAILED_ERROR_STRING = "Failed to read data from snapshot of (%s)"
 local VALIDATION_FAILED_ERROR_STRING = "%s is too transparent. Please fill in more of the mesh."
@@ -138,215 +88,6 @@ local VALIDATION_FAILED_ERROR_STRING_NEW = nil
 if getEngineFeatureEngineUGCValidationGetImageTransparency() then
 	VALIDATION_FAILED_ERROR_STRING_NEW =
 		"%s is difficult to see from the %s. %d%% of the bounding box is visible, but over %d%% is required. Please expand the body part to fill in more room."
-end
-
--- remove with FFlagUseThumbnailerUtil
-local function validateOnServer(assetTypeEnum: Enum.AssetType, dir: Vector3): (boolean, { string }?)
-	-- selene: allow(incorrect_standard_library_use)
-	local ThumbnailGenerator = game:GetService("ThumbnailGenerator" :: any) :: any
-	local img, _ = ThumbnailGenerator:Click("Png", IMAGE_SIZE, IMAGE_SIZE, --[[hideSky = ]] true)
-
-	if not img then
-		local errorMsg = string.format(CAPTURE_ERROR_STRING, assetTypeEnum.Name)
-		error(errorMsg)
-		return false, { errorMsg }
-	end
-
-	local success, passesValidation = pcall(function()
-		return UGCValidationService:ValidateImageTransparencyThresholdByteString(
-			img,
-			assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-		)
-	end)
-
-	if not success then
-		local errorMsg = string.format(READ_FAILED_ERROR_STRING, assetTypeEnum.Name)
-		error(errorMsg)
-		return false, { errorMsg }
-	end
-
-	if not passesValidation then
-		local errorMsg = string.format(VALIDATION_FAILED_ERROR_STRING, assetTypeEnum.Name)
-		return false, { errorMsg }
-	end
-
-	return true
-end
-
--- remove with FFlagUseThumbnailerUtil
-local function validateOnClient(assetTypeEnum: Enum.AssetType, dir: Vector3, vpf): (boolean, { string }?)
-	local captureSuccess, rbxTempId = pcall(function()
-		task.wait(1)
-		return (vpf :: any):CaptureSnapshotAsync()
-	end)
-	if not captureSuccess then
-		return false, { string.format(CAPTURE_ERROR_STRING, assetTypeEnum.Name) }
-	end
-	local success, passesValidation = pcall(function()
-		return UGCValidationService:ValidateImageTransparencyThresholdTextureID(
-			rbxTempId,
-			assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-		)
-	end)
-
-	if not success then
-		local errorMsg = string.format(READ_FAILED_ERROR_STRING, assetTypeEnum.Name)
-		return false, { errorMsg }
-	end
-
-	if not passesValidation then
-		local errorMsg = string.format(VALIDATION_FAILED_ERROR_STRING, assetTypeEnum.Name)
-		return false, { errorMsg }
-	end
-
-	return true
-end
-
--- remove with FFlagUseThumbnailerUtil
-local function validate_DEPRECATED(
-	inst: Instance?,
-	assetTypeEnumNullable: Enum.AssetType?,
-	isServerNullable: boolean?
-): (boolean, { string }?)
-	if not inst or not assetTypeEnumNullable or isServerNullable == nil then
-		return true
-	end
-
-	if not getEngineFeatureEngineUGCValidateTransparency() then
-		return true
-	end
-
-	local isServer = isServerNullable :: boolean
-
-	if isServer and not getFFlagUGCValidationValidateTransparencyServer() then
-		return true
-	end
-
-	if
-		not isServer
-		and (
-			not getFFlagUGCValidationValidateTransparencyClient()
-			or not getEngineFeatureViewportFrameSnapshotEngineFeature()
-		)
-	then
-		return true
-	end
-
-	local instClone: Instance = (inst :: Instance):Clone()
-	local assetTypeEnum = assetTypeEnumNullable :: Enum.AssetType
-
-	local screenGui, worldModel, vpf
-	if not isServer then
-		screenGui, worldModel, vpf = setupViewportFrame()
-	end
-
-	local minMaxBounds: Types.BoundsData = {}
-	local transparentPart: MeshPart = Instance.new("MeshPart") :: MeshPart
-	transparentPart.Parent = isServer and workspace or worldModel
-	transparentPart.CanCollide = false
-	transparentPart.Transparency = 0.5
-	transparentPart.Color = TRANSPARENT_PART_COLOR
-
-	if Enum.AssetType.DynamicHead == assetTypeEnum :: Enum.AssetType then
-		AssetTraversalUtils.calculateBounds(assetTypeEnum, instClone :: MeshPart, CFrame.new(), minMaxBounds)
-		instClone.Parent = if isServer then workspace else worldModel
-		transparentPart.Parent = if isServer then workspace else worldModel
-		if getFFlagUGCValidationRemoveRotationCheck() then
-			transparentPart.CFrame = CFrame.new();
-			(instClone :: MeshPart).CFrame = CFrame.new()
-		else
-			transparentPart.Position = (instClone :: MeshPart).Position
-		end
-		transparentPart.Size = (instClone :: MeshPart).Size
-	else
-		local hierarchy = AssetTraversalUtils.assetHierarchy[assetTypeEnum :: Enum.AssetType]
-		AssetTraversalUtils.traverseHierarchy(
-			nil,
-			instClone :: Folder,
-			assetTypeEnum,
-			nil,
-			CFrame.new(),
-			hierarchy.root,
-			hierarchy,
-			minMaxBounds
-		)
-		local function moveParts(folder: Folder?, parentName: string?, parentCFrame: CFrame, name: string, details: any)
-			local meshHandle = (folder :: Folder):FindFirstChild(name) :: MeshPart
-			local cframe = parentCFrame
-			if parentName then
-				local parentMeshHandle = (folder :: Folder):FindFirstChild(parentName) :: MeshPart
-				local rigAttachmentName = ConstantsInterface.getRigAttachmentToParent(assetTypeEnum, name)
-				local parentAttachment: Attachment? = parentMeshHandle:FindFirstChild(rigAttachmentName) :: Attachment
-				local attachment: Attachment? = meshHandle:FindFirstChild(rigAttachmentName) :: Attachment
-				cframe = (cframe * (parentAttachment :: Attachment).CFrame)
-					* (attachment :: Attachment).CFrame:Inverse()
-			end
-			meshHandle.CFrame = cframe
-			if details.children then
-				for childName, childDetails in details.children do
-					moveParts(folder, name, cframe, childName, childDetails)
-				end
-			end
-		end
-		instClone.Parent = if isServer then workspace else worldModel
-		moveParts(instClone :: Folder, nil, CFrame.new(), hierarchy.root, hierarchy)
-		local maxSize: Vector3 = Vector3.new()
-		local minSize: Vector3 = Vector3.new()
-		maxSize = if minMaxBounds.maxOverall then minMaxBounds.maxOverall else Vector3.new()
-		minSize = if minMaxBounds.minOverall then minMaxBounds.minOverall else Vector3.new()
-		if minMaxBounds.minOverall == nil or minMaxBounds.maxOverall == nil then
-			return false, { "Errored out trying to determine size of asset" }
-		end
-		transparentPart.Size = Vector3.new(maxSize.X - minSize.X, maxSize.Y - minSize.Y, maxSize.Z - minSize.Z)
-		transparentPart.Position = Vector3.new(
-			minSize.X + transparentPart.Size.X / 2,
-			minSize.Y + transparentPart.Size.Y / 2,
-			minSize.Z + transparentPart.Size.Z / 2
-		)
-	end
-
-	for _, dir in CAMERA_POSITIONS do
-		local cameraNullable: Camera? = setupCamera(transparentPart, dir)
-		if not cameraNullable then
-			if not isServer then
-				screenGui:Destroy()
-			end
-			instClone:Destroy()
-			transparentPart:Destroy()
-			return false, { string.format("Unable to setup camera for Part (%s)", assetTypeEnum.Name) }
-		end
-		local camera = cameraNullable :: Camera
-		if isServer then
-			camera.Name = "ThumbnailCamera"
-			camera.Parent = workspace:GetChildren()[1]
-		else
-			camera.Parent = vpf
-			vpf.CurrentCamera = camera
-		end
-		if isServer then
-			local passesValidation, errorMsg = validateOnServer(assetTypeEnum, dir)
-			if not passesValidation then
-				instClone:Destroy()
-				transparentPart:Destroy()
-				return false, errorMsg
-			end
-		else
-			local passesValidation, errorMsg = validateOnClient(assetTypeEnum, dir, vpf)
-			if not passesValidation then
-				screenGui:Destroy()
-				instClone:Destroy()
-				transparentPart:Destroy()
-				return false, errorMsg
-			end
-		end
-		camera:Destroy()
-	end
-	if not isServer then
-		screenGui:Destroy()
-	end
-	instClone:Destroy()
-	transparentPart:Destroy()
-	return true
 end
 
 local function arePartsRotated(inst: Instance, assetTypeEnum: Enum.AssetType): boolean
@@ -443,11 +184,7 @@ local function calculateMaxAspectRatio(assetTypeEnum: Enum.AssetType): number
 	return math.max(maxX, maxZ) / minY
 end
 
-local FILL = 0.95
 return function(inst: Instance?, assetTypeEnum: Enum.AssetType, isServerNullable: boolean?): (boolean, { string }?)
-	if not getFFlagUseThumbnailerUtil() then
-		return validate_DEPRECATED(inst, assetTypeEnum, isServerNullable)
-	end
 	if not inst then
 		return true
 	end
@@ -458,25 +195,12 @@ return function(inst: Instance?, assetTypeEnum: Enum.AssetType, isServerNullable
 
 	local isServer: boolean = if isServerNullable then true else false
 
-	if isServer and not getFFlagUGCValidationValidateTransparencyServer() then
-		return true
-	end
-
-	if
-		not isServer
-		and (
-			not getFFlagUGCValidationValidateTransparencyClient()
-			or not getEngineFeatureViewportFrameSnapshotEngineFeature()
-		)
-	then
+	if not isServer and (not getEngineFeatureViewportFrameSnapshotEngineFeature()) then
 		return true
 	end
 
 	if not getFFlagUGCValidationRemoveRotationCheck() then
-		if
-			getEngineFeatureEngineUGCValidateOrthographicTransparency()
-			and arePartsRotated(inst :: Instance, assetTypeEnum)
-		then
+		if arePartsRotated(inst :: Instance, assetTypeEnum) then
 			return false,
 				{
 					"Transparency validation failed as some parts are rotated. You must reset all rotation values to zero.",
@@ -486,70 +210,44 @@ return function(inst: Instance?, assetTypeEnum: Enum.AssetType, isServerNullable
 
 	local instClone: Instance = (inst :: Instance):Clone()
 	local transparentPart: MeshPart = Instance.new("MeshPart") :: MeshPart
-	if not getEngineFeatureEngineUGCValidateOrthographicTransparency() then
-		transparentPart.CanCollide = false
-		transparentPart.Transparency = 0.5
-		transparentPart.Color = TRANSPARENT_PART_COLOR
-	end
 
 	local transparentPartSucc: boolean = setupTransparentPartSize(transparentPart, instClone, assetTypeEnum)
 	if not transparentPartSucc then
 		return false, { "Error getting part sizes " }
 	end
 
-	local target = nil
-	if not getEngineFeatureEngineUGCValidateOrthographicTransparency() then
-		target = Instance.new("Folder")
-		transparentPart.Parent = target
-		instClone.Parent = target
-	end
-
 	local thumbnailer = Thumbnailer.new(isServer, CAMERA_FOV, Vector2.new(IMAGE_SIZE, IMAGE_SIZE))
 
-	local initialSizePosition = nil
-	if getEngineFeatureEngineUGCValidateOrthographicTransparency() then
-		thumbnailer:init(instClone)
-		initialSizePosition = getInitialSizePosition(instClone, assetTypeEnum)
-	else
-		thumbnailer:init(transparentPart)
-	end
+	thumbnailer:init(instClone)
+	local initialSizePosition = getInitialSizePosition(instClone, assetTypeEnum)
 
 	for _, dir in CAMERA_POSITIONS do
-		local plane: Vector3 = Vector3.new(1, 1, 1) - Vector3.new(math.abs(dir.X), math.abs(dir.Y), math.abs(dir.Z))
+		-- if the camera is looking along the Z axis, the X axis of the part will be perpendicular to the camera (and vice-versa)
+		local imageWidthAxis = if math.abs(dir.Z) > math.abs(dir.X)
+			then transparentPart.Size.X
+			else transparentPart.Size.Z
 
-		if getEngineFeatureEngineUGCValidateOrthographicTransparency() then
-			-- if the camera is looking along the Z axis, the X axis of the part will be perpendicular to the camera (and vice-versa)
-			local imageWidthAxis = if math.abs(dir.Z) > math.abs(dir.X)
-				then transparentPart.Size.X
-				else transparentPart.Size.Z
+		flattenParts(instClone, assetTypeEnum, initialSizePosition, dir, transparentPart.Position)
 
-			flattenParts(instClone, assetTypeEnum, initialSizePosition, dir, transparentPart.Position)
-
-			local aspectRatio = (imageWidthAxis / transparentPart.Size.Y)
-			local maxAspectRatioMultiplier = 10 -- really this could be 1, but we're being conservative
-			if aspectRatio > (maxAspectRatioMultiplier * calculateMaxAspectRatio(assetTypeEnum)) then
-				thumbnailer:cleanup()
-				return false, { "Transparency validation failed as image would be too large to test" }
-			end
-
-			local imageWidth = aspectRatio * IMAGE_SIZE
-
-			if imageWidth < 1 then
-				thumbnailer:cleanup()
-				return false, { "Transparency validation failed as image would be too small to test" }
-			end
-			thumbnailer:setImgSize(Vector2.new(imageWidth, IMAGE_SIZE))
-
-			local dist: number = (transparentPart.Size.Y / 2) / (math.tan(math.rad(CAMERA_FOV / 2)))
-			thumbnailer:setCameraTransform(
-				CFrame.lookAt(transparentPart.CFrame.Position + dir * dist, transparentPart.CFrame.Position)
-			)
-		else
-			local maskedSize: Vector3 = transparentPart.Size * plane
-			local maxDim: number = math.max(maskedSize.X, maskedSize.Y, maskedSize.Z)
-
-			thumbnailer:setCamera(FILL, maxDim, dir)
+		local aspectRatio = (imageWidthAxis / transparentPart.Size.Y)
+		local maxAspectRatioMultiplier = 10 -- really this could be 1, but we're being conservative
+		if aspectRatio > (maxAspectRatioMultiplier * calculateMaxAspectRatio(assetTypeEnum)) then
+			thumbnailer:cleanup()
+			return false, { "Transparency validation failed as image would be too large to test" }
 		end
+
+		local imageWidth = aspectRatio * IMAGE_SIZE
+
+		if imageWidth < 1 then
+			thumbnailer:cleanup()
+			return false, { "Transparency validation failed as image would be too small to test" }
+		end
+		thumbnailer:setImgSize(Vector2.new(imageWidth, IMAGE_SIZE))
+
+		local dist: number = (transparentPart.Size.Y / 2) / (math.tan(math.rad(CAMERA_FOV / 2)))
+		thumbnailer:setCameraTransform(
+			CFrame.lookAt(transparentPart.CFrame.Position + dir * dist, transparentPart.CFrame.Position)
+		)
 
 		local captureSuccess, img = thumbnailer:takeSnapshot()
 
@@ -564,50 +262,32 @@ return function(inst: Instance?, assetTypeEnum: Enum.AssetType, isServerNullable
 		end
 
 		local success, passesValidation, opacityValue
-		if getEngineFeatureEngineUGCValidateOrthographicTransparency() then
-			if getEngineFeatureEngineUGCValidationGetImageTransparency() then
-				if isServer then
-					success, opacityValue = pcall(function()
-						return UGCValidationService:getImageTransparencyWithByteString(img :: string)
-					end)
-				else
-					success, opacityValue = pcall(function()
-						return UGCValidationService:getImageTransparencyWithTextureID(img :: string)
-					end)
-				end
-
-				if success then
-					local threshold = assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-					passesValidation = opacityValue > threshold
-				end
+		if getEngineFeatureEngineUGCValidationGetImageTransparency() then
+			if isServer then
+				success, opacityValue = pcall(function()
+					return UGCValidationService:getImageTransparencyWithByteString(img :: string)
+				end)
 			else
-				if isServer then
-					success, passesValidation = pcall(function()
-						return UGCValidationService:ValidateImageTransparencyThresholdByteString_V2(
-							img :: string,
-							assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-						)
-					end)
-				else
-					success, passesValidation = pcall(function()
-						return UGCValidationService:ValidateImageTransparencyThresholdTextureID_V2(
-							img :: string,
-							assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-						)
-					end)
-				end
+				success, opacityValue = pcall(function()
+					return UGCValidationService:getImageTransparencyWithTextureID(img :: string)
+				end)
+			end
+
+			if success then
+				local threshold = assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
+				passesValidation = opacityValue > threshold
 			end
 		else
 			if isServer then
 				success, passesValidation = pcall(function()
-					return UGCValidationService:ValidateImageTransparencyThresholdByteString(
+					return UGCValidationService:ValidateImageTransparencyThresholdByteString_V2(
 						img :: string,
 						assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
 					)
 				end)
 			else
 				success, passesValidation = pcall(function()
-					return UGCValidationService:ValidateImageTransparencyThresholdTextureID(
+					return UGCValidationService:ValidateImageTransparencyThresholdTextureID_V2(
 						img :: string,
 						assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
 					)

@@ -18,6 +18,12 @@ local SPRING_PARAMETERS = {
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 local lerp = require(UIBlox.Utility.lerp)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
+local SYSTEM_PRIMARY_THEME_KEY = if UIBloxConfig.useFoundationColors
+	then "SystemPrimaryContent"
+	else "SystemPrimaryDefault"
+
 local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 	-- Creates a slider using the specified theme key for the track fill color.
 	local appSliderComponent = Roact.PureComponent:extend("AppSliderFor" .. trackFillThemeKey)
@@ -69,7 +75,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			local unpressedColor = Color3.new(1, 1, 1)
 			-- If the slider is a SystemSlider, it should be pumice on pressed
 			local pressedColor = Colors.Pumice
-			if trackFillThemeKey ~= "SystemPrimaryDefault" then
+			if trackFillThemeKey ~= SYSTEM_PRIMARY_THEME_KEY then
 				pressedColor = values.style.Theme[trackFillThemeKey].Color
 			end
 
@@ -84,7 +90,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			local unpressedColor = Color3.new(1, 1, 1)
 			-- If the slider is a SystemSlider, it should be pumice on pressed
 			local pressedColor = Colors.Pumice
-			if trackFillThemeKey ~= "SystemPrimaryDefault" then
+			if trackFillThemeKey ~= SYSTEM_PRIMARY_THEME_KEY then
 				pressedColor = values.style.Theme[trackFillThemeKey].Color
 			end
 

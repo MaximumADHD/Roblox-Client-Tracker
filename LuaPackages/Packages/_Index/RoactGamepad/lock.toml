@@ -4,8 +4,8 @@ version = "0.5.13"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React <patched> ReactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Roact <patched> RoactProxy 958b7e16 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.1.0 registry",
+    "Roact RoactCompat 17.1.0 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]

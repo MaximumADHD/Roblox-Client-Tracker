@@ -13,14 +13,15 @@ local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCVal
 local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagUGCValidateCoplanarTriTestAccessory)
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
-local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
-local getFFlagUGCValidationFixResetPhysicsError = require(root.flags.getFFlagUGCValidationFixResetPhysicsError)
 local getEngineFeatureEngineUGCValidationReportScriptTime =
 	require(root.flags.getEngineFeatureEngineUGCValidationReportScriptTime)
 local getFFlagUGCValidateCageOrigin = require(root.flags.getFFlagUGCValidateCageOrigin)
 local getFFlagUGCValidateTotalSurfaceAreaTestBody = require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestBody)
 local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
 	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
+
+local getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity =
+	require(root.flags.getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity)
 
 local function joinTables(...)
 	local result = {}
@@ -35,16 +36,12 @@ end
 local Analytics = {}
 
 Analytics.ErrorType = {
+	resetPhysicsData_FailedToLoadMesh = "resetPhysicsData_FailedToLoadMesh",
 	validateAccessoryName = "validateAccessoryName",
 	validateAssetBounds_AssetSizeTooBig = "validateAssetBounds_AssetSizeTooBig",
 	validateAssetBounds_AssetSizeTooSmall = "validateAssetBounds_AssetSizeTooSmall",
 	validateAssetBounds_InconsistentAvatarPartScaleType = "validateAssetBounds_InconsistentAvatarPartScaleType",
-	validateAssetBounds_InvalidAvatarPartScaleType = if getFFlagUGCValidateAccessoriesScaleType()
-		then nil
-		else "validateAssetBounds_InvalidAvatarPartScaleType",
-	validateScaleType_InvalidAvatarPartScaleType = if getFFlagUGCValidateAccessoriesScaleType()
-		then "validateScaleType_InvalidAvatarPartScaleType"
-		else nil,
+	validateScaleType_InvalidAvatarPartScaleType = "validateScaleType_InvalidAvatarPartScaleType",
 	validateAssetCreator_DependencyNotOwnedByCreator = "validateAssetCreator_DependencyNotOwnedByCreator",
 	validateAssetCreator_FailedToLoad = "validateAssetCreator_FailedToLoad",
 	validateAssetCreator_TooManyDependencies = "validateAssetCreator_TooManyDependencies",
@@ -85,6 +82,7 @@ Analytics.ErrorType = {
 	validateFullBody_InstancesMissing = "validateFullBody_InstancesMissing",
 	validateFullBodyCageDeletion_FailedToExecute = "validateFullBodyCageDeletion_FailedToExecute",
 	validateFullBodyCageDeletion_GeometryRemoved = "validateFullBodyCageDeletion_GeometryRemoved",
+	validateFullBody_MeshIdsMissing = "validateFullBody_MeshIdsMissing",
 	validateHSR_HSRDataNotReady = "validateHSR_HSRDataNotReady",
 	validateHSR_NoWrapLayer = "validateHSR_NoWrapLayer",
 	validateInstanceTree = "validateInstanceTree",
@@ -145,6 +143,12 @@ Analytics.ErrorType = {
 	validateVertexDensity_MaxDensityExceeded = "validateVertexDensity_MaxDensityExceeded",
 }
 
+if getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity() then
+	Analytics.ErrorType.validateVerticesSimilarity_FailedToExecute = "validateVerticesSimilarity_FailedToExecute"
+	Analytics.ErrorType.validateVerticesSimilarity_MaxSimilarityExceeded =
+		"validateVerticesSimilarity_MaxSimilarityExceeded"
+end
+
 if getFFlagUGCValidateCoplanarTriTestBody() or getFFlagUGCValidateCoplanarTriTestAccessory() then
 	Analytics.ErrorType.validateCoplanarIntersection_FailedToExecute = "validateCoplanarIntersection_FailedToExecute"
 	Analytics.ErrorType.validateCoplanarIntersection_CoplanarIntersection =
@@ -154,11 +158,6 @@ end
 if getFFlagUGCValidateTestInactiveControls() then
 	Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls =
 		"validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls"
-end
-
-if getFFlagUGCValidationFixResetPhysicsError() then
-	Analytics.ErrorType.resetPhysicsData_FailedToLoadMesh = "resetPhysicsData_FailedToLoadMesh"
-	Analytics.ErrorType.validateFullBody_MeshIdsMissing = "validateFullBody_MeshIdsMissing"
 end
 
 if getFFlagUGCValidateCageOrigin() then
