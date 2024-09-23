@@ -31,7 +31,7 @@ local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDef
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
 local AudioFocusManagementEnabled = game:GetEngineFeature("EnableAudioFocusManagement")
 
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local Analytics = VoiceChatCore.Analytics.new()
 
 local VoiceChatService = game:GetService("VoiceChatService")

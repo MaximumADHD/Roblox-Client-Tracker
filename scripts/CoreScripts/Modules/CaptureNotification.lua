@@ -33,7 +33,7 @@ local CaptureNotification = Roact.PureComponent:extend("CaptureNotification")
 
 CaptureNotification.validateProps = t.strictInterface({
 	forceDismissToast = t.optional(t.table),
-	permissionEvent = t.optional(t.instance),
+	permissionEvent = t.optional(t.instanceOf("BindableEvent")),
 })
 
 function CaptureNotification:init()

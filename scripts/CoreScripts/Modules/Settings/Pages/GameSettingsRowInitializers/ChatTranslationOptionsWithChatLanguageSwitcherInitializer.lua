@@ -8,6 +8,7 @@
 local TextChatService = game:GetService("TextChatService")
 local HttpService = game:GetService('HttpService')
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 local Settings = UserSettings()
@@ -15,7 +16,7 @@ local GameSettings = Settings.GameSettings
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 -- Flags
 local FFlagFixChatLanguageSwitcherLabel = game:DefineFastFlag("FixChatLanguageSwitcherLabel", false)

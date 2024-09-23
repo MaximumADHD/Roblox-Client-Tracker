@@ -13,6 +13,9 @@ local PathfindingService = game:GetService("PathfindingService")
 local ContextActionService = game:GetService("ContextActionService")
 local StarterGui = game:GetService("StarterGui")
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
 --local MasterControl = require(script.Parent)
 local PathDisplay = nil
 local LocalPlayer = Players.LocalPlayer
@@ -27,6 +30,13 @@ local THUMBSTICK_DEADZONE = 0.22
 
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local XZ_VECTOR3 = Vector3.new(1,0,1)
+local HEIGHT_OFFSET = Vector3.new(0, 100, 0)
+
+local raycastParams = RaycastParams.new()
+raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
+--[[ Flags ]]--
+local FFlagUserRaycastPerformanceImprovements = FlagUtil.getUserFlag("UserRaycastPerformanceImprovements")
 
 --[[ Utility Functions ]]--
 local function IsFinite(num: number)
@@ -361,21 +371,35 @@ function VRNavigation:OnHeartbeat(dt)
 				timeReachedLastPoint = tick()
 			end
 		else
-			local ignoreTable = {
-				(game.Players.LocalPlayer :: Player).Character,
-				workspace.CurrentCamera
-			}
-			local obstructRay = Ray.new(currentPosition - Vector3.new(0, 1, 0), moveDir * 3)
-			local obstructPart, obstructPoint, obstructNormal = workspace:FindPartOnRayWithIgnoreList(obstructRay, ignoreTable)
+			if FFlagUserRaycastPerformanceImprovements then
+				raycastParams.FilterDescendantsInstances = { (game.Players.LocalPlayer :: Player).Character, workspace.CurrentCamera}
+				local raycastResult = workspace:Raycast(currentPosition - Vector3.yAxis, moveDir * 3, raycastParams)
+			
+				if raycastResult then
+					raycastResult = workspace:Raycast(raycastResult.Position + moveDir * 0.5 + HEIGHT_OFFSET, -HEIGHT_OFFSET, raycastParams)
 
-			if obstructPart then
-				local heightOffset = Vector3.new(0, 100, 0)
-				local jumpCheckRay = Ray.new(obstructPoint + moveDir * 0.5 + heightOffset, -heightOffset)
-				local jumpCheckPart, jumpCheckPoint, jumpCheckNormal = workspace:FindPartOnRayWithIgnoreList(jumpCheckRay, ignoreTable)
+					local heightDifference = raycastResult.Position.Y - currentPosition.Y
+					if heightDifference < 6 and heightDifference > -2 then
+						humanoid.Jump = true
+					end
+				end
+			else
+				local ignoreTable = {
+					(game.Players.LocalPlayer :: Player).Character,
+					workspace.CurrentCamera
+				}
+				local obstructRay = Ray.new(currentPosition - Vector3.new(0, 1, 0), moveDir * 3)
+				local obstructPart, obstructPoint, obstructNormal = workspace:FindPartOnRayWithIgnoreList(obstructRay, ignoreTable)
 
-				local heightDifference = jumpCheckPoint.Y - currentPosition.Y
-				if heightDifference < 6 and heightDifference > -2 then
-					humanoid.Jump = true
+				if obstructPart then
+					local heightOffset = Vector3.new(0, 100, 0)
+					local jumpCheckRay = Ray.new(obstructPoint + moveDir * 0.5 + heightOffset, -heightOffset)
+					local jumpCheckPart, jumpCheckPoint, jumpCheckNormal = workspace:FindPartOnRayWithIgnoreList(jumpCheckRay, ignoreTable)
+
+					local heightDifference = jumpCheckPoint.Y - currentPosition.Y
+					if heightDifference < 6 and heightDifference > -2 then
+						humanoid.Jump = true
+					end
 				end
 			end
 

@@ -1,5 +1,12 @@
 --!nonstrict
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
+local FFlagUserRaycastPerformanceImprovements = FlagUtil.getUserFlag("UserRaycastPerformanceImprovements")
+
+local raycastParams = RaycastParams.new()
+raycastParams.FilterType = Enum.RaycastFilterType.Exclude
 
 local PathDisplay = {}
 PathDisplay.spacing = 8
@@ -52,18 +59,31 @@ local function renderPoint(point: Vector3, isLast): ImageHandleAdornment?
 		return nil
 	end
 
-	local rayDown = Ray.new(point + Vector3.new(0, 2, 0), Vector3.new(0, -8, 0))
-	local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(rayDown, { (game.Players.LocalPlayer :: Player).Character :: Model, workspace.CurrentCamera :: Camera })
-	if not hitPart then
-		return nil
+	local pointInstance = retrieveFromPool()
+	if FFlagUserRaycastPerformanceImprovements then
+		raycastParams.FilterDescendantsInstances = { (game.Players.LocalPlayer :: Player).Character :: Model, workspace.CurrentCamera :: Camera }
+		local raycastResult = workspace:Raycast(point + Vector3.new(0, 2, 0), Vector3.new(0, -8, 0), raycastParams)
+		if not raycastResult then
+			return nil
+		end
+
+		pointInstance.CFrame = CFrame.lookAlong(raycastResult.Position, raycastResult.Normal)
+		pointInstance.Parent = pointModel
+	else
+		local rayDown = Ray.new(point + Vector3.new(0, 2, 0), Vector3.new(0, -8, 0))
+		local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(rayDown, { (game.Players.LocalPlayer :: Player).Character :: Model, workspace.CurrentCamera :: Camera })
+		if not hitPart then
+			return nil
+		end
+
+		local pointCFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
+
+		
+		pointInstance.CFrame = pointCFrame
+		pointInstance.Parent = pointModel
 	end
 
-	local pointCFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
-
-	local point = retrieveFromPool()
-	point.CFrame = pointCFrame
-	point.Parent = pointModel
-	return point
+	return pointInstance
 end
 
 function PathDisplay.setCurrentPoints(points)

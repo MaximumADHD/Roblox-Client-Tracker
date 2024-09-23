@@ -14,7 +14,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
 local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums

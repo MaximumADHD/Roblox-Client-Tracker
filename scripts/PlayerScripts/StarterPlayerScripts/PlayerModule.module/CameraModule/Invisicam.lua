@@ -7,6 +7,12 @@
 --[[ Top Level Roblox Services ]]--
 local PlayersService = game:GetService("Players")
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
+--[[ Flags ]]--
+local FFlagUserRaycastPerformanceImprovements = FlagUtil.getUserFlag("UserRaycastPerformanceImprovements")
+
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local USE_STACKING_TRANSPARENCY = true	-- Multiple items between the subject and camera get transparency values that add up to TARGET_TRANSPARENCY
@@ -54,6 +60,12 @@ local MOVE_CASTS = 3
 local SMART_CIRCLE_CASTS = 24
 local SMART_CIRCLE_INCREMENT = 2.0 * math.pi / SMART_CIRCLE_CASTS
 local CHAR_OUTLINE_CASTS = 24
+
+local excludeParams = RaycastParams.new()
+excludeParams.FilterType = Enum.RaycastFilterType.Exclude
+
+local includeParams = RaycastParams.new()
+includeParams.FilterType = Enum.RaycastFilterType.Include
 
 -- Used to sanitize user-supplied functions
 local function AssertTypes(param, ...)
@@ -230,13 +242,25 @@ function Invisicam:CharacterOutlineBehavior(castPoints)
 
 		offset = Vector3.new(offset.X, math.max(offset.Y, -2.25), offset.Z)
 
-		local ray = Ray.new(centerPoint + offset, -3 * offset)
-		local hit, hitPoint = game.Workspace:FindPartOnRayWithWhitelist(ray, partsWhitelist, false)
+		if FFlagUserRaycastPerformanceImprovements then
+			includeParams.FilterDescendantsInstances = partsWhitelist
+			local raycastResult = game.Workspace:Raycast(centerPoint + offset, -3 * offset, includeParams)
 
-		if hit then
-			-- Use hit point as the cast point, but nudge it slightly inside the character so that bumping up against
-			-- walls is less likely to cause a transparency glitch
-			castPoints[#castPoints + 1] = hitPoint + 0.2 * (centerPoint - hitPoint).unit
+			if raycastResult then
+				-- Use hit point as the cast point, but nudge it slightly inside the character so that bumping up against
+				-- walls is less likely to cause a transparency glitch
+				local position = raycastResult.Position
+				castPoints[#castPoints + 1] = position + 0.2 * (centerPoint - position).unit
+			end
+		else
+			local ray = Ray.new(centerPoint + offset, -3 * offset)
+			local hit, hitPoint = game.Workspace:FindPartOnRayWithWhitelist(ray, partsWhitelist, false)
+
+			if hit then
+				-- Use hit point as the cast point, but nudge it slightly inside the character so that bumping up against
+				-- walls is less likely to cause a transparency glitch
+				castPoints[#castPoints + 1] = hitPoint + 0.2 * (centerPoint - hitPoint).unit
+			end
 		end
 	end
 end
@@ -277,52 +301,102 @@ function Invisicam:SmartCircleBehavior(castPoints)
 		-- Vector from camera to point on the circle being tested
 		local vp = circlePoint - self.camera.CFrame.p
 
-		local ray = Ray.new(torsoPoint, circlePoint - torsoPoint)
-		local hit, hp, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
-		local castPoint = circlePoint
+		
+		if FFlagUserRaycastPerformanceImprovements then
+			excludeParams.FilterDescendantsInstances = { self.char }
+			local raycastResult = game.Workspace:Raycast(torsoPoint, circlePoint - torsoPoint, excludeParams)
 
-		if hit then
-			local hprime = hp + 0.1 * hitNormal.unit -- Slightly offset hit point from the hit surface
-			local v0 = hprime - torsoPoint -- Vector from torso to offset hit point
+			local castPoint = circlePoint
+			if raycastResult then
+				local position = raycastResult.Position
+				local normal = raycastResult.Normal
+				local hprime = position + 0.1 * normal.unit -- Slightly offset hit point from the hit surface
+				local v0 = hprime - torsoPoint -- Vector from torso to offset hit point
 
-			local perp = (v0:Cross(vp)).unit
+				local perp = (v0:Cross(vp)).unit
 
-			-- Vector from the offset hit point, along the hit surface
-			local v1 = (perp:Cross(hitNormal)).unit
+				-- Vector from the offset hit point, along the hit surface
+				local v1 = (perp:Cross(normal)).unit
 
-			-- Vector from camera to offset hit
-			local vprime = (hprime - self.camera.CFrame.p).unit
+				-- Vector from camera to offset hit
+				local vprime = (hprime - self.camera.CFrame.p).unit
 
-			-- This dot product checks to see if the vector along the hit surface would hit the correct
-			-- side of the invisicam cone, or if it would cross the camera look vector and hit the wrong side
-			if ( v0.unit:Dot(-v1) < v0.unit:Dot(vprime)) then
-				castPoint = RayIntersection(hprime, v1, circlePoint, vp)
+				-- This dot product checks to see if the vector along the hit surface would hit the correct
+				-- side of the invisicam cone, or if it would cross the camera look vector and hit the wrong side
+				if ( v0.unit:Dot(-v1) < v0.unit:Dot(vprime)) then
+					castPoint = RayIntersection(hprime, v1, circlePoint, vp)
 
-				if castPoint.Magnitude > 0 then
-					local ray = Ray.new(hprime, castPoint - hprime)
-					local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
+					if castPoint.Magnitude > 0 then
+						raycastResult = game.Workspace:Raycast(hprime, castPoint - hprime, excludeParams)
 
-					if hit then
-						local hprime2 = hitPoint + 0.1 * hitNormal.unit
-						castPoint = hprime2
+						if raycastResult then
+							local hprime2 = raycastResult.Position + 0.1 * raycastResult.Normal.Unit
+							castPoint = hprime2
+						end
+					else
+						castPoint = hprime
 					end
 				else
 					castPoint = hprime
 				end
-			else
-				castPoint = hprime
+
+				raycastResult = game.Workspace:Raycast(torsoPoint, castPoint - torsoPoint, excludeParams)
+
+				if raycastResult then
+					local castPoint2 = raycastResult.Position - 0.1 * (castPoint - torsoPoint).unit
+					castPoint = castPoint2
+				end
 			end
 
-			local ray = Ray.new(torsoPoint, (castPoint - torsoPoint))
-			local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
+			castPoints[#castPoints + 1] = castPoint
+		else
+			local ray = Ray.new(torsoPoint, circlePoint - torsoPoint)
+			local hit, hp, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
+			local castPoint = circlePoint
 
 			if hit then
-				local castPoint2 = hitPoint - 0.1 * (castPoint - torsoPoint).unit
-				castPoint = castPoint2
-			end
-		end
+				local hprime = hp + 0.1 * hitNormal.unit -- Slightly offset hit point from the hit surface
+				local v0 = hprime - torsoPoint -- Vector from torso to offset hit point
 
-		castPoints[#castPoints + 1] = castPoint
+				local perp = (v0:Cross(vp)).unit
+
+				-- Vector from the offset hit point, along the hit surface
+				local v1 = (perp:Cross(hitNormal)).unit
+
+				-- Vector from camera to offset hit
+				local vprime = (hprime - self.camera.CFrame.p).unit
+
+				-- This dot product checks to see if the vector along the hit surface would hit the correct
+				-- side of the invisicam cone, or if it would cross the camera look vector and hit the wrong side
+				if ( v0.unit:Dot(-v1) < v0.unit:Dot(vprime)) then
+					castPoint = RayIntersection(hprime, v1, circlePoint, vp)
+
+					if castPoint.Magnitude > 0 then
+						local ray = Ray.new(hprime, castPoint - hprime)
+						local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
+
+						if hit then
+							local hprime2 = hitPoint + 0.1 * hitNormal.unit
+							castPoint = hprime2
+						end
+					else
+						castPoint = hprime
+					end
+				else
+					castPoint = hprime
+				end
+
+				local ray = Ray.new(torsoPoint, (castPoint - torsoPoint))
+				local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {self.char}, false, false )
+
+				if hit then
+					local castPoint2 = hitPoint - 0.1 * (castPoint - torsoPoint).unit
+					castPoint = castPoint2
+				end
+			end
+
+			castPoints[#castPoints + 1] = castPoint
+		end
 	end
 end
 

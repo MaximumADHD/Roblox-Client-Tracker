@@ -58,6 +58,8 @@ local GetFFlagEnableHamburgerIcon = require(Chrome.Flags.GetFFlagEnableHamburger
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local GetFFlagChromeUsePreferredTransparency =
 	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
+local GetFFlagSongbirdTranslationStrings =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdTranslationStrings
 
 local PartyConstants = require(Chrome.Integrations.Party.Constants)
 
@@ -69,6 +71,9 @@ function configureUnibar()
 	-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
 	-- ie. Voice Mute integration will only be shown is voice is enabled/active
 	local nineDot = { "leaderboard", "emotes", "backpack" }
+	local partyMenu = if GetFFlagEnablePartyIconInChrome()
+		then { PartyConstants.TOGGLE_MIC_INTEGRATION_ID, PartyConstants.INTEGRATION_ID }
+		else {}
 	if GetFFlagUnibarRespawn() then
 		-- append to end of nine-dot
 		table.insert(nineDot, "respawn")
@@ -119,12 +124,13 @@ function configureUnibar()
 		end
 
 		ChromeService:configureMenu({
-			if GetFFlagEnablePartyIconInChrome() then { PartyConstants.INTEGRATION_ID } else {},
+			partyMenu,
 			v4Ordering,
 		})
 	elseif GetFFlagEnableChromePinIntegrations() then
 		if GetFFlagSupportChromeContainerSizing() then
 			ChromeService:configureMenu({
+				partyMenu,
 				if GetFFlagEnableJoinVoiceOnUnibar()
 					then {
 						"selfie_view",
@@ -147,7 +153,7 @@ function configureUnibar()
 			})
 		else
 			ChromeService:configureMenu({
-				if GetFFlagEnablePartyIconInChrome() then { PartyConstants.INTEGRATION_ID } else {},
+				partyMenu,
 				if GetFFlagEnableJoinVoiceOnUnibar()
 					then { "selfie_view", "toggle_mic_mute", "join_voice", "chat", "dummy_window", "dummy_window_2" }
 					else { "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
@@ -156,6 +162,7 @@ function configureUnibar()
 		end
 	else
 		ChromeService:configureMenu({
+			partyMenu,
 			{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
 			{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
 		})
@@ -188,7 +195,12 @@ function configureUnibar()
 		-- MUS-1214 TODO: Determine placement order in menu
 		if not GetFFlagDisableCompactUtilityCore() then
 			ChromeService:configureCompactUtility("music_utility", {
-				{ GetFStringChromeMusicIntegrationId(), "compact_utility_back" },
+				{
+					if GetFFlagSongbirdTranslationStrings()
+						then "now_playing"
+						else GetFStringChromeMusicIntegrationId(),
+					"compact_utility_back",
+				},
 			})
 		end
 	end

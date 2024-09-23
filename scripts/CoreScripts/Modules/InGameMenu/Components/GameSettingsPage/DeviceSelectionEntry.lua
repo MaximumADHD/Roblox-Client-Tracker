@@ -11,7 +11,7 @@ local InGameMenu = script.Parent.Parent.Parent
 local DropDownSelection = require(InGameMenu.Components.DropDownSelection)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 -- This is a temporary component, will iterate when there's final design
 local DeviceSelectionEntry = Roact.PureComponent:extend("DeviceSelectionEntry")

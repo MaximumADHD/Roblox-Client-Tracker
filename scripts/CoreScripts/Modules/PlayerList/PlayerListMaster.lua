@@ -8,8 +8,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local FFlagPlayerListRoactInspector = game:DefineFastFlag("DebugPlayerListRoactInspector", false)
-
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -50,6 +48,7 @@ local SetSettings = require(PlayerList.Actions.SetSettings)
 
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
+local FFlagPlayerListChangesForInspector = game:DefineFastFlag("PlayerListChangesForInspector", false)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -65,7 +64,7 @@ local function isSmallTouchScreen()
 end
 
 local layerCollector
-if FFlagMobilePlayerList then
+if FFlagMobilePlayerList and not FFlagPlayerListChangesForInspector then
 	layerCollector = Instance.new("ScreenGui")
 	layerCollector.Parent = CoreGui
 	layerCollector.Name = "PlayerList"
@@ -108,6 +107,8 @@ function PlayerListMaster.new()
 			elementTracing = true,
 		})
 	end
+
+	self.layerCollectorRef = Roact.createRef()
 
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,
@@ -156,10 +157,17 @@ function PlayerListMaster.new()
 		self.root = Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.store,
 		}, {
-			Roact.createElement(PlayerListSwitcher, {
+			Switcher = Roact.createElement(PlayerListSwitcher, {
 				appStyleForUiModeStyleProvider = appStyleForUiModeStyleProvider,
 				setLayerCollectorEnabled = function(enabled)
-					layerCollector.Enabled = enabled
+					if FFlagPlayerListChangesForInspector then
+						if not self.layerCollectorRef.current then
+							return
+						end
+						self.layerCollectorRef.current.Enabled = enabled
+					else
+						layerCollector.Enabled = enabled
+					end
 				end,
 			})
 		})
@@ -172,8 +180,20 @@ function PlayerListMaster.new()
 			})
 		end
 
+		if FFlagPlayerListChangesForInspector then
+			self.root = Roact.createElement("ScreenGui", {
+				AutoLocalize = false,
+				IgnoreGuiInset = true,
+				DisplayOrder = 1,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				[Roact.Ref] = self.layerCollectorRef,
+			}, {
+				PlayerListMaster = self.root
+			})
+		end
 
-		self.element = Roact.mount(self.root, layerCollector, "PlayerListMaster")
+		local parent = if FFlagPlayerListChangesForInspector then CoreGui else layerCollector
+		self.element = Roact.mount(self.root, parent, "PlayerList")
 
 	else
 		local themeProvider = renderWithCoreScriptsStyleProvider({
@@ -197,21 +217,20 @@ function PlayerListMaster.new()
 			})
 		end
 
-		self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
-	end
-
-	if FFlagPlayerListRoactInspector then
-		local hasInternalPermission = game:GetService("RunService"):IsStudio()
-			and game:GetService("StudioService"):HasInternalPermission()
-		if hasInternalPermission then
-			local DeveloperTools = require(CorePackages.DeveloperTools)
-			local parent = FFlagMobilePlayerList and layerCollector or RobloxGui
-			self.inspector = DeveloperTools.forCoreGui("PlayerList", {
-				rootInstance = parent:FindFirstChild("PlayerListMaster"),
-				pickerParent = "RobloxGui",
+		if FFlagPlayerListChangesForInspector then
+			self.root = Roact.createElement("ScreenGui", {
+				AutoLocalize = false,
+				IgnoreGuiInset = true,
+				DisplayOrder = 1,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				[Roact.Ref] = self.layerCollectorRef,
+			}, {
+				PlayerListMaster = self.root
 			})
-			self.inspector:addRoactTree("Roact tree", self.element, Roact)
 		end
+
+		local parent = if FFlagPlayerListChangesForInspector then CoreGui else RobloxGui
+		self.element = Roact.mount(self.root, parent, "PlayerList")
 	end
 
 	self.topBarEnabled = true
@@ -234,8 +253,13 @@ function PlayerListMaster:_updateMounted()
 	if not TenFootInterface:IsEnabled() then
 		local shouldMount = self.coreGuiEnabled and self.topBarEnabled
 		if shouldMount and not self.mounted then
-			local root = FFlagMobilePlayerList and layerCollector or RobloxGui
-			self.element = Roact.mount(self.root, root, "PlayerListMaster")
+			local root
+			if FFlagPlayerListChangesForInspector then
+				root = CoreGui
+			else
+				root = FFlagMobilePlayerList and layerCollector or RobloxGui	
+			end
+			self.element = Roact.mount(self.root, root, "PlayerList")
 			self.mounted = true
 		elseif not shouldMount and self.mounted then
 			Roact.unmount(self.element)

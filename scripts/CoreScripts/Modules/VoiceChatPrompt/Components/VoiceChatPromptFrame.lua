@@ -103,7 +103,7 @@ local PromptTitle = {
 	[PromptType.VoiceConsentModalV1] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
 	[PromptType.VoiceConsentModalV2] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatWithOthers"),
 	[PromptType.VoiceConsentModalV3] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
-	[PromptType.JoinVoiceAndRequestMicPermissions] = RobloxTranslator:FormatByKey(
+	[PromptType.JoinedVoiceToast] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.JoinedVoiceChat"
 	),
 	[PromptType.JoinVoiceSTUX] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
@@ -163,8 +163,8 @@ local PromptSubTitle = {
 	[PromptType.VoiceConsentModalV3] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.Subtitle.InExpVoiceUpsell2"
 	),
-	[PromptType.JoinVoiceAndRequestMicPermissions] = RobloxTranslator:FormatByKey(
-		"Feature.SettingsHub.Prompt.Subtitle.DisconnectOrMuteAndAccessMic"
+	[PromptType.JoinedVoiceToast] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.DisconnectOrMute"
 	),
 	[PromptType.JoinVoiceSTUX] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.Subtitle.DisconnectOrMuteHere"
@@ -337,7 +337,7 @@ function VoiceChatPromptFrame:init()
 			local iconImage
 			if
 				(GetFFlagEnableInExpVoiceUpsell() and PromptTypeIsVoiceConsent(promptType))
-				or (GetFFlagEnableSeamlessVoiceUX() and promptType == PromptType.JoinVoiceAndRequestMicPermissions)
+				or (GetFFlagEnableSeamlessVoiceUX() and promptType == PromptType.JoinedVoiceToast)
 			then
 				iconImage = Images["icons/controls/publicAudioJoin"]
 			elseif GetFFlagEnableSeamlessVoiceUX() and PromptTypeIsConnectDisconnectToast(promptType) then
@@ -703,7 +703,7 @@ function VoiceChatPromptFrame:render()
 		if GetFFlagEnableSeamlessVoiceUX() then
 			if isNudgeToast then
 				toastDuration = GetFIntVoiceToxicityToastDurationSeconds()
-			elseif self.state.promptType == PromptType.JoinVoiceAndRequestMicPermissions then
+			elseif self.state.promptType == PromptType.JoinedVoiceToast then
 				toastDuration = GetFIntVoiceJoinM3ToastDurationSeconds()
 			else
 				toastDuration = TOAST_DURATION

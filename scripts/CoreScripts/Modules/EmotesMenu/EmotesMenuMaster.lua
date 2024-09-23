@@ -306,7 +306,7 @@ function EmotesMenuMaster:_mount()
 		local app = Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.store,
 		}, {
-			Roact.createElement(UiModeStyleProvider, {
+			StyleProvider = Roact.createElement(UiModeStyleProvider, {
 				style = appStyleForUiModeStyleProvider
 			}, {
 				EmotesMenu = Roact.createElement(EmotesMenu)

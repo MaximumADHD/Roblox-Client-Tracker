@@ -19,6 +19,7 @@ local PurchaseErrorType = IAPExperience.PurchaseFlow.PurchaseErrorType
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local connectToStore = require(Root.connectToStore)
+local VPCModalType = require(Root.Enums.VPCModalType)
 
 local RobuxUpsellOverlay = Roact.PureComponent:extend(script.Name)
 
@@ -193,6 +194,8 @@ function RobuxUpsellOverlay:getFlowState()
 		return RobuxUpsellFlowState.Success
 	elseif promptState == PromptState.LeaveRobloxWarning then
 		return RobuxUpsellFlowState.LeaveRobloxWarning
+	elseif promptState == PromptState.EnablePurchaseVPCModal then
+		return RobuxUpsellFlowState.PurchaseVPCModal
 	elseif promptState == PromptState.Error then
 		if purchaseError == PurchaseError.TwoFactorNeeded or purchaseError == PurchaseError.TwoFactorNeededSettings then
 			return RobuxUpsellFlowState.TwoStepRequired
@@ -253,6 +256,18 @@ function RobuxUpsellOverlay:getErrorType()
 	return PurchaseErrorType.Unknown
 end
 
+function RobuxUpsellOverlay:getVPCModalType()
+	local props: Props = self.props
+
+	local promptState = props.promptState
+
+	if promptState == PromptState.EnablePurchaseVPCModal then
+		return VPCModalType.toRawValue(VPCModalType.EnablePurchase)
+	end
+
+	return VPCModalType.toRawValue(VPCModalType.None)
+end
+
 function RobuxUpsellOverlay:render()
 	local props: Props = self.props
 	local externalSettings = ExternalSettings.new()
@@ -277,6 +292,7 @@ function RobuxUpsellOverlay:render()
 		purchaseState = self:getFlowState(),
 		errorType = self:getErrorType(),
 		u13ConfirmType = self:getU13ConfirmType(),
+		purchaseVPCType = self:getVPCModalType(),
 
 		acceptControllerIcon = if props.isGamepadEnabled
 			then BUTTON_A_ICON

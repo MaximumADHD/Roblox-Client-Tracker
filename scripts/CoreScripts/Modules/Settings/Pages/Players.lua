@@ -49,7 +49,7 @@ local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.Vo
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local BlockingAnalytics = require(script:FindFirstAncestor("Settings").Analytics.BlockingAnalytics)
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
@@ -204,7 +204,7 @@ local function Initialize()
 	this.Page.Name = "Players"
 
 	local function getShowAppChatTreatment()
-		return GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.default:getShowPlatformChatEntryPoint()
+		return GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatTiltMenuEntryPoint
 	end
 
 	local function showRightSideButtons(player)

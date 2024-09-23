@@ -9,7 +9,7 @@ local Players = game:GetService("Players")
 local FFlagAvatarChatProtocolDebugV1 = game:GetEngineFeature("AvatarChatProtocolDebugV1")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local showInfoOfLocalPlayer = true
 local showInfoOfRemotePlayers = true

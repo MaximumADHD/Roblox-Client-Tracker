@@ -32,27 +32,29 @@ export type PeekService = {
 	PEEK_COOLDOWN_SEC: number,
 
 	configurePeek: (PeekService, peekId: PeekId, config: PeekConfig) -> (),
-	queuePeek: (PeekService, peekId: PeekId) -> (),
+	tryShowPeek: (PeekService, peekId: PeekId) -> boolean,
+	lockCurrentPeek: (PeekService) -> (),
+	unlockCurrentPeek: (PeekService) -> (),
 	dismissPeek: (PeekService, peekId: PeekId) -> (),
 	destroy: (PeekService) -> (),
 	getCurrentPeek: (PeekService) -> PeekId?,
 	getPeekConfig: (PeekService, peekId: PeekId) -> PeekConfig,
 
 	onPeekShown: AppCommonLib.Signal,
-	onPeekQueued: AppCommonLib.Signal,
 	onPeekDismissed: AppCommonLib.Signal,
 	onPeekHidden: AppCommonLib.Signal,
 	onPeekChanged: AppCommonLib.Signal,
 
 	_getLifetimeConfig: (PeekService, peekId: PeekId) -> PeekLifetimeConfigWithDefaults,
 	_showPeek: (PeekService, peekId: PeekId) -> (),
-	_processPeekQueue: (PeekService) -> (),
 	_hideCurrentPeek: (PeekService) -> (),
 
 	_dismissalTime: number?,
 	_peekConfigs: { [PeekId]: PeekConfig },
-	_peekQueue: { PeekId },
 	_currentPeek: PeekId?,
+	_isCurrentPeekLocked: boolean,
+	_isOnCooldown: boolean,
+	_thread: thread?,
 }
 
 function PeekService.new(): PeekService
@@ -61,7 +63,8 @@ function PeekService.new(): PeekService
 	self.PEEK_COOLDOWN_SEC = GetFIntChromePeekCooldownSeconds()
 
 	self._peekConfigs = {}
-	self._peekQueue = {}
+	self._isCurrentPeekLocked = false
+	self._isOnCooldown = false
 
 	self.onPeekQueued = Signal.new()
 	self.onPeekShown = Signal.new()
@@ -91,6 +94,13 @@ function PeekService:_hideCurrentPeek()
 		self._currentPeek = nil
 		self.onPeekHidden:fire(peekId)
 		self.onPeekChanged:fire(peekId)
+
+		self._isCurrentPeekLocked = false
+
+		self._isOnCooldown = true
+		self._thread = task.delay(self.PEEK_COOLDOWN_SEC, function()
+			self._isOnCooldown = false
+		end)
 	end
 end
 
@@ -98,48 +108,6 @@ function PeekService:_showPeek(peekId)
 	self._currentPeek = peekId
 	self.onPeekShown:fire(peekId)
 	self.onPeekChanged:fire(peekId)
-end
-
-function PeekService:_processPeekQueue()
-	if self._currentPeek or #self._peekQueue == 0 then
-		return
-	end
-
-	local nextPeekId = table.remove(self._peekQueue, 1)
-
-	if nextPeekId then
-		local lifetime = self:_getLifetimeConfig(nextPeekId)
-
-		self:_showPeek(nextPeekId)
-
-		task.delay(lifetime.duration, function()
-			-- Since Peeks can be dismissed early we need to make sure we only
-			-- hide the current Peek if it's the same one this function has been
-			-- processing
-			if self._currentPeek == nextPeekId then
-				self:_hideCurrentPeek()
-			end
-
-			-- Peek was dismissed early. Subtract the duration the user has been
-			-- waiting from the cooldown
-			local cooldown = self.PEEK_COOLDOWN_SEC
-			if self._dismissalTime then
-				cooldown = math.max(os.time() - self._dismissalTime, 0)
-				self._dismissalTime = nil
-			end
-
-			task.delay(cooldown, function()
-				-- Only process the next Peek if one isn't already being shown.
-				-- If this condition is true it means another thread already
-				-- kicked off the next Peek
-				if self._currentPeek then
-					return
-				end
-
-				self:_processPeekQueue()
-			end)
-		end)
-	end
 end
 
 function PeekService:getCurrentPeek()
@@ -150,32 +118,54 @@ function PeekService:getPeekConfig(peekId)
 	return self._peekConfigs[peekId]
 end
 
-function PeekService:queuePeek(peekId)
-	if peekId ~= self._currentPeek then
-		local index = table.find(self._peekQueue, peekId)
-
-		if not index then
-			self.onPeekQueued:fire(peekId)
-			self.onPeekChanged:fire(peekId)
-
-			table.insert(self._peekQueue, peekId)
-
-			self:_processPeekQueue()
-		end
+function PeekService:tryShowPeek(peekId)
+	if self._currentPeek or self._isOnCooldown then
+		return false
 	end
+
+	self:_showPeek(peekId)
+
+	local lifetime = self:_getLifetimeConfig(peekId)
+
+	self._thread = task.delay(lifetime.duration, function()
+		while self._isCurrentPeekLocked do
+			task.wait()
+		end
+
+		-- Since Peeks can be dismissed early we need to make sure we only
+		-- hide the current Peek if it's the same one this function has been
+		-- processing
+		if self._currentPeek == peekId then
+			self:_hideCurrentPeek()
+		end
+	end)
+
+	return true
+end
+
+function PeekService:lockCurrentPeek()
+	if self._currentPeek then
+		self._isCurrentPeekLocked = true
+	end
+end
+
+function PeekService:unlockCurrentPeek()
+	self._isCurrentPeekLocked = false
 end
 
 function PeekService:dismissPeek(peekId)
 	if self._currentPeek == peekId then
 		self.onPeekDismissed:fire(peekId)
 		self:_hideCurrentPeek()
-		self._dismissalTime = os.time()
 	end
 end
 
 function PeekService:destroy()
 	self._currentPeek = nil
-	table.clear(self._peekQueue)
+
+	if self._thread then
+		task.cancel(self._thread)
+	end
 end
 
 return PeekService

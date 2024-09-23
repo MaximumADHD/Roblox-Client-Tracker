@@ -23,7 +23,7 @@ function ShareGameMaster.createApp(parentGui, analytics)
 		Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.store
 		}, {
-			Roact.createElement(App, {
+			App = Roact.createElement(App, {
 				analytics = analytics,
 				pageTarget = parentGui,
 			})

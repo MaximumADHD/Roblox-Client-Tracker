@@ -34,10 +34,21 @@ local TRAIL_DOT_MIN_DISTANCE = 10
 local TRAIL_DOT_MAX_SCALE = 2.5
 local TRAIL_DOT_MAX_DISTANCE = 100
 
+local raycastParams = RaycastParams.new()
+raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
+local raycastOriginOffset = Vector3.yAxis * 2.5
+local raycastDirection = Vector3.yAxis * -10
+
 local PlayersService = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
+
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
+local FFlagUserRaycastPerformanceImprovements = FlagUtil.getUserFlag("UserRaycastPerformanceImprovements")
 
 local LocalPlayer = PlayersService.LocalPlayer
 
@@ -139,14 +150,24 @@ local function getTrailDotParent()
 end
 
 local function placePathWaypoint(waypointModel, position: Vector3)
-	local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
-	local hitPart, hitPoint, hitNormal = Workspace:FindPartOnRayWithIgnoreList(
-		ray,
-		{ Workspace.CurrentCamera, LocalPlayer.Character }
-	)
-	if hitPart then
-		waypointModel.CFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
-		waypointModel.Parent = getTrailDotParent()
+	if FFlagUserRaycastPerformanceImprovements then
+		raycastParams.FilterDescendantsInstances = { Workspace.CurrentCamera, LocalPlayer.Character }
+		local raycastResult = Workspace:Raycast(position + raycastOriginOffset, raycastDirection, raycastParams)
+
+		if raycastResult then
+			waypointModel.CFrame = CFrame.lookAlong(raycastResult.Position, raycastResult.Normal)
+			waypointModel.Parent = getTrailDotParent()
+		end
+	else
+		local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
+		local hitPart, hitPoint, hitNormal = Workspace:FindPartOnRayWithIgnoreList(
+			ray,
+			{ Workspace.CurrentCamera, LocalPlayer.Character }
+		)
+		if hitPart then
+			waypointModel.CFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
+			waypointModel.Parent = getTrailDotParent()
+		end
 	end
 end
 
@@ -247,13 +268,23 @@ end
 function FailureWaypoint:NewDisplayModel(position)
 	local newDisplayModel: Part = FailureWaypointTemplate:Clone()
 	placePathWaypoint(newDisplayModel, position)
-	local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
-	local hitPart, hitPoint, hitNormal = Workspace:FindPartOnRayWithIgnoreList(
-		ray, { Workspace.CurrentCamera, LocalPlayer.Character }
-	)
-	if hitPart then
-		newDisplayModel.CFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
-		newDisplayModel.Parent = getTrailDotParent()
+	if FFlagUserRaycastPerformanceImprovements then
+		raycastParams.FilterDescendantsInstances = { Workspace.CurrentCamera, LocalPlayer.Character }
+
+		local raycastResult = Workspace:Raycast(position + raycastOriginOffset, raycastDirection, raycastParams)
+		if raycastResult then
+			newDisplayModel.CFrame = CFrame.lookAlong(raycastResult.Position, raycastResult.Normal)
+			newDisplayModel.Parent = getTrailDotParent()
+		end
+	else
+		local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
+		local hitPart, hitPoint, hitNormal = Workspace:FindPartOnRayWithIgnoreList(
+			ray, { Workspace.CurrentCamera, LocalPlayer.Character }
+		)
+		if hitPart then
+			newDisplayModel.CFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
+			newDisplayModel.Parent = getTrailDotParent()
+		end
 	end
 	return newDisplayModel
 end

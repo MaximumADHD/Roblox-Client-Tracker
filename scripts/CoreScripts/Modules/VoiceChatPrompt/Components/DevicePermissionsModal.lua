@@ -16,6 +16,7 @@ local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local getMicDeeplinkDirections = require(script.Parent.Parent.Helpers.getMicDeeplinkDirections)
+local getPrimingText = require(script.Parent.Parent.Helpers.getPrimingText)
 
 -- Constants
 local OVERLAY_WIDTH = 365
@@ -24,6 +25,7 @@ local PADDING = 20
 local DIVIDER = 1
 local SMALLER_PADDING = 15
 local BUTTON_PADDING = 12
+local PRIMING_PADDING = 10
 local ICON_SIZE = 55
 
 local openSettings = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.OpenSettings")
@@ -61,8 +63,8 @@ local validateProps = ArgCheck.wrap(t.strictInterface({
 local function DevicePermissionsModal(props: Props)
 	assert(validateProps(props))
 
-	-- local sampleText = getMicDeeplinkDirections(props.settingsAppAvailable, props.UserInputService)
 	local infoText = getMicDeeplinkDirections(props.settingsAppAvailable, props.UserInputService)
+	local primingText = getPrimingText(props.UserInputService)
 
 	local titleFont = props.promptStyle.Font.Header1.Font
 	local titleFontSize = props.promptStyle.Font.Header1.RelativeSize * props.promptStyle.Font.BaseSize
@@ -84,6 +86,19 @@ local function DevicePermissionsModal(props: Props)
 	).Y
 	local bodyTextContainerHeight = PADDING + bodyTextHeight
 
+	local primingTextContainerHeight = 0
+	if primingText then
+		local primingFont = props.promptStyle.Font.CaptionHeader.Font
+		local primingFontSize = props.promptStyle.Font.CaptionHeader.RelativeSize * props.promptStyle.Font.BaseSize
+		local primingTextHeight = TextService:GetTextSize(
+			primingText,
+			primingFontSize,
+			primingFont,
+			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
+		).Y
+		primingTextContainerHeight = PRIMING_PADDING + primingTextHeight
+	end
+
 	local infoTextContainerHeight = 0
 	if infoText then
 		local infoFont = props.promptStyle.Font.Body.Font
@@ -94,10 +109,17 @@ local function DevicePermissionsModal(props: Props)
 			infoFont,
 			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
 		).Y
-		infoTextContainerHeight = PADDING + infoTextHeight
+		local addedPadding = if primingText then PRIMING_PADDING else PADDING
+		infoTextContainerHeight = addedPadding + infoTextHeight
 	end
 
-	local paddingMultiplier = if infoText then 4.5 else 4
+	local paddingMultiplier = 4
+	if infoText then
+		paddingMultiplier = 4.5
+	end
+	if primingText then
+		paddingMultiplier = 5.5
+	end
 
 	return React.createElement("ScreenGui", {
 		DisplayOrder = 8,
@@ -133,6 +155,7 @@ local function DevicePermissionsModal(props: Props)
 					+ paddingMultiplier * PADDING
 					+ infoTextContainerHeight
 					+ ICON_SIZE
+					+ primingTextContainerHeight
 			),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			SliceCenter = Assets.Images.RoundedRect.SliceCenter,
@@ -207,7 +230,7 @@ local function DevicePermissionsModal(props: Props)
 					Size = UDim2.new(1, 0, 0, infoTextContainerHeight + PADDING),
 				}, {
 					Padding = React.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, SMALLER_PADDING),
+						PaddingTop = UDim.new(0, if primingText then 8 else SMALLER_PADDING),
 						PaddingLeft = UDim.new(0, 8),
 					}),
 					TextContainer = React.createElement("Frame", {
@@ -227,14 +250,38 @@ local function DevicePermissionsModal(props: Props)
 					}),
 				})
 				else nil,
-			SpaceContainer = React.createElement("Frame", {
+			SpaceContainer = if not primingText then React.createElement("Frame", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 7,
-				Size = UDim2.new(1, 0, 0, if infoText then 10 else 20),
-			}),
+				Size = UDim2.new(1, 0, 0, if infoText then 40 else 20),
+			}) else nil,
+			PrimingTextContainer = if primingText
+				then React.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = 8,
+					Size = UDim2.new(1, 0, 0, primingTextContainerHeight),
+				}, {
+					PrimingText = React.createElement(UIBlox.App.Text.StyledTextLabel, {
+						fontStyle = props.promptStyle.Font.Body,
+						colorStyle = props.promptStyle.Theme.TextDefault,
+						textXAlignment = Enum.TextXAlignment.Left,
+						textYAlignment = Enum.TextYAlignment.Top,
+						size = UDim2.new(1, 0, 1, 0),
+						text = primingText,
+						lineHeight = 1.25,
+					}),
+				})
+				else nil,
+			SpaceContainerTemp = if primingText
+				then React.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = 9,
+					Size = UDim2.new(1, 0, 0, 30),
+				})
+				else nil,
 			ButtonContainer = React.createElement("Frame", {
 				BackgroundTransparency = 1,
-				LayoutOrder = 8,
+				LayoutOrder = 10,
 				Size = UDim2.new(1, 0, 0, BUTTON_CONTAINER_SIZE),
 			}, {
 				Layout = React.createElement("UIListLayout", {

@@ -53,7 +53,7 @@ function ContactList.new()
 			return React.createElement(LocalizationProvider, {
 				localization = Localization.new(LocalizationService.RobloxLocaleId),
 			}, {
-				element,
+				App = element,
 			})
 		else
 			return element

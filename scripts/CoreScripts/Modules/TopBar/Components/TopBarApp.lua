@@ -80,7 +80,6 @@ local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
 local GetFFlagBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagBetaBadge)
 local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
 local FFlagControlBetaBadgeWithGuac = game:DefineFastFlag("ControlBetaBadgeWithGuac", false)
-local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
@@ -341,7 +340,13 @@ function TopBarApp:renderWithStyle(style)
 			}) or nil,
 		}),
 
-		Peek = GetFFlagChromePeekArchitecture() and Roact.createElement(Peek),
+		PeekFrame = GetFFlagChromePeekArchitecture() and Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, topBarFrameHeight),
+			Position = topBarFramePosition
+		}, {
+			Peek = Roact.createElement(Peek)
+		}),
 
 		UnibarOnboarding = if GetFFlagEnableChromeFTUX()
 				and (not GetFFlagFixChromeReferences() or ChromeEnabled())
@@ -397,7 +402,7 @@ function TopBarApp:renderWithStyle(style)
 							}),
 						}),
 
-					
+
 					HealthBar = if UseUpdatedHealthBar then Roact.createElement(HealthBar, {}) else nil,
 
 					StackedElements = Roact.createElement("Frame", {
@@ -416,9 +421,7 @@ function TopBarApp:renderWithStyle(style)
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
 
-						BackIcon = GetFFlagEnableTeleportBackButton() and Roact.createElement(BackIcon, {
-							layoutOrder = 1,
-						}) or nil,
+						BackIcon = Roact.createElement(BackIcon, { layoutOrder = 1 }),
 
 						HealthBar = if UseUpdatedHealthBar then nil else Roact.createElement(HealthBar, {
 							layoutOrder = 10,
@@ -552,12 +555,9 @@ function TopBarApp:renderWithStyle(style)
 					showBadgeOver12 = self.props.showBadgeOver12,
 				}),
 
-				BackIcon = not chromeEnabled
-						and GetFFlagEnableTeleportBackButton()
-						and Roact.createElement(BackIcon, {
-							layoutOrder = 2,
-						})
-					or nil,
+				BackIcon = if not chromeEnabled 
+					then Roact.createElement(BackIcon, { layoutOrder = 2 })
+					else nil,
 
 				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,

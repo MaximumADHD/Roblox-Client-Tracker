@@ -2,7 +2,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)

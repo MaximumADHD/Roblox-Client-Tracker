@@ -15,7 +15,7 @@ local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local Constants = require(Modules.VoiceChat.Constants)
 
 local UIBlox = require(CorePackages.UIBlox)

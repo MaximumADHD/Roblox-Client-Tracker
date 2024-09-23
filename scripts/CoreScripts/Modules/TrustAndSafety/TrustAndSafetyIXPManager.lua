@@ -10,14 +10,13 @@ local GetFStringLuaAppExperienceMenuLayer =
 local GetFFlagForceReportAnythingAnnotationEnabled = require(script.Parent.Flags.GetFFlagForceReportAnythingAnnotationEnabled)
 local GetFFlagReportTabShareIXPLayerWithMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportTabShareIXPLayerWithMenu
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local OPTIONAL_SCREENSHOT_ENABLED = "OptionalScreenshotEnabled"
 local OPTIONAL_SCREENSHOT_AVATAR = "OptionalScreenshotAvatar"
 local OPTIONAL_SCREENSHOT_EXPERIENCE = "OptionalScreenshotExperience"
 local SELECT_IN_SCENE = "SelectInScene"
 local REPORT_TAB_SELECT_IN_SCENE = "ReportTabSelectInScene"
-local VOICE_PROXIMITY_SORT = "EnableProximitySort"
 
 local TrustAndSafetyIXPManager = {}
 TrustAndSafetyIXPManager.__index = TrustAndSafetyIXPManager
@@ -31,7 +30,6 @@ function TrustAndSafetyIXPManager.new(serviceWrapper: any): any
 		_reportAnythingExperienceEnabled = false,
 		_reportAnythingAvatarEnabled = false,
 		_selectInSceneEnabled = false,
-		_voiceProximitySortEnabled = false,
 		_callbacks = {},
 	}
 	setmetatable(manager, TrustAndSafetyIXPManager)
@@ -54,10 +52,6 @@ end
 
 function TrustAndSafetyIXPManager:getSelectInSceneEnabled()
 	return self._selectInSceneEnabled
-end
-
-function TrustAndSafetyIXPManager:getVoiceProximitySortEnabled()
-	return self._voiceProximitySortEnabled
 end
 
 function TrustAndSafetyIXPManager:waitForInitialization(callback)
@@ -96,7 +90,6 @@ function TrustAndSafetyIXPManager:initialize()
 			self._reportAnythingExperienceEnabled = layerData[OPTIONAL_SCREENSHOT_EXPERIENCE] or false
 			self._reportAnythingAvatarEnabled = layerData[OPTIONAL_SCREENSHOT_AVATAR] or false
 			self._selectInSceneEnabled = layerData[SELECT_IN_SCENE] or false
-			self._voiceProximitySortEnabled = layerData[VOICE_PROXIMITY_SORT] or false
 		end
 
 		if GetFFlagReportTabShareIXPLayerWithMenu() then
@@ -108,12 +101,11 @@ function TrustAndSafetyIXPManager:initialize()
 		end
 
 		log:debug(
-			"RA Optional Screenshot enabled (Avatar and/or Experience) or Select In Scene enabled? Both Avatar and Exp: {}, Exp: {}, Avatar: {}, Select in Scene: {}. Voice Proximity: {}. Invoking {} callbacks.",
+			"RA Optional Screenshot enabled (Avatar and/or Experience) or Select In Scene enabled? Both Avatar and Exp: {}, Exp: {}, Avatar: {}, Select in Scene: {}. Invoking {} callbacks.",
 			self._optionalScreenshotEnabled,
 			self._reportAnythingExperienceEnabled,
 			self._reportAnythingAvatarEnabled,
 			self._selectInSceneEnabled,
-			self._voiceProximitySortEnabled,
 			#self._callbacks
 		)
 

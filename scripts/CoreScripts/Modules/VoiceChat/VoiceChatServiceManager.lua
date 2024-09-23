@@ -12,7 +12,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local NotificationService = game:GetService("NotificationService")
 local LocalizationService = game:GetService("LocalizationService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
@@ -445,7 +445,7 @@ function VoiceChatServiceManager.new(
 		end
 		if GetFFlagEnableShowVoiceUI() then
 			local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
-			if inEndedState then
+			if inEndedState and self.bannedUntil == nil then
 				self:HideVoiceUI()
 				self:showPrompt(VoiceChatPromptType.LeaveVoice)
 			end
@@ -743,7 +743,7 @@ function VoiceChatServiceManager:HideFTUX(appStorageService: AppStorageService)
 		appStorageService:SetItem(VoiceConstants.SEAMLESS_VOICE_FTUX_KEY, "true")
 		appStorageService:Flush()
 	end)
-	self:showPrompt(VoiceChatPromptType.JoinVoiceAndRequestMicPermissions)
+	self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
 end
 
 function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings, universePlaceSettings)

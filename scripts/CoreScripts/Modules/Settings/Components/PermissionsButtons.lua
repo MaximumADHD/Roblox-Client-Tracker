@@ -37,7 +37,7 @@ local PermissionButton = require(Modules.Settings.Components.PermissionButton)
 local RecordingIndicator = require(Modules.Settings.Components.RecordingIndicator)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(Modules.VoiceChat.Constants)
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.GetFFlagInvertMuteAllPermissionButton)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)

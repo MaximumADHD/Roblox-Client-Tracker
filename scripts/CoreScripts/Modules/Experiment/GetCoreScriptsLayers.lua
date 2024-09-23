@@ -11,7 +11,6 @@ local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packa
 local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
 local GetFStringLuaAppConsoleExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppConsoleExperienceMenuLayer)
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(script.Parent.Parent.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
-local GetFFlagEnableTeleportBackButton = require(script.Parent.Parent.Flags.GetFFlagEnableTeleportBackButton)
 local GetFStringTeleportBackButtonIXPCustomLayerName = require(script.Parent.Parent.Flags.GetFStringTeleportBackButtonIXPCustomLayerName)
 local GetFFlagReportAnythingAnnotationIXP = require(script.Parent.Parent.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFStringReportAnythingAnnotationIXPLayerName = require(script.Parent.Parent.Settings.Flags.GetFStringReportAnythingAnnotationIXPLayerName)
@@ -33,11 +32,14 @@ local GetFStringAndroidPhoneVerificationLayer = require(CorePackages.Workspace.P
 local GetFStringIOSPhoneVerificationLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringIOSPhoneVerificationLayer
 local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local getFStringAppChatInExperienceIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).getFStringAppChatInExperienceIXPLayer
+local FStringReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportMenuIXPLayer
 
 return function()
 	local layers = {
 		"AbuseReports",
 		getFStringDesktopToastNotificationLayer(),
+		FStringReportMenuIXPLayer,
+		GetFStringTeleportBackButtonIXPCustomLayerName(),
 	}
 
 	if IsExperienceMenuABTestEnabled()
@@ -51,10 +53,6 @@ return function()
 
 	if GetFStringLargerRobuxUpsellIxpLayer() then
 		table.insert(layers, GetFStringLargerRobuxUpsellIxpLayer())
-	end
-
-	if GetFFlagEnableTeleportBackButton() then
-		table.insert(layers, GetFStringTeleportBackButtonIXPCustomLayerName())
 	end
 
 	if GetFFlagInGameMenuV1FadeBackgroundAnimation() then

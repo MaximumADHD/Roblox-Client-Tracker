@@ -13,8 +13,11 @@ return {
 	Captures = require(script.CameraUtility.Captures),
 	Screenshot = require(script.CameraUtility.Screenshot),
 	CameraEntrypoint = require(script.CameraUtility.CameraEntrypoint),
+	LikeButton = require(script.MusicUtility.LikeButton),
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
 	Songbird = require(script.MusicUtility.Songbird),
+	MusicPlayingIcon = require(script.MusicUtility.MusicPlayingIcon),
 	Party = require(script.Party),
+	PartyMic = require(script.Party.PartyMic),
 	PeekCloseButton = require(script.PeekCloseButton),
 }

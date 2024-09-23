@@ -58,7 +58,6 @@ local registerSetCores = require(script.registerSetCores)
 local GlobalConfig = require(script.GlobalConfig)
 
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
-local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagGamepadNavigationDialogABTest = require(script.Flags.FFlagGamepadNavigationDialogABTest)
@@ -168,14 +167,11 @@ function TopBar.new()
 					localization = Localization.new(LocalizationService.RobloxLocaleId),
 				}, {
 					ExperimentProvider = Roact.createFragment({
-						RoactAppExperimentProvider = GetFFlagEnableTeleportBackButton()
-								and Roact.createElement(RoactAppExperiment.Provider, {
-									value = IXPService,
-								}, {
-									TopBarApp = TopBarWithProviders,
-								})
-							or nil,
-						TopBarApp = (not GetFFlagEnableTeleportBackButton()) and TopBarWithProviders or nil,
+						RoactAppExperimentProvider = Roact.createElement(
+							RoactAppExperiment.Provider, 
+							{ value = IXPService }, 
+							{ TopBarApp = TopBarWithProviders }
+						),
 						CrossExperienceVoice = GetFFlagEnableCrossExpVoice() and Roact.createElement(CrossExperienceVoiceComponent) or nil,
 					}),
 				}),

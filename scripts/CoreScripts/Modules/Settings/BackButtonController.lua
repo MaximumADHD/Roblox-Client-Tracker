@@ -14,7 +14,6 @@ local httpImpl = httpRequest(HttpRbxApiService)
 local RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 
-local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local GetFStringTeleportBackButtonIXPCustomLayerName =
 	require(RobloxGui.Modules.Flags.GetFStringTeleportBackButtonIXPCustomLayerName)
 
@@ -72,8 +71,7 @@ BackButtonController.initiateBackButtonTeleport = function(teleportMethod)
 end
 
 BackButtonController.connectExperimentUserLayer = function(component, enabledPropName, fieldName)
-	local enabled = GetFFlagEnableTeleportBackButton()
-		and (ReturnDestinationUniverseId > 0)
+	local enabled = ReturnDestinationUniverseId > 0
 	return RoactAppExperiment.connectUserLayer({
 		GetFStringTeleportBackButtonIXPCustomLayerName(),
 	}, function(layerVariables, props)

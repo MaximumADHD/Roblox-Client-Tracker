@@ -9,13 +9,17 @@ local GetFFlagEnableChromeMusicIntegration =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeMusicIntegration
 local GetFStringChromeMusicIntegrationLabel =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationLabel
+local GetFFlagSongbirdTranslationStrings =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdTranslationStrings
 
 -- MUS-1215 TODO: Allow the whole Songbird integration to be disabled by creators
 return if GetFFlagEnableChromeMusicIntegration()
 	then ChromeService:register({
 		initialAvailability = ChromeService.AvailabilitySignal.Available,
 		id = "music_entrypoint",
-		label = GetFStringChromeMusicIntegrationLabel(),
+		label = if GetFFlagSongbirdTranslationStrings()
+			then "CoreScripts.TopBar.Music"
+			else GetFStringChromeMusicIntegrationLabel(),
 		activated = function(self)
 			ChromeService:toggleCompactUtility("music_utility")
 		end,

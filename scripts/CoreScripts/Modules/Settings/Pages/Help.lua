@@ -44,7 +44,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local GetFFlagOptimizeHelpMenuInputEvent = require(RobloxGui.Modules.Flags.GetFFlagOptimizeHelpMenuInputEvent)
-local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
 local FFlagShowUpdatedScreenshotHotkey = game:DefineFastFlag("ShowUpdatedScreenshotHotkey_v2", false)
 local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
 
@@ -93,44 +92,43 @@ local function Initialize()
 
 		  local pcGroupFrame = Create'Frame'
 		  {
-			Size = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then UDim2.new(1/3,-PC_TABLE_SPACING,0,0) else UDim2.new(1/3,-PC_TABLE_SPACING,1,0),
-			AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
+			Size = UDim2.new(1/3,-PC_TABLE_SPACING,0,0),
+			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			Name = "PCGroupFrame" .. tostring(title)
 		  };
-		  if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
-			local _pcGroupLayout = Create'UIListLayout'
-			{
-				FillDirection = Enum.FillDirection.Vertical,
-				Padding = UDim.new(0, 2),
-				Parent = pcGroupFrame,
-				SortOrder = Enum.SortOrder.LayoutOrder
-			};
-		  end
+		  
+		  local _pcGroupLayout = Create'UIListLayout'
+		  {
+			FillDirection = Enum.FillDirection.Vertical,
+			Padding = UDim.new(0, 2),
+			Parent = pcGroupFrame,
+			SortOrder = Enum.SortOrder.LayoutOrder
+		  };
+
 		  local pcGroupTitle = Create'TextLabel'
 		  {
 			Position = UDim2.new(0,textIndent,0,0),
 			Size = UDim2.new(1,-textIndent,0,30),
-			AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			Text = title,
 			Font = Theme.font(Enum.Font.SourceSansBold, "HelpTitle"),
 			FontSize = Theme.fontSize(Enum.FontSize.Size18, "HelpTitle"),
 			TextColor3 = Color3.new(1,1,1),
 			TextXAlignment = Enum.TextXAlignment.Left,
-			TextWrapped = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then true else nil, 
+			TextWrapped = true, 
 			Name = "PCGroupTitle" .. tostring(title),
 			ZIndex = 2,
-			LayoutOrder = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 1 else nil,
+			LayoutOrder = 1,
 			Parent = pcGroupFrame
 		  };
-		  if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-			local _pcGroupTitlePadding = Create'UIPadding'
-			{
-				PaddingLeft = UDim.new(0, textIndent),
-				Parent = pcGroupTitle,
-			};
-		  end
+
+		  local _pcGroupTitlePadding = Create'UIPadding'
+		  {
+			PaddingLeft = UDim.new(0, textIndent),
+			Parent = pcGroupTitle,
+		  };
 
 		  local count = 0
 		  local frameHeight = 42
@@ -143,8 +141,8 @@ local function Initialize()
 				Size = UDim2.new(1,0,0,frameHeight),
 				Position = UDim2.new(0,0,0, offset + ((frameHeight + spacing) * count)),
 				BackgroundTransparency = Theme.transparency("InputActionBackground",0.65),
-				AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
-				LayoutOrder = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then i+1 else nil,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				LayoutOrder = i+1,
 				BorderSizePixel = 0,
 				ZIndex = 2,
 				Name = "ActionInputBinding" .. tostring(actionName),
@@ -163,7 +161,7 @@ local function Initialize()
 			  local nameLabel = Create'TextLabel'
 			  {
 				Size = UDim2.new(0.4,-textIndent,0,frameHeight),
-				AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
+				AutomaticSize = Enum.AutomaticSize.Y,
 				Position = UDim2.new(0,textIndent,0,0),
 				BackgroundTransparency = 1,
 				Text = actionName,
@@ -175,20 +173,15 @@ local function Initialize()
 				ZIndex = 2,
 				Parent = actionInputFrame,
 				TextWrapped = true,
-				TextScaled = if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then true else nil,
 			  };
 			do
 				local textSizeConstraint = Instance.new("UITextSizeConstraint",nameLabel)
-				if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-					textSizeConstraint.MaxTextSize = Theme.textSize(28)
-				else 
-					textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
-				end
+				textSizeConstraint.MaxTextSize = Theme.textSize(28)
 			end
 	
 
 
-			  local inputLabel = Create'TextLabel'
+			  local _inputLabel = Create'TextLabel'
 			  {
 				Size = UDim2.new(0.5,0,0,frameHeight),
 				Position = UDim2.new(0.5,-4,0,0),
@@ -202,15 +195,9 @@ local function Initialize()
 				ZIndex = 2,
 				Parent = actionInputFrame,
 				TextWrapped = true,
-				TextScaled = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then false else true,
-				AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
+				TextScaled = false,
+				AutomaticSize = Enum.AutomaticSize.Y,
 			  };
-			if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-				do
-					local textSizeConstraint = Instance.new("UITextSizeConstraint",inputLabel)
-					textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
-				end
-			end
 
 			  count = count + 1
 			end
@@ -236,9 +223,7 @@ local function Initialize()
 							..RobloxTranslator:FormatByKey("InGame.HelpMenu.RightArrow")},
 			[5] = {["Jump"] = "Space"}} )
 		charMoveFrame.Parent = parentFrame
-		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-			charMoveFrame.LayoutOrder = 1
-		end
+		charMoveFrame.LayoutOrder = 1
 
 		local oneChar = UserInputService:GetStringForKeyCode(Enum.KeyCode.One)
 		local twoChar = UserInputService:GetStringForKeyCode(Enum.KeyCode.Two)
@@ -251,9 +236,7 @@ local function Initialize()
 			[4] = {["Use Tool"] = "Left Mouse Button"} })
 		accessoriesFrame.Position = UDim2.new(1/3,PC_TABLE_SPACING,0,0)
 		accessoriesFrame.Parent = parentFrame
-		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-			accessoriesFrame.LayoutOrder = 2
-		end
+		accessoriesFrame.LayoutOrder = 2
 
 		local miscActions = {}
 
@@ -290,9 +273,7 @@ local function Initialize()
 
 		miscFrame.Position = UDim2.new(2/3,PC_TABLE_SPACING * 2,0,0)
 		miscFrame.Parent = parentFrame
-		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-			miscFrame.LayoutOrder = 3
-		end
+		miscFrame.LayoutOrder = 3
 
 		local camFrame = createPCGroup("Camera Movement", {
 			[1] = {["Rotate"] = "Right Mouse Button"},
@@ -302,9 +283,7 @@ local function Initialize()
 		})
 		camFrame.Position = UDim2.new(0,0,charMoveFrame.Size.Y.Scale,charMoveFrame.Size.Y.Offset + rowOffset)
 		camFrame.Parent = parentFrame
-		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-			camFrame.LayoutOrder = 4
-		end
+		camFrame.LayoutOrder = 4
 
 		local menuFrame = createPCGroup("Menu Items", {
 			[1] = {["Roblox Menu"] = "Esc"},
@@ -313,9 +292,7 @@ local function Initialize()
 			[4] = {["Chat"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.Slash)} })
 		menuFrame.Position = UDim2.new(1/3,PC_TABLE_SPACING,charMoveFrame.Size.Y.Scale,charMoveFrame.Size.Y.Offset + rowOffset)
 		menuFrame.Parent = parentFrame
-		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-			menuFrame.LayoutOrder = 5
-		end
+		menuFrame.LayoutOrder = 5
 
 		parentFrame.Size = UDim2.new(parentFrame.Size.X.Scale, parentFrame.Size.X.Offset, 0,
 		  menuFrame.Size.Y.Offset + menuFrame.Position.Y.Offset)
@@ -585,12 +562,12 @@ local function Initialize()
 		local helpContents = nil
 		local helpFrame = Create'Frame'
 		{
-		  Size = if not GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then UDim2.new(1,0,0,0) else UDim2.new(1,0,1,0),
-		  AutomaticSize = if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then Enum.AutomaticSize.Y else nil,
+		  Size = UDim2.new(1, 0, 1, 0),
+		  AutomaticSize = Enum.AutomaticSize.Y,
 		  BackgroundTransparency = 1,
 		  Name = "HelpFrame" .. tostring(typeOfHelp)
 		};
-		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() and typeOfHelp == KEYBOARD_MOUSE_TAG then
+		if typeOfHelp == KEYBOARD_MOUSE_TAG then
 			local _helpListLayout = Create'UIListLayout'
 			{
 				FillDirection = Enum.FillDirection.Horizontal,

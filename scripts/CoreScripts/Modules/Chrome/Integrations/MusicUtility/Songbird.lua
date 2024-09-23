@@ -14,11 +14,15 @@ local GetFStringChromeMusicIntegrationUtilityLabel =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationUtilityLabel
 local GetFStringChromeMusicIntegrationId =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationId
+local GetFFlagSongbirdTranslationStrings =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdTranslationStrings
 
 return if GetFFlagEnableChromeMusicIntegration()
 	then ChromeService:register({
-		id = GetFStringChromeMusicIntegrationId(),
-		label = GetFStringChromeMusicIntegrationUtilityLabel(),
+		id = if GetFFlagSongbirdTranslationStrings() then "now_playing" else GetFStringChromeMusicIntegrationId(),
+		label = if GetFFlagSongbirdTranslationStrings()
+			then "CoreScripts.TopBar.NowPlaying"
+			else GetFStringChromeMusicIntegrationUtilityLabel(),
 		initialAvailability = ChromeService.AvailabilitySignal.Available,
 		containerWidthSlots = ContainerSlotSignal.new(6),
 		components = {

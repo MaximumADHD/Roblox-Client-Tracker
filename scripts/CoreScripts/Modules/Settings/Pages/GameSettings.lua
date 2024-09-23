@@ -46,8 +46,6 @@ local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlway
 local GetFFlagAddHapticsToggle = SharedFlags.GetFFlagAddHapticsToggle
 local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
 local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding2", false)
-local GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu = require(script.Parent.Parent.Flags.GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu)
-
 
 -------------- CONSTANTS --------------
 local GRAPHICS_QUALITY_LEVELS = 10
@@ -193,7 +191,7 @@ local getAppFeaturePolicies = UniversalAppPolicy.getAppFeaturePolicies
 local VideoPromptSystemDefault = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.SystemDefault")
 local VideoPromptVideoCamera = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.VideoCamera")
 
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 
 local UnlSuccess, UnlResult =
@@ -1670,23 +1668,14 @@ local function Initialize()
 				if FFlagFeedbackEntryPointButtonSizeAdjustment then
 					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(1, 0, 1, -20), onToggleFeedbackMode, this)
 					-- Adjust size and position of button relative to frame for use in utility:AddNewRowObject
-					if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
-						toggleFeedbackModeButton.Size = UDim2.new(0.6, 0, 0, 40)
-						toggleFeedbackModeButton.Position = UDim2.new(0.4, 0, 0.5, 0)
-						toggleFeedbackModeButton.AnchorPoint = Vector2.new(0, 0.5)
-					else 
-						toggleFeedbackModeButton.Size = UDim2.new(0.6, 0, 1, -20)
-						toggleFeedbackModeButton.Position = UDim2.new(0.4, 0, 0, 12)
-					end 
+					toggleFeedbackModeButton.Size = UDim2.new(0.6, 0, 0, 40)
+					toggleFeedbackModeButton.Position = UDim2.new(0.4, 0, 0.5, 0)
+					toggleFeedbackModeButton.AnchorPoint = Vector2.new(0, 0.5)
 				else
 					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(0, 300, 1, -20), onToggleFeedbackMode, this)
-					if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
-						toggleFeedbackModeButton.Size = UDim2.new(0, 300, 0, 30)
-						toggleFeedbackModeButton.Position = UDim2.new(0.4, 0, 0.5, 0)
-						toggleFeedbackModeButton.AnchorPoint = Vector2.new(0, 0.5)
-					else 	
-						toggleFeedbackModeButton.Position = UDim2.new(1, -400, 0, 12)
-					end
+					toggleFeedbackModeButton.Size = UDim2.new(0, 300, 0, 30)
+					toggleFeedbackModeButton.Position = UDim2.new(0.4, 0, 0.5, 0)
+					toggleFeedbackModeButton.AnchorPoint = Vector2.new(0, 0.5)
 				end
 				
 				toggleFeedbackModeButton.ZIndex = 2
@@ -2574,11 +2563,10 @@ local function Initialize()
 			utility:MakeStyledButton("AdjustButton", "Adjust", UDim2.new(0, 300, 1, -20), showOverscanScreen, this)
 		adjustText.Font = Theme.font(Enum.Font.SourceSans)
 		adjustButton.Position = UDim2.new(1, -400, 0, 12)
-		if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
-			adjustButton.Size = UDim2.new(0, 300, 0, 40)
-			adjustButton.Position = UDim2.new(1, -400, 0.5, 0)
-			adjustButton.AnchorPoint = Vector2.new(0, 0.5)
-		end 
+		adjustButton.Size = UDim2.new(0, 300, 0, 40)
+		adjustButton.Position = UDim2.new(1, -400, 0.5, 0)
+		adjustButton.AnchorPoint = Vector2.new(0, 0.5)
+
 		if RunService:IsStudio() then
 			adjustButton.Selectable = false
 			adjustButton.Active = false
@@ -2611,14 +2599,10 @@ local function Initialize()
 				local devConsoleButton, devConsoleText, setButtonRowRef =
 					utility:MakeStyledButton("DevConsoleButton", "Open", UDim2.new(1, 0, 1, -20), onOpenDevConsole, this)
 				devConsoleText.Font = Theme.font(Enum.Font.SourceSans)
-				if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then
-					devConsoleButton.Size = UDim2.new(0.6, -10, 0, 35)
-					devConsoleButton.Position = UDim2.new(0.4, 10, 0.5, 0)
-					devConsoleButton.AnchorPoint = Vector2.new(0, 0.5)
-				else 
-					devConsoleButton.Size = UDim2.new(0.6, -10, 1, -20)
-					devConsoleButton.Position = UDim2.new(0.4, 10, 0, 12)
-				end
+				devConsoleButton.Size = UDim2.new(0.6, -10, 0, 35)
+				devConsoleButton.Position = UDim2.new(0.4, 10, 0.5, 0)
+				devConsoleButton.AnchorPoint = Vector2.new(0, 0.5)
+
 				-- Nil for spacing parameter, true for auto spacing the left hand label
 				local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton, nil, true)
 				row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["DeveloperConsoleButton"]
@@ -2627,13 +2611,10 @@ local function Initialize()
 				local devConsoleButton, devConsoleText, setButtonRowRef =
 					utility:MakeStyledButton("DevConsoleButton", "Open", UDim2.new(0, 300, 1, -20), onOpenDevConsole, this)
 				devConsoleText.Font = Theme.font(Enum.Font.SourceSans)
-				if GetFFlagEnablePreferredTextSizeStyleFixesInExperienceMenu() then 
-					devConsoleButton.Size = UDim2.new(0.6, -10, 0, 35)
-					devConsoleButton.Position = UDim2.new(1, -400, 0.5, 0)
-					devConsoleButton.AnchorPoint = Vector2.new(0, 0.5)
-				else
-					devConsoleButton.Position = UDim2.new(1, -400, 0, 12)
-				end
+				devConsoleButton.Size = UDim2.new(0.6, -10, 0, 35)
+				devConsoleButton.Position = UDim2.new(1, -400, 0.5, 0)
+				devConsoleButton.AnchorPoint = Vector2.new(0, 0.5)
+
 				local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton)
 				row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["DeveloperConsoleButton"]
 				setButtonRowRef(row)

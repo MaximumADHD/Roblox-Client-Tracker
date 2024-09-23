@@ -14,7 +14,7 @@ local CorePackages = game:GetService("CorePackages")
 local LocalPlayer = Players.LocalPlayer
 local RobloxGui = CoreGui.RobloxGui
 
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local playerAddedConnection = nil
 local playerRemovingConnection = nil

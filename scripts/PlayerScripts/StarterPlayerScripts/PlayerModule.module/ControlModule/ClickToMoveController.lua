@@ -28,6 +28,7 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
+local FFlagUserRaycastPerformanceImprovements = FlagUtil.getUserFlag("UserRaycastPerformanceImprovements")
 
 --[[ Configuration ]]
 local ShowPath = true
@@ -54,40 +55,45 @@ local ClickToMoveDisplay = require(script.Parent:WaitForChild("ClickToMoveDispla
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local ALMOST_ZERO = 0.000001
 
+local raycastParams = RaycastParams.new()
+raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
 
 --------------------------UTIL LIBRARY-------------------------------
 local Utility = {}
-do
-	local function FindCharacterAncestor(part)
-		if part then
-			local humanoid = part:FindFirstChildOfClass("Humanoid")
-			if humanoid then
-				return part, humanoid
-			else
-				return FindCharacterAncestor(part.Parent)
-			end
-		end
-	end
-	Utility.FindCharacterAncestor = FindCharacterAncestor
-
-	local function Raycast(ray, ignoreNonCollidable: boolean, ignoreList: {Model})
-		ignoreList = ignoreList or {}
-		local hitPart, hitPos, hitNorm, hitMat = Workspace:FindPartOnRayWithIgnoreList(ray, ignoreList)
-		if hitPart then
-			if ignoreNonCollidable and hitPart.CanCollide == false then
-				-- We always include character parts so a user can click on another character
-				-- to walk to them.
-				local _, humanoid = FindCharacterAncestor(hitPart)
-				if humanoid == nil then
-					table.insert(ignoreList, hitPart)
-					return Raycast(ray, ignoreNonCollidable, ignoreList)
+if not FFlagUserRaycastPerformanceImprovements then
+	do
+		local function FindCharacterAncestor(part)
+			if part then
+				local humanoid = part:FindFirstChildOfClass("Humanoid")
+				if humanoid then
+					return part, humanoid
+				else
+					return FindCharacterAncestor(part.Parent)
 				end
 			end
-			return hitPart, hitPos, hitNorm, hitMat
 		end
-		return nil, nil
+		Utility.FindCharacterAncestor = FindCharacterAncestor
+
+		local function Raycast(ray, ignoreNonCollidable: boolean, ignoreList: {Model})
+			ignoreList = ignoreList or {}
+			local hitPart, hitPos, hitNorm, hitMat = Workspace:FindPartOnRayWithIgnoreList(ray, ignoreList)
+			if hitPart then
+				if ignoreNonCollidable and hitPart.CanCollide == false then
+					-- We always include character parts so a user can click on another character
+					-- to walk to them.
+					local _, humanoid = FindCharacterAncestor(hitPart)
+					if humanoid == nil then
+						table.insert(ignoreList, hitPart)
+						return Raycast(ray, ignoreNonCollidable, ignoreList)
+					end
+				end
+				return hitPart, hitPos, hitNorm, hitMat
+			end
+			return nil, nil
+		end
+		Utility.Raycast = Raycast
 	end
-	Utility.Raycast = Raycast
 end
 
 local humanoidCache = {}
@@ -635,10 +641,19 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 
 	--We always raycast to the ground in the case that the user clicked a wall.
 	local offsetPoint = this.TargetPoint + this.TargetSurfaceNormal*1.5
-	local ray = Ray.new(offsetPoint, Vector3.new(0,-1,0)*50)
-	local newHitPart, newHitPos = Workspace:FindPartOnRayWithIgnoreList(ray, getIgnoreList())
-	if newHitPart then
-		this.TargetPoint = newHitPos
+	if FFlagUserRaycastPerformanceImprovements then
+		raycastParams.FilterDescendantsInstances = getIgnoreList()
+		local raycastResult = Workspace:Raycast(offsetPoint, -Vector3.yAxis * 50, raycastParams)
+	
+		if raycastResult then
+			this.TargetPoint = raycastResult.Position
+		end
+	else
+		local ray = Ray.new(offsetPoint, Vector3.new(0,-1,0)*50)
+		local newHitPart, newHitPos = Workspace:FindPartOnRayWithIgnoreList(ray, getIgnoreList())
+		if newHitPart then
+			this.TargetPoint = newHitPos
+		end
 	end
 	this:ComputePath()
 
@@ -734,34 +749,91 @@ function OnTap(tapPositions: {Vector3}, goToPoint: Vector3?, wasTouchTap: boolea
 	if #tapPositions == 1 or goToPoint then
 		if camera then
 			local unitRay = camera:ScreenPointToRay(tapPositions[1].X, tapPositions[1].Y)
-			local ray = Ray.new(unitRay.Origin, unitRay.Direction*1000)
+			
+			if FFlagUserRaycastPerformanceImprovements then
+				local humanoidResult, characterResult, raycastResult
+				local ignoreList = getIgnoreList() or {}
+				repeat
+					local encounteredCollider = true
+					raycastParams.FilterDescendantsInstances = ignoreList
+					raycastResult = Workspace:Raycast(unitRay.Origin, unitRay.Direction * 1000, raycastParams)
 
-			local myHumanoid = findPlayerHumanoid(Player)
-			local hitPart, hitPt, hitNormal = Utility.Raycast(ray, true, getIgnoreList())
+					if raycastResult then
+						local instance = raycastResult.Instance
+						if not instance.CanCollide then
+							repeat
+								humanoidResult = instance:FindFirstChildOfClass("Humanoid")
 
-			local hitChar, hitHumanoid = Utility.FindCharacterAncestor(hitPart)
-			if wasTouchTap and hitHumanoid and StarterGui:GetCore("AvatarContextMenuEnabled") then
-				local clickedPlayer = Players:GetPlayerFromCharacter(hitHumanoid.Parent)
-				if clickedPlayer then
-					CleanupPath()
+								characterResult = instance
+								instance = instance.Parent
+							until humanoidResult or not instance or instance == Workspace
+
+							if not humanoidResult then
+								characterResult = nil
+								encounteredCollider = false
+
+								table.insert(ignoreList, instance)
+							end
+						end
+					end
+				until encounteredCollider
+
+				if wasTouchTap and humanoidResult and StarterGui:GetCore("AvatarContextMenuEnabled") then
+					local clickedPlayer = Players:GetPlayerFromCharacter(humanoidResult.Parent)
+					if clickedPlayer then
+						CleanupPath()
+						return
+					end
+				end
+
+				if not raycastResult or not character then
 					return
 				end
-			end
-			if goToPoint then
-				hitPt = goToPoint
-				hitChar = nil
-			end
-			if hitPt and character then
-				-- Clean up current path
+
+				local position = raycastResult.Position
+				if goToPoint then 
+					position = goToPoint
+					characterResult = nil
+				end
+					-- Clean up current path
 				CleanupPath()
-				local thisPather = Pather(hitPt, hitNormal)
+				local thisPather = Pather(position, raycastResult.Normal)
 				if thisPather:IsValidPath() then
-					HandleMoveTo(thisPather, hitPt, hitChar, character)
+					HandleMoveTo(thisPather, position, characterResult, character)
 				else
 					-- Clean up
 					thisPather:Cleanup()
 					-- Feedback here for when we don't have a good path
-					ShowPathFailedFeedback(hitPt)
+					ShowPathFailedFeedback(position)
+				end
+			else
+				local ray = Ray.new(unitRay.Origin, unitRay.Direction*1000)
+				local hitPart, hitPt, hitNormal = Utility.Raycast(ray, true, getIgnoreList())
+
+				local hitChar, hitHumanoid = Utility.FindCharacterAncestor(hitPart)
+				if wasTouchTap and hitHumanoid and StarterGui:GetCore("AvatarContextMenuEnabled") then
+					local clickedPlayer = Players:GetPlayerFromCharacter(hitHumanoid.Parent)
+					if clickedPlayer then
+						CleanupPath()
+						return
+					end
+				end
+				if goToPoint then
+					hitPt = goToPoint
+					hitChar = nil
+				end
+				if hitPt and character then
+					-- Clean up current path
+					CleanupPath()
+					local thisPather = Pather(hitPt, hitNormal)
+					if thisPather:IsValidPath() then
+						HandleMoveTo(thisPather, hitPt, hitChar, character)
+					else
+						-- Clean up
+						thisPather:Cleanup()
+						-- Feedback here for when we don't have a good path
+						ShowPathFailedFeedback(hitPt)
+					end
 				end
 			end
 		end

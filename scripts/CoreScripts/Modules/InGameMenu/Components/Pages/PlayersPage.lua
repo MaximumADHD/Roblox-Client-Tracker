@@ -54,7 +54,7 @@ local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.UnblockPlayer)
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
 

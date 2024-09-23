@@ -369,19 +369,18 @@ function PlayerListDisplay:render()
 								Size = UDim2.new(1, 0, 0, SmallIconSize+2),
 								BackgroundTransparency = 1,
 							}, {
-								Roact.createElement("Frame", {
+								DismissIconFrame = Roact.createElement("Frame", {
 									Size = UDim2.new(1, 0, 0, (SmallIconSize+2)*2),
 									BackgroundColor3 = backgroundColor,
 									BackgroundTransparency = transparencyBinding,
 								}, {
-									Roact.createElement(IconButton, {
-										Name = "DismissButton",
+									DismissButton = Roact.createElement(IconButton, {
 										position = UDim2.new(0, 1, 0, 1),
 										iconSize = IconSize.Small,
 										icon = UIBloxImages["icons/navigation/close"],
 										onActivated = self.props.dismissPlayerList,
 									}),
-									Roact.createElement("UICorner", {
+									UICorner = Roact.createElement("UICorner", {
 										CornerRadius = UDim.new(0, TopBottomCornerRadius),
 									}),
 								}),

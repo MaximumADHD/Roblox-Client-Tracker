@@ -78,12 +78,10 @@ local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFF
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
-local FFlagFixMouseIconSettingsMenuWithDeferredEvents = game:DefineFastFlag("FixMouseIconSettingsMenuWithDeferredEvents", false)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
-local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local GetFFlagOpenControlsOnMenuOpen = require(RobloxGui.Modules.Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagEnableCapturesInChrome = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableCapturesInChrome)
@@ -106,6 +104,7 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeatur
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
+local FFlagCoreGuiFinalStateAnalytic = require(RobloxGui.Modules.Flags.FFlagCoreGuiFinalStateAnalytic)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -135,7 +134,7 @@ spawn(function()
 end)
 
 --[[ VARIABLES ]]
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local isTouchDevice = UserInputService.TouchEnabled
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local platform = UserInputService:GetPlatform()
@@ -274,9 +273,7 @@ local function CreateSettingsHub()
 	this.BottomBarButtonsComponents = {}
 	this.ResizedConnection = nil
 	this.TakingScreenshot = false
-	if GetFFlagEnableTeleportBackButton() then
-		this.BackBarVisibleConnection = nil
-	end
+	this.BackBarVisibleConnection = nil
 	this.PreferredTransparencyChangedConnection = nil
 	this.TabConnection = nil
 	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
@@ -1018,6 +1015,13 @@ local function CreateSettingsHub()
 		this.RespawnBehaviourChangedEvent:Fire(resetEnabled, customCallback)
 	end)
 
+	if FFlagCoreGuiFinalStateAnalytic then
+		StarterGui:RegisterGetCore("ResetButtonCallback", function()
+			local isResetEnabled, _ = this:GetRespawnBehaviour()
+			return isResetEnabled
+		end)
+	end
+
 	local setVisibilityInternal = nil
 
 	local function createPermissionsButtons(shouldFillScreen)
@@ -1671,15 +1675,13 @@ local function CreateSettingsHub()
 			Parent = this.HubBar
 		}
 
-		if GetFFlagEnableTeleportBackButton() then
-			this.BackBarRef = Roact.createRef()
-			this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
-				value = IXPService,
-			}, {
-				Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
-			})
-			Roact.mount(this.BackBar, menuParent, "BackBar")
-		end
+		this.BackBarRef = Roact.createRef()
+		this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
+			value = IXPService,
+		}, {
+			BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
+		})
+		Roact.mount(this.BackBar, menuParent, "BackBar")
 
 		if utility:IsSmallTouchScreen() then
 			if Theme.UIBloxThemeEnabled then
@@ -2183,7 +2185,6 @@ local function CreateSettingsHub()
 			bufferSize = math.min(10, (1-0.99) * fullScreenSize)
 		end
 
-
 		this.MenuContainer.Size = menuPos.Size
 		if Theme.UIBloxThemeEnabled then
 			this.MenuContainer.Position = menuPos.Position
@@ -2192,8 +2193,7 @@ local function CreateSettingsHub()
 
 		local barSize = this.HubBar.Size.Y.Offset
 		local extraSpace = bufferSize*2+barSize*2
-		local extraTopPadding = (GetFFlagEnableTeleportBackButton() and getBackBarVisible() and this.BackBarRef:getValue()) and this.BackBarRef:getValue().Size.Y.Offset or 0
-
+		local extraTopPadding = if getBackBarVisible() and this.BackBarRef:getValue() then this.BackBarRef:getValue().Size.Y.Offset else 0
 
 		local menuAspectRatioParent = this.MenuContainer
 		if Theme.UIBloxThemeEnabled then
@@ -2260,7 +2260,7 @@ local function CreateSettingsHub()
 				barSize = this.HubBar.Size.Y.Offset + this.BottomButtonFrame.Size.Y.Offset
 			end
 			extraSpace = bufferSize*2+(if this.Pages.CurrentPage.DisableTopPadding then 0 else barSize)
-			extraTopPadding = (GetFFlagEnableTeleportBackButton() and getBackBarVisible() and this.BackBarRef:getValue()) and this.BackBarRef:getValue().Size.Y.Offset or 0
+			extraTopPadding = if getBackBarVisible() and this.BackBarRef:getValue() then this.BackBarRef:getValue().Size.Y.Offset else 0
 		end
 
 		--We need to wait and let the HubBar AbsoluteSize actually update.
@@ -2336,12 +2336,8 @@ local function CreateSettingsHub()
 		local newPageViewClipperSize = nil
 		if not isTenFootInterface then
 			if utility:IsSmallTouchScreen() then
-				local backButtonExtraSize = 0
-				if Theme.UIBloxThemeEnabled then
-					backButtonExtraSize = 0
-				else
-					backButtonExtraSize = ((GetFFlagEnableTeleportBackButton() and getBackBarVisible()) and 0 or 44)
-				end
+				local backButtonExtraSize = if getBackBarVisible() or Theme.UIBloxThemeEnabled then 0 else 44
+				
 				newPageViewClipperSize = UDim2.new(
 					0,
 					this.HubBar.AbsoluteSize.X,
@@ -2942,10 +2938,8 @@ local function CreateSettingsHub()
 	end
 
 	function setOverrideMouseIconBehavior()
-		if FFlagFixMouseIconSettingsMenuWithDeferredEvents then
-			if not this.Visible then
-				return
-			end
+		if not this.Visible then
+			return
 		end
 
 		if UserInputService:GetLastInputType() == Enum.UserInputType.Gamepad1 or VRService.VREnabled then
@@ -3001,7 +2995,7 @@ local function CreateSettingsHub()
 			this.ResizedConnection = nil
 		end
 
-		if GetFFlagEnableTeleportBackButton() and this.BackBarVisibleConnection then
+		if this.BackBarVisibleConnection then
 			this.BackBarVisibleConnection:disconnect()
 			this.BackBarVisibleConnection = nil
 		end
@@ -3035,7 +3029,7 @@ local function CreateSettingsHub()
 					onScreenSizeChanged()
 				end
 			end)
-			if GetFFlagEnableTeleportBackButton() and this.BackBarRef:getValue() then
+			if this.BackBarRef:getValue() then
 				this.BackBarVisibleConnection = this.BackBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function()
 					onScreenSizeChanged()
 				end)

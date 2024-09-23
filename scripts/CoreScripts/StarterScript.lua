@@ -14,6 +14,23 @@ local RunService = game:GetService("RunService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
+local FFlagDebugCoreScriptRoactInspector = game:DefineFastFlag("DebugCoreScriptRoactInspector", false)
+
+if FFlagDebugCoreScriptRoactInspector then
+	local hasInternalPermission = UserSettings().GameSettings:InStudioMode()
+		and game:GetService("StudioService"):HasInternalPermission()
+
+	if hasInternalPermission then
+		local DeveloperTools = require(CorePackages.DeveloperTools)
+		local inspector = DeveloperTools.forCoreGui("Core UI", {
+			rootInstance = "RobloxGui",
+		})
+
+		local ReactDevtoolsExtensions = require(CorePackages.Packages.Dev.ReactDevtoolsExtensions)
+		inspector:initRoact(ReactDevtoolsExtensions)
+	end
+end
+
 -- Load the error reporter as early as possible, even before we finish requiring,
 -- so that it can report any errors that come after this point.
 ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptErrorReporter", RobloxGui)
@@ -68,6 +85,7 @@ local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FF
 local FFlagEnableCancelSubscriptionApp = game:GetEngineFeature("EnableCancelSubscriptionApp")
 local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSubscriptionAppLua", false)
 local AudioFocusManagementEnabled = game:GetEngineFeature("EnableAudioFocusManagement")
+local FFlagCoreGuiEnableAnalytics = game:DefineFastFlag("CoreGuiEnableAnalytics", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -77,6 +95,14 @@ local localPlayer = Players.LocalPlayer
 while not localPlayer do
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 	localPlayer = Players.LocalPlayer
+end
+
+if GetFFlagEnableAppChatInExperience() then
+	local ExperimentCacheManager = require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
+	ExperimentCacheManager.default:initialize()
+
+	local InExperienceAppChatExperimentation = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatExperimentation
+	InExperienceAppChatExperimentation.default:initialize()
 end
 
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
@@ -326,10 +352,6 @@ coroutine.wrap(function()
 	if GetFFlagReportAnythingAnnotationIXP() then
 		TrustAndSafetyIXPManager.default:initialize()
 	end
-	if GetFFlagEnableAppChatInExperience() then
-		local InExperienceAppChatExperimentation = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatExperimentation
-		InExperienceAppChatExperimentation.default:initialize()
-	end
 end)()
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
@@ -469,4 +491,8 @@ end
 
 if FFlagEnableCancelSubscriptionApp and FFlagEnableCancelSubscriptionAppLua then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CancelSubscriptionApp", RobloxGui)
+end
+
+if FFlagCoreGuiEnableAnalytics then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui)
 end

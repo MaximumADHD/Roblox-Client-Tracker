@@ -173,7 +173,9 @@ export type ChromeService = {
 	configureOrderAlignment: (ChromeService, alignment: Enum.HorizontalAlignment) -> (),
 
 	configurePeek: (ChromeService, peekId: Types.PeekId, config: Types.PeekConfig) -> (),
-	queuePeek: (ChromeService, peekId: Types.PeekId) -> (),
+	tryShowPeek: (ChromeService, peekId: Types.PeekId) -> boolean,
+	lockCurrentPeek: (ChromeService) -> (),
+	unlockCurrentPeek: (ChromeService) -> (),
 	dismissPeek: (ChromeService, peekId: Types.PeekId) -> (),
 	dismissCurrentPeek: (ChromeService) -> (),
 	updatePeekList: (ChromeService) -> (),
@@ -1241,8 +1243,16 @@ if GetFFlagChromePeekArchitecture() then
 		self._peekService:configurePeek(peekId, config)
 	end
 
-	function ChromeService:queuePeek(peekId: Types.PeekId)
-		self._peekService:queuePeek(peekId)
+	function ChromeService:tryShowPeek(peekId: Types.PeekId)
+		return self._peekService:tryShowPeek(peekId)
+	end
+
+	function ChromeService:lockCurrentPeek()
+		return self._peekService:lockCurrentPeek()
+	end
+
+	function ChromeService:unlockCurrentPeek()
+		return self._peekService:unlockCurrentPeek()
 	end
 
 	function ChromeService:dismissPeek(peekId: Types.PeekId)

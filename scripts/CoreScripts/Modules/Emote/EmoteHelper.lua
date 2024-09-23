@@ -1,11 +1,9 @@
 --!strict
 local EmoteHelper = {}
 
-local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 EmoteHelper.EMOTE_LOOP_TRANSITION_WAIT_TIME = 0.3 -- in seconds
 EmoteHelper.EMOTE_LOOP_WAIT_TIMEOUT = 5 -- in seconds

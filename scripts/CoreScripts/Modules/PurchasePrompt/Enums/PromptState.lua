@@ -20,6 +20,7 @@ local PromptState = createEnum("PromptState", {
 	"ParentalConsentWarningPaymentModal13To17",
 	"PurchaseComplete",
 	"LeaveRobloxWarning",
+	"EnablePurchaseVPCModal",
 	"Error",
 })
 

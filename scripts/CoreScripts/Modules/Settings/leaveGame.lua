@@ -11,9 +11,13 @@ local RunService = game:GetService("RunService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 
+-------------- Flags ----------------------------------------------------------
+local FFlagCoreGuiFinalStateAnalytic = require(RobloxGui.Modules.Flags.FFlagCoreGuiFinalStateAnalytic)
+
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
+local coreGuiFinalStateAnalytics -- TODO: set this value outside of FFlagCoreGuiFinalStateAnalytic
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -54,6 +58,12 @@ local leaveGame = function(publishSurveyMessage: boolean)
         local localUserId = tostring(Players.LocalPlayer.UserId)
         MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps})
     end
+
+	if FFlagCoreGuiFinalStateAnalytic then
+		-- TODO: Move this import up top
+		coreGuiFinalStateAnalytics = require(script:FindFirstAncestor("Settings").Analytics.CoreGuiFinalStateAnalytics).new()
+		coreGuiFinalStateAnalytics:sendCoreGuiFinalAnalytic()
+	end
 
     -- need to wait for render frames so on slower devices the leave button highlight will update
     -- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button

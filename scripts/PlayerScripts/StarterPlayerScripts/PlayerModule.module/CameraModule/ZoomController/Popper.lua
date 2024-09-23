@@ -8,11 +8,25 @@ local Players = game:GetService("Players")
 
 local camera = game.Workspace.CurrentCamera
 
+local CommonUtils = script.Parent.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
+-- Flags
+local FFlagUserRaycastPerformanceImprovements = FlagUtil.getUserFlag("UserRaycastPerformanceImprovements")
+
 local min = math.min
 local tan = math.tan
 local rad = math.rad
 local inf = math.huge
 local ray = Ray.new
+
+local excludeParams = RaycastParams.new()
+excludeParams.IgnoreWater = true
+excludeParams.FilterType = Enum.RaycastFilterType.Exclude
+
+local includeParams = RaycastParams.new()
+includeParams.IgnoreWater = true
+includeParams.FilterType = Enum.RaycastFilterType.Include
 
 local function getTotalTransparency(part)
 	return 1 - (1 - part.Transparency)*(1 - part.LocalTransparencyModifier)
@@ -45,14 +59,14 @@ local nearPlaneZ, projX, projY do
 	end)
 end
 
-local blacklist = {} do
+local excludeList = {} do
 	local charMap = {}
 
 	local function refreshIgnoreList()
 		local n = 1
-		blacklist = {}
+		excludeList = {}
 		for _, character in pairs(charMap) do
-			blacklist[n] = character
+			excludeList[n] = character
 			n = n + 1
 		end
 	end
@@ -148,22 +162,38 @@ local QUERY_POINT_CAST_LIMIT = 64
 -- Piercing raycasts
 
 local function getCollisionPoint(origin, dir)
-	local originalSize = #blacklist
-	repeat
-		local hitPart, hitPoint = workspace:FindPartOnRayWithIgnoreList(
-			ray(origin, dir), blacklist, false, true
-		)
+	if FFlagUserRaycastPerformanceImprovements then
+		excludeParams.FilterDescendantsInstances = excludeList
+		repeat
+			local raycastResult = workspace:Raycast(origin, dir, excludeParams)
 
-		if hitPart then
-			if hitPart.CanCollide then
-				eraseFromEnd(blacklist, originalSize)
-				return hitPoint, true
+			if raycastResult then
+				if raycastResult.Instance.CanCollide then
+					return raycastResult.Position, true
+				end
+				excludeParams:AddToFilter(raycastResult.Instance)
 			end
-			blacklist[#blacklist + 1] = hitPart
-		end
-	until not hitPart
+		until not raycastResult
+	else
+		local originalSize = #excludeList
 
-	eraseFromEnd(blacklist, originalSize)
+		repeat
+			local hitPart, hitPoint = workspace:FindPartOnRayWithIgnoreList(
+				ray(origin, dir), excludeList, false, true
+			)
+
+			if hitPart then
+				if hitPart.CanCollide then
+					eraseFromEnd(excludeList, originalSize)
+					return hitPoint, true
+				end
+				excludeList[#excludeList + 1] = hitPart
+			end
+		until not hitPart
+
+		eraseFromEnd(excludeList, originalSize)
+	end
+
 	return origin + dir, false
 end
 
@@ -172,7 +202,7 @@ end
 local function queryPoint(origin, unitDir, dist, lastPos)
 	debug.profilebegin("queryPoint")
 
-	local originalSize = #blacklist
+	local originalSize = #excludeList
 
 	dist = dist + nearPlaneZ
 	local target = origin + unitDir*dist
@@ -180,50 +210,94 @@ local function queryPoint(origin, unitDir, dist, lastPos)
 	local softLimit = inf
 	local hardLimit = inf
 	local movingOrigin = origin
-	
+
 	local numPierced = 0
+	
+	if FFlagUserRaycastPerformanceImprovements then
+		repeat
+			excludeParams.FilterDescendantsInstances = excludeList
 
-	repeat
-		local entryPart, entryPos = workspace:FindPartOnRayWithIgnoreList(ray(movingOrigin, target - movingOrigin), blacklist, false, true)
-		numPierced += 1
+			local enterRaycastResult = workspace:Raycast(movingOrigin, target - movingOrigin, excludeParams)
+			local entryInstance, entryPosition
+			if enterRaycastResult then
+				entryInstance, entryPosition = enterRaycastResult.Instance, enterRaycastResult.Position
+				numPierced += 1
 
-		if entryPart then
-			-- forces the current iteration into a hard limit to cap the number of raycasts
-			local earlyAbort = numPierced >= QUERY_POINT_CAST_LIMIT
-			
-			if canOcclude(entryPart) or earlyAbort then
-				local wl = {entryPart}
-				local exitPart = workspace:FindPartOnRayWithWhitelist(ray(target, entryPos - target), wl, true)
+				local earlyAbort = numPierced >= QUERY_POINT_CAST_LIMIT
 
-				local lim = (entryPos - origin).Magnitude
+				if canOcclude(entryInstance) or earlyAbort then
+					local includeList = { entryInstance }
+					includeParams.FilterDescendantsInstances = includeList
 
-				if exitPart and not earlyAbort then
-					local promote = false
-					if lastPos then
-						promote =
-							workspace:FindPartOnRayWithWhitelist(ray(lastPos, target - lastPos), wl, true) or
-							workspace:FindPartOnRayWithWhitelist(ray(target, lastPos - target), wl, true)
-					end
+					local exitRaycastResult = workspace:Raycast(target, entryPosition - target, includeParams)
 
-					if promote then
-						-- Ostensibly a soft limit, but the camera has passed through it in the last frame, so promote to a hard limit.
+					local lim = (entryPosition - origin).Magnitude
+
+					if exitRaycastResult and not earlyAbort then
+						local promote = if lastPos then
+							workspace:Raycast(lastPos, target - lastPos, includeParams) or
+								workspace:Raycast(target, lastPos - target, includeParams) else nil
+
+						if promote then
+							-- Ostensibly a soft limit, but the camera has passed through it in the last frame, so promote to a hard limit.
+							hardLimit = lim
+						elseif dist < softLimit then
+							-- Trivial soft limit
+							softLimit = lim
+						end
+					else
+						-- Trivial hard limit
 						hardLimit = lim
-					elseif dist < softLimit then
-						-- Trivial soft limit
-						softLimit = lim
 					end
-				else
-					-- Trivial hard limit
-					hardLimit = lim
 				end
+
+				excludeParams:AddToFilter(entryInstance)
+				movingOrigin = entryPosition - unitDir*1e-3
 			end
+		until hardLimit < inf or not entryInstance
+	else
+		repeat
+			local entryPart, entryPos = workspace:FindPartOnRayWithIgnoreList(ray(movingOrigin, target - movingOrigin), excludeList, false, true)
+			numPierced += 1
 
-			blacklist[#blacklist + 1] = entryPart
-			movingOrigin = entryPos - unitDir*1e-3
-		end
-	until hardLimit < inf or not entryPart
+			if entryPart then
+				-- forces the current iteration into a hard limit to cap the number of raycasts
+				local earlyAbort = numPierced >= QUERY_POINT_CAST_LIMIT
+				
+				if canOcclude(entryPart) or earlyAbort then
+					local wl = {entryPart}
+					local exitPart = workspace:FindPartOnRayWithWhitelist(ray(target, entryPos - target), wl, true)
 
-	eraseFromEnd(blacklist, originalSize)
+					local lim = (entryPos - origin).Magnitude
+
+					if exitPart and not earlyAbort then
+						local promote = false
+						if lastPos then
+							promote =
+								workspace:FindPartOnRayWithWhitelist(ray(lastPos, target - lastPos), wl, true) or
+								workspace:FindPartOnRayWithWhitelist(ray(target, lastPos - target), wl, true)
+						end
+
+						if promote then
+							-- Ostensibly a soft limit, but the camera has passed through it in the last frame, so promote to a hard limit.
+							hardLimit = lim
+						elseif dist < softLimit then
+							-- Trivial soft limit
+							softLimit = lim
+						end
+					else
+						-- Trivial hard limit
+						hardLimit = lim
+					end
+				end
+
+				excludeList[#excludeList + 1] = entryPart
+				movingOrigin = entryPos - unitDir*1e-3
+			end
+		until hardLimit < inf or not entryPart
+
+		eraseFromEnd(excludeList, originalSize)
+	end
 
 	debug.profileend()
 	return softLimit - nearPlaneZ, hardLimit - nearPlaneZ

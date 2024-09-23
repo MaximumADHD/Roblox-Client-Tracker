@@ -17,6 +17,8 @@ local FIntBlockUtilityBlockedUsersRequestMaxSize = game:DefineFastInt("BlockUtil
 local FFlagUseGetBlockedUsersBlockingUtility = game:DefineFastFlag("UseGetBlockedUsersBlockingUtility", false)
 local FFlagFetchBlockListFromServer = require(RobloxGui.Modules.Common.Flags.FFlagFetchBlockListFromServer)
 
+local FFlagUpdateLocalPlayerUsageBlockingUtility = game:DefineFastFlag("UpdateLocalPlayerUsageBlockingUtility", false)
+
 local newBlockingUtilityRollout = function()
 	return game:DefineFastInt("NewBlockingUtilityRollout_v3", 0)
 end
@@ -25,11 +27,14 @@ local shouldUseNewBlockingUtility = rolloutByApplicationId(newBlockingUtilityRol
 local BlockingUtility = {}
 BlockingUtility.__index = BlockingUtility
 
-local LocalPlayer = PlayersService.LocalPlayer
--- This seems to endlessly loop on studio.
-while not LocalPlayer do
-	PlayersService.PlayerAdded:wait()
-	LocalPlayer = PlayersService.LocalPlayer
+local LocalPlayerGlobal -- cleanup with FFlagUpdateLocalPlayerUsageBlockingUtility
+if not FFlagUpdateLocalPlayerUsageBlockingUtility then
+	LocalPlayerGlobal = PlayersService.LocalPlayer
+	-- This seems to endlessly loop on studio.
+	while not LocalPlayerGlobal do
+		PlayersService.PlayerAdded:wait()
+		LocalPlayerGlobal = PlayersService.LocalPlayer
+	end
 end
 
 local GET_BLOCKED_USERIDS_TIMEOUT = 5
@@ -143,6 +148,7 @@ local function getBlockedUserIdsFromBlockedList(): { number }
 end
 
 local function getBlockedUserIds(): { number }
+	local LocalPlayer = if FFlagUpdateLocalPlayerUsageBlockingUtility then PlayersService.LocalPlayer else LocalPlayerGlobal
 	if LocalPlayer.UserId > 0 then
 		local timeWaited = 0
 		while true do
@@ -196,6 +202,7 @@ local function isMuted(userId): boolean
 end
 
 local function BlockPlayerAsync(playerToBlock): boolean
+	local LocalPlayer = if FFlagUpdateLocalPlayerUsageBlockingUtility then PlayersService.LocalPlayer else LocalPlayerGlobal
 	if playerToBlock and LocalPlayer ~= playerToBlock then
 		local blockUserId = playerToBlock.UserId
 		if blockUserId > 0 then
@@ -270,6 +277,7 @@ local function UnblockPlayerAsync(playerToUnblock): boolean
 end
 
 local function MutePlayer(playerToMute)
+	local LocalPlayer = if FFlagUpdateLocalPlayerUsageBlockingUtility then PlayersService.LocalPlayer else LocalPlayerGlobal
 	if playerToMute and LocalPlayer ~= playerToMute then
 		local muteUserId = playerToMute.UserId
 		if muteUserId > 0 then

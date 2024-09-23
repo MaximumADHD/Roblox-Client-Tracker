@@ -73,6 +73,11 @@ local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 --- FLAGS
 local FFlagAvatarContextMenuItemsChatButtonRefactor = require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
 
+local success, FFlagUserRaycastPerformanceImprovements = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserRaycastPerformanceImprovements")
+end)
+FFlagUserRaycastPerformanceImprovements = success and FFlagUserRaycastPerformanceImprovements
+
 --- VARIABLES
 
 local LocalPlayer = PlayersService.LocalPlayer
@@ -98,6 +103,9 @@ local initialScreenPoint = nil
 local hasTouchSwipeInput = nil
 
 local contextMenuPlayerChangedConn = nil
+
+local excludeParams = RaycastParams.new()
+excludeParams.FilterType = Enum.RaycastFilterType.Exclude
 
 ContextMenuFrame = ContextMenuGui:CreateMenuFrame(ThemeHandler:GetTheme())
 ContextMenuItems = ContextMenuItemsModule.new(ContextMenuFrame.Content.ContextActionList)
@@ -297,23 +305,41 @@ function clickedOnPoint(screenPoint)
 	if LocalPlayerHasToolEquipped() then return end
 
 	local ray = camera:ScreenPointToRay(screenPoint.X, screenPoint.Y)
-	ray = Ray.new(ray.Origin, ray.Direction * MAX_CONTEXT_MENU_DISTANCE)
-	local hitPart, hitPoint
-	if shouldIgnoreLocalCharacter() then
-		hitPart, hitPoint = workspace:FindPartOnRay(ray, LocalPlayer.Character, false, true)
-	else
-		hitPart, hitPoint = workspace:FindPartOnRay(ray, nil, false, true)
-	end
-	local player = ContextMenuUtil:FindPlayerFromPart(hitPart)
+	
+	if FFlagUserRaycastPerformanceImprovements then
+		excludeParams.FilterDescendantsInstances = if shouldIgnoreLocalCharacter() then {LocalPlayer.Character} else {}
+		local raycastResult = workspace:Raycast(ray.Origin, ray.Direction * MAX_CONTEXT_MENU_DISTANCE, excludeParams)
 
-	if player and ((DEBUG_MODE and player ~= LocalPlayer) or (player ~= LocalPlayer and player.UserId > 0)) then
-		if ContextMenuOpen then
-			SetSelectedPlayer(player)
-		else
-			OpenContextMenu(player, hitPoint)
+		local player = if raycastResult then ContextMenuUtil:FindPlayerFromPart(raycastResult.Instance) else nil
+
+		if player and ((DEBUG_MODE and player ~= LocalPlayer) or (player ~= LocalPlayer and player.UserId > 0)) then
+			if ContextMenuOpen then
+				SetSelectedPlayer(player)
+			else
+				OpenContextMenu(player, raycastResult.Position)
+			end
+		elseif not player and ContextMenuOpen then
+			CloseContextMenu()
 		end
-	elseif not player and ContextMenuOpen then
-		CloseContextMenu()
+	else
+		ray = Ray.new(ray.Origin, ray.Direction * MAX_CONTEXT_MENU_DISTANCE)
+		local hitPart, hitPoint
+		if shouldIgnoreLocalCharacter() then
+			hitPart, hitPoint = workspace:FindPartOnRay(ray, LocalPlayer.Character, false, true)
+		else
+			hitPart, hitPoint = workspace:FindPartOnRay(ray, nil, false, true)
+		end
+		local player = ContextMenuUtil:FindPlayerFromPart(hitPart)
+
+		if player and ((DEBUG_MODE and player ~= LocalPlayer) or (player ~= LocalPlayer and player.UserId > 0)) then
+			if ContextMenuOpen then
+				SetSelectedPlayer(player)
+			else
+				OpenContextMenu(player, hitPoint)
+			end
+		elseif not player and ContextMenuOpen then
+			CloseContextMenu()
+		end
 	end
 end
 

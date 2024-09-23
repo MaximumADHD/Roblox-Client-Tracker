@@ -1,4 +1,5 @@
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Chat = game:GetService("Chat")
@@ -13,8 +14,13 @@ local CommonIcon = require(script.Parent.CommonIcon)
 local GameSettings = UserSettings().GameSettings
 local GuiService = game:GetService("GuiService")
 
+local AppChat = require(CorePackages.Workspace.Packages.AppChat)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
+local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -56,7 +62,14 @@ chatChromeIntegration = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibilitySignal)
+			if
+				GetFFlagEnableAppChatInExperience()
+				and InExperienceAppChatExperimentation.default.variant.ShowInExperienceChatNewIcon
+			then
+				return CommonIcon("icons/menu/publicChatOff", "icons/menu/publicChatOn", chatVisibilitySignal)
+			else
+				return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibilitySignal)
+			end
 		end,
 	},
 })

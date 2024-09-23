@@ -17,7 +17,7 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection

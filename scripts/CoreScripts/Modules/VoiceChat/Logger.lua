@@ -1,4 +1,5 @@
-local CoreLogger = require(script.Parent.Parent.Logger)
+local CorePackages = game:GetService("CorePackages")
+local CoreLogger = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger
 local VoiceChatLogger = CoreLogger:new("VoiceChatLogger")
 
 return function(name)
