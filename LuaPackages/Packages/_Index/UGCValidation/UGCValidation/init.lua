@@ -1,6 +1,8 @@
 local root = script
 
 local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
+local getEngineFeatureEngineUGCValidateRigidMeshPartAccessories =
+	require(root.flags.getEngineFeatureEngineUGCValidateRigidMeshPartAccessories)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
@@ -37,7 +39,8 @@ function UGCValidation.validate(
 	universeId: number?,
 	allowEditableInstances: boolean?,
 	bypassFlags: Types.BypassFlags?,
-	shouldYield: boolean?
+	shouldYield: boolean?,
+	validateMeshPartAccessories: boolean?
 )
 	local startTime = tick()
 
@@ -70,6 +73,10 @@ function UGCValidation.validate(
 		isAsync = false,
 		allowEditableInstances = allowEditableInstances :: boolean,
 		bypassFlags = bypassFlags,
+		validateMeshPartAccessories = if getEngineFeatureEngineUGCValidateRigidMeshPartAccessories()
+				and validateMeshPartAccessories
+			then true
+			else false,
 	} :: Types.ValidationContext
 
 	if getFFlagUGCValidationShouldYield() then
@@ -130,6 +137,7 @@ function UGCValidation.validateAsync(
 		isServer = isServer :: boolean,
 		token = "",
 		isAsync = true,
+		validateMeshPartAccessories = false,
 	} :: Types.ValidationContext
 
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
@@ -180,6 +188,7 @@ function UGCValidation.validateMeshPartFormat(
 		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
 		restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
 		isServer = isServer :: boolean,
+		validateMeshPartAccessories = false,
 	} :: Types.ValidationContext
 
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
@@ -232,6 +241,7 @@ function UGCValidation.validateAsyncMeshPartFormat(
 		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
 		restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
 		isServer = isServer :: boolean,
+		validateMeshPartAccessories = false,
 	} :: Types.ValidationContext
 
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
@@ -278,6 +288,7 @@ function UGCValidation.validateMeshPartAssetFormat2(
 		assetTypeEnum = assetTypeEnum :: Enum.AssetType,
 		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
 		isServer = isServer :: boolean,
+		validateMeshPartAccessories = false,
 	} :: Types.ValidationContext
 
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
@@ -380,6 +391,7 @@ function UGCValidation.validateFullBody(
 		isServer = isServer :: boolean,
 		allowEditableInstances = allowEditableInstances :: boolean,
 		bypassFlags = bypassFlags,
+		validateMeshPartAccessories = false,
 	} :: Types.ValidationContext
 
 	if getFFlagUGCValidationShouldYield() then

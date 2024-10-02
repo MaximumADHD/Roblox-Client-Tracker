@@ -4,5 +4,5 @@ version = "0.1.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "ReactIs ReactIs 17.1.0 registry",
+    "ReactIs ReactIs 17.1.2 registry",
 ]

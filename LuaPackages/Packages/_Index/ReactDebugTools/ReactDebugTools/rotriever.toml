@@ -1,6 +1,6 @@
 [package]
 name = "ReactDebugTools"
-version = "17.1.0"
+version = "17.1.2"
 content_root = "src"
 files = ["*"]
 publish = true
@@ -18,8 +18,8 @@ version = "^1"
 
 [dependencies.ReactReconciler]
 package = "ReactReconciler"
-version = "^17.1.0"
+version = "^17.1.2"
 
 [dependencies.Shared]
 package = "Shared"
-version = "^17.1.0"
+version = "^17.1.2"

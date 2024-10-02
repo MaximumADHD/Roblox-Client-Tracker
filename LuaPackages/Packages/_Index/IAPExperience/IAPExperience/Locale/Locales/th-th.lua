@@ -117,7 +117,7 @@ return{
 	["IAPExperience.PurchaseError.Text.NotForSaleExperience"] = [[ไม่สามารถขายไอเท็มนี้ในประสบการณ์นี้ได้ บัญชีของคุณจะไม่ถูกเรียกเก็บเงิน]],
 	["IAPExperience.PurchaseError.Text.Ok"] = [[ตกลง]],
 	["IAPExperience.PurchaseError.Text.ParentalLimit"] = [[ไม่สามารถทำธุรกรรมของคุณให้เสร็จสมบูรณ์ได้เนื่องจากผู้ปกครองของเจ้าของบัญชีนี้ได้ตั้งวงเงินรายเดือนไว้ คุณจะไม่สามารถทำการซื้อใหม่ได้จนกว่าจะถึงเดือนถัดไป เว้นแต่ว่ามีการเปลี่ยนการตั้งค่าการควบคุมโดยผู้ปกครอง]],
-	["IAPExperience.PurchaseError.Text.ParentalRestrictionSubscription"] = [[บัญชีที่มีการจำกัดค่าใช้จ่ายรายเดือนไม่สามารถทำการสมัครสมาชิกได้]],
+	["IAPExperience.PurchaseError.Text.ParentalRestrictionSubscription"] = [[บัญชีที่มีการจำกัดการใช้จ่ายต่อเดือนไม่สามารถทำการสมัครสมาชิกได้]],
 	["IAPExperience.PurchaseError.Text.PremiumOnly"] = [[คุณต้องเป็นสมาชิก Roblox Premium จึงจะสามารถซื้อไอเท็มนี้ได้]],
 	["IAPExperience.PurchaseError.Text.PremiumPlatformUnavailable"] = [[แพลตฟอร์มของคุณไม่รองรับการซื้อ Roblox Premium โปรดใช้เดสก์ท็อปของคุณเพื่อซื้อ Premium]],
 	["IAPExperience.PurchaseError.Text.PurchaseDisabled"] = [[คุณซื้อไม่สำเร็จเนื่องจากการซื้อในประสบการณ์ถูกปิดใช้งานชั่วคราว บัญชีของคุณจะไม่ถูกเรียกเก็บเงิน โปรดลองอีกครั้งในภายหลัง]],

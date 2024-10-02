@@ -106,7 +106,6 @@ function GenericTextLabel:render()
 
 		if UIBloxConfig.enableOpenTypeSupport and self.props.openTypeFeatures then
 			newProps = Cryo.Dictionary.join(newProps, {
-				RichText = true,
 				OpenTypeFeatures = self.props.openTypeFeatures,
 			})
 		end

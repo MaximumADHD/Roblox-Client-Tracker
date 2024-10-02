@@ -7,6 +7,8 @@
 local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 
+local getFFlagUGCValidateCoverViewportFrames = require(root.flags.getFFlagUGCValidateCoverViewportFrames)
+
 local Thumbnailer = {}
 Thumbnailer.__index = Thumbnailer
 
@@ -31,6 +33,12 @@ function Thumbnailer:setImgSize(imgSize: Vector2)
 	self.imgSize = imgSize
 end
 
+local function setUpViewportFrameCover(vpf: ViewportFrame)
+	vpf.AnchorPoint = Vector2.new(0, 0)
+	-- top left pixel of the ViewportFrame shows in the bottom right of the viewport (so almost unoticeable)
+	vpf.Position = UDim2.new(1, -1, 1, -1)
+end
+
 function Thumbnailer:setupViewportFrame()
 	assert(self.screenGui)
 	assert(self.worldModel)
@@ -42,6 +50,9 @@ function Thumbnailer:setupViewportFrame()
 	vpf.BackgroundTransparency = 1
 	vpf.BorderSizePixel = 0
 	vpf.Size = UDim2.fromOffset(self.imgSize.X, self.imgSize.Y)
+	if getFFlagUGCValidateCoverViewportFrames() then
+		setUpViewportFrameCover(vpf)
+	end
 
 	self.worldModel.Parent = vpf
 

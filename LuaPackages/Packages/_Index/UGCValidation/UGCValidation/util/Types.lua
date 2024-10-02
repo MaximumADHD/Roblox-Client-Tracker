@@ -47,6 +47,7 @@ export type ValidationContext = {
 	lastTickSeconds: number?,
 	shouldYield: boolean?,
 	scriptTimes: ScriptTimes?,
+	validateMeshPartAccessories: boolean,
 	partSizes: PartSizes?,
 }
 

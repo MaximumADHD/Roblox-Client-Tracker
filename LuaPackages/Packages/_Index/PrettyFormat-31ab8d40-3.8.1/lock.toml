@@ -6,7 +6,7 @@ dependencies = [
     "ChalkLua ChalkLua 0.2.0 registry",
     "JestGetType JestGetType 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "ReactIs ReactIs 17.1.0 registry",
+    "ReactIs ReactIs 17.1.2 registry",
     "RegExp RegExp 0.2.1 registry",
     "RobloxShared RobloxShared 3.8.1 registry",
 ]

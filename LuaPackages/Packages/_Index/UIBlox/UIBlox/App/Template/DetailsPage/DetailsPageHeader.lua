@@ -4,6 +4,7 @@ local Template = DetailsPage.Parent
 local App = Template.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
@@ -50,6 +51,7 @@ DetailsPageHeader.validateProps = t.strictInterface({
 	thumbnailHeight = t.optional(t.number),
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
+	actionBarLabelText = t.optional(t.string),
 	renderInfoContent = t.optional(t.callback),
 
 	headerBarBackgroundHeight = t.optional(t.number),
@@ -127,6 +129,9 @@ function DetailsPageHeader:renderDesktopMode(style)
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Vertical,
 				VerticalAlignment = Enum.VerticalAlignment.Top,
+				Padding = if UIBloxConfig.enableDetailsPageHeaderActionBarLabel
+					then UDim.new(0, INNER_PADDING)
+					else nil,
 			}),
 			TitleInfo = Roact.createElement(DetailsPageTitleContent, {
 				titleText = self.props.titleText,
@@ -135,15 +140,17 @@ function DetailsPageHeader:renderDesktopMode(style)
 				verticalAlignment = Enum.VerticalAlignment.Top,
 				layoutOrder = 1,
 			}),
-			Padding = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, INNER_PADDING),
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-			}),
+			Padding = if UIBloxConfig.enableDetailsPageHeaderActionBarLabel
+				then nil
+				else Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, INNER_PADDING),
+					BackgroundTransparency = 1,
+					LayoutOrder = 2,
+				}),
 			ActonBarFrame = Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(self.props.actionBarWidth, self.props.actionBarHeight),
 				BackgroundTransparency = 1,
-				LayoutOrder = 3,
+				LayoutOrder = if UIBloxConfig.enableDetailsPageHeaderActionBarLabel then 2 else 3,
 			}, {
 				ActionBar = self.props.actionBarProps and Roact.createElement(ActionBar, {
 					button = self.props.actionBarProps.button,
@@ -162,6 +169,22 @@ function DetailsPageHeader:renderDesktopMode(style)
 					horizontalAlignment = Enum.HorizontalAlignment.Left,
 				}) or nil,
 			}),
+			ActionBarLabel = if UIBloxConfig.enableDetailsPageHeaderActionBarLabel
+					and self.props.actionBarLabelText
+				then Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, 0, 0),
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Text = self.props.actionBarLabelText,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextWrapped = true,
+					BackgroundTransparency = 1,
+					Font = style.Tokens.Semantic.Typography.Body.Font,
+					TextSize = style.Tokens.Semantic.Typography.Body.FontSize,
+					TextColor3 = style.Tokens.Semantic.Color.Text.Emphasis.Color3,
+					TextTransparency = style.Tokens.Semantic.Color.Text.Emphasis.Transparency,
+					LayoutOrder = 3,
+				})
+				else nil,
 		}),
 	}
 end

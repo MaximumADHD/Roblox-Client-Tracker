@@ -33,6 +33,7 @@ local getEditableImageFromContext = require(root.util.getEditableImageFromContex
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local pcallDeferred = require(root.util.pcallDeferred)
 
+local getFFlagMeshPartAccessoryPBRSupport = require(root.flags.getFFlagMeshPartAccessoryPBRSupport)
 local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagUGCValidateCoplanarTriTestAccessory)
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
@@ -125,21 +126,19 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	} :: Types.TextureInfo
 
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		local getEditableImageSuccess, editableImage
-		if textureId ~= "" then
-			getEditableImageSuccess, editableImage = getEditableImageFromContext(handle, "TextureID", validationContext)
-			if not getEditableImageSuccess then
-				return false,
-					{
-						string.format(
-							"Failed to load texture for accessory '%s'. Make sure texture exists and try again.",
-							instance.Name
-						),
-					}
-			end
-
-			textureInfo.editableImage = editableImage
+		local getEditableImageSuccess, editableImage =
+			getEditableImageFromContext(handle, "TextureID", validationContext)
+		if not getEditableImageSuccess then
+			return false,
+				{
+					string.format(
+						"Failed to load texture for accessory '%s'. Make sure texture exists and try again.",
+						instance.Name
+					),
+				}
 		end
+
+		textureInfo.editableImage = editableImage
 	else
 		if isServer then
 			local textureSuccess = true
@@ -202,7 +201,9 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	reasonsAccumulator:updateReasons(validateAttributes(instance))
 
-	reasonsAccumulator:updateReasons(validateTextureSize(textureInfo, true, validationContext))
+	reasonsAccumulator:updateReasons(
+		validateTextureSize(textureInfo, getFFlagMeshPartAccessoryPBRSupport(), validationContext)
+	)
 
 	if getFFlagUGCValidateThumbnailConfiguration() then
 		reasonsAccumulator:updateReasons(validateThumbnailConfiguration(instance, handle, meshInfo, meshScale))
@@ -244,7 +245,9 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		end
 	end
 
-	reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance))
+	if getFFlagMeshPartAccessoryPBRSupport() then
+		reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance))
+	end
 
 	local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
 	if partScaleType and partScaleType:IsA("StringValue") then

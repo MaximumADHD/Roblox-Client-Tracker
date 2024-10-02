@@ -1,6 +1,6 @@
 [package]
 name = "React"
-version = "17.1.0"
+version = "17.1.2"
 content_root = "src"
 files = [
     "*",
@@ -21,4 +21,4 @@ version = "^1"
 
 [dependencies.Shared]
 package = "Shared"
-version = "^17.1.0"
+version = "^17.1.2"

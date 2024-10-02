@@ -1,9 +1,10 @@
 return function(UrlBuilder)
 	local UserModerationUrlPatterns = {}
 
-	UserModerationUrlPatterns.moderationDetail = UrlBuilder.fromString("usermoderation:not-approved")
-	UserModerationUrlPatterns.reactivate = UrlBuilder.fromString("usermoderation:not-approved/reactivate")
-	UserModerationUrlPatterns.reminder = UrlBuilder.fromString("usermoderation:reminder")
+	UserModerationUrlPatterns.moderationDetail = UrlBuilder.fromString("usermoderation:v1/not-approved")
+	UserModerationUrlPatterns.reactivate = UrlBuilder.fromString("usermoderation:v1/not-approved/reactivate")
+	UserModerationUrlPatterns.reminder = UrlBuilder.fromString("usermoderation:v1/reminder")
+	UserModerationUrlPatterns.accessDetail = UrlBuilder.fromString("usermoderation:v2/not-approved")
 
 	return UserModerationUrlPatterns
 end

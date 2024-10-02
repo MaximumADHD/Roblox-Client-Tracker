@@ -62,6 +62,8 @@ ExpandableTextArea.validateProps = t.strictInterface({
 	frameRef = t.optional(t.table),
 	-- Selection cursor
 	selectionCursor = if UIBloxConfig.migrateToNewSelectionCursor then t.optional(t.any) else nil,
+
+	gradientColor = if UIBloxConfig.enableExpandableTextAreaGradientFix then t.optional(t.Color3) else nil,
 })
 
 ExpandableTextArea.defaultProps = {
@@ -129,6 +131,7 @@ function ExpandableTextArea:render()
 	local layoutOrder = self.props.LayoutOrder
 	local width = self.props.width
 	local padding = self.props.padding
+	local gradientColor = self.props.gradientColor
 	local ref = self:getRef()
 
 	PADDING_TOP = padding and padding.Y or DEFAULT_PADDING_TOP
@@ -243,7 +246,9 @@ function ExpandableTextArea:render()
 							AnchorPoint = Vector2.new(0, 1),
 							BackgroundTransparency = 1,
 							Image = GRADIENT_IMAGE,
-							ImageColor3 = theme.BackgroundDefault.Color,
+							ImageColor3 = if UIBloxConfig.enableExpandableTextAreaGradientFix
+								then (gradientColor or theme.BackgroundDefault.Color)
+								else theme.BackgroundDefault.Color,
 						},
 						springOptions = GRADIENT_ANIMATION_SPRING_SETTINGS,
 					}),

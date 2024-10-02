@@ -205,6 +205,7 @@ local function validateBundleReadyForUpload(
 			isAsync = false,
 			allowEditableInstances = allowEditableInstances,
 			bypassFlags = bypassFlags,
+			validateMeshPartAccessories = false,
 		} :: Types.ValidationContext
 
 		if getEngineFeatureUGCValidateEditableMeshAndImage() then
@@ -276,6 +277,7 @@ local function validateBundleReadyForUpload(
 					isServer = false,
 					allowEditableInstances = allowEditableInstances,
 					bypassFlags = bypassFlags,
+					validateMeshPartAccessories = false,
 				} :: Types.ValidationContext
 
 				if getEngineFeatureUGCValidateEditableMeshAndImage() then

@@ -437,12 +437,8 @@ function Tile:render()
 								richText = titleRichText,
 							}),
 							Subtitle = (subtitle ~= "" and subtitle ~= nil) and React.createElement(StyledTextLabel, {
-								size = if UIBloxConfig.playerTileAutomaticSizeXY
-									then UDim2.new(0, 0, 0, subtitleTextHeight)
-									else UDim2.new(1, 0, 0, subtitleTextHeight),
-								automaticSize = if UIBloxConfig.playerTileAutomaticSizeXY
-									then Enum.AutomaticSize.X
-									else nil,
+								size = UDim2.new(0, 0, 0, subtitleTextHeight),
+								automaticSize = Enum.AutomaticSize.X,
 								text = subtitle,
 								colorStyle = theme.TextDefault,
 								fontStyle = subtitleFontStyle,

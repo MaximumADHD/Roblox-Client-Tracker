@@ -12,6 +12,7 @@ export type JsonLightDescType = LightUtility.JsonLightDescType
 export type LightExtraParamsType = LightUtility.LightExtraParamsType
 
 return {
+	CameraPresetsUtility = require(script.CameraPresetsUtility),
 	CameraUtility = CameraUtility,
 	CFrameUtility = require(script.CFrameUtility),
 	ColorUtility = require(script.ColorUtility),

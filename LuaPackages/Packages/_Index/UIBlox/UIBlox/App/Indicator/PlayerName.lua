@@ -203,7 +203,6 @@ local function NameItem(props: InnerItemProps)
 				TextColor3 = labelColorStyle.Color3,
 				TextTransparency = labelColorStyle.Transparency,
 				Selectable = false,
-				RichText = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures then true else nil,
 				OpenTypeFeatures = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures
 					then props.openTypeFeatures
 					else nil,

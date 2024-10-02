@@ -68,9 +68,6 @@ return {
 	-- Disable token scaling for console
 	disableTokenScalingForConsole = false,
 
-	-- Use automatic sizing for the text under PlayerTile
-	playerTileAutomaticSizeXY = false,
-
 	-- Flag for updating tile and cell to use Interactable
 	useInteractableWithTileAndCell = false,
 
@@ -145,4 +142,10 @@ return {
 
 	-- Enable useStyleMetadata hook
 	enableUseStyleMetadata = false,
+
+	-- Add optional action bar label to DetailsPageHeader
+	enableDetailsPageHeaderActionBarLabel = false,
+
+	-- Fix gradient issue in ExpandableTextArea in color update
+	enableExpandableTextAreaGradientFix = false,
 }

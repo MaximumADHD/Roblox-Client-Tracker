@@ -3,7 +3,6 @@ local App = script:FindFirstAncestor("App")
 local UIBlox = App.Parent
 local Core = UIBlox.Core
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
@@ -159,12 +158,8 @@ function PlayerContext:render()
 				}),
 			}),
 			Text = text and Roact.createElement(GenericTextLabel, {
-				AutomaticSize = if UIBloxConfig.playerTileAutomaticSizeXY
-					then Enum.AutomaticSize.XY
-					else Enum.AutomaticSize.Y,
-				Size = if UIBloxConfig.playerTileAutomaticSizeXY
-					then UDim2.fromScale(0, 0)
-					else UDim2.new(1, -iconFrameWidth - iconTextSpacing, 1, 0),
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Size = UDim2.fromScale(0, 0),
 				Text = text,
 				TextWrapped = true,
 				TextXAlignment = Enum.TextXAlignment.Left,

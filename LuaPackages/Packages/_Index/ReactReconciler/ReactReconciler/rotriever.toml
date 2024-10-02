@@ -1,6 +1,6 @@
 [package]
 name = "ReactReconciler"
-version = "17.1.0"
+version = "17.1.2"
 content_root = "src"
 files = [
     "*",
@@ -24,12 +24,12 @@ version = "^3.3.0"
 
 [dependencies.React]
 package = "React"
-version = "^17.1.0"
+version = "^17.1.2"
 
 [dependencies.Scheduler]
 package = "Scheduler"
-version = "^17.1.0"
+version = "^17.1.2"
 
 [dependencies.Shared]
 package = "Shared"
-version = "^17.1.0"
+version = "^17.1.2"

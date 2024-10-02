@@ -1,9 +1,10 @@
 local root = script.Parent.Parent
 
-local getFFlagUGCValidationMeshPartAccessoryUploads = require(root.flags.getFFlagUGCValidationMeshPartAccessoryUploads)
+local getEngineFeatureEngineUGCValidateRigidMeshPartAccessories =
+	require(root.flags.getEngineFeatureEngineUGCValidateRigidMeshPartAccessories)
 
 local function isLayeredClothing(instance: any): boolean
-	if getFFlagUGCValidationMeshPartAccessoryUploads() then
+	if getEngineFeatureEngineUGCValidateRigidMeshPartAccessories() then
 		return instance:FindFirstChildWhichIsA("WrapLayer", true)
 	else
 		if instance and typeof(instance) == "Instance" and instance:IsA("Accessory") then

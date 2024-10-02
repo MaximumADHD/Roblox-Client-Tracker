@@ -3,6 +3,7 @@ local Template = DetailsPage.Parent
 local App = Template.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Cryo = require(Packages.Cryo)
 local VirtualizedListModule = require(Packages.VirtualizedList)
 local AnimatedFlatList = VirtualizedListModule.AnimatedFlatList
@@ -55,6 +56,9 @@ export type Props = {
 
 	-- Sub title text of the details page. It can be turned off if nil is passed through.
 	subTitleText: string?,
+
+	-- Text that renders underneath the action bar. It can be turned off if nil is passed through.
+	actionBarLabelText: string?,
 
 	-- A custom Roact component to be rendered in the header.
 	renderInfoContent: () -> React.React_Node,
@@ -184,6 +188,9 @@ local function DetailsPageTenfootTemplate(props: Props)
 			thumbnailHeight = thumbnailHeight,
 			titleText = props.titleText,
 			subTitleText = props.subTitleText,
+			actionBarLabelText = if UIBloxConfig.enableDetailsPageHeaderActionBarLabel
+				then props.actionBarLabelText
+				else nil,
 			renderInfoContent = props.renderInfoContent,
 			actionBarProps = props.actionBarProps,
 			sideMargin = sideMargin,

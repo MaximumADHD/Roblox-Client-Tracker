@@ -34,12 +34,13 @@ local RobuxUpsellFlow = Roact.Component:extend(script.Name)
 
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 local eventConfig = require(RobuxUpsellRoot.Events.InGameRobuxUpsellEvent)
+local Players = game:GetService("Players")
 
 local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
 local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
 
 game:DefineFastFlag("DisableNonSchematizedInGameRobuxUpsellEvent", false)
-game:DefineFastFlag("EnableSchematizedInGameRobuxUpsellEvent", false)
+game:DefineFastFlag("EnableSchematizedInGameRobuxUpsellEvent2", false)
 
 type Props = {
 	screenSize: Vector2,
@@ -533,17 +534,21 @@ function RobuxUpsellFlow:reportUserInput(inputType: string)
 		props.onAnalyticEvent("UserPurchaseFlow", data)
 	end
 
-	if game:GetFastFlag("EnableSchematizedInGameRobuxUpsellEvent") then
-		loggingProtocol:logTelemetryEvent(
+	if game:GetFastFlag("EnableSchematizedInGameRobuxUpsellEvent2") then
+		local userid = nil
+		if Players.LocalPlayer and Players.LocalPlayer.UserId > 0 then
+			userid = Players.LocalPlayer.UserId
+		end
+		LoggingProtocol:logRobloxTelemetryEvent(
 			eventConfig,
-			{ LoggingProtocol.StandardizedField.addOSInfo, LoggingProtocol.StandardizedField.addSessionId },
+			{ LoggingProtocol.StandardizedFields.addOsInfo, LoggingProtocol.StandardizedFields.addSessionId },
 			{
 				universe_id = game.GameId,
 				price = props.itemRobuxCost,
 				view_name = data.view_name,
 				purchase_event_type = data.purchase_event_type,
 				input_type = inputType,
-				user_key = data.userKey
+				user_id = tostring(userid)
 			}
 		)
 	end

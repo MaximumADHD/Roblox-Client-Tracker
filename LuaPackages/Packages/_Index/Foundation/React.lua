@@ -5,6 +5,7 @@ local PackageIndex = script.Parent.Parent.Parent._Index
 
 local Package = require(PackageIndex["React"]["React"])
 
+export type Object = Package.Object
 export type Binding<T> = Package.Binding<T> 
 export type BindingUpdater<T> = Package.BindingUpdater<T> 
 export type LazyComponent<T, P> = Package.LazyComponent<T, P> 

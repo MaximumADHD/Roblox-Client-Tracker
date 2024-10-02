@@ -54,6 +54,8 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	titleText = t.optional(t.string),
 	-- Sub title text of the details page. It can be turned off if nil is passed through.
 	subTitleText = t.optional(t.string),
+	-- Text that renders underneath the action bar. It can be turned off if nil is passed through.
+	actionBarLabelText = t.optional(t.string),
 	-- A custom Roact component to be rendered in the header
 	renderInfoContent = t.optional(t.callback),
 
@@ -323,6 +325,9 @@ function DetailsPageTemplate:render()
 							thumbnailHeight = thumbnailHeight,
 							titleText = self.props.titleText,
 							subTitleText = self.props.subTitleText,
+							actionBarLabelText = if UIBloxConfig.enableDetailsPageHeaderActionBarLabel
+								then self.props.actionBarLabelText
+								else nil,
 							renderInfoContent = self.props.renderInfoContent,
 							actionBarProps = if UIBloxConfig.hideHeaderActionBarWhenStickyBarActive
 								then if not (self.state.showStickyActionTopBar or showFullscreen)

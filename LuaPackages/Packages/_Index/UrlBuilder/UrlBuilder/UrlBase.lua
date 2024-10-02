@@ -82,7 +82,7 @@ UrlBase.FOLLOWINGS = UrlBase.new("followings", 1)
 UrlBase.PREMIUM = UrlBase.new("premiumfeatures", 1)
 UrlBase.BLOG = "https://blog.roblox.com"
 UrlBase.CORP = isQQ and "https://roblox.qq.com" or "https://corp.roblox.com"
-UrlBase.USERMODERATION = UrlBase.new("usermoderation", 1)
+UrlBase.USERMODERATION = UrlBase.new("usermoderation")
 UrlBase.ACCOUNTINFORMATION = UrlBase.new("accountinformation", 1)
 -- from Http.lua
 UrlBase.ACCOUNTSETTINGS = UrlBase.new("accountsettings")

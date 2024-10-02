@@ -236,7 +236,6 @@ local function TextField(props: TextFieldProps)
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
 						Font = textFieldStyle.Base.Field.Typography.Font,
-						RichText = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures then true else nil,
 						OpenTypeFeatures = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures
 							then props.openTypeFeatures
 							else nil,

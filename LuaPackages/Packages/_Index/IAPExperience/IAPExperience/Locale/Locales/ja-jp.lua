@@ -175,7 +175,7 @@ return{
 	["IAPExperience.RobuxUpsell.Title.InsufficientRobux"] = [[Robuxが足りません]],
 	["IAPExperience.RobuxUpsell.WouldYouBuy"] = [[{robux} のパッケージを購入しますか？]],
 	["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[定期購入する]],
-	["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[このダイアログはプレビューです。定期購読の説明がユーザーにどのように見えているかを表しています。「申し込む」をクリックしても課金されません。]],
+	["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[このダイアログはプレビューです。定期購入の詳細がユーザーにどのように見えているかを表しています。「申し込む」をクリックしても課金されません。]],
 	["IAPExperience.U13Confirm.Action.Cancel"] = [[キャンセル]],
 	["IAPExperience.U13Confirm.Action.Confirm"] = [[了解]],
 	["IAPExperience.U13Confirm.Text.ParentalConsentWarningPaymentModal13To17"] = [[私がアカウント所有者の親か法的な保護者であることを認めます。この購入を承認し、利用規約に同意します。]],
