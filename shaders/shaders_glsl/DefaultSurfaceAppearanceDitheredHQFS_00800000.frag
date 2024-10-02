@@ -19,7 +19,7 @@ varying vec4 VARYING4;
 varying vec4 VARYING5;
 varying vec4 VARYING6;
 varying vec4 VARYING7;
-flat varying vec3 VARYING8;
+varying vec3 VARYING8;
 
 void main()
 {
@@ -81,7 +81,7 @@ void main()
     float f45 = f38 * f38;
     float f46 = (((f39 * f45) - f39) * f39) + 1.0;
     float f47 = 1.0 - f25;
-    vec3 f48 = ((((((vec3(f47) - (f44 * (f23 * f47))) * CB0[15].xyz) * f37) + (CB0[17].xyz * (f47 * clamp(-f35, 0.0, 1.0)))) + (min((f30.xyz * (f30.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f31.x)), vec3(CB0[21].w)) * 1.0)) * f21.xyz) + (((f44 * (((f45 + (f45 * f45)) / (((f46 * f46) * ((f40 * 3.0) + 0.5)) * ((f39 * 0.75) + 0.25))) * f37)) * CB0[15].xyz) * 1.0);
+    vec3 f48 = (((min((f30.xyz * (f30.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f31.x)), vec3(CB0[21].w)) * 1.0) + ((((vec3(f47) - (f44 * (f23 * f47))) * CB0[15].xyz) * f37) + (CB0[17].xyz * (f47 * clamp(-f35, 0.0, 1.0))))) * f21.xyz) + (((f44 * (((f45 + (f45 * f45)) / (((f46 * f46) * ((f40 * 3.0) + 0.5)) * ((f39 * 0.75) + 0.25))) * f37)) * CB0[15].xyz) * 1.0);
     vec4 f49 = vec4(0.0);
     f49.x = f48.x;
     vec4 f50 = f49;

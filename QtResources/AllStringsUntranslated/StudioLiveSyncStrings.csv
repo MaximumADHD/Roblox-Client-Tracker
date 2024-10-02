@@ -6,5 +6,6 @@ Studio.App.LiveSync.StartingSyncInfo,,Started syncing %1 with %2,Started syncing
 Studio.App.LiveSync.ErrorCreatingDirectory,,Error while syncing %1 to the disk: Failed to create directory,Error while syncing %1 to the disk: Failed to create directory
 Studio.App.LiveSync.InstanceDeletedStoppingSync,,Error while syncing %1 to the disk: Instance was deleted,Error while syncing %1 to the disk: Instance was deleted
 Studio.App.LiveSync.FileDeletedStoppingSync,,Error while syncing %1 to the disk: File was deleted,Error while syncing %1 to the disk: File was deleted
-Studio.App.LiveSync.PathAlreadyInUse,,Error while syncing %1 to the disk: Path %2 is already in use. Please select a different path,Error while syncing %1 to the disk: Path %2 is already in use. Please select a different path
+Studio.App.LiveSync.PathAlreadyInUse,,Error while syncing %1 to the disk at %2: Path already in use,Error while syncing %1 to the disk at %2: Path already in use
 Studio.App.LiveSync.SyncLimitReached,,Error while syncing %1 to the disk: Too many files being synced,Error while syncing %1 to the disk: Too many files being synced
+Studio.App.LiveSync.ChildAdded,,Error while syncing %1 to the disk: Script has a child,Error while syncing %1 to the disk: Script has a child

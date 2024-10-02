@@ -75,7 +75,7 @@ Studio.App.Property.CameraTweenFocus,,'Zoom To' - Tween Transition,'Zoom To' - T
 Studio.App.Property.CameraAdaptiveSpeed,,'Zoom To' - Adapt Camera Speed,'Zoom To' - Adapt Camera Speed
 Studio.App.SettingsCategory.StudioDirectories,,Directories,Directories
 Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script File Dir
-Studio.App.Property.ActionOnStopSync,,Keep Local Files After Sync,Keep Local Files After Sync
+Studio.App.Property.ActionOnStopSync,,Keep local files after sync,Keep local files after sync
 Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir
 Studio.App.Property.LocalAssetsFolder,,Local Assets Folder,Local Assets Folder
 Studio.App.SettingsCategory.StudioGeneral,,General,General

@@ -2,3 +2,6 @@ Key,Context,Source,en-us
 Studio.App.RobloxScriptDiffDoc.DiffResult,,Diff Result,Diff Result
 Studio.App.RobloxScriptDiffDoc.Diff1,This string serves as a tab title for a script diff view of a single script. The argument will be a script path/name.,%1 (Diff),%1 (Diff)
 Studio.App.RobloxScriptDiffDoc.MultipleDiffs1,This string serves as a tab title for a script diff view of multiple scripts. The argument will be a number indicating how many scripts are being diffed in this tab.,%1 Scripts (Diff),%1 Scripts (Diff)
+Studio.App.RobloxScriptDiffDoc.Diff.Text,,Review the changes and click '%1' to apply them to your script,Review the changes and click '%1' to apply them to your script
+Studio.App.RobloxScriptDiffDoc.Diff.Accept,,Accept,Accept
+Studio.App.RobloxScriptDiffDoc.Diff.Cancel,,Cancel,Cancel

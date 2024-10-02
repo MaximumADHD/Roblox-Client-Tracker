@@ -318,6 +318,7 @@ Esc: Exit &amp; Clear filter
     <ul id="ExportSubMenu">
         <li><a href="javascript:void(0)" onclick="ExportSummaryJSON();">Summary to JSON</a></li>
         <li><a href="javascript:void(0)" onclick="ExportMarkersCSV();">Markers to CSV</a></li>
+        <li><a href="javascript:void(0)" onclick="ExportCountersCSV();">Counters to CSV</a></li>
     </ul>
 </li>
 <li id="ilOptions"><a>Options</a>
@@ -3187,6 +3188,41 @@ function FormatCounter(Format, Counter) {
         }
     }
     return '?'
+}
+function ExportCountersCSV() {
+
+    let text = { csv: "Name, Value, Limit \n" };
+
+    function printCounter(Index, text, path) {
+
+        var Counter = CounterInfo[Index];
+        
+        // append counter
+        text.csv += path + "/" + Counter.name + ", " + Counter.value + ", " + Counter.limit + "\n";
+
+        var ChildIndex = Counter.firstchild;
+
+        while(ChildIndex != -1)
+        {
+            printCounter(ChildIndex, text, path + "/" + Counter.name);
+            ChildIndex = CounterInfo[ChildIndex].sibling;
+        }
+    }
+    
+    for(var i = 0; i < CounterInfo.length; ++i) {
+        if(CounterInfo[i].parent == -1)
+        {
+            printCounter(i, text, "");
+        }
+    }
+    
+    var url = window.location.pathname;
+    var filename = url.substring(url.lastIndexOf('/') + 1);
+    filename = filename.substring(0, filename.lastIndexOf('.')) + '_counters.csv';
+    var link = document.createElement('a');
+    link.setAttribute('download', filename);
+    link.setAttribute('href', 'data:text/csv' + ';charset=utf-8,' + encodeURIComponent(text.csv));
+    link.click();
 }
 function DrawCounterView() {
     ProfileEnter("DrawCounterView");

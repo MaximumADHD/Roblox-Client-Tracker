@@ -96,9 +96,9 @@ Studio.App.PropertyEnum.Extra2,A second additional Script Editor Syntax Highligh
 Studio.App.PropertyEnum.Custom,A fully custom Script Editor Syntax Highlighting Preset,Custom,Custom
 Studio.App.PropertyEnum.Light,Application theme with brighter tones and colors,Light,Light
 Studio.App.PropertyEnum.Dark,Application theme with darker tones and colors,Dark,Dark
-Studio.App.PropertyEnum.AlwaysAsk,,Always Ask,Always Ask
-Studio.App.PropertyEnum.DeleteLocalFiles,,Delete Local Files,Delete Local Files
-Studio.App.PropertyEnum.KeepLocalFiles,,Keep Local Files,Keep Local Files
+Studio.App.PropertyEnum.AlwaysAsk,,Always ask,Always ask
+Studio.App.PropertyEnum.DeleteLocalFiles,,Delete local files,Delete local files
+Studio.App.PropertyEnum.KeepLocalFiles,,Keep local files,Keep local files
 Studio.App.Property.BasicObjectsDisplayMode,,Basic Objects Display Mode,Basic Objects Display Mode
 Studio.App.Property.Language,,Language,Language
 Studio.App.Property.PreprocessorColor,,Preprocessor Color,Preprocessor Color
