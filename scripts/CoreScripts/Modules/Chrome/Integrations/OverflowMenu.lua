@@ -6,6 +6,7 @@ local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
 local CommonIcon = require(script.Parent.CommonIcon)
+local CommonFtuxTooltip = require(script.Parent.CommonFtuxTooltip)
 local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -23,12 +24,28 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Constants = require(script.Parent.Parent.Unibar.Constants)
 local SelfieView = require(RobloxGui.Modules.SelfieView)
 
+local AppChat = require(CorePackages.Workspace.Packages.AppChat)
+local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+
 local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 local GetFFlagUnpinUnavailable = require(script.Parent.Parent.Flags.GetFFlagUnpinUnavailable)
 local GetFFlagEnableHamburgerIcon = require(script.Parent.Parent.Flags.GetFFlagEnableHamburgerIcon)
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
+local GetFStringConnectTooltipLocalStorageKey =
+	require(script.Parent.Parent.Flags.GetFStringConnectTooltipLocalStorageKey)
+local FFlagEnableUnibarFtuxTooltips = require(script.Parent.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+local GetFIntRobloxConnectFtuxShowDelayMs = require(script.Parent.Parent.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
+local GetFIntRobloxConnectFtuxDismissDelayMs =
+	require(script.Parent.Parent.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
+local GetFFlagEnableAppChatInExperience =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
+
+local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
+	and FFlagEnableUnibarFtuxTooltips
+	and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
 
 local SELFIE_ID = Constants.SELFIE_VIEW_ID
+local ICON_SIZE = Constants.ICON_SIZE
 
 function checkCoreGui(
 	integration: { availability: ChromeUtils.AvailabilitySignal, id: Types.IntegrationId },
@@ -217,8 +234,21 @@ function HamburgerButton(props)
 
 	local submenuOpen = submenuVisibility and useMappedSignal(submenuVisibility) or false
 
+	local connectTooltip = if shouldShowConnectTooltip
+		then CommonFtuxTooltip({
+			isIconVisible = props.visible,
+
+			headerKey = "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
+			bodyKey = "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
+			localStorageKey = GetFStringConnectTooltipLocalStorageKey(),
+
+			showDelay = GetFIntRobloxConnectFtuxShowDelayMs(),
+			dismissDelay = GetFIntRobloxConnectFtuxDismissDelayMs(),
+		})
+		else nil
+
 	return React.createElement("Frame", {
-		Size = UDim2.new(0, 36, 0, 36),
+		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 		BorderSizePixel = 0,
 		BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
 		BackgroundTransparency = toggleIconTransition:map(function(value): any
@@ -287,6 +317,7 @@ function HamburgerButton(props)
 				ZIndex = 2,
 			})
 			else nil,
+		connectTooltip,
 	})
 end
 
@@ -302,7 +333,28 @@ return ChromeService:register({
 			if GetFFlagEnableHamburgerIcon() then
 				return React.createElement(HamburgerButton, props)
 			else
-				return CommonIcon("icons/menu/9dot", "icons/menu/9dot", submenuVisibility)
+				local icon = CommonIcon("icons/menu/9dot", "icons/menu/9dot", submenuVisibility)
+				if shouldShowConnectTooltip then
+					return React.createElement("Frame", {
+						Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+						BorderSizePixel = 0,
+						BackgroundTransparency = 1,
+					}, {
+						icon,
+						CommonFtuxTooltip({
+							isIconVisible = (props :: any).visible,
+
+							headerKey = "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
+							bodyKey = "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
+							localStorageKey = GetFStringConnectTooltipLocalStorageKey(),
+
+							showDelay = GetFIntRobloxConnectFtuxShowDelayMs(),
+							dismissDelay = GetFIntRobloxConnectFtuxDismissDelayMs(),
+						}) :: any,
+					}) :: any
+				else
+					return icon
+				end
 			end
 		end,
 	},

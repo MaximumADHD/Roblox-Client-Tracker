@@ -13,6 +13,9 @@ local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFla
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)
 local GetFFlagFixMicSelection = require(script.Parent.Parent.Flags.GetFFlagFixMicSelection)
 local GetFFlagTweakedMicPinning = require(script.Parent.Parent.Flags.GetFFlagTweakedMicPinning)
+local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
+local FFlagEnableChromeAudioFocusManagement = game:DefineFastFlag("EnableChromeAudioFocusManagement", false)
+local EnableChromeAudioFocusManagement = AudioFocusManagementEnabled and FFlagEnableChromeAudioFocusManagement
 
 local ChromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
@@ -72,13 +75,29 @@ muteSelf = ChromeService:register({
 	},
 })
 
-local function updateVoiceState(_, voiceState)
-	local voiceEnabled = voiceState ~= (Enum :: any).VoiceChatState.Ended
-	if voiceEnabled then
+local function applyVoiceUIVisibility()
+	if VoiceChatServiceManager.voiceUIVisible then
 		if GetFFlagTweakedMicPinning() then
 			muteSelf.availability:pinned()
 		else
 			muteSelf.availability:available()
+		end
+	else
+		muteSelf.availability:unavailable()
+	end
+end
+
+local function updateVoiceState(_, voiceState)
+	local voiceEnabled = voiceState ~= (Enum :: any).VoiceChatState.Ended
+	if voiceEnabled then
+		if EnableChromeAudioFocusManagement then
+			applyVoiceUIVisibility()
+		else
+			if GetFFlagTweakedMicPinning() then
+				muteSelf.availability:pinned()
+			else
+				muteSelf.availability:available()
+			end
 		end
 	else
 		muteSelf.availability:unavailable()
@@ -104,10 +123,16 @@ if game:GetEngineFeature("VoiceChatSupported") then
 			if voiceService then
 				voiceService.StateChanged:Connect(updateVoiceState)
 				VoiceChatServiceManager:SetupParticipantListeners()
-				if GetFFlagTweakedMicPinning() then
-					muteSelf.availability:pinned()
+				if EnableChromeAudioFocusManagement then
+					VoiceChatServiceManager.showVoiceUI.Event:Connect(applyVoiceUIVisibility)
+					VoiceChatServiceManager.hideVoiceUI.Event:Connect(applyVoiceUIVisibility)
+					applyVoiceUIVisibility()
 				else
-					muteSelf.availability:available()
+					if GetFFlagTweakedMicPinning() then
+						muteSelf.availability:pinned()
+					else
+						muteSelf.availability:available()
+					end
 				end
 			end
 		end)

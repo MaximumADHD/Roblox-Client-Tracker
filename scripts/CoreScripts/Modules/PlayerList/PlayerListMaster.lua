@@ -1,6 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local IXPService = game:GetService("IXPService")
 local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -16,6 +17,7 @@ local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local StyleConstants = UIBlox.App.Style.Constants
@@ -49,6 +51,7 @@ local SetSettings = require(PlayerList.Actions.SetSettings)
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
 local FFlagPlayerListChangesForInspector = game:DefineFastFlag("PlayerListChangesForInspector", false)
+local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTest)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -192,6 +195,14 @@ function PlayerListMaster.new()
 			})
 		end
 
+		if FFlagRemoveSideBarABTest then
+			self.root = Roact.createElement(RoactAppExperiment.Provider, {
+				value = IXPService
+			}, {
+				RoactAppExperimentProvider = self.root
+			})
+		end
+
 		local parent = if FFlagPlayerListChangesForInspector then CoreGui else layerCollector
 		self.element = Roact.mount(self.root, parent, "PlayerList")
 
@@ -226,6 +237,14 @@ function PlayerListMaster.new()
 				[Roact.Ref] = self.layerCollectorRef,
 			}, {
 				PlayerListMaster = self.root
+			})
+		end
+
+		if FFlagRemoveSideBarABTest then
+			self.root = Roact.createElement(RoactAppExperiment.Provider, {
+				value = IXPService
+			}, {
+				RoactAppExperimentProvider = self.root
 			})
 		end
 

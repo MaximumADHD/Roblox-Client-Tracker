@@ -23,8 +23,6 @@ local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreen
 
 local SafetyBubble = require(script.Parent.SafetyBubble)
 
-local FFlagVRServiceControllerAPIs = require(CorePackages.Workspace.Packages.VrCommon).FFlagVRServiceControllerAPIs
-
 local VRHub = {}
 local RegisteredModules = {}
 local OpenModules = {}
@@ -37,7 +35,6 @@ VRHub.LaserPointer = nil
 VRHub.ControllerModelsEnabled = false
 VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
-VRHub.ControllerModelsEnabledSetByDeveloper = true -- remove with FFlagVRServiceControllerAPIs
 
 VRHub.isFPSAtTarget = SplashScreenManager.isFPSAtTarget()
 VRHub.SafetyBubble = nil
@@ -84,25 +81,16 @@ end
 -- Any usage of these old APIs should redirect to the newer 
 -- VRService.ControllerModels = Enum.VRControllerModelMode.<Value>
 StarterGui:RegisterSetCore("VREnableControllerModels", function(enabled)
-	if FFlagVRServiceControllerAPIs then
-		if enabled then
-			VRService.ControllerModels = Enum.VRControllerModelMode.Transparent
-		else
-			VRService.ControllerModels = Enum.VRControllerModelMode.Disabled
-		end
+	if enabled then
+		VRService.ControllerModels = Enum.VRControllerModelMode.Transparent
 	else
-		enabled = if enabled then true else false
-		VRHub.ControllerModelsEnabledSetByDeveloper = enabled
-		enableControllerModels(enabled)
+		VRService.ControllerModels = Enum.VRControllerModelMode.Disabled
 	end
 end)
 
-if FFlagVRServiceControllerAPIs then
-	VRService:GetPropertyChangedSignal("ControllerModels"):Connect(function()
-		enableControllerModels(VRService.ControllerModels == Enum.VRControllerModelMode.Transparent)
-	end)
-end
-
+VRService:GetPropertyChangedSignal("ControllerModels"):Connect(function()
+	enableControllerModels(VRService.ControllerModels == Enum.VRControllerModelMode.Transparent)
+end)
 
 local start = tick()
 local function onRenderSteppedLast()
@@ -173,11 +161,8 @@ local function onVREnabledChanged()
 				VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
 			end
 		end
-		if FFlagVRServiceControllerAPIs then
-			enableControllerModels(VRService.ControllerModels == Enum.VRControllerModelMode.Transparent)
-		else
-			enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
-		end
+
+		enableControllerModels(VRService.ControllerModels == Enum.VRControllerModelMode.Transparent)
 
 		RunService:BindToRenderStep(vrUpdateRenderstepName, Enum.RenderPriority.Last.Value, onRenderSteppedLast)
 
@@ -209,18 +194,10 @@ local function onVRSessionStateChanged()
 	if VRService.VRSessionState == Enum.VRSessionState.Focused then
 		if VRHub.LaserPointer and VRHub.LaserPointer.Mode.Disabled then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
-			if FFlagVRServiceControllerAPIs then
-				enableControllerModels(VRService.ControllerModels == Enum.VRControllerModelMode.Transparent)
-			else
-				enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
-			end
+			enableControllerModels(VRService.ControllerModels == Enum.VRControllerModelMode.Transparent)
 		end
 		if not VRHub.ControllerModelsEnabled then
-			if FFlagVRServiceControllerAPIs then
-				enableControllerModels(VRService.ControllerModels == Enum.VRControllerModelMode.Transparent)
-			else
-				enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
-			end
+			enableControllerModels(VRService.ControllerModels == Enum.VRControllerModelMode.Transparent)
 		end
 	else
 		if VRHub.LaserPointer and VRHub.LaserPointer.Mode.Navigation then

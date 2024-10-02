@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local Players = game:GetService("Players")
 
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
@@ -13,7 +12,7 @@ local dependencyArray = RoactUtils.Hooks.dependencyArray
 local getColorFromUserId = SquadsCore.Common.getColorFromUserId
 local useLastActiveParticipant = CrossExperienceVoice.Hooks.useLastActiveParticipant
 local useSequentialAnimation = CrossExperienceVoice.Hooks.useSequentialAnimation
-local useParticipant = CrossExperienceVoice.Hooks.useParticipant
+local useIsVoiceConnected = CrossExperienceVoice.Hooks.useIsVoiceConnected
 
 local useStyle = UIBlox.Core.Style.useStyle
 local Images = UIBlox.App.ImageSet.Images
@@ -71,9 +70,7 @@ end
 
 function PartyIcon()
 	local style = useStyle()
-	local userId = Players and Players.LocalPlayer and Players.LocalPlayer.UserId or -1
-	local voiceParticipant = useParticipant(userId)
-
+	local isVoiceConnected = useIsVoiceConnected()
 	local latestActiveParticipant = useLastActiveParticipant()
 
 	local lastActiveUserId = latestActiveParticipant and latestActiveParticipant.userId or -1
@@ -134,7 +131,7 @@ function PartyIcon()
 				CornerRadius = UDim.new(1, 0),
 			}),
 		}),
-		Badge = if voiceParticipant
+		Badge = if isVoiceConnected
 			then React.createElement("Frame", {
 				BackgroundColor3 = ACTIVE_COLOR,
 				Position = UDim2.new(1, -ACTIVE_INDICATOR_OFFSET, 0, ACTIVE_INDICATOR_OFFSET),

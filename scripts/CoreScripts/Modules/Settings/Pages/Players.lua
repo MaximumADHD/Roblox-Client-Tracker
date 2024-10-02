@@ -143,6 +143,7 @@ local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag(
 local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
 local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
+local FIntSettingsHubPlayersButtonsResponsiveThreshold = game:DefineFastInt("SettingsHubPlayersButtonsResponsiveThreshold", 200)
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
 
@@ -366,30 +367,38 @@ local function Initialize()
 	local playersFriends = {}
 	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Players")
 	local updateButtonsLayout
+	local lastUsedColumnLayout = false
+	local getUsedColumnLayout
+	local primaryButtons = {}
 	local buttonFrame
 	local buttonFrameLayout
 
-	if GetFFlagEnableAppChatInExperience() or GetFFlagEnableShowVoiceUI() then
+	if getShowAppChatTreatment() or GetFFlagEnableShowVoiceUI() then
+		getUsedColumnLayout = function()
+			return this.Page.AbsoluteSize.X < (FIntSettingsHubPlayersButtonsResponsiveThreshold * #primaryButtons)
+		end
+
 		updateButtonsLayout = function()
-			local buttons = {}
-			local columnLayout = utility:IsPortrait() or utility:IsSmallTouchScreen()
+			primaryButtons = {}
 
 			if shareGameButton then
-				table.insert(buttons, shareGameButton)
+				table.insert(primaryButtons, shareGameButton)
 			end
 
 			if muteAllButton then
-				table.insert(buttons, muteAllButton)
+				table.insert(primaryButtons, muteAllButton)
 			end
 
 			if chatButton then
-				table.insert(buttons, chatButton)
+				table.insert(primaryButtons, chatButton)
 			end
+			
+			lastUsedColumnLayout = getUsedColumnLayout()
 
-			if #buttons > 0 then
-				local buttonSize = UDim2.new(1 / #buttons, 0, 0, BUTTON_ROW_HEIGHT)
+			if #primaryButtons > 0 then
+				local buttonSize = UDim2.new(1 / #primaryButtons, 0, 0, BUTTON_ROW_HEIGHT)
 				local buttonFrameProperties = {
-					Size = UDim2.new(1, -BUTTON_ROW_HORIZONTAL_PADDING * (#buttons - 1), 0, BUTTON_ROW_HEIGHT),
+					Size = UDim2.new(1, -BUTTON_ROW_HORIZONTAL_PADDING * (#primaryButtons - 1), 0, BUTTON_ROW_HEIGHT),
 					AutomaticSize = Enum.AutomaticSize.None,
 				}
 				local buttonFrameLayoutProperties = {
@@ -400,7 +409,7 @@ local function Initialize()
 					Padding = UDim.new(0, BUTTON_ROW_HORIZONTAL_PADDING),
 				}
 
-				if columnLayout then
+				if lastUsedColumnLayout then
 					buttonSize = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT)
 					buttonFrameProperties = {
 						Size = UDim2.fromScale(1, 0),
@@ -415,8 +424,9 @@ local function Initialize()
 					}
 				end
 
-				for _, button in buttons do
+				for _, button in primaryButtons do
 					button.Size = buttonSize
+					button.Parent = buttonFrame
 				end
 
 				for property, value in buttonFrameLayoutProperties do
@@ -1167,7 +1177,7 @@ local function Initialize()
 		return frame
 	end
 
-	if GetFFlagEnableAppChatInExperience() then
+	if getShowAppChatTreatment() then
 		local unreadIndicator: GuiObject?
 		local shouldUnreadIndicatorBeVisible = false
 
@@ -1395,7 +1405,6 @@ local function Initialize()
 		frame.SecondRow.Name = "NameLabel"
 		if GetFFlagLuaAppEnableOpenTypeSupport() then
 			frame.NameLabel.OpenTypeFeatures = OpenTypeSupport:getUserNameStylisticAlternative()
-			frame.NameLabel.RichText = true
 		end
 		local rightSideButtons = Instance.new("Frame")
 		rightSideButtons.Name = "RightSideButtons"
@@ -1835,6 +1844,12 @@ local function Initialize()
 				chatButton.Parent = buttonFrame
 				updateButtonsLayout()
 			end
+			
+			this.Page:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+				if getUsedColumnLayout() ~= lastUsedColumnLayout then
+					updateButtonsLayout()
+				end
+			end)
 		end
 
 		local inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
@@ -2183,7 +2198,13 @@ local function Initialize()
 		end)
 	end
 
-	this.Displayed.Event:connect(rebuildPlayerList)
+	if getShowAppChatTreatment() then
+		this.Displayed.Event:connect(function()
+			rebuildPlayerList()
+		end)
+	else
+		this.Displayed.Event:connect(rebuildPlayerList)
+	end
 	this.Hidden.Event:connect(cleanup)
 
 	PlayersService.PlayerRemoving:Connect(function (player)

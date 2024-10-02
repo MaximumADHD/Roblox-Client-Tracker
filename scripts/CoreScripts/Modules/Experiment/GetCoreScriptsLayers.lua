@@ -10,7 +10,6 @@ local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFl
 local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLargerRobuxUpsellIxpLayer
 local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
 local GetFStringLuaAppConsoleExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppConsoleExperienceMenuLayer)
-local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(script.Parent.Parent.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
 local GetFStringTeleportBackButtonIXPCustomLayerName = require(script.Parent.Parent.Flags.GetFStringTeleportBackButtonIXPCustomLayerName)
 local GetFFlagReportAnythingAnnotationIXP = require(script.Parent.Parent.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFStringReportAnythingAnnotationIXPLayerName = require(script.Parent.Parent.Settings.Flags.GetFStringReportAnythingAnnotationIXPLayerName)
@@ -33,12 +32,14 @@ local GetFStringIOSPhoneVerificationLayer = require(CorePackages.Workspace.Packa
 local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local getFStringAppChatInExperienceIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).getFStringAppChatInExperienceIXPLayer
 local FStringReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportMenuIXPLayer
+local FStringReportingIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportingIXPLayer
 
 return function()
 	local layers = {
 		"AbuseReports",
 		getFStringDesktopToastNotificationLayer(),
 		FStringReportMenuIXPLayer,
+		FStringReportingIXPLayer,
 		GetFStringTeleportBackButtonIXPCustomLayerName(),
 	}
 
@@ -53,10 +54,6 @@ return function()
 
 	if GetFStringLargerRobuxUpsellIxpLayer() then
 		table.insert(layers, GetFStringLargerRobuxUpsellIxpLayer())
-	end
-
-	if GetFFlagInGameMenuV1FadeBackgroundAnimation() then
-		table.insert(layers, "Engine.Interactivity.UICreation.NotchScreenSupport")
 	end
 
 	if GetFFlagReportAnythingAnnotationIXP() then

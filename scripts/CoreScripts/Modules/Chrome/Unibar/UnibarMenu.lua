@@ -61,6 +61,11 @@ local GetFFlagChromeUsePreferredTransparency =
 local GetFFlagSongbirdTranslationStrings =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdTranslationStrings
 
+local GetFFlagEnableAppChatInExperience =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
+local AppChat = require(CorePackages.Workspace.Packages.AppChat)
+local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+
 local PartyConstants = require(Chrome.Integrations.Party.Constants)
 
 type Array<T> = { [number]: T }
@@ -80,6 +85,13 @@ function configureUnibar()
 	end
 	-- prepend trust_and_safety to nine-dot menu
 	table.insert(nineDot, 1, "trust_and_safety")
+
+	if
+		GetFFlagEnableAppChatInExperience()
+		and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
+	then
+		table.insert(nineDot, 1, "connect")
+	end
 
 	-- insert leaderboard into MRU if it's shown on startup and not already a pin
 	if PlayerListInitialVisibleState() then
@@ -123,6 +135,18 @@ function configureUnibar()
 			end
 		end
 
+		if
+			GetFFlagEnableAppChatInExperience()
+			and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeUnibarEntryPoint
+			and not InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
+		then
+			-- TODO: this integration will replace logic related to `partyMenu`
+			local experienceChatIndex = table.find(v4Ordering, "chat")
+			if experienceChatIndex then
+				-- insert Connect(a.k.a AppChat) after ExperienceChat, so it appears in front of ExpChat
+				table.insert(v4Ordering, experienceChatIndex + 1, "connect")
+			end
+		end
 		ChromeService:configureMenu({
 			partyMenu,
 			v4Ordering,

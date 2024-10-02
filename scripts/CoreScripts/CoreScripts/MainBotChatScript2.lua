@@ -33,7 +33,6 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local YPOS_OFFSET = -math.floor(STYLE_PADDING / 2)
 local usingGamepad = false
 
-local FFlagFixDialogInstanceGamepadImages = game:DefineFastFlag("FixDialogInstanceGamepadImages", false)
 local FFlagFixDialogTouchNotWorking = game:DefineFastFlag("FixDialogTouchNotWorking2", false)
 
 local FlagHasReportedPlace = false
@@ -180,11 +179,7 @@ function createChatNotificationGui()
 	activationButton.Name = "ActivationButton"
 	activationButton.Position = UDim2.new(-0.3, 0, -0.4, 0)
 	activationButton.Size = UDim2.new(.8, 0, .8 * (PROMPT_SIZE.X / PROMPT_SIZE.Y), 0)
-	if FFlagFixDialogInstanceGamepadImages and game:GetEngineFeature("GetImageForKeyCode") then
-		activationButton.Image = userInputService:GetImageForKeyCode(Enum.KeyCode.ButtonX)
-	else
-		activationButton.Image = "rbxasset://textures/ui/Settings/Help/XButtonDark.png"
-	end
+	activationButton.Image = userInputService:GetImageForKeyCode(Enum.KeyCode.ButtonX)
 	activationButton.BackgroundTransparency = 1
 	activationButton.Visible = false
 	activationButton.Parent = button
@@ -419,11 +414,7 @@ function newChoice()
 	selectionButton.Name = "RBXchatDialogSelectionButton"
 	selectionButton.Position = UDim2.new(0, 0, 0.5, -33 / 2)
 	selectionButton.Size = UDim2.new(0, 33, 0, 33)
-	if FFlagFixDialogInstanceGamepadImages and game:GetEngineFeature("GetImageForKeyCode") then
-		selectionButton.Image = userInputService:GetImageForKeyCode(Enum.KeyCode.ButtonA)
-	else
-		selectionButton.Image = "rbxasset://textures/ui/Settings/Help/AButtonLightSmall.png"
-	end
+	selectionButton.Image = userInputService:GetImageForKeyCode(Enum.KeyCode.ButtonA)
 	selectionButton.BackgroundTransparency = 1
 	selectionButton.Visible = false
 	selectionButton.Parent = frame

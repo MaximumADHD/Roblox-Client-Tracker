@@ -188,6 +188,7 @@ export type ChromeService = {
 	onIntegrationRegistered: (ChromeService) -> SignalLib.Signal,
 	onIntegrationActivated: (ChromeService) -> SignalLib.Signal,
 	onIntegrationStatusChanged: (ChromeService) -> SignalLib.Signal,
+	onIntegrationHovered: (ChromeService) -> SignalLib.Signal,
 	integrations: (ChromeService) -> Types.IntegrationList,
 	userPins: (ChromeService) -> Types.IntegrationIdList,
 	mostRecentlyUsed: (ChromeService) -> Types.IntegrationIdList,
@@ -228,6 +229,7 @@ export type ChromeService = {
 	_onIntegrationRegistered: SignalLib.Signal,
 	_onIntegrationActivated: SignalLib.Signal,
 	_onIntegrationStatusChanged: SignalLib.Signal,
+	_onIntegrationHovered: SignalLib.Signal,
 
 	_lastInputToOpenMenu: Enum.UserInputType,
 	_chromeSeenCount: number,
@@ -310,6 +312,7 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationRegistered = Signal.new()
 	self._onIntegrationActivated = Signal.new()
 	self._onIntegrationStatusChanged = Signal.new()
+	self._onIntegrationHovered = Signal.new()
 
 	-- If unibar is default opened, init as MouseButton1 to prevent focus navigation at startup
 	self._lastInputToOpenMenu = if GetFFlagEnableChromeEscapeFix()
@@ -1146,6 +1149,10 @@ end
 
 function ChromeService:onIntegrationActivated()
 	return self._onIntegrationActivated
+end
+
+function ChromeService:onIntegrationHovered()
+	return self._onIntegrationHovered
 end
 
 function ChromeService:onIntegrationStatusChanged()

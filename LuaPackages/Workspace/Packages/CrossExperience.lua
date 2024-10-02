@@ -22,6 +22,9 @@ export type ParticipantWasMutedAction = Package.ParticipantWasMutedAction
 export type ParticipantWasUnmutedAction = Package.ParticipantWasUnmutedAction
 export type ParticipantIsActiveAction = Package.ParticipantIsActiveAction
 export type ParticipantIsInactiveAction = Package.ParticipantIsInactiveAction
+export type RestoreStateAction = Package.RestoreStateAction
+export type RestoreStatePayload = Package.RestoreStatePayload
+export type VoiceStatus = Package.VoiceStatus
 
 
 return Package

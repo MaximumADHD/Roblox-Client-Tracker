@@ -8,11 +8,11 @@ local ChromeEnabled = require(Modules.Chrome.Enabled)
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 
-local FFlagCapturesCarouselCTABarUIUpdateEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCapturesCarouselCTABarUIUpdateEnabled
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 local GetFFlagEnableCapturesInChrome = require(Modules.Chrome.Flags.GetFFlagEnableCapturesInChrome)
+local FFlagScreenshotsEventSetupEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagScreenshotsEventSetupEnabled
 
 local ScreenshotsApp = Screenshots.App.createApp()
 
@@ -20,9 +20,7 @@ local CarouselScreenGui = Instance.new("ScreenGui")
 CarouselScreenGui.DisplayOrder = Screenshots.Constants.CarouselDisplayOrder
 CarouselScreenGui.Name = "ScreenshotsCarousel"
 CarouselScreenGui.ResetOnSpawn = false
-if FFlagCapturesCarouselCTABarUIUpdateEnabled then
-	CarouselScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
-end
+CarouselScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
 CarouselScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 CarouselScreenGui.Parent = CoreGui
 
@@ -48,6 +46,16 @@ OverlayScreenGui.Name = Screenshots.Constants.OverlayName
 OverlayScreenGui.ResetOnSpawn = false
 OverlayScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 OverlayScreenGui.Parent = CoreGui
+
+if FFlagScreenshotsEventSetupEnabled then
+	local SubmissionModal = Instance.new("ScreenGui")
+	SubmissionModal.DisplayOrder = Screenshots.Constants.SubmissionModalDisplayOrder
+	SubmissionModal.Name = "SubmissionModal"
+	SubmissionModal.ResetOnSpawn = false
+	SubmissionModal.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	SubmissionModal.Parent = CoreGui
+	ScreenshotsApp.mountSubmissionModal(SubmissionModal)
+end
 
 ScreenshotsApp.mountCaptureManager(CaptureManagerScreenGui)
 ScreenshotsApp.mountCarousel(CarouselScreenGui)

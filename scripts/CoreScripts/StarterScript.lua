@@ -84,7 +84,8 @@ local FFlagEnablePremiumSponsoredExperienceReporting = game:DefineFastFlag("Enab
 local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FFlagMoveUGCValidationFunctionFeature)
 local FFlagEnableCancelSubscriptionApp = game:GetEngineFeature("EnableCancelSubscriptionApp")
 local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSubscriptionAppLua", false)
-local AudioFocusManagementEnabled = game:GetEngineFeature("EnableAudioFocusManagement")
+local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
+local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagCoreGuiEnableAnalytics = game:DefineFastFlag("CoreGuiEnableAnalytics", false)
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -97,13 +98,27 @@ while not localPlayer do
 	localPlayer = Players.LocalPlayer
 end
 
+if game:GetEngineFeature("SoundServiceControlsDefaultListenerLocation") then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/DefaultListenerLocation", script.Parent)
+end
+
 if GetFFlagEnableAppChatInExperience() then
 	local ExperimentCacheManager = require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
 	ExperimentCacheManager.default:initialize()
 
 	local InExperienceAppChatExperimentation = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatExperimentation
 	InExperienceAppChatExperimentation.default:initialize()
+
+	if InExperienceAppChatExperimentation.getHasInExperienceAppChatEntryPoint() then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/AppChatMain", RobloxGui)
+	end
 end
+
+-- Initialize SessionManager
+if FFlagEnableExperienceMenuSessionTracking then
+	local _inExperienceSessionization = require(CorePackages.Workspace.Packages.InExperienceSessionization)
+end
+
 
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
@@ -480,11 +495,6 @@ if FFlagEnableBulkPurchaseApp then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/BulkPurchaseApp", RobloxGui)
 end
 
-if GetFFlagEnableAppChatInExperience() then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/AppChatMain", RobloxGui)
-end
-
-
 if AudioFocusManagementEnabled then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceAudioFocusBinder", RobloxGui)
 end
@@ -495,4 +505,11 @@ end
 
 if FFlagCoreGuiEnableAnalytics then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui)
+end
+
+local GetFFlagEnableConnectCaptureEvents =
+	require(RobloxGui.Modules.Common.Flags.GetFFlagEnableConnectCaptureEvents)
+
+if GetFFlagEnableConnectCaptureEvents() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ConnectCaptureEvents", script.Parent)
 end

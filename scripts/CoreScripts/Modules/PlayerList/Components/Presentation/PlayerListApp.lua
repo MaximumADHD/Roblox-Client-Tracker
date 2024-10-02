@@ -8,6 +8,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Otter = require(CorePackages.Otter)
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 
 local StatsUtils = require(RobloxGui.Modules.Stats.StatsUtils)
 
@@ -27,6 +28,8 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
+local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTest)
+local GetFStringRemoveSideBarABTestLayerName = require(PlayerList.Flags.GetFStringRemoveSideBarABTestLayerName)
 
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
@@ -175,8 +178,10 @@ function PlayerListApp:render()
 			end
 		end
 
-		if self.props.displayOptions.isTenFootInterface then
-			childElements["TenFootSideBar"] = Roact.createElement(TenFootSideBar)
+		if not (FFlagRemoveSideBarABTest and self.props.removeSideBar) then
+			if self.props.displayOptions.isTenFootInterface then
+				childElements["TenFootSideBar"] = Roact.createElement(TenFootSideBar)
+			end
 		end
 
 		return Roact.createElement("Frame", {
@@ -251,6 +256,19 @@ local function mapStateToProps(state)
 
 		teams = state.teams,
 	}
+end
+
+if FFlagRemoveSideBarABTest then
+	local abTestLayerName = GetFStringRemoveSideBarABTestLayerName()
+	return RoactRodux.connect(mapStateToProps, nil)(RoactAppExperiment.connectUserLayer(
+		{ abTestLayerName },
+		function(variables, props)
+			local layerVariables = variables[abTestLayerName] or {}
+			return {
+				removeSideBar = layerVariables.removeSideBar
+			}
+		end
+	)(PlayerListApp))
 end
 
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(PlayerListApp)

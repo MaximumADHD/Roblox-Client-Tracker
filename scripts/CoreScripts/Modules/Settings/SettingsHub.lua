@@ -105,6 +105,8 @@ local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Work
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
 local FFlagCoreGuiFinalStateAnalytic = require(RobloxGui.Modules.Flags.FFlagCoreGuiFinalStateAnalytic)
+local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
+local FFlagSettingsHubIndependentBackgroundVisibility = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagSettingsHubIndependentBackgroundVisibility()
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -120,6 +122,7 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
+local ExperienceMenuSessionManagerInstance = require(CorePackages.Workspace.Packages.InExperienceSessionization).ExperienceMenuSessionManagerInstance
 
 local PlatformService = nil -- Clean up along with PlatformFriendsService engine-feature
 pcall(function() PlatformService = game:GetService('PlatformService') end)
@@ -145,6 +148,7 @@ local DevConsoleMaster = require(RobloxGui.Modules.DevConsoleMaster)
 
 local lastInputChangedCon = nil
 local chatWasVisible = false
+local connectWasVisible = false
 
 local connectedServerVersion = nil
 
@@ -174,14 +178,13 @@ local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
-local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
-local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
 local FFlagFixReportButtonCutOff = game:DefineFastFlag("FixReportButtonCutOff", false)
 
 local MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
 local PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
+local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
 
 local SPRING_PARAMS = {}
 if GetFFlagVoiceRecordingIndicatorsEnabled() then
@@ -296,10 +299,6 @@ local function CreateSettingsHub()
 	if GetFFlagVoiceRecordingIndicatorsEnabled() then
 		this.isMuted = nil
 		this.lastVoiceRecordingIndicatorTextUpdated = nil
-	end
-
-	if GetFFlagInGameMenuV1FadeBackgroundAnimation() then
-		NotchSupportExperiment.initialize()
 	end
 
 	--[[
@@ -1430,15 +1429,29 @@ local function CreateSettingsHub()
 		}
 
 		if Theme.EnableDarkenBackground then
-			this.DarkenBackground = Create("Frame")
-			{
-				Name = 'DarkenBackground',
-				ZIndex = this.Shield.ZIndex-1,
-				BackgroundTransparency = 1,
-				BackgroundColor3 = Theme.color("DarkenBackground"),
-				Size = UDim2.new(1,0,1,0),
-				Parent = this.ClippingShield,
-			}
+			if FFlagSettingsHubIndependentBackgroundVisibility then
+				this.DarkenBackground = Create("ImageButton")
+				{
+					Name = 'DarkenBackground',
+					ZIndex = this.Shield.ZIndex-1,
+					BackgroundTransparency = 1,
+					BackgroundColor3 = Theme.color("DarkenBackground"),
+					Size = UDim2.new(1,0,1,0),
+					Parent = this.ClippingShield,
+					AutoButtonColor = false,
+					Visible = false,
+				}
+			else
+				this.DarkenBackground = Create("Frame")
+				{
+					Name = 'DarkenBackground',
+					ZIndex = this.Shield.ZIndex-1,
+					BackgroundTransparency = 1,
+					BackgroundColor3 = Theme.color("DarkenBackground"),
+					Size = UDim2.new(1,0,1,0),
+					Parent = this.ClippingShield,
+				}
+			end
 		end
 
 		local menuPos = Theme.MenuContainerPosition()
@@ -1461,7 +1474,7 @@ local function CreateSettingsHub()
 		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
 			local paddingTop = topCornerInset.Y
-			if FFlagAvatarChatCoreScriptSupport or (GetFFlagVoiceRecordingIndicatorsEnabled() and not NotchSupportExperiment.enabled()) then
+			if FFlagAvatarChatCoreScriptSupport or GetFFlagVoiceRecordingIndicatorsEnabled() then
 				-- Audio/Video permissions bar takes up padding, but not voice recording indicator.
 				paddingTop = 0
 			end
@@ -1948,6 +1961,15 @@ local function CreateSettingsHub()
 				resumeFunc(Constants.AnalyticsResumeShieldSource)
 			end
 			)
+		end
+		
+		if FFlagSettingsHubIndependentBackgroundVisibility then
+			this.DarkenBackground.Activated:Connect(function()
+				if Theme.UIBloxThemeEnabled then
+					resumeFunc(Constants.AnalyticsResumeShieldSource)
+				end
+				InExperienceAppChatModal.default:setVisible(false)
+			end)
 		end
 
 		local leaveGameText = "Leave"
@@ -2918,9 +2940,18 @@ local function CreateSettingsHub()
 			else
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", Constants.AnalyticsMenuActionName, eventTable)
 			end
+
+			if FFlagEnableExperienceMenuSessionTracking then
+				ExperienceMenuSessionManagerInstance:MenuSwitchToPage(pageToSwitchTo.Page)
+			end
 		else
 			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_unknown_tab", Constants.AnalyticsMenuActionName, eventTable)
+			if FFlagEnableExperienceMenuSessionTracking then
+				ExperienceMenuSessionManagerInstance:CloseOpenedMenuTab()
+			end
 		end
+
+		
 	end
 
 	function this:SetActive(active)
@@ -2980,6 +3011,53 @@ local function CreateSettingsHub()
 		end
 
 	end
+	local setBackgroundVisibilityInternal = nil
+	if FFlagSettingsHubIndependentBackgroundVisibility then
+		setBackgroundVisibilityInternal = function(visible, noAnimation)
+			if not this.DarkenBackground then
+				return
+			end
+			
+			if not visible and this.DarkenBackground.Visible then
+				if InExperienceAppChatModal:getVisible() or this.Visible then
+					return
+				end
+			end
+			
+			local goalTransparency = 1
+			local easingStyle = Enum.EasingStyle.Quart
+			local movementTime = 0
+
+			movementTime = if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4
+
+			if visible then
+				goalTransparency = Theme.transparency("DarkenBackground")
+				easingStyle = Enum.EasingStyle.Quad
+				movementTime = if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5
+			end
+
+			if noAnimation then
+				if this.DarkenBackgroundTween then
+					this.DarkenBackgroundTween:Cancel()
+					this.DarkenBackgroundTween = nil
+				end
+				this.DarkenBackground.BackgroundTransparency = goalTransparency
+			else
+				local tweenInfo = TweenInfo.new(
+					movementTime,
+					easingStyle,
+					Enum.EasingDirection.Out
+				)
+				if this.DarkenBackgroundTween then
+					this.DarkenBackgroundTween:Cancel()
+				end
+				this.DarkenBackgroundTween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = goalTransparency})
+				this.DarkenBackgroundTween:Play()
+			end
+
+			this.DarkenBackground.Visible = visible
+		end
+	end
 	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
@@ -3013,10 +3091,9 @@ local function CreateSettingsHub()
 		end
 
 		local playerList = require(RobloxGui.Modules.PlayerList.PlayerListManager)
-
-		if NotchSupportExperiment.enabled() then
-			this.Shield.BackgroundTransparency = 1 -- Hide non-fullscreen shield
-			this.createBackgroundFadeGui()
+		
+		if FFlagSettingsHubIndependentBackgroundVisibility then
+			setBackgroundVisibilityInternal(this.Visible, noAnimation)
 		end
 
 		if this.Visible then
@@ -3044,34 +3121,28 @@ local function CreateSettingsHub()
 			this.SettingsShowSignal:fire(this.Visible)
 
 			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
+			if FFlagEnableExperienceMenuSessionTracking then
+				ExperienceMenuSessionManagerInstance:OpenExperienceMenu()
+			end
 			this.Shield.Visible = this.Visible
 
 			if Theme.UIBloxThemeEnabled then
 				GuiService:CloseInspectMenu()
 			end
 
-			if NotchSupportExperiment.enabled() and not UserInputService.VREnabled then
-				this.FullscreenGui.Enabled = true
-				this.FullscreenBackgroundCover.Visible = true
-				this.FullscreenBackgroundCover.BackgroundTransparency = 1
-			end
-
 			if noAnimation or not this.Shield:IsDescendantOf(game) then
 				this.Shield.Position = UDim2.new(0, 0, 0, 0)
-				if this.DarkenBackground then
-					if this.DarkenBackgroundTween then
-						this.DarkenBackgroundTween:Cancel()
-						this.DarkenBackgroundTween = nil
+				if not FFlagSettingsHubIndependentBackgroundVisibility then
+					if this.DarkenBackground then
+						if this.DarkenBackgroundTween then
+							this.DarkenBackgroundTween:Cancel()
+							this.DarkenBackgroundTween = nil
+						end
+						this.DarkenBackground.BackgroundTransparency = Theme.transparency("DarkenBackground")
 					end
-					this.DarkenBackground.BackgroundTransparency = Theme.transparency("DarkenBackground")
 				end
 			else
-				local movementTime: number = 0
-				if NotchSupportExperiment.enabled() then
-					movementTime = if Constants then Constants.ShieldOpenFadeTime2 else 0.3
-				else
-					movementTime = if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5
-				end
+				local movementTime: number = if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5
 
 				if GameSettings.ReducedMotion then
 
@@ -3126,27 +3197,19 @@ local function CreateSettingsHub()
 					)
 				end
 
-				if this.DarkenBackground then
-					local tweenInfo = TweenInfo.new(
-						movementTime,
-						Enum.EasingStyle.Quad,
-						Enum.EasingDirection.Out
-					)
-					if this.DarkenBackgroundTween then
-						this.DarkenBackgroundTween:Cancel()
+				if not FFlagSettingsHubIndependentBackgroundVisibility then
+					if this.DarkenBackground then
+						local tweenInfo = TweenInfo.new(
+							movementTime,
+							Enum.EasingStyle.Quad,
+							Enum.EasingDirection.Out
+						)
+						if this.DarkenBackgroundTween then
+							this.DarkenBackgroundTween:Cancel()
+						end
+						this.DarkenBackgroundTween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = Theme.transparency("DarkenBackground")})
+						this.DarkenBackgroundTween:Play()
 					end
-					this.DarkenBackgroundTween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = Theme.transparency("DarkenBackground")})
-					this.DarkenBackgroundTween:Play()
-				end
-
-				if NotchSupportExperiment.enabled() and not UserInputService.VREnabled then
-					local tweenInfo = TweenInfo.new(movementTime,
-						Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
-					local tweenProps = {
-						BackgroundTransparency = SETTINGS_SHIELD_TRANSPARENCY,
-					}
-					local tween = TweenService:Create(this.FullscreenBackgroundCover, tweenInfo, tweenProps)
-					tween:Play()
 				end
 			end
 
@@ -3190,6 +3253,11 @@ local function CreateSettingsHub()
 				chatWasVisible = true
 				chat:ToggleVisibility()
 			end
+			
+			if GetFFlagEnableAppChatInExperience() and InExperienceAppChatModal:getVisible() then
+				connectWasVisible = true
+				InExperienceAppChatModal.default:setVisible(false)
+			end
 
 			local backpack = require(RobloxGui.Modules.BackpackScript)
 			if backpack.IsOpen then
@@ -3205,49 +3273,48 @@ local function CreateSettingsHub()
 			if ChromeEnabled or FFlagSettingsHubCurrentPageSignal then
 				this.CurrentPageSignal:fire("")
 			end
-
-			if noAnimation then
+			
+			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then connectWasVisible else false
+			
+			if GetFFlagEnableAppChatInExperience() and connectWasVisible then
+				connectWasVisible = false
+				InExperienceAppChatModal.default:setVisible(true)
+			end
+			
+			if noAnimation or forceNoAnimationIfWeWillShowConnect then
 				this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 				this.Shield.Visible = this.Visible
 				this.SettingsShowSignal:fire(this.Visible)
 				GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
+				if FFlagEnableExperienceMenuSessionTracking then
+					ExperienceMenuSessionManagerInstance:CloseExperienceMenu()
+				end
 				if FFlagEnableInGameMenuDurationLogger then
 					PerfUtils.menuCloseComplete()
 				end
 
-				if NotchSupportExperiment.enabled() then
-					this.FullscreenGui.Enabled = false
-					this.FullscreenBackgroundCover.Visible = false
-				end
-				if this.DarkenBackground then
-					if this.DarkenBackgroundTween then
-						this.DarkenBackgroundTween:Cancel()
-						this.DarkenBackgroundTween = nil
+				if not FFlagSettingsHubIndependentBackgroundVisibility then
+					if this.DarkenBackground then
+						if this.DarkenBackgroundTween then
+							this.DarkenBackgroundTween:Cancel()
+							this.DarkenBackgroundTween = nil
+						end
+						this.DarkenBackground.BackgroundTransparency = 1
 					end
-					this.DarkenBackground.BackgroundTransparency = 1
 				end
 			else
-				local movementTime: number = 0
-				local fadeTime: number = 0
-				if NotchSupportExperiment.enabled() then
-					movementTime = if Constants then Constants.ShieldCloseFadeTime2 else 0.2
-					fadeTime = if Constants then movementTime + Constants.ShieldExtraFadeTime else 0.25
-				else
-					movementTime = if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4
-				end
+				local movementTime: number = if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4
 
 				local function handleShieldClose()
 					this.SettingsShowSignal:fire(this.Visible)
 					if not this.Visible then
 						GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
+						if FFlagEnableExperienceMenuSessionTracking then
+							ExperienceMenuSessionManagerInstance:CloseExperienceMenu()
+						end
 					end
 					if FFlagEnableInGameMenuDurationLogger then
 						PerfUtils.menuCloseComplete()
-					end
-
-					if NotchSupportExperiment.enabled() then
-						clearMenuStack()
-						this.GameSettingsPage:CloseSettingsPage()
 					end
 				end
 
@@ -3303,32 +3370,20 @@ local function CreateSettingsHub()
 					)
 				end
 
-				if this.DarkenBackground then
-					local tweenInfo = TweenInfo.new(
-						movementTime,
-						Enum.EasingStyle.Quart,
-						Enum.EasingDirection.Out
-					)
+				if not FFlagSettingsHubIndependentBackgroundVisibility then
+					if this.DarkenBackground then
+						local tweenInfo = TweenInfo.new(
+							movementTime,
+							Enum.EasingStyle.Quart,
+							Enum.EasingDirection.Out
+						)
 
-					if this.DarkenBackgroundTween then
-						this.DarkenBackgroundTween:Cancel()
+						if this.DarkenBackgroundTween then
+							this.DarkenBackgroundTween:Cancel()
+						end
+						this.DarkenBackgroundTween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = 1})
+						this.DarkenBackgroundTween:Play()
 					end
-					this.DarkenBackgroundTween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = 1})
-					this.DarkenBackgroundTween:Play()
-				end
-
-				if NotchSupportExperiment.enabled() then
-					local tweenInfo = TweenInfo.new(fadeTime,
-						Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-					local tweenProps = {
-						BackgroundTransparency = 1,
-					}
-					local tween = TweenService:Create(this.FullscreenBackgroundCover, tweenInfo, tweenProps)
-					tween.Completed:Connect(function()
-						this.FullscreenGui.Enabled = false
-						this.FullscreenBackgroundCover.Visible = false
-					end)
-					tween:Play()
 				end
 			end
 
@@ -3354,9 +3409,8 @@ local function CreateSettingsHub()
 				MouseIconOverrideService.pop(SETTINGS_HUB_MOUSE_OVERRIDE_KEY)
 			end
 
-			if not NotchSupportExperiment.enabled() then
-				clearMenuStack()
-			end
+			clearMenuStack()
+
 			ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
 			ContextActionService:UnbindCoreAction("RbxSettingsHubStopCharacter")
 			ContextActionService:UnbindCoreAction("RbxSettingsScrollHotkey")
@@ -3364,9 +3418,7 @@ local function CreateSettingsHub()
 
 			GuiService.SelectedCoreObject = nil
 
-			if not NotchSupportExperiment.enabled() then
-				this.GameSettingsPage:CloseSettingsPage()
-			end
+			this.GameSettingsPage:CloseSettingsPage()
 
 			if GetFFlagShareInviteLinkContextMenuV1Enabled() then
 				if this.ShareGamePage then
@@ -3395,6 +3447,12 @@ local function CreateSettingsHub()
 		if this.Visible == visible then return end
 
 		setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
+	end
+	
+	function this:SetBackgroundVisibility(visible, noAnimation)
+		if this.DarkenBackground.Visible == visible then return end
+
+		setBackgroundVisibilityInternal(visible, noAnimation)
 	end
 
 	function this:GetVisibility()
@@ -3465,7 +3523,7 @@ local function CreateSettingsHub()
 		if UserInputService.VREnabled then
 			shieldTransparency = SETTINGS_SHIELD_VR_TRANSPARENCY
 		else
-			shieldTransparency = if NotchSupportExperiment.enabled() then 1 else SETTINGS_SHIELD_TRANSPARENCY
+			shieldTransparency = SETTINGS_SHIELD_TRANSPARENCY
 		end
 		this.Shield.BackgroundTransparency = shieldTransparency
 	end
@@ -3790,6 +3848,25 @@ local function CreateSettingsHub()
 		end
 	end
 
+	if GetFFlagEnableAppChatInExperience() then
+		local connection = nil
+		
+		this.SettingsShowSignal:connect(function(visible)
+			if visible then
+				connection = InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
+					if visible and this.Visible then
+						this:SetVisibility(false, true)
+					end
+				end)
+			else
+				if connection then
+					connection:Disconnect()
+					connection = nil
+				end
+			end
+		end)
+	end
+
 	return this
 end
 
@@ -3818,6 +3895,10 @@ local SettingsHubInstance = CreateSettingsHub()
 
 function moduleApiTable:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 	SettingsHubInstance:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
+end
+
+function moduleApiTable:SetBackgroundVisibility(visible, noAnimation)
+	SettingsHubInstance:SetBackgroundVisibility(visible, noAnimation)
 end
 
 function moduleApiTable:ToggleVisibility(switchedFromGamepadInput, analyticsContext)

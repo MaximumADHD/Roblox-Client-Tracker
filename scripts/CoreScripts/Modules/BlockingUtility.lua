@@ -8,8 +8,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 
-local FFlagBlockingUtiltyReplaceUrls = game:DefineFastFlag("BlockingUtiltyReplaceUrls", false)
-local Url = if FFlagBlockingUtiltyReplaceUrls then require(CorePackages.Workspace.Packages.Http).Url else require(RobloxGui.Modules.Common.Url)
+local Url = require(CorePackages.Workspace.Packages.Http).Url
 
 local rolloutByApplicationId = require(CorePackages.Workspace.Packages.AppCommonLib).rolloutByApplicationId
 

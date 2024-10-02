@@ -43,9 +43,12 @@ local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Fl
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
+local FFlagInExperienceSettingsRefactorAnalytics = require(RobloxGui.Modules.Flags.FFlagInExperienceSettingsRefactorAnalytics)
 local GetFFlagAddHapticsToggle = SharedFlags.GetFFlagAddHapticsToggle
 local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
 local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding2", false)
+
+local PartyVoiceVolumeFeatureAvailable = game:GetEngineFeature("PartyVoiceVolume")
 
 -------------- CONSTANTS --------------
 local GRAPHICS_QUALITY_LEVELS = 10
@@ -120,7 +123,7 @@ local SETTINGS_MENU_LAYOUT_ORDER = {
 	["DeviceFrameInput"] = 60,
 	["DeviceFrameOutput"] = 61,
 	["VolumeFrame"] = 62,
-	["HapticsFrame"] = 63,
+	["HapticsFrame"] = if PartyVoiceVolumeFeatureAvailable then 64 else 63,
 	-- Graphics
 	["FullScreenFrame"] = 70,
 	["GraphicsEnablerFrame"] = 71,
@@ -145,6 +148,11 @@ local SETTINGS_MENU_LAYOUT_ORDER = {
 	["FreecamToggleRow"] = 203,
 	["InformationFrame"] = 999, -- Reserved to be last
 }
+
+if PartyVoiceVolumeFeatureAvailable then
+	SETTINGS_MENU_LAYOUT_ORDER["PartyVoiceVolumeFrame"] = 63
+end
+
 -------- CHAT TRANSLATION ----------
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
@@ -291,7 +299,7 @@ local function reportSettingsForAnalytics()
 	stringTable["preferred_transparency"] = tostring(GameSettings.PreferredTransparency)
 	if GetFFlagEnablePreferredTextSizeSettingInMenus() then
 		stringTable["preferred_text_size"] = tostring(GameSettings.PreferredTextSize)
-	end 
+	end
 	stringTable["ui_navigation_key_bind_enabled"] = tostring(GameSettings.UiNavigationKeyBindEnabled)
 
 	stringTable["universeid"] = tostring(game.GameId)
@@ -531,12 +539,30 @@ local function Initialize()
 
 		this.GraphicsQualityEnabler.IndexChanged:connect(
 			function(newIndex)
-				if newIndex == 1 then
-					setGraphicsToAuto()
-				elseif newIndex == 2 then
-					setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
+				if FFlagInExperienceSettingsRefactorAnalytics then
+					local GFX_MODES = {
+						Automatic= {Name='Automatic', Value=1,},
+						Manual= {Name='Manual', Value=2}
+					}
+					local gfx_mode_old_val = GFX_MODES.Automatic.Name
+					local gfx_mode_new_val = GFX_MODES.Manual.Name
+					if newIndex == GFX_MODES.Automatic.Value then
+						gfx_mode_old_val = GFX_MODES.Manual.Name
+						gfx_mode_new_val = GFX_MODES.Automatic.Name
+						setGraphicsToAuto()
+					elseif newIndex == GFX_MODES.Manual.Value then
+						setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
+					end
+					reportSettingsForAnalytics()
+					reportSettingsChangeForAnalytics('gfx_mode', gfx_mode_old_val, gfx_mode_new_val)
+				else
+					if newIndex == 1 then
+						setGraphicsToAuto()
+					elseif newIndex == 2 then
+						setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
+					end
+					reportSettingsForAnalytics()
 				end
-				reportSettingsForAnalytics()
 			end
 		)
 
@@ -645,7 +671,7 @@ local function Initialize()
 		local preferredTextSizeDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.PreferredTextSize")
 		local preferredTextSizeLeftLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTextSize.Default")
 		local preferredTextSizeRightLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTextSize.Largest")
- 
+
 		this.PreferredTextSizeFrame, this.PreferredTextSizeLabel, this.PreferredTextSizeSlider =
 			utility:AddNewRow(this, preferredTextSizeLabel, "Slider", 3, startValue, nil, preferredTextSizeDescription, preferredTextSizeLeftLabel, preferredTextSizeRightLabel)
 		this.PreferredTextSizeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["PreferredTextSizeFrame"]
@@ -1181,9 +1207,26 @@ local function Initialize()
 
 				this.VREnabledSelector.IndexChanged:connect(
 					function(newIndex)
-						local vrEnabledSetting = (newIndex == 1)
-						if GameSettings.VREnabled ~= vrEnabledSetting then
-							GameSettings.VREnabled = vrEnabledSetting
+						if FFlagInExperienceSettingsRefactorAnalytics then
+							local VR_MODE = {
+								On = {Name = "On", Value = 1,},
+								Off = {Name = "Off", Value = 2,},
+							}
+							local vrEnabledSetting = (newIndex == VR_MODE.On.Value)
+							if GameSettings.VREnabled ~= vrEnabledSetting then
+								GameSettings.VREnabled = vrEnabledSetting
+								local vr_mode_old_val = optionNames[VR_MODE.On.Value]
+								local vr_mode_new_val = optionNames[newIndex]
+								if vr_mode_new_val == optionNames[VR_MODE.On.Value] then
+									vr_mode_old_val = optionNames[VR_MODE.Off.Value]
+								end
+								reportSettingsChangeForAnalytics('vr_mode', vr_mode_old_val, vr_mode_new_val)
+							end
+						else
+							local vrEnabledSetting = (newIndex == 1)
+							if GameSettings.VREnabled ~= vrEnabledSetting then
+								GameSettings.VREnabled = vrEnabledSetting
+							end
 						end
 					end
 				)
@@ -1327,7 +1370,7 @@ local function Initialize()
 					if GetFFlagChatTranslationHoldoutEnabled() then
 						local layerName = GetFStringChatTranslationLayerName()
 						local layerData = getChatTranslationLayerData(layerName)
-	
+
 						if not layerData.ChatTranslationEnabled then
 							if ChatTranslationSettingsMoved then
 								if GetFFlagChatTranslationNewDefaults() then
@@ -1356,9 +1399,9 @@ local function Initialize()
 				else
 					local layerName = GetFStringChatTranslationLayerName()
 					local layerData = getChatTranslationLayerData(layerName)
-		
+
 					local success = setUpChatTranslationIxpDefaults(layerData)
-		
+
 					if success and layerData.ChatTranslationEnabled then
 						createChatTranslationOption()
 					end
@@ -1630,6 +1673,9 @@ local function Initialize()
 		)
 	end
 
+	------------------------------------------------------
+	------------------
+	------------------ Translation Feedback --------------
 	local function createFeedbackModeOptions()
 		local rolesCheckUrl = Url.ROLES_URL .. "v1/users/authenticated/roles"
 		local rolesCheckRequest = HttpService:RequestInternal({
@@ -1662,6 +1708,9 @@ local function Initialize()
 						-- In this function ExperienceStateCaptureService should always exist, but just in case we do a nil check before we attempt a toggle
 						ExperienceStateCaptureService:ToggleCaptureMode()
 					end
+					if FFlagInExperienceSettingsRefactorAnalytics then
+						reportSettingsChangeForAnalytics('translation_feedback', "", "pressed")
+					end
 				end
 
 				local toggleFeedbackModeButton, toggleFeedbackModeText = nil, nil
@@ -1677,7 +1726,7 @@ local function Initialize()
 					toggleFeedbackModeButton.Position = UDim2.new(0.4, 0, 0.5, 0)
 					toggleFeedbackModeButton.AnchorPoint = Vector2.new(0, 0.5)
 				end
-				
+
 				toggleFeedbackModeButton.ZIndex = 2
 				toggleFeedbackModeButton.Selectable = true
 				toggleFeedbackModeText.ZIndex = 2
@@ -1736,6 +1785,9 @@ local function Initialize()
 	end
 
 	-- This function is called in SetHub override only if engine flag is enabled
+	------------------------------------------------------
+	------------------
+	------------------------- Experience Language --------
 	local function createTranslationOptions()
 		------------------------------------------------------
 		------------------
@@ -1854,6 +1906,11 @@ local function Initialize()
 					LocalPlayer:SetExperienceSettingsLocaleId(languageCodeMetadataMappings[newLanguageCode].localeCode)
 				end
 
+				if FFlagInExperienceSettingsRefactorAnalytics then
+					-- stores current language
+					this.LanguageSelectorMode.CurrentLanguage = this.LanguageSelectorMode.DropDownFrame.DropDownFrameTextLabel.Text
+				end
+
 				-- Create on toggle change function
 				local function toggleTranslation(newIndex)
 					-- Disable interactability of the setting until API call is
@@ -1868,6 +1925,16 @@ local function Initialize()
 						newTargetId = languageCodeMetadataMappings[sourceLanguageCode].id
 					else
 						newTargetId = languageCodeMetadataMappings[languageNameToLanguageCodeMapping[languageOptions[newIndex]]].id
+					end
+
+					if FFlagInExperienceSettingsRefactorAnalytics then
+						local old_lang = this.LanguageSelectorMode.CurrentLanguage
+						local new_lang = languageOptions[newIndex]
+						if old_lang ~= new_lang then
+							-- update current language when new language is selected
+							this.LanguageSelectorMode.CurrentLanguage = new_lang
+							reportSettingsChangeForAnalytics('experience_language', old_lang, new_lang)
+						end	
 					end
 
 					local payload =
@@ -2211,6 +2278,31 @@ local function Initialize()
 		)
 	end
 
+	local function createPartyVoiceVolumeOptions()
+		local startVolumeLevel = math.floor(GameSettings.PartyVoiceVolume * 10)
+		local previousValue = startVolumeLevel
+		this.PartyVoiceVolumeFrame, this.PartyVoiceVolumeLabel, this.PartyVoiceVolumeSlider =
+			utility:AddNewRow(this, "Party Voice Volume", "Slider", 10, startVolumeLevel)
+		this.PartyVoiceVolumeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["PartyVoiceVolumeFrame"]
+
+		this.PartyVoiceVolumeSlider.ValueChanged:connect(
+			function(newValue)
+				local oldValue
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					oldValue = if previousValue ~= nil then math.floor((previousValue * 10) + 0.5) else 0
+				end
+
+				local soundPercent = newValue / 10
+				GameSettings.PartyVoiceVolume = soundPercent
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('party_voice_volume', oldValue, math.floor((newValue * 10) + 0.5))
+				end
+				reportSettingsForAnalytics()
+			end
+		)
+	end
+
 	local function createHapticsToggle()
 		local initialIndex = GameSettings.HapticStrength == 0 and 1 or 2
 		this.HapticsFrame, _, this.HapticsSelector =
@@ -2345,7 +2437,7 @@ local function Initialize()
 		this.MouseAdvancedEntry.SliderFrame.Size =
 			UDim2.new(
 			this.MouseAdvancedEntry.SliderFrame.Size.X.Scale,
-			if FFlagCameraSensitivityPadding 
+			if FFlagCameraSensitivityPadding
 				then this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth - textBoxPadding
 				else this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth,
 			this.MouseAdvancedEntry.SliderFrame.Size.Y.Scale,
@@ -2354,7 +2446,7 @@ local function Initialize()
 		this.MouseAdvancedEntry.SliderFrame.Position =
 			UDim2.new(
 			this.MouseAdvancedEntry.SliderFrame.Position.X.Scale,
-			if FFlagCameraSensitivityPadding 
+			if FFlagCameraSensitivityPadding
 				then this.MouseAdvancedEntry.SliderFrame.Position.X.Offset - textBoxWidth - textBoxPadding
 				else this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth,
 			this.MouseAdvancedEntry.SliderFrame.Position.Y.Scale,
@@ -2580,6 +2672,9 @@ local function Initialize()
 
 	end
 
+	------------------------------------------------------
+	------------------
+	------------------ Developer Console -----------------
 	local function createDeveloperConsoleOption()
 		-- makes button in settings menu to open dev console
 		local function makeDevConsoleOption()
@@ -2591,6 +2686,9 @@ local function Initialize()
 					local MenuModule = require(script.Parent.Parent.SettingsHub) :: any
 					if MenuModule then
 						MenuModule:SetVisibility(false)
+					end
+					if FFlagInExperienceSettingsRefactorAnalytics then
+						reportSettingsChangeForAnalytics('dev_console', '', 'pressed')
 					end
 				end
 			end
@@ -2632,7 +2730,7 @@ local function Initialize()
 			end)
 		end
 	end
-	
+
 	local function createUiToggleOptions()
 		if FFlagUserShowGuiHideToggles then
 			local selectorTypes = {
@@ -2800,6 +2898,9 @@ local function Initialize()
 		end
 	end
 
+	------------------------------------------------------
+	------------------
+	------------------ Input/Output Audio Device ---------
 	local function SwitchOutputDevice(deviceName, deviceGuid)
 		SoundService:SetOutputDevice(deviceName, deviceGuid)
 		log:info("[SwitchOutputDevice] Setting SS Speaker Device To {} {}", deviceName, deviceGuid)
@@ -2819,6 +2920,10 @@ local function Initialize()
 			Name = selectedIndex > 0 and options[selectedIndex] or nil,
 			Guid = selectedIndex > 0 and guids[selectedIndex] or nil,
 		}
+
+		if FFlagInExperienceSettingsRefactorAnalytics then
+			this[deviceType.."PrevDeviceName"] = this[deviceType.."DeviceInfo"].Name
+		end
 
 		local indexChangedInvocations = 0
 		local indexChangedDelay = GetFIntVoiceChatDeviceChangeDebounceDelay()
@@ -2849,11 +2954,18 @@ local function Initialize()
 					else
 						SwitchOutputDevice(deviceName, deviceGuid)
 					end
+					if FFlagInExperienceSettingsRefactorAnalytics then
+						reportSettingsChangeForAnalytics(deviceType, this[deviceType.."PrevDeviceName"], deviceName)
+						this[deviceType.."PrevDeviceName"] = deviceName
+					end
 				end
 			end
 		)
 	end
 
+	------------------------------------------------------
+	------------------
+	------------------ Video Camera Device ---------------
 	local function createCameraDeviceOptions()
 		local selectedIndex = this[CAMERA_DEVICE_INDEX_KEY] or 1
 		local options = this[CAMERA_DEVICE_NAMES_KEY] or {}
@@ -2868,6 +2980,10 @@ local function Initialize()
 			Name = selectedIndex > 0 and options[selectedIndex] or nil,
 			Guid = selectedIndex > 0 and guids[selectedIndex] or nil,
 		}
+
+		if FFlagInExperienceSettingsRefactorAnalytics then
+			this.prevCameraDeviceName = this[CAMERA_DEVICE_INFO_KEY].Name
+		end
 
 		this[CAMERA_DEVICE_SELECTOR_KEY].IndexChanged:connect(
 			function(newIndex)
@@ -2884,6 +3000,10 @@ local function Initialize()
 				local deviceGuid = this[CAMERA_DEVICE_INFO_KEY].Guid
 				log:info("Changed webcam to: {}", deviceGuid)
 				UserGameSettings.DefaultCameraID = deviceGuid
+				if FFlagInExperienceSettingsRefactorAnalytics then
+					reportSettingsChangeForAnalytics('video_camera', this.prevCameraDeviceName or "None", this[CAMERA_DEVICE_INFO_KEY].Name)
+					this.prevCameraDeviceName = this[CAMERA_DEVICE_INFO_KEY].Name
+				end
 			end
 		)
 	end
@@ -3198,6 +3318,9 @@ local function Initialize()
 	end
 
 	createVolumeOptions()
+	if PartyVoiceVolumeFeatureAvailable then
+		createPartyVoiceVolumeOptions()
+	end
 	if GetFFlagAddHapticsToggle() then
 		createHapticsToggle()
 	end
@@ -3302,7 +3425,7 @@ local function Initialize()
 
 	this.OpenSettingsPage = function()
 		this.PageOpen = true
-		
+
 		-- Update device info each time user opens the menu
 		-- TODO: This should be simplified by new API
 		updateAudioOptions()

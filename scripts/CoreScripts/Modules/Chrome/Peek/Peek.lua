@@ -29,18 +29,29 @@ local GetFFlagSongbirdTranslationStrings =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdTranslationStrings
 local GetFFlagFixPeekRenderingWithoutContent =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixPeekRenderingWithoutContent
+local GetFFlagPeekShowsOneSongOverLifetime =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekShowsOneSongOverLifetime
 
 local useStyle = UIBlox.Core.Style.useStyle
 
 function configurePeek()
 	if GetFFlagEnableSongbirdPeek() then
 		ChromeService:configurePeek("music_peek", {
-			integrations = {
-				"peek_close",
-				"music_playing_icon",
-				if GetFFlagSongbirdTranslationStrings() then "now_playing" else GetFStringChromeMusicIntegrationId(),
-				"like_button",
-			},
+			integrations = if GetFFlagPeekShowsOneSongOverLifetime()
+				then {
+					"peek_close",
+					"music_playing_icon",
+					"peek_track_details",
+					"like_button",
+				}
+				else {
+					"peek_close",
+					"music_playing_icon",
+					if GetFFlagSongbirdTranslationStrings()
+						then "now_playing"
+						else GetFStringChromeMusicIntegrationId(),
+					"like_button",
+				},
 		})
 	end
 end

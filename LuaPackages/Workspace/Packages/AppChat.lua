@@ -5,4 +5,7 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["AppChat"]["AppChat"])
 
+export type ParentContainerContextType = Package.ParentContainerContextType
+
+
 return Package

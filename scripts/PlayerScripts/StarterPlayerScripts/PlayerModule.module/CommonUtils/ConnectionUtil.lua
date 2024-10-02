@@ -1,45 +1,44 @@
 --!strict
--- Utility module for handling RBXScriptSignals/Connections
+-- Utility module for handling RBXScriptConnections. This module is used to track connections and disconnect them when needed.
 
-export type ConnectionUtilType = {
-	-------------------- Public ----------------------------
-	new: () -> ConnectionUtilType,
-	-- Adds the given function as a connection to the RBXScriptSignal. If there is an already
-	-- existing connecttion for the key, disconnects it and adds the new connection
-	connect: (self: ConnectionUtilType, string, RBXScriptSignal, (any) -> any) -> (),
+type ConnectionUtilClass = {
+	__index: ConnectionUtilClass,
+	new: () -> ConnectionUtil,
+	-- Connect with an RBXScripConnection
+	trackConnection: (self: ConnectionUtil, string, RBXScriptConnection) -> (),
 	-- Adds a manual disconnect function
-	connectManual: (self: ConnectionUtilType, string, () -> ()) -> (),
+	trackBoundFunction: (self: ConnectionUtil, string, () -> ()) -> (),
 	-- Disconnects the key
-	disconnect: (self: ConnectionUtilType, string) -> (),
+	disconnect: (self: ConnectionUtil, string) -> (),
 	-- Disconnects all connections on this util
-	disconnectAll: (self: ConnectionUtilType) -> (),
-
-	-------------------- Private ----------------------------
-	-- Mapping from a unique key to a disconnect function
-	_connections: {[string]: () -> ()},
+	disconnectAll: (self: ConnectionUtil) -> (),
 }
 
-local ConnectionUtil: ConnectionUtilType = {} :: ConnectionUtilType;
-(ConnectionUtil:: any).__index = ConnectionUtil
+export type ConnectionUtil = typeof(setmetatable({} :: {
+	-- Mapping from a unique key to a disconnect function
+	_connections: {[string]: () -> ()},
+}, {} :: ConnectionUtilClass))
+
+local ConnectionUtil: ConnectionUtilClass = {} :: ConnectionUtilClass;
+ConnectionUtil.__index = ConnectionUtil
 
 function ConnectionUtil.new()
 	local self = setmetatable({}, ConnectionUtil)
 
 	self._connections = {}
 
-	return self :: any 
+	return self
 end
 
-function ConnectionUtil:connect(key, signal, func)
+function ConnectionUtil:trackConnection(key, connection)
 	if self._connections[key] then
 		self._connections[key]() -- Disconnect existing connection
 	end
-	local connection = signal:Connect(func)
 	-- store the disconnect function
 	self._connections[key] = function() connection:Disconnect() end
 end
 
-function ConnectionUtil:connectManual(key, disconnectionFunc)
+function ConnectionUtil:trackBoundFunction(key, disconnectionFunc)
 	if self._connections[key] then
 		self._connections[key]()
 	end

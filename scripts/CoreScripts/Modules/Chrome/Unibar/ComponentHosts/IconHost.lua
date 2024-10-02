@@ -30,6 +30,9 @@ local useTimeHysteresis = require(Chrome.Hooks.useTimeHysteresis)
 
 local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
 
+local GetFFlagTooltipUseZIndex = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagTooltipUseZIndex
+local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+
 local BADGE_OFFSET_X = 20
 local BADGE_OFFSET_Y = 0
 
@@ -197,6 +200,9 @@ function TooltipButton(props: TooltipButtonProps)
 		props.setHovered(active)
 		local hovered = newState == ControlState.Hover
 		setHovered(hovered, (hovered and isTooltipHovered) or areTooltipsDisplaying())
+		if FFlagEnableUnibarFtuxTooltips and hovered then
+			ChromeService:onIntegrationHovered():fire(props.integration.id)
+		end
 		if not active then
 			setClicked(false)
 		end
@@ -291,6 +297,7 @@ function TooltipButton(props: TooltipButtonProps)
 					then Enum.SelectionBehavior.Escape
 					else Enum.SelectionBehavior.Stop
 			end),
+			ZIndex = if GetFFlagTooltipUseZIndex() then 0 else nil,
 
 			[React.Change.AbsolutePosition] = triggerPointChanged,
 			[React.Change.AbsoluteSize] = triggerPointChanged,

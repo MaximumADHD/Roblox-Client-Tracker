@@ -157,3 +157,10 @@ end
 
 -- controls avatar gestures using VR controls
 require(game:GetService("CoreGui").RobloxGui.Modules.Server.VR.VRAvatarGesturesServer).new()
+
+local GetFFlagEnableConnectCaptureEvents =
+	require(RobloxGui.Modules.Common.Flags.GetFFlagEnableConnectCaptureEvents)
+
+if GetFFlagEnableConnectCaptureEvents() then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerConnectCaptureEvents", script.Parent)
+end

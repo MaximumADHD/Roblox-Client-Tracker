@@ -10,6 +10,7 @@ local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Core.Style.withStyle
 local Badge = UIBlox.App.Indicator.Badge
 local BadgeStates = UIBlox.App.Indicator.Enum.BadgeStates
+local Images = UIBlox.App.ImageSet.Images
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
@@ -25,6 +26,10 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
 
+local AppChat = require(CorePackages.Workspace.Packages.AppChat)
+local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
+local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+
 local GameSettings = UserSettings().GameSettings
 
 local function shouldShowEmptyBadge()
@@ -36,6 +41,7 @@ local ChatIcon = Roact.PureComponent:extend("ChatIcon")
 local CHAT_ICON_AREA_WIDTH = 44
 
 local ICON_SIZE = 20
+local NEW_ICON_SIZE = 30
 local BADGE_OFFSET_X = 18
 local BADGE_OFFSET_Y = 2
 local EMPTY_BADGE_OFFSET_Y = 6
@@ -69,9 +75,18 @@ function ChatIcon:render()
 	return withStyle(function(style)
 		local chatEnabled = self.props.topBarEnabled and self.props.chatEnabled and not TenFootInterface:IsEnabled() and not VRService.VREnabled
 
+		local iconSize = ICON_SIZE
 		local chatIcon = "rbxasset://textures/ui/TopBar/chatOn.png"
 		if not self.props.chatVisible then
 			chatIcon = "rbxasset://textures/ui/TopBar/chatOff.png"
+		end
+		
+		if GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.default.variant.ShowInExperienceChatNewIcon then
+			iconSize = NEW_ICON_SIZE
+			chatIcon = Images["icons/menu/publicChatOn"]
+			if not self.props.chatVisible then
+				chatIcon = Images["icons/menu/publicChatOff"]
+			end
 		end
 
 		local onAreaChanged = function(rbx)
@@ -105,7 +120,7 @@ function ChatIcon:render()
 		}, {
 			Background = Roact.createElement(IconButton, {
 				icon = chatIcon,
-				iconSize = ICON_SIZE,
+				iconSize = if GetFFlagEnableAppChatInExperience() then iconSize else ICON_SIZE,
 				onActivated = self.chatIconActivated,
 				[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
 				[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,

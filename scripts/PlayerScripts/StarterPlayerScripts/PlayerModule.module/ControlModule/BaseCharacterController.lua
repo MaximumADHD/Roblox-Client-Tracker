@@ -7,16 +7,11 @@
 
 --[[ Utils ]]--
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
-
-local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
 
 --[[ The Module ]]--
 export type BaseCharacterControllerType = {
-	-------------------- Public -----------------------------
 	new: () -> BaseCharacterControllerType,
-	OnRenderStepped: (BaseCharacterControllerType, dt: number) -> (), -- remove with FFlagUserUpdateInputConnections
 	GetMoveVector: (BaseCharacterControllerType) -> Vector3,
 	IsMoveVectorCameraRelative: (BaseCharacterControllerType) -> boolean,
 	GetIsJumping: (BaseCharacterControllerType) -> boolean,
@@ -27,7 +22,7 @@ export type BaseCharacterControllerType = {
 	moveVector: Vector3,
 	moveVectorIsCameraRelative: boolean,
 	isJumping: boolean,
-	_connections: any -- ConnectionUtil.ConnectionUtilType
+	_connectionUtil: any -- ConnectionUtil.ConnectionUtilType
 }
 
 local ZERO_VECTOR3: Vector3 = Vector3.new()
@@ -42,16 +37,9 @@ function BaseCharacterController.new()
 	self.moveVector = ZERO_VECTOR3
 	self.moveVectorIsCameraRelative = true
 	self.isJumping = false
-	if FFlagUserUpdateInputConnections then
-		self._connections = ConnectionUtil.new()
-	end
+	self._connectionUtil = ConnectionUtil.new()
 
 	return self :: any
-end
-
-function BaseCharacterController:OnRenderStepped(dt: number) -- remove with FFlagUserUpdateInputConnections
-	assert(not FFlagUserUpdateInputConnections)
-	-- By default, nothing to do
 end
 
 function BaseCharacterController:GetMoveVector(): Vector3

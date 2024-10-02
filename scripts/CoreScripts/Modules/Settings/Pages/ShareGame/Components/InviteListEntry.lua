@@ -193,7 +193,6 @@ return function(props: Props)
 				OpenTypeFeatures = if GetFFlagLuaAppEnableOpenTypeSupport()
 					then OpenTypeSupport:getUserNameStylisticAlternative()
 					else nil,
-				RichText = if GetFFlagLuaAppEnableOpenTypeSupport() then true else nil,
 			}),
 		}),
 		InviteButton = React.createElement(InviteButton, {

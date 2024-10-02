@@ -29,18 +29,21 @@ local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetF
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
-local AudioFocusManagementEnabled = game:GetEngineFeature("EnableAudioFocusManagement")
+local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local Analytics = VoiceChatCore.Analytics.new()
 
 local VoiceChatService = game:GetService("VoiceChatService")
 
+type VoiceStatus = CrossExperience.VoiceStatus
+local Constants = CrossExperience.Constants
+
 local PersistenceMiddleware = createPersistenceMiddleware({
 	storeKey = CrossExperience.Constants.STORAGE_CEV_STORE_KEY,
 })
 
-local PartySoundsAudioPlayer = CrossExperience.PartySoundsAudioPlayer
+local PartyAudioPlayer = CrossExperience.PartyAudioPlayer.default
 
 local createReducers = function()
 	-- In order to simplify the data sync between this background state and foreground state I am using the expected foreground store shape
@@ -48,6 +51,13 @@ local createReducers = function()
 		Squad = Rodux.combineReducers({
 			CrossExperienceVoice = CrossExperience.installReducer(),
 		})
+	})
+end
+
+local function notifyVoiceStatusChange(status: VoiceStatus, detail: string?)
+	CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
+		status = status,
+		detail = detail,
 	})
 end
 
@@ -62,16 +72,18 @@ local cevEventListener = CrossExperience.EventListener.new(experienceType)
 -- For debugging purposes can pass "log" as a second parameter
 cevEventListener:subscribe(store)
 
+-- Await completely the DM readiness for CrossExperience communication and RCC replication
+if not game:IsLoaded() then
+	game.Loaded:Wait()
+end
+
+notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTED_RCC)
+
 CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_EXPERIENCE_JOINED, {
 	jobId = game.JobId,
 	placeId = game.PlaceId,
 	gameId = game.GameId,
 })
-
--- Since this script starts significantly faster due to small Lua size for CEV DM, VoiceChatService.UseNewAudioApi is not yet replicated and has incorrect value, hence the game.Loaded wait
-if not game:IsLoaded() then
-	game.Loaded:Wait()
-end
 
 local localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 
@@ -89,7 +101,7 @@ local onPlayerRemoved = function(player)
 		userId = player.UserId,
 		isLocalUser = player.UserId == localUserId,
 	})
-	PartySoundsAudioPlayer.default:PlaySound("leave")
+	PartyAudioPlayer:playSound("leave")
 end
 
 local onLocalPlayerActiveChanged = function(result)
@@ -139,7 +151,7 @@ end
 function handleParticipants()
 	Players.PlayerAdded:Connect(function(player)
 		onPlayerAdded(player)
-		PartySoundsAudioPlayer.default:PlaySound("join")
+		PartyAudioPlayer:playSound("join")
 	end)
 	Players.PlayerRemoving:Connect(onPlayerRemoved)
 
@@ -147,7 +159,7 @@ function handleParticipants()
 		if player:IsA("Player") then
 			onPlayerAdded(player)
 			if player.UserId == localUserId then
-				PartySoundsAudioPlayer.default:PlaySound("join")
+				PartyAudioPlayer:playSound("join")
 			end
 		end
 	end
@@ -168,6 +180,8 @@ end
 function onCoreVoiceManagerInitialized()
 	CoreVoiceManager:getService().PlayerMicActivitySignalChange:Connect(onLocalPlayerActiveChanged)
 	CoreVoiceManager.participantsUpdate.Event:Connect(onParticipantsUpdated)
+
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTED_VOICE)
 end
 
 -- This function is used to unmute the microphone once when the player joins the default channel
@@ -234,6 +248,7 @@ if EnableDefaultVoiceAvailable and FFlagDefaultChannelEnableDefaultVoice then
 			log:debug("Default channel is disabled.")
 			if GetFFlagEnableLuaVoiceChatAnalytics() then
 				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_SETUP, "Default channel disabled")
 			end
 			return
 		end
@@ -244,11 +259,13 @@ if EnableDefaultVoiceAvailable and FFlagDefaultChannelEnableDefaultVoice then
 			log:debug("Default channel is disabled.")
 			if GetFFlagEnableLuaVoiceChatAnalytics() then
 				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_SETUP, "Default channel disabled")
 			end
 			return
 		end
 	end
 end
+
 
 CoreVoiceManager:subscribe('GetPermissions', function (callback, permissions)
 	-- At this point we assume that you were able to join Background DM and the required permissions were resolved prior to that
@@ -286,10 +303,32 @@ if FFlagEnableCrossExpVoiceDebug then
 	end)
 end
 
+notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTING_VOICE)
+
+CoreVoiceManager:subscribe("OnRequestMicPermissionRejected", function()
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_MIC_REJECTED)
+end)
+
+CoreVoiceManager:subscribe("OnPlayerModerated", function()
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_MODERATED, "On Player Moderated")
+end)
+
+CoreVoiceManager:subscribe("OnInitialJoinFailed", function()
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_JOIN, "Initial Join failed")
+end)
+
+CoreVoiceManager:subscribe("OnRetryRequested", function()
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTING_VOICE, "Retry requested")
+end)
+
+CoreVoiceManager:subscribe("OnReportJoinFailed", function(result)
+	log:error("CEV OnReportJoinFailed " .. result)
+end)
+
 CoreVoiceManager:asyncInit():andThen(function()
 	local joinInProgress = initializeDefaultChannel(false)
 	if joinInProgress == false then
-		-- TODO: We should communicate to foreground experience that it failed similar to VoiceChatServiceManager:InitialJoinFailedPrompt()
+		notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_JOIN, "Initial Join failed")
 	else
 		onCoreVoiceManagerInitialized()
 	end
@@ -373,4 +412,5 @@ end):catch(function(err)
 	-- a unresolved promise error. Don't report an event since the manager
 	-- will handle that.
 	log:info("CoreVoiceManager did not initialize {}", err)
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_INIT, err)
 end)

@@ -29,16 +29,8 @@ local withStyle = UIBlox.Style.withStyle
 
 local CoreScriptTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 
-local FFlagLoadingScreenReplaceHttp = game:DefineFastFlag("LoadingScreenReplaceHttp", false)
-
-local networking
-if FFlagLoadingScreenReplaceHttp then
-	local requestInternalWrapper = require(CorePackages.Workspace.Packages.Http).NetworkLayers.requestInternalWrapper
-	networking = requestInternalWrapper(HttpRbxApiService)
-else
-	local httpRequest = require(Modules.Common.httpRequest)
-	networking = httpRequest(HttpRbxApiService)
-end
+local requestInternalWrapper = require(CorePackages.Workspace.Packages.Http).NetworkLayers.requestInternalWrapper
+local networking = requestInternalWrapper(HttpRbxApiService)
 
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)

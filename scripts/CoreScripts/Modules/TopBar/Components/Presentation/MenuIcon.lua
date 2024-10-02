@@ -29,12 +29,14 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 
 local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 local FFlagEnableChromeBackwardsSignalAPI = require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local FFlagEnableUnibarFtuxTooltips = require(script.Parent.Parent.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
 local Constants = require(Components.Parent.Constants)
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
 local SetKeepOutArea = require(Actions.SetKeepOutArea)
+local menuIconHoveredSignal = require(script.Parent.menuIconHoveredSignal)
 
 local InGameMenu
 if isNewInGameMenuEnabled() then
@@ -108,11 +110,17 @@ function MenuIcon:init()
 			end
 		end
 	end
+	self.fireMenuIconHoveredSignal = function(tooltipEnabled)
+		menuIconHoveredSignal:fire(tooltipEnabled)
+	end
 	self.menuIconOnHover = function()
 		if tooltipEnabled then
 			self:setState({
 				isHovering = true,
 			})
+			if FFlagEnableUnibarFtuxTooltips then
+				self.fireMenuIconHoveredSignal(true)
+			end
 
 			delay(DEFAULT_DELAY_TIME, function()
 				if self.state.isHovering and not self.state.clickLatched then
@@ -121,6 +129,10 @@ function MenuIcon:init()
 					})
 				end
 			end)
+		else
+			if FFlagEnableUnibarFtuxTooltips then
+				self.fireMenuIconHoveredSignal(false)
+			end
 		end
 
 		if isNewInGameMenuEnabled() then

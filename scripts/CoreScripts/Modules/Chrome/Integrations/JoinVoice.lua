@@ -1,5 +1,6 @@
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CorePackages = game:GetService("CorePackages")
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
@@ -7,6 +8,8 @@ local CommonIcon = require(script.Parent.CommonIcon)
 local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local GetFFlagEnableJoinVoiceOnUnibar = require(script.Parent.Parent.Flags.GetFFlagEnableJoinVoiceOnUnibar)
+local GetFFlagIntegratePhoneUpsellJoinVoice =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 
 local ChromeService = require(script.Parent.Parent.Service)
 
@@ -16,7 +19,10 @@ joinVoice = ChromeService:register({
 	id = "join_voice",
 	label = "CoreScripts.TopBar.JoinVoice",
 	activated = function()
-		VoiceChatServiceManager:JoinVoice()
+		local SettingsHub = if GetFFlagIntegratePhoneUpsellJoinVoice()
+			then require(RobloxGui.Modules.Settings.SettingsHub)
+			else nil
+		VoiceChatServiceManager:JoinVoice(SettingsHub)
 	end,
 	components = {
 		Icon = function()
@@ -39,11 +45,23 @@ local function HideOrShowJoinVoiceButton(state)
 end
 
 if GetFFlagEnableJoinVoiceOnUnibar() and game:GetEngineFeature("VoiceChatSupported") then
-	if VoiceChatServiceManager:ShouldShowJoinVoice() then
-		-- Pin if we're already in suspended state
-		joinVoice.availability:available()
+	if GetFFlagIntegratePhoneUpsellJoinVoice() then
+		task.spawn(function()
+			-- Only show the join voice button if we're not in the phone upsell flow
+			if VoiceChatServiceManager:ShouldShowJoinVoice() then
+				-- Pin if we're already in suspended state
+				joinVoice.availability:available()
+			end
+			VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(HideOrShowJoinVoiceButton)
+		end)
+	else
+		-- Only show the join voice button if we're not in the phone upsell flow
+		if VoiceChatServiceManager:ShouldShowJoinVoice() then
+			-- Pin if we're already in suspended state
+			joinVoice.availability:available()
+		end
+		VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(HideOrShowJoinVoiceButton)
 	end
-	VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(HideOrShowJoinVoiceButton)
 end
 
 return joinVoice

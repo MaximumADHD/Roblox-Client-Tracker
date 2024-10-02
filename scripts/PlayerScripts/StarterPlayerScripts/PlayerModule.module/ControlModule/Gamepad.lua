@@ -9,8 +9,6 @@ local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
-local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
 
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
@@ -39,12 +37,6 @@ function Gamepad.new(CONTROL_ACTION_PRIORITY)
 end
 
 function Gamepad:Enable(enable: boolean): boolean
-	if not FFlagUserUpdateInputConnections then
-		if not UserInputService.GamepadEnabled then
-			return false
-		end
-	end
-
 	if enable == self.enabled then
 		-- Module is already in the state being requested. True is returned here since the module will be in the state
 		-- expected by the code that follows the Enable() call. This makes more sense than returning false to indicate

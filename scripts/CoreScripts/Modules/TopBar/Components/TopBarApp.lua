@@ -84,6 +84,10 @@ local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFl
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 local GetFFlagUnibarContextStack = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUnibarContextStack
+local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
+local GetFFlagEnablePartyIconInChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInChrome
+
+local PartyMicBinder = require(script.Parent.Parent.Parent.Chrome.Integrations.Party.PartyMicBinder)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -368,6 +372,7 @@ function TopBarApp:renderWithStyle(style)
 						else topBarRightFramePosition,
 					AnchorPoint = Vector2.new(1, 0),
 				}, {
+					PartyMicBinder = if chromeEnabled and GetFFlagEnablePartyIconInChrome() and GetFFlagEnableCrossExpVoice() then Roact.createElement(PartyMicBinder) else nil,
 					ChromeAnalytics = if ChromeAnalytics then Roact.createElement(ChromeAnalytics) else nil,
 					KeepOutAreasHandler = if not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
 						then Roact.createElement(KeepOutAreasHandler)
@@ -555,7 +560,7 @@ function TopBarApp:renderWithStyle(style)
 					showBadgeOver12 = self.props.showBadgeOver12,
 				}),
 
-				BackIcon = if not chromeEnabled 
+				BackIcon = if not chromeEnabled
 					then Roact.createElement(BackIcon, { layoutOrder = 2 })
 					else nil,
 

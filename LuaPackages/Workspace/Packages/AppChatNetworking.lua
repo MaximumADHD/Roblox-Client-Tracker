@@ -20,6 +20,7 @@ export type UnfilteredThreadsConversationBanner = Package.UnfilteredThreadsConve
 export type UnfilteredThreadsFtux = Package.UnfilteredThreadsFtux
 export type UserPendingStatus = Package.UserPendingStatus
 export type CreateConversationsResponse = Package.CreateConversationsResponse
+export type ExpandToGroupConversationResponse = Package.ExpandToGroupConversationResponse
 export type GetUserConversationsResponse = Package.GetUserConversationsResponse
 export type GetOlderMessagesResponse = Package.GetOlderMessagesResponse
 export type GetConversationsResponse = Package.GetConversationsResponse

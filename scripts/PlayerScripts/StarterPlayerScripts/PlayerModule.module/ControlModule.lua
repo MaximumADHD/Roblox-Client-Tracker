@@ -25,13 +25,10 @@ local VRService = game:GetService("VRService")
 
 -- Roblox User Input Control Modules - each returns a new() constructor function used to create controllers as needed
 local CommonUtils = script.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local Keyboard = require(script:WaitForChild("Keyboard"))
 local Gamepad = require(script:WaitForChild("Gamepad"))
 local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
-
-local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
 
 local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	local success, result = pcall(function()
@@ -40,12 +37,6 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
 end
 
-local FFlagUserFixTouchJumpBug do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixTouchJumpBug2")
-	end)
-	FFlagUserFixTouchJumpBug = success and result
-end
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -263,7 +254,7 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 	-- helpers for disable/enable
 	local disable = function()
 		self.activeController:Enable(false)
-		if FFlagUserFixTouchJumpBug and self.touchJumpController then 
+		if self.touchJumpController then 
 			self.touchJumpController:Enable(false)
 		end
 
@@ -273,24 +264,22 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 	end
 
 	local enable = function()
-		if FFlagUserFixTouchJumpBug then
-			if
-				self.touchControlFrame
-				and (
-					self.activeControlModule == ClickToMove
-					or self.activeControlModule == TouchThumbstick
-					or self.activeControlModule == DynamicThumbstick
-				)
-			then
-				if not self.controllers[TouchJump] then
-					self.controllers[TouchJump] = TouchJump.new()
-				end
-				self.touchJumpController = self.controllers[TouchJump]
-				self.touchJumpController:Enable(true, self.touchControlFrame)
-			else
-				if self.touchJumpController then
-					self.touchJumpController:Enable(false)
-				end
+		if
+			self.touchControlFrame
+			and (
+				self.activeControlModule == ClickToMove
+				or self.activeControlModule == TouchThumbstick
+				or self.activeControlModule == DynamicThumbstick
+			)
+		then
+			if not self.controllers[TouchJump] then
+				self.controllers[TouchJump] = TouchJump.new()
+			end
+			self.touchJumpController = self.controllers[TouchJump]
+			self.touchJumpController:Enable(true, self.touchControlFrame)
+		else
+			if self.touchJumpController then
+				self.touchJumpController:Enable(false)
 			end
 		end
 
@@ -480,9 +469,6 @@ end
 
 function ControlModule:OnRenderStepped(dt)
 	if self.activeController and self.activeController.enabled and self.humanoid then
-		if not FFlagUserUpdateInputConnections then
-			self.activeController:OnRenderStepped(dt)
-		end
 
 		-- Now retrieve info from the controller
 		local moveVector = self.activeController:GetMoveVector()
@@ -490,9 +476,7 @@ function ControlModule:OnRenderStepped(dt)
 
 		local clickToMoveController = self:GetClickToMoveController()
 		if self.activeController == clickToMoveController then
-			if FFlagUserUpdateInputConnections then
-				clickToMoveController:OnRenderStepped(dt)
-			end
+			clickToMoveController:OnRenderStepped(dt)
 		else
 			if moveVector.magnitude > 0 then
 				-- Clean up any developer started MoveTo path
@@ -633,22 +617,6 @@ function ControlModule:SwitchToController(controlModule)
 		end
 		self.activeController = self.controllers[controlModule]
 		self.activeControlModule = controlModule -- Only used to check if controller switch is necessary
-
-		if not FFlagUserFixTouchJumpBug then
-			if self.touchControlFrame and (self.activeControlModule == ClickToMove
-				or self.activeControlModule == TouchThumbstick
-				or self.activeControlModule == DynamicThumbstick) then
-				if not self.controllers[TouchJump] then
-					self.controllers[TouchJump] = TouchJump.new()
-				end
-				self.touchJumpController = self.controllers[TouchJump]
-				self.touchJumpController:Enable(true, self.touchControlFrame)
-			else
-				if self.touchJumpController then
-					self.touchJumpController:Enable(false)
-				end
-			end
-		end
 
 		self:UpdateActiveControlModuleEnabled()
 	end

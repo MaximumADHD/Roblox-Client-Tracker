@@ -10,6 +10,7 @@ local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"
 local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)
+local FFlagEnableUnibarFtuxTooltips = require(script.Parent.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
 
 local storeRoot: any
 local loaded = false
@@ -148,7 +149,7 @@ local function getChromeSeenCount(): number
 end
 
 local function getValue(key: string): any
-	if GetFFlagEnableChromeFTUX() then
+	if GetFFlagEnableChromeFTUX() or FFlagEnableUnibarFtuxTooltips then
 		local value = load(key, localPlayerSelector)
 		return value
 	end

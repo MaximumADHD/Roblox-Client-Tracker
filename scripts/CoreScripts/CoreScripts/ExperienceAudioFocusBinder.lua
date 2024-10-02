@@ -24,6 +24,9 @@ VoiceChatServiceManager:asyncInit()
 				if not VoiceChatServiceManager.localMuted then
 					VoiceChatServiceManager:ToggleMic()
 				end
+
+				-- Hide the in-exp voice UI when the user is deafened
+				VoiceChatServiceManager:HideVoiceUI()
 			end
 
 			local undeafenAll = function()
@@ -31,6 +34,9 @@ VoiceChatServiceManager:asyncInit()
 				if not VoiceChatServiceManager.localMuted then
 					VoiceChatServiceManager:ToggleMic()
 				end
+
+				-- Show the in-exp voice UI when the user is deafened
+				VoiceChatServiceManager:ShowVoiceUI()
 			end
 
 			AudioFocusService.OnDeafenVoiceAudio:Connect(function(serviceContextId)
@@ -68,6 +74,7 @@ VoiceChatServiceManager:asyncInit()
 								VoiceChatServiceManager:MuteAll(false, "AudioFocusManagement UGC")
 							end
 						end)
+						VoiceChatServiceManager:ShowVoiceUI()
 					else
 						log:info("UGC audio focus requested denied, preparing to deafen.")
 						VoiceChatServiceManager.muteChanged.Event:Once(function(muted)
@@ -75,6 +82,7 @@ VoiceChatServiceManager:asyncInit()
 								VoiceChatServiceManager:MuteAll(true, "AudioFocusManagement UGC")
 							end
 						end)
+						VoiceChatServiceManager:HideVoiceUI()
 					end
 				end)
 				:catch(function()

@@ -1,6 +1,7 @@
 return {
 	OverflowMenu = require(script.OverflowMenu),
 	Chat = require(script.Chat),
+	Connect = require(script.Connect),
 	UnibarMenuToggleButton = require(script.UnibarMenuToggleButtonV2),
 	CompactUtilityBackButton = require(script.CompactUtilityBackButton),
 	TrustAndSafety = require(script.TrustAndSafety),
@@ -17,6 +18,7 @@ return {
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
 	Songbird = require(script.MusicUtility.Songbird),
 	MusicPlayingIcon = require(script.MusicUtility.MusicPlayingIcon),
+	PeekTrackDetails = require(script.MusicUtility.PeekTrackDetails),
 	Party = require(script.Party),
 	PartyMic = require(script.Party.PartyMic),
 	PeekCloseButton = require(script.PeekCloseButton),

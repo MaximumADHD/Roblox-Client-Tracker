@@ -20,6 +20,7 @@ local FFlagEnableChromePinAnalytics = require(Chrome.Flags.GetFFlagEnableChromeP
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
+local FFlagEnabledChromeIntegrationIsActivated = game:DefineFastFlag("EnabledChromeIntegrationIsActivated", false)
 
 local Tracker = require(script.Parent.Tracker)
 
@@ -309,6 +310,7 @@ end
 
 function ChromeAnalytics:onIconActivated(integrationId: Types.IntegrationId)
 	local integration = getIntegration(integrationId)
+
 	if integration then
 		local notification = integration.notification:get()
 		local notificationCount = 0
@@ -316,10 +318,15 @@ function ChromeAnalytics:onIconActivated(integrationId: Types.IntegrationId)
 			notificationCount = tonumber(notification.value) or 0
 		end
 
+		local isToggleOn = if integration.isActivated and FFlagEnabledChromeIntegrationIsActivated
+			then not integration.isActivated()
+			else nil
+
 		self._sendEvent(Constants.ANALYTICS.ICON_ACTIVATED, {
 			integration_id = integrationId,
 			source = getInteractionSource(integrationId),
 			notification_count = notificationCount,
+			is_toggle_on = isToggleOn,
 		})
 	end
 	return nil

@@ -87,6 +87,7 @@ type AnalyticsWrapperMeta = {
 	reportLeaveVoiceButtonEvent: (AnalyticsWrapper, string, number, number, string, string) -> (),
 	reportInExpConsent: (AnalyticsWrapper, string, string, number, number, string) -> (),
 	reportDevicePermissionsModalEvent: (AnalyticsWrapper, string, string, number, number, string) -> (),
+	reportConnectDisconnectEvents: (AnalyticsWrapper, string, { [string]: any }) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -333,6 +334,10 @@ function Analytics:reportDevicePermissionsModalEvent(
 		playSessionId = modifiedPlaySessionId,
 		voiceSessionId = voiceSessionId,
 	})
+end
+
+function Analytics:reportConnectDisconnectEvents(eventName, metrics)
+	self._impl:SendEventDeferred("client", "voiceChat", eventName, metrics)
 end
 
 return Analytics
