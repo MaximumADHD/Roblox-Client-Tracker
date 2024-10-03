@@ -24314,7 +24314,6 @@ FullscreenExtension
 FullscreenVolume
 FullWindowMessages
 FullySubmerged
-Func_impl_n
 Func_impl_no_alloc
 Funcionalidade
 Funcionalidades
@@ -40485,6 +40484,7 @@ QPainterPath
 QParallelAnimationGroup
 QPersistentModelIndex
 QPixmapCache
+QPlaceSessionStateController
 QPlainTextEdit
 QPlatformTheme
 QPlatformWindow
@@ -64633,7 +64633,7 @@ WildcardInProperty
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.645.28179
+Win64.645.28138
 WinchEnabled
 WinchForce
 WinchResponsiveness
