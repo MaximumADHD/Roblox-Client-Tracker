@@ -40484,7 +40484,6 @@ QPainterPath
 QParallelAnimationGroup
 QPersistentModelIndex
 QPixmapCache
-QPlaceSessionStateController
 QPlainTextEdit
 QPlatformTheme
 QPlatformWindow
@@ -45464,6 +45463,7 @@ ServerWait
 Serverwerten
 ServerWithoutLiveEditingMode
 Service...
+Service.InstanceCreationError
 ServiceAction
 ServiceAdded
 ServiceCancel
@@ -50524,6 +50524,7 @@ Studio.App.PluginPermissionsDialog.Warning
 Studio.App.PluginWidgetRelay.RenderingFailed1
 Studio.App.PopupImagePicker.Search
 Studio.App.PopupImagePicker.Url
+Studio.App.Pro
 Studio.App.ProjectConfig.UnexpectedFieldWarning2
 Studio.App.ProjectFolderService.CannotDeleteFile
 Studio.App.ProjectFolderService.DeduplicationError
