@@ -346,7 +346,7 @@ Esc: Exit &amp; Clear filter
 `;
 
 function InitCssHtml() {
-    const styleElId = "rofilerMainStyle"
+    const styleElId = "rofilerMainStyle";
     var styleElement = document.getElementById(styleElId);
     if (styleElement) {
         styleElement.textContent = g_Loader.styleText;
@@ -374,7 +374,7 @@ function InitCssHtml() {
 }
 
 function GetGpuBoundThresholdInMs() {
-    return 2.5
+    return 2.5;
 }
 
 function InvertColor(hexTripletColor) {
@@ -413,7 +413,8 @@ function MakeGroup(id, name, category, numtimers, isgpu, total, average, max, co
 }
 
 function MakeTimer(id, name, group, color, colordark, average, max, min, exclaverage, exclmax, callaverage, callcount, total, meta, metaagg, metamax) {
-    var timer = { "id": id, "name": name, "color": color, "colordark": colordark, "timercolor": color, "textcolor": InvertColor(color), "group": group, "average": average, "max": max, "min": min, "exclaverage": exclaverage, "exclmax": exclmax, "callaverage": callaverage, "callcount": callcount, "total": total, "meta": meta, "textcolorindex": InvertColorIndex(color), "metaagg": metaagg, "metamax": metamax, "worst": 0, "worststart": 0, "worstend": 0 };
+    // TODO: on removal of flag MicroprofilerLabelSubstitution, delete property namelabel
+    var timer = { "id": id, "name": name, "namelabel": name.startsWith("$"), "color": color, "colordark": colordark, "timercolor": color, "textcolor": InvertColor(color), "group": group, "average": average, "max": max, "min": min, "exclaverage": exclaverage, "exclmax": exclmax, "callaverage": callaverage, "callcount": callcount, "total": total, "meta": meta, "textcolorindex": InvertColorIndex(color), "metaagg": metaagg, "metamax": metamax, "worst": 0, "worststart": 0, "worstend": 0 };
     return timer;
 }
 
@@ -537,6 +538,9 @@ function InitViewerVars() {
     window.BoxHeight = FontHeight + 2;
     window.HighlightGroup = 'None';
     window.HighlightGroupIndex = -1;
+    window.kHighlightGroupNotMatched = -1;
+    window.kHighlightGroupMatched = 1;
+    window.kHighlightGroupMatchedAsChild = 2;
     window.ThreadsActive = new Object();
     window.ThreadsAllActive = 1;
     window.GroupsActive = new Object();
@@ -634,11 +638,14 @@ function InitViewerVars() {
     window.ProfileStackName = {};
     window.Debug = 1;
 
+    window.FFlagMicroprofilerLabelSubstitution = EnabledFastFlags.includes("MicroprofilerLabelSubstitution");
     window.g_MaxStack = Array();
     window.g_TypeArray;
     window.g_TimeArray;
     window.g_IndexArray;
-    window.g_LabelArray;
+    if (!FFlagMicroprofilerLabelSubstitution) {
+        window.g_LabelArray;
+    }
     window.g_XtraArray; // Events
     window.LodData = new Array();
     window.NumLodSplits = 10;
@@ -1230,7 +1237,7 @@ function ExportSummaryJSON() {
         return;
     }
 
-    var resultingJson = {}
+    var resultingJson = {};
 
     var numJobsHeavyFrames = 0;
     var numRenderingHeavyFrames = 0;
@@ -1457,7 +1464,7 @@ function ExportMarkersCSV(returnAsText) {
     }
     tab_text = tab_text + '\n\n\nframetimecpu\n';
     for (var i = 0; i < Frames.length; ++i) {
-        var ms = Frames[i].frameend - Frames[i].framestart
+        var ms = Frames[i].frameend - Frames[i].framestart;
         tab_text = tab_text + ms + ',';
     }
     tab_text = tab_text + '\n\n\nframetimegpu\n';
@@ -1936,11 +1943,13 @@ function CalculateTimers(GroupInfo, TimerInfo, nFrameFirst, nFrameLast, nToken, 
 
 // For all timers matching the predicate, substitute it for a timer given by the NewTimerNameFunc function
 // NewTimerNameFunc: group name, timer name, timer label -> new timer name
-function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc)
-{
-    ProfileEnter('PreprocessTimerSubstitutions');
-    for (const subTimer of TimerInfo.filter(timerPredicate)) {
+function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc) {
+    if (FFlagMicroprofilerLabelSubstitution) {
+        ProfileEnter('PreprocessTimerSubstitutions');
         const nTimersWhenStarted = TimerInfo.length;
+        const newTimers = {};
+        // keys are the ids of timers that may be substituted, values are the number of subs made
+        const subsPerID = Object.fromEntries(TimerInfo.filter(timerPredicate).map(t => [t.id, 0]));
         for (let nLog = 0; nLog < Frames[0].tt.length; nLog++) {
             let discardLast = false;
             const newTimerStack = [];
@@ -1956,7 +1965,7 @@ function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc)
                     }
                     discardLast = false;
                     // ENTER SCOPE
-                    if (tt[xx] === 1 && ti[xx] === subTimer.id) {
+                    if (tt[xx] === 1 && subsPerID[ti[xx]] !== undefined) {
                         // get label from next log entry
                         if (xx + 1 >= tt.length || tt[xx + 1] !== 3)
                             continue;
@@ -1964,10 +1973,12 @@ function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc)
                         // get new timer name
                         const oldTimer = TimerInfo[ti[xx]];
                         const newTimerName = newTimerNameFunc(oldTimer.group.name, oldTimer.name, label);
-                        // make a new timer only iff it doesn't exist already
-                        let newTimer = TimerInfo.find(t => t.group === oldTimer.group && t.name === newTimerName);
+                        // make a new timer iff it doesn't exist already
+                        let newTimer = newTimers[newTimerName];
                         if (!newTimer) {
-                            newTimer = { ...oldTimer, name: newTimerName, id: TimerInfo.length }
+                            newTimer = { ...oldTimer, name: newTimerName, id: TimerInfo.length };
+                            newTimers[newTimerName] = newTimer;
+                            subsPerID[ti[xx]]++;
                             TimerInfo.push(newTimer);
                         }
                         // replace timer index
@@ -1975,21 +1986,98 @@ function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc)
                         newTimerStack.push(newTimer.id);
                     }
                     // EXIT SCOPE
-                    else if (tt[xx] === 0 && ti[xx] === subTimer.id && newTimerStack.length > 0) {
+                    else if (tt[xx] === 0 && subsPerID[ti[xx]] && newTimerStack.length > 0) {
                         ti[xx] = newTimerStack.pop();
                     }
                 } // for xx (log entries)
             } // for i (frames)
         } // for nLog
+        for (const [id, nSubs] of Object.entries(subsPerID)) {
+            const timer = TimerInfo[id];
+            if (nSubs > 0) {
+                console.log(`Substitutions made for ${timer.name}: ${nSubs}`);
+                GroupInfo[timer.group].numtimers += nSubs;
+            }
+        }
         const nTimersWhenFinished = TimerInfo.length;
         const nTimersAdded = nTimersWhenFinished - nTimersWhenStarted;
         if (nTimersAdded > 0) {
-            const groupNum = subTimer.group;
-            GroupInfo[groupNum].numtimers += nTimersAdded;
-            console.log(`Substitution for ${subTimer.name} increased timer count from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
+            console.log(`Total timer count increased from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
+        } else {
+            console.log(`No substitutions were made. Total timer count is still ${nTimersWhenStarted} (+0)`);
         }
-    } // for SubTimer
-    ProfileLeave();
+        ProfileLeave();
+    } else {
+        // old names of params
+        const SubstituteGroup = timerPredicate;
+        const SubstituteTimer = newTimerNameFunc;
+
+        // old version of the function
+        var SubIndex = TimerInfo.findIndex((element) => (element.name == SubstituteTimer && GroupInfo[element.group].name == SubstituteGroup));
+        if (SubIndex == -1)
+            return;
+        if (!TimerInfo[SubIndex].namelabel)
+            return;
+        ProfileEnter('PreprocessTimerSubstitutions');
+        var SubstituteName = TimerInfo[SubIndex].name.slice(1) + '_';
+        var TimerInfoStartLength = TimerInfo.length;
+        var ReferenceTimer = Object.assign({}, TimerInfo[SubIndex]);
+        var NewTimers = [];
+        var nNumLogs = Frames[0].ts.length;
+        for (nLog = 0; nLog < nNumLogs; nLog++) {
+            var Discard = 0;
+            var NewTimerIndex = -1;
+            var NewTimerStack = Array();
+            for (var i = 0; i < Frames.length; i++) {
+                var Frame_ = Frames[i];
+                var FrameDiscard = OverflowAllowance(nLog, Frame_);
+                var tt = Frame_.tt[nLog];
+                var ts = Frame_.ts[nLog];
+                var ti = Frame_.ti[nLog];
+                var tl = Frame_.tl[nLog];
+                var len = tt.length;
+                for (var xx = 0; xx < len; ++xx) {
+                    var Skip = (tt[xx] == 4) ? DiscardLast : (tt[xx] < EventBaseId && ts[xx] > FrameDiscard);
+                    if (Skip) {
+                        Discard++;
+                        DiscardLast = 1;
+                    }
+                    else {
+                        DiscardLast = 0;
+
+                        // Use label after the region instead of the region name for some regions
+                        if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && ti[xx] == SubIndex) {
+                            // ENTER
+                            var Label = tl[ti[xx + 1]];
+                            var NewName = SubstituteName + Label;
+                            NewTimerIndex = NewTimers.findIndex((element) => (element == NewName));
+                            if (NewTimerIndex == -1) {
+                                NewTimerIndex = NewTimers.length;
+                                NewTimers.push(NewName);
+                                var finalIndex = TimerInfo.length;
+                                TimerInfo[finalIndex] = Object.assign({}, ReferenceTimer);
+                                TimerInfo[finalIndex].name = NewName;
+                                TimerInfo[finalIndex].id = finalIndex;
+                                TimerInfo[finalIndex].namelabel = 0;
+                            }
+
+                            NewTimerIndex += TimerInfoStartLength;
+                            Frame_.ti[nLog][xx] = NewTimerIndex;
+                            NewTimerStack.push(NewTimerIndex);
+                        }
+                        else if (tt[xx] == 0 && ti[xx] == SubIndex && NewTimerStack.length > 0) {
+                            // EXIT
+                            Frame_.ti[nLog][xx] = NewTimerStack.pop();
+                        }
+                    }
+                }
+            }
+        }
+        var GroupNum = ReferenceTimer.group;
+        GroupInfo[GroupNum].numtimers += NewTimers.length;
+        console.log('Substitution for ' + SubstituteTimer + ' increased timer count by ' + NewTimers.length + ' to ' + TimerInfo.length);
+        ProfileLeave();
+    }
 }
 
 function PreprocessCalculateAllTimers() {
@@ -2091,7 +2179,7 @@ function DrawDetailedFrameHistory() {
     var FrameIndex = -1;
     var MouseDragging = MouseDragState != MouseDragOff;
     RangeCpuHistory = RangeInit();
-    RangeGpuHistory = RangeInit()
+    RangeGpuHistory = RangeInit();
 
     var aveAllocTime = 0;
     var aveAllocCount = 0;
@@ -2379,7 +2467,7 @@ function DrawDetailedBackground(context) {
         context.fillStyle = nBackColors[nColorIndex];
         context.fillRect(X, barYOffset, W + 2, fHeight);
         nColorIndex = 1 - nColorIndex;
-        context.fillStyle = '#777777'
+        context.fillStyle = '#777777';
         context.fillText(HeaderString, X + W * 0.5, 10 + barYOffset);
         context.fillText(HeaderString, X + W * 0.5, nHeight - 10);
         f = fNext;
@@ -2639,7 +2727,7 @@ function DrawHoverToolTip() {
                 StringArray.push("");
 
                 for (index in HoverLabel) {
-                    StringArray.push("Label:")
+                    StringArray.push("Label:");
                     StringArray.push(HoverLabel[index]);
                 }
             }
@@ -3187,35 +3275,31 @@ function FormatCounter(Format, Counter) {
             return str + Counter.toFixed(2) + '' + FormatCounterBytesExt[0];
         }
     }
-    return '?'
+    return '?';
 }
 function ExportCountersCSV() {
-
     let text = { csv: "Name, Value, Limit \n" };
 
     function printCounter(Index, text, path) {
-
         var Counter = CounterInfo[Index];
-        
+
         // append counter
         text.csv += path + "/" + Counter.name + ", " + Counter.value + ", " + Counter.limit + "\n";
 
         var ChildIndex = Counter.firstchild;
 
-        while(ChildIndex != -1)
-        {
+        while(ChildIndex != -1) {
             printCounter(ChildIndex, text, path + "/" + Counter.name);
             ChildIndex = CounterInfo[ChildIndex].sibling;
         }
     }
-    
-    for(var i = 0; i < CounterInfo.length; ++i) {
-        if(CounterInfo[i].parent == -1)
-        {
+
+    for (var i = 0; i < CounterInfo.length; ++i) {
+        if (CounterInfo[i].parent == -1) {
             printCounter(i, text, "");
         }
     }
-    
+
     var url = window.location.pathname;
     var filename = url.substring(url.lastIndexOf('/') + 1);
     filename = filename.substring(0, filename.lastIndexOf('.')) + '_counters.csv';
@@ -3288,7 +3372,7 @@ function DrawCounterView() {
 
         var X = 0;
         nColorIndex = 1 - nColorIndex;
-        var HeightExpanded = Counter.Expanded ? Height * 5 : Height
+        var HeightExpanded = Counter.Expanded ? Height * 5 : Height;
 
         bMouseIn = DetailedViewMouseY >= Y && DetailedViewMouseY < Y + HeightExpanded;
         if (bMouseIn) {
@@ -3492,7 +3576,7 @@ function PreprocessContextSwitchCache() {
     }
     function HandleMissingThread(a) {
         if (!CSwitchThreads[a]) {
-            CSwitchThreads[a] = { 'tid': a, 'pid': -1, 't': '?', 'p': '?' }
+            CSwitchThreads[a] = { 'tid': a, 'pid': -1, 't': '?', 'p': '?' };
         }
     }
     function CompareThreadInfo(a, b) {
@@ -3579,10 +3663,6 @@ function rgbToDesaturated(color, amount) {
     const desaturatedHex = `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
     return desaturatedHex;
 }
-
-const kHighlightGroupNotMatched = -1
-const kHighlightGroupMatched = 1
-const kHighlightGroupMatchedAsChild = 2
 
 function DrawDetailedView(context, MinWidth, bDrawEnabled) {
     if (bDrawEnabled) {
@@ -3676,7 +3756,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                     }
                     else {
                         var lastFrame = Frames.length - 1;
-                        var len = Frames[lastFrame].LogEnd[nLog] - Frames[0].LogStart[nLog]
+                        var len = Frames[lastFrame].LogEnd[nLog] - Frames[0].LogStart[nLog];
                         ThreadName += ' [' + len + '/' + capacity + ']';
                     }
                 }
@@ -3695,7 +3775,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 var TypeArray = g_TypeArray[nLog];
                 var TimeArray = g_TimeArray[nLog];
                 var IndexArray = g_IndexArray[nLog];
-                var LabelArray = g_LabelArray[nLog];
+                if (!FFlagMicroprofilerLabelSubstitution) {
+                    var LabelArray = g_LabelArray[nLog];
+                }
                 var XtraArray = g_XtraArray[nLog];
                 var GlobalArray = Lod.GlobalArray[nLog];
 
@@ -3757,7 +3839,11 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                     if (XText + WText > nWidth) {
                                         WText = nWidth - XText;
                                     }
-                                    var Name = LabelArray[globstart] ? LabelArray[globstart] : TimerInfo[index].name;
+                                    if (FFlagMicroprofilerLabelSubstitution) {
+                                        var Name = TimerInfo[index].name;
+                                    } else {
+                                        var Name = LabelArray[globstart] ? LabelArray[globstart] : TimerInfo[index].name;
+                                    }
                                     var BarTextLen = Math.floor((WText - 2) / FontWidth);
                                     var TimeText = TimeToMsString(timeend - timestart);
                                     var TimeTextLen = TimeText.length;
@@ -3817,10 +3903,10 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                     }
                                     else {
                                         RangeGpuNext.Begin = -1;
-                                        RangeGpuNext.End = -1
+                                        RangeGpuNext.End = -1;
                                     }
 
-                                    SetHoverToken(index, glob, nLog)
+                                    SetHoverToken(index, glob, nLog);
                                 }
                             }
                             if (StackPos == 0 && time > fTimeEnd)
@@ -3837,10 +3923,13 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
             var lines = [
                 "Mouse drag = navigate",
                 "Mouse wheel = zoom",
-                "Ctrl(Cmd) + F = find"
+                "Ctrl(Cmd) + F = find",
             ];
             if (IsPluginsTabVisible()) {
                 lines.push("X key = X-Ray mode");
+            }
+            if (g_Loader.toolsData.ComboDiffFuncName) {
+                lines.push("Drop dump to view diff");
             }
             if (fOffsetY > nHeight) {
                 lines.push("\u21D3 More threads below \u21D3");
@@ -5028,7 +5117,7 @@ function KeyUp(evt) {
                 Token = RangeSelect.Index;
             }
             if (Token != -1 && Token < TimerInfo.length) {
-                GotoWorst(Token)
+                GotoWorst(Token);
             }
         }
         else if (Mode == ModeTimers) {
@@ -5490,7 +5579,9 @@ function PreprocessGlobalArray() {
     g_TypeArray = new Array(nNumLogs);
     g_TimeArray = new Array(nNumLogs);
     g_IndexArray = new Array(nNumLogs);
-    g_LabelArray = new Array(nNumLogs);
+    if (!FFlagMicroprofilerLabelSubstitution) {
+        g_LabelArray = new Array(nNumLogs);
+    }
     g_XtraArray = new Array(nNumLogs); // Events
 
     var StackPos = 0;
@@ -5510,7 +5601,9 @@ function PreprocessGlobalArray() {
         var TypeArray = new Array();
         var TimeArray = new Array();
         var IndexArray = new Array();
-        var LabelArray = new Array();
+        if (!FFlagMicroprofilerLabelSubstitution) {
+            var LabelArray = new Array();
+        }
         var XtraArray = new Array();
 
         for (var i = 0; i < Frames.length; i++) {
@@ -5521,7 +5614,9 @@ function PreprocessGlobalArray() {
             var ts = Frame_.ts[nLog];
             var ti = Frame_.ti[nLog];
             var tx = Frame_.tx[nLog];
-            var tl = Frame_.tl[nLog];
+            if (!FFlagMicroprofilerLabelSubstitution) {
+                var tl = Frame_.tl[nLog];
+            }
             var len = tt.length;
             var DiscardLast = 0;
             for (var xx = 0; xx < len; ++xx) {
@@ -5539,14 +5634,15 @@ function PreprocessGlobalArray() {
                     if (tx[xx] != undefined)
                         XtraArray[TypeArray.length - 1] = tx[xx];
 
-                    // Use label after the region instead of the region name for some regions
-                    var Label = null;
-                    if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && TimerInfo[ti[xx]].name.startsWith("$"))
-                    {
-                        Label = tl[ti[xx + 1]];
-                    }
+                    if (!FFlagMicroprofilerLabelSubstitution) {
+                        // Use label after the region instead of the region name for some regions
+                        var Label = null;
+                        if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && TimerInfo[ti[xx]].namelabel) {
+                            Label = tl[ti[xx + 1]];
+                        }
 
-                    LabelArray.push(Label);
+                        LabelArray.push(Label);
+                    }
                 }
             }
             Frame_.LogEnd[nLog] = TimeArray.length;
@@ -5555,7 +5651,9 @@ function PreprocessGlobalArray() {
         g_TypeArray[nLog] = TypeArray;
         g_TimeArray[nLog] = TimeArray;
         g_IndexArray[nLog] = IndexArray;
-        g_LabelArray[nLog] = LabelArray;
+        if (!FFlagMicroprofilerLabelSubstitution) {
+            g_LabelArray[nLog] = LabelArray;
+        }
         g_XtraArray[nLog] = XtraArray;
 
         if (Discard) {
@@ -5651,10 +5749,17 @@ function Preprocess() {
     ProfileMode = 1;
     ProfileModeClear();
     ProfileEnter("Preprocess");
-    PreprocessTimerSubstitutions(
-        timer => timer.name.startsWith("$"),
-        (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label
-    );
+    if (FFlagMicroprofilerLabelSubstitution) {
+        PreprocessTimerSubstitutions(
+            timer => timer.name.startsWith("$"),
+            (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label,
+        );
+    } else {
+        PreprocessTimerSubstitutions('Lua', '$Script');
+        PreprocessTimerSubstitutions('LuaBridge', '$namecall');
+        PreprocessTimerSubstitutions('LuaBridge', '$index');
+        PreprocessTimerSubstitutions('LuaBridge', '$newindex');
+    }
     PreprocessCalculateAllTimers();
     PreprocessFindFirstFrames();
     PreprocessGlobalArray();
@@ -6228,7 +6333,7 @@ function ParseRawWorker(exporterFuncName, rawFileStructs) {
                 } else {
                     g_Loader.worker.isReady = true;
 
-                    var fileInfo = {}
+                    var fileInfo = {};
                     fileInfo.meta = "";
                     fileInfo.data = null;
                     fileInfo.isInvalid = true;
@@ -6260,7 +6365,7 @@ function ParseRawWorker(exporterFuncName, rawFileStructs) {
                         g_Loader.worker.instance.postMessage({
                             func: funcName,
                             meta: fileInfo.meta,
-                            payload: fileInfo.data.buffer
+                            payload: fileInfo.data.buffer,
                         }, [fileInfo.data.buffer]);
                         g_Loader.rawDataArr = null;
                     }
@@ -6611,7 +6716,7 @@ function AddToDiffSide(sideId, file) {
         title: file.name,
         name: file.name,
         size: 0,
-        file: file
+        file: file,
     };
     g_Loader.DiffSides[sideId].push(selfEntry);
 }
@@ -7119,7 +7224,7 @@ function ShowEvents(Show) {
         display: none;`;
     var hoverEvents;
     if (Show) {
-        hoverEvents = GatherHoverEvents(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame)
+        hoverEvents = GatherHoverEvents(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
         Show = (hoverEvents.length > 0);
     }
     if (Show) {
@@ -7272,7 +7377,7 @@ function RawToEvent(ts, ti, tt, tl, k) {
         type: 0,
         data: 0,
         extra: new Uint8Array(),
-        str: ""
+        str: "",
     };
 
     var tsk = ts[k];
@@ -7563,9 +7668,9 @@ function PluginUiUpdate(isInitialCall, onlyThresholds) {
     UpdateElement('xbar', g_Ext.xray.barEnabled, noFg);
 
     var modeText = "Mode: " + (g_Ext.xray.mode == XRayModes.Count ? "#Count&nbsp;[c]" : "\u2211Sum&nbsp;&nbsp;&nbsp;[c]");
-    UpdateElement('xmode', false, noFg, modeText)
+    UpdateElement('xmode', false, noFg, modeText);
 
-    UpdateElement('xthresholds', undefined, noFg)
+    UpdateElement('xthresholds', undefined, noFg);
     UpdateSelector('xthreshold_frames', g_Ext.xray.calculatedLimits.frameThresholds, noFg);
     UpdateSelector('xthreshold_bar', g_Ext.xray.calculatedLimits.barThresholds, noFg);
     UpdateSelector('xthreshold_main', g_Ext.xray.calculatedLimits.scopeThresholds, noFg);
@@ -7576,7 +7681,7 @@ function PluginUiUpdate(isInitialCall, onlyThresholds) {
         UpdateElement('xplugin_' + i, p.isActive);
     });
 
-    UpdateElement('xevents', undefined, noFg)
+    UpdateElement('xevents', undefined, noFg);
     g_Ext.typeLookup.forEach(function (e, i) {
         if (e.isBackground || e.plugin.isHidden)
             return;
@@ -7911,7 +8016,7 @@ DefinePlugin(function () {
             return dsp;
         },
         detail: function (ctx) {
-            var headers = ["#", "Subsystem", "Direction", "Size"]
+            var headers = ["#", "Subsystem", "Direction", "Size"];
             var fields = [
                 ctx.count,
                 ctx.subsystemName,
@@ -7936,7 +8041,7 @@ DefinePlugin(function () {
                 fields.push(
                     ctx.pktId,
                     ctx.pktType,
-                    ctx.pktSubtype
+                    ctx.pktSubtype,
                 );
             }
             var dtl = {

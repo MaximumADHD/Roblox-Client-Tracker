@@ -240,6 +240,8 @@ Class Annotation : Instance
 	Property Annotation.Contents: string {RobloxScriptSecurity} [Hidden]
 	Property Annotation.CreationTimeUnix: number {RobloxScriptSecurity} [Hidden]
 	Property Annotation.LastModifiedTimeUnix: number {RobloxScriptSecurity} [Hidden]
+	Property Annotation.LoadingReplies: boolean {RobloxScriptSecurity} [Hidden]
+	Property Annotation.ReplyCount: number {RobloxScriptSecurity} [Hidden]
 	Property Annotation.Resolved: boolean {RobloxScriptSecurity} [Hidden]
 	Property Annotation.TaggedUsers: string {RobloxScriptSecurity} [Hidden]
 	Function Annotation:GetStringUniqueId() -> string {RobloxScriptSecurity}
@@ -254,10 +256,10 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Function AnnotationsService:DeleteAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
 	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation, count: number? = 25) -> () {RobloxScriptSecurity}
-	Function AnnotationsService:ResolveAnnotation(annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:ResolveAnnotation(userId: number, annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationAdded(annotation: Annotation, parentId: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationDeleted(annotation: Annotation) {RobloxScriptSecurity}
-	Event AnnotationsService.AnnotationResolved(annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationResolved(userId: number, annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
 	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppLifecycleObserverService:GetCurrentState() -> Enum.AppLifecycleManagerState {RobloxScriptSecurity}
@@ -482,6 +484,11 @@ Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AudioFocusService.OnContextUnregistered(contextId: number) {RobloxScriptSecurity}
 	Event AudioFocusService.OnDeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
 	Event AudioFocusService.OnUndeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
+Class AudioLimiter : Instance
+	Property AudioLimiter.Bypass: boolean
+	Property AudioLimiter.MaxLevel: number
+	Property AudioLimiter.Release: number
+	Function AudioLimiter:GetConnectedWires(pin: string) -> { Instance }
 Class AudioListener : Instance
 	Property AudioListener.AudioInteractionGroup: string
 	Property AudioListener.DistanceAttenuation: BinaryString {RobloxSecurity}
@@ -556,8 +563,9 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:GenerateAvatarAsync(sessionId: string, previewId: string) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarModelAsync(player: Player, previewJobId: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarPreviewAsync(player: Player, textPrompt: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
-	Function AvatarCreationService:GenerateAvatarPreviewAsync2(sessionId: string, fileId: string, textPrompt: string) -> string [Yields]
+	Function AvatarCreationService:GenerateAvatarPreviewAsync2(sessionId: string, fileId: string, textPrompt: string, options: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GetAvatarGenerationConfig() -> { [string]: any } [Yields]
+	Function AvatarCreationService:GetBatchTokenDetailsAsync(tokenIds: { any }) -> { any } [Yields]
 	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
 	Function AvatarCreationService:LoadAvatarHumanoidDescriptionAsync(id: string) -> HumanoidDescription [Yields]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
@@ -790,9 +798,8 @@ Class BaseWrap : Instance [NotCreatable]
 	Function BaseWrap:ModifyVertices(cageType: Enum.CageType, vertices: { any }) -> () {RobloxScriptSecurity}
 	Event BaseWrap.VerticesModified(vertices: { any }) {RobloxScriptSecurity}
 Class WrapDeformer : BaseWrap [NotBrowsable]
-	Property WrapDeformer.RenderMeshID: ContentId {✏️PluginSecurity}
-	Property WrapDeformer.Enabled: boolean
-	Property WrapDeformer.Amount: number {✏️PluginSecurity}
+	Function WrapDeformer:CreateEditableMeshAsync() -> EditableMesh [Yields]
+	Function WrapDeformer:GetDeformedCFrame(originalCFrame: CFrame) -> CFrame
 Class WrapLayer : BaseWrap
 	Property WrapLayer.Order: number
 	Property WrapLayer.Puffiness: number
@@ -916,13 +923,6 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BrowserService.BrowserWindowClosed() {RobloxScriptSecurity}
 	Event BrowserService.BrowserWindowWillNavigate(url: string) {RobloxScriptSecurity}
 	Event BrowserService.JavaScriptCallback(content: string) {RobloxScriptSecurity}
-Class BubbleChatMessageProperties : Instance
-	Property BubbleChatMessageProperties.BackgroundColor3: Color3
-	Property BubbleChatMessageProperties.BackgroundTransparency: number
-	Property BubbleChatMessageProperties.FontFace: Font
-	Property BubbleChatMessageProperties.TailVisible: boolean
-	Property BubbleChatMessageProperties.TextColor3: Color3
-	Property BubbleChatMessageProperties.TextSize: number
 Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function BulkImportService:LaunchBulkImport(assetTypeToImport: number) -> () {RobloxScriptSecurity}
 	Function BulkImportService:ShowBulkImportView() -> () {RobloxScriptSecurity}
@@ -1388,7 +1388,6 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ContentProvider:GetAssetFetchStatus(contentId: ContentId) -> Enum.AssetFetchStatus
 	Function ContentProvider:GetAssetFetchStatusChangedSignal(contentId: ContentId) -> RBXScriptSignal
 	Function ContentProvider:GetDependencyContentIds(root: Instance) -> { any } {RobloxScriptSecurity}
-	Function ContentProvider:GetDetailedFailedRequests() -> { any } {RobloxScriptSecurity}
 	Function ContentProvider:GetFailedRequests() -> { any } {RobloxScriptSecurity}
 	Function ContentProvider:ListEncryptedAssets() -> { any }
 	Function ContentProvider:Preload(contentId: ContentId) -> () [Deprecated]
@@ -1497,10 +1496,11 @@ Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [Not
 	Function ConversationalAIAcceptanceService:CodeRunnerCompleted(requestId: string, success: boolean, errorMessage: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:CodeRunnerUndone(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:DataModelHierarchyLatency(requestId: string, latency: number) -> () {RobloxScriptSecurity}
-	Function ConversationalAIAcceptanceService:ErrorTelemetry(requestId: string, errorType: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:ErrorTelemetry(requestId: string, errorId: string, errorType: string, errorMessage: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:InstanceInserted(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:RecordingActionEnded(requestId: string, waypointName: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:ReportJSONEncodeFailure(instanceName: string, className: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:SendCommandErrorTelemetry(requestId: string, commandName: string, errorMessage: string) -> () {RobloxScriptSecurity}
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptDebuggingManagerHelper : Instance [NotCreatable] [Service]
@@ -3277,7 +3277,7 @@ Class LocalScript : Script
 Class ModuleScript : LuaSourceContainer
 	Property ModuleScript.Confidential: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property ModuleScript.LinkedSource: ContentId [Deprecated]
-	Property ModuleScript.Source: string {PluginSecurity}
+	Property ModuleScript.Source: string
 Class LuaWebService : Instance [NotCreatable] [Service]
 Class LuauScriptAnalyzerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class MarkerCurve : Instance
@@ -4504,6 +4504,7 @@ Class Players : Instance [NotCreatable] [Service]
 Class Plugin : Instance [NotCreatable]
 	Property Plugin.UsesAssetInsertionDrag: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Plugin.CollisionEnabled: boolean [ReadOnly]
+	Property Plugin.DisableUIDragDetectorDrags: boolean {RobloxScriptSecurity}
 	Property Plugin.GridSize: number [ReadOnly]
 	Property Plugin.HostDataModelType: Enum.StudioDataModelType {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Plugin.HostDataModelTypeIsCurrent: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -5350,7 +5351,7 @@ Class StartPageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StartPageService:isTutorialPopupClosed() -> boolean {RobloxScriptSecurity}
 	Function StartPageService:openLink(link: string) -> () {RobloxScriptSecurity}
 	Function StartPageService:openLocalFile(filePath: string) -> () {RobloxScriptSecurity}
-	Function StartPageService:openPlace(placeId: number, launchTutorial: boolean) -> () {RobloxScriptSecurity}
+	Function StartPageService:openPlace(placeId: number, universeId: number, launchTutorial: boolean) -> () {RobloxScriptSecurity}
 	Function StartPageService:refreshRegistryDataInStartPage() -> () {RobloxScriptSecurity}
 	Function StartPageService:removeAPIGameFromRegistry(gameId: number) -> () {RobloxScriptSecurity}
 	Function StartPageService:removeLocalFileFromRegistry(fileName: string) -> () {RobloxScriptSecurity}
@@ -5742,6 +5743,8 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.SaveLocallyAsComplete(success: boolean) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function StudioTheme:GetColor(styleguideitem: Enum.StudioStyleGuideColor, modifier: Enum.StudioStyleGuideModifier? = "Default") -> Color3 {PluginSecurity}
+Class StudioUserService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property StudioUserService.IsLoggedIn: boolean {RobloxScriptSecurity} [ReadOnly]
 Class StudioWidgetsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioWidgetsService:ApplyFillInBox(target: StudioWidget) -> () {RobloxScriptSecurity}
 	Function StudioWidgetsService:ApplyHighlight(target: StudioWidget, rowName: string?) -> () {RobloxScriptSecurity}
@@ -5996,6 +5999,13 @@ Class TextChatMessageProperties : Instance
 	Property TextChatMessageProperties.PrefixText: string
 	Property TextChatMessageProperties.Text: string
 	Property TextChatMessageProperties.Translation: string
+Class BubbleChatMessageProperties : TextChatMessageProperties
+	Property BubbleChatMessageProperties.BackgroundColor3: Color3
+	Property BubbleChatMessageProperties.BackgroundTransparency: number
+	Property BubbleChatMessageProperties.FontFace: Font
+	Property BubbleChatMessageProperties.TailVisible: boolean
+	Property BubbleChatMessageProperties.TextColor3: Color3
+	Property BubbleChatMessageProperties.TextSize: number
 Class ChatWindowMessageProperties : TextChatMessageProperties [NotCreatable]
 	Property ChatWindowMessageProperties.FontFace: Font
 	Property ChatWindowMessageProperties.PrefixTextProperties: ChatWindowMessageProperties?
@@ -6012,6 +6022,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.CreateDefaultTextChannels: boolean {✏️PluginSecurity}
 	Function TextChatService:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function TextChatService:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
+	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> ()
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage)
 	Event TextChatService.ClientToServerMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, status: Enum.TextChatMessageStatus) {RobloxSecurity} [Hidden]
@@ -7472,6 +7483,10 @@ Enum ConnectionError
 Enum ConnectionState
 	EnumItem ConnectionState.Connected : 0
 	EnumItem ConnectionState.Disconnected : 1
+Enum ContentSourceType
+	EnumItem ContentSourceType.None : 0
+	EnumItem ContentSourceType.Uri : 1
+	EnumItem ContentSourceType.Object : 2
 Enum ContextActionPriority
 	EnumItem ContextActionPriority.Low : 1000
 	EnumItem ContextActionPriority.Medium : 2000
@@ -8767,6 +8782,7 @@ Enum PoseEasingStyle
 	EnumItem PoseEasingStyle.Elastic : 2
 	EnumItem PoseEasingStyle.Cubic : 3
 	EnumItem PoseEasingStyle.Bounce : 4
+	EnumItem PoseEasingStyle.CubicV2 : 5
 Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
@@ -8965,6 +8981,10 @@ Enum RollOffMode
 	EnumItem RollOffMode.Linear : 1
 	EnumItem RollOffMode.LinearSquare : 2
 	EnumItem RollOffMode.InverseTapered : 3
+Enum RolloutState
+	EnumItem RolloutState.Default : 0
+	EnumItem RolloutState.Disabled : 1
+	EnumItem RolloutState.Enabled : 2
 Enum RotationOrder
 	EnumItem RotationOrder.XYZ : 0
 	EnumItem RotationOrder.XZY : 1

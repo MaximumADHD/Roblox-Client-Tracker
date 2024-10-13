@@ -15,8 +15,8 @@ version = "0.3.10"
 commit = "36da62eae4cacf7817113370b49a27e0bbe89b4f"
 source = "git+https://github.com/roblox/apollo-client-lua#v0.3.10"
 dependencies = [
-    "GraphQL GraphQL 15.6.1 registry",
-    "GraphQLTag GraphqlTag 2.12.6 registry",
+    "GraphQL GraphQL 15.6.3 registry",
+    "GraphQLTag GraphqlTag 2.12.9 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauRegExp <patched> RegExp 0.2.1 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
@@ -31,8 +31,8 @@ version = "0.3.10"
 source = "registry"
 dependencies = [
     "ApolloClient <patched> ApolloClient 36da62ea git+https://github.com/roblox/apollo-client-lua#v0.3.10",
-    "GraphQL GraphQL 15.6.1 registry",
-    "GraphQLTag GraphqlTag 2.12.6 registry",
+    "GraphQL GraphQL 15.6.3 registry",
+    "GraphQLTag GraphqlTag 2.12.9 registry",
     "Jest Jest 3.8.1 registry",
     "JestGlobals JestGlobals 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
@@ -94,12 +94,12 @@ dependencies = [
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
     "FitFrame <patched> RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.2.3 registry",
-    "FoundationImages FoundationImages 1.3.0 registry",
-    "GraphQL GraphQL 15.6.1 registry",
+    "Foundation Foundation 1.3.1 registry",
+    "FoundationImages FoundationImages 1.4.0 registry",
+    "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
-    "IAPExperience IAPExperience e3899852 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience c13d19bb git+https://github.com/roblox/iapexperience#master",
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "InputHandlers InputHandlers 1.3.1 registry",
     "Jest Jest 3.8.1 registry",
@@ -127,7 +127,7 @@ dependencies = [
     "ReactIs ReactIs 17.1.2 registry",
     "ReactOtter ReactOtter 1.2.1 registry",
     "ReactRoblox ReactRoblox 17.1.2 registry",
-    "ReactSceneUnderstanding ReactSceneUnderstanding 0.6.0 registry",
+    "ReactSceneUnderstanding ReactSceneUnderstanding 0.7.1 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 registry",
     "ReactTestingUtils ReactTestingUtils 1.3.1 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
@@ -151,9 +151,9 @@ dependencies = [
     "Signal Signal 1.0.0 registry",
     "StringUtilities <patched> string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
-    "Thumbnailing Thumbnailing 5ca295be git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.12.14 registry",
-    "UIBlox UIBlox 9ac95c64 git+https://github.com/roblox/uiblox#master",
+    "Thumbnailing Thumbnailing a902ff7a git+https://github.com/roblox/thumbnailing#main",
+    "UGCValidation UGCValidation 1.12.15 registry",
+    "UIBlox UIBlox 145ca86f git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 81a784a0 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
@@ -299,12 +299,12 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.2.3"
+version = "1.3.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 1.0.0 registry",
-    "FoundationImages FoundationImages 1.3.0 registry",
+    "FoundationImages FoundationImages 1.4.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.2.1 registry",
     "RbxDesignFoundations RbxDesignFoundations 2.0.132 registry",
@@ -320,12 +320,12 @@ dependencies = [
 
 [[package]]
 name = "FoundationImages"
-version = "1.3.0"
+version = "1.4.0"
 source = "registry"
 
 [[package]]
 name = "GraphQL"
-version = "15.6.1"
+version = "15.6.3"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
@@ -335,10 +335,10 @@ dependencies = [
 
 [[package]]
 name = "GraphqlTag"
-version = "2.12.6"
+version = "2.12.9"
 source = "registry"
 dependencies = [
-    "GraphQL GraphQL 15.6.1 registry",
+    "GraphQL GraphQL 15.6.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
 ]
 
@@ -363,7 +363,7 @@ dependencies = [
 [[package]]
 name = "IAPExperience"
 version = "1.0.0"
-commit = "e38998523eb71aa822c875dc4398ccd0999b27d8"
+commit = "c13d19bbb57936e21f35694751133e3f4d0be2e3"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -373,8 +373,8 @@ dependencies = [
     "Roact RoactCompat 17.1.2 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
-    "Thumbnailing Thumbnailing 5ca295be git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 9ac95c64 git+https://github.com/roblox/uiblox#master",
+    "Thumbnailing Thumbnailing a902ff7a git+https://github.com/roblox/thumbnailing#main",
+    "UIBlox UIBlox 145ca86f git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -393,7 +393,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.1.2 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 9ac95c64 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 145ca86f git+https://github.com/roblox/uiblox#master",
     "t t 1.2.5 registry",
 ]
 
@@ -1001,7 +1001,7 @@ name = "Merge"
 version = "0.3.1"
 source = "registry"
 dependencies = [
-    "GraphQL GraphQL 15.6.1 registry",
+    "GraphQL GraphQL 15.6.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Utils Utils 0.3.1 registry",
 ]
@@ -1239,14 +1239,14 @@ source = "git+https://github.com/roblox/purchase-prompt-deps#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame <patched> RoactFitComponents 2.0.0 registry",
-    "IAPExperience IAPExperience e3899852 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience c13d19bb git+https://github.com/roblox/iapexperience#master",
     "Otter Otter 0.1.4 registry",
     "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "Roact RoactCompat 17.1.2 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 9ac95c64 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 145ca86f git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 81a784a0 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
@@ -1375,13 +1375,13 @@ dependencies = [
 
 [[package]]
 name = "ReactSceneUnderstanding"
-version = "0.6.0"
+version = "0.7.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "React React 17.1.2 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
-    "SceneUnderstanding SceneUnderstanding 0.6.0 registry",
+    "SceneUnderstanding SceneUnderstanding 0.7.1 registry",
 ]
 
 [[package]]
@@ -1753,7 +1753,7 @@ source = "registry"
 
 [[package]]
 name = "SceneUnderstanding"
-version = "0.6.0"
+version = "0.7.1"
 source = "registry"
 
 [[package]]
@@ -1803,7 +1803,7 @@ dependencies = [
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 9ac95c64 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 145ca86f git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1880,8 +1880,8 @@ dependencies = [
 
 [[package]]
 name = "Thumbnailing"
-version = "0.2.0"
-commit = "5ca295befcd3aaa565018ff7565e13143e658cc9"
+version = "0.3.0"
+commit = "a902ff7ae59f90d8ad7d5f2a0d18b5a4ccf97022"
 source = "git+https://github.com/roblox/thumbnailing#main"
 
 [[package]]
@@ -1892,7 +1892,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.12.14"
+version = "1.12.15"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1902,12 +1902,12 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "9ac95c6444c4c1452d73a1e2fc84e61eb31a520d"
+commit = "145ca86f5cd08f0a01efd6d3d3f8457f09b6580d"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "FoundationImages FoundationImages 1.3.0 registry",
+    "FoundationImages FoundationImages 1.4.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -1977,7 +1977,7 @@ name = "Utils"
 version = "0.3.1"
 source = "registry"
 dependencies = [
-    "GraphQL GraphQL 15.6.1 registry",
+    "GraphQL GraphQL 15.6.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauRegExp RegExp 0.2.1 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",

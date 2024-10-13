@@ -1781,6 +1781,7 @@
     "Semantic": {
         "Color": {
             "Content": {
+                "Emphasis": "#F4F4F6",
                 "Standard": "#F9F9F9",
                 "Disabled": "#696A6D"
             },

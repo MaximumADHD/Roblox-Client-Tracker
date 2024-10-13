@@ -12,7 +12,7 @@ uniform sampler2D CloudsTexture;
 
 void main()
 {
-    vec2 f0 = (gl_FragCoord.xy * 0.5) / CB0[50].zw;
+    vec2 f0 = gl_FragCoord.xy * 0.5;
     vec2 f1 = CB4[1].xy;
     f1.x = CB4[1].xy.x;
     vec2 f2 = (CB4[0].zw * ((f0 * CB4[0].xy) - vec2(1.0))) + f1;

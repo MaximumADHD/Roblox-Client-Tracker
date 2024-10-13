@@ -1,8 +1,8 @@
 Key,Context,Source,en-us
 Studio.App.BetaFeatures.PreferredTextSizeSettingTitle,,Preferred Text Size Setting,Preferred Text Size Setting
 Studio.App.BetaFeatures.PreferredTextSizeSettingDescription,,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.,Enables a text size setting in the in-game menu and app-shell device preferences page that scales text according to a user's selection.
-Studio.App.BetaFeatures.LuauFileSyncTitle,,Luau File Sync,Luau File Sync
-Studio.App.BetaFeatures.LuauFileSyncDescription,,Enables syncing of scripts between Studio and local disk.,Enables syncing of scripts between Studio and local disk.
+Studio.App.BetaFeatures.ScriptSyncTitle,,[Early Preview] Script Sync,[Early Preview] Script Sync
+Studio.App.BetaFeatures.ScriptSyncDescription,,"Very early preview for syncing Scripts with files on disk. Not ready for full workflows, please read the DevForum post linked before enabling.","Very early preview for syncing Scripts with files on disk. Not ready for full workflows, please read the DevForum post linked before enabling."
 Studio.App.BetaFeatures.AvatarJointUpgradeTitle,,Avatar Joint Upgrade,Avatar Joint Upgrade
 Studio.App.BetaFeatures.AvatarJointUpgradeDescription,,"Adds ragdoll constraints into avatars. Also replaces Motor6Ds with AnimationConstraints, which play animations either kinematically or with physical simulation.","Adds ragdoll constraints into avatars. Also replaces Motor6Ds with AnimationConstraints, which play animations either kinematically or with physical simulation."
 Studio.App.BetaFeatures.ConstraintVisualsDescription,,Details are shown on selected constraints even without the global Constraint Details enabled. Constraints appear translucent through occluding objects.,Details are shown on selected constraints even without the global Constraint Details enabled. Constraints appear translucent through occluding objects.

@@ -3121,6 +3121,33 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">AudioLimiter</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Release</string>
+            <double name="UIMinimum">0.001</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxLevel</string>
+            <double name="UIMinimum">-12</double>
+            <double name="UIMaximum">0</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">EchoSoundEffect</string>
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">20</string>

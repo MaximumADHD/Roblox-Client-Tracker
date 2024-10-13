@@ -148,20 +148,25 @@ Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects,,View Lua API objects that c
 Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
 Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers,,Start server and players,Start server and players
 Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
-Studio.App.RBXMainWindow.StartScriptSync,,Start Sync,Start Sync
+Studio.App.RBXMainWindow.StartScriptSync,,Sync to disk,Sync to disk
 Studio.App.RBXMainWindow.StartScriptSyncsTooltip,,"Start Sync between Script, LocalScript, and ModuleScript instances and Disk","Start Sync between Script, LocalScript, and ModuleScript instances and Disk"
 Studio.App.RBXMainWindow.StopScriptSync,,Stop Sync,Stop Sync
+Studio.App.RBXMainWindow.CancelScriptSync,,Cancel Sync,Cancel Sync
 Studio.App.RBXMainWindow.StopScriptSyncsTooltip,,"Stop Sync between Script, LocalScript, and ModuleScript instances and Disk","Stop Sync between Script, LocalScript, and ModuleScript instances and Disk"
 Studio.App.ScriptVerbs.SelectSyncDir,,Save File Sync Path,Save File Sync Path
 Studio.App.ScriptVerbs.StopSync,,Stop Synchronization,Stop Synchronization
 Studio.App.ScriptVerbs.DeleteFile,,"<b>The file(s) are no longer syncing to disk</b><br/><div>You can delete the local file if you want. You can also stop this dialog in <a href=""settings"">Studio Settings</a></div>","<b>The file(s) are no longer syncing to disk</b><br/><div>You can delete the local file if you want. You can also stop this dialog in <a href=""settings"">Studio Settings</a></div>"
+Studio.App.ScriptVerbs.AskIfOverwriteFileOnDisk,,<b>Do you want to overwrite the file on disk?</b><br/><div>You will need to overwrite the file to restart syncing</div>,<b>Do you want to overwrite the file on disk?</b><br/><div>You will need to overwrite the file to restart syncing</div>
+Studio.App.ScriptVerbs.CancelButton,,Cancel,Cancel
+Studio.App.ScriptVerbs.OverwriteButton,,Overwrite,Overwrite
 Studio.App.ScriptVerbs.FileNotFound,,File Not Found,File Not Found
-Studio.App.ScriptVerbs.CannotFindFileSyncing,,Cannot find File Syncing,Cannot find File Syncing
+Studio.App.ScriptVerbs.CannotFindFileSyncing,,<b>Can't find the file location</b><br/><div>The folder might have been deleted or renamed. Cancel sync and start again to select a new location.</div>,<b>Can't find the file location</b><br/><div>The folder might have been deleted or renamed. Cancel sync and start again to select a new location.</div>
 Studio.App.ScriptVerbs.FilePathEmpty,,Error while deleting file from disk: Path is empty,Error while deleting file from disk: Path is empty
 Studio.App.ScriptVerbs.FileNotTrashed,,Error while deleting file from disk: Unable to move to trash,Error while deleting file from disk: Unable to move to trash
 Studio.App.ScriptVerbs.DeleteButton,,Delete local file,Delete local file
 Studio.App.ScriptVerbs.DoneButton,,Done,Done
-Studio.App.RBXMainWindow.ShowInFolder,,Show In Folder,Show In Folder
+Studio.App.ScriptVerbs.CloseButton,,Close,Close
+Studio.App.RBXMainWindow.ShowInFolder,,Show file location,Show file location
 Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...

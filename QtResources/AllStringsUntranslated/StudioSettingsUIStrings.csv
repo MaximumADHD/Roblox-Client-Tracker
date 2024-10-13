@@ -3,7 +3,6 @@ Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new features be
 Studio.App.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
 Studio.App.BetaFeatures.Details,,Details,Details
 Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
-Studio.App.BetaFeatures.AutoEnrollmentToggle,,Enroll in Beta Channel,Enroll in Beta Channel
 Studio.App.BetaFeatures.AutoEnrollmentToggleLabel,,Auto-Enable Upcoming Features,Auto-Enable Upcoming Features
 Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"

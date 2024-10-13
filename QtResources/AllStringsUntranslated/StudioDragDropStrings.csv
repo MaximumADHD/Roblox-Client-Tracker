@@ -1,0 +1,3 @@
+Key,Context,Source,en-us
+Studio.App.DragDrop.NameAndCount2,"An instance name and a count of how many of those instances are selected (when more than 1). For example, dragging three things named Folder will show as Folder (x3).",%1 (x%2),%1 (x%2)
+Studio.App.DragDrop.Count1,"A count of instances selected when there is nothing similar between them. For example, selecting 3 random instances will show (x3)",(x%1),(x%1)
