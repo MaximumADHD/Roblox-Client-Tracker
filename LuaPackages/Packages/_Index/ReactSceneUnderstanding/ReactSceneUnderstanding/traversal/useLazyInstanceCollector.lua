@@ -5,6 +5,8 @@ local React = require(Root.Parent.React)
 local ReactUtils = require(Root.Parent.ReactUtils)
 local SceneUnderstanding = require(Root.Parent.SceneUnderstanding)
 
+local DataModelTraversalOptions = SceneUnderstanding.DataModelTraversalOptions
+
 local useEffect = React.useEffect
 local useMemo = React.useMemo
 local useState = React.useState
@@ -17,6 +19,8 @@ local function useLazyInstanceCollector(
 	predicate: ((descendant: Instance) -> boolean)?,
 	options: DataModelTraversalOptions?
 )
+	local internalOptions = DataModelTraversalOptions.new(options)
+
 	local prevOptions = usePrevious(options)
 
 	local collector = useMemo(function()
@@ -27,7 +31,7 @@ local function useLazyInstanceCollector(
 
 	if options and prevOptions then
 		if options.instanceProcessingLimit ~= prevOptions.instanceProcessingLimit then
-			collector.setInstancesProcessedPerFrame(options.instanceProcessingLimit)
+			collector.setInstancesProcessedPerFrame(internalOptions.instanceProcessingLimit)
 		end
 	end
 

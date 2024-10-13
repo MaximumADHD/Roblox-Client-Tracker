@@ -143,4 +143,10 @@ export type FontStyle = {
 	LineHeight: number?,
 }
 
+export type InternalTextInputRef = {
+	getIsFocused: () -> boolean,
+	focus: () -> (),
+	setHover: (v: boolean) -> (),
+}
+
 return {}

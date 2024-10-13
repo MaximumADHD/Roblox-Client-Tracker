@@ -7,9 +7,7 @@ local enumerate = require(Packages.enumerate)
 
 local strict = require(UIBlox.Utility.strict)
 
-local ItemIconType
-
-ItemIconType = enumerate("ItemIconType", {
+local ItemIconType = enumerate("ItemIconType", {
 	"AnimationBundle",
 	"Bundle",
 	"DynamicHead",
@@ -21,11 +19,15 @@ local Restriction = enumerate("Restriction", {
 	"Collectible",
 })
 
+local StatusStyle = enumerate("StatusStyle", {
+	"Alert",
+	"Info",
+	"PendingIcon",
+	"AlertIcon",
+})
+
 return strict({
 	ItemIconType = ItemIconType,
-	StatusStyle = enumerate("StatusStyle", {
-		"Alert",
-		"Info",
-	}),
 	Restriction = Restriction,
+	StatusStyle = StatusStyle,
 }, script.Name)

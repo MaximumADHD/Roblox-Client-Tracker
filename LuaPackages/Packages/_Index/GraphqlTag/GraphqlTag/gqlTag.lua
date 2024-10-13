@@ -127,11 +127,10 @@ local function parseDocument(source: string): DocumentNode
 end
 
 --ROBLOX deviation: we are not dealing with fragmentation
-local function gql(literals: string|DocumentNode): DocumentNode
-	local t = typeof(literals)
-	if t == "string" then
+local function gql(literals: string | DocumentNode): DocumentNode
+	if typeof(literals) == "string" then
 		return parseDocument(literals)
-	elseif t == "table" and literals.kind == "Document"  then
+	elseif typeof(literals) == "table" and literals.kind == "Document" then
 		return literals
 	end
 	error(

@@ -9,6 +9,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -18,9 +19,6 @@ local ItemTileStatus = Roact.PureComponent:extend("ItemTileStatus")
 
 local MAX_TEXT_SIZE = Vector2.new(50, 20)
 local TEXT_PADDING = Vector2.new(10, 6)
-
-local PADDING_LEFT = 12
-local PADDING_TOP = 12
 
 ItemTileStatus.validateProps = t.strictInterface({
 	-- The text to display in the status component
@@ -54,6 +52,16 @@ function ItemTileStatus:render()
 		local theme = stylePalette.Theme
 		local fontInfo = stylePalette.Font
 
+		local paddingLeft, paddingTop
+		if UIBloxConfig.itemTileOverlayPaddingUseTokens then
+			local tokens = stylePalette.Tokens
+			paddingLeft = tokens.Global.Size_100
+			paddingTop = tokens.Global.Size_100
+		else
+			paddingLeft = 12
+			paddingTop = 12
+		end
+
 		local statusText = self.props.statusText
 		local statusStyle = self.props.statusStyle
 
@@ -70,7 +78,7 @@ function ItemTileStatus:render()
 			ImageTransparency = styleInfo.Background.Transparency,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),
-			Position = UDim2.new(0, PADDING_LEFT, 0, PADDING_TOP),
+			Position = UDim2.new(0, paddingLeft, 0, paddingTop),
 			Size = UDim2.new(0, textSize.X + TEXT_PADDING.X, 0, textSize.Y + TEXT_PADDING.Y),
 		}, {
 			Text = Roact.createElement("TextLabel", {

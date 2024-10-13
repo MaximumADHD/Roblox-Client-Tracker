@@ -9,6 +9,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -20,8 +21,6 @@ local ItemRestrictionStatus = Roact.PureComponent:extend("ItemRestrictionStatus"
 local MAX_TEXT_SIZE = Vector2.new(50, 20)
 local CONTENT_PADDING = Vector2.new(8, 8)
 
-local PADDING_LEFT = 12
-local PADDING_BOTTOM = 12
 local TEXT_PADDING = 10
 
 ItemRestrictionStatus.validateProps = t.strictInterface({
@@ -70,6 +69,16 @@ function ItemRestrictionStatus:render()
 		local theme = stylePalette.Theme
 		local fontInfo = stylePalette.Font
 
+		local paddingLeft, paddingBottom
+		if UIBloxConfig.itemTileOverlayPaddingUseTokens then
+			local tokens = stylePalette.Tokens
+			paddingLeft = tokens.Global.Size_100
+			paddingBottom = tokens.Global.Size_100
+		else
+			paddingLeft = 12
+			paddingBottom = 12
+		end
+
 		local restrictionInfo = self.props.restrictionInfo
 		local restrictionTypes = self.props.restrictionTypes
 		local additionalText = getAdditionalText(restrictionTypes, restrictionInfo)
@@ -92,7 +101,7 @@ function ItemRestrictionStatus:render()
 			ImageTransparency = theme.UIDefault.Transparency,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),
-			Position = UDim2.new(0, PADDING_LEFT, 1, -PADDING_BOTTOM),
+			Position = UDim2.new(0, paddingLeft, 1, -paddingBottom),
 			Size = UDim2.new(0, xSize, 0, ySize),
 		}, {
 			Icon = icon and Roact.createElement(ImageSetComponent.Label, {

@@ -4,8 +4,8 @@ version = "0.3.10"
 source = "registry"
 dependencies = [
     "ApolloClient <patched> ApolloClient 36da62ea git+https://github.com/roblox/apollo-client-lua#v0.3.10",
-    "GraphQL GraphQL 15.6.1 registry",
-    "GraphQLTag GraphqlTag 2.12.6 registry",
+    "GraphQL GraphQL 15.6.3 registry",
+    "GraphQLTag GraphqlTag 2.12.9 registry",
     "Jest Jest 3.8.1 registry",
     "JestGlobals JestGlobals 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",

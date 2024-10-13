@@ -1,0 +1,25 @@
+[package]
+name = "GraphqlTag"
+version = "2.12.9"
+readme = "README.md"
+content_root = "src"
+files = [
+    "*",
+    "!**/*.spec.lua",
+    "!**/.robloxrc",
+]
+publish = true
+authors = [
+    "Chris Trześniewski <k.trzesniewski@gmail.com>",
+    "Ignacio Falk <flakolefluk@gmail.com>",
+]
+[dependencies.GraphQL]
+target = "https://github.com/roblox/graphql-lua"
+version = "^15.6"
+
+[dependencies.LuauPolyfill]
+target = "https://github.com/roblox/luau-polyfill"
+version = "^1.2"
+[dev_dependencies.JestGlobals]
+target = "https://github.com/roblox/jest-roblox"
+version = "^2.3.1"

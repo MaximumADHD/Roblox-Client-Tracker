@@ -15,7 +15,7 @@ type CameraState = enums.CameraState
 
 local function useCameraState(cameraOverrride: Camera?): CameraState
 	local currentCamera = useCurrentCamera()
-	local cameraState, setCameraState = useState(enums.CameraState.Idle)
+	local cameraState: CameraState, setCameraState = useState(enums.CameraState.Idle :: CameraState)
 	local thread = useRef(nil :: thread?)
 
 	local camera = if cameraOverrride then cameraOverrride else currentCamera

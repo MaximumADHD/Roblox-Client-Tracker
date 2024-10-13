@@ -6,7 +6,6 @@ local TextService = game:GetService("TextService")
 
 local CleanRichTextTags = require(script.Parent.CleanRichTextTags)
 local UIBlox = script.Parent.Parent.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Logger = require(UIBlox.Logger)
 
 local TEMPORARY_TEXT_SIZE_PADDING = Vector2.new(2, 2)
@@ -27,36 +26,26 @@ local function getTextSize(
 	]]
 	ignoreRichTextTags: boolean?
 )
-	if UIBloxConfig.useGetTextBoundsAsync then
-		if ignoreRichTextTags then
-			string = CleanRichTextTags(string)
-		end
+	if ignoreRichTextTags then
+		string = CleanRichTextTags(string)
+	end
 
-		local params = Instance.new("GetTextBoundsParams")
-		params.Font = Font.fromEnum(font)
-		params.Size = fontSize
-		params.Text = string
-		params.Width = frameSize.X
+	local params = Instance.new("GetTextBoundsParams")
+	params.Font = Font.fromEnum(font)
+	params.Size = fontSize
+	params.Text = string
+	params.Width = frameSize.X
 
-		-- pcall because GetTextBoundsAsync can error if network call fails
-		local success, value = pcall(function()
-			return TextService:GetTextBoundsAsync(params)
-		end)
-		if success then
-			local textSize = Vector2.new(value.X, math.min(value.Y, frameSize.Y))
-			return textSize + TEMPORARY_TEXT_SIZE_PADDING
-		else
-			Logger:warning("GetTextBoundsAsync call failed, falling back to frame size. Error: ", value)
-			return frameSize
-		end
-	else
-		if ignoreRichTextTags then
-			string = CleanRichTextTags(string)
-		end
-
-		local textSize = TextService:GetTextSize(string, fontSize, font, frameSize)
-
+	-- pcall because GetTextBoundsAsync can error if network call fails
+	local success, value = pcall(function()
+		return TextService:GetTextBoundsAsync(params)
+	end)
+	if success then
+		local textSize = Vector2.new(value.X, math.min(value.Y, frameSize.Y))
 		return textSize + TEMPORARY_TEXT_SIZE_PADDING
+	else
+		Logger:warning("GetTextBoundsAsync call failed, falling back to frame size. Error: ", value)
+		return frameSize
 	end
 end
 

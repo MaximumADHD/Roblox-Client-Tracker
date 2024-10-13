@@ -3,7 +3,7 @@ name = "Merge"
 version = "0.3.1"
 source = "registry"
 dependencies = [
-    "GraphQL GraphQL 15.6.1 registry",
+    "GraphQL GraphQL 15.6.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Utils Utils 0.3.1 registry",
 ]

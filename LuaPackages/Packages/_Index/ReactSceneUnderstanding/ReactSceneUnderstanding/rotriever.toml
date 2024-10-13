@@ -1,6 +1,6 @@
 [package]
 name = "ReactSceneUnderstanding"
-version = "0.6.0"
+version = "0.7.1"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -31,10 +31,10 @@ version = "^1.2.0"
 
 [dependencies.SceneUnderstanding]
 package = "SceneUnderstanding"
-version = "^0.6.0"
+version = "^0.7.1"
 [dev_dependencies.InternalTestUtils]
 package = "InternalTestUtils"
-version = "^0.6.0"
+version = "^0.7.1"
 
 [dev_dependencies.Jest]
 target = "https://github.com/roblox/jest-roblox"

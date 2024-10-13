@@ -14,7 +14,9 @@
 ]]
 local function safelyAccessProperty<T>(instance: Instance, property: string, default: T): T
 	local success, result = pcall(function()
-		return instance[property]
+		-- Luau FIXME: Getting error about unsafe dynamic property access
+		-- despite being in a pcall
+		return (instance :: any)[property]
 	end)
 	return if success then result else default
 end

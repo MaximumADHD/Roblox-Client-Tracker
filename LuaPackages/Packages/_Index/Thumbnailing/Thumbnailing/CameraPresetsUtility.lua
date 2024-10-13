@@ -8,6 +8,9 @@ local CameraUtility = require(script.Parent.CameraUtility)
 local CharacterUtility = require(script.Parent.CharacterUtility)
 local MannequinUtility = require(script.Parent.MannequinUtility)
 
+--[[ Flags ]]
+local UseFaceFrontRotationForEmote = game:DefineFastFlag("UseFaceFrontRotationForEmote", false)
+
 local module = {}
 module.GOLDEN_RATIO = game:DefineFastInt("AvatarGoldenRatio", 618) / 1000 -- = 0.618
 module.UPVECTOR_ORENTATION_TRESHOLD = game:DefineFastInt("UpVectorOrentationThreshold1", -60) / 100 -- = -0.6
@@ -83,6 +86,13 @@ module.GetCameraCFrame_ForAvatarR15Action_LookAtGoldenRatioOfTheHumanoid = funct
 	local characterPivotToAuxiliaryCFrame = getTorsoOrUpperTorso(character).CFrame :: CFrame
 	local characterAuxiliaryUpVector = characterPivotToAuxiliaryCFrame.UpVector
 
+	local characterHeadRotationX, characterHeadRotationY, characterHeadRotationZ
+	if UseFaceFrontRotationForEmote then
+		characterHeadRotationX, characterHeadRotationY, characterHeadRotationZ = (
+			character:FindFirstChild("Head") :: BasePart
+		).CFrame:ToEulerAnglesXYZ()
+	end
+
 	if isFallbackEmoteApplied then
 		--[[
       Rotate the character to the right by degrees to meet the default emote head facing
@@ -112,6 +122,12 @@ module.GetCameraCFrame_ForAvatarR15Action_LookAtGoldenRatioOfTheHumanoid = funct
 	local characterGoldenRatioPivotTo = characterPivotToAuxiliaryCFrame
 		- characterPivotToAuxiliaryCFrame.Position
 		+ goldPositionWorldSpace
+
+	if UseFaceFrontRotationForEmote and not isFallbackEmoteApplied then
+		local headPivotTo =
+			CFrame.fromEulerAnglesXYZ(characterHeadRotationX, characterHeadRotationY, characterHeadRotationZ)
+		characterGoldenRatioPivotTo = headPivotTo - headPivotTo.Position + goldPositionWorldSpace
+	end
 
 	local distanceToLowerExtents = math.max(goldPosition.X - minPartsExtent.X, goldPosition.Y - minPartsExtent.Y)
 	local distanceToUpperExtents = math.max(maxPartsExtent.X - goldPosition.X, maxPartsExtent.Y - goldPosition.Y)

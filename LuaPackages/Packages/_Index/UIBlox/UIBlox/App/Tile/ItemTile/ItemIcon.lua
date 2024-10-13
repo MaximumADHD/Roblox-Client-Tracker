@@ -9,6 +9,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local ItemTileEnums = require(Tile.Enum.ItemTileEnums)
@@ -20,9 +21,6 @@ local ItemIconTypesMap = {
 	[ItemTileEnums.ItemIconType.Bundle] = Images["icons/status/item/bundle"],
 	[ItemTileEnums.ItemIconType.DynamicHead] = Images["icons/status/dynamicHead_small"],
 }
-
-local PADDING_BOTTOM = 12
-local PADDING_RIGHT = 12
 
 local function isValidItemIconType(value)
 	if ItemIconTypesMap[value] then
@@ -46,13 +44,23 @@ function ItemIcon:render()
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 
+		local paddingRight, paddingBottom
+		if UIBloxConfig.itemTileOverlayPaddingUseTokens then
+			local tokens = stylePalette.Tokens
+			paddingRight = tokens.Global.Size_100
+			paddingBottom = tokens.Global.Size_100
+		else
+			paddingRight = 12
+			paddingBottom = 12
+		end
+
 		return Roact.createElement(ImageSetComponent.Label, {
 			AnchorPoint = Vector2.new(1, 1),
 			BackgroundTransparency = 1,
 			Image = icon,
 			ImageColor3 = theme.IconEmphasis.Color,
 			ImageTransparency = theme.IconEmphasis.Transparency,
-			Position = UDim2.new(1, -PADDING_RIGHT, 1, -PADDING_BOTTOM),
+			Position = UDim2.new(1, -paddingRight, 1, -paddingBottom),
 			Size = UDim2.new(0, imageSize.X, 0, imageSize.Y),
 		})
 	end)

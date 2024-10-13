@@ -1,5 +1,6 @@
 local HttpService = game:GetService("HttpService")
 local ContextActionService = game:GetService("ContextActionService")
+local CorePackages = game:GetService("CorePackages")
 
 local PremiumUpsellRoot = script.Parent
 local PurchaseFlowRoot = PremiumUpsellRoot.Parent
@@ -26,6 +27,9 @@ local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEven
 local getEnableCentralOverlayForUpsellPrompt = require(IAPExperienceRoot.Flags.getEnableCentralOverlayForUpsellPrompt)
 local UIBloxUseSeparatedCalcFunctionIAP = require(IAPExperienceRoot.Flags.getFFlagUIBloxUseSeparatedCalcFunctionIAP)
 
+local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
+local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
+
 local FFlagCompleteFlowInStudioAccept = game:DefineFastFlag("CompleteFlowInStudioAccept", false)
 
 local PremiumUpsellFlow = Roact.Component:extend(script.Name)
@@ -37,6 +41,7 @@ type Props = {
 
 	purchaseState: any?,
 	errorType: any?,
+	purchaseVPCType: any?,
 
 	currencySymbol: string?,
 	robuxPrice: number?,
@@ -173,6 +178,29 @@ function PremiumUpsellFlow:constructPurchaseErrorPromptAnimatorObj()
 	}
 end
 
+function PremiumUpsellFlow:constructPurchaseVPCPromptAnimatorObj()
+	local props: Props = self.props
+
+	self:BindCancelAction()
+
+	return {
+		shouldShow = props.purchaseState == PremiumUpsellFlowState.PurchaseVPCModal,
+		shouldAnimate = true,
+		renderChildren = function()
+			return Roact.createElement(VPCModal, {
+				screenSize = props.screenSize,
+				isActionable = false,
+				modalType = props.purchaseVPCType,
+				onDismiss = function()
+					self:reportUserInput("Cancel")
+					props.cancelPurchase()
+					self:closeCentralOverlay()
+				end,
+			})
+		end,
+	}
+end
+
 function PremiumUpsellFlow:dispatchCentralOverlayAndRenderModal(props: Props)
 	if not getEnableCentralOverlayForUpsellPrompt() or not props.dispatchCentralOverlay then
 		return
@@ -187,6 +215,11 @@ function PremiumUpsellFlow:dispatchCentralOverlayAndRenderModal(props: Props)
 	-- PurchaseErrorPromptAnimator
 	if purchaseState == PremiumUpsellFlowState.Error then
 		props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, self:constructPurchaseErrorPromptAnimatorObj())
+	end
+
+	-- PurchaseVPCPromptAnimator
+	if purchaseState == PremiumUpsellFlowState.PurchaseVPCModal then
+		props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, self:constructPurchaseVPCPromptAnimatorObj())
 	end
 end
 
@@ -234,6 +267,7 @@ function PremiumUpsellFlow:getChildrenElements()
 	return {
 		PremiumUpsellPromptAnimator = Roact.createElement(Animator, self:constructPremiumUpsellPromptAnimatorObj()),
 		PurchaseErrorPromptAnimator = Roact.createElement(Animator, self:constructPurchaseErrorPromptAnimatorObj()),
+		PurchaseVPCPromptAnimator = Roact.createElement(Animator, self:constructPurchaseVPCPromptAnimatorObj()),
 	}
 end
 

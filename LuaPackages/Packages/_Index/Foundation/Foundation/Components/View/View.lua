@@ -67,7 +67,7 @@ local function View(viewProps: ViewProps, ref: React.Ref<GuiObject>?)
 
 	local engineComponent = React.useMemo(function()
 		if usesCanvasGroup then
-			if isInteractable then
+			if isInteractable and not props.isDisabled then
 				Logger:warning("Some state changes are not supported with GroupTransparency")
 			end
 			return "CanvasGroup"

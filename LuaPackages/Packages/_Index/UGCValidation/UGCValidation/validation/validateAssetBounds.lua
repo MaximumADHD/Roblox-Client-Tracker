@@ -11,14 +11,18 @@ local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 local prettyPrintVector3 = require(root.util.prettyPrintVector3)
 local Types = require(root.util.Types)
-local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
+local AssetTraversalUtils = require(root.util.AssetTraversalUtils) -- remove with getFFlagUGCValidateOrientedSizing()
+local BoundsCalculator = require(root.util.BoundsCalculator)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
 local validateScaleType = require(root.validation.validateScaleType)
 
-local assetHierarchy = AssetTraversalUtils.assetHierarchy
+local getFFlagUGCValidateOrientedSizing = require(root.flags.getFFlagUGCValidateOrientedSizing)
 
+local assetHierarchy = AssetTraversalUtils.assetHierarchy -- remove with getFFlagUGCValidateOrientedSizing()
+
+-- remove with getFFlagUGCValidateOrientedSizing()
 local fullBody = {
 	root = "LowerTorso",
 	children = {
@@ -102,102 +106,190 @@ local function getScaleType(
 end
 
 local function validateMinBoundsInternal(
-	assetSize: Vector3,
+	assetSize: Vector3, -- remove with getFFlagUGCValidateOrientedSizing()
 	minSize: Vector3,
-	assetTypeEnum: Enum.AssetType?
+	assetTypeEnum: Enum.AssetType?,
+	minMaxBounds: Types.BoundsData
 ): (boolean, { string }?)
-	local isMeshBigEnough = assetSize.X >= minSize.X and assetSize.Y >= minSize.Y and assetSize.Z >= minSize.Z
-	if not isMeshBigEnough then
-		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooSmall)
-		return false,
-			{
-				if not assetTypeEnum
-					then string.format(
-						"Full body size is smaller than the min allowed bounding size of '%s'. You need to scale up or remodel the asset.",
-						prettyPrintVector3(minSize)
-					)
-					else string.format(
-						"%s asset size is smaller than the min allowed bounding size of '%s'. You need to scale up or remodel the asset.",
-						(assetTypeEnum :: Enum.AssetType).Name,
-						prettyPrintVector3(minSize)
-					),
-			}
+	if getFFlagUGCValidateOrientedSizing() then
+		local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+		local failureMessageNotLargeEnough =
+			"%s meshes %s axis size of '%.2f' is smaller than the min allowed bounding box %s axis size of '%.2f'. You need to scale up the meshes."
+
+		local hasAnalyticsBeenReported = false
+
+		local meshSize = minMaxBounds.maxMeshCorner :: Vector3 - minMaxBounds.minMeshCorner :: Vector3
+		for _, dimension in { "X", "Y", "Z" } do
+			local assetSizeOnAxis = (meshSize :: any)[dimension]
+			local minSizeOnAxis = (minSize :: any)[dimension]
+
+			local isMeshLargeEnough = assetSizeOnAxis >= minSizeOnAxis
+			if not isMeshLargeEnough and not hasAnalyticsBeenReported then
+				Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooSmall)
+				hasAnalyticsBeenReported = true
+			end
+
+			reasonsAccumulator:updateReasons(isMeshLargeEnough, {
+				string.format(
+					failureMessageNotLargeEnough,
+					if assetTypeEnum then (assetTypeEnum :: Enum.AssetType).Name else "Full body",
+					dimension,
+					assetSizeOnAxis,
+					dimension,
+					minSizeOnAxis
+				),
+			})
+		end
+		return reasonsAccumulator:getFinalResults()
+	else
+		local isMeshBigEnough = assetSize.X >= minSize.X and assetSize.Y >= minSize.Y and assetSize.Z >= minSize.Z
+		if not isMeshBigEnough then
+			Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooSmall)
+			return false,
+				{
+					if not assetTypeEnum
+						then string.format(
+							"Full body size is smaller than the min allowed bounding size of '%s'. You need to scale up or remodel the asset.",
+							prettyPrintVector3(minSize)
+						)
+						else string.format(
+							"%s asset size is smaller than the min allowed bounding size of '%s'. You need to scale up or remodel the asset.",
+							(assetTypeEnum :: Enum.AssetType).Name,
+							prettyPrintVector3(minSize)
+						),
+				}
+		end
 	end
 	return true
 end
 
 local function validateMaxBoundsInternal(
-	assetSize: Vector3,
+	assetSize: Vector3, -- remove with getFFlagUGCValidateOrientedSizing()
 	maxSize: Vector3,
-	assetTypeEnum: Enum.AssetType?
+	assetTypeEnum: Enum.AssetType?,
+	minMaxBounds: Types.BoundsData
 ): (boolean, { string }?)
-	local isMeshSmallEnough = assetSize.X <= maxSize.X and assetSize.Y <= maxSize.Y and assetSize.Z <= maxSize.Z
+	if getFFlagUGCValidateOrientedSizing() then
+		local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if not isMeshSmallEnough then
-		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooBig)
-		return false,
-			{
-				if not assetTypeEnum
-					then string.format(
-						"Full body size is larger than the max allowed bounding size of '%s'. You need to scale down or remodel the asset.",
-						prettyPrintVector3(maxSize)
-					)
-					else string.format(
-						"%s asset size is larger than the max allowed bounding size of '%s'. You need to scale down or remodel the asset.",
-						(assetTypeEnum :: Enum.AssetType).Name,
-						prettyPrintVector3(maxSize)
-					),
-			}
+		local failureMessageNotSmallEnough =
+			"%s meshes and joints %s axis size of '%.2f' is larger than the max allowed bounding box %s axis size of '%.2f'. You need to scale down the meshes/joints"
+
+		local hasAnalyticsBeenReported = false
+
+		local overallSize = minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3
+		for _, dimension in { "X", "Y", "Z" } do
+			local assetSizeOnAxis = (overallSize :: any)[dimension]
+			local maxSizeOnAxis = (maxSize :: any)[dimension]
+
+			local isMeshSmallEnough = assetSizeOnAxis <= maxSizeOnAxis
+			if not isMeshSmallEnough and not hasAnalyticsBeenReported then
+				Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooBig)
+				hasAnalyticsBeenReported = true
+			end
+
+			reasonsAccumulator:updateReasons(isMeshSmallEnough, {
+				string.format(
+					failureMessageNotSmallEnough,
+					if assetTypeEnum then (assetTypeEnum :: Enum.AssetType).Name else "Full body",
+					dimension,
+					assetSizeOnAxis,
+					dimension,
+					maxSizeOnAxis
+				),
+			})
+		end
+		return reasonsAccumulator:getFinalResults()
+	else
+		local isMeshSmallEnough = assetSize.X <= maxSize.X and assetSize.Y <= maxSize.Y and assetSize.Z <= maxSize.Z
+
+		if not isMeshSmallEnough then
+			Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooBig)
+			return false,
+				{
+					if not assetTypeEnum
+						then string.format(
+							"Full body size is larger than the max allowed bounding size of '%s'. You need to scale down or remodel the asset.",
+							prettyPrintVector3(maxSize)
+						)
+						else string.format(
+							"%s asset size is larger than the max allowed bounding size of '%s'. You need to scale down or remodel the asset.",
+							(assetTypeEnum :: Enum.AssetType).Name,
+							prettyPrintVector3(maxSize)
+						),
+				}
+		end
+		return true
 	end
-	return true
 end
 
 local function validateAssetBounds(
 	fullBodyAssets: Types.AllBodyParts?,
 	inst: Instance?,
-	validationContext: Types.ValidationContext?
+	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local startTime = tick()
 
-	local assetTypeEnum = if validationContext then validationContext.assetTypeEnum else nil
+	local assetTypeEnum
+	if getFFlagUGCValidateOrientedSizing() then
+		assetTypeEnum = validationContext.assetTypeEnum
+	else
+		assetTypeEnum = if validationContext then validationContext.assetTypeEnum else nil
+	end
 	local isSingleInstance = inst and assetTypeEnum
 	assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
 
 	local minMaxBounds: Types.BoundsData = {}
 
-	if fullBodyAssets then
-		AssetTraversalUtils.traverseHierarchy(
-			fullBodyAssets,
-			nil,
-			nil,
-			nil,
-			CFrame.new(),
-			fullBody.root,
-			fullBody,
-			minMaxBounds,
-			validationContext
-		)
-	elseif Enum.AssetType.DynamicHead == assetTypeEnum :: Enum.AssetType then
-		AssetTraversalUtils.calculateBounds(
-			assetTypeEnum,
-			inst :: MeshPart,
-			CFrame.new(),
-			minMaxBounds,
-			validationContext
-		)
+	if getFFlagUGCValidateOrientedSizing() then
+		local success, reasons, boundsResult
+		if fullBodyAssets then
+			success, reasons, boundsResult =
+				BoundsCalculator.calculateFullBodyBounds(fullBodyAssets :: Types.AllBodyParts, validationContext)
+		else
+			success, reasons, boundsResult = BoundsCalculator.calculateAssetBounds(inst :: Instance, validationContext)
+		end
+
+		if not success then
+			return success, reasons
+		end
+		minMaxBounds = boundsResult :: Types.BoundsData
 	else
-		local hierarchy = assetHierarchy[assetTypeEnum :: Enum.AssetType]
-		AssetTraversalUtils.traverseHierarchy(
-			nil,
-			inst :: Folder,
-			assetTypeEnum,
-			nil,
-			CFrame.new(),
-			hierarchy.root,
-			hierarchy,
-			minMaxBounds,
-			validationContext
-		)
+		if fullBodyAssets then
+			AssetTraversalUtils.traverseHierarchy(
+				fullBodyAssets,
+				nil,
+				nil,
+				nil,
+				CFrame.new(),
+				fullBody.root,
+				fullBody,
+				minMaxBounds,
+				validationContext
+			)
+		elseif Enum.AssetType.DynamicHead == assetTypeEnum :: Enum.AssetType then
+			AssetTraversalUtils.calculateBounds(
+				assetTypeEnum,
+				inst :: MeshPart,
+				CFrame.new(),
+				minMaxBounds,
+				validationContext
+			)
+		else
+			local hierarchy = assetHierarchy[assetTypeEnum :: Enum.AssetType]
+			AssetTraversalUtils.traverseHierarchy(
+				nil,
+				inst :: Folder,
+				assetTypeEnum,
+				nil,
+				CFrame.new(),
+				hierarchy.root,
+				hierarchy,
+				minMaxBounds,
+				validationContext
+			)
+		end
 	end
 
 	local success, reasons, scaleType = getScaleType(fullBodyAssets, inst, assetTypeEnum)
@@ -219,7 +311,8 @@ local function validateAssetBounds(
 		validateMinBoundsInternal(
 			minMaxBounds.maxMeshCorner :: Vector3 - minMaxBounds.minMeshCorner :: Vector3,
 			minSize,
-			assetTypeEnum
+			assetTypeEnum,
+			minMaxBounds
 		)
 	)
 
@@ -227,11 +320,13 @@ local function validateAssetBounds(
 		validateMaxBoundsInternal(
 			minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
 			maxSize,
-			assetTypeEnum
+			assetTypeEnum,
+			minMaxBounds
 		)
 	)
 
-	if validationContext then
+	if getFFlagUGCValidateOrientedSizing() or validationContext then
+		-- remove ':: Types.ValidationContext' with getFFlagUGCValidateOrientedSizing()
 		Analytics.recordScriptTime(script.Name, startTime, validationContext :: Types.ValidationContext)
 	end
 

@@ -1,4 +1,5 @@
 local HttpService = game:GetService("HttpService")
+local CorePackages = game:GetService("CorePackages")
 
 local SubscriptionPurchase = script.Parent
 local PurchaseFlowRoot = SubscriptionPurchase.Parent
@@ -33,11 +34,15 @@ local SubscriptionPurchaseFlow = Roact.Component:extend(script.Name)
 local GenericRoot = IAPExperienceRoot.Generic
 local PurchaseFlowType = require(GenericRoot.PurchaseFlowType)
 
+local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
+local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
+
 type Props = {
 	screenSize: Vector2,
 
 	purchaseState: any?,
 	errorType: any?,
+	purchaseVPCType: any?,
 
 	subscriptionId: string,
 	name: string,
@@ -61,6 +66,7 @@ type Props = {
 	purchaseSubscription: (string) -> any,
 	cancelPurchase: () -> any,
 	flowComplete: () -> any,
+	openSettingsPage: () -> any?,
 
 	onAnalyticEvent: (string, table) -> any?,
 	eventPrefix: string?,
@@ -185,9 +191,7 @@ function SubscriptionPurchaseFlow:render()
 					errorType = props.errorType,
 
 					flowType = PurchaseFlowType.Subscription,
-
 					doneControllerIcon = props.acceptControllerIcon,
-
 					doneActivated = function()
 						self:reportUserInput("Done")
 						props.flowComplete()
@@ -195,6 +199,26 @@ function SubscriptionPurchaseFlow:render()
 				})
 			end,
 		}),
+		PurchaseVPCPromptAnimator = Roact.createElement(Animator, {
+			shouldShow = purchaseState == SubscriptionPurchaseFlowState.PurchaseVPCModal,
+			shouldAnimate = true,
+			renderChildren = function()
+				return Roact.createElement(VPCModal, {
+					screenSize = props.screenSize,
+					isActionable = props.openSettingsPage ~= nil,
+					modalType = props.purchaseVPCType,
+					onAction = props.openSettingsPage and function()
+						self:reportUserInput("Confirm")
+						props.openSettingsPage()
+						props.flowComplete()
+					end,
+					onDismiss = function()
+						self:reportUserInput("Cancel")
+						props.cancelPurchase()
+					end,
+				})
+			end,
+		})
 	})
 end
 

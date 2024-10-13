@@ -4,8 +4,8 @@ version = "0.3.10"
 commit = "36da62eae4cacf7817113370b49a27e0bbe89b4f"
 source = "git+https://github.com/roblox/apollo-client-lua#v0.3.10"
 dependencies = [
-    "GraphQL GraphQL 15.6.1 registry",
-    "GraphQLTag GraphqlTag 2.12.6 registry",
+    "GraphQL GraphQL 15.6.3 registry",
+    "GraphQLTag GraphqlTag 2.12.9 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauRegExp <patched> RegExp 0.2.1 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",

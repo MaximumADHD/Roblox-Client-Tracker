@@ -31,7 +31,7 @@ local function useCursor(cursor: (CursorType | CursorConfig)?): React.Ref<GuiObj
 			return getCursorKey(tokens)
 		end
 		return cursor
-	end, { cursor })
+	end, { cursor :: unknown, tokens })
 
 	React.useEffect(function()
 		setMountedCursors(function(mountedExisting)

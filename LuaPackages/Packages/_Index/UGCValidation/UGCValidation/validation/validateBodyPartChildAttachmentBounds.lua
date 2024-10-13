@@ -11,11 +11,19 @@ local prettyPrintVector3 = require(root.util.prettyPrintVector3)
 local floatEquals = require(root.util.floatEquals)
 local getDiffBetweenOrientations = require(root.util.getDiffBetweenOrientations)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
+local BoundsCalculator = require(root.util.BoundsCalculator)
+local AssetCalculator = require(root.util.AssetCalculator)
+local BoundsDataUtils = require(root.util.BoundsDataUtils)
+
 local ANGLE_EPSILON = 0.01
 
 local getFFlagCheckOrientationOnAllAttachments = require(root.flags.getFFlagCheckOrientationOnAllAttachments)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+local getFFlagUGCValidateOrientedAttachmentPositionCheck =
+	require(root.flags.getFFlagUGCValidateOrientedAttachmentPositionCheck)
+local getFFlagUGCValidateOrientedAttachmentOrientationCheck =
+	require(root.flags.getFFlagUGCValidateOrientedAttachmentOrientationCheck)
 
 local maxOrientationOffsets = {
 	["RootAttachment"] = game:DefineFastInt("UGCValidationRootAttachmentThreshold", 0),
@@ -44,16 +52,30 @@ local function validateInMeshSpace(
 	att: Attachment,
 	part: MeshPart,
 	boundsInfoMeshSpace: any,
-	validationContext: Types.ValidationContext
+	validationContext: Types.ValidationContext,
+	transformData: any
 ): (boolean, { string }?)
+	local posMeshSpace
 	local meshHalfSize
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		meshHalfSize = getExpectedPartSize(part, validationContext) / 2
+	if getFFlagUGCValidateOrientedAttachmentPositionCheck() then
+		local world = transformData.cframe * att.CFrame
+		local meshCenterOpt = BoundsDataUtils.calculateBoundsCenters(transformData.boundsData)
+		local meshDimensionsOpt = BoundsDataUtils.calculateBoundsDimensions(transformData.boundsData)
+		if not meshCenterOpt or not meshDimensionsOpt then
+			return false, { "Missing mesh data for " .. part.Name }
+		end
+		local attWorldOffset = (world.Position - (meshCenterOpt :: Vector3))
+		meshHalfSize = (meshDimensionsOpt :: Vector3) / 2
+		posMeshSpace = (attWorldOffset / meshHalfSize) :: any
 	else
-		meshHalfSize = part.Size / 2
-	end
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			meshHalfSize = getExpectedPartSize(part, validationContext) / 2
+		else
+			meshHalfSize = part.Size / 2
+		end
 
-	local posMeshSpace = (att.CFrame.Position / meshHalfSize) :: any
+		posMeshSpace = (att.CFrame.Position / meshHalfSize) :: any
+	end
 
 	local minMeshSpace = boundsInfoMeshSpace.min
 	local maxMeshSpace = boundsInfoMeshSpace.max
@@ -84,7 +106,8 @@ local function checkAll(
 	meshHandle: MeshPart,
 	_isServer: boolean?,
 	partData: any,
-	validationContext: Types.ValidationContext
+	validationContext: Types.ValidationContext,
+	transformData: any
 ): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -97,7 +120,8 @@ local function checkAll(
 			rigAttachmentToParent :: Attachment,
 			meshHandle,
 			partData.rigAttachmentToParent.bounds,
-			validationContext
+			validationContext,
+			transformData
 		)
 	)
 
@@ -110,14 +134,15 @@ local function checkAll(
 				childAttachment :: Attachment,
 				meshHandle,
 				childAttachmentInfo.bounds,
-				validationContext
+				validationContext,
+				transformData
 			)
 		)
 	end
 	return reasonsAccumulator:getFinalResults()
 end
 
-local function validateAttachmentRotation(inst: Instance): (boolean, { string }?)
+local function validateAttachmentRotation(inst: Instance, assetCFrame: CFrame): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	for _, desc in inst:GetDescendants() do
@@ -143,15 +168,30 @@ local function validateAttachmentRotation(inst: Instance): (boolean, { string }?
 				local isGrip = string.find(desc.Name, "Grip") -- Left and Right arm grips have a unique orientation (-90, 0, 0)
 				local requiredOrientation = isGrip and CFrame.Angles(math.rad(-90), 0, 0) or CFrame.Angles(0, 0, 0)
 
+				if getFFlagUGCValidateOrientedAttachmentOrientationCheck() then
+					requiredOrientation = assetCFrame.Rotation * requiredOrientation
+				end
+
 				local orientationOffset = getDiffBetweenOrientations(requiredOrientation, desc.CFrame)
 				local maxOffset: number = maxOrientationOffsets[desc.Name]
 				if orientationOffset > maxOffset + ANGLE_EPSILON then
 					Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
+
+					local requiredOriAngles
+					if getFFlagUGCValidateOrientedAttachmentOrientationCheck() then
+						local x, y, z = requiredOrientation:ToOrientation()
+						requiredOriAngles = Vector3.new(math.deg(x), math.deg(y), math.deg(z))
+					end
+
 					reasonsAccumulator:updateReasons(false, {
 						string.format(
 							"Detected invalid orientation for '%s'. Attachment orientation should be %s, but can be rotated up to %d degrees in total",
 							desc.Name,
-							prettyPrintVector3(Vector3.new(isGrip and -90 or 0, 0, 0)),
+							prettyPrintVector3(
+								if getFFlagUGCValidateOrientedAttachmentOrientationCheck()
+									then requiredOriAngles
+									else Vector3.new(isGrip and -90 or 0, 0, 0)
+							),
 							math.floor(maxOffset)
 						),
 					})
@@ -179,6 +219,20 @@ local function validateAttachmentRotation(inst: Instance): (boolean, { string }?
 	return reasonsAccumulator:getFinalResults()
 end
 
+local function calculateAssetCFrame(singleAsset: Enum.AssetType, inst: Instance): (boolean, { string }?, CFrame?)
+	local assetCFrameOpt = AssetCalculator.calculateAssetCFrame(singleAsset, inst)
+	if not assetCFrameOpt then
+		return false,
+			{
+				string.format(
+					"Failed to calculate %s asset CFrame. Make sure the character is in I pose, A pose, or T pose, and the parts are not all in the same position",
+					singleAsset.Name
+				),
+			}
+	end
+	return true, nil, assetCFrameOpt
+end
+
 local function validateBodyPartChildAttachmentBounds(
 	inst: Instance,
 	validationContext: Types.ValidationContext
@@ -193,18 +247,45 @@ local function validateBodyPartChildAttachmentBounds(
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	reasonsAccumulator:updateReasons(validateAttachmentRotation(inst))
+	local assetCFrame = CFrame.new()
+	if getFFlagUGCValidateOrientedAttachmentOrientationCheck() then
+		local successCF, failureReasonsCF, assetCFrameOpt = calculateAssetCFrame(assetTypeEnum :: Enum.AssetType, inst)
+		if not successCF then
+			return successCF, failureReasonsCF
+		end
+		assetCFrame = assetCFrameOpt :: CFrame
+	end
+
+	reasonsAccumulator:updateReasons(validateAttachmentRotation(inst, assetCFrame))
+
+	local boundsTransformData
+	if getFFlagUGCValidateOrientedAttachmentPositionCheck() then
+		local successData, failureReasonsData, boundsTransformDataOpt =
+			BoundsCalculator.calculateIndividualAssetPartsData(inst, validationContext)
+		if not successData then
+			return successData, failureReasonsData
+		end
+		boundsTransformData = boundsTransformDataOpt :: { string: any }
+	end
 
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
+		local boundsTransformDataForPart = if getFFlagUGCValidateOrientedAttachmentPositionCheck()
+			then boundsTransformData[inst.Name]
+			else nil
 		reasonsAccumulator:updateReasons(
-			checkAll(inst :: MeshPart, isServer, assetInfo.subParts.Head, validationContext)
+			checkAll(inst :: MeshPart, isServer, assetInfo.subParts.Head, validationContext, boundsTransformDataForPart)
 		)
 	else
 		for subPartName, partData in pairs(assetInfo.subParts) do
 			local meshHandle: MeshPart? = inst:FindFirstChild(subPartName) :: MeshPart
 			assert(meshHandle)
 
-			reasonsAccumulator:updateReasons(checkAll(meshHandle :: MeshPart, isServer, partData, validationContext))
+			local boundsTransformDataForPart = if getFFlagUGCValidateOrientedAttachmentPositionCheck()
+				then boundsTransformData[subPartName]
+				else nil
+			reasonsAccumulator:updateReasons(
+				checkAll(meshHandle :: MeshPart, isServer, partData, validationContext, boundsTransformDataForPart)
+			)
 		end
 	end
 

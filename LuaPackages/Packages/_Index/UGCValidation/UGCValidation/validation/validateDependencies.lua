@@ -8,10 +8,12 @@
 
 local root = script.Parent.Parent
 
-local getFFlagDebugUGCDisableRCCOwnershipCheck = require(root.flags.getFFlagDebugUGCDisableRCCOwnershipCheck)
+local RunService = game:GetService("RunService")
+
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local FFlagValidateUserAndUniverseNoModeration = game:DefineFastFlag("ValidateUserAndUniverseNoModeration", false)
+local FFlagNoStudioOwnershipCheck = game:DefineFastFlag("NoStudioOwnershipCheck", false)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -176,7 +178,7 @@ local function validateDependencies(
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if not getFFlagDebugUGCDisableRCCOwnershipCheck() then
+	if not FFlagNoStudioOwnershipCheck or (FFlagNoStudioOwnershipCheck and not RunService:IsStudio()) then
 		if isServer then
 			-- This block will check user and universe permissions without considering moderation
 			-- This is from in experience creation, assets may not be moderated yet

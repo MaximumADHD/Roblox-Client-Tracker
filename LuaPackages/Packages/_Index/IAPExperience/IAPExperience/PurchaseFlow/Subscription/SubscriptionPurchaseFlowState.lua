@@ -10,6 +10,7 @@ local rawKeyToRawValue = {
 	None = "None",
 	PurchaseModal = "PurchaseModal",
 	Error = "Error",
+	PurchaseVPCModal = "PurchaseVPCModal",
 }
 
 -- The values here correspond to values in the requested web view.

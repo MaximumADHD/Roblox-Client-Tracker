@@ -4,21 +4,14 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponent)
 local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
-local GetEngineFeatureSafe = require(Packages.UIBlox.Core.Utility.GetEngineFeatureSafe)
-local GetTextSize = require(Packages.UIBlox.Core.Text.GetTextSize)
 
 local FitTextLabel = require(Packages.FitFrame).FitTextLabel
 local FitFrameHorizontal = require(Packages.FitFrame).FitFrameHorizontal
-
--- TODO AVBURST-3748: Remove this soon after TextBoundsRoundUp is turned on to make the UIBlox places display
--- the same way as the App
-local EngineFeatureTextBoundsRoundUp = GetEngineFeatureSafe("TextBoundsRoundUp")
 
 local InputButton = Roact.PureComponent:extend("InputButton")
 
@@ -114,27 +107,12 @@ function InputButton:render()
 		local frameComponent = "Frame"
 		local useAutomaticSizing = false
 		if self.props.size then
-			local size = self.props.size
-			local frameSize = Vector2.new(size.X.Offset - SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, size.Y.Offset)
-			local touchZoneWidth = if not UIBloxConfig.ensureTextWrapsInputButton
-				then GetTextSize(self.props.text, fontSize, font.Body.Font, frameSize).X
-				else nil
-			if
-				not UIBloxConfig.ensureTextWrapsInputButton
-				and not EngineFeatureTextBoundsRoundUp
-				and touchZoneWidth > 0
-			then
-				-- GetTextSize documentation recommends to add a pixel of padding to the result to ensure no text is cut off
-				-- Only add that extra padding if there is text to display
-				touchZoneWidth = touchZoneWidth + 1
-			end
-
 			textComponent = "TextButton"
+			-- This changes default behavior by constraining width of the text label;
+			-- With default behavior, the text label sometimes exceeds the bounds of the input button's frame
 			textComponentProps = Cryo.Dictionary.join(textComponentProps, {
-				Size = if UIBloxConfig.ensureTextWrapsInputButton
-					then UDim2.new(1, -SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, 0, SELECTION_BUTTON_SIZE) -- note this changes default behavior by constraining width of the text label; with default behavior, the text label sometimes exceeds the bounds of the input button's frame
-					else UDim2.new(0, touchZoneWidth, 1, 0),
-				AutomaticSize = if UIBloxConfig.ensureTextWrapsInputButton then Enum.AutomaticSize.Y else nil,
+				Size = UDim2.new(1, -SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, 0, SELECTION_BUTTON_SIZE),
+				AutomaticSize = Enum.AutomaticSize.Y,
 				[Roact.Event.Activated] = not self.props.isDisabled and self.props.onActivated or nil,
 			})
 		else
@@ -155,7 +133,7 @@ function InputButton:render()
 		return Roact.createElement(frameComponent, {
 			Size = not useAutomaticSizing and (self.props.size or self.sizeBinding) or nil,
 			height = useAutomaticSizing and UDim.new(0, SELECTION_BUTTON_SIZE) or nil,
-			AutomaticSize = if UIBloxConfig.ensureTextWrapsInputButton then Enum.AutomaticSize.Y else nil,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			LayoutOrder = self.props.layoutOrder,
 			[Roact.Ref] = self.props.frameRef,

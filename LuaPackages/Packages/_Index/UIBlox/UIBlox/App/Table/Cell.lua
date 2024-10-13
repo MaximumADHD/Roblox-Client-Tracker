@@ -148,9 +148,7 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 		LayoutOrder = layoutOrder,
 		Position = position,
 		Size = size,
-		AutomaticSize = if UIBloxConfig.useAutomaticHeightInTableCell
-			then Enum.AutomaticSize.Y
-			else Enum.AutomaticSize.None,
+		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
 		AutoButtonColor = false,
 		Selectable = self.props.selectable,
@@ -168,10 +166,8 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 		[Roact.Ref] = self.props.forwardRef,
 	}, {
 		CellBackground = Roact.createElement("Frame", {
-			Size = if UIBloxConfig.useAutomaticHeightInTableCell then size else UDim2.fromScale(1, 1),
-			AutomaticSize = if UIBloxConfig.useAutomaticHeightInTableCell
-				then Enum.AutomaticSize.Y
-				else Enum.AutomaticSize.None,
+			Size = size,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			ZIndex = -1,
 		}, {
@@ -181,57 +177,18 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 				BackgroundTransparency = backgroundStyle.Transparency,
 				BorderSizePixel = 0,
 			}),
-			CellContent = if UIBloxConfig.useAutomaticHeightInTableCell
-				then Roact.createElement("Frame", {
-					Size = UDim2.fromScale(1, 1),
-					AutomaticSize = if UIBloxConfig.useAutomaticHeightInTableCell
-						then Enum.AutomaticSize.Y
-						else Enum.AutomaticSize.None,
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					ZIndex = if UIBloxConfig.useAutomaticHeightInTableCell then 2 else nil,
-				}, {
-					Layout = if UIBloxConfig.useAutomaticHeightInTableCell
-						then Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							HorizontalFlex = Enum.UIFlexAlignment.SpaceBetween,
-						})
-						else nil,
-					Padding = Roact.createElement("UIPadding", {
-						PaddingLeft = UDim.new(0, self.props.horizontalPadding),
-						PaddingRight = UDim.new(0, self.props.horizontalPadding),
-					}),
-					CellHead = Roact.createElement("Frame", {
-						AnchorPoint = Vector2.new(0, 0.5),
-						Position = UDim2.fromScale(0, 0.5),
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
-						AutomaticSize = Enum.AutomaticSize.XY,
-						LayoutOrder = if UIBloxConfig.useAutomaticHeightInTableCell then 1 else nil,
-					}, {
-						Head = head,
-					}),
-					CellTail = tail and Roact.createElement("Frame", {
-						AnchorPoint = Vector2.new(1, 0.5),
-						Position = UDim2.fromScale(1, 0.5),
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
-						AutomaticSize = Enum.AutomaticSize.XY,
-						LayoutOrder = if UIBloxConfig.useAutomaticHeightInTableCell then 2 else nil,
-					}, {
-						Tail = tail,
-					}) or nil,
-				})
-				else nil,
-		}),
-		CellContent = if UIBloxConfig.useAutomaticHeightInTableCell
-			then nil
-			else Roact.createElement("Frame", {
+			CellContent = Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
+				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
+				ZIndex = 2,
 			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					HorizontalFlex = Enum.UIFlexAlignment.SpaceBetween,
+				}),
 				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, self.props.horizontalPadding),
 					PaddingRight = UDim.new(0, self.props.horizontalPadding),
@@ -242,6 +199,7 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.XY,
+					LayoutOrder = 1,
 				}, {
 					Head = head,
 				}),
@@ -251,10 +209,12 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.XY,
+					LayoutOrder = 2,
 				}, {
 					Tail = tail,
 				}) or nil,
 			}),
+		}),
 		DisabledMask = currentState == ControlState.Disabled and Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
 			BorderSizePixel = 0,

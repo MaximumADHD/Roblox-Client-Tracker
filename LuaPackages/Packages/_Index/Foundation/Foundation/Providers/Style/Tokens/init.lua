@@ -44,6 +44,11 @@ local function getTokens(device: Device, theme: Theme, useFoundationColors: bool
 		FontWeight = tokens.FontWeight,
 		Typography = tokens.Typography,
 	}
+
+	-- For some reason, this is not exported from Tokens accurately.
+	-- We need an accurate way to reference this for useScaledValue.
+	-- This token should not be used outside of this function.
+	filteredTokens.Config.UI.Scale = scale
 	return filteredTokens
 end
 

@@ -17,6 +17,9 @@ local getFFlagUGCValidateAddSpecificPropertyRequirements =
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
+local getFFlagUGCValidateConfigurableBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableBodyBounds)
+
+local ConstantBounds = require(root.ConstantBounds)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -423,20 +426,22 @@ local backMesh = {
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.RightArm] = {
 	isBodyPart = true,
-	bounds = {
-		Classic = {
-			minSize = Vector3.new(0.25, 1.5, 0.25),
-			maxSize = Vector3.new(2, 3, 2),
+	bounds = if getFFlagUGCValidateConfigurableBodyBounds()
+		then ConstantBounds.getArmBounds()
+		else {
+			Classic = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(2, 3, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(1.5, 4, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(2, 4.5, 2),
+			},
 		},
-		ProportionsSlender = {
-			minSize = Vector3.new(0.25, 1.5, 0.25),
-			maxSize = Vector3.new(1.5, 4, 2),
-		},
-		ProportionsNormal = {
-			minSize = Vector3.new(0.25, 1.5, 0.25),
-			maxSize = Vector3.new(2, 4.5, 2),
-		},
-	},
 	subParts = {
 		RightHand = {
 			rigAttachmentToParent = {
@@ -479,20 +484,22 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.RightArm] = {
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.DynamicHead] = {
 	isBodyPart = true,
-	bounds = {
-		Classic = {
-			minSize = Vector3.new(0.5, 0.5, 0.5),
-			maxSize = Vector3.new(1.5, 1.75, 2),
+	bounds = if getFFlagUGCValidateConfigurableBodyBounds()
+		then ConstantBounds.getHeadBounds()
+		else {
+			Classic = {
+				minSize = Vector3.new(0.5, 0.5, 0.5),
+				maxSize = Vector3.new(1.5, 1.75, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.5, 0.5, 0.5),
+				maxSize = Vector3.new(2, 2, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.5, 0.5, 0.5),
+				maxSize = Vector3.new(3, 2, 2),
+			},
 		},
-		ProportionsSlender = {
-			minSize = Vector3.new(0.5, 0.5, 0.5),
-			maxSize = Vector3.new(2, 2, 2),
-		},
-		ProportionsNormal = {
-			minSize = Vector3.new(0.5, 0.5, 0.5),
-			maxSize = Vector3.new(3, 2, 2),
-		},
-	},
 	subParts = {
 		Head = {
 			rigAttachmentToParent = {
@@ -519,20 +526,22 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.DynamicHead] = {
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftArm] = {
 	isBodyPart = true,
-	bounds = {
-		Classic = {
-			minSize = Vector3.new(0.25, 1.5, 0.25),
-			maxSize = Vector3.new(2, 3, 2),
+	bounds = if getFFlagUGCValidateConfigurableBodyBounds()
+		then ConstantBounds.getArmBounds()
+		else {
+			Classic = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(2, 3, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(1.5, 4, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(2, 4.5, 2),
+			},
 		},
-		ProportionsSlender = {
-			minSize = Vector3.new(0.25, 1.5, 0.25),
-			maxSize = Vector3.new(1.5, 4, 2),
-		},
-		ProportionsNormal = {
-			minSize = Vector3.new(0.25, 1.5, 0.25),
-			maxSize = Vector3.new(2, 4.5, 2),
-		},
-	},
 	subParts = {
 		LeftLowerArm = {
 			rigAttachmentToParent = {
@@ -575,20 +584,22 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftArm] = {
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.Torso] = {
 	isBodyPart = true,
-	bounds = {
-		Classic = {
-			minSize = Vector3.new(1, 2, 0.7),
-			maxSize = Vector3.new(3.5, 3.25, 2),
+	bounds = if getFFlagUGCValidateConfigurableBodyBounds()
+		then ConstantBounds.getTorsoBounds()
+		else {
+			Classic = {
+				minSize = Vector3.new(1, 2, 0.7),
+				maxSize = Vector3.new(3.5, 3.25, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(1, 2, 0.7),
+				maxSize = Vector3.new(2.5, 3, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(1, 2, 0.7),
+				maxSize = Vector3.new(4, 3, 2.25),
+			},
 		},
-		ProportionsSlender = {
-			minSize = Vector3.new(1, 2, 0.7),
-			maxSize = Vector3.new(2.5, 3, 2),
-		},
-		ProportionsNormal = {
-			minSize = Vector3.new(1, 2, 0.7),
-			maxSize = Vector3.new(4, 3, 2.25),
-		},
-	},
 	subParts = {
 		UpperTorso = {
 			rigAttachmentToParent = {
@@ -661,24 +672,26 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.Torso] = {
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.RightLeg] = {
 	isBodyPart = true,
-	bounds = {
-		Classic = {
-			minSize = Vector3.new(0.25, 2, 0.5),
-			maxSize = Vector3.new(1.5, 2.75, 2),
+	bounds = if getFFlagUGCValidateConfigurableBodyBounds()
+		then ConstantBounds.getLegBounds()
+		else {
+			Classic = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = Vector3.new(1.5, 2.75, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = if getFFlagUGCValidationAdjustLegBounds()
+					then Vector3.new(1.5, 3.3, 2)
+					else Vector3.new(1.5, 3, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = if getFFlagUGCValidationAdjustLegBounds()
+					then Vector3.new(1.5, 3.3, 2)
+					else Vector3.new(1.5, 3, 2),
+			},
 		},
-		ProportionsSlender = {
-			minSize = Vector3.new(0.25, 2, 0.5),
-			maxSize = if getFFlagUGCValidationAdjustLegBounds()
-				then Vector3.new(1.5, 3.3, 2)
-				else Vector3.new(1.5, 3, 2),
-		},
-		ProportionsNormal = {
-			minSize = Vector3.new(0.25, 2, 0.5),
-			maxSize = if getFFlagUGCValidationAdjustLegBounds()
-				then Vector3.new(1.5, 3.3, 2)
-				else Vector3.new(1.5, 3, 2),
-		},
-	},
 	subParts = {
 		RightUpperLeg = {
 			rigAttachmentToParent = {
@@ -718,24 +731,26 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.RightLeg] = {
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftLeg] = {
 	isBodyPart = true,
-	bounds = {
-		Classic = {
-			minSize = Vector3.new(0.25, 2, 0.5),
-			maxSize = Vector3.new(1.5, 2.75, 2),
+	bounds = if getFFlagUGCValidateConfigurableBodyBounds()
+		then ConstantBounds.getLegBounds()
+		else {
+			Classic = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = Vector3.new(1.5, 2.75, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = if getFFlagUGCValidationAdjustLegBounds()
+					then Vector3.new(1.5, 3.3, 2)
+					else Vector3.new(1.5, 3, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = if getFFlagUGCValidationAdjustLegBounds()
+					then Vector3.new(1.5, 3.3, 2)
+					else Vector3.new(1.5, 3, 2),
+			},
 		},
-		ProportionsSlender = {
-			minSize = Vector3.new(0.25, 2, 0.5),
-			maxSize = if getFFlagUGCValidationAdjustLegBounds()
-				then Vector3.new(1.5, 3.3, 2)
-				else Vector3.new(1.5, 3, 2),
-		},
-		ProportionsNormal = {
-			minSize = Vector3.new(0.25, 2, 0.5),
-			maxSize = if getFFlagUGCValidationAdjustLegBounds()
-				then Vector3.new(1.5, 3.3, 2)
-				else Vector3.new(1.5, 3, 2),
-		},
-	},
 	subParts = {
 		LeftFoot = {
 			rigAttachmentToParent = {

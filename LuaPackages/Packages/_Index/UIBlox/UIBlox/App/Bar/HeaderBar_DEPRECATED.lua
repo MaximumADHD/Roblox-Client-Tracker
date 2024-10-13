@@ -5,7 +5,6 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Images = require(App.ImageSet.Images)
 local IconSize = require(App.ImageSet.Enum.IconSize)
@@ -177,7 +176,7 @@ function HeaderBar:render()
 			renderCenter = function()
 				return Roact.createElement(GenericTextLabel, {
 					ClipsDescendants = true,
-					AutomaticSize = if UIBloxConfig.useAutomaticSizeYHeaderBar then Enum.AutomaticSize.Y else nil,
+					AutomaticSize = Enum.AutomaticSize.Y,
 					Size = UDim2.new(1, 0, 0, centerTextSize),
 					Text = self.props.title,
 					TextTruncate = Enum.TextTruncate.AtEnd,

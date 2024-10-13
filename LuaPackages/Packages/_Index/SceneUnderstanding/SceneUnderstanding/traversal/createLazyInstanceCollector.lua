@@ -40,13 +40,15 @@ local function createLazyInstanceCollector(
 		for _ = 1, batchCount do
 			local popped = table.remove(stack, #stack)
 
-			if not predicate or predicate(popped) then
-				table.insert(instances, popped)
-				table.insert(connections, popped.AncestryChanged:Connect(onAncestryChanged))
-			end
+			if popped then
+				if not predicate or predicate(popped) then
+					table.insert(instances, popped)
+					table.insert(connections, popped.AncestryChanged:Connect(onAncestryChanged))
+				end
 
-			for _, child in popped:GetChildren() do
-				table.insert(stack, child)
+				for _, child in popped:GetChildren() do
+					table.insert(stack, child)
+				end
 			end
 		end
 

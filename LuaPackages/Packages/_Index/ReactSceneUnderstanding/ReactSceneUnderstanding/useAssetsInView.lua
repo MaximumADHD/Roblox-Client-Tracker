@@ -1,7 +1,11 @@
 local Root = script:FindFirstAncestor("ReactSceneUnderstanding")
 
-local React = require(Root.Parent.React)
+local SceneUnderstanding = require(Root.Parent.SceneUnderstanding)
+
 local SceneAnalysisContext = require(Root.SceneAnalysisContext)
+local useSourceAssets = require(Root.useSourceAssets)
+
+type ViewportQueryOptions = SceneUnderstanding.ViewportQueryOptions
 
 --[=[
 	Returns a list of Source Assets in the viewport.
@@ -65,9 +69,14 @@ local SceneAnalysisContext = require(Root.SceneAnalysisContext)
 	@tag internal
 	@since 0.1.0
 ]=]
-local function useAssetsInView()
-	local context: SceneAnalysisContext.SceneAnalysis = React.useContext(SceneAnalysisContext)
-	return context.assetsInView
+local function useAssetsInView(options: ViewportQueryOptions?)
+	local sceneAnalysis = SceneAnalysisContext.use()
+
+	local sourceAssets = useSourceAssets({
+		viewportQueryOptions = if options then options else sceneAnalysis.viewportQueryOptions,
+	})
+
+	return sourceAssets.assetsInView
 end
 
 return useAssetsInView

@@ -18,6 +18,7 @@ local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local isCoreGui = require(Foundation.Utility.isCoreGui)
 
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
@@ -29,6 +30,8 @@ type ControlState = ControlState.ControlState
 type TextInputProps = {
 	-- Input text value
 	text: string,
+	-- Type of text input. Only available for use in descendants of `CoreGui`.
+	textInputType: Enum.TextInputType?,
 	-- Whether the input is in an error state
 	hasError: boolean?,
 	-- Whether the input is disabled
@@ -58,6 +61,7 @@ local defaultProps = {
 	width = UDim.new(0, 400),
 }
 
+-- TODO: Will be replaced with a CompositeTextInput - UIBLOX-1266
 local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(TextInputProps, defaultProps)
 
@@ -74,8 +78,6 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 	local outerBorderOffset = math.ceil(outerBorderThickness) * 2
 	local innerBorderThickness = tokens.Stroke.Thick
 	local innerBorderOffset = math.ceil(innerBorderThickness) * 2
-
-	local width = if props.width ~= nil then props.width else defaultProps.width
 
 	local textBoxWidthOffset = React.useMemo(function()
 		local offset = 0
@@ -142,7 +144,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			Size = UDim2.new(width, UDim.new(0, 0)),
+			Size = UDim2.new(props.width, UDim.new(0, 0)),
 
 			tag = "col gap-xsmall auto-y",
 			ref = ref,
@@ -223,6 +225,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 							PlaceholderText = props.placeholder,
 							Selectable = false,
 							LayoutOrder = 2,
+							TextInputType = if isCoreGui then props.textInputType else nil,
 
 							-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
 							BackgroundTransparency = 1,

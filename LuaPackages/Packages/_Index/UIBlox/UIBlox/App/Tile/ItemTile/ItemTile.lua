@@ -11,6 +11,7 @@ local t = require(Packages.t)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local ItemRestrictionStatus = require(ItemTileRoot.ItemRestrictionStatus)
+local ItemTileStatusIcon = require(ItemTileRoot.ItemTileStatusIcon)
 local ItemTileStatus = require(ItemTileRoot.ItemTileStatus)
 local ItemTileEnums = require(TileRoot.Enum.ItemTileEnums)
 local ItemIcon = require(ItemTileRoot.ItemIcon)
@@ -47,6 +48,15 @@ ItemTile.validateProps = t.strictInterface({
 
 	-- The vertical padding between elements in the ItemTile
 	innerPadding = t.optional(t.integer),
+
+	-- The additional vertical padding above the title area
+	titleTopPadding = t.optional(t.integer),
+
+	-- The additional vertical padding above the subtitle area
+	subtitleTopPadding = t.optional(t.integer),
+
+	-- The additional vertical padding above the footer area
+	footerTopPadding = t.optional(t.integer),
 
 	-- The function that gets called on itemTile click
 	onActivated = t.optional(t.callback),
@@ -138,6 +148,10 @@ ItemTile.defaultProps = {
 	Selectable = false,
 }
 
+local function isIconStatusStyle(statusStyle)
+	return statusStyle == ItemTileEnums.StatusStyle.PendingIcon or statusStyle == ItemTileEnums.StatusStyle.AlertIcon
+end
+
 function ItemTile:render()
 	assert(tileBannerUseValidator(self.props))
 	local footer = self.props.footer
@@ -152,6 +166,9 @@ function ItemTile:render()
 	local nameTextColor = self.props.nameTextColor
 	local nameTextTransparency = self.props.nameTextTransparency
 	local subtitle = self.props.subtitle
+	local titleTopPadding = self.props.titleTopPadding
+	local subtitleTopPadding = self.props.subtitleTopPadding
+	local footerTopPadding = self.props.footerTopPadding
 	local onActivated = self.props.onActivated
 	local restrictionInfo = self.props.restrictionInfo
 	local restrictionTypes = self.props.restrictionTypes
@@ -197,6 +214,14 @@ function ItemTile:render()
 		})
 	end
 
+	if isIconStatusStyle(statusStyle) then
+		hasOverlayComponents = true
+
+		overlayComponents.Status = React.createElement(ItemTileStatusIcon, {
+			statusStyle = statusStyle,
+		})
+	end
+
 	return React.createElement(Tile, {
 		bannerText = bannerText,
 		footer = footer,
@@ -209,6 +234,9 @@ function ItemTile:render()
 		nameTextColor = nameTextColor,
 		nameTextTransparency = nameTextTransparency,
 		subtitle = subtitle,
+		titleTopPadding = titleTopPadding,
+		subtitleTopPadding = subtitleTopPadding,
+		footerTopPadding = footerTopPadding,
 		onActivated = onActivated,
 		thumbnail = thumbnail,
 		backgroundImage = backgroundImage,

@@ -3,6 +3,8 @@ local root = script.Parent
 
 local Constants = require(root.Constants)
 
+local getFFlagUGCValidateTraversalOptimizations = require(root.flags.getFFlagUGCValidateTraversalOptimizations)
+
 local ConstantsInterface = {}
 
 function ConstantsInterface.isBodyPart(assetTypeEnum: Enum.AssetType): boolean
@@ -21,6 +23,12 @@ function ConstantsInterface.getBodyPartAssets(): { Enum.AssetType }
 end
 
 function ConstantsInterface.getRigAttachmentToParent(assetTypeEnum: Enum.AssetType?, partName: string): string
+	if getFFlagUGCValidateTraversalOptimizations() then
+		if not assetTypeEnum then
+			assetTypeEnum = Constants.UGC_BODY_PART_NAMES_TO_ASSET_TYPE[partName]
+		end
+	end
+
 	if assetTypeEnum then
 		local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum :: Enum.AssetType]
 		if not assetInfo.isBodyPart then
@@ -29,19 +37,27 @@ function ConstantsInterface.getRigAttachmentToParent(assetTypeEnum: Enum.AssetTy
 		return assetInfo.subParts[partName].rigAttachmentToParent.name
 	end
 
-	for _, assetInfo in Constants.ASSET_TYPE_INFO do
-		if not assetInfo.isBodyPart then
-			continue
-		end
-		local validationData = assetInfo.subParts[partName]
-		if validationData then
-			return validationData.rigAttachmentToParent.name
+	if not getFFlagUGCValidateTraversalOptimizations() then
+		for _, assetInfo in Constants.ASSET_TYPE_INFO do
+			if not assetInfo.isBodyPart then
+				continue
+			end
+			local validationData = assetInfo.subParts[partName]
+			if validationData then
+				return validationData.rigAttachmentToParent.name
+			end
 		end
 	end
 	return ""
 end
 
 function ConstantsInterface.getAttachments(assetTypeEnum: Enum.AssetType?, partName: string): { string }
+	if getFFlagUGCValidateTraversalOptimizations() then
+		if not assetTypeEnum then
+			assetTypeEnum = Constants.UGC_BODY_PART_NAMES_TO_ASSET_TYPE[partName]
+		end
+	end
+
 	local validationData = nil
 	if assetTypeEnum then
 		local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum :: Enum.AssetType]
@@ -49,7 +65,7 @@ function ConstantsInterface.getAttachments(assetTypeEnum: Enum.AssetType?, partN
 			return {}
 		end
 		validationData = assetInfo.subParts[partName]
-	else
+	elseif not getFFlagUGCValidateTraversalOptimizations() then
 		for _, assetInfo in Constants.ASSET_TYPE_INFO do
 			if not assetInfo.isBodyPart then
 				continue

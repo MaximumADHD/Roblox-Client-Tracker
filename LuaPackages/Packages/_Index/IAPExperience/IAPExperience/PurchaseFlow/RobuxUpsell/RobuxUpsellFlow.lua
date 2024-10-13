@@ -74,6 +74,7 @@ type Props = {
 	openBuyRobux: () -> any?,
 	equipItem: () -> any?,
 	flowComplete: () -> any?,
+	openSettingsPage: () -> any?,
 
 	onAnalyticEvent: (string, table) -> any?,
 	eventPrefix: string?,
@@ -432,8 +433,13 @@ function RobuxUpsellFlow:constructPurchaseVPCPromptAnimatorObj()
 		renderChildren = function()
 			return Roact.createElement(VPCModal, {
 				screenSize = props.screenSize,
-				isActionable = false,
+				isActionable = props.openSettingsPage ~= nil,
 				modalType = props.purchaseVPCType,
+				onAction = props.openSettingsPage and function()
+					self:reportUserInput("Confirm")
+					props.openSettingsPage()
+					props.flowComplete()
+				end,
 				onDismiss = function()
 					self:reportUserInput("Cancel")
 					props.cancelPurchase()
@@ -519,10 +525,6 @@ function RobuxUpsellFlow:reportUserInput(inputType: string)
 	local props: Props = self.props
 	local state: State = self.state
 
-	if not self.props.onAnalyticEvent then
-		return
-	end
-
 	local data = getUserInputEventData(
 		state.analyticId,
 		props.eventPrefix,
@@ -531,7 +533,9 @@ function RobuxUpsellFlow:reportUserInput(inputType: string)
 		inputType
 	)
 	if not game:GetFastFlag("DisableNonSchematizedInGameRobuxUpsellEvent") then
-		props.onAnalyticEvent("UserPurchaseFlow", data)
+		if self.props.onAnalyticEvent then
+			props.onAnalyticEvent("UserPurchaseFlow", data)
+		end
 	end
 
 	if game:GetFastFlag("EnableSchematizedInGameRobuxUpsellEvent2") then

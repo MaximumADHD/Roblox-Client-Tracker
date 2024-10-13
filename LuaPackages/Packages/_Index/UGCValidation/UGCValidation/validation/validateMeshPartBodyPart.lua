@@ -11,6 +11,7 @@ local Analytics = require(root.Analytics)
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
+local getFFlagUGCValidateOrientedSizing = require(root.flags.getFFlagUGCValidateOrientedSizing)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
@@ -27,6 +28,7 @@ local validateHSR = require(root.validation.validateHSR)
 local validateBodyPartCollisionFidelity = require(root.validation.validateBodyPartCollisionFidelity)
 local validateModeration = require(root.validation.validateModeration)
 local validateAssetTransparency = require(root.validation.validateAssetTransparency)
+local validatePose = require(root.validation.validatePose)
 
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -82,6 +84,10 @@ local function validateMeshPartBodyPart(
 	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
 
 	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
+
+	if getFFlagUGCValidateOrientedSizing() then
+		reasonsAccumulator:updateReasons(validatePose(inst, validationContext))
+	end
 
 	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
 

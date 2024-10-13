@@ -74,7 +74,7 @@ local function useStyledDefaults<D>(objectType: string, tags: Tags?, defaultTags
 		applyDefaults(styledDefaults, defaultProps)
 
 		return (styledDefaults :: unknown) :: D
-	end, { tags :: any, defaultTags, defaultProps, objectType })
+	end, { tags :: any, defaultTags, defaultProps, objectType, rules })
 end
 
 return useStyledDefaults

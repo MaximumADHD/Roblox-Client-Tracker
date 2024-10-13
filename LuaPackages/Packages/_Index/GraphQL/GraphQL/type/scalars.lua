@@ -92,7 +92,9 @@ function coerceInt(inputValue)
 	if inputValue > MAX_INT or inputValue < MIN_INT then
 		error(
 			GraphQLError.new(
-				("Int cannot represent non 32-bit signed integer value: %s"):format(inputValue)
+				("Int cannot represent non 32-bit signed integer value: %s"):format(
+					inputValue :: any
+				)
 			)
 		)
 	end

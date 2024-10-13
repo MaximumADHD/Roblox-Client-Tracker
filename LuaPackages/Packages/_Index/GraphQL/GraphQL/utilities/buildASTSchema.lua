@@ -114,5 +114,5 @@ end
 return {
 	buildASTSchema = buildASTSchema,
 	buildSchema = buildSchema,
-	parse = parse
+	parse = parse,
 }
