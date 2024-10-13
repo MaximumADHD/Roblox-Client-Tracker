@@ -68,6 +68,7 @@ local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.Ge
 local GetFFlagEnableConnectDisconnectAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectAnalytics)
 local GetFFlagSendDevicePermissionsModalAnalytics = require(RobloxGui.Modules.Flags.GetFFlagSendDevicePermissionsModalAnalytics)
+local GetFFlagEnableConnectDisconnectInSettingsAndChrome = require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local FStringVoiceUIImprovementsIXPLayerName =
 	game:DefineFastString("VoiceUIImprovementsIXPLayerName", "Voice.Exposure")
 local FStringThrottleParticipantsUpdateIXPLayerValue =
@@ -457,7 +458,9 @@ function VoiceChatServiceManager.new(
 		if GetFFlagEnableShowVoiceUI() then
 			local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
 			if inEndedState and self.bannedUntil == nil then
-				self:HideVoiceUI()
+				if not GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+					self:HideVoiceUI()
+				end
 				self:showPrompt(VoiceChatPromptType.LeaveVoice)
 			end
 		end
@@ -1605,7 +1608,16 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		)
 	end
 
-	if self:UserOnlyEligibleForVoice() then
+	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self.previousGroupId then
+		-- previously joined voice and left in the same session
+		self:RejoinPreviousChannel()
+		self:showPrompt(VoiceChatPromptType.JoinVoice)
+		self:ShowVoiceUI()
+	elseif GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:UserVoiceEnabled() then
+		-- First time joining voice this session
+		self.attemptVoiceRejoin:Fire()
+	elseif self:UserOnlyEligibleForVoice() then
+		-- Opted out or control users
 		self:SetInExpUpsellEntrypoint(VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE)
 
 		local promptToShow = self:GetInExpUpsellPromptFromEnum(voiceInExpUpsellVariant)
@@ -1624,6 +1636,12 @@ end
 
 -- Show join voice button in voice enabled experiences, for voice eligible users who haven't enabled voice and voice enabled users with denied mic permissions
 function VoiceChatServiceManager:ShouldShowJoinVoice()
+	-- M3
+	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:IsSeamlessVoice() then
+		return not self.voiceUIVisible
+	end
+
+	-- M1/Control
 	local userInInExperienceUpsellTreatment = self:UserInInExperienceUpsellTreatment()
 	local userVoiceUpsellEligible = self:UserOnlyEligibleForVoice()
 		or self:UserVoiceEnabled()
@@ -1644,6 +1662,10 @@ end
 
 function VoiceChatServiceManager:IsSeamlessVoice()
 	local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
+	if not ageVerificationOverlayData or not ageVerificationOverlayData.voiceSettings then
+		log:error("VoiceChatServiceManager:IsSeamlessVoice() - ageVerificationOverlayData or voiceSettings is nil")
+		return false
+	end
 	local seamlessVoiceStatus = ageVerificationOverlayData.voiceSettings.seamlessVoiceStatus
 	return seamlessVoiceStatus == SeamlessVoiceStatus.EnabledExistingUser or seamlessVoiceStatus == SeamlessVoiceStatus.EnabledNewUser
 end
@@ -1688,6 +1710,9 @@ function VoiceChatServiceManager:Leave()
 	self:HideVoiceUI()
 	self.previousGroupId = 	previousGroupId
 	self.previousMutedState = previousMutedState
+	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+		self:SetVoiceConnectCookieValue(false)
+	end
 end
 
 function VoiceChatServiceManager:GetVoiceStateFromEnum(voiceStateEnum)

@@ -275,6 +275,14 @@ function Analytics.new()
 		ReportPlatformCounter("AvatarCreationPurchaseSubmit")
 	end
 
+	function service.signalUserSettingEligibilityModal(requestType)
+		ReportEvent("UserSettingEligibilityModalShown", {
+			gameID = game.GameId,
+			requestType = requestType,
+		})
+		ReportPlatformCounter("UserSettingEligibilityModalShown" .. requestType)
+	end
+
 	return service
 end
 

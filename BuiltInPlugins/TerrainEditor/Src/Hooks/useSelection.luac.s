@@ -1,0 +1,23 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETIMPORT R1 K2 [Region3.new]
+  LOADK R2 K3 [{-64, -64, -64}]
+  LOADK R3 K4 [{64, 64, 64}]
+  CALL R1 2 -1
+  CALL R0 -1 2
+  RETURN R0 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["useState"]
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

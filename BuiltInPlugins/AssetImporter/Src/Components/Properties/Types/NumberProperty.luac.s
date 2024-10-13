@@ -1,0 +1,69 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["Value"]
+  FASTCALL1 TOSTRING R2 [+2]
+  GETIMPORT R1 K2 [tostring]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K3 ["Editable"]
+  JUMPIFEQKNIL R2 [+44]
+  GETTABLEKS R2 R0 K3 ["Editable"]
+  JUMPIF R2 [+40]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K10 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextXAlignment"}]
+  GETTABLEKS R5 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K5 ["LayoutOrder"]
+  GETIMPORT R5 K13 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 0
+  GETTABLEKS R10 R0 K6 ["Size"]
+  GETTABLEKS R9 R10 K14 ["Y"]
+  GETTABLEKS R8 R9 K15 ["Scale"]
+  GETTABLEKS R11 R0 K6 ["Size"]
+  GETTABLEKS R10 R11 K14 ["Y"]
+  GETTABLEKS R9 R10 K16 ["Offset"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K6 ["Size"]
+  GETIMPORT R5 K19 [Enum.AutomaticSize.X]
+  SETTABLEKS R5 R4 K7 ["AutomaticSize"]
+  SETTABLEKS R1 R4 K8 ["Text"]
+  GETIMPORT R5 K21 [Enum.TextXAlignment.Left]
+  SETTABLEKS R5 R4 K9 ["TextXAlignment"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K23 [{"Disabled", "LayoutOrder", "Size", "Text"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K22 ["Disabled"]
+  GETTABLEKS R5 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K5 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K6 ["Size"]
+  SETTABLEKS R5 R4 K6 ["Size"]
+  SETTABLEKS R1 R4 K8 ["Text"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["UI"]
+  GETTABLEKS R4 R3 K10 ["TextInput"]
+  GETTABLEKS R5 R3 K11 ["TextLabel"]
+  DUPCLOSURE R6 K12 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  RETURN R6 1

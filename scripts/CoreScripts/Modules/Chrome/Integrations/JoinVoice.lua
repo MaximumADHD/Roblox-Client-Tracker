@@ -8,6 +8,8 @@ local CommonIcon = require(script.Parent.CommonIcon)
 local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local GetFFlagEnableJoinVoiceOnUnibar = require(script.Parent.Parent.Flags.GetFFlagEnableJoinVoiceOnUnibar)
+local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
+	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 
@@ -60,6 +62,16 @@ if GetFFlagEnableJoinVoiceOnUnibar() and game:GetEngineFeature("VoiceChatSupport
 			-- Pin if we're already in suspended state
 			joinVoice.availability:available()
 		end
+		VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(HideOrShowJoinVoiceButton)
+	end
+	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+		VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+			joinVoice.availability:unavailable()
+		end)
+		VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+			joinVoice.availability:available()
+		end)
+	else
 		VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(HideOrShowJoinVoiceButton)
 	end
 end

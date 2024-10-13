@@ -1,0 +1,160 @@
+PROTO_0:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["table"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETIMPORT R4 K5 [string.format]
+  LOADK R5 K6 ["SetAssets requires a table, not %s"]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K1 [type]
+  CALL R6 1 1
+  CALL R4 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R2 K8 [assert]
+  CALL R2 -1 0
+  GETTABLEKS R2 R0 K9 ["assets"]
+  GETTABLEKS R3 R0 K10 ["nextPageCursor"]
+  GETTABLEKS R4 R0 K11 ["previousPageCursor"]
+  GETTABLEKS R5 R0 K12 ["pageNumber"]
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R9 R2
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  JUMPIFEQKS R8 K2 ["table"] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETIMPORT R8 K5 [string.format]
+  LOADK R9 K13 ["SetAssets requires a places table, not %s"]
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R11 R2
+  GETIMPORT R10 K1 [type]
+  CALL R10 1 1
+  CALL R8 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R6 K8 [assert]
+  CALL R6 -1 0
+  JUMPIFNOT R3 [+22]
+  FASTCALL1 TYPE R3 [+3]
+  MOVE R9 R3
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  JUMPIFEQKS R8 K3 ["string"] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETIMPORT R8 K5 [string.format]
+  LOADK R9 K14 ["SetAssets requires a string, not %s"]
+  FASTCALL1 TYPE R3 [+3]
+  MOVE R11 R3
+  GETIMPORT R10 K1 [type]
+  CALL R10 1 1
+  CALL R8 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R6 K8 [assert]
+  CALL R6 -1 0
+  JUMPIFNOT R4 [+22]
+  FASTCALL1 TYPE R4 [+3]
+  MOVE R9 R4
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  JUMPIFEQKS R8 K3 ["string"] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETIMPORT R8 K5 [string.format]
+  LOADK R9 K14 ["SetAssets requires a string, not %s"]
+  FASTCALL1 TYPE R4 [+3]
+  MOVE R11 R4
+  GETIMPORT R10 K1 [type]
+  CALL R10 1 1
+  CALL R8 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R6 K8 [assert]
+  CALL R6 -1 0
+  JUMPIFNOT R5 [+22]
+  FASTCALL1 TYPE R5 [+3]
+  MOVE R9 R5
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  JUMPIFEQKS R8 K15 ["number"] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETIMPORT R8 K5 [string.format]
+  LOADK R9 K16 ["SetAssets requires a number, not %s"]
+  FASTCALL1 TYPE R5 [+3]
+  MOVE R11 R5
+  GETIMPORT R10 K1 [type]
+  CALL R10 1 1
+  CALL R8 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R6 K8 [assert]
+  CALL R6 -1 0
+  JUMPIFNOT R1 [+22]
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R9 R1
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  JUMPIFEQKS R8 K15 ["number"] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETIMPORT R8 K5 [string.format]
+  LOADK R9 K17 ["SetAssets requires index to be a number, not %s"]
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R11 R1
+  GETIMPORT R10 K1 [type]
+  CALL R10 1 1
+  CALL R8 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R6 K8 [assert]
+  CALL R6 -1 0
+  DUPTABLE R6 K19 [{"assetsTable"}]
+  DUPTABLE R7 K21 [{"assets", "nextPageCursor", "previousPageCursor", "pageNumber", "index"}]
+  SETTABLEKS R2 R7 K9 ["assets"]
+  MOVE R8 R3
+  JUMPIF R8 [+3]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K22 ["None"]
+  SETTABLEKS R8 R7 K10 ["nextPageCursor"]
+  MOVE R8 R4
+  JUMPIF R8 [+3]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K22 ["None"]
+  SETTABLEKS R8 R7 K11 ["previousPageCursor"]
+  MOVE R8 R5
+  JUMPIF R8 [+3]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K22 ["None"]
+  SETTABLEKS R8 R7 K12 ["pageNumber"]
+  JUMPIFEQKNIL R1 [+3]
+  MOVE R8 R1
+  JUMPIF R8 [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K20 ["index"]
+  SETTABLEKS R7 R6 K18 ["assetsTable"]
+  RETURN R6 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Cryo"]
+  CALL R1 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K7 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["Action"]
+  MOVE R3 R2
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K10 ["Name"]
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R1
+  CALL R3 2 -1
+  RETURN R3 -1

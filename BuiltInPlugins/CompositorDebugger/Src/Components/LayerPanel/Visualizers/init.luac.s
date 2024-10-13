@@ -1,0 +1,66 @@
+PROTO_0:
+  JUMPIFNOT R0 [+26]
+  GETTABLEKS R1 R0 K0 ["className"]
+  JUMPIFNOT R1 [+23]
+  GETTABLEKS R1 R0 K0 ["className"]
+  JUMPIFNOTEQKS R1 K1 ["BlendSpace"] [+15]
+  GETTABLEKS R2 R0 K2 ["props"]
+  JUMPIFNOT R2 [+9]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["BlendSpace"]
+  GETTABLEKS R4 R0 K2 ["props"]
+  GETTABLEKS R3 R4 K3 ["blendSpaceType"]
+  GETTABLE R1 R2 R3
+  RETURN R1 1
+  LOADNIL R1
+  RETURN R1 1
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["className"]
+  GETTABLE R1 R2 R3
+  RETURN R1 1
+  LOADNIL R1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  NEWTABLE R2 1 0
+  DUPTABLE R3 K11 [{"Blend1D", "Blend2D", "BlendSpace"}]
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K8 ["Blend1D"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K8 ["Blend1D"]
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K9 ["Blend2D"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K9 ["Blend2D"]
+  DUPTABLE R4 K15 [{"Locomotion", "Scalar", "Directional"}]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K9 ["Blend2D"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K12 ["Locomotion"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K8 ["Blend1D"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K13 ["Scalar"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K9 ["Blend2D"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K14 ["Directional"]
+  SETTABLEKS R4 R3 K10 ["BlendSpace"]
+  DUPCLOSURE R4 K16 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R2 K17 ["getModule"]
+  RETURN R2 1

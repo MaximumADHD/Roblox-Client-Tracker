@@ -1,0 +1,76 @@
+PROTO_0:
+  DUPTABLE R0 K3 [{"Listener", "FocusedElement", "FocusedElementChangedSignal"}]
+  GETIMPORT R1 K6 [Instance.new]
+  LOADK R2 K7 ["Frame"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["Listener"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["FocusedElement"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K8 ["Event"]
+  SETTABLEKS R1 R0 K2 ["FocusedElementChangedSignal"]
+  GETTABLEKS R1 R0 K0 ["Listener"]
+  GETIMPORT R2 K11 [UDim2.fromScale]
+  LOADN R3 1
+  LOADN R4 1
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K12 ["Size"]
+  GETTABLEKS R1 R0 K0 ["Listener"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K13 ["BackgroundTransparency"]
+  GETUPVAL R3 1
+  FASTCALL2 SETMETATABLE R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K15 [setmetatable]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["Listener"]
+  GETTABLEKS R2 R3 K1 ["Parent"]
+  JUMPIFEQ R2 R1 [+5]
+  GETTABLEKS R2 R0 K0 ["Listener"]
+  SETTABLEKS R1 R2 K1 ["Parent"]
+  RETURN R0 0
+
+PROTO_2:
+  SETTABLEKS R1 R0 K0 ["FocusedElement"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K1 ["Fire"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["FocusedElement"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceAnnotations"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R2 R3 K9 ["ContextItem"]
+  LOADK R5 K10 ["MouseListenerContext"]
+  NAMECALL R3 R2 K11 ["extend"]
+  CALL R3 2 1
+  GETIMPORT R4 K14 [Instance.new]
+  LOADK R5 K15 ["BindableEvent"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K16 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R5 R3 K13 ["new"]
+  DUPCLOSURE R5 K17 [PROTO_1]
+  SETTABLEKS R5 R3 K18 ["setFocus"]
+  DUPCLOSURE R5 K19 [PROTO_2]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R3 K20 ["SetFocusedElement"]
+  DUPCLOSURE R5 K21 [PROTO_3]
+  SETTABLEKS R5 R3 K22 ["GetFocusedElement"]
+  RETURN R3 1

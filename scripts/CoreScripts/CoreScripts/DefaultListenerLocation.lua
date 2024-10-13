@@ -2,17 +2,17 @@ local SoundService = game:GetService("SoundService") :: any
 local VoiceChatService: VoiceChatService = game:GetService("VoiceChatService")
 local Players: Players = game:GetService("Players")
 local RunService: RunService = game:GetService("RunService")
-local FFlagSoundServiceDefaultListenerLocation = game:DefineFastFlag("SoundServiceDefaultListenerLocation", false)
+local FFlagSoundServiceDefaultListenerLocation = game:DefineFastFlag("SoundServiceDefaultListenerLocation2", false)
 local LocalPlayer = Players.LocalPlayer :: Player
 
+local function ShouldUseDefaultVoice() : boolean
+	return SoundService.DefaultListenerLocation == (Enum :: any).ListenerLocation.Default
+		and VoiceChatService.UseAudioApi == Enum.AudioApiRollout.Enabled
+		and VoiceChatService.EnableDefaultVoice
+end
+
 local function ShouldUseCamera(): boolean
-	if SoundService.DefaultListenerLocation == (Enum :: any).ListenerLocation.Camera then
-		return true
-	elseif VoiceChatService.UseAudioApi == Enum.AudioApiRollout.Enabled and VoiceChatService.EnableDefaultVoice then
-		return true
-	else
-		return false
-	end
+	return SoundService.DefaultListenerLocation == (Enum :: any).ListenerLocation.Camera
 end
 
 local function ShouldUseCharacter(): boolean
@@ -26,7 +26,7 @@ local function ShouldSpawnListener(): boolean
 	if SoundService.DefaultListenerLocation == (Enum :: any).ListenerLocation.None then
 		return false
 	end
-	return ShouldUseCamera() or ShouldUseCharacter()
+	return ShouldUseCamera() or ShouldUseCharacter() or ShouldUseDefaultVoice()
 end
 
 local function WireUp(src: Instance, dst: Instance): Wire
@@ -86,7 +86,16 @@ local function SpawnCharacterListener(character: Model): nil
 	return
 end
 
-if ShouldSpawnListener() then
+local initialized : boolean = false
+local function Initialize()
+	if not ShouldSpawnListener() then
+		return
+	end
+
+	if initialized then
+		return
+	end
+
 	if ShouldUseCharacter() then
 		local character: Model? = LocalPlayer.Character
 		if character then
@@ -98,5 +107,20 @@ if ShouldSpawnListener() then
 		local listener = Instance.new("AudioListener")
 		listener.Parent = workspace.CurrentCamera
 		WireUp(listener, out)
+	elseif ShouldUseDefaultVoice() then
+		local listener = Instance.new("AudioListener")
+		listener.Parent = workspace.CurrentCamera
+		local wire = Instance.new("Wire")
+		wire.Parent = listener
+		local output = Instance.new("AudioDeviceOutput")
+		output.Parent = wire
+		wire.SourceInstance = listener
+		wire.TargetInstance = output
 	end
+	initialized = true
 end
+
+Initialize()
+SoundService:GetPropertyChangedSignal("DefaultListenerLocation"):Connect(Initialize)
+VoiceChatService:GetPropertyChangedSignal("UseAudioApi"):Connect(Initialize)
+VoiceChatService:GetPropertyChangedSignal("EnableDefaultVoice"):Connect(Initialize)

@@ -1,0 +1,236 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["descriptionRef"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K3 [{"descriptionWidth"}]
+  GETTABLEKS R5 R0 K4 ["AbsoluteSize"]
+  GETTABLEKS R4 R5 K5 ["X"]
+  SETTABLEKS R4 R3 K2 ["descriptionWidth"]
+  NAMECALL R1 R1 K6 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"descriptionWidth"}]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K0 ["descriptionWidth"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K4 ["descriptionRef"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["onResize"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["Children"]
+  GETTABLE R4 R1 R5
+  GETTABLEKS R3 R4 K3 ["TeachingCallout"]
+  GETTABLEKS R5 R0 K4 ["state"]
+  GETTABLEKS R4 R5 K5 ["descriptionWidth"]
+  GETTABLEKS R5 R1 K6 ["Description"]
+  GETTABLEKS R6 R1 K7 ["Disabled"]
+  GETTABLEKS R7 R1 K8 ["LayoutOrder"]
+  GETTABLEKS R8 R1 K9 ["Selected"]
+  GETTABLEKS R9 R1 K10 ["Title"]
+  GETTABLEKS R10 R1 K11 ["OnClick"]
+  GETTABLEKS R11 R1 K12 ["LinkProps"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K13 ["new"]
+  CALL R12 0 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K14 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K15 [{"LayoutOrder", "Title"}]
+  SETTABLEKS R7 R15 K8 ["LayoutOrder"]
+  SETTABLEKS R9 R15 K10 ["Title"]
+  DUPTABLE R16 K19 [{"ToggleButton", "Description", "LinkText", "DescriptionWidth"}]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K14 ["createElement"]
+  GETUPVAL R18 3
+  DUPTABLE R19 K21 [{"Disabled", "Selected", "LayoutOrder", "OnClick", "Size"}]
+  SETTABLEKS R6 R19 K7 ["Disabled"]
+  SETTABLEKS R8 R19 K9 ["Selected"]
+  NAMECALL R20 R12 K22 ["getNextOrder"]
+  CALL R20 1 1
+  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
+  SETTABLEKS R10 R19 K11 ["OnClick"]
+  GETIMPORT R20 K25 [UDim2.fromOffset]
+  LOADN R21 40
+  LOADN R22 24
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K20 ["Size"]
+  DUPTABLE R20 K26 [{"TeachingCallout"}]
+  SETTABLEKS R3 R20 K3 ["TeachingCallout"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K16 ["ToggleButton"]
+  GETTABLEKS R17 R1 K6 ["Description"]
+  JUMPIFNOT R17 [+53]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K14 ["createElement"]
+  GETUPVAL R18 4
+  DUPTABLE R19 K37 [{"BackgroundTransparency", "LayoutOrder", "TextTransparency", "TextXAlignment", "TextYAlignment", "Text", "TextWrapped", "width", "Font", "TextSize", "TextColor3"}]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K27 ["BackgroundTransparency"]
+  NAMECALL R20 R12 K22 ["getNextOrder"]
+  CALL R20 1 1
+  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
+  GETTABLEKS R21 R1 K7 ["Disabled"]
+  JUMPIFNOT R21 [+2]
+  LOADK R20 K38 [0.5]
+  JUMP [+1]
+  LOADN R20 0
+  SETTABLEKS R20 R19 K28 ["TextTransparency"]
+  GETIMPORT R20 K41 [Enum.TextXAlignment.Left]
+  SETTABLEKS R20 R19 K29 ["TextXAlignment"]
+  GETIMPORT R20 K43 [Enum.TextYAlignment.Top]
+  SETTABLEKS R20 R19 K30 ["TextYAlignment"]
+  SETTABLEKS R5 R19 K31 ["Text"]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K32 ["TextWrapped"]
+  GETIMPORT R20 K45 [UDim.new]
+  LOADN R21 0
+  MOVE R22 R4
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K33 ["width"]
+  GETIMPORT R20 K47 [Enum.Font.SourceSans]
+  SETTABLEKS R20 R19 K34 ["Font"]
+  LOADN R20 16
+  SETTABLEKS R20 R19 K35 ["TextSize"]
+  GETTABLEKS R20 R2 K48 ["dimmerTextColor"]
+  SETTABLEKS R20 R19 K36 ["TextColor3"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K6 ["Description"]
+  GETTABLEKS R17 R1 K12 ["LinkProps"]
+  JUMPIFNOT R17 [+57]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K14 ["createElement"]
+  GETUPVAL R18 5
+  GETUPVAL R21 6
+  GETTABLEKS R20 R21 K49 ["Dictionary"]
+  GETTABLEKS R19 R20 K50 ["join"]
+  MOVE R20 R11
+  DUPTABLE R21 K55 [{"LinkPlaceholder", "MaxWidth", "LayoutOrder", "TextProps", "HorizontalAlignment"}]
+  LOADK R22 K56 ["[link]"]
+  SETTABLEKS R22 R21 K51 ["LinkPlaceholder"]
+  GETTABLEKS R25 R2 K57 ["textWithInlineLink"]
+  GETTABLEKS R24 R25 K58 ["maxWidth"]
+  FASTCALL2 MATH_MAX R4 R24 [+4]
+  MOVE R23 R4
+  GETIMPORT R22 K61 [math.max]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K52 ["MaxWidth"]
+  NAMECALL R22 R12 K22 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K8 ["LayoutOrder"]
+  GETUPVAL R24 6
+  GETTABLEKS R23 R24 K49 ["Dictionary"]
+  GETTABLEKS R22 R23 K50 ["join"]
+  GETTABLEKS R24 R2 K62 ["fontStyle"]
+  GETTABLEKS R23 R24 K63 ["Subtext"]
+  DUPTABLE R24 K64 [{"BackgroundTransparency", "TextXAlignment"}]
+  LOADN R25 1
+  SETTABLEKS R25 R24 K27 ["BackgroundTransparency"]
+  GETIMPORT R25 K41 [Enum.TextXAlignment.Left]
+  SETTABLEKS R25 R24 K29 ["TextXAlignment"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K53 ["TextProps"]
+  GETIMPORT R22 K65 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R22 R21 K54 ["HorizontalAlignment"]
+  CALL R19 2 -1
+  CALL R17 -1 1
+  SETTABLEKS R17 R16 K17 ["LinkText"]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K14 ["createElement"]
+  LOADK R18 K66 ["Frame"]
+  NEWTABLE R19 8 0
+  LOADN R20 1
+  SETTABLEKS R20 R19 K27 ["BackgroundTransparency"]
+  NAMECALL R20 R12 K22 ["getNextOrder"]
+  CALL R20 1 1
+  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
+  GETIMPORT R20 K67 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 0
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K20 ["Size"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K68 ["Ref"]
+  GETTABLEKS R21 R0 K69 ["descriptionRef"]
+  SETTABLE R21 R19 R20
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K70 ["Change"]
+  GETTABLEKS R20 R21 K71 ["AbsoluteSize"]
+  GETTABLEKS R21 R0 K72 ["onResize"]
+  SETTABLE R21 R19 R20
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K18 ["DescriptionWidth"]
+  CALL R13 3 -1
+  RETURN R13 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["FitFrame"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K10 ["ContextServices"]
+  GETTABLEKS R6 R5 K11 ["withContext"]
+  GETTABLEKS R7 R4 K12 ["UI"]
+  GETTABLEKS R8 R7 K13 ["TitledFrame"]
+  GETTABLEKS R9 R7 K14 ["ToggleButton"]
+  GETTABLEKS R10 R7 K15 ["TextWithInlineLink"]
+  GETTABLEKS R11 R3 K16 ["FitTextLabel"]
+  GETTABLEKS R13 R4 K17 ["Util"]
+  GETTABLEKS R12 R13 K18 ["LayoutOrderIterator"]
+  GETTABLEKS R13 R1 K19 ["PureComponent"]
+  LOADK R15 K20 ["ToggleButtonWithTitle"]
+  NAMECALL R13 R13 K21 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K22 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R14 R13 K23 ["init"]
+  DUPCLOSURE R14 K24 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  SETTABLEKS R14 R13 K25 ["render"]
+  MOVE R14 R6
+  DUPTABLE R15 K27 [{"Stylizer"}]
+  GETTABLEKS R16 R5 K26 ["Stylizer"]
+  SETTABLEKS R16 R15 K26 ["Stylizer"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  RETURN R13 1

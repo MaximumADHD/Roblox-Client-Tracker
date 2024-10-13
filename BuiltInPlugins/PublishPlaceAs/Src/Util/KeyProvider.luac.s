@@ -1,0 +1,82 @@
+PROTO_0:
+  LOADK R0 K0 ["OptInLocations"]
+  RETURN R0 1
+
+PROTO_1:
+  LOADK R0 K0 ["China"]
+  RETURN R0 1
+
+PROTO_2:
+  LOADK R0 K0 ["status"]
+  RETURN R0 1
+
+PROTO_3:
+  LOADK R0 K0 ["region"]
+  RETURN R0 1
+
+PROTO_4:
+  LOADK R0 K0 ["PublishPlaceAs"]
+  RETURN R0 1
+
+PROTO_5:
+  LOADK R0 K0 ["plugin"]
+  RETURN R0 1
+
+PROTO_6:
+  LOADK R0 K0 ["context"]
+  RETURN R0 1
+
+PROTO_7:
+  LOADK R0 K0 ["LuobuStudioDevPublish"]
+  RETURN R0 1
+
+PROTO_8:
+  LOADK R0 K0 ["TermsOfUseDialog"]
+  RETURN R0 1
+
+PROTO_9:
+  LOADK R0 K0 ["selected"]
+  RETURN R0 1
+
+PROTO_10:
+  LOADK R0 K0 ["CheckboxToggle"]
+  RETURN R0 1
+
+PROTO_11:
+  LOADK R0 K0 ["buttonClicked"]
+  RETURN R0 1
+
+PROTO_12:
+  LOADK R0 K0 ["CreateNewGame"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 16 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["getOptInLocationsKeyName"]
+  DUPCLOSURE R1 K2 [PROTO_1]
+  SETTABLEKS R1 R0 K3 ["getChinaKeyName"]
+  DUPCLOSURE R1 K4 [PROTO_2]
+  SETTABLEKS R1 R0 K5 ["getStatusKeyName"]
+  DUPCLOSURE R1 K6 [PROTO_3]
+  SETTABLEKS R1 R0 K7 ["getRegionKeyName"]
+  DUPCLOSURE R1 K8 [PROTO_4]
+  SETTABLEKS R1 R0 K9 ["getPublishPlaceAsKeyName"]
+  DUPCLOSURE R1 K10 [PROTO_5]
+  SETTABLEKS R1 R0 K11 ["getPluginKeyName"]
+  DUPCLOSURE R1 K12 [PROTO_6]
+  SETTABLEKS R1 R0 K13 ["getContextKeyName"]
+  DUPCLOSURE R1 K14 [PROTO_7]
+  SETTABLEKS R1 R0 K15 ["getLuobuStudioDevPublishKeyName"]
+  DUPCLOSURE R1 K16 [PROTO_8]
+  SETTABLEKS R1 R0 K17 ["getTermsOfUseDialogKeyName"]
+  DUPCLOSURE R1 K18 [PROTO_9]
+  SETTABLEKS R1 R0 K19 ["getSelectedKeyName"]
+  DUPCLOSURE R1 K20 [PROTO_10]
+  SETTABLEKS R1 R0 K21 ["getCheckboxToggleKeyName"]
+  DUPCLOSURE R1 K22 [PROTO_11]
+  SETTABLEKS R1 R0 K23 ["getButtonClickedKeyName"]
+  DUPCLOSURE R1 K24 [PROTO_12]
+  SETTABLEKS R1 R0 K25 ["getCreateNewGameKeyName"]
+  RETURN R0 1

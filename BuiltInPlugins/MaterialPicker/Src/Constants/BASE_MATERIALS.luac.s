@@ -15,36 +15,20 @@ PROTO_1:
   DUPCLOSURE R3 K7 [PROTO_0]
   CALL R1 2 0
   LOADNIL R1
-  GETUPVAL R2 0
-  JUMPIFNOT R2 [+10]
   NEWTABLE R2 0 2
   GETIMPORT R3 K9 [Enum.Material.Air]
   GETIMPORT R4 K11 [Enum.Material.Water]
   SETLIST R2 R3 2 [1]
   MOVE R1 R2
-  JUMP [+25]
-  NEWTABLE R2 0 10
-  GETIMPORT R3 K9 [Enum.Material.Air]
-  GETIMPORT R4 K11 [Enum.Material.Water]
-  GETIMPORT R5 K13 [Enum.Material.Cardboard]
-  GETIMPORT R6 K15 [Enum.Material.Carpet]
-  GETIMPORT R7 K17 [Enum.Material.CeramicTiles]
-  GETIMPORT R8 K19 [Enum.Material.ClayRoofTiles]
-  GETIMPORT R9 K21 [Enum.Material.Leather]
-  GETIMPORT R10 K23 [Enum.Material.Plaster]
-  GETIMPORT R11 K25 [Enum.Material.RoofShingles]
-  GETIMPORT R12 K27 [Enum.Material.Rubber]
-  SETLIST R2 R3 10 [1]
-  MOVE R1 R2
-  GETIMPORT R2 K29 [ipairs]
+  GETIMPORT R2 K13 [ipairs]
   MOVE R3 R1
   CALL R2 1 3
   FORGPREP_INEXT R2
-  GETIMPORT R7 K31 [table.find]
+  GETIMPORT R7 K15 [table.find]
   MOVE R8 R0
   MOVE R9 R6
   CALL R7 2 1
-  GETIMPORT R8 K33 [table.remove]
+  GETIMPORT R8 K17 [table.remove]
   MOVE R9 R0
   MOVE R10 R7
   CALL R8 2 0
@@ -53,14 +37,9 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["MSPhase02"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_1]
-  CAPTURE VAL R0
-  GETIMPORT R2 K7 [table.freeze]
-  MOVE R3 R1
-  CALL R3 0 1
-  CALL R2 1 1
-  RETURN R2 1
+  DUPCLOSURE R0 K0 [PROTO_1]
+  GETIMPORT R1 K3 [table.freeze]
+  MOVE R2 R0
+  CALL R2 0 1
+  CALL R1 1 1
+  RETURN R1 1

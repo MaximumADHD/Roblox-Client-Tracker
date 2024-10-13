@@ -1,0 +1,109 @@
+PROTO_0:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"selectedTab"}]
+  SETTABLEKS R0 R3 K0 ["selectedTab"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"selectedTab"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["SOUND_EFFECTS"]
+  GETTABLEKS R2 R3 K3 ["name"]
+  SETTABLEKS R2 R1 K0 ["selectedTab"]
+  SETTABLEKS R1 R0 K4 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["OnTabSelect"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  DUPTABLE R3 K4 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R4 K7 [UDim2.new]
+  LOADN R5 0
+  LOADN R6 74
+  LOADN R7 0
+  LOADN R8 30
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K2 ["Size"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K3 ["BackgroundTransparency"]
+  DUPTABLE R4 K9 [{"AudioTabs"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K12 [{"SelectedTab", "OnTabSelect"}]
+  GETTABLEKS R9 R0 K13 ["state"]
+  GETTABLEKS R8 R9 K14 ["selectedTab"]
+  SETTABLEKS R8 R7 K10 ["SelectedTab"]
+  GETTABLEKS R8 R0 K11 ["OnTabSelect"]
+  SETTABLEKS R8 R7 K11 ["OnTabSelect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K8 ["AudioTabs"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioTabs"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["AudioTabs"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K8 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["AudioTabs"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K10 ["Stories"]
+  GETTABLEKS R5 R6 K11 ["ToolboxStoryWrapper"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R8 R0 K12 ["Core"]
+  GETTABLEKS R7 R8 K13 ["Types"]
+  GETTABLEKS R6 R7 K14 ["Category"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K15 ["PureComponent"]
+  LOADK R8 K16 ["AudioTabsStroyWrapper"]
+  NAMECALL R6 R6 K17 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K18 [PROTO_1]
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K19 ["init"]
+  DUPCLOSURE R7 K20 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K21 ["render"]
+  DUPTABLE R7 K25 [{"name", "summary", "story"}]
+  LOADK R8 K26 ["Audio Tabs"]
+  SETTABLEKS R8 R7 K22 ["name"]
+  LOADK R8 K27 ["Tab selection with round edges"]
+  SETTABLEKS R8 R7 K23 ["summary"]
+  DUPCLOSURE R8 K28 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K24 ["story"]
+  RETURN R7 1

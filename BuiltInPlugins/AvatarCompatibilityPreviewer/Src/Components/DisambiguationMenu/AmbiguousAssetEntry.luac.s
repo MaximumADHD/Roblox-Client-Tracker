@@ -1,0 +1,146 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"Id", "Label"}]
+  SETTABLEKS R0 R1 K0 ["Id"]
+  GETUPVAL R2 0
+  LOADK R4 K3 ["AssetPalettes"]
+  GETTABLEKS R5 R0 K4 ["Key"]
+  NAMECALL R2 R2 K5 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K1 ["Label"]
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["Label"]
+  GETTABLEKS R4 R1 K0 ["Label"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["SetAssignedPalette"]
+  GETTABLEKS R2 R0 K1 ["Id"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  LOADK R4 K1 ["DisambiguationMenu"]
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["collectArray"]
+  GETTABLEKS R5 R0 K3 ["AmbiguousAsset"]
+  GETTABLEKS R4 R5 K4 ["instances"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  CALL R3 2 1
+  GETIMPORT R4 K7 [table.sort]
+  MOVE R5 R3
+  DUPCLOSURE R6 K8 [PROTO_1]
+  CALL R4 2 0
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K9 ["createElement"]
+  GETUPVAL R5 4
+  DUPTABLE R6 K13 [{"Name", "Instance", "LayoutOrder"}]
+  GETTABLEKS R9 R0 K3 ["AmbiguousAsset"]
+  GETTABLEKS R8 R9 K14 ["worldModel"]
+  GETTABLEKS R7 R8 K10 ["Name"]
+  SETTABLEKS R7 R6 K10 ["Name"]
+  GETTABLEKS R8 R0 K3 ["AmbiguousAsset"]
+  GETTABLEKS R7 R8 K14 ["worldModel"]
+  SETTABLEKS R7 R6 K11 ["Instance"]
+  GETTABLEKS R7 R0 K12 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K12 ["LayoutOrder"]
+  DUPTABLE R7 K16 [{"Dropdown"}]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K19 [{"AutomaticSize", "Size"}]
+  GETIMPORT R11 K22 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K17 ["AutomaticSize"]
+  GETIMPORT R11 K25 [UDim2.new]
+  LOADN R12 0
+  GETTABLEKS R13 R2 K26 ["DropdownWidth"]
+  LOADN R14 0
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K18 ["Size"]
+  DUPTABLE R11 K28 [{"DropdownMenu"}]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K9 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K34 [{"PlaceholderText", "Width", "SelectedId", "OnItemActivated", "Items"}]
+  LOADK R17 K1 ["DisambiguationMenu"]
+  LOADK R18 K35 ["DropdownPlaceholder"]
+  NAMECALL R15 R1 K36 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K29 ["PlaceholderText"]
+  GETTABLEKS R15 R2 K26 ["DropdownWidth"]
+  SETTABLEKS R15 R14 K30 ["Width"]
+  GETTABLEKS R15 R0 K37 ["AssignedPalette"]
+  SETTABLEKS R15 R14 K31 ["SelectedId"]
+  NEWCLOSURE R15 P2
+  CAPTURE VAL R0
+  SETTABLEKS R15 R14 K32 ["OnItemActivated"]
+  SETTABLEKS R3 R14 K33 ["Items"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K27 ["DropdownMenu"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K15 ["Dropdown"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K12 ["DisambiguationMenu"]
+  GETTABLEKS R5 R6 K13 ["DisambiguationMenuEntry"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Resources"]
+  GETTABLEKS R6 R7 K15 ["Theme"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Types"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K17 ["UI"]
+  GETTABLEKS R8 R7 K18 ["Pane"]
+  GETTABLEKS R9 R7 K19 ["SelectInput"]
+  GETTABLEKS R11 R2 K20 ["ContextServices"]
+  GETTABLEKS R10 R11 K21 ["Localization"]
+  GETTABLEKS R12 R2 K20 ["ContextServices"]
+  GETTABLEKS R11 R12 K22 ["Stylizer"]
+  DUPCLOSURE R12 K23 [PROTO_3]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  RETURN R12 1

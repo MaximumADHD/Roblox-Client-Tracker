@@ -1,0 +1,37 @@
+PROTO_0:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["MaterialVariant"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K4 ["Name"]
+  SETTABLEKS R2 R1 K4 ["Name"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K5 ["Archivable"]
+  GETTABLEKS R2 R0 K6 ["Textures"]
+  GETTABLEKS R3 R2 K7 ["ColorMap"]
+  SETTABLEKS R3 R1 K7 ["ColorMap"]
+  GETTABLEKS R3 R2 K8 ["NormalMap"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R3 R2 K8 ["NormalMap"]
+  SETTABLEKS R3 R1 K8 ["NormalMap"]
+  GETTABLEKS R3 R2 K9 ["MetalnessMap"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R3 R2 K9 ["MetalnessMap"]
+  SETTABLEKS R3 R1 K9 ["MetalnessMap"]
+  GETTABLEKS R3 R2 K10 ["RoughnessMap"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R3 R2 K10 ["RoughnessMap"]
+  SETTABLEKS R3 R1 K10 ["RoughnessMap"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_0]
+  RETURN R2 1

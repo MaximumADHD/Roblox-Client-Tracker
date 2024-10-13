@@ -1,0 +1,46 @@
+PROTO_0:
+  GETUPVAL R3 0
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIFEQKNIL R3 [+7]
+  GETTABLEKS R4 R0 K0 ["selection"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K1 ["Set"]
+  CALL R4 2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["dispatchWorldClick"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Packages"]
+  GETTABLEKS R1 R2 K5 ["DraggerSchemaTemplate"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R3 R1 K8 ["DraggerSchema"]
+  CALL R2 1 1
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Components"]
+  GETTABLEKS R6 R7 K11 ["EditingTools"]
+  GETTABLEKS R5 R6 K12 ["BodyPointsTool"]
+  GETTABLEKS R4 R5 K13 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K10 ["Components"]
+  GETTABLEKS R7 R8 K11 ["EditingTools"]
+  GETTABLEKS R6 R7 K12 ["BodyPointsTool"]
+  GETTABLEKS R5 R6 K14 ["getHoveringPair"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K15 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  RETURN R5 1

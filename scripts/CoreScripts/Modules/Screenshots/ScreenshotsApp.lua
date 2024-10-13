@@ -11,8 +11,7 @@ local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 local GetFFlagEnableCapturesInChrome = require(Modules.Chrome.Flags.GetFFlagEnableCapturesInChrome)
-local FFlagScreenshotsEventSetupEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagScreenshotsEventSetupEnabled
+local FFlagScreenshotsSetupEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagScreenshotsSetupEnabled
 
 local ScreenshotsApp = Screenshots.App.createApp()
 
@@ -47,7 +46,7 @@ OverlayScreenGui.ResetOnSpawn = false
 OverlayScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 OverlayScreenGui.Parent = CoreGui
 
-if FFlagScreenshotsEventSetupEnabled then
+if FFlagScreenshotsSetupEnabled then
 	local SubmissionModal = Instance.new("ScreenGui")
 	SubmissionModal.DisplayOrder = Screenshots.Constants.SubmissionModalDisplayOrder
 	SubmissionModal.Name = "SubmissionModal"
@@ -55,6 +54,14 @@ if FFlagScreenshotsEventSetupEnabled then
 	SubmissionModal.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	SubmissionModal.Parent = CoreGui
 	ScreenshotsApp.mountSubmissionModal(SubmissionModal)
+
+	local EventSplashModal = Instance.new("ScreenGui")
+	EventSplashModal.DisplayOrder = Screenshots.Constants.EventSplashModalDisplayOrder
+	EventSplashModal.Name = "EventSplashModal"
+	EventSplashModal.ResetOnSpawn = false
+	EventSplashModal.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	EventSplashModal.Parent = CoreGui
+	ScreenshotsApp.mountEventSplashModal(EventSplashModal)
 end
 
 ScreenshotsApp.mountCaptureManager(CaptureManagerScreenGui)

@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
+
 local FFlagPlayerIconAvatarFix = require(RobloxGui.Modules.Flags.FFlagPlayerIconAvatarFix)
 
 local Roact = require(CorePackages.Roact)
@@ -100,7 +100,7 @@ function PlayerIcon:render()
 				})
 			})
 
-		elseif FFlagMobilePlayerList and self.props.isSmallTouchDevice then
+		elseif self.props.isSmallTouchDevice then
 			return Roact.createElement(ImageSetLabel, {
 				AnchorPoint = Vector2.new(0, 0.5),
 				Position = UDim2.new(0, layoutValues.PlayerNamePaddingXMobile, 0.5, 0),

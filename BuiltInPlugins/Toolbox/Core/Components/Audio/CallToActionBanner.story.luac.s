@@ -1,0 +1,64 @@
+PROTO_0:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["click"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"CallToActionBanner"}]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["Generator"]
+  DUPTABLE R5 K7 [{"Image", "Text", "OnClick"}]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K8 ["MONSTER_CAT_BANNER"]
+  SETTABLEKS R6 R5 K4 ["Image"]
+  LOADK R6 K9 ["Find tracks from Mostercat"]
+  SETTABLEKS R6 R5 K5 ["Text"]
+  GETUPVAL R6 4
+  SETTABLEKS R6 R5 K6 ["OnClick"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["CallToActionBanner"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Core"]
+  GETTABLEKS R6 R7 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["CallToActionBanner"]
+  GETTABLEKS R4 R5 K10 ["CallToActionBanner"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K11 ["Stories"]
+  GETTABLEKS R5 R6 K12 ["ToolboxStoryWrapper"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R8 R0 K8 ["Core"]
+  GETTABLEKS R7 R8 K13 ["Util"]
+  GETTABLEKS R6 R7 K14 ["Images"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_0]
+  DUPTABLE R7 K18 [{"name", "story"}]
+  LOADK R8 K19 ["Banner"]
+  SETTABLEKS R8 R7 K16 ["name"]
+  DUPCLOSURE R8 K20 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K17 ["story"]
+  RETURN R7 1

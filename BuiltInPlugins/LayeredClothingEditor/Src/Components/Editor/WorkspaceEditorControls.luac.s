@@ -1,0 +1,519 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["EditingCage"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["EDIT_MODE"]
+  GETTABLEKS R2 R3 K3 ["Mesh"]
+  JUMPIFNOTEQ R1 R2 [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["ToolMode"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["TOOL_MODE"]
+  GETTABLEKS R2 R3 K3 ["Point"]
+  JUMPIFEQ R1 R2 [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["menuOptionFunctions"]
+  GETTABLE R2 R3 R1
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["updateCageLocationsFromInstance"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["EditingItemContext"]
+  NAMECALL R1 R1 K2 ["getItem"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K3 ["LuaMeshEditingModuleContext"]
+  JUMPIFNOT R1 [+19]
+  GETTABLEKS R3 R1 K4 ["Parent"]
+  JUMPIFNOT R3 [+16]
+  GETUPVAL R3 1
+  GETTABLEKS R5 R1 K4 ["Parent"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  NAMECALL R3 R3 K5 ["bringAvatarToView"]
+  CALL R3 3 0
+  GETTABLEKS R3 R0 K6 ["Analytics"]
+  LOADK R5 K7 ["CenterAvatarToCamera"]
+  NAMECALL R3 R3 K8 ["getHandler"]
+  CALL R3 2 1
+  CALL R3 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["LuaMeshEditingModuleContext"]
+  JUMPIFNOT R0 [+3]
+  NAMECALL R1 R0 K2 ["resetTools"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Localization"]
+  GETTABLEKS R2 R0 K2 ["EditingCage"]
+  GETTABLEKS R3 R0 K3 ["ToolMode"]
+  NEWTABLE R4 0 0
+  MOVE R6 R4
+  LOADK R9 K4 ["Editor"]
+  LOADK R10 K5 ["BringMannequinToView"]
+  NAMECALL R7 R1 K6 ["getText"]
+  CALL R7 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R5 K9 [table.insert]
+  CALL R5 -1 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K10 ["TOOL_MODE"]
+  GETTABLEKS R5 R6 K11 ["Point"]
+  JUMPIFNOTEQ R3 R5 [+30]
+  GETIMPORT R5 K15 [Enum.CageType.Outer]
+  JUMPIFNOTEQ R2 R5 [+12]
+  MOVE R6 R4
+  LOADK R9 K16 ["Reset"]
+  LOADK R10 K17 ["OuterCage"]
+  NAMECALL R7 R1 K6 ["getText"]
+  CALL R7 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R5 K9 [table.insert]
+  CALL R5 -1 0
+  RETURN R4 1
+  GETIMPORT R5 K19 [Enum.CageType.Inner]
+  JUMPIFNOTEQ R2 R5 [+11]
+  MOVE R6 R4
+  LOADK R9 K16 ["Reset"]
+  LOADK R10 K20 ["InnerCage"]
+  NAMECALL R7 R1 K6 ["getText"]
+  CALL R7 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R5 K9 [table.insert]
+  CALL R5 -1 0
+  RETURN R4 1
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["VisibilityControlsOffset"]
+  GETTABLEKS R3 R0 K3 ["Container"]
+  LOADK R5 K4 ["CageControls"]
+  NAMECALL R3 R3 K5 ["FindFirstChild"]
+  CALL R3 2 1
+  GETTABLEKS R4 R0 K3 ["Container"]
+  LOADK R6 K6 ["VisibilityControls"]
+  NAMECALL R4 R4 K5 ["FindFirstChild"]
+  CALL R4 2 1
+  LOADN R5 0
+  LOADN R6 0
+  JUMPIFNOT R3 [+20]
+  GETUPVAL R7 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["maxCageControlsWidth"]
+  GETTABLEKS R11 R3 K8 ["AbsoluteSize"]
+  GETTABLEKS R10 R11 K9 ["X"]
+  FASTCALL2 MATH_MAX R9 R10 [+3]
+  GETIMPORT R8 K12 [math.max]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K7 ["maxCageControlsWidth"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["maxCageControlsWidth"]
+  ADD R5 R5 R7
+  MOVE R6 R5
+  JUMPIFNOT R4 [+19]
+  GETUPVAL R7 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K13 ["maxVisibilityControlsWidth"]
+  GETTABLEKS R11 R4 K8 ["AbsoluteSize"]
+  GETTABLEKS R10 R11 K9 ["X"]
+  FASTCALL2 MATH_MAX R9 R10 [+3]
+  GETIMPORT R8 K12 [math.max]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["maxVisibilityControlsWidth"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K13 ["maxVisibilityControlsWidth"]
+  ADD R5 R5 R7
+  GETUPVAL R7 0
+  DUPTABLE R9 K16 [{"shouldStack", "narrowLayout"}]
+  GETTABLEKS R12 R0 K8 ["AbsoluteSize"]
+  GETTABLEKS R11 R12 K9 ["X"]
+  ADD R12 R5 R2
+  JUMPIFLE R11 R12 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K14 ["shouldStack"]
+  GETTABLEKS R12 R0 K8 ["AbsoluteSize"]
+  GETTABLEKS R11 R12 K9 ["X"]
+  ADD R12 R6 R2
+  JUMPIFLE R11 R12 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K15 ["narrowLayout"]
+  NAMECALL R7 R7 K17 ["setState"]
+  CALL R7 2 0
+  RETURN R0 0
+
+PROTO_8:
+  DUPTABLE R1 K2 [{"narrowLayout", "shouldStack"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["narrowLayout"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["shouldStack"]
+  SETTABLEKS R1 R0 K3 ["state"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K5 ["controlsRef"]
+  GETIMPORT R1 K8 [Instance.new]
+  LOADK R2 K9 ["ScreenGui"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K9 ["ScreenGui"]
+  GETTABLEKS R1 R0 K9 ["ScreenGui"]
+  GETIMPORT R2 K11 [game]
+  LOADK R4 K12 ["CoreGui"]
+  NAMECALL R2 R2 K13 ["GetService"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K14 ["Parent"]
+  GETTABLEKS R1 R0 K9 ["ScreenGui"]
+  LOADK R2 K15 ["WorkspaceEditorControls"]
+  SETTABLEKS R2 R1 K16 ["Name"]
+  GETTABLEKS R1 R0 K9 ["ScreenGui"]
+  GETIMPORT R2 K20 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R2 R1 K18 ["ZIndexBehavior"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K21 ["maxCageControlsWidth"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K22 ["maxVisibilityControlsWidth"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K7 ["new"]
+  GETTABLEKS R2 R0 K9 ["ScreenGui"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K23 ["focus"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K24 ["shouldShowCageControls"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K25 ["isCageEditing"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K26 ["onMenuOptionClicked"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R1 R0 K27 ["bringMannequinToView"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K28 ["resetPoints"]
+  NEWTABLE R1 0 2
+  GETTABLEKS R2 R0 K27 ["bringMannequinToView"]
+  GETTABLEKS R3 R0 K28 ["resetPoints"]
+  SETLIST R1 R2 2 [1]
+  SETTABLEKS R1 R0 K29 ["menuOptionFunctions"]
+  NEWCLOSURE R1 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K30 ["getMenuOptions"]
+  NEWCLOSURE R1 P6
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K31 ["onScreenSizeChanged"]
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["IsControlsPanelBlockerActive"]
+  JUMPIFNOT R3 [+2]
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R4 R1 K3 ["EditingCage"]
+  GETTABLEKS R5 R1 K4 ["ToolMode"]
+  GETTABLEKS R6 R1 K5 ["Stylizer"]
+  GETTABLEKS R7 R6 K6 ["VisibilityControlsOffset"]
+  GETTABLEKS R8 R6 K7 ["PaneOffsetY"]
+  GETTABLEKS R9 R0 K8 ["getMenuOptions"]
+  CALL R9 0 1
+  GETTABLEKS R10 R0 K9 ["shouldShowCageControls"]
+  CALL R10 0 1
+  GETTABLEKS R11 R0 K10 ["isCageEditing"]
+  CALL R11 0 1
+  GETTABLEKS R12 R2 K11 ["narrowLayout"]
+  GETTABLEKS R13 R2 K12 ["shouldStack"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K13 ["new"]
+  CALL R14 0 1
+  LOADNIL R15
+  JUMPIFNOT R13 [+3]
+  GETIMPORT R15 K17 [Enum.FillDirection.Vertical]
+  JUMP [+4]
+  JUMPIFNOT R10 [+1]
+  JUMPIF R11 [+2]
+  GETIMPORT R15 K19 [Enum.FillDirection.Horizontal]
+  GETIMPORT R16 K21 [Vector2.new]
+  LOADN R17 0
+  LOADN R18 0
+  CALL R16 2 1
+  JUMPIFNOT R10 [+7]
+  JUMPIFNOT R11 [+6]
+  GETIMPORT R17 K21 [Vector2.new]
+  LOADN R18 1
+  LOADN R19 0
+  CALL R17 2 1
+  MOVE R16 R17
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K22 ["provide"]
+  NEWTABLE R18 0 1
+  GETTABLEKS R19 R0 K23 ["focus"]
+  SETLIST R18 R19 1 [1]
+  DUPTABLE R19 K25 [{"Child"}]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K26 ["createElement"]
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K27 ["Portal"]
+  DUPTABLE R22 K29 [{"target"}]
+  GETTABLEKS R23 R0 K30 ["ScreenGui"]
+  SETTABLEKS R23 R22 K28 ["target"]
+  DUPTABLE R23 K32 [{"AccessoryFittingToolControls"}]
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K26 ["createElement"]
+  LOADK R25 K33 ["Frame"]
+  NEWTABLE R26 8 0
+  LOADN R27 1
+  SETTABLEKS R27 R26 K34 ["BackgroundTransparency"]
+  GETIMPORT R27 K36 [UDim2.new]
+  LOADN R28 0
+  LOADN R29 0
+  LOADN R30 0
+  MOVE R31 R8
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K37 ["Position"]
+  GETIMPORT R27 K36 [UDim2.new]
+  LOADN R28 1
+  LOADN R29 0
+  LOADN R30 1
+  MINUS R31 R8
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K38 ["Size"]
+  GETUPVAL R29 2
+  GETTABLEKS R28 R29 K39 ["Change"]
+  GETTABLEKS R27 R28 K40 ["AbsoluteSize"]
+  GETTABLEKS R28 R0 K41 ["onScreenSizeChanged"]
+  SETTABLE R28 R26 R27
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K42 ["Ref"]
+  GETTABLEKS R28 R0 K43 ["controlsRef"]
+  SETTABLE R28 R26 R27
+  DUPTABLE R27 K45 [{"Container"}]
+  GETUPVAL R29 2
+  GETTABLEKS R28 R29 K26 ["createElement"]
+  GETUPVAL R29 3
+  DUPTABLE R30 K49 [{"Layout", "HorizontalAlignment", "VerticalAlignment"}]
+  SETTABLEKS R15 R30 K46 ["Layout"]
+  GETIMPORT R31 K51 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R31 R30 K47 ["HorizontalAlignment"]
+  GETIMPORT R31 K53 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R31 R30 K48 ["VerticalAlignment"]
+  DUPTABLE R31 K56 [{"CageControls", "VisibilityControls"}]
+  MOVE R32 R10
+  JUMPIFNOT R32 [+26]
+  GETUPVAL R33 2
+  GETTABLEKS R32 R33 K26 ["createElement"]
+  GETUPVAL R33 4
+  DUPTABLE R34 K62 [{"EditingCage", "LayoutOrder", "ShowMinimal", "ToolMode", "MenuOptions", "OnMenuOptionClicked", "ShowOptionsButton"}]
+  SETTABLEKS R4 R34 K3 ["EditingCage"]
+  NAMECALL R35 R14 K63 ["getNextOrder"]
+  CALL R35 1 1
+  SETTABLEKS R35 R34 K57 ["LayoutOrder"]
+  SETTABLEKS R12 R34 K58 ["ShowMinimal"]
+  SETTABLEKS R5 R34 K4 ["ToolMode"]
+  SETTABLEKS R9 R34 K59 ["MenuOptions"]
+  GETTABLEKS R35 R0 K64 ["onMenuOptionClicked"]
+  SETTABLEKS R35 R34 K60 ["OnMenuOptionClicked"]
+  NOT R35 R13
+  SETTABLEKS R35 R34 K61 ["ShowOptionsButton"]
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K54 ["CageControls"]
+  GETUPVAL R33 2
+  GETTABLEKS R32 R33 K26 ["createElement"]
+  GETUPVAL R33 5
+  DUPTABLE R34 K67 [{"AnchorPoint", "LayoutOrder", "Offset", "ToolMode", "MenuOptions", "OnMenuOptionClicked", "ShowOptionsButton"}]
+  SETTABLEKS R16 R34 K65 ["AnchorPoint"]
+  NAMECALL R35 R14 K63 ["getNextOrder"]
+  CALL R35 1 1
+  SETTABLEKS R35 R34 K57 ["LayoutOrder"]
+  SETTABLEKS R7 R34 K66 ["Offset"]
+  SETTABLEKS R5 R34 K4 ["ToolMode"]
+  SETTABLEKS R9 R34 K59 ["MenuOptions"]
+  GETTABLEKS R35 R0 K64 ["onMenuOptionClicked"]
+  SETTABLEKS R35 R34 K60 ["OnMenuOptionClicked"]
+  MOVE R35 R13
+  JUMPIF R35 [+1]
+  NOT R35 R10
+  SETTABLEKS R35 R34 K61 ["ShowOptionsButton"]
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K55 ["VisibilityControls"]
+  CALL R28 3 1
+  SETTABLEKS R28 R27 K44 ["Container"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K31 ["AccessoryFittingToolControls"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K24 ["Child"]
+  CALL R17 2 -1
+  RETURN R17 -1
+
+PROTO_10:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["ToolMode"]
+  GETTABLEKS R3 R1 K1 ["ToolMode"]
+  JUMPIFEQ R2 R3 [+14]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K2 ["maxCageControlsWidth"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K3 ["maxVisibilityControlsWidth"]
+  GETTABLEKS R2 R0 K4 ["onScreenSizeChanged"]
+  GETTABLEKS R4 R0 K5 ["controlsRef"]
+  GETTABLEKS R3 R4 K6 ["current"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["ScreenGui"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["ScreenGui"]
+  NAMECALL R1 R1 K1 ["Destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R2 R0 K0 ["controlsPanelBlocker"]
+  GETTABLEKS R3 R0 K1 ["selectItem"]
+  GETTABLEKS R4 R0 K2 ["status"]
+  DUPTABLE R5 K6 [{"EditingCage", "IsControlsPanelBlockerActive", "ToolMode"}]
+  GETTABLEKS R6 R3 K7 ["editingCage"]
+  SETTABLEKS R6 R5 K3 ["EditingCage"]
+  GETTABLEKS R6 R2 K8 ["isActive"]
+  SETTABLEKS R6 R5 K4 ["IsControlsPanelBlockerActive"]
+  GETTABLEKS R6 R4 K9 ["toolMode"]
+  SETTABLEKS R6 R5 K5 ["ToolMode"]
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["AvatarToolsShared"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K9 ["Contexts"]
+  GETTABLEKS R4 R5 K10 ["LuaMeshEditingModuleContext"]
+  GETTABLEKS R6 R3 K9 ["Contexts"]
+  GETTABLEKS R5 R6 K11 ["EditingItemContext"]
+  GETTABLEKS R8 R3 K12 ["Util"]
+  GETTABLEKS R7 R8 K13 ["AccessoryAndBodyToolShared"]
+  GETTABLEKS R6 R7 K14 ["AvatarUtil"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K5 ["Packages"]
+  GETTABLEKS R8 R9 K15 ["Framework"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K16 ["ContextServices"]
+  GETTABLEKS R9 R8 K17 ["withContext"]
+  GETTABLEKS R10 R8 K18 ["Focus"]
+  GETTABLEKS R11 R7 K19 ["UI"]
+  GETTABLEKS R12 R11 K20 ["Pane"]
+  GETTABLEKS R13 R7 K12 ["Util"]
+  GETTABLEKS R14 R13 K21 ["LayoutOrderIterator"]
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R19 R0 K22 ["Src"]
+  GETTABLEKS R18 R19 K23 ["Components"]
+  GETTABLEKS R17 R18 K24 ["Editor"]
+  GETTABLEKS R16 R17 K25 ["CageControls"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R20 R0 K22 ["Src"]
+  GETTABLEKS R19 R20 K23 ["Components"]
+  GETTABLEKS R18 R19 K24 ["Editor"]
+  GETTABLEKS R17 R18 K26 ["VisibilityControls"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R20 R0 K22 ["Src"]
+  GETTABLEKS R19 R20 K12 ["Util"]
+  GETTABLEKS R18 R19 K27 ["Constants"]
+  CALL R17 1 1
+  GETTABLEKS R18 R1 K28 ["PureComponent"]
+  LOADK R20 K29 ["WorkspaceEditorControls"]
+  NAMECALL R18 R18 K30 ["extend"]
+  CALL R18 2 1
+  DUPCLOSURE R19 K31 [PROTO_8]
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R17
+  CAPTURE VAL R6
+  SETTABLEKS R19 R18 K32 ["init"]
+  DUPCLOSURE R19 K33 [PROTO_9]
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  SETTABLEKS R19 R18 K34 ["render"]
+  DUPCLOSURE R19 K35 [PROTO_10]
+  SETTABLEKS R19 R18 K36 ["didUpdate"]
+  DUPCLOSURE R19 K37 [PROTO_11]
+  SETTABLEKS R19 R18 K38 ["willUnmount"]
+  MOVE R19 R9
+  DUPTABLE R20 K42 [{"Analytics", "Localization", "EditingItemContext", "LuaMeshEditingModuleContext", "Stylizer"}]
+  GETTABLEKS R21 R8 K39 ["Analytics"]
+  SETTABLEKS R21 R20 K39 ["Analytics"]
+  GETTABLEKS R21 R8 K40 ["Localization"]
+  SETTABLEKS R21 R20 K40 ["Localization"]
+  SETTABLEKS R5 R20 K11 ["EditingItemContext"]
+  SETTABLEKS R4 R20 K10 ["LuaMeshEditingModuleContext"]
+  GETTABLEKS R21 R8 K41 ["Stylizer"]
+  SETTABLEKS R21 R20 K41 ["Stylizer"]
+  CALL R19 1 1
+  MOVE R20 R18
+  CALL R19 1 1
+  MOVE R18 R19
+  DUPCLOSURE R19 K43 [PROTO_12]
+  GETTABLEKS R20 R2 K44 ["connect"]
+  MOVE R21 R19
+  LOADNIL R22
+  CALL R20 2 1
+  MOVE R21 R18
+  CALL R20 1 -1
+  RETURN R20 -1

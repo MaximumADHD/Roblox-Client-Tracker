@@ -99,11 +99,11 @@ local GetFFlagEnableConnectDisconnectButtonAnalytics = require(RobloxGui.Modules
 local GetFFlagEnableShowVoiceUI = require(SharedFlags).GetFFlagEnableShowVoiceUI
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
 local GetFFlagEnableAppChatInExperience = require(SharedFlags).GetFFlagEnableAppChatInExperience
-local FFlagSettingsHubCurrentPageSignal = game:DefineFastFlag("SettingsHubCurrentPageSignal", false)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
+local GetFFlagDisplayServerChannel = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisplayServerChannel
 local FFlagCoreGuiFinalStateAnalytic = require(RobloxGui.Modules.Flags.FFlagCoreGuiFinalStateAnalytic)
 local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagSettingsHubIndependentBackgroundVisibility = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagSettingsHubIndependentBackgroundVisibility()
@@ -136,6 +136,13 @@ spawn(function()
 	GetServerVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge)
 end)
 
+local GetServerChannelRemote = nil
+if GetFFlagDisplayServerChannel() then
+	spawn(function()
+		GetServerChannelRemote = RobloxReplicatedStorage:WaitForChild("GetServerChannel", math.huge)
+	end)
+end
+
 --[[ VARIABLES ]]
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local isTouchDevice = UserInputService.TouchEnabled
@@ -151,6 +158,7 @@ local chatWasVisible = false
 local connectWasVisible = false
 
 local connectedServerVersion = nil
+local connectedServerChannel = nil
 
 local SettingsFullScreenTitleBar = require(RobloxGui.Modules.Settings.Components.SettingsFullScreenTitleBar)
 local PermissionsButtons = require(RobloxGui.Modules.Settings.Components.PermissionsButtons)
@@ -246,6 +254,27 @@ local function GetServerVersionBlocking()
 	end
 	connectedServerVersion = GetServerVersionRemote:InvokeServer()
 	return connectedServerVersion
+end
+
+local function GetServerChannelBlocking()
+	if connectedServerChannel then
+		return connectedServerChannel
+	end
+
+	local repeatTimes = 10
+	if not GetServerChannelRemote then
+		repeat
+			task.wait()
+			repeatTimes = repeatTimes - 1
+		until GetServerChannelRemote or repeatTimes == 0
+	end
+	if GetServerChannelRemote then
+		connectedServerChannel = GetServerChannelRemote:InvokeServer()
+	else
+		warn("GetServerChannelRemote not available")
+		connectedServerChannel = "Unknown"
+	end
+	return connectedServerChannel
 end
 
 local function GetPlaceVersionText()
@@ -1181,6 +1210,30 @@ local function CreateSettingsHub()
 			local marginSize = 6
 			local defaultSize = UDim2.new(0.2, -6, 1, 0)
 			label.Size = canGetCoreScriptVersion and UDim2.new(0, label.TextBounds.X + marginSize, 0, VERSION_BAR_HEIGHT) or defaultSize
+		end
+		if GetFFlagDisplayServerChannel() then
+			this.ServerChannelLabel = Create("TextLabel") {
+				Name = "ServerChannelLabel",
+				Parent = this.VersionContainer,
+				LayoutOrder = 3,
+				BackgroundTransparency = 1,
+				TextColor3 = Color3.new(1,1,1),
+				TextSize = Theme.textSize(isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20)),
+				Text = "Server Channel: ...",
+				Font = Theme.font(Enum.Font.SourceSans, "SettingsHub"),
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				ZIndex = 5
+			}
+			spawn(function()
+				local serverChannelString = "Server Channel: "
+				if shouldTryLocalizeVersionLabels then
+					serverChannelString = tryTranslate("InGame.HelpMenu.Label.ServerChannel", "Server Channel: ")
+				end
+				this.ServerChannelLabel.Text = serverChannelString..GetServerChannelBlocking()
+				addSizeToLabel(this.ServerChannelLabel)
+				this.ServerChannelLabel.TextScaled = not (canGetCoreScriptVersion or this.ServerChannelLabel.TextFits)
+			end)
 		end
 
 		this.ServerVersionLabel = Create("TextLabel") {
@@ -2358,7 +2411,7 @@ local function CreateSettingsHub()
 		local newPageViewClipperSize = nil
 		if not isTenFootInterface then
 			if utility:IsSmallTouchScreen() then
-				local backButtonExtraSize = if getBackBarVisible() or Theme.UIBloxThemeEnabled then 0 else 44
+				local backButtonExtraSize = if Theme.UIBloxThemeEnabled or getBackBarVisible() then 0 else 44
 				
 				newPageViewClipperSize = UDim2.new(
 					0,
@@ -2787,10 +2840,7 @@ local function CreateSettingsHub()
 
 		this.Pages.CurrentPage = pageToSwitchTo
 		this.Pages.CurrentPage.Active = true
-
-		if ChromeEnabled or FFlagSettingsHubCurrentPageSignal then
-			this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
-		end
+		this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 
 		if Theme.UseStickyBar() == false then
 			local pageSize = this.Pages.CurrentPage:GetSize()
@@ -2903,9 +2953,7 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage = pageToSwitchTo
 		this.Pages.CurrentPage:Display(this.PageViewInnerFrame, skipAnimation)
 		this.Pages.CurrentPage.Active = true
-		if ChromeEnabled or FFlagSettingsHubCurrentPageSignal then
-			this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
-		end
+		this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 
 		if Theme.UseStickyBar() == false then
 			local pageSize = this.Pages.CurrentPage:GetSize()
@@ -2995,8 +3043,11 @@ local function CreateSettingsHub()
 
 		if not this.checkedUpsell and this.leaveGameUpsellProp == VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
 			this.checkedUpsell = true
-			this.leaveGameUpsellProp =
-			VoiceChatServiceManager:FetchPhoneVerificationUpsell(VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, this.sessionStartTime, true)
+			this.leaveGameUpsellProp = VoiceChatServiceManager:FetchPhoneVerificationUpsell(
+				VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, 
+				this.sessionStartTime, 
+				true
+			)
 			this.LeaveGameUpsellPage:SetUpsellProp(this.leaveGameUpsellProp)
 			task.delay(CHECK_LEAVE_GAME_UPSELL_COOLDOWN, function()
 				this.checkedUpsell = false
@@ -3270,9 +3321,7 @@ local function CreateSettingsHub()
 				this.TakingScreenshot = takingScreenshot or false
 			end
 
-			if ChromeEnabled or FFlagSettingsHubCurrentPageSignal then
-				this.CurrentPageSignal:fire("")
-			end
+			this.CurrentPageSignal:fire("")
 			
 			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then connectWasVisible else false
 			

@@ -1,0 +1,62 @@
+PROTO_0:
+  GETTABLEKS R4 R0 K0 ["Localization"]
+  GETUPVAL R5 0
+  MOVE R6 R0
+  NEWTABLE R7 0 1
+  DUPTABLE R8 K4 [{"Id", "Layout", "Schema"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["Clear"]
+  SETTABLEKS R9 R8 K1 ["Id"]
+  GETIMPORT R9 K9 [Enum.FillDirection.Vertical]
+  SETTABLEKS R9 R8 K2 ["Layout"]
+  DUPTABLE R9 K12 [{"Label", "Type"}]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K13 ["ClearSettings"]
+  LOADK R13 K14 ["ClearButtonLabel"]
+  NAMECALL R10 R4 K15 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K10 ["Label"]
+  LOADK R10 K16 ["Button"]
+  SETTABLEKS R10 R9 K11 ["Type"]
+  SETTABLEKS R9 R8 K3 ["Schema"]
+  SETLIST R7 R8 1 [1]
+  DUPTABLE R8 K20 [{"Category", "Data", "Overrides"}]
+  GETUPVAL R9 3
+  SETTABLEKS R9 R8 K17 ["Category"]
+  SETTABLEKS R1 R8 K18 ["Data"]
+  SETTABLEKS R3 R8 K19 ["Overrides"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["ApplyById"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K10 ["Category"]
+  GETTABLEKS R4 R2 K11 ["ClearSettings"]
+  GETTABLEKS R5 R2 K12 ["Storage"]
+  GETTABLEKS R6 R3 K11 ["ClearSettings"]
+  NEWTABLE R7 2 0
+  NEWTABLE R8 1 0
+  GETTABLEKS R9 R4 K13 ["Clear"]
+  GETTABLEKS R10 R5 K14 ["LocalSession"]
+  SETTABLE R10 R8 R9
+  SETTABLEKS R8 R7 K12 ["Storage"]
+  DUPCLOSURE R8 K15 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K16 ["Generator"]
+  RETURN R7 1

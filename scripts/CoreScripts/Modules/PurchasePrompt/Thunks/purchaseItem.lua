@@ -33,6 +33,7 @@ local ASSET_TYPE_TOOL = 19
 
 local AVATAR_NAME_KEY = "avatarName"
 local AVATAR_DESCRIPTION_KEY = "avatarDescription"
+local PRICE_FROM_TOKEN_KEY = "priceFromToken"
 
 local requiredServices = {
 	Network,
@@ -66,6 +67,7 @@ local function purchaseItem()
 			local metadata = {}
 			metadata[AVATAR_NAME_KEY] = state.productInfo.name
 			metadata[AVATAR_DESCRIPTION_KEY] = state.productInfo.description
+			metadata[PRICE_FROM_TOKEN_KEY] = state.productInfo.price
 
 			local scopes = {}
 			scopes[1] = Enum.ExperienceAuthScope.CreatorAssetsCreate

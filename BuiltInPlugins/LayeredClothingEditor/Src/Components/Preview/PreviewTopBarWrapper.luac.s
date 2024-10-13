@@ -1,0 +1,487 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["SetSearchFilter"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Localization"]
+  LOADK R4 K2 ["Preview"]
+  LOADK R5 K3 ["PanelBlockerAddItemWithEscape"]
+  NAMECALL R2 R1 K4 ["getText"]
+  CALL R2 3 1
+  GETTABLEKS R3 R0 K5 ["StartSelectingFromExplorer"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K6 ["SELECTOR_MODE"]
+  GETTABLEKS R4 R5 K2 ["Preview"]
+  MOVE R5 R2
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R1 K1 [pairs]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["getTabs"]
+  CALL R2 0 -1
+  CALL R1 -1 3
+  FORGPREP_NEXT R1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K3 ["isInstanceValidForTab"]
+  MOVE R7 R4
+  MOVE R8 R0
+  CALL R6 2 1
+  JUMPIFNOT R6 [+1]
+  RETURN R4 1
+  FORGLOOP R1 2 [-9]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R3 R2 K1 ["EditingItemContext"]
+  NAMECALL R3 R3 K2 ["getItem"]
+  CALL R3 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["getTabInfo"]
+  MOVE R5 R0
+  CALL R4 1 1
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R5 R4 K4 ["IsSelectedInstanceValid"]
+  MOVE R6 R1
+  CALL R5 1 1
+  JUMPIF R5 [+2]
+  LOADB R5 0
+  RETURN R5 1
+  LOADK R8 K5 ["LayeredClothingEditorPreview"]
+  NAMECALL R6 R1 K6 ["FindFirstAncestor"]
+  CALL R6 2 1
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  JUMPIFEQ R1 R3 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETTABLEKS R8 R3 K7 ["Parent"]
+  JUMPIFEQ R1 R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  MOVE R9 R5
+  JUMPIF R9 [+3]
+  MOVE R9 R6
+  JUMPIF R9 [+1]
+  MOVE R9 R7
+  NOT R8 R9
+  RETURN R8 1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getTabForInstance"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOT R1 [+2]
+  LOADB R1 1
+  RETURN R1 1
+  LOADK R3 K1 ["Folder"]
+  NAMECALL R1 R0 K2 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+2]
+  LOADB R1 1
+  RETURN R1 1
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K0 ["getTabForInstance"]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K1 ["AddUserAddedAssetForPreview"]
+  MOVE R2 R0
+  GETUPVAL R3 1
+  NAMECALL R3 R3 K2 ["Clone"]
+  CALL R3 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  LOADK R3 K3 ["Folder"]
+  NAMECALL R1 R1 K4 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+26]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K5 ["previewFolder"]
+  GETUPVAL R3 1
+  NAMECALL R1 R1 K6 ["addFolderPath"]
+  CALL R1 2 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K5 ["previewFolder"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["props"]
+  GETTABLEKS R3 R4 K8 ["UserAddedAssets"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K9 ["isInstanceValidForTab"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["props"]
+  GETTABLEKS R5 R6 K1 ["AddUserAddedAssetForPreview"]
+  NAMECALL R1 R1 K10 ["addDirtyFolders"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["FinishSelectingFromExplorer"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["Localization"]
+  LOADK R5 K3 ["Preview"]
+  LOADK R6 K4 ["ConfirmAddTile"]
+  DUPTABLE R7 K6 [{"itemName"}]
+  GETTABLEKS R8 R0 K7 ["Name"]
+  SETTABLEKS R8 R7 K5 ["itemName"]
+  NAMECALL R3 R3 K8 ["getText"]
+  CALL R3 4 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K2 ["Localization"]
+  LOADK R6 K3 ["Preview"]
+  LOADK R7 K9 ["ConfirmAddTiles"]
+  DUPTABLE R8 K6 [{"itemName"}]
+  GETTABLEKS R9 R0 K7 ["Name"]
+  SETTABLEKS R9 R8 K5 ["itemName"]
+  NAMECALL R4 R4 K8 ["getText"]
+  CALL R4 4 1
+  LOADK R8 K10 ["Folder"]
+  NAMECALL R6 R0 K11 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R5 R4
+  JUMP [+1]
+  MOVE R5 R3
+  GETUPVAL R6 1
+  GETTABLEKS R7 R1 K12 ["Plugin"]
+  GETTABLEKS R8 R1 K2 ["Localization"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K16 [{"Text", "OnClose", "OnConfirm"}]
+  SETTABLEKS R5 R10 K13 ["Text"]
+  SETTABLEKS R2 R10 K14 ["OnClose"]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  SETTABLEKS R11 R10 K15 ["OnConfirm"]
+  CALL R6 4 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["FinishSelectingFromExplorer"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETUPVAL R4 1
+  GETTABLEKS R5 R1 K3 ["Plugin"]
+  GETTABLEKS R6 R1 K2 ["Localization"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K6 [{"Text", "OnClose"}]
+  LOADK R11 K7 ["Preview"]
+  LOADK R12 K8 ["InvalidAdd"]
+  NAMECALL R9 R3 K9 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K4 ["Text"]
+  SETTABLEKS R2 R8 K5 ["OnClose"]
+  CALL R4 4 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["previewFolder"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["onSearchRequested"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K3 ["onClickAddNewInstance"]
+  NEWCLOSURE R1 P2
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K4 ["getTabForInstance"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K5 ["isInstanceValidForTab"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K6 ["isSelectedInstanceValid"]
+  NEWCLOSURE R1 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  SETTABLEKS R1 R0 K7 ["onInstanceSelectorValidSelection"]
+  NEWCLOSURE R1 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U5
+  SETTABLEKS R1 R0 K8 ["onInstanceSelectorInvalidSelection"]
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["layoutOrder"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K9 [{"LayoutOrder", "OnSearchRequested", "IsSelectedInstanceValid", "OnClickAddNewInstance", "OnInstanceSelectorValidSelection", "OnInstanceSelectorInvalidSelection"}]
+  SETTABLEKS R2 R5 K3 ["LayoutOrder"]
+  GETTABLEKS R6 R0 K10 ["onSearchRequested"]
+  SETTABLEKS R6 R5 K4 ["OnSearchRequested"]
+  GETTABLEKS R6 R0 K11 ["isSelectedInstanceValid"]
+  SETTABLEKS R6 R5 K5 ["IsSelectedInstanceValid"]
+  GETTABLEKS R6 R0 K12 ["onClickAddNewInstance"]
+  SETTABLEKS R6 R5 K6 ["OnClickAddNewInstance"]
+  GETTABLEKS R6 R0 K13 ["onInstanceSelectorValidSelection"]
+  SETTABLEKS R6 R5 K7 ["OnInstanceSelectorValidSelection"]
+  GETTABLEKS R6 R0 K14 ["onInstanceSelectorInvalidSelection"]
+  SETTABLEKS R6 R5 K8 ["OnInstanceSelectorInvalidSelection"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETIMPORT R2 K2 [next]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["UserAddedAssets"]
+  CALL R2 1 1
+  JUMPIF R2 [+5]
+  GETTABLEKS R2 R0 K4 ["previewFolder"]
+  NAMECALL R2 R2 K5 ["resetAllFoldersAttributes"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K4 ["previewFolder"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K3 ["UserAddedAssets"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K6 ["DeleteUserAddedAssetForPreview"]
+  NAMECALL R2 R2 K7 ["cleanDirtyFolders"]
+  CALL R2 3 0
+  GETTABLEKS R2 R0 K4 ["previewFolder"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K3 ["UserAddedAssets"]
+  GETTABLEKS R5 R0 K8 ["isInstanceValidForTab"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K9 ["AddUserAddedAssetForPreview"]
+  NAMECALL R2 R2 K10 ["addDirtyFolders"]
+  CALL R2 4 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R2 R0 K0 ["previewStatus"]
+  DUPTABLE R3 K2 [{"UserAddedAssets"}]
+  GETTABLEKS R4 R2 K3 ["userAddedAssets"]
+  SETTABLEKS R4 R3 K1 ["UserAddedAssets"]
+  RETURN R3 1
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R2 0 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_17:
+  DUPTABLE R1 K5 [{"SetSearchFilter", "StartSelectingFromExplorer", "FinishSelectingFromExplorer", "DeleteUserAddedAssetForPreview", "AddUserAddedAssetForPreview"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetSearchFilter"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["StartSelectingFromExplorer"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["FinishSelectingFromExplorer"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["DeleteUserAddedAssetForPreview"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K4 ["AddUserAddedAssetForPreview"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Cryo"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["AvatarToolsShared"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K10 ["Components"]
+  GETTABLEKS R6 R5 K11 ["ConfirmCancelDialog"]
+  GETTABLEKS R7 R5 K12 ["ConfirmDialog"]
+  GETTABLEKS R8 R5 K13 ["PreviewTopBar"]
+  GETTABLEKS R10 R4 K14 ["Util"]
+  GETTABLEKS R9 R10 K15 ["AccessoryAndBodyToolShared"]
+  GETTABLEKS R10 R9 K16 ["Constants"]
+  GETTABLEKS R11 R9 K17 ["PreviewConstants"]
+  GETTABLEKS R12 R9 K18 ["PreviewConstantsInterface"]
+  GETTABLEKS R13 R9 K19 ["PreviewFolderManager"]
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R16 R0 K5 ["Packages"]
+  GETTABLEKS R15 R16 K20 ["Framework"]
+  CALL R14 1 1
+  GETTABLEKS R15 R14 K21 ["ContextServices"]
+  GETTABLEKS R16 R15 K22 ["withContext"]
+  GETTABLEKS R17 R14 K14 ["Util"]
+  GETTABLEKS R18 R17 K23 ["LayoutOrderIterator"]
+  GETTABLEKS R19 R17 K24 ["Typecheck"]
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R23 R0 K25 ["Src"]
+  GETTABLEKS R22 R23 K26 ["Actions"]
+  GETTABLEKS R21 R22 K27 ["SetSearchFilter"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R24 R0 K25 ["Src"]
+  GETTABLEKS R23 R24 K28 ["Thunks"]
+  GETTABLEKS R22 R23 K29 ["StartSelectingFromExplorer"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R25 R0 K25 ["Src"]
+  GETTABLEKS R24 R25 K28 ["Thunks"]
+  GETTABLEKS R23 R24 K30 ["FinishSelectingFromExplorer"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R26 R0 K25 ["Src"]
+  GETTABLEKS R25 R26 K28 ["Thunks"]
+  GETTABLEKS R24 R25 K31 ["DeleteUserAddedAssetForPreview"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R27 R0 K25 ["Src"]
+  GETTABLEKS R26 R27 K28 ["Thunks"]
+  GETTABLEKS R25 R26 K32 ["AddUserAddedAssetForPreview"]
+  CALL R24 1 1
+  GETTABLEKS R26 R4 K33 ["Contexts"]
+  GETTABLEKS R25 R26 K34 ["EditingItemContext"]
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R29 R0 K25 ["Src"]
+  GETTABLEKS R28 R29 K14 ["Util"]
+  GETTABLEKS R27 R28 K16 ["Constants"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R30 R0 K25 ["Src"]
+  GETTABLEKS R29 R30 K14 ["Util"]
+  GETTABLEKS R28 R29 K35 ["ShowDialog"]
+  CALL R27 1 1
+  GETTABLEKS R28 R1 K36 ["PureComponent"]
+  LOADK R30 K37 ["PreviewTopBarWrapper"]
+  NAMECALL R28 R28 K38 ["extend"]
+  CALL R28 2 1
+  GETTABLEKS R29 R19 K39 ["wrap"]
+  MOVE R30 R28
+  GETIMPORT R31 K1 [script]
+  CALL R29 2 0
+  DUPCLOSURE R29 K40 [PROTO_8]
+  CAPTURE VAL R13
+  CAPTURE VAL R26
+  CAPTURE VAL R12
+  CAPTURE VAL R27
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R29 R28 K41 ["init"]
+  DUPCLOSURE R29 K42 [PROTO_9]
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  SETTABLEKS R29 R28 K43 ["render"]
+  DUPCLOSURE R29 K44 [PROTO_10]
+  SETTABLEKS R29 R28 K45 ["didMount"]
+  MOVE R29 R16
+  DUPTABLE R30 K49 [{"Stylizer", "Localization", "Plugin", "EditingItemContext"}]
+  GETTABLEKS R31 R15 K46 ["Stylizer"]
+  SETTABLEKS R31 R30 K46 ["Stylizer"]
+  GETTABLEKS R31 R15 K47 ["Localization"]
+  SETTABLEKS R31 R30 K47 ["Localization"]
+  GETTABLEKS R31 R15 K48 ["Plugin"]
+  SETTABLEKS R31 R30 K48 ["Plugin"]
+  SETTABLEKS R25 R30 K34 ["EditingItemContext"]
+  CALL R29 1 1
+  MOVE R30 R28
+  CALL R29 1 1
+  MOVE R28 R29
+  DUPCLOSURE R29 K50 [PROTO_11]
+  DUPCLOSURE R30 K51 [PROTO_17]
+  CAPTURE VAL R20
+  CAPTURE VAL R21
+  CAPTURE VAL R22
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  GETTABLEKS R31 R2 K52 ["connect"]
+  MOVE R32 R29
+  MOVE R33 R30
+  CALL R31 2 1
+  MOVE R32 R28
+  CALL R31 1 -1
+  RETURN R31 -1

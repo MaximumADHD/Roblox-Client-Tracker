@@ -1,0 +1,200 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  CALL R1 0 1
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R3 R2 K2 ["Stylizer"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  LOADK R5 K4 ["Frame"]
+  DUPTABLE R6 K8 [{"Size", "BackgroundColor3", "Position"}]
+  GETIMPORT R7 K10 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 0
+  LOADN R10 1
+  LOADN R11 0
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K5 ["Size"]
+  GETTABLEKS R7 R3 K11 ["BackgroundColor"]
+  SETTABLEKS R7 R6 K6 ["BackgroundColor3"]
+  GETIMPORT R7 K10 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 0
+  LOADN R11 0
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K7 ["Position"]
+  DUPTABLE R7 K21 [{"Padding", "Layout", "MainSwitchSection", "Separator", "LanguageSection", "PseudolocalizationSection", "CountryRegionSection", "CustomPolicySwitchSection", "PolicySection"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K22 ["UIPadding"]
+  DUPTABLE R10 K26 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
+  GETTABLEKS R11 R3 K27 ["MAINVIEW_PADDING_TOP"]
+  SETTABLEKS R11 R10 K23 ["PaddingTop"]
+  GETTABLEKS R11 R3 K28 ["MAINVIEW_PADDING_LEFT"]
+  SETTABLEKS R11 R10 K24 ["PaddingLeft"]
+  GETTABLEKS R11 R3 K28 ["MAINVIEW_PADDING_LEFT"]
+  SETTABLEKS R11 R10 K25 ["PaddingRight"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["Padding"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K29 ["UIListLayout"]
+  DUPTABLE R10 K32 [{"SortOrder", "FillDirection", "Padding"}]
+  GETIMPORT R11 K35 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R11 R10 K30 ["SortOrder"]
+  GETIMPORT R11 K37 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K31 ["FillDirection"]
+  GETTABLEKS R11 R3 K38 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+  SETTABLEKS R11 R10 K12 ["Padding"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["Layout"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["MainSwitchSection"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["Separator"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K16 ["LanguageSection"]
+  GETUPVAL R9 5
+  JUMPIFNOT R9 [+12]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 6
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K17 ["PseudolocalizationSection"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 7
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K18 ["CountryRegionSection"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 8
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K19 ["CustomPolicySwitchSection"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 9
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K20 ["PolicySection"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R6 R2 K10 ["UI"]
+  GETTABLEKS R5 R6 K11 ["Separator"]
+  GETTABLEKS R7 R2 K12 ["Util"]
+  GETTABLEKS R6 R7 K13 ["LayoutOrderIterator"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K14 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Components"]
+  GETTABLEKS R8 R9 K16 ["MainSwitchSection"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K14 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Components"]
+  GETTABLEKS R9 R10 K17 ["CustomPolicySwitchSection"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K14 ["Src"]
+  GETTABLEKS R11 R12 K15 ["Components"]
+  GETTABLEKS R10 R11 K18 ["LanguageSection"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K14 ["Src"]
+  GETTABLEKS R12 R13 K15 ["Components"]
+  GETTABLEKS R11 R12 K19 ["PseudolocalizationSection"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K14 ["Src"]
+  GETTABLEKS R13 R14 K15 ["Components"]
+  GETTABLEKS R12 R13 K20 ["CountryRegionSection"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K14 ["Src"]
+  GETTABLEKS R14 R15 K15 ["Components"]
+  GETTABLEKS R13 R14 K21 ["PolicySection"]
+  CALL R12 1 1
+  GETIMPORT R13 K23 [game]
+  LOADK R15 K24 ["EnablePseudolocalizationInPlayerEmulator2"]
+  NAMECALL R13 R13 K25 ["GetFastFlag"]
+  CALL R13 2 1
+  GETTABLEKS R14 R1 K26 ["PureComponent"]
+  LOADK R16 K27 ["MainView"]
+  NAMECALL R14 R14 K28 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K29 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  SETTABLEKS R15 R14 K30 ["render"]
+  MOVE R15 R4
+  DUPTABLE R16 K32 [{"Stylizer"}]
+  GETTABLEKS R17 R3 K31 ["Stylizer"]
+  SETTABLEKS R17 R16 K31 ["Stylizer"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

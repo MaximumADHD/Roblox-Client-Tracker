@@ -1,0 +1,37 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useContext"]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  LOADK R3 K1 ["Catalog"]
+  NAMECALL R1 R0 K2 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIFEQKNIL R1 [+2]
+  RETURN R1 1
+  GETIMPORT R2 K5 [Instance.new]
+  LOADK R3 K6 ["Folder"]
+  CALL R2 1 1
+  LOADK R3 K1 ["Catalog"]
+  SETTABLEKS R3 R2 K7 ["Name"]
+  SETTABLEKS R0 R2 K8 ["Parent"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Components"]
+  GETTABLEKS R3 R4 K10 ["UGCAvatarServiceContext"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K11 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1

@@ -1,0 +1,90 @@
+PROTO_0:
+  LOADB R2 0
+  JUMPIFEQKS R0 K0 [""] [+6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["categoryIsFreeAsset"]
+  MOVE R3 R1
+  CALL R2 1 1
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["categoryIsPackage"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOT R1 [+2]
+  LOADN R1 4
+  RETURN R1 1
+  LOADN R1 1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["SORT_OPTIONS"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["getDefaultSortForCategory"]
+  MOVE R4 R0
+  CALL R3 1 1
+  GETTABLE R1 R2 R3
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getDefaultSortForCategory"]
+  GETTABLEKS R2 R0 K1 ["categoryName"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Core"]
+  GETTABLEKS R3 R4 K6 ["Types"]
+  GETTABLEKS R2 R3 K7 ["Category"]
+  CALL R1 1 1
+  NEWTABLE R2 8 0
+  NEWTABLE R3 0 5
+  DUPTABLE R4 K10 [{"name", "sort"}]
+  LOADK R5 K11 ["Relevance"]
+  SETTABLEKS R5 R4 K8 ["name"]
+  LOADK R5 K11 ["Relevance"]
+  SETTABLEKS R5 R4 K9 ["sort"]
+  DUPTABLE R5 K10 [{"name", "sort"}]
+  LOADK R6 K12 ["MostTaken"]
+  SETTABLEKS R6 R5 K8 ["name"]
+  LOADK R6 K12 ["MostTaken"]
+  SETTABLEKS R6 R5 K9 ["sort"]
+  DUPTABLE R6 K10 [{"name", "sort"}]
+  LOADK R7 K13 ["Favorites"]
+  SETTABLEKS R7 R6 K8 ["name"]
+  LOADK R7 K13 ["Favorites"]
+  SETTABLEKS R7 R6 K9 ["sort"]
+  DUPTABLE R7 K10 [{"name", "sort"}]
+  LOADK R8 K14 ["Updated"]
+  SETTABLEKS R8 R7 K8 ["name"]
+  LOADK R8 K14 ["Updated"]
+  SETTABLEKS R8 R7 K9 ["sort"]
+  DUPTABLE R8 K10 [{"name", "sort"}]
+  LOADK R9 K15 ["Ratings"]
+  SETTABLEKS R9 R8 K8 ["name"]
+  LOADK R9 K15 ["Ratings"]
+  SETTABLEKS R9 R8 K9 ["sort"]
+  SETLIST R3 R4 5 [1]
+  SETTABLEKS R3 R2 K16 ["SORT_OPTIONS"]
+  DUPCLOSURE R3 K17 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K18 ["canSort"]
+  DUPCLOSURE R3 K19 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K20 ["getDefaultSortForCategory"]
+  DUPCLOSURE R3 K21 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K22 ["getDefaultSortNameForCategory"]
+  DUPCLOSURE R3 K23 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K24 ["getDefaultSortForGroups"]
+  RETURN R2 1

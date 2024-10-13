@@ -1,0 +1,472 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Material"]
+  JUMPIFNOT R1 [+16]
+  GETTABLEKS R2 R1 K2 ["MaterialVariant"]
+  JUMPIFNOT R2 [+13]
+  GETTABLEKS R2 R0 K3 ["GeneralServiceController"]
+  GETTABLEKS R4 R1 K2 ["MaterialVariant"]
+  NAMECALL R2 R2 K4 ["destroyWithUndo"]
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K5 ["Analytics"]
+  LOADK R4 K6 ["deleteMaterialVariant"]
+  NAMECALL R2 R2 K7 ["report"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Material"]
+  JUMPIFNOT R1 [+36]
+  GETTABLEKS R2 R1 K2 ["MaterialVariant"]
+  JUMPIF R2 [+33]
+  GETTABLEKS R2 R0 K3 ["GeneralServiceController"]
+  GETTABLEKS R4 R1 K1 ["Material"]
+  NAMECALL R2 R2 K4 ["createMaterialVariant"]
+  CALL R2 2 1
+  NEWTABLE R3 1 0
+  GETUPVAL R4 1
+  GETTABLEKS R5 R1 K1 ["Material"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K5 ["BaseMaterial"]
+  GETTABLEKS R4 R0 K6 ["Analytics"]
+  LOADK R6 K7 ["newMaterialVariant"]
+  MOVE R7 R3
+  GETUPVAL R8 2
+  NAMECALL R4 R4 K8 ["report"]
+  CALL R4 4 0
+  GETTABLEKS R4 R0 K6 ["Analytics"]
+  LOADK R6 K9 ["newMaterialVariantCounter"]
+  NAMECALL R4 R4 K8 ["report"]
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K10 ["dispatchSetMaterialVariant"]
+  MOVE R5 R2
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Material"]
+  JUMPIFNOT R1 [+28]
+  GETTABLEKS R1 R0 K2 ["GeneralServiceController"]
+  GETTABLEKS R4 R0 K1 ["Material"]
+  GETTABLEKS R3 R4 K1 ["Material"]
+  GETTABLEKS R6 R0 K1 ["Material"]
+  GETTABLEKS R5 R6 K3 ["MaterialVariant"]
+  JUMPIFNOT R5 [+7]
+  GETTABLEKS R6 R0 K1 ["Material"]
+  GETTABLEKS R5 R6 K3 ["MaterialVariant"]
+  GETTABLEKS R4 R5 K4 ["Name"]
+  JUMP [+1]
+  LOADNIL R4
+  NAMECALL R1 R1 K5 ["ApplyToSelection"]
+  CALL R1 3 0
+  GETTABLEKS R1 R0 K6 ["Analytics"]
+  LOADK R3 K7 ["applyToSelectionButton"]
+  NAMECALL R1 R1 K8 ["report"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["delete"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K1 ["createVariant"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["applyToSelection"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["MaterialInformation"]
+  GETTABLEKS R3 R1 K3 ["Localization"]
+  GETTABLEKS R4 R1 K4 ["Material"]
+  JUMPIF R4 [+6]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 1
+  CALL R5 1 -1
+  RETURN R5 -1
+  GETTABLEKS R6 R4 K6 ["MaterialVariant"]
+  NOT R5 R6
+  JUMPIFNOT R5 [+9]
+  LOADK R8 K7 ["Materials"]
+  GETUPVAL R9 2
+  GETTABLEKS R10 R4 K4 ["Material"]
+  CALL R9 1 -1
+  NAMECALL R6 R3 K8 ["getText"]
+  CALL R6 -1 1
+  JUMP [+4]
+  GETTABLEKS R7 R4 K6 ["MaterialVariant"]
+  GETTABLEKS R6 R7 K9 ["Name"]
+  GETUPVAL R7 3
+  MOVE R8 R4
+  MOVE R9 R3
+  CALL R7 2 1
+  GETTABLEKS R8 R4 K10 ["MaterialPath"]
+  NEWTABLE R9 0 0
+  GETIMPORT R10 K12 [ipairs]
+  MOVE R11 R8
+  CALL R10 1 3
+  FORGPREP_INEXT R10
+  LOADK R17 K13 ["Categories"]
+  MOVE R18 R14
+  NAMECALL R15 R3 K8 ["getText"]
+  CALL R15 3 1
+  SETTABLE R15 R9 R13
+  FORGLOOP R10 2 [inext] [-7]
+  GETIMPORT R10 K16 [table.concat]
+  MOVE R11 R9
+  LOADK R12 K17 [" > "]
+  CALL R10 2 1
+  LOADN R11 1
+  GETUPVAL R13 4
+  GETTABLEKS R14 R4 K4 ["Material"]
+  GETTABLE R12 R13 R14
+  JUMPIFNOT R12 [+1]
+  LOADN R11 2
+  GETIMPORT R12 K20 [UDim2.new]
+  LOADN R13 1
+  GETTABLEKS R18 R2 K21 ["ButtonSize"]
+  GETTABLEKS R17 R18 K22 ["X"]
+  GETTABLEKS R16 R17 K23 ["Offset"]
+  MUL R15 R11 R16
+  MINUS R14 R15
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K5 ["createElement"]
+  GETUPVAL R14 1
+  DUPTABLE R15 K28 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
+  GETIMPORT R16 K31 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K24 ["AutomaticSize"]
+  GETIMPORT R16 K34 [Enum.FillDirection.Vertical]
+  SETTABLEKS R16 R15 K25 ["Layout"]
+  GETTABLEKS R16 R1 K26 ["LayoutOrder"]
+  SETTABLEKS R16 R15 K26 ["LayoutOrder"]
+  LOADN R16 10
+  SETTABLEKS R16 R15 K27 ["Padding"]
+  DUPTABLE R16 K38 [{"Title", "MaterialType", "Category"}]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K5 ["createElement"]
+  GETUPVAL R18 1
+  DUPTABLE R19 K40 [{"Layout", "LayoutOrder", "Size"}]
+  GETIMPORT R20 K42 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R20 R19 K25 ["Layout"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K26 ["LayoutOrder"]
+  GETTABLEKS R20 R2 K43 ["LabelRowSize"]
+  SETTABLEKS R20 R19 K39 ["Size"]
+  DUPTABLE R20 K47 [{"Name", "ApplyToSelection", "CreateVariant", "Delete"}]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K5 ["createElement"]
+  GETUPVAL R22 5
+  DUPTABLE R23 K52 [{"LayoutOrder", "Font", "Size", "Text", "TextSize", "TextXAlignment"}]
+  LOADN R24 1
+  SETTABLEKS R24 R23 K26 ["LayoutOrder"]
+  GETTABLEKS R24 R2 K53 ["HeaderFont"]
+  SETTABLEKS R24 R23 K48 ["Font"]
+  SETTABLEKS R12 R23 K39 ["Size"]
+  SETTABLEKS R6 R23 K49 ["Text"]
+  GETTABLEKS R24 R2 K54 ["TitleTextSize"]
+  SETTABLEKS R24 R23 K50 ["TextSize"]
+  GETIMPORT R24 K56 [Enum.TextXAlignment.Left]
+  SETTABLEKS R24 R23 K51 ["TextXAlignment"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K9 ["Name"]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K5 ["createElement"]
+  GETUPVAL R22 6
+  DUPTABLE R23 K59 [{"LayoutOrder", "OnClick", "Size", "Style"}]
+  LOADN R24 2
+  SETTABLEKS R24 R23 K26 ["LayoutOrder"]
+  GETTABLEKS R24 R0 K60 ["applyToSelection"]
+  SETTABLEKS R24 R23 K57 ["OnClick"]
+  GETTABLEKS R24 R2 K21 ["ButtonSize"]
+  SETTABLEKS R24 R23 K39 ["Size"]
+  GETTABLEKS R24 R2 K61 ["ButtonStyle"]
+  SETTABLEKS R24 R23 K58 ["Style"]
+  DUPTABLE R24 K64 [{"Image", "Tooltip"}]
+  GETUPVAL R26 0
+  GETTABLEKS R25 R26 K5 ["createElement"]
+  GETUPVAL R26 7
+  DUPTABLE R27 K66 [{"Style", "Size", "Position"}]
+  GETTABLEKS R28 R2 K44 ["ApplyToSelection"]
+  SETTABLEKS R28 R27 K58 ["Style"]
+  GETTABLEKS R28 R2 K67 ["ImageSize"]
+  SETTABLEKS R28 R27 K39 ["Size"]
+  GETTABLEKS R28 R2 K68 ["ImagePosition"]
+  SETTABLEKS R28 R27 K65 ["Position"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K62 ["Image"]
+  GETUPVAL R26 0
+  GETTABLEKS R25 R26 K5 ["createElement"]
+  GETUPVAL R26 8
+  DUPTABLE R27 K69 [{"Text"}]
+  LOADK R30 K70 ["TopBar"]
+  LOADK R31 K71 ["Apply"]
+  NAMECALL R28 R3 K8 ["getText"]
+  CALL R28 3 1
+  SETTABLEKS R28 R27 K49 ["Text"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K63 ["Tooltip"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K44 ["ApplyToSelection"]
+  JUMPIFNOT R5 [+63]
+  GETUPVAL R23 4
+  GETTABLEKS R24 R4 K4 ["Material"]
+  GETTABLE R22 R23 R24
+  JUMPIFNOT R22 [+58]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K5 ["createElement"]
+  GETUPVAL R22 6
+  DUPTABLE R23 K59 [{"LayoutOrder", "OnClick", "Size", "Style"}]
+  LOADN R24 3
+  SETTABLEKS R24 R23 K26 ["LayoutOrder"]
+  GETTABLEKS R24 R0 K72 ["createVariant"]
+  SETTABLEKS R24 R23 K57 ["OnClick"]
+  GETTABLEKS R24 R2 K21 ["ButtonSize"]
+  SETTABLEKS R24 R23 K39 ["Size"]
+  GETTABLEKS R24 R2 K61 ["ButtonStyle"]
+  SETTABLEKS R24 R23 K58 ["Style"]
+  DUPTABLE R24 K64 [{"Image", "Tooltip"}]
+  GETUPVAL R26 0
+  GETTABLEKS R25 R26 K5 ["createElement"]
+  GETUPVAL R26 7
+  DUPTABLE R27 K66 [{"Style", "Size", "Position"}]
+  GETTABLEKS R28 R2 K45 ["CreateVariant"]
+  SETTABLEKS R28 R27 K58 ["Style"]
+  GETTABLEKS R28 R2 K67 ["ImageSize"]
+  SETTABLEKS R28 R27 K39 ["Size"]
+  GETTABLEKS R28 R2 K68 ["ImagePosition"]
+  SETTABLEKS R28 R27 K65 ["Position"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K62 ["Image"]
+  GETUPVAL R26 0
+  GETTABLEKS R25 R26 K5 ["createElement"]
+  GETUPVAL R26 8
+  DUPTABLE R27 K69 [{"Text"}]
+  LOADK R30 K2 ["MaterialInformation"]
+  LOADK R31 K45 ["CreateVariant"]
+  NAMECALL R28 R3 K8 ["getText"]
+  CALL R28 3 1
+  SETTABLEKS R28 R27 K49 ["Text"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K63 ["Tooltip"]
+  CALL R21 3 1
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K45 ["CreateVariant"]
+  JUMPIF R5 [+58]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K5 ["createElement"]
+  GETUPVAL R22 6
+  DUPTABLE R23 K59 [{"LayoutOrder", "OnClick", "Size", "Style"}]
+  LOADN R24 3
+  SETTABLEKS R24 R23 K26 ["LayoutOrder"]
+  GETTABLEKS R24 R0 K73 ["delete"]
+  SETTABLEKS R24 R23 K57 ["OnClick"]
+  GETTABLEKS R24 R2 K21 ["ButtonSize"]
+  SETTABLEKS R24 R23 K39 ["Size"]
+  GETTABLEKS R24 R2 K61 ["ButtonStyle"]
+  SETTABLEKS R24 R23 K58 ["Style"]
+  DUPTABLE R24 K64 [{"Image", "Tooltip"}]
+  GETUPVAL R26 0
+  GETTABLEKS R25 R26 K5 ["createElement"]
+  GETUPVAL R26 7
+  DUPTABLE R27 K66 [{"Style", "Size", "Position"}]
+  GETTABLEKS R28 R2 K46 ["Delete"]
+  SETTABLEKS R28 R27 K58 ["Style"]
+  GETTABLEKS R28 R2 K67 ["ImageSize"]
+  SETTABLEKS R28 R27 K39 ["Size"]
+  GETTABLEKS R28 R2 K68 ["ImagePosition"]
+  SETTABLEKS R28 R27 K65 ["Position"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K62 ["Image"]
+  GETUPVAL R26 0
+  GETTABLEKS R25 R26 K5 ["createElement"]
+  GETUPVAL R26 8
+  DUPTABLE R27 K69 [{"Text"}]
+  LOADK R30 K2 ["MaterialInformation"]
+  LOADK R31 K46 ["Delete"]
+  NAMECALL R28 R3 K8 ["getText"]
+  CALL R28 3 1
+  SETTABLEKS R28 R27 K49 ["Text"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K63 ["Tooltip"]
+  CALL R21 3 1
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K46 ["Delete"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K35 ["Title"]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K5 ["createElement"]
+  GETUPVAL R18 5
+  DUPTABLE R19 K74 [{"LayoutOrder", "Size", "Text", "TextXAlignment"}]
+  LOADN R20 2
+  SETTABLEKS R20 R19 K26 ["LayoutOrder"]
+  GETTABLEKS R20 R2 K43 ["LabelRowSize"]
+  SETTABLEKS R20 R19 K39 ["Size"]
+  SETTABLEKS R7 R19 K49 ["Text"]
+  GETIMPORT R20 K56 [Enum.TextXAlignment.Left]
+  SETTABLEKS R20 R19 K51 ["TextXAlignment"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K36 ["MaterialType"]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K5 ["createElement"]
+  GETUPVAL R18 5
+  DUPTABLE R19 K74 [{"LayoutOrder", "Size", "Text", "TextXAlignment"}]
+  LOADN R20 3
+  SETTABLEKS R20 R19 K26 ["LayoutOrder"]
+  GETTABLEKS R20 R2 K43 ["LabelRowSize"]
+  SETTABLEKS R20 R19 K39 ["Size"]
+  SETTABLEKS R10 R19 K49 ["Text"]
+  GETIMPORT R20 K56 [Enum.TextXAlignment.Left]
+  SETTABLEKS R20 R19 K51 ["TextXAlignment"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K37 ["Category"]
+  CALL R13 3 -1
+  RETURN R13 -1
+
+PROTO_5:
+  DUPTABLE R2 K1 [{"Material"}]
+  GETTABLEKS R3 R1 K2 ["MaterialMock"]
+  JUMPIF R3 [+4]
+  GETTABLEKS R4 R0 K3 ["MaterialBrowserReducer"]
+  GETTABLEKS R3 R4 K0 ["Material"]
+  SETTABLEKS R3 R2 K0 ["Material"]
+  RETURN R2 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_7:
+  DUPTABLE R1 K1 [{"dispatchSetMaterialVariant"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchSetMaterialVariant"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["withContext"]
+  GETTABLEKS R7 R5 K13 ["Analytics"]
+  GETTABLEKS R8 R5 K14 ["Localization"]
+  GETTABLEKS R10 R4 K15 ["Style"]
+  GETTABLEKS R9 R10 K16 ["Stylizer"]
+  GETTABLEKS R10 R4 K17 ["UI"]
+  GETTABLEKS R11 R10 K18 ["Button"]
+  GETTABLEKS R12 R10 K19 ["Image"]
+  GETTABLEKS R13 R10 K20 ["Pane"]
+  GETTABLEKS R14 R10 K21 ["Tooltip"]
+  GETTABLEKS R15 R10 K22 ["TruncatedTextLabel"]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K5 ["Src"]
+  GETTABLEKS R18 R19 K23 ["Controllers"]
+  GETTABLEKS R17 R18 K24 ["GeneralServiceController"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R20 R0 K5 ["Src"]
+  GETTABLEKS R19 R20 K25 ["Reducers"]
+  GETTABLEKS R18 R19 K26 ["MainReducer"]
+  CALL R17 1 1
+  GETTABLEKS R19 R0 K5 ["Src"]
+  GETTABLEKS R18 R19 K27 ["Actions"]
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R20 R18 K28 ["SetMaterialVariant"]
+  CALL R19 1 1
+  GETTABLEKS R22 R0 K5 ["Src"]
+  GETTABLEKS R21 R22 K29 ["Resources"]
+  GETTABLEKS R20 R21 K30 ["Constants"]
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R20 K31 ["getFullMaterialType"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R23 R20 K32 ["getMaterialName"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R24 R20 K33 ["getSupportedMaterials"]
+  CALL R23 1 1
+  GETIMPORT R24 K35 [game]
+  LOADK R26 K36 ["InfluxReportMaterialManagerHundrethPercent2"]
+  NAMECALL R24 R24 K37 ["GetFastInt"]
+  CALL R24 2 1
+  MOVE R25 R23
+  CALL R25 0 1
+  GETTABLEKS R26 R2 K38 ["PureComponent"]
+  LOADK R28 K39 ["MaterialInformation"]
+  NAMECALL R26 R26 K40 ["extend"]
+  CALL R26 2 1
+  DUPCLOSURE R27 K41 [PROTO_3]
+  CAPTURE VAL R22
+  CAPTURE VAL R24
+  SETTABLEKS R27 R26 K42 ["init"]
+  DUPCLOSURE R27 K43 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R22
+  CAPTURE VAL R21
+  CAPTURE VAL R25
+  CAPTURE VAL R15
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  SETTABLEKS R27 R26 K44 ["render"]
+  MOVE R27 R6
+  DUPTABLE R28 K45 [{"Analytics", "GeneralServiceController", "Localization", "Stylizer"}]
+  SETTABLEKS R7 R28 K13 ["Analytics"]
+  SETTABLEKS R16 R28 K24 ["GeneralServiceController"]
+  SETTABLEKS R8 R28 K14 ["Localization"]
+  SETTABLEKS R9 R28 K16 ["Stylizer"]
+  CALL R27 1 1
+  MOVE R28 R26
+  CALL R27 1 1
+  MOVE R26 R27
+  GETTABLEKS R27 R3 K46 ["connect"]
+  DUPCLOSURE R28 K47 [PROTO_5]
+  DUPCLOSURE R29 K48 [PROTO_7]
+  CAPTURE VAL R19
+  CALL R27 2 1
+  MOVE R28 R26
+  CALL R27 1 -1
+  RETURN R27 -1

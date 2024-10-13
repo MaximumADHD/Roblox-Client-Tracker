@@ -1,0 +1,101 @@
+PROTO_0:
+  JUMPIFNOT R0 [+1]
+  JUMPIF R1 [+2]
+  LOADK R2 K0 [""]
+  RETURN R2 1
+  FASTCALL2K ASSERT R0 K1 [+5]
+  MOVE R3 R0
+  LOADK R4 K1 ["Luau: Ensure this is defined"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  FASTCALL2K ASSERT R1 K1 [+5]
+  MOVE R3 R1
+  LOADK R4 K1 ["Luau: Ensure this is defined"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  MOVE R3 R0
+  LOADK R4 K4 ["?"]
+  CONCAT R2 R3 R4
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R1 K5 ["search"]
+  JUMPIFNOT R4 [+10]
+  LOADK R7 K6 ["search="]
+  GETTABLEKS R8 R1 K5 ["search"]
+  CONCAT R6 R7 R8
+  FASTCALL2 TABLE_INSERT R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  GETTABLEKS R4 R1 K10 ["creatorType"]
+  JUMPIFNOT R4 [+10]
+  LOADK R7 K11 ["creatorType="]
+  GETTABLEKS R8 R1 K10 ["creatorType"]
+  CONCAT R6 R7 R8
+  FASTCALL2 TABLE_INSERT R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  GETTABLEKS R4 R1 K12 ["creatorTargetId"]
+  JUMPIFNOT R4 [+14]
+  LOADK R7 K13 ["creatorTargetId="]
+  GETTABLEKS R9 R1 K12 ["creatorTargetId"]
+  FASTCALL1 TOSTRING R9 [+2]
+  GETIMPORT R8 K15 [tostring]
+  CALL R8 1 1
+  CONCAT R6 R7 R8
+  FASTCALL2 TABLE_INSERT R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  GETTABLEKS R4 R1 K16 ["isPublic"]
+  JUMPIFNOT R4 [+7]
+  FASTCALL2K TABLE_INSERT R3 K17 [+5]
+  MOVE R5 R3
+  LOADK R6 K17 ["isPublic=true"]
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  GETTABLEKS R4 R1 K18 ["isArchived"]
+  JUMPIFNOT R4 [+7]
+  FASTCALL2K TABLE_INSERT R3 K19 [+5]
+  MOVE R5 R3
+  LOADK R6 K19 ["isArchived=true"]
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  GETTABLEKS R4 R1 K20 ["sortParam"]
+  JUMPIFNOT R4 [+10]
+  LOADK R7 K21 ["sortParam="]
+  GETTABLEKS R8 R1 K20 ["sortParam"]
+  CONCAT R6 R7 R8
+  FASTCALL2 TABLE_INSERT R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  GETTABLEKS R4 R1 K22 ["sortOrder"]
+  JUMPIFNOT R4 [+10]
+  LOADK R7 K23 ["sortOrder="]
+  GETTABLEKS R8 R1 K22 ["sortOrder"]
+  CONCAT R6 R7 R8
+  FASTCALL2 TABLE_INSERT R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  MOVE R5 R2
+  GETIMPORT R6 K25 [table.concat]
+  MOVE R7 R3
+  LOADK R8 K26 ["&"]
+  CALL R6 2 1
+  CONCAT R4 R5 R6
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K8 [PROTO_0]
+  RETURN R2 1

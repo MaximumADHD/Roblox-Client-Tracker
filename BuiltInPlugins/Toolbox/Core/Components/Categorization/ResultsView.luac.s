@@ -1,0 +1,409 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["pageInfo"]
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  RETURN R1 1
+
+PROTO_1:
+  LOADK R1 K0 ["< "]
+  GETUPVAL R2 0
+  LOADK R4 K1 ["General"]
+  LOADK R5 K2 ["BackToHome"]
+  DUPTABLE R6 K4 [{"assetType"}]
+  GETUPVAL R8 1
+  GETUPVAL R9 0
+  CALL R8 1 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K5 ["CategoryName"]
+  GETTABLE R7 R8 R9
+  SETTABLEKS R7 R6 K3 ["assetType"]
+  NAMECALL R2 R2 K6 ["getText"]
+  CALL R2 4 1
+  CONCAT R0 R1 R2
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K7 ["createElement"]
+  GETUPVAL R2 4
+  DUPTABLE R3 K12 [{"LayoutOrder", "OnClick", "Style", "Text"}]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K8 ["LayoutOrder"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K13 ["OnClickBack"]
+  SETTABLEKS R4 R3 K9 ["OnClick"]
+  LOADK R4 K14 ["Unobtrusive"]
+  SETTABLEKS R4 R3 K10 ["Style"]
+  SETTABLEKS R0 R3 K11 ["Text"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["loading"]
+  JUMPIFNOT R1 [+57]
+  GETTABLEKS R2 R0 K1 ["assetIds"]
+  LENGTH R1 R2
+  JUMPIFNOTEQKN R1 K2 [0] [+53]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["createElement"]
+  LOADK R2 K4 ["Frame"]
+  DUPTABLE R3 K9 [{"BackgroundColor3", "LayoutOrder", "Position", "Size"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K10 ["backgroundColor"]
+  SETTABLEKS R4 R3 K5 ["BackgroundColor3"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K6 ["LayoutOrder"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["Position"]
+  SETTABLEKS R4 R3 K7 ["Position"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["Size"]
+  SETTABLEKS R4 R3 K8 ["Size"]
+  DUPTABLE R4 K12 [{"LoadingIndicator"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K14 [{"AnchorPoint", "Position"}]
+  GETIMPORT R8 K17 [Vector2.new]
+  LOADK R9 K18 [0.5]
+  LOADK R10 K18 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["AnchorPoint"]
+  GETIMPORT R8 K20 [UDim2.new]
+  LOADK R9 K18 [0.5]
+  LOADN R10 0
+  LOADK R11 K18 [0.5]
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K7 ["Position"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["LoadingIndicator"]
+  CALL R1 3 -1
+  RETURN R1 -1
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K21 ["categoryIsAudio"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K22 ["CategoryName"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+48]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["createElement"]
+  GETUPVAL R2 5
+  DUPTABLE R3 K28 [{"ResultsState", "PageSize", "RenderTopContent", "SwimlaneName", "AssetLogicWrapperProps"}]
+  SETTABLEKS R0 R3 K23 ["ResultsState"]
+  GETUPVAL R4 6
+  SETTABLEKS R4 R3 K24 ["PageSize"]
+  GETUPVAL R4 7
+  SETTABLEKS R4 R3 K25 ["RenderTopContent"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K26 ["SwimlaneName"]
+  SETTABLEKS R4 R3 K26 ["SwimlaneName"]
+  DUPTABLE R4 K34 [{"CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K29 ["CanInsertAsset"]
+  SETTABLEKS R5 R4 K29 ["CanInsertAsset"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K30 ["LogAssetImpression"]
+  SETTABLEKS R5 R4 K30 ["LogAssetImpression"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K31 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R5 R4 K31 ["OnAssetPreviewButtonClicked"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K32 ["TryInsert"]
+  SETTABLEKS R5 R4 K32 ["TryInsert"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K33 ["TryOpenAssetConfig"]
+  SETTABLEKS R5 R4 K33 ["TryOpenAssetConfig"]
+  SETTABLEKS R4 R3 K27 ["AssetLogicWrapperProps"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  GETUPVAL R1 8
+  DUPTABLE R2 K39 [{"AssetIds", "AssetMap", "LayoutOrder", "Position", "RenderTopContent", "RequestNextPage", "Size", "CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "TryInsert", "TryOpenAssetConfig"}]
+  GETTABLEKS R3 R0 K1 ["assetIds"]
+  SETTABLEKS R3 R2 K35 ["AssetIds"]
+  GETTABLEKS R3 R0 K40 ["assetMap"]
+  SETTABLEKS R3 R2 K36 ["AssetMap"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["LayoutOrder"]
+  SETTABLEKS R3 R2 K6 ["LayoutOrder"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["Position"]
+  SETTABLEKS R3 R2 K7 ["Position"]
+  GETUPVAL R3 7
+  SETTABLEKS R3 R2 K25 ["RenderTopContent"]
+  GETTABLEKS R3 R0 K41 ["fetchNextPage"]
+  SETTABLEKS R3 R2 K37 ["RequestNextPage"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K8 ["Size"]
+  SETTABLEKS R3 R2 K8 ["Size"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K29 ["CanInsertAsset"]
+  SETTABLEKS R3 R2 K29 ["CanInsertAsset"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K30 ["LogAssetImpression"]
+  SETTABLEKS R3 R2 K30 ["LogAssetImpression"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K31 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R3 R2 K31 ["OnAssetPreviewButtonClicked"]
+  GETUPVAL R4 9
+  CALL R4 0 1
+  JUMPIFNOT R4 [+4]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K38 ["OnSearchByCreator"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K38 ["OnSearchByCreator"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K32 ["TryInsert"]
+  SETTABLEKS R3 R2 K32 ["TryInsert"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K33 ["TryOpenAssetConfig"]
+  SETTABLEKS R3 R2 K33 ["TryOpenAssetConfig"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["join"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["ContextServices"]
+  GETTABLEKS R2 R3 K2 ["Localization"]
+  NAMECALL R2 R2 K3 ["use"]
+  CALL R2 1 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["ContextServices"]
+  GETTABLEKS R3 R4 K4 ["Stylizer"]
+  NAMECALL R3 R3 K3 ["use"]
+  CALL R3 1 1
+  GETUPVAL R4 3
+  NAMECALL R4 R4 K3 ["use"]
+  CALL R4 1 1
+  GETUPVAL R5 4
+  GETUPVAL R6 5
+  CALL R5 1 1
+  GETUPVAL R6 6
+  CALL R6 0 1
+  GETUPVAL R7 7
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U8
+  CAPTURE VAL R1
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  NEWTABLE R9 0 3
+  MOVE R10 R2
+  GETTABLEKS R11 R1 K5 ["CategoryName"]
+  GETTABLEKS R12 R1 K6 ["OnClickBack"]
+  SETLIST R9 R10 3 [1]
+  CALL R7 2 1
+  GETUPVAL R8 7
+  NEWCLOSURE R9 P1
+  CAPTURE UPVAL U9
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U13
+  CAPTURE UPVAL U14
+  CAPTURE VAL R7
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
+  NEWTABLE R10 0 0
+  CALL R8 2 1
+  GETUPVAL R10 17
+  GETTABLEKS R9 R10 K7 ["Generator"]
+  DUPTABLE R10 K21 [{"assetsInCameraViewport", "assetsInCameraVicinity", "networkInterface", "categoryName", "sectionName", "sortName", "searchTerm", "queryParams", "initialPageSize", "includeUnverifiedCreators", "searchSource", "qualityFilterData", "render"}]
+  GETTABLEKS R12 R1 K22 ["SectionName"]
+  GETUPVAL R14 18
+  GETTABLEKS R13 R14 K23 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
+  JUMPIFNOTEQ R12 R13 [+4]
+  GETTABLEKS R11 R6 K8 ["assetsInCameraViewport"]
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K8 ["assetsInCameraViewport"]
+  GETTABLEKS R12 R1 K22 ["SectionName"]
+  GETUPVAL R14 18
+  GETTABLEKS R13 R14 K23 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
+  JUMPIFNOTEQ R12 R13 [+4]
+  GETTABLEKS R11 R6 K9 ["assetsInCameraVicinity"]
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K9 ["assetsInCameraVicinity"]
+  GETTABLEKS R11 R4 K10 ["networkInterface"]
+  SETTABLEKS R11 R10 K10 ["networkInterface"]
+  GETTABLEKS R11 R1 K5 ["CategoryName"]
+  SETTABLEKS R11 R10 K11 ["categoryName"]
+  GETTABLEKS R11 R1 K22 ["SectionName"]
+  SETTABLEKS R11 R10 K12 ["sectionName"]
+  GETTABLEKS R11 R1 K24 ["SortName"]
+  SETTABLEKS R11 R10 K13 ["sortName"]
+  GETTABLEKS R11 R1 K25 ["SearchTerm"]
+  SETTABLEKS R11 R10 K14 ["searchTerm"]
+  GETTABLEKS R11 R1 K26 ["QueryParams"]
+  SETTABLEKS R11 R10 K15 ["queryParams"]
+  GETUPVAL R11 14
+  SETTABLEKS R11 R10 K16 ["initialPageSize"]
+  GETTABLEKS R11 R5 K17 ["includeUnverifiedCreators"]
+  SETTABLEKS R11 R10 K17 ["includeUnverifiedCreators"]
+  GETTABLEKS R11 R1 K27 ["SearchSource"]
+  SETTABLEKS R11 R10 K18 ["searchSource"]
+  GETUPVAL R12 19
+  CALL R12 0 1
+  JUMPIFNOT R12 [+6]
+  GETUPVAL R12 20
+  CALL R12 0 1
+  JUMPIFNOT R12 [+3]
+  GETTABLEKS R11 R5 K19 ["qualityFilterData"]
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K19 ["qualityFilterData"]
+  SETTABLEKS R8 R10 K20 ["render"]
+  CALL R9 1 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Core"]
+  GETTABLEKS R6 R7 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["AssetGrid"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Core"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K13 ["AssetLogicWrapper"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Core"]
+  GETTABLEKS R9 R10 K11 ["Components"]
+  GETTABLEKS R8 R9 K14 ["Audio"]
+  GETTABLEKS R7 R8 K15 ["AudioScrollerWrapper"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Core"]
+  GETTABLEKS R9 R10 K16 ["Types"]
+  GETTABLEKS R8 R9 K17 ["Category"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K10 ["Core"]
+  GETTABLEKS R10 R11 K18 ["Util"]
+  GETTABLEKS R9 R10 K19 ["Constants"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K10 ["Core"]
+  GETTABLEKS R11 R12 K20 ["Localization"]
+  GETTABLEKS R10 R11 K21 ["getLocalizedCategoryMap"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K10 ["Core"]
+  GETTABLEKS R12 R13 K16 ["Types"]
+  GETTABLEKS R11 R12 K22 ["HomeTypes"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K10 ["Core"]
+  GETTABLEKS R13 R14 K23 ["ContextServices"]
+  GETTABLEKS R12 R13 K24 ["NetworkContext"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K10 ["Core"]
+  GETTABLEKS R14 R15 K11 ["Components"]
+  GETTABLEKS R13 R14 K25 ["ResultsFetcher"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K10 ["Core"]
+  GETTABLEKS R15 R16 K16 ["Types"]
+  GETTABLEKS R14 R15 K26 ["Sort"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K10 ["Core"]
+  GETTABLEKS R16 R17 K27 ["Hooks"]
+  GETTABLEKS R15 R16 K28 ["useSelector"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K10 ["Core"]
+  GETTABLEKS R17 R18 K27 ["Hooks"]
+  GETTABLEKS R16 R17 K29 ["useContextualAssets"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R20 R0 K10 ["Core"]
+  GETTABLEKS R19 R20 K18 ["Util"]
+  GETTABLEKS R18 R19 K30 ["SharedFlags"]
+  GETTABLEKS R17 R18 K31 ["getFFlagToolboxFixInventoryGridSearch"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K10 ["Core"]
+  GETTABLEKS R19 R20 K32 ["Flags"]
+  GETTABLEKS R18 R19 K33 ["getFFlagQualityFiltersInToolboxSearch"]
+  CALL R17 1 1
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R21 R0 K10 ["Core"]
+  GETTABLEKS R20 R21 K32 ["Flags"]
+  GETTABLEKS R19 R20 K34 ["getFFlagQualityFiltersFixInResultsView"]
+  CALL R18 1 1
+  GETTABLEKS R20 R2 K35 ["UI"]
+  GETTABLEKS R19 R20 K36 ["LoadingIndicator"]
+  GETTABLEKS R21 R2 K35 ["UI"]
+  GETTABLEKS R20 R21 K37 ["LinkText"]
+  GETTABLEKS R21 R1 K38 ["useCallback"]
+  GETTABLEKS R22 R8 K39 ["TOOLBOX_ITEM_SEARCH_LIMIT"]
+  DUPTABLE R23 K44 [{"Size", "Category", "SearchTerm", "SectionName", "SortName"}]
+  GETIMPORT R24 K47 [UDim2.new]
+  LOADN R25 1
+  LOADN R26 0
+  LOADN R27 0
+  LOADN R28 0
+  CALL R24 4 1
+  SETTABLEKS R24 R23 K40 ["Size"]
+  GETTABLEKS R25 R7 K48 ["FREE_MODELS"]
+  GETTABLEKS R24 R25 K49 ["name"]
+  SETTABLEKS R24 R23 K17 ["Category"]
+  LOADNIL R24
+  SETTABLEKS R24 R23 K41 ["SearchTerm"]
+  LOADNIL R24
+  SETTABLEKS R24 R23 K42 ["SectionName"]
+  GETTABLEKS R24 R13 K50 ["getDefaultSortNameForCategory"]
+  GETTABLEKS R26 R7 K48 ["FREE_MODELS"]
+  GETTABLEKS R25 R26 K49 ["name"]
+  CALL R24 1 1
+  SETTABLEKS R24 R23 K43 ["SortName"]
+  DUPCLOSURE R24 K51 [PROTO_0]
+  DUPCLOSURE R25 K52 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R23
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R24
+  CAPTURE VAL R15
+  CAPTURE VAL R21
+  CAPTURE VAL R9
+  CAPTURE VAL R1
+  CAPTURE VAL R20
+  CAPTURE VAL R19
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R22
+  CAPTURE VAL R4
+  CAPTURE VAL R16
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  RETURN R25 1

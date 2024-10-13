@@ -1,0 +1,59 @@
+PROTO_0:
+  PREPVARARGS 1
+  GETUPVAL R1 0
+  GETVARARGS R2 -1
+  CALL R1 -1 1
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K1 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["table"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["An action must return a table"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  GETUPVAL R2 1
+  SETTABLEKS R2 R1 K0 ["type"]
+  RETURN R1 1
+
+PROTO_1:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["string"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["A name must be provided to create an Action"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K1 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K6 ["function"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K7 [+4]
+  LOADK R4 K7 ["A function must be provided to create an Action"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  DUPTABLE R3 K9 [{"name"}]
+  SETTABLEKS R0 R3 K8 ["name"]
+  DUPTABLE R4 K11 [{"__call"}]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K10 ["__call"]
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K13 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_1]
+  RETURN R0 1

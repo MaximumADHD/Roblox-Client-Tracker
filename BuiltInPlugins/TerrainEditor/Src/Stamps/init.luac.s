@@ -1,0 +1,33 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 0 7
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["ArcticStamp"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K5 ["CraterStamp"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K6 ["DesertStamp"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K7 ["LakeStamp"]
+  CALL R4 1 1
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K8 ["MesaStamp"]
+  CALL R5 1 1
+  GETIMPORT R6 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K9 ["MountainStamp"]
+  CALL R6 1 1
+  GETIMPORT R7 K1 [require]
+  GETIMPORT R9 K3 [script]
+  GETTABLEKS R8 R9 K10 ["PlainStamp"]
+  CALL R7 1 -1
+  SETLIST R0 R1 -1 [1]
+  RETURN R0 1

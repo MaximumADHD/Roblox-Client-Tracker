@@ -1,0 +1,189 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"isPlaying"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["isPlaying"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"isPlaying"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["isPlaying"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["onEnded"]
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"isPlaying"}]
+  GETTABLEKS R3 R0 K0 ["isPlaying"]
+  NOT R2 R3
+  SETTABLEKS R2 R1 K0 ["isPlaying"]
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  DUPCLOSURE R2 K0 [PROTO_2]
+  NAMECALL R0 R0 K1 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createFragment"]
+  DUPTABLE R2 K3 [{"Controls", "Player"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  LOADK R4 K5 ["TextButton"]
+  NEWTABLE R5 4 0
+  GETTABLEKS R8 R0 K6 ["state"]
+  GETTABLEKS R7 R8 K7 ["isPlaying"]
+  JUMPIFNOT R7 [+2]
+  LOADK R6 K8 ["Pause"]
+  JUMP [+1]
+  LOADK R6 K9 ["Play"]
+  SETTABLEKS R6 R5 K10 ["Text"]
+  GETIMPORT R6 K13 [UDim2.new]
+  LOADN R7 0
+  LOADN R8 40
+  LOADN R9 0
+  LOADN R10 40
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K14 ["Size"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K15 ["Event"]
+  GETTABLEKS R6 R7 K16 ["Activated"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R0
+  SETTABLE R7 R5 R6
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K1 ["Controls"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  LOADK R4 K17 ["Frame"]
+  DUPTABLE R5 K19 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R6 K13 [UDim2.new]
+  LOADN R7 1
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 20
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K14 ["Size"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K18 ["BackgroundTransparency"]
+  DUPTABLE R6 K22 [{"Layout", "UIPadding", "Player"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  LOADK R8 K23 ["UIListLayout"]
+  DUPTABLE R9 K25 [{"VerticalAlignment"}]
+  GETIMPORT R10 K28 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R10 R9 K24 ["VerticalAlignment"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K20 ["Layout"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  LOADK R8 K21 ["UIPadding"]
+  DUPTABLE R9 K31 [{"PaddingRight", "PaddingLeft"}]
+  GETIMPORT R10 K33 [UDim.new]
+  LOADN R11 0
+  LOADN R12 10
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K29 ["PaddingRight"]
+  GETIMPORT R10 K33 [UDim.new]
+  LOADN R11 0
+  LOADN R12 10
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K30 ["PaddingLeft"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K21 ["UIPadding"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  GETUPVAL R8 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K34 ["join"]
+  GETTABLEKS R10 R0 K35 ["props"]
+  DUPTABLE R11 K38 [{"IsPlaying", "OnEnded"}]
+  GETTABLEKS R13 R0 K6 ["state"]
+  GETTABLEKS R12 R13 K7 ["isPlaying"]
+  SETTABLEKS R12 R11 K36 ["IsPlaying"]
+  GETTABLEKS R12 R0 K39 ["onEnded"]
+  SETTABLEKS R12 R11 K37 ["OnEnded"]
+  CALL R9 2 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K2 ["Player"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K2 ["Player"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioPlayer"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K4 [{"SoundId"}]
+  LOADK R7 K5 [142376088]
+  SETTABLEKS R7 R6 K3 ["SoundId"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["AudioPlayer"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Dash"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K10 ["Parent"]
+  GETTABLEKS R6 R7 K11 ["AudioPlayer"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K12 ["Stories"]
+  GETTABLEKS R7 R8 K13 ["ToolboxStoryWrapper"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K14 ["PureComponent"]
+  LOADK R9 K15 ["AudioPlayerWrapper"]
+  NAMECALL R7 R7 K16 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K17 [PROTO_1]
+  SETTABLEKS R8 R7 K18 ["init"]
+  DUPCLOSURE R8 K19 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  SETTABLEKS R8 R7 K20 ["render"]
+  DUPTABLE R8 K23 [{"summary", "stories"}]
+  LOADK R9 K24 ["Audio Player"]
+  SETTABLEKS R9 R8 K21 ["summary"]
+  NEWTABLE R9 0 1
+  DUPTABLE R10 K27 [{"name", "story"}]
+  LOADK R11 K28 ["Playing"]
+  SETTABLEKS R11 R10 K25 ["name"]
+  DUPCLOSURE R11 K29 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K26 ["story"]
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K22 ["stories"]
+  RETURN R8 1

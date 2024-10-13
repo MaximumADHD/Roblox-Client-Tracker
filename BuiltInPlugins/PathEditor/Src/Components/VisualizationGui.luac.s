@@ -1,0 +1,256 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["SelectedObject"]
+  JUMPIF R2 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R2 0
+  GETTABLEKS R4 R1 K1 ["SelectedObject"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  CALL R2 1 1
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R1 K3 ["ControlPoints"]
+  GETTABLEKS R5 R1 K4 ["Path2DToolMode"]
+  JUMPIFNOTEQKS R5 K5 ["AddPoint"] [+40]
+  MOVE R5 R4
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K12 [{"index", "point", "showTangentsPhantom", "isSelected", "Disabled"}]
+  SETTABLEKS R8 R12 K7 ["index"]
+  SETTABLEKS R9 R12 K8 ["point"]
+  GETTABLEKS R13 R1 K13 ["IsDraggingPoint"]
+  JUMPIFNOT R13 [+6]
+  GETTABLEKS R14 R1 K14 ["SelectedControlPointIndex"]
+  JUMPIFEQ R14 R8 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R12 K9 ["showTangentsPhantom"]
+  GETTABLEKS R14 R1 K14 ["SelectedControlPointIndex"]
+  JUMPIFEQ R14 R8 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R12 K10 ["isSelected"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K11 ["Disabled"]
+  CALL R10 2 1
+  SETTABLE R10 R3 R8
+  FORGLOOP R5 2 [-34]
+  GETTABLEKS R7 R1 K1 ["SelectedObject"]
+  GETTABLEKS R6 R7 K15 ["Visible"]
+  JUMPIFEQKB R6 FALSE [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETTABLEKS R7 R1 K4 ["Path2DToolMode"]
+  JUMPIFNOTEQKS R7 K16 ["DoneEditing"] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETIMPORT R9 K18 [game]
+  LOADK R11 K19 ["PathEditorSurfaceGui"]
+  NAMECALL R9 R9 K20 ["GetFastFlag"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+2]
+  GETUPVAL R8 3
+  JUMP [+1]
+  LOADK R8 K21 ["ScreenGui"]
+  DUPTABLE R9 K23 [{"DisplayOrder"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K22 ["DisplayOrder"]
+  DUPTABLE R10 K27 [{"EmptySpaceInputBlocker", "LineFrame", "PointFrame"}]
+  MOVE R11 R6
+  JUMPIFNOT R11 [+16]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K6 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K30 [{"Size", "OnClick"}]
+  GETIMPORT R14 K33 [UDim2.fromScale]
+  LOADN R15 1
+  LOADN R16 1
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K28 ["Size"]
+  DUPCLOSURE R14 K34 [PROTO_0]
+  SETTABLEKS R14 R13 K29 ["OnClick"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K24 ["EmptySpaceInputBlocker"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K6 ["createElement"]
+  LOADK R12 K35 ["Frame"]
+  DUPTABLE R13 K38 [{"Size", "BackgroundTransparency", "Position"}]
+  GETIMPORT R14 K33 [UDim2.fromScale]
+  LOADN R15 1
+  LOADN R16 1
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K28 ["Size"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K36 ["BackgroundTransparency"]
+  GETIMPORT R14 K40 [UDim2.fromOffset]
+  GETTABLEKS R15 R2 K41 ["X"]
+  GETTABLEKS R16 R2 K42 ["Y"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K37 ["Position"]
+  DUPTABLE R14 K44 [{"Line"}]
+  MOVE R15 R5
+  JUMPIFNOT R15 [+13]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K6 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K46 [{"Style", "ControlPoints"}]
+  LOADK R18 K47 ["Visualization"]
+  SETTABLEKS R18 R17 K45 ["Style"]
+  GETTABLEKS R18 R1 K3 ["ControlPoints"]
+  SETTABLEKS R18 R17 K3 ["ControlPoints"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K43 ["Line"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K25 ["LineFrame"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K6 ["createElement"]
+  LOADK R12 K35 ["Frame"]
+  DUPTABLE R13 K48 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R14 K33 [UDim2.fromScale]
+  LOADN R15 1
+  LOADN R16 1
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K28 ["Size"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K36 ["BackgroundTransparency"]
+  MOVE R14 R3
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K26 ["PointFrame"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+PROTO_2:
+  DUPTABLE R2 K6 [{"Refreshed", "SelectedObject", "Path2DToolMode", "ControlPoints", "SelectedControlPointIndex", "IsDraggingPoint"}]
+  GETTABLEKS R4 R0 K7 ["PathReducer"]
+  GETTABLEKS R3 R4 K0 ["Refreshed"]
+  SETTABLEKS R3 R2 K0 ["Refreshed"]
+  GETTABLEKS R4 R0 K7 ["PathReducer"]
+  GETTABLEKS R3 R4 K1 ["SelectedObject"]
+  SETTABLEKS R3 R2 K1 ["SelectedObject"]
+  GETTABLEKS R4 R0 K7 ["PathReducer"]
+  GETTABLEKS R3 R4 K2 ["Path2DToolMode"]
+  SETTABLEKS R3 R2 K2 ["Path2DToolMode"]
+  GETTABLEKS R4 R0 K7 ["PathReducer"]
+  GETTABLEKS R3 R4 K3 ["ControlPoints"]
+  SETTABLEKS R3 R2 K3 ["ControlPoints"]
+  GETTABLEKS R4 R0 K7 ["PathReducer"]
+  GETTABLEKS R3 R4 K4 ["SelectedControlPointIndex"]
+  SETTABLEKS R3 R2 K4 ["SelectedControlPointIndex"]
+  GETTABLEKS R4 R0 K7 ["PathReducer"]
+  GETTABLEKS R3 R4 K5 ["IsDraggingPoint"]
+  SETTABLEKS R3 R2 K5 ["IsDraggingPoint"]
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R1 K2 [{"dispatchPathChanged", "dispatchToggleMoveTool"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchPathChanged"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["dispatchToggleMoveTool"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K11 ["UI"]
+  GETTABLEKS R6 R5 K12 ["Pane"]
+  GETTABLEKS R7 R4 K13 ["ContextServices"]
+  GETTABLEKS R8 R7 K14 ["withContext"]
+  GETTABLEKS R10 R0 K5 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Actions"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R9 K16 ["PathChanged"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R12 R9 K17 ["ToggleMoveTool"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K5 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Util"]
+  GETTABLEKS R13 R14 K19 ["getAbsolutePosition"]
+  CALL R12 1 1
+  GETTABLEKS R14 R0 K5 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Components"]
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R15 R13 K21 ["ControlPoint"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R16 R13 K22 ["GuiShim"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R17 R13 K23 ["Line"]
+  CALL R16 1 1
+  GETTABLEKS R17 R2 K24 ["PureComponent"]
+  LOADK R19 K25 ["VisualizationGui"]
+  NAMECALL R17 R17 K26 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K27 [PROTO_1]
+  CAPTURE VAL R12
+  CAPTURE VAL R2
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R6
+  CAPTURE VAL R16
+  SETTABLEKS R18 R17 K28 ["render"]
+  MOVE R18 R8
+  NEWTABLE R19 0 0
+  CALL R18 1 1
+  MOVE R19 R17
+  CALL R18 1 1
+  MOVE R17 R18
+  GETTABLEKS R18 R3 K29 ["connect"]
+  DUPCLOSURE R19 K30 [PROTO_2]
+  DUPCLOSURE R20 K31 [PROTO_5]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CALL R18 2 1
+  MOVE R19 R17
+  CALL R18 1 -1
+  RETURN R18 -1

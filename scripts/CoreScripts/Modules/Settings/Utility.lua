@@ -55,7 +55,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 --------------- FLAGS ----------------
 
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
-local FFlagSettingsMenuUseHardwareSafeArea = game:DefineFastFlag("SettingsMenuUseHardwareSafeArea", false)
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
 local FFlagUnbindRenderSteps = game:DefineFastFlag("UnbindRenderSteps", false)
 
@@ -225,25 +224,7 @@ local function getViewportSize()
 		return Vector2.new(1024, 1024)
 	end
 
-	if FFlagSettingsMenuUseHardwareSafeArea and game:GetEngineFeature("GuiServiceHardwareSafeViewport") then
-		return GuiService:GetHardwareSafeViewport()
-	else
-		while not workspace.CurrentCamera do
-			workspace.Changed:Wait()
-		end
-		assert(workspace.CurrentCamera, "")
-
-		-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
-		-- Also check against 0, 0 incase this is changed in the future.
-		while
-			(workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(0, 0)
-			or (workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(1, 1)
-		do
-			(workspace.CurrentCamera :: Camera).Changed:Wait()
-		end
-
-		return (workspace.CurrentCamera :: Camera).ViewportSize
-	end
+	return GuiService:GetHardwareSafeViewport()
 end
 
 local function isSmallTouchScreen()

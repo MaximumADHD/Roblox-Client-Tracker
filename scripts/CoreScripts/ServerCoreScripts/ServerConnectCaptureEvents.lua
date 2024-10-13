@@ -12,7 +12,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local BatchUpdatePostScores = Instance.new("BindableFunction")
 
 ----------- METHODS --------------
-local function onBatchUpdatePostScores(postScores)
+local function onBatchUpdatePostScores(postScores, userId)
 	-- Guard required parameters
 	if not postScores then
 		error("postScores cannot be nil")
@@ -27,6 +27,15 @@ local function onBatchUpdatePostScores(postScores)
 			experienceRankingScores = postScores
 		}
 	)
+
+	if userId ~= nil then
+		request = HttpService:JSONEncode(
+			{
+				experienceRankingScores = postScores,
+				userId = userId
+			}
+		)
+	end
 
 	-- Make the HTTP request
 	local success, result = pcall(HttpRbxApiService.PostAsyncFullUrl, HttpRbxApiService, url, request)

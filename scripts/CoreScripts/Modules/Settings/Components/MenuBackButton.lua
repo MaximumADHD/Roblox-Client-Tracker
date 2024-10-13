@@ -17,9 +17,6 @@ local MenuBackButton = Roact.PureComponent:extend("MenuBackButton")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
-local GetFStringTeleportBackButtonSettingsHubIXPCustomFieldName =
-	require(RobloxGui.Modules.Flags.GetFStringTeleportBackButtonSettingsHubIXPCustomFieldName)
-
 local yPadding = 6
 
 MenuBackButton.validateProps = t.strictInterface({
@@ -27,6 +24,10 @@ MenuBackButton.validateProps = t.strictInterface({
 	backEnabled = t.boolean,
 	BackBarRef = t.optional(t.table),
 })
+
+MenuBackButton.defaultProps = {
+	backEnabled = BackButtonController.hasReturnUniverse(),
+}
 
 function MenuBackButton:init()
 	self:setState({
@@ -89,7 +90,6 @@ function MenuBackButton:updateViewport()
 end
 
 function MenuBackButton:render()
-
 	local borderColor = "DefaultButtonStroke"
 	local backgroundColor = "DefaultButton"
 
@@ -229,11 +229,5 @@ function MenuBackButton:render()
 		}),
 	})
 end
-
-MenuBackButton = BackButtonController.connectExperimentUserLayer(
-	MenuBackButton,
-	"backEnabled",
-	GetFStringTeleportBackButtonSettingsHubIXPCustomFieldName()
-)
 
 return MenuBackButton

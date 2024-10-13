@@ -1,0 +1,194 @@
+PROTO_0:
+  GETIMPORT R3 K2 [Vector2.new]
+  LOADN R4 136
+  LOADN R5 136
+  CALL R3 2 1
+  GETIMPORT R4 K4 [game]
+  LOADK R6 K5 ["TextService"]
+  NAMECALL R4 R4 K6 ["GetService"]
+  CALL R4 2 1
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  NAMECALL R4 R4 K7 ["GetTextSize"]
+  CALL R4 5 -1
+  RETURN R4 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["ShowPublishToRoblox"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["Stylizer"]
+  GETTABLEKS R4 R1 K3 ["IsEnabled"]
+  JUMPIFNOT R4 [+2]
+  LOADNIL R4
+  RETURN R4 1
+  DUPCLOSURE R4 K4 [PROTO_0]
+  LOADK R7 K5 ["General"]
+  LOADK R8 K6 ["PublishingHintLink"]
+  NAMECALL R5 R2 K7 ["getText"]
+  CALL R5 3 1
+  GETIMPORT R7 K11 [Enum.Font.SourceSans]
+  GETIMPORT R8 K14 [Vector2.new]
+  LOADN R9 136
+  LOADN R10 136
+  CALL R8 2 1
+  GETIMPORT R9 K16 [game]
+  LOADK R11 K17 ["TextService"]
+  NAMECALL R9 R9 K18 ["GetService"]
+  CALL R9 2 1
+  MOVE R11 R5
+  LOADN R12 22
+  MOVE R13 R7
+  MOVE R14 R8
+  NAMECALL R9 R9 K19 ["GetTextSize"]
+  CALL R9 5 1
+  MOVE R6 R9
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K20 ["createElement"]
+  LOADK R8 K21 ["Frame"]
+  DUPTABLE R9 K25 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R10 K27 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  GETTABLEKS R14 R6 K28 ["Y"]
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K22 ["Size"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K23 ["BackgroundTransparency"]
+  GETTABLEKS R10 R1 K24 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K24 ["LayoutOrder"]
+  DUPTABLE R10 K31 [{"HyperLink", "TextLabel"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K20 ["createElement"]
+  GETUPVAL R12 1
+  DUPTABLE R13 K36 [{"Text", "Size", "Enabled", "Mouse", "OnClick"}]
+  SETTABLEKS R5 R13 K32 ["Text"]
+  GETIMPORT R14 K27 [UDim2.new]
+  LOADN R15 0
+  GETTABLEKS R16 R6 K37 ["X"]
+  LOADN R17 0
+  GETTABLEKS R18 R6 K28 ["Y"]
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K22 ["Size"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K33 ["Enabled"]
+  GETTABLEKS R14 R1 K34 ["Mouse"]
+  SETTABLEKS R14 R13 K34 ["Mouse"]
+  DUPCLOSURE R14 K38 [PROTO_1]
+  CAPTURE UPVAL U2
+  SETTABLEKS R14 R13 K35 ["OnClick"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K29 ["HyperLink"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K20 ["createElement"]
+  LOADK R12 K30 ["TextLabel"]
+  DUPTABLE R13 K43 [{"BackgroundTransparency", "Position", "Size", "TextColor3", "Font", "TextSize", "TextXAlignment", "Text"}]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K23 ["BackgroundTransparency"]
+  GETIMPORT R14 K27 [UDim2.new]
+  LOADN R15 0
+  GETTABLEKS R16 R6 K37 ["X"]
+  LOADN R17 0
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K39 ["Position"]
+  GETIMPORT R14 K27 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 1
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K22 ["Size"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K44 ["getRadioButtonTextColor"]
+  MOVE R16 R1
+  CALL R15 1 1
+  JUMPIFNOT R15 [+6]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K44 ["getRadioButtonTextColor"]
+  MOVE R15 R1
+  CALL R14 1 1
+  JUMP [+6]
+  GETTABLEKS R16 R3 K45 ["fontStyle"]
+  GETTABLEKS R15 R16 K46 ["Header"]
+  GETTABLEKS R14 R15 K40 ["TextColor3"]
+  SETTABLEKS R14 R13 K40 ["TextColor3"]
+  GETIMPORT R14 K11 [Enum.Font.SourceSans]
+  SETTABLEKS R14 R13 K9 ["Font"]
+  LOADN R14 22
+  SETTABLEKS R14 R13 K41 ["TextSize"]
+  GETIMPORT R14 K48 [Enum.TextXAlignment.Left]
+  SETTABLEKS R14 R13 K42 ["TextXAlignment"]
+  LOADK R16 K5 ["General"]
+  LOADK R17 K49 ["PublishingHintLinkExplanation"]
+  NAMECALL R14 R2 K7 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K32 ["Text"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K30 ["TextLabel"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R6 K5 [script]
+  GETTABLEKS R5 R6 K6 ["Parent"]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R2 K9 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R2 K9 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K12 ["ContextServices"]
+  GETTABLEKS R5 R4 K13 ["withContext"]
+  GETTABLEKS R7 R2 K9 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["RoactStudioWidgets"]
+  GETIMPORT R7 K8 [require]
+  GETTABLEKS R9 R1 K15 ["Util"]
+  GETTABLEKS R8 R9 K16 ["StateInterfaceTheme"]
+  CALL R7 1 1
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R9 R6 K17 ["Hyperlink"]
+  CALL R8 1 1
+  GETTABLEKS R9 R3 K18 ["PureComponent"]
+  LOADK R11 K19 ["PublishingHint"]
+  NAMECALL R9 R9 K20 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K21 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  SETTABLEKS R10 R9 K22 ["render"]
+  MOVE R10 R5
+  DUPTABLE R11 K25 [{"Localization", "Stylizer"}]
+  GETTABLEKS R12 R4 K23 ["Localization"]
+  SETTABLEKS R12 R11 K23 ["Localization"]
+  GETTABLEKS R12 R4 K24 ["Stylizer"]
+  SETTABLEKS R12 R11 K24 ["Stylizer"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

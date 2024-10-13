@@ -1,0 +1,166 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["arguments"]
+  GETTABLEKS R2 R1 K1 ["altDataId"]
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["altDataMap"]
+  GETTABLE R3 R4 R2
+  JUMPIF R3 [+1]
+  LOADNIL R3
+  JUMPIF R3 [+6]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["StartRecordingActions"]
+  GETTABLEKS R5 R0 K4 ["requestId"]
+  CALL R4 1 0
+  MOVE R4 R3
+  JUMPIF R4 [+11]
+  DUPTABLE R4 K8 [{"request", "assetId", "altAssets"}]
+  SETTABLEKS R0 R4 K5 ["request"]
+  GETTABLEKS R5 R1 K6 ["assetId"]
+  SETTABLEKS R5 R4 K6 ["assetId"]
+  GETTABLEKS R5 R1 K7 ["altAssets"]
+  SETTABLEKS R5 R4 K7 ["altAssets"]
+  MOVE R3 R4
+  FASTCALL2K ASSERT R3 K9 [+5]
+  MOVE R5 R3
+  LOADK R6 K9 ["Failed to set default altData in insertAsset"]
+  GETIMPORT R4 K11 [assert]
+  CALL R4 2 0
+  GETTABLEKS R4 R3 K6 ["assetId"]
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+33]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K12 ["getChatBulletId"]
+  GETTABLEKS R6 R0 K4 ["requestId"]
+  GETTABLEKS R7 R1 K13 ["chatGroup"]
+  JUMPIF R7 [+2]
+  GETTABLEKS R7 R1 K14 ["newInstanceId"]
+  CALL R5 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K15 ["chatBulletMap"]
+  GETTABLE R6 R7 R5
+  JUMPIFNOT R6 [+17]
+  GETIMPORT R7 K17 [ipairs]
+  MOVE R8 R6
+  CALL R7 1 3
+  FORGPREP_INEXT R7
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K2 ["altDataMap"]
+  GETTABLE R12 R13 R11
+  JUMPIFNOT R12 [+5]
+  GETTABLEKS R13 R12 K6 ["assetId"]
+  JUMPIFNOT R13 [+2]
+  MOVE R4 R13
+  JUMP [+2]
+  FORGLOOP R7 2 [inext] [-11]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K18 ["loadAssetAsync"]
+  MOVE R6 R4
+  CALL R5 1 1
+  JUMPIF R5 [+10]
+  GETUPVAL R6 3
+  CALL R6 0 1
+  JUMPIFNOT R6 [+5]
+  GETIMPORT R6 K20 [error]
+  LOADK R7 K21 ["Failed to load asset"]
+  CALL R6 1 0
+  JUMP [+2]
+  LOADNIL R6
+  RETURN R6 1
+  FASTCALL2K ASSERT R5 K22 [+5]
+  MOVE R7 R5
+  LOADK R8 K22 ["Luau"]
+  GETIMPORT R6 K11 [assert]
+  CALL R6 2 0
+  GETTABLEKS R6 R1 K14 ["newInstanceId"]
+  JUMPIFNOT R6 [+7]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K23 ["set"]
+  GETTABLEKS R7 R1 K14 ["newInstanceId"]
+  MOVE R8 R5
+  CALL R6 2 0
+  SETTABLEKS R5 R1 K24 ["direct_instance"]
+  GETUPVAL R6 4
+  GETTABLEKS R8 R0 K4 ["requestId"]
+  LOADK R9 K25 ["SetProperty"]
+  GETTABLEKS R10 R0 K0 ["arguments"]
+  NAMECALL R6 R6 K26 ["ExecuteCommandAsync"]
+  CALL R6 4 0
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K27 ["getRequestParent"]
+  MOVE R7 R5
+  GETTABLEKS R8 R0 K4 ["requestId"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K28 ["Parent"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K29 ["EndRecordingActions"]
+  GETTABLEKS R7 R0 K4 ["requestId"]
+  CALL R6 1 0
+  GETUPVAL R6 5
+  GETTABLEKS R8 R0 K4 ["requestId"]
+  MOVE R9 R4
+  NAMECALL R6 R6 K30 ["AssetInserted"]
+  CALL R6 3 0
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K31 ["modifyChatWithInstanceLink"]
+  GETTABLEKS R7 R0 K4 ["requestId"]
+  MOVE R8 R5
+  LOADK R9 K32 ["added"]
+  GETTABLEKS R10 R1 K13 ["chatGroup"]
+  JUMPIF R10 [+2]
+  GETTABLEKS R10 R1 K14 ["newInstanceId"]
+  MOVE R11 R3
+  CALL R6 5 0
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utils"]
+  GETTABLEKS R2 R3 K8 ["CliAdapter"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["StreamingService"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["GetService"]
+  LOADK R4 K11 ["ConversationalAIAcceptanceService"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["Utils"]
+  GETTABLEKS R5 R6 K7 ["Utils"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K13 ["Commands"]
+  GETTABLEKS R8 R9 K14 ["BuilderCommands"]
+  GETTABLEKS R7 R8 K15 ["BuilderNameMap"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Flags"]
+  GETTABLEKS R8 R9 K17 ["getFFlagConvAIFixOnlyInsertFirstVariation"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Flags"]
+  GETTABLEKS R9 R10 K18 ["getFFlagConvAIAddClientAlerts"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K19 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R9 1

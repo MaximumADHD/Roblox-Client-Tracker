@@ -1,0 +1,102 @@
+PROTO_0:
+  GETUPVAL R2 0
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"CachedSearchResults"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["Dictionary"]
+  GETTABLEKS R5 R6 K1 ["join"]
+  GETTABLEKS R6 R0 K2 ["CachedSearchResults"]
+  NEWTABLE R7 1 0
+  GETTABLEKS R8 R1 K4 ["key"]
+  GETTABLEKS R10 R1 K5 ["success"]
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R9 R1 K6 ["results"]
+  JUMPIF R9 [+1]
+  LOADNIL R9
+  SETTABLE R9 R7 R8
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K2 ["CachedSearchResults"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"CachedSearchResults"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["Dictionary"]
+  GETTABLEKS R5 R6 K1 ["join"]
+  GETTABLEKS R6 R0 K2 ["CachedSearchResults"]
+  NEWTABLE R7 1 0
+  GETTABLEKS R8 R1 K4 ["searchTerm"]
+  GETUPVAL R9 1
+  SETTABLE R9 R7 R8
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K2 ["CachedSearchResults"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"SearchText"}]
+  GETTABLEKS R5 R1 K4 ["text"]
+  SETTABLEKS R5 R4 K2 ["SearchText"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R1 K5 ["Packages"]
+  GETTABLEKS R3 R4 K6 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R1 K5 ["Packages"]
+  GETTABLEKS R4 R5 K7 ["Rodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Keys"]
+  GETTABLEKS R5 R6 K9 ["loadingInProgress"]
+  CALL R4 1 1
+  DUPTABLE R5 K12 [{"CachedSearchResults", "SearchText"}]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K10 ["CachedSearchResults"]
+  LOADK R6 K13 [""]
+  SETTABLEKS R6 R5 K11 ["SearchText"]
+  GETTABLEKS R6 R3 K14 ["createReducer"]
+  MOVE R7 R5
+  DUPTABLE R8 K19 [{"ResetStore", "LoadedWebResults", "LoadingWebResults", "SearchTextChanged"}]
+  DUPCLOSURE R9 K20 [PROTO_0]
+  CAPTURE VAL R5
+  SETTABLEKS R9 R8 K15 ["ResetStore"]
+  DUPCLOSURE R9 K21 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R9 R8 K16 ["LoadedWebResults"]
+  DUPCLOSURE R9 K22 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  SETTABLEKS R9 R8 K17 ["LoadingWebResults"]
+  DUPCLOSURE R9 K23 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R9 R8 K18 ["SearchTextChanged"]
+  CALL R6 2 -1
+  RETURN R6 -1

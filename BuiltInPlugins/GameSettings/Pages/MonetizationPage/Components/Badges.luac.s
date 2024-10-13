@@ -1,0 +1,391 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["GetBadgeUploadUrl"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+14]
+  FASTCALL1 STRING_LEN R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K3 [string.len]
+  CALL R1 1 1
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+7]
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K4 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETIMPORT R1 K6 [error]
+  LOADK R2 K7 ["Failed to open Badge Creation page"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOTEQ R0 R2 [+7]
+  GETUPVAL R2 1
+  MOVE R4 R1
+  NAMECALL R2 R2 K0 ["CopyToClipboard"]
+  CALL R2 2 0
+  RETURN R0 0
+  GETUPVAL R2 2
+  CALL R2 0 1
+  JUMPIFNOTEQ R0 R2 [+26]
+  GETUPVAL R2 1
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["GetBadgeConfigureUrl"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+14]
+  FASTCALL1 STRING_LEN R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K4 [string.len]
+  CALL R3 1 1
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+7]
+  GETUPVAL R3 3
+  MOVE R5 R2
+  NAMECALL R3 R3 K5 ["OpenBrowserWindow"]
+  CALL R3 2 0
+  RETURN R0 0
+  GETIMPORT R3 K7 [error]
+  LOADK R4 K8 ["Failed to open Badge Configuration page"]
+  CALL R3 1 0
+  RETURN R0 0
+  LOADB R3 0
+  FASTCALL1 ASSERT R3 [+2]
+  GETIMPORT R2 K10 [assert]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIF R1 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETTABLEKS R4 R1 K3 ["BadgeList"]
+  GETTABLEKS R5 R1 K4 ["OnLoadMoreBadges"]
+  GETTABLEKS R6 R1 K5 ["RefreshBadges"]
+  GETTABLEKS R7 R1 K6 ["LayoutOrder"]
+  LOADK R10 K7 ["General"]
+  LOADK R11 K8 ["ButtonCreate"]
+  NAMECALL R8 R3 K9 ["getText"]
+  CALL R8 3 1
+  GETUPVAL R9 1
+  MOVE R11 R8
+  GETTABLEKS R14 R2 K10 ["fontStyle"]
+  GETTABLEKS R13 R14 K11 ["Normal"]
+  GETTABLEKS R12 R13 K12 ["TextSize"]
+  GETTABLEKS R15 R2 K10 ["fontStyle"]
+  GETTABLEKS R14 R15 K11 ["Normal"]
+  GETTABLEKS R13 R14 K13 ["Font"]
+  GETIMPORT R14 K16 [Vector2.new]
+  LOADK R15 K17 [∞]
+  LOADK R16 K17 [∞]
+  CALL R14 2 -1
+  NAMECALL R9 R9 K18 ["GetTextSize"]
+  CALL R9 -1 1
+  NEWTABLE R10 0 3
+  LOADK R13 K19 ["Monetization"]
+  LOADK R14 K20 ["BadgeImage"]
+  NAMECALL R11 R3 K9 ["getText"]
+  CALL R11 3 1
+  LOADK R14 K19 ["Monetization"]
+  LOADK R15 K21 ["BadgeName"]
+  NAMECALL R12 R3 K9 ["getText"]
+  CALL R12 3 1
+  LOADK R15 K19 ["Monetization"]
+  LOADK R16 K22 ["BadgeDescription"]
+  NAMECALL R13 R3 K9 ["getText"]
+  CALL R13 3 -1
+  SETLIST R10 R11 -1 [1]
+  LOADK R13 K19 ["Monetization"]
+  LOADK R14 K23 ["NoBadges"]
+  NAMECALL R11 R3 K9 ["getText"]
+  CALL R11 3 1
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K24 ["createElement"]
+  GETUPVAL R13 3
+  DUPTABLE R14 K29 [{"axis", "minimumSize", "contentPadding", "BackgroundTransparency", "LayoutOrder"}]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K30 ["Axis"]
+  GETTABLEKS R15 R16 K31 ["Vertical"]
+  SETTABLEKS R15 R14 K25 ["axis"]
+  GETIMPORT R15 K33 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K26 ["minimumSize"]
+  GETIMPORT R15 K35 [UDim.new]
+  LOADN R16 0
+  GETTABLEKS R18 R2 K36 ["badges"]
+  GETTABLEKS R17 R18 K37 ["headerPadding"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K27 ["contentPadding"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K28 ["BackgroundTransparency"]
+  SETTABLEKS R7 R14 K6 ["LayoutOrder"]
+  DUPTABLE R15 K40 [{"BadgesTitle", "BadgesTable"}]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K24 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K42 [{"LayoutOrder", "Title"}]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K6 ["LayoutOrder"]
+  LOADK R21 K19 ["Monetization"]
+  LOADK R22 K43 ["Badges"]
+  NAMECALL R19 R3 K9 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K41 ["Title"]
+  DUPTABLE R19 K47 [{"Padding", "Layout", "CreateButton"}]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K24 ["createElement"]
+  LOADK R21 K48 ["UIPadding"]
+  DUPTABLE R22 K50 [{"PaddingRight"}]
+  GETIMPORT R23 K35 [UDim.new]
+  LOADN R24 0
+  GETTABLEKS R26 R2 K36 ["badges"]
+  GETTABLEKS R25 R26 K51 ["titlePadding"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K49 ["PaddingRight"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K44 ["Padding"]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K24 ["createElement"]
+  LOADK R21 K52 ["UIListLayout"]
+  DUPTABLE R22 K55 [{"HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R23 K58 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R23 R22 K53 ["HorizontalAlignment"]
+  GETIMPORT R23 K60 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R23 R22 K54 ["VerticalAlignment"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K45 ["Layout"]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K24 ["createElement"]
+  GETUPVAL R21 5
+  DUPTABLE R22 K65 [{"Style", "Text", "Size", "OnClick"}]
+  LOADK R23 K66 ["GameSettingsPrimaryButton"]
+  SETTABLEKS R23 R22 K61 ["Style"]
+  SETTABLEKS R8 R22 K62 ["Text"]
+  GETIMPORT R23 K33 [UDim2.new]
+  LOADN R24 0
+  GETTABLEKS R26 R9 K67 ["X"]
+  GETTABLEKS R28 R2 K68 ["createButton"]
+  GETTABLEKS R27 R28 K69 ["PaddingX"]
+  ADD R25 R26 R27
+  LOADN R26 0
+  GETTABLEKS R28 R9 K70 ["Y"]
+  GETTABLEKS R30 R2 K68 ["createButton"]
+  GETTABLEKS R29 R30 K71 ["PaddingY"]
+  ADD R27 R28 R29
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K63 ["Size"]
+  DUPCLOSURE R23 K72 [PROTO_0]
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  SETTABLEKS R23 R22 K64 ["OnClick"]
+  NEWTABLE R23 0 1
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K24 ["createElement"]
+  GETUPVAL R25 8
+  DUPTABLE R26 K74 [{"Cursor"}]
+  LOADK R27 K75 ["PointingHand"]
+  SETTABLEKS R27 R26 K73 ["Cursor"]
+  CALL R24 2 -1
+  SETLIST R23 R24 -1 [1]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K46 ["CreateButton"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K38 ["BadgesTitle"]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K24 ["createElement"]
+  GETUPVAL R17 9
+  DUPTABLE R18 K86 [{"Headers", "Data", "TableHeight", "LayoutOrder", "NextPageFunc", "ScrollingFrameNextPageRequestDistance", "EmptyText", "ShowTableBackground", "MenuItems", "OnItemClicked", "HeaderButton"}]
+  SETTABLEKS R10 R18 K76 ["Headers"]
+  SETTABLEKS R4 R18 K77 ["Data"]
+  GETTABLEKS R21 R2 K88 ["table"]
+  GETTABLEKS R20 R21 K89 ["height"]
+  DIVK R19 R20 K87 [2]
+  SETTABLEKS R19 R18 K78 ["TableHeight"]
+  LOADN R19 2
+  SETTABLEKS R19 R18 K6 ["LayoutOrder"]
+  SETTABLEKS R5 R18 K79 ["NextPageFunc"]
+  LOADN R19 200
+  SETTABLEKS R19 R18 K80 ["ScrollingFrameNextPageRequestDistance"]
+  SETTABLEKS R11 R18 K81 ["EmptyText"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K82 ["ShowTableBackground"]
+  NEWTABLE R19 0 2
+  DUPTABLE R20 K91 [{"Key", "Text"}]
+  GETUPVAL R21 10
+  CALL R21 0 1
+  SETTABLEKS R21 R20 K90 ["Key"]
+  LOADK R23 K7 ["General"]
+  GETUPVAL R24 10
+  CALL R24 0 -1
+  NAMECALL R21 R3 K9 ["getText"]
+  CALL R21 -1 1
+  SETTABLEKS R21 R20 K62 ["Text"]
+  DUPTABLE R21 K91 [{"Key", "Text"}]
+  GETUPVAL R22 11
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K90 ["Key"]
+  LOADK R24 K7 ["General"]
+  GETUPVAL R25 11
+  CALL R25 0 -1
+  NAMECALL R22 R3 K9 ["getText"]
+  CALL R22 -1 1
+  SETTABLEKS R22 R21 K62 ["Text"]
+  SETLIST R19 R20 2 [1]
+  SETTABLEKS R19 R18 K83 ["MenuItems"]
+  DUPCLOSURE R19 K92 [PROTO_1]
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U7
+  SETTABLEKS R19 R18 K84 ["OnItemClicked"]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K24 ["createElement"]
+  LOADK R20 K93 ["ImageButton"]
+  NEWTABLE R21 8 0
+  LOADN R22 1
+  SETTABLEKS R22 R21 K28 ["BackgroundTransparency"]
+  GETTABLEKS R24 R2 K36 ["badges"]
+  GETTABLEKS R23 R24 K94 ["refreshButton"]
+  GETTABLEKS R22 R23 K95 ["icon"]
+  SETTABLEKS R22 R21 K96 ["Image"]
+  GETIMPORT R22 K33 [UDim2.new]
+  LOADN R23 0
+  GETTABLEKS R26 R2 K36 ["badges"]
+  GETTABLEKS R25 R26 K94 ["refreshButton"]
+  GETTABLEKS R24 R25 K97 ["size"]
+  LOADN R25 0
+  GETTABLEKS R28 R2 K36 ["badges"]
+  GETTABLEKS R27 R28 K94 ["refreshButton"]
+  GETTABLEKS R26 R27 K97 ["size"]
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K63 ["Size"]
+  GETIMPORT R22 K33 [UDim2.new]
+  LOADK R23 K98 [0.5]
+  GETTABLEKS R27 R2 K36 ["badges"]
+  GETTABLEKS R26 R27 K94 ["refreshButton"]
+  GETTABLEKS R25 R26 K99 ["offset"]
+  GETTABLEKS R24 R25 K100 ["x"]
+  LOADK R25 K98 [0.5]
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K101 ["Position"]
+  GETIMPORT R22 K16 [Vector2.new]
+  LOADK R23 K98 [0.5]
+  LOADK R24 K98 [0.5]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K102 ["AnchorPoint"]
+  GETUPVAL R24 2
+  GETTABLEKS R23 R24 K103 ["Event"]
+  GETTABLEKS R22 R23 K104 ["Activated"]
+  SETTABLE R6 R21 R22
+  NEWTABLE R22 0 1
+  GETUPVAL R24 2
+  GETTABLEKS R23 R24 K24 ["createElement"]
+  GETUPVAL R24 8
+  DUPTABLE R25 K74 [{"Cursor"}]
+  LOADK R26 K75 ["PointingHand"]
+  SETTABLEKS R26 R25 K73 ["Cursor"]
+  CALL R23 2 -1
+  SETLIST R22 R23 -1 [1]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K85 ["HeaderButton"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K39 ["BadgesTable"]
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K7 ["PureComponent"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K8 ["Name"]
+  NAMECALL R2 R2 K9 ["extend"]
+  CALL R2 2 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K11 ["ContextServices"]
+  GETTABLEKS R5 R4 K12 ["withContext"]
+  GETTABLEKS R6 R3 K13 ["UI"]
+  GETTABLEKS R7 R6 K14 ["Button"]
+  GETTABLEKS R8 R6 K15 ["HoverArea"]
+  GETTABLEKS R9 R6 K16 ["TitledFrame"]
+  GETIMPORT R10 K18 [game]
+  LOADK R12 K19 ["TextService"]
+  NAMECALL R10 R10 K20 ["GetService"]
+  CALL R10 2 1
+  GETIMPORT R11 K18 [game]
+  LOADK R13 K21 ["StudioService"]
+  NAMECALL R11 R11 K20 ["GetService"]
+  CALL R11 2 1
+  GETIMPORT R12 K18 [game]
+  LOADK R14 K22 ["GuiService"]
+  NAMECALL R12 R12 K20 ["GetService"]
+  CALL R12 2 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R16 R0 K23 ["Src"]
+  GETTABLEKS R15 R16 K24 ["Components"]
+  GETTABLEKS R14 R15 K25 ["TableWithMenu"]
+  CALL R13 1 1
+  GETTABLEKS R16 R3 K26 ["Util"]
+  GETTABLEKS R15 R16 K27 ["FitFrame"]
+  GETTABLEKS R14 R15 K28 ["FitFrameOnAxis"]
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K23 ["Src"]
+  GETTABLEKS R17 R18 K26 ["Util"]
+  GETTABLEKS R16 R17 K29 ["KeyProvider"]
+  CALL R15 1 1
+  GETTABLEKS R16 R15 K30 ["getCopyIdKeyName"]
+  GETTABLEKS R17 R15 K31 ["getConfigureKeyName"]
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R22 R0 K23 ["Src"]
+  GETTABLEKS R21 R22 K26 ["Util"]
+  GETTABLEKS R20 R21 K32 ["GameSettingsUtilities"]
+  CALL R19 1 1
+  GETTABLEKS R18 R19 K33 ["shouldAllowBadges"]
+  DUPCLOSURE R19 K34 [PROTO_2]
+  CAPTURE VAL R18
+  CAPTURE VAL R10
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  SETTABLEKS R19 R2 K35 ["render"]
+  MOVE R19 R5
+  DUPTABLE R20 K38 [{"Localization", "Stylizer"}]
+  GETTABLEKS R21 R4 K36 ["Localization"]
+  SETTABLEKS R21 R20 K36 ["Localization"]
+  GETTABLEKS R21 R4 K37 ["Stylizer"]
+  SETTABLEKS R21 R20 K37 ["Stylizer"]
+  CALL R19 1 1
+  MOVE R20 R2
+  CALL R19 1 1
+  MOVE R2 R19
+  RETURN R2 1

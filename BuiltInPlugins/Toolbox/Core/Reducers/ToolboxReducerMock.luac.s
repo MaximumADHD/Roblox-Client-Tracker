@@ -1,0 +1,90 @@
+PROTO_0:
+  DUPTABLE R2 K6 [{"assets", "networkErrors", "pageInfo", "voting", "purchase", "packages"}]
+  GETUPVAL R3 0
+  MOVE R4 R0
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R4 R0 K0 ["assets"]
+  MOVE R5 R1
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K0 ["assets"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R4 R0 K1 ["networkErrors"]
+  MOVE R5 R1
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K1 ["networkErrors"]
+  GETUPVAL R3 2
+  MOVE R4 R0
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R4 R0 K2 ["pageInfo"]
+  MOVE R5 R1
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K2 ["pageInfo"]
+  GETUPVAL R3 3
+  MOVE R4 R0
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R4 R0 K3 ["voting"]
+  MOVE R5 R1
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K3 ["voting"]
+  GETUPVAL R3 4
+  MOVE R4 R0
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R4 R0 K4 ["purchase"]
+  MOVE R5 R1
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K4 ["purchase"]
+  GETUPVAL R3 5
+  MOVE R4 R0
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R4 R0 K5 ["packages"]
+  MOVE R5 R1
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K5 ["packages"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Core"]
+  GETTABLEKS R3 R4 K6 ["Reducers"]
+  GETTABLEKS R2 R3 K7 ["AssetsMock"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Core"]
+  GETTABLEKS R4 R5 K6 ["Reducers"]
+  GETTABLEKS R3 R4 K8 ["NetworkErrorsMock"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Core"]
+  GETTABLEKS R5 R6 K6 ["Reducers"]
+  GETTABLEKS R4 R5 K9 ["PageInfoMock"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K5 ["Core"]
+  GETTABLEKS R6 R7 K6 ["Reducers"]
+  GETTABLEKS R5 R6 K10 ["VotingReducerMock"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Core"]
+  GETTABLEKS R7 R8 K6 ["Reducers"]
+  GETTABLEKS R6 R7 K11 ["PurchaseMock"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K5 ["Core"]
+  GETTABLEKS R8 R9 K6 ["Reducers"]
+  GETTABLEKS R7 R8 K12 ["PackagesMock"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K13 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  RETURN R7 1

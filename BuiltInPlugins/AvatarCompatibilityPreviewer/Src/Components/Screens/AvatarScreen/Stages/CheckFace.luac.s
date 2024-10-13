@@ -1,0 +1,179 @@
+PROTO_0:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R3 2
+  CALL R2 1 1
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETTABLEKS R4 R0 K2 ["Dummy"]
+  JUMPIFNOTEQKNIL R4 [+3]
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R6 R0 K2 ["Dummy"]
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K3 ["LUAU_ANALYZE_ERROR"]
+  FASTCALL2 ASSERT R5 R6 [+3]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  GETTABLEKS R5 R0 K2 ["Dummy"]
+  GETTABLEKS R4 R5 K6 ["Head"]
+  LOADK R6 K7 ["FaceControls"]
+  NAMECALL R4 R4 K8 ["FindFirstChildWhichIsA"]
+  CALL R4 2 1
+  JUMPIFNOTEQKNIL R4 [+22]
+  GETTABLEKS R6 R0 K9 ["SelectedTab"]
+  JUMPIFNOTEQKS R6 K10 ["animations_face"] [+18]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K11 ["createElement"]
+  GETUPVAL R6 5
+  DUPTABLE R7 K14 [{"key", "Text"}]
+  LOADK R8 K15 ["Notice"]
+  SETTABLEKS R8 R7 K12 ["key"]
+  LOADK R10 K16 ["CheckFace"]
+  LOADK R11 K17 ["DynamicHeadNotice"]
+  NAMECALL R8 R1 K18 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K13 ["Text"]
+  CALL R5 2 1
+  JUMP [+27]
+  GETTABLEKS R7 R2 K19 ["avatarAssets"]
+  GETTABLEKS R6 R7 K20 ["emotion"]
+  JUMPIFEQKNIL R6 [+21]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K11 ["createElement"]
+  GETUPVAL R6 6
+  DUPTABLE R7 K22 [{"key", "Dummy", "AnimationId"}]
+  LOADK R8 K23 ["AnimationController"]
+  SETTABLEKS R8 R7 K12 ["key"]
+  GETTABLEKS R8 R0 K2 ["Dummy"]
+  SETTABLEKS R8 R7 K2 ["Dummy"]
+  GETTABLEKS R9 R2 K19 ["avatarAssets"]
+  GETTABLEKS R8 R9 K20 ["emotion"]
+  SETTABLEKS R8 R7 K21 ["AnimationId"]
+  CALL R5 2 1
+  JUMP [+1]
+  LOADNIL R5
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K24 ["Fragment"]
+  NEWTABLE R8 0 0
+  NEWTABLE R9 1 1
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K11 ["createElement"]
+  GETUPVAL R12 7
+  DUPTABLE R13 K26 [{"OnClothingLayerOrderChanged"}]
+  SETTABLEKS R3 R13 K25 ["OnClothingLayerOrderChanged"]
+  CALL R11 2 1
+  SETTABLEKS R11 R9 K27 ["EquippedItemsSidebar"]
+  MOVE R10 R5
+  SETLIST R9 R10 1 [1]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Head"]
+  DUPTABLE R2 K4 [{"focus", "cframe", "fov"}]
+  GETIMPORT R3 K7 [CFrame.new]
+  GETTABLEKS R4 R1 K8 ["Position"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K1 ["focus"]
+  GETIMPORT R3 K10 [CFrame.lookAt]
+  GETTABLEKS R6 R1 K8 ["Position"]
+  GETTABLEKS R10 R1 K12 ["Size"]
+  GETTABLEKS R9 R10 K13 ["Magnitude"]
+  GETTABLEKS R11 R1 K5 ["CFrame"]
+  GETTABLEKS R10 R11 K14 ["LookVector"]
+  MUL R8 R9 R10
+  MULK R7 R8 K11 [2]
+  ADD R5 R6 R7
+  GETTABLEKS R9 R1 K12 ["Size"]
+  GETTABLEKS R8 R9 K13 ["Magnitude"]
+  GETTABLEKS R10 R1 K5 ["CFrame"]
+  GETTABLEKS R9 R10 K16 ["RightVector"]
+  MUL R7 R8 R9
+  MULK R6 R7 K15 [1]
+  SUB R4 R5 R6
+  GETTABLEKS R5 R1 K8 ["Position"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K2 ["cframe"]
+  LOADN R3 35
+  SETTABLEKS R3 R2 K3 ["fov"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Components"]
+  GETTABLEKS R4 R5 K11 ["AnimationController"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Components"]
+  GETTABLEKS R5 R6 K12 ["EquippedItemsSidebar"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Components"]
+  GETTABLEKS R6 R7 K13 ["Notice"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Hooks"]
+  GETTABLEKS R7 R8 K15 ["useOnClothingLayerOrderChanged"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Util"]
+  GETTABLEKS R8 R9 K17 ["Constants"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Util"]
+  GETTABLEKS R9 R10 K18 ["EquipmentStateContext"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K19 ["Parent"]
+  GETTABLEKS R10 R11 K20 ["StageType"]
+  CALL R9 1 1
+  GETTABLEKS R11 R1 K21 ["ContextServices"]
+  GETTABLEKS R10 R11 K22 ["Localization"]
+  DUPTABLE R11 K26 [{"tabs", "render", "getPreviewCameraModifications"}]
+  NEWTABLE R12 0 2
+  LOADK R13 K27 ["animations_face"]
+  LOADK R14 K28 ["accessories_face"]
+  SETLIST R12 R13 2 [1]
+  SETTABLEKS R12 R11 K23 ["tabs"]
+  DUPCLOSURE R12 K29 [PROTO_0]
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R12 R11 K24 ["render"]
+  DUPCLOSURE R12 K30 [PROTO_1]
+  SETTABLEKS R12 R11 K25 ["getPreviewCameraModifications"]
+  RETURN R11 1

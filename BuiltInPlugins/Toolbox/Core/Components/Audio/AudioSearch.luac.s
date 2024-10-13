@@ -1,0 +1,308 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["minDuration"]
+  JUMPIFEQ R0 R1 [+13]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K2 ["onDurationChange"]
+  MOVE R2 R0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["maxDuration"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["maxDuration"]
+  JUMPIFEQ R0 R1 [+13]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K2 ["onDurationChange"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["minDuration"]
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  LOADN R3 1
+  FASTCALL2 MATH_MAX R3 R1 [+4]
+  MOVE R4 R1
+  GETIMPORT R2 K2 [math.max]
+  CALL R2 2 1
+  MOVE R1 R2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["props"]
+  GETTABLEKS R2 R3 K4 ["onDurationChange"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K0 ["onMinDurationChange"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K1 ["onMaxDurationChange"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K2 ["onSliderChange"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["minDuration"]
+  GETTABLEKS R4 R1 K3 ["maxDuration"]
+  GETTABLEKS R6 R2 K4 ["searchOptions"]
+  GETTABLEKS R5 R6 K5 ["audioSearch"]
+  GETTABLEKS R6 R1 K6 ["Localization"]
+  LOADK R9 K7 ["General"]
+  LOADK R10 K8 ["SearchOptionAudioTo"]
+  NAMECALL R7 R6 K9 ["getText"]
+  CALL R7 3 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K10 ["createElement"]
+  LOADK R9 K11 ["Frame"]
+  DUPTABLE R10 K15 [{"BackgroundTransparency", "AutomaticSize", "Size"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K12 ["BackgroundTransparency"]
+  GETIMPORT R11 K18 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K13 ["AutomaticSize"]
+  GETIMPORT R11 K21 [UDim2.fromScale]
+  LOADN R12 1
+  LOADN R13 0
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K14 ["Size"]
+  DUPTABLE R11 K25 [{"Layout", "AudioDuration", "RangeSlider"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  LOADK R13 K26 ["UIListLayout"]
+  DUPTABLE R14 K30 [{"SortOrder", "HorizontalAlignment", "Padding"}]
+  GETIMPORT R15 K32 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R15 R14 K27 ["SortOrder"]
+  GETIMPORT R15 K34 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R15 R14 K28 ["HorizontalAlignment"]
+  GETIMPORT R15 K37 [UDim.new]
+  LOADN R16 0
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K17 ["Y"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K29 ["Padding"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K22 ["Layout"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  LOADK R13 K11 ["Frame"]
+  DUPTABLE R14 K38 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K12 ["BackgroundTransparency"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K31 ["LayoutOrder"]
+  GETIMPORT R15 K39 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 0
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K17 ["Y"]
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K14 ["Size"]
+  DUPTABLE R15 K43 [{"UIListLayout", "MinTextBox", "ToLabel", "MaxTextBox"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K10 ["createElement"]
+  LOADK R17 K26 ["UIListLayout"]
+  DUPTABLE R18 K46 [{"FillDirection", "HorizontalAlignment", "Padding", "SortOrder", "VerticalAlignment"}]
+  GETIMPORT R19 K48 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R19 R18 K44 ["FillDirection"]
+  GETIMPORT R19 K50 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R19 R18 K28 ["HorizontalAlignment"]
+  GETIMPORT R19 K37 [UDim.new]
+  LOADN R20 0
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K51 ["X"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K29 ["Padding"]
+  GETIMPORT R19 K32 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R19 R18 K27 ["SortOrder"]
+  GETIMPORT R19 K52 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R19 R18 K45 ["VerticalAlignment"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K26 ["UIListLayout"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K10 ["createElement"]
+  GETUPVAL R17 3
+  DUPTABLE R18 K60 [{"currentValue", "defaultValue", "layoutOrder", "max", "min", "onDurationChange", "size"}]
+  SETTABLEKS R3 R18 K53 ["currentValue"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K54 ["defaultValue"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K55 ["layoutOrder"]
+  SETTABLEKS R4 R18 K56 ["max"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K57 ["min"]
+  GETTABLEKS R19 R0 K61 ["onMinDurationChange"]
+  SETTABLEKS R19 R18 K58 ["onDurationChange"]
+  GETIMPORT R19 K39 [UDim2.new]
+  LOADN R20 0
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K51 ["X"]
+  LOADN R22 0
+  GETUPVAL R24 2
+  GETTABLEKS R23 R24 K17 ["Y"]
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K59 ["size"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K40 ["MinTextBox"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K10 ["createElement"]
+  LOADK R17 K62 ["TextLabel"]
+  DUPTABLE R18 K65 [{"BackgroundTransparency", "LayoutOrder", "Size", "Text", "TextColor3"}]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K12 ["BackgroundTransparency"]
+  LOADN R19 2
+  SETTABLEKS R19 R18 K31 ["LayoutOrder"]
+  GETIMPORT R19 K39 [UDim2.new]
+  LOADN R20 0
+  LOADN R21 20
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K14 ["Size"]
+  SETTABLEKS R7 R18 K63 ["Text"]
+  GETTABLEKS R19 R5 K66 ["textColor"]
+  SETTABLEKS R19 R18 K64 ["TextColor3"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K41 ["ToLabel"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K10 ["createElement"]
+  GETUPVAL R17 3
+  DUPTABLE R18 K60 [{"currentValue", "defaultValue", "layoutOrder", "max", "min", "onDurationChange", "size"}]
+  SETTABLEKS R4 R18 K53 ["currentValue"]
+  GETUPVAL R19 4
+  SETTABLEKS R19 R18 K54 ["defaultValue"]
+  LOADN R19 3
+  SETTABLEKS R19 R18 K55 ["layoutOrder"]
+  GETUPVAL R19 4
+  SETTABLEKS R19 R18 K56 ["max"]
+  SETTABLEKS R3 R18 K57 ["min"]
+  GETTABLEKS R19 R0 K67 ["onMaxDurationChange"]
+  SETTABLEKS R19 R18 K58 ["onDurationChange"]
+  GETIMPORT R19 K39 [UDim2.new]
+  LOADN R20 0
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K51 ["X"]
+  LOADN R22 0
+  GETUPVAL R24 2
+  GETTABLEKS R23 R24 K17 ["Y"]
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K59 ["size"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K42 ["MaxTextBox"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K23 ["AudioDuration"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K74 [{"LayoutOrder", "LowerRangeValue", "UpperRangeValue", "Min", "Max", "OnValuesChanged", "Size", "SnapIncrement"}]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K31 ["LayoutOrder"]
+  SETTABLEKS R3 R14 K68 ["LowerRangeValue"]
+  SETTABLEKS R4 R14 K69 ["UpperRangeValue"]
+  GETUPVAL R15 6
+  SETTABLEKS R15 R14 K70 ["Min"]
+  GETUPVAL R15 4
+  SETTABLEKS R15 R14 K71 ["Max"]
+  GETTABLEKS R15 R0 K75 ["onSliderChange"]
+  SETTABLEKS R15 R14 K72 ["OnValuesChanged"]
+  GETIMPORT R15 K39 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 20
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K14 ["Size"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K73 ["SnapIncrement"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K24 ["RangeSlider"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K7 ["Core"]
+  GETTABLEKS R5 R6 K8 ["Util"]
+  GETTABLEKS R4 R5 K9 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K7 ["Core"]
+  GETTABLEKS R7 R8 K10 ["Components"]
+  GETTABLEKS R6 R7 K11 ["SearchOptions"]
+  GETTABLEKS R5 R6 K12 ["TimeTextBox"]
+  CALL R4 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R1 K13 ["Framework"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K14 ["ContextServices"]
+  GETTABLEKS R6 R5 K15 ["withContext"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R1 K13 ["Framework"]
+  CALL R9 1 1
+  GETTABLEKS R8 R9 K16 ["UI"]
+  GETTABLEKS R7 R8 K17 ["RangeSlider"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R1 K13 ["Framework"]
+  CALL R9 1 1
+  GETTABLEKS R8 R9 K8 ["Util"]
+  GETTABLEKS R9 R3 K18 ["MAX_AUDIO_SEARCH_DURATION"]
+  GETTABLEKS R10 R3 K19 ["MIN_AUDIO_SEARCH_DURATION"]
+  GETIMPORT R11 K22 [Vector2.new]
+  LOADN R12 80
+  LOADN R13 32
+  CALL R11 2 1
+  GETIMPORT R12 K22 [Vector2.new]
+  LOADN R13 6
+  LOADN R14 12
+  CALL R12 2 1
+  GETTABLEKS R13 R2 K23 ["PureComponent"]
+  LOADK R15 K24 ["AudioSearch"]
+  NAMECALL R13 R13 K25 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K26 [PROTO_3]
+  SETTABLEKS R14 R13 K27 ["init"]
+  DUPCLOSURE R14 K28 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  SETTABLEKS R14 R13 K29 ["render"]
+  MOVE R14 R6
+  DUPTABLE R15 K32 [{"Localization", "Stylizer"}]
+  GETTABLEKS R16 R5 K30 ["Localization"]
+  SETTABLEKS R16 R15 K30 ["Localization"]
+  GETTABLEKS R16 R5 K31 ["Stylizer"]
+  SETTABLEKS R16 R15 K31 ["Stylizer"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  RETURN R13 1

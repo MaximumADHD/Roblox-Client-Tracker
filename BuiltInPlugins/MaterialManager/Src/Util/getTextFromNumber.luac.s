@@ -1,0 +1,15 @@
+PROTO_0:
+  GETIMPORT R1 K2 [string.format]
+  LOADK R2 K3 ["%.3f"]
+  MOVE R3 R0
+  CALL R1 2 1
+  LOADK R3 K4 ["%.?0+$"]
+  LOADK R4 K5 [""]
+  NAMECALL R1 R1 K6 ["gsub"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

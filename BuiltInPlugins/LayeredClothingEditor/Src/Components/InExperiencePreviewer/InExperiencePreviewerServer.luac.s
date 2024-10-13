@@ -1,0 +1,389 @@
+PROTO_0:
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  LOADK R6 K0 ["Humanoid"]
+  NAMECALL R4 R2 K1 ["FindFirstChildOfClass"]
+  CALL R4 2 1
+  LOADK R7 K2 ["AnimationController"]
+  NAMECALL R5 R2 K1 ["FindFirstChildOfClass"]
+  CALL R5 2 1
+  JUMPIFNOT R4 [+5]
+  LOADK R8 K3 ["Animator"]
+  NAMECALL R6 R4 K1 ["FindFirstChildOfClass"]
+  CALL R6 2 1
+  JUMP [+1]
+  LOADB R6 0
+  JUMPIFNOT R5 [+6]
+  LOADK R9 K3 ["Animator"]
+  NAMECALL R7 R5 K1 ["FindFirstChildOfClass"]
+  CALL R7 2 1
+  MOVE R6 R7
+  JUMP [0]
+  GETTABLEKS R7 R1 K4 ["Character"]
+  JUMPIF R7 [+5]
+  GETTABLEKS R7 R1 K5 ["CharacterAdded"]
+  NAMECALL R7 R7 K6 ["Wait"]
+  CALL R7 1 1
+  LOADK R10 K7 ["Animate"]
+  NAMECALL R8 R7 K8 ["WaitForChild"]
+  CALL R8 2 1
+  NAMECALL R8 R8 K9 ["Clone"]
+  CALL R8 1 1
+  LOADK R11 K10 ["HumanoidRootPart"]
+  NAMECALL R9 R7 K8 ["WaitForChild"]
+  CALL R9 2 0
+  NAMECALL R10 R7 K11 ["GetPrimaryPartCFrame"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K12 ["p"]
+  JUMPIFNOT R3 [+11]
+  GETUPVAL R10 0
+  LOADK R12 K13 ["SpawnLocation"]
+  LOADB R13 1
+  NAMECALL R10 R10 K14 ["FindFirstChildWhichIsA"]
+  CALL R10 3 1
+  JUMPIFNOT R10 [+4]
+  GETTABLEKS R11 R10 K15 ["CFrame"]
+  GETTABLEKS R9 R11 K12 ["p"]
+  NAMECALL R10 R2 K9 ["Clone"]
+  CALL R10 1 1
+  LOADK R13 K7 ["Animate"]
+  NAMECALL R11 R10 K16 ["FindFirstChild"]
+  CALL R11 2 1
+  GETTABLEKS R12 R7 K17 ["Name"]
+  SETTABLEKS R12 R10 K17 ["Name"]
+  GETUPVAL R12 0
+  SETTABLEKS R12 R10 K18 ["Parent"]
+  SETTABLEKS R10 R1 K4 ["Character"]
+  NAMECALL R12 R7 K19 ["Destroy"]
+  CALL R12 1 0
+  JUMPIF R6 [+10]
+  GETIMPORT R12 K22 [Instance.new]
+  LOADK R13 K3 ["Animator"]
+  CALL R12 1 1
+  LOADK R15 K0 ["Humanoid"]
+  NAMECALL R13 R10 K16 ["FindFirstChild"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K18 ["Parent"]
+  JUMPIFNOT R11 [+3]
+  NAMECALL R12 R11 K19 ["Destroy"]
+  CALL R12 1 0
+  SETTABLEKS R10 R8 K18 ["Parent"]
+  MOVE R14 R9
+  NAMECALL R12 R10 K23 ["MoveTo"]
+  CALL R12 2 0
+  GETTABLEKS R12 R0 K24 ["previewChangedEvent"]
+  MOVE R14 R1
+  NAMECALL R12 R12 K25 ["FireClient"]
+  CALL R12 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["RemoteEvent"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K4 ["previewChangedEvent"]
+  GETTABLEKS R1 R0 K4 ["previewChangedEvent"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["PREVIEW_REMOTE_EVENT_NAME"]
+  SETTABLEKS R2 R1 K6 ["Name"]
+  GETTABLEKS R1 R0 K4 ["previewChangedEvent"]
+  GETUPVAL R2 1
+  SETTABLEKS R2 R1 K7 ["Parent"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["previewChangedEvent"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["previewChangedEvent"]
+  NAMECALL R1 R1 K1 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["previewChangedEvent"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["PREVIEW_FOLDER_NAME"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K2 ["playerPreviewAvatarData"]
+  GETIMPORT R2 K4 [ipairs]
+  NAMECALL R3 R1 K5 ["GetChildren"]
+  CALL R3 1 -1
+  CALL R2 -1 3
+  FORGPREP_INEXT R2
+  GETTABLEKS R8 R6 K6 ["Name"]
+  FASTCALL1 TONUMBER R8 [+2]
+  GETIMPORT R7 K8 [tonumber]
+  CALL R7 1 1
+  GETTABLEKS R8 R0 K2 ["playerPreviewAvatarData"]
+  DUPTABLE R9 K12 [{"CurrentIndex", "PreviousIndex", "Avatars"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K9 ["CurrentIndex"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K10 ["PreviousIndex"]
+  NAMECALL R10 R6 K5 ["GetChildren"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K11 ["Avatars"]
+  SETTABLE R9 R8 R7
+  GETIMPORT R8 K4 [ipairs]
+  NAMECALL R9 R6 K5 ["GetChildren"]
+  CALL R9 1 -1
+  CALL R8 -1 3
+  FORGPREP_INEXT R8
+  SETTABLEKS R11 R12 K6 ["Name"]
+  FORGLOOP R8 2 [inext] [-3]
+  FORGLOOP R2 2 [inext] [-33]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["Avatars"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["CurrentIndex"]
+  GETTABLE R3 R4 R5
+  LOADB R4 1
+  NAMECALL R0 R0 K2 ["switchToAvatar"]
+  CALL R0 4 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["Avatars"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["CurrentIndex"]
+  GETTABLE R3 R4 R5
+  NAMECALL R0 R0 K2 ["switchToAvatar"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["diedHandle"]
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["diedHandle"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  LOADK R5 K2 ["Humanoid"]
+  NAMECALL R3 R0 K3 ["WaitForChild"]
+  CALL R3 2 1
+  GETTABLEKS R2 R3 K4 ["Died"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U0
+  NAMECALL R2 R2 K5 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K0 ["diedHandle"]
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["playerPreviewAvatarData"]
+  GETTABLEKS R3 R0 K1 ["UserId"]
+  GETTABLE R1 R2 R3
+  JUMPIFNOT R1 [+38]
+  GETTABLEKS R2 R1 K2 ["appearanceLoadedHandle"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R2 R1 K2 ["appearanceLoadedHandle"]
+  NAMECALL R2 R2 K3 ["Disconnect"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K4 ["CharacterAppearanceLoaded"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K5 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K2 ["appearanceLoadedHandle"]
+  GETTABLEKS R2 R1 K6 ["characterAddedHandle"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R2 R1 K6 ["characterAddedHandle"]
+  NAMECALL R2 R2 K3 ["Disconnect"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K7 ["CharacterAdded"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K5 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K6 ["characterAddedHandle"]
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["playerPreviewAvatarData"]
+  GETTABLEKS R4 R0 K1 ["UserId"]
+  GETTABLE R2 R3 R4
+  JUMPIFNOT R2 [+34]
+  SETTABLEKS R1 R2 K2 ["CurrentIndex"]
+  GETTABLEKS R3 R2 K3 ["PreviousIndex"]
+  JUMPIFEQ R1 R3 [+19]
+  GETTABLEKS R4 R2 K4 ["Avatars"]
+  GETTABLEKS R5 R2 K3 ["PreviousIndex"]
+  GETTABLE R3 R4 R5
+  NAMECALL R3 R3 K5 ["Destroy"]
+  CALL R3 1 0
+  GETTABLEKS R3 R2 K4 ["Avatars"]
+  GETTABLEKS R4 R2 K3 ["PreviousIndex"]
+  GETTABLEKS R5 R0 K6 ["Character"]
+  NAMECALL R5 R5 K7 ["Clone"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETUPVAL R3 0
+  MOVE R5 R0
+  GETTABLEKS R7 R2 K4 ["Avatars"]
+  GETTABLE R6 R7 R1
+  NAMECALL R3 R3 K8 ["switchToAvatar"]
+  CALL R3 3 0
+  SETTABLEKS R1 R2 K3 ["PreviousIndex"]
+  RETURN R0 0
+
+PROTO_9:
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["connections"]
+  GETTABLEKS R2 R0 K0 ["connections"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["PlayerAdded"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K2 ["Connect"]
+  CALL R3 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R1 K5 [table.insert]
+  CALL R1 -1 0
+  GETTABLEKS R2 R0 K0 ["connections"]
+  GETTABLEKS R4 R0 K6 ["previewChangedEvent"]
+  GETTABLEKS R3 R4 K7 ["OnServerEvent"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K2 ["Connect"]
+  CALL R3 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R1 K5 [table.insert]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["playerPreviewAvatarData"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETIMPORT R1 K2 [pairs]
+  GETTABLEKS R2 R0 K0 ["playerPreviewAvatarData"]
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  GETTABLEKS R6 R5 K3 ["appearanceLoadedHandle"]
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R5 K3 ["appearanceLoadedHandle"]
+  NAMECALL R6 R6 K4 ["Disconnect"]
+  CALL R6 1 0
+  GETTABLEKS R6 R5 K5 ["characterAddedHandle"]
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R5 K5 ["characterAddedHandle"]
+  NAMECALL R6 R6 K4 ["Disconnect"]
+  CALL R6 1 0
+  GETTABLEKS R6 R5 K6 ["diedHandle"]
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R5 K6 ["diedHandle"]
+  NAMECALL R6 R6 K4 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [-25]
+  GETIMPORT R1 K8 [ipairs]
+  GETTABLEKS R2 R0 K9 ["connections"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  NAMECALL R6 R5 K4 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [inext] [-4]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K9 ["connections"]
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K0 ["GetPlayers"]
+  CALL R2 1 1
+  LENGTH R1 R2
+  LOADN R2 1
+  JUMPIFNOTLT R2 R1 [+2]
+  RETURN R0 0
+  NAMECALL R1 R0 K1 ["initPlayerPreviewData"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["playerPreviewAvatarData"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  NAMECALL R1 R0 K3 ["initRemoteEvents"]
+  CALL R1 1 0
+  NAMECALL R1 R0 K4 ["initConnections"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_12:
+  NAMECALL R1 R0 K0 ["destroyConnections"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["playerPreviewAvatarData"]
+  NAMECALL R1 R0 K2 ["destroyRemoteEvents"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Players"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["ReplicatedStorage"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["Workspace"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R7 K7 [script]
+  GETTABLEKS R6 R7 K8 ["Parent"]
+  GETTABLEKS R5 R6 K8 ["Parent"]
+  GETTABLEKS R4 R5 K8 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Parent"]
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R7 R3 K11 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Util"]
+  GETTABLEKS R5 R6 K13 ["Constants"]
+  CALL R4 1 1
+  NEWTABLE R5 8 0
+  DUPCLOSURE R6 K14 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K15 ["switchToAvatar"]
+  DUPCLOSURE R6 K16 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K17 ["initRemoteEvents"]
+  DUPCLOSURE R6 K18 [PROTO_2]
+  SETTABLEKS R6 R5 K19 ["destroyRemoteEvents"]
+  DUPCLOSURE R6 K20 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K21 ["initPlayerPreviewData"]
+  DUPCLOSURE R6 K22 [PROTO_9]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K23 ["initConnections"]
+  DUPCLOSURE R6 K24 [PROTO_10]
+  SETTABLEKS R6 R5 K25 ["destroyConnections"]
+  DUPCLOSURE R6 K26 [PROTO_11]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K27 ["init"]
+  DUPCLOSURE R6 K28 [PROTO_12]
+  SETTABLEKS R6 R5 K29 ["shutdown"]
+  RETURN R5 1

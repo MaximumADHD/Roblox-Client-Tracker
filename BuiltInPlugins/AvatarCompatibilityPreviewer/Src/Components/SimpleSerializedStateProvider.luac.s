@@ -1,0 +1,55 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["root"]
+  LOADK R3 K1 ["stage"]
+  LOADK R4 K2 ["CheckBody"]
+  CALL R1 3 2
+  GETUPVAL R3 0
+  GETTABLEKS R4 R0 K0 ["root"]
+  LOADK R5 K3 ["textured"]
+  LOADB R6 1
+  CALL R3 3 2
+  DUPTABLE R5 K7 [{"stage", "setStage", "isTextured", "setIsTextured"}]
+  SETTABLEKS R1 R5 K1 ["stage"]
+  SETTABLEKS R2 R5 K4 ["setStage"]
+  SETTABLEKS R3 R5 K5 ["isTextured"]
+  SETTABLEKS R4 R5 K6 ["setIsTextured"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K9 ["Provider"]
+  DUPTABLE R8 K11 [{"value"}]
+  SETTABLEKS R5 R8 K10 ["value"]
+  GETTABLEKS R9 R0 K12 ["children"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["SimpleSerializedStateContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Hooks"]
+  GETTABLEKS R5 R6 K12 ["useSerializedState"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R5 1

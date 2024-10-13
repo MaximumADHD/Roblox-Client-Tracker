@@ -1,0 +1,44 @@
+PROTO_0:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+1]
+  RETURN R0 0
+  LOADB R0 1
+  SETUPVAL R0 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["DebugFlags"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["EnableRoactConfigs"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+20]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K11 ["setGlobalConfig"]
+  DUPTABLE R4 K15 [{"elementTracing", "propValidation", "typeChecks"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K12 ["elementTracing"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K13 ["propValidation"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K14 ["typeChecks"]
+  CALL R3 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  LOADB R0 0
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["defineFlags"]
+  CALL R1 1 0
+  NEWCLOSURE R1 P0
+  CAPTURE REF R0
+  CLOSEUPVALS R0
+  RETURN R1 1

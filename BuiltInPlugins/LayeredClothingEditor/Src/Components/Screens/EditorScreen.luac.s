@@ -1,0 +1,433 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["LuaMeshEditingModuleContext"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["EditingItemContext"]
+  NAMECALL R2 R2 K3 ["getItem"]
+  CALL R2 1 1
+  JUMPIFNOT R1 [+8]
+  JUMPIFNOT R2 [+7]
+  NAMECALL R3 R1 K4 ["enableEditing"]
+  CALL R3 1 0
+  MOVE R5 R2
+  NAMECALL R3 R1 K5 ["updateCageLocationsFromInstance"]
+  CALL R3 2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K6 ["FinishSelectingFromExplorer"]
+  CALL R3 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["SetToolMode"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["TOOL_MODE"]
+  GETTABLEKS R1 R2 K3 ["None"]
+  CALL R0 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K4 ["GoToNext"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["SetToolMode"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["TOOL_MODE"]
+  GETTABLEKS R1 R2 K3 ["None"]
+  CALL R0 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K4 ["GoToPrevious"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["finishSelectingFromExplorer"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K1 ["onNext"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K2 ["onPrevious"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Docked"]
+  GETTABLEKS R3 R1 K2 ["UserAddedAssets"]
+  GETTABLEKS R4 R1 K3 ["Stylizer"]
+  GETTABLEKS R5 R1 K4 ["AddUserAddedAssetForPreview"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["new"]
+  CALL R6 0 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R7 R4 K6 ["PreviewViewportFrameHeight"]
+  JUMP [+1]
+  LOADN R7 0
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K7 ["provide"]
+  NEWTABLE R9 0 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K5 ["new"]
+  CALL R10 0 -1
+  SETLIST R9 R10 -1 [1]
+  DUPTABLE R10 K9 [{"Container"}]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K10 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K15 [{"BackgroundColor3", "Layout", "VerticalAlignment", "HorizontalAlignment"}]
+  GETTABLEKS R14 R4 K16 ["BackgroundColor"]
+  SETTABLEKS R14 R13 K11 ["BackgroundColor3"]
+  GETIMPORT R14 K20 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K12 ["Layout"]
+  GETIMPORT R14 K22 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R14 R13 K13 ["VerticalAlignment"]
+  GETIMPORT R14 K24 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R14 R13 K14 ["HorizontalAlignment"]
+  DUPTABLE R14 K31 [{"EditorToolsManager", "PreviewViewportFrameContainer", "MainFrame", "ControlsPanelBlocker", "AnimationPlaybackWrapper", "ExplorerPreviewInstances"}]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 5
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K25 ["EditorToolsManager"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 6
+  DUPTABLE R17 K33 [{"LayoutOrder"}]
+  NAMECALL R18 R6 K34 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K32 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K26 ["PreviewViewportFrameContainer"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 7
+  DUPTABLE R17 K37 [{"Size", "AutomaticCanvasSize", "Layout", "LayoutOrder"}]
+  GETIMPORT R18 K39 [UDim2.new]
+  LOADN R19 1
+  LOADN R20 0
+  LOADN R21 1
+  MINUS R22 R7
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K35 ["Size"]
+  GETIMPORT R18 K42 [Enum.AutomaticSize.XY]
+  SETTABLEKS R18 R17 K36 ["AutomaticCanvasSize"]
+  GETIMPORT R18 K20 [Enum.FillDirection.Vertical]
+  SETTABLEKS R18 R17 K12 ["Layout"]
+  NAMECALL R18 R6 K34 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K32 ["LayoutOrder"]
+  DUPTABLE R18 K45 [{"PreviewFrame", "GenerateContainer"}]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K10 ["createElement"]
+  GETUPVAL R20 8
+  DUPTABLE R21 K47 [{"Size", "UserAddedAssets", "UpdateUserAddedAssets", "LayoutOrder"}]
+  GETIMPORT R22 K39 [UDim2.new]
+  LOADN R23 1
+  LOADN R24 0
+  LOADN R25 1
+  GETTABLEKS R27 R4 K48 ["GenerateHeight"]
+  MINUS R26 R27
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K35 ["Size"]
+  SETTABLEKS R3 R21 K2 ["UserAddedAssets"]
+  SETTABLEKS R5 R21 K46 ["UpdateUserAddedAssets"]
+  NAMECALL R22 R6 K34 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K32 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K43 ["PreviewFrame"]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K10 ["createElement"]
+  GETUPVAL R20 4
+  DUPTABLE R21 K49 [{"Size", "LayoutOrder"}]
+  GETIMPORT R22 K39 [UDim2.new]
+  LOADN R23 1
+  LOADN R24 0
+  LOADN R25 0
+  GETTABLEKS R26 R4 K48 ["GenerateHeight"]
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K35 ["Size"]
+  NAMECALL R22 R6 K34 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K32 ["LayoutOrder"]
+  DUPTABLE R22 K51 [{"GenerateScreen"}]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K10 ["createElement"]
+  GETUPVAL R24 9
+  DUPTABLE R25 K54 [{"GoToNext", "GoToPrevious"}]
+  GETTABLEKS R26 R0 K55 ["onNext"]
+  SETTABLEKS R26 R25 K52 ["GoToNext"]
+  GETTABLEKS R26 R0 K56 ["onPrevious"]
+  SETTABLEKS R26 R25 K53 ["GoToPrevious"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K50 ["GenerateScreen"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K44 ["GenerateContainer"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K27 ["MainFrame"]
+  GETTABLEKS R15 R1 K57 ["IsControlsPanelBlockerActive"]
+  JUMPIFNOT R15 [+14]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 10
+  DUPTABLE R17 K60 [{"OnFocused", "Text"}]
+  GETTABLEKS R18 R0 K61 ["finishSelectingFromExplorer"]
+  SETTABLEKS R18 R17 K58 ["OnFocused"]
+  GETTABLEKS R18 R1 K62 ["ControlsPanelBlockerMessage"]
+  SETTABLEKS R18 R17 K59 ["Text"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K28 ["ControlsPanelBlocker"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 11
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K29 ["AnimationPlaybackWrapper"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 12
+  DUPTABLE R17 K63 [{"UserAddedAssets"}]
+  SETTABLEKS R3 R17 K2 ["UserAddedAssets"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K30 ["ExplorerPreviewInstances"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K8 ["Container"]
+  CALL R8 2 -1
+  RETURN R8 -1
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["ClearPreviewAssetsSelected"]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["controlsPanelBlocker"]
+  GETTABLEKS R3 R0 K1 ["previewStatus"]
+  GETTABLEKS R4 R0 K2 ["selectItem"]
+  DUPTABLE R5 K7 [{"IsControlsPanelBlockerActive", "ControlsPanelBlockerMessage", "UserAddedAssets", "Docked"}]
+  GETTABLEKS R6 R2 K8 ["isActive"]
+  SETTABLEKS R6 R5 K3 ["IsControlsPanelBlockerActive"]
+  GETTABLEKS R6 R2 K9 ["message"]
+  SETTABLEKS R6 R5 K4 ["ControlsPanelBlockerMessage"]
+  GETTABLEKS R6 R3 K10 ["userAddedAssets"]
+  SETTABLEKS R6 R5 K5 ["UserAddedAssets"]
+  GETTABLEKS R6 R3 K11 ["docked"]
+  SETTABLEKS R6 R5 K6 ["Docked"]
+  RETURN R5 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  CALL R1 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  DUPTABLE R1 K4 [{"SetToolMode", "FinishSelectingFromExplorer", "ClearPreviewAssetsSelected", "AddUserAddedAssetForPreview"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetToolMode"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["FinishSelectingFromExplorer"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["ClearPreviewAssetsSelected"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["AddUserAddedAssetForPreview"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["AvatarToolsShared"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K9 ["Contexts"]
+  GETTABLEKS R4 R5 K10 ["LuaMeshEditingModuleContext"]
+  GETTABLEKS R6 R3 K9 ["Contexts"]
+  GETTABLEKS R5 R6 K11 ["PreviewContext"]
+  GETTABLEKS R7 R3 K9 ["Contexts"]
+  GETTABLEKS R6 R7 K12 ["EditingItemContext"]
+  GETTABLEKS R7 R3 K13 ["Components"]
+  GETTABLEKS R8 R7 K14 ["InputBlocker"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K5 ["Packages"]
+  GETTABLEKS R10 R11 K15 ["Framework"]
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K16 ["ContextServices"]
+  GETTABLEKS R11 R10 K17 ["withContext"]
+  GETTABLEKS R12 R9 K18 ["Util"]
+  GETTABLEKS R13 R12 K19 ["LayoutOrderIterator"]
+  GETTABLEKS R14 R9 K20 ["UI"]
+  GETTABLEKS R15 R14 K21 ["Pane"]
+  GETTABLEKS R16 R14 K22 ["ScrollingFrame"]
+  GETTABLEKS R17 R14 K22 ["ScrollingFrame"]
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R22 R0 K23 ["Src"]
+  GETTABLEKS R21 R22 K13 ["Components"]
+  GETTABLEKS R20 R21 K24 ["Screens"]
+  GETTABLEKS R19 R20 K25 ["GenerateScreen"]
+  CALL R18 1 1
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R22 R0 K23 ["Src"]
+  GETTABLEKS R21 R22 K13 ["Components"]
+  GETTABLEKS R20 R21 K26 ["EditorToolsManager"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R23 R0 K23 ["Src"]
+  GETTABLEKS R22 R23 K13 ["Components"]
+  GETTABLEKS R21 R22 K27 ["PreviewFrame"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R25 R0 K23 ["Src"]
+  GETTABLEKS R24 R25 K13 ["Components"]
+  GETTABLEKS R23 R24 K28 ["Preview"]
+  GETTABLEKS R22 R23 K29 ["PreviewViewportFrameContainer"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R26 R0 K23 ["Src"]
+  GETTABLEKS R25 R26 K13 ["Components"]
+  GETTABLEKS R24 R25 K28 ["Preview"]
+  GETTABLEKS R23 R24 K30 ["ExplorerPreviewInstances"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R27 R0 K23 ["Src"]
+  GETTABLEKS R26 R27 K13 ["Components"]
+  GETTABLEKS R25 R26 K31 ["AnimationPlayback"]
+  GETTABLEKS R24 R25 K32 ["AnimationPlaybackWrapper"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R27 R0 K23 ["Src"]
+  GETTABLEKS R26 R27 K33 ["Actions"]
+  GETTABLEKS R25 R26 K34 ["SetToolMode"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R28 R0 K23 ["Src"]
+  GETTABLEKS R27 R28 K35 ["Thunks"]
+  GETTABLEKS R26 R27 K36 ["FinishSelectingFromExplorer"]
+  CALL R25 1 1
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R29 R0 K23 ["Src"]
+  GETTABLEKS R28 R29 K35 ["Thunks"]
+  GETTABLEKS R27 R28 K37 ["AddUserAddedAssetForPreview"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R30 R0 K23 ["Src"]
+  GETTABLEKS R29 R30 K18 ["Util"]
+  GETTABLEKS R28 R29 K38 ["Constants"]
+  CALL R27 1 1
+  GETIMPORT R28 K4 [require]
+  GETTABLEKS R31 R0 K23 ["Src"]
+  GETTABLEKS R30 R31 K33 ["Actions"]
+  GETTABLEKS R29 R30 K39 ["SetPreviewAssetsSelected"]
+  CALL R28 1 1
+  GETTABLEKS R29 R1 K40 ["PureComponent"]
+  LOADK R31 K41 ["EditorScreen"]
+  NAMECALL R29 R29 K42 ["extend"]
+  CALL R29 2 1
+  GETTABLEKS R30 R12 K43 ["Typecheck"]
+  GETTABLEKS R31 R30 K44 ["wrap"]
+  MOVE R32 R29
+  GETIMPORT R33 K1 [script]
+  CALL R31 2 0
+  DUPCLOSURE R31 K45 [PROTO_3]
+  CAPTURE VAL R27
+  SETTABLEKS R31 R29 K46 ["init"]
+  DUPCLOSURE R31 K47 [PROTO_4]
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R15
+  CAPTURE VAL R19
+  CAPTURE VAL R21
+  CAPTURE VAL R17
+  CAPTURE VAL R20
+  CAPTURE VAL R18
+  CAPTURE VAL R8
+  CAPTURE VAL R23
+  CAPTURE VAL R22
+  SETTABLEKS R31 R29 K48 ["render"]
+  DUPCLOSURE R31 K49 [PROTO_5]
+  SETTABLEKS R31 R29 K50 ["willUnmount"]
+  DUPCLOSURE R31 K51 [PROTO_6]
+  DUPCLOSURE R32 K52 [PROTO_11]
+  CAPTURE VAL R24
+  CAPTURE VAL R25
+  CAPTURE VAL R28
+  CAPTURE VAL R26
+  MOVE R33 R11
+  DUPTABLE R34 K54 [{"Stylizer", "EditingItemContext", "LuaMeshEditingModuleContext"}]
+  GETTABLEKS R35 R10 K53 ["Stylizer"]
+  SETTABLEKS R35 R34 K53 ["Stylizer"]
+  SETTABLEKS R6 R34 K12 ["EditingItemContext"]
+  SETTABLEKS R4 R34 K10 ["LuaMeshEditingModuleContext"]
+  CALL R33 1 1
+  MOVE R34 R29
+  CALL R33 1 1
+  MOVE R29 R33
+  GETTABLEKS R33 R2 K55 ["connect"]
+  MOVE R34 R31
+  MOVE R35 R32
+  CALL R33 2 1
+  MOVE R34 R29
+  CALL R33 1 -1
+  RETURN R33 -1

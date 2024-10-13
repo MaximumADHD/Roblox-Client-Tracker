@@ -1,5 +1,5 @@
-game:DefineFastFlag("SelfieViewV4-3", false)
+game:DefineFastFlag("SelfieViewV4_4", false)
 
 return function()
-	return game:GetFastFlag("SelfieViewV4-3")
+	return game:GetFastFlag("SelfieViewV4_4")
 end

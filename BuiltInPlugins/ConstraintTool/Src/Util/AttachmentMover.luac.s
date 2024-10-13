@@ -1,0 +1,116 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R2 R1 K0 ["Anchored"]
+  SETTABLEKS R2 R0 K1 ["_cachedAnchoredState"]
+  JUMPIFNOT R1 [+7]
+  NAMECALL R2 R1 K2 ["IsGrounded"]
+  CALL R2 1 1
+  JUMPIF R2 [+3]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["Anchored"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K0 ["IsRunning"]
+  CALL R2 1 1
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R0 K1 ["_attachmentsAndParents"]
+  SETTABLEKS R1 R0 K2 ["_attachment"]
+  LOADK R5 K3 ["BasePart"]
+  NAMECALL R3 R1 K4 ["FindFirstAncestorWhichIsA"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K5 ["_parent"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R5 R0 K5 ["_parent"]
+  NAMECALL R3 R0 K6 ["_anchorIfNeedBe"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R3 R0 K0 ["_attachment"]
+  JUMPIFNOT R3 [+37]
+  GETTABLEKS R3 R0 K1 ["_parent"]
+  JUMPIFEQ R2 R3 [+30]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K2 ["IsRunning"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+18]
+  GETTABLEKS R3 R0 K1 ["_parent"]
+  JUMPIFNOT R3 [+11]
+  GETTABLEKS R4 R0 K1 ["_parent"]
+  GETTABLEKS R3 R4 K3 ["Anchored"]
+  JUMPIFNOT R3 [+6]
+  GETTABLEKS R3 R0 K1 ["_parent"]
+  GETTABLEKS R4 R0 K4 ["_cachedAnchoredState"]
+  SETTABLEKS R4 R3 K3 ["Anchored"]
+  MOVE R5 R2
+  NAMECALL R3 R0 K5 ["_anchorIfNeedBe"]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K0 ["_attachment"]
+  SETTABLEKS R2 R3 K6 ["Parent"]
+  SETTABLEKS R2 R0 K1 ["_parent"]
+  GETTABLEKS R3 R0 K0 ["_attachment"]
+  SETTABLEKS R1 R3 K7 ["WorldCFrame"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["IsRunning"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+14]
+  GETTABLEKS R1 R0 K1 ["_parent"]
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R2 R0 K1 ["_parent"]
+  GETTABLEKS R1 R2 K2 ["Anchored"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K1 ["_parent"]
+  GETTABLEKS R2 R0 K3 ["_cachedAnchoredState"]
+  SETTABLEKS R2 R1 K2 ["Anchored"]
+  GETIMPORT R1 K6 [Instance.new]
+  LOADK R2 K7 ["Attachment"]
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K8 ["_attachment"]
+  GETTABLEKS R2 R3 K9 ["Parent"]
+  GETTABLEKS R5 R0 K8 ["_attachment"]
+  GETTABLEKS R4 R5 K10 ["WorldCFrame"]
+  NAMECALL R2 R2 K11 ["ToObjectSpace"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K12 ["CFrame"]
+  GETTABLEKS R3 R0 K8 ["_attachment"]
+  GETTABLEKS R2 R3 K9 ["Parent"]
+  SETTABLEKS R2 R1 K9 ["Parent"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K3 ["_cachedAnchoredState"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NEWTABLE R1 8 0
+  SETTABLEKS R1 R1 K4 ["__index"]
+  DUPCLOSURE R2 K5 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K6 ["new"]
+  DUPCLOSURE R2 K7 [PROTO_1]
+  SETTABLEKS R2 R1 K8 ["_anchorIfNeedBe"]
+  DUPCLOSURE R2 K9 [PROTO_2]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K10 ["setDragged"]
+  DUPCLOSURE R2 K11 [PROTO_3]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K12 ["moveTo"]
+  DUPCLOSURE R2 K13 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K14 ["commit"]
+  RETURN R1 1

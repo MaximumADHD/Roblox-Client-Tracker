@@ -44,8 +44,6 @@ local EmotesConstants = require(RobloxGui.Modules.EmotesMenu.Constants)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
-
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local MORE_BUTTON_SIZE = 32
@@ -125,10 +123,7 @@ function MoreMenu:renderWithStyle(style)
 
 	local isUsingKeyBoard = self.props.inputType == InputType.MouseAndKeyBoard
 
-	local enableLeaderboardButton = self.props.leaderboardEnabled and not self.props.isSmallTouchDevice
-	if FFlagMobilePlayerList then
-		enableLeaderboardButton = self.props.leaderboardEnabled
-	end
+	local enableLeaderboardButton = self.props.leaderboardEnabled
 
 	if enableLeaderboardButton then
 		local leaderboardIcon = LEADERBOARD_ICON_ON

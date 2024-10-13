@@ -20,6 +20,8 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local ParentContainerContext = AppChat.Contexts.ParentContainer.ParentContainerContext
 
+local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
+	require(RobloxGui.Modules.Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
 local TopBarTopMargin = require(RobloxGui.Modules.TopBar.Constants).TopBarTopMargin
 
 local folder = Instance.new("Folder")
@@ -51,6 +53,9 @@ local parentContainerContext: AppChat.ParentContainerContextType = {
 	showParentContainer = function()
 		SettingsHub.Instance:SetVisibility(true, false)
 		SettingsHub:SwitchToPage(SettingsHub.Instance.AppChatPage)
+	end,
+	updateCurrentSquadId = function(squadId)
+		-- Unsupported for the old flow.
 	end
 }
 
@@ -78,6 +83,11 @@ if shouldUseIndependentAppChatContainer then
 		end,
 		showParentContainer = function()
 			InExperienceAppChatModal.default:setVisible(true)
+		end,
+		updateCurrentSquadId = function(squadId)
+			if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() then
+				InExperienceAppChatModal:setCurrentSquadId(squadId)
+			end
 		end
 	}
 end

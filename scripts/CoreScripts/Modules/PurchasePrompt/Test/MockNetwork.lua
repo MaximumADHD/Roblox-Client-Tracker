@@ -214,6 +214,14 @@ local function postPurchaseWarningAcknowledge()
 	return Promise.resolve()
 end
 
+local function checkUserPurchaseSettings()
+	return Promise.resolve({
+		isEligible = false,
+		failureReason = "PurchaseNotEnabled"
+	})
+end
+
+
 local MockNetwork = {}
 MockNetwork.__index = MockNetwork
 
@@ -244,6 +252,7 @@ function MockNetwork.new(successResult, failureResult)
 			getPremiumUpsellPrecheck = retFunction,
 			getPurchaseWarning = retFunction,
 			postPurchaseWarningAcknowledge = retFunction,
+			checkUserPurchaseSettings = retFunction,
 		}
 	else
 		mockNetworkService = {
@@ -264,6 +273,7 @@ function MockNetwork.new(successResult, failureResult)
 			getPremiumUpsellPrecheck = getPremiumUpsellPrecheck,
 			getPurchaseWarning = getPurchaseWarning,
 			postPurchaseWarningAcknowledge = postPurchaseWarningAcknowledge,
+			checkUserPurchaseSettings = checkUserPurchaseSettings,
 		}
 	end
 

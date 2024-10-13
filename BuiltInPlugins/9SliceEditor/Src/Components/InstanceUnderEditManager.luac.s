@@ -1,0 +1,1167 @@
+PROTO_0:
+  GETUPVAL R3 0
+  DUPTABLE R5 K3 [{"showingAlertTitleKey", "showingAlertMessageKey", "showingAlertMessageReplacements"}]
+  SETTABLEKS R0 R5 K0 ["showingAlertTitleKey"]
+  SETTABLEKS R1 R5 K1 ["showingAlertMessageKey"]
+  SETTABLEKS R2 R5 K2 ["showingAlertMessageReplacements"]
+  NAMECALL R3 R3 K4 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPTABLE R2 K3 [{"showingAlertTitleKey", "showingAlertMessageKey", "showingAlertMessageReplacements"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["None"]
+  SETTABLEKS R3 R2 K0 ["showingAlertTitleKey"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["None"]
+  SETTABLEKS R3 R2 K1 ["showingAlertMessageKey"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["None"]
+  SETTABLEKS R3 R2 K2 ["showingAlertMessageReplacements"]
+  NAMECALL R0 R0 K5 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R0 K1 [ipairs]
+  GETUPVAL R3 0
+  GETTABLEKS R1 R3 K2 ["imageUnderEditConnections"]
+  CALL R0 1 3
+  FORGPREP_INEXT R0
+  JUMPIFNOT R4 [+3]
+  NAMECALL R5 R4 K3 ["Disconnect"]
+  CALL R5 1 0
+  FORGLOOP R0 2 [inext] [-5]
+  GETUPVAL R0 0
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["imageUnderEditConnections"]
+  RETURN R0 0
+
+PROTO_3:
+  NEWTABLE R2 0 0
+  GETUPVAL R3 0
+  GETUPVAL R6 0
+  GETTABLE R5 R0 R6
+  LOADN R6 0
+  GETTABLEKS R7 R1 K0 ["X"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R4 K3 [math.clamp]
+  CALL R4 3 1
+  SETTABLE R4 R2 R3
+  GETUPVAL R3 1
+  GETUPVAL R6 1
+  GETTABLE R5 R0 R6
+  LOADN R6 0
+  LOADN R8 0
+  GETTABLEKS R10 R1 K0 ["X"]
+  GETUPVAL R12 0
+  GETTABLE R11 R2 R12
+  SUB R9 R10 R11
+  FASTCALL2 MATH_MAX R8 R9 [+3]
+  GETIMPORT R7 K5 [math.max]
+  CALL R7 2 1
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R4 K3 [math.clamp]
+  CALL R4 3 1
+  SETTABLE R4 R2 R3
+  GETUPVAL R3 2
+  GETUPVAL R6 2
+  GETTABLE R5 R0 R6
+  LOADN R6 0
+  GETTABLEKS R7 R1 K6 ["Y"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R4 K3 [math.clamp]
+  CALL R4 3 1
+  SETTABLE R4 R2 R3
+  GETUPVAL R3 3
+  GETUPVAL R6 3
+  GETTABLE R5 R0 R6
+  LOADN R6 0
+  LOADN R8 0
+  GETTABLEKS R10 R1 K6 ["Y"]
+  GETUPVAL R12 2
+  GETTABLE R11 R2 R12
+  SUB R9 R10 R11
+  FASTCALL2 MATH_MAX R8 R9 [+3]
+  GETIMPORT R7 K5 [math.max]
+  CALL R7 2 1
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R4 K3 [math.clamp]
+  CALL R4 3 1
+  SETTABLE R4 R2 R3
+  RETURN R2 1
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["ImageRectSize"]
+  GETTABLEKS R1 R2 K1 ["X"]
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+11]
+  GETTABLEKS R2 R0 K0 ["ImageRectSize"]
+  GETTABLEKS R1 R2 K2 ["Y"]
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+4]
+  GETTABLEKS R1 R0 K0 ["ImageRectSize"]
+  RETURN R1 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["uncroppedImageSize"]
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["instanceUnderEdit"]
+  RETURN R0 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getImageUnderEdit"]
+  CALL R0 0 1
+  JUMPIFEQKNIL R0 [+28]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["getSliceRectFromSliceCenter"]
+  GETTABLEKS R2 R0 K2 ["SliceCenter"]
+  CALL R1 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["props"]
+  GETTABLEKS R2 R3 K4 ["SliceRectChanged"]
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["getImageDimensionsForInstance"]
+  MOVE R3 R0
+  CALL R2 1 1
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["getOffsetsFromSliceRect"]
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K7 ["lastSliceOffsets"]
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getImageUnderEdit"]
+  CALL R1 0 1
+  MOVE R2 R1
+  JUMPIFNOT R2 [+1]
+  GETTABLE R2 R1 R0
+  RETURN R2 1
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["InstancePropertyChanged"]
+  LOADK R1 K2 ["ImageRectOffset"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["getInstanceProperty"]
+  LOADK R3 K2 ["ImageRectOffset"]
+  CALL R2 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETIMPORT R2 K2 [Rect.new]
+  GETTABLEKS R5 R0 K3 ["Min"]
+  GETTABLEKS R4 R5 K4 ["X"]
+  LOADN R5 0
+  GETTABLEKS R6 R1 K4 ["X"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R3 K7 [math.clamp]
+  CALL R3 3 1
+  GETTABLEKS R6 R0 K3 ["Min"]
+  GETTABLEKS R5 R6 K8 ["Y"]
+  LOADN R6 0
+  GETTABLEKS R7 R1 K8 ["Y"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R4 K7 [math.clamp]
+  CALL R4 3 1
+  GETTABLEKS R7 R0 K9 ["Max"]
+  GETTABLEKS R6 R7 K4 ["X"]
+  LOADN R7 0
+  GETTABLEKS R8 R1 K4 ["X"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R5 K7 [math.clamp]
+  CALL R5 3 1
+  GETTABLEKS R8 R0 K9 ["Max"]
+  GETTABLEKS R7 R8 K8 ["Y"]
+  LOADN R8 0
+  GETTABLEKS R9 R1 K8 ["Y"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R6 K7 [math.clamp]
+  CALL R6 3 1
+  CALL R2 4 -1
+  RETURN R2 -1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getImageUnderEdit"]
+  CALL R0 0 1
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K1 ["ImageRectSize"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["props"]
+  GETTABLEKS R2 R3 K3 ["InstancePropertyChanged"]
+  LOADK R3 K1 ["ImageRectSize"]
+  MOVE R4 R1
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K4 ["X"]
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+15]
+  GETTABLEKS R2 R1 K5 ["Y"]
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+10]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["clampSliceCenterToDimensions"]
+  GETTABLEKS R3 R0 K7 ["SliceCenter"]
+  MOVE R4 R1
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K7 ["SliceCenter"]
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["InstancePropertyChanged"]
+  LOADK R1 K2 ["ImageColor3"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["getInstanceProperty"]
+  LOADK R3 K2 ["ImageColor3"]
+  CALL R2 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["InstancePropertyChanged"]
+  LOADK R1 K2 ["ResampleMode"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["getInstanceProperty"]
+  LOADK R3 K2 ["ResampleMode"]
+  CALL R2 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["clearCurrentImageUnderEdit"]
+  CALL R2 0 0
+  GETIMPORT R2 K3 [Vector2.new]
+  LOADN R3 0
+  LOADN R4 0
+  CALL R2 2 1
+  NEWTABLE R3 0 4
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  SETLIST R3 R4 4 [1]
+  NEWTABLE R4 0 4
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 0
+  SETLIST R4 R5 4 [1]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["props"]
+  GETTABLEKS R5 R6 K5 ["Localization"]
+  LOADK R7 K6 ["Plugin"]
+  LOADK R8 K7 ["Name"]
+  NAMECALL R5 R5 K8 ["getText"]
+  CALL R5 3 1
+  DUPTABLE R6 K13 [{"title", "pixelDimensions", "sliceRect", "revertSliceRect"}]
+  SETTABLEKS R5 R6 K9 ["title"]
+  SETTABLEKS R2 R6 K10 ["pixelDimensions"]
+  SETTABLEKS R3 R6 K11 ["sliceRect"]
+  SETTABLEKS R4 R6 K12 ["revertSliceRect"]
+  JUMPIFEQKNIL R0 [+196]
+  FASTCALL1 ASSERT R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K15 [assert]
+  CALL R7 1 0
+  LOADB R8 1
+  GETTABLEKS R9 R1 K16 ["X"]
+  LOADN R10 0
+  JUMPIFLT R10 R9 [+8]
+  GETTABLEKS R9 R1 K17 ["Y"]
+  LOADN R10 0
+  JUMPIFLT R10 R9 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  FASTCALL1 ASSERT R8 [+2]
+  GETIMPORT R7 K15 [assert]
+  CALL R7 1 0
+  GETUPVAL R7 0
+  SETTABLEKS R1 R7 K18 ["uncroppedImageSize"]
+  MOVE R2 R1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K19 ["getImageDimensionsForInstance"]
+  MOVE R8 R0
+  CALL R7 1 1
+  GETTABLEKS R8 R0 K20 ["SliceCenter"]
+  GETIMPORT R9 K22 [Rect.new]
+  LOADN R10 0
+  LOADN R11 0
+  LOADN R12 0
+  LOADN R13 0
+  CALL R9 4 1
+  JUMPIFNOTEQ R8 R9 [+12]
+  GETIMPORT R8 K22 [Rect.new]
+  LOADN R9 0
+  LOADN R10 0
+  GETTABLEKS R11 R7 K16 ["X"]
+  GETTABLEKS R12 R7 K17 ["Y"]
+  CALL R8 4 1
+  SETTABLEKS R8 R0 K20 ["SliceCenter"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K23 ["imageUnderEditConnections"]
+  LOADK R12 K20 ["SliceCenter"]
+  NAMECALL R10 R0 K24 ["GetPropertyChangedSignal"]
+  CALL R10 2 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K25 ["onSliceCenterChanged"]
+  NAMECALL R10 R10 K26 ["Connect"]
+  CALL R10 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K29 [table.insert]
+  CALL R8 -1 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K23 ["imageUnderEditConnections"]
+  LOADK R12 K30 ["ImageRectOffset"]
+  NAMECALL R10 R0 K24 ["GetPropertyChangedSignal"]
+  CALL R10 2 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K31 ["onImageRectOffsetChanged"]
+  NAMECALL R10 R10 K26 ["Connect"]
+  CALL R10 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K29 [table.insert]
+  CALL R8 -1 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K23 ["imageUnderEditConnections"]
+  LOADK R12 K32 ["ImageRectSize"]
+  NAMECALL R10 R0 K24 ["GetPropertyChangedSignal"]
+  CALL R10 2 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K33 ["onImageRectSizeChanged"]
+  NAMECALL R10 R10 K26 ["Connect"]
+  CALL R10 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K29 [table.insert]
+  CALL R8 -1 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K23 ["imageUnderEditConnections"]
+  LOADK R12 K34 ["ImageColor3"]
+  NAMECALL R10 R0 K24 ["GetPropertyChangedSignal"]
+  CALL R10 2 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K35 ["onImageColor3Changed"]
+  NAMECALL R10 R10 K26 ["Connect"]
+  CALL R10 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K29 [table.insert]
+  CALL R8 -1 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K23 ["imageUnderEditConnections"]
+  LOADK R12 K36 ["ResampleMode"]
+  NAMECALL R10 R0 K24 ["GetPropertyChangedSignal"]
+  CALL R10 2 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K37 ["onResampleModeChanged"]
+  NAMECALL R10 R10 K26 ["Connect"]
+  CALL R10 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K29 [table.insert]
+  CALL R8 -1 0
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K38 ["getSliceRectFromSliceCenter"]
+  GETTABLEKS R9 R0 K20 ["SliceCenter"]
+  CALL R8 1 1
+  MOVE R3 R8
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K39 ["copySliceRect"]
+  MOVE R9 R3
+  CALL R8 1 1
+  MOVE R4 R8
+  MOVE R8 R5
+  LOADK R9 K40 [": "]
+  GETTABLEKS R11 R0 K7 ["Name"]
+  FASTCALL1 TOSTRING R11 [+2]
+  GETIMPORT R10 K42 [tostring]
+  CALL R10 1 1
+  CONCAT R5 R8 R10
+  GETUPVAL R8 0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K43 ["getOffsetsFromSliceRect"]
+  MOVE R10 R3
+  MOVE R11 R7
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K44 ["lastSliceOffsets"]
+  DUPTABLE R8 K49 [{"title", "pixelDimensions", "sliceRect", "revertSliceRect", "imageRectOffset", "imageRectSize", "imageColor3", "resampleMode"}]
+  SETTABLEKS R5 R8 K9 ["title"]
+  SETTABLEKS R2 R8 K10 ["pixelDimensions"]
+  SETTABLEKS R3 R8 K11 ["sliceRect"]
+  SETTABLEKS R4 R8 K12 ["revertSliceRect"]
+  GETTABLEKS R9 R0 K30 ["ImageRectOffset"]
+  SETTABLEKS R9 R8 K45 ["imageRectOffset"]
+  GETTABLEKS R9 R0 K32 ["ImageRectSize"]
+  SETTABLEKS R9 R8 K46 ["imageRectSize"]
+  GETTABLEKS R9 R0 K34 ["ImageColor3"]
+  SETTABLEKS R9 R8 K47 ["imageColor3"]
+  GETTABLEKS R9 R0 K36 ["ResampleMode"]
+  SETTABLEKS R9 R8 K48 ["resampleMode"]
+  MOVE R6 R8
+  GETUPVAL R7 0
+  SETTABLEKS R0 R7 K50 ["instanceUnderEdit"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["props"]
+  GETTABLEKS R7 R8 K51 ["InstanceUnderEditChanged"]
+  MOVE R8 R0
+  MOVE R9 R6
+  CALL R7 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  GETTABLEKS R1 R0 K0 ["loadingToken"]
+  ADDK R1 R1 K1 [1]
+  SETTABLEKS R1 R0 K0 ["loadingToken"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["loadingToken"]
+  RETURN R0 1
+
+PROTO_15:
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+12]
+  GETUPVAL R2 0
+  LOADK R4 K0 ["ImageLabel"]
+  NAMECALL R2 R2 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIF R2 [+11]
+  GETUPVAL R2 0
+  LOADK R4 K2 ["ImageButton"]
+  NAMECALL R2 R2 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIF R2 [+5]
+  MOVE R2 R1
+  LOADB R3 0
+  GETUPVAL R4 1
+  CALL R2 2 0
+  RETURN R0 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K3 ["connectImageChangedConnection"]
+  GETUPVAL R3 0
+  CALL R2 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R2 K4 ["IsLoaded"]
+  JUMPIFNOT R3 [+5]
+  MOVE R3 R0
+  MOVE R4 R2
+  GETUPVAL R5 1
+  CALL R3 2 0
+  RETURN R0 0
+  GETUPVAL R3 3
+  JUMPIFNOT R3 [+42]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K5 ["props"]
+  GETTABLEKS R3 R4 K6 ["RequestToLoadImage"]
+  GETTABLEKS R4 R2 K7 ["Image"]
+  CALL R3 1 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K5 ["props"]
+  GETTABLEKS R3 R4 K8 ["LoadingChanged"]
+  LOADB R4 1
+  CALL R3 1 0
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K9 ["RenderStepped"]
+  NAMECALL R3 R3 K10 ["Wait"]
+  CALL R3 1 0
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K9 ["RenderStepped"]
+  NAMECALL R3 R3 K10 ["Wait"]
+  CALL R3 1 0
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K9 ["RenderStepped"]
+  NAMECALL R3 R3 K10 ["Wait"]
+  CALL R3 1 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K11 ["_isMounted"]
+  JUMPIF R3 [+5]
+  MOVE R3 R1
+  LOADB R4 0
+  GETUPVAL R5 1
+  CALL R3 2 0
+  RETURN R0 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K5 ["props"]
+  GETTABLEKS R3 R4 K8 ["LoadingChanged"]
+  LOADB R4 1
+  CALL R3 1 0
+  GETIMPORT R3 K13 [tick]
+  CALL R3 0 1
+  GETIMPORT R5 K13 [tick]
+  CALL R5 0 1
+  SUB R4 R5 R3
+  LOADN R5 5
+  JUMPIFNOTLT R4 R5 [+64]
+  LOADB R4 0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K11 ["_isMounted"]
+  JUMPIF R5 [+5]
+  MOVE R5 R1
+  LOADB R6 0
+  GETUPVAL R7 1
+  CALL R5 2 0
+  RETURN R0 0
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K5 ["props"]
+  GETTABLEKS R5 R6 K14 ["LoadingImageRef"]
+  NAMECALL R5 R5 K15 ["getValue"]
+  CALL R5 1 1
+  MOVE R6 R5
+  JUMPIFNOT R6 [+21]
+  GETTABLEKS R6 R5 K4 ["IsLoaded"]
+  JUMPIFNOT R6 [+18]
+  LOADB R6 0
+  GETTABLEKS R7 R5 K16 ["ContentImageSize"]
+  GETIMPORT R8 K19 [Vector2.new]
+  LOADN R9 0
+  LOADN R10 0
+  CALL R8 2 1
+  JUMPIFEQ R7 R8 [+9]
+  GETTABLEKS R7 R5 K7 ["Image"]
+  GETTABLEKS R8 R2 K7 ["Image"]
+  JUMPIFEQ R7 R8 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  MOVE R4 R6
+  JUMPIFNOT R4 [+15]
+  GETUPVAL R6 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K20 ["loadingToken"]
+  JUMPIFNOTEQ R6 R7 [+5]
+  MOVE R6 R0
+  GETUPVAL R7 0
+  CALL R6 1 0
+  RETURN R0 0
+  MOVE R6 R1
+  LOADB R7 0
+  GETUPVAL R8 1
+  CALL R6 2 0
+  RETURN R0 0
+  GETIMPORT R6 K23 [task.wait]
+  LOADK R7 K24 [0.2]
+  CALL R6 1 0
+  JUMPBACK [-70]
+  MOVE R4 R1
+  LOADB R5 1
+  GETUPVAL R6 1
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["openInstanceInEditor"]
+  LOADNIL R3
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["newLoadingToken"]
+  CALL R2 0 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["new"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_17:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_isMounted"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 1
+  JUMPIFNOT R1 [+17]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["LoadingImageRef"]
+  NAMECALL R1 R1 K3 ["getValue"]
+  CALL R1 1 1
+  MOVE R3 R1
+  JUMPIFNOT R3 [+2]
+  GETTABLEKS R3 R1 K4 ["IsLoaded"]
+  FASTCALL1 ASSERT R3 [+2]
+  GETIMPORT R2 K6 [assert]
+  CALL R2 1 0
+  JUMP [+6]
+  GETTABLEKS R2 R0 K4 ["IsLoaded"]
+  FASTCALL1 ASSERT R2 [+2]
+  GETIMPORT R1 K6 [assert]
+  CALL R1 1 0
+  GETUPVAL R1 2
+  JUMPIFNOT R1 [+41]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K7 ["lastSliceOffsets"]
+  JUMPIFEQKNIL R1 [+28]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K8 ["getImageDimensionsForInstance"]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["getOffsetsForResizedImage"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K7 ["lastSliceOffsets"]
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K10 ["getSliceRectFromOffsets"]
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K11 ["getSliceCenterFromSliceRect"]
+  MOVE R5 R3
+  CALL R4 1 1
+  SETTABLEKS R4 R0 K12 ["SliceCenter"]
+  JUMP [+9]
+  GETIMPORT R1 K15 [Rect.new]
+  LOADN R2 0
+  LOADN R3 0
+  LOADN R4 0
+  LOADN R5 0
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K12 ["SliceCenter"]
+  LOADNIL R1
+  GETUPVAL R2 1
+  JUMPIFNOT R2 [+11]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["LoadingImageRef"]
+  NAMECALL R2 R2 K3 ["getValue"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K16 ["ContentImageSize"]
+  JUMP [+2]
+  GETTABLEKS R1 R0 K16 ["ContentImageSize"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K17 ["openInstanceInEditor"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["props"]
+  GETTABLEKS R2 R3 K18 ["LoadingChanged"]
+  LOADB R3 0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["loadingToken"]
+  JUMPIFEQ R1 R2 [+2]
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["_isMounted"]
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  JUMPIFNOT R0 [+13]
+  GETIMPORT R2 K3 [print]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["props"]
+  GETTABLEKS R3 R4 K5 ["Localization"]
+  LOADK R5 K6 ["Plugin"]
+  LOADK R6 K7 ["ImageLoadErrorMessage"]
+  NAMECALL R3 R3 K8 ["getText"]
+  CALL R3 3 -1
+  CALL R2 -1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K9 ["LoadingChanged"]
+  LOADB R3 0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["disconnectImageChangedConnection"]
+  CALL R2 0 0
+  MOVE R2 R0
+  JUMPIFNOT R2 [+13]
+  LOADK R5 K1 ["ImageLabel"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIF R3 [+5]
+  LOADK R4 K3 ["ImageButton"]
+  NAMECALL R2 R0 K2 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R0 K4 ["IsLoaded"]
+  NOT R2 R3
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["createPromiseForImageLoaded"]
+  MOVE R4 R0
+  MOVE R5 R2
+  CALL R3 2 1
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U0
+  MOVE R8 R4
+  MOVE R9 R5
+  NAMECALL R6 R3 K6 ["andThen"]
+  CALL R6 3 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["RenderStepped"]
+  NAMECALL R0 R0 K1 ["Wait"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["RenderStepped"]
+  NAMECALL R0 R0 K1 ["Wait"]
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["_isMounted"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["instanceWatchedForImageChange"]
+  JUMPIFEQKNIL R0 [+7]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["createAndRunPromiseForImageLoaded"]
+  MOVE R2 R0
+  LOADB R3 1
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_21:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Get"]
+  CALL R0 1 1
+  LENGTH R1 R0
+  LOADN R2 1
+  JUMPIFNOTLT R2 R1 [+2]
+  RETURN R0 0
+  LENGTH R1 R0
+  JUMPIFNOTEQKN R1 K1 [0] [+11]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["disconnectImageChangedConnection"]
+  CALL R1 0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["openInstanceInEditor"]
+  LOADNIL R2
+  CALL R1 1 0
+  RETURN R0 0
+  GETTABLEN R1 R0 1
+  FASTCALL1 ASSERT R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K5 [assert]
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["instanceUnderEdit"]
+  JUMPIFNOTEQ R1 R2 [+2]
+  RETURN R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["createAndRunPromiseForImageLoaded"]
+  MOVE R3 R1
+  LOADB R4 0
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["imageChangedConnection"]
+  JUMPIF R1 [+16]
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K1 ["instanceWatchedForImageChange"]
+  GETUPVAL R1 0
+  LOADK R4 K2 ["Image"]
+  NAMECALL R2 R0 K3 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["onImageChanged"]
+  NAMECALL R2 R2 K5 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K0 ["imageChangedConnection"]
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["imageChangedConnection"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["imageChangedConnection"]
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["imageChangedConnection"]
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["instanceWatchedForImageChange"]
+  RETURN R0 0
+
+PROTO_24:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["selectionChangedConnection"]
+  JUMPIF R0 [+12]
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["SelectionChanged"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["onSelectionChanged"]
+  NAMECALL R1 R1 K3 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K0 ["selectionChangedConnection"]
+  RETURN R0 0
+
+PROTO_25:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["selectionChangedConnection"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["selectionChangedConnection"]
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["selectionChangedConnection"]
+  RETURN R0 0
+
+PROTO_26:
+  LOADK R3 K0 ["ImageLabel"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIF R1 [+12]
+  LOADK R3 K2 ["ImageButton"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIF R1 [+7]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["showAlertDialog"]
+  LOADK R2 K4 ["ErrorMessageTitle"]
+  LOADK R3 K5 ["InvalidInstanceErrorMessage"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["createAndRunPromiseForImageLoaded"]
+  MOVE R2 R0
+  LOADB R3 0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_27:
+  DUPTABLE R2 K2 [{"showingAlertTitleKey", "showingAlertMessageKey"}]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K0 ["showingAlertTitleKey"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K1 ["showingAlertMessageKey"]
+  SETTABLEKS R2 R0 K3 ["state"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K4 ["instanceUnderEdit"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K5 ["instanceWatchedForImageChange"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K6 ["lastSliceOffsets"]
+  GETIMPORT R2 K9 [Vector2.new]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K10 ["uncroppedImageSize"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K11 ["showAlertDialog"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K12 ["closeAlertDialog"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K13 ["imageUnderEditConnections"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K14 ["clearCurrentImageUnderEdit"]
+  DUPCLOSURE R2 K15 [PROTO_3]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R0 K16 ["getOffsetsForResizedImage"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K17 ["getImageDimensionsForInstance"]
+  NEWCLOSURE R2 P5
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K18 ["getImageUnderEdit"]
+  NEWCLOSURE R2 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R0 K19 ["onSliceCenterChanged"]
+  NEWCLOSURE R2 P7
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K20 ["getInstanceProperty"]
+  NEWCLOSURE R2 P8
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K21 ["onImageRectOffsetChanged"]
+  DUPCLOSURE R2 K22 [PROTO_9]
+  SETTABLEKS R2 R0 K23 ["clampSliceCenterToDimensions"]
+  NEWCLOSURE R2 P10
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K24 ["onImageRectSizeChanged"]
+  NEWCLOSURE R2 P11
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K25 ["onImageColor3Changed"]
+  NEWCLOSURE R2 P12
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K26 ["onResampleModeChanged"]
+  NEWCLOSURE R2 P13
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R0 K27 ["openInstanceInEditor"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K28 ["loadingToken"]
+  NEWCLOSURE R2 P14
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K29 ["newLoadingToken"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K30 ["createRef"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K31 ["loadingImageRef"]
+  NEWCLOSURE R2 P15
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  SETTABLEKS R2 R0 K32 ["createPromiseForImageLoaded"]
+  NEWCLOSURE R2 P16
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R0 K33 ["createAndRunPromiseForImageLoaded"]
+  NEWCLOSURE R2 P17
+  CAPTURE UPVAL U7
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K34 ["onImageChanged"]
+  NEWCLOSURE R2 P18
+  CAPTURE UPVAL U8
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K35 ["onSelectionChanged"]
+  NEWCLOSURE R2 P19
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K36 ["connectImageChangedConnection"]
+  NEWCLOSURE R2 P20
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K37 ["disconnectImageChangedConnection"]
+  NEWCLOSURE R2 P21
+  CAPTURE VAL R0
+  CAPTURE UPVAL U8
+  SETTABLEKS R2 R0 K38 ["startListeningToSelection"]
+  NEWCLOSURE R2 P22
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K39 ["stopListeningToSelection"]
+  NEWCLOSURE R2 P23
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K40 ["onSliceCenterEditButtonClicked"]
+  GETTABLEKS R2 R1 K41 ["WidgetEnabled"]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R2 R0 K38 ["startListeningToSelection"]
+  CALL R2 0 0
+  GETUPVAL R3 9
+  GETTABLEKS R2 R3 K42 ["Open9SliceEditor"]
+  GETTABLEKS R4 R0 K40 ["onSliceCenterEditButtonClicked"]
+  NAMECALL R2 R2 K43 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K44 ["onOpen9SliceEditorConnection"]
+  RETURN R0 0
+
+PROTO_28:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_isMounted"]
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["onSliceCenterEditButtonClicked"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["InitialEditorInstanceRequest"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_29:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_isMounted"]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["InitialEditorInstanceRequest"]
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R1 K5 [task.defer]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_30:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["WidgetEnabled"]
+  JUMPIFNOT R3 [+7]
+  GETTABLEKS R3 R1 K1 ["WidgetEnabled"]
+  JUMPIF R3 [+4]
+  GETTABLEKS R3 R0 K2 ["startListeningToSelection"]
+  CALL R3 0 0
+  RETURN R0 0
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["WidgetEnabled"]
+  JUMPIF R3 [+12]
+  GETTABLEKS R3 R1 K1 ["WidgetEnabled"]
+  JUMPIFNOT R3 [+9]
+  GETTABLEKS R3 R0 K3 ["stopListeningToSelection"]
+  CALL R3 0 0
+  GETTABLEKS R3 R0 K4 ["clearCurrentImageUnderEdit"]
+  CALL R3 0 0
+  GETTABLEKS R3 R0 K5 ["disconnectImageChangedConnection"]
+  CALL R3 0 0
+  RETURN R0 0
+
+PROTO_31:
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["_isMounted"]
+  GETTABLEKS R1 R0 K1 ["stopListeningToSelection"]
+  CALL R1 0 0
+  GETTABLEKS R1 R0 K2 ["clearCurrentImageUnderEdit"]
+  CALL R1 0 0
+  GETTABLEKS R1 R0 K3 ["disconnectImageChangedConnection"]
+  CALL R1 0 0
+  GETTABLEKS R1 R0 K4 ["onOpen9SliceEditorConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K4 ["onOpen9SliceEditorConnection"]
+  NAMECALL R1 R1 K5 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["onOpen9SliceEditorConnection"]
+  RETURN R0 0
+
+PROTO_32:
+  GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R1 K1 ["showingAlertTitleKey"]
+  JUMPIFNOT R2 [+26]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K8 [{"Enabled", "TitleKey", "MessageKey", "MessageKeyFormatTable", "OnClose"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K3 ["Enabled"]
+  GETTABLEKS R5 R1 K1 ["showingAlertTitleKey"]
+  SETTABLEKS R5 R4 K4 ["TitleKey"]
+  GETTABLEKS R5 R1 K9 ["showingAlertMessageKey"]
+  SETTABLEKS R5 R4 K5 ["MessageKey"]
+  GETTABLEKS R5 R1 K10 ["showingAlertMessageReplacements"]
+  SETTABLEKS R5 R4 K6 ["MessageKeyFormatTable"]
+  GETTABLEKS R5 R0 K11 ["closeAlertDialog"]
+  SETTABLEKS R5 R4 K7 ["OnClose"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  LOADNIL R2
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K10 ["SliceRectUtil"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K9 ["Util"]
+  GETTABLEKS R6 R7 K12 ["Orientation"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K13 ["ContextServices"]
+  GETTABLEKS R7 R6 K14 ["withContext"]
+  GETTABLEKS R8 R6 K15 ["Analytics"]
+  GETTABLEKS R9 R6 K16 ["Localization"]
+  GETTABLEKS R11 R2 K9 ["Util"]
+  GETTABLEKS R10 R11 K17 ["Promise"]
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K8 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Components"]
+  GETTABLEKS R12 R13 K19 ["AlertDialog"]
+  CALL R11 1 1
+  GETIMPORT R12 K21 [game]
+  LOADK R14 K22 ["GuiService"]
+  NAMECALL R12 R12 K23 ["GetService"]
+  CALL R12 2 1
+  GETIMPORT R13 K21 [game]
+  LOADK R15 K24 ["Selection"]
+  NAMECALL R13 R13 K23 ["GetService"]
+  CALL R13 2 1
+  GETIMPORT R14 K21 [game]
+  LOADK R16 K25 ["RunService"]
+  NAMECALL R14 R14 K23 ["GetService"]
+  CALL R14 2 1
+  GETTABLEKS R15 R1 K26 ["PureComponent"]
+  LOADK R17 K27 ["InstanceUnderEditManager"]
+  NAMECALL R15 R15 K28 ["extend"]
+  CALL R15 2 1
+  GETTABLEKS R17 R5 K29 ["Left"]
+  GETTABLEKS R16 R17 K30 ["rawValue"]
+  CALL R16 0 1
+  GETTABLEKS R18 R5 K31 ["Right"]
+  GETTABLEKS R17 R18 K30 ["rawValue"]
+  CALL R17 0 1
+  GETTABLEKS R19 R5 K32 ["Top"]
+  GETTABLEKS R18 R19 K30 ["rawValue"]
+  CALL R18 0 1
+  GETTABLEKS R20 R5 K33 ["Bottom"]
+  GETTABLEKS R19 R20 K30 ["rawValue"]
+  CALL R19 0 1
+  DUPCLOSURE R20 K34 [PROTO_27]
+  CAPTURE VAL R1
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  CAPTURE VAL R19
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  SETTABLEKS R20 R15 K35 ["init"]
+  DUPCLOSURE R20 K36 [PROTO_29]
+  SETTABLEKS R20 R15 K37 ["didMount"]
+  DUPCLOSURE R20 K38 [PROTO_30]
+  SETTABLEKS R20 R15 K39 ["didUpdate"]
+  DUPCLOSURE R20 K40 [PROTO_31]
+  SETTABLEKS R20 R15 K41 ["willUnmount"]
+  DUPCLOSURE R20 K42 [PROTO_32]
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  SETTABLEKS R20 R15 K43 ["render"]
+  MOVE R20 R7
+  DUPTABLE R21 K45 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R8 R21 K15 ["Analytics"]
+  SETTABLEKS R9 R21 K16 ["Localization"]
+  GETTABLEKS R22 R6 K44 ["Stylizer"]
+  SETTABLEKS R22 R21 K44 ["Stylizer"]
+  CALL R20 1 1
+  MOVE R21 R15
+  CALL R20 1 1
+  MOVE R15 R20
+  RETURN R15 1

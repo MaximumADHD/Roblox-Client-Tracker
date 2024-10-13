@@ -1,0 +1,156 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  GETTABLEKS R3 R0 K2 ["assetIdToCountsMap"]
+  NEWTABLE R4 1 0
+  GETTABLEKS R5 R1 K3 ["assetId"]
+  GETTABLEKS R6 R1 K4 ["favoriteCounts"]
+  SETTABLE R6 R4 R5
+  CALL R2 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Dictionary"]
+  GETTABLEKS R3 R4 K1 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K5 [{"assetIdToCountsMap"}]
+  SETTABLEKS R2 R5 K2 ["assetIdToCountsMap"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  GETTABLEKS R3 R0 K2 ["assetIdToFavoritedMap"]
+  NEWTABLE R4 1 0
+  GETTABLEKS R5 R1 K3 ["assetId"]
+  GETTABLEKS R6 R1 K4 ["favorited"]
+  SETTABLE R6 R4 R5
+  CALL R2 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Dictionary"]
+  GETTABLEKS R3 R4 K1 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K5 [{"assetIdToFavoritedMap"}]
+  SETTABLEKS R2 R5 K2 ["assetIdToFavoritedMap"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETTABLEKS R2 R1 K0 ["assetId"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  GETTABLEKS R4 R0 K3 ["assetIdToCountsMap"]
+  NEWTABLE R5 1 0
+  GETTABLEKS R6 R1 K0 ["assetId"]
+  GETTABLEKS R10 R0 K3 ["assetIdToCountsMap"]
+  GETTABLE R9 R10 R2
+  ORK R8 R9 K5 [0]
+  ADDK R7 R8 K4 [1]
+  SETTABLE R7 R5 R6
+  CALL R3 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["Dictionary"]
+  GETTABLEKS R4 R5 K2 ["join"]
+  GETTABLEKS R5 R0 K6 ["assetIdToFavoritedMap"]
+  NEWTABLE R6 1 0
+  GETTABLEKS R7 R1 K0 ["assetId"]
+  LOADB R8 1
+  SETTABLE R8 R6 R7
+  CALL R4 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["Dictionary"]
+  GETTABLEKS R5 R6 K2 ["join"]
+  MOVE R6 R0
+  DUPTABLE R7 K7 [{"assetIdToCountsMap", "assetIdToFavoritedMap"}]
+  SETTABLEKS R3 R7 K3 ["assetIdToCountsMap"]
+  SETTABLEKS R4 R7 K6 ["assetIdToFavoritedMap"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_3:
+  GETTABLEKS R2 R1 K0 ["assetId"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  GETTABLEKS R4 R0 K3 ["assetIdToCountsMap"]
+  NEWTABLE R5 1 0
+  GETTABLEKS R6 R1 K0 ["assetId"]
+  GETTABLEKS R10 R0 K3 ["assetIdToCountsMap"]
+  GETTABLE R9 R10 R2
+  ORK R8 R9 K5 [0]
+  SUBK R7 R8 K4 [1]
+  SETTABLE R7 R5 R6
+  CALL R3 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["Dictionary"]
+  GETTABLEKS R4 R5 K2 ["join"]
+  GETTABLEKS R5 R0 K6 ["assetIdToFavoritedMap"]
+  NEWTABLE R6 1 0
+  GETTABLEKS R7 R1 K0 ["assetId"]
+  LOADB R8 0
+  SETTABLE R8 R6 R7
+  CALL R4 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["Dictionary"]
+  GETTABLEKS R5 R6 K2 ["join"]
+  MOVE R6 R0
+  DUPTABLE R7 K7 [{"assetIdToCountsMap", "assetIdToFavoritedMap"}]
+  SETTABLEKS R3 R7 K3 ["assetIdToCountsMap"]
+  SETTABLEKS R4 R7 K6 ["assetIdToFavoritedMap"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Rodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["Cryo"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K8 ["Core"]
+  GETTABLEKS R4 R5 K9 ["Actions"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K10 ["GetFavoriteCounts"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R4 K11 ["GetFavorited"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R4 K12 ["CreateFavorite"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R4 K13 ["DeleteFavorite"]
+  CALL R8 1 1
+  GETTABLEKS R9 R2 K14 ["createReducer"]
+  DUPTABLE R10 K17 [{"assetIdToCountsMap", "assetIdToFavoritedMap"}]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K15 ["assetIdToCountsMap"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K16 ["assetIdToFavoritedMap"]
+  NEWTABLE R11 4 0
+  GETTABLEKS R12 R5 K18 ["name"]
+  DUPCLOSURE R13 K19 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R6 K18 ["name"]
+  DUPCLOSURE R13 K20 [PROTO_1]
+  CAPTURE VAL R3
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R7 K18 ["name"]
+  DUPCLOSURE R13 K21 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R8 K18 ["name"]
+  DUPCLOSURE R13 K22 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLE R13 R11 R12
+  CALL R9 2 1
+  RETURN R9 1

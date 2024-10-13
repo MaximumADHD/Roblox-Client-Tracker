@@ -1,0 +1,92 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R4 R0
+  NAMECALL R2 R2 K0 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+6]
+  LOADK R5 K1 ["NumberValue"]
+  NAMECALL R3 R2 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R4 R2 K3 ["Value"]
+  SETTABLE R4 R3 R1
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  LOADK R5 K0 ["BodyDepthScale"]
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+11]
+  LOADK R6 K2 ["NumberValue"]
+  NAMECALL R4 R3 K3 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+1]
+  JUMP [+4]
+  GETTABLEKS R4 R3 K4 ["Value"]
+  SETTABLEKS R4 R0 K5 ["DepthScale"]
+  LOADK R5 K6 ["BodyHeightScale"]
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+11]
+  LOADK R6 K2 ["NumberValue"]
+  NAMECALL R4 R3 K3 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+1]
+  JUMP [+4]
+  GETTABLEKS R4 R3 K4 ["Value"]
+  SETTABLEKS R4 R0 K7 ["HeightScale"]
+  LOADK R5 K8 ["BodyProportionScale"]
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+11]
+  LOADK R6 K2 ["NumberValue"]
+  NAMECALL R4 R3 K3 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+1]
+  JUMP [+4]
+  GETTABLEKS R4 R3 K4 ["Value"]
+  SETTABLEKS R4 R0 K9 ["ProportionScale"]
+  LOADK R5 K10 ["BodyWidthScale"]
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+11]
+  LOADK R6 K2 ["NumberValue"]
+  NAMECALL R4 R3 K3 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+1]
+  JUMP [+4]
+  GETTABLEKS R4 R3 K4 ["Value"]
+  SETTABLEKS R4 R0 K11 ["WidthScale"]
+  LOADK R5 K12 ["BodyTypeScale"]
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+11]
+  LOADK R6 K2 ["NumberValue"]
+  NAMECALL R4 R3 K3 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+1]
+  JUMP [+4]
+  GETTABLEKS R4 R3 K4 ["Value"]
+  SETTABLEKS R4 R0 K12 ["BodyTypeScale"]
+  LOADK R5 K13 ["HeadScale"]
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+11]
+  LOADK R6 K2 ["NumberValue"]
+  NAMECALL R4 R3 K3 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+1]
+  RETURN R0 0
+  GETTABLEKS R4 R3 K4 ["Value"]
+  SETTABLEKS R4 R0 K13 ["HeadScale"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_1]
+  RETURN R0 1

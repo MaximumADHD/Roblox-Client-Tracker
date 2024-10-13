@@ -1,0 +1,466 @@
+PROTO_0:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"name"}]
+  SETTABLEKS R0 R3 K0 ["name"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["state"]
+  GETTABLEKS R1 R2 K2 ["name"]
+  JUMPIFNOT R1 [+20]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["state"]
+  GETTABLEKS R1 R2 K2 ["name"]
+  JUMPIFEQKS R1 K3 [""] [+14]
+  GETTABLEKS R1 R0 K4 ["GeneralServiceController"]
+  GETTABLEKS R3 R0 K5 ["TerrainDetail"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["state"]
+  GETTABLEKS R4 R5 K2 ["name"]
+  NAMECALL R1 R1 K6 ["setTerrainDetailName"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K7 [{"name"}]
+  GETTABLEKS R5 R0 K5 ["TerrainDetail"]
+  GETTABLEKS R4 R5 K8 ["Name"]
+  SETTABLEKS R4 R3 K2 ["name"]
+  NAMECALL R1 R1 K9 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["dispatchSetExpandedPane"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["TerrainDetailsEditor"]
+  GETTABLEKS R4 R0 K3 ["TerrainFace"]
+  GETTABLE R2 R3 R4
+  GETTABLEKS R4 R0 K4 ["ExpandedPane"]
+  NOT R3 R4
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["Stylizer"]
+  GETTABLEKS R1 R2 K2 ["TerrainDetailsEditor"]
+  GETTABLEKS R2 R0 K3 ["Localization"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["new"]
+  CALL R3 0 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K5 ["createElement"]
+  GETUPVAL R5 3
+  DUPTABLE R6 K11 [{"LabelColumnWidth", "LayoutOrder", "Padding", "Text", "VerticalAlignment"}]
+  GETTABLEKS R7 R1 K6 ["LabelColumnWidth"]
+  SETTABLEKS R7 R6 K6 ["LabelColumnWidth"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K7 ["LayoutOrder"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K8 ["Padding"]
+  LOADK R9 K12 ["TerrainDetails"]
+  GETTABLEKS R10 R0 K13 ["TerrainFace"]
+  NAMECALL R7 R2 K14 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K9 ["Text"]
+  GETIMPORT R7 K17 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R7 R6 K10 ["VerticalAlignment"]
+  NEWTABLE R7 0 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K21 [{"Layout", "Size", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R11 K24 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R11 R10 K18 ["Layout"]
+  GETIMPORT R11 K27 [UDim2.fromScale]
+  LOADN R12 1
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K19 ["Size"]
+  GETIMPORT R11 K29 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R11 R10 K20 ["HorizontalAlignment"]
+  GETIMPORT R11 K17 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R11 R10 K10 ["VerticalAlignment"]
+  DUPTABLE R11 K32 [{"Name", "Delete"}]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K36 [{"LayoutOrder", "Size", "Text", "TextTruncate", "TextXAlignment", "TextYAlignment"}]
+  NAMECALL R15 R3 K37 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K7 ["LayoutOrder"]
+  GETTABLEKS R15 R1 K38 ["NameLabelSize"]
+  SETTABLEKS R15 R14 K19 ["Size"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K39 ["state"]
+  GETTABLEKS R15 R16 K40 ["name"]
+  SETTABLEKS R15 R14 K9 ["Text"]
+  GETIMPORT R15 K42 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R15 R14 K33 ["TextTruncate"]
+  GETIMPORT R15 K44 [Enum.TextXAlignment.Left]
+  SETTABLEKS R15 R14 K34 ["TextXAlignment"]
+  GETIMPORT R15 K45 [Enum.TextYAlignment.Center]
+  SETTABLEKS R15 R14 K35 ["TextYAlignment"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K30 ["Name"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K48 [{"LayoutOrder", "OnClick", "Size", "Style"}]
+  NAMECALL R15 R3 K37 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K7 ["LayoutOrder"]
+  GETTABLEKS R15 R0 K49 ["OnDelete"]
+  SETTABLEKS R15 R14 K46 ["OnClick"]
+  GETTABLEKS R15 R1 K50 ["ButtonSize"]
+  SETTABLEKS R15 R14 K19 ["Size"]
+  GETTABLEKS R15 R1 K51 ["ButtonStyle"]
+  SETTABLEKS R15 R14 K47 ["Style"]
+  DUPTABLE R15 K54 [{"Image", "Tooltip"}]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K5 ["createElement"]
+  GETUPVAL R17 7
+  DUPTABLE R18 K56 [{"Style", "Size", "Position"}]
+  GETTABLEKS R19 R1 K31 ["Delete"]
+  SETTABLEKS R19 R18 K47 ["Style"]
+  GETTABLEKS R19 R1 K57 ["ImageSize"]
+  SETTABLEKS R19 R18 K19 ["Size"]
+  GETTABLEKS R19 R1 K58 ["ImagePosition"]
+  SETTABLEKS R19 R18 K55 ["Position"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K52 ["Image"]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K5 ["createElement"]
+  GETUPVAL R17 8
+  DUPTABLE R18 K59 [{"Text"}]
+  LOADK R21 K12 ["TerrainDetails"]
+  LOADK R22 K31 ["Delete"]
+  NAMECALL R19 R2 K14 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K9 ["Text"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K53 ["Tooltip"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K31 ["Delete"]
+  CALL R8 3 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_4:
+  DUPTABLE R1 K1 [{"name"}]
+  GETTABLEKS R4 R0 K2 ["props"]
+  GETTABLEKS R3 R4 K3 ["TerrainDetail"]
+  GETTABLEKS R2 R3 K4 ["Name"]
+  SETTABLEKS R2 R1 K0 ["name"]
+  SETTABLEKS R1 R0 K5 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K6 ["onNameChanged"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K7 ["onFocusLost"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K8 ["onExpandedChanged"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  SETTABLEKS R1 R0 K9 ["headerComponent"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R4 R0 K0 ["state"]
+  GETTABLEKS R3 R4 K1 ["name"]
+  GETTABLEKS R6 R0 K2 ["props"]
+  GETTABLEKS R5 R6 K3 ["TerrainDetail"]
+  GETTABLEKS R4 R5 K4 ["Name"]
+  JUMPIFEQ R3 R4 [+21]
+  GETTABLEKS R3 R2 K1 ["name"]
+  GETTABLEKS R5 R0 K0 ["state"]
+  GETTABLEKS R4 R5 K1 ["name"]
+  JUMPIFNOTEQ R3 R4 [+13]
+  DUPTABLE R5 K5 [{"name"}]
+  GETTABLEKS R8 R0 K2 ["props"]
+  GETTABLEKS R7 R8 K3 ["TerrainDetail"]
+  GETTABLEKS R6 R7 K4 ["Name"]
+  SETTABLEKS R6 R5 K1 ["name"]
+  NAMECALL R3 R0 K6 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["TerrainDetailsEditor"]
+  GETTABLEKS R3 R1 K3 ["Localization"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["new"]
+  CALL R4 0 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K12 [{"ContentPadding", "ContentSpacing", "LayoutOrder", "HeaderComponent", "Expanded", "OnExpandedChanged"}]
+  DUPTABLE R8 K15 [{"Top", "Bottom"}]
+  LOADN R9 5
+  SETTABLEKS R9 R8 K13 ["Top"]
+  LOADN R9 5
+  SETTABLEKS R9 R8 K14 ["Bottom"]
+  SETTABLEKS R8 R7 K6 ["ContentPadding"]
+  LOADN R8 5
+  SETTABLEKS R8 R7 K7 ["ContentSpacing"]
+  GETTABLEKS R8 R1 K8 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K8 ["LayoutOrder"]
+  GETTABLEKS R8 R0 K16 ["headerComponent"]
+  SETTABLEKS R8 R7 K9 ["HeaderComponent"]
+  GETTABLEKS R8 R1 K17 ["ExpandedPane"]
+  SETTABLEKS R8 R7 K10 ["Expanded"]
+  GETTABLEKS R8 R0 K18 ["onExpandedChanged"]
+  SETTABLEKS R8 R7 K11 ["OnExpandedChanged"]
+  DUPTABLE R8 K23 [{"Name", "TextureSettings", "TilingSettings", "Separator"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K26 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
+  GETTABLEKS R12 R2 K24 ["LabelColumnWidth"]
+  SETTABLEKS R12 R11 K24 ["LabelColumnWidth"]
+  NAMECALL R12 R4 K27 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
+  LOADK R14 K28 ["CreateDialog"]
+  LOADK R15 K29 ["NameVariant"]
+  NAMECALL R12 R3 K30 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K25 ["Text"]
+  NEWTABLE R12 0 1
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K5 ["createElement"]
+  GETUPVAL R14 4
+  DUPTABLE R15 K35 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
+  LOADK R16 K36 ["FilledRoundedBorder"]
+  SETTABLEKS R16 R15 K31 ["Style"]
+  GETTABLEKS R16 R2 K37 ["DialogColumnSize"]
+  SETTABLEKS R16 R15 K32 ["Size"]
+  GETTABLEKS R17 R0 K38 ["state"]
+  GETTABLEKS R16 R17 K39 ["name"]
+  SETTABLEKS R16 R15 K25 ["Text"]
+  GETTABLEKS R16 R0 K40 ["onNameChanged"]
+  SETTABLEKS R16 R15 K33 ["OnTextChanged"]
+  GETTABLEKS R16 R0 K41 ["onFocusLost"]
+  SETTABLEKS R16 R15 K34 ["OnFocusLost"]
+  CALL R13 2 -1
+  SETLIST R12 R13 -1 [1]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K19 ["Name"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K44 [{"LayoutOrder", "PBRMaterial", "Expandable"}]
+  NAMECALL R12 R4 K27 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
+  GETTABLEKS R12 R1 K45 ["TerrainDetail"]
+  SETTABLEKS R12 R11 K42 ["PBRMaterial"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K43 ["Expandable"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K20 ["TextureSettings"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 6
+  DUPTABLE R11 K44 [{"LayoutOrder", "PBRMaterial", "Expandable"}]
+  NAMECALL R12 R4 K27 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
+  GETTABLEKS R12 R1 K45 ["TerrainDetail"]
+  SETTABLEKS R12 R11 K42 ["PBRMaterial"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K43 ["Expandable"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K21 ["TilingSettings"]
+  GETTABLEKS R10 R1 K46 ["TerrainFace"]
+  JUMPIFEQKS R10 K14 ["Bottom"] [+17]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 7
+  DUPTABLE R11 K48 [{"LayoutOrder", "DominantAxis"}]
+  NAMECALL R12 R4 K27 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
+  GETIMPORT R12 K51 [Enum.DominantAxis.Width]
+  SETTABLEKS R12 R11 K47 ["DominantAxis"]
+  CALL R9 2 1
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K22 ["Separator"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_7:
+  DUPTABLE R2 K1 [{"ExpandedPane"}]
+  GETTABLEKS R5 R0 K2 ["MaterialBrowserReducer"]
+  GETTABLEKS R4 R5 K0 ["ExpandedPane"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["TerrainDetailsEditor"]
+  GETTABLEKS R7 R1 K4 ["TerrainFace"]
+  GETTABLE R5 R6 R7
+  GETTABLE R3 R4 R5
+  SETTABLEKS R3 R2 K0 ["ExpandedPane"]
+  RETURN R2 1
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  DUPTABLE R1 K1 [{"dispatchSetExpandedPane"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchSetExpandedPane"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["LayoutOrderIterator"]
+  GETTABLEKS R7 R4 K13 ["Style"]
+  GETTABLEKS R6 R7 K14 ["Stylizer"]
+  GETTABLEKS R7 R4 K15 ["ContextServices"]
+  GETTABLEKS R8 R7 K16 ["withContext"]
+  GETTABLEKS R9 R7 K17 ["Analytics"]
+  GETTABLEKS R10 R7 K18 ["Localization"]
+  GETTABLEKS R11 R4 K19 ["UI"]
+  GETTABLEKS R12 R11 K20 ["Button"]
+  GETTABLEKS R13 R11 K21 ["DEPRECATED_TextInput"]
+  GETTABLEKS R14 R11 K22 ["ExpandablePane"]
+  GETTABLEKS R15 R11 K23 ["Pane"]
+  GETTABLEKS R16 R11 K24 ["Image"]
+  GETTABLEKS R17 R11 K25 ["Separator"]
+  GETTABLEKS R18 R11 K26 ["Tooltip"]
+  GETTABLEKS R19 R11 K27 ["TruncatedTextLabel"]
+  GETTABLEKS R21 R0 K5 ["Src"]
+  GETTABLEKS R20 R21 K28 ["Actions"]
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R20 K29 ["SetExpandedPane"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R25 R0 K5 ["Src"]
+  GETTABLEKS R24 R25 K30 ["Reducers"]
+  GETTABLEKS R23 R24 K31 ["MainReducer"]
+  CALL R22 1 1
+  GETTABLEKS R24 R0 K5 ["Src"]
+  GETTABLEKS R23 R24 K32 ["Controllers"]
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R25 R23 K33 ["GeneralServiceController"]
+  CALL R24 1 1
+  GETTABLEKS R28 R0 K5 ["Src"]
+  GETTABLEKS R27 R28 K34 ["Components"]
+  GETTABLEKS R26 R27 K35 ["MaterialBrowser"]
+  GETTABLEKS R25 R26 K36 ["MaterialEditor"]
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R27 R25 K37 ["LabeledElement"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R28 R25 K38 ["TextureSettings"]
+  CALL R27 1 1
+  GETIMPORT R28 K4 [require]
+  GETTABLEKS R29 R25 K39 ["TilingSettings"]
+  CALL R28 1 1
+  GETTABLEKS R31 R0 K5 ["Src"]
+  GETTABLEKS R30 R31 K40 ["Resources"]
+  GETTABLEKS R29 R30 K41 ["Constants"]
+  GETIMPORT R30 K4 [require]
+  GETTABLEKS R31 R29 K42 ["getSettingsNames"]
+  CALL R30 1 1
+  MOVE R31 R30
+  CALL R31 0 1
+  GETTABLEKS R32 R2 K43 ["PureComponent"]
+  LOADK R34 K44 ["TerrainDetailsEditor"]
+  NAMECALL R32 R32 K45 ["extend"]
+  CALL R32 2 1
+  DUPCLOSURE R33 K46 [PROTO_4]
+  CAPTURE VAL R31
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R26
+  CAPTURE VAL R15
+  CAPTURE VAL R19
+  CAPTURE VAL R12
+  CAPTURE VAL R16
+  CAPTURE VAL R18
+  SETTABLEKS R33 R32 K47 ["init"]
+  DUPCLOSURE R33 K48 [PROTO_5]
+  SETTABLEKS R33 R32 K49 ["didUpdate"]
+  DUPCLOSURE R33 K50 [PROTO_6]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R14
+  CAPTURE VAL R26
+  CAPTURE VAL R13
+  CAPTURE VAL R27
+  CAPTURE VAL R28
+  CAPTURE VAL R17
+  SETTABLEKS R33 R32 K51 ["render"]
+  MOVE R33 R8
+  DUPTABLE R34 K52 [{"Analytics", "GeneralServiceController", "Localization", "Stylizer"}]
+  SETTABLEKS R9 R34 K17 ["Analytics"]
+  SETTABLEKS R24 R34 K33 ["GeneralServiceController"]
+  SETTABLEKS R10 R34 K18 ["Localization"]
+  SETTABLEKS R6 R34 K14 ["Stylizer"]
+  CALL R33 1 1
+  MOVE R34 R32
+  CALL R33 1 1
+  MOVE R32 R33
+  GETTABLEKS R33 R3 K53 ["connect"]
+  DUPCLOSURE R34 K54 [PROTO_7]
+  CAPTURE VAL R31
+  DUPCLOSURE R35 K55 [PROTO_9]
+  CAPTURE VAL R21
+  CALL R33 2 1
+  MOVE R34 R32
+  CALL R33 1 -1
+  RETURN R33 -1

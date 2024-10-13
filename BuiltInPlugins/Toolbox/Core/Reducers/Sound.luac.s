@@ -1,0 +1,254 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["currentSoundId"]
+  GETTABLEKS R3 R1 K0 ["currentSoundId"]
+  JUMPIFNOTEQ R2 R3 [+12]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["shouldDebugWarnings"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+6]
+  GETIMPORT R2 K3 [warn]
+  LOADK R3 K4 ["Trying to play the same sound instead of resuming it. Current SoundId : "]
+  GETTABLEKS R4 R1 K0 ["currentSoundId"]
+  CALL R2 2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["Dictionary"]
+  GETTABLEKS R2 R3 K6 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K8 [{"currentSoundId", "isPlaying"}]
+  GETTABLEKS R5 R1 K0 ["currentSoundId"]
+  SETTABLEKS R5 R4 K0 ["currentSoundId"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K7 ["isPlaying"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["isPlaying"]
+  JUMPIF R2 [+14]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["shouldDebugWarnings"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+9]
+  GETIMPORT R2 K3 [warn]
+  LOADK R3 K4 ["Trying to pause a sound that is not playing! Current SoundId : %d"]
+  GETTABLEKS R5 R0 K5 ["currentSoundId"]
+  NAMECALL R3 R3 K6 ["format"]
+  CALL R3 2 -1
+  CALL R2 -1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K7 ["Dictionary"]
+  GETTABLEKS R2 R3 K8 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K9 [{"isPlaying"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K0 ["isPlaying"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["isPlaying"]
+  JUMPIF R2 [+14]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["shouldDebugWarnings"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+9]
+  GETIMPORT R2 K3 [warn]
+  LOADK R3 K4 ["Trying to stop a sound that is not playing! Current SoundId : %d"]
+  GETTABLEKS R5 R0 K5 ["currentSoundId"]
+  NAMECALL R3 R3 K6 ["format"]
+  CALL R3 2 -1
+  CALL R2 -1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K7 ["Dictionary"]
+  GETTABLEKS R2 R3 K8 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K10 [{"currentSoundId", "elapsedTime", "isPlaying"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K5 ["currentSoundId"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K9 ["elapsedTime"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K0 ["isPlaying"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["isPlaying"]
+  JUMPIFNOT R2 [+14]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["shouldDebugWarnings"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+9]
+  GETIMPORT R2 K3 [warn]
+  LOADK R3 K4 ["Trying to resume a sound which is playing! Current SoundId : %d"]
+  GETTABLEKS R5 R0 K5 ["currentSoundId"]
+  NAMECALL R3 R3 K6 ["format"]
+  CALL R3 2 -1
+  CALL R2 -1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K7 ["Dictionary"]
+  GETTABLEKS R2 R3 K8 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K9 [{"isPlaying"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K0 ["isPlaying"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K4 [{"currentSoundId", "isPlaying"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K2 ["currentSoundId"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K3 ["isPlaying"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"isLoading"}]
+  GETTABLEKS R5 R1 K2 ["isLoading"]
+  SETTABLEKS R5 R4 K2 ["isLoading"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"elapsedTime"}]
+  GETTABLEKS R5 R1 K2 ["elapsedTime"]
+  SETTABLEKS R5 R4 K2 ["elapsedTime"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_7:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K4 [{"elapsedTime", "totalTime"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K2 ["elapsedTime"]
+  GETTABLEKS R5 R1 K3 ["totalTime"]
+  SETTABLEKS R5 R4 K3 ["totalTime"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["Rodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Core"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K10 ["DebugFlags"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Core"]
+  GETTABLEKS R7 R8 K11 ["Actions"]
+  GETTABLEKS R6 R7 K12 ["PlayPreviewSound"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Core"]
+  GETTABLEKS R8 R9 K11 ["Actions"]
+  GETTABLEKS R7 R8 K13 ["PausePreviewSound"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Core"]
+  GETTABLEKS R9 R10 K11 ["Actions"]
+  GETTABLEKS R8 R9 K14 ["StopPreviewSound"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Core"]
+  GETTABLEKS R10 R11 K11 ["Actions"]
+  GETTABLEKS R9 R10 K15 ["ResumePreviewSound"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Core"]
+  GETTABLEKS R11 R12 K11 ["Actions"]
+  GETTABLEKS R10 R11 K16 ["StopAllSounds"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K8 ["Core"]
+  GETTABLEKS R12 R13 K11 ["Actions"]
+  GETTABLEKS R11 R12 K17 ["SetSoundLoading"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K8 ["Core"]
+  GETTABLEKS R13 R14 K11 ["Actions"]
+  GETTABLEKS R12 R13 K18 ["SetSoundElapsedTime"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K8 ["Core"]
+  GETTABLEKS R14 R15 K11 ["Actions"]
+  GETTABLEKS R13 R14 K19 ["SetSoundTotalTime"]
+  CALL R12 1 1
+  GETTABLEKS R13 R3 K20 ["createReducer"]
+  DUPTABLE R14 K26 [{"currentSoundId", "elapsedTime", "isPlaying", "isLoading", "totalTime"}]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K21 ["currentSoundId"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K22 ["elapsedTime"]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K23 ["isPlaying"]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K24 ["isLoading"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K25 ["totalTime"]
+  NEWTABLE R15 8 0
+  GETTABLEKS R16 R5 K27 ["name"]
+  DUPCLOSURE R17 K28 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R6 K27 ["name"]
+  DUPCLOSURE R17 K29 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R7 K27 ["name"]
+  DUPCLOSURE R17 K30 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R8 K27 ["name"]
+  DUPCLOSURE R17 K31 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R9 K27 ["name"]
+  DUPCLOSURE R17 K32 [PROTO_4]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R10 K27 ["name"]
+  DUPCLOSURE R17 K33 [PROTO_5]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R11 K27 ["name"]
+  DUPCLOSURE R17 K34 [PROTO_6]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R12 K27 ["name"]
+  DUPCLOSURE R17 K35 [PROTO_7]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  CALL R13 2 -1
+  RETURN R13 -1

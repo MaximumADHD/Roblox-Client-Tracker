@@ -1,0 +1,134 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  LOADK R1 K1 ["TerrainEditor"]
+  CALL R0 1 1
+  NAMECALL R1 R0 K2 ["GetMouse"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [Ray.new]
+  GETIMPORT R3 K7 [Vector3.zero]
+  GETIMPORT R4 K9 [Vector3.xAxis]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K10 ["UnitRay"]
+  NAMECALL R1 R0 K2 ["GetMouse"]
+  CALL R1 1 1
+  LOADN R2 0
+  SETTABLEKS R2 R1 K11 ["X"]
+  NAMECALL R1 R0 K2 ["GetMouse"]
+  CALL R1 1 1
+  LOADN R2 0
+  SETTABLEKS R2 R1 K12 ["Y"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K13 ["mock"]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K13 ["mock"]
+  GETUPVAL R3 3
+  CALL R2 1 1
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K13 ["mock"]
+  CALL R3 0 1
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K0 ["new"]
+  MOVE R5 R0
+  MOVE R6 R2
+  CALL R4 2 1
+  GETUPVAL R5 6
+  LOADB R6 1
+  CALL R5 1 1
+  GETUPVAL R7 7
+  GETTABLEKS R6 R7 K13 ["mock"]
+  CALL R6 0 1
+  GETUPVAL R8 8
+  GETTABLEKS R7 R8 K13 ["mock"]
+  MOVE R8 R1
+  MOVE R9 R4
+  MOVE R10 R3
+  MOVE R11 R2
+  MOVE R12 R5
+  CALL R7 5 1
+  DUPTABLE R8 K21 [{"Analytics", "Localization", "PluginController", "ShortcutController", "StudioServices", "Stylizer", "ToolController"}]
+  SETTABLEKS R3 R8 K14 ["Analytics"]
+  SETTABLEKS R2 R8 K15 ["Localization"]
+  SETTABLEKS R1 R8 K16 ["PluginController"]
+  SETTABLEKS R4 R8 K17 ["ShortcutController"]
+  SETTABLEKS R6 R8 K18 ["StudioServices"]
+  SETTABLEKS R5 R8 K19 ["Stylizer"]
+  SETTABLEKS R7 R8 K20 ["ToolController"]
+  RETURN R8 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["MaterialFramework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K8 ["ContextServices"]
+  GETTABLEKS R3 R4 K9 ["Analytics"]
+  GETTABLEKS R5 R1 K8 ["ContextServices"]
+  GETTABLEKS R4 R5 K10 ["Localization"]
+  GETTABLEKS R7 R1 K11 ["TestHelpers"]
+  GETTABLEKS R6 R7 K12 ["Instances"]
+  GETTABLEKS R5 R6 K13 ["MockPlugin"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K14 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Resources"]
+  GETTABLEKS R7 R8 K16 ["MakeTheme"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K14 ["Src"]
+  GETTABLEKS R9 R10 K17 ["Controllers"]
+  GETTABLEKS R8 R9 K18 ["PluginController"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K14 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Controllers"]
+  GETTABLEKS R9 R10 K19 ["ShortcutController"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K14 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Controllers"]
+  GETTABLEKS R10 R11 K20 ["ToolController"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K14 ["Src"]
+  GETTABLEKS R12 R13 K21 ["Util"]
+  GETTABLEKS R11 R12 K22 ["mockResourceTable"]
+  CALL R10 1 1
+  GETTABLEKS R12 R2 K23 ["Context"]
+  GETTABLEKS R11 R12 K24 ["StudioServices"]
+  DUPTABLE R12 K26 [{"libraries"}]
+  NEWTABLE R13 2 0
+  GETTABLEKS R15 R2 K15 ["Resources"]
+  GETTABLEKS R14 R15 K27 ["LOCALIZATION_PROJECT_NAME"]
+  DUPTABLE R15 K30 [{"stringResourceTable", "translationResourceTable"}]
+  SETTABLEKS R10 R15 K28 ["stringResourceTable"]
+  SETTABLEKS R10 R15 K29 ["translationResourceTable"]
+  SETTABLE R15 R13 R14
+  GETTABLEKS R15 R1 K15 ["Resources"]
+  GETTABLEKS R14 R15 K27 ["LOCALIZATION_PROJECT_NAME"]
+  DUPTABLE R15 K30 [{"stringResourceTable", "translationResourceTable"}]
+  SETTABLEKS R10 R15 K28 ["stringResourceTable"]
+  SETTABLEKS R10 R15 K29 ["translationResourceTable"]
+  SETTABLE R15 R13 R14
+  SETTABLEKS R13 R12 K25 ["libraries"]
+  DUPCLOSURE R13 K31 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  RETURN R13 1

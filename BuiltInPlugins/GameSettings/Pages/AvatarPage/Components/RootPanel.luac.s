@@ -1,0 +1,203 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["canvasRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  JUMPIFNOT R1 [+9]
+  GETIMPORT R2 K4 [UDim2.new]
+  LOADN R3 1
+  LOADN R4 0
+  LOADN R5 0
+  MOVE R6 R0
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K5 ["CanvasSize"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["canvasRef"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["contentHeightChanged"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["addTemplates"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  NEWTABLE R3 1 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Ref"]
+  GETTABLEKS R5 R0 K2 ["canvasRef"]
+  SETTABLE R5 R3 R4
+  NEWTABLE R4 0 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K3 ["Frame"]
+  DUPTABLE R7 K7 [{"Size", "BorderSizePixel", "BackgroundTransparency"}]
+  GETIMPORT R8 K10 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADN R11 1
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K4 ["Size"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K5 ["BorderSizePixel"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K6 ["BackgroundTransparency"]
+  DUPTABLE R8 K13 [{"MorpherTemplateContainer", "RigUpdater"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K20 [{"ThemeData", "StateTemplates", "IsEnabled", "Mouse", "clobberTemplate", "ContentHeightChanged"}]
+  GETTABLEKS R13 R0 K21 ["props"]
+  GETTABLEKS R12 R13 K22 ["StateTheme"]
+  SETTABLEKS R12 R11 K14 ["ThemeData"]
+  GETTABLEKS R13 R0 K21 ["props"]
+  GETTABLEKS R12 R13 K15 ["StateTemplates"]
+  SETTABLEKS R12 R11 K15 ["StateTemplates"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K16 ["IsEnabled"]
+  GETTABLEKS R13 R0 K21 ["props"]
+  GETTABLEKS R12 R13 K17 ["Mouse"]
+  SETTABLEKS R12 R11 K17 ["Mouse"]
+  GETTABLEKS R13 R0 K21 ["props"]
+  GETTABLEKS R12 R13 K18 ["clobberTemplate"]
+  SETTABLEKS R12 R11 K18 ["clobberTemplate"]
+  GETTABLEKS R12 R0 K23 ["contentHeightChanged"]
+  SETTABLEKS R12 R11 K19 ["ContentHeightChanged"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["MorpherTemplateContainer"]
+  GETIMPORT R10 K25 [game]
+  LOADK R12 K26 ["DisableGameSettingsAvatarPreview"]
+  NAMECALL R10 R10 K27 ["GetFastFlag"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+2]
+  LOADNIL R9
+  JUMP [+12]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K28 [{"StateTemplates"}]
+  GETTABLEKS R13 R0 K21 ["props"]
+  GETTABLEKS R12 R13 K15 ["StateTemplates"]
+  SETTABLEKS R12 R11 K15 ["StateTemplates"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K12 ["RigUpdater"]
+  CALL R5 3 -1
+  SETLIST R4 R5 -1 [1]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_4:
+  DUPTABLE R2 K2 [{"StateTemplates", "StateTheme"}]
+  GETTABLEKS R5 R0 K3 ["MorpherEditorRoot"]
+  GETTABLEKS R4 R5 K4 ["StateMorpher"]
+  GETTABLEKS R3 R4 K0 ["StateTemplates"]
+  SETTABLEKS R3 R2 K0 ["StateTemplates"]
+  GETTABLEKS R5 R0 K3 ["MorpherEditorRoot"]
+  GETTABLEKS R4 R5 K4 ["StateMorpher"]
+  GETTABLEKS R3 R4 K1 ["StateTheme"]
+  SETTABLEKS R3 R2 K1 ["StateTheme"]
+  RETURN R2 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_7:
+  DUPTABLE R1 K2 [{"addTemplates", "clobberTemplate"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["addTemplates"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["clobberTemplate"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R1 K5 ["Packages"]
+  GETTABLEKS R3 R4 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R1 K5 ["Packages"]
+  GETTABLEKS R4 R5 K7 ["RoactRodux"]
+  CALL R3 1 1
+  GETTABLEKS R5 R1 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["RoactStudioWidgets"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Actions"]
+  GETTABLEKS R6 R7 K10 ["TemplatesAdd"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K9 ["Actions"]
+  GETTABLEKS R7 R8 K11 ["TemplatesClobberTemplate"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K12 ["Components"]
+  GETTABLEKS R8 R9 K13 ["AvatarUpdater"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K12 ["Components"]
+  GETTABLEKS R9 R10 K14 ["MorpherTemplateContainer"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R4 K15 ["StyledScrollingFrame"]
+  CALL R9 1 1
+  GETTABLEKS R10 R2 K16 ["Component"]
+  LOADK R12 K17 ["ComponentRootPanel"]
+  NAMECALL R10 R10 K18 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K19 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R11 R10 K20 ["init"]
+  DUPCLOSURE R11 K21 [PROTO_2]
+  SETTABLEKS R11 R10 K22 ["didMount"]
+  DUPCLOSURE R11 K23 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K24 ["render"]
+  GETTABLEKS R11 R3 K25 ["UNSTABLE_connect2"]
+  DUPCLOSURE R12 K26 [PROTO_4]
+  DUPCLOSURE R13 K27 [PROTO_7]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CALL R11 2 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

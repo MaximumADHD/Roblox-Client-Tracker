@@ -1,0 +1,134 @@
+PROTO_0:
+  GETIMPORT R2 K2 [Instance.new]
+  LOADK R3 K3 ["Part"]
+  CALL R2 1 1
+  GETIMPORT R3 K7 [Enum.PartType.Cylinder]
+  SETTABLEKS R3 R2 K8 ["Shape"]
+  GETIMPORT R3 K11 [Enum.SurfaceType.Smooth]
+  SETTABLEKS R3 R2 K12 ["TopSurface"]
+  GETIMPORT R3 K11 [Enum.SurfaceType.Smooth]
+  SETTABLEKS R3 R2 K13 ["BottomSurface"]
+  SETTABLEKS R0 R2 K14 ["Parent"]
+  LOADK R3 K15 [{2, 0.1, 0.1}]
+  SETTABLEKS R3 R2 K16 ["Size"]
+  SETTABLEKS R1 R2 K17 ["Color"]
+  RETURN R2 1
+
+PROTO_1:
+  GETIMPORT R0 K2 [Instance.new]
+  LOADK R1 K3 ["Model"]
+  CALL R0 1 1
+  GETUPVAL R2 0
+  GETIMPORT R3 K2 [Instance.new]
+  LOADK R4 K4 ["Part"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [Enum.PartType.Cylinder]
+  SETTABLEKS R4 R3 K9 ["Shape"]
+  GETIMPORT R4 K12 [Enum.SurfaceType.Smooth]
+  SETTABLEKS R4 R3 K13 ["TopSurface"]
+  GETIMPORT R4 K12 [Enum.SurfaceType.Smooth]
+  SETTABLEKS R4 R3 K14 ["BottomSurface"]
+  SETTABLEKS R0 R3 K15 ["Parent"]
+  LOADK R4 K16 [{2, 0.1, 0.1}]
+  SETTABLEKS R4 R3 K17 ["Size"]
+  SETTABLEKS R2 R3 K18 ["Color"]
+  MOVE R1 R3
+  GETIMPORT R2 K20 [CFrame.new]
+  LOADK R5 K16 [{2, 0.1, 0.1}]
+  GETTABLEKS R4 R5 K22 ["X"]
+  DIVK R3 R4 K21 [2]
+  LOADN R4 0
+  LOADN R5 0
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K19 ["CFrame"]
+  GETUPVAL R3 1
+  GETIMPORT R4 K2 [Instance.new]
+  LOADK R5 K4 ["Part"]
+  CALL R4 1 1
+  GETIMPORT R5 K8 [Enum.PartType.Cylinder]
+  SETTABLEKS R5 R4 K9 ["Shape"]
+  GETIMPORT R5 K12 [Enum.SurfaceType.Smooth]
+  SETTABLEKS R5 R4 K13 ["TopSurface"]
+  GETIMPORT R5 K12 [Enum.SurfaceType.Smooth]
+  SETTABLEKS R5 R4 K14 ["BottomSurface"]
+  SETTABLEKS R0 R4 K15 ["Parent"]
+  LOADK R5 K16 [{2, 0.1, 0.1}]
+  SETTABLEKS R5 R4 K17 ["Size"]
+  SETTABLEKS R3 R4 K18 ["Color"]
+  MOVE R2 R4
+  GETIMPORT R4 K20 [CFrame.new]
+  LOADN R5 0
+  LOADK R8 K16 [{2, 0.1, 0.1}]
+  GETTABLEKS R7 R8 K22 ["X"]
+  DIVK R6 R7 K21 [2]
+  LOADN R7 0
+  CALL R4 3 1
+  GETIMPORT R5 K24 [CFrame.Angles]
+  LOADN R6 0
+  LOADN R7 0
+  LOADK R8 K25 [1.5707963267949]
+  CALL R5 3 1
+  MUL R3 R4 R5
+  SETTABLEKS R3 R2 K19 ["CFrame"]
+  GETUPVAL R4 2
+  GETIMPORT R5 K2 [Instance.new]
+  LOADK R6 K4 ["Part"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [Enum.PartType.Cylinder]
+  SETTABLEKS R6 R5 K9 ["Shape"]
+  GETIMPORT R6 K12 [Enum.SurfaceType.Smooth]
+  SETTABLEKS R6 R5 K13 ["TopSurface"]
+  GETIMPORT R6 K12 [Enum.SurfaceType.Smooth]
+  SETTABLEKS R6 R5 K14 ["BottomSurface"]
+  SETTABLEKS R0 R5 K15 ["Parent"]
+  LOADK R6 K16 [{2, 0.1, 0.1}]
+  SETTABLEKS R6 R5 K17 ["Size"]
+  SETTABLEKS R4 R5 K18 ["Color"]
+  MOVE R3 R5
+  GETIMPORT R5 K20 [CFrame.new]
+  LOADN R6 0
+  LOADN R7 0
+  LOADK R10 K16 [{2, 0.1, 0.1}]
+  GETTABLEKS R9 R10 K22 ["X"]
+  DIVK R8 R9 K21 [2]
+  CALL R5 3 1
+  GETIMPORT R6 K24 [CFrame.Angles]
+  LOADN R7 0
+  LOADK R8 K25 [1.5707963267949]
+  LOADN R9 0
+  CALL R6 3 1
+  MUL R4 R5 R6
+  SETTABLEKS R4 R3 K19 ["CFrame"]
+  GETIMPORT R4 K2 [Instance.new]
+  LOADK R5 K4 ["Part"]
+  CALL R4 1 1
+  LOADK R5 K26 [{4, 4, 4}]
+  SETTABLEKS R5 R4 K17 ["Size"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K27 ["Transparency"]
+  SETTABLEKS R0 R4 K15 ["Parent"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K2 [Color3.new]
+  LOADN R1 1
+  LOADN R2 0
+  LOADN R3 0
+  CALL R0 3 1
+  GETIMPORT R1 K2 [Color3.new]
+  LOADN R2 0
+  LOADN R3 1
+  LOADN R4 0
+  CALL R1 3 1
+  GETIMPORT R2 K2 [Color3.new]
+  LOADN R3 0
+  LOADN R4 0
+  LOADN R5 1
+  CALL R2 3 1
+  DUPCLOSURE R3 K3 [PROTO_0]
+  DUPCLOSURE R4 K4 [PROTO_1]
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R4 1

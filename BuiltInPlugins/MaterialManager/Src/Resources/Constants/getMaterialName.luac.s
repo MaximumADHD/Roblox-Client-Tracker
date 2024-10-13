@@ -1,0 +1,155 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Flags"]
+  CALL R1 1 1
+  NEWTABLE R2 64 0
+  GETIMPORT R3 K10 [Enum.Material.Air]
+  LOADK R4 K9 ["Air"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K12 [Enum.Material.Asphalt]
+  LOADK R4 K11 ["Asphalt"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K14 [Enum.Material.Basalt]
+  LOADK R4 K13 ["Basalt"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K16 [Enum.Material.Brick]
+  LOADK R4 K15 ["Brick"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K18 [Enum.Material.Cardboard]
+  LOADK R4 K17 ["Cardboard"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K20 [Enum.Material.Carpet]
+  LOADK R4 K19 ["Carpet"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K22 [Enum.Material.CeramicTiles]
+  LOADK R4 K21 ["CeramicTiles"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K24 [Enum.Material.ClayRoofTiles]
+  LOADK R4 K23 ["ClayRoofTiles"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K26 [Enum.Material.Cobblestone]
+  LOADK R4 K25 ["Cobblestone"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K28 [Enum.Material.Concrete]
+  LOADK R4 K27 ["Concrete"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K30 [Enum.Material.CorrodedMetal]
+  LOADK R4 K29 ["CorrodedMetal"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K32 [Enum.Material.CrackedLava]
+  LOADK R4 K31 ["CrackedLava"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K34 [Enum.Material.DiamondPlate]
+  LOADK R4 K33 ["DiamondPlate"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K36 [Enum.Material.Fabric]
+  LOADK R4 K35 ["Fabric"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K38 [Enum.Material.Foil]
+  LOADK R4 K37 ["Foil"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K40 [Enum.Material.ForceField]
+  LOADK R4 K39 ["ForceField"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K42 [Enum.Material.Glacier]
+  LOADK R4 K41 ["Glacier"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K44 [Enum.Material.Glass]
+  LOADK R4 K43 ["Glass"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K46 [Enum.Material.Granite]
+  LOADK R4 K45 ["Granite"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K48 [Enum.Material.Grass]
+  LOADK R4 K47 ["Grass"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K50 [Enum.Material.Ground]
+  LOADK R4 K49 ["Ground"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K52 [Enum.Material.Ice]
+  LOADK R4 K51 ["Ice"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K54 [Enum.Material.LeafyGrass]
+  LOADK R4 K53 ["LeafyGrass"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K56 [Enum.Material.Leather]
+  LOADK R4 K55 ["Leather"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K58 [Enum.Material.Limestone]
+  LOADK R4 K57 ["Limestone"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K60 [Enum.Material.Marble]
+  LOADK R4 K59 ["Marble"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K62 [Enum.Material.Metal]
+  LOADK R4 K61 ["Metal"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K64 [Enum.Material.Mud]
+  LOADK R4 K63 ["Mud"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K66 [Enum.Material.Neon]
+  LOADK R4 K65 ["Neon"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K68 [Enum.Material.Pavement]
+  LOADK R4 K67 ["Pavement"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K70 [Enum.Material.Pebble]
+  LOADK R4 K69 ["Pebble"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K72 [Enum.Material.Plaster]
+  LOADK R4 K71 ["Plaster"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K74 [Enum.Material.Plastic]
+  LOADK R4 K73 ["Plastic"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K76 [Enum.Material.Rock]
+  LOADK R4 K75 ["Rock"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K78 [Enum.Material.RoofShingles]
+  LOADK R4 K77 ["RoofShingles"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K80 [Enum.Material.Rubber]
+  LOADK R4 K79 ["Rubber"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K82 [Enum.Material.Salt]
+  LOADK R4 K81 ["Salt"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K84 [Enum.Material.Sand]
+  LOADK R4 K83 ["Sand"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K86 [Enum.Material.Slate]
+  LOADK R4 K85 ["Slate"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K88 [Enum.Material.Sandstone]
+  LOADK R4 K87 ["Sandstone"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K90 [Enum.Material.SmoothPlastic]
+  LOADK R4 K89 ["SmoothPlastic"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K92 [Enum.Material.Snow]
+  LOADK R4 K91 ["Snow"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K94 [Enum.Material.Water]
+  LOADK R4 K93 ["Water"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K96 [Enum.Material.Wood]
+  LOADK R4 K95 ["Wood"]
+  SETTABLE R4 R2 R3
+  GETIMPORT R3 K98 [Enum.Material.WoodPlanks]
+  LOADK R4 K97 ["WoodPlanks"]
+  SETTABLE R4 R2 R3
+  DUPCLOSURE R3 K99 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

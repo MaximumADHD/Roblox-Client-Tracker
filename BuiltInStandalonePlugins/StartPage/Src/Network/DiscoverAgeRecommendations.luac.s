@@ -1,0 +1,175 @@
+PROTO_0:
+  GETTABLEKS R2 R1 K0 ["universeId"]
+  JUMPIFNOT R2 [+24]
+  GETTABLEKS R2 R1 K1 ["ageRecommendationDetails"]
+  JUMPIFNOT R2 [+21]
+  GETTABLEKS R3 R1 K1 ["ageRecommendationDetails"]
+  GETTABLEKS R2 R3 K2 ["ageRecommendationSummary"]
+  JUMPIFNOT R2 [+16]
+  GETTABLEKS R4 R1 K1 ["ageRecommendationDetails"]
+  GETTABLEKS R3 R4 K2 ["ageRecommendationSummary"]
+  GETTABLEKS R2 R3 K3 ["ageRecommendation"]
+  JUMPIFNOT R2 [+9]
+  GETTABLEKS R5 R1 K1 ["ageRecommendationDetails"]
+  GETTABLEKS R4 R5 K2 ["ageRecommendationSummary"]
+  GETTABLEKS R3 R4 K3 ["ageRecommendation"]
+  GETTABLEKS R2 R3 K4 ["minimumAge"]
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  DUPTABLE R2 K7 [{"Id", "AgeRecommendation"}]
+  GETTABLEKS R3 R1 K0 ["universeId"]
+  SETTABLEKS R3 R2 K5 ["Id"]
+  GETTABLEKS R6 R1 K1 ["ageRecommendationDetails"]
+  GETTABLEKS R5 R6 K2 ["ageRecommendationSummary"]
+  GETTABLEKS R4 R5 K3 ["ageRecommendation"]
+  GETTABLEKS R3 R4 K4 ["minimumAge"]
+  SETTABLEKS R3 R2 K6 ["AgeRecommendation"]
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K0 ["ageRecommendationDetailsByUniverse"]
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R3 R1 K0 ["ageRecommendationDetailsByUniverse"]
+  DUPCLOSURE R4 K1 [PROTO_0]
+  CALL R2 2 1
+  GETUPVAL R3 2
+  MOVE R5 R2
+  NAMECALL R3 R3 K2 ["upsertItems"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["DiscoverAgeRecommendations experienced an error: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  DUPTABLE R1 K1 [{"universeIds"}]
+  SETTABLEKS R0 R1 K0 ["universeIds"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["new"]
+  CALL R2 0 1
+  GETTABLEKS R3 R2 K3 ["composeUrl"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["MULTI_AGE_RECOMMENDATION"]
+  GETTABLEKS R4 R5 K5 ["Prefix"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K4 ["MULTI_AGE_RECOMMENDATION"]
+  GETTABLEKS R5 R6 K6 ["Url"]
+  CALL R5 0 -1
+  CALL R3 -1 1
+  GETUPVAL R4 2
+  MOVE R6 R3
+  GETUPVAL R7 3
+  MOVE R9 R1
+  NAMECALL R7 R7 K7 ["JSONEncode"]
+  CALL R7 2 1
+  GETUPVAL R8 4
+  NAMECALL R4 R4 K8 ["post"]
+  CALL R4 4 1
+  GETUPVAL R5 2
+  MOVE R7 R4
+  NAMECALL R5 R5 K9 ["parseJson"]
+  CALL R5 2 1
+  DUPCLOSURE R7 K10 [PROTO_1]
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  NAMECALL R5 R5 K11 ["andThen"]
+  CALL R5 2 1
+  DUPCLOSURE R7 K12 [PROTO_2]
+  NAMECALL R5 R5 K13 ["catch"]
+  CALL R5 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["SharedFlags"]
+  GETTABLEKS R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+  CALL R1 1 1
+  CALL R1 0 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Models"]
+  GETTABLEKS R5 R6 K13 ["MultiGetAgeRecommendationResponse"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Network"]
+  GETTABLEKS R6 R7 K15 ["Urls"]
+  CALL R5 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Util"]
+  GETTABLEKS R8 R9 K17 ["Services"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K18 ["Networking"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Util"]
+  GETTABLEKS R8 R9 K19 ["createResponseValidator"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K9 ["Packages"]
+  GETTABLEKS R9 R10 K20 ["Dash"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K21 ["collectArray"]
+  GETTABLEKS R11 R2 K22 ["RobloxAPI"]
+  GETTABLEKS R10 R11 K23 ["Url"]
+  GETTABLEKS R11 R6 K24 ["new"]
+  DUPTABLE R12 K28 [{"isInternal", "loggingLevel", "retryAmount"}]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K25 ["isInternal"]
+  SETTABLEKS R1 R12 K26 ["loggingLevel"]
+  LOADN R13 3
+  SETTABLEKS R13 R12 K27 ["retryAmount"]
+  CALL R11 1 1
+  NEWTABLE R12 1 0
+  LOADK R13 K29 ["application/json"]
+  SETTABLEKS R13 R12 K30 ["Content-Type"]
+  GETIMPORT R13 K32 [game]
+  LOADK R15 K33 ["HttpService"]
+  NAMECALL R13 R13 K34 ["GetService"]
+  CALL R13 2 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K6 ["Src"]
+  GETTABLEKS R16 R17 K14 ["Network"]
+  GETTABLEKS R15 R16 K35 ["GameCache"]
+  CALL R14 1 1
+  MOVE R15 R7
+  GETTABLEKS R16 R4 K36 ["validate"]
+  CALL R15 1 1
+  DUPCLOSURE R16 K37 [PROTO_3]
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  RETURN R16 1

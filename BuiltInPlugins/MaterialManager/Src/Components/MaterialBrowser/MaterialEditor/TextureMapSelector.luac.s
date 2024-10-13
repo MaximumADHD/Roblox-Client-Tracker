@@ -1,0 +1,383 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_isMounted"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["checkIsMounted"]
+  CALL R2 0 1
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  JUMPIFNOT R0 [+23]
+  JUMPIFNOT R1 [+22]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["errorMessage"]
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["errorMessage"]
+  JUMPIFNOTEQKS R2 K2 [""] [+14]
+  GETUPVAL R2 0
+  DUPTABLE R4 K4 [{"importAsset"}]
+  DUPTABLE R5 K7 [{"file", "tempId"}]
+  SETTABLEKS R0 R5 K5 ["file"]
+  SETTABLEKS R1 R5 K6 ["tempId"]
+  SETTABLEKS R5 R4 K3 ["importAsset"]
+  NAMECALL R2 R2 K8 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K4 [{"importAsset"}]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K3 ["importAsset"]
+  NAMECALL R2 R2 K8 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["PBRMaterial"]
+  GETTABLEKS R2 R0 K2 ["GeneralServiceController"]
+  MOVE R4 R1
+  GETTABLEKS R5 R0 K3 ["MapType"]
+  LOADK R6 K4 [""]
+  NAMECALL R2 R2 K5 ["setTextureMap"]
+  CALL R2 4 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["setImportAsset"]
+  LOADNIL R3
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["checkIsMounted"]
+  CALL R1 0 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K2 [{"uploading"}]
+  SETTABLEKS R0 R3 K1 ["uploading"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R4 R3 K1 ["PBRMaterial"]
+  GETTABLEKS R5 R3 K2 ["GeneralServiceController"]
+  MOVE R7 R4
+  GETTABLEKS R8 R3 K3 ["MapType"]
+  MOVE R9 R0
+  NAMECALL R5 R5 K4 ["setTextureMap"]
+  CALL R5 4 0
+  GETTABLEKS R5 R3 K5 ["Analytics"]
+  MOVE R7 R1
+  NAMECALL R5 R5 K6 ["report"]
+  CALL R5 2 0
+  GETUPVAL R5 0
+  SETTABLEKS R2 R5 K7 ["errorMessage"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["setImportAsset"]
+  LOADNIL R6
+  CALL R5 1 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["setUploading"]
+  LOADB R6 0
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["ImportAssetHandler"]
+  GETTABLEKS R2 R0 K2 ["GeneralServiceController"]
+  GETTABLEKS R4 R0 K3 ["PBRMaterial"]
+  GETTABLEKS R5 R0 K4 ["MapType"]
+  MOVE R6 R1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["setUploading"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["setImportAsset"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["updateTextureMap"]
+  NAMECALL R2 R2 K8 ["setTextureMapFromFile"]
+  CALL R2 7 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Text"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  JUMPIFNOT R3 [+2]
+  JUMPIFNOTEQKS R3 K2 [""] [+6]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["clearTextureMap"]
+  CALL R4 0 0
+  RETURN R0 0
+  GETTABLEKS R4 R2 K4 ["GeneralServiceController"]
+  GETTABLEKS R6 R2 K5 ["PBRMaterial"]
+  GETTABLEKS R7 R2 K6 ["MapType"]
+  MOVE R8 R3
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["checkIsMounted"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K8 ["updateTextureMap"]
+  NAMECALL R4 R4 K9 ["setTextureMapFromURL"]
+  CALL R4 6 0
+  RETURN R0 0
+
+PROTO_7:
+  DUPTABLE R1 K2 [{"importAsset", "uploading"}]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K0 ["importAsset"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["uploading"]
+  SETTABLEKS R1 R0 K3 ["state"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["errorMessage"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["checkIsMounted"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K6 ["setImportAsset"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K7 ["clearTextureMap"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K8 ["setUploading"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K9 ["updateTextureMap"]
+  NEWCLOSURE R1 P5
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K10 ["promptSelection"]
+  NEWCLOSURE R1 P6
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K11 ["onFocusLost"]
+  RETURN R0 0
+
+PROTO_8:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_isMounted"]
+  RETURN R0 0
+
+PROTO_9:
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["_isMounted"]
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R2 R1 K0 ["PBRMaterial"]
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K0 ["PBRMaterial"]
+  JUMPIFEQ R2 R3 [+15]
+  DUPTABLE R4 K4 [{"importAsset", "uploading"}]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K2 ["importAsset"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K3 ["uploading"]
+  NAMECALL R2 R0 K5 ["setState"]
+  CALL R2 2 0
+  LOADNIL R2
+  SETTABLEKS R2 R0 K6 ["errorMessage"]
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  LOADK R4 K3 [""]
+  LOADK R5 K3 [""]
+  LOADB R6 0
+  GETTABLEKS R7 R1 K4 ["PBRMaterial"]
+  GETTABLEKS R8 R2 K5 ["importAsset"]
+  JUMPIFNOT R8 [+5]
+  GETTABLEKS R9 R2 K5 ["importAsset"]
+  GETTABLEKS R8 R9 K6 ["tempId"]
+  JUMPIF R8 [+5]
+  GETTABLEKS R9 R1 K7 ["MapType"]
+  GETTABLE R8 R7 R9
+  JUMPIFEQKS R8 K3 [""] [+38]
+  GETTABLEKS R9 R2 K5 ["importAsset"]
+  GETTABLEKS R8 R9 K8 ["file"]
+  JUMPIFNOT R8 [+7]
+  GETTABLEKS R9 R2 K5 ["importAsset"]
+  GETTABLEKS R8 R9 K8 ["file"]
+  GETTABLEKS R4 R8 K9 ["Name"]
+  JUMP [+3]
+  GETTABLEKS R8 R1 K7 ["MapType"]
+  GETTABLE R4 R7 R8
+  GETTABLEKS R8 R2 K10 ["uploading"]
+  JUMPIFNOTEQKB R8 TRUE [+15]
+  GETTABLEKS R8 R2 K5 ["importAsset"]
+  JUMPIFNOT R8 [+11]
+  GETTABLEKS R9 R2 K5 ["importAsset"]
+  GETTABLEKS R8 R9 K6 ["tempId"]
+  JUMPIFNOT R8 [+6]
+  GETTABLEKS R8 R2 K5 ["importAsset"]
+  GETTABLEKS R5 R8 K6 ["tempId"]
+  LOADB R6 1
+  JUMP [+4]
+  GETTABLEKS R8 R1 K7 ["MapType"]
+  GETTABLE R5 R7 R8
+  LOADB R6 0
+  LOADNIL R8
+  LOADNIL R9
+  GETTABLEKS R11 R1 K7 ["MapType"]
+  GETTABLE R10 R7 R11
+  JUMPIFNOTEQKS R10 K3 [""] [+25]
+  GETTABLEKS R10 R0 K11 ["errorMessage"]
+  JUMPIFNOT R10 [+43]
+  GETTABLEKS R10 R0 K11 ["errorMessage"]
+  JUMPIFEQKS R10 K3 [""] [+40]
+  GETTABLEKS R10 R0 K11 ["errorMessage"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K12 ["FailedToInsertAssetManager"]
+  JUMPIFEQ R10 R11 [+33]
+  GETIMPORT R8 K16 [Enum.PropertyStatus.Error]
+  LOADK R12 K17 ["CreateDialog"]
+  GETTABLEKS R13 R0 K11 ["errorMessage"]
+  NAMECALL R10 R3 K18 ["getText"]
+  CALL R10 3 1
+  MOVE R9 R10
+  JUMP [+22]
+  GETTABLEKS R10 R0 K11 ["errorMessage"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K12 ["FailedToInsertAssetManager"]
+  JUMPIFNOTEQ R10 R11 [+11]
+  GETIMPORT R8 K20 [Enum.PropertyStatus.Warning]
+  LOADK R12 K17 ["CreateDialog"]
+  GETTABLEKS R13 R0 K11 ["errorMessage"]
+  NAMECALL R10 R3 K18 ["getText"]
+  CALL R10 3 1
+  MOVE R9 R10
+  JUMP [+5]
+  GETIMPORT R8 K22 [Enum.PropertyStatus.Ok]
+  LOADNIL R10
+  SETTABLEKS R10 R0 K11 ["errorMessage"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K23 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K30 [{"FillDirection", "LayoutOrder", "LabelColumnWidth", "Text", "StatusText", "Status"}]
+  GETIMPORT R13 K32 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K24 ["FillDirection"]
+  GETTABLEKS R13 R1 K25 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K25 ["LayoutOrder"]
+  GETTABLEKS R13 R1 K26 ["LabelColumnWidth"]
+  SETTABLEKS R13 R12 K26 ["LabelColumnWidth"]
+  GETTABLEKS R13 R1 K27 ["Text"]
+  SETTABLEKS R13 R12 K27 ["Text"]
+  SETTABLEKS R9 R12 K28 ["StatusText"]
+  SETTABLEKS R8 R12 K29 ["Status"]
+  NEWTABLE R13 0 1
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K23 ["createElement"]
+  GETUPVAL R15 3
+  DUPTABLE R16 K43 [{"SelectionName", "PreviewTitle", "IsTempId", "ImageId", "LabelWidth", "PromptSelection", "SearchUrl", "ClearSelection", "OnFocusLost", "ColumnWidth"}]
+  SETTABLEKS R4 R16 K33 ["SelectionName"]
+  GETTABLEKS R17 R1 K34 ["PreviewTitle"]
+  SETTABLEKS R17 R16 K34 ["PreviewTitle"]
+  SETTABLEKS R6 R16 K35 ["IsTempId"]
+  SETTABLEKS R5 R16 K36 ["ImageId"]
+  GETTABLEKS R17 R1 K37 ["LabelWidth"]
+  SETTABLEKS R17 R16 K37 ["LabelWidth"]
+  GETTABLEKS R17 R0 K44 ["promptSelection"]
+  SETTABLEKS R17 R16 K38 ["PromptSelection"]
+  GETTABLEKS R18 R1 K7 ["MapType"]
+  GETTABLE R17 R7 R18
+  SETTABLEKS R17 R16 K39 ["SearchUrl"]
+  GETTABLEKS R17 R0 K45 ["clearTextureMap"]
+  SETTABLEKS R17 R16 K40 ["ClearSelection"]
+  GETTABLEKS R17 R0 K46 ["onFocusLost"]
+  SETTABLEKS R17 R16 K41 ["OnFocusLost"]
+  GETTABLEKS R17 R1 K42 ["ColumnWidth"]
+  SETTABLEKS R17 R16 K42 ["ColumnWidth"]
+  CALL R14 2 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 -1
+  RETURN R10 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R5 R3 K10 ["Analytics"]
+  GETTABLEKS R6 R3 K11 ["Localization"]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Controllers"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R7 K14 ["ImportAssetHandler"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R7 K15 ["GeneralServiceController"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R15 R0 K12 ["Src"]
+  GETTABLEKS R14 R15 K16 ["Components"]
+  GETTABLEKS R13 R14 K17 ["MaterialBrowser"]
+  GETTABLEKS R12 R13 K18 ["MaterialEditor"]
+  GETTABLEKS R11 R12 K19 ["LabeledElement"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K12 ["Src"]
+  GETTABLEKS R13 R14 K16 ["Components"]
+  GETTABLEKS R12 R13 K20 ["PromptSelectorWithPreview"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R16 R0 K12 ["Src"]
+  GETTABLEKS R15 R16 K21 ["Resources"]
+  GETTABLEKS R14 R15 K22 ["Constants"]
+  GETTABLEKS R13 R14 K23 ["getErrorTypes"]
+  CALL R12 1 1
+  MOVE R13 R12
+  CALL R13 0 1
+  GETTABLEKS R14 R1 K24 ["PureComponent"]
+  LOADK R16 K25 ["TextureMapSelector"]
+  NAMECALL R14 R14 K26 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K27 [PROTO_7]
+  SETTABLEKS R15 R14 K28 ["init"]
+  DUPCLOSURE R15 K29 [PROTO_8]
+  SETTABLEKS R15 R14 K30 ["didMount"]
+  DUPCLOSURE R15 K31 [PROTO_9]
+  SETTABLEKS R15 R14 K32 ["willUnmount"]
+  DUPCLOSURE R15 K33 [PROTO_10]
+  SETTABLEKS R15 R14 K34 ["didUpdate"]
+  DUPCLOSURE R15 K35 [PROTO_11]
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  SETTABLEKS R15 R14 K36 ["render"]
+  MOVE R15 R4
+  DUPTABLE R16 K37 [{"Analytics", "GeneralServiceController", "Localization", "ImportAssetHandler"}]
+  SETTABLEKS R5 R16 K10 ["Analytics"]
+  SETTABLEKS R9 R16 K15 ["GeneralServiceController"]
+  SETTABLEKS R6 R16 K11 ["Localization"]
+  SETTABLEKS R8 R16 K14 ["ImportAssetHandler"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

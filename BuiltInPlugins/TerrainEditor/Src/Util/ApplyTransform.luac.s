@@ -1,0 +1,31 @@
+PROTO_0:
+  JUMPIF R4 [+6]
+  GETTABLEKS R7 R2 K0 ["Rotation"]
+  MOVE R8 R3
+  NAMECALL R5 R1 K1 ["ApplyTransform"]
+  CALL R5 3 0
+  GETUPVAL R5 0
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R5 2 1
+  MOVE R8 R1
+  GETTABLEKS R9 R5 K2 ["Min"]
+  LOADB R10 0
+  NAMECALL R6 R0 K3 ["PasteRegion"]
+  CALL R6 4 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Src"]
+  GETTABLEKS R1 R2 K5 ["Util"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R3 R1 K8 ["ConvertTransformToRegion"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

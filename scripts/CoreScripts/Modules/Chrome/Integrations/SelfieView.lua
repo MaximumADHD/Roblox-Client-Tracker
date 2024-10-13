@@ -6,6 +6,7 @@ local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
 local LocalStore = require(script.Parent.Parent.Service.LocalStore)
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
+local SocialService = game:GetService("SocialService")
 local StarterGui = game:GetService("StarterGui")
 local CommonIcon = require(script.Parent.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
@@ -27,6 +28,8 @@ local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFla
 local GetFFlagSelfieViewRedStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewRedStatusDot)
 local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 local GetFFlagDisableSelfViewDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagDisableSelfViewDefaultOpen)
+local GetFFlagChromeSupportSocialService = require(script.Parent.Parent.Flags.GetFFlagChromeSupportSocialService)
+local GetFFlagChromeSelfViewIgnoreCoreGui = require(script.Parent.Parent.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -54,6 +57,9 @@ local LABEL = "CoreScripts.TopBar.SelfViewLabel"
 local mappedSelfieWindowOpenSignal = MappedSignal.new(ChromeService:onIntegrationStatusChanged(), function()
 	return ChromeService:isWindowOpen(ID)
 end)
+
+local selfViewVisibleConnection: RBXScriptConnection? = nil
+local selfViewHiddenConnection: RBXScriptConnection? = nil
 
 ChromeService:updateWindowPosition(ID, startingWindowPosition)
 
@@ -135,7 +141,7 @@ end, true)
 
 local updateAvailability = function(): ()
 	local coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
-	if not coreGuiEnabled then
+	if not GetFFlagChromeSelfViewIgnoreCoreGui() and not coreGuiEnabled then
 		selfieViewChromeIntegration.availability:unavailable()
 		return
 	end
@@ -193,5 +199,58 @@ if GetFFlagSelfieViewEnabled() and game:GetEngineFeature("VideoCaptureService") 
 end
 
 StarterGui.CoreGuiChangedSignal:Connect(updateAvailability)
+
+if GetFFlagChromeSupportSocialService() and game:GetEngineFeature("EnableSelfViewToggleApi") then
+	if selfViewVisibleConnection then
+		selfViewVisibleConnection:Disconnect()
+		selfViewVisibleConnection = nil
+	end
+	if selfViewHiddenConnection then
+		selfViewHiddenConnection:Disconnect()
+		selfViewHiddenConnection = nil
+	end
+	selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
+		-- Calling showSelfView when self view is already visible is no-op
+		if not ChromeService:isWindowOpen(ID) then
+			-- use current position
+			local windowSize = windowSize:get()
+			local screenSize = ViewportUtil.screenSize:get()
+			local newSelfViewPosition = nil
+
+			if selfViewPosition == Enum.SelfViewPosition.TopLeft then
+				newSelfViewPosition =
+					UDim2.fromOffset(TopBarConstants.ScreenSideOffset, Constants.WINDOW_DEFAULT_PADDING)
+			elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
+				newSelfViewPosition = UDim2.fromOffset(
+					screenSize.X - (windowSize.X.Offset + TopBarConstants.ScreenSideOffset),
+					Constants.WINDOW_DEFAULT_PADDING
+				)
+			elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
+				newSelfViewPosition = UDim2.fromOffset(
+					TopBarConstants.ScreenSideOffset,
+					screenSize.Y
+						- (TopBarConstants.TopBarHeight + windowSize.Y.Offset + Constants.WINDOW_DEFAULT_PADDING)
+				)
+			elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
+				newSelfViewPosition = UDim2.fromOffset(
+					screenSize.X - (windowSize.X.Offset + TopBarConstants.ScreenSideOffset),
+					screenSize.Y
+						- (TopBarConstants.TopBarHeight + windowSize.Y.Offset + Constants.WINDOW_DEFAULT_PADDING)
+				)
+			end
+
+			ChromeService:toggleWindow(ID)
+			if newSelfViewPosition then
+				ChromeService:updateWindowPosition(ID, newSelfViewPosition)
+			end
+		end
+	end)
+	selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
+		-- Calling hideSelfView when self view is not visible is no-op
+		if ChromeService:isWindowOpen(ID) then
+			ChromeService:toggleWindow(ID)
+		end
+	end)
+end
 
 return selfieViewChromeIntegration

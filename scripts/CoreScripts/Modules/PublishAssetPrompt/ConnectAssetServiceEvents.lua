@@ -97,15 +97,17 @@ local function ConnectAssetServiceEvents(store)
 	if pcall(checkNewEventsExist) then
 		table.insert(
 			connections,
-			AvatarCreationService.UgcValidationSuccess:Connect(function(guid, serializedModel)
+			AvatarCreationService.UgcValidationSuccess:Connect(function(guid, serializedModel, priceFromToken)
 				local state = store:getState()
 
 				-- check that guid matches for the prompt to update humanoid model
 				if state and state.promptRequest.promptInfo.guid == guid then
 					store:dispatch(SetSerializedModel(serializedModel))
-					-- TODO AVBURST-13509 Update this to match + use actual token API response
-					-- Currently set to zero so the submit button is always enabled
-					store:dispatch(SetPriceInRobux(0))
+					if FFlagPublishAvatarPromptEnabled then
+						store:dispatch(SetPriceInRobux(priceFromToken))
+					else
+						store:dispatch(SetPriceInRobux(0))
+					end
 				end
 			end)
 		)

@@ -1,0 +1,565 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETUPVAL R1 1
+  GETTABLEKS R2 R0 K1 ["MaterialBrowserLayout"]
+  DUPTABLE R3 K5 [{"BaseShowSideBar", "OverrideShowSideBar", "SideBarWidth"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K2 ["BaseShowSideBar"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K3 ["OverrideShowSideBar"]
+  LOADN R4 200
+  SETTABLEKS R4 R3 K4 ["SideBarWidth"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K6 ["dispatchSetMaterialBrowserLayout"]
+  MOVE R3 R1
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K7 ["PluginController"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K8 ["setMaterialBrowserLayout"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["Stylizer"]
+  GETTABLEKS R1 R2 K2 ["MaterialBrowser"]
+  GETTABLEKS R2 R0 K3 ["Material"]
+  GETTABLEKS R3 R0 K4 ["AbsoluteSize"]
+  GETTABLEKS R7 R1 K5 ["MaterialTileWidth"]
+  GETTABLEKS R9 R1 K7 ["Padding"]
+  MULK R8 R9 K6 [2]
+  ADD R6 R7 R8
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R7 R1 K8 ["MaterialEditorWidth"]
+  JUMP [+1]
+  LOADN R7 0
+  ADD R5 R6 R7
+  GETTABLEKS R6 R1 K9 ["MinSideBarWidth"]
+  ADD R4 R5 R6
+  GETUPVAL R5 1
+  GETTABLEKS R6 R0 K10 ["MaterialBrowserLayout"]
+  DUPTABLE R7 K13 [{"BaseShowSideBar", "OverrideShowSideBar"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K11 ["BaseShowSideBar"]
+  GETTABLEKS R9 R3 K14 ["X"]
+  JUMPIFLT R9 R4 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  SETTABLEKS R8 R7 K12 ["OverrideShowSideBar"]
+  CALL R5 2 1
+  GETTABLEKS R6 R0 K15 ["dispatchSetMaterialBrowserLayout"]
+  MOVE R7 R5
+  CALL R6 1 0
+  GETTABLEKS R6 R0 K16 ["PluginController"]
+  MOVE R8 R5
+  NAMECALL R6 R6 K17 ["setMaterialBrowserLayout"]
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETUPVAL R2 1
+  GETTABLEKS R3 R1 K1 ["MaterialBrowserLayout"]
+  DUPTABLE R4 K3 [{"SideBarWidth"}]
+  SETTABLEKS R0 R4 K2 ["SideBarWidth"]
+  CALL R2 2 1
+  GETTABLEKS R3 R1 K4 ["dispatchSetMaterialBrowserLayout"]
+  MOVE R4 R2
+  CALL R3 1 0
+  GETTABLEKS R3 R1 K5 ["PluginController"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K6 ["setMaterialBrowserLayout"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K0 ["onHideButtonClicked"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K1 ["onShowButtonClicked"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K2 ["setSideBarWidth"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["setSideBarWidth"]
+  GETTABLEN R3 R0 1
+  GETTABLEKS R2 R3 K1 ["Offset"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["MaterialBrowser"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["new"]
+  CALL R3 0 1
+  GETTABLEKS R4 R1 K4 ["Material"]
+  GETTABLEKS R5 R1 K5 ["MaterialBrowserLayout"]
+  GETTABLEKS R6 R5 K6 ["BaseShowSideBar"]
+  LOADB R7 1
+  GETUPVAL R9 1
+  CALL R9 0 1
+  JUMPIFNOT R9 [+2]
+  MOVE R8 R4
+  JUMP [+5]
+  MOVE R8 R4
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R9 R1 K7 ["DEPRECATED_ActiveAsTool"]
+  NOT R8 R9
+  GETTABLEKS R10 R1 K8 ["ViewType"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K9 ["Grid"]
+  JUMPIFNOTEQ R10 R11 [+4]
+  GETTABLEKS R9 R1 K10 ["MaterialTileSize"]
+  JUMP [+2]
+  GETTABLEKS R9 R2 K11 ["MaterialTileWidth"]
+  GETTABLEKS R13 R2 K13 ["Padding"]
+  MULK R12 R13 K12 [2]
+  ADD R11 R9 R12
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R12 R2 K14 ["MaterialEditorWidth"]
+  JUMP [+1]
+  LOADN R12 0
+  ADD R10 R11 R12
+  GETTABLEKS R12 R2 K15 ["MinSideBarWidth"]
+  ADD R11 R10 R12
+  GETTABLEKS R14 R1 K16 ["AbsoluteSize"]
+  GETTABLEKS R13 R14 K17 ["X"]
+  JUMPIFLE R11 R13 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  JUMPIFNOT R8 [+22]
+  GETTABLEKS R14 R1 K16 ["AbsoluteSize"]
+  GETTABLEKS R13 R14 K17 ["X"]
+  JUMPIFNOTLT R13 R10 [+4]
+  LOADB R6 0
+  LOADB R7 0
+  JUMP [+25]
+  GETTABLEKS R14 R1 K16 ["AbsoluteSize"]
+  GETTABLEKS R13 R14 K17 ["X"]
+  JUMPIFNOTLT R13 R11 [+20]
+  GETTABLEKS R13 R5 K18 ["OverrideShowSideBar"]
+  JUMPIFNOT R13 [+2]
+  LOADB R7 0
+  JUMP [+14]
+  LOADB R6 0
+  JUMP [+12]
+  GETTABLEKS R14 R1 K16 ["AbsoluteSize"]
+  GETTABLEKS R13 R14 K17 ["X"]
+  JUMPIFNOTLT R13 R10 [+7]
+  GETTABLEKS R13 R5 K18 ["OverrideShowSideBar"]
+  JUMPIFNOT R13 [+2]
+  LOADB R7 0
+  JUMP [+1]
+  LOADB R6 0
+  JUMPIFNOT R6 [+90]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K19 ["createElement"]
+  GETUPVAL R14 4
+  DUPTABLE R15 K22 [{"LayoutOrder", "Size"}]
+  NAMECALL R16 R3 K23 ["getNextOrder"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K20 ["LayoutOrder"]
+  JUMPIF R7 [+4]
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R16 R2 K24 ["MaterialGridSize"]
+  JUMP [+5]
+  GETIMPORT R16 K27 [UDim2.fromScale]
+  LOADN R17 1
+  LOADN R18 1
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K21 ["Size"]
+  DUPTABLE R16 K30 [{"SideBar", "HideButton"}]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K19 ["createElement"]
+  GETUPVAL R18 5
+  DUPTABLE R19 K32 [{"Size", "ZIndex"}]
+  GETIMPORT R20 K27 [UDim2.fromScale]
+  LOADN R21 1
+  LOADN R22 1
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K21 ["Size"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K31 ["ZIndex"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K28 ["SideBar"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K19 ["createElement"]
+  GETUPVAL R18 6
+  DUPTABLE R19 K39 [{"Size", "LeftIcon", "IconColor", "BorderColor", "OnClick", "AnchorPoint", "Position", "ZIndex"}]
+  GETTABLEKS R20 R2 K40 ["IconSize"]
+  SETTABLEKS R20 R19 K21 ["Size"]
+  GETTABLEKS R20 R2 K41 ["HideIcon"]
+  SETTABLEKS R20 R19 K33 ["LeftIcon"]
+  GETTABLEKS R20 R2 K34 ["IconColor"]
+  SETTABLEKS R20 R19 K34 ["IconColor"]
+  GETTABLEKS R20 R2 K42 ["BackgroundColor"]
+  SETTABLEKS R20 R19 K35 ["BorderColor"]
+  GETTABLEKS R20 R0 K43 ["onHideButtonClicked"]
+  SETTABLEKS R20 R19 K36 ["OnClick"]
+  GETIMPORT R20 K45 [Vector2.new]
+  LOADN R21 1
+  LOADN R22 1
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K37 ["AnchorPoint"]
+  GETIMPORT R20 K46 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 251
+  LOADN R23 1
+  LOADN R24 251
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K38 ["Position"]
+  LOADN R20 2
+  SETTABLEKS R20 R19 K31 ["ZIndex"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K29 ["HideButton"]
+  CALL R13 3 1
+  JUMP [+1]
+  LOADNIL R13
+  JUMPIFNOT R7 [+31]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K19 ["createElement"]
+  GETUPVAL R15 7
+  DUPTABLE R16 K49 [{"LayoutOrder", "Size", "OnShowButtonClicked", "SideBarVisible"}]
+  NAMECALL R17 R3 K23 ["getNextOrder"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K20 ["LayoutOrder"]
+  JUMPIF R8 [+2]
+  JUMPIF R12 [+4]
+  JUMPIFNOT R6 [+3]
+  GETTABLEKS R17 R2 K24 ["MaterialGridSize"]
+  JUMP [+5]
+  GETIMPORT R17 K27 [UDim2.fromScale]
+  LOADN R18 1
+  LOADN R19 1
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K21 ["Size"]
+  GETTABLEKS R17 R0 K50 ["onShowButtonClicked"]
+  SETTABLEKS R17 R16 K47 ["OnShowButtonClicked"]
+  SETTABLEKS R6 R16 K48 ["SideBarVisible"]
+  CALL R14 2 1
+  JUMP [+22]
+  JUMPIFNOT R6 [+2]
+  LOADNIL R14
+  JUMP [+19]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K19 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K51 [{"BackgroundColor", "LayoutOrder", "Size"}]
+  GETTABLEKS R17 R2 K52 ["GridBackgroundColor"]
+  SETTABLEKS R17 R16 K42 ["BackgroundColor"]
+  NAMECALL R17 R3 K23 ["getNextOrder"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K20 ["LayoutOrder"]
+  GETTABLEKS R17 R2 K24 ["MaterialGridSize"]
+  SETTABLEKS R17 R16 K21 ["Size"]
+  CALL R14 2 1
+  JUMPIFNOT R8 [+16]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETUPVAL R16 8
+  DUPTABLE R17 K22 [{"LayoutOrder", "Size"}]
+  NAMECALL R18 R3 K23 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K20 ["LayoutOrder"]
+  GETTABLEKS R18 R2 K53 ["MaterialEditorSize"]
+  SETTABLEKS R18 R17 K21 ["Size"]
+  CALL R15 2 1
+  JUMP [+1]
+  LOADNIL R15
+  GETTABLEKS R18 R1 K16 ["AbsoluteSize"]
+  GETTABLEKS R17 R18 K17 ["X"]
+  SUB R16 R17 R10
+  GETTABLEKS R18 R5 K54 ["SideBarWidth"]
+  JUMPIFNOTLT R18 R16 [+4]
+  GETTABLEKS R17 R5 K54 ["SideBarWidth"]
+  JUMP [+1]
+  MOVE R17 R16
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K19 ["createElement"]
+  GETUPVAL R19 4
+  GETUPVAL R20 9
+  DUPTABLE R21 K58 [{"Style", "Layout", "VerticalAlignment", "Size"}]
+  LOADK R22 K59 ["Box"]
+  SETTABLEKS R22 R21 K55 ["Style"]
+  GETIMPORT R22 K63 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K56 ["Layout"]
+  GETIMPORT R22 K65 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R22 R21 K57 ["VerticalAlignment"]
+  GETIMPORT R22 K27 [UDim2.fromScale]
+  LOADN R23 1
+  LOADN R24 1
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K21 ["Size"]
+  GETTABLEKS R22 R1 K66 ["WrapperProps"]
+  CALL R20 2 1
+  DUPTABLE R21 K69 [{"TopBar", "MainView"}]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K19 ["createElement"]
+  GETUPVAL R23 10
+  DUPTABLE R24 K70 [{"Size"}]
+  GETTABLEKS R25 R2 K71 ["TopBarSize"]
+  SETTABLEKS R25 R24 K21 ["Size"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K67 ["TopBar"]
+  JUMPIFNOT R12 [+88]
+  JUMPIFNOT R6 [+87]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K19 ["createElement"]
+  GETUPVAL R23 11
+  DUPTABLE R24 K76 [{"ClampSize", "Sizes", "Layout", "MinSizes", "OnSizesChange", "Size"}]
+  LOADB R25 1
+  SETTABLEKS R25 R24 K72 ["ClampSize"]
+  NEWTABLE R25 0 2
+  GETIMPORT R26 K78 [UDim.new]
+  LOADN R27 0
+  MOVE R28 R17
+  CALL R26 2 1
+  GETIMPORT R27 K78 [UDim.new]
+  LOADN R28 1
+  MINUS R29 R17
+  CALL R27 2 -1
+  SETLIST R25 R26 -1 [1]
+  SETTABLEKS R25 R24 K73 ["Sizes"]
+  GETIMPORT R25 K80 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R25 R24 K56 ["Layout"]
+  NEWTABLE R25 0 2
+  GETIMPORT R26 K78 [UDim.new]
+  LOADN R27 0
+  GETTABLEKS R28 R2 K15 ["MinSideBarWidth"]
+  CALL R26 2 1
+  GETIMPORT R27 K78 [UDim.new]
+  LOADN R28 0
+  MOVE R29 R10
+  CALL R27 2 -1
+  SETLIST R25 R26 -1 [1]
+  SETTABLEKS R25 R24 K74 ["MinSizes"]
+  NEWCLOSURE R25 P0
+  CAPTURE VAL R0
+  SETTABLEKS R25 R24 K75 ["OnSizesChange"]
+  GETTABLEKS R25 R2 K81 ["MainViewSize"]
+  SETTABLEKS R25 R24 K21 ["Size"]
+  NEWTABLE R25 0 2
+  MOVE R26 R13
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K19 ["createElement"]
+  GETUPVAL R28 4
+  DUPTABLE R29 K82 [{"Size", "Layout", "LayoutOrder"}]
+  GETIMPORT R30 K27 [UDim2.fromScale]
+  LOADN R31 1
+  LOADN R32 1
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K21 ["Size"]
+  GETIMPORT R30 K80 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R30 R29 K56 ["Layout"]
+  NAMECALL R30 R3 K23 ["getNextOrder"]
+  CALL R30 1 1
+  SETTABLEKS R30 R29 K20 ["LayoutOrder"]
+  DUPTABLE R30 K85 [{"MaterialGrid", "MaterialEditor"}]
+  SETTABLEKS R14 R30 K83 ["MaterialGrid"]
+  SETTABLEKS R15 R30 K84 ["MaterialEditor"]
+  CALL R27 3 -1
+  SETLIST R25 R26 -1 [1]
+  CALL R22 3 1
+  JUMP [+42]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K19 ["createElement"]
+  GETUPVAL R23 4
+  DUPTABLE R24 K70 [{"Size"}]
+  GETTABLEKS R25 R2 K81 ["MainViewSize"]
+  SETTABLEKS R25 R24 K21 ["Size"]
+  DUPTABLE R25 K86 [{"MainView"}]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K19 ["createElement"]
+  GETUPVAL R27 4
+  DUPTABLE R28 K82 [{"Size", "Layout", "LayoutOrder"}]
+  GETIMPORT R29 K27 [UDim2.fromScale]
+  LOADN R30 1
+  LOADN R31 1
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K21 ["Size"]
+  GETIMPORT R29 K80 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R29 R28 K56 ["Layout"]
+  NAMECALL R29 R3 K23 ["getNextOrder"]
+  CALL R29 1 1
+  SETTABLEKS R29 R28 K20 ["LayoutOrder"]
+  DUPTABLE R29 K87 [{"SideBar", "MaterialGrid", "MaterialEditor"}]
+  SETTABLEKS R13 R29 K28 ["SideBar"]
+  SETTABLEKS R14 R29 K83 ["MaterialGrid"]
+  SETTABLEKS R15 R29 K84 ["MaterialEditor"]
+  CALL R26 3 1
+  SETTABLEKS R26 R25 K68 ["MainView"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K68 ["MainView"]
+  CALL R18 3 -1
+  RETURN R18 -1
+
+PROTO_6:
+  DUPTABLE R2 K5 [{"DEPRECATED_ActiveAsTool", "Material", "MaterialBrowserLayout", "MaterialTileSize", "ViewType"}]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+2]
+  LOADNIL R3
+  JUMP [+4]
+  GETTABLEKS R4 R0 K6 ["MaterialBrowserReducer"]
+  GETTABLEKS R3 R4 K0 ["DEPRECATED_ActiveAsTool"]
+  SETTABLEKS R3 R2 K0 ["DEPRECATED_ActiveAsTool"]
+  GETTABLEKS R4 R0 K6 ["MaterialBrowserReducer"]
+  GETTABLEKS R3 R4 K1 ["Material"]
+  SETTABLEKS R3 R2 K1 ["Material"]
+  GETTABLEKS R4 R0 K6 ["MaterialBrowserReducer"]
+  GETTABLEKS R3 R4 K2 ["MaterialBrowserLayout"]
+  SETTABLEKS R3 R2 K2 ["MaterialBrowserLayout"]
+  GETTABLEKS R4 R0 K6 ["MaterialBrowserReducer"]
+  GETTABLEKS R3 R4 K3 ["MaterialTileSize"]
+  SETTABLEKS R3 R2 K3 ["MaterialTileSize"]
+  GETTABLEKS R4 R0 K6 ["MaterialBrowserReducer"]
+  GETTABLEKS R3 R4 K4 ["ViewType"]
+  SETTABLEKS R3 R2 K4 ["ViewType"]
+  RETURN R2 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  DUPTABLE R1 K1 [{"dispatchSetMaterialBrowserLayout"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchSetMaterialBrowserLayout"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K11 ["Wrappers"]
+  GETTABLEKS R5 R6 K12 ["withAbsoluteSize"]
+  GETTABLEKS R7 R4 K13 ["Dash"]
+  GETTABLEKS R6 R7 K14 ["join"]
+  GETTABLEKS R7 R4 K15 ["ContextServices"]
+  GETTABLEKS R8 R7 K16 ["withContext"]
+  GETTABLEKS R10 R4 K17 ["Util"]
+  GETTABLEKS R9 R10 K18 ["LayoutOrderIterator"]
+  GETTABLEKS R11 R4 K19 ["Style"]
+  GETTABLEKS R10 R11 K20 ["Stylizer"]
+  GETTABLEKS R11 R4 K21 ["UI"]
+  GETTABLEKS R12 R11 K22 ["Pane"]
+  GETTABLEKS R13 R11 K23 ["SplitPane"]
+  GETTABLEKS R14 R11 K24 ["IconButton"]
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K5 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Actions"]
+  GETTABLEKS R16 R17 K26 ["SetMaterialBrowserLayout"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K5 ["Src"]
+  GETTABLEKS R18 R19 K27 ["Controllers"]
+  GETTABLEKS R17 R18 K28 ["PluginController"]
+  CALL R16 1 1
+  GETTABLEKS R18 R0 K5 ["Src"]
+  GETTABLEKS R17 R18 K29 ["Components"]
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R20 R17 K30 ["MaterialBrowser"]
+  GETTABLEKS R19 R20 K31 ["MaterialEditor"]
+  CALL R18 1 1
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R21 R17 K30 ["MaterialBrowser"]
+  GETTABLEKS R20 R21 K32 ["MaterialGrid"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R22 R17 K30 ["MaterialBrowser"]
+  GETTABLEKS R21 R22 K33 ["SideBar"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R23 R17 K30 ["MaterialBrowser"]
+  GETTABLEKS R22 R23 K34 ["TopBar"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R26 R0 K5 ["Src"]
+  GETTABLEKS R25 R26 K35 ["Resources"]
+  GETTABLEKS R24 R25 K36 ["Constants"]
+  GETTABLEKS R23 R24 K37 ["getViewTypes"]
+  CALL R22 1 1
+  MOVE R23 R22
+  CALL R23 0 1
+  GETTABLEKS R25 R0 K5 ["Src"]
+  GETTABLEKS R24 R25 K38 ["Flags"]
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R26 R24 K39 ["getFFlagMaterialActionAsTool"]
+  CALL R25 1 1
+  GETTABLEKS R26 R2 K40 ["PureComponent"]
+  LOADK R28 K30 ["MaterialBrowser"]
+  NAMECALL R26 R26 K41 ["extend"]
+  CALL R26 2 1
+  DUPCLOSURE R27 K42 [PROTO_3]
+  CAPTURE VAL R6
+  SETTABLEKS R27 R26 K43 ["init"]
+  DUPCLOSURE R27 K44 [PROTO_5]
+  CAPTURE VAL R9
+  CAPTURE VAL R25
+  CAPTURE VAL R23
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R20
+  CAPTURE VAL R14
+  CAPTURE VAL R19
+  CAPTURE VAL R18
+  CAPTURE VAL R6
+  CAPTURE VAL R21
+  CAPTURE VAL R13
+  SETTABLEKS R27 R26 K45 ["render"]
+  MOVE R27 R8
+  DUPTABLE R28 K46 [{"PluginController", "Stylizer"}]
+  SETTABLEKS R16 R28 K28 ["PluginController"]
+  SETTABLEKS R10 R28 K20 ["Stylizer"]
+  CALL R27 1 1
+  MOVE R28 R26
+  CALL R27 1 1
+  MOVE R26 R27
+  GETTABLEKS R27 R3 K47 ["connect"]
+  DUPCLOSURE R28 K48 [PROTO_6]
+  CAPTURE VAL R25
+  DUPCLOSURE R29 K49 [PROTO_8]
+  CAPTURE VAL R15
+  CALL R27 2 1
+  MOVE R28 R5
+  MOVE R29 R26
+  CALL R28 1 -1
+  CALL R27 -1 -1
+  RETURN R27 -1

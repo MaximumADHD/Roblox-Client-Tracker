@@ -87,6 +87,7 @@ local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSub
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagCoreGuiEnableAnalytics = game:DefineFastFlag("CoreGuiEnableAnalytics", false)
+local FFlagEnableExperienceGenericChallengeRendering = game:DefineFastFlag("EnableExperienceGenericChallengeRendering", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -512,4 +513,13 @@ local GetFFlagEnableConnectCaptureEvents =
 
 if GetFFlagEnableConnectCaptureEvents() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ConnectCaptureEvents", script.Parent)
+end
+
+if FFlagEnableExperienceGenericChallengeRendering then
+	-- Initializes the in-experience challenge interceptor, used to handle
+	-- rendering challenges such as 2-Step-Verification on suspicious actions e.g. economic actions.
+	coroutine.wrap(function()
+		local initChallengeInterceptor = require(CorePackages.Workspace.Packages.GenericChallenges).Middleware.InitExperienceChallengeInterceptor
+		initChallengeInterceptor()
+	end)()
 end

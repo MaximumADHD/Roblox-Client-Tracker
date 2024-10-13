@@ -1,5 +1,5 @@
-game:DefineFastFlag("ChromePeekArchitecture2", false)
+game:DefineFastFlag("ChromePeekArchitecture3", false)
 
 return function()
-    return game:GetFastFlag("ChromePeekArchitecture2")
+    return game:GetFastFlag("ChromePeekArchitecture3")
 end

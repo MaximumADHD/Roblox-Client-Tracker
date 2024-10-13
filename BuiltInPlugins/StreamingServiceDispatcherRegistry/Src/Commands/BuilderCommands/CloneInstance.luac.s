@@ -1,0 +1,122 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["requestId"]
+  GETTABLEKS R2 R0 K1 ["arguments"]
+  GETTABLEKS R3 R2 K2 ["direct_instance"]
+  MOVE R4 R3
+  JUMPIF R4 [+7]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["get"]
+  GETTABLEKS R5 R2 K4 ["sourceInstanceId"]
+  MOVE R6 R1
+  CALL R4 2 1
+  JUMPIF R4 [+9]
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+5]
+  GETIMPORT R5 K6 [error]
+  LOADK R6 K7 ["Failed to find instance to clone"]
+  CALL R5 1 0
+  JUMP [+1]
+  RETURN R0 0
+  FASTCALL2K ASSERT R4 K8 [+5]
+  MOVE R6 R4
+  LOADK R7 K8 ["Luau"]
+  GETIMPORT R5 K10 [assert]
+  CALL R5 2 0
+  JUMPIF R3 [+5]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K11 ["StartRecordingActions"]
+  MOVE R6 R1
+  CALL R5 1 0
+  NAMECALL R5 R4 K12 ["Clone"]
+  CALL R5 1 1
+  JUMPIF R5 [+15]
+  JUMPIF R3 [+5]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K13 ["EndRecordingActions"]
+  MOVE R7 R1
+  CALL R6 1 0
+  GETUPVAL R6 1
+  CALL R6 0 1
+  JUMPIFNOT R6 [+5]
+  GETIMPORT R6 K6 [error]
+  LOADK R7 K14 ["Failed to clone instance"]
+  CALL R6 1 0
+  JUMP [+1]
+  RETURN R0 0
+  GETTABLEKS R6 R2 K15 ["newInstanceId"]
+  JUMPIFNOT R6 [+7]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K16 ["set"]
+  GETTABLEKS R7 R2 K15 ["newInstanceId"]
+  MOVE R8 R5
+  CALL R6 2 0
+  SETTABLEKS R5 R2 K2 ["direct_instance"]
+  GETUPVAL R6 2
+  MOVE R8 R1
+  LOADK R9 K17 ["SetProperty"]
+  GETTABLEKS R10 R0 K1 ["arguments"]
+  NAMECALL R6 R6 K18 ["ExecuteCommandAsync"]
+  CALL R6 4 0
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K19 ["getRequestParent"]
+  MOVE R7 R5
+  MOVE R8 R1
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K20 ["Parent"]
+  JUMPIF R3 [+5]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K13 ["EndRecordingActions"]
+  MOVE R7 R1
+  CALL R6 1 0
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K21 ["modifyChatWithInstanceLink"]
+  MOVE R7 R1
+  MOVE R8 R5
+  LOADK R9 K22 ["copied"]
+  GETTABLEKS R10 R2 K23 ["chatGroup"]
+  JUMPIF R10 [+2]
+  GETTABLEKS R10 R2 K15 ["newInstanceId"]
+  CALL R6 4 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utils"]
+  GETTABLEKS R2 R3 K8 ["CliAdapter"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["StreamingService"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Utils"]
+  GETTABLEKS R4 R5 K7 ["Utils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Commands"]
+  GETTABLEKS R7 R8 K13 ["BuilderCommands"]
+  GETTABLEKS R6 R7 K14 ["BuilderNameMap"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Flags"]
+  GETTABLEKS R7 R8 K16 ["getFFlagConvAIAddClientAlerts"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K17 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R7 1

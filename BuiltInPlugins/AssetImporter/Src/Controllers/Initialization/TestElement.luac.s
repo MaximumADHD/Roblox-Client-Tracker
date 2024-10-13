@@ -1,0 +1,32 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["provide"]
+  GETTABLEKS R3 R1 K2 ["ContextItems"]
+  GETTABLEKS R4 R1 K3 ["Payload"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R1 K10 ["PureComponent"]
+  LOADK R6 K11 ["TestElement"]
+  NAMECALL R4 R4 K12 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K14 ["render"]
+  RETURN R4 1

@@ -1,0 +1,129 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETTABLEKS R4 R1 K3 ["Selected"]
+  GETTABLEKS R5 R1 K4 ["SelectionChanged"]
+  GETTABLEKS R6 R1 K5 ["Entries"]
+  FASTCALL1 TYPE R6 [+3]
+  MOVE R10 R6
+  GETIMPORT R9 K7 [type]
+  CALL R9 1 1
+  JUMPIFEQKS R9 K8 ["table"] [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  FASTCALL2K ASSERT R8 K9 [+4]
+  LOADK R9 K9 ["MenuBar.Entries must be a table"]
+  GETIMPORT R7 K11 [assert]
+  CALL R7 2 0
+  DUPTABLE R7 K13 [{"Layout"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K14 ["createElement"]
+  LOADK R9 K15 ["UIListLayout"]
+  DUPTABLE R10 K17 [{"Padding"}]
+  GETIMPORT R11 K20 [UDim.new]
+  LOADN R12 0
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K16 ["Padding"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["Layout"]
+  GETIMPORT R8 K22 [ipairs]
+  MOVE R9 R6
+  CALL R8 1 3
+  FORGPREP_INEXT R8
+  MOVE R14 R7
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K14 ["createElement"]
+  GETUPVAL R16 1
+  DUPTABLE R17 K27 [{"Title", "Selected", "ShowError", "ShowWarning", "OnClicked"}]
+  LOADK R20 K28 ["MenuItem"]
+  MOVE R21 R12
+  NAMECALL R18 R3 K29 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K23 ["Title"]
+  JUMPIFEQ R4 R11 [+2]
+  LOADB R18 0 +1
+  LOADB R18 1
+  SETTABLEKS R18 R17 K3 ["Selected"]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K24 ["ShowError"]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K25 ["ShowWarning"]
+  NEWCLOSURE R18 P0
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  SETTABLEKS R18 R17 K26 ["OnClicked"]
+  CALL R15 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R13 K31 [table.insert]
+  CALL R13 -1 0
+  FORGLOOP R8 2 [inext] [-36]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K14 ["createElement"]
+  LOADK R9 K32 ["Frame"]
+  DUPTABLE R10 K36 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
+  GETIMPORT R11 K38 [UDim2.new]
+  LOADN R12 0
+  GETTABLEKS R13 R2 K39 ["MENU_BAR_WIDTH"]
+  LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K33 ["Size"]
+  GETTABLEKS R12 R2 K40 ["menuBar"]
+  GETTABLEKS R11 R12 K41 ["backgroundColor"]
+  SETTABLEKS R11 R10 K34 ["BackgroundColor3"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K35 ["BorderSizePixel"]
+  MOVE R11 R7
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Menu"]
+  GETTABLEKS R6 R7 K13 ["MenuEntry"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K14 ["PureComponent"]
+  LOADK R8 K15 ["MenuBar"]
+  NAMECALL R6 R6 K16 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K17 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K18 ["render"]
+  MOVE R7 R4
+  DUPTABLE R8 K21 [{"Stylizer", "Localization"}]
+  GETTABLEKS R9 R3 K19 ["Stylizer"]
+  SETTABLEKS R9 R8 K19 ["Stylizer"]
+  GETTABLEKS R9 R3 K20 ["Localization"]
+  SETTABLEKS R9 R8 K20 ["Localization"]
+  CALL R7 1 1
+  MOVE R8 R6
+  CALL R7 1 1
+  MOVE R6 R7
+  RETURN R6 1

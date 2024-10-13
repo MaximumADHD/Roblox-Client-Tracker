@@ -1,0 +1,517 @@
+PROTO_0:
+  ORK R1 R1 K0 [""]
+  ORK R0 R0 K0 [""]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["SetSelectedTab"]
+  MOVE R3 R0
+  CALL R2 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["props"]
+  GETTABLEKS R2 R3 K3 ["SetCategoryFilter"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["SelectedTab"]
+  GETTABLEKS R6 R0 K3 ["PreviewTopBar"]
+  GETTABLEKS R5 R6 K4 ["AbsoluteSize"]
+  GETTABLEKS R4 R5 K5 ["Y"]
+  GETTABLEKS R8 R0 K6 ["GridContainer"]
+  GETTABLEKS R7 R8 K7 ["CategoryList"]
+  GETTABLEKS R6 R7 K4 ["AbsoluteSize"]
+  GETTABLEKS R5 R6 K8 ["X"]
+  LOADN R6 0
+  LOADN R7 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K9 ["shouldTabShowPlaybackSlider"]
+  MOVE R9 R3
+  CALL R8 1 1
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R6 R2 K10 ["SliderHeight"]
+  ADDK R7 R7 K11 [1]
+  GETUPVAL R8 0
+  DUPTABLE R10 K14 [{"gridHeightOffset", "gridWidthOffset"}]
+  MULK R13 R7 K15 [6]
+  ADD R12 R4 R13
+  ADD R11 R12 R6
+  SETTABLEKS R11 R10 K12 ["gridHeightOffset"]
+  ADDK R11 R5 K15 [6]
+  SETTABLEKS R11 R10 K13 ["gridWidthOffset"]
+  NAMECALL R8 R8 K16 ["setState"]
+  CALL R8 2 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K2 [{"gridHeightOffset", "gridWidthOffset"}]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K0 ["gridHeightOffset"]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K1 ["gridWidthOffset"]
+  SETTABLEKS R1 R0 K3 ["state"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K5 ["previewFrameRef"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K6 ["onCategoryChanged"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K7 ["onAbsoluteSizeChanged"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onAbsoluteSizeChanged"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["previewFrameRef"]
+  GETTABLEKS R1 R2 K2 ["current"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Size"]
+  GETTABLEKS R4 R1 K3 ["LayoutOrder"]
+  GETTABLEKS R5 R1 K4 ["Stylizer"]
+  GETTABLEKS R6 R1 K5 ["UserAddedAssets"]
+  GETTABLEKS R7 R1 K6 ["SelectedTab"]
+  GETTABLEKS R8 R1 K7 ["IsPlaying"]
+  GETTABLEKS R9 R1 K8 ["Playhead"]
+  GETTABLEKS R10 R1 K9 ["TrackLength"]
+  GETTABLEKS R11 R1 K10 ["SetIsPlaying"]
+  GETTABLEKS R12 R1 K11 ["SetSliderPlayhead"]
+  GETTABLEKS R13 R2 K12 ["gridHeightOffset"]
+  GETTABLEKS R14 R2 K13 ["gridWidthOffset"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K14 ["new"]
+  CALL R15 0 1
+  LOADN R16 1
+  GETTABLEKS R18 R0 K15 ["previewFrameRef"]
+  GETTABLEKS R17 R18 K16 ["current"]
+  JUMPIFNOT R17 [+11]
+  GETTABLEKS R21 R0 K15 ["previewFrameRef"]
+  GETTABLEKS R20 R21 K16 ["current"]
+  GETTABLEKS R19 R20 K18 ["GridContainer"]
+  GETTABLEKS R18 R19 K19 ["Grid"]
+  GETTABLEKS R17 R18 K20 ["ZIndex"]
+  ADDK R16 R17 K17 [1]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K21 ["createElement"]
+  LOADK R18 K22 ["Frame"]
+  NEWTABLE R19 8 0
+  GETTABLEKS R20 R5 K23 ["BackgroundColor"]
+  SETTABLEKS R20 R19 K24 ["BackgroundColor3"]
+  LOADN R20 0
+  SETTABLEKS R20 R19 K25 ["BorderSizePixel"]
+  SETTABLEKS R3 R19 K2 ["Size"]
+  SETTABLEKS R4 R19 K3 ["LayoutOrder"]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K26 ["Ref"]
+  GETTABLEKS R21 R0 K15 ["previewFrameRef"]
+  SETTABLE R21 R19 R20
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K27 ["Change"]
+  GETTABLEKS R20 R21 K28 ["AbsoluteSize"]
+  GETTABLEKS R21 R0 K29 ["onAbsoluteSizeChanged"]
+  SETTABLE R21 R19 R20
+  DUPTABLE R20 K34 [{"UIListLayout", "UIPadding", "PreviewTopBar", "GridContainer", "AnimPlaybackSliderContainer"}]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K21 ["createElement"]
+  LOADK R22 K30 ["UIListLayout"]
+  DUPTABLE R23 K40 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
+  GETIMPORT R24 K43 [Enum.FillDirection.Vertical]
+  SETTABLEKS R24 R23 K35 ["FillDirection"]
+  GETIMPORT R24 K45 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R24 R23 K36 ["HorizontalAlignment"]
+  GETIMPORT R24 K47 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R24 R23 K37 ["VerticalAlignment"]
+  GETIMPORT R24 K48 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R24 R23 K38 ["SortOrder"]
+  GETIMPORT R24 K50 [UDim.new]
+  LOADN R25 0
+  GETTABLEKS R26 R5 K39 ["Padding"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K39 ["Padding"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K30 ["UIListLayout"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K21 ["createElement"]
+  LOADK R22 K31 ["UIPadding"]
+  DUPTABLE R23 K52 [{"PaddingTop"}]
+  GETIMPORT R24 K50 [UDim.new]
+  LOADN R25 0
+  GETTABLEKS R26 R5 K39 ["Padding"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K51 ["PaddingTop"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K31 ["UIPadding"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K21 ["createElement"]
+  GETUPVAL R22 2
+  DUPTABLE R23 K53 [{"LayoutOrder"}]
+  NAMECALL R24 R15 K54 ["getNextOrder"]
+  CALL R24 1 1
+  SETTABLEKS R24 R23 K3 ["LayoutOrder"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K32 ["PreviewTopBar"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K21 ["createElement"]
+  GETUPVAL R22 3
+  DUPTABLE R23 K57 [{"Size", "Layout", "HorizontalAlignment", "LayoutOrder", "BackgroundColor", "Spacing", "Padding"}]
+  GETIMPORT R24 K59 [UDim2.new]
+  LOADN R25 1
+  LOADN R26 0
+  LOADN R27 1
+  MINUS R28 R13
+  CALL R24 4 1
+  SETTABLEKS R24 R23 K2 ["Size"]
+  GETIMPORT R24 K61 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R24 R23 K55 ["Layout"]
+  GETIMPORT R24 K63 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R24 R23 K36 ["HorizontalAlignment"]
+  NAMECALL R24 R15 K54 ["getNextOrder"]
+  CALL R24 1 1
+  SETTABLEKS R24 R23 K3 ["LayoutOrder"]
+  GETTABLEKS R24 R5 K64 ["GridContainerBackgroundColor"]
+  SETTABLEKS R24 R23 K23 ["BackgroundColor"]
+  GETTABLEKS R24 R5 K65 ["GridContainerSpacing"]
+  SETTABLEKS R24 R23 K56 ["Spacing"]
+  DUPTABLE R24 K67 [{"Top", "Bottom"}]
+  GETTABLEKS R25 R5 K68 ["GridContainerPadding"]
+  SETTABLEKS R25 R24 K46 ["Top"]
+  GETTABLEKS R25 R5 K68 ["GridContainerPadding"]
+  SETTABLEKS R25 R24 K66 ["Bottom"]
+  SETTABLEKS R24 R23 K39 ["Padding"]
+  DUPTABLE R24 K70 [{"CategoryList", "Grid"}]
+  GETUPVAL R26 1
+  GETTABLEKS R25 R26 K21 ["createElement"]
+  GETUPVAL R26 4
+  DUPTABLE R27 K73 [{"LayoutOrder", "OnCategoryChanged", "OnArrowClick"}]
+  NAMECALL R28 R15 K54 ["getNextOrder"]
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K3 ["LayoutOrder"]
+  GETTABLEKS R28 R0 K74 ["onCategoryChanged"]
+  SETTABLEKS R28 R27 K71 ["OnCategoryChanged"]
+  NEWCLOSURE R28 P0
+  CAPTURE VAL R0
+  SETTABLEKS R28 R27 K72 ["OnArrowClick"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K69 ["CategoryList"]
+  GETUPVAL R26 1
+  GETTABLEKS R25 R26 K21 ["createElement"]
+  GETUPVAL R26 5
+  DUPTABLE R27 K77 [{"Size", "layoutOrder", "UpdateUserAddedAssets", "UserAddedAssets"}]
+  GETIMPORT R28 K59 [UDim2.new]
+  LOADN R29 1
+  MINUS R30 R14
+  LOADN R31 1
+  LOADN R32 0
+  CALL R28 4 1
+  SETTABLEKS R28 R27 K2 ["Size"]
+  NAMECALL R28 R15 K54 ["getNextOrder"]
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K75 ["layoutOrder"]
+  GETTABLEKS R28 R1 K76 ["UpdateUserAddedAssets"]
+  SETTABLEKS R28 R27 K76 ["UpdateUserAddedAssets"]
+  SETTABLEKS R6 R27 K5 ["UserAddedAssets"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K19 ["Grid"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K18 ["GridContainer"]
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K78 ["shouldTabShowPlaybackSlider"]
+  MOVE R22 R7
+  CALL R21 1 1
+  JUMPIFNOT R21 [+52]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K21 ["createElement"]
+  GETUPVAL R22 3
+  DUPTABLE R23 K79 [{"Size", "LayoutOrder"}]
+  GETIMPORT R24 K59 [UDim2.new]
+  LOADN R25 1
+  GETTABLEKS R27 R5 K80 ["MainPadding"]
+  MINUS R26 R27
+  LOADN R27 0
+  GETTABLEKS R28 R5 K81 ["SliderHeight"]
+  CALL R24 4 1
+  SETTABLEKS R24 R23 K2 ["Size"]
+  NAMECALL R24 R15 K54 ["getNextOrder"]
+  CALL R24 1 1
+  SETTABLEKS R24 R23 K3 ["LayoutOrder"]
+  DUPTABLE R24 K83 [{"AnimPlaybackSlider"}]
+  GETUPVAL R26 1
+  GETTABLEKS R25 R26 K21 ["createElement"]
+  GETUPVAL R26 7
+  DUPTABLE R27 K86 [{"IsPlaying", "Playhead", "OnSliderPlayheadChanged", "OnPlayPauseClicked", "Size", "TrackLength"}]
+  SETTABLEKS R8 R27 K7 ["IsPlaying"]
+  SETTABLEKS R9 R27 K8 ["Playhead"]
+  SETTABLEKS R12 R27 K84 ["OnSliderPlayheadChanged"]
+  SETTABLEKS R11 R27 K85 ["OnPlayPauseClicked"]
+  GETIMPORT R28 K59 [UDim2.new]
+  LOADN R29 1
+  LOADN R30 0
+  LOADN R31 0
+  GETTABLEKS R32 R5 K81 ["SliderHeight"]
+  CALL R28 4 1
+  SETTABLEKS R28 R27 K2 ["Size"]
+  SETTABLEKS R10 R27 K9 ["TrackLength"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K82 ["AnimPlaybackSlider"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K33 ["AnimPlaybackSliderContainer"]
+  CALL R17 3 -1
+  RETURN R17 -1
+
+PROTO_5:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["SelectedTab"]
+  GETTABLEKS R3 R1 K1 ["SelectedTab"]
+  JUMPIFEQ R2 R3 [+8]
+  GETTABLEKS R2 R0 K2 ["onAbsoluteSizeChanged"]
+  GETTABLEKS R4 R0 K3 ["previewFrameRef"]
+  GETTABLEKS R3 R4 K4 ["current"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["previewStatus"]
+  GETTABLEKS R3 R0 K1 ["animation"]
+  DUPTABLE R4 K8 [{"SelectedTab", "AnimationId", "IsPlaying", "Playhead", "TrackLength", "SliderPlayhead"}]
+  GETTABLEKS R5 R2 K9 ["selectedTab"]
+  SETTABLEKS R5 R4 K2 ["SelectedTab"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K10 ["getPreviewingAnimationId"]
+  MOVE R6 R0
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K3 ["AnimationId"]
+  GETTABLEKS R5 R3 K4 ["IsPlaying"]
+  SETTABLEKS R5 R4 K4 ["IsPlaying"]
+  GETTABLEKS R5 R3 K5 ["Playhead"]
+  SETTABLEKS R5 R4 K5 ["Playhead"]
+  GETTABLEKS R5 R3 K6 ["TrackLength"]
+  SETTABLEKS R5 R4 K6 ["TrackLength"]
+  GETTABLEKS R5 R3 K7 ["SliderPlayhead"]
+  SETTABLEKS R5 R4 K7 ["SliderPlayhead"]
+  RETURN R4 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  DUPTABLE R1 K6 [{"SetSelectedTab", "SetCategoryFilter", "SetIsPlaying", "SetSliderPlayhead", "SetPlayhead", "SetTrackLength"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetSelectedTab"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["SetCategoryFilter"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["SetIsPlaying"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["SetSliderPlayhead"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K4 ["SetPlayhead"]
+  NEWCLOSURE R2 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R1 K5 ["SetTrackLength"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Cryo"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["AvatarToolsShared"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["AccessoryAndBodyToolShared"]
+  GETTABLEKS R6 R5 K12 ["PreviewConstantsInterface"]
+  GETTABLEKS R7 R4 K13 ["Components"]
+  GETTABLEKS R8 R7 K14 ["AnimationPlaybackSlider"]
+  GETTABLEKS R9 R7 K15 ["PreviewDockWidget"]
+  GETTABLEKS R10 R7 K16 ["PreviewCategoryList"]
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R0 K5 ["Packages"]
+  GETTABLEKS R12 R13 K17 ["Framework"]
+  CALL R11 1 1
+  GETTABLEKS R12 R11 K18 ["ContextServices"]
+  GETTABLEKS R13 R12 K19 ["withContext"]
+  GETTABLEKS R14 R11 K10 ["Util"]
+  GETTABLEKS R15 R14 K20 ["LayoutOrderIterator"]
+  GETTABLEKS R16 R14 K21 ["Typecheck"]
+  GETTABLEKS R17 R11 K22 ["UI"]
+  GETTABLEKS R18 R17 K23 ["Pane"]
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R23 R0 K24 ["Src"]
+  GETTABLEKS R22 R23 K13 ["Components"]
+  GETTABLEKS R21 R22 K25 ["Preview"]
+  GETTABLEKS R20 R21 K26 ["PreviewTabsRibbon"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R24 R0 K24 ["Src"]
+  GETTABLEKS R23 R24 K13 ["Components"]
+  GETTABLEKS R22 R23 K25 ["Preview"]
+  GETTABLEKS R21 R22 K27 ["Grid"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R25 R0 K24 ["Src"]
+  GETTABLEKS R24 R25 K13 ["Components"]
+  GETTABLEKS R23 R24 K25 ["Preview"]
+  GETTABLEKS R22 R23 K28 ["PreviewTopBarWrapper"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R25 R0 K24 ["Src"]
+  GETTABLEKS R24 R25 K29 ["Actions"]
+  GETTABLEKS R23 R24 K30 ["SelectPreviewTab"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R26 R0 K24 ["Src"]
+  GETTABLEKS R25 R26 K29 ["Actions"]
+  GETTABLEKS R24 R25 K31 ["SetCategoryFilter"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R27 R0 K24 ["Src"]
+  GETTABLEKS R26 R27 K29 ["Actions"]
+  GETTABLEKS R25 R26 K32 ["SetSliderPlayhead"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R28 R0 K24 ["Src"]
+  GETTABLEKS R27 R28 K29 ["Actions"]
+  GETTABLEKS R26 R27 K33 ["SetIsPlaying"]
+  CALL R25 1 1
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R29 R0 K24 ["Src"]
+  GETTABLEKS R28 R29 K29 ["Actions"]
+  GETTABLEKS R27 R28 K34 ["SetPlayhead"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R30 R0 K24 ["Src"]
+  GETTABLEKS R29 R30 K29 ["Actions"]
+  GETTABLEKS R28 R29 K35 ["SetTrackLength"]
+  CALL R27 1 1
+  GETTABLEKS R28 R5 K36 ["PreviewingInfo"]
+  GETTABLEKS R29 R1 K37 ["PureComponent"]
+  LOADK R31 K38 ["PreviewFrame"]
+  NAMECALL R29 R29 K39 ["extend"]
+  CALL R29 2 1
+  GETTABLEKS R30 R16 K40 ["wrap"]
+  MOVE R31 R29
+  GETIMPORT R32 K1 [script]
+  CALL R30 2 0
+  DUPCLOSURE R30 K41 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  SETTABLEKS R30 R29 K42 ["init"]
+  DUPCLOSURE R30 K43 [PROTO_4]
+  CAPTURE VAL R15
+  CAPTURE VAL R1
+  CAPTURE VAL R21
+  CAPTURE VAL R18
+  CAPTURE VAL R10
+  CAPTURE VAL R20
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  SETTABLEKS R30 R29 K44 ["render"]
+  DUPCLOSURE R30 K45 [PROTO_5]
+  SETTABLEKS R30 R29 K46 ["didUpdate"]
+  MOVE R30 R13
+  DUPTABLE R31 K48 [{"Stylizer"}]
+  GETTABLEKS R32 R12 K47 ["Stylizer"]
+  SETTABLEKS R32 R31 K47 ["Stylizer"]
+  CALL R30 1 1
+  MOVE R31 R29
+  CALL R30 1 1
+  MOVE R29 R30
+  DUPCLOSURE R30 K49 [PROTO_6]
+  CAPTURE VAL R28
+  DUPCLOSURE R31 K50 [PROTO_13]
+  CAPTURE VAL R22
+  CAPTURE VAL R23
+  CAPTURE VAL R25
+  CAPTURE VAL R24
+  CAPTURE VAL R26
+  CAPTURE VAL R27
+  GETTABLEKS R32 R2 K51 ["connect"]
+  MOVE R33 R30
+  MOVE R34 R31
+  CALL R32 2 1
+  MOVE R33 R29
+  CALL R32 1 -1
+  RETURN R32 -1

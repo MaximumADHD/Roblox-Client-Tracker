@@ -1,0 +1,17 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  LOADN R1 26
+  SETTABLEKS R1 R0 K0 ["RowHeight"]
+  LOADN R1 144
+  SETTABLEKS R1 R0 K1 ["PlayerChoiceHorizontalOffset"]
+  LOADN R1 100
+  SETTABLEKS R1 R0 K2 ["TextLabelIdentifierWidth"]
+  LOADN R1 200
+  SETTABLEKS R1 R0 K3 ["InputWidgetWidth"]
+  GETIMPORT R1 K6 [UDim.new]
+  LOADN R2 0
+  LOADN R3 32
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K7 ["VirticalPadding"]
+  RETURN R0 1

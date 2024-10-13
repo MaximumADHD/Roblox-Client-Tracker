@@ -1,0 +1,70 @@
+PROTO_0:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["table"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["Expected children to be a table"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["append"]
+  GETUPVAL R3 1
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["provideMockContext"]
+  MOVE R4 R2
+  MOVE R5 R0
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceAnnotations"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["TestHelpers"]
+  GETTABLEKS R3 R1 K9 ["ContextServices"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Contexts"]
+  GETTABLEKS R5 R6 K12 ["UsernameContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Util"]
+  GETTABLEKS R6 R7 K14 ["createMockPlugin"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K15 ["Dash"]
+  CALL R6 1 1
+  NEWTABLE R7 0 4
+  GETTABLEKS R9 R3 K16 ["Plugin"]
+  GETTABLEKS R8 R9 K17 ["new"]
+  MOVE R9 R5
+  CALL R9 0 -1
+  CALL R8 -1 1
+  GETTABLEKS R10 R3 K18 ["Analytics"]
+  GETTABLEKS R9 R10 K19 ["mock"]
+  CALL R9 0 1
+  GETTABLEKS R11 R3 K20 ["Localization"]
+  GETTABLEKS R10 R11 K19 ["mock"]
+  CALL R10 0 1
+  GETTABLEKS R11 R4 K17 ["new"]
+  CALL R11 0 -1
+  SETLIST R7 R8 -1 [1]
+  DUPCLOSURE R8 K21 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  RETURN R8 1

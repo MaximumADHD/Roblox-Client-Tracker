@@ -1,0 +1,740 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["EmulatedGameLocale"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K0 ["EmulatedGameLocale"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["PlayerEmulationEnabled"]
+  RETURN R0 1
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["PlayerEmulationEnabled_deprecated"]
+  RETURN R0 1
+
+PROTO_3:
+  GETIMPORT R1 K2 [string.gsub]
+  GETTABLEKS R3 R0 K3 ["state"]
+  GETTABLEKS R2 R3 K4 ["localeId"]
+  LOADK R3 K5 ["-"]
+  LOADK R4 K6 ["_"]
+  CALL R1 3 1
+  GETTABLEKS R3 R0 K7 ["props"]
+  GETTABLEKS R2 R3 K8 ["languagesTable"]
+  JUMPIFEQKS R1 K9 [""] [+7]
+  GETTABLE R3 R2 R1
+  JUMPIFNOT R3 [+4]
+  GETTABLE R4 R2 R1
+  GETTABLEKS R3 R4 K10 ["displayText"]
+  RETURN R3 1
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETIMPORT R2 K4 [string.gsub]
+  GETTABLEKS R4 R0 K5 ["state"]
+  GETTABLEKS R3 R4 K6 ["localeId"]
+  LOADK R4 K7 ["-"]
+  LOADK R5 K8 ["_"]
+  CALL R2 3 1
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K9 ["languagesTable"]
+  JUMPIFEQKS R2 K10 [""] [+18]
+  GETTABLE R4 R3 R2
+  JUMPIFNOT R4 [+15]
+  GETIMPORT R4 K12 [string.format]
+  LOADK R7 K13 ["LanguageSection"]
+  LOADK R8 K14 ["InstructionText"]
+  NAMECALL R5 R1 K15 ["getText"]
+  CALL R5 3 1
+  GETTABLE R7 R3 R2
+  GETTABLEKS R6 R7 K16 ["displayText"]
+  GETTABLE R8 R3 R2
+  GETTABLEKS R7 R8 K17 ["languageCode"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  LOADK R4 K10 [""]
+  RETURN R4 1
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Plugin"]
+  NAMECALL R1 R1 K2 ["get"]
+  CALL R1 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["LOCALEID_SETTING_KEY"]
+  NAMECALL R2 R1 K4 ["GetSetting"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETUPVAL R3 1
+  SETTABLEKS R2 R3 K5 ["EmulatedGameLocale"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["localeId"]
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["PlayerEmulationEnabled"]
+  JUMP [+3]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["PlayerEmulationEnabled_deprecated"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 1
+  SETTABLEKS R1 R2 K4 ["EmulatedGameLocale"]
+  RETURN R0 0
+  GETUPVAL R2 2
+  CALL R2 0 1
+  GETUPVAL R3 1
+  SETTABLEKS R2 R3 K4 ["EmulatedGameLocale"]
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["EmulatedGameLocale"]
+  DUPTABLE R4 K2 [{"localeId"}]
+  SETTABLEKS R1 R4 K1 ["localeId"]
+  NAMECALL R2 R0 K3 ["setState"]
+  CALL R2 2 0
+  GETTABLEKS R3 R0 K4 ["props"]
+  GETTABLEKS R2 R3 K5 ["Plugin"]
+  NAMECALL R2 R2 K6 ["get"]
+  CALL R2 1 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K7 ["LOCALEID_SETTING_KEY"]
+  MOVE R6 R1
+  NAMECALL R3 R2 K8 ["SetSetting"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["localeId"]
+  JUMPIF R1 [+13]
+  GETUPVAL R1 0
+  LOADK R2 K1 [""]
+  SETTABLEKS R2 R1 K2 ["EmulatedGameLocale"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["textBoxRef"]
+  GETTABLEKS R1 R2 K4 ["current"]
+  NAMECALL R1 R1 K5 ["CaptureFocus"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETTABLEKS R1 R0 K0 ["localeId"]
+  GETUPVAL R2 0
+  SETTABLEKS R1 R2 K2 ["EmulatedGameLocale"]
+  RETURN R0 0
+
+PROTO_9:
+  NEWTABLE R1 4 0
+  GETTABLEKS R2 R0 K0 ["displayText"]
+  JUMPIFEQKNIL R2 [+14]
+  GETTABLEKS R2 R0 K0 ["displayText"]
+  SETTABLEKS R2 R1 K1 ["Id"]
+  GETTABLEKS R2 R0 K0 ["displayText"]
+  SETTABLEKS R2 R1 K2 ["Label"]
+  GETTABLEKS R2 R0 K3 ["localeId"]
+  SETTABLEKS R2 R1 K3 ["localeId"]
+  RETURN R1 1
+  GETTABLEKS R2 R0 K4 ["displayTextStringKey"]
+  JUMPIFEQKNIL R2 [+29]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["props"]
+  GETTABLEKS R2 R3 K6 ["Localization"]
+  GETTABLEKS R4 R0 K7 ["displayTextSectionKey"]
+  GETTABLEKS R5 R0 K4 ["displayTextStringKey"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K1 ["Id"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["props"]
+  GETTABLEKS R2 R3 K6 ["Localization"]
+  GETTABLEKS R4 R0 K7 ["displayTextSectionKey"]
+  GETTABLEKS R5 R0 K4 ["displayTextStringKey"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K2 ["Label"]
+  RETURN R1 1
+
+PROTO_10:
+  DUPTABLE R1 K1 [{"localeId"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["EmulatedGameLocale"]
+  SETTABLEKS R2 R1 K0 ["localeId"]
+  SETTABLEKS R1 R0 K3 ["state"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K5 ["textBoxRef"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K6 ["signalTokens"]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K7 ["onItemClicked"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K8 ["createLanguageListForSelectInput"]
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["onRobloxForcePlayModeRobloxLocaleIdChanged"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Networking"]
+  NAMECALL R1 R1 K2 ["get"]
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["loadLanguages"]
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R2 0
+  LOADK R4 K4 ["EmulatedGameLocale"]
+  NAMECALL R2 R2 K5 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K6 ["Connect"]
+  CALL R2 2 1
+  GETTABLEKS R4 R0 K7 ["signalTokens"]
+  FASTCALL2 TABLE_INSERT R4 R2 [+4]
+  MOVE R5 R2
+  GETIMPORT R3 K10 [table.insert]
+  CALL R3 2 0
+  NAMECALL R3 R0 K11 ["initLocaleId"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETIMPORT R1 K1 [pairs]
+  GETTABLEKS R2 R0 K2 ["signalTokens"]
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  NAMECALL R6 R5 K3 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [-4]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["signalTokens"]
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["textBoxRef"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["textBoxRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  GETTABLEKS R0 R1 K2 ["Text"]
+  GETUPVAL R1 1
+  SETTABLEKS R0 R1 K3 ["EmulatedGameLocale"]
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["textBoxRef"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["textBoxRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  GETTABLEKS R0 R1 K2 ["Text"]
+  GETUPVAL R1 1
+  SETTABLEKS R0 R1 K3 ["EmulatedGameLocale"]
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R3 R2 K2 ["mainSwitchEnabled"]
+  GETTABLEKS R4 R1 K3 ["localeId"]
+  GETTABLEKS R5 R2 K4 ["languagesList"]
+  GETTABLEKS R6 R2 K5 ["Stylizer"]
+  GETTABLEKS R7 R2 K6 ["Localization"]
+  GETTABLEKS R8 R2 K7 ["LayoutOrder"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  LOADK R10 K9 ["Frame"]
+  DUPTABLE R11 K13 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
+  GETUPVAL R13 1
+  JUMPIFNOT R13 [+3]
+  GETIMPORT R12 K16 [Enum.AutomaticSize.Y]
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K10 ["AutomaticSize"]
+  GETUPVAL R13 1
+  JUMPIFNOT R13 [+6]
+  GETIMPORT R12 K19 [UDim2.fromScale]
+  LOADN R13 1
+  LOADN R14 0
+  CALL R12 2 1
+  JUMP [+2]
+  GETTABLEKS R12 R6 K20 ["SELECTOR_SIZE"]
+  SETTABLEKS R12 R11 K11 ["Size"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K12 ["BackgroundTransparency"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K7 ["LayoutOrder"]
+  DUPTABLE R12 K25 [{"Layout", "Label", "LanguageDropdown", "LocaleIdTextBox"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K8 ["createElement"]
+  LOADK R14 K26 ["UIListLayout"]
+  DUPTABLE R15 K33 [{"HorizontalFlex", "VerticalAlignment", "SortOrder", "FillDirection", "Padding", "Wraps"}]
+  GETUPVAL R17 1
+  JUMPIFNOT R17 [+3]
+  GETIMPORT R16 K36 [Enum.UIFlexAlignment.SpaceBetween]
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K27 ["HorizontalFlex"]
+  GETUPVAL R17 1
+  JUMPIFNOT R17 [+3]
+  GETIMPORT R16 K38 [Enum.VerticalAlignment.Center]
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K28 ["VerticalAlignment"]
+  GETIMPORT R16 K39 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R16 R15 K29 ["SortOrder"]
+  GETIMPORT R16 K41 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R16 R15 K30 ["FillDirection"]
+  GETTABLEKS R16 R6 K42 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+  SETTABLEKS R16 R15 K31 ["Padding"]
+  GETUPVAL R17 1
+  JUMPIFNOT R17 [+2]
+  LOADB R16 1
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K32 ["Wraps"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K21 ["Layout"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K8 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K46 [{"AutomaticSize", "LayoutOrder", "StyleModifier", "Text", "TextXAlignment"}]
+  GETIMPORT R16 K48 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K10 ["AutomaticSize"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K7 ["LayoutOrder"]
+  JUMPIFNOT R3 [+2]
+  LOADNIL R16
+  JUMP [+3]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K49 ["Disabled"]
+  SETTABLEKS R16 R15 K43 ["StyleModifier"]
+  LOADK R18 K50 ["LanguageSection"]
+  LOADK R19 K51 ["LabelText"]
+  NAMECALL R16 R7 K52 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K44 ["Text"]
+  GETUPVAL R17 1
+  JUMPIFNOT R17 [+3]
+  GETIMPORT R16 K54 [Enum.TextXAlignment.Left]
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K45 ["TextXAlignment"]
+  DUPTABLE R16 K56 [{"FlexItem"}]
+  GETUPVAL R18 1
+  JUMPIFNOT R18 [+11]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K8 ["createElement"]
+  LOADK R18 K57 ["UIFlexItem"]
+  DUPTABLE R19 K59 [{"FlexMode"}]
+  GETIMPORT R20 K62 [Enum.UIFlexMode.Grow]
+  SETTABLEKS R20 R19 K58 ["FlexMode"]
+  CALL R17 2 1
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K55 ["FlexItem"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K22 ["Label"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K8 ["createElement"]
+  GETUPVAL R14 4
+  DUPTABLE R15 K67 [{"Items", "LayoutOrder", "OnItemActivated", "SelectedId", "Enabled"}]
+  GETUPVAL R16 5
+  MOVE R17 R5
+  GETTABLEKS R18 R0 K68 ["createLanguageListForSelectInput"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K63 ["Items"]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K7 ["LayoutOrder"]
+  GETTABLEKS R16 R0 K69 ["onItemClicked"]
+  SETTABLEKS R16 R15 K64 ["OnItemActivated"]
+  NAMECALL R16 R0 K70 ["getCurrentLanguageName"]
+  CALL R16 1 1
+  JUMPIF R16 [+5]
+  LOADK R18 K50 ["LanguageSection"]
+  LOADK R19 K71 ["CustomLanguageDisplayText"]
+  NAMECALL R16 R7 K52 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K65 ["SelectedId"]
+  SETTABLEKS R3 R15 K66 ["Enabled"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K23 ["LanguageDropdown"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K8 ["createElement"]
+  LOADK R14 K9 ["Frame"]
+  DUPTABLE R15 K75 [{"Size", "BorderColor3", "BorderSizePixel", "BackgroundColor3", "LayoutOrder"}]
+  GETTABLEKS R16 R6 K76 ["LOCALEID_TEXTBOX_SIZE"]
+  SETTABLEKS R16 R15 K11 ["Size"]
+  GETTABLEKS R16 R6 K77 ["BorderColor"]
+  SETTABLEKS R16 R15 K72 ["BorderColor3"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K73 ["BorderSizePixel"]
+  GETTABLEKS R16 R6 K78 ["BackgroundColor"]
+  SETTABLEKS R16 R15 K74 ["BackgroundColor3"]
+  LOADN R16 3
+  SETTABLEKS R16 R15 K7 ["LayoutOrder"]
+  DUPTABLE R16 K80 [{"Padding", "TextBox"}]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K8 ["createElement"]
+  LOADK R18 K81 ["UIPadding"]
+  DUPTABLE R19 K83 [{"PaddingLeft"}]
+  GETTABLEKS R20 R6 K84 ["TEXT_INDENT_PADDING"]
+  SETTABLEKS R20 R19 K82 ["PaddingLeft"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K31 ["Padding"]
+  GETUPVAL R18 1
+  JUMPIFNOT R18 [+24]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K8 ["createElement"]
+  GETUPVAL R18 6
+  NEWTABLE R19 4 0
+  NEWCLOSURE R20 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  SETTABLEKS R20 R19 K85 ["OnFocusLost"]
+  NOT R20 R3
+  SETTABLEKS R20 R19 K49 ["Disabled"]
+  SETTABLEKS R4 R19 K44 ["Text"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K86 ["Ref"]
+  GETTABLEKS R21 R0 K87 ["textBoxRef"]
+  SETTABLE R21 R19 R20
+  CALL R17 2 1
+  JUMP [+23]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K8 ["createElement"]
+  GETUPVAL R18 8
+  NEWTABLE R19 4 0
+  NEWCLOSURE R20 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  SETTABLEKS R20 R19 K85 ["OnFocusLost"]
+  NOT R20 R3
+  SETTABLEKS R20 R19 K49 ["Disabled"]
+  SETTABLEKS R4 R19 K44 ["Text"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K86 ["Ref"]
+  GETTABLEKS R21 R0 K87 ["textBoxRef"]
+  SETTABLE R21 R19 R20
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K79 ["TextBox"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K24 ["LocaleIdTextBox"]
+  CALL R9 3 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  LOADK R11 K9 ["Frame"]
+  DUPTABLE R12 K88 [{"AutomaticSize", "Size", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
+  GETUPVAL R14 1
+  JUMPIFNOT R14 [+3]
+  GETIMPORT R13 K16 [Enum.AutomaticSize.Y]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K10 ["AutomaticSize"]
+  GETUPVAL R14 1
+  JUMPIFNOT R14 [+6]
+  GETIMPORT R13 K19 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 0
+  CALL R13 2 1
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K11 ["Size"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K12 ["BackgroundTransparency"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K73 ["BorderSizePixel"]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  DUPTABLE R13 K90 [{"Padding", "TextLabel"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K8 ["createElement"]
+  LOADK R15 K81 ["UIPadding"]
+  DUPTABLE R16 K92 [{"PaddingLeft", "PaddingBottom"}]
+  GETTABLEKS R17 R6 K84 ["TEXT_INDENT_PADDING"]
+  SETTABLEKS R17 R16 K82 ["PaddingLeft"]
+  GETUPVAL R18 1
+  JUMPIFNOT R18 [+3]
+  GETTABLEKS R17 R6 K42 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K91 ["PaddingBottom"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K31 ["Padding"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K8 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K95 [{"AutomaticSize", "Size", "StyleModifier", "TextSize", "Text", "TextXAlignment", "TextWrapped"}]
+  GETUPVAL R18 1
+  JUMPIFNOT R18 [+3]
+  GETIMPORT R17 K16 [Enum.AutomaticSize.Y]
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K10 ["AutomaticSize"]
+  GETUPVAL R18 1
+  JUMPIFNOT R18 [+6]
+  GETIMPORT R17 K19 [UDim2.fromScale]
+  LOADN R18 1
+  LOADN R19 0
+  CALL R17 2 1
+  JUMP [+2]
+  GETTABLEKS R17 R6 K96 ["LANGUAGE_INSTRUCTION_SIZE"]
+  SETTABLEKS R17 R16 K11 ["Size"]
+  JUMPIFNOT R3 [+2]
+  LOADNIL R17
+  JUMP [+3]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K49 ["Disabled"]
+  SETTABLEKS R17 R16 K43 ["StyleModifier"]
+  GETUPVAL R18 1
+  JUMPIFNOT R18 [+3]
+  GETTABLEKS R17 R6 K97 ["LANGUAGE_INSTRUCTION_TEXT_SIZE"]
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K93 ["TextSize"]
+  NAMECALL R17 R0 K98 ["getTestLangInstructionText"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K44 ["Text"]
+  GETIMPORT R17 K54 [Enum.TextXAlignment.Left]
+  SETTABLEKS R17 R16 K45 ["TextXAlignment"]
+  GETUPVAL R18 1
+  JUMPIFNOT R18 [+2]
+  LOADB R17 1
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K94 ["TextWrapped"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K89 ["TextLabel"]
+  CALL R10 3 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K8 ["createElement"]
+  LOADK R12 K9 ["Frame"]
+  DUPTABLE R13 K13 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
+  GETUPVAL R15 1
+  JUMPIFNOT R15 [+3]
+  GETIMPORT R14 K16 [Enum.AutomaticSize.Y]
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K10 ["AutomaticSize"]
+  GETUPVAL R15 1
+  JUMPIFNOT R15 [+6]
+  GETIMPORT R14 K19 [UDim2.fromScale]
+  LOADN R15 1
+  LOADN R16 0
+  CALL R14 2 1
+  JUMP [+2]
+  GETTABLEKS R14 R6 K99 ["LANGUAGE_SECTION_SIZE"]
+  SETTABLEKS R14 R13 K11 ["Size"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K12 ["BackgroundTransparency"]
+  SETTABLEKS R8 R13 K7 ["LayoutOrder"]
+  DUPTABLE R14 K102 [{"Layout", "SelectorModule", "TextModule"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K8 ["createElement"]
+  LOADK R16 K26 ["UIListLayout"]
+  DUPTABLE R17 K103 [{"SortOrder", "FillDirection", "Padding"}]
+  GETIMPORT R18 K39 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R18 R17 K29 ["SortOrder"]
+  GETIMPORT R18 K105 [Enum.FillDirection.Vertical]
+  SETTABLEKS R18 R17 K30 ["FillDirection"]
+  GETUPVAL R19 1
+  JUMPIFNOT R19 [+3]
+  GETTABLEKS R18 R6 K42 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K31 ["Padding"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["Layout"]
+  SETTABLEKS R9 R14 K100 ["SelectorModule"]
+  SETTABLEKS R10 R14 K101 ["TextModule"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+PROTO_17:
+  DUPTABLE R2 K3 [{"mainSwitchEnabled", "languagesTable", "languagesList"}]
+  GETTABLEKS R4 R0 K4 ["MainSwitch"]
+  GETTABLEKS R3 R4 K0 ["mainSwitchEnabled"]
+  SETTABLEKS R3 R2 K0 ["mainSwitchEnabled"]
+  GETTABLEKS R4 R0 K5 ["Languages"]
+  GETTABLEKS R3 R4 K1 ["languagesTable"]
+  SETTABLEKS R3 R2 K1 ["languagesTable"]
+  GETTABLEKS R4 R0 K5 ["Languages"]
+  GETTABLEKS R3 R4 K2 ["languagesList"]
+  SETTABLEKS R3 R2 K2 ["languagesList"]
+  RETURN R2 1
+
+PROTO_18:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_19:
+  DUPTABLE R1 K1 [{"loadLanguages"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["loadLanguages"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnablePseudolocalizationInPlayerEmulator2"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["LocalizationService"]
+  NAMECALL R1 R1 K5 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K6 ["PlayerEmulatorService"]
+  NAMECALL R2 R2 K5 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R6 K8 [script]
+  GETTABLEKS R5 R6 K9 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Parent"]
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R6 R3 K12 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Roact"]
+  CALL R4 1 1
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R7 R3 K12 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["RoactRodux"]
+  CALL R5 1 1
+  GETIMPORT R6 K11 [require]
+  GETTABLEKS R8 R3 K12 ["Packages"]
+  GETTABLEKS R7 R8 K15 ["Framework"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K16 ["ContextServices"]
+  GETTABLEKS R8 R7 K17 ["withContext"]
+  GETIMPORT R9 K11 [require]
+  GETTABLEKS R12 R3 K18 ["Src"]
+  GETTABLEKS R11 R12 K16 ["ContextServices"]
+  GETTABLEKS R10 R11 K19 ["NetworkingContext"]
+  CALL R9 1 1
+  GETIMPORT R10 K11 [require]
+  GETTABLEKS R13 R3 K18 ["Src"]
+  GETTABLEKS R12 R13 K20 ["Util"]
+  GETTABLEKS R11 R12 K21 ["Constants"]
+  CALL R10 1 1
+  GETIMPORT R12 K11 [require]
+  GETTABLEKS R15 R3 K18 ["Src"]
+  GETTABLEKS R14 R15 K20 ["Util"]
+  GETTABLEKS R13 R14 K22 ["PlayerEmulatorUtilities"]
+  CALL R12 1 1
+  GETTABLEKS R11 R12 K23 ["getStudioLocaleId"]
+  GETTABLEKS R12 R6 K24 ["UI"]
+  GETTABLEKS R13 R12 K25 ["SelectInput"]
+  GETTABLEKS R14 R12 K26 ["DEPRECATED_TextInput"]
+  GETTABLEKS R15 R12 K27 ["TextInput"]
+  GETTABLEKS R16 R12 K28 ["TextLabel"]
+  GETTABLEKS R17 R6 K29 ["Dash"]
+  GETTABLEKS R18 R17 K30 ["map"]
+  GETTABLEKS R20 R6 K20 ["Util"]
+  GETTABLEKS R19 R20 K31 ["StyleModifier"]
+  GETIMPORT R20 K11 [require]
+  GETTABLEKS R24 R3 K18 ["Src"]
+  GETTABLEKS R23 R24 K32 ["Networking"]
+  GETTABLEKS R22 R23 K33 ["Requests"]
+  GETTABLEKS R21 R22 K34 ["GetLanguages"]
+  CALL R20 1 1
+  DUPCLOSURE R21 K35 [PROTO_0]
+  CAPTURE VAL R2
+  DUPCLOSURE R22 K36 [PROTO_1]
+  CAPTURE VAL R2
+  DUPCLOSURE R23 K37 [PROTO_2]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  MOVE R24 R11
+  CALL R24 0 1
+  SETTABLEKS R24 R1 K38 ["RobloxForcePlayModeRobloxLocaleId"]
+  GETTABLEKS R24 R4 K39 ["PureComponent"]
+  LOADK R26 K40 ["LanguageSection"]
+  NAMECALL R24 R24 K41 ["extend"]
+  CALL R24 2 1
+  DUPCLOSURE R25 K42 [PROTO_3]
+  SETTABLEKS R25 R24 K43 ["getCurrentLanguageName"]
+  DUPCLOSURE R25 K44 [PROTO_4]
+  SETTABLEKS R25 R24 K45 ["getTestLangInstructionText"]
+  DUPCLOSURE R25 K46 [PROTO_5]
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  SETTABLEKS R25 R24 K47 ["initLocaleId"]
+  DUPCLOSURE R25 K48 [PROTO_6]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  SETTABLEKS R25 R24 K49 ["onPlayerEmulationEnabledChanged"]
+  DUPCLOSURE R25 K50 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  SETTABLEKS R25 R24 K51 ["onRobloxForcePlayModeRobloxLocaleIdChanged"]
+  DUPCLOSURE R25 K52 [PROTO_10]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  SETTABLEKS R25 R24 K53 ["init"]
+  DUPCLOSURE R25 K54 [PROTO_12]
+  CAPTURE VAL R2
+  SETTABLEKS R25 R24 K55 ["didMount"]
+  DUPCLOSURE R25 K56 [PROTO_13]
+  SETTABLEKS R25 R24 K57 ["willUnmount"]
+  DUPCLOSURE R25 K58 [PROTO_16]
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  CAPTURE VAL R16
+  CAPTURE VAL R19
+  CAPTURE VAL R13
+  CAPTURE VAL R18
+  CAPTURE VAL R15
+  CAPTURE VAL R2
+  CAPTURE VAL R14
+  SETTABLEKS R25 R24 K59 ["render"]
+  MOVE R25 R8
+  DUPTABLE R26 K63 [{"Stylizer", "Localization", "Networking", "Plugin"}]
+  GETTABLEKS R27 R7 K60 ["Stylizer"]
+  SETTABLEKS R27 R26 K60 ["Stylizer"]
+  GETTABLEKS R27 R7 K61 ["Localization"]
+  SETTABLEKS R27 R26 K61 ["Localization"]
+  SETTABLEKS R9 R26 K32 ["Networking"]
+  GETTABLEKS R27 R7 K62 ["Plugin"]
+  SETTABLEKS R27 R26 K62 ["Plugin"]
+  CALL R25 1 1
+  MOVE R26 R24
+  CALL R25 1 1
+  MOVE R24 R25
+  DUPCLOSURE R25 K64 [PROTO_17]
+  DUPCLOSURE R26 K65 [PROTO_19]
+  CAPTURE VAL R20
+  GETTABLEKS R27 R5 K66 ["connect"]
+  MOVE R28 R25
+  MOVE R29 R26
+  CALL R27 2 1
+  MOVE R28 R24
+  CALL R27 1 -1
+  RETURN R27 -1

@@ -1,0 +1,665 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Network"]
+  GETTABLEKS R2 R3 K2 ["networkInterface"]
+  GETTABLEKS R3 R1 K3 ["Settings"]
+  LOADK R5 K4 ["Plugin"]
+  NAMECALL R3 R3 K5 ["get"]
+  CALL R3 2 1
+  GETTABLEKS R4 R1 K6 ["audioSearchInfo"]
+  GETTABLEKS R5 R1 K7 ["creator"]
+  GETTABLEKS R6 R1 K8 ["additionalAudioSearchInfo"]
+  DUPTABLE R7 K12 [{"Creator", "AudioSearch", "AdditionalAudioSearch"}]
+  SETTABLEKS R5 R7 K9 ["Creator"]
+  SETTABLEKS R4 R7 K10 ["AudioSearch"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K13 ["join"]
+  MOVE R9 R6
+  MOVE R10 R0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K11 ["AdditionalAudioSearch"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["props"]
+  GETTABLEKS R8 R9 K14 ["searchWithOptions"]
+  MOVE R9 R2
+  MOVE R10 R3
+  MOVE R11 R7
+  CALL R8 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["AssetInfo"]
+  GETTABLEKS R1 R2 K2 ["AudioDetails"]
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R1 K3 ["SoundEffectCategory"]
+  JUMPIFNOT R3 [+19]
+  GETTABLEKS R5 R1 K3 ["SoundEffectCategory"]
+  FASTCALL2 TABLE_INSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K6 [table.insert]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K7 ["SoundEffectSubcategory"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R5 R1 K7 ["SoundEffectSubcategory"]
+  FASTCALL2 TABLE_INSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K6 [table.insert]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K8 ["searchBy"]
+  NEWTABLE R4 1 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
+  GETTABLEKS R5 R6 K10 ["CATEGORIES"]
+  SETTABLE R2 R4 R5
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["AssetInfo"]
+  GETTABLEKS R1 R2 K2 ["AudioDetails"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["searchBy"]
+  NEWTABLE R3 2 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
+  GETTABLEKS R4 R5 K5 ["ARTIST"]
+  GETTABLEKS R5 R1 K6 ["Artist"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
+  GETTABLEKS R4 R5 K7 ["ALBUM"]
+  GETTABLEKS R5 R1 K8 ["MusicAlbum"]
+  SETTABLE R5 R3 R4
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["Network"]
+  GETTABLEKS R1 R2 K2 ["networkInterface"]
+  GETTABLEKS R2 R0 K3 ["Settings"]
+  LOADK R4 K4 ["Plugin"]
+  NAMECALL R2 R2 K5 ["get"]
+  CALL R2 2 1
+  GETTABLEKS R5 R0 K6 ["AssetInfo"]
+  GETTABLEKS R4 R5 K7 ["Creator"]
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R0 K6 ["AssetInfo"]
+  GETTABLEKS R4 R5 K7 ["Creator"]
+  GETTABLEKS R3 R4 K8 ["Name"]
+  JUMP [+1]
+  LOADNIL R3
+  DUPTABLE R4 K11 [{"Creator", "AudioSearch", "AdditionalAudioSearch"}]
+  SETTABLEKS R3 R4 K7 ["Creator"]
+  GETTABLEKS R5 R0 K12 ["audioSearchInfo"]
+  SETTABLEKS R5 R4 K9 ["AudioSearch"]
+  GETTABLEKS R5 R0 K13 ["additionalAudioSearchInfo"]
+  SETTABLEKS R5 R4 K10 ["AdditionalAudioSearch"]
+  GETTABLEKS R5 R0 K14 ["searchWithOptions"]
+  MOVE R6 R1
+  MOVE R7 R2
+  MOVE R8 R4
+  CALL R5 3 0
+  RETURN R0 0
+
+PROTO_4:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K0 ["searchBy"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K1 ["onSearchByCategories"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K2 ["onSearchByAlbum"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["onSearchByCreator"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R4 R1 K2 ["Stylizer"]
+  GETTABLEKS R3 R4 K3 ["itemRow"]
+  GETTABLEKS R4 R1 K4 ["AudioDetails"]
+  GETTABLEKS R7 R1 K5 ["AssetInfo"]
+  GETTABLEKS R6 R7 K6 ["Creator"]
+  JUMPIFNOT R6 [+7]
+  GETTABLEKS R7 R1 K5 ["AssetInfo"]
+  GETTABLEKS R6 R7 K6 ["Creator"]
+  GETTABLEKS R5 R6 K7 ["Name"]
+  JUMP [+1]
+  LOADK R5 K8 ["---"]
+  GETTABLEKS R6 R1 K9 ["IsPlaying"]
+  GETTABLEKS R8 R1 K5 ["AssetInfo"]
+  GETTABLEKS R7 R8 K10 ["Asset"]
+  GETTABLEKS R8 R7 K11 ["Id"]
+  GETTABLEKS R10 R7 K12 ["Description"]
+  ORK R9 R10 K8 ["---"]
+  GETTABLEKS R10 R4 K13 ["SoundEffectCategory"]
+  GETTABLEKS R11 R4 K14 ["Type"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K15 ["SOUND_EFFECTS"]
+  GETTABLEKS R13 R14 K16 ["name"]
+  JUMPIFEQ R11 R13 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K17 ["MUSIC"]
+  GETTABLEKS R14 R15 K16 ["name"]
+  JUMPIFEQ R11 R14 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  GETTABLEKS R14 R4 K18 ["Artist"]
+  GETTABLEKS R15 R4 K19 ["MusicAlbum"]
+  LOADK R16 K20 [""]
+  JUMPIFEQKS R14 K8 ["---"] [+2]
+  MOVE R16 R14
+  JUMPIFEQKS R15 K8 ["---"] [+9]
+  JUMPIFEQKS R16 K20 [""] [+4]
+  MOVE R17 R16
+  LOADK R18 K21 [" - "]
+  CONCAT R16 R17 R18
+  MOVE R17 R16
+  MOVE R18 R15
+  CONCAT R16 R17 R18
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K22 ["new"]
+  CALL R17 0 1
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K23 ["createElement"]
+  GETUPVAL R19 3
+  DUPTABLE R20 K28 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
+  GETIMPORT R21 K31 [Enum.AutomaticSize.Y]
+  SETTABLEKS R21 R20 K24 ["AutomaticSize"]
+  GETIMPORT R21 K34 [Enum.FillDirection.Vertical]
+  SETTABLEKS R21 R20 K25 ["Layout"]
+  GETTABLEKS R21 R1 K26 ["LayoutOrder"]
+  SETTABLEKS R21 R20 K26 ["LayoutOrder"]
+  GETTABLEKS R21 R1 K27 ["Size"]
+  SETTABLEKS R21 R20 K27 ["Size"]
+  DUPTABLE R21 K37 [{"AudioPlayerFrame", "AdditionalMusicDetails"}]
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K23 ["createElement"]
+  GETUPVAL R23 3
+  DUPTABLE R24 K40 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding", "Size", "VerticalAlignment"}]
+  GETIMPORT R25 K31 [Enum.AutomaticSize.Y]
+  SETTABLEKS R25 R24 K24 ["AutomaticSize"]
+  GETIMPORT R25 K42 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R25 R24 K25 ["Layout"]
+  NAMECALL R25 R17 K43 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K26 ["LayoutOrder"]
+  DUPTABLE R25 K46 [{"Left", "Right"}]
+  LOADN R26 4
+  SETTABLEKS R26 R25 K44 ["Left"]
+  GETUPVAL R27 4
+  CALL R27 0 1
+  JUMPIFNOT R27 [+6]
+  GETUPVAL R28 5
+  GETTABLEKS R27 R28 K47 ["ITEM_ROW"]
+  GETTABLEKS R26 R27 K48 ["LEFT_RIGHT_PADDING"]
+  JUMP [+5]
+  GETUPVAL R28 5
+  GETTABLEKS R27 R28 K49 ["AUDIO_ROW"]
+  GETTABLEKS R26 R27 K48 ["LEFT_RIGHT_PADDING"]
+  SETTABLEKS R26 R25 K45 ["Right"]
+  SETTABLEKS R25 R24 K38 ["Padding"]
+  GETIMPORT R25 K51 [UDim2.new]
+  LOADN R26 1
+  LOADN R27 0
+  LOADN R28 0
+  LOADN R29 26
+  CALL R25 4 1
+  SETTABLEKS R25 R24 K27 ["Size"]
+  GETIMPORT R25 K53 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R25 R24 K39 ["VerticalAlignment"]
+  DUPTABLE R25 K55 [{"AudioPlayer"}]
+  GETUPVAL R27 2
+  GETTABLEKS R26 R27 K23 ["createElement"]
+  GETUPVAL R27 6
+  DUPTABLE R28 K58 [{"SoundId", "IsPlaying", "OnEnd"}]
+  SETTABLEKS R8 R28 K56 ["SoundId"]
+  SETTABLEKS R6 R28 K9 ["IsPlaying"]
+  GETTABLEKS R29 R1 K59 ["OnAudioEnd"]
+  SETTABLEKS R29 R28 K57 ["OnEnd"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K54 ["AudioPlayer"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K35 ["AudioPlayerFrame"]
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K23 ["createElement"]
+  GETUPVAL R23 3
+  DUPTABLE R24 K60 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
+  GETIMPORT R25 K31 [Enum.AutomaticSize.Y]
+  SETTABLEKS R25 R24 K24 ["AutomaticSize"]
+  GETIMPORT R25 K34 [Enum.FillDirection.Vertical]
+  SETTABLEKS R25 R24 K25 ["Layout"]
+  NAMECALL R25 R17 K43 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K26 ["LayoutOrder"]
+  DUPTABLE R25 K46 [{"Left", "Right"}]
+  LOADN R26 10
+  SETTABLEKS R26 R25 K44 ["Left"]
+  LOADN R26 10
+  SETTABLEKS R26 R25 K45 ["Right"]
+  SETTABLEKS R25 R24 K38 ["Padding"]
+  DUPTABLE R25 K63 [{"DescriptionContainer", "AlbumContainer"}]
+  GETUPVAL R27 2
+  GETTABLEKS R26 R27 K23 ["createElement"]
+  GETUPVAL R27 3
+  DUPTABLE R28 K65 [{"Layout", "LayoutOrder", "Spacing", "Size"}]
+  GETIMPORT R29 K42 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R29 R28 K25 ["Layout"]
+  NAMECALL R29 R17 K43 ["getNextOrder"]
+  CALL R29 1 1
+  SETTABLEKS R29 R28 K26 ["LayoutOrder"]
+  LOADN R29 10
+  SETTABLEKS R29 R28 K64 ["Spacing"]
+  GETIMPORT R29 K51 [UDim2.new]
+  LOADN R30 1
+  LOADN R31 0
+  LOADN R32 0
+  LOADN R33 26
+  CALL R29 4 1
+  SETTABLEKS R29 R28 K27 ["Size"]
+  DUPTABLE R29 K68 [{"Description", "AssetPreview", "Insert"}]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K23 ["createElement"]
+  GETUPVAL R31 7
+  DUPTABLE R32 K76 [{"LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextTruncate"}]
+  NAMECALL R33 R17 K43 ["getNextOrder"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K26 ["LayoutOrder"]
+  GETIMPORT R33 K51 [UDim2.new]
+  LOADN R34 1
+  LOADN R35 176
+  LOADN R36 1
+  LOADN R37 0
+  CALL R33 4 1
+  SETTABLEKS R33 R32 K27 ["Size"]
+  SETTABLEKS R9 R32 K69 ["Text"]
+  GETTABLEKS R33 R3 K77 ["textColor"]
+  SETTABLEKS R33 R32 K70 ["TextColor"]
+  GETUPVAL R34 5
+  GETTABLEKS R33 R34 K78 ["FONT_SIZE_MEDIUM"]
+  SETTABLEKS R33 R32 K71 ["TextSize"]
+  LOADB R33 1
+  SETTABLEKS R33 R32 K72 ["TextWrapped"]
+  GETIMPORT R33 K79 [Enum.TextXAlignment.Left]
+  SETTABLEKS R33 R32 K73 ["TextXAlignment"]
+  GETIMPORT R33 K80 [Enum.TextYAlignment.Center]
+  SETTABLEKS R33 R32 K74 ["TextYAlignment"]
+  GETIMPORT R33 K82 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R33 R32 K75 ["TextTruncate"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K12 ["Description"]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K23 ["createElement"]
+  GETUPVAL R31 3
+  DUPTABLE R32 K84 [{"Layout", "LayoutOrder", "HorizontalAlignment", "Size", "VerticalAlignment"}]
+  GETIMPORT R33 K34 [Enum.FillDirection.Vertical]
+  SETTABLEKS R33 R32 K25 ["Layout"]
+  NAMECALL R33 R17 K43 ["getNextOrder"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K26 ["LayoutOrder"]
+  GETIMPORT R33 K85 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R33 R32 K83 ["HorizontalAlignment"]
+  GETIMPORT R33 K51 [UDim2.new]
+  LOADN R34 0
+  LOADN R35 26
+  LOADN R36 0
+  LOADN R37 26
+  CALL R33 4 1
+  SETTABLEKS R33 R32 K27 ["Size"]
+  GETIMPORT R33 K53 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R33 R32 K39 ["VerticalAlignment"]
+  DUPTABLE R33 K87 [{"PopUpWrapperButton"}]
+  GETUPVAL R35 2
+  GETTABLEKS R34 R35 K23 ["createElement"]
+  GETUPVAL R35 8
+  DUPTABLE R36 K91 [{"HoverSize", "onClick", "ShowIcon", "Size"}]
+  GETIMPORT R37 K51 [UDim2.new]
+  LOADN R38 0
+  LOADN R39 26
+  LOADN R40 0
+  LOADN R41 26
+  CALL R37 4 1
+  SETTABLEKS R37 R36 K88 ["HoverSize"]
+  GETTABLEKS R37 R1 K92 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R37 R36 K89 ["onClick"]
+  LOADB R37 1
+  SETTABLEKS R37 R36 K90 ["ShowIcon"]
+  GETIMPORT R37 K51 [UDim2.new]
+  LOADN R38 0
+  LOADN R39 20
+  LOADN R40 0
+  LOADN R41 20
+  CALL R37 4 1
+  SETTABLEKS R37 R36 K27 ["Size"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K86 ["PopUpWrapperButton"]
+  CALL R30 3 1
+  SETTABLEKS R30 R29 K66 ["AssetPreview"]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K23 ["createElement"]
+  GETUPVAL R31 9
+  DUPTABLE R32 K94 [{"LayoutOrder", "OnClick"}]
+  NAMECALL R33 R17 K43 ["getNextOrder"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K26 ["LayoutOrder"]
+  GETTABLEKS R33 R1 K95 ["OnInsertClicked"]
+  SETTABLEKS R33 R32 K93 ["OnClick"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K67 ["Insert"]
+  CALL R26 3 1
+  SETTABLEKS R26 R25 K61 ["DescriptionContainer"]
+  GETUPVAL R27 2
+  GETTABLEKS R26 R27 K23 ["createElement"]
+  GETUPVAL R27 3
+  DUPTABLE R28 K96 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing", "Padding", "Size"}]
+  GETIMPORT R29 K31 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K24 ["AutomaticSize"]
+  GETIMPORT R29 K42 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R29 R28 K25 ["Layout"]
+  NAMECALL R29 R17 K43 ["getNextOrder"]
+  CALL R29 1 1
+  SETTABLEKS R29 R28 K26 ["LayoutOrder"]
+  LOADN R29 10
+  SETTABLEKS R29 R28 K64 ["Spacing"]
+  DUPTABLE R29 K46 [{"Left", "Right"}]
+  LOADN R30 5
+  SETTABLEKS R30 R29 K44 ["Left"]
+  LOADN R30 5
+  SETTABLEKS R30 R29 K45 ["Right"]
+  SETTABLEKS R29 R28 K38 ["Padding"]
+  GETIMPORT R29 K51 [UDim2.new]
+  LOADN R30 1
+  LOADN R31 0
+  LOADN R32 0
+  LOADN R33 0
+  CALL R29 4 1
+  SETTABLEKS R29 R28 K27 ["Size"]
+  DUPTABLE R29 K100 [{"AlbumArist", "Category", "UploadBy"}]
+  JUMPIFNOT R13 [+37]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K23 ["createElement"]
+  GETUPVAL R31 10
+  DUPTABLE R32 K102 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
+  NAMECALL R33 R17 K43 ["getNextOrder"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K26 ["LayoutOrder"]
+  LOADK R35 K103 ["AudioView"]
+  LOADK R36 K104 ["AlbumArtist"]
+  NAMECALL R33 R2 K105 ["getText"]
+  CALL R33 3 1
+  NAMECALL R33 R33 K106 ["upper"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K101 ["HeaderText"]
+  GETIMPORT R33 K51 [UDim2.new]
+  LOADK R34 K107 [0.5]
+  LOADN R35 0
+  LOADN R36 1
+  LOADN R37 0
+  CALL R33 4 1
+  SETTABLEKS R33 R32 K27 ["Size"]
+  SETTABLEKS R16 R32 K69 ["Text"]
+  GETTABLEKS R33 R0 K108 ["onSearchByAlbum"]
+  SETTABLEKS R33 R32 K93 ["OnClick"]
+  CALL R30 2 1
+  JUMP [+1]
+  LOADNIL R30
+  SETTABLEKS R30 R29 K97 ["AlbumArist"]
+  JUMPIFNOT R12 [+37]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K23 ["createElement"]
+  GETUPVAL R31 10
+  DUPTABLE R32 K102 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
+  NAMECALL R33 R17 K43 ["getNextOrder"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K26 ["LayoutOrder"]
+  LOADK R35 K103 ["AudioView"]
+  LOADK R36 K98 ["Category"]
+  NAMECALL R33 R2 K105 ["getText"]
+  CALL R33 3 1
+  NAMECALL R33 R33 K106 ["upper"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K101 ["HeaderText"]
+  GETIMPORT R33 K51 [UDim2.new]
+  LOADK R34 K107 [0.5]
+  LOADN R35 0
+  LOADN R36 1
+  LOADN R37 0
+  CALL R33 4 1
+  SETTABLEKS R33 R32 K27 ["Size"]
+  SETTABLEKS R10 R32 K69 ["Text"]
+  GETTABLEKS R33 R0 K109 ["onSearchByCategories"]
+  SETTABLEKS R33 R32 K93 ["OnClick"]
+  CALL R30 2 1
+  JUMP [+1]
+  LOADNIL R30
+  SETTABLEKS R30 R29 K98 ["Category"]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K23 ["createElement"]
+  GETUPVAL R31 10
+  DUPTABLE R32 K102 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
+  NAMECALL R33 R17 K43 ["getNextOrder"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K26 ["LayoutOrder"]
+  LOADK R35 K103 ["AudioView"]
+  LOADK R36 K110 ["UploadedBy"]
+  NAMECALL R33 R2 K105 ["getText"]
+  CALL R33 3 1
+  NAMECALL R33 R33 K106 ["upper"]
+  CALL R33 1 1
+  SETTABLEKS R33 R32 K101 ["HeaderText"]
+  GETIMPORT R33 K51 [UDim2.new]
+  LOADK R34 K107 [0.5]
+  LOADN R35 0
+  LOADN R36 1
+  LOADN R37 0
+  CALL R33 4 1
+  SETTABLEKS R33 R32 K27 ["Size"]
+  SETTABLEKS R5 R32 K69 ["Text"]
+  GETTABLEKS R33 R0 K111 ["onSearchByCreator"]
+  SETTABLEKS R33 R32 K93 ["OnClick"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K99 ["UploadBy"]
+  CALL R26 3 1
+  SETTABLEKS R26 R25 K62 ["AlbumContainer"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K36 ["AdditionalMusicDetails"]
+  CALL R18 3 -1
+  RETURN R18 -1
+
+PROTO_6:
+  DUPTABLE R2 K3 [{"additionalAudioSearchInfo", "audioSearchInfo", "creator"}]
+  GETTABLEKS R3 R0 K4 ["pageInfo"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R4 R0 K4 ["pageInfo"]
+  GETTABLEKS R3 R4 K0 ["additionalAudioSearchInfo"]
+  SETTABLEKS R3 R2 K0 ["additionalAudioSearchInfo"]
+  GETTABLEKS R3 R0 K4 ["pageInfo"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R4 R0 K4 ["pageInfo"]
+  GETTABLEKS R3 R4 K1 ["audioSearchInfo"]
+  SETTABLEKS R3 R2 K1 ["audioSearchInfo"]
+  GETTABLEKS R3 R0 K4 ["pageInfo"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R4 R0 K4 ["pageInfo"]
+  GETTABLEKS R3 R4 K2 ["creator"]
+  SETTABLEKS R3 R2 K2 ["creator"]
+  RETURN R2 1
+
+PROTO_7:
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  DUPTABLE R1 K1 [{"searchWithOptions"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["searchWithOptions"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Framework"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R1 K10 ["Dash"]
+  CALL R5 1 1
+  GETTABLEKS R7 R4 K11 ["UI"]
+  GETTABLEKS R6 R7 K12 ["Pane"]
+  GETTABLEKS R8 R4 K11 ["UI"]
+  GETTABLEKS R7 R8 K13 ["TextLabel"]
+  GETTABLEKS R9 R0 K14 ["Core"]
+  GETTABLEKS R8 R9 K15 ["Util"]
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R10 R8 K16 ["Constants"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R11 R8 K17 ["LayoutOrderIterator"]
+  CALL R10 1 1
+  GETTABLEKS R11 R4 K18 ["ContextServices"]
+  GETTABLEKS R12 R11 K19 ["withContext"]
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R16 R0 K14 ["Core"]
+  GETTABLEKS R15 R16 K18 ["ContextServices"]
+  GETTABLEKS R14 R15 K20 ["NetworkContext"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R17 R0 K14 ["Core"]
+  GETTABLEKS R16 R17 K18 ["ContextServices"]
+  GETTABLEKS R15 R16 K21 ["Settings"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R18 R0 K14 ["Core"]
+  GETTABLEKS R17 R18 K22 ["Types"]
+  GETTABLEKS R16 R17 K23 ["Category"]
+  CALL R15 1 1
+  GETIMPORT R16 K6 [require]
+  GETTABLEKS R20 R0 K14 ["Core"]
+  GETTABLEKS R19 R20 K24 ["Components"]
+  GETTABLEKS R18 R19 K25 ["Audio"]
+  GETTABLEKS R17 R18 K26 ["AudioPlayer"]
+  CALL R16 1 1
+  GETIMPORT R17 K6 [require]
+  GETTABLEKS R21 R0 K14 ["Core"]
+  GETTABLEKS R20 R21 K24 ["Components"]
+  GETTABLEKS R19 R20 K25 ["Audio"]
+  GETTABLEKS R18 R19 K27 ["AudioRowInsertButton"]
+  CALL R17 1 1
+  GETIMPORT R18 K6 [require]
+  GETTABLEKS R22 R0 K14 ["Core"]
+  GETTABLEKS R21 R22 K24 ["Components"]
+  GETTABLEKS R20 R21 K28 ["ItemRow"]
+  GETTABLEKS R19 R20 K29 ["ItemRowMetadata"]
+  CALL R18 1 1
+  GETIMPORT R19 K6 [require]
+  GETTABLEKS R24 R0 K14 ["Core"]
+  GETTABLEKS R23 R24 K24 ["Components"]
+  GETTABLEKS R22 R23 K30 ["Asset"]
+  GETTABLEKS R21 R22 K31 ["Preview"]
+  GETTABLEKS R20 R21 K32 ["PopUpWrapperButton"]
+  CALL R19 1 1
+  GETIMPORT R20 K6 [require]
+  GETTABLEKS R24 R0 K14 ["Core"]
+  GETTABLEKS R23 R24 K33 ["Networking"]
+  GETTABLEKS R22 R23 K34 ["Requests"]
+  GETTABLEKS R21 R22 K35 ["SearchWithOptions"]
+  CALL R20 1 1
+  GETIMPORT R21 K6 [require]
+  GETTABLEKS R25 R0 K14 ["Core"]
+  GETTABLEKS R24 R25 K15 ["Util"]
+  GETTABLEKS R23 R24 K36 ["SharedFlags"]
+  GETTABLEKS R22 R23 K37 ["getFFlagToolboxRefactorAudioConstantsForItemRow"]
+  CALL R21 1 1
+  GETIMPORT R22 K6 [require]
+  GETTABLEKS R25 R0 K14 ["Core"]
+  GETTABLEKS R24 R25 K38 ["Models"]
+  GETTABLEKS R23 R24 K39 ["AssetInfo"]
+  CALL R22 1 1
+  GETTABLEKS R23 R2 K40 ["PureComponent"]
+  LOADK R25 K41 ["AudioRowExpandedContent"]
+  NAMECALL R23 R23 K42 ["extend"]
+  CALL R23 2 1
+  DUPTABLE R24 K44 [{"Size"}]
+  GETIMPORT R25 K47 [UDim2.new]
+  LOADN R26 1
+  LOADN R27 0
+  LOADN R28 0
+  LOADN R29 26
+  CALL R25 4 1
+  SETTABLEKS R25 R24 K43 ["Size"]
+  SETTABLEKS R24 R23 K48 ["defaultProps"]
+  DUPCLOSURE R24 K49 [PROTO_4]
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  SETTABLEKS R24 R23 K50 ["init"]
+  DUPCLOSURE R24 K51 [PROTO_5]
+  CAPTURE VAL R15
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R21
+  CAPTURE VAL R9
+  CAPTURE VAL R16
+  CAPTURE VAL R7
+  CAPTURE VAL R19
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  SETTABLEKS R24 R23 K52 ["render"]
+  DUPCLOSURE R24 K53 [PROTO_6]
+  DUPCLOSURE R25 K54 [PROTO_8]
+  CAPTURE VAL R20
+  MOVE R26 R12
+  DUPTABLE R27 K58 [{"Localization", "Network", "Settings", "Stylizer"}]
+  GETTABLEKS R28 R11 K55 ["Localization"]
+  SETTABLEKS R28 R27 K55 ["Localization"]
+  SETTABLEKS R13 R27 K56 ["Network"]
+  SETTABLEKS R14 R27 K21 ["Settings"]
+  GETTABLEKS R28 R11 K57 ["Stylizer"]
+  SETTABLEKS R28 R27 K57 ["Stylizer"]
+  CALL R26 1 1
+  MOVE R27 R23
+  CALL R26 1 1
+  MOVE R23 R26
+  GETTABLEKS R26 R3 K59 ["connect"]
+  MOVE R27 R24
+  MOVE R28 R25
+  CALL R26 2 1
+  MOVE R27 R23
+  CALL R26 1 1
+  MOVE R23 R26
+  RETURN R23 1

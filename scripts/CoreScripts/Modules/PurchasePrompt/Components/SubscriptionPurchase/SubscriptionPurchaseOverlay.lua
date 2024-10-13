@@ -19,8 +19,10 @@ local IAPExperience = PurchasePromptDeps.IAPExperience
 local SubscriptionPurchaseFlow = IAPExperience.PurchaseFlow.SubscriptionPurchaseFlow
 local SubscriptionPurchaseFlowState = IAPExperience.PurchaseFlow.SubscriptionPurchaseFlowState
 local PurchaseErrorType = IAPExperience.PurchaseFlow.PurchaseErrorType
+local VPCModalType = require(Root.Enums.VPCModalType)
 
 local GetFFlagEnableSubscriptionPurchaseToast = require(Root.Flags.GetFFlagEnableSubscriptionPurchaseToast)
+local GetFFlagEnableVpcForInExperienceSubscriptionPurchase = require(Root.Flags.GetFFlagEnableVpcForInExperienceSubscriptionPurchase)
 
 local FLOW_NAME = "InGame"
 local GENERIC_SUBSCRIBE_ERROR_TEXT_KEY = "Feature.Subscription.Error.GenericSubscribeError"
@@ -89,6 +91,11 @@ function SubscriptionPurchaseOverlay:getFlowState()
 	if promptState == PromptState.PromptSubscriptionPurchase then
 		return SubscriptionPurchaseFlowState.PurchaseModal
 	elseif promptState == PromptState.Error then
+		if GetFFlagEnableVpcForInExperienceSubscriptionPurchase() then
+			if props.purchaseError == PurchaseError.VpcRequired then
+				return SubscriptionPurchaseFlowState.PurchaseVPCModal
+			end
+		end
 		return SubscriptionPurchaseFlowState.Error
 	end
 
@@ -121,6 +128,13 @@ function SubscriptionPurchaseOverlay:getErrorType()
 	return PurchaseErrorType.Unknown
 end
 
+function SubscriptionPurchaseOverlay:getVPCModalType(purchaseState)
+	if purchaseState == SubscriptionPurchaseFlowState.PurchaseVPCModal then
+		return VPCModalType.toRawValue(VPCModalType.EnablePurchase)
+	end
+	return VPCModalType.toRawValue(VPCModalType.None)
+end
+
 function SubscriptionPurchaseOverlay:render()
 	local props: Props = self.props
 
@@ -133,6 +147,7 @@ function SubscriptionPurchaseOverlay:render()
 
 		purchaseState = purchaseState,
 		errorType = errorType,
+		purchaseVPCType = self:getVPCModalType(purchaseState),
 
 		subscriptionId = props.subscriptionId,
 		name = props.name,

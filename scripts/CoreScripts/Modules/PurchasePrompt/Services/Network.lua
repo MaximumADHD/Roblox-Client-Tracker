@@ -412,6 +412,26 @@ local function postPurchaseWarningAcknowledge(userAction)
 	end)
 end
 
+local function checkUserPurchaseSettings()
+	local url = UrlBuilder.economy.paymentsGateway.checkUserPurchaseSettings()
+
+	local options = {
+		Url = url,
+		Method = "POST",
+		Body = HttpService:JSONEncode("{}"),
+		Headers = {
+			["Content-Type"] = "application/json",
+			["Accept"] = "application/json",
+		},
+	}
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			request(options, resolve, reject)
+		end)
+	end)
+end
+
 local Network = {}
 
 -- TODO: "Promisify" is not strictly necessary with the new `request` structure,
@@ -440,6 +460,7 @@ function Network.new()
 		performSubscriptionPurchase = Promise.promisify(performSubscriptionPurchase),
 		getPurchaseWarning = Promise.promisify(getPurchaseWarning),
 		postPurchaseWarningAcknowledge = Promise.promisify(postPurchaseWarningAcknowledge),
+		checkUserPurchaseSettings = Promise.promisify(checkUserPurchaseSettings)
 	}
 
 	setmetatable(networkService, {

@@ -1,0 +1,188 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Value"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["HorizontalAlignment"]
+  GETTABLEKS R4 R1 K3 ["Buttons"]
+  GETTABLEKS R5 R1 K4 ["buttonActivated"]
+  GETTABLEKS R6 R1 K5 ["ZIndex"]
+  GETTABLEKS R8 R1 K7 ["LayoutOrder"]
+  ORK R7 R8 K6 [1]
+  GETTABLEKS R8 R1 K8 ["AnchorPoint"]
+  JUMPIF R8 [+5]
+  GETIMPORT R8 K11 [Vector2.new]
+  LOADN R9 0
+  LOADK R10 K12 [0.5]
+  CALL R8 2 1
+  GETTABLEKS R9 R1 K13 ["Position"]
+  JUMPIF R9 [+7]
+  GETIMPORT R9 K15 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 0
+  LOADK R12 K12 [0.5]
+  LOADN R13 0
+  CALL R9 4 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K16 ["Children"]
+  GETTABLE R10 R1 R11
+  FASTCALL1 TYPE R4 [+3]
+  MOVE R14 R4
+  GETIMPORT R13 K18 [type]
+  CALL R13 1 1
+  JUMPIFEQKS R13 K19 ["table"] [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  FASTCALL2K ASSERT R12 K20 [+4]
+  LOADK R13 K20 ["ButtonBar.Buttons must be a table"]
+  GETIMPORT R11 K22 [assert]
+  CALL R11 2 0
+  DUPTABLE R11 K24 [{"Layout"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K25 ["createElement"]
+  LOADK R13 K26 ["UIListLayout"]
+  DUPTABLE R14 K30 [{"Padding", "HorizontalAlignment", "SortOrder", "FillDirection"}]
+  GETIMPORT R15 K32 [UDim.new]
+  LOADN R16 0
+  LOADN R17 25
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K27 ["Padding"]
+  SETTABLEKS R3 R14 K2 ["HorizontalAlignment"]
+  GETIMPORT R15 K34 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R15 R14 K28 ["SortOrder"]
+  GETIMPORT R15 K36 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R15 R14 K29 ["FillDirection"]
+  MOVE R15 R10
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K23 ["Layout"]
+  GETIMPORT R12 K38 [Enum.HorizontalAlignment.Center]
+  JUMPIFEQ R3 R12 [+19]
+  MOVE R13 R11
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K25 ["createElement"]
+  LOADK R15 K39 ["UIPadding"]
+  DUPTABLE R16 K41 [{"PaddingRight"}]
+  GETIMPORT R17 K32 [UDim.new]
+  LOADN R18 0
+  LOADN R19 35
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K40 ["PaddingRight"]
+  CALL R14 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R12 K43 [table.insert]
+  CALL R12 -1 0
+  GETIMPORT R12 K45 [ipairs]
+  MOVE R13 R4
+  CALL R12 1 3
+  FORGPREP_INEXT R12
+  MOVE R18 R11
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K25 ["createElement"]
+  GETUPVAL R20 1
+  DUPTABLE R21 K51 [{"OnClick", "LayoutOrder", "Size", "Style", "StyleModifier", "Text", "ZIndex"}]
+  NEWCLOSURE R22 P0
+  CAPTURE VAL R5
+  CAPTURE VAL R16
+  SETTABLEKS R22 R21 K46 ["OnClick"]
+  SETTABLEKS R15 R21 K7 ["LayoutOrder"]
+  GETIMPORT R22 K15 [UDim2.new]
+  LOADN R23 0
+  LOADN R24 125
+  LOADN R25 1
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K47 ["Size"]
+  GETTABLEKS R23 R16 K52 ["Default"]
+  JUMPIFNOT R23 [+2]
+  LOADK R22 K53 ["RoundPrimary"]
+  JUMP [+1]
+  LOADK R22 K54 ["Round"]
+  SETTABLEKS R22 R21 K48 ["Style"]
+  GETTABLEKS R23 R16 K55 ["Active"]
+  JUMPIFNOTEQKB R23 FALSE [+5]
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K56 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K49 ["StyleModifier"]
+  LOADK R24 K57 ["FooterButton"]
+  GETTABLEKS R25 R16 K58 ["Name"]
+  NAMECALL R22 R2 K59 ["getText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K50 ["Text"]
+  ORK R22 R6 K6 [1]
+  SETTABLEKS R22 R21 K5 ["ZIndex"]
+  CALL R19 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R17 K43 [table.insert]
+  CALL R17 -1 0
+  FORGLOOP R12 2 [inext] [-58]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K25 ["createElement"]
+  LOADK R13 K60 ["Frame"]
+  DUPTABLE R14 K62 [{"Size", "LayoutOrder", "AnchorPoint", "Position", "BackgroundTransparency"}]
+  GETIMPORT R15 K15 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 35
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K47 ["Size"]
+  SETTABLEKS R7 R14 K7 ["LayoutOrder"]
+  SETTABLEKS R8 R14 K8 ["AnchorPoint"]
+  SETTABLEKS R9 R14 K13 ["Position"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K61 ["BackgroundTransparency"]
+  MOVE R15 R11
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["UI"]
+  GETTABLEKS R4 R3 K9 ["Button"]
+  GETTABLEKS R6 R1 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["StyleModifier"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Packages"]
+  GETTABLEKS R7 R8 K6 ["Framework"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K12 ["ContextServices"]
+  GETTABLEKS R8 R7 K13 ["withContext"]
+  GETTABLEKS R9 R2 K14 ["PureComponent"]
+  LOADK R11 K15 ["ButtonBar"]
+  NAMECALL R9 R9 K16 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K17 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLEKS R10 R9 K18 ["render"]
+  MOVE R10 R8
+  DUPTABLE R11 K21 [{"Stylizer", "Localization"}]
+  GETTABLEKS R12 R7 K19 ["Stylizer"]
+  SETTABLEKS R12 R11 K19 ["Stylizer"]
+  GETTABLEKS R12 R7 K20 ["Localization"]
+  SETTABLEKS R12 R11 K20 ["Localization"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

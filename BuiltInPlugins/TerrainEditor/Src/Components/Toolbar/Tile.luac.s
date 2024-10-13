@@ -1,0 +1,99 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Icon"]
+  GETTABLEKS R2 R0 K1 ["Key"]
+  GETTABLEKS R3 R0 K2 ["Name"]
+  GETTABLEKS R4 R0 K3 ["OnClick"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K9 [{"OnClick", "Position", "Size", "Style", "StyleModifier"}]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R8 R7 K3 ["OnClick"]
+  GETTABLEKS R8 R0 K5 ["Position"]
+  SETTABLEKS R8 R7 K5 ["Position"]
+  GETTABLEKS R8 R0 K6 ["Size"]
+  SETTABLEKS R8 R7 K6 ["Size"]
+  LOADK R8 K10 ["RoundSubtle"]
+  SETTABLEKS R8 R7 K7 ["Style"]
+  GETTABLEKS R9 R0 K11 ["Selected"]
+  JUMPIFNOTEQ R2 R9 [+5]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K11 ["Selected"]
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K8 ["StyleModifier"]
+  DUPTABLE R8 K13 [{"Pane"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K18 [{"HorizontalAlignment", "Layout", "Padding", "Spacing"}]
+  GETIMPORT R12 K21 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R12 R11 K14 ["HorizontalAlignment"]
+  GETIMPORT R12 K24 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K15 ["Layout"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K16 ["Padding"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K17 ["Spacing"]
+  DUPTABLE R12 K26 [{"Icon", "Text"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K4 ["createElement"]
+  GETUPVAL R14 4
+  MOVE R15 R1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K0 ["Icon"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K4 ["createElement"]
+  GETUPVAL R14 5
+  DUPTABLE R15 K30 [{"AutomaticSize", "LayoutOrder", "Text", "TextSize"}]
+  GETIMPORT R16 K32 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K27 ["AutomaticSize"]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K28 ["LayoutOrder"]
+  SETTABLEKS R3 R15 K25 ["Text"]
+  GETTABLEKS R16 R0 K29 ["TextSize"]
+  SETTABLEKS R16 R15 K29 ["TextSize"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K25 ["Text"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K12 ["Pane"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["StyleModifier"]
+  GETTABLEKS R4 R1 K11 ["UI"]
+  GETTABLEKS R5 R4 K12 ["Button"]
+  GETTABLEKS R6 R4 K13 ["Pane"]
+  GETTABLEKS R7 R4 K14 ["Image"]
+  GETTABLEKS R8 R4 K15 ["TextLabel"]
+  DUPCLOSURE R9 K16 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  RETURN R9 1

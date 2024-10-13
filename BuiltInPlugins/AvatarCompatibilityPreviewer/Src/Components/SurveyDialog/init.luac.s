@@ -1,0 +1,186 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["submitResults"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  GETUPVAL R0 2
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  LOADK R4 K1 ["SurveyDialog"]
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["useState"]
+  DUPTABLE R4 K6 [{"rating", "message", "problems"}]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K3 ["rating"]
+  LOADK R5 K7 [""]
+  SETTABLEKS R5 R4 K4 ["message"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K5 ["problems"]
+  CALL R3 1 2
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["useState"]
+  LOADN R6 100
+  CALL R5 1 2
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K2 ["useState"]
+  LOADB R8 0
+  CALL R7 1 2
+  JUMPIFNOT R7 [+68]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K17 [{"key", "Enabled", "Modal", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
+  LOADK R12 K18 ["Finish"]
+  SETTABLEKS R12 R11 K9 ["key"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K10 ["Enabled"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K11 ["Modal"]
+  LOADK R14 K19 ["Survey"]
+  LOADK R15 K12 ["Title"]
+  NAMECALL R12 R1 K20 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K12 ["Title"]
+  GETTABLEKS R12 R2 K21 ["FinishDialogSize"]
+  SETTABLEKS R12 R11 K13 ["MinContentSize"]
+  NEWTABLE R12 0 1
+  DUPTABLE R13 K24 [{"Key", "Text"}]
+  LOADK R14 K25 ["close"]
+  SETTABLEKS R14 R13 K22 ["Key"]
+  LOADK R16 K1 ["SurveyDialog"]
+  LOADK R17 K26 ["Close"]
+  NAMECALL R14 R1 K20 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K23 ["Text"]
+  SETLIST R12 R13 1 [1]
+  SETTABLEKS R12 R11 K14 ["Buttons"]
+  GETTABLEKS R12 R0 K25 ["close"]
+  SETTABLEKS R12 R11 K15 ["OnButtonPressed"]
+  GETTABLEKS R12 R0 K25 ["close"]
+  SETTABLEKS R12 R11 K16 ["OnClose"]
+  DUPTABLE R12 K28 [{"Label"}]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K8 ["createElement"]
+  GETUPVAL R14 4
+  DUPTABLE R15 K29 [{"Text"}]
+  LOADK R18 K1 ["SurveyDialog"]
+  LOADK R19 K30 ["FinishAlert"]
+  NAMECALL R16 R1 K20 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K23 ["Text"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K27 ["Label"]
+  CALL R9 3 -1
+  RETURN R9 -1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K17 [{"key", "Enabled", "Modal", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
+  LOADK R12 K19 ["Survey"]
+  SETTABLEKS R12 R11 K9 ["key"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K10 ["Enabled"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K11 ["Modal"]
+  LOADK R14 K19 ["Survey"]
+  LOADK R15 K12 ["Title"]
+  NAMECALL R12 R1 K20 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K12 ["Title"]
+  GETIMPORT R12 K33 [Vector2.new]
+  GETTABLEKS R13 R2 K34 ["Width"]
+  MOVE R14 R5
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K13 ["MinContentSize"]
+  NEWTABLE R12 0 1
+  DUPTABLE R13 K37 [{"Key", "Text", "Style", "StyleModifier"}]
+  LOADK R14 K38 ["send"]
+  SETTABLEKS R14 R13 K22 ["Key"]
+  LOADK R16 K1 ["SurveyDialog"]
+  LOADK R17 K39 ["SendFeedback"]
+  NAMECALL R14 R1 K20 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K23 ["Text"]
+  LOADK R14 K40 ["RoundPrimary"]
+  SETTABLEKS R14 R13 K35 ["Style"]
+  GETTABLEKS R15 R3 K3 ["rating"]
+  JUMPIFNOTEQKNIL R15 [+5]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K41 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K36 ["StyleModifier"]
+  SETLIST R12 R13 1 [1]
+  SETTABLEKS R12 R11 K14 ["Buttons"]
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  SETTABLEKS R12 R11 K15 ["OnButtonPressed"]
+  GETTABLEKS R12 R0 K25 ["close"]
+  SETTABLEKS R12 R11 K16 ["OnClose"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K8 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K45 [{"results", "setResults", "setHeight"}]
+  SETTABLEKS R3 R14 K42 ["results"]
+  SETTABLEKS R4 R14 K43 ["setResults"]
+  SETTABLEKS R6 R14 K44 ["setHeight"]
+  CALL R12 2 -1
+  CALL R9 -1 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K9 ["Survey"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Resources"]
+  GETTABLEKS R5 R6 K12 ["Theme"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Types"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K14 ["UI"]
+  GETTABLEKS R7 R6 K15 ["StyledDialog"]
+  GETTABLEKS R8 R6 K16 ["TextLabel"]
+  GETTABLEKS R10 R1 K17 ["ContextServices"]
+  GETTABLEKS R9 R10 K18 ["Localization"]
+  GETTABLEKS R11 R1 K17 ["ContextServices"]
+  GETTABLEKS R10 R11 K19 ["Stylizer"]
+  GETTABLEKS R12 R1 K20 ["Util"]
+  GETTABLEKS R11 R12 K21 ["StyleModifier"]
+  DUPCLOSURE R12 K22 [PROTO_1]
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CAPTURE VAL R3
+  RETURN R12 1

@@ -1,0 +1,213 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"robuxBalance"}]
+  GETTABLEKS R5 R1 K2 ["robuxBalance"]
+  SETTABLEKS R5 R4 K2 ["robuxBalance"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETTABLEKS R2 R1 K0 ["assetId"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K4 [{"assetId", "status"}]
+  SETTABLEKS R2 R5 K0 ["assetId"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["None"]
+  SETTABLEKS R6 R5 K3 ["status"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETTABLEKS R2 R1 K0 ["ownsAsset"]
+  GETTABLEKS R3 R1 K1 ["assetId"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["Dictionary"]
+  GETTABLEKS R4 R5 K3 ["join"]
+  GETTABLEKS R5 R0 K4 ["cachedOwnedAssets"]
+  NEWTABLE R6 1 0
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R8 R3
+  GETIMPORT R7 K6 [tostring]
+  CALL R7 1 1
+  SETTABLE R2 R6 R7
+  CALL R4 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["Dictionary"]
+  GETTABLEKS R5 R6 K3 ["join"]
+  MOVE R6 R0
+  DUPTABLE R7 K7 [{"cachedOwnedAssets"}]
+  SETTABLEKS R4 R7 K4 ["cachedOwnedAssets"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_3:
+  GETTABLEKS R2 R1 K0 ["status"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"status"}]
+  SETTABLEKS R2 R5 K0 ["status"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_4:
+  GETTABLEKS R2 R1 K0 ["userId"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  GETTABLEKS R4 R0 K3 ["excessiveTransactionUserIds"]
+  NEWTABLE R5 1 0
+  LOADB R6 1
+  SETTABLE R6 R5 R2
+  CALL R3 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["Dictionary"]
+  GETTABLEKS R4 R5 K2 ["join"]
+  MOVE R5 R0
+  DUPTABLE R6 K4 [{"excessiveTransactionUserIds"}]
+  SETTABLEKS R3 R6 K3 ["excessiveTransactionUserIds"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_5:
+  GETTABLEKS R2 R1 K0 ["isVisible"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K4 [{"isPurchaseDialogVisible"}]
+  SETTABLEKS R2 R5 K3 ["isPurchaseDialogVisible"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_6:
+  GETTABLEKS R2 R1 K0 ["status"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K4 [{"buyerStatus"}]
+  SETTABLEKS R2 R5 K3 ["buyerStatus"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Core"]
+  GETTABLEKS R4 R5 K6 ["Util"]
+  GETTABLEKS R3 R4 K7 ["SharedFlags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagToolboxAddBuyerStatus"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K9 ["Packages"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K10 ["Cryo"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R2 K11 ["Rodux"]
+  CALL R4 1 1
+  GETTABLEKS R6 R0 K5 ["Core"]
+  GETTABLEKS R5 R6 K12 ["Actions"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R5 K13 ["DequeueSubsequentDialog"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R5 K14 ["EnqueueSubsequentDialog"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K5 ["Core"]
+  GETTABLEKS R10 R11 K12 ["Actions"]
+  GETTABLEKS R9 R10 K15 ["SetPurchaseDialogVisibility"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R5 K16 ["SetRobuxBalance"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R5 K17 ["SetExcessiveTransactionUserId"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R12 R5 K18 ["SetOwnsAsset"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R13 R5 K19 ["SetPurchaseStatus"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R14 R5 K20 ["SetBuyerStatus"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R15 R5 K21 ["ClearPurchaseFlow"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K5 ["Core"]
+  GETTABLEKS R17 R18 K22 ["Types"]
+  GETTABLEKS R16 R17 K23 ["PurchaseStatus"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K5 ["Core"]
+  GETTABLEKS R18 R19 K22 ["Types"]
+  GETTABLEKS R17 R18 K24 ["BuyerStatus"]
+  CALL R16 1 1
+  GETTABLEKS R17 R4 K25 ["createReducer"]
+  DUPTABLE R18 K33 [{"buyerStatus", "robuxBalance", "status", "cachedOwnedAssets", "assetId", "excessiveTransactionUserIds", "isPurchaseDialogVisible"}]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K26 ["buyerStatus"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K27 ["robuxBalance"]
+  GETTABLEKS R19 R15 K34 ["None"]
+  SETTABLEKS R19 R18 K28 ["status"]
+  NEWTABLE R19 0 0
+  SETTABLEKS R19 R18 K29 ["cachedOwnedAssets"]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K30 ["assetId"]
+  NEWTABLE R19 0 0
+  SETTABLEKS R19 R18 K31 ["excessiveTransactionUserIds"]
+  LOADB R19 0
+  SETTABLEKS R19 R18 K32 ["isPurchaseDialogVisible"]
+  NEWTABLE R19 8 0
+  GETTABLEKS R20 R9 K35 ["name"]
+  DUPCLOSURE R21 K36 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLE R21 R19 R20
+  GETTABLEKS R20 R14 K35 ["name"]
+  DUPCLOSURE R21 K37 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R15
+  SETTABLE R21 R19 R20
+  GETTABLEKS R20 R11 K35 ["name"]
+  DUPCLOSURE R21 K38 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLE R21 R19 R20
+  GETTABLEKS R20 R12 K35 ["name"]
+  DUPCLOSURE R21 K39 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLE R21 R19 R20
+  GETTABLEKS R20 R10 K35 ["name"]
+  DUPCLOSURE R21 K40 [PROTO_4]
+  CAPTURE VAL R3
+  SETTABLE R21 R19 R20
+  GETTABLEKS R20 R8 K35 ["name"]
+  DUPCLOSURE R21 K41 [PROTO_5]
+  CAPTURE VAL R3
+  SETTABLE R21 R19 R20
+  GETTABLEKS R20 R13 K35 ["name"]
+  MOVE R22 R1
+  CALL R22 0 1
+  JUMPIFNOT R22 [+3]
+  DUPCLOSURE R21 K42 [PROTO_6]
+  CAPTURE VAL R3
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLE R21 R19 R20
+  CALL R17 2 -1
+  RETURN R17 -1

@@ -1,8 +1,11 @@
 --!strict
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CollectionService = game:GetService("CollectionService")
 local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 local GetFFlagSelfieViewFixMigration = require(script.Parent.Parent.Flags.GetFFlagSelfieViewFixMigration)
+local GetFFlagSelfieViewMoreFixMigration = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewMoreFixMigration)
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
 --so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
@@ -19,6 +22,8 @@ local TYPES_TRIGGERING_DIRTY_ON_ADDREMOVE = {
 	SpecialMesh = "SpecialMesh",
 	SurfaceAppearance = "SurfaceAppearance",
 }
+
+local ALWAYS_TRANSPARENT_PART_TAG = "__RBX__LOCKED_TRANSPARENT"
 
 -- Finds the FaceControls instance attached to the rig
 local function getFaceControls(rig: Model): FaceControls?
@@ -45,10 +50,19 @@ local function getNeck(character: Model, head: MeshPart): Motor6D?
 end
 
 local function findObjectOfNameAndTypeName(name: string, typeName: string, character: Model): any
+	if GetFFlagSelfieViewMoreFixMigration() and character == nil then
+		return nil
+	end
 	local descendants = character:GetDescendants()
 	for _, child in descendants do
-		if child.Name == name and child:IsA(typeName) then
-			return child
+		if GetFFlagSelfieViewMoreFixMigration() then
+			if child:IsA(typeName) and child.Name == name then
+				return child
+			end
+		else
+			if child.Name == name and child:IsA(typeName) then
+				return child
+			end
 		end
 	end
 	return nil
@@ -97,11 +111,24 @@ local function getAnimator(character: Model, timeOut: number): Animator?
 	local humanoid: Humanoid? = nil
 	if timeOut > 0 then
 		if FFlagSelfViewLookUpHumanoidByType then
-			local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
-			if maybeHumanoid:IsA("Humanoid") then
-				humanoid = maybeHumanoid
+			if GetFFlagSelfieViewMoreFixMigration() then
+				local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+				if maybeHumanoid then
+					if maybeHumanoid:IsA("Humanoid") then
+						humanoid = maybeHumanoid
+					else
+						humanoid = character:FindFirstChildWhichIsA("Humanoid")
+					end
+				else
+					humanoid = character:FindFirstChildWhichIsA("Humanoid")
+				end
 			else
-				humanoid = character:FindFirstChildWhichIsA("Humanoid")
+				local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+				if maybeHumanoid:IsA("Humanoid") then
+					humanoid = maybeHumanoid
+				else
+					humanoid = character:FindFirstChildWhichIsA("Humanoid")
+				end
 			end
 		else
 			humanoid = character:WaitForChild("Humanoid", timeOut) :: Humanoid
@@ -167,6 +194,12 @@ local function updateTransparency(character: Model, partsOrgTransparency)
 		elseif part:IsA("Part") then
 			if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
 				part.Transparency = 0
+			end
+
+			if GetFFlagSelfieViewMoreFixMigration() then
+				if CollectionService:HasTag(part, ALWAYS_TRANSPARENT_PART_TAG) then
+					part.Transparency = 1
+				end
 			end
 		end
 	end

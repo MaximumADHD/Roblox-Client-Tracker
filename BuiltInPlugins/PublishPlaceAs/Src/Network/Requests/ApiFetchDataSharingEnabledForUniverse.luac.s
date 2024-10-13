@@ -1,0 +1,91 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["JSONDecode"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K1 ["configurations"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R3 R1 K1 ["configurations"]
+  LENGTH R2 R3
+  JUMPIFNOTEQKN R2 K2 [0] [+3]
+  LOADB R2 0
+  RETURN R2 1
+  GETTABLEKS R5 R1 K1 ["configurations"]
+  LENGTH R4 R5
+  JUMPIFEQKN R4 K3 [1] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R5 K4 ["Expected exactly one configuration for universe "]
+  GETUPVAL R6 1
+  CONCAT R4 R5 R6
+  FASTCALL2 ASSERT R3 R4 [+3]
+  GETIMPORT R2 K6 [assert]
+  CALL R2 2 0
+  GETTABLEKS R3 R1 K1 ["configurations"]
+  GETTABLEN R2 R3 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["List"]
+  GETTABLEKS R4 R5 K8 ["find"]
+  GETTABLEKS R5 R2 K9 ["dataSharingLicenseTypes"]
+  LOADK R6 K10 ["RobloxGlobal"]
+  CALL R4 2 1
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_1:
+  JUMPIFNOTEQKN R0 K0 [0] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["The universe must exist to fetch its data sharing setting"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K6 [{"Url", "Method"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["BuildRobloxUrl"]
+  LOADK R3 K8 ["apis"]
+  LOADK R4 K9 ["resource-settings/v1/universes:batchGet?universeIds=%d"]
+  MOVE R5 R0
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K4 ["Url"]
+  LOADK R2 K10 ["GET"]
+  SETTABLEKS R2 R1 K5 ["Method"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K11 ["RequestInternal"]
+  MOVE R3 R1
+  CALL R2 1 1
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  NAMECALL R2 R2 K12 ["andThen"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Network"]
+  GETTABLEKS R3 R4 K11 ["Http"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K12 ["Packages"]
+  GETTABLEKS R4 R5 K13 ["Cryo"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K14 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  RETURN R4 1

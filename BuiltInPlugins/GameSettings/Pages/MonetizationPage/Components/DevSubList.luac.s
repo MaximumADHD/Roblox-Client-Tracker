@@ -1,0 +1,521 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["Active"]
+  GETTABLEKS R3 R1 K0 ["Active"]
+  JUMPIFEQ R2 R3 [+11]
+  GETTABLEKS R2 R0 K0 ["Active"]
+  JUMPIFNOT R2 [+2]
+  LOADB R2 1
+  RETURN R2 1
+  GETTABLEKS R2 R1 K0 ["Active"]
+  JUMPIFNOT R2 [+2]
+  LOADB R2 0
+  RETURN R2 1
+  GETTABLEKS R3 R0 K1 ["Key"]
+  NAMECALL R3 R3 K2 ["upper"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K1 ["Key"]
+  NAMECALL R4 R4 K2 ["upper"]
+  CALL R4 1 1
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["DeveloperSubscriptions"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["OnDeveloperSubscriptionEdited"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["OnDeveloperSubscriptionCreated"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K5 ["ListItemHeight"]
+  ORK R4 R5 K4 [32]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K6 ["Stylizer"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K7 ["Localization"]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K8 ["LayoutOrder"]
+  LOADK R10 K9 ["General"]
+  LOADK R11 K10 ["DevSubsCreateAction"]
+  NAMECALL R8 R6 K11 ["getText"]
+  CALL R8 3 1
+  GETUPVAL R9 0
+  MOVE R10 R8
+  GETTABLEKS R13 R5 K12 ["fontStyle"]
+  GETTABLEKS R12 R13 K13 ["Normal"]
+  GETTABLEKS R11 R12 K14 ["TextSize"]
+  GETTABLEKS R14 R5 K12 ["fontStyle"]
+  GETTABLEKS R13 R14 K13 ["Normal"]
+  GETTABLEKS R12 R13 K15 ["Font"]
+  CALL R9 3 1
+  DUPTABLE R10 K18 [{"Header", "ListHeader"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K19 ["createElement"]
+  LOADK R12 K20 ["TextLabel"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K21 ["Dictionary"]
+  GETTABLEKS R13 R14 K22 ["join"]
+  GETTABLEKS R15 R5 K12 ["fontStyle"]
+  GETTABLEKS R14 R15 K23 ["Title"]
+  DUPTABLE R15 K31 [{"Size", "Text", "TextColor3", "BackgroundTransparency", "BorderSizePixel", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
+  GETIMPORT R16 K34 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 0
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K35 ["HEADER_HEIGHT"]
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K24 ["Size"]
+  LOADK R18 K9 ["General"]
+  LOADK R19 K36 ["DevSubsListHeader"]
+  NAMECALL R16 R6 K11 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K25 ["Text"]
+  GETIMPORT R16 K39 [Color3.fromRGB]
+  LOADN R17 170
+  LOADN R18 170
+  LOADN R19 170
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K26 ["TextColor3"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K27 ["BackgroundTransparency"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K28 ["BorderSizePixel"]
+  GETIMPORT R16 K42 [Enum.TextXAlignment.Left]
+  SETTABLEKS R16 R15 K29 ["TextXAlignment"]
+  GETIMPORT R16 K44 [Enum.TextYAlignment.Center]
+  SETTABLEKS R16 R15 K30 ["TextYAlignment"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K8 ["LayoutOrder"]
+  CALL R13 2 1
+  DUPTABLE R14 K48 [{"Padding", "Layout", "CreateButton"}]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  LOADK R16 K49 ["UIPadding"]
+  DUPTABLE R17 K51 [{"PaddingRight"}]
+  GETIMPORT R18 K53 [UDim.new]
+  LOADN R19 0
+  LOADN R20 12
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K50 ["PaddingRight"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K45 ["Padding"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  LOADK R16 K54 ["UIListLayout"]
+  DUPTABLE R17 K57 [{"HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R18 K59 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R18 R17 K55 ["HorizontalAlignment"]
+  GETIMPORT R18 K61 [Enum.VerticalAlignment.Bottom]
+  SETTABLEKS R18 R17 K56 ["VerticalAlignment"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K46 ["Layout"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETUPVAL R16 4
+  DUPTABLE R17 K64 [{"Style", "Text", "Size", "OnClick"}]
+  LOADK R18 K65 ["GameSettingsPrimaryButton"]
+  SETTABLEKS R18 R17 K62 ["Style"]
+  LOADK R20 K9 ["General"]
+  LOADK R21 K10 ["DevSubsCreateAction"]
+  NAMECALL R18 R6 K11 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K25 ["Text"]
+  GETIMPORT R18 K34 [UDim2.new]
+  LOADN R19 0
+  GETTABLEKS R21 R9 K66 ["X"]
+  GETTABLEKS R23 R5 K67 ["createButton"]
+  GETTABLEKS R22 R23 K68 ["PaddingX"]
+  ADD R20 R21 R22
+  LOADN R21 0
+  GETTABLEKS R23 R9 K69 ["Y"]
+  GETTABLEKS R25 R5 K67 ["createButton"]
+  GETTABLEKS R24 R25 K70 ["PaddingY"]
+  ADD R22 R23 R24
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K24 ["Size"]
+  SETTABLEKS R3 R17 K63 ["OnClick"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K47 ["CreateButton"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K16 ["Header"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K19 ["createElement"]
+  LOADK R12 K71 ["Frame"]
+  DUPTABLE R13 K72 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K27 ["BackgroundTransparency"]
+  GETIMPORT R14 K34 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 0
+  MOVE R18 R4
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K24 ["Size"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K8 ["LayoutOrder"]
+  DUPTABLE R14 K77 [{"Padding", "Layout", "IdText", "NameText", "SubscribersText", "CreationDateText"}]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  LOADK R16 K49 ["UIPadding"]
+  DUPTABLE R17 K79 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R18 K53 [UDim.new]
+  LOADN R19 0
+  LOADN R20 4
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K78 ["PaddingLeft"]
+  GETIMPORT R18 K53 [UDim.new]
+  LOADN R19 0
+  LOADN R20 24
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K50 ["PaddingRight"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K45 ["Padding"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  LOADK R16 K54 ["UIListLayout"]
+  DUPTABLE R17 K82 [{"SortOrder", "FillDirection"}]
+  GETIMPORT R18 K83 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R18 R17 K80 ["SortOrder"]
+  GETIMPORT R18 K85 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R18 R17 K81 ["FillDirection"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K46 ["Layout"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K87 [{"Size", "Text", "LayoutOrder", "Alignment"}]
+  GETIMPORT R18 K34 [UDim2.new]
+  LOADK R19 K88 [0.25]
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K24 ["Size"]
+  LOADK R20 K9 ["General"]
+  LOADK R21 K89 ["DevSubsPlanID"]
+  NAMECALL R18 R6 K11 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K25 ["Text"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K8 ["LayoutOrder"]
+  GETIMPORT R18 K42 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K86 ["Alignment"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K73 ["IdText"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K87 [{"Size", "Text", "LayoutOrder", "Alignment"}]
+  GETIMPORT R18 K34 [UDim2.new]
+  LOADK R19 K88 [0.25]
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K24 ["Size"]
+  LOADK R20 K9 ["General"]
+  LOADK R21 K90 ["DevSubsName"]
+  NAMECALL R18 R6 K11 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K25 ["Text"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K8 ["LayoutOrder"]
+  GETIMPORT R18 K42 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K86 ["Alignment"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K74 ["NameText"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K87 [{"Size", "Text", "LayoutOrder", "Alignment"}]
+  GETIMPORT R18 K34 [UDim2.new]
+  LOADK R19 K91 [0.2]
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K24 ["Size"]
+  LOADK R20 K9 ["General"]
+  LOADK R21 K92 ["DevSubsSubscribers"]
+  NAMECALL R18 R6 K11 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K25 ["Text"]
+  LOADN R18 3
+  SETTABLEKS R18 R17 K8 ["LayoutOrder"]
+  GETIMPORT R18 K42 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K86 ["Alignment"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K75 ["SubscribersText"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K87 [{"Size", "Text", "LayoutOrder", "Alignment"}]
+  GETIMPORT R18 K34 [UDim2.new]
+  LOADK R19 K91 [0.2]
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K24 ["Size"]
+  LOADK R20 K9 ["General"]
+  LOADK R21 K93 ["DevSubsCreationDate"]
+  NAMECALL R18 R6 K11 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K25 ["Text"]
+  LOADN R18 4
+  SETTABLEKS R18 R17 K8 ["LayoutOrder"]
+  GETIMPORT R18 K42 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K86 ["Alignment"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K76 ["CreationDateText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K17 ["ListHeader"]
+  NEWTABLE R11 0 0
+  GETIMPORT R12 K95 [pairs]
+  MOVE R13 R1
+  CALL R12 1 3
+  FORGPREP_NEXT R12
+  FASTCALL2 TABLE_INSERT R11 R16 [+5]
+  MOVE R18 R11
+  MOVE R19 R16
+  GETIMPORT R17 K98 [table.insert]
+  CALL R17 2 0
+  FORGLOOP R12 2 [-8]
+  GETIMPORT R12 K100 [table.sort]
+  MOVE R13 R11
+  DUPCLOSURE R14 K101 [PROTO_0]
+  CALL R12 2 0
+  LOADN R12 1
+  GETIMPORT R13 K103 [ipairs]
+  MOVE R14 R11
+  CALL R13 1 3
+  FORGPREP_INEXT R13
+  NEWCLOSURE R18 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R17
+  GETTABLEKS R19 R17 K104 ["Key"]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K19 ["createElement"]
+  GETUPVAL R21 6
+  DUPTABLE R22 K113 [{"Name", "Id", "Subscribers", "Active", "LayoutOrder", "OnEditButtonActivated", "Height", "HasError", "CreationDate"}]
+  GETTABLEKS R24 R17 K105 ["Name"]
+  ORK R23 R24 K114 [""]
+  SETTABLEKS R23 R22 K105 ["Name"]
+  GETTABLEKS R23 R17 K106 ["Id"]
+  SETTABLEKS R23 R22 K106 ["Id"]
+  GETTABLEKS R23 R17 K107 ["Subscribers"]
+  SETTABLEKS R23 R22 K107 ["Subscribers"]
+  GETTABLEKS R23 R17 K108 ["Active"]
+  SETTABLEKS R23 R22 K108 ["Active"]
+  ADDK R23 R12 K115 [1]
+  SETTABLEKS R23 R22 K8 ["LayoutOrder"]
+  SETTABLEKS R18 R22 K109 ["OnEditButtonActivated"]
+  SETTABLEKS R4 R22 K110 ["Height"]
+  GETTABLEKS R26 R0 K0 ["props"]
+  GETTABLEKS R25 R26 K116 ["DevSubsErrors"]
+  GETTABLEKS R26 R17 K104 ["Key"]
+  GETTABLE R24 R25 R26
+  JUMPIFNOTEQKNIL R24 [+2]
+  LOADB R23 0 +1
+  LOADB R23 1
+  SETTABLEKS R23 R22 K111 ["HasError"]
+  GETTABLEKS R24 R17 K112 ["CreationDate"]
+  ORK R23 R24 K114 [""]
+  SETTABLEKS R23 R22 K112 ["CreationDate"]
+  CALL R20 2 1
+  SETTABLE R20 R10 R19
+  ADDK R12 R12 K115 [1]
+  FORGLOOP R13 2 [inext] [-56]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K19 ["createElement"]
+  LOADK R14 K71 ["Frame"]
+  DUPTABLE R15 K72 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K27 ["BackgroundTransparency"]
+  GETIMPORT R16 K34 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 0
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K24 ["Size"]
+  ADDK R16 R12 K115 [1]
+  SETTABLEKS R16 R15 K8 ["LayoutOrder"]
+  CALL R13 2 1
+  SETTABLEKS R13 R10 K117 ["Space"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K19 ["createElement"]
+  GETUPVAL R14 7
+  DUPTABLE R15 K120 [{"Layout", "LayoutOrder", "AutomaticSize", "Spacing"}]
+  GETIMPORT R16 K122 [Enum.FillDirection.Vertical]
+  SETTABLEKS R16 R15 K46 ["Layout"]
+  SETTABLEKS R7 R15 K8 ["LayoutOrder"]
+  GETIMPORT R16 K123 [Enum.AutomaticSize.Y]
+  SETTABLEKS R16 R15 K118 ["AutomaticSize"]
+  GETIMPORT R16 K53 [UDim.new]
+  LOADN R17 0
+  LOADN R18 10
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K119 ["Spacing"]
+  MOVE R16 R10
+  CALL R13 3 -1
+  RETURN R13 -1
+
+PROTO_3:
+  GETTABLEKS R3 R0 K0 ["Settings"]
+  GETTABLEKS R2 R3 K1 ["Errors"]
+  GETTABLEKS R4 R0 K0 ["Settings"]
+  GETTABLEKS R3 R4 K2 ["Current"]
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R3 K3 ["DeveloperSubscriptions"]
+  JUMPIF R4 [+2]
+  NEWTABLE R4 0 0
+  MOVE R3 R4
+  GETTABLEKS R5 R0 K0 ["Settings"]
+  GETTABLEKS R4 R5 K4 ["Changed"]
+  JUMPIF R4 [+2]
+  NEWTABLE R4 0 0
+  GETTABLEKS R5 R4 K3 ["DeveloperSubscriptions"]
+  JUMPIF R5 [+2]
+  NEWTABLE R5 0 0
+  MOVE R4 R5
+  DUPTABLE R5 K7 [{"DeveloperSubscriptions", "ModeratedDevSubs", "DevSubsErrors"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["Merge"]
+  MOVE R7 R3
+  MOVE R8 R4
+  CALL R6 2 1
+  JUMPIF R6 [+2]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K3 ["DeveloperSubscriptions"]
+  GETTABLEKS R6 R0 K9 ["DevSubModeration"]
+  JUMPIF R6 [+2]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K5 ["ModeratedDevSubs"]
+  GETTABLEKS R6 R2 K3 ["DeveloperSubscriptions"]
+  JUMPIF R6 [+2]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K6 ["DevSubsErrors"]
+  RETURN R5 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  LOADK R3 K0 ["isEditingSubscription"]
+  LOADB R4 1
+  CALL R2 2 -1
+  CALL R1 -1 0
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  LOADK R3 K1 ["editedSubscriptionKey"]
+  GETTABLEKS R4 R0 K2 ["Key"]
+  CALL R2 2 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R1 K1 [{"OnDeveloperSubscriptionEdited"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["OnDeveloperSubscriptionEdited"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K10 ["Util"]
+  GETTABLEKS R6 R5 K11 ["GetTextSize"]
+  GETTABLEKS R7 R4 K12 ["UI"]
+  GETTABLEKS R8 R7 K13 ["Button"]
+  GETTABLEKS R9 R7 K14 ["Pane"]
+  GETTABLEKS R10 R4 K15 ["ContextServices"]
+  GETTABLEKS R11 R10 K16 ["withContext"]
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K17 ["DevSubListItem"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K2 ["Parent"]
+  GETTABLEKS R14 R15 K18 ["DevSubListHeaderText"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K19 ["Src"]
+  GETTABLEKS R16 R17 K10 ["Util"]
+  GETTABLEKS R15 R16 K20 ["DEPRECATED_Constants"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K19 ["Src"]
+  GETTABLEKS R17 R18 K10 ["Util"]
+  GETTABLEKS R16 R17 K21 ["DeepMergeTables"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K19 ["Src"]
+  GETTABLEKS R18 R19 K22 ["Actions"]
+  GETTABLEKS R17 R18 K23 ["AddChange"]
+  CALL R16 1 1
+  GETTABLEKS R17 R1 K24 ["Component"]
+  LOADK R19 K25 ["DeveloperSubscriptionList"]
+  NAMECALL R17 R17 K26 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K27 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R9
+  SETTABLEKS R18 R17 K28 ["render"]
+  MOVE R18 R11
+  DUPTABLE R19 K31 [{"Stylizer", "Localization"}]
+  GETTABLEKS R20 R10 K29 ["Stylizer"]
+  SETTABLEKS R20 R19 K29 ["Stylizer"]
+  GETTABLEKS R20 R10 K30 ["Localization"]
+  SETTABLEKS R20 R19 K30 ["Localization"]
+  CALL R18 1 1
+  MOVE R19 R17
+  CALL R18 1 1
+  MOVE R17 R18
+  GETTABLEKS R18 R3 K32 ["connect"]
+  DUPCLOSURE R19 K33 [PROTO_3]
+  CAPTURE VAL R15
+  DUPCLOSURE R20 K34 [PROTO_5]
+  CAPTURE VAL R16
+  CALL R18 2 1
+  MOVE R19 R17
+  CALL R18 1 -1
+  RETURN R18 -1

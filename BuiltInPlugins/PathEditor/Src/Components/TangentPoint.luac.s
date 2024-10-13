@@ -1,0 +1,339 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dispatchSelectControlPoint"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["index"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["dispatchSelectTangentSide"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["side"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dispatchClearControlPointTangent"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["index"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["side"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dispatchRecordChangeHistory"]
+  LOADK R1 K1 ["Move Tangent"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["dispatchSelectControlPoint"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["index"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K4 ["dispatchLockSelectedControlPoint"]
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  NAMECALL R2 R2 K0 ["IsKeyDown"]
+  CALL R2 2 1
+  SUB R3 R1 R0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["position"]
+  ADD R4 R5 R3
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["dispatchSetControlPointTangent"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K3 ["index"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K4 ["side"]
+  MOVE R8 R4
+  LOADB R9 0
+  MOVE R10 R2
+  CALL R5 5 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["dispatchLockSelectedControlPoint"]
+  LOADB R3 0
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["dispatchRecordChangeHistory"]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dispatchSelectControlPoint"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["index"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["dispatchSelectTangentSide"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["side"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K4 ["dispatchOpenContextMenu"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["PluginContext"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["Localization"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  LOADK R2 K1 ["Tangent"]
+  GETTABLEKS R3 R1 K2 ["isPhantom"]
+  JUMPIFNOT R3 [+1]
+  LOADK R2 K3 ["PhantomTangent"]
+  GETTABLEKS R4 R1 K4 ["SelectedTangentSide"]
+  GETTABLEKS R5 R1 K5 ["side"]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K18 [{"ZIndex", "AbsolutePosition", "FollowCursorOnDrag", "Style", "IsSelected", "OnSelected", "OnDoubleClicked", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnRightClicked"}]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K7 ["ZIndex"]
+  GETTABLEKS R7 R1 K19 ["absolutePosition"]
+  SETTABLEKS R7 R6 K8 ["AbsolutePosition"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K9 ["FollowCursorOnDrag"]
+  SETTABLEKS R2 R6 K10 ["Style"]
+  SETTABLEKS R3 R6 K11 ["IsSelected"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K12 ["OnSelected"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K13 ["OnDoubleClicked"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K14 ["OnDragStart"]
+  NEWCLOSURE R7 P3
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K15 ["OnDragMoved"]
+  NEWCLOSURE R7 P4
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K16 ["OnDragEnd"]
+  NEWCLOSURE R7 P5
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K17 ["OnRightClicked"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_7:
+  DUPTABLE R2 K2 [{"LockSelectedControlPoint", "SelectedTangentSide"}]
+  GETTABLEKS R4 R0 K3 ["PathReducer"]
+  GETTABLEKS R3 R4 K0 ["LockSelectedControlPoint"]
+  SETTABLEKS R3 R2 K0 ["LockSelectedControlPoint"]
+  GETTABLEKS R4 R0 K3 ["PathReducer"]
+  GETTABLEKS R3 R4 K1 ["SelectedTangentSide"]
+  SETTABLEKS R3 R2 K1 ["SelectedTangentSide"]
+  RETURN R2 1
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R5 0
+  GETUPVAL R6 1
+  MOVE R7 R0
+  MOVE R8 R1
+  MOVE R9 R2
+  MOVE R10 R3
+  MOVE R11 R4
+  CALL R6 5 -1
+  CALL R5 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_15:
+  DUPTABLE R1 K7 [{"dispatchRecordChangeHistory", "dispatchClearControlPointTangent", "dispatchSelectControlPoint", "dispatchSelectTangentSide", "dispatchSetControlPointTangent", "dispatchLockSelectedControlPoint", "dispatchOpenContextMenu"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchRecordChangeHistory"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["dispatchClearControlPointTangent"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["dispatchSelectControlPoint"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["dispatchSelectTangentSide"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K4 ["dispatchSetControlPointTangent"]
+  NEWCLOSURE R2 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R1 K5 ["dispatchLockSelectedControlPoint"]
+  NEWCLOSURE R2 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  SETTABLEKS R2 R1 K6 ["dispatchOpenContextMenu"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETIMPORT R5 K12 [game]
+  LOADK R7 K13 ["UserInputService"]
+  NAMECALL R5 R5 K14 ["GetService"]
+  CALL R5 2 1
+  GETTABLEKS R6 R4 K15 ["ContextServices"]
+  GETTABLEKS R7 R6 K16 ["withContext"]
+  GETTABLEKS R8 R6 K17 ["Plugin"]
+  GETTABLEKS R9 R6 K18 ["Localization"]
+  GETTABLEKS R11 R0 K5 ["Src"]
+  GETTABLEKS R10 R11 K19 ["Actions"]
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R12 R10 K20 ["LockSelectedControlPoint"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R13 R10 K21 ["SelectTangentSide"]
+  CALL R12 1 1
+  GETTABLEKS R14 R0 K5 ["Src"]
+  GETTABLEKS R13 R14 K22 ["Thunks"]
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R15 R13 K23 ["RecordChangeHistory"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R16 R13 K24 ["SelectControlPoint"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R17 R13 K25 ["ClearControlPointTangent"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R18 R13 K26 ["SetControlPointTangent"]
+  CALL R17 1 1
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R19 R13 K27 ["OpenContextMenu"]
+  CALL R18 1 1
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R22 R0 K5 ["Src"]
+  GETTABLEKS R21 R22 K28 ["Resources"]
+  GETTABLEKS R20 R21 K29 ["Constants"]
+  CALL R19 1 1
+  GETTABLEKS R21 R0 K5 ["Src"]
+  GETTABLEKS R20 R21 K30 ["Components"]
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R20 K31 ["DraggablePoint"]
+  CALL R21 1 1
+  GETIMPORT R22 K35 [Enum.KeyCode.LeftShift]
+  GETIMPORT R23 K37 [Enum.KeyCode.LeftControl]
+  GETTABLEKS R24 R2 K38 ["Component"]
+  LOADK R26 K39 ["TangentPoint"]
+  NAMECALL R24 R24 K40 ["extend"]
+  CALL R24 2 1
+  DUPCLOSURE R25 K41 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R21
+  CAPTURE VAL R5
+  CAPTURE VAL R22
+  SETTABLEKS R25 R24 K42 ["render"]
+  MOVE R25 R7
+  DUPTABLE R26 K44 [{"PluginContext", "Localization"}]
+  SETTABLEKS R8 R26 K43 ["PluginContext"]
+  SETTABLEKS R9 R26 K18 ["Localization"]
+  CALL R25 1 1
+  MOVE R26 R24
+  CALL R25 1 1
+  MOVE R24 R25
+  GETTABLEKS R25 R3 K45 ["connect"]
+  DUPCLOSURE R26 K46 [PROTO_7]
+  DUPCLOSURE R27 K47 [PROTO_15]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R15
+  CAPTURE VAL R12
+  CAPTURE VAL R17
+  CAPTURE VAL R11
+  CAPTURE VAL R18
+  CALL R25 2 1
+  MOVE R26 R24
+  CALL R25 1 -1
+  RETURN R25 -1

@@ -32,6 +32,14 @@ local ExperienceStateCaptureService = nil
 if game:GetEngineFeature("CaptureModeEnabled") then
 	ExperienceStateCaptureService = game:GetService("ExperienceStateCaptureService")
 end
+local GetFFlagEnableConnectDisconnectInSettingsAndChrome = require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
+local locales = nil
+if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+	local LocalizationService = game:GetService("LocalizationService")
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
+	locales = Localization.new(LocalizationService.RobloxLocaleId)
+end
 
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
@@ -99,6 +107,11 @@ local CAMERA_DEVICE_SELECTOR_KEY = "CameraDeviceSelector"
 local CAMERA_DEVICE_FRAME_KEY = "CameraDeviceFrame"
 local CAMERA_DEVICE_INFO_KEY = "CameraDeviceInfo"
 
+------ VOICE CONNECT/DISCONNECT ------
+
+local VOICE_CONNECT_FRAME_KEY = "VoiceConnectFrame"
+local VOICE_DISCONNECT_FRAME_KEY = "VoiceDisconnectFrame"
+
 ----------- LAYOUT ORDER ------------
 -- Recall that layout order values are relative
 local SETTINGS_MENU_LAYOUT_ORDER = {
@@ -109,6 +122,9 @@ local SETTINGS_MENU_LAYOUT_ORDER = {
 	["CameraModeFrame"] = 11,
 	["MovementModeFrame"] = 12,
 	["GamepadSensitivityFrame"] = 13,
+	-- Voice Connect Disconnect
+	[VOICE_CONNECT_FRAME_KEY] = 18,
+	[VOICE_DISCONNECT_FRAME_KEY] = 19,
 	-- Experience Language
 	["LanguageSelectorFrame"] = 20,
 	-- Feedback Mode
@@ -3183,28 +3199,140 @@ local function Initialize()
 		end
 	end
 
+	local function createVoiceConnectDisconnect()
+		if VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.isShowingFTUX then
+			local voiceConnectButton, voiceConnectText = nil, nil
+			local voiceDisconnectButton, voiceDisconnectText = nil, nil
+			local frameText = locales:Format("Feature.GameDetails.Label.VoiceChat")
+			local connectButtonText = locales:Format("Feature.SettingsHub.Label.Connect")
+			local disconnectButtonText = locales:Format("Feature.SettingsHub.Label.Disconnect")
+
+			local onJoinVoicePressed = function()
+				if VoiceChatServiceManager:getService() then
+					local stateChangedConnection: RBXScriptConnection
+					stateChangedConnection = VoiceChatServiceManager:getService().StateChanged:Connect(function(oldState, newState)
+						if newState == (Enum :: any).VoiceChatState.Joined then
+							VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+								"clicked",
+								VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
+							)
+							stateChangedConnection:Disconnect()
+						end
+					end)
+				else
+					VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+						"clicked",
+						VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(false)
+					)
+				end
+				VoiceChatServiceManager:JoinVoice()
+			end
+
+			local onLeaveVoicePressed = function()
+				VoiceChatServiceManager.Analytics:reportLeaveVoiceButtonEvent(
+					"clicked",
+					VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
+				)
+				VoiceChatServiceManager:Leave()
+			end
+
+			voiceConnectButton, voiceConnectText, voiceConnectSetRowRef = utility:MakeStyledButton(
+				"VoiceConnectButton",
+				connectButtonText,
+				UDim2.new(1, 0, 1, -20),
+				onJoinVoicePressed,
+				this
+			)
+			voiceDisconnectButton, voiceDisconnectText, voiceDisconnectSetRowRef = utility:MakeStyledButton(
+				"VoiceDisconnectButton",
+				disconnectButtonText,
+				UDim2.new(1, 0, 1, -20),
+				onLeaveVoicePressed,
+				this
+			)
+			voiceConnectButton.Size = UDim2.new(0.6, 0, 0, 40)
+			voiceConnectButton.Position = UDim2.new(0.4, 0, 0.5, 0)
+			voiceConnectButton.AnchorPoint = Vector2.new(0, 0.5)
+			
+			voiceConnectButton.ZIndex = 2
+			voiceConnectButton.Selectable = true
+			voiceConnectText.ZIndex = 2
+
+			voiceDisconnectButton.Size = UDim2.new(0.6, 0, 0, 40)
+			voiceDisconnectButton.Position = UDim2.new(0.4, 0, 0.5, 0)
+			voiceDisconnectButton.AnchorPoint = Vector2.new(0, 0.5)
+			
+			voiceDisconnectButton.ZIndex = 2
+			voiceDisconnectButton.Selectable = true
+			voiceDisconnectText.ZIndex = 2
+
+
+			local voiceConnectRow = utility:AddNewRowObject(this, frameText, voiceConnectButton, nil, true)
+			local voiceDisconnectRow = utility:AddNewRowObject(this, frameText, voiceDisconnectButton, nil, true)
+
+			this[VOICE_CONNECT_FRAME_KEY] = voiceConnectRow
+			this[VOICE_DISCONNECT_FRAME_KEY] = voiceDisconnectRow
+
+			voiceConnectRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER[VOICE_CONNECT_FRAME_KEY]
+			voiceDisconnectRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER[VOICE_DISCONNECT_FRAME_KEY]
+			voiceConnectSetRowRef(voiceConnectRow)
+			voiceDisconnectSetRowRef(voiceDisconnectRow)
+
+			if VoiceChatServiceManager:ShouldShowJoinVoice() then
+				voiceConnectRow.Visible = true
+				voiceDisconnectRow.Visible = false
+			else
+				voiceConnectRow.Visible = false
+				voiceDisconnectRow.Visible = true
+			end
+		end
+	end
+
 	this.VoiceChatOptionsEnabled = false
 	if game:GetEngineFeature("VoiceChatSupported") then
 		spawn(function()
 			VoiceChatServiceManager:asyncInit():andThen(function()
 				VoiceChatService = VoiceChatServiceManager:getService()
 				checkVoiceChatOptions()
+				if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+					createVoiceConnectDisconnect()
+				end
 
 				-- Check volume settings. Show prompt if volume is 0
 				if not GetFFlagEnableUniveralVoiceToasts() then
 					VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
 				end
+
+				if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY] then
+					this[VOICE_CONNECT_FRAME_KEY].Visible = false
+				end
+				if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_DISCONNECT_FRAME_KEY] then
+					this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
+				end
+
 				if GetFFlagEnableShowVoiceUI() then
 					VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
 						this.VoiceChatOptionsEnabled = true
 						if this[VOICE_CHAT_DEVICE_TYPE.Input.."DeviceFrame"] then
 							this[VOICE_CHAT_DEVICE_TYPE.Input.."DeviceFrame"].Visible = true
 						end
+						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY] then
+							this[VOICE_CONNECT_FRAME_KEY].Visible = false
+						end
+						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_DISCONNECT_FRAME_KEY] then
+							this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
+						end
 					end)
 					VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
 						this.VoiceChatOptionsEnabled = false
 						if this[VOICE_CHAT_DEVICE_TYPE.Input.."DeviceFrame"] then
 							this[VOICE_CHAT_DEVICE_TYPE.Input.."DeviceFrame"].Visible = false
+						end
+						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY] then
+							this[VOICE_CONNECT_FRAME_KEY].Visible = true
+						end
+						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_DISCONNECT_FRAME_KEY] then
+							this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
 						end
 					end)
 				end

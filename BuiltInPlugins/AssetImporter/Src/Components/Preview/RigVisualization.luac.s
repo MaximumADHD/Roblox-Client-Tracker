@@ -1,0 +1,154 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["viewportFrameModel"]
+  LOADNIL R2
+  LOADK R5 K1 ["Model"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+7]
+  NAMECALL R3 R0 K3 ["GetBoundingBox"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K4 ["Position"]
+  MINUS R2 R4
+  JUMP [+5]
+  GETTABLEKS R4 R0 K5 ["CFrame"]
+  GETTABLEKS R3 R4 K4 ["Position"]
+  MINUS R2 R3
+  MOVE R5 R2
+  NAMECALL R3 R1 K6 ["TranslateBy"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["viewportFrameRef"]
+  GETTABLEKS R2 R0 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["Camera"]
+  SETTABLEKS R1 R0 K4 ["camera"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["viewportFrameModel"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K6 ["centerModel"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["AssetImportSession"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["SelectedImportItem"]
+  NAMECALL R1 R1 K3 ["GetRigVisualization"]
+  CALL R1 2 1
+  NAMECALL R2 R1 K4 ["Clone"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K5 ["viewportFrameModel"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K6 ["PreviewInstance"]
+  GETTABLEKS R3 R0 K7 ["centerModel"]
+  MOVE R4 R2
+  CALL R3 1 0
+  GETTABLEKS R3 R0 K8 ["viewportFrameRef"]
+  NAMECALL R3 R3 K9 ["getValue"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R4 R0 K5 ["viewportFrameModel"]
+  SETTABLEKS R3 R4 K10 ["Parent"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["viewportFrameModel"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["viewportFrameModel"]
+  NAMECALL R1 R1 K1 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["viewportFrameModel"]
+  NAMECALL R1 R0 K2 ["addViewportModel"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  NAMECALL R1 R0 K0 ["addViewportModel"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["viewportFrameModel"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["viewportFrameModel"]
+  NAMECALL R1 R1 K1 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["viewportFrameModel"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["LayoutOrder"]
+  GETTABLEKS R3 R1 K2 ["Position"]
+  JUMPIF R3 [+7]
+  GETIMPORT R3 K5 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  CALL R3 4 1
+  GETTABLEKS R4 R1 K6 ["Size"]
+  JUMPIF R4 [+7]
+  GETIMPORT R4 K5 [UDim2.new]
+  LOADN R5 1
+  LOADN R6 0
+  LOADN R7 1
+  LOADN R8 0
+  CALL R4 4 1
+  GETTABLEKS R5 R0 K7 ["camera"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  LOADK R7 K9 ["ViewportFrame"]
+  NEWTABLE R8 8 0
+  SETTABLEKS R2 R8 K1 ["LayoutOrder"]
+  SETTABLEKS R3 R8 K2 ["Position"]
+  SETTABLEKS R4 R8 K6 ["Size"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K10 ["BorderSizePixel"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K11 ["BackgroundTransparency"]
+  SETTABLEKS R5 R8 K12 ["CurrentCamera"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K13 ["Ref"]
+  GETTABLEKS R10 R0 K14 ["viewportFrameRef"]
+  SETTABLE R10 R8 R9
+  CALL R6 2 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["PureComponent"]
+  LOADK R4 K9 ["RigVisualization"]
+  NAMECALL R2 R2 K10 ["extend"]
+  CALL R2 2 1
+  DUPCLOSURE R3 K11 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K12 ["init"]
+  DUPCLOSURE R3 K13 [PROTO_2]
+  SETTABLEKS R3 R2 K14 ["addViewportModel"]
+  DUPCLOSURE R3 K15 [PROTO_3]
+  SETTABLEKS R3 R2 K16 ["didUpdate"]
+  DUPCLOSURE R3 K17 [PROTO_4]
+  SETTABLEKS R3 R2 K18 ["didMount"]
+  DUPCLOSURE R3 K19 [PROTO_5]
+  SETTABLEKS R3 R2 K20 ["willUnmount"]
+  DUPCLOSURE R3 K21 [PROTO_6]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K22 ["render"]
+  RETURN R2 1

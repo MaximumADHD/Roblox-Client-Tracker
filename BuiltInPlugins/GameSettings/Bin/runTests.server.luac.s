@@ -1,0 +1,77 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProcessService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  LOADN R2 0
+  NAMECALL R0 R0 K4 ["ExitAsync"]
+  CALL R0 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["commonInit"]
+  CALL R1 1 1
+  MOVE R2 R1
+  CALL R2 0 0
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["DebugFlags"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["RunningUnderCLI"]
+  CALL R3 0 1
+  JUMPIF R3 [+4]
+  GETTABLEKS R3 R2 K10 ["RunTests"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+59]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Dev"]
+  GETTABLEKS R4 R5 K13 ["TestEZ"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K14 ["TestBootstrap"]
+  GETTABLEKS R6 R3 K15 ["Reporters"]
+  GETTABLEKS R5 R6 K16 ["TeamCityReporter"]
+  GETTABLEKS R7 R3 K15 ["Reporters"]
+  GETTABLEKS R6 R7 K17 ["TextReporter"]
+  GETIMPORT R9 K20 [_G]
+  GETTABLEKS R8 R9 K18 ["TEAMCITY"]
+  JUMPIFNOT R8 [+2]
+  MOVE R7 R5
+  JUMPIF R7 [+1]
+  MOVE R7 R6
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETIMPORT R9 K22 [print]
+  LOADK R11 K23 ["----- All "]
+  GETTABLEKS R12 R0 K24 ["Name"]
+  LOADK R13 K25 [" Tests ------"]
+  CONCAT R10 R11 R13
+  CALL R9 1 0
+  GETIMPORT R9 K4 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K2 ["Parent"]
+  GETTABLEKS R10 R11 K26 ["defineLuaFlags"]
+  CALL R9 1 0
+  NEWTABLE R11 0 1
+  MOVE R12 R8
+  SETLIST R11 R12 1 [1]
+  MOVE R12 R7
+  NAMECALL R9 R4 K27 ["run"]
+  CALL R9 3 0
+  GETIMPORT R9 K22 [print]
+  LOADK R10 K28 ["----------------------------------"]
+  CALL R9 1 0
+  GETTABLEKS R3 R2 K9 ["RunningUnderCLI"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+4]
+  GETIMPORT R3 K30 [pcall]
+  DUPCLOSURE R4 K31 [PROTO_0]
+  CALL R3 1 0
+  RETURN R0 0

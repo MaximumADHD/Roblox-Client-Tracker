@@ -1,0 +1,56 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_4:
+  RETURN R0 0
+
+PROTO_5:
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_6:
+  RETURN R0 0
+
+PROTO_7:
+  DUPTABLE R1 K7 [{"SendGamepadEventAsync", "GetKeyboardShortcutAsync", "ConnectGamepadAsync", "UpdateKeyMappingAsync", "GetCurrentlyEmulatedDeviceAsync", "IsVREmulatorConnected", "SetActiveVRController"}]
+  DUPCLOSURE R2 K8 [PROTO_0]
+  SETTABLEKS R2 R1 K0 ["SendGamepadEventAsync"]
+  DUPCLOSURE R2 K9 [PROTO_1]
+  SETTABLEKS R2 R1 K1 ["GetKeyboardShortcutAsync"]
+  DUPCLOSURE R2 K10 [PROTO_2]
+  SETTABLEKS R2 R1 K2 ["ConnectGamepadAsync"]
+  DUPCLOSURE R2 K11 [PROTO_3]
+  SETTABLEKS R2 R1 K3 ["UpdateKeyMappingAsync"]
+  DUPCLOSURE R2 K12 [PROTO_4]
+  SETTABLEKS R2 R1 K4 ["GetCurrentlyEmulatedDeviceAsync"]
+  DUPCLOSURE R2 K13 [PROTO_5]
+  SETTABLEKS R2 R1 K5 ["IsVREmulatorConnected"]
+  DUPCLOSURE R2 K14 [PROTO_6]
+  SETTABLEKS R2 R1 K6 ["SetActiveVRController"]
+  DUPTABLE R4 K16 [{"__index"}]
+  GETUPVAL R5 0
+  SETTABLEKS R5 R4 K15 ["__index"]
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K18 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 2 0
+  SETTABLEKS R0 R0 K0 ["__index"]
+  DUPCLOSURE R1 K1 [PROTO_7]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["new"]
+  RETURN R0 1

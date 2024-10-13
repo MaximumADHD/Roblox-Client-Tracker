@@ -1,0 +1,54 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["Schema"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K8 [{"Disabled", "OnClick", "Size", "Style", "Text", "TextXAlignment"}]
+  GETTABLEKS R5 R0 K2 ["Disabled"]
+  SETTABLEKS R5 R4 K2 ["Disabled"]
+  GETTABLEKS R5 R1 K3 ["OnClick"]
+  SETTABLEKS R5 R4 K3 ["OnClick"]
+  GETIMPORT R5 K11 [UDim2.new]
+  LOADN R6 1
+  LOADN R7 0
+  LOADN R8 0
+  LOADN R9 32
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K4 ["Size"]
+  GETTABLEKS R6 R0 K2 ["Disabled"]
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+1]
+  LOADK R5 K12 ["PrimaryBrand"]
+  SETTABLEKS R5 R4 K5 ["Style"]
+  GETTABLEKS R5 R1 K13 ["Label"]
+  SETTABLEKS R5 R4 K6 ["Text"]
+  GETIMPORT R5 K16 [Enum.TextXAlignment.Center]
+  SETTABLEKS R5 R4 K7 ["TextXAlignment"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K9 ["UI"]
+  GETTABLEKS R3 R4 K10 ["Button"]
+  GETTABLEKS R5 R1 K9 ["UI"]
+  GETTABLEKS R4 R5 K11 ["IconButton"]
+  GETTABLEKS R6 R1 K12 ["Util"]
+  GETTABLEKS R5 R6 K13 ["StyleModifier"]
+  DUPCLOSURE R6 K14 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R6 1

@@ -10,6 +10,8 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local LocalStore = require(script.Parent.Parent.Service.LocalStore)
 
+local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
+	require(script.Parent.Parent.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
 local GetFStringConnectTooltipLocalStorageKey =
 	require(script.Parent.Parent.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(script.Parent.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
@@ -48,19 +50,43 @@ if GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.ge
 	})
 
 	if FFlagAppChatInExpUseUnibarNotification then
-		local function updateUnreadMessageCount(newCount)
-			if newCount == 0 then
-				integration.notification:clear()
-			else
-				integration.notification:fireCount(newCount)
+		if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() then
+			local function updateNotificationBadge(newCount: number, hasCurrentSquad: boolean)
+				-- The squad presence dot is prioritized over the unread count.
+				if newCount == 0 or hasCurrentSquad then
+					integration.notification:clear()
+				else
+					integration.notification:fireCount(newCount)
+				end
 			end
+
+			InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(function(currentSquadId)
+				updateNotificationBadge(InExperienceAppChatModal.default.unreadCount, currentSquadId ~= "")
+			end)
+
+			InExperienceAppChatModal.default.unreadCountSignal.Event:Connect(function(newUnreadCount)
+				updateNotificationBadge(newUnreadCount, InExperienceAppChatModal.default.currentSquadId ~= "")
+			end)
+
+			updateNotificationBadge(
+				InExperienceAppChatModal.default.unreadCount,
+				InExperienceAppChatModal.default.currentSquadId ~= ""
+			)
+		else
+			local function updateUnreadMessageCount(newCount)
+				if newCount == 0 then
+					integration.notification:clear()
+				else
+					integration.notification:fireCount(newCount)
+				end
+			end
+
+			InExperienceAppChatModal.default.unreadCountSignal.Event:Connect(function(newUnreadCount)
+				updateUnreadMessageCount(newUnreadCount)
+			end)
+
+			updateUnreadMessageCount(InExperienceAppChatModal.default.unreadCount)
 		end
-
-		InExperienceAppChatModal.default.unreadCountSignal.Event:Connect(function(newUnreadCount)
-			updateUnreadMessageCount(newUnreadCount)
-		end)
-
-		updateUnreadMessageCount(InExperienceAppChatModal.default.unreadCount)
 	end
 end
 

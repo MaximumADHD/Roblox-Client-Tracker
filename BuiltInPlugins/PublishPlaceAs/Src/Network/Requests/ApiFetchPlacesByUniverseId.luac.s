@@ -1,0 +1,112 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["JSONDecode"]
+  CALL R1 2 1
+  NEWTABLE R2 4 0
+  GETTABLEKS R3 R1 K1 ["previousPageCursor"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R3 R1 K1 ["previousPageCursor"]
+  SETTABLEKS R3 R2 K1 ["previousPageCursor"]
+  GETTABLEKS R3 R1 K2 ["nextPageCursor"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R3 R1 K2 ["nextPageCursor"]
+  SETTABLEKS R3 R2 K2 ["nextPageCursor"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K3 ["places"]
+  GETIMPORT R3 K5 [pairs]
+  GETTABLEKS R4 R1 K6 ["data"]
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K7 ["fromJsonData"]
+  MOVE R9 R7
+  CALL R8 1 2
+  JUMPIFNOT R8 [+9]
+  GETTABLEKS R11 R2 K3 ["places"]
+  FASTCALL2 TABLE_INSERT R11 R9 [+4]
+  MOVE R12 R9
+  GETIMPORT R10 K10 [table.insert]
+  CALL R10 2 0
+  JUMP [+6]
+  GETIMPORT R10 K12 [error]
+  LOADK R12 K13 ["Parsing error for ApiFetchPlacesByUniverseId: "]
+  MOVE R13 R9
+  CONCAT R11 R12 R13
+  CALL R10 1 0
+  FORGLOOP R3 2 [-22]
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["universeId"]
+  JUMPIF R2 [+6]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["reject"]
+  LOADK R4 K2 ["NO UNIVERSE ID - ApiFetchPlacesByGameId"]
+  CALL R3 1 -1
+  RETURN R3 -1
+  GETTABLEKS R4 R1 K4 ["limit"]
+  ORK R3 R4 K3 [10]
+  GETTABLEKS R5 R1 K6 ["sortOrder"]
+  ORK R4 R5 K5 ["Asc"]
+  GETTABLEKS R5 R1 K7 ["cursor"]
+  DUPTABLE R6 K11 [{"Url", "Method", "Params"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K12 ["BuildRobloxUrl"]
+  LOADK R8 K13 ["develop"]
+  LOADK R9 K14 ["v1/universes/%d/places"]
+  MOVE R10 R2
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K8 ["Url"]
+  LOADK R7 K15 ["GET"]
+  SETTABLEKS R7 R6 K9 ["Method"]
+  DUPTABLE R7 K16 [{"sortOrder", "limit", "cursor"}]
+  SETTABLEKS R4 R7 K6 ["sortOrder"]
+  SETTABLEKS R3 R7 K4 ["limit"]
+  SETTABLEKS R5 R7 K7 ["cursor"]
+  SETTABLEKS R7 R6 K10 ["Params"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K17 ["Request"]
+  MOVE R8 R6
+  CALL R7 1 1
+  DUPCLOSURE R9 K18 [PROTO_0]
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  NAMECALL R7 R7 K19 ["andThen"]
+  CALL R7 2 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K11 ["Util"]
+  GETTABLEKS R2 R3 K12 ["Promise"]
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R7 R1 K13 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Network"]
+  GETTABLEKS R5 R6 K15 ["Models"]
+  GETTABLEKS R4 R5 K16 ["PlaceToPublish"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R7 R1 K13 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Network"]
+  GETTABLEKS R5 R6 K17 ["Http"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K18 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  RETURN R5 1

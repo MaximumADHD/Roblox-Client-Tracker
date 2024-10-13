@@ -1,0 +1,71 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Key"]
+  GETTABLEKS R3 R1 K1 ["devSubsController"]
+  NEWTABLE R4 1 0
+  DUPTABLE R5 K4 [{"isAcceptable", "filteredName"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K2 ["isAcceptable"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K3 ["filteredName"]
+  SETTABLE R5 R4 R2
+  GETUPVAL R7 1
+  LOADK R8 K5 ["DevSubModeration"]
+  MOVE R9 R4
+  CALL R7 2 -1
+  NAMECALL R5 R0 K6 ["dispatch"]
+  CALL R5 -1 0
+  GETUPVAL R7 0
+  NAMECALL R5 R3 K7 ["getFilteredDevSub"]
+  CALL R5 2 2
+  NEWTABLE R7 1 0
+  DUPTABLE R8 K4 [{"isAcceptable", "filteredName"}]
+  SETTABLEKS R5 R8 K2 ["isAcceptable"]
+  SETTABLEKS R6 R8 K3 ["filteredName"]
+  SETTABLE R8 R7 R2
+  GETUPVAL R10 1
+  LOADK R11 K5 ["DevSubModeration"]
+  MOVE R12 R7
+  CALL R10 2 -1
+  NAMECALL R8 R0 K6 ["dispatch"]
+  CALL R8 -1 0
+  JUMPIF R5 [+11]
+  GETUPVAL R10 2
+  MOVE R11 R2
+  LOADK R12 K8 ["Name"]
+  DUPTABLE R13 K10 [{"Moderated"}]
+  LOADK R14 K11 ["Name has been moderated"]
+  SETTABLEKS R14 R13 K9 ["Moderated"]
+  CALL R10 3 -1
+  NAMECALL R8 R0 K6 ["dispatch"]
+  CALL R8 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Actions"]
+  GETTABLEKS R2 R3 K7 ["AddChange"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["AddDevSubKeyError"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1

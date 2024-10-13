@@ -5,4 +5,7 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["OtaPatchLoader"]["OtaPatchLoader"])
 
+export type otaPatchInfo = Package.otaPatchInfo
+
+
 return Package

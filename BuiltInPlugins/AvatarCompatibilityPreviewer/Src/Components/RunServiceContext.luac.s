@@ -1,0 +1,28 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["IsRunning"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["React"]
+  CALL R2 1 1
+  DUPTABLE R3 K13 [{"isRunning"}]
+  DUPCLOSURE R4 K14 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K12 ["isRunning"]
+  GETTABLEKS R4 R2 K15 ["createContext"]
+  MOVE R5 R3
+  CALL R4 1 1
+  RETURN R4 1

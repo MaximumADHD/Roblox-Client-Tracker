@@ -1,0 +1,165 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["autoSetupState"]
+  GETTABLEKS R0 R1 K1 ["type"]
+  JUMPIFNOTEQKS R0 K2 ["error"] [+5]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["enable"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["disable"]
+  CALL R0 0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["clearError"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  LOADB R3 0
+  CALL R2 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["useEffect"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWTABLE R5 0 1
+  GETTABLEKS R7 R0 K2 ["autoSetupState"]
+  GETTABLEKS R6 R7 K3 ["type"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K4 ["useCallback"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  NEWTABLE R5 0 2
+  GETTABLEKS R6 R2 K5 ["disable"]
+  GETTABLEKS R7 R0 K6 ["clearError"]
+  SETLIST R5 R6 2 [1]
+  CALL R3 2 1
+  GETUPVAL R4 3
+  CALL R4 0 1
+  JUMPIF R4 [+70]
+  GETTABLEKS R5 R0 K2 ["autoSetupState"]
+  GETTABLEKS R4 R5 K3 ["type"]
+  JUMPIFNOTEQKS R4 K7 ["inAutoSetup"] [+65]
+  LOADK R6 K8 ["AvatarScreen"]
+  LOADK R7 K9 ["AutoSetupInProgressDescription"]
+  NAMECALL R4 R1 K10 ["getText"]
+  CALL R4 3 1
+  GETTABLEKS R6 R0 K2 ["autoSetupState"]
+  GETTABLEKS R5 R6 K11 ["DEPRECATED_eta"]
+  JUMPIFEQKNIL R5 [+22]
+  MOVE R5 R4
+  LOADK R6 K12 ["
+"]
+  CONCAT R4 R5 R6
+  MOVE R5 R4
+  LOADK R8 K8 ["AvatarScreen"]
+  LOADK R9 K13 ["AutoSetupETA"]
+  DUPTABLE R10 K15 [{"eta"}]
+  GETTABLEKS R13 R0 K2 ["autoSetupState"]
+  GETTABLEKS R12 R13 K11 ["DEPRECATED_eta"]
+  FASTCALL1 MATH_CEIL R12 [+2]
+  GETIMPORT R11 K18 [math.ceil]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K14 ["eta"]
+  NAMECALL R6 R1 K10 ["getText"]
+  CALL R6 4 1
+  CONCAT R4 R5 R6
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K19 ["createElement"]
+  GETUPVAL R6 4
+  DUPTABLE R7 K23 [{"Title", "Description", "PrimaryAction"}]
+  LOADK R10 K8 ["AvatarScreen"]
+  LOADK R11 K24 ["AutoSetupInProgressTitle"]
+  NAMECALL R8 R1 K10 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K20 ["Title"]
+  SETTABLEKS R4 R7 K21 ["Description"]
+  DUPTABLE R8 K27 [{"Text", "OnClick"}]
+  LOADK R11 K8 ["AvatarScreen"]
+  LOADK R12 K28 ["AutoSetupInProgressActionText"]
+  NAMECALL R9 R1 K10 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K25 ["Text"]
+  GETTABLEKS R10 R0 K29 ["cancelDialogOpen"]
+  GETTABLEKS R9 R10 K30 ["enable"]
+  SETTABLEKS R9 R8 K26 ["OnClick"]
+  SETTABLEKS R8 R7 K22 ["PrimaryAction"]
+  CALL R5 2 -1
+  RETURN R5 -1
+  GETTABLEKS R5 R0 K2 ["autoSetupState"]
+  GETTABLEKS R4 R5 K3 ["type"]
+  JUMPIFNOTEQKS R4 K31 ["error"] [+33]
+  GETTABLEKS R4 R2 K30 ["enable"]
+  JUMPIFNOT R4 [+29]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K19 ["createElement"]
+  GETUPVAL R5 4
+  DUPTABLE R6 K34 [{"Title", "Description", "Style", "OnClose"}]
+  LOADK R9 K8 ["AvatarScreen"]
+  LOADK R10 K35 ["AutoSetupErrorTitle"]
+  NAMECALL R7 R1 K10 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K20 ["Title"]
+  LOADK R9 K8 ["AvatarScreen"]
+  GETTABLEKS R11 R0 K2 ["autoSetupState"]
+  GETTABLEKS R10 R11 K31 ["error"]
+  NAMECALL R7 R1 K10 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K21 ["Description"]
+  LOADK R7 K36 ["Error"]
+  SETTABLEKS R7 R6 K32 ["Style"]
+  SETTABLEKS R3 R6 K33 ["OnClose"]
+  CALL R4 2 -1
+  RETURN R4 -1
+  LOADNIL R4
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Packages"]
+  GETTABLEKS R3 R4 K9 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Hooks"]
+  GETTABLEKS R5 R6 K12 ["useToggleState"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Flags"]
+  GETTABLEKS R6 R7 K14 ["getFFlagStudioAvatarAutosetupReportsProgress"]
+  CALL R5 1 1
+  GETTABLEKS R7 R2 K15 ["ContextServices"]
+  GETTABLEKS R6 R7 K16 ["Localization"]
+  GETTABLEKS R7 R2 K17 ["UI"]
+  GETTABLEKS R8 R7 K18 ["Alert"]
+  DUPCLOSURE R9 K19 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  RETURN R9 1

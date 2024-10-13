@@ -1,0 +1,66 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["requestId"]
+  GETTABLEKS R2 R0 K1 ["arguments"]
+  GETTABLEKS R3 R2 K2 ["direct_instance"]
+  MOVE R4 R3
+  JUMPIF R4 [+7]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["get"]
+  GETTABLEKS R5 R2 K4 ["instanceId"]
+  MOVE R6 R1
+  CALL R4 2 1
+  JUMPIF R4 [+9]
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+5]
+  GETIMPORT R5 K6 [error]
+  LOADK R6 K7 ["Failed to find instance to remove"]
+  CALL R5 1 0
+  JUMP [+1]
+  RETURN R0 0
+  FASTCALL2K ASSERT R4 K8 [+5]
+  MOVE R6 R4
+  LOADK R7 K8 ["Luau"]
+  GETIMPORT R5 K10 [assert]
+  CALL R5 2 0
+  GETTABLEKS R5 R4 K11 ["Parent"]
+  JUMPIFNOT R5 [+15]
+  JUMPIF R3 [+5]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K12 ["StartRecordingActions"]
+  MOVE R6 R1
+  CALL R5 1 0
+  LOADNIL R5
+  SETTABLEKS R5 R4 K11 ["Parent"]
+  JUMPIF R3 [+5]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K13 ["EndRecordingActions"]
+  MOVE R6 R1
+  CALL R5 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K8 ["Commands"]
+  GETTABLEKS R4 R5 K9 ["BuilderCommands"]
+  GETTABLEKS R3 R4 K10 ["BuilderNameMap"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Flags"]
+  GETTABLEKS R4 R5 K12 ["getFFlagConvAIAddClientAlerts"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K13 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R4 1

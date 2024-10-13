@@ -1,0 +1,129 @@
+PROTO_0:
+  DUPTABLE R3 K2 [{"_imageUploader", "_userId"}]
+  SETTABLEKS R0 R3 K0 ["_imageUploader"]
+  MOVE R4 R1
+  JUMPIF R4 [+9]
+  GETIMPORT R4 K4 [game]
+  LOADK R6 K5 ["StudioService"]
+  NAMECALL R4 R4 K6 ["GetService"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K7 ["GetUserId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["_userId"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K9 [setmetatable]
+  CALL R2 2 1
+  GETTABLEKS R4 R2 K0 ["_imageUploader"]
+  FASTCALL2K ASSERT R4 K10 [+4]
+  LOADK R5 K10 ["ImportAssetHandler expects an ImageUploader"]
+  GETIMPORT R3 K12 [assert]
+  CALL R3 2 0
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["GetBinaryContents"]
+  CALL R0 1 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_3:
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [tonumber]
+  CALL R1 1 1
+  JUMPIF R1 [+17]
+  LOADK R2 K2 ["Asset id \"%s\" for temp id \"%s\" could not be cast to an integer"]
+  MOVE R4 R0
+  GETUPVAL R5 0
+  NAMECALL R2 R2 K3 ["format"]
+  CALL R2 3 1
+  GETIMPORT R3 K5 [warn]
+  MOVE R4 R2
+  CALL R3 1 0
+  FASTCALL2 ASSERT R1 R2 [+5]
+  MOVE R4 R1
+  MOVE R5 R2
+  GETIMPORT R3 K7 [assert]
+  CALL R3 2 0
+  LOADK R2 K8 ["rbxassetid://"]
+  MOVE R3 R1
+  CONCAT R0 R2 R3
+  RETURN R0 1
+
+PROTO_4:
+  FASTCALL2K ASSERT R1 K0 [+5]
+  MOVE R4 R1
+  LOADK R5 K0 ["ImportAssetHandler:handleAsset() requires an assetFile"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  JUMPIFNOT R2 [+3]
+  MOVE R3 R2
+  LOADB R4 1
+  CALL R3 1 0
+  NAMECALL R3 R1 K3 ["GetTemporaryId"]
+  CALL R3 1 1
+  LOADNIL R4
+  GETIMPORT R5 K5 [pcall]
+  NEWCLOSURE R6 P0
+  CAPTURE REF R4
+  CAPTURE VAL R1
+  CALL R5 1 2
+  JUMPIF R5 [+7]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["reject"]
+  MOVE R8 R6
+  CALL R7 1 -1
+  CLOSEUPVALS R4
+  RETURN R7 -1
+  GETTABLEKS R7 R0 K7 ["_imageUploader"]
+  MOVE R9 R3
+  GETTABLEKS R10 R1 K8 ["Name"]
+  LOADK R11 K9 [""]
+  MOVE R12 R4
+  NAMECALL R7 R7 K10 ["upload"]
+  CALL R7 5 1
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R3
+  NAMECALL R7 R7 K11 ["andThen"]
+  CALL R7 2 -1
+  CLOSEUPVALS R4
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K7 ["ContextServices"]
+  GETTABLEKS R2 R3 K8 ["ContextItem"]
+  GETTABLEKS R4 R1 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["Promise"]
+  LOADK R6 K11 ["ImportAssetHandler"]
+  NAMECALL R4 R2 K12 ["extend"]
+  CALL R4 2 1
+  SETTABLEKS R4 R4 K13 ["__index"]
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K15 ["new"]
+  DUPCLOSURE R5 K16 [PROTO_1]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K17 ["mock"]
+  DUPCLOSURE R5 K18 [PROTO_4]
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K19 ["handleAsset"]
+  RETURN R4 1

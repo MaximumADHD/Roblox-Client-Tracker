@@ -1,0 +1,126 @@
+PROTO_0:
+  JUMPIFNOT R0 [+29]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["Instance"] [+23]
+  LOADK R3 K3 ["Accessory"]
+  NAMECALL R1 R0 K4 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+17]
+  LOADK R3 K5 ["Handle"]
+  NAMECALL R1 R0 K6 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+12]
+  LOADK R4 K7 ["MeshPart"]
+  NAMECALL R2 R1 K4 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+7]
+  LOADK R4 K8 ["WrapLayer"]
+  NAMECALL R2 R1 K9 ["FindFirstChildOfClass"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+2]
+  LOADB R3 1
+  RETURN R3 1
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOT R1 [+1]
+  RETURN R0 1
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["Accessory"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K4 ["Name"]
+  SETTABLEKS R2 R1 K4 ["Name"]
+  GETTABLEKS R2 R0 K5 ["Parent"]
+  SETTABLEKS R2 R1 K5 ["Parent"]
+  GETTABLEKS R2 R0 K6 ["Handle"]
+  LOADK R5 K7 ["SpecialMesh"]
+  NAMECALL R3 R2 K8 ["FindFirstChildOfClass"]
+  CALL R3 2 1
+  GETIMPORT R4 K2 [Instance.new]
+  LOADK R5 K9 ["MeshPart"]
+  CALL R4 1 1
+  LOADK R5 K6 ["Handle"]
+  SETTABLEKS R5 R4 K4 ["Name"]
+  GETTABLEKS R5 R3 K10 ["TextureId"]
+  SETTABLEKS R5 R4 K11 ["TextureID"]
+  SETTABLEKS R1 R4 K5 ["Parent"]
+  GETUPVAL R5 1
+  MOVE R7 R4
+  GETTABLEKS R8 R3 K12 ["MeshId"]
+  NAMECALL R5 R5 K13 ["SetMeshIdBlocking"]
+  CALL R5 3 0
+  GETTABLEKS R6 R4 K14 ["Size"]
+  GETTABLEKS R7 R3 K15 ["Scale"]
+  MUL R5 R6 R7
+  SETTABLEKS R5 R4 K14 ["Size"]
+  GETUPVAL R5 2
+  JUMPIFNOT R5 [+4]
+  GETTABLEKS R5 R2 K16 ["CFrame"]
+  SETTABLEKS R5 R4 K16 ["CFrame"]
+  GETIMPORT R5 K18 [pairs]
+  NAMECALL R6 R2 K19 ["GetChildren"]
+  CALL R6 1 -1
+  CALL R5 -1 3
+  FORGPREP_NEXT R5
+  LOADK R12 K7 ["SpecialMesh"]
+  NAMECALL R10 R9 K20 ["IsA"]
+  CALL R10 2 1
+  JUMPIF R10 [+5]
+  NAMECALL R10 R9 K21 ["Clone"]
+  CALL R10 1 1
+  SETTABLEKS R4 R10 K5 ["Parent"]
+  FORGLOOP R5 2 [-11]
+  LOADK R7 K22 ["ThumbnailConfiguration"]
+  NAMECALL R5 R0 K23 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+34]
+  LOADK R8 K24 ["Configuration"]
+  NAMECALL R6 R5 K20 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+29]
+  LOADK R8 K25 ["ThumbnailCameraTarget"]
+  NAMECALL R6 R5 K23 ["FindFirstChild"]
+  CALL R6 2 1
+  LOADK R9 K26 ["ThumbnailCameraValue"]
+  NAMECALL R7 R5 K23 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOT R6 [+20]
+  LOADK R10 K27 ["ObjectValue"]
+  NAMECALL R8 R6 K20 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+15]
+  JUMPIFNOT R7 [+14]
+  LOADK R10 K28 ["CFrameValue"]
+  NAMECALL R8 R7 K20 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+9]
+  NAMECALL R8 R5 K21 ["Clone"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K25 ["ThumbnailCameraTarget"]
+  SETTABLEKS R4 R9 K29 ["Value"]
+  SETTABLEKS R1 R8 K5 ["Parent"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["UGCValidationService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["AssetConfigCopyHandleCFrame"]
+  NAMECALL R1 R1 K5 ["GetFastFlag"]
+  CALL R1 2 1
+  DUPCLOSURE R2 K6 [PROTO_0]
+  DUPCLOSURE R3 K7 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  RETURN R3 1

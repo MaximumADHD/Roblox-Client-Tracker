@@ -23,6 +23,7 @@ local openRobuxStore = require(Root.Thunks.openRobuxStore)
 local openSecuritySettings = require(Root.Thunks.openSecuritySettings)
 local openTermsOfUse = require(Root.Thunks.openTermsOfUse)
 local initiatePurchasePrecheck = require(Root.Thunks.initiatePurchasePrecheck)
+local initiateUserPurchaseSettingsPrecheck = require(Root.Thunks.initiateUserPurchaseSettingsPrecheck)
 local sendEvent = require(Root.Thunks.sendEvent)
 local isMockingPurchases = require(Root.Utils.isMockingPurchases)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
@@ -40,6 +41,9 @@ local RobuxUpsellContainer = Roact.Component:extend(script.Name)
 local SELECTION_GROUP_NAME = "RobuxUpsellContainer"
 
 local FFlagFixLimitedUMobilePurchasePrompt = game:DefineFastFlag("FixLimitedUMobilePurchasePrompt", false)
+
+local GetFFlagEnableTexasU18VPCForInExperienceRobuxUpsellFlow =
+	require(Root.Flags.GetFFlagEnableTexasU18VPCForInExperienceRobuxUpsellFlow)
 
 function RobuxUpsellContainer:init()
 	self.state = {
@@ -193,7 +197,11 @@ RobuxUpsellContainer = connectToStore(
 				return dispatch(openTermsOfUse())
 			end,
 			dispatchFetchPurchaseWarning = function()
-				return dispatch(initiatePurchasePrecheck())
+				if GetFFlagEnableTexasU18VPCForInExperienceRobuxUpsellFlow() then 
+					return dispatch(initiateUserPurchaseSettingsPrecheck())
+				else 
+					return dispatch(initiatePurchasePrecheck())
+				end
 			end,
 			completeRequest = function()
 				GuiService.SelectedCoreObject = nil

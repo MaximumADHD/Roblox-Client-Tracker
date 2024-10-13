@@ -1,0 +1,509 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["EditingItemContext"]
+  NAMECALL R1 R1 K2 ["getItem"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  MOVE R4 R1
+  NAMECALL R2 R2 K3 ["getAutoSkinningBehavior"]
+  CALL R2 2 1
+  GETIMPORT R3 K7 [Enum.WrapLayerAutoSkin.EnabledOverride]
+  JUMPIFNOTEQ R2 R3 [+3]
+  GETIMPORT R3 K9 [Enum.WrapLayerAutoSkin.EnabledPreserve]
+  GETUPVAL R4 1
+  MOVE R6 R1
+  MOVE R7 R3
+  NAMECALL R4 R4 K10 ["setAutoSkinningBehavior"]
+  CALL R4 3 0
+  GETUPVAL R4 0
+  DUPTABLE R6 K12 [{"isAutoSkinBehaviorOverride"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K11 ["isAutoSkinBehaviorOverride"]
+  MOVE R8 R3
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K11 ["isAutoSkinBehaviorOverride"]
+  NAMECALL R4 R4 K13 ["setState"]
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K14 ["Analytics"]
+  LOADK R6 K15 ["AutoSkinningToggled"]
+  NAMECALL R4 R4 K16 ["getHandler"]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K11 ["isAutoSkinBehaviorOverride"]
+  MOVE R6 R3
+  CALL R5 1 -1
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R2 K3 [Enum.WrapLayerAutoSkin.EnabledOverride]
+  JUMPIFEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["ToolMode"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["TOOL_MODE"]
+  GETTABLEKS R1 R2 K3 ["Point"]
+  JUMPIFNOTEQ R0 R1 [+13]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K4 ["SetToolMode"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["TOOL_MODE"]
+  GETTABLEKS R1 R2 K5 ["None"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K4 ["SetToolMode"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["TOOL_MODE"]
+  GETTABLEKS R1 R2 K3 ["Point"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["EditingCage"]
+  GETIMPORT R1 K5 [Enum.CageType.Outer]
+  JUMPIFEQ R0 R1 [+25]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K6 ["SelectEditingCage"]
+  GETIMPORT R1 K5 [Enum.CageType.Outer]
+  CALL R0 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K7 ["Signals"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["SIGNAL_KEYS"]
+  GETTABLEKS R2 R3 K9 ["SelectionChanged"]
+  NAMECALL R0 R0 K10 ["get"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K11 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["EditingCage"]
+  GETIMPORT R1 K5 [Enum.CageType.Inner]
+  JUMPIFEQ R0 R1 [+25]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K6 ["SelectEditingCage"]
+  GETIMPORT R1 K5 [Enum.CageType.Inner]
+  CALL R0 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K7 ["Signals"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["SIGNAL_KEYS"]
+  GETTABLEKS R2 R3 K9 ["SelectionChanged"]
+  NAMECALL R0 R0 K10 ["get"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K11 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["ToolMode"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["TOOL_MODE"]
+  GETTABLEKS R2 R3 K3 ["Point"]
+  JUMPIFEQ R1 R2 [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_6:
+  DUPTABLE R1 K1 [{"isAutoSkinBehaviorOverride"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["isAutoSkinBehaviorOverride"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K3 ["autoSkinButtonClicked"]
+  DUPCLOSURE R1 K4 [PROTO_1]
+  SETTABLEKS R1 R0 K0 ["isAutoSkinBehaviorOverride"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K5 ["cageEditingButtonClicked"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K6 ["outerCageButtonClicked"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K7 ["innerCageButtonClicked"]
+  NEWCLOSURE R1 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K8 ["isCageEditingActive"]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R7 R6 K1 ["Stylizer"]
+  GETTABLEKS R8 R7 K2 ["ButtonSize"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K3 ["createElement"]
+  GETUPVAL R10 1
+  DUPTABLE R11 K10 [{"Style", "StyleModifier", "Size", "LayoutOrder", "OnClick", "Tooltip"}]
+  GETTABLEKS R12 R7 K11 ["ButtonStyle"]
+  SETTABLEKS R12 R11 K4 ["Style"]
+  SETTABLEKS R1 R11 K5 ["StyleModifier"]
+  GETIMPORT R12 K14 [UDim2.fromOffset]
+  MOVE R13 R8
+  MOVE R14 R8
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K6 ["Size"]
+  SETTABLEKS R2 R11 K7 ["LayoutOrder"]
+  SETTABLEKS R4 R11 K8 ["OnClick"]
+  SETTABLEKS R5 R11 K9 ["Tooltip"]
+  DUPTABLE R12 K16 [{"Settings"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K3 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K18 [{"Image"}]
+  SETTABLEKS R3 R15 K17 ["Image"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K15 ["Settings"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["EditingItemContext"]
+  NAMECALL R2 R2 K2 ["getItem"]
+  CALL R2 1 1
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETUPVAL R3 0
+  MOVE R5 R2
+  NAMECALL R3 R3 K3 ["getAutoSkinningBehavior"]
+  CALL R3 2 1
+  GETIMPORT R4 K7 [Enum.WrapLayerAutoSkin.Disabled]
+  JUMPIFNOTEQ R3 R4 [+3]
+  GETIMPORT R3 K9 [Enum.WrapLayerAutoSkin.EnabledOverride]
+  GETUPVAL R4 0
+  MOVE R6 R2
+  MOVE R7 R3
+  NAMECALL R4 R4 K10 ["setAutoSkinningBehavior"]
+  CALL R4 3 0
+  DUPTABLE R6 K12 [{"isAutoSkinBehaviorOverride"}]
+  GETTABLEKS R7 R0 K11 ["isAutoSkinBehaviorOverride"]
+  MOVE R8 R3
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K11 ["isAutoSkinBehaviorOverride"]
+  NAMECALL R4 R0 K13 ["setState"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
+  GETTABLEKS R4 R1 K3 ["Localization"]
+  GETTABLEKS R5 R1 K4 ["EditingCage"]
+  GETTABLEKS R6 R1 K5 ["ShowMinimal"]
+  GETTABLEKS R7 R1 K6 ["MenuOptions"]
+  GETTABLEKS R8 R1 K7 ["OnMenuOptionClicked"]
+  GETTABLEKS R9 R1 K8 ["ShowOptionsButton"]
+  GETTABLEKS R10 R1 K9 ["Stylizer"]
+  GETTABLEKS R11 R10 K10 ["Padding"]
+  GETTABLEKS R12 R10 K11 ["ButtonSize"]
+  LOADN R15 2
+  MUL R14 R15 R11
+  ADD R13 R14 R12
+  GETTABLEKS R14 R0 K12 ["isCageEditingActive"]
+  CALL R14 0 1
+  GETTABLEKS R15 R2 K13 ["isAutoSkinBehaviorOverride"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K14 ["new"]
+  CALL R16 0 1
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K15 ["createElement"]
+  GETUPVAL R18 2
+  DUPTABLE R19 K21 [{"Size", "AutomaticSize", "Layout", "LayoutOrder", "HorizontalAlignment", "Spacing", "Padding"}]
+  GETIMPORT R20 K23 [UDim2.new]
+  LOADN R21 0
+  LOADN R22 0
+  LOADN R23 0
+  MOVE R24 R13
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K16 ["Size"]
+  GETIMPORT R20 K26 [Enum.AutomaticSize.X]
+  SETTABLEKS R20 R19 K17 ["AutomaticSize"]
+  GETIMPORT R20 K29 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R20 R19 K18 ["Layout"]
+  SETTABLEKS R3 R19 K2 ["LayoutOrder"]
+  GETIMPORT R20 K31 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R20 R19 K19 ["HorizontalAlignment"]
+  SETTABLEKS R11 R19 K20 ["Spacing"]
+  SETTABLEKS R11 R19 K10 ["Padding"]
+  DUPTABLE R20 K37 [{"CageEditingButton", "CageTypeToggle", "FalloffSlider", "AutoSkinButton", "OptionsDropdownButton"}]
+  JUMPIFNOT R14 [+4]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K38 ["Pressed"]
+  JUMP [+1]
+  LOADNIL R23
+  NAMECALL R24 R16 K39 ["getNextOrder"]
+  CALL R24 1 1
+  GETTABLEKS R25 R10 K40 ["CageModeIcon"]
+  GETTABLEKS R26 R0 K41 ["cageEditingButtonClicked"]
+  LOADK R29 K42 ["EditingMode"]
+  LOADK R30 K43 ["Text"]
+  NAMECALL R27 R4 K44 ["getText"]
+  CALL R27 3 -1
+  NAMECALL R21 R0 K45 ["renderButton"]
+  CALL R21 -1 1
+  SETTABLEKS R21 R20 K32 ["CageEditingButton"]
+  MOVE R21 R14
+  JUMPIFNOT R21 [+53]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K15 ["createElement"]
+  GETUPVAL R22 4
+  DUPTABLE R23 K53 [{"ButtonSize", "LayoutOrder", "LeftIcon", "RightIcon", "LeftTooltipText", "RightTooltipText", "OnLeftSideClick", "OnRightSideClick", "IsOn"}]
+  GETTABLEKS R24 R10 K11 ["ButtonSize"]
+  SETTABLEKS R24 R23 K11 ["ButtonSize"]
+  NAMECALL R24 R16 K39 ["getNextOrder"]
+  CALL R24 1 1
+  SETTABLEKS R24 R23 K2 ["LayoutOrder"]
+  GETTABLEKS R24 R10 K54 ["OuterCageIcon"]
+  SETTABLEKS R24 R23 K46 ["LeftIcon"]
+  GETTABLEKS R24 R10 K55 ["InnerCageIcon"]
+  SETTABLEKS R24 R23 K47 ["RightIcon"]
+  LOADK R26 K42 ["EditingMode"]
+  LOADK R27 K56 ["OuterCage"]
+  NAMECALL R24 R4 K44 ["getText"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K48 ["LeftTooltipText"]
+  LOADK R26 K42 ["EditingMode"]
+  LOADK R27 K57 ["InnerCage"]
+  NAMECALL R24 R4 K44 ["getText"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K49 ["RightTooltipText"]
+  GETTABLEKS R24 R0 K58 ["outerCageButtonClicked"]
+  SETTABLEKS R24 R23 K50 ["OnLeftSideClick"]
+  GETTABLEKS R24 R0 K59 ["innerCageButtonClicked"]
+  SETTABLEKS R24 R23 K51 ["OnRightSideClick"]
+  GETIMPORT R25 K62 [Enum.CageType.Inner]
+  JUMPIFEQ R5 R25 [+2]
+  LOADB R24 0 +1
+  LOADB R24 1
+  SETTABLEKS R24 R23 K52 ["IsOn"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K33 ["CageTypeToggle"]
+  MOVE R21 R14
+  JUMPIFNOT R21 [+13]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K15 ["createElement"]
+  GETUPVAL R22 5
+  DUPTABLE R23 K63 [{"LayoutOrder", "ShowMinimal"}]
+  NAMECALL R24 R16 K39 ["getNextOrder"]
+  CALL R24 1 1
+  SETTABLEKS R24 R23 K2 ["LayoutOrder"]
+  SETTABLEKS R6 R23 K5 ["ShowMinimal"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K34 ["FalloffSlider"]
+  JUMPIFNOT R15 [+4]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K38 ["Pressed"]
+  JUMP [+1]
+  LOADNIL R23
+  NAMECALL R24 R16 K39 ["getNextOrder"]
+  CALL R24 1 1
+  GETTABLEKS R25 R10 K64 ["AutoWeightIcon"]
+  GETTABLEKS R26 R0 K65 ["autoSkinButtonClicked"]
+  JUMPIFNOT R15 [+6]
+  LOADK R29 K42 ["EditingMode"]
+  LOADK R30 K66 ["AutoWeightOverride"]
+  NAMECALL R27 R4 K44 ["getText"]
+  CALL R27 3 1
+  JUMP [+5]
+  LOADK R29 K42 ["EditingMode"]
+  LOADK R30 K67 ["AutoWeightPreserve"]
+  NAMECALL R27 R4 K44 ["getText"]
+  CALL R27 3 1
+  NAMECALL R21 R0 K45 ["renderButton"]
+  CALL R21 6 1
+  SETTABLEKS R21 R20 K35 ["AutoSkinButton"]
+  MOVE R21 R9
+  JUMPIFNOT R21 [+21]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K15 ["createElement"]
+  GETUPVAL R22 6
+  DUPTABLE R23 K71 [{"ButtonSize", "Icon", "Items", "OnItemActivated", "LayoutOrder"}]
+  SETTABLEKS R12 R23 K11 ["ButtonSize"]
+  GETTABLEKS R24 R10 K72 ["OptionsIcon"]
+  SETTABLEKS R24 R23 K68 ["Icon"]
+  SETTABLEKS R7 R23 K69 ["Items"]
+  SETTABLEKS R8 R23 K70 ["OnItemActivated"]
+  NAMECALL R24 R16 K39 ["getNextOrder"]
+  CALL R24 1 1
+  SETTABLEKS R24 R23 K2 ["LayoutOrder"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K36 ["OptionsDropdownButton"]
+  CALL R17 3 -1
+  RETURN R17 -1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  DUPTABLE R1 K2 [{"SelectEditingCage", "SetToolMode"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SelectEditingCage"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["SetToolMode"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["AvatarToolsShared"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K9 ["Contexts"]
+  GETTABLEKS R4 R5 K10 ["Signals"]
+  GETTABLEKS R6 R3 K9 ["Contexts"]
+  GETTABLEKS R5 R6 K11 ["EditingItemContext"]
+  GETTABLEKS R7 R3 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["DropdownMenuButton"]
+  GETTABLEKS R8 R3 K12 ["Components"]
+  GETTABLEKS R7 R8 K14 ["SplitToggleButton"]
+  GETTABLEKS R10 R3 K15 ["Util"]
+  GETTABLEKS R9 R10 K16 ["AccessoryAndBodyToolShared"]
+  GETTABLEKS R8 R9 K17 ["AvatarUtil"]
+  GETTABLEKS R11 R3 K15 ["Util"]
+  GETTABLEKS R10 R11 K16 ["AccessoryAndBodyToolShared"]
+  GETTABLEKS R9 R10 K18 ["WrapUtil"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K19 ["Src"]
+  GETTABLEKS R12 R13 K20 ["Thunks"]
+  GETTABLEKS R11 R12 K21 ["SelectEditingCage"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K19 ["Src"]
+  GETTABLEKS R13 R14 K22 ["Actions"]
+  GETTABLEKS R12 R13 K23 ["SetToolMode"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R16 R0 K19 ["Src"]
+  GETTABLEKS R15 R16 K12 ["Components"]
+  GETTABLEKS R14 R15 K24 ["Editor"]
+  GETTABLEKS R13 R14 K25 ["FalloffSlider"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R15 R0 K5 ["Packages"]
+  GETTABLEKS R14 R15 K26 ["Framework"]
+  CALL R13 1 1
+  GETTABLEKS R14 R13 K27 ["ContextServices"]
+  GETTABLEKS R15 R14 K28 ["withContext"]
+  GETTABLEKS R17 R13 K15 ["Util"]
+  GETTABLEKS R16 R17 K29 ["StyleModifier"]
+  GETTABLEKS R17 R13 K30 ["UI"]
+  GETTABLEKS R18 R17 K31 ["Pane"]
+  GETTABLEKS R19 R17 K32 ["Button"]
+  GETTABLEKS R20 R17 K33 ["IconButton"]
+  GETTABLEKS R21 R17 K34 ["Image"]
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R25 R0 K19 ["Src"]
+  GETTABLEKS R24 R25 K15 ["Util"]
+  GETTABLEKS R23 R24 K35 ["Constants"]
+  CALL R22 1 1
+  GETTABLEKS R23 R1 K36 ["PureComponent"]
+  LOADK R25 K37 ["CageControls"]
+  NAMECALL R23 R23 K38 ["extend"]
+  CALL R23 2 1
+  GETTABLEKS R24 R13 K15 ["Util"]
+  GETTABLEKS R25 R24 K39 ["LayoutOrderIterator"]
+  DUPCLOSURE R26 K40 [PROTO_6]
+  CAPTURE VAL R9
+  CAPTURE VAL R22
+  SETTABLEKS R26 R23 K41 ["init"]
+  DUPCLOSURE R26 K42 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R19
+  CAPTURE VAL R21
+  SETTABLEKS R26 R23 K43 ["renderButton"]
+  DUPCLOSURE R26 K44 [PROTO_8]
+  CAPTURE VAL R9
+  SETTABLEKS R26 R23 K45 ["didMount"]
+  DUPCLOSURE R26 K46 [PROTO_9]
+  CAPTURE VAL R25
+  CAPTURE VAL R1
+  CAPTURE VAL R18
+  CAPTURE VAL R16
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R6
+  SETTABLEKS R26 R23 K47 ["render"]
+  DUPCLOSURE R26 K48 [PROTO_12]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  MOVE R27 R15
+  DUPTABLE R28 K52 [{"Analytics", "Signals", "Localization", "EditingItemContext", "Stylizer"}]
+  GETTABLEKS R29 R14 K49 ["Analytics"]
+  SETTABLEKS R29 R28 K49 ["Analytics"]
+  SETTABLEKS R4 R28 K10 ["Signals"]
+  GETTABLEKS R29 R14 K50 ["Localization"]
+  SETTABLEKS R29 R28 K50 ["Localization"]
+  SETTABLEKS R5 R28 K11 ["EditingItemContext"]
+  GETTABLEKS R29 R14 K51 ["Stylizer"]
+  SETTABLEKS R29 R28 K51 ["Stylizer"]
+  CALL R27 1 1
+  MOVE R28 R23
+  CALL R27 1 1
+  MOVE R23 R27
+  GETTABLEKS R27 R2 K53 ["connect"]
+  LOADNIL R28
+  MOVE R29 R26
+  CALL R27 2 1
+  MOVE R28 R23
+  CALL R27 1 -1
+  RETURN R27 -1

@@ -1,0 +1,49 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["shouldDebugWarnings"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+25]
+  JUMPIFNOT R0 [+24]
+  GETTABLEKS R3 R0 K1 ["creator"]
+  FASTCALL1 TYPE R3 [+2]
+  GETIMPORT R2 K3 [type]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K4 ["table"] [+17]
+  GETTABLEKS R3 R0 K1 ["creator"]
+  GETTABLEKS R2 R3 K5 ["Id"]
+  JUMPIFEQKNIL R2 [+11]
+  GETTABLEKS R3 R0 K1 ["creator"]
+  GETTABLEKS R2 R3 K6 ["Type"]
+  JUMPIFNOTEQKNIL R2 [+5]
+  GETIMPORT R2 K8 [warn]
+  LOADK R3 K9 ["Setting PageInfo.creator without a type"]
+  CALL R2 1 0
+  DUPTABLE R2 K12 [{"changes", "settings"}]
+  SETTABLEKS R0 R2 K10 ["changes"]
+  SETTABLEKS R1 R2 K11 ["settings"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K6 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K7 ["Util"]
+  GETTABLEKS R3 R2 K8 ["Action"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Core"]
+  GETTABLEKS R6 R7 K7 ["Util"]
+  GETTABLEKS R5 R6 K10 ["DebugFlags"]
+  CALL R4 1 1
+  MOVE R5 R3
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K11 ["Name"]
+  DUPCLOSURE R7 K12 [PROTO_0]
+  CAPTURE VAL R4
+  CALL R5 2 -1
+  RETURN R5 -1

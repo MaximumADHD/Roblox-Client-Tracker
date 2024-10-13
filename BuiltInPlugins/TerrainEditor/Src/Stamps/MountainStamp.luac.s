@@ -1,0 +1,143 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["init"]
+  MOVE R4 R0
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 0
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["_payload"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["BuildSettings"]
+  GETTABLE R2 R3 R4
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["NoiseScale"]
+  GETTABLE R1 R2 R3
+  GETTABLEKS R4 R0 K0 ["_payload"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["BuildSettings"]
+  GETTABLE R3 R4 R5
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["NoiseStrength"]
+  GETTABLE R2 R3 R4
+  GETTABLEKS R7 R0 K0 ["_payload"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K1 ["BuildSettings"]
+  GETTABLE R6 R7 R8
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["AdvancedNoise"]
+  GETTABLE R5 R6 R7
+  GETTABLEKS R4 R5 K4 ["Children"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K6 ["Offset"]
+  GETTABLE R3 R4 R5
+  GETTABLEKS R9 R0 K0 ["_payload"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K1 ["BuildSettings"]
+  GETTABLE R8 R9 R10
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["AdvancedNoise"]
+  GETTABLE R7 R8 R9
+  GETTABLEKS R6 R7 K4 ["Children"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K8 ["Seed"]
+  GETTABLE R5 R6 R7
+  MULK R4 R5 K7 [3.14159265358979]
+  DUPTABLE R5 K11 [{"hillWidth", "hillHeight"}]
+  LOADK R6 K12 [0.2]
+  SETTABLEKS R6 R5 K9 ["hillWidth"]
+  LOADK R6 K13 [0.85]
+  SETTABLEKS R6 R5 K10 ["hillHeight"]
+  LOADN R7 0
+  JUMPIFNOTLT R7 R1 [+6]
+  LOADN R7 0
+  JUMPIFNOTLT R7 R2 [+3]
+  LOADB R6 1
+  JUMP [+1]
+  LOADB R6 0
+  JUMPIFNOT R6 [+13]
+  DUPTABLE R7 K18 [{"frequency", "amplitude", "offset", "seed"}]
+  MULK R8 R1 K19 [0.05]
+  SETTABLEKS R8 R7 K14 ["frequency"]
+  MULK R9 R2 K21 [0.16]
+  MULK R8 R9 K20 [2]
+  SETTABLEKS R8 R7 K15 ["amplitude"]
+  SETTABLEKS R3 R7 K16 ["offset"]
+  SETTABLEKS R4 R7 K17 ["seed"]
+  JUMP [+1]
+  LOADNIL R7
+  MOVE R10 R5
+  MOVE R11 R7
+  NAMECALL R8 R0 K22 ["generateHill"]
+  CALL R8 3 0
+  JUMPIFNOT R6 [+6]
+  NAMECALL R8 R0 K23 ["addErosion"]
+  CALL R8 1 0
+  NAMECALL R8 R0 K24 ["addMacroNoise"]
+  CALL R8 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R2 K2 [table.create]
+  GETTABLEKS R3 R0 K3 ["_mapSize"]
+  LOADN R4 0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K4 ["_blendingFactorMap"]
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+22]
+  DUPTABLE R2 K8 [{"PreserveDistance", "PreserveRatio", "BlendingStrength"}]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K5 ["PreserveDistance"]
+  LOADK R3 K9 [0.2]
+  SETTABLEKS R3 R2 K6 ["PreserveRatio"]
+  SETTABLEKS R1 R2 K7 ["BlendingStrength"]
+  GETUPVAL R3 0
+  GETIMPORT R4 K12 [Vector2.new]
+  GETTABLEKS R5 R0 K13 ["_sliceX"]
+  GETTABLEKS R6 R0 K14 ["_sliceZ"]
+  CALL R4 2 1
+  MOVE R5 R2
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K4 ["_blendingFactorMap"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["MountainBaseStamp"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K10 ["BuildSettings"]
+  GETTABLEKS R4 R2 K11 ["Category"]
+  GETTABLEKS R5 R2 K12 ["TerrainType"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Util"]
+  GETTABLEKS R6 R7 K14 ["Generation"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R6 K15 ["GetBlendingFactorMap"]
+  CALL R7 1 1
+  GETTABLEKS R10 R5 K16 ["Mountain"]
+  NAMECALL R8 R1 K17 ["new"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K18 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R9 R8 K19 ["init"]
+  DUPCLOSURE R9 K20 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R9 R8 K21 ["generateNoiseMap"]
+  DUPCLOSURE R9 K22 [PROTO_2]
+  CAPTURE VAL R7
+  SETTABLEKS R9 R8 K23 ["updateBlendingFactorMap"]
+  RETURN R8 1

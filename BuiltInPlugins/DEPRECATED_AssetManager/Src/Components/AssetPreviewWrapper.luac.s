@@ -1,0 +1,465 @@
+PROTO_0:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"selectedPreviewInstance"}]
+  SETTABLEKS R0 R3 K0 ["selectedPreviewInstance"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Analytics"]
+  GETTABLEKS R2 R0 K2 ["AssetData"]
+  GETTABLEKS R3 R0 K3 ["dispatchOnAssetDoubleClick"]
+  MOVE R4 R1
+  MOVE R5 R2
+  LOADB R6 1
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["AssetData"]
+  GETTABLEKS R1 R2 K2 ["id"]
+  GETTABLEKS R2 R0 K3 ["API"]
+  NAMECALL R2 R2 K4 ["get"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K5 ["dispatchGetAssetFavoriteCount"]
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["AssetData"]
+  GETTABLEKS R1 R2 K2 ["id"]
+  GETTABLEKS R2 R0 K3 ["API"]
+  NAMECALL R2 R2 K4 ["get"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K5 ["dispatchGetAssetFavorited"]
+  MOVE R4 R2
+  MOVE R5 R1
+  GETUPVAL R6 1
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["AssetData"]
+  GETTABLEKS R2 R3 K2 ["id"]
+  GETTABLEKS R3 R1 K3 ["API"]
+  NAMECALL R3 R3 K4 ["get"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K5 ["Favorited"]
+  GETTABLEKS R5 R1 K6 ["dispatchToggleFavoriteStatus"]
+  MOVE R6 R3
+  MOVE R7 R2
+  GETUPVAL R8 1
+  MOVE R9 R4
+  CALL R5 4 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["dispatchOnAssetRightClick"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["ClickDetectorRef"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K2 ["AbsoluteSize"]
+  GETTABLEKS R2 R1 K3 ["x"]
+  GETTABLEKS R3 R1 K4 ["y"]
+  GETUPVAL R4 0
+  DUPTABLE R6 K7 [{"maxPreviewWidth", "maxPreviewHeight"}]
+  SUBK R7 R2 K8 [64]
+  SETTABLEKS R7 R6 K5 ["maxPreviewWidth"]
+  SUBK R7 R3 K8 [64]
+  SETTABLEKS R7 R6 K6 ["maxPreviewHeight"]
+  NAMECALL R4 R4 K9 ["setState"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_7:
+  DUPTABLE R1 K3 [{"selectedPreviewInstance", "maxPreviewHeight", "maxPreviewWidth"}]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K0 ["selectedPreviewInstance"]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K1 ["maxPreviewHeight"]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K2 ["maxPreviewWidth"]
+  SETTABLEKS R1 R0 K4 ["state"]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K5 ["GetUserId"]
+  CALL R1 1 1
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K6 ["onTreeItemClicked"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K7 ["tryInsert"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K8 ["requestFavoriteCounts"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K9 ["checkFavorited"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K10 ["onFavoritedActivated"]
+  NEWCLOSURE R2 P5
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K11 ["tryCreateContextMenu"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K12 ["createRef"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K13 ["ClickDetectorRef"]
+  NEWCLOSURE R2 P6
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K14 ["onDetectorABSSizeChange"]
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["checkFavorited"]
+  CALL R1 0 0
+  GETTABLEKS R1 R0 K1 ["requestFavoriteCounts"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Focus"]
+  NAMECALL R3 R3 K3 ["get"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K4 ["Localization"]
+  GETTABLEKS R5 R1 K5 ["Stylizer"]
+  GETTABLEKS R6 R1 K6 ["AssetPreviewData"]
+  GETTABLEKS R9 R0 K1 ["state"]
+  GETTABLEKS R8 R9 K7 ["selectedPreviewInstance"]
+  JUMPIFNOT R8 [+5]
+  GETTABLEKS R8 R0 K1 ["state"]
+  GETTABLEKS R7 R8 K7 ["selectedPreviewInstance"]
+  JUMP [+2]
+  GETTABLEKS R7 R6 K8 ["rootTreeViewInstance"]
+  GETTABLEKS R9 R6 K9 ["favoriteCount"]
+  JUMPIFNOT R9 [+7]
+  GETTABLEKS R9 R6 K9 ["favoriteCount"]
+  FASTCALL1 TONUMBER R9 [+2]
+  GETIMPORT R8 K11 [tonumber]
+  CALL R8 1 1
+  JUMP [+1]
+  LOADN R8 0
+  GETTABLEKS R10 R6 K12 ["favorited"]
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R9 R6 K12 ["favorited"]
+  JUMP [+1]
+  LOADB R9 0
+  GETTABLEKS R11 R2 K13 ["maxPreviewWidth"]
+  FASTCALL2K MATH_MIN R11 K14 [+4]
+  LOADK R12 K14 [640]
+  GETIMPORT R10 K17 [math.min]
+  CALL R10 2 1
+  GETTABLEKS R11 R2 K18 ["maxPreviewHeight"]
+  GETTABLEKS R12 R1 K19 ["OnAssetPreviewClose"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K20 ["createElement"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K21 ["Portal"]
+  DUPTABLE R15 K23 [{"target"}]
+  SETTABLEKS R3 R15 K22 ["target"]
+  DUPTABLE R16 K25 [{"AssetPreview"}]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K20 ["createElement"]
+  LOADK R18 K26 ["Frame"]
+  DUPTABLE R19 K30 [{"Size", "BackgroundTransparency", "BorderSizePixel"}]
+  GETIMPORT R20 K33 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 1
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K27 ["Size"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K28 ["BackgroundTransparency"]
+  LOADN R20 0
+  SETTABLEKS R20 R19 K29 ["BorderSizePixel"]
+  DUPTABLE R20 K36 [{"Background", "Contents"}]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K20 ["createElement"]
+  LOADK R22 K37 ["ImageButton"]
+  NEWTABLE R23 16 0
+  GETIMPORT R24 K33 [UDim2.new]
+  LOADN R25 1
+  LOADN R26 0
+  LOADN R27 1
+  LOADN R28 0
+  CALL R24 4 1
+  SETTABLEKS R24 R23 K27 ["Size"]
+  LOADB R24 0
+  SETTABLEKS R24 R23 K38 ["AutoButtonColor"]
+  LOADN R24 0
+  SETTABLEKS R24 R23 K29 ["BorderSizePixel"]
+  GETIMPORT R24 K40 [Color3.new]
+  LOADN R25 0
+  LOADN R26 0
+  LOADN R27 0
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K41 ["BackgroundColor3"]
+  GETTABLEKS R26 R5 K42 ["Overlay"]
+  GETTABLEKS R25 R26 K34 ["Background"]
+  GETTABLEKS R24 R25 K43 ["Transparency"]
+  SETTABLEKS R24 R23 K28 ["BackgroundTransparency"]
+  LOADN R24 1
+  SETTABLEKS R24 R23 K44 ["ZIndex"]
+  GETUPVAL R26 0
+  GETTABLEKS R25 R26 K45 ["Event"]
+  GETTABLEKS R24 R25 K46 ["Activated"]
+  SETTABLE R12 R23 R24
+  GETUPVAL R25 0
+  GETTABLEKS R24 R25 K47 ["Ref"]
+  GETTABLEKS R25 R0 K48 ["ClickDetectorRef"]
+  SETTABLE R25 R23 R24
+  GETUPVAL R26 0
+  GETTABLEKS R25 R26 K49 ["Change"]
+  GETTABLEKS R24 R25 K50 ["AbsoluteSize"]
+  GETTABLEKS R25 R0 K51 ["onDetectorABSSizeChange"]
+  SETTABLE R25 R23 R24
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K34 ["Background"]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K20 ["createElement"]
+  GETUPVAL R22 1
+  DUPTABLE R23 K61 [{"Position", "AnchorPoint", "Size", "AssetData", "AssetInstance", "OnClickContext", "ActionText", "OnClickAction", "Favorites", "HideCreatorSearch", "ZIndex"}]
+  GETIMPORT R24 K33 [UDim2.new]
+  LOADK R25 K62 [0.5]
+  LOADN R26 0
+  LOADK R27 K62 [0.5]
+  LOADN R28 0
+  CALL R24 4 1
+  SETTABLEKS R24 R23 K52 ["Position"]
+  GETIMPORT R24 K64 [Vector2.new]
+  LOADK R25 K62 [0.5]
+  LOADK R26 K62 [0.5]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K53 ["AnchorPoint"]
+  GETIMPORT R24 K66 [UDim2.fromOffset]
+  MOVE R25 R10
+  MOVE R26 R11
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K27 ["Size"]
+  SETTABLEKS R6 R23 K54 ["AssetData"]
+  SETTABLEKS R7 R23 K55 ["AssetInstance"]
+  GETTABLEKS R24 R0 K67 ["tryCreateContextMenu"]
+  SETTABLEKS R24 R23 K56 ["OnClickContext"]
+  LOADK R26 K24 ["AssetPreview"]
+  LOADK R27 K68 ["Insert"]
+  NAMECALL R24 R4 K69 ["getText"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K57 ["ActionText"]
+  GETTABLEKS R24 R0 K70 ["tryInsert"]
+  SETTABLEKS R24 R23 K58 ["OnClickAction"]
+  DUPTABLE R24 K74 [{"OnClick", "Count", "IsFavorited"}]
+  GETTABLEKS R25 R0 K75 ["onFavoritedActivated"]
+  SETTABLEKS R25 R24 K71 ["OnClick"]
+  SETTABLEKS R8 R24 K72 ["Count"]
+  SETTABLEKS R9 R24 K73 ["IsFavorited"]
+  SETTABLEKS R24 R23 K59 ["Favorites"]
+  LOADB R24 1
+  SETTABLEKS R24 R23 K60 ["HideCreatorSearch"]
+  LOADN R24 2
+  SETTABLEKS R24 R23 K44 ["ZIndex"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K35 ["Contents"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K24 ["AssetPreview"]
+  CALL R13 3 -1
+  RETURN R13 -1
+
+PROTO_10:
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["IsAssetPreviewMenu"]
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R4 0
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  CALL R5 4 -1
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_16:
+  DUPTABLE R1 K5 [{"dispatchOnAssetDoubleClick", "dispatchOnAssetRightClick", "dispatchGetAssetFavorited", "dispatchGetAssetFavoriteCount", "dispatchToggleFavoriteStatus"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchOnAssetDoubleClick"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["dispatchOnAssetRightClick"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["dispatchGetAssetFavorited"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["dispatchGetAssetFavoriteCount"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K4 ["dispatchToggleFavoriteStatus"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R6 R3 K11 ["UI"]
+  GETTABLEKS R7 R6 K12 ["AssetPreview"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K13 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Thunks"]
+  GETTABLEKS R9 R10 K15 ["OnAssetDoubleClick"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K13 ["Src"]
+  GETTABLEKS R11 R12 K14 ["Thunks"]
+  GETTABLEKS R10 R11 K16 ["OnAssetRightClick"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K13 ["Src"]
+  GETTABLEKS R12 R13 K14 ["Thunks"]
+  GETTABLEKS R11 R12 K17 ["GetAssetFavorited"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K13 ["Src"]
+  GETTABLEKS R13 R14 K14 ["Thunks"]
+  GETTABLEKS R12 R13 K18 ["GetAssetFavoriteCount"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K13 ["Src"]
+  GETTABLEKS R14 R15 K14 ["Thunks"]
+  GETTABLEKS R13 R14 K19 ["ToggleFavoriteStatus"]
+  CALL R12 1 1
+  GETIMPORT R13 K21 [game]
+  LOADK R15 K22 ["StudioService"]
+  NAMECALL R13 R13 K23 ["GetService"]
+  CALL R13 2 1
+  GETTABLEKS R14 R1 K24 ["PureComponent"]
+  LOADK R16 K25 ["AssetPreviewWrapper"]
+  NAMECALL R14 R14 K26 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K27 [PROTO_7]
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  SETTABLEKS R15 R14 K28 ["init"]
+  DUPCLOSURE R15 K29 [PROTO_8]
+  SETTABLEKS R15 R14 K30 ["didMount"]
+  DUPCLOSURE R15 K31 [PROTO_9]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  SETTABLEKS R15 R14 K32 ["render"]
+  DUPCLOSURE R15 K33 [PROTO_10]
+  MOVE R16 R5
+  DUPTABLE R17 K40 [{"Analytics", "API", "Focus", "Localization", "Plugin", "Stylizer"}]
+  GETTABLEKS R18 R4 K34 ["Analytics"]
+  SETTABLEKS R18 R17 K34 ["Analytics"]
+  GETTABLEKS R18 R4 K35 ["API"]
+  SETTABLEKS R18 R17 K35 ["API"]
+  GETTABLEKS R18 R4 K36 ["Focus"]
+  SETTABLEKS R18 R17 K36 ["Focus"]
+  GETTABLEKS R18 R4 K37 ["Localization"]
+  SETTABLEKS R18 R17 K37 ["Localization"]
+  GETTABLEKS R18 R4 K38 ["Plugin"]
+  SETTABLEKS R18 R17 K38 ["Plugin"]
+  GETTABLEKS R18 R4 K39 ["Stylizer"]
+  SETTABLEKS R18 R17 K39 ["Stylizer"]
+  CALL R16 1 1
+  MOVE R17 R14
+  CALL R16 1 1
+  MOVE R14 R16
+  DUPCLOSURE R16 K41 [PROTO_16]
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  GETTABLEKS R17 R2 K42 ["connect"]
+  MOVE R18 R15
+  MOVE R19 R16
+  CALL R17 2 1
+  MOVE R18 R14
+  CALL R17 1 -1
+  RETURN R17 -1

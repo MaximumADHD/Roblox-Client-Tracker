@@ -1,0 +1,96 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["localization"]
+  JUMPIF R1 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["mock"]
+  CALL R2 0 1
+  MOVE R1 R2
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["storeState"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["Store"]
+  GETTABLEKS R3 R4 K5 ["new"]
+  GETUPVAL R4 2
+  MOVE R5 R2
+  GETUPVAL R6 3
+  CALL R3 3 1
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K6 ["theme"]
+  JUMPIF R4 [+4]
+  GETUPVAL R5 4
+  LOADB R6 1
+  CALL R5 1 1
+  MOVE R4 R5
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K7 ["createElement"]
+  GETUPVAL R6 6
+  DUPTABLE R7 K11 [{"localization", "plugin", "focusGui", "store", "theme"}]
+  SETTABLEKS R1 R7 K1 ["localization"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K8 ["plugin"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K9 ["focusGui"]
+  SETTABLEKS R3 R7 K10 ["store"]
+  SETTABLEKS R4 R7 K6 ["theme"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K12 ["Children"]
+  GETTABLE R8 R9 R10
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Rodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Components"]
+  GETTABLEKS R5 R6 K11 ["ServiceWrapper"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Resources"]
+  GETTABLEKS R6 R7 K13 ["MakeTheme"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Reducers"]
+  GETTABLEKS R7 R8 K15 ["MainReducer"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Middleware"]
+  GETTABLEKS R8 R9 K17 ["MainMiddleware"]
+  CALL R7 1 1
+  GETTABLEKS R8 R3 K18 ["ContextServices"]
+  GETTABLEKS R9 R8 K19 ["Localization"]
+  GETTABLEKS R10 R1 K20 ["Component"]
+  LOADK R12 K21 ["MockServiceWrapper"]
+  NAMECALL R10 R10 K22 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K23 [PROTO_0]
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R11 R10 K24 ["render"]
+  RETURN R10 1

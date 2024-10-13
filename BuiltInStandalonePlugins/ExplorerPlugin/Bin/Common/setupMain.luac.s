@@ -1,0 +1,69 @@
+PROTO_0:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["unmount"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R2 K1 [require]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Packages"]
+  GETTABLEKS R3 R4 K3 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["Packages"]
+  GETTABLEKS R4 R5 K4 ["ReactRoblox"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [game]
+  LOADK R6 K7 ["DebugExplorerProfileEverything"]
+  LOADB R7 0
+  NAMECALL R4 R4 K8 ["DefineFastFlag"]
+  CALL R4 3 1
+  GETIMPORT R5 K1 [require]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Util"]
+  GETTABLEKS R6 R7 K11 ["profileEverythingInReact"]
+  CALL R5 1 1
+  JUMPIFNOT R4 [+2]
+  MOVE R6 R5
+  CALL R6 0 0
+  GETIMPORT R6 K1 [require]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K9 ["Src"]
+  GETTABLEKS R7 R8 K12 ["MainPlugin"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K13 ["createElement"]
+  MOVE R8 R6
+  DUPTABLE R9 K16 [{"Plugin", "PluginLoaderContext"}]
+  SETTABLEKS R0 R9 K14 ["Plugin"]
+  SETTABLEKS R1 R9 K15 ["PluginLoaderContext"]
+  CALL R7 2 1
+  GETIMPORT R8 K19 [Instance.new]
+  LOADK R9 K20 ["Frame"]
+  CALL R8 1 1
+  GETTABLEKS R9 R3 K21 ["createRoot"]
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R12 R7
+  NAMECALL R10 R9 K22 ["render"]
+  CALL R10 2 0
+  GETTABLEKS R10 R0 K23 ["Unloading"]
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R9
+  NAMECALL R10 R10 K24 ["Connect"]
+  CALL R10 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ExplorerPlugin"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_1]
+  CAPTURE VAL R0
+  RETURN R1 1

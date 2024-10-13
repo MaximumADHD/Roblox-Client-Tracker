@@ -54,8 +54,10 @@ local createReducers = function()
 	})
 end
 
+local cevEventManager = CrossExperience.EventManager.new(CrossExperience.Constants.EXPERIENCE_TYPE_VOICE)
+
 local function notifyVoiceStatusChange(status: VoiceStatus, detail: string?)
-	CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
+	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
 		status = status,
 		detail = detail,
 	})
@@ -66,11 +68,8 @@ local store = Rodux.Store.new(createReducers(), nil, {
 	PersistenceMiddleware.getMiddleware(),
 })
 
-local experienceType = CrossExperience.Constants.EXPERIENCE_TYPE_VOICE
-local cevEventListener = CrossExperience.EventListener.new(experienceType)
-
 -- For debugging purposes can pass "log" as a second parameter
-cevEventListener:subscribe(store)
+cevEventManager:subscribe(store)
 
 -- Await completely the DM readiness for CrossExperience communication and RCC replication
 if not game:IsLoaded() then
@@ -79,7 +78,7 @@ end
 
 notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTED_RCC)
 
-CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_EXPERIENCE_JOINED, {
+cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_EXPERIENCE_JOINED, {
 	jobId = game.JobId,
 	placeId = game.PlaceId,
 	gameId = game.GameId,
@@ -88,7 +87,7 @@ CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOIC
 local localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 
 local onPlayerAdded = function(player)
-	CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_ADDED, {
+	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_ADDED, {
 		userId = player.UserId,
 		isLocalUser = player.UserId == localUserId,
 		username = player.Name,
@@ -97,7 +96,7 @@ local onPlayerAdded = function(player)
 end
 
 local onPlayerRemoved = function(player)
-	CrossExperience.Communication.notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_REMOVED, {
+	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_REMOVED, {
 		userId = player.UserId,
 		isLocalUser = player.UserId == localUserId,
 	})
@@ -106,7 +105,7 @@ end
 
 local onLocalPlayerActiveChanged = function(result)
 	local eventName = if result.isActive then CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_IS_ACTIVE else CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_IS_INACTIVE
-	CrossExperience.Communication.notify(eventName, {
+	cevEventManager:notify(eventName, {
 		userId = localUserId,
 		isLocalUser = true,
 	})
@@ -114,7 +113,7 @@ end
 
 local onLocalPlayerMuteChanged = function (isMuted)
 	local eventName = if isMuted then CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_MUTED else CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_UNMUTED
-	CrossExperience.Communication.notify(eventName, {
+	cevEventManager:notify(eventName, {
 		userId = localUserId,
 		isLocalUser = true,
 	})
@@ -133,8 +132,8 @@ local onParticipantsUpdated = function (participants)
 			isLocalUser = userId == localUserId,
 		}
 
-		CrossExperience.Communication.notify(mutedEventName, eventPayload)
-		CrossExperience.Communication.notify(activeEventName, eventPayload)
+		cevEventManager:notify(mutedEventName, eventPayload)
+		cevEventManager:notify(activeEventName, eventPayload)
 	end
 end
 
@@ -167,14 +166,8 @@ end
 
 function handleMicrophone()
 	CoreVoiceManager.muteChanged.Event:Connect(onLocalPlayerMuteChanged)
-
-	CrossExperience.Communication.addObserver(experienceType, CrossExperience.Constants.EVENTS.MUTE_PARTY_VOICE_PARTICIPANT, function (params)
-		toggleMutePlayer(params)
-	end)
-
-	CrossExperience.Communication.addObserver(experienceType, CrossExperience.Constants.EVENTS.UNMUTE_PARTY_VOICE_PARTICIPANT, function (params)
-		toggleMutePlayer(params)
-	end)
+	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.MUTE_PARTY_VOICE_PARTICIPANT, toggleMutePlayer)
+	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.UNMUTE_PARTY_VOICE_PARTICIPANT, toggleMutePlayer)
 end
 
 function onCoreVoiceManagerInitialized()
@@ -282,7 +275,7 @@ handleMicrophone()
 unmuteMicrophoneOnce()
 
 if FFlagEnableCrossExpVoiceDebug then
-	CrossExperience.Communication.addObserver(experienceType, CrossExperience.Constants.EVENTS.DEBUG_COMMAND, function(params)
+	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.DEBUG_COMMAND, function(params)
 		if params.name == "dump_session" then
 			print('----------- CEV BACKGROUND -----------')
 			print('Store State', HttpService:JSONEncode(store:getState()))

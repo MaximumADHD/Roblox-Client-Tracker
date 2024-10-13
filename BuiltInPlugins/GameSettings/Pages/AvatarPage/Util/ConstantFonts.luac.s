@@ -1,0 +1,16 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 2 0
+  DUPTABLE R1 K2 [{"Type", "Size"}]
+  GETIMPORT R2 K6 [Enum.Font.SourceSans]
+  SETTABLEKS R2 R1 K0 ["Type"]
+  LOADN R2 16
+  SETTABLEKS R2 R1 K1 ["Size"]
+  SETTABLEKS R1 R0 K7 ["BodyText"]
+  DUPTABLE R1 K2 [{"Type", "Size"}]
+  GETIMPORT R2 K9 [Enum.Font.SourceSansBold]
+  SETTABLEKS R2 R1 K0 ["Type"]
+  LOADN R2 22
+  SETTABLEKS R2 R1 K1 ["Size"]
+  SETTABLEKS R1 R0 K10 ["TitleText"]
+  RETURN R0 1

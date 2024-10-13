@@ -43,6 +43,8 @@ local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSu
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
 local GetFFlagEnablePartyIconInChrome =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInChrome
+local GetFFlagEnablePartyMicIconInChrome =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
 local GetFFlagUsePolishedAnimations = require(Chrome.Flags.GetFFlagUsePolishedAnimations)
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
@@ -76,9 +78,13 @@ function configureUnibar()
 	-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
 	-- ie. Voice Mute integration will only be shown is voice is enabled/active
 	local nineDot = { "leaderboard", "emotes", "backpack" }
-	local partyMenu = if GetFFlagEnablePartyIconInChrome()
-		then { PartyConstants.TOGGLE_MIC_INTEGRATION_ID, PartyConstants.INTEGRATION_ID }
-		else {}
+	local partyMenu = {}
+	if GetFFlagEnablePartyIconInChrome() then
+		table.insert(partyMenu, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
+	end
+	if GetFFlagEnablePartyMicIconInChrome() then
+		table.insert(partyMenu, PartyConstants.INTEGRATION_ID)
+	end
 	if GetFFlagUnibarRespawn() then
 		-- append to end of nine-dot
 		table.insert(nineDot, "respawn")

@@ -1,0 +1,133 @@
+PROTO_0:
+  DUPTABLE R1 K6 [{"__running", "__finished", "__success", "__results", "__callback", "__event"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["__running"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["__finished"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K2 ["__success"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K3 ["__results"]
+  SETTABLEKS R0 R1 K4 ["__callback"]
+  GETIMPORT R2 K9 [Instance.new]
+  LOADK R3 K10 ["BindableEvent"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K5 ["__event"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K12 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  NEWTABLE R0 0 1
+  GETIMPORT R1 K1 [pcall]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["__callback"]
+  GETUPVAL R4 1
+  FASTCALL1 TABLE_UNPACK R4 [+2]
+  GETIMPORT R3 K4 [unpack]
+  CALL R3 1 -1
+  CALL R1 -1 -1
+  SETLIST R0 R1 -1 [1]
+  GETUPVAL R1 0
+  GETTABLEN R2 R0 1
+  SETTABLEKS R2 R1 K5 ["__success"]
+  GETUPVAL R1 0
+  GETIMPORT R2 K8 [table.move]
+  MOVE R3 R0
+  LOADN R4 2
+  LENGTH R5 R0
+  LOADN R6 1
+  NEWTABLE R7 0 0
+  CALL R2 5 1
+  SETTABLEKS R2 R1 K9 ["__results"]
+  GETUPVAL R1 0
+  LOADB R2 0
+  SETTABLEKS R2 R1 K10 ["__running"]
+  GETUPVAL R1 0
+  LOADB R2 1
+  SETTABLEKS R2 R1 K11 ["__finished"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K12 ["__event"]
+  NAMECALL R1 R1 K13 ["Fire"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  PREPVARARGS 1
+  GETTABLEKS R1 R0 K0 ["__running"]
+  JUMPIF R1 [+3]
+  GETTABLEKS R1 R0 K1 ["__finished"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["__running"]
+  NEWTABLE R1 0 0
+  GETVARARGS R2 -1
+  SETLIST R1 R2 -1 [1]
+  GETIMPORT R2 K4 [coroutine.wrap]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R2 1 1
+  CALL R2 0 0
+  GETTABLEKS R2 R0 K1 ["__finished"]
+  JUMPIFNOT R2 [+10]
+  GETTABLEKS R2 R0 K5 ["__success"]
+  JUMPIF R2 [+7]
+  GETIMPORT R2 K7 [error]
+  GETTABLEKS R4 R0 K8 ["__results"]
+  GETTABLEN R3 R4 1
+  LOADN R4 2
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["__finished"]
+  JUMPIF R1 [+8]
+  GETTABLEKS R1 R0 K1 ["__running"]
+  JUMPIF R1 [+5]
+  GETIMPORT R1 K3 [error]
+  LOADK R2 K4 ["Attempt to join on unstarted thread"]
+  LOADN R3 2
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K0 ["__finished"]
+  JUMPIF R1 [+7]
+  GETTABLEKS R2 R0 K5 ["__event"]
+  GETTABLEKS R1 R2 K6 ["Event"]
+  NAMECALL R1 R1 K7 ["Wait"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K8 ["__success"]
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R2 R0 K9 ["__results"]
+  FASTCALL1 TABLE_UNPACK R2 [+2]
+  GETIMPORT R1 K11 [unpack]
+  CALL R1 1 -1
+  RETURN R1 -1
+  GETIMPORT R1 K3 [error]
+  GETTABLEKS R3 R0 K9 ["__results"]
+  GETTABLEN R2 R3 1
+  LOADN R3 2
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["__running"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  SETTABLEKS R0 R0 K0 ["__index"]
+  DUPCLOSURE R1 K1 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["new"]
+  DUPCLOSURE R1 K3 [PROTO_2]
+  SETTABLEKS R1 R0 K4 ["start"]
+  DUPCLOSURE R1 K5 [PROTO_3]
+  SETTABLEKS R1 R0 K6 ["join"]
+  DUPCLOSURE R1 K7 [PROTO_4]
+  SETTABLEKS R1 R0 K8 ["isAlive"]
+  RETURN R0 1

@@ -1,0 +1,171 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["hideConfirmationDialog"]
+  CALL R0 0 0
+  GETUPVAL R0 1
+  JUMPIFEQKNIL R0 [+3]
+  GETUPVAL R0 1
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R3 2
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K2 ["restoreDefaults"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  LOADK R5 K4 ["TextButton"]
+  NEWTABLE R6 8 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["Tag"]
+  LOADK R8 K6 ["Component-ResetMappingsConfirmationDialog CX-Invisible X-Fill"]
+  SETTABLE R8 R6 R7
+  LOADB R7 1
+  SETTABLEKS R7 R6 K7 ["Active"]
+  GETUPVAL R7 3
+  NAMECALL R7 R7 K8 ["getNextOrder"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
+  LOADK R7 K10 [""]
+  SETTABLEKS R7 R6 K11 ["Text"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K12 ["Event"]
+  GETTABLEKS R7 R8 K13 ["Activated"]
+  GETTABLEKS R8 R0 K14 ["hideConfirmationDialog"]
+  SETTABLE R8 R6 R7
+  NEWTABLE R7 0 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K15 ["Frame"]
+  DUPTABLE R10 K17 [{"Name", "LayoutOrder"}]
+  LOADK R11 K18 ["DialogContents"]
+  SETTABLEKS R11 R10 K16 ["Name"]
+  GETUPVAL R11 3
+  NAMECALL R11 R11 K8 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  DUPTABLE R11 K21 [{"ConfirmationText", "Buttons"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  LOADK R13 K22 ["TextLabel"]
+  DUPTABLE R14 K23 [{"Name", "Text", "LayoutOrder"}]
+  LOADK R15 K19 ["ConfirmationText"]
+  SETTABLEKS R15 R14 K16 ["Name"]
+  LOADK R17 K24 ["ResetMappingsConfirmationDialog"]
+  LOADK R18 K25 ["RestoreDefaultsConfirmation"]
+  NAMECALL R15 R1 K26 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K11 ["Text"]
+  GETUPVAL R15 3
+  NAMECALL R15 R15 K8 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K9 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K19 ["ConfirmationText"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  LOADK R13 K15 ["Frame"]
+  DUPTABLE R14 K17 [{"Name", "LayoutOrder"}]
+  LOADK R15 K27 ["ButtonsContainer"]
+  SETTABLEKS R15 R14 K16 ["Name"]
+  GETUPVAL R15 3
+  NAMECALL R15 R15 K8 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K9 ["LayoutOrder"]
+  DUPTABLE R15 K30 [{"YesButton", "NoButton"}]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  LOADK R17 K4 ["TextButton"]
+  NEWTABLE R18 4 0
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K5 ["Tag"]
+  LOADK R20 K31 ["Button"]
+  SETTABLE R20 R18 R19
+  LOADK R21 K24 ["ResetMappingsConfirmationDialog"]
+  LOADK R22 K32 ["Yes"]
+  NAMECALL R19 R1 K26 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K11 ["Text"]
+  GETUPVAL R19 3
+  NAMECALL R19 R19 K8 ["getNextOrder"]
+  CALL R19 1 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K12 ["Event"]
+  GETTABLEKS R19 R20 K13 ["Activated"]
+  NEWCLOSURE R20 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLE R20 R18 R19
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K28 ["YesButton"]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  LOADK R17 K4 ["TextButton"]
+  NEWTABLE R18 4 0
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K5 ["Tag"]
+  LOADK R20 K31 ["Button"]
+  SETTABLE R20 R18 R19
+  LOADK R21 K24 ["ResetMappingsConfirmationDialog"]
+  LOADK R22 K33 ["No"]
+  NAMECALL R19 R1 K26 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K11 ["Text"]
+  GETUPVAL R19 3
+  NAMECALL R19 R19 K8 ["getNextOrder"]
+  CALL R19 1 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K12 ["Event"]
+  GETTABLEKS R19 R20 K13 ["Activated"]
+  GETTABLEKS R20 R0 K14 ["hideConfirmationDialog"]
+  SETTABLE R20 R18 R19
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K29 ["NoButton"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K20 ["Buttons"]
+  CALL R8 3 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ControlsEmulator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K9 ["ContextServices"]
+  GETTABLEKS R3 R4 K10 ["Localization"]
+  GETTABLEKS R5 R2 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["LayoutOrderIterator"]
+  GETTABLEKS R5 R4 K13 ["new"]
+  CALL R5 0 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K14 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Util"]
+  GETTABLEKS R7 R8 K15 ["MappingsActionsContext"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  GETTABLEKS R8 R1 K17 ["memo"]
+  MOVE R9 R7
+  CALL R8 1 -1
+  RETURN R8 -1

@@ -1,0 +1,1299 @@
+PROTO_0:
+  LOADK R4 K0 ["^%s*$"]
+  NAMECALL R2 R0 K1 ["match"]
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Plugin"]
+  JUMPIFNOT R0 [+24]
+  NAMECALL R1 R0 K2 ["get"]
+  CALL R1 1 1
+  LOADK R4 K3 ["RecentSearchesCache"]
+  NAMECALL R2 R1 K4 ["GetSetting"]
+  CALL R2 2 1
+  JUMPIF R2 [+10]
+  LOADK R5 K3 ["RecentSearchesCache"]
+  GETUPVAL R6 1
+  NAMECALL R3 R1 K5 ["SetSetting"]
+  CALL R3 3 0
+  LOADK R5 K3 ["RecentSearchesCache"]
+  NAMECALL R3 R1 K4 ["GetSetting"]
+  CALL R3 2 1
+  MOVE R2 R3
+  JUMPIFNOT R2 [+2]
+  MOVE R3 R2
+  RETURN R3 1
+  NEWTABLE R3 0 0
+  RETURN R3 1
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["isUserInputting"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["isUserInputting"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  JUMPIFEQKNIL R1 [+20]
+  GETUPVAL R1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["autocorrectOfferedQuery"]
+  JUMPIFEQ R1 R2 [+12]
+  GETUPVAL R2 0
+  FASTCALL1 STRING_LEN R2 [+2]
+  GETIMPORT R1 K4 [string.len]
+  CALL R1 1 1
+  LOADN R2 0
+  JUMPIFLT R2 R1 [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  JUMP [+1]
+  LOADNIL R0
+  DUPTABLE R1 K7 [{"displayedSearchTerm", "showAutocompleteResults"}]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K5 ["displayedSearchTerm"]
+  SETTABLEKS R0 R1 K6 ["showAutocompleteResults"]
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+10]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["OnTextChanged"]
+  JUMPIFNOT R2 [+4]
+  GETTABLEKS R2 R1 K1 ["OnTextChanged"]
+  MOVE R3 R0
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["state"]
+  GETTABLEKS R1 R2 K3 ["displayedSearchTerm"]
+  JUMPIFEQ R0 R1 [+76]
+  FASTCALL1 STRING_LEN R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K6 [string.len]
+  CALL R1 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["state"]
+  GETTABLEKS R3 R4 K3 ["displayedSearchTerm"]
+  FASTCALL1 STRING_LEN R3 [+2]
+  GETIMPORT R2 K6 [string.len]
+  CALL R2 1 1
+  JUMPIFNOTLT R2 R1 [+8]
+  GETUPVAL R1 1
+  GETTABLEKS R2 R1 K7 ["keyCount"]
+  ADDK R2 R2 K8 [1]
+  SETTABLEKS R2 R1 K7 ["keyCount"]
+  JUMP [+22]
+  FASTCALL1 STRING_LEN R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K6 [string.len]
+  CALL R1 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["state"]
+  GETTABLEKS R3 R4 K3 ["displayedSearchTerm"]
+  FASTCALL1 STRING_LEN R3 [+2]
+  GETIMPORT R2 K6 [string.len]
+  CALL R2 1 1
+  JUMPIFNOTLT R1 R2 [+7]
+  GETUPVAL R1 1
+  GETTABLEKS R2 R1 K9 ["deleteCount"]
+  ADDK R2 R2 K8 [1]
+  SETTABLEKS R2 R1 K9 ["deleteCount"]
+  GETUPVAL R1 2
+  CALL R1 0 1
+  JUMPIFNOT R1 [+8]
+  GETUPVAL R1 1
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  NAMECALL R1 R1 K10 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  DUPTABLE R3 K12 [{"showAutocompleteResults", "displayedSearchTerm"}]
+  FASTCALL1 STRING_LEN R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K6 [string.len]
+  CALL R5 1 1
+  LOADN R6 0
+  JUMPIFLT R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  SETTABLEKS R4 R3 K11 ["showAutocompleteResults"]
+  SETTABLEKS R0 R3 K3 ["displayedSearchTerm"]
+  NAMECALL R1 R1 K10 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
+  JUMPIFNOTEQKN R1 K0 [1] [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["renderRecentSearchesDropdownMenuHeader"]
+  MOVE R4 R0
+  CALL R3 1 -1
+  RETURN R3 -1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["renderRecentSearchesDropdownMenuItem"]
+  MOVE R4 R0
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_7:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+14]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["ShowRecentSearchesInAutoComplete"]
+  JUMPIFNOT R3 [+8]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["onRecentSearchesRenderItem"]
+  MOVE R4 R0
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  GETUPVAL R4 3
+  DUPTABLE R5 K10 [{"FocusedText", "HideSeparator", "LayoutOrder", "OnClick", "Size", "Text"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K11 ["state"]
+  GETTABLEKS R6 R7 K12 ["displayedSearchTerm"]
+  SETTABLEKS R6 R5 K4 ["FocusedText"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K0 ["props"]
+  GETTABLEKS R8 R9 K13 ["autocompleteResults"]
+  LENGTH R7 R8
+  JUMPIFEQ R1 R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  SETTABLEKS R6 R5 K5 ["HideSeparator"]
+  SETTABLEKS R1 R5 K6 ["LayoutOrder"]
+  SETTABLEKS R2 R5 K7 ["OnClick"]
+  GETIMPORT R6 K16 [UDim2.new]
+  LOADN R7 1
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 32
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K8 ["Size"]
+  SETTABLEKS R0 R5 K9 ["Text"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_8:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["OnSearchRequested"]
+  MOVE R3 R0
+  CALL R2 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["ShowRecentSearchesInAutoComplete"]
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["MarketplaceRecentSearchClicked"]
+  MOVE R3 R0
+  CALL R2 1 0
+  JUMP [+28]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K4 ["logAutocompleteSearchAnalytics"]
+  MOVE R3 R0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["AUTOCOMPLETE_API_NAMES"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["props"]
+  GETTABLEKS R6 R7 K6 ["categoryName"]
+  GETTABLE R4 R5 R6
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["state"]
+  GETTABLEKS R5 R6 K8 ["displayedSearchTerm"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["keyCount"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K10 ["deleteCount"]
+  LOADB R8 1
+  CALL R2 6 0
+  GETUPVAL R2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K9 ["keyCount"]
+  GETUPVAL R2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K10 ["deleteCount"]
+  GETUPVAL R2 0
+  DUPTABLE R4 K11 [{"displayedSearchTerm"}]
+  SETTABLEKS R0 R4 K8 ["displayedSearchTerm"]
+  NAMECALL R2 R2 K12 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["updateRecentSearches"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_10:
+  LOADK R4 K0 ["^%s*$"]
+  NAMECALL R2 R0 K1 ["match"]
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["getRecentSearches"]
+  CALL R1 0 1
+  GETIMPORT R2 K5 [table.find]
+  MOVE R3 R1
+  MOVE R4 R0
+  CALL R2 2 1
+  JUMPIF R2 [+13]
+  LOADN R5 1
+  FASTCALL3 TABLE_INSERT R1 R5 R0
+  MOVE R4 R1
+  MOVE R6 R0
+  GETIMPORT R3 K7 [table.insert]
+  CALL R3 3 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K8 ["updateRecentSearches"]
+  MOVE R4 R1
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getRecentSearches"]
+  CALL R1 0 1
+  GETIMPORT R2 K3 [table.find]
+  MOVE R3 R1
+  MOVE R4 R0
+  CALL R2 2 1
+  JUMPIFNOT R2 [+10]
+  GETIMPORT R3 K5 [table.remove]
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["updateRecentSearches"]
+  MOVE R4 R1
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["OnSearchRequested"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["state"]
+  GETTABLEKS R1 R2 K3 ["displayedSearchTerm"]
+  JUMPIFEQ R0 R1 [+25]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K4 ["logAutocompleteSearchAnalytics"]
+  MOVE R2 R0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["AUTOCOMPLETE_API_NAMES"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["props"]
+  GETTABLEKS R5 R6 K6 ["categoryName"]
+  GETTABLE R3 R4 R5
+  LOADNIL R4
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["keyCount"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["deleteCount"]
+  LOADB R7 1
+  CALL R1 6 0
+  GETUPVAL R1 0
+  LOADN R2 0
+  SETTABLEKS R2 R1 K7 ["keyCount"]
+  GETUPVAL R1 0
+  LOADN R2 0
+  SETTABLEKS R2 R1 K8 ["deleteCount"]
+  GETUPVAL R1 0
+  DUPTABLE R3 K10 [{"showAutocompleteResults"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K9 ["showAutocompleteResults"]
+  NAMECALL R1 R1 K11 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R1 2
+  CALL R1 0 1
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K12 ["tryCacheSearchTerm"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"showAutocompleteResults"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["showAutocompleteResults"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"showAutocompleteResults"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["showAutocompleteResults"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Plugin"]
+  NAMECALL R1 R1 K2 ["get"]
+  CALL R1 1 1
+  LOADK R4 K3 ["RecentSearchesCache"]
+  MOVE R5 R0
+  NAMECALL R2 R1 K4 ["SetSetting"]
+  CALL R2 3 0
+  LOADNIL R2
+  NEWTABLE R3 0 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K5 ["Localization"]
+  LOADK R6 K6 ["General"]
+  LOADK R7 K7 ["RecentSearches"]
+  NAMECALL R4 R4 K8 ["getText"]
+  CALL R4 3 -1
+  SETLIST R3 R4 -1 [1]
+  MOVE R2 R3
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  FASTCALL2 TABLE_INSERT R2 R7 [+5]
+  MOVE R9 R2
+  MOVE R10 R7
+  GETIMPORT R8 K11 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-8]
+  GETUPVAL R3 0
+  DUPTABLE R5 K13 [{"dropdownMenuRenderItems"}]
+  SETTABLEKS R2 R5 K12 ["dropdownMenuRenderItems"]
+  NAMECALL R3 R3 K14 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_16:
+  RETURN R0 0
+
+PROTO_17:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["clearAllRecentSearches"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_18:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K8 [{"DisableHover", "FocusedText", "Size", "Text", "OnClick", "DropdownMenuItemButtonStyle", "ItemButtonContentOverride"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["DisableHover"]
+  LOADK R4 K9 [""]
+  SETTABLEKS R4 R3 K2 ["FocusedText"]
+  GETIMPORT R4 K12 [UDim2.new]
+  LOADN R5 1
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 28
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K3 ["Size"]
+  SETTABLEKS R0 R3 K4 ["Text"]
+  DUPCLOSURE R4 K13 [PROTO_16]
+  SETTABLEKS R4 R3 K5 ["OnClick"]
+  LOADK R4 K14 ["ToolboxRecentSearchesButton"]
+  SETTABLEKS R4 R3 K6 ["DropdownMenuItemButtonStyle"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  LOADK R5 K15 ["TextButton"]
+  NEWTABLE R6 16 0
+  LOADN R7 1
+  SETTABLEKS R7 R6 K16 ["BackgroundTransparency"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K17 ["props"]
+  GETTABLEKS R7 R8 K18 ["Localization"]
+  LOADK R9 K19 ["General"]
+  LOADK R10 K20 ["SearchResultsClearAll"]
+  NAMECALL R7 R7 K21 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K4 ["Text"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K17 ["props"]
+  GETTABLEKS R9 R10 K22 ["Stylizer"]
+  GETTABLEKS R8 R9 K23 ["linkButton"]
+  GETTABLEKS R7 R8 K24 ["textColor"]
+  SETTABLEKS R7 R6 K25 ["TextColor3"]
+  GETIMPORT R7 K12 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 242
+  LOADK R10 K26 [0.5]
+  LOADN R11 0
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K27 ["Position"]
+  GETIMPORT R7 K29 [Vector2.new]
+  LOADN R8 1
+  LOADK R9 K26 [0.5]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K30 ["AnchorPoint"]
+  LOADN R7 3
+  SETTABLEKS R7 R6 K31 ["LayoutOrder"]
+  GETIMPORT R7 K33 [UDim2.fromOffset]
+  LOADN R8 32
+  LOADN R9 20
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K3 ["Size"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K34 ["TextScaled"]
+  GETIMPORT R7 K38 [Enum.TextYAlignment.Center]
+  SETTABLEKS R7 R6 K36 ["TextYAlignment"]
+  GETIMPORT R7 K41 [Enum.TextXAlignment.Right]
+  SETTABLEKS R7 R6 K39 ["TextXAlignment"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K42 ["Event"]
+  GETTABLEKS R7 R8 K43 ["MouseButton1Click"]
+  NEWCLOSURE R8 P1
+  CAPTURE UPVAL U2
+  SETTABLE R8 R6 R7
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K7 ["ItemButtonContentOverride"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_19:
+  GETUPVAL R0 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["recentSearchesCloseButton"]
+  GETTABLEKS R1 R2 K3 ["hoverColor"]
+  CALL R0 1 0
+  GETUPVAL R0 2
+  LOADK R1 K4 ["rbxasset://textures/StudioToolbox/ClearHover.png"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R0 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["recentSearchesCloseButton"]
+  GETTABLEKS R1 R2 K3 ["backgroundColor"]
+  CALL R0 1 0
+  GETUPVAL R0 2
+  LOADK R1 K4 ["rbxasset://textures/StudioToolbox/Clear.png"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_21:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["removeSearchTermFromCache"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["createBinding"]
+  LOADK R4 K1 ["rbxasset://textures/StudioToolbox/Clear.png"]
+  CALL R3 1 2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createBinding"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K2 ["props"]
+  GETTABLEKS R8 R9 K3 ["Stylizer"]
+  GETTABLEKS R7 R8 K4 ["recentSearchesCloseButton"]
+  GETTABLEKS R6 R7 K5 ["backgroundColor"]
+  CALL R5 1 2
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K17 [{"HideSeparator", "EnableClearButton", "LayoutOrder", "OnClick", "Size", "Text", "DropdownMenuItemButtonStyle", "OnMouseEnter", "OnMouseLeave", "ItemButtonContentOverride"}]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K7 ["HideSeparator"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K8 ["EnableClearButton"]
+  SETTABLEKS R1 R9 K9 ["LayoutOrder"]
+  SETTABLEKS R2 R9 K10 ["OnClick"]
+  GETIMPORT R10 K20 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 28
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K11 ["Size"]
+  SETTABLEKS R0 R9 K12 ["Text"]
+  LOADK R10 K21 ["ToolboxRecentSearchesButton"]
+  SETTABLEKS R10 R9 K13 ["DropdownMenuItemButtonStyle"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R6
+  CAPTURE UPVAL U1
+  CAPTURE VAL R4
+  SETTABLEKS R10 R9 K14 ["OnMouseEnter"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R6
+  CAPTURE UPVAL U1
+  CAPTURE VAL R4
+  SETTABLEKS R10 R9 K15 ["OnMouseLeave"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  LOADK R11 K22 ["ImageButton"]
+  NEWTABLE R12 8 0
+  LOADN R13 1
+  SETTABLEKS R13 R12 K23 ["BackgroundTransparency"]
+  SETTABLEKS R3 R12 K24 ["Image"]
+  GETIMPORT R13 K20 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 242
+  LOADK R16 K25 [0.5]
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K26 ["Position"]
+  GETIMPORT R13 K28 [Vector2.new]
+  LOADN R14 1
+  LOADK R15 K25 [0.5]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K29 ["AnchorPoint"]
+  SETTABLEKS R5 R12 K30 ["ImageColor3"]
+  LOADN R13 3
+  SETTABLEKS R13 R12 K9 ["LayoutOrder"]
+  GETIMPORT R13 K32 [UDim2.fromOffset]
+  LOADN R14 14
+  LOADN R15 14
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K11 ["Size"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K33 ["Event"]
+  GETTABLEKS R13 R14 K34 ["MouseButton1Click"]
+  NEWCLOSURE R14 P2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  SETTABLE R14 R12 R13
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K16 ["ItemButtonContentOverride"]
+  CALL R7 2 -1
+  RETURN R7 -1
+
+PROTO_23:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+5]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K0 ["getRecentSearches"]
+  DUPTABLE R1 K5 [{"showAutocompleteResults", "displayedSearchTerm", "lastSearchTerm", "dropdownMenuRenderItems"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["showAutocompleteResults"]
+  LOADK R2 K6 [""]
+  SETTABLEKS R2 R1 K2 ["displayedSearchTerm"]
+  LOADK R2 K6 [""]
+  SETTABLEKS R2 R1 K3 ["lastSearchTerm"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+2]
+  GETUPVAL R2 1
+  JUMP [+1]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K4 ["dropdownMenuRenderItems"]
+  SETTABLEKS R1 R0 K7 ["state"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K8 ["isUserInputting"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K9 ["autocompleteTimer"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K10 ["keyCount"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K11 ["deleteCount"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K12 ["onInputBegan"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K13 ["onInputEnded"]
+  NEWCLOSURE R1 P3
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K14 ["onSearchTextChanged"]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+4]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K15 ["onRecentSearchesRenderItem"]
+  NEWCLOSURE R1 P5
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  SETTABLEKS R1 R0 K16 ["onAutocompleteRenderItem"]
+  NEWCLOSURE R1 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  SETTABLEKS R1 R0 K17 ["onItemActivated"]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+13]
+  NEWCLOSURE R1 P7
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K18 ["clearAllRecentSearches"]
+  NEWCLOSURE R1 P8
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K19 ["tryCacheSearchTerm"]
+  NEWCLOSURE R1 P9
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K20 ["removeSearchTermFromCache"]
+  NEWCLOSURE R1 P10
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K21 ["onSearchRequested"]
+  NEWCLOSURE R1 P11
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K22 ["closeAutocomplete"]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+25]
+  GETTABLEKS R2 R0 K23 ["props"]
+  GETTABLEKS R1 R2 K24 ["ShowRecentSearchesInAutoComplete"]
+  JUMPIFNOT R1 [+4]
+  NEWCLOSURE R1 P12
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K25 ["onTextBoxFocusGained"]
+  NEWCLOSURE R1 P13
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K26 ["updateRecentSearches"]
+  NEWCLOSURE R1 P14
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K27 ["renderRecentSearchesDropdownMenuHeader"]
+  NEWCLOSURE R1 P15
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  SETTABLEKS R1 R0 K28 ["renderRecentSearchesDropdownMenuItem"]
+  RETURN R0 0
+
+PROTO_24:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["displayedSearchTerm"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["state"]
+  GETTABLEKS R2 R3 K2 ["showAutocompleteResults"]
+  JUMPIFNOT R2 [+60]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["state"]
+  GETTABLEKS R2 R3 K3 ["lastSearchTerm"]
+  JUMPIFEQ R2 R1 [+54]
+  GETUPVAL R2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["autocompleteTimer"]
+  ADD R3 R4 R0
+  SETTABLEKS R3 R2 K4 ["autocompleteTimer"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["isUserInputting"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K4 ["autocompleteTimer"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["autocompleteTimer"]
+  LOADK R3 K6 [0.12]
+  JUMPIFNOTLT R3 R2 [+33]
+  JUMPIFEQKS R1 K7 [""] [+31]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["AUTOCOMPLETE_API_NAMES"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["props"]
+  GETTABLEKS R4 R5 K10 ["categoryName"]
+  GETTABLE R2 R3 R4
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["props"]
+  GETTABLEKS R3 R4 K11 ["getAutocompleteResults"]
+  GETUPVAL R4 2
+  MOVE R5 R2
+  MOVE R6 R1
+  GETUPVAL R7 3
+  CALL R3 4 0
+  GETUPVAL R3 0
+  LOADN R4 0
+  SETTABLEKS R4 R3 K4 ["autocompleteTimer"]
+  GETUPVAL R3 0
+  DUPTABLE R5 K12 [{"lastSearchTerm"}]
+  SETTABLEKS R1 R5 K3 ["lastSearchTerm"]
+  NAMECALL R3 R3 K13 ["setState"]
+  CALL R3 2 0
+  JUMPIFNOTEQKS R1 K7 [""] [+38]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["state"]
+  GETTABLEKS R2 R3 K3 ["lastSearchTerm"]
+  JUMPIFEQKS R2 K7 [""] [+31]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["AUTOCOMPLETE_API_NAMES"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["props"]
+  GETTABLEKS R4 R5 K10 ["categoryName"]
+  GETTABLE R2 R3 R4
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["props"]
+  GETTABLEKS R3 R4 K11 ["getAutocompleteResults"]
+  GETUPVAL R4 2
+  MOVE R5 R2
+  MOVE R6 R1
+  GETUPVAL R7 3
+  CALL R3 4 0
+  GETUPVAL R3 0
+  LOADN R4 0
+  SETTABLEKS R4 R3 K4 ["autocompleteTimer"]
+  GETUPVAL R3 0
+  DUPTABLE R5 K12 [{"lastSearchTerm"}]
+  SETTABLEKS R1 R5 K3 ["lastSearchTerm"]
+  NAMECALL R3 R3 K13 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_25:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getShouldDisableAutocomplete"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["ShowRecentSearchesInAutoComplete"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K3 ["updateRecentSearches"]
+  GETTABLEKS R2 R0 K4 ["getRecentSearches"]
+  CALL R2 0 -1
+  CALL R1 -1 0
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R2 R3 K5 ["Network"]
+  GETTABLEKS R1 R2 K6 ["networkInterface"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K7 ["RenderStepped"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  CAPTURE UPVAL U4
+  NAMECALL R2 R2 K8 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K9 ["runServiceConnection"]
+  RETURN R0 0
+
+PROTO_26:
+  GETTABLEKS R1 R0 K0 ["runServiceConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["runServiceConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["runServiceConnection"]
+  RETURN R0 0
+
+PROTO_27:
+  GETTABLEKS R3 R1 K0 ["searchTerm"]
+  GETTABLEKS R5 R0 K1 ["props"]
+  GETTABLEKS R4 R5 K0 ["searchTerm"]
+  JUMPIFEQ R3 R4 [+17]
+  DUPTABLE R5 K4 [{"displayedSearchTerm", "lastSearchTerm"}]
+  GETTABLEKS R7 R0 K1 ["props"]
+  GETTABLEKS R6 R7 K0 ["searchTerm"]
+  SETTABLEKS R6 R5 K2 ["displayedSearchTerm"]
+  GETTABLEKS R7 R0 K1 ["props"]
+  GETTABLEKS R6 R7 K0 ["searchTerm"]
+  SETTABLEKS R6 R5 K3 ["lastSearchTerm"]
+  NAMECALL R3 R0 K5 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_28:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R4 R0 K2 ["state"]
+  GETTABLEKS R3 R4 K3 ["displayedSearchTerm"]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["ShowRecentSearchesInAutoComplete"]
+  JUMP [+1]
+  LOADNIL R4
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["getTabForCategoryName"]
+  GETTABLEKS R7 R1 K6 ["categoryName"]
+  CALL R6 1 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K7 ["MARKETPLACE"]
+  JUMPIFEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETUPVAL R7 2
+  GETTABLEKS R8 R1 K8 ["IXP"]
+  CALL R7 1 1
+  OR R6 R7 R5
+  DUPTABLE R7 K24 [{"LayoutOrder", "OnInputBegan", "OnTextBoxFocusGained", "OnInputEnded", "OnSearchRequested", "OnTextChanged", "OnSearchOptionsToggled", "SearchIsFiltered", "ShowSearchButton", "ShowFilterButton", "ShowSearchIcon", "PlaceholderText", "SearchTerm", "Style", "Width"}]
+  GETTABLEKS R8 R1 K9 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  GETTABLEKS R8 R0 K25 ["onInputBegan"]
+  SETTABLEKS R8 R7 K10 ["OnInputBegan"]
+  GETUPVAL R9 0
+  CALL R9 0 1
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R0 K26 ["onTextBoxFocusGained"]
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K11 ["OnTextBoxFocusGained"]
+  GETTABLEKS R8 R0 K27 ["onInputEnded"]
+  SETTABLEKS R8 R7 K12 ["OnInputEnded"]
+  GETTABLEKS R8 R0 K28 ["onSearchRequested"]
+  SETTABLEKS R8 R7 K13 ["OnSearchRequested"]
+  GETTABLEKS R8 R0 K29 ["onSearchTextChanged"]
+  SETTABLEKS R8 R7 K14 ["OnTextChanged"]
+  GETTABLEKS R8 R1 K15 ["OnSearchOptionsToggled"]
+  SETTABLEKS R8 R7 K15 ["OnSearchOptionsToggled"]
+  GETTABLEKS R8 R1 K16 ["SearchIsFiltered"]
+  SETTABLEKS R8 R7 K16 ["SearchIsFiltered"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K17 ["ShowSearchButton"]
+  SETTABLEKS R6 R7 K18 ["ShowFilterButton"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K19 ["ShowSearchIcon"]
+  GETTABLEKS R8 R1 K30 ["Localization"]
+  LOADK R10 K31 ["General"]
+  LOADK R11 K32 ["SearchBarDefaultText"]
+  NAMECALL R8 R8 K33 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K20 ["PlaceholderText"]
+  SETTABLEKS R3 R7 K21 ["SearchTerm"]
+  LOADK R8 K34 ["ToolboxSearchBar"]
+  SETTABLEKS R8 R7 K22 ["Style"]
+  GETTABLEKS R8 R1 K23 ["Width"]
+  SETTABLEKS R8 R7 K23 ["Width"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K35 ["createElement"]
+  LOADK R9 K36 ["Frame"]
+  DUPTABLE R10 K39 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K37 ["BackgroundTransparency"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  GETIMPORT R11 K42 [UDim2.new]
+  LOADN R12 0
+  GETTABLEKS R13 R1 K23 ["Width"]
+  LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K38 ["Size"]
+  DUPTABLE R11 K47 [{"TutorialStroke", "TutorialCorner", "SearchBar", "AutocompleteDropdown"}]
+  GETTABLEKS R13 R1 K48 ["hasTutorialLimits"]
+  JUMPIFNOT R13 [+23]
+  GETTABLEKS R13 R1 K49 ["searchTerm"]
+  JUMPIFNOTEQKS R13 K50 [""] [+20]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  LOADK R13 K51 ["UIStroke"]
+  DUPTABLE R14 K54 [{"Thickness", "Color"}]
+  GETTABLEKS R16 R2 K55 ["asset"]
+  GETTABLEKS R15 R16 K56 ["strokeThickness"]
+  SETTABLEKS R15 R14 K52 ["Thickness"]
+  GETTABLEKS R16 R2 K55 ["asset"]
+  GETTABLEKS R15 R16 K57 ["strokeColor"]
+  SETTABLEKS R15 R14 K53 ["Color"]
+  CALL R12 2 1
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K43 ["TutorialStroke"]
+  GETTABLEKS R13 R1 K48 ["hasTutorialLimits"]
+  JUMPIFNOT R13 [+18]
+  GETTABLEKS R13 R1 K49 ["searchTerm"]
+  JUMPIFNOTEQKS R13 K50 [""] [+15]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  LOADK R13 K58 ["UICorner"]
+  DUPTABLE R14 K60 [{"CornerRadius"}]
+  GETIMPORT R15 K62 [UDim.new]
+  LOADN R16 0
+  LOADN R17 3
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K59 ["CornerRadius"]
+  CALL R12 2 1
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K44 ["TutorialCorner"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  GETUPVAL R13 4
+  MOVE R14 R7
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K45 ["SearchBar"]
+  GETUPVAL R13 0
+  CALL R13 0 1
+  JUMPIFNOT R13 [+53]
+  JUMPIFNOT R4 [+52]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K69 [{"Hide", "Items", "OnFocusLost", "OnItemActivated", "OnRenderItem", "Priority", "Style", "Width"}]
+  GETTABLEKS R17 R0 K2 ["state"]
+  GETTABLEKS R16 R17 K70 ["showAutocompleteResults"]
+  NOT R15 R16
+  JUMPIF R15 [+9]
+  GETTABLEKS R18 R0 K2 ["state"]
+  GETTABLEKS R17 R18 K71 ["dropdownMenuRenderItems"]
+  LENGTH R16 R17
+  JUMPIFEQKN R16 K72 [1] [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  SETTABLEKS R15 R14 K63 ["Hide"]
+  GETTABLEKS R16 R0 K2 ["state"]
+  GETTABLEKS R15 R16 K71 ["dropdownMenuRenderItems"]
+  SETTABLEKS R15 R14 K64 ["Items"]
+  GETTABLEKS R15 R0 K73 ["closeAutocomplete"]
+  SETTABLEKS R15 R14 K65 ["OnFocusLost"]
+  GETTABLEKS R15 R0 K74 ["onItemActivated"]
+  SETTABLEKS R15 R14 K66 ["OnItemActivated"]
+  GETTABLEKS R15 R0 K75 ["onAutocompleteRenderItem"]
+  SETTABLEKS R15 R14 K67 ["OnRenderItem"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K68 ["Priority"]
+  LOADK R15 K76 ["ToolboxSearchBarDropdown"]
+  SETTABLEKS R15 R14 K22 ["Style"]
+  GETTABLEKS R15 R1 K23 ["Width"]
+  SETTABLEKS R15 R14 K23 ["Width"]
+  CALL R12 2 1
+  JUMP [+47]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K69 [{"Hide", "Items", "OnFocusLost", "OnItemActivated", "OnRenderItem", "Priority", "Style", "Width"}]
+  GETTABLEKS R17 R0 K2 ["state"]
+  GETTABLEKS R16 R17 K70 ["showAutocompleteResults"]
+  NOT R15 R16
+  JUMPIF R15 [+7]
+  GETTABLEKS R17 R1 K77 ["autocompleteResults"]
+  LENGTH R16 R17
+  JUMPIFEQKN R16 K78 [0] [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  SETTABLEKS R15 R14 K63 ["Hide"]
+  GETTABLEKS R15 R1 K77 ["autocompleteResults"]
+  SETTABLEKS R15 R14 K64 ["Items"]
+  GETTABLEKS R15 R0 K73 ["closeAutocomplete"]
+  SETTABLEKS R15 R14 K65 ["OnFocusLost"]
+  GETTABLEKS R15 R0 K74 ["onItemActivated"]
+  SETTABLEKS R15 R14 K66 ["OnItemActivated"]
+  GETTABLEKS R15 R0 K75 ["onAutocompleteRenderItem"]
+  SETTABLEKS R15 R14 K67 ["OnRenderItem"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K68 ["Priority"]
+  LOADK R15 K76 ["ToolboxSearchBarDropdown"]
+  SETTABLEKS R15 R14 K22 ["Style"]
+  GETTABLEKS R15 R1 K23 ["Width"]
+  SETTABLEKS R15 R14 K23 ["Width"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K46 ["AutocompleteDropdown"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+PROTO_29:
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R0 R2
+  GETTABLEKS R2 R0 K0 ["pageInfo"]
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R2 K1 ["correctionState"]
+  LOADNIL R4
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["AutocorrectResponseState"]
+  GETTABLEKS R5 R6 K3 ["CorrectionAvailable"]
+  JUMPIFNOTEQ R3 R5 [+4]
+  GETTABLEKS R4 R2 K4 ["correctedQuery"]
+  JUMP [+11]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["AutocorrectResponseState"]
+  GETTABLEKS R5 R6 K5 ["CorrectionAccepted"]
+  JUMPIFNOTEQ R3 R5 [+4]
+  GETTABLEKS R4 R2 K6 ["userQuery"]
+  JUMP [+1]
+  LOADK R4 K7 [""]
+  DUPTABLE R5 K14 [{"autocompleteResults", "categoryName", "searchTerm", "searchId", "autocorrectOfferedQuery", "hasTutorialLimits"}]
+  GETTABLEKS R7 R0 K8 ["autocompleteResults"]
+  JUMPIFNOT R7 [+5]
+  GETTABLEKS R7 R0 K8 ["autocompleteResults"]
+  GETTABLEKS R6 R7 K8 ["autocompleteResults"]
+  JUMPIF R6 [+2]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K8 ["autocompleteResults"]
+  GETTABLEKS R6 R2 K9 ["categoryName"]
+  JUMPIF R6 [+5]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K15 ["DEFAULT"]
+  GETTABLEKS R6 R7 K16 ["name"]
+  SETTABLEKS R6 R5 K9 ["categoryName"]
+  GETTABLEKS R7 R2 K10 ["searchTerm"]
+  ORK R6 R7 K7 [""]
+  SETTABLEKS R6 R5 K10 ["searchTerm"]
+  GETTABLEKS R7 R2 K11 ["searchId"]
+  ORK R6 R7 K7 [""]
+  SETTABLEKS R6 R5 K11 ["searchId"]
+  GETUPVAL R7 2
+  CALL R7 0 1
+  JUMPIFNOT R7 [+2]
+  MOVE R6 R4
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K12 ["autocorrectOfferedQuery"]
+  GETTABLEKS R8 R0 K17 ["tutorialLimits"]
+  GETTABLEKS R7 R8 K18 ["assetIds"]
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  SETTABLEKS R6 R5 K13 ["hasTutorialLimits"]
+  RETURN R5 1
+
+PROTO_30:
+  GETUPVAL R6 0
+  GETUPVAL R7 1
+  MOVE R8 R0
+  MOVE R9 R1
+  MOVE R10 R2
+  MOVE R11 R3
+  MOVE R12 R4
+  MOVE R13 R5
+  LOADB R14 0
+  CALL R7 7 -1
+  CALL R6 -1 0
+  RETURN R0 0
+
+PROTO_31:
+  GETUPVAL R4 0
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  CALL R5 4 -1
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_32:
+  DUPTABLE R1 K2 [{"logAutocompleteSearchAnalytics", "getAutocompleteResults"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["logAutocompleteSearchAnalytics"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["getAutocompleteResults"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["ToolboxAutocompleteDropdownSize"]
+  NAMECALL R1 R1 K5 ["GetFastInt"]
+  CALL R1 2 1
+  GETIMPORT R5 K7 [script]
+  GETTABLEKS R4 R5 K8 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Parent"]
+  GETTABLEKS R2 R3 K8 ["Parent"]
+  GETTABLEKS R3 R2 K9 ["Packages"]
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R5 R3 K12 ["Roact"]
+  CALL R4 1 1
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R6 R3 K13 ["RoactRodux"]
+  CALL R5 1 1
+  GETIMPORT R6 K11 [require]
+  GETTABLEKS R10 R2 K14 ["Core"]
+  GETTABLEKS R9 R10 K15 ["Util"]
+  GETTABLEKS R8 R9 K16 ["Analytics"]
+  GETTABLEKS R7 R8 K16 ["Analytics"]
+  CALL R6 1 1
+  GETIMPORT R7 K11 [require]
+  GETTABLEKS R10 R2 K14 ["Core"]
+  GETTABLEKS R9 R10 K17 ["Types"]
+  GETTABLEKS R8 R9 K18 ["Category"]
+  CALL R7 1 1
+  GETIMPORT R8 K11 [require]
+  GETTABLEKS R11 R2 K14 ["Core"]
+  GETTABLEKS R10 R11 K15 ["Util"]
+  GETTABLEKS R9 R10 K19 ["ToolboxUtilities"]
+  CALL R8 1 1
+  GETIMPORT R9 K11 [require]
+  GETTABLEKS R13 R2 K14 ["Core"]
+  GETTABLEKS R12 R13 K20 ["Networking"]
+  GETTABLEKS R11 R12 K21 ["Requests"]
+  GETTABLEKS R10 R11 K22 ["GetAutocompleteResultsRequest"]
+  CALL R9 1 1
+  GETIMPORT R10 K11 [require]
+  GETTABLEKS R13 R2 K14 ["Core"]
+  GETTABLEKS R12 R13 K23 ["Thunks"]
+  GETTABLEKS R11 R12 K24 ["LogMarketplaceSearchAnalytics"]
+  CALL R10 1 1
+  GETIMPORT R11 K11 [require]
+  GETTABLEKS R14 R2 K14 ["Core"]
+  GETTABLEKS R13 R14 K23 ["Thunks"]
+  GETTABLEKS R12 R13 K25 ["LogMarketplaceAutocompleteSearchAnalytics"]
+  CALL R11 1 1
+  GETIMPORT R12 K11 [require]
+  GETTABLEKS R13 R3 K26 ["Framework"]
+  CALL R12 1 1
+  GETTABLEKS R13 R12 K27 ["UI"]
+  GETTABLEKS R14 R13 K28 ["DropdownMenu"]
+  GETTABLEKS R15 R13 K29 ["SearchBar"]
+  GETTABLEKS R16 R12 K30 ["ContextServices"]
+  GETTABLEKS R17 R16 K31 ["withContext"]
+  GETIMPORT R18 K11 [require]
+  GETTABLEKS R21 R2 K14 ["Core"]
+  GETTABLEKS R20 R21 K30 ["ContextServices"]
+  GETTABLEKS R19 R20 K32 ["IXPContext"]
+  CALL R18 1 1
+  GETIMPORT R19 K11 [require]
+  GETTABLEKS R22 R2 K14 ["Core"]
+  GETTABLEKS R21 R22 K30 ["ContextServices"]
+  GETTABLEKS R20 R21 K33 ["NetworkContext"]
+  CALL R19 1 1
+  GETIMPORT R20 K11 [require]
+  GETTABLEKS R23 R2 K14 ["Core"]
+  GETTABLEKS R22 R23 K17 ["Types"]
+  GETTABLEKS R21 R22 K34 ["AutocorrectTypes"]
+  CALL R20 1 1
+  GETIMPORT R21 K11 [require]
+  GETTABLEKS R24 R2 K14 ["Core"]
+  GETTABLEKS R23 R24 K35 ["Components"]
+  GETTABLEKS R22 R23 K36 ["DropdownMenuItem"]
+  CALL R21 1 1
+  GETIMPORT R22 K11 [require]
+  GETTABLEKS R26 R2 K14 ["Core"]
+  GETTABLEKS R25 R26 K15 ["Util"]
+  GETTABLEKS R24 R25 K37 ["SharedFlags"]
+  GETTABLEKS R23 R24 K38 ["getFFlagToolboxAddRecentSearchesToAutoComplete"]
+  CALL R22 1 1
+  GETIMPORT R23 K11 [require]
+  GETTABLEKS R27 R2 K14 ["Core"]
+  GETTABLEKS R26 R27 K15 ["Util"]
+  GETTABLEKS R25 R26 K37 ["SharedFlags"]
+  GETTABLEKS R24 R25 K39 ["getFFlagToolboxAddAutocorrect"]
+  CALL R23 1 1
+  GETIMPORT R24 K11 [require]
+  GETTABLEKS R28 R2 K14 ["Core"]
+  GETTABLEKS R27 R28 K15 ["Util"]
+  GETTABLEKS R26 R27 K37 ["SharedFlags"]
+  GETTABLEKS R25 R26 K40 ["getIsIXPEnabledForListView"]
+  CALL R24 1 1
+  NEWTABLE R25 0 0
+  DUPCLOSURE R26 K41 [PROTO_0]
+  GETTABLEKS R27 R4 K42 ["PureComponent"]
+  LOADK R29 K43 ["SearchBarWithAutocomplete"]
+  NAMECALL R27 R27 K44 ["extend"]
+  CALL R27 2 1
+  DUPCLOSURE R28 K45 [PROTO_23]
+  CAPTURE VAL R22
+  CAPTURE VAL R25
+  CAPTURE VAL R23
+  CAPTURE VAL R4
+  CAPTURE VAL R21
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R28 R27 K46 ["init"]
+  DUPCLOSURE R28 K47 [PROTO_25]
+  CAPTURE VAL R8
+  CAPTURE VAL R22
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  SETTABLEKS R28 R27 K48 ["didMount"]
+  DUPCLOSURE R28 K49 [PROTO_26]
+  SETTABLEKS R28 R27 K50 ["willUnmount"]
+  DUPCLOSURE R28 K51 [PROTO_27]
+  SETTABLEKS R28 R27 K52 ["didUpdate"]
+  DUPCLOSURE R28 K53 [PROTO_28]
+  CAPTURE VAL R22
+  CAPTURE VAL R7
+  CAPTURE VAL R24
+  CAPTURE VAL R4
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  SETTABLEKS R28 R27 K54 ["render"]
+  MOVE R28 R17
+  DUPTABLE R29 K60 [{"Localization", "Network", "Plugin", "Stylizer", "IXP"}]
+  GETTABLEKS R30 R16 K55 ["Localization"]
+  SETTABLEKS R30 R29 K55 ["Localization"]
+  SETTABLEKS R19 R29 K56 ["Network"]
+  MOVE R31 R22
+  CALL R31 0 1
+  JUMPIFNOT R31 [+3]
+  GETTABLEKS R30 R16 K57 ["Plugin"]
+  JUMP [+1]
+  LOADNIL R30
+  SETTABLEKS R30 R29 K57 ["Plugin"]
+  GETTABLEKS R30 R16 K58 ["Stylizer"]
+  SETTABLEKS R30 R29 K58 ["Stylizer"]
+  SETTABLEKS R18 R29 K59 ["IXP"]
+  CALL R28 1 1
+  MOVE R29 R27
+  CALL R28 1 1
+  MOVE R27 R28
+  DUPCLOSURE R28 K61 [PROTO_29]
+  CAPTURE VAL R20
+  CAPTURE VAL R7
+  CAPTURE VAL R23
+  DUPCLOSURE R29 K62 [PROTO_32]
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  GETTABLEKS R30 R5 K63 ["connect"]
+  MOVE R31 R28
+  MOVE R32 R29
+  CALL R30 2 1
+  MOVE R31 R27
+  CALL R30 1 -1
+  RETURN R30 -1

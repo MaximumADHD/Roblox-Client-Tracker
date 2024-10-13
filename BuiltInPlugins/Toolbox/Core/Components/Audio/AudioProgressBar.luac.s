@@ -1,0 +1,145 @@
+PROTO_0:
+  LOADN R1 0
+  SETTABLEKS R1 R0 K0 ["progress"]
+  RETURN R0 0
+
+PROTO_1:
+  LOADB R4 0
+  GETTABLEKS R5 R1 K0 ["currentSoundId"]
+  GETTABLEKS R6 R1 K1 ["assetId"]
+  JUMPIFEQ R5 R6 [+7]
+  GETTABLEKS R5 R0 K2 ["progress"]
+  JUMPIFEQKN R5 K3 [0] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  NOT R3 R4
+  RETURN R3 1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["AnchorPoint"]
+  GETTABLEKS R3 R1 K2 ["assetId"]
+  GETTABLEKS R4 R1 K3 ["currentSoundId"]
+  GETTABLEKS R5 R1 K4 ["LayoutOrder"]
+  GETTABLEKS R6 R1 K5 ["elapsedTime"]
+  GETTABLEKS R7 R1 K6 ["Position"]
+  GETTABLEKS R8 R1 K7 ["Size"]
+  GETTABLEKS R9 R1 K8 ["totalTime"]
+  GETTABLEKS R11 R1 K9 ["Stylizer"]
+  GETTABLEKS R10 R11 K10 ["progressBarColor"]
+  LOADN R11 0
+  SETTABLEKS R11 R0 K11 ["progress"]
+  JUMPIFEQKNIL R9 [+8]
+  JUMPIFEQKN R9 K12 [0] [+6]
+  JUMPIFNOTEQ R4 R3 [+4]
+  DIV R11 R6 R9
+  SETTABLEKS R11 R0 K11 ["progress"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K13 ["createElement"]
+  LOADK R12 K14 ["Frame"]
+  DUPTABLE R13 K16 [{"AnchorPoint", "BackgroundTransparency", "LayoutOrder", "Position", "Size"}]
+  SETTABLEKS R2 R13 K1 ["AnchorPoint"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K15 ["BackgroundTransparency"]
+  SETTABLEKS R5 R13 K4 ["LayoutOrder"]
+  SETTABLEKS R7 R13 K6 ["Position"]
+  SETTABLEKS R8 R13 K7 ["Size"]
+  DUPTABLE R14 K18 [{"ProgressBar"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K13 ["createElement"]
+  LOADK R16 K14 ["Frame"]
+  DUPTABLE R17 K21 [{"AnchorPoint", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Position", "Size"}]
+  GETIMPORT R18 K24 [Vector2.new]
+  LOADN R19 0
+  LOADK R20 K25 [0.5]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K1 ["AnchorPoint"]
+  SETTABLEKS R10 R17 K19 ["BackgroundColor3"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K15 ["BackgroundTransparency"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K20 ["BorderSizePixel"]
+  GETIMPORT R18 K27 [UDim2.new]
+  LOADN R19 0
+  LOADN R20 0
+  LOADK R21 K25 [0.5]
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K6 ["Position"]
+  GETIMPORT R18 K27 [UDim2.new]
+  GETTABLEKS R19 R0 K11 ["progress"]
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K7 ["Size"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K17 ["ProgressBar"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+PROTO_3:
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R0 R2
+  GETTABLEKS R2 R0 K0 ["sound"]
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K3 [{"elapsedTime", "totalTime"}]
+  GETTABLEKS R5 R2 K1 ["elapsedTime"]
+  ORK R4 R5 K4 [0]
+  SETTABLEKS R4 R3 K1 ["elapsedTime"]
+  GETTABLEKS R5 R2 K2 ["totalTime"]
+  ORK R4 R5 K4 [0]
+  SETTABLEKS R4 R3 K2 ["totalTime"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R1 K8 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K9 ["ContextServices"]
+  GETTABLEKS R6 R5 K10 ["withContext"]
+  GETTABLEKS R8 R0 K11 ["Core"]
+  GETTABLEKS R7 R8 K12 ["Util"]
+  GETTABLEKS R8 R2 K13 ["Component"]
+  LOADK R10 K14 ["AudioProgressBar"]
+  NAMECALL R8 R8 K15 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K16 [PROTO_0]
+  SETTABLEKS R9 R8 K17 ["init"]
+  DUPCLOSURE R9 K18 [PROTO_1]
+  SETTABLEKS R9 R8 K19 ["shouldUpdate"]
+  DUPCLOSURE R9 K20 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R9 R8 K21 ["render"]
+  DUPCLOSURE R9 K22 [PROTO_3]
+  MOVE R10 R6
+  DUPTABLE R11 K24 [{"Stylizer"}]
+  GETTABLEKS R12 R5 K23 ["Stylizer"]
+  SETTABLEKS R12 R11 K23 ["Stylizer"]
+  CALL R10 1 1
+  MOVE R11 R8
+  CALL R10 1 1
+  MOVE R8 R10
+  GETTABLEKS R10 R3 K25 ["connect"]
+  MOVE R11 R9
+  LOADNIL R12
+  CALL R10 2 1
+  MOVE R11 R8
+  CALL R10 1 -1
+  RETURN R10 -1

@@ -1,0 +1,162 @@
+PROTO_0:
+  MOVE R2 R1
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R1 R2
+  GETUPVAL R2 0
+  DUPTABLE R3 K4 [{"studioSid", "clientId", "placeId", "userId"}]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K5 ["GetSessionId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K0 ["studioSid"]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K6 ["GetClientId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["clientId"]
+  GETIMPORT R5 K8 [game]
+  GETTABLEKS R4 R5 K9 ["PlaceId"]
+  SETTABLEKS R4 R3 K2 ["placeId"]
+  GETUPVAL R4 2
+  NAMECALL R4 R4 K10 ["GetUserId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K3 ["userId"]
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K11 ["LogAnalytics"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+18]
+  GETIMPORT R3 K13 [print]
+  LOADK R4 K14 ["%s SendEvent eventName=%s args=%s"]
+  LOADK R6 K15 ["AssetImporter"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R8 R0
+  GETIMPORT R7 K17 [tostring]
+  CALL R7 1 1
+  GETUPVAL R8 4
+  MOVE R10 R2
+  NAMECALL R8 R8 K18 ["JSONEncode"]
+  CALL R8 2 -1
+  NAMECALL R4 R4 K19 ["format"]
+  CALL R4 -1 -1
+  CALL R3 -1 0
+  GETUPVAL R3 1
+  LOADK R5 K20 ["studio"]
+  LOADK R6 K15 ["AssetImporter"]
+  MOVE R7 R0
+  MOVE R8 R2
+  NAMECALL R3 R3 K21 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_1:
+  ORK R1 R1 K0 [1]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["LogAnalytics"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+18]
+  GETIMPORT R2 K3 [print]
+  LOADK R3 K4 ["%s ReportCounter counterName=%s count=%s"]
+  LOADK R5 K5 ["AssetImporter"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K7 [tostring]
+  CALL R6 1 1
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K7 [tostring]
+  CALL R7 1 1
+  NAMECALL R3 R3 K8 ["format"]
+  CALL R3 4 -1
+  CALL R2 -1 0
+  GETUPVAL R2 1
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K9 ["ReportCounter"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["importQueueEnabled"]
+  NEWTABLE R3 0 0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["importQueueDisabled"]
+  NEWTABLE R3 0 0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["importQueueHalted"]
+  NEWTABLE R3 0 0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["importQueueStarted"]
+  DUPTABLE R4 K2 [{"fileCount"}]
+  SETTABLEKS R1 R4 K1 ["fileCount"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_6:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  DUPTABLE R3 K4 [{"ImportQueueEnabled", "ImportQueueDisabled", "ImportQueueHalted", "ImportQueueStarted"}]
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K0 ["ImportQueueEnabled"]
+  NEWCLOSURE R4 P3
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K1 ["ImportQueueDisabled"]
+  NEWCLOSURE R4 P4
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K2 ["ImportQueueHalted"]
+  NEWCLOSURE R4 P5
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K3 ["ImportQueueStarted"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["join"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Utility"]
+  GETTABLEKS R4 R5 K11 ["DebugFlags"]
+  CALL R3 1 1
+  GETIMPORT R4 K13 [game]
+  LOADK R6 K14 ["HttpService"]
+  NAMECALL R4 R4 K15 ["GetService"]
+  CALL R4 2 1
+  GETIMPORT R5 K13 [game]
+  LOADK R7 K16 ["StudioService"]
+  NAMECALL R5 R5 K15 ["GetService"]
+  CALL R5 2 1
+  DUPCLOSURE R6 K17 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R6 1

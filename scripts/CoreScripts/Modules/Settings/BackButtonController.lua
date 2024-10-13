@@ -3,7 +3,6 @@ local AdService = game:GetService("AdService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
 
@@ -13,9 +12,6 @@ local httpImpl = httpRequest(HttpRbxApiService)
 
 local RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
-
-local GetFStringTeleportBackButtonIXPCustomLayerName =
-	require(RobloxGui.Modules.Flags.GetFStringTeleportBackButtonIXPCustomLayerName)
 
 local ReturnDestinationUniverseId = 0
 local sourceUniverseId, destinationUniverseId = AdService:GetAdTeleportInfo()
@@ -70,14 +66,8 @@ BackButtonController.initiateBackButtonTeleport = function(teleportMethod)
 		AdService:ReturnToPublisherExperience(teleportMethod)
 end
 
-BackButtonController.connectExperimentUserLayer = function(component, enabledPropName, fieldName)
-	local enabled = ReturnDestinationUniverseId > 0
-	return RoactAppExperiment.connectUserLayer({
-		GetFStringTeleportBackButtonIXPCustomLayerName(),
-	}, function(layerVariables, props)
-		local layer = layerVariables[GetFStringTeleportBackButtonIXPCustomLayerName()] or {}
-		return { [enabledPropName] = enabled and (layer[fieldName] or false) }
-	end)(component)
+BackButtonController.hasReturnUniverse = function()
+	return ReturnDestinationUniverseId > 0
 end
 
 return BackButtonController

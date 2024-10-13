@@ -1,0 +1,75 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagTerrainEditorGenerationFeature"]
+  CALL R1 1 1
+  NEWTABLE R2 0 14
+  MOVE R4 R1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+8]
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K9 ["RegionBuild"]
+  CALL R3 1 1
+  JUMP [+1]
+  LOADNIL R3
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K10 ["RegionImport"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K11 ["RegionGenerate"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K12 ["Clear"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K13 ["RegionSelect"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K14 ["RegionTransform"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K15 ["RegionFill"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K16 ["RegionSeaLevel"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K17 ["BrushDraw"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K18 ["BrushSculpt"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K19 ["BrushSmooth"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K20 ["BrushPaint"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K21 ["BrushFlatten"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETIMPORT R18 K1 [script]
+  GETTABLEKS R17 R18 K22 ["Empty"]
+  CALL R16 1 -1
+  SETLIST R2 R3 -1 [1]
+  RETURN R2 1

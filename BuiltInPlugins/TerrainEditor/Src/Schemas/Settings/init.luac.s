@@ -1,0 +1,83 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagTerrainEditorGenerationFeature"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K10 ["Category"]
+  NEWTABLE R4 16 0
+  GETTABLEKS R5 R3 K11 ["BiomeSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K12 ["Biome"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K13 ["BrushSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K14 ["Brush"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K15 ["BuildSettings"]
+  MOVE R7 R1
+  CALL R7 0 1
+  JUMPIFNOT R7 [+8]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K16 ["Build"]
+  CALL R6 1 1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K17 ["ClearSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K18 ["Clear"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K19 ["HeightmapSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K20 ["Heightmap"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K21 ["MaterialSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K22 ["Material"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K23 ["SeaLevelSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K24 ["SeaLevel"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K25 ["SelectionSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K26 ["Selection"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K27 ["TransformSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K28 ["Transform"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K29 ["UpgradeSettings"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K30 ["Upgrade"]
+  CALL R6 1 1
+  SETTABLE R6 R4 R5
+  RETURN R4 1

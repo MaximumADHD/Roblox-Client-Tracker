@@ -18,8 +18,10 @@ local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 
-local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
+	require(Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
+local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
 local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
 
@@ -27,7 +29,6 @@ local ICON_OFF = "icons/menu/platformChatOff"
 local ICON_ON = "icons/menu/platformChatOn"
 local ICON_SIZE = ChromeConstants.ICON_SIZE
 
--- TODO ROACTCHAT-1347: use BADGE_COLOR_PARTY if there's active: party Color3.fromRGB(57, 197, 130)
 local BADGE_OFFSET = 2
 local BADGE_STROKE_WIDTH = 2
 local BADGE_SIZE = UDim2.fromOffset(10, 10)
@@ -59,6 +60,33 @@ local function ConnectIcon(_props: Props)
 	else
 		unreadMessageCount = 0
 	end
+
+	local currentSquadId, setCurrentSquadId, badgeColor
+
+	if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() then
+		currentSquadId, setCurrentSquadId = React.useState(InExperienceAppChatModal.default.currentSquadId)
+
+		React.useEffect(function()
+			local connection = InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(
+				function(currentSquadId)
+					setCurrentSquadId(currentSquadId)
+				end
+			)
+			return function()
+				connection:Disconnect()
+			end
+		end, { setCurrentSquadId })
+
+		if currentSquadId ~= "" then
+			badgeColor = style.Theme.OnlineStatus.Color
+		elseif unreadMessageCount > 0 then
+			badgeColor = style.Theme.IconEmphasis.Color
+		end
+	end
+
+	local shouldShowBadge = if GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
+		then badgeColor
+		else unreadMessageCount > 0
 
 	local visibilitySignal = MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function(visible)
 		return InExperienceAppChatModal:getVisible()
@@ -99,9 +127,11 @@ local function ConnectIcon(_props: Props)
 		}) :: any,
 		Icon = icon,
 		Tooltip = tooltip,
-		Badge = if unreadMessageCount > 0
+		Badge = if shouldShowBadge
 			then React.createElement("Frame", {
-				BackgroundColor3 = style.Theme.IconEmphasis.Color,
+				BackgroundColor3 = if GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
+					then badgeColor
+					else style.Theme.IconEmphasis.Color,
 				Position = UDim2.new(1, -BADGE_OFFSET, 0, BADGE_OFFSET),
 				AnchorPoint = Vector2.new(1, 0),
 				Size = BADGE_SIZE,

@@ -1,0 +1,57 @@
+PROTO_0:
+  DIVK R3 R0 K0 [60]
+  FASTCALL1 MATH_FLOOR R3 [+2]
+  GETIMPORT R2 K3 [math.floor]
+  CALL R2 1 1
+  DIVK R4 R2 K0 [60]
+  FASTCALL1 MATH_FLOOR R4 [+2]
+  GETIMPORT R3 K3 [math.floor]
+  CALL R3 1 1
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+13]
+  LOADK R6 K4 ["Time"]
+  LOADK R7 K5 ["HoursAndMinutes"]
+  DUPTABLE R8 K8 [{"Hours", "Minutes"}]
+  SETTABLEKS R3 R8 K6 ["Hours"]
+  MODK R9 R2 K0 [60]
+  SETTABLEKS R9 R8 K7 ["Minutes"]
+  NAMECALL R4 R1 K9 ["getText"]
+  CALL R4 4 -1
+  RETURN R4 -1
+  LOADN R4 10
+  JUMPIFNOTLT R4 R2 [+10]
+  LOADK R6 K4 ["Time"]
+  LOADK R7 K7 ["Minutes"]
+  DUPTABLE R8 K10 [{"Minutes"}]
+  SETTABLEKS R2 R8 K7 ["Minutes"]
+  NAMECALL R4 R1 K9 ["getText"]
+  CALL R4 4 -1
+  RETURN R4 -1
+  LOADN R4 1
+  JUMPIFNOTLE R4 R2 [+19]
+  LOADK R6 K4 ["Time"]
+  LOADK R7 K11 ["MinutesAndSeconds"]
+  DUPTABLE R8 K13 [{"Minutes", "Seconds"}]
+  SETTABLEKS R2 R8 K7 ["Minutes"]
+  DIVK R12 R0 K14 [10]
+  FASTCALL1 MATH_FLOOR R12 [+2]
+  GETIMPORT R11 K3 [math.floor]
+  CALL R11 1 1
+  MULK R10 R11 K14 [10]
+  MODK R9 R10 K0 [60]
+  SETTABLEKS R9 R8 K12 ["Seconds"]
+  NAMECALL R4 R1 K9 ["getText"]
+  CALL R4 4 -1
+  RETURN R4 -1
+  LOADK R6 K4 ["Time"]
+  LOADK R7 K12 ["Seconds"]
+  DUPTABLE R8 K15 [{"Seconds"}]
+  SETTABLEKS R0 R8 K12 ["Seconds"]
+  NAMECALL R4 R1 K9 ["getText"]
+  CALL R4 4 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

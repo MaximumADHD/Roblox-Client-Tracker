@@ -1,0 +1,250 @@
+PROTO_0:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"dropDownIndex"}]
+  SETTABLEKS R0 R3 K0 ["dropDownIndex"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["props"]
+  GETTABLEKS R1 R2 K4 ["assetTypeEnum"]
+  GETIMPORT R2 K8 [Enum.AssetType.Plugin]
+  JUMPIFEQ R1 R2 [+10]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["props"]
+  GETTABLEKS R1 R2 K4 ["assetTypeEnum"]
+  GETIMPORT R2 K10 [Enum.AssetType.Animation]
+  JUMPIFNOTEQ R1 R2 [+19]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["props"]
+  GETTABLEKS R1 R2 K11 ["onAssetTypeSelected"]
+  JUMPIFNOT R1 [+36]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["props"]
+  GETTABLEKS R1 R2 K11 ["onAssetTypeSelected"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["props"]
+  GETTABLEKS R2 R3 K4 ["assetTypeEnum"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["props"]
+  GETTABLEKS R1 R2 K11 ["onAssetTypeSelected"]
+  JUMPIFNOT R1 [+18]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["props"]
+  GETTABLEKS R2 R3 K12 ["items"]
+  GETTABLE R1 R2 R0
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R2 R1 K13 ["type"]
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["props"]
+  GETTABLEKS R2 R3 K11 ["onAssetTypeSelected"]
+  GETTABLEKS R3 R1 K13 ["type"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K0 ["onItemClicked"]
+  GETTABLEKS R2 R0 K0 ["onItemClicked"]
+  NAMECALL R3 R0 K1 ["getFirstSelectableIndex"]
+  CALL R3 1 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  LOADN R3 1
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["items"]
+  LENGTH R1 R4
+  LOADN R2 1
+  FORNPREP R1
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K1 ["items"]
+  GETTABLE R5 R6 R3
+  GETTABLEKS R4 R5 K2 ["selectable"]
+  JUMPIFNOT R4 [+1]
+  RETURN R3 1
+  FORNLOOP R1
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  LOADK R5 K4 ["Frame"]
+  DUPTABLE R6 K9 [{"BackgroundTransparency", "Size", "Position", "Active"}]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K5 ["BackgroundTransparency"]
+  GETIMPORT R7 K12 [UDim2.new]
+  LOADN R8 0
+  GETTABLEKS R9 R1 K13 ["width"]
+  LOADN R10 0
+  GETTABLEKS R11 R1 K14 ["height"]
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K6 ["Size"]
+  GETTABLEKS R7 R1 K7 ["Position"]
+  SETTABLEKS R7 R6 K7 ["Position"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K8 ["Active"]
+  DUPTABLE R7 K18 [{"Title", "Dropdown", "Description"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K19 ["TextLabel"]
+  DUPTABLE R10 K25 [{"BackgroundTransparency", "Position", "Size", "TextColor3", "TextSize", "Font", "Text", "TextXAlignment"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K5 ["BackgroundTransparency"]
+  GETIMPORT R11 K12 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 0
+  LOADN R15 228
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K7 ["Position"]
+  GETIMPORT R11 K12 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
+  LOADN R14 0
+  LOADN R15 24
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K6 ["Size"]
+  GETTABLEKS R13 R3 K26 ["typeSelection"]
+  GETTABLEKS R12 R13 K27 ["selector"]
+  GETTABLEKS R11 R12 K28 ["title"]
+  SETTABLEKS R11 R10 K20 ["TextColor3"]
+  LOADN R11 16
+  SETTABLEKS R11 R10 K21 ["TextSize"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K29 ["FONT"]
+  SETTABLEKS R11 R10 K22 ["Font"]
+  LOADK R11 K30 ["Choose asset type"]
+  SETTABLEKS R11 R10 K23 ["Text"]
+  GETIMPORT R11 K33 [Enum.TextXAlignment.Left]
+  SETTABLEKS R11 R10 K24 ["TextXAlignment"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["Title"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K40 [{"Position", "Size", "selectedDropDownIndex", "visibleDropDOwnCount", "items", "rowHeight", "fontSize", "onItemClicked"}]
+  GETIMPORT R11 K12 [UDim2.new]
+  LOADK R12 K41 [0.5]
+  GETTABLEKS R15 R1 K13 ["width"]
+  MINUS R14 R15
+  DIVK R13 R14 K42 [2]
+  LOADN R14 0
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K7 ["Position"]
+  GETIMPORT R11 K12 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
+  LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K6 ["Size"]
+  GETTABLEKS R11 R2 K43 ["dropDownIndex"]
+  SETTABLEKS R11 R10 K34 ["selectedDropDownIndex"]
+  LOADN R11 5
+  SETTABLEKS R11 R10 K35 ["visibleDropDOwnCount"]
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K36 ["items"]
+  SETTABLEKS R11 R10 K36 ["items"]
+  LOADN R11 24
+  SETTABLEKS R11 R10 K37 ["rowHeight"]
+  LOADN R11 20
+  SETTABLEKS R11 R10 K38 ["fontSize"]
+  GETTABLEKS R11 R0 K39 ["onItemClicked"]
+  SETTABLEKS R11 R10 K39 ["onItemClicked"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K16 ["Dropdown"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K19 ["TextLabel"]
+  DUPTABLE R10 K25 [{"BackgroundTransparency", "Position", "Size", "TextColor3", "TextSize", "Font", "Text", "TextXAlignment"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K5 ["BackgroundTransparency"]
+  GETIMPORT R11 K12 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K7 ["Position"]
+  GETIMPORT R11 K12 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
+  LOADN R14 0
+  LOADN R15 18
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K6 ["Size"]
+  GETTABLEKS R13 R3 K26 ["typeSelection"]
+  GETTABLEKS R12 R13 K27 ["selector"]
+  GETTABLEKS R11 R12 K44 ["description"]
+  SETTABLEKS R11 R10 K20 ["TextColor3"]
+  LOADN R11 12
+  SETTABLEKS R11 R10 K21 ["TextSize"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K29 ["FONT"]
+  SETTABLEKS R11 R10 K22 ["Font"]
+  LOADK R11 K45 ["Once published, this model can be shared in Marketplace"]
+  SETTABLEKS R11 R10 K23 ["Text"]
+  GETIMPORT R11 K33 [Enum.TextXAlignment.Left]
+  SETTABLEKS R11 R10 K24 ["TextXAlignment"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K17 ["Description"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K8 ["Core"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K10 ["Constants"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K11 ["ContextServices"]
+  GETTABLEKS R7 R6 K12 ["withContext"]
+  GETTABLEKS R9 R0 K8 ["Core"]
+  GETTABLEKS R8 R9 K13 ["Components"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R8 K14 ["DropdownMenu"]
+  CALL R9 1 1
+  GETTABLEKS R10 R2 K15 ["PureComponent"]
+  LOADK R12 K16 ["AssetTypeSelector"]
+  NAMECALL R10 R10 K17 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K18 [PROTO_1]
+  SETTABLEKS R11 R10 K19 ["init"]
+  DUPCLOSURE R11 K20 [PROTO_2]
+  SETTABLEKS R11 R10 K21 ["getFirstSelectableIndex"]
+  DUPCLOSURE R11 K22 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  SETTABLEKS R11 R10 K23 ["render"]
+  MOVE R11 R7
+  DUPTABLE R12 K25 [{"Stylizer"}]
+  GETTABLEKS R13 R6 K24 ["Stylizer"]
+  SETTABLEKS R13 R12 K24 ["Stylizer"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

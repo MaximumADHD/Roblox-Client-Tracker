@@ -1,0 +1,566 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["plugin"]
+  GETTABLEKS R3 R0 K1 ["localization"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K3 [{"Text"}]
+  GETTABLEKS R6 R0 K1 ["localization"]
+  LOADK R8 K4 ["EditorErrors"]
+  LOADK R9 K5 ["OpenedWhileRunning"]
+  NAMECALL R6 R6 K6 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K2 ["Text"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"enabled"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["enabled"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["store"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["analytics"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["meshEditingContext"]
+  CALL R2 3 -1
+  NAMECALL R0 R0 K6 ["dispatch"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"enabled"}]
+  GETTABLEKS R3 R0 K0 ["enabled"]
+  NOT R2 R3
+  SETTABLEKS R2 R1 K0 ["enabled"]
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["IsEdit"]
+  CALL R0 1 1
+  JUMPIF R0 [+5]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K1 ["showEditorInPlayModeError"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["state"]
+  GETTABLEKS R0 R1 K3 ["enabled"]
+  JUMPIF R0 [+13]
+  GETUPVAL R0 2
+  LOADB R2 1
+  NAMECALL R0 R0 K4 ["Activate"]
+  CALL R0 2 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K5 ["analytics"]
+  LOADK R2 K6 ["PluginOpened"]
+  NAMECALL R0 R0 K7 ["getHandler"]
+  CALL R0 2 1
+  CALL R0 0 0
+  GETUPVAL R0 1
+  DUPCLOSURE R2 K8 [PROTO_2]
+  NAMECALL R0 R0 K9 ["setState"]
+  CALL R0 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["state"]
+  GETTABLEKS R0 R1 K3 ["enabled"]
+  JUMPIF R0 [+15]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K10 ["store"]
+  GETUPVAL R2 3
+  GETUPVAL R3 2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["analytics"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K11 ["meshEditingContext"]
+  CALL R2 3 -1
+  NAMECALL R0 R0 K12 ["dispatch"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["toolbarButton"]
+  LOADB R2 1
+  NAMECALL R0 R0 K1 ["SetActive"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["signals"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["SIGNAL_KEYS"]
+  GETTABLEKS R2 R3 K4 ["PluginWindowFocused"]
+  NAMECALL R0 R0 K5 ["get"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K6 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Selection"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NEWTABLE R3 0 0
+  NAMECALL R1 R0 K4 ["Set"]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K5 ["IsActivatedWithExclusiveMouse"]
+  CALL R1 1 1
+  JUMPIF R1 [+5]
+  GETUPVAL R1 0
+  LOADB R3 1
+  NAMECALL R1 R1 K6 ["Activate"]
+  CALL R1 2 0
+  GETIMPORT R1 K9 [task.delay]
+  LOADN R2 0
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["Enabled"]
+  JUMPIFNOT R1 [+18]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K1 ["IsEdit"]
+  CALL R1 1 1
+  JUMPIF R1 [+13]
+  GETUPVAL R1 1
+  DUPTABLE R3 K3 [{"enabled"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K2 ["enabled"]
+  NAMECALL R1 R1 K4 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K5 ["showEditorInPlayModeError"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  DUPTABLE R3 K3 [{"enabled"}]
+  GETTABLEKS R4 R0 K0 ["Enabled"]
+  SETTABLEKS R4 R3 K2 ["enabled"]
+  NAMECALL R1 R1 K4 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["plugin"]
+  LOADK R2 K2 ["AccessoryFittingTool"]
+  SETTABLEKS R2 R1 K3 ["Name"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["Plugin"]
+  GETTABLEKS R2 R3 K5 ["new"]
+  MOVE R3 R1
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K1 ["plugin"]
+  DUPTABLE R2 K7 [{"enabled"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K6 ["enabled"]
+  SETTABLEKS R2 R0 K8 ["state"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K9 ["Store"]
+  GETTABLEKS R2 R3 K5 ["new"]
+  GETUPVAL R3 2
+  NEWTABLE R4 0 0
+  GETUPVAL R5 3
+  CALL R2 3 1
+  SETTABLEKS R2 R0 K10 ["store"]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K11 ["makePluginTheme"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K12 ["theme"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K13 ["Analytics"]
+  GETTABLEKS R2 R3 K5 ["new"]
+  GETUPVAL R3 5
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K14 ["analytics"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K15 ["Localization"]
+  GETTABLEKS R2 R3 K5 ["new"]
+  DUPTABLE R3 K20 [{"pluginName", "stringResourceTable", "translationResourceTable", "libraries"}]
+  LOADK R4 K2 ["AccessoryFittingTool"]
+  SETTABLEKS R4 R3 K16 ["pluginName"]
+  GETUPVAL R4 6
+  SETTABLEKS R4 R3 K17 ["stringResourceTable"]
+  GETUPVAL R4 7
+  SETTABLEKS R4 R3 K18 ["translationResourceTable"]
+  NEWTABLE R4 1 0
+  GETUPVAL R7 8
+  GETTABLEKS R6 R7 K21 ["Resources"]
+  GETTABLEKS R5 R6 K22 ["LOCALIZATION_PROJECT_NAME"]
+  DUPTABLE R6 K23 [{"stringResourceTable", "translationResourceTable"}]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K21 ["Resources"]
+  GETTABLEKS R7 R8 K24 ["SourceStrings"]
+  SETTABLEKS R7 R6 K17 ["stringResourceTable"]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K21 ["Resources"]
+  GETTABLEKS R7 R8 K25 ["LocalizedStrings"]
+  SETTABLEKS R7 R6 K18 ["translationResourceTable"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K19 ["libraries"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K26 ["localization"]
+  GETUPVAL R3 9
+  JUMPIFNOT R3 [+5]
+  LOADK R4 K27 ["Avatar"]
+  NAMECALL R2 R1 K28 ["CreateToolbar"]
+  CALL R2 2 1
+  JUMP [+10]
+  GETTABLEKS R4 R0 K26 ["localization"]
+  LOADK R6 K29 ["Meta"]
+  LOADK R7 K30 ["ToolbarName"]
+  NAMECALL R4 R4 K31 ["getText"]
+  CALL R4 3 -1
+  NAMECALL R2 R1 K28 ["CreateToolbar"]
+  CALL R2 -1 1
+  LOADK R5 K32 ["LayeredClothingEditorButton"]
+  GETTABLEKS R6 R0 K26 ["localization"]
+  LOADK R8 K33 ["Main"]
+  LOADK R9 K34 ["Tooltip"]
+  NAMECALL R6 R6 K31 ["getText"]
+  CALL R6 3 1
+  LOADK R7 K35 ["rbxlocaltheme://AccessoryFittingTool"]
+  GETTABLEKS R8 R0 K26 ["localization"]
+  LOADK R10 K33 ["Main"]
+  LOADK R11 K36 ["ToolbarButton"]
+  NAMECALL R8 R8 K31 ["getText"]
+  CALL R8 3 -1
+  NAMECALL R3 R2 K37 ["CreateButton"]
+  CALL R3 -1 1
+  SETTABLEKS R3 R0 K38 ["toolbarButton"]
+  GETUPVAL R3 10
+  GETTABLEKS R5 R0 K1 ["plugin"]
+  MOVE R6 R2
+  GETTABLEKS R7 R0 K26 ["localization"]
+  GETTABLEKS R8 R0 K14 ["analytics"]
+  NAMECALL R3 R3 K39 ["init"]
+  CALL R3 5 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U11
+  CAPTURE VAL R1
+  SETTABLEKS R3 R0 K40 ["onClose"]
+  NEWCLOSURE R3 P1
+  CAPTURE UPVAL U12
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U11
+  SETTABLEKS R3 R0 K41 ["onToggleWidget"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K42 ["PluginActions"]
+  GETTABLEKS R3 R4 K5 ["new"]
+  MOVE R4 R1
+  GETUPVAL R5 13
+  MOVE R6 R1
+  GETTABLEKS R7 R0 K26 ["localization"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R0 K43 ["pluginActions"]
+  GETUPVAL R4 14
+  GETTABLEKS R3 R4 K5 ["new"]
+  GETUPVAL R5 15
+  GETTABLEKS R4 R5 K44 ["SIGNAL_KEYS"]
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K45 ["signals"]
+  GETUPVAL R4 16
+  GETTABLEKS R3 R4 K5 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R0 K46 ["editingItemContext"]
+  GETUPVAL R4 17
+  GETTABLEKS R3 R4 K5 ["new"]
+  CALL R3 0 1
+  GETUPVAL R7 15
+  GETTABLEKS R6 R7 K47 ["DEFAULT_FALLOFF"]
+  NAMECALL R4 R3 K48 ["setFalloff"]
+  CALL R4 2 0
+  GETUPVAL R5 18
+  GETTABLEKS R4 R5 K5 ["new"]
+  NEWTABLE R5 1 0
+  GETUPVAL R8 15
+  GETTABLEKS R7 R8 K49 ["TOOL_MODE"]
+  GETTABLEKS R6 R7 K50 ["Point"]
+  SETTABLE R3 R5 R6
+  CALL R4 1 1
+  SETTABLEKS R4 R0 K51 ["meshEditingContext"]
+  GETTABLEKS R5 R0 K38 ["toolbarButton"]
+  GETTABLEKS R4 R5 K52 ["Click"]
+  GETTABLEKS R6 R0 K41 ["onToggleWidget"]
+  NAMECALL R4 R4 K53 ["connect"]
+  CALL R4 2 0
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U15
+  SETTABLEKS R4 R0 K54 ["onFocus"]
+  NEWCLOSURE R4 P3
+  CAPTURE UPVAL U12
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K55 ["onWidgetEnabledChanged"]
+  RETURN R0 0
+
+PROTO_8:
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["toolbarButton"]
+  GETTABLEKS R4 R0 K1 ["state"]
+  GETTABLEKS R3 R4 K2 ["enabled"]
+  NAMECALL R1 R1 K3 ["SetActive"]
+  CALL R1 2 0
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R1 R2 K2 ["enabled"]
+  JUMPIF R1 [+7]
+  GETTABLEKS R1 R0 K4 ["store"]
+  GETUPVAL R3 0
+  CALL R3 0 -1
+  NAMECALL R1 R1 K5 ["dispatch"]
+  CALL R1 -1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["createElement"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K16 [{"plugin", "analytics", "localization", "theme", "store", "pluginActions", "mouse", "signals", "editingItemContext", "meshEditingContext"}]
+  GETTABLEKS R4 R0 K7 ["plugin"]
+  SETTABLEKS R4 R3 K7 ["plugin"]
+  GETTABLEKS R4 R0 K8 ["analytics"]
+  SETTABLEKS R4 R3 K8 ["analytics"]
+  GETTABLEKS R4 R0 K9 ["localization"]
+  SETTABLEKS R4 R3 K9 ["localization"]
+  GETTABLEKS R4 R0 K10 ["theme"]
+  SETTABLEKS R4 R3 K10 ["theme"]
+  GETTABLEKS R4 R0 K4 ["store"]
+  SETTABLEKS R4 R3 K4 ["store"]
+  GETTABLEKS R4 R0 K11 ["pluginActions"]
+  SETTABLEKS R4 R3 K11 ["pluginActions"]
+  GETTABLEKS R5 R0 K17 ["props"]
+  GETTABLEKS R4 R5 K7 ["plugin"]
+  NAMECALL R4 R4 K18 ["getMouse"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K12 ["mouse"]
+  GETTABLEKS R4 R0 K13 ["signals"]
+  SETTABLEKS R4 R3 K13 ["signals"]
+  GETTABLEKS R4 R0 K14 ["editingItemContext"]
+  SETTABLEKS R4 R3 K14 ["editingItemContext"]
+  GETTABLEKS R4 R0 K15 ["meshEditingContext"]
+  SETTABLEKS R4 R3 K15 ["meshEditingContext"]
+  DUPTABLE R4 K20 [{"Widget"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K6 ["createElement"]
+  GETUPVAL R6 3
+  NEWTABLE R7 16 0
+  LOADK R8 K21 ["LayeredClothingEditor"]
+  SETTABLEKS R8 R7 K22 ["Id"]
+  GETTABLEKS R8 R0 K9 ["localization"]
+  LOADK R10 K23 ["Main"]
+  LOADK R11 K24 ["Title"]
+  NAMECALL R8 R8 K25 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K24 ["Title"]
+  GETTABLEKS R9 R0 K1 ["state"]
+  GETTABLEKS R8 R9 K2 ["enabled"]
+  SETTABLEKS R8 R7 K26 ["Enabled"]
+  GETUPVAL R8 4
+  SETTABLEKS R8 R7 K27 ["Size"]
+  GETIMPORT R8 K31 [Enum.InitialDockState.Left]
+  SETTABLEKS R8 R7 K29 ["InitialDockState"]
+  GETUPVAL R8 4
+  SETTABLEKS R8 R7 K32 ["MinSize"]
+  GETIMPORT R8 K35 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R8 R7 K33 ["ZIndexBehavior"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K36 ["ShouldRestore"]
+  GETTABLEKS R8 R0 K7 ["plugin"]
+  SETTABLEKS R8 R7 K37 ["Plugin"]
+  GETTABLEKS R8 R0 K38 ["onClose"]
+  SETTABLEKS R8 R7 K39 ["OnClose"]
+  DUPCLOSURE R8 K40 [PROTO_8]
+  SETTABLEKS R8 R7 K41 ["OnWidgetRestored"]
+  GETTABLEKS R8 R0 K42 ["onFocus"]
+  SETTABLEKS R8 R7 K43 ["OnWidgetFocused"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K44 ["Change"]
+  GETTABLEKS R8 R9 K26 ["Enabled"]
+  GETTABLEKS R9 R0 K45 ["onWidgetEnabledChanged"]
+  SETTABLE R9 R7 R8
+  DUPTABLE R8 K46 [{"LayeredClothingEditor"}]
+  GETTABLEKS R10 R0 K1 ["state"]
+  GETTABLEKS R9 R10 K2 ["enabled"]
+  JUMPIFNOT R9 [+5]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K6 ["createElement"]
+  GETUPVAL R10 5
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K21 ["LayeredClothingEditor"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K19 ["Widget"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Rodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["AvatarToolsShared"]
+  CALL R4 1 1
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["LuaMeshEditingModule"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R5 K11 ["Tools"]
+  GETTABLEKS R7 R8 K12 ["PointTool"]
+  CALL R6 1 1
+  GETTABLEKS R7 R4 K13 ["Components"]
+  GETTABLEKS R8 R7 K14 ["ConfirmDialog"]
+  GETTABLEKS R10 R4 K15 ["Contexts"]
+  GETTABLEKS R9 R10 K16 ["LuaMeshEditingModuleContext"]
+  GETTABLEKS R11 R4 K15 ["Contexts"]
+  GETTABLEKS R10 R11 K17 ["EditingItemContext"]
+  GETTABLEKS R12 R4 K15 ["Contexts"]
+  GETTABLEKS R11 R12 K18 ["Signals"]
+  GETIMPORT R12 K20 [game]
+  LOADK R14 K21 ["RunService"]
+  NAMECALL R12 R12 K22 ["GetService"]
+  CALL R12 2 1
+  GETTABLEKS R13 R3 K23 ["UI"]
+  GETTABLEKS R14 R13 K24 ["DockWidget"]
+  GETTABLEKS R15 R3 K25 ["ContextServices"]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K26 ["Src"]
+  GETTABLEKS R18 R19 K13 ["Components"]
+  GETTABLEKS R17 R18 K27 ["ServiceWrapper"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R20 R0 K26 ["Src"]
+  GETTABLEKS R19 R20 K28 ["Reducers"]
+  GETTABLEKS R18 R19 K29 ["MainReducer"]
+  CALL R17 1 1
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R21 R0 K26 ["Src"]
+  GETTABLEKS R20 R21 K30 ["Middleware"]
+  GETTABLEKS R19 R20 K31 ["MainMiddleware"]
+  CALL R18 1 1
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R22 R0 K26 ["Src"]
+  GETTABLEKS R21 R22 K32 ["Resources"]
+  GETTABLEKS R20 R21 K33 ["AnalyticsHandlers"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R23 R0 K26 ["Src"]
+  GETTABLEKS R22 R23 K32 ["Resources"]
+  GETTABLEKS R21 R22 K34 ["PluginTheme"]
+  CALL R20 1 1
+  GETTABLEKS R23 R0 K26 ["Src"]
+  GETTABLEKS R22 R23 K32 ["Resources"]
+  GETTABLEKS R21 R22 K35 ["SourceStrings"]
+  GETTABLEKS R24 R0 K26 ["Src"]
+  GETTABLEKS R23 R24 K32 ["Resources"]
+  GETTABLEKS R22 R23 K36 ["LocalizedStrings"]
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R26 R0 K26 ["Src"]
+  GETTABLEKS R25 R26 K13 ["Components"]
+  GETTABLEKS R24 R25 K37 ["LayeredClothingEditor"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R27 R0 K26 ["Src"]
+  GETTABLEKS R26 R27 K38 ["Thunks"]
+  GETTABLEKS R25 R26 K39 ["CloseEditor"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R28 R0 K26 ["Src"]
+  GETTABLEKS R27 R28 K38 ["Thunks"]
+  GETTABLEKS R26 R27 K40 ["ReleaseEditor"]
+  CALL R25 1 1
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R29 R0 K26 ["Src"]
+  GETTABLEKS R28 R29 K41 ["Util"]
+  GETTABLEKS R27 R28 K42 ["makePluginActions"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R30 R0 K26 ["Src"]
+  GETTABLEKS R29 R30 K41 ["Util"]
+  GETTABLEKS R28 R29 K43 ["Constants"]
+  CALL R27 1 1
+  GETIMPORT R28 K4 [require]
+  GETTABLEKS R31 R0 K26 ["Src"]
+  GETTABLEKS R30 R31 K41 ["Util"]
+  GETTABLEKS R29 R30 K44 ["ShowDialog"]
+  CALL R28 1 1
+  GETIMPORT R29 K4 [require]
+  GETTABLEKS R31 R0 K45 ["Bin"]
+  GETTABLEKS R30 R31 K46 ["ClothesHelper"]
+  CALL R29 1 1
+  GETIMPORT R30 K4 [require]
+  GETTABLEKS R33 R0 K26 ["Src"]
+  GETTABLEKS R32 R33 K38 ["Thunks"]
+  GETTABLEKS R31 R32 K47 ["FinishSelectingFromExplorer"]
+  CALL R30 1 1
+  GETTABLEKS R31 R1 K48 ["PureComponent"]
+  LOADK R33 K49 ["LayeredClothingEditorPlugin"]
+  NAMECALL R31 R31 K50 ["extend"]
+  CALL R31 2 1
+  GETIMPORT R32 K53 [Vector2.new]
+  LOADN R33 124
+  LOADN R34 38
+  CALL R32 2 1
+  GETIMPORT R33 K20 [game]
+  LOADK R35 K54 ["FixAvatarTabPluginsNotLoadingOnNonEnglishBuilds"]
+  NAMECALL R33 R33 K55 ["GetFastFlag"]
+  CALL R33 2 1
+  DUPCLOSURE R34 K56 [PROTO_0]
+  CAPTURE VAL R28
+  CAPTURE VAL R8
+  SETTABLEKS R34 R31 K57 ["showEditorInPlayModeError"]
+  DUPCLOSURE R34 K58 [PROTO_7]
+  CAPTURE VAL R15
+  CAPTURE VAL R2
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  CAPTURE VAL R20
+  CAPTURE VAL R19
+  CAPTURE VAL R21
+  CAPTURE VAL R22
+  CAPTURE VAL R4
+  CAPTURE VAL R33
+  CAPTURE VAL R29
+  CAPTURE VAL R24
+  CAPTURE VAL R12
+  CAPTURE VAL R26
+  CAPTURE VAL R11
+  CAPTURE VAL R27
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  SETTABLEKS R34 R31 K59 ["init"]
+  DUPCLOSURE R34 K60 [PROTO_9]
+  CAPTURE VAL R30
+  CAPTURE VAL R1
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R32
+  CAPTURE VAL R23
+  SETTABLEKS R34 R31 K61 ["render"]
+  RETURN R31 1

@@ -1,0 +1,65 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["number"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["userId must be a number"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  MODK R4 R0 K6 [1]
+  JUMPIFEQKN R4 K7 [0] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K8 [+4]
+  LOADK R4 K8 ["userId must be an integer"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["number"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K9 [+4]
+  LOADK R4 K9 ["rolloutPercentage must be a number"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  MODK R4 R1 K6 [1]
+  JUMPIFEQKN R4 K7 [0] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K10 [+4]
+  LOADK R4 K10 ["rolloutPercentage must be an integer"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  LOADN R4 0
+  JUMPIFLE R4 R1 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K11 [+4]
+  LOADK R4 K11 ["rolloutPercentage must be >= 0"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  LOADN R4 100
+  JUMPIFLE R1 R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K12 [+4]
+  LOADK R4 K12 ["rolloutPercentage must be <= 100"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  MODK R3 R0 K13 [100]
+  JUMPIFLT R3 R1 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

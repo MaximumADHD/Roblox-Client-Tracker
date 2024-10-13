@@ -144,6 +144,7 @@ local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerLis
 local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local FIntSettingsHubPlayersButtonsResponsiveThreshold = game:DefineFastInt("SettingsHubPlayersButtonsResponsiveThreshold", 200)
+local FFlagAppChatTiltMenuConnectIcon = game:DefineFastFlag("AppChatTiltMenuConnectIcon", false)
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
 
@@ -1207,7 +1208,8 @@ local function Initialize()
 				icon.AnchorPoint = Vector2.new(0, 0.5)
 				icon.Position = UDim2.new(0, 18, 0.5, 0)
 
-				local iconImg = Theme.Images["icons/menu/chat_off"]
+				local iconImg = if FFlagAppChatTiltMenuConnectIcon then Theme.Images["icons/menu/platformChatOff"] else Theme.Images["icons/menu/chat_off"]
+
 				icon.Image = iconImg.Image
 				icon.ImageRectOffset = iconImg.ImageRectOffset
 				icon.ImageRectSize = iconImg.ImageRectSize
@@ -1663,7 +1665,7 @@ local function Initialize()
 		end
 
 		-- See if the Mute All button needs to update.
-		if FFlagAvatarChatCoreScriptSupport and not shouldShowMuteToggles then
+		if (FFlagAvatarChatCoreScriptSupport or GetFFlagEnableShowVoiceUI()) and not shouldShowMuteToggles then
 			if allMuted then
 				muteAllState = true
 			else
@@ -1672,7 +1674,7 @@ local function Initialize()
 			local text = muteAllState and RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.UnmuteAll") or RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
 
 			-- This button may not exist when cleaning up the settings menu after exiting a game.
-			if FFlagAvatarChatCoreScriptSupport and not (muteAllButton and muteAllButton:FindFirstChild("TextLabel")) then
+			if (FFlagAvatarChatCoreScriptSupport or GetFFlagEnableShowVoiceUI()) and not (muteAllButton and muteAllButton:FindFirstChild("TextLabel")) then
 				return
 			end
 			muteAllButton.TextLabel.Text = text
@@ -2189,6 +2191,9 @@ local function Initialize()
 					destroyAllUserMuteButtons()
 					rebuildPlayerList()
 					resetButtonRow()
+				end)
+				VoiceChatServiceManager.muteAllChanged.Event:Connect(function()
+					updateAllMuteButtons()
 				end)
 			end
 		end):catch(function(err)

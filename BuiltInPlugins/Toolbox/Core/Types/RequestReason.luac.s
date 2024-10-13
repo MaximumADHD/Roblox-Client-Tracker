@@ -1,0 +1,35 @@
+PROTO_0:
+  LOADB R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["NextPage"]
+  JUMPIFEQ R0 R2 [+8]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["UpdatePage"]
+  JUMPIFEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K8 [{"InitLoad", "ChangeTabs", "ChangeCategory", "ChangeSort", "ChangeGroup", "StartSearch", "NextPage", "UpdatePage"}]
+  LOADN R1 1
+  SETTABLEKS R1 R0 K0 ["InitLoad"]
+  LOADN R1 2
+  SETTABLEKS R1 R0 K1 ["ChangeTabs"]
+  LOADN R1 3
+  SETTABLEKS R1 R0 K2 ["ChangeCategory"]
+  LOADN R1 4
+  SETTABLEKS R1 R0 K3 ["ChangeSort"]
+  LOADN R1 5
+  SETTABLEKS R1 R0 K4 ["ChangeGroup"]
+  LOADN R1 6
+  SETTABLEKS R1 R0 K5 ["StartSearch"]
+  LOADN R1 7
+  SETTABLEKS R1 R0 K6 ["NextPage"]
+  LOADN R1 8
+  SETTABLEKS R1 R0 K7 ["UpdatePage"]
+  DUPCLOSURE R1 K9 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K10 ["IsUpdate"]
+  RETURN R0 1

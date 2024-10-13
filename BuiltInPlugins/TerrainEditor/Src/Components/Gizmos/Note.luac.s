@@ -1,0 +1,163 @@
+PROTO_0:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  LOADK R4 K1 ["Note"]
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 2 1
+  GETTABLEKS R3 R0 K2 ["Key"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["createPortal"]
+  DUPTABLE R5 K4 [{"Note"}]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  LOADK R7 K6 ["ScreenGui"]
+  NEWTABLE R8 0 0
+  DUPTABLE R9 K8 [{"Frame"}]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K17 [{"AnchorPoint", "AutomaticSize", "BackgroundColor", "Layout", "Spacing", "Padding", "Position", "Size"}]
+  GETIMPORT R13 K20 [Vector2.new]
+  LOADK R14 K21 [0.5]
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K9 ["AnchorPoint"]
+  GETIMPORT R13 K24 [Enum.AutomaticSize.X]
+  SETTABLEKS R13 R12 K10 ["AutomaticSize"]
+  GETTABLEKS R13 R2 K25 ["Background"]
+  SETTABLEKS R13 R12 K11 ["BackgroundColor"]
+  GETIMPORT R13 K28 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R13 R12 K12 ["Layout"]
+  GETTABLEKS R13 R2 K29 ["FramePadding"]
+  SETTABLEKS R13 R12 K13 ["Spacing"]
+  GETTABLEKS R13 R2 K29 ["FramePadding"]
+  SETTABLEKS R13 R12 K14 ["Padding"]
+  GETIMPORT R13 K31 [UDim2.new]
+  LOADK R14 K21 [0.5]
+  LOADN R15 0
+  LOADN R16 0
+  GETTABLEKS R17 R2 K32 ["EdgePadding"]
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K15 ["Position"]
+  GETIMPORT R13 K34 [UDim2.fromOffset]
+  LOADN R14 0
+  LOADN R15 25
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K16 ["Size"]
+  DUPTABLE R13 K36 [{"Key", "Apply"}]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K5 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K38 [{"AutomaticSize", "BackgroundColor", "Padding", "LayoutOrder"}]
+  GETIMPORT R17 K40 [Enum.AutomaticSize.XY]
+  SETTABLEKS R17 R16 K10 ["AutomaticSize"]
+  GETTABLEKS R17 R2 K41 ["KeyBackground"]
+  SETTABLEKS R17 R16 K11 ["BackgroundColor"]
+  GETTABLEKS R17 R2 K42 ["TextMargin"]
+  SETTABLEKS R17 R16 K14 ["Padding"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K37 ["LayoutOrder"]
+  DUPTABLE R17 K45 [{"Corner", "Text"}]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K5 ["createElement"]
+  LOADK R19 K46 ["UICorner"]
+  DUPTABLE R20 K48 [{"CornerRadius"}]
+  GETIMPORT R21 K50 [UDim.new]
+  LOADN R22 0
+  LOADN R23 4
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K47 ["CornerRadius"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K43 ["Corner"]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K5 ["createElement"]
+  GETUPVAL R19 5
+  DUPTABLE R20 K51 [{"Text"}]
+  LOADK R23 K1 ["Note"]
+  LOADK R25 K52 ["%*Title"]
+  MOVE R27 R3
+  NAMECALL R25 R25 K53 ["format"]
+  CALL R25 2 1
+  MOVE R24 R25
+  NAMECALL R21 R1 K54 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K44 ["Text"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K44 ["Text"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K2 ["Key"]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K5 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K55 [{"AutomaticSize", "Padding", "LayoutOrder"}]
+  GETIMPORT R17 K40 [Enum.AutomaticSize.XY]
+  SETTABLEKS R17 R16 K10 ["AutomaticSize"]
+  GETTABLEKS R17 R2 K42 ["TextMargin"]
+  SETTABLEKS R17 R16 K14 ["Padding"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K37 ["LayoutOrder"]
+  DUPTABLE R17 K51 [{"Text"}]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K5 ["createElement"]
+  GETUPVAL R19 5
+  DUPTABLE R20 K51 [{"Text"}]
+  LOADK R23 K1 ["Note"]
+  LOADK R25 K56 ["%*Description"]
+  MOVE R27 R3
+  NAMECALL R25 R25 K53 ["format"]
+  CALL R25 2 1
+  MOVE R24 R25
+  NAMECALL R21 R1 K54 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K44 ["Text"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K44 ["Text"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K35 ["Apply"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K7 ["Frame"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K1 ["Note"]
+  GETUPVAL R6 6
+  CALL R4 2 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ReactRoblox"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["Localization"]
+  GETTABLEKS R6 R4 K12 ["Stylizer"]
+  GETTABLEKS R7 R1 K13 ["UI"]
+  GETTABLEKS R8 R7 K14 ["Pane"]
+  GETTABLEKS R9 R7 K15 ["TextLabel"]
+  GETIMPORT R10 K17 [game]
+  LOADK R12 K18 ["CoreGui"]
+  NAMECALL R10 R10 K19 ["GetService"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K20 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  RETURN R11 1

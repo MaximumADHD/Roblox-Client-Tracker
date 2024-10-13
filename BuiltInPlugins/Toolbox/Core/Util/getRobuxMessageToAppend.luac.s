@@ -1,0 +1,50 @@
+PROTO_0:
+  LOADN R3 0
+  JUMPIFNOTLT R3 R0 [+28]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+16]
+  JUMPIFNOT R2 [+15]
+  LOADK R5 K0 ["AssetConfig"]
+  LOADK R6 K1 ["SomethingWentWrongMsgWithDashboardLink"]
+  DUPTABLE R7 K3 [{"creatorDashboardLink"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K4 ["CREATOR_DASHBOARD_LINK_PLACEHOLDER"]
+  SETTABLEKS R8 R7 K2 ["creatorDashboardLink"]
+  NAMECALL R3 R1 K5 ["getText"]
+  CALL R3 4 1
+  LOADK R5 K6 ["
+"]
+  MOVE R6 R3
+  CONCAT R4 R5 R6
+  RETURN R4 1
+  LOADK R4 K6 ["
+"]
+  LOADK R7 K0 ["AssetConfig"]
+  LOADK R8 K7 ["CreateBundleNoRobuxDeducted"]
+  NAMECALL R5 R1 K5 ["getText"]
+  CALL R5 3 1
+  CONCAT R3 R4 R5
+  RETURN R3 1
+  LOADK R3 K8 [""]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Core"]
+  GETTABLEKS R1 R2 K5 ["Util"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R3 R1 K8 ["Constants"]
+  CALL R2 1 1
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R5 R1 K9 ["SharedFlags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagEnableUnknownErrorCreatorDashboardMessage"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R4 1

@@ -1,0 +1,477 @@
+PROTO_0:
+  GETUPVAL R2 0
+  DUPTABLE R4 K2 [{"nameMessage", "status"}]
+  MOVE R5 R0
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["None"]
+  SETTABLEKS R5 R4 K0 ["nameMessage"]
+  JUMPIFNOT R1 [+2]
+  MOVE R5 R1
+  JUMP [+2]
+  GETIMPORT R5 K7 [Enum.PropertyStatus.Ok]
+  SETTABLEKS R5 R4 K1 ["status"]
+  NAMECALL R2 R2 K8 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"name"}]
+  SETTABLEKS R0 R3 K0 ["name"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Localization"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["state"]
+  GETTABLEKS R2 R3 K3 ["name"]
+  JUMPIFNOT R2 [+53]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["state"]
+  GETTABLEKS R2 R3 K3 ["name"]
+  JUMPIFEQKS R2 K4 [""] [+47]
+  GETTABLEKS R2 R0 K5 ["GeneralServiceController"]
+  GETTABLEKS R4 R0 K6 ["MaterialVariant"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["state"]
+  GETTABLEKS R5 R6 K3 ["name"]
+  NAMECALL R2 R2 K7 ["setName"]
+  CALL R2 3 0
+  GETTABLEKS R3 R0 K6 ["MaterialVariant"]
+  GETTABLEKS R2 R3 K8 ["BaseMaterial"]
+  GETTABLEKS R3 R0 K9 ["MaterialServiceController"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["state"]
+  GETTABLEKS R5 R6 K3 ["name"]
+  MOVE R6 R2
+  NAMECALL R3 R3 K10 ["checkMaterialName"]
+  CALL R3 3 1
+  JUMPIFNOT R3 [+12]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["setNameStatus"]
+  LOADK R6 K12 ["CreateDialog"]
+  LOADK R7 K13 ["ErrorNameExists"]
+  NAMECALL R4 R1 K14 ["getText"]
+  CALL R4 3 1
+  GETIMPORT R5 K18 [Enum.PropertyStatus.Warning]
+  CALL R3 2 0
+  RETURN R0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["setNameStatus"]
+  LOADNIL R4
+  CALL R3 1 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K19 [{"name"}]
+  GETTABLEKS R6 R0 K6 ["MaterialVariant"]
+  GETTABLEKS R5 R6 K20 ["Name"]
+  SETTABLEKS R5 R4 K3 ["name"]
+  NAMECALL R2 R2 K21 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R3 R2 K1 ["Localization"]
+  GETTABLEKS R4 R2 K2 ["GeneralServiceController"]
+  GETTABLEKS R6 R2 K3 ["MaterialVariant"]
+  GETUPVAL R8 1
+  GETTABLE R7 R8 R1
+  NAMECALL R4 R4 K4 ["setBaseMaterial"]
+  CALL R4 3 0
+  GETTABLEKS R4 R2 K5 ["MaterialServiceController"]
+  GETUPVAL R6 2
+  GETTABLEKS R8 R2 K3 ["MaterialVariant"]
+  GETTABLEKS R7 R8 K6 ["BaseMaterial"]
+  CALL R6 1 -1
+  NAMECALL R4 R4 K7 ["setPath"]
+  CALL R4 -1 0
+  GETTABLEKS R5 R2 K3 ["MaterialVariant"]
+  GETTABLEKS R4 R5 K8 ["Name"]
+  GETTABLEKS R6 R2 K3 ["MaterialVariant"]
+  GETTABLEKS R5 R6 K6 ["BaseMaterial"]
+  GETTABLEKS R6 R2 K5 ["MaterialServiceController"]
+  MOVE R8 R4
+  MOVE R9 R5
+  NAMECALL R6 R6 K9 ["checkMaterialName"]
+  CALL R6 3 1
+  JUMPIFNOT R6 [+12]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K10 ["setNameStatus"]
+  LOADK R9 K11 ["CreateDialog"]
+  LOADK R10 K12 ["ErrorNameExists"]
+  NAMECALL R7 R3 K13 ["getText"]
+  CALL R7 3 1
+  GETIMPORT R8 K17 [Enum.PropertyStatus.Warning]
+  CALL R6 2 0
+  RETURN R0 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K10 ["setNameStatus"]
+  LOADNIL R7
+  CALL R6 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["dispatchSetExpandedPane"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["GeneralSettings"]
+  GETTABLEKS R4 R0 K3 ["ExpandedPane"]
+  NOT R3 R4
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R1 K1 [{"name"}]
+  GETTABLEKS R4 R0 K2 ["props"]
+  GETTABLEKS R3 R4 K3 ["MaterialVariant"]
+  GETTABLEKS R2 R3 K4 ["Name"]
+  SETTABLEKS R2 R1 K0 ["name"]
+  SETTABLEKS R1 R0 K5 ["state"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K6 ["baseMaterials"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K7 ["setNameStatus"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K8 ["onNameChanged"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K9 ["onFocusLost"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K10 ["onBaseMaterialSelected"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R1 R0 K11 ["onExpandedChanged"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETIMPORT R3 K3 [ipairs]
+  GETUPVAL R4 0
+  CALL R3 1 3
+  FORGPREP_INEXT R3
+  GETTABLEKS R9 R0 K4 ["baseMaterials"]
+  LOADK R12 K5 ["Materials"]
+  GETUPVAL R13 1
+  MOVE R14 R7
+  CALL R13 1 -1
+  NAMECALL R10 R2 K6 ["getText"]
+  CALL R10 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K9 [table.insert]
+  CALL R8 -1 0
+  FORGLOOP R3 2 [inext] [-14]
+  NEWTABLE R5 0 0
+  NAMECALL R3 R0 K10 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R4 R0 K0 ["state"]
+  GETTABLEKS R3 R4 K1 ["name"]
+  GETTABLEKS R6 R0 K2 ["props"]
+  GETTABLEKS R5 R6 K3 ["MaterialVariant"]
+  GETTABLEKS R4 R5 K4 ["Name"]
+  JUMPIFEQ R3 R4 [+21]
+  GETTABLEKS R3 R2 K1 ["name"]
+  GETTABLEKS R5 R0 K0 ["state"]
+  GETTABLEKS R4 R5 K1 ["name"]
+  JUMPIFNOTEQ R3 R4 [+13]
+  DUPTABLE R5 K5 [{"name"}]
+  GETTABLEKS R8 R0 K2 ["props"]
+  GETTABLEKS R7 R8 K3 ["MaterialVariant"]
+  GETTABLEKS R6 R7 K4 ["Name"]
+  SETTABLEKS R6 R5 K1 ["name"]
+  NAMECALL R3 R0 K6 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["GeneralSettings"]
+  GETTABLEKS R3 R1 K3 ["Localization"]
+  LOADN R4 255
+  GETIMPORT R5 K5 [ipairs]
+  GETUPVAL R6 0
+  CALL R5 1 3
+  FORGPREP_INEXT R5
+  GETTABLEKS R11 R1 K6 ["MaterialVariant"]
+  GETTABLEKS R10 R11 K7 ["BaseMaterial"]
+  JUMPIFNOTEQ R9 R10 [+2]
+  MOVE R4 R8
+  GETIMPORT R10 K11 [Enum.Material.Plastic]
+  JUMPIFNOTEQ R9 R10 [+4]
+  JUMPIFNOTEQKN R4 K12 [-1] [+2]
+  MOVE R4 R8
+  FORGLOOP R5 2 [inext] [-15]
+  JUMPIFNOTEQKN R4 K12 [-1] [+2]
+  LOADN R4 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K13 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K21 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
+  GETTABLEKS R8 R1 K14 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K14 ["LayoutOrder"]
+  GETTABLEKS R8 R2 K15 ["ContentPadding"]
+  SETTABLEKS R8 R7 K15 ["ContentPadding"]
+  GETTABLEKS R8 R2 K22 ["ItemSpacing"]
+  SETTABLEKS R8 R7 K16 ["ContentSpacing"]
+  LOADK R10 K23 ["MaterialGeneral"]
+  LOADK R11 K24 ["General"]
+  NAMECALL R8 R3 K25 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K17 ["Text"]
+  GETTABLEKS R8 R2 K26 ["CustomExpandablePane"]
+  SETTABLEKS R8 R7 K18 ["Style"]
+  GETTABLEKS R8 R1 K27 ["ExpandedPane"]
+  SETTABLEKS R8 R7 K19 ["Expanded"]
+  GETTABLEKS R8 R0 K28 ["onExpandedChanged"]
+  SETTABLEKS R8 R7 K20 ["OnExpandedChanged"]
+  DUPTABLE R8 K30 [{"Name", "BaseMaterial"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K13 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K34 [{"LabelColumnWidth", "LayoutOrder", "Text", "StatusText", "Status"}]
+  GETTABLEKS R12 R2 K31 ["LabelColumnWidth"]
+  SETTABLEKS R12 R11 K31 ["LabelColumnWidth"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  LOADK R14 K35 ["CreateDialog"]
+  LOADK R15 K36 ["NameVariant"]
+  NAMECALL R12 R3 K25 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K17 ["Text"]
+  GETTABLEKS R13 R0 K37 ["state"]
+  GETTABLEKS R12 R13 K38 ["nameMessage"]
+  SETTABLEKS R12 R11 K32 ["StatusText"]
+  GETTABLEKS R13 R0 K37 ["state"]
+  GETTABLEKS R12 R13 K39 ["status"]
+  SETTABLEKS R12 R11 K33 ["Status"]
+  NEWTABLE R12 0 1
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K13 ["createElement"]
+  GETUPVAL R14 4
+  DUPTABLE R15 K43 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
+  LOADK R16 K44 ["FilledRoundedBorder"]
+  SETTABLEKS R16 R15 K18 ["Style"]
+  GETTABLEKS R16 R2 K45 ["DialogColumnSize"]
+  SETTABLEKS R16 R15 K40 ["Size"]
+  GETTABLEKS R17 R0 K37 ["state"]
+  GETTABLEKS R16 R17 K46 ["name"]
+  SETTABLEKS R16 R15 K17 ["Text"]
+  GETTABLEKS R16 R0 K47 ["onNameChanged"]
+  SETTABLEKS R16 R15 K41 ["OnTextChanged"]
+  GETTABLEKS R16 R0 K48 ["onFocusLost"]
+  SETTABLEKS R16 R15 K42 ["OnFocusLost"]
+  CALL R13 2 -1
+  SETLIST R12 R13 -1 [1]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K29 ["Name"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K13 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K49 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
+  GETTABLEKS R12 R2 K31 ["LabelColumnWidth"]
+  SETTABLEKS R12 R11 K31 ["LabelColumnWidth"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  LOADK R14 K35 ["CreateDialog"]
+  LOADK R15 K50 ["BaseMaterialVariant"]
+  NAMECALL R12 R3 K25 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K17 ["Text"]
+  NEWTABLE R12 0 1
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K13 ["createElement"]
+  GETUPVAL R14 5
+  DUPTABLE R15 K55 [{"Style", "Items", "Size", "OnItemActivated", "PlaceholderText", "SelectedIndex"}]
+  GETTABLEKS R16 R2 K56 ["CustomSelectInput"]
+  SETTABLEKS R16 R15 K18 ["Style"]
+  GETTABLEKS R16 R0 K57 ["baseMaterials"]
+  SETTABLEKS R16 R15 K51 ["Items"]
+  GETTABLEKS R16 R2 K45 ["DialogColumnSize"]
+  SETTABLEKS R16 R15 K40 ["Size"]
+  GETTABLEKS R16 R0 K58 ["onBaseMaterialSelected"]
+  SETTABLEKS R16 R15 K52 ["OnItemActivated"]
+  LOADK R18 K35 ["CreateDialog"]
+  LOADK R19 K59 ["PlaceholderBaseMaterial"]
+  NAMECALL R16 R3 K25 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K53 ["PlaceholderText"]
+  SETTABLEKS R4 R15 K54 ["SelectedIndex"]
+  CALL R13 2 -1
+  SETLIST R12 R13 -1 [1]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K7 ["BaseMaterial"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_9:
+  DUPTABLE R1 K2 [{"ExpandedPane", "Material"}]
+  GETTABLEKS R4 R0 K3 ["MaterialBrowserReducer"]
+  GETTABLEKS R3 R4 K0 ["ExpandedPane"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["GeneralSettings"]
+  GETTABLE R2 R3 R4
+  SETTABLEKS R2 R1 K0 ["ExpandedPane"]
+  GETTABLEKS R3 R0 K3 ["MaterialBrowserReducer"]
+  GETTABLEKS R2 R3 K1 ["Material"]
+  SETTABLEKS R2 R1 K1 ["Material"]
+  RETURN R1 1
+
+PROTO_10:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  DUPTABLE R1 K1 [{"dispatchSetExpandedPane"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchSetExpandedPane"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["withContext"]
+  GETTABLEKS R7 R5 K13 ["Analytics"]
+  GETTABLEKS R8 R5 K14 ["Localization"]
+  GETTABLEKS R10 R4 K15 ["Style"]
+  GETTABLEKS R9 R10 K16 ["Stylizer"]
+  GETTABLEKS R10 R4 K17 ["UI"]
+  GETTABLEKS R11 R10 K18 ["DEPRECATED_TextInput"]
+  GETTABLEKS R12 R10 K19 ["SelectInput"]
+  GETTABLEKS R13 R10 K20 ["ExpandablePane"]
+  GETTABLEKS R15 R0 K5 ["Src"]
+  GETTABLEKS R14 R15 K21 ["Actions"]
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R16 R14 K22 ["SetExpandedPane"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K5 ["Src"]
+  GETTABLEKS R18 R19 K23 ["Reducers"]
+  GETTABLEKS R17 R18 K24 ["MainReducer"]
+  CALL R16 1 1
+  GETTABLEKS R18 R0 K5 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Controllers"]
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R19 R17 K26 ["MaterialServiceController"]
+  CALL R18 1 1
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R20 R17 K27 ["GeneralServiceController"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R25 R0 K5 ["Src"]
+  GETTABLEKS R24 R25 K28 ["Components"]
+  GETTABLEKS R23 R24 K29 ["MaterialBrowser"]
+  GETTABLEKS R22 R23 K30 ["MaterialEditor"]
+  GETTABLEKS R21 R22 K31 ["LabeledElement"]
+  CALL R20 1 1
+  GETTABLEKS R23 R0 K5 ["Src"]
+  GETTABLEKS R22 R23 K32 ["Resources"]
+  GETTABLEKS R21 R22 K33 ["Constants"]
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R23 R21 K34 ["getMaterialPath"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R24 R21 K35 ["getSupportedMaterials"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R25 R21 K36 ["getMaterialName"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R26 R21 K37 ["getSettingsNames"]
+  CALL R25 1 1
+  MOVE R26 R25
+  CALL R26 0 1
+  MOVE R27 R23
+  LOADB R28 1
+  CALL R27 1 1
+  GETTABLEKS R28 R2 K38 ["PureComponent"]
+  LOADK R30 K39 ["GeneralSettings"]
+  NAMECALL R28 R28 K40 ["extend"]
+  CALL R28 2 1
+  DUPCLOSURE R29 K41 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R27
+  CAPTURE VAL R22
+  CAPTURE VAL R26
+  SETTABLEKS R29 R28 K42 ["init"]
+  DUPCLOSURE R29 K43 [PROTO_6]
+  CAPTURE VAL R27
+  CAPTURE VAL R24
+  SETTABLEKS R29 R28 K44 ["didMount"]
+  DUPCLOSURE R29 K45 [PROTO_7]
+  SETTABLEKS R29 R28 K46 ["didUpdate"]
+  DUPCLOSURE R29 K47 [PROTO_8]
+  CAPTURE VAL R27
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R20
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  SETTABLEKS R29 R28 K48 ["render"]
+  MOVE R29 R6
+  DUPTABLE R30 K49 [{"Analytics", "Localization", "Stylizer", "MaterialServiceController", "GeneralServiceController"}]
+  SETTABLEKS R7 R30 K13 ["Analytics"]
+  SETTABLEKS R8 R30 K14 ["Localization"]
+  SETTABLEKS R9 R30 K16 ["Stylizer"]
+  SETTABLEKS R18 R30 K26 ["MaterialServiceController"]
+  SETTABLEKS R19 R30 K27 ["GeneralServiceController"]
+  CALL R29 1 1
+  MOVE R30 R28
+  CALL R29 1 1
+  MOVE R28 R29
+  GETTABLEKS R29 R3 K50 ["connect"]
+  DUPCLOSURE R30 K51 [PROTO_9]
+  CAPTURE VAL R26
+  DUPCLOSURE R31 K52 [PROTO_11]
+  CAPTURE VAL R15
+  CALL R29 2 1
+  MOVE R30 R28
+  CALL R29 1 -1
+  RETURN R29 -1

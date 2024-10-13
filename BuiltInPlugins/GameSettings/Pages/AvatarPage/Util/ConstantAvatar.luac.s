@@ -1,0 +1,64 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 2 0
+  DUPTABLE R1 K2 [{"R6", "R15"}]
+  LOADK R2 K3 ["MorphToR6"]
+  SETTABLEKS R2 R1 K0 ["R6"]
+  LOADK R2 K4 ["MorphToR15"]
+  SETTABLEKS R2 R1 K1 ["R15"]
+  SETTABLEKS R1 R0 K5 ["AvatarType"]
+  DUPTABLE R1 K32 [{"Hat", "Hair", "FaceAccessory", "Neck", "Shoulder", "Front", "Back", "Waist", "ShirtGraphic", "Shirt", "Pants", "Gear", "Head", "Face", "Torso", "RightArm", "LeftArm", "LeftLeg", "RightLeg", "ClimbAnim", "FallAnim", "IdleAnim", "JumpAnim", "RunAnim", "SwimAnim", "WalkAnim"}]
+  LOADN R2 8
+  SETTABLEKS R2 R1 K6 ["Hat"]
+  LOADN R2 41
+  SETTABLEKS R2 R1 K7 ["Hair"]
+  LOADN R2 42
+  SETTABLEKS R2 R1 K8 ["FaceAccessory"]
+  LOADN R2 43
+  SETTABLEKS R2 R1 K9 ["Neck"]
+  LOADN R2 44
+  SETTABLEKS R2 R1 K10 ["Shoulder"]
+  LOADN R2 45
+  SETTABLEKS R2 R1 K11 ["Front"]
+  LOADN R2 46
+  SETTABLEKS R2 R1 K12 ["Back"]
+  LOADN R2 47
+  SETTABLEKS R2 R1 K13 ["Waist"]
+  LOADN R2 2
+  SETTABLEKS R2 R1 K14 ["ShirtGraphic"]
+  LOADN R2 11
+  SETTABLEKS R2 R1 K15 ["Shirt"]
+  LOADN R2 12
+  SETTABLEKS R2 R1 K16 ["Pants"]
+  LOADN R2 19
+  SETTABLEKS R2 R1 K17 ["Gear"]
+  LOADN R2 17
+  SETTABLEKS R2 R1 K18 ["Head"]
+  LOADN R2 18
+  SETTABLEKS R2 R1 K19 ["Face"]
+  LOADN R2 27
+  SETTABLEKS R2 R1 K20 ["Torso"]
+  LOADN R2 28
+  SETTABLEKS R2 R1 K21 ["RightArm"]
+  LOADN R2 29
+  SETTABLEKS R2 R1 K22 ["LeftArm"]
+  LOADN R2 30
+  SETTABLEKS R2 R1 K23 ["LeftLeg"]
+  LOADN R2 31
+  SETTABLEKS R2 R1 K24 ["RightLeg"]
+  LOADN R2 48
+  SETTABLEKS R2 R1 K25 ["ClimbAnim"]
+  LOADN R2 50
+  SETTABLEKS R2 R1 K26 ["FallAnim"]
+  LOADN R2 51
+  SETTABLEKS R2 R1 K27 ["IdleAnim"]
+  LOADN R2 52
+  SETTABLEKS R2 R1 K28 ["JumpAnim"]
+  LOADN R2 53
+  SETTABLEKS R2 R1 K29 ["RunAnim"]
+  LOADN R2 54
+  SETTABLEKS R2 R1 K30 ["SwimAnim"]
+  LOADN R2 55
+  SETTABLEKS R2 R1 K31 ["WalkAnim"]
+  SETTABLEKS R1 R0 K33 ["AssetTypes"]
+  RETURN R0 1

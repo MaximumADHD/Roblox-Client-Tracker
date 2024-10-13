@@ -27,7 +27,6 @@ local TopStatConnector = require(Connection.TopStatConnector)
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTest)
 local GetFStringRemoveSideBarABTestLayerName = require(PlayerList.Flags.GetFStringRemoveSideBarABTestLayerName)
 
@@ -97,9 +96,7 @@ function PlayerListApp:render()
 			containerPosition += UDim2.fromOffset(0, StatsUtils.ButtonHeight)
 		end
 
-		if FFlagMobilePlayerList then
-			containerPosition += UDim2.fromOffset(0, layoutValues.TopBarOffset)
-		end
+		containerPosition += UDim2.fromOffset(0, layoutValues.TopBarOffset)
 
 		local maxLeaderstats = layoutValues.MaxLeaderstats
 		if self.props.displayOptions.isSmallTouchDevice then

@@ -1,0 +1,529 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["dockWidget"]
+  GETTABLEKS R1 R2 K1 ["Enabled"]
+  JUMPIFNOTEQKB R1 FALSE [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["stopAllSounds"]
+  CALL R1 0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["toolboxButton"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["dockWidget"]
+  GETTABLEKS R3 R4 K1 ["Enabled"]
+  NAMECALL R1 R1 K5 ["SetActive"]
+  CALL R1 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["dockWidget"]
+  GETTABLEKS R1 R2 K1 ["Enabled"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["onToolboxDisplayed"]
+  CALL R1 0 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K7 ["onToolboxHidden"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_1:
+  JUMPIF R2 [+12]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["onPluginWillDestroy"]
+  JUMPIFNOT R3 [+6]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["onPluginWillDestroy"]
+  CALL R3 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K0 ["dockWidget"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["toolboxButton"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["dockWidget"]
+  GETTABLEKS R3 R4 K2 ["Enabled"]
+  NAMECALL R1 R1 K3 ["SetActive"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["dockWidget"]
+  GETTABLEKS R0 R1 K1 ["AbsoluteSize"]
+  GETUPVAL R1 1
+  JUMPIFEQKNIL R1 [+15]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["X"]
+  GETTABLEKS R2 R0 K2 ["X"]
+  JUMPIFNOTEQ R1 R2 [+8]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["Y"]
+  GETTABLEKS R2 R0 K3 ["Y"]
+  JUMPIFEQ R1 R2 [+7]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K4 ["onToolboxWidgetInteraction"]
+  MOVE R2 R0
+  CALL R1 1 0
+  SETUPVAL R0 1
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K0 ["theme"]
+  GETTABLEKS R2 R1 K1 ["localization"]
+  SETTABLEKS R2 R0 K1 ["localization"]
+  GETTABLEKS R2 R1 K2 ["plugin"]
+  SETTABLEKS R2 R0 K2 ["plugin"]
+  GETTABLEKS R2 R0 K2 ["plugin"]
+  JUMPIF R2 [+4]
+  GETIMPORT R2 K4 [error]
+  LOADK R3 K5 ["ToolboxPlugin component requires plugin to be passed as prop"]
+  CALL R2 1 0
+  DUPTABLE R2 K8 [{"enabled", "pluginGui"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K6 ["enabled"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K7 ["pluginGui"]
+  SETTABLEKS R2 R0 K9 ["state"]
+  GETTABLEKS R3 R1 K10 ["pluginLoaderContext"]
+  GETTABLEKS R2 R3 K11 ["toolbar"]
+  SETTABLEKS R2 R0 K11 ["toolbar"]
+  GETTABLEKS R3 R1 K10 ["pluginLoaderContext"]
+  GETTABLEKS R2 R3 K12 ["mainButton"]
+  SETTABLEKS R2 R0 K13 ["toolboxButton"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R0 K14 ["onDockWidgetEnabledChanged"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K15 ["onAncestryChanged"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K16 ["dockWidgetRefFunc"]
+  LOADNIL R2
+  NEWCLOSURE R3 P3
+  CAPTURE VAL R0
+  CAPTURE REF R2
+  CAPTURE UPVAL U1
+  SETTABLEKS R3 R0 K17 ["onDockWidgetInteraction"]
+  CLOSEUPVALS R2
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dockWidget"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["dockWidget"]
+  GETTABLEKS R2 R3 K1 ["Enabled"]
+  NOT R1 R2
+  SETTABLEKS R1 R0 K1 ["Enabled"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["dockWidget"]
+  GETTABLEKS R0 R1 K1 ["Enabled"]
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["onPluginButtonClickOpen"]
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["onPluginButtonClickClose"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dockWidget"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K1 ["Enabled"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dockWidget"]
+  NAMECALL R0 R0 K2 ["RequestRaise"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dockWidget"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K1 ["Enabled"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dockWidget"]
+  NAMECALL R0 R0 K2 ["RequestRaise"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dockWidget"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K1 ["Enabled"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dockWidget"]
+  NAMECALL R0 R0 K2 ["RequestRaise"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["pluginLoaderContext"]
+  GETTABLEKS R1 R2 K2 ["mainButtonClickedSignal"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  NAMECALL R1 R1 K3 ["Connect"]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K4 ["getStartupAssetId"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+9]
+  LENGTH R2 R1
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+6]
+  GETTABLEKS R2 R0 K5 ["dockWidget"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K6 ["Enabled"]
+  GETTABLEKS R2 R0 K7 ["onDockWidgetEnabledChanged"]
+  GETTABLEKS R3 R0 K5 ["dockWidget"]
+  CALL R2 1 0
+  GETTABLEKS R3 R0 K5 ["dockWidget"]
+  GETTABLEKS R2 R3 K8 ["WindowFocused"]
+  GETTABLEKS R4 R0 K9 ["onDockWidgetInteraction"]
+  NAMECALL R2 R2 K3 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K10 ["_dockWidgetInteractionConnection"]
+  DUPTABLE R4 K12 [{"pluginGui"}]
+  GETTABLEKS R5 R0 K5 ["dockWidget"]
+  SETTABLEKS R5 R4 K11 ["pluginGui"]
+  NAMECALL R2 R0 K13 ["setState"]
+  CALL R2 2 0
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["pluginLoaderContext"]
+  GETTABLEKS R3 R4 K14 ["signals"]
+  LOADK R5 K15 ["MemStorageService."]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K16 ["SHOW_TOOLBOX_PLUGINS_EVENT"]
+  CONCAT R4 R5 R6
+  GETTABLE R2 R3 R4
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K3 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K17 ["_showPluginsConnection"]
+  GETUPVAL R2 3
+  JUMPIF R2 [+2]
+  GETUPVAL R2 4
+  JUMPIFNOT R2 [+19]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["pluginLoaderContext"]
+  GETTABLEKS R3 R4 K14 ["signals"]
+  LOADK R5 K15 ["MemStorageService."]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K18 ["SHOW_TOOLBOX_OPEN_MODELS_AND_SEARCH_EVENT"]
+  CONCAT R4 R5 R6
+  GETTABLE R2 R3 R4
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K3 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K17 ["_showPluginsConnection"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["pluginLoaderContext"]
+  GETTABLEKS R3 R4 K14 ["signals"]
+  LOADK R5 K15 ["MemStorageService."]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K19 ["OPEN_MARKETPLACE_VIEW_FOR_ASSET_TYPE"]
+  CONCAT R4 R5 R6
+  GETTABLE R2 R3 R4
+  NEWCLOSURE R4 P3
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K3 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K20 ["_changeMarketplaceTabConnection"]
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["disconnectLocalizationListener"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R1 R0 K0 ["disconnectLocalizationListener"]
+  CALL R1 0 0
+  GETTABLEKS R1 R0 K1 ["_showPluginsConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K1 ["_showPluginsConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_showPluginsConnection"]
+  GETTABLEKS R1 R0 K3 ["_changeMarketplaceTabConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K3 ["_changeMarketplaceTabConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["_changeMarketplaceTabConnection"]
+  GETTABLEKS R1 R0 K4 ["_dockWidgetInteractionConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K4 ["_dockWidgetInteractionConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["_dockWidgetInteractionConnection"]
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["plugin"]
+  GETTABLEKS R4 R1 K3 ["theme"]
+  GETTABLEKS R5 R1 K4 ["networkInterface"]
+  GETTABLEKS R6 R1 K5 ["localization"]
+  GETTABLEKS R7 R1 K6 ["backgrounds"]
+  GETTABLEKS R8 R1 K7 ["suggestions"]
+  GETTABLEKS R9 R1 K8 ["tryOpenAssetConfig"]
+  GETTABLEKS R10 R2 K9 ["enabled"]
+  GETTABLEKS R11 R2 K10 ["pluginGui"]
+  JUMPIFNOT R11 [+5]
+  GETTABLEKS R13 R11 K11 ["AbsoluteSize"]
+  GETTABLEKS R12 R13 K12 ["x"]
+  JUMPIF R12 [+3]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K13 ["TOOLBOX_MIN_WIDTH"]
+  JUMPIFNOTEQKNIL R11 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  GETTABLEKS R15 R0 K0 ["props"]
+  GETTABLEKS R14 R15 K14 ["Localization"]
+  LOADK R16 K15 ["General"]
+  LOADK R17 K16 ["ToolboxToolbarName"]
+  NAMECALL R14 R14 K17 ["getText"]
+  CALL R14 3 1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K18 ["createElement"]
+  GETUPVAL R16 2
+  NEWTABLE R17 16 0
+  LOADK R18 K19 ["Toolbox"]
+  SETTABLEKS R18 R17 K20 ["Id"]
+  SETTABLEKS R14 R17 K21 ["Title"]
+  LOADK R18 K19 ["Toolbox"]
+  SETTABLEKS R18 R17 K22 ["Name"]
+  GETIMPORT R18 K26 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R18 R17 K24 ["ZIndexBehavior"]
+  GETTABLEKS R19 R1 K27 ["pluginLoaderContext"]
+  GETTABLEKS R18 R19 K28 ["mainDockWidget"]
+  SETTABLEKS R18 R17 K29 ["Widget"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K13 ["TOOLBOX_MIN_WIDTH"]
+  SETTABLEKS R18 R17 K30 ["MinWidth"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K31 ["TOOLBOX_MIN_HEIGHT"]
+  SETTABLEKS R18 R17 K32 ["MinHeight"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K33 ["Ref"]
+  GETTABLEKS R19 R0 K34 ["dockWidgetRefFunc"]
+  SETTABLE R19 R17 R18
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K35 ["Change"]
+  GETTABLEKS R18 R19 K36 ["Enabled"]
+  GETTABLEKS R19 R0 K37 ["onDockWidgetEnabledChanged"]
+  SETTABLE R19 R17 R18
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K38 ["Event"]
+  GETTABLEKS R18 R19 K39 ["AncestryChanged"]
+  GETTABLEKS R19 R0 K40 ["onAncestryChanged"]
+  SETTABLE R19 R17 R18
+  DUPTABLE R18 K41 [{"Toolbox"}]
+  MOVE R19 R13
+  JUMPIFNOT R19 [+70]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K42 ["provide"]
+  NEWTABLE R20 0 2
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K43 ["Focus"]
+  GETTABLEKS R21 R22 K44 ["new"]
+  GETTABLEKS R23 R0 K1 ["state"]
+  GETTABLEKS R22 R23 K10 ["pluginGui"]
+  CALL R21 1 1
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K44 ["new"]
+  CALL R22 0 -1
+  SETLIST R20 R21 -1 [1]
+  NEWTABLE R21 0 1
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K18 ["createElement"]
+  GETUPVAL R23 5
+  DUPTABLE R24 K45 [{"plugin", "pluginGui", "theme", "networkInterface", "localization"}]
+  SETTABLEKS R3 R24 K2 ["plugin"]
+  SETTABLEKS R11 R24 K10 ["pluginGui"]
+  SETTABLEKS R4 R24 K3 ["theme"]
+  SETTABLEKS R5 R24 K4 ["networkInterface"]
+  SETTABLEKS R6 R24 K5 ["localization"]
+  NEWTABLE R25 0 1
+  GETUPVAL R27 1
+  GETTABLEKS R26 R27 K18 ["createElement"]
+  GETUPVAL R27 6
+  DUPTABLE R28 K48 [{"initialWidth", "backgrounds", "suggestions", "tryOpenAssetConfig", "pluginGui", "pluginLoaderContext", "onMouseEnter"}]
+  SETTABLEKS R12 R28 K46 ["initialWidth"]
+  SETTABLEKS R7 R28 K6 ["backgrounds"]
+  SETTABLEKS R8 R28 K7 ["suggestions"]
+  SETTABLEKS R9 R28 K8 ["tryOpenAssetConfig"]
+  SETTABLEKS R11 R28 K10 ["pluginGui"]
+  GETTABLEKS R29 R1 K27 ["pluginLoaderContext"]
+  SETTABLEKS R29 R28 K27 ["pluginLoaderContext"]
+  GETTABLEKS R29 R0 K49 ["onDockWidgetInteraction"]
+  SETTABLEKS R29 R28 K47 ["onMouseEnter"]
+  CALL R26 2 -1
+  SETLIST R25 R26 -1 [1]
+  CALL R22 3 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K19 ["Toolbox"]
+  CALL R15 3 -1
+  RETURN R15 -1
+
+PROTO_12:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  DUPTABLE R1 K1 [{"stopAllSounds"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["stopAllSounds"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["AICOChatBot"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["CAPNewUserExperiment"]
+  NAMECALL R1 R1 K3 ["GetFastFlag"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["StudioService"]
+  NAMECALL R2 R2 K6 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R6 K8 [script]
+  GETTABLEKS R5 R6 K9 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Parent"]
+  GETTABLEKS R4 R3 K10 ["Packages"]
+  GETIMPORT R5 K12 [require]
+  GETTABLEKS R6 R4 K13 ["Roact"]
+  CALL R5 1 1
+  GETIMPORT R6 K12 [require]
+  GETTABLEKS R7 R4 K14 ["RoactRodux"]
+  CALL R6 1 1
+  GETTABLEKS R8 R3 K15 ["Core"]
+  GETTABLEKS R7 R8 K16 ["Util"]
+  GETIMPORT R8 K12 [require]
+  GETTABLEKS R9 R3 K17 ["SharedPluginConstants"]
+  CALL R8 1 1
+  GETIMPORT R9 K12 [require]
+  GETTABLEKS R12 R3 K15 ["Core"]
+  GETTABLEKS R11 R12 K16 ["Util"]
+  GETTABLEKS R10 R11 K18 ["Constants"]
+  CALL R9 1 1
+  GETIMPORT R10 K12 [require]
+  GETTABLEKS R13 R3 K15 ["Core"]
+  GETTABLEKS R12 R13 K16 ["Util"]
+  GETTABLEKS R11 R12 K19 ["Images"]
+  CALL R10 1 1
+  GETIMPORT R11 K12 [require]
+  GETTABLEKS R14 R3 K15 ["Core"]
+  GETTABLEKS R13 R14 K20 ["Components"]
+  GETTABLEKS R12 R13 K21 ["ExternalServicesWrapper"]
+  CALL R11 1 1
+  GETIMPORT R12 K12 [require]
+  GETTABLEKS R16 R3 K15 ["Core"]
+  GETTABLEKS R15 R16 K20 ["Components"]
+  GETTABLEKS R14 R15 K22 ["PluginWidget"]
+  GETTABLEKS R13 R14 K23 ["DockWidget"]
+  CALL R12 1 1
+  GETIMPORT R13 K12 [require]
+  GETTABLEKS R16 R3 K15 ["Core"]
+  GETTABLEKS R15 R16 K20 ["Components"]
+  GETTABLEKS R14 R15 K24 ["Toolbox"]
+  CALL R13 1 1
+  GETIMPORT R14 K12 [require]
+  GETTABLEKS R17 R3 K15 ["Core"]
+  GETTABLEKS R16 R17 K25 ["Actions"]
+  GETTABLEKS R15 R16 K26 ["StopAllSounds"]
+  CALL R14 1 1
+  GETIMPORT R15 K12 [require]
+  GETTABLEKS R16 R7 K27 ["makeTheme"]
+  CALL R15 1 1
+  GETIMPORT R17 K12 [require]
+  GETTABLEKS R18 R4 K28 ["Framework"]
+  CALL R17 1 1
+  GETTABLEKS R16 R17 K29 ["ContextServices"]
+  GETTABLEKS R17 R16 K30 ["withContext"]
+  GETIMPORT R19 K12 [require]
+  GETTABLEKS R20 R4 K28 ["Framework"]
+  CALL R19 1 1
+  GETTABLEKS R18 R19 K16 ["Util"]
+  GETIMPORT R19 K12 [require]
+  GETTABLEKS R22 R3 K15 ["Core"]
+  GETTABLEKS R21 R22 K29 ["ContextServices"]
+  GETTABLEKS R20 R21 K31 ["NavigationContext"]
+  CALL R19 1 1
+  GETIMPORT R20 K12 [require]
+  GETTABLEKS R22 R7 K32 ["Analytics"]
+  GETTABLEKS R21 R22 K32 ["Analytics"]
+  CALL R20 1 1
+  GETTABLEKS R21 R5 K33 ["PureComponent"]
+  LOADK R23 K34 ["ToolboxPlugin"]
+  NAMECALL R21 R21 K35 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K36 [PROTO_4]
+  CAPTURE VAL R15
+  CAPTURE VAL R20
+  SETTABLEKS R22 R21 K37 ["init"]
+  DUPCLOSURE R22 K38 [PROTO_9]
+  CAPTURE VAL R20
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R22 R21 K39 ["didMount"]
+  DUPCLOSURE R22 K40 [PROTO_10]
+  SETTABLEKS R22 R21 K41 ["willUnmount"]
+  DUPCLOSURE R22 K42 [PROTO_11]
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  CAPTURE VAL R16
+  CAPTURE VAL R19
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  SETTABLEKS R22 R21 K43 ["render"]
+  MOVE R22 R17
+  DUPTABLE R23 K45 [{"Localization"}]
+  GETTABLEKS R24 R16 K44 ["Localization"]
+  SETTABLEKS R24 R23 K44 ["Localization"]
+  CALL R22 1 1
+  MOVE R23 R21
+  CALL R22 1 1
+  MOVE R21 R22
+  DUPCLOSURE R22 K46 [PROTO_13]
+  CAPTURE VAL R14
+  GETTABLEKS R23 R6 K47 ["connect"]
+  LOADNIL R24
+  MOVE R25 R22
+  CALL R23 2 1
+  MOVE R24 R21
+  CALL R23 1 -1
+  RETURN R23 -1

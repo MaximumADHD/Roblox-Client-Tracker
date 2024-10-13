@@ -1,0 +1,304 @@
+PROTO_0:
+  NEWTABLE R1 1 0
+  SETTABLEKS R0 R1 K0 ["__networking"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K2 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["__networking"]
+  LOADK R4 K1 ["develop"]
+  LOADK R6 K2 ["/v2/universes/"]
+  MOVE R7 R1
+  LOADK R8 K3 ["/configuration"]
+  CONCAT R5 R6 R8
+  NAMECALL R2 R2 K4 ["get"]
+  CALL R2 3 1
+  NAMECALL R2 R2 K5 ["await"]
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["__networking"]
+  LOADK R5 K1 ["develop"]
+  LOADK R7 K2 ["/v2/universes/"]
+  MOVE R8 R1
+  LOADK R9 K3 ["/configuration"]
+  CONCAT R6 R7 R9
+  DUPTABLE R7 K5 [{"Body"}]
+  SETTABLEKS R2 R7 K4 ["Body"]
+  NAMECALL R3 R3 K6 ["patch"]
+  CALL R3 4 1
+  NAMECALL R3 R3 K7 ["await"]
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_3:
+  MOVE R5 R1
+  NAMECALL R3 R0 K0 ["configurationV2GET"]
+  CALL R3 2 1
+  GETTABLEKS R5 R3 K1 ["responseBody"]
+  GETTABLEKS R4 R5 K2 ["permissions"]
+  GETTABLE R5 R4 R2
+  RETURN R5 1
+
+PROTO_4:
+  MOVE R6 R1
+  DUPTABLE R7 K1 [{"permissions"}]
+  NEWTABLE R8 1 0
+  SETTABLE R3 R8 R2
+  SETTABLEKS R8 R7 K0 ["permissions"]
+  NAMECALL R4 R0 K2 ["configurationV2PATCH"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_5:
+  MOVE R4 R1
+  LOADK R5 K0 ["IsThirdPartyPurchaseAllowed"]
+  NAMECALL R2 R0 K1 ["GetPermission"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_6:
+  MOVE R5 R1
+  LOADK R6 K0 ["IsThirdPartyPurchaseAllowed"]
+  MOVE R7 R2
+  NAMECALL R3 R0 K1 ["SetChangedPermissions"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_7:
+  MOVE R4 R1
+  LOADK R5 K0 ["IsThirdPartyTeleportAllowed"]
+  NAMECALL R2 R0 K1 ["GetPermission"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_8:
+  MOVE R5 R1
+  LOADK R6 K0 ["IsThirdPartyTeleportAllowed"]
+  MOVE R7 R2
+  NAMECALL R3 R0 K1 ["SetChangedPermissions"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_9:
+  LOADK R4 K0 ["HttpService"]
+  NAMECALL R2 R1 K1 ["GetService"]
+  CALL R2 2 1
+  NAMECALL R3 R2 K2 ["GetHttpEnabled"]
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_10:
+  LOADK R5 K0 ["HttpService"]
+  NAMECALL R3 R1 K1 ["GetService"]
+  CALL R3 2 1
+  MOVE R6 R2
+  NAMECALL R4 R3 K2 ["SetHttpEnabled"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_11:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["configurationV2GET"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K1 ["responseBody"]
+  GETTABLEKS R4 R3 K2 ["studioAccessToApisAllowed"]
+  RETURN R4 1
+
+PROTO_12:
+  MOVE R5 R1
+  DUPTABLE R6 K1 [{"studioAccessToApisAllowed"}]
+  SETTABLEKS R2 R6 K0 ["studioAccessToApisAllowed"]
+  NAMECALL R3 R0 K2 ["configurationV2PATCH"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_13:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["StudioService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K4 ["Secrets"]
+  RETURN R2 1
+
+PROTO_14:
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K2 ["StudioService"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  SETTABLEKS R1 R2 K4 ["Secrets"]
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["JSONDecode"]
+  CALL R1 2 1
+  RETURN R1 1
+
+PROTO_16:
+  DUPTABLE R1 K2 [{"Url", "Method"}]
+  SETTABLEKS R0 R1 K0 ["Url"]
+  LOADK R2 K3 ["GET"]
+  SETTABLEKS R2 R1 K1 ["Method"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Request"]
+  MOVE R3 R1
+  CALL R2 1 1
+  DUPCLOSURE R4 K5 [PROTO_15]
+  CAPTURE UPVAL U1
+  NAMECALL R2 R2 K6 ["andThen"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_17:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["BuildRobloxUrl"]
+  LOADK R1 K1 ["apis"]
+  LOADK R2 K2 ["access-management/v1/feature-access?featureNames=CanEnableMeshTextureApi"]
+  CALL R0 2 1
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_18:
+  GETTABLEKS R2 R0 K0 ["features"]
+  LENGTH R1 R2
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+8]
+  LOADB R1 1
+  GETTABLEKS R4 R0 K0 ["features"]
+  GETTABLEN R3 R4 1
+  GETTABLEKS R2 R3 K1 ["access"]
+  RETURN R1 2
+  LOADB R1 0
+  LOADK R2 K2 ["Denied"]
+  RETURN R1 2
+
+PROTO_19:
+  LOADB R0 0
+  LOADK R1 K0 ["Denied"]
+  RETURN R0 2
+
+PROTO_20:
+  DUPCLOSURE R0 K0 [PROTO_18]
+  DUPCLOSURE R1 K1 [PROTO_19]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["BuildRobloxUrl"]
+  LOADK R4 K3 ["apis"]
+  LOADK R5 K4 ["access-management/v1/feature-access?featureNames=CanEnableMeshTextureApi"]
+  CALL R3 2 1
+  GETUPVAL R4 1
+  MOVE R5 R3
+  CALL R4 1 1
+  MOVE R2 R4
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K5 ["andThen"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_21:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  NAMECALL R1 R1 K0 ["await"]
+  CALL R1 1 2
+  JUMPIF R1 [+4]
+  GETIMPORT R3 K2 [warn]
+  LOADK R4 K3 ["Unable to retrieve id verification feature, defaulting to false"]
+  CALL R3 1 0
+  RETURN R2 1
+
+PROTO_22:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["configurationV2GET"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K1 ["responseBody"]
+  GETTABLEKS R4 R3 K2 ["isMeshTextureApiAccessAllowed"]
+  RETURN R4 1
+
+PROTO_23:
+  MOVE R5 R1
+  DUPTABLE R6 K1 [{"isMeshTextureApiAccessAllowed"}]
+  SETTABLEKS R2 R6 K0 ["isMeshTextureApiAccessAllowed"]
+  NAMECALL R3 R0 K2 ["configurationV2PATCH"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 32 0
+  SETTABLEKS R0 R0 K0 ["__index"]
+  GETIMPORT R1 K2 [game]
+  LOADK R3 K3 ["EditableServiceEnabled"]
+  NAMECALL R1 R1 K4 ["GetEngineFeature"]
+  CALL R1 2 1
+  DUPCLOSURE R2 K5 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K6 ["new"]
+  DUPCLOSURE R2 K7 [PROTO_1]
+  SETTABLEKS R2 R0 K8 ["configurationV2GET"]
+  DUPCLOSURE R2 K9 [PROTO_2]
+  SETTABLEKS R2 R0 K10 ["configurationV2PATCH"]
+  DUPCLOSURE R2 K11 [PROTO_3]
+  SETTABLEKS R2 R0 K12 ["GetPermission"]
+  DUPCLOSURE R2 K13 [PROTO_4]
+  SETTABLEKS R2 R0 K14 ["SetChangedPermissions"]
+  DUPCLOSURE R2 K15 [PROTO_5]
+  SETTABLEKS R2 R0 K16 ["GetThirdPartyPurchasesAllowed"]
+  DUPCLOSURE R2 K17 [PROTO_6]
+  SETTABLEKS R2 R0 K18 ["SetThirdPartyPurchasesAllowed"]
+  DUPCLOSURE R2 K19 [PROTO_7]
+  SETTABLEKS R2 R0 K20 ["GetThirdPartyTeleportsAllowed"]
+  DUPCLOSURE R2 K21 [PROTO_8]
+  SETTABLEKS R2 R0 K22 ["SetThirdPartyTeleportsAllowed"]
+  DUPCLOSURE R2 K23 [PROTO_9]
+  SETTABLEKS R2 R0 K24 ["GetHttpEnabled"]
+  DUPCLOSURE R2 K25 [PROTO_10]
+  SETTABLEKS R2 R0 K26 ["SetHttpEnabled"]
+  DUPCLOSURE R2 K27 [PROTO_11]
+  SETTABLEKS R2 R0 K28 ["GetStudioAccessToApisAllowed"]
+  DUPCLOSURE R2 K29 [PROTO_12]
+  SETTABLEKS R2 R0 K30 ["SetStudioAccessToApisAllowed"]
+  DUPCLOSURE R2 K31 [PROTO_13]
+  SETTABLEKS R2 R0 K32 ["GetSecrets"]
+  DUPCLOSURE R2 K33 [PROTO_14]
+  SETTABLEKS R2 R0 K34 ["SetSecrets"]
+  JUMPIFNOT R1 [+44]
+  GETIMPORT R6 K36 [script]
+  GETTABLEKS R5 R6 K37 ["Parent"]
+  GETTABLEKS R4 R5 K37 ["Parent"]
+  GETTABLEKS R3 R4 K37 ["Parent"]
+  GETTABLEKS R2 R3 K37 ["Parent"]
+  GETIMPORT R3 K39 [require]
+  GETTABLEKS R6 R2 K40 ["Src"]
+  GETTABLEKS R5 R6 K41 ["Networking"]
+  GETTABLEKS R4 R5 K42 ["Http"]
+  CALL R3 1 1
+  GETIMPORT R4 K2 [game]
+  LOADK R6 K43 ["HttpService"]
+  NAMECALL R4 R4 K44 ["GetService"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K45 [PROTO_16]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  DUPCLOSURE R6 K46 [PROTO_17]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  DUPCLOSURE R7 K47 [PROTO_20]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  DUPCLOSURE R8 K48 [PROTO_21]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R0 K49 ["GetMeshTextureApiAmpStatus"]
+  DUPCLOSURE R8 K50 [PROTO_22]
+  SETTABLEKS R8 R0 K51 ["GetMeshTextureApisAllowed"]
+  DUPCLOSURE R8 K52 [PROTO_23]
+  SETTABLEKS R8 R0 K53 ["SetMeshTextureApisAllowed"]
+  RETURN R0 1

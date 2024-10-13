@@ -17,6 +17,7 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ScriptContext = game:GetService("ScriptContext")
 local CoreGui = game:GetService("CoreGui")
+local GetFFlagDisplayServerChannel = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisplayServerChannel
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
@@ -61,6 +62,13 @@ local RemoteFunction_GetServerVersion = Instance.new("RemoteFunction")
 RemoteFunction_GetServerVersion.Name = "GetServerVersion"
 RemoteFunction_GetServerVersion.Parent = RobloxReplicatedStorage
 
+local RemoteFunction_GetServerChannel = nil
+if GetFFlagDisplayServerChannel() then
+	RemoteFunction_GetServerChannel = Instance.new("RemoteFunction")
+	RemoteFunction_GetServerChannel.Name = "GetServerChannel"
+	RemoteFunction_GetServerChannel.Parent = RobloxReplicatedStorage
+end
+
 local function getServerVersion()
 	local rawVersion = runService:GetRobloxVersion()
 	local displayVersion
@@ -82,7 +90,14 @@ local function getServerVersion()
 	return displayVersion
 end
 
+local function getServerChannel()
+	return runService:GetRobloxClientChannel()
+end
+
 RemoteFunction_GetServerVersion.OnServerInvoke = getServerVersion
+if GetFFlagDisplayServerChannel() then
+	RemoteFunction_GetServerChannel.OnServerInvoke = getServerChannel
+end
 
 local FFlagEnableTenFootInterfaceCheckForLegacyChat =
 	game:DefineFastFlag("EnableTenFootInterfaceCheckForLegacyChat", false)

@@ -1,0 +1,73 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADN R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADN R2 0
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useState"]
+  LOADNIL R4
+  CALL R3 1 2
+  GETUPVAL R5 1
+  GETTABLEKS R6 R0 K1 ["Dummy"]
+  GETTABLEKS R7 R0 K2 ["AnimationId"]
+  MOVE R8 R2
+  MOVE R9 R3
+  CALL R5 4 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["useEffect"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R2
+  NEWTABLE R8 0 1
+  MOVE R9 R5
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 0
+  JUMPIFNOTEQKNIL R5 [+3]
+  LOADNIL R6
+  RETURN R6 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K9 [{"AnimationPositionAlpha", "Length", "ForcedPositionAlpha", "SetForcedPositionAlpha"}]
+  SETTABLEKS R1 R8 K5 ["AnimationPositionAlpha"]
+  GETTABLEKS R9 R5 K6 ["Length"]
+  SETTABLEKS R9 R8 K6 ["Length"]
+  SETTABLEKS R3 R8 K7 ["ForcedPositionAlpha"]
+  SETTABLEKS R4 R8 K8 ["SetForcedPositionAlpha"]
+  CALL R6 2 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Components"]
+  GETTABLEKS R3 R4 K10 ["AnimationControllerDisplay"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Hooks"]
+  GETTABLEKS R4 R5 K12 ["useAnimationOnAnimateTarget"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Types"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K14 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R5 1

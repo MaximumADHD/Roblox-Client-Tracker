@@ -1,0 +1,386 @@
+PROTO_0:
+  DUPTABLE R3 K4 [{"Size", "Title", "Header", "Buttons"}]
+  GETIMPORT R4 K7 [Vector2.new]
+  LOADN R5 87
+  LOADN R6 145
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K0 ["Size"]
+  LOADK R6 K8 ["General"]
+  LOADK R7 K9 ["SingleImageDialogHeader"]
+  NAMECALL R4 R1 K10 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K1 ["Title"]
+  LOADK R6 K8 ["General"]
+  LOADK R7 K11 ["SingleImageDialogBody"]
+  NAMECALL R4 R1 K10 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K2 ["Header"]
+  NEWTABLE R4 0 1
+  LOADK R7 K8 ["General"]
+  LOADK R8 K12 ["ReplyOK"]
+  NAMECALL R5 R1 K10 ["getText"]
+  CALL R5 3 -1
+  SETLIST R4 R5 -1 [1]
+  SETTABLEKS R4 R3 K3 ["Buttons"]
+  MOVE R4 R2
+  GETUPVAL R5 0
+  MOVE R6 R3
+  CALL R4 2 1
+  NAMECALL R4 R4 K13 ["await"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R4 K7 [{"Size", "Title", "Header", "Entries", "Buttons", "Wrapped", "Truncate"}]
+  GETIMPORT R5 K10 [Vector2.new]
+  LOADN R6 204
+  LOADN R8 200
+  LENGTH R10 R3
+  MULK R9 R10 K11 [22]
+  ADD R7 R8 R9
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K0 ["Size"]
+  LOADK R7 K12 ["General"]
+  LOADK R8 K13 ["MultiImageDialogHeader"]
+  NAMECALL R5 R1 K14 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K1 ["Title"]
+  LOADK R7 K12 ["General"]
+  LOADK R8 K15 ["MultiImageDialogBody"]
+  DUPTABLE R9 K17 [{"maxThumbnailSize"}]
+  GETUPVAL R11 0
+  DIVK R10 R11 K18 [1000000]
+  SETTABLEKS R10 R9 K16 ["maxThumbnailSize"]
+  NAMECALL R5 R1 K14 ["getText"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K2 ["Header"]
+  SETTABLEKS R3 R4 K3 ["Entries"]
+  NEWTABLE R5 0 1
+  LOADK R8 K12 ["General"]
+  LOADK R9 K19 ["ReplyOK"]
+  NAMECALL R6 R1 K14 ["getText"]
+  CALL R6 3 -1
+  SETLIST R5 R6 -1 [1]
+  SETTABLEKS R5 R4 K4 ["Buttons"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K5 ["Wrapped"]
+  GETIMPORT R5 K23 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R5 R4 K6 ["Truncate"]
+  MOVE R5 R2
+  GETUPVAL R6 1
+  MOVE R7 R4
+  CALL R5 2 1
+  NAMECALL R5 R5 K24 ["await"]
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWTABLE R3 1 0
+  DUPTABLE R4 K3 [{"type", "name", "description"}]
+  GETTABLEKS R5 R1 K4 ["Name"]
+  SETTABLEKS R5 R4 K0 ["type"]
+  SETTABLEKS R0 R4 K1 ["name"]
+  SETTABLEKS R2 R4 K2 ["description"]
+  SETTABLE R4 R3 R0
+  RETURN R3 1
+
+PROTO_3:
+  LOADK R5 K0 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E
+"]
+  LOADK R6 K1 ["Content-Type: application/json
+"]
+  LOADK R7 K2 ["Content-Disposition: form-data; name=\"config\"; filename=\"config.json\"
+"]
+  LOADK R8 K3 ["
+"]
+  MOVE R9 R0
+  LOADK R10 K3 ["
+"]
+  LOADK R11 K0 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E
+"]
+  LOADK R12 K4 ["Content-Disposition: form-data; name=\""]
+  MOVE R13 R1
+  LOADK R14 K5 ["\"; filename=\""]
+  MOVE R15 R1
+  LOADK R16 K6 ["."]
+  MOVE R17 R2
+  LOADK R18 K7 ["\"
+"]
+  LOADK R19 K8 ["Content-Type: application/octet-stream
+"]
+  LOADK R20 K3 ["
+"]
+  MOVE R21 R3
+  LOADK R22 K3 ["
+"]
+  LOADK R23 K9 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--
+"]
+  CONCAT R4 R5 R23
+  RETURN R4 1
+
+PROTO_4:
+  FASTCALL1 ASSERT R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [assert]
+  CALL R2 1 0
+  GETUPVAL R2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["IMAGE_TYPES"]
+  NAMECALL R2 R2 K3 ["PromptImportFile"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+11]
+  GETTABLEKS R3 R2 K4 ["Size"]
+  GETUPVAL R4 2
+  JUMPIFNOTLT R4 R3 [+6]
+  GETUPVAL R3 3
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 0
+  RETURN R0 0
+  RETURN R2 1
+  RETURN R0 0
+
+PROTO_5:
+  AND R4 R1 R2
+  FASTCALL1 ASSERT R4 [+2]
+  GETIMPORT R3 K1 [assert]
+  CALL R3 1 0
+  GETUPVAL R3 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["IMAGE_TYPES"]
+  NAMECALL R3 R3 K3 ["PromptImportFiles"]
+  CALL R3 2 1
+  NEWTABLE R4 0 0
+  NEWTABLE R5 0 0
+  JUMPIFNOT R3 [+45]
+  LENGTH R6 R3
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+42]
+  GETIMPORT R6 K5 [ipairs]
+  MOVE R7 R3
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  GETTABLEKS R11 R10 K6 ["Size"]
+  GETUPVAL R12 2
+  JUMPIFNOTLT R12 R11 [+10]
+  GETTABLEKS R13 R10 K7 ["Name"]
+  FASTCALL2 TABLE_INSERT R4 R13 [+4]
+  MOVE R12 R4
+  GETIMPORT R11 K10 [table.insert]
+  CALL R11 2 0
+  JUMP [+7]
+  FASTCALL2 TABLE_INSERT R5 R10 [+5]
+  MOVE R12 R5
+  MOVE R13 R10
+  GETIMPORT R11 K10 [table.insert]
+  CALL R11 2 0
+  FORGLOOP R6 2 [inext] [-22]
+  GETIMPORT R6 K12 [next]
+  MOVE R7 R4
+  CALL R6 1 1
+  JUMPIFEQKNIL R6 [+7]
+  GETUPVAL R6 3
+  MOVE R7 R0
+  MOVE R8 R1
+  MOVE R9 R2
+  MOVE R10 R4
+  CALL R6 4 0
+  RETURN R5 1
+  RETURN R0 0
+
+PROTO_6:
+  NAMECALL R2 R0 K0 ["GetBinaryContents"]
+  CALL R2 1 1
+  GETIMPORT R3 K3 [string.lower]
+  GETTABLEKS R4 R0 K4 ["Name"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [string.find]
+  MOVE R5 R3
+  LOADK R6 K7 ["."]
+  LOADN R7 1
+  LOADB R8 1
+  CALL R4 4 1
+  ADDK R7 R4 K8 [1]
+  FASTCALL2 STRING_SUB R3 R7 [+4]
+  MOVE R6 R3
+  GETIMPORT R5 K10 [string.sub]
+  CALL R5 2 1
+  GETIMPORT R6 K12 [string.format]
+  GETUPVAL R7 0
+  MOVE R8 R5
+  MOVE R9 R3
+  MOVE R10 R2
+  CALL R6 4 1
+  DUPTABLE R7 K18 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
+  SETTABLEKS R1 R7 K13 ["Url"]
+  LOADK R8 K19 ["POST"]
+  SETTABLEKS R8 R7 K14 ["Method"]
+  SETTABLEKS R6 R7 K15 ["Body"]
+  GETIMPORT R8 K23 [Enum.HttpCachePolicy.None]
+  SETTABLEKS R8 R7 K16 ["CachePolicy"]
+  NEWTABLE R8 1 0
+  LOADK R9 K24 ["multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
+  SETTABLEKS R9 R8 K25 ["Content-Type"]
+  SETTABLEKS R8 R7 K17 ["Headers"]
+  RETURN R7 1
+
+PROTO_7:
+  NAMECALL R3 R0 K0 ["GetBinaryContents"]
+  CALL R3 1 1
+  GETIMPORT R4 K3 [string.lower]
+  GETTABLEKS R5 R0 K4 ["Name"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [string.find]
+  MOVE R6 R4
+  LOADK R7 K7 ["."]
+  LOADN R8 1
+  LOADB R9 1
+  CALL R5 4 1
+  ADDK R8 R5 K8 [1]
+  FASTCALL2 STRING_SUB R4 R8 [+4]
+  MOVE R7 R4
+  GETIMPORT R6 K10 [string.sub]
+  CALL R6 2 1
+  GETTABLEKS R8 R0 K4 ["Name"]
+  LOADN R9 1
+  SUBK R10 R5 K8 [1]
+  FASTCALL STRING_SUB [+2]
+  GETIMPORT R7 K10 [string.sub]
+  CALL R7 3 1
+  GETUPVAL R8 0
+  GETIMPORT R11 K14 [Enum.AssetType.Image]
+  NEWTABLE R10 1 0
+  DUPTABLE R12 K18 [{"type", "name", "description"}]
+  GETTABLEKS R13 R11 K4 ["Name"]
+  SETTABLEKS R13 R12 K15 ["type"]
+  SETTABLEKS R7 R12 K16 ["name"]
+  LOADK R13 K19 [""]
+  SETTABLEKS R13 R12 K17 ["description"]
+  SETTABLE R12 R10 R7
+  NAMECALL R8 R8 K20 ["JSONEncode"]
+  CALL R8 2 1
+  LOADK R11 K21 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E
+"]
+  LOADK R12 K22 ["Content-Type: application/json
+"]
+  LOADK R13 K23 ["Content-Disposition: form-data; name=\"config\"; filename=\"config.json\"
+"]
+  LOADK R14 K24 ["
+"]
+  MOVE R15 R8
+  LOADK R16 K24 ["
+"]
+  LOADK R17 K21 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E
+"]
+  LOADK R18 K25 ["Content-Disposition: form-data; name=\""]
+  MOVE R19 R7
+  LOADK R20 K26 ["\"; filename=\""]
+  MOVE R21 R7
+  LOADK R22 K7 ["."]
+  MOVE R23 R6
+  LOADK R24 K27 ["\"
+"]
+  LOADK R25 K28 ["Content-Type: application/octet-stream
+"]
+  LOADK R26 K24 ["
+"]
+  MOVE R27 R3
+  LOADK R28 K24 ["
+"]
+  LOADK R29 K29 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--
+"]
+  CONCAT R10 R11 R29
+  MOVE R9 R10
+  GETIMPORT R10 K31 [print]
+  MOVE R11 R9
+  CALL R10 1 0
+  DUPTABLE R10 K36 [{"Url", "Method", "Body", "Headers"}]
+  SETTABLEKS R1 R10 K32 ["Url"]
+  LOADK R11 K37 ["POST"]
+  SETTABLEKS R11 R10 K33 ["Method"]
+  SETTABLEKS R9 R10 K34 ["Body"]
+  NEWTABLE R11 1 0
+  LOADK R12 K38 ["multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
+  SETTABLEKS R12 R11 K39 ["Content-Type"]
+  SETTABLEKS R11 R10 K35 ["Headers"]
+  RETURN R10 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [settings]
+  CALL R1 0 1
+  LOADK R3 K2 ["FileMaxSizeBytes"]
+  NAMECALL R1 R1 K3 ["GetFVariable"]
+  CALL R1 2 -1
+  FASTCALL TONUMBER [+2]
+  GETIMPORT R0 K5 [tonumber]
+  CALL R0 -1 1
+  GETIMPORT R1 K7 [game]
+  LOADK R3 K8 ["StudioService"]
+  NAMECALL R1 R1 K9 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K7 [game]
+  LOADK R4 K10 ["HttpService"]
+  NAMECALL R2 R2 K9 ["GetService"]
+  CALL R2 2 1
+  LOADK R4 K11 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E
+"]
+  LOADK R5 K12 ["Content-Type: image/%s
+"]
+  LOADK R6 K13 ["Content-Disposition: form-data; filename=\"%s\"; name=\"request.files\"
+"]
+  LOADK R7 K14 ["
+"]
+  LOADK R8 K15 ["%s
+"]
+  LOADK R9 K16 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--
+"]
+  CONCAT R3 R4 R9
+  GETIMPORT R7 K18 [script]
+  GETTABLEKS R6 R7 K19 ["Parent"]
+  GETTABLEKS R5 R6 K19 ["Parent"]
+  GETTABLEKS R4 R5 K19 ["Parent"]
+  GETIMPORT R5 K21 [require]
+  GETTABLEKS R9 R4 K22 ["Src"]
+  GETTABLEKS R8 R9 K23 ["Components"]
+  GETTABLEKS R7 R8 K24 ["Dialog"]
+  GETTABLEKS R6 R7 K25 ["SimpleDialog"]
+  CALL R5 1 1
+  GETIMPORT R6 K21 [require]
+  GETTABLEKS R10 R4 K22 ["Src"]
+  GETTABLEKS R9 R10 K23 ["Components"]
+  GETTABLEKS R8 R9 K24 ["Dialog"]
+  GETTABLEKS R7 R8 K26 ["ListDialog"]
+  CALL R6 1 1
+  GETIMPORT R7 K21 [require]
+  GETTABLEKS R10 R4 K22 ["Src"]
+  GETTABLEKS R9 R10 K27 ["Util"]
+  GETTABLEKS R8 R9 K28 ["DEPRECATED_Constants"]
+  CALL R7 1 1
+  NEWTABLE R8 4 0
+  DUPCLOSURE R9 K29 [PROTO_0]
+  CAPTURE VAL R5
+  DUPCLOSURE R10 K30 [PROTO_1]
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  DUPCLOSURE R11 K31 [PROTO_2]
+  DUPCLOSURE R12 K32 [PROTO_3]
+  DUPCLOSURE R13 K33 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R0
+  CAPTURE VAL R9
+  SETTABLEKS R13 R8 K34 ["PromptForGameIcon"]
+  DUPCLOSURE R13 K35 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R0
+  CAPTURE VAL R10
+  SETTABLEKS R13 R8 K36 ["PromptForThumbnails"]
+  DUPCLOSURE R13 K37 [PROTO_6]
+  CAPTURE VAL R3
+  SETTABLEKS R13 R8 K38 ["GetAssetPublishRequestInfo"]
+  DUPCLOSURE R13 K39 [PROTO_7]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R8 K40 ["CreatePostV1AssetsUpload"]
+  RETURN R8 1

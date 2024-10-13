@@ -1,0 +1,47 @@
+PROTO_0:
+  PREPVARARGS 2
+  GETIMPORT R3 K3 [string.format]
+  MOVE R4 R1
+  GETVARARGS R5 -1
+  CALL R3 -1 1
+  ORK R2 R3 K0 [""]
+  GETIMPORT R3 K3 [string.format]
+  LOADK R4 K4 ["https://%s.%s%s"]
+  MOVE R5 R0
+  GETUPVAL R6 0
+  MOVE R7 R2
+  CALL R3 4 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["ContentProvider"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R0 R1 K4 ["BaseUrl"]
+  NAMECALL R0 R0 K5 ["lower"]
+  CALL R0 1 1
+  LOADK R3 K6 ["https://www."]
+  NAMECALL R1 R0 K7 ["find"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+6]
+  LOADN R3 13
+  NAMECALL R1 R0 K8 ["sub"]
+  CALL R1 2 1
+  MOVE R0 R1
+  JUMP [+10]
+  LOADK R3 K9 ["http://www."]
+  NAMECALL R1 R0 K7 ["find"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+5]
+  LOADN R3 12
+  NAMECALL R1 R0 K8 ["sub"]
+  CALL R1 2 1
+  MOVE R0 R1
+  NEWTABLE R1 1 0
+  NEWCLOSURE R2 P0
+  CAPTURE REF R0
+  SETTABLEKS R2 R1 K10 ["BuildUrl"]
+  CLOSEUPVALS R0
+  RETURN R1 1

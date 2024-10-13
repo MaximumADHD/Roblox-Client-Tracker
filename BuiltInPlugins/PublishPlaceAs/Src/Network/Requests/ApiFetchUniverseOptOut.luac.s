@@ -1,0 +1,49 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["JSONDecode"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K1 ["configurations"]
+  GETTABLEKS R3 R1 K2 ["isEligible"]
+  RETURN R2 2
+
+PROTO_1:
+  DUPTABLE R0 K2 [{"Url", "Method"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["BuildRobloxUrl"]
+  LOADK R2 K4 ["apis"]
+  LOADK R3 K5 ["resource-settings/v1/preferences:batchGet?preferenceTypes=Universes"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K0 ["Url"]
+  LOADK R1 K6 ["GET"]
+  SETTABLEKS R1 R0 K1 ["Method"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K7 ["RequestInternal"]
+  MOVE R2 R0
+  CALL R1 1 1
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE UPVAL U1
+  NAMECALL R1 R1 K9 ["andThen"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Network"]
+  GETTABLEKS R3 R4 K11 ["Http"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K12 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  RETURN R3 1

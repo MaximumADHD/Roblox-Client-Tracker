@@ -22,7 +22,6 @@ local GetFFlagChromePeekArchitecture = require(RobloxGui.Modules.Flags.GetFFlagC
 
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
-local BackIcon = require(Presentation.BackIcon)
 local ChatIcon = require(Presentation.ChatIcon)
 local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
@@ -42,6 +41,7 @@ local OnboardingTooltip = if not GetFFlagFixChromeReferences() or ChromeEnabled(
 	then require(Chrome.Onboarding.OnboardingTooltip)
 	else nil
 local UnibarConstants = require(Chrome.Unibar.Constants)
+local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 
@@ -86,6 +86,8 @@ local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavi
 local GetFFlagUnibarContextStack = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUnibarContextStack
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
 local GetFFlagEnablePartyIconInChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInChrome
+local GetFFlagEnablePartyMicIconInChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
+local GetFFlagPeekUseFixedHeight = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekUseFixedHeight
 
 local PartyMicBinder = require(script.Parent.Parent.Parent.Chrome.Integrations.Party.PartyMicBinder)
 
@@ -344,10 +346,10 @@ function TopBarApp:renderWithStyle(style)
 			}) or nil,
 		}),
 
-		PeekFrame = GetFFlagChromePeekArchitecture() and Roact.createElement("Frame", {
+		PeekFrame = ChromeEnabled() and GetFFlagChromePeekArchitecture() and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, topBarFrameHeight),
-			Position = topBarFramePosition
+			Size = UDim2.new(1, 0, 0, if GetFFlagPeekUseFixedHeight() then PeekConstants.PEEK_CONTAINER_HEIGHT else topBarFrameHeight),
+			Position = if GetFFlagPeekUseFixedHeight() then PeekConstants.PEEK_CONTAINER_POSITION else topBarFramePosition,
 		}, {
 			Peek = Roact.createElement(Peek)
 		}),
@@ -372,7 +374,7 @@ function TopBarApp:renderWithStyle(style)
 						else topBarRightFramePosition,
 					AnchorPoint = Vector2.new(1, 0),
 				}, {
-					PartyMicBinder = if chromeEnabled and GetFFlagEnablePartyIconInChrome() and GetFFlagEnableCrossExpVoice() then Roact.createElement(PartyMicBinder) else nil,
+					PartyMicBinder = if chromeEnabled and GetFFlagEnablePartyMicIconInChrome() and GetFFlagEnableCrossExpVoice() then Roact.createElement(PartyMicBinder) else nil,
 					ChromeAnalytics = if ChromeAnalytics then Roact.createElement(ChromeAnalytics) else nil,
 					KeepOutAreasHandler = if not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
 						then Roact.createElement(KeepOutAreasHandler)
@@ -425,8 +427,6 @@ function TopBarApp:renderWithStyle(style)
 							VerticalAlignment = Enum.VerticalAlignment.Top,
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
-
-						BackIcon = Roact.createElement(BackIcon, { layoutOrder = 1 }),
 
 						HealthBar = if UseUpdatedHealthBar then nil else Roact.createElement(HealthBar, {
 							layoutOrder = 10,
@@ -559,10 +559,6 @@ function TopBarApp:renderWithStyle(style)
 					layoutOrder = 1,
 					showBadgeOver12 = self.props.showBadgeOver12,
 				}),
-
-				BackIcon = if not chromeEnabled
-					then Roact.createElement(BackIcon, { layoutOrder = 2 })
-					else nil,
 
 				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,

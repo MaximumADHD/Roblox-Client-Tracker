@@ -1,0 +1,177 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["updateEtaSignal"]
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["updateEtaSignal"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["Connect"]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["signal"]
+  JUMPIFEQKNIL R3 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["signal"]
+  NAMECALL R3 R3 K3 ["Wait"]
+  CALL R3 1 0
+  JUMPIFEQKNIL R2 [+4]
+  NAMECALL R3 R2 K4 ["Disconnect"]
+  CALL R3 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["result"]
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["updateEtaSignal"]
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["updateEtaSignal"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["Connect"]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["signal"]
+  JUMPIFEQKNIL R3 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["signal"]
+  NAMECALL R3 R3 K3 ["Wait"]
+  CALL R3 1 0
+  JUMPIFEQKNIL R2 [+4]
+  NAMECALL R3 R2 K4 ["Disconnect"]
+  CALL R3 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["result"]
+  RETURN R3 1
+
+PROTO_2:
+  LOADK R1 K0 ["rbxasset://mock"]
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useCallback"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  NEWTABLE R3 0 3
+  GETTABLEKS R4 R0 K1 ["signal"]
+  GETTABLEKS R5 R0 K2 ["result"]
+  GETTABLEKS R6 R0 K3 ["updateEtaSignal"]
+  SETLIST R3 R4 3 [1]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useCallback"]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  NEWTABLE R4 0 3
+  GETTABLEKS R5 R0 K1 ["signal"]
+  GETTABLEKS R6 R0 K2 ["result"]
+  GETTABLEKS R7 R0 K3 ["updateEtaSignal"]
+  SETLIST R4 R5 3 [1]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useCallback"]
+  DUPCLOSURE R4 K4 [PROTO_2]
+  CALL R3 1 1
+  DUPTABLE R4 K9 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal"}]
+  SETTABLEKS R3 R4 K5 ["uploadModelAsync"]
+  SETTABLEKS R1 R4 K6 ["startAutoSetupAsync"]
+  SETTABLEKS R2 R4 K7 ["DEPRECATED_startAutoSetupAsync"]
+  GETTABLEKS R5 R0 K8 ["autoSetupClickedSignal"]
+  SETTABLEKS R5 R4 K8 ["autoSetupClickedSignal"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K10 ["createElement"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["Provider"]
+  DUPTABLE R7 K13 [{"value"}]
+  SETTABLEKS R4 R7 K12 ["value"]
+  GETTABLEKS R8 R0 K14 ["children"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["signal"]
+  NAMECALL R0 R0 K1 ["Wait"]
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["current"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["result"]
+  RETURN R0 1
+  GETUPVAL R0 1
+  LOADB R1 1
+  SETTABLEKS R1 R0 K2 ["current"]
+  GETIMPORT R0 K5 [error]
+  LOADK R1 K6 ["Mock error"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_5:
+  LOADK R1 K0 ["rbxasset://mock"]
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useRef"]
+  LOADB R2 0
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["useCallback"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R0 K2 ["signal"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["useCallback"]
+  DUPCLOSURE R4 K3 [PROTO_5]
+  CALL R3 1 1
+  DUPTABLE R4 K8 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal"}]
+  SETTABLEKS R3 R4 K4 ["uploadModelAsync"]
+  SETTABLEKS R2 R4 K5 ["startAutoSetupAsync"]
+  SETTABLEKS R2 R4 K6 ["DEPRECATED_startAutoSetupAsync"]
+  GETTABLEKS R5 R0 K7 ["autoSetupClickedSignal"]
+  SETTABLEKS R5 R4 K7 ["autoSetupClickedSignal"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["createElement"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K10 ["Provider"]
+  DUPTABLE R7 K12 [{"value"}]
+  SETTABLEKS R4 R7 K11 ["value"]
+  GETTABLEKS R8 R0 K13 ["children"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Components"]
+  GETTABLEKS R2 R3 K8 ["AutoSetupContext"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K12 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  DUPCLOSURE R5 K13 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  DUPTABLE R6 K16 [{"Success", "FailsOnce"}]
+  SETTABLEKS R4 R6 K14 ["Success"]
+  SETTABLEKS R5 R6 K15 ["FailsOnce"]
+  RETURN R6 1

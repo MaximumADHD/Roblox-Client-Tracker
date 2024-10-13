@@ -1,10 +1,7 @@
 --!nonstrict
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Rodux = require(CorePackages.Rodux)
 local Cryo = require(CorePackages.Cryo)
@@ -21,8 +18,6 @@ local SetIsUsingGamepad = require(Actions.SetIsUsingGamepad)
 local SetHasPermissionToVoiceChat = require(Actions.SetHasPermissionToVoiceChat)
 local SetMinimized = require(Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(Actions.SetSubjectToChinaPolicies)
-
-local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 
 local initialDisplayOptions = {
 	isMinimized = false,
@@ -44,14 +39,8 @@ local function updateIsVisible(state)
 	state.isVisible = state.setVisible
 	-- Leaderboard visiblity is independent of coreGui options on console.
 
-	if FFlagMobilePlayerList then
-		if not state.isTenFootInterface then
-			state.isVisible = state.isVisible
-		end
-	else
-		if not state.isTenFootInterface then
-			state.isVisible = state.isVisible and (not state.isSmallTouchDevice)
-		end
+	if not state.isTenFootInterface then
+		state.isVisible = state.isVisible
 	end
 
 	state.isVisible = state.isVisible and Cryo.isEmpty(state.tempHideKeys)

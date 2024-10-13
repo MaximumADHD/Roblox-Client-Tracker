@@ -1,0 +1,185 @@
+PROTO_0:
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+30]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["SwimlaneName"]
+  GETUPVAL R5 2
+  NAMECALL R5 R5 K1 ["get"]
+  CALL R5 1 1
+  GETUPVAL R6 3
+  NAMECALL R6 R6 K1 ["get"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K2 ["getNavigationContext"]
+  MOVE R8 R5
+  MOVE R9 R4
+  CALL R7 2 1
+  GETUPVAL R8 0
+  MOVE R9 R0
+  MOVE R10 R3
+  MOVE R11 R1
+  MOVE R12 R2
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K3 ["size"]
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K4 ["position"]
+  MOVE R15 R7
+  CALL R8 7 -1
+  RETURN R8 -1
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  DUPTABLE R2 K2 [{"size", "position"}]
+  GETTABLEKS R3 R0 K3 ["AbsoluteSize"]
+  SETTABLEKS R3 R2 K0 ["size"]
+  GETTABLEKS R3 R0 K4 ["AbsolutePosition"]
+  SETTABLEKS R3 R2 K1 ["position"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["ResultsState"]
+  GETTABLEKS R3 R0 K1 ["AssetLogicWrapperProps"]
+  GETTABLEKS R2 R3 K2 ["LogAssetImpression"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["use"]
+  CALL R3 0 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["use"]
+  CALL R4 0 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["useState"]
+  DUPTABLE R6 K7 [{"size", "position"}]
+  GETIMPORT R7 K10 [Vector2.zero]
+  SETTABLEKS R7 R6 K5 ["size"]
+  GETIMPORT R7 K10 [Vector2.zero]
+  SETTABLEKS R7 R6 K6 ["position"]
+  CALL R5 1 2
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K11 ["useCallback"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  NEWTABLE R9 0 2
+  MOVE R10 R2
+  MOVE R11 R5
+  SETLIST R9 R10 2 [1]
+  CALL R7 2 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K11 ["useCallback"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R6
+  NEWTABLE R10 0 0
+  CALL R8 2 1
+  GETUPVAL R9 3
+  NAMECALL R9 R9 K3 ["use"]
+  CALL R9 1 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K12 ["createElement"]
+  GETUPVAL R11 4
+  NEWTABLE R12 4 0
+  GETTABLEKS R13 R9 K13 ["backgroundColor"]
+  SETTABLEKS R13 R12 K14 ["BackgroundColor"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K15 ["Change"]
+  GETTABLEKS R13 R14 K16 ["AbsoluteSize"]
+  SETTABLE R8 R12 R13
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K15 ["Change"]
+  GETTABLEKS R13 R14 K17 ["AbsolutePosition"]
+  SETTABLE R8 R12 R13
+  DUPTABLE R13 K19 [{"AudioScroller"}]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K20 ["Generator"]
+  DUPTABLE R15 K34 [{"Assets", "RenderTopContent", "PageSize", "FetchNextPage", "Loading", "ParentAbsoluteSize", "ParentAbsolutePosition", "CanInsertAsset", "LogImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig", "SwimlaneName"}]
+  GETTABLEKS R16 R1 K35 ["assets"]
+  SETTABLEKS R16 R15 K21 ["Assets"]
+  GETTABLEKS R16 R0 K22 ["RenderTopContent"]
+  SETTABLEKS R16 R15 K22 ["RenderTopContent"]
+  GETTABLEKS R16 R0 K23 ["PageSize"]
+  SETTABLEKS R16 R15 K23 ["PageSize"]
+  GETTABLEKS R16 R1 K36 ["fetchNextPage"]
+  SETTABLEKS R16 R15 K24 ["FetchNextPage"]
+  GETTABLEKS R16 R1 K37 ["loading"]
+  SETTABLEKS R16 R15 K25 ["Loading"]
+  GETTABLEKS R16 R5 K5 ["size"]
+  SETTABLEKS R16 R15 K26 ["ParentAbsoluteSize"]
+  GETTABLEKS R16 R5 K6 ["position"]
+  SETTABLEKS R16 R15 K27 ["ParentAbsolutePosition"]
+  GETTABLEKS R17 R0 K1 ["AssetLogicWrapperProps"]
+  GETTABLEKS R16 R17 K28 ["CanInsertAsset"]
+  SETTABLEKS R16 R15 K28 ["CanInsertAsset"]
+  SETTABLEKS R7 R15 K29 ["LogImpression"]
+  GETTABLEKS R17 R0 K1 ["AssetLogicWrapperProps"]
+  GETTABLEKS R16 R17 K30 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R16 R15 K30 ["OnAssetPreviewButtonClicked"]
+  GETTABLEKS R17 R0 K1 ["AssetLogicWrapperProps"]
+  GETTABLEKS R16 R17 K31 ["TryInsert"]
+  SETTABLEKS R16 R15 K31 ["TryInsert"]
+  GETTABLEKS R17 R0 K1 ["AssetLogicWrapperProps"]
+  GETTABLEKS R16 R17 K32 ["TryOpenAssetConfig"]
+  SETTABLEKS R16 R15 K32 ["TryOpenAssetConfig"]
+  GETTABLEKS R16 R0 K33 ["SwimlaneName"]
+  SETTABLEKS R16 R15 K33 ["SwimlaneName"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K18 ["AudioScroller"]
+  CALL R10 3 -1
+  RETURN R10 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Core"]
+  GETTABLEKS R5 R6 K10 ["Types"]
+  GETTABLEKS R4 R5 K11 ["AssetLogicTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Core"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["Audio"]
+  GETTABLEKS R5 R6 K14 ["AudioScroller"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Core"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K15 ["ResultsFetcher"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Core"]
+  GETTABLEKS R8 R9 K16 ["ContextServices"]
+  GETTABLEKS R7 R8 K17 ["NavigationContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R11 R0 K9 ["Core"]
+  GETTABLEKS R10 R11 K18 ["Util"]
+  GETTABLEKS R9 R10 K19 ["Analytics"]
+  GETTABLEKS R8 R9 K20 ["AssetAnalyticsContextItem"]
+  CALL R7 1 1
+  GETTABLEKS R9 R2 K21 ["UI"]
+  GETTABLEKS R8 R9 K22 ["Pane"]
+  GETTABLEKS R10 R2 K16 ["ContextServices"]
+  GETTABLEKS R9 R10 K23 ["Stylizer"]
+  DUPCLOSURE R10 K24 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  RETURN R10 1

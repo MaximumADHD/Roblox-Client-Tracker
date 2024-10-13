@@ -1,0 +1,172 @@
+PROTO_0:
+  LOADK R0 K0 ["CopyIDToClipboard"]
+  RETURN R0 1
+
+PROTO_1:
+  LOADK R0 K0 ["Configure"]
+  RETURN R0 1
+
+PROTO_2:
+  LOADK R0 K0 ["isFriendsOnly"]
+  RETURN R0 1
+
+PROTO_3:
+  LOADK R0 K0 ["isActive"]
+  RETURN R0 1
+
+PROTO_4:
+  LOADK R0 K0 ["isForSale"]
+  RETURN R0 1
+
+PROTO_5:
+  LOADK R0 K0 ["vipServersIsEnabled"]
+  RETURN R0 1
+
+PROTO_6:
+  LOADK R0 K0 ["Edit"]
+  RETURN R0 1
+
+PROTO_7:
+  LOADK R0 K0 ["VersionHistory"]
+  RETURN R0 1
+
+PROTO_8:
+  LOADK R0 K0 ["OptInLocations"]
+  RETURN R0 1
+
+PROTO_9:
+  LOADK R0 K0 ["China"]
+  RETURN R0 1
+
+PROTO_10:
+  LOADK R0 K0 ["selected"]
+  RETURN R0 1
+
+PROTO_11:
+  LOADK R0 K0 ["VoiceChatEnabled"]
+  RETURN R0 1
+
+PROTO_12:
+  LOADK R0 K0 ["AvatarChatAudioEnabled"]
+  RETURN R0 1
+
+PROTO_13:
+  LOADK R0 K0 ["AvatarChatVideoEnabled"]
+  RETURN R0 1
+
+PROTO_14:
+  LOADK R0 K0 ["Approved"]
+  RETURN R0 1
+
+PROTO_15:
+  LOADK R0 K0 ["InReview"]
+  RETURN R0 1
+
+PROTO_16:
+  LOADK R0 K0 ["Rejected"]
+  RETURN R0 1
+
+PROTO_17:
+  LOADK R0 K0 ["PlayerAcceptance"]
+  RETURN R0 1
+
+PROTO_18:
+  LOADK R0 K0 ["GameSettings"]
+  RETURN R0 1
+
+PROTO_19:
+  LOADK R0 K0 ["plugin"]
+  RETURN R0 1
+
+PROTO_20:
+  LOADK R0 K0 ["context"]
+  RETURN R0 1
+
+PROTO_21:
+  LOADK R0 K0 ["LuobuStudioDevPublish"]
+  RETURN R0 1
+
+PROTO_22:
+  LOADK R0 K0 ["TermsOfUseDialog"]
+  RETURN R0 1
+
+PROTO_23:
+  LOADK R0 K0 ["CheckboxToggle"]
+  RETURN R0 1
+
+PROTO_24:
+  LOADK R0 K0 ["buttonClicked"]
+  RETURN R0 1
+
+PROTO_25:
+  LOADK R0 K0 ["Footer"]
+  RETURN R0 1
+
+PROTO_26:
+  LOADK R0 K0 ["ScriptCollaborationEnabledOnServer"]
+  RETURN R0 1
+
+PROTO_27:
+  LOADK R0 K0 ["TeamCreateEnabled"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 32 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["getCopyIdKeyName"]
+  DUPCLOSURE R1 K2 [PROTO_1]
+  SETTABLEKS R1 R0 K3 ["getConfigureKeyName"]
+  DUPCLOSURE R1 K4 [PROTO_2]
+  SETTABLEKS R1 R0 K5 ["getIsFriendOnlyKeyName"]
+  DUPCLOSURE R1 K6 [PROTO_3]
+  SETTABLEKS R1 R0 K7 ["getIsActiveKeyName"]
+  DUPCLOSURE R1 K8 [PROTO_4]
+  SETTABLEKS R1 R0 K9 ["getIsForSaleKeyName"]
+  DUPCLOSURE R1 K10 [PROTO_5]
+  SETTABLEKS R1 R0 K11 ["getVipServersIsEnabledKeyName"]
+  DUPCLOSURE R1 K12 [PROTO_6]
+  SETTABLEKS R1 R0 K13 ["getEditKeyName"]
+  DUPCLOSURE R1 K14 [PROTO_7]
+  SETTABLEKS R1 R0 K15 ["getVersionHistoryKeyName"]
+  DUPCLOSURE R1 K16 [PROTO_8]
+  SETTABLEKS R1 R0 K17 ["getOptInLocationsKeyName"]
+  DUPCLOSURE R1 K18 [PROTO_9]
+  SETTABLEKS R1 R0 K19 ["getChinaKeyName"]
+  DUPCLOSURE R1 K20 [PROTO_10]
+  SETTABLEKS R1 R0 K21 ["getSelectedKeyName"]
+  DUPCLOSURE R1 K22 [PROTO_11]
+  SETTABLEKS R1 R0 K23 ["getVoiceChatEnabledKeyName"]
+  DUPCLOSURE R1 K24 [PROTO_12]
+  SETTABLEKS R1 R0 K25 ["getAvatarChatAudioEnabledKeyName"]
+  DUPCLOSURE R1 K26 [PROTO_13]
+  SETTABLEKS R1 R0 K27 ["getAvatarChatVideoEnabledKeyName"]
+  DUPCLOSURE R1 K28 [PROTO_14]
+  SETTABLEKS R1 R0 K29 ["getApprovedKeyName"]
+  DUPCLOSURE R1 K30 [PROTO_15]
+  SETTABLEKS R1 R0 K31 ["getInReviewKeyName"]
+  DUPCLOSURE R1 K32 [PROTO_16]
+  SETTABLEKS R1 R0 K33 ["getRejectedKeyName"]
+  DUPCLOSURE R1 K34 [PROTO_17]
+  SETTABLEKS R1 R0 K35 ["getPlayerAcceptanceKeyName"]
+  DUPCLOSURE R1 K36 [PROTO_18]
+  SETTABLEKS R1 R0 K37 ["getGameSettingsKeyName"]
+  DUPCLOSURE R1 K38 [PROTO_19]
+  SETTABLEKS R1 R0 K39 ["getPluginKeyName"]
+  DUPCLOSURE R1 K40 [PROTO_20]
+  SETTABLEKS R1 R0 K41 ["getContextKeyName"]
+  DUPCLOSURE R1 K42 [PROTO_21]
+  SETTABLEKS R1 R0 K43 ["getLuobuStudioDevPublishKeyName"]
+  DUPCLOSURE R1 K44 [PROTO_22]
+  SETTABLEKS R1 R0 K45 ["getTermsOfUseDialogKeyName"]
+  DUPCLOSURE R1 K46 [PROTO_23]
+  SETTABLEKS R1 R0 K47 ["getCheckboxToggleKeyName"]
+  DUPCLOSURE R1 K48 [PROTO_24]
+  SETTABLEKS R1 R0 K49 ["getButtonClickedKeyName"]
+  DUPCLOSURE R1 K50 [PROTO_25]
+  SETTABLEKS R1 R0 K51 ["getFooterKeyName"]
+  DUPCLOSURE R1 K52 [PROTO_26]
+  SETTABLEKS R1 R0 K53 ["getScriptCollaborationEnabledOnServerKeyName"]
+  DUPCLOSURE R1 K54 [PROTO_27]
+  SETTABLEKS R1 R0 K55 ["getTeamCreateEnabledKeyName"]
+  RETURN R0 1

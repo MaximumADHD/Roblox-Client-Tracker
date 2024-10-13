@@ -1,58 +1,54 @@
 PROTO_0:
   LOADB R1 0
   SETTABLEKS R1 R0 K0 ["initSucceded"]
-  GETIMPORT R2 K2 [game]
-  LOADK R4 K3 ["DisableWindControlAnimation"]
-  NAMECALL R2 R2 K4 ["GetFastFlag"]
-  CALL R2 2 1
-  NOT R1 R2
-  SETTABLEKS R1 R0 K5 ["physicallyAnimate"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K1 ["physicallyAnimate"]
   LOADN R1 0
-  SETTABLEKS R1 R0 K6 ["windSpeed"]
-  LOADK R1 K7 [{1, 1, 1}]
-  SETTABLEKS R1 R0 K8 ["windDir"]
+  SETTABLEKS R1 R0 K2 ["windSpeed"]
+  LOADK R1 K3 [{1, 1, 1}]
+  SETTABLEKS R1 R0 K4 ["windDir"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K9 ["skel"]
+  SETTABLEKS R1 R0 K5 ["skel"]
   LOADN R1 0
-  SETTABLEKS R1 R0 K10 ["numPoints"]
+  SETTABLEKS R1 R0 K6 ["numPoints"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K11 ["structurePoints"]
+  SETTABLEKS R1 R0 K7 ["structurePoints"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K12 ["bindWorldPose"]
+  SETTABLEKS R1 R0 K8 ["bindWorldPose"]
   LOADN R1 0
-  SETTABLEKS R1 R0 K13 ["numSprings"]
+  SETTABLEKS R1 R0 K9 ["numSprings"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K14 ["structureSprings"]
+  SETTABLEKS R1 R0 K10 ["structureSprings"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K15 ["originalMountpoints"]
+  SETTABLEKS R1 R0 K11 ["originalMountpoints"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K16 ["worldModel"]
+  SETTABLEKS R1 R0 K12 ["worldModel"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K17 ["cone"]
+  SETTABLEKS R1 R0 K13 ["cone"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K18 ["lastTick"]
+  SETTABLEKS R1 R0 K14 ["lastTick"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K19 ["dt"]
+  SETTABLEKS R1 R0 K15 ["dt"]
   LOADN R1 0
-  SETTABLEKS R1 R0 K20 ["rapTimeSoFar"]
+  SETTABLEKS R1 R0 K16 ["rapTimeSoFar"]
   LOADN R1 0
-  SETTABLEKS R1 R0 K21 ["spinY"]
+  SETTABLEKS R1 R0 K17 ["spinY"]
   LOADN R1 0
-  SETTABLEKS R1 R0 K22 ["spinX"]
+  SETTABLEKS R1 R0 K18 ["spinX"]
   LOADB R1 0
-  SETTABLEKS R1 R0 K23 ["windChanged"]
+  SETTABLEKS R1 R0 K19 ["windChanged"]
   LOADB R1 0
-  SETTABLEKS R1 R0 K24 ["isChangingYaw"]
+  SETTABLEKS R1 R0 K20 ["isChangingYaw"]
   LOADB R1 0
-  SETTABLEKS R1 R0 K25 ["isChangingPitch"]
+  SETTABLEKS R1 R0 K21 ["isChangingPitch"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K26 ["tailBone"]
-  LOADK R1 K27 [{0, 0, 0}]
-  SETTABLEKS R1 R0 K28 ["origCenter"]
+  SETTABLEKS R1 R0 K22 ["tailBone"]
+  LOADK R1 K23 [{0, 0, 0}]
+  SETTABLEKS R1 R0 K24 ["origCenter"]
   LOADN R1 0
-  SETTABLEKS R1 R0 K29 ["lastDtIndex"]
+  SETTABLEKS R1 R0 K25 ["lastDtIndex"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K30 ["lastDts"]
+  SETTABLEKS R1 R0 K26 ["lastDts"]
   RETURN R0 0
 
 PROTO_1:

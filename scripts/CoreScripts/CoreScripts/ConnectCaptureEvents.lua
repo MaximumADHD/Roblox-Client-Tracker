@@ -16,6 +16,21 @@ local OnPostDeleted = Instance.new("BindableEvent")
 local OnPostReported = Instance.new("BindableEvent")
 
 ----------- METHODS --------------
+local function transformPost(post)
+    if post.screenshotMetadata then
+        if post.screenshotMetadata.fullSizeUrl then
+            post.screenshotMetadata.fullSizeUrl = nil
+            post.screenshotMetadata.contentId = "rbxpost://" .. post.postId
+        end
+    end
+end
+
+local function transformPosts(posts)
+    for _, post in ipairs(posts) do
+        transformPost(post)
+    end
+end
+
 local function onGetUserPosts(userId, postTypeFilter, sortOrder, cursor, limit)
     -- Guard required parameters
     if userId == nil then 
@@ -28,6 +43,9 @@ local function onGetUserPosts(userId, postTypeFilter, sortOrder, cursor, limit)
     
     local params = "userId=" .. userId
     if postTypeFilter then
+        if typeof(postTypeFilter) == "table" then
+            postTypeFilter = table.concat(postTypeFilter, ",")
+        end
         params = params .. "&postTypeFilter=" .. postTypeFilter
     end
     if sortOrder then
@@ -44,21 +62,14 @@ local function onGetUserPosts(userId, postTypeFilter, sortOrder, cursor, limit)
 
     -- Make the HTTP request
     local success, result = pcall(HttpRbxApiService.GetAsyncFullUrl, HttpRbxApiService, url)
-    if result then
-        return success, result
+    if success then
+        local data = HttpService:JSONDecode(result)
+        if data["posts"] ~= nil then
+            transformPosts(data["posts"])
+        end
+        return success, data
     end
-    return success, {}
-end
-
-local function transformPost(post)
-    post.screenshotMetadata = nil
-    post.contentId = "rbxpost://" .. post.postId
-end
-
-local function transformPosts(posts)
-    for _, post in ipairs(posts) do
-        transformPost(post)
-    end
+    return success, {errorMessage = result}
 end
 
 local function onLoadFeedItems(postTypeFilter, feedType, experienceId, cursor, limit)
@@ -69,6 +80,10 @@ local function onLoadFeedItems(postTypeFilter, feedType, experienceId, cursor, l
 
     -- Construct the API path and parameters
     local apiPath = "posts-api/v1/content-posts/findFeedPosts"
+
+    if typeof(postTypeFilter) == "table" then
+        postTypeFilter = table.concat(postTypeFilter, ",")
+    end
 
     local params = "postTypeFilter=" .. postTypeFilter
     if feedType ~= nil then 
@@ -88,14 +103,15 @@ local function onLoadFeedItems(postTypeFilter, feedType, experienceId, cursor, l
 
     -- Make the HTTP request
     local success, result = pcall(HttpRbxApiService.GetAsyncFullUrl, HttpRbxApiService, url)
-    if result then
-        if result.posts then
-            transformPosts(result.posts)
+    if success then
+        local data = HttpService:JSONDecode(result)
+        if data["posts"] ~= nil then
+            transformPosts(data["posts"])
         end
-        return success, result
+        return success, data
     end
 
-    return success, {}
+    return success, {errorMessage = result}
 end
 
 local function onGetVotingCategories()
@@ -105,6 +121,10 @@ local function onGetVotingCategories()
 
     -- Make the HTTP request
     local success, result = pcall(HttpRbxApiService.GetAsyncFullUrl, HttpRbxApiService, url)
+    if success then
+        local data = HttpService:JSONDecode(result)
+        return success, data
+    end
     return success, result
 end
 
@@ -113,7 +133,7 @@ local function onPostDeleted(postId)
 	local url = string.format("%s%s/%s", Url.APIS_URL, apiPath, postId)
 
 	-- Make the HTTP request
-	pcall(HttpRbxApiService.PostAsyncFullUrl, HttpRbxApiService, url)
+	pcall(HttpRbxApiService.PostAsyncFullUrl, HttpRbxApiService, url, "")
 end
 
 local function onPostReported(postId)

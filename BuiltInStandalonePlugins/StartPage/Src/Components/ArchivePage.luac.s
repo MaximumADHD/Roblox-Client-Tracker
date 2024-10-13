@@ -1,0 +1,557 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["use"]
+  CALL R0 1 1
+  NEWTABLE R1 0 4
+  DUPTABLE R2 K4 [{"DropdownLabel", "Key", "Query"}]
+  LOADK R5 K5 ["Plugin"]
+  LOADK R6 K6 ["SortOptions.Alphabetical"]
+  NAMECALL R3 R0 K7 ["getText"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K1 ["DropdownLabel"]
+  LOADK R3 K8 ["GameName"]
+  SETTABLEKS R3 R2 K2 ["Key"]
+  DUPTABLE R3 K11 [{"sortParam", "sortOrder"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K8 ["GameName"]
+  SETTABLEKS R4 R3 K9 ["sortParam"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K12 ["Asc"]
+  SETTABLEKS R4 R3 K10 ["sortOrder"]
+  SETTABLEKS R3 R2 K3 ["Query"]
+  DUPTABLE R3 K4 [{"DropdownLabel", "Key", "Query"}]
+  LOADK R6 K5 ["Plugin"]
+  LOADK R7 K13 ["SortOptions.Created"]
+  NAMECALL R4 R0 K7 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K1 ["DropdownLabel"]
+  LOADK R4 K14 ["GameCreatedAsc"]
+  SETTABLEKS R4 R3 K2 ["Key"]
+  DUPTABLE R4 K11 [{"sortParam", "sortOrder"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K15 ["GameCreated"]
+  SETTABLEKS R5 R4 K9 ["sortParam"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K12 ["Asc"]
+  SETTABLEKS R5 R4 K10 ["sortOrder"]
+  SETTABLEKS R4 R3 K3 ["Query"]
+  DUPTABLE R4 K4 [{"DropdownLabel", "Key", "Query"}]
+  LOADK R7 K5 ["Plugin"]
+  LOADK R8 K16 ["SortOptions.CreatedDescending"]
+  NAMECALL R5 R0 K7 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K1 ["DropdownLabel"]
+  LOADK R5 K17 ["GameCreatedDesc"]
+  SETTABLEKS R5 R4 K2 ["Key"]
+  DUPTABLE R5 K11 [{"sortParam", "sortOrder"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K15 ["GameCreated"]
+  SETTABLEKS R6 R5 K9 ["sortParam"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K18 ["Desc"]
+  SETTABLEKS R6 R5 K10 ["sortOrder"]
+  SETTABLEKS R5 R4 K3 ["Query"]
+  DUPTABLE R5 K4 [{"DropdownLabel", "Key", "Query"}]
+  LOADK R8 K5 ["Plugin"]
+  LOADK R9 K19 ["SortOptions.Modified"]
+  NAMECALL R6 R0 K7 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K1 ["DropdownLabel"]
+  LOADK R6 K20 ["LastUpdated"]
+  SETTABLEKS R6 R5 K2 ["Key"]
+  DUPTABLE R6 K11 [{"sortParam", "sortOrder"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K20 ["LastUpdated"]
+  SETTABLEKS R7 R6 K9 ["sortParam"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K18 ["Desc"]
+  SETTABLEKS R7 R6 K10 ["sortOrder"]
+  SETTABLEKS R6 R5 K3 ["Query"]
+  SETLIST R1 R2 4 [1]
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Id"]
+  JUMPIFNOT R1 [+33]
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K1 ["GetUserId"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K0 ["Id"]
+  GETTABLEKS R4 R0 K2 ["RootPlaceId"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["showVerifyAge"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K4 ["showAgeRestricted"]
+  CALL R1 5 0
+  GETUPVAL R1 3
+  JUMPIFNOT R1 [+15]
+  GETUPVAL R1 4
+  GETUPVAL R3 5
+  DUPTABLE R4 K8 [{"telemetryType", "telemetrySubtype", "action"}]
+  LOADK R5 K9 ["interaction"]
+  SETTABLEKS R5 R4 K5 ["telemetryType"]
+  LOADK R5 K10 ["place_open"]
+  SETTABLEKS R5 R4 K6 ["telemetrySubtype"]
+  LOADK R5 K11 ["archive_page"]
+  SETTABLEKS R5 R4 K7 ["action"]
+  NAMECALL R1 R1 K12 ["log"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  CALL R2 1 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K1 ["createElement"]
+  GETUPVAL R4 4
+  GETUPVAL R5 5
+  MOVE R6 R0
+  DUPTABLE R7 K9 [{"ImageSize", "OnClick", "IsPrivacyVisible", "IsDateModifiedVisible", "IsDropdownMenuVisible", "IsCreatorNameVisible", "KebabMenu"}]
+  GETUPVAL R8 6
+  SETTABLEKS R8 R7 K2 ["ImageSize"]
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE VAL R2
+  CAPTURE UPVAL U9
+  CAPTURE VAL R1
+  CAPTURE UPVAL U10
+  SETTABLEKS R8 R7 K3 ["OnClick"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K4 ["IsPrivacyVisible"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K5 ["IsDateModifiedVisible"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K6 ["IsDropdownMenuVisible"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K7 ["IsCreatorNameVisible"]
+  NEWTABLE R8 0 1
+  LOADK R9 K10 ["RestoreArchive"]
+  SETLIST R8 R9 1 [1]
+  SETTABLEKS R8 R7 K8 ["KebabMenu"]
+  CALL R5 2 -1
+  CALL R3 -1 -1
+  RETURN R3 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  GETTABLEKS R3 R0 K0 ["BaseQuery"]
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 3
+  GETUPVAL R4 0
+  DUPTABLE R5 K7 [{"Query", "CellSize", "CellComponent", "FetchItems", "AdjustQuery"}]
+  GETUPVAL R6 0
+  MOVE R7 R1
+  GETTABLEKS R8 R0 K8 ["NetworkQuery"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K2 ["Query"]
+  GETUPVAL R6 4
+  SETTABLEKS R6 R5 K3 ["CellSize"]
+  GETUPVAL R6 5
+  SETTABLEKS R6 R5 K4 ["CellComponent"]
+  GETUPVAL R6 6
+  SETTABLEKS R6 R5 K5 ["FetchItems"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K6 ["AdjustQuery"]
+  GETTABLEKS R6 R0 K9 ["NetworkViewProps"]
+  CALL R4 2 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K4 [{"BaseQuery", "NetworkQuery", "NetworkViewProps"}]
+  GETTABLEKS R4 R0 K1 ["BaseQuery"]
+  SETTABLEKS R4 R3 K1 ["BaseQuery"]
+  DUPTABLE R4 K7 [{"creatorType", "creatorTargetId"}]
+  LOADK R5 K8 ["User"]
+  SETTABLEKS R5 R4 K5 ["creatorType"]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+9]
+  GETUPVAL R6 3
+  NAMECALL R6 R6 K9 ["GetUserId"]
+  CALL R6 1 -1
+  FASTCALL TOSTRING [+2]
+  GETIMPORT R5 K11 [tostring]
+  CALL R5 -1 1
+  JUMP [+4]
+  GETUPVAL R5 3
+  NAMECALL R5 R5 K9 ["GetUserId"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K6 ["creatorTargetId"]
+  SETTABLEKS R4 R3 K2 ["NetworkQuery"]
+  SETTABLEKS R0 R3 K3 ["NetworkViewProps"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_6:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K1 ["BaseQuery"]
+  JUMPIFNOT R2 [+24]
+  GETTABLEKS R3 R0 K1 ["BaseQuery"]
+  GETTABLEKS R2 R3 K2 ["creatorTargetId"]
+  JUMPIFNOT R2 [+19]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K6 [{"BaseQuery", "NetworkQuery", "NetworkViewProps"}]
+  GETTABLEKS R5 R0 K1 ["BaseQuery"]
+  SETTABLEKS R5 R4 K1 ["BaseQuery"]
+  DUPTABLE R5 K8 [{"creatorType"}]
+  LOADK R6 K9 ["Group"]
+  SETTABLEKS R6 R5 K7 ["creatorType"]
+  SETTABLEKS R5 R4 K4 ["NetworkQuery"]
+  SETTABLEKS R0 R4 K5 ["NetworkViewProps"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETTABLEKS R2 R0 K10 ["InitialContentHasLoaded"]
+  LOADN R3 0
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["createElement"]
+  GETUPVAL R3 3
+  GETUPVAL R4 4
+  MOVE R5 R0
+  DUPTABLE R6 K12 [{"Title"}]
+  LOADK R9 K13 ["Plugin"]
+  LOADK R10 K14 ["NoGroupsToDisplay"]
+  NAMECALL R7 R1 K15 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K11 ["Title"]
+  CALL R4 2 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+
+PROTO_7:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  NEWTABLE R3 0 0
+  CALL R2 1 2
+  GETUPVAL R4 2
+  CALL R4 0 1
+  GETUPVAL R5 3
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R3
+  NEWTABLE R7 0 0
+  CALL R5 2 0
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K1 ["createElement"]
+  GETUPVAL R6 6
+  DUPTABLE R7 K9 [{"Size", "PageName", "Tabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar", "CellPadding"}]
+  GETUPVAL R9 7
+  JUMPIFNOT R9 [+2]
+  LOADNIL R8
+  JUMP [+2]
+  GETTABLEKS R8 R0 K2 ["Size"]
+  SETTABLEKS R8 R7 K2 ["Size"]
+  LOADK R8 K10 ["Archive"]
+  SETTABLEKS R8 R7 K3 ["PageName"]
+  NEWTABLE R8 0 2
+  DUPTABLE R9 K16 [{"Title", "FailedTitle", "Key", "PageComponent", "Dropdowns"}]
+  LOADK R12 K17 ["Plugin"]
+  LOADK R13 K18 ["ArchivePage.Owned"]
+  NAMECALL R10 R1 K19 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K11 ["Title"]
+  LOADK R12 K17 ["Plugin"]
+  LOADK R13 K20 ["NoExperiencesToDisplay"]
+  NAMECALL R10 R1 K19 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K12 ["FailedTitle"]
+  LOADK R10 K21 ["Owned"]
+  SETTABLEKS R10 R9 K13 ["Key"]
+  GETUPVAL R10 8
+  SETTABLEKS R10 R9 K14 ["PageComponent"]
+  DUPTABLE R10 K24 [{"SortDropdown", "DefaultSortIndex"}]
+  SETTABLEKS R4 R10 K22 ["SortDropdown"]
+  LOADN R11 4
+  SETTABLEKS R11 R10 K23 ["DefaultSortIndex"]
+  SETTABLEKS R10 R9 K15 ["Dropdowns"]
+  DUPTABLE R10 K16 [{"Title", "FailedTitle", "Key", "PageComponent", "Dropdowns"}]
+  LOADK R13 K17 ["Plugin"]
+  LOADK R14 K25 ["ArchivePage.Group"]
+  NAMECALL R11 R1 K19 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K11 ["Title"]
+  LOADK R13 K17 ["Plugin"]
+  LOADK R14 K26 ["NoGroupExperiencesToDisplay"]
+  NAMECALL R11 R1 K19 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K12 ["FailedTitle"]
+  LOADK R11 K27 ["Group"]
+  SETTABLEKS R11 R10 K13 ["Key"]
+  GETUPVAL R11 9
+  SETTABLEKS R11 R10 K14 ["PageComponent"]
+  DUPTABLE R11 K29 [{"SortDropdown", "DefaultSortIndex", "GroupDropdown"}]
+  SETTABLEKS R4 R11 K22 ["SortDropdown"]
+  LOADN R12 4
+  SETTABLEKS R12 R11 K23 ["DefaultSortIndex"]
+  LENGTH R13 R2
+  LOADN R14 0
+  JUMPIFNOTLT R14 R13 [+3]
+  MOVE R12 R2
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K28 ["GroupDropdown"]
+  SETTABLEKS R11 R10 K15 ["Dropdowns"]
+  SETLIST R8 R9 2 [1]
+  SETTABLEKS R8 R7 K4 ["Tabs"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K5 ["CanSwapBetweenViews"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K6 ["IsDefaultGridView"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K7 ["HasSearchBar"]
+  GETIMPORT R8 K32 [UDim2.new]
+  LOADN R9 0
+  LOADN R10 16
+  LOADN R11 0
+  LOADN R12 16
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K8 ["CellPadding"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["useState"]
+  GETTABLEKS R3 R1 K9 ["useEffect"]
+  GETTABLEKS R4 R1 K10 ["useContext"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["SharedFlags"]
+  GETTABLEKS R6 R7 K13 ["getFFlagLuaStartPageNetworkCache"]
+  CALL R5 1 1
+  CALL R5 0 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K12 ["SharedFlags"]
+  GETTABLEKS R7 R8 K14 ["getFFlagLuaStartPageQuickLoad"]
+  CALL R6 1 1
+  CALL R6 0 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Packages"]
+  GETTABLEKS R8 R9 K15 ["Framework"]
+  CALL R7 1 1
+  GETTABLEKS R9 R7 K16 ["ContextServices"]
+  GETTABLEKS R8 R9 K17 ["Localization"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Packages"]
+  GETTABLEKS R10 R11 K18 ["Dash"]
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K19 ["join"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K11 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Util"]
+  GETTABLEKS R12 R13 K21 ["Services"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R14 R0 K11 ["Src"]
+  GETTABLEKS R13 R14 K22 ["Types"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K11 ["Src"]
+  GETTABLEKS R15 R16 K23 ["Components"]
+  GETTABLEKS R14 R15 K24 ["InfoTile"]
+  CALL R13 1 1
+  JUMPIFNOT R5 [+10]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K11 ["Src"]
+  GETTABLEKS R16 R17 K23 ["Components"]
+  GETTABLEKS R15 R16 K25 ["NetworkView"]
+  CALL R14 1 1
+  JUMP [+9]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K11 ["Src"]
+  GETTABLEKS R16 R17 K23 ["Components"]
+  GETTABLEKS R15 R16 K26 ["DEPRECATED_NetworkView"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K11 ["Src"]
+  GETTABLEKS R17 R18 K23 ["Components"]
+  GETTABLEKS R16 R17 K27 ["GamePage"]
+  CALL R15 1 1
+  JUMPIFNOT R5 [+10]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K11 ["Src"]
+  GETTABLEKS R18 R19 K28 ["Network"]
+  GETTABLEKS R17 R18 K29 ["DiscoverGroups"]
+  CALL R16 1 1
+  JUMP [+9]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K11 ["Src"]
+  GETTABLEKS R18 R19 K30 ["DEPRECATED_Network"]
+  GETTABLEKS R17 R18 K29 ["DiscoverGroups"]
+  CALL R16 1 1
+  JUMPIFNOT R5 [+10]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K11 ["Src"]
+  GETTABLEKS R19 R20 K28 ["Network"]
+  GETTABLEKS R18 R19 K31 ["DiscoverExperiences"]
+  CALL R17 1 1
+  JUMP [+9]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K11 ["Src"]
+  GETTABLEKS R19 R20 K30 ["DEPRECATED_Network"]
+  GETTABLEKS R18 R19 K31 ["DiscoverExperiences"]
+  CALL R17 1 1
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R21 R0 K11 ["Src"]
+  GETTABLEKS R20 R21 K23 ["Components"]
+  GETTABLEKS R19 R20 K32 ["NoResultsFoundPage"]
+  CALL R18 1 1
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K11 ["Src"]
+  GETTABLEKS R21 R22 K28 ["Network"]
+  GETTABLEKS R20 R21 K33 ["DiscoverCreatorEligibilityAndOpenPlace"]
+  CALL R19 1 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K11 ["Src"]
+  GETTABLEKS R22 R23 K20 ["Util"]
+  GETTABLEKS R21 R22 K34 ["SortingOptions"]
+  CALL R20 1 1
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R24 R0 K11 ["Src"]
+  GETTABLEKS R23 R24 K20 ["Util"]
+  GETTABLEKS R22 R23 K35 ["Dialogs"]
+  CALL R21 1 1
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R25 R0 K11 ["Src"]
+  GETTABLEKS R24 R25 K12 ["SharedFlags"]
+  GETTABLEKS R23 R24 K36 ["getFFlagLuaStartPageAtomicTestsFixes"]
+  CALL R22 1 1
+  GETIMPORT R23 K5 [require]
+  GETTABLEKS R26 R0 K11 ["Src"]
+  GETTABLEKS R25 R26 K12 ["SharedFlags"]
+  GETTABLEKS R24 R25 K37 ["getFFlagLuaStartPageWrappedTitles"]
+  CALL R23 1 1
+  GETIMPORT R24 K5 [require]
+  GETTABLEKS R27 R0 K11 ["Src"]
+  GETTABLEKS R26 R27 K12 ["SharedFlags"]
+  GETTABLEKS R25 R26 K38 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
+  CALL R24 1 1
+  CALL R24 0 1
+  GETTABLEKS R25 R11 K39 ["StudioService"]
+  GETIMPORT R26 K5 [require]
+  GETTABLEKS R30 R0 K11 ["Src"]
+  GETTABLEKS R29 R30 K20 ["Util"]
+  GETTABLEKS R28 R29 K40 ["Telemetry"]
+  GETTABLEKS R27 R28 K41 ["TelemetryContext"]
+  CALL R26 1 1
+  GETIMPORT R27 K5 [require]
+  GETTABLEKS R31 R0 K11 ["Src"]
+  GETTABLEKS R30 R31 K20 ["Util"]
+  GETTABLEKS R29 R30 K40 ["Telemetry"]
+  GETTABLEKS R28 R29 K42 ["StartPageTelemetryEvent"]
+  CALL R27 1 1
+  GETIMPORT R28 K45 [UDim2.new]
+  LOADN R29 0
+  LOADN R30 200
+  LOADN R31 0
+  LOADN R32 200
+  CALL R28 4 1
+  GETIMPORT R29 K45 [UDim2.new]
+  LOADN R30 0
+  LOADN R31 225
+  LOADN R32 0
+  JUMPIFNOT R23 [+2]
+  LOADN R33 69
+  JUMP [+1]
+  LOADN R33 39
+  CALL R29 4 1
+  DUPCLOSURE R30 K46 [PROTO_0]
+  CAPTURE VAL R8
+  CAPTURE VAL R20
+  DUPTABLE R31 K51 [{"searchKey", "isArchived", "isTemplates", "pageSize"}]
+  LOADK R32 K52 ["Archive"]
+  SETTABLEKS R32 R31 K47 ["searchKey"]
+  LOADB R32 1
+  SETTABLEKS R32 R31 K48 ["isArchived"]
+  LOADB R32 0
+  SETTABLEKS R32 R31 K49 ["isTemplates"]
+  LOADN R32 30
+  SETTABLEKS R32 R31 K50 ["pageSize"]
+  DUPCLOSURE R32 K53 [PROTO_2]
+  CAPTURE VAL R26
+  CAPTURE VAL R4
+  CAPTURE VAL R21
+  CAPTURE VAL R1
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R28
+  CAPTURE VAL R19
+  CAPTURE VAL R25
+  CAPTURE VAL R24
+  CAPTURE VAL R27
+  DUPCLOSURE R33 K54 [PROTO_4]
+  CAPTURE VAL R10
+  CAPTURE VAL R31
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R29
+  CAPTURE VAL R32
+  CAPTURE VAL R17
+  DUPCLOSURE R34 K55 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R33
+  CAPTURE VAL R22
+  CAPTURE VAL R25
+  DUPCLOSURE R35 K56 [PROTO_6]
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R33
+  CAPTURE VAL R18
+  CAPTURE VAL R10
+  DUPCLOSURE R36 K57 [PROTO_8]
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R30
+  CAPTURE VAL R3
+  CAPTURE VAL R16
+  CAPTURE VAL R1
+  CAPTURE VAL R15
+  CAPTURE VAL R6
+  CAPTURE VAL R34
+  CAPTURE VAL R35
+  RETURN R36 1

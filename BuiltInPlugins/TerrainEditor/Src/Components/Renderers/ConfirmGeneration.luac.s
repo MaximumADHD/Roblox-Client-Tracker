@@ -1,0 +1,149 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["Schema"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K1 ["use"]
+  CALL R2 1 1
+  LOADNIL R3
+  GETTABLEKS R4 R1 K2 ["CanConfirm"]
+  JUMPIFNOT R4 [+37]
+  NEWTABLE R4 0 2
+  DUPTABLE R5 K5 [{"Type", "Text"}]
+  LOADK R6 K6 ["Label"]
+  SETTABLEKS R6 R5 K3 ["Type"]
+  LOADK R8 K7 ["Viewport"]
+  LOADK R9 K8 ["ConfirmMessage"]
+  NAMECALL R6 R2 K9 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K4 ["Text"]
+  DUPTABLE R6 K12 [{"Enabled", "OnClick", "Type", "Text"}]
+  GETTABLEKS R8 R0 K13 ["Disabled"]
+  NOT R7 R8
+  SETTABLEKS R7 R6 K10 ["Enabled"]
+  GETTABLEKS R7 R1 K11 ["OnClick"]
+  SETTABLEKS R7 R6 K11 ["OnClick"]
+  LOADK R7 K14 ["TextButton"]
+  SETTABLEKS R7 R6 K3 ["Type"]
+  LOADK R9 K7 ["Viewport"]
+  LOADK R10 K15 ["Confirm"]
+  NAMECALL R7 R2 K9 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K4 ["Text"]
+  SETLIST R4 R5 2 [1]
+  MOVE R3 R4
+  JUMP [+39]
+  GETTABLEKS R4 R1 K16 ["CanRegenerate"]
+  JUMPIFNOT R4 [+36]
+  NEWTABLE R4 0 2
+  DUPTABLE R5 K5 [{"Type", "Text"}]
+  LOADK R6 K6 ["Label"]
+  SETTABLEKS R6 R5 K3 ["Type"]
+  LOADK R8 K7 ["Viewport"]
+  LOADK R9 K17 ["RegenerateMessage"]
+  NAMECALL R6 R2 K9 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K4 ["Text"]
+  DUPTABLE R6 K12 [{"Enabled", "OnClick", "Type", "Text"}]
+  GETTABLEKS R8 R0 K13 ["Disabled"]
+  NOT R7 R8
+  SETTABLEKS R7 R6 K10 ["Enabled"]
+  GETTABLEKS R7 R1 K18 ["OnRegenerate"]
+  SETTABLEKS R7 R6 K11 ["OnClick"]
+  LOADK R7 K14 ["TextButton"]
+  SETTABLEKS R7 R6 K3 ["Type"]
+  LOADK R9 K7 ["Viewport"]
+  LOADK R10 K19 ["Regenerate"]
+  NAMECALL R7 R2 K9 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K4 ["Text"]
+  SETLIST R4 R5 2 [1]
+  MOVE R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K20 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K22 [{"Size"}]
+  GETIMPORT R7 K25 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 0
+  LOADN R10 0
+  LOADN R11 32
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K21 ["Size"]
+  DUPTABLE R7 K28 [{"Button", "Toolbar"}]
+  GETTABLEKS R9 R1 K2 ["CanConfirm"]
+  JUMPIFNOT R9 [+40]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K20 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K31 [{"Disabled", "OnClick", "Size", "Style", "Text", "TextXAlignment"}]
+  GETTABLEKS R11 R0 K13 ["Disabled"]
+  SETTABLEKS R11 R10 K13 ["Disabled"]
+  GETTABLEKS R11 R1 K11 ["OnClick"]
+  SETTABLEKS R11 R10 K11 ["OnClick"]
+  GETIMPORT R11 K25 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
+  LOADN R14 0
+  LOADN R15 32
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K21 ["Size"]
+  GETTABLEKS R12 R0 K13 ["Disabled"]
+  JUMPIFNOT R12 [+2]
+  LOADNIL R11
+  JUMP [+1]
+  LOADK R11 K32 ["PrimaryBrand"]
+  SETTABLEKS R11 R10 K29 ["Style"]
+  GETTABLEKS R11 R1 K6 ["Label"]
+  SETTABLEKS R11 R10 K4 ["Text"]
+  GETIMPORT R11 K35 [Enum.TextXAlignment.Center]
+  SETTABLEKS R11 R10 K30 ["TextXAlignment"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K26 ["Button"]
+  JUMPIFNOT R3 [+9]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K20 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K37 [{"HorizontalItems"}]
+  SETTABLEKS R3 R10 K36 ["HorizontalItems"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K27 ["Toolbar"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R2 R3 K9 ["Localization"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["ViewportToolingFramework"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K11 ["React"]
+  CALL R4 1 1
+  GETTABLEKS R6 R1 K12 ["UI"]
+  GETTABLEKS R5 R6 K13 ["IconButton"]
+  GETTABLEKS R7 R1 K12 ["UI"]
+  GETTABLEKS R6 R7 K14 ["Pane"]
+  GETTABLEKS R8 R1 K15 ["Util"]
+  GETTABLEKS R7 R8 K16 ["StyleModifier"]
+  GETTABLEKS R8 R3 K17 ["Toolbar"]
+  DUPCLOSURE R9 K18 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  RETURN R9 1

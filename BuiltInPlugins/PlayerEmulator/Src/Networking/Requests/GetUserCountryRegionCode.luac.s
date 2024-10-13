@@ -1,0 +1,87 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["responseCode"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["StatusCodes"]
+  GETTABLEKS R2 R3 K2 ["OK"]
+  JUMPIFNOTEQ R1 R2 [+9]
+  GETUPVAL R1 1
+  GETTABLEKS R3 R0 K3 ["responseBody"]
+  GETTABLEKS R2 R3 K4 ["countryCode"]
+  SETTABLEKS R2 R1 K5 ["EmulatedCountryCode"]
+  RETURN R0 0
+  GETIMPORT R1 K7 [warn]
+  LOADK R3 K8 ["Player Emulator can't get country region list: HTTP error "]
+  GETTABLEKS R5 R0 K0 ["responseCode"]
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K10 [tostring]
+  CALL R4 1 1
+  CONCAT R2 R3 R4
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["Player Emulator can't get country region list: "]
+  MOVE R4 R0
+  CONCAT R2 R3 R4
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  NAMECALL R1 R1 K0 ["get"]
+  CALL R1 2 1
+  GETUPVAL R2 0
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["handleRetry"]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["parseJson"]
+  MOVE R4 R2
+  CALL R3 1 1
+  DUPCLOSURE R5 K3 [PROTO_0]
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  DUPCLOSURE R6 K4 [PROTO_1]
+  NAMECALL R3 R3 K5 ["andThen"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Networking"]
+  GETTABLEKS R2 R3 K7 ["UrlConstructor"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K8 ["Packages"]
+  GETTABLEKS R3 R4 K9 ["Http"]
+  CALL R2 1 1
+  GETIMPORT R3 K11 [game]
+  LOADK R5 K12 ["PlayerEmulatorService"]
+  NAMECALL R3 R3 K13 ["GetService"]
+  CALL R3 2 1
+  GETTABLEKS R4 R1 K14 ["BuildUrl"]
+  LOADK R5 K15 ["users"]
+  LOADK R6 K16 ["v1/users/authenticated/country-code"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K17 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R5 1

@@ -19,8 +19,6 @@ local VRPLAYERS_REMOTE_EVENT_NAME = "AvatarGesturesVRPlayer"
 
 -- flag to enable immersion mode for all player including non VR for testing purposes
 local FFlagDebugImmersionModeNonVR = game:DefineFastFlag("DebugImmersionModeNonVR", false)
-local FFlagUpdateAvatarGestures = game:DefineFastFlag("UpdateAvatarGestures", false)
-local FFlagAvatarGesturesTelemetry = game:DefineFastFlag("AvatarGesturesTelemetry", false)
 
 -- Analytics
 local FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent = game:DefineFastInt("VRAvatarGesturesAnalyticsThrottleHundrethsPercent", 0)
@@ -69,12 +67,7 @@ function VRAvatarGesturesClient:onCharacterChanged(character)
 	end
 
 	-- no smooth times on client only (looks laggy)
-	local ikControlNames
-	if FFlagUpdateAvatarGestures then
-		ikControlNames = { "TrackedIKLeftHand", "TrackedIKRightHand", "TrackedIKHead" }
-	else
-		ikControlNames = { "VRIKLeftHand", "VRIKRightHand", "VRIKHead" }
-	end
+	local ikControlNames = { "TrackedIKLeftHand", "TrackedIKRightHand", "TrackedIKHead" }
 	for _, ikName in pairs(ikControlNames) do
 		local ikControl = humanoid:FindFirstChild(ikName) :: IKControl
 
@@ -115,23 +108,19 @@ end
 
 function VRAvatarGesturesClient:onAvatarGesturesChanged()
 	if VRService.AvatarGestures then
-		if not FFlagUpdateAvatarGestures then
-			self:connectInputCFrames()
-		end
 		if VRService.VREnabled or FFlagDebugImmersionModeNonVR then
 
-			if FFlagUpdateAvatarGestures then
-				-- tell the server we're in VR
-				local isVRPlayerRemoteEvent = RobloxReplicatedStorage:WaitForChild(VRPLAYERS_REMOTE_EVENT_NAME, 5)
-				if not isVRPlayerRemoteEvent then
-					warn("VRService.AvatarGestures failed to connect to server")
-					return
-				end
-				isVRPlayerRemoteEvent:FireServer(true)
-
-				-- connections to control the avatar
-				self:connectInputCFrames()
+			-- tell the server we're in VR
+			local isVRPlayerRemoteEvent = RobloxReplicatedStorage:WaitForChild(VRPLAYERS_REMOTE_EVENT_NAME, 5)
+			if not isVRPlayerRemoteEvent then
+				warn("VRService.AvatarGestures failed to connect to server")
+				return
 			end
+			isVRPlayerRemoteEvent:FireServer(true)
+
+			-- connections to control the avatar
+			self:connectInputCFrames()
+
 			if not self.avatarUtil then
 				self.avatarUtil = AvatarUtil.new()
 				self.avatarUtil:connectLocalCharacterChanges(function(character)
@@ -145,24 +134,20 @@ function VRAvatarGesturesClient:onAvatarGesturesChanged()
 			end
 
 			-- Analytics
-			if FFlagAvatarGesturesTelemetry	then
-				if self.analyticsSendEnabled then
-					self.analyticsSendEnabled = nil
-					-- send analytics event
-					RbxAnalyticsService:ReportInfluxSeries(VR_AVATAR_GESTURES_ANALYTICS_EVENT_NAME, {
-						placeId = game.PlaceId,
-						calledFrom = "ClientJoined",
-					}, FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent)
-				end
+			if self.analyticsSendEnabled then
+				self.analyticsSendEnabled = nil
+				-- send analytics event
+				RbxAnalyticsService:ReportInfluxSeries(VR_AVATAR_GESTURES_ANALYTICS_EVENT_NAME, {
+					placeId = game.PlaceId,
+					calledFrom = "ClientJoined",
+				}, FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent)
 			end
 		end
 	else
-		if FFlagUpdateAvatarGestures then
-			if VRService.VREnabled or FFlagDebugImmersionModeNonVR then
-				local isVRPlayerRemoteEvent = RobloxReplicatedStorage:FindFirstChild(VRPLAYERS_REMOTE_EVENT_NAME)
-				if isVRPlayerRemoteEvent then
-					isVRPlayerRemoteEvent:FireServer(false)
-				end
+		if VRService.VREnabled or FFlagDebugImmersionModeNonVR then
+			local isVRPlayerRemoteEvent = RobloxReplicatedStorage:FindFirstChild(VRPLAYERS_REMOTE_EVENT_NAME)
+			if isVRPlayerRemoteEvent then
+				isVRPlayerRemoteEvent:FireServer(false)
 			end
 		end
 
@@ -218,15 +203,8 @@ function VRAvatarGesturesClient:updateCFrames(partName, cframeOffset)
 			local headCframeOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 			headCframeOffset = headCframeOffset.Rotation + headCframeOffset.Position * camera.HeadScale
 			local headWorld = camera.CFrame * headCframeOffset * CFrame.new(0, 0, 0.5)
-
-			local condition = false -- remove with FFlagUpdateAvatarGestures
-			if FFlagUpdateAvatarGestures then
-				condition = partName ~= "TrackedHead"
-			else
-				condition = partName ~= "VRGesturesHead"
-			end
 			
-			if condition then
+			if partName ~= "TrackedHead"then
 				-- the cframe of the input (hands) should be the same offset from the avatar's head as the input cframe from the player's head
 				local headRelativeCFrame = head.CFrame:ToWorldSpace(headWorld:ToObjectSpace(worldCFrame)) 
 				alignPosition.Position = headRelativeCFrame.Position
@@ -242,14 +220,7 @@ function VRAvatarGesturesClient:updateCFrames(partName, cframeOffset)
 		else
 			alignPosition.Position = worldCFrame.Position
 
-			local condition = false -- remove with FFlagUpdateAvatarGestures
-			if FFlagUpdateAvatarGestures then
-				condition = partName ~= "TrackedHead"
-			else
-				condition = partName ~= "VRGesturesHead"
-			end
-
-			if condition then
+			if partName ~= "TrackedHead"then
 				alignOrientation.CFrame = worldCFrame * CFrame.Angles(math.pi/2, 0, 0)
 			else
 				alignOrientation.CFrame = worldCFrame
@@ -260,15 +231,7 @@ function VRAvatarGesturesClient:updateCFrames(partName, cframeOffset)
 		local hrp = character:FindFirstChild("HumanoidRootPart") :: Part
 		
 		local cframe
-
-		local condition = false -- remove with FFlagUpdateAvatarGestures
-		if FFlagUpdateAvatarGestures then
-			condition = partName ~= "TrackedHead"
-		else
-			condition = partName ~= "VRGesturesHead"
-		end
-
-		if condition then
+		if partName ~= "TrackedHead" then
 			cframe =  hrp.CFrame  * cframeOffset * CFrame.Angles(0, 0, math.rad(time() * 30)) * CFrame.new(1, 0, -0.5)
 		else
 			cframe = hrp.CFrame * cframeOffset
@@ -292,42 +255,22 @@ function VRAvatarGesturesClient:steppedCframes()
 end
 
 function VRAvatarGesturesClient:connectInputCFrames()
-	if FFlagUpdateAvatarGestures then
-		if VRService.VREnabled then
-			self.connections:connect("UserCFrameChanged", VRService.UserCFrameChanged,function(type, cframe)
-				if type == Enum.UserCFrame.LeftHand then
-					self.partCFrameMap["TrackedLeftHand"] = cframe
-				elseif type == Enum.UserCFrame.RightHand then
-					self.partCFrameMap["TrackedRightHand"] = cframe
-				elseif type == Enum.UserCFrame.Head then
-					self.partCFrameMap["TrackedHead"] = cframe
-				end
-			end)
-		elseif FFlagDebugImmersionModeNonVR then -- Simulate VR Input
-			self.connections:connect("NonVRSimulateInput", RunService.RenderStepped, function(_)
-				self.partCFrameMap["TrackedLeftHand"] = CFrame.new(-0.5, 0, -0.5)
-				self.partCFrameMap["TrackedRightHand"] = CFrame.new(0.5, 0, -0.5)
-				self.partCFrameMap["TrackedHead"] = CFrame.new(0, 1, 0)
-			end)
-		end
-	else
-		if VRService.VREnabled then
-			self.connections:connect("UserCFrameChanged", VRService.UserCFrameChanged,function(type, cframe)
-				if type == Enum.UserCFrame.LeftHand then
-					self.partCFrameMap["VRGesturesLeftHand"] = cframe
-				elseif type == Enum.UserCFrame.RightHand then
-					self.partCFrameMap["VRGesturesRightHand"] = cframe
-				elseif type == Enum.UserCFrame.Head then
-					self.partCFrameMap["VRGesturesHead"] = cframe
-				end
-			end)
-		elseif FFlagDebugImmersionModeNonVR then -- Simulate VR Input
-			self.connections:connect("NonVRSimulateInput", RunService.RenderStepped, function(_)
-				self.partCFrameMap["VRGesturesLeftHand"] = CFrame.new(-0.5, 0, -0.5)
-				self.partCFrameMap["VRGesturesRightHand"] = CFrame.new(0.5, 0, -0.5)
-				self.partCFrameMap["VRGesturesHead"] = CFrame.new(0, 1, 0)
-			end)
-		end
+	if VRService.VREnabled then
+		self.connections:connect("UserCFrameChanged", VRService.UserCFrameChanged,function(type, cframe)
+			if type == Enum.UserCFrame.LeftHand then
+				self.partCFrameMap["TrackedLeftHand"] = cframe
+			elseif type == Enum.UserCFrame.RightHand then
+				self.partCFrameMap["TrackedRightHand"] = cframe
+			elseif type == Enum.UserCFrame.Head then
+				self.partCFrameMap["TrackedHead"] = cframe
+			end
+		end)
+	elseif FFlagDebugImmersionModeNonVR then -- Simulate VR Input
+		self.connections:connect("NonVRSimulateInput", RunService.RenderStepped, function(_)
+			self.partCFrameMap["TrackedLeftHand"] = CFrame.new(-0.5, 0, -0.5)
+			self.partCFrameMap["TrackedRightHand"] = CFrame.new(0.5, 0, -0.5)
+			self.partCFrameMap["TrackedHead"] = CFrame.new(0, 1, 0)
+		end)
 	end
 
 	if VRService.VREnabled or FFlagDebugImmersionModeNonVR then

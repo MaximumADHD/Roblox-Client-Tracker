@@ -1,0 +1,376 @@
+PROTO_0:
+  NAMECALL R2 R1 K0 ["IsGltf"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+2]
+  LOADB R2 1
+  RETURN R2 1
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+2]
+  LOADB R2 1
+  RETURN R2 1
+  NAMECALL R3 R1 K1 ["HasAnimation"]
+  CALL R3 1 1
+  NOT R2 R3
+  RETURN R2 1
+
+PROTO_1:
+  NAMECALL R2 R1 K0 ["IsGltf"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+2]
+  LOADB R2 1
+  RETURN R2 1
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+2]
+  LOADB R2 1
+  RETURN R2 1
+  NAMECALL R3 R1 K1 ["HasAnimation"]
+  CALL R3 1 1
+  NOT R2 R3
+  JUMPIF R2 [+4]
+  NAMECALL R3 R1 K2 ["usesCustomRestPoseLua"]
+  CALL R3 1 1
+  NOT R2 R3
+  RETURN R2 1
+
+PROTO_2:
+  NAMECALL R3 R1 K0 ["IsR15"]
+  CALL R3 1 1
+  NOT R2 R3
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+4]
+  NAMECALL R3 R1 K0 ["IsR15"]
+  CALL R3 1 1
+  NOT R2 R3
+  RETURN R2 1
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["InsertInWorkspace"]
+  NOT R1 R2
+  RETURN R1 1
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["AddModelToInventory"]
+  JUMPIFNOT R2 [+2]
+  GETTABLEKS R2 R0 K1 ["ImportAsPackage"]
+  NOT R1 R2
+  RETURN R1 1
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["AddModelToInventory"]
+  NOT R1 R2
+  RETURN R1 1
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["RunningUnderCLI"]
+  CALL R1 0 1
+  NOT R0 R1
+  RETURN R0 1
+
+PROTO_8:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  NOT R1 R2
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["RunningUnderCLI"]
+  CALL R2 0 1
+  NOT R1 R2
+  JUMPIFNOT R1 [+3]
+  NAMECALL R1 R0 K1 ["IsR15"]
+  CALL R1 1 1
+  RETURN R1 1
+
+PROTO_9:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  NOT R1 R2
+  RETURN R1 1
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["AddModelToInventory"]
+  JUMPIFNOT R1 [+2]
+  GETTABLEKS R1 R0 K1 ["ImportAsPackage"]
+  RETURN R1 1
+
+PROTO_11:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  NOT R0 R1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["DebugFlags"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Properties"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  GETTABLEKS R3 R4 K12 ["AssetIdProperty"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K9 ["Components"]
+  GETTABLEKS R6 R7 K10 ["Properties"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  GETTABLEKS R4 R5 K13 ["AnimationListProperty"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K9 ["Components"]
+  GETTABLEKS R7 R8 K10 ["Properties"]
+  GETTABLEKS R6 R7 K11 ["Types"]
+  GETTABLEKS R5 R6 K14 ["UploadDestinationProperty"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Flags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagShowOffCenterOriginImporter"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["getFFlagChooseAnimationForRestPose"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Flags"]
+  GETTABLEKS R8 R9 K18 ["getFFlagUnlinkImporterAndAvatarPreview"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Flags"]
+  GETTABLEKS R9 R10 K19 ["getFFlagKeepZeroInfluenceBones"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K20 [PROTO_0]
+  CAPTURE VAL R6
+  DUPCLOSURE R10 K21 [PROTO_1]
+  CAPTURE VAL R6
+  DUPCLOSURE R11 K22 [PROTO_2]
+  DUPCLOSURE R12 K23 [PROTO_3]
+  CAPTURE VAL R7
+  DUPCLOSURE R13 K24 [PROTO_4]
+  DUPCLOSURE R14 K25 [PROTO_5]
+  DUPCLOSURE R15 K26 [PROTO_6]
+  DUPCLOSURE R16 K27 [PROTO_7]
+  CAPTURE VAL R1
+  DUPCLOSURE R17 K28 [PROTO_8]
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  DUPCLOSURE R18 K29 [PROTO_9]
+  CAPTURE VAL R5
+  DUPCLOSURE R19 K30 [PROTO_10]
+  DUPCLOSURE R20 K31 [PROTO_11]
+  CAPTURE VAL R8
+  NEWTABLE R21 0 5
+  DUPTABLE R22 K33 [{"Section", "Properties"}]
+  LOADK R23 K34 ["FileGeneral"]
+  SETTABLEKS R23 R22 K32 ["Section"]
+  NEWTABLE R23 0 13
+  DUPTABLE R24 K37 [{"Name", "Editable"}]
+  LOADK R25 K38 ["ImportName"]
+  SETTABLEKS R25 R24 K35 ["Name"]
+  LOADB R25 1
+  SETTABLEKS R25 R24 K36 ["Editable"]
+  DUPTABLE R25 K37 [{"Name", "Editable"}]
+  LOADK R26 K39 ["ImportAsModelAsset"]
+  SETTABLEKS R26 R25 K35 ["Name"]
+  LOADB R26 1
+  SETTABLEKS R26 R25 K36 ["Editable"]
+  DUPTABLE R26 K37 [{"Name", "Editable"}]
+  LOADK R27 K40 ["AddModelToInventory"]
+  SETTABLEKS R27 R26 K35 ["Name"]
+  LOADB R27 1
+  SETTABLEKS R27 R26 K36 ["Editable"]
+  DUPTABLE R27 K42 [{"Name", "Editable", "ShouldHide"}]
+  LOADK R28 K43 ["ImportAsPackage"]
+  SETTABLEKS R28 R27 K35 ["Name"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K36 ["Editable"]
+  SETTABLEKS R15 R27 K41 ["ShouldHide"]
+  DUPTABLE R28 K45 [{"Name", "Editable", "ComponentFactory", "ShouldHide"}]
+  LOADK R29 K46 ["ExistingPackageId"]
+  SETTABLEKS R29 R28 K35 ["Name"]
+  LOADB R29 1
+  SETTABLEKS R29 R28 K36 ["Editable"]
+  SETTABLEKS R2 R28 K44 ["ComponentFactory"]
+  SETTABLEKS R14 R28 K41 ["ShouldHide"]
+  DUPTABLE R29 K47 [{"Name", "Editable", "ComponentFactory"}]
+  LOADK R30 K48 ["PreferredUploadId"]
+  SETTABLEKS R30 R29 K35 ["Name"]
+  LOADB R30 1
+  SETTABLEKS R30 R29 K36 ["Editable"]
+  SETTABLEKS R4 R29 K44 ["ComponentFactory"]
+  DUPTABLE R30 K37 [{"Name", "Editable"}]
+  LOADK R31 K49 ["InsertInWorkspace"]
+  SETTABLEKS R31 R30 K35 ["Name"]
+  LOADB R31 1
+  SETTABLEKS R31 R30 K36 ["Editable"]
+  DUPTABLE R31 K42 [{"Name", "Editable", "ShouldHide"}]
+  LOADK R32 K50 ["InsertWithScenePosition"]
+  SETTABLEKS R32 R31 K35 ["Name"]
+  LOADB R32 1
+  SETTABLEKS R32 R31 K36 ["Editable"]
+  SETTABLEKS R13 R31 K41 ["ShouldHide"]
+  DUPTABLE R32 K42 [{"Name", "Editable", "ShouldHide"}]
+  LOADK R33 K51 ["UseSceneOriginAsCFrame"]
+  SETTABLEKS R33 R32 K35 ["Name"]
+  LOADB R33 1
+  SETTABLEKS R33 R32 K36 ["Editable"]
+  SETTABLEKS R18 R32 K41 ["ShouldHide"]
+  DUPTABLE R33 K42 [{"Name", "Editable", "ShouldHide"}]
+  LOADK R34 K52 ["KeepZeroInfluenceBones"]
+  SETTABLEKS R34 R33 K35 ["Name"]
+  LOADB R34 1
+  SETTABLEKS R34 R33 K36 ["Editable"]
+  SETTABLEKS R20 R33 K41 ["ShouldHide"]
+  DUPTABLE R34 K37 [{"Name", "Editable"}]
+  LOADK R35 K53 ["UseSceneOriginAsPivot"]
+  SETTABLEKS R35 R34 K35 ["Name"]
+  LOADB R35 1
+  SETTABLEKS R35 R34 K36 ["Editable"]
+  DUPTABLE R35 K37 [{"Name", "Editable"}]
+  LOADK R36 K54 ["Anchored"]
+  SETTABLEKS R36 R35 K35 ["Name"]
+  LOADB R36 1
+  SETTABLEKS R36 R35 K36 ["Editable"]
+  DUPTABLE R36 K37 [{"Name", "Editable"}]
+  LOADK R37 K55 ["UsesCages"]
+  SETTABLEKS R37 R36 K35 ["Name"]
+  LOADB R37 1
+  SETTABLEKS R37 R36 K36 ["Editable"]
+  SETLIST R23 R24 13 [1]
+  SETTABLEKS R23 R22 K10 ["Properties"]
+  DUPTABLE R23 K57 [{"Section", "Properties", "Callouts"}]
+  LOADK R24 K58 ["RigGeneral"]
+  SETTABLEKS R24 R23 K32 ["Section"]
+  NEWTABLE R24 0 3
+  DUPTABLE R25 K37 [{"Name", "Editable"}]
+  LOADK R26 K59 ["RigType"]
+  SETTABLEKS R26 R25 K35 ["Name"]
+  LOADB R26 1
+  SETTABLEKS R26 R25 K36 ["Editable"]
+  DUPTABLE R26 K60 [{"Name", "Editable", "ShouldHide", "Callouts"}]
+  LOADK R27 K61 ["ValidateUgcBody"]
+  SETTABLEKS R27 R26 K35 ["Name"]
+  LOADB R27 1
+  SETTABLEKS R27 R26 K36 ["Editable"]
+  SETTABLEKS R12 R26 K41 ["ShouldHide"]
+  NEWTABLE R27 0 1
+  DUPTABLE R28 K63 [{"Name", "ShouldShow"}]
+  LOADK R29 K64 ["OpenAvatarPreviewCallout"]
+  SETTABLEKS R29 R28 K35 ["Name"]
+  SETTABLEKS R17 R28 K62 ["ShouldShow"]
+  SETLIST R27 R28 1 [1]
+  SETTABLEKS R27 R26 K56 ["Callouts"]
+  DUPTABLE R27 K42 [{"Name", "Editable", "ShouldHide"}]
+  LOADK R28 K65 ["RigScale"]
+  SETTABLEKS R28 R27 K35 ["Name"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K36 ["Editable"]
+  SETTABLEKS R11 R27 K41 ["ShouldHide"]
+  SETLIST R24 R25 3 [1]
+  SETTABLEKS R24 R23 K10 ["Properties"]
+  NEWTABLE R24 0 1
+  DUPTABLE R25 K63 [{"Name", "ShouldShow"}]
+  LOADK R26 K64 ["OpenAvatarPreviewCallout"]
+  SETTABLEKS R26 R25 K35 ["Name"]
+  SETTABLEKS R17 R25 K62 ["ShouldShow"]
+  SETLIST R24 R25 1 [1]
+  SETTABLEKS R24 R23 K56 ["Callouts"]
+  DUPTABLE R24 K33 [{"Section", "Properties"}]
+  LOADK R25 K66 ["AnimationGeneral"]
+  SETTABLEKS R25 R24 K32 ["Section"]
+  NEWTABLE R25 0 2
+  DUPTABLE R26 K42 [{"Name", "Editable", "ShouldHide"}]
+  LOADK R27 K67 ["RestPose"]
+  SETTABLEKS R27 R26 K35 ["Name"]
+  LOADB R27 1
+  SETTABLEKS R27 R26 K36 ["Editable"]
+  SETTABLEKS R9 R26 K41 ["ShouldHide"]
+  DUPTABLE R27 K45 [{"Name", "Editable", "ComponentFactory", "ShouldHide"}]
+  LOADK R28 K68 ["AnimationIdForRestPose"]
+  SETTABLEKS R28 R27 K35 ["Name"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K36 ["Editable"]
+  SETTABLEKS R3 R27 K44 ["ComponentFactory"]
+  SETTABLEKS R10 R27 K41 ["ShouldHide"]
+  SETLIST R25 R26 2 [1]
+  SETTABLEKS R25 R24 K10 ["Properties"]
+  DUPTABLE R25 K33 [{"Section", "Properties"}]
+  LOADK R26 K69 ["FileTransform"]
+  SETTABLEKS R26 R25 K32 ["Section"]
+  NEWTABLE R26 0 2
+  DUPTABLE R27 K71 [{"Name", "Editable", "Dependencies"}]
+  LOADK R28 K72 ["WorldForward"]
+  SETTABLEKS R28 R27 K35 ["Name"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K36 ["Editable"]
+  NEWTABLE R28 0 1
+  LOADK R29 K73 ["WorldUp"]
+  SETLIST R28 R29 1 [1]
+  SETTABLEKS R28 R27 K70 ["Dependencies"]
+  DUPTABLE R28 K71 [{"Name", "Editable", "Dependencies"}]
+  LOADK R29 K73 ["WorldUp"]
+  SETTABLEKS R29 R28 K35 ["Name"]
+  LOADB R29 1
+  SETTABLEKS R29 R28 K36 ["Editable"]
+  NEWTABLE R29 0 1
+  LOADK R30 K72 ["WorldForward"]
+  SETLIST R29 R30 1 [1]
+  SETTABLEKS R29 R28 K70 ["Dependencies"]
+  SETLIST R26 R27 2 [1]
+  SETTABLEKS R26 R25 K10 ["Properties"]
+  DUPTABLE R26 K33 [{"Section", "Properties"}]
+  LOADK R27 K74 ["FileGeometry"]
+  SETTABLEKS R27 R26 K32 ["Section"]
+  NEWTABLE R27 0 5
+  DUPTABLE R28 K37 [{"Name", "Editable"}]
+  LOADK R29 K75 ["ScaleUnit"]
+  SETTABLEKS R29 R28 K35 ["Name"]
+  LOADB R29 1
+  SETTABLEKS R29 R28 K36 ["Editable"]
+  DUPTABLE R29 K71 [{"Name", "Editable", "Dependencies"}]
+  LOADK R30 K76 ["FileDimensions"]
+  SETTABLEKS R30 R29 K35 ["Name"]
+  LOADB R30 0
+  SETTABLEKS R30 R29 K36 ["Editable"]
+  NEWTABLE R30 0 1
+  LOADK R31 K75 ["ScaleUnit"]
+  SETLIST R30 R31 1 [1]
+  SETTABLEKS R30 R29 K70 ["Dependencies"]
+  DUPTABLE R30 K37 [{"Name", "Editable"}]
+  LOADK R31 K77 ["PolygonCount"]
+  SETTABLEKS R31 R30 K35 ["Name"]
+  LOADB R31 0
+  SETTABLEKS R31 R30 K36 ["Editable"]
+  DUPTABLE R31 K42 [{"Name", "Editable", "ShouldHide"}]
+  LOADK R32 K78 ["MergeMeshes"]
+  SETTABLEKS R32 R31 K35 ["Name"]
+  LOADB R32 1
+  SETTABLEKS R32 R31 K36 ["Editable"]
+  SETTABLEKS R19 R31 K41 ["ShouldHide"]
+  DUPTABLE R32 K37 [{"Name", "Editable"}]
+  LOADK R33 K79 ["InvertNegativeFaces"]
+  SETTABLEKS R33 R32 K35 ["Name"]
+  LOADB R33 1
+  SETTABLEKS R33 R32 K36 ["Editable"]
+  SETLIST R27 R28 5 [1]
+  SETTABLEKS R27 R26 K10 ["Properties"]
+  SETLIST R21 R22 5 [1]
+  RETURN R21 1

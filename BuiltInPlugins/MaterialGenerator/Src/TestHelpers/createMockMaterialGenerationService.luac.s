@@ -1,0 +1,25 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  LOADK R1 K1 ["MaterialGenerationService"]
+  LOADB R2 1
+  CALL R0 2 1
+  NAMECALL R1 R0 K2 ["asService"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K7 ["TestHelpers"]
+  GETTABLEKS R2 R3 K8 ["ServiceWrapper"]
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

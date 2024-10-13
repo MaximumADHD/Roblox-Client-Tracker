@@ -52,14 +52,6 @@ local function initiatePurchasePrecheck()
 			robuxProductId = nil
 		end
 
-		if GetFFlagEnableTexasU18VPCForInExperienceRobuxUpsellFlow() then
-			--TODO: PAY-9697: Add backend check to EnablePurchases to show modal.
-			-- We do not show EnablePurchaseVPCModal for web upsell flow since web upsell will be blocked later at select payment methods page in webview.
-			if upsellFlow ~= UpsellFlow.Web then
-				return store:dispatch(SetPromptState(PromptState.EnablePurchaseVPCModal))
-			end
-		end
-
 		store:dispatch(SetButtonState(ButtonState.Disabled))
 		return getPurchaseWarning(network, nativeProductId, robuxProductId, isPremium)
 			:andThen(function(results)
