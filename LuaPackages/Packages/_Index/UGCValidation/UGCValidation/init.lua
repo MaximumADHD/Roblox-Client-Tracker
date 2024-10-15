@@ -1,6 +1,8 @@
 local root = script
 
 local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
+local getEngineFeatureUGCValidationRequiredFolderContext =
+	require(root.flags.getEngineFeatureUGCValidationRequiredFolderContext)
 local getEngineFeatureEngineUGCValidateRigidMeshPartAccessories =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidMeshPartAccessories)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
@@ -40,7 +42,8 @@ function UGCValidation.validate(
 	allowEditableInstances: boolean?,
 	bypassFlags: Types.BypassFlags?,
 	shouldYield: boolean?,
-	validateMeshPartAccessories: boolean?
+	validateMeshPartAccessories: boolean?,
+	requireAllFolders: boolean?
 )
 	local startTime = tick()
 
@@ -78,6 +81,12 @@ function UGCValidation.validate(
 			then true
 			else false,
 	} :: Types.ValidationContext
+
+	if getEngineFeatureUGCValidationRequiredFolderContext() then
+		validationContext.requireAllFolders = if requireAllFolders ~= nil then requireAllFolders else true
+	else
+		validationContext.requireAllFolders = false
+	end
 
 	if getFFlagUGCValidationShouldYield() then
 		validationContext.lastTickSeconds = tick()
@@ -357,7 +366,8 @@ function UGCValidation.validateFullBody(
 	isServer: boolean?,
 	allowEditableInstances: boolean?,
 	bypassFlags: Types.BypassFlags?,
-	shouldYield: boolean?
+	shouldYield: boolean?,
+	requireAllFolders: boolean?
 ): (boolean, { string }?)
 	Analytics.setMetadata({
 		entrypoint = "validateFullBody",
@@ -393,6 +403,12 @@ function UGCValidation.validateFullBody(
 		bypassFlags = bypassFlags,
 		validateMeshPartAccessories = false,
 	} :: Types.ValidationContext
+
+	if getEngineFeatureUGCValidationRequiredFolderContext() then
+		validationContext.requireAllFolders = if requireAllFolders ~= nil then requireAllFolders else true
+	else
+		validationContext.requireAllFolders = false
+	end
 
 	if getFFlagUGCValidationShouldYield() then
 		validationContext.lastTickSeconds = tick()

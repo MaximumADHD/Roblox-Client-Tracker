@@ -59,203 +59,205 @@ local function waitFor(callback, ref)
 	end
 
 	return Promise.new(function(resolve, reject)
-		return Promise.resolve():andThen(function()
-			local lastError, intervalId, _observer
-			local finished = false
-			local promiseStatus = "idle"
-			local usingJestFakeTimers = jestFakeTimersAreEnabled()
-			-- ROBLOX deviation START: added to hold connections to behave like MutationObserver
-			local connections = {}
-			-- ROBLOX deviation END
+		local lastError, intervalId, _observer
+		local finished = false
+		local promiseStatus = "idle"
+		local usingJestFakeTimers = jestFakeTimersAreEnabled()
 
-			-- ROBLOX deviation START: moved things around before usage
-			local overallTimeoutTimer
+		-- ROBLOX deviation START: added to hold connections to behave like MutationObserver
+		local connections = {}
+		-- ROBLOX deviation END
 
-			local function onDone(error_, result)
-				finished = true
-				clearTimeout(overallTimeoutTimer)
+		-- ROBLOX deviation START: moved things around before usage
+		local overallTimeoutTimer
 
-				if not usingJestFakeTimers then
-					clearInterval(intervalId)
-					-- observer:disconnect()
-					-- ROBLOX deviation START: disconnect all connections
-					for i = 1, #connections do
-						connections[i]:Disconnect()
-					end
-					connections = {}
-					-- ROBLOX deviation END
+		local function onDone(error_, result)
+			finished = true
+			clearTimeout(overallTimeoutTimer)
+
+			if not usingJestFakeTimers then
+				clearInterval(intervalId)
+				-- observer:disconnect()
+				-- ROBLOX deviation START: disconnect all connections
+				for i = 1, #connections do
+					connections[i]:Disconnect()
 				end
-
-				if Boolean.toJSBoolean(error_) then
-					reject(error_)
-				else
-					resolve(result)
-				end
+				connections = {}
+				-- ROBLOX deviation END
 			end
 
-			local function handleTimeout()
-				local error_
-				if Boolean.toJSBoolean(lastError) then
-					error_ = lastError
-					if not showOriginalStackTrace and error_.name == "TestingLibraryElementError" then
-						copyStackTrace(error_, stackTraceError)
-					end
-				else
-					error_ = Error.new("Timed out in waitFor.")
-					if not showOriginalStackTrace then
-						copyStackTrace(error_, stackTraceError)
-					end
-				end
-				onDone((onTimeout :: any)(error_), nil)
+			if Boolean.toJSBoolean(error_) then
+				reject(error_)
+			else
+				resolve(result)
 			end
+		end
 
-			overallTimeoutTimer = setTimeout(handleTimeout, timeout)
-
-			local function checkCallback()
-				if promiseStatus == "pending" then
-					return
-				end
-
-				local ok, result = pcall(function()
-					local result = runWithExpensiveErrorDiagnosticsDisabled(callback)
-					if isCallable(if typeof(result) == "table" then result["andThen"] else nil) then
-						promiseStatus = "pending"
-						result:andThen(function(resolvedValue)
-							promiseStatus = "resolved"
-							onDone(nil, resolvedValue)
-						end, function(rejectedValue)
-							promiseStatus = "rejected"
-							lastError = rejectedValue
-						end)
-					else
-						onDone(nil, result)
-					end
-				end)
-				-- If `callback` throws, wait for the next mutation, interval, or timeout.
-				if not ok then
-					-- Save the most recent callback error to reject the promise with it in the event of a timeout
-					lastError = result
-				end
-			end
-
-			local function checkRealTimersCallback(): ()
-				if jestFakeTimersAreEnabled() then
-					local error_ = Error.new(
-						"Changed from using real timers to fake timers while using waitFor. This is not allowed and will result in very strange behavior. Please ensure you're awaiting all async things your test is doing before changing to fake timers. For more info, please go to https://github.com/testing-library/dom-testing-library/issues/830"
-					)
-					if not showOriginalStackTrace then
-						copyStackTrace(error_, stackTraceError)
-					end
-					return reject(error_)
-				else
-					return checkCallback()
-				end
-			end
-			-- ROBLOX deviation END
-
-			if usingJestFakeTimers then
-				local jest = require(Packages.JestGlobals).jest
-
-				local advanceTimersWrapper = getConfig().unstable_advanceTimersWrapper
-				checkCallback()
-				-- this is a dangerous rule to disable because it could lead to an
-				-- infinite loop. However, eslint isn't smart enough to know that we're
-				-- setting finished inside `onDone` which will be called when we're done
-				-- waiting or when we've timed out.
-				-- eslint-disable-next-line no-unmodified-loop-condition
-				while not finished do
-					if not jestFakeTimersAreEnabled() then
-						local error_ = Error.new(
-							"Changed from using fake timers to real timers while using waitFor. This is not allowed and will result in very strange behavior. Please ensure you're awaiting all async things your test is doing before changing to real timers. For more info, please go to https://github.com/testing-library/dom-testing-library/issues/830"
-						)
-						if not showOriginalStackTrace then
-							copyStackTrace(error_, stackTraceError)
-						end
-						reject(error_)
-						return
-					end
-					-- we *could* (maybe should?) use `advanceTimersToNextTimer` but it's
-					-- possible that could make this loop go on forever if someone is using
-					-- third party code that's setting up recursive timers so rapidly that
-					-- the user's timer's don't get a chance to resolve. So we'll advance
-					-- by an interval instead. (We have a test for this case).
-					advanceTimersWrapper(function()
-						jest.advanceTimersByTime(interval)
-						-- ROBLOX deviation START: explicit return
-						return nil
-						-- ROBLOX deviation END
-					end)
-
-					-- It's really important that checkCallback is run *before* we flush
-					-- in-flight promises. To be honest, I'm not sure why, and I can't quite
-					-- think of a way to reproduce the problem in a test, but I spent
-					-- an entire day banging my head against a wall on this.
-					checkCallback()
-					if finished then
-						break
-					end
-
-					-- In this rare case, we *need* to wait for in-flight promises
-					-- to resolve before continuing. We don't need to take advantage
-					-- of parallelization so we're fine.
-					-- https://stackoverflow.com/a/59243586/971592
-					-- eslint-disable-next-line no-await-in-loop
-					-- ROBLOX deviation START: currently handling Promises but not thenables
-					local wrapper = advanceTimersWrapper(function(): Promise<any>
-						return Promise.resolve():andThen(function()
-							Promise.new(function(r)
-								setTimeout(r, 0)
-								jest.advanceTimersByTime(0)
-							end):expect()
-						end)
-					end)
-					-- ROBLOX FIXME Luau: wrapper type is unknown
-					if typeof((wrapper :: any).expect) == "function" then
-						(wrapper :: any):expect()
-					else
-						error("advanceTimersWrapper should return a Promise")
-					end
-					-- ROBLOX deviation END
+		local function handleTimeout()
+			local error_
+			if Boolean.toJSBoolean(lastError) then
+				error_ = lastError
+				if not showOriginalStackTrace and error_.name == "TestingLibraryElementError" then
+					copyStackTrace(error_, stackTraceError)
 				end
 			else
-				-- ROBLOX FIXME Luau: checkContainer returns void but we still want to capture error if there is
-				local ok, result = pcall(checkContainerType :: any, container)
-				if not ok then
-					reject(result)
+				error_ = Error.new("Timed out in waitFor.")
+				if not showOriginalStackTrace then
+					copyStackTrace(error_, stackTraceError)
+				end
+			end
+			onDone((onTimeout :: any)(error_), nil)
+		end
+
+		overallTimeoutTimer = setTimeout(handleTimeout, timeout)
+
+		local function checkCallback()
+			if promiseStatus == "pending" then
+				return
+			end
+
+			local ok, result_ = pcall(function()
+				local result = runWithExpensiveErrorDiagnosticsDisabled(callback)
+				if isCallable(if typeof(result) == "table" then result["andThen"] else nil) then
+					promiseStatus = "pending"
+					result:andThen(function(resolvedValue)
+						promiseStatus = "resolved"
+						onDone(nil, resolvedValue)
+					end, function(rejectedValue)
+						promiseStatus = "rejected"
+						lastError = rejectedValue
+					end)
+				else
+					onDone(nil, result)
+				end
+			end)
+			-- If `callback` throws, wait for the next mutation, interval, or timeout.
+			if not ok then
+				-- Save the most recent callback error to reject the promise with it in the event of a timeout
+				lastError = result_
+			end
+		end
+
+		local function checkRealTimersCallback(): ()
+			if jestFakeTimersAreEnabled() then
+				local error_ = Error.new(
+					"Changed from using real timers to fake timers while using waitFor. This is not allowed and will result in very strange behavior. Please ensure you're awaiting all async things your test is doing before changing to fake timers. For more info, please go to https://github.com/testing-library/dom-testing-library/issues/830"
+				)
+				if not showOriginalStackTrace then
+					copyStackTrace(error_, stackTraceError)
+				end
+				return reject(error_)
+			else
+				return checkCallback()
+			end
+		end
+		-- ROBLOX deviation END
+
+		if usingJestFakeTimers then
+			-- ROBLOX deviation: import jest here instead of expecting a global
+			local jest = require(Packages.JestGlobals).jest
+
+			local advanceTimersWrapper = getConfig().unstable_advanceTimersWrapper
+			checkCallback()
+			-- this is a dangerous rule to disable because it could lead to an
+			-- infinite loop. However, eslint isn't smart enough to know that we're
+			-- setting finished inside `onDone` which will be called when we're done
+			-- waiting or when we've timed out.
+			-- eslint-disable-next-line no-unmodified-loop-condition
+			while not finished do
+				if not jestFakeTimersAreEnabled() then
+					local error_ = Error.new(
+						"Changed from using fake timers to real timers while using waitFor. This is not allowed and will result in very strange behavior. Please ensure you're awaiting all async things your test is doing before changing to real timers. For more info, please go to https://github.com/testing-library/dom-testing-library/issues/830"
+					)
+					if not showOriginalStackTrace then
+						copyStackTrace(error_, stackTraceError)
+					end
+					reject(error_)
 					return
 				end
-				intervalId = setInterval(checkRealTimersCallback, interval)
-				--[[
-					ROBLOX deviation START: Mutation observer not available. May have to adjust options
-					* supports adding/removing Descendants
-				]]
-				-- local MutationObserver = getWindowFromNode(container).MutationObserver
-				-- observer = MutationObserver.new(checkRealTimersCallback)
-				-- observer:observe(container, mutationObserverOptions)
+				-- we *could* (maybe should?) use `advanceTimersToNextTimer` but it's
+				-- possible that could make this loop go on forever if someone is using
+				-- third party code that's setting up recursive timers so rapidly that
+				-- the user's timer's don't get a chance to resolve. So we'll advance
+				-- by an interval instead. (We have a test for this case).
+				advanceTimersWrapper(function(): ()
+					jest.advanceTimersByTime(interval)
+					-- ROBLOX deviation START: we need to allow tasks queued via the
+					-- Roblox scheduler with `task.defer` to play out
+					task.defer(coroutine.running())
+					coroutine.yield()
+					-- ROBLOX deviation END
+				end)
 
-				-- ROBLOX deviation START: Helper Method to replace MutationObserver
-				local function observeDescendantsAddedRemoved(rbx: Instance, cb: () -> ())
-					table.insert(
-						connections,
-						rbx.ChildAdded:Connect(function(rbx)
-							observeDescendantsAddedRemoved(rbx, cb)
-							cb()
-						end)
-					)
-
-					table.insert(
-						connections,
-						rbx.ChildRemoved:Connect(function(_rbx)
-							cb()
-						end)
-					)
+				-- It's really important that checkCallback is run *before* we flush
+				-- in-flight promises. To be honest, I'm not sure why, and I can't quite
+				-- think of a way to reproduce the problem in a test, but I spent
+				-- an entire day banging my head against a wall on this.
+				checkCallback()
+				if finished then
+					break
 				end
 
-				observeDescendantsAddedRemoved(container, checkRealTimersCallback)
+				-- In this rare case, we *need* to wait for in-flight promises
+				-- to resolve before continuing. We don't need to take advantage
+				-- of parallelization so we're fine.
+				-- https://stackoverflow.com/a/59243586/971592
+				-- eslint-disable-next-line no-await-in-loop
+				-- ROBLOX deviation START: currently handling Promises but not thenables
+				(advanceTimersWrapper(function()
+					return Promise.resolve():andThen(function()
+						Promise.new(function(r)
+							setTimeout(r, 0)
+							-- ROBLOX deviation: our version of
+							-- `advanceTimersByTime` throws instead of warning,
+							-- so we pcall to avoid rejecting this promise
+							pcall(jest.advanceTimersByTime, 0)
+						end):expect()
+					end)
+				end) :: Promise<any>):expect()
 				-- ROBLOX deviation END
-				checkCallback()
 			end
-		end)
+		else
+			-- ROBLOX FIXME Luau: checkContainer returns void but we still want to capture error if there is
+			local ok, result = pcall(checkContainerType :: any, container)
+			if not ok then
+				reject(result)
+				return
+			end
+			intervalId = setInterval(checkRealTimersCallback, interval)
+			--[[
+				ROBLOX deviation START: Mutation observer not available. May have to adjust options
+				* supports adding/removing Descendants
+			]]
+			-- local MutationObserver = getWindowFromNode(container).MutationObserver
+			-- observer = MutationObserver.new(checkRealTimersCallback)
+			-- observer:observe(container, mutationObserverOptions)
+
+			-- ROBLOX deviation START: Helper Method to replace MutationObserver
+			local function observeDescendantsAddedRemoved(rbx: Instance, cb: () -> ())
+				table.insert(
+					connections,
+					rbx.ChildAdded:Connect(function(rbx)
+						observeDescendantsAddedRemoved(rbx, cb)
+						cb()
+					end)
+				)
+
+				table.insert(
+					connections,
+					rbx.ChildRemoved:Connect(function(_rbx)
+						cb()
+					end)
+				)
+			end
+
+			observeDescendantsAddedRemoved(container, checkRealTimersCallback)
+			-- ROBLOX deviation END
+			checkCallback()
+		end
+
+		-- ROBLOX deviation: explicit return
+		return
 	end)
 end
 local function waitForWrapper(callback, options: waitForOptions?)

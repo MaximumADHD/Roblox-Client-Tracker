@@ -8,7 +8,7 @@ local Url = require(CorePackages.Workspace.Packages.Http).Url
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local IsVRAppBuild = require(CorePackages.Workspace.Packages.AppCommonLib).IsVRAppBuild
-local GetEnableConsolePreparePaymentCheck = require(IAPExperienceRoot.Flags.getEnableConsolePreparePaymentCheck)
+local GetBlockingConsolePreparePaymentCheck = require(IAPExperienceRoot.Flags.getBlockingConsolePreparePaymentCheck)
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 local counterConfig = require(GenericRoot.Events.PreparePaymentCheckCounter)
 
@@ -35,21 +35,18 @@ function IsPreparePaymentSuccessful(paymentMethod: string, robuxPackageId: strin
 	end)
 
 	if not success then
-		LoggingProtocol.LogRobloxTelemetryCounter(counterConfig, 1.0, { paymentMethod, "Error" })
+		LoggingProtocol:logRobloxTelemetryCounter(counterConfig, 1.0, { paymentMethod = paymentMethod, result = "Error", })
 		return true
 	elseif HttpService:JSONDecode(response).isSuccess then
-		LoggingProtocol.LogRobloxTelemetryCounter(counterConfig, 1.0, { paymentMethod, "Success" })
+		LoggingProtocol:logRobloxTelemetryCounter(counterConfig, 1.0, { paymentMethod = paymentMethod, result = "Success", })
 		return true
 	else
-		LoggingProtocol.LogRobloxTelemetryCounter(counterConfig, 1.0, { paymentMethod, "Failed" })
+		LoggingProtocol:logRobloxTelemetryCounter(counterConfig, 1.0, { paymentMethod = paymentMethod, result = "Failed", })
 		return false
 	end
 end
 
 function ConsolePreparePaymentCheck(robuxPackageId: string)
-	if not GetEnableConsolePreparePaymentCheck() then
-		return true
-	end
 	local platform = UserInputService:GetPlatform()
 	local paymentMethod = GetPaymentMethod(platform)
 
@@ -65,7 +62,11 @@ end
 return function(robuxPackageId: string)
 	-- TODO:  Could be expanded to handle all preparePayment checks
 	if IsVRAppBuild() or GuiService:IsTenFootInterface() then
-		return ConsolePreparePaymentCheck(robuxPackageId)
+		local out = ConsolePreparePaymentCheck(robuxPackageId)
+		if not GetBlockingConsolePreparePaymentCheck() then
+			out = true
+		end
+		return out
 	end
 	return true
 end

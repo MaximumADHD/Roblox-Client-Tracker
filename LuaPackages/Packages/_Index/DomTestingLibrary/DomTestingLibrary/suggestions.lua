@@ -31,7 +31,7 @@ local getConfig = require(script.Parent.config).getConfig
 local normalize = getDefaultNormalizer()
 
 local function escapeRegExp(string_: string): string
-	local returnValue = string_:gsub("[\\%.%*%+\\%-%?%^%${}%(%)|%[%]]", "\\%1") -- $& means the whole matched string
+	local returnValue = string_:gsub("([\\%.%*%+\\%-%?%^%${}%(%)|%[%]])", "\\%1") -- $& means the whole matched string
 	return returnValue
 end
 

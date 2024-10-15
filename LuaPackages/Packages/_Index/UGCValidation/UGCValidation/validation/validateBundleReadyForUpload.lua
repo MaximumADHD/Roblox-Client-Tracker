@@ -148,7 +148,8 @@ local function validateBundleReadyForUpload(
 			"Invalid maximum quantity, createUGCBodyParts folder is a dictionary and will only ever give one."
 		)
 
-		local instances = ugcBodyPartFolders[assetType]
+		-- TODO: remove implicit cast from enum to string by using '.Name' or assetTypeName
+		local instances = ugcBodyPartFolders[assetType :: any]
 		local instance = instances and instances[1]
 
 		if settings.minimumQuantity == 0 and instance == nil then
@@ -206,6 +207,7 @@ local function validateBundleReadyForUpload(
 			allowEditableInstances = allowEditableInstances,
 			bypassFlags = bypassFlags,
 			validateMeshPartAccessories = false,
+			requireAllFolders = false,
 		} :: Types.ValidationContext
 
 		if getEngineFeatureUGCValidateEditableMeshAndImage() then
@@ -278,6 +280,7 @@ local function validateBundleReadyForUpload(
 					allowEditableInstances = allowEditableInstances,
 					bypassFlags = bypassFlags,
 					validateMeshPartAccessories = false,
+					requireAllFolders = false,
 				} :: Types.ValidationContext
 
 				if getEngineFeatureUGCValidateEditableMeshAndImage() then

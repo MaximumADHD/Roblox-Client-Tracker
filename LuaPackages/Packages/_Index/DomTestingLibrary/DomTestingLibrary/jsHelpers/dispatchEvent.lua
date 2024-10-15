@@ -1,10 +1,21 @@
+--!strict
 -- ROBLOX upstream: no upstream
+local virtualInput = game:GetService("VirtualInputManager")
+
 local Packages = script.Parent.Parent.Parent
 
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Error = LuauPolyfill.Error
 
-local virtualInput = game:GetService("VirtualInputManager")
+local InputValidation = require(script.Parent["InputValidation.roblox"])
+local getGuiObject = InputValidation.getGuiObject
+local validateInput = InputValidation.validateInput
+
+-- This is carried over from Rhodium, but I'm not sure if it has any significance
+local defaultTouchId = 123456
+local TOUCH_START = 0
+-- local TOUCH_MOVE = 1
+local TOUCH_END = 2
 
 local function getRoot(child): Instance
 	local parent = child.Parent :: Instance
@@ -50,6 +61,14 @@ local function makeInteractable(fn: any)
 	end
 end
 
+local function withInputValidation(fn: (Instance) -> ())
+	return function(element)
+		validateInput(getGuiObject(element), function()
+			fn(element)
+		end)
+	end
+end
+
 local function getCenter(element: Instance): (number, number)
 	local position = (element :: any).AbsolutePosition
 	local size = (element :: any).AbsoluteSize
@@ -68,11 +87,38 @@ local function click(element: Instance)
 	virtualInput:WaitForInputEventsProcessed()
 end
 
+local function tap(element: Instance)
+	local x, y = getCenter(element)
+
+	virtualInput:SendTouchEvent(defaultTouchId, TOUCH_START, x, y)
+	virtualInput:SendTouchEvent(defaultTouchId, TOUCH_END, x, y)
+	virtualInput:WaitForInputEventsProcessed()
+end
+
+local function mouseEnter(element: any)
+	local x, y = getCenter(element)
+	local layerCollector = nil
+
+	virtualInput:SendMouseMoveEvent(x, y, layerCollector)
+	virtualInput:WaitForInputEventsProcessed()
+end
+
+local function mouseLeave(element: any)
+	local x, y = getCenter(element)
+	local position = (element :: any).AbsolutePosition
+	local layerCollector = nil
+
+	virtualInput:SendMouseMoveEvent(x, y, layerCollector)
+	virtualInput:WaitForInputEventsProcessed()
+	virtualInput:SendMouseMoveEvent(position.X - 1, position.Y - 1, layerCollector)
+	virtualInput:WaitForInputEventsProcessed()
+end
+
 local function keyDown(_element: Instance, data: { key: Enum.KeyCode })
 	if not data or not data.key then
 		error("No key set for event")
 	end
-	virtualInput:SendKeyEvent(true, data.key, false, nil)
+	virtualInput:SendKeyEvent(true, data.key, false, nil :: any)
 	virtualInput:WaitForInputEventsProcessed()
 end
 
@@ -80,7 +126,7 @@ local function keyUp(_element: Instance, data: { key: Enum.KeyCode })
 	if not data or not data.key then
 		error("No key set for event")
 	end
-	virtualInput:SendKeyEvent(false, data.key, false, nil)
+	virtualInput:SendKeyEvent(false, data.key, false, nil :: any)
 	virtualInput:WaitForInputEventsProcessed()
 end
 
@@ -96,13 +142,19 @@ local function change(element: Instance, data: { target: { [string]: any } })
 	end
 end
 
-local function resize(element: TextBox, data: { value: string })
-	local value = if data and data.value then data.value else (element :: any).Size
+local function resize(element: any, data: { value: UDim2? })
+	local value = if data and data.value then data.value else element.Size
 	element.Size = value
 end
 
 local events = {
-	click = makeInteractable(click),
+	-- Maintains parity with Rhodium for easier adoption
+	clickWithoutValidation = makeInteractable(click),
+	tapWithoutValidation = makeInteractable(tap),
+	click = makeInteractable(withInputValidation(click)),
+	tap = makeInteractable(withInputValidation(tap)),
+	mouseEnter = makeInteractable(mouseEnter),
+	mouseLeave = makeInteractable(mouseLeave),
 	keyDown = makeInteractable(keyDown),
 	keyUp = makeInteractable(keyUp),
 	change = makeInteractable(change),
@@ -112,7 +164,7 @@ local events = {
 local function dispatchEvent(element: Instance, eventName: string, data: { [string]: any }?)
 	local eventFn = events[eventName]
 	if not eventFn then
-		error("Event not found")
+		error(string.format("Event '%s' not supported", eventName))
 	end
 	eventFn(element, data)
 end

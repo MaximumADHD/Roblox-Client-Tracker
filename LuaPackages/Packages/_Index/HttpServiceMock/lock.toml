@@ -3,6 +3,6 @@ name = "HttpServiceMock"
 version = "0.1.1"
 source = "registry"
 dependencies = [
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
+    "Promise <patched> Promise 3.5.0 registry",
     "SharedUtils SharedUtils 0.1.1 registry",
 ]

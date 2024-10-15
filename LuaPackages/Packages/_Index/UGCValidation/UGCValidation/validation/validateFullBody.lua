@@ -6,6 +6,9 @@
 
 local root = script.Parent.Parent
 
+local getEngineFeatureUGCValidationRequiredFolderContext =
+	require(root.flags.getEngineFeatureUGCValidationRequiredFolderContext)
+
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
@@ -185,14 +188,22 @@ end
 local function validateFullBody(validationContext: Types.ValidationContext): (boolean, { string }?)
 	assert(validationContext.fullBodyData ~= nil, "fullBodyData required in validationContext for validateFullBody")
 	local fullBodyData = validationContext.fullBodyData :: Types.FullBodyData
+	local requireAllFolders = validationContext.requireAllFolders
 	local isServer = validationContext.isServer
 
 	local requiredTopLevelFolders: { string } = {
 		Constants.FOLDER_NAMES.R15ArtistIntent,
 	}
-	if isServer then
-		-- in Studio these folders are automatically added just before upload
-		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
+	if getEngineFeatureUGCValidationRequiredFolderContext() then
+		if requireAllFolders then
+			-- in Studio these folders are automatically added just before upload
+			table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
+		end
+	else
+		if isServer then
+			-- in Studio these folders are automatically added just before upload
+			table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
+		end
 	end
 
 	local success, reasons = validateInstanceHierarchy(fullBodyData, requiredTopLevelFolders, validationContext)

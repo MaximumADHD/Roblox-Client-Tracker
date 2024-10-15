@@ -5,7 +5,7 @@ source = "registry"
 dependencies = [
     "HttpServiceMock HttpServiceMock 0.1.1 registry",
     "PrettyFormat PrettyFormat 2.4.1 registry",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
+    "Promise <patched> Promise 3.5.0 registry",
     "RequestPipeline RequestPipeline 0.1.1 registry",
     "SharedUtils SharedUtils 0.1.1 registry",
 ]

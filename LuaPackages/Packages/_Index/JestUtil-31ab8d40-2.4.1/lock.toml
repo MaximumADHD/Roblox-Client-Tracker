@@ -7,7 +7,7 @@ dependencies = [
     "JestTypes JestTypes 2.4.1 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Picomatch <patched> Picomatch 0.3.1 registry",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
+    "Promise <patched> Promise 3.5.0 registry",
     "RegExp RegExp 0.2.1 registry",
     "RobloxShared RobloxShared 2.4.1 registry",
 ]

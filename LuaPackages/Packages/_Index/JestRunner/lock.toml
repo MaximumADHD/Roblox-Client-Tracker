@@ -14,7 +14,7 @@ dependencies = [
     "JestTypes JestTypes 3.8.1 registry",
     "JestUtil JestUtil 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
+    "Promise <patched> Promise 3.5.0 registry",
     "RobloxShared RobloxShared 3.8.1 registry",
     "Throat Throat 3.8.1 registry",
 ]

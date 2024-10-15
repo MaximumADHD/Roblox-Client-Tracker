@@ -81,10 +81,10 @@ local function StyleSheet(props: StyleSheetProps)
 	end, { props.derives })
 
 	return React.createElement(React.Fragment, nil, {
-		Sheet = React.createElement("StyleSheet", {
+		FoundationStyleSheet = React.createElement("StyleSheet", {
 			ref = sheet,
 		}, createRules(rules, props.tags)),
-		Link = React.createElement("StyleLink", {
+		FoundationStyleLink = React.createElement("StyleLink", {
 			StyleSheet = sheet,
 		}),
 	})

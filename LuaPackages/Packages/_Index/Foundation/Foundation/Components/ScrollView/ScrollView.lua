@@ -35,6 +35,7 @@ export type Scroll = {
 
 export type ScrollViewProps = {
 	scroll: Scroll?,
+	scrollingFrameRef: React.Ref<ScrollingFrame>?,
 } & GuiObjectProps & CommonProps
 
 local defaultProps = {
@@ -99,6 +100,7 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 				AutomaticCanvasSize = props.scroll.AutomaticCanvasSize,
 				CanvasSize = props.scroll.CanvasSize,
 				ScrollingDirection = props.scroll.ScrollingDirection,
+				ref = props.scrollingFrameRef,
 			},
 			if props.children
 					and props.layout ~= nil

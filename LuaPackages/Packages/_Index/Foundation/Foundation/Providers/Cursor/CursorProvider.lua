@@ -146,7 +146,7 @@ local function CursorProvider(props: Props)
 	return React.createElement(CursorContext.Provider, {
 		value = contextValue,
 	}, {
-		InvisibleContainer = React.createElement("Frame", {
+		FoundationInvisibleContainer = React.createElement("Frame", {
 			Size = UDim2.new(0, 0, 0, 0),
 			Visible = false,
 			ref = frameRef,

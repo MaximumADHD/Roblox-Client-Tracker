@@ -1,330 +1,289 @@
---[[
-
-	validateTransparency.lua checks the transparency of each part on a UGC bundle. On Studio, this utilizes taking a screen capture of the viewport, while in RCC servers it utilizes the thumbnail generator.
-]]
-
 local root = script.Parent.Parent
 
-local getEngineFeatureEngineUGCValidateTransparency = require(root.flags.getEngineFeatureEngineUGCValidateTransparency)
-local getEngineFeatureEngineUGCValidationGetImageTransparency =
-	require(root.flags.getEngineFeatureEngineUGCValidationGetImageTransparency)
-local getEngineFeatureViewportFrameSnapshotEngineFeature =
-	require(root.flags.getEngineFeatureViewportFrameSnapshotEngineFeature)
-local getFFlagUGCValidationRemoveRotationCheck = require(root.flags.getFFlagUGCValidationRemoveRotationCheck)
+local Types = require(root.util.Types)
+local tryYield = require(root.util.tryYield)
+local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
+local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local AssetCalculator = require(root.util.AssetCalculator)
+local RasterUtil = require(root.util.RasterUtil)
+local ConstantsTransparencyValidation = require(root.ConstantsTransparencyValidation)
 
-local FIntUGCValidationHeadThreshold = game:DefineFastInt("UGCValidationHeadThreshold", 30)
-local FIntUGCValidationTorsoThresholdFront = game:DefineFastInt("UGCValidationTorsoThresholdFront", 50)
-local FIntUGCValidationTorsoThresholdBack = game:DefineFastInt("UGCValidationTorsoThresholdBack", 48)
-local FIntUGCValidationTorsoThresholdSide = game:DefineFastInt("UGCValidationTorsoThresholdSide", 46)
-local FIntUGCValidationLeftArmThresholdFront = game:DefineFastInt("UGCValidationLeftArmThresholdFront", 35)
-local FIntUGCValidationLeftArmThresholdBack = game:DefineFastInt("UGCValidationLeftArmThresholdBack", 33)
-local FIntUGCValidationLeftArmThresholdSide = game:DefineFastInt("UGCValidationLeftArmThresholdSide", 50)
-local FIntUGCValidationRightArmThresholdFront = game:DefineFastInt("UGCValidationRightArmThresholdFront", 35)
-local FIntUGCValidationRightArmThresholdBack = game:DefineFastInt("UGCValidationRightArmThresholdBack", 33)
-local FIntUGCValidationRightArmThresholdSide = game:DefineFastInt("UGCValidationRightArmThresholdSide", 50)
-local FIntUGCValidationLeftLegThresholdFront = game:DefineFastInt("UGCValidationLeftLegThresholdFront", 50)
-local FIntUGCValidationLeftLegThresholdBack = game:DefineFastInt("UGCValidationLeftLegThresholdBack", 50)
-local FIntUGCValidationLeftLegThresholdSide = game:DefineFastInt("UGCValidationLeftLegThresholdSide", 46)
-local FIntUGCValidationRightLegThresholdFront = game:DefineFastInt("UGCValidationRightLegThresholdFront", 50)
-local FIntUGCValidationRightLegThresholdBack = game:DefineFastInt("UGCValidationRightLegThresholdBack", 50)
-local FIntUGCValidationRightLegThresholdSide = game:DefineFastInt("UGCValidationRightLegThresholdSide", 48)
+local getEngineFeatureEditableImageDrawTriangleEnabled =
+	require(root.flags.getEngineFeatureEditableImageDrawTriangleEnabled)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
 
-local UGCValidationService = game:GetService("UGCValidationService")
+local function checkFlags()
+	return getEngineFeatureEditableImageDrawTriangleEnabled()
+		and getEngineFeatureUGCValidateEditableMeshAndImage()
+		and getFFlagRefactorValidateAssetTransparency()
+end
 
-local Constants = require(root.Constants)
-local Thumbnailer = require(root.util.Thumbnailer)
-local setupTransparentPartSize = require(root.util.setupTransparentPartSize)
-local floatEquals = require(root.util.floatEquals)
-
-local CAMERA_FOV: number = 70
-local IMAGE_SIZE: number = 100
-local CAMERA_POSITIONS: { Vector3 } = { Vector3.new(0, 0, -1), Vector3.new(0, 0, 1), Vector3.new(1, 0, 0) }
-local CAMERA_ANGLE_NAMES: { [Vector3]: string } = nil
-if getEngineFeatureEngineUGCValidationGetImageTransparency() then
-	CAMERA_ANGLE_NAMES = {
-		[CAMERA_POSITIONS[1]] = "front",
-		[CAMERA_POSITIONS[2]] = "back",
-		[CAMERA_POSITIONS[3]] = "side",
+local function getViews()
+	return {
+		{
+			axis1 = Vector3.new(1, 0, 0),
+			axis2 = Vector3.new(0, 1, 0),
+			normal = Vector3.new(0, 0, -1),
+			viewId = ConstantsTransparencyValidation.CAMERA_ANGLES.Front,
+		},
+		{
+			axis1 = Vector3.new(1, 0, 0),
+			axis2 = Vector3.new(0, 1, 0),
+			normal = Vector3.new(0, 0, 1),
+			viewId = ConstantsTransparencyValidation.CAMERA_ANGLES.Back,
+		},
+		{
+			axis1 = Vector3.new(0, 0, 1),
+			axis2 = Vector3.new(0, 1, 0),
+			normal = Vector3.new(-1, 0, 0),
+			viewId = ConstantsTransparencyValidation.CAMERA_ANGLES.Left,
+		},
+		{
+			axis1 = Vector3.new(0, 0, 1),
+			axis2 = Vector3.new(0, 1, 0),
+			normal = Vector3.new(1, 0, 0),
+			viewId = ConstantsTransparencyValidation.CAMERA_ANGLES.Right,
+		},
+		{
+			axis1 = Vector3.new(1, 0, 0),
+			axis2 = Vector3.new(0, 0, 1),
+			normal = Vector3.new(0, -1, 0),
+			viewId = ConstantsTransparencyValidation.CAMERA_ANGLES.Top,
+		},
+		{
+			axis1 = Vector3.new(1, 0, 0),
+			axis2 = Vector3.new(0, 0, 1),
+			normal = Vector3.new(0, 1, 0),
+			viewId = ConstantsTransparencyValidation.CAMERA_ANGLES.Bottom,
+		},
 	}
 end
 
-local assetTypeEnumToPartsToValidIDs = {
-	[Enum.AssetType.DynamicHead] = {
-		[CAMERA_POSITIONS[1]] = FIntUGCValidationHeadThreshold / 100,
-		[CAMERA_POSITIONS[2]] = FIntUGCValidationHeadThreshold / 100,
-		[CAMERA_POSITIONS[3]] = FIntUGCValidationHeadThreshold / 100,
-	},
-	[Enum.AssetType.Torso] = {
-		[CAMERA_POSITIONS[1]] = FIntUGCValidationTorsoThresholdFront / 100,
-		[CAMERA_POSITIONS[2]] = FIntUGCValidationTorsoThresholdBack / 100,
-		[CAMERA_POSITIONS[3]] = FIntUGCValidationTorsoThresholdSide / 100,
-	},
-	[Enum.AssetType.LeftArm] = {
-		[CAMERA_POSITIONS[1]] = FIntUGCValidationLeftArmThresholdFront / 100,
-		[CAMERA_POSITIONS[2]] = FIntUGCValidationLeftArmThresholdBack / 100,
-		[CAMERA_POSITIONS[3]] = FIntUGCValidationLeftArmThresholdSide / 100,
-	},
-	[Enum.AssetType.RightArm] = {
-		[CAMERA_POSITIONS[1]] = FIntUGCValidationRightArmThresholdFront / 100,
-		[CAMERA_POSITIONS[2]] = FIntUGCValidationRightArmThresholdBack / 100,
-		[CAMERA_POSITIONS[3]] = FIntUGCValidationRightArmThresholdSide / 100,
-	},
-	[Enum.AssetType.LeftLeg] = {
-		[CAMERA_POSITIONS[1]] = FIntUGCValidationLeftLegThresholdFront / 100,
-		[CAMERA_POSITIONS[2]] = FIntUGCValidationLeftLegThresholdBack / 100,
-		[CAMERA_POSITIONS[3]] = FIntUGCValidationLeftLegThresholdSide / 100,
-	},
-	[Enum.AssetType.RightLeg] = {
-		[CAMERA_POSITIONS[1]] = FIntUGCValidationRightLegThresholdFront / 100,
-		[CAMERA_POSITIONS[2]] = FIntUGCValidationRightLegThresholdBack / 100,
-		[CAMERA_POSITIONS[3]] = FIntUGCValidationRightLegThresholdSide / 100,
-	},
-}
-
-local CAPTURE_ERROR_STRING = "Unable to capture snapshot of %s"
-local READ_FAILED_ERROR_STRING = "Failed to read data from snapshot of (%s)"
-local VALIDATION_FAILED_ERROR_STRING = "%s is too transparent. Please fill in more of the mesh."
-local VALIDATION_FAILED_ERROR_STRING_NEW = nil
-if getEngineFeatureEngineUGCValidationGetImageTransparency() then
-	VALIDATION_FAILED_ERROR_STRING_NEW =
-		"%s is difficult to see from the %s. %d%% of the bounding box is visible, but over %d%% is required. Please expand the body part to fill in more room."
-end
-
-local function arePartsRotated(inst: Instance, assetTypeEnum: Enum.AssetType): boolean
-	local function isCFrameRotated(cframe: CFrame): boolean
-		local x, y, z = cframe:ToOrientation()
-		return not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0)
-	end
-
-	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
-	assert(assetInfo)
-
-	if Enum.AssetType.DynamicHead == assetTypeEnum then
-		if isCFrameRotated((inst :: MeshPart).CFrame) then
-			return true
-		end
+local function getAspectRatio(assetSize, viewId)
+	if
+		viewId == ConstantsTransparencyValidation.CAMERA_ANGLES.Front
+		or viewId == ConstantsTransparencyValidation.CAMERA_ANGLES.Back
+	then
+		return assetSize.X / assetSize.Y
+	elseif
+		viewId == ConstantsTransparencyValidation.CAMERA_ANGLES.Left
+		or viewId == ConstantsTransparencyValidation.CAMERA_ANGLES.Right
+	then
+		return assetSize.Z / assetSize.Y
 	else
-		for subPartName in pairs(assetInfo.subParts) do
-			local meshHandle: MeshPart? = inst:FindFirstChild(subPartName) :: MeshPart
-			assert(meshHandle)
-
-			if isCFrameRotated((meshHandle :: MeshPart).CFrame) then
-				return true
-			end
-		end
+		-- top or bottom views
+		return assetSize.X / assetSize.Z
 	end
-	return false
 end
 
-local function flattenParts(
-	inst: Instance,
-	assetTypeEnum: Enum.AssetType,
-	initialSizePositionData: any,
-	dir: Vector3,
-	center: Vector3
-)
-	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
-	assert(assetInfo)
+local function getScaleFactor(meshSize, viewId)
+	local aspectRatio = getAspectRatio(meshSize, viewId)
 
-	local function flattenIndividualPart(meshHandle: MeshPart)
-		local initialPos = initialSizePositionData[meshHandle].Position
-		local initialSize = initialSizePositionData[meshHandle].Size
-		if math.abs(dir.Z) > math.abs(dir.X) then -- if the camera is looking along the Z axis
-			meshHandle.Size = Vector3.new(initialSize.X, initialSize.Y, 0.01) -- squash the Z axis so it's orthographic to the camera
-			meshHandle.Position = Vector3.new(initialPos.X, initialPos.Y, center.Z) -- put on the center on the z axis
-		else
-			meshHandle.Size = Vector3.new(0.01, initialSize.Y, initialSize.Z)
-			meshHandle.Position = Vector3.new(center.X, initialPos.Y, initialPos.Z)
-		end
-	end
-
-	if Enum.AssetType.DynamicHead == assetTypeEnum then
-		flattenIndividualPart(inst :: MeshPart)
+	local newWidth, newHeight
+	if aspectRatio > 1 then
+		newHeight = ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE / aspectRatio
+		newWidth = ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE
+	elseif aspectRatio < 1 then
+		newWidth = ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE * aspectRatio
+		newHeight = ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE
 	else
-		for subPartName in pairs(assetInfo.subParts) do
-			local meshHandle: MeshPart? = inst:FindFirstChild(subPartName) :: MeshPart
-			assert(meshHandle)
+		newWidth = ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE
+		newHeight = ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE
+	end
 
-			flattenIndividualPart(meshHandle :: MeshPart)
-		end
+	local scaleFactor = Vector2.new(
+		newWidth / ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE,
+		newHeight / ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE
+	)
+	local maxComponent = math.max(scaleFactor.X, scaleFactor.Y)
+	if maxComponent > 1 then
+		return scaleFactor / maxComponent
+	end
+
+	return scaleFactor
+end
+
+local function addTransformedTriangle(srcMesh, combinedMeshData, triangleId, transform, origin)
+	local triangleData = {
+		orderedVerts = {},
+	}
+
+	local verts = srcMesh:GetFaceVertices(triangleId)
+
+	local p1_local = srcMesh:GetPosition(verts[1])
+	local p2_local = srcMesh:GetPosition(verts[2])
+	local p3_local = srcMesh:GetPosition(verts[3])
+
+	local edge1 = p2_local - p1_local
+	local edge2 = p3_local - p1_local
+	triangleData.normal = edge1:Cross(edge2).Unit
+
+	local p1_world = transform:inverse() * (origin * p1_local)
+	local p2_world = transform:inverse() * (origin * p2_local)
+	local p3_world = transform:inverse() * (origin * p3_local)
+
+	table.insert(triangleData.orderedVerts, p1_world)
+	table.insert(triangleData.orderedVerts, p2_world)
+	table.insert(triangleData.orderedVerts, p3_world)
+
+	table.insert(combinedMeshData, triangleData)
+
+	return triangleData
+end
+
+local function updateMinMaxBounds(boundsData, triangle)
+	local minX = boundsData.min.X
+	local maxX = boundsData.max.X
+	local minY = boundsData.min.Y
+	local maxY = boundsData.max.Y
+	local minZ = boundsData.min.Z
+	local maxZ = boundsData.max.Z
+
+	local p1_world = triangle.orderedVerts[1]
+	local p2_world = triangle.orderedVerts[2]
+	local p3_world = triangle.orderedVerts[3]
+
+	minX = math.min(p1_world.X, p2_world.X, p3_world.X, minX)
+	maxX = math.max(p1_world.X, p2_world.X, p3_world.X, maxX)
+	minY = math.min(p1_world.Y, p2_world.Y, p3_world.Y, minY)
+	maxY = math.max(p1_world.Y, p2_world.Y, p3_world.Y, maxY)
+	minZ = math.min(p1_world.Z, p2_world.Z, p3_world.Z, minZ)
+	maxZ = math.max(p1_world.Z, p2_world.Z, p3_world.Z, maxZ)
+
+	boundsData.min = Vector3.new(minX, minY, minZ)
+	boundsData.max = Vector3.new(maxX, maxY, maxZ)
+end
+
+local function getCombinedMeshData(srcMesh, combinedMeshData, transform, origin, boundsData)
+	local triangles = srcMesh:GetFaces()
+	for _, triangleId in triangles do
+		local newTriangle = addTransformedTriangle(srcMesh, combinedMeshData, triangleId, transform, origin)
+		updateMinMaxBounds(boundsData, newTriangle)
 	end
 end
 
-local function getInitialSizePosition(inst: Instance, assetTypeEnum: Enum.AssetType): any
-	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
-	assert(assetInfo)
+local function getOpacity(raster)
+	local pixels = raster:ReadPixels(Vector2.new(0, 0), raster.Size)
+	local totalPixels = 0
+	local transparentPixels = 0
+	for i = 1, #pixels, 4 do
+		local r = pixels[i]
+		local g = pixels[i + 1]
+		local b = pixels[i + 2]
 
-	local results = {}
-
-	if Enum.AssetType.DynamicHead == assetTypeEnum then
-		results[inst :: MeshPart] = { Position = (inst :: MeshPart).Position, Size = (inst :: MeshPart).Size }
-	else
-		for subPartName in pairs(assetInfo.subParts) do
-			local meshHandle: MeshPart? = inst:FindFirstChild(subPartName) :: MeshPart
-			assert(meshHandle)
-
-			results[meshHandle :: MeshPart] =
-				{ Position = (meshHandle :: MeshPart).Position, Size = (meshHandle :: MeshPart).Size }
+		if r == 0 and g == 0 and b == 0 then
+			transparentPixels += 1
 		end
+
+		totalPixels += 1
 	end
-	return results
+
+	if totalPixels == 0 then
+		return false
+	end
+
+	return true, 1 - (transparentPixels / totalPixels)
 end
 
--- get the smallest possible y, and largest possible x and z, to find the largest possible aspect ratio
-local function calculateMaxAspectRatio(assetTypeEnum: Enum.AssetType): number
-	local classic = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds.Classic
-	local proportionsSlender = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds.ProportionsSlender
-	local proportionsNormal = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds.ProportionsNormal
-
-	local minY = math.min(classic.minSize.Y, proportionsSlender.minSize.Y, proportionsNormal.minSize.Y)
-
-	local maxX = math.max(classic.maxSize.X, proportionsSlender.maxSize.X, proportionsNormal.maxSize.X)
-	local maxZ = math.max(classic.maxSize.Z, proportionsSlender.maxSize.Z, proportionsNormal.maxSize.Z)
-
-	return math.max(maxX, maxZ) / minY
-end
-
-return function(inst: Instance?, assetTypeEnum: Enum.AssetType, isServerNullable: boolean?): (boolean, { string }?)
-	if not inst then
+local function validateAssetTransparency(inst: Instance, validationContext: Types.ValidationContext)
+	if not checkFlags() then
 		return true
 	end
 
-	if not getEngineFeatureEngineUGCValidateTransparency() then
-		return true
+	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
+
+	local meshParts = {}
+	if inst:IsA("MeshPart") and validationContext.assetTypeEnum == Enum.AssetType.DynamicHead then
+		table.insert(meshParts, inst)
+	else
+		assert(
+			inst:IsA("Folder") and validationContext.assetTypeEnum ~= Enum.AssetType.DynamicHead,
+			string.format("BodyPart %s is not in the correct format.", inst:GetFullName())
+		)
+		for _, child in inst:GetChildren() do
+			assert(
+				child:IsA("MeshPart"),
+				string.format("BodyPart %s contained child that is not a MeshPart.", inst:GetFullName())
+			)
+			table.insert(meshParts, child)
+		end
 	end
 
-	local isServer: boolean = if isServerNullable then true else false
+	local transform = AssetCalculator.calculateAssetCFrame(assetTypeEnum, inst)
+	local origins = AssetCalculator.calculateAllTransformsForAsset(assetTypeEnum, inst)
 
-	if not isServer and (not getEngineFeatureViewportFrameSnapshotEngineFeature()) then
-		return true
-	end
-
-	if not getFFlagUGCValidationRemoveRotationCheck() then
-		if arePartsRotated(inst :: Instance, assetTypeEnum) then
+	local combinedMeshData = {}
+	local boundsData = {
+		min = Vector3.new(math.huge, math.huge, math.huge),
+		max = Vector3.new(-math.huge, -math.huge, -math.huge),
+	}
+	for _, meshPart in meshParts do
+		local success, srcMesh = getEditableMeshFromContext(meshPart, "MeshId", validationContext)
+		if not success then
 			return false,
 				{
-					"Transparency validation failed as some parts are rotated. You must reset all rotation values to zero.",
+					string.format(
+						"Failed to load mesh for MeshPart '%s'. Make sure mesh exists and try again.",
+						meshPart.Name
+					),
 				}
 		end
+		srcMesh:Triangulate()
+		getCombinedMeshData(srcMesh, combinedMeshData, transform, origins[meshPart.Name], boundsData)
+		tryYield(validationContext)
 	end
 
-	local instClone: Instance = (inst :: Instance):Clone()
-	local transparentPart: MeshPart = Instance.new("MeshPart") :: MeshPart
-
-	local transparentPartSucc: boolean = setupTransparentPartSize(transparentPart, instClone, assetTypeEnum)
-	if not transparentPartSucc then
-		return false, { "Error getting part sizes " }
+	if (boundsData.max - boundsData.min).Magnitude == 0 then
+		return false, { string.format("Meshes %s should not have zero size", assetTypeEnum.Name) }
 	end
 
-	local thumbnailer = Thumbnailer.new(isServer, CAMERA_FOV, Vector2.new(IMAGE_SIZE, IMAGE_SIZE))
-
-	thumbnailer:init(instClone)
-	local initialSizePosition = getInitialSizePosition(instClone, assetTypeEnum)
-
-	for _, dir in CAMERA_POSITIONS do
-		-- if the camera is looking along the Z axis, the X axis of the part will be perpendicular to the camera (and vice-versa)
-		local imageWidthAxis = if math.abs(dir.Z) > math.abs(dir.X)
-			then transparentPart.Size.X
-			else transparentPart.Size.Z
-
-		flattenParts(instClone, assetTypeEnum, initialSizePosition, dir, transparentPart.Position)
-
-		local aspectRatio = (imageWidthAxis / transparentPart.Size.Y)
-		local maxAspectRatioMultiplier = 10 -- really this could be 1, but we're being conservative
-		if aspectRatio > (maxAspectRatioMultiplier * calculateMaxAspectRatio(assetTypeEnum)) then
-			thumbnailer:cleanup()
-			return false, { "Transparency validation failed as image would be too large to test" }
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+	local views = getViews()
+	for _, view in views do
+		if #combinedMeshData == 0 then
+			reasonsAccumulator:updateReasons(
+				false,
+				{ string.format("Mesh for %s has no triangles.", assetTypeEnum.Name) }
+			)
+			continue
 		end
 
-		local imageWidth = aspectRatio * IMAGE_SIZE
+		local meshSize = boundsData.max - boundsData.min
+		local meshCenter = boundsData.min + (meshSize / 2)
+		local rasterSize = Vector2.new(
+			ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE,
+			ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE
+		) * getScaleFactor(meshSize, view.viewId)
 
-		if imageWidth < 1 then
-			thumbnailer:cleanup()
-			return false, { "Transparency validation failed as image would be too small to test" }
-		end
-		thumbnailer:setImgSize(Vector2.new(imageWidth, IMAGE_SIZE))
+		local editableImage =
+			RasterUtil.rasterMesh(combinedMeshData, rasterSize, view, meshCenter, meshSize, validationContext)
 
-		local dist: number = (transparentPart.Size.Y / 2) / (math.tan(math.rad(CAMERA_FOV / 2)))
-		thumbnailer:setCameraTransform(
-			CFrame.lookAt(transparentPart.CFrame.Position + dir * dist, transparentPart.CFrame.Position)
-		)
-
-		local captureSuccess, img = thumbnailer:takeSnapshot()
-
-		if not captureSuccess then
-			thumbnailer:cleanup()
-			local errorMsg = string.format(CAPTURE_ERROR_STRING, assetTypeEnum.Name)
-			if isServer then
-				error(errorMsg)
-			else
-				return false, { errorMsg }
-			end
-		end
-
-		local success, passesValidation, opacityValue
-		if getEngineFeatureEngineUGCValidationGetImageTransparency() then
-			if isServer then
-				success, opacityValue = pcall(function()
-					return UGCValidationService:getImageTransparencyWithByteString(img :: string)
-				end)
-			else
-				success, opacityValue = pcall(function()
-					return UGCValidationService:getImageTransparencyWithTextureID(img :: string)
-				end)
-			end
-
-			if success then
-				local threshold = assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-				passesValidation = opacityValue > threshold
-			end
-		else
-			if isServer then
-				success, passesValidation = pcall(function()
-					return UGCValidationService:ValidateImageTransparencyThresholdByteString_V2(
-						img :: string,
-						assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-					)
-				end)
-			else
-				success, passesValidation = pcall(function()
-					return UGCValidationService:ValidateImageTransparencyThresholdTextureID_V2(
-						img :: string,
-						assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir]
-					)
-				end)
-			end
-		end
-
+		local threshold = ConstantsTransparencyValidation.ASSET_TRANSPARENCY_THRESHOLDS[assetTypeEnum][view.viewId]
+		local success, opacity = getOpacity(editableImage)
 		if not success then
-			thumbnailer:cleanup()
-			local errorMsg = string.format(READ_FAILED_ERROR_STRING, assetTypeEnum.Name)
-			if isServer then
-				error(errorMsg)
-			else
-				return false, { errorMsg }
-			end
+			reasonsAccumulator:updateReasons(
+				false,
+				{ string.format("Mesh for %s is completely invisible.", assetTypeEnum.Name) }
+			)
+			editableImage:Destroy()
+			continue
 		end
-
-		if not passesValidation then
-			thumbnailer:cleanup()
-			if getEngineFeatureEngineUGCValidationGetImageTransparency() then
-				return false,
-					{
-						string.format(
-							VALIDATION_FAILED_ERROR_STRING_NEW,
-							assetTypeEnum.Name,
-							CAMERA_ANGLE_NAMES[dir],
-							math.floor(opacityValue * 100),
-							math.floor(assetTypeEnumToPartsToValidIDs[assetTypeEnum][dir] * 100)
-						),
-					}
-			else
-				return false, { string.format(VALIDATION_FAILED_ERROR_STRING, assetTypeEnum.Name) }
-			end
+		if opacity < threshold then
+			reasonsAccumulator:updateReasons(false, {
+				string.format(
+					"%s is not opague enough. Opacity is %f but needs to be above %f.",
+					assetTypeEnum.Name,
+					opacity,
+					threshold
+				),
+			})
 		end
+		editableImage:Destroy()
 	end
 
-	thumbnailer:cleanup()
-
-	return true
+	return reasonsAccumulator:getFinalResults()
 end
+
+return validateAssetTransparency

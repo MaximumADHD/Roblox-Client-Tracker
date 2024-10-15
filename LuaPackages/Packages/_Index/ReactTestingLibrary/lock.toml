@@ -3,10 +3,10 @@ name = "ReactTestingLibrary"
 version = "12.2.0"
 source = "registry"
 dependencies = [
-    "DomTestingLibrary <patched> DomTestingLibrary d6029ec3 git+https://github.com/roblox/dom-testing-library-lua#main",
+    "DomTestingLibrary <patched> DomTestingLibrary 8.14.7 registry",
     "JestGlobals JestGlobals 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
+    "Promise <patched> Promise 3.5.0 registry",
     "React React 17.1.2 registry",
     "ReactRoblox ReactRoblox 17.1.2 registry",
     "Scheduler Scheduler 17.1.2 registry",

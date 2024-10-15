@@ -26,6 +26,9 @@ return function(UrlBuilder)
 				return UrlBuilder.fromString(url)()
 			end,
 			ackPurchaseWarning = UrlBuilder.fromString("apis:purchase-warning/v1/purchase-warnings/acknowledge"),
+		},
+		vngPayments = {
+			getVngShopUrl = UrlBuilder.fromString("apis:vng-payments/v1/getVngShopUrl"),
 		}
 	}
 

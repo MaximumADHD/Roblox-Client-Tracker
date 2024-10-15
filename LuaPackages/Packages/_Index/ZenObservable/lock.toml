@@ -4,5 +4,5 @@ version = "0.8.16-roblox.0"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.4.2 registry",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
+    "Promise <patched> Promise 3.5.0 registry",
 ]

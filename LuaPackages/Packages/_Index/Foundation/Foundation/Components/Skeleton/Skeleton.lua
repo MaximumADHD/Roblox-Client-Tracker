@@ -25,13 +25,14 @@ local GRADIENT_OFFSET = 3
 local ANIMATION_SPEED = 2
 
 type Props = {
-	Size: Bindable<UDim2>,
 	radius: Radius?,
+	Size: Bindable<UDim2>?,
+	AnchorPoint: Bindable<Vector2>?,
 } & Types.CommonProps
 
 local defaultProps = {
-	Size = UDim2.fromScale(1, 1),
 	radius = Radius.None,
+	Size = UDim2.fromScale(1, 1),
 }
 
 local function Skeleton(skeletonProps: Props, ref: React.Ref<GuiObject>?)
@@ -59,6 +60,7 @@ local function Skeleton(skeletonProps: Props, ref: React.Ref<GuiObject>?)
 					}
 				end)
 				else tokens.Color.Extended.White.White_10,
+			AnchorPoint = props.AnchorPoint,
 			Size = props.Size,
 			ref = ref,
 		}),

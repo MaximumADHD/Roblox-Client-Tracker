@@ -11,6 +11,9 @@ local Analytics = require(root.Analytics)
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
+local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateOrientedSizing = require(root.flags.getFFlagUGCValidateOrientedSizing)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
@@ -28,8 +31,8 @@ local validateHSR = require(root.validation.validateHSR)
 local validateBodyPartCollisionFidelity = require(root.validation.validateBodyPartCollisionFidelity)
 local validateModeration = require(root.validation.validateModeration)
 local validateAssetTransparency = require(root.validation.validateAssetTransparency)
+local DEPRECATED_validateAssetTransparency = require(root.validation.DEPRECATED_validateAssetTransparency)
 local validatePose = require(root.validation.validatePose)
-
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local resetPhysicsData = require(root.util.resetPhysicsData)
@@ -97,10 +100,13 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
 
-	-- TODO: refactor to take in a context table after FFlagUseThumbnailerUtil is cleaned up
 	if not skipSnapshot then
 		local startTime = tick()
-		reasonsAccumulator:updateReasons(validateAssetTransparency(inst, assetTypeEnum, isServer))
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagRefactorValidateAssetTransparency() then
+			reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
+		else
+			reasonsAccumulator:updateReasons(DEPRECATED_validateAssetTransparency(inst, assetTypeEnum, isServer))
+		end
 		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 	end
 
