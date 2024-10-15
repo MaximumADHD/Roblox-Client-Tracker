@@ -17,7 +17,7 @@ MAIN:
   GETTABLEKS R3 R4 K12 ["createStyleRule"]
   GETTABLEKS R5 R1 K11 ["Styling"]
   GETTABLEKS R4 R5 K13 ["createStyleSheet"]
-  NEWTABLE R5 0 7
+  NEWTABLE R5 0 10
   MOVE R6 R3
   LOADK R7 K14 ["Frame"]
   DUPTABLE R8 K16 [{"BorderSizePixel"}]
@@ -146,40 +146,194 @@ MAIN:
   SETLIST R14 R15 -1 [1]
   CALL R11 3 1
   MOVE R12 R3
-  LOADK R13 K69 [".Component-Divider"]
-  DUPTABLE R14 K70 [{"Size", "BackgroundColor3", "BackgroundTransparency"}]
-  GETIMPORT R15 K43 [UDim2.new]
-  LOADN R16 1
-  LOADN R17 0
-  LOADN R18 0
-  LOADN R19 1
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K30 ["Size"]
+  LOADK R13 K69 [".Component-Dropdown"]
+  DUPTABLE R14 K70 [{"AutomaticSize", "BackgroundColor3"}]
+  GETIMPORT R15 K53 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K36 ["AutomaticSize"]
   GETTABLEKS R16 R2 K45 ["fflagAnnotationsModernColors"]
   JUMPIFNOT R16 [+2]
-  LOADK R15 K71 ["$SemanticColorDivider"]
+  LOADK R15 K71 ["$SemanticColorSurface200"]
   JUMP [+1]
-  LOADK R15 K72 ["$TextDisabled"]
+  LOADK R15 K47 ["$ForegroundContrast"]
   SETTABLEKS R15 R14 K32 ["BackgroundColor3"]
-  GETTABLEKS R16 R2 K45 ["fflagAnnotationsModernColors"]
-  JUMPIFNOT R16 [+2]
-  LOADK R15 K73 ["$SemanticColorDividerTransparency"]
+  NEWTABLE R15 0 3
+  MOVE R16 R3
+  LOADK R17 K72 ["::UIStroke"]
+  DUPTABLE R18 K76 [{"Thickness", "Color", "Transparency"}]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K73 ["Thickness"]
+  GETTABLEKS R20 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R20 [+2]
+  LOADK R19 K77 ["$SemanticColorDivider"]
   JUMP [+1]
-  LOADNIL R15
-  SETTABLEKS R15 R14 K33 ["BackgroundTransparency"]
-  CALL R12 2 -1
+  LOADK R19 K78 ["$ForegroundMain"]
+  SETTABLEKS R19 R18 K74 ["Color"]
+  GETTABLEKS R20 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R20 [+2]
+  LOADK R19 K79 ["$SemanticColorDividerTransparency"]
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K75 ["Transparency"]
+  CALL R16 2 1
+  MOVE R17 R3
+  LOADK R18 K57 ["::UIPadding"]
+  DUPTABLE R19 K80 [{"PaddingTop", "PaddingBottom"}]
+  GETIMPORT R20 K64 [UDim.new]
+  LOADN R21 0
+  LOADN R22 4
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K58 ["PaddingTop"]
+  GETIMPORT R20 K64 [UDim.new]
+  LOADN R21 0
+  LOADN R22 4
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K60 ["PaddingBottom"]
+  CALL R17 2 1
+  MOVE R18 R3
+  LOADK R19 K54 ["::UICorner"]
+  DUPTABLE R20 K56 [{"CornerRadius"}]
+  GETIMPORT R21 K64 [UDim.new]
+  LOADN R22 0
+  LOADN R23 8
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K55 ["CornerRadius"]
+  CALL R18 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 1
+  MOVE R13 R3
+  LOADK R14 K81 [".Component-DropdownItem"]
+  DUPTABLE R15 K82 [{"BorderSizePixel", "BackgroundColor3", "BackgroundTransparency", "TextColor3", "Size", "AutomaticSize", "TextXAlignment"}]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K15 ["BorderSizePixel"]
+  GETTABLEKS R17 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R17 [+2]
+  LOADNIL R16
+  JUMP [+1]
+  LOADK R16 K83 ["$SecondaryMain"]
+  SETTABLEKS R16 R15 K32 ["BackgroundColor3"]
+  GETTABLEKS R17 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R17 [+2]
+  LOADN R16 1
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K33 ["BackgroundTransparency"]
+  LOADK R16 K25 ["$TextPrimary"]
+  SETTABLEKS R16 R15 K21 ["TextColor3"]
+  GETIMPORT R16 K85 [UDim2.fromScale]
+  LOADN R17 1
+  LOADN R18 0
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K30 ["Size"]
+  GETIMPORT R16 K87 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K36 ["AutomaticSize"]
+  GETIMPORT R16 K51 [Enum.TextXAlignment.Left]
+  SETTABLEKS R16 R15 K34 ["TextXAlignment"]
+  NEWTABLE R16 0 4
+  MOVE R17 R3
+  LOADK R18 K57 ["::UIPadding"]
+  DUPTABLE R19 K88 [{"PaddingRight", "PaddingLeft", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R20 K64 [UDim.new]
+  LOADN R21 0
+  LOADN R22 10
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K61 ["PaddingRight"]
+  GETIMPORT R20 K64 [UDim.new]
+  LOADN R21 0
+  LOADN R22 10
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K59 ["PaddingLeft"]
+  GETIMPORT R20 K64 [UDim.new]
+  LOADN R21 0
+  LOADN R22 5
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K58 ["PaddingTop"]
+  GETIMPORT R20 K64 [UDim.new]
+  LOADN R21 0
+  LOADN R22 5
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K60 ["PaddingBottom"]
+  CALL R17 2 1
+  MOVE R18 R3
+  LOADK R19 K89 [":hover"]
+  DUPTABLE R20 K90 [{"BackgroundColor3", "BackgroundTransparency"}]
+  GETTABLEKS R22 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R22 [+2]
+  LOADK R21 K91 ["$SemanticColorActionSecondaryFill"]
+  JUMP [+1]
+  LOADK R21 K92 ["$SecondaryHoverBackground"]
+  SETTABLEKS R21 R20 K32 ["BackgroundColor3"]
+  GETTABLEKS R22 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R22 [+2]
+  LOADK R21 K93 ["$SemanticColorActionSecondaryFillHoverTransparency"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K33 ["BackgroundTransparency"]
+  CALL R18 2 1
+  MOVE R19 R3
+  LOADK R20 K94 [":pressed"]
+  DUPTABLE R21 K90 [{"BackgroundColor3", "BackgroundTransparency"}]
+  GETTABLEKS R23 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R23 [+2]
+  LOADK R22 K91 ["$SemanticColorActionSecondaryFill"]
+  JUMP [+1]
+  LOADK R22 K95 ["$ActionActivated"]
+  SETTABLEKS R22 R21 K32 ["BackgroundColor3"]
+  GETTABLEKS R23 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R23 [+2]
+  LOADK R22 K96 ["$SemanticColorActionSecondaryFillPressTransparency"]
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K33 ["BackgroundTransparency"]
+  CALL R19 2 1
+  MOVE R20 R3
+  LOADK R21 K97 [".Delete"]
+  DUPTABLE R22 K98 [{"TextColor3"}]
+  LOADK R23 K99 ["$ErrorMain"]
+  SETTABLEKS R23 R22 K21 ["TextColor3"]
+  CALL R20 2 -1
+  SETLIST R16 R17 -1 [1]
+  CALL R13 3 1
+  MOVE R14 R3
+  LOADK R15 K100 [".Component-Divider"]
+  DUPTABLE R16 K101 [{"Size", "BackgroundColor3", "BackgroundTransparency"}]
+  GETIMPORT R17 K43 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 0
+  LOADN R21 1
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K30 ["Size"]
+  GETTABLEKS R18 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R18 [+2]
+  LOADK R17 K77 ["$SemanticColorDivider"]
+  JUMP [+1]
+  LOADK R17 K102 ["$TextDisabled"]
+  SETTABLEKS R17 R16 K32 ["BackgroundColor3"]
+  GETTABLEKS R18 R2 K45 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R18 [+2]
+  LOADK R17 K79 ["$SemanticColorDividerTransparency"]
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K33 ["BackgroundTransparency"]
+  CALL R14 2 1
+  MOVE R15 R3
+  LOADK R16 K103 [".MoreIcon"]
+  DUPTABLE R17 K105 [{"Image"}]
+  LOADK R18 K106 ["$MoreIcon"]
+  SETTABLEKS R18 R17 K104 ["Image"]
+  CALL R15 2 -1
   SETLIST R5 R6 -1 [1]
-  DUPTABLE R6 K78 [{"Font", "FontBold", "FontSizeS", "FontSizeM", "FontSizeL"}]
-  GETIMPORT R7 K80 [Enum.Font.SourceSans]
+  DUPTABLE R6 K111 [{"Font", "FontBold", "FontSizeS", "FontSizeM", "FontSizeL"}]
+  GETIMPORT R7 K113 [Enum.Font.SourceSans]
   SETTABLEKS R7 R6 K22 ["Font"]
-  GETIMPORT R7 K82 [Enum.Font.SourceSansBold]
-  SETTABLEKS R7 R6 K74 ["FontBold"]
+  GETIMPORT R7 K115 [Enum.Font.SourceSansBold]
+  SETTABLEKS R7 R6 K107 ["FontBold"]
   LOADN R7 15
-  SETTABLEKS R7 R6 K75 ["FontSizeS"]
+  SETTABLEKS R7 R6 K108 ["FontSizeS"]
   LOADN R7 18
-  SETTABLEKS R7 R6 K76 ["FontSizeM"]
+  SETTABLEKS R7 R6 K109 ["FontSizeM"]
   LOADN R7 20
-  SETTABLEKS R7 R6 K77 ["FontSizeL"]
+  SETTABLEKS R7 R6 K110 ["FontSizeL"]
   MOVE R7 R4
   LOADK R8 K2 ["PlaceAnnotations"]
   MOVE R9 R5

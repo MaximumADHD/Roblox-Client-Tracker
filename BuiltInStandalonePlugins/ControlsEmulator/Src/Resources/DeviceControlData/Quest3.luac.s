@@ -430,20 +430,20 @@ MAIN:
   GETIMPORT R2 K45 [UDim2.new]
   LOADK R3 K127 [0.069]
   LOADN R4 0
-  LOADK R5 K128 [0.11]
+  LOADK R5 K116 [0.1]
   LOADN R6 0
   CALL R2 4 1
   SETTABLEKS R2 R1 K77 ["Size"]
   SETTABLEKS R1 R0 K19 ["TriggerL2"]
   DUPTABLE R1 K78 [{"keyCode", "type", "Position", "Size"}]
-  GETIMPORT R2 K129 [Enum.KeyCode.ButtonR1]
+  GETIMPORT R2 K128 [Enum.KeyCode.ButtonR1]
   SETTABLEKS R2 R1 K33 ["keyCode"]
   LOADK R2 K80 ["Button"]
   SETTABLEKS R2 R1 K26 ["type"]
   GETIMPORT R2 K45 [UDim2.new]
-  LOADK R3 K130 [0.552]
+  LOADK R3 K129 [0.552]
   LOADN R4 0
-  LOADK R5 K131 [0.345]
+  LOADK R5 K130 [0.345]
   LOADN R6 0
   CALL R2 4 1
   SETTABLEKS R2 R1 K34 ["Position"]
@@ -456,21 +456,21 @@ MAIN:
   SETTABLEKS R2 R1 K77 ["Size"]
   SETTABLEKS R1 R0 K20 ["ButtonR1"]
   DUPTABLE R1 K84 [{"keyName", "type", "side", "Position", "arrowDestination", "arrowBendPoint"}]
-  LOADK R2 K132 ["R1"]
+  LOADK R2 K131 ["R1"]
   SETTABLEKS R2 R1 K83 ["keyName"]
   LOADK R2 K86 ["ButtonMapping"]
   SETTABLEKS R2 R1 K26 ["type"]
   LOADK R2 K75 ["Right"]
   SETTABLEKS R2 R1 K55 ["side"]
   GETIMPORT R2 K45 [UDim2.new]
-  LOADK R3 K133 [0.595]
+  LOADK R3 K132 [0.595]
   LOADN R4 0
   LOADK R5 K66 [0.5]
   LOADN R6 0
   CALL R2 4 1
   SETTABLEKS R2 R1 K34 ["Position"]
   GETIMPORT R2 K45 [UDim2.new]
-  LOADK R3 K134 [0.545]
+  LOADK R3 K133 [0.545]
   LOADN R4 0
   LOADK R5 K118 [0.37]
   LOADN R6 0
@@ -480,12 +480,12 @@ MAIN:
   SETTABLEKS R2 R1 K57 ["arrowBendPoint"]
   SETTABLEKS R1 R0 K21 ["ButtonR1Label"]
   DUPTABLE R1 K78 [{"keyCode", "type", "Position", "Size"}]
-  GETIMPORT R2 K135 [Enum.KeyCode.ButtonR2]
+  GETIMPORT R2 K134 [Enum.KeyCode.ButtonR2]
   SETTABLEKS R2 R1 K33 ["keyCode"]
   LOADK R2 K80 ["Button"]
   SETTABLEKS R2 R1 K26 ["type"]
   GETIMPORT R2 K45 [UDim2.new]
-  LOADK R3 K136 [0.77]
+  LOADK R3 K135 [0.77]
   LOADN R4 0
   LOADK R5 K66 [0.5]
   LOADN R6 0
@@ -500,14 +500,14 @@ MAIN:
   SETTABLEKS R2 R1 K77 ["Size"]
   SETTABLEKS R1 R0 K22 ["ButtonR2"]
   DUPTABLE R1 K84 [{"keyName", "type", "side", "Position", "arrowDestination", "arrowBendPoint"}]
-  LOADK R2 K137 ["R2"]
+  LOADK R2 K136 ["R2"]
   SETTABLEKS R2 R1 K83 ["keyName"]
   LOADK R2 K86 ["ButtonMapping"]
   SETTABLEKS R2 R1 K26 ["type"]
   LOADK R2 K75 ["Right"]
   SETTABLEKS R2 R1 K55 ["side"]
   GETIMPORT R2 K45 [UDim2.new]
-  LOADK R3 K138 [0.95]
+  LOADK R3 K137 [0.95]
   LOADN R4 0
   LOADK R5 K66 [0.5]
   LOADN R6 0
@@ -520,16 +520,16 @@ MAIN:
   LOADN R6 0
   CALL R2 4 1
   SETTABLEKS R2 R1 K56 ["arrowDestination"]
-  LOADK R2 K139 [0.7]
+  LOADK R2 K138 [0.7]
   SETTABLEKS R2 R1 K57 ["arrowBendPoint"]
   SETTABLEKS R1 R0 K23 ["ButtonR2Label"]
   DUPTABLE R1 K78 [{"keyCode", "type", "Position", "Size"}]
-  GETIMPORT R2 K135 [Enum.KeyCode.ButtonR2]
+  GETIMPORT R2 K134 [Enum.KeyCode.ButtonR2]
   SETTABLEKS R2 R1 K33 ["keyCode"]
   LOADK R2 K124 ["Trigger"]
   SETTABLEKS R2 R1 K26 ["type"]
   GETIMPORT R2 K45 [UDim2.new]
-  LOADK R3 K140 [0.57]
+  LOADK R3 K139 [0.57]
   LOADN R4 0
   LOADK R5 K126 [0.04]
   LOADN R6 0
@@ -538,7 +538,7 @@ MAIN:
   GETIMPORT R2 K45 [UDim2.new]
   LOADK R3 K127 [0.069]
   LOADN R4 0
-  LOADK R5 K128 [0.11]
+  LOADK R5 K116 [0.1]
   LOADN R6 0
   CALL R2 4 1
   SETTABLEKS R2 R1 K77 ["Size"]

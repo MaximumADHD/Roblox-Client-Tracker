@@ -31,8 +31,8 @@ DropDownButton.validateProps = t.strictInterface({
 	icon = t.union(t.string, t.table),
 	lastButton = t.boolean,
 	forceShowOptions = t.boolean,
-	screenSizeX = t.integer,
-	screenSizeY = t.integer,
+	screenSizeX = t.number,
+	screenSizeY = t.number,
 
 	onActivated = t.optional(t.callback),
 	onDecline = t.optional(t.callback),

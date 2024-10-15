@@ -10,12 +10,14 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
 local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
+local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
+
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
 local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
 local FFlagDefaultChannelDontWaitOnCharacterWithAudioApi = game:DefineFastFlag("DefaultChannelDontWaitOnCharacterWithAudioApi", false)
-local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
+local GetFFlagEnableLuaVoiceChatAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local GetFFlagSeamlessVoiceFTUX = require(RobloxGui.Modules.Flags.GetFFlagSeamlessVoiceFTUX)
 

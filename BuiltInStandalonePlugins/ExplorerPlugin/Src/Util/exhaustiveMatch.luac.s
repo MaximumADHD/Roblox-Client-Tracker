@@ -1,0 +1,14 @@
+PROTO_0:
+  GETIMPORT R1 K1 [error]
+  LOADK R3 K2 ["Unknown value in exhaustive match: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

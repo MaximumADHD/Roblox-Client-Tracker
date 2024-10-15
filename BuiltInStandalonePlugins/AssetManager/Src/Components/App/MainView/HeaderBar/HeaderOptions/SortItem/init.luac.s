@@ -1,20 +1,17 @@
 PROTO_0:
-  GETIMPORT R2 K1 [print]
-  MOVE R3 R0
-  CALL R2 1 0
   JUMPIFNOT R0 [+13]
-  GETTABLEKS R2 R0 K2 ["Key"]
+  GETTABLEKS R2 R0 K0 ["Key"]
   JUMPIFNOTEQ R2 R1 [+10]
-  GETTABLEKS R2 R0 K3 ["IsAscending"]
+  GETTABLEKS R2 R0 K1 ["IsAscending"]
   JUMPIFNOT R2 [+3]
-  LOADK R2 K4 ["Bold"]
-  LOADK R3 K5 ["ArrowUp"]
+  LOADK R2 K2 ["Bold"]
+  LOADK R3 K3 ["ArrowUp"]
   RETURN R2 2
-  LOADK R2 K4 ["Bold"]
-  LOADK R3 K6 ["ArrowDown"]
+  LOADK R2 K2 ["Bold"]
+  LOADK R3 K4 ["ArrowDown"]
   RETURN R2 2
-  LOADK R2 K7 [""]
-  LOADK R3 K7 [""]
+  LOADK R2 K5 [""]
+  LOADK R3 K5 [""]
   RETURN R2 2
 
 PROTO_1:
@@ -32,84 +29,81 @@ PROTO_1:
   CALL R4 1 1
   GETTABLEN R7 R4 1
   GETTABLEKS R8 R0 K2 ["Item"]
-  GETIMPORT R9 K4 [print]
-  MOVE R10 R7
-  CALL R9 1 0
   JUMPIFNOT R7 [+13]
-  GETTABLEKS R9 R7 K5 ["Key"]
+  GETTABLEKS R9 R7 K3 ["Key"]
   JUMPIFNOTEQ R9 R8 [+10]
-  GETTABLEKS R9 R7 K6 ["IsAscending"]
+  GETTABLEKS R9 R7 K4 ["IsAscending"]
   JUMPIFNOT R9 [+3]
-  LOADK R5 K7 ["Bold"]
-  LOADK R6 K8 ["ArrowUp"]
+  LOADK R5 K5 ["Bold"]
+  LOADK R6 K6 ["ArrowUp"]
   JUMP [+5]
-  LOADK R5 K7 ["Bold"]
-  LOADK R6 K9 ["ArrowDown"]
+  LOADK R5 K5 ["Bold"]
+  LOADK R6 K7 ["ArrowDown"]
   JUMP [+2]
-  LOADK R5 K10 [""]
-  LOADK R6 K10 [""]
-  LOADK R9 K11 ["AssetProperty"]
+  LOADK R5 K8 [""]
+  LOADK R6 K8 [""]
+  LOADK R9 K9 ["AssetProperty"]
   GETTABLEKS R10 R0 K2 ["Item"]
-  NAMECALL R7 R2 K12 ["getText"]
+  NAMECALL R7 R2 K10 ["getText"]
   CALL R7 3 1
   GETUPVAL R9 4
-  GETTABLEKS R8 R9 K13 ["createElement"]
+  GETTABLEKS R8 R9 K11 ["createElement"]
   GETUPVAL R9 5
   NEWTABLE R10 4 0
-  GETTABLEKS R11 R0 K14 ["LayoutOrder"]
-  SETTABLEKS R11 R10 K14 ["LayoutOrder"]
-  GETTABLEKS R11 R0 K15 ["Activated"]
-  SETTABLEKS R11 R10 K16 ["OnClick"]
+  GETTABLEKS R11 R0 K12 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K12 ["LayoutOrder"]
+  GETTABLEKS R11 R0 K13 ["Activated"]
+  SETTABLEKS R11 R10 K14 ["OnClick"]
   GETUPVAL R11 6
-  LOADK R13 K17 ["SortItemSize"]
-  NAMECALL R11 R11 K18 ["GetAttribute"]
+  LOADK R13 K15 ["SortItemSize"]
+  NAMECALL R11 R11 K16 ["GetAttribute"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K19 ["Size"]
+  SETTABLEKS R11 R10 K17 ["Size"]
   GETUPVAL R12 4
-  GETTABLEKS R11 R12 K20 ["Tag"]
-  LOADK R12 K21 ["SortItem X-Fit Secondary X-Row X-Left X-Middle"]
+  GETTABLEKS R11 R12 K18 ["Tag"]
+  LOADK R12 K19 ["SortItem X-Fit Secondary X-Row X-Left X-Middle"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K24 [{"Label", "ArrowIcon"}]
+  DUPTABLE R11 K22 [{"Label", "ArrowIcon"}]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K13 ["createElement"]
+  GETTABLEKS R12 R13 K11 ["createElement"]
   GETUPVAL R13 7
   NEWTABLE R14 4 0
-  NAMECALL R15 R1 K25 ["getNextOrder"]
+  NAMECALL R15 R1 K23 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K14 ["LayoutOrder"]
-  SETTABLEKS R7 R14 K26 ["Text"]
-  GETIMPORT R15 K30 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R15 R14 K28 ["TextTruncate"]
+  SETTABLEKS R15 R14 K12 ["LayoutOrder"]
+  SETTABLEKS R7 R14 K24 ["Text"]
+  GETIMPORT R15 K28 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R15 R14 K26 ["TextTruncate"]
   GETUPVAL R16 4
-  GETTABLEKS R15 R16 K20 ["Tag"]
-  LOADK R17 K31 ["X-Fit Left X-Pad %*"]
+  GETTABLEKS R15 R16 K18 ["Tag"]
+  LOADK R17 K29 ["X-Fit Left X-Pad %*"]
   MOVE R19 R5
-  NAMECALL R17 R17 K32 ["format"]
+  NAMECALL R17 R17 K30 ["format"]
   CALL R17 2 1
   MOVE R16 R17
   SETTABLE R16 R14 R15
   CALL R12 2 1
-  SETTABLEKS R12 R11 K22 ["Label"]
-  JUMPIFEQKS R5 K10 [""] [+24]
+  SETTABLEKS R12 R11 K20 ["Label"]
+  JUMPIFEQKS R5 K8 [""] [+24]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K13 ["createElement"]
+  GETTABLEKS R12 R13 K11 ["createElement"]
   GETUPVAL R13 8
   NEWTABLE R14 2 0
-  NAMECALL R15 R1 K25 ["getNextOrder"]
+  NAMECALL R15 R1 K23 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K14 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K12 ["LayoutOrder"]
   GETUPVAL R16 4
-  GETTABLEKS R15 R16 K20 ["Tag"]
-  LOADK R17 K33 ["Icon16 %*"]
+  GETTABLEKS R15 R16 K18 ["Tag"]
+  LOADK R17 K31 ["Icon16 %*"]
   MOVE R19 R6
-  NAMECALL R17 R17 K32 ["format"]
+  NAMECALL R17 R17 K30 ["format"]
   CALL R17 2 1
   MOVE R16 R17
   SETTABLE R16 R14 R15
   CALL R12 2 1
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K23 ["ArrowIcon"]
+  SETTABLEKS R12 R11 K21 ["ArrowIcon"]
   CALL R8 3 -1
   RETURN R8 -1
 

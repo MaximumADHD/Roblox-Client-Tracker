@@ -26,7 +26,7 @@ local Constants = require(Modules.InGameChat.BubbleChat.Constants)
 local SelfViewAPI = require(Modules.SelfView.publicApi)
 local toggleSelfViewSignal = require(Modules.SelfView.toggleSelfViewSignal)
 local Analytics = require(Modules.SelfView.Analytics).new()
-local GetFFlagLocalMutedNilFix = require(Modules.Flags.GetFFlagLocalMutedNilFix)
+local GetFFlagLocalMutedNilFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLocalMutedNilFix
 local GetFFlagMicStatesFix = require(Modules.Flags.GetFFlagMicStatesFix)
 local VoiceConstants = require(Modules.VoiceChat.Constants)
 

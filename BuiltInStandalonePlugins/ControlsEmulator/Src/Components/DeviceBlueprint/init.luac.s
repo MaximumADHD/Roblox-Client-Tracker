@@ -58,74 +58,80 @@ PROTO_5:
 
 PROTO_6:
   GETTABLEKS R1 R0 K0 ["type"]
-  JUMPIFNOTEQKS R1 K1 ["Thumbstick"] [+42]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["createElement"]
-  GETUPVAL R2 1
-  DUPTABLE R3 K9 [{"Position", "keyCode", "inputState", "clickInputState", "relativeSocketSize", "relativeStickSize"}]
-  GETTABLEKS R4 R0 K3 ["Position"]
-  SETTABLEKS R4 R3 K3 ["Position"]
-  GETTABLEKS R4 R0 K4 ["keyCode"]
-  SETTABLEKS R4 R3 K4 ["keyCode"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K10 ["activeInputs"]
-  GETTABLEKS R6 R0 K4 ["keyCode"]
-  GETTABLE R4 R5 R6
-  SETTABLEKS R4 R3 K5 ["inputState"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K10 ["activeInputs"]
-  GETUPVAL R7 3
-  GETTABLEKS R8 R0 K4 ["keyCode"]
-  GETTABLE R6 R7 R8
-  GETTABLE R4 R5 R6
-  SETTABLEKS R4 R3 K6 ["clickInputState"]
-  GETTABLEKS R4 R0 K7 ["relativeSocketSize"]
-  SETTABLEKS R4 R3 K7 ["relativeSocketSize"]
-  GETTABLEKS R4 R0 K8 ["relativeStickSize"]
-  SETTABLEKS R4 R3 K8 ["relativeStickSize"]
-  CALL R1 2 -1
-  RETURN R1 -1
+  JUMPIFNOTEQKS R1 K1 ["Thumbstick"] [+45]
+  DUPTABLE R1 K2 [{"Thumbstick"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K10 [{"Position", "keyCode", "inputState", "clickInputState", "relativeSocketSize", "relativeStickSize"}]
+  GETTABLEKS R5 R0 K4 ["Position"]
+  SETTABLEKS R5 R4 K4 ["Position"]
+  GETTABLEKS R5 R0 K5 ["keyCode"]
+  SETTABLEKS R5 R4 K5 ["keyCode"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K11 ["activeInputs"]
+  GETTABLEKS R7 R0 K5 ["keyCode"]
+  GETTABLE R5 R6 R7
+  SETTABLEKS R5 R4 K6 ["inputState"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K11 ["activeInputs"]
+  GETUPVAL R8 3
+  GETTABLEKS R9 R0 K5 ["keyCode"]
+  GETTABLE R7 R8 R9
+  GETTABLE R5 R6 R7
+  SETTABLEKS R5 R4 K7 ["clickInputState"]
+  GETTABLEKS R5 R0 K8 ["relativeSocketSize"]
+  SETTABLEKS R5 R4 K8 ["relativeSocketSize"]
+  GETTABLEKS R5 R0 K9 ["relativeStickSize"]
+  SETTABLEKS R5 R4 K9 ["relativeStickSize"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K1 ["Thumbstick"]
+  RETURN R1 1
   GETTABLEKS R1 R0 K0 ["type"]
-  JUMPIFNOTEQKS R1 K11 ["Button"] [+28]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["createElement"]
-  GETUPVAL R2 4
-  DUPTABLE R3 K13 [{"Position", "Size", "keyCode", "inputState"}]
-  GETTABLEKS R4 R0 K3 ["Position"]
-  SETTABLEKS R4 R3 K3 ["Position"]
-  GETTABLEKS R4 R0 K12 ["Size"]
-  SETTABLEKS R4 R3 K12 ["Size"]
-  GETTABLEKS R4 R0 K4 ["keyCode"]
-  SETTABLEKS R4 R3 K4 ["keyCode"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K10 ["activeInputs"]
-  GETTABLEKS R6 R0 K4 ["keyCode"]
-  GETTABLE R4 R5 R6
-  SETTABLEKS R4 R3 K5 ["inputState"]
-  CALL R1 2 -1
-  RETURN R1 -1
+  JUMPIFNOTEQKS R1 K12 ["Button"] [+31]
+  DUPTABLE R1 K13 [{"Button"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["createElement"]
+  GETUPVAL R3 4
+  DUPTABLE R4 K15 [{"Position", "Size", "keyCode", "inputState"}]
+  GETTABLEKS R5 R0 K4 ["Position"]
+  SETTABLEKS R5 R4 K4 ["Position"]
+  GETTABLEKS R5 R0 K14 ["Size"]
+  SETTABLEKS R5 R4 K14 ["Size"]
+  GETTABLEKS R5 R0 K5 ["keyCode"]
+  SETTABLEKS R5 R4 K5 ["keyCode"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K11 ["activeInputs"]
+  GETTABLEKS R7 R0 K5 ["keyCode"]
+  GETTABLE R5 R6 R7
+  SETTABLEKS R5 R4 K6 ["inputState"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K12 ["Button"]
+  RETURN R1 1
   GETTABLEKS R1 R0 K0 ["type"]
-  JUMPIFNOTEQKS R1 K14 ["Trigger"] [+33]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["createElement"]
-  GETUPVAL R2 5
-  DUPTABLE R3 K16 [{"Position", "Size", "keyCode", "inputState", "Visible"}]
-  GETTABLEKS R4 R0 K3 ["Position"]
-  SETTABLEKS R4 R3 K3 ["Position"]
-  GETTABLEKS R4 R0 K12 ["Size"]
-  SETTABLEKS R4 R3 K12 ["Size"]
-  GETTABLEKS R4 R0 K4 ["keyCode"]
-  SETTABLEKS R4 R3 K4 ["keyCode"]
+  JUMPIFNOTEQKS R1 K16 ["Trigger"] [+36]
+  DUPTABLE R1 K17 [{"Trigger"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["createElement"]
+  GETUPVAL R3 5
+  DUPTABLE R4 K19 [{"Position", "Size", "keyCode", "inputState", "Visible"}]
+  GETTABLEKS R5 R0 K4 ["Position"]
+  SETTABLEKS R5 R4 K4 ["Position"]
+  GETTABLEKS R5 R0 K14 ["Size"]
+  SETTABLEKS R5 R4 K14 ["Size"]
+  GETTABLEKS R5 R0 K5 ["keyCode"]
+  SETTABLEKS R5 R4 K5 ["keyCode"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K11 ["activeInputs"]
+  GETTABLEKS R7 R0 K5 ["keyCode"]
+  GETTABLE R5 R6 R7
+  SETTABLEKS R5 R4 K6 ["inputState"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K10 ["activeInputs"]
-  GETTABLEKS R6 R0 K4 ["keyCode"]
-  GETTABLE R4 R5 R6
-  SETTABLEKS R4 R3 K5 ["inputState"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K17 ["displayMappings"]
-  SETTABLEKS R4 R3 K15 ["Visible"]
-  CALL R1 2 -1
-  RETURN R1 -1
+  GETTABLEKS R5 R6 K20 ["displayMappings"]
+  SETTABLEKS R5 R4 K18 ["Visible"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K16 ["Trigger"]
+  RETURN R1 1
   LOADNIL R1
   RETURN R1 1
 

@@ -37,9 +37,11 @@ PROTO_0:
   SETTABLEKS R8 R7 K1 ["LayoutOrder"]
   GETTABLEKS R8 R0 K10 ["Text"]
   SETTABLEKS R8 R7 K10 ["Text"]
+  GETIMPORT R8 K14 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R8 R7 K12 ["TextTruncate"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K2 ["Tag"]
-  LOADK R9 K11 ["Title X-Fit X-Pad"]
+  LOADK R9 K15 ["Title X-Fit X-Pad"]
   SETTABLE R9 R7 R8
   CALL R5 2 1
   SETTABLEKS R5 R4 K5 ["ScopeTitle"]

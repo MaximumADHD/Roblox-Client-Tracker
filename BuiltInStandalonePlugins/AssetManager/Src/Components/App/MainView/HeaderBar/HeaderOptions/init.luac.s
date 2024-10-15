@@ -121,7 +121,7 @@ PROTO_7:
   SETTABLEKS R13 R12 K4 ["LayoutOrder"]
   GETUPVAL R14 6
   GETTABLEKS R13 R14 K5 ["Tag"]
-  LOADK R14 K6 ["HeaderOptions X-Right X-Middle X-RowM"]
+  LOADK R14 K6 ["HeaderOptions X-Fit X-Right X-Middle X-RowM"]
   SETTABLE R14 R12 R13
   DUPTABLE R13 K13 [{"RefreshButton", "GridSortButtonContainer", "FilterDropdown", "ViewTypeContainer", "Separator", "BulkImportButton"}]
   GETTABLEKS R15 R6 K14 ["ShowSearchOptions"]
@@ -245,24 +245,32 @@ PROTO_7:
   NAMECALL R21 R1 K15 ["getNextOrder"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K4 ["LayoutOrder"]
+  GETTABLEKS R22 R8 K21 ["ViewType"]
+  GETUPVAL R25 11
+  GETTABLEKS R24 R25 K21 ["ViewType"]
+  GETTABLEKS R23 R24 K47 ["List"]
+  JUMPIFEQ R22 R23 [+2]
+  LOADB R21 0 +1
+  LOADB R21 1
+  SETTABLEKS R21 R20 K48 ["HideSlider"]
   NEWCLOSURE R21 P5
   CAPTURE VAL R8
   CAPTURE VAL R3
-  SETTABLEKS R21 R20 K47 ["OnGridTileSizeChanged"]
+  SETTABLEKS R21 R20 K49 ["OnGridTileSizeChanged"]
   NEWCLOSURE R21 P6
   CAPTURE UPVAL U11
   CAPTURE VAL R8
   CAPTURE VAL R3
-  SETTABLEKS R21 R20 K48 ["OnViewTypeSelected"]
+  SETTABLEKS R21 R20 K50 ["OnViewTypeSelected"]
   GETTABLEKS R22 R8 K21 ["ViewType"]
-  GETTABLEKS R21 R22 K49 ["rawValue"]
+  GETTABLEKS R21 R22 K51 ["rawValue"]
   CALL R21 0 1
-  SETTABLEKS R21 R20 K50 ["Default"]
-  GETTABLEKS R21 R8 K51 ["GridSize"]
-  SETTABLEKS R21 R20 K52 ["DefaultGridTileSize"]
+  SETTABLEKS R21 R20 K52 ["Default"]
+  GETTABLEKS R21 R8 K53 ["GridSize"]
+  SETTABLEKS R21 R20 K54 ["DefaultGridTileSize"]
   GETUPVAL R22 6
   GETTABLEKS R21 R22 K5 ["Tag"]
-  LOADK R22 K53 ["IconOnly"]
+  LOADK R22 K55 ["IconOnly"]
   SETTABLE R22 R20 R21
   CALL R18 2 1
   SETTABLEKS R18 R17 K45 ["ViewTypeSelector"]
@@ -271,18 +279,18 @@ PROTO_7:
   GETUPVAL R15 6
   GETTABLEKS R14 R15 K3 ["createElement"]
   GETUPVAL R15 18
-  DUPTABLE R16 K55 [{"LayoutOrder", "DominantAxis"}]
+  DUPTABLE R16 K57 [{"LayoutOrder", "DominantAxis"}]
   NAMECALL R17 R1 K15 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K4 ["LayoutOrder"]
-  GETIMPORT R17 K57 [Enum.DominantAxis.Height]
-  SETTABLEKS R17 R16 K54 ["DominantAxis"]
+  GETIMPORT R17 K59 [Enum.DominantAxis.Height]
+  SETTABLEKS R17 R16 K56 ["DominantAxis"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K11 ["Separator"]
   GETUPVAL R15 6
   GETTABLEKS R14 R15 K3 ["createElement"]
   GETUPVAL R15 19
-  DUPTABLE R16 K58 [{"LayoutOrder"}]
+  DUPTABLE R16 K60 [{"LayoutOrder"}]
   NAMECALL R17 R1 K15 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K4 ["LayoutOrder"]

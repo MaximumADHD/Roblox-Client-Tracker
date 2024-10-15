@@ -69,7 +69,7 @@ PROTO_4:
   CALL R5 2 0
   GETUPVAL R6 5
   GETTABLEKS R5 R6 K10 ["provide"]
-  NEWTABLE R6 0 5
+  NEWTABLE R6 0 6
   GETUPVAL R8 6
   GETTABLEKS R7 R8 K11 ["new"]
   MOVE R8 R1
@@ -85,19 +85,23 @@ PROTO_4:
   GETUPVAL R12 10
   GETTABLEKS R11 R12 K11 ["new"]
   MOVE R12 R4
-  CALL R11 1 -1
+  CALL R11 1 1
+  GETUPVAL R13 11
+  GETTABLEKS R12 R13 K11 ["new"]
+  MOVE R13 R4
+  CALL R12 1 -1
   SETLIST R6 R7 -1 [1]
   DUPTABLE R7 K14 [{"AnnotationManager", "StyleLink"}]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K15 ["createElement"]
-  GETUPVAL R9 11
+  GETUPVAL R9 12
   CALL R8 1 1
   SETTABLEKS R8 R7 K12 ["AnnotationManager"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K15 ["createElement"]
   LOADK R9 K13 ["StyleLink"]
   DUPTABLE R10 K17 [{"StyleSheet"}]
-  GETUPVAL R11 12
+  GETUPVAL R11 13
   MOVE R12 R1
   CALL R11 1 1
   SETTABLEKS R11 R10 K16 ["StyleSheet"]
@@ -147,42 +151,48 @@ MAIN:
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R16 R0 K9 ["Src"]
-  GETTABLEKS R15 R16 K25 ["CoreGuiComponents"]
-  GETTABLEKS R14 R15 K26 ["AnnotationPlacementManager"]
+  GETTABLEKS R15 R16 K23 ["Contexts"]
+  GETTABLEKS R14 R15 K25 ["InputListenerContext"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K9 ["Src"]
-  GETTABLEKS R16 R17 K10 ["Util"]
-  GETTABLEKS R15 R16 K27 ["AnnotationEditingMode"]
+  GETTABLEKS R16 R17 K26 ["CoreGuiComponents"]
+  GETTABLEKS R15 R16 K27 ["AnnotationPlacementManager"]
   CALL R14 1 1
-  GETIMPORT R15 K29 [game]
-  LOADK R17 K30 ["AnnotationsService"]
-  NAMECALL R15 R15 K31 ["GetService"]
-  CALL R15 2 1
-  GETIMPORT R16 K29 [game]
-  LOADK R18 K32 ["UserInputService"]
-  NAMECALL R16 R16 K31 ["GetService"]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K9 ["Src"]
+  GETTABLEKS R17 R18 K10 ["Util"]
+  GETTABLEKS R16 R17 K28 ["AnnotationEditingMode"]
+  CALL R15 1 1
+  GETIMPORT R16 K30 [game]
+  LOADK R18 K31 ["AnnotationsService"]
+  NAMECALL R16 R16 K32 ["GetService"]
   CALL R16 2 1
-  GETTABLEKS R18 R6 K20 ["Localization"]
-  GETTABLEKS R17 R18 K33 ["new"]
-  DUPTABLE R18 K37 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  SETTABLEKS R10 R18 K34 ["stringResourceTable"]
-  SETTABLEKS R11 R18 K35 ["translationResourceTable"]
-  LOADK R19 K2 ["PlaceAnnotations"]
-  SETTABLEKS R19 R18 K36 ["pluginName"]
-  CALL R17 1 1
-  DUPCLOSURE R18 K38 [PROTO_4]
+  GETIMPORT R17 K30 [game]
+  LOADK R19 K33 ["UserInputService"]
+  NAMECALL R17 R17 K32 ["GetService"]
+  CALL R17 2 1
+  GETTABLEKS R19 R6 K20 ["Localization"]
+  GETTABLEKS R18 R19 K34 ["new"]
+  DUPTABLE R19 K38 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R10 R19 K35 ["stringResourceTable"]
+  SETTABLEKS R11 R19 K36 ["translationResourceTable"]
+  LOADK R20 K2 ["PlaceAnnotations"]
+  SETTABLEKS R20 R19 K37 ["pluginName"]
+  CALL R18 1 1
+  DUPCLOSURE R19 K39 [PROTO_4]
   CAPTURE VAL R1
   CAPTURE VAL R5
+  CAPTURE VAL R17
   CAPTURE VAL R16
   CAPTURE VAL R15
-  CAPTURE VAL R14
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R8
-  CAPTURE VAL R17
+  CAPTURE VAL R18
   CAPTURE VAL R12
-  CAPTURE VAL R9
   CAPTURE VAL R13
+  CAPTURE VAL R9
+  CAPTURE VAL R14
   CAPTURE VAL R4
-  RETURN R18 1
+  RETURN R19 1

@@ -137,7 +137,7 @@ PROTO_6:
   SETTABLEKS R5 R6 K5 ["setScaleToAvatarRequirements"]
   SETTABLEKS R2 R6 K6 ["originalScale"]
   JUMPIFNOT R2 [+4]
-  GETTABLEKS R8 R0 K9 ["LatestScale"]
+  GETTABLEKS R8 R0 K9 ["WorldModelScale"]
   DIV R7 R8 R2
   JUMP [+1]
   LOADNIL R7

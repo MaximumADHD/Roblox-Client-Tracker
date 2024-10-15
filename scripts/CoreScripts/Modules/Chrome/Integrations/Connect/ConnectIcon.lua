@@ -2,6 +2,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local CorePackages = game:GetService("CorePackages")
 
 local Cryo = require(CorePackages.Packages.Cryo)
+local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
@@ -10,6 +11,7 @@ local ChromeConstants = require(Chrome.Unibar.Constants)
 local ChromeUtils = require(Chrome.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 local useStyle = UIBlox.Core.Style.useStyle
+local useTokens = Foundation.Hooks.useTokens
 
 local SubMenuContext = require(Chrome.Unibar.SubMenuContext)
 local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
@@ -21,6 +23,7 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
 local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
 	require(Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
+local GetFFlagAppChatInExpConnectIconRedesign = require(Chrome.Flags.GetFFlagAppChatInExpConnectIconRedesign)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
 local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
@@ -42,7 +45,7 @@ local defaultProps = {
 	shouldShowCustomBadge = true,
 }
 
-local function ConnectIcon(_props: Props)
+local function ConnectIcon(_props: Props): React.ReactElement
 	local props = Cryo.Dictionary.union(defaultProps, _props)
 	local style = useStyle()
 
@@ -77,10 +80,19 @@ local function ConnectIcon(_props: Props)
 			end
 		end, { setCurrentSquadId })
 
-		if currentSquadId ~= "" then
-			badgeColor = style.Theme.OnlineStatus.Color
-		elseif unreadMessageCount > 0 then
-			badgeColor = style.Theme.IconEmphasis.Color
+		if GetFFlagAppChatInExpConnectIconRedesign() then
+			local tokens = useTokens()
+			if currentSquadId ~= "" then
+				badgeColor = tokens.Color.System.Success
+			elseif unreadMessageCount > 0 then
+				badgeColor = tokens.Color.System.Contrast
+			end
+		else
+			if currentSquadId ~= "" then
+				badgeColor = style.Theme.OnlineStatus.Color
+			elseif unreadMessageCount > 0 then
+				badgeColor = style.Theme.IconEmphasis.Color
+			end
 		end
 	end
 
@@ -107,47 +119,88 @@ local function ConnectIcon(_props: Props)
 		})
 		else nil
 
-	-- to fix UI jank when dismissing
-	local submenuTransition = React.useContext(SubMenuContext)
-	local function getTransparencyFix(): any
-		return if GetFFlagAnimateSubMenu() and submenuTransition
-			then submenuTransition:map(function(v)
-				return style.Theme.IconEmphasis.Transparency + (1 - style.Theme.IconEmphasis.Transparency) * (1 - v)
-			end)
-			else style.Theme.IconEmphasis.Transparency
-	end
+	if GetFFlagAppChatInExpConnectIconRedesign() then
+		local tokens = useTokens()
 
-	return React.createElement("Frame", {
-		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-		BorderSizePixel = 0,
-		BackgroundTransparency = 1,
-	}, {
-		UICorner = React.createElement("UICorner", {
-			CornerRadius = UDim.new(1, 0),
-		}) :: any,
-		Icon = icon,
-		Tooltip = tooltip,
-		Badge = if shouldShowBadge
-			then React.createElement("Frame", {
-				BackgroundColor3 = if GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
-					then badgeColor
-					else style.Theme.IconEmphasis.Color,
-				Position = UDim2.new(1, -BADGE_OFFSET, 0, BADGE_OFFSET),
-				AnchorPoint = Vector2.new(1, 0),
-				Size = BADGE_SIZE,
-				Transparency = getTransparencyFix(),
-			}, {
-				UICorner = React.createElement("UICorner", {
-					CornerRadius = UDim.new(1, 0),
-				}) :: any,
-				UIStroke = React.createElement("UIStroke", {
-					Color = style.Tokens.Semantic.Color.Common.BadgeContent.Color3,
+		local submenuTransition = React.useContext(SubMenuContext)
+		local function getTransparency(transparency: number): any
+			return if GetFFlagAnimateSubMenu() and submenuTransition
+				then submenuTransition:map(function(v)
+					return transparency + (1 - transparency) * (1 - v)
+				end)
+				else transparency
+		end
+
+		return React.createElement(Foundation.View, {
+			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+		}, {
+			Icon = icon,
+			Tooltip = tooltip,
+			Badge = if shouldShowBadge
+				then React.createElement(Foundation.View, {
+					Position = UDim2.new(1, -tokens.Stroke.Thicker, 0, tokens.Stroke.Thicker),
+					backgroundStyle = if GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
+						then {
+							Color3 = badgeColor.Color3,
+							Transparency = getTransparency(badgeColor.Transparency),
+						}
+						else {
+							Color3 = tokens.Color.System.Contrast.Color3,
+							Transparency = getTransparency(tokens.Color.System.Contrast.Transparency),
+						},
+					stroke = {
+						Color = tokens.Color.Surface.Surface_0.Color3,
+						Transparency = getTransparency(tokens.Color.Surface.Surface_0.Transparency),
+						Thickness = tokens.Stroke.Thicker,
+					},
+					tag = "anchor-top-right radius-circle size-200 stroke-thicker",
+					ZIndex = 2,
+				})
+				else nil,
+		})
+	else
+		-- to fix UI jank when dismissing
+		local submenuTransition = React.useContext(SubMenuContext)
+		local function getTransparencyFix(): any
+			return if GetFFlagAnimateSubMenu() and submenuTransition
+				then submenuTransition:map(function(v)
+					return style.Theme.IconEmphasis.Transparency + (1 - style.Theme.IconEmphasis.Transparency) * (1 - v)
+				end)
+				else style.Theme.IconEmphasis.Transparency
+		end
+
+		return React.createElement("Frame", {
+			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+		}, {
+			UICorner = React.createElement("UICorner", {
+				CornerRadius = UDim.new(1, 0),
+			}) :: any,
+			Icon = icon,
+			Tooltip = tooltip,
+			Badge = if shouldShowBadge
+				then React.createElement("Frame", {
+					BackgroundColor3 = if GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
+						then badgeColor
+						else style.Theme.IconEmphasis.Color,
+					Position = UDim2.new(1, -BADGE_OFFSET, 0, BADGE_OFFSET),
+					AnchorPoint = Vector2.new(1, 0),
+					Size = BADGE_SIZE,
 					Transparency = getTransparencyFix(),
-					Thickness = BADGE_STROKE_WIDTH,
-				}) :: any,
-			})
-			else nil,
-	})
+				}, {
+					UICorner = React.createElement("UICorner", {
+						CornerRadius = UDim.new(1, 0),
+					}) :: any,
+					UIStroke = React.createElement("UIStroke", {
+						Color = style.Tokens.Semantic.Color.Common.BadgeContent.Color3,
+						Transparency = getTransparencyFix(),
+						Thickness = BADGE_STROKE_WIDTH,
+					}) :: any,
+				})
+				else nil,
+		})
+	end
 end
 
 return ConnectIcon

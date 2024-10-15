@@ -39,11 +39,11 @@ local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
 local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagSelfieViewEnabled = require(CoreGui.RobloxGui.Modules.SelfieView.Flags.GetFFlagSelfieViewEnabled)
-local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAnalyticsForCameraDevicePermissions = require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
-local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
-local GetFFlagRawMicrophonePermissions = require(RobloxGui.Modules.Flags.GetFFlagGetRawMicrophonePermissions)
+local GetFFlagJoinWithoutMicPermissions = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
+local GetFFlagRawMicrophonePermissions = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGetRawMicrophonePermissions
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local FFlagCheckCameraAvailabilityBeforePermissions = game:DefineFastFlag("CheckCameraAvailabilityBeforePermissions", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)

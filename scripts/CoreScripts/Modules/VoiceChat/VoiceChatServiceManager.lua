@@ -18,31 +18,31 @@ local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).Core
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
 
+local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
+
 local GetFFlagEnableCoreVoiceManagerMuteAll = require(script.Parent.Flags.GetFFlagEnableCoreVoiceManagerMuteAll)
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
-local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local GetFFlagVoiceChatServiceManagerUseAvatarChat =
-	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
+	require(VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
-local GetFFlagUseLuaSignalrConsumer = require(RobloxGui.Modules.Flags.GetFFlagUseLuaSignalrConsumer)
+local GetFFlagUseLuaSignalrConsumer = require(VoiceChatCore.Flags.GetFFlagUseLuaSignalrConsumer)
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 local GetFFlagSeamlessVoiceFTUX = require(RobloxGui.Modules.Flags.GetFFlagSeamlessVoiceFTUX)
-local GetFFlagEnableNudgeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableNudgeAnalytics)
-local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlagVoiceUseAudioRoutingAPI)
+local GetFFlagEnableNudgeAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableNudgeAnalytics)
+local GetFFlagVoiceUseAudioRoutingAPI = require(VoiceChatCore.Flags.GetFFlagVoiceUseAudioRoutingAPI)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
-local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
+local GetFFlagJoinWithoutMicPermissions = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
 local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 local GetFFlagEnableSeamlessVoiceConnectDisconnectButton = require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceConnectDisconnectButton)
 local GetFIntVoiceReverseNudgeUXDisplayTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceReverseNudgeUXDisplayTimeSeconds)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagUseMicPermForEnrollment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
-
-local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
 
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
@@ -63,7 +63,7 @@ local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagE
 local GetFFlagEnableInExpVoiceConsentAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceConsentAnalytics)
 local GetFFlagEnableInExpMicPermissionsAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpMicPermissionsAnalytics)
-local GetFIntThrottleParticipantsUpdateMs = require(RobloxGui.Modules.Flags.GetFIntThrottleParticipantsUpdateMs)
+local GetFIntThrottleParticipantsUpdateMs = require(VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableConnectDisconnectAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectAnalytics)
@@ -75,7 +75,7 @@ local FStringThrottleParticipantsUpdateIXPLayerValue =
 	game:DefineFastString("ThrottleParticipantsUpdateIXPLayerValue", "ThrottleParticipantsUpdate")
 local FIntSeamlessVoiceSTUXDisplayCount =
 	game:DefineFastInt("SeamlessVoiceSTUXDisplayCount", 3)
-local GetFFlagShowLikelySpeakingBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowLikelySpeakingBubbles)
+local GetFFlagShowLikelySpeakingBubbles = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local GetFFlagShowDevicePermissionsModal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowDevicePermissionsModal
 local FFlagEnableRetryForLinkingProtocolFetch = game:DefineFastFlag("EnableRetryForLinkingProtocolFetch", false)

@@ -1,0 +1,82 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["plotToAbsolutePosition"]
+  GETTABLEKS R2 R0 K1 ["Position"]
+  GETTABLEKS R3 R0 K2 ["PlotRect"]
+  GETTABLEKS R4 R0 K3 ["PlotAbsoluteSize"]
+  CALL R1 3 1
+  GETTABLEKS R3 R0 K5 ["OffsetDirection"]
+  MULK R2 R3 K4 [5]
+  ADD R1 R1 R2
+  GETIMPORT R2 K8 [UDim2.fromOffset]
+  GETTABLEKS R3 R1 K9 ["X"]
+  GETTABLEKS R4 R1 K10 ["Y"]
+  CALL R2 2 1
+  GETIMPORT R3 K14 [Enum.TextXAlignment.Center]
+  GETTABLEKS R5 R0 K5 ["OffsetDirection"]
+  GETTABLEKS R4 R5 K9 ["X"]
+  LOADK R5 K15 [-0.1]
+  JUMPIFNOTLT R4 R5 [+4]
+  GETIMPORT R3 K17 [Enum.TextXAlignment.Right]
+  JUMP [+9]
+  GETTABLEKS R5 R0 K5 ["OffsetDirection"]
+  GETTABLEKS R4 R5 K9 ["X"]
+  LOADK R5 K18 [0.1]
+  JUMPIFNOTLT R5 R4 [+3]
+  GETIMPORT R3 K20 [Enum.TextXAlignment.Left]
+  GETIMPORT R4 K22 [Enum.TextYAlignment.Center]
+  GETTABLEKS R6 R0 K5 ["OffsetDirection"]
+  GETTABLEKS R5 R6 K10 ["Y"]
+  LOADK R6 K15 [-0.1]
+  JUMPIFNOTLT R5 R6 [+4]
+  GETIMPORT R4 K24 [Enum.TextYAlignment.Bottom]
+  JUMP [+9]
+  GETTABLEKS R6 R0 K5 ["OffsetDirection"]
+  GETTABLEKS R5 R6 K10 ["Y"]
+  LOADK R6 K18 [0.1]
+  JUMPIFNOTLT R6 R5 [+3]
+  GETIMPORT R4 K26 [Enum.TextYAlignment.Top]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K27 ["createElement"]
+  LOADK R6 K28 ["TextLabel"]
+  NEWTABLE R7 8 0
+  SETTABLEKS R2 R7 K1 ["Position"]
+  GETIMPORT R8 K8 [UDim2.fromOffset]
+  LOADN R9 0
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K29 ["Size"]
+  GETIMPORT R8 K32 [string.format]
+  GETTABLEKS R9 R0 K33 ["FormatString"]
+  GETTABLEKS R10 R0 K34 ["Value"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K35 ["Text"]
+  SETTABLEKS R3 R7 K12 ["TextXAlignment"]
+  SETTABLEKS R4 R7 K21 ["TextYAlignment"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K36 ["Tag"]
+  LOADK R9 K37 ["GridLabel"]
+  SETTABLE R9 R7 R8
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K3 ["DirectionalCurveEditor"]
+  NAMECALL R1 R1 K4 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R4 R1 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["useMemo"]
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R0 K10 ["PlotRectUtil"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  RETURN R5 1

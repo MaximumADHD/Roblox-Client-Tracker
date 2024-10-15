@@ -42,8 +42,10 @@ MAIN:
   CALL R8 2 1
   MOVE R9 R2
   LOADK R10 K24 ["> #Stick.Active"]
-  DUPTABLE R11 K21 [{"BackgroundTransparency"}]
-  LOADK R12 K19 [0.5]
+  DUPTABLE R11 K25 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R12 K26 ["$ControlActiveColor"]
+  SETTABLEKS R12 R11 K11 ["BackgroundColor3"]
+  LOADK R12 K27 [0.2]
   SETTABLEKS R12 R11 K13 ["BackgroundTransparency"]
   CALL R9 2 -1
   SETLIST R6 R7 -1 [1]

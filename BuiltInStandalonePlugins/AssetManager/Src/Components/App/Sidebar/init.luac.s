@@ -68,7 +68,7 @@ PROTO_0:
   SETTABLEKS R11 R10 K4 ["LayoutOrder"]
   GETUPVAL R12 6
   GETTABLEKS R11 R12 K11 ["Tag"]
-  LOADK R12 K12 ["Contrast X-Border X-Top X-Column"]
+  LOADK R12 K12 ["Main X-Top X-Column"]
   SETTABLE R12 R10 R11
   MOVE R11 R7
   CALL R8 3 -1

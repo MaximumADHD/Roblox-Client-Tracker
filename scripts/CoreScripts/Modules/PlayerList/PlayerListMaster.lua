@@ -44,6 +44,7 @@ local SetSettings = require(PlayerList.Actions.SetSettings)
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
 local FFlagPlayerListChangesForInspector = game:DefineFastFlag("PlayerListChangesForInspector", false)
 local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTest)
+local FFlagXboxRemoveLatentVoiceChatPrivilegeCheck = game:DefineFastFlag("XboxRemoveLatentVoiceChatPrivilegeCheck", false)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -120,17 +121,20 @@ function PlayerListMaster.new()
 	end)()
 
 	self.store:dispatch(SetTenFootInterface(TenFootInterface:IsEnabled()))
-	if TenFootInterface:IsEnabled() then
-		coroutine.wrap(function()
-			pcall(function()
-				--This is pcalled because platformService won't exist in Roblox studio when emulating xbox.
-				local platformService = game:GetService("PlatformService")
-				if platformService:BeginCheckXboxPrivilege(
-					XPRIVILEGE_COMMUNICATION_VOICE_INGAME).PrivilegeCheckResult == "NoIssue" then
-					self.store:dispatch(SetHasPermissionToVoiceChat(true))
-				end
-			end)
-		end)()
+
+	if not FFlagXboxRemoveLatentVoiceChatPrivilegeCheck then
+		if TenFootInterface:IsEnabled() then
+			coroutine.wrap(function()
+				pcall(function()
+					--This is pcalled because platformService won't exist in Roblox studio when emulating xbox.
+					local platformService = game:GetService("PlatformService")
+					if platformService:BeginCheckXboxPrivilege(
+						XPRIVILEGE_COMMUNICATION_VOICE_INGAME).PrivilegeCheckResult == "NoIssue" then
+						self.store:dispatch(SetHasPermissionToVoiceChat(true))
+					end
+				end)
+			end)()
+		end
 	end
 
 	coroutine.wrap(function()

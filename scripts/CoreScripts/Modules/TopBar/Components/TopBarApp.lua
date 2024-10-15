@@ -23,6 +23,7 @@ local GetFFlagChromePeekArchitecture = require(RobloxGui.Modules.Flags.GetFFlagC
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
 local ChatIcon = require(Presentation.ChatIcon)
+local ConnectIcon = require(Presentation.ConnectIcon)
 local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
@@ -44,6 +45,7 @@ local UnibarConstants = require(Chrome.Unibar.Constants)
 local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
+local GetFFlagPeekUseUpdatedDesign = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekUseUpdatedDesign
 
 local Unibar
 local Peek
@@ -72,6 +74,7 @@ local GetFFlagFixDupeBetaBadge = require(TopBar.Flags.GetFFlagFixDupeBetaBadge)
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
+local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -83,9 +86,9 @@ local FFlagControlBetaBadgeWithGuac = game:DefineFastFlag("ControlBetaBadgeWithG
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
-local GetFFlagUnibarContextStack = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUnibarContextStack
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
 local GetFFlagEnablePartyIconInChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInChrome
+local GetFFlagEnablePartyIconInNonChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInNonChrome
 local GetFFlagEnablePartyMicIconInChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
 local GetFFlagPeekUseFixedHeight = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekUseFixedHeight
 
@@ -116,6 +119,7 @@ TopBarApp.validateProps = t.strictInterface({
 
 	setScreenSize = t.callback,
 	setKeepOutArea = t.callback,
+	removeKeepOutArea = t.callback,
 	showBadgeOver12 = t.optional(t.boolean),
 })
 
@@ -349,7 +353,7 @@ function TopBarApp:renderWithStyle(style)
 		PeekFrame = ChromeEnabled() and GetFFlagChromePeekArchitecture() and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, if GetFFlagPeekUseFixedHeight() then PeekConstants.PEEK_CONTAINER_HEIGHT else topBarFrameHeight),
-			Position = if GetFFlagPeekUseFixedHeight() then PeekConstants.PEEK_CONTAINER_POSITION else topBarFramePosition,
+			Position = if GetFFlagPeekUseFixedHeight() then PeekConstants.getPeekContainerPosition(style) else topBarFramePosition,
 		}, {
 			Peek = Roact.createElement(Peek)
 		}),
@@ -385,30 +389,13 @@ function TopBarApp:renderWithStyle(style)
 						PaddingLeft = UDim.new(0, screenSideOffset + Constants.Padding + Constants.TopBarHeight + 2),
 					}),
 
-					Unibar = if GetFFlagUnibarContextStack()
-						then Roact.createElement(Unibar, {
-							layoutOrder = 1,
-							onAreaChanged = self.props.setKeepOutArea,
-							onMinWidthChanged = function(width: number)
-								self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
-							end,
-						})
-						else nil,
-
-					VoiceStateContext = if GetFFlagUnibarContextStack()
-						then nil
-						else Roact.createElement(VoiceStateContext.Provider, {}, {
-							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-								Unibar = Roact.createElement(Unibar, {
-									layoutOrder = 1,
-									onAreaChanged = self.props.setKeepOutArea,
-									onMinWidthChanged = function(width: number)
-										self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
-									end,
-								}),
-							}),
-						}),
-
+					Unibar =  Roact.createElement(Unibar, {
+						layoutOrder = 1,
+						onAreaChanged = self.props.setKeepOutArea,
+						onMinWidthChanged = function(width: number)
+							self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+						end,
+					}),
 
 					HealthBar = if UseUpdatedHealthBar then Roact.createElement(HealthBar, {}) else nil,
 
@@ -503,23 +490,11 @@ function TopBarApp:renderWithStyle(style)
 						layoutOrder = 1,
 					}),
 
-					Unibar = if GetFFlagUnibarContextStack()
-						then Roact.createElement(Unibar, {
-							onAreaChanged = self.props.setKeepOutArea,
-							layoutOrder = 2,
-						})
-						else nil,
+					Unibar =  Roact.createElement(Unibar, {
+						onAreaChanged = self.props.setKeepOutArea,
+						layoutOrder = 2,
+					}),
 
-					VoiceStateContext = if GetFFlagUnibarContextStack()
-						then nil
-						else Roact.createElement(VoiceStateContext.Provider, {}, {
-							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-								Unibar = Roact.createElement(Unibar, {
-									onAreaChanged = self.props.setKeepOutArea,
-									layoutOrder = 2,
-								}),
-							}),
-						}),
 				})
 			or nil,
 
@@ -559,6 +534,12 @@ function TopBarApp:renderWithStyle(style)
 					layoutOrder = 1,
 					showBadgeOver12 = self.props.showBadgeOver12,
 				}),
+
+				ConnectIcon = not chromeEnabled and GetFFlagEnablePartyIconInNonChrome() and Roact.createElement(ConnectIcon, {
+					setKeepOutArea = self.props.setKeepOutArea,
+					removeKeepOutArea = self.props.removeKeepOutArea,
+					layoutOrder = 2,
+				}) or nil,
 
 				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,
@@ -632,6 +613,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		setKeepOutArea = function(id, position, size)
 			return dispatch(SetKeepOutArea(id, position, size))
+		end,
+		removeKeepOutArea = function(id)
+			return dispatch(RemoveKeepOutArea(id))
 		end,
 	}
 end

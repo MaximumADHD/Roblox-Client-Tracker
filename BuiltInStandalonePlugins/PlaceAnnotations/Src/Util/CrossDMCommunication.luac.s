@@ -13,14 +13,20 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  LOADK R5 K0 ["SubmitReply"]
-  MOVE R6 R1
-  MOVE R7 R2
-  NAMECALL R3 R0 K1 ["Invoke"]
-  CALL R3 4 0
+  LOADK R4 K0 ["ZoomTo"]
+  GETTABLEKS R5 R1 K1 ["Name"]
+  NAMECALL R2 R0 K2 ["Invoke"]
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_3:
+  LOADK R4 K0 ["DeleteAnnotation"]
+  GETTABLEKS R5 R1 K1 ["Name"]
+  NAMECALL R2 R0 K2 ["Invoke"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_4:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["join"]
   DUPTABLE R4 K2 [{"UniqueId"}]
@@ -33,25 +39,6 @@ PROTO_3:
   MOVE R7 R3
   NAMECALL R4 R0 K5 ["Invoke"]
   CALL R4 3 0
-  RETURN R0 0
-
-PROTO_4:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["syncStandaloneAnnotation"]
-  GETUPVAL R1 1
-  GETUPVAL R2 2
-  DUPTABLE R3 K2 [{"HeaderInfo"}]
-  DUPTABLE R4 K5 [{"HeaderText", "AdorneeClass"}]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K6 ["Adornee"]
-  GETTABLEKS R5 R6 K7 ["Name"]
-  SETTABLEKS R5 R4 K3 ["HeaderText"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K6 ["Adornee"]
-  GETTABLEKS R5 R6 K8 ["ClassName"]
-  SETTABLEKS R5 R4 K4 ["AdorneeClass"]
-  SETTABLEKS R4 R3 K1 ["HeaderInfo"]
-  CALL R0 3 0
   RETURN R0 0
 
 PROTO_5:
@@ -74,6 +61,25 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["syncStandaloneAnnotation"]
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  DUPTABLE R3 K2 [{"HeaderInfo"}]
+  DUPTABLE R4 K5 [{"HeaderText", "AdorneeClass"}]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K6 ["Adornee"]
+  GETTABLEKS R5 R6 K7 ["Name"]
+  SETTABLEKS R5 R4 K3 ["HeaderText"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K6 ["Adornee"]
+  GETTABLEKS R5 R6 K8 ["ClassName"]
+  SETTABLEKS R5 R4 K4 ["AdorneeClass"]
+  SETTABLEKS R4 R3 K1 ["HeaderInfo"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_7:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["Disconnect"]
   CALL R0 1 0
@@ -110,7 +116,7 @@ PROTO_6:
   SETUPVAL R0 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R0 0
   LOADK R2 K0 ["AnnotationDeleted"]
   GETUPVAL R3 1
@@ -120,7 +126,7 @@ PROTO_7:
   CALL R0 -1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETTABLEKS R3 R1 K0 ["Parent"]
   FASTCALL2K ASSERT R3 K1 [+4]
   LOADK R4 K1 ["Workplace annotations must be the children of another annotation or an instance."]
@@ -140,6 +146,8 @@ PROTO_8:
   SETTABLEKS R3 R2 K8 ["Contents"]
   GETTABLEKS R3 R1 K9 ["Resolved"]
   SETTABLEKS R3 R2 K9 ["Resolved"]
+  GETTABLEKS R4 R1 K0 ["Parent"]
+  JUMPIFNOT R4 [+13]
   GETTABLEKS R4 R1 K0 ["Parent"]
   LOADK R6 K15 ["Annotation"]
   NAMECALL R4 R4 K16 ["IsA"]
@@ -200,7 +208,7 @@ PROTO_8:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   LOADK R4 K0 ["SelectionChanged"]
   JUMPIFNOT R1 [+4]
   NAMECALL R5 R1 K1 ["GetStringUniqueId"]
@@ -209,6 +217,31 @@ PROTO_9:
   LOADNIL R5
   NAMECALL R2 R0 K2 ["Invoke"]
   CALL R2 3 0
+  RETURN R0 0
+
+PROTO_11:
+  LOADK R5 K0 ["ResolveAnnotation"]
+  NAMECALL R6 R1 K1 ["GetStringUniqueId"]
+  CALL R6 1 1
+  MOVE R7 R2
+  NAMECALL R3 R0 K2 ["Invoke"]
+  CALL R3 4 0
+  RETURN R0 0
+
+PROTO_12:
+  LOADK R4 K0 ["DeleteAnnotation"]
+  NAMECALL R5 R1 K1 ["GetStringUniqueId"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K2 ["Invoke"]
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  LOADK R4 K0 ["ZoomTo"]
+  NAMECALL R5 R1 K1 ["GetStringUniqueId"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K2 ["Invoke"]
+  CALL R2 -1 0
   RETURN R0 0
 
 MAIN:
@@ -231,17 +264,25 @@ MAIN:
   DUPCLOSURE R4 K12 [PROTO_1]
   SETTABLEKS R4 R3 K13 ["beginAddAnnotation"]
   DUPCLOSURE R4 K14 [PROTO_2]
-  SETTABLEKS R4 R3 K15 ["submitReply"]
-  NEWTABLE R4 4 0
-  DUPCLOSURE R5 K16 [PROTO_3]
+  SETTABLEKS R4 R3 K15 ["zoomTo"]
+  DUPCLOSURE R4 K16 [PROTO_3]
+  SETTABLEKS R4 R3 K17 ["deleteAnnotation"]
+  NEWTABLE R4 8 0
+  DUPCLOSURE R5 K18 [PROTO_4]
   CAPTURE VAL R1
-  SETTABLEKS R5 R4 K17 ["syncStandaloneAnnotation"]
-  DUPCLOSURE R5 K18 [PROTO_8]
-  CAPTURE VAL R4
-  SETTABLEKS R5 R4 K19 ["createAnnotation"]
+  SETTABLEKS R5 R4 K19 ["syncStandaloneAnnotation"]
   DUPCLOSURE R5 K20 [PROTO_9]
-  SETTABLEKS R5 R4 K21 ["selectionChanged"]
-  DUPTABLE R5 K24 [{"Standalone", "Edit"}]
-  SETTABLEKS R3 R5 K22 ["Standalone"]
-  SETTABLEKS R4 R5 K23 ["Edit"]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K21 ["createAnnotation"]
+  DUPCLOSURE R5 K22 [PROTO_10]
+  SETTABLEKS R5 R4 K23 ["selectionChanged"]
+  DUPCLOSURE R5 K24 [PROTO_11]
+  SETTABLEKS R5 R4 K11 ["setAnnotationResolved"]
+  DUPCLOSURE R5 K25 [PROTO_12]
+  SETTABLEKS R5 R4 K17 ["deleteAnnotation"]
+  DUPCLOSURE R5 K26 [PROTO_13]
+  SETTABLEKS R5 R4 K15 ["zoomTo"]
+  DUPTABLE R5 K29 [{"Standalone", "Edit"}]
+  SETTABLEKS R3 R5 K27 ["Standalone"]
+  SETTABLEKS R4 R5 K28 ["Edit"]
   RETURN R5 1

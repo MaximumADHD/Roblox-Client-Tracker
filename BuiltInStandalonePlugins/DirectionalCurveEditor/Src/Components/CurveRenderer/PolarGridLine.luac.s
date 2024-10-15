@@ -1,0 +1,106 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  GETTABLEKS R2 R0 K0 ["Orientation"]
+  JUMPIFNOTEQKS R2 K1 ["Horizontal"] [+45]
+  NEWTABLE R2 0 5
+  GETIMPORT R3 K4 [Vector2.new]
+  LOADN R4 0
+  GETTABLEKS R5 R0 K5 ["Position"]
+  CALL R3 2 1
+  GETIMPORT R4 K4 [Vector2.new]
+  LOADN R5 90
+  GETTABLEKS R6 R0 K5 ["Position"]
+  CALL R4 2 1
+  GETIMPORT R5 K4 [Vector2.new]
+  LOADN R6 180
+  GETTABLEKS R7 R0 K5 ["Position"]
+  CALL R5 2 1
+  GETIMPORT R6 K4 [Vector2.new]
+  LOADN R7 14
+  GETTABLEKS R8 R0 K5 ["Position"]
+  CALL R6 2 1
+  GETIMPORT R7 K4 [Vector2.new]
+  LOADN R8 104
+  GETTABLEKS R9 R0 K5 ["Position"]
+  CALL R7 2 -1
+  SETLIST R2 R3 -1 [1]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["makePolarCurve"]
+  MOVE R4 R2
+  LOADB R5 1
+  GETTABLEKS R6 R0 K7 ["PlotAbsoluteSize"]
+  CALL R3 3 1
+  MOVE R1 R3
+  JUMP [+29]
+  GETTABLEKS R2 R0 K0 ["Orientation"]
+  JUMPIFNOTEQKS R2 K8 ["Vertical"] [+26]
+  NEWTABLE R2 0 2
+  GETIMPORT R3 K4 [Vector2.new]
+  GETTABLEKS R4 R0 K5 ["Position"]
+  LOADN R5 0
+  CALL R3 2 1
+  GETIMPORT R4 K4 [Vector2.new]
+  GETTABLEKS R5 R0 K5 ["Position"]
+  LOADN R6 1
+  CALL R4 2 -1
+  SETLIST R2 R3 -1 [1]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["makePolarCurve"]
+  MOVE R4 R2
+  LOADB R5 1
+  GETTABLEKS R6 R0 K7 ["PlotAbsoluteSize"]
+  CALL R3 3 1
+  MOVE R1 R3
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K9 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K11 [{"Size"}]
+  GETIMPORT R5 K14 [UDim2.fromScale]
+  LOADN R6 1
+  LOADN R7 1
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["Size"]
+  DUPTABLE R5 K16 [{"Path"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K19 [{"ControlPoints", "Tag"}]
+  SETTABLEKS R1 R8 K17 ["ControlPoints"]
+  LOADK R9 K20 ["GridLinePath2D"]
+  SETTABLEKS R9 R8 K18 ["Tag"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K15 ["Path"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K3 ["DirectionalCurveEditor"]
+  NAMECALL R1 R1 K4 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R4 R1 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["useMemo"]
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R1 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K11 ["UI"]
+  GETTABLEKS R5 R6 K12 ["Pane"]
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R0 K13 ["Path2DWrapper"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R8 R0 K14 ["PlotRectUtil"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K15 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  RETURN R8 1

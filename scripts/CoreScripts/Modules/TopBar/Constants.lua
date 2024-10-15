@@ -55,6 +55,7 @@ return {
 	HealthBarKeepOutAreaId = "health-bar",
 	MoreMenuKeepOutAreaId = "more-menu",
 	ChatIconKeepOutAreaId = "chat-icon",
+	ConnectIconKeepOutAreaId = "connect-icon",
 	BackIconKeepOutAreaId = "back-icon",
 	BadgeOver13KeepOutAreaId = "badge-13",
 	VoiceBetaBadgeKeepOutAreaId = "badge-voice-beta",

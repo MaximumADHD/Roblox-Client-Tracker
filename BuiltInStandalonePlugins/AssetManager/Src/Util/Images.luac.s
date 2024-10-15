@@ -29,7 +29,25 @@ PROTO_0:
   CALL R3 2 1
   MOVE R2 R3
   RETURN R2 1
-  LOADK R2 K8 [""]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K8 ["SidebarCollapseIcon"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K9 ["rbxasset://studio_svg_textures/Shared/Navigation/%*/Standard/Back.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["SidebarExpandIcon"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K11 ["rbxasset://studio_svg_textures/Shared/Navigation/%*/Standard/Fwd.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  LOADK R2 K12 [""]
   RETURN R2 1
 
 MAIN:
@@ -51,17 +69,21 @@ MAIN:
   NEWTABLE R4 2 0
   MOVE R5 R2
   LOADK R6 K11 ["AvailableImages"]
-  DUPTABLE R7 K15 [{"Checkmark", "Placeholder", "SortIcon"}]
+  DUPTABLE R7 K17 [{"Checkmark", "Placeholder", "SortIcon", "SidebarCollapseIcon", "SidebarExpandIcon"}]
   LOADN R8 1
   SETTABLEKS R8 R7 K12 ["Checkmark"]
   LOADN R8 2
   SETTABLEKS R8 R7 K13 ["Placeholder"]
   LOADN R8 3
   SETTABLEKS R8 R7 K14 ["SortIcon"]
+  LOADN R8 4
+  SETTABLEKS R8 R7 K15 ["SidebarCollapseIcon"]
+  LOADN R8 5
+  SETTABLEKS R8 R7 K16 ["SidebarExpandIcon"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K11 ["AvailableImages"]
-  DUPCLOSURE R6 K16 [PROTO_0]
+  DUPCLOSURE R6 K18 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R5
-  SETTABLEKS R6 R4 K17 ["getImageHelper"]
+  SETTABLEKS R6 R4 K19 ["getImageHelper"]
   RETURN R4 1

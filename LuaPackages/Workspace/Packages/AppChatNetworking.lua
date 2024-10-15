@@ -28,7 +28,6 @@ export type GetConversationsParticipantsMetadataResponse = Package.GetConversati
 export type GetMetadataResponse = Package.GetMetadataResponse
 export type GetUnfilteredThreadEligibilityResponse = Package.GetUnfilteredThreadEligibilityResponse
 export type GetConversationMetadata = Package.GetConversationMetadata
-export type GetAccountChatSettings = Package.GetAccountChatSettings
 
 
 return Package

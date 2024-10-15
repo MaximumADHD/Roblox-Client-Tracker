@@ -92,13 +92,13 @@ local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSi
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
-local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local GetFFlagIrisGyroEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisGyroEnabled
 local GetFFlagSelfViewPositionDragFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewPositionDragFixEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
-local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
+local GetFFlagJoinWithoutMicPermissions = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
 
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 local FFlagMockFTUXAlwaysAvailableCameraUser = game:DefineFastFlag("MockOpenSelfViewForCameraUser", false)

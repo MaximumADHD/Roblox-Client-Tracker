@@ -5,12 +5,14 @@ PROTO_0:
   JUMPIF R1 [+2]
   LOADNIL R1
   RETURN R1 1
-  DUPTABLE R1 K3 [{"WorldModel", "LatestScale", "LatestWorldModelHash"}]
+  DUPTABLE R1 K4 [{"WorldModel", "ProportionalScale", "WorldModelScale", "LatestWorldModelHash"}]
   SETTABLEKS R0 R1 K0 ["WorldModel"]
   LOADN R2 1
-  SETTABLEKS R2 R1 K1 ["LatestScale"]
-  LOADK R2 K4 [""]
-  SETTABLEKS R2 R1 K2 ["LatestWorldModelHash"]
+  SETTABLEKS R2 R1 K1 ["ProportionalScale"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K2 ["WorldModelScale"]
+  LOADK R2 K5 [""]
+  SETTABLEKS R2 R1 K3 ["LatestWorldModelHash"]
   RETURN R1 1
 
 PROTO_1:
@@ -89,13 +91,13 @@ PROTO_6:
   LOADB R4 1
   SETTABLEKS R4 R3 K2 ["ignoreAccessories"]
   CALL R1 2 1
-  DUPTABLE R2 K7 [{"originalDummy", "scale", "hash"}]
+  DUPTABLE R2 K7 [{"originalDummy", "relativeScale", "hash"}]
   GETUPVAL R3 0
   SETTABLEKS R3 R2 K4 ["originalDummy"]
-  GETTABLEKS R3 R1 K8 ["relativeScale"]
-  SETTABLEKS R3 R2 K5 ["scale"]
+  GETTABLEKS R3 R1 K5 ["relativeScale"]
+  SETTABLEKS R3 R2 K5 ["relativeScale"]
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K9 ["hashCharacter"]
+  GETTABLEKS R3 R4 K8 ["hashCharacter"]
   GETUPVAL R4 0
   MOVE R5 R1
   CALL R3 2 1
@@ -175,18 +177,21 @@ PROTO_12:
   JUMPIFNOTEQKNIL R0 [+3]
   LOADNIL R0
   RETURN R0 1
-  DUPTABLE R0 K4 [{"WorldModel", "LatestScale", "LatestWorldModelHash"}]
+  DUPTABLE R0 K5 [{"WorldModel", "ProportionalScale", "WorldModelScale", "LatestWorldModelHash"}]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["originalDummy"]
   SETTABLEKS R1 R0 K1 ["WorldModel"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["originalDummy"]
-  NAMECALL R1 R1 K5 ["GetScale"]
-  CALL R1 1 1
-  SETTABLEKS R1 R0 K2 ["LatestScale"]
+  GETTABLEKS R1 R2 K6 ["relativeScale"]
+  SETTABLEKS R1 R0 K2 ["ProportionalScale"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["hash"]
-  SETTABLEKS R1 R0 K3 ["LatestWorldModelHash"]
+  GETTABLEKS R1 R2 K0 ["originalDummy"]
+  NAMECALL R1 R1 K7 ["GetScale"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K3 ["WorldModelScale"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K8 ["hash"]
+  SETTABLEKS R1 R0 K4 ["LatestWorldModelHash"]
   RETURN R0 1
 
 PROTO_13:
@@ -294,7 +299,7 @@ PROTO_14:
   NEWTABLE R12 0 3
   GETTABLEKS R13 R8 K7 ["originalDummy"]
   GETTABLEKS R14 R8 K8 ["hash"]
-  GETTABLEKS R15 R8 K9 ["scale"]
+  GETTABLEKS R15 R8 K9 ["relativeScale"]
   SETLIST R12 R13 3 [1]
   CALL R10 2 1
   GETUPVAL R12 3

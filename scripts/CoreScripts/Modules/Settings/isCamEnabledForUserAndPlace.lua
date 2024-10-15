@@ -8,7 +8,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local IXPService = game:GetService("IXPService")
 local MemStorageService = game:GetService("MemStorageService")
 
-local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 local getFFlagUseCameraDevicesListener = require(RobloxGui.Modules.Flags.getFFlagUseCameraDevicesListener)
 local cameraDevicesHelper = require(RobloxGui.Modules.Settings.cameraDevicesHelper)

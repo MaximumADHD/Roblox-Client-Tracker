@@ -50,30 +50,20 @@ MAIN:
   CALL R10 2 1
   MOVE R11 R2
   LOADK R12 K44 ["> .HorizontalBar"]
-  DUPTABLE R13 K45 [{"BackgroundTransparency", "BorderSizePixel"}]
+  DUPTABLE R13 K46 [{"BackgroundTransparency", "BorderSizePixel", "BackgroundColor3"}]
   LOADN R14 0
   SETTABLEKS R14 R13 K18 ["BackgroundTransparency"]
   LOADN R14 0
   SETTABLEKS R14 R13 K19 ["BorderSizePixel"]
-  NEWTABLE R14 0 3
+  LOADK R14 K47 ["$ControlInactiveColor"]
+  SETTABLEKS R14 R13 K45 ["BackgroundColor3"]
+  NEWTABLE R14 0 1
   MOVE R15 R2
-  LOADK R16 K46 [".LightTheme"]
-  DUPTABLE R17 K48 [{"BackgroundColor3"}]
-  LOADK R18 K49 ["$Gray60"]
-  SETTABLEKS R18 R17 K47 ["BackgroundColor3"]
-  CALL R15 2 1
-  MOVE R16 R2
-  LOADK R17 K50 [".DarkTheme"]
-  DUPTABLE R18 K48 [{"BackgroundColor3"}]
-  LOADK R19 K51 ["$Gray40"]
-  SETTABLEKS R19 R18 K47 ["BackgroundColor3"]
-  CALL R16 2 1
-  MOVE R17 R2
-  LOADK R18 K52 [".SelectedBlue"]
-  DUPTABLE R19 K48 [{"BackgroundColor3"}]
-  LOADK R20 K53 ["$PrimaryButtonColor"]
-  SETTABLEKS R20 R19 K47 ["BackgroundColor3"]
-  CALL R17 2 -1
+  LOADK R16 K48 [".SelectedBlue"]
+  DUPTABLE R17 K49 [{"BackgroundColor3"}]
+  LOADK R18 K50 ["$ControlActiveColor"]
+  SETTABLEKS R18 R17 K45 ["BackgroundColor3"]
+  CALL R15 2 -1
   SETLIST R14 R15 -1 [1]
   CALL R11 3 -1
   SETLIST R9 R10 -1 [1]

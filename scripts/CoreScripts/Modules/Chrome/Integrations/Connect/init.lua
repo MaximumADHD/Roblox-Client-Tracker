@@ -16,7 +16,11 @@ local GetFStringConnectTooltipLocalStorageKey =
 	require(script.Parent.Parent.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(script.Parent.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
 
+local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local Symbol = require(CorePackages.Symbol)
+
 local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false)
+local FFlagAppChatInExpForceCursor = game:DefineFastFlag("AppChatInExpForceCursor", false)
 -- "Connect" icon and option are used to open AppChat (InExperienceAppChat)
 -- It will also serve as an entry point for Party
 local integration = nil
@@ -87,6 +91,18 @@ if GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.ge
 
 			updateUnreadMessageCount(InExperienceAppChatModal.default.unreadCount)
 		end
+	end
+
+	if FFlagAppChatInExpForceCursor then
+		-- Force the cursor to show when the AppChat modal is visible
+		local MOUSE_OVERRIDE_KEY = Symbol.named("InExperienceRobloxConnect")
+		InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
+			if visible then
+				MouseIconOverrideService.push(MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
+			else
+				MouseIconOverrideService.pop(MOUSE_OVERRIDE_KEY)
+			end
+		end)
 	end
 end
 

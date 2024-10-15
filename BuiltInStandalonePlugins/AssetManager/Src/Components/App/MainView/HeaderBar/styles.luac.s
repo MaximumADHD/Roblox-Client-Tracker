@@ -10,73 +10,68 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
-  GETIMPORT R3 K12 [UDim2.fromOffset]
-  LOADN R4 20
-  LOADN R5 20
-  CALL R3 2 1
-  MOVE R4 R2
-  LOADK R5 K13 [".HeaderBar"]
-  NEWTABLE R6 0 0
-  NEWTABLE R7 0 2
-  MOVE R8 R2
-  LOADK R9 K14 ["> .HeaderTitle"]
-  DUPTABLE R10 K16 [{"Size"}]
-  GETIMPORT R11 K18 [UDim2.new]
-  LOADN R12 0
-  LOADN R13 44
-  LOADN R14 1
-  LOADN R15 0
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K15 ["Size"]
-  NEWTABLE R11 0 1
+  MOVE R3 R2
+  LOADK R4 K10 [".HeaderBar"]
+  NEWTABLE R5 0 0
+  NEWTABLE R6 0 1
+  MOVE R7 R2
+  LOADK R8 K11 ["> .HeaderTitle"]
+  DUPTABLE R9 K13 [{"Size"}]
+  GETIMPORT R10 K16 [UDim2.new]
+  LOADN R11 0
+  LOADN R12 30
+  LOADN R13 1
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K12 ["Size"]
+  NEWTABLE R10 0 2
+  MOVE R11 R2
+  LOADK R12 K17 ["::UIFlexItem"]
+  DUPTABLE R13 K19 [{"FlexMode"}]
+  GETIMPORT R14 K23 [Enum.UIFlexMode.Grow]
+  SETTABLEKS R14 R13 K18 ["FlexMode"]
+  CALL R11 2 1
   MOVE R12 R2
-  LOADK R13 K19 ["> .ScopeThumbnail"]
-  DUPTABLE R14 K16 [{"Size"}]
-  SETTABLEKS R3 R14 K15 ["Size"]
+  LOADK R13 K24 ["> .ScopeThumbnail"]
+  DUPTABLE R14 K13 [{"Size"}]
+  GETIMPORT R15 K26 [UDim2.fromOffset]
+  LOADN R16 20
+  LOADN R17 20
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K12 ["Size"]
   NEWTABLE R15 0 4
   MOVE R16 R2
-  LOADK R17 K20 [".SearchResults"]
-  DUPTABLE R18 K22 [{"Image"}]
-  LOADK R19 K23 ["$SearchIcon"]
-  SETTABLEKS R19 R18 K21 ["Image"]
+  LOADK R17 K27 [".SearchResults"]
+  DUPTABLE R18 K29 [{"Image"}]
+  LOADK R19 K30 ["$SearchIcon"]
+  SETTABLEKS R19 R18 K28 ["Image"]
   CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K24 [".User"]
-  DUPTABLE R19 K22 [{"Image"}]
-  LOADK R20 K25 ["$UserLargeDefaultIcon"]
-  SETTABLEKS R20 R19 K21 ["Image"]
+  LOADK R18 K31 [".User"]
+  DUPTABLE R19 K29 [{"Image"}]
+  LOADK R20 K32 ["$UserLargeDefaultIcon"]
+  SETTABLEKS R20 R19 K28 ["Image"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K26 [".Group"]
-  DUPTABLE R20 K22 [{"Image"}]
-  LOADK R21 K27 ["$GroupLargeDefaultIcon"]
-  SETTABLEKS R21 R20 K21 ["Image"]
+  LOADK R19 K33 [".Group"]
+  DUPTABLE R20 K29 [{"Image"}]
+  LOADK R21 K34 ["$GroupLargeDefaultIcon"]
+  SETTABLEKS R21 R20 K28 ["Image"]
   CALL R18 2 1
   MOVE R19 R2
-  LOADK R20 K28 ["::UICorner"]
-  DUPTABLE R21 K30 [{"CornerRadius"}]
-  GETIMPORT R22 K32 [UDim.new]
+  LOADK R20 K35 ["::UICorner"]
+  DUPTABLE R21 K37 [{"CornerRadius"}]
+  GETIMPORT R22 K39 [UDim.new]
   LOADN R23 1
   LOADN R24 0
   CALL R22 2 1
-  SETTABLEKS R22 R21 K29 ["CornerRadius"]
+  SETTABLEKS R22 R21 K36 ["CornerRadius"]
   CALL R19 2 -1
   SETLIST R15 R16 -1 [1]
   CALL R12 3 -1
-  SETLIST R11 R12 -1 [1]
-  CALL R8 3 1
-  MOVE R9 R2
-  LOADK R10 K33 ["> .HeaderOptions"]
-  DUPTABLE R11 K16 [{"Size"}]
-  GETIMPORT R12 K18 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 212
-  LOADN R15 1
-  LOADN R16 0
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K15 ["Size"]
-  CALL R9 2 -1
-  SETLIST R7 R8 -1 [1]
-  NEWTABLE R8 0 0
-  CALL R4 4 -1
-  RETURN R4 -1
+  SETLIST R10 R11 -1 [1]
+  CALL R7 3 -1
+  SETLIST R6 R7 -1 [1]
+  NEWTABLE R7 0 0
+  CALL R3 4 -1
+  RETURN R3 -1

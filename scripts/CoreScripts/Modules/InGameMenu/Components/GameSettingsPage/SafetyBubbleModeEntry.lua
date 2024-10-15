@@ -22,6 +22,8 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
+local FFlagFixSafetyBubbleWidth = require(InGameMenu.Flags.FFlagFixSafetyBubbleWidth)()
+
 local SAFETY_BUBBLE_MODE_LOCALIZATION_KEYS = {
 	["Title"] = "CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeTitle",
 	["Description"] = "CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeDescription",
@@ -120,7 +122,7 @@ function SafetyBubbleModeEntry:render()
 							currentValue = self.state.selectedMode,
 							automaticSize = true,
 							padding = UDim.new(0, 20),
-							elementSize = UDim2.new(0, 0, 0, 20),
+							elementSize = if FFlagFixSafetyBubbleWidth then UDim2.new(1, 0, 0, 20) else UDim2.new(0, 0, 0, 20),
 						})
 					}
 				),

@@ -1,218 +1,355 @@
 PROTO_0:
+  LOADK R1 K0 ["https://create.roblox.com/dashboard/creations/experiences/"]
+  GETUPVAL R2 0
+  LOADK R3 K1 ["/access"]
+  CONCAT R0 R1 R3
+  JUMPIFNOT R0 [+14]
+  FASTCALL1 STRING_LEN R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K4 [string.len]
+  CALL R1 1 1
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+7]
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K5 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETIMPORT R1 K7 [error]
+  LOADK R2 K8 ["Failed to open Creation Experiences Access page"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
   GETUPVAL R1 0
   CALL R1 0 1
   JUMPIFNOT R1 [+2]
   LOADNIL R1
   RETURN R1 1
   GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Localization"]
-  GETTABLEKS R3 R1 K2 ["Stylizer"]
-  LOADK R6 K3 ["Monetization"]
-  LOADK R7 K4 ["TitlePaidAccess"]
-  NAMECALL R4 R2 K5 ["getText"]
-  CALL R4 3 1
-  LOADK R7 K3 ["Monetization"]
-  LOADK R8 K6 ["PriceTitle"]
-  NAMECALL R5 R2 K5 ["getText"]
+  LOADNIL R2
+  GETUPVAL R3 1
+  JUMPIFNOT R3 [+2]
+  GETTABLEKS R2 R1 K1 ["GameId"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETTABLEKS R4 R1 K3 ["Stylizer"]
+  LOADK R7 K4 ["Monetization"]
+  LOADK R8 K5 ["TitlePaidAccess"]
+  NAMECALL R5 R3 K6 ["getText"]
   CALL R5 3 1
-  GETTABLEKS R7 R1 K7 ["Price"]
-  JUMPIFNOT R7 [+3]
-  GETTABLEKS R6 R1 K7 ["Price"]
-  JUMPIF R6 [+1]
-  LOADN R6 0
-  GETTABLEKS R7 R1 K8 ["TaxRate"]
-  GETTABLEKS R8 R1 K9 ["MinimumFee"]
-  GETTABLEKS R9 R1 K10 ["LayoutOrder"]
-  GETTABLEKS R10 R1 K11 ["Enabled"]
-  GETTABLEKS R11 R1 K12 ["Selected"]
-  GETTABLEKS R12 R1 K13 ["OnPaidAccessToggle"]
-  GETTABLEKS R13 R1 K14 ["OnPaidAccessPriceChanged"]
-  LOADNIL R14
-  GETTABLEKS R15 R1 K15 ["PriceError"]
-  JUMPIFNOT R10 [+2]
-  JUMPIFNOT R15 [+1]
-  MOVE R14 R15
-  LOADK R18 K3 ["Monetization"]
-  LOADK R19 K16 ["PaidAccessHint"]
-  NAMECALL R16 R2 K5 ["getText"]
-  CALL R16 3 1
-  GETUPVAL R18 1
-  JUMPIFNOT R18 [+2]
-  LOADNIL R17
+  LOADK R8 K4 ["Monetization"]
+  LOADK R9 K7 ["PriceTitle"]
+  NAMECALL R6 R3 K6 ["getText"]
+  CALL R6 3 1
+  GETTABLEKS R8 R1 K8 ["Price"]
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R7 R1 K8 ["Price"]
+  JUMPIF R7 [+1]
+  LOADN R7 0
+  GETTABLEKS R8 R1 K9 ["TaxRate"]
+  GETTABLEKS R9 R1 K10 ["MinimumFee"]
+  GETTABLEKS R10 R1 K11 ["LayoutOrder"]
+  GETTABLEKS R11 R1 K12 ["Enabled"]
+  GETTABLEKS R12 R1 K13 ["Selected"]
+  GETTABLEKS R13 R1 K14 ["OnPaidAccessToggle"]
+  GETTABLEKS R14 R1 K15 ["OnPaidAccessPriceChanged"]
+  LOADNIL R15
+  GETTABLEKS R16 R1 K16 ["PriceError"]
+  JUMPIFNOT R11 [+2]
+  JUMPIFNOT R16 [+1]
+  MOVE R15 R16
+  LOADK R19 K4 ["Monetization"]
+  LOADK R20 K17 ["PaidAccessHint"]
+  NAMECALL R17 R3 K6 ["getText"]
+  CALL R17 3 1
+  GETUPVAL R19 2
+  JUMPIFNOT R19 [+2]
+  LOADNIL R18
   JUMP [+25]
-  GETUPVAL R17 2
-  MOVE R18 R16
-  GETTABLEKS R21 R3 K17 ["fontStyle"]
-  GETTABLEKS R20 R21 K18 ["Subtext"]
-  GETTABLEKS R19 R20 K19 ["TextSize"]
-  GETTABLEKS R22 R3 K17 ["fontStyle"]
-  GETTABLEKS R21 R22 K18 ["Subtext"]
-  GETTABLEKS R20 R21 K20 ["Font"]
-  GETIMPORT R21 K23 [Vector2.new]
-  GETTABLEKS R24 R3 K24 ["robuxFeeBase"]
-  GETTABLEKS R23 R24 K25 ["subText"]
-  GETTABLEKS R22 R23 K26 ["width"]
-  LOADK R23 K27 [∞]
-  CALL R21 2 -1
-  CALL R17 -1 1
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K28 ["createElement"]
-  GETUPVAL R20 1
-  JUMPIFNOT R20 [+2]
-  GETUPVAL R19 4
-  JUMP [+1]
-  GETUPVAL R19 5
+  GETUPVAL R18 3
+  MOVE R19 R17
+  GETTABLEKS R22 R4 K18 ["fontStyle"]
+  GETTABLEKS R21 R22 K19 ["Subtext"]
+  GETTABLEKS R20 R21 K20 ["TextSize"]
+  GETTABLEKS R23 R4 K18 ["fontStyle"]
+  GETTABLEKS R22 R23 K19 ["Subtext"]
+  GETTABLEKS R21 R22 K21 ["Font"]
+  GETIMPORT R22 K24 [Vector2.new]
+  GETTABLEKS R25 R4 K25 ["robuxFeeBase"]
+  GETTABLEKS R24 R25 K26 ["subText"]
+  GETTABLEKS R23 R24 K27 ["width"]
+  LOADK R24 K28 [∞]
+  CALL R22 2 -1
+  CALL R18 -1 1
+  LOADNIL R19
+  LOADNIL R20
   GETUPVAL R21 1
-  JUMPIFNOT R21 [+16]
-  DUPTABLE R20 K32 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing"}]
-  GETIMPORT R21 K35 [Enum.AutomaticSize.XY]
-  SETTABLEKS R21 R20 K29 ["AutomaticSize"]
-  GETIMPORT R21 K38 [Enum.FillDirection.Vertical]
-  SETTABLEKS R21 R20 K30 ["Layout"]
-  SETTABLEKS R9 R20 K10 ["LayoutOrder"]
-  GETTABLEKS R21 R3 K39 ["titleSpacing"]
-  SETTABLEKS R21 R20 K31 ["Spacing"]
+  JUMPIFNOT R21 [+20]
+  GETUPVAL R21 4
+  LOADK R24 K4 ["Monetization"]
+  LOADK R25 K29 ["PaidAccessDeepLink"]
+  NAMECALL R22 R3 K6 ["getText"]
+  CALL R22 3 1
+  LOADN R23 18
+  LOADK R24 K30 ["SourceSans"]
+  CALL R21 3 1
+  MOVE R19 R21
+  GETUPVAL R21 4
+  LOADK R24 K4 ["Monetization"]
+  LOADK R25 K31 ["PaidAccessLinkText"]
+  NAMECALL R22 R3 K6 ["getText"]
+  CALL R22 3 1
+  LOADN R23 18
+  LOADK R24 K30 ["SourceSans"]
+  CALL R21 3 1
+  MOVE R20 R21
+  GETUPVAL R22 5
+  GETTABLEKS R21 R22 K32 ["createElement"]
+  GETUPVAL R23 2
+  JUMPIFNOT R23 [+2]
+  GETUPVAL R22 6
+  JUMP [+1]
+  GETUPVAL R22 7
+  GETUPVAL R24 2
+  JUMPIFNOT R24 [+16]
+  DUPTABLE R23 K36 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing"}]
+  GETIMPORT R24 K39 [Enum.AutomaticSize.XY]
+  SETTABLEKS R24 R23 K33 ["AutomaticSize"]
+  GETIMPORT R24 K42 [Enum.FillDirection.Vertical]
+  SETTABLEKS R24 R23 K34 ["Layout"]
+  SETTABLEKS R10 R23 K11 ["LayoutOrder"]
+  GETTABLEKS R24 R4 K43 ["titleSpacing"]
+  SETTABLEKS R24 R23 K35 ["Spacing"]
   JUMP [+22]
-  DUPTABLE R20 K43 [{"axis", "minimumSize", "BackgroundTransparency", "LayoutOrder"}]
-  GETUPVAL R23 5
-  GETTABLEKS R22 R23 K44 ["Axis"]
-  GETTABLEKS R21 R22 K37 ["Vertical"]
-  SETTABLEKS R21 R20 K40 ["axis"]
-  GETIMPORT R21 K46 [UDim2.new]
-  LOADN R22 1
-  LOADN R23 0
-  LOADN R24 0
-  LOADN R25 0
-  CALL R21 4 1
-  SETTABLEKS R21 R20 K41 ["minimumSize"]
-  LOADN R21 1
-  SETTABLEKS R21 R20 K42 ["BackgroundTransparency"]
-  SETTABLEKS R9 R20 K10 ["LayoutOrder"]
-  DUPTABLE R21 K49 [{"ToggleAndSubscriptionsAndTotal", "PriceConfigPaidOnly"}]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K28 ["createElement"]
-  GETUPVAL R23 6
-  DUPTABLE R24 K51 [{"LayoutOrder", "Title"}]
+  DUPTABLE R23 K47 [{"axis", "minimumSize", "BackgroundTransparency", "LayoutOrder"}]
+  GETUPVAL R26 7
+  GETTABLEKS R25 R26 K48 ["Axis"]
+  GETTABLEKS R24 R25 K41 ["Vertical"]
+  SETTABLEKS R24 R23 K44 ["axis"]
+  GETIMPORT R24 K50 [UDim2.new]
   LOADN R25 1
-  SETTABLEKS R25 R24 K10 ["LayoutOrder"]
-  SETTABLEKS R4 R24 K50 ["Title"]
-  DUPTABLE R25 K55 [{"UIListLayout", "ToggleButton", "SubText"}]
-  GETUPVAL R27 3
-  GETTABLEKS R26 R27 K28 ["createElement"]
-  LOADK R27 K52 ["UIListLayout"]
-  DUPTABLE R28 K57 [{"SortOrder", "FillDirection"}]
-  GETIMPORT R29 K58 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R29 R28 K56 ["SortOrder"]
-  GETIMPORT R29 K38 [Enum.FillDirection.Vertical]
-  SETTABLEKS R29 R28 K36 ["FillDirection"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K52 ["UIListLayout"]
-  GETUPVAL R27 3
-  GETTABLEKS R26 R27 K28 ["createElement"]
-  GETUPVAL R27 7
-  DUPTABLE R28 K61 [{"Disabled", "LayoutOrder", "OnClick", "Selected"}]
-  NOT R29 R10
-  SETTABLEKS R29 R28 K59 ["Disabled"]
-  LOADN R29 1
-  SETTABLEKS R29 R28 K10 ["LayoutOrder"]
-  SETTABLEKS R12 R28 K60 ["OnClick"]
-  SETTABLEKS R11 R28 K12 ["Selected"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K53 ["ToggleButton"]
-  NOT R26 R11
-  JUMPIFNOT R26 [+78]
-  GETUPVAL R27 1
-  JUMPIFNOT R27 [+26]
-  GETUPVAL R27 3
-  GETTABLEKS R26 R27 K28 ["createElement"]
-  GETUPVAL R27 8
-  DUPTABLE R28 K66 [{"AutomaticSize", "Style", "Text", "LayoutOrder", "TextWrapped", "TextXAlignment"}]
-  GETIMPORT R29 K35 [Enum.AutomaticSize.XY]
-  SETTABLEKS R29 R28 K29 ["AutomaticSize"]
-  LOADK R29 K67 ["Label"]
-  SETTABLEKS R29 R28 K62 ["Style"]
-  SETTABLEKS R16 R28 K63 ["Text"]
-  LOADN R29 2
-  SETTABLEKS R29 R28 K10 ["LayoutOrder"]
-  LOADB R29 1
-  SETTABLEKS R29 R28 K64 ["TextWrapped"]
-  GETIMPORT R29 K69 [Enum.TextXAlignment.Left]
-  SETTABLEKS R29 R28 K65 ["TextXAlignment"]
-  CALL R26 2 1
-  JUMP [+50]
-  GETUPVAL R27 3
-  GETTABLEKS R26 R27 K28 ["createElement"]
-  LOADK R27 K70 ["TextLabel"]
+  LOADN R26 0
+  LOADN R27 0
+  LOADN R28 0
+  CALL R24 4 1
+  SETTABLEKS R24 R23 K45 ["minimumSize"]
+  LOADN R24 1
+  SETTABLEKS R24 R23 K46 ["BackgroundTransparency"]
+  SETTABLEKS R10 R23 K11 ["LayoutOrder"]
+  GETUPVAL R25 1
+  JUMPIFNOT R25 [+125]
+  DUPTABLE R24 K52 [{"PaidAccessTitle"}]
+  GETUPVAL R26 5
+  GETTABLEKS R25 R26 K32 ["createElement"]
+  GETUPVAL R26 8
+  DUPTABLE R27 K54 [{"LayoutOrder", "Title"}]
+  LOADN R28 1
+  SETTABLEKS R28 R27 K11 ["LayoutOrder"]
+  SETTABLEKS R5 R27 K53 ["Title"]
+  DUPTABLE R28 K57 [{"Padding", "LinkTextFrame"}]
+  GETUPVAL R30 5
+  GETTABLEKS R29 R30 K32 ["createElement"]
+  LOADK R30 K58 ["UIPadding"]
+  DUPTABLE R31 K60 [{"PaddingTop"}]
+  GETIMPORT R32 K62 [UDim.new]
+  LOADN R33 0
+  LOADN R34 4
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K59 ["PaddingTop"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K55 ["Padding"]
+  GETUPVAL R30 5
+  GETTABLEKS R29 R30 K32 ["createElement"]
+  LOADK R30 K63 ["Frame"]
+  DUPTABLE R31 K64 [{"AutomaticSize", "BackgroundTransparency"}]
+  GETIMPORT R32 K66 [Enum.AutomaticSize.Y]
+  SETTABLEKS R32 R31 K33 ["AutomaticSize"]
+  LOADN R32 1
+  SETTABLEKS R32 R31 K46 ["BackgroundTransparency"]
+  DUPTABLE R32 K69 [{"LinkTextLabel", "LinkText"}]
+  GETUPVAL R34 5
+  GETTABLEKS R33 R34 K32 ["createElement"]
+  GETUPVAL R34 9
+  DUPTABLE R35 K74 [{"AutomaticSize", "Style", "Text", "TextXAlignment", "TextYAlignment"}]
+  GETIMPORT R36 K66 [Enum.AutomaticSize.Y]
+  SETTABLEKS R36 R35 K33 ["AutomaticSize"]
+  LOADK R36 K75 ["Label"]
+  SETTABLEKS R36 R35 K70 ["Style"]
+  LOADK R38 K4 ["Monetization"]
+  LOADK R39 K31 ["PaidAccessLinkText"]
+  NAMECALL R36 R3 K6 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K71 ["Text"]
+  GETIMPORT R36 K77 [Enum.TextXAlignment.Left]
+  SETTABLEKS R36 R35 K72 ["TextXAlignment"]
+  GETIMPORT R36 K79 [Enum.TextYAlignment.Top]
+  SETTABLEKS R36 R35 K73 ["TextYAlignment"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K67 ["LinkTextLabel"]
+  GETUPVAL R34 5
+  GETTABLEKS R33 R34 K32 ["createElement"]
+  GETUPVAL R34 10
+  DUPTABLE R35 K83 [{"OnClick", "Position", "Size", "Text", "TextXAlignment", "TextYAlignment"}]
+  NEWCLOSURE R36 P0
+  CAPTURE REF R2
+  CAPTURE UPVAL U11
+  SETTABLEKS R36 R35 K80 ["OnClick"]
+  GETIMPORT R36 K50 [UDim2.new]
+  LOADN R37 0
+  GETTABLEKS R38 R20 K84 ["X"]
+  LOADN R39 0
+  LOADN R40 0
+  CALL R36 4 1
+  SETTABLEKS R36 R35 K81 ["Position"]
+  GETIMPORT R36 K50 [UDim2.new]
+  LOADN R37 1
+  GETTABLEKS R38 R19 K84 ["X"]
+  LOADN R39 1
+  LOADN R40 0
+  CALL R36 4 1
+  SETTABLEKS R36 R35 K82 ["Size"]
+  LOADK R38 K4 ["Monetization"]
+  LOADK R39 K29 ["PaidAccessDeepLink"]
+  NAMECALL R36 R3 K6 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K71 ["Text"]
+  GETIMPORT R36 K77 [Enum.TextXAlignment.Left]
+  SETTABLEKS R36 R35 K72 ["TextXAlignment"]
+  GETIMPORT R36 K79 [Enum.TextYAlignment.Top]
+  SETTABLEKS R36 R35 K73 ["TextYAlignment"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K68 ["LinkText"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K56 ["LinkTextFrame"]
+  CALL R25 3 1
+  SETTABLEKS R25 R24 K51 ["PaidAccessTitle"]
+  JUMP [+182]
+  DUPTABLE R24 K87 [{"ToggleAndSubscriptionsAndTotal", "PriceConfigPaidOnly"}]
+  GETUPVAL R26 5
+  GETTABLEKS R25 R26 K32 ["createElement"]
+  GETUPVAL R26 8
+  DUPTABLE R27 K54 [{"LayoutOrder", "Title"}]
+  LOADN R28 1
+  SETTABLEKS R28 R27 K11 ["LayoutOrder"]
+  SETTABLEKS R5 R27 K53 ["Title"]
+  DUPTABLE R28 K91 [{"UIListLayout", "ToggleButton", "SubText"}]
+  GETUPVAL R30 5
+  GETTABLEKS R29 R30 K32 ["createElement"]
+  LOADK R30 K88 ["UIListLayout"]
+  DUPTABLE R31 K93 [{"SortOrder", "FillDirection"}]
+  GETIMPORT R32 K94 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R32 R31 K92 ["SortOrder"]
+  GETIMPORT R32 K42 [Enum.FillDirection.Vertical]
+  SETTABLEKS R32 R31 K40 ["FillDirection"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K88 ["UIListLayout"]
+  GETUPVAL R30 5
+  GETTABLEKS R29 R30 K32 ["createElement"]
+  GETUPVAL R30 12
+  DUPTABLE R31 K96 [{"Disabled", "LayoutOrder", "OnClick", "Selected"}]
+  NOT R32 R11
+  SETTABLEKS R32 R31 K95 ["Disabled"]
+  LOADN R32 1
+  SETTABLEKS R32 R31 K11 ["LayoutOrder"]
+  SETTABLEKS R13 R31 K80 ["OnClick"]
+  SETTABLEKS R12 R31 K13 ["Selected"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K89 ["ToggleButton"]
+  NOT R29 R12
+  JUMPIFNOT R29 [+78]
+  GETUPVAL R30 2
+  JUMPIFNOT R30 [+26]
+  GETUPVAL R30 5
+  GETTABLEKS R29 R30 K32 ["createElement"]
   GETUPVAL R30 9
-  GETTABLEKS R29 R30 K71 ["Dictionary"]
-  GETTABLEKS R28 R29 K72 ["join"]
-  GETTABLEKS R30 R3 K17 ["fontStyle"]
-  GETTABLEKS R29 R30 K18 ["Subtext"]
-  DUPTABLE R30 K75 [{"Size", "BackgroundTransparency", "Text", "TextYAlignment", "TextXAlignment", "TextWrapped", "LayoutOrder"}]
-  GETIMPORT R31 K46 [UDim2.new]
-  LOADN R32 0
-  GETTABLEKS R34 R17 K76 ["X"]
-  FASTCALL1 MATH_CEIL R34 [+2]
-  GETIMPORT R33 K79 [math.ceil]
-  CALL R33 1 1
-  LOADN R34 0
-  GETTABLEKS R35 R17 K80 ["Y"]
-  CALL R31 4 1
-  SETTABLEKS R31 R30 K73 ["Size"]
-  LOADN R31 1
-  SETTABLEKS R31 R30 K42 ["BackgroundTransparency"]
-  SETTABLEKS R16 R30 K63 ["Text"]
-  GETIMPORT R31 K82 [Enum.TextYAlignment.Center]
-  SETTABLEKS R31 R30 K74 ["TextYAlignment"]
-  GETIMPORT R31 K69 [Enum.TextXAlignment.Left]
-  SETTABLEKS R31 R30 K65 ["TextXAlignment"]
-  LOADB R31 1
-  SETTABLEKS R31 R30 K64 ["TextWrapped"]
-  LOADN R31 2
-  SETTABLEKS R31 R30 K10 ["LayoutOrder"]
-  CALL R28 2 -1
-  CALL R26 -1 1
-  SETTABLEKS R26 R25 K54 ["SubText"]
-  CALL R22 3 1
-  SETTABLEKS R22 R21 K47 ["ToggleAndSubscriptionsAndTotal"]
-  MOVE R22 R11
-  JUMPIFNOT R22 [+47]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K28 ["createElement"]
-  GETUPVAL R23 6
-  DUPTABLE R24 K83 [{"FillDirection", "LayoutOrder", "Style", "Title"}]
-  GETUPVAL R26 1
-  JUMPIFNOT R26 [+3]
-  GETIMPORT R25 K85 [Enum.FillDirection.Horizontal]
+  DUPTABLE R31 K98 [{"AutomaticSize", "Style", "Text", "LayoutOrder", "TextWrapped", "TextXAlignment"}]
+  GETIMPORT R32 K39 [Enum.AutomaticSize.XY]
+  SETTABLEKS R32 R31 K33 ["AutomaticSize"]
+  LOADK R32 K75 ["Label"]
+  SETTABLEKS R32 R31 K70 ["Style"]
+  SETTABLEKS R17 R31 K71 ["Text"]
+  LOADN R32 2
+  SETTABLEKS R32 R31 K11 ["LayoutOrder"]
+  LOADB R32 1
+  SETTABLEKS R32 R31 K97 ["TextWrapped"]
+  GETIMPORT R32 K77 [Enum.TextXAlignment.Left]
+  SETTABLEKS R32 R31 K72 ["TextXAlignment"]
+  CALL R29 2 1
+  JUMP [+50]
+  GETUPVAL R30 5
+  GETTABLEKS R29 R30 K32 ["createElement"]
+  LOADK R30 K99 ["TextLabel"]
+  GETUPVAL R33 13
+  GETTABLEKS R32 R33 K100 ["Dictionary"]
+  GETTABLEKS R31 R32 K101 ["join"]
+  GETTABLEKS R33 R4 K18 ["fontStyle"]
+  GETTABLEKS R32 R33 K19 ["Subtext"]
+  DUPTABLE R33 K102 [{"Size", "BackgroundTransparency", "Text", "TextYAlignment", "TextXAlignment", "TextWrapped", "LayoutOrder"}]
+  GETIMPORT R34 K50 [UDim2.new]
+  LOADN R35 0
+  GETTABLEKS R37 R18 K84 ["X"]
+  FASTCALL1 MATH_CEIL R37 [+2]
+  GETIMPORT R36 K105 [math.ceil]
+  CALL R36 1 1
+  LOADN R37 0
+  GETTABLEKS R38 R18 K65 ["Y"]
+  CALL R34 4 1
+  SETTABLEKS R34 R33 K82 ["Size"]
+  LOADN R34 1
+  SETTABLEKS R34 R33 K46 ["BackgroundTransparency"]
+  SETTABLEKS R17 R33 K71 ["Text"]
+  GETIMPORT R34 K107 [Enum.TextYAlignment.Center]
+  SETTABLEKS R34 R33 K73 ["TextYAlignment"]
+  GETIMPORT R34 K77 [Enum.TextXAlignment.Left]
+  SETTABLEKS R34 R33 K72 ["TextXAlignment"]
+  LOADB R34 1
+  SETTABLEKS R34 R33 K97 ["TextWrapped"]
+  LOADN R34 2
+  SETTABLEKS R34 R33 K11 ["LayoutOrder"]
+  CALL R31 2 -1
+  CALL R29 -1 1
+  SETTABLEKS R29 R28 K90 ["SubText"]
+  CALL R25 3 1
+  SETTABLEKS R25 R24 K85 ["ToggleAndSubscriptionsAndTotal"]
+  MOVE R25 R12
+  JUMPIFNOT R25 [+47]
+  GETUPVAL R26 5
+  GETTABLEKS R25 R26 K32 ["createElement"]
+  GETUPVAL R26 8
+  DUPTABLE R27 K108 [{"FillDirection", "LayoutOrder", "Style", "Title"}]
+  GETUPVAL R29 2
+  JUMPIFNOT R29 [+3]
+  GETIMPORT R28 K110 [Enum.FillDirection.Horizontal]
   JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K36 ["FillDirection"]
-  LOADN R25 3
-  SETTABLEKS R25 R24 K10 ["LayoutOrder"]
-  GETUPVAL R26 1
-  JUMPIFNOT R26 [+2]
-  LOADK R25 K86 ["Subtitle"]
+  LOADNIL R28
+  SETTABLEKS R28 R27 K40 ["FillDirection"]
+  LOADN R28 3
+  SETTABLEKS R28 R27 K11 ["LayoutOrder"]
+  GETUPVAL R29 2
+  JUMPIFNOT R29 [+2]
+  LOADK R28 K111 ["Subtitle"]
   JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K62 ["Style"]
-  SETTABLEKS R5 R24 K50 ["Title"]
-  DUPTABLE R25 K88 [{"RobuxFeeBase"}]
-  GETUPVAL R27 3
-  GETTABLEKS R26 R27 K28 ["createElement"]
-  GETUPVAL R27 10
-  DUPTABLE R28 K90 [{"Price", "TaxRate", "MinimumFee", "SubText", "Enabled", "OnPriceChanged"}]
-  SETTABLEKS R6 R28 K7 ["Price"]
-  SETTABLEKS R7 R28 K8 ["TaxRate"]
-  SETTABLEKS R8 R28 K9 ["MinimumFee"]
-  SETTABLEKS R14 R28 K54 ["SubText"]
-  SETTABLEKS R10 R28 K11 ["Enabled"]
-  SETTABLEKS R13 R28 K89 ["OnPriceChanged"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K87 ["RobuxFeeBase"]
-  CALL R22 3 1
-  SETTABLEKS R22 R21 K48 ["PriceConfigPaidOnly"]
-  CALL R18 3 -1
-  RETURN R18 -1
+  LOADNIL R28
+  SETTABLEKS R28 R27 K70 ["Style"]
+  SETTABLEKS R6 R27 K53 ["Title"]
+  DUPTABLE R28 K113 [{"RobuxFeeBase"}]
+  GETUPVAL R30 5
+  GETTABLEKS R29 R30 K32 ["createElement"]
+  GETUPVAL R30 14
+  DUPTABLE R31 K115 [{"Price", "TaxRate", "MinimumFee", "SubText", "Enabled", "OnPriceChanged"}]
+  SETTABLEKS R7 R31 K8 ["Price"]
+  SETTABLEKS R8 R31 K9 ["TaxRate"]
+  SETTABLEKS R9 R31 K10 ["MinimumFee"]
+  SETTABLEKS R15 R31 K90 ["SubText"]
+  SETTABLEKS R11 R31 K12 ["Enabled"]
+  SETTABLEKS R14 R31 K114 ["OnPriceChanged"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K112 ["RobuxFeeBase"]
+  CALL R25 3 1
+  SETTABLEKS R25 R24 K86 ["PriceConfigPaidOnly"]
+  CALL R21 3 -1
+  CLOSEUPVALS R2
+  RETURN R21 -1
 
 MAIN:
   PREPVARARGS 0
@@ -252,47 +389,66 @@ MAIN:
   GETTABLEKS R9 R5 K16 ["ContextServices"]
   GETTABLEKS R10 R9 K17 ["withContext"]
   GETTABLEKS R11 R5 K18 ["UI"]
-  GETTABLEKS R12 R11 K19 ["Pane"]
-  GETTABLEKS R13 R11 K20 ["TextLabel"]
-  GETTABLEKS R14 R11 K21 ["TitledFrame"]
-  GETTABLEKS R15 R11 K22 ["ToggleButton"]
-  GETIMPORT R16 K4 [require]
-  GETTABLEKS R18 R0 K23 ["Components"]
-  GETTABLEKS R17 R18 K24 ["RobuxFeeBase"]
-  CALL R16 1 1
-  GETIMPORT R18 K4 [require]
-  GETTABLEKS R21 R1 K5 ["Src"]
-  GETTABLEKS R20 R21 K12 ["Util"]
-  GETTABLEKS R19 R20 K25 ["GameSettingsUtilities"]
-  CALL R18 1 1
-  GETTABLEKS R17 R18 K26 ["shouldDisablePrivateServersAndPaidAccess"]
-  GETTABLEKS R18 R4 K27 ["PureComponent"]
-  LOADK R20 K28 ["PaidAccess"]
-  NAMECALL R18 R18 K29 ["extend"]
+  GETTABLEKS R12 R11 K19 ["LinkText"]
+  GETTABLEKS R13 R11 K20 ["Pane"]
+  GETTABLEKS R14 R11 K21 ["TextLabel"]
+  GETTABLEKS R15 R11 K22 ["TitledFrame"]
+  GETTABLEKS R16 R11 K23 ["ToggleButton"]
+  GETIMPORT R17 K25 [game]
+  LOADK R19 K26 ["GuiService"]
+  NAMECALL R17 R17 K27 ["GetService"]
+  CALL R17 2 1
+  GETIMPORT R18 K25 [game]
+  LOADK R20 K28 ["PaidAccessInFiat"]
+  NAMECALL R18 R18 K29 ["GetFastFlag"]
   CALL R18 2 1
-  DUPCLOSURE R19 K30 [PROTO_0]
-  CAPTURE VAL R17
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R23 R1 K5 ["Src"]
+  GETTABLEKS R22 R23 K12 ["Util"]
+  GETTABLEKS R21 R22 K30 ["GameSettingsUtilities"]
+  CALL R20 1 1
+  GETTABLEKS R19 R20 K31 ["calculateTextSize"]
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R22 R0 K32 ["Components"]
+  GETTABLEKS R21 R22 K33 ["RobuxFeeBase"]
+  CALL R20 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R25 R1 K5 ["Src"]
+  GETTABLEKS R24 R25 K12 ["Util"]
+  GETTABLEKS R23 R24 K30 ["GameSettingsUtilities"]
+  CALL R22 1 1
+  GETTABLEKS R21 R22 K34 ["shouldDisablePrivateServersAndPaidAccess"]
+  GETTABLEKS R22 R4 K35 ["PureComponent"]
+  LOADK R24 K36 ["PaidAccess"]
+  NAMECALL R22 R22 K37 ["extend"]
+  CALL R22 2 1
+  DUPCLOSURE R23 K38 [PROTO_1]
+  CAPTURE VAL R21
+  CAPTURE VAL R18
   CAPTURE VAL R2
   CAPTURE VAL R8
+  CAPTURE VAL R19
   CAPTURE VAL R4
-  CAPTURE VAL R12
-  CAPTURE VAL R7
-  CAPTURE VAL R14
-  CAPTURE VAL R15
   CAPTURE VAL R13
-  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  CAPTURE VAL R12
+  CAPTURE VAL R17
   CAPTURE VAL R16
-  SETTABLEKS R19 R18 K31 ["render"]
-  MOVE R19 R10
-  DUPTABLE R20 K35 [{"Localization", "Stylizer", "Mouse"}]
-  GETTABLEKS R21 R9 K32 ["Localization"]
-  SETTABLEKS R21 R20 K32 ["Localization"]
-  GETTABLEKS R21 R9 K33 ["Stylizer"]
-  SETTABLEKS R21 R20 K33 ["Stylizer"]
-  GETTABLEKS R21 R9 K34 ["Mouse"]
-  SETTABLEKS R21 R20 K34 ["Mouse"]
-  CALL R19 1 1
-  MOVE R20 R18
-  CALL R19 1 1
-  MOVE R18 R19
-  RETURN R18 1
+  CAPTURE VAL R3
+  CAPTURE VAL R20
+  SETTABLEKS R23 R22 K39 ["render"]
+  MOVE R23 R10
+  DUPTABLE R24 K43 [{"Localization", "Stylizer", "Mouse"}]
+  GETTABLEKS R25 R9 K40 ["Localization"]
+  SETTABLEKS R25 R24 K40 ["Localization"]
+  GETTABLEKS R25 R9 K41 ["Stylizer"]
+  SETTABLEKS R25 R24 K41 ["Stylizer"]
+  GETTABLEKS R25 R9 K42 ["Mouse"]
+  SETTABLEKS R25 R24 K42 ["Mouse"]
+  CALL R23 1 1
+  MOVE R24 R22
+  CALL R23 1 1
+  MOVE R22 R23
+  RETURN R22 1

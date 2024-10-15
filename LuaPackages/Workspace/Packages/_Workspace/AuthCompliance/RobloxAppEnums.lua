@@ -9,6 +9,7 @@ export type DeviceOrientationMode = Package.DeviceOrientationMode
 export type DeviceType = Package.DeviceType
 export type UiMode = Package.UiMode
 export type LayoutConfig = Package.LayoutConfig
+export type AppPage = Package.AppPage
 
 
 return Package

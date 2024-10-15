@@ -40,14 +40,15 @@ end)
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagLogAcceptFriendshipEvent = game:DefineFastFlag("LogAcceptFriendshipEvent", false)
-local FFlagClientToastNotificationsRedirect = game:DefineFastFlag("ClientToastNotificationsRedirect", false)
 local FFlagClientToastNotificationsEnabled = game:GetEngineFeature("ClientToastNotificationsEnabled")
+local GetFFlagClientToastNotificationsRedirect = require(RobloxGui.Modules.Flags.GetFFlagClientToastNotificationsRedirect)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local FFlagNotificationsNoLongerRequireControllerState = game:DefineFastFlag("NotificationsNoLongerRequireControllerState", false)
+local FFlagNotificationsNoLongerRequireControllerState =
+	game:DefineFastFlag("NotificationsNoLongerRequireControllerState", false)
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
@@ -81,7 +82,7 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local BG_TRANSPARENCY_DEFAULT = 0.6
-local bgTransparency = BG_TRANSPARENCY_DEFAULT * GameSettings.PreferredTransparency 
+local bgTransparency = BG_TRANSPARENCY_DEFAULT * GameSettings.PreferredTransparency
 local MAX_NOTIFICATIONS = 3
 local IMAGE_SIZE = isTenFootInterface and 72 or 48
 
@@ -193,7 +194,8 @@ end
 NotificationFrame.Parent = RbxGui
 
 local function createDefaultNotification()
-	local Frame = createFrame("Notification", UDim2.new(1, 0, 0, NOTIFICATION_Y_OFFSET), UDim2.new(0, 0, 0, 0), bgTransparency)
+	local Frame =
+		createFrame("Notification", UDim2.new(1, 0, 0, NOTIFICATION_Y_OFFSET), UDim2.new(0, 0, 0, 0), bgTransparency)
 	Frame.BackgroundColor3 = Color3.new(0, 0, 0)
 	Frame.BorderSizePixel = 0
 	return Frame
@@ -202,7 +204,7 @@ local DefaultNotification = createDefaultNotification()
 
 local NotificationTitle = Instance.new("TextLabel")
 NotificationTitle.Name = "NotificationTitle"
-NotificationTitle.Size = UDim2.new(1, -NOTIFICATION_PADDING*2, 0, NOTIFICATION_TITLE_HEIGHT)
+NotificationTitle.Size = UDim2.new(1, -NOTIFICATION_PADDING * 2, 0, NOTIFICATION_TITLE_HEIGHT)
 NotificationTitle.Position = UDim2.new(0, NOTIFICATION_PADDING, 0.5, NOTIFICATION_TITLE_Y_OFFSET)
 NotificationTitle.BackgroundTransparency = 1
 NotificationTitle.Font = Enum.Font.SourceSansBold
@@ -211,7 +213,7 @@ NotificationTitle.TextColor3 = Color3.new(0.97, 0.97, 0.97)
 
 local NotificationText = Instance.new("TextLabel")
 NotificationText.Name = "NotificationText"
-NotificationText.Size = UDim2.new(1, -NOTIFICATION_PADDING*2, 0, NOTIFICATION_TEXT_HEIGHT)
+NotificationText.Size = UDim2.new(1, -NOTIFICATION_PADDING * 2, 0, NOTIFICATION_TEXT_HEIGHT)
 NotificationText.Position = UDim2.new(0, NOTIFICATION_PADDING, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
 NotificationText.BackgroundTransparency = 1
 NotificationText.Font = Enum.Font.SourceSans
@@ -349,7 +351,7 @@ local function createNotification(title, text, image)
 			notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
 		end
 	else
-		local leftPadding = IMAGE_SIZE + NOTIFICATION_PADDING*2
+		local leftPadding = IMAGE_SIZE + NOTIFICATION_PADDING * 2
 		local rightPadding = NOTIFICATION_PADDING
 
 		local notificationImage = NotificationImage:Clone()
@@ -357,12 +359,14 @@ local function createNotification(title, text, image)
 		notificationImage.Parent = notificationFrame
 
 		notificationTitle.Size = UDim2.new(1, -leftPadding - rightPadding, 0, notificationTitle.Size.Y.Offset)
-		notificationTitle.Position =  UDim2.new(0, leftPadding, notificationTitle.Position.Y.Scale, notificationTitle.Position.Y.Offset)
+		notificationTitle.Position =
+			UDim2.new(0, leftPadding, notificationTitle.Position.Y.Scale, notificationTitle.Position.Y.Offset)
 		notificationTitle.TextXAlignment = Enum.TextXAlignment.Left
 
 		-- Indent
 		notificationText.Size = UDim2.new(1, -leftPadding - rightPadding, 0, notificationText.Size.Y.Offset)
-		notificationText.Position = UDim2.new(0, leftPadding, notificationText.Position.Y.Scale, notificationText.Position.Y.Offset)
+		notificationText.Position =
+			UDim2.new(0, leftPadding, notificationText.Position.Y.Scale, notificationText.Position.Y.Offset)
 		notificationText.TextXAlignment = Enum.TextXAlignment.Left
 
 		if not notificationTitle.TextFits then
@@ -374,8 +378,10 @@ local function createNotification(title, text, image)
 
 			-- Slight vertical offset for consistent placement with 2 line notificationText
 			local verticalOffset = 4
-			notificationTitle.Position = notificationTitle.Position + UDim2.new(0, 0, 0, subtractHeight / 2 - verticalOffset / 2)
-			notificationText.Position = notificationText.Position + UDim2.new(0, 0, 0, subtractHeight / 2 - verticalOffset / 2)
+			notificationTitle.Position = notificationTitle.Position
+				+ UDim2.new(0, 0, 0, subtractHeight / 2 - verticalOffset / 2)
+			notificationText.Position = notificationText.Position
+				+ UDim2.new(0, 0, 0, subtractHeight / 2 - verticalOffset / 2)
 			notificationFrame.Size = notificationFrame.Size - UDim2.new(0, 0, 0, subtractHeight + verticalOffset)
 		end
 
@@ -600,13 +606,17 @@ local function onSendNotificationInfo(notificationInfo)
 	local button1Text = notificationInfo.Button1Text
 	local button2Text = notificationInfo.Button2Text
 
-    if FFlagClientToastNotificationsEnabled and FFlagClientToastNotificationsRedirect then
+    if FFlagClientToastNotificationsEnabled and GetFFlagClientToastNotificationsRedirect() then
         local newNotificationInfo = {
-            Title = notificationInfo.Title,
-            Text = notificationInfo.Text,
+			Title = if notificationInfo.Autolocalize
+				then GameTranslator:TranslateGameText(CoreGui, notificationInfo.Title)
+				else notificationInfo.Title,
+			Text = if notificationInfo.AutoLocalize
+				then GameTranslator:TranslateGameText(CoreGui, notificationInfo.Text)
+				else notificationInfo.Text,
             Icon = notificationInfo.Image,
             Buttons = {
-                if button1Text then 
+                if button1Text and button1Text ~= "" then 
                 {
                     Text = button1Text,
                     ButtonType = Enum.NotificationButtonType.Secondary,
@@ -621,7 +631,7 @@ local function onSendNotificationInfo(notificationInfo)
                     end
                 }
                 else nil,
-                if button2Text then
+                if button2Text and button2Text ~= "" then
                 {
                     Text = button2Text,
                     ButtonType = Enum.NotificationButtonType.Primary,
@@ -742,7 +752,7 @@ local function createDeveloperNotification(notificationTable)
 
 			local button1Text
 			local button2Text
-            if FFlagClientToastNotificationsEnabled and FFlagClientToastNotificationsRedirect then
+            if FFlagClientToastNotificationsEnabled and GetFFlagClientToastNotificationsRedirect() then
                 button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or nil)
                 button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or nil)    
             else
@@ -813,7 +823,7 @@ local function sendFriendNotification(fromPlayer)
 					AnalyticsService:ReportCounter("NotificationScript-AcceptFriendship")
 					AnalyticsService:TrackEvent("Game", "AcceptFriendship", "NotificationScript")
 				end
-						
+
 				LocalPlayer:RequestFriendship(fromPlayer)
 			else
 				AnalyticsService:ReportCounter("NotificationScript-RevokeFriendship")
@@ -921,24 +931,29 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 			local success, groupInfo = pcall(function()
 				return GroupService:GetGroupInfoAsync(creatorId)
 			end)
-			if not success then creatorName = "" end
+			if not success then
+				creatorName = ""
+			end
 
 			if groupInfo then
 				creatorName = groupInfo.Name
 			end
 		elseif game.CreatorType == Enum.CreatorType.User then
-
 			local success
 			success, creatorName = pcall(function()
 				return Players:GetNameFromUserIdAsync(creatorId)
 			end)
-			if not success then creatorName = "" end
+			if not success then
+				creatorName = ""
+			end
 		end
 
 		local success, badgeInfo = pcall(function()
 			return BadgeService:GetBadgeInfoAsync(badgeId)
 		end)
-		if not success then return end -- could not get info from network
+		if not success then
+			return
+		end -- could not get info from network
 
 		local badgeAwardText = RobloxTranslator:FormatByKey(
 			"NotificationScript2.onBadgeAwardedDetail",
@@ -1132,7 +1147,6 @@ local function onPreferredTransparencyChanged()
 	end
 end
 GameSettings:GetPropertyChangedSignal("PreferredTransparency"):connect(onPreferredTransparencyChanged)
-
 
 if not FFlagNotificationsNoLongerRequireControllerState then
 	local Platform = UserInputService:GetPlatform()

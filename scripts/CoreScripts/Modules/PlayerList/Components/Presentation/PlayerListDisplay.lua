@@ -55,7 +55,7 @@ PlayerListDisplay.validateProps = t.strictInterface({
 	isTenFootInterface = t.boolean,
 	isUsingGamepad = t.boolean,
 
-	screenSizeY = t.integer,
+	screenSizeY = t.number,
 	entrySize = t.integer,
 
 	sortedPlayers = t.array(playerInterface),

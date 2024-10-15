@@ -1,11 +1,14 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local VRService = game:GetService("VRService")
+local AppStorageService = game:GetService("AppStorageService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
+local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local Signal = SignalLib.Signal
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Badge = UIBlox.App.Indicator.Badge
@@ -29,6 +32,12 @@ local Constants = require(TopBar.Constants)
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+local ChatIconFtuxTooltip = require(script.Parent.ChatIconFtuxTooltip)
+local FIntInExperienceChatTooltipShowDelayMs = game:DefineFastInt("InExperienceChatTooltipShowDelayMs", 1000)
+local FIntInExperienceChatTooltipDismissDelayMs = game:DefineFastInt("InExperienceChatTooltipDismissDelayMs", 7000)
+
+local shouldShowNewIcon = GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.default.variant.ShowInExperienceChatNewIcon
+local shouldShowIconTooltip = shouldShowNewIcon and InExperienceAppChatExperimentation.default.variant.ShowInExperienceChatTooltip
 
 local GameSettings = UserSettings().GameSettings
 
@@ -46,6 +55,8 @@ local BADGE_OFFSET_X = 18
 local BADGE_OFFSET_Y = 2
 local EMPTY_BADGE_OFFSET_Y = 6
 
+local TOOLTIP_LOCAL_STORAGE_KEY = "HasSeenExpChatFtuxTooltip"
+
 ChatIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 
@@ -61,12 +72,19 @@ ChatIcon.validateProps = t.strictInterface({
 
 function ChatIcon:init()
 	self.buttonRef = Roact.createRef()
+	self.iconClickedSignal = if shouldShowIconTooltip then Signal.new() else nil
 	
 	self.chatIconActivated = function()
 		ChatSelector:ToggleVisibility()
 		GameSettings.ChatVisible = ChatSelector:GetVisibility()
 		if FFlagEnableTopBarAnalytics then
 			TopBarAnalytics.default:onChatButtonActivated(GameSettings.ChatVisible)
+		end
+		if shouldShowIconTooltip then
+			(self.iconClickedSignal :: SignalLib.Signal):fire(GameSettings.ChatVisible)
+			pcall(function()
+				AppStorageService:SetItem(TOOLTIP_LOCAL_STORAGE_KEY, "true")
+			end)
 		end
 	end
 end
@@ -81,7 +99,7 @@ function ChatIcon:render()
 			chatIcon = "rbxasset://textures/ui/TopBar/chatOff.png"
 		end
 		
-		if GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.default.variant.ShowInExperienceChatNewIcon then
+		if shouldShowNewIcon then
 			iconSize = NEW_ICON_SIZE
 			chatIcon = Images["icons/menu/publicChatOn"]
 			if not self.props.chatVisible then
@@ -110,6 +128,15 @@ function ChatIcon:render()
 			end
 		end
 
+		local iconButton = Roact.createElement(IconButton, {
+			icon = chatIcon,
+			iconSize = if GetFFlagEnableAppChatInExperience() then iconSize else ICON_SIZE,
+			onActivated = self.chatIconActivated,
+			[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+			[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+			[Roact.Ref] = setButtonRef,
+		})
+
 		return Roact.createElement("TextButton", {
 			Text = "",
 			Visible = chatEnabled,
@@ -118,14 +145,26 @@ function ChatIcon:render()
 			LayoutOrder = self.props.layoutOrder,
 			Selectable = false,
 		}, {
-			Background = Roact.createElement(IconButton, {
-				icon = chatIcon,
-				iconSize = if GetFFlagEnableAppChatInExperience() then iconSize else ICON_SIZE,
-				onActivated = self.chatIconActivated,
-				[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
-				[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
-				[Roact.Ref] = setButtonRef,
-			}),
+			IconAndTooltipContainer = if shouldShowIconTooltip then Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Size = UDim2.fromScale(0, 0),
+				Position = UDim2.fromScale(0, 1),
+			}, {
+				Background = iconButton,
+				Tooltip = Roact.createElement(ChatIconFtuxTooltip, {
+					iconClickedSignal = self.iconClickedSignal,
+
+					headerKey = "CoreScripts.FTUX.Heading.NewIconUpdate",
+					bodyKey = "CoreScripts.FTUX.Label.ChatWithOthersInExperienceChat",
+					localStorageKey = TOOLTIP_LOCAL_STORAGE_KEY,
+
+					showDelay = FIntInExperienceChatTooltipShowDelayMs,
+					dismissDelay = FIntInExperienceChatTooltipDismissDelayMs,
+				})
+			}) else nil,
+			Background = if shouldShowIconTooltip then nil else iconButton,
 
 			BadgeContainer = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
@@ -139,7 +178,7 @@ function ChatIcon:render()
 					hasShadow = false,
 					value = shouldShowEmptyBadge() and BadgeStates.isEmpty or self.props.unreadMessages,
 				})
-			})
+			}),
 		})
 	end)
 end

@@ -21,7 +21,6 @@ local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibili
 
 local PlayerDropDown = require(Presentation.PlayerDropDown)
 local PlayerListSorter = require(Presentation.PlayerListSorter)
-local VoiceChatShield = require(Presentation.Parent.PresentationCommon.VoiceChatShield)
 
 local Connection = PlayerList.Components.Connection
 local EventConnections = require(Connection.EventConnections)
@@ -236,12 +235,6 @@ function PlayerListApp:render()
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)
 		childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)
-
-		if not game:GetEngineFeature("XboxRemoveVoiceChatButton") then
-			if self.props.displayOptions.hasPermissionToVoiceChat then
-				childElements["VoiceChatShield"] = Roact.createElement(VoiceChatShield)
-			end
-		end
 
 		return Roact.createElement("ImageButton", {
 			Active = self.props.displayOptions.isVisible,

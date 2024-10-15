@@ -43,13 +43,15 @@ local function getPart(humanoidModel: Model, partName: string): MeshPart
 end
 
 local function getItems(humanoidModel: Model, name: string): { [number]: AvatarItemCard.Props }
-	local eyelashes, eyebrows
+	local eyelashes, eyebrows, hair
 	for _, child in ipairs(humanoidModel:GetChildren()) do
 		if child:IsA("Accessory") then
 			if child.AccessoryType == Enum.AccessoryType.Eyebrow then
 				eyebrows = child
 			elseif child.AccessoryType == Enum.AccessoryType.Eyelash then
 				eyelashes = child
+			elseif child.AccessoryType == Enum.AccessoryType.Hair then
+				hair = child
 			end
 		end
 	end
@@ -112,6 +114,13 @@ local function getItems(humanoidModel: Model, name: string): { [number]: AvatarI
 		table.insert(items, {
 			asset = eyelashes,
 			titleText = name .. "'s Eyelashes",
+		})
+	end
+
+	if hair then
+		table.insert(items, {
+			asset = hair,
+			titleText = name .. "'s Hair",
 		})
 	end
 

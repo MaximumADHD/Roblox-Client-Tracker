@@ -54,7 +54,6 @@ local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCaptur
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFStringChromeMusicIntegrationId =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationId
-local GetFFlagSupportChromeContainerSizing = require(Chrome.Flags.GetFFlagSupportChromeContainerSizing)
 local GetFFlagEnableJoinVoiceOnUnibar = require(Chrome.Flags.GetFFlagEnableJoinVoiceOnUnibar)
 local GetFFlagEnableHamburgerIcon = require(Chrome.Flags.GetFFlagEnableHamburgerIcon)
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
@@ -136,9 +135,7 @@ function configureUnibar()
 		if GetFFlagDebugEnableUnibarDummyIntegrations() then
 			table.insert(v4Ordering, 1, "dummy_window")
 			table.insert(v4Ordering, 1, "dummy_window_2")
-			if GetFFlagSupportChromeContainerSizing() then
-				table.insert(v4Ordering, 1, "dummy_container")
-			end
+			table.insert(v4Ordering, 1, "dummy_container")
 		end
 
 		if
@@ -158,38 +155,28 @@ function configureUnibar()
 			v4Ordering,
 		})
 	elseif GetFFlagEnableChromePinIntegrations() then
-		if GetFFlagSupportChromeContainerSizing() then
-			ChromeService:configureMenu({
-				partyMenu,
-				if GetFFlagEnableJoinVoiceOnUnibar()
-					then {
-						"selfie_view",
-						"toggle_mic_mute",
-						"join_voice",
-						"chat",
-						"dummy_window",
-						"dummy_window_2",
-						"dummy_container",
-					}
-					else {
-						"selfie_view",
-						"toggle_mic_mute",
-						"chat",
-						"dummy_window",
-						"dummy_window_2",
-						"dummy_container",
-					},
-				{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
-			})
-		else
-			ChromeService:configureMenu({
-				partyMenu,
-				if GetFFlagEnableJoinVoiceOnUnibar()
-					then { "selfie_view", "toggle_mic_mute", "join_voice", "chat", "dummy_window", "dummy_window_2" }
-					else { "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
-				{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
-			})
-		end
+		ChromeService:configureMenu({
+			partyMenu,
+			if GetFFlagEnableJoinVoiceOnUnibar()
+				then {
+					"selfie_view",
+					"toggle_mic_mute",
+					"join_voice",
+					"chat",
+					"dummy_window",
+					"dummy_window_2",
+					"dummy_container",
+				}
+				else {
+					"selfie_view",
+					"toggle_mic_mute",
+					"chat",
+					"dummy_window",
+					"dummy_window_2",
+					"dummy_container",
+				},
+			{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
+		})
 	else
 		ChromeService:configureMenu({
 			partyMenu,
@@ -652,7 +639,7 @@ function Unibar(props: UnibarProp)
 				end)
 			end
 
-			if GetFFlagSupportChromeContainerSizing() and item.integration.components.Container then
+			if item.integration.components.Container then
 				local containerWidthSlots = if item.integration.containerWidthSlots
 					then item.integration.containerWidthSlots:get()
 					else 0

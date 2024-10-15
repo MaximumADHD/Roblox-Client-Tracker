@@ -5,7 +5,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Cryo = require(CorePackages.Cryo)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local getFFlagUseCameraDevicesListener = require(RobloxGui.Modules.Flags.getFFlagUseCameraDevicesListener)
 local cameraDevicesHelper = require(RobloxGui.Modules.Settings.cameraDevicesHelper)
 

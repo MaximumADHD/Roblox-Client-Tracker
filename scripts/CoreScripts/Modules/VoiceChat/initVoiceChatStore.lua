@@ -6,7 +6,7 @@ local Players = game:GetService("Players")
 
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local GetFFlagSubscriptionFailureUX = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureUX)
-local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
+local GetFFlagLocalMutedNilFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLocalMutedNilFix
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
 local VoiceEnabledChanged = require(script.Parent.Actions.VoiceEnabledChanged)

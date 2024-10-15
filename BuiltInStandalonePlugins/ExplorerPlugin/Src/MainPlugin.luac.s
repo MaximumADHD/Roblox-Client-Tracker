@@ -129,73 +129,86 @@ PROTO_9:
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
   GETTABLEKS R4 R2 K3 ["enabled"]
+  GETTABLEKS R8 R1 K4 ["PluginLoaderContext"]
+  GETTABLEKS R7 R8 K5 ["mainDockWidget"]
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  FASTCALL2K ASSERT R6 K6 [+4]
+  LOADK R7 K6 ["Couldn't get main dock widget"]
+  GETIMPORT R5 K8 [assert]
+  CALL R5 2 0
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["provide"]
+  GETTABLEKS R5 R6 K9 ["provide"]
   NEWTABLE R6 0 4
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K5 ["new"]
+  GETTABLEKS R7 R8 K10 ["new"]
   MOVE R8 R3
   CALL R7 1 1
-  GETTABLEKS R8 R0 K6 ["mouse"]
-  GETTABLEKS R9 R0 K7 ["localization"]
-  GETTABLEKS R10 R0 K8 ["analytics"]
+  GETTABLEKS R8 R0 K11 ["mouse"]
+  GETTABLEKS R9 R0 K12 ["localization"]
+  GETTABLEKS R10 R0 K13 ["analytics"]
   SETLIST R6 R7 4 [1]
-  DUPTABLE R7 K10 [{"MainWidget"}]
+  DUPTABLE R7 K15 [{"MainWidget"}]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K11 ["createElement"]
+  GETTABLEKS R8 R9 K16 ["createElement"]
   GETUPVAL R9 3
   NEWTABLE R10 16 0
-  LOADK R11 K12 ["ExplorerPlugin"]
-  SETTABLEKS R11 R10 K13 ["Id"]
-  SETTABLEKS R4 R10 K14 ["Enabled"]
-  GETTABLEKS R11 R0 K7 ["localization"]
+  LOADK R11 K17 ["ExplorerPlugin"]
+  SETTABLEKS R11 R10 K18 ["Id"]
+  SETTABLEKS R4 R10 K19 ["Enabled"]
+  GETTABLEKS R11 R0 K12 ["localization"]
   LOADK R13 K2 ["Plugin"]
-  LOADK R14 K15 ["Name"]
-  NAMECALL R11 R11 K16 ["getText"]
+  LOADK R14 K20 ["Name"]
+  NAMECALL R11 R11 K21 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K17 ["Title"]
-  GETIMPORT R11 K21 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K19 ["ZIndexBehavior"]
-  GETIMPORT R11 K24 [Enum.InitialDockState.Bottom]
-  SETTABLEKS R11 R10 K22 ["InitialDockState"]
-  GETIMPORT R11 K26 [Vector2.new]
+  SETTABLEKS R11 R10 K22 ["Title"]
+  GETIMPORT R11 K26 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K24 ["ZIndexBehavior"]
+  GETIMPORT R11 K29 [Enum.InitialDockState.Bottom]
+  SETTABLEKS R11 R10 K27 ["InitialDockState"]
+  GETIMPORT R11 K31 [Vector2.new]
   LOADN R12 128
   LOADN R13 224
   CALL R11 2 1
-  SETTABLEKS R11 R10 K27 ["Size"]
-  GETIMPORT R11 K26 [Vector2.new]
+  SETTABLEKS R11 R10 K32 ["Size"]
+  GETIMPORT R11 K31 [Vector2.new]
   LOADN R12 250
   LOADN R13 200
   CALL R11 2 1
-  SETTABLEKS R11 R10 K28 ["MinSize"]
-  GETTABLEKS R11 R0 K29 ["onClose"]
-  SETTABLEKS R11 R10 K30 ["OnClose"]
-  GETTABLEKS R12 R1 K31 ["PluginLoaderContext"]
-  GETTABLEKS R11 R12 K32 ["mainDockWidget"]
-  SETTABLEKS R11 R10 K33 ["Widget"]
-  GETTABLEKS R11 R0 K34 ["onDockWidgetCreated"]
-  SETTABLEKS R11 R10 K35 ["OnWidgetCreated"]
+  SETTABLEKS R11 R10 K33 ["MinSize"]
+  GETTABLEKS R11 R0 K34 ["onClose"]
+  SETTABLEKS R11 R10 K35 ["OnClose"]
+  GETTABLEKS R12 R1 K4 ["PluginLoaderContext"]
+  GETTABLEKS R11 R12 K5 ["mainDockWidget"]
+  SETTABLEKS R11 R10 K36 ["Widget"]
+  GETTABLEKS R11 R0 K37 ["onDockWidgetCreated"]
+  SETTABLEKS R11 R10 K38 ["OnWidgetCreated"]
   GETUPVAL R13 2
-  GETTABLEKS R12 R13 K36 ["Change"]
-  GETTABLEKS R11 R12 K14 ["Enabled"]
-  GETTABLEKS R12 R0 K37 ["onWidgetEnabledChanged"]
+  GETTABLEKS R12 R13 K39 ["Change"]
+  GETTABLEKS R11 R12 K19 ["Enabled"]
+  GETTABLEKS R12 R0 K40 ["onWidgetEnabledChanged"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K40 [{"App", "StyleLink"}]
+  DUPTABLE R11 K43 [{"App", "StyleLink"}]
   GETUPVAL R13 2
-  GETTABLEKS R12 R13 K11 ["createElement"]
+  GETTABLEKS R12 R13 K16 ["createElement"]
   GETUPVAL R13 4
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K38 ["App"]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K11 ["createElement"]
-  LOADK R13 K39 ["StyleLink"]
-  DUPTABLE R14 K42 [{"StyleSheet"}]
-  GETTABLEKS R15 R0 K43 ["design"]
-  SETTABLEKS R15 R14 K41 ["StyleSheet"]
+  DUPTABLE R14 K45 [{"dockWidget"}]
+  GETTABLEKS R16 R1 K4 ["PluginLoaderContext"]
+  GETTABLEKS R15 R16 K5 ["mainDockWidget"]
+  SETTABLEKS R15 R14 K44 ["dockWidget"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K39 ["StyleLink"]
+  SETTABLEKS R12 R11 K41 ["App"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K16 ["createElement"]
+  LOADK R13 K42 ["StyleLink"]
+  DUPTABLE R14 K47 [{"StyleSheet"}]
+  GETTABLEKS R15 R0 K48 ["design"]
+  SETTABLEKS R15 R14 K46 ["StyleSheet"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K42 ["StyleLink"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K9 ["MainWidget"]
+  SETTABLEKS R8 R7 K14 ["MainWidget"]
   CALL R5 2 -1
   RETURN R5 -1
 

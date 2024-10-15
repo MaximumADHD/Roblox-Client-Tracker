@@ -41,7 +41,7 @@ PROTO_1:
   SETTABLEKS R5 R4 K2 ["LayoutOrder"]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K3 ["Tag"]
-  LOADK R6 K4 ["Toolbar X-FitY X-AnchorCenter X-RowM X-Center"]
+  LOADK R6 K4 ["Toolbar X-FitY X-AnchorCenter X-Center"]
   SETTABLE R6 R4 R5
   MOVE R5 R1
   CALL R2 3 -1

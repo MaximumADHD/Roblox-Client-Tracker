@@ -4,6 +4,9 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
 -- Local private variables and constants
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
@@ -32,6 +35,8 @@ local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 
 --[[ Services ]]--
 local PlayersService = game:GetService('Players')
+
+local FFlagUserFixOrbitalCam = FlagUtil.getUserFlag("UserFixOrbitalCam")
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
@@ -217,7 +222,7 @@ end
 function OrbitalCamera:Update(dt: number): (CFrame, CFrame)
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
-	local userPanningTheCamera = CameraInput.getRotation() ~= Vector2.new()
+	local userPanningTheCamera = CameraInput.getRotation(if FFlagUserFixOrbitalCam then dt else nil) ~= Vector2.new()
 	local camera = 	workspace.CurrentCamera
 	local newCameraCFrame = camera.CFrame
 	local newCameraFocus = camera.Focus

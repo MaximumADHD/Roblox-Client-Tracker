@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableTexasU18VPCForInExperienceRobuxUpsellFlow", false)
+game:DefineFastFlag("EnableTexasU18VPCForInExperienceRobuxUpsellFlowV2", false)
 
 return function()
-    return game:GetFastFlag("EnableTexasU18VPCForInExperienceRobuxUpsellFlow")
+    return game:GetFastFlag("EnableTexasU18VPCForInExperienceRobuxUpsellFlowV2")
 end

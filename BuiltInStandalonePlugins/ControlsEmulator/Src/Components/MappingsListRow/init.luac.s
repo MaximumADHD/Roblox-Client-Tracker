@@ -85,7 +85,7 @@ PROTO_4:
   LOADB R4 0 +1
   LOADB R4 1
   LOADK R7 K4 ["MappingsListRow"]
-  LOADK R8 K5 ["PressKeysPrompt"]
+  LOADK R8 K5 ["PressKeysLabel"]
   NAMECALL R5 R1 K6 ["getText"]
   CALL R5 3 1
   GETTABLEKS R6 R2 K7 ["isUpdatingMappingForGamepadId"]

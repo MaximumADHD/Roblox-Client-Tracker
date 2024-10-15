@@ -9,7 +9,7 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Common"]
   GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["getFFlagEnableDirectionalCurveEditor"]
+  GETTABLEKS R2 R1 K9 ["getFFlagCLI_109818"]
   CALL R2 0 1
   JUMPIF R2 [+1]
   RETURN R0 0
@@ -17,35 +17,36 @@ MAIN:
   GETTABLEKS R4 R0 K10 ["Packages"]
   GETTABLEKS R3 R4 K11 ["TestLoader"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K12 ["isCli"]
+  GETTABLEKS R3 R2 K12 ["launch"]
+  LOADK R4 K2 ["DirectionalCurveEditor"]
+  GETTABLEKS R5 R0 K13 ["Src"]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K14 ["isCli"]
   CALL R3 0 1
-  JUMPIFNOT R3 [+5]
-  GETIMPORT R3 K14 [error]
-  LOADK R4 K15 ["roblox-cli should not be loading standalone plugins"]
-  CALL R3 1 0
+  JUMPIFNOT R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Bin"]
   GETTABLEKS R5 R6 K7 ["Common"]
-  GETTABLEKS R4 R5 K16 ["pluginType"]
+  GETTABLEKS R4 R5 K15 ["pluginType"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K17 ["get"]
+  GETTABLEKS R4 R3 K16 ["get"]
   CALL R4 0 1
-  GETTABLEKS R5 R3 K18 ["Standalone"]
+  GETTABLEKS R5 R3 K17 ["standalone"]
   JUMPIFEQ R4 R5 [+2]
   RETURN R0 0
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K6 ["Bin"]
   GETTABLEKS R6 R7 K7 ["Common"]
-  GETTABLEKS R5 R6 K19 ["setup"]
+  GETTABLEKS R5 R6 K18 ["setup"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K6 ["Bin"]
   GETTABLEKS R7 R8 K7 ["Common"]
-  GETTABLEKS R6 R7 K20 ["setupMain"]
+  GETTABLEKS R6 R7 K19 ["setupMain"]
   CALL R5 1 1
   MOVE R6 R4
-  GETIMPORT R7 K22 [plugin]
+  GETIMPORT R7 K21 [plugin]
   MOVE R8 R5
   CALL R6 2 0
   RETURN R0 0

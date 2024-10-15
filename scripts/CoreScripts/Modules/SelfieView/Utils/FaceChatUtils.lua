@@ -6,7 +6,8 @@ local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermiss
 local CorePackages = game:GetService("CorePackages")
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 
-local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagAvatarChatServiceEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local FFlagDisableCameraOnSelfieViewForLowspecDevices =
 	game:DefineFastFlag("DisableCameraOnSelfieViewForLowspecDevices", false)
 

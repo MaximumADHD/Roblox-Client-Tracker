@@ -18,6 +18,8 @@ local TextChatService = game:GetService("TextChatService")
 
 local RobloxGui = CoreGui.RobloxGui
 
+local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
+
 local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local App = require(RobloxGui.Modules.InGameChat.BubbleChat.Components.App)
@@ -42,9 +44,9 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
-local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
+local GetFFlagLocalMutedNilFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLocalMutedNilFix
 local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
-local GetFFlagBatchVoiceParticipantsUpdates = require(RobloxGui.Modules.Flags.GetFFlagBatchVoiceParticipantsUpdates)
+local GetFFlagBatchVoiceParticipantsUpdates = require(VoiceChatCore.Flags.GetFFlagBatchVoiceParticipantsUpdates)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 
 local ExperienceChat = require(CorePackages.ExperienceChat)

@@ -13,8 +13,11 @@ local PurchaseErrorType =  IAPExperience.PurchaseFlow.PurchaseErrorType
 
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
+local VPCModalType = require(Root.Enums.VPCModalType)
 
 local PremiumUpsellOverlay = Roact.PureComponent:extend(script.Name)
+
+local GetFFlagEnableVpcForInExperiencePremiumUpsell = require(Root.Flags.GetFFlagEnableVpcForInExperiencePremiumUpsell)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -39,6 +42,7 @@ type Props = {
 	isGamepadEnabled: boolean,
 
 	promptPremiumPurchase: () -> any,
+	dispatchPremiumPrecheck: () -> any,
 	endPurchase: () -> any,
 
 	onAnalyticEvent: (string, any) -> any,
@@ -50,11 +54,15 @@ function PremiumUpsellOverlay:init()
 		local promptState = props.promptState
 
 		if promptState == PromptState.PremiumUpsell then
-			props.promptPremiumPurchase()
+			if GetFFlagEnableVpcForInExperiencePremiumUpsell() then
+				props.dispatchPremiumPrecheck()
+			else
+				props.promptPremiumPurchase()
+			end
 			return
 		elseif promptState == PromptState.PurchaseComplete then
 			props.endPurchase()
-			return 
+			return
 		elseif promptState == PromptState.Error then
 			props.endPurchase()
 			return
@@ -99,6 +107,8 @@ function PremiumUpsellOverlay:getFlowState()
 		return PremiumUpsellFlowState.PurchaseModal
 	elseif promptState == PromptState.Error then
 		return PremiumUpsellFlowState.Error
+	elseif promptState == PromptState.EnablePurchaseVPCModal then
+		return PremiumUpsellFlowState.PurchaseVPCModal
 	end
 
 	return PremiumUpsellFlowState.None
@@ -114,6 +124,16 @@ function PremiumUpsellOverlay:getErrorType()
 	end
 
 	return PurchaseErrorType.Unknown
+end
+
+function PremiumUpsellOverlay:getVPCModalType()
+	local props: Props = self.props
+	local promptState = props.promptState
+
+	if promptState == PromptState.EnablePurchaseVPCModal then
+		return VPCModalType.toRawValue(VPCModalType.EnablePurchase)
+	end
+	return VPCModalType.toRawValue(VPCModalType.None)
 end
 
 function PremiumUpsellOverlay:render()
@@ -132,12 +152,15 @@ function PremiumUpsellOverlay:render()
 
 		purchaseState = self:getFlowState(),
 		errorType = self:getErrorType(),
+		purchaseVPCType = self:getVPCModalType(),
 
 		acceptControllerIcon = if props.isGamepadEnabled
 			then BUTTON_A_ICON
 			else nil,
 
-		purchasePremium = props.promptPremiumPurchase,
+		purchasePremium = if GetFFlagEnableVpcForInExperiencePremiumUpsell()
+			then props.dispatchPremiumPrecheck
+			else props.promptPremiumPurchase,
 		cancelPurchase = props.endPurchase,
 		flowComplete = props.endPurchase,
 

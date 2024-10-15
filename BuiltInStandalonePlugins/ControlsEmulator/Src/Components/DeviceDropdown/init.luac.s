@@ -2,7 +2,7 @@ PROTO_0:
   NEWTABLE R0 8 0
   GETUPVAL R1 0
   LOADK R3 K0 ["DeviceDropdown"]
-  LOADK R4 K1 ["Generic"]
+  LOADK R4 K1 ["GenericGamepad"]
   NAMECALL R1 R1 K2 ["getText"]
   CALL R1 3 1
   SETTABLEN R1 R0 101

@@ -119,34 +119,41 @@ PROTO_4:
   GETUPVAL R4 4
   GETTABLEKS R3 R4 K6 ["createElement"]
   GETUPVAL R4 5
-  DUPTABLE R5 K16 [{"Data", "IsLoading", "LayoutOrder", "OnClickSeeAll", "OnRenderItem", "Size", "Total", "Title", "ZIndex"}]
-  GETTABLEKS R6 R0 K17 ["assets"]
+  DUPTABLE R5 K17 [{"Data", "IsHeaderResponsive", "IsLoading", "LayoutOrder", "OnClickSeeAll", "OnRenderItem", "Size", "Total", "Title", "ZIndex"}]
+  GETTABLEKS R6 R0 K18 ["assets"]
   SETTABLEKS R6 R5 K7 ["Data"]
-  GETTABLEKS R6 R0 K18 ["loading"]
-  SETTABLEKS R6 R5 K8 ["IsLoading"]
+  GETUPVAL R7 6
+  CALL R7 0 1
+  JUMPIFNOT R7 [+2]
+  LOADB R6 1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K8 ["IsHeaderResponsive"]
+  GETTABLEKS R6 R0 K19 ["loading"]
+  SETTABLEKS R6 R5 K9 ["IsLoading"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K9 ["LayoutOrder"]
-  SETTABLEKS R6 R5 K9 ["LayoutOrder"]
-  GETUPVAL R6 6
-  SETTABLEKS R6 R5 K10 ["OnClickSeeAll"]
+  GETTABLEKS R6 R7 K10 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K10 ["LayoutOrder"]
   GETUPVAL R6 7
-  SETTABLEKS R6 R5 K11 ["OnRenderItem"]
-  GETIMPORT R6 K21 [UDim2.new]
+  SETTABLEKS R6 R5 K11 ["OnClickSeeAll"]
+  GETUPVAL R6 8
+  SETTABLEKS R6 R5 K12 ["OnRenderItem"]
+  GETIMPORT R6 K22 [UDim2.new]
   LOADN R7 0
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K22 ["SwimlaneWidth"]
+  GETTABLEKS R8 R9 K23 ["SwimlaneWidth"]
   LOADN R9 0
   MOVE R10 R2
   CALL R6 4 1
-  SETTABLEKS R6 R5 K12 ["Size"]
-  GETTABLEKS R6 R0 K23 ["total"]
-  SETTABLEKS R6 R5 K13 ["Total"]
+  SETTABLEKS R6 R5 K13 ["Size"]
+  GETTABLEKS R6 R0 K24 ["total"]
+  SETTABLEKS R6 R5 K14 ["Total"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K14 ["Title"]
-  SETTABLEKS R6 R5 K14 ["Title"]
+  GETTABLEKS R6 R7 K15 ["Title"]
+  SETTABLEKS R6 R5 K15 ["Title"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K15 ["ZIndex"]
-  SETTABLEKS R6 R5 K15 ["ZIndex"]
+  GETTABLEKS R6 R7 K16 ["ZIndex"]
+  SETTABLEKS R6 R5 K16 ["ZIndex"]
   CALL R3 2 -1
   RETURN R3 -1
 
@@ -220,6 +227,7 @@ PROTO_5:
   CAPTURE UPVAL U10
   CAPTURE UPVAL U5
   CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
   CAPTURE VAL R6
   CAPTURE VAL R9
   NEWTABLE R12 0 7
@@ -244,7 +252,7 @@ PROTO_5:
   JUMPIFNOTEQKN R11 K23 [0] [+3]
   LOADNIL R11
   RETURN R11 1
-  GETUPVAL R12 12
+  GETUPVAL R12 13
   GETTABLEKS R11 R12 K25 ["Generator"]
   DUPTABLE R12 K36 [{"assetsInCameraViewport", "assetsInCameraVicinity", "networkInterface", "categoryName", "includeUnverifiedCreators", "qualityFilterData", "sortName", "queryParams", "sectionName", "initialPageSize", "render", "searchSource"}]
   GETTABLEKS R14 R0 K5 ["SectionName"]
@@ -269,7 +277,7 @@ PROTO_5:
   SETTABLEKS R13 R12 K27 ["categoryName"]
   GETTABLEKS R13 R0 K37 ["IncludeUnverifiedCreators"]
   SETTABLEKS R13 R12 K28 ["includeUnverifiedCreators"]
-  GETUPVAL R14 13
+  GETUPVAL R14 14
   CALL R14 0 1
   JUMPIFNOT R14 [+3]
   GETTABLEKS R13 R0 K38 ["QualityFilterData"]
@@ -369,14 +377,20 @@ MAIN:
   GETTABLEKS R17 R18 K28 ["Flags"]
   GETTABLEKS R16 R17 K29 ["getFFlagQualityFiltersInToolboxSearch"]
   CALL R15 1 1
-  GETTABLEKS R16 R1 K30 ["useState"]
-  GETTABLEKS R17 R1 K31 ["useCallback"]
-  DUPCLOSURE R18 K32 [PROTO_5]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R20 R0 K8 ["Core"]
+  GETTABLEKS R19 R20 K15 ["Util"]
+  GETTABLEKS R18 R19 K25 ["SharedFlags"]
+  GETTABLEKS R17 R18 K30 ["getFFlagToolboxFixSwimlaneHeader"]
+  CALL R16 1 1
+  GETTABLEKS R17 R1 K31 ["useState"]
+  GETTABLEKS R18 R1 K32 ["useCallback"]
+  DUPCLOSURE R19 K33 [PROTO_5]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R12
-  CAPTURE VAL R16
   CAPTURE VAL R17
+  CAPTURE VAL R18
   CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE VAL R6
@@ -384,6 +398,7 @@ MAIN:
   CAPTURE VAL R5
   CAPTURE VAL R14
   CAPTURE VAL R11
+  CAPTURE VAL R16
   CAPTURE VAL R10
   CAPTURE VAL R15
-  RETURN R18 1
+  RETURN R19 1

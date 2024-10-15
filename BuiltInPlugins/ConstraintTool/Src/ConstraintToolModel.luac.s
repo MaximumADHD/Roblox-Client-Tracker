@@ -51,7 +51,7 @@ PROTO_0:
   GETIMPORT R14 K13 [game]
   GETTABLEKS R13 R14 K14 ["CoreGui"]
   SETTABLEKS R13 R12 K15 ["Parent"]
-  DUPTABLE R14 K38 [{"_draggerContext", "_draggerSchema", "_modelProps", "_closePluginCallback", "_requestRenderCallback", "_constraintToolVisualsFolder", "_markViewDirtyCallback", "_undoAttachmentStack", "_redoAttachmentStack", "_plugin", "_openedTimestamp", "_attachmentMover", "_attachmentArrowVisuals", "_partPassthroughEnabled", "_ancestryChangedConnection", "_selectionHighlight", "_ghostAssembly", "_attachmentAdornment", "_initialInstanceAdornment", "_constraintType", "_tiltRotate", "_recordingIdentifier"}]
+  DUPTABLE R14 K39 [{"_draggerContext", "_draggerSchema", "_modelProps", "_closePluginCallback", "_requestRenderCallback", "_constraintToolVisualsFolder", "_markViewDirtyCallback", "_undoAttachmentStack", "_redoAttachmentStack", "_plugin", "_openedTimestamp", "_attachmentMover", "_attachmentArrowVisuals", "_partPassthroughEnabled", "_ancestryChangedConnection", "_selectionHighlight", "_ghostAssembly", "_attachmentAdornment", "_initialInstanceAdornment", "_constraintType", "_tiltRotate", "_recordingIdentifier", "_lastDraggedInstanceDefaultOrientation"}]
   SETTABLEKS R0 R14 K16 ["_draggerContext"]
   SETTABLEKS R1 R14 K17 ["_draggerSchema"]
   SETTABLEKS R11 R14 K18 ["_modelProps"]
@@ -62,7 +62,7 @@ PROTO_0:
   SETTABLEKS R4 R14 K23 ["_undoAttachmentStack"]
   SETTABLEKS R5 R14 K24 ["_redoAttachmentStack"]
   SETTABLEKS R7 R14 K25 ["_plugin"]
-  GETIMPORT R15 K41 [os.clock]
+  GETIMPORT R15 K42 [os.clock]
   CALL R15 0 1
   SETTABLEKS R15 R14 K26 ["_openedTimestamp"]
   GETUPVAL R16 2
@@ -89,9 +89,11 @@ PROTO_0:
   SETTABLEKS R15 R14 K36 ["_tiltRotate"]
   LOADNIL R15
   SETTABLEKS R15 R14 K37 ["_recordingIdentifier"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K38 ["_lastDraggedInstanceDefaultOrientation"]
   GETUPVAL R15 4
   FASTCALL2 SETMETATABLE R14 R15 [+3]
-  GETIMPORT R13 K43 [setmetatable]
+  GETIMPORT R13 K44 [setmetatable]
   CALL R13 2 1
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K7 ["new"]
@@ -99,18 +101,18 @@ PROTO_0:
   GETTABLEKS R16 R13 K17 ["_draggerSchema"]
   MOVE R17 R13
   CALL R14 3 1
-  SETTABLEKS R14 R13 K44 ["_attachmentToolRenderer"]
+  SETTABLEKS R14 R13 K45 ["_attachmentToolRenderer"]
   GETUPVAL R15 6
   GETTABLEKS R14 R15 K7 ["new"]
   MOVE R15 R13
   CALL R14 1 1
-  SETTABLEKS R14 R13 K45 ["_attachmentToolAnimator"]
+  SETTABLEKS R14 R13 K46 ["_attachmentToolAnimator"]
   SETUPVAL R6 7
   MOVE R14 R8
   MOVE R15 R13
   CALL R14 1 1
-  GETTABLEKS R15 R14 K46 ["undo"]
-  SETTABLEKS R15 R13 K47 ["_mainUndo"]
+  GETTABLEKS R15 R14 K47 ["undo"]
+  SETTABLEKS R15 R13 K48 ["_mainUndo"]
   RETURN R13 1
 
 PROTO_1:
@@ -833,6 +835,23 @@ PROTO_23:
   JUMPIFNOT R8 [+4]
   GETTABLEKS R7 R4 K49 ["targetPart"]
   GETTABLEKS R6 R4 K50 ["mainCFrame"]
+  GETUPVAL R8 7
+  JUMPIFNOT R8 [+25]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["raycast"]
+  MOVE R9 R1
+  NAMECALL R10 R0 K31 ["getRaycastIgnoreList"]
+  CALL R10 1 -1
+  CALL R8 -1 1
+  JUMPIFNOT R8 [+16]
+  GETTABLEKS R9 R0 K51 ["_lastNormal"]
+  GETTABLEKS R10 R8 K52 ["Normal"]
+  JUMPIFEQ R9 R10 [+7]
+  GETTABLEKS R10 R4 K53 ["baseCFrame"]
+  GETTABLEKS R9 R10 K29 ["Rotation"]
+  SETTABLEKS R9 R0 K54 ["_lastDraggedInstanceDefaultOrientation"]
+  GETTABLEKS R9 R8 K52 ["Normal"]
+  SETTABLEKS R9 R0 K51 ["_lastNormal"]
   JUMPIFNOT R4 [+5]
   GETTABLEKS R8 R4 K49 ["targetPart"]
   JUMPIFNOT R8 [+2]
@@ -845,92 +864,103 @@ PROTO_23:
   SETTABLEKS R9 R8 K23 ["Enabled"]
   GETTABLEKS R8 R0 K4 ["_selectionHighlight"]
   SETTABLEKS R7 R8 K6 ["Adornee"]
-  JUMPIFNOT R7 [+183]
-  GETUPVAL R8 7
+  JUMPIFNOT R7 [+199]
+  GETUPVAL R8 8
   JUMPIFNOT R8 [+78]
-  GETTABLEKS R8 R0 K51 ["_ghostAssembly"]
+  GETTABLEKS R8 R0 K55 ["_ghostAssembly"]
   JUMPIFNOT R8 [+4]
-  GETTABLEKS R8 R0 K52 ["_lastHoveringInstance"]
+  GETTABLEKS R8 R0 K56 ["_lastHoveringInstance"]
   JUMPIFEQ R8 R7 [+72]
-  GETTABLEKS R8 R0 K51 ["_ghostAssembly"]
+  GETTABLEKS R8 R0 K55 ["_ghostAssembly"]
   JUMPIFNOT R8 [+8]
-  GETTABLEKS R8 R0 K51 ["_ghostAssembly"]
-  NAMECALL R8 R8 K53 ["Destroy"]
+  GETTABLEKS R8 R0 K55 ["_ghostAssembly"]
+  NAMECALL R8 R8 K57 ["Destroy"]
   CALL R8 1 0
   LOADNIL R8
-  SETTABLEKS R8 R0 K51 ["_ghostAssembly"]
+  SETTABLEKS R8 R0 K55 ["_ghostAssembly"]
   GETTABLEKS R8 R0 K9 ["_initialInstance"]
   JUMPIFNOT R8 [+57]
-  GETIMPORT R8 K54 [Instance.new]
-  LOADK R9 K55 ["Model"]
+  GETIMPORT R8 K58 [Instance.new]
+  LOADK R9 K59 ["Model"]
   CALL R8 1 1
-  SETTABLEKS R8 R0 K51 ["_ghostAssembly"]
-  GETTABLEKS R8 R0 K51 ["_ghostAssembly"]
-  LOADK R9 K56 ["GhostAssembly"]
-  SETTABLEKS R9 R8 K57 ["Name"]
-  GETTABLEKS R8 R0 K51 ["_ghostAssembly"]
+  SETTABLEKS R8 R0 K55 ["_ghostAssembly"]
+  GETTABLEKS R8 R0 K55 ["_ghostAssembly"]
+  LOADK R9 K60 ["GhostAssembly"]
+  SETTABLEKS R9 R8 K61 ["Name"]
+  GETTABLEKS R8 R0 K55 ["_ghostAssembly"]
   LOADB R9 0
-  SETTABLEKS R9 R8 K58 ["Archivable"]
-  GETTABLEKS R8 R0 K51 ["_ghostAssembly"]
-  GETIMPORT R10 K60 [workspace]
-  GETTABLEKS R9 R10 K61 ["CurrentCamera"]
-  SETTABLEKS R9 R8 K62 ["Parent"]
+  SETTABLEKS R9 R8 K62 ["Archivable"]
+  GETTABLEKS R8 R0 K55 ["_ghostAssembly"]
+  GETIMPORT R10 K64 [workspace]
+  GETTABLEKS R9 R10 K65 ["CurrentCamera"]
+  SETTABLEKS R9 R8 K66 ["Parent"]
   GETTABLEKS R9 R0 K9 ["_initialInstance"]
-  GETTABLEKS R8 R9 K62 ["Parent"]
-  NAMECALL R8 R8 K63 ["Clone"]
+  GETTABLEKS R8 R9 K66 ["Parent"]
+  NAMECALL R8 R8 K67 ["Clone"]
   CALL R8 1 1
-  GETTABLEKS R9 R0 K51 ["_ghostAssembly"]
-  SETTABLEKS R9 R8 K62 ["Parent"]
-  GETTABLEKS R9 R0 K51 ["_ghostAssembly"]
-  SETTABLEKS R8 R9 K64 ["PrimaryPart"]
+  GETTABLEKS R9 R0 K55 ["_ghostAssembly"]
+  SETTABLEKS R9 R8 K66 ["Parent"]
+  GETTABLEKS R9 R0 K55 ["_ghostAssembly"]
+  SETTABLEKS R8 R9 K68 ["PrimaryPart"]
   GETTABLEKS R10 R0 K9 ["_initialInstance"]
-  GETTABLEKS R9 R10 K62 ["Parent"]
+  GETTABLEKS R9 R10 K66 ["Parent"]
   LOADB R11 1
-  NAMECALL R9 R9 K65 ["GetConnectedParts"]
+  NAMECALL R9 R9 K69 ["GetConnectedParts"]
   CALL R9 2 3
   FORGPREP R9
-  NAMECALL R14 R13 K63 ["Clone"]
+  NAMECALL R14 R13 K67 ["Clone"]
   CALL R14 1 1
-  GETTABLEKS R15 R0 K51 ["_ghostAssembly"]
-  SETTABLEKS R15 R14 K62 ["Parent"]
+  GETTABLEKS R15 R0 K55 ["_ghostAssembly"]
+  SETTABLEKS R15 R14 K66 ["Parent"]
   FORGLOOP R9 2 [-8]
-  GETTABLEKS R8 R0 K66 ["_attachmentAdornment"]
+  GETTABLEKS R8 R0 K70 ["_attachmentAdornment"]
   NAMECALL R10 R0 K18 ["_canMouseDown"]
   CALL R10 1 1
   JUMPIFNOT R10 [+2]
-  GETUPVAL R9 8
-  JUMPIF R9 [+1]
   GETUPVAL R9 9
+  JUMPIF R9 [+1]
+  GETUPVAL R9 10
   SETTABLEKS R9 R8 K22 ["Color3"]
-  GETTABLEKS R8 R0 K67 ["_attachmentToolAnimator"]
-  NAMECALL R8 R8 K68 ["inProgress"]
+  GETUPVAL R8 7
+  JUMPIFNOT R8 [+14]
+  GETTABLEKS R8 R0 K54 ["_lastDraggedInstanceDefaultOrientation"]
+  JUMPIFNOT R8 [+11]
+  GETIMPORT R9 K15 [CFrame.new]
+  GETTABLEKS R10 R6 K8 ["Position"]
+  CALL R9 1 1
+  GETTABLEKS R10 R0 K54 ["_lastDraggedInstanceDefaultOrientation"]
+  MUL R8 R9 R10
+  GETTABLEKS R9 R0 K26 ["_tiltRotate"]
+  MUL R6 R8 R9
+  GETTABLEKS R8 R0 K71 ["_attachmentToolAnimator"]
+  NAMECALL R8 R8 K72 ["inProgress"]
   CALL R8 1 1
   JUMPIF R8 [+6]
-  GETTABLEKS R10 R0 K66 ["_attachmentAdornment"]
+  GETTABLEKS R10 R0 K70 ["_attachmentAdornment"]
   MOVE R11 R6
-  NAMECALL R8 R0 K69 ["_orientAttachmentAdornment"]
+  NAMECALL R8 R0 K73 ["_orientAttachmentAdornment"]
   CALL R8 3 0
   GETTABLEKS R8 R0 K9 ["_initialInstance"]
   JUMPIFNOT R8 [+77]
   GETTABLEKS R9 R0 K9 ["_initialInstance"]
   GETTABLEKS R8 R9 K48 ["WorldCFrame"]
   GETTABLEKS R12 R0 K9 ["_initialInstance"]
-  GETTABLEKS R11 R12 K62 ["Parent"]
+  GETTABLEKS R11 R12 K66 ["Parent"]
   GETTABLEKS R10 R11 K11 ["CFrame"]
-  NAMECALL R8 R8 K70 ["ToObjectSpace"]
+  NAMECALL R8 R8 K74 ["ToObjectSpace"]
   CALL R8 2 1
-  GETTABLEKS R11 R6 K71 ["p"]
+  GETTABLEKS R11 R6 K75 ["p"]
   GETTABLEKS R14 R0 K9 ["_initialInstance"]
   GETTABLEKS R13 R14 K48 ["WorldCFrame"]
-  GETTABLEKS R12 R13 K71 ["p"]
+  GETTABLEKS R12 R13 K75 ["p"]
   SUB R10 R11 R12
   GETTABLEKS R9 R10 K10 ["Magnitude"]
   GETTABLEKS R10 R0 K7 ["_constraintConnectionVisual"]
   GETIMPORT R12 K13 [CFrame.lookAt]
   GETTABLEKS R15 R0 K9 ["_initialInstance"]
   GETTABLEKS R14 R15 K48 ["WorldCFrame"]
-  GETTABLEKS R13 R14 K71 ["p"]
-  GETTABLEKS R14 R6 K71 ["p"]
+  GETTABLEKS R13 R14 K75 ["p"]
+  GETTABLEKS R14 R6 K75 ["p"]
   CALL R12 2 1
   GETIMPORT R13 K15 [CFrame.new]
   LOADN R14 0
@@ -942,23 +972,23 @@ PROTO_23:
   SETTABLEKS R11 R10 K11 ["CFrame"]
   GETTABLEKS R10 R0 K7 ["_constraintConnectionVisual"]
   SETTABLEKS R9 R10 K17 ["Height"]
-  GETTABLEKS R13 R0 K72 ["_partPassthroughEnabled"]
+  GETTABLEKS R13 R0 K76 ["_partPassthroughEnabled"]
   JUMPIFNOT R13 [+2]
   LOADK R12 K16 [0.5]
   JUMP [+1]
   LOADN R12 0
-  NAMECALL R10 R0 K73 ["_setInitialInstanceTransparency"]
+  NAMECALL R10 R0 K77 ["_setInitialInstanceTransparency"]
   CALL R10 2 0
-  GETTABLEKS R12 R0 K74 ["_initialInstanceAdornment"]
+  GETTABLEKS R12 R0 K78 ["_initialInstanceAdornment"]
   GETTABLEKS R14 R0 K9 ["_initialInstance"]
   GETTABLEKS R13 R14 K48 ["WorldCFrame"]
-  NAMECALL R10 R0 K69 ["_orientAttachmentAdornment"]
+  NAMECALL R10 R0 K73 ["_orientAttachmentAdornment"]
   CALL R10 3 0
-  GETUPVAL R10 7
+  GETUPVAL R10 8
   JUMPIFNOT R10 [+6]
-  GETTABLEKS R10 R0 K51 ["_ghostAssembly"]
+  GETTABLEKS R10 R0 K55 ["_ghostAssembly"]
   MUL R12 R6 R8
-  NAMECALL R10 R10 K75 ["SetPrimaryPartCFrame"]
+  NAMECALL R10 R10 K79 ["SetPrimaryPartCFrame"]
   CALL R10 2 0
   RETURN R0 0
 
@@ -968,49 +998,105 @@ PROTO_24:
   JUMPIFNOT R3 [+4]
   GETTABLEKS R3 R0 K0 ["_lastDragTarget"]
   GETTABLEKS R2 R3 K1 ["targetMatrix"]
+  LOADNIL R3
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["updateTiltRotate"]
-  GETTABLEKS R4 R0 K3 ["_draggerContext"]
-  NAMECALL R4 R4 K4 ["getCameraCFrame"]
-  CALL R4 1 1
-  GETTABLEKS R5 R0 K3 ["_draggerContext"]
-  NAMECALL R5 R5 K5 ["getMouseRay"]
+  JUMPIFNOT R4 [+52]
+  LOADNIL R4
+  GETTABLEKS R5 R0 K2 ["_lastDraggedInstanceDefaultOrientation"]
+  JUMPIFNOT R5 [+36]
+  LOADK R5 K3 [{0, 1, 0}]
+  JUMPIFEQ R1 R5 [+34]
+  GETTABLEKS R5 R0 K4 ["_draggerContext"]
+  NAMECALL R5 R5 K5 ["getCameraCFrame"]
   CALL R5 1 1
-  NAMECALL R6 R0 K6 ["getRaycastIgnoreList"]
-  CALL R6 1 1
-  GETIMPORT R7 K9 [CFrame.identity]
-  MOVE R8 R2
-  GETTABLEKS R9 R0 K10 ["_tiltRotate"]
-  MOVE R10 R1
-  NAMECALL R11 R0 K11 ["shouldAlignDraggedObjects"]
-  CALL R11 1 1
-  JUMPIFNOT R11 [+6]
-  GETTABLEKS R12 R0 K3 ["_draggerContext"]
-  NAMECALL R12 R12 K12 ["isAltKeyDown"]
-  CALL R12 1 1
-  NOT R11 R12
-  GETTABLEKS R13 R0 K3 ["_draggerContext"]
-  NAMECALL R13 R13 K13 ["shouldGridSnap"]
-  CALL R13 1 1
-  JUMPIFNOT R13 [+6]
-  GETTABLEKS R12 R0 K3 ["_draggerContext"]
-  NAMECALL R12 R12 K14 ["getGridSize"]
-  CALL R12 1 1
+  MOVE R7 R1
+  NAMECALL R5 R5 K6 ["VectorToWorldSpace"]
+  CALL R5 2 1
+  LOADK R6 K7 [-∞]
+  GETIMPORT R7 K9 [ipairs]
+  GETUPVAL R8 1
+  CALL R7 1 3
+  FORGPREP_INEXT R7
+  GETTABLEKS R12 R0 K2 ["_lastDraggedInstanceDefaultOrientation"]
+  MOVE R14 R11
+  NAMECALL R12 R12 K6 ["VectorToWorldSpace"]
+  CALL R12 2 1
+  MOVE R14 R5
+  NAMECALL R12 R12 K10 ["Dot"]
+  CALL R12 2 1
+  JUMPIFNOTLT R6 R12 [+3]
+  MOVE R4 R11
+  MOVE R6 R12
+  FORGLOOP R7 2 [inext] [-15]
+  ORK R4 R4 K3 [{0, 1, 0}]
   JUMP [+1]
-  LOADNIL R12
-  LOADB R13 1
-  CALL R3 10 1
+  MOVE R4 R1
+  GETUPVAL R5 2
+  GETIMPORT R6 K13 [CFrame.fromAxisAngle]
+  MOVE R7 R4
+  LOADK R8 K14 [1.5707963267949]
+  CALL R6 2 -1
+  CALL R5 -1 1
+  GETTABLEKS R6 R0 K15 ["_tiltRotate"]
+  MUL R3 R5 R6
+  JUMP [+48]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K16 ["updateTiltRotate"]
+  GETTABLEKS R5 R0 K4 ["_draggerContext"]
+  NAMECALL R5 R5 K5 ["getCameraCFrame"]
+  CALL R5 1 1
+  GETTABLEKS R6 R0 K4 ["_draggerContext"]
+  NAMECALL R6 R6 K17 ["getMouseRay"]
+  CALL R6 1 1
+  NAMECALL R7 R0 K18 ["getRaycastIgnoreList"]
+  CALL R7 1 1
+  GETIMPORT R8 K20 [CFrame.identity]
+  MOVE R9 R2
+  GETTABLEKS R10 R0 K15 ["_tiltRotate"]
+  MOVE R11 R1
+  NAMECALL R12 R0 K21 ["shouldAlignDraggedObjects"]
+  CALL R12 1 1
+  JUMPIFNOT R12 [+6]
+  GETTABLEKS R13 R0 K4 ["_draggerContext"]
+  NAMECALL R13 R13 K22 ["isAltKeyDown"]
+  CALL R13 1 1
+  NOT R12 R13
+  GETTABLEKS R14 R0 K4 ["_draggerContext"]
+  NAMECALL R14 R14 K23 ["shouldGridSnap"]
+  CALL R14 1 1
+  JUMPIFNOT R14 [+6]
+  GETTABLEKS R13 R0 K4 ["_draggerContext"]
+  NAMECALL R13 R13 K24 ["getGridSize"]
+  CALL R13 1 1
+  JUMP [+1]
+  LOADNIL R13
+  LOADB R14 1
+  CALL R4 10 1
+  MOVE R3 R4
   GETTABLEKS R4 R0 K0 ["_lastDragTarget"]
-  JUMPIFNOT R4 [+7]
-  GETTABLEKS R4 R0 K15 ["_attachmentToolAnimator"]
+  JUMPIFNOT R4 [+28]
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+19]
+  GETTABLEKS R4 R0 K2 ["_lastDraggedInstanceDefaultOrientation"]
+  JUMPIFNOT R4 [+16]
+  GETTABLEKS R4 R0 K25 ["_attachmentToolAnimator"]
+  GETIMPORT R6 K27 [CFrame.new]
+  GETTABLEKS R9 R0 K0 ["_lastDragTarget"]
+  GETTABLEKS R8 R9 K28 ["baseCFrame"]
+  GETTABLEKS R7 R8 K29 ["Position"]
+  CALL R6 1 1
+  GETTABLEKS R7 R0 K2 ["_lastDraggedInstanceDefaultOrientation"]
+  MUL R5 R6 R7
+  SETTABLEKS R5 R4 K30 ["_overrideBaseRotation"]
+  GETTABLEKS R4 R0 K25 ["_attachmentToolAnimator"]
   MOVE R6 R3
-  NAMECALL R4 R4 K16 ["beginAnimation"]
+  NAMECALL R4 R4 K31 ["beginAnimation"]
   CALL R4 2 0
   JUMP [+2]
-  SETTABLEKS R3 R0 K10 ["_tiltRotate"]
-  NAMECALL R4 R0 K17 ["_updateAttachment"]
+  SETTABLEKS R3 R0 K15 ["_tiltRotate"]
+  NAMECALL R4 R0 K32 ["_updateAttachment"]
   CALL R4 1 0
-  NAMECALL R4 R0 K18 ["_scheduleRender"]
+  NAMECALL R4 R0 K33 ["_scheduleRender"]
   CALL R4 1 0
   RETURN R0 0
 
@@ -1559,267 +1645,289 @@ MAIN:
   GETTABLEKS R8 R9 K20 ["DragHelper"]
   CALL R7 1 1
   GETIMPORT R8 K12 [require]
-  GETTABLEKS R11 R2 K14 ["Src"]
-  GETTABLEKS R10 R11 K17 ["Util"]
-  GETTABLEKS R9 R10 K21 ["AttachmentToolRenderer"]
+  GETTABLEKS R10 R3 K19 ["Utility"]
+  GETTABLEKS R9 R10 K21 ["roundRotation"]
   CALL R8 1 1
   GETIMPORT R9 K12 [require]
   GETTABLEKS R12 R2 K14 ["Src"]
   GETTABLEKS R11 R12 K17 ["Util"]
-  GETTABLEKS R10 R11 K22 ["AttachmentToolAnimator"]
+  GETTABLEKS R10 R11 K22 ["AttachmentToolRenderer"]
   CALL R9 1 1
-  GETIMPORT R10 K1 [game]
-  LOADK R12 K23 ["EnableConstraintToolGhostAssemblyFeature"]
-  NAMECALL R10 R10 K24 ["GetFastFlag"]
-  CALL R10 2 1
+  GETIMPORT R10 K12 [require]
+  GETTABLEKS R13 R2 K14 ["Src"]
+  GETTABLEKS R12 R13 K17 ["Util"]
+  GETTABLEKS R11 R12 K23 ["AttachmentToolAnimator"]
+  CALL R10 1 1
   GETIMPORT R11 K1 [game]
-  LOADK R13 K25 ["EnableConstraintToolPartPassthroughFeature"]
-  NAMECALL R11 R11 K24 ["GetFastFlag"]
+  LOADK R13 K24 ["EnableConstraintToolGhostAssemblyFeature"]
+  NAMECALL R11 R11 K25 ["GetFastFlag"]
   CALL R11 2 1
   GETIMPORT R12 K1 [game]
-  LOADK R14 K26 ["SimFlipConstraintTool"]
-  NAMECALL R12 R12 K24 ["GetFastFlag"]
+  LOADK R14 K26 ["EnableConstraintToolPartPassthroughFeature"]
+  NAMECALL R12 R12 K25 ["GetFastFlag"]
   CALL R12 2 1
-  NEWTABLE R13 64 0
-  SETTABLEKS R13 R13 K27 ["__index"]
-  LOADNIL R14
-  GETIMPORT R15 K30 [Color3.fromRGB]
-  LOADN R16 255
-  LOADN R17 255
-  LOADN R18 0
-  CALL R15 3 1
-  GETIMPORT R16 K30 [Color3.fromRGB]
-  LOADN R17 255
-  LOADN R18 170
-  LOADN R19 0
-  CALL R16 3 1
-  GETIMPORT R17 K30 [Color3.fromRGB]
-  LOADN R18 0
+  GETIMPORT R13 K1 [game]
+  LOADK R15 K27 ["SimFlipConstraintTool"]
+  NAMECALL R13 R13 K25 ["GetFastFlag"]
+  CALL R13 2 1
+  GETIMPORT R14 K1 [game]
+  LOADK R16 K28 ["SimPreserveOrientationOnFace"]
+  NAMECALL R14 R14 K25 ["GetFastFlag"]
+  CALL R14 2 1
+  NEWTABLE R15 64 0
+  SETTABLEKS R15 R15 K29 ["__index"]
+  LOADNIL R16
+  GETIMPORT R17 K32 [Color3.fromRGB]
+  LOADN R18 255
   LOADN R19 255
   LOADN R20 0
   CALL R17 3 1
-  GETIMPORT R18 K30 [Color3.fromRGB]
+  GETIMPORT R18 K32 [Color3.fromRGB]
   LOADN R19 255
-  LOADN R20 0
+  LOADN R20 170
   LOADN R21 0
   CALL R18 3 1
-  GETIMPORT R19 K30 [Color3.fromRGB]
-  LOADN R20 121
-  LOADN R21 172
-  LOADN R22 255
+  GETIMPORT R19 K32 [Color3.fromRGB]
+  LOADN R20 0
+  LOADN R21 255
+  LOADN R22 0
   CALL R19 3 1
-  GETIMPORT R20 K30 [Color3.fromRGB]
+  GETIMPORT R20 K32 [Color3.fromRGB]
   LOADN R21 255
   LOADN R22 0
   LOADN R23 0
   CALL R20 3 1
-  GETIMPORT R21 K30 [Color3.fromRGB]
-  LOADN R22 108
-  LOADN R23 107
-  LOADN R24 107
+  GETIMPORT R21 K32 [Color3.fromRGB]
+  LOADN R22 121
+  LOADN R23 172
+  LOADN R24 255
   CALL R21 3 1
-  GETIMPORT R22 K33 [table.freeze]
-  DUPTABLE R23 K39 [{"AllowDragSelect", "ShowLocalSpaceIndicator", "WasAutoSelected", "ShowPivotIndicator", "ShowDragSelect"}]
-  LOADB R24 1
-  SETTABLEKS R24 R23 K34 ["AllowDragSelect"]
-  LOADB R24 0
-  SETTABLEKS R24 R23 K35 ["ShowLocalSpaceIndicator"]
-  LOADB R24 0
-  SETTABLEKS R24 R23 K36 ["WasAutoSelected"]
-  LOADB R24 0
-  SETTABLEKS R24 R23 K37 ["ShowPivotIndicator"]
-  LOADB R24 1
-  SETTABLEKS R24 R23 K38 ["ShowDragSelect"]
-  CALL R22 1 1
-  GETIMPORT R23 K33 [table.freeze]
-  DUPTABLE R24 K41 [{"AnalyticsName"}]
-  LOADB R25 1
-  SETTABLEKS R25 R24 K40 ["AnalyticsName"]
-  CALL R23 1 1
-  GETIMPORT R24 K33 [table.freeze]
-  DUPTABLE R25 K44 [{"WeldConstraint", "NoCollisionConstraint"}]
+  GETIMPORT R22 K32 [Color3.fromRGB]
+  LOADN R23 255
+  LOADN R24 0
+  LOADN R25 0
+  CALL R22 3 1
+  GETIMPORT R23 K32 [Color3.fromRGB]
+  LOADN R24 108
+  LOADN R25 107
+  LOADN R26 107
+  CALL R23 3 1
+  GETIMPORT R24 K35 [table.freeze]
+  DUPTABLE R25 K41 [{"AllowDragSelect", "ShowLocalSpaceIndicator", "WasAutoSelected", "ShowPivotIndicator", "ShowDragSelect"}]
   LOADB R26 1
-  SETTABLEKS R26 R25 K42 ["WeldConstraint"]
+  SETTABLEKS R26 R25 K36 ["AllowDragSelect"]
+  LOADB R26 0
+  SETTABLEKS R26 R25 K37 ["ShowLocalSpaceIndicator"]
+  LOADB R26 0
+  SETTABLEKS R26 R25 K38 ["WasAutoSelected"]
+  LOADB R26 0
+  SETTABLEKS R26 R25 K39 ["ShowPivotIndicator"]
   LOADB R26 1
-  SETTABLEKS R26 R25 K43 ["NoCollisionConstraint"]
+  SETTABLEKS R26 R25 K40 ["ShowDragSelect"]
   CALL R24 1 1
-  GETIMPORT R25 K47 [CFrame.new]
-  LOADN R26 0
-  LOADN R27 0
-  LOADN R28 0
-  LOADN R29 0
-  LOADN R30 1
-  LOADN R31 0
-  LOADN R32 255
-  LOADN R33 0
-  LOADN R34 0
-  LOADN R35 0
-  LOADN R36 0
-  LOADN R37 1
-  CALL R25 12 1
-  JUMPIFNOT R12 [+16]
-  GETIMPORT R26 K47 [CFrame.new]
-  LOADN R27 0
-  LOADN R28 0
+  GETIMPORT R25 K35 [table.freeze]
+  DUPTABLE R26 K43 [{"AnalyticsName"}]
+  LOADB R27 1
+  SETTABLEKS R27 R26 K42 ["AnalyticsName"]
+  CALL R25 1 1
+  GETIMPORT R26 K35 [table.freeze]
+  DUPTABLE R27 K46 [{"WeldConstraint", "NoCollisionConstraint"}]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K44 ["WeldConstraint"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K45 ["NoCollisionConstraint"]
+  CALL R26 1 1
+  GETIMPORT R27 K35 [table.freeze]
+  NEWTABLE R28 0 6
+  LOADK R29 K47 [{1, 0, 0}]
+  LOADK R30 K48 [{-1, 0, 0}]
+  LOADK R31 K49 [{0, 1, 0}]
+  LOADK R32 K50 [{0, -1, 0}]
+  LOADK R33 K51 [{0, 0, 1}]
+  LOADK R34 K52 [{0, 0, -1}]
+  SETLIST R28 R29 6 [1]
+  CALL R27 1 1
+  GETIMPORT R28 K55 [CFrame.new]
   LOADN R29 0
   LOADN R30 0
-  LOADN R31 1
+  LOADN R31 0
   LOADN R32 0
   LOADN R33 1
   LOADN R34 0
-  LOADN R35 0
+  LOADN R35 255
   LOADN R36 0
   LOADN R37 0
-  LOADN R38 255
-  CALL R26 12 1
-  MOVE R25 R26
-  NEWCLOSURE R26 P0
-  CAPTURE VAL R22
-  CAPTURE VAL R23
+  LOADN R38 0
+  LOADN R39 0
+  LOADN R40 1
+  CALL R28 12 1
+  JUMPIFNOT R13 [+16]
+  GETIMPORT R29 K55 [CFrame.new]
+  LOADN R30 0
+  LOADN R31 0
+  LOADN R32 0
+  LOADN R33 0
+  LOADN R34 1
+  LOADN R35 0
+  LOADN R36 1
+  LOADN R37 0
+  LOADN R38 0
+  LOADN R39 0
+  LOADN R40 0
+  LOADN R41 255
+  CALL R29 12 1
+  MOVE R28 R29
+  NEWCLOSURE R29 P0
+  CAPTURE VAL R24
+  CAPTURE VAL R25
   CAPTURE VAL R6
-  CAPTURE REF R25
-  CAPTURE VAL R13
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE REF R14
-  SETTABLEKS R26 R13 K46 ["new"]
-  DUPCLOSURE R26 K48 [PROTO_1]
-  SETTABLEKS R26 R13 K49 ["_onUndo"]
-  DUPCLOSURE R26 K50 [PROTO_2]
-  SETTABLEKS R26 R13 K51 ["_onRedo"]
-  DUPCLOSURE R26 K52 [PROTO_3]
-  CAPTURE VAL R17
-  SETTABLEKS R26 R13 K53 ["_createAttachmentAdornment"]
-  DUPCLOSURE R26 K54 [PROTO_4]
-  CAPTURE VAL R1
-  SETTABLEKS R26 R13 K55 ["_initAttachmentAdornment"]
-  DUPCLOSURE R26 K56 [PROTO_5]
-  CAPTURE VAL R19
-  CAPTURE VAL R24
-  CAPTURE VAL R1
-  SETTABLEKS R26 R13 K57 ["_initSelectionHighlight"]
-  DUPCLOSURE R26 K58 [PROTO_6]
+  CAPTURE REF R28
   CAPTURE VAL R15
-  CAPTURE VAL R16
-  SETTABLEKS R26 R13 K59 ["_createAttachmentAdornmentArrows"]
-  DUPCLOSURE R26 K60 [PROTO_7]
-  SETTABLEKS R26 R13 K61 ["_orientAttachmentAdornment"]
-  DUPCLOSURE R26 K62 [PROTO_8]
-  SETTABLEKS R26 R13 K63 ["setMouseCursor"]
-  DUPCLOSURE R26 K64 [PROTO_9]
-  CAPTURE VAL R24
-  CAPTURE VAL R4
-  SETTABLEKS R26 R13 K65 ["render"]
-  DUPCLOSURE R26 K66 [PROTO_10]
-  SETTABLEKS R26 R13 K67 ["update"]
-  DUPCLOSURE R26 K68 [PROTO_11]
-  SETTABLEKS R26 R13 K69 ["getSchema"]
-  DUPCLOSURE R26 K70 [PROTO_12]
-  SETTABLEKS R26 R13 K71 ["doesAllowDragSelect"]
-  DUPCLOSURE R26 K72 [PROTO_13]
-  SETTABLEKS R26 R13 K73 ["shouldShowDragSelect"]
-  DUPCLOSURE R26 K74 [PROTO_14]
-  SETTABLEKS R26 R13 K75 ["shouldShowLocalSpaceIndicator"]
-  DUPCLOSURE R26 K76 [PROTO_15]
-  SETTABLEKS R26 R13 K77 ["shouldShowSelectionDot"]
-  DUPCLOSURE R26 K78 [PROTO_16]
-  SETTABLEKS R26 R13 K79 ["shouldUseCollisionTransparency"]
-  DUPCLOSURE R26 K80 [PROTO_17]
-  SETTABLEKS R26 R13 K81 ["shouldAlignDraggedObjects"]
-  DUPCLOSURE R26 K82 [PROTO_18]
+  CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R26 R13 K83 ["getRaycastIgnoreList"]
-  DUPCLOSURE R26 K84 [PROTO_19]
-  CAPTURE VAL R24
-  SETTABLEKS R26 R13 K85 ["_setInitialInstanceTransparency"]
-  DUPCLOSURE R26 K86 [PROTO_22]
-  DUPCLOSURE R27 K87 [PROTO_23]
-  CAPTURE VAL R24
-  CAPTURE VAL R7
+  CAPTURE REF R16
+  SETTABLEKS R29 R15 K54 ["new"]
+  DUPCLOSURE R29 K56 [PROTO_1]
+  SETTABLEKS R29 R15 K57 ["_onUndo"]
+  DUPCLOSURE R29 K58 [PROTO_2]
+  SETTABLEKS R29 R15 K59 ["_onRedo"]
+  DUPCLOSURE R29 K60 [PROTO_3]
   CAPTURE VAL R19
-  CAPTURE VAL R20
+  SETTABLEKS R29 R15 K61 ["_createAttachmentAdornment"]
+  DUPCLOSURE R29 K62 [PROTO_4]
+  CAPTURE VAL R1
+  SETTABLEKS R29 R15 K63 ["_initAttachmentAdornment"]
+  DUPCLOSURE R29 K64 [PROTO_5]
   CAPTURE VAL R21
-  CAPTURE VAL R12
   CAPTURE VAL R26
-  CAPTURE VAL R10
+  CAPTURE VAL R1
+  SETTABLEKS R29 R15 K65 ["_initSelectionHighlight"]
+  DUPCLOSURE R29 K66 [PROTO_6]
   CAPTURE VAL R17
   CAPTURE VAL R18
-  SETTABLEKS R27 R13 K88 ["_updateAttachment"]
-  DUPCLOSURE R27 K89 [PROTO_24]
-  CAPTURE VAL R7
-  SETTABLEKS R27 R13 K90 ["_rotateAttachment"]
-  DUPCLOSURE R27 K91 [PROTO_25]
-  CAPTURE VAL R24
-  CAPTURE VAL R10
-  SETTABLEKS R27 R13 K92 ["_closeTool"]
-  DUPCLOSURE R27 K93 [PROTO_27]
-  CAPTURE VAL R1
-  SETTABLEKS R27 R13 K94 ["_processSelected"]
-  DUPCLOSURE R27 K95 [PROTO_28]
-  SETTABLEKS R27 R13 K96 ["_processDeselected"]
-  DUPCLOSURE R27 K97 [PROTO_29]
-  SETTABLEKS R27 R13 K98 ["_processSelectionChanged"]
-  DUPCLOSURE R27 K99 [PROTO_30]
-  SETTABLEKS R27 R13 K100 ["_setConstraintType"]
-  DUPCLOSURE R27 K101 [PROTO_31]
-  CAPTURE VAL R5
-  SETTABLEKS R27 R13 K102 ["_getConstraintData"]
-  DUPCLOSURE R27 K103 [PROTO_32]
-  SETTABLEKS R27 R13 K104 ["_createConstraintVisuals"]
-  DUPCLOSURE R27 K105 [PROTO_33]
-  SETTABLEKS R27 R13 K106 ["_removeConstraintVisuals"]
-  DUPCLOSURE R27 K107 [PROTO_34]
-  SETTABLEKS R27 R13 K108 ["_removeAttachmentAdorns"]
-  GETIMPORT R27 K33 [table.freeze]
-  NEWTABLE R28 8 0
-  GETIMPORT R29 K112 [Enum.KeyCode.RightShift]
-  LOADB R30 1
-  SETTABLE R30 R28 R29
-  GETIMPORT R29 K114 [Enum.KeyCode.LeftShift]
-  LOADB R30 1
-  SETTABLE R30 R28 R29
-  GETIMPORT R29 K116 [Enum.KeyCode.RightControl]
-  LOADB R30 1
-  SETTABLE R30 R28 R29
-  GETIMPORT R29 K118 [Enum.KeyCode.LeftControl]
-  LOADB R30 1
-  SETTABLE R30 R28 R29
-  GETIMPORT R29 K120 [Enum.KeyCode.RightAlt]
-  LOADB R30 1
-  SETTABLE R30 R28 R29
-  GETIMPORT R29 K122 [Enum.KeyCode.LeftAlt]
-  LOADB R30 1
-  SETTABLE R30 R28 R29
-  CALL R27 1 1
-  DUPCLOSURE R28 K123 [PROTO_35]
+  SETTABLEKS R29 R15 K67 ["_createAttachmentAdornmentArrows"]
+  DUPCLOSURE R29 K68 [PROTO_7]
+  SETTABLEKS R29 R15 K69 ["_orientAttachmentAdornment"]
+  DUPCLOSURE R29 K70 [PROTO_8]
+  SETTABLEKS R29 R15 K71 ["setMouseCursor"]
+  DUPCLOSURE R29 K72 [PROTO_9]
+  CAPTURE VAL R26
+  CAPTURE VAL R4
+  SETTABLEKS R29 R15 K73 ["render"]
+  DUPCLOSURE R29 K74 [PROTO_10]
+  SETTABLEKS R29 R15 K75 ["update"]
+  DUPCLOSURE R29 K76 [PROTO_11]
+  SETTABLEKS R29 R15 K77 ["getSchema"]
+  DUPCLOSURE R29 K78 [PROTO_12]
+  SETTABLEKS R29 R15 K79 ["doesAllowDragSelect"]
+  DUPCLOSURE R29 K80 [PROTO_13]
+  SETTABLEKS R29 R15 K81 ["shouldShowDragSelect"]
+  DUPCLOSURE R29 K82 [PROTO_14]
+  SETTABLEKS R29 R15 K83 ["shouldShowLocalSpaceIndicator"]
+  DUPCLOSURE R29 K84 [PROTO_15]
+  SETTABLEKS R29 R15 K85 ["shouldShowSelectionDot"]
+  DUPCLOSURE R29 K86 [PROTO_16]
+  SETTABLEKS R29 R15 K87 ["shouldUseCollisionTransparency"]
+  DUPCLOSURE R29 K88 [PROTO_17]
+  SETTABLEKS R29 R15 K89 ["shouldAlignDraggedObjects"]
+  DUPCLOSURE R29 K90 [PROTO_18]
   CAPTURE VAL R11
+  SETTABLEKS R29 R15 K91 ["getRaycastIgnoreList"]
+  DUPCLOSURE R29 K92 [PROTO_19]
+  CAPTURE VAL R26
+  SETTABLEKS R29 R15 K93 ["_setInitialInstanceTransparency"]
+  DUPCLOSURE R29 K94 [PROTO_22]
+  DUPCLOSURE R30 K95 [PROTO_23]
+  CAPTURE VAL R26
+  CAPTURE VAL R7
+  CAPTURE VAL R21
+  CAPTURE VAL R22
+  CAPTURE VAL R23
+  CAPTURE VAL R13
+  CAPTURE VAL R29
+  CAPTURE VAL R14
+  CAPTURE VAL R11
+  CAPTURE VAL R19
+  CAPTURE VAL R20
+  SETTABLEKS R30 R15 K96 ["_updateAttachment"]
+  DUPCLOSURE R30 K97 [PROTO_24]
+  CAPTURE VAL R14
   CAPTURE VAL R27
-  SETTABLEKS R28 R13 K124 ["_processKeyDown"]
-  DUPCLOSURE R28 K125 [PROTO_36]
-  CAPTURE VAL R27
-  SETTABLEKS R28 R13 K126 ["_processKeyUp"]
-  DUPCLOSURE R28 K127 [PROTO_37]
-  CAPTURE VAL R24
-  SETTABLEKS R28 R13 K128 ["_clearInitialInstance"]
-  DUPCLOSURE R28 K129 [PROTO_39]
-  CAPTURE VAL R24
-  SETTABLEKS R28 R13 K130 ["_selectInitialInstance"]
-  DUPCLOSURE R28 K131 [PROTO_40]
-  CAPTURE VAL R24
-  SETTABLEKS R28 R13 K132 ["_canMouseDown"]
-  NEWCLOSURE R28 P37
-  CAPTURE VAL R0
-  CAPTURE REF R14
-  CAPTURE VAL R24
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  SETTABLEKS R30 R15 K98 ["_rotateAttachment"]
+  DUPCLOSURE R30 K99 [PROTO_25]
+  CAPTURE VAL R26
+  CAPTURE VAL R11
+  SETTABLEKS R30 R15 K100 ["_closeTool"]
+  DUPCLOSURE R30 K101 [PROTO_27]
   CAPTURE VAL R1
-  CAPTURE VAL R10
-  SETTABLEKS R28 R13 K133 ["_processMouseDown"]
-  DUPCLOSURE R28 K134 [PROTO_42]
+  SETTABLEKS R30 R15 K102 ["_processSelected"]
+  DUPCLOSURE R30 K103 [PROTO_28]
+  SETTABLEKS R30 R15 K104 ["_processDeselected"]
+  DUPCLOSURE R30 K105 [PROTO_29]
+  SETTABLEKS R30 R15 K106 ["_processSelectionChanged"]
+  DUPCLOSURE R30 K107 [PROTO_30]
+  SETTABLEKS R30 R15 K108 ["_setConstraintType"]
+  DUPCLOSURE R30 K109 [PROTO_31]
+  CAPTURE VAL R5
+  SETTABLEKS R30 R15 K110 ["_getConstraintData"]
+  DUPCLOSURE R30 K111 [PROTO_32]
+  SETTABLEKS R30 R15 K112 ["_createConstraintVisuals"]
+  DUPCLOSURE R30 K113 [PROTO_33]
+  SETTABLEKS R30 R15 K114 ["_removeConstraintVisuals"]
+  DUPCLOSURE R30 K115 [PROTO_34]
+  SETTABLEKS R30 R15 K116 ["_removeAttachmentAdorns"]
+  GETIMPORT R30 K35 [table.freeze]
+  NEWTABLE R31 8 0
+  GETIMPORT R32 K120 [Enum.KeyCode.RightShift]
+  LOADB R33 1
+  SETTABLE R33 R31 R32
+  GETIMPORT R32 K122 [Enum.KeyCode.LeftShift]
+  LOADB R33 1
+  SETTABLE R33 R31 R32
+  GETIMPORT R32 K124 [Enum.KeyCode.RightControl]
+  LOADB R33 1
+  SETTABLE R33 R31 R32
+  GETIMPORT R32 K126 [Enum.KeyCode.LeftControl]
+  LOADB R33 1
+  SETTABLE R33 R31 R32
+  GETIMPORT R32 K128 [Enum.KeyCode.RightAlt]
+  LOADB R33 1
+  SETTABLE R33 R31 R32
+  GETIMPORT R32 K130 [Enum.KeyCode.LeftAlt]
+  LOADB R33 1
+  SETTABLE R33 R31 R32
+  CALL R30 1 1
+  DUPCLOSURE R31 K131 [PROTO_35]
+  CAPTURE VAL R12
+  CAPTURE VAL R30
+  SETTABLEKS R31 R15 K132 ["_processKeyDown"]
+  DUPCLOSURE R31 K133 [PROTO_36]
+  CAPTURE VAL R30
+  SETTABLEKS R31 R15 K134 ["_processKeyUp"]
+  DUPCLOSURE R31 K135 [PROTO_37]
+  CAPTURE VAL R26
+  SETTABLEKS R31 R15 K136 ["_clearInitialInstance"]
+  DUPCLOSURE R31 K137 [PROTO_39]
+  CAPTURE VAL R26
+  SETTABLEKS R31 R15 K138 ["_selectInitialInstance"]
+  DUPCLOSURE R31 K139 [PROTO_40]
+  CAPTURE VAL R26
+  SETTABLEKS R31 R15 K140 ["_canMouseDown"]
+  NEWCLOSURE R31 P37
   CAPTURE VAL R0
-  SETTABLEKS R28 R13 K135 ["_processMouseUp"]
-  DUPCLOSURE R28 K136 [PROTO_43]
-  SETTABLEKS R28 R13 K137 ["_processViewChanged"]
-  DUPCLOSURE R28 K138 [PROTO_44]
-  SETTABLEKS R28 R13 K139 ["_scheduleRender"]
-  CLOSEUPVALS R14
-  RETURN R13 1
+  CAPTURE REF R16
+  CAPTURE VAL R26
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  SETTABLEKS R31 R15 K141 ["_processMouseDown"]
+  DUPCLOSURE R31 K142 [PROTO_42]
+  CAPTURE VAL R0
+  SETTABLEKS R31 R15 K143 ["_processMouseUp"]
+  DUPCLOSURE R31 K144 [PROTO_43]
+  SETTABLEKS R31 R15 K145 ["_processViewChanged"]
+  DUPCLOSURE R31 K146 [PROTO_44]
+  SETTABLEKS R31 R15 K147 ["_scheduleRender"]
+  CLOSEUPVALS R16
+  RETURN R15 1

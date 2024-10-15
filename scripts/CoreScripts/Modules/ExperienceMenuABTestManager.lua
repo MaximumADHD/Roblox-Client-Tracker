@@ -15,7 +15,7 @@ local InGameMenu = script.Parent.InGameMenu
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
 
-local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
+local GetFStringLuaAppExperienceMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLuaAppExperienceMenuLayer
 local GetFStringLuaAppConsoleExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppConsoleExperienceMenuLayer)
 
 local GetFFlagDisableChromeUnibar = require(script.Parent.Flags.GetFFlagDisableChromeUnibar)()

@@ -28,6 +28,8 @@ local Constants = require(script.Parent.Parent.Parent.Constants)
 local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 local GetFFlagChromeUsePreferredTransparency = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
 
+local FFlagEnableTopBarIconButtonBackgroundProps = game:DefineFastFlag("EnableTopBarIconButtonBackgroundProps", false)
+
 local IconButton = Roact.PureComponent:extend("IconButton")
 
 local BACKGROUND_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 32
@@ -39,12 +41,15 @@ local OVERLAY_ASSET = Images["component_assets/circle_17"]
 
 IconButton.validateProps = t.strictInterface({
 	icon = t.union(t.string, t.table),
-	iconSize = t.integer,
+	iconSize = t.union(t.integer, t.UDim2, t.table),
 	enableFlashingDot = t.optional(t.boolean),
 	useIconScaleAnimation = t.optional(t.boolean),
 	onActivated = t.callback,
 	onHover = t.optional(t.callback),
 	onHoverEnd = t.optional(t.callback),
+	backgroundTransparency = t.optional(t.number),
+	backgroundColor3 = t.optional(t.Color3),
+	backgroundCornerRadius = t.optional(t.UDim),
 })
 
 function AnimatedScaleIcon(props)
@@ -94,6 +99,7 @@ function IconButton:init()
 end
 
 function IconButton:render()
+	local hasBackgroundFrame = FFlagEnableTopBarIconButtonBackgroundProps and not isNewTiltIconEnabled() and self.props.backgroundColor3
 	return withStyle(function(style: any)
 		local overlayTheme = {
 			Color = Color3.new(1, 1, 1),
@@ -110,8 +116,8 @@ function IconButton:render()
 			onStateChanged = self.controlStateUpdated,
 
 			ZIndex = 1,
-			BackgroundTransparency = if isNewTiltIconEnabled() then 
-					if GetFFlagChromeUsePreferredTransparency() then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency 
+			BackgroundTransparency = if isNewTiltIconEnabled() then
+					if GetFFlagChromeUsePreferredTransparency() then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
 					else style.Theme.BackgroundUIContrast.Transparency
 				else 1,
 			Position = UDim2.fromScale(0, if isNewTiltIconEnabled() then 0.5 else 1),
@@ -127,8 +133,22 @@ function IconButton:render()
 				CornerRadius = UDim.new(1, 0),
 			}) or nil,
 
+			BackgroundFrame = if hasBackgroundFrame then Roact.createElement("Frame", {
+				Size = self.props.iconSize,
+				Position = UDim2.fromScale(0.5, 0.5),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BorderSizePixel = 0,
+				BackgroundTransparency = self.props.backgroundTransparency,
+			 	BackgroundColor3 = self.props.backgroundColor3,
+				ZIndex = 0,
+			}, {
+			 UICorner = if self.props.backgroundCornerRadius then Roact.createElement("UICorner", {
+				  CornerRadius = self.props.backgroundCornerRadius,
+			  }) else nil,
+			}) else nil,
+
 			Icon = not self.props.useIconScaleAnimation and Roact.createElement(ImageSetLabel, {
-				Size = UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
+				Size = if FFlagEnableTopBarIconButtonBackgroundProps and typeof(self.props.iconSize) ~= "number" then self.props.iconSize else UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,

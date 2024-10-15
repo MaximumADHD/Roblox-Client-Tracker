@@ -109,101 +109,114 @@ MAIN:
   GETIMPORT R5 K13 [pcall]
   DUPCLOSURE R6 K14 [PROTO_0]
   CALL R5 1 2
-  JUMPIFNOT R5 [+102]
-  GETIMPORT R8 K16 [require]
-  GETTABLEKS R11 R4 K17 ["Packages"]
-  GETTABLEKS R10 R11 K18 ["Dev"]
-  GETTABLEKS R9 R10 K19 ["Jest"]
+  JUMPIFNOT R5 [+119]
+  GETIMPORT R7 K1 [game]
+  LOADK R9 K15 ["DebugAvatarPreviewerRunTests"]
+  LOADB R10 0
+  NAMECALL R7 R7 K16 ["DefineFastFlag"]
+  CALL R7 3 1
+  JUMPIF R7 [+9]
+  GETIMPORT R7 K18 [print]
+  LOADK R8 K19 ["Avatar Previewer tests are currently disabled. If you are running locally, override DebugAvatarPreviewerRunTests=True"]
+  CALL R7 1 0
+  LOADN R9 0
+  NAMECALL R7 R6 K20 ["ExitAsync"]
+  CALL R7 2 0
+  RETURN R0 0
+  GETIMPORT R8 K22 [require]
+  GETTABLEKS R11 R4 K23 ["Packages"]
+  GETTABLEKS R10 R11 K24 ["Dev"]
+  GETTABLEKS R9 R10 K25 ["Jest"]
   CALL R8 1 1
-  GETTABLEKS R7 R8 K20 ["runCLI"]
-  GETIMPORT R8 K22 [_G]
+  GETTABLEKS R7 R8 K26 ["runCLI"]
+  GETIMPORT R8 K28 [_G]
   LOADB R9 1
-  SETTABLEKS R9 R8 K23 ["__ROACT_17_MOCK_SCHEDULER__"]
-  GETIMPORT R8 K22 [_G]
+  SETTABLEKS R9 R8 K29 ["__ROACT_17_MOCK_SCHEDULER__"]
+  GETIMPORT R8 K28 [_G]
   LOADB R9 1
-  SETTABLEKS R9 R8 K24 ["__ROACT_17_INLINE_ACT__"]
+  SETTABLEKS R9 R8 K30 ["__ROACT_17_INLINE_ACT__"]
   GETIMPORT R8 K1 [game]
-  LOADK R10 K25 ["DebugAvatarPreviewerUpdateSnapshots"]
+  LOADK R10 K31 ["DebugAvatarPreviewerUpdateSnapshots"]
   LOADB R11 0
-  NAMECALL R8 R8 K26 ["DefineFastFlag"]
+  NAMECALL R8 R8 K16 ["DefineFastFlag"]
   CALL R8 3 1
   GETIMPORT R9 K1 [game]
-  LOADK R11 K27 ["DebugAvatarPreviewerTestPathPattern"]
-  LOADK R12 K28 [""]
-  NAMECALL R9 R9 K29 ["DefineFastString"]
+  LOADK R11 K32 ["DebugAvatarPreviewerTestPathPattern"]
+  LOADK R12 K33 [""]
+  NAMECALL R9 R9 K34 ["DefineFastString"]
   CALL R9 3 1
   MOVE R10 R7
-  GETTABLEKS R11 R4 K30 ["Src"]
-  DUPTABLE R12 K35 [{"verbose", "ci", "updateSnapshot", "testPathPattern"}]
+  GETTABLEKS R11 R4 K35 ["Src"]
+  DUPTABLE R12 K40 [{"verbose", "ci", "updateSnapshot", "testPathPattern"}]
   LOADB R13 1
-  SETTABLEKS R13 R12 K31 ["verbose"]
+  SETTABLEKS R13 R12 K36 ["verbose"]
   LOADB R13 1
-  SETTABLEKS R13 R12 K32 ["ci"]
-  SETTABLEKS R8 R12 K33 ["updateSnapshot"]
-  JUMPIFNOTEQKS R9 K28 [""] [+3]
+  SETTABLEKS R13 R12 K37 ["ci"]
+  SETTABLEKS R8 R12 K38 ["updateSnapshot"]
+  JUMPIFNOTEQKS R9 K33 [""] [+3]
   LOADNIL R13
   JUMP [+1]
   MOVE R13 R9
-  SETTABLEKS R13 R12 K34 ["testPathPattern"]
+  SETTABLEKS R13 R12 K39 ["testPathPattern"]
   NEWTABLE R13 0 2
-  GETTABLEKS R14 R4 K30 ["Src"]
-  GETTABLEKS R15 R4 K36 ["RhodiumTests"]
+  GETTABLEKS R14 R4 K35 ["Src"]
+  GETTABLEKS R15 R4 K41 ["RhodiumTests"]
   SETLIST R13 R14 2 [1]
   CALL R10 3 1
-  NAMECALL R10 R10 K37 ["awaitStatus"]
+  NAMECALL R10 R10 K42 ["awaitStatus"]
   CALL R10 1 2
-  JUMPIFNOTEQKS R10 K38 ["Resolved"] [+15]
-  GETTABLEKS R13 R11 K39 ["results"]
-  GETTABLEKS R12 R13 K40 ["numFailedTestSuites"]
+  JUMPIFNOTEQKS R10 K43 ["Resolved"] [+15]
+  GETTABLEKS R13 R11 K44 ["results"]
+  GETTABLEKS R12 R13 K45 ["numFailedTestSuites"]
   LOADN R13 0
   JUMPIFLT R13 R12 [+8]
-  GETTABLEKS R13 R11 K39 ["results"]
-  GETTABLEKS R12 R13 K41 ["numFailedTests"]
+  GETTABLEKS R13 R11 K44 ["results"]
+  GETTABLEKS R12 R13 K46 ["numFailedTests"]
   LOADN R13 0
   JUMPIFNOTLT R13 R12 [+16]
-  JUMPIFNOTEQKS R10 K42 ["Rejected"] [+5]
-  GETIMPORT R12 K44 [print]
+  JUMPIFNOTEQKS R10 K47 ["Rejected"] [+5]
+  GETIMPORT R12 K18 [print]
   MOVE R13 R11
   CALL R12 1 0
-  LOADK R14 K45 ["Jest 3 test run failed"]
-  NAMECALL R12 R2 K46 ["Error"]
+  LOADK R14 K48 ["Jest 3 test run failed"]
+  NAMECALL R12 R2 K49 ["Error"]
   CALL R12 2 0
   LOADN R14 1
-  NAMECALL R12 R6 K47 ["ExitAsync"]
+  NAMECALL R12 R6 K20 ["ExitAsync"]
   CALL R12 2 0
   RETURN R0 0
   LOADN R14 0
-  NAMECALL R12 R6 K47 ["ExitAsync"]
+  NAMECALL R12 R6 K20 ["ExitAsync"]
   CALL R12 2 0
   RETURN R0 0
-  GETIMPORT R7 K16 [require]
-  GETTABLEKS R9 R4 K17 ["Packages"]
-  GETTABLEKS R8 R9 K48 ["React"]
+  GETIMPORT R7 K22 [require]
+  GETTABLEKS R9 R4 K23 ["Packages"]
+  GETTABLEKS R8 R9 K50 ["React"]
   CALL R7 1 1
-  GETIMPORT R8 K16 [require]
-  GETTABLEKS R10 R4 K17 ["Packages"]
-  GETTABLEKS R9 R10 K49 ["ReactRoblox"]
+  GETIMPORT R8 K22 [require]
+  GETTABLEKS R10 R4 K23 ["Packages"]
+  GETTABLEKS R9 R10 K51 ["ReactRoblox"]
   CALL R8 1 1
-  GETIMPORT R9 K16 [require]
-  GETTABLEKS R12 R4 K30 ["Src"]
-  GETTABLEKS R11 R12 K50 ["Util"]
-  GETTABLEKS R10 R11 K51 ["Constants"]
+  GETIMPORT R9 K22 [require]
+  GETTABLEKS R12 R4 K35 ["Src"]
+  GETTABLEKS R11 R12 K52 ["Util"]
+  GETTABLEKS R10 R11 K53 ["Constants"]
   CALL R9 1 1
-  GETIMPORT R10 K16 [require]
-  GETTABLEKS R12 R4 K30 ["Src"]
-  GETTABLEKS R11 R12 K52 ["MainPlugin"]
+  GETIMPORT R10 K22 [require]
+  GETTABLEKS R12 R4 K35 ["Src"]
+  GETTABLEKS R11 R12 K54 ["MainPlugin"]
   CALL R10 1 1
-  GETIMPORT R11 K16 [require]
-  GETTABLEKS R14 R4 K30 ["Src"]
-  GETTABLEKS R13 R14 K50 ["Util"]
-  GETTABLEKS R12 R13 K53 ["TestInExperienceUtil"]
+  GETIMPORT R11 K22 [require]
+  GETTABLEKS R14 R4 K35 ["Src"]
+  GETTABLEKS R13 R14 K52 ["Util"]
+  GETTABLEKS R12 R13 K55 ["TestInExperienceUtil"]
   CALL R11 1 1
-  GETIMPORT R12 K16 [require]
-  GETTABLEKS R15 R4 K30 ["Src"]
-  GETTABLEKS R14 R15 K54 ["Flags"]
-  GETTABLEKS R13 R14 K55 ["getFFlagAvatarPreviewerEditingTools"]
+  GETIMPORT R12 K22 [require]
+  GETTABLEKS R15 R4 K35 ["Src"]
+  GETTABLEKS R14 R15 K56 ["Flags"]
+  GETTABLEKS R13 R14 K57 ["getFFlagAvatarPreviewerEditingTools"]
   CALL R12 1 1
-  DUPCLOSURE R13 K56 [PROTO_1]
+  DUPCLOSURE R13 K58 [PROTO_1]
   CAPTURE VAL R9
   CAPTURE VAL R0
   CAPTURE VAL R3
@@ -219,12 +232,12 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R11
   GETIMPORT R17 K8 [plugin]
-  GETTABLEKS R16 R17 K57 ["Unloading"]
+  GETTABLEKS R16 R17 K59 ["Unloading"]
   NEWCLOSURE R18 P3
   CAPTURE REF R14
   CAPTURE VAL R12
   CAPTURE VAL R13
-  NAMECALL R16 R16 K58 ["Connect"]
+  NAMECALL R16 R16 K60 ["Connect"]
   CALL R16 2 0
   MOVE R16 R15
   CALL R16 0 0

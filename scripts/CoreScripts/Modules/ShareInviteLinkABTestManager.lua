@@ -4,6 +4,7 @@
 	on the Experience.Menu layer for Share Invite Link
 ]]
 
+local CorePackages = game:GetService("CorePackages")
 local AppStorageService = game:GetService("AppStorageService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -17,7 +18,7 @@ local HAS_KEY_IN_GAME_ENGINE = game:GetEngineFeature("UniversalAppShareLinksStor
 local GetFFlagShareInviteLinkContextMenuABTestEnabled =
 	require(Modules.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 
-local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
+local GetFStringLuaAppExperienceMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLuaAppExperienceMenuLayer
 
 local ShareInviteLinkABTestManager = {}
 ShareInviteLinkABTestManager.__index = ShareInviteLinkABTestManager

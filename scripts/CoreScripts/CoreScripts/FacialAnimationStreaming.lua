@@ -28,7 +28,7 @@ game:DefineFastFlag("StopStreamTrackOnDeath", false)
 game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix2", false)
 game:DefineFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C", false)
 local FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 = game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateAfterEmote2", false)
-local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")

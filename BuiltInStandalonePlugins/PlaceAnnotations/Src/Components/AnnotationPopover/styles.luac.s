@@ -14,7 +14,7 @@ MAIN:
   MOVE R3 R2
   LOADK R4 K9 [".Component-AnnotationPopover"]
   NEWTABLE R5 0 0
-  NEWTABLE R6 0 2
+  NEWTABLE R6 0 1
   MOVE R7 R2
   LOADK R8 K10 ["> #Header"]
   DUPTABLE R9 K14 [{"BackgroundTransparency", "Size", "AutomaticSize"}]
@@ -153,24 +153,7 @@ MAIN:
   SETLIST R16 R17 -1 [1]
   CALL R13 3 -1
   SETLIST R10 R11 -1 [1]
-  CALL R7 3 1
-  MOVE R8 R2
-  LOADK R9 K68 ["> #ContentWrapper"]
-  DUPTABLE R10 K69 [{"BackgroundTransparency"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K11 ["BackgroundTransparency"]
-  NEWTABLE R11 0 1
-  MOVE R12 R2
-  LOADK R13 K21 ["::UIPadding"]
-  DUPTABLE R14 K71 [{"PaddingRight"}]
-  GETIMPORT R15 K27 [UDim.new]
-  LOADN R16 0
-  LOADN R17 12
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K70 ["PaddingRight"]
-  CALL R12 2 -1
-  SETLIST R11 R12 -1 [1]
-  CALL R8 3 -1
+  CALL R7 3 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

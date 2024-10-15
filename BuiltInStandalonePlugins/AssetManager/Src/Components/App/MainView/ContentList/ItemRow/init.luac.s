@@ -17,11 +17,10 @@ PROTO_0:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["AssetInfoField"]
   GETTABLEKS R4 R5 K6 ["Created"]
-  JUMPIFNOTEQ R1 R4 [+9]
-  GETTABLEKS R4 R0 K5 ["Modified"]
+  JUMPIFNOTEQ R1 R4 [+7]
   LOADK R6 K7 ["lll"]
   LOADK R7 K8 ["en-us"]
-  NAMECALL R4 R4 K9 ["FormatLocalTime"]
+  NAMECALL R4 R3 K9 ["FormatLocalTime"]
   CALL R4 3 -1
   RETURN R4 -1
   GETUPVAL R6 0

@@ -54,8 +54,8 @@ local ExperienceMenuABTestManager = require(CoreGuiModules.ExperienceMenuABTestM
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
 local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.ShareGame.NewInviteMenuExperimentManager)
 local GetFFlagEnableSoundSessionTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundSessionTelemetry)
-local GetFFlagReportAnythingAnnotationIXP = require(CoreGuiModules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
-local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustAndSafetyIXPManager)
+local GetFFlagReportAnythingAnnotationIXP = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportAnythingAnnotationIXP
+local TrustAndSafetyIXPManager = require(CorePackages.Workspace.Packages.TrustAndSafetyIxp).TrustAndSafetyIXPManager
 
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
@@ -138,7 +138,7 @@ if getFFlagDoNotPromptCameraPermissionsOnMount() then
 	ExperienceChat.GlobalFlags.DoNotPromptCameraPermissionsOnMount = true
 end
 
-local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
+local GetFFlagJoinWithoutMicPermissions = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
 if GetFFlagJoinWithoutMicPermissions() then
 	local ExperienceChat = require(CorePackages.ExperienceChat) :: any
 	ExperienceChat.GlobalFlags.JoinWithoutMicPermissions = true
@@ -164,7 +164,7 @@ if getFFlagRenderVoiceBubbleAfterAsyncInit() then
 	GlobalFlags.RenderVoiceBubbleAfterAsyncInit = true
 end
 
-local GetFFlagShowLikelySpeakingBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowLikelySpeakingBubbles)
+local GetFFlagShowLikelySpeakingBubbles = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
 if GetFFlagShowLikelySpeakingBubbles() then
 	local ExperienceChat = require(CorePackages.ExperienceChat)
 	local GlobalFlags = (ExperienceChat.GlobalFlags :: any)

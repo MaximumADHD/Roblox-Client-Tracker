@@ -209,9 +209,6 @@ return function(isTenFoot)
 	LayoutValues.DropDownHeaderBackgroundSize = 65
 	LayoutValues.DropDownScreenSidePadding = SCREEN_SIDE_PADDING
 
-	LayoutValues.VoiceChatShieldColor = Color3.fromRGB(41, 41, 41)
-	LayoutValues.VoiceChatShieldTransparency = 0.2
-
 	setmetatable(LayoutValues, {
 		__index = function(self, key)
 			error(string.format("%q is not a valid member of LayoutValues",

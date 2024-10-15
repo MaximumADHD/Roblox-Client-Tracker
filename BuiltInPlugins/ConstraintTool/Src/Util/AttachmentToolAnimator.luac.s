@@ -65,30 +65,40 @@ PROTO_3:
   ADDK R7 R8 K10 [10]
   MUL R4 R6 R7
   GETTABLEKS R5 R0 K12 ["_animateFrom"]
-  GETTABLEKS R6 R5 K13 ["baseCFrame"]
-  GETTABLEKS R8 R3 K13 ["baseCFrame"]
+  GETTABLEKS R6 R5 K13 ["tiltRotate"]
+  GETTABLEKS R9 R0 K0 ["_constraintToolModel"]
+  GETTABLEKS R8 R9 K14 ["_tiltRotate"]
   MOVE R9 R4
-  NAMECALL R6 R6 K14 ["Lerp"]
+  NAMECALL R6 R6 K15 ["Lerp"]
   CALL R6 3 1
-  GETTABLEKS R7 R5 K15 ["offsetCFrame"]
-  GETTABLEKS R9 R3 K15 ["offsetCFrame"]
-  MOVE R10 R4
-  NAMECALL R7 R7 K14 ["Lerp"]
-  CALL R7 3 1
-  GETTABLEKS R8 R5 K16 ["tiltRotate"]
-  GETTABLEKS R11 R0 K0 ["_constraintToolModel"]
-  GETTABLEKS R10 R11 K17 ["_tiltRotate"]
+  LOADNIL R7
+  GETUPVAL R8 0
+  JUMPIFNOT R8 [+10]
+  GETTABLEKS R8 R3 K16 ["offsetCFrame"]
+  MUL R7 R6 R8
+  GETTABLEKS R8 R0 K17 ["_overrideBaseRotation"]
+  JUMPIFNOT R8 [+22]
+  GETTABLEKS R8 R0 K17 ["_overrideBaseRotation"]
+  MUL R7 R8 R7
+  JUMP [+18]
+  GETTABLEKS R8 R5 K18 ["baseCFrame"]
+  GETTABLEKS R10 R3 K18 ["baseCFrame"]
   MOVE R11 R4
-  NAMECALL R8 R8 K14 ["Lerp"]
+  NAMECALL R8 R8 K15 ["Lerp"]
   CALL R8 3 1
-  MUL R10 R6 R8
-  MUL R9 R10 R7
-  GETTABLEKS R10 R0 K0 ["_constraintToolModel"]
-  GETTABLEKS R13 R0 K0 ["_constraintToolModel"]
-  GETTABLEKS R12 R13 K18 ["_attachmentAdornment"]
-  MOVE R13 R9
-  NAMECALL R10 R10 K19 ["_orientAttachmentAdornment"]
-  CALL R10 3 0
+  GETTABLEKS R9 R5 K16 ["offsetCFrame"]
+  GETTABLEKS R11 R3 K16 ["offsetCFrame"]
+  MOVE R12 R4
+  NAMECALL R9 R9 K15 ["Lerp"]
+  CALL R9 3 1
+  MUL R10 R8 R6
+  MUL R7 R10 R9
+  GETTABLEKS R8 R0 K0 ["_constraintToolModel"]
+  GETTABLEKS R11 R0 K0 ["_constraintToolModel"]
+  GETTABLEKS R10 R11 K19 ["_attachmentAdornment"]
+  MOVE R11 R7
+  NAMECALL R8 R8 K20 ["_orientAttachmentAdornment"]
+  CALL R8 3 0
   RETURN R0 0
 
 PROTO_4:
@@ -131,25 +141,30 @@ MAIN:
   LOADK R2 K2 ["ConstraintTool"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETTABLEKS R2 R0 K4 ["Packages"]
-  GETTABLEKS R1 R2 K5 ["DraggerFramework"]
-  GETIMPORT R2 K7 [require]
-  GETTABLEKS R4 R1 K8 ["Utility"]
-  GETTABLEKS R3 R4 K9 ["AnimationTask"]
-  CALL R2 1 1
-  NEWTABLE R3 8 0
-  SETTABLEKS R3 R3 K10 ["__index"]
-  DUPCLOSURE R4 K11 [PROTO_1]
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["SimPreserveOrientationOnFace"]
+  NAMECALL R1 R1 K7 ["GetFastFlag"]
+  CALL R1 2 1
+  GETTABLEKS R3 R0 K8 ["Packages"]
+  GETTABLEKS R2 R3 K9 ["DraggerFramework"]
+  GETIMPORT R3 K11 [require]
+  GETTABLEKS R5 R2 K12 ["Utility"]
+  GETTABLEKS R4 R5 K13 ["AnimationTask"]
+  CALL R3 1 1
+  NEWTABLE R4 8 0
+  SETTABLEKS R4 R4 K14 ["__index"]
+  DUPCLOSURE R5 K15 [PROTO_1]
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R2
-  SETTABLEKS R4 R3 K12 ["new"]
-  DUPCLOSURE R4 K13 [PROTO_2]
-  DUPCLOSURE R5 K14 [PROTO_3]
-  SETTABLEKS R5 R3 K15 ["_animationCallback"]
-  DUPCLOSURE R5 K16 [PROTO_4]
-  SETTABLEKS R5 R3 K17 ["beginAnimation"]
-  DUPCLOSURE R5 K18 [PROTO_5]
-  SETTABLEKS R5 R3 K19 ["inProgress"]
-  DUPCLOSURE R5 K20 [PROTO_6]
-  SETTABLEKS R5 R3 K21 ["forceFinish"]
-  RETURN R3 1
+  SETTABLEKS R5 R4 K16 ["new"]
+  DUPCLOSURE R5 K17 [PROTO_2]
+  DUPCLOSURE R6 K18 [PROTO_3]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R4 K19 ["_animationCallback"]
+  DUPCLOSURE R6 K20 [PROTO_4]
+  SETTABLEKS R6 R4 K21 ["beginAnimation"]
+  DUPCLOSURE R6 K22 [PROTO_5]
+  SETTABLEKS R6 R4 K23 ["inProgress"]
+  DUPCLOSURE R6 K24 [PROTO_6]
+  SETTABLEKS R6 R4 K25 ["forceFinish"]
+  RETURN R4 1

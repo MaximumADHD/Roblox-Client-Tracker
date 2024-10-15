@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["roblox_lua-result"]["lua-result"])
+local Package = require(PackageIndex["lua-result"]["lua-result"])
 
 return Package

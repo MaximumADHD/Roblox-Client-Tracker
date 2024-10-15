@@ -28,11 +28,13 @@ local DevicePermissionsModal = require(script.Parent.DevicePermissionsModal)
 
 local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 
+local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
+
 local CoreGui = game:GetService("CoreGui")
 local runService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
-local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceNudge)
+local GetFFlagEnableVoiceNudge = require(VoiceChatCore.Flags.GetFFlagEnableVoiceNudge)
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
 local GetFFlagVoiceBanShowToastOnSubsequentJoins =

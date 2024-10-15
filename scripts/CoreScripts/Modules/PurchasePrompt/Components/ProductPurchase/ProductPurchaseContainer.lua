@@ -23,6 +23,7 @@ local IAPExperience = require(CorePackages.IAPExperience)
 local ProductPurchase =  IAPExperience.ProductPurchase
 local ProductPurchaseRobuxUpsell =  IAPExperience.ProductPurchaseRobuxUpsell
 local LeaveRobloxAlert = IAPExperience.LeaveRobloxAlert
+local IAPAnimator = IAPExperience.Animator
 
 local PurchaseFlow = require(Root.Enums.PurchaseFlow)
 local RequestType = require(Root.Enums.RequestType)
@@ -48,6 +49,11 @@ local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
 local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
 
+local initiateUserPurchaseSettingsPrecheck = require(Root.Thunks.initiateUserPurchaseSettingsPrecheck)
+local GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow = require(Root.Flags.GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow)
+local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
+local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
+local VPCModalType = require(Root.Enums.VPCModalType)
 local Animator = require(script.Parent.Animator)
 
 local ProductPurchaseContainer = Roact.Component:extend(script.Name)
@@ -231,6 +237,14 @@ function ProductPurchaseContainer:init()
 			ContextActionService:UnbindCoreAction(CANCEL_BUTTON_BIND)
 		end
 	end
+
+	self.getVPCModalType = function(promptState)
+		if promptState == PromptState.EnablePurchaseVPCModal then
+			return VPCModalType.toRawValue(VPCModalType.EnablePurchase)
+		end
+		return VPCModalType.toRawValue(VPCModalType.None)
+	end
+
 end
 
 function ProductPurchaseContainer:didMount()
@@ -482,6 +496,24 @@ function ProductPurchaseContainer:render()
 				})
 			end
 		})
+	elseif 
+		GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow() 
+		and promptState == PromptState.EnablePurchaseVPCModal 
+	then
+		prompt = Roact.createElement(IAPAnimator, {
+			shouldAnimate = true,
+			shouldShow = promptState == PromptState.EnablePurchaseVPCModal,
+			renderChildren = function()
+				return Roact.createElement(VPCModal, {
+					screenSize = self.state.screenSize,
+					isActionable = false,
+					modalType = self.getVPCModalType(promptState),
+					onDismiss = function()
+						self.confirmButtonPressed()
+					end,
+				})
+			end,
+		})
 	else
 		prompt = Roact.createElement(MultiTextLocalizer, {
 			locKeys = self:getMessageKeysFromPromptState(),
@@ -595,7 +627,11 @@ local function mapDispatchToProps(dispatch)
 			end
 		end,
 		onRobuxUpsell = function()
-			dispatch(initiatePurchasePrecheck())
+			if GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow() then
+				dispatch(initiateUserPurchaseSettingsPrecheck())
+			else 
+				dispatch(initiatePurchasePrecheck())
+			end
 		end,
 		hideWindow = function()
 			dispatch(hideWindow())

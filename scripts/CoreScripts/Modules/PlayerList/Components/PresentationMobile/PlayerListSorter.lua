@@ -100,7 +100,7 @@ local function buildSortedTeams(teamScores, primaryStat, teams, showNeutralTeam)
 end
 
 PlayerListSorter.validateProps = t.strictInterface({
-	screenSizeY = t.integer,
+	screenSizeY = t.number,
 	entrySize = t.integer,
 
 	players = t.array(playerInterface),

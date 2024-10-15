@@ -12,6 +12,7 @@ local GuiObjectUtils = require(CorePackages.Workspace.Packages.GuiObjectUtils)
 
 local ChromeService = require(Chrome.Service)
 local IntegrationRow = require(Chrome.Peek.IntegrationRow)
+local useChromePeekId = require(Chrome.Hooks.useChromePeekId)
 local useChromePeekItems = require(Chrome.Hooks.useChromePeekItems)
 local Types = require(Chrome.Service.Types)
 local shouldUseSmallPeek = require(Chrome.Integrations.MusicUtility.shouldUseSmallPeek)
@@ -36,6 +37,11 @@ local GetFFlagPeekShowsOneSongOverLifetime =
 local GetFFlagPeekMobilePortraitResizing =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekMobilePortraitResizing
 local GetFFlagPeekHoverStateFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekHoverStateFix
+local GetFFlagPeekUseUpdatedDesign = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekUseUpdatedDesign
+local GetFFlagEnablePeekStaticMusicIconIntegration =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePeekStaticMusicIconIntegration
+local GetFFlagFixPeekTogglingWhenSpammingUnibar =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixPeekTogglingWhenSpammingUnibar
 
 local useStyle = UIBlox.Core.Style.useStyle
 local ControlState = Foundation.Enums.ControlState
@@ -47,13 +53,13 @@ function configurePeek()
 			integrations = if GetFFlagPeekShowsOneSongOverLifetime()
 				then {
 					"peek_close",
-					"music_playing_icon",
+					if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
 					"peek_track_details",
 					"like_button",
 				}
 				else {
 					"peek_close",
-					"music_playing_icon",
+					if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
 					if GetFFlagSongbirdTranslationStrings()
 						then "now_playing"
 						else GetFStringChromeMusicIntegrationId(),
@@ -65,7 +71,30 @@ function configurePeek()
 	-- Same as above music_peek minus peek_close
 	if GetFFlagPeekMobilePortraitResizing() then
 		ChromeService:configurePeek("music_peek_portrait", {
-			integrations = { "music_playing_icon", "peek_track_details", "like_button" },
+			integrations = {
+				if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
+				"peek_track_details",
+				"like_button",
+			},
+		})
+	end
+
+	-- In the new design, the same components are rendered regardless of screen size
+	-- TO-DO: clean up music_peek_portrait mentions once design is confirmed
+	if GetFFlagPeekUseUpdatedDesign() then
+		ChromeService:configurePeek("music_peek", {
+			integrations = {
+				if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
+				"peek_track_details",
+				"peek_close",
+			},
+		})
+		ChromeService:configurePeek("music_peek_portrait", {
+			integrations = {
+				if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
+				"peek_track_details",
+				"peek_close",
+			},
 		})
 	end
 end
@@ -91,7 +120,13 @@ local function Peek(props: Props): React.Node?
 	local frameRef = if GetFFlagPeekHoverStateFix() then nil else useRef(nil :: Frame?)
 	local peekItemsRef = useRef(nil :: Types.PeekList?)
 	local peekItems = useChromePeekItems()
-	local prevPeekItems = usePrevious(peekItems)
+	local peekId
+	local prevPeekId
+	if GetFFlagFixPeekTogglingWhenSpammingUnibar() then
+		peekId = useChromePeekId()
+		prevPeekId = usePrevious(peekId)
+	end
+	local prevPeekItems = if GetFFlagFixPeekTogglingWhenSpammingUnibar() then nil else usePrevious(peekItems)
 
 	local isHovered = if GetFFlagPeekHoverStateFix() then nil else useHoverState(frameRef :: never)
 
@@ -123,9 +158,9 @@ local function Peek(props: Props): React.Node?
 		end, { isHovered })
 	end
 
-	useEffect(function()
-		if GetFFlagFixPeekRenderingWithoutContent() then
-			if peekItems ~= prevPeekItems then
+	if GetFFlagFixPeekTogglingWhenSpammingUnibar() then
+		useEffect(function()
+			if peekId ~= prevPeekId then
 				if peekItems and #peekItems > 0 and not peekItemsRef.current then
 					peekItemsRef.current = peekItems
 					setGoal(ReactOtter.spring(1, SPRING_CONFIG))
@@ -133,17 +168,30 @@ local function Peek(props: Props): React.Node?
 					setGoal(ReactOtter.spring(0, SPRING_CONFIG))
 				end
 			end
-		else
-			if prevPeekItems and peekItems ~= prevPeekItems then
-				if peekItemsRef.current then
-					setGoal(ReactOtter.spring(0, SPRING_CONFIG))
-				else
-					peekItemsRef.current = peekItems
-					setGoal(ReactOtter.spring(1, SPRING_CONFIG))
+		end, { peekId, prevPeekId, peekItems } :: { unknown })
+	else
+		useEffect(function()
+			if GetFFlagFixPeekRenderingWithoutContent() then
+				if peekItems ~= prevPeekItems then
+					if peekItems and #peekItems > 0 and not peekItemsRef.current then
+						peekItemsRef.current = peekItems
+						setGoal(ReactOtter.spring(1, SPRING_CONFIG))
+					else
+						setGoal(ReactOtter.spring(0, SPRING_CONFIG))
+					end
+				end
+			else
+				if prevPeekItems and peekItems ~= prevPeekItems then
+					if peekItemsRef.current then
+						setGoal(ReactOtter.spring(0, SPRING_CONFIG))
+					else
+						peekItemsRef.current = peekItems
+						setGoal(ReactOtter.spring(1, SPRING_CONFIG))
+					end
 				end
 			end
-		end
-	end, { peekItems, prevPeekItems } :: { unknown })
+		end, { peekItems, prevPeekItems } :: { unknown })
+	end
 
 	if GetFFlagPeekShowsOnSongChange() then
 		if GetFFlagPeekMobilePortraitResizing() then
@@ -197,15 +245,19 @@ local function Peek(props: Props): React.Node?
 							* style.Settings.PreferredTransparency,
 					}, {
 						UICorner = React.createElement("UICorner", {
-							CornerRadius = UDim.new(1, 0),
+							CornerRadius = if GetFFlagPeekUseUpdatedDesign()
+								then UDim.new(0, style.Tokens.Global.Size_100)
+								else UDim.new(1, 0),
 						}),
 
-						Padding = React.createElement("UIPadding", {
-							PaddingTop = UDim.new(0, style.Tokens.Global.Space_25),
-							PaddingRight = UDim.new(0, style.Tokens.Global.Space_25),
-							PaddingBottom = UDim.new(0, style.Tokens.Global.Space_25),
-							PaddingLeft = UDim.new(0, style.Tokens.Global.Space_25),
-						}),
+						Padding = if GetFFlagPeekUseUpdatedDesign()
+							then nil
+							else React.createElement("UIPadding", {
+								PaddingTop = UDim.new(0, style.Tokens.Global.Space_25),
+								PaddingRight = UDim.new(0, style.Tokens.Global.Space_25),
+								PaddingBottom = UDim.new(0, style.Tokens.Global.Space_25),
+								PaddingLeft = UDim.new(0, style.Tokens.Global.Space_25),
+							}),
 
 						IntegrationRow = React.createElement(IntegrationRow, {
 							integrations = peekItemsRef.current,

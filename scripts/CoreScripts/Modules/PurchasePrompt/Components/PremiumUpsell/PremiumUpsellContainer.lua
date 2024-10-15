@@ -19,6 +19,7 @@ local completeRequest = require(Root.Thunks.completeRequest)
 local launchPremiumUpsell = require(Root.Thunks.launchPremiumUpsell)
 local sendEvent = require(Root.Thunks.sendEvent)
 local connectToStore = require(Root.connectToStore)
+local initiatePremiumPrecheck = require(Root.Thunks.initiatePremiumPrecheck)
 
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
 
@@ -103,6 +104,7 @@ function PremiumUpsellContainer:createElement()
 			isGamepadEnabled = props.isGamepadEnabled,
 
 			promptPremiumPurchase = props.promptPremiumPurchase,
+			dispatchPremiumPrecheck = props.dispatchPremiumPrecheck,
 			endPurchase = if GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium() then self.endPurchase else props.completeRequest,
 
 			onAnalyticEvent = props.onAnalyticEvent,
@@ -160,6 +162,9 @@ PremiumUpsellContainer = connectToStore(
 			end,
 			onAnalyticEvent = function(name, data)
 				return dispatch(sendEvent(name, data))
+			end,
+			dispatchPremiumPrecheck = function()
+				return dispatch(initiatePremiumPrecheck())
 			end,
 		}
 	end

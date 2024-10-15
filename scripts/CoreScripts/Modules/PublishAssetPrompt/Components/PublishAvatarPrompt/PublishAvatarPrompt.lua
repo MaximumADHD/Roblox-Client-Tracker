@@ -32,8 +32,7 @@ local DELAYED_INPUT_ANIM_SEC = 3
 local DESC_TEXTBOX_HEIGHT = 104
 local DESC_TEXTBOX_MAXLENGTH = 1000
 
-local DESC_LABEL_KEY = "CoreScripts.PublishAvatarPrompt.Description"
-local DESC_TEXT_KEY = "CoreScripts.PublishAvatarPrompt.DescriptionTitle"
+local DESC_LABEL_KEY = "CoreScripts.PublishAssetPrompt.Description"
 
 local PublishAvatarPrompt = Roact.PureComponent:extend("PublishAvatarPrompt")
 
@@ -60,7 +59,7 @@ function PublishAvatarPrompt:init()
 		-- UGC body creation does not localize similar text, so we don't localize here
 		name = LocalPlayer.Name .. "'s Body",
 		isNameValid = true,
-		description = "",
+		description = LocalPlayer.Name .. "'s Body",
 		isDescValid = true,
 		showTopScrim = false,
 		purchasePromptReady = true,
@@ -201,7 +200,7 @@ function PublishAvatarPrompt:renderPromptBody()
 				LayoutOrder = 2,
 				labelText = RobloxTranslator:FormatByKey(DESC_LABEL_KEY),
 				centerText = false,
-				defaultText = RobloxTranslator:FormatByKey(DESC_TEXT_KEY),
+				defaultText = self.state.description,
 				maxLength = DESC_TEXTBOX_MAXLENGTH,
 				onTextUpdated = self.onDescriptionUpdated,
 				textBoxHeight = DESC_TEXTBOX_HEIGHT,

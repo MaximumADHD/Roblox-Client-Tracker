@@ -43,8 +43,12 @@ MAIN:
   SETTABLEKS R4 R3 K22 ["SeparatorColor"]
   LOADK R4 K23 ["$Gray90"]
   SETTABLEKS R4 R3 K24 ["InfoTooltipBackgroundColor"]
+  LOADK R4 K25 ["$Gray70"]
+  SETTABLEKS R4 R3 K26 ["ControlInactiveColor"]
+  LOADK R4 K27 ["$PrimaryHoverBackground"]
+  SETTABLEKS R4 R3 K28 ["ControlActiveColor"]
   MOVE R4 R2
-  LOADK R5 K25 ["ControlsEmulatorDarkTheme"]
+  LOADK R5 K29 ["ControlsEmulatorDarkTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

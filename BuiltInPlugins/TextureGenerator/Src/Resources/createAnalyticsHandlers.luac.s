@@ -18,25 +18,25 @@ PROTO_0:
   FORGLOOP R9 2 [-9]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K7 ["join"]
-  DUPTABLE R10 K18 [{"studioSid", "clientId", "userId", "placeId", "meshIds", "prompt", "seed", "rotation", "smartUVUnwrap", "specifyFrontView"}]
+  DUPTABLE R10 K19 [{"studioSid", "clientId", "userId", "placeId", "meshIds", "prompt", "seed", "rotation", "smartUVUnwrap", "specifyFrontView", "timestampMilliseconds"}]
   GETUPVAL R11 2
-  NAMECALL R11 R11 K19 ["GetSessionId"]
+  NAMECALL R11 R11 K20 ["GetSessionId"]
   CALL R11 1 1
   SETTABLEKS R11 R10 K8 ["studioSid"]
   GETUPVAL R11 2
-  NAMECALL R11 R11 K20 ["GetClientId"]
+  NAMECALL R11 R11 K21 ["GetClientId"]
   CALL R11 1 1
   SETTABLEKS R11 R10 K9 ["clientId"]
   GETUPVAL R11 3
-  NAMECALL R11 R11 K21 ["GetUserId"]
+  NAMECALL R11 R11 K22 ["GetUserId"]
   CALL R11 1 1
   SETTABLEKS R11 R10 K10 ["userId"]
-  GETIMPORT R12 K23 [game]
-  GETTABLEKS R11 R12 K24 ["PlaceId"]
+  GETIMPORT R12 K24 [game]
+  GETTABLEKS R11 R12 K25 ["PlaceId"]
   SETTABLEKS R11 R10 K11 ["placeId"]
-  GETIMPORT R11 K26 [table.concat]
+  GETIMPORT R11 K27 [table.concat]
   MOVE R12 R8
-  LOADK R13 K27 [","]
+  LOADK R13 K28 [","]
   CALL R11 2 1
   SETTABLEKS R11 R10 K12 ["meshIds"]
   SETTABLEKS R2 R10 K13 ["prompt"]
@@ -44,14 +44,18 @@ PROTO_0:
   SETTABLEKS R4 R10 K15 ["rotation"]
   SETTABLEKS R5 R10 K16 ["smartUVUnwrap"]
   SETTABLEKS R6 R10 K17 ["specifyFrontView"]
+  GETIMPORT R12 K31 [DateTime.now]
+  CALL R12 0 1
+  GETTABLEKS R11 R12 K32 ["UnixTimestampMillis"]
+  SETTABLEKS R11 R10 K18 ["timestampMilliseconds"]
   MOVE R11 R7
   CALL R9 2 1
   GETUPVAL R10 2
-  LOADK R12 K28 ["studio"]
-  LOADK R13 K29 ["TextureGenerator"]
+  LOADK R12 K33 ["studio"]
+  LOADK R13 K34 ["TextureGenerator"]
   MOVE R14 R0
   MOVE R15 R9
-  NAMECALL R10 R10 K30 ["SendEventDeferred"]
+  NAMECALL R10 R10 K35 ["SendEventDeferred"]
   CALL R10 5 0
   RETURN R0 0
 

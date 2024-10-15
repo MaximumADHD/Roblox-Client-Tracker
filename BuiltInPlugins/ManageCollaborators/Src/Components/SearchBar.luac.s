@@ -239,7 +239,7 @@ PROTO_13:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["state"]
   GETTABLEKS R0 R1 K1 ["isFocused"]
-  JUMPIF R0 [+16]
+  JUMPIF R0 [+33]
   GETUPVAL R0 0
   DUPTABLE R2 K5 [{"showDropdown", "dropdownItem", "isKeyHovered"}]
   LOADB R3 0
@@ -251,6 +251,18 @@ PROTO_13:
   SETTABLEKS R3 R2 K4 ["isKeyHovered"]
   NAMECALL R0 R0 K7 ["setState"]
   CALL R0 2 0
+  GETIMPORT R0 K9 [game]
+  LOADK R2 K10 ["StudioManageCollabFixClearDoubleClick"]
+  NAMECALL R0 R0 K11 ["getFastFlag"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K12 ["isClearButtonHovered"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K13 ["onClearButtonClicked"]
+  CALL R0 0 0
   RETURN R0 0
 
 PROTO_14:

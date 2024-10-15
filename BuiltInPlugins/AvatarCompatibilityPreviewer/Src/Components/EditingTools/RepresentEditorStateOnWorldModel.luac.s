@@ -466,35 +466,39 @@ PROTO_17:
   SETLIST R5 R6 1 [1]
   CALL R3 2 0
   GETUPVAL R3 4
-  DUPTABLE R4 K10 [{"WorldModel", "LatestScale", "LatestWorldModelHash"}]
-  GETTABLEKS R5 R0 K11 ["worldModel"]
+  DUPTABLE R4 K11 [{"WorldModel", "ProportionalScale", "WorldModelScale", "LatestWorldModelHash"}]
+  GETTABLEKS R5 R0 K12 ["worldModel"]
   SETTABLEKS R5 R4 K7 ["WorldModel"]
-  GETTABLEKS R5 R0 K11 ["worldModel"]
-  NAMECALL R5 R5 K12 ["GetScale"]
+  GETTABLEKS R5 R0 K12 ["worldModel"]
+  NAMECALL R5 R5 K13 ["GetScale"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K8 ["LatestScale"]
-  LOADK R5 K13 [""]
-  SETTABLEKS R5 R4 K9 ["LatestWorldModelHash"]
+  SETTABLEKS R5 R4 K8 ["ProportionalScale"]
+  GETTABLEKS R5 R0 K12 ["worldModel"]
+  NAMECALL R5 R5 K13 ["GetScale"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K9 ["WorldModelScale"]
+  LOADK R5 K14 [""]
+  SETTABLEKS R5 R4 K10 ["LatestWorldModelHash"]
   NEWTABLE R5 0 0
-  DUPTABLE R6 K16 [{"includeAccessories", "resetIncludesBodyParts"}]
-  GETTABLEKS R7 R0 K14 ["includeAccessories"]
-  SETTABLEKS R7 R6 K14 ["includeAccessories"]
+  DUPTABLE R6 K17 [{"includeAccessories", "resetIncludesBodyParts"}]
+  GETTABLEKS R7 R0 K15 ["includeAccessories"]
+  SETTABLEKS R7 R6 K15 ["includeAccessories"]
   LOADB R7 0
-  SETTABLEKS R7 R6 K15 ["resetIncludesBodyParts"]
+  SETTABLEKS R7 R6 K16 ["resetIncludesBodyParts"]
   CALL R3 3 1
   GETUPVAL R4 5
-  GETTABLEKS R5 R0 K11 ["worldModel"]
+  GETTABLEKS R5 R0 K12 ["worldModel"]
   CALL R4 1 1
   GETUPVAL R5 6
-  GETTABLEKS R6 R0 K11 ["worldModel"]
+  GETTABLEKS R6 R0 K12 ["worldModel"]
   MOVE R7 R3
   CALL R5 2 1
   GETUPVAL R7 7
-  GETTABLEKS R6 R7 K17 ["useRefToState"]
+  GETTABLEKS R6 R7 K18 ["useRefToState"]
   MOVE R7 R4
   CALL R6 1 1
   GETUPVAL R8 7
-  GETTABLEKS R7 R8 K17 ["useRefToState"]
+  GETTABLEKS R7 R8 K18 ["useRefToState"]
   MOVE R8 R5
   CALL R7 1 1
   GETUPVAL R9 1
@@ -506,7 +510,7 @@ PROTO_17:
   CAPTURE VAL R7
   CAPTURE VAL R2
   NEWTABLE R10 0 3
-  GETTABLEKS R11 R0 K14 ["includeAccessories"]
+  GETTABLEKS R11 R0 K15 ["includeAccessories"]
   MOVE R12 R4
   MOVE R13 R5
   SETLIST R10 R11 3 [1]
@@ -525,23 +529,23 @@ PROTO_17:
   MOVE R13 R4
   SETLIST R11 R12 2 [1]
   CALL R9 2 0
-  GETTABLEKS R9 R0 K14 ["includeAccessories"]
+  GETTABLEKS R9 R0 K15 ["includeAccessories"]
   JUMPIFNOT R9 [+25]
-  GETTABLEKS R9 R8 K18 ["amount"]
+  GETTABLEKS R9 R8 K19 ["amount"]
   LOADN R10 0
   JUMPIFNOTLT R10 R9 [+21]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K19 ["createElement"]
+  GETTABLEKS R9 R10 K20 ["createElement"]
   GETUPVAL R10 11
-  DUPTABLE R11 K22 [{"key", "dummy"}]
-  LOADK R13 K23 ["GiveDummyInstancesClothing%*"]
-  GETTABLEKS R15 R8 K18 ["amount"]
-  NAMECALL R13 R13 K24 ["format"]
+  DUPTABLE R11 K23 [{"key", "dummy"}]
+  LOADK R13 K24 ["GiveDummyInstancesClothing%*"]
+  GETTABLEKS R15 R8 K19 ["amount"]
+  NAMECALL R13 R13 K25 ["format"]
   CALL R13 2 1
   MOVE R12 R13
-  SETTABLEKS R12 R11 K20 ["key"]
-  GETTABLEKS R12 R0 K11 ["worldModel"]
-  SETTABLEKS R12 R11 K21 ["dummy"]
+  SETTABLEKS R12 R11 K21 ["key"]
+  GETTABLEKS R12 R0 K12 ["worldModel"]
+  SETTABLEKS R12 R11 K22 ["dummy"]
   CALL R9 2 -1
   RETURN R9 -1
   LOADNIL R9

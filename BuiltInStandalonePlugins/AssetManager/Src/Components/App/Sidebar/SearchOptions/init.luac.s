@@ -103,7 +103,7 @@ PROTO_7:
   SETTABLEKS R9 R8 K14 ["LayoutOrder"]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K15 ["Tag"]
-  LOADK R10 K16 ["SearchOptions Explorer Contrast"]
+  LOADK R10 K16 ["SearchOptions Explorer"]
   SETTABLE R10 R8 R9
   DUPTABLE R9 K19 [{"Contents", "Toolbar"}]
   GETUPVAL R11 3
@@ -115,7 +115,7 @@ PROTO_7:
   SETTABLEKS R13 R12 K14 ["LayoutOrder"]
   GETUPVAL R14 3
   GETTABLEKS R13 R14 K15 ["Tag"]
-  LOADK R14 K21 ["Contrast X-Top X-Column"]
+  LOADK R14 K21 ["X-Top X-Column"]
   SETTABLE R14 R12 R13
   DUPTABLE R13 K25 [{"FilterHeading", "Filters", "Separator"}]
   GETUPVAL R15 3

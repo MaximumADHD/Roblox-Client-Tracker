@@ -69,7 +69,7 @@ PROTO_2:
   SETTABLEKS R11 R10 K16 ["OnRightClick"]
   GETUPVAL R12 6
   GETTABLEKS R11 R12 K17 ["Tag"]
-  LOADK R13 K18 ["Element X-Corner X-PadS X-Row X-Left X-Middle %*"]
+  LOADK R13 K18 ["Element X-RowS X-Left X-Middle X-PadS %*"]
   MOVE R15 R7
   NAMECALL R13 R13 K19 ["format"]
   CALL R13 2 1
@@ -85,7 +85,7 @@ PROTO_2:
   SETTABLEKS R15 R14 K13 ["LayoutOrder"]
   GETUPVAL R16 6
   GETTABLEKS R15 R16 K17 ["Tag"]
-  LOADK R17 K24 ["ScopeIcon %* Icon16 X-PadM"]
+  LOADK R17 K24 ["ScopeIcon %* Icon16"]
   MOVE R19 R5
   NAMECALL R17 R17 K19 ["format"]
   CALL R17 2 1
@@ -103,11 +103,9 @@ PROTO_2:
   GETTABLEKS R16 R0 K2 ["Item"]
   GETTABLEKS R15 R16 K21 ["Name"]
   SETTABLEKS R15 R14 K25 ["Text"]
-  GETIMPORT R15 K29 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R15 R14 K27 ["TextTruncate"]
   GETUPVAL R16 6
   GETTABLEKS R15 R16 K17 ["Tag"]
-  LOADK R16 K30 ["Left X-PadS"]
+  LOADK R16 K26 ["ScopeName X-Fit Left"]
   SETTABLE R16 R14 R15
   CALL R12 2 1
   SETTABLEKS R12 R11 K21 ["Name"]

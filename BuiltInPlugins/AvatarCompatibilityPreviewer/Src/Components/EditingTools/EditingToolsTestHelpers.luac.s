@@ -7,29 +7,30 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["freshLizard"]
-  CALL R0 0 1
-  NAMECALL R1 R0 K1 ["GetDescendants"]
+  GETTABLEKS R0 R1 K0 ["cloneLizard"]
+  LOADK R1 K1 ["SymmetryMapLizard"]
+  CALL R0 1 1
+  NAMECALL R1 R0 K2 ["GetDescendants"]
   CALL R1 1 3
   FORGPREP R1
-  LOADK R8 K2 ["WrapTarget"]
-  NAMECALL R6 R5 K3 ["IsA"]
+  LOADK R8 K3 ["WrapTarget"]
+  NAMECALL R6 R5 K4 ["IsA"]
   CALL R6 2 1
   JUMPIFNOT R6 [+11]
-  GETIMPORT R6 K5 [pcall]
+  GETIMPORT R6 K6 [pcall]
   NEWCLOSURE R7 P0
   CAPTURE VAL R5
   CALL R6 1 1
   JUMPIFNOT R6 [+1]
   JUMP [+4]
-  GETIMPORT R7 K8 [task.wait]
+  GETIMPORT R7 K9 [task.wait]
   CALL R7 0 0
   JUMPBACK [-11]
   FORGLOOP R1 2 [-17]
   MOVE R1 R0
   GETUPVAL R2 1
   MOVE R3 R0
-  GETIMPORT R4 K10 [error]
+  GETIMPORT R4 K11 [error]
   CALL R2 2 -1
   RETURN R1 -1
 
@@ -64,5 +65,5 @@ MAIN:
   DUPCLOSURE R6 K16 [PROTO_1]
   CAPTURE VAL R2
   CAPTURE VAL R4
-  SETTABLEKS R6 R5 K17 ["createLizardAndSymmetryMapAsync"]
+  SETTABLEKS R6 R5 K17 ["cloneLizardAndSymmetryMapAsync"]
   RETURN R5 1

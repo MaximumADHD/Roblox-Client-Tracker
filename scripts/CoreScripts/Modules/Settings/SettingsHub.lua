@@ -107,6 +107,7 @@ local GetFFlagDisplayServerChannel = require(CorePackages.Workspace.Packages.Sha
 local FFlagCoreGuiFinalStateAnalytic = require(RobloxGui.Modules.Flags.FFlagCoreGuiFinalStateAnalytic)
 local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagSettingsHubIndependentBackgroundVisibility = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagSettingsHubIndependentBackgroundVisibility()
+local FFlagAppChatReappearIfClosedByTiltMenu = game:DefineFastFlag("AppChatReappearIfClosedByTiltMenu", true)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -185,7 +186,7 @@ local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
-local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
+local GetFFlagPlayerListAnimateMic = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerListAnimateMic
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
 local FFlagFixReportButtonCutOff = game:DefineFastFlag("FixReportButtonCutOff", false)
@@ -3323,11 +3324,13 @@ local function CreateSettingsHub()
 
 			this.CurrentPageSignal:fire("")
 			
-			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then connectWasVisible else false
+			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then (FFlagAppChatReappearIfClosedByTiltMenu and connectWasVisible) else false
 			
 			if GetFFlagEnableAppChatInExperience() and connectWasVisible then
 				connectWasVisible = false
-				InExperienceAppChatModal.default:setVisible(true)
+				if FFlagAppChatReappearIfClosedByTiltMenu then
+					InExperienceAppChatModal.default:setVisible(true)
+				end
 			end
 			
 			if noAnimation or forceNoAnimationIfWeWillShowConnect then
