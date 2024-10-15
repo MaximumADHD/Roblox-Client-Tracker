@@ -94,7 +94,7 @@ Studio.App.RobloxRibbonMainWindow.Network,,Network,Network
 Studio.App.RobloxRibbonMainWindow.Physics,,Physics,Physics
 Studio.App.RobloxRibbonMainWindow.Summary,,Summary,Summary
 Studio.App.RBXMainWindow.MoveEdit,,Move - Edit,Move - Edit
-Studio.App.RBXMainWindow.ResumeScriptSync,,Resume sync,Resume sync
+Studio.App.RBXMainWindow.ResumeScriptSync,,Resume Sync,Resume Sync
 Studio.App.RBXMainWindow.ResizeCustomIncrement,,Set the resize grid to a custom increment,Set the resize grid to a custom increment
 Studio.App.RBXMainWindow.RotateEdit,,Rotate - Edit,Rotate - Edit
 Studio.App.RBXMainWindow.RotateCustomIncrement,,Set the rotate grid to a custom increment,Set the rotate grid to a custom increment
@@ -148,25 +148,28 @@ Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects,,View Lua API objects that c
 Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
 Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers,,Start server and players,Start server and players
 Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
-Studio.App.RBXMainWindow.StartScriptSync,,Sync to disk,Sync to disk
-Studio.App.RBXMainWindow.StartScriptSyncsTooltip,,"Start Sync between Script, LocalScript, and ModuleScript instances and Disk","Start Sync between Script, LocalScript, and ModuleScript instances and Disk"
+Studio.App.RBXMainWindow.StartScriptSync,,Sync to Disk,Sync to Disk
+Studio.App.RBXMainWindow.StartScriptSyncsTooltip,,"Start syncing a Script, LocalScript or ModuleScript with the disk","Start syncing a Script, LocalScript or ModuleScript with the disk"
 Studio.App.RBXMainWindow.StopScriptSync,,Stop Sync,Stop Sync
 Studio.App.RBXMainWindow.CancelScriptSync,,Cancel Sync,Cancel Sync
-Studio.App.RBXMainWindow.StopScriptSyncsTooltip,,"Stop Sync between Script, LocalScript, and ModuleScript instances and Disk","Stop Sync between Script, LocalScript, and ModuleScript instances and Disk"
-Studio.App.ScriptVerbs.SelectSyncDir,,Save File Sync Path,Save File Sync Path
-Studio.App.ScriptVerbs.StopSync,,Stop Synchronization,Stop Synchronization
-Studio.App.ScriptVerbs.DeleteFile,,"<b>The file(s) are no longer syncing to disk</b><br/><div>You can delete the local file if you want. You can also stop this dialog in <a href=""settings"">Studio Settings</a></div>","<b>The file(s) are no longer syncing to disk</b><br/><div>You can delete the local file if you want. You can also stop this dialog in <a href=""settings"">Studio Settings</a></div>"
-Studio.App.ScriptVerbs.AskIfOverwriteFileOnDisk,,<b>Do you want to overwrite the file on disk?</b><br/><div>You will need to overwrite the file to restart syncing</div>,<b>Do you want to overwrite the file on disk?</b><br/><div>You will need to overwrite the file to restart syncing</div>
+Studio.App.RBXMainWindow.StopScriptSyncsTooltip,,"Stop syncing a Script, LocalScript or ModuleScript with the disk","Stop syncing a Script, LocalScript or ModuleScript with the disk"
+Studio.App.ScriptVerbs.SelectSyncDir,,Sync to File,Sync to File
+Studio.App.ScriptVerbs.StopSync,,Stop Syncing,Stop Syncing
+Studio.App.ScriptVerbs.DeleteFileTitle,,<b>The script is no longer syncing with the disk</b><br/>,<b>The script is no longer syncing with the disk</b><br/>
+Studio.App.ScriptVerbs.DeleteFileDetail,,"<div>The file can now be deleted. To silence this dialog change the 'Keep local files after sync' setting in <a href=""settings"">Studio Settings</a>.</div>","<div>The file can now be deleted. To silence this dialog change the 'Keep local files after sync' setting in <a href=""settings"">Studio Settings</a>.</div>"
+Studio.App.ScriptVerbs.AskIfOverwriteFileOnDiskTitle,,<b>Do you want to overwrite the file on disk?</b>,<b>Do you want to overwrite the file on disk?</b>
+Studio.App.ScriptVerbs.AskIfOverwriteFileOnDiskDetail,,<div>You will need to overwrite the file to restart syncing</div>,<div>You will need to overwrite the file to restart syncing</div>
 Studio.App.ScriptVerbs.CancelButton,,Cancel,Cancel
 Studio.App.ScriptVerbs.OverwriteButton,,Overwrite,Overwrite
 Studio.App.ScriptVerbs.FileNotFound,,File Not Found,File Not Found
-Studio.App.ScriptVerbs.CannotFindFileSyncing,,<b>Can't find the file location</b><br/><div>The folder might have been deleted or renamed. Cancel sync and start again to select a new location.</div>,<b>Can't find the file location</b><br/><div>The folder might have been deleted or renamed. Cancel sync and start again to select a new location.</div>
+Studio.App.ScriptVerbs.CannotFindFileSyncingTitle,,<b>Can't find the file location</b>,<b>Can't find the file location</b>
+Studio.App.ScriptVerbs.CannotFindFileSyncingDetail,,<div>The folder might have been deleted or renamed. Cancel sync and start again to select a new location.</div>,<div>The folder might have been deleted or renamed. Cancel sync and start again to select a new location.</div>
 Studio.App.ScriptVerbs.FilePathEmpty,,Error while deleting file from disk: Path is empty,Error while deleting file from disk: Path is empty
 Studio.App.ScriptVerbs.FileNotTrashed,,Error while deleting file from disk: Unable to move to trash,Error while deleting file from disk: Unable to move to trash
-Studio.App.ScriptVerbs.DeleteButton,,Delete local file,Delete local file
+Studio.App.ScriptVerbs.DeleteButton,,Delete file,Delete file
 Studio.App.ScriptVerbs.DoneButton,,Done,Done
 Studio.App.ScriptVerbs.CloseButton,,Close,Close
-Studio.App.RBXMainWindow.ShowInFolder,,Show file location,Show file location
+Studio.App.RBXMainWindow.ShowInFolder,,Show File Location,Show File Location
 Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...
@@ -353,8 +356,8 @@ Studio.Common.Action.Back,,Back,Back
 Studio.App.RobloxRibbonMainWindow.JumpToPreviousScriptLocation,,Jump to previous script location,Jump to previous script location
 Studio.App.RBXMainWindow.ClearSelection,,Clear selection,Clear selection
 Studio.App.RBXMainWindow.ClearTheCurrentSelection,,Clear the current selection,Clear the current selection
-Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
-Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance,Sync Instance
+Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder (RBXP),Reveal In Explorer/Finder (RBXP)
+Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance (RBXP),Sync Instance (RBXP)
 Studio.App.RobloxStudioVerbs.QuickOpenActions,,Quick Open Actions,Quick Open Actions
 Studio.App.RBXMainWindow.AssetManager,,Asset Manager,Asset Manager
 Studio.App.RobloxRibbonMainWindow.TagEditor,,Tag Editor,Tag Editor

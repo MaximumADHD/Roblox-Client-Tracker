@@ -10,7 +10,7 @@ Studio.RobloxPropertiesWidget.Category.AngularServo,,,AngularServo,AngularServo,
 Studio.RobloxPropertiesWidget.Category.Animatable,,,Animatable,Animatable,,Animierbar,Animable,Animatable,Bisa Dianimasikan,Animabile,アニメ化可能,애니메이션 가능,Nadające się do animacji,Animável,,เคลื่อนไหวได้,Animasyonlanabilir,Có Thể Tạo Hiệu Ứng Động,可动画化,可动画化,可動畫化
 Studio.RobloxPropertiesWidget.Category.Animation,,,Animation,Animation,,Animation,Animación,Animation,Animasi,Animazione,アニメーション,애니메이션,Animacja,Animação,,แอนิเมชัน,Animasyon,Hiệu Ứng Động,动画,动画,動畫
 Studio.RobloxPropertiesWidget.Category.Appearance,,,Appearance,Appearance,,Erscheinungsbild,Aspecto,Apparence,Penampilan,Aspetto,外見,모양,Wygląd,Aparência,,รูปลักษณ์,Görünüm,Ngoại Hình,外观,外观,外觀
-Studio.RobloxPropertiesWidget.Category.Assembly,,,Assembly,Assembly,,Baugruppe,Montaje,Assemblage,Rakitan,Montaggio,アセンブリ,어셈블리,Instalacja,Montagem,,การประกอบ,Derleme,Cụm Chi Tiết,组件,组件,組件
+Studio.RobloxPropertiesWidget.Category.Assembly,,,Assembly,Assembly,,Baugruppe,Montaje,Assemblage,Perakitan,Montaggio,アセンブリ,어셈블리,Instalacja,Montagem,,การประกอบ,Derleme,Cụm Chi Tiết,组件,组件,組件
 Studio.RobloxPropertiesWidget.Category.Asset,,,Asset,Asset,,Objekt,Recurso,Contenu,Aset,Risorsa/Asset,アセット,애셋,Zasób,Ativo,,ทรัพยากร,Varlık,Tài Sản,素材,素材,資產
 Studio.RobloxPropertiesWidget.Category.Attachments,,,Attachments,Attachments,,Anhänge,Conexiones,Pièces jointes,Sambungan,Allegati,アタッチメント,연결부,Punkty zaczepienia,Anexos,,สิ่งที่แนบมา,Eklentiler,Điểm Gắn,附件,附件,附件
 Studio.RobloxPropertiesWidget.Category.Attributes,,,Attributes,Attributes,,Attribute,Atributos,Attributs,Atribut,Attributi,属性,특성,Atrybuty,Atributos,,คุณลักษณะ,Nitelikler,Thuộc Tính,属性,属性,屬性
@@ -75,7 +75,7 @@ Studio.RobloxPropertiesWidget.Category.LuaDebugger,,,Lua Debugger,Lua Debugger,,
 Studio.RobloxPropertiesWidget.Category.Material,,,Material,Material,,Material,Material,Matériel,Material,Materiale,素材,재질,Materiał,Material,,วัสดุ,Malzeme,Vật Liệu,材质,材质,材質
 Studio.RobloxPropertiesWidget.Category.MaterialOverrides,,,Material Overrides,Material Overrides,,Materialüberschreibungen,Cambios de material,Remplacements de matériaux,Penggantian Material,Sostituzione materiale,素材のオーバーライド,재질 재정의,Zastępowanie materiałów,Substituições de material,,การแทนที่วัสดุ,Malzeme Üstünlükleri,Ghi Đè Vật Liệu,材质覆盖,材质覆盖,材料覆蓋
 Studio.RobloxPropertiesWidget.Category.MaterialPack,,,Material Pack,Material Pack,,Materialpaket,Paquete de material,Pack de matériel,Paket Material,Pacchetto materiale,素材セット,재질 팩,Pakiet materiałów,Pacote de materiais,,แพ็ควัสดุ,Malzeme Paketi,Gói Vật Liệu,材质包,材质包,材料包
-Studio.RobloxPropertiesWidget.Category.Mobile,,,Mobile,Mobile,,Mobil,Móvil,Mobile (portable),Seluler,Cellulare,モバイル,모바일,Mobilne,Celular,,โทรศัพท์มือถือ,Mobil,Di Động,移动,移动,移動
+Studio.RobloxPropertiesWidget.Category.Mobile,,,Mobile,Mobile,,Mobil,Móvil,Mobile (portable),Gerakan,Cellulare,モバイル,모바일,Mobilne,Celular,,การเคลื่อนไหว,Mobil,Di Động,移动,移动,移動
 Studio.RobloxPropertiesWidget.Category.Mode,,,Mode,Mode,,Modus,Modo,Mode,Mode,Modalità,モード,모드,Tryb,Modo,,โหมด,Mod,Chế Độ,模式,模式,模式
 Studio.RobloxPropertiesWidget.Category.Motion,,,Motion,Motion,,Bewegung,Movimiento,Mouvement,Gerakan,Movimento,動き,동작,Ruch,Movimento,,การเคลื่อนไหว,Devinim,Chuyển Động,运动,运动,運動
 Studio.RobloxPropertiesWidget.Category.Motor,,,Motor,Motor,,Motor,Motor,Moteur,Motor,Motore,モーター,모터,Silnik,Motor,,มอเตอร์,Motor,Động Cơ,马达,马达,馬達

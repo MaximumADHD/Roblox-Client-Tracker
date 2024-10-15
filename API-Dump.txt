@@ -1,9 +1,13 @@
-Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
+Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
+	Property Object.ClassName: string [ReadOnly]
+	Function Object:GetPropertyChangedSignal(property: string) -> RBXScriptSignal
+	Function Object:IsA(className: string) -> boolean [CustomLuaState] {🧬Safe}
+	Event Object.Changed(property: string)
+Class Instance : Object [NotCreatable] [NotBrowsable]
 	Property Instance.Archivable: boolean
 	Property Instance.Attributes: string {RobloxSecurity} [Hidden] [ReadOnly] [NotScriptable]
 	Property Instance.AttributesReplicate: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Instance.AttributesSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
-	Property Instance.ClassName: string [ReadOnly]
 	Property Instance.DataCost: number {LocalUserSecurity} [Hidden] [ReadOnly] [Deprecated]
 	Property Instance.HistoryId: UniqueId {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property Instance.Name: string
@@ -36,11 +40,9 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance:GetDebugId(scopeLength: number? = 4) -> string {PluginSecurity} [NotBrowsable]
 	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetFullName() -> string {🧬Safe}
-	Function Instance:GetPropertyChangedSignal(property: string) -> RBXScriptSignal
 	Function Instance:GetStyled(name: string) -> any
 	Function Instance:GetTags() -> { any } {🧬Safe}
 	Function Instance:HasTag(tag: string) -> boolean {🧬Safe}
-	Function Instance:IsA(className: string) -> boolean [CustomLuaState] {🧬Safe}
 	Function Instance:IsAncestorOf(descendant: Instance) -> boolean {🧬Safe}
 	Function Instance:IsDescendantOf(ancestor: Instance) -> boolean {🧬Safe}
 	Function Instance:IsPropertyModified(name: string) -> boolean
@@ -52,7 +54,6 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance:children() -> { Instance } [Deprecated]
 	Event Instance.AncestryChanged(child: Instance, parent: Instance)
 	Event Instance.AttributeChanged(attribute: string)
-	Event Instance.Changed(property: string)
 	Event Instance.ChildAdded(child: Instance)
 	Event Instance.ChildRemoved(child: Instance)
 	Event Instance.DescendantAdded(descendant: Instance)
@@ -339,7 +340,9 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.OutputPath: string
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
+	Function AssetService:CreateEditableImage() -> EditableImage
 	Function AssetService:CreateEditableImageAsync(textureId: ContentId) -> EditableImage [Yields]
+	Function AssetService:CreateEditableMesh() -> EditableMesh
 	Function AssetService:CreateEditableMeshAsync(meshId: ContentId) -> EditableMesh [Yields]
 	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> EditableMesh [Yields]
 	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: ContentId) -> EditableMesh {RobloxScriptSecurity} [Yields]
@@ -570,7 +573,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:LoadAvatarHumanoidDescriptionAsync(id: string) -> HumanoidDescription [Yields]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
 	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
-	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
+	Function AvatarCreationService:PromptCreateAvatarAsync(tokenId: string, player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Function AvatarCreationService:PromptSelectAvatarGenerationImageAsync(player: Player) -> string [Yields]
 	Function AvatarCreationService:RequestAvatarGenerationSessionAsync(player: Player, callback: (...any) -> ...any) -> ...any [Yields]
 	Function AvatarCreationService:SendAnalyticsEvent(eventName: string, params: { [string]: any }) -> ()
@@ -584,7 +587,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Event AvatarCreationService.RequestAvatarModel(id: string) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.RequestAvatarPreviewUrl(id: string) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.UgcValidationFailure(guid: string, errorMessage: string) {RobloxScriptSecurity}
-	Event AvatarCreationService.UgcValidationSuccess(guid: string, serializedModel: string) {RobloxScriptSecurity}
+	Event AvatarCreationService.UgcValidationSuccess(guid: string, serializedModel: string, price: number) {RobloxScriptSecurity}
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarEditorService:CheckApplyDefaultClothing(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields]
 	Function AvatarEditorService:ConformToAvatarRules(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields]
@@ -632,6 +635,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarEditorService:SignalSetFavoritePermissionDenied() -> () {RobloxScriptSecurity}
 	Function AvatarEditorService:SignalUpdateOutfitFailed() -> () {RobloxScriptSecurity}
 	Function AvatarEditorService:SignalUpdateOutfitPermissionDenied() -> () {RobloxScriptSecurity}
+	Function AvatarEditorService:refreshAvatarThumbnails(thumbnailTypes: { any }) -> () {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenAllowInventoryReadAccess() {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptCreateOufit(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptDeleteOutfit(outfitId: number) {RobloxScriptSecurity}
@@ -799,7 +803,7 @@ Class BaseWrap : Instance [NotCreatable]
 	Event BaseWrap.VerticesModified(vertices: { any }) {RobloxScriptSecurity}
 Class WrapDeformer : BaseWrap [NotBrowsable]
 	Function WrapDeformer:CreateEditableMeshAsync() -> EditableMesh [Yields]
-	Function WrapDeformer:GetDeformedCFrame(originalCFrame: CFrame) -> CFrame
+	Function WrapDeformer:GetDeformedCFrameAsync(originalCFrame: CFrame) -> CFrame [Yields]
 Class WrapLayer : BaseWrap
 	Property WrapLayer.Order: number
 	Property WrapLayer.Puffiness: number
@@ -1187,6 +1191,7 @@ Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CommandService:RegisterCommand(plugin: Plugin, name: string, context: string, permission: Enum.CommandPermission? = "LocalUser") -> CommandInstance {RobloxScriptSecurity} [Yields]
 	Event CommandService.CommandExecuting(name: string, params: any) {RobloxScriptSecurity}
 Class CommerceService : Instance [NotCreatable] [Service]
+	Function CommerceService:GetCommerceProductInfoAsync(commerceProductId: number) -> { [string]: any } [Yields]
 	Function CommerceService:PromptCommerceProductPurchase(user: Player, commerceProductId: number) -> ()
 	Function CommerceService:PromptRealWorldCommerceBrowser(player: Player, url: string) -> ()
 	Function CommerceService:UserEligibleForRealWorldCommerceAsync() -> boolean [Yields]
@@ -1884,16 +1889,16 @@ Class ExperienceStateCaptureService : Instance [NotCreatable] [Service] [NotRepl
 	Function ExperienceStateCaptureService:ResetHighlight() -> () {RobloxScriptSecurity}
 	Function ExperienceStateCaptureService:ToggleCaptureMode() -> () {RobloxScriptSecurity}
 	Event ExperienceStateCaptureService.ItemSelectedInCaptureMode(instance: Instance) {RobloxScriptSecurity}
-Class ExplorerFilterAutocompleterInstance : Instance [NotCreatable] [NotReplicated]
-	Property ExplorerFilterAutocompleterInstance.ReplaceRange: Vector2 [ReadOnly]
-	Property ExplorerFilterAutocompleterInstance.RequiresOutsideContext: boolean [ReadOnly]
-	Function ExplorerFilterAutocompleterInstance:GetSuggestions() -> { any }
-Class ExplorerFilterInstance : Instance [NotReplicated]
-	Function ExplorerFilterInstance:GetAutocompleter() -> ExplorerFilterAutocompleterInstance
-	Function ExplorerFilterInstance:GetErrors() -> { any }
-	Function ExplorerFilterInstance:GetLexemes() -> { any }
-	Function ExplorerFilterInstance:InstancePassesFilter(instance: Instance) -> boolean
-	Function ExplorerFilterInstance:SetFilter(search: string) -> ()
+Class ExplorerFilter : Instance [NotReplicated]
+	Function ExplorerFilter:GetAutocompleter() -> ExplorerFilterAutocompleter {RobloxScriptSecurity}
+	Function ExplorerFilter:GetErrors() -> { any } {RobloxScriptSecurity}
+	Function ExplorerFilter:GetLexemes() -> { any } {RobloxScriptSecurity}
+	Function ExplorerFilter:InstancePassesFilter(instance: Instance) -> boolean {RobloxScriptSecurity}
+	Function ExplorerFilter:SetFilter(search: string) -> () {RobloxScriptSecurity}
+Class ExplorerFilterAutocompleter : Instance [NotCreatable] [NotReplicated]
+	Property ExplorerFilterAutocompleter.ReplaceRange: Vector2 {RobloxScriptSecurity} [ReadOnly]
+	Property ExplorerFilterAutocompleter.RequiresOutsideContext: boolean {RobloxScriptSecurity} [ReadOnly]
+	Function ExplorerFilterAutocompleter:GetSuggestions() -> { any } {RobloxScriptSecurity}
 Class Explosion : Instance
 	Property Explosion.BlastPressure: number
 	Property Explosion.BlastRadius: number
@@ -2221,6 +2226,7 @@ Class ImageButton : GuiButton
 	Property ImageButton.HoverImage: ContentId
 	Property ImageButton.Image: ContentId
 	Property ImageButton.ImageColor3: Color3
+	Property ImageButton.ImageContent: Content [Hidden] [NotReplicated]
 	Property ImageButton.ImageRectOffset: Vector2
 	Property ImageButton.ImageRectSize: Vector2
 	Property ImageButton.ImageTransparency: number
@@ -2268,6 +2274,7 @@ Class ImageLabel : GuiLabel
 	Property ImageLabel.ContentImageSize: Vector2 {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property ImageLabel.Image: ContentId
 	Property ImageLabel.ImageColor3: Color3
+	Property ImageLabel.ImageContent: Content [Hidden] [NotReplicated]
 	Property ImageLabel.ImageRectOffset: Vector2
 	Property ImageLabel.ImageRectSize: Vector2
 	Property ImageLabel.ImageTransparency: number
@@ -3862,10 +3869,12 @@ Class MeshPart : TriangleMeshPart
 	Property MeshPart.EditableMeshString: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property MeshPart.HasJointOffset: boolean {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.HasSkinnedMesh: boolean {✏️NotAccessibleSecurity} [Hidden]
+	Property MeshPart.MeshContent: Content {✏️NotAccessibleSecurity} [Hidden] [NotReplicated]
 	Property MeshPart.MeshID: ContentId [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Property MeshPart.MeshId: ContentId {✏️NotAccessibleSecurity}
 	Property MeshPart.RenderFidelity: Enum.RenderFidelity {✏️PluginSecurity} [NotReplicated]
 	Property MeshPart.RenderFidelityReplicate: Enum.RenderFidelity {✏️PluginSecurity} [Hidden] [NotScriptable]
+	Property MeshPart.TextureContent: Content [Hidden] [NotReplicated]
 	Property MeshPart.TextureID: ContentId
 	Property MeshPart.VertexCount: number {RobloxSecurity} [Hidden] [NotScriptable]
 	Property MeshPart.InitialSize: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
@@ -6050,6 +6059,7 @@ Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TextService:GetFontMemoryData() -> { [string]: any } {RobloxScriptSecurity}
 	Function TextService:GetTextBoundsAsync(params: GetTextBoundsParams) -> Vector2 [Yields]
 	Function TextService:GetTextSize(string: string, fontSize: number, font: Enum.Font, frameSize: Vector2) -> Vector2
+	Function TextService:GetTextSizeOffsetAsync(fontSize: number, font: Font) -> number [Yields]
 	Function TextService:SetResolutionScale(scale: number) -> () {RobloxScriptSecurity}
 Class TextSource : Instance [NotCreatable]
 	Property TextSource.CanSend: boolean
@@ -6154,8 +6164,10 @@ Class TweenService : Instance [NotCreatable] [Service]
 	Function TweenService:SmoothDamp(current: any, target: any, velocity: any, smoothTime: number, maxSpeed: number?, dt: number?) -> (any, any)
 Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function UGCValidationService:CalculateEditableMeshInsideMeshPercentage(editableMeshRoot: EditableMesh, editableMeshQuery: EditableMesh, meshQueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:CalculateEditableMeshTotalSurfaceArea(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:CalculateEditableMeshUniqueUVCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateMeshInsideMeshPercentage(meshIdRoot: string, meshIdQuery: string, meshqueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateTotalSurfaceArea(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateUniqueUVCount(meshId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CanLoadAsset(assetId: string) -> boolean {RobloxScriptSecurity} [Yields]
@@ -6286,10 +6298,10 @@ Class UIGradient : UIComponent
 	Property UIGradient.Transparency: NumberSequence
 Class UILayout : UIComponent [NotCreatable]
 Class UIGridStyleLayout : UILayout [NotCreatable] [NotBrowsable]
-	Property UIGridStyleLayout.FillDirection: Enum.FillDirection
 	Property UIGridStyleLayout.HorizontalAlignment: Enum.HorizontalAlignment
-	Property UIGridStyleLayout.SortOrder: Enum.SortOrder
 	Property UIGridStyleLayout.VerticalAlignment: Enum.VerticalAlignment
+	Property UIGridStyleLayout.FillDirection: Enum.FillDirection
+	Property UIGridStyleLayout.SortOrder: Enum.SortOrder
 	Property UIGridStyleLayout.AbsoluteContentSize: Vector2 [ReadOnly] {🧬Unsafe}
 	Function UIGridStyleLayout:ApplyLayout() -> () [Deprecated]
 	Function UIGridStyleLayout:SetCustomSortFunction(function: ((...any) -> ...any)? = nil) -> () [Deprecated]
@@ -6301,12 +6313,12 @@ Class UIGridLayout : UIGridStyleLayout
 	Property UIGridLayout.AbsoluteCellCount: Vector2 [ReadOnly] {🧬Unsafe}
 	Property UIGridLayout.AbsoluteCellSize: Vector2 [ReadOnly] {🧬Unsafe}
 Class UIListLayout : UIGridStyleLayout
-	Property UIListLayout.Padding: UDim
-	Property UIListLayout.Wraps: boolean
 	Property UIListLayout.HorizontalFlex: Enum.UIFlexAlignment
-	Property UIListLayout.HorizontalPadding: UDim [📁 LoadOnly] [Hidden] [NotScriptable]
 	Property UIListLayout.ItemLineAlignment: Enum.ItemLineAlignment
 	Property UIListLayout.VerticalFlex: Enum.UIFlexAlignment
+	Property UIListLayout.Padding: UDim
+	Property UIListLayout.Wraps: boolean
+	Property UIListLayout.HorizontalPadding: UDim [📁 LoadOnly] [Hidden] [NotScriptable]
 	Property UIListLayout.VerticalPadding: UDim [📁 LoadOnly] [Hidden] [NotScriptable]
 Class UIPageLayout : UIGridStyleLayout
 	Property UIPageLayout.Animated: boolean

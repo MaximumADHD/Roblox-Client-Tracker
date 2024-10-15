@@ -118,3 +118,4 @@ Studio.App.ScriptEditor.RejectedBody,,"You won’t be able to use code suggestio
 Studio.App.ScriptEditor.SettingsButton,,Go to Settings,Go to Settings
 Studio.App.ScriptEditor.OKButton,,OK,OK
 Studio.App.ScriptEditor.CloseButton,,Close,Close
+Studio.App.ScriptEditor.OpenDocumentation,Hyperlink text shown to the user to open creator hub documentation from script editor,Open Documentation,Open Documentation
