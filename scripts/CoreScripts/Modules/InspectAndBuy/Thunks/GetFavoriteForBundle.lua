@@ -6,7 +6,6 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local SetFavoriteBundle = require(InspectAndBuyFolder.Actions.SetFavoriteBundle)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
@@ -25,25 +24,25 @@ local function GetFavoriteForBundle(bundleId)
 		local key = keyMapper(store:getState().storeId, bundleId)
 
 		return PerformFetch.Single(key, function(fetchSingleStore)
-			return network.getFavoriteForBundle(bundleId):andThen(
-				function(results)
-					-- Endpoint returns 'null' if item isn't favorited.
-					if results == "null" then
-						store:dispatch(SetFavoriteBundle(tostring(bundleId), false))
-					else
-						store:dispatch(SetFavoriteBundle(tostring(bundleId), true))
-					end
-					if GetFFlagIBEnableSendCounters() then
-						store:dispatch(SendCounter(Constants.Counters.GetFavoriteForBundle .. Constants.CounterSuffix.RequestSucceeded))
-					end
-				end,
-				if GetFFlagIBEnableSendCounters() then function(err)
-					store:dispatch(SendCounter(Constants.Counters.GetFavoriteForBundle .. Constants.CounterSuffix.RequestRejected))
-				end else nil)
+			return network.getFavoriteForBundle(bundleId):andThen(function(results)
+				-- Endpoint returns 'null' if item isn't favorited.
+				if results == "null" then
+					store:dispatch(SetFavoriteBundle(tostring(bundleId), false))
+				else
+					store:dispatch(SetFavoriteBundle(tostring(bundleId), true))
+				end
+				store:dispatch(
+					SendCounter(Constants.Counters.GetFavoriteForBundle .. Constants.CounterSuffix.RequestSucceeded)
+				)
+			end, function(err)
+				store:dispatch(
+					SendCounter(Constants.Counters.GetFavoriteForBundle .. Constants.CounterSuffix.RequestRejected)
+				)
+			end)
 		end)(store):catch(function(err)
-			if GetFFlagIBEnableSendCounters() then
-				store:dispatch(SendCounter(Constants.Counters.GetFavoriteForBundle .. Constants.CounterSuffix.RequestFailed))
-			end
+			store:dispatch(
+				SendCounter(Constants.Counters.GetFavoriteForBundle .. Constants.CounterSuffix.RequestFailed)
+			)
 		end)
 	end)
 end

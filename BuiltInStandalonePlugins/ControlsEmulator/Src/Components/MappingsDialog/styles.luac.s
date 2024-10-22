@@ -279,9 +279,9 @@ MAIN:
   LOADN R35 32
   CALL R31 4 1
   SETTABLEKS R31 R30 K46 ["Size"]
-  LOADK R31 K94 ["$PrimaryButtonColor"]
+  LOADK R31 K94 ["$PrimaryMain"]
   SETTABLEKS R31 R30 K64 ["BackgroundColor3"]
-  LOADK R31 K95 ["$PrimaryButtonTextColor"]
+  LOADK R31 K83 ["$TextPrimary"]
   SETTABLEKS R31 R30 K79 ["TextColor3"]
   NEWTABLE R31 0 1
   MOVE R32 R2
@@ -302,7 +302,7 @@ MAIN:
   SETLIST R14 R15 -1 [1]
   CALL R11 3 1
   MOVE R12 R2
-  LOADK R13 K96 [">> .Component-MappingsCollisionsBanner"]
+  LOADK R13 K95 [">> .Component-MappingsCollisionsBanner"]
   NEWTABLE R14 0 0
   NEWTABLE R15 0 2
   MOVE R16 R2
@@ -315,8 +315,8 @@ MAIN:
   SETTABLEKS R19 R18 K41 ["PaddingTop"]
   CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K97 [">> #BannerContents"]
-  DUPTABLE R19 K98 [{"Size", "BackgroundColor3", "BackgroundTransparency", "AnchorPoint", "Position", "TextXAlignment", "AutomaticSize"}]
+  LOADK R18 K96 [">> #BannerContents"]
+  DUPTABLE R19 K97 [{"Size", "BackgroundColor3", "BackgroundTransparency", "AnchorPoint", "Position", "TextXAlignment", "AutomaticSize"}]
   GETIMPORT R20 K20 [UDim2.new]
   LOADN R21 0
   LOADN R22 35
@@ -324,7 +324,7 @@ MAIN:
   LOADN R24 0
   CALL R20 4 1
   SETTABLEKS R20 R19 K46 ["Size"]
-  LOADK R20 K99 ["$WarningMain"]
+  LOADK R20 K98 ["$WarningMain"]
   SETTABLEKS R20 R19 K64 ["BackgroundColor3"]
   LOADN R20 0
   SETTABLEKS R20 R19 K77 ["BackgroundTransparency"]
@@ -340,9 +340,9 @@ MAIN:
   LOADN R24 0
   CALL R20 4 1
   SETTABLEKS R20 R19 K14 ["Position"]
-  GETIMPORT R20 K100 [Enum.TextXAlignment.Center]
+  GETIMPORT R20 K99 [Enum.TextXAlignment.Center]
   SETTABLEKS R20 R19 K80 ["TextXAlignment"]
-  GETIMPORT R20 K102 [Enum.AutomaticSize.XY]
+  GETIMPORT R20 K101 [Enum.AutomaticSize.XY]
   SETTABLEKS R20 R19 K88 ["AutomaticSize"]
   NEWTABLE R20 0 3
   MOVE R21 R2
@@ -379,8 +379,8 @@ MAIN:
   SETTABLEKS R25 R24 K72 ["CornerRadius"]
   CALL R22 2 1
   MOVE R23 R2
-  LOADK R24 K103 [">> #WarningText"]
-  DUPTABLE R25 K104 [{"Size", "BackgroundTransparency", "TextWrapped", "AutomaticSize"}]
+  LOADK R24 K102 [">> #WarningText"]
+  DUPTABLE R25 K103 [{"Size", "BackgroundTransparency", "TextWrapped", "AutomaticSize"}]
   GETIMPORT R26 K20 [UDim2.new]
   LOADN R27 1
   LOADN R28 0

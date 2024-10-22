@@ -167,11 +167,15 @@ PROTO_2:
   LOADN R7 1
   CALL R4 3 1
   SETTABLEKS R4 R3 K4 ["cframe"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K9 ["Focus"]
+  GETTABLEKS R4 R1 K5 ["focus"]
+  JUMPIF R4 [+6]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["Model"]
+  NAMECALL R4 R4 K10 ["GetBoundingBox"]
+  CALL R4 1 1
   SETTABLEKS R4 R3 K5 ["focus"]
   SETTABLEKS R0 R3 K6 ["model"]
-  SETTABLEKS R3 R2 K10 ["current"]
+  SETTABLEKS R3 R2 K11 ["current"]
   RETURN R0 0
 
 PROTO_3:
@@ -511,61 +515,64 @@ PROTO_12:
   MOVE R14 R2
   SETLIST R13 R14 1 [1]
   CALL R11 2 0
-  JUMPIFNOT R2 [+87]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K27 ["createElement"]
-  GETUPVAL R12 9
-  DUPTABLE R13 K43 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "EnableSky", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded", "ShowResetCamera"}]
-  SETTABLEKS R4 R13 K13 ["Camera"]
-  SETTABLEKS R2 R13 K3 ["Model"]
-  GETTABLEKS R17 R0 K3 ["Model"]
-  GETTABLEKS R16 R17 K4 ["PrimaryPart"]
-  GETTABLEKS R15 R16 K14 ["CFrame"]
-  GETTABLEKS R14 R15 K44 ["Position"]
-  SETTABLEKS R14 R13 K28 ["FocusPosition"]
-  GETTABLEKS R17 R0 K3 ["Model"]
-  GETTABLEKS R16 R17 K4 ["PrimaryPart"]
-  GETTABLEKS R15 R16 K14 ["CFrame"]
-  GETTABLEKS R14 R15 K45 ["LookVector"]
-  SETTABLEKS R14 R13 K29 ["FocusDirection"]
-  GETIMPORT R14 K48 [UDim2.fromScale]
-  LOADN R15 1
+  GETUPVAL R12 7
+  CALL R12 0 1
+  JUMPIFNOT R12 [+5]
+  GETTABLEKS R12 R7 K21 ["current"]
+  GETTABLEKS R11 R12 K18 ["focus"]
+  JUMP [+6]
+  GETTABLEKS R13 R0 K3 ["Model"]
+  GETTABLEKS R12 R13 K4 ["PrimaryPart"]
+  GETTABLEKS R11 R12 K14 ["CFrame"]
+  JUMPIFNOT R2 [+75]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K27 ["createElement"]
+  GETUPVAL R13 9
+  DUPTABLE R14 K43 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "EnableSky", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded", "ShowResetCamera"}]
+  SETTABLEKS R4 R14 K13 ["Camera"]
+  SETTABLEKS R2 R14 K3 ["Model"]
+  GETTABLEKS R15 R11 K44 ["Position"]
+  SETTABLEKS R15 R14 K28 ["FocusPosition"]
+  GETTABLEKS R15 R11 K45 ["LookVector"]
+  SETTABLEKS R15 R14 K29 ["FocusDirection"]
+  GETIMPORT R15 K48 [UDim2.fromScale]
   LOADN R16 1
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K30 ["Size"]
-  GETTABLEKS R14 R1 K31 ["Ambient"]
-  SETTABLEKS R14 R13 K31 ["Ambient"]
-  GETTABLEKS R14 R1 K32 ["EnableSky"]
-  SETTABLEKS R14 R13 K32 ["EnableSky"]
-  GETTABLEKS R14 R1 K33 ["LightColor"]
-  SETTABLEKS R14 R13 K33 ["LightColor"]
-  GETTABLEKS R14 R1 K34 ["LightDirection"]
-  SETTABLEKS R14 R13 K34 ["LightDirection"]
-  GETTABLEKS R14 R1 K35 ["PanSpeedMultiplier"]
-  SETTABLEKS R14 R13 K35 ["PanSpeedMultiplier"]
-  LOADB R14 0
-  SETTABLEKS R14 R13 K36 ["ShouldClone"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K37 ["RecenterModelOnUpdate"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K38 ["RecenterCameraOnUpdate"]
-  GETTABLEKS R14 R0 K39 ["Static"]
-  SETTABLEKS R14 R13 K39 ["Static"]
-  GETUPVAL R15 7
-  CALL R15 0 1
-  JUMPIFNOT R15 [+2]
-  MOVE R14 R5
+  LOADN R17 1
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K30 ["Size"]
+  GETTABLEKS R15 R1 K31 ["Ambient"]
+  SETTABLEKS R15 R14 K31 ["Ambient"]
+  GETTABLEKS R15 R1 K32 ["EnableSky"]
+  SETTABLEKS R15 R14 K32 ["EnableSky"]
+  GETTABLEKS R15 R1 K33 ["LightColor"]
+  SETTABLEKS R15 R14 K33 ["LightColor"]
+  GETTABLEKS R15 R1 K34 ["LightDirection"]
+  SETTABLEKS R15 R14 K34 ["LightDirection"]
+  GETTABLEKS R15 R1 K35 ["PanSpeedMultiplier"]
+  SETTABLEKS R15 R14 K35 ["PanSpeedMultiplier"]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K36 ["ShouldClone"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K37 ["RecenterModelOnUpdate"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K38 ["RecenterCameraOnUpdate"]
+  GETTABLEKS R15 R0 K39 ["Static"]
+  SETTABLEKS R15 R14 K39 ["Static"]
+  GETUPVAL R16 7
+  CALL R16 0 1
+  JUMPIFNOT R16 [+2]
+  MOVE R15 R5
   JUMP [+3]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K49 ["DEFAULT_CAMERA_ANGLE"]
-  SETTABLEKS R14 R13 K40 ["ResetCameraPosition"]
-  SETTABLEKS R10 R13 K41 ["OnViewModelLoaded"]
-  GETTABLEKS R14 R0 K50 ["ShowResetCameraButton"]
-  SETTABLEKS R14 R13 K42 ["ShowResetCamera"]
-  CALL R11 2 1
-  RETURN R11 1
-  LOADNIL R11
-  RETURN R11 1
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K49 ["DEFAULT_CAMERA_ANGLE"]
+  SETTABLEKS R15 R14 K40 ["ResetCameraPosition"]
+  SETTABLEKS R10 R14 K41 ["OnViewModelLoaded"]
+  GETTABLEKS R15 R0 K50 ["ShowResetCameraButton"]
+  SETTABLEKS R15 R14 K42 ["ShowResetCamera"]
+  CALL R12 2 1
+  RETURN R12 1
+  LOADNIL R12
+  RETURN R12 1
 
 MAIN:
   PREPVARARGS 0

@@ -8,9 +8,7 @@ local DEFAULT_INFORMATION = {
 	itemId = nil,
 }
 
-return Rodux.createReducer(
-	DEFAULT_INFORMATION
-, {
+return Rodux.createReducer(DEFAULT_INFORMATION, {
 	[SetItemBeingPurchased.name] = function(state, action)
 		local newInformation = {
 			itemType = action.itemType,

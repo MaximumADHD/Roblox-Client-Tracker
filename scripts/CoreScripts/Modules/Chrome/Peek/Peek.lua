@@ -25,13 +25,6 @@ local useRef = React.useRef
 local useCallback = React.useCallback
 
 local GetFFlagEnableSongbirdPeek = require(Chrome.Flags.GetFFlagEnableSongbirdPeek)
-local GetFStringChromeMusicIntegrationId =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationId
-local GetFFlagPeekShowsOnSongChange = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekShowsOnSongChange
-local GetFFlagSongbirdTranslationStrings =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdTranslationStrings
-local GetFFlagFixPeekRenderingWithoutContent =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixPeekRenderingWithoutContent
 local GetFFlagPeekShowsOneSongOverLifetime =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekShowsOneSongOverLifetime
 local GetFFlagPeekMobilePortraitResizing =
@@ -60,9 +53,7 @@ function configurePeek()
 				else {
 					"peek_close",
 					if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
-					if GetFFlagSongbirdTranslationStrings()
-						then "now_playing"
-						else GetFStringChromeMusicIntegrationId(),
+					"now_playing",
 					"like_button",
 				},
 		})
@@ -171,34 +162,21 @@ local function Peek(props: Props): React.Node?
 		end, { peekId, prevPeekId, peekItems } :: { unknown })
 	else
 		useEffect(function()
-			if GetFFlagFixPeekRenderingWithoutContent() then
-				if peekItems ~= prevPeekItems then
-					if peekItems and #peekItems > 0 and not peekItemsRef.current then
-						peekItemsRef.current = peekItems
-						setGoal(ReactOtter.spring(1, SPRING_CONFIG))
-					else
-						setGoal(ReactOtter.spring(0, SPRING_CONFIG))
-					end
-				end
-			else
-				if prevPeekItems and peekItems ~= prevPeekItems then
-					if peekItemsRef.current then
-						setGoal(ReactOtter.spring(0, SPRING_CONFIG))
-					else
-						peekItemsRef.current = peekItems
-						setGoal(ReactOtter.spring(1, SPRING_CONFIG))
-					end
+			if peekItems ~= prevPeekItems then
+				if peekItems and #peekItems > 0 and not peekItemsRef.current then
+					peekItemsRef.current = peekItems
+					setGoal(ReactOtter.spring(1, SPRING_CONFIG))
+				else
+					setGoal(ReactOtter.spring(0, SPRING_CONFIG))
 				end
 			end
 		end, { peekItems, prevPeekItems } :: { unknown })
 	end
 
-	if GetFFlagPeekShowsOnSongChange() then
-		if GetFFlagPeekMobilePortraitResizing() then
-			useMusicPeek(ChromeService, shouldUseSmallPeek())
-		else
-			useMusicPeek(ChromeService)
-		end
+	if GetFFlagPeekMobilePortraitResizing() then
+		useMusicPeek(ChromeService, shouldUseSmallPeek())
+	else
+		useMusicPeek(ChromeService)
 	end
 
 	if peekItemsRef.current then

@@ -3,7 +3,6 @@ local Thunk = require(InspectAndBuyFolder.Thunk)
 local Analytics = require(InspectAndBuyFolder.Services.Analytics)
 local SetTryingOnInfo = require(InspectAndBuyFolder.Actions.SetTryingOnInfo)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
@@ -31,9 +30,7 @@ local function TryOnItem(tryingOn, assetId, assetTypeId, partOfBundleAndOffsale,
 
 		analytics.reportTryOnButtonClicked(itemType, id)
 		store:dispatch(SetTryingOnInfo(tryingOn, assetId, assetTypeId))
-		if GetFFlagIBEnableSendCounters() then
-			store:dispatch(SendCounter(Constants.Counters.TryOnButtonClicked))
-		end
+		store:dispatch(SendCounter(Constants.Counters.TryOnButtonClicked))
 	end)
 end
 

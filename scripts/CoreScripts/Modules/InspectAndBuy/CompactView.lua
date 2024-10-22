@@ -34,14 +34,11 @@ local CompactView = {
 	AssetTextMaxSize = 14,
 }
 
-setmetatable(CompactView,
-	{
-		__newindex = function(t, key, index)
-		end,
-		__index = function(t, index)
-			error("CompactView table has no value: " .. tostring(index))
-		end
-	}
-)
+setmetatable(CompactView, {
+	__newindex = function(t, key, index) end,
+	__index = function(t, index)
+		error("CompactView table has no value: " .. tostring(index))
+	end,
+})
 
 return CompactView

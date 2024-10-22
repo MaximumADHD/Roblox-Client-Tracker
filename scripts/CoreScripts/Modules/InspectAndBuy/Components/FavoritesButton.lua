@@ -15,14 +15,9 @@ local IsDetailsItemPartOfBundleAndOffsale = require(InspectAndBuyFolder.Selector
 local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local FavoriteShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).Favorite
-local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
-local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
 local FAVORITE_IMAGE_NOT_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite_off.png"
@@ -34,9 +29,7 @@ local FavoritesButton = Roact.PureComponent:extend("FavoritesButton")
 
 function FavoritesButton:init()
 	self.selectedImage = getSelectionImageObjectRounded()
-	if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
-		self.fetchFavoriteRetries = 0
-	end
+	self.fetchFavoriteRetries = 0
 
 	ContextActionService:BindCoreAction(FAVORITE_GAMEPAD_SHORTCUT, function(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.End then
@@ -51,30 +44,15 @@ function FavoritesButton:willUpdate(nextProps)
 	local gotFavoriteForDetailsItem = nextProps.gotFavoriteForDetailsItem
 	local getFavoriteForAsset = self.props.getFavoriteForAsset
 	local getFavoriteForBundle = self.props.getFavoriteForBundle
-	local bundleLoadedAndFavNotFetched = nextProps.assetInfo
-		and nextProps.assetInfo.bundlesAssetIsIn
+	local bundleLoadedAndFavNotFetched = nextProps
+		and nextProps.assetInfo
 		and not gotFavoriteForDetailsItem
-	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-		bundleLoadedAndFavNotFetched = nextProps.assetInfo and not gotFavoriteForDetailsItem
-	end
-
-	if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
-		bundleLoadedAndFavNotFetched = bundleLoadedAndFavNotFetched
-			and self.fetchFavoriteRetries < MAX_FETCH_FAVORITE_RETRIES
-	end
+		and self.fetchFavoriteRetries < MAX_FETCH_FAVORITE_RETRIES
 
 	if bundleLoadedAndFavNotFetched then
 		local assetInfo = nextProps.assetInfo
-		local partOfBundle
-		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-			partOfBundle = assetInfo.parentBundleId ~= nil
-		else
-			partOfBundle = #assetInfo.bundlesAssetIsIn > 0
-		end
-		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-		if GetFFlagIBEnableLimitedBundle() then
-			partOfBundleAndOffsale = partOfBundle
-		end
+		local partOfBundle = assetInfo and assetInfo.parentBundleId ~= nil
+		local partOfBundleAndOffsale = partOfBundle
 
 		coroutine.wrap(function()
 			if not partOfBundleAndOffsale then
@@ -84,9 +62,7 @@ function FavoritesButton:willUpdate(nextProps)
 				getFavoriteForBundle(bundleId)
 			end
 		end)()
-		if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
-			self.fetchFavoriteRetries += 1
-		end
+		self.fetchFavoriteRetries += 1
 	end
 end
 

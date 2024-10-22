@@ -140,7 +140,7 @@ PROTO_3:
   NEWTABLE R12 2 0
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K14 ["Tag"]
-  LOADK R14 K15 ["X-Circle data-testid=ArrowCircle"]
+  LOADK R14 K15 ["Component-Arrow-Circle X-Circle data-testid=ArrowCircle"]
   SETTABLE R14 R12 R13
   GETTABLEKS R13 R0 K5 ["arrowDestination"]
   SETTABLEKS R13 R12 K16 ["Position"]

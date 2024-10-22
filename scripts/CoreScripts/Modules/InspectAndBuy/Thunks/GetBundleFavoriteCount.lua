@@ -7,7 +7,6 @@ local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
@@ -26,23 +25,23 @@ local function GetBundleFavoriteCount(bundleId)
 		local key = keyMapper(store:getState().storeId, bundleId)
 
 		return PerformFetch.Single(key, function(fetchSingleStore)
-			return network.getBundleFavoriteCount(bundleId):andThen(
-				function(numFavorites)
-					if numFavorites then
-						local bundle = BundleInfo.fromGetBundleFavoriteCount(bundleId, numFavorites)
-						store:dispatch(SetBundles({bundle}))
-					end
-					if GetFFlagIBEnableSendCounters() then
-						store:dispatch(SendCounter(Constants.Counters.GetBundleFavoriteCount .. Constants.CounterSuffix.RequestSucceeded))
-					end
-				end,
-				if GetFFlagIBEnableSendCounters() then function(err)
-					store:dispatch(SendCounter(Constants.Counters.GetBundleFavoriteCount .. Constants.CounterSuffix.RequestRejected))
-				end else nil)
+			return network.getBundleFavoriteCount(bundleId):andThen(function(numFavorites)
+				if numFavorites then
+					local bundle = BundleInfo.fromGetBundleFavoriteCount(bundleId, numFavorites)
+					store:dispatch(SetBundles({ bundle }))
+				end
+				store:dispatch(
+					SendCounter(Constants.Counters.GetBundleFavoriteCount .. Constants.CounterSuffix.RequestSucceeded)
+				)
+			end, function(err)
+				store:dispatch(
+					SendCounter(Constants.Counters.GetBundleFavoriteCount .. Constants.CounterSuffix.RequestRejected)
+				)
+			end)
 		end)(store):catch(function(err)
-			if GetFFlagIBEnableSendCounters() then
-				store:dispatch(SendCounter(Constants.Counters.GetBundleFavoriteCount .. Constants.CounterSuffix.RequestFailed))
-			end
+			store:dispatch(
+				SendCounter(Constants.Counters.GetBundleFavoriteCount .. Constants.CounterSuffix.RequestFailed)
+			)
 		end)
 	end)
 end

@@ -2,12 +2,8 @@ local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
 local Analytics = require(InspectAndBuyFolder.Services.Analytics)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
-local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local requiredServices = {
 	Analytics,
@@ -24,15 +20,9 @@ local function ReportOpenDetailsPage(assetInfo)
 		local analytics = services[Analytics]
 
 		-- Currently we only show the bundle if an asset belongs to ONE bundle, not multiple.
-		local partOfBundle = assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
-		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-			partOfBundle = assetInfo and assetInfo.parentBundleId ~= nil
-		end
+		local partOfBundle = assetInfo and assetInfo.parentBundleId ~= nil
 		-- We show an asset if it is separately for sale from the bundle it is in
-		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-		if GetFFlagIBEnableLimitedBundle() then
-			partOfBundleAndOffsale = partOfBundle
-		end
+		local partOfBundleAndOffsale = partOfBundle
 
 		local itemType, id
 
@@ -45,9 +35,7 @@ local function ReportOpenDetailsPage(assetInfo)
 		end
 
 		analytics.reportItemDetailPageOpened(itemType, id)
-		if GetFFlagIBEnableSendCounters() then
-			store:dispatch(SendCounter(Constants.Counters.ItemDetailPageOpened))
-		end
+		store:dispatch(SendCounter(Constants.Counters.ItemDetailPageOpened))
 	end)
 end
 

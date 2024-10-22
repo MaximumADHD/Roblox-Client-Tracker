@@ -91,7 +91,7 @@ PROTO_4:
   NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
   GETTABLEKS R2 R0 K4 ["BaseUrl"]
-  LOADK R3 K5 ["/report-appeals?t_source=studio-nap"]
+  LOADK R3 K5 ["report-appeals?t_source=studio-nap"]
   CONCAT R1 R2 R3
   GETUPVAL R2 0
   MOVE R4 R1

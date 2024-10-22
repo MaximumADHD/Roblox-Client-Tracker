@@ -20,7 +20,7 @@ return {
 	MusicIcon = require(script.MusicUtility.MusicIcon),
 	MusicPlayingIcon = require(script.MusicUtility.MusicPlayingIcon),
 	PeekTrackDetails = require(script.MusicUtility.PeekTrackDetails),
-	Party = require(script.Party),
 	PartyMic = require(script.Party.PartyMic),
 	PeekCloseButton = require(script.PeekCloseButton),
+	OverflowButton = require(script.MusicUtility.OverflowButton),
 }

@@ -5,9 +5,7 @@ local SetLocale = require(InspectAndBuyFolder.Actions.SetLocale)
 
 local FALL_BACK_LOCALE = "en-us"
 
-return Rodux.createReducer(
-	FALL_BACK_LOCALE
-, {
+return Rodux.createReducer(FALL_BACK_LOCALE, {
 	[SetLocale.name] = function(state, action)
 		return action.locale
 	end,

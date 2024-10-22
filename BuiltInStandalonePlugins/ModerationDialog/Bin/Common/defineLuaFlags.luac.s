@@ -9,10 +9,15 @@ MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["EnableModerationDialog"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  LOADN R3 2
+  NAMECALL R0 R0 K3 ["SetFlagVersion"]
   CALL R0 3 0
-  DUPTABLE R0 K5 [{"getFFlagEnableModerationDialog"}]
-  DUPCLOSURE R1 K6 [PROTO_0]
-  SETTABLEKS R1 R0 K4 ["getFFlagEnableModerationDialog"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableModerationDialog"]
+  LOADB R3 0
+  NAMECALL R0 R0 K4 ["DefineFastFlag"]
+  CALL R0 3 0
+  DUPTABLE R0 K6 [{"getFFlagEnableModerationDialog"}]
+  DUPCLOSURE R1 K7 [PROTO_0]
+  SETTABLEKS R1 R0 K5 ["getFFlagEnableModerationDialog"]
   RETURN R0 1

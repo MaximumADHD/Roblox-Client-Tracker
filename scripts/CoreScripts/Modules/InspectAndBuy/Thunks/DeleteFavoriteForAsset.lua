@@ -12,7 +12,6 @@ local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
 local Constants = require(InspectAndBuyFolder.Constants)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 
 local requiredServices = {
 	Network,
@@ -32,31 +31,29 @@ local function DeleteFavoriteForAsset(assetId)
 		local key = keyMapper(store:getState().storeId, assetId)
 
 		return PerformFetch.Single(key, function(fetchSingleStore)
-			return network.deleteFavoriteForAsset(assetId):andThen(
-				function()
-					-- If Promise was resolved, the delete was a success!
-					store:dispatch(SetFavoriteAsset(assetId, false))
-					local currentFavoriteCount = store:getState().assets[assetId].numFavorites
-					local updatedAssetInformation = AssetInfo.fromGetAssetFavoriteCount(assetId, currentFavoriteCount - 1)
-					store:dispatch(SetAssets({updatedAssetInformation}))
-					analytics.reportFavoriteItem("Asset", assetId, false, true, "", currentFavoriteCount - 1)
-					if GetFFlagIBEnableSendCounters() then
-						store:dispatch(SendCounter(Constants.Counters.DeleteFavoriteForAsset .. Constants.CounterSuffix.RequestSucceeded))
-					end
-					return Promise.resolve()
-				end,
-				function(err)
-					if GetFFlagIBEnableSendCounters() then
-						store:dispatch(SendCounter(Constants.Counters.DeleteFavoriteForAsset .. Constants.CounterSuffix.RequestRejected))
-					end
-					return Promise.reject(tostring(err.StatusMessage))
-				end)
+			return network.deleteFavoriteForAsset(assetId):andThen(function()
+				-- If Promise was resolved, the delete was a success!
+				store:dispatch(SetFavoriteAsset(assetId, false))
+				local currentFavoriteCount = store:getState().assets[assetId].numFavorites
+				local updatedAssetInformation = AssetInfo.fromGetAssetFavoriteCount(assetId, currentFavoriteCount - 1)
+				store:dispatch(SetAssets({ updatedAssetInformation }))
+				analytics.reportFavoriteItem("Asset", assetId, false, true, "", currentFavoriteCount - 1)
+				store:dispatch(
+					SendCounter(Constants.Counters.DeleteFavoriteForAsset .. Constants.CounterSuffix.RequestSucceeded)
+				)
+				return Promise.resolve()
+			end, function(err)
+				store:dispatch(
+					SendCounter(Constants.Counters.DeleteFavoriteForAsset .. Constants.CounterSuffix.RequestRejected)
+				)
+				return Promise.reject(tostring(err.StatusMessage))
+			end)
 		end)(store):catch(function(err)
 			local favoriteCount = store:getState().assets[assetId].numFavorites
 			analytics.reportFavoriteItem("Asset", assetId, false, false, err, favoriteCount)
-			if GetFFlagIBEnableSendCounters() then
-				store:dispatch(SendCounter(Constants.Counters.DeleteFavoriteForAsset .. Constants.CounterSuffix.RequestFailed))
-			end
+			store:dispatch(
+				SendCounter(Constants.Counters.DeleteFavoriteForAsset .. Constants.CounterSuffix.RequestFailed)
+			)
 		end)
 	end)
 end

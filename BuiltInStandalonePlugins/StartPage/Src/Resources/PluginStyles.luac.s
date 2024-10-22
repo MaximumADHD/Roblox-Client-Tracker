@@ -18,7 +18,7 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["getFFlagLuaStartPageQuickLoad"]
   CALL R4 1 1
   CALL R4 0 1
-  NEWTABLE R5 0 76
+  NEWTABLE R5 0 77
   MOVE R6 R2
   LOADK R7 K14 [".StartPage-Background"]
   DUPTABLE R8 K17 [{"BackgroundColor3", "BackgroundTransparency"}]
@@ -744,204 +744,212 @@ MAIN:
   SETTABLEKS R9 R8 K72 ["Size"]
   CALL R6 2 1
   MOVE R7 R2
-  LOADK R8 K185 [".StartPage-SearchIcon"]
+  LOADK R8 K185 [".StartPage-RecentsIcon"]
   DUPTABLE R9 K165 [{"Image", "Size"}]
-  LOADK R10 K186 ["$Search"]
+  LOADK R10 K186 ["$Recents"]
   SETTABLEKS R10 R9 K164 ["Image"]
   LOADK R10 K76 ["$IconSizeM"]
   SETTABLEKS R10 R9 K72 ["Size"]
   CALL R7 2 1
   MOVE R8 R2
-  LOADK R9 K187 [".StartPage-KebabIcon"]
+  LOADK R9 K187 [".StartPage-SearchIcon"]
   DUPTABLE R10 K165 [{"Image", "Size"}]
-  LOADK R11 K188 ["$Kebab"]
+  LOADK R11 K188 ["$Search"]
   SETTABLEKS R11 R10 K164 ["Image"]
-  LOADK R11 K189 ["$IconSizeL"]
+  LOADK R11 K76 ["$IconSizeM"]
   SETTABLEKS R11 R10 K72 ["Size"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K190 [".StartPage-CancelIcon"]
+  LOADK R10 K189 [".StartPage-KebabIcon"]
   DUPTABLE R11 K165 [{"Image", "Size"}]
-  LOADK R12 K191 ["$Cancel"]
+  LOADK R12 K190 ["$Kebab"]
   SETTABLEKS R12 R11 K164 ["Image"]
-  LOADK R12 K192 ["$IconSizeS"]
+  LOADK R12 K191 ["$IconSizeL"]
   SETTABLEKS R12 R11 K72 ["Size"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K193 [".StartPage-Chevron"]
-  DUPTABLE R12 K194 [{"Image"}]
-  LOADK R13 K195 ["$Chevron"]
+  LOADK R11 K192 [".StartPage-CancelIcon"]
+  DUPTABLE R12 K165 [{"Image", "Size"}]
+  LOADK R13 K193 ["$Cancel"]
   SETTABLEKS R13 R12 K164 ["Image"]
+  LOADK R13 K194 ["$IconSizeS"]
+  SETTABLEKS R13 R12 K72 ["Size"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K196 [".StartPage-TeamCreateOnlineBackground"]
-  DUPTABLE R13 K26 [{"BackgroundColor3"}]
-  LOADK R14 K197 ["$TeamCreatePresenceOnlineColor"]
-  SETTABLEKS R14 R13 K15 ["BackgroundColor3"]
+  LOADK R12 K195 [".StartPage-Chevron"]
+  DUPTABLE R13 K196 [{"Image"}]
+  LOADK R14 K197 ["$Chevron"]
+  SETTABLEKS R14 R13 K164 ["Image"]
   CALL R11 2 1
   MOVE R12 R2
-  LOADK R13 K198 [".StartPage-AdditionalTCCollaboratorBackground"]
+  LOADK R13 K198 [".StartPage-TeamCreateOnlineBackground"]
   DUPTABLE R14 K26 [{"BackgroundColor3"}]
-  LOADK R15 K107 ["$HoverBorder"]
+  LOADK R15 K199 ["$TeamCreatePresenceOnlineColor"]
   SETTABLEKS R15 R14 K15 ["BackgroundColor3"]
   CALL R12 2 1
   MOVE R13 R2
-  LOADK R14 K199 [".StartPage-ColumnTutorialPopup"]
-  NEWTABLE R15 0 0
-  NEWTABLE R16 0 1
-  MOVE R17 R2
-  LOADK R18 K200 ["::UIListLayout"]
-  DUPTABLE R19 K204 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R20 K206 [Enum.FillDirection.Vertical]
-  SETTABLEKS R20 R19 K201 ["FillDirection"]
-  GETIMPORT R20 K90 [UDim.new]
-  LOADN R21 0
-  LOADN R22 32
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K202 ["Padding"]
-  GETIMPORT R20 K208 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R20 R19 K203 ["SortOrder"]
-  CALL R17 2 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 1
+  LOADK R14 K200 [".StartPage-AdditionalTCCollaboratorBackground"]
+  DUPTABLE R15 K26 [{"BackgroundColor3"}]
+  LOADK R16 K107 ["$HoverBorder"]
+  SETTABLEKS R16 R15 K15 ["BackgroundColor3"]
+  CALL R13 2 1
   MOVE R14 R2
-  LOADK R15 K209 [".StartPage-SearchResultRowColumn"]
+  LOADK R15 K201 [".StartPage-ColumnTutorialPopup"]
   NEWTABLE R16 0 0
   NEWTABLE R17 0 1
   MOVE R18 R2
-  LOADK R19 K200 ["::UIListLayout"]
-  DUPTABLE R20 K204 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R21 K206 [Enum.FillDirection.Vertical]
-  SETTABLEKS R21 R20 K201 ["FillDirection"]
+  LOADK R19 K202 ["::UIListLayout"]
+  DUPTABLE R20 K206 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R21 K208 [Enum.FillDirection.Vertical]
+  SETTABLEKS R21 R20 K203 ["FillDirection"]
   GETIMPORT R21 K90 [UDim.new]
   LOADN R22 0
-  LOADN R23 6
+  LOADN R23 32
   CALL R21 2 1
-  SETTABLEKS R21 R20 K202 ["Padding"]
-  GETIMPORT R21 K208 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R21 R20 K203 ["SortOrder"]
+  SETTABLEKS R21 R20 K204 ["Padding"]
+  GETIMPORT R21 K210 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R21 R20 K205 ["SortOrder"]
   CALL R18 2 -1
   SETLIST R17 R18 -1 [1]
   CALL R14 3 1
   MOVE R15 R2
-  LOADK R16 K210 [".StartPage-HomePageColumn"]
+  LOADK R16 K211 [".StartPage-SearchResultRowColumn"]
   NEWTABLE R17 0 0
   NEWTABLE R18 0 1
   MOVE R19 R2
-  LOADK R20 K200 ["::UIListLayout"]
-  DUPTABLE R21 K204 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R22 K206 [Enum.FillDirection.Vertical]
-  SETTABLEKS R22 R21 K201 ["FillDirection"]
+  LOADK R20 K202 ["::UIListLayout"]
+  DUPTABLE R21 K206 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R22 K208 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K203 ["FillDirection"]
   GETIMPORT R22 K90 [UDim.new]
   LOADN R23 0
-  LOADN R24 16
+  LOADN R24 6
   CALL R22 2 1
-  SETTABLEKS R22 R21 K202 ["Padding"]
-  GETIMPORT R22 K208 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R22 R21 K203 ["SortOrder"]
+  SETTABLEKS R22 R21 K204 ["Padding"]
+  GETIMPORT R22 K210 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R22 R21 K205 ["SortOrder"]
   CALL R19 2 -1
   SETLIST R18 R19 -1 [1]
   CALL R15 3 1
   MOVE R16 R2
-  LOADK R17 K211 [".StartPage-PopupTextboxColumn"]
+  LOADK R17 K212 [".StartPage-HomePageColumn"]
   NEWTABLE R18 0 0
   NEWTABLE R19 0 1
   MOVE R20 R2
-  LOADK R21 K200 ["::UIListLayout"]
-  DUPTABLE R22 K204 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R23 K206 [Enum.FillDirection.Vertical]
-  SETTABLEKS R23 R22 K201 ["FillDirection"]
+  LOADK R21 K202 ["::UIListLayout"]
+  DUPTABLE R22 K206 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R23 K208 [Enum.FillDirection.Vertical]
+  SETTABLEKS R23 R22 K203 ["FillDirection"]
   GETIMPORT R23 K90 [UDim.new]
   LOADN R24 0
-  LOADN R25 8
+  LOADN R25 16
   CALL R23 2 1
-  SETTABLEKS R23 R22 K202 ["Padding"]
-  GETIMPORT R23 K208 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R23 R22 K203 ["SortOrder"]
+  SETTABLEKS R23 R22 K204 ["Padding"]
+  GETIMPORT R23 K210 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R23 R22 K205 ["SortOrder"]
   CALL R20 2 -1
   SETLIST R19 R20 -1 [1]
   CALL R16 3 1
   MOVE R17 R2
-  LOADK R18 K212 [".StartPage-PopupTextBoxTextButtonColumn"]
+  LOADK R18 K213 [".StartPage-PopupTextboxColumn"]
   NEWTABLE R19 0 0
   NEWTABLE R20 0 1
   MOVE R21 R2
-  LOADK R22 K200 ["::UIListLayout"]
-  DUPTABLE R23 K204 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R24 K206 [Enum.FillDirection.Vertical]
-  SETTABLEKS R24 R23 K201 ["FillDirection"]
+  LOADK R22 K202 ["::UIListLayout"]
+  DUPTABLE R23 K206 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R24 K208 [Enum.FillDirection.Vertical]
+  SETTABLEKS R24 R23 K203 ["FillDirection"]
   GETIMPORT R24 K90 [UDim.new]
   LOADN R25 0
-  LOADN R26 16
+  LOADN R26 8
   CALL R24 2 1
-  SETTABLEKS R24 R23 K202 ["Padding"]
-  GETIMPORT R24 K208 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R24 R23 K203 ["SortOrder"]
+  SETTABLEKS R24 R23 K204 ["Padding"]
+  GETIMPORT R24 K210 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R24 R23 K205 ["SortOrder"]
   CALL R21 2 -1
   SETLIST R20 R21 -1 [1]
-  CALL R17 3 -1
+  CALL R17 3 1
+  MOVE R18 R2
+  LOADK R19 K214 [".StartPage-PopupTextBoxTextButtonColumn"]
+  NEWTABLE R20 0 0
+  NEWTABLE R21 0 1
+  MOVE R22 R2
+  LOADK R23 K202 ["::UIListLayout"]
+  DUPTABLE R24 K206 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R25 K208 [Enum.FillDirection.Vertical]
+  SETTABLEKS R25 R24 K203 ["FillDirection"]
+  GETIMPORT R25 K90 [UDim.new]
+  LOADN R26 0
+  LOADN R27 16
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K204 ["Padding"]
+  GETIMPORT R25 K210 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R25 R24 K205 ["SortOrder"]
+  CALL R22 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 -1
   SETLIST R5 R6 -1 [65]
-  DUPTABLE R6 K225 [{"IconSizeS", "IconSize", "IconSizeM", "IconSizeL", "CornerSize8", "CornerSize12", "CornerSize16", "CornerSize32", "TextSizeXS", "TextSize", "TextSizeM", "TextSizeL", "TeamCreatePresenceOnlineColor"}]
+  DUPTABLE R6 K227 [{"IconSizeS", "IconSize", "IconSizeM", "IconSizeL", "CornerSize8", "CornerSize12", "CornerSize16", "CornerSize32", "TextSizeXS", "TextSize", "TextSizeM", "TextSizeL", "TeamCreatePresenceOnlineColor"}]
   GETIMPORT R7 K168 [UDim2.new]
   LOADN R8 0
   LOADN R9 12
   LOADN R10 0
   LOADN R11 12
   CALL R7 4 1
-  SETTABLEKS R7 R6 K213 ["IconSizeS"]
+  SETTABLEKS R7 R6 K215 ["IconSizeS"]
   GETIMPORT R7 K168 [UDim2.new]
   LOADN R8 0
   LOADN R9 16
   LOADN R10 0
   LOADN R11 16
   CALL R7 4 1
-  SETTABLEKS R7 R6 K214 ["IconSize"]
+  SETTABLEKS R7 R6 K216 ["IconSize"]
   GETIMPORT R7 K168 [UDim2.new]
   LOADN R8 0
   LOADN R9 24
   LOADN R10 0
   LOADN R11 24
   CALL R7 4 1
-  SETTABLEKS R7 R6 K215 ["IconSizeM"]
+  SETTABLEKS R7 R6 K217 ["IconSizeM"]
   GETIMPORT R7 K168 [UDim2.new]
   LOADN R8 0
   LOADN R9 32
   LOADN R10 0
   LOADN R11 32
   CALL R7 4 1
-  SETTABLEKS R7 R6 K216 ["IconSizeL"]
+  SETTABLEKS R7 R6 K218 ["IconSizeL"]
   GETIMPORT R7 K90 [UDim.new]
   LOADN R8 0
   LOADN R9 8
   CALL R7 2 1
-  SETTABLEKS R7 R6 K217 ["CornerSize8"]
+  SETTABLEKS R7 R6 K219 ["CornerSize8"]
   GETIMPORT R7 K90 [UDim.new]
   LOADN R8 0
   LOADN R9 12
   CALL R7 2 1
-  SETTABLEKS R7 R6 K218 ["CornerSize12"]
+  SETTABLEKS R7 R6 K220 ["CornerSize12"]
   GETIMPORT R7 K90 [UDim.new]
   LOADN R8 0
   LOADN R9 16
   CALL R7 2 1
-  SETTABLEKS R7 R6 K219 ["CornerSize16"]
+  SETTABLEKS R7 R6 K221 ["CornerSize16"]
   GETIMPORT R7 K90 [UDim.new]
   LOADN R8 0
   LOADN R9 32
   CALL R7 2 1
-  SETTABLEKS R7 R6 K220 ["CornerSize32"]
+  SETTABLEKS R7 R6 K222 ["CornerSize32"]
   LOADN R7 12
-  SETTABLEKS R7 R6 K221 ["TextSizeXS"]
+  SETTABLEKS R7 R6 K223 ["TextSizeXS"]
   LOADN R7 16
   SETTABLEKS R7 R6 K62 ["TextSize"]
   LOADN R7 24
-  SETTABLEKS R7 R6 K222 ["TextSizeM"]
+  SETTABLEKS R7 R6 K224 ["TextSizeM"]
   LOADN R7 40
-  SETTABLEKS R7 R6 K223 ["TextSizeL"]
+  SETTABLEKS R7 R6 K225 ["TextSizeL"]
   GETIMPORT R7 K44 [Color3.fromHex]
-  LOADK R8 K226 ["#0fb369"]
+  LOADK R8 K228 ["#0fb369"]
   CALL R7 1 1
-  SETTABLEKS R7 R6 K224 ["TeamCreatePresenceOnlineColor"]
+  SETTABLEKS R7 R6 K226 ["TeamCreatePresenceOnlineColor"]
   MOVE R7 R3
   LOADK R8 K2 ["StartPage"]
   MOVE R9 R5

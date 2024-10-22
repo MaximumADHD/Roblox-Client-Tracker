@@ -7,8 +7,6 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 local Promise = require(CorePackages.Packages.Promise)
 local PlayabilityStatusEnum = require(CorePackages.Workspace.Packages.PlayabilityRodux).Enums.PlayabilityStatusEnum
-local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
-	require(script.Parent.Parent.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
 
 local MOCK_ASSET_DATA = {
 	[1] = {
@@ -17,7 +15,7 @@ local MOCK_ASSET_DATA = {
 		assetType = {
 			id = 8,
 			name = "Hat",
-		}
+		},
 	},
 	[2] = {
 		id = 2510238627,
@@ -25,7 +23,7 @@ local MOCK_ASSET_DATA = {
 		assetType = {
 			id = 53,
 			name = "Run Animation",
-		}
+		},
 	},
 	[3] = {
 		id = 2807164805,
@@ -33,8 +31,8 @@ local MOCK_ASSET_DATA = {
 		assetType = {
 			id = 17,
 			name = "Head",
-		}
-	}
+		},
+	},
 }
 
 local MOCK_GET_ASSET_BUNDLES_DATA = {
@@ -122,7 +120,7 @@ local MOCK_ITEM_DETAILS = {
 	Owned = true,
 	IsPurchasable = false,
 	Id = 100425207,
-	ItemType = "Asset"
+	ItemType = "Asset",
 }
 
 local MOCK_ECONOMY_PRODUCT_INFO = {
@@ -156,10 +154,6 @@ local function getProductInfo(id)
 end
 
 local function getItemDetails(itemId, itemType)
-	if not GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
-		return Promise.resolve()
-	end
-
 	local details = Cryo.Dictionary.join(MOCK_ITEM_DETAILS, { Id = itemId, ItemType = itemType })
 	return Promise.resolve(details)
 end
@@ -277,7 +271,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getVersionInfo = networkFailure,
 			getExperiencePlayability = networkFailure,
 			getExperienceInfo = networkFailure,
-			getItemDetails = if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then networkFailure else nil,
+			getItemDetails = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -297,14 +291,14 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getVersionInfo = getVersionInfo,
 			getExperiencePlayability = getExperiencePlayability,
 			getExperienceInfo = getExperienceInfo,
-			getItemDetails = if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then getItemDetails else nil,
+			getItemDetails = getItemDetails,
 		}
 	end
 
 	setmetatable(mockNetworkService, {
 		__tostring = function()
 			return "MockService(Network)"
-		end
+		end,
 	})
 
 	return mockNetworkService

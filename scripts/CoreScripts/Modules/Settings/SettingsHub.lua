@@ -80,7 +80,7 @@ local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
-local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local GetFFlagOpenControlsOnMenuOpen = require(RobloxGui.Modules.Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
@@ -88,7 +88,6 @@ local GetFFlagEnableCapturesInChrome = require(RobloxGui.Modules.Chrome.Flags.Ge
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(SharedFlags).GetFStringGameInviteMenuLayer
-local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local GetFFlagEnableScreenshotUtility = require(SharedFlags).GetFFlagEnableScreenshotUtility
@@ -1065,34 +1064,6 @@ local function CreateSettingsHub()
 			useNewMenuTheme = Theme.UIBloxThemeEnabled,
 			hubRef = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then this else nil,
 		})
-	end
-
-	this.createBackgroundFadeGui = function()
-		if not this.FullscreenGui then
-			this.FullscreenGui = Create("ScreenGui")
-			{
-				Name = "FSSettingsMenuBackground",
-				ScreenInsets = Enum.ScreenInsets.None,
-				ClipToDeviceSafeArea = false,
-				DisplayOrder = RobloxGui.DisplayOrder - 1,
-				Enabled = false,
-				Parent = CoreGui,
-			}
-		end
-
-		if not this.FullscreenBackgroundCover then
-			this.FullscreenBackgroundCover = Create("Frame")
-			{
-				Name = "BackgroundCover",
-				Size = UDim2.fromScale(1, 1),
-				Position = UDim2.fromScale(0, 0),
-				BackgroundColor3 = SETTINGS_SHIELD_COLOR,
-				BackgroundTransparency = 1,
-				Visible = true,
-				Active = true,
-				Parent = this.FullscreenGui,
-			}
-		end
 	end
 
 	local function createGui()
@@ -3581,16 +3552,6 @@ local function CreateSettingsHub()
 	end
 	function this:HideShield()
 		this.Shield.BackgroundTransparency = 1
-
-		if UserInputService.VREnabled then
-			if GetFFlagFixSettingsHubVRBackgroundError() then
-				if this.FullscreenGui then
-					this.FullscreenGui.Enabled = false
-				end
-			else
-				this.FullscreenGui.Enabled = false
-			end
-		end
 	end
 
 	local thisModuleName = "SettingsMenu"

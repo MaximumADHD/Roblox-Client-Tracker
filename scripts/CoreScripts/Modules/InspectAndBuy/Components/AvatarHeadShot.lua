@@ -47,10 +47,8 @@ function AvatarHeadShot:render()
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			playerId = state.playerId,
-		}
-	end
-)(AvatarHeadShot)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		playerId = state.playerId,
+	}
+end)(AvatarHeadShot)

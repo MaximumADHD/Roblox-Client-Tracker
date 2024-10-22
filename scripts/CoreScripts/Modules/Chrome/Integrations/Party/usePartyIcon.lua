@@ -85,7 +85,7 @@ function usePartyIcon(iconSize: number, avatarSize: number, defaultIcon: string)
 
 	React.useEffect(
 		function()
-			if lastActiveUserId ~= previousLastActiveUserId then
+			if previousLastActiveUserId ~= nil and lastActiveUserId ~= previousLastActiveUserId then
 				setIconSizeDebounce.cancel()
 				if lastActiveUserId == -1 then
 					-- There is an avatar, change to icon
@@ -105,7 +105,7 @@ function usePartyIcon(iconSize: number, avatarSize: number, defaultIcon: string)
 					updateDisplayImage(lastActiveUserId)
 				end
 			else
-				-- It was caused by default icon changing
+				-- It was caused by default icon changing or it's the first render.
 				updateDisplayImage(lastActiveUserId)
 			end
 		end,

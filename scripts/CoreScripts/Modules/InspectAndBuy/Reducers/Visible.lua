@@ -4,9 +4,7 @@ local InspectAndBuyFolder = script.Parent.Parent
 local ShowMenu = require(InspectAndBuyFolder.Actions.ShowMenu)
 local HideMenu = require(InspectAndBuyFolder.Actions.HideMenu)
 
-return Rodux.createReducer(
-	true
-, {
+return Rodux.createReducer(true, {
 	[ShowMenu.name] = function(state, action)
 		return true
 	end,

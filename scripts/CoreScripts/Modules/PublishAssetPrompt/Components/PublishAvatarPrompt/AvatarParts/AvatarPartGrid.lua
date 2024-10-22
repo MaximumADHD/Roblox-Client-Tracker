@@ -25,6 +25,8 @@ type Props = {
 	screenSize: Vector2,
 }
 
+type ItemCardList = { [number]: AvatarItemCard.Props }
+
 -- function to create an objects folder in the format needed for the Thumbnailing code.
 -- TODO: AVBURST-13422 Can look at reusing the utility here to create this Folder instead after
 -- FFlagMoveToolboxCodeToUGCValidation is on
@@ -42,7 +44,7 @@ local function getPart(humanoidModel: Model, partName: string): MeshPart
 	return humanoidModel:FindFirstChild(partName) :: MeshPart
 end
 
-local function getItems(humanoidModel: Model, name: string): { [number]: AvatarItemCard.Props }
+local function getItems(humanoidModel: Model, name: string): ItemCardList
 	local eyelashes, eyebrows, hair
 	for _, child in ipairs(humanoidModel:GetChildren()) do
 		if child:IsA("Accessory") then
@@ -128,7 +130,7 @@ local function getItems(humanoidModel: Model, name: string): { [number]: AvatarI
 end
 
 local function AvatarPartGrid(props: Props)
-	local items, setItems = React.useState({})
+	local items, setItems = React.useState({} :: ItemCardList)
 	React.useEffect(function()
 		if props.humanoidModel then
 			-- We can only get the item props if the humanoidModel is available
@@ -137,13 +139,28 @@ local function AvatarPartGrid(props: Props)
 		else
 			-- If the humanoidModel is not available, show shimmer tiles
 			-- We set this up by creating a table of empty items
-			local loadingItems = {}
+			local loadingItems: any = {}
 			for i = 1, NUM_PREVIEW_ITEMS do
 				loadingItems[i] = {}
 			end
 			setItems(loadingItems)
 		end
-	end, { props.humanoidModel, props.name } :: { any })
+	end, { props.humanoidModel } :: { any })
+
+	React.useEffect(function()
+		-- check if items have assets, meaning the item card is not shimmering
+		if items[1] and items[1].asset then
+			local newItems: ItemCardList = {}
+			-- replace the names of the items
+			for index, item in items do
+				newItems[index] = {
+					asset = item.asset,
+					titleText = props.name,
+				}
+			end
+			setItems(newItems)
+		end
+	end, { props.name } :: { any })
 
 	local isPortrait = props.screenSize.Y > props.screenSize.X
 	local itemCardWidth = if isPortrait then Constants.ItemCardWidthPortrait else Constants.ItemCardWidthLandscape

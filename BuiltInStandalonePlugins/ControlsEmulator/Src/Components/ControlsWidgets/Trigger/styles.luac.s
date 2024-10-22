@@ -57,13 +57,19 @@ MAIN:
   SETTABLEKS R14 R13 K19 ["BorderSizePixel"]
   LOADK R14 K47 ["$ControlInactiveColor"]
   SETTABLEKS R14 R13 K45 ["BackgroundColor3"]
-  NEWTABLE R14 0 1
+  NEWTABLE R14 0 2
   MOVE R15 R2
-  LOADK R16 K48 [".SelectedBlue"]
+  LOADK R16 K48 [".Hover"]
   DUPTABLE R17 K49 [{"BackgroundColor3"}]
-  LOADK R18 K50 ["$ControlActiveColor"]
+  LOADK R18 K50 ["$ControlHoverColor"]
   SETTABLEKS R18 R17 K45 ["BackgroundColor3"]
-  CALL R15 2 -1
+  CALL R15 2 1
+  MOVE R16 R2
+  LOADK R17 K51 [".SelectedBlue"]
+  DUPTABLE R18 K49 [{"BackgroundColor3"}]
+  LOADK R19 K52 ["$ControlActiveColor"]
+  SETTABLEKS R19 R18 K45 ["BackgroundColor3"]
+  CALL R16 2 -1
   SETLIST R14 R15 -1 [1]
   CALL R11 3 -1
   SETLIST R9 R10 -1 [1]

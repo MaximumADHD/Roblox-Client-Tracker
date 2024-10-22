@@ -1,8 +1,8 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
-local UserInputService = game:GetService('UserInputService')
-local RunService = game:GetService('RunService')
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -11,7 +11,7 @@ local Colors = require(InspectAndBuyFolder.Colors)
 local CharacterModelPool = require(InspectAndBuyFolder.CharacterModelPool)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
-local CHARACTER_ROTATION_SPEED = .0065
+local CHARACTER_ROTATION_SPEED = 0.0065
 local STICK_ROTATION_MULTIPLIER = 3
 local THUMBSTICK_DEADZONE = 0.2
 local AUTO_ROTATE_WAIT_TIME = 2
@@ -45,8 +45,7 @@ function AvatarViewport:didMount()
 		self:setRotation()
 
 		local rigType = self.model.Humanoid.RigType
-		self.characterModelPool =
-			CharacterModelPool.new(self.worldModelRef, self.initialHrpPosition, rigType)
+		self.characterModelPool = CharacterModelPool.new(self.worldModelRef, self.initialHrpPosition, rigType)
 	end
 
 	self.isMounted = true
@@ -91,12 +90,11 @@ function AvatarViewport:setRotation()
 			offset = viewMapping.ToolOffset
 		end
 
-		local cameraPosition = (
-			CFrame.new(hrpPosition)
-			* CFrame.Angles(0, -self.yRotation, 0)
-			* CFrame.Angles(self.xRotation, 0, 0)
-			* offset
-		).p
+		local cameraPosition = (CFrame.new(hrpPosition) * CFrame.Angles(0, -self.yRotation, 0) * CFrame.Angles(
+			self.xRotation,
+			0,
+			0
+		) * offset).p
 
 		self.viewportCamera.CFrame = CFrame.new(cameraPosition, hrpPosition)
 	end
@@ -124,19 +122,25 @@ function AvatarViewport:render()
 				self.mouseOrTouchDown = true
 				self.lastPosition = input.Position
 				setScrollingEnabled(false)
-				local changedConnection = UserInputService.InputChanged:connect(function(inputObject, gameProcessedEvent)
-					if (inputObject.UserInputType == Enum.UserInputType.MouseMovement and self.mouseOrTouchDown)
-						or inputObject.UserInputType == Enum.UserInputType.Touch then
-						local touchDelta = (inputObject.Position - self.lastPosition)
-						self.lastPosition = inputObject.Position
-						self.yRotation = self.yRotation + touchDelta.x * CHARACTER_ROTATION_SPEED
-						self.xRotation = self.xRotation + touchDelta.y * CHARACTER_ROTATION_SPEED
-						self.lastInputTime = tick()
+				local changedConnection = UserInputService.InputChanged:connect(
+					function(inputObject, gameProcessedEvent)
+						if
+							(inputObject.UserInputType == Enum.UserInputType.MouseMovement and self.mouseOrTouchDown)
+							or inputObject.UserInputType == Enum.UserInputType.Touch
+						then
+							local touchDelta = (inputObject.Position - self.lastPosition)
+							self.lastPosition = inputObject.Position
+							self.yRotation = self.yRotation + touchDelta.x * CHARACTER_ROTATION_SPEED
+							self.xRotation = self.xRotation + touchDelta.y * CHARACTER_ROTATION_SPEED
+							self.lastInputTime = tick()
+						end
 					end
-				end)
+				)
 				local endConnection = UserInputService.InputEnded:connect(function(inputObject, gameProcessedEvent)
-					if inputObject.UserInputType == Enum.UserInputType.MouseButton1
-						or inputObject.UserInputType == Enum.UserInputType.Touch then
+					if
+						inputObject.UserInputType == Enum.UserInputType.MouseButton1
+						or inputObject.UserInputType == Enum.UserInputType.Touch
+					then
 						if self.mouseOrTouchDown then
 							self.mouseOrTouchDown = false
 							self.lastInputTime = tick()
@@ -152,7 +156,7 @@ function AvatarViewport:render()
 	}, {
 		WorldModel = Roact.createElement("WorldModel", {
 			[Roact.Ref] = self.worldModelRef,
-		})
+		}),
 	})
 end
 
@@ -164,8 +168,11 @@ function AvatarViewport:handleSpin()
 	spawn(function()
 		while self.isMounted do
 			-- Automatically rotate the avatar if the user is not interacting with it.
-			if tick() - self.lastInputTime > AUTO_ROTATE_WAIT_TIME and not self.mouseOrTouchDown
-				and not self.gamepadRotating then
+			if
+				tick() - self.lastInputTime > AUTO_ROTATE_WAIT_TIME
+				and not self.mouseOrTouchDown
+				and not self.gamepadRotating
+			then
 				isSpinning = true
 			else
 				isSpinning = false
@@ -221,8 +228,7 @@ function AvatarViewport:setUpGamepad()
 			end
 
 			return Enum.ContextActionResult.Sink
-		end,
-		false, Enum.KeyCode.Thumbstick2, Enum.KeyCode.ButtonA)
+		end, false, Enum.KeyCode.Thumbstick2, Enum.KeyCode.ButtonA)
 	end
 end
 
@@ -251,16 +257,14 @@ local function AvatarViewportWrapper(props)
 		render = function(views)
 			local combinedProps = Cryo.Dictionary.join(props, { views = views })
 			return Roact.createElement(AvatarViewport, combinedProps)
-		end
+		end,
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			view = state.view,
-			tryingOnInfo = state.tryingOnInfo,
-			gamepadEnabled = state.gamepadEnabled,
-		}
-	end
-)(AvatarViewportWrapper)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		view = state.view,
+		tryingOnInfo = state.tryingOnInfo,
+		gamepadEnabled = state.gamepadEnabled,
+	}
+end)(AvatarViewportWrapper)

@@ -17,7 +17,7 @@ local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 local getCamMicPermissions = require(Modules.Settings.getCamMicPermissions)
-local FFlagAvatarChatCoreScriptSupport = require(Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 
 local ANIMATION_SPEED = 3
 local FLASHING_DOT = "rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png"

@@ -6,8 +6,7 @@ local CorePackages = game:GetService("CorePackages")
 local Rodux = require(CorePackages.Rodux)
 local Cryo = require(CorePackages.Cryo)
 local InspectAndBuyFolder = script.Parent.Parent
-local SetCollectibleResellableInstances =
-	require(InspectAndBuyFolder.Actions.SetCollectibleResellableInstances)
+local SetCollectibleResellableInstances = require(InspectAndBuyFolder.Actions.SetCollectibleResellableInstances)
 local CollectibleInstance = require(InspectAndBuyFolder.Models.CollectibleInstance)
 
 return Rodux.createReducer({}, {
@@ -20,6 +19,6 @@ return Rodux.createReducer({}, {
 			collectibleInstances[collectibleInstance.collectibleInstanceId] = collectibleInstance
 		end
 
-		return Cryo.Dictionary.join(state, {[collectibleItemId] = collectibleInstances})
+		return Cryo.Dictionary.join(state, { [collectibleItemId] = collectibleInstances })
 	end,
 })

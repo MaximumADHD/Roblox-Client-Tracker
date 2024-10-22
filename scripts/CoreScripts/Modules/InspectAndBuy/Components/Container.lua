@@ -31,7 +31,7 @@ end
 function Container:didMount()
 	local gamepadEnabled = self.props.gamepadEnabled
 
-	self.selectedCoreObjectChangedSignal = GuiService:GetPropertyChangedSignal('SelectedCoreObject'):Connect(function()
+	self.selectedCoreObjectChangedSignal = GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
 		if self.props.visible and GuiService.SelectedCoreObject then
 			self.lastSavedSelectedCoreGui = GuiService.SelectedCoreObject
 		end
@@ -48,9 +48,8 @@ function Container:didUpdate(prevProps)
 	local gamepadEnabled = self.props.gamepadEnabled
 
 	if visible and gamepadEnabled and self.frameRef.current then
-		(GuiService :: any):RemoveSelectionGroup("InspectMenu")
-		-- AddSelectionParent is deprecated
-		;(GuiService :: any):AddSelectionParent("InspectMenu", self.frameRef.current)
+		(GuiService :: any):RemoveSelectionGroup("InspectMenu");
+		(GuiService :: any):AddSelectionParent("InspectMenu", self.frameRef.current) -- AddSelectionParent is deprecated
 		if self.lastSavedSelectedCoreGui then
 			GuiService.SelectedCoreObject = self.lastSavedSelectedCoreGui
 		end
@@ -65,9 +64,8 @@ function Container:didUpdate(prevProps)
 end
 
 function Container:willUnmount()
-	self.selectedCoreObjectChangedSignal:disconnect()
-	-- AddSelectionParent/RemoveSelectionGroup is deprecated
-	;(GuiService :: any):RemoveSelectionGroup("InspectMenu")
+	self.selectedCoreObjectChangedSignal:disconnect();
+	(GuiService :: any):RemoveSelectionGroup("InspectMenu") -- AddSelectionParent/RemoveSelectionGroup is deprecated
 	GuiService.SelectedCoreObject = nil
 end
 
@@ -123,27 +121,26 @@ function Container:render()
 					Selectable = false,
 					[Roact.Ref] = self.frameRef,
 				}, {
-					AspectRatioConstraint = viewMapping.UseContainerAspectRatio and Roact.createElement("UIAspectRatioConstraint", {
-						AspectRatio = viewMapping.ContainerAspectRatio,
-					}),
+					AspectRatioConstraint = viewMapping.UseContainerAspectRatio
+						and Roact.createElement("UIAspectRatioConstraint", {
+							AspectRatio = viewMapping.ContainerAspectRatio,
+						}),
 					CloseButton = Roact.createElement(CloseButton),
 					InitialView = Roact.createElement(InitialView),
 					AssetDetails = Roact.createElement(AssetDetails, {
 						localPlayerModel = localPlayerModel,
 					}),
 					NoInventoryNotice = Roact.createElement(NoInventoryNotice),
-				})
+				}),
 			})
-		end
+		end,
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			view = state.view,
-			visible = state.visible,
-			gamepadEnabled = state.gamepadEnabled,
-		}
-	end
-)(Container)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		view = state.view,
+		visible = state.visible,
+		gamepadEnabled = state.gamepadEnabled,
+	}
+end)(Container)

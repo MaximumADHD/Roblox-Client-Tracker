@@ -17,10 +17,11 @@ local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local RunService = game:GetService('RunService')
 local Chat = game:GetService("Chat")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
-local FFlagFetchBlockListFromServer = require(RobloxGui.Modules.Common.Flags.FFlagFetchBlockListFromServer)
+local FFlagFetchBlockListFromServer = require(CorePackages.Workspace.Packages.SharedFlags).FFlagFetchBlockListFromServer
 local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
 local FStringRccInExperienceNameEnabledAllowList = require(RobloxGui.Modules.Common.Flags.FStringRccInExperienceNameEnabledAllowList)
 

@@ -9,6 +9,9 @@ local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
 local ChromeConstants = require(Chrome.Unibar.Constants)
 local ChromeUtils = require(Chrome.Service.ChromeUtils)
+local useMappedSignal = require(Chrome.Hooks.useMappedSignal)
+local usePartyIcon = require(Chrome.Integrations.Party.usePartyIcon)
+
 local MappedSignal = ChromeUtils.MappedSignal
 local useStyle = UIBlox.Core.Style.useStyle
 local useTokens = Foundation.Hooks.useTokens
@@ -27,6 +30,8 @@ local GetFFlagAppChatInExpConnectIconRedesign = require(Chrome.Flags.GetFFlagApp
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
 local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
+
+local AVATAR_SIZE = 24
 
 local ICON_OFF = "icons/menu/platformChatOff"
 local ICON_ON = "icons/menu/platformChatOn"
@@ -104,7 +109,6 @@ local function ConnectIcon(_props: Props): React.ReactElement
 		return InExperienceAppChatModal:getVisible()
 	end)
 
-	local icon = CommonIcon(ICON_OFF, ICON_ON, visibilitySignal)
 	local tooltip = if FFlagEnableUnibarFtuxTooltips
 			and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeUnibarEntryPoint
 		then CommonFtuxTooltip({
@@ -122,6 +126,9 @@ local function ConnectIcon(_props: Props): React.ReactElement
 	if GetFFlagAppChatInExpConnectIconRedesign() then
 		local tokens = useTokens()
 
+		local visible = useMappedSignal(visibilitySignal)
+		local icon = usePartyIcon(ICON_SIZE, AVATAR_SIZE, if visible then ICON_ON else ICON_OFF)
+
 		local submenuTransition = React.useContext(SubMenuContext)
 		local function getTransparency(transparency: number): any
 			return if GetFFlagAnimateSubMenu() and submenuTransition
@@ -134,7 +141,25 @@ local function ConnectIcon(_props: Props): React.ReactElement
 		return React.createElement(Foundation.View, {
 			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 		}, {
-			Icon = icon,
+			Icon = React.createElement(Foundation.Image, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				Size = icon.size:map(function(value)
+					return UDim2.fromOffset(value, value)
+				end),
+				backgroundStyle = if icon.image.backgroundColor
+					then {
+						Color3 = icon.image.backgroundColor,
+						Transparency = getTransparency(0),
+					}
+					else tokens.Color.None,
+				cornerRadius = UDim.new(0, tokens.Radius.Circle),
+				Image = icon.image.thumbnail,
+				imageStyle = {
+					Color3 = tokens.Color.Content.Emphasis.Color3,
+					Transparency = getTransparency(tokens.Color.Content.Emphasis.Transparency),
+				},
+			}),
 			Tooltip = tooltip,
 			Badge = if shouldShowBadge
 				then React.createElement(Foundation.View, {
@@ -159,6 +184,8 @@ local function ConnectIcon(_props: Props): React.ReactElement
 				else nil,
 		})
 	else
+		local icon = CommonIcon(ICON_OFF, ICON_ON, visibilitySignal)
+
 		-- to fix UI jank when dismissing
 		local submenuTransition = React.useContext(SubMenuContext)
 		local function getTransparencyFix(): any

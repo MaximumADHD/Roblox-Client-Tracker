@@ -17,13 +17,13 @@ local function UpdateOwnedStatus(itemId, itemType)
 			local currentAssets = state.assets
 			if currentAssets[itemId] then
 				local updatedAsset = AssetInfo.fromPurchaseSuccess(itemId)
-				store:dispatch(SetAssets({updatedAsset}))
+				store:dispatch(SetAssets({ updatedAsset }))
 			end
 		elseif itemType == Constants.ItemType.Bundle then
 			local currentBundles = state.bundles
 			if currentBundles[itemId] then
 				local updatedBundle = BundleInfo.fromPurchaseSuccess(itemId)
-				store:dispatch(SetBundles({updatedBundle}))
+				store:dispatch(SetBundles({ updatedBundle }))
 			end
 		end
 	end)

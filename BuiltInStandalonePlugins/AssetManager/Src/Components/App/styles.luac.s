@@ -90,7 +90,7 @@ MAIN:
   MOVE R15 R2
   LOADK R16 K27 ["> Frame"]
   NEWTABLE R17 0 0
-  NEWTABLE R18 0 2
+  NEWTABLE R18 0 1
   MOVE R19 R2
   LOADK R20 K28 ["::UIPadding"]
   DUPTABLE R21 K33 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
@@ -102,43 +102,32 @@ MAIN:
   SETTABLEKS R22 R21 K31 ["PaddingTop"]
   LOADK R22 K34 ["$PaddingSmall"]
   SETTABLEKS R22 R21 K32 ["PaddingBottom"]
-  CALL R19 2 1
-  MOVE R20 R2
-  LOADK R21 K35 ["> ImageLabel"]
-  DUPTABLE R22 K13 [{"Size"}]
-  GETIMPORT R23 K16 [UDim2.new]
-  LOADN R24 0
-  LOADN R25 12
-  LOADN R26 0
-  LOADN R27 12
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K12 ["Size"]
-  CALL R20 2 -1
+  CALL R19 2 -1
   SETLIST R18 R19 -1 [1]
   CALL R15 3 -1
   SETLIST R14 R15 -1 [1]
   CALL R11 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K40 [{"DefaultSizeSidebar", "MinimumSizeSidebar", "DefaultSizeMainView", "MinimumSizeMainView"}]
-  GETIMPORT R8 K42 [UDim.new]
-  LOADK R9 K43 [0.2]
+  DUPTABLE R7 K39 [{"DefaultSizeSidebar", "MinimumSizeSidebar", "DefaultSizeMainView", "MinimumSizeMainView"}]
+  GETIMPORT R8 K41 [UDim.new]
+  LOADK R9 K42 [0.2]
   LOADN R10 0
   CALL R8 2 1
-  SETTABLEKS R8 R7 K36 ["DefaultSizeSidebar"]
-  GETIMPORT R8 K42 [UDim.new]
+  SETTABLEKS R8 R7 K35 ["DefaultSizeSidebar"]
+  GETIMPORT R8 K41 [UDim.new]
   LOADN R9 0
   LOADN R10 100
   CALL R8 2 1
-  SETTABLEKS R8 R7 K37 ["MinimumSizeSidebar"]
-  GETIMPORT R8 K42 [UDim.new]
-  LOADK R9 K44 [0.8]
+  SETTABLEKS R8 R7 K36 ["MinimumSizeSidebar"]
+  GETIMPORT R8 K41 [UDim.new]
+  LOADK R9 K43 [0.8]
   LOADN R10 0
   CALL R8 2 1
-  SETTABLEKS R8 R7 K38 ["DefaultSizeMainView"]
-  GETIMPORT R8 K42 [UDim.new]
+  SETTABLEKS R8 R7 K37 ["DefaultSizeMainView"]
+  GETIMPORT R8 K41 [UDim.new]
   LOADN R9 0
   LOADN R10 144
   CALL R8 2 1
-  SETTABLEKS R8 R7 K39 ["MinimumSizeMainView"]
+  SETTABLEKS R8 R7 K38 ["MinimumSizeMainView"]
   CALL R3 4 -1
   RETURN R3 -1

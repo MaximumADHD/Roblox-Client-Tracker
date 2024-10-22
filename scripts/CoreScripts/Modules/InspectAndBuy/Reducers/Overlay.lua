@@ -12,7 +12,7 @@ local CloseOverlay = require(InspectAndBuyFolder.Actions.CloseOverlay)
 
 export type State = {
 	overlay: any?,
-	overlayProps: { [any]: any }?
+	overlayProps: { [any]: any }?,
 }
 
 local initState = {

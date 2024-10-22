@@ -20,7 +20,7 @@ local log = require(script.Parent.Parent.Logger)(script.Name)
 local BubbleChatBillboard = require(script.Parent.BubbleChatBillboard)
 
 local GetFFlagBubbleVoiceIndicatorSetting = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicatorSetting)
-local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 
 local ChatBillboards = Roact.Component:extend("ChatBillboards")
 

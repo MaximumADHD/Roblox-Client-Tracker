@@ -21,14 +21,11 @@ local Colors = {
 	DisabledGreen = Color.Color3FromHex(0x9CC4A4),
 }
 
-setmetatable(Colors,
-	{
-		__newindex = function(t, key, index)
-		end,
-		__index = function(t, index)
-			error("Colors table has no value: " .. tostring(index))
-		end
-	}
-)
+setmetatable(Colors, {
+	__newindex = function(t, key, index) end,
+	__index = function(t, index)
+		error("Colors table has no value: " .. tostring(index))
+	end,
+})
 
 return Colors

@@ -139,7 +139,7 @@ function PublishAssetPromptApp:render()
 						FocusNavigationRegistryProvider = Roact.createElement(FocusNavigationRegistryProvider, nil, {
 							FocusNavigationEffects = Roact.createElement(FocusNavigationEffects, {
 								selectionGroupName = SELECTION_GROUP_NAME,
-								focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+								focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
 							}, {
 								Prompt = promptElement,
 							}),

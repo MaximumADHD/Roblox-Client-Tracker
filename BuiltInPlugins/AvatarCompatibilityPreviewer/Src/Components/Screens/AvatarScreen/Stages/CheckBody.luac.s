@@ -45,10 +45,18 @@ PROTO_0:
   RETURN R4 -1
 
 PROTO_1:
-  DUPTABLE R0 K1 [{"fov"}]
-  LOADN R1 50
-  SETTABLEKS R1 R0 K0 ["fov"]
-  RETURN R0 1
+  DUPTABLE R1 K2 [{"focus", "fov"}]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R0 K3 ["PrimaryPart"]
+  GETTABLEKS R2 R3 K4 ["CFrame"]
+  JUMP [+1]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K0 ["focus"]
+  LOADN R2 50
+  SETTABLEKS R2 R1 K1 ["fov"]
+  RETURN R1 1
 
 MAIN:
   PREPVARARGS 0
@@ -94,22 +102,28 @@ MAIN:
   GETTABLEKS R10 R11 K18 ["Hooks"]
   GETTABLEKS R9 R10 K19 ["useOnClothingLayerOrderChanged"]
   CALL R8 1 1
-  DUPCLOSURE R9 K20 [PROTO_0]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K20 ["Flags"]
+  GETTABLEKS R10 R11 K21 ["getFFlagAvatarPreviewerAdjustCameraScale"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K22 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R2
-  DUPTABLE R10 K24 [{"tabs", "render", "getPreviewCameraModifications"}]
-  NEWTABLE R11 0 4
-  LOADK R12 K25 ["animations"]
-  LOADK R13 K26 ["clothing"]
-  LOADK R14 K27 ["accessories"]
-  LOADK R15 K28 ["body"]
-  SETLIST R11 R12 4 [1]
-  SETTABLEKS R11 R10 K21 ["tabs"]
-  SETTABLEKS R9 R10 K22 ["render"]
-  DUPCLOSURE R11 K29 [PROTO_1]
-  SETTABLEKS R11 R10 K23 ["getPreviewCameraModifications"]
-  RETURN R10 1
+  DUPTABLE R11 K26 [{"tabs", "render", "getPreviewCameraModifications"}]
+  NEWTABLE R12 0 4
+  LOADK R13 K27 ["animations"]
+  LOADK R14 K28 ["clothing"]
+  LOADK R15 K29 ["accessories"]
+  LOADK R16 K30 ["body"]
+  SETLIST R12 R13 4 [1]
+  SETTABLEKS R12 R11 K23 ["tabs"]
+  SETTABLEKS R10 R11 K24 ["render"]
+  DUPCLOSURE R12 K31 [PROTO_1]
+  CAPTURE VAL R9
+  SETTABLEKS R12 R11 K25 ["getPreviewCameraModifications"]
+  RETURN R11 1

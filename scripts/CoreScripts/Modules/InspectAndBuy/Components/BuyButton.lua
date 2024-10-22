@@ -11,8 +11,6 @@ local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
-local GetFFlagIBEnableLimitedItemBugFixAndAlignment = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
-local GetFFlagIBFixl20HasQuantityPurchase = require(InspectAndBuyFolder.Flags.GetFFlagIBFixl20HasQuantityPurchase)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 local TEXT_SIZE = 16
@@ -48,10 +46,8 @@ function BuyButton:render()
 	local collectibleLowestAvailableResaleProductId = self.props.collectibleLowestAvailableResaleProductId
 	local collectibleLowestAvailableResaleItemInstanceId = self.props.collectibleLowestAvailableResaleItemInstanceId
 	local collectibleLowestResalePrice = self.props.collectibleLowestResalePrice
-	local isLimited20OrLimitedCollectible = nil
-	if GetFFlagIBFixl20HasQuantityPurchase() then
-		isLimited20OrLimitedCollectible = UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(self.props.assetInfo)
-	end
+	local isLimited20OrLimitedCollectible =
+		UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(self.props.assetInfo)
 	local size = UDim2.new(0, self:getBuyButtonTextSize(buyText), 1, 0)
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
@@ -88,7 +84,7 @@ function BuyButton:render()
 					collectibleLowestAvailableResaleProductId,
 					collectibleLowestAvailableResaleItemInstanceId,
 					collectibleLowestResalePrice,
-					if GetFFlagIBFixl20HasQuantityPurchase() then isLimited20OrLimitedCollectible else nil
+					isLimited20OrLimitedCollectible
 				)
 			end
 		end,
@@ -111,7 +107,7 @@ function BuyButton:render()
 		BuyText = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
 			Size = size,
-			Text = if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then tostring(buyText) else buyText,
+			Text = tostring(buyText),
 			Font = AppFonts.default:getDefault(),
 			TextSize = TEXT_SIZE,
 			TextColor3 = Colors.White,
@@ -139,7 +135,7 @@ end
 function BuyButton:getBuyButtonTextSize(buyText)
 	if self.props.buyButtonRef.current then
 		local buyButtonTextSize = TextService:GetTextSize(
-			if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then tostring(buyText) else buyText,
+			tostring(buyText),
 			TEXT_SIZE,
 			AppFonts.default:getDefault(),
 			Vector2.new(self.props.buyButtonRef.current.AbsoluteSize.X, 5000)
@@ -180,7 +176,7 @@ end, function(dispatch)
 					collectibleLowestAvailableResaleProductId,
 					collectibleLowestAvailableResaleItemInstanceId,
 					collectibleLowestResalePrice,
-					if GetFFlagIBFixl20HasQuantityPurchase() then isLimited20OrLimitedCollectible else nil
+					isLimited20OrLimitedCollectible
 				)
 			)
 		end,

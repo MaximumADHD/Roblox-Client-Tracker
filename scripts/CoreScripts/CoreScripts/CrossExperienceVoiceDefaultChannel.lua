@@ -76,7 +76,7 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
-notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTED_RCC)
+notifyVoiceStatusChange(Constants.VOICE_STATUS.RCC_CONNECTED)
 
 cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_EXPERIENCE_JOINED, {
 	jobId = game.JobId,
@@ -174,7 +174,7 @@ function onCoreVoiceManagerInitialized()
 	CoreVoiceManager:getService().PlayerMicActivitySignalChange:Connect(onLocalPlayerActiveChanged)
 	CoreVoiceManager.participantsUpdate.Event:Connect(onParticipantsUpdated)
 
-	notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTED_VOICE)
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.VOICE_CONNECTED)
 end
 
 -- This function is used to unmute the microphone once when the player joins the default channel
@@ -241,7 +241,7 @@ if EnableDefaultVoiceAvailable and FFlagDefaultChannelEnableDefaultVoice then
 			log:debug("Default channel is disabled.")
 			if GetFFlagEnableLuaVoiceChatAnalytics() then
 				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
-				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_SETUP, "Default channel disabled")
+				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
 			end
 			return
 		end
@@ -252,7 +252,7 @@ if EnableDefaultVoiceAvailable and FFlagDefaultChannelEnableDefaultVoice then
 			log:debug("Default channel is disabled.")
 			if GetFFlagEnableLuaVoiceChatAnalytics() then
 				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
-				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_SETUP, "Default channel disabled")
+				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
 			end
 			return
 		end
@@ -296,14 +296,14 @@ if FFlagEnableCrossExpVoiceDebug then
 	end)
 end
 
-notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTING_VOICE)
+notifyVoiceStatusChange(Constants.VOICE_STATUS.VOICE_CONNECTING)
 
 CoreVoiceManager:subscribe("OnRequestMicPermissionRejected", function()
-	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_MIC_REJECTED)
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_MIC_REJECTED)
 end)
 
 CoreVoiceManager:subscribe("OnPlayerModerated", function()
-	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_MODERATED, "On Player Moderated")
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_MODERATED, "On Player Moderated")
 end)
 
 CoreVoiceManager:subscribe("OnInitialJoinFailed", function()
@@ -311,7 +311,7 @@ CoreVoiceManager:subscribe("OnInitialJoinFailed", function()
 end)
 
 CoreVoiceManager:subscribe("OnRetryRequested", function()
-	notifyVoiceStatusChange(Constants.VOICE_STATUS.CONNECTING_VOICE, "Retry requested")
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.VOICE_CONNECTING, "Retry requested")
 end)
 
 CoreVoiceManager:subscribe("OnReportJoinFailed", function(result)
@@ -405,5 +405,5 @@ end):catch(function(err)
 	-- a unresolved promise error. Don't report an event since the manager
 	-- will handle that.
 	log:info("CoreVoiceManager did not initialize {}", err)
-	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_INIT, err)
+	notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, err)
 end)

@@ -6,7 +6,6 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local SetCollectibleResellableInstances = require(InspectAndBuyFolder.Actions.SetCollectibleResellableInstances)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
@@ -28,21 +27,31 @@ local function GetCollectibleResellableInstances(collectibleItemId, userId)
 					store:dispatch(SetCollectibleResellableInstances(collectibleItemId, itemInstances))
 				end
 
-				if GetFFlagIBEnableSendCounters() then
-					if itemInstances then
-							store:dispatch(SendCounter(Constants.Counters.GetCollectibleResellableInstances .. Constants.CounterSuffix.RequestSucceeded))
-					else
-							store:dispatch(SendCounter(Constants.Counters.GetCollectibleResellableInstancesRequestSucceededWithoutResult))
-					end
+				if itemInstances then
+					store:dispatch(
+						SendCounter(
+							Constants.Counters.GetCollectibleResellableInstances
+								.. Constants.CounterSuffix.RequestSucceeded
+						)
+					)
+				else
+					store:dispatch(
+						SendCounter(Constants.Counters.GetCollectibleResellableInstancesRequestSucceededWithoutResult)
+					)
 				end
-			end,
-			if GetFFlagIBEnableSendCounters() then function(err)
-				store:dispatch(SendCounter(Constants.Counters.GetCollectibleResellableInstances .. Constants.CounterSuffix.RequestRejected))
-			end else nil)
+			end, function(err)
+				store:dispatch(
+					SendCounter(
+						Constants.Counters.GetCollectibleResellableInstances .. Constants.CounterSuffix.RequestRejected
+					)
+				)
+			end)
 		end)(store):catch(function(err)
-			if GetFFlagIBEnableSendCounters() then
-				store:dispatch(SendCounter(Constants.Counters.GetCollectibleResellableInstances .. Constants.CounterSuffix.RequestFailed))
-			end
+			store:dispatch(
+				SendCounter(
+					Constants.Counters.GetCollectibleResellableInstances .. Constants.CounterSuffix.RequestFailed
+				)
+			)
 		end)
 	end)
 end

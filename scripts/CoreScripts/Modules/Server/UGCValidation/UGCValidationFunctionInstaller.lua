@@ -7,6 +7,8 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FFlagMoveUGCValidationFunctionFeature)
 local EngineFeatureUGCValidateEditableMeshAndImage = game:GetEngineFeature("EngineUGCValidateEditableMeshAndImage")
 local EngineUGCValidationCallbackResultStrings = game:GetEngineFeature("EngineUGCValidationCallbackResultStrings")
+local EngineFeatureEngineUGCValidateRigidMeshPartAccessories = game:GetEngineFeature("EngineUGCValidateRigidMeshPartAccessories")
+local UGCValidationRequiredFolderContextEngineFeature = game:GetEngineFeature("UGCValidationRequiredFolderContextEngineFeature")
 
 local function UGCValidationFunction(args)
     local objectInstances = args["instances"]
@@ -17,18 +19,38 @@ local function UGCValidationFunction(args)
     local restrictedUserIds = args["restrictedUserIds"]
     local token = args["token"]
     local universeId = args["universeId"]
+    local requireAllFolders = args["requireAllFolders"]
 
     local bypassFlags = {
         skipSnapshot = true,
+        skipPhysicsDataReset = true,
     }
 
     local success, reasons
 
     if FFlagMoveUGCValidationFunction then
         if fullBodyData then
-            success, reasons = UGCValidation.validateFullBody(fullBodyData, isServer, EngineFeatureUGCValidateEditableMeshAndImage --[[allowEditableInstances]])
+            success, reasons = UGCValidation.validateFullBody(
+                fullBodyData,
+                isServer,
+                EngineFeatureUGCValidateEditableMeshAndImage, --allowEditableInstances
+                bypassFlags,
+                EngineFeatureUGCValidateEditableMeshAndImage, -- shouldYield
+                if UGCValidationRequiredFolderContextEngineFeature then requireAllFolders else nil)
         else
-            success, reasons = UGCValidation.validate(objectInstances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token, universeId, EngineFeatureUGCValidateEditableMeshAndImage --[[allowEditableInstances]], bypassFlags)
+            success, reasons = UGCValidation.validate(
+                objectInstances,
+                assetTypeEnum,
+                isServer,
+                allowUnreviewedAssets,
+                restrictedUserIds,
+                token,
+                universeId,
+                EngineFeatureUGCValidateEditableMeshAndImage, --allowEditableInstances
+                bypassFlags,
+                EngineFeatureUGCValidateEditableMeshAndImage, --shouldYield
+                EngineFeatureEngineUGCValidateRigidMeshPartAccessories, --validateMeshPartAccessories
+                if UGCValidationRequiredFolderContextEngineFeature then requireAllFolders else nil)
         end
     else
         success, reasons = UGCValidation.validate(objectInstances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token)

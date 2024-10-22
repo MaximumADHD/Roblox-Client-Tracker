@@ -8,7 +8,6 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local GetFFlagEnableSoundSessionTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundSessionTelemetry)
 local GetFIntSoundSessionTelemetryThrottle = require(CoreGuiModules.Flags.GetFIntSoundSessionTelemetryThrottle)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
-game:DefineFastFlag("SoundSessionTelemetryInitialDMTraverse", false)
 
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 
@@ -186,14 +185,6 @@ local function hookupSoundEvents(sound: Sound)
 end
 
 if GetFFlagEnableSoundSessionTelemetry() then
-	if game:GetFastFlag("SoundSessionTelemetryInitialDMTraverse") then 
-		for _, instance in ipairs(game:GetDescendants()) do
-			if instance:IsA("Sound") and not trackedSounds[instance :: Sound] then
-				hookupSoundEvents(instance :: Sound)
-			end
-		end
-	end
-
 	if game:GetEngineFeature("AudioInstanceAddedApiEnabled") then
 		SoundService.AudioInstanceAdded:Connect(function(instance)		
 			local shouldTrack = instance:IsA("Sound") -- TODO: Add support for AudioListener here when we're ready

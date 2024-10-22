@@ -28,7 +28,7 @@ local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagO
 local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local GetFFlagVoiceChatServiceManagerUseAvatarChat =
 	require(VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
-local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagUseLuaSignalrConsumer = require(VoiceChatCore.Flags.GetFFlagUseLuaSignalrConsumer)
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 local GetFFlagSeamlessVoiceFTUX = require(RobloxGui.Modules.Flags.GetFFlagSeamlessVoiceFTUX)

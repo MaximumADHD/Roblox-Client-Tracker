@@ -40,7 +40,7 @@ local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetF
 local GetFFlagMicConnectingToast = require(RobloxGui.Modules.Flags.GetFFlagMicConnectingToast)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
-local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService =
 	require(RobloxGui.Modules.Flags.FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService)
 local GetFFlagShowSpeakerIconWithChatBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowSpeakerIconWithChatBubbles)

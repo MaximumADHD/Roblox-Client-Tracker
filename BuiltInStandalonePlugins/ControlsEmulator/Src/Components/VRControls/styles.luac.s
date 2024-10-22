@@ -168,7 +168,7 @@ MAIN:
   DUPTABLE R20 K82 [{"Size", "AutomaticSize", "Position", "AnchorPoint", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "TextColor3", "TextSize", "TextWrapped", "TextXAlignment", "ZIndex"}]
   GETIMPORT R21 K18 [UDim2.new]
   LOADN R22 0
-  LOADN R23 24
+  LOADN R23 84
   LOADN R24 0
   LOADN R25 0
   CALL R21 4 1
@@ -197,7 +197,7 @@ MAIN:
   SETTABLEKS R21 R20 K34 ["TextColor3"]
   LOADN R21 14
   SETTABLEKS R21 R20 K63 ["TextSize"]
-  LOADB R21 1
+  LOADB R21 0
   SETTABLEKS R21 R20 K80 ["TextWrapped"]
   GETIMPORT R21 K85 [Enum.TextXAlignment.Left]
   SETTABLEKS R21 R20 K65 ["TextXAlignment"]
@@ -259,7 +259,7 @@ MAIN:
   DUPTABLE R28 K99 [{"TextColor3", "TextWrapped", "TextXAlignment", "AutomaticSize", "Size"}]
   LOADK R29 K36 ["$TextPrimary"]
   SETTABLEKS R29 R28 K34 ["TextColor3"]
-  LOADB R29 1
+  LOADB R29 0
   SETTABLEKS R29 R28 K80 ["TextWrapped"]
   GETIMPORT R29 K85 [Enum.TextXAlignment.Left]
   SETTABLEKS R29 R28 K65 ["TextXAlignment"]

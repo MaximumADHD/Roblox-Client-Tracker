@@ -41,7 +41,6 @@ if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
 	locales = Localization.new(LocalizationService.RobloxLocaleId)
 end
 
-local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
 
@@ -49,6 +48,7 @@ local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsP
 local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAvatarChatCoreScriptSupport = SharedFlags.GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local FFlagInExperienceSettingsRefactorAnalytics = require(RobloxGui.Modules.Flags.FFlagInExperienceSettingsRefactorAnalytics)

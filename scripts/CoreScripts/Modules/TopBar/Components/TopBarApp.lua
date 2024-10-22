@@ -87,7 +87,6 @@ local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFl
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
-local GetFFlagEnablePartyIconInChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInChrome
 local GetFFlagEnablePartyIconInNonChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInNonChrome
 local GetFFlagEnablePartyMicIconInChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
 local GetFFlagPeekUseFixedHeight = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekUseFixedHeight

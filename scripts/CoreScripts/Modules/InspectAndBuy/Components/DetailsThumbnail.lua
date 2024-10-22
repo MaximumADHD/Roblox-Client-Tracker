@@ -15,11 +15,6 @@ local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBu
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
-local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
-local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
 
@@ -27,19 +22,7 @@ local LIMITED_ITEM = "InGame.InspectMenu.Label.LimitedItems"
 local LIMITED_ITEM_IMAGE = "icons/status/item/limited"
 
 local function isPartOfBundleAndOffsale(assetInfo)
-	if GetFFlagIBEnableLimitedBundle() then
-		return assetInfo and assetInfo.parentBundleId ~= nil or false
-	end
-
-	-- remove all below
-	if assetInfo and assetInfo.isForSale then
-		return false
-	else
-		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-			return assetInfo and assetInfo.parentBundleId ~= nil or false
-		end
-		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1 or false
-	end
+	return assetInfo and assetInfo.parentBundleId ~= nil or false
 end
 
 function DetailsThumbnail:getUrl()
@@ -85,11 +68,8 @@ function DetailsThumbnail:render()
 			-- unique icons need to be displayed on the asset card.
 			if GetFFlagIBEnableCollectiblesSystemSupport() and assetInfo then
 				showLimitedIcon = UtilityFunctions.hasLimitedQuantity(assetInfo)
-				showUniqueIcon = assetInfo.isLimitedUnique or assetInfo.collectibleIsLimited
-
-				if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then
-					showUniqueIcon = UtilityFunctions.isLimited1Point0_LimitedUnique(assetInfo) or UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(assetInfo)
-				end
+				showUniqueIcon = UtilityFunctions.isLimited1Point0_LimitedUnique(assetInfo)
+					or UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(assetInfo)
 
 				local imageSizeOffset = if showUniqueIcon
 					then Constants.LimitedIconFrameSizeXOffset * 2

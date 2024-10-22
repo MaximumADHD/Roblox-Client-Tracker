@@ -6,7 +6,6 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local SetFavoriteAsset = require(InspectAndBuyFolder.Actions.SetFavoriteAsset)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
@@ -25,25 +24,23 @@ local function GetFavoriteForAsset(assetId)
 		local key = keyMapper(store:getState().storeId, assetId)
 
 		return PerformFetch.Single(key, function(fetchSingleStore)
-			return network.getFavoriteForAsset(assetId):andThen(
-				function(results)
-					-- Endpoint returns 'null' if item isn't favorited.
-					if results == "null" then
-						store:dispatch(SetFavoriteAsset(tostring(assetId), false))
-					else
-						store:dispatch(SetFavoriteAsset(tostring(assetId), true))
-					end
-					if GetFFlagIBEnableSendCounters() then
-						store:dispatch(SendCounter(Constants.Counters.GetFavoriteForAsset .. Constants.CounterSuffix.RequestSucceeded))
-					end
-				end,
-				if GetFFlagIBEnableSendCounters() then function(err)
-					store:dispatch(SendCounter(Constants.Counters.GetFavoriteForAsset .. Constants.CounterSuffix.RequestRejected))
-				end else nil)
+			return network.getFavoriteForAsset(assetId):andThen(function(results)
+				-- Endpoint returns 'null' if item isn't favorited.
+				if results == "null" then
+					store:dispatch(SetFavoriteAsset(tostring(assetId), false))
+				else
+					store:dispatch(SetFavoriteAsset(tostring(assetId), true))
+				end
+				store:dispatch(
+					SendCounter(Constants.Counters.GetFavoriteForAsset .. Constants.CounterSuffix.RequestSucceeded)
+				)
+			end, function(err)
+				store:dispatch(
+					SendCounter(Constants.Counters.GetFavoriteForAsset .. Constants.CounterSuffix.RequestRejected)
+				)
+			end)
 		end)(store):catch(function(err)
-			if GetFFlagIBEnableSendCounters() then
-				store:dispatch(SendCounter(Constants.Counters.GetFavoriteForAsset .. Constants.CounterSuffix.RequestFailed))
-			end
+			store:dispatch(SendCounter(Constants.Counters.GetFavoriteForAsset .. Constants.CounterSuffix.RequestFailed))
 		end)
 	end)
 end

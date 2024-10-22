@@ -16,7 +16,7 @@ local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
-local FFlagAvatarChatCoreScriptSupport = require(Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(CoreGui.RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 

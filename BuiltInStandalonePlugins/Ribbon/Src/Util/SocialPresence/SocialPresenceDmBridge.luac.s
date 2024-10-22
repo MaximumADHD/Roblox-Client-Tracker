@@ -7,19 +7,25 @@ PROTO_0:
   MOVE R3 R0
   CALL R2 1 3
   FORGPREP_INEXT R2
-  DUPTABLE R7 K6 [{"UserId", "CollaboratorColor3", "IsIdle"}]
+  DUPTABLE R7 K7 [{"UserId", "CollaboratorColor3", "Username", "IsIdle"}]
   GETTABLEKS R8 R6 K3 ["UserId"]
   SETTABLEKS R8 R7 K3 ["UserId"]
   GETTABLEKS R8 R6 K4 ["CollaboratorColor3"]
   SETTABLEKS R8 R7 K4 ["CollaboratorColor3"]
-  GETTABLEKS R8 R6 K5 ["IsIdle"]
-  SETTABLEKS R8 R7 K5 ["IsIdle"]
+  GETUPVAL R9 1
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R6 K5 ["Username"]
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K5 ["Username"]
+  GETTABLEKS R8 R6 K6 ["IsIdle"]
+  SETTABLEKS R8 R7 K6 ["IsIdle"]
   SETTABLE R7 R1 R5
-  FORGLOOP R2 2 [inext] [-15]
-  GETUPVAL R2 1
-  LOADK R4 K7 ["UpdateCollaborators"]
+  FORGLOOP R2 2 [inext] [-23]
+  GETUPVAL R2 2
+  LOADK R4 K8 ["UpdateCollaborators"]
   MOVE R5 R1
-  NAMECALL R2 R2 K8 ["Invoke"]
+  NAMECALL R2 R2 K9 ["Invoke"]
   CALL R2 3 0
   RETURN R0 0
 
@@ -55,6 +61,7 @@ PROTO_4:
   CALL R1 2 1
   NEWCLOSURE R2 P0
   CAPTURE VAL R1
+  CAPTURE UPVAL U0
   CAPTURE VAL R0
   GETTABLEKS R3 R1 K4 ["CollaboratorInstanceCreatedSignal"]
   MOVE R5 R2
@@ -75,12 +82,12 @@ PROTO_4:
   CALL R3 3 0
   LOADK R5 K10 ["OpenManageCollaborators"]
   DUPCLOSURE R6 K11 [PROTO_2]
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   NAMECALL R3 R0 K9 ["OnInvoke"]
   CALL R3 3 0
   LOADK R5 K12 ["ToggleSocialPresenceWidget"]
   DUPCLOSURE R6 K13 [PROTO_3]
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   NAMECALL R3 R0 K9 ["OnInvoke"]
   CALL R3 3 0
   MOVE R3 R2
@@ -135,18 +142,25 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R4 R2 K10 ["Util"]
   GETTABLEKS R3 R4 K11 ["CrossPluginCommunication"]
-  DUPTABLE R4 K18 [{"initAssetDm", "requestAssetCollaborators", "openManageCollaborators", "toggleSocialPresenceWidget", "connectOnUpdateCollaborators", "connectOnDmChange"}]
-  DUPCLOSURE R5 K19 [PROTO_4]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K12 ["SharedFlags"]
+  GETTABLEKS R5 R6 K13 ["getFFlagAddUsernameToRibbonAvatars"]
+  CALL R4 1 1
+  CALL R4 0 1
+  DUPTABLE R5 K20 [{"initAssetDm", "requestAssetCollaborators", "openManageCollaborators", "toggleSocialPresenceWidget", "connectOnUpdateCollaborators", "connectOnDmChange"}]
+  DUPCLOSURE R6 K21 [PROTO_4]
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  SETTABLEKS R5 R4 K12 ["initAssetDm"]
-  DUPCLOSURE R5 K20 [PROTO_5]
-  SETTABLEKS R5 R4 K13 ["requestAssetCollaborators"]
-  DUPCLOSURE R5 K21 [PROTO_6]
-  SETTABLEKS R5 R4 K14 ["openManageCollaborators"]
-  DUPCLOSURE R5 K22 [PROTO_7]
-  SETTABLEKS R5 R4 K15 ["toggleSocialPresenceWidget"]
-  DUPCLOSURE R5 K23 [PROTO_8]
-  SETTABLEKS R5 R4 K16 ["connectOnUpdateCollaborators"]
-  DUPCLOSURE R5 K24 [PROTO_9]
-  SETTABLEKS R5 R4 K17 ["connectOnDmChange"]
-  RETURN R4 1
+  SETTABLEKS R6 R5 K14 ["initAssetDm"]
+  DUPCLOSURE R6 K22 [PROTO_5]
+  SETTABLEKS R6 R5 K15 ["requestAssetCollaborators"]
+  DUPCLOSURE R6 K23 [PROTO_6]
+  SETTABLEKS R6 R5 K16 ["openManageCollaborators"]
+  DUPCLOSURE R6 K24 [PROTO_7]
+  SETTABLEKS R6 R5 K17 ["toggleSocialPresenceWidget"]
+  DUPCLOSURE R6 K25 [PROTO_8]
+  SETTABLEKS R6 R5 K18 ["connectOnUpdateCollaborators"]
+  DUPCLOSURE R6 K26 [PROTO_9]
+  SETTABLEKS R6 R5 K19 ["connectOnDmChange"]
+  RETURN R5 1

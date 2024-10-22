@@ -12,94 +12,102 @@ MAIN:
   GETTABLEKS R2 R1 K8 ["EDITOR_WIDTH"]
   GETTABLEKS R3 R1 K9 ["EDITOR_HEIGHT"]
   GETTABLEKS R4 R1 K10 ["PROMPT_HEIGHT"]
-  NEWTABLE R5 0 4
-  DUPTABLE R6 K12 [{"value"}]
-  DUPTABLE R7 K17 [{"name", "fillDirection", "mainContentSize", "editorSize"}]
-  LOADK R8 K18 ["Prompt, Browser, Editor (horizontal)"]
-  SETTABLEKS R8 R7 K13 ["name"]
-  GETIMPORT R8 K22 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R8 R7 K14 ["fillDirection"]
-  GETIMPORT R8 K25 [UDim2.new]
-  LOADN R9 1
-  MINUS R10 R2
+  GETIMPORT R5 K12 [game]
+  LOADK R7 K13 ["MaterialGeneratorFixUILayout"]
+  LOADB R8 0
+  NAMECALL R5 R5 K14 ["DefineFastFlag"]
+  CALL R5 3 1
+  JUMPIFNOT R5 [+4]
+  LOADN R8 2
+  MUL R7 R8 R2
+  ADDK R6 R7 K15 [50]
+  JUMP [+1]
+  LOADN R6 64
+  NEWTABLE R7 0 4
+  DUPTABLE R8 K17 [{"value"}]
+  DUPTABLE R9 K22 [{"name", "fillDirection", "mainContentSize", "editorSize"}]
+  LOADK R10 K23 ["Prompt, Browser, Editor (horizontal)"]
+  SETTABLEKS R10 R9 K18 ["name"]
+  GETIMPORT R10 K27 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R10 R9 K19 ["fillDirection"]
+  GETIMPORT R10 K30 [UDim2.new]
   LOADN R11 1
-  LOADN R12 0
-  CALL R8 4 1
-  SETTABLEKS R8 R7 K15 ["mainContentSize"]
-  GETIMPORT R8 K25 [UDim2.new]
-  LOADN R9 0
-  MOVE R10 R2
-  LOADN R11 1
-  LOADN R12 0
-  CALL R8 4 1
-  SETTABLEKS R8 R7 K16 ["editorSize"]
-  SETTABLEKS R7 R6 K11 ["value"]
-  DUPTABLE R7 K27 [{"maxWidth", "value"}]
-  LOADN R8 64
-  SETTABLEKS R8 R7 K26 ["maxWidth"]
-  DUPTABLE R8 K17 [{"name", "fillDirection", "mainContentSize", "editorSize"}]
-  LOADK R9 K28 ["Prompt, Browser, Editor (vertical)"]
-  SETTABLEKS R9 R8 K13 ["name"]
-  GETIMPORT R9 K30 [Enum.FillDirection.Vertical]
-  SETTABLEKS R9 R8 K14 ["fillDirection"]
-  GETIMPORT R9 K25 [UDim2.new]
-  LOADN R10 1
+  MINUS R12 R2
+  LOADN R13 1
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K20 ["mainContentSize"]
+  GETIMPORT R10 K30 [UDim2.new]
   LOADN R11 0
+  MOVE R12 R2
+  LOADN R13 1
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K21 ["editorSize"]
+  SETTABLEKS R9 R8 K16 ["value"]
+  DUPTABLE R9 K32 [{"maxWidth", "value"}]
+  SETTABLEKS R6 R9 K31 ["maxWidth"]
+  DUPTABLE R10 K22 [{"name", "fillDirection", "mainContentSize", "editorSize"}]
+  LOADK R11 K33 ["Prompt, Browser, Editor (vertical)"]
+  SETTABLEKS R11 R10 K18 ["name"]
+  GETIMPORT R11 K35 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K19 ["fillDirection"]
+  GETIMPORT R11 K30 [UDim2.new]
   LOADN R12 1
-  MINUS R13 R3
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K15 ["mainContentSize"]
-  GETIMPORT R9 K25 [UDim2.new]
-  LOADN R10 1
-  LOADN R11 0
-  LOADN R12 0
-  MOVE R13 R3
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K16 ["editorSize"]
-  SETTABLEKS R8 R7 K11 ["value"]
-  DUPTABLE R8 K32 [{"maxWidth", "maxHeight", "value"}]
-  LOADN R9 64
-  SETTABLEKS R9 R8 K26 ["maxWidth"]
-  ADD R10 R4 R3
-  ADDK R9 R10 K33 [50]
-  SETTABLEKS R9 R8 K31 ["maxHeight"]
-  DUPTABLE R9 K35 [{"name", "fillDirection", "mainContentSize", "editorSize", "browserVisible"}]
-  LOADK R10 K36 ["Prompt, Editor (vertical)"]
-  SETTABLEKS R10 R9 K13 ["name"]
-  GETIMPORT R10 K30 [Enum.FillDirection.Vertical]
-  SETTABLEKS R10 R9 K14 ["fillDirection"]
-  GETIMPORT R10 K25 [UDim2.new]
-  LOADN R11 1
-  LOADN R12 0
   LOADN R13 0
-  MOVE R14 R4
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K15 ["mainContentSize"]
-  GETIMPORT R10 K25 [UDim2.new]
-  LOADN R11 1
-  LOADN R12 0
-  LOADN R13 1
-  MINUS R14 R4
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K16 ["editorSize"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K34 ["browserVisible"]
-  SETTABLEKS R9 R8 K11 ["value"]
-  DUPTABLE R9 K32 [{"maxWidth", "maxHeight", "value"}]
-  LOADN R10 64
-  SETTABLEKS R10 R9 K26 ["maxWidth"]
-  ADDK R10 R3 K33 [50]
-  SETTABLEKS R10 R9 K31 ["maxHeight"]
-  DUPTABLE R10 K38 [{"name", "mainContentVisible", "editorSize"}]
-  LOADK R11 K39 ["Editor only"]
-  SETTABLEKS R11 R10 K13 ["name"]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K37 ["mainContentVisible"]
-  GETIMPORT R11 K41 [UDim2.fromScale]
+  LOADN R14 1
+  MINUS R15 R3
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K20 ["mainContentSize"]
+  GETIMPORT R11 K30 [UDim2.new]
   LOADN R12 1
+  LOADN R13 0
+  LOADN R14 0
+  MOVE R15 R3
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K21 ["editorSize"]
+  SETTABLEKS R10 R9 K16 ["value"]
+  DUPTABLE R10 K37 [{"maxWidth", "maxHeight", "value"}]
+  SETTABLEKS R6 R10 K31 ["maxWidth"]
+  ADD R12 R4 R3
+  ADDK R11 R12 K15 [50]
+  SETTABLEKS R11 R10 K36 ["maxHeight"]
+  DUPTABLE R11 K39 [{"name", "fillDirection", "mainContentSize", "editorSize", "browserVisible"}]
+  LOADK R12 K40 ["Prompt, Editor (vertical)"]
+  SETTABLEKS R12 R11 K18 ["name"]
+  GETIMPORT R12 K35 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K19 ["fillDirection"]
+  GETIMPORT R12 K30 [UDim2.new]
   LOADN R13 1
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K16 ["editorSize"]
-  SETTABLEKS R10 R9 K11 ["value"]
-  SETLIST R5 R6 4 [1]
-  RETURN R5 1
+  LOADN R14 0
+  LOADN R15 0
+  MOVE R16 R4
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K20 ["mainContentSize"]
+  GETIMPORT R12 K30 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 1
+  MINUS R16 R4
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K21 ["editorSize"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K38 ["browserVisible"]
+  SETTABLEKS R11 R10 K16 ["value"]
+  DUPTABLE R11 K37 [{"maxWidth", "maxHeight", "value"}]
+  SETTABLEKS R6 R11 K31 ["maxWidth"]
+  ADDK R12 R3 K15 [50]
+  SETTABLEKS R12 R11 K36 ["maxHeight"]
+  DUPTABLE R12 K42 [{"name", "mainContentVisible", "editorSize"}]
+  LOADK R13 K43 ["Editor only"]
+  SETTABLEKS R13 R12 K18 ["name"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K41 ["mainContentVisible"]
+  GETIMPORT R13 K45 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K21 ["editorSize"]
+  SETTABLEKS R12 R11 K16 ["value"]
+  SETLIST R7 R8 4 [1]
+  RETURN R7 1

@@ -31,7 +31,11 @@ function PlayerNameLabel:render()
 	if playerName == "" then
 		playerNameText = ""
 	elseif hasVerifiedBadge then
-		playerNameText = RobloxTranslator:FormatByKeyForLocale(VERIFIED_INVENTORY_KEY, locale, { PLAYER_NAME = playerName, VERIFIED_BADGE = VERIFIED_BADGE_TEXT })
+		playerNameText = RobloxTranslator:FormatByKeyForLocale(
+			VERIFIED_INVENTORY_KEY,
+			locale,
+			{ PLAYER_NAME = playerName, VERIFIED_BADGE = VERIFIED_BADGE_TEXT }
+		)
 	else
 		playerNameText = RobloxTranslator:FormatByKeyForLocale(INVENTORY_KEY, locale, { PLAYER_NAME = playerName })
 	end
@@ -56,17 +60,15 @@ function PlayerNameLabel:render()
 					MaxTextSize = 36,
 				}),
 			})
-		end
+		end,
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			view = state.view,
-			playerName = state.playerName,
-			playerId = state.playerId,
-			locale = state.locale
-		}
-	end
-)(PlayerNameLabel)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		view = state.view,
+		playerName = state.playerName,
+		playerId = state.playerId,
+		locale = state.locale,
+	}
+end)(PlayerNameLabel)

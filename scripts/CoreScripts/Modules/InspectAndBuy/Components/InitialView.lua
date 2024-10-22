@@ -34,7 +34,7 @@ function InitialView:render()
 				Top = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, viewMapping.TopSizeY),
 					BackgroundTransparency = 1,
-					LayoutOrder = 2
+					LayoutOrder = 2,
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
 						Padding = UDim.new(0, 10),
@@ -46,15 +46,13 @@ function InitialView:render()
 				}),
 				AssetList = Roact.createElement(AssetList),
 			})
-		end
+		end,
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			view = state.view,
-			detailsInformation = state.detailsInformation,
-		}
-	end
-)(InitialView)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		view = state.view,
+		detailsInformation = state.detailsInformation,
+	}
+end)(InitialView)

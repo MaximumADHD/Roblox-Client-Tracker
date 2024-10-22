@@ -2,24 +2,48 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local CorePackages = game:GetService("CorePackages")
 
+local React = require(CorePackages.Packages.React)
+local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local ChromeService = require(Chrome.Service)
+local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
+local WindowSizeSignal = require(Chrome.Service.WindowSizeSignal)
 
-local GetFFlagEnableChromeMusicIntegration =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeMusicIntegration
-local GetFStringChromeMusicIntegrationLabel =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationLabel
-local GetFFlagSongbirdTranslationStrings =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdTranslationStrings
+local GetFFlagChromeSongbirdWindow = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSongbirdWindow
 
--- MUS-1215 TODO: Allow the whole Songbird integration to be disabled by creators
-return if GetFFlagEnableChromeMusicIntegration()
-	then ChromeService:register({
+if GetFFlagChromeSongbirdWindow() then
+	local MUSIC_WINDOW_MAX_SIZE = PeekConstants.MUSIC_WINDOW_MAX_SIZE
+
+	local windowSize = WindowSizeSignal.new(MUSIC_WINDOW_MAX_SIZE.X, MUSIC_WINDOW_MAX_SIZE.Y)
+
+	return ChromeService:register({
 		initialAvailability = ChromeService.AvailabilitySignal.Available,
 		id = "music_entrypoint",
-		label = if GetFFlagSongbirdTranslationStrings()
-			then "CoreScripts.TopBar.Music"
-			else GetFStringChromeMusicIntegrationLabel(),
+		draggable = true,
+		cachePosition = true,
+		windowSize = windowSize,
+		label = "CoreScripts.TopBar.Music",
+		activated = function()
+			ChromeService:toggleWindow("music_entrypoint")
+		end,
+		components = {
+			Icon = function(props)
+				return CommonIcon("icons/common/music")
+			end,
+			Window = function()
+				return React.createElement(Songbird.ChromeWindowWrapper, {
+					onClose = function()
+						ChromeService:toggleWindow("music_entrypoint")
+					end,
+				})
+			end,
+		},
+	})
+else
+	return ChromeService:register({
+		initialAvailability = ChromeService.AvailabilitySignal.Available,
+		id = "music_entrypoint",
+		label = "CoreScripts.TopBar.Music",
 		activated = function(self)
 			ChromeService:toggleCompactUtility("music_utility")
 		end,
@@ -30,4 +54,4 @@ return if GetFFlagEnableChromeMusicIntegration()
 			end,
 		},
 	})
-	else nil
+end

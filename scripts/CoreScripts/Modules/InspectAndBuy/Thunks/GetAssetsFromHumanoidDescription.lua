@@ -11,8 +11,6 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local GetAssetBundles = require(InspectAndBuyFolder.Thunks.GetAssetBundles)
 
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local requiredServices = {}
 
@@ -59,7 +57,7 @@ local function GetAssetsFromHumanoidDescription(humanoidDescription, isForLocalP
 				coroutine.wrap(function()
 					store:dispatch(GetProductInfo(asset.assetId))
 
-					if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() and asset.parentBundleId == nil then
+					if asset.parentBundleId == nil then
 						-- Because the call are made concurrently, and all the calls are made almost at the same time.
 						-- Thus, any code changes related to GetAssetBundles, we need to consider the concurrency & race condition.
 						store:dispatch(GetAssetBundles(asset.assetId))

@@ -1,29 +1,40 @@
 PROTO_0:
   NEWTABLE R0 0 0
+  GETIMPORT R2 K1 [game]
+  GETTABLEKS R1 R2 K2 ["GameId"]
+  JUMPIFEQKN R1 K3 [0] [+12]
   MOVE R2 R0
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["_pluginController"]
-  NAMECALL R3 R3 K1 ["getUser"]
+  GETTABLEKS R3 R4 K4 ["_pluginController"]
+  NAMECALL R3 R3 K5 ["getUniverse"]
   CALL R3 1 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R1 K4 [table.insert]
+  GETIMPORT R1 K8 [table.insert]
+  CALL R1 -1 0
+  MOVE R2 R0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["_pluginController"]
+  NAMECALL R3 R3 K9 ["getUser"]
+  CALL R3 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R1 K8 [table.insert]
   CALL R1 -1 0
   GETUPVAL R4 0
-  GETTABLEKS R1 R4 K5 ["_visibleGroups"]
+  GETTABLEKS R1 R4 K10 ["_visibleGroups"]
   LOADNIL R2
   LOADNIL R3
   FORGPREP R1
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["_groups"]
+  GETTABLEKS R7 R8 K11 ["_groups"]
   FASTCALL1 TOSTRING R5 [+3]
   MOVE R9 R5
-  GETIMPORT R8 K8 [tostring]
+  GETIMPORT R8 K13 [tostring]
   CALL R8 1 1
   GETTABLE R6 R7 R8
   FASTCALL2 TABLE_INSERT R0 R6 [+5]
   MOVE R8 R0
   MOVE R9 R6
-  GETIMPORT R7 K4 [table.insert]
+  GETIMPORT R7 K8 [table.insert]
   CALL R7 2 0
   FORGLOOP R1 2 [-17]
   RETURN R0 1

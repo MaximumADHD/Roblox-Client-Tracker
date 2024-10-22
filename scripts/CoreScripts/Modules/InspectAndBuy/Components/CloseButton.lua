@@ -48,25 +48,22 @@ function CloseButton:render()
 					end
 				end,
 			})
-		end
+		end,
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			view = state.view,
-			detailsInformation = state.detailsInformation,
-		}
-	end,
-	function(dispatch)
-		return {
-			closeDetails = function()
-				dispatch(SetDetailsInformation(false, nil))
-			end,
-			setTryingOnInfo = function(tryingOn, assetId)
-				dispatch(SetTryingOnInfo(tryingOn, assetId))
-			end
-		}
-	end
-)(CloseButton)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		view = state.view,
+		detailsInformation = state.detailsInformation,
+	}
+end, function(dispatch)
+	return {
+		closeDetails = function()
+			dispatch(SetDetailsInformation(false, nil))
+		end,
+		setTryingOnInfo = function(tryingOn, assetId)
+			dispatch(SetTryingOnInfo(tryingOn, assetId))
+		end,
+	}
+end)(CloseButton)

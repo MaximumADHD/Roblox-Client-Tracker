@@ -121,11 +121,13 @@ MAIN:
   CALL R12 2 1
   MOVE R13 R3
   LOADK R14 K62 ["> TextLabel"]
-  DUPTABLE R15 K67 [{"TextSize", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-  GETTABLEKS R16 R2 K68 ["normalFontSize"]
+  DUPTABLE R15 K68 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
+  GETTABLEKS R16 R2 K69 ["normalFontSize"]
   SETTABLEKS R16 R15 K63 ["TextSize"]
-  LOADK R16 K69 ["$TextPrimary"]
-  SETTABLEKS R16 R15 K64 ["TextColor3"]
+  GETTABLEKS R16 R2 K70 ["defaultFont"]
+  SETTABLEKS R16 R15 K64 ["Font"]
+  LOADK R16 K71 ["$TextPrimary"]
+  SETTABLEKS R16 R15 K65 ["TextColor3"]
   GETIMPORT R16 K21 [UDim2.new]
   LOADN R17 1
   LOADN R18 0
@@ -135,18 +137,20 @@ MAIN:
   SETTABLEKS R16 R15 K57 ["Size"]
   LOADN R16 1
   SETTABLEKS R16 R15 K59 ["BackgroundTransparency"]
-  GETIMPORT R16 K70 [Enum.TextXAlignment.Center]
-  SETTABLEKS R16 R15 K65 ["TextXAlignment"]
-  GETIMPORT R16 K71 [Enum.TextYAlignment.Center]
-  SETTABLEKS R16 R15 K66 ["TextYAlignment"]
+  GETIMPORT R16 K72 [Enum.TextXAlignment.Center]
+  SETTABLEKS R16 R15 K66 ["TextXAlignment"]
+  GETIMPORT R16 K73 [Enum.TextYAlignment.Center]
+  SETTABLEKS R16 R15 K67 ["TextYAlignment"]
   CALL R13 2 1
   MOVE R14 R3
-  LOADK R15 K72 ["> TextButton"]
-  DUPTABLE R16 K67 [{"TextSize", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-  GETTABLEKS R17 R2 K68 ["normalFontSize"]
+  LOADK R15 K74 ["> TextButton"]
+  DUPTABLE R16 K68 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
+  GETTABLEKS R17 R2 K69 ["normalFontSize"]
   SETTABLEKS R17 R16 K63 ["TextSize"]
-  LOADK R17 K69 ["$TextPrimary"]
-  SETTABLEKS R17 R16 K64 ["TextColor3"]
+  GETTABLEKS R17 R2 K70 ["defaultFont"]
+  SETTABLEKS R17 R16 K64 ["Font"]
+  LOADK R17 K71 ["$TextPrimary"]
+  SETTABLEKS R17 R16 K65 ["TextColor3"]
   GETIMPORT R17 K21 [UDim2.new]
   LOADN R18 1
   LOADN R19 0
@@ -156,10 +160,10 @@ MAIN:
   SETTABLEKS R17 R16 K57 ["Size"]
   LOADN R17 1
   SETTABLEKS R17 R16 K59 ["BackgroundTransparency"]
-  GETIMPORT R17 K70 [Enum.TextXAlignment.Center]
-  SETTABLEKS R17 R16 K65 ["TextXAlignment"]
-  GETIMPORT R17 K71 [Enum.TextYAlignment.Center]
-  SETTABLEKS R17 R16 K66 ["TextYAlignment"]
+  GETIMPORT R17 K72 [Enum.TextXAlignment.Center]
+  SETTABLEKS R17 R16 K66 ["TextXAlignment"]
+  GETIMPORT R17 K73 [Enum.TextYAlignment.Center]
+  SETTABLEKS R17 R16 K67 ["TextYAlignment"]
   CALL R14 2 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1

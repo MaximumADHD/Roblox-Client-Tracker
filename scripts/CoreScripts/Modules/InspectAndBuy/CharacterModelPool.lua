@@ -24,7 +24,8 @@ CharacterModelPool.__index = CharacterModelPool
 ]]
 local function setupCharacterModels(cframePos)
 	local r6 = Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
-	local r15 = Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
+	local r15 =
+		Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
 
 	r6.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 	r15.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
@@ -38,7 +39,7 @@ local function setupCharacterModels(cframePos)
 
 	r15:SetPrimaryPartCFrame(r6.HumanoidRootPart.CFrame)
 
-	return  r6, r15
+	return r6, r15
 end
 
 --[[
@@ -105,8 +106,8 @@ function CharacterModelPool:syncRotation(oldCharacter, currentCharacter)
 	-- New model needs to have the same rotation as the old model.
 	local _, _, _, R00, R01, R02, R10, R11, R12, R20, R21, R22 = oldCharacter.HumanoidRootPart.CFrame:components()
 	local currentCFrameP = currentCharacter.HumanoidRootPart.CFrame.p
-	currentCharacter.HumanoidRootPart.CFrame = CFrame.new(currentCFrameP.X, currentCFrameP.Y, currentCFrameP.Z,
-		R00, R01, R02, R10, R11, R12, R20, R21, R22)
+	currentCharacter.HumanoidRootPart.CFrame =
+		CFrame.new(currentCFrameP.X, currentCFrameP.Y, currentCFrameP.Z, R00, R01, R02, R10, R11, R12, R20, R21, R22)
 end
 
 local function hasLayeredAccessoryUpdates(oldDescription, newDescription)
@@ -188,7 +189,7 @@ local function waitForClusterCompositionFinished(r15offScreen)
 		-- we want to just timeout and display the avatar before it has finished compositing.
 		return Promise.race({
 			Promise.fromEvent(r15offScreen.Humanoid.ClusterCompositionFinished),
-			Promise.delay(CLUSTER_COMPOSITION_TIMEOUT_MS * 0.001)
+			Promise.delay(CLUSTER_COMPOSITION_TIMEOUT_MS * 0.001),
 		}):andThen(function()
 			return true
 		end)
@@ -282,9 +283,7 @@ function CharacterModelPool:switchAvatarType(newType)
 	return currentCharacter
 end
 
-function CharacterModelPool:start()
-
-end
+function CharacterModelPool:start() end
 
 local function cancelPromise(promise)
 	if promise then

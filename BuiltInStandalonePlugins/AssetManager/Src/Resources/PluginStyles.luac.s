@@ -16,7 +16,7 @@ MAIN:
   MOVE R5 R2
   LOADK R6 K11 ["ImageLabel"]
   NEWTABLE R7 0 0
-  NEWTABLE R8 0 18
+  NEWTABLE R8 0 20
   MOVE R9 R2
   LOADK R10 K12 [".ArrowDownIcon"]
   DUPTABLE R11 K14 [{"Image"}]
@@ -115,38 +115,50 @@ MAIN:
   CALL R24 2 1
   SETLIST R8 R9 16 [1]
   MOVE R9 R2
-  LOADK R10 K46 [".UserDefaultIcon"]
+  LOADK R10 K46 [".UniverseDefaultIcon"]
   DUPTABLE R11 K14 [{"Image"}]
-  LOADK R12 K47 ["$UserDefaultIcon"]
+  LOADK R12 K47 ["$UniverseDefaultIcon"]
   SETTABLEKS R12 R11 K13 ["Image"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K48 [".UserLargeDefaultIcon"]
+  LOADK R11 K48 [".UniverseLargeDefaultIcon"]
   DUPTABLE R12 K14 [{"Image"}]
-  LOADK R13 K49 ["$UserLargeDefaultIcon"]
+  LOADK R13 K49 ["$UniverseLargeDefaultIcon"]
   SETTABLEKS R13 R12 K13 ["Image"]
-  CALL R10 2 -1
+  CALL R10 2 1
+  MOVE R11 R2
+  LOADK R12 K50 [".UserDefaultIcon"]
+  DUPTABLE R13 K14 [{"Image"}]
+  LOADK R14 K51 ["$UserDefaultIcon"]
+  SETTABLEKS R14 R13 K13 ["Image"]
+  CALL R11 2 1
+  MOVE R12 R2
+  LOADK R13 K52 [".UserLargeDefaultIcon"]
+  DUPTABLE R14 K14 [{"Image"}]
+  LOADK R15 K53 ["$UserLargeDefaultIcon"]
+  SETTABLEKS R15 R14 K13 ["Image"]
+  CALL R12 2 -1
   SETLIST R8 R9 -1 [17]
   CALL R5 3 -1
   SETLIST R4 R5 -1 [1]
-  DUPTABLE R5 K54 [{"HeaderButtonSize", "PaddingSmall", "Padding", "IconDisabled"}]
-  GETIMPORT R6 K57 [UDim2.fromOffset]
+  DUPTABLE R5 K58 [{"HeaderButtonSize", "PaddingSmall", "Padding", "IconDisabled"}]
+  GETIMPORT R6 K61 [UDim2.fromOffset]
   LOADN R7 26
   LOADN R8 26
   CALL R6 2 1
-  SETTABLEKS R6 R5 K50 ["HeaderButtonSize"]
-  GETIMPORT R6 K60 [UDim.new]
+  SETTABLEKS R6 R5 K54 ["HeaderButtonSize"]
+  GETIMPORT R6 K64 [UDim.new]
   LOADN R7 0
   LOADN R8 5
   CALL R6 2 1
-  SETTABLEKS R6 R5 K51 ["PaddingSmall"]
-  GETIMPORT R6 K60 [UDim.new]
+  SETTABLEKS R6 R5 K55 ["PaddingSmall"]
+  GETIMPORT R6 K64 [UDim.new]
   LOADN R7 0
   LOADN R8 10
   CALL R6 2 1
-  SETTABLEKS R6 R5 K52 ["Padding"]
-  LOADK R6 K61 [0.62]
-  SETTABLEKS R6 R5 K53 ["IconDisabled"]
+  SETTABLEKS R6 R5 K56 ["Padding"]
+  LOADK R6 K65 [0.62]
+  SETTABLEKS R6 R5 K57 ["IconDisabled"]
   MOVE R6 R3
   LOADK R7 K2 ["AssetManager"]
   MOVE R8 R4

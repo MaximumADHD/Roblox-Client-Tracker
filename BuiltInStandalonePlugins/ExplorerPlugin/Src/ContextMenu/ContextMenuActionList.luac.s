@@ -1,12 +1,13 @@
 PROTO_0:
-  DUPTABLE R2 K2 [{"key", "source"}]
-  SETTABLEKS R0 R2 K0 ["key"]
-  DUPTABLE R3 K5 [{"type", "uri"}]
-  LOADK R4 K6 ["studioAction"]
-  SETTABLEKS R4 R3 K3 ["type"]
-  SETTABLEKS R1 R3 K4 ["uri"]
-  SETTABLEKS R3 R2 K1 ["source"]
-  RETURN R2 1
+  DUPTABLE R3 K2 [{"key", "source"}]
+  SETTABLEKS R0 R3 K0 ["key"]
+  DUPTABLE R4 K6 [{"type", "uri", "expectation"}]
+  LOADK R5 K7 ["studioAction"]
+  SETTABLEKS R5 R4 K3 ["type"]
+  SETTABLEKS R1 R4 K4 ["uri"]
+  SETTABLEKS R2 R4 K5 ["expectation"]
+  SETTABLEKS R4 R3 K1 ["source"]
+  RETURN R3 1
 
 PROTO_1:
   DUPTABLE R1 K2 [{"key", "source"}]
@@ -26,6 +27,14 @@ PROTO_2:
   SETTABLEKS R1 R3 K4 ["submenuCategories"]
   SETTABLEKS R3 R2 K1 ["source"]
   RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["fromAction"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -51,51 +60,89 @@ MAIN:
   DUPCLOSURE R5 K14 [PROTO_0]
   DUPCLOSURE R6 K15 [PROTO_1]
   DUPCLOSURE R7 K16 [PROTO_2]
-  NEWTABLE R8 0 0
-  NEWTABLE R11 0 1
-  GETTABLEKS R13 R4 K17 ["fromAction"]
-  LOADK R14 K18 ["Common"]
-  LOADK R15 K19 ["Delete"]
-  CALL R13 2 1
-  DUPTABLE R12 K22 [{"key", "source"}]
-  LOADK R14 K23 ["delete"]
-  SETTABLEKS R14 R12 K20 ["key"]
-  DUPTABLE R14 K26 [{"type", "uri"}]
-  LOADK R15 K27 ["studioAction"]
-  SETTABLEKS R15 R14 K24 ["type"]
-  SETTABLEKS R13 R14 K25 ["uri"]
-  SETTABLEKS R14 R12 K21 ["source"]
-  SETLIST R11 R12 1 [1]
-  FASTCALL2 TABLE_INSERT R8 R11 [+4]
-  MOVE R10 R8
-  GETIMPORT R9 K30 [table.insert]
-  CALL R9 2 0
-  NEWTABLE R11 0 1
-  NEWTABLE R13 0 1
+  DUPCLOSURE R8 K17 [PROTO_3]
+  CAPTURE VAL R4
+  NEWTABLE R9 0 0
+  NEWTABLE R12 0 1
+  GETTABLEKS R14 R4 K18 ["fromAction"]
+  LOADK R15 K19 ["Common"]
+  LOADK R16 K20 ["Delete"]
+  CALL R14 2 1
+  DUPTABLE R13 K23 [{"key", "source"}]
+  LOADK R15 K24 ["delete"]
+  SETTABLEKS R15 R13 K21 ["key"]
+  DUPTABLE R15 K28 [{"type", "uri", "expectation"}]
+  LOADK R16 K29 ["studioAction"]
+  SETTABLEKS R16 R15 K25 ["type"]
+  SETTABLEKS R14 R15 K26 ["uri"]
+  LOADK R16 K30 ["NonServices"]
+  SETTABLEKS R16 R15 K27 ["expectation"]
+  SETTABLEKS R15 R13 K22 ["source"]
+  SETLIST R12 R13 1 [1]
+  FASTCALL2 TABLE_INSERT R9 R12 [+4]
+  MOVE R11 R9
+  GETIMPORT R10 K33 [table.insert]
+  CALL R10 2 0
+  NEWTABLE R12 0 2
+  GETTABLEKS R14 R4 K18 ["fromAction"]
+  LOADK R15 K34 ["InsertService"]
+  LOADK R16 K35 ["ShowServices"]
+  CALL R14 2 1
+  DUPTABLE R13 K23 [{"key", "source"}]
+  LOADK R15 K36 ["showServices"]
+  SETTABLEKS R15 R13 K21 ["key"]
+  DUPTABLE R15 K28 [{"type", "uri", "expectation"}]
+  LOADK R16 K29 ["studioAction"]
+  SETTABLEKS R16 R15 K25 ["type"]
+  SETTABLEKS R14 R15 K26 ["uri"]
+  LOADK R16 K37 ["ServicesAndBlank"]
+  SETTABLEKS R16 R15 K27 ["expectation"]
+  SETTABLEKS R15 R13 K22 ["source"]
+  GETTABLEKS R15 R4 K18 ["fromAction"]
+  LOADK R16 K34 ["InsertService"]
+  LOADK R17 K38 ["HideService"]
+  CALL R15 2 1
+  DUPTABLE R14 K23 [{"key", "source"}]
+  LOADK R16 K39 ["hideServices"]
+  SETTABLEKS R16 R14 K21 ["key"]
+  DUPTABLE R16 K28 [{"type", "uri", "expectation"}]
+  LOADK R17 K29 ["studioAction"]
+  SETTABLEKS R17 R16 K25 ["type"]
+  SETTABLEKS R15 R16 K26 ["uri"]
+  LOADK R17 K40 ["Services"]
+  SETTABLEKS R17 R16 K27 ["expectation"]
+  SETTABLEKS R16 R14 K22 ["source"]
+  SETLIST R12 R13 2 [1]
+  FASTCALL2 TABLE_INSERT R9 R12 [+4]
+  MOVE R11 R9
+  GETIMPORT R10 K33 [table.insert]
+  CALL R10 2 0
+  NEWTABLE R12 0 1
   NEWTABLE R14 0 1
-  GETTABLEKS R19 R2 K31 ["Data"]
-  GETTABLEKS R18 R19 K7 ["ContextMenu"]
-  GETTABLEKS R17 R18 K32 ["coreItems"]
-  GETTABLEKS R16 R17 K33 ["expandAll"]
-  DUPTABLE R15 K22 [{"key", "source"}]
-  SETTABLEKS R16 R15 K20 ["key"]
-  DUPTABLE R17 K34 [{"type"}]
-  LOADK R18 K35 ["core"]
-  SETTABLEKS R18 R17 K24 ["type"]
-  SETTABLEKS R17 R15 K21 ["source"]
+  NEWTABLE R15 0 1
+  GETTABLEKS R20 R2 K41 ["Data"]
+  GETTABLEKS R19 R20 K7 ["ContextMenu"]
+  GETTABLEKS R18 R19 K42 ["coreItems"]
+  GETTABLEKS R17 R18 K43 ["expandAll"]
+  DUPTABLE R16 K23 [{"key", "source"}]
+  SETTABLEKS R17 R16 K21 ["key"]
+  DUPTABLE R18 K44 [{"type"}]
+  LOADK R19 K45 ["core"]
+  SETTABLEKS R19 R18 K25 ["type"]
+  SETTABLEKS R18 R16 K22 ["source"]
+  SETLIST R15 R16 1 [1]
   SETLIST R14 R15 1 [1]
-  SETLIST R13 R14 1 [1]
-  DUPTABLE R12 K22 [{"key", "source"}]
-  LOADK R14 K36 ["hierarchy"]
-  SETTABLEKS R14 R12 K20 ["key"]
-  DUPTABLE R14 K38 [{"type", "submenuCategories"}]
-  LOADK R15 K39 ["submenu"]
-  SETTABLEKS R15 R14 K24 ["type"]
-  SETTABLEKS R13 R14 K37 ["submenuCategories"]
-  SETTABLEKS R14 R12 K21 ["source"]
-  SETLIST R11 R12 1 [1]
-  FASTCALL2 TABLE_INSERT R8 R11 [+4]
-  MOVE R10 R8
-  GETIMPORT R9 K30 [table.insert]
-  CALL R9 2 0
-  RETURN R8 1
+  DUPTABLE R13 K23 [{"key", "source"}]
+  LOADK R15 K46 ["hierarchy"]
+  SETTABLEKS R15 R13 K21 ["key"]
+  DUPTABLE R15 K48 [{"type", "submenuCategories"}]
+  LOADK R16 K49 ["submenu"]
+  SETTABLEKS R16 R15 K25 ["type"]
+  SETTABLEKS R14 R15 K47 ["submenuCategories"]
+  SETTABLEKS R15 R13 K22 ["source"]
+  SETLIST R12 R13 1 [1]
+  FASTCALL2 TABLE_INSERT R9 R12 [+4]
+  MOVE R11 R9
+  GETIMPORT R10 K33 [table.insert]
+  CALL R10 2 0
+  RETURN R9 1

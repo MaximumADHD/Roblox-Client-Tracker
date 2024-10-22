@@ -38,19 +38,16 @@ function InspectAndBuyControllerBar:render()
 
 	if self.props.showTryOn then
 		table.insert(controllerBarRightHints, 1, {
-			text =
-				self.props.tryingOn and
-				RobloxTranslator:FormatByKey(localizationKeys.takeOff) or
-				RobloxTranslator:FormatByKey(localizationKeys.tryOn),
+			text = self.props.tryingOn and RobloxTranslator:FormatByKey(localizationKeys.takeOff)
+				or RobloxTranslator:FormatByKey(localizationKeys.tryOn),
 			keyCode = TryOnShorcutKeycode,
 		})
 	end
 
 	if self.props.showFavorite then
 		table.insert(controllerBarRightHints, 1, {
-			text = self.props.isFavorited and
-				RobloxTranslator:FormatByKey(localizationKeys.unfavorite) or
-				RobloxTranslator:FormatByKey(localizationKeys.favorite),
+			text = self.props.isFavorited and RobloxTranslator:FormatByKey(localizationKeys.unfavorite)
+				or RobloxTranslator:FormatByKey(localizationKeys.favorite),
 			keyCode = FavoriteShorcutKeycode,
 		})
 	end
@@ -68,9 +65,9 @@ function InspectAndBuyControllerBar:render()
 					text = RobloxTranslator:FormatByKey(localizationKeys.back),
 					keyCode = Enum.KeyCode.ButtonB,
 				},
-				rightHints = controllerBarRightHints
-			})
-		})
+				rightHints = controllerBarRightHints,
+			}),
+		}),
 	})
 end
 

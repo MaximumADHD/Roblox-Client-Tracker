@@ -40,7 +40,7 @@ local VoiceConstants = require(Modules.VoiceChat.Constants)
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
 local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.GetFFlagInvertMuteAllPermissionButton)
-local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
 local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)

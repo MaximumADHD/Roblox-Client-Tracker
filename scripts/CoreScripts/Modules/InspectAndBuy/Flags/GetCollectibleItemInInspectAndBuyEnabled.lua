@@ -1,3 +1,3 @@
 return function()
-    return game:GetEngineFeature("CollectibleItemInInspectAndBuyEnabled")
+	return game:GetEngineFeature("CollectibleItemInInspectAndBuyEnabled")
 end

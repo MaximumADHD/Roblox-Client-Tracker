@@ -6,20 +6,13 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Constants = require(InspectAndBuyFolder.Constants)
 local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local GetHumanoidDescriptionFromCostumeId = require(InspectAndBuyFolder.Thunks.GetHumanoidDescriptionFromCostumeId)
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
 
 local TryOnViewport = Roact.PureComponent:extend("TryOnViewport")
 
 local function isPartOfBundleAndOffsale(assetInfo)
-	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-		return assetInfo and assetInfo.parentBundleId ~= nil and not assetInfo.isForSale or false
-	end
-
-	return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
-		and not assetInfo.isForSale
+	return assetInfo and assetInfo.parentBundleId ~= nil and not assetInfo.isForSale or false
 end
 
 local function createDefaultHumanoidDescriptionAccessoryInfo(assetTypeId, assetId)
@@ -37,7 +30,7 @@ function TryOnViewport:init()
 	self.humanoidDescriptions = {}
 	self.humanoidDescriptionForLocalPlayer = self.model.Humanoid.HumanoidDescription
 	self.state = {
-		obtainedHumanoidDescriptions = {}
+		obtainedHumanoidDescriptions = {},
 	}
 end
 
@@ -52,12 +45,7 @@ function TryOnViewport:didUpdate(prevProps)
 	local prevTryingOnInfo = prevProps.tryingOnInfo
 
 	if tryingOnInfo ~= prevTryingOnInfo and tryingOnInfo.tryingOn and isPartOfBundleAndOffsale(assetInfo) then
-		local bundleId
-		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-			bundleId = assetInfo.parentBundleId
-		else
-			bundleId = assetInfo.bundlesAssetIsIn[1]
-		end
+		local bundleId = assetInfo.parentBundleId
 		local costumeId = bundles[bundleId].costumeId
 
 		if costumeId then
@@ -66,7 +54,10 @@ function TryOnViewport:didUpdate(prevProps)
 				if self and self.isMounted then
 					self.humanoidDescriptions[costumeId] = humanoidDescription
 					self:setState({
-						obtainedHumanoidDescriptions = Cryo.Dictionary.join(self.state.obtainedHumanoidDescriptions, {[costumeId] = true})
+						obtainedHumanoidDescriptions = Cryo.Dictionary.join(
+							self.state.obtainedHumanoidDescriptions,
+							{ [costumeId] = true }
+						),
 					})
 				end
 			end)
@@ -142,12 +133,7 @@ function TryOnViewport:render()
 
 	if tryingOnInfo and tryingOnInfo.tryingOn then
 		if isPartOfBundleAndOffsale(assetInfo) then
-			local bundleId
-			if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-				bundleId = assetInfo.parentBundleId
-			else
-				bundleId = assetInfo.bundlesAssetIsIn[1]
-			end
+			local bundleId = assetInfo.parentBundleId
 			local costumeId = bundles[bundleId].costumeId
 
 			if costumeId then
@@ -158,13 +144,17 @@ function TryOnViewport:render()
 				if costumeHumanoidDescription then
 					-- Overwrite the inspecter's assets with any asset from the costume.
 					for assetTypeId, name in pairs(Constants.AssetTypeIdStringToHumanoidDescriptionProp) do
-						if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil
-							and tonumber(costumeHumanoidDescription[name]) and tostring(costumeHumanoidDescription[name]) ~= "0" then
+						if
+							Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil
+							and tonumber(costumeHumanoidDescription[name])
+							and tostring(costumeHumanoidDescription[name]) ~= "0"
+						then
 							humanoidDescription[name] = costumeHumanoidDescription[name]
 						end
 					end
 
-					local costumeAccessories = costumeHumanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
+					local costumeAccessories =
+						costumeHumanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
 					humanoidDescription:SetAccessories(costumeAccessories, --[[includeRigidAccessories =]] true)
 				end
 			else
@@ -184,18 +174,21 @@ function TryOnViewport:render()
 					local accessoryAssetType = Constants.AccessoryTypeEnumToAssetTypeId[accessory.AccessoryType]
 					local tryOnAccessoryCategory = Constants.AssetTypeToAssetCategory[tryingOnInfo.assetTypeId]
 					local accessoryCategory = Constants.AssetTypeToAssetCategory[accessoryAssetType]
-					local ofDifferentCategory = (not tryOnAccessoryCategory) or accessoryCategory ~= tryOnAccessoryCategory
+					local ofDifferentCategory = not tryOnAccessoryCategory
+						or accessoryCategory ~= tryOnAccessoryCategory
 
 					if accessory.AccessoryType ~= tryOnAccessory and ofDifferentCategory then
 						table.insert(tryOnAccessories, accessory)
 					end
 				end
 				-- format and add our trying on accessory to the table of all accessories to be used in SetAccessories
-				local tryOnAccessoryInfo = createDefaultHumanoidDescriptionAccessoryInfo(tryingOnInfo.assetTypeId, tryingOnInfo.assetId)
+				local tryOnAccessoryInfo =
+					createDefaultHumanoidDescriptionAccessoryInfo(tryingOnInfo.assetTypeId, tryingOnInfo.assetId)
 				table.insert(tryOnAccessories, tryOnAccessoryInfo)
 				humanoidDescription:SetAccessories(tryOnAccessories, --[[includeRigidAccessories =]] true)
 			else
-				humanoidDescription[Constants.AssetTypeIdStringToHumanoidDescriptionProp[tryingOnInfo.assetTypeId]] = tryingOnInfo.assetId
+				humanoidDescription[Constants.AssetTypeIdStringToHumanoidDescriptionProp[tryingOnInfo.assetTypeId]] =
+					tryingOnInfo.assetId
 			end
 		end
 	end
@@ -214,7 +207,7 @@ function TryOnViewport:render()
 			visible = true,
 			backgroundTransparency = 1,
 			setScrollingEnabled = setScrollingEnabled,
-		})
+		}),
 	})
 end
 
@@ -222,22 +215,19 @@ function TryOnViewport:willUnmount()
 	self.isMounted = false
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		return {
-			assets = state.assets,
-			assetInfo = state.assets[assetId],
-			bundles = state.bundles,
-			tryingOnInfo = state.tryingOnInfo,
-		}
-	end,
-	function(dispatch)
-		return {
-			getHumanoidDescriptionFromCostumeId = function(costumeId, callback)
-				return dispatch(GetHumanoidDescriptionFromCostumeId(costumeId, callback))
-			end,
-		}
-	end
-)(TryOnViewport)
+	return {
+		assets = state.assets,
+		assetInfo = state.assets[assetId],
+		bundles = state.bundles,
+		tryingOnInfo = state.tryingOnInfo,
+	}
+end, function(dispatch)
+	return {
+		getHumanoidDescriptionFromCostumeId = function(costumeId, callback)
+			return dispatch(GetHumanoidDescriptionFromCostumeId(costumeId, callback))
+		end,
+	}
+end)(TryOnViewport)

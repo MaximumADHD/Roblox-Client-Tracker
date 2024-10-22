@@ -32,7 +32,7 @@ PROTO_0:
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K8 ["SidebarCollapseIcon"]
   JUMPIFNOTEQ R0 R2 [+8]
-  LOADK R3 K9 ["rbxasset://studio_svg_textures/Shared/Navigation/%*/Standard/Back.png"]
+  LOADK R3 K9 ["rbxasset://studio_svg_textures/Lua/SystemArrows/%*/Standard/DoubleChevronLeft.png"]
   MOVE R5 R1
   NAMECALL R3 R3 K3 ["format"]
   CALL R3 2 1
@@ -41,7 +41,7 @@ PROTO_0:
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K10 ["SidebarExpandIcon"]
   JUMPIFNOTEQ R0 R2 [+8]
-  LOADK R3 K11 ["rbxasset://studio_svg_textures/Shared/Navigation/%*/Standard/Fwd.png"]
+  LOADK R3 K11 ["rbxasset://studio_svg_textures/Lua/SystemArrows/%*/Standard/DoubleChevronRight.png"]
   MOVE R5 R1
   NAMECALL R3 R3 K3 ["format"]
   CALL R3 2 1

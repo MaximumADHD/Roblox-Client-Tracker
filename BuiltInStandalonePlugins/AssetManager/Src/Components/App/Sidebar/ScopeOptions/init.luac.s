@@ -179,7 +179,10 @@ PROTO_6:
   NAMECALL R21 R2 K19 ["getNextOrder"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K13 ["LayoutOrder"]
-  LOADK R21 K45 ["Filter"]
+  LOADK R23 K45 ["SearchOptions"]
+  LOADK R24 K46 ["FilterPlaceholder"]
+  NAMECALL R21 R1 K7 ["getText"]
+  CALL R21 3 1
   SETTABLEKS R21 R20 K39 ["PlaceholderText"]
   LOADB R21 1
   SETTABLEKS R21 R20 K40 ["IncrementalTextSearch"]
@@ -195,18 +198,18 @@ PROTO_6:
   GETUPVAL R19 4
   GETTABLEKS R18 R19 K12 ["createElement"]
   GETUPVAL R19 9
-  DUPTABLE R20 K50 [{"LayoutOrder", "GetRowProps", "Rows", "RowComponent", "ScrollingDirection"}]
+  DUPTABLE R20 K51 [{"LayoutOrder", "GetRowProps", "Rows", "RowComponent", "ScrollingDirection"}]
   NAMECALL R21 R2 K19 ["getNextOrder"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K13 ["LayoutOrder"]
   NEWCLOSURE R21 P4
   CAPTURE VAL R3
-  SETTABLEKS R21 R20 K46 ["GetRowProps"]
-  SETTABLEKS R4 R20 K47 ["Rows"]
+  SETTABLEKS R21 R20 K47 ["GetRowProps"]
+  SETTABLEKS R4 R20 K48 ["Rows"]
   GETUPVAL R21 7
-  SETTABLEKS R21 R20 K48 ["RowComponent"]
-  GETIMPORT R21 K53 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R21 R20 K49 ["ScrollingDirection"]
+  SETTABLEKS R21 R20 K49 ["RowComponent"]
+  GETIMPORT R21 K54 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R21 R20 K50 ["ScrollingDirection"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K37 ["List"]
   CALL R14 3 1
@@ -216,11 +219,11 @@ PROTO_6:
   GETUPVAL R11 4
   GETTABLEKS R10 R11 K12 ["createElement"]
   GETUPVAL R11 10
-  DUPTABLE R12 K55 [{"LayoutOrder", "Buttons"}]
+  DUPTABLE R12 K56 [{"LayoutOrder", "Buttons"}]
   NAMECALL R13 R2 K19 ["getNextOrder"]
   CALL R13 1 1
   SETTABLEKS R13 R12 K13 ["LayoutOrder"]
-  SETTABLEKS R5 R12 K54 ["Buttons"]
+  SETTABLEKS R5 R12 K55 ["Buttons"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K17 ["Toolbar"]
   CALL R6 3 -1

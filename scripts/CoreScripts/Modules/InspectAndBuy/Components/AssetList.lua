@@ -12,8 +12,6 @@ local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local SetAssetFromBundleInfo = require(InspectAndBuyFolder.Actions.SetAssetFromBundleInfo)
 
 local AssetList = Roact.PureComponent:extend("AssetList")
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local CARD_PADDING = 10
 local FRAME_PADDING = 15
@@ -26,11 +24,9 @@ function AssetList:calculateCanvasSize(numCardsPerRow, numAssetCards, cardSizeY)
 	local viewMapping
 	viewMapping = self.props.views[view]
 
-
 	if rbx then
 		local positionDifference = viewMapping.TopSizeY + FRAME_PADDING
-		local canvasSize = math.ceil(numAssetCards / numCardsPerRow) * (cardSizeY + CARD_PADDING)
-			+ positionDifference
+		local canvasSize = math.ceil(numAssetCards / numCardsPerRow) * (cardSizeY + CARD_PADDING) + positionDifference
 		rbx.Parent.CanvasSize = UDim2.new(1, 0, 0, canvasSize)
 	end
 end
@@ -99,7 +95,7 @@ function AssetList:render()
 				self:resize()
 			end)
 		end,
-		}, assetCards)
+	}, assetCards)
 end
 
 function AssetList:didMount()
@@ -117,9 +113,6 @@ end
 	Thus, we trigger the updateAssetsFromBundles function in didUpdate lifecycle method.
 ]]
 function AssetList:updateAssetsFromBundles()
-	if not GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-		return
-	end
 	local bundles = self.props.bundles
 	local assetBundles = self.props.assetBundles
 	local assets = self.props.assets
@@ -141,7 +134,15 @@ function AssetList:updateAssetsFromBundles()
 			end
 			local assetBundleMapping = assetBundles[assetId] or {}
 			-- if the asset is in multiple bundles, we will only respect the first bundle for displaying
-			if #assetBundleMapping == 1 or (bundleInfoIndex == 1 and #assetBundleMapping > 1 and assets[assetId] and assets[assetId].parentBundleId == nil) then
+			if
+				#assetBundleMapping == 1
+				or (
+					bundleInfoIndex == 1
+					and #assetBundleMapping > 1
+					and assets[assetId]
+					and assets[assetId].parentBundleId == nil
+				)
+			then
 				-- if the asset only belongs to 1 bundle
 				-- or only consider the first bundle own the asset
 				self.props.dispatchSetAssetFromBundleInfo(assetId, bundleInfo)
@@ -156,15 +157,17 @@ function AssetList:didUpdate(prevProps)
 		self:resize()
 	end
 
-	if self.mounted and self.props.gamepadEnabled and not self.props.detailsInformation.viewingDetails
-		and self.props.visible then
+	if
+		self.mounted
+		and self.props.gamepadEnabled
+		and not self.props.detailsInformation.viewingDetails
+		and self.props.visible
+	then
 		GuiService.SelectedCoreObject = self.gridFrameRef.current:FindFirstChildWhichIsA("GuiObject")
 	end
 
-	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-		if self.props.assetBundles ~= prevProps.assetBundles or self.props.bundles ~= prevProps.bundles then
-			self:updateAssetsFromBundles()
-		end
+	if self.props.assetBundles ~= prevProps.assetBundles or self.props.bundles ~= prevProps.bundles then
+		self:updateAssetsFromBundles()
 	end
 end
 
@@ -181,8 +184,7 @@ function AssetList:resize()
 	if rbx then
 		local numCardsPerRow = viewMapping.MaxAssetCardsPerRow
 
-		local width = math.floor((rbx.AbsoluteSize.X - CARD_PADDING *
-			(numCardsPerRow - 1)) / numCardsPerRow)
+		local width = math.floor((rbx.AbsoluteSize.X - CARD_PADDING * (numCardsPerRow - 1)) / numCardsPerRow)
 		local assetCardSizeX = math.min(width, viewMapping.AssetCardMaxSizeX)
 		local assetCardSizeY = math.min(width / ASSET_CARD_RATIO, viewMapping.AssetCardMaxSizeY)
 
@@ -200,40 +202,24 @@ local function AssetListWrapper(props)
 		render = function(views)
 			local combinedProps = Cryo.Dictionary.join(props, { views = views })
 			return Roact.createElement(AssetList, combinedProps)
-		end
+		end,
 	})
 end
 
-if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-	return RoactRodux.connect(
-		function(state, props)
-			return {
-				view = state.view,
-				visible = state.visible,
-				assets = state.assets,
-				bundles = state.bundles,
-				assetBundles = state.assetBundles,
-				detailsInformation = state.detailsInformation,
-				gamepadEnabled = state.gamepadEnabled,
-			}
-		end, function(dispatch)
-			return {
-				dispatchSetAssetFromBundleInfo = function(assetId, bundleInfo)
-					dispatch(SetAssetFromBundleInfo(assetId, bundleInfo))
-				end,
-			}
-		end
-	)(AssetListWrapper)
-end
-
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			view = state.view,
-			visible = state.visible,
-			assets = state.assets,
-			detailsInformation = state.detailsInformation,
-			gamepadEnabled = state.gamepadEnabled,
-		}
-	end
-)(AssetListWrapper)
+return RoactRodux.connect(function(state, props)
+	return {
+		view = state.view,
+		visible = state.visible,
+		assets = state.assets,
+		bundles = state.bundles,
+		assetBundles = state.assetBundles,
+		detailsInformation = state.detailsInformation,
+		gamepadEnabled = state.gamepadEnabled,
+	}
+end, function(dispatch)
+	return {
+		dispatchSetAssetFromBundleInfo = function(assetId, bundleInfo)
+			dispatch(SetAssetFromBundleInfo(assetId, bundleInfo))
+		end,
+	}
+end)(AssetListWrapper)

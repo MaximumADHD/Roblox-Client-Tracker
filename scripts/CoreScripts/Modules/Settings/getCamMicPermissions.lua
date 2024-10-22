@@ -37,7 +37,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
-local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagSelfieViewEnabled = require(CoreGui.RobloxGui.Modules.SelfieView.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)

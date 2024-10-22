@@ -10,9 +10,6 @@ local HttpService = game:GetService("HttpService")
 
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
-local InspectAndBuyFolder = script.Parent.Parent
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
-
 local Analytics = {}
 
 Analytics.__index = Analytics
@@ -36,8 +33,7 @@ function Analytics.new(inspecteeUid, ctx)
 
 	function service.reportOpenInspectMenu()
 		local eventName = "inspectUser"
-		local additionalFields = {
-		}
+		local additionalFields = {}
 
 		service:report(eventName, additionalFields)
 	end
@@ -100,48 +96,46 @@ function Analytics.new(inspecteeUid, ctx)
 		service:report(eventName, additionalFields)
 	end
 
-	if GetFFlagIBEnableSendCounters() then
-		local function getPlatformString()
-			local platform = UserInputService:GetPlatform()
-			local platformStr = "Unknown"
+	local function getPlatformString()
+		local platform = UserInputService:GetPlatform()
+		local platformStr = "Unknown"
 
-			if platform == Enum.Platform.Windows then
-				platformStr = "Windows"
-			elseif platform == Enum.Platform.OSX then
-				platformStr = "OSX"
-			elseif platform == Enum.Platform.IOS then
-				platformStr = "IOS"
-			elseif platform == Enum.Platform.Android then
-				local useragent = HttpService:GetUserAgent()
-				if string.find(useragent, "AmazonAppStore") then
-					platformStr = "Amazon"
-				else
-					platformStr = "Android"
-				end
-				if string.find(useragent, "OculusQuest3Store") then
-					platformStr = "Quest"
-				end
-			elseif platform == Enum.Platform.XBoxOne or platform == Enum.Platform.XBox360 then
-				platformStr = "XBox"
-			elseif platform == Enum.Platform.UWP then
-				platformStr = "UWP"
-			elseif platform == Enum.Platform.PS4 or platform == Enum.Platform.PS3 or platform == Enum.Platform.PS5 then
-				platformStr = "PlayStation"
+		if platform == Enum.Platform.Windows then
+			platformStr = "Windows"
+		elseif platform == Enum.Platform.OSX then
+			platformStr = "OSX"
+		elseif platform == Enum.Platform.IOS then
+			platformStr = "IOS"
+		elseif platform == Enum.Platform.Android then
+			local useragent = HttpService:GetUserAgent()
+			if string.find(useragent, "AmazonAppStore") then
+				platformStr = "Amazon"
+			else
+				platformStr = "Android"
 			end
-
-			return platformStr
+			if string.find(useragent, "OculusQuest3Store") then
+				platformStr = "Quest"
+			end
+		elseif platform == Enum.Platform.XBoxOne or platform == Enum.Platform.XBox360 then
+			platformStr = "XBox"
+		elseif platform == Enum.Platform.UWP then
+			platformStr = "UWP"
+		elseif platform == Enum.Platform.PS4 or platform == Enum.Platform.PS3 or platform == Enum.Platform.PS5 then
+			platformStr = "PlayStation"
 		end
 
-		service.platformStr = getPlatformString()
+		return platformStr
+	end
 
-		function service.sendCounter(eventName)
-			if RunService:IsStudio() then
-				return
-			end
-			local counterName = INSPECT_TAG .. "_" .. service.platformStr .. "_" .. eventName
+	service.platformStr = getPlatformString()
 
-			AnalyticsService:ReportCounter(counterName)
+	function service.sendCounter(eventName)
+		if RunService:IsStudio() then
+			return
 		end
+		local counterName = INSPECT_TAG .. "_" .. service.platformStr .. "_" .. eventName
+
+		AnalyticsService:ReportCounter(counterName)
 	end
 
 	return service

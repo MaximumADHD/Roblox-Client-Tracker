@@ -21,8 +21,7 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local ApolloClient = require(RobloxGui.Modules.ApolloClient)
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
-local FFlagExperienceChatSiblingZIndexBehavior = game:DefineFastFlag("ExperienceChatSiblingZIndexBehavior", false)
-local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.getFFlagAddApolloClientToExperienceChat)
 local getFFlagDoNotPromptCameraPermissionsOnMount =
 	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
@@ -79,9 +78,7 @@ local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ExperienceChat"
 screenGui.ResetOnSpawn = false
 screenGui.DisplayOrder = -1 -- Set DisplayOrder to -1 to rest behind the SettingsHub
-if FFlagExperienceChatSiblingZIndexBehavior then
-	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-end
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.Parent = CoreGui
 
 local function findTextChannel(name: string): TextChannel

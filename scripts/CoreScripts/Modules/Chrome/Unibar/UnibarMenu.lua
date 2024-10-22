@@ -41,8 +41,6 @@ local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableC
 local GetFFlagOpenControlsOnMenuOpen = require(Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
-local GetFFlagEnablePartyIconInChrome =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInChrome
 local GetFFlagEnablePartyMicIconInChrome =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
 local GetFFlagUsePolishedAnimations = require(Chrome.Flags.GetFFlagUsePolishedAnimations)
@@ -52,15 +50,11 @@ local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
 local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCapturesInChrome)
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
-local GetFStringChromeMusicIntegrationId =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringChromeMusicIntegrationId
 local GetFFlagEnableJoinVoiceOnUnibar = require(Chrome.Flags.GetFFlagEnableJoinVoiceOnUnibar)
 local GetFFlagEnableHamburgerIcon = require(Chrome.Flags.GetFFlagEnableHamburgerIcon)
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local GetFFlagChromeUsePreferredTransparency =
 	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
-local GetFFlagSongbirdTranslationStrings =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdTranslationStrings
 
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
@@ -77,13 +71,7 @@ function configureUnibar()
 	-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
 	-- ie. Voice Mute integration will only be shown is voice is enabled/active
 	local nineDot = { "leaderboard", "emotes", "backpack" }
-	local partyMenu = {}
-	if GetFFlagEnablePartyIconInChrome() then
-		table.insert(partyMenu, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
-	end
-	if GetFFlagEnablePartyMicIconInChrome() then
-		table.insert(partyMenu, PartyConstants.INTEGRATION_ID)
-	end
+	local partyMenu = if GetFFlagEnablePartyMicIconInChrome() then { PartyConstants.TOGGLE_MIC_INTEGRATION_ID } else {}
 	if GetFFlagUnibarRespawn() then
 		-- append to end of nine-dot
 		table.insert(nineDot, "respawn")
@@ -208,14 +196,11 @@ function configureUnibar()
 	end
 
 	if GetFFlagEnableSongbirdInChrome() then
-		table.insert(nineDot, "music_entrypoint")
-		-- MUS-1214 TODO: Determine placement order in menu
+		table.insert(nineDot, 4, "music_entrypoint")
 		if not GetFFlagDisableCompactUtilityCore() then
 			ChromeService:configureCompactUtility("music_utility", {
 				{
-					if GetFFlagSongbirdTranslationStrings()
-						then "now_playing"
-						else GetFStringChromeMusicIntegrationId(),
+					"now_playing",
 					"compact_utility_back",
 				},
 			})

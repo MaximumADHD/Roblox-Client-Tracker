@@ -165,7 +165,7 @@ PROTO_9:
   SETTABLEKS R11 R10 K22 ["Title"]
   GETIMPORT R11 K26 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R11 R10 K24 ["ZIndexBehavior"]
-  GETIMPORT R11 K29 [Enum.InitialDockState.Bottom]
+  GETIMPORT R11 K29 [Enum.InitialDockState.Right]
   SETTABLEKS R11 R10 K27 ["InitialDockState"]
   GETIMPORT R11 K31 [Vector2.new]
   LOADN R12 128

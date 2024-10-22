@@ -18,7 +18,7 @@ function Notification:render()
 		LayoutOrder = 0,
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-	} , {
+	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, 10),
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -47,15 +47,13 @@ function Notification:render()
 		}, {
 			UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
 				MaxTextSize = 16,
-			})
-		})
+			}),
+		}),
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			locale = state.locale
-		}
-	end
-)(Notification)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		locale = state.locale,
+	}
+end)(Notification)

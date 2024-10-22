@@ -37,7 +37,7 @@ MAIN:
   MOVE R12 R2
   LOADK R13 K12 ["::UIPadding"]
   DUPTABLE R14 K16 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
-  LOADK R15 K19 ["PaddingSmall"]
+  LOADK R15 K19 ["$PaddingSmall"]
   SETTABLEKS R15 R14 K13 ["PaddingTop"]
   LOADK R15 K17 ["$Padding"]
   SETTABLEKS R15 R14 K14 ["PaddingLeft"]
@@ -53,7 +53,7 @@ MAIN:
   MOVE R13 R2
   LOADK R14 K12 ["::UIPadding"]
   DUPTABLE R15 K21 [{"PaddingLeft", "PaddingRight"}]
-  LOADK R16 K19 ["PaddingSmall"]
+  LOADK R16 K19 ["$PaddingSmall"]
   SETTABLEKS R16 R15 K14 ["PaddingLeft"]
   LOADK R16 K17 ["$Padding"]
   SETTABLEKS R16 R15 K15 ["PaddingRight"]

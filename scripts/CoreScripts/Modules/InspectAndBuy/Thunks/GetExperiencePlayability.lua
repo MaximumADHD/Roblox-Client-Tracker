@@ -9,7 +9,6 @@ local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAn
 local ExperienceInfo = require(InspectAndBuyFolder.Models.ExperienceInfo)
 local SetExperienceInfo = require(InspectAndBuyFolder.Actions.SetExperienceInfo)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
@@ -33,17 +32,18 @@ local function GetExperiencePlayability(universeId: string): any
 				local experience = ExperienceInfo.fromGetPlayabilityStatus(playability)
 
 				store:dispatch(SetExperienceInfo(experience))
-				if GetFFlagIBEnableSendCounters() then
-					store:dispatch(SendCounter(Constants.Counters.GetExperiencePlayability .. Constants.CounterSuffix.RequestSucceeded))
-				end
-			end,
-			if GetFFlagIBEnableSendCounters() then function(err)
-				store:dispatch(SendCounter(Constants.Counters.GetExperiencePlayability .. Constants.CounterSuffix.RequestRejected))
-			end else nil)
+				store:dispatch(
+					SendCounter(Constants.Counters.GetExperiencePlayability .. Constants.CounterSuffix.RequestSucceeded)
+				)
+			end, function(err)
+				store:dispatch(
+					SendCounter(Constants.Counters.GetExperiencePlayability .. Constants.CounterSuffix.RequestRejected)
+				)
+			end)
 		end)(store):catch(function(err)
-			if GetFFlagIBEnableSendCounters() then
-				store:dispatch(SendCounter(Constants.Counters.GetExperiencePlayability .. Constants.CounterSuffix.RequestFailed))
-			end
+			store:dispatch(
+				SendCounter(Constants.Counters.GetExperiencePlayability .. Constants.CounterSuffix.RequestFailed)
+			)
 		end)
 	end)
 end

@@ -7,11 +7,11 @@
 local function createInspectAndBuyKeyMapper(methodName)
 	--Takes a storeId and then any number of addiontal arguments
 	return function(storeId, ...)
-		local key = "inspectAndBuy." ..storeId.. "." ..methodName
+		local key = "inspectAndBuy." .. storeId .. "." .. methodName
 
 		local length = select("#", ...)
 		for i = 1, length do
-			key = key .. "." ..tostring(select(i, ...))
+			key = key .. "." .. tostring(select(i, ...))
 		end
 
 		return key

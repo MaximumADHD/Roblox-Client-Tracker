@@ -8,9 +8,14 @@ PROTO_0:
   GETTABLEKS R5 R4 K4 ["Size"]
   GETTABLEKS R6 R4 K5 ["LayoutOrder"]
   GETTABLEKS R7 R4 K6 ["RootInstance"]
+  GETUPVAL R9 0
+  CALL R9 0 1
+  JUMPIFNOT R9 [+2]
+  LOADNIL R8
+  JUMP [+2]
   GETTABLEKS R8 R4 K7 ["OnCreateAnimation"]
   GETTABLEKS R9 R1 K8 ["button"]
-  GETUPVAL R11 0
+  GETUPVAL R11 1
   GETTABLEKS R10 R11 K9 ["createElement"]
   LOADK R11 K10 ["Frame"]
   DUPTABLE R12 K12 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
@@ -21,7 +26,7 @@ PROTO_0:
   DUPTABLE R13 K15 [{"SelectScreen", "CreateNewPrompt"}]
   LOADB R14 0
   JUMPIFNOTEQKNIL R7 [+51]
-  GETUPVAL R15 0
+  GETUPVAL R15 1
   GETTABLEKS R14 R15 K9 ["createElement"]
   LOADK R15 K16 ["TextLabel"]
   DUPTABLE R16 K23 [{"Size", "Text", "Font", "TextSize", "TextColor3", "TextTruncate", "BackgroundColor3"}]
@@ -48,18 +53,23 @@ PROTO_0:
   GETTABLEKS R17 R1 K36 ["backgroundColor"]
   SETTABLEKS R17 R16 K22 ["BackgroundColor3"]
   DUPTABLE R17 K38 [{"CaptureFocus"}]
-  GETUPVAL R19 0
-  GETTABLEKS R18 R19 K9 ["createElement"]
   GETUPVAL R19 1
+  GETTABLEKS R18 R19 K9 ["createElement"]
+  GETUPVAL R19 2
   CALL R18 1 1
   SETTABLEKS R18 R17 K37 ["CaptureFocus"]
   CALL R14 3 1
   SETTABLEKS R14 R13 K13 ["SelectScreen"]
+  GETUPVAL R15 0
+  CALL R15 0 1
+  JUMPIFNOT R15 [+2]
+  LOADNIL R14
+  JUMP [+64]
   LOADB R14 0
   JUMPIFEQKNIL R7 [+62]
-  GETUPVAL R15 0
+  GETUPVAL R15 1
   GETTABLEKS R14 R15 K9 ["createElement"]
-  GETUPVAL R15 2
+  GETUPVAL R15 3
   DUPTABLE R16 K44 [{"PromptText", "NoticeText", "InputText", "Text", "Buttons", "OnTextSubmitted"}]
   LOADK R19 K27 ["Title"]
   LOADK R20 K45 ["CreateToStart"]
@@ -126,23 +136,28 @@ MAIN:
   GETTABLEKS R4 R5 K13 ["CaptureFocus"]
   GETTABLEKS R5 R2 K14 ["ContextServices"]
   GETTABLEKS R6 R5 K15 ["withContext"]
-  GETTABLEKS R7 R1 K16 ["PureComponent"]
-  LOADK R9 K17 ["StartScreen"]
-  NAMECALL R7 R7 K18 ["extend"]
-  CALL R7 2 1
-  DUPCLOSURE R8 K19 [PROTO_0]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K16 ["LuaFlags"]
+  GETTABLEKS R8 R9 K17 ["GetFFlagRenameClip"]
+  CALL R7 1 1
+  GETTABLEKS R8 R1 K18 ["PureComponent"]
+  LOADK R10 K19 ["StartScreen"]
+  NAMECALL R8 R8 K20 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K21 [PROTO_0]
+  CAPTURE VAL R7
   CAPTURE VAL R1
   CAPTURE VAL R4
   CAPTURE VAL R3
-  SETTABLEKS R8 R7 K20 ["render"]
-  MOVE R8 R6
-  DUPTABLE R9 K23 [{"Stylizer", "Localization"}]
-  GETTABLEKS R10 R5 K21 ["Stylizer"]
-  SETTABLEKS R10 R9 K21 ["Stylizer"]
-  GETTABLEKS R10 R5 K22 ["Localization"]
-  SETTABLEKS R10 R9 K22 ["Localization"]
-  CALL R8 1 1
-  MOVE R9 R7
-  CALL R8 1 1
-  MOVE R7 R8
-  RETURN R7 1
+  SETTABLEKS R9 R8 K22 ["render"]
+  MOVE R9 R6
+  DUPTABLE R10 K25 [{"Stylizer", "Localization"}]
+  GETTABLEKS R11 R5 K23 ["Stylizer"]
+  SETTABLEKS R11 R10 K23 ["Stylizer"]
+  GETTABLEKS R11 R5 K24 ["Localization"]
+  SETTABLEKS R11 R10 K24 ["Localization"]
+  CALL R9 1 1
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
+  RETURN R8 1

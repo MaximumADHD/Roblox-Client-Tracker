@@ -12,9 +12,7 @@ local SetAssetToBundlesMapping = require(InspectAndBuyFolder.Actions.SetAssetToB
 		[assetId] = {bundleId1, bundleId2, ...}
 	}
 ]]
-return Rodux.createReducer(
-	{}
-, {
+return Rodux.createReducer({}, {
 	--[[
 		Set/update asset and bundles mapping info.
 	]]

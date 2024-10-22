@@ -10,9 +10,6 @@ local HttpService = game:GetService("HttpService")
 local Promise = require(CorePackages.Packages.Promise)
 local AvatarEditorService = game:GetService("AvatarEditorService")
 local Url = require(CorePackages.Workspace.Packages.Http).Url
-local InspectAndBuyFolder = script.Parent.Parent
-local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
 
 local DEVELOPER_URL = string.format("https://develop.%s", Url.DOMAIN)
 
@@ -106,7 +103,7 @@ end
 	Get a list of bundles an asset is part of.
 ]]
 local function getAssetBundles(id)
-	local url = Url.CATALOG_URL .."v1/assets/" ..tostring(id) .."/bundles"
+	local url = Url.CATALOG_URL .. "v1/assets/" .. tostring(id) .. "/bundles"
 	local options = {
 		Url = url,
 		Method = "GET",
@@ -134,7 +131,7 @@ end
 	Gets the favorite count for an asset.
 ]]
 local function getAssetFavoriteCount(assetId)
-	local url = Url.CATALOG_URL .."v1/favorites/assets/" ..tostring(assetId) .."/count"
+	local url = Url.CATALOG_URL .. "v1/favorites/assets/" .. tostring(assetId) .. "/count"
 	local options = {
 		Url = url,
 		Method = "GET",
@@ -147,7 +144,7 @@ end
 	Gets the favorite count for a bundle.
 ]]
 local function getBundleFavoriteCount(bundleId)
-	local url = Url.CATALOG_URL .."v1/favorites/bundles/" ..tostring(bundleId) .."/count"
+	local url = Url.CATALOG_URL .. "v1/favorites/bundles/" .. tostring(bundleId) .. "/count"
 	local options = {
 		Url = url,
 		Method = "GET",
@@ -161,7 +158,12 @@ end
 ]]
 local function getFavoriteForAsset(assetId)
 	local userId = Players.LocalPlayer.UserId
-	local url = Url.CATALOG_URL .."v1/favorites/users/" ..tostring(userId) .."/assets/" ..tostring(assetId) .."/favorite"
+	local url = Url.CATALOG_URL
+		.. "v1/favorites/users/"
+		.. tostring(userId)
+		.. "/assets/"
+		.. tostring(assetId)
+		.. "/favorite"
 	local options = {
 		Url = url,
 		Method = "GET",
@@ -175,7 +177,12 @@ end
 ]]
 local function getFavoriteForBundle(bundleId)
 	local userId = Players.LocalPlayer.UserId
-	local url = Url.CATALOG_URL .."v1/favorites/users/" ..tostring(userId) .."/bundles/" ..tostring(bundleId) .."/favorite"
+	local url = Url.CATALOG_URL
+		.. "v1/favorites/users/"
+		.. tostring(userId)
+		.. "/bundles/"
+		.. tostring(bundleId)
+		.. "/favorite"
 	local options = {
 		Url = url,
 		Method = "GET",
@@ -189,11 +196,16 @@ end
 ]]
 local function createFavoriteForAsset(assetId)
 	local userId = Players.LocalPlayer.UserId
-	local url = Url.CATALOG_URL .."v1/favorites/users/" ..tostring(userId) .."/assets/" ..tostring(assetId) .."/favorite"
+	local url = Url.CATALOG_URL
+		.. "v1/favorites/users/"
+		.. tostring(userId)
+		.. "/assets/"
+		.. tostring(assetId)
+		.. "/favorite"
 	local options = {
 		Url = url,
 		Method = "POST",
-		Body = HttpService:JSONEncode({ }), -- Avoids 411 length errors.
+		Body = HttpService:JSONEncode({}), -- Avoids 411 length errors.
 	}
 
 	return createYieldingPromise(options, true)
@@ -204,7 +216,12 @@ end
 ]]
 local function deleteFavoriteForAsset(assetId)
 	local userId = Players.LocalPlayer.UserId
-	local url = Url.CATALOG_URL .."v1/favorites/users/" ..tostring(userId) .."/assets/" ..tostring(assetId) .."/favorite"
+	local url = Url.CATALOG_URL
+		.. "v1/favorites/users/"
+		.. tostring(userId)
+		.. "/assets/"
+		.. tostring(assetId)
+		.. "/favorite"
 	local options = {
 		Url = url,
 		Method = "DELETE",
@@ -218,11 +235,16 @@ end
 ]]
 local function createFavoriteForBundle(bundleId)
 	local userId = Players.LocalPlayer.UserId
-	local url = Url.CATALOG_URL .."v1/favorites/users/" ..tostring(userId) .."/bundles/" ..tostring(bundleId) .."/favorite"
+	local url = Url.CATALOG_URL
+		.. "v1/favorites/users/"
+		.. tostring(userId)
+		.. "/bundles/"
+		.. tostring(bundleId)
+		.. "/favorite"
 	local options = {
 		Url = url,
 		Method = "POST",
-		Body = HttpService:JSONEncode({ }), -- Avoids 411 length errors.
+		Body = HttpService:JSONEncode({}), -- Avoids 411 length errors.
 	}
 
 	return createYieldingPromise(options, true)
@@ -233,7 +255,12 @@ end
 ]]
 local function deleteFavoriteForBundle(bundleId)
 	local userId = Players.LocalPlayer.UserId
-	local url = Url.CATALOG_URL .."v1/favorites/users/" ..tostring(userId) .."/bundles/" ..tostring(bundleId) .."/favorite"
+	local url = Url.CATALOG_URL
+		.. "v1/favorites/users/"
+		.. tostring(userId)
+		.. "/bundles/"
+		.. tostring(bundleId)
+		.. "/favorite"
 	local options = {
 		Url = url,
 		Method = "DELETE",
@@ -246,7 +273,7 @@ end
 	Get details for a costume.
 ]]
 local function getEconomyProductInfo(productId)
-	local url = Url.ECONOMY_URL .."v1/products/" ..tostring(productId) .."?showPurchasable=true"
+	local url = Url.ECONOMY_URL .. "v1/products/" .. tostring(productId) .. "?showPurchasable=true"
 	local options = {
 		Url = url,
 		Method = "GET",
@@ -347,13 +374,13 @@ function Network.new()
 		getVersionInfo = getVersionInfo,
 		getExperiencePlayability = getExperiencePlayability,
 		getExperienceInfo = getExperienceInfo,
-		getItemDetails = if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then getItemDetails else nil,
+		getItemDetails = getItemDetails,
 	}
 
 	setmetatable(networkService, {
 		__tostring = function()
 			return "Service(Network)"
-		end
+		end,
 	})
 
 	return networkService

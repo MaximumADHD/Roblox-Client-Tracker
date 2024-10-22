@@ -22,79 +22,88 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["getFFlagLoginAvatarThumbnail"]
   CALL R4 1 1
   CALL R4 0 1
-  MOVE R5 R2
-  LOADK R6 K14 [".Component-CollaboratorThumbnail"]
-  NEWTABLE R7 0 0
-  NEWTABLE R8 0 2
-  MOVE R9 R2
-  LOADK R10 K15 ["> #ActivityRing"]
-  DUPTABLE R11 K19 [{"AnchorPoint", "Position", "Size"}]
-  LOADK R12 K20 ["$AnchorCenter"]
-  SETTABLEKS R12 R11 K16 ["AnchorPoint"]
-  LOADK R12 K21 ["$PositionCenter"]
-  SETTABLEKS R12 R11 K17 ["Position"]
-  JUMPIFNOT R4 [+6]
-  GETIMPORT R12 K24 [UDim2.fromOffset]
-  LOADN R13 22
-  LOADN R14 22
-  CALL R12 2 1
-  JUMP [+5]
-  GETIMPORT R12 K24 [UDim2.fromOffset]
-  LOADN R13 23
-  LOADN R14 23
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K18 ["Size"]
-  NEWTABLE R12 0 2
-  MOVE R13 R2
-  LOADK R14 K25 ["::UICorner"]
-  DUPTABLE R15 K27 [{"CornerRadius"}]
-  LOADK R16 K28 ["$GlobalRadiusCircle"]
-  SETTABLEKS R16 R15 K26 ["CornerRadius"]
-  CALL R13 2 1
-  MOVE R14 R2
-  LOADK R15 K29 ["> #RingColor"]
-  DUPTABLE R16 K32 [{"ApplyStrokeMode", "Thickness"}]
-  GETIMPORT R17 K35 [Enum.ApplyStrokeMode.Border]
-  SETTABLEKS R17 R16 K30 ["ApplyStrokeMode"]
-  LOADK R17 K36 ["$BorderMedium"]
-  SETTABLEKS R17 R16 K31 ["Thickness"]
-  CALL R14 2 -1
-  SETLIST R12 R13 -1 [1]
-  CALL R9 3 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["SharedFlags"]
+  GETTABLEKS R6 R7 K14 ["getFFlagAddUsernameToRibbonAvatars"]
+  CALL R5 1 1
+  CALL R5 0 1
+  MOVE R6 R2
+  LOADK R7 K15 [".Component-CollaboratorThumbnail"]
+  NEWTABLE R8 0 0
+  NEWTABLE R9 0 2
   MOVE R10 R2
-  LOADK R11 K37 [">> #Avatar"]
-  DUPTABLE R12 K40 [{"AnchorPoint", "BorderSizePixel", "Position", "Size", "BackgroundColor3"}]
-  LOADK R13 K20 ["$AnchorCenter"]
-  SETTABLEKS R13 R12 K16 ["AnchorPoint"]
-  LOADK R13 K41 ["$BorderNone"]
-  SETTABLEKS R13 R12 K38 ["BorderSizePixel"]
-  LOADK R13 K21 ["$PositionCenter"]
-  SETTABLEKS R13 R12 K17 ["Position"]
-  GETIMPORT R13 K24 [UDim2.fromOffset]
-  LOADN R14 18
-  LOADN R15 18
+  LOADK R11 K16 ["> #ActivityRing"]
+  DUPTABLE R12 K20 [{"AnchorPoint", "Position", "Size"}]
+  LOADK R13 K21 ["$AnchorCenter"]
+  SETTABLEKS R13 R12 K17 ["AnchorPoint"]
+  LOADK R13 K22 ["$PositionCenter"]
+  SETTABLEKS R13 R12 K18 ["Position"]
+  JUMPIFNOT R4 [+6]
+  GETIMPORT R13 K25 [UDim2.fromOffset]
+  LOADN R14 22
+  LOADN R15 22
   CALL R13 2 1
-  SETTABLEKS R13 R12 K18 ["Size"]
-  JUMPIFNOT R3 [+2]
-  LOADK R13 K42 ["$SemanticColorComponentMediaFill"]
-  JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K39 ["BackgroundColor3"]
+  JUMP [+5]
+  GETIMPORT R13 K25 [UDim2.fromOffset]
+  LOADN R14 23
+  LOADN R15 23
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K19 ["Size"]
   NEWTABLE R13 0 2
   MOVE R14 R2
-  LOADK R15 K25 ["::UICorner"]
-  DUPTABLE R16 K27 [{"CornerRadius"}]
-  LOADK R17 K28 ["$GlobalRadiusCircle"]
-  SETTABLEKS R17 R16 K26 ["CornerRadius"]
+  LOADK R15 K26 ["::UICorner"]
+  DUPTABLE R16 K28 [{"CornerRadius"}]
+  LOADK R17 K29 ["$GlobalRadiusCircle"]
+  SETTABLEKS R17 R16 K27 ["CornerRadius"]
   CALL R14 2 1
   MOVE R15 R2
-  LOADK R16 K43 [".Idle"]
-  DUPTABLE R17 K44 [{"Size"}]
-  LOADK R18 K45 ["$AvatarXS"]
-  SETTABLEKS R18 R17 K18 ["Size"]
+  LOADK R16 K30 ["> #RingColor"]
+  DUPTABLE R17 K33 [{"ApplyStrokeMode", "Thickness"}]
+  GETIMPORT R18 K36 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R18 R17 K31 ["ApplyStrokeMode"]
+  LOADK R18 K37 ["$BorderMedium"]
+  SETTABLEKS R18 R17 K32 ["Thickness"]
   CALL R15 2 -1
   SETLIST R13 R14 -1 [1]
-  CALL R10 3 -1
-  SETLIST R8 R9 -1 [1]
-  CALL R5 3 -1
-  RETURN R5 -1
+  CALL R10 3 1
+  MOVE R11 R2
+  JUMPIFNOT R5 [+2]
+  LOADK R12 K38 ["> ImageLabel"]
+  JUMP [+1]
+  LOADK R12 K39 [">> #Avatar"]
+  DUPTABLE R13 K42 [{"AnchorPoint", "BorderSizePixel", "Position", "Size", "BackgroundColor3"}]
+  LOADK R14 K21 ["$AnchorCenter"]
+  SETTABLEKS R14 R13 K17 ["AnchorPoint"]
+  LOADK R14 K43 ["$BorderNone"]
+  SETTABLEKS R14 R13 K40 ["BorderSizePixel"]
+  LOADK R14 K22 ["$PositionCenter"]
+  SETTABLEKS R14 R13 K18 ["Position"]
+  GETIMPORT R14 K25 [UDim2.fromOffset]
+  LOADN R15 18
+  LOADN R16 18
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K19 ["Size"]
+  JUMPIFNOT R3 [+2]
+  LOADK R14 K44 ["$SemanticColorComponentMediaFill"]
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K41 ["BackgroundColor3"]
+  NEWTABLE R14 0 2
+  MOVE R15 R2
+  LOADK R16 K26 ["::UICorner"]
+  DUPTABLE R17 K28 [{"CornerRadius"}]
+  LOADK R18 K29 ["$GlobalRadiusCircle"]
+  SETTABLEKS R18 R17 K27 ["CornerRadius"]
+  CALL R15 2 1
+  MOVE R16 R2
+  LOADK R17 K45 [".Idle"]
+  DUPTABLE R18 K46 [{"Size"}]
+  LOADK R19 K47 ["$AvatarXS"]
+  SETTABLEKS R19 R18 K19 ["Size"]
+  CALL R16 2 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R11 3 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 -1
+  RETURN R6 -1

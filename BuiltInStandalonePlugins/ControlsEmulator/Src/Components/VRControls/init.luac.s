@@ -317,7 +317,7 @@ PROTO_7:
   CALL R20 2 1
   SETTABLEKS R20 R19 K23 ["TooltipButton"]
   MOVE R20 R3
-  JUMPIFNOT R20 [+124]
+  JUMPIFNOT R20 [+152]
   GETUPVAL R21 1
   GETTABLEKS R20 R21 K12 ["createElement"]
   LOADK R21 K13 ["Frame"]
@@ -326,21 +326,21 @@ PROTO_7:
   GETTABLEKS R23 R24 K14 ["Tag"]
   LOADK R24 K59 ["data-testid=Tooltip"]
   SETTABLE R24 R22 R23
-  DUPTABLE R23 K64 [{"MoveMapping", "FlyMapping", "RotatenMapping", "MouseMapping"}]
+  DUPTABLE R23 K65 [{"MoveMapping", "FlyMapping", "RotatenMapping", "TiltMapping", "MouseMapping"}]
   GETUPVAL R25 1
   GETTABLEKS R24 R25 K12 ["createElement"]
   GETUPVAL R25 8
-  DUPTABLE R26 K67 [{"leftText", "rightText", "LayoutOrder"}]
+  DUPTABLE R26 K68 [{"leftText", "rightText", "LayoutOrder"}]
   LOADK R29 K32 ["VRControls"]
-  LOADK R30 K68 ["MoveHelpLabel"]
+  LOADK R30 K69 ["MoveHelpLabel"]
   NAMECALL R27 R1 K34 ["getText"]
   CALL R27 3 1
-  SETTABLEKS R27 R26 K65 ["leftText"]
+  SETTABLEKS R27 R26 K66 ["leftText"]
   LOADK R29 K32 ["VRControls"]
-  LOADK R30 K69 ["ShiftWASDLabel"]
+  LOADK R30 K70 ["ShiftWASDLabel"]
   NAMECALL R27 R1 K34 ["getText"]
   CALL R27 3 1
-  SETTABLEKS R27 R26 K66 ["rightText"]
+  SETTABLEKS R27 R26 K67 ["rightText"]
   GETUPVAL R27 6
   NAMECALL R27 R27 K20 ["getNextOrder"]
   CALL R27 1 1
@@ -350,17 +350,17 @@ PROTO_7:
   GETUPVAL R25 1
   GETTABLEKS R24 R25 K12 ["createElement"]
   GETUPVAL R25 8
-  DUPTABLE R26 K67 [{"leftText", "rightText", "LayoutOrder"}]
+  DUPTABLE R26 K68 [{"leftText", "rightText", "LayoutOrder"}]
   LOADK R29 K32 ["VRControls"]
-  LOADK R30 K70 ["FlyUpDownHelpLabel"]
+  LOADK R30 K71 ["FlyUpDownHelpLabel"]
   NAMECALL R27 R1 K34 ["getText"]
   CALL R27 3 1
-  SETTABLEKS R27 R26 K65 ["leftText"]
+  SETTABLEKS R27 R26 K66 ["leftText"]
   LOADK R29 K32 ["VRControls"]
-  LOADK R30 K71 ["ShiftEQLabel"]
+  LOADK R30 K72 ["ShiftEQLabel"]
   NAMECALL R27 R1 K34 ["getText"]
   CALL R27 3 1
-  SETTABLEKS R27 R26 K66 ["rightText"]
+  SETTABLEKS R27 R26 K67 ["rightText"]
   GETUPVAL R27 6
   NAMECALL R27 R27 K20 ["getNextOrder"]
   CALL R27 1 1
@@ -370,23 +370,43 @@ PROTO_7:
   GETUPVAL R25 1
   GETTABLEKS R24 R25 K12 ["createElement"]
   GETUPVAL R25 8
-  DUPTABLE R26 K67 [{"leftText", "rightText", "LayoutOrder"}]
+  DUPTABLE R26 K68 [{"leftText", "rightText", "LayoutOrder"}]
   LOADK R29 K32 ["VRControls"]
-  LOADK R30 K72 ["RotateHelpLabel"]
+  LOADK R30 K73 ["RotateHelpLabel"]
   NAMECALL R27 R1 K34 ["getText"]
   CALL R27 3 1
-  SETTABLEKS R27 R26 K65 ["leftText"]
+  SETTABLEKS R27 R26 K66 ["leftText"]
   LOADK R29 K32 ["VRControls"]
-  LOADK R30 K73 ["MouseMoveHelpLabel"]
+  LOADK R30 K74 ["MouseMoveHelpLabel"]
   NAMECALL R27 R1 K34 ["getText"]
   CALL R27 3 1
-  SETTABLEKS R27 R26 K66 ["rightText"]
+  SETTABLEKS R27 R26 K67 ["rightText"]
   GETUPVAL R27 6
   NAMECALL R27 R27 K20 ["getNextOrder"]
   CALL R27 1 1
   SETTABLEKS R27 R26 K16 ["LayoutOrder"]
   CALL R24 2 1
   SETTABLEKS R24 R23 K62 ["RotatenMapping"]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K12 ["createElement"]
+  GETUPVAL R25 8
+  DUPTABLE R26 K68 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R29 K32 ["VRControls"]
+  LOADK R30 K75 ["TiltHelpLabel"]
+  NAMECALL R27 R1 K34 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K66 ["leftText"]
+  LOADK R29 K32 ["VRControls"]
+  LOADK R30 K76 ["RightClickAndMouseMoveHelpLabel"]
+  NAMECALL R27 R1 K34 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K67 ["rightText"]
+  GETUPVAL R27 6
+  NAMECALL R27 R27 K20 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K16 ["LayoutOrder"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K63 ["TiltMapping"]
   GETUPVAL R25 1
   GETTABLEKS R24 R25 K12 ["createElement"]
   LOADK R25 K31 ["TextLabel"]
@@ -396,7 +416,7 @@ PROTO_7:
   LOADK R28 K19 ["CX-Invisible"]
   SETTABLE R28 R26 R27
   LOADK R29 K32 ["VRControls"]
-  LOADK R30 K74 ["MouseInteractionHelpLabel"]
+  LOADK R30 K77 ["MouseInteractionHelpLabel"]
   NAMECALL R27 R1 K34 ["getText"]
   CALL R27 3 1
   SETTABLEKS R27 R26 K35 ["Text"]
@@ -405,7 +425,7 @@ PROTO_7:
   CALL R27 1 1
   SETTABLEKS R27 R26 K16 ["LayoutOrder"]
   CALL R24 2 1
-  SETTABLEKS R24 R23 K63 ["MouseMapping"]
+  SETTABLEKS R24 R23 K64 ["MouseMapping"]
   CALL R20 3 1
   SETTABLEKS R20 R19 K24 ["Tooltip"]
   CALL R16 3 1

@@ -4,9 +4,7 @@ local Rodux = require(CorePackages.Rodux)
 local InspectAndBuyFolder = script.Parent.Parent
 local SetEquippedAssets = require(InspectAndBuyFolder.Actions.SetEquippedAssets)
 
-return Rodux.createReducer(
-	{}
-, {
+return Rodux.createReducer({}, {
 	--[[
 		Set the inspector's equipped assets.
 	]]

@@ -1,3 +1,6 @@
+local CoreGui = game:GetService("CoreGui")
+local GetFFlagSoundTelemetryOsClock = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagSoundTelemetryOsClock)
+
 local PlayingSounds = {}
 PlayingSounds.__index = PlayingSounds
 
@@ -16,7 +19,11 @@ function PlayingSounds:addSound(soundid: string, instanceid: string)
 
 	if soundIdData == nil then
 		-- This is the first Sound playing this assetid
-		self.sounds[soundid] = { count = 0, starttime = os.time(), maxLoopCount = 1, instances = {} }
+		if GetFFlagSoundTelemetryOsClock() then 
+			self.sounds[soundid] = { count = 0, starttime = os.clock(), maxLoopCount = 1, instances = {} }
+		else
+			self.sounds[soundid] = { count = 0, starttime = os.time(), maxLoopCount = 1, instances = {} }
+		end
 		soundIdData = self.sounds[soundid]
 	end
 
@@ -43,7 +50,13 @@ function PlayingSounds:removeSound(soundid: string, instanceid: string)
 
 	if soundIdData.count == 0 then
 		-- No more instances are playing this assetid, so aggregate all data.
-		self.aggregatedData:addPlay(soundid, os.time() - soundIdData.starttime, soundIdData.maxLoopCount)
+
+		if GetFFlagSoundTelemetryOsClock() then
+			-- use round to truncate the number to integer
+			self.aggregatedData:addPlay(soundid, math.round(os.clock() - soundIdData.starttime), soundIdData.maxLoopCount)
+		else
+			self.aggregatedData:addPlay(soundid, os.time() - soundIdData.starttime, soundIdData.maxLoopCount)
+		end
 
 		-- Remove it since it's no longer being played
 		self.sounds[soundid] = nil

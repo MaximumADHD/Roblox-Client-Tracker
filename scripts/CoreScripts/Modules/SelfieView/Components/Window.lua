@@ -51,6 +51,7 @@ local GetFFlagSelfieViewPreviewShrinkIcon = require(SelfieViewModule.Flags.GetFF
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
 local GetFFlagSelfieViewDontStartOnOpen = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontStartOnOpen)
 local GetFFlagSelfieViewHideCameraStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewHideCameraStatusDot)
+local GetFFlagSelfieViewUseNewErrorBody = require(SelfieViewModule.Flags.GetFFlagSelfieViewUseNewErrorBody)
 local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -88,7 +89,9 @@ local function Window(props: WindowProps): React.ReactNode
 
 	local localized = useLocalization({
 		robloxPermissionErrorHeader = "CoreScripts.TopBar.RobloxPermissionErrorHeader",
-		robloxPermissionErrorBody = "CoreScripts.TopBar.RobloxPermissionErrorBody",
+		robloxPermissionErrorBody = if GetFFlagSelfieViewUseNewErrorBody()
+			then "CoreScripts.TopBar.RobloxPermissionErrorBodyTwo"
+			else "CoreScripts.TopBar.RobloxPermissionErrorBody",
 		dynamicAvatarMissingErrorHeader = "CoreScripts.TopBar.DynamicAvatarMissingErrorHeader",
 		dynamicAvatarMissingErrorBody = "CoreScripts.TopBar.DynamicAvatarMissingErrorBody",
 	})

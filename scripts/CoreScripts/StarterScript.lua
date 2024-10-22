@@ -79,7 +79,6 @@ game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
 
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
-local FFlagEnableBulkPurchaseApp = game:DefineFastFlag("EnableBulkPurchaseApp3", false)
 local FFlagEnablePremiumSponsoredExperienceReporting = game:DefineFastFlag("EnablePremiumSponsoredExperienceReporting", false)
 local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FFlagMoveUGCValidationFunctionFeature)
 local FFlagEnableCancelSubscriptionApp = game:GetEngineFeature("EnableCancelSubscriptionApp")
@@ -121,7 +120,7 @@ if FFlagEnableExperienceMenuSessionTracking then
 end
 
 
-local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 if ChromeEnabled then
 	local ExperienceChat = require(CorePackages.ExperienceChat)
@@ -492,9 +491,7 @@ if FFlagEnableSendCameraAccessAnalytics then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/SendCameraAccessAnalytics", RobloxGui)
 end
 
-if FFlagEnableBulkPurchaseApp then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/BulkPurchaseApp", RobloxGui)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/BulkPurchaseApp", RobloxGui)
 
 if AudioFocusManagementEnabled then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceAudioFocusBinder", RobloxGui)

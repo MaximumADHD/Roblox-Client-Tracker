@@ -9,9 +9,7 @@ local DEFAULT_INFO = {
 	assetTypeId = nil,
 }
 
-return Rodux.createReducer(
-	DEFAULT_INFO
-, {
+return Rodux.createReducer(DEFAULT_INFO, {
 	[SetTryingOnInfo.name] = function(state, action)
 		local newInfo = {
 			tryingOn = action.tryingOn,

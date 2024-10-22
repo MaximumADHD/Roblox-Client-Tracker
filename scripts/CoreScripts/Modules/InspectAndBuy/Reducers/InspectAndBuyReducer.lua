@@ -24,8 +24,6 @@ local CreatingExperiences = require(Reducers.CreatingExperiences)
 local Overlay = require(Reducers.Overlay)
 local InspectAndBuyFolder = script.Parent.Parent
 
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 
 return Rodux.combineReducers({
@@ -34,7 +32,7 @@ return Rodux.combineReducers({
 	playerName = PlayerName,
 	assets = Assets,
 	bundles = Bundles,
-	assetBundles = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then AssetBundles else nil,
+	assetBundles = AssetBundles,
 	equippedAssets = EquippedAssets,
 	detailsInformation = DetailsInformation,
 	tryingOnInfo = TryingOnInfo,

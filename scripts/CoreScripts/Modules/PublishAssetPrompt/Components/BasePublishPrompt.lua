@@ -318,7 +318,9 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, -TOP_BAR_HEIGHT),
 				Position = UDim2.fromOffset(0, TOP_BAR_HEIGHT),
-				Visible = not self.state.showUnsavedDataWarning and not self.props.showingPreviewView,
+				Visible = not self.state.showUnsavedDataWarning
+					and not self.props.showingPreviewView
+					and not self.props.showTopScrim,
 			}, {
 				FullPageModal = Roact.createElement(FullPageModal, {
 					title = self.props.titleText,
@@ -381,9 +383,6 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 				BackgroundTransparency = 1,
 				Visible = self.props.showTopScrim,
 			}, {
-				Overlay = Roact.createElement(Overlay, {
-					showGradient = false,
-				}),
 				InputSink = Roact.createElement("TextButton", {
 					Size = UDim2.fromScale(1, 1),
 					BackgroundTransparency = 1,

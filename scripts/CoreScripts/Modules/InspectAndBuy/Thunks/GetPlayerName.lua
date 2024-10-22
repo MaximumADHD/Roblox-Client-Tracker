@@ -6,7 +6,6 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local SetPlayerName = require(InspectAndBuyFolder.Actions.SetPlayerName)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
-local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
@@ -25,20 +24,16 @@ local function GetPlayerName(id)
 		local key = keyMapper(store:getState().storeId, id)
 
 		return PerformFetch.Single(key, function()
-			return network.getPlayerName(id):andThen(
-				function(name)
-					store:dispatch(SetPlayerName(name))
-					if GetFFlagIBEnableSendCounters() then
-						store:dispatch(SendCounter(Constants.Counters.GetPlayerName .. Constants.CounterSuffix.RequestSucceeded))
-					end
-				end,
-				if GetFFlagIBEnableSendCounters() then function(err)
-					store:dispatch(SendCounter(Constants.Counters.GetPlayerName .. Constants.CounterSuffix.RequestRejected))
-				end else nil)
+			return network.getPlayerName(id):andThen(function(name)
+				store:dispatch(SetPlayerName(name))
+				store:dispatch(
+					SendCounter(Constants.Counters.GetPlayerName .. Constants.CounterSuffix.RequestSucceeded)
+				)
+			end, function(err)
+				store:dispatch(SendCounter(Constants.Counters.GetPlayerName .. Constants.CounterSuffix.RequestRejected))
+			end)
 		end)(store):catch(function(err)
-			if GetFFlagIBEnableSendCounters() then
-				store:dispatch(SendCounter(Constants.Counters.GetPlayerName .. Constants.CounterSuffix.RequestFailed))
-			end
+			store:dispatch(SendCounter(Constants.Counters.GetPlayerName .. Constants.CounterSuffix.RequestFailed))
 		end)
 	end)
 end

@@ -44,7 +44,6 @@ local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBu
 local CloseOverlay = require(InspectAndBuyFolder.Actions.CloseOverlay)
 
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
-local GetFFlagIBFixl20HasQuantityPurchase = require(InspectAndBuyFolder.Flags.GetFFlagIBFixl20HasQuantityPurchase)
 
 local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
 
@@ -134,20 +133,17 @@ function InspectAndBuy:init()
 	self.onPromptPurchaseFinished = function(_, itemId, isPurchased)
 		local purchasedInformation = self.state.store:getState().itemBeingPurchased
 
-		if GetFFlagIBFixl20HasQuantityPurchase() then
-			self.analytics.sendCounter(Constants.Counters.PurchaseFinished)
-		end
+		self.analytics.sendCounter(Constants.Counters.PurchaseFinished)
 		if isPurchased and tostring(itemId) == purchasedInformation.itemId then
 			self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
 			self.state.store:dispatch(UpdateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType))
-			if GetFFlagIBFixl20HasQuantityPurchase() then
-				if purchasedInformation.itemType == Constants.ItemType.Asset then
-					self.analytics.sendCounter(Constants.Counters.PurchaseSucceededAsset)
-				elseif purchasedInformation.itemType == Constants.ItemType.Bundle then
-					self.analytics.sendCounter(Constants.Counters.PurchaseSucceededBundle)
-				else
-					self.analytics.sendCounter(Constants.Counters.PurchaseSucceededOther)
-				end
+
+			if purchasedInformation.itemType == Constants.ItemType.Asset then
+				self.analytics.sendCounter(Constants.Counters.PurchaseSucceededAsset)
+			elseif purchasedInformation.itemType == Constants.ItemType.Bundle then
+				self.analytics.sendCounter(Constants.Counters.PurchaseSucceededBundle)
+			else
+				self.analytics.sendCounter(Constants.Counters.PurchaseSucceededOther)
 			end
 		end
 		self.state.store:dispatch(SetItemBeingPurchased(nil, nil))

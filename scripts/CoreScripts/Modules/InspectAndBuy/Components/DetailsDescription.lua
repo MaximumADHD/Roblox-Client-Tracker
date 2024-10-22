@@ -7,10 +7,8 @@ local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
-local FFlagAssetDetailsUseAutomaticCanvasSize = require(InspectAndBuyFolder.Flags.FFlagAssetDetailsUseAutomaticCanvasSize)
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
-local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
+local FFlagAssetDetailsUseAutomaticCanvasSize =
+	require(InspectAndBuyFolder.Flags.FFlagAssetDetailsUseAutomaticCanvasSize)
 
 local TEXT_SIZE_SMALL = 16
 local DETAILS_SIZES = 451
@@ -23,14 +21,8 @@ local DetailsDescription = Roact.PureComponent:extend("DetailsDescription")
 ]]
 function DetailsDescription:setText()
 	local assetInfo = self.props.assetInfo or {}
-	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
-	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-		partOfBundle = assetInfo.parentBundleId ~= nil
-	end
-	local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-	if GetFFlagIBEnableLimitedBundle() then
-		partOfBundleAndOffsale = partOfBundle
-	end
+	local partOfBundle = assetInfo.parentBundleId ~= nil
+	local partOfBundleAndOffsale = partOfBundle
 	local bundleInfo = self.props.bundleInfo or {}
 
 	if partOfBundleAndOffsale then
@@ -69,8 +61,12 @@ end
 
 function DetailsDescription:calculateSize()
 	if self.descriptionRef.current and self.props.assetInfo then
-		local size = TextService:GetTextSize(self.description,
-			TEXT_SIZE_SMALL, AppFonts.default:getDefault(), Vector2.new(self.descriptionRef.current.AbsoluteSize.X, 5000)).Y
+		local size = TextService:GetTextSize(
+			self.description,
+			TEXT_SIZE_SMALL,
+			AppFonts.default:getDefault(),
+			Vector2.new(self.descriptionRef.current.AbsoluteSize.X, 5000)
+		).Y
 		if not FFlagAssetDetailsUseAutomaticCanvasSize then
 			self.descriptionRef.current.Parent.CanvasSize = UDim2.new(1, 0, 0, DETAILS_SIZES + size)
 		end
@@ -78,15 +74,13 @@ function DetailsDescription:calculateSize()
 	end
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		return {
-			view = state.view,
-			assetInfo = state.assets[assetId],
-			detailsInformation = state.detailsInformation,
-			bundleInfo = state.bundles,
-		}
-	end
-)(DetailsDescription)
+	return {
+		view = state.view,
+		assetInfo = state.assets[assetId],
+		detailsInformation = state.detailsInformation,
+		bundleInfo = state.bundles,
+	}
+end)(DetailsDescription)

@@ -38,7 +38,7 @@ function NoInventoryNotice:render()
 		}, {
 			UIAspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {
 				AspectRatio = 1,
-			})
+			}),
 		}),
 		NotWearingText = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
@@ -55,17 +55,15 @@ function NoInventoryNotice:render()
 		}, {
 			UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
 				MaxTextSize = 20,
-			})
-		})
+			}),
+		}),
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			assets = state.assets,
-			locale = state.locale,
-			isLoaded = state.isLoaded,
-		}
-	end
-)(NoInventoryNotice)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		assets = state.assets,
+		locale = state.locale,
+		isLoaded = state.isLoaded,
+	}
+end)(NoInventoryNotice)

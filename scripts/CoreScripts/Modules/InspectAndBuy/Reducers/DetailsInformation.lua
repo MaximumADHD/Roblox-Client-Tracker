@@ -8,9 +8,7 @@ local DEFAULT_INFORMATION = {
 	assetId = nil,
 }
 
-return Rodux.createReducer(
-	DEFAULT_INFORMATION
-, {
+return Rodux.createReducer(DEFAULT_INFORMATION, {
 	[SetDetailsInformation.name] = function(state, action)
 		local newInformation = {
 			viewingDetails = action.viewingDetails,

@@ -147,6 +147,82 @@ end
 
 OpenCloudService:RegisterOpenCloud("v2", "GetUniverse", getUniverse)
 
+function verifyTranslateTextRequest(translateTextRequest, argumentName) : any
+    if translateTextRequest == nil then
+        return nil
+    end
+    
+    local res = verifyTable(translateTextRequest, argumentName)
+    if res ~= nil then
+        return res
+    end
+    
+    if translateTextRequest.path == nil then
+        return InvalidArgumentError(`Required argument was not provided: {argumentName}.path.`)
+    end
+    res = verifyString(translateTextRequest.path, `{argumentName}.path`)
+    if res ~= nil then
+        return res
+    end
+    
+    if translateTextRequest.text == nil then
+        return InvalidArgumentError(`Required argument was not provided: {argumentName}.text.`)
+    end
+    res = verifyString(translateTextRequest.text, `{argumentName}.text`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyString(translateTextRequest.sourceLanguageCode, `{argumentName}.sourceLanguageCode`)
+    if res ~= nil then
+        return res
+    end
+    
+    for index, value in translateTextRequest.targetLanguageCodes do
+        res = verifyString(value, `{argumentName}.targetLanguageCodes[{index}]`)
+        if res ~= nil then
+            return res
+        end
+    end
+    
+    return nil
+end
+
+function translateTextUrl(translateTextRequest : any) : string
+    if translateTextRequest.path == nil then
+        return InvalidArgumentError(`URL parameter provided was nil: translateTextRequest.path.`)
+    end
+    if string.match(translateTextRequest.path, "^universes/([^/]+)$") == nil then
+        return InvalidArgumentError(`URL parameter was not formatted correctly: translateTextRequest.path.`)
+    end
+    
+    local url = string.format("%s%s/cloud/v2/%s:translateText", getApisUrl(), getUrlPrefix(), tostring(translateTextRequest.path))
+    
+    return url
+end
+
+function translateText(translateTextRequest : any)
+    if translateTextRequest == nil then
+        return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
+    end
+    
+    local res = verifyTranslateTextRequest(translateTextRequest, `translateTextRequest`)
+    if res ~= nil then
+        return res
+    end
+    
+    local url = translateTextUrl(translateTextRequest)
+    if typeof(url) ~= STRING_TYPE then
+        return url
+    end
+    
+    local bodyString = HttpService:JSONEncode(translateTextRequest)
+    
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "POST", [BODY] = bodyString})
+end
+
+OpenCloudService:RegisterOpenCloud("v2", "TranslateText", translateText)
+
 function verifyGetPlaceRequest(getPlaceRequest, argumentName) : any
     if getPlaceRequest == nil then
         return nil

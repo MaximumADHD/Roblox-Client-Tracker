@@ -35,8 +35,6 @@ local GetFFlagDisableChromeV3DockedMic = require(script.Parent.Flags.GetFFlagDis
 local GetFFlagDisableChromeV4Baseline = require(script.Parent.Flags.GetFFlagDisableChromeV4Baseline)()
 local GetFFlagDisableChromeV4ClosedSelfView = require(script.Parent.Flags.GetFFlagDisableChromeV4ClosedSelfView)()
 
-local GetFFlagSongbirdIXPVariants = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdIXPVariants
-
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
@@ -233,7 +231,6 @@ function ExperienceMenuABTestManager.chromeV4ClosedSelfViewVersionId()
 	return MENU_VERSION_CHROME_V4_ENUM.CLOSED_SELF_VIEW
 end
 
-if GetFFlagSongbirdIXPVariants() then
 	function ExperienceMenuABTestManager.chromeSongbirdVersionId()
 		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD
 	end
@@ -249,7 +246,6 @@ if GetFFlagSongbirdIXPVariants() then
 	function ExperienceMenuABTestManager.sceneAnalysisVersionId()
 		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_SCENE_ANALYSIS
 	end
-end
 
 function parseCountData(data)
 	if not data or typeof(data) ~= "string" then
@@ -326,7 +322,7 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 	end
 
 	-- Chrome should always be enabled for someone in v4 treatment to respect the clean treatment holdout
-	for _, version in MENU_VERSION_CHROME_V4_ENUM do 
+	for _, version in MENU_VERSION_CHROME_V4_ENUM do
 		if self:getVersion() == version then
 			return true
 		end
@@ -350,15 +346,14 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 		end
 	end
 
-	if GetFFlagSongbirdIXPVariants() then
-		for _, version in MENU_VERSION_SONGBIRD_ENUM do
-			if version == self.sceneAnalysisVersionId() then
-				continue
-			end
+	for _, version in MENU_VERSION_SONGBIRD_ENUM do
+		-- TODO MUS-1476: Ensure Chrome is always enabled
+		if version == self.sceneAnalysisVersionId() then
+			continue
+		end
 
-			if self:getVersion() == version then
-				return true
-			end
+		if self:getVersion() == version then
+			return true
 		end
 	end
 
@@ -425,7 +420,6 @@ function ExperienceMenuABTestManager:shouldCloseSelfViewAtStartup()
 	return self:getVersion() == MENU_VERSION_CHROME_V4_ENUM.CLOSED_SELF_VIEW
 end
 
-if GetFFlagSongbirdIXPVariants() then
 	function ExperienceMenuABTestManager:shouldEnableSceneAnalysis()
 		local version = self:getVersion()
 		return version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD
@@ -443,7 +437,6 @@ if GetFFlagSongbirdIXPVariants() then
 		local version = self:getVersion()
 		return version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK
 	end
-end
 
 -- this is called on the assumption that IXP layers are initialized
 function ExperienceMenuABTestManager:initialize()

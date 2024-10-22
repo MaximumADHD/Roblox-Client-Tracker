@@ -26,6 +26,7 @@ local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismiss
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
+local GetFFlagSelfieViewUseNewErrorBody = require(SelfieViewModule.Flags.GetFFlagSelfieViewUseNewErrorBody)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -41,7 +42,9 @@ export type IconProps = {
 local function Icon(props: IconProps): React.ReactNode
 	local localized = useLocalization({
 		robloxPermissionErrorHeader = "CoreScripts.TopBar.RobloxPermissionErrorHeader",
-		robloxPermissionErrorBody = "CoreScripts.TopBar.RobloxPermissionErrorBody",
+		robloxPermissionErrorBody = if GetFFlagSelfieViewUseNewErrorBody()
+			then "CoreScripts.TopBar.RobloxPermissionErrorBodyTwo"
+			else "CoreScripts.TopBar.RobloxPermissionErrorBody",
 		dynamicAvatarMissingErrorHeader = "CoreScripts.TopBar.DynamicAvatarMissingErrorHeader",
 		dynamicAvatarMissingErrorBody = "CoreScripts.TopBar.DynamicAvatarMissingErrorBody",
 	})

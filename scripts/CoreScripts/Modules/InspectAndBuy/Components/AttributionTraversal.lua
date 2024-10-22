@@ -80,7 +80,12 @@ local function AttributionTraversal(props)
 					ExperienceThumbnail = React.createElement(ImageSetLabel, {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.fromScale(0.5, 0.5),
-						Image = string.format("rbxthumb://type=GameIcon&id=%s&w=%d&h=%d", tostring(props.universeId), THUMBNAIL_HEIGHT, THUMBNAIL_HEIGHT),
+						Image = string.format(
+							"rbxthumb://type=GameIcon&id=%s&w=%d&h=%d",
+							tostring(props.universeId),
+							THUMBNAIL_HEIGHT,
+							THUMBNAIL_HEIGHT
+						),
 						Size = UDim2.fromScale(1, 1),
 						BorderSizePixel = 0,
 						BackgroundTransparency = 1,

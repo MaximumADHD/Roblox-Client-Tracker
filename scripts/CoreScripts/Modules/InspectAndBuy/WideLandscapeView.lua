@@ -33,14 +33,11 @@ local WideLandscapeView = {
 	AssetTextMaxSize = 14,
 }
 
-setmetatable(WideLandscapeView,
-	{
-		__newindex = function(t, key, index)
-		end,
-		__index = function(t, index)
-			error("WideLandscapeView table has no value: " .. tostring(index))
-		end
-	}
-)
+setmetatable(WideLandscapeView, {
+	__newindex = function(t, key, index) end,
+	__index = function(t, index)
+		error("WideLandscapeView table has no value: " .. tostring(index))
+	end,
+})
 
 return WideLandscapeView

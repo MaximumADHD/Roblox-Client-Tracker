@@ -1,13 +1,8 @@
 local Colors = require(script.Parent.Colors)
 local TopBarConstants = require(script.Parent.Parent.TopBar.Constants)
---[[
-	TODO: when remove flag FFlagDisableUseContainerAspectRatio, all UseContainerAspectRatio will be false.
-	It's okay to remove related code in the Container.lua.
-]]
-local FFlagDisableUseContainerAspectRatio = game:DefineFastFlag("DisableUseContainerAspectRatio", false)
 
 local WideView = {
-	UseContainerAspectRatio = if FFlagDisableUseContainerAspectRatio then false else true,
+	UseContainerAspectRatio = false,
 	ContainerBackgroundTransparency = 0.3,
 	ContainerBackgroundColor = Colors.Black,
 	ContainerAspectRatio = 0.9,
@@ -39,14 +34,11 @@ local WideView = {
 	AssetTextMaxSize = 18,
 }
 
-setmetatable(WideView,
-	{
-		__newindex = function(t, key, index)
-		end,
-		__index = function(t, index)
-			error("WideView table has no value: " .. tostring(index))
-		end
-	}
-)
+setmetatable(WideView, {
+	__newindex = function(t, key, index) end,
+	__index = function(t, index)
+		error("WideView table has no value: " .. tostring(index))
+	end,
+})
 
 return WideView

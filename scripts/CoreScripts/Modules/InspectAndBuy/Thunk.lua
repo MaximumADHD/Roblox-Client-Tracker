@@ -28,9 +28,7 @@ function Thunk.middleware(services)
 					local providedService = services[service]
 
 					if providedService == nil then
-						error((
-							"Service with key %s is a dependency but was not provided"
-						):format(service))
+						error(("Service with key %s is a dependency but was not provided"):format(service))
 					end
 
 					injectedServices[service] = providedService
@@ -52,8 +50,10 @@ end
 
 function Thunk.new(name, requiredServices, onInvoke)
 	assert(typeof(name) == "string", "Bad arg #1: name must be a string")
-	assert(requiredServices == nil or typeof(requiredServices) == "table",
-		"Bad arg #2: requiredServices must be a table or nil")
+	assert(
+		requiredServices == nil or typeof(requiredServices) == "table",
+		"Bad arg #2: requiredServices must be a table or nil"
+	)
 	assert(typeof(onInvoke) == "function", "Bad arg #3: onInvoke must be a function")
 
 	requiredServices = requiredServices or {}
@@ -70,13 +70,14 @@ function Thunk.new(name, requiredServices, onInvoke)
 end
 
 function Thunk.test(thunk, store, providedServices)
-	assert(typeof(thunk) == "table" and thunk[ThunkTag] == true,
-		"Test Error - Bad arg #1: Must provide a valid thunk")
+	assert(typeof(thunk) == "table" and thunk[ThunkTag] == true, "Test Error - Bad arg #1: Must provide a valid thunk")
 
 	if #thunk.requiredServices > 0 then
 		for _, service in ipairs(thunk.requiredServices) do
-			assert(providedServices[service] ~= nil,
-				"Test Error - Bad arg #3: Missing required service "..tostring(service))
+			assert(
+				providedServices[service] ~= nil,
+				"Test Error - Bad arg #3: Missing required service " .. tostring(service)
+			)
 		end
 	end
 

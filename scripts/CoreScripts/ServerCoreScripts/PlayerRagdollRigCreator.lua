@@ -9,14 +9,12 @@ local CommonModules = CoreGuiModules:FindFirstChild("Common")
 local avatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 local avatarJointUpgradeDefaultOn = game:GetEngineFeature("AvatarJointUpgradeDefaultOnFeature")
 local function jointUpgradeActive()
-	if avatarJointUpgrade then
-		if avatarJointUpgradeDefaultOn then
-			return StarterPlayer.AvatarJointUpgrade ~= Enum.AvatarJointUpgrade.Disabled
-		else
-			return StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled
-		end
-	end
-	return false
+	-- The joint upgrade should actually depend on the rollout state on StarterPlayer.AvatarJointUpgrade.
+	-- However, I want to switch that property type from Enum.AvatarJointUpgrade to the generic Enum.RolloutState
+	-- AND the lua implementation of the AJU is being deprecated in favor of the C++ implementation (pull/89934).
+	-- I don't want to completely remove the lua implementation until the C++ implementation yet, so to change the
+	-- rollout property, we'll temporarily use some simpler logic for the lua implementation.
+	return avatarJointUpgrade and avatarJointUpgradeDefaultOn
 end
 
 local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))

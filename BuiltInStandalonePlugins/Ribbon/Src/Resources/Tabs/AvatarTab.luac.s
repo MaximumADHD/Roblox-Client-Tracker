@@ -15,7 +15,7 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R1 K10 ["fromAction"]
   GETTABLEKS R4 R1 K11 ["fromSetting"]
-  NEWTABLE R5 0 17
+  NEWTABLE R5 0 15
   DUPTABLE R6 K15 [{"Id", "Type", "Action"}]
   LOADK R7 K16 ["Select"]
   SETTABLEKS R7 R6 K12 ["Id"]
@@ -246,33 +246,5 @@ MAIN:
   LOADK R23 K57 ["Create"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K14 ["Action"]
-  DUPTABLE R21 K24 [{"Type", "Size"}]
-  LOADK R22 K25 ["Separator"]
-  SETTABLEKS R22 R21 K13 ["Type"]
-  LOADK R22 K26 ["Large"]
-  SETTABLEKS R22 R21 K23 ["Size"]
-  SETLIST R5 R6 16 [1]
-  DUPTABLE R6 K60 [{"Id", "Type", "Action", "DEPRECATED_FastFlag", "FastFlag"}]
-  LOADK R22 K61 ["R15Migrator"]
-  SETTABLEKS R22 R6 K12 ["Id"]
-  LOADK R22 K17 ["IconButton"]
-  SETTABLEKS R22 R6 K13 ["Type"]
-  MOVE R22 R3
-  LOADK R23 K61 ["R15Migrator"]
-  LOADK R24 K49 ["Toggle"]
-  CALL R22 2 1
-  SETTABLEKS R22 R6 K14 ["Action"]
-  DUPTABLE R22 K63 [{"EnableIfAll"}]
-  NEWTABLE R23 0 1
-  LOADK R24 K64 ["DebugR15MigratorPlugin"]
-  SETLIST R23 R24 1 [1]
-  SETTABLEKS R23 R22 K62 ["EnableIfAll"]
-  SETTABLEKS R22 R6 K58 ["DEPRECATED_FastFlag"]
-  DUPTABLE R22 K63 [{"EnableIfAll"}]
-  NEWTABLE R23 0 1
-  LOADK R24 K64 ["DebugR15MigratorPlugin"]
-  SETLIST R23 R24 1 [1]
-  SETTABLEKS R23 R22 K62 ["EnableIfAll"]
-  SETTABLEKS R22 R6 K59 ["FastFlag"]
-  SETLIST R5 R6 1 [17]
+  SETLIST R5 R6 15 [1]
   RETURN R5 1

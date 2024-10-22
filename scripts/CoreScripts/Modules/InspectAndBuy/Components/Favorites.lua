@@ -9,9 +9,6 @@ local GetAssetFavoriteCount = require(InspectAndBuyFolder.Thunks.GetAssetFavorit
 local GetBundleFavoriteCount = require(InspectAndBuyFolder.Thunks.GetBundleFavoriteCount)
 local GotCurrentFavoriteCount = require(InspectAndBuyFolder.Selectors.GotCurrentFavoriteCount)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
-local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
-	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
-local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local FAVORITES_SIZE = 16
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
@@ -24,14 +21,8 @@ local Favorites = Roact.PureComponent:extend("Favorites")
 ]]
 function Favorites:setText()
 	local assetInfo = self.props.assetInfo or {}
-	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 0
-	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-		partOfBundle = assetInfo.parentBundleId ~= nil
-	end
-	local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-	if GetFFlagIBEnableLimitedBundle() then
-		partOfBundleAndOffsale = partOfBundle
-	end
+	local partOfBundle = assetInfo.parentBundleId ~= nil
+	local partOfBundleAndOffsale = partOfBundle
 	local bundleInfo = self.props.bundleInfo
 
 	if partOfBundleAndOffsale then
@@ -55,22 +46,12 @@ function Favorites:willUpdate(nextProps)
 
 	-- We need to check if this asset is in any bundles, so that web call
 	-- needs to be completed first.
-	local bundleLoaded = nextProps.assetInfo and nextProps.assetInfo.bundlesAssetIsIn
-	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-		bundleLoaded = nextProps.assetInfo
-	end
+	local bundleLoaded = nextProps.assetInfo
 	if bundleLoaded then
 		local assetInfo = nextProps.assetInfo
-		local partOfBundle
-		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
-			partOfBundle = assetInfo.parentBundleId ~= nil
-		else
-			partOfBundle = #assetInfo.bundlesAssetIsIn > 0
-		end
-		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-		if GetFFlagIBEnableLimitedBundle() then
-			partOfBundleAndOffsale = partOfBundle
-		end
+		local partOfBundle = assetInfo.parentBundleId ~= nil
+		local partOfBundleAndOffsale = partOfBundle
+
 		local gotCurrentFavoriteCount = nextProps.gotCurrentFavoriteCount
 
 		if not gotCurrentFavoriteCount then
@@ -110,7 +91,7 @@ function Favorites:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextSize = 12,
 			TextColor3 = Color3.new(1, 1, 1),
-		})
+		}),
 	})
 end
 
@@ -122,25 +103,22 @@ function Favorites:shouldUpdate(nextProps)
 	return true
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		return {
-			detailsInformation = state.detailsInformation,
-			assetInfo = state.assets[assetId],
-			bundleInfo = state.bundles,
-			gotCurrentFavoriteCount = GotCurrentFavoriteCount(state),
-		}
-	end,
-	function(dispatch)
-		return {
-			getAssetFavoriteCount = function(assetId)
-				dispatch(GetAssetFavoriteCount(assetId))
-			end,
-			getBundleFavoriteCount = function(bundleId)
-				dispatch(GetBundleFavoriteCount(bundleId))
-			end,
-		}
-	end
-)(Favorites)
+	return {
+		detailsInformation = state.detailsInformation,
+		assetInfo = state.assets[assetId],
+		bundleInfo = state.bundles,
+		gotCurrentFavoriteCount = GotCurrentFavoriteCount(state),
+	}
+end, function(dispatch)
+	return {
+		getAssetFavoriteCount = function(assetId)
+			dispatch(GetAssetFavoriteCount(assetId))
+		end,
+		getBundleFavoriteCount = function(bundleId)
+			dispatch(GetBundleFavoriteCount(bundleId))
+		end,
+	}
+end)(Favorites)

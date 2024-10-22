@@ -49,164 +49,170 @@ PROTO_4:
   NEWTABLE R5 0 1
   GETTABLEKS R8 R0 K2 ["Annotation"]
   GETTABLEKS R7 R8 K5 ["Parent"]
-  JUMPIFNOT R7 [+37]
+  JUMPIFNOT R7 [+47]
   GETTABLEKS R8 R0 K2 ["Annotation"]
   GETTABLEKS R7 R8 K5 ["Parent"]
   LOADK R9 K2 ["Annotation"]
   NAMECALL R7 R7 K6 ["IsA"]
   CALL R7 2 1
-  JUMPIFNOT R7 [+28]
+  JUMPIFNOT R7 [+38]
+  GETTABLEKS R8 R0 K2 ["Annotation"]
+  GETTABLEKS R7 R8 K3 ["AuthorId"]
+  GETUPVAL R8 3
+  NAMECALL R8 R8 K7 ["GetUserId"]
+  CALL R8 1 1
+  JUMPIFNOTEQ R7 R8 [+29]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["createElement"]
-  LOADK R7 K8 ["TextButton"]
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  LOADK R7 K9 ["TextButton"]
   NEWTABLE R8 4 0
-  LOADK R11 K9 ["Dropdown"]
-  LOADK R12 K10 ["Delete"]
-  NAMECALL R9 R3 K11 ["getText"]
+  LOADK R11 K10 ["Dropdown"]
+  LOADK R12 K11 ["Delete"]
+  NAMECALL R9 R3 K12 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K12 ["Text"]
+  SETTABLEKS R9 R8 K13 ["Text"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K13 ["Event"]
-  GETTABLEKS R9 R10 K14 ["Activated"]
+  GETTABLEKS R10 R11 K14 ["Event"]
+  GETTABLEKS R9 R10 K15 ["Activated"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R0
   SETTABLE R10 R8 R9
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K15 ["Tag"]
-  LOADK R10 K16 ["Component-DropdownItem Delete"]
+  GETTABLEKS R9 R10 K16 ["Tag"]
+  LOADK R10 K17 ["Component-DropdownItem Delete"]
   SETTABLE R10 R8 R9
   CALL R6 2 1
   JUMP [+1]
   LOADNIL R6
   SETLIST R5 R6 1 [1]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["createElement"]
-  LOADK R7 K17 ["Frame"]
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  LOADK R7 K18 ["Frame"]
   NEWTABLE R8 4 0
-  GETTABLEKS R9 R0 K18 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K18 ["LayoutOrder"]
+  GETTABLEKS R9 R0 K19 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K19 ["LayoutOrder"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K13 ["Event"]
-  GETTABLEKS R9 R10 K19 ["MouseEnter"]
+  GETTABLEKS R10 R11 K14 ["Event"]
+  GETTABLEKS R9 R10 K20 ["MouseEnter"]
   NEWCLOSURE R10 P1
   CAPTURE VAL R2
   SETTABLE R10 R8 R9
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K13 ["Event"]
-  GETTABLEKS R9 R10 K20 ["MouseLeave"]
+  GETTABLEKS R10 R11 K14 ["Event"]
+  GETTABLEKS R9 R10 K21 ["MouseLeave"]
   NEWCLOSURE R10 P2
   CAPTURE VAL R2
   SETTABLE R10 R8 R9
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K15 ["Tag"]
-  LOADK R10 K21 ["Component-AnnotationContents X-RowM"]
+  GETTABLEKS R9 R10 K16 ["Tag"]
+  LOADK R10 K22 ["Component-AnnotationContents X-RowM"]
   SETTABLE R10 R8 R9
-  DUPTABLE R9 K24 [{"Avatar", "TextColumn"}]
+  DUPTABLE R9 K25 [{"Avatar", "TextColumn"}]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K7 ["createElement"]
-  LOADK R11 K25 ["ImageLabel"]
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  LOADK R11 K26 ["ImageLabel"]
   NEWTABLE R12 4 0
-  LOADK R14 K26 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=150&h=150"]
+  LOADK R14 K27 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=150&h=150"]
   GETTABLEKS R17 R0 K2 ["Annotation"]
   GETTABLEKS R16 R17 K3 ["AuthorId"]
-  NAMECALL R14 R14 K27 ["format"]
+  NAMECALL R14 R14 K28 ["format"]
   CALL R14 2 1
   MOVE R13 R14
-  SETTABLEKS R13 R12 K28 ["Image"]
+  SETTABLEKS R13 R12 K29 ["Image"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K18 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K19 ["LayoutOrder"]
   GETUPVAL R14 0
-  GETTABLEKS R13 R14 K15 ["Tag"]
-  LOADK R14 K29 ["Component-Avatar"]
+  GETTABLEKS R13 R14 K16 ["Tag"]
+  LOADK R14 K30 ["Component-Avatar"]
   SETTABLE R14 R12 R13
   CALL R10 2 1
-  SETTABLEKS R10 R9 K22 ["Avatar"]
+  SETTABLEKS R10 R9 K23 ["Avatar"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K7 ["createElement"]
-  LOADK R11 K17 ["Frame"]
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  LOADK R11 K18 ["Frame"]
   NEWTABLE R12 2 0
   LOADN R13 1
-  SETTABLEKS R13 R12 K18 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K19 ["LayoutOrder"]
   GETUPVAL R14 0
-  GETTABLEKS R13 R14 K15 ["Tag"]
-  LOADK R14 K30 ["X-ColumnM"]
+  GETTABLEKS R13 R14 K16 ["Tag"]
+  LOADK R14 K31 ["X-ColumnM"]
   SETTABLE R14 R12 R13
-  DUPTABLE R13 K33 [{"UsernameRow", "Contents"}]
+  DUPTABLE R13 K34 [{"UsernameRow", "Contents"}]
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K7 ["createElement"]
-  LOADK R15 K17 ["Frame"]
-  DUPTABLE R16 K34 [{"LayoutOrder"}]
+  GETTABLEKS R14 R15 K8 ["createElement"]
+  LOADK R15 K18 ["Frame"]
+  DUPTABLE R16 K35 [{"LayoutOrder"}]
   LOADN R17 0
-  SETTABLEKS R17 R16 K18 ["LayoutOrder"]
-  DUPTABLE R17 K37 [{"LeftAligned", "MoreIcon"}]
+  SETTABLEKS R17 R16 K19 ["LayoutOrder"]
+  DUPTABLE R17 K38 [{"LeftAligned", "MoreIcon"}]
   GETUPVAL R19 0
-  GETTABLEKS R18 R19 K7 ["createElement"]
-  LOADK R19 K17 ["Frame"]
+  GETTABLEKS R18 R19 K8 ["createElement"]
+  LOADK R19 K18 ["Frame"]
   NEWTABLE R20 1 0
   GETUPVAL R22 0
-  GETTABLEKS R21 R22 K15 ["Tag"]
-  LOADK R22 K38 ["X-RowM X-Middle"]
+  GETTABLEKS R21 R22 K16 ["Tag"]
+  LOADK R22 K39 ["X-RowM X-Middle"]
   SETTABLE R22 R20 R21
-  DUPTABLE R21 K41 [{"Username", "CreationTime"}]
+  DUPTABLE R21 K42 [{"Username", "CreationTime"}]
   GETUPVAL R23 0
-  GETTABLEKS R22 R23 K7 ["createElement"]
-  LOADK R23 K42 ["TextLabel"]
-  DUPTABLE R24 K43 [{"Text", "LayoutOrder"}]
-  SETTABLEKS R4 R24 K12 ["Text"]
+  GETTABLEKS R22 R23 K8 ["createElement"]
+  LOADK R23 K43 ["TextLabel"]
+  DUPTABLE R24 K44 [{"Text", "LayoutOrder"}]
+  SETTABLEKS R4 R24 K13 ["Text"]
   LOADN R25 0
-  SETTABLEKS R25 R24 K18 ["LayoutOrder"]
+  SETTABLEKS R25 R24 K19 ["LayoutOrder"]
   CALL R22 2 1
-  SETTABLEKS R22 R21 K39 ["Username"]
+  SETTABLEKS R22 R21 K40 ["Username"]
   GETUPVAL R23 0
-  GETTABLEKS R22 R23 K7 ["createElement"]
-  LOADK R23 K42 ["TextLabel"]
-  DUPTABLE R24 K43 [{"Text", "LayoutOrder"}]
+  GETTABLEKS R22 R23 K8 ["createElement"]
+  LOADK R23 K43 ["TextLabel"]
+  DUPTABLE R24 K44 [{"Text", "LayoutOrder"}]
   GETTABLEKS R27 R0 K2 ["Annotation"]
-  GETTABLEKS R26 R27 K44 ["CreationTimeUnix"]
-  NAMECALL R27 R3 K45 ["getLocale"]
+  GETTABLEKS R26 R27 K45 ["CreationTimeUnix"]
+  NAMECALL R27 R3 K46 ["getLocale"]
   CALL R27 1 1
-  GETIMPORT R28 K48 [DateTime.fromUnixTimestamp]
+  GETIMPORT R28 K49 [DateTime.fromUnixTimestamp]
   MOVE R29 R26
   CALL R28 1 1
-  LOADK R31 K49 ["LT MMM D"]
+  LOADK R31 K50 ["LT MMM D"]
   MOVE R32 R27
-  NAMECALL R29 R28 K50 ["FormatLocalTime"]
+  NAMECALL R29 R28 K51 ["FormatLocalTime"]
   CALL R29 3 1
   MOVE R25 R29
-  SETTABLEKS R25 R24 K12 ["Text"]
+  SETTABLEKS R25 R24 K13 ["Text"]
   LOADN R25 1
-  SETTABLEKS R25 R24 K18 ["LayoutOrder"]
+  SETTABLEKS R25 R24 K19 ["LayoutOrder"]
   CALL R22 2 1
-  SETTABLEKS R22 R21 K40 ["CreationTime"]
+  SETTABLEKS R22 R21 K41 ["CreationTime"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K35 ["LeftAligned"]
+  SETTABLEKS R18 R17 K36 ["LeftAligned"]
   LENGTH R19 R5
-  JUMPIFEQKN R19 K51 [0] [+11]
+  JUMPIFEQKN R19 K52 [0] [+11]
   JUMPIFNOT R1 [+9]
   GETUPVAL R19 0
-  GETTABLEKS R18 R19 K7 ["createElement"]
-  GETUPVAL R19 3
-  DUPTABLE R20 K53 [{"DropdownItems"}]
-  SETTABLEKS R5 R20 K52 ["DropdownItems"]
+  GETTABLEKS R18 R19 K8 ["createElement"]
+  GETUPVAL R19 4
+  DUPTABLE R20 K54 [{"DropdownItems"}]
+  SETTABLEKS R5 R20 K53 ["DropdownItems"]
   CALL R18 2 1
   JUMP [+1]
   LOADNIL R18
-  SETTABLEKS R18 R17 K36 ["MoreIcon"]
+  SETTABLEKS R18 R17 K37 ["MoreIcon"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K31 ["UsernameRow"]
+  SETTABLEKS R14 R13 K32 ["UsernameRow"]
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K7 ["createElement"]
-  LOADK R15 K42 ["TextLabel"]
-  DUPTABLE R16 K54 [{"LayoutOrder", "Text"}]
+  GETTABLEKS R14 R15 K8 ["createElement"]
+  LOADK R15 K43 ["TextLabel"]
+  DUPTABLE R16 K55 [{"LayoutOrder", "Text"}]
   LOADN R17 1
-  SETTABLEKS R17 R16 K18 ["LayoutOrder"]
+  SETTABLEKS R17 R16 K19 ["LayoutOrder"]
   GETTABLEKS R18 R0 K2 ["Annotation"]
-  GETTABLEKS R17 R18 K32 ["Contents"]
-  SETTABLEKS R17 R16 K12 ["Text"]
+  GETTABLEKS R17 R18 K33 ["Contents"]
+  SETTABLEKS R17 R16 K13 ["Text"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K32 ["Contents"]
+  SETTABLEKS R14 R13 K33 ["Contents"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K23 ["TextColumn"]
+  SETTABLEKS R10 R9 K24 ["TextColumn"]
   CALL R6 3 -1
   RETURN R6 -1
 
@@ -240,10 +246,15 @@ MAIN:
   GETTABLEKS R9 R10 K15 ["Contexts"]
   GETTABLEKS R8 R9 K16 ["UsernameContext"]
   CALL R7 1 1
-  DUPCLOSURE R8 K17 [PROTO_0]
-  DUPCLOSURE R9 K18 [PROTO_4]
+  GETIMPORT R8 K18 [game]
+  LOADK R10 K19 ["StudioService"]
+  NAMECALL R8 R8 K20 ["GetService"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K21 [PROTO_0]
+  DUPCLOSURE R10 K22 [PROTO_4]
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R7
+  CAPTURE VAL R8
   CAPTURE VAL R6
-  RETURN R9 1
+  RETURN R10 1
