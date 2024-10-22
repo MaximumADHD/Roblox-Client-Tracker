@@ -1,0 +1,64 @@
+[package]
+name = "IAPExperience"
+version = "1.0.1"
+readme = "README.md"
+content_root = "src"
+files = [
+    "*",
+    "!*.spec.lua",
+    "!*.story.lua",
+    "!*.storybook.lua",
+]
+publish = true
+license = "MIT"
+[dependencies.Cryo]
+target = "https://github.com/roblox/cryo"
+version = "^1.1.0"
+
+[dependencies.Otter]
+target = "https://github.com/roblox/otter"
+version = "^0.1.4"
+
+[dependencies.React]
+target = "https://github.com/roblox/roact-alignment"
+version = "^17.0.1-rc.16"
+
+[dependencies.ReactOtter]
+target = "https://github.com/roblox/otter"
+version = "^1.1"
+
+[dependencies.Roact]
+target = "https://github.com/roblox/roact-alignment"
+package = "RoactCompat"
+version = "^17.0.1-rc.12"
+
+[dependencies.RoactFitComponents]
+target = "https://github.com/roblox/roact-fit-components"
+version = "^2.0"
+
+[dependencies.RoactGamepad]
+target = "https://github.com/roblox/roact-gamepad"
+version = "^0.5.11"
+
+[dependencies.Thumbnailing]
+target = "https://github.com/roblox/thumbnailing"
+version = "^0.3.0"
+
+[dependencies.UIBlox]
+target = "https://github.com/roblox/uiblox"
+version = "^0.2.1"
+
+[dependencies.enumerate]
+target = "https://github.com/roblox/enumerate"
+version = "^1.0.0"
+
+[dependencies.t]
+target = "https://github.com/roblox/t"
+version = "^1.2.5"
+[dev_dependencies.Rhodium]
+target = "https://github.com/roblox/rhodium"
+version = "^0.2.5"
+
+[dev_dependencies.TestEZ]
+target = "https://github.com/roblox/testez"
+version = "^0.4.1"

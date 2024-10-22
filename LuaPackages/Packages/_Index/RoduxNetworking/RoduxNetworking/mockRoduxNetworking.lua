@@ -21,5 +21,6 @@ return function()
 		GET = makeMockRequestObject,
 		POST = makeMockRequestObject,
 		PATCH = makeMockRequestObject,
+		DELETE = makeMockRequestObject,
 	}
 end

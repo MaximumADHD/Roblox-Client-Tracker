@@ -19,6 +19,7 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local validateScaleType = require(root.validation.validateScaleType)
 
 local getFFlagUGCValidateOrientedSizing = require(root.flags.getFFlagUGCValidateOrientedSizing)
+local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
 
 local assetHierarchy = AssetTraversalUtils.assetHierarchy -- remove with getFFlagUGCValidateOrientedSizing()
 
@@ -301,7 +302,12 @@ local function validateAssetBounds(
 
 	local minSize, maxSize
 	if fullBodyAssets then
-		minSize, maxSize = ConstantsInterface.calculateFullBodyBounds(scaleType :: string)
+		if getFFlagUGCValidateConfigurableFullBodyBounds() then
+			minSize = Constants.FULL_BODY_BOUNDS[scaleType :: string].minSize
+			maxSize = Constants.FULL_BODY_BOUNDS[scaleType :: string].maxSize
+		else
+			minSize, maxSize = ConstantsInterface.calculateFullBodyBounds(scaleType :: string)
+		end
 	else
 		minSize = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds[scaleType].minSize
 		maxSize = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds[scaleType].maxSize

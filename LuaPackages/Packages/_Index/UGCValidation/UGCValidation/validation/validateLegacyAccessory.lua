@@ -59,7 +59,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 	local schema = createAccessorySchema(assetInfo.attachmentNames)
 
-	success, reasons = validateInstanceTree(schema, instance)
+	success, reasons = validateInstanceTree(schema, instance, validationContext)
 	if not success then
 		return false, reasons
 	end
@@ -174,7 +174,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	success, failedReason = validateAttributes(instance)
+	success, failedReason = validateAttributes(instance, validationContext)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
@@ -208,7 +208,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		checkModeration = false
 	end
 	if checkModeration then
-		success, failedReason = validateModeration(instance, {})
+		success, failedReason = validateModeration(instance, {}, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false

@@ -3,11 +3,16 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local validateWithSchema = require(root.util.validateWithSchema)
+local Types = require(root.util.Types)
 
 -- validates a given instance based on a schema
-local function validateInstanceTree(schema: any, instance: Instance): (boolean, { string }?)
+local function validateInstanceTree(
+	schema: any,
+	instance: Instance,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
 	-- validate using hat schema
-	local validationResult = validateWithSchema(schema, instance)
+	local validationResult = validateWithSchema(schema, instance, validationContext)
 	if validationResult.success == false then
 		Analytics.reportFailure(Analytics.ErrorType.validateInstanceTree)
 		return false, {

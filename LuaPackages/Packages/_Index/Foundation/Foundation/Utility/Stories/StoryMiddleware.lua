@@ -39,6 +39,7 @@ local function StoryMiddleware(story)
 				theme = theme,
 				device = devices[storyProps.platform],
 				preferences = storyProps.settings,
+				overlayGui = storyProps.focus,
 				DONOTUSE_colorUpdate = ColorUpdateStory.FoundationColors,
 			}, {
 				Child = React.createElement(story, storyProps),

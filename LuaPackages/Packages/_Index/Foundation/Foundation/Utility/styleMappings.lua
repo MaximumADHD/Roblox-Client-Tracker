@@ -95,6 +95,14 @@ local styleMappings: { [string]: { [string]: StyleMapping } } = {
 			property = "ClipsDescendants",
 		},
 	},
+	UIAspectRatioConstraint = {
+		AspectRatio = {
+			property = {
+				table = "aspectRatio",
+				key = "AspectRatio",
+			},
+		},
+	},
 	UIPadding = {
 		PaddingTop = {
 			property = {

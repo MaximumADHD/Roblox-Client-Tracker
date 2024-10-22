@@ -165,13 +165,13 @@ local function getCombinedMeshData(srcMesh, combinedMeshData, transform, origin,
 end
 
 local function getOpacity(raster)
-	local pixels = raster:ReadPixels(Vector2.new(0, 0), raster.Size)
+	local pixels = raster:ReadPixelsBuffer(Vector2.new(0, 0), raster.Size)
 	local totalPixels = 0
 	local transparentPixels = 0
-	for i = 1, #pixels, 4 do
-		local r = pixels[i]
-		local g = pixels[i + 1]
-		local b = pixels[i + 2]
+	for i = 0, buffer.len(pixels) - 1, 4 do
+		local r = buffer.readu8(pixels, i)
+		local g = buffer.readu8(pixels, i + 1)
+		local b = buffer.readu8(pixels, i + 2)
 
 		if r == 0 and g == 0 and b == 0 then
 			transparentPixels += 1

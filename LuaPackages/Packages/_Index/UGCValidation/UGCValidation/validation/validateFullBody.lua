@@ -48,7 +48,8 @@ local function validateAllAssetsWithSchema(
 			end
 			local validationResult = validateWithSchema(
 				createDynamicHeadMeshPartSchema(validationContext),
-				instancesAndType.allSelectedInstances[1]
+				instancesAndType.allSelectedInstances[1],
+				validationContext
 			)
 			if not validationResult.success then
 				return false
@@ -61,7 +62,8 @@ local function validateAllAssetsWithSchema(
 				end
 				local validationResult = validateWithSchema(
 					createLimbsAndTorsoSchema(instancesAndType.assetTypeEnum, folderName, validationContext),
-					folderInst
+					folderInst,
+					validationContext
 				)
 				if not validationResult.success then
 					return false
@@ -105,7 +107,10 @@ local function createAllBodyPartsTable(folderName: string, fullBodyData: Types.F
 	return results
 end
 
-local function validateMeshIds(fullBodyData: Types.FullBodyData): (boolean, { string }?)
+local function validateMeshIds(
+	fullBodyData: Types.FullBodyData,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
 	local fieldsToCheckFor = {
 		MeshPart = { "MeshId" },
 	}
@@ -124,7 +129,8 @@ local function validateMeshIds(fullBodyData: Types.FullBodyData): (boolean, { st
 				contentIdMap,
 				instance,
 				fieldsToCheckFor,
-				requiredFields
+				requiredFields,
+				validationContext
 			)
 			if not parseSuccess then
 				Analytics.reportFailure(Analytics.ErrorType.validateFullBody_MeshIdsMissing)
@@ -164,7 +170,7 @@ local function validateInstanceHierarchy(
 			}
 	end
 
-	local success, errorMessage = validateMeshIds(fullBodyData)
+	local success, errorMessage = validateMeshIds(fullBodyData, validationContext)
 	if not success then
 		return false, errorMessage
 	end

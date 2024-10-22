@@ -13,6 +13,8 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 local Constants = require(VRRoot.Constants)
 
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+
 type VRControllerModel = {
 	update: () -> (),
 	setEnabled: (enabled: boolean) -> (),
@@ -26,6 +28,7 @@ type VRService = {
 type LaserPointer = {
 	setMode: (mode: number) -> (),
 	setEnableAmbidexterousPointer: (enabled: boolean) -> (),
+	disableComponent: () -> (),
 	new: () -> LaserPointer,
 }
 
@@ -89,7 +92,11 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 			RightControllerModel.current:setEnabled(false)
 		end
 		if LaserPointer.current then
-			LaserPointer.current:setMode(LaserPointer.current.Mode["Disabled"])
+			if UIBloxConfig.fixLaserPointerDisable then
+				LaserPointer.current:disableComponent()
+			else
+				LaserPointer.current:setMode(LaserPointer.current.Mode["Disabled"])
+			end
 		end
 		ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
 		ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)

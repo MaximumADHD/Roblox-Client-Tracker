@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["roblox_lua-roact-policy-provider"]["lua-roact-policy-provider"])
+local Package = require(PackageIndex["LuaRoactPolicyProvider"]["LuaRoactPolicyProvider"])
 
 return Package

@@ -12,12 +12,14 @@ if not getEngineFeatureEngineUGCValidationEnableGetValidationRules() then
 end
 
 local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
+local ConstantBounds = require(root.ConstantBounds)
 
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
 local getFFlagUGCValidateAddSpecificPropertyRequirements =
 	require(root.flags.getFFlagUGCValidateAddSpecificPropertyRequirements)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
+local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -166,6 +168,10 @@ Constants.ASSET_STATUS = {
 -- i.e. WaistAccessory is 3 behind, 2.5 front
 Constants.ASSET_TYPE_INFO = {}
 ValidationRulesUtil:getAccessoryRules(Constants.ASSET_TYPE_INFO)
+
+if getFFlagUGCValidateConfigurableFullBodyBounds() then
+	Constants.FULL_BODY_BOUNDS = ConstantBounds.getFullBodyBounds()
+end
 
 Constants.AvatarPartScaleTypes = {
 	Classic = true,
@@ -360,5 +366,8 @@ end
 -- see validateAttributes for more info
 Constants.GUIDAttributeName = "RBXGUID"
 Constants.GUIDAttributeMaxLength = 100
+
+Constants.ProxyWrapAttributeName = "RBX_WRAP_DEFORMER_PROXY"
+Constants.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID"
 
 return Constants

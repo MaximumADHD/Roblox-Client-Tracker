@@ -44,12 +44,14 @@ end
 -- ensures accessory content ids have all passed moderation review
 local function validateModeration(
 	instance: Instance,
-	restrictedUserIds: Types.RestrictedUserIds?
+	restrictedUserIds: Types.RestrictedUserIds?,
+	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local contentIdMap = {}
 	local contentIds = {}
 
-	local parseSuccess, parseReasons = ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, instance)
+	local parseSuccess, parseReasons =
+		ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, instance, nil, nil, validationContext)
 	if not parseSuccess then
 		Analytics.reportFailure(Analytics.ErrorType.validateModeration_FailedToParse)
 		return false, parseReasons

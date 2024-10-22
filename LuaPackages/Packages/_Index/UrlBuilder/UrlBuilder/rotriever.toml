@@ -1,0 +1,23 @@
+[package]
+name = "UrlBuilder"
+version = "1.2.2"
+readme = "README.md"
+content_root = "src"
+files = [
+    "*",
+    "!*.spec.lua",
+]
+publish = true
+authors = ["Roblox"]
+repository = "https://github.com/Roblox/url-builder"
+[dependencies.Cryo]
+target = "https://github.com/roblox/cryo"
+version = "^1"
+
+[dependencies.StringUtilities]
+target = "https://github.com/roblox/string-utilities"
+package = "string-utilities"
+version = "^1"
+[dev_dependencies.JestGlobals]
+target = "https://github.com/roblox/jest-roblox"
+version = "^2.0.0"

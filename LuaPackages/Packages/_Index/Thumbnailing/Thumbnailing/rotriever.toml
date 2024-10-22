@@ -1,0 +1,11 @@
+[package]
+name = "Thumbnailing"
+version = "0.3.0"
+readme = "README.md"
+content_root = "src"
+files = ["*"]
+publish = true
+repository = "https://github.com/Roblox/Thumbnailing"
+[dev_dependencies.TestEZ]
+target = "https://github.com/roblox/testez"
+version = "^0.4.1"

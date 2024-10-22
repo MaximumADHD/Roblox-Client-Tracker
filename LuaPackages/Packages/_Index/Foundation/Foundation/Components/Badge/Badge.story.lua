@@ -13,8 +13,11 @@ local Theme = require(Foundation.Enums.Theme)
 local Badge = require(Foundation.Components.Badge)
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 type BadgeVariant = BadgeVariant.BadgeVariant
+local BadgeSize = require(Foundation.Enums.BadgeSize)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
+
+local Flags = require(Foundation.Utility.Flags)
 
 local itemTileSize = UDim2.fromOffset(150, 230)
 local itemId = 21070012
@@ -25,6 +28,8 @@ return {
 		return {
 			name = variant,
 			story = function(props): React.Node
+				Flags.FoundationBadgeRemoveExtraPaddingX = props.controls.FoundationBadgeRemoveExtraPaddingX
+
 				local tokens = useTokens()
 
 				local item, setItem = React.useState({} :: { Name: string?, PriceText: string? })
@@ -85,6 +90,7 @@ return {
 							Badge = React.createElement(Badge, {
 								text = props.controls.text,
 								icon = if props.controls.icon ~= "" then props.controls.icon else nil,
+								size = props.controls.size,
 								isDisabled = props.controls.isDisabled,
 								variant = variant,
 							}),
@@ -115,6 +121,7 @@ return {
 				return React.createElement(Badge, {
 					text = props.controls.text,
 					icon = if props.controls.icon ~= "" then props.controls.icon else nil,
+					size = props.controls.size,
 					isDisabled = props.controls.isDisabled,
 					variant = variant,
 				})
@@ -128,6 +135,8 @@ return {
 			"icons/menu/clothing/limited_on",
 			"",
 		},
+		FoundationBadgeRemoveExtraPaddingX = Flags.FoundationBadgeRemoveExtraPaddingX,
+		size = Dash.values(BadgeSize),
 		isDisabled = false,
 		onTile = false,
 	},

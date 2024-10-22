@@ -48,6 +48,10 @@ type Typography = {
 
 type Paddings = { { name: string, size: UDim } }
 
+type Margins = { { name: string, size: UDim } }
+
+type Gutters = { { name: string, size: UDim } }
+
 local BACKGROUND = "bg"
 local CONTENT = "content"
 local STROKE = "stroke"
@@ -83,7 +87,18 @@ function pascalToKebab(str)
 	return result
 end
 
-local function createTokens(tokens: Tokens): (ColorScopes, Variants, Strokes, Gaps, Radii, Sizes, Typography, Paddings)
+local function createTokens(tokens: Tokens): (
+	ColorScopes,
+	Variants,
+	Strokes,
+	Gaps,
+	Radii,
+	Sizes,
+	Typography,
+	Paddings,
+	Margins,
+	Gutters
+)
 	local colors = {}
 	local variants = {}
 	local strokes = {}
@@ -92,9 +107,11 @@ local function createTokens(tokens: Tokens): (ColorScopes, Variants, Strokes, Ga
 	local sizes = {}
 	local typography = {}
 	local paddings = {}
+	local margins = {}
+	local gutters = {}
 
 	if tokens == nil then
-		return colors, variants, strokes, gaps, radii, sizes, typography, paddings
+		return colors, variants, strokes, gaps, radii, sizes, typography, paddings, margins, gutters
 	end
 
 	for name, value in tokens.Color :: any do
@@ -164,7 +181,23 @@ local function createTokens(tokens: Tokens): (ColorScopes, Variants, Strokes, Ga
 		return a.size.Offset < b.size.Offset
 	end)
 
-	return colors, variants, strokes, gaps, radii, sizes, typography, paddings
+	for name, value in tokens.Margin do
+		table.insert(margins, { name = string.lower(name), size = UDim.new(0, value) })
+	end
+
+	table.sort(margins, function(a, b)
+		return a.size.Offset < b.size.Offset
+	end)
+
+	for name, value in tokens.Gutter do
+		table.insert(gutters, { name = string.lower(name), size = UDim.new(0, value) })
+	end
+
+	table.sort(gutters, function(a, b)
+		return a.size.Offset < b.size.Offset
+	end)
+
+	return colors, variants, strokes, gaps, radii, sizes, typography, paddings, margins, gutters
 end
 
 local function DefaultRules(tokens: Tokens): { StyleRule }
@@ -188,7 +221,7 @@ local function DefaultRules(tokens: Tokens): { StyleRule }
 	}
 end
 
-local function ListLayoutRules(gaps: Gaps)
+local function ListLayoutRules(gaps: Gaps, gutters: Gutters)
 	local direction = {
 		{
 			tag = "row",
@@ -265,6 +298,18 @@ local function ListLayoutRules(gaps: Gaps)
 		})
 	end
 
+	local gutter = {}
+
+	for _, gutterItem in gutters do
+		table.insert(gutter, {
+			tag = `gutter-{gutterItem.name}`,
+			pseudo = "UIListLayout",
+			properties = {
+				Padding = gutterItem.size,
+			},
+		})
+	end
+
 	-- Flex
 
 	local wraps = {
@@ -325,7 +370,7 @@ local function ListLayoutRules(gaps: Gaps)
 		})
 	end
 
-	return Cryo.List.join(direction, align, gap, wraps, flexAlignments, items)
+	return Cryo.List.join(direction, align, gap, wraps, flexAlignments, items, gutter)
 end
 
 local function FlexItemRules()
@@ -638,7 +683,7 @@ local function TextRules()
 	return rules
 end
 
-local function PaddingRules(paddings: Paddings)
+local function PaddingRules(paddings: Paddings, margins: Margins)
 	local rules: { StyleRule } = {}
 
 	local paddingProperties: { [string]: { string } } = {
@@ -663,6 +708,19 @@ local function PaddingRules(paddings: Paddings)
 		})
 	end
 
+	for _, margin in margins do
+		table.insert(rules, {
+			tag = `margin-{margin.name}`,
+			pseudo = "UIPadding",
+			properties = {
+				PaddingTop = margin.size,
+				PaddingBottom = margin.size,
+				PaddingLeft = margin.size,
+				PaddingRight = margin.size,
+			},
+		})
+	end
+
 	for direction, properties in paddingProperties do
 		for _, padding in paddings do
 			local props = {}
@@ -671,6 +729,18 @@ local function PaddingRules(paddings: Paddings)
 			end
 			table.insert(rules, {
 				tag = `padding-{direction}-{padding.name}`,
+				pseudo = "UIPadding",
+				properties = props,
+			})
+		end
+
+		for _, margin in margins do
+			local props = {}
+			for _, property in properties do
+				props[property] = margin.size
+			end
+			table.insert(rules, {
+				tag = `margin-{direction}-{margin.name}`,
 				pseudo = "UIPadding",
 				properties = props,
 			})
@@ -755,6 +825,39 @@ local function ClipsDescendantRules()
 	}
 end
 
+local function roundDecimals(value: number, decimals: number): number
+	local factor = 10 ^ decimals
+	return math.round(value * factor) / factor
+end
+
+local function AspectRatioRules()
+	local rules: { StyleRule } = {}
+
+	local ratios = { { 1, 1 }, { 5, 4 }, { 4, 3 }, { 3, 2 }, { 16, 9 }, { 2, 1 } }
+
+	for _, ratio in ratios do
+		table.insert(rules, {
+			tag = `aspect-{ratio[1]}-{ratio[2]}`,
+			pseudo = "UIAspectRatioConstraint",
+			properties = {
+				AspectRatio = roundDecimals(ratio[1] / ratio[2], 3),
+			},
+		})
+
+		if ratio[1] ~= ratio[2] then
+			table.insert(rules, {
+				tag = `aspect-{ratio[2]}-{ratio[1]}`,
+				pseudo = "UIAspectRatioConstraint",
+				properties = {
+					AspectRatio = roundDecimals(ratio[2] / ratio[1], 3),
+				},
+			})
+		end
+	end
+
+	return rules
+end
+
 local function _addModifiers(rules: { StyleRule })
 	local modifierRules = {}
 
@@ -776,11 +879,11 @@ local function _addModifiers(rules: { StyleRule })
 end
 
 local function generateRules(tokens: Tokens)
-	local colors, variants, strokes, gaps, radii, sizes, typography, paddings = createTokens(tokens)
+	local colors, variants, strokes, gaps, radii, sizes, typography, paddings, gutters, margins = createTokens(tokens)
 
 	local rules = Cryo.List.join(
 		DefaultRules(tokens),
-		ListLayoutRules(gaps),
+		ListLayoutRules(gaps, gutters),
 		FlexItemRules(),
 		CornerRules(radii),
 		SizeRules(sizes),
@@ -789,11 +892,12 @@ local function generateRules(tokens: Tokens)
 		ContentRules(colors, variants),
 		TypographyRules(typography, tokens.Config.Text.NominalScale),
 		TextRules(),
-		PaddingRules(paddings),
+		PaddingRules(paddings, margins),
 		AutomaticSizeRules(),
 		PositionRules(),
 		AnchorPointRules(),
-		ClipsDescendantRules()
+		ClipsDescendantRules(),
+		AspectRatioRules()
 	)
 
 	return rules

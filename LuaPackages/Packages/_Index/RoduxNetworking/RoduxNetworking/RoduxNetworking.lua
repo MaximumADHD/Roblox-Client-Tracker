@@ -2,6 +2,7 @@
 local GET = require(script.Parent.GET)
 local POST = require(script.Parent.POST)
 local PATCH = require(script.Parent.PATCH)
+local DELETE = require(script.Parent.DELETE)
 local Types = require(script.Parent.Types)
 
 return function(options: Types.ConfigOptions)
@@ -20,6 +21,9 @@ return function(options: Types.ConfigOptions)
 		end,
 		PATCH = function(moduleScript, constructBuilderFunction)
 			return PATCH(options)(moduleScript, constructBuilderFunction)
+		end,
+		DELETE = function(moduleScript, constructBuilderFunction)
+			return DELETE(options)(moduleScript, constructBuilderFunction)
 		end,
 		getNetworkImpl = function()
 			return options.networkImpl

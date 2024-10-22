@@ -19,9 +19,13 @@ local getFFlagUGCValidateCageOrigin = require(root.flags.getFFlagUGCValidateCage
 local getFFlagUGCValidateTotalSurfaceAreaTestBody = require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestBody)
 local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
 	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
+local getEngineFeatureUGCValidateMeshInsideMesh = require(root.flags.getEngineFeatureUGCValidateMeshInsideMesh)
 
 local getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity =
 	require(root.flags.getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity)
+
+local getEngineFeatureEngineUGCValidateLCCagingRelevancy =
+	require(root.flags.getEngineFeatureEngineUGCValidateLCCagingRelevancy)
 
 local function joinTables(...)
 	local result = {}
@@ -149,6 +153,11 @@ if getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity() then
 		"validateVerticesSimilarity_MaxSimilarityExceeded"
 end
 
+if getEngineFeatureEngineUGCValidateLCCagingRelevancy() then
+	Analytics.ErrorType.validateCagingRelevancy_FailedToExecute = "validateCagingRelevancy_FailedToExecute"
+	Analytics.ErrorType.validateCagingRelevancy_IrrelevantCaging = "validateCagingRelevancy_IrrelevantCaging"
+end
+
 if getFFlagUGCValidateCoplanarTriTestBody() or getFFlagUGCValidateCoplanarTriTestAccessory() then
 	Analytics.ErrorType.validateCoplanarIntersection_FailedToExecute = "validateCoplanarIntersection_FailedToExecute"
 	Analytics.ErrorType.validateCoplanarIntersection_CoplanarIntersection =
@@ -170,6 +179,13 @@ if getFFlagUGCValidateTotalSurfaceAreaTestBody() or getFFlagUGCValidateTotalSurf
 	Analytics.ErrorType.validateTotalSurfaceArea_FailedToExecute = "validateTotalSurfaceArea_FailedToExecute"
 	Analytics.ErrorType.validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded =
 		"validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded"
+end
+
+if getEngineFeatureUGCValidateMeshInsideMesh() then
+	Analytics.ErrorType.validateRenderMeshInsideOuterCageMesh_FailedToExecute =
+		"validateRenderMeshInsideOuterCageMesh_FailedToExecute"
+	Analytics.ErrorType.validateRenderMeshInsideOuterCageMesh_MaxOutsideCageMeshExceeded =
+		"validateRenderMeshInsideOuterCageMesh_MaxOutsideCageMeshExceeded"
 end
 
 setmetatable(Analytics.ErrorType, {

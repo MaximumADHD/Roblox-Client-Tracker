@@ -53,7 +53,7 @@ local variants = function(tokens: Tokens)
 			tag = "row gap-xsmall auto-x align-y-center align-x-center clip",
 		},
 		icon = {
-			size = IconSize.Small,
+			size = IconSize.Medium,
 		},
 		text = {
 			tag = "size-0-full auto-x text-title-large text-truncate-end shrink",

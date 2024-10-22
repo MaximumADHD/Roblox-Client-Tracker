@@ -17,7 +17,8 @@ local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineF
 local getEngineFeatureUGCValidateGetInactiveControls =
 	require(root.flags.getEngineFeatureUGCValidateGetInactiveControls)
 local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
-
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local EngineFeatureGCValidateCompareTextureOverlap = game:GetEngineFeature("UGCValidateCompareTextureOverlap")
 local getEngineFeatureViewportFrameSnapshotEngineFeature =
 	require(root.flags.getEngineFeatureViewportFrameSnapshotEngineFeature)
@@ -26,6 +27,7 @@ local UGCValidateFacsDataOperationalThreshold = game:DefineFastInt("UGCValidateF
 local setupDynamicHead = require(root.util.setupDynamicHead)
 local Thumbnailer = require(root.util.Thumbnailer)
 local Types = require(root.util.Types)
+local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningValidation)
 
 local requiredActiveFACSControls = {
 	"LipsTogether",
@@ -149,10 +151,17 @@ local function validateDynamicHeadData(
 
 	local isServer = validationContext.isServer
 	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
+	local allowEditableInstances = validationContext.allowEditableInstances
 
 	do
 		local retrievedMeshData, testsPassed = pcall(function()
-			return UGCValidationService:ValidateDynamicHeadMesh(meshPartHead.MeshId)
+			if getEngineFeatureUGCValidateEditableMeshAndImage() then
+				return UGCValidationService:ValidateDynamicHeadMesh(
+					getMeshIdForSkinningValidation(meshPartHead, allowEditableInstances)
+				)
+			else
+				return UGCValidationService:ValidateDynamicHeadMesh(meshPartHead.MeshId)
+			end
 		end)
 
 		if not retrievedMeshData then
@@ -175,10 +184,17 @@ local function validateDynamicHeadData(
 
 	if getEngineFeatureUGCValidateGetInactiveControls() and getFFlagUGCValidateTestInactiveControls() then
 		local commandExecuted, missingControlsOrErrorMessage, inactiveControls = pcall(function()
-			return UGCValidationService:GetDynamicHeadMeshInactiveControls(
-				meshPartHead.MeshId,
-				requiredActiveFACSControls
-			)
+			if getEngineFeatureUGCValidateEditableMeshAndImage() then
+				return UGCValidationService:GetDynamicHeadMeshInactiveControls(
+					getMeshIdForSkinningValidation(meshPartHead, allowEditableInstances),
+					requiredActiveFACSControls
+				)
+			else
+				return UGCValidationService:GetDynamicHeadMeshInactiveControls(
+					meshPartHead.MeshId,
+					requiredActiveFACSControls
+				)
+			end
 		end)
 
 		if not commandExecuted then

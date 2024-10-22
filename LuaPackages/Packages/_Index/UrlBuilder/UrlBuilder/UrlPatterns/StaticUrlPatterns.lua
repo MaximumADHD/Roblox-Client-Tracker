@@ -96,5 +96,6 @@ return function(UrlBuilder)
 			clearUnread = UrlBuilder.fromString("notifications:stream-notifications/clear-unread"),
 			unreadCount = UrlBuilder.fromString("notifications:stream-notifications/unread-count"),
 		},
+		securityAlert = UrlBuilder.fromString("www:security-feedback-v2?payload={payload}&username={username}"),
 	}
 end

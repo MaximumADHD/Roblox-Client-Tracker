@@ -9,9 +9,20 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 
+local Types = require(root.util.Types)
+local checkForProxyWrap = require(root.util.checkForProxyWrap)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
-local function validateSurfaceAppearances(instance: Instance): (boolean, { string }?)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+
+local function validateSurfaceAppearances(
+	instance: Instance,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
+		then validationContext.allowEditableInstances
+		else false
 	-- full tree of instance + descendants
 	local allDescendants: { Instance } = instance:GetDescendants()
 	table.insert(allDescendants, instance)
@@ -19,11 +30,15 @@ local function validateSurfaceAppearances(instance: Instance): (boolean, { strin
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	for _, descendant in pairs(allDescendants) do
-		if not descendant:IsA("MeshPart") then
+		if not descendant:IsA("MeshPart") or (allowEditableInstances and checkForProxyWrap(descendant)) then
 			continue
 		end
 
 		local meshPartHasTexture = (descendant :: MeshPart).TextureID ~= ""
+		if allowEditableInstances and not meshPartHasTexture then
+			local textureContent = (descendant :: MeshPart).TextureContent
+			meshPartHasTexture = textureContent.Uri ~= "" or textureContent.Object ~= nil
+		end
 		local surfaceAppearance = descendant:FindFirstChildWhichIsA("SurfaceAppearance")
 
 		if meshPartHasTexture then

@@ -18,8 +18,8 @@ return function(variant: BadgeVariant)
 
 	local badgeVariants: { [BadgeVariant]: BadgeStyle } = {
 		[BadgeVariant.Primary] = {
-			backgroundStyle = tokens.Color.ActionSubEmphasis.Background,
-			contentStyle = tokens.Color.ActionSubEmphasis.Foreground,
+			backgroundStyle = tokens.Color.System.Contrast,
+			contentStyle = tokens.Inverse.Content.Emphasis,
 		},
 		[BadgeVariant.Secondary] = {
 			backgroundStyle = tokens.Color.Shift.Shift_200,

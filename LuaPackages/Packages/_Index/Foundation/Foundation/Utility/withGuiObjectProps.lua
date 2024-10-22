@@ -11,6 +11,7 @@ local Types = require(Foundation.Components.Types)
 type Bindable<T> = Types.Bindable<T>
 type GuiObjectProps = Types.GuiObjectProps
 type CommonProps = Types.CommonProps
+type NativeCommonProps = Types.NativeCommonProps
 type SelectionGroup = Types.SelectionGroup
 
 -- Since GuiObjectProps is in a different form than what's actually applied, we need to manually define the applied props
@@ -27,7 +28,7 @@ type AppliedGuiObjectProps = {
 	SelectionImageObject: Bindable<React.Ref<GuiObject>>?,
 	SelectionOrder: Bindable<number>?,
 	Size: Bindable<UDim2>?,
-}
+} & NativeCommonProps
 
 local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, baseProps: T)
 	if type(baseProps) == "table" then
@@ -65,7 +66,13 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 
 		baseProps.Size = props.Size
 	end
-	return withCommonProps(props, baseProps :: T & AppliedGuiObjectProps)
+	local fullProps = withCommonProps(props, baseProps) :: any -- Required since constrained generics are not yet supported
+
+	-- Replace incompatible Common Props
+	fullProps[React.Change.AbsoluteSize] = props.onAbsoluteSizeChanged
+	fullProps.onAbsoluteSizeChanged = nil
+
+	return fullProps :: T & AppliedGuiObjectProps
 end
 
 return withGuiObjectProps

@@ -1,5 +1,7 @@
 --!strict
 
+local UGCValidateCageMeshInfosFix = game:DefineFastFlag("UGCValidateCageMeshInfosFix", false)
+
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
@@ -52,7 +54,11 @@ local function getCageMeshInfos(
 		end
 
 		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			local getMeshSuccess, cageEditableMesh = getEditableMeshFromContext(handle, cageMeshName, validationContext)
+			local getMeshSuccess, cageEditableMesh = getEditableMeshFromContext(
+				if UGCValidateCageMeshInfosFix then wrapLayer else handle,
+				cageMeshName,
+				validationContext
+			)
 
 			if not getMeshSuccess then
 				table.insert(issues, string.format(MESSAGE_FAILED_MESH, CAGE_NAMES[ind], instance.Name))

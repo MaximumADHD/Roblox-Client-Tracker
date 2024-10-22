@@ -9,6 +9,7 @@ local HintText = require(Components.HintText)
 local View = require(Components.View)
 local Types = require(Components.Types)
 type InternalTextInputRef = Types.InternalTextInputRef
+type TextInputRef = Types.TextInputRef
 
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -26,6 +27,8 @@ type InputFieldProps = {
 	-- Input label text. To omit, set to an empty string
 	label: string,
 	input: (ref: React.Ref<InternalTextInputRef?>) -> React.ReactElement,
+	-- Partial TextBox ref exposed via imperative handle
+	textBoxRef: React.Ref<TextInputRef>?,
 	-- Hint text below the input, is red on error
 	hint: string?,
 } & Types.CommonProps
@@ -49,6 +52,17 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 		if textBoxRef.current then
 			textBoxRef.current.setHover(isHovered)
 		end
+	end, {})
+
+	React.useImperativeHandle(props.textBoxRef, function(): TextInputRef?
+		if not textBoxRef.current then
+			return nil
+		end
+
+		return {
+			focus = textBoxRef.current.focus,
+			getIsFocused = textBoxRef.current.getIsFocused,
+		}
 	end, {})
 
 	return React.createElement(

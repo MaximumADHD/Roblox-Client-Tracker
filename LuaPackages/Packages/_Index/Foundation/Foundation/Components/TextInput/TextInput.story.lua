@@ -6,10 +6,16 @@ local TextInput = require(Foundation.Components.TextInput)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 
+local Button = require(Foundation.Components.Button)
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+type ButtonVariant = ButtonVariant.ButtonVariant
+
 local function Story(props)
 	local controls = props.controls
 
 	local text, setText = React.useState("")
+
+	local ref = React.useRef(nil)
 
 	local function handleChange(newText: string)
 		setText(newText)
@@ -19,11 +25,17 @@ local function Story(props)
 		print("press!")
 	end
 
+	local function gainFocus()
+		if ref.current and ref.current.focus then
+			ref.current.focus()
+		end
+	end
+
 	return React.createElement(View, {
 		tag = "col gap-large auto-xy padding-xlarge",
 	}, {
-
 		TextInput = React.createElement(TextInput, {
+			LayoutOrder = 1,
 			text = text,
 			textInputType = if controls.textInputType == React.None then nil else controls.textInputType,
 			hasError = controls.hasError,
@@ -42,15 +54,24 @@ local function Story(props)
 						onActivated = buttonPress,
 					}
 					else controls.iconTrailing,
+			textBoxRef = ref,
 		}),
 
 		Output = React.createElement(Text, {
+			LayoutOrder = 2,
 			Text = text,
 			textStyle = {
 				Color3 = Color3.new(1, 0, 0.5),
 			},
 
 			tag = "auto-xy",
+		}),
+
+		FocusButton = React.createElement(Button, {
+			LayoutOrder = 3,
+			text = "Focus TextInput",
+			onActivated = gainFocus,
+			variant = ButtonVariant.Standard,
 		}),
 	})
 end

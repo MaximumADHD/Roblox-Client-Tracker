@@ -1,0 +1,62 @@
+[package]
+name = "PurchasePromptDeps"
+version = "1.0.1"
+readme = "README.md"
+content_root = "src"
+files = ["*"]
+publish = true
+license = "MIT"
+[dependencies.Cryo]
+target = "https://github.com/roblox/cryo"
+version = "^1.0"
+
+[dependencies.FitFrame]
+target = "https://github.com/roblox/roact-fit-components"
+package = "RoactFitComponents"
+version = "^2.0"
+
+[dependencies.IAPExperience]
+target = "https://github.com/roblox/iapexperience"
+version = "^1.0.1"
+
+[dependencies.Otter]
+target = "https://github.com/roblox/otter"
+version = "^0.1"
+
+[dependencies.PolicyProvider]
+target = "https://github.com/roblox/lua-roact-policy-provider"
+package = "LuaRoactPolicyProvider"
+version = "^0.1.1"
+
+[dependencies.Promise]
+target = "https://github.com/roblox/roblox-lua-promise"
+version = "^3.3.0"
+
+[dependencies.Roact]
+target = "https://github.com/roblox/roact-alignment"
+package = "RoactCompat"
+version = "^17.0.1-rc.12"
+
+[dependencies.RoactRodux]
+target = "https://github.com/roblox/roact-rodux"
+version = "^0.5.1"
+
+[dependencies.Rodux]
+target = "https://github.com/roblox/rodux"
+version = "^3.2.0"
+
+[dependencies.UIBlox]
+target = "https://github.com/roblox/uiblox"
+version = "^0.2.1"
+
+[dependencies.UrlBuilder]
+target = "https://github.com/roblox/url-builder"
+version = "^1.2.1"
+
+[dependencies.enumerate]
+target = "https://github.com/roblox/enumerate"
+version = "^1.0.0"
+
+[dependencies.t]
+target = "https://github.com/roblox/t"
+version = "^1.0"

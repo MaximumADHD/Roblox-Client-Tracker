@@ -130,4 +130,10 @@ return {
 
 	-- Fix incorrect padding in ItemTile overlay icons, switch to use design tokens
 	itemTileOverlayPaddingUseTokens = false,
+
+	-- Fix incorrect disabling of LaserPointer in PointerOverlay
+	fixLaserPointerDisable = false,
+
+	-- Enable the update of AppNav components
+	enableAppNavUpdate = false,
 }

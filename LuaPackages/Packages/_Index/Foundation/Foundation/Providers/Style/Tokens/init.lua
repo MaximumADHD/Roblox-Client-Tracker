@@ -37,6 +37,7 @@ local function getTokens(device: Device, theme: Theme, useFoundationColors: bool
 		Padding = tokens.Padding,
 		Margin = tokens.Margin,
 		Gap = tokens.Gap,
+		Gutter = tokens.Gutter,
 		Radius = tokens.Radius,
 		Stroke = tokens.Stroke,
 		LineHeight = tokens.LineHeight,

@@ -9,4 +9,6 @@ local SafeFlags = require(Packages.SafeFlags)
 return {
 	FoundationStylingPolyfill = SafeFlags.createGetFFlag("FoundationStylingPolyfill")(),
 	FoundationStateLayerTransparencyLerp = SafeFlags.createGetFFlag("FoundationStateLayerTransparencyLerp")(),
+	FoundationCompositeTextInput = SafeFlags.createGetFFlag("FoundationCompositeTextInput")(),
+	FoundationBadgeRemoveExtraPaddingX = SafeFlags.createGetFFlag("FoundationBadgeRemoveExtraPaddingX")(),
 }

@@ -3,7 +3,7 @@ name = "ApolloClientTesting"
 version = "0.3.10"
 source = "registry"
 dependencies = [
-    "ApolloClient <patched> ApolloClient 36da62ea git+https://github.com/roblox/apollo-client-lua#v0.3.10",
+    "ApolloClient <patched> ApolloClient 0.3.10 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphQLTag GraphqlTag 2.12.9 registry",
     "Jest Jest 3.8.1 registry",

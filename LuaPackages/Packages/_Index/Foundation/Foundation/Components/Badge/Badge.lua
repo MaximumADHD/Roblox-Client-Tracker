@@ -14,10 +14,14 @@ local useBadgeVariants = require(script.Parent.useBadgeVariants)
 
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 type BadgeVariant = BadgeVariant.BadgeVariant
+local BadgeSize = require(Foundation.Enums.BadgeSize)
+type BadgeSize = BadgeSize.BadgeSize
 
 local IconSize = require(Foundation.Enums.IconSize)
 local IconPosition = require(Foundation.Enums.IconPosition)
 type IconPosition = IconPosition.IconPosition
+
+local Flags = require(Foundation.Utility.Flags)
 
 type Icon = {
 	name: string,
@@ -29,10 +33,12 @@ type BadgeProps = {
 	icon: (string | Icon)?,
 	isDisabled: boolean?,
 	variant: BadgeVariant?,
+	size: BadgeSize?,
 } & Types.CommonProps
 
 local defaultProps = {
 	variant = BadgeVariant.Primary,
+	size = BadgeSize.Medium,
 }
 
 local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
@@ -72,7 +78,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 			},
 			tag = {
 				["auto-xy radius-circle row align-y-center align-x-center stroke-thick"] = true,
-				["padding-y-xxsmall"] = hasIcon or hasText,
+				["padding-y-xxsmall"] = hasIcon or (hasText and props.size ~= BadgeSize.Small),
 				["padding-x-xsmall"] = hasText,
 				["padding-x-xxsmall"] = not hasText and hasIcon,
 			},
@@ -108,7 +114,14 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 							),
 						}
 						else nil,
-					tag = "auto-xy padding-x-xsmall text-label-small text-truncate-end",
+					tag = {
+						["auto-xy text-truncate-end"] = true,
+						["padding-x-xsmall"] = not Flags.FoundationBadgeRemoveExtraPaddingX
+							and props.size == BadgeSize.Medium,
+						["padding-left-xsmall"] = hasIcon,
+						["text-label-small"] = props.size == BadgeSize.Medium,
+						["text-caption-small"] = props.size == BadgeSize.Small,
+					},
 				})
 				else nil,
 		}

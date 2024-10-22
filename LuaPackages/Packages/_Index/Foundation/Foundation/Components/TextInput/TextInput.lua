@@ -27,6 +27,8 @@ local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
+type TextInputRef = Types.TextInputRef
+
 type TextInputProps = {
 	-- Input text value
 	text: string,
@@ -55,13 +57,15 @@ type TextInputProps = {
 		name: string,
 		onActivated: () -> (),
 	}?,
+	-- Partial TextBox ref exposed via imperative handle
+	textBoxRef: React.Ref<TextInputRef>?,
 } & Types.CommonProps
 
 local defaultProps = {
 	width = UDim.new(0, 400),
 }
 
--- TODO: Will be replaced with a CompositeTextInput - UIBLOX-1266
+-- Is replaced with CompositeTextInput under FoundationCompositeTextInput FF
 local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(TextInputProps, defaultProps)
 
@@ -116,6 +120,13 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 		end
 	end, {})
 
+	local getIsFocused = React.useCallback(function()
+		if textBox.current then
+			return textBox.current:IsFocused() :: boolean
+		end
+		return false
+	end, {})
+
 	local onInputStateChanged = React.useCallback(function(newState: ControlState)
 		setHover(newState == ControlState.Hover)
 	end, {})
@@ -140,6 +151,13 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			LayoutOrder = 3,
 		})
 		else nil
+
+	React.useImperativeHandle(props.textBoxRef, function()
+		return {
+			getIsFocused = getIsFocused,
+			focus = focusTextBox,
+		}
+	end, { focusTextBox, getIsFocused })
 
 	return React.createElement(
 		View,

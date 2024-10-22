@@ -1,4 +1,10 @@
 --!nonstrict
+local root = script.Parent.Parent
+
+local checkForProxyWrap = require(root.util.checkForProxyWrap)
+
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local function checkName(nameList, instanceName)
 	if type(nameList) == "table" then
@@ -62,7 +68,7 @@ local function validateWithSchemaHelper(schema, instance, authorizedSet)
 	return { success = true }
 end
 
-local function validateWithSchema(schema, instance)
+local function validateWithSchema(schema, instance, validationContext)
 	if
 		instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and (not checkName(schema.Name, instance.Name)))
 	then
@@ -73,6 +79,10 @@ local function validateWithSchema(schema, instance)
 			),
 		}
 	end
+
+	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
+		then validationContext.allowEditableInstances
+		else false
 
 	local authorizedSet = {}
 	local result = validateWithSchemaHelper(schema, instance, authorizedSet)
@@ -85,6 +95,9 @@ local function validateWithSchema(schema, instance)
 	local unauthorizedDescendantPaths = {}
 	for _, descendant in pairs(instance:GetDescendants()) do
 		if authorizedSet[descendant] == nil then
+			if allowEditableInstances and checkForProxyWrap(descendant) then
+				continue
+			end
 			unauthorizedDescendantPaths[#unauthorizedDescendantPaths + 1] = descendant:GetFullName()
 		end
 	end

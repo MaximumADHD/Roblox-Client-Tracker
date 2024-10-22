@@ -6,11 +6,13 @@ local React = require(Packages.React)
 local PreferencesProvider = require(Providers.Preferences.PreferencesProvider)
 local StyleProvider = require(Providers.Style.StyleProvider)
 local CursorProvider = require(Providers.Cursor)
+local OverlayProvider = require(Providers.Overlay)
 
 type StyleProps = StyleProvider.StyleProviderProps
 type Preferences = PreferencesProvider.PreferencesProps
 
 export type FoundationProviderProps = StyleProps & {
+	overlayGui: GuiObject?,
 	preferences: Preferences?,
 }
 
@@ -25,7 +27,9 @@ local function FoundationProvider(props: FoundationProviderProps)
 			derives = props.derives,
 			DONOTUSE_colorUpdate = props.DONOTUSE_colorUpdate,
 		}, {
-			CursorProvider = React.createElement(CursorProvider, nil, props.children),
+			OverlayProvider = React.createElement(OverlayProvider, { gui = props.overlayGui }, {
+				CursorProvider = React.createElement(CursorProvider, nil, props.children),
+			}),
 		}),
 	})
 end

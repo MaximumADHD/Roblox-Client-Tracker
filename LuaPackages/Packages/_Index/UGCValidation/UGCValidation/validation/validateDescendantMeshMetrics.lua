@@ -30,6 +30,7 @@ local getMeshMinMax = require(root.util.getMeshMinMax)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local floatEquals = require(root.util.floatEquals)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
+local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningValidation)
 
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
@@ -42,19 +43,42 @@ local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateTotalSurfaceAreaTestBody = require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestBody)
 
-local function validateIsSkinned(obj: MeshPart, isServer: boolean?): (boolean, { string }?)
-	if not obj.HasSkinnedMesh then
-		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_NoSkinningInfo)
-		return false, { `Missing skinning data for {obj.Name}.MeshId. You need to skin your model.` }
-	end
+local function validateIsSkinned(
+	obj: MeshPart,
+	isServer: boolean?,
+	allowEditableInstances: boolean?
+): (boolean, { string }?)
+	local retrievedMeshData, testsPassed
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		local alternateId = obj:GetAttribute(Constants.AlternateMeshIdAttributeName)
+		if not obj.HasSkinnedMesh then
+			if alternateId == nil or alternateId == "" or not allowEditableInstances then
+				Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_NoSkinningInfo)
+				return false, { `Missing skinning data for {obj.Name}.MeshId. You need to skin your model.` }
+			end
+		end
 
-	if not getEngineFeatureEngineUGCValidateBodyParts() then
-		return true
-	end
+		if not getEngineFeatureEngineUGCValidateBodyParts() then
+			return true
+		end
 
-	local retrievedMeshData, testsPassed = pcall(function()
-		return UGCValidationService:ValidateSkinnedMesh(obj.MeshId)
-	end)
+		retrievedMeshData, testsPassed = pcall(function()
+			return UGCValidationService:ValidateSkinnedMesh(getMeshIdForSkinningValidation(obj, allowEditableInstances))
+		end)
+	else
+		if not obj.HasSkinnedMesh then
+			Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_NoSkinningInfo)
+			return false, { `Missing skinning data for {obj.Name}.MeshId. You need to skin your model.` }
+		end
+
+		if not getEngineFeatureEngineUGCValidateBodyParts() then
+			return true
+		end
+
+		retrievedMeshData, testsPassed = pcall(function()
+			return UGCValidationService:ValidateSkinnedMesh(obj.MeshId)
+		end)
+	end
 
 	if not retrievedMeshData then
 		local errorMessage = "Failed to retrieve mesh data to validate skinned mesh"
@@ -210,6 +234,7 @@ local function validateDescendantMeshMetrics(
 		"assetTypeEnum required in validationContext for validateDescendantMeshMetrics"
 	)
 	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
+	local allowEditableInstances = validationContext.allowEditableInstances
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -294,7 +319,9 @@ local function validateDescendantMeshMetrics(
 
 			-- EditableMesh data currently does not support skinning, leave this check as-is for now
 			startTime = tick()
-			reasonsAccumulator:updateReasons(validateIsSkinned(data.instance :: MeshPart, isServer))
+			reasonsAccumulator:updateReasons(
+				validateIsSkinned(data.instance :: MeshPart, isServer, allowEditableInstances)
+			)
 			Analytics.recordScriptTime("validateIsSkinned", startTime, validationContext)
 
 			if getFFlagUGCValidateMeshTriangleAreaForMeshes() then

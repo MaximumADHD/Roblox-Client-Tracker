@@ -129,6 +129,7 @@ local function ShortcutBar(providedProps: ShortcutBarProps): React.ReactElement?
 
 	-- don't render anything if no items
 	if #items > 0 then
+		local backgroundToken = style.Tokens.Semantic.Color.BackgroundUi.Contrast
 		return React.createElement("CanvasGroup", {
 			Position = props.position,
 			AnchorPoint = props.anchorPoint,
@@ -139,8 +140,8 @@ local function ShortcutBar(providedProps: ShortcutBarProps): React.ReactElement?
 			ShortcutBarComponent = React.createElement("Frame", {
 				Size = UDim2.fromOffset(0, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = style.Theme.UIMuted.Color,
-				BackgroundTransparency = style.Theme.UIMuted.Transparency,
+				BackgroundColor3 = backgroundToken.Color3,
+				BackgroundTransparency = backgroundToken.Transparency,
 				AutomaticSize = Enum.AutomaticSize.XY,
 			}, children :: any),
 		})

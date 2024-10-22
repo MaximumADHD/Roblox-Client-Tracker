@@ -11,6 +11,7 @@ local Cryo = require(Packages.Cryo)
 
 local useStyle = require(CoreRoot.Style.useStyle)
 local useCursor = require(UIBloxRoot.App.SelectionCursor.useCursor)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 local Interactable = require(ControlRoot.Interactable)
 local ControlState = require(ControlRoot.Enum.ControlState)
 
@@ -142,4 +143,9 @@ local StateLayer = React.forwardRef(function(providedProps: Props, ref: React.Re
 	return React.createElement("Frame", frameProps, frameChildren)
 end)
 
-return StateLayer
+if UIBloxConfig.enableAppNavUpdate then
+	-- Memo this to reduce unnecessary re-rendering
+	return React.memo(StateLayer)
+else
+	return StateLayer
+end

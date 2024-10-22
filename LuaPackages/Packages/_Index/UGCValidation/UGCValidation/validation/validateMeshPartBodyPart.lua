@@ -49,7 +49,7 @@ local function validateMeshPartBodyPart(
 	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
 	local restrictedUserIds = validationContext.restrictedUserIds
 
-	local validationResult = validateWithSchema(schema, inst)
+	local validationResult = validateWithSchema(schema, inst, validationContext)
 	if not validationResult.success then
 		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartBodyPart_ValidateWithSchema)
 		return false,
@@ -60,7 +60,7 @@ local function validateMeshPartBodyPart(
 	end
 
 	if not getFFlagDebugUGCDisableSurfaceAppearanceTests() then
-		local result, failureReasons = validateSurfaceAppearances(inst)
+		local result, failureReasons = validateSurfaceAppearances(inst, validationContext)
 		if not result then
 			return result, failureReasons
 		end
@@ -115,12 +115,12 @@ local function validateMeshPartBodyPart(
 	reasonsAccumulator:updateReasons(validateProperties(inst, assetTypeEnum))
 
 	if getFFlagUGCValidateBodyPartsCollisionFidelity() then
-		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst))
+		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst, validationContext))
 	end
 
 	reasonsAccumulator:updateReasons(validateTags(inst))
 
-	reasonsAccumulator:updateReasons(validateAttributes(inst))
+	reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
 
 	if getFFlagUGCValidateBodyPartsModeration() then
 		local checkModeration = not isServer
@@ -128,7 +128,7 @@ local function validateMeshPartBodyPart(
 			checkModeration = false
 		end
 		if checkModeration then
-			reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds))
+			reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds, validationContext))
 		end
 	end
 

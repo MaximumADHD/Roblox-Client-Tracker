@@ -4,6 +4,8 @@ rasterMesh:
 	orthographically projects input mesh data and then rasterizes it to an EditableImage for output
 ]]
 
+local AssetService = game:GetService("AssetService")
+
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
@@ -75,8 +77,9 @@ function RasterUtil.rasterMesh(
 	meshSize: Vector3,
 	validationContext: Types.ValidationContext
 )
-	local rasterTarget = Instance.new("EditableImage")
-	rasterTarget:Resize(rasterSize)
+	local rasterTarget = (AssetService :: any):CreateEditableImage({
+		Size = rasterSize,
+	})
 
 	for _, triangle in meshData do
 		if not shouldRenderTriangle(triangle.normal, view.normal) then

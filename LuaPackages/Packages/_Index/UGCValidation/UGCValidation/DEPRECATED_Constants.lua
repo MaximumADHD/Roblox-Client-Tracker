@@ -18,6 +18,7 @@ local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFie
 local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
 local getFFlagUGCValidateConfigurableBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableBodyBounds)
+local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
 
 local ConstantBounds = require(root.ConstantBounds)
 
@@ -788,6 +789,10 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftLeg] = {
 	},
 }
 
+if getFFlagUGCValidateConfigurableFullBodyBounds() then
+	Constants.FULL_BODY_BOUNDS = ConstantBounds.getFullBodyBounds()
+end
+
 Constants.RenderVsWrapMeshMaxDiff = 1
 
 Constants.LC_BOUNDS = {
@@ -977,5 +982,8 @@ end
 -- see validateAttributes for more info
 Constants.GUIDAttributeName = "RBXGUID"
 Constants.GUIDAttributeMaxLength = 100
+
+Constants.ProxyWrapAttributeName = "RBX_WRAP_DEFORMER_PROXY"
+Constants.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID"
 
 return Constants

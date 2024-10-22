@@ -103,7 +103,11 @@ local function validateFolderAssetIdsMatch(
 	return reasonsAccumulator:getFinalResults()
 end
 
-local function validateR6Folder(inst: Instance, assetTypeEnum: Enum.AssetType)
+local function validateR6Folder(
+	inst: Instance,
+	assetTypeEnum: Enum.AssetType,
+	validationContext: Types.ValidationContext
+)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	if #(inst:GetChildren()) > 0 then
@@ -120,7 +124,7 @@ local function validateR6Folder(inst: Instance, assetTypeEnum: Enum.AssetType)
 
 	reasonsAccumulator:updateReasons(validateProperties(inst, assetTypeEnum))
 
-	reasonsAccumulator:updateReasons(validateAttributes(inst))
+	reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
 
 	return reasonsAccumulator:getFinalResults()
 end
@@ -167,7 +171,7 @@ local function validateLimbsAndTorso(validationContext: Types.ValidationContext)
 		local reasons
 
 		if folderName == Constants.FOLDER_NAMES.R6 then
-			result, reasons = validateR6Folder(inst, assetTypeEnum)
+			result, reasons = validateR6Folder(inst, assetTypeEnum, validationContext)
 		else
 			result, reasons = validateMeshPartBodyPart(
 				inst,

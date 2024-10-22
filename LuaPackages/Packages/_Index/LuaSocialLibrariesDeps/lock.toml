@@ -29,7 +29,7 @@ dependencies = [
     "RoduxContacts RoduxContacts 0.8.4 registry",
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#v1.4.1",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence dc416d59 git+https://github.com/roblox/rodux-presence#v3.2.3",
     "RoduxShareLinks RoduxShareLinks 2198b997 git+https://github.com/roblox/rodux-sharelinks#v1.5.0",
     "RoduxUserPermissions RoduxUserPermissions 0.5.0 registry",

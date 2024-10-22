@@ -87,6 +87,7 @@ function ConstantsInterface.getAttachments(assetTypeEnum: Enum.AssetType?, partN
 	return results
 end
 
+-- remove when FFlagUGCValidateConfigurableFullBodyBounds is removed as true
 function ConstantsInterface.calculateFullBodyBounds(scaleType: string): (Vector3, Vector3)
 	local minX, minY, minZ
 	do

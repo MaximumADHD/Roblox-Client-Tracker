@@ -1,6 +1,6 @@
 [package]
 name = "RoduxNetworking"
-version = "3.3.2"
+version = "3.4.1"
 readme = "README.md"
 content_root = "src"
 files = ["*"]

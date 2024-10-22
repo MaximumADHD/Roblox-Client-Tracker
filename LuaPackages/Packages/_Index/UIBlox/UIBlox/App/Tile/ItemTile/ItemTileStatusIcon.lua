@@ -39,9 +39,8 @@ local function ItemTileStatusIcon(props: Props): React.Element<any>?
 		return nil
 	end
 
-	local isAlert = statusStyle == ItemTileEnums.StatusStyle.AlertIcon
 	local iconSize = getIconSize(IconSize.Small)
-	local iconStyle = if isAlert then tokens.Semantic.Color.Common.Alert else tokens.Semantic.Color.Icon.Emphasis
+	local iconStyle = tokens.Semantic.Color.Icon.Emphasis
 
 	return React.createElement(ImageSetComponent.Label, {
 		Position = UDim2.fromOffset(tokens.Global.Size_100, tokens.Global.Size_100),

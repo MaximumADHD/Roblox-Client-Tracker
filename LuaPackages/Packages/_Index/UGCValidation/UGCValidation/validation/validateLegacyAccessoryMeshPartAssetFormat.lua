@@ -33,7 +33,7 @@ local function validateLegacyAccessoryMeshPartAssetFormat(
 		specialMeshAssetFormatHandle:FindFirstChildOfClass("Attachment") :: Attachment
 	local schema = createLegacyAccessoryMeshPartAssetFormatSchema(specialMeshAssetFormatAttachment.Name)
 
-	success, reasons = validateInstanceTree(schema, meshPartAssetFormatAccessory)
+	success, reasons = validateInstanceTree(schema, meshPartAssetFormatAccessory, validationContext)
 	if not success then
 		return false, reasons
 	end

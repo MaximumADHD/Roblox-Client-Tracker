@@ -29,8 +29,14 @@ local function validatePackage(validationContext: Types.ValidationContext): (boo
 		return true
 	end
 
-	local parseSuccess =
-		ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, instance, Constants.PACKAGE_CONTENT_ID_FIELDS)
+	local parseSuccess = ParseContentIds.parseWithErrorCheck(
+		contentIds,
+		contentIdMap,
+		instance,
+		Constants.PACKAGE_CONTENT_ID_FIELDS,
+		nil,
+		validationContext
+	)
 
 	if not parseSuccess then
 		Analytics.reportFailure(Analytics.ErrorType.validatePackage_FailedToParse)

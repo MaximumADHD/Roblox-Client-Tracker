@@ -92,7 +92,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 
 	local schema = createLayeredClothingSchema(assetInfo.attachmentNames)
 
-	success, reasons = validateInstanceTree(schema, instance)
+	success, reasons = validateInstanceTree(schema, instance, validationContext)
 	if not success then
 		return false, reasons
 	end
@@ -248,7 +248,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		validationResult = false
 	end
 
-	success, failedReason = validateAttributes(instance)
+	success, failedReason = validateAttributes(instance, validationContext)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
@@ -325,7 +325,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		checkModeration = false
 	end
 	if checkModeration then
-		success, failedReason = validateModeration(instance, {})
+		success, failedReason = validateModeration(instance, {}, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
@@ -395,7 +395,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	end
 
 	if getFFlagUGCValidateLCCagesQuality() then
-		success, failedReason = validateLCCageQuality(instance, validationContext)
+		success, failedReason = validateLCCageQuality(instance, meshInfo, validationContext)
 		if not success then
 			for _, issue in failedReason do
 				table.insert(reasons, issue)

@@ -34,7 +34,7 @@ return {
 	end),
 	controls = {
 		icon = {
-			"icons/common/search_small",
+			"icons/common/search",
 			"icons/common/robux",
 			"icons/common/play",
 			"",

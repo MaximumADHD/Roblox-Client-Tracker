@@ -22,6 +22,9 @@ return {
 			PATCH = function(moduleScript, constructBuilderFunction)
 				return roduxNetworkingInstance.PATCH(moduleScript, constructBuilderFunction)
 			end,
+			DELETE = function(moduleScript, constructBuilderFunction)
+				return roduxNetworkingInstance.DELETE(moduleScript, constructBuilderFunction)
+			end,
 			getNetworkImpl = function()
 				return roduxNetworkingInstance.getNetworkImpl()
 			end,

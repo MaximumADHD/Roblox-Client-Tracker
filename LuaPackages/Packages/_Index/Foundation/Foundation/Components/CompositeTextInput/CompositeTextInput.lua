@@ -22,6 +22,8 @@ type InputLabelSize = InputLabelSize.InputLabelSize
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
+type TextInputRef = Types.TextInputRef
+
 type TextInputProps = {
 	-- Input text value
 	text: string,
@@ -50,6 +52,8 @@ type TextInputProps = {
 		name: string,
 		onActivated: () -> (),
 	}?,
+	-- Partial TextBox ref exposed via imperative handle
+	textBoxRef: React.Ref<TextInputRef>?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -72,6 +76,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			size = InputLabelSize.Small,
 			isRequired = props.isRequired,
 			hint = props.hint,
+			textBoxRef = props.textBoxRef,
 			input = function(inputRef)
 				return React.createElement(InternalTextInput, {
 					ref = inputRef,

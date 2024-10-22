@@ -1,0 +1,42 @@
+[package]
+name = "LuaRoactPolicyProvider"
+version = "0.1.1"
+readme = "README.md"
+content_root = "src"
+files = ["*"]
+publish = true
+authors = ["Roblox"]
+repository = "https://github.com/Roblox/lua-roact-policy-provider"
+[dependencies.Cryo]
+target = "https://github.com/roblox/cryo"
+version = "^1.0"
+
+[dependencies.Lumberyak]
+target = "https://github.com/lumberyak"
+package = "lumberyak"
+version = "^0.1.1"
+
+[dependencies.Mock]
+target = "https://github.com/roblox/mock"
+package = "mock"
+version = "^0.1.0"
+
+[dependencies.Promise]
+target = "https://github.com/roblox/roblox-lua-promise"
+version = "^3.5.0"
+
+[dependencies.Roact]
+target = "https://github.com/roblox/roact"
+version = "^1.2"
+
+[dependencies.Symbol]
+target = "https://github.com/roblox/lua-symbol"
+package = "lua-symbol"
+version = "^0.1.0"
+
+[dependencies.tutils]
+target = "https://github.com/roblox/tutils"
+version = "^0.1.2"
+[dev_dependencies.TestEZ]
+target = "https://github.com/roblox/testez"
+version = "^0.4.2"

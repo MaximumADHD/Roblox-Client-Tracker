@@ -103,6 +103,31 @@ local FIntUGCValidateHeadZMaxClassic = game:DefineFastInt("UGCValidateHeadZMaxCl
 local FIntUGCValidateHeadZMaxSlender = game:DefineFastInt("UGCValidateHeadZMaxSlender", 200)
 local FIntUGCValidateHeadZMaxNormal = game:DefineFastInt("UGCValidateHeadZMaxNormal", 200)
 
+-- full body
+local FIntUGCValidateFullBodyXMinClassic = game:DefineFastInt("UGCValidateFullBodyXMinClassic", 150)
+local FIntUGCValidateFullBodyXMinSlender = game:DefineFastInt("UGCValidateFullBodyXMinSlender", 150)
+local FIntUGCValidateFullBodyXMinNormal = game:DefineFastInt("UGCValidateFullBodyXMinNormal", 150)
+
+local FIntUGCValidateFullBodyXMaxClassic = game:DefineFastInt("UGCValidateFullBodyXMaxClassic", 750)
+local FIntUGCValidateFullBodyXMaxSlender = game:DefineFastInt("UGCValidateFullBodyXMaxSlender", 550)
+local FIntUGCValidateFullBodyXMaxNormal = game:DefineFastInt("UGCValidateFullBodyXMaxNormal", 800)
+
+local FIntUGCValidateFullBodyYMinClassic = game:DefineFastInt("UGCValidateFullBodyYMinClassic", 450)
+local FIntUGCValidateFullBodyYMinSlender = game:DefineFastInt("UGCValidateFullBodyYMinSlender", 450)
+local FIntUGCValidateFullBodyYMinNormal = game:DefineFastInt("UGCValidateFullBodyYMinNormal", 450)
+
+local FIntUGCValidateFullBodyYMaxClassic = game:DefineFastInt("UGCValidateFullBodyYMaxClassic", 775)
+local FIntUGCValidateFullBodyYMaxSlender = game:DefineFastInt("UGCValidateFullBodyYMaxSlender", 830)
+local FIntUGCValidateFullBodyYMaxNormal = game:DefineFastInt("UGCValidateFullBodyYMaxNormal", 830)
+
+local FIntUGCValidateFullBodyZMinClassic = game:DefineFastInt("UGCValidateFullBodyZMinClassic", 70)
+local FIntUGCValidateFullBodyZMinSlender = game:DefineFastInt("UGCValidateFullBodyZMinSlender", 70)
+local FIntUGCValidateFullBodyZMinNormal = game:DefineFastInt("UGCValidateFullBodyZMinNormal", 70)
+
+local FIntUGCValidateFullBodyZMaxClassic = game:DefineFastInt("UGCValidateFullBodyZMaxClassic", 200)
+local FIntUGCValidateFullBodyZMaxSlender = game:DefineFastInt("UGCValidateFullBodyZMaxSlender", 200)
+local FIntUGCValidateFullBodyZMaxNormal = game:DefineFastInt("UGCValidateFullBodyZMaxNormal", 225)
+
 local ConstantBounds = {}
 
 function ConstantBounds.getArmBounds()
@@ -264,6 +289,47 @@ function ConstantBounds.getHeadBounds()
 				FIntUGCValidateHeadXMaxNormal / 100,
 				FIntUGCValidateHeadYMaxNormal / 100,
 				FIntUGCValidateHeadZMaxNormal / 100
+			),
+		},
+	}
+end
+
+function ConstantBounds.getFullBodyBounds()
+	return {
+		Classic = {
+			minSize = Vector3.new(
+				FIntUGCValidateFullBodyXMinClassic / 100,
+				FIntUGCValidateFullBodyYMinClassic / 100,
+				FIntUGCValidateFullBodyZMinClassic / 100
+			),
+			maxSize = Vector3.new(
+				FIntUGCValidateFullBodyXMaxClassic / 100,
+				FIntUGCValidateFullBodyYMaxClassic / 100,
+				FIntUGCValidateFullBodyZMaxClassic / 100
+			),
+		},
+		ProportionsSlender = {
+			minSize = Vector3.new(
+				FIntUGCValidateFullBodyXMinSlender / 100,
+				FIntUGCValidateFullBodyYMinSlender / 100,
+				FIntUGCValidateFullBodyZMinSlender / 100
+			),
+			maxSize = Vector3.new(
+				FIntUGCValidateFullBodyXMaxSlender / 100,
+				FIntUGCValidateFullBodyYMaxSlender / 100,
+				FIntUGCValidateFullBodyZMaxSlender / 100
+			),
+		},
+		ProportionsNormal = {
+			minSize = Vector3.new(
+				FIntUGCValidateFullBodyXMinNormal / 100,
+				FIntUGCValidateFullBodyYMinNormal / 100,
+				FIntUGCValidateFullBodyZMinNormal / 100
+			),
+			maxSize = Vector3.new(
+				FIntUGCValidateFullBodyXMaxNormal / 100,
+				FIntUGCValidateFullBodyYMaxNormal / 100,
+				FIntUGCValidateFullBodyZMaxNormal / 100
 			),
 		},
 	}

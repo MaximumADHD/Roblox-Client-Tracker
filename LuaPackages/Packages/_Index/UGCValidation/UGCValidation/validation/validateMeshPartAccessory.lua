@@ -67,7 +67,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	local schema = createMeshPartAccessorySchema(assetInfo.attachmentNames)
 
-	success, reasons = validateInstanceTree(schema, instance)
+	success, reasons = validateInstanceTree(schema, instance, validationContext)
 	if not success then
 		return false, reasons
 	end
@@ -199,7 +199,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	reasonsAccumulator:updateReasons(validateTags(instance))
 
-	reasonsAccumulator:updateReasons(validateAttributes(instance))
+	reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
 
 	reasonsAccumulator:updateReasons(
 		validateTextureSize(textureInfo, getFFlagMeshPartAccessoryPBRSupport(), validationContext)
@@ -214,7 +214,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		checkModeration = false
 	end
 	if checkModeration then
-		reasonsAccumulator:updateReasons(validateModeration(instance, {}))
+		reasonsAccumulator:updateReasons(validateModeration(instance, {}, validationContext))
 	end
 
 	if hasMeshContent then
@@ -246,7 +246,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	end
 
 	if getFFlagMeshPartAccessoryPBRSupport() then
-		reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance))
+		reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance, validationContext))
 	end
 
 	local partScaleType = handle:FindFirstChild("AvatarPartScaleType")

@@ -8,6 +8,7 @@
 local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
+local checkForProxyWrap = require(root.util.checkForProxyWrap)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
@@ -109,16 +110,17 @@ local function parseContentId(contentIds, contentIdMap, allResults, object, fiel
 	local contentId = object[fieldName]
 
 	if contentId == "" then
-		if isRequired then
-			return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
-		end
-
-		if
-			getEngineFeatureUGCValidateEditableMeshAndImage()
-			and hasInExpCreatedEditableInstance(object, fieldName, validationContext)
-		then
-			if allResults then
-				table.insert(allResults, { fieldName = fieldName, instance = object })
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
+				if allResults then
+					table.insert(allResults, { fieldName = fieldName, instance = object })
+				end
+			elseif isRequired then
+				return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
+			end
+		else
+			if isRequired then
+				return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
 			end
 		end
 
@@ -164,6 +166,9 @@ local function parseWithErrorCheckInternal(
 	requiredFields,
 	validationContext
 )
+	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
+		then validationContext.allowEditableInstances
+		else false
 	allFields = allFields or Constants.CONTENT_ID_FIELDS
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -171,6 +176,9 @@ local function parseWithErrorCheckInternal(
 	table.insert(descendantsAndObject, object)
 
 	for _, descendant in pairs(descendantsAndObject) do
+		if allowEditableInstances and checkForProxyWrap(descendant) then
+			continue
+		end
 		local contentIdFields = allFields[descendant.ClassName]
 		if contentIdFields then
 			local requiredFieldsForClassType = requiredFields and requiredFields[descendant.ClassName]
@@ -198,8 +206,23 @@ function ParseContentIds.tryGetAssetIdFromContentId(contentId: string): string
 	return tryGetAssetIdFromContentIdInternal(contentId)
 end
 
-function ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, object, allFields, requiredFields)
-	return parseWithErrorCheckInternal(contentIds, contentIdMap, nil, object, allFields, requiredFields)
+function ParseContentIds.parseWithErrorCheck(
+	contentIds,
+	contentIdMap,
+	object,
+	allFields,
+	requiredFields,
+	validationContext
+)
+	return parseWithErrorCheckInternal(
+		contentIds,
+		contentIdMap,
+		nil,
+		object,
+		allFields,
+		requiredFields,
+		validationContext
+	)
 end
 
 function ParseContentIds.parse(object, allFields, validationContext)

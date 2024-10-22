@@ -65,6 +65,8 @@ type ButtonProps = {
 	isDisabled: boolean?,
 	variant: ButtonVariant?,
 	size: ButtonSize?,
+	-- Width of the button. `fillBehavior` is preferred and works better with flex layouts. Intended for cross-directional scaled sizing.
+	width: UDim?,
 	fillBehavior: FillBehavior?,
 	-- The delay in seconds before the button is enabled.
 	-- This will only take effect on component mount and visually show on buttons
@@ -76,6 +78,7 @@ local defaultProps = {
 	isDisabled = false,
 	variant = ButtonVariant.Standard,
 	size = ButtonSize.Small,
+	width = UDim.new(0, 0),
 	inputDelay = 0,
 }
 
@@ -137,8 +140,8 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 				}
 				else nil,
 			Size = UDim2.new(
-				if props.fillBehavior == FillBehavior.Fill then 1 else 0,
-				0,
+				if props.fillBehavior == FillBehavior.Fill then 1 else props.width.Scale,
+				if props.fillBehavior == FillBehavior.Fill then 0 else props.width.Offset,
 				0,
 				variantProps.container.height
 			),
