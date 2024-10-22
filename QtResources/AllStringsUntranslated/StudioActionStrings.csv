@@ -95,6 +95,7 @@ Studio.App.RobloxRibbonMainWindow.Physics,,Physics,Physics
 Studio.App.RobloxRibbonMainWindow.Summary,,Summary,Summary
 Studio.App.RBXMainWindow.MoveEdit,,Move - Edit,Move - Edit
 Studio.App.RBXMainWindow.ResumeScriptSync,,Resume Sync,Resume Sync
+Studio.App.RBXMainWindow.ResumeScriptSyncTooltip,,"Resume syncing an errored Script, LocalScript or ModuleScript to disk","Resume syncing an errored Script, LocalScript or ModuleScript to disk"
 Studio.App.RBXMainWindow.ResizeCustomIncrement,,Set the resize grid to a custom increment,Set the resize grid to a custom increment
 Studio.App.RBXMainWindow.RotateEdit,,Rotate - Edit,Rotate - Edit
 Studio.App.RBXMainWindow.RotateCustomIncrement,,Set the rotate grid to a custom increment,Set the rotate grid to a custom increment
@@ -149,10 +150,10 @@ Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
 Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers,,Start server and players,Start server and players
 Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
 Studio.App.RBXMainWindow.StartScriptSync,,Sync to Disk,Sync to Disk
-Studio.App.RBXMainWindow.StartScriptSyncsTooltip,,"Start syncing a Script, LocalScript or ModuleScript with the disk","Start syncing a Script, LocalScript or ModuleScript with the disk"
+Studio.App.RBXMainWindow.StartScriptSyncTooltip,,"Start syncing a Script, LocalScript or ModuleScript with the disk","Start syncing a Script, LocalScript or ModuleScript with the disk"
 Studio.App.RBXMainWindow.StopScriptSync,,Stop Sync,Stop Sync
 Studio.App.RBXMainWindow.CancelScriptSync,,Cancel Sync,Cancel Sync
-Studio.App.RBXMainWindow.StopScriptSyncsTooltip,,"Stop syncing a Script, LocalScript or ModuleScript with the disk","Stop syncing a Script, LocalScript or ModuleScript with the disk"
+Studio.App.RBXMainWindow.StopScriptSyncTooltip,,"Stop syncing a Script, LocalScript or ModuleScript with the disk","Stop syncing a Script, LocalScript or ModuleScript with the disk"
 Studio.App.ScriptVerbs.SelectSyncDir,,Sync to File,Sync to File
 Studio.App.ScriptVerbs.StopSync,,Stop Syncing,Stop Syncing
 Studio.App.ScriptVerbs.DeleteFileTitle,,<b>The script is no longer syncing with the disk</b><br/>,<b>The script is no longer syncing with the disk</b><br/>
@@ -170,6 +171,7 @@ Studio.App.ScriptVerbs.DeleteButton,,Delete file,Delete file
 Studio.App.ScriptVerbs.DoneButton,,Done,Done
 Studio.App.ScriptVerbs.CloseButton,,Close,Close
 Studio.App.RBXMainWindow.ShowInFolder,,Show File Location,Show File Location
+Studio.App.RBXMainWindow.ShowInFolderTooltip,,"Open file browser to location of syncing Script, LocalScript or ModuleScript","Open file browser to location of syncing Script, LocalScript or ModuleScript"
 Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...

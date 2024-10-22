@@ -630,13 +630,6 @@
         <addaction name="goToNextHunkAction" text="Studio.Common.Action.Next" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.GoToNextChange"
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Fwd" width="32" height="32" />
       </Group>
-      <!-- remove with ScriptDiffTool -->
-      <Group name="View" fflag="!ScriptDiffTool2" text="Studio.App.RobloxRibbonMainWindow.View" modernIcon="ExpandAll" icon=":/RibbonBar/images/RibbonIcons/Diff/ExpandAll.png" width="32" height="32">
-        <addaction name="expandAllDiffAction" fflag="!ScriptDiffTool2" text="Studio.App.RBXMainWindow.ExpandAll" style="textundericon" tooltip="Studio.App.ScriptingCmd.UNFOLDALLTooltip"
-          icon=":/RibbonBar/images/RibbonIcons/Diff/ExpandAll.png" modernIcon="ExpandAll" width="32" height="32" />
-        <addaction name="collapseAllDiffAction" fflag="!ScriptDiffTool2" text="Studio.App.ScriptingCmd.FOLDALL" style="textundericon" tooltip="Studio.App.ScriptingCmd.FOLDALLTooltip"
-          icon=":/RibbonBar/images/RibbonIcons/Diff/CollapseAll.png" modernIcon="CollapseAll" width="32" height="32" />
-      </Group>
     </TabPage>
   </RibbonBar>
 </MainWindow>

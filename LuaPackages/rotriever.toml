@@ -17,20 +17,20 @@ Dash = "0.1"
 llama = { git = "https://github.com/Roblox/lua-llama", rev = "master" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 AvatarExperienceDeps = { git = "https://github.com/Roblox/avatar-experience-deps" }
-PurchasePromptDeps = { git = "https://github.com/Roblox/purchase-prompt-deps" }
-IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master" }
-UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
-Foundation = "1.4.0"
-FoundationImages = "1.5.0"
-Thumbnailing = { git = "https://github.com/Roblox/Thumbnailing", rev = "main" }
+PurchasePromptDeps = "1.0.1"
+IAPExperience = "1.0.1"
+UIBlox = "0.2.4"
+Foundation = "1.5.0"
+FoundationImages = "1.6.0"
+Thumbnailing = "0.3.0"
 Otter = "1.2.1"
 ReactOtter = "1.2.1"
 t = "3.0.0"
 enumerate = "1.0.0"
-PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", rev = "master" }
+PolicyProvider = { version = "0.1.1", package = "LuaRoactPolicyProvider" }
 Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "1.0.0"
-UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
+UrlBuilder = "1.2.2"
 FitFrame = "2.0.0"
 NetworkingFriends = "2.12.1"
 EmojiList = "1.0.0"
@@ -47,18 +47,17 @@ Promise = "3.5.0"
 VirtualizedList = "1.4.3"
 LuauPolyfill = "0.4.0"
 RegExp = "0.2.1"
-RoduxNetworking = "3.3.1"
+RoduxNetworking = "3.4.1"
 NetworkingGames = "1.2.0"
 NetworkingUsers = "1.2.1"
 HttpRequest = "1.1.1"
-ApolloClient = { git = "https://github.com/Roblox/apollo-client-lua", rev = "v0.3.10" }
+ApolloClient = "0.3.10"
 GraphQL = "15.6.3"
 QRCode = "0.1.0"
 Merge = "0.3.1"
 GraphqlToolsUtils = { version = "0.3.1", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.12.16"
-RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
+UGCValidation = "1.12.19"
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.3.0" }
 RoduxUsers = { git = "https://github.com/Roblox/rodux-users", rev = "v1.5.1" }
@@ -94,10 +93,10 @@ ReactTestingUtils = "1.2.0"
 # Patch all dependencies (git or otherwise) upon rodux to the flagged indirection package,
 # which will ensure that we always use only one rodux version
 [config.patch."https://github.com/roblox/rodux"]
-Rodux = { git = "https://github.com/roblox/rodux", rev = "v3.2.0" }
+Rodux = "3.2.0"
 
 [config.patch_git."https://github.com/roblox/rodux"]
-Rodux = { git = "https://github.com/roblox/rodux", rev = "v3.2.0" }
+Rodux = "3.2.0"
 
 [config.patch."https://github.com/roblox/roblox-lua-promise"]
 Promise = "3.5.0"
@@ -157,7 +156,13 @@ Chalk = { version = "0.2.0", package = "ChalkLua" }
 LuauRegExp = { version = "0.2.0", package = "RegExp" }
 
 [config.patch."github.com/Roblox/apollo-client-lua"]
-ApolloClient = { git = "https://github.com/Roblox/apollo-client-lua", rev = "v0.3.10" }
+ApolloClient = "0.3.10"
 
 [config.patch."github.com/Roblox/graphql-tag-lua"]
 GraphQLTag = { version = "2.12.9", package = "GraphqlTag" }
+
+[config.patch_git."github.com/Roblox/UIBlox"]
+UIBlox = "0.2.4"
+
+[config.patch_git."github.com/Roblox/lua-roact-policy-provider"]
+PolicyProvider = { version = "0.1.1", package = "LuaRoactPolicyProvider" }

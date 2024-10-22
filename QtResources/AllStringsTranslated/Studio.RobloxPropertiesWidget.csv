@@ -154,8 +154,8 @@ Studio.RobloxPropertiesWidget.Category.Permissions,,,Permissions,Permissions,,Be
 Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,Aufnahme,Grabando,Enregistrement,Rekaman,Registrazione,録画,기록,Nagrywanie,Gravação,,การบันทึก,Kayıt,Bản Ghi,记录,记录,錄製
 Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scripting,Scripting,Scripting,Scripting,,スクリプト作成,스크립팅,Skrypty,Scripting,,Scripting,Betik,Viết Kịch Bản,脚本,脚本,指令碼化
 Studio.RobloxPropertiesWidget.Category.ControlPoints,,,Control Points,Control Points,,Kontrollpunkte,Puntos de control,Points de contrôle,Titik Kontrol,,制御点,제어점,Punkty kontrolne,Pontos de controle,,จุดควบคุม,Kontrol Noktaları,Điểm Điều Khiển,控制点,控制点,控制點
-Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,Penyelarasan,Allineamento,整列,정렬,Wyrównanie,Alinhamento,,การจัดแนว,Hizalama,Căn Chỉnh,对齐,对齐,
-Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,PseudoInstances,Pseudo-Instances,PseudoInstances,,擬似インスタンス,모의 인스턴스,Pseudoinstancje,Pseudoinstâncias,,PseudoInstances,Sahte Örnekler,Bản giả,,,
-Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,Edición de estado,Modification de l'état,,,状況編集,상태 편집,,Edição do estado,,การแก้ไขสถานะ,,Chỉnh Sửa Trạng Thái,,,
-Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,Hexadecimal:,Hex :,,,Hex値:,육각형:,,Hexadecimal:,,Hex:,,Hex:,,,
-Studio.RobloxPropertiesWidget.Category.Listening,,,Listening,Listening,,Hören,Escucha,Écoute,,,,듣기,,Escutando,,การฟัง,,Đang nghe,,,
+Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,Penyelarasan,Allineamento,整列,정렬,Wyrównanie,Alinhamento,,การจัดแนว,Hizalama,Căn Chỉnh,对齐,对齐,對齊
+Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,PseudoInstances,Pseudo-Instances,PseudoInstances,,擬似インスタンス,모의 인스턴스,Pseudoinstancje,Pseudoinstâncias,,PseudoInstances,Sahte Örnekler,Bản giả,,,偽例
+Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,Edición de estado,Modification de l'état,Pengeditan Keadaan,,状況編集,상태 편집,Edytowanie stanu,Edição do estado,,การแก้ไขสถานะ,Durum Düzenleme,Chỉnh Sửa Trạng Thái,,,狀態編輯
+Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,Hexadecimal:,Hex :,Hex:,,Hex値:,육각형:,Hex:,Hexadecimal:,,Hex:,Hex:,Hex:,,,Hex:
+Studio.RobloxPropertiesWidget.Category.Listening,,,Listening,Listening,,Hören,Escucha,Écoute,Mendengar,,,듣기,Nasłuchiwanie,Escutando,,การฟัง,Dinleme,Đang nghe,,,聆聽

@@ -12,13 +12,12 @@ source = "git+https://github.com/roblox/2d-collision-matchers#v1.0.1"
 [[package]]
 name = "ApolloClient"
 version = "0.3.10"
-commit = "36da62eae4cacf7817113370b49a27e0bbe89b4f"
-source = "git+https://github.com/roblox/apollo-client-lua#v0.3.10"
+source = "registry"
 dependencies = [
     "GraphQL GraphQL 15.6.3 registry",
     "GraphQLTag GraphqlTag 2.12.9 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "LuauRegExp <patched> RegExp 0.2.1 registry",
+    "LuauRegExp RegExp 0.2.1 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "React React 17.1.2 registry",
     "RobloxRequests RobloxRequests 0.1.0 registry",
@@ -30,7 +29,7 @@ name = "ApolloClientTesting"
 version = "0.3.10"
 source = "registry"
 dependencies = [
-    "ApolloClient <patched> ApolloClient 36da62ea git+https://github.com/roblox/apollo-client-lua#v0.3.10",
+    "ApolloClient <patched> ApolloClient 0.3.10 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphQLTag GraphqlTag 2.12.9 registry",
     "Jest Jest 3.8.1 registry",
@@ -85,7 +84,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 name = "CorePackages"
 version = "0.1.0"
 dependencies = [
-    "ApolloClient ApolloClient 36da62ea git+https://github.com/roblox/apollo-client-lua#v0.3.10",
+    "ApolloClient <patched> ApolloClient 0.3.10 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps b9c8ce15 git+https://github.com/roblox/avatar-experience-deps#master",
     "Cryo Cryo 1.1.0 registry",
@@ -94,12 +93,12 @@ dependencies = [
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame <patched> RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.4.0 registry",
-    "FoundationImages FoundationImages 1.5.0 registry",
+    "Foundation Foundation 1.5.0 registry",
+    "FoundationImages FoundationImages 1.6.0 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
-    "IAPExperience IAPExperience 2323bcda git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 1.0.1 registry",
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "InputHandlers InputHandlers 1.3.1 registry",
     "Jest Jest 3.8.1 registry",
@@ -114,11 +113,10 @@ dependencies = [
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
     "Otter Otter 1.2.1 registry",
-    "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider LuaRoactPolicyProvider 0.1.1 registry",
     "Promise <patched> Promise 3.5.0 registry",
-    "PurchasePromptDeps PurchasePromptDeps fdaad921 git+https://github.com/roblox/purchase-prompt-deps#master",
+    "PurchasePromptDeps PurchasePromptDeps 1.0.1 registry",
     "QRCode QRCode 0.1.0 registry",
-    "RbxDesignFoundations RbxDesignFoundations a744f1a5 git+https://github.com/roblox/rbx-design-foundations#main",
     "React React 17.1.2 registry",
     "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.1.2 registry",
     "ReactFocusNavigation ReactFocusNavigation 1.3.1 registry",
@@ -138,21 +136,21 @@ dependencies = [
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
+    "Rodux <patched> Rodux 3.2.0 registry",
     "RoduxContacts RoduxContacts ce1067fc git+https://github.com/roblox/rodux-contacts#v0.9.1",
     "RoduxDevtools RoduxDevtools 1.0.0-rc.1 registry",
     "RoduxFriends RoduxFriends ceacc387 git+https://github.com/roblox/rodux-friends#v4.3.0",
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#master",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "RoduxUsers RoduxUsers 4e506b43 git+https://github.com/roblox/rodux-users#v1.5.1",
     "Signal Signal 1.0.0 registry",
     "StringUtilities <patched> string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
-    "Thumbnailing Thumbnailing a902ff7a git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.12.16 registry",
-    "UIBlox UIBlox 081d139f git+https://github.com/roblox/uiblox#master",
-    "UrlBuilder UrlBuilder 376b7c89 git+https://github.com/roblox/url-builder#master",
+    "Thumbnailing Thumbnailing 0.3.0 registry",
+    "UGCValidation UGCValidation 1.12.19 registry",
+    "UIBlox UIBlox 0.2.5 registry",
+    "UrlBuilder UrlBuilder 1.2.2 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
     "enumerate enumerate 1.1.0 registry",
@@ -173,7 +171,7 @@ source = "registry"
 
 [[package]]
 name = "Dash"
-version = "1.0.0"
+version = "1.1.0"
 source = "registry"
 
 [[package]]
@@ -295,18 +293,19 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.4.0"
+version = "1.5.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Dash Dash 1.0.0 registry",
-    "FoundationImages FoundationImages 1.5.0 registry",
+    "Dash Dash 1.1.0 registry",
+    "FoundationImages FoundationImages 1.6.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.2.1 registry",
-    "RbxDesignFoundations RbxDesignFoundations 2.0.137 registry",
+    "RbxDesignFoundations RbxDesignFoundations 2.0.143 registry",
     "React React 17.1.2 registry",
     "ReactIs ReactIs 17.1.2 registry",
     "ReactOtter ReactOtter 1.2.1 registry",
+    "ReactRoblox ReactRoblox 17.1.2 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
     "Roact RoactCompat 17.1.2 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
@@ -316,7 +315,7 @@ dependencies = [
 
 [[package]]
 name = "FoundationImages"
-version = "1.5.0"
+version = "1.6.0"
 source = "registry"
 
 [[package]]
@@ -358,9 +357,8 @@ dependencies = [
 
 [[package]]
 name = "IAPExperience"
-version = "1.0.0"
-commit = "2323bcda810cac3c85264f778cf78f5b1956d8c4"
-source = "git+https://github.com/roblox/iapexperience#master"
+version = "1.0.1"
+source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Otter Otter 0.1.4 registry",
@@ -369,8 +367,8 @@ dependencies = [
     "Roact RoactCompat 17.1.2 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
-    "Thumbnailing Thumbnailing a902ff7a git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 081d139f git+https://github.com/roblox/uiblox#master",
+    "Thumbnailing Thumbnailing 0.3.0 registry",
+    "UIBlox UIBlox 0.2.5 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -384,12 +382,12 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Mock mock 2db7a70f git+https://github.com/roblox/mock#v1.1.0",
     "Otter Otter 0.1.4 registry",
-    "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider <patched> LuaRoactPolicyProvider 0.1.1 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "Roact <patched> RoactCompat 17.1.2 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 081d139f git+https://github.com/roblox/uiblox#master",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "UIBlox <patched> UIBlox 0.2.5 registry",
     "t t 1.2.5 registry",
 ]
 
@@ -913,6 +911,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "LuaRoactPolicyProvider"
+version = "0.1.1"
+source = "registry"
+dependencies = [
+    "Cryo Cryo 1.1.0 registry",
+    "Lumberyak lumberyak 0.1.1 registry",
+    "Mock mock 0.1.0 registry",
+    "Promise <patched> Promise 3.5.0 registry",
+    "Roact <patched> RoactCompat 17.1.2 registry",
+    "Symbol lua-symbol 0.1.0 registry",
+    "tutils tutils 0.1.2 registry",
+]
+
+[[package]]
 name = "LuaSocialLibrariesDeps"
 version = "1.5.0"
 commit = "8c9fcd6c508b25e1f395f53fc49096c26e0c31c2"
@@ -943,7 +955,7 @@ dependencies = [
     "RoduxContacts RoduxContacts 0.8.4 registry",
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#v1.4.1",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence dc416d59 git+https://github.com/roblox/rodux-presence#v3.2.3",
     "RoduxShareLinks RoduxShareLinks 2198b997 git+https://github.com/roblox/rodux-sharelinks#v1.5.0",
     "RoduxUserPermissions RoduxUserPermissions 0.5.0 registry",
@@ -1191,21 +1203,20 @@ source = "registry"
 
 [[package]]
 name = "PurchasePromptDeps"
-version = "1.0.0"
-commit = "fdaad92186796db723f6ca423fa60de54de35631"
-source = "git+https://github.com/roblox/purchase-prompt-deps#master"
+version = "1.0.1"
+source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "FitFrame <patched> RoactFitComponents 2.0.0 registry",
-    "IAPExperience IAPExperience 2323bcda git+https://github.com/roblox/iapexperience#master",
+    "FitFrame RoactFitComponents 2.0.0 registry",
+    "IAPExperience IAPExperience 1.0.1 registry",
     "Otter Otter 0.1.4 registry",
-    "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
+    "PolicyProvider LuaRoactPolicyProvider 0.1.1 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "Roact RoactCompat 17.1.2 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 081d139f git+https://github.com/roblox/uiblox#master",
-    "UrlBuilder UrlBuilder 376b7c89 git+https://github.com/roblox/url-builder#master",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "UIBlox UIBlox 0.2.5 registry",
+    "UrlBuilder UrlBuilder 1.2.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1217,21 +1228,13 @@ source = "registry"
 
 [[package]]
 name = "RbxDesignFoundations"
-version = "0.0.1"
-commit = "fd2e104beb385491c4cc68d5411716f84140c7be"
-source = "git+https://github.com/roblox/rbx-design-foundations#1.1.105"
+version = "1.1.107"
+source = "registry"
 dependencies = ["t t 1.2.5 registry"]
 
 [[package]]
 name = "RbxDesignFoundations"
-version = "0.0.1"
-commit = "a744f1a5aac64f8ab6d99311b800ba94d086e1d8"
-source = "git+https://github.com/roblox/rbx-design-foundations#main"
-dependencies = ["t t 1.2.5 registry"]
-
-[[package]]
-name = "RbxDesignFoundations"
-version = "2.0.137"
+version = "2.0.143"
 source = "registry"
 dependencies = ["t t 1.2.5 registry"]
 
@@ -1474,7 +1477,7 @@ version = "0.5.1"
 source = "registry"
 dependencies = [
     "Roact <patched> RoactCompat 17.1.2 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
+    "Rodux <patched> Rodux 3.2.0 registry",
 ]
 
 [[package]]
@@ -1506,8 +1509,7 @@ dependencies = [
 [[package]]
 name = "Rodux"
 version = "3.2.0"
-commit = "7ee23111cb6f1e21176d9772c943d3626aebfc6a"
-source = "git+https://github.com/roblox/rodux#v3.2.0"
+source = "registry"
 
 [[package]]
 name = "RoduxAliases"
@@ -1516,8 +1518,8 @@ commit = "868f23dc6b0b20b06603c10d63d274cdb6cf2139"
 source = "git+https://github.com/roblox/rodux-aliases#v2.2.0"
 dependencies = [
     "AliasNetworking NetworkingAliases 1.15.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
 
@@ -1529,8 +1531,8 @@ source = "git+https://github.com/roblox/rodux-call#v1.18.0"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "NetworkingCall NetworkingCall 1.16.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "t t 1.2.5 registry",
 ]
 
@@ -1541,8 +1543,8 @@ source = "registry"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1555,8 +1557,8 @@ source = "git+https://github.com/roblox/rodux-contacts#v0.9.1"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1575,8 +1577,8 @@ dependencies = [
     "FriendsNetworking NetworkingFriends 2.12.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "NetworkingBlocking NetworkingBlocking 1.15.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1591,8 +1593,8 @@ dependencies = [
     "FriendsNetworking NetworkingFriends 2.12.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "NetworkingBlocking NetworkingBlocking 1.15.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1606,8 +1608,8 @@ source = "git+https://github.com/roblox/rodux-games#master"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1620,20 +1622,20 @@ source = "git+https://github.com/roblox/rodux-games#v1.4.1"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
 
 [[package]]
 name = "RoduxNetworking"
-version = "3.3.2"
+version = "3.4.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Promise <patched> Promise 3.5.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
+    "Rodux <patched> Rodux 3.2.0 registry",
     "tutils tutils 0.1.2 registry",
 ]
 
@@ -1645,8 +1647,8 @@ source = "git+https://github.com/roblox/rodux-presence#v3.1.0"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "NetworkingPresence NetworkingPresence 0.8.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1659,8 +1661,8 @@ source = "git+https://github.com/roblox/rodux-presence#v3.2.3"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "NetworkingPresence NetworkingPresence 1.15.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",
 ]
@@ -1672,8 +1674,8 @@ commit = "2198b997332ef18e4940b352abf7c4ad931fa662"
 source = "git+https://github.com/roblox/rodux-sharelinks#v1.5.0"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "ShareLinksNetworking NetworkingShareLinks aa454263 git+https://github.com/roblox/networking-sharelinks#v1.4.1",
     "enumerate enumerate 1.1.0 registry",
     "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",
@@ -1687,8 +1689,8 @@ dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 registry",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
 ]
 
 [[package]]
@@ -1699,8 +1701,8 @@ source = "git+https://github.com/roblox/rodux-users#v1.5.1"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FriendsNetworking NetworkingFriends 2.12.1 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.3.2 registry",
+    "Rodux <patched> Rodux 3.2.0 registry",
+    "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
 ]
 
@@ -1757,11 +1759,11 @@ dependencies = [
     "Roact RoactCompat 17.1.2 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
+    "Rodux <patched> Rodux 3.2.0 registry",
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 081d139f git+https://github.com/roblox/uiblox#master",
+    "UIBlox <patched> UIBlox 0.2.5 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t t 1.2.5 registry",
@@ -1839,8 +1841,7 @@ dependencies = [
 [[package]]
 name = "Thumbnailing"
 version = "0.3.0"
-commit = "a902ff7ae59f90d8ad7d5f2a0d18b5a4ccf97022"
-source = "git+https://github.com/roblox/thumbnailing#main"
+source = "registry"
 
 [[package]]
 name = "Timers"
@@ -1850,7 +1851,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.12.16"
+version = "1.12.19"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1859,20 +1860,19 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.1.1"
-commit = "081d139f3e9da81d355b4c40d4127bfc3f8a0f49"
-source = "git+https://github.com/roblox/uiblox#master"
+version = "0.2.5"
+source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "FoundationImages FoundationImages 1.5.0 registry",
+    "FoundationImages FoundationImages 1.6.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 0.1.4 registry",
     "Promise <patched> Promise 3.5.0 registry",
-    "RbxDesignFoundations RbxDesignFoundations fd2e104b git+https://github.com/roblox/rbx-design-foundations#1.1.105",
-    "RbxDesignFoundationsV2 RbxDesignFoundations 2.0.137 registry",
+    "RbxDesignFoundations RbxDesignFoundations 1.1.107 registry",
+    "RbxDesignFoundationsV2 RbxDesignFoundations 2.0.143 registry",
     "React React 17.1.2 registry",
     "ReactOtter ReactOtter 1.2.1 registry",
     "ReactRoblox ReactRoblox 17.1.2 registry",
@@ -1888,9 +1888,8 @@ dependencies = [
 
 [[package]]
 name = "UrlBuilder"
-version = "1.2.1"
-commit = "376b7c8947dc4631ca82652bf58b2082d82fe790"
-source = "git+https://github.com/roblox/url-builder#master"
+version = "1.2.2"
+source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "StringUtilities string-utilities 1.0.0 registry",
@@ -1967,12 +1966,6 @@ version = "1.1.0"
 source = "registry"
 
 [[package]]
-name = "jtaylor/mock"
-version = "0.1.0"
-commit = "d2c4005c863fd2f9fa74b7391ada64906d242847"
-source = "git+https://github.com/roblox/mock#master"
-
-[[package]]
 name = "llama"
 version = "1.0.0"
 commit = "31db8968f38bf53d66664ac7e581d8b27dd3db7f"
@@ -1984,10 +1977,20 @@ version = "0.1.0"
 source = "registry"
 
 [[package]]
+name = "lua-symbol"
+version = "0.1.0"
+source = "registry"
+
+[[package]]
 name = "lumberyak"
 version = "0.1.1"
 source = "registry"
 dependencies = ["Cryo Cryo 1.1.0 registry"]
+
+[[package]]
+name = "mock"
+version = "0.1.0"
+source = "registry"
 
 [[package]]
 name = "mock"
@@ -2013,21 +2016,6 @@ source = "git+https://github.com/roblox/http-request#v1.1.0"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Promise <patched> Promise 3.5.0 registry",
-]
-
-[[package]]
-name = "roblox/lua-roact-policy-provider"
-version = "0.1.0"
-commit = "285e839695342e4dcd66b78e9fc29de4f09c5d17"
-source = "git+https://github.com/roblox/lua-roact-policy-provider#master"
-dependencies = [
-    "Cryo Cryo 1.1.0 registry",
-    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "Mock jtaylor/mock d2c4005c git+https://github.com/roblox/mock#master",
-    "Promise <patched> Promise 3.5.0 registry",
-    "Roact <patched> RoactCompat 17.1.2 registry",
-    "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",
 ]
 
 [[package]]

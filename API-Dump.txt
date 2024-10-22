@@ -3,6 +3,68 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Function Object:GetPropertyChangedSignal(property: string) -> RBXScriptSignal
 	Function Object:IsA(className: string) -> boolean [CustomLuaState] {🧬Safe}
 	Event Object.Changed(property: string)
+Class EditableImage : Object
+	Property EditableImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
+	Property EditableImage.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property EditableImage.Size: Vector2 [ReadOnly]
+	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
+	Function EditableImage:DrawImage(position: Vector2, image: Object, combineType: Enum.ImageCombineType) -> ()
+	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
+	Function EditableImage:DrawProjectionImage(mesh: Object, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
+	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
+	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {RobloxScriptSecurity}
+	Function EditableImage:GetContent() -> Content
+	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer [CustomLuaState] {🧬Safe}
+	Function EditableImage:WritePixelsBuffer(position: Vector2, size: Vector2, buffer: buffer) -> () [CustomLuaState]
+Class EditableMesh : Object
+	Property EditableMesh.FixedSize: boolean {✏️RobloxSecurity} [ReadOnly]
+	Property EditableMesh.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
+	Property EditableMesh.SkinningEnabled: boolean
+	Function EditableMesh:AddColor(color: Color3, alpha: number) -> number
+	Function EditableMesh:AddNormal(normal: Vector3?) -> number
+	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
+	Function EditableMesh:AddUV(uv: Vector2) -> number
+	Function EditableMesh:AddVertex(p: Vector3) -> number
+	Function EditableMesh:CreateMeshPartAsync(initialSize: Vector3, options: { [string]: any }? = nil) -> MeshPart [Yields]
+	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any
+	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number
+	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any }
+	Function EditableMesh:GetAdjacentFaces(faceId: number) -> { any }
+	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any }
+	Function EditableMesh:GetColor(colorId: number) -> Color3?
+	Function EditableMesh:GetColorAlpha(colorId: number) -> number?
+	Function EditableMesh:GetColors() -> { any } [CustomLuaState]
+	Function EditableMesh:GetContent() -> Content
+	Function EditableMesh:GetFaceColors(faceId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaceNormals(faceId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaceUVs(faceId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaceVertices(faceId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFaces() -> { any } [CustomLuaState]
+	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any }
+	Function EditableMesh:GetNormal(normalId: number) -> Vector3?
+	Function EditableMesh:GetNormals() -> { any } [CustomLuaState]
+	Function EditableMesh:GetPosition(vertexId: number) -> Vector3
+	Function EditableMesh:GetUV(uvId: number) -> Vector2?
+	Function EditableMesh:GetUVs() -> { any } [CustomLuaState]
+	Function EditableMesh:GetVertices() -> { any }
+	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any }
+	Function EditableMesh:IdDebugString(id: number) -> string
+	Function EditableMesh:MergeVertices(mergeTolerance: number) -> { [string]: any }
+	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any
+	Function EditableMesh:RemoveFace(faceId: number) -> ()
+	Function EditableMesh:RemoveUnused() -> { any }
+	Function EditableMesh:ResetNormal(normalId: number) -> ()
+	Function EditableMesh:SetColor(colorId: number, color: Color3) -> ()
+	Function EditableMesh:SetColorAlpha(colorId: number, alpha: number) -> ()
+	Function EditableMesh:SetFaceColors(faceId: number, ids: { any }) -> () [CustomLuaState]
+	Function EditableMesh:SetFaceNormals(faceId: number, ids: { any }) -> () [CustomLuaState]
+	Function EditableMesh:SetFaceUVs(faceId: number, ids: { any }) -> () [CustomLuaState]
+	Function EditableMesh:SetFaceVertices(faceId: number, ids: { any }) -> () [CustomLuaState]
+	Function EditableMesh:SetNormal(normalId: number, normal: Vector3) -> ()
+	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> ()
+	Function EditableMesh:SetUV(uvId: number, uv: Vector2) -> ()
+	Function EditableMesh:Triangulate() -> ()
 Class Instance : Object [NotCreatable] [NotBrowsable]
 	Property Instance.Archivable: boolean
 	Property Instance.Attributes: string {RobloxSecurity} [Hidden] [ReadOnly] [NotScriptable]
@@ -36,7 +98,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:GetAttribute(attribute: string) -> any {🧬Safe}
 	Function Instance:GetAttributeChangedSignal(attribute: string) -> RBXScriptSignal
 	Function Instance:GetAttributes() -> { [string]: any } [CustomLuaState] {🧬Safe}
-	Function Instance:GetChildren() -> { Instance } {🧬Safe}
+	Function Instance:GetChildren() -> Instances {🧬Safe}
 	Function Instance:GetDebugId(scopeLength: number? = 4) -> string {PluginSecurity} [NotBrowsable]
 	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetFullName() -> string {🧬Safe}
@@ -51,7 +113,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:ResetPropertyToDefault(name: string) -> ()
 	Function Instance:SetAttribute(attribute: string, value: any) -> ()
 	Function Instance:WaitForChild(childName: string, timeOut: number) -> Instance? [CustomLuaState] [CanYield]
-	Function Instance:children() -> { Instance } [Deprecated]
+	Function Instance:children() -> Instances [Deprecated]
 	Event Instance.AncestryChanged(child: Instance, parent: Instance)
 	Event Instance.AttributeChanged(attribute: string)
 	Event Instance.ChildAdded(child: Instance)
@@ -144,7 +206,7 @@ Class CurveAnimation : AnimationClip
 Class KeyframeSequence : AnimationClip
 	Property KeyframeSequence.AuthoredHipHeight: number {PluginSecurity} [Hidden]
 	Function KeyframeSequence:AddKeyframe(keyframe: Instance) -> ()
-	Function KeyframeSequence:GetKeyframes() -> { Instance }
+	Function KeyframeSequence:GetKeyframes() -> Instances
 	Function KeyframeSequence:RemoveKeyframe(keyframe: Instance) -> ()
 Class AnimationClipProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AnimationClipProvider:GetAnimationClip(assetId: ContentId) -> AnimationClip {PluginSecurity} [Deprecated]
@@ -255,7 +317,7 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DeleteAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
-	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
+	Function AnnotationsService:GetAnnotationThreads() -> Instances {RobloxScriptSecurity}
 	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation, count: number? = 25) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:ResolveAnnotation(userId: number, annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationAdded(annotation: Annotation, parentId: string) {RobloxScriptSecurity}
@@ -340,12 +402,13 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.OutputPath: string
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
-	Function AssetService:CreateEditableImage() -> EditableImage
-	Function AssetService:CreateEditableImageAsync(textureId: ContentId) -> EditableImage [Yields]
-	Function AssetService:CreateEditableMesh() -> EditableMesh
-	Function AssetService:CreateEditableMeshAsync(meshId: ContentId) -> EditableMesh [Yields]
-	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> EditableMesh [Yields]
-	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: ContentId) -> EditableMesh {RobloxScriptSecurity} [Yields]
+	Function AssetService:CheckTextureAlphaAsync(textureId: ContentId) -> boolean {RobloxScriptSecurity} [Yields]
+	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> Object
+	Function AssetService:CreateEditableImageAsync(content: Content, editableImageOptions: { [string]: any }?) -> Object [Yields]
+	Function AssetService:CreateEditableMesh(editableMeshOptions: { [string]: any }?) -> Object
+	Function AssetService:CreateEditableMeshAsync(content: Content, editableMeshOptions: { [string]: any }?) -> Object [Yields]
+	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> Object [Yields]
+	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: ContentId) -> Object {RobloxScriptSecurity} [Yields]
 	Function AssetService:CreateMeshPartAsync(meshId: ContentId, options: { [string]: any }? = nil) -> MeshPart {PluginSecurity} [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
@@ -388,7 +451,7 @@ Class Attachment : Instance
 	Property Attachment.Position: Vector3 [Hidden] [NotReplicated]
 	Property Attachment.Rotation: Vector3 [Hidden] [NotReplicated] [Deprecated]
 	Function Attachment:GetAxis() -> Vector3 [Deprecated]
-	Function Attachment:GetConstraints() -> { Instance }
+	Function Attachment:GetConstraints() -> Instances
 	Function Attachment:GetSecondaryAxis() -> Vector3 [Deprecated]
 	Function Attachment:SetAxis(axis: Vector3) -> () [Deprecated]
 	Function Attachment:SetSecondaryAxis(axis: Vector3) -> () [Deprecated]
@@ -400,14 +463,14 @@ Class AudioAnalyzer : Instance
 	Property AudioAnalyzer.PeakLevel: number [ReadOnly]
 	Property AudioAnalyzer.RmsLevel: number [ReadOnly]
 	Property AudioAnalyzer.SpectrumEnabled: boolean
-	Function AudioAnalyzer:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioAnalyzer:GetConnectedWires(pin: string) -> Instances
 	Function AudioAnalyzer:GetSpectrum() -> { any } [CustomLuaState]
 Class AudioChorus : Instance
 	Property AudioChorus.Bypass: boolean
 	Property AudioChorus.Depth: number
 	Property AudioChorus.Mix: number
 	Property AudioChorus.Rate: number
-	Function AudioChorus:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioChorus:GetConnectedWires(pin: string) -> Instances
 Class AudioCompressor : Instance
 	Property AudioCompressor.Attack: number
 	Property AudioCompressor.Bypass: boolean
@@ -415,7 +478,7 @@ Class AudioCompressor : Instance
 	Property AudioCompressor.Ratio: number
 	Property AudioCompressor.Release: number
 	Property AudioCompressor.Threshold: number
-	Function AudioCompressor:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioCompressor:GetConnectedWires(pin: string) -> Instances
 Class AudioDeviceInput : Instance
 	Property AudioDeviceInput.AccessList: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property AudioDeviceInput.AccessType: Enum.AccessModifierType
@@ -425,30 +488,33 @@ Class AudioDeviceInput : Instance
 	Property AudioDeviceInput.MutedByLocalUser: boolean {RobloxScriptSecurity} [NotReplicated]
 	Property AudioDeviceInput.Player: Player?
 	Property AudioDeviceInput.Volume: number
-	Function AudioDeviceInput:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioDeviceInput:GetConnectedWires(pin: string) -> Instances
 	Function AudioDeviceInput:GetUserIdAccessList() -> { any }
 	Function AudioDeviceInput:SetUserIdAccessList(userIds: { any }) -> ()
 Class AudioDeviceOutput : Instance
 	Property AudioDeviceOutput.Player: Player?
-	Function AudioDeviceOutput:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioDeviceOutput:GetConnectedWires(pin: string) -> Instances
 Class AudioDistortion : Instance
 	Property AudioDistortion.Bypass: boolean
 	Property AudioDistortion.Level: number
-	Function AudioDistortion:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioDistortion:GetConnectedWires(pin: string) -> Instances
 Class AudioEcho : Instance
 	Property AudioEcho.Bypass: boolean
 	Property AudioEcho.DelayTime: number
 	Property AudioEcho.DryLevel: number
 	Property AudioEcho.Feedback: number
 	Property AudioEcho.WetLevel: number
-	Function AudioEcho:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioEcho:GetConnectedWires(pin: string) -> Instances
 Class AudioEmitter : Instance
+	Property AudioEmitter.AngleAttenuation: BinaryString {RobloxSecurity}
 	Property AudioEmitter.DistanceAttenuation: BinaryString {RobloxSecurity}
 	Property AudioEmitter.AudioInteractionGroup: string
+	Function AudioEmitter:GetAngleAttenuation() -> { [string]: any } [CustomLuaState]
 	Function AudioEmitter:GetAudibilityFor(listener: AudioListener) -> number {RobloxScriptSecurity}
-	Function AudioEmitter:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioEmitter:GetConnectedWires(pin: string) -> Instances
 	Function AudioEmitter:GetDistanceAttenuation() -> { [string]: any } [CustomLuaState]
-	Function AudioEmitter:GetInteractingListeners() -> { Instance }
+	Function AudioEmitter:GetInteractingListeners() -> Instances
+	Function AudioEmitter:SetAngleAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 	Function AudioEmitter:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 Class AudioEqualizer : Instance
 	Property AudioEqualizer.Bypass: boolean
@@ -457,11 +523,11 @@ Class AudioEqualizer : Instance
 	Property AudioEqualizer.MidGain: number
 	Property AudioEqualizer.MidRange: NumberRange
 	Property AudioEqualizer.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Function AudioEqualizer:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioEqualizer:GetConnectedWires(pin: string) -> Instances
 Class AudioFader : Instance
 	Property AudioFader.Bypass: boolean
 	Property AudioFader.Volume: number
-	Function AudioFader:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioFader:GetConnectedWires(pin: string) -> Instances
 Class AudioFilter : Instance
 	Property AudioFilter.Bypass: boolean
 	Property AudioFilter.FilterType: Enum.AudioFilterType
@@ -469,14 +535,14 @@ Class AudioFilter : Instance
 	Property AudioFilter.Gain: number
 	Property AudioFilter.Q: number
 	Property AudioFilter.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Function AudioFilter:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioFilter:GetConnectedWires(pin: string) -> Instances
 	Function AudioFilter:GetGainAt(frequency: number) -> number
 Class AudioFlanger : Instance
 	Property AudioFlanger.Bypass: boolean
 	Property AudioFlanger.Depth: number
 	Property AudioFlanger.Mix: number
 	Property AudioFlanger.Rate: number
-	Function AudioFlanger:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioFlanger:GetConnectedWires(pin: string) -> Instances
 Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AudioFocusService:AcquireFocus(contextId: number) -> boolean {RobloxScriptSecurity}
 	Function AudioFocusService:GetFocusedContextId() -> number {RobloxScriptSecurity}
@@ -491,19 +557,22 @@ Class AudioLimiter : Instance
 	Property AudioLimiter.Bypass: boolean
 	Property AudioLimiter.MaxLevel: number
 	Property AudioLimiter.Release: number
-	Function AudioLimiter:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioLimiter:GetConnectedWires(pin: string) -> Instances
 Class AudioListener : Instance
 	Property AudioListener.AudioInteractionGroup: string
+	Property AudioListener.AngleAttenuation: BinaryString {RobloxSecurity}
 	Property AudioListener.DistanceAttenuation: BinaryString {RobloxSecurity}
+	Function AudioListener:GetAngleAttenuation() -> { [string]: any } [CustomLuaState]
 	Function AudioListener:GetAudibilityOf(emitter: AudioEmitter) -> number {RobloxScriptSecurity}
-	Function AudioListener:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioListener:GetConnectedWires(pin: string) -> Instances
 	Function AudioListener:GetDistanceAttenuation() -> { [string]: any } [CustomLuaState]
-	Function AudioListener:GetInteractingEmitters() -> { Instance }
+	Function AudioListener:GetInteractingEmitters() -> Instances
+	Function AudioListener:SetAngleAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 	Function AudioListener:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 Class AudioPitchShifter : Instance
 	Property AudioPitchShifter.Bypass: boolean
 	Property AudioPitchShifter.Pitch: number
-	Function AudioPitchShifter:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioPitchShifter:GetConnectedWires(pin: string) -> Instances
 Class AudioPlayer : Instance
 	Property AudioPlayer.Asset: ContentId [📁 LoadOnly] [Hidden] [NotScriptable]
 	Property AudioPlayer.AssetId: string
@@ -517,7 +586,8 @@ Class AudioPlayer : Instance
 	Property AudioPlayer.LoopRegion: NumberRange
 	Property AudioPlayer.PlaybackRegion: NumberRange
 	Property AudioPlayer.Volume: number
-	Function AudioPlayer:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioPlayer:GetConnectedWires(pin: string) -> Instances
+	Function AudioPlayer:GetWaveformAsync(timeRange: NumberRange, samples: number) -> { any } [Yields]
 	Function AudioPlayer:Play() -> ()
 	Function AudioPlayer:Stop() -> ()
 	Event AudioPlayer.Ended()
@@ -536,7 +606,7 @@ Class AudioReverb : Instance
 	Property AudioReverb.LowShelfGain: number
 	Property AudioReverb.ReferenceFrequency: number
 	Property AudioReverb.WetLevel: number
-	Function AudioReverb:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioReverb:GetConnectedWires(pin: string) -> Instances
 Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.Album: string
 	Property AudioSearchParams.Artist: string
@@ -563,6 +633,7 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Event AvatarChatService.OnClientFeatures(features: number) {RobloxSecurity} [Hidden]
 	Event AvatarChatService.RefreshClientFeatures() {RobloxSecurity} [Hidden]
 Class AvatarCreationService : Instance [NotCreatable] [Service]
+	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {RobloxScriptSecurity}
 	Function AvatarCreationService:GenerateAvatarAsync(sessionId: string, previewId: string) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarModelAsync(player: Player, previewJobId: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarPreviewAsync(player: Player, textPrompt: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
@@ -572,7 +643,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
 	Function AvatarCreationService:LoadAvatarHumanoidDescriptionAsync(id: string) -> HumanoidDescription [Yields]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
-	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
+	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> Object [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(tokenId: string, player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Function AvatarCreationService:PromptSelectAvatarGenerationImageAsync(player: Player) -> string [Yields]
 	Function AvatarCreationService:RequestAvatarGenerationSessionAsync(player: Player, callback: (...any) -> ...any) -> ...any [Yields]
@@ -738,8 +809,8 @@ Class RootImportData : BaseImportData [NotCreatable] [NotReplicated]
 	Property RootImportData.WorldForward: Enum.NormalId
 	Property RootImportData.WorldUp: Enum.NormalId
 Class BasePlayerGui : Instance [NotCreatable]
-	Function BasePlayerGui:GetGuiObjectsAtPosition(x: number, y: number) -> { Instance }
-	Function BasePlayerGui:GetGuiObjectsInCircle(position: Vector2, radius: number) -> { Instance } {RobloxScriptSecurity}
+	Function BasePlayerGui:GetGuiObjectsAtPosition(x: number, y: number) -> Instances
+	Function BasePlayerGui:GetGuiObjectsInCircle(position: Vector2, radius: number) -> Instances {RobloxScriptSecurity}
 Class CoreGui : BasePlayerGui [NotCreatable] [Service] [NotReplicated]
 	Property CoreGui.SelectionImageObject: GuiObject? {RobloxScriptSecurity}
 	Property CoreGui.Version: number [ReadOnly]
@@ -784,6 +855,7 @@ Class UnreliableRemoteEvent : BaseRemoteEvent
 	Event UnreliableRemoteEvent.OnRemoteServerEvent(arguments: ...any) {RobloxSecurity} [Hidden]
 	Event UnreliableRemoteEvent.OnServerEvent(player: Player, arguments: ...any)
 Class BaseWrap : Instance [NotCreatable]
+	Property BaseWrap.CageMeshContent: Content {✏️PluginSecurity} [Hidden]
 	Property BaseWrap.CageMeshId: ContentId {✏️PluginSecurity}
 	Property BaseWrap.CageOrigin: CFrame {✏️PluginSecurity}
 	Property BaseWrap.ImportOrigin: CFrame {✏️PluginSecurity}
@@ -802,11 +874,13 @@ Class BaseWrap : Instance [NotCreatable]
 	Function BaseWrap:ModifyVertices(cageType: Enum.CageType, vertices: { any }) -> () {RobloxScriptSecurity}
 	Event BaseWrap.VerticesModified(vertices: { any }) {RobloxScriptSecurity}
 Class WrapDeformer : BaseWrap [NotBrowsable]
-	Function WrapDeformer:CreateEditableMeshAsync() -> EditableMesh [Yields]
+	Function WrapDeformer:CreateEditableMeshAsync() -> Object [Yields]
 	Function WrapDeformer:GetDeformedCFrameAsync(originalCFrame: CFrame) -> CFrame [Yields]
+	Function WrapDeformer:SetCageMeshContent(content: Content) -> ()
 Class WrapLayer : BaseWrap
 	Property WrapLayer.Order: number
 	Property WrapLayer.Puffiness: number
+	Property WrapLayer.ReferenceMeshContent: Content {✏️PluginSecurity} [Hidden]
 	Property WrapLayer.ReferenceMeshId: ContentId {✏️PluginSecurity}
 	Property WrapLayer.ReferenceOrigin: CFrame {✏️PluginSecurity}
 	Property WrapLayer.TemporaryReferenceId: ContentId {RobloxSecurity} [Hidden] [NotScriptable]
@@ -957,9 +1031,9 @@ Class Camera : Instance [NotReplicated]
 	Property Camera.NearPlaneZ: number [ReadOnly]
 	Property Camera.VRTiltAndRollEnabled: boolean
 	Property Camera.ViewportSize: Vector2 [ReadOnly]
-	Function Camera:GetLargestCutoffDistance(ignoreList: { Instance }) -> number [Deprecated]
+	Function Camera:GetLargestCutoffDistance(ignoreList: Instances) -> number [Deprecated]
 	Function Camera:GetPanSpeed() -> number [Deprecated]
-	Function Camera:GetPartsObscuringTarget(castPoints: { any }, ignoreList: { Instance }) -> { Instance }
+	Function Camera:GetPartsObscuringTarget(castPoints: { any }, ignoreList: Instances) -> Instances
 	Function Camera:GetRenderCFrame() -> CFrame
 	Function Camera:GetRoll() -> number
 	Function Camera:GetTiltSpeed() -> number [Deprecated]
@@ -1150,7 +1224,7 @@ Class Collaborator : Instance [NotCreatable]
 	Property Collaborator.UserId: number [Hidden]
 	Property Collaborator.Username: string [Hidden]
 Class CollaboratorsService : Instance [NotCreatable] [Service]
-	Function CollaboratorsService:GetCollaboratorsList() -> { Instance } {RobloxScriptSecurity}
+	Function CollaboratorsService:GetCollaboratorsList() -> Instances {RobloxScriptSecurity}
 	Function CollaboratorsService:GetSelectionHighlightsEnabled() -> boolean {RobloxScriptSecurity}
 	Function CollaboratorsService:RequestFlyToCollaborator(collaboratorId: number) -> () {RobloxScriptSecurity}
 	Function CollaboratorsService:ToggleSelectionHighlights(showHighlights: boolean) -> () {RobloxScriptSecurity}
@@ -1163,10 +1237,10 @@ Class CollaboratorsService : Instance [NotCreatable] [Service]
 Class CollectionService : Instance [NotCreatable] [Service]
 	Function CollectionService:AddTag(instance: Instance, tag: string) -> () [CustomLuaState]
 	Function CollectionService:GetAllTags() -> { any } {🧬Safe}
-	Function CollectionService:GetCollection(class: string) -> { Instance } [Deprecated]
+	Function CollectionService:GetCollection(class: string) -> Instances [Deprecated]
 	Function CollectionService:GetInstanceAddedSignal(tag: string) -> RBXScriptSignal
 	Function CollectionService:GetInstanceRemovedSignal(tag: string) -> RBXScriptSignal
-	Function CollectionService:GetTagged(tag: string) -> { Instance } {🧬Safe}
+	Function CollectionService:GetTagged(tag: string) -> Instances {🧬Safe}
 	Function CollectionService:GetTags(instance: Instance) -> { any } [CustomLuaState] {🧬Safe}
 	Function CollectionService:HasTag(instance: Instance, tag: string) -> boolean [CustomLuaState] {🧬Safe}
 	Function CollectionService:RemoveTag(instance: Instance, tag: string) -> () [CustomLuaState]
@@ -1520,7 +1594,7 @@ Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplic
 	Event CrossDMScriptChangeListener.GuidNameChanged(guid: string, fullName: string) {RobloxScriptSecurity}
 Class CustomEvent : Instance [Deprecated]
 	Property CustomEvent.PersistedCurrentValue: number [Hidden] [NotScriptable] [Deprecated]
-	Function CustomEvent:GetAttachedReceivers() -> { Instance } [Deprecated]
+	Function CustomEvent:GetAttachedReceivers() -> Instances [Deprecated]
 	Function CustomEvent:SetValue(newValue: number) -> () [Deprecated]
 	Event CustomEvent.ReceiverConnected(receiver: Instance) [Deprecated]
 	Event CustomEvent.ReceiverDisconnected(receiver: Instance) [Deprecated]
@@ -1540,66 +1614,6 @@ Class BevelMesh : DataModelMesh [NotCreatable] [NotBrowsable] [Deprecated]
 	Property BevelMesh.Bulge: number [Hidden] [NotScriptable] [Deprecated]
 Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
-Class EditableMesh : DataModelMesh
-	Property EditableMesh.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
-	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
-	Property EditableMesh.SkinningEnabled: boolean
-	Function EditableMesh:AddColor(color: Color3, alpha: number) -> number
-	Function EditableMesh:AddNormal(normal: Vector3?) -> number
-	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
-	Function EditableMesh:AddUV(uv: Vector2) -> number
-	Function EditableMesh:AddVertex(p: Vector3) -> number
-	Function EditableMesh:CreateMeshPartAsync(options: { [string]: any }? = nil) -> MeshPart [Yields]
-	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any
-	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number
-	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any }
-	Function EditableMesh:GetAdjacentFaces(faceId: number) -> { any }
-	Function EditableMesh:GetAdjacentTriangles(triangleId: number) -> { any } [Deprecated]
-	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any }
-	Function EditableMesh:GetColor(colorId: number) -> Color3?
-	Function EditableMesh:GetColorAlpha(colorId: number) -> number?
-	Function EditableMesh:GetColors() -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaceColors(faceId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaceNormals(faceId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaceUVs(faceId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaceVertices(faceId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaces() -> { any } [CustomLuaState]
-	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any }
-	Function EditableMesh:GetNormal(normalId: number) -> Vector3?
-	Function EditableMesh:GetNormals() -> { any } [CustomLuaState]
-	Function EditableMesh:GetPosition(vertexId: number) -> Vector3
-	Function EditableMesh:GetTriangleVertices(triangleId: number) -> ...any [Deprecated]
-	Function EditableMesh:GetTriangles() -> { any } [Deprecated]
-	Function EditableMesh:GetUV(uvId: number) -> Vector2?
-	Function EditableMesh:GetUVs() -> { any } [CustomLuaState]
-	Function EditableMesh:GetVertexColor(vertexId: number) -> Color3 [Deprecated]
-	Function EditableMesh:GetVertexColorAlpha(vertexId: number) -> number [Deprecated]
-	Function EditableMesh:GetVertexNormal(vertexId: number) -> Vector3 [Deprecated]
-	Function EditableMesh:GetVertices() -> { any }
-	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any }
-	Function EditableMesh:IdDebugString(id: number) -> string
-	Function EditableMesh:MergeVertices(mergeTolerance: number) -> { [string]: any }
-	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any
-	Function EditableMesh:RemoveFace(faceId: number) -> ()
-	Function EditableMesh:RemoveTriangle(triangleId: number) -> () [Deprecated]
-	Function EditableMesh:RemoveUnused() -> { any }
-	Function EditableMesh:RemoveVertex(vertexId: number) -> () [Deprecated]
-	Function EditableMesh:ResetNormal(normalId: number) -> ()
-	Function EditableMesh:SetColor(colorId: number, color: Color3) -> ()
-	Function EditableMesh:SetColorAlpha(colorId: number, alpha: number) -> ()
-	Function EditableMesh:SetFaceColors(faceId: number, ids: { any }) -> () [CustomLuaState]
-	Function EditableMesh:SetFaceNormals(faceId: number, ids: { any }) -> () [CustomLuaState]
-	Function EditableMesh:SetFaceUVs(faceId: number, ids: { any }) -> () [CustomLuaState]
-	Function EditableMesh:SetFaceVertices(faceId: number, ids: { any }) -> () [CustomLuaState]
-	Function EditableMesh:SetNormal(normalId: number, normal: Vector3) -> ()
-	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> ()
-	Function EditableMesh:SetUV(uvId: number, uv: Vector2) -> ()
-	Function EditableMesh:SetVertexColor(vertexId: number, color: Color3) -> () [Deprecated]
-	Function EditableMesh:SetVertexColorAlpha(vertexId: number, alpha: number) -> () [Deprecated]
-	Function EditableMesh:SetVertexNormal(vertexId: number, vnormal: Vector3) -> () [Deprecated]
-	Function EditableMesh:Triangulate() -> ()
-Class RobloxEditableMesh : EditableMesh
-	Property RobloxEditableMesh.MeshDataSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class FileMesh : DataModelMesh
 	Property FileMesh.MeshId: ContentId
 	Property FileMesh.TextureId: ContentId
@@ -1721,7 +1735,7 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DebuggerManager.DebuggingEnabled: boolean [ReadOnly]
 	Function DebuggerManager:AddDebugger(script: Instance) -> Instance?
 	Function DebuggerManager:EnableDebugging() -> () {LocalUserSecurity}
-	Function DebuggerManager:GetDebuggers() -> { Instance }
+	Function DebuggerManager:GetDebuggers() -> Instances
 	Function DebuggerManager:Resume() -> ()
 	Function DebuggerManager:StepIn() -> () [Deprecated]
 	Function DebuggerManager:StepOut() -> () [Deprecated]
@@ -1766,7 +1780,7 @@ Class Dialog : Instance
 	Property Dialog.Tone: Enum.DialogTone
 	Property Dialog.TriggerDistance: number
 	Property Dialog.TriggerOffset: Vector3
-	Function Dialog:GetCurrentPlayers() -> { Instance }
+	Function Dialog:GetCurrentPlayers() -> Instances
 	Function Dialog:SetPlayerIsUsing(player: Instance, isUsing: boolean) -> () {RobloxScriptSecurity}
 	Function Dialog:SignalDialogChoiceSelected(player: Instance, dialogChoice: Instance) -> () {RobloxScriptSecurity}
 	Event Dialog.DialogChoiceSelected(player: Instance, dialogChoice: Instance)
@@ -1776,16 +1790,16 @@ Class DialogChoice : Instance
 	Property DialogChoice.ResponseDialog: string
 	Property DialogChoice.UserDialog: string
 Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function DraftsService:CommitEdits(scripts: { Instance }) -> () {RobloxScriptSecurity} [Yields]
-	Function DraftsService:DiscardEdits(scripts: { Instance }) -> () {RobloxScriptSecurity}
+	Function DraftsService:CommitEdits(scripts: Instances) -> () {RobloxScriptSecurity} [Yields]
+	Function DraftsService:DiscardEdits(scripts: Instances) -> () {RobloxScriptSecurity}
 	Function DraftsService:GetDraftStatus(script: Instance) -> Enum.DraftStatusCode {RobloxScriptSecurity}
-	Function DraftsService:GetDrafts() -> { Instance } {RobloxScriptSecurity} [Yields]
-	Function DraftsService:GetEditors(script: Instance) -> { Instance } {RobloxScriptSecurity}
-	Function DraftsService:RestoreScripts(scripts: { Instance }) -> () {RobloxScriptSecurity}
-	Function DraftsService:ShowDiffsAgainstBase(scripts: { Instance }) -> () {RobloxScriptSecurity}
-	Function DraftsService:ShowDiffsAgainstServer(scripts: { Instance }) -> () {RobloxScriptSecurity}
-	Function DraftsService:ShowSourceDiffsAgainstCurrent(sources: { any }, scripts: { Instance }) -> () {RobloxScriptSecurity}
-	Function DraftsService:UpdateToLatestVersion(scripts: { Instance }) -> () {RobloxScriptSecurity} [Yields]
+	Function DraftsService:GetDrafts() -> Instances {RobloxScriptSecurity} [Yields]
+	Function DraftsService:GetEditors(script: Instance) -> Instances {RobloxScriptSecurity}
+	Function DraftsService:RestoreScripts(scripts: Instances) -> () {RobloxScriptSecurity}
+	Function DraftsService:ShowDiffsAgainstBase(scripts: Instances) -> () {RobloxScriptSecurity}
+	Function DraftsService:ShowDiffsAgainstServer(scripts: Instances) -> () {RobloxScriptSecurity}
+	Function DraftsService:ShowSourceDiffsAgainstCurrent(sources: { any }, scripts: Instances) -> () {RobloxScriptSecurity}
+	Function DraftsService:UpdateToLatestVersion(scripts: Instances) -> () {RobloxScriptSecurity} [Yields]
 	Event DraftsService.CommitStatusChanged(script: Instance, status: Enum.DraftStatusCode) {RobloxScriptSecurity}
 	Event DraftsService.DraftAdded(script: Instance) {RobloxScriptSecurity}
 	Event DraftsService.DraftRemoved(script: Instance) {RobloxScriptSecurity}
@@ -1794,7 +1808,7 @@ Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event DraftsService.UpdateStatusChanged(script: Instance, status: Enum.DraftStatusCode) {RobloxScriptSecurity}
 Class Dragger : Instance
 	Function Dragger:AxisRotate(axis: Enum.Axis? = "X") -> ()
-	Function Dragger:MouseDown(mousePart: Instance, pointOnMousePart: Vector3, parts: { Instance }) -> ()
+	Function Dragger:MouseDown(mousePart: Instance, pointOnMousePart: Vector3, parts: Instances) -> ()
 	Function Dragger:MouseMove(mouseRay: Ray) -> ()
 	Function Dragger:MouseUp() -> ()
 Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1816,26 +1830,6 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DraggerService.PivotSnapToGeometry: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property DraggerService.ShowHover: boolean [ReadOnly]
 	Property DraggerService.ShowPivotIndicator: boolean [NotReplicated]
-Class EditableImage : Instance
-	Property EditableImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
-	Property EditableImage.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
-	Property EditableImage.Size: Vector2
-	Function EditableImage:Copy(min: Vector2, max: Vector2) -> EditableImage
-	Function EditableImage:Crop(min: Vector2, max: Vector2) -> ()
-	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawProjectionImage(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
-	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {RobloxScriptSecurity}
-	Function EditableImage:ReadPixels(position: Vector2, size: Vector2) -> { any } [CustomLuaState] {🧬Safe}
-	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer [CustomLuaState] {🧬Safe}
-	Function EditableImage:Resize(size: Vector2) -> ()
-	Function EditableImage:Rotate(degrees: number, changeSize: boolean) -> ()
-	Function EditableImage:WritePixels(position: Vector2, size: Vector2, pixels: { any }) -> () [CustomLuaState]
-	Function EditableImage:WritePixelsBuffer(position: Vector2, size: Vector2, buffer: buffer) -> () [CustomLuaState]
-Class RobloxEditableImage : EditableImage
-	Property RobloxEditableImage.ImageDataSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class EditableService : Instance [NotCreatable] [Service]
 	Property EditableService.EditableStatus: Enum.EditableStatus {RobloxSecurity} [Hidden] [NotScriptable]
 Class EulerRotationCurve : Instance
@@ -2226,7 +2220,7 @@ Class ImageButton : GuiButton
 	Property ImageButton.HoverImage: ContentId
 	Property ImageButton.Image: ContentId
 	Property ImageButton.ImageColor3: Color3
-	Property ImageButton.ImageContent: Content [Hidden] [NotReplicated]
+	Property ImageButton.ImageContent: Content [Hidden]
 	Property ImageButton.ImageRectOffset: Vector2
 	Property ImageButton.ImageRectSize: Vector2
 	Property ImageButton.ImageTransparency: number
@@ -2274,7 +2268,7 @@ Class ImageLabel : GuiLabel
 	Property ImageLabel.ContentImageSize: Vector2 {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property ImageLabel.Image: ContentId
 	Property ImageLabel.ImageColor3: Color3
-	Property ImageLabel.ImageContent: Content [Hidden] [NotReplicated]
+	Property ImageLabel.ImageContent: Content [Hidden]
 	Property ImageLabel.ImageRectOffset: Vector2
 	Property ImageLabel.ImageRectSize: Vector2
 	Property ImageLabel.ImageTransparency: number
@@ -2426,7 +2420,7 @@ Class LayerCollector : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property LayerCollector.Enabled: boolean
 	Property LayerCollector.ResetOnSpawn: boolean
 	Property LayerCollector.ZIndexBehavior: Enum.ZIndexBehavior
-	Function LayerCollector:GetGuiObjectsAtPosition(x: number, y: number) -> { Instance } {RobloxScriptSecurity}
+	Function LayerCollector:GetGuiObjectsAtPosition(x: number, y: number) -> Instances {RobloxScriptSecurity}
 	Function LayerCollector:GetLayoutNodeTree() -> { [string]: any } [Deprecated]
 Class BillboardGui : LayerCollector
 	Property BillboardGui.ClipsDescendants: boolean
@@ -2564,7 +2558,7 @@ Class ParabolaAdornment : PVAdornment
 	Property ParabolaAdornment.C: number {RobloxScriptSecurity} [Hidden]
 	Property ParabolaAdornment.Range: number {RobloxScriptSecurity} [Hidden]
 	Property ParabolaAdornment.Thickness: number {RobloxScriptSecurity} [Hidden]
-	Function ParabolaAdornment:FindPartOnParabola(ignoreDescendentsTable: { Instance }) -> ...any {RobloxScriptSecurity}
+	Function ParabolaAdornment:FindPartOnParabola(ignoreDescendentsTable: Instances) -> ...any {RobloxScriptSecurity}
 Class SelectionSphere : PVAdornment
 	Property SelectionSphere.SurfaceColor: BrickColor [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property SelectionSphere.SurfaceColor3: Color3
@@ -2734,6 +2728,7 @@ Class HapticEffect : Instance
 	Property HapticEffect.Type: Enum.HapticEffectType
 	Property HapticEffect.Waveform: FloatCurve? {RobloxScriptSecurity}
 	Function HapticEffect:Play() -> ()
+	Function HapticEffect:SetKeys(keys: { any }) -> () {RobloxScriptSecurity}
 	Function HapticEffect:Stop() -> ()
 Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HapticService:GetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> ...any
@@ -3024,10 +3019,10 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function InsertService:Insert(instance: Instance) -> () [Deprecated]
 	Function InsertService:LoadAsset(assetId: number) -> Instance? [Yields]
 	Function InsertService:LoadAssetVersion(assetVersionId: number) -> Instance? [Yields]
-	Function InsertService:LoadAssetWithFormat(assetId: number, format: string) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function InsertService:LoadAssetWithFormat(assetId: number, format: string) -> Instances {RobloxScriptSecurity} [Yields]
 	Function InsertService:LoadLocalAsset(assetPath: string) -> Instance? {RobloxScriptSecurity}
-	Function InsertService:LoadPackageAsset(url: ContentId) -> { Instance } {RobloxScriptSecurity}
-	Function InsertService:LoadPackageAssetAsync(url: ContentId) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function InsertService:LoadPackageAsset(url: ContentId) -> Instances {RobloxScriptSecurity}
+	Function InsertService:LoadPackageAssetAsync(url: ContentId) -> Instances {RobloxScriptSecurity} [Yields]
 	Event InsertService.InternalDelete(instance: Instance) [Hidden]
 Class InternalSyncItem : Instance [NotReplicated]
 	Property InternalSyncItem.AutoSync: boolean {RobloxScriptSecurity} [NotReplicated]
@@ -3085,8 +3080,8 @@ Class Keyframe : Instance
 	Property Keyframe.Time: number
 	Function Keyframe:AddMarker(marker: Instance) -> ()
 	Function Keyframe:AddPose(pose: Instance) -> ()
-	Function Keyframe:GetMarkers() -> { Instance }
-	Function Keyframe:GetPoses() -> { Instance }
+	Function Keyframe:GetMarkers() -> Instances
+	Function Keyframe:GetPoses() -> Instances
 	Function Keyframe:RemoveMarker(marker: Instance) -> ()
 	Function Keyframe:RemovePose(pose: Instance) -> ()
 Class KeyframeMarker : Instance
@@ -3188,7 +3183,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property LocalizationService.RobloxLocaleId: string [ReadOnly]
 	Property LocalizationService.ShouldUseCloudTable: boolean {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property LocalizationService.SystemLocaleId: string [ReadOnly]
-	Function LocalizationService:GetCorescriptLocalizations() -> { Instance }
+	Function LocalizationService:GetCorescriptLocalizations() -> Instances
 	Function LocalizationService:GetCountryRegionForPlayerAsync(player: Instance) -> string [Yields]
 	Function LocalizationService:GetTableEntries(instance: Instance? = nil) -> { any }
 	Function LocalizationService:GetTranslatorForLocaleAsync(locale: string) -> Instance? [Yields]
@@ -3381,8 +3376,8 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.UserSubscriptionStatusChanged(subscriptionId: string) {RobloxScriptSecurity}
 	Callback MarketplaceService.ProcessReceipt(receiptInfo: { [string]: any }) -> Enum.ProductPurchaseDecision
 Class MaterialGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function MaterialGenerationService:DEPRECATED_GenerateMaterialVariantsAync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
-	Function MaterialGenerationService:DEPRECATED_UploadMaterialVariantsAsync(materialVaraints: { Instance }) -> () {RobloxScriptSecurity} [Yields]
+	Function MaterialGenerationService:DEPRECATED_GenerateMaterialVariantsAync(prompt: string, samples: number) -> Instances {RobloxScriptSecurity} [Yields]
+	Function MaterialGenerationService:DEPRECATED_UploadMaterialVariantsAsync(materialVaraints: Instances) -> () {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:GenerateMaterialVariantsAsync(prompt: string, samples: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:StartSession() -> MaterialGenerationSession {RobloxScriptSecurity}
 Class MaterialGenerationSession : Instance [NotCreatable] [NotReplicated]
@@ -3560,7 +3555,7 @@ Class Mouse : Instance [NotCreatable]
 	Event Mouse.WheelForward()
 Class PlayerMouse : Mouse [NotCreatable]
 Class PluginMouse : Mouse [NotCreatable]
-	Event PluginMouse.DragEnter(instances: { Instance }) {PluginSecurity}
+	Event PluginMouse.DragEnter(instances: Instances) {PluginSecurity}
 Class MouseService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event MouseService.MouseEnterStudioViewport() {RobloxScriptSecurity}
 	Event MouseService.MouseLeaveStudioViewport() {RobloxScriptSecurity}
@@ -3732,25 +3727,25 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:CanCollideWith(part: BasePart) -> boolean {🧬Safe}
 	Function BasePart:CanSetNetworkOwnership() -> ...any
 	Function BasePart:GetClosestPointOnSurface(position: Vector3) -> Vector3
-	Function BasePart:GetConnectedParts(recursive: boolean? = false) -> { Instance } {🧬Safe}
-	Function BasePart:GetJoints() -> { Instance } {🧬Safe}
+	Function BasePart:GetConnectedParts(recursive: boolean? = false) -> Instances {🧬Safe}
+	Function BasePart:GetJoints() -> Instances {🧬Safe}
 	Function BasePart:GetMass() -> number {🧬Safe}
 	Function BasePart:GetNetworkOwner() -> Instance? {🧬Safe}
 	Function BasePart:GetNetworkOwnershipAuto() -> boolean {🧬Safe}
-	Function BasePart:GetNoCollisionConstraints() -> { Instance }
+	Function BasePart:GetNoCollisionConstraints() -> Instances
 	Function BasePart:GetRenderCFrame() -> CFrame [Deprecated]
 	Function BasePart:GetRootPart() -> Instance? {🧬Safe}
-	Function BasePart:GetTouchingParts() -> { Instance }
+	Function BasePart:GetTouchingParts() -> Instances
 	Function BasePart:GetVelocityAtPosition(position: Vector3) -> Vector3 {🧬Safe}
-	Function BasePart:IntersectAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
+	Function BasePart:IntersectAsync(parts: Instances, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
 	Function BasePart:IsGrounded() -> boolean {🧬Safe}
 	Function BasePart:MakeJoints() -> () [Deprecated]
 	Function BasePart:Resize(normalId: Enum.NormalId, deltaAmount: number) -> boolean
 	Function BasePart:SetNetworkOwner(playerInstance: Player? = nil) -> ()
 	Function BasePart:SetNetworkOwnershipAuto() -> ()
-	Function BasePart:SubtractAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
+	Function BasePart:SubtractAsync(parts: Instances, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
 	Function BasePart:TorqueToAngularAcceleration(torque: Vector3, angVelocity: Vector3? = Vector3?.new()) -> Vector3
-	Function BasePart:UnionAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
+	Function BasePart:UnionAsync(parts: Instances, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
 	Event BasePart.LocalSimulationTouched(part: BasePart) [Deprecated]
 	Event BasePart.NetworkOwnerChanged(systemAddress: SystemAddress) {LocalUserSecurity} [Hidden]
 	Event BasePart.OutfitChanged() [Deprecated]
@@ -3869,12 +3864,12 @@ Class MeshPart : TriangleMeshPart
 	Property MeshPart.EditableMeshString: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property MeshPart.HasJointOffset: boolean {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.HasSkinnedMesh: boolean {✏️NotAccessibleSecurity} [Hidden]
-	Property MeshPart.MeshContent: Content {✏️NotAccessibleSecurity} [Hidden] [NotReplicated]
+	Property MeshPart.MeshContent: Content {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.MeshID: ContentId [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Property MeshPart.MeshId: ContentId {✏️NotAccessibleSecurity}
 	Property MeshPart.RenderFidelity: Enum.RenderFidelity {✏️PluginSecurity} [NotReplicated]
 	Property MeshPart.RenderFidelityReplicate: Enum.RenderFidelity {✏️PluginSecurity} [Hidden] [NotScriptable]
-	Property MeshPart.TextureContent: Content [Hidden] [NotReplicated]
+	Property MeshPart.TextureContent: Content [Hidden]
 	Property MeshPart.TextureID: ContentId
 	Property MeshPart.VertexCount: number {RobloxSecurity} [Hidden] [NotScriptable]
 	Property MeshPart.InitialSize: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
@@ -3941,7 +3936,7 @@ Class Model : PVInstance
 	Function Model:GetExtentsSize() -> Vector3
 	Function Model:GetModelCFrame() -> CFrame [Deprecated]
 	Function Model:GetModelSize() -> Vector3 [Deprecated]
-	Function Model:GetPersistentPlayers() -> { Instance }
+	Function Model:GetPersistentPlayers() -> Instances
 	Function Model:GetPrimaryPartCFrame() -> CFrame [Deprecated]
 	Function Model:GetScale() -> number
 	Function Model:MakeJoints() -> () [Deprecated]
@@ -3991,29 +3986,29 @@ Class Flag : Tool [Deprecated]
 	Property Flag.TeamColor: BrickColor [Deprecated]
 Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
-	Function WorldRoot:ArePartsTouchingOthers(partList: { Instance }, overlapIgnored: number? = 0.000199999995) -> boolean
+	Function WorldRoot:ArePartsTouchingOthers(partList: Instances, overlapIgnored: number? = 0.000199999995) -> boolean
 	Function WorldRoot:Blockcast(cframe: CFrame, size: Vector3, direction: Vector3, params: RaycastParams? = RaycastParams?.new()) -> RaycastResult? {🧬Safe}
-	Function WorldRoot:BulkMoveTo(partList: { Instance }, cframeList: { any }, eventMode: Enum.BulkMoveMode? = "FireAllEvents") -> ()
+	Function WorldRoot:BulkMoveTo(partList: Instances, cframeList: { any }, eventMode: Enum.BulkMoveMode? = "FireAllEvents") -> ()
 	Function WorldRoot:CacheCurrentTerrain(id: string, center: Vector3, radius: number) -> string {RobloxScriptSecurity}
 	Function WorldRoot:ClearCachedTerrain(id: string) -> boolean {RobloxScriptSecurity}
 	Function WorldRoot:FindPartOnRay(ray: Ray, ignoreDescendantsInstance: Instance? = nil, terrainCellsAreCubes: boolean? = false, ignoreWater: boolean? = false) -> ...any [Deprecated]
-	Function WorldRoot:FindPartOnRayWithIgnoreList(ray: Ray, ignoreDescendantsTable: { Instance }, terrainCellsAreCubes: boolean? = false, ignoreWater: boolean? = false) -> ...any [Deprecated]
-	Function WorldRoot:FindPartOnRayWithWhitelist(ray: Ray, whitelistDescendantsTable: { Instance }, ignoreWater: boolean? = false) -> ...any [Deprecated]
-	Function WorldRoot:FindPartsInRegion3(region: Region3, ignoreDescendantsInstance: Instance? = nil, maxParts: number? = 20) -> { Instance } [Deprecated]
-	Function WorldRoot:FindPartsInRegion3WithIgnoreList(region: Region3, ignoreDescendantsTable: { Instance }, maxParts: number? = 20) -> { Instance } [Deprecated]
-	Function WorldRoot:FindPartsInRegion3WithWhiteList(region: Region3, whitelistDescendantsTable: { Instance }, maxParts: number? = 20) -> { Instance } [Deprecated]
-	Function WorldRoot:GetPartBoundsInBox(cframe: CFrame, size: Vector3, overlapParams: OverlapParams? = OverlapParams?.new()) -> { Instance } {🧬Safe}
-	Function WorldRoot:GetPartBoundsInRadius(position: Vector3, radius: number, overlapParams: OverlapParams? = OverlapParams?.new()) -> { Instance } {🧬Safe}
-	Function WorldRoot:GetPartsInPart(part: BasePart, overlapParams: OverlapParams? = OverlapParams?.new()) -> { Instance } {🧬Safe}
+	Function WorldRoot:FindPartOnRayWithIgnoreList(ray: Ray, ignoreDescendantsTable: Instances, terrainCellsAreCubes: boolean? = false, ignoreWater: boolean? = false) -> ...any [Deprecated]
+	Function WorldRoot:FindPartOnRayWithWhitelist(ray: Ray, whitelistDescendantsTable: Instances, ignoreWater: boolean? = false) -> ...any [Deprecated]
+	Function WorldRoot:FindPartsInRegion3(region: Region3, ignoreDescendantsInstance: Instance? = nil, maxParts: number? = 20) -> Instances [Deprecated]
+	Function WorldRoot:FindPartsInRegion3WithIgnoreList(region: Region3, ignoreDescendantsTable: Instances, maxParts: number? = 20) -> Instances [Deprecated]
+	Function WorldRoot:FindPartsInRegion3WithWhiteList(region: Region3, whitelistDescendantsTable: Instances, maxParts: number? = 20) -> Instances [Deprecated]
+	Function WorldRoot:GetPartBoundsInBox(cframe: CFrame, size: Vector3, overlapParams: OverlapParams? = OverlapParams?.new()) -> Instances {🧬Safe}
+	Function WorldRoot:GetPartBoundsInRadius(position: Vector3, radius: number, overlapParams: OverlapParams? = OverlapParams?.new()) -> Instances {🧬Safe}
+	Function WorldRoot:GetPartsInPart(part: BasePart, overlapParams: OverlapParams? = OverlapParams?.new()) -> Instances {🧬Safe}
 	Function WorldRoot:IKMoveTo(part: BasePart, target: CFrame, translateStiffness: number? = 0.5, rotateStiffness: number? = 0.5, collisionsMode: Enum.IKCollisionsMode? = "OtherMechanismsAnchored") -> () {PluginSecurity}
 	Function WorldRoot:IsRegion3Empty(region: Region3, ignoreDescendentsInstance: Instance? = nil) -> boolean [Deprecated]
-	Function WorldRoot:IsRegion3EmptyWithIgnoreList(region: Region3, ignoreDescendentsTable: { Instance }) -> boolean [Deprecated]
+	Function WorldRoot:IsRegion3EmptyWithIgnoreList(region: Region3, ignoreDescendentsTable: Instances) -> boolean [Deprecated]
 	Function WorldRoot:Raycast(origin: Vector3, direction: Vector3, raycastParams: RaycastParams? = RaycastParams?.new()) -> RaycastResult? {🧬Safe}
 	Function WorldRoot:RaycastCachedTerrain(id: string, origin: Vector3, direction: Vector3, ignoreWater: boolean) -> RaycastResult? {RobloxScriptSecurity}
 	Function WorldRoot:SetInsertPoint(point: Vector3, ignoreGrid: boolean? = false) -> () {RobloxScriptSecurity}
 	Function WorldRoot:Shapecast(part: BasePart, direction: Vector3, params: RaycastParams? = RaycastParams?.new()) -> RaycastResult?
 	Function WorldRoot:Spherecast(position: Vector3, radius: number, direction: Vector3, params: RaycastParams? = RaycastParams?.new()) -> RaycastResult? {🧬Safe}
-	Function WorldRoot:StepPhysics(dt: number, parts: { Instance }? = Objects?.new()) -> () {PluginSecurity}
+	Function WorldRoot:StepPhysics(dt: number, parts: Instances? = Instances?.new()) -> () {PluginSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.AirDensity: number
 	Property Workspace.AllowThirdPartySales: boolean [NotReplicated]
@@ -4041,6 +4036,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.RenderingCacheOptimizations: Enum.RenderingCacheOptimizationMode [NotScriptable]
 	Property Workspace.ReplicateInstanceDestroySetting: Enum.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Workspace.Retargeting: Enum.AnimatorRetargetingMode
+	Property Workspace.SandboxedInstanceMode: Enum.SandboxedInstanceMode [NotScriptable]
 	Property Workspace.SignalBehavior: Enum.SignalBehavior [NotScriptable]
 	Property Workspace.SignalBehavior2: Enum.SignalBehavior [Hidden] [NotReplicated] [NotScriptable]
 	Property Workspace.Terrain: Terrain? [ReadOnly]
@@ -4057,7 +4053,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.StreamingMinRadius: number [NotScriptable]
 	Property Workspace.StreamingPauseMode: Enum.StreamingPauseMode [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable]
 	Property Workspace.StreamingTargetRadius: number [NotScriptable]
-	Function Workspace:BreakJoints(objects: { Instance }) -> () {PluginSecurity} [Deprecated]
+	Function Workspace:BreakJoints(objects: Instances) -> () {PluginSecurity} [Deprecated]
 	Function Workspace:CalculateJumpDistance(gravity: number, jumpPower: number, walkSpeed: number) -> number {RobloxScriptSecurity}
 	Function Workspace:CalculateJumpHeight(gravity: number, jumpPower: number) -> number {RobloxScriptSecurity}
 	Function Workspace:CalculateJumpPower(gravity: number, jumpHeight: number) -> number {RobloxScriptSecurity}
@@ -4066,13 +4062,13 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function Workspace:GetPhysicsThrottling() -> number {🧬Safe}
 	Function Workspace:GetRealPhysicsFPS() -> number {🧬Safe}
 	Function Workspace:GetServerTimeNow() -> number {🧬Safe}
-	Function Workspace:JoinToOutsiders(objects: { Instance }, jointType: Enum.JointCreationMode) -> ()
-	Function Workspace:MakeJoints(objects: { Instance }) -> () {PluginSecurity} [Deprecated]
+	Function Workspace:JoinToOutsiders(objects: Instances, jointType: Enum.JointCreationMode) -> ()
+	Function Workspace:MakeJoints(objects: Instances) -> () {PluginSecurity} [Deprecated]
 	Function Workspace:PGSIsEnabled() -> boolean
 	Function Workspace:SetAvatarUnificationMode(value: Enum.AvatarUnificationMode) -> () {RobloxScriptSecurity}
 	Function Workspace:SetMeshPartHeadsAndAccessories(value: Enum.MeshPartHeadsAndAccessories) -> () {RobloxScriptSecurity}
 	Function Workspace:SetPhysicsThrottleEnabled(value: boolean) -> () {LocalUserSecurity}
-	Function Workspace:UnjoinFromOutsiders(objects: { Instance }) -> ()
+	Function Workspace:UnjoinFromOutsiders(objects: Instances) -> ()
 	Function Workspace:ZoomToExtents() -> () {PluginSecurity}
 	Event Workspace.PersistentLoaded(player: Player)
 Class WorldModel : WorldRoot
@@ -4093,12 +4089,12 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property PackageLink.CanAutoUpdate: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PackageUIService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function PackageUIService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
+	Function PackageUIService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: Instances, originalInstances: Instances) -> () {RobloxScriptSecurity}
 	Function PackageUIService:GetPackageInfo(packageAssetId: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PackageUIService:PublishPackage(packageInstance: Instance, addUndoWayPoint: boolean) -> () {RobloxScriptSecurity} [Yields]
 	Function PackageUIService:SetPackageVersion(packageInstance: Instance, versionNumber: number) -> Instance? {RobloxScriptSecurity} [Yields]
 	Event PackageUIService.OnConvertToPackageResult(isSuccessful: boolean, errorMessage: string) {RobloxScriptSecurity}
-	Event PackageUIService.OnOpenConvertToPackagePlugin(instances: { Instance }, name: string, cloneInstances: { Instance }) {RobloxScriptSecurity}
+	Event PackageUIService.OnOpenConvertToPackagePlugin(instances: Instances, name: string, cloneInstances: Instances) {RobloxScriptSecurity}
 Class Pages : Instance [NotCreatable] [NotReplicated]
 	Property Pages.IsFinished: boolean [ReadOnly]
 	Function Pages:AdvanceToNextPageAsync() -> () [Yields]
@@ -4475,7 +4471,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:GetNameFromUserIdAsync(userId: number) -> string [Yields]
 	Function Players:GetPlayerByUserId(userId: number) -> Player {🧬Safe}
 	Function Players:GetPlayerFromCharacter(character: Model) -> Player
-	Function Players:GetPlayers() -> { Instance } {🧬Safe}
+	Function Players:GetPlayers() -> Instances {🧬Safe}
 	Function Players:GetUserIdFromNameAsync(userName: string) -> number [Yields]
 	Function Players:GetUserThumbnailAsync(userId: number, thumbnailType: Enum.ThumbnailType, thumbnailSize: Enum.ThumbnailSize) -> ...any [Yields]
 	Function Players:ReportAbuse(player: Player, reason: string, optionalMessage: string) -> () {LocalUserSecurity}
@@ -4488,7 +4484,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:UnbanAsync(config: { [string]: any }) -> () [Yields]
 	Function Players:WhisperChat(message: string, player: Instance) -> () {LocalUserSecurity}
 	Function Players:playerFromCharacter(character: Model) -> Player [Deprecated]
-	Function Players:players() -> { Instance } [Deprecated]
+	Function Players:players() -> Instances [Deprecated]
 	Event Players.CloudEditApplyEditsMessage(playerName: string, scriptName: string) {RobloxSecurity} [Hidden]
 	Event Players.FriendRequestEvent(player: Player, player: Player, friendRequestEvent: Enum.FriendRequestEvent) {RobloxScriptSecurity}
 	Event Players.GameAnnounce(message: string) {RobloxScriptSecurity}
@@ -4535,11 +4531,11 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:GetUri() -> { [string]: any } {RobloxScriptSecurity}
 	Function Plugin:ImportFbxAnimation(rigModel: Instance, isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields]
 	Function Plugin:ImportFbxRig(isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields]
-	Function Plugin:Intersect(objects: { Instance }) -> Instance? {PluginSecurity}
+	Function Plugin:Intersect(objects: Instances) -> Instance? {PluginSecurity}
 	Function Plugin:Invoke(key: string, arguments: ...any) -> () {RobloxScriptSecurity}
 	Function Plugin:IsActivated() -> boolean {PluginSecurity}
 	Function Plugin:IsActivatedWithExclusiveMouse() -> boolean {PluginSecurity}
-	Function Plugin:Negate(objects: { Instance }) -> { Instance } {PluginSecurity}
+	Function Plugin:Negate(objects: Instances) -> Instances {PluginSecurity}
 	Function Plugin:OnInvoke(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
 	Function Plugin:OnSetItem(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
 	Function Plugin:OpenScript(script: LuaSourceContainer, lineNumber: number? = 1) -> () {PluginSecurity}
@@ -4551,18 +4547,18 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:ResumeSound(sound: Instance) -> () {RobloxScriptSecurity}
 	Function Plugin:SaveSelectedToRoblox() -> () {PluginSecurity}
 	Function Plugin:SelectRibbonTool(tool: Enum.RibbonTool, position: UDim2) -> () {PluginSecurity}
-	Function Plugin:Separate(objects: { Instance }) -> { Instance } {PluginSecurity}
+	Function Plugin:Separate(objects: Instances) -> Instances {PluginSecurity}
 	Function Plugin:SetItem(key: string, value: any) -> () {RobloxScriptSecurity}
 	Function Plugin:SetReady() -> () {RobloxScriptSecurity}
 	Function Plugin:SetSetting(key: string, value: any) -> () {PluginSecurity}
 	Function Plugin:StartDecalDrag(decal: Instance) -> () {RobloxScriptSecurity}
 	Function Plugin:StartDrag(dragData: { [string]: any }) -> () {PluginSecurity}
 	Function Plugin:StopAllSounds() -> () {RobloxScriptSecurity}
-	Function Plugin:Union(objects: { Instance }) -> Instance? {PluginSecurity}
+	Function Plugin:Union(objects: Instances) -> Instance? {PluginSecurity}
 	Event Plugin.Deactivation() {PluginSecurity}
 	Event Plugin.Ready() {RobloxScriptSecurity}
 	Event Plugin.Unloading() {PluginSecurity}
-	Callback Plugin.ProcessAssetInsertionDrag(assetId: string, assetTypeId: number, instances: { Instance }) -> { Instance } {RobloxScriptSecurity} [NoYield]
+	Callback Plugin.ProcessAssetInsertionDrag(assetId: string, assetTypeId: number, instances: Instances) -> Instances {RobloxScriptSecurity} [NoYield]
 	Callback Plugin.ProcessAssetInsertionDrop() -> () {RobloxScriptSecurity} [NoYield]
 Class PluginAction : Instance [NotReplicated]
 	Property PluginAction.ActionId: string [ReadOnly]
@@ -4636,7 +4632,7 @@ Class Pose : PoseBase
 	Property Pose.CFrame: CFrame
 	Property Pose.MaskWeight: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Function Pose:AddSubPose(pose: Instance) -> ()
-	Function Pose:GetSubPoses() -> { Instance }
+	Function Pose:GetSubPoses() -> Instances
 	Function Pose:RemoveSubPose(pose: Instance) -> ()
 Class PostEffect : Instance [NotCreatable]
 	Property PostEffect.Enabled: boolean
@@ -4699,7 +4695,7 @@ Class ProximityPromptService : Instance [Service] [NotBrowsable]
 	Event ProximityPromptService.PromptTriggerEnded(prompt: ProximityPrompt, playerWhoTriggered: Player)
 	Event ProximityPromptService.PromptTriggered(prompt: ProximityPrompt, playerWhoTriggered: Player)
 Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function PublishService:CreateAssetAndWaitForAssetId(instances: { Instance }, operationId: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, name: string, description: string, expectedPrice: number? = 0) -> number {RobloxScriptSecurity} [Yields]
+	Function PublishService:CreateAssetAndWaitForAssetId(instances: Instances, operationId: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, name: string, description: string, expectedPrice: number? = 0) -> number {RobloxScriptSecurity} [Yields]
 	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsync(serializedInstance: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, assetId: number, name: string, description: string, token: string, contentType: string, expectedPrice: number? = 0) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam(serializedInstance: string, publishInfo: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishCageMeshAsync(wrap: Instance, cageType: Enum.CageType) -> ContentId {RobloxScriptSecurity} [Yields]
@@ -4836,7 +4832,10 @@ Class RibbonNotificationService : Instance [NotCreatable] [Service] [NotReplicat
 	Event RibbonNotificationService.ToggleNotificationTray(checked: boolean, newNotificationAvailable: boolean) {RobloxScriptSecurity}
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
+Class RobloxSerializableInstance : Instance [NotCreatable] [NotReplicated]
+	Property RobloxSerializableInstance.Data: BinaryString {RobloxSecurity}
 Class RobloxServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
+Class RomarkRbxAnalyticsService : Instance [NotCreatable] [Service]
 Class RomarkService : Instance [NotCreatable] [Service]
 	Function RomarkService:EndRemoteRomarkTest() -> ()
 	Event RomarkService.RomarkEndOfTest() {RobloxScriptSecurity} [Hidden]
@@ -4919,6 +4918,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ScriptContext.ScriptsDisabled: boolean {LocalUserSecurity} [Hidden]
 	Function ScriptContext:AddCoreScriptLocal(name: string, parent: Instance) -> () {RobloxScriptSecurity}
 	Function ScriptContext:ClearScriptProfilingData() -> () {RobloxScriptSecurity}
+	Function ScriptContext:CompressLuaApp() -> () {RobloxScriptSecurity}
 	Function ScriptContext:DeserializeScriptProfilerString(jsonString: string?) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetCoverageStats() -> { any } {RobloxScriptSecurity}
 	Function ScriptContext:GetLuauHeapInstanceReferenceReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
@@ -4939,13 +4939,13 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Property ScriptDebugger.Script: Instance? [ReadOnly]
 	Property ScriptDebugger.ScriptGuid: string [Hidden] [NotScriptable]
 	Function ScriptDebugger:AddWatch(expression: string) -> Instance?
-	Function ScriptDebugger:GetBreakpoints() -> { Instance }
+	Function ScriptDebugger:GetBreakpoints() -> Instances
 	Function ScriptDebugger:GetGlobals(stackFrame: number? = 0) -> { [string]: any }
 	Function ScriptDebugger:GetLocals(stackFrame: number? = 0) -> { [string]: any }
 	Function ScriptDebugger:GetStack() -> { any }
 	Function ScriptDebugger:GetUpvalues(stackFrame: number? = 0) -> { [string]: any }
 	Function ScriptDebugger:GetWatchValue(watch: Instance) -> any
-	Function ScriptDebugger:GetWatches() -> { Instance }
+	Function ScriptDebugger:GetWatches() -> Instances
 	Function ScriptDebugger:SetBreakpoint(line: number, isContextDependentBreakpoint: boolean) -> Instance?
 	Function ScriptDebugger:SetGlobal(name: string, value: any, stackFrame: number) -> ()
 	Function ScriptDebugger:SetLocal(name: string, value: any, stackFrame: number? = 0) -> ()
@@ -4982,7 +4982,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptEditorService:FindScriptDocument(script: LuaSourceContainer) -> ScriptDocument {PluginSecurity}
 	Function ScriptEditorService:ForceReloadSource(uri: string, newsrc: string) -> () {RobloxScriptSecurity}
 	Function ScriptEditorService:GetEditorSource(script: LuaSourceContainer) -> string {PluginSecurity}
-	Function ScriptEditorService:GetScriptDocuments() -> { Instance } {PluginSecurity}
+	Function ScriptEditorService:GetScriptDocuments() -> Instances {PluginSecurity}
 	Function ScriptEditorService:IsAutocompleteCallbackRegistered(name: string) -> boolean {RobloxScriptSecurity}
 	Function ScriptEditorService:IsScriptAnalysisCallbackRegistered(name: string) -> boolean {RobloxScriptSecurity}
 	Function ScriptEditorService:OpenScriptDocumentAsync(script: LuaSourceContainer) -> ...any {PluginSecurity} [Yields]
@@ -5016,12 +5016,12 @@ Class Selection : Instance [NotCreatable] [Service]
 	Property Selection.ActiveInstance: Instance? {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Selection.RenderMode: Enum.SelectionRenderMode {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Selection.ShowActiveInstanceHighlight: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Function Selection:Add(instancesToAdd: { Instance }) -> () {PluginSecurity}
+	Function Selection:Add(instancesToAdd: Instances) -> () {PluginSecurity}
 	Function Selection:AddFocusCallback(priority: number, function: (...any) -> ...any) -> RBXScriptConnection {RobloxScriptSecurity}
 	Function Selection:ClearTerrainSelectionHack() -> () {RobloxScriptSecurity}
-	Function Selection:Get() -> { Instance } {PluginSecurity}
-	Function Selection:Remove(instancesToRemove: { Instance }) -> () {PluginSecurity}
-	Function Selection:Set(selection: { Instance }) -> () {PluginSecurity}
+	Function Selection:Get() -> Instances {PluginSecurity}
+	Function Selection:Remove(instancesToRemove: Instances) -> () {PluginSecurity}
+	Function Selection:Set(selection: Instances) -> () {PluginSecurity}
 	Function Selection:SetTerrainSelectionHack(center: Vector3, size: Vector3) -> () {RobloxScriptSecurity}
 	Event Selection.SelectionChanged()
 Class SelectionHighlightManager : Instance [NotCreatable] [Service]
@@ -5087,15 +5087,15 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function DataModel:GetFastString(name: string) -> string {LocalUserSecurity}
 	Function DataModel:GetJobsInfo() -> { any } {PluginSecurity}
 	Function DataModel:GetMessage() -> string [Deprecated]
-	Function DataModel:GetObjects(url: ContentId) -> { Instance } {PluginSecurity}
-	Function DataModel:GetObjectsAllOrNone(url: ContentId, binaryFormatOnly: boolean? = false) -> { Instance } {RobloxScriptSecurity}
-	Function DataModel:GetObjectsAsync(url: ContentId) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function DataModel:GetObjects(url: ContentId) -> Instances {PluginSecurity}
+	Function DataModel:GetObjectsAllOrNone(url: ContentId, binaryFormatOnly: boolean? = false) -> Instances {RobloxScriptSecurity}
+	Function DataModel:GetObjectsAsync(url: ContentId) -> Instances {RobloxScriptSecurity} [Yields]
 	Function DataModel:GetObjectsList(urls: { any }) -> { any } {RobloxScriptSecurity}
 	Function DataModel:GetPlaySessionId() -> string {RobloxScriptSecurity}
 	Function DataModel:GetRemoteBuildMode() -> boolean [Deprecated]
 	Function DataModel:HttpGetAsync(url: string, httpRequestType: Enum.HttpRequestType? = "Default") -> string {RobloxScriptSecurity} [Yields]
 	Function DataModel:HttpPostAsync(url: string, data: string, contentType: string? = "*/*", httpRequestType: Enum.HttpRequestType? = "Default") -> string {RobloxScriptSecurity} [Yields]
-	Function DataModel:InsertObjectsAndJoinIfLegacyAsync(url: ContentId) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function DataModel:InsertObjectsAndJoinIfLegacyAsync(url: ContentId) -> Instances {RobloxScriptSecurity} [Yields]
 	Function DataModel:IsContentLoaded() -> boolean {RobloxScriptSecurity}
 	Function DataModel:IsGearTypeAllowed(gearType: Enum.GearType) -> boolean [Deprecated]
 	Function DataModel:IsLoaded() -> boolean
@@ -5214,14 +5214,14 @@ Class Sound : Instance
 	Property Sound.IsSpatial: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Sound.PlayOnRemove: boolean
 	Property Sound.UsageContextPermission: Enum.UsageContext {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property Sound.EmitterSize: number [Deprecated]
+	Property Sound.EmitterSize: number [📁 LoadOnly] [Deprecated]
 	Property Sound.MaxDistance: number [Deprecated]
 	Property Sound.MinDistance: number [📁 LoadOnly] [Deprecated]
 	Property Sound.Pitch: number [📁 LoadOnly] [Deprecated]
 	Property Sound.PlayingReplicator: boolean [Hidden] [NotScriptable]
 	Property Sound.TimePositionReplicator: number [Hidden] [NotScriptable]
-	Property Sound.RollOffMaxDistance: number [NotReplicated]
-	Property Sound.RollOffMinDistance: number [NotReplicated]
+	Property Sound.RollOffMaxDistance: number
+	Property Sound.RollOffMinDistance: number
 	Property Sound.RollOffMode: Enum.RollOffMode
 	Property Sound.IsPaused: boolean [Hidden] [ReadOnly]
 	Property Sound.IsPlaying: boolean [Hidden] [ReadOnly]
@@ -5236,7 +5236,7 @@ Class Sound : Instance
 	Property Sound.LoopRegion: NumberRange
 	Property Sound.PlaybackRegion: NumberRange
 	Property Sound.SoundGroup: SoundGroup?
-	Property Sound.xmlRead_MaxDistance_3: number [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
+	Property Sound.xmlRead_MaxDistance_3: number [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Property Sound.xmlRead_MinDistance_3: number [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Function Sound:Pause() -> ()
 	Function Sound:Play() -> ()
@@ -5319,7 +5319,8 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function SoundService:GetOutputDevices() -> ...any {RobloxScriptSecurity}
 	Function SoundService:GetRecordingDevices() -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function SoundService:GetSoundMemoryData() -> { [string]: any } {RobloxScriptSecurity}
-	Function SoundService:OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) -> () {PluginSecurity}
+	Function SoundService:OpenAttenuationCurveEditor(selectedCurveObjects: Instances) -> () {PluginSecurity}
+	Function SoundService:OpenDirectionalCurveEditor(selectedCurveObjects: Instances) -> () {RobloxScriptSecurity}
 	Function SoundService:PlayLocalSound(sound: Instance) -> ()
 	Function SoundService:SetInputDevice(name: string, guid: string) -> () {RobloxScriptSecurity}
 	Function SoundService:SetListener(listenerType: Enum.ListenerType, listener: ...any) -> ()
@@ -5328,8 +5329,9 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Event SoundService.AudioInstanceAdded(instance: Instance) {RobloxScriptSecurity}
 	Event SoundService.ClientLoggedEvent(sessionIdRaw: string) {RobloxSecurity} [Hidden]
 	Event SoundService.DeviceListChanged(newDevices: ...any) {RobloxScriptSecurity}
-	Event SoundService.OpenAttenuationCurveEditorSignal(selectedCurveObjects: { Instance }) {RobloxScriptSecurity}
-	Event SoundService.OpenAudioEqualizerEditorSignal(selectedEqualizerObjects: { Instance }) {RobloxScriptSecurity}
+	Event SoundService.OpenAttenuationCurveEditorSignal(selectedCurveObjects: Instances) {RobloxScriptSecurity}
+	Event SoundService.OpenAudioEqualizerEditorSignal(selectedEqualizerObjects: Instances) {RobloxScriptSecurity}
+	Event SoundService.OpenDirectionalCurveEditorSignal(selectedCurveObjects: Instances) {RobloxScriptSecurity}
 Class Sparkles : Instance
 	Property Sparkles.Color: Color3 [📁 LoadOnly] [Hidden] [NotReplicated]
 	Property Sparkles.Enabled: boolean
@@ -5632,17 +5634,17 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioAssetService:AutoSetupAvatarAsync(modelId: ContentId, progressCallback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
-	Function StudioAssetService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
-	Function StudioAssetService:DEPRECATED_SerializeInstances(instances: { Instance }) -> string {RobloxScriptSecurity} [Yields]
+	Function StudioAssetService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: Instances, originalInstances: Instances) -> () {RobloxScriptSecurity}
+	Function StudioAssetService:DEPRECATED_SerializeInstances(instances: Instances) -> string {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:FireOnUGCSubmitCompleted(cancelled: boolean) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:PublishPackage(instance: Instance, publishInfo: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:RequestAvatarAutosetupAsync(meshId: ContentId, textureId: ContentId, progressCallback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
-	Function StudioAssetService:SerializeInstances(instances: { Instance }, groupId: number? = 0, isPackage: boolean? = false) -> string {RobloxScriptSecurity} [Yields]
-	Function StudioAssetService:ShowSaveToRoblox(instances: { Instance }, assetType: any, hasSubsequent: boolean? = false) -> () {RobloxScriptSecurity}
+	Function StudioAssetService:SerializeInstances(instances: Instances, groupId: number? = 0, isPackage: boolean? = false) -> string {RobloxScriptSecurity} [Yields]
+	Function StudioAssetService:ShowSaveToRoblox(instances: Instances, assetType: any, hasSubsequent: boolean? = false) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:UpdatePublishedPackage(assetmetadata: { [string]: any }, rootInstance: Instance, isConvert: boolean? = false, addUndoWaypoint: boolean? = false) -> () {RobloxScriptSecurity}
 	Event StudioAssetService.OnConvertToPackageResult(isSuccessful: boolean, errorMessage: string) {RobloxScriptSecurity}
 	Event StudioAssetService.OnPublishPackageResult(result: { [string]: any }, errorMessage: string) {RobloxScriptSecurity}
-	Event StudioAssetService.OnSaveToRoblox(instances: { Instance }, assetType: any, hasSubsequent: boolean) {RobloxScriptSecurity}
+	Event StudioAssetService.OnSaveToRoblox(instances: Instances, assetType: any, hasSubsequent: boolean) {RobloxScriptSecurity}
 	Event StudioAssetService.OnUGCSubmitCompleted(cancelled: boolean) {RobloxScriptSecurity}
 Class StudioAttachment : Instance [NotReplicated]
 	Property StudioAttachment.AutoHideParent: boolean
@@ -5733,7 +5735,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioService:IsPluginUpToDate(assetId: number, currentAssetVersion: number) -> boolean {RobloxScriptSecurity}
 	Function StudioService:OpenInBrowser_DONOTUSE(url: string) -> () {RobloxScriptSecurity}
 	Function StudioService:PromptImportFile(fileTypeFilter: { any }? = {}) -> Instance? {PluginSecurity} [Yields]
-	Function StudioService:PromptImportFiles(fileTypeFilter: { any }? = {}) -> { Instance } {PluginSecurity} [Yields]
+	Function StudioService:PromptImportFiles(fileTypeFilter: { any }? = {}) -> Instances {PluginSecurity} [Yields]
 	Function StudioService:RequestClose(closeMode: Enum.StudioCloseMode) -> () {RobloxScriptSecurity}
 	Function StudioService:SetPluginEnabled(assetId: number, state: boolean) -> () {RobloxScriptSecurity}
 	Function StudioService:ShowPlaceVersionHistoryDialog(placeId: number) -> () {RobloxScriptSecurity}
@@ -5746,8 +5748,8 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnOpenManagePackagePlugin(userId: number, assetId: number) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromWeb(pluginId: string) {RobloxScriptSecurity}
-	Event StudioService.OnPublishAsPlugin(instances: { Instance }) {RobloxScriptSecurity}
-	Event StudioService.OnSaveToRoblox(instances: { Instance }) {RobloxScriptSecurity}
+	Event StudioService.OnPublishAsPlugin(instances: Instances) {RobloxScriptSecurity}
+	Event StudioService.OnSaveToRoblox(instances: Instances) {RobloxScriptSecurity}
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 	Event StudioService.SaveLocallyAsComplete(success: boolean) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
@@ -5764,9 +5766,9 @@ Class StudioWidgetsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioWidgetsService:GetWidgetFromPluginGui(gui: PluginGui) -> StudioWidget {RobloxScriptSecurity}
 	Function StudioWidgetsService:HideSpotlight() -> () {RobloxScriptSecurity}
 Class StyleBase : Instance [NotCreatable]
-	Function StyleBase:GetStyleRules() -> { Instance }
+	Function StyleBase:GetStyleRules() -> Instances
 	Function StyleBase:InsertStyleRule(rule: StyleRule, index: number?) -> ()
-	Function StyleBase:SetStyleRules(rules: { Instance }) -> ()
+	Function StyleBase:SetStyleRules(rules: Instances) -> ()
 	Event StyleBase.StyleRulesChanged()
 Class StyleRule : StyleBase
 	Property StyleRule.Index: number [📁 LoadOnly] [Hidden] [NotScriptable]
@@ -5782,8 +5784,8 @@ Class StyleRule : StyleBase
 	Function StyleRule:SetProperty(name: string, value: any) -> ()
 	Event StyleRule.StyleRulePropertyChanged(styleProperty: string) {RobloxScriptSecurity}
 Class StyleSheet : StyleBase
-	Function StyleSheet:GetDerives() -> { Instance }
-	Function StyleSheet:SetDerives(derives: { Instance }) -> ()
+	Function StyleSheet:GetDerives() -> Instances
+	Function StyleSheet:SetDerives(derives: Instances) -> ()
 Class StyleDerive : Instance
 	Property StyleDerive.Index: number [Hidden] [NotScriptable]
 	Property StyleDerive.StyleSheet: StyleSheet?
@@ -5792,7 +5794,7 @@ Class StyleLink : Instance
 Class StylingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StylingService:GetAppliedStyles(instance: Instance) -> { any } {RobloxScriptSecurity}
 	Function StylingService:GetStyleInfo(style: StyleRule) -> { [string]: any } {RobloxScriptSecurity}
-	Function StylingService:GetStyleSheetDerivesChain(styleSheet: StyleSheet) -> { Instance } {RobloxScriptSecurity}
+	Function StylingService:GetStyleSheetDerivesChain(styleSheet: StyleSheet) -> Instances {RobloxScriptSecurity}
 	Function StylingService:GetStyleSheetInfo(styleSheet: StyleSheet) -> { [string]: any } {RobloxScriptSecurity}
 	Function StylingService:UpdateUnitTestOnly() -> () {RobloxScriptSecurity}
 Class SurfaceAppearance : Instance
@@ -5814,7 +5816,7 @@ Class Team : Instance
 	Property Team.ChildOrder: number {RobloxScriptSecurity} [Hidden]
 	Property Team.Score: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Team.TeamColor: BrickColor
-	Function Team:GetPlayers() -> { Instance } {🧬Safe}
+	Function Team:GetPlayers() -> Instances {🧬Safe}
 	Event Team.PlayerAdded(player: Player)
 	Event Team.PlayerRemoved(player: Player)
 Class TeamCreateData : Instance [NotCreatable] [Service]
@@ -5824,7 +5826,7 @@ Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TeamCreateService:CloseGameIfUserDoesntHavePerms() -> () {RobloxScriptSecurity}
 	Event TeamCreateService.ToggleManageCollaborators() {RobloxScriptSecurity}
 Class Teams : Instance [NotCreatable] [Service]
-	Function Teams:GetTeams() -> { Instance }
+	Function Teams:GetTeams() -> Instances
 	Function Teams:RebalanceTeams() -> () [Deprecated]
 Class TeleportAsyncResult : Instance [NotCreatable]
 	Property TeleportAsyncResult.PrivateServerId: string [ReadOnly]
@@ -5846,11 +5848,11 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:SetTeleportGui(gui: Instance) -> ()
 	Function TeleportService:SetTeleportSetting(setting: string, value: any) -> ()
 	Function TeleportService:Teleport(placeId: number, player: Instance? = nil, teleportData: any, customLoadingScreen: Instance? = nil) -> ()
-	Function TeleportService:TeleportAsync(placeId: number, players: { Instance }, teleportOptions: Instance? = nil) -> Instance? [Yields]
+	Function TeleportService:TeleportAsync(placeId: number, players: Instances, teleportOptions: Instance? = nil) -> Instance? [Yields]
 	Function TeleportService:TeleportCancel() -> () {RobloxScriptSecurity}
-	Function TeleportService:TeleportPartyAsync(placeId: number, players: { Instance }, teleportData: any, customLoadingScreen: Instance? = nil) -> string [Yields]
+	Function TeleportService:TeleportPartyAsync(placeId: number, players: Instances, teleportData: any, customLoadingScreen: Instance? = nil) -> string [Yields]
 	Function TeleportService:TeleportToPlaceInstance(placeId: number, instanceId: string, player: Instance? = nil, spawnName: string? = "", teleportData: any, customLoadingScreen: Instance? = nil) -> ()
-	Function TeleportService:TeleportToPrivateServer(placeId: number, reservedServerAccessCode: string, players: { Instance }, spawnName: string? = "", teleportData: any, customLoadingScreen: Instance? = nil) -> ()
+	Function TeleportService:TeleportToPrivateServer(placeId: number, reservedServerAccessCode: string, players: Instances, spawnName: string? = "", teleportData: any, customLoadingScreen: Instance? = nil) -> ()
 	Function TeleportService:TeleportToSpawnByName(placeId: number, spawnName: string, player: Instance? = nil, teleportData: any, customLoadingScreen: Instance? = nil) -> ()
 	Function TeleportService:UnblockAsync() -> ...any {RobloxScriptSecurity} [Yields]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(loadingGui: Instance, dataTable: any)
@@ -6066,11 +6068,11 @@ Class TextSource : Instance [NotCreatable]
 	Property TextSource.UserId: number [ReadOnly]
 	Property TextSource.UserIdReplicated: number [Hidden] [NotScriptable]
 Class TextureGenerationPartGroup : Instance [NotCreatable] [NotReplicated]
-	Function TextureGenerationPartGroup:GetInstances() -> { Instance } {RobloxScriptSecurity}
+	Function TextureGenerationPartGroup:GetInstances() -> Instances {RobloxScriptSecurity}
 	Function TextureGenerationPartGroup:GetMeshIdsHash() -> string {RobloxScriptSecurity}
 Class TextureGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TextureGenerationService:CancelGenerationRequest(jobUuid: string) -> () {RobloxScriptSecurity}
-	Function TextureGenerationService:CreatePartGroup(instances: { Instance }) -> TextureGenerationPartGroup {RobloxScriptSecurity}
+	Function TextureGenerationService:CreatePartGroup(instances: Instances) -> TextureGenerationPartGroup {RobloxScriptSecurity}
 	Function TextureGenerationService:GenerateTexture(previewJobId: string) -> { [string]: any } {RobloxScriptSecurity}
 	Function TextureGenerationService:GetQuotasAsync() -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function TextureGenerationService:PreviewTexture(partGroup: TextureGenerationPartGroup, prompt: string, options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity}
@@ -6164,26 +6166,28 @@ Class TweenService : Instance [NotCreatable] [Service]
 	Function TweenService:SmoothDamp(current: any, target: any, velocity: any, smoothTime: number, maxSpeed: number?, dt: number?) -> (any, any)
 Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function UGCValidationService:CalculateEditableMeshInsideMeshPercentage(editableMeshRoot: EditableMesh, editableMeshQuery: EditableMesh, meshQueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:CalculateEditableMeshTotalSurfaceArea(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:CalculateEditableMeshUniqueUVCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateEditableMeshInsideMeshPercentage(editableMeshRoot: Object, editableMeshQuery: Object, meshQueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateEditableMeshTotalSurfaceArea(editableMesh: Object, meshScale: Vector3) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateEditableMeshUniqueUVCount(editableMesh: Object) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:CalculateMeshInsideMeshPercentage(meshIdRoot: string, meshIdQuery: string, meshqueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateTotalSurfaceArea(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateUniqueUVCount(meshId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CanLoadAsset(assetId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:CheckEditableMeshInCameraFrustum(editableMesh: EditableMesh, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:CheckEditableMeshInCameraFrustum(editableMesh: Object, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:CheckMeshInCameraFrustum(meshId: string, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CompareTextureOverlapByteString(byteStringBaseline: string, byteStringFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CompareTextureOverlapTextureId(textureIdBaseline: string, textureIdFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:FetchAssetWithFormat(url: ContentId, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: EditableMesh, controlNames: { any }) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:FetchAssetWithFormat(url: ContentId, assetFormat: string) -> Instances {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:GetCagingRelevancyMetrics(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: Object, controlNames: { any }) -> ...any {RobloxScriptSecurity}
 	Function UGCValidationService:GetDynamicHeadMeshInactiveControls(meshId: string, controlNames: { any }) -> ...any {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:GetEditableImageSize(editableImage: EditableImage) -> Vector2 {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshMaxNearbyVerticesCollisions(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshTriCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshVertColors(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshVerticesSimilarityRate(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshVerts(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableCagingRelevancyMetrics(innerCage: Object, outerCage: Object, refMesh: Object, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableImageSize(editableImage: Object) -> Vector2 {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshMaxNearbyVerticesCollisions(editableMesh: Object, meshScale: Vector3) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshTriCount(editableMesh: Object) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshVertColors(editableMesh: Object) -> { any } {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshVerticesSimilarityRate(editableMesh: Object, meshScale: Vector3) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshVerts(editableMesh: Object) -> { any } {RobloxScriptSecurity}
 	Function UGCValidationService:GetImageTransparencyWithByteString(textureId: string) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetImageTransparencyWithTextureID(textureId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMaxNearbyVerticesCollisions(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
@@ -6193,35 +6197,35 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetPropertyValue(instance: Instance, property: string) -> any {RobloxScriptSecurity}
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:IsEditableMeshNumCoplanarIntersectionsOverLimit(editableMesh: EditableMesh, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:IsEditableMeshNumCoplanarIntersectionsOverLimit(editableMesh: Object, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:IsNumCoplanarIntersectionsOverLimit(meshId: string, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:RegisterUGCValidationFunction(setFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ReportUGCValidationTelemetry(assetType: string, data: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ResetCollisionFidelity(meshPart: Instance, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
-	Function UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(meshPart: MeshPart, editableMesh: EditableMesh, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
+	Function UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(meshPart: MeshPart, editableMesh: Object, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
 	Function UGCValidationService:SetMeshIdBlocking(meshPart: Instance, meshId: string) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateCageMeshIntersection(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageNonManifoldAndHoles(meshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageUVCoincident(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageUVTriangleArea(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:ValidateDynamicHeadEditableMesh(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateDynamicHeadEditableMesh(editableMesh: Object) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateDynamicHeadMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:ValidateEditableImageNumTextureChannels(editableImage: EditableImage, numTextureChannelsRequired: number) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableImageSize(editableImage: EditableImage) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshBounds(editableMesh: EditableMesh, meshScale: Vector3, boundsOffset: Vector3, attachmentCF: CFrame, handleCF: CFrame) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshCageMeshIntersection(innerCage: EditableMesh, outerCage: EditableMesh, refMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(editableMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshCageUVCoincident(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshCageUVTriangleArea(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshMisMatchUV(innerCage: EditableMesh, outerCage: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshOverlappingVertices(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshTriangleArea(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshTriangles(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshUVSpace(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshUVValuesInReference(referenceValues: { any }, editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshUniqueUVCount(editableMesh: EditableMesh, numRequired: number) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshVertColors(editableMesh: EditableMesh, includeAlpha: boolean? = true) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableImageNumTextureChannels(editableImage: Object, numTextureChannelsRequired: number) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableImageSize(editableImage: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshBounds(editableMesh: Object, meshScale: Vector3, boundsOffset: Vector3, attachmentCF: CFrame, handleCF: CFrame) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageMeshIntersection(innerCage: Object, outerCage: Object, refMesh: Object) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(editableMesh: Object) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageUVCoincident(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageUVTriangleArea(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshMisMatchUV(innerCage: Object, outerCage: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshOverlappingVertices(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshTriangleArea(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshTriangles(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshUVSpace(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshUVValuesInReference(referenceValues: { any }, editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshUniqueUVCount(editableMesh: Object, numRequired: number) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshVertColors(editableMesh: Object, includeAlpha: boolean? = true) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateFullBodyCageDeletion(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateImageTransparencyThresholdByteString(image: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateImageTransparencyThresholdByteString_V2(image: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
@@ -6234,7 +6238,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateMisMatchUV(innerCageMeshId: string, outerCageMeshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateNumTextureChannels(textureId: string, numChannelsRequired: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateOverlappingVertices(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:ValidateSkinnedEditableMesh(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateSkinnedEditableMesh(editableMesh: Object) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateSkinnedMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlpha(textureId: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlphaByteString(byteString: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
@@ -6257,7 +6261,7 @@ Class UITextSizeConstraint : UIConstraint
 	Property UITextSizeConstraint.MinTextSize: number
 Class UICorner : UIComponent
 	Property UICorner.CornerRadius: UDim
-Class UIDragDetector : UIComponent [NotBrowsable]
+Class UIDragDetector : UIComponent
 	Property UIDragDetector.BoundingBehavior: Enum.UIDragDetectorBoundingBehavior
 	Property UIDragDetector.BoundingUI: GuiBase2d?
 	Property UIDragDetector.DragRelativity: Enum.UIDragDetectorDragRelativity
@@ -6764,6 +6768,13 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.VoiceChatSubscriptionInitialBatchEmpty(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatplayerMuteStatusChangedEvent(userId: number, muted: boolean, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceSetupFailed(voiceControlPath: Enum.VoiceControlPath, serializedFailure: string, sessionId: string) {RobloxSecurity} [Hidden]
+Class WebViewService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function WebViewService:CloseWindow() -> () {RobloxScriptSecurity}
+	Function WebViewService:IsAvailable() -> boolean {RobloxScriptSecurity} [Yields]
+	Function WebViewService:MutateWindow(url: string, title: string?, isVisible: boolean?, searchType: string?, transitionAnimation: string?) -> () {RobloxScriptSecurity}
+	Function WebViewService:OpenWindow(url: string, title: string?, isVisible: boolean?, searchType: string?, transitionAnimation: string?) -> () {RobloxScriptSecurity}
+	Event WebViewService.OnJavaScriptCall(content: string) {RobloxScriptSecurity}
+	Event WebViewService.OnWindowClosed() {RobloxScriptSecurity}
 Class WeldConstraint : Instance
 	Property WeldConstraint.Active: boolean [ReadOnly]
 	Property WeldConstraint.Enabled: boolean [📁 LoadOnly] [NotReplicated]
@@ -6844,6 +6855,8 @@ Enum AdUIEventType
 	EnumItem AdUIEventType.PauseButtonClicked : 4
 	EnumItem AdUIEventType.CloseButtonClicked : 5
 	EnumItem AdUIEventType.WhyThisAdClicked : 6
+	EnumItem AdUIEventType.PlayEventTriggered : 7
+	EnumItem AdUIEventType.PauseEventTriggered : 8
 Enum AdUIType
 	EnumItem AdUIType.None : 0
 	EnumItem AdUIType.Image : 1
@@ -7405,6 +7418,8 @@ Enum CompletionItemTag
 	EnumItem CompletionItemTag.ClientServerBoundaryViolation : 9
 	EnumItem CompletionItemTag.Invalidated : 10
 	EnumItem CompletionItemTag.PutCursorBeforeEnd : 11
+	EnumItem CompletionItemTag.ElideLeftOverride : 12
+	EnumItem CompletionItemTag.UseTextEditForAutocompleteScore : 13
 Enum CompletionTriggerKind
 	EnumItem CompletionTriggerKind.Invoked : 1
 	EnumItem CompletionTriggerKind.TriggerCharacter : 2
@@ -7959,11 +7974,11 @@ Enum HandlesStyle
 	EnumItem HandlesStyle.Resize : 0
 	EnumItem HandlesStyle.Movement : 1
 Enum HapticEffectType
-	EnumItem HapticEffectType.UIHover : 0
-	EnumItem HapticEffectType.UIClick : 1
-	EnumItem HapticEffectType.UINotification : 2
-	EnumItem HapticEffectType.GameplayExplosion : 3
-	EnumItem HapticEffectType.GameplayCollision : 4
+	EnumItem HapticEffectType.UIHover : 1
+	EnumItem HapticEffectType.UIClick : 2
+	EnumItem HapticEffectType.UINotification : 3
+	EnumItem HapticEffectType.GameplayExplosion : 4
+	EnumItem HapticEffectType.GameplayCollision : 5
 Enum HighlightDepthMode
 	EnumItem HighlightDepthMode.AlwaysOnTop : 0
 	EnumItem HighlightDepthMode.Occluded : 1
@@ -9031,6 +9046,9 @@ Enum SalesTypeFilter
 	EnumItem SalesTypeFilter.All : 1
 	EnumItem SalesTypeFilter.Collectibles : 2
 	EnumItem SalesTypeFilter.Premium : 3
+Enum SandboxedInstanceMode
+	EnumItem SandboxedInstanceMode.Default : 0
+	EnumItem SandboxedInstanceMode.Experimental : 1
 Enum SaveAvatarThumbnailCustomizationFailure
 	EnumItem SaveAvatarThumbnailCustomizationFailure.BadThumbnailType : 1
 	EnumItem SaveAvatarThumbnailCustomizationFailure.BadYRotDeg : 2

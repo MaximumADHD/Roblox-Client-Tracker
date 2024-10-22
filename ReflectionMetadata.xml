@@ -5109,7 +5109,6 @@
         <string name="ClassCategory">Post Processing Effects</string>
         <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">83</string>
-        <string name="FFlag">EnableColorGrading</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
