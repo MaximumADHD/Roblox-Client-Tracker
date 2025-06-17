@@ -15240,7 +15240,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "La parte principale del <code>Model</code> , o <code>nil</code> se non esplicitamente Impostare.",
+    "documentation": "La parte principale del <code>Model</code> , o <code>nil</code> se non esplicitamente impostata.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
@@ -15258,10 +15258,10 @@
     "documentation": "I modelli sono oggetti container, il che significa che gruppano gli oggetti insieme.Sono migliori per contenere collezioni di <code>BaseParts</code> e hanno una serie di funzioni che estendono la loro funzionalità."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": ""
+    "documentation": "Il <code>Player</code> per rendere questo modello persistente per."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "Imposta questo modello per essere persistente per il Giocatorespecificato.<code>Model.ModelStreamingMode</code> deve essere impostato su <strong>PersistentPerPlayer</strong> perché il comportamento venga modificato come risultato dell'aggiunta.",
+    "documentation": "Imposta questo modello per essere persistente per il giocatore specificato. <code>ModelStreamingMode</code> deve essere impostato su <code>PersistentPerPlayer</code> perché il comportamento venga cambiato come risultato dell'aggiunta.",
     "params": [
       {
         "name": "self",
@@ -15318,7 +15318,7 @@
     "documentation": "La dimensione degli estremi <code>Vector3</code> della <code>Model</code> ."
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
-    "documentation": "Restituisce la dimensione della più piccola scatola di confine che contiene tutto il <code>BaseParts</code> in <code>Model</code>, allineata con la <code>Model.PrimaryPart</code> se è Impostare.",
+    "documentation": "Restituisce la dimensione della più piccola scatola di confine che contiene tutto il <code>BaseParts</code> in <code>Model</code>, allineata con la <code>Model.PrimaryPart</code> se è impostata.",
     "params": [
       {
         "name": "self",
@@ -15358,7 +15358,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> Questo oggetto è Deprecare. Non usarlo per nuovo lavoro. Gli sviluppatori possono invece usare <code>Model.GetExtentsSize</code> .<br>Restituisce la dimensione del Vector3 del Modello.",
+    "documentation": "<strong>Deprecated:</strong> Questo oggetto è obsoleto. Non usarlo per nuovo lavoro. Gli sviluppatori possono invece usare <code>Model.GetExtentsSize</code> .<br>Restituisce la dimensione del Vector3 del Modello.",
     "params": [
       {
         "name": "self",
@@ -15418,7 +15418,7 @@
     "documentation": "Il fattore di scala canonico attuale del modello."
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "Restituisce la scala canonica del modello, che predefinisce 1 per i modelli appena creati e cambierà come viene scala tramite <code>Model/ScaleTo</code> .",
+    "documentation": "Restituisce la scala canonica del modello, che predefinisce 1 per i modelli appena creati e cambierà man mano che verrà scala tramite <code>Model/ScaleTo</code> .",
     "params": [
       {
         "name": "self",
@@ -15435,7 +15435,7 @@
     "documentation": "I modelli sono oggetti container, il che significa che gruppano gli oggetti insieme.Sono migliori per contenere collezioni di <code>BaseParts</code> e hanno una serie di funzioni che estendono la loro funzionalità."
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> Questo tipo congiunto è stato Deprecare. Non usarlo per il nuovo lavoro. Usa <code>WeldConstraints</code> e <code>HingeConstraints</code> invece.<br>Passa attraverso tutto <code>BaseParts</code> in <code>Model</code>.Se il lato di una parte ha un Tipo di superficie che può creare una giunta, creerà una giunta con qualsiasi parte adiacente.",
+    "documentation": "<strong>Deprecated:</strong> Questo tipo congiunto è stato deprecato. Non usarlo per il nuovo lavoro. Usa <code>WeldConstraints</code> e <code>HingeConstraints</code> invece.<br>Passa attraverso tutto <code>BaseParts</code> in <code>Model</code>.Se il lato di una parte ha un Tipo di superficie che può creare una giunta, creerà una giunta con qualsiasi parte adiacente.",
     "params": [
       {
         "name": "self",
@@ -15472,10 +15472,10 @@
     "documentation": "I modelli sono oggetti container, il che significa che gruppano gli oggetti insieme.Sono migliori per contenere collezioni di <code>BaseParts</code> e hanno una serie di funzioni che estendono la loro funzionalità."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": ""
+    "documentation": "Il <code>Player</code> per rendere questo modello non più persistente."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "Rende questo modello non più persistente per il Giocatorespecificato.<code>Model.ModelStreamingMode</code> deve essere impostato su <strong>PersistentPerPlayer</strong> perché il comportamento venga modificato come risultato della rimozione.",
+    "documentation": "Rende questo modello non più persistente per il giocatore specificato.<code>ModelStreamingMode</code> deve essere impostato su <code>PersistentPerPlayer</code> perché il comportamento venga modificato come risultato della rimozione.",
     "params": [
       {
         "name": "self",
@@ -15494,7 +15494,7 @@
     "documentation": "I modelli sono oggetti container, il che significa che gruppano gli oggetti insieme.Sono migliori per contenere collezioni di <code>BaseParts</code> e hanno una serie di funzioni che estendono la loro funzionalità."
   },
   "@roblox/globaltype/Model.ResetOrientationToIdentity": {
-    "documentation": "<strong>Deprecated:</strong> Questa funzione è stata Deprecare; rimane per impedire agli script legacy di lanciare errori, ma non fa nulla quando viene chiamata.<br>Ripristina la rotazione delle parti del modello all'identità precedentemente impostata, che viene eseguita attraverso il metodo <code>Model:SetIdentityOrientation()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Questa funzione è stata deprecata; rimane per impedire agli script legacy di lanciare errori, ma non fa nulla quando viene chiamata.<br>Ripristina la rotazione delle parti del modello all'identità precedentemente impostata, che viene eseguita attraverso il metodo <code>Model:SetIdentityOrientation()</code>.",
     "params": [
       {
         "name": "self",
@@ -15531,7 +15531,7 @@
     "documentation": "I modelli sono oggetti container, il che significa che gruppano gli oggetti insieme.Sono migliori per contenere collezioni di <code>BaseParts</code> e hanno una serie di funzioni che estendono la loro funzionalità."
   },
   "@roblox/globaltype/Model.SetIdentityOrientation": {
-    "documentation": "<strong>Deprecated:</strong> Questa funzione è stata Deprecare; rimane per impedire agli script legacy di lanciare errori, ma non fa nulla quando viene chiamata.<br>Imposta la rotazione dell'identità del modello fornito, consentendo di ripristinare la rotazione dell'intero modello in seguito, attraverso l'uso del metodo <code>ResetOrientationToIdentity</code>.",
+    "documentation": "<strong>Deprecated:</strong> Questa funzione è stata deprecata; rimane per impedire agli script legacy di lanciare errori, ma non fa nulla quando viene chiamata.<br>Imposta la rotazione dell'identità del modello fornito, consentendo di ripristinare la rotazione dell'intero modello in seguito, attraverso l'uso del metodo <code>ResetOrientationToIdentity</code>.",
     "params": [
       {
         "name": "self",
@@ -15546,7 +15546,7 @@
     "documentation": "I modelli sono oggetti container, il che significa che gruppano gli oggetti insieme.Sono migliori per contenere collezioni di <code>BaseParts</code> e hanno una serie di funzioni che estendono la loro funzionalità."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame/param/1": {
-    "documentation": "Il <code>CFrame</code> da Impostare."
+    "documentation": "Il <code>CFrame</code> da impostare."
   },
   "@roblox/globaltype/Model.SetPrimaryPartCFrame": {
     "documentation": "<strong>Deprecated:</strong> <br>Imposta il <code>BasePart.CFrame</code> del modello di <code>Model.PrimaryPart</code>.Tutte le altre parti nel modello verranno anche spostate e manterranno il loro orientamento e l'offset rispetto al <code>Model.PrimaryPart</code> .",
@@ -15571,7 +15571,7 @@
     "documentation": "Il <code>Vector3</code> per tradurre il <code>Model</code> da ."
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "Sposta un <code>Model</code> con lo Dislocamentodato <code>Vector3</code> , preservando l'orientamento del modello.Se un altro <code>BasePart</code> o <code>Terrain</code> esiste già nella nuova posizione allora il <code>Model</code> sovrapporrà l'oggetto dichiarato.",
+    "documentation": "Sposta un <code>Model</code> con lo spostamento dato <code>Vector3</code> , preservando l'orientamento del modello.Se un altro <code>BasePart</code> o <code>Terrain</code> esiste già nella nuova posizione allora il <code>Model</code> sovrapporrà l'oggetto dichiarato.",
     "params": [
       {
         "name": "self",
@@ -37801,7 +37801,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D.",
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D.",
     "keys": {
       "AngleAttenuation": "@roblox/globaltype/AudioListener.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioListener.AudioInteractionGroup",
@@ -37841,7 +37841,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation/return/0": {
     "documentation": "Angolo di mappatura della tabella al volume, come descritto sopra."
@@ -37861,7 +37861,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor/param/1": {
     "documentation": ""
@@ -37870,7 +37870,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor": {
-    "documentation": "",
+    "documentation": "Calcola quanto sia udibile un <code>AudioEmitter</code> per questo ascoltatore",
     "params": [
       {
         "name": "self",
@@ -37888,7 +37888,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
     "documentation": ""
@@ -37915,7 +37915,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation/return/0": {
     "documentation": ""
@@ -37935,7 +37935,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetInputPins/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.GetInputPins/return/0": {
     "documentation": ""
@@ -37955,13 +37955,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters": {
-    "documentation": "",
+    "documentation": "Elenca tutto <code>AudioEmitters</code> che questo ascoltatore è in grado di sentire.",
     "params": [
       {
         "name": "self",
@@ -37975,7 +37975,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/return/0": {
     "documentation": ""
@@ -37995,7 +37995,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation/param/1": {
     "documentation": ""
@@ -38017,7 +38017,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation/param/0": {
-    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel Mondo3D."
+    "documentation": "Registra uno stream audio dal suo ambiente circostante <code>AudioEmitters</code> nel mondo 3D."
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation/param/1": {
     "documentation": ""
@@ -52402,6 +52402,85 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
   },
+  "@roblox/globaltype/Moderation": {
+    "documentation": "",
+    "keys": {
+      "InternalCreateReviewableContentAsync": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync",
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync",
+      "InternalProcessReviewableContentEvent": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalCreateReviewableContentAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalRequestReviewableContentReviewAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "event",
+        "documentation": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalProcessReviewableContentEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TimerService": {
     "documentation": "Un servizio interno responsabile della programmazione di eventi temporali. Viene utilizzata dalla classe <code>Debris</code>. La sua funzionalità non può essere accessibile ai developer.",
     "keys": {},
@@ -61098,7 +61177,6 @@
     "keys": {
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "SkinningEnabled": "@roblox/globaltype/EditableMesh.SkinningEnabled",
-      "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
@@ -61110,12 +61188,6 @@
       "FindVerticesWithinSphere": "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere",
       "GetAdjacentFaces": "@roblox/globaltype/EditableMesh.GetAdjacentFaces",
       "GetAdjacentVertices": "@roblox/globaltype/EditableMesh.GetAdjacentVertices",
-      "GetBoneByName": "@roblox/globaltype/EditableMesh.GetBoneByName",
-      "GetBoneCFrame": "@roblox/globaltype/EditableMesh.GetBoneCFrame",
-      "GetBoneIsVirtual": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual",
-      "GetBoneName": "@roblox/globaltype/EditableMesh.GetBoneName",
-      "GetBoneParent": "@roblox/globaltype/EditableMesh.GetBoneParent",
-      "GetBones": "@roblox/globaltype/EditableMesh.GetBones",
       "GetCenter": "@roblox/globaltype/EditableMesh.GetCenter",
       "GetColor": "@roblox/globaltype/EditableMesh.GetColor",
       "GetColorAlpha": "@roblox/globaltype/EditableMesh.GetColorAlpha",
@@ -61126,61 +61198,29 @@
       "GetFaceVertices": "@roblox/globaltype/EditableMesh.GetFaceVertices",
       "GetFaces": "@roblox/globaltype/EditableMesh.GetFaces",
       "GetFacesWithAttribute": "@roblox/globaltype/EditableMesh.GetFacesWithAttribute",
-      "GetFacesWithColor": "@roblox/globaltype/EditableMesh.GetFacesWithColor",
-      "GetFacesWithNormal": "@roblox/globaltype/EditableMesh.GetFacesWithNormal",
-      "GetFacesWithUV": "@roblox/globaltype/EditableMesh.GetFacesWithUV",
-      "GetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose",
-      "GetFacsCorrectivePoses": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses",
-      "GetFacsPose": "@roblox/globaltype/EditableMesh.GetFacsPose",
-      "GetFacsPoses": "@roblox/globaltype/EditableMesh.GetFacsPoses",
       "GetNormal": "@roblox/globaltype/EditableMesh.GetNormal",
       "GetNormals": "@roblox/globaltype/EditableMesh.GetNormals",
       "GetPosition": "@roblox/globaltype/EditableMesh.GetPosition",
       "GetSize": "@roblox/globaltype/EditableMesh.GetSize",
       "GetUV": "@roblox/globaltype/EditableMesh.GetUV",
       "GetUVs": "@roblox/globaltype/EditableMesh.GetUVs",
-      "GetVertexBoneWeights": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights",
-      "GetVertexBones": "@roblox/globaltype/EditableMesh.GetVertexBones",
-      "GetVertexColors": "@roblox/globaltype/EditableMesh.GetVertexColors",
-      "GetVertexFaceColor": "@roblox/globaltype/EditableMesh.GetVertexFaceColor",
-      "GetVertexFaceNormal": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal",
-      "GetVertexFaceUV": "@roblox/globaltype/EditableMesh.GetVertexFaceUV",
-      "GetVertexFaces": "@roblox/globaltype/EditableMesh.GetVertexFaces",
-      "GetVertexNormals": "@roblox/globaltype/EditableMesh.GetVertexNormals",
-      "GetVertexUVs": "@roblox/globaltype/EditableMesh.GetVertexUVs",
       "GetVertices": "@roblox/globaltype/EditableMesh.GetVertices",
       "GetVerticesWithAttribute": "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute",
-      "GetVerticesWithColor": "@roblox/globaltype/EditableMesh.GetVerticesWithColor",
-      "GetVerticesWithNormal": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal",
-      "GetVerticesWithUV": "@roblox/globaltype/EditableMesh.GetVerticesWithUV",
       "IdDebugString": "@roblox/globaltype/EditableMesh.IdDebugString",
       "MergeVertices": "@roblox/globaltype/EditableMesh.MergeVertices",
       "RaycastLocal": "@roblox/globaltype/EditableMesh.RaycastLocal",
-      "RemoveBone": "@roblox/globaltype/EditableMesh.RemoveBone",
       "RemoveFace": "@roblox/globaltype/EditableMesh.RemoveFace",
       "RemoveUnused": "@roblox/globaltype/EditableMesh.RemoveUnused",
       "ResetNormal": "@roblox/globaltype/EditableMesh.ResetNormal",
-      "SetBoneCFrame": "@roblox/globaltype/EditableMesh.SetBoneCFrame",
-      "SetBoneIsVirtual": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual",
-      "SetBoneName": "@roblox/globaltype/EditableMesh.SetBoneName",
-      "SetBoneParent": "@roblox/globaltype/EditableMesh.SetBoneParent",
       "SetColor": "@roblox/globaltype/EditableMesh.SetColor",
       "SetColorAlpha": "@roblox/globaltype/EditableMesh.SetColorAlpha",
       "SetFaceColors": "@roblox/globaltype/EditableMesh.SetFaceColors",
       "SetFaceNormals": "@roblox/globaltype/EditableMesh.SetFaceNormals",
       "SetFaceUVs": "@roblox/globaltype/EditableMesh.SetFaceUVs",
       "SetFaceVertices": "@roblox/globaltype/EditableMesh.SetFaceVertices",
-      "SetFacsBonePose": "@roblox/globaltype/EditableMesh.SetFacsBonePose",
-      "SetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose",
-      "SetFacsPose": "@roblox/globaltype/EditableMesh.SetFacsPose",
       "SetNormal": "@roblox/globaltype/EditableMesh.SetNormal",
       "SetPosition": "@roblox/globaltype/EditableMesh.SetPosition",
       "SetUV": "@roblox/globaltype/EditableMesh.SetUV",
-      "SetVertexBoneWeights": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights",
-      "SetVertexBones": "@roblox/globaltype/EditableMesh.SetVertexBones",
-      "SetVertexFaceColor": "@roblox/globaltype/EditableMesh.SetVertexFaceColor",
-      "SetVertexFaceNormal": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal",
-      "SetVertexFaceUV": "@roblox/globaltype/EditableMesh.SetVertexFaceUV",
       "Triangulate": "@roblox/globaltype/EditableMesh.Triangulate"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh",
@@ -61192,35 +61232,8 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SkinningEnabled": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SkinningEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/0"
-      },
-      {
-        "name": "boneProperties",
-        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.AddBone/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddBone",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddColor/param/0": {
@@ -61261,7 +61274,7 @@
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.AddNormal/param/1": {
-    "documentation": "Il vettorialenormale. Se il valore normale non è specificato, il normale verrà calcolato automaticamente."
+    "documentation": "Il vector normale. Se il valore normale non è specificato, il normale verrà calcolato automaticamente."
   },
   "@roblox/globaltype/EditableMesh.AddNormal/return/0": {
     "documentation": "ID normale stabile del nuovo normale."
@@ -61356,7 +61369,7 @@
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.AddVertex/param/1": {
-    "documentation": "Posizione nello Spaziooggetti locale della Mesh, maglia."
+    "documentation": "Posizione nello spazio oggetti locale della mesh."
   },
   "@roblox/globaltype/EditableMesh.AddVertex/return/0": {
     "documentation": "ID vertice stabile del nuovo vertice."
@@ -61383,7 +61396,7 @@
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.Destroy": {
-    "documentation": "Distrugge la Mesh, maglia.",
+    "documentation": "Distrugge la messe.",
     "params": [
       {
         "name": "self",
@@ -61398,13 +61411,13 @@
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/param/1": {
-    "documentation": "Posizione punto nell'Spaziooggetto locale della Mesh, maglia."
+    "documentation": "Posizione punto nell'area oggetto locale della mesh."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/return/0": {
-    "documentation": "Triplo dell'ID del volto, punto sulla mesh nello Spaziooggetto locale e la coordinata barycentrica della posizione all'interno del volto."
+    "documentation": "Triplo dell'ID del volto, punto sulla mesh nello spazio oggetto locale e la coordinata barycentrica della posizione all'interno del volto."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface": {
-    "documentation": "Trova il punto più vicino sulla superficie della Mesh, maglia.",
+    "documentation": "Trova il punto più vicino sulla superficie della mesh.",
     "params": [
       {
         "name": "self",
@@ -61425,13 +61438,13 @@
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/param/1": {
-    "documentation": "Posizione punto nell'Spaziooggetto locale della Mesh, maglia."
+    "documentation": "Posizione punto nell'area oggetto locale della mesh."
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/return/0": {
-    "documentation": "ID del vertice stabile più vicino al punto specificato nello Spazio."
+    "documentation": "ID del vertice stabile più vicino al punto specificato nello spazio."
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex": {
-    "documentation": "Trova il vertice più vicino a un punto specifico nello Spazio.",
+    "documentation": "Trova il vertice più vicino a un punto specifico nello spazio.",
     "params": [
       {
         "name": "self",
@@ -61452,7 +61465,7 @@
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/1": {
-    "documentation": "Centro della sfera nello Spaziolocale dell'oggetto della Mesh, maglia."
+    "documentation": "Centro della sfera nello spazio locale dell'oggetto della mesh."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/2": {
     "documentation": "Raggio della sfera."
@@ -61536,161 +61549,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetAdjacentVertices",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/0"
-      },
-      {
-        "name": "boneName",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneByName/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneByName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneCFrame",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneIsVirtual",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneName/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneParent/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneParent",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBones/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetBones/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBones/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBones/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBones",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetCenter/param/0": {
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
@@ -61772,7 +61630,7 @@
     "documentation": "Elenco di ID colori stabili."
   },
   "@roblox/globaltype/EditableMesh.GetColors": {
-    "documentation": "Restituisce tutti i colori della Mesh, maglia.",
+    "documentation": "Restituisce tutti i colori della mesh.",
     "params": [
       {
         "name": "self",
@@ -61792,7 +61650,7 @@
     "documentation": "ID del volto per cui ottenere gli ID del colore."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/return/0": {
-    "documentation": "Elenco di ID di colore utilizzati per i vertici sul volto dato."
+    "documentation": "Elenco di ID di colore utilizzati per i vertici sul lato dato."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors": {
     "documentation": "Restituisce gli ID del colore del viso per i vertici sul viso.",
@@ -61900,7 +61758,7 @@
     "documentation": "Elenco di ID faccia stabili."
   },
   "@roblox/globaltype/EditableMesh.GetFaces": {
-    "documentation": "Restituisce tutti i volti della Mesh, maglia.",
+    "documentation": "Restituisce tutti i volti della mesh.",
     "params": [
       {
         "name": "self",
@@ -61940,186 +61798,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithAttribute",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0"
-      },
-      {
-        "name": "actions",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePoses",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsPose/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPoses",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetNormal/param/0": {
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.GetNormal/param/1": {
-    "documentation": "ID normale per cui ottenere il normale vettoriale."
+    "documentation": "ID normale per cui ottenere il normale vector."
   },
   "@roblox/globaltype/EditableMesh.GetNormal/return/0": {
     "documentation": "Vettore normale all'ID normale richiesto."
@@ -62149,7 +61832,7 @@
     "documentation": "Elenco di ID normali stabili."
   },
   "@roblox/globaltype/EditableMesh.GetNormals": {
-    "documentation": "Restituisce tutti i normali della Mesh, maglia.",
+    "documentation": "Restituisce tutti i normali della mesh.",
     "params": [
       {
         "name": "self",
@@ -62169,7 +61852,7 @@
     "documentation": "ID vertice stabile per il quale ottenere la posizione."
   },
   "@roblox/globaltype/EditableMesh.GetPosition/return/0": {
-    "documentation": "Posizione di un vertice nello Spaziooggetti locale della Mesh, maglia."
+    "documentation": "Posizione di un vertice nello spazio oggetti locale della mesh."
   },
   "@roblox/globaltype/EditableMesh.GetPosition": {
     "documentation": "Ottiene la posizione di un vertice.",
@@ -62243,7 +61926,7 @@
     "documentation": "Elenco di ID UV stabili."
   },
   "@roblox/globaltype/EditableMesh.GetUVs": {
-    "documentation": "Restituisce tutti gli UV della Mesh, maglia.",
+    "documentation": "Restituisce tutti gli UV della mesh.",
     "params": [
       {
         "name": "self",
@@ -62254,270 +61937,6 @@
       "@roblox/globaltype/EditableMesh.GetUVs/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetUVs",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBoneWeights",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexBones/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexColors/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexColors",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaces",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexNormals",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexUVs",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertices/param/0": {
@@ -62567,92 +61986,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithAttribute",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithUV",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/0": {
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/1": {
-    "documentation": "ID per il quale restituire una Stringadi informazioni di debugging."
+    "documentation": "ID per il quale restituire una stringa di informazioni di debugging."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/return/0": {
     "documentation": "Stringa che descrive l'ID in formato leggibile dall'uomo."
@@ -62706,7 +62044,7 @@
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/1": {
-    "documentation": "Origine del raggio nello Spaziooggetti locale della Mesh, maglia."
+    "documentation": "Origine del raggio nello spazio oggetti locale della mesh."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/2": {
     "documentation": "Direzione del raggio."
@@ -62734,28 +62072,6 @@
       "@roblox/globaltype/EditableMesh.RaycastLocal/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RaycastLocal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RemoveBone",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/0": {
@@ -62804,7 +62120,7 @@
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal/param/1": {
-    "documentation": "ID normale stabile da Ripristina."
+    "documentation": "ID normale stabile da ripristinare."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal": {
     "documentation": "Ripristina questo ID normale per essere calcolato automaticamente.",
@@ -62822,122 +62138,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#ResetNormal",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1"
-      },
-      {
-        "name": "cframe",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneCFrame",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1"
-      },
-      {
-        "name": "virtual",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneIsVirtual",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/1"
-      },
-      {
-        "name": "name",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/1"
-      },
-      {
-        "name": "parentBoneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneParent",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.SetColor/param/0": {
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
@@ -62945,7 +62145,7 @@
     "documentation": "ID colore stabile per il quale impostare il colore."
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/2": {
-    "documentation": "Colore da Impostare."
+    "documentation": "Colore da impostare."
   },
   "@roblox/globaltype/EditableMesh.SetColor": {
     "documentation": "Imposta il colore per un ID colore.",
@@ -62974,7 +62174,7 @@
     "documentation": "ID colore stabile per il quale impostare l'alfa del colore."
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha/param/2": {
-    "documentation": "Alpha da Impostare."
+    "documentation": "Alpha da impostare."
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha": {
     "documentation": "Imposta il colore alpha (trasparenza) per un ID colore.",
@@ -63112,122 +62312,14 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFaceVertices",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2"
-      },
-      {
-        "name": "cframe",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsBonePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0"
-      },
-      {
-        "name": "actions",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1"
-      },
-      {
-        "name": "boneIds",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2"
-      },
-      {
-        "name": "cframes",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsCorrectivePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/1"
-      },
-      {
-        "name": "boneIds",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/2"
-      },
-      {
-        "name": "cframes",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsPose",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.SetNormal/param/0": {
     "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/1": {
-    "documentation": "ID normale stabile per il quale impostare il normale vettoriale."
+    "documentation": "ID normale stabile per il quale impostare il normale veicolo."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/2": {
-    "documentation": "Vettore normale da Impostare."
+    "documentation": "Vettore normale da impostare."
   },
   "@roblox/globaltype/EditableMesh.SetNormal": {
     "documentation": "Imposta il normale per un ID normale.",
@@ -63256,10 +62348,10 @@
     "documentation": "ID vertice stabile del vertice da posizionare."
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/2": {
-    "documentation": "Posizione nello Spaziooggetti locale della Mesh, maglia."
+    "documentation": "Posizione nello spazio oggetti locale della mesh."
   },
   "@roblox/globaltype/EditableMesh.SetPosition": {
-    "documentation": "Imposta una posizione del vertice nello Spaziooggetti locale della Mesh, maglia.",
+    "documentation": "Imposta una posizione del vertice nello spazio oggetti locale della mesh.",
     "params": [
       {
         "name": "self",
@@ -63305,172 +62397,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1"
-      },
-      {
-        "name": "boneWeights",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBoneWeights",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/1"
-      },
-      {
-        "name": "boneIDs",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0": {
-    "documentation": "Istanza che consente la creazione e la manipolazione in tempo reale delle maglie."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Triangulate/param/0": {
@@ -70830,6 +69756,147 @@
   "@roblox/globaltype/InputBinding.Vector2Scale": {
     "documentation": "Quantità con cui scala lineare i valori di un due-direzionale <code>InputAction</code> .",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Vector2Scale",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText": {
+    "documentation": "",
+    "keys": {
+      "Enabled": "@roblox/globaltype/AudioSpeechToText.Enabled",
+      "Text": "@roblox/globaltype/AudioSpeechToText.Text",
+      "VoiceDetected": "@roblox/globaltype/AudioSpeechToText.VoiceDetected",
+      "GetConnectedWires": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Enabled": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Text": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0"
+      },
+      {
+        "name": "pin",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#GetConnectedWires",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0": {
+    "documentation": "Un oggetto che esegue funzioni connesse su una specifica occorrenza."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect": {
+    "documentation": "Collega la funzione data all'evento e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0": {
+    "documentation": "Un oggetto che esegue funzioni connesse su una specifica occorrenza."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel": {
+    "documentation": "Collega la funzione data all'evento e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0": {
+    "documentation": "Un oggetto che esegue funzioni connesse su una specifica occorrenza."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once": {
+    "documentation": "Collega la funzione data all'evento (per una singola richiesta) e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0": {
+    "documentation": "Un oggetto che esegue funzioni connesse su una specifica occorrenza."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait": {
+    "documentation": "Rende il thread attuale fino a quando il segnale si attiva e restituisce gli argomenti forniti dal segnale.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once",
+      "Wait": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#WiringChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/IKControl": {
@@ -80055,7 +79122,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Wire.SourceName": {
-    "documentation": "Il nome del pin su <code>SourceInstance</code> che sta producendo uno Flusso.",
+    "documentation": "Il nome del pin su <code>SourceInstance</code> che sta producendo uno stream.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Wire#SourceName",
     "code_sample": ""
   },
@@ -80065,7 +79132,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Wire.TargetName": {
-    "documentation": "Il nome del pin su <code>TargetInstance</code> che riceve uno Flusso.",
+    "documentation": "Il nome del pin su <code>TargetInstance</code> che riceve uno stream.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Wire#TargetName",
     "code_sample": ""
   },
@@ -82800,12 +81867,30 @@
   "@roblox/globaltype/InputAction": {
     "documentation": "Definisce una meccanica di azione di gioco. Queste azioni vengono poi mappate agli input hardware utilizzando <code>InputBinding</code> .",
     "keys": {
+      "BoolState": "@roblox/globaltype/InputAction.BoolState",
+      "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
+      "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.BoolState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#BoolState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction1DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction2DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Enabled": {
@@ -82822,7 +81907,7 @@
     "documentation": "Definisce una meccanica di azione di gioco. Queste azioni vengono poi mappate agli input hardware utilizzando <code>InputBinding</code> ."
   },
   "@roblox/globaltype/InputAction.Fire/param/1": {
-    "documentation": "Valore al quale aggiornare il <code>InputAction</code> ."
+    "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
     "documentation": "Aggiorna il <code>InputAction</code> al stato dato e lancia i segnali appropriati.",
@@ -82832,7 +81917,7 @@
         "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
       },
       {
-        "name": "value",
+        "name": "state",
         "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
       }
     ],
@@ -85179,7 +84264,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter": {
-    "documentation": "Emette flussi audio nel Mondo.",
+    "documentation": "Emette flussi audio nel mondo.",
     "keys": {
       "AngleAttenuation": "@roblox/globaltype/AudioEmitter.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioEmitter.AudioInteractionGroup",
@@ -85219,7 +84304,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAngleAttenuation/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.GetAngleAttenuation/return/0": {
     "documentation": "Angolo di mappatura della tabella al volume, come descritto sopra."
@@ -85239,7 +84324,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor/param/1": {
     "documentation": ""
@@ -85248,7 +84333,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor": {
-    "documentation": "",
+    "documentation": "Calcola quanto sia udibile questo emittente per un particolare <code>AudioListener</code> .",
     "params": [
       {
         "name": "self",
@@ -85266,7 +84351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/1": {
     "documentation": ""
@@ -85293,7 +84378,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetDistanceAttenuation/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.GetDistanceAttenuation/return/0": {
     "documentation": ""
@@ -85313,7 +84398,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/return/0": {
     "documentation": ""
@@ -85333,13 +84418,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners": {
-    "documentation": "",
+    "documentation": "Elenca tutti <code>AudioListeners</code> che sono in grado di sentire questo emittente.",
     "params": [
       {
         "name": "self",
@@ -85353,7 +84438,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/return/0": {
     "documentation": ""
@@ -85373,7 +84458,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.SetAngleAttenuation/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.SetAngleAttenuation/param/1": {
     "documentation": ""
@@ -85395,7 +84480,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.SetDistanceAttenuation/param/0": {
-    "documentation": "Emette flussi audio nel Mondo."
+    "documentation": "Emette flussi audio nel mondo."
   },
   "@roblox/globaltype/AudioEmitter.SetDistanceAttenuation/param/1": {
     "documentation": ""
@@ -91726,6 +90811,7 @@
     "documentation": "Fornisce l'accesso a una coda all'interno di MemoryStore.",
     "keys": {
       "AddAsync": "@roblox/globaltype/MemoryStoreQueue.AddAsync",
+      "GetSizeAsync": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync",
       "ReadAsync": "@roblox/globaltype/MemoryStoreQueue.ReadAsync",
       "RemoveAsync": "@roblox/globaltype/MemoryStoreQueue.RemoveAsync"
     },
@@ -91766,6 +90852,33 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemoryStoreQueue#AddAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/0": {
+    "documentation": "Fornisce l'accesso a una coda all'interno di MemoryStore."
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/1": {
+    "documentation": "Determina se escludere gli oggetti invisibili dal conteggio delle dimensioni."
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync": {
+    "documentation": "Ottiene la dimensione della coda.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/0"
+      },
+      {
+        "name": "excludeInvisible",
+        "documentation": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemoryStoreQueue#GetSizeAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/0": {
@@ -91813,7 +90926,7 @@
     "documentation": "Fornisce l'accesso a una coda all'interno di MemoryStore."
   },
   "@roblox/globaltype/MemoryStoreQueue.RemoveAsync/param/1": {
-    "documentation": "Identifica gli elementi da Eliminare. Usa il valore restituito da <code>MemoryStoreQueue:ReadAsync()</code> ."
+    "documentation": "Identifica gli elementi da eliminare. Usa il valore restituito da <code>MemoryStoreQueue:ReadAsync()</code> ."
   },
   "@roblox/globaltype/MemoryStoreQueue.RemoveAsync": {
     "documentation": "Rimuove un oggetto o oggetti precedentemente letti dalla coda.",
@@ -92740,7 +91853,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sky.CelestialBodiesShown": {
-    "documentation": "Imposta se il sole, la luna e le stelle Mostrare.",
+    "documentation": "Imposta se il sole, la luna e le stelle appariranno.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#CelestialBodiesShown",
     "code_sample": ""
   },
@@ -92775,7 +91888,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sky.SkyboxOrientation": {
-    "documentation": "",
+    "documentation": "Angolo della skybox, in gradi, con ordine di rotazione di <strong>Y</strong> , <strong>X</strong> , <strong>Z</strong> .",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxOrientation",
     "code_sample": ""
   },
@@ -98861,6 +97974,46 @@
       "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.None": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.Going": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#Going",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.NotGoing": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#NotGoing",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RsvpStatus": {
+    "documentation": "",
+    "keys": {
+      "None": "@roblox/enum/RsvpStatus.None",
+      "Going": "@roblox/enum/RsvpStatus.Going",
+      "NotGoing": "@roblox/enum/RsvpStatus.NotGoing"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus",
     "code_sample": ""
   },
   "@roblox/enum/DevTouchMovementMode.UserChoice": {

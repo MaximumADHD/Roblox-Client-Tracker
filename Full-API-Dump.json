@@ -10775,6 +10775,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CreateSurfaceAppearance",
+                    "Parameters": [
+                        {
+                            "Name": "content",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "SurfaceAppearance"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "DeserializeInstance",
                     "Parameters": [
                         {
@@ -19380,7 +19399,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0 100 ",
+                    "Default": "0 1 ",
                     "MemberType": "Property",
                     "Name": "CustomBodyTypeScale",
                     "Security": {
@@ -19437,7 +19456,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "95 100 ",
+                    "Default": "0.95 1 ",
                     "MemberType": "Property",
                     "Name": "CustomHeadScale",
                     "Security": {
@@ -19456,7 +19475,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "6.5 6.5 ",
+                    "Default": "5.5 5.5 ",
                     "MemberType": "Property",
                     "Name": "CustomHeight",
                     "Security": {
@@ -19475,7 +19494,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "90 105 ",
+                    "Default": "0.9 1.05 ",
                     "MemberType": "Property",
                     "Name": "CustomHeightScale",
                     "Security": {
@@ -19570,7 +19589,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0 100 ",
+                    "Default": "0 1 ",
                     "MemberType": "Property",
                     "Name": "CustomProportionsScale",
                     "Security": {
@@ -19703,7 +19722,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "70 100 ",
+                    "Default": "0.7 1 ",
                     "MemberType": "Property",
                     "Name": "CustomWidthScale",
                     "Security": {
@@ -20596,7 +20615,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "R6Colliders",
+                    "Default": "InnerBoxColliders",
                     "MemberType": "Property",
                     "Name": "LegacyCollisionMode",
                     "Security": {
@@ -22781,7 +22800,7 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "ReadOnly",
@@ -27046,6 +27065,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 2, 0",
                     "MemberType": "Property",
@@ -27065,6 +27089,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "4000, 4000, 4000",
                     "MemberType": "Property",
@@ -27084,6 +27113,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "1250",
                     "MemberType": "Property",
@@ -27103,6 +27137,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 2, 0",
                     "MemberType": "Property",
@@ -27130,6 +27169,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "4000, 4000, 4000",
                     "MemberType": "Property",
@@ -27171,6 +27215,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 1, 0",
                     "MemberType": "Property",
@@ -27190,6 +27239,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 1, 0",
                     "MemberType": "Property",
@@ -27627,6 +27681,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 1, 0",
                     "MemberType": "Property",
@@ -27646,6 +27705,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -27665,6 +27729,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 1, 0",
                     "MemberType": "Property",
@@ -27692,6 +27761,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -27733,6 +27807,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "4000, 4000, 4000",
                     "MemberType": "Property",
@@ -27752,6 +27831,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "1250",
                     "MemberType": "Property",
@@ -27771,6 +27855,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 2, 0",
                     "MemberType": "Property",
@@ -27790,6 +27879,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "4000, 4000, 4000",
                     "MemberType": "Property",
@@ -27817,6 +27911,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 2, 0",
                     "MemberType": "Property",
@@ -27844,6 +27943,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Physics"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetLastForce",
                     "Parameters": [
@@ -27856,6 +27958,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics"
+                    ],
                     "MemberType": "Function",
                     "Name": "lastForce",
                     "Parameters": [
@@ -27882,6 +27987,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Internal",
                     "Default": "false",
                     "MemberType": "Property",
@@ -27905,6 +28015,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0.699999988",
                     "MemberType": "Property",
@@ -27924,6 +28039,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Thrust",
                     "Default": "30",
                     "MemberType": "Property",
@@ -27943,6 +28063,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Thrust",
                     "Default": "4000",
                     "MemberType": "Property",
@@ -27962,6 +28087,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Turn",
                     "Default": "400000, 400000, 0",
                     "MemberType": "Property",
@@ -27981,6 +28111,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -28000,6 +28135,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -28019,6 +28159,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Goals",
                     "Default": "4",
                     "MemberType": "Property",
@@ -28038,6 +28183,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Thrust",
                     "Default": "0.00100000005",
                     "MemberType": "Property",
@@ -28057,6 +28207,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Thrust",
                     "Default": "5",
                     "MemberType": "Property",
@@ -28076,6 +28231,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Turn",
                     "Default": "500",
                     "MemberType": "Property",
@@ -28095,6 +28255,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
                     "Category": "Turn",
                     "Default": "3000",
                     "MemberType": "Property",
@@ -28114,6 +28279,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Physics"
+                    ],
                     "MemberType": "Function",
                     "Name": "Abort",
                     "Parameters": [
@@ -28126,6 +28294,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics"
+                    ],
                     "MemberType": "Function",
                     "Name": "Fire",
                     "Parameters": [
@@ -28138,6 +28309,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics"
+                    ],
                     "MemberType": "Function",
                     "Name": "fire",
                     "Parameters": [
@@ -28157,6 +28331,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics"
+                    ],
                     "MemberType": "Event",
                     "Name": "ReachedTarget",
                     "Parameters": [
@@ -31673,6 +31850,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Image",
                     "Default": "",
                     "MemberType": "Property",
@@ -31692,6 +31874,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "32",
                     "MemberType": "Property",
@@ -31711,6 +31898,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "MouseActionReplicated",
                     "Parameters": [
@@ -31736,6 +31926,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "MouseClick",
                     "Parameters": [
@@ -31751,6 +31944,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "MouseHoverEnter",
                     "Parameters": [
@@ -31766,6 +31962,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "MouseHoverLeave",
                     "Parameters": [
@@ -31781,6 +31980,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "RightMouseClick",
                     "Parameters": [
@@ -31796,6 +31998,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "mouseClick",
                     "Parameters": [
@@ -31825,6 +32030,12 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Image",
                     "Default": "",
                     "MemberType": "Property",
@@ -31844,6 +32055,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Physics Response",
                     "Default": "false",
                     "MemberType": "Property",
@@ -31863,6 +32080,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Directions",
                     "Default": "0, 1, 0",
                     "MemberType": "Property",
@@ -31885,6 +32108,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Dragged Amount",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -31904,6 +32133,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "TranslatePlane",
                     "MemberType": "Property",
@@ -31923,6 +32158,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "true",
                     "MemberType": "Property",
@@ -31942,6 +32183,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Mode Switching",
                     "Default": "ButtonR1",
                     "MemberType": "Property",
@@ -31961,6 +32208,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Mode Switching",
                     "Default": "LeftControl",
                     "MemberType": "Property",
@@ -31980,6 +32233,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Limits",
                     "Default": "0",
                     "MemberType": "Property",
@@ -31999,6 +32258,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Limits",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -32018,6 +32283,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Physics Response",
                     "Default": "10000000",
                     "MemberType": "Property",
@@ -32037,6 +32308,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Physics Response",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -32056,6 +32333,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Limits",
                     "Default": "0",
                     "MemberType": "Property",
@@ -32075,6 +32358,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Limits",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -32094,6 +32383,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Directions",
                     "Default": "-0, 180, 90",
                     "MemberType": "Property",
@@ -32113,6 +32408,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "Everybody",
                     "MemberType": "Property",
@@ -32132,6 +32433,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Internal",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -32155,6 +32462,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Internal",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -32178,6 +32491,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Internal",
                     "Default": "false",
                     "MemberType": "Property",
@@ -32201,6 +32520,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Internal",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -32224,6 +32549,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -32243,6 +32574,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "Physical",
                     "MemberType": "Property",
@@ -32262,6 +32599,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Physics Response",
                     "Default": "10",
                     "MemberType": "Property",
@@ -32281,6 +32624,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "false",
                     "MemberType": "Property",
@@ -32300,6 +32649,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Directions",
                     "Default": "1, 0, 0",
                     "MemberType": "Property",
@@ -32322,6 +32677,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "1",
                     "MemberType": "Property",
@@ -32341,6 +32702,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "1",
                     "MemberType": "Property",
@@ -32360,6 +32727,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Mode Switching",
                     "Default": "ButtonL2",
                     "MemberType": "Property",
@@ -32379,6 +32752,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Directions",
                     "Default": "0, 1, 0",
                     "MemberType": "Property",
@@ -32401,6 +32780,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics",
+                            "Input"
+                        ]
+                    },
                     "Category": "Drag Directions",
                     "Default": "1, 0, 0",
                     "MemberType": "Property",
@@ -32423,6 +32808,10 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "AddConstraintFunction",
                     "Parameters": [
@@ -32449,6 +32838,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetReferenceFrame",
                     "Parameters": [
@@ -32461,6 +32854,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "RestartDrag",
                     "Parameters": [
@@ -32473,6 +32870,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetDragStyleFunction",
                     "Parameters": [
@@ -32492,6 +32893,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetPermissionPolicyFunction",
                     "Parameters": [
@@ -32511,6 +32916,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "DragContinue",
                     "Parameters": [
@@ -32554,6 +32963,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "DragContinueReplicate",
                     "Parameters": [
@@ -32600,6 +33013,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "DragEnd",
                     "Parameters": [
@@ -32615,6 +33032,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "DragEndReplicate",
                     "Parameters": [
@@ -32633,6 +33054,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "DragStart",
                     "Parameters": [
@@ -32690,6 +33115,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "DragStartReplicate",
                     "Parameters": [
@@ -32750,6 +33179,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Physics",
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "RestartPhysicalDragReplicate",
                     "Parameters": [
@@ -39965,6 +40398,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Axes",
                     "Default": "0",
                     "MemberType": "Property",
@@ -39988,6 +40426,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Axes",
                     "Default": "0",
                     "MemberType": "Property",
@@ -40011,6 +40454,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Event",
                     "Name": "AxisChanged",
                     "Parameters": [
@@ -40111,6 +40557,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -40130,6 +40581,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "100",
                     "MemberType": "Property",
@@ -40149,6 +40605,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -40172,6 +40633,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Turn",
                     "Default": "true",
                     "MemberType": "Property",
@@ -40191,6 +40657,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "true",
                     "MemberType": "Property",
@@ -40210,6 +40681,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "1000",
                     "MemberType": "Property",
@@ -40229,6 +40705,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Turn",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -40248,6 +40729,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Turn",
                     "Default": "1",
                     "MemberType": "Property",
@@ -40274,6 +40760,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "0",
                     "MemberType": "Property",
@@ -40293,6 +40784,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -40312,6 +40808,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "100",
                     "MemberType": "Property",
@@ -40331,6 +40832,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -40357,6 +40863,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "1",
                     "MemberType": "Property",
@@ -40376,6 +40887,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "0",
                     "MemberType": "Property",
@@ -40395,6 +40911,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -40414,6 +40935,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "100",
                     "MemberType": "Property",
@@ -40433,6 +40959,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "0",
                     "MemberType": "Property",
@@ -40452,6 +40983,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "2",
                     "MemberType": "Property",
@@ -40471,6 +41007,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "1",
                     "MemberType": "Property",
@@ -40490,6 +41031,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "1",
                     "MemberType": "Property",
@@ -40509,6 +41055,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -40528,6 +41079,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "100",
                     "MemberType": "Property",
@@ -40547,6 +41103,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "1",
                     "MemberType": "Property",
@@ -40573,6 +41134,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Movement",
                     "Default": "0",
                     "MemberType": "Property",
@@ -40592,6 +41158,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -40611,6 +41182,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "1",
                     "MemberType": "Property",
@@ -40630,6 +41206,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "10000",
                     "MemberType": "Property",
@@ -40649,6 +41230,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Balance",
                     "Default": "1",
                     "MemberType": "Property",
@@ -40675,6 +41261,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -40694,6 +41285,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "16",
                     "MemberType": "Property",
@@ -40713,6 +41309,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "8",
                     "MemberType": "Property",
@@ -40732,6 +41333,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -40751,6 +41357,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Input",
                     "Default": "0, 0, 1",
                     "MemberType": "Property",
@@ -40770,6 +41381,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -40789,6 +41405,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Input",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -40808,6 +41429,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -40827,6 +41453,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Input",
                     "Default": "0, 1, 0",
                     "MemberType": "Property",
@@ -41973,6 +42604,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
@@ -41996,6 +42632,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
@@ -42019,6 +42660,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
@@ -42071,6 +42717,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "",
                     "MemberType": "Property",
@@ -42090,6 +42741,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "",
                     "MemberType": "Property",
@@ -42116,6 +42772,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "Head",
                     "MemberType": "Property",
@@ -47604,6 +48265,18 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ExperienceStateRecordingService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "GetAutocompleter",
@@ -50373,83 +51046,6 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "FeatureRestrictionManager",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "BatchRemoveFeedItemsAsync",
-                    "Parameters": [
-                        {
-                            "Name": "feedItemIds",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetFeedItemsAsync",
-                    "Parameters": [
-                        {
-                            "Name": "getFeedRequest",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "FeedPages"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "RegisterFeedItemsAsync",
-                    "Parameters": [
-                        {
-                            "Name": "registerFeedItemsRequest",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "FeedService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -62849,6 +63445,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -62873,6 +63470,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -62897,6 +63495,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -62921,6 +63520,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -62945,6 +63545,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -62969,6 +63570,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -62993,6 +63595,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63017,6 +63620,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63051,6 +63655,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63085,6 +63690,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63109,6 +63715,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63136,6 +63743,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63169,6 +63777,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63193,6 +63802,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63258,6 +63868,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63282,6 +63893,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63306,6 +63918,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63330,6 +63943,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63354,6 +63968,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63377,6 +63992,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Event",
@@ -63388,6 +64004,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Event",
@@ -63399,6 +64016,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Event",
@@ -63410,6 +64028,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Event",
@@ -63432,6 +64051,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63463,6 +64083,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63487,6 +64108,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63518,6 +64140,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63542,6 +64165,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63566,6 +64190,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63590,6 +64215,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63621,6 +64247,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63645,6 +64272,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63676,6 +64304,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63700,6 +64329,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63731,6 +64361,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63762,6 +64393,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63786,6 +64418,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -63809,6 +64442,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Function",
@@ -63838,6 +64472,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Function",
@@ -63860,6 +64495,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Function",
@@ -63889,6 +64525,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Function",
@@ -63926,6 +64563,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
                         "UI"
                     ],
                     "MemberType": "Function",
@@ -64113,6 +64751,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -64146,6 +64785,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -64170,6 +64810,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -64201,6 +64842,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -64245,7 +64887,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -64269,7 +64913,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64297,7 +64943,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64325,7 +64973,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64353,7 +65003,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64381,7 +65033,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64408,7 +65062,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseButton1Down",
@@ -64426,7 +65082,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseButton1Up",
@@ -64444,7 +65102,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseDrag",
@@ -64476,7 +65136,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseEnter",
@@ -64494,7 +65156,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseLeave",
@@ -64520,7 +65184,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -64544,7 +65210,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64572,7 +65240,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64600,7 +65270,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64628,7 +65300,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64656,7 +65330,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "EventReplicator",
@@ -64684,7 +65360,9 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "Basic",
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Appearance",
@@ -64707,7 +65385,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseButton1Down",
@@ -64725,7 +65405,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseButton1Up",
@@ -64743,7 +65425,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseDrag",
@@ -64768,7 +65452,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseEnter",
@@ -64786,7 +65472,9 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "Basic",
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "MouseLeave",
@@ -64812,6 +65500,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -64877,6 +65566,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -64911,6 +65601,7 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
                             "UI"
                         ]
                     },
@@ -77860,6 +78551,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "false",
                     "MemberType": "Property",
@@ -77884,6 +78580,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "0",
                     "MemberType": "Property",
@@ -77908,6 +78609,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "0, 0",
                     "MemberType": "Property",
@@ -77932,6 +78638,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -77956,6 +78667,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "true",
                     "MemberType": "Property",
@@ -77975,6 +78691,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "Bool",
                     "MemberType": "Property",
@@ -77994,6 +78715,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "Fire",
                     "Parameters": [
@@ -78013,6 +78737,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetState",
                     "Parameters": [
@@ -78025,6 +78752,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "Pressed",
                     "Parameters": [
@@ -78033,6 +78763,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "Released",
                     "Parameters": [
@@ -78041,6 +78774,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "StateChanged",
                     "Parameters": [
@@ -78066,6 +78802,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Composite Directions",
                     "Default": "Unknown",
                     "MemberType": "Property",
@@ -78085,6 +78826,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Composite Directions",
                     "Default": "Unknown",
                     "MemberType": "Property",
@@ -78104,6 +78850,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Composite Directions",
                     "Default": "Unknown",
                     "MemberType": "Property",
@@ -78123,6 +78874,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "Unknown",
                     "MemberType": "Property",
@@ -78142,6 +78898,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Composite Directions",
                     "Default": "Unknown",
                     "MemberType": "Property",
@@ -78161,6 +78922,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "0.5",
                     "MemberType": "Property",
@@ -78180,6 +78946,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "0.200000003",
                     "MemberType": "Property",
@@ -78199,6 +78970,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Composite Directions",
                     "Default": "Unknown",
                     "MemberType": "Property",
@@ -78218,6 +78994,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "1",
                     "MemberType": "Property",
@@ -78237,6 +79018,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -78256,6 +79042,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Composite Directions",
                     "Default": "Unknown",
                     "MemberType": "Property",
@@ -78275,6 +79066,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "1, 1",
                     "MemberType": "Property",
@@ -78304,6 +79100,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "true",
                     "MemberType": "Property",
@@ -78323,6 +79124,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "1000",
                     "MemberType": "Property",
@@ -78342,6 +79148,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "false",
                     "MemberType": "Property",
@@ -95247,6 +96058,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetPhysicsCost",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Safe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetRenderCFrame",
                     "Parameters": [
                     ],
@@ -95967,7 +96790,8 @@
             "Members": [
                 {
                     "Capabilities": [
-                        "Basic"
+                        "Basic",
+                        "Avatar"
                     ],
                     "MemberType": "Event",
                     "Name": "RemoteCreateMotor6D",
@@ -95988,7 +96812,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Basic"
+                        "Basic",
+                        "Avatar"
                     ],
                     "MemberType": "Event",
                     "Name": "RemoteDestroyMotor6D",
@@ -96013,7 +96838,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Basic"
+                            "Basic",
+                            "Avatar"
                         ]
                     },
                     "Category": "Control",
@@ -96037,7 +96863,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Basic"
+                            "Basic",
+                            "Avatar"
                         ]
                     },
                     "Category": "Control",
@@ -96064,7 +96891,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Basic"
+                        "Basic",
+                        "Avatar"
                     ],
                     "MemberType": "Function",
                     "Name": "Sit",
@@ -96086,7 +96914,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Basic"
+                        "Basic",
+                        "Avatar"
                     ],
                     "MemberType": "Event",
                     "Name": "RemoteCreateSeatWeld",
@@ -96107,7 +96936,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Basic"
+                        "Basic",
+                        "Avatar"
                     ],
                     "MemberType": "Event",
                     "Name": "RemoteDestroySeatWeld",
@@ -96477,7 +97307,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Basic"
+                            "Basic",
+                            "Players"
                         ]
                     },
                     "Category": "Teams",
@@ -96501,7 +97332,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Basic"
+                            "Basic",
+                            "Players"
                         ]
                     },
                     "Category": "Forcefield",
@@ -96525,7 +97357,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Basic"
+                            "Basic",
+                            "Players"
                         ]
                     },
                     "Category": "Behavior",
@@ -96549,7 +97382,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Basic"
+                            "Basic",
+                            "Players"
                         ]
                     },
                     "Category": "Teams",
@@ -96573,7 +97407,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Basic"
+                            "Basic",
+                            "Players"
                         ]
                     },
                     "Category": "Teams",
@@ -99785,6 +100620,12 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "0",
                     "MemberType": "Property",
@@ -99808,6 +100649,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "false",
                     "MemberType": "Property",
@@ -99827,6 +100674,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "true",
                     "MemberType": "Property",
@@ -99846,6 +100699,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "25",
                     "MemberType": "Property",
@@ -99865,6 +100724,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -99888,6 +100753,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "0",
                     "MemberType": "Property",
@@ -99910,6 +100781,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "0",
                     "MemberType": "Property",
@@ -99929,6 +100806,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "0",
                     "MemberType": "Property",
@@ -99951,6 +100834,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "0",
                     "MemberType": "Property",
@@ -99970,6 +100859,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "10",
                     "MemberType": "Property",
@@ -99989,6 +100884,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Avatar"
+                        ]
+                    },
                     "Category": "Control",
                     "Default": "1",
                     "MemberType": "Property",
@@ -100008,6 +100909,10 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Basic",
+                        "Avatar"
+                    ],
                     "MemberType": "Function",
                     "Name": "Sit",
                     "Parameters": [
@@ -100027,6 +100932,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic",
+                        "Avatar"
+                    ],
                     "MemberType": "Event",
                     "Name": "RemoteCreateSeatWeld",
                     "Parameters": [
@@ -100045,6 +100954,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic",
+                        "Avatar"
+                    ],
                     "MemberType": "Event",
                     "Name": "RemoteDestroySeatWeld",
                     "Parameters": [
@@ -101025,6 +101938,29 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "SlimHash",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "BinaryString"
+                    }
+                },
+                {
                     "Category": "Pivot",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -101469,6 +102405,9 @@
         {
             "Members": [
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "BindToMessage",
                     "Parameters": [
@@ -101495,6 +102434,9 @@
                     "ThreadSafety": "Safe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "BindToMessageParallel",
                     "Parameters": [
@@ -101521,6 +102463,9 @@
                     "ThreadSafety": "Safe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "SendMessage",
                     "Parameters": [
@@ -101583,6 +102528,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "false",
                     "MemberType": "Property",
@@ -101602,6 +102552,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "Script",
                     "MemberType": "Property",
@@ -101621,6 +102576,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_write_only_property__",
                     "MemberType": "Property",
@@ -101646,6 +102606,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_write_only_property__",
                     "MemberType": "Property",
@@ -101671,6 +102636,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "Disable",
                     "Parameters": [
@@ -101683,6 +102651,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "ToggleSelect",
                     "Parameters": [
@@ -101695,6 +102666,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "Deselected",
                     "Parameters": [
@@ -101703,6 +102677,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "ReplicatedSelected",
                     "Parameters": [
@@ -101714,6 +102691,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "Selected",
                     "Parameters": [
@@ -101739,6 +102719,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "true",
                     "MemberType": "Property",
@@ -101758,6 +102743,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "State",
                     "Default": "true",
                     "MemberType": "Property",
@@ -101777,6 +102767,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Transform",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -101796,6 +102791,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Transform",
                     "Default": "-0, -0, -1",
                     "MemberType": "Property",
@@ -101819,6 +102819,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Transform",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -101842,6 +102847,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Transform",
                     "Default": "1, 0, 0",
                     "MemberType": "Property",
@@ -101865,6 +102875,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Transform",
                     "Default": "0, 1, 0",
                     "MemberType": "Property",
@@ -101888,6 +102903,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "false",
                     "MemberType": "Property",
@@ -101907,6 +102927,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Behavior",
                     "Default": "true",
                     "MemberType": "Property",
@@ -101926,6 +102951,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
                     "Category": "Appearance",
                     "Default": "",
                     "MemberType": "Property",
@@ -101945,6 +102975,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "Activate",
                     "Parameters": [
@@ -101957,6 +102990,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "Deactivate",
                     "Parameters": [
@@ -101969,6 +103005,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "Activated",
                     "Parameters": [
@@ -101977,6 +103016,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "Deactivated",
                     "Parameters": [
@@ -101985,6 +103027,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "Equipped",
                     "Parameters": [
@@ -102000,6 +103045,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "Unequipped",
                     "Parameters": [
@@ -102008,6 +103056,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "VRLaserPointerClicked",
                     "Parameters": [
@@ -102033,6 +103084,12 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -102512,6 +103569,66 @@
                         }
                     ],
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAwakeContactNormals",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Safe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAwakeContactParts",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Safe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAwakeContactPositions",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Safe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAwakeRootParts",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -103064,6 +104181,28 @@
                     }
                 },
                 {
+                    "Category": "Server Authority",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "AuthorityMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AuthorityMode"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
@@ -103453,6 +104592,25 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "InterpolationThrottlingMode"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "LuauTypeCheckMode",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "LuauTypeCheckMode"
                     }
                 },
                 {
@@ -104003,6 +105161,28 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "UseImprovedModelLod",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RolloutState"
                     }
                 },
                 {
@@ -105124,17 +106304,6 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
-            "Name": "FeedPages",
-            "Superclass": "Pages",
-            "Tags": [
-                "NotCreatable",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
             "Name": "FriendPages",
             "Superclass": "Pages",
             "Tags": [
@@ -105180,6 +106349,17 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "OutfitPages",
+            "Superclass": "Pages",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "RecommendationPages",
             "Superclass": "Pages",
             "Tags": [
                 "NotCreatable",
@@ -106288,6 +107468,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
@@ -106311,6 +107496,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetPointCoordinates",
                     "Parameters": [
@@ -106330,6 +107518,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetWaypoints",
                     "Parameters": [
@@ -106342,6 +107533,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "CheckOcclusionAsync",
                     "Parameters": [
@@ -106364,6 +107558,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "ComputeAsync",
                     "Parameters": [
@@ -106393,6 +107590,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Event",
                     "Name": "Blocked",
                     "Parameters": [
@@ -106408,6 +107608,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Event",
                     "Name": "Unblocked",
                     "Parameters": [
@@ -106434,6 +107637,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -106453,6 +107661,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -106472,6 +107685,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "true",
                     "MemberType": "Property",
@@ -106491,6 +107709,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "",
                     "MemberType": "Property",
@@ -106517,6 +107740,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "",
                     "MemberType": "Property",
@@ -106536,6 +107764,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "false",
                     "MemberType": "Property",
@@ -106562,6 +107795,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "0",
                     "MemberType": "Property",
@@ -106585,6 +107823,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "CreatePath",
                     "Parameters": [
@@ -106605,6 +107846,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "ComputeRawPathAsync",
                     "Parameters": [
@@ -106646,6 +107890,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "ComputeSmoothPathAsync",
                     "Parameters": [
@@ -106687,6 +107934,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "FindPathAsync",
                     "Parameters": [
@@ -111908,10 +113158,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxSecurity",
-                    "Tags": [
-                        "Hidden"
-                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -120319,6 +121566,205 @@
         },
         {
             "Members": [
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "LogActionEvent",
+                    "Parameters": [
+                        {
+                            "Name": "actionType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "RecommendationActionType"
+                            }
+                        },
+                        {
+                            "Name": "itemId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "tracingId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "actionEventDetails",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "LogImpressionEvent",
+                    "Parameters": [
+                        {
+                            "Name": "impressionType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "RecommendationImpressionType"
+                            }
+                        },
+                        {
+                            "Name": "itemId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "tracingId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "impressionEventDetails",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GenerateItemListAsync",
+                    "Parameters": [
+                        {
+                            "Name": "generateRecommendationItemListRequest",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "RecommendationPages"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "RegisterItemAsync",
+                    "Parameters": [
+                        {
+                            "Name": "registerRecommendationItemsRequest",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "RemoveItemAsync",
+                    "Parameters": [
+                        {
+                            "Name": "itemId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "UpdateItemAsync",
+                    "Parameters": [
+                        {
+                            "Name": "updateRecommendationItemRequest",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "RecommendationService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "ReflectionMetadata",
@@ -123664,18 +125110,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "ClearScriptProfilingData",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "CompressLuaApp",
                     "Parameters": [
                     ],
@@ -123684,28 +125118,6 @@
                         "Name": "null"
                     },
                     "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DeserializeScriptProfilerString",
-                    "Parameters": [
-                        {
-                            "Name": "jsonString",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string?"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "CustomLuaState"
-                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -123766,50 +125178,12 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetScriptProfilingData",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ReportLuaRequireCount",
                     "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SaveScriptProfilingData",
-                    "Parameters": [
-                        {
-                            "Name": "jsonString",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "filename",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -123831,37 +125205,6 @@
                         "Name": "null"
                     },
                     "Security": "PluginSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "StartScriptProfiling",
-                    "Parameters": [
-                        {
-                            "Name": "frequency",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int?"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "StopScriptProfiling",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -125188,6 +126531,14 @@
                                 "Category": "Class",
                                 "Name": "LuaSourceContainer"
                             }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -125936,6 +127287,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "0",
                     "MemberType": "Property",
@@ -125959,6 +127315,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -125989,6 +127350,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "false",
                     "MemberType": "Property",
@@ -126008,6 +127374,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "false",
                     "MemberType": "Property",
@@ -126044,6 +127415,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -126063,6 +127439,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -126082,6 +127463,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Input",
                     "Default": "0",
                     "MemberType": "Property",
@@ -126101,6 +127487,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -126120,6 +127511,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Input",
                     "Default": "Floor",
                     "MemberType": "Property",
@@ -126146,6 +127542,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -126169,6 +127570,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -126192,6 +127598,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
                     "Category": "Output",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
@@ -126215,6 +127626,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Basic"
+                    ],
                     "MemberType": "Function",
                     "Name": "EvaluateAsync",
                     "Parameters": [
@@ -128944,6 +130358,18 @@
             "MemoryCategory": "Instances",
             "Name": "Sky",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SlimService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
         },
         {
             "Members": [
@@ -136861,6 +138287,25 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Camera",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
+                    "Name": "CameraSpeedLockDefault",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -152924,6 +154369,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CalculateBodyMaxCageDistance",
+                    "Parameters": [
+                        {
+                            "Name": "inputBodyParts",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CalculateMeshInsideMeshPercentage",
                     "Parameters": [
                         {
@@ -168849,6 +170316,19 @@
         {
             "Items": [
                 {
+                    "Name": "Server",
+                    "Value": 0
+                },
+                {
+                    "Name": "Automatic",
+                    "Value": 1
+                }
+            ],
+            "Name": "AuthorityMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Off",
                     "Value": 0
                 },
@@ -172195,31 +173675,6 @@
                 }
             ],
             "Name": "FacsActionUnit"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Content",
-                    "Value": 0
-                },
-                {
-                    "Name": "Final",
-                    "Value": 1
-                },
-                {
-                    "Name": "GameJoin",
-                    "Value": 2
-                },
-                {
-                    "Name": "Interaction",
-                    "Value": 3
-                },
-                {
-                    "Name": "Sharing",
-                    "Value": 4
-                }
-            ],
-            "Name": "FeedRankingScoreType"
         },
         {
             "Items": [
@@ -175628,6 +177083,23 @@
         {
             "Items": [
                 {
+                    "Name": "NoCheck",
+                    "Value": 0
+                },
+                {
+                    "Name": "Nonstrict",
+                    "Value": 1
+                },
+                {
+                    "Name": "Strict",
+                    "Value": 2
+                }
+            ],
+            "Name": "LuauTypeCheckMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Completed",
                     "Value": 1
                 },
@@ -176148,6 +177620,9 @@
                     "Value": 0
                 },
                 {
+                    "LegacyNames": [
+                        "Enabled"
+                    ],
                     "Name": "StreamingMesh",
                     "Value": 1
                 },
@@ -177661,6 +179136,61 @@
                 }
             ],
             "Name": "RaycastFilterType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "AddReaction",
+                    "Value": 0
+                },
+                {
+                    "Name": "RemoveReaction",
+                    "Value": 1
+                },
+                {
+                    "Name": "Share",
+                    "Value": 2
+                },
+                {
+                    "Name": "Report",
+                    "Value": 3
+                },
+                {
+                    "Name": "Comment",
+                    "Value": 4
+                },
+                {
+                    "Name": "Play",
+                    "Value": 5
+                },
+                {
+                    "Name": "Purchase",
+                    "Value": 6
+                }
+            ],
+            "Name": "RecommendationActionType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "View",
+                    "Value": 0
+                }
+            ],
+            "Name": "RecommendationImpressionType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Private",
+                    "Value": 0
+                },
+                {
+                    "Name": "Public",
+                    "Value": 1
+                }
+            ],
+            "Name": "RecommendationItemVisibility"
         },
         {
             "Items": [

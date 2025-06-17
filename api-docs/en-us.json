@@ -12860,17 +12860,20 @@
       "AbsoluteWindowSize": "@roblox/globaltype/ScrollingFrame.AbsoluteWindowSize",
       "AutomaticCanvasSize": "@roblox/globaltype/ScrollingFrame.AutomaticCanvasSize",
       "BottomImage": "@roblox/globaltype/ScrollingFrame.BottomImage",
+      "BottomImageContent": "@roblox/globaltype/ScrollingFrame.BottomImageContent",
       "CanvasPosition": "@roblox/globaltype/ScrollingFrame.CanvasPosition",
       "CanvasSize": "@roblox/globaltype/ScrollingFrame.CanvasSize",
       "ElasticBehavior": "@roblox/globaltype/ScrollingFrame.ElasticBehavior",
       "HorizontalScrollBarInset": "@roblox/globaltype/ScrollingFrame.HorizontalScrollBarInset",
       "MidImage": "@roblox/globaltype/ScrollingFrame.MidImage",
+      "MidImageContent": "@roblox/globaltype/ScrollingFrame.MidImageContent",
       "ScrollBarImageColor3": "@roblox/globaltype/ScrollingFrame.ScrollBarImageColor3",
       "ScrollBarImageTransparency": "@roblox/globaltype/ScrollingFrame.ScrollBarImageTransparency",
       "ScrollBarThickness": "@roblox/globaltype/ScrollingFrame.ScrollBarThickness",
       "ScrollingDirection": "@roblox/globaltype/ScrollingFrame.ScrollingDirection",
       "ScrollingEnabled": "@roblox/globaltype/ScrollingFrame.ScrollingEnabled",
       "TopImage": "@roblox/globaltype/ScrollingFrame.TopImage",
+      "TopImageContent": "@roblox/globaltype/ScrollingFrame.TopImageContent",
       "VerticalScrollBarInset": "@roblox/globaltype/ScrollingFrame.VerticalScrollBarInset",
       "VerticalScrollBarPosition": "@roblox/globaltype/ScrollingFrame.VerticalScrollBarPosition"
     },
@@ -12897,6 +12900,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#BottomImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/ScrollingFrame.BottomImageContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#BottomImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ScrollingFrame.CanvasPosition": {
     "documentation": "Reflects the <strong>current</strong> positional offset of the canvas within the frame, in pixels, and sets the position of scroll bars accordingly.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#CanvasPosition",
@@ -12920,6 +12928,11 @@
   "@roblox/globaltype/ScrollingFrame.MidImage": {
     "documentation": "Image which spans the area between <code>TopImage</code> and <code>BottomImage</code> (rotated 90&deg; counterclockwise for a horizontal scroll bar).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#MidImage",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ScrollingFrame.MidImageContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#MidImageContent",
     "code_sample": ""
   },
   "@roblox/globaltype/ScrollingFrame.ScrollBarImageColor3": {
@@ -12950,6 +12963,11 @@
   "@roblox/globaltype/ScrollingFrame.TopImage": {
     "documentation": "Image which displays on the top of a vertical scroll bar, or the left of a horizontal scroll bar (rotated 90&deg; counterclockwise for a horizontal scroll bar).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#TopImage",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ScrollingFrame.TopImageContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#TopImageContent",
     "code_sample": ""
   },
   "@roblox/globaltype/ScrollingFrame.VerticalScrollBarInset": {
@@ -24897,6 +24915,7 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
+      "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
@@ -25094,6 +25113,11 @@
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
     "documentation": "Determines whether <code>parts</code> in different groups set to not collide will ignore collisions and touch events.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseNewLuauTypeSolver",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
@@ -52548,6 +52572,85 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
   },
+  "@roblox/globaltype/Moderation": {
+    "documentation": "",
+    "keys": {
+      "InternalCreateReviewableContentAsync": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync",
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync",
+      "InternalProcessReviewableContentEvent": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalCreateReviewableContentAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalRequestReviewableContentReviewAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "event",
+        "documentation": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalProcessReviewableContentEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TimerService": {
     "documentation": "An internal service responsible for scheduling timed events. It is used by the <code>Debris</code> class. Its functionality can not be accessed by developers.",
     "keys": {},
@@ -54585,6 +54688,7 @@
       "AddSelectionTuple": "@roblox/globaltype/GuiService.AddSelectionTuple",
       "CloseInspectMenu": "@roblox/globaltype/GuiService.CloseInspectMenu",
       "DismissNotification": "@roblox/globaltype/GuiService.DismissNotification",
+      "GetClosestVisibleDialogToPosition": "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition",
       "GetEmotesMenuOpen": "@roblox/globaltype/GuiService.GetEmotesMenuOpen",
       "GetGameplayPausedNotificationEnabled": "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled",
       "GetGuiInset": "@roblox/globaltype/GuiService.GetGuiInset",
@@ -54760,6 +54864,33 @@
       "@roblox/globaltype/GuiService.DismissNotification/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#DismissNotification",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/param/0": {
+    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+  },
+  "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/param/0"
+      },
+      {
+        "name": "position",
+        "documentation": "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#GetClosestVisibleDialogToPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen/param/0": {
@@ -64053,7 +64184,8 @@
       "Tone": "@roblox/globaltype/Dialog.Tone",
       "TriggerDistance": "@roblox/globaltype/Dialog.TriggerDistance",
       "TriggerOffset": "@roblox/globaltype/Dialog.TriggerOffset",
-      "GetCurrentPlayers": "@roblox/globaltype/Dialog.GetCurrentPlayers"
+      "GetCurrentPlayers": "@roblox/globaltype/Dialog.GetCurrentPlayers",
+      "SetGuiObject": "@roblox/globaltype/Dialog.SetGuiObject"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Dialog",
     "code_sample": ""
@@ -64127,6 +64259,28 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Dialog#GetCurrentPlayers",
     "code_sample": "local dialog = script.Parent\n\nlocal function onChoiceSelected(_player, _choice)\n\tlocal currentPlayers = dialog:GetCurrentPlayers()\n\tprint(\"The current players in the dialog:\")\n\tfor _, player in ipairs(currentPlayers) do\n\t\tprint(player)\n\tend\nend\n\ndialog.DialogChoiceSelected:Connect(onChoiceSelected)"
+  },
+  "@roblox/globaltype/Dialog.SetGuiObject/param/0": {
+    "documentation": "Creates NPC billboard-style dialog bubbles."
+  },
+  "@roblox/globaltype/Dialog.SetGuiObject/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Dialog.SetGuiObject": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Dialog.SetGuiObject/param/0"
+      },
+      {
+        "name": "gui",
+        "documentation": "@roblox/globaltype/Dialog.SetGuiObject/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Dialog#SetGuiObject",
+    "code_sample": ""
   },
   "@roblox/globaltype/Dialog.DialogChoiceSelected.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -68053,6 +68207,7 @@
   "@roblox/globaltype/CaptureService": {
     "documentation": "A service which provides control over screenshot capture features.",
     "keys": {
+      "CanCaptureVideo": "@roblox/globaltype/CaptureService.CanCaptureVideo",
       "CaptureScreenshot": "@roblox/globaltype/CaptureService.CaptureScreenshot",
       "PromptSaveCapturesToGallery": "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery",
       "PromptShareCapture": "@roblox/globaltype/CaptureService.PromptShareCapture",
@@ -68061,6 +68216,26 @@
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.CanCaptureVideo/param/0": {
+    "documentation": "A service which provides control over screenshot capture features."
+  },
+  "@roblox/globaltype/CaptureService.CanCaptureVideo/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/CaptureService.CanCaptureVideo": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.CanCaptureVideo/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.CanCaptureVideo/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#CanCaptureVideo",
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/0": {
@@ -69754,7 +69929,9 @@
   "@roblox/globaltype/InputBinding": {
     "documentation": "Defines which hardware binding should trigger the parent <code>InputAction</code>.",
     "keys": {
+      "Backward": "@roblox/globaltype/InputBinding.Backward",
       "Down": "@roblox/globaltype/InputBinding.Down",
+      "Forward": "@roblox/globaltype/InputBinding.Forward",
       "KeyCode": "@roblox/globaltype/InputBinding.KeyCode",
       "Left": "@roblox/globaltype/InputBinding.Left",
       "PressedThreshold": "@roblox/globaltype/InputBinding.PressedThreshold",
@@ -69768,9 +69945,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding",
     "code_sample": ""
   },
+  "@roblox/globaltype/InputBinding.Backward": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Backward",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InputBinding.Down": {
     "documentation": "Specifies an alternate <code>KeyCode</code> for dispatching directionally \"down\" inputs to the parent <code>InputAction</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Down",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputBinding.Forward": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Forward",
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.KeyCode": {
@@ -69816,6 +70003,147 @@
   "@roblox/globaltype/InputBinding.Vector2Scale": {
     "documentation": "Amount by which to linearly scale the values of a two-directional <code>InputAction</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Vector2Scale",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText": {
+    "documentation": "",
+    "keys": {
+      "Enabled": "@roblox/globaltype/AudioSpeechToText.Enabled",
+      "Text": "@roblox/globaltype/AudioSpeechToText.Text",
+      "VoiceDetected": "@roblox/globaltype/AudioSpeechToText.VoiceDetected",
+      "GetConnectedWires": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Enabled": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Text": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0"
+      },
+      {
+        "name": "pin",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#GetConnectedWires",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once",
+      "Wait": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#WiringChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/IKControl": {
@@ -81783,6 +82111,7 @@
       "BoolState": "@roblox/globaltype/InputAction.BoolState",
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
       "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
+      "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
       "Fire": "@roblox/globaltype/InputAction.Fire",
@@ -81804,6 +82133,11 @@
   "@roblox/globaltype/InputAction.Direction2DState": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction3DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Enabled": {
@@ -85529,10 +85863,10 @@
     "documentation": "A service to support developer avatar creators."
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync/param/1": {
-    "documentation": ""
+    "documentation": "The <code>Model</code> containing <code>MeshPart</code> children with <code>WrapDeformer</code> instances that require HSR data updating for preview."
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync": {
-    "documentation": "",
+    "documentation": "Prepares in-experience avatar for preview.",
     "params": [
       {
         "name": "self",
@@ -85782,7 +86116,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
-    "documentation": "",
+    "documentation": "Fires when an in-experience-created avatar's moderation status has been updated from pending.",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
@@ -86366,6 +86700,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "IsLegacyChatDisabled": "@roblox/globaltype/TextChatService.IsLegacyChatDisabled",
       "DisplayBubble": "@roblox/globaltype/TextChatService.DisplayBubble",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
@@ -86395,6 +86730,11 @@
   "@roblox/globaltype/TextChatService.CreateDefaultTextChannels": {
     "documentation": "Determines whether <code>TextChatService</code> should create default <code>TextChannels</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextChatService.IsLegacyChatDisabled": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#IsLegacyChatDisabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/0": {
@@ -87281,9 +87621,15 @@
   "@roblox/globaltype/VideoCapture": {
     "documentation": "",
     "keys": {
+      "FilePath": "@roblox/globaltype/VideoCapture.FilePath",
       "TimeLength": "@roblox/globaltype/VideoCapture.TimeLength"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoCapture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoCapture.FilePath": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoCapture#FilePath",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoCapture.TimeLength": {
@@ -90769,6 +91115,7 @@
   "@roblox/globaltype/WorldRoot": {
     "documentation": "Base class for handling physics simulation and 3D spatial queries.",
     "keys": {
+      "PhysicsStepTime": "@roblox/globaltype/WorldRoot.PhysicsStepTime",
       "ArePartsTouchingOthers": "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers",
       "Blockcast": "@roblox/globaltype/WorldRoot.Blockcast",
       "BulkMoveTo": "@roblox/globaltype/WorldRoot.BulkMoveTo",
@@ -90792,6 +91139,11 @@
       "findPartsInRegion3": "@roblox/globaltype/WorldRoot.findPartsInRegion3"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldRoot",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WorldRoot.PhysicsStepTime": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldRoot#PhysicsStepTime",
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/0": {
@@ -93070,10 +93422,13 @@
       "HideSelfView": "@roblox/globaltype/SocialService.HideSelfView",
       "PromptGameInvite": "@roblox/globaltype/SocialService.PromptGameInvite",
       "PromptPhoneBook": "@roblox/globaltype/SocialService.PromptPhoneBook",
+      "PromptRsvpToEventCompleted": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted",
       "ShowSelfView": "@roblox/globaltype/SocialService.ShowSelfView",
       "CanSendCallInviteAsync": "@roblox/globaltype/SocialService.CanSendCallInviteAsync",
       "CanSendGameInviteAsync": "@roblox/globaltype/SocialService.CanSendGameInviteAsync",
+      "GetEventRsvpStatusAsync": "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync",
       "GetPartyAsync": "@roblox/globaltype/SocialService.GetPartyAsync",
+      "PromptRsvpToEventAsync": "@roblox/globaltype/SocialService.PromptRsvpToEventAsync",
       "OnCallInviteInvoked": "@roblox/globaltype/SocialService.OnCallInviteInvoked"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService",
@@ -93179,6 +93534,42 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptPhoneBook",
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal SocialService = game:GetService(\"SocialService\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\nbutton.Visible = false\n\n-- Function to check whether the player can send a call invite\nlocal function canSendCallingInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendCallInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canCall = canSendCallingInvite(player)\nif canCall then\n\tbutton.Visible = true\n\tbutton.Activated:Connect(function()\n\t\tSocialService:PromptPhoneBook(player, \"\")\n\tend)\nend"
   },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/0": {
+    "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/0"
+      },
+      {
+        "name": "eventId",
+        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/1"
+      },
+      {
+        "name": "success",
+        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/2"
+      },
+      {
+        "name": "rsvpStatus",
+        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptRsvpToEventCompleted",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.ShowSelfView/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
@@ -93262,6 +93653,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#CanSendGameInviteAsync",
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- Function to check whether the player can send an invite\nlocal function canSendGameInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendGameInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canInvite = canSendGameInvite(player)\nif canInvite then\n\tSocialService:PromptGameInvite(player)\nend"
   },
+  "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/0": {
+    "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
+  },
+  "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/0"
+      },
+      {
+        "name": "eventId",
+        "documentation": "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetEventRsvpStatusAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.GetPartyAsync/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
@@ -93288,6 +93706,33 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetPartyAsync",
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId == \"\" then\n\t\twarn(\"Player is not in a party\")\n\t\treturn\n\tend\n\n\tlocal success, partyData = pcall(function()\n\t\treturn SocialService:GetPartyAsync(partyId)\n\tend)\n\n\tif success and partyData then\n\t\tfor _, partyMemberData in partyData do\n\t\t\tprint(\n\t\t\t\tpartyMemberData.UserId,\n\t\t\t\tpartyMemberData.PlaceId,\n\t\t\t\tpartyMemberData.JobId,\n\t\t\t\tpartyMemberData.PrivateServerId,\n\t\t\t\tpartyMemberData.ReservedServerAccessCode\n\t\t\t)\n\t\tend\n\telse\n\t\twarn(\"Failed to retrieve party data\")\n\tend\nend)"
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/0": {
+    "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/0"
+      },
+      {
+        "name": "eventId",
+        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptRsvpToEventAsync",
+    "code_sample": ""
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/param/0": {
     "documentation": "String to help differentiate between various phone book entry points."
@@ -93578,6 +94023,94 @@
       "Wait": "@roblox/globaltype/SocialService.PhoneBookPromptClosed.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PhoneBookPromptClosed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect",
+      "ConnectParallel": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel",
+      "Once": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once",
+      "Wait": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#ShowPromptRsvpToEvent",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderingTest": {
@@ -97796,6 +98329,46 @@
       "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.None": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.Going": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#Going",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.NotGoing": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#NotGoing",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RsvpStatus": {
+    "documentation": "",
+    "keys": {
+      "None": "@roblox/enum/RsvpStatus.None",
+      "Going": "@roblox/enum/RsvpStatus.Going",
+      "NotGoing": "@roblox/enum/RsvpStatus.NotGoing"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus",
     "code_sample": ""
   },
   "@roblox/enum/DevTouchMovementMode.UserChoice": {
@@ -123596,12 +124169,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType#Direction2D",
     "code_sample": ""
   },
+  "@roblox/enum/InputActionType.Direction3D": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType#Direction3D",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.InputActionType": {
     "documentation": "This enum is used by <code>InputAction.Type</code> to determine which input data type the <code>InputAction</code> will receive.",
     "keys": {
       "Bool": "@roblox/enum/InputActionType.Bool",
       "Direction1D": "@roblox/enum/InputActionType.Direction1D",
-      "Direction2D": "@roblox/enum/InputActionType.Direction2D"
+      "Direction2D": "@roblox/enum/InputActionType.Direction2D",
+      "Direction3D": "@roblox/enum/InputActionType.Direction3D"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType",
     "code_sample": ""

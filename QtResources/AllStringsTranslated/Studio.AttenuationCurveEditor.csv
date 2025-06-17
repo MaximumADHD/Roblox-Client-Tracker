@@ -6,10 +6,10 @@ Studio.AttenuationCurveEditor.Label.Distance,,,Distance,Distance,المسافة,
 Studio.AttenuationCurveEditor.Control.Save,,,Save,Save,حفظ,Speichern,Guardar,Enregistrer,सेव करें,Simpan,Salva,保存,저장,Zapisz,Salvar,,บันทึก,Kaydet,Lưu,,,儲存
 Studio.AttenuationCurveEditor.Control.Reset,,,Reset,Reset,إعادة تعيين,Zurücksetzen,Restablecer,Réinitialiser,रीसेट करें,Reset,Ripristina,リセット,재설정,Zresetuj,Redefinir,,รีเซ็ต,Sıfırla,Đặt Lại,,,重置
 Studio.AttenuationCurveEditor.Label.Volume,,,Volume,Volume,المستوى,Lautstärke,Volumen,Volume,वॉल्यूम,Volume,Volume,ボリューム,볼륨,Wielkość,Volume,,ระดับเสียง,Ses Seviyesi,Âm Lượng,,,音量
-Studio.AttenuationCurveEditor.Label.Inverse,,,Inverse,Inverse,عكس,Umgekehrt,Inverso,Inverser,इनवर्स,Terbalik,Inverso,,역,Odwrotne,Inversa,,กลับด้าน,Tersine,Đảo Nghịch,,,反向
+Studio.AttenuationCurveEditor.Label.Inverse,,,Inverse,Inverse,عكس,Umgekehrt,Inverso,Inverser,इनवर्स,Terbalik,Inverso,反転,역,Odwrotne,Inversa,,กลับด้าน,Tersine,Đảo Nghịch,,,反向
 Studio.AttenuationCurveEditor.Label.LinearSquared,,,Linear Squared,Linear Squared,خطي تربيعي,Linear quadratisch,Cuadrado lineal,Carré linéaire,लीनियर स्क्वायर्ड,Linear Kotak,Quadrato lineare,,선형 제곱,Liniowe kwadratowe,Linear quadrada,,แนวตรงยกกำลังสอง,Doğrusal Kareli,Bình Phương Tuyến Tính,,,線性方形
 Studio.AttenuationCurveEditor.Label.InverseTapered,,,Inverse Tapered,Inverse Tapered,مقلوب مستدق,Umgekehrt verjüngt,Inverso ahusado,Conique inversé,इनवर्स टेपर्ड,Terbalik Mengecil,Rastrematura inversa,,역으로 테이퍼드됨,Odwrotne stożkowe,Inversa decrescente,,เรียวลงแบบกลับด้าน,Tersine Daralan,Giảm Đảo Nghịch,,,反向錐形
-Studio.AttenuationCurveEditor.Label.Linear,,,Linear,Linear,خطي,Linear,Lineal,Linéaire,लीनियर,Linear,Lineare,,선형,Liniowe,Linear,,แนวตรง,Doğrusal,Tuyến Tính,,,線性
+Studio.AttenuationCurveEditor.Label.Linear,,,Linear,Linear,خطي,Linear,Lineal,Linéaire,लीनियर,Linear,Lineare,リニア,선형,Liniowe,Linear,,แนวตรง,Doğrusal,Tuyến Tính,,,線性
 Studio.AttenuationCurveEditor.Label.Custom,,,Custom,Custom,تخصيص,Benutzerdefiniert,Personalizar,Personnalisé,कस्टम,Kustom,Personalizzazione,カスタマイズ,사용자 정의,Niestandardowe,Personalizada,,กำหนดเอง,Özel,Tùy Chỉnh,,,自訂
 Studio.AttenuationCurveEditor.Label.Min,,,Min,Min,الحد الأدنى,Min,Mín.,Min,कम से कम,Min,Min,最小,최소,Min.,Mín.,,ต่ำสุด,Min.,Tối Thiểu,,,最小
 Studio.AttenuationCurveEditor.Label.Max,,,Max,Max,الحد الأقصى,Max,Máx.,Max,ज़्यादा से ज़्यादा,Maks,Max,最大,최대,Maks.,Máx.,,สูงสุด,Maks.,Tối Đa,,,最大

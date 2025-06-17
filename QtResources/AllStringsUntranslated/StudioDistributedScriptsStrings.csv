@@ -1,0 +1,13 @@
+Key,Context,Source,en-us
+Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,,Create and bind behavior: %1,Create and bind behavior: %1
+Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,,Search for a behavior to bind to,Search for a behavior to bind to
+Studio.DistributedScripts.AddBehaviorBindingPopup.NoBehaviorBindingsCreated,,No behaviors have been bound yet,No behaviors have been bound yet
+Studio.DistributedScripts.BehaviorName,,Behavior,Behavior
+Studio.DistributedScripts.NoBehaviorBindingsLabelItem.NoBehaviorsFound,,No bindable behaviors were found,No bindable behaviors were found
+Studio.DistributedScripts.ResimulatedClient,,Client (Resim),Client (Resim)
+Studio.DistributedScripts.ResimulatedCoreScript,,CoreScript (Resim),CoreScript (Resim)
+Studio.DistributedScripts.ResimulatedEdit,,Edit (Resim),Edit (Resim)
+Studio.DistributedScripts.ResimulatedServer,,Server (Resim),Server (Resim)
+Studio.DistributedScripts.ResimulatedStandalone,,Standalone (Resim),Standalone (Resim)
+Studio.DistributedScripts.ResimulatedStudio,,Studio (Resim),Studio (Resim)
+Studio.DistributedScripts.RobloxRibbonMainWindow.InsertABehavior,,Insert a behavior into ReplicatedStorage.Behaviors,Insert a behavior into ReplicatedStorage.Behaviors

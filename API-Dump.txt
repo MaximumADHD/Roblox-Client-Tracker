@@ -501,6 +501,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreateMeshPartAsync(meshContent: Content, options: { [string]: any }? = nil) -> MeshPart [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
+	Function AssetService:CreateSurfaceAppearance(content: { [string]: any }) -> SurfaceAppearance
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
 	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } [Yields]
 	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } [Yields]
@@ -2253,6 +2254,7 @@ Class ExperienceStateCaptureService : Instance [NotCreatable] [Service] [NotRepl
 	Function ExperienceStateCaptureService:ResetHighlight() -> () {RobloxScriptSecurity}
 	Function ExperienceStateCaptureService:ToggleCaptureMode() -> () {RobloxScriptSecurity}
 	Event ExperienceStateCaptureService.ItemSelectedInCaptureMode(instance: Instance) {RobloxScriptSecurity}
+Class ExperienceStateRecordingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ExplorerFilter : Instance [NotReplicated]
 	Function ExplorerFilter:GetAutocompleter() -> ExplorerFilterAutocompleter {RobloxScriptSecurity}
 	Function ExplorerFilter:GetErrors() -> { any } {RobloxScriptSecurity}
@@ -2384,10 +2386,6 @@ Class MotorFeature : Feature [Deprecated]
 Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
 	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
 	Event FeatureRestrictionManager.UpdateExperienceChatTimeout(startTime: number, duration: number) {RobloxSecurity} [Hidden]
-Class FeedService : Instance [NotCreatable] [Service]
-	Function FeedService:BatchRemoveFeedItemsAsync(feedItemIds: { any }) -> () [Yields]
-	Function FeedService:GetFeedItemsAsync(getFeedRequest: { [string]: any }) -> FeedPages [Yields]
-	Function FeedService:RegisterFeedItemsAsync(registerFeedItemsRequest: { [string]: any }) -> { [string]: any } [Yields]
 Class File : Instance [NotCreatable] [NotReplicated]
 	Property File.Size: number {PluginSecurity} [Hidden] [ReadOnly]
 	Function File:GetBinaryContents() -> string {PluginSecurity}
@@ -4421,6 +4419,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:GetNetworkOwner() -> Instance? {🧬Safe}
 	Function BasePart:GetNetworkOwnershipAuto() -> boolean {🧬Safe}
 	Function BasePart:GetNoCollisionConstraints() -> { Instance }
+	Function BasePart:GetPhysicsCost() -> number {RobloxScriptSecurity} {🧬Safe}
 	Function BasePart:GetRenderCFrame() -> CFrame [Deprecated]
 	Function BasePart:GetRootPart() -> Instance? {🧬Safe}
 	Function BasePart:GetTouchingParts() -> { Instance }
@@ -4664,6 +4663,7 @@ Class Model : PVInstance
 	Property Model.ModelMeshData: SharedString [Hidden] [NotScriptable]
 	Property Model.ModelMeshSize: Vector3 [Hidden] [NotScriptable]
 	Property Model.NeedsPivotMigration: boolean [Hidden] [NotReplicated] [NotScriptable]
+	Property Model.SlimHash: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Model.PrimaryPart: BasePart?
 	Property Model.Scale: number [NotReplicated] [NotScriptable]
 	Property Model.ScaleFactor: number [Hidden] [NotScriptable]
@@ -4740,6 +4740,10 @@ Class WorldRoot : Model [NotCreatable]
 	Function WorldRoot:FindPartsInRegion3(region: Region3, ignoreDescendantsInstance: Instance? = nil, maxParts: number? = 20) -> { Instance } [Deprecated]
 	Function WorldRoot:FindPartsInRegion3WithIgnoreList(region: Region3, ignoreDescendantsTable: { Instance }, maxParts: number? = 20) -> { Instance } [Deprecated]
 	Function WorldRoot:FindPartsInRegion3WithWhiteList(region: Region3, whitelistDescendantsTable: { Instance }, maxParts: number? = 20) -> { Instance } [Deprecated]
+	Function WorldRoot:GetAwakeContactNormals() -> { any } {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
+	Function WorldRoot:GetAwakeContactParts() -> { any } {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
+	Function WorldRoot:GetAwakeContactPositions() -> { any } {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
+	Function WorldRoot:GetAwakeRootParts() -> { Instance } {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
 	Function WorldRoot:GetPartBoundsInBox(cframe: CFrame, size: Vector3, overlapParams: OverlapParams?) -> { Instance } {🧬Safe}
 	Function WorldRoot:GetPartBoundsInRadius(position: Vector3, radius: number, overlapParams: OverlapParams?) -> { Instance } {🧬Safe}
 	Function WorldRoot:GetPartsInPart(part: BasePart, overlapParams: OverlapParams?) -> { Instance } {🧬Safe}
@@ -4772,6 +4776,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.Gravity: number
 	Property Workspace.IKControlConstraintSupport: Enum.IKControlConstraintSupport [NotScriptable]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
+	Property Workspace.LuauTypeCheckMode: Enum.LuauTypeCheckMode {PluginSecurity}
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
 	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable]
@@ -4789,11 +4794,13 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.TerrainWeldsFixed: boolean [Hidden] [NotScriptable]
 	Property Workspace.TouchEventsUseCollisionGroups: Enum.RolloutState [NotScriptable]
 	Property Workspace.TouchesUseCollisionGroups: boolean [NotScriptable]
+	Property Workspace.UseImprovedModelLod: Enum.RolloutState [NotScriptable]
 	Property Workspace.UseNewLuauTypeSolver: Enum.RolloutState [NotScriptable]
 	Property Workspace.CurrentCamera: Camera? [NotReplicated]
 	Property Workspace.DistributedGameTime: number [NotReplicated]
 	Property Workspace.InsertPoint: Vector3 [NotReplicated]
 	Property Workspace.RejectCharacterDeletions: Enum.RejectCharacterDeletions [NotScriptable]
+	Property Workspace.AuthorityMode: Enum.AuthorityMode [NotScriptable]
 	Property Workspace.ModelStreamingBehavior: Enum.ModelStreamingBehavior [NotScriptable]
 	Property Workspace.StreamOutBehavior: Enum.StreamOutBehavior [NotScriptable]
 	Property Workspace.StreamingEnabled: boolean {✏️PluginSecurity}
@@ -4858,12 +4865,12 @@ Class DataStoreListingPages : Pages [NotCreatable] [NotReplicated]
 	Property DataStoreListingPages.Cursor: string [ReadOnly]
 Class DataStorePages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreVersionPages : Pages [NotCreatable] [NotReplicated]
-Class FeedPages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
 Class InventoryPages : Pages [NotCreatable] [NotReplicated]
 Class EmotesPages : InventoryPages [NotCreatable] [NotReplicated]
 Class MemoryStoreHashMapPages : Pages [NotCreatable] [NotReplicated]
 Class OutfitPages : Pages [NotCreatable] [NotReplicated]
+Class RecommendationPages : Pages [NotCreatable] [NotReplicated]
 Class StandardPages : Pages [NotCreatable] [NotReplicated]
 Class PartOperationAsset : Instance
 	Property PartOperationAsset.ChildData: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
@@ -5166,7 +5173,7 @@ Class Player : Instance
 	Event Player.CharacterAppearanceLoaded(character: Model)
 	Event Player.CharacterRemoving(character: Model)
 	Event Player.Chatted(message: string, recipient: Player)
-	Event Player.CloudEditSelectionChanged(newSelection: { any }) {RobloxSecurity} [Hidden]
+	Event Player.CloudEditSelectionChanged(newSelection: { any }) {RobloxScriptSecurity}
 	Event Player.ConnectDiedSignalBackend() {RobloxSecurity} [Hidden]
 	Event Player.FriendStatusChanged(player: Player, friendStatus: Enum.FriendStatus) {RobloxScriptSecurity}
 	Event Player.Idled(time: number)
@@ -5555,6 +5562,13 @@ Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function RbxAnalyticsService:TrackEvent(category: string, action: string, label: string, value: number? = 0) -> () {RobloxScriptSecurity}
 	Function RbxAnalyticsService:TrackEventWithArgs(category: string, action: string, label: string, args: { [string]: any }, value: number? = 0) -> () {RobloxScriptSecurity}
 	Function RbxAnalyticsService:UpdateHeartbeatObject(args: { [string]: any }) -> () {RobloxScriptSecurity}
+Class RecommendationService : Instance [NotCreatable] [Service]
+	Function RecommendationService:GenerateItemListAsync(generateRecommendationItemListRequest: { [string]: any }) -> RecommendationPages [Yields]
+	Function RecommendationService:LogActionEvent(actionType: Enum.RecommendationActionType, itemId: string, tracingId: string, actionEventDetails: { [string]: any }? = nil) -> ()
+	Function RecommendationService:LogImpressionEvent(impressionType: Enum.RecommendationImpressionType, itemId: string, tracingId: string, impressionEventDetails: { [string]: any }? = nil) -> ()
+	Function RecommendationService:RegisterItemAsync(registerRecommendationItemsRequest: { [string]: any }) -> { [string]: any } [Yields]
+	Function RecommendationService:RemoveItemAsync(itemId: string) -> () [Yields]
+	Function RecommendationService:UpdateItemAsync(updateRecommendationItemRequest: { [string]: any }) -> () [Yields]
 Class ReflectionMetadata : Instance
 Class ReflectionMetadataCallbacks : Instance
 Class ReflectionMetadataClasses : Instance
@@ -5747,18 +5761,12 @@ Class ScriptCommitService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ScriptContext.ScriptsDisabled: boolean {LocalUserSecurity} [Hidden]
 	Function ScriptContext:AddCoreScriptLocal(name: string, parent: Instance) -> () {RobloxScriptSecurity}
-	Function ScriptContext:ClearScriptProfilingData() -> () {RobloxScriptSecurity}
 	Function ScriptContext:CompressLuaApp() -> () {RobloxScriptSecurity}
-	Function ScriptContext:DeserializeScriptProfilerString(jsonString: string?) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetCoverageStats() -> { any } {RobloxScriptSecurity}
 	Function ScriptContext:GetLuauHeapInstanceReferenceReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetLuauHeapMemoryReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
-	Function ScriptContext:GetScriptProfilingData() -> string {RobloxScriptSecurity}
 	Function ScriptContext:ReportLuaRequireCount() -> () {RobloxScriptSecurity}
-	Function ScriptContext:SaveScriptProfilingData(jsonString: string, filename: string) -> string {RobloxScriptSecurity}
 	Function ScriptContext:SetTimeout(seconds: number) -> () {PluginSecurity}
-	Function ScriptContext:StartScriptProfiling(frequency: number?) -> () {RobloxScriptSecurity}
-	Function ScriptContext:StopScriptProfiling() -> string {RobloxScriptSecurity}
 	Event ScriptContext.Error(message: string, stackTrace: string, script: Instance)
 	Event ScriptContext.ErrorDetailed(message: string, stackTrace: string, script: Instance, details: string, securityLevel: number, messageId: string) {RobloxScriptSecurity}
 Class ScriptDebugger : Instance [NotCreatable]
@@ -5816,7 +5824,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptEditorService:GetScriptDocuments() -> { Instance } {PluginSecurity}
 	Function ScriptEditorService:IsAutocompleteCallbackRegistered(name: string) -> boolean {RobloxScriptSecurity}
 	Function ScriptEditorService:IsScriptAnalysisCallbackRegistered(name: string) -> boolean {RobloxScriptSecurity}
-	Function ScriptEditorService:OpenScriptDocumentAsync(script: LuaSourceContainer) -> ...any {PluginSecurity} [Yields]
+	Function ScriptEditorService:OpenScriptDocumentAsync(script: LuaSourceContainer, options: { [string]: any }? = nil) -> ...any {PluginSecurity} [Yields]
 	Function ScriptEditorService:RegisterAutocompleteCallback(name: string, priority: number, callbackFunction: (...any) -> ...any) -> () {PluginSecurity}
 	Function ScriptEditorService:RegisterScriptAnalysisCallback(name: string, priority: number, callbackFunction: (...any) -> ...any) -> () {PluginSecurity}
 	Function ScriptEditorService:StripComments(code: string) -> string {RobloxScriptSecurity}
@@ -6010,6 +6018,7 @@ Class Sky : Instance
 	Property Sky.StarCount: number
 	Property Sky.SunAngularSize: number
 	Property Sky.SunTextureId: string
+Class SlimService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Smoke : Instance
 	Property Smoke.Color: Color3
 	Property Smoke.Enabled: boolean
@@ -6376,6 +6385,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.CameraOrbitSensitivity: number {RobloxScriptSecurity}
 	Property Studio.CameraPanSensitivity: number {RobloxScriptSecurity}
 	Property Studio.CameraShiftFactor: number {RobloxScriptSecurity}
+	Property Studio.CameraSpeedLockDefault: boolean {RobloxScriptSecurity}
 	Property Studio.CameraTweenFocus: boolean {RobloxScriptSecurity}
 	Property Studio.CameraZoomSpeed: number {RobloxScriptSecurity}
 	Property Studio.FreeCameraSpeedScroll: boolean {RobloxScriptSecurity}
@@ -7091,6 +7101,7 @@ Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CalculateAverageCageMeshDistance(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, innerTransform: CFrame, outerTransform: CFrame) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateAverageEditableCageMeshDistance(innerCage: EditableMesh, outerCage: EditableMesh, refMesh: EditableMesh, innerTransform: CFrame, outerTransform: CFrame) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateBodyMaxCageDistance(inputBodyParts: { any }) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateBodyPartMaxCageDistance(outerCage: EditableMesh, renderMesh: EditableMesh, outerTransform: CFrame, scale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:CalculateEditableMeshInsideMeshPercentage(editableMeshRoot: EditableMesh, editableMeshQuery: EditableMesh, meshQueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:CalculateEditableMeshModifiedCageBoundingBox(referenceUVValues: { any }, innerCage: EditableMesh, innerTransform: CFrame, outerCage: EditableMesh, outerTransform: CFrame) -> ...any {RobloxScriptSecurity}
@@ -8145,6 +8156,9 @@ Enum AudioWindowSize
 	EnumItem AudioWindowSize.Small : 0
 	EnumItem AudioWindowSize.Medium : 1
 	EnumItem AudioWindowSize.Large : 2
+Enum AuthorityMode
+	EnumItem AuthorityMode.Server : 0
+	EnumItem AuthorityMode.Automatic : 1
 Enum AutoIndentRule
 	EnumItem AutoIndentRule.Off : 0
 	EnumItem AutoIndentRule.Absolute : 1
@@ -8944,12 +8958,6 @@ Enum FacsActionUnit
 	EnumItem FacsActionUnit.TongueDown : 47
 	EnumItem FacsActionUnit.TongueOut : 48
 	EnumItem FacsActionUnit.TongueUp : 49
-Enum FeedRankingScoreType
-	EnumItem FeedRankingScoreType.Content : 0
-	EnumItem FeedRankingScoreType.Final : 1
-	EnumItem FeedRankingScoreType.GameJoin : 2
-	EnumItem FeedRankingScoreType.Interaction : 3
-	EnumItem FeedRankingScoreType.Sharing : 4
 Enum FieldOfViewMode
 	EnumItem FieldOfViewMode.Vertical : 0
 	EnumItem FieldOfViewMode.Diagonal : 1
@@ -9689,6 +9697,10 @@ Enum LocationType
 	EnumItem LocationType.Character : 0
 	EnumItem LocationType.Camera : 1
 	EnumItem LocationType.ObjectPosition : 2
+Enum LuauTypeCheckMode
+	EnumItem LuauTypeCheckMode.NoCheck : 0
+	EnumItem LuauTypeCheckMode.Nonstrict : 1
+	EnumItem LuauTypeCheckMode.Strict : 2
 Enum MarketplaceBulkPurchasePromptStatus
 	EnumItem MarketplaceBulkPurchasePromptStatus.Completed : 1
 	EnumItem MarketplaceBulkPurchasePromptStatus.Aborted : 2
@@ -10151,6 +10163,19 @@ Enum R15CollisionType
 Enum RaycastFilterType
 	EnumItem RaycastFilterType.Exclude : 0
 	EnumItem RaycastFilterType.Include : 1
+Enum RecommendationActionType
+	EnumItem RecommendationActionType.AddReaction : 0
+	EnumItem RecommendationActionType.RemoveReaction : 1
+	EnumItem RecommendationActionType.Share : 2
+	EnumItem RecommendationActionType.Report : 3
+	EnumItem RecommendationActionType.Comment : 4
+	EnumItem RecommendationActionType.Play : 5
+	EnumItem RecommendationActionType.Purchase : 6
+Enum RecommendationImpressionType
+	EnumItem RecommendationImpressionType.View : 0
+Enum RecommendationItemVisibility
+	EnumItem RecommendationItemVisibility.Private : 0
+	EnumItem RecommendationItemVisibility.Public : 1
 Enum RejectCharacterDeletions
 	EnumItem RejectCharacterDeletions.Default : 0
 	EnumItem RejectCharacterDeletions.Disabled : 1

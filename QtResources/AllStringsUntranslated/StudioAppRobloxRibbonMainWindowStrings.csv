@@ -45,8 +45,9 @@ Studio.App.RobloxRibbonMainWindow.Avatar,,Avatar,Avatar
 Studio.App.RobloxRibbonMainWindow.AvatarImporter,,Avatar Importer,Avatar Importer
 Studio.App.RobloxRibbonMainWindow.AvatarImporterTooltip,,Import an Avatar with a .fbx file,Import an Avatar with a .fbx file
 Studio.App.RobloxRibbonMainWindow.AvatarPreviewer,,Avatar Setup,Avatar Setup
-Studio.App.RobloxRibbonMainWindow.AvatarSettings,Text for the AvatarSettings plugin action,Avatar Settings,Avatar Settings
-Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip,Tooltip text for the Avatar Settings Plugin,Temporary Tooltip Text,Temporary Tooltip Text
+Studio.App.RobloxRibbonMainWindow.AvatarSettings,Avatar Settings menu and button name -  Panel allowing to edit/constrain how avatars can look in games,Avatar Settings,Avatar Settings
+Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip,Tooltip text for the Avatar Settings Plugin - Panel allowing to edit/constrain how avatars can look in games,Update player avatar settings for this experience,Update player avatar settings for this experience
+Studio.App.RobloxRibbonMainWindow.AvatarSettingsTrailingDots,"Same as AvatarSettings just with trailing ..., similar to GameSettings... -  Panel allowing to edit/constrain how avatars can look in games",Avatar Settings...,Avatar Settings...
 Studio.App.RobloxRibbonMainWindow.BallInSocket,,Ball in Socket,Ball in Socket
 Studio.App.RobloxRibbonMainWindow.BallOnAxis,,Ball on axis,Ball on axis
 Studio.App.RobloxRibbonMainWindow.Beam,Name of the action to insert a Beam (A Beam object connects two Attachments by drawing a texture between them.) into the workspace,Beam,Beam

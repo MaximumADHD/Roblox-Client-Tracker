@@ -15258,10 +15258,10 @@
     "documentation": "模型是容器对象，意味着它们组合对象在一起。它们最好用于存储 <code>BaseParts</code> 集合，并具有一些扩展其功能的函数。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": ""
+    "documentation": "使用 <code>Player</code> 使这个模型永久存在。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "将此模型设置为对指定玩家持续有效。<code>Model.ModelStreamingMode</code>必须设置为 <strong>PersistentPerPlayer</strong> ，以便通过添加而改变行为。",
+    "documentation": "将此模型设置为对指定玩家持续存在。<code>ModelStreamingMode</code>必须设置为<code>PersistentPerPlayer</code>以便通过添加而改变行为。",
     "params": [
       {
         "name": "self",
@@ -15358,7 +15358,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetModelSize": {
-    "documentation": "<strong>Deprecated:</strong> 该项目已弃用。不要使用它进行新工作。开发人员可以使用 <code>Model.GetExtentsSize</code> 。<br>返回模型的 Vector3 大小。",
+    "documentation": "<strong>Deprecated:</strong> 该项目已过时。不要使用它进行新工作。开发人员可以使用 <code>Model.GetExtentsSize</code> 。<br>返回模型的 Vector3 大小。",
     "params": [
       {
         "name": "self",
@@ -15398,7 +15398,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Model.GetPrimaryPartCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>返回模型的    。此函数如果没有主要部分存在于    ，将抛出错误。",
+    "documentation": "<strong>Deprecated:</strong> <br>返回模型的 。此函数如果没有主要部分存在于 ，将抛出错误。",
     "params": [
       {
         "name": "self",
@@ -15435,7 +15435,7 @@
     "documentation": "模型是容器对象，意味着它们组合对象在一起。它们最好用于存储 <code>BaseParts</code> 集合，并具有一些扩展其功能的函数。"
   },
   "@roblox/globaltype/Model.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> 这种关节类型已被弃用。不要为新工作使用它。使用 <code>WeldConstraints</code> 和 <code>HingeConstraints</code> 取而代之。<br>通过所有 <code>BaseParts</code> 在 <code>Model</code> 。如果任何部分的侧面具有可以产生连接的表面类型，它将与任何邻近部分产生连接。",
+    "documentation": "<strong>Deprecated:</strong> 这种关节类型已被淘汰。不要为新工作使用它。使用 <code>WeldConstraints</code> 和 <code>HingeConstraints</code> 取而代之。<br>通过所有 <code>BaseParts</code> 在 <code>Model</code> 。如果任何部分的侧面具有可以产生连接的表面类型，它将与任何邻近部分产生连接。",
     "params": [
       {
         "name": "self",
@@ -15472,10 +15472,10 @@
     "documentation": "模型是容器对象，意味着它们组合对象在一起。它们最好用于存储 <code>BaseParts</code> 集合，并具有一些扩展其功能的函数。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": ""
+    "documentation": "使这个模型不再永久存在的 <code>Player</code> 。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "使该模型不再对指定玩家持续存在。<code>Model.ModelStreamingMode</code>必须设置为 <strong>PersistentPerPlayer</strong> ，以便通过移除而更改行为。",
+    "documentation": "使该模型不再对指定的玩家持续存在。<code>ModelStreamingMode</code>必须设置为<code>PersistentPerPlayer</code>以便行为在移除后发生变更。",
     "params": [
       {
         "name": "self",
@@ -15568,10 +15568,10 @@
     "documentation": "模型是容器对象，意味着它们组合对象在一起。它们最好用于存储 <code>BaseParts</code> 集合，并具有一些扩展其功能的函数。"
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "该 <code>Vector3</code> 来翻译  <code>Model</code> 。"
+    "documentation": "该 <code>Vector3</code> 来翻译 <code>Model</code> 。"
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "通过给定的 <code>Model</code> 偏移值移动一个 <code>Vector3</code> ，保留模型的方向。如果新位置上已存在另一个 <code>BasePart</code> 或 <code>Terrain</code> ，那么 <code>Model</code> 将覆盖该对象。",
+    "documentation": "通过给定的 <code>Model</code> 偏移移动一个 <code>Vector3</code> ，保留模型的方向。如果新位置上已存在另一个 <code>BasePart</code> 或 <code>Terrain</code> ，那么 <code>Model</code> 将覆盖该对象。",
     "params": [
       {
         "name": "self",
@@ -37847,7 +37847,7 @@
     "documentation": "表映射角度到音量，如上所述。"
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation": {
-    "documentation": "获取  <code>AudioListener</code> 使用的角度抵消曲线，或使用默认曲线的空表。",
+    "documentation": "获取 <code>AudioListener</code> 使用的角度抵消曲线，或使用默认曲线的空表。",
     "params": [
       {
         "name": "self",
@@ -37870,7 +37870,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor": {
-    "documentation": "",
+    "documentation": "计算这个收听器对 <code>AudioEmitter</code> 的可听程度",
     "params": [
       {
         "name": "self",
@@ -37897,7 +37897,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires": {
-    "documentation": "返回与指定的引置顶连接的 <code>Wires</code> 阵列。",
+    "documentation": "返回与指定的引脚连接的 <code>Wires</code> 阵列。",
     "params": [
       {
         "name": "self",
@@ -37921,7 +37921,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation": {
-    "documentation": "获取  <code>AudioListener</code> 使用的距离衰减曲线，或使用默认曲线的空表。",
+    "documentation": "获取 <code>AudioListener</code> 使用的距离衰减曲线，或使用默认曲线的空表。",
     "params": [
       {
         "name": "self",
@@ -37961,7 +37961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters": {
-    "documentation": "",
+    "documentation": "列出所有 <code>AudioEmitters</code> 这个收听器能听到的。",
     "params": [
       {
         "name": "self",
@@ -38001,7 +38001,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation": {
-    "documentation": "设置  <code>AudioListener</code> 应使用的角度减衰曲线，或使用恒定曲线的音量 <code>1</code> 如果没有提供。",
+    "documentation": "设置 <code>AudioListener</code> 应使用的角度减衰曲线，或使用恒定曲线的音量 <code>1</code> 如果没有提供。",
     "params": [
       {
         "name": "self",
@@ -52402,6 +52402,85 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
   },
+  "@roblox/globaltype/Moderation": {
+    "documentation": "",
+    "keys": {
+      "InternalCreateReviewableContentAsync": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync",
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync",
+      "InternalProcessReviewableContentEvent": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalCreateReviewableContentAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalRequestReviewableContentReviewAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "event",
+        "documentation": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalProcessReviewableContentEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TimerService": {
     "documentation": "负责安排定时事件的内部服务。它被 <code>Debris</code> 类使用。其功能无法由开发人员访问。",
     "keys": {},
@@ -61098,7 +61177,6 @@
     "keys": {
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "SkinningEnabled": "@roblox/globaltype/EditableMesh.SkinningEnabled",
-      "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
@@ -61110,12 +61188,6 @@
       "FindVerticesWithinSphere": "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere",
       "GetAdjacentFaces": "@roblox/globaltype/EditableMesh.GetAdjacentFaces",
       "GetAdjacentVertices": "@roblox/globaltype/EditableMesh.GetAdjacentVertices",
-      "GetBoneByName": "@roblox/globaltype/EditableMesh.GetBoneByName",
-      "GetBoneCFrame": "@roblox/globaltype/EditableMesh.GetBoneCFrame",
-      "GetBoneIsVirtual": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual",
-      "GetBoneName": "@roblox/globaltype/EditableMesh.GetBoneName",
-      "GetBoneParent": "@roblox/globaltype/EditableMesh.GetBoneParent",
-      "GetBones": "@roblox/globaltype/EditableMesh.GetBones",
       "GetCenter": "@roblox/globaltype/EditableMesh.GetCenter",
       "GetColor": "@roblox/globaltype/EditableMesh.GetColor",
       "GetColorAlpha": "@roblox/globaltype/EditableMesh.GetColorAlpha",
@@ -61126,61 +61198,29 @@
       "GetFaceVertices": "@roblox/globaltype/EditableMesh.GetFaceVertices",
       "GetFaces": "@roblox/globaltype/EditableMesh.GetFaces",
       "GetFacesWithAttribute": "@roblox/globaltype/EditableMesh.GetFacesWithAttribute",
-      "GetFacesWithColor": "@roblox/globaltype/EditableMesh.GetFacesWithColor",
-      "GetFacesWithNormal": "@roblox/globaltype/EditableMesh.GetFacesWithNormal",
-      "GetFacesWithUV": "@roblox/globaltype/EditableMesh.GetFacesWithUV",
-      "GetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose",
-      "GetFacsCorrectivePoses": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses",
-      "GetFacsPose": "@roblox/globaltype/EditableMesh.GetFacsPose",
-      "GetFacsPoses": "@roblox/globaltype/EditableMesh.GetFacsPoses",
       "GetNormal": "@roblox/globaltype/EditableMesh.GetNormal",
       "GetNormals": "@roblox/globaltype/EditableMesh.GetNormals",
       "GetPosition": "@roblox/globaltype/EditableMesh.GetPosition",
       "GetSize": "@roblox/globaltype/EditableMesh.GetSize",
       "GetUV": "@roblox/globaltype/EditableMesh.GetUV",
       "GetUVs": "@roblox/globaltype/EditableMesh.GetUVs",
-      "GetVertexBoneWeights": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights",
-      "GetVertexBones": "@roblox/globaltype/EditableMesh.GetVertexBones",
-      "GetVertexColors": "@roblox/globaltype/EditableMesh.GetVertexColors",
-      "GetVertexFaceColor": "@roblox/globaltype/EditableMesh.GetVertexFaceColor",
-      "GetVertexFaceNormal": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal",
-      "GetVertexFaceUV": "@roblox/globaltype/EditableMesh.GetVertexFaceUV",
-      "GetVertexFaces": "@roblox/globaltype/EditableMesh.GetVertexFaces",
-      "GetVertexNormals": "@roblox/globaltype/EditableMesh.GetVertexNormals",
-      "GetVertexUVs": "@roblox/globaltype/EditableMesh.GetVertexUVs",
       "GetVertices": "@roblox/globaltype/EditableMesh.GetVertices",
       "GetVerticesWithAttribute": "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute",
-      "GetVerticesWithColor": "@roblox/globaltype/EditableMesh.GetVerticesWithColor",
-      "GetVerticesWithNormal": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal",
-      "GetVerticesWithUV": "@roblox/globaltype/EditableMesh.GetVerticesWithUV",
       "IdDebugString": "@roblox/globaltype/EditableMesh.IdDebugString",
       "MergeVertices": "@roblox/globaltype/EditableMesh.MergeVertices",
       "RaycastLocal": "@roblox/globaltype/EditableMesh.RaycastLocal",
-      "RemoveBone": "@roblox/globaltype/EditableMesh.RemoveBone",
       "RemoveFace": "@roblox/globaltype/EditableMesh.RemoveFace",
       "RemoveUnused": "@roblox/globaltype/EditableMesh.RemoveUnused",
       "ResetNormal": "@roblox/globaltype/EditableMesh.ResetNormal",
-      "SetBoneCFrame": "@roblox/globaltype/EditableMesh.SetBoneCFrame",
-      "SetBoneIsVirtual": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual",
-      "SetBoneName": "@roblox/globaltype/EditableMesh.SetBoneName",
-      "SetBoneParent": "@roblox/globaltype/EditableMesh.SetBoneParent",
       "SetColor": "@roblox/globaltype/EditableMesh.SetColor",
       "SetColorAlpha": "@roblox/globaltype/EditableMesh.SetColorAlpha",
       "SetFaceColors": "@roblox/globaltype/EditableMesh.SetFaceColors",
       "SetFaceNormals": "@roblox/globaltype/EditableMesh.SetFaceNormals",
       "SetFaceUVs": "@roblox/globaltype/EditableMesh.SetFaceUVs",
       "SetFaceVertices": "@roblox/globaltype/EditableMesh.SetFaceVertices",
-      "SetFacsBonePose": "@roblox/globaltype/EditableMesh.SetFacsBonePose",
-      "SetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose",
-      "SetFacsPose": "@roblox/globaltype/EditableMesh.SetFacsPose",
       "SetNormal": "@roblox/globaltype/EditableMesh.SetNormal",
       "SetPosition": "@roblox/globaltype/EditableMesh.SetPosition",
       "SetUV": "@roblox/globaltype/EditableMesh.SetUV",
-      "SetVertexBoneWeights": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights",
-      "SetVertexBones": "@roblox/globaltype/EditableMesh.SetVertexBones",
-      "SetVertexFaceColor": "@roblox/globaltype/EditableMesh.SetVertexFaceColor",
-      "SetVertexFaceNormal": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal",
-      "SetVertexFaceUV": "@roblox/globaltype/EditableMesh.SetVertexFaceUV",
       "Triangulate": "@roblox/globaltype/EditableMesh.Triangulate"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh",
@@ -61192,35 +61232,8 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SkinningEnabled": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SkinningEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/0"
-      },
-      {
-        "name": "boneProperties",
-        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.AddBone/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddBone",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddColor/param/0": {
@@ -61261,7 +61274,7 @@
     "documentation": "允许运行时创建和操作网格的实例。"
   },
   "@roblox/globaltype/EditableMesh.AddNormal/param/1": {
-    "documentation": "普通矢量力。如果未指定普通值，普通将自动计算。"
+    "documentation": "普通向量。如果未指定普通值，普通将自动计算。"
   },
   "@roblox/globaltype/EditableMesh.AddNormal/return/0": {
     "documentation": "新常态的稳定普通 ID。"
@@ -61536,161 +61549,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetAdjacentVertices",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/0"
-      },
-      {
-        "name": "boneName",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneByName/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneByName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneCFrame",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneIsVirtual",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneName/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneParent/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneParent",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBones/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBones/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBones/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBones/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBones",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetCenter/param/0": {
     "documentation": "允许运行时创建和操作网格的实例。"
   },
@@ -61940,186 +61798,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithAttribute",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0"
-      },
-      {
-        "name": "actions",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePoses",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsPose/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPoses",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetNormal/param/0": {
     "documentation": "允许运行时创建和操作网格的实例。"
   },
   "@roblox/globaltype/EditableMesh.GetNormal/param/1": {
-    "documentation": "正常ID用于获取正常向矢量力。"
+    "documentation": "正常ID用于获取正常向量。"
   },
   "@roblox/globaltype/EditableMesh.GetNormal/return/0": {
     "documentation": "在请求的正常 ID 上的普通向量。"
@@ -62256,270 +61939,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetUVs",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBoneWeights",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexBones/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexColors/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexColors",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaces",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexNormals",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexUVs",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetVertices/param/0": {
     "documentation": "允许运行时创建和操作网格的实例。"
   },
@@ -62565,87 +61984,6 @@
       "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithAttribute",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/0": {
@@ -62736,28 +62074,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RaycastLocal",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.RemoveBone/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RemoveBone",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/0": {
     "documentation": "允许运行时创建和操作网格的实例。"
   },
@@ -62807,7 +62123,7 @@
     "documentation": "稳定的普通 ID 进行重置。"
   },
   "@roblox/globaltype/EditableMesh.ResetNormal": {
-    "documentation": "将此普通 ID 重置为自动计算。",
+    "documentation": "重置此普通 ID 以自动计算。",
     "params": [
       {
         "name": "self",
@@ -62820,122 +62136,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#ResetNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1"
-      },
-      {
-        "name": "cframe",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneCFrame",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1"
-      },
-      {
-        "name": "virtual",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneIsVirtual",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/1"
-      },
-      {
-        "name": "name",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/1"
-      },
-      {
-        "name": "parentBoneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneParent",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/0": {
@@ -63112,119 +62312,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFaceVertices",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2"
-      },
-      {
-        "name": "cframe",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsBonePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0"
-      },
-      {
-        "name": "actions",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1"
-      },
-      {
-        "name": "boneIds",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2"
-      },
-      {
-        "name": "cframes",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsCorrectivePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/1"
-      },
-      {
-        "name": "boneIds",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/2"
-      },
-      {
-        "name": "cframes",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsPose",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.SetNormal/param/0": {
     "documentation": "允许运行时创建和操作网格的实例。"
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/1": {
-    "documentation": "稳定的普通 ID，用于设置普通向矢量力。"
+    "documentation": "稳定的普通 ID，用于设置普通向量。"
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/2": {
     "documentation": "普通向量以设置。"
@@ -63305,172 +62397,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1"
-      },
-      {
-        "name": "boneWeights",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBoneWeights",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/1"
-      },
-      {
-        "name": "boneIDs",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0": {
-    "documentation": "允许运行时创建和操作网格的实例。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Triangulate/param/0": {
@@ -70830,6 +69756,147 @@
   "@roblox/globaltype/InputBinding.Vector2Scale": {
     "documentation": "用于线性缩放两向<code>InputAction</code>的值的数量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Vector2Scale",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText": {
+    "documentation": "",
+    "keys": {
+      "Enabled": "@roblox/globaltype/AudioSpeechToText.Enabled",
+      "Text": "@roblox/globaltype/AudioSpeechToText.Text",
+      "VoiceDetected": "@roblox/globaltype/AudioSpeechToText.VoiceDetected",
+      "GetConnectedWires": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Enabled": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Text": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0"
+      },
+      {
+        "name": "pin",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#GetConnectedWires",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0": {
+    "documentation": "在特定情况下运行连接函数的对象。"
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect": {
+    "documentation": "将给定的函数连接到事件并返回一个 <code>RBXScriptConnection</code> 来代表它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0": {
+    "documentation": "在特定情况下运行连接函数的对象。"
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel": {
+    "documentation": "将给定的函数连接到事件并返回一个 <code>RBXScriptConnection</code> 来代表它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0": {
+    "documentation": "在特定情况下运行连接函数的对象。"
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once": {
+    "documentation": "将给定的函数连接到事件（仅用于单次调用），并返回一个 <code>RBXScriptConnection</code> 来代表它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0": {
+    "documentation": "在特定情况下运行连接函数的对象。"
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait": {
+    "documentation": "在信号发射并返回所提供的参数之前，产生当前线程，并返回信号提供的参数。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once",
+      "Wait": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#WiringChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/IKControl": {
@@ -80055,7 +79122,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Wire.SourceName": {
-    "documentation": "在 <code>SourceInstance</code> 上生成串流的钮的名称。",
+    "documentation": "在 <code>SourceInstance</code> 上生成流的钮的名称。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Wire#SourceName",
     "code_sample": ""
   },
@@ -80065,7 +79132,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Wire.TargetName": {
-    "documentation": "接收串流的 <code>TargetInstance</code> 上的按钮名称。",
+    "documentation": "接收流的 <code>TargetInstance</code> 上的按钮名称。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Wire#TargetName",
     "code_sample": ""
   },
@@ -82800,12 +81867,30 @@
   "@roblox/globaltype/InputAction": {
     "documentation": "定义游戏行动机制。这些行动然后使用 <code>InputBinding</code> 将其映射到硬件输入。",
     "keys": {
+      "BoolState": "@roblox/globaltype/InputAction.BoolState",
+      "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
+      "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.BoolState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#BoolState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction1DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction2DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Enabled": {
@@ -82822,7 +81907,7 @@
     "documentation": "定义游戏行动机制。这些行动然后使用 <code>InputBinding</code> 将其映射到硬件输入。"
   },
   "@roblox/globaltype/InputAction.Fire/param/1": {
-    "documentation": "值用于更新 <code>InputAction</code> 。"
+    "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
     "documentation": "将 <code>InputAction</code> 升级到给定状态并发出相应的信号",
@@ -82832,7 +81917,7 @@
         "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
       },
       {
-        "name": "value",
+        "name": "state",
         "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
       }
     ],
@@ -82938,7 +82023,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Pressed": {
-    "documentation": "仅在从 <code>InputAction.Type</code> 到 <code>Bool</code> 状态转换时将 <code>false</code> 设置为 <code>true</code> 时才发生火焰。",
+    "documentation": "仅在从 <code>InputAction.Type</code> 到 <code>Bool</code> 状态转换时将 <code>false</code> 设置为 <code>true</code> 时发生火焰。",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
@@ -83026,7 +82111,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Released": {
-    "documentation": "仅在从 <code>InputAction.Type</code> 到 <code>Bool</code> 状态转换时将 <code>true</code> 设置为 <code>false</code> 时才发生火焰。",
+    "documentation": "仅在从 <code>InputAction.Type</code> 到 <code>Bool</code> 状态转换时将 <code>true</code> 设置为 <code>false</code> 时发生火焰。",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Released.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
@@ -85225,7 +84310,7 @@
     "documentation": "表映射角度到音量，如上所述。"
   },
   "@roblox/globaltype/AudioEmitter.GetAngleAttenuation": {
-    "documentation": "获取  <code>AudioEmitter</code> 使用的角度抵消曲线，或使用默认曲线的空表。",
+    "documentation": "获取 <code>AudioEmitter</code> 使用的角度抵消曲线，或使用默认曲线的空表。",
     "params": [
       {
         "name": "self",
@@ -85248,7 +84333,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor": {
-    "documentation": "",
+    "documentation": "计算发射器对特定 <code>AudioListener</code> 的可听程度。",
     "params": [
       {
         "name": "self",
@@ -85275,7 +84360,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
-    "documentation": "返回与指定的引置顶连接的 <code>Wires</code> 阵列。",
+    "documentation": "返回与指定的引脚连接的 <code>Wires</code> 阵列。",
     "params": [
       {
         "name": "self",
@@ -85299,7 +84384,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetDistanceAttenuation": {
-    "documentation": "获取  <code>AudioEmitter</code> 使用的距离衰减曲线，或使用默认曲线的空表。",
+    "documentation": "获取 <code>AudioEmitter</code> 使用的距离衰减曲线，或使用默认曲线的空表。",
     "params": [
       {
         "name": "self",
@@ -85339,7 +84424,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners": {
-    "documentation": "",
+    "documentation": "列出所有 <code>AudioListeners</code> 能听到这个发射器的内容。",
     "params": [
       {
         "name": "self",
@@ -85379,7 +84464,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.SetAngleAttenuation": {
-    "documentation": "设置  <code>AudioEmitter</code> 应使用的角度减衰曲线，或使用恒定曲线的音量 <code>1</code> 如果没有提供。",
+    "documentation": "设置 <code>AudioEmitter</code> 应使用的角度减衰曲线，或使用恒定曲线的音量 <code>1</code> 如果没有提供。",
     "params": [
       {
         "name": "self",
@@ -91726,6 +90811,7 @@
     "documentation": "提供在 MemoryStore 中访问队列的功能。",
     "keys": {
       "AddAsync": "@roblox/globaltype/MemoryStoreQueue.AddAsync",
+      "GetSizeAsync": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync",
       "ReadAsync": "@roblox/globaltype/MemoryStoreQueue.ReadAsync",
       "RemoveAsync": "@roblox/globaltype/MemoryStoreQueue.RemoveAsync"
     },
@@ -91768,11 +90854,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemoryStoreQueue#AddAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/0": {
+    "documentation": "提供在 MemoryStore 中访问队列的功能。"
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/1": {
+    "documentation": "决定是否排除不可见的项目从尺寸计算中。"
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync": {
+    "documentation": "获取队列的大小。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/0"
+      },
+      {
+        "name": "excludeInvisible",
+        "documentation": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemoryStoreQueue#GetSizeAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/0": {
     "documentation": "提供在 MemoryStore 中访问队列的功能。"
   },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/1": {
-    "documentation": "要阅已读的项目数量。该参数的最大允许值为 100。"
+    "documentation": "要阅读的项目数量。该参数的最大允许值为 100。"
   },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/2": {
     "documentation": "在队列中少于 <code>count</code> 项的情况下控制方法的行为：如果设置为 false，方法返回所有可用的项目；如果设置为 true，则不返回任何项目。默认值为 false。"
@@ -92775,7 +91888,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sky.SkyboxOrientation": {
-    "documentation": "",
+    "documentation": "天空盒的角度，以度计，具有旋转顺序 <strong>Y</strong> 、 <strong>X</strong> 、 <strong>Z</strong> 。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxOrientation",
     "code_sample": ""
   },
@@ -98861,6 +97974,46 @@
       "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.None": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.Going": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#Going",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.NotGoing": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#NotGoing",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RsvpStatus": {
+    "documentation": "",
+    "keys": {
+      "None": "@roblox/enum/RsvpStatus.None",
+      "Going": "@roblox/enum/RsvpStatus.Going",
+      "NotGoing": "@roblox/enum/RsvpStatus.NotGoing"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus",
     "code_sample": ""
   },
   "@roblox/enum/DevTouchMovementMode.UserChoice": {

@@ -15240,7 +15240,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "Birincil parçası <code>Model</code> , veya <code>nil</code> eğer açıkça ayarla.",
+    "documentation": "Birincil parçası <code>Model</code> , veya <code>nil</code> eğer açıkça belirtilmediyse.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
@@ -15258,10 +15258,10 @@
     "documentation": "Modeller konteyner nesneleridir, yani nesneleri bir araya getirirler.Koleksiyonları <code>BaseParts</code> tutmak için en iyi kullanılır ve işlevlerini genişleten bir dizi işlev vardır."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": ""
+    "documentation": "Bu modeli kalıcı hale getirmek için <code>Player</code> ."
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "Bu modeli belirtilen oyuncu için kalıcı olarak ayarlar.<code>Model.ModelStreamingMode</code> davranışın ek sonucu olarak değiştirilmesi için değiştirilmesi gereken davranış <strong>PersistentPerPlayer</strong> olarak ayarlanmalıdır.",
+    "documentation": "Bu modeli belirtilen oyuncu için kalıcı olarak ayarlar. <code>ModelStreamingMode</code> eklemelerin sonucunda davranışın değiştirilmesi için değiştirilmesi gerekirse <code>PersistentPerPlayer</code> olarak ayarlanmalıdır.",
     "params": [
       {
         "name": "self",
@@ -15295,7 +15295,7 @@
     "documentation": "Modeller konteyner nesneleridir, yani nesneleri bir araya getirirler.Koleksiyonları <code>BaseParts</code> tutmak için en iyi kullanılır ve işlevlerini genişleten bir dizi işlev vardır."
   },
   "@roblox/globaltype/Model.GetBoundingBox/return/0": {
-    "documentation": "Hacmin yönünü temsil eden bir ve hacmin boyutunu temsil eden bir daha sonra hacmin yönünü temsil eden bir ."
+    "documentation": "Hacmin yönünü temsil eden bir <code>CFrame</code> ve hacmin boyutunu temsil eden bir <code>Vector3</code> ."
   },
   "@roblox/globaltype/Model.GetBoundingBox": {
     "documentation": "Bir Model'in tüm parçalarını içeren bir hacmin açıklamasını döndürür.",
@@ -15472,10 +15472,10 @@
     "documentation": "Modeller konteyner nesneleridir, yani nesneleri bir araya getirirler.Koleksiyonları <code>BaseParts</code> tutmak için en iyi kullanılır ve işlevlerini genişleten bir dizi işlev vardır."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": ""
+    "documentation": "Bu modeli artık kalıcı olmaktan çıkarmak için <code>Player</code> ."
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "Bu modeli belirtilen oyuncu için artık kalıcı olmayan yapar.<code>Model.ModelStreamingMode</code> davranışın kaldırılmasının sonucunda değiştirilmesi için değiştirilmesi gereken davranış için <strong>KalıcıOyuncu</strong> olarak ayarlanmalıdır.",
+    "documentation": "Bu modeli belirtilen oyuncu için artık kalıcı olarak yapmaz. davranışın kaldırma sonucu değiştirilmesi için değiştirilmesi gerektiğinde değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiştirilmesi için değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin değiçin deçin değiçin değiçin değin değin değiçin değin değin değiçin değin değin değin değiçin değin değin değiçin değin değin değiçin değin değin değin değiçin değin değin değiçin değin değin değiçin değin değin değin değiçin değin değin değiçin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değin değ",
     "params": [
       {
         "name": "self",
@@ -15623,7 +15623,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Model.move": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe tüm yeni çalışmalarda kullanılması gereken <code>Model:MoveTo()</code> tarafından geçersiz kılınmıştır",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılması gereken <code>Model:MoveTo()</code> tarafından geçersiz kılınmıştır",
     "params": [
       {
         "name": "self",
@@ -37870,7 +37870,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor": {
-    "documentation": "",
+    "documentation": "Bu dinleyici için <code>AudioEmitter</code> ne kadar duyulabilir olduğunu hesaplar",
     "params": [
       {
         "name": "self",
@@ -37897,7 +37897,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires": {
-    "documentation": "Belirtilen sabitlebağlı bir dizi <code>Wires</code> döndürür, ki bu pine bağlıdır.",
+    "documentation": "Belirtilen pine bağlı bir dizi <code>Wires</code> döndürür, ki bu pine bağlıdır.",
     "params": [
       {
         "name": "self",
@@ -37961,7 +37961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters": {
-    "documentation": "",
+    "documentation": "Bu dinleyicinin duyabileceği tüm <code>AudioEmitters</code> listelerini listeler.",
     "params": [
       {
         "name": "self",
@@ -40319,7 +40319,7 @@
       "RequestAsync": "@roblox/globaltype/HttpService.RequestAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService",
-    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal URL_ASTROS = \"http://api.open-notify.org/astros.json\"\n\n-- Make the request to our endpoint URL\nlocal response = HttpService:GetAsync(URL_ASTROS)\n\n-- Parse the JSON response\nlocal data = HttpService:JSONDecode(response)\n\n-- Information in the data table is dependent on the response JSON\nif data.message == \"success\" then\n\tprint(\"There are currently \" .. data.number .. \" astronauts in space:\")\n\tfor i, person in pairs(data.people) do\n\t\tprint(i .. \": \" .. person.name .. \" is on \" .. person.craft)\n\tend\nend"
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal URL_ASTROS = \"http://api.open-notify.org/astros.json\"\n\n-- Uç noktamızın URL'sine istek gönderin\nlocal response = HttpService:GetAsync(URL_ASTROS)\n\n-- JSON yanıtını parçalayın\nlocal data = HttpService:JSONDecode(response)\n\n-- Veri tablosundaki bilgiler yanıt JSON'a bağlıdır\nif data.message == \"success\" then\n\tprint(\"There are currently \" .. data.number .. \" astronauts in space:\")\n\tfor i, person in pairs(data.people) do\n\t\tprint(i .. \": \" .. person.name .. \" is on \" .. person.craft)\n\tend\nend"
   },
   "@roblox/globaltype/HttpService.HttpEnabled": {
     "documentation": "HTTP isteklerinin dış web sitelerine gönderilebileceğini belirtir.",
@@ -40500,7 +40500,7 @@
       "@roblox/globaltype/HttpService.GetAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#GetAsync",
-    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal URL_ASTROS = \"http://api.open-notify.org/astros.json\"\n\n-- Make the request to our endpoint URL\nlocal response = HttpService:GetAsync(URL_ASTROS)\n\n-- Parse the JSON response\nlocal data = HttpService:JSONDecode(response)\n\n-- Information in the data table is dependent on the response JSON\nif data.message == \"success\" then\n\tprint(\"There are currently \" .. data.number .. \" astronauts in space:\")\n\tfor i, person in pairs(data.people) do\n\t\tprint(i .. \": \" .. person.name .. \" is on \" .. person.craft)\n\tend\nend"
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal URL_ASTROS = \"http://api.open-notify.org/astros.json\"\n\n-- Uç noktamızın URL'sine istek gönderin\nlocal response = HttpService:GetAsync(URL_ASTROS)\n\n-- JSON yanıtını parçalayın\nlocal data = HttpService:JSONDecode(response)\n\n-- Veri tablosundaki bilgiler yanıt JSON'a bağlıdır\nif data.message == \"success\" then\n\tprint(\"There are currently \" .. data.number .. \" astronauts in space:\")\n\tfor i, person in pairs(data.people) do\n\t\tprint(i .. \": \" .. person.name .. \" is on \" .. person.craft)\n\tend\nend"
   },
   "@roblox/globaltype/HttpService.PostAsync/param/0": {
     "documentation": "HTTP isteklerinin gönderilmesine izin verir ve çeşitli web ile ilgili ve JSON yöntemleri sağlar."
@@ -52402,6 +52402,85 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
   },
+  "@roblox/globaltype/Moderation": {
+    "documentation": "",
+    "keys": {
+      "InternalCreateReviewableContentAsync": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync",
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync",
+      "InternalProcessReviewableContentEvent": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalCreateReviewableContentAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalRequestReviewableContentReviewAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "event",
+        "documentation": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalProcessReviewableContentEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TimerService": {
     "documentation": "Zamanlı etkinliklerin planlanmasından sorumlu bir iç hizmet. <code>Debris</code> sınıfı tarafından kullanılır. İşlevselliğine geliştiriciler erişemez.",
     "keys": {},
@@ -61098,7 +61177,6 @@
     "keys": {
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "SkinningEnabled": "@roblox/globaltype/EditableMesh.SkinningEnabled",
-      "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
@@ -61110,12 +61188,6 @@
       "FindVerticesWithinSphere": "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere",
       "GetAdjacentFaces": "@roblox/globaltype/EditableMesh.GetAdjacentFaces",
       "GetAdjacentVertices": "@roblox/globaltype/EditableMesh.GetAdjacentVertices",
-      "GetBoneByName": "@roblox/globaltype/EditableMesh.GetBoneByName",
-      "GetBoneCFrame": "@roblox/globaltype/EditableMesh.GetBoneCFrame",
-      "GetBoneIsVirtual": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual",
-      "GetBoneName": "@roblox/globaltype/EditableMesh.GetBoneName",
-      "GetBoneParent": "@roblox/globaltype/EditableMesh.GetBoneParent",
-      "GetBones": "@roblox/globaltype/EditableMesh.GetBones",
       "GetCenter": "@roblox/globaltype/EditableMesh.GetCenter",
       "GetColor": "@roblox/globaltype/EditableMesh.GetColor",
       "GetColorAlpha": "@roblox/globaltype/EditableMesh.GetColorAlpha",
@@ -61126,61 +61198,29 @@
       "GetFaceVertices": "@roblox/globaltype/EditableMesh.GetFaceVertices",
       "GetFaces": "@roblox/globaltype/EditableMesh.GetFaces",
       "GetFacesWithAttribute": "@roblox/globaltype/EditableMesh.GetFacesWithAttribute",
-      "GetFacesWithColor": "@roblox/globaltype/EditableMesh.GetFacesWithColor",
-      "GetFacesWithNormal": "@roblox/globaltype/EditableMesh.GetFacesWithNormal",
-      "GetFacesWithUV": "@roblox/globaltype/EditableMesh.GetFacesWithUV",
-      "GetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose",
-      "GetFacsCorrectivePoses": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses",
-      "GetFacsPose": "@roblox/globaltype/EditableMesh.GetFacsPose",
-      "GetFacsPoses": "@roblox/globaltype/EditableMesh.GetFacsPoses",
       "GetNormal": "@roblox/globaltype/EditableMesh.GetNormal",
       "GetNormals": "@roblox/globaltype/EditableMesh.GetNormals",
       "GetPosition": "@roblox/globaltype/EditableMesh.GetPosition",
       "GetSize": "@roblox/globaltype/EditableMesh.GetSize",
       "GetUV": "@roblox/globaltype/EditableMesh.GetUV",
       "GetUVs": "@roblox/globaltype/EditableMesh.GetUVs",
-      "GetVertexBoneWeights": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights",
-      "GetVertexBones": "@roblox/globaltype/EditableMesh.GetVertexBones",
-      "GetVertexColors": "@roblox/globaltype/EditableMesh.GetVertexColors",
-      "GetVertexFaceColor": "@roblox/globaltype/EditableMesh.GetVertexFaceColor",
-      "GetVertexFaceNormal": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal",
-      "GetVertexFaceUV": "@roblox/globaltype/EditableMesh.GetVertexFaceUV",
-      "GetVertexFaces": "@roblox/globaltype/EditableMesh.GetVertexFaces",
-      "GetVertexNormals": "@roblox/globaltype/EditableMesh.GetVertexNormals",
-      "GetVertexUVs": "@roblox/globaltype/EditableMesh.GetVertexUVs",
       "GetVertices": "@roblox/globaltype/EditableMesh.GetVertices",
       "GetVerticesWithAttribute": "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute",
-      "GetVerticesWithColor": "@roblox/globaltype/EditableMesh.GetVerticesWithColor",
-      "GetVerticesWithNormal": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal",
-      "GetVerticesWithUV": "@roblox/globaltype/EditableMesh.GetVerticesWithUV",
       "IdDebugString": "@roblox/globaltype/EditableMesh.IdDebugString",
       "MergeVertices": "@roblox/globaltype/EditableMesh.MergeVertices",
       "RaycastLocal": "@roblox/globaltype/EditableMesh.RaycastLocal",
-      "RemoveBone": "@roblox/globaltype/EditableMesh.RemoveBone",
       "RemoveFace": "@roblox/globaltype/EditableMesh.RemoveFace",
       "RemoveUnused": "@roblox/globaltype/EditableMesh.RemoveUnused",
       "ResetNormal": "@roblox/globaltype/EditableMesh.ResetNormal",
-      "SetBoneCFrame": "@roblox/globaltype/EditableMesh.SetBoneCFrame",
-      "SetBoneIsVirtual": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual",
-      "SetBoneName": "@roblox/globaltype/EditableMesh.SetBoneName",
-      "SetBoneParent": "@roblox/globaltype/EditableMesh.SetBoneParent",
       "SetColor": "@roblox/globaltype/EditableMesh.SetColor",
       "SetColorAlpha": "@roblox/globaltype/EditableMesh.SetColorAlpha",
       "SetFaceColors": "@roblox/globaltype/EditableMesh.SetFaceColors",
       "SetFaceNormals": "@roblox/globaltype/EditableMesh.SetFaceNormals",
       "SetFaceUVs": "@roblox/globaltype/EditableMesh.SetFaceUVs",
       "SetFaceVertices": "@roblox/globaltype/EditableMesh.SetFaceVertices",
-      "SetFacsBonePose": "@roblox/globaltype/EditableMesh.SetFacsBonePose",
-      "SetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose",
-      "SetFacsPose": "@roblox/globaltype/EditableMesh.SetFacsPose",
       "SetNormal": "@roblox/globaltype/EditableMesh.SetNormal",
       "SetPosition": "@roblox/globaltype/EditableMesh.SetPosition",
       "SetUV": "@roblox/globaltype/EditableMesh.SetUV",
-      "SetVertexBoneWeights": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights",
-      "SetVertexBones": "@roblox/globaltype/EditableMesh.SetVertexBones",
-      "SetVertexFaceColor": "@roblox/globaltype/EditableMesh.SetVertexFaceColor",
-      "SetVertexFaceNormal": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal",
-      "SetVertexFaceUV": "@roblox/globaltype/EditableMesh.SetVertexFaceUV",
       "Triangulate": "@roblox/globaltype/EditableMesh.Triangulate"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh",
@@ -61192,35 +61232,8 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SkinningEnabled": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SkinningEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/0"
-      },
-      {
-        "name": "boneProperties",
-        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.AddBone/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddBone",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddColor/param/0": {
@@ -61536,161 +61549,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetAdjacentVertices",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/0"
-      },
-      {
-        "name": "boneName",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneByName/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneByName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneCFrame",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneIsVirtual",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneName/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneParent/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneParent",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBones/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetBones/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBones/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBones/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBones",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetCenter/param/0": {
     "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
   },
@@ -61940,181 +61798,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithAttribute",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0"
-      },
-      {
-        "name": "actions",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePoses",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsPose/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPoses",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetNormal/param/0": {
     "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
   },
@@ -62256,270 +61939,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetUVs",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBoneWeights",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexBones/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexColors/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexColors",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaces",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexNormals",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexUVs",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetVertices/param/0": {
     "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
   },
@@ -62567,92 +61986,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithAttribute",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithUV",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/0": {
     "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/1": {
-    "documentation": "Sorun giderme bilgi dizigeri göndermek için kimlik."
+    "documentation": "Sorun giderme bilgi dizesini geri göndermek için kimlik."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/return/0": {
     "documentation": "ID'yi insan tarafından okunabilir biçimde tanımlayan dize."
@@ -62736,28 +62074,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RaycastLocal",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.RemoveBone/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RemoveBone",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/0": {
     "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
   },
@@ -62804,7 +62120,7 @@
     "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal/param/1": {
-    "documentation": "sıfırlaiçin sabit normal kimlik."
+    "documentation": "Sıfırlanmak için sabit normal kimlik."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal": {
     "documentation": "Bu normal kimliği otomatik olarak hesaplanmak üzere sıfırla.",
@@ -62822,122 +62138,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#ResetNormal",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1"
-      },
-      {
-        "name": "cframe",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneCFrame",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1"
-      },
-      {
-        "name": "virtual",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneIsVirtual",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/1"
-      },
-      {
-        "name": "name",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/1"
-      },
-      {
-        "name": "parentBoneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneParent",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.SetColor/param/0": {
     "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
   },
@@ -62945,7 +62145,7 @@
     "documentation": "Renk belirlemek için sabit renk kimliği."
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/2": {
-    "documentation": "Belirlenmesi gereken ayarla."
+    "documentation": "Belirlenmesi gereken renk."
   },
   "@roblox/globaltype/EditableMesh.SetColor": {
     "documentation": "Bir renk için renk kimliğini ayarlar.",
@@ -63112,114 +62312,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFaceVertices",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2"
-      },
-      {
-        "name": "cframe",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsBonePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0"
-      },
-      {
-        "name": "actions",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1"
-      },
-      {
-        "name": "boneIds",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2"
-      },
-      {
-        "name": "cframes",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsCorrectivePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/1"
-      },
-      {
-        "name": "boneIds",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/2"
-      },
-      {
-        "name": "cframes",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsPose",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.SetNormal/param/0": {
     "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
   },
@@ -63305,172 +62397,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1"
-      },
-      {
-        "name": "boneWeights",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBoneWeights",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/1"
-      },
-      {
-        "name": "boneIDs",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0": {
-    "documentation": "Meshların oluşturulmasını ve manipülasyonunu sağlayan örnek."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Triangulate/param/0": {
@@ -70830,6 +69756,147 @@
   "@roblox/globaltype/InputBinding.Vector2Scale": {
     "documentation": "İki yönlü <code>InputAction</code> değerlerini lineer olarak ölçecek miktar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Vector2Scale",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText": {
+    "documentation": "",
+    "keys": {
+      "Enabled": "@roblox/globaltype/AudioSpeechToText.Enabled",
+      "Text": "@roblox/globaltype/AudioSpeechToText.Text",
+      "VoiceDetected": "@roblox/globaltype/AudioSpeechToText.VoiceDetected",
+      "GetConnectedWires": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Enabled": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Text": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0"
+      },
+      {
+        "name": "pin",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#GetConnectedWires",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0": {
+    "documentation": "Belirli bir olay üzerinde bağlantılı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect": {
+    "documentation": "Verdiği işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döndürür.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0": {
+    "documentation": "Belirli bir olay üzerinde bağlantılı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel": {
+    "documentation": "Verdiği işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döndürür.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0": {
+    "documentation": "Belirli bir olay üzerinde bağlantılı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once": {
+    "documentation": "Verdiği işlevi etkinliğe bağlar (tek bir çağrı için) ve onu temsil eden bir <code>RBXScriptConnection</code> döndürür.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0": {
+    "documentation": "Belirli bir olay üzerinde bağlantılı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait": {
+    "documentation": "Sinyal ateşlenene kadar mevcut iş parçasını verir ve sinyal tarafından sağlanan argümanları geri gönderir.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once",
+      "Wait": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#WiringChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/IKControl": {
@@ -80055,7 +79122,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Wire.SourceName": {
-    "documentation": "Yayın üretmekte olan pinin adı <code>SourceInstance</code> . tüketüretmekte olan pinin adı",
+    "documentation": "Yayın üretmekte olan pinin adı <code>SourceInstance</code> . akış üretmekte olan pinin adı",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Wire#SourceName",
     "code_sample": ""
   },
@@ -80065,7 +79132,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Wire.TargetName": {
-    "documentation": "Akış alan pinin adı <code>TargetInstance</code> , bir akış tüketadı.",
+    "documentation": "Akış alan pinin adı <code>TargetInstance</code> , bir akış alanının adı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Wire#TargetName",
     "code_sample": ""
   },
@@ -82800,12 +81867,30 @@
   "@roblox/globaltype/InputAction": {
     "documentation": "Bir oyun eylem mekanizması tanımlar. Bu eylemler daha sonra <code>InputBinding</code> kullanılarak donanım girişlerine yönlendirilir.",
     "keys": {
+      "BoolState": "@roblox/globaltype/InputAction.BoolState",
+      "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
+      "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.BoolState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#BoolState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction1DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction2DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Enabled": {
@@ -82822,7 +81907,7 @@
     "documentation": "Bir oyun eylem mekanizması tanımlar. Bu eylemler daha sonra <code>InputBinding</code> kullanılarak donanım girişlerine yönlendirilir."
   },
   "@roblox/globaltype/InputAction.Fire/param/1": {
-    "documentation": "<code>InputAction</code> 'yi güncelleştirecek değer."
+    "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
     "documentation": "<code>InputAction</code> güncellenir verilen duruma ve uygun sinyalleri ateş eder.",
@@ -82832,7 +81917,7 @@
         "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
       },
       {
-        "name": "value",
+        "name": "state",
         "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
       }
     ],
@@ -85248,7 +84333,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor": {
-    "documentation": "",
+    "documentation": "Bu yayıncının belirli bir <code>AudioListener</code> için ne kadar duyulabilir olduğunu hesaplar.",
     "params": [
       {
         "name": "self",
@@ -85275,7 +84360,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
-    "documentation": "Belirtilen sabitlebağlı bir dizi <code>Wires</code> döndürür, ki bu pine bağlıdır.",
+    "documentation": "Belirtilen pine bağlı bir dizi <code>Wires</code> döndürür, ki bu pine bağlıdır.",
     "params": [
       {
         "name": "self",
@@ -85339,7 +84424,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners": {
-    "documentation": "",
+    "documentation": "Bu yayıncıyı duyabilen tüm <code>AudioListeners</code> listelerini listeler.",
     "params": [
       {
         "name": "self",
@@ -91726,6 +90811,7 @@
     "documentation": "MemoryStore içinde bir sıraya erişim sağlar.",
     "keys": {
       "AddAsync": "@roblox/globaltype/MemoryStoreQueue.AddAsync",
+      "GetSizeAsync": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync",
       "ReadAsync": "@roblox/globaltype/MemoryStoreQueue.ReadAsync",
       "RemoveAsync": "@roblox/globaltype/MemoryStoreQueue.RemoveAsync"
     },
@@ -91768,11 +90854,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemoryStoreQueue#AddAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/0": {
+    "documentation": "MemoryStore içinde bir sıraya erişim sağlar."
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/1": {
+    "documentation": "Görünmez öğeleri boyut sayısından dışlamak istediğinizi belirler."
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync": {
+    "documentation": "Sıra boyutunu alır.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/0"
+      },
+      {
+        "name": "excludeInvisible",
+        "documentation": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemoryStoreQueue#GetSizeAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/0": {
     "documentation": "MemoryStore içinde bir sıraya erişim sağlar."
   },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/1": {
-    "documentation": "okuöğe sayısı. Bu parameternin maksimum izin verilen değeri 100'dür."
+    "documentation": "Okuyacak öğe sayısı. Bu parameternin maksimum izin verilen değeri 100'dür."
   },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/2": {
     "documentation": "Sıra <code>count</code> öğeden daha az olduğunda, yöntemin davranışını kontrol eder: yanlış olarak ayarlanırsa, tüm mevcut öğeleri döndürür; doğru olarak ayarlanırsa, hiçbir öğe döndürmez.Varsayılan değer false'dur."
@@ -91813,7 +90926,7 @@
     "documentation": "MemoryStore içinde bir sıraya erişim sağlar."
   },
   "@roblox/globaltype/MemoryStoreQueue.RemoveAsync/param/1": {
-    "documentation": "Silinecek öğeleri tanımlar. <code>MemoryStoreQueue:ReadAsync()</code> tarafından döndürülen değeri sil."
+    "documentation": "Silinecek öğeleri tanımlar. <code>MemoryStoreQueue:ReadAsync()</code> tarafından döndürülen değeri kullanın."
   },
   "@roblox/globaltype/MemoryStoreQueue.RemoveAsync": {
     "documentation": "Sıradan önce okunan bir veya daha fazla öğeyi kaldırır.",
@@ -92775,7 +91888,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sky.SkyboxOrientation": {
-    "documentation": "",
+    "documentation": "Gökyüzünün açısı, derecelerle, <strong>Y</strong> dönüş sırasıyla, <strong>X</strong> , <strong>Z</strong> .",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxOrientation",
     "code_sample": ""
   },
@@ -98861,6 +97974,46 @@
       "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.None": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.Going": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#Going",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.NotGoing": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#NotGoing",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RsvpStatus": {
+    "documentation": "",
+    "keys": {
+      "None": "@roblox/enum/RsvpStatus.None",
+      "Going": "@roblox/enum/RsvpStatus.Going",
+      "NotGoing": "@roblox/enum/RsvpStatus.NotGoing"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus",
     "code_sample": ""
   },
   "@roblox/enum/DevTouchMovementMode.UserChoice": {

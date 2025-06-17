@@ -2,6 +2,7 @@ Key,Context,Source,en-us
 Studio.Common.Action.Accessory,,Accessory,Accessory
 Studio.Common.Action.Animation,,Animation,Animation
 Studio.Common.Action.Apply,,Apply,Apply
+Studio.Common.Action.AvatarSettings,"Toolbar section for the Avatar Settings button, showing window for avatar customization",Avatar Settings,Avatar Settings
 Studio.Common.Action.AvatarUnification,,Avatar Unification,Avatar Unification
 Studio.Common.Action.Back,,Back,Back
 Studio.Common.Action.Cancel,,Cancel,Cancel

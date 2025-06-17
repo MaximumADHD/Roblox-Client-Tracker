@@ -15240,7 +15240,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.PrimaryPart": {
-    "documentation": "The primary part of the <code>Model</code> 、または <code>nil</code> が明示的に設定する定されていない場合",
+    "documentation": "The primary part of the <code>Model</code> 、または <code>nil</code> が明示的に設定されていない場合",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#PrimaryPart",
     "code_sample": ""
   },
@@ -15250,7 +15250,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.WorldPivot": {
-    "documentation": "どこに <code>Model</code> が <strong>しない</strong> を持つピボットが位置するかを決定します。Determines where the pivot of a   &gt; which does   not  have a set  <code>Model.PrimaryPart</code> is located.",
+    "documentation": "どこに <code>Model</code> が <strong>しない</strong> を持つピボットが位置するかを決定します。Determines where the pivot of a  &gt; which does  not  have a set <code>Model.PrimaryPart</code> is located.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#WorldPivot",
     "code_sample": ""
   },
@@ -15258,10 +15258,10 @@
     "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。彼らは <code>BaseParts</code> のコレクションを保持するのに最適で、機能を拡張する複数の機能があります。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer/param/1": {
-    "documentation": ""
+    "documentation": "このモデルを永続させるための <code>Player</code> 。"
   },
   "@roblox/globaltype/Model.AddPersistentPlayer": {
-    "documentation": "指定されたプレイヤーのために、このモデルを永続するように設定します。<code>Model.ModelStreamingMode</code> は、追加により変更されるため、 <strong>PersistentPerPlayer</strong> に設定する必要があります。",
+    "documentation": "このモデルを指定されたプレイヤーに永続させるように設定します。<code>ModelStreamingMode</code> は、追加の結果として動作が変更されるため、<code>PersistentPerPlayer</code> に設定する必要があります。",
     "params": [
       {
         "name": "self",
@@ -15315,7 +15315,7 @@
     "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。彼らは <code>BaseParts</code> のコレクションを保持するのに最適で、機能を拡張する複数の機能があります。"
   },
   "@roblox/globaltype/Model.GetExtentsSize/return/0": {
-    "documentation": "The  <code>Vector3</code> 拡張サイズ of the  <code>Model</code> ."
+    "documentation": "The <code>Vector3</code> 拡張サイズ of the <code>Model</code> ."
   },
   "@roblox/globaltype/Model.GetExtentsSize": {
     "documentation": "返すのは、<code>BaseParts</code> すべてを含む最小のバインディングボックスのサイズ、そして <code>Model</code> に沿って設定されている場合、<code>Model.PrimaryPart</code> と一致します。",
@@ -15472,10 +15472,10 @@
     "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。彼らは <code>BaseParts</code> のコレクションを保持するのに最適で、機能を拡張する複数の機能があります。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer/param/1": {
-    "documentation": ""
+    "documentation": "このモデルをもはや永続しないようにするための <code>Player</code> 。"
   },
   "@roblox/globaltype/Model.RemovePersistentPlayer": {
-    "documentation": "指定されたプレイヤーに対して、このモデルを永続しなくする。<code>Model.ModelStreamingMode</code> は、削除により変更されるため、 <strong>PersistentPerPlayer</strong> に設定する必要があります。",
+    "documentation": "指定されたプレイヤーのために、このモデルを永続しないようにします。<code>ModelStreamingMode</code> は、削除の結果として動作が変更されるために <code>PersistentPerPlayer</code> に設定する必要があります。",
     "params": [
       {
         "name": "self",
@@ -15568,10 +15568,10 @@
     "documentation": "モデルはコンテナオブジェクトであり、オブジェクトをグループ化します。彼らは <code>BaseParts</code> のコレクションを保持するのに最適で、機能を拡張する複数の機能があります。"
   },
   "@roblox/globaltype/Model.TranslateBy/param/1": {
-    "documentation": "The <code>Vector3</code> によって、<code>Model</code> を翻訳する。"
+    "documentation": "The <code>Vector3</code> によって、<code>Model</code> を翻訳します。"
   },
   "@roblox/globaltype/Model.TranslateBy": {
-    "documentation": "指定された    オフセットによってシフトし、モデルの向きを保持します。新しい位置に別の <code>BasePart</code> または <code>Terrain</code> がすでに存在する場合、<code>Model</code> はそのオブジェクトをオーバーライドします。",
+    "documentation": "指定された オフセットによってシフトし、モデルの向きを保持します。新しい位置に別の <code>BasePart</code> または <code>Terrain</code> がすでに存在する場合、<code>Model</code> はそのオブジェクトをオーバーライドします。",
     "params": [
       {
         "name": "self",
@@ -37821,12 +37821,12 @@
     "code_sample": "local listener = Instance.new(\"AudioListener\")\nlocal output = Instance.new(\"AudioDeviceOutput\")\nlocal wire = Instance.new(\"Wire\")\n\nlistener.Parent = workspace.Camera\nwire.Parent = listener\noutput.Parent = wire\n\nwire.SourceInstance = listener\nwire.TargetInstance = output"
   },
   "@roblox/globaltype/AudioListener.AngleAttenuation": {
-    "documentation": "放射された音の感じられる音量が、<code>AudioEmitter</code> と関連する角度に基づいて変化する方法を表示します。Represents how the perceived volume of the emitted sound changes based on the angle between a      and the  <code>LookVector</code>  associated with the  <code>AudioListener</code> .",
+    "documentation": "放射された音の感じられる音量が、<code>AudioEmitter</code> と関連する角度に基づいて変化する方法を表示します。Represents how the perceived volume of the emitted sound changes based on the angle between a   and the <code>LookVector</code> associated with the <code>AudioListener</code> .",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#AngleAttenuation",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.AudioInteractionGroup": {
-    "documentation": "この    に聞こえるコントロール。",
+    "documentation": "この に聞こえるコントロール。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#AudioInteractionGroup",
     "code_sample": ""
   },
@@ -37870,7 +37870,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor": {
-    "documentation": "",
+    "documentation": "このリスナーにとって、<code>AudioEmitter</code> がどれほど聴き取りやすいかを計算する",
     "params": [
       {
         "name": "self",
@@ -37961,7 +37961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters": {
-    "documentation": "",
+    "documentation": "このリスナーが聞くことができるすべての <code>AudioEmitters</code> をリストします。",
     "params": [
       {
         "name": "self",
@@ -38116,7 +38116,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioListener.WiringChanged": {
-    "documentation": "別のインスタンスが    を介して接続されたり、切断されたりしたときに発火します。",
+    "documentation": "別のインスタンスが を介して接続されたり、切断されたりしたときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/AudioListener.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioListener.WiringChanged.ConnectParallel",
@@ -47972,7 +47972,7 @@
       "Wait": "@roblox/globaltype/AnimationTrack.DidLoop.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#DidLoop",
-    "code_sample": ""
+    "code_sample": "local function playForNumberLoops(animationTrack, number)\n\tanimationTrack.Looped = true\n\tanimationTrack:Play()\n\tlocal numberOfLoops = 0\n\tlocal connection = nil\n\tconnection = animationTrack.DidLoop:Connect(function()\n\t\tnumberOfLoops = numberOfLoops + 1\n\t\tprint(\"loop: \", numberOfLoops)\n\t\tif numberOfLoops >= number then\n\t\t\tanimationTrack:Stop()\n\t\t\tconnection:Disconnect() -- 必要がなくなったときに接続を切断することが重要\n\t\tend\n\tend)\nend\n\nlocal animation = Instance.new(\"Animation\")\nanimation.AnimationId = \"rbxassetid://507765644\"\n\nlocal humanoid = script.Parent:WaitForChild(\"Humanoid\")\nlocal animator = humanoid:WaitForChild(\"Animator\")\nlocal animationTrack = animator:LoadAnimation(animation)\n\nplayForNumberLoops(animationTrack, 5)"
   },
   "@roblox/globaltype/AnimationTrack.Ended.Connect/param/0": {
     "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
@@ -52401,6 +52401,85 @@
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
+  },
+  "@roblox/globaltype/Moderation": {
+    "documentation": "",
+    "keys": {
+      "InternalCreateReviewableContentAsync": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync",
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync",
+      "InternalProcessReviewableContentEvent": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalCreateReviewableContentAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalRequestReviewableContentReviewAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "event",
+        "documentation": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalProcessReviewableContentEvent",
+    "code_sample": ""
   },
   "@roblox/globaltype/TimerService": {
     "documentation": "期限切れのイベントのスケジューリングに責任のある内部サービス。 <code>Debris</code> クラスが使用しています。その機能は開発者にアクセスできません。",
@@ -61098,7 +61177,6 @@
     "keys": {
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "SkinningEnabled": "@roblox/globaltype/EditableMesh.SkinningEnabled",
-      "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
@@ -61110,12 +61188,6 @@
       "FindVerticesWithinSphere": "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere",
       "GetAdjacentFaces": "@roblox/globaltype/EditableMesh.GetAdjacentFaces",
       "GetAdjacentVertices": "@roblox/globaltype/EditableMesh.GetAdjacentVertices",
-      "GetBoneByName": "@roblox/globaltype/EditableMesh.GetBoneByName",
-      "GetBoneCFrame": "@roblox/globaltype/EditableMesh.GetBoneCFrame",
-      "GetBoneIsVirtual": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual",
-      "GetBoneName": "@roblox/globaltype/EditableMesh.GetBoneName",
-      "GetBoneParent": "@roblox/globaltype/EditableMesh.GetBoneParent",
-      "GetBones": "@roblox/globaltype/EditableMesh.GetBones",
       "GetCenter": "@roblox/globaltype/EditableMesh.GetCenter",
       "GetColor": "@roblox/globaltype/EditableMesh.GetColor",
       "GetColorAlpha": "@roblox/globaltype/EditableMesh.GetColorAlpha",
@@ -61126,61 +61198,29 @@
       "GetFaceVertices": "@roblox/globaltype/EditableMesh.GetFaceVertices",
       "GetFaces": "@roblox/globaltype/EditableMesh.GetFaces",
       "GetFacesWithAttribute": "@roblox/globaltype/EditableMesh.GetFacesWithAttribute",
-      "GetFacesWithColor": "@roblox/globaltype/EditableMesh.GetFacesWithColor",
-      "GetFacesWithNormal": "@roblox/globaltype/EditableMesh.GetFacesWithNormal",
-      "GetFacesWithUV": "@roblox/globaltype/EditableMesh.GetFacesWithUV",
-      "GetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose",
-      "GetFacsCorrectivePoses": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses",
-      "GetFacsPose": "@roblox/globaltype/EditableMesh.GetFacsPose",
-      "GetFacsPoses": "@roblox/globaltype/EditableMesh.GetFacsPoses",
       "GetNormal": "@roblox/globaltype/EditableMesh.GetNormal",
       "GetNormals": "@roblox/globaltype/EditableMesh.GetNormals",
       "GetPosition": "@roblox/globaltype/EditableMesh.GetPosition",
       "GetSize": "@roblox/globaltype/EditableMesh.GetSize",
       "GetUV": "@roblox/globaltype/EditableMesh.GetUV",
       "GetUVs": "@roblox/globaltype/EditableMesh.GetUVs",
-      "GetVertexBoneWeights": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights",
-      "GetVertexBones": "@roblox/globaltype/EditableMesh.GetVertexBones",
-      "GetVertexColors": "@roblox/globaltype/EditableMesh.GetVertexColors",
-      "GetVertexFaceColor": "@roblox/globaltype/EditableMesh.GetVertexFaceColor",
-      "GetVertexFaceNormal": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal",
-      "GetVertexFaceUV": "@roblox/globaltype/EditableMesh.GetVertexFaceUV",
-      "GetVertexFaces": "@roblox/globaltype/EditableMesh.GetVertexFaces",
-      "GetVertexNormals": "@roblox/globaltype/EditableMesh.GetVertexNormals",
-      "GetVertexUVs": "@roblox/globaltype/EditableMesh.GetVertexUVs",
       "GetVertices": "@roblox/globaltype/EditableMesh.GetVertices",
       "GetVerticesWithAttribute": "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute",
-      "GetVerticesWithColor": "@roblox/globaltype/EditableMesh.GetVerticesWithColor",
-      "GetVerticesWithNormal": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal",
-      "GetVerticesWithUV": "@roblox/globaltype/EditableMesh.GetVerticesWithUV",
       "IdDebugString": "@roblox/globaltype/EditableMesh.IdDebugString",
       "MergeVertices": "@roblox/globaltype/EditableMesh.MergeVertices",
       "RaycastLocal": "@roblox/globaltype/EditableMesh.RaycastLocal",
-      "RemoveBone": "@roblox/globaltype/EditableMesh.RemoveBone",
       "RemoveFace": "@roblox/globaltype/EditableMesh.RemoveFace",
       "RemoveUnused": "@roblox/globaltype/EditableMesh.RemoveUnused",
       "ResetNormal": "@roblox/globaltype/EditableMesh.ResetNormal",
-      "SetBoneCFrame": "@roblox/globaltype/EditableMesh.SetBoneCFrame",
-      "SetBoneIsVirtual": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual",
-      "SetBoneName": "@roblox/globaltype/EditableMesh.SetBoneName",
-      "SetBoneParent": "@roblox/globaltype/EditableMesh.SetBoneParent",
       "SetColor": "@roblox/globaltype/EditableMesh.SetColor",
       "SetColorAlpha": "@roblox/globaltype/EditableMesh.SetColorAlpha",
       "SetFaceColors": "@roblox/globaltype/EditableMesh.SetFaceColors",
       "SetFaceNormals": "@roblox/globaltype/EditableMesh.SetFaceNormals",
       "SetFaceUVs": "@roblox/globaltype/EditableMesh.SetFaceUVs",
       "SetFaceVertices": "@roblox/globaltype/EditableMesh.SetFaceVertices",
-      "SetFacsBonePose": "@roblox/globaltype/EditableMesh.SetFacsBonePose",
-      "SetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose",
-      "SetFacsPose": "@roblox/globaltype/EditableMesh.SetFacsPose",
       "SetNormal": "@roblox/globaltype/EditableMesh.SetNormal",
       "SetPosition": "@roblox/globaltype/EditableMesh.SetPosition",
       "SetUV": "@roblox/globaltype/EditableMesh.SetUV",
-      "SetVertexBoneWeights": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights",
-      "SetVertexBones": "@roblox/globaltype/EditableMesh.SetVertexBones",
-      "SetVertexFaceColor": "@roblox/globaltype/EditableMesh.SetVertexFaceColor",
-      "SetVertexFaceNormal": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal",
-      "SetVertexFaceUV": "@roblox/globaltype/EditableMesh.SetVertexFaceUV",
       "Triangulate": "@roblox/globaltype/EditableMesh.Triangulate"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh",
@@ -61192,35 +61232,8 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SkinningEnabled": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SkinningEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.AddBone": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/0"
-      },
-      {
-        "name": "boneProperties",
-        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.AddBone/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddBone",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddColor/param/0": {
@@ -61536,161 +61549,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetAdjacentVertices",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneByName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/0"
-      },
-      {
-        "name": "boneName",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneByName/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneByName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneCFrame",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneIsVirtual",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneName/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBoneParent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBoneParent/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneParent",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBones/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetBones/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetBones/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetBones/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBones",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetCenter/param/0": {
     "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
   },
@@ -61940,181 +61798,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithAttribute",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0"
-      },
-      {
-        "name": "actions",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePoses",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsPose/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacsPoses": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPoses",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetNormal/param/0": {
     "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
   },
@@ -62256,270 +61939,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetUVs",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBoneWeights",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexBones/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexColors/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexColors",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaces",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexNormals",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexUVs",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetVertices/param/0": {
     "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
   },
@@ -62565,87 +61984,6 @@
       "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithAttribute",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/0": {
@@ -62736,28 +62074,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RaycastLocal",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.RemoveBone/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.RemoveBone": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RemoveBone",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/0": {
     "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
   },
@@ -62820,122 +62136,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#ResetNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1"
-      },
-      {
-        "name": "cframe",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneCFrame",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1"
-      },
-      {
-        "name": "virtual",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneIsVirtual",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneName": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/1"
-      },
-      {
-        "name": "name",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetBoneParent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/0"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/1"
-      },
-      {
-        "name": "parentBoneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneParent",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/0": {
@@ -63112,114 +62312,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFaceVertices",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1"
-      },
-      {
-        "name": "boneId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2"
-      },
-      {
-        "name": "cframe",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsBonePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0"
-      },
-      {
-        "name": "actions",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1"
-      },
-      {
-        "name": "boneIds",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2"
-      },
-      {
-        "name": "cframes",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsCorrectivePose",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetFacsPose": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/0"
-      },
-      {
-        "name": "action",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/1"
-      },
-      {
-        "name": "boneIds",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/2"
-      },
-      {
-        "name": "cframes",
-        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsPose",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.SetNormal/param/0": {
     "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
   },
@@ -63305,172 +62397,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1"
-      },
-      {
-        "name": "boneWeights",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBoneWeights",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexBones": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/1"
-      },
-      {
-        "name": "boneIDs",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0": {
-    "documentation": "メッシュのランタイム作成と操作を許可するインスタンス。"
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Triangulate/param/0": {
@@ -70830,6 +69756,147 @@
   "@roblox/globaltype/InputBinding.Vector2Scale": {
     "documentation": "2方向の <code>InputAction</code> の値を線形スケールする量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Vector2Scale",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText": {
+    "documentation": "",
+    "keys": {
+      "Enabled": "@roblox/globaltype/AudioSpeechToText.Enabled",
+      "Text": "@roblox/globaltype/AudioSpeechToText.Text",
+      "VoiceDetected": "@roblox/globaltype/AudioSpeechToText.VoiceDetected",
+      "GetConnectedWires": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Enabled": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.Text": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0"
+      },
+      {
+        "name": "pin",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#GetConnectedWires",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0": {
+    "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0": {
+    "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0": {
+    "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once": {
+    "documentation": "指定された関数をイベントに接続し(単一の呼び出しの場合)、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0": {
+    "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait": {
+    "documentation": "シグナルが発火して返されるまで、現在のスレッドを生成し、シグナルが提供する引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Once",
+      "Wait": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#WiringChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/IKControl": {
@@ -82800,12 +81867,30 @@
   "@roblox/globaltype/InputAction": {
     "documentation": "ゲームプレイアクションメカニックを定義します。これらのアクションは、<code>InputBinding</code> を使用してハードウェア入力にマップされます。",
     "keys": {
+      "BoolState": "@roblox/globaltype/InputAction.BoolState",
+      "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
+      "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.BoolState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#BoolState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction1DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Direction2DState": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Enabled": {
@@ -82822,7 +81907,7 @@
     "documentation": "ゲームプレイアクションメカニックを定義します。これらのアクションは、<code>InputBinding</code> を使用してハードウェア入力にマップされます。"
   },
   "@roblox/globaltype/InputAction.Fire/param/1": {
-    "documentation": "<code>InputAction</code> を更新する値。"
+    "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
     "documentation": "<code>InputAction</code> を指定された状態に更新し、適切なシグナルを発射します。",
@@ -82832,7 +81917,7 @@
         "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
       },
       {
-        "name": "value",
+        "name": "state",
         "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
       }
     ],
@@ -85199,12 +84284,12 @@
     "code_sample": "local part1: BasePart = workspace.Speakers.Left\nlocal part2: BasePart = workspace.Speakers.Right\nlocal player: AudioPlayer = workspace.AudioPlayer\n\nlocal leftEmitter = Instance.new(\"AudioEmitter\")\nlocal rightEmitter = Instance.new(\"AudioEmitter\")\nlocal toLeft = Instance.new(\"Wire\")\nlocal toRight = Instance.new(\"Wire\")\n\nleftEmitter.Parent = part1\nrightEmitter.Parent = part2\n\ntoLeft.Parent = leftEmitter\ntoLeft.SourceInstance = player\ntoLeft.TargetInstance = leftEmitter\n\ntoRight.Parent = rightEmitter\ntoRight.SourceInstance = player\ntoRight.TargetInstance = rightEmitter\n\nplayer:Play()"
   },
   "@roblox/globaltype/AudioEmitter.AngleAttenuation": {
-    "documentation": "放射された音の感じられる音量が、<code>AudioListener</code> と関連する角度に基づいて変化する方法を表示します。Represents how the perceived volume of the emitted sound changes based on the angle between a      and the  <code>LookVector</code>  associated with the  <code>AudioEmitter</code> .",
+    "documentation": "放射された音の感じられる音量が、<code>AudioListener</code> と関連する角度に基づいて変化する方法を表示します。Represents how the perceived volume of the emitted sound changes based on the angle between a   and the <code>LookVector</code> associated with the <code>AudioEmitter</code> .",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#AngleAttenuation",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.AudioInteractionGroup": {
-    "documentation": "これを聞くことができるコントロール    。",
+    "documentation": "これを聞くことができるコントロール 。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#AudioInteractionGroup",
     "code_sample": ""
   },
@@ -85248,7 +84333,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor": {
-    "documentation": "",
+    "documentation": "特定の <code>AudioListener</code> に対して、このエミッターがどれほど聞こえるかを計算します。",
     "params": [
       {
         "name": "self",
@@ -85339,7 +84424,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners": {
-    "documentation": "",
+    "documentation": "このエミッターを聞くことができるすべての <code>AudioListeners</code> をリストします。",
     "params": [
       {
         "name": "self",
@@ -85494,7 +84579,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioEmitter.WiringChanged": {
-    "documentation": "別のインスタンスが    を介して接続されたり、切断されたりしたときに発火します。",
+    "documentation": "別のインスタンスが を介して接続されたり、切断されたりしたときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/AudioEmitter.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioEmitter.WiringChanged.ConnectParallel",
@@ -91726,6 +90811,7 @@
     "documentation": "MemoryStore 内のキューへのアクセスを提供します。",
     "keys": {
       "AddAsync": "@roblox/globaltype/MemoryStoreQueue.AddAsync",
+      "GetSizeAsync": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync",
       "ReadAsync": "@roblox/globaltype/MemoryStoreQueue.ReadAsync",
       "RemoveAsync": "@roblox/globaltype/MemoryStoreQueue.RemoveAsync"
     },
@@ -91768,11 +90854,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemoryStoreQueue#AddAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/0": {
+    "documentation": "MemoryStore 内のキューへのアクセスを提供します。"
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/1": {
+    "documentation": "サイズカウントから見えないアイテムを除外するかどうかを決定します。"
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync": {
+    "documentation": "キューのサイズを取得します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/0"
+      },
+      {
+        "name": "excludeInvisible",
+        "documentation": "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MemoryStoreQueue.GetSizeAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemoryStoreQueue#GetSizeAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/0": {
     "documentation": "MemoryStore 内のキューへのアクセスを提供します。"
   },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/1": {
-    "documentation": "既読むアイテムの数。このパラメータの最大許可値は 100 です。"
+    "documentation": "読むアイテムの数。このパラメータの最大許可値は 100 です。"
   },
   "@roblox/globaltype/MemoryStoreQueue.ReadAsync/param/2": {
     "documentation": "キューに <code>count</code> アイテムが少ない場合、メソッドの動作を制御する: false に設定すると、利用可能なすべてのアイテムが返されます; true に設定すると、アイテムが返されない。デフォルト値は false です。"
@@ -92775,7 +91888,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sky.SkyboxOrientation": {
-    "documentation": "",
+    "documentation": "天空ボックスの角度、度数、 <strong>Y</strong> 、 <strong>X</strong> 、 <strong>Z</strong> の回転順序。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxOrientation",
     "code_sample": ""
   },
@@ -98861,6 +97974,46 @@
       "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.None": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.Going": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#Going",
+    "code_sample": ""
+  },
+  "@roblox/enum/RsvpStatus.NotGoing": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus#NotGoing",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RsvpStatus": {
+    "documentation": "",
+    "keys": {
+      "None": "@roblox/enum/RsvpStatus.None",
+      "Going": "@roblox/enum/RsvpStatus.Going",
+      "NotGoing": "@roblox/enum/RsvpStatus.NotGoing"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RsvpStatus",
     "code_sample": ""
   },
   "@roblox/enum/DevTouchMovementMode.UserChoice": {

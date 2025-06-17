@@ -27,6 +27,7 @@ Studio.RobloxPropertiesWidget.Category.Axes,,Axes,Axes
 Studio.RobloxPropertiesWidget.Category.Balance,,Balance,Balance
 Studio.RobloxPropertiesWidget.Category.BallSocket,,BallSocket,BallSocket
 Studio.RobloxPropertiesWidget.Category.Behavior,,Behavior,Behavior
+Studio.RobloxPropertiesWidget.Category.Behaviors,The category for binding Behaviors to Instances.,Behaviors,Behaviors
 Studio.RobloxPropertiesWidget.Category.Benchmarking,,Benchmarking,Benchmarking
 Studio.RobloxPropertiesWidget.Category.BodyColors,,Body Colors,Body Colors
 Studio.RobloxPropertiesWidget.Category.BodyParts,,Body Parts,Body Parts
@@ -132,6 +133,7 @@ Studio.RobloxPropertiesWidget.Category.ScriptEditorColors,,Script Editor Colors,
 Studio.RobloxPropertiesWidget.Category.Scripting,,Scripting,Scripting
 Studio.RobloxPropertiesWidget.Category.Scrolling,,Scrolling,Scrolling
 Studio.RobloxPropertiesWidget.Category.Selection,,Selection,Selection
+Studio.RobloxPropertiesWidget.Category.ServerAuthority,The category header for Server Authority,Server Authority,Server Authority
 Studio.RobloxPropertiesWidget.Category.Servo,,Servo,Servo
 Studio.RobloxPropertiesWidget.Category.Settings,,Settings,Settings
 Studio.RobloxPropertiesWidget.Category.Shape,,Shape,Shape

@@ -40,6 +40,7 @@
       <addseparator />
 
       <addaction name="gameSettingsAction"/>
+      <addaction fflag="EnableAvatarSettings" name="avatarSettingsActionMenu"/>
       <addaction name="settingsAction"/>
       <addaction name="betaFeaturesAction"/>
       <addaction name="onlineHelpAction"/>
@@ -328,6 +329,9 @@
         <addaction fflag="EnableRibbonPlugin2" name="avatarPreviewerAction" type="plugin" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
         <addaction fflag="!EnableRibbonPlugin2" name="avatarPreviewerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AvatarPreviewer" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
       </Group>
+      <Group fflag="EnableAvatarSettings" name="AvatarSettings" text="Studio.Common.Action.AvatarSettings" modernIcon="AvatarSettings" width="32" height="32">
+        <addaction fflag="EnableAvatarSettings" name="avatarSettingsAction" modernIcon="AvatarSettings" style="textundericon" width="32" height="32" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
+      </Group>
       <Group name="Animation" text="Studio.Common.Action.Animation" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" width="32" height="32">
         <addaction fflag="EnableRibbonPlugin2" name="animationEditorAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" width="32" height="32" />
         <addaction fflag="!EnableRibbonPlugin2" name="animationEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AnimationEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip" width="32" height="32" />
@@ -398,7 +402,7 @@
       <Group name ="Emulation" text="Studio.App.RobloxRibbonMainWindow.Emulation" modernIcon="Device">
         <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.DeviceEmulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png" modernIcon="Device"  width="32" height="32"/>
         <addseparator visible="false"/>
-        <addaction fflag="StudioDeviceEmulatorGamepadEmulation3" name="deviceEmulatorToggleControlsWidgetAction" style="textundericon" text="Studio.App.EmulatorMainWidget.ShowControllerWidgetCheckBox" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png" modernIcon="Controller" width="32" height="32" tooltip="Studio.App.EmulatorMainWidget.ShowControllerWidgetCheckBoxToolTip"/>
+        <addaction name="deviceEmulatorToggleControlsWidgetAction" style="textundericon" text="Studio.App.EmulatorMainWidget.ShowControllerWidgetCheckBox" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png" modernIcon="Controller" width="32" height="32" tooltip="Studio.App.EmulatorMainWidget.ShowControllerWidgetCheckBoxToolTip"/>
         <addseparator visible="false"/>
         <addaction name="playerEmulatorToggleAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.PlayerEmulator" ischeckable="true" width="32" height="32"/>
       </Group>
@@ -431,6 +435,7 @@
         <addaction fflag="!EnableRibbonPlugin2" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat"/>
         <addaction fflag="!NewFindReplaceTasker3" name="toggleFindReplaceWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
         <addaction fflag="NewFindReplaceTasker3" name="toggleFindReplaceAllWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
+        <addaction fflag="EnableAvatarSettings" name="avatarSettingsAction" modernIcon="AvatarSettings" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
         <!-- Remove with FFlagCOLLAB5668HideTCWidget -->
         <addaction fflag="!COLLAB5668HideTCWidget" name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" modernIcon="TeamCreate" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow"/>
         <addaction name="toggleTerrainToolsDockAliasAction"

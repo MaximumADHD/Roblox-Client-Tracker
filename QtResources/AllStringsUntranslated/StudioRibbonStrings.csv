@@ -1,5 +1,9 @@
 Key,Context,Source,en-us
 Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
+Studio.Ribbon.Action.FindAndReplaceAll,Tool to find and replace all instances of something within a script,Find and Replace All,Find and Replace All
+Studio.Ribbon.Action.ImportRobloxModel,Import from file a Roblox model,Import Roblox Model,Import Roblox Model
+Studio.Ribbon.Action.InviteCollaborators,Share your project and start building together,Invite collaborators,Invite collaborators
+Studio.Ribbon.Action.Pivot,Edit the point around which the selected object rotates and translates,Pivot,Pivot
 Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
 Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currently selected test mode,Launch Test Mode,Launch Test Mode
 Studio.Ribbon.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
@@ -19,7 +23,7 @@ Studio.Ribbon.Plugin.DeleteTab,The tooltip of the delete tab button in Ribbon Ma
 Studio.Ribbon.Plugin.DeleteTab.Text,"The text of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",This will permanently delete the custom tab and cannot be undone.,This will permanently delete the custom tab and cannot be undone.
 Studio.Ribbon.Plugin.DeleteTab.Title,"The title of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",Delete Tab,Delete Tab
 Studio.Ribbon.Plugin.DeleteTool,The name of the action to remove the currently selected tool in a Ribbon custom tab,Remove tool,Remove tool
-Studio.Ribbon.Plugin.DockUndockRibbon,,Dock/Undock ribbon,Dock/Undock ribbon
+Studio.Ribbon.Plugin.DockUndockRibbon,The option to detach the Studio Ribbon into a floating menu,Autohide ribbon,Autohide ribbon
 Studio.Ribbon.Plugin.DraggerSettingsModesHeader,"In the Studio ribbon dropdown for dragger modes, the header above settings like Collisions and Join Surfaces",Dragger modes,Dragger modes
 Studio.Ribbon.Plugin.DraggerSettingsSnapHeader,"In the Studio ribbon dropdown for dragger settings, the header of the section above settings like ""Snap to Parts""",Snap,Snap
 Studio.Ribbon.Plugin.Filter.AllCreators,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Creators,All Creators
@@ -28,8 +32,14 @@ Studio.Ribbon.Plugin.Filter.CloudPlugins,Dropdown option for filtering tools in 
 Studio.Ribbon.Plugin.Filter.LocalPlugins,Filter_LocalPlugins,Local Plugins,Local Plugins
 Studio.Ribbon.Plugin.Filter.RobloxStudio,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Roblox Studio,Roblox Studio
 Studio.Ribbon.Plugin.Geometric,,Geometric,Geometric
+Studio.Ribbon.Plugin.ImportQueueButton,Title of the Import Queue Modal,Import Queue,Import Queue
+Studio.Ribbon.Plugin.ImportQueueTooltip,"Tooltip that appears when hovering over the ""Import Queue"" button.",Open the Import Queue,Open the Import Queue
+Studio.Ribbon.Plugin.InviteCollaborators,Share your project and start building together.,Invite collaborators,Invite collaborators
+Studio.Ribbon.Plugin.InviteCollaboratorsTooltip,Tooltip for the manage collaborator button when in a non-team create place,Share your project and start building together,Share your project and start building together
 Studio.Ribbon.Plugin.Lock,,Lock,Lock
 Studio.Ribbon.Plugin.LockToolRibbonAction,,Select object to Lock,Select object to Lock
+Studio.Ribbon.Plugin.ManageCollaborators,See and manage your collaborators,Manage collaborators,Manage collaborators
+Studio.Ribbon.Plugin.ManageCollaboratorsTooltip,Tooltip for manage collaborators button when in a team create place,See and manage your collaborators,See and manage your collaborators
 Studio.Ribbon.Plugin.ManageTabs,The title of the context menu action to manage Studio Ribbon tabs,Manage tabs,Manage tabs
 Studio.Ribbon.Plugin.ManageTabs.Title,The title of the Manage Tabs dialog in the Studio Ribbon,Manage Tabs,Manage Tabs
 Studio.Ribbon.Plugin.MoveLeft,The name of the button that moves a tab or control to the left in the Ribbon UI,Move left,Move left
@@ -91,15 +101,16 @@ Studio.Ribbon.Plugin.TabLocation.Left,"The ""Left"" setting of the tab location 
 Studio.Ribbon.Plugin.Tab.Avatar,,Avatar,Avatar
 Studio.Ribbon.Plugin.Tab.Custom,,Custom tabs coming soon!,Custom tabs coming soon!
 Studio.Ribbon.Plugin.Tab.Custom.Tooltip,,Create and manage your own tabs and toolbars,Create and manage your own tabs and toolbars
-Studio.Ribbon.Plugin.Tab.Delete,The option to delete a tab in Studio Ribbon,Delete,Delete
-Studio.Ribbon.Plugin.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate,Duplicate
-Studio.Ribbon.Plugin.Tab.Hide,The option to hide a tab in Studio Ribbon,Hide,Hide
+Studio.Ribbon.Plugin.Tab.Delete,The option to delete a tab in Studio Ribbon,Delete tab,Delete tab
+Studio.Ribbon.Plugin.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
+Studio.Ribbon.Plugin.Tab.Hide,The option to hide a tab in Studio Ribbon,Hide tab,Hide tab
 Studio.Ribbon.Plugin.Tab.Home,,Home,Home
 Studio.Ribbon.Plugin.Tab.Model,,Model,Model
 Studio.Ribbon.Plugin.Tab.Plugins,,Plugins,Plugins
-Studio.Ribbon.Plugin.Tab.Rename,The option to rename a tab in Studio Ribbon,Rename,Rename
+Studio.Ribbon.Plugin.Tab.Rename,The option to rename a tab in Studio Ribbon,Rename tab,Rename tab
 Studio.Ribbon.Plugin.Tab.Script,,Script,Script
 Studio.Ribbon.Plugin.Tab.UI,,UI,UI
+Studio.Ribbon.Plugin.Tab.Untitled,Placeholder name for a newly added tab,Untitled,Untitled
 Studio.Ribbon.Plugin.Text,,Example Text!,Example Text!
 Studio.Ribbon.Plugin.ToolPluginName,"The format of a plugin name in the Add Tools UI. For example, this might read ""Cloud Plugin: Rojo"" or ""Local Plugin: Test.rbxm""",{pluginType} Plugin: {pluginName},{pluginType} Plugin: {pluginName}
 Studio.Ribbon.Plugin.Tooltip.Constraint,,Create a new physics constraint or attachment,Create a new physics constraint or attachment
@@ -112,8 +123,7 @@ Studio.Ribbon.Plugin.Tooltip.InsertSpatial,Tooltip for the InsertSpatial button 
 Studio.Ribbon.Plugin.Tooltip.Mode,,Toggle between transforming objects geometrically or with physics simulation,Toggle between transforming objects geometrically or with physics simulation
 Studio.Ribbon.Plugin.Tooltip.Part,,Create a new Part,Create a new Part
 Studio.Ribbon.Plugin.Tooltip.Script,,Create a Script in the selected object,Create a Script in the selected object
-Studio.Ribbon.Search,The placeholder text in the Search bars in Ribbon,Search,Search
 Studio.Ribbon.SystemMenu.Help,File menu option for user to get help on what to do in studio,Help,Help
 Studio.Ribbon.SystemMenu.OpenFromFile,Open a roblox game from a file,Open from File,Open from File
 Studio.Ribbon.SystemMenu.Plugins,Plugins that the user owns,Plugins,Plugins
-Studio.Ribbon.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate,Duplicate
+Studio.Ribbon.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
