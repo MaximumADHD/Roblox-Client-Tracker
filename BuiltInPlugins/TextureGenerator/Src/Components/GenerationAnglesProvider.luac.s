@@ -42,7 +42,7 @@ PROTO_0:
 
 PROTO_1:
   GETIMPORT R0 K1 [print]
-  LOADK R1 K2 ["Generations table: "]
+  LOADK R1 K2 ["Generations Angles table: "]
   GETUPVAL R2 0
   CALL R0 2 0
   RETURN R0 0

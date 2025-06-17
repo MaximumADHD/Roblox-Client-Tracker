@@ -248,6 +248,7 @@ PROTO_12:
   LOADK R3 K8 ["PlaceAnnotations"]
   NAMECALL R1 R1 K9 ["FindFirstChild"]
   CALL R1 2 1
+  JUMPIFNOT R1 [+8]
   NAMECALL R4 R0 K10 ["GetStringUniqueId"]
   CALL R4 1 1
   LOADB R5 1

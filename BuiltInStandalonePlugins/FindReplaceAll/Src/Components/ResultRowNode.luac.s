@@ -1,0 +1,406 @@
+PROTO_0:
+  MOVE R2 R1
+  LOADK R3 K0 ["selected"]
+  GETTABLEKS R5 R0 K1 ["isSelected"]
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K2 ["FindReplaceAll-Selected"]
+  JUMP [+1]
+  LOADNIL R4
+  CALL R2 2 0
+  MOVE R2 R1
+  LOADK R3 K3 ["hovered"]
+  GETTABLEKS R5 R0 K4 ["isHovered"]
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K5 ["FindReplaceAll-Hovered"]
+  JUMP [+1]
+  LOADK R4 K6 ["FindReplaceAll-NotHovered"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["visibleNodeObservable"]
+  GETTABLEKS R0 R1 K1 ["get"]
+  CALL R0 0 1
+  GETUPVAL R1 1
+  MOVE R2 R1
+  LOADK R3 K2 ["selected"]
+  GETTABLEKS R5 R0 K3 ["isSelected"]
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K4 ["FindReplaceAll-Selected"]
+  JUMP [+1]
+  LOADNIL R4
+  CALL R2 2 0
+  MOVE R2 R1
+  LOADK R3 K5 ["hovered"]
+  GETTABLEKS R5 R0 K6 ["isHovered"]
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K7 ["FindReplaceAll-Hovered"]
+  JUMP [+1]
+  LOADK R4 K8 ["FindReplaceAll-NotHovered"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["datum"]
+  GETTABLEKS R2 R3 K1 ["id"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["nilId"]
+  JUMPIFNOTEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_3:
+  GETTABLEKS R3 R0 K0 ["datum"]
+  GETTABLEKS R2 R3 K1 ["isFile"]
+  JUMPIFNOT R2 [+14]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["collapseExpandArrowIcon"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["getExpandState"]
+  GETTABLEKS R4 R0 K0 ["datum"]
+  GETTABLEKS R3 R4 K4 ["guid"]
+  CALL R2 1 1
+  LOADK R3 K5 ["Light"]
+  CALL R1 2 1
+  JUMPIF R1 [+1]
+  LOADK R1 K6 [""]
+  RETURN R1 1
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["datum"]
+  GETTABLEKS R1 R2 K1 ["scriptType"]
+  JUMPIF R1 [+2]
+  LOADK R2 K2 [""]
+  RETURN R2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["ScriptIcon"]
+  ADDK R4 R1 K4 [1]
+  GETTABLE R2 R3 R4
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["scriptTypeIcons"]
+  MOVE R4 R2
+  LOADK R5 K6 ["Light"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["datum"]
+  GETTABLEKS R1 R2 K1 ["text"]
+  RETURN R1 1
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["datum"]
+  GETTABLEKS R1 R2 K1 ["isFile"]
+  RETURN R1 1
+
+PROTO_7:
+  GETTABLEKS R2 R0 K0 ["datum"]
+  GETTABLEKS R1 R2 K1 ["numMatches"]
+  RETURN R1 1
+
+PROTO_8:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETTABLEKS R2 R0 K0 ["visibleNodeObservable"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["useRef"]
+  LOADNIL R4
+  CALL R3 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["useRef"]
+  LOADNIL R5
+  CALL R4 1 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["useRef"]
+  LOADNIL R6
+  CALL R5 1 1
+  GETUPVAL R6 2
+  MOVE R7 R3
+  CALL R6 1 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K2 ["useCallback"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  NEWTABLE R9 0 2
+  GETTABLEKS R10 R0 K0 ["visibleNodeObservable"]
+  MOVE R11 R6
+  SETLIST R9 R10 2 [1]
+  CALL R7 2 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K3 ["useEffect"]
+  MOVE R9 R2
+  MOVE R10 R7
+  NEWTABLE R11 0 1
+  MOVE R12 R7
+  SETLIST R11 R12 1 [1]
+  CALL R8 3 0
+  GETUPVAL R8 4
+  LOADK R9 K4 ["Frame"]
+  NEWTABLE R10 8 0
+  GETTABLEKS R11 R2 K5 ["getBinding"]
+  CALL R11 0 1
+  DUPCLOSURE R13 K6 [PROTO_2]
+  CAPTURE UPVAL U5
+  NAMECALL R11 R11 K7 ["map"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K8 ["Visible"]
+  SETTABLEKS R3 R10 K9 ["ref"]
+  GETIMPORT R11 K12 [UDim2.fromScale]
+  LOADN R12 1
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Size"]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K14 ["ZIndex"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K15 ["Tag"]
+  LOADK R12 K16 ["FindReplaceAll-ResultRowNode X-Row"]
+  SETTABLE R12 R10 R11
+  DUPTABLE R11 K19 [{"Expand", "Contents"}]
+  GETUPVAL R12 4
+  LOADK R13 K20 ["TextButton"]
+  NEWTABLE R14 4 0
+  MOVE R15 R1
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K21 ["LayoutOrder"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K22 ["BackgroundTransparency"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K15 ["Tag"]
+  LOADK R16 K23 ["X-Fill FindReplaceAll-Button FindReplaceAll-Square"]
+  SETTABLE R16 R14 R15
+  SETTABLEKS R4 R14 K9 ["ref"]
+  GETUPVAL R15 4
+  LOADK R16 K24 ["ImageLabel"]
+  NEWTABLE R17 8 0
+  GETUPVAL R19 6
+  GETTABLEKS R18 R19 K25 ["arrowImageTransparency"]
+  SETTABLEKS R18 R17 K26 ["ImageTransparency"]
+  GETTABLEKS R18 R2 K5 ["getBinding"]
+  CALL R18 0 1
+  NEWCLOSURE R20 P2
+  CAPTURE UPVAL U7
+  CAPTURE VAL R0
+  NAMECALL R18 R18 K7 ["map"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K27 ["Image"]
+  GETIMPORT R18 K31 [Enum.ScaleType.Crop]
+  SETTABLEKS R18 R17 K29 ["ScaleType"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K22 ["BackgroundTransparency"]
+  GETIMPORT R18 K33 [UDim2.fromOffset]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K34 ["iconSizeSmall"]
+  GETUPVAL R21 6
+  GETTABLEKS R20 R21 K35 ["iconSize"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K13 ["Size"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K15 ["Tag"]
+  LOADK R19 K36 ["FindReplaceAll-Content-Surface-Outline-No-Transparency FindReplaceAll-View FindReplaceAll-Content-Muted FindReplaceAll-ArrowImage X-AnchorCenter data-testid=ResultRowNode-ArrowImage"]
+  SETTABLE R19 R17 R18
+  CALL R15 2 -1
+  CALL R12 -1 1
+  SETTABLEKS R12 R11 K17 ["Expand"]
+  GETUPVAL R12 4
+  LOADK R13 K4 ["Frame"]
+  NEWTABLE R14 4 0
+  LOADN R15 1
+  SETTABLEKS R15 R14 K22 ["BackgroundTransparency"]
+  MOVE R15 R1
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K21 ["LayoutOrder"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K15 ["Tag"]
+  LOADK R16 K37 ["FindReplaceAll-FillX X-Row X-Middle"]
+  SETTABLE R16 R14 R15
+  DUPTABLE R15 K41 [{"ScriptTypeIconOrIndentLine", "ScriptNameOrMatchingLine", "NumOfMatches"}]
+  GETUPVAL R16 4
+  LOADK R17 K24 ["ImageLabel"]
+  NEWTABLE R18 8 0
+  LOADN R19 1
+  SETTABLEKS R19 R18 K22 ["BackgroundTransparency"]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K21 ["LayoutOrder"]
+  GETIMPORT R19 K43 [Enum.ScaleType.Tile]
+  SETTABLEKS R19 R18 K29 ["ScaleType"]
+  GETTABLEKS R19 R2 K5 ["getBinding"]
+  CALL R19 0 1
+  DUPCLOSURE R21 K44 [PROTO_4]
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U7
+  NAMECALL R19 R19 K7 ["map"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K27 ["Image"]
+  GETIMPORT R19 K33 [UDim2.fromOffset]
+  GETUPVAL R21 6
+  GETTABLEKS R20 R21 K35 ["iconSize"]
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K35 ["iconSize"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K13 ["Size"]
+  SETTABLEKS R5 R18 K9 ["ref"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K15 ["Tag"]
+  LOADK R20 K45 ["data-testid=ResultRowNode-ScriptTypeIcon"]
+  SETTABLE R20 R18 R19
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K38 ["ScriptTypeIconOrIndentLine"]
+  GETUPVAL R16 4
+  LOADK R17 K46 ["TextLabel"]
+  NEWTABLE R18 16 0
+  GETIMPORT R19 K49 [Enum.AutomaticSize.X]
+  SETTABLEKS R19 R18 K47 ["AutomaticSize"]
+  GETIMPORT R19 K51 [UDim2.new]
+  LOADN R20 0
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K52 ["minNameLabelWidth"]
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K13 ["Size"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K22 ["BackgroundTransparency"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K53 ["ClipsDescendants"]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K21 ["LayoutOrder"]
+  GETIMPORT R19 K56 [Enum.TextTruncate.SplitWord]
+  SETTABLEKS R19 R18 K54 ["TextTruncate"]
+  GETIMPORT R19 K59 [Enum.TextXAlignment.Left]
+  SETTABLEKS R19 R18 K57 ["TextXAlignment"]
+  GETTABLEKS R19 R2 K5 ["getBinding"]
+  CALL R19 0 1
+  DUPCLOSURE R21 K60 [PROTO_5]
+  NAMECALL R19 R19 K7 ["map"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K61 ["Text"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K62 ["RichText"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K14 ["ZIndex"]
+  GETTABLEKS R19 R0 K63 ["textLabelRef"]
+  SETTABLEKS R19 R18 K9 ["ref"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K15 ["Tag"]
+  LOADK R20 K64 ["FindReplaceAll-PadLeftS FindReplaceAll-FillX FindReplaceAll-PadRight FindReplaceAll-Text-Size-14 FindReplaceAll-Content-Emphasis data-testid=ResultRowNode-ScriptNameOrMatchingLine"]
+  SETTABLE R20 R18 R19
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K39 ["ScriptNameOrMatchingLine"]
+  GETUPVAL R16 4
+  LOADK R17 K46 ["TextLabel"]
+  NEWTABLE R18 16 0
+  GETIMPORT R19 K66 [Enum.AutomaticSize.XY]
+  SETTABLEKS R19 R18 K47 ["AutomaticSize"]
+  GETIMPORT R19 K51 [UDim2.new]
+  LOADN R20 0
+  LOADN R21 0
+  LOADN R22 0
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K67 ["Position"]
+  GETIMPORT R19 K51 [UDim2.new]
+  LOADN R20 0
+  LOADN R21 0
+  LOADN R22 0
+  GETUPVAL R25 6
+  GETTABLEKS R24 R25 K68 ["resultRowHeight"]
+  GETUPVAL R26 6
+  GETTABLEKS R25 R26 K69 ["circleOffset"]
+  SUB R23 R24 R25
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K13 ["Size"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K53 ["ClipsDescendants"]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K21 ["LayoutOrder"]
+  GETIMPORT R19 K71 [Enum.TextXAlignment.Center]
+  SETTABLEKS R19 R18 K57 ["TextXAlignment"]
+  GETTABLEKS R19 R2 K5 ["getBinding"]
+  CALL R19 0 1
+  DUPCLOSURE R21 K72 [PROTO_6]
+  NAMECALL R19 R19 K7 ["map"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K8 ["Visible"]
+  GETTABLEKS R19 R2 K5 ["getBinding"]
+  CALL R19 0 1
+  DUPCLOSURE R21 K73 [PROTO_7]
+  NAMECALL R19 R19 K7 ["map"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K61 ["Text"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K14 ["ZIndex"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K15 ["Tag"]
+  LOADK R20 K74 ["FindReplaceAll-ResultRowNode-Pill FindReplaceAll-SidePadM FindReplaceAll-Text-Size-12 data-testid=ResultRowNode-Pill"]
+  SETTABLE R20 R18 R19
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K40 ["NumOfMatches"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K18 ["Contents"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ReactUtils"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["createNextOrder"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["Constants"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Resources"]
+  GETTABLEKS R6 R7 K14 ["StyleConstants"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Util"]
+  GETTABLEKS R7 R8 K15 ["Observable"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Hooks"]
+  GETTABLEKS R8 R9 K17 ["useImperativeTagger"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K11 ["Util"]
+  GETTABLEKS R9 R10 K18 ["ImageUrl"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K19 ["Types"]
+  CALL R9 1 1
+  GETTABLEKS R10 R1 K20 ["createElement"]
+  DUPCLOSURE R11 K21 [PROTO_0]
+  DUPCLOSURE R12 K22 [PROTO_8]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  RETURN R12 1

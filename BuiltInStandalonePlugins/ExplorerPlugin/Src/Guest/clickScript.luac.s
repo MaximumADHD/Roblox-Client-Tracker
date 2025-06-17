@@ -1,0 +1,44 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  DUPTABLE R3 K1 [{"Temporary"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K0 ["Temporary"]
+  NAMECALL R0 R0 K2 ["OpenScriptDocumentAsync"]
+  CALL R0 3 2
+  JUMPIFNOT R0 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K4 [warn]
+  LOADK R4 K5 ["Couldn't open %*: %*"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K6 ["Name"]
+  MOVE R7 R1
+  NAMECALL R4 R4 K7 ["format"]
+  CALL R4 3 1
+  MOVE R3 R4
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R3 K2 [settings]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K3 ["Studio"]
+  GETTABLEKS R1 R2 K0 ["Enable Temporary Tabs In Explorer"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETIMPORT R1 K6 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ScriptEditorService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_1]
+  CAPTURE VAL R0
+  RETURN R1 1

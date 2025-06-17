@@ -64,6 +64,8 @@ local GetFFlagEnableVoiceChatMuteForVideoCaptures =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceChatMuteForVideoCaptures
 local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExperienceVoiceCaptureMute
+local GetFFlagExpChatUseVoiceParticipantsStore =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExpChatUseVoiceParticipantsStore
 
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
@@ -131,6 +133,8 @@ local SeamlessVoiceStatus = require(RobloxGui.Modules.Settings.Enum.SeamlessVoic
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local GetFFlagVoiceChatClientRewriteMasterLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteMasterLua
+local GetFFlagVoiceChatClientRewriteDisableVCSDevice = 
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteDisableVCSDevice
 local GetFFlagEnableSeamlessVoiceV2 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSeamlessVoiceV2
 local GetFFlagDisconnectToastClientRewrite =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisconnectToastClientRewrite
@@ -439,6 +443,9 @@ function VoiceChatServiceManager.new(
 		shouldSendConnectDisconnectAnalytics = true
 	end)
 
+	local VoiceStore = if GetFFlagExpChatUseVoiceParticipantsStore()
+		then ExperienceChat.Stores.GetVoiceStore(false)
+		else nil
 	self.coreVoiceManager:subscribe("GetPermissions", function(callback, permissions, shouldNotRequestPerms, rawGet)
 		local context = "VoiceChatServiceManager.requestMicPermission"
 		if GetFFlagEnableInExpMicPermissionsAnalytics() and self.inExpUpsellEntrypoint ~= nil then
@@ -447,12 +454,16 @@ function VoiceChatServiceManager.new(
 		self.getPermissionsFunction(callback, permissions, shouldNotRequestPerms, context, rawGet)
 	end)
 	self.coreVoiceManager:subscribe("OnVoiceParticipantRemoved", function(userId)
-		if ExperienceChat.Events.VoiceParticipantRemoved then
+		if GetFFlagExpChatUseVoiceParticipantsStore() then
+			VoiceStore.handleVoiceParticipantRemoved(userId)
+		elseif ExperienceChat.Events.VoiceParticipantRemoved then
 			ExperienceChat.Events.VoiceParticipantRemoved(tostring(userId))
 		end
 	end)
 	self.coreVoiceManager:subscribe("OnVoiceParticipantAdded", function(userId)
-		if ExperienceChat.Events.VoiceParticipantAdded then
+		if GetFFlagExpChatUseVoiceParticipantsStore() then
+			VoiceStore.handleVoiceParticipantAdded(userId)
+		elseif ExperienceChat.Events.VoiceParticipantAdded then
 			ExperienceChat.Events.VoiceParticipantAdded(tostring(userId))
 		end
 	end)
@@ -587,7 +598,7 @@ function VoiceChatServiceManager.new(
 		else
 			self:HideVoiceUI()
 		end
-    end)
+	end)
 	self.coreVoiceManager:subscribe("OnVoiceJoin", function()
 		if GetFFlagNonVoiceFTUX() and self.hasLeftFTUX then
 			self.hasLeftFTUX = false
@@ -1982,6 +1993,11 @@ local function isValidDeviceList(deviceNames, deviceGuids, index)
 end
 
 local function setVCSOutput(soundServiceOutputName, VCService)
+	if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
+		log:error("[OutputDeviceSelection] setVCSOutput is deprecated")
+		return {}
+	end
+
 	local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
 		return VCService:GetSpeakerDevices()
 	end)

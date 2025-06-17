@@ -1,175 +1,189 @@
 PROTO_0:
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
   NEWTABLE R2 0 0
-  NAMECALL R3 R1 K0 ["GetChildren"]
+  NAMECALL R3 R1 K3 ["GetChildren"]
   CALL R3 1 3
   FORGPREP R3
-  LOADK R10 K1 ["MeshPart"]
-  NAMECALL R8 R7 K2 ["IsA"]
+  LOADK R10 K4 ["MeshPart"]
+  NAMECALL R8 R7 K5 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+3]
-  GETTABLEKS R8 R7 K3 ["Name"]
+  GETTABLEKS R8 R7 K6 ["Name"]
   SETTABLE R7 R2 R8
   FORGLOOP R3 2 [-9]
-  GETTABLEKS R3 R0 K4 ["calculateScaleToValidateBoundsAsync"]
+  GETTABLEKS R3 R0 K7 ["calculateScaleToValidateBoundsAsync"]
   MOVE R4 R2
   CALL R3 1 1
-  GETTABLEKS R4 R3 K5 ["ok"]
+  GETTABLEKS R4 R3 K8 ["ok"]
   JUMPIFNOT R4 [+23]
-  GETTABLEKS R5 R3 K6 ["Overall"]
-  GETTABLEKS R4 R5 K5 ["ok"]
+  GETTABLEKS R5 R3 K9 ["Overall"]
+  GETTABLEKS R4 R5 K8 ["ok"]
   JUMPIFNOT R4 [+18]
-  DUPTABLE R4 K10 [{"scale", "proportions", "errors"}]
-  GETTABLEKS R7 R3 K6 ["Overall"]
-  GETTABLEKS R6 R7 K7 ["scale"]
-  DIVRK R5 R11 K6 ["Overall"]
-  SETTABLEKS R5 R4 K7 ["scale"]
-  GETTABLEKS R6 R3 K6 ["Overall"]
-  GETTABLEKS R5 R6 K12 ["scaleType"]
-  SETTABLEKS R5 R4 K8 ["proportions"]
+  DUPTABLE R4 K13 [{"scale", "proportions", "errors"}]
+  GETTABLEKS R7 R3 K9 ["Overall"]
+  GETTABLEKS R6 R7 K10 ["scale"]
+  DIVRK R5 R14 K6 ["Name"]
+  SETTABLEKS R5 R4 K10 ["scale"]
+  GETTABLEKS R6 R3 K9 ["Overall"]
+  GETTABLEKS R5 R6 K15 ["scaleType"]
+  SETTABLEKS R5 R4 K11 ["proportions"]
   LOADNIL R5
-  SETTABLEKS R5 R4 K9 ["errors"]
+  SETTABLEKS R5 R4 K12 ["errors"]
   RETURN R4 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K13 ["getBodyTypeSizeSpecification"]
-  LOADK R5 K14 ["ProportionsNormal"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["getBodyTypeSizeSpecification"]
+  LOADK R5 K17 ["ProportionsNormal"]
   MOVE R6 R1
   CALL R4 2 1
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K15 ["guessAvatarSizeBounds"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K18 ["guessAvatarSizeBounds"]
   MOVE R6 R4
   CALL R5 1 1
-  NAMECALL R6 R1 K16 ["GetBoundingBox"]
+  NAMECALL R6 R1 K19 ["GetBoundingBox"]
   CALL R6 1 2
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K17 ["coversMin"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K20 ["coversMin"]
   MOVE R9 R7
-  GETTABLEKS R10 R5 K18 ["minSize"]
+  GETTABLEKS R10 R5 K21 ["minSize"]
   CALL R8 2 1
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K19 ["containsMax"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K22 ["containsMax"]
   MOVE R10 R7
-  GETTABLEKS R11 R5 K20 ["maxSize"]
+  GETTABLEKS R11 R5 K23 ["maxSize"]
   CALL R9 2 1
   JUMPIFNOT R8 [+24]
   JUMPIFNOT R9 [+23]
-  DUPTABLE R10 K10 [{"scale", "proportions", "errors"}]
+  DUPTABLE R10 K13 [{"scale", "proportions", "errors"}]
   LOADN R11 1
-  SETTABLEKS R11 R10 K7 ["scale"]
-  LOADK R11 K14 ["ProportionsNormal"]
-  SETTABLEKS R11 R10 K8 ["proportions"]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K21 ["append"]
+  SETTABLEKS R11 R10 K10 ["scale"]
+  LOADK R11 K17 ["ProportionsNormal"]
+  SETTABLEKS R11 R10 K11 ["proportions"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K24 ["append"]
   NEWTABLE R12 0 1
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K22 ["ERROR_NO_VALID_SCALE_ERROR"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K25 ["ERROR_NO_VALID_SCALE_ERROR"]
   SETLIST R12 R13 1 [1]
-  GETTABLEKS R13 R3 K9 ["errors"]
+  GETTABLEKS R13 R3 K12 ["errors"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K9 ["errors"]
+  SETTABLEKS R11 R10 K12 ["errors"]
   RETURN R10 1
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K24 ["getScaleFactorToContain"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K27 ["getScaleFactorToContain"]
   MOVE R12 R7
-  GETTABLEKS R13 R5 K20 ["maxSize"]
+  GETTABLEKS R13 R5 K23 ["maxSize"]
   CALL R11 2 1
-  ADDK R10 R11 K23 [0.001]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K25 ["getScaleFactorToCover"]
+  ADDK R10 R11 K26 [0.001]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K28 ["getScaleFactorToCover"]
   MOVE R13 R7
-  GETTABLEKS R14 R5 K18 ["minSize"]
+  GETTABLEKS R14 R5 K21 ["minSize"]
   CALL R12 2 1
-  SUBK R11 R12 K23 [0.001]
+  SUBK R11 R12 K26 [0.001]
   JUMPIFNOTLT R11 R10 [+20]
-  DUPTABLE R12 K10 [{"scale", "proportions", "errors"}]
+  DUPTABLE R12 K13 [{"scale", "proportions", "errors"}]
   ADD R14 R11 R10
-  DIVK R13 R14 K26 [2]
-  SETTABLEKS R13 R12 K7 ["scale"]
-  LOADK R13 K14 ["ProportionsNormal"]
-  SETTABLEKS R13 R12 K8 ["proportions"]
+  DIVK R13 R14 K29 [2]
+  SETTABLEKS R13 R12 K10 ["scale"]
+  LOADK R13 K17 ["ProportionsNormal"]
+  SETTABLEKS R13 R12 K11 ["proportions"]
   NEWTABLE R13 0 1
-  LOADK R14 K27 ["There is no scale in which the model fits within the min and max bounding boxes."]
+  LOADK R14 K30 ["There is no scale in which the model fits within the min and max bounding boxes."]
   SETLIST R13 R14 1 [1]
   JUMPIF R13 [+2]
-  GETTABLEKS R13 R3 K9 ["errors"]
-  SETTABLEKS R13 R12 K9 ["errors"]
+  GETTABLEKS R13 R3 K12 ["errors"]
+  SETTABLEKS R13 R12 K12 ["errors"]
   RETURN R12 1
-  DUPTABLE R12 K10 [{"scale", "proportions", "errors"}]
+  DUPTABLE R12 K13 [{"scale", "proportions", "errors"}]
   ADD R14 R11 R10
-  DIVK R13 R14 K26 [2]
-  SETTABLEKS R13 R12 K7 ["scale"]
-  LOADK R13 K14 ["ProportionsNormal"]
-  SETTABLEKS R13 R12 K8 ["proportions"]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K21 ["append"]
+  DIVK R13 R14 K29 [2]
+  SETTABLEKS R13 R12 K10 ["scale"]
+  LOADK R13 K17 ["ProportionsNormal"]
+  SETTABLEKS R13 R12 K11 ["proportions"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K24 ["append"]
   NEWTABLE R14 0 1
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K22 ["ERROR_NO_VALID_SCALE_ERROR"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K25 ["ERROR_NO_VALID_SCALE_ERROR"]
   SETLIST R14 R15 1 [1]
-  GETTABLEKS R15 R3 K9 ["errors"]
+  GETTABLEKS R15 R3 K12 ["errors"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K9 ["errors"]
+  SETTABLEKS R13 R12 K12 ["errors"]
   RETURN R12 1
 
 PROTO_1:
-  GETTABLEKS R2 R1 K0 ["scale"]
-  LOADK R5 K1 ["Humanoid"]
-  NAMECALL R3 R0 K2 ["FindFirstChildWhichIsA"]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K3 ["scale"]
+  LOADK R5 K4 ["Humanoid"]
+  NAMECALL R3 R0 K5 ["FindFirstChildWhichIsA"]
   CALL R3 2 1
   JUMPIFNOTEQKNIL R3 [+2]
   RETURN R0 0
-  LOADK R6 K3 ["HumanoidRootPart"]
-  NAMECALL R4 R0 K4 ["FindFirstChild"]
+  LOADK R6 K6 ["HumanoidRootPart"]
+  NAMECALL R4 R0 K7 ["FindFirstChild"]
   CALL R4 2 1
   JUMPIFNOTEQKNIL R4 [+2]
   RETURN R0 0
-  NAMECALL R5 R0 K5 ["GetChildren"]
+  NAMECALL R5 R0 K8 ["GetChildren"]
   CALL R5 1 1
-  NAMECALL R6 R0 K6 ["GetDescendants"]
+  NAMECALL R6 R0 K9 ["GetDescendants"]
   CALL R6 1 1
-  GETTABLEKS R7 R0 K7 ["PrimaryPart"]
+  GETTABLEKS R7 R0 K10 ["PrimaryPart"]
   MOVE R8 R5
   LOADNIL R9
   LOADNIL R10
   FORGPREP R8
   LOADNIL R13
-  SETTABLEKS R13 R12 K8 ["Parent"]
+  SETTABLEKS R13 R12 K11 ["Parent"]
   FORGLOOP R8 2 [-4]
-  SETTABLEKS R0 R3 K8 ["Parent"]
+  SETTABLEKS R0 R3 K11 ["Parent"]
   MOVE R10 R2
-  NAMECALL R8 R0 K9 ["ScaleTo"]
+  NAMECALL R8 R0 K12 ["ScaleTo"]
   CALL R8 2 0
-  LOADK R9 K10 [{2, 2, 1}]
+  LOADK R9 K13 [{2, 2, 1}]
   MUL R8 R9 R2
-  SETTABLEKS R8 R4 K11 ["Size"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K12 ["setOriginalSize"]
+  SETTABLEKS R8 R4 K14 ["Size"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K15 ["setOriginalSize"]
   MOVE R9 R4
-  LOADK R10 K10 [{2, 2, 1}]
+  LOADK R10 K13 [{2, 2, 1}]
   CALL R8 2 0
   MOVE R8 R6
   LOADNIL R9
   LOADNIL R10
   FORGPREP R8
-  LOADK R15 K13 ["BasePart"]
-  NAMECALL R13 R12 K14 ["IsA"]
+  LOADK R15 K16 ["BasePart"]
+  NAMECALL R13 R12 K17 ["IsA"]
   CALL R13 2 1
   JUMPIFNOT R13 [+11]
   JUMPIFEQ R12 R4 [+10]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K12 ["setOriginalSize"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K15 ["setOriginalSize"]
   MOVE R14 R12
-  GETTABLEKS R16 R12 K11 ["Size"]
+  GETTABLEKS R16 R12 K14 ["Size"]
   DIV R15 R16 R2
   CALL R13 2 0
   JUMP [+13]
-  LOADK R15 K15 ["Attachment"]
-  NAMECALL R13 R12 K14 ["IsA"]
+  LOADK R15 K18 ["Attachment"]
+  NAMECALL R13 R12 K17 ["IsA"]
   CALL R13 2 1
   JUMPIFNOT R13 [+8]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K16 ["setOriginalPosition"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K19 ["setOriginalPosition"]
   MOVE R14 R12
-  GETTABLEKS R16 R12 K17 ["Position"]
+  GETTABLEKS R16 R12 K20 ["Position"]
   DIV R15 R16 R2
   CALL R13 2 0
   FORGLOOP R8 2 [-30]
@@ -177,58 +191,58 @@ PROTO_1:
   LOADNIL R9
   LOADNIL R10
   FORGPREP R8
-  SETTABLEKS R0 R12 K8 ["Parent"]
+  SETTABLEKS R0 R12 K11 ["Parent"]
   FORGLOOP R8 2 [-3]
-  SETTABLEKS R7 R0 K7 ["PrimaryPart"]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K18 ["ATTRIBUTE_ORIGINAL_SETUP_SCALE"]
+  SETTABLEKS R7 R0 K10 ["PrimaryPart"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K21 ["ATTRIBUTE_ORIGINAL_SETUP_SCALE"]
   MOVE R11 R2
-  NAMECALL R8 R0 K19 ["SetAttribute"]
+  NAMECALL R8 R0 K22 ["SetAttribute"]
   CALL R8 3 0
-  GETTABLEKS R8 R1 K20 ["errors"]
+  GETTABLEKS R8 R1 K23 ["errors"]
   JUMPIFNOT R8 [+13]
-  GETUPVAL R8 2
-  GETTABLEKS R10 R1 K20 ["errors"]
-  NAMECALL R8 R8 K21 ["JSONEncode"]
+  GETUPVAL R8 3
+  GETTABLEKS R10 R1 K23 ["errors"]
+  NAMECALL R8 R8 K24 ["JSONEncode"]
   CALL R8 2 1
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K22 ["ATTRIBUTE_SCALE_ERROR_LIST"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K25 ["ATTRIBUTE_SCALE_ERROR_LIST"]
   MOVE R12 R8
-  NAMECALL R9 R0 K19 ["SetAttribute"]
+  NAMECALL R9 R0 K22 ["SetAttribute"]
   CALL R9 3 0
   NEWTABLE R8 0 0
-  GETUPVAL R9 3
+  GETUPVAL R9 4
   CALL R9 0 1
   JUMPIFNOT R9 [+20]
-  GETUPVAL R9 4
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+17]
-  NAMECALL R9 R0 K6 ["GetDescendants"]
+  NAMECALL R9 R0 K9 ["GetDescendants"]
   CALL R9 1 3
   FORGPREP R9
-  LOADK R16 K23 ["WrapLayer"]
-  NAMECALL R14 R13 K14 ["IsA"]
+  LOADK R16 K26 ["WrapLayer"]
+  NAMECALL R14 R13 K17 ["IsA"]
   CALL R14 2 1
   JUMPIFNOT R14 [+6]
-  GETTABLEKS R14 R13 K8 ["Parent"]
+  GETTABLEKS R14 R13 K11 ["Parent"]
   SETTABLE R14 R8 R13
   LOADNIL R14
-  SETTABLEKS R14 R13 K8 ["Parent"]
+  SETTABLEKS R14 R13 K11 ["Parent"]
   FORGLOOP R9 2 [-12]
   LOADN R11 1
-  NAMECALL R9 R0 K9 ["ScaleTo"]
+  NAMECALL R9 R0 K12 ["ScaleTo"]
   CALL R9 2 0
-  GETUPVAL R9 3
+  GETUPVAL R9 4
   CALL R9 0 1
   JUMPIFNOT R9 [+11]
-  GETUPVAL R9 4
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+8]
   MOVE R9 R8
   LOADNIL R10
   LOADNIL R11
   FORGPREP R9
-  SETTABLEKS R13 R12 K8 ["Parent"]
+  SETTABLEKS R13 R12 K11 ["Parent"]
   FORGLOOP R9 2 [-3]
   RETURN R0 0
 
@@ -275,14 +289,21 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K2 ["Players"]
-  NAMECALL R1 R1 K3 ["GetService"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["Players"]
+  NAMECALL R1 R1 K6 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K6 [Instance.new]
-  LOADK R3 K7 ["HumanoidDescription"]
+  GETIMPORT R2 K9 [Instance.new]
+  LOADK R3 K10 ["HumanoidDescription"]
   CALL R2 1 1
-  GETIMPORT R3 K10 [task.spawn]
+  GETIMPORT R3 K13 [task.spawn]
   NEWCLOSURE R4 P0
   CAPTURE VAL R1
   CAPTURE VAL R2
@@ -291,65 +312,79 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETTABLEKS R2 R1 K0 ["model"]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K3 ["model"]
   JUMPIFNOTEQKNIL R2 [+2]
   RETURN R0 0
-  GETTABLEKS R2 R1 K1 ["intendedName"]
+  GETTABLEKS R2 R1 K4 ["intendedName"]
   JUMPIF R2 [+4]
-  GETTABLEKS R3 R1 K0 ["model"]
-  GETTABLEKS R2 R3 K2 ["Name"]
-  GETIMPORT R3 K5 [string.match]
-  GETIMPORT R4 K7 [string.lower]
+  GETTABLEKS R3 R1 K3 ["model"]
+  GETTABLEKS R2 R3 K5 ["Name"]
+  GETIMPORT R3 K8 [string.match]
+  GETIMPORT R4 K10 [string.lower]
   MOVE R5 R2
   CALL R4 1 1
-  LOADK R6 K8 ["%*$"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K9 ["BODY_MESH_SUFFIX"]
-  NAMECALL R6 R6 K10 ["format"]
+  LOADK R6 K11 ["%*$"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K12 ["BODY_MESH_SUFFIX"]
+  NAMECALL R6 R6 K13 ["format"]
   CALL R6 2 1
   MOVE R5 R6
   CALL R3 2 1
   JUMPIFNOT R3 [+14]
   LOADN R5 1
   LENGTH R7 R2
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K9 ["BODY_MESH_SUFFIX"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K12 ["BODY_MESH_SUFFIX"]
   LENGTH R8 R9
   SUB R6 R7 R8
   FASTCALL3 STRING_SUB R2 R5 R6
   MOVE R4 R2
-  GETIMPORT R3 K12 [string.sub]
+  GETIMPORT R3 K15 [string.sub]
   CALL R3 3 1
   MOVE R2 R3
-  LOADK R4 K13 ["%*%*"]
+  LOADK R4 K16 ["%*%*"]
   MOVE R6 R2
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K14 ["OUTPUT_MODEL_SUFFIX"]
-  NAMECALL R4 R4 K10 ["format"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K17 ["OUTPUT_MODEL_SUFFIX"]
+  NAMECALL R4 R4 K13 ["format"]
   CALL R4 3 1
   MOVE R3 R4
-  SETTABLEKS R3 R0 K2 ["Name"]
+  SETTABLEKS R3 R0 K5 ["Name"]
   RETURN R0 0
 
 PROTO_5:
-  NAMECALL R1 R0 K0 ["GetBoundingBox"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  NAMECALL R1 R0 K3 ["GetBoundingBox"]
   CALL R1 1 2
-  GETIMPORT R5 K3 [CFrame.new]
+  GETIMPORT R5 K6 [CFrame.new]
   LOADN R6 0
-  GETTABLEKS R9 R2 K5 ["Y"]
+  GETTABLEKS R9 R2 K8 ["Y"]
   MINUS R8 R9
-  DIVK R7 R8 K4 [2]
+  DIVK R7 R8 K7 [2]
   LOADN R8 0
   CALL R5 3 -1
-  NAMECALL R3 R1 K6 ["ToWorldSpace"]
+  NAMECALL R3 R1 K9 ["ToWorldSpace"]
   CALL R3 -1 1
-  GETTABLEKS R4 R0 K7 ["PrimaryPart"]
-  GETTABLEKS R6 R0 K7 ["PrimaryPart"]
-  GETTABLEKS R5 R6 K1 ["CFrame"]
+  GETTABLEKS R4 R0 K10 ["PrimaryPart"]
+  GETTABLEKS R6 R0 K10 ["PrimaryPart"]
+  GETTABLEKS R5 R6 K4 ["CFrame"]
   MOVE R7 R3
-  NAMECALL R5 R5 K8 ["ToObjectSpace"]
+  NAMECALL R5 R5 K11 ["ToObjectSpace"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K9 ["PivotOffset"]
+  SETTABLEKS R5 R4 K12 ["PivotOffset"]
   RETURN R0 0
 
 PROTO_6:
@@ -378,40 +413,47 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  GETTABLEKS R1 R0 K0 ["model"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K3 ["model"]
   JUMPIFNOTEQKNIL R1 [+4]
   LOADNIL R1
   LOADNIL R2
   RETURN R1 2
-  GETTABLEKS R1 R0 K1 ["lastFilteredSelection"]
+  GETTABLEKS R1 R0 K4 ["lastFilteredSelection"]
   JUMPIF R1 [+6]
-  GETTABLEKS R1 R0 K0 ["model"]
-  NAMECALL R1 R1 K2 ["GetBoundingBox"]
+  GETTABLEKS R1 R0 K3 ["model"]
+  NAMECALL R1 R1 K5 ["GetBoundingBox"]
   CALL R1 1 -1
   RETURN R1 -1
-  GETTABLEKS R2 R0 K1 ["lastFilteredSelection"]
+  GETTABLEKS R2 R0 K4 ["lastFilteredSelection"]
   LENGTH R1 R2
-  JUMPIFNOTEQKN R1 K3 [1] [+23]
-  GETTABLEKS R2 R0 K1 ["lastFilteredSelection"]
+  JUMPIFNOTEQKN R1 K6 [1] [+23]
+  GETTABLEKS R2 R0 K4 ["lastFilteredSelection"]
   GETTABLEN R1 R2 1
-  LOADK R4 K4 ["BasePart"]
-  NAMECALL R2 R1 K5 ["IsA"]
+  LOADK R4 K7 ["BasePart"]
+  NAMECALL R2 R1 K8 ["IsA"]
   CALL R2 2 1
   JUMPIFNOT R2 [+5]
-  GETTABLEKS R2 R1 K6 ["CFrame"]
-  GETTABLEKS R3 R1 K7 ["Size"]
+  GETTABLEKS R2 R1 K9 ["CFrame"]
+  GETTABLEKS R3 R1 K10 ["Size"]
   RETURN R2 2
-  LOADK R4 K8 ["Model"]
-  NAMECALL R2 R1 K5 ["IsA"]
+  LOADK R4 K11 ["Model"]
+  NAMECALL R2 R1 K8 ["IsA"]
   CALL R2 2 1
   JUMPIFNOT R2 [+4]
-  NAMECALL R2 R1 K2 ["GetBoundingBox"]
+  NAMECALL R2 R1 K5 ["GetBoundingBox"]
   CALL R2 1 -1
   RETURN R2 -1
   NEWTABLE R1 0 0
   NEWCLOSURE R2 P0
   CAPTURE VAL R1
-  GETTABLEKS R3 R0 K1 ["lastFilteredSelection"]
+  GETTABLEKS R3 R0 K4 ["lastFilteredSelection"]
   LOADNIL R4
   LOADNIL R5
   FORGPREP R3
@@ -420,28 +462,28 @@ PROTO_7:
   CALL R8 1 0
   FORGLOOP R3 2 [-4]
   LENGTH R3 R1
-  JUMPIFNOTEQKN R3 K3 [1] [+8]
+  JUMPIFNOTEQKN R3 K6 [1] [+8]
   GETTABLEN R4 R1 1
-  GETTABLEKS R3 R4 K6 ["CFrame"]
+  GETTABLEKS R3 R4 K9 ["CFrame"]
   GETTABLEN R5 R1 1
-  GETTABLEKS R4 R5 K7 ["Size"]
+  GETTABLEKS R4 R5 K10 ["Size"]
   RETURN R3 2
   LENGTH R3 R1
   LOADN R4 0
   JUMPIFNOTLT R4 R3 [+15]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K9 ["getAABoundingBox"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K12 ["getAABoundingBox"]
   MOVE R4 R1
-  GETIMPORT R5 K11 [CFrame.new]
+  GETIMPORT R5 K14 [CFrame.new]
   CALL R5 0 -1
   CALL R3 -1 2
-  GETIMPORT R5 K11 [CFrame.new]
+  GETIMPORT R5 K14 [CFrame.new]
   MOVE R6 R3
   CALL R5 1 1
   MOVE R6 R4
   RETURN R5 2
-  GETTABLEKS R3 R0 K0 ["model"]
-  NAMECALL R3 R3 K2 ["GetBoundingBox"]
+  GETTABLEKS R3 R0 K3 ["model"]
+  NAMECALL R3 R3 K5 ["GetBoundingBox"]
   CALL R3 1 -1
   RETURN R3 -1
 
@@ -594,74 +636,81 @@ PROTO_11:
   RETURN R0 -1
 
 PROTO_12:
-  GETTABLEKS R2 R1 K0 ["model"]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K3 ["model"]
   JUMPIFNOTEQKNIL R2 [+2]
   RETURN R0 0
-  GETUPVAL R2 0
+  GETUPVAL R2 1
   MOVE R3 R1
   CALL R2 1 2
   JUMPIFEQKNIL R2 [+3]
   JUMPIFNOTEQKNIL R3 [+2]
   RETURN R0 0
-  GETUPVAL R4 1
+  GETUPVAL R4 2
   MOVE R5 R2
   CALL R4 1 1
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K1 ["axisAlignedBoxSize"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K4 ["axisAlignedBoxSize"]
   MOVE R6 R2
   MOVE R7 R3
   CALL R5 2 1
   MOVE R8 R5
-  NAMECALL R6 R4 K2 ["VectorToWorldSpace"]
+  NAMECALL R6 R4 K5 ["VectorToWorldSpace"]
   CALL R6 2 1
-  NAMECALL R7 R0 K3 ["GetBoundingBox"]
+  NAMECALL R7 R0 K6 ["GetBoundingBox"]
   CALL R7 1 2
-  GETUPVAL R9 1
+  GETUPVAL R9 2
   MOVE R10 R7
   CALL R9 1 1
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K1 ["axisAlignedBoxSize"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K4 ["axisAlignedBoxSize"]
   MOVE R11 R7
   MOVE R12 R8
   CALL R10 2 1
   MOVE R13 R10
-  NAMECALL R11 R9 K2 ["VectorToWorldSpace"]
+  NAMECALL R11 R9 K5 ["VectorToWorldSpace"]
   CALL R11 2 1
-  LOADK R13 K4 [{0.75, 0.75, 0.75}]
+  LOADK R13 K7 [{0.75, 0.75, 0.75}]
   MUL R12 R8 R13
-  GETIMPORT R13 K7 [OverlapParams.new]
+  GETIMPORT R13 K10 [OverlapParams.new]
   CALL R13 0 1
   LOADB R14 1
-  SETTABLEKS R14 R13 K8 ["RespectCanCollide"]
+  SETTABLEKS R14 R13 K11 ["RespectCanCollide"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K9 ["MaxParts"]
+  SETTABLEKS R14 R13 K12 ["MaxParts"]
   NEWTABLE R14 0 2
   MOVE R15 R0
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K10 ["CurrentCamera"]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K13 ["CurrentCamera"]
   SETLIST R14 R15 2 [1]
-  SETTABLEKS R14 R13 K11 ["FilterDescendantsInstances"]
-  GETIMPORT R14 K15 [Enum.RaycastFilterType.Exclude]
-  SETTABLEKS R14 R13 K16 ["FilterType"]
-  GETIMPORT R14 K18 [RaycastParams.new]
+  SETTABLEKS R14 R13 K14 ["FilterDescendantsInstances"]
+  GETIMPORT R14 K18 [Enum.RaycastFilterType.Exclude]
+  SETTABLEKS R14 R13 K19 ["FilterType"]
+  GETIMPORT R14 K21 [RaycastParams.new]
   CALL R14 0 1
   NEWTABLE R15 0 2
   MOVE R16 R0
-  GETUPVAL R18 3
-  GETTABLEKS R17 R18 K10 ["CurrentCamera"]
+  GETUPVAL R18 4
+  GETTABLEKS R17 R18 K13 ["CurrentCamera"]
   SETLIST R15 R16 2 [1]
-  SETTABLEKS R15 R14 K11 ["FilterDescendantsInstances"]
-  GETIMPORT R15 K15 [Enum.RaycastFilterType.Exclude]
-  SETTABLEKS R15 R14 K16 ["FilterType"]
+  SETTABLEKS R15 R14 K14 ["FilterDescendantsInstances"]
+  GETIMPORT R15 K18 [Enum.RaycastFilterType.Exclude]
+  SETTABLEKS R15 R14 K19 ["FilterType"]
   LOADB R15 0
-  SETTABLEKS R15 R14 K19 ["IgnoreWater"]
+  SETTABLEKS R15 R14 K22 ["IgnoreWater"]
   NEWCLOSURE R15 P0
   CAPTURE VAL R10
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CAPTURE VAL R8
   CAPTURE VAL R14
   NEWCLOSURE R16 P1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CAPTURE VAL R12
   CAPTURE VAL R13
   NEWCLOSURE R17 P2
@@ -673,32 +722,39 @@ PROTO_12:
   CAPTURE VAL R15
   NEWCLOSURE R18 P3
   CAPTURE VAL R17
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CAPTURE VAL R12
   CAPTURE VAL R13
   MOVE R19 R18
   CALL R19 0 1
   JUMPIFNOTEQKNIL R19 [+2]
   RETURN R0 0
-  GETTABLEKS R21 R0 K20 ["PrimaryPart"]
-  GETTABLEKS R20 R21 K21 ["CFrame"]
+  GETTABLEKS R21 R0 K23 ["PrimaryPart"]
+  GETTABLEKS R20 R21 K24 ["CFrame"]
   MOVE R23 R20
-  NAMECALL R21 R7 K22 ["ToObjectSpace"]
+  NAMECALL R21 R7 K25 ["ToObjectSpace"]
   CALL R21 2 1
   MOVE R24 R21
-  NAMECALL R22 R19 K23 ["ToWorldSpace"]
+  NAMECALL R22 R19 K26 ["ToWorldSpace"]
   CALL R22 2 1
   MOVE R25 R22
-  NAMECALL R23 R0 K24 ["SetPrimaryPartCFrame"]
+  NAMECALL R23 R0 K27 ["SetPrimaryPartCFrame"]
   CALL R23 2 0
   RETURN R0 0
 
 PROTO_13:
-  GETUPVAL R2 0
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETUPVAL R2 1
   CALL R2 0 1
   JUMPIFNOT R2 [+7]
-  LOADK R4 K0 ["Humanoid"]
-  NAMECALL R2 R0 K1 ["FindFirstChild"]
+  LOADK R4 K3 ["Humanoid"]
+  NAMECALL R2 R0 K4 ["FindFirstChild"]
   CALL R2 2 1
   JUMPIFNOTEQKNIL R2 [+2]
   RETURN R0 0
@@ -706,149 +762,191 @@ PROTO_13:
   LOADNIL R3
   LOADNIL R4
   FORGPREP R2
-  NAMECALL R7 R6 K2 ["Clone"]
+  NAMECALL R7 R6 K5 ["Clone"]
   CALL R7 1 1
   JUMPIFNOT R7 [+13]
-  SETTABLEKS R0 R7 K3 ["Parent"]
-  LOADK R10 K4 ["Accessory"]
-  NAMECALL R8 R7 K5 ["IsA"]
+  SETTABLEKS R0 R7 K6 ["Parent"]
+  LOADK R10 K7 ["Accessory"]
+  NAMECALL R8 R7 K8 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+6]
-  GETTABLEKS R8 R0 K0 ["Humanoid"]
+  GETTABLEKS R8 R0 K3 ["Humanoid"]
   MOVE R10 R7
-  NAMECALL R8 R8 K6 ["AddAccessory"]
+  NAMECALL R8 R8 K9 ["AddAccessory"]
   CALL R8 2 0
   FORGLOOP R2 2 [-18]
   RETURN R0 0
 
 PROTO_14:
-  NAMECALL R1 R0 K0 ["GetDescendants"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  NAMECALL R1 R0 K3 ["GetDescendants"]
   CALL R1 1 3
   FORGPREP R1
-  LOADK R8 K1 ["MeshPart"]
-  NAMECALL R6 R5 K2 ["IsA"]
+  LOADK R8 K4 ["MeshPart"]
+  NAMECALL R6 R5 K5 ["IsA"]
   CALL R6 2 1
   JUMPIFNOT R6 [+19]
-  LOADK R8 K3 ["SurfaceAppearance"]
-  NAMECALL R6 R5 K4 ["FindFirstChildWhichIsA"]
+  LOADK R8 K6 ["SurfaceAppearance"]
+  NAMECALL R6 R5 K7 ["FindFirstChildWhichIsA"]
   CALL R6 2 1
   JUMPIF R6 [+14]
-  GETTABLEKS R6 R5 K5 ["TextureID"]
-  JUMPIFEQKS R6 K6 [""] [+11]
-  GETIMPORT R6 K9 [Instance.new]
-  LOADK R7 K3 ["SurfaceAppearance"]
+  GETTABLEKS R6 R5 K8 ["TextureID"]
+  JUMPIFEQKS R6 K9 [""] [+11]
+  GETIMPORT R6 K12 [Instance.new]
+  LOADK R7 K6 ["SurfaceAppearance"]
   CALL R6 1 1
-  GETTABLEKS R7 R5 K5 ["TextureID"]
-  SETTABLEKS R7 R6 K10 ["ColorMap"]
-  SETTABLEKS R5 R6 K11 ["Parent"]
+  GETTABLEKS R7 R5 K8 ["TextureID"]
+  SETTABLEKS R7 R6 K13 ["ColorMap"]
+  SETTABLEKS R5 R6 K14 ["Parent"]
   FORGLOOP R1 2 [-25]
   RETURN R0 0
 
 PROTO_15:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["startsWith"]
-  GETTABLEKS R2 R0 K1 ["Name"]
-  LOADK R3 K2 ["RBX_LC_"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["startsWith"]
+  GETTABLEKS R2 R0 K4 ["Name"]
+  LOADK R3 K5 ["RBX_LC_"]
   CALL R1 2 1
   JUMPIF R1 [+7]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["startsWith"]
-  GETTABLEKS R2 R0 K1 ["Name"]
-  LOADK R3 K3 ["RBX_RIGID_"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["startsWith"]
+  GETTABLEKS R2 R0 K4 ["Name"]
+  LOADK R3 K6 ["RBX_RIGID_"]
   CALL R1 2 1
   RETURN R1 1
 
 PROTO_16:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["startsWith"]
-  GETTABLEKS R2 R0 K1 ["Name"]
-  LOADK R3 K2 ["RBX_LC_"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["startsWith"]
+  GETTABLEKS R2 R0 K4 ["Name"]
+  LOADK R3 K5 ["RBX_LC_"]
   CALL R1 2 1
   JUMPIFNOT R1 [+10]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["removePrefix"]
-  GETTABLEKS R2 R0 K1 ["Name"]
-  LOADK R3 K2 ["RBX_LC_"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["removePrefix"]
+  GETTABLEKS R2 R0 K4 ["Name"]
+  LOADK R3 K5 ["RBX_LC_"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K1 ["Name"]
+  SETTABLEKS R1 R0 K4 ["Name"]
   RETURN R0 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["startsWith"]
-  GETTABLEKS R2 R0 K1 ["Name"]
-  LOADK R3 K4 ["RBX_RIGID_"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["startsWith"]
+  GETTABLEKS R2 R0 K4 ["Name"]
+  LOADK R3 K7 ["RBX_RIGID_"]
   CALL R1 2 1
   JUMPIFNOT R1 [+9]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["removePrefix"]
-  GETTABLEKS R2 R0 K1 ["Name"]
-  LOADK R3 K4 ["RBX_RIGID_"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["removePrefix"]
+  GETTABLEKS R2 R0 K4 ["Name"]
+  LOADK R3 K7 ["RBX_RIGID_"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K1 ["Name"]
+  SETTABLEKS R1 R0 K4 ["Name"]
   RETURN R0 0
 
 PROTO_17:
-  NAMECALL R2 R0 K0 ["GetChildren"]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  NAMECALL R2 R0 K3 ["GetChildren"]
   CALL R2 1 3
   FORGPREP R2
-  LOADK R9 K1 ["MeshPart"]
-  NAMECALL R7 R6 K2 ["IsA"]
+  LOADK R9 K4 ["MeshPart"]
+  NAMECALL R7 R6 K5 ["IsA"]
   CALL R7 2 1
-  JUMPIFNOT R7 [+22]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K3 ["startsWith"]
-  GETTABLEKS R8 R6 K4 ["Name"]
-  LOADK R9 K5 ["RBX_LC_"]
+  JUMPIFNOT R7 [+31]
+  GETUPVAL R10 0
+  CALL R10 0 1
+  NOT R9 R10
+  FASTCALL2K ASSERT R9 K0 [+4]
+  LOADK R10 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R8 K2 [assert]
+  CALL R8 2 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K6 ["startsWith"]
+  GETTABLEKS R8 R6 K7 ["Name"]
+  LOADK R9 K8 ["RBX_LC_"]
   CALL R7 2 1
   JUMPIF R7 [+7]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K3 ["startsWith"]
-  GETTABLEKS R8 R6 K4 ["Name"]
-  LOADK R9 K6 ["RBX_RIGID_"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K6 ["startsWith"]
+  GETTABLEKS R8 R6 K7 ["Name"]
+  LOADK R9 K9 ["RBX_RIGID_"]
   CALL R7 2 1
   JUMPIFNOT R7 [+6]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K7 ["setAvatarPartScaleType"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K10 ["setAvatarPartScaleType"]
   MOVE R8 R6
   MOVE R9 R1
   CALL R7 2 0
-  FORGLOOP R2 2 [-28]
+  FORGLOOP R2 2 [-37]
   RETURN R0 0
 
 PROTO_18:
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["types"]
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["types"]
   GETTABLE R2 R3 R1
   JUMPIF R2 [+10]
-  GETIMPORT R3 K2 [warn]
-  LOADK R5 K3 ["Unknown scalingType %*"]
+  GETIMPORT R3 K5 [warn]
+  LOADK R5 K6 ["Unknown scalingType %*"]
   MOVE R7 R1
-  NAMECALL R5 R5 K4 ["format"]
+  NAMECALL R5 R5 K7 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   CALL R3 1 0
   RETURN R0 0
-  GETUPVAL R3 1
+  GETUPVAL R3 2
   CALL R3 0 1
   JUMPIFNOT R3 [+7]
-  LOADK R5 K5 ["Humanoid"]
-  NAMECALL R3 R0 K6 ["FindFirstChild"]
+  LOADK R5 K8 ["Humanoid"]
+  NAMECALL R3 R0 K9 ["FindFirstChild"]
   CALL R3 2 1
   JUMPIFNOTEQKNIL R3 [+2]
   RETURN R0 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["setAvatarPartScaleTypeValueObjects"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K10 ["setAvatarPartScaleTypeValueObjects"]
   MOVE R4 R0
   MOVE R5 R1
   CALL R3 2 0
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K8 ["setBodyProportionScale"]
-  GETTABLEKS R4 R0 K5 ["Humanoid"]
-  GETTABLEKS R5 R2 K9 ["BodyProportionScale"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K11 ["setBodyProportionScale"]
+  GETTABLEKS R4 R0 K8 ["Humanoid"]
+  GETTABLEKS R5 R2 K12 ["BodyProportionScale"]
   CALL R3 2 0
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K10 ["setBodyTypeScale"]
-  GETTABLEKS R4 R0 K5 ["Humanoid"]
-  GETTABLEKS R5 R2 K11 ["BodyTypeScale"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K13 ["setBodyTypeScale"]
+  GETTABLEKS R4 R0 K8 ["Humanoid"]
+  GETTABLEKS R5 R2 K14 ["BodyTypeScale"]
   CALL R3 2 0
   RETURN R0 0
 
@@ -863,10 +961,17 @@ PROTO_19:
   RETURN R2 1
 
 PROTO_20:
-  GETUPVAL R2 0
-  CALL R2 0 1
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["getFFlagFixLayeredClothingAssignment() must be enabled"]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["getFFlagFixLayeredClothingAssignment() must be enabled"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
   NEWTABLE R1 0 0
@@ -875,26 +980,26 @@ PROTO_20:
   LOADNIL R4
   LOADNIL R5
   FORGPREP R3
-  GETTABLEKS R8 R7 K3 ["Parent"]
+  GETTABLEKS R8 R7 K4 ["Parent"]
   JUMPIFEQKNIL R8 [+24]
-  LOADK R11 K4 ["MeshPart"]
-  NAMECALL R9 R8 K5 ["IsA"]
+  LOADK R11 K5 ["MeshPart"]
+  NAMECALL R9 R8 K6 ["IsA"]
   CALL R9 2 1
   JUMPIFNOT R9 [+18]
-  GETTABLEKS R9 R8 K6 ["Size"]
-  GETTABLEKS R12 R9 K7 ["X"]
-  GETTABLEKS R13 R9 K8 ["Y"]
+  GETTABLEKS R9 R8 K7 ["Size"]
+  GETTABLEKS R12 R9 K8 ["X"]
+  GETTABLEKS R13 R9 K9 ["Y"]
   MUL R11 R12 R13
-  GETTABLEKS R12 R9 K9 ["Z"]
+  GETTABLEKS R12 R9 K10 ["Z"]
   MUL R10 R11 R12
   SETTABLE R10 R1 R7
   FASTCALL2 TABLE_INSERT R2 R7 [+5]
   MOVE R12 R2
   MOVE R13 R7
-  GETIMPORT R11 K12 [table.insert]
+  GETIMPORT R11 K13 [table.insert]
   CALL R11 2 0
   FORGLOOP R3 2 [-28]
-  GETIMPORT R3 K14 [table.sort]
+  GETIMPORT R3 K15 [table.sort]
   MOVE R4 R2
   NEWCLOSURE R5 P0
   CAPTURE VAL R1
@@ -903,7 +1008,7 @@ PROTO_20:
   LOADNIL R4
   LOADNIL R5
   FORGPREP R3
-  SETTABLEKS R6 R7 K15 ["Order"]
+  SETTABLEKS R6 R7 K16 ["Order"]
   FORGLOOP R3 2 [-3]
   RETURN R0 0
 
@@ -923,193 +1028,221 @@ PROTO_21:
   RETURN R3 1
 
 PROTO_22:
-  GETUPVAL R2 0
-  CALL R2 0 1
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["getFFlagIncludeBodyColorsInAutoSetup() must be enabled"]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
-  LOADK R3 K3 ["BodyColors"]
-  NAMECALL R1 R0 K4 ["FindFirstAncestorWhichIsA"]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["getFFlagIncludeBodyColorsInAutoSetup() must be enabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  LOADK R3 K4 ["BodyColors"]
+  NAMECALL R1 R0 K5 ["FindFirstAncestorWhichIsA"]
   CALL R1 2 1
   JUMPIFNOT R1 [+1]
   RETURN R0 0
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
-  GETIMPORT R3 K7 [Instance.new]
-  LOADK R4 K3 ["BodyColors"]
+  GETIMPORT R3 K8 [Instance.new]
+  LOADK R4 K4 ["BodyColors"]
   CALL R3 1 1
-  GETTABLEKS R5 R3 K8 ["HeadColor3"]
-  LOADK R8 K9 ["Head"]
-  NAMECALL R6 R0 K10 ["FindFirstChild"]
+  GETTABLEKS R5 R3 K9 ["HeadColor3"]
+  LOADK R8 K10 ["Head"]
+  NAMECALL R6 R0 K11 ["FindFirstChild"]
   CALL R6 2 1
   JUMPIFNOTEQKNIL R6 [+3]
   MOVE R4 R5
   JUMP [+9]
-  LOADK R9 K11 ["BasePart"]
-  NAMECALL R7 R6 K12 ["IsA"]
+  LOADK R9 K12 ["BasePart"]
+  NAMECALL R7 R6 K13 ["IsA"]
   CALL R7 2 1
   JUMPIF R7 [+2]
   MOVE R4 R5
   JUMP [+2]
-  GETTABLEKS R4 R6 K13 ["Color"]
-  SETTABLEKS R4 R3 K8 ["HeadColor3"]
-  GETTABLEKS R5 R3 K14 ["TorsoColor3"]
-  LOADK R8 K15 ["UpperTorso"]
-  NAMECALL R6 R0 K10 ["FindFirstChild"]
+  GETTABLEKS R4 R6 K14 ["Color"]
+  SETTABLEKS R4 R3 K9 ["HeadColor3"]
+  GETTABLEKS R5 R3 K15 ["TorsoColor3"]
+  LOADK R8 K16 ["UpperTorso"]
+  NAMECALL R6 R0 K11 ["FindFirstChild"]
   CALL R6 2 1
   JUMPIFNOTEQKNIL R6 [+3]
   MOVE R4 R5
   JUMP [+9]
-  LOADK R9 K11 ["BasePart"]
-  NAMECALL R7 R6 K12 ["IsA"]
+  LOADK R9 K12 ["BasePart"]
+  NAMECALL R7 R6 K13 ["IsA"]
   CALL R7 2 1
   JUMPIF R7 [+2]
   MOVE R4 R5
   JUMP [+2]
-  GETTABLEKS R4 R6 K13 ["Color"]
-  SETTABLEKS R4 R3 K14 ["TorsoColor3"]
-  GETTABLEKS R5 R3 K16 ["LeftArmColor3"]
-  LOADK R8 K17 ["LeftUpperArm"]
-  NAMECALL R6 R0 K10 ["FindFirstChild"]
+  GETTABLEKS R4 R6 K14 ["Color"]
+  SETTABLEKS R4 R3 K15 ["TorsoColor3"]
+  GETTABLEKS R5 R3 K17 ["LeftArmColor3"]
+  LOADK R8 K18 ["LeftUpperArm"]
+  NAMECALL R6 R0 K11 ["FindFirstChild"]
   CALL R6 2 1
   JUMPIFNOTEQKNIL R6 [+3]
   MOVE R4 R5
   JUMP [+9]
-  LOADK R9 K11 ["BasePart"]
-  NAMECALL R7 R6 K12 ["IsA"]
+  LOADK R9 K12 ["BasePart"]
+  NAMECALL R7 R6 K13 ["IsA"]
   CALL R7 2 1
   JUMPIF R7 [+2]
   MOVE R4 R5
   JUMP [+2]
-  GETTABLEKS R4 R6 K13 ["Color"]
-  SETTABLEKS R4 R3 K16 ["LeftArmColor3"]
-  GETTABLEKS R5 R3 K16 ["LeftArmColor3"]
-  LOADK R8 K18 ["RightUpperArm"]
-  NAMECALL R6 R0 K10 ["FindFirstChild"]
+  GETTABLEKS R4 R6 K14 ["Color"]
+  SETTABLEKS R4 R3 K17 ["LeftArmColor3"]
+  GETTABLEKS R5 R3 K17 ["LeftArmColor3"]
+  LOADK R8 K19 ["RightUpperArm"]
+  NAMECALL R6 R0 K11 ["FindFirstChild"]
   CALL R6 2 1
   JUMPIFNOTEQKNIL R6 [+3]
   MOVE R4 R5
   JUMP [+9]
-  LOADK R9 K11 ["BasePart"]
-  NAMECALL R7 R6 K12 ["IsA"]
+  LOADK R9 K12 ["BasePart"]
+  NAMECALL R7 R6 K13 ["IsA"]
   CALL R7 2 1
   JUMPIF R7 [+2]
   MOVE R4 R5
   JUMP [+2]
-  GETTABLEKS R4 R6 K13 ["Color"]
-  SETTABLEKS R4 R3 K19 ["RightArmColor3"]
-  GETTABLEKS R5 R3 K20 ["LeftLegColor3"]
-  LOADK R8 K21 ["LeftUpperLeg"]
-  NAMECALL R6 R0 K10 ["FindFirstChild"]
+  GETTABLEKS R4 R6 K14 ["Color"]
+  SETTABLEKS R4 R3 K20 ["RightArmColor3"]
+  GETTABLEKS R5 R3 K21 ["LeftLegColor3"]
+  LOADK R8 K22 ["LeftUpperLeg"]
+  NAMECALL R6 R0 K11 ["FindFirstChild"]
   CALL R6 2 1
   JUMPIFNOTEQKNIL R6 [+3]
   MOVE R4 R5
   JUMP [+9]
-  LOADK R9 K11 ["BasePart"]
-  NAMECALL R7 R6 K12 ["IsA"]
+  LOADK R9 K12 ["BasePart"]
+  NAMECALL R7 R6 K13 ["IsA"]
   CALL R7 2 1
   JUMPIF R7 [+2]
   MOVE R4 R5
   JUMP [+2]
-  GETTABLEKS R4 R6 K13 ["Color"]
-  SETTABLEKS R4 R3 K20 ["LeftLegColor3"]
-  GETTABLEKS R5 R3 K22 ["RightLegColor3"]
-  LOADK R8 K23 ["RightUpperLeg"]
-  NAMECALL R6 R0 K10 ["FindFirstChild"]
+  GETTABLEKS R4 R6 K14 ["Color"]
+  SETTABLEKS R4 R3 K21 ["LeftLegColor3"]
+  GETTABLEKS R5 R3 K23 ["RightLegColor3"]
+  LOADK R8 K24 ["RightUpperLeg"]
+  NAMECALL R6 R0 K11 ["FindFirstChild"]
   CALL R6 2 1
   JUMPIFNOTEQKNIL R6 [+3]
   MOVE R4 R5
   JUMP [+9]
-  LOADK R9 K11 ["BasePart"]
-  NAMECALL R7 R6 K12 ["IsA"]
+  LOADK R9 K12 ["BasePart"]
+  NAMECALL R7 R6 K13 ["IsA"]
   CALL R7 2 1
   JUMPIF R7 [+2]
   MOVE R4 R5
   JUMP [+2]
-  GETTABLEKS R4 R6 K13 ["Color"]
-  SETTABLEKS R4 R3 K22 ["RightLegColor3"]
-  SETTABLEKS R0 R3 K24 ["Parent"]
+  GETTABLEKS R4 R6 K14 ["Color"]
+  SETTABLEKS R4 R3 K23 ["RightLegColor3"]
+  SETTABLEKS R0 R3 K25 ["Parent"]
   RETURN R0 0
 
 PROTO_23:
-  GETUPVAL R2 0
-  CALL R2 0 1
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["getFFlagFixLayeredClothingAssignment() must be enabled"]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
-  NAMECALL R1 R0 K3 ["GetChildren"]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["getFFlagFixLayeredClothingAssignment() must be enabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  NAMECALL R1 R0 K4 ["GetChildren"]
   CALL R1 1 3
   FORGPREP R1
-  LOADK R8 K4 ["BasePart"]
-  NAMECALL R6 R5 K5 ["IsA"]
+  LOADK R8 K5 ["BasePart"]
+  NAMECALL R6 R5 K6 ["IsA"]
   CALL R6 2 1
   JUMPIFNOT R6 [+10]
-  GETIMPORT R6 K8 [string.find]
-  GETTABLEKS R7 R5 K9 ["Name"]
-  LOADK R8 K10 ["_Att"]
+  GETIMPORT R6 K9 [string.find]
+  GETTABLEKS R7 R5 K10 ["Name"]
+  LOADK R8 K11 ["_Att"]
   CALL R6 2 1
   JUMPIFNOT R6 [+3]
-  NAMECALL R6 R5 K11 ["Remove"]
+  NAMECALL R6 R5 K12 ["Remove"]
   CALL R6 1 0
   FORGLOOP R1 2 [-16]
   RETURN R0 0
 
 PROTO_24:
-  GETUPVAL R2 0
-  CALL R2 0 1
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["getFFlagFixLayeredClothingAssignment() must be enabled"]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
-  GETUPVAL R1 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["getFFlagFixLayeredClothingAssignment() must be enabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 2
   CALL R1 0 2
   NEWTABLE R3 0 0
   NEWTABLE R4 0 0
-  NAMECALL R5 R0 K3 ["GetChildren"]
+  NAMECALL R5 R0 K4 ["GetChildren"]
   CALL R5 1 3
   FORGPREP R5
-  LOADK R12 K4 ["MeshPart"]
-  NAMECALL R10 R9 K5 ["IsA"]
+  LOADK R12 K5 ["MeshPart"]
+  NAMECALL R10 R9 K6 ["IsA"]
   CALL R10 2 1
-  JUMPIFNOT R10 [+61]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K6 ["startsWith"]
-  GETTABLEKS R11 R9 K7 ["Name"]
-  LOADK R12 K8 ["RBX_LC_"]
+  JUMPIFNOT R10 [+70]
+  GETUPVAL R13 0
+  CALL R13 0 1
+  NOT R12 R13
+  FASTCALL2K ASSERT R12 K0 [+4]
+  LOADK R13 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R11 K2 [assert]
+  CALL R11 2 0
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K7 ["startsWith"]
+  GETTABLEKS R11 R9 K8 ["Name"]
+  LOADK R12 K9 ["RBX_LC_"]
   CALL R10 2 1
   JUMPIF R10 [+7]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K6 ["startsWith"]
-  GETTABLEKS R11 R9 K7 ["Name"]
-  LOADK R12 K9 ["RBX_RIGID_"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K7 ["startsWith"]
+  GETTABLEKS R11 R9 K8 ["Name"]
+  LOADK R12 K10 ["RBX_RIGID_"]
   CALL R10 2 1
   JUMPIFNOT R10 [+10]
-  GETUPVAL R10 3
+  GETUPVAL R10 4
   MOVE R11 R9
   CALL R10 1 0
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K10 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K11 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
   LOADB R13 1
-  NAMECALL R10 R9 K11 ["SetAttribute"]
+  NAMECALL R10 R9 K12 ["SetAttribute"]
   CALL R10 3 0
-  NAMECALL R10 R9 K3 ["GetChildren"]
+  NAMECALL R10 R9 K4 ["GetChildren"]
   CALL R10 1 3
   FORGPREP R10
-  LOADK R17 K12 ["WrapLayer"]
-  NAMECALL R15 R14 K5 ["IsA"]
+  LOADK R17 K13 ["WrapLayer"]
+  NAMECALL R15 R14 K6 ["IsA"]
   CALL R15 2 1
   JUMPIFNOT R15 [+11]
-  GETIMPORT R15 K16 [Enum.WrapLayerAutoSkin.EnabledPreserve]
-  SETTABLEKS R15 R14 K17 ["AutoSkin"]
+  GETIMPORT R15 K17 [Enum.WrapLayerAutoSkin.EnabledPreserve]
+  SETTABLEKS R15 R14 K18 ["AutoSkin"]
   FASTCALL2 TABLE_INSERT R4 R14 [+5]
   MOVE R16 R4
   MOVE R17 R14
-  GETIMPORT R15 K20 [table.insert]
+  GETIMPORT R15 K21 [table.insert]
   CALL R15 2 0
   FORGLOOP R10 2 [-17]
-  GETUPVAL R10 5
+  GETUPVAL R10 6
   MOVE R11 R9
   MOVE R12 R1
   MOVE R13 R2
@@ -1118,233 +1251,242 @@ PROTO_24:
   FASTCALL2 TABLE_INSERT R3 R10 [+5]
   MOVE R12 R3
   MOVE R13 R10
-  GETIMPORT R11 K20 [table.insert]
+  GETIMPORT R11 K21 [table.insert]
   CALL R11 2 0
-  FORGLOOP R5 2 [-67]
-  GETUPVAL R5 6
+  FORGLOOP R5 2 [-76]
+  GETUPVAL R5 7
   MOVE R6 R4
   CALL R5 1 0
-  GETUPVAL R5 7
+  GETUPVAL R5 8
   MOVE R6 R3
   CALL R5 1 0
   RETURN R0 0
 
 PROTO_25:
-  LOADK R3 K0 ["LowerTorso"]
-  NAMECALL R1 R0 K1 ["FindFirstChild"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  LOADK R3 K3 ["LowerTorso"]
+  NAMECALL R1 R0 K4 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIFEQKNIL R1 [+6]
-  LOADK R4 K2 ["BasePart"]
-  NAMECALL R2 R1 K3 ["IsA"]
+  LOADK R4 K5 ["BasePart"]
+  NAMECALL R2 R1 K6 ["IsA"]
   CALL R2 2 1
   JUMPIF R2 [+2]
   LOADNIL R2
   RETURN R2 1
-  LOADK R4 K4 ["Root"]
-  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  LOADK R4 K7 ["Root"]
+  NAMECALL R2 R1 K4 ["FindFirstChild"]
   CALL R2 2 1
   JUMPIFEQKNIL R2 [+6]
-  LOADK R5 K5 ["Motor6D"]
-  NAMECALL R3 R2 K3 ["IsA"]
+  LOADK R5 K8 ["Motor6D"]
+  NAMECALL R3 R2 K6 ["IsA"]
   CALL R3 2 1
   JUMPIF R3 [+2]
   LOADNIL R3
   RETURN R3 1
-  GETTABLEKS R3 R2 K6 ["Part0"]
+  GETTABLEKS R3 R2 K9 ["Part0"]
   JUMPIFNOTEQKNIL R3 [+3]
   LOADNIL R4
   RETURN R4 1
-  GETTABLEKS R6 R3 K7 ["CFrame"]
-  GETTABLEKS R7 R2 K8 ["C0"]
+  GETTABLEKS R6 R3 K10 ["CFrame"]
+  GETTABLEKS R7 R2 K11 ["C0"]
   MUL R5 R6 R7
-  GETTABLEKS R6 R2 K9 ["C1"]
-  NAMECALL R6 R6 K10 ["Inverse"]
+  GETTABLEKS R6 R2 K12 ["C1"]
+  NAMECALL R6 R6 K13 ["Inverse"]
   CALL R6 1 1
   MUL R4 R5 R6
-  GETTABLEKS R6 R4 K11 ["Position"]
-  GETTABLEKS R7 R1 K11 ["Position"]
+  GETTABLEKS R6 R4 K14 ["Position"]
+  GETTABLEKS R7 R1 K14 ["Position"]
   SUB R5 R6 R7
   RETURN R5 1
 
 PROTO_26:
-  GETUPVAL R1 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getFFlagAutoSetupStateRefactor() must be disabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 1
   MOVE R2 R0
   CALL R1 1 1
   JUMPIF R1 [+1]
   RETURN R0 0
-  GETUPVAL R5 1
-  GETTABLEKS R2 R5 K0 ["LIMBS"]
+  GETUPVAL R5 2
+  GETTABLEKS R2 R5 K3 ["LIMBS"]
   LOADNIL R3
   LOADNIL R4
   FORGPREP R2
   MOVE R9 R6
-  NAMECALL R7 R0 K1 ["FindFirstChild"]
+  NAMECALL R7 R0 K4 ["FindFirstChild"]
   CALL R7 2 1
   JUMPIFEQKNIL R7 [+11]
-  LOADK R10 K2 ["BasePart"]
-  NAMECALL R8 R7 K3 ["IsA"]
+  LOADK R10 K5 ["BasePart"]
+  NAMECALL R8 R7 K6 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+5]
-  GETTABLEKS R9 R7 K4 ["CFrame"]
+  GETTABLEKS R9 R7 K7 ["CFrame"]
   ADD R8 R9 R1
-  SETTABLEKS R8 R7 K4 ["CFrame"]
+  SETTABLEKS R8 R7 K7 ["CFrame"]
   FORGLOOP R2 2 [-17]
   RETURN R0 0
 
 PROTO_27:
   JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  FASTCALL2K ASSERT R6 K0 [+4]
-  LOADK R7 K0 ["Inserting body with no target"]
-  GETIMPORT R5 K2 [assert]
-  CALL R5 2 0
-  GETTABLEKS R7 R3 K3 ["model"]
-  JUMPIFNOTEQKNIL R7 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  FASTCALL2K ASSERT R6 K4 [+4]
-  LOADK R7 K4 ["Inserting body with no model"]
-  GETIMPORT R5 K2 [assert]
-  CALL R5 2 0
-  GETTABLEKS R7 R2 K5 ["PrimaryPart"]
-  JUMPIFNOTEQKNIL R7 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  FASTCALL2K ASSERT R6 K6 [+4]
-  LOADK R7 K6 ["Auto setup returned model with no primary part"]
-  GETIMPORT R5 K2 [assert]
-  CALL R5 2 0
-  GETUPVAL R5 0
-  LOADK R7 K7 ["AvatarAutoSetup"]
-  LOADK R8 K8 ["Avatar Auto Setup"]
-  NAMECALL R5 R5 K9 ["TryBeginRecording"]
-  CALL R5 3 1
-  NAMECALL R6 R2 K10 ["Clone"]
-  CALL R6 1 1
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
-  LOADB R10 1
-  NAMECALL R7 R6 K12 ["SetAttribute"]
-  CALL R7 3 0
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["ATTRIBUTE_AUTO_SETUP_INPUT_ASSET"]
-  MOVE R10 R4
-  NAMECALL R7 R6 K12 ["SetAttribute"]
-  CALL R7 3 0
-  GETUPVAL R7 2
-  MOVE R8 R0
-  MOVE R9 R6
-  CALL R7 2 1
-  GETUPVAL R8 3
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K0 [+4]
+  LOADK R8 K0 ["Inserting body with no target"]
+  GETIMPORT R6 K2 [assert]
+  CALL R6 2 0
+  GETTABLEKS R8 R3 K3 ["model"]
+  JUMPIFNOTEQKNIL R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K4 [+4]
+  LOADK R8 K4 ["Inserting body with no model"]
+  GETIMPORT R6 K2 [assert]
+  CALL R6 2 0
+  GETTABLEKS R8 R2 K5 ["PrimaryPart"]
+  JUMPIFNOTEQKNIL R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K6 [+4]
+  LOADK R8 K6 ["Auto setup returned model with no primary part"]
+  GETIMPORT R6 K2 [assert]
+  CALL R6 2 0
+  GETUPVAL R6 0
+  LOADK R8 K7 ["AvatarAutoSetup"]
+  LOADK R9 K8 ["Avatar Auto Setup"]
+  NAMECALL R6 R6 K9 ["TryBeginRecording"]
+  CALL R6 3 1
+  NAMECALL R7 R2 K10 ["Clone"]
+  CALL R7 1 1
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+  LOADB R11 1
+  NAMECALL R8 R7 K12 ["SetAttribute"]
+  CALL R8 3 0
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K13 ["ATTRIBUTE_AUTO_SETUP_INPUT_ASSET"]
+  MOVE R11 R4
+  NAMECALL R8 R7 K12 ["SetAttribute"]
+  CALL R8 3 0
+  GETUPVAL R8 2
   CALL R8 0 1
-  JUMPIFNOT R8 [+14]
-  GETUPVAL R8 4
-  MOVE R9 R6
-  CALL R8 1 0
-  GETUPVAL R8 5
-  MOVE R9 R2
-  GETTABLEKS R10 R7 K14 ["proportions"]
-  CALL R8 2 0
-  GETUPVAL R8 6
-  MOVE R9 R6
-  CALL R8 1 0
-  GETUPVAL R8 7
-  MOVE R9 R6
-  CALL R8 1 0
-  GETUPVAL R8 8
-  MOVE R9 R6
-  MOVE R10 R7
-  CALL R8 2 0
-  GETIMPORT R8 K16 [game]
-  LOADK R10 K17 ["Players"]
-  NAMECALL R8 R8 K18 ["GetService"]
-  CALL R8 2 1
-  GETIMPORT R9 K21 [Instance.new]
-  LOADK R10 K22 ["HumanoidDescription"]
-  CALL R9 1 1
-  GETIMPORT R10 K25 [task.spawn]
-  NEWCLOSURE R11 P0
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE VAL R6
-  CALL R10 1 0
-  GETUPVAL R8 9
-  MOVE R9 R6
-  GETTABLEKS R10 R7 K14 ["proportions"]
-  CALL R8 2 0
-  GETUPVAL R8 10
-  MOVE R9 R6
-  MOVE R10 R3
-  CALL R8 2 0
-  GETUPVAL R8 11
-  MOVE R9 R6
-  GETTABLEKS R10 R3 K26 ["accessories"]
-  CALL R8 2 0
-  GETUPVAL R8 12
-  MOVE R9 R6
-  CALL R8 1 0
-  GETUPVAL R8 13
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
-  GETUPVAL R8 14
-  MOVE R9 R6
-  CALL R8 1 0
-  GETUPVAL R8 15
-  SETTABLEKS R8 R6 K27 ["Parent"]
-  NAMECALL R8 R6 K28 ["GetBoundingBox"]
-  CALL R8 1 2
-  GETIMPORT R12 K30 [CFrame.new]
-  LOADN R13 0
-  GETTABLEKS R16 R9 K32 ["Y"]
-  MINUS R15 R16
-  DIVK R14 R15 K31 [2]
-  LOADN R15 0
-  CALL R12 3 -1
-  NAMECALL R10 R8 K33 ["ToWorldSpace"]
-  CALL R10 -1 1
-  GETTABLEKS R11 R6 K5 ["PrimaryPart"]
-  GETTABLEKS R13 R6 K5 ["PrimaryPart"]
-  GETTABLEKS R12 R13 K29 ["CFrame"]
-  MOVE R14 R10
-  NAMECALL R12 R12 K34 ["ToObjectSpace"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K35 ["PivotOffset"]
-  GETUPVAL R8 16
-  MOVE R9 R6
-  MOVE R10 R3
-  CALL R8 2 0
-  GETUPVAL R9 15
-  GETTABLEKS R8 R9 K36 ["CurrentCamera"]
-  JUMPIFEQKNIL R8 [+24]
-  GETUPVAL R10 17
-  GETTABLEKS R9 R10 K37 ["zoomIsRequired"]
-  MOVE R10 R8
-  MOVE R11 R6
-  CALL R9 2 1
-  JUMPIFNOT R9 [+16]
-  GETTABLEKS R11 R8 K38 ["ViewportSize"]
-  GETTABLEKS R10 R11 K39 ["X"]
-  GETTABLEKS R12 R8 K38 ["ViewportSize"]
-  GETTABLEKS R11 R12 K32 ["Y"]
-  DIV R9 R10 R11
-  GETUPVAL R11 17
-  GETTABLEKS R10 R11 K40 ["zoomToExtents"]
-  MOVE R11 R8
-  MOVE R12 R6
-  MOVE R13 R9
-  CALL R10 3 0
-  NEWTABLE R11 0 1
-  MOVE R12 R6
-  SETLIST R11 R12 1 [1]
-  NAMECALL R9 R1 K41 ["Set"]
-  CALL R9 2 0
-  JUMPIFNOT R5 [+7]
-  GETUPVAL R9 0
+  JUMPIFNOT R8 [+7]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K14 ["ATTRIBUTE_ORIGINAL_MODEL_HASH"]
   MOVE R11 R5
-  GETIMPORT R12 K45 [Enum.FinishRecordingOperation.Commit]
-  NAMECALL R9 R9 K46 ["FinishRecording"]
-  CALL R9 3 0
+  NAMECALL R8 R7 K12 ["SetAttribute"]
+  CALL R8 3 0
+  LOADNIL R8
+  GETUPVAL R9 3
+  CALL R9 0 1
+  JUMPIFNOT R9 [+8]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K15 ["computeValidScaleAsync"]
+  MOVE R10 R0
+  MOVE R11 R7
+  CALL R9 2 1
+  MOVE R8 R9
+  JUMP [+5]
+  GETUPVAL R9 5
+  MOVE R10 R0
+  MOVE R11 R7
+  CALL R9 2 1
+  MOVE R8 R9
+  GETUPVAL R9 6
+  CALL R9 0 1
+  JUMPIFNOT R9 [+14]
+  GETUPVAL R9 7
+  MOVE R10 R7
+  CALL R9 1 0
+  GETUPVAL R9 8
+  MOVE R10 R2
+  GETTABLEKS R11 R8 K16 ["proportions"]
+  CALL R9 2 0
+  GETUPVAL R9 9
+  MOVE R10 R7
+  CALL R9 1 0
+  GETUPVAL R9 10
+  MOVE R10 R7
+  CALL R9 1 0
+  GETUPVAL R9 11
+  MOVE R10 R7
+  MOVE R11 R8
+  CALL R9 2 0
+  GETUPVAL R9 12
+  MOVE R10 R7
+  CALL R9 1 0
+  GETUPVAL R9 13
+  MOVE R10 R7
+  GETTABLEKS R11 R8 K16 ["proportions"]
+  CALL R9 2 0
+  GETUPVAL R9 14
+  MOVE R10 R7
+  MOVE R11 R3
+  CALL R9 2 0
+  GETUPVAL R9 15
+  MOVE R10 R7
+  GETTABLEKS R11 R3 K17 ["accessories"]
+  CALL R9 2 0
+  GETUPVAL R9 16
+  MOVE R10 R7
+  CALL R9 1 0
+  GETUPVAL R9 17
+  CALL R9 0 1
+  JUMPIFNOT R9 [+3]
+  GETUPVAL R9 18
+  MOVE R10 R7
+  CALL R9 1 0
+  GETUPVAL R9 19
+  SETTABLEKS R9 R7 K18 ["Parent"]
+  GETUPVAL R9 20
+  MOVE R10 R7
+  CALL R9 1 0
+  GETUPVAL R9 21
+  MOVE R10 R7
+  MOVE R11 R3
+  CALL R9 2 0
+  GETUPVAL R10 19
+  GETTABLEKS R9 R10 K19 ["CurrentCamera"]
+  JUMPIFEQKNIL R9 [+24]
+  GETUPVAL R11 22
+  GETTABLEKS R10 R11 K20 ["zoomIsRequired"]
+  MOVE R11 R9
+  MOVE R12 R7
+  CALL R10 2 1
+  JUMPIFNOT R10 [+16]
+  GETTABLEKS R12 R9 K21 ["ViewportSize"]
+  GETTABLEKS R11 R12 K22 ["X"]
+  GETTABLEKS R13 R9 K21 ["ViewportSize"]
+  GETTABLEKS R12 R13 K23 ["Y"]
+  DIV R10 R11 R12
+  GETUPVAL R12 22
+  GETTABLEKS R11 R12 K24 ["zoomToExtents"]
+  MOVE R12 R9
+  MOVE R13 R7
+  MOVE R14 R10
+  CALL R11 3 0
+  NEWTABLE R12 0 1
+  MOVE R13 R7
+  SETLIST R12 R13 1 [1]
+  NAMECALL R10 R1 K25 ["Set"]
+  CALL R10 2 0
+  JUMPIFNOT R6 [+7]
+  GETUPVAL R10 0
+  MOVE R12 R6
+  GETIMPORT R13 K29 [Enum.FinishRecordingOperation.Commit]
+  NAMECALL R10 R10 K30 ["FinishRecording"]
+  CALL R10 3 0
   RETURN R0 0
 
 PROTO_28:
@@ -1497,24 +1639,38 @@ PROTO_40:
   GETUPVAL R0 1
   CALL R0 0 0
   GETUPVAL R0 2
+  CALL R0 0 1
+  JUMPIFNOT R0 [+11]
   GETUPVAL R1 3
-  GETUPVAL R2 4
-  GETUPVAL R3 5
-  GETUPVAL R4 6
-  GETUPVAL R5 7
-  CALL R0 5 0
+  GETTABLEKS R0 R1 K0 ["insertBodyAsync"]
+  GETUPVAL R1 4
+  GETUPVAL R2 5
+  GETUPVAL R3 6
+  GETUPVAL R4 7
+  GETUPVAL R5 8
+  GETUPVAL R6 9
+  CALL R0 6 0
+  JUMP [+8]
+  GETUPVAL R0 10
+  GETUPVAL R1 4
+  GETUPVAL R2 5
+  GETUPVAL R3 6
+  GETUPVAL R4 7
+  GETUPVAL R5 8
+  GETUPVAL R6 9
+  CALL R0 6 0
   GETUPVAL R0 0
   CALL R0 0 1
   JUMPIFNOT R0 [+3]
-  GETUPVAL R0 8
+  GETUPVAL R0 11
   LOADNIL R1
   CALL R0 1 0
-  GETUPVAL R1 9
-  GETTABLEKS R0 R1 K0 ["autoSetupClickedSignal"]
+  GETUPVAL R1 12
+  GETTABLEKS R0 R1 K1 ["autoSetupClickedSignal"]
   JUMPIFEQKNIL R0 [+7]
-  GETUPVAL R1 9
-  GETTABLEKS R0 R1 K0 ["autoSetupClickedSignal"]
-  NAMECALL R0 R0 K1 ["Fire"]
+  GETUPVAL R1 12
+  GETTABLEKS R0 R1 K1 ["autoSetupClickedSignal"]
+  NAMECALL R0 R0 K2 ["Fire"]
   CALL R0 1 0
   RETURN R0 0
 
@@ -1599,34 +1755,48 @@ PROTO_43:
   GETUPVAL R0 1
   CALL R0 0 0
   GETUPVAL R0 2
+  CALL R0 0 1
+  JUMPIFNOT R0 [+11]
   GETUPVAL R1 3
-  GETUPVAL R2 4
-  GETUPVAL R3 5
-  GETUPVAL R4 6
-  GETUPVAL R5 7
-  CALL R0 5 0
-  GETUPVAL R0 8
+  GETTABLEKS R0 R1 K0 ["insertBodyAsync"]
+  GETUPVAL R1 4
+  GETUPVAL R2 5
+  GETUPVAL R3 6
+  GETUPVAL R4 7
+  GETUPVAL R5 8
+  GETUPVAL R6 9
+  CALL R0 6 0
+  JUMP [+8]
+  GETUPVAL R0 10
+  GETUPVAL R1 4
+  GETUPVAL R2 5
+  GETUPVAL R3 6
+  GETUPVAL R4 7
+  GETUPVAL R5 8
+  GETUPVAL R6 9
+  CALL R0 6 0
+  GETUPVAL R0 11
   LOADNIL R1
   CALL R0 1 0
-  GETUPVAL R0 9
-  LOADK R2 K0 ["autoSetupFinish"]
-  GETIMPORT R4 K3 [os.clock]
+  GETUPVAL R0 12
+  LOADK R2 K1 ["autoSetupFinish"]
+  GETIMPORT R4 K4 [os.clock]
   CALL R4 0 1
-  GETUPVAL R5 10
+  GETUPVAL R5 13
   SUB R3 R4 R5
-  GETUPVAL R4 7
-  GETUPVAL R5 11
-  NAMECALL R0 R0 K4 ["report"]
+  GETUPVAL R4 8
+  GETUPVAL R5 9
+  NAMECALL R0 R0 K5 ["report"]
   CALL R0 5 0
-  GETUPVAL R0 9
-  LOADK R2 K5 ["autoSetupAssetsGenerated"]
-  GETUPVAL R3 12
-  GETUPVAL R4 7
+  GETUPVAL R0 12
+  LOADK R2 K6 ["autoSetupAssetsGenerated"]
+  GETUPVAL R3 14
+  GETUPVAL R4 8
   CALL R3 1 1
-  GETUPVAL R4 13
-  GETUPVAL R5 5
+  GETUPVAL R4 15
+  GETUPVAL R5 6
   CALL R4 1 -1
-  NAMECALL R0 R0 K4 ["report"]
+  NAMECALL R0 R0 K5 ["report"]
   CALL R0 -1 0
   RETURN R0 0
 
@@ -1773,7 +1943,7 @@ PROTO_44:
   CALL R8 4 2
   MOVE R6 R8
   MOVE R7 R9
-  JUMPIFNOT R6 [+24]
+  JUMPIFNOT R6 [+26]
   GETUPVAL R9 17
   GETTABLEKS R8 R9 K26 ["current"]
   GETUPVAL R9 6
@@ -1785,22 +1955,24 @@ PROTO_44:
   CAPTURE UPVAL U20
   CAPTURE UPVAL U21
   CAPTURE UPVAL U22
+  CAPTURE UPVAL U23
   CAPTURE REF R7
   CAPTURE UPVAL U2
   CAPTURE REF R3
-  CAPTURE UPVAL U23
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
   CAPTURE UPVAL U6
   CAPTURE UPVAL U24
   CAPTURE UPVAL U25
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U26
+  CAPTURE UPVAL U27
   CALL R8 1 0
   JUMP [+33]
-  GETUPVAL R8 26
+  GETUPVAL R8 28
   CALL R8 0 1
   JUMPIFNOT R8 [+6]
   JUMPIFNOTEQKS R7 K32 ["Autosetup is canceled"] [+5]
-  GETUPVAL R8 23
+  GETUPVAL R8 25
   LOADNIL R9
   CALL R8 1 0
   JUMP [+24]
@@ -1894,9 +2066,9 @@ PROTO_45:
   GETUPVAL R6 9
   GETTABLEKS R5 R6 K23 ["current"]
   GETTABLE R4 R5 R3
-  JUMPIFEQKNIL R4 [+27]
+  JUMPIFEQKNIL R4 [+30]
   GETTABLEKS R5 R4 K24 ["PrimaryPart"]
-  JUMPIFEQKNIL R5 [+23]
+  JUMPIFEQKNIL R5 [+26]
   GETUPVAL R9 10
   GETTABLEKS R8 R9 K25 ["ATTRIBUTE_AUTO_SETUP_INPUT_ASSET"]
   NAMECALL R6 R4 K26 ["GetAttribute"]
@@ -1909,11 +2081,14 @@ PROTO_45:
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
   CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
   CAPTURE VAL R4
   CAPTURE VAL R0
   CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE UPVAL U16
   CAPTURE UPVAL U8
-  CAPTURE UPVAL U15
+  CAPTURE UPVAL U17
   CALL R6 1 0
   RETURN R0 0
   GETUPVAL R5 7
@@ -1922,43 +2097,45 @@ PROTO_45:
   GETUPVAL R5 8
   MOVE R6 R0
   CALL R5 1 0
-  GETUPVAL R5 16
+  GETUPVAL R5 18
   LOADK R7 K30 ["autoSetupRequested"]
   NAMECALL R5 R5 K31 ["report"]
   CALL R5 2 0
   LOADNIL R5
   GETIMPORT R6 K29 [task.spawn]
   NEWCLOSURE R7 P1
+  CAPTURE UPVAL U19
   CAPTURE UPVAL U17
-  CAPTURE UPVAL U15
   CAPTURE VAL R0
+  CAPTURE UPVAL U20
   CAPTURE UPVAL U18
-  CAPTURE UPVAL U16
   CAPTURE VAL R1
   CAPTURE VAL R3
-  CAPTURE UPVAL U19
-  CAPTURE UPVAL U20
   CAPTURE UPVAL U21
   CAPTURE UPVAL U22
   CAPTURE UPVAL U23
   CAPTURE UPVAL U24
   CAPTURE UPVAL U25
+  CAPTURE UPVAL U26
+  CAPTURE UPVAL U27
   CAPTURE UPVAL U3
   CAPTURE UPVAL U10
-  CAPTURE UPVAL U26
+  CAPTURE UPVAL U28
   CAPTURE UPVAL U9
   CAPTURE UPVAL U7
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
   CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
   CAPTURE UPVAL U8
-  CAPTURE UPVAL U27
-  CAPTURE UPVAL U28
   CAPTURE UPVAL U29
+  CAPTURE UPVAL U30
+  CAPTURE UPVAL U31
   CALL R6 1 1
   MOVE R5 R6
-  GETUPVAL R6 21
+  GETUPVAL R6 23
   DUPTABLE R7 K35 [{"timeStart", "assetId", "modelHash"}]
   SETTABLEKS R1 R7 K32 ["timeStart"]
   LOADK R8 K36 ["no model uploaded"]
@@ -1968,10 +2145,10 @@ PROTO_45:
   GETUPVAL R6 1
   MOVE R7 R5
   CALL R6 1 0
-  GETUPVAL R7 15
+  GETUPVAL R7 17
   GETTABLEKS R6 R7 K37 ["autoSetupClickedSignal"]
   JUMPIFEQKNIL R6 [+7]
-  GETUPVAL R7 15
+  GETUPVAL R7 17
   GETTABLEKS R6 R7 K37 ["autoSetupClickedSignal"]
   NAMECALL R6 R6 K38 ["Fire"]
   CALL R6 1 0
@@ -2150,23 +2327,25 @@ PROTO_47:
   CAPTURE UPVAL U4
   CAPTURE VAL R23
   CAPTURE UPVAL U13
+  CAPTURE UPVAL U14
   CAPTURE VAL R22
   CAPTURE VAL R1
+  CAPTURE UPVAL U15
   CAPTURE VAL R2
   CAPTURE VAL R0
-  CAPTURE UPVAL U14
-  CAPTURE VAL R17
-  CAPTURE UPVAL U15
   CAPTURE UPVAL U16
+  CAPTURE VAL R17
+  CAPTURE UPVAL U17
+  CAPTURE UPVAL U18
   CAPTURE VAL R7
   CAPTURE UPVAL U6
   CAPTURE VAL R20
   CAPTURE VAL R21
-  CAPTURE UPVAL U17
-  CAPTURE VAL R13
-  CAPTURE UPVAL U18
   CAPTURE UPVAL U19
+  CAPTURE VAL R13
   CAPTURE UPVAL U20
+  CAPTURE UPVAL U21
+  CAPTURE UPVAL U22
   NEWTABLE R26 0 5
   GETTABLEKS R27 R2 K22 ["startAutoSetupAsync"]
   GETTABLEKS R28 R2 K23 ["uploadModelAsync"]
@@ -2186,7 +2365,7 @@ PROTO_47:
   CAPTURE VAL R15
   CAPTURE VAL R6
   CAPTURE VAL R4
-  CAPTURE UPVAL U20
+  CAPTURE UPVAL U22
   CAPTURE VAL R2
   CAPTURE VAL R20
   NEWTABLE R27 0 3
@@ -2325,284 +2504,325 @@ MAIN:
   GETIMPORT R5 K11 [require]
   GETTABLEKS R8 R3 K12 ["Src"]
   GETTABLEKS R7 R8 K15 ["Util"]
-  GETTABLEKS R6 R7 K16 ["AvatarScalingTypes"]
+  GETTABLEKS R6 R7 K16 ["AutoSetupUtils"]
   CALL R5 1 1
   GETIMPORT R6 K11 [require]
-  GETTABLEKS R10 R3 K12 ["Src"]
-  GETTABLEKS R9 R10 K13 ["Components"]
-  GETTABLEKS R8 R9 K17 ["Sizing"]
-  GETTABLEKS R7 R8 K18 ["AvatarSizeSpecificationUtils"]
+  GETTABLEKS R9 R3 K12 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Util"]
+  GETTABLEKS R7 R8 K17 ["AvatarScalingTypes"]
   CALL R6 1 1
   GETIMPORT R7 K11 [require]
-  GETTABLEKS R10 R3 K12 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Util"]
-  GETTABLEKS R8 R9 K19 ["Base64Util"]
+  GETTABLEKS R11 R3 K12 ["Src"]
+  GETTABLEKS R10 R11 K13 ["Components"]
+  GETTABLEKS R9 R10 K18 ["Sizing"]
+  GETTABLEKS R8 R9 K19 ["AvatarSizeSpecificationUtils"]
   CALL R7 1 1
   GETIMPORT R8 K11 [require]
   GETTABLEKS R11 R3 K12 ["Src"]
   GETTABLEKS R10 R11 K15 ["Util"]
-  GETTABLEKS R9 R10 K20 ["BoundingBoxUtils"]
+  GETTABLEKS R9 R10 K20 ["Base64Util"]
   CALL R8 1 1
   GETIMPORT R9 K11 [require]
   GETTABLEKS R12 R3 K12 ["Src"]
   GETTABLEKS R11 R12 K15 ["Util"]
-  GETTABLEKS R10 R11 K21 ["CameraUtils"]
+  GETTABLEKS R10 R11 K21 ["BoundingBoxUtils"]
   CALL R9 1 1
   GETIMPORT R10 K11 [require]
   GETTABLEKS R13 R3 K12 ["Src"]
   GETTABLEKS R12 R13 K15 ["Util"]
-  GETTABLEKS R11 R12 K22 ["CharacterHashUtils"]
+  GETTABLEKS R11 R12 K22 ["CameraUtils"]
   CALL R10 1 1
   GETIMPORT R11 K11 [require]
   GETTABLEKS R14 R3 K12 ["Src"]
   GETTABLEKS R13 R14 K15 ["Util"]
-  GETTABLEKS R12 R13 K23 ["Constants"]
+  GETTABLEKS R12 R13 K23 ["CharacterHashUtils"]
   CALL R11 1 1
   GETIMPORT R12 K11 [require]
-  GETTABLEKS R14 R3 K24 ["Packages"]
-  GETTABLEKS R13 R14 K25 ["Dash"]
+  GETTABLEKS R15 R3 K12 ["Src"]
+  GETTABLEKS R14 R15 K15 ["Util"]
+  GETTABLEKS R13 R14 K24 ["Constants"]
   CALL R12 1 1
   GETIMPORT R13 K11 [require]
-  GETTABLEKS R15 R3 K24 ["Packages"]
-  GETTABLEKS R14 R15 K26 ["Framework"]
+  GETTABLEKS R15 R3 K25 ["Packages"]
+  GETTABLEKS R14 R15 K26 ["Dash"]
   CALL R13 1 1
   GETIMPORT R14 K11 [require]
-  GETTABLEKS R17 R3 K12 ["Src"]
-  GETTABLEKS R16 R17 K15 ["Util"]
-  GETTABLEKS R15 R16 K27 ["HumanoidValueUtil"]
+  GETTABLEKS R16 R3 K25 ["Packages"]
+  GETTABLEKS R15 R16 K27 ["Framework"]
   CALL R14 1 1
   GETIMPORT R15 K11 [require]
-  GETTABLEKS R17 R3 K24 ["Packages"]
-  GETTABLEKS R16 R17 K28 ["React"]
+  GETTABLEKS R18 R3 K12 ["Src"]
+  GETTABLEKS R17 R18 K15 ["Util"]
+  GETTABLEKS R16 R17 K28 ["HumanoidValueUtil"]
   CALL R15 1 1
   GETIMPORT R16 K11 [require]
-  GETTABLEKS R19 R3 K12 ["Src"]
-  GETTABLEKS R18 R19 K15 ["Util"]
-  GETTABLEKS R17 R18 K29 ["SelectionWrapper"]
+  GETTABLEKS R18 R3 K25 ["Packages"]
+  GETTABLEKS R17 R18 K29 ["React"]
   CALL R16 1 1
   GETIMPORT R17 K11 [require]
   GETTABLEKS R20 R3 K12 ["Src"]
   GETTABLEKS R19 R20 K15 ["Util"]
-  GETTABLEKS R18 R19 K30 ["StringUtil"]
+  GETTABLEKS R18 R19 K30 ["SelectionWrapper"]
   CALL R17 1 1
   GETIMPORT R18 K11 [require]
-  GETTABLEKS R20 R3 K12 ["Src"]
-  GETTABLEKS R19 R20 K31 ["Types"]
+  GETTABLEKS R21 R3 K12 ["Src"]
+  GETTABLEKS R20 R21 K15 ["Util"]
+  GETTABLEKS R19 R20 K31 ["StringUtil"]
   CALL R18 1 1
   GETIMPORT R19 K11 [require]
-  GETTABLEKS R22 R3 K12 ["Src"]
-  GETTABLEKS R21 R22 K13 ["Components"]
-  GETTABLEKS R20 R21 K32 ["UGCValidationContext"]
+  GETTABLEKS R21 R3 K12 ["Src"]
+  GETTABLEKS R20 R21 K32 ["Types"]
   CALL R19 1 1
   GETIMPORT R20 K11 [require]
   GETTABLEKS R23 R3 K12 ["Src"]
-  GETTABLEKS R22 R23 K15 ["Util"]
-  GETTABLEKS R21 R22 K33 ["assetUriToId"]
+  GETTABLEKS R22 R23 K13 ["Components"]
+  GETTABLEKS R21 R22 K33 ["UGCValidationContext"]
   CALL R20 1 1
   GETIMPORT R21 K11 [require]
   GETTABLEKS R24 R3 K12 ["Src"]
   GETTABLEKS R23 R24 K15 ["Util"]
-  GETTABLEKS R22 R23 K34 ["findUnderlyingMeshAssetIds"]
+  GETTABLEKS R22 R23 K34 ["assetUriToId"]
   CALL R21 1 1
   GETIMPORT R22 K11 [require]
-  GETTABLEKS R26 R3 K12 ["Src"]
-  GETTABLEKS R25 R26 K13 ["Components"]
-  GETTABLEKS R24 R25 K35 ["DisambiguationMenu"]
-  GETTABLEKS R23 R24 K36 ["getChoosableAssetTypes"]
+  GETTABLEKS R25 R3 K12 ["Src"]
+  GETTABLEKS R24 R25 K15 ["Util"]
+  GETTABLEKS R23 R24 K35 ["findUnderlyingMeshAssetIds"]
   CALL R22 1 1
   GETIMPORT R23 K11 [require]
-  GETTABLEKS R26 R3 K12 ["Src"]
-  GETTABLEKS R25 R26 K37 ["Flags"]
-  GETTABLEKS R24 R25 K38 ["getDFFlagIgnoreLayeredClothingHandleScale"]
+  GETTABLEKS R27 R3 K12 ["Src"]
+  GETTABLEKS R26 R27 K13 ["Components"]
+  GETTABLEKS R25 R26 K36 ["DisambiguationMenu"]
+  GETTABLEKS R24 R25 K37 ["getChoosableAssetTypes"]
   CALL R23 1 1
   GETIMPORT R24 K11 [require]
   GETTABLEKS R27 R3 K12 ["Src"]
-  GETTABLEKS R26 R27 K37 ["Flags"]
-  GETTABLEKS R25 R26 K39 ["getFFlagAvatarAutosetupCancel"]
+  GETTABLEKS R26 R27 K38 ["Flags"]
+  GETTABLEKS R25 R26 K39 ["getDFFlagIgnoreLayeredClothingHandleScale"]
   CALL R24 1 1
   GETIMPORT R25 K11 [require]
   GETTABLEKS R28 R3 K12 ["Src"]
-  GETTABLEKS R27 R28 K37 ["Flags"]
-  GETTABLEKS R26 R27 K40 ["getFFlagAvatarAutosetupStatusNotifications"]
+  GETTABLEKS R27 R28 K38 ["Flags"]
+  GETTABLEKS R26 R27 K40 ["getFFlagAutoSetupStateRefactor"]
   CALL R25 1 1
   GETIMPORT R26 K11 [require]
   GETTABLEKS R29 R3 K12 ["Src"]
-  GETTABLEKS R28 R29 K37 ["Flags"]
-  GETTABLEKS R27 R28 K41 ["getFFlagAvatarAutosetupProgressWithETA"]
+  GETTABLEKS R28 R29 K38 ["Flags"]
+  GETTABLEKS R27 R28 K41 ["getFFlagAvatarAutosetupCancel"]
   CALL R26 1 1
   GETIMPORT R27 K11 [require]
   GETTABLEKS R30 R3 K12 ["Src"]
-  GETTABLEKS R29 R30 K37 ["Flags"]
-  GETTABLEKS R28 R29 K42 ["getFFlagAvatarPreviewerAllowInvalidHumanoid"]
+  GETTABLEKS R29 R30 K38 ["Flags"]
+  GETTABLEKS R28 R29 K42 ["getFFlagAvatarAutosetupStatusNotifications"]
   CALL R27 1 1
   GETIMPORT R28 K11 [require]
   GETTABLEKS R31 R3 K12 ["Src"]
-  GETTABLEKS R30 R31 K37 ["Flags"]
-  GETTABLEKS R29 R30 K43 ["getFFlagAvatarPreviewerSortClothingUI"]
+  GETTABLEKS R30 R31 K38 ["Flags"]
+  GETTABLEKS R29 R30 K43 ["getFFlagAvatarAutosetupProgressWithETA"]
   CALL R28 1 1
   GETIMPORT R29 K11 [require]
   GETTABLEKS R32 R3 K12 ["Src"]
-  GETTABLEKS R31 R32 K37 ["Flags"]
-  GETTABLEKS R30 R31 K44 ["getFFlagDebugAvatarPreviewerSharedCache"]
+  GETTABLEKS R31 R32 K38 ["Flags"]
+  GETTABLEKS R30 R31 K44 ["getFFlagAvatarPreviewerAllowInvalidHumanoid"]
   CALL R29 1 1
   GETIMPORT R30 K11 [require]
   GETTABLEKS R33 R3 K12 ["Src"]
-  GETTABLEKS R32 R33 K37 ["Flags"]
-  GETTABLEKS R31 R32 K45 ["getFFlagFixLayeredClothingAssignment"]
+  GETTABLEKS R32 R33 K38 ["Flags"]
+  GETTABLEKS R31 R32 K45 ["getFFlagAvatarPreviewerSortClothingUI"]
   CALL R30 1 1
   GETIMPORT R31 K11 [require]
   GETTABLEKS R34 R3 K12 ["Src"]
-  GETTABLEKS R33 R34 K37 ["Flags"]
-  GETTABLEKS R32 R33 K46 ["getFFlagIncludeBodyColorsInAutoSetup"]
+  GETTABLEKS R33 R34 K38 ["Flags"]
+  GETTABLEKS R32 R33 K46 ["getFFlagDebugAvatarPreviewerSharedCache"]
   CALL R31 1 1
   GETIMPORT R32 K11 [require]
   GETTABLEKS R35 R3 K12 ["Src"]
-  GETTABLEKS R34 R35 K37 ["Flags"]
-  GETTABLEKS R33 R34 K47 ["getFFlagNoAvatarAutoSetupInputModelUpload"]
+  GETTABLEKS R34 R35 K38 ["Flags"]
+  GETTABLEKS R33 R34 K47 ["getFFlagFixLayeredClothingAssignment"]
   CALL R32 1 1
   GETIMPORT R33 K11 [require]
   GETTABLEKS R36 R3 K12 ["Src"]
-  GETTABLEKS R35 R36 K15 ["Util"]
-  GETTABLEKS R34 R35 K48 ["getRotationInXZPlane"]
+  GETTABLEKS R35 R36 K38 ["Flags"]
+  GETTABLEKS R34 R35 K48 ["getFFlagIncludeBodyColorsInAutoSetup"]
   CALL R33 1 1
   GETIMPORT R34 K11 [require]
   GETTABLEKS R37 R3 K12 ["Src"]
-  GETTABLEKS R36 R37 K37 ["Flags"]
-  GETTABLEKS R35 R36 K49 ["getFIntAvatarPreviewerMaxSerializedModelToSendBytes"]
+  GETTABLEKS R36 R37 K38 ["Flags"]
+  GETTABLEKS R35 R36 K49 ["getFFlagNoAvatarAutoSetupInputModelUpload"]
   CALL R34 1 1
   GETIMPORT R35 K11 [require]
-  GETTABLEKS R39 R3 K12 ["Src"]
-  GETTABLEKS R38 R39 K13 ["Components"]
-  GETTABLEKS R37 R38 K50 ["DisambiguationMenuContext"]
-  GETTABLEKS R36 R37 K51 ["inferLoneMeshPartAssignment"]
+  GETTABLEKS R38 R3 K12 ["Src"]
+  GETTABLEKS R37 R38 K38 ["Flags"]
+  GETTABLEKS R36 R37 K50 ["getFFlagSBT4744ReportAutoSetupAvatarTelemetry"]
   CALL R35 1 1
   GETIMPORT R36 K11 [require]
-  GETTABLEKS R40 R3 K12 ["Src"]
-  GETTABLEKS R39 R40 K13 ["Components"]
-  GETTABLEKS R38 R39 K50 ["DisambiguationMenuContext"]
-  GETTABLEKS R37 R38 K52 ["assignLoneMeshParts"]
+  GETTABLEKS R39 R3 K12 ["Src"]
+  GETTABLEKS R38 R39 K15 ["Util"]
+  GETTABLEKS R37 R38 K51 ["getRotationInXZPlane"]
   CALL R36 1 1
   GETIMPORT R37 K11 [require]
   GETTABLEKS R40 R3 K12 ["Src"]
-  GETTABLEKS R39 R40 K15 ["Util"]
-  GETTABLEKS R38 R39 K53 ["renamePartsForClothing"]
+  GETTABLEKS R39 R40 K38 ["Flags"]
+  GETTABLEKS R38 R39 K52 ["getFIntAvatarPreviewerMaxSerializedModelToSendBytes"]
   CALL R37 1 1
-  DUPTABLE R38 K62 [{"Created", "Pending", "Processing", "Finalizing", "Completed", "Invalid", "Failed", "Canceled"}]
-  LOADN R39 1
-  SETTABLEKS R39 R38 K54 ["Created"]
-  LOADN R39 2
-  SETTABLEKS R39 R38 K55 ["Pending"]
-  LOADN R39 3
-  SETTABLEKS R39 R38 K56 ["Processing"]
-  LOADN R39 4
-  SETTABLEKS R39 R38 K57 ["Finalizing"]
-  LOADN R39 5
-  SETTABLEKS R39 R38 K58 ["Completed"]
-  LOADN R39 101
-  SETTABLEKS R39 R38 K59 ["Invalid"]
-  LOADN R39 102
-  SETTABLEKS R39 R38 K60 ["Failed"]
-  LOADN R39 103
-  SETTABLEKS R39 R38 K61 ["Canceled"]
-  DUPCLOSURE R39 K63 [PROTO_0]
-  CAPTURE VAL R6
-  CAPTURE VAL R12
-  CAPTURE VAL R11
-  DUPCLOSURE R40 K64 [PROTO_1]
-  CAPTURE VAL R14
-  CAPTURE VAL R11
-  CAPTURE VAL R1
-  CAPTURE VAL R30
-  CAPTURE VAL R23
-  DUPCLOSURE R41 K65 [PROTO_3]
-  DUPCLOSURE R42 K66 [PROTO_4]
-  CAPTURE VAL R11
-  DUPCLOSURE R43 K67 [PROTO_5]
-  DUPCLOSURE R44 K68 [PROTO_7]
-  CAPTURE VAL R8
-  DUPCLOSURE R45 K69 [PROTO_12]
-  CAPTURE VAL R44
-  CAPTURE VAL R33
-  CAPTURE VAL R8
-  CAPTURE VAL R2
-  DUPCLOSURE R46 K70 [PROTO_13]
-  CAPTURE VAL R27
-  DUPCLOSURE R47 K71 [PROTO_14]
-  DUPCLOSURE R48 K72 [PROTO_15]
-  CAPTURE VAL R17
-  DUPCLOSURE R49 K73 [PROTO_16]
-  CAPTURE VAL R17
-  DUPCLOSURE R50 K74 [PROTO_17]
-  CAPTURE VAL R17
-  CAPTURE VAL R14
-  DUPCLOSURE R51 K75 [PROTO_18]
-  CAPTURE VAL R5
-  CAPTURE VAL R27
-  CAPTURE VAL R14
-  DUPCLOSURE R52 K76 [PROTO_20]
-  CAPTURE VAL R30
-  DUPCLOSURE R53 K77 [PROTO_22]
-  CAPTURE VAL R31
-  DUPCLOSURE R54 K78 [PROTO_23]
-  CAPTURE VAL R30
-  DUPCLOSURE R55 K79 [PROTO_24]
-  CAPTURE VAL R30
-  CAPTURE VAL R22
-  CAPTURE VAL R17
-  CAPTURE VAL R49
-  CAPTURE VAL R11
-  CAPTURE VAL R35
-  CAPTURE VAL R52
-  CAPTURE VAL R36
-  DUPCLOSURE R56 K80 [PROTO_25]
-  DUPCLOSURE R57 K81 [PROTO_26]
-  CAPTURE VAL R56
-  CAPTURE VAL R11
-  DUPCLOSURE R58 K82 [PROTO_27]
-  CAPTURE VAL R0
-  CAPTURE VAL R11
-  CAPTURE VAL R39
-  CAPTURE VAL R30
-  CAPTURE VAL R57
-  CAPTURE VAL R50
-  CAPTURE VAL R55
-  CAPTURE VAL R54
-  CAPTURE VAL R40
-  CAPTURE VAL R51
-  CAPTURE VAL R42
-  CAPTURE VAL R46
-  CAPTURE VAL R47
-  CAPTURE VAL R31
-  CAPTURE VAL R53
-  CAPTURE VAL R2
-  CAPTURE VAL R45
-  CAPTURE VAL R9
-  DUPCLOSURE R59 K83 [PROTO_28]
-  CAPTURE VAL R7
-  CAPTURE VAL R34
-  DUPCLOSURE R60 K84 [PROTO_47]
-  CAPTURE VAL R13
-  CAPTURE VAL R16
-  CAPTURE VAL R15
-  CAPTURE VAL R4
-  CAPTURE VAL R11
-  CAPTURE VAL R29
+  GETIMPORT R38 K11 [require]
+  GETTABLEKS R42 R3 K12 ["Src"]
+  GETTABLEKS R41 R42 K13 ["Components"]
+  GETTABLEKS R40 R41 K53 ["DisambiguationMenuContext"]
+  GETTABLEKS R39 R40 K54 ["inferLoneMeshPartAssignment"]
+  CALL R38 1 1
+  GETIMPORT R39 K11 [require]
+  GETTABLEKS R43 R3 K12 ["Src"]
+  GETTABLEKS R42 R43 K13 ["Components"]
+  GETTABLEKS R41 R42 K53 ["DisambiguationMenuContext"]
+  GETTABLEKS R40 R41 K55 ["assignLoneMeshParts"]
+  CALL R39 1 1
+  GETIMPORT R40 K11 [require]
+  GETTABLEKS R43 R3 K12 ["Src"]
+  GETTABLEKS R42 R43 K15 ["Util"]
+  GETTABLEKS R41 R42 K56 ["renamePartsForClothing"]
+  CALL R40 1 1
+  DUPTABLE R41 K65 [{"Created", "Pending", "Processing", "Finalizing", "Completed", "Invalid", "Failed", "Canceled"}]
+  LOADN R42 1
+  SETTABLEKS R42 R41 K57 ["Created"]
+  LOADN R42 2
+  SETTABLEKS R42 R41 K58 ["Pending"]
+  LOADN R42 3
+  SETTABLEKS R42 R41 K59 ["Processing"]
+  LOADN R42 4
+  SETTABLEKS R42 R41 K60 ["Finalizing"]
+  LOADN R42 5
+  SETTABLEKS R42 R41 K61 ["Completed"]
+  LOADN R42 101
+  SETTABLEKS R42 R41 K62 ["Invalid"]
+  LOADN R42 102
+  SETTABLEKS R42 R41 K63 ["Failed"]
+  LOADN R42 103
+  SETTABLEKS R42 R41 K64 ["Canceled"]
+  DUPCLOSURE R42 K66 [PROTO_0]
   CAPTURE VAL R25
-  CAPTURE VAL R19
-  CAPTURE VAL R26
-  CAPTURE VAL R28
-  CAPTURE VAL R37
-  CAPTURE VAL R10
-  CAPTURE VAL R30
-  CAPTURE VAL R58
-  CAPTURE VAL R32
   CAPTURE VAL R7
-  CAPTURE VAL R34
-  CAPTURE VAL R38
-  CAPTURE VAL R20
-  CAPTURE VAL R21
-  CAPTURE VAL R24
-  DUPCLOSURE R61 K85 [PROTO_50]
-  CAPTURE VAL R60
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  DUPCLOSURE R43 K67 [PROTO_1]
+  CAPTURE VAL R25
   CAPTURE VAL R15
-  RETURN R61 1
+  CAPTURE VAL R12
+  CAPTURE VAL R1
+  CAPTURE VAL R32
+  CAPTURE VAL R24
+  DUPCLOSURE R44 K68 [PROTO_3]
+  CAPTURE VAL R25
+  DUPCLOSURE R45 K69 [PROTO_4]
+  CAPTURE VAL R25
+  CAPTURE VAL R12
+  DUPCLOSURE R46 K70 [PROTO_5]
+  CAPTURE VAL R25
+  DUPCLOSURE R47 K71 [PROTO_7]
+  CAPTURE VAL R25
+  CAPTURE VAL R9
+  DUPCLOSURE R48 K72 [PROTO_12]
+  CAPTURE VAL R25
+  CAPTURE VAL R47
+  CAPTURE VAL R36
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  DUPCLOSURE R49 K73 [PROTO_13]
+  CAPTURE VAL R25
+  CAPTURE VAL R29
+  DUPCLOSURE R50 K74 [PROTO_14]
+  CAPTURE VAL R25
+  DUPCLOSURE R51 K75 [PROTO_15]
+  CAPTURE VAL R25
+  CAPTURE VAL R18
+  DUPCLOSURE R52 K76 [PROTO_16]
+  CAPTURE VAL R25
+  CAPTURE VAL R18
+  DUPCLOSURE R53 K77 [PROTO_17]
+  CAPTURE VAL R25
+  CAPTURE VAL R18
+  CAPTURE VAL R15
+  DUPCLOSURE R54 K78 [PROTO_18]
+  CAPTURE VAL R25
+  CAPTURE VAL R6
+  CAPTURE VAL R29
+  CAPTURE VAL R15
+  DUPCLOSURE R55 K79 [PROTO_20]
+  CAPTURE VAL R25
+  CAPTURE VAL R32
+  DUPCLOSURE R56 K80 [PROTO_22]
+  CAPTURE VAL R25
+  CAPTURE VAL R33
+  DUPCLOSURE R57 K81 [PROTO_23]
+  CAPTURE VAL R25
+  CAPTURE VAL R32
+  DUPCLOSURE R58 K82 [PROTO_24]
+  CAPTURE VAL R25
+  CAPTURE VAL R32
+  CAPTURE VAL R23
+  CAPTURE VAL R18
+  CAPTURE VAL R52
+  CAPTURE VAL R12
+  CAPTURE VAL R38
+  CAPTURE VAL R55
+  CAPTURE VAL R39
+  DUPCLOSURE R59 K83 [PROTO_25]
+  CAPTURE VAL R25
+  DUPCLOSURE R60 K84 [PROTO_26]
+  CAPTURE VAL R25
+  CAPTURE VAL R59
+  CAPTURE VAL R12
+  DUPCLOSURE R61 K85 [PROTO_27]
+  CAPTURE VAL R0
+  CAPTURE VAL R12
+  CAPTURE VAL R35
+  CAPTURE VAL R25
+  CAPTURE VAL R5
+  CAPTURE VAL R42
+  CAPTURE VAL R32
+  CAPTURE VAL R60
+  CAPTURE VAL R53
+  CAPTURE VAL R58
+  CAPTURE VAL R57
+  CAPTURE VAL R43
+  CAPTURE VAL R44
+  CAPTURE VAL R54
+  CAPTURE VAL R45
+  CAPTURE VAL R49
+  CAPTURE VAL R50
+  CAPTURE VAL R33
+  CAPTURE VAL R56
+  CAPTURE VAL R2
+  CAPTURE VAL R46
+  CAPTURE VAL R48
+  CAPTURE VAL R10
+  DUPCLOSURE R62 K86 [PROTO_28]
+  CAPTURE VAL R8
+  CAPTURE VAL R37
+  DUPCLOSURE R63 K87 [PROTO_47]
+  CAPTURE VAL R14
+  CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R31
+  CAPTURE VAL R27
+  CAPTURE VAL R20
+  CAPTURE VAL R28
+  CAPTURE VAL R30
+  CAPTURE VAL R40
+  CAPTURE VAL R11
+  CAPTURE VAL R32
+  CAPTURE VAL R25
+  CAPTURE VAL R5
+  CAPTURE VAL R61
+  CAPTURE VAL R34
+  CAPTURE VAL R8
+  CAPTURE VAL R37
+  CAPTURE VAL R41
+  CAPTURE VAL R21
+  CAPTURE VAL R22
+  CAPTURE VAL R26
+  DUPCLOSURE R64 K88 [PROTO_50]
+  CAPTURE VAL R63
+  CAPTURE VAL R16
+  RETURN R64 1

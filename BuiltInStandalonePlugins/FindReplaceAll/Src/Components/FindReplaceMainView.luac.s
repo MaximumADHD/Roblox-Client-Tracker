@@ -8,99 +8,102 @@ PROTO_0:
 PROTO_1:
   GETUPVAL R0 0
   CALL R0 0 1
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["useRef"]
-  LOADNIL R2
-  CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["useState"]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["useRef"]
+  LOADNIL R3
+  CALL R2 1 1
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K2 ["minSearchHeaderHeight"]
-  CALL R2 1 2
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K3 ["useCallback"]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R3
-  NEWTABLE R6 0 0
-  CALL R4 2 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K1 ["useState"]
-  LOADNIL R6
-  CALL R5 1 2
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K4 ["useToggleState"]
-  LOADB R8 0
-  CALL R7 1 1
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K1 ["useState"]
+  GETTABLEKS R3 R4 K1 ["useState"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K2 ["minSearchHeaderHeight"]
+  CALL R3 1 2
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R4
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K1 ["useState"]
+  LOADNIL R7
+  CALL R6 1 2
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K4 ["useToggleState"]
   LOADB R9 0
-  CALL R8 1 2
-  GETUPVAL R10 4
-  LOADK R11 K5 ["Frame"]
-  NEWTABLE R12 4 0
-  LOADN R13 0
-  SETTABLEKS R13 R12 K6 ["BorderSizePixel"]
-  GETIMPORT R13 K9 [UDim2.fromScale]
-  LOADN R14 1
+  CALL R8 1 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K1 ["useState"]
+  LOADB R10 0
+  CALL R9 1 2
+  GETUPVAL R11 5
+  LOADK R12 K5 ["Frame"]
+  NEWTABLE R13 4 0
+  LOADN R14 0
+  SETTABLEKS R14 R13 K6 ["BorderSizePixel"]
+  GETIMPORT R14 K9 [UDim2.fromScale]
   LOADN R15 1
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K10 ["Size"]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K11 ["Tag"]
-  LOADK R14 K12 ["FindReplaceAll-XPad FindReplaceAll-BG-Surface100 data-testid=MainViewFrame"]
-  SETTABLE R14 R12 R13
-  DUPTABLE R13 K16 [{"DropdownOverlay", "WidgetHeader", "WidgetBody"}]
-  GETUPVAL R14 4
-  LOADK R15 K5 ["Frame"]
-  DUPTABLE R16 K20 [{"Size", "BackgroundTransparency", "ZIndex", "ref"}]
-  GETIMPORT R17 K9 [UDim2.fromScale]
-  LOADN R18 1
-  LOADN R19 1
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K10 ["Size"]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K17 ["BackgroundTransparency"]
-  LOADN R17 3
-  SETTABLEKS R17 R16 K18 ["ZIndex"]
-  SETTABLEKS R1 R16 K19 ["ref"]
+  LOADN R16 1
   CALL R14 2 1
-  SETTABLEKS R14 R13 K13 ["DropdownOverlay"]
-  GETUPVAL R14 4
+  SETTABLEKS R14 R13 K10 ["Size"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K11 ["Tag"]
+  LOADK R15 K12 ["FindReplaceAll-XPad FindReplaceAll-BG-Surface100 data-testid=MainViewFrame"]
+  SETTABLE R15 R13 R14
+  DUPTABLE R14 K16 [{"DropdownOverlay", "WidgetHeader", "WidgetBody"}]
   GETUPVAL R15 5
-  DUPTABLE R16 K28 [{"LayoutOrder", "ZIndex", "dropdownOverlay", "onSearchHeaderSizeChange", "onQueryIdChange", "disableConfirmationDialog", "showReplace", "setShowReplace"}]
-  MOVE R17 R0
-  CALL R17 0 1
-  SETTABLEKS R17 R16 K21 ["LayoutOrder"]
-  LOADN R17 2
-  SETTABLEKS R17 R16 K18 ["ZIndex"]
-  SETTABLEKS R1 R16 K22 ["dropdownOverlay"]
-  SETTABLEKS R4 R16 K23 ["onSearchHeaderSizeChange"]
-  SETTABLEKS R6 R16 K24 ["onQueryIdChange"]
-  GETTABLEKS R17 R7 K29 ["disable"]
-  SETTABLEKS R17 R16 K25 ["disableConfirmationDialog"]
-  SETTABLEKS R8 R16 K26 ["showReplace"]
-  SETTABLEKS R9 R16 K27 ["setShowReplace"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K14 ["WidgetHeader"]
-  GETUPVAL R14 4
-  GETUPVAL R15 6
-  DUPTABLE R16 K34 [{"LayoutOrder", "ZIndex", "headerOffset", "confirmationDialogVisible", "toggleConfirmationDialog", "showReplace", "queryId"}]
-  MOVE R17 R0
-  CALL R17 0 1
-  SETTABLEKS R17 R16 K21 ["LayoutOrder"]
-  LOADN R17 2
-  SETTABLEKS R17 R16 K18 ["ZIndex"]
-  SETTABLEKS R2 R16 K30 ["headerOffset"]
-  GETTABLEKS R17 R7 K35 ["enabled"]
-  SETTABLEKS R17 R16 K31 ["confirmationDialogVisible"]
-  GETTABLEKS R17 R7 K36 ["toggle"]
-  SETTABLEKS R17 R16 K32 ["toggleConfirmationDialog"]
-  SETTABLEKS R8 R16 K26 ["showReplace"]
-  SETTABLEKS R5 R16 K33 ["queryId"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K15 ["WidgetBody"]
-  CALL R10 3 -1
-  RETURN R10 -1
+  LOADK R16 K5 ["Frame"]
+  DUPTABLE R17 K20 [{"Size", "BackgroundTransparency", "ZIndex", "ref"}]
+  GETIMPORT R18 K9 [UDim2.fromScale]
+  LOADN R19 1
+  LOADN R20 1
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K10 ["Size"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K17 ["BackgroundTransparency"]
+  LOADN R18 3
+  SETTABLEKS R18 R17 K18 ["ZIndex"]
+  SETTABLEKS R2 R17 K19 ["ref"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K13 ["DropdownOverlay"]
+  GETUPVAL R15 5
+  GETUPVAL R16 6
+  DUPTABLE R17 K28 [{"LayoutOrder", "ZIndex", "dropdownOverlay", "onSearchHeaderSizeChange", "onQueryIdChange", "disableConfirmationDialog", "showReplace", "setShowReplace"}]
+  MOVE R18 R0
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K21 ["LayoutOrder"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K18 ["ZIndex"]
+  SETTABLEKS R2 R17 K22 ["dropdownOverlay"]
+  SETTABLEKS R5 R17 K23 ["onSearchHeaderSizeChange"]
+  SETTABLEKS R7 R17 K24 ["onQueryIdChange"]
+  GETTABLEKS R18 R8 K29 ["disable"]
+  SETTABLEKS R18 R17 K25 ["disableConfirmationDialog"]
+  SETTABLEKS R9 R17 K26 ["showReplace"]
+  SETTABLEKS R10 R17 K27 ["setShowReplace"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K14 ["WidgetHeader"]
+  GETUPVAL R15 5
+  GETUPVAL R16 7
+  DUPTABLE R17 K35 [{"LayoutOrder", "ZIndex", "headerOffset", "confirmationDialogVisible", "toggleConfirmationDialog", "showReplace", "queryId", "resultManager"}]
+  MOVE R18 R0
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K21 ["LayoutOrder"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K18 ["ZIndex"]
+  SETTABLEKS R3 R17 K30 ["headerOffset"]
+  GETTABLEKS R18 R8 K36 ["enabled"]
+  SETTABLEKS R18 R17 K31 ["confirmationDialogVisible"]
+  GETTABLEKS R18 R8 K37 ["toggle"]
+  SETTABLEKS R18 R17 K32 ["toggleConfirmationDialog"]
+  SETTABLEKS R9 R17 K26 ["showReplace"]
+  SETTABLEKS R6 R17 K33 ["queryId"]
+  SETTABLEKS R1 R17 K34 ["resultManager"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K15 ["WidgetBody"]
+  CALL R11 3 -1
+  RETURN R11 -1
 
 MAIN:
   PREPVARARGS 0
@@ -116,33 +119,39 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["ReactUtils"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Components"]
-  GETTABLEKS R4 R5 K11 ["FindReplaceWidgetHeader"]
-  CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K10 ["Components"]
-  GETTABLEKS R5 R6 K12 ["FindReplaceWidgetBody"]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K8 ["ReactUtils"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K9 ["createNextOrder"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["FindReplaceWidgetHeader"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Resources"]
-  GETTABLEKS R6 R7 K14 ["StyleConstants"]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K13 ["FindReplaceWidgetBody"]
   CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Resources"]
+  GETTABLEKS R7 R8 K15 ["StyleConstants"]
+  CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Packages"]
-  GETTABLEKS R8 R9 K8 ["ReactUtils"]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Hooks"]
+  GETTABLEKS R8 R9 K17 ["useResultsManager"]
   CALL R7 1 1
-  GETTABLEKS R6 R7 K15 ["createNextOrder"]
-  GETTABLEKS R7 R1 K16 ["createElement"]
-  DUPCLOSURE R8 K17 [PROTO_1]
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R2
-  CAPTURE VAL R7
+  GETTABLEKS R8 R1 K18 ["createElement"]
+  DUPCLOSURE R9 K19 [PROTO_1]
   CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R8
   CAPTURE VAL R4
-  RETURN R8 1
+  CAPTURE VAL R5
+  RETURN R9 1

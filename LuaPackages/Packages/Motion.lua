@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["Motion"]["Motion"])
+local Package = require(PackageIndex["Motion-31ab8d40-0.0.7"]["Motion"])
 
 export type TransitionConfig = Package.TransitionConfig
 export type MotionTransition = Package.MotionTransition

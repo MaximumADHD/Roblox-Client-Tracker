@@ -1,0 +1,40 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["ContextStack"]
+  DUPTABLE R2 K2 [{"providers"}]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K1 ["providers"]
+  DUPTABLE R3 K4 [{"FindReplaceAllMainView"}]
+  GETUPVAL R4 0
+  GETUPVAL R5 2
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K3 ["FindReplaceAllMainView"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ReactUtils"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Components"]
+  GETTABLEKS R4 R5 K11 ["FindReplaceMainView"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K12 ["createElement"]
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R5 1

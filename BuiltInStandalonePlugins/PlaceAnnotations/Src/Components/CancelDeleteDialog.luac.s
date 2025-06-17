@@ -2,49 +2,105 @@ PROTO_0:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["createElement"]
-  GETUPVAL R3 2
-  DUPTABLE R4 K10 [{"Plugin", "Title", "Modal", "Resizable", "Enabled", "OnClose", "ZIndexBehavior", "Size"}]
-  GETUPVAL R5 3
-  NAMECALL R5 R5 K0 ["use"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K2 ["Plugin"]
-  LOADK R7 K11 ["ConfirmDeleteDialog"]
-  LOADK R8 K3 ["Title"]
-  NAMECALL R5 R1 K12 ["getText"]
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K3 ["Title"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K4 ["Modal"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K5 ["Resizable"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K6 ["Enabled"]
-  GETTABLEKS R5 R0 K13 ["OnCancel"]
-  SETTABLEKS R5 R4 K7 ["OnClose"]
-  GETIMPORT R5 K16 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R5 R4 K8 ["ZIndexBehavior"]
-  GETIMPORT R5 K19 [Vector2.new]
-  LOADN R6 204
-  LOADN R7 160
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K9 ["Size"]
-  DUPTABLE R5 K21 [{"Contents"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K1 ["createElement"]
-  GETUPVAL R7 4
-  DUPTABLE R8 K24 [{"Text", "OnDelete", "OnCancel"}]
-  GETTABLEKS R9 R0 K22 ["Text"]
-  SETTABLEKS R9 R8 K22 ["Text"]
-  GETTABLEKS R9 R0 K23 ["OnDelete"]
-  SETTABLEKS R9 R8 K23 ["OnDelete"]
-  GETTABLEKS R9 R0 K13 ["OnCancel"]
-  SETTABLEKS R9 R8 K13 ["OnCancel"]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["fflagAnnotationsFixForPolyfillOff"]
+  JUMPIFNOT R4 [+76]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 4
+  DUPTABLE R5 K10 [{"Title", "Modal", "Resizable", "Enabled", "OnClose", "ZIndexBehavior", "Size"}]
+  LOADK R8 K11 ["ConfirmDeleteDialog"]
+  LOADK R9 K3 ["Title"]
+  NAMECALL R6 R1 K12 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K3 ["Title"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K4 ["Modal"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K5 ["Resizable"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K6 ["Enabled"]
+  GETTABLEKS R6 R0 K13 ["OnCancel"]
+  SETTABLEKS R6 R5 K7 ["OnClose"]
+  GETIMPORT R6 K16 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R6 R5 K8 ["ZIndexBehavior"]
+  GETIMPORT R6 K19 [Vector2.new]
+  LOADN R7 204
+  LOADN R8 160
   CALL R6 2 1
-  SETTABLEKS R6 R5 K20 ["Contents"]
-  CALL R2 3 -1
-  RETURN R2 -1
+  SETTABLEKS R6 R5 K9 ["Size"]
+  DUPTABLE R6 K21 [{"Provider"}]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K22 ["FoundationProvider"]
+  DUPTABLE R9 K24 [{"theme"}]
+  MOVE R10 R2
+  JUMPIFNOT R10 [+2]
+  GETTABLEKS R10 R2 K25 ["Name"]
+  SETTABLEKS R10 R9 K23 ["theme"]
+  DUPTABLE R10 K27 [{"Contents"}]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K2 ["createElement"]
+  GETUPVAL R12 6
+  DUPTABLE R13 K30 [{"Text", "OnDelete", "OnCancel"}]
+  GETTABLEKS R14 R0 K28 ["Text"]
+  SETTABLEKS R14 R13 K28 ["Text"]
+  GETTABLEKS R14 R0 K29 ["OnDelete"]
+  SETTABLEKS R14 R13 K29 ["OnDelete"]
+  GETTABLEKS R14 R0 K13 ["OnCancel"]
+  SETTABLEKS R14 R13 K13 ["OnCancel"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K26 ["Contents"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K20 ["Provider"]
+  CALL R3 3 1
+  RETURN R3 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 7
+  DUPTABLE R5 K32 [{"Plugin", "Title", "Modal", "Resizable", "Enabled", "OnClose", "ZIndexBehavior", "Size"}]
+  GETUPVAL R6 8
+  NAMECALL R6 R6 K0 ["use"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K31 ["Plugin"]
+  LOADK R8 K11 ["ConfirmDeleteDialog"]
+  LOADK R9 K3 ["Title"]
+  NAMECALL R6 R1 K12 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K3 ["Title"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K4 ["Modal"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K5 ["Resizable"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K6 ["Enabled"]
+  GETTABLEKS R6 R0 K13 ["OnCancel"]
+  SETTABLEKS R6 R5 K7 ["OnClose"]
+  GETIMPORT R6 K16 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R6 R5 K8 ["ZIndexBehavior"]
+  GETIMPORT R6 K19 [Vector2.new]
+  LOADN R7 204
+  LOADN R8 160
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K9 ["Size"]
+  DUPTABLE R6 K27 [{"Contents"}]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 6
+  DUPTABLE R9 K30 [{"Text", "OnDelete", "OnCancel"}]
+  GETTABLEKS R10 R0 K28 ["Text"]
+  SETTABLEKS R10 R9 K28 ["Text"]
+  GETTABLEKS R10 R0 K29 ["OnDelete"]
+  SETTABLEKS R10 R9 K29 ["OnDelete"]
+  GETTABLEKS R10 R0 K13 ["OnCancel"]
+  SETTABLEKS R10 R9 K13 ["OnCancel"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K26 ["Contents"]
+  CALL R3 3 1
+  RETURN R3 1
 
 MAIN:
   PREPVARARGS 0
@@ -60,23 +116,43 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["ContextServices"]
-  GETTABLEKS R4 R3 K10 ["Localization"]
-  GETTABLEKS R5 R3 K11 ["Plugin"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Components"]
-  GETTABLEKS R7 R8 K14 ["Dialog"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K12 ["Src"]
-  GETTABLEKS R9 R10 K13 ["Components"]
-  GETTABLEKS R8 R9 K15 ["CancelDeleteContents"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K16 [PROTO_0]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Foundation"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Bin"]
+  GETTABLEKS R6 R7 K11 ["Common"]
+  GETTABLEKS R5 R6 K12 ["defineLuaFlags"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K13 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Hooks"]
+  GETTABLEKS R6 R7 K15 ["useTheme"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K16 ["ContextServices"]
+  GETTABLEKS R7 R6 K17 ["Localization"]
+  GETTABLEKS R9 R2 K18 ["UI"]
+  GETTABLEKS R8 R9 K19 ["Dialog"]
+  GETTABLEKS R9 R6 K20 ["Plugin"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K13 ["Src"]
+  GETTABLEKS R12 R13 K21 ["Components"]
+  GETTABLEKS R11 R12 K19 ["Dialog"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K13 ["Src"]
+  GETTABLEKS R13 R14 K21 ["Components"]
+  GETTABLEKS R12 R13 K22 ["CancelDeleteContents"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K23 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  RETURN R8 1
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  RETURN R12 1

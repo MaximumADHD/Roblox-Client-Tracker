@@ -1,10 +1,12 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local ContextActionService = game:GetService("ContextActionService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local TextChatService = game:GetService("TextChatService")
+local TweenService = game:GetService("TweenService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
@@ -22,6 +24,11 @@ local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local Images = UIBlox.App.ImageSet.Images
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
+local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommon).Stores
+local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
+
+local InGameMenuConstants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 
 local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
 
@@ -49,6 +56,10 @@ local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 
+local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
+local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
+local FIntUILessTooltipDuration = game:DefineFastInt("UILessTooltipDuration", 10)
+
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local isInExperienceUIVREnabled =
@@ -66,6 +77,13 @@ if game:GetEngineFeature("InGameChromeSignalAPI") then
 	if FFlagEnableChromeAnalytics and (not GetFFlagFixChromeReferences() or ChromeEnabled()) then
 		ChromeAnalytics = require(Chrome.ChromeShared.Analytics)
 	end
+end
+
+local LocalStore
+local ChromeConstants
+if ChromeEnabled() then
+	LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
+	ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
 end
 
 local Connection = require(script.Parent.Connection)
@@ -135,6 +153,8 @@ local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
 end
 
+local NUM_EXPERIENCES_USER_SEEN_UI_LESS_TOOLTIP_KEY = "NumExperiencesUserSeenUILessTooltipKey"
+
 local TopBarApp = Roact.PureComponent:extend("TopBarApp")
 
 TopBarApp.validateProps = t.strictInterface({
@@ -152,6 +172,96 @@ function TopBarApp:init()
 	self.unibarRightSidePosition, self.setUnibarRightSidePosition = Roact.createBinding(UDim2.new())
 	self.closeButtonState, self.setCloseButtonState = Roact.createBinding(false)
 	self.badgeOver13Visible, self.setBadgeOver13Visible = Roact.createBinding(false)
+
+	if FFlagAddUILessMode then
+		self.uiLessStore = CoreGuiCommonStores.GetUILessStore(false)
+
+		if FIntAddUILessModeVariant ~= 0 then
+			self.uiLessTooltipVisible, self.setUILessTooltipVisible = Roact.createBinding(false)
+			self.uiLessTooltipTransparency, self.setUILessTooltipTransparency = Roact.createBinding(0)
+
+			self.fadeOutUILessTooltip = function()
+				local transparencyValue = Instance.new("NumberValue")
+				transparencyValue.Value = 0
+				transparencyValue:GetPropertyChangedSignal("Value"):Connect(function()
+					self.setUILessTooltipTransparency(transparencyValue.Value)
+				end)
+				local goalValue = { Value = 1 }
+				local tweenInfo = TweenInfo.new(0.5)
+				self.uiLessTooltipTween = TweenService:Create(transparencyValue, tweenInfo, goalValue)
+
+				self.uiLessTooltipTween.Completed:Connect(function()
+					self.setUILessTooltipVisible(false)
+					self.uiLessTooltipTween = nil
+				end)
+
+				self.uiLessTooltipTween:Play()
+			end
+
+			self.cleanupUILessTooltip = function()
+				if self.uiLessTooltipTween then
+					self.uiLessTooltipTween:Cancel()
+					self.uiLessTooltipTween = nil
+				end
+				if self.uiLessTooltipTimer then
+					task.cancel(self.uiLessTooltipTimer)
+					self.uiLessTooltipTimer = nil
+				end
+			end
+
+			if self.uiLessStore.getUILessModeEnabled(false) then
+				local shouldShowUILessTooltip = true
+				if LocalStore then
+					local numExperiencesUserSeenUILessTooltip = LocalStore.loadForLocalPlayer(NUM_EXPERIENCES_USER_SEEN_UI_LESS_TOOLTIP_KEY) or 0
+					shouldShowUILessTooltip = numExperiencesUserSeenUILessTooltip < ChromeConstants.MAX_NUM_UNIVERSES_SHOWN
+					if shouldShowUILessTooltip then
+						LocalStore.storeForLocalPlayer(NUM_EXPERIENCES_USER_SEEN_UI_LESS_TOOLTIP_KEY, numExperiencesUserSeenUILessTooltip + 1)
+					end
+				end
+
+				if shouldShowUILessTooltip then
+					self.setUILessTooltipVisible(true)
+					self.uiLessTooltipTimer = task.delay(FIntUILessTooltipDuration, function()
+						self.fadeOutUILessTooltip()
+						self.uiLessTooltipTimer = nil
+					end)
+				end
+			end
+
+			local toggleUILess = function(_name, inputState)
+				if inputState ~= Enum.UserInputState.Begin then return end
+
+				if self.uiLessStore.getUILessModeEnabled(false) then
+					if FIntAddUILessModeVariant == 1 then
+						self.uiLessStore.setUIVisible(function(prevUIVisible)
+							-- Only pop the menu when the menu visibility is in-sync with the TopBar visibility
+							-- Some hamburger menu actions automatically close the In-Game Menu, in which case pressing escape should only hide the TopBar and not pop the In-Game Menu
+							if prevUIVisible == SettingsHub:GetVisibility() then
+								SettingsHub:PopMenu(false, true, InGameMenuConstants.AnalyticsMenuOpenTypes.Keyboard)
+							end
+							return not prevUIVisible
+						end)
+						self.cleanupUILessTooltip()
+						self.setUILessTooltipVisible(false)
+					elseif FIntAddUILessModeVariant == 2 then
+						self.uiLessStore.setUIVisible(function(prevUIVisible)
+							return not prevUIVisible
+						end)
+						if SettingsHub:GetVisibility() then
+							SettingsHub:PopMenu(false, true, InGameMenuConstants.AnalyticsMenuOpenTypes.Keyboard)
+						end
+						self.cleanupUILessTooltip()
+						self.setUILessTooltipVisible(false)
+					end
+				else
+					SettingsHub:PopMenu(false, true, InGameMenuConstants.AnalyticsMenuOpenTypes.Keyboard)
+				end
+			end
+
+			ContextActionService:BindCoreAction("ToggleUILess", toggleUILess, false, Enum.KeyCode.Escape)
+		end
+	end
+
 	self.onCloseBtnStateChange = function(_, newControlState)
 		self.setCloseButtonState(newControlState)
 	end
@@ -217,6 +327,16 @@ function TopBarApp:willUnmount()
 
 		if FFlagConnectGamepadChrome then
 			self.GamepadConnector:disconnectFromTopbar()
+		end
+	end
+
+	if FFlagAddUILessMode then
+		if self.uiLessStore then
+			self.uiLessStore.cleanup()
+		end
+		if FIntAddUILessModeVariant ~= 0 then
+			self.cleanupUILessTooltip()
+			ContextActionService:UnbindCoreAction("ToggleUILess")
 		end
 	end
 end
@@ -352,6 +472,63 @@ function TopBarApp:renderWithStyle(style)
 			}, {
 				MenuIcon = newMenuIcon,
 			}) 
+			else nil,
+		UILessTooltip = if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0
+			then withLocalization({
+				uiLessTooltipTitle = Constants.LocalizedKeys.UILessTooltipTitle,
+				uiLessTooltipDescription = Constants.LocalizedKeys.UILessTooltipDescription,
+			})(function(localized) 
+				return Roact.createElement("Frame", {
+					BackgroundColor3 = style.Tokens.Global.Color.White.Color3,
+					BorderSizePixel = 0,
+					Position = UDim2.new(
+						0,
+						screenSideOffset,
+						0,
+						if GetFFlagChangeTopbarHeightCalculation() then Constants.TopBarTopMargin else 0
+					),
+					AutomaticSize = Enum.AutomaticSize.XY,
+					BackgroundTransparency = self.uiLessTooltipTransparency,
+					Visible = self.uiLessTooltipVisible,
+					ZIndex = 10000,
+					[Roact.Ref] = self.uiLessTooltip
+				}, {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, style.Tokens.Global.Space_100),
+						PaddingBottom = UDim.new(0, style.Tokens.Global.Space_100),
+						PaddingLeft = UDim.new(0, style.Tokens.Global.Space_150),
+						PaddingRight = UDim.new(0, style.Tokens.Global.Space_150),
+					}),
+					Corner = Roact.createElement("UICorner", {
+						CornerRadius = UDim.new(0, style.Tokens.Semantic.Radius.Small),
+					}),
+					VerticalLayout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Vertical,
+						Padding = UDim.new(0, style.Tokens.Global.Space_50),
+					}),
+					Title = Roact.createElement("TextLabel", {
+						Text = localized.uiLessTooltipTitle,
+						TextSize = style.Tokens.Global.FontSize_50,
+						TextTransparency = self.uiLessTooltipTransparency,
+						Font = Enum.Font.BuilderSansBold,
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						LayoutOrder = 1,
+					}),
+					Description = Roact.createElement("TextLabel", {
+						Text = localized.uiLessTooltipDescription,
+						TextSize = style.Tokens.Global.FontSize_50,
+						TextTransparency = self.uiLessTooltipTransparency,
+						Font = Enum.Font.BuilderSans,
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						LayoutOrder = 2,
+					}),
+				})
+			end)
 			else nil,
 		--Remove with isNewInGameMenuEnabled
 		LegacyCloseMenu = not Unibar and not isNewInGameMenuEnabled() and Roact.createElement("Frame", {

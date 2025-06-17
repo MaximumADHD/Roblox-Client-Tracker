@@ -55,9 +55,13 @@ PROTO_7:
   RETURN R0 0
 
 PROTO_8:
-  LOADK R4 K0 ["RenderConfirmDeleteDialog"]
-  GETTABLEKS R5 R1 K1 ["Name"]
-  NAMECALL R2 R0 K2 ["Invoke"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["fflagAnnotationsFixForPolyfillOff"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  LOADK R4 K1 ["RenderConfirmDeleteDialog"]
+  GETTABLEKS R5 R1 K2 ["Name"]
+  NAMECALL R2 R0 K3 ["Invoke"]
   CALL R2 3 0
   RETURN R0 0
 
@@ -515,6 +519,7 @@ MAIN:
   DUPCLOSURE R12 K36 [PROTO_7]
   SETTABLEKS R12 R11 K37 ["syncEditAnnotation"]
   DUPCLOSURE R12 K38 [PROTO_8]
+  CAPTURE VAL R1
   SETTABLEKS R12 R11 K39 ["renderConfirmDeleteDialog"]
   DUPCLOSURE R12 K40 [PROTO_9]
   SETTABLEKS R12 R11 K41 ["retryLoadAnnotations"]

@@ -519,7 +519,10 @@ MAIN:
   GETTABLEKS R8 R9 K12 ["Components"]
   GETTABLEKS R7 R8 K14 ["RoactProfilerComponentsTable"]
   CALL R6 1 1
-  GETTABLEKS R7 R3 K15 ["DeveloperTools"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K5 ["Packages"]
+  GETTABLEKS R8 R9 K15 ["DeveloperTools"]
+  CALL R7 1 1
   GETTABLEKS R8 R7 K16 ["RoactInspectorApi"]
   GETTABLEKS R10 R0 K9 ["Src"]
   GETTABLEKS R9 R10 K17 ["Actions"]

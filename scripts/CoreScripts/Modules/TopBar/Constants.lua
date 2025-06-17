@@ -116,4 +116,9 @@ return {
 		StatusActive = "active",
 		StatusInactive = "inactive",
 	},
+
+	LocalizedKeys = {
+		UILessTooltipTitle = "CoreScripts.TopBar.Label.UILessHintTitle",
+		UILessTooltipDescription = "CoreScripts.TopBar.Label.UILessHintDescription",
+	},
 }

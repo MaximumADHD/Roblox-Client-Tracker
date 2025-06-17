@@ -8,14 +8,19 @@ local PromptNativeUpsell = require(Root.Actions.PromptNativeUpsell)
 
 local NativeUpsellReducer = Rodux.createReducer({}, {
 	[PromptNativeUpsell.name] = function(state, action)
-		return {
+		local newState = {
 			robuxProductId = action.robuxProductId,
 			productId = action.productId,
 			robuxPurchaseAmount = action.robuxPurchaseAmount,
 			robuxAmountBeforeBonus = action.robuxAmountBeforeBonus,
 			price = action.price,
+			itemProductId = action.itemProductId,
+			itemName = action.itemName,
+			universeId = action.universeId,
 		}
+		
+		return newState
 	end,
 })
 
-return NativeUpsellReducer
+return NativeUpsellReducer 

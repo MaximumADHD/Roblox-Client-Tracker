@@ -20,6 +20,8 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleSinglePressIntegrationExit = SharedFlags.FFlagConsoleSinglePressIntegrationExit
 local FFlagChromeShortcutDisableRespawn = SharedFlags.FFlagChromeShortcutDisableRespawn
 local FFlagChromeShortcutBarUseHideOverrides = SharedFlags.FFlagChromeShortcutBarUseHideOverrides
+local FFlagShortcutBarUseTokens = SharedFlags.FFlagShortcutBarUseTokens
+local FFlagChromeUnbindAllShortcuts = SharedFlags.FFlagChromeUnbindAllShortcuts
 
 type ShortcutId = Types.ShortcutId
 type ShortcutBarId = Types.ShortcutBarId
@@ -57,6 +59,9 @@ export type ShortcutService = {
 
 	_bindShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId) -> (),
 	_unbindShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId) -> (),
+	_bindShortcut: (ShortcutService, shortcutId: ShortcutId) -> (),
+	_unbindShortcut: (ShortcutService, shortcutId: ShortcutId) -> (),
+	_unbindAllShortcuts: (ShortcutService) -> (),
 	_handleShortcutEvent: (
 		ShortcutService
 	) -> (actionName: string, userInputState: Enum.UserInputState, input: InputObject) -> Enum.ContextActionResult,
@@ -66,6 +71,7 @@ export type ShortcutService = {
 	_currentShortcutBar: ShortcutBarId?,
 	_shortcutBarHiddenOverrides: { [Types.ShortcutOverrideId]: boolean? },
 	_shortcutBarHidden: boolean,
+	_boundShortcuts: {},
 }
 
 local function _handleShortcutEvent(shortcutService: ShortcutService)
@@ -97,6 +103,8 @@ function ShortcutService.new(): ShortcutService
 
 	self.onShortcutBarChanged = Signal.new()
 
+	self._boundShortcuts = {}
+
 	return (setmetatable(self, ShortcutService) :: any) :: ShortcutService
 end
 
@@ -108,6 +116,9 @@ function ShortcutService:registerShortcut(shortcut: Types.ShortcutRegisterProps)
 	local newShortcut = shortcut :: Types.ShortcutProps
 	if shortcut.label then
 		newShortcut.label = locales:Format(shortcut.label)
+	end
+	if FFlagShortcutBarUseTokens then
+		newShortcut.displayPriority = shortcut.displayPriority or 0
 	end
 	if FFlagChromeShortcutDisableRespawn then
 		if shortcut.availability == nil then
@@ -142,7 +153,9 @@ function ShortcutService:shortcutChanged(shortcut: Types.ShortcutProps)
 end
 
 function ShortcutService:updateShortcutBar(shortcutBarId: ShortcutBarId?)
-	if self._currentShortcutBar and self._shortcutBarList[self._currentShortcutBar] then
+	if FFlagChromeUnbindAllShortcuts then
+		self:_unbindAllShortcuts()
+	elseif self._currentShortcutBar and self._shortcutBarList[self._currentShortcutBar] then
 		self:_unbindShortcutBar(self._currentShortcutBar)
 	end
 
@@ -243,22 +256,15 @@ function ShortcutService:_bindShortcutBar(shortcutBarId: ShortcutBarId)
 			if not shortcut or not shortcut.actionName then
 				continue
 			end
-			local actionName = shortcut.actionName
-			ContextActionService:UnbindCoreAction(actionName)
+			self:_unbindShortcut(shortcutId)
 			if shortcut.availability:get() == AvailabilitySignalState.Unavailable then
 				continue
 			end
-
-			ContextActionService:BindCoreAction(actionName, _handleShortcutEvent(self), false, shortcut.keyCode)
+			self:_bindShortcut(shortcutId)
 		else
 			if shortcut and shortcut.actionName then
-				ContextActionService:UnbindCoreAction(shortcut.actionName)
-				ContextActionService:BindCoreAction(
-					shortcut.actionName,
-					_handleShortcutEvent(self),
-					false,
-					shortcut.keyCode
-				)
+				self:_unbindShortcut(shortcutId)
+				self:_bindShortcut(shortcutId)
 			end
 		end
 	end
@@ -269,8 +275,40 @@ function ShortcutService:_unbindShortcutBar(shortcutBarId: ShortcutBarId)
 		for k, shortcutId in self._shortcutBarList[shortcutBarId] do
 			local shortcut = self._shortcuts[shortcutId]
 			if shortcut and shortcut.actionName then
-				ContextActionService:UnbindCoreAction(shortcut.actionName)
+				self:_unbindShortcut(shortcutId)
 			end
+		end
+	end
+end
+
+function ShortcutService:_bindShortcut(shortcutId: ShortcutId)
+	local shortcut = self._shortcuts[shortcutId]
+	if shortcut and shortcut.actionName then
+		ContextActionService:BindCoreAction(shortcut.actionName, _handleShortcutEvent(self), false, shortcut.keyCode)
+		if FFlagChromeUnbindAllShortcuts then
+			self._boundShortcuts[shortcut.actionName] = true
+		end
+	end
+end
+
+function ShortcutService:_unbindShortcut(shortcutId: ShortcutId)
+	local shortcut = self._shortcuts[shortcutId]
+	if shortcut and shortcut.actionName then
+		ContextActionService:UnbindCoreAction(shortcut.actionName)
+		if FFlagChromeUnbindAllShortcuts then
+			self._boundShortcuts[shortcut.actionName] = false
+		end
+	end
+end
+
+function ShortcutService:_unbindAllShortcuts()
+	if not FFlagChromeUnbindAllShortcuts then
+		return
+	end
+	for actionName, isBound in self._boundShortcuts do
+		if isBound then
+			ContextActionService:UnbindCoreAction(actionName :: string)
+			self._boundShortcuts[actionName] = false
 		end
 	end
 end

@@ -46,6 +46,8 @@ local GetFFlagLocalMutedNilFix = require(CorePackages.Workspace.Packages.SharedF
 local GetFFlagBatchVoiceParticipantsUpdates = require(VoiceChatCore.Flags.GetFFlagBatchVoiceParticipantsUpdates)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
+local GetFFlagExpChatUseVoiceParticipantsStore =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExpChatUseVoiceParticipantsStore
 
 local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
@@ -57,26 +59,43 @@ local MALFORMED_DATA_WARNING = "Malformed message data sent to chat event %q. If
 	.. "check what you are firing to this event"
 
 local chatStore
+local VoiceStore = if GetFFlagExpChatUseVoiceParticipantsStore()
+	then ExperienceChat.Stores.GetVoiceStore(false)
+	else nil
 local SPY_ACTION_WHITELIST = {
 	[VoiceEnabledChanged.name] = function(action)
 		ExperienceChat.Events.VoiceEnabledChanged(action.enabled)
 	end,
 
 	[VoiceStateChanged.name] = function(action)
-		ExperienceChat.Events.VoiceStateChanged(action.userId, action.newState)
+		if GetFFlagExpChatUseVoiceParticipantsStore() then
+			VoiceStore.handleVoiceStateChanged(action.userId, action.newState)
+		else
+			ExperienceChat.Events.VoiceStateChanged(action.userId, action.newState)
+		end
 	end,
 
 	[ParticipantsChanged.name] = function(action)
-		ExperienceChat.Events.VoiceParticipantsChanged(action.newParticipants)
+		if GetFFlagExpChatUseVoiceParticipantsStore() then
+			VoiceStore.handleVoiceParticipantsChanged(action.newParticipants)
+		else
+			ExperienceChat.Events.VoiceParticipantsChanged(action.newParticipants)
+		end
 	end,
-
-	[ParticipantAdded.name] = function(action)
-		ExperienceChat.Events.VoiceParticipantAdded(action.userId)
-	end,
-
-	[ParticipantRemoved.name] = function(action)
-		ExperienceChat.Events.VoiceParticipantRemoved(action.userId)
-	end,
+	-- VoiceParticipantAdded is already dispatched in VoiceChatServiceManager when a
+	-- voice user joins, so we can remove this second dispatch
+	[ParticipantAdded.name] = if GetFFlagExpChatUseVoiceParticipantsStore()
+		then nil
+		else function(action)
+			ExperienceChat.Events.VoiceParticipantAdded(action.userId)
+		end,
+	-- VoiceParticipantRemoved is already dispatched in VoiceChatServiceManager when a
+	-- voice user leaves, so we can remove this second dispatch
+	[ParticipantRemoved.name] = if GetFFlagExpChatUseVoiceParticipantsStore()
+		then nil
+		else function(action)
+			ExperienceChat.Events.VoiceParticipantRemoved(action.userId)
+		end,
 }
 
 local spyMiddleware = function(nextDispatch)

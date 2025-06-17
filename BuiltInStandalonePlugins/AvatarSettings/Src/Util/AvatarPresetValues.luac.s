@@ -31,8 +31,8 @@ MAIN:
   GETIMPORT R2 K42 [Enum.AvatarSettingsScaleMode.CustomScale]
   SETTABLEKS R2 R1 K0 ["bodyScaleSetting"]
   GETIMPORT R2 K45 [NumberRange.new]
-  LOADK R3 K46 [6.5]
-  LOADK R4 K46 [6.5]
+  LOADK R3 K46 [5.5]
+  LOADK R4 K46 [5.5]
   CALL R2 2 1
   SETTABLEKS R2 R1 K37 ["bodyScaleCustomHeight"]
   GETIMPORT R2 K18 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]

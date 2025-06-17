@@ -26,8 +26,6 @@ local GetFFlagEnablePromptPurchaseRequestedV2Take2 = require(Root.Flags.GetFFlag
 local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
 	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
 local GetFFlagEnableCreatorStorePurchasingCutover = require(Root.Flags.GetFFlagEnableCreatorStorePurchasingCutover)
-local FFlagEnablePreSignedVngShopRedirectUrl =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePreSignedVngShopRedirectUrl
 
 -- This is the approximate strategy for URL building that we use elsewhere
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
@@ -323,29 +321,7 @@ local function getCatalogItemDetails(itemId: number, itemType: ("asset" | "bundl
 	end)
 end
 
-local function getRobuxUpsellProduct(price: number, robuxBalance: number, upsellPlatform: string)
-	local options = {
-		Url = APIS_URL .. "payments-gateway/v1/products/get-upsell-product",
-		Method = "POST",
-		Body = HttpService:JSONEncode({
-			upsell_platform = upsellPlatform,
-			user_robux_balance = robuxBalance,
-			attempt_robux_amount = price,
-		}),
-		Headers = {
-			["Content-Type"] = "application/json",
-			["Accept"] = "application/json",
-		},
-	}
-
-	return Promise.new(function(resolve, reject)
-		spawn(function()
-			request(options, resolve, reject)
-		end)
-	end)
-end
-
-local function getRobuxUpsellProductWithUniverseItemInfo(price: number, robuxBalance: number, upsellPlatform: string,  itemProductId: number?, itemName:string?, universeId: number?)
+local function getRobuxUpsellProduct(price: number, robuxBalance: number, upsellPlatform: string,  itemProductId: number?, itemName:string?, universeId: number?)
 	local options = {
 		Url = APIS_URL .. "payments-gateway/v1/products/get-upsell-product",
 		Method = "POST",
@@ -433,7 +409,6 @@ local function getPurchaseWarning(mobileProductId: string?, productId: number?, 
 		Url = url,
 		Method = "GET",
 	}
-
 	return Promise.new(function(resolve, reject)
 		spawn(function()
 			request(options, resolve, reject)
@@ -526,7 +501,6 @@ function Network.new()
 			then Promise.promisify(getCreatorStoreProductInfo)
 			else nil,
 		getRobuxUpsellProduct = Promise.promisify(getRobuxUpsellProduct),
-		getRobuxUpsellProductWithUniverseItemInfo = Promise.promisify(getRobuxUpsellProductWithUniverseItemInfo),
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),
 		postPremiumImpression = Promise.promisify(postPremiumImpression),
 		getPremiumUpsellPrecheck = Promise.promisify(getPremiumUpsellPrecheck),
@@ -535,7 +509,7 @@ function Network.new()
 		getPurchaseWarning = Promise.promisify(getPurchaseWarning),
 		postPurchaseWarningAcknowledge = Promise.promisify(postPurchaseWarningAcknowledge),
 		checkUserPurchaseSettings = Promise.promisify(checkUserPurchaseSettings),
-		getVngShopUrl = if FFlagEnablePreSignedVngShopRedirectUrl then Promise.promisify(getVngShopUrl) else nil,
+		getVngShopUrl = Promise.promisify(getVngShopUrl),
 	}
 
 	setmetatable(networkService, {

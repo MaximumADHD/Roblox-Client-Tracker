@@ -579,7 +579,7 @@ MAIN:
   LOADK R20 K169 ["TextLabel"]
   DUPTABLE R21 K171 [{"FontFace"}]
   GETIMPORT R22 K173 [Font.new]
-  LOADK R23 K174 ["rbxasset://fonts/families/SourceSans.json"]
+  LOADK R23 K174 ["rbxasset://fonts/families/SourceSansPro.json"]
   GETIMPORT R24 K177 [Enum.FontWeight.Regular]
   GETIMPORT R25 K180 [Enum.FontStyle.Normal]
   CALL R22 3 1
@@ -589,7 +589,7 @@ MAIN:
   LOADK R24 K181 [".Bold"]
   DUPTABLE R25 K171 [{"FontFace"}]
   GETIMPORT R26 K173 [Font.new]
-  LOADK R27 K174 ["rbxasset://fonts/families/SourceSans.json"]
+  LOADK R27 K174 ["rbxasset://fonts/families/SourceSansPro.json"]
   GETIMPORT R28 K183 [Enum.FontWeight.Bold]
   GETIMPORT R29 K180 [Enum.FontStyle.Normal]
   CALL R26 3 1
@@ -601,7 +601,7 @@ MAIN:
   LOADK R21 K184 ["TextButton"]
   DUPTABLE R22 K185 [{"FontFace", "TextSize"}]
   GETIMPORT R23 K173 [Font.new]
-  LOADK R24 K174 ["rbxasset://fonts/families/SourceSans.json"]
+  LOADK R24 K174 ["rbxasset://fonts/families/SourceSansPro.json"]
   GETIMPORT R25 K187 [Enum.FontWeight.Medium]
   GETIMPORT R26 K180 [Enum.FontStyle.Normal]
   CALL R23 3 1

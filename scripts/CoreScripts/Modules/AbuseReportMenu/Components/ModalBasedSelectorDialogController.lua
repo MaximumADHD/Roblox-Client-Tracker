@@ -9,8 +9,6 @@ local Roact = require(CorePackages.Packages.Roact)
 local Constants = require(root.Components.Constants)
 local ModalBaseSelectorDialog = require(root.Components.ModalBaseSelectorDialog)
 
-local GetFFlagAbuseReportMenuConsoleSupportRefactor =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAbuseReportMenuConsoleSupportRefactor
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
@@ -72,9 +70,7 @@ local function mountModalSelector(viewportHeight, viewportWidth, selections, onS
 		screenGui.DisplayOrder = 7
 		screenGui.Enabled = true
 		screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-		screenGui.Parent = if GetFFlagAbuseReportMenuConsoleSupportRefactor()
-			then CoreGui:FindFirstChild(Constants.AbuseReportMenuPlaceholderFrame, true)
-			else CoreGui:FindFirstChild(Constants.AbuseReportMenuRootName, true)
+		screenGui.Parent = CoreGui:FindFirstChild(Constants.AbuseReportMenuPlaceholderFrame, true)
 
 		elements.modalSelectorScreenGui = screenGui
 

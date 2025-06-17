@@ -286,11 +286,20 @@ PROTO_13:
   GETTABLEKS R3 R4 K7 ["AvatarPreviewFolderTag"]
   NAMECALL R1 R0 K8 ["AddTag"]
   CALL R1 2 0
-  GETIMPORT R1 K10 [game]
-  LOADK R3 K11 ["Workspace"]
-  NAMECALL R1 R1 K12 ["GetService"]
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K13 ["Parent"]
+  GETIMPORT R2 K10 [workspace]
+  GETTABLEKS R1 R2 K11 ["CurrentCamera"]
+  JUMPIF R1 [+16]
+  GETIMPORT R2 K2 [Instance.new]
+  LOADK R3 K12 ["Camera"]
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K13 ["ParentCameraName"]
+  SETTABLEKS R3 R2 K5 ["Name"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K6 ["Archivable"]
+  GETIMPORT R3 K10 [workspace]
+  SETTABLEKS R3 R2 K14 ["Parent"]
+  SETTABLEKS R1 R0 K14 ["Parent"]
   RETURN R0 1
 
 PROTO_14:
@@ -328,42 +337,27 @@ PROTO_14:
   GETIMPORT R3 K8 [assert]
   CALL R3 2 0
   LOADNIL R1
-  JUMPIF R1 [+27]
-  GETIMPORT R2 K12 [Instance.new]
-  LOADK R3 K3 ["Folder"]
-  CALL R2 1 1
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K13 ["AvatarPreviewFolderName"]
-  SETTABLEKS R3 R2 K14 ["Name"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K15 ["Archivable"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K0 ["AvatarPreviewFolderTag"]
-  NAMECALL R3 R2 K16 ["AddTag"]
-  CALL R3 2 0
-  GETIMPORT R3 K18 [game]
-  LOADK R5 K19 ["Workspace"]
-  NAMECALL R3 R3 K20 ["GetService"]
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K21 ["Parent"]
+  JUMPIF R1 [+3]
+  GETUPVAL R2 2
+  CALL R2 0 1
   MOVE R1 R2
-  FASTCALL2K ASSERT R1 K22 [+5]
+  FASTCALL2K ASSERT R1 K10 [+5]
   MOVE R3 R1
-  LOADK R4 K22 ["AvatarPreviewFolder should exist"]
+  LOADK R4 K10 ["AvatarPreviewFolder should exist"]
   GETIMPORT R2 K8 [assert]
   CALL R2 2 0
-  GETUPVAL R2 2
-  JUMPIF R2 [+4]
-  SETUPVAL R1 2
   GETUPVAL R2 3
+  JUMPIF R2 [+4]
+  SETUPVAL R1 3
+  GETUPVAL R2 4
   MOVE R3 R0
   CALL R2 1 0
-  GETUPVAL R3 2
-  FASTCALL2K ASSERT R3 K23 [+4]
-  LOADK R4 K23 ["Preview folder should exist"]
+  GETUPVAL R3 3
+  FASTCALL2K ASSERT R3 K11 [+4]
+  LOADK R4 K11 ["Preview folder should exist"]
   GETIMPORT R2 K8 [assert]
   CALL R2 2 0
-  GETUPVAL R2 2
+  GETUPVAL R2 3
   RETURN R2 1
 
 MAIN:
@@ -450,6 +444,7 @@ MAIN:
   NEWCLOSURE R13 P10
   CAPTURE VAL R1
   CAPTURE VAL R2
+  CAPTURE VAL R12
   CAPTURE REF R7
   CAPTURE VAL R11
   SETTABLEKS R13 R6 K30 ["getAvatarPreviewFolder"]

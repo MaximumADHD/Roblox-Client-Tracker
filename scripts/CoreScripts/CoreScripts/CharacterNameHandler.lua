@@ -4,6 +4,10 @@ local CoreGui = game:GetService("CoreGui")
 
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local UserProfileStore = UserProfiles.Stores.UserProfileStore
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+
+local GetFFlagUseUserProfileStore = SharedFlags.GetFFlagUseUserProfileStore
 
 local playerConnections = {}
 
@@ -76,29 +80,61 @@ local function setCurrentPlayersNames()
 		table.insert(playerIds, tostring(player.UserId))
 		playersFormatted[tostring(player.UserId)] = player
 	end
-	ApolloClient:query({
-		query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
-		variables = {
-			userIds = playerIds,
-		},
-	}):andThen(function(getNames)
-		for _, profile in pairs(getNames.data.userProfiles) do
-			local player = playersFormatted[profile.id]
-			setNameOnCharacterAdded(player, profile)
-		end
-	end, function() end)
+	if GetFFlagUseUserProfileStore() then
+		UserProfileStore.get().fetchNamesByUserIds(playerIds, function(result)
+			local status, profiles = result.status, result.data
+			if status == "success" then
+				for _, profile in profiles do
+					local player = playersFormatted[profile.userId]
+					setNameOnCharacterAdded(player, {
+						names = {
+							inExperienceCombinedName = profile.names.getInExperienceCombinedName(false),
+							displayName = profile.names.getDisplayName(false),
+						},
+					})
+				end
+			end
+		end)
+	else
+		ApolloClient:query({
+			query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
+			variables = {
+				userIds = playerIds,
+			},
+		}):andThen(function(getNames)
+			for _, profile in pairs(getNames.data.userProfiles) do
+				local player = playersFormatted[profile.id]
+				setNameOnCharacterAdded(player, profile)
+			end
+		end, function() end)
+	end
 end
 
 local function onPlayerAdded(player: Player)
-	ApolloClient:query({
-		query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
-		variables = {
-			userIds = { tostring(player.UserId) },
-		},
-	}):andThen(function(profile)
-		local profileData = profile.data.userProfiles[1]
-		setNameOnCharacterAdded(player, profileData)
-	end, function() end)
+	if GetFFlagUseUserProfileStore() then
+		UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
+			local status, profiles = result.status, result.data
+			if status == "success" then
+				local profile = profiles[1]
+				setNameOnCharacterAdded(player, {
+					names = {
+						inExperienceCombinedName = profile.names.getInExperienceCombinedName(false),
+						displayName = profile.names.getDisplayName(false),
+					},
+				})
+			end
+		end)
+	else
+		ApolloClient:query({
+			query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
+			variables = {
+				userIds = { tostring(player.UserId) },
+			},
+		}):andThen(function(profile)
+			local profileData = profile.data.userProfiles[1]
+			setNameOnCharacterAdded(player, profileData)
+		end, function() end)
+	end
 end
 
 local function onPlayerRemoving(player: Player)

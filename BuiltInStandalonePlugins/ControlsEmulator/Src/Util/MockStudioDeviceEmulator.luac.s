@@ -11,18 +11,18 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  RETURN R0 0
-
-PROTO_5:
   LOADB R0 1
   RETURN R0 1
 
-PROTO_6:
+PROTO_5:
   RETURN R0 0
 
-PROTO_7:
+PROTO_6:
   LOADB R0 0
   RETURN R0 1
+
+PROTO_7:
+  RETURN R0 0
 
 PROTO_8:
   RETURN R0 0
@@ -31,43 +31,33 @@ PROTO_9:
   RETURN R0 0
 
 PROTO_10:
-  RETURN R0 0
-
-PROTO_11:
-  RETURN R0 0
-
-PROTO_12:
-  DUPTABLE R1 K12 [{"SendGamepadEventAsync", "SendKeyboardEventAsync", "DEPRECATED_GetKeyboardShortcutAsync", "GetKeyboardShortcutAsync", "ConnectGamepadAsync", "UpdateKeyMappingAsync", "GetCurrentlyEmulatedDeviceAsync", "IsVREmulatorConnected", "SetActiveVRController", "DEPRECATED_SetVRActiveUserCFrameAsync", "SetVRUserCFrameActiveAsync", "ResetVRUserCFramesAsync"}]
-  DUPCLOSURE R2 K13 [PROTO_0]
+  DUPTABLE R1 K10 [{"SendGamepadEventAsync", "SendKeyboardEventAsync", "GetKeyboardShortcutAsync", "ConnectGamepadAsync", "UpdateKeyMappingAsync", "GetCurrentlyEmulatedDeviceAsync", "IsVREmulatorConnected", "SetActiveVRController", "SetVRUserCFrameActiveAsync", "ResetVRUserCFramesAsync"}]
+  DUPCLOSURE R2 K11 [PROTO_0]
   SETTABLEKS R2 R1 K0 ["SendGamepadEventAsync"]
-  DUPCLOSURE R2 K14 [PROTO_1]
+  DUPCLOSURE R2 K12 [PROTO_1]
   SETTABLEKS R2 R1 K1 ["SendKeyboardEventAsync"]
-  DUPCLOSURE R2 K15 [PROTO_2]
-  SETTABLEKS R2 R1 K2 ["DEPRECATED_GetKeyboardShortcutAsync"]
-  DUPCLOSURE R2 K16 [PROTO_3]
-  SETTABLEKS R2 R1 K3 ["GetKeyboardShortcutAsync"]
-  DUPCLOSURE R2 K17 [PROTO_4]
-  SETTABLEKS R2 R1 K4 ["ConnectGamepadAsync"]
-  DUPCLOSURE R2 K18 [PROTO_5]
-  SETTABLEKS R2 R1 K5 ["UpdateKeyMappingAsync"]
-  DUPCLOSURE R2 K19 [PROTO_6]
-  SETTABLEKS R2 R1 K6 ["GetCurrentlyEmulatedDeviceAsync"]
-  DUPCLOSURE R2 K20 [PROTO_7]
-  SETTABLEKS R2 R1 K7 ["IsVREmulatorConnected"]
-  DUPCLOSURE R2 K21 [PROTO_8]
-  SETTABLEKS R2 R1 K8 ["SetActiveVRController"]
-  DUPCLOSURE R2 K22 [PROTO_9]
-  SETTABLEKS R2 R1 K9 ["DEPRECATED_SetVRActiveUserCFrameAsync"]
-  DUPCLOSURE R2 K23 [PROTO_10]
-  SETTABLEKS R2 R1 K10 ["SetVRUserCFrameActiveAsync"]
-  DUPCLOSURE R2 K24 [PROTO_11]
-  SETTABLEKS R2 R1 K11 ["ResetVRUserCFramesAsync"]
-  DUPTABLE R4 K26 [{"__index"}]
+  DUPCLOSURE R2 K13 [PROTO_2]
+  SETTABLEKS R2 R1 K2 ["GetKeyboardShortcutAsync"]
+  DUPCLOSURE R2 K14 [PROTO_3]
+  SETTABLEKS R2 R1 K3 ["ConnectGamepadAsync"]
+  DUPCLOSURE R2 K15 [PROTO_4]
+  SETTABLEKS R2 R1 K4 ["UpdateKeyMappingAsync"]
+  DUPCLOSURE R2 K16 [PROTO_5]
+  SETTABLEKS R2 R1 K5 ["GetCurrentlyEmulatedDeviceAsync"]
+  DUPCLOSURE R2 K17 [PROTO_6]
+  SETTABLEKS R2 R1 K6 ["IsVREmulatorConnected"]
+  DUPCLOSURE R2 K18 [PROTO_7]
+  SETTABLEKS R2 R1 K7 ["SetActiveVRController"]
+  DUPCLOSURE R2 K19 [PROTO_8]
+  SETTABLEKS R2 R1 K8 ["SetVRUserCFrameActiveAsync"]
+  DUPCLOSURE R2 K20 [PROTO_9]
+  SETTABLEKS R2 R1 K9 ["ResetVRUserCFramesAsync"]
+  DUPTABLE R4 K22 [{"__index"}]
   GETUPVAL R5 0
-  SETTABLEKS R5 R4 K25 ["__index"]
+  SETTABLEKS R5 R4 K21 ["__index"]
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K28 [setmetatable]
+  GETIMPORT R2 K24 [setmetatable]
   CALL R2 2 0
   RETURN R1 1
 
@@ -75,7 +65,7 @@ MAIN:
   PREPVARARGS 0
   NEWTABLE R0 2 0
   SETTABLEKS R0 R0 K0 ["__index"]
-  DUPCLOSURE R1 K1 [PROTO_12]
+  DUPCLOSURE R1 K1 [PROTO_10]
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K2 ["new"]
   RETURN R0 1

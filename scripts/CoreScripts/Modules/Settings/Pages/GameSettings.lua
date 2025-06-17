@@ -72,6 +72,7 @@ local FFlagOverrideInExperienceMenuReorderFirstVariant =
 local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSettingsFix", false)
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
+local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoiceChatClientRewriteDisableVCSDevice
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 
 local CrossExpVoiceIXPManager = require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager.default
@@ -2856,6 +2857,11 @@ local function Initialize()
 	end
 
 	local function setVCSOutput(soundServiceOutputName)
+		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
+			log:error("setVCSOutput is deprecated")
+			return
+		end
+
 		local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
 			return VoiceChatService:GetSpeakerDevices()
 		end)
@@ -2892,6 +2898,11 @@ local function Initialize()
 
 	-- TODO: Remove this when voice chat is unified with sound service.
 	local function syncSoundOutputs()
+		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
+			log:error("syncSoundOutputs is deprecated")
+			return
+		end
+
 		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
 			return SoundService:GetOutputDevices()
 		end)
@@ -3030,21 +3041,36 @@ local function Initialize()
 			return SoundService:GetOutputDevices()
 		end)
 
-		if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
-			this[deviceType .. "DeviceNames"] = deviceNames
-			this[deviceType .. "VCSDeviceNames"] = deviceNames
-			this[deviceType .. "VCSDeviceGuids"] = deviceGuids
-			this[deviceType .. "DeviceGuids"] = deviceGuids
-			this[deviceType .. "DeviceIndex"] = selectedIndex
-		else
-			if GetFFlagVoiceChatUILogging() then
-				log:warning("Errors in get {} device info", deviceType)
+		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
+			if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
+				this[deviceType .. "DeviceNames"] = deviceNames
+				this[deviceType .. "DeviceGuids"] = deviceGuids
+				this[deviceType .. "DeviceIndex"] = selectedIndex
+			else
+				if GetFFlagVoiceChatUILogging() then
+					log:warning("Errors in get {} device info", deviceType)
+				end
+				this[deviceType .. "DeviceNames"] = {}
+				this[deviceType .. "DeviceGuids"] = {}
+				this[deviceType .. "DeviceIndex"] = 0
 			end
-			this[deviceType .. "DeviceNames"] = {}
-			this[deviceType .. "DeviceGuids"] = {}
-			this[deviceType .. "VCSDeviceNames"] = {}
-			this[deviceType .. "VCSDeviceGuids"] = {}
-			this[deviceType .. "DeviceIndex"] = 0
+		else
+			if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
+				this[deviceType .. "DeviceNames"] = deviceNames
+				this[deviceType .. "VCSDeviceNames"] = deviceNames
+				this[deviceType .. "VCSDeviceGuids"] = deviceGuids
+				this[deviceType .. "DeviceGuids"] = deviceGuids
+				this[deviceType .. "DeviceIndex"] = selectedIndex
+			else
+				if GetFFlagVoiceChatUILogging() then
+					log:warning("Errors in get {} device info", deviceType)
+				end
+				this[deviceType .. "DeviceNames"] = {}
+				this[deviceType .. "DeviceGuids"] = {}
+				this[deviceType .. "VCSDeviceNames"] = {}
+				this[deviceType .. "VCSDeviceGuids"] = {}
+				this[deviceType .. "DeviceIndex"] = 0
+			end
 		end
 
 		if not this[deviceType .. "DeviceSelector"] then
@@ -3070,39 +3096,65 @@ local function Initialize()
 			end
 		end)
 
-		local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
-			return VoiceChatService:GetSpeakerDevices()
-		end)
-
-		if
-			success
-			and VCSSuccess
-			and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
-			and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex)
-		then
-			this[deviceType .. "DeviceNames"] = deviceNames
-			this[deviceType .. "VCSDeviceNames"] = VCSDeviceNames
-			this[deviceType .. "VCSDeviceGuids"] = VCSDeviceGuids
-			this[deviceType .. "DeviceGuids"] = deviceGuids
-			this[deviceType .. "DeviceIndex"] = selectedIndex
-		else
-			if GetFFlagVoiceChatUILogging() then
-				if #deviceNames > 0 then
-					log:warning(
-						"Errors in get {} device info success: {} VCSSuccess: {}",
-						deviceType,
-						success,
-						VCSSuccess
-					)
-				else
-					log:warning("Empty deviceNames list for {}", deviceType)
+		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
+			if
+				success
+				and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
+			then
+				this[deviceType .. "DeviceNames"] = deviceNames
+				this[deviceType .. "DeviceGuids"] = deviceGuids
+				this[deviceType .. "DeviceIndex"] = selectedIndex
+			else
+				if GetFFlagVoiceChatUILogging() then
+					if #deviceNames > 0 then
+						log:warning(
+							"Errors in get {} device info success: {}",
+							deviceType,
+							success
+						)
+					else
+						log:warning("Empty deviceNames list for {}", deviceType)
+					end
 				end
+				this[deviceType .. "DeviceNames"] = {}
+				this[deviceType .. "DeviceGuids"] = {}
+				this[deviceType .. "DeviceIndex"] = 0
 			end
-			this[deviceType .. "DeviceNames"] = {}
-			this[deviceType .. "DeviceGuids"] = {}
-			this[deviceType .. "VCSDeviceNames"] = {}
-			this[deviceType .. "VCSDeviceGuids"] = {}
-			this[deviceType .. "DeviceIndex"] = 0
+		else
+			local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
+				return VoiceChatService:GetSpeakerDevices()
+			end)
+
+			if
+				success
+				and VCSSuccess
+				and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
+				and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex)
+			then
+				this[deviceType .. "DeviceNames"] = deviceNames
+				this[deviceType .. "VCSDeviceNames"] = VCSDeviceNames
+				this[deviceType .. "VCSDeviceGuids"] = VCSDeviceGuids
+				this[deviceType .. "DeviceGuids"] = deviceGuids
+				this[deviceType .. "DeviceIndex"] = selectedIndex
+			else
+				if GetFFlagVoiceChatUILogging() then
+					if #deviceNames > 0 then
+						log:warning(
+							"Errors in get {} device info success: {} VCSSuccess: {}",
+							deviceType,
+							success,
+							VCSSuccess
+						)
+					else
+						log:warning("Empty deviceNames list for {}", deviceType)
+					end
+				end
+				this[deviceType .. "DeviceNames"] = {}
+				this[deviceType .. "DeviceGuids"] = {}
+				this[deviceType .. "VCSDeviceNames"] = {}
+				this[deviceType .. "VCSDeviceGuids"] = {}
+				this[deviceType .. "DeviceIndex"] = 0
+			end
 		end
 
 		if not this[deviceType .. "DeviceSelector"] then

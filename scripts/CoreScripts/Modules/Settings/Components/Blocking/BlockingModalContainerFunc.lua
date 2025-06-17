@@ -7,7 +7,12 @@ local useLocalization = require(CorePackages.Workspace.Packages.Localization).Ho
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local TrustAndSafety = require(Modules.TrustAndSafety)
 
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local Toast = UIBlox.App.Dialog.Toast
+
 local ActionModal = require(script.Parent.ActionModal)
+
+local FFlagEnableToastForBlockingModal = require(Modules.Common.Flags.FFlagEnableToastForBlockingModal)
 
 type Props = {
 	analytics: any,
@@ -35,6 +40,11 @@ local function BlockingModalContainer(props: Props)
 	local onBlockingSuccess = props.onBlockingSuccess
 
 	local screenSize, setScreenSize = React.useState(Vector2.new(1000, 1000))
+	local showError, setShowError
+
+	if FFlagEnableToastForBlockingModal then
+		showError, setShowError = React.useState(false)
+	end
 
 	local onBlock = React.useCallback(function()
 		local success = blockingUtility:BlockPlayerAsync(player)
@@ -47,9 +57,18 @@ local function BlockingModalContainer(props: Props)
 			if onBlockingSuccess then
 				onBlockingSuccess()
 			end
+			if FFlagEnableToastForBlockingModal then
+				closeModal()
+			end
+		else
+			if FFlagEnableToastForBlockingModal then
+				setShowError(true)
+			end
 		end
 
-		closeModal()
+		if not FFlagEnableToastForBlockingModal then
+			closeModal()
+		end
 	end, { closeModal, player, analytics, source, onBlockingSuccess } :: { any })
 
 	local onBlockAndReport = React.useCallback(function()
@@ -67,7 +86,23 @@ local function BlockingModalContainer(props: Props)
 		cancelTextKey = "Feature.BlockingModal.Action.Cancel",
 		blockTextKey = "Feature.BlockingModal.Action.Block",
 		blockAndReportTextKey = "Feature.BlockingModal.Action.BlockAndReport",
+		blockingFailed = if FFlagEnableToastForBlockingModal
+			then "Feature.Toast.NetworkingError.SomethingIsWrong"
+			else nil,
 	})
+
+	if FFlagEnableToastForBlockingModal then
+		if showError then
+			return React.createElement(Toast, {
+				duration = 3,
+				show = showError,
+				toastContent = {
+					toastTitle = localized.blockingFailed,
+					onDismissed = closeModal,
+				}
+			})
+		end
+	end
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),

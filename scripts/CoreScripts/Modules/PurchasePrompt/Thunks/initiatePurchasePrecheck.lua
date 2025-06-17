@@ -46,7 +46,7 @@ local function initiatePurchasePrecheck()
 		local nativeProductId = SelectedRobuxPackage.getRobuxProductId(state)
 		local robuxProductId = nil
 		local isPremium = state.accountInfo.membershipType == 4
-		
+
 		if upsellFlow == UpsellFlow.Web then
 			robuxProductId = SelectedRobuxPackage.getProductId(state)
 			nativeProductId = nil

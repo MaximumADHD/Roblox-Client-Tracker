@@ -40,21 +40,36 @@ PROTO_0:
   LOADB R10 1
   NAMECALL R7 R5 K19 ["SetAccessories"]
   CALL R7 3 0
-  GETTABLEKS R7 R4 K20 ["defaultHumanoidRigType"]
-  GETIMPORT R8 K23 [Enum.GameAvatarType.R15]
+  GETTABLEKS R7 R4 K20 ["scaleData"]
+  JUMPIFNOT R7 [+26]
+  GETTABLEKS R7 R4 K20 ["scaleData"]
+  GETTABLEKS R8 R7 K21 ["BodyTypeScale"]
+  SETTABLEKS R8 R5 K21 ["BodyTypeScale"]
+  GETTABLEKS R8 R7 K22 ["DepthScale"]
+  SETTABLEKS R8 R5 K22 ["DepthScale"]
+  GETTABLEKS R8 R7 K23 ["HeadScale"]
+  SETTABLEKS R8 R5 K23 ["HeadScale"]
+  GETTABLEKS R8 R7 K24 ["HeightScale"]
+  SETTABLEKS R8 R5 K24 ["HeightScale"]
+  GETTABLEKS R8 R7 K25 ["ProportionScale"]
+  SETTABLEKS R8 R5 K25 ["ProportionScale"]
+  GETTABLEKS R8 R7 K26 ["WidthScale"]
+  SETTABLEKS R8 R5 K26 ["WidthScale"]
+  GETTABLEKS R7 R4 K27 ["defaultHumanoidRigType"]
+  GETIMPORT R8 K30 [Enum.GameAvatarType.R15]
   JUMPIFNOTEQ R2 R8 [+4]
-  GETIMPORT R7 K25 [Enum.HumanoidRigType.R15]
+  GETIMPORT R7 K32 [Enum.HumanoidRigType.R15]
   JUMP [+6]
-  GETIMPORT R8 K27 [Enum.GameAvatarType.R6]
+  GETIMPORT R8 K34 [Enum.GameAvatarType.R6]
   JUMPIFNOTEQ R2 R8 [+3]
-  GETIMPORT R7 K28 [Enum.HumanoidRigType.R6]
+  GETIMPORT R7 K35 [Enum.HumanoidRigType.R6]
   GETUPVAL R8 1
   MOVE R10 R5
   MOVE R11 R7
-  NAMECALL R8 R8 K29 ["CreateHumanoidModelFromDescription"]
+  NAMECALL R8 R8 K36 ["CreateHumanoidModelFromDescription"]
   CALL R8 3 1
-  SETTABLEKS R1 R8 K30 ["Name"]
-  GETTABLEKS R9 R4 K31 ["insertionOrder"]
+  SETTABLEKS R1 R8 K37 ["Name"]
+  GETTABLEKS R9 R4 K38 ["insertionOrder"]
   SETTABLE R8 R0 R9
   RETURN R0 0
 
@@ -70,7 +85,7 @@ PROTO_1:
   GETUPVAL R5 2
   MOVE R6 R2
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K3 ["FantasyAvatar"]
+  GETTABLEKS R8 R9 K3 ["MagmaFiend"]
   GETTABLEKS R7 R8 K4 ["name"]
   GETTABLEKS R8 R1 K5 ["AvatarType"]
   MOVE R9 R0
@@ -80,7 +95,7 @@ PROTO_1:
   GETUPVAL R6 2
   MOVE R7 R2
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K6 ["AddisonAvatar"]
+  GETTABLEKS R9 R10 K6 ["DennisAvatar"]
   GETTABLEKS R8 R9 K4 ["name"]
   GETTABLEKS R9 R1 K5 ["AvatarType"]
   MOVE R10 R0
@@ -90,13 +105,23 @@ PROTO_1:
   GETUPVAL R7 2
   MOVE R8 R2
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K7 ["DennisAvatar"]
+  GETTABLEKS R10 R11 K7 ["LinLin"]
   GETTABLEKS R9 R10 K4 ["name"]
   GETTABLEKS R10 R1 K5 ["AvatarType"]
   MOVE R11 R0
-  CALL R6 5 -1
+  CALL R6 5 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K2 ["try"]
+  GETUPVAL R8 2
+  MOVE R9 R2
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K8 ["JunkBot"]
+  GETTABLEKS R10 R11 K4 ["name"]
+  GETTABLEKS R11 R1 K5 ["AvatarType"]
+  MOVE R12 R0
+  CALL R7 5 -1
   CALL R3 -1 1
-  NAMECALL R3 R3 K8 ["expect"]
+  NAMECALL R3 R3 K9 ["expect"]
   CALL R3 1 0
   RETURN R2 1
 

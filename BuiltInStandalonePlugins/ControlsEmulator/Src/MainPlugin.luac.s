@@ -257,7 +257,7 @@ PROTO_17:
   SETTABLEKS R5 R0 K6 ["callbacksRef"]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R0 K7 ["connections"]
-  DUPTABLE R5 K19 [{"enabled", "inPlayClient", "uiDmLoaded", "tooltipCount", "shouldShowTooltip", "wrapperRef", "activeInputs", "isVRConnected", "DEPRECATED_vrActiveUserCFrame", "activeVRUserCFrames", "translationSensitivity"}]
+  DUPTABLE R5 K18 [{"enabled", "inPlayClient", "uiDmLoaded", "tooltipCount", "shouldShowTooltip", "wrapperRef", "activeInputs", "isVRConnected", "activeVRUserCFrames", "translationSensitivity"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K8 ["enabled"]
   LOADB R6 0
@@ -272,76 +272,74 @@ PROTO_17:
   SETTABLEKS R6 R5 K14 ["activeInputs"]
   LOADB R6 0
   SETTABLEKS R6 R5 K15 ["isVRConnected"]
-  GETIMPORT R6 K23 [Enum.UserCFrame.Head]
-  SETTABLEKS R6 R5 K16 ["DEPRECATED_vrActiveUserCFrame"]
   NEWTABLE R6 4 0
-  GETIMPORT R7 K23 [Enum.UserCFrame.Head]
+  GETIMPORT R7 K22 [Enum.UserCFrame.Head]
   LOADB R8 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K25 [Enum.UserCFrame.LeftHand]
+  GETIMPORT R7 K24 [Enum.UserCFrame.LeftHand]
   LOADB R8 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K27 [Enum.UserCFrame.RightHand]
+  GETIMPORT R7 K26 [Enum.UserCFrame.RightHand]
   LOADB R8 1
   SETTABLE R8 R6 R7
-  SETTABLEKS R6 R5 K17 ["activeVRUserCFrames"]
+  SETTABLEKS R6 R5 K16 ["activeVRUserCFrames"]
   LOADN R6 5
-  SETTABLEKS R6 R5 K18 ["translationSensitivity"]
-  SETTABLEKS R5 R0 K28 ["state"]
+  SETTABLEKS R6 R5 K17 ["translationSensitivity"]
+  SETTABLEKS R5 R0 K27 ["state"]
   NEWCLOSURE R5 P0
   CAPTURE VAL R0
   NEWCLOSURE R6 P1
   CAPTURE VAL R0
-  SETTABLEKS R6 R0 K29 ["toggleEnabled"]
+  SETTABLEKS R6 R0 K28 ["toggleEnabled"]
   NEWCLOSURE R6 P2
   CAPTURE VAL R0
-  SETTABLEKS R6 R0 K30 ["onClose"]
+  SETTABLEKS R6 R0 K29 ["onClose"]
   NEWCLOSURE R6 P3
   CAPTURE VAL R0
-  SETTABLEKS R6 R0 K31 ["onRestore"]
+  SETTABLEKS R6 R0 K30 ["onRestore"]
   NEWCLOSURE R6 P4
   CAPTURE VAL R0
-  SETTABLEKS R6 R0 K32 ["onWidgetEnabledChanged"]
+  SETTABLEKS R6 R0 K31 ["onWidgetEnabledChanged"]
   NEWCLOSURE R6 P5
   CAPTURE VAL R0
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  SETTABLEKS R6 R0 K33 ["onDockWidgetCreated"]
+  SETTABLEKS R6 R0 K32 ["onDockWidgetCreated"]
   NEWCLOSURE R6 P6
   CAPTURE UPVAL U2
   CAPTURE UPVAL U4
   CAPTURE VAL R0
-  SETTABLEKS R6 R0 K34 ["placeOpened"]
+  SETTABLEKS R6 R0 K33 ["placeOpened"]
   NEWCLOSURE R6 P7
   CAPTURE VAL R0
-  SETTABLEKS R6 R0 K35 ["placeClosed"]
+  SETTABLEKS R6 R0 K34 ["placeClosed"]
   NEWCLOSURE R6 P8
   CAPTURE UPVAL U2
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  SETTABLEKS R6 R0 K36 ["connectGamepad"]
+  SETTABLEKS R6 R0 K35 ["connectGamepad"]
   NEWCLOSURE R6 P9
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  SETTABLEKS R6 R0 K37 ["disconnectGamepad"]
-  GETGLOBAL R6 K38 ["getLocalization"]
+  SETTABLEKS R6 R0 K36 ["disconnectGamepad"]
+  GETGLOBAL R6 K37 ["getLocalization"]
   CALL R6 0 1
-  SETTABLEKS R6 R0 K39 ["localization"]
+  SETTABLEKS R6 R0 K38 ["localization"]
   GETUPVAL R8 5
-  GETTABLEKS R7 R8 K40 ["Analytics"]
-  GETTABLEKS R6 R7 K41 ["new"]
-  DUPCLOSURE R7 K42 [PROTO_16]
+  GETTABLEKS R7 R8 K39 ["Analytics"]
+  GETTABLEKS R6 R7 K40 ["new"]
+  DUPCLOSURE R7 K41 [PROTO_16]
   NEWTABLE R8 0 0
   CALL R6 2 1
-  SETTABLEKS R6 R0 K43 ["analytics"]
+  SETTABLEKS R6 R0 K42 ["analytics"]
   GETUPVAL R7 6
-  GETTABLEKS R6 R7 K41 ["new"]
+  GETTABLEKS R6 R7 K40 ["new"]
   CALL R6 0 1
-  SETTABLEKS R6 R0 K44 ["DEPRECATED_stylizer"]
+  SETTABLEKS R6 R0 K43 ["DEPRECATED_stylizer"]
   GETUPVAL R6 7
   GETTABLEKS R7 R1 K0 ["Plugin"]
   CALL R6 1 1
-  SETTABLEKS R6 R0 K45 ["design"]
+  SETTABLEKS R6 R0 K44 ["design"]
   RETURN R0 0
 
 PROTO_18:

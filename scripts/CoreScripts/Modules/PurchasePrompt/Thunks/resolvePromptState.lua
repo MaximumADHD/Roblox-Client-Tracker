@@ -37,6 +37,7 @@ local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
 local getPaymentFromPlatformLegacy = require(Root.Utils.getPaymentFromPlatformLegacy)
 local getHasAmazonUserAgent = require(Root.Utils.getHasAmazonUserAgent)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
+local DesktopUpsellExperiment = require(Root.Utils.DesktopUpsellExperiment)
 
 local Thunk = require(Root.Thunk)
 
@@ -52,30 +53,7 @@ local requiredServices = {
 	Network,
 }
 
-local FFlagEnabledEnhancedRobuxUpsellV2 = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnabledEnhancedRobuxUpsellV2
 local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
-
--- Original handler for the basic Robux upsell flow
-local function handleSuccessfulUpsellProduct(store, analytics, product, state)
-	-- Check if the user cancel the purchase before this could return
-	if not hasPendingRequest(store:getState()) then
-		return
-	end
-	
-	analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
-	
-	store:dispatch(
-		PromptNativeUpsell(
-			product.providerId,
-			product.id,
-			product.robuxAmount,
-			product.robuxAmountBeforeBonus,
-			product.price
-		)
-	)
-	
-	store:dispatch(sendCounter(Counter.UpsellModalShown))
-end
 
 local function handleSuccessfulUpsellSuggestions(store, upsellSuggestions)
 	-- Check if the user cancel the purchase before this could return
@@ -86,8 +64,7 @@ local function handleSuccessfulUpsellSuggestions(store, upsellSuggestions)
 	store:dispatch(sendCounter(Counter.UpsellModalShown))
 end
 
--- Enhanced handler that includes additional item information
-local function handleSuccessfulUpsellProductEnhanced(store, analytics, product, state, itemProductId, itemName, universeId)
+local function handleSuccessfulUpsellProduct(store, analytics, product: RobuxUpsell.Product, state, itemProductId: number?, itemName: string?, universeId: number?)
 	-- Check if the user cancel the purchase before this could return
 	if not hasPendingRequest(store:getState()) then
 		return
@@ -162,7 +139,10 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 		end
 		local platform = UserInputService:GetPlatform()
 
+		DesktopUpsellExperiment.determineVariant(store)
 		if price > robuxBalance then
+			-- Need the IXP exposure to only happen when there is an upsell flow
+			DesktopUpsellExperiment.logExposure()
 			if externalSettings.getFFlagDisableRobuxUpsell() then
 				return store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxNoUpsell))
 			end
@@ -188,12 +168,12 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 					end
 				end
 			end
+			
+			local universeId = game.GameId
+			local itemProductId = productInfo.ProductId
+			local itemName = productInfo.DisplayName
 
-			if FFlagEnableUpsellSuggestionsAPI then
-				local universeId = game.GameId
-				local itemProductId = productInfo.ProductId
-				local itemName = productInfo.DisplayName
-				
+			if FFlagEnableUpsellSuggestionsAPI then				
 				return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId):andThen(
 					-- success handler
 					function(upsellSuggestions)
@@ -206,38 +186,15 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 				)
 			end
 			
-			if FFlagEnabledEnhancedRobuxUpsellV2 then
-				local universeId = game.GameId
-				local itemProductId = productInfo.ProductId
-				local itemName = productInfo.DisplayName
-
-				-- Check if we have the required parameters for enhanced flow
-				if universeId ~= nil and itemProductId ~= nil then
-					-- Enhanced version with universeId and itemId
-					-- Item Name can be nil
-					return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId):andThen(
-						function(product)
-							return handleSuccessfulUpsellProductEnhanced(store, analytics, product, state, itemProductId, itemName, universeId)
-						end,
-						function()
-							return handleFailedUpsellProduct(store, state)
-						end
-					)
-				end
-			end
-			
-			-- Fall back to original implementation if:
-			-- 1. Feature flag is disabled, OR
-			-- 2. Required parameters (universeId, itemProductId) are missing
-			return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform):andThen(
+			-- Item Name can be nil
+			return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId):andThen(
 				function(product: RobuxUpsell.Product)
 					-- Check if the user cancel the purchase before this could return
 					if not hasPendingRequest(store:getState()) then
 						return
 					end
 					
-					-- Using the original handler
-					return handleSuccessfulUpsellProduct(store, analytics, product, state)
+					return handleSuccessfulUpsellProduct(store, analytics, product, state, itemProductId, itemName, universeId)
 				end,
 				function()
 					-- Check if the user cancel the purchase before this could return

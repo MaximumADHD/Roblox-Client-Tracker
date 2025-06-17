@@ -58,8 +58,8 @@ local GetFFlagShouldShowMusicFtuxTooltipXTimes = require(Chrome.Flags.GetFFlagSh
 local GetFStringMusicTooltipLocalStorageKey_v2 = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey_v2)
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagShouldShowSimpleMusicFtuxTooltip = require(Chrome.Flags.GetFFlagShouldShowSimpleMusicFtuxTooltip)
+local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
 local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
-local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated", false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
@@ -452,9 +452,7 @@ return ChromeService:register({
 	label = "CoreScripts.TopBar.MoreMenu",
 	isActivated = if FFlagFixIntegrationActivated
 		then function()
-			-- There is a delay of submenuVisibility, which get function returns previouse status here
-			local isToggleOn = not submenuVisibility:get()
-			return isToggleOn
+			return submenuVisibility:get()
 		end
 		else nil,
 	components = {

@@ -10,6 +10,8 @@ local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local GamepadService = game:GetService("GamepadService")
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
+local ExperimentLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
 
 -- Modules
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
@@ -24,6 +26,7 @@ local FFlagChromeFixDelayLoadControlLock = SharedFlags.FFlagChromeFixDelayLoadCo
 local FFlagGamepadConnectorUseChromeFocusAPI = SharedFlags.FFlagGamepadConnectorUseChromeFocusAPI
 local FFlagGamepadConnectorSetCoreGuiNavEnabled = SharedFlags.FFlagGamepadConnectorSetCoreGuiNavEnabled
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
+local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 
 local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
@@ -74,11 +77,13 @@ type GamepadConnectorImpl = {
 	_focusGamepadToTopBar: (GamepadConnector) -> (),
 	_unfocusGamepadFromTopBar: (GamepadConnector) -> (),
 	_focusToastNotification: (GamepadConnector, Enum.UserInputState) -> boolean,
+	_logExperienceMenuGamepadExposure: (GamepadConnector) -> (),
 	_bindSelf: <T..., R...>(GamepadConnector, (GamepadConnector, T...) -> R...) -> (T...) -> R...
 }
 
 export type GamepadConnector = typeof(setmetatable(
 	{} :: {
+		_loggedExperienceMenuGamepadExposure: boolean,
 		_selectedCoreObject: ObservableValue<GuiObject?>,
 		_topbarFocused: ObservableValue<boolean>,
 		_lastMenuButtonPress: number,
@@ -128,6 +133,7 @@ GamepadConnector.__index = GamepadConnector
 
 function GamepadConnector.new(): GamepadConnector
 	local self = {}
+	self._loggedExperienceMenuGamepadExposure = false
 	self._devSetCoreGuiNavEnabled = GuiService.CoreGuiNavigationEnabled
 	self._topbarFocused = ChromeService:inFocusNav()
 	self._lastMenuButtonPress = 0
@@ -260,6 +266,7 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 					GuiService.SelectedCoreObject = nil
 				end
 			end
+			self:_logExperienceMenuGamepadExposure()
 			LogGamepadOpenExperienceControlsMenu(toggleTopBarOpen)
 		else
 			if FFlagChromeFixDelayLoadControlLock then
@@ -290,6 +297,7 @@ function GamepadConnector:_toggleUnibarMenu()
 			ChromeService:enableFocusNav()
 		end
 	end
+	self:_logExperienceMenuGamepadExposure()
 	LogGamepadOpenExperienceControlsMenu(toggleUnibarOpen)
 end
 
@@ -326,6 +334,13 @@ function  GamepadConnector:_focusToastNotification(userInputState): boolean
 
 	return userInputState == Enum.UserInputState.End and 
 		isToastVisible and buttonHoldTime() < ToastNotificationConstants.MenuButtonPressHoldTime
+end
+
+function GamepadConnector:_logExperienceMenuGamepadExposure()
+	if FFlagExperienceMenuGamepadExposureEnabled and not self._loggedExperienceMenuGamepadExposure then
+		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(ExperimentLayers.ExperienceMenuGamepadExposureLayer)
+		self._loggedExperienceMenuGamepadExposure = true
+	end
 end
 
 function GamepadConnector:_bindSelf<T..., R...>(func: (GamepadConnector, T...) -> R...): (T...) -> R...

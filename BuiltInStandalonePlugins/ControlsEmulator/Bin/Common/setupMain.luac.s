@@ -20,46 +20,34 @@ PROTO_1:
   GETTABLEKS R5 R6 K2 ["Packages"]
   GETTABLEKS R4 R5 K4 ["ReactRoblox"]
   CALL R3 1 1
-  LOADNIL R4
-  GETUPVAL R5 1
-  CALL R5 0 1
-  JUMPIFNOT R5 [+10]
-  GETIMPORT R5 K1 [require]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K5 ["Src"]
-  GETTABLEKS R6 R7 K6 ["MainPlugin"]
-  CALL R5 1 1
-  MOVE R4 R5
-  JUMP [+9]
-  GETIMPORT R5 K1 [require]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K5 ["Src"]
-  GETTABLEKS R6 R7 K7 ["DEPRECATED_MainPlugin"]
-  CALL R5 1 1
-  MOVE R4 R5
-  GETTABLEKS R5 R2 K8 ["createElement"]
+  GETIMPORT R4 K1 [require]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["Src"]
+  GETTABLEKS R5 R6 K6 ["MainPlugin"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K7 ["createElement"]
   MOVE R6 R4
-  DUPTABLE R7 K11 [{"Plugin", "PluginLoaderContext"}]
-  SETTABLEKS R0 R7 K9 ["Plugin"]
-  SETTABLEKS R1 R7 K10 ["PluginLoaderContext"]
+  DUPTABLE R7 K10 [{"Plugin", "PluginLoaderContext"}]
+  SETTABLEKS R0 R7 K8 ["Plugin"]
+  SETTABLEKS R1 R7 K9 ["PluginLoaderContext"]
   CALL R5 2 1
-  GETIMPORT R6 K14 [Instance.new]
-  LOADK R7 K15 ["Frame"]
+  GETIMPORT R6 K13 [Instance.new]
+  LOADK R7 K14 ["Frame"]
   CALL R6 1 1
-  GETTABLEKS R7 R3 K16 ["createRoot"]
+  GETTABLEKS R7 R3 K15 ["createRoot"]
   MOVE R8 R6
   CALL R7 1 1
   FASTCALL1 ASSERT R7 [+3]
   MOVE R9 R7
-  GETIMPORT R8 K18 [assert]
+  GETIMPORT R8 K17 [assert]
   CALL R8 1 0
   MOVE R10 R5
-  NAMECALL R8 R7 K19 ["render"]
+  NAMECALL R8 R7 K18 ["render"]
   CALL R8 2 0
-  GETTABLEKS R8 R0 K20 ["Unloading"]
+  GETTABLEKS R8 R0 K19 ["Unloading"]
   NEWCLOSURE R10 P0
   CAPTURE REF R7
-  NAMECALL R8 R8 K21 ["Connect"]
+  NAMECALL R8 R8 K20 ["Connect"]
   CALL R8 2 0
   CLOSEUPVALS R7
   RETURN R0 0
@@ -70,13 +58,6 @@ MAIN:
   LOADK R2 K2 ["ControlsEmulator"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Bin"]
-  GETTABLEKS R3 R4 K7 ["Common"]
-  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["getFFlagFixEmulatorStartupSequence"]
-  DUPCLOSURE R3 K10 [PROTO_1]
+  DUPCLOSURE R1 K4 [PROTO_1]
   CAPTURE VAL R0
-  CAPTURE VAL R2
-  RETURN R3 1
+  RETURN R1 1

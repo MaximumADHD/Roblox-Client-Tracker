@@ -64,6 +64,12 @@ local HttpService = game:GetService("HttpService")
 local FFlagInExperiencePurchaseFlowRework = require(CorePackages.Workspace.Packages.SharedFlags).FFlagInExperiencePurchaseFlowRework
 local setPurchaseFlowUUID = require(Root.Actions.SetPurchaseFlowUUID)
 
+-- Imports needed for the new upsell modal experiment
+local DesktopUpsellExperiment = require(Root.Utils.DesktopUpsellExperiment)
+local PurchaseProductModal = IAPExperience.ProductPurchaseModal
+local RobuxUpsellModal = IAPExperience.RobuxUpsellModal
+local RobuxUpsellModalTooExpensiveFallback = IAPExperience.RobuxUpsellModalTooExpensiveFallback
+
 local ProductPurchaseContainer = Roact.Component:extend(script.Name)
 
 local CONFIRM_BUTTON_BIND = "ProductPurchaseConfirmButtonBind"
@@ -444,7 +450,7 @@ function ProductPurchaseContainer:getMessageKeysFromPromptState()
 	end
 end
 
-function ProductPurchaseContainer:render()
+function ProductPurchaseContainer:determinePrompt()
 	local purchaseFlow = self.props.purchaseFlow
 	local promptState = self.props.promptState
 	local expectedPrice = self.props.expectedPrice
@@ -454,7 +460,6 @@ function ProductPurchaseContainer:render()
 	local accountInfo = self.props.accountInfo
 	local isTestPurchase = self.props.isTestPurchase
 
-	local prompt
 	local BUTTON_A_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
 	local BUTTON_B_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB.png"
 
@@ -463,9 +468,29 @@ function ProductPurchaseContainer:render()
 			When the prompt is hidden, we'd rather not keep unused Roblox
 			instances for it around, so we don't render them
 		]]
-		prompt = nil
+		return nil
 	elseif promptState == PromptState.PromptPurchase or promptState == PromptState.PurchaseInProgress then
-		prompt = Roact.createElement(ProductPurchase, {
+		-- For buy item flow, we're just updating modal, so we don't need to check the experiment
+		if self.props.desktopUpsellExpVariant and self.props.desktopUpsellExpVariant ~= DesktopUpsellExperiment.variants.Control then
+			return Roact.createElement(PurchaseProductModal, {
+				screenSize = self.state.screenSize,
+				product = {
+					itemIcon = productInfo.imageUrl,
+					itemName = productInfo.name,
+					itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
+				},
+				balanceAmount = accountInfo.balance,
+				buttons = {
+					isDisabled = promptState == PromptState.PurchaseInProgress,
+					buyItemActivated = self.confirmButtonPressed,
+					buyItemControllerIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
+					buyItemIsDelayedInput = self.hasDelayedInput(),
+					buyItemEnableInputDelayed = self.isWindowShowAndDoneAnimating(),
+					cancelActivated = self.cancelButtonPressed,
+				},
+			})
+		end
+		return Roact.createElement(ProductPurchase, {
 			screenSize = self.state.screenSize,
 
 			isDisabled = promptState == PromptState.PurchaseInProgress,
@@ -488,7 +513,45 @@ function ProductPurchaseContainer:render()
 			isLuobu = self.state.isLuobu,
 		})
 	elseif promptState == PromptState.RobuxUpsell or promptState == PromptState.UpsellInProgress then
-		prompt = Roact.createElement(ProductPurchaseRobuxUpsell, {
+		if self.props.desktopUpsellExpVariant and self.props.desktopUpsellExpVariant ~= DesktopUpsellExperiment.variants.Control then
+			return Roact.createElement(RobuxUpsellModal, {
+				screenSize = self.state.screenSize,
+				
+				product = {
+					model = self.props.humanoidModel,
+					itemIcon = productInfo.imageUrl,
+					itemName = productInfo.name,
+					itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
+				},
+				
+				upsell = {
+					balanceAmount = accountInfo.balance,
+					robuxPurchaseAmount = self.props.robuxPurchaseAmount,
+					robuxPurchaseAmountBeforeBonus = self.props.robuxAmountBeforeBonus,
+					robuxPurchaseCost = self.props.robuxPurchaseCost,
+				},
+				
+				buttons = {
+					buyItemActivated = function()
+						self.confirmButtonPressed()
+						self.emitPurchaseFlowEvent("UserInput", "Buy")
+					end,
+					buyItemDisabled = promptState == PromptState.UpsellInProgress,
+					buyItemControllerIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
+					buyItemisDelayedInput = self.hasDelayedInput(),
+					buyItemEnableInputDelayed = self.isWindowShowAndDoneAnimating(),
+					
+					cancelPurchaseActivated = function()
+						self.cancelButtonPressed()
+						self.emitPurchaseFlowEvent("UserInput", "Cancel")
+					end,
+					cancelControllerIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
+					opensBuyRobuxPage = self.props.desktopUpsellExpVariant == DesktopUpsellExperiment.variants.OpenRobuxStore, -- We want to open the buy robux page if the variant is 1
+				},
+				
+			})
+		end
+		return Roact.createElement(ProductPurchaseRobuxUpsell, {
 			screenSize = self.state.screenSize,
 
 			isDisabled = promptState == PromptState.UpsellInProgress,
@@ -518,14 +581,14 @@ function ProductPurchaseContainer:render()
 			isVng = GetFFlagOpenVngTosForVngRobuxUpsell() and getAppFeaturePolicies().getShowVNGTosForRobuxUpsell(),
 		})
 	elseif promptState == PromptState.LeaveRobloxWarning then
-		prompt = Roact.createElement(LeaveRobloxAlert, {
+		return Roact.createElement(LeaveRobloxAlert, {
 			screenSize = self.state.screenSize,
 
 			cancelActivated = self.cancelButtonPressed,
 			continueActivated = self.confirmButtonPressed,
 		})
 	elseif promptState == PromptState.PurchaseComplete and requestType == RequestType.AvatarCreationFee then
-		prompt = Roact.createElement(InteractiveAlert, {
+		return Roact.createElement(InteractiveAlert, {
 			bodyText = RobloxTranslator:FormatByKey(PURCHASE_COMPLETE_DESC_KEY),
 			buttonStackInfo = {
 				buttons = {
@@ -546,7 +609,7 @@ function ProductPurchaseContainer:render()
 		(promptState == PromptState.Error and purchaseError == PurchaseError.TwoFactorNeededSettings)
 		or isGenericChallengeResponse(purchaseError)
 	then
-		prompt = Roact.createElement(MultiTextLocalizer, {
+		return Roact.createElement(MultiTextLocalizer, {
 			locKeys = self:getMessageKeysFromPromptState(),
 			render = function(localeMap)
 				return Roact.createElement(InteractiveAlert, {
@@ -580,7 +643,7 @@ function ProductPurchaseContainer:render()
 		GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow()
 		and promptState == PromptState.EnablePurchaseVPCModal
 	then
-		prompt = Roact.createElement(IAPAnimator, {
+		return Roact.createElement(IAPAnimator, {
 			shouldAnimate = true,
 			shouldShow = promptState == PromptState.EnablePurchaseVPCModal,
 			renderChildren = function()
@@ -594,8 +657,29 @@ function ProductPurchaseContainer:render()
 				})
 			end,
 		})
+	elseif 
+		promptState == PromptState.Error 
+		and purchaseError == PurchaseError.NotEnoughRobuxXbox 
+		and self.props.desktopUpsellExpVariant 
+		and self.props.desktopUpsellExpVariant ~= DesktopUpsellExperiment.variants.Control
+	then
+		-- Currently this specific scenario is being handled with all other errors
+		-- introducing handling if user is in the experiment
+		return Roact.createElement(RobuxUpsellModalTooExpensiveFallback, {
+			screenSize = self.state.screenSize,
+			product = {
+				itemIcon = productInfo.imageUrl,
+				itemName = productInfo.name,
+				itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
+			},
+			balanceAmount = accountInfo.balance,
+			doneActivated = function()
+				self.cancelButtonPressed()
+				self.emitPurchaseFlowEvent("UserInput", "Cancel")
+			end,
+		})
 	else
-		prompt = Roact.createElement(MultiTextLocalizer, {
+		return Roact.createElement(MultiTextLocalizer, {
 			locKeys = self:getMessageKeysFromPromptState(),
 			render = function(localeMap)
 				return Roact.createElement(InteractiveAlert, {
@@ -618,6 +702,11 @@ function ProductPurchaseContainer:render()
 			end,
 		})
 	end
+end
+
+function ProductPurchaseContainer:render()
+	local promptState = self.props.promptState
+	local prompt = self:determinePrompt()
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -683,6 +772,8 @@ end
 
 local function mapStateToProps(state)
 	local isTestPurchase = isMockingPurchases(state.promptRequest.requestType)
+	-- Default to control if the experiment is not set
+	local desktopUpsellExpVariant = if state.abVariations then state.abVariations.DesktopUpsellExpVariant else nil
 	
 	return {
 		purchaseFlowUUID = state.purchaseFlowUUID,
@@ -697,8 +788,10 @@ local function mapStateToProps(state)
 		accountInfo = state.accountInfo,
 		robuxPurchaseAmount = SelectedRobuxPackage.getRobuxPurchaseAmount(state),
 		robuxAmountBeforeBonus = SelectedRobuxPackage.getRobuxAmountBeforeBonus(state),
+		robuxPurchaseCost = SelectedRobuxPackage.getPrice(state),
 		isTestPurchase = isTestPurchase,
 		isGamepadEnabled = state.gamepadEnabled,
+		desktopUpsellExpVariant = desktopUpsellExpVariant,
 	}
 end
 

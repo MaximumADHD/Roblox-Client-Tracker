@@ -22,6 +22,8 @@ local FFlagChromeShortcutAddRespawnLeaveToIEM = SharedFlags.FFlagChromeShortcutA
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
+local FFlagShortcutBarUseTokens = SharedFlags.FFlagShortcutBarUseTokens
+local FFlagChromeFixMenuIconBackButton = SharedFlags.FFlagChromeFixMenuIconBackButton
 
 local ChromeFlags = Chrome.Flags
 local FFlagRespawnChromeShortcutTelemetry = require(ChromeFlags.FFlagRespawnChromeShortcutTelemetry)
@@ -205,16 +207,20 @@ function registerShortcuts()
 		id = "back",
 		label = "CoreScripts.TopBar.Back",
 		keyCode = Enum.KeyCode.ButtonB,
+		displayPriority = if FFlagShortcutBarUseTokens then -10 else nil,
 		integration = nil,
 		actionName = "UnibarGamepadBack",
 		activated = function()
+			local isMenuIconSelected = FFlagChromeFixMenuIconBackButton
+				and ChromeFocusUtils.MenuIconSelectedSignal:get()
+			local inFocusNav = (not FFlagConsoleChatUseChromeFocusUtils or ChromeService:inFocusNav():get())
 			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 			if SettingsHub:GetVisibility() then
 				SettingsHub.Instance:PopMenu(false, true)
 				if not SettingsHub:GetVisibility() then
 					ChromeService:selectMenuIcon()
 				end
-			elseif not FFlagConsoleChatUseChromeFocusUtils or ChromeService:inFocusNav():get() then
+			elseif inFocusNav or isMenuIconSelected then
 				local subMenuId = ChromeService:currentSubMenu():get()
 				if subMenuId then
 					ChromeService:toggleSubMenu(subMenuId)
@@ -223,6 +229,9 @@ function registerShortcuts()
 					ChromeService:disableFocusNav()
 					ChromeService:setShortcutBar(nil)
 					GuiService.SelectedCoreObject = nil
+					if FFlagChromeFixMenuIconBackButton then
+						ChromeFocusUtils.MenuIconSelectedSignal:set(false)
+					end
 					if FFlagConsoleSinglePressIntegrationExit then
 						return Enum.ContextActionResult.Pass
 					end

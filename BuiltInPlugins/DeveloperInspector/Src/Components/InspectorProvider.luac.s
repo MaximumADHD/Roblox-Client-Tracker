@@ -214,7 +214,10 @@ MAIN:
   GETTABLEKS R7 R8 K11 ["Util"]
   GETTABLEKS R6 R7 K12 ["InspectorContext"]
   CALL R5 1 1
-  GETTABLEKS R6 R3 K13 ["DeveloperTools"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Packages"]
+  GETTABLEKS R7 R8 K13 ["DeveloperTools"]
+  CALL R6 1 1
   GETTABLEKS R8 R0 K10 ["Src"]
   GETTABLEKS R7 R8 K14 ["Actions"]
   GETIMPORT R8 K4 [require]

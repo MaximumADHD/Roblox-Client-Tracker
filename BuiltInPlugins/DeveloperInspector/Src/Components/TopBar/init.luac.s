@@ -535,7 +535,10 @@ MAIN:
   GETTABLEKS R17 R13 K25 ["Button"]
   GETTABLEKS R18 R13 K26 ["Image"]
   GETTABLEKS R19 R13 K27 ["TextLabel"]
-  GETTABLEKS R20 R3 K28 ["DeveloperTools"]
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R22 R0 K5 ["Packages"]
+  GETTABLEKS R21 R22 K28 ["DeveloperTools"]
+  CALL R20 1 1
   GETTABLEKS R21 R20 K29 ["RoactInspectorApi"]
   GETTABLEKS R22 R1 K30 ["PureComponent"]
   LOADK R24 K31 ["TopBar"]

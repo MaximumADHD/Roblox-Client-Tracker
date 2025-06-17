@@ -317,7 +317,10 @@ MAIN:
   GETIMPORT R7 K1 [script]
   GETTABLEKS R6 R7 K12 ["RoactElementRow"]
   CALL R5 1 1
-  GETTABLEKS R6 R3 K13 ["DeveloperTools"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Packages"]
+  GETTABLEKS R7 R8 K13 ["DeveloperTools"]
+  CALL R6 1 1
   GETTABLEKS R7 R6 K14 ["RoactInspectorApi"]
   GETIMPORT R8 K4 [require]
   GETTABLEKS R10 R0 K5 ["Packages"]

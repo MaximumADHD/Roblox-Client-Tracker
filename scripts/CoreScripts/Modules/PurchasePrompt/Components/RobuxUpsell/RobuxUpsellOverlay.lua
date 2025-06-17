@@ -40,6 +40,7 @@ type Props = {
 	purchaseFlow: any?,
 	promptState: any?,
 	purchaseError: any?,
+	economicRestrictionError: any?,
 
 	-- Robux Upsell Suggestions
 	useUpsellSuggestions: boolean?,
@@ -256,6 +257,8 @@ function RobuxUpsellOverlay:getErrorType()
 		return PurchaseErrorType.FailedGrant
 	elseif props.purchaseError == PurchaseError.InvalidFundsUnknown then
 		return PurchaseErrorType.FailedGrantUnknown
+	elseif props.purchaseError == PurchaseError.EconomicRestriction then
+		return PurchaseErrorType.EconomicRestriction
 	end
 
 	return PurchaseErrorType.Unknown
@@ -307,6 +310,7 @@ function RobuxUpsellOverlay:render()
 
 		purchaseState = self:getFlowState(),
 		errorType = self:getErrorType(),
+		economicRestrictionError = props.economicRestrictionError,
 		u13ConfirmType = self:getU13ConfirmType(),
 		purchaseVPCType = self:getVPCModalType(),
 

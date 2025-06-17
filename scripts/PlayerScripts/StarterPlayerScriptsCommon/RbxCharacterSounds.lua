@@ -18,6 +18,7 @@ end
 
 local FFlagUserSoundsUseRelativeVelocity = loadFlag('UserSoundsUseRelativeVelocity2')
 local FFlagUserNewCharacterSoundsApi = loadFlag('UserNewCharacterSoundsApi3')
+local FFlagUserFixCharSoundsEmitters = loadFlag('UserFixCharSoundsEmitters')
 
 local SOUND_DATA : { [string]: {[string]: any}} = {
 	Climbing = {
@@ -174,8 +175,15 @@ local function initializeSoundSystem(instances: { [string]: Instance })
 
 	if FFlagUserNewCharacterSoundsApi and SoundService.CharacterSoundsUseNewApi == Enum.RolloutState.Enabled then
 		-- initialize Audio Emitter
-		local localPlayer = Players.LocalPlayer
-		local character = localPlayer.Character
+		local localPlayer = nil
+		local character = nil
+		local humanoidRootPart = nil
+		if FFlagUserFixCharSoundsEmitters then
+			humanoidRootPart = humanoid.RootPart
+		else
+			localPlayer = Players.LocalPlayer
+			character = localPlayer.Character
+		end
 		local curve = {}
 		local i : number = 5
 		local step : number = 1.25 -- determines how fine-grained the curve gets sampled
@@ -184,7 +192,11 @@ local function initializeSoundSystem(instances: { [string]: Instance })
 			i *= step;
 		end
 		curve[150] = 0
-		audioEmitter = Instance.new("AudioEmitter", character)
+		if FFlagUserFixCharSoundsEmitters then
+			audioEmitter = Instance.new("AudioEmitter", humanoidRootPart)
+		else
+			audioEmitter = Instance.new("AudioEmitter", character)
+		end
 		audioEmitter.Name = "RbxCharacterSoundsEmitter"
 		audioEmitter:SetDistanceAttenuation(curve)
 		-- initialize sounds

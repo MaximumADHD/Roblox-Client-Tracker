@@ -205,12 +205,13 @@ PROTO_9:
   GETTABLEKS R11 R12 K20 ["Enabled"]
   GETTABLEKS R12 R0 K42 ["onWidgetEnabledChanged"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K46 [{"MainView", "StyleLink", "WidgetRegister"}]
+  DUPTABLE R11 K46 [{"App", "StyleLink", "WidgetRegister"}]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K17 ["createElement"]
   GETUPVAL R13 6
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K43 ["MainView"]
+  NEWTABLE R14 0 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K43 ["App"]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K17 ["createElement"]
   LOADK R13 K44 ["StyleLink"]
@@ -280,7 +281,7 @@ MAIN:
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K9 ["Src"]
   GETTABLEKS R16 R17 K28 ["Components"]
-  GETTABLEKS R15 R16 K29 ["FindReplaceMainView"]
+  GETTABLEKS R15 R16 K29 ["App"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K9 ["Src"]

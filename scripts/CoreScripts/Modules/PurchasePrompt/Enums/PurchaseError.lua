@@ -48,6 +48,9 @@ local PurchaseError = createEnum("PurchaseError", {
 
 	-- Creator Store
 	-- TODO(STM-5600): Add more detailed error messages.
+
+	-- Economic Restriction
+	"EconomicRestriction",
 })
 
 return PurchaseError

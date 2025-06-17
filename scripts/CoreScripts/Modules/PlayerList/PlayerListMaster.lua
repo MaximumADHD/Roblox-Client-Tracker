@@ -20,12 +20,14 @@ local StyleConstants = UIBlox.App.Style.Constants
 local ApolloClientInstance = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
 local ApolloProvider = ApolloClientModule.ApolloProvider
-
 local PlayerList = script.Parent
 
 local Reducer = require(PlayerList.Reducers.Reducer)
 local GlobalConfig = require(PlayerList.GlobalConfig)
 local PlayerListSwitcher = require(PlayerList.PlayerListSwitcher)
+
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
 
 -- Actions
 local SetPlayerListEnabled = require(PlayerList.Actions.SetPlayerListEnabled)
@@ -44,6 +46,14 @@ local FFlagXboxRemoveLatentVoiceChatPrivilegeCheck =
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+end
+
+local FFlagPlayerlistUseSignals = require(PlayerList.Flags.FFlagPlayerlistUseSignals)
+
+local PlayerListContainer = nil
+
+if FFlagPlayerlistUseSignals then
+	PlayerListContainer = require(CorePackages.Workspace.Packages.PlayerList).PlayerListContainer
 end
 
 local XPRIVILEGE_COMMUNICATION_VOICE_INGAME = 205
@@ -160,6 +170,23 @@ function PlayerListMaster.new()
 		StoreProvider = self.root,
 	})
 
+	self._mountLeaderboardStore = function()
+		LeaderboardStoreInstanceManager.createLeaderboardStoreInstance()
+	end
+
+	self._unmountLeaderboardStore = function()
+		LeaderboardStoreInstanceManager.cleanUpInstance()
+	end
+
+	if FFlagPlayerlistUseSignals then
+		self._mountLeaderboardStore()
+		self.root = Roact.createElement(PlayerListContainer, {
+			leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance(false),
+		}, {
+			PlayerListMaster = self.root,
+		})
+	end
+
 	self.root = Roact.createElement("ScreenGui", {
 		AutoLocalize = false,
 		IgnoreGuiInset = true,
@@ -192,10 +219,16 @@ function PlayerListMaster:_updateMounted()
 	if not TenFootInterface:IsEnabled() then
 		local shouldMount = self.coreGuiEnabled and self.topBarEnabled
 		if shouldMount and not self.mounted then
+			if FFlagPlayerlistUseSignals then
+				self._mountLeaderboardStore()
+			end
 			self.element = Roact.mount(self.root, CoreGui, "PlayerList")
 			self.mounted = true
 		elseif not shouldMount and self.mounted then
 			Roact.unmount(self.element)
+			if FFlagPlayerlistUseSignals then
+				self._unmountLeaderboardStore()
+			end
 			self.mounted = false
 			if self.inspector then
 				self.inspector:destroy()

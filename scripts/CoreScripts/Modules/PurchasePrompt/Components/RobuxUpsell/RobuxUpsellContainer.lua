@@ -97,6 +97,7 @@ function RobuxUpsellContainer:createElement()
 			promptState = props.promptState,
 			purchaseFlow = props.purchaseFlow,
 			purchaseError = props.purchaseError,
+			economicRestrictionError = props.economicRestrictionError,
 
 			-- Robux Upsell Suggestions
 			useUpsellSuggestions = FFlagEnableUpsellSuggestionsAPI and UpsellSuggestionsAPIMaxPackages > 1,
@@ -187,6 +188,7 @@ RobuxUpsellContainer = connectToStore(function(state)
 
 		promptState = state.promptState,
 		purchaseError = state.purchaseError,
+		economicRestrictionError = state.economicRestrictionError,
 
 		productInfo = state.productInfo,
 		accountInfo = state.accountInfo,

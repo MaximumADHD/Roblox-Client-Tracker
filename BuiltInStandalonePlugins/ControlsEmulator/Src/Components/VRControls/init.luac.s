@@ -323,97 +323,92 @@ PROTO_16:
   RETURN R0 0
 
 PROTO_17:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["VREmulatorFullRelease"]
-  FASTCALL1 ASSERT R2 [+2]
-  GETIMPORT R1 K2 [assert]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  NAMECALL R1 R1 K3 ["use"]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K4 ["useContext"]
-  GETUPVAL R3 3
   CALL R2 1 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K4 ["useContext"]
-  GETUPVAL R5 4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["useContext"]
+  GETUPVAL R5 3
   CALL R4 1 1
-  GETTABLEKS R3 R4 K5 ["setVRUserCFrameActive"]
-  GETTABLEKS R4 R2 K6 ["activeVRUserCFrames"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K4 ["useContext"]
-  GETUPVAL R7 4
+  GETTABLEKS R3 R4 K2 ["setVRUserCFrameActive"]
+  GETTABLEKS R4 R2 K3 ["activeVRUserCFrames"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["useContext"]
+  GETUPVAL R7 3
   CALL R6 1 1
-  GETTABLEKS R5 R6 K7 ["setVRCFrameTranslationSensitivity"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K8 ["useState"]
+  GETTABLEKS R5 R6 K4 ["setVRCFrameTranslationSensitivity"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["useState"]
   LOADN R7 5
   CALL R6 1 2
   JUMPIFNOT R3 [+2]
   JUMPIFNOT R4 [+1]
   JUMPIF R5 [+1]
   RETURN R0 0
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K8 ["useState"]
-  GETTABLEKS R9 R0 K9 ["shouldShowTooltip"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K5 ["useState"]
+  GETTABLEKS R9 R0 K6 ["shouldShowTooltip"]
   CALL R8 1 2
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K8 ["useState"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K5 ["useState"]
   LOADB R11 0
   CALL R10 1 2
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K10 ["useCallback"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K7 ["useCallback"]
   NEWCLOSURE R13 P0
   CAPTURE VAL R11
   NEWTABLE R14 0 1
   MOVE R15 R11
   SETLIST R14 R15 1 [1]
   CALL R12 2 1
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K10 ["useCallback"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K7 ["useCallback"]
   NEWCLOSURE R14 P1
   CAPTURE VAL R11
   NEWTABLE R15 0 1
   MOVE R16 R11
   SETLIST R15 R16 1 [1]
   CALL R13 2 1
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K8 ["useState"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K5 ["useState"]
   LOADB R15 0
   CALL R14 1 2
-  GETTABLEKS R16 R2 K11 ["gamepadId"]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K12 ["useMemo"]
+  GETTABLEKS R16 R2 K8 ["gamepadId"]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K9 ["useMemo"]
   NEWCLOSURE R18 P2
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE VAL R16
   NEWTABLE R19 0 1
   MOVE R20 R16
   SETLIST R19 R20 1 [1]
   CALL R17 2 1
-  GETUPVAL R19 2
-  GETTABLEKS R18 R19 K8 ["useState"]
-  GETIMPORT R20 K16 [Enum.UserCFrame.Head]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K5 ["useState"]
+  GETIMPORT R20 K13 [Enum.UserCFrame.Head]
   GETTABLE R19 R4 R20
   CALL R18 1 2
-  GETUPVAL R21 2
-  GETTABLEKS R20 R21 K8 ["useState"]
-  GETIMPORT R22 K18 [Enum.UserCFrame.LeftHand]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K5 ["useState"]
+  GETIMPORT R22 K15 [Enum.UserCFrame.LeftHand]
   GETTABLE R21 R4 R22
   CALL R20 1 2
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K8 ["useState"]
-  GETIMPORT R24 K20 [Enum.UserCFrame.RightHand]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K5 ["useState"]
+  GETIMPORT R24 K17 [Enum.UserCFrame.RightHand]
   GETTABLE R23 R4 R24
   CALL R22 1 2
-  DUPCLOSURE R24 K21 [PROTO_4]
+  DUPCLOSURE R24 K18 [PROTO_4]
   NEWCLOSURE R25 P4
   CAPTURE VAL R18
   CAPTURE VAL R20
   CAPTURE VAL R22
-  GETUPVAL R27 2
-  GETTABLEKS R26 R27 K22 ["useEffect"]
+  GETUPVAL R27 1
+  GETTABLEKS R26 R27 K19 ["useEffect"]
   NEWCLOSURE R27 P5
   CAPTURE VAL R17
   CAPTURE VAL R19
@@ -424,551 +419,551 @@ PROTO_17:
   MOVE R29 R17
   SETLIST R28 R29 1 [1]
   CALL R26 2 0
-  GETUPVAL R27 2
-  GETTABLEKS R26 R27 K22 ["useEffect"]
+  GETUPVAL R27 1
+  GETTABLEKS R26 R27 K19 ["useEffect"]
   NEWCLOSURE R27 P6
   CAPTURE VAL R2
   CAPTURE VAL R19
   CAPTURE VAL R21
   CAPTURE VAL R23
   NEWTABLE R28 0 1
-  GETTABLEKS R29 R2 K6 ["activeVRUserCFrames"]
+  GETTABLEKS R29 R2 K3 ["activeVRUserCFrames"]
   SETLIST R28 R29 1 [1]
   CALL R26 2 0
-  GETUPVAL R27 2
-  GETTABLEKS R26 R27 K23 ["createElement"]
-  LOADK R27 K24 ["Frame"]
+  GETUPVAL R27 1
+  GETTABLEKS R26 R27 K20 ["createElement"]
+  LOADK R27 K21 ["Frame"]
   NEWTABLE R28 2 0
-  GETUPVAL R30 2
-  GETTABLEKS R29 R30 K25 ["Tag"]
-  GETUPVAL R30 6
-  LOADK R31 K26 ["Component-VRControls CX-Invisible"]
+  GETUPVAL R30 1
+  GETTABLEKS R29 R30 K22 ["Tag"]
+  GETUPVAL R30 5
+  LOADK R31 K23 ["Component-VRControls CX-Invisible"]
   CALL R30 1 1
   SETTABLE R30 R28 R29
-  GETTABLEKS R29 R0 K27 ["LayoutOrder"]
-  SETTABLEKS R29 R28 K27 ["LayoutOrder"]
-  DUPTABLE R29 K29 [{"InnerContainer"}]
-  GETUPVAL R31 2
-  GETTABLEKS R30 R31 K23 ["createElement"]
-  LOADK R31 K24 ["Frame"]
+  GETTABLEKS R29 R0 K24 ["LayoutOrder"]
+  SETTABLEKS R29 R28 K24 ["LayoutOrder"]
+  DUPTABLE R29 K26 [{"InnerContainer"}]
+  GETUPVAL R31 1
+  GETTABLEKS R30 R31 K20 ["createElement"]
+  LOADK R31 K21 ["Frame"]
   NEWTABLE R32 2 0
-  GETUPVAL R34 2
-  GETTABLEKS R33 R34 K25 ["Tag"]
-  LOADK R34 K30 ["CX-Invisible"]
+  GETUPVAL R34 1
+  GETTABLEKS R33 R34 K22 ["Tag"]
+  LOADK R34 K27 ["CX-Invisible"]
   SETTABLE R34 R32 R33
-  GETUPVAL R33 7
-  NAMECALL R33 R33 K31 ["getNextOrder"]
+  GETUPVAL R33 6
+  NAMECALL R33 R33 K28 ["getNextOrder"]
   CALL R33 1 1
-  SETTABLEKS R33 R32 K27 ["LayoutOrder"]
-  DUPTABLE R33 K36 [{"Separator", "Controls", "ResetPositionsTooltip", "Tooltip"}]
-  GETUPVAL R35 2
-  GETTABLEKS R34 R35 K23 ["createElement"]
-  LOADK R35 K24 ["Frame"]
-  DUPTABLE R36 K37 [{"LayoutOrder"}]
-  GETUPVAL R37 7
-  NAMECALL R37 R37 K31 ["getNextOrder"]
+  SETTABLEKS R33 R32 K24 ["LayoutOrder"]
+  DUPTABLE R33 K33 [{"Separator", "Controls", "ResetPositionsTooltip", "Tooltip"}]
+  GETUPVAL R35 1
+  GETTABLEKS R34 R35 K20 ["createElement"]
+  LOADK R35 K21 ["Frame"]
+  DUPTABLE R36 K34 [{"LayoutOrder"}]
+  GETUPVAL R37 6
+  NAMECALL R37 R37 K28 ["getNextOrder"]
   CALL R37 1 1
-  SETTABLEKS R37 R36 K27 ["LayoutOrder"]
+  SETTABLEKS R37 R36 K24 ["LayoutOrder"]
   CALL R34 2 1
-  SETTABLEKS R34 R33 K32 ["Separator"]
-  GETUPVAL R35 2
-  GETTABLEKS R34 R35 K23 ["createElement"]
-  LOADK R35 K24 ["Frame"]
+  SETTABLEKS R34 R33 K29 ["Separator"]
+  GETUPVAL R35 1
+  GETTABLEKS R34 R35 K20 ["createElement"]
+  LOADK R35 K21 ["Frame"]
   NEWTABLE R36 2 0
-  GETUPVAL R38 2
-  GETTABLEKS R37 R38 K25 ["Tag"]
-  LOADK R38 K38 ["X-Column CX-Invisible"]
+  GETUPVAL R38 1
+  GETTABLEKS R37 R38 K22 ["Tag"]
+  LOADK R38 K35 ["X-Column CX-Invisible"]
   SETTABLE R38 R36 R37
-  GETUPVAL R37 7
-  NAMECALL R37 R37 K31 ["getNextOrder"]
+  GETUPVAL R37 6
+  NAMECALL R37 R37 K28 ["getNextOrder"]
   CALL R37 1 1
-  SETTABLEKS R37 R36 K27 ["LayoutOrder"]
-  DUPTABLE R37 K42 [{"LabelAndTooltipFrame", "ContainerFrame", "SliderFrame"}]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  LOADK R39 K24 ["Frame"]
-  DUPTABLE R40 K37 [{"LayoutOrder"}]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R37 R36 K24 ["LayoutOrder"]
+  DUPTABLE R37 K39 [{"LabelAndTooltipFrame", "ContainerFrame", "SliderFrame"}]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  LOADK R39 K21 ["Frame"]
+  DUPTABLE R40 K34 [{"LayoutOrder"}]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
-  DUPTABLE R41 K45 [{"Label", "TooltipButton"}]
-  GETUPVAL R43 2
-  GETTABLEKS R42 R43 K23 ["createElement"]
-  LOADK R43 K46 ["TextLabel"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
+  DUPTABLE R41 K42 [{"Label", "TooltipButton"}]
+  GETUPVAL R43 1
+  GETTABLEKS R42 R43 K20 ["createElement"]
+  LOADK R43 K43 ["TextLabel"]
   NEWTABLE R44 4 0
-  GETUPVAL R46 2
-  GETTABLEKS R45 R46 K25 ["Tag"]
-  LOADK R46 K30 ["CX-Invisible"]
+  GETUPVAL R46 1
+  GETTABLEKS R45 R46 K22 ["Tag"]
+  LOADK R46 K27 ["CX-Invisible"]
   SETTABLE R46 R44 R45
-  LOADK R47 K47 ["VRControls"]
-  LOADK R48 K48 ["MoveAndRotateLabel"]
-  NAMECALL R45 R1 K49 ["getText"]
+  LOADK R47 K44 ["VRControls"]
+  LOADK R48 K45 ["MoveAndRotateLabel"]
+  NAMECALL R45 R1 K46 ["getText"]
   CALL R45 3 1
-  SETTABLEKS R45 R44 K50 ["Text"]
-  GETUPVAL R45 7
-  NAMECALL R45 R45 K31 ["getNextOrder"]
+  SETTABLEKS R45 R44 K47 ["Text"]
+  GETUPVAL R45 6
+  NAMECALL R45 R45 K28 ["getNextOrder"]
   CALL R45 1 1
-  SETTABLEKS R45 R44 K27 ["LayoutOrder"]
+  SETTABLEKS R45 R44 K24 ["LayoutOrder"]
   CALL R42 2 1
-  SETTABLEKS R42 R41 K43 ["Label"]
-  GETUPVAL R43 2
-  GETTABLEKS R42 R43 K23 ["createElement"]
-  LOADK R43 K51 ["TextButton"]
+  SETTABLEKS R42 R41 K40 ["Label"]
+  GETUPVAL R43 1
+  GETTABLEKS R42 R43 K20 ["createElement"]
+  LOADK R43 K48 ["TextButton"]
   NEWTABLE R44 8 0
-  GETUPVAL R46 2
-  GETTABLEKS R45 R46 K25 ["Tag"]
-  GETUPVAL R46 6
-  LOADK R47 K52 ["X-Circle"]
+  GETUPVAL R46 1
+  GETTABLEKS R45 R46 K22 ["Tag"]
+  GETUPVAL R46 5
+  LOADK R47 K49 ["X-Circle"]
   JUMPIF R8 [+1]
   JUMPIFNOT R14 [+2]
-  LOADK R48 K53 ["FilledIn"]
+  LOADK R48 K50 ["FilledIn"]
   JUMP [+1]
   LOADNIL R48
   CALL R46 2 1
   SETTABLE R46 R44 R45
-  LOADK R47 K47 ["VRControls"]
-  LOADK R48 K54 ["TooltipInfoLabel"]
-  NAMECALL R45 R1 K49 ["getText"]
+  LOADK R47 K44 ["VRControls"]
+  LOADK R48 K51 ["TooltipInfoLabel"]
+  NAMECALL R45 R1 K46 ["getText"]
   CALL R45 3 1
-  SETTABLEKS R45 R44 K50 ["Text"]
-  GETIMPORT R45 K57 [UDim2.new]
+  SETTABLEKS R45 R44 K47 ["Text"]
+  GETIMPORT R45 K54 [UDim2.new]
   LOADN R46 0
   LOADN R47 20
   LOADN R48 0
   LOADN R49 20
   CALL R45 4 1
-  SETTABLEKS R45 R44 K58 ["Size"]
-  GETUPVAL R45 7
-  NAMECALL R45 R45 K31 ["getNextOrder"]
+  SETTABLEKS R45 R44 K55 ["Size"]
+  GETUPVAL R45 6
+  NAMECALL R45 R45 K28 ["getNextOrder"]
   CALL R45 1 1
-  SETTABLEKS R45 R44 K27 ["LayoutOrder"]
-  GETUPVAL R47 2
-  GETTABLEKS R46 R47 K59 ["Event"]
-  GETTABLEKS R45 R46 K60 ["MouseEnter"]
+  SETTABLEKS R45 R44 K24 ["LayoutOrder"]
+  GETUPVAL R47 1
+  GETTABLEKS R46 R47 K56 ["Event"]
+  GETTABLEKS R45 R46 K57 ["MouseEnter"]
   NEWCLOSURE R46 P7
   CAPTURE VAL R15
   SETTABLE R46 R44 R45
-  GETUPVAL R47 2
-  GETTABLEKS R46 R47 K59 ["Event"]
-  GETTABLEKS R45 R46 K61 ["MouseLeave"]
+  GETUPVAL R47 1
+  GETTABLEKS R46 R47 K56 ["Event"]
+  GETTABLEKS R45 R46 K58 ["MouseLeave"]
   NEWCLOSURE R46 P8
   CAPTURE VAL R15
   SETTABLE R46 R44 R45
-  GETUPVAL R47 2
-  GETTABLEKS R46 R47 K59 ["Event"]
-  GETTABLEKS R45 R46 K62 ["MouseButton1Click"]
+  GETUPVAL R47 1
+  GETTABLEKS R46 R47 K56 ["Event"]
+  GETTABLEKS R45 R46 K59 ["MouseButton1Click"]
   NEWCLOSURE R46 P9
   CAPTURE VAL R9
   CAPTURE VAL R8
   SETTABLE R46 R44 R45
   CALL R42 2 1
-  SETTABLEKS R42 R41 K44 ["TooltipButton"]
+  SETTABLEKS R42 R41 K41 ["TooltipButton"]
   CALL R38 3 1
-  SETTABLEKS R38 R37 K39 ["LabelAndTooltipFrame"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  LOADK R39 K24 ["Frame"]
-  DUPTABLE R40 K37 [{"LayoutOrder"}]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R38 R37 K36 ["LabelAndTooltipFrame"]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  LOADK R39 K21 ["Frame"]
+  DUPTABLE R40 K34 [{"LayoutOrder"}]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
-  DUPTABLE R41 K65 [{"CheckboxFrame", "ResetPositionsFrame"}]
-  GETUPVAL R43 2
-  GETTABLEKS R42 R43 K23 ["createElement"]
-  LOADK R43 K24 ["Frame"]
-  DUPTABLE R44 K37 [{"LayoutOrder"}]
-  GETUPVAL R45 7
-  NAMECALL R45 R45 K31 ["getNextOrder"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
+  DUPTABLE R41 K62 [{"CheckboxFrame", "ResetPositionsFrame"}]
+  GETUPVAL R43 1
+  GETTABLEKS R42 R43 K20 ["createElement"]
+  LOADK R43 K21 ["Frame"]
+  DUPTABLE R44 K34 [{"LayoutOrder"}]
+  GETUPVAL R45 6
+  NAMECALL R45 R45 K28 ["getNextOrder"]
   CALL R45 1 1
-  SETTABLEKS R45 R44 K27 ["LayoutOrder"]
-  DUPTABLE R45 K69 [{"HeadsetBox", "LeftHandBox", "RightHandBox"}]
-  GETUPVAL R47 2
-  GETTABLEKS R46 R47 K23 ["createElement"]
-  GETUPVAL R47 8
-  DUPTABLE R48 K74 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
-  SETTABLEKS R18 R48 K70 ["Checked"]
-  GETIMPORT R50 K16 [Enum.UserCFrame.Head]
-  GETTABLEKS R49 R50 K75 ["Name"]
-  SETTABLEKS R49 R48 K71 ["Key"]
+  SETTABLEKS R45 R44 K24 ["LayoutOrder"]
+  DUPTABLE R45 K66 [{"HeadsetBox", "LeftHandBox", "RightHandBox"}]
+  GETUPVAL R47 1
+  GETTABLEKS R46 R47 K20 ["createElement"]
+  GETUPVAL R47 7
+  DUPTABLE R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
+  SETTABLEKS R18 R48 K67 ["Checked"]
+  GETIMPORT R50 K13 [Enum.UserCFrame.Head]
+  GETTABLEKS R49 R50 K72 ["Name"]
+  SETTABLEKS R49 R48 K68 ["Key"]
   NEWCLOSURE R49 P10
   CAPTURE VAL R18
   CAPTURE VAL R19
   CAPTURE VAL R20
   CAPTURE VAL R22
   CAPTURE VAL R3
-  SETTABLEKS R49 R48 K72 ["OnClick"]
-  LOADK R51 K47 ["VRControls"]
-  LOADK R52 K76 ["HeadsetLabel"]
-  NAMECALL R49 R1 K49 ["getText"]
+  SETTABLEKS R49 R48 K69 ["OnClick"]
+  LOADK R51 K44 ["VRControls"]
+  LOADK R52 K73 ["HeadsetLabel"]
+  NAMECALL R49 R1 K46 ["getText"]
   CALL R49 3 1
-  SETTABLEKS R49 R48 K50 ["Text"]
+  SETTABLEKS R49 R48 K47 ["Text"]
   LOADB R49 0
-  SETTABLEKS R49 R48 K73 ["Disabled"]
-  GETUPVAL R49 7
-  NAMECALL R49 R49 K31 ["getNextOrder"]
+  SETTABLEKS R49 R48 K70 ["Disabled"]
+  GETUPVAL R49 6
+  NAMECALL R49 R49 K28 ["getNextOrder"]
   CALL R49 1 1
-  SETTABLEKS R49 R48 K27 ["LayoutOrder"]
+  SETTABLEKS R49 R48 K24 ["LayoutOrder"]
   CALL R46 2 1
-  SETTABLEKS R46 R45 K66 ["HeadsetBox"]
-  GETUPVAL R47 2
-  GETTABLEKS R46 R47 K23 ["createElement"]
-  GETUPVAL R47 8
-  DUPTABLE R48 K74 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
-  SETTABLEKS R20 R48 K70 ["Checked"]
-  GETIMPORT R50 K18 [Enum.UserCFrame.LeftHand]
-  GETTABLEKS R49 R50 K75 ["Name"]
-  SETTABLEKS R49 R48 K71 ["Key"]
+  SETTABLEKS R46 R45 K63 ["HeadsetBox"]
+  GETUPVAL R47 1
+  GETTABLEKS R46 R47 K20 ["createElement"]
+  GETUPVAL R47 7
+  DUPTABLE R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
+  SETTABLEKS R20 R48 K67 ["Checked"]
+  GETIMPORT R50 K15 [Enum.UserCFrame.LeftHand]
+  GETTABLEKS R49 R50 K72 ["Name"]
+  SETTABLEKS R49 R48 K68 ["Key"]
   NEWCLOSURE R49 P11
   CAPTURE VAL R20
   CAPTURE VAL R21
   CAPTURE VAL R18
   CAPTURE VAL R22
   CAPTURE VAL R3
-  SETTABLEKS R49 R48 K72 ["OnClick"]
-  LOADK R51 K47 ["VRControls"]
-  LOADK R52 K77 ["LeftControllerLabel"]
-  NAMECALL R49 R1 K49 ["getText"]
+  SETTABLEKS R49 R48 K69 ["OnClick"]
+  LOADK R51 K44 ["VRControls"]
+  LOADK R52 K74 ["LeftControllerLabel"]
+  NAMECALL R49 R1 K46 ["getText"]
   CALL R49 3 1
-  SETTABLEKS R49 R48 K50 ["Text"]
+  SETTABLEKS R49 R48 K47 ["Text"]
   NOT R49 R17
-  SETTABLEKS R49 R48 K73 ["Disabled"]
-  GETUPVAL R49 7
-  NAMECALL R49 R49 K31 ["getNextOrder"]
+  SETTABLEKS R49 R48 K70 ["Disabled"]
+  GETUPVAL R49 6
+  NAMECALL R49 R49 K28 ["getNextOrder"]
   CALL R49 1 1
-  SETTABLEKS R49 R48 K27 ["LayoutOrder"]
+  SETTABLEKS R49 R48 K24 ["LayoutOrder"]
   CALL R46 2 1
-  SETTABLEKS R46 R45 K67 ["LeftHandBox"]
-  GETUPVAL R47 2
-  GETTABLEKS R46 R47 K23 ["createElement"]
-  GETUPVAL R47 8
-  DUPTABLE R48 K74 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
-  SETTABLEKS R22 R48 K70 ["Checked"]
-  GETIMPORT R50 K20 [Enum.UserCFrame.RightHand]
-  GETTABLEKS R49 R50 K75 ["Name"]
-  SETTABLEKS R49 R48 K71 ["Key"]
+  SETTABLEKS R46 R45 K64 ["LeftHandBox"]
+  GETUPVAL R47 1
+  GETTABLEKS R46 R47 K20 ["createElement"]
+  GETUPVAL R47 7
+  DUPTABLE R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
+  SETTABLEKS R22 R48 K67 ["Checked"]
+  GETIMPORT R50 K17 [Enum.UserCFrame.RightHand]
+  GETTABLEKS R49 R50 K72 ["Name"]
+  SETTABLEKS R49 R48 K68 ["Key"]
   NEWCLOSURE R49 P12
   CAPTURE VAL R22
   CAPTURE VAL R23
   CAPTURE VAL R18
   CAPTURE VAL R20
   CAPTURE VAL R3
-  SETTABLEKS R49 R48 K72 ["OnClick"]
-  LOADK R51 K47 ["VRControls"]
-  LOADK R52 K78 ["RightControllerLabel"]
-  NAMECALL R49 R1 K49 ["getText"]
+  SETTABLEKS R49 R48 K69 ["OnClick"]
+  LOADK R51 K44 ["VRControls"]
+  LOADK R52 K75 ["RightControllerLabel"]
+  NAMECALL R49 R1 K46 ["getText"]
   CALL R49 3 1
-  SETTABLEKS R49 R48 K50 ["Text"]
+  SETTABLEKS R49 R48 K47 ["Text"]
   NOT R49 R17
-  SETTABLEKS R49 R48 K73 ["Disabled"]
-  GETUPVAL R49 7
-  NAMECALL R49 R49 K31 ["getNextOrder"]
+  SETTABLEKS R49 R48 K70 ["Disabled"]
+  GETUPVAL R49 6
+  NAMECALL R49 R49 K28 ["getNextOrder"]
   CALL R49 1 1
-  SETTABLEKS R49 R48 K27 ["LayoutOrder"]
+  SETTABLEKS R49 R48 K24 ["LayoutOrder"]
   CALL R46 2 1
-  SETTABLEKS R46 R45 K68 ["RightHandBox"]
+  SETTABLEKS R46 R45 K65 ["RightHandBox"]
   CALL R42 3 1
-  SETTABLEKS R42 R41 K63 ["CheckboxFrame"]
-  GETTABLEKS R42 R0 K79 ["inPlayClient"]
+  SETTABLEKS R42 R41 K60 ["CheckboxFrame"]
+  GETTABLEKS R42 R0 K76 ["inPlayClient"]
   JUMPIFNOT R42 [+68]
-  GETUPVAL R43 2
-  GETTABLEKS R42 R43 K23 ["createElement"]
-  LOADK R43 K24 ["Frame"]
-  DUPTABLE R44 K37 [{"LayoutOrder"}]
-  GETUPVAL R45 7
-  NAMECALL R45 R45 K31 ["getNextOrder"]
+  GETUPVAL R43 1
+  GETTABLEKS R42 R43 K20 ["createElement"]
+  LOADK R43 K21 ["Frame"]
+  DUPTABLE R44 K34 [{"LayoutOrder"}]
+  GETUPVAL R45 6
+  NAMECALL R45 R45 K28 ["getNextOrder"]
   CALL R45 1 1
-  SETTABLEKS R45 R44 K27 ["LayoutOrder"]
-  DUPTABLE R45 K81 [{"ResetPositionsButton"}]
-  GETUPVAL R47 2
-  GETTABLEKS R46 R47 K23 ["createElement"]
-  LOADK R47 K82 ["ImageButton"]
+  SETTABLEKS R45 R44 K24 ["LayoutOrder"]
+  DUPTABLE R45 K78 [{"ResetPositionsButton"}]
+  GETUPVAL R47 1
+  GETTABLEKS R46 R47 K20 ["createElement"]
+  LOADK R47 K79 ["ImageButton"]
   NEWTABLE R48 8 0
-  GETUPVAL R50 2
-  GETTABLEKS R49 R50 K25 ["Tag"]
-  LOADK R50 K83 ["data-testid=ResetPositionsButton"]
+  GETUPVAL R50 1
+  GETTABLEKS R49 R50 K22 ["Tag"]
+  LOADK R50 K80 ["data-testid=ResetPositionsButton"]
   SETTABLE R50 R48 R49
-  GETUPVAL R51 2
-  GETTABLEKS R50 R51 K59 ["Event"]
-  GETTABLEKS R49 R50 K60 ["MouseEnter"]
+  GETUPVAL R51 1
+  GETTABLEKS R50 R51 K56 ["Event"]
+  GETTABLEKS R49 R50 K57 ["MouseEnter"]
   SETTABLE R12 R48 R49
-  GETUPVAL R51 2
-  GETTABLEKS R50 R51 K59 ["Event"]
-  GETTABLEKS R49 R50 K61 ["MouseLeave"]
+  GETUPVAL R51 1
+  GETTABLEKS R50 R51 K56 ["Event"]
+  GETTABLEKS R49 R50 K58 ["MouseLeave"]
   SETTABLE R13 R48 R49
-  GETUPVAL R51 2
-  GETTABLEKS R50 R51 K59 ["Event"]
-  GETTABLEKS R49 R50 K62 ["MouseButton1Click"]
-  DUPCLOSURE R50 K84 [PROTO_15]
-  CAPTURE UPVAL U9
+  GETUPVAL R51 1
+  GETTABLEKS R50 R51 K56 ["Event"]
+  GETTABLEKS R49 R50 K59 ["MouseButton1Click"]
+  DUPCLOSURE R50 K81 [PROTO_15]
+  CAPTURE UPVAL U8
   SETTABLE R50 R48 R49
-  GETUPVAL R49 7
-  NAMECALL R49 R49 K31 ["getNextOrder"]
+  GETUPVAL R49 6
+  NAMECALL R49 R49 K28 ["getNextOrder"]
   CALL R49 1 1
-  SETTABLEKS R49 R48 K27 ["LayoutOrder"]
-  DUPTABLE R49 K86 [{"ResetIconImage"}]
-  GETUPVAL R51 2
-  GETTABLEKS R50 R51 K23 ["createElement"]
-  LOADK R51 K87 ["ImageLabel"]
-  DUPTABLE R52 K37 [{"LayoutOrder"}]
-  GETUPVAL R53 7
-  NAMECALL R53 R53 K31 ["getNextOrder"]
+  SETTABLEKS R49 R48 K24 ["LayoutOrder"]
+  DUPTABLE R49 K83 [{"ResetIconImage"}]
+  GETUPVAL R51 1
+  GETTABLEKS R50 R51 K20 ["createElement"]
+  LOADK R51 K84 ["ImageLabel"]
+  DUPTABLE R52 K34 [{"LayoutOrder"}]
+  GETUPVAL R53 6
+  NAMECALL R53 R53 K28 ["getNextOrder"]
   CALL R53 1 1
-  SETTABLEKS R53 R52 K27 ["LayoutOrder"]
+  SETTABLEKS R53 R52 K24 ["LayoutOrder"]
   CALL R50 2 1
-  SETTABLEKS R50 R49 K85 ["ResetIconImage"]
+  SETTABLEKS R50 R49 K82 ["ResetIconImage"]
   CALL R46 3 1
-  SETTABLEKS R46 R45 K80 ["ResetPositionsButton"]
+  SETTABLEKS R46 R45 K77 ["ResetPositionsButton"]
   CALL R42 3 1
-  SETTABLEKS R42 R41 K64 ["ResetPositionsFrame"]
+  SETTABLEKS R42 R41 K61 ["ResetPositionsFrame"]
   CALL R38 3 1
-  SETTABLEKS R38 R37 K40 ["ContainerFrame"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  LOADK R39 K24 ["Frame"]
+  SETTABLEKS R38 R37 K37 ["ContainerFrame"]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  LOADK R39 K21 ["Frame"]
   NEWTABLE R40 2 0
-  GETUPVAL R42 2
-  GETTABLEKS R41 R42 K25 ["Tag"]
-  LOADK R42 K88 ["data-testid=TranslationSlider"]
+  GETUPVAL R42 1
+  GETTABLEKS R41 R42 K22 ["Tag"]
+  LOADK R42 K85 ["data-testid=TranslationSlider"]
   SETTABLE R42 R40 R41
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
-  DUPTABLE R41 K91 [{"SliderLabel", "TranslationSlider"}]
-  GETUPVAL R43 2
-  GETTABLEKS R42 R43 K23 ["createElement"]
-  LOADK R43 K46 ["TextLabel"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
+  DUPTABLE R41 K88 [{"SliderLabel", "TranslationSlider"}]
+  GETUPVAL R43 1
+  GETTABLEKS R42 R43 K20 ["createElement"]
+  LOADK R43 K43 ["TextLabel"]
   NEWTABLE R44 4 0
-  GETUPVAL R46 2
-  GETTABLEKS R45 R46 K25 ["Tag"]
-  LOADK R46 K30 ["CX-Invisible"]
+  GETUPVAL R46 1
+  GETTABLEKS R45 R46 K22 ["Tag"]
+  LOADK R46 K27 ["CX-Invisible"]
   SETTABLE R46 R44 R45
-  LOADK R47 K47 ["VRControls"]
-  LOADK R48 K92 ["TranslationSensitivityLabel"]
-  NAMECALL R45 R1 K49 ["getText"]
+  LOADK R47 K44 ["VRControls"]
+  LOADK R48 K89 ["TranslationSensitivityLabel"]
+  NAMECALL R45 R1 K46 ["getText"]
   CALL R45 3 1
-  SETTABLEKS R45 R44 K50 ["Text"]
-  GETUPVAL R45 7
-  NAMECALL R45 R45 K31 ["getNextOrder"]
+  SETTABLEKS R45 R44 K47 ["Text"]
+  GETUPVAL R45 6
+  NAMECALL R45 R45 K28 ["getNextOrder"]
   CALL R45 1 1
-  SETTABLEKS R45 R44 K27 ["LayoutOrder"]
+  SETTABLEKS R45 R44 K24 ["LayoutOrder"]
   CALL R42 2 1
-  SETTABLEKS R42 R41 K89 ["SliderLabel"]
-  GETUPVAL R43 2
-  GETTABLEKS R42 R43 K23 ["createElement"]
-  GETUPVAL R43 10
-  DUPTABLE R44 K101 [{"LayoutOrder", "AnchorPoint", "Disabled", "Value", "Min", "Max", "OnValueChanged", "SnapIncrement", "VerticalDragTolerance", "ShowInput"}]
-  GETUPVAL R45 7
-  NAMECALL R45 R45 K31 ["getNextOrder"]
+  SETTABLEKS R42 R41 K86 ["SliderLabel"]
+  GETUPVAL R43 1
+  GETTABLEKS R42 R43 K20 ["createElement"]
+  GETUPVAL R43 9
+  DUPTABLE R44 K98 [{"LayoutOrder", "AnchorPoint", "Disabled", "Value", "Min", "Max", "OnValueChanged", "SnapIncrement", "VerticalDragTolerance", "ShowInput"}]
+  GETUPVAL R45 6
+  NAMECALL R45 R45 K28 ["getNextOrder"]
   CALL R45 1 1
-  SETTABLEKS R45 R44 K27 ["LayoutOrder"]
-  GETIMPORT R45 K103 [Vector2.new]
+  SETTABLEKS R45 R44 K24 ["LayoutOrder"]
+  GETIMPORT R45 K100 [Vector2.new]
   LOADN R46 0
   LOADN R47 0
   CALL R45 2 1
-  SETTABLEKS R45 R44 K93 ["AnchorPoint"]
+  SETTABLEKS R45 R44 K90 ["AnchorPoint"]
   LOADB R45 0
-  SETTABLEKS R45 R44 K73 ["Disabled"]
-  SETTABLEKS R6 R44 K94 ["Value"]
+  SETTABLEKS R45 R44 K70 ["Disabled"]
+  SETTABLEKS R6 R44 K91 ["Value"]
   LOADN R45 1
-  SETTABLEKS R45 R44 K95 ["Min"]
+  SETTABLEKS R45 R44 K92 ["Min"]
   LOADN R45 10
-  SETTABLEKS R45 R44 K96 ["Max"]
+  SETTABLEKS R45 R44 K93 ["Max"]
   NEWCLOSURE R45 P14
   CAPTURE VAL R7
   CAPTURE VAL R5
-  SETTABLEKS R45 R44 K97 ["OnValueChanged"]
+  SETTABLEKS R45 R44 K94 ["OnValueChanged"]
   LOADN R45 1
-  SETTABLEKS R45 R44 K98 ["SnapIncrement"]
+  SETTABLEKS R45 R44 K95 ["SnapIncrement"]
   LOADN R45 0
-  SETTABLEKS R45 R44 K99 ["VerticalDragTolerance"]
+  SETTABLEKS R45 R44 K96 ["VerticalDragTolerance"]
   LOADB R45 1
-  SETTABLEKS R45 R44 K100 ["ShowInput"]
+  SETTABLEKS R45 R44 K97 ["ShowInput"]
   CALL R42 2 1
-  SETTABLEKS R42 R41 K90 ["TranslationSlider"]
+  SETTABLEKS R42 R41 K87 ["TranslationSlider"]
   CALL R38 3 1
-  SETTABLEKS R38 R37 K41 ["SliderFrame"]
+  SETTABLEKS R38 R37 K38 ["SliderFrame"]
   CALL R34 3 1
-  SETTABLEKS R34 R33 K33 ["Controls"]
-  GETTABLEKS R34 R0 K79 ["inPlayClient"]
+  SETTABLEKS R34 R33 K30 ["Controls"]
+  GETTABLEKS R34 R0 K76 ["inPlayClient"]
   JUMPIFNOT R34 [+27]
   MOVE R34 R10
   JUMPIFNOT R34 [+25]
-  GETUPVAL R35 2
-  GETTABLEKS R34 R35 K23 ["createElement"]
-  LOADK R35 K46 ["TextLabel"]
+  GETUPVAL R35 1
+  GETTABLEKS R34 R35 K20 ["createElement"]
+  LOADK R35 K43 ["TextLabel"]
   NEWTABLE R36 4 0
-  GETUPVAL R38 2
-  GETTABLEKS R37 R38 K25 ["Tag"]
-  LOADK R38 K104 ["ResetPositionsTooltip data-testid=ResetPositionsTooltip"]
+  GETUPVAL R38 1
+  GETTABLEKS R37 R38 K22 ["Tag"]
+  LOADK R38 K101 ["ResetPositionsTooltip data-testid=ResetPositionsTooltip"]
   SETTABLE R38 R36 R37
-  LOADK R39 K47 ["VRControls"]
-  LOADK R40 K105 ["ResetAllLabel"]
-  NAMECALL R37 R1 K49 ["getText"]
+  LOADK R39 K44 ["VRControls"]
+  LOADK R40 K102 ["ResetAllLabel"]
+  NAMECALL R37 R1 K46 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K50 ["Text"]
-  GETUPVAL R37 7
-  NAMECALL R37 R37 K31 ["getNextOrder"]
+  SETTABLEKS R37 R36 K47 ["Text"]
+  GETUPVAL R37 6
+  NAMECALL R37 R37 K28 ["getNextOrder"]
   CALL R37 1 1
-  SETTABLEKS R37 R36 K27 ["LayoutOrder"]
+  SETTABLEKS R37 R36 K24 ["LayoutOrder"]
   CALL R34 2 1
-  SETTABLEKS R34 R33 K34 ["ResetPositionsTooltip"]
+  SETTABLEKS R34 R33 K31 ["ResetPositionsTooltip"]
   MOVE R34 R8
   JUMPIFNOT R34 [+208]
-  GETUPVAL R35 2
-  GETTABLEKS R34 R35 K23 ["createElement"]
-  LOADK R35 K24 ["Frame"]
+  GETUPVAL R35 1
+  GETTABLEKS R34 R35 K20 ["createElement"]
+  LOADK R35 K21 ["Frame"]
   NEWTABLE R36 1 0
-  GETUPVAL R38 2
-  GETTABLEKS R37 R38 K25 ["Tag"]
-  LOADK R38 K106 ["data-testid=Tooltip"]
+  GETUPVAL R38 1
+  GETTABLEKS R37 R38 K22 ["Tag"]
+  LOADK R38 K103 ["data-testid=Tooltip"]
   SETTABLE R38 R36 R37
-  DUPTABLE R37 K114 [{"MoveMapping", "FlyMapping", "RotateMapping", "TiltMapping", "ToggleCursorLock", "SwitchControllers", "MouseMapping1"}]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  GETUPVAL R39 11
-  DUPTABLE R40 K117 [{"leftText", "rightText", "LayoutOrder"}]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K118 ["MoveHelpLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  DUPTABLE R37 K111 [{"MoveMapping", "FlyMapping", "RotateMapping", "TiltMapping", "ToggleCursorLock", "SwitchControllers", "MouseMapping1"}]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  GETUPVAL R39 10
+  DUPTABLE R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K115 ["MoveHelpLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K115 ["leftText"]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K119 ["ShiftWASDLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R41 R40 K112 ["leftText"]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K116 ["ShiftWASDLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K116 ["rightText"]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R41 R40 K113 ["rightText"]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
   CALL R38 2 1
-  SETTABLEKS R38 R37 K107 ["MoveMapping"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  GETUPVAL R39 11
-  DUPTABLE R40 K117 [{"leftText", "rightText", "LayoutOrder"}]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K120 ["FlyUpDownHelpLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R38 R37 K104 ["MoveMapping"]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  GETUPVAL R39 10
+  DUPTABLE R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K117 ["FlyUpDownHelpLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K115 ["leftText"]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K121 ["ShiftEQLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R41 R40 K112 ["leftText"]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K118 ["ShiftEQLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K116 ["rightText"]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R41 R40 K113 ["rightText"]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
   CALL R38 2 1
-  SETTABLEKS R38 R37 K108 ["FlyMapping"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  GETUPVAL R39 11
-  DUPTABLE R40 K117 [{"leftText", "rightText", "LayoutOrder"}]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K122 ["RotateHelpLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R38 R37 K105 ["FlyMapping"]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  GETUPVAL R39 10
+  DUPTABLE R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K119 ["RotateHelpLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K115 ["leftText"]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K123 ["MouseMoveHelpLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R41 R40 K112 ["leftText"]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K120 ["MouseMoveHelpLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K116 ["rightText"]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R41 R40 K113 ["rightText"]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
   CALL R38 2 1
-  SETTABLEKS R38 R37 K109 ["RotateMapping"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  GETUPVAL R39 11
-  DUPTABLE R40 K117 [{"leftText", "rightText", "LayoutOrder"}]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K124 ["TiltHelpLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R38 R37 K106 ["RotateMapping"]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  GETUPVAL R39 10
+  DUPTABLE R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K121 ["TiltHelpLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K115 ["leftText"]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K125 ["RightClickAndMouseMoveHelpLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R41 R40 K112 ["leftText"]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K122 ["RightClickAndMouseMoveHelpLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K116 ["rightText"]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R41 R40 K113 ["rightText"]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
   CALL R38 2 1
-  SETTABLEKS R38 R37 K110 ["TiltMapping"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  GETUPVAL R39 11
-  DUPTABLE R40 K117 [{"leftText", "rightText", "LayoutOrder"}]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K126 ["ToggleCursorLockLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R38 R37 K107 ["TiltMapping"]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  GETUPVAL R39 10
+  DUPTABLE R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K123 ["ToggleCursorLockLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K115 ["leftText"]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K127 ["ToggleCursorShortcutLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R41 R40 K112 ["leftText"]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K124 ["ToggleCursorShortcutLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K116 ["rightText"]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R41 R40 K113 ["rightText"]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
   CALL R38 2 1
-  SETTABLEKS R38 R37 K111 ["ToggleCursorLock"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  GETUPVAL R39 11
-  DUPTABLE R40 K117 [{"leftText", "rightText", "LayoutOrder"}]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K128 ["SwitchControllersLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R38 R37 K108 ["ToggleCursorLock"]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  GETUPVAL R39 10
+  DUPTABLE R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K125 ["SwitchControllersLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K115 ["leftText"]
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K129 ["ShiftLeftRightLabel"]
-  NAMECALL R41 R1 K49 ["getText"]
+  SETTABLEKS R41 R40 K112 ["leftText"]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K126 ["ShiftLeftRightLabel"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K116 ["rightText"]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R41 R40 K113 ["rightText"]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
   CALL R38 2 1
-  SETTABLEKS R38 R37 K112 ["SwitchControllers"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K23 ["createElement"]
-  LOADK R39 K46 ["TextLabel"]
+  SETTABLEKS R38 R37 K109 ["SwitchControllers"]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K20 ["createElement"]
+  LOADK R39 K43 ["TextLabel"]
   NEWTABLE R40 4 0
-  GETUPVAL R42 2
-  GETTABLEKS R41 R42 K25 ["Tag"]
-  LOADK R42 K30 ["CX-Invisible"]
+  GETUPVAL R42 1
+  GETTABLEKS R41 R42 K22 ["Tag"]
+  LOADK R42 K27 ["CX-Invisible"]
   SETTABLE R42 R40 R41
-  LOADK R43 K47 ["VRControls"]
-  LOADK R44 K130 ["MouseInteractionHelpLabel1"]
-  NAMECALL R41 R1 K49 ["getText"]
+  LOADK R43 K44 ["VRControls"]
+  LOADK R44 K127 ["MouseInteractionHelpLabel1"]
+  NAMECALL R41 R1 K46 ["getText"]
   CALL R41 3 1
-  SETTABLEKS R41 R40 K50 ["Text"]
-  GETUPVAL R41 7
-  NAMECALL R41 R41 K31 ["getNextOrder"]
+  SETTABLEKS R41 R40 K47 ["Text"]
+  GETUPVAL R41 6
+  NAMECALL R41 R41 K28 ["getNextOrder"]
   CALL R41 1 1
-  SETTABLEKS R41 R40 K27 ["LayoutOrder"]
+  SETTABLEKS R41 R40 K24 ["LayoutOrder"]
   CALL R38 2 1
-  SETTABLEKS R38 R37 K113 ["MouseMapping1"]
+  SETTABLEKS R38 R37 K110 ["MouseMapping1"]
   CALL R34 3 1
-  SETTABLEKS R34 R33 K35 ["Tooltip"]
+  SETTABLEKS R34 R33 K32 ["Tooltip"]
   CALL R30 3 1
-  SETTABLEKS R30 R29 K28 ["InnerContainer"]
+  SETTABLEKS R30 R29 K25 ["InnerContainer"]
   CALL R26 3 -1
   RETURN R26 -1
 
@@ -1009,39 +1004,33 @@ MAIN:
   GETTABLEKS R9 R10 K12 ["Util"]
   GETTABLEKS R8 R9 K17 ["MappingsActionsContext"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K11 ["Src"]
-  GETTABLEKS R10 R11 K12 ["Util"]
-  GETTABLEKS R9 R10 K18 ["MockableEngineFeatures"]
-  CALL R8 1 1
-  GETTABLEKS R10 R1 K19 ["Styling"]
-  GETTABLEKS R9 R10 K20 ["joinTags"]
-  GETTABLEKS R11 R1 K21 ["UI"]
-  GETTABLEKS R10 R11 K22 ["Checkbox"]
-  GETTABLEKS R12 R1 K21 ["UI"]
-  GETTABLEKS R11 R12 K23 ["Slider"]
-  GETTABLEKS R13 R1 K12 ["Util"]
-  GETTABLEKS R12 R13 K24 ["LayoutOrderIterator"]
-  GETTABLEKS R13 R12 K25 ["new"]
-  CALL R13 0 1
-  GETTABLEKS R14 R4 K26 ["HAND_TRACKED_DEVICES"]
-  DUPCLOSURE R15 K27 [PROTO_0]
+  GETTABLEKS R9 R1 K18 ["Styling"]
+  GETTABLEKS R8 R9 K19 ["joinTags"]
+  GETTABLEKS R10 R1 K20 ["UI"]
+  GETTABLEKS R9 R10 K21 ["Checkbox"]
+  GETTABLEKS R11 R1 K20 ["UI"]
+  GETTABLEKS R10 R11 K22 ["Slider"]
+  GETTABLEKS R12 R1 K12 ["Util"]
+  GETTABLEKS R11 R12 K23 ["LayoutOrderIterator"]
+  GETTABLEKS R12 R11 K24 ["new"]
+  CALL R12 0 1
+  GETTABLEKS R13 R4 K25 ["HAND_TRACKED_DEVICES"]
+  DUPCLOSURE R14 K26 [PROTO_0]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  DUPCLOSURE R16 K28 [PROTO_17]
-  CAPTURE VAL R8
+  CAPTURE VAL R12
+  DUPCLOSURE R15 K27 [PROTO_17]
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R6
   CAPTURE VAL R7
-  CAPTURE VAL R14
-  CAPTURE VAL R9
   CAPTURE VAL R13
-  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R9
   CAPTURE VAL R5
-  CAPTURE VAL R11
-  CAPTURE VAL R15
-  GETTABLEKS R17 R3 K29 ["memo"]
-  MOVE R18 R16
-  CALL R17 1 -1
-  RETURN R17 -1
+  CAPTURE VAL R10
+  CAPTURE VAL R14
+  GETTABLEKS R16 R3 K28 ["memo"]
+  MOVE R17 R15
+  CALL R16 1 -1
+  RETURN R16 -1

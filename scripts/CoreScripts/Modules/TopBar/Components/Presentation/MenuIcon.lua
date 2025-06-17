@@ -13,6 +13,9 @@ local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 local FFlagMenuIconRemoveBinding = SharedFlags.FFlagMenuIconRemoveBinding
+local FFlagChromeFixMenuIconBackButton = SharedFlags.FFlagChromeFixMenuIconBackButton
+local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
+local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -24,6 +27,7 @@ local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Chrome = RobloxGui.Modules.Chrome
+local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
 local ChromeEnabled = require(Chrome.Enabled)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -35,6 +39,9 @@ local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local BadgeOver12 = require(script.Parent.BadgeOver12)
+local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommon).Stores
+local Signals = require(CorePackages.Packages.Signals)
+local createEffect = Signals.createEffect
 
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 
@@ -153,7 +160,11 @@ function MenuIcon:init()
 				return
 			end
 			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-			SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
+			if FFlagAddUILessMode then
+				SettingsHub:ToggleVisibility(nil, InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
+			else
+				SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
+			end
 		else
 			if VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) then
 				-- in the new VR System, the menu icon opens the gamepad menu instead
@@ -163,7 +174,11 @@ function MenuIcon:init()
 					InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
 				else
 					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-					SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
+					if FFlagAddUILessMode then
+						SettingsHub:ToggleVisibility(nil, InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
+					else
+						SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
+					end
 				end
 			end
 		end
@@ -230,7 +245,11 @@ function MenuIcon:init()
 	self.onMenuIconSelectionChanged = function(MenuIcon: GuiObject, isMenuIconSelected: boolean, oldSelection: GuiObject, newSelection: GuiObject)
 			if FFlagMenuIconRemoveBinding then 
 				if not (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled) and newSelection and string.find(newSelection.Name, UnibarConstants.ICON_NAME_PREFIX :: string) then
-						ChromeService:enableFocusNav()
+					ChromeService:enableFocusNav()
+				end
+				
+				if FFlagChromeFixMenuIconBackButton then
+					ChromeFocusUtils.MenuIconSelectedSignal:set(isMenuIconSelected)
 				end
 			else
 				local UNFOCUS_TILT = "Unfocus_Tilt"
@@ -284,9 +303,31 @@ function MenuIcon:init()
 	if ChromeEnabled() and FFlagEnableChromeShortcutBar then 
 		ChromeService:onTriggerMenuIcon():connect(function() 
 			GuiService.SelectedCoreObject = self.props.menuIconRef:getValue()
+			ChromeFocusUtils.MenuIconSelectedSignal:set(true)
 		end)
 	end
 
+	if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and CoreGuiCommonStores.GetUILessStore then
+		self.uiLessStore = CoreGuiCommonStores.GetUILessStore(false)
+
+		if self.uiLessStore.getUILessModeEnabled(false) then
+			self.showIcon, self.setShowIcon = Roact.createBinding(true)
+
+			self.priorAbsolutePosition = Vector2.zero
+			self.priorAbsoluteSize = Vector2.zero
+
+			self.disposeEffect = createEffect(function(scope)
+				local uiVisible = self.uiLessStore.getUIVisible(scope)
+				self.setShowIcon(uiVisible)
+
+				if uiVisible then 
+					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, self.priorAbsolutePosition, self.priorAbsoluteSize)
+				else
+					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, Vector2.zero, Vector2.zero)
+				end
+			end)
+		end
+	end
 end
 
 function MenuIcon:renderWithTooltipCompat(tooltipProps, tooltipOptions, renderTriggerPoint)
@@ -331,6 +372,14 @@ function MenuIcon:renderWithTooltipCompat(tooltipProps, tooltipOptions, renderTr
 	end
 end
 
+function MenuIcon:willUnmount()
+	if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false) then
+		if self.disposeEffect then
+			self.disposeEffect()
+		end
+	end
+end
+
 function MenuIcon:render()
 	local visible
 	if isInExperienceUIVREnabled then
@@ -345,6 +394,12 @@ function MenuIcon:render()
 				self.priorAbsolutePosition = rbx.AbsolutePosition
 				self.priorAbsoluteSize = rbx.AbsoluteSize
 				if GamepadConnector:getShowTopBar():get() then 
+					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+				end 
+			elseif FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false) then
+				self.priorAbsolutePosition = rbx.AbsolutePosition
+				self.priorAbsoluteSize = rbx.AbsoluteSize
+				if self.uiLessStore.getUIVisible(false) then 
 					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
 				end 
 			else 
@@ -364,6 +419,7 @@ function MenuIcon:render()
 		onHover = self.menuIconOnHover,
 		onHoverEnd = if tooltipEnabled then self.menuIconOnHoverEnd else nil,
 		enableFlashingDot = self.state.enableFlashingDot,
+		modal = if FFlagAddUILessMode and FIntAddUILessModeVariant == 2 and self.uiLessStore.getUILessModeEnabled(false) then true else nil,
 	})
 
 	local showTopBarListener = GamepadService
@@ -437,7 +493,7 @@ function MenuIcon:render()
 			end
 
 			return Roact.createElement("Frame", {
-					Visible = if ChromeEnabled() and FFlagHideTopBarConsole then self.showIcon:map(function(showIcon)
+				Visible = if (ChromeEnabled() and FFlagHideTopBarConsole) or (FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false)) then self.showIcon:map(function(showIcon)
 					return visible and showIcon
 				end) else visible,
 				BackgroundTransparency = 1,
@@ -459,7 +515,7 @@ function MenuIcon:render()
 		end)
 	else
 		return Roact.createElement("Frame", {
-			Visible = if ChromeEnabled() and FFlagHideTopBarConsole then self.showIcon:map(function(showIcon) 
+			Visible = if (ChromeEnabled() and FFlagHideTopBarConsole) or (FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false)) then self.showIcon:map(function(showIcon) 
 				return visible and showIcon
 			end) else visible,
 			BackgroundTransparency = 1,

@@ -279,6 +279,14 @@ function Analytics.new()
 		ReportPlatformCounter("UserSettingEligibilityModalShown" .. requestType)
 	end
 
+	function service.signalEconomicRestrictionError(violationType, timeoutMinutes)
+		ReportEvent("EconomicRestrictionErrorShown", {
+			gameID = game.GameId,
+			violationType = violationType,
+			timeoutMinutes = timeoutMinutes,
+		})
+	end
+
 	return service
 end
 

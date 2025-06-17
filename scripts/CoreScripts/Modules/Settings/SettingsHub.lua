@@ -45,6 +45,7 @@ local CapturesPolicy  = require(CorePackages.Workspace.Packages.CapturesInExperi
 local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 local getCamMicPermissions = require(CoreGui.RobloxGui.Modules.Settings.getCamMicPermissions)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
+local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommon).Stores
 local Signals = require(CorePackages.Packages.Signals)
 local createSignal = Signals.createSignal
 
@@ -127,7 +128,10 @@ local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagRespawnChromeShortcutTelemetry = require(RobloxGui.Modules.Chrome.Flags.FFlagRespawnChromeShortcutTelemetry)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
+local FFlagTiltMenuShortcutBarPadding = SharedFlags.FFlagTiltMenuShortcutBarPadding
 local FFlagIEMResumeButtonPressBugfix = SharedFlags.FFlagIEMResumeButtonPressBugfix
+local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
+local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -365,6 +369,9 @@ local function CreateSettingsHub()
 		this.sessionStartTime = os.time()
 	end
 	this.isFetchingMicPermissions = true
+	if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 then
+		this.uiLessStore = CoreGuiCommonStores.GetUILessStore(false)
+	end
 
 	if GetFFlagVoiceRecordingIndicatorsEnabled() then
 		this.isMuted = nil
@@ -1135,7 +1142,15 @@ local function CreateSettingsHub()
 				})
 			end,
 			onResume = function(source: string)
-				this:SetVisibility(false)
+				if FFlagAddUILessMode then
+					this:SetVisibility(false, nil, nil, nil, source)
+				else
+					this:SetVisibility(false)
+				end
+
+				if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and this.uiLessStore.getUILessModeEnabled(false) then
+					this.uiLessStore.setUIVisible(false)
+				end
 
 				AnalyticsService:SetRBXEventStream(
 					Constants.AnalyticsTargetName,
@@ -1911,6 +1926,23 @@ local function CreateSettingsHub()
 			}
 		}
 
+
+		if FFlagTiltMenuShortcutBarPadding and ChromeEnabled then 
+			this.PageViewPadding = Create'UIPadding'
+			{
+				Parent = this.PageViewClipper,
+			}
+
+			local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+			ChromeService:onShortcutBarChanged():connect(function() 
+				if utility:IsSmallTouchScreen() and ChromeService:getCurrentShortcutBar():get() ~= nil then
+					this.PageViewPadding.PaddingBottom = UDim.new(0, Theme.ExtraPageBottomPaddingMobile)
+					return
+				end
+				this.PageViewPadding.PaddingBottom = UDim.new(0, 0)
+			end)
+		end
+
 		this.PageView = Create'ScrollingFrame'
 		{
 			Name = "PageView",
@@ -2034,7 +2066,16 @@ local function CreateSettingsHub()
 		end
 
 		local resumeFunc = function(source)
-			setVisibilityInternal(false)
+			if FFlagAddUILessMode then
+				setVisibilityInternal(false, nil, nil, nil, source)
+			else
+				setVisibilityInternal(false)
+			end
+
+			if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and this.uiLessStore.getUILessModeEnabled(false) then
+				this.uiLessStore.setUIVisible(false)
+			end
+
 			AnalyticsService:SetRBXEventStream(
 				Constants.AnalyticsTargetName,
 				Constants.AnalyticsResumeGameName,
@@ -3766,7 +3807,7 @@ local function CreateSettingsHub()
 		end
 	end
 
-	function this:PopMenu(switchedFromGamepadInput, skipAnimation)
+	function this:PopMenu(switchedFromGamepadInput, skipAnimation, analyticsContext)
 		if this.MenuStack and #this.MenuStack > 0 then
 			local lastStackItem = this.MenuStack[#this.MenuStack]
 
@@ -3777,7 +3818,11 @@ local function CreateSettingsHub()
 			table.remove(this.MenuStack, #this.MenuStack)
 			this:SwitchToPage(this.MenuStack[#this.MenuStack], true, 1, skipAnimation)
 			if #this.MenuStack == 0 then
-				this:SetVisibility(false)
+				if FFlagAddUILessMode then
+					this:SetVisibility(false, nil, nil, nil, analyticsContext)
+				else
+					this:SetVisibility(false)
+				end
 
 				this.Pages.CurrentPage:Hide(0, 0, nil, nil, this.PageViewInnerFrame)
 			elseif ChromeEnabled and FFlagEnableChromeShortcutBar then 
@@ -3788,7 +3833,11 @@ local function CreateSettingsHub()
 		else
 			this.MenuStack = {}
 			PoppedMenuEvent:Fire()
-			this:ToggleVisibility()
+			if FFlagAddUILessMode then
+				this:ToggleVisibility(nil, analyticsContext)
+			else
+				this:ToggleVisibility(analyticsContext)
+			end
 		end
 	end
 
@@ -3894,11 +3943,17 @@ local function CreateSettingsHub()
 		if not isNewInGameMenuEnabled() then
 			--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
 			--as a special case until gamepad support for the new menu is complete.
-			local closeMenuFunc = function(name, inputState, input)
-				if inputState ~= Enum.UserInputState.Begin then return end
-				this:PopMenu(false, true)
+			if not FFlagAddUILessMode or FIntAddUILessModeVariant == 0 then
+				local closeMenuFunc = function(name, inputState, input)
+					if inputState ~= Enum.UserInputState.Begin then return end
+					if FFlagAddUILessMode then
+						this:PopMenu(false, true, Constants.AnalyticsMenuOpenTypes.Keyboard)
+					else
+						this:PopMenu(false, true)
+					end
+				end
+				ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 			end
-			ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 		end
 	end
 
@@ -4056,11 +4111,17 @@ local function CreateSettingsHub()
 		if not isNewInGameMenuEnabled() then
 			--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
 			--as a special case until gamepad support for the new menu is complete.
-			local closeMenuFunc = function(name, inputState, input)
-				if inputState ~= Enum.UserInputState.Begin then return end
-				this:PopMenu(false, true)
+			if not FFlagAddUILessMode or FIntAddUILessModeVariant == 0 then
+				local closeMenuFunc = function(name, inputState, input)
+					if inputState ~= Enum.UserInputState.Begin then return end
+					if FFlagAddUILessMode then
+						this:PopMenu(false, true, Constants.AnalyticsMenuOpenTypes.Keyboard)
+					else
+						this:PopMenu(false, true)
+					end
+				end
+				ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 			end
-			ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 		end
 	end
 
@@ -4213,6 +4274,12 @@ end
 
 function moduleApiTable:SwitchToPage(pageToSwitchTo, ignoreStack)
 	SettingsHubInstance:SwitchToPage(pageToSwitchTo, ignoreStack, 1)
+end
+
+if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 then
+	function moduleApiTable:PopMenu(switchedFromGamepadInput, skipAnimation, analyticsContext)
+		return SettingsHubInstance:PopMenu(switchedFromGamepadInput, skipAnimation, analyticsContext)
+	end
 end
 
 function moduleApiTable:GetVisibility()

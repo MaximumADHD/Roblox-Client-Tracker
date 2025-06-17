@@ -22,6 +22,8 @@ local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnrea
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
+local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 
 local ChromeFlags = script.Parent.Parent.Parent.Flags
 local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
@@ -48,6 +50,10 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
+
+local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommon).Stores
+local Signals = require(CorePackages.Packages.Signals)
+local createEffect = Signals.createEffect
 
 -- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
 local PartyConstants = require(Root.Parent.Integrations.Party.Constants)
@@ -366,6 +372,11 @@ function Unibar(props: UnibarProp)
 
 	local priorAbsoluteSize = React.useRef(Vector2.zero)
 
+	local uiLessStore
+	if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and CoreGuiCommonStores.GetUILessStore then
+		uiLessStore = React.useRef(CoreGuiCommonStores.GetUILessStore(false))
+	end
+
 	local updatePositions = false
 	local priorPositions = priorOpenPositions.current or {}
 
@@ -406,10 +417,32 @@ function Unibar(props: UnibarProp)
 			if FFlagReduceTopBarInsetsWhileHidden and absoluteSize ~= priorAbsoluteSize.current then
 				priorAbsoluteSize.current = absoluteSize
 			end
+
+			if
+				FFlagAddUILessMode
+				and FIntAddUILessModeVariant ~= 0
+				and uiLessStore.current.getUILessModeEnabled(false)
+			then
+				if absolutePosition ~= priorAbsolutePosition.current then
+					priorAbsolutePosition.current = absolutePosition
+					ChromeService:setMenuAbsolutePosition(absolutePosition)
+				end
+				if absoluteSize ~= priorAbsoluteSize.current then
+					priorAbsoluteSize.current = absoluteSize
+				end
+			end
 		end
 
 		if FFlagReduceTopBarInsetsWhileHidden and GamepadConnector then
 			if rbx and props.onAreaChanged and GamepadConnector:getShowTopBar():get() then
+				props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, absolutePosition, absoluteSize)
+			end
+		elseif
+			FFlagAddUILessMode
+			and FIntAddUILessModeVariant ~= 0
+			and uiLessStore.current.getUILessModeEnabled(false)
+		then
+			if rbx and props.onAreaChanged and uiLessStore.current.getUIVisible(false) then
 				props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, absolutePosition, absoluteSize)
 			end
 		else
@@ -607,6 +640,30 @@ function Unibar(props: UnibarProp)
 		end
 	end, {})
 
+	React.useEffect(function()
+		local disposeEffect
+		if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and uiLessStore.current.getUILessModeEnabled(false) then
+			disposeEffect = createEffect(function(scope)
+				if uiLessStore.current.getUIVisible(scope) then
+					props.onAreaChanged(
+						Constants.UNIBAR_KEEP_OUT_AREA_ID,
+						priorAbsolutePosition.current,
+						priorAbsoluteSize.current
+					)
+				else
+					props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero)
+				end
+			end)
+			props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero)
+		end
+
+		return function()
+			if disposeEffect then
+				disposeEffect()
+			end
+		end
+	end, {})
+
 	local style = useStyle()
 
 	return React.createElement(
@@ -789,6 +846,15 @@ local UnibarMenu = function(props: UnibarMenuProp)
 		showTopBarSignal = GamepadConnector:getShowTopBar()
 	end
 
+	local uiLessStore
+	if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and CoreGuiCommonStores.GetUILessStore then
+		uiLessStore = React.useRef(CoreGuiCommonStores.GetUILessStore(false))
+
+		if uiLessStore.current.getUILessModeEnabled(false) then
+			showUnibar, setShowUnibar = React.useBinding(true)
+		end
+	end
+
 	React.useEffect(function()
 		local conn
 		if menuFrame and menuFrame.current then
@@ -809,6 +875,22 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			end
 		end
 	end)
+
+	React.useEffect(function()
+		local disposeEffect
+		if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and uiLessStore.current.getUILessModeEnabled(false) then
+			disposeEffect = createEffect(function(scope)
+				setShowUnibar(uiLessStore.current.getUIVisible(scope))
+			end)
+		end
+
+		return function()
+			if disposeEffect then
+				disposeEffect()
+			end
+		end
+	end, {})
+
 	return {
 		React.createElement("Frame", {
 			Name = "UnibarMenu",
@@ -822,7 +904,14 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
 			ref = menuOutterFrame,
 			[React.Event.SelectionChanged] = if FFlagTiltIconUnibarFocusNav then onUnibarSelectionChanged else nil,
-			Visible = if FFlagHideTopBarConsole then showUnibar else nil,
+			Visible = if FFlagHideTopBarConsole
+					or (
+						FFlagAddUILessMode
+						and FIntAddUILessModeVariant ~= 0
+						and uiLessStore.current.getUILessModeEnabled(false)
+					)
+				then showUnibar
+				else nil,
 		}, {
 			React.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,

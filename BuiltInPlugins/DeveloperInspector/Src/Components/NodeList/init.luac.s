@@ -252,7 +252,10 @@ MAIN:
   GETTABLEKS R8 R9 K12 ["Util"]
   GETTABLEKS R7 R8 K13 ["InspectorContext"]
   CALL R6 1 1
-  GETTABLEKS R7 R1 K14 ["DeveloperTools"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K5 ["Packages"]
+  GETTABLEKS R8 R9 K14 ["DeveloperTools"]
+  CALL R7 1 1
   GETTABLEKS R8 R7 K15 ["RoactInspectorApi"]
   GETTABLEKS R9 R1 K16 ["UI"]
   GETTABLEKS R10 R9 K17 ["Pane"]

@@ -1,0 +1,20 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["StudioUriWildcard"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 0
+  LOADK R1 K1 ["LuaRibbonFixSpinboxShortcuts"]
+  CALL R0 1 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["safeGetFastFlag"]
+  CALL R0 1 1
+  DUPCLOSURE R1 K6 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

@@ -574,36 +574,26 @@ MAIN:
   SETTABLE R27 R12 R26
   MOVE R26 R16
   CALL R26 0 1
-  JUMPIFNOT R26 [+46]
+  JUMPIFNOT R26 [+31]
   GETTABLEKS R26 R5 K17 ["Shimmer"]
   GETTABLEKS R28 R1 K162 ["Dictionary"]
   GETTABLEKS R27 R28 K163 ["join"]
   MOVE R28 R10
-  DUPTABLE R29 K203 [{"ColorStart", "ColorMiddle", "ColorEnd", "CornerRadius", "OffsetStart", "OffsetEnd", "DelayTime"}]
-  GETTABLEKS R30 R4 K204 ["DialogMainButtonSelected"]
+  DUPTABLE R29 K201 [{"ColorStart", "ColorEnd", "ColorEndTintPercent", "CornerRadius", "Time"}]
+  GETTABLEKS R30 R4 K202 ["DialogMainButtonSelected"]
   SETTABLEKS R30 R29 K196 ["ColorStart"]
-  GETTABLEKS R30 R4 K204 ["DialogMainButtonSelected"]
-  SETTABLEKS R30 R29 K197 ["ColorMiddle"]
   GETIMPORT R30 K123 [Color3.new]
   LOADN R31 1
   LOADN R32 1
   LOADN R33 1
   CALL R30 3 1
-  SETTABLEKS R30 R29 K198 ["ColorEnd"]
-  LOADN R30 5
+  SETTABLEKS R30 R29 K197 ["ColorEnd"]
+  LOADK R30 K203 [0.6]
+  SETTABLEKS R30 R29 K198 ["ColorEndTintPercent"]
+  LOADN R30 3
   SETTABLEKS R30 R29 K199 ["CornerRadius"]
-  GETIMPORT R30 K37 [Vector2.new]
-  LOADN R31 255
-  LOADN R32 0
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K200 ["OffsetStart"]
-  GETIMPORT R30 K37 [Vector2.new]
-  LOADN R31 1
-  LOADN R32 0
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K201 ["OffsetEnd"]
-  LOADK R30 K38 [0.5]
-  SETTABLEKS R30 R29 K202 ["DelayTime"]
+  LOADN R30 2
+  SETTABLEKS R30 R29 K200 ["Time"]
   CALL R27 2 1
   SETTABLE R27 R12 R26
   RETURN R12 1

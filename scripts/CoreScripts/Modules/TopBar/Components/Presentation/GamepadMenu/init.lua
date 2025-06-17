@@ -13,6 +13,8 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local Cryo = require(CorePackages.Packages.Cryo)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
+local ExperimentLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
@@ -91,6 +93,7 @@ local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationTog
 local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagGamepadMenuActionTelemetry = require(TopBar.Flags.FFlagGamepadMenuActionTelemetry)
+local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -156,6 +159,10 @@ function GamepadMenu:init()
 		})
 	end
 
+	if FFlagExperienceMenuGamepadExposureEnabled then
+		self.loggedExperienceMenuGamepadExposure = false
+	end
+
 	self.boundMenuOpenActions = false
 
 	self.lastMenuButtonPress = 0
@@ -187,6 +194,8 @@ function GamepadMenu:init()
 				if not isToastVisible or tick() - self.lastMenuButtonPress < MENU_BUTTON_PRESS_MAX_HOLD_TIME then
 					self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
 					LogGamepadOpenExperienceControlsMenu(not self.props.isGamepadMenuOpen)
+					self:logExperienceMenuGamepadExposure()
+
 					return Enum.ContextActionResult.Sink
 				end
 			end
@@ -199,6 +208,7 @@ function GamepadMenu:init()
 
 			self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
 			LogGamepadOpenExperienceControlsMenu(not self.props.isGamepadMenuOpen)
+			self:logExperienceMenuGamepadExposure()
 
 			return Enum.ContextActionResult.Sink
 		end
@@ -832,6 +842,13 @@ end
 
 function GamepadMenu:willUnmount()
 	self:unbindAllActions()
+end
+
+function GamepadMenu:logExperienceMenuGamepadExposure()
+	if FFlagExperienceMenuGamepadExposureEnabled and not self.loggedExperienceMenuGamepadExposure then
+		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(ExperimentLayers.ExperienceMenuGamepadExposureLayer)
+		self.loggedExperienceMenuGamepadExposure = true
+	end
 end
 
 local function mapStateToProps(state)

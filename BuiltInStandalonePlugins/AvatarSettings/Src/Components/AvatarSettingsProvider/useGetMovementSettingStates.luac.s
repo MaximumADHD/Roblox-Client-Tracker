@@ -21,7 +21,7 @@ PROTO_0:
   CALL R3 -1 1
   SETTABLEKS R3 R2 K6 ["collisionHitAndTouchDetectionSetting"]
   GETUPVAL R3 1
-  GETIMPORT R4 K9 [Enum.AvatarSettingsLegacyCollisionMode.R6Colliders]
+  GETIMPORT R4 K9 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
   GETUPVAL R5 2
   MOVE R6 R0
   GETUPVAL R8 3

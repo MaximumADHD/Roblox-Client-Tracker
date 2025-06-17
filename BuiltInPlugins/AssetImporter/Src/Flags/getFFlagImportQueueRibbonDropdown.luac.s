@@ -1,0 +1,33 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ImportQueueRibbonDropdown"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R0 K1 [pcall]
+  DUPCLOSURE R1 K2 [PROTO_0]
+  CALL R0 1 2
+  MOVE R2 R0
+  JUMPIFNOT R2 [+4]
+  MOVE R2 R1
+  JUMPIFNOT R2 [+2]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagAssetImportEnableImportQueueModal"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K9 [PROTO_1]
+  CAPTURE VAL R1
+  RETURN R2 1

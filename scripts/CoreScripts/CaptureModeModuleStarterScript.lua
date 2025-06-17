@@ -11,8 +11,6 @@ UIBlox.init(uiBloxConfig)
 -- Flags
 local FFlagFeedbackModuleEarlyFontInitialization = game:DefineFastFlag("FeedbackModuleEarlyFontInitialization", false)
 local FFlagCaptureModeNativeExitSupport = game:DefineFastFlag("CaptureModeNativeExitSupport", false)
-local GetFFlagSelectInSceneReportMenu =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelectInSceneReportMenu
 
 if FFlagFeedbackModuleEarlyFontInitialization then
 	-- Early load font to prevent feedback module components from initially rendering with incorrect underlying text widths that cause unexpected text wrapping issues.
@@ -35,7 +33,6 @@ if FFlagCaptureModeNativeExitSupport then
 	game:GetService("GuiService").NativeClose:Connect(handleNativeExit)
 end
 
-if GetFFlagSelectInSceneReportMenu() and game:GetEngineFeature("SafetyServiceCaptureModeReportProp") then
 	game:WaitForChild("SafetyService")
 	local SafetyService = game:GetService("SafetyService")
 
@@ -48,8 +45,4 @@ if GetFFlagSelectInSceneReportMenu() and game:GetEngineFeature("SafetyServiceCap
 		local FeedbackModule = require(RobloxGui.Modules.Feedback)
 		FeedbackModule.initialize()
 	end
-else
-	-- Initialize and mount feedback application specifically
-	local FeedbackModule = require(RobloxGui.Modules.Feedback)
-	FeedbackModule.initialize()
-end
+

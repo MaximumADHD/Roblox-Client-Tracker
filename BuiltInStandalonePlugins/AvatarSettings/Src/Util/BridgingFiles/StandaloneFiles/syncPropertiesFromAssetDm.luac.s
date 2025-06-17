@@ -34,70 +34,106 @@ PROTO_1:
   GETTABLEKS R5 R1 K11 ["AppearanceMode"]
   LOADB R6 1
   CALL R4 2 0
-  GETTABLEKS R6 R3 K12 ["bodyAppearanceCustomPartsHead"]
-  GETTABLEKS R5 R6 K13 ["assetId"]
+  GETTABLEKS R4 R3 K12 ["bodyAppearanceCustomPartsHead"]
+  GETTABLEKS R5 R1 K13 ["CustomHead"]
+  GETTABLEKS R7 R4 K14 ["assetId"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K15 ["AssetId"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R7 R4 K16 ["enabled"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K17 ["Enabled"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R4 R3 K18 ["bodyAppearanceCustomPartsTorso"]
+  GETTABLEKS R5 R1 K19 ["CustomTorso"]
+  GETTABLEKS R7 R4 K14 ["assetId"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K15 ["AssetId"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R7 R4 K16 ["enabled"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K17 ["Enabled"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R4 R3 K20 ["bodyAppearanceCustomPartsLeftArm"]
+  GETTABLEKS R5 R1 K21 ["CustomLeftArm"]
+  GETTABLEKS R7 R4 K14 ["assetId"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K15 ["AssetId"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R7 R4 K16 ["enabled"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K17 ["Enabled"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R4 R3 K22 ["bodyAppearanceCustomPartsRightArm"]
+  GETTABLEKS R5 R1 K23 ["CustomRightArm"]
+  GETTABLEKS R7 R4 K14 ["assetId"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K15 ["AssetId"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R7 R4 K16 ["enabled"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K17 ["Enabled"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R4 R3 K24 ["bodyAppearanceCustomPartsLeftLeg"]
+  GETTABLEKS R5 R1 K25 ["CustomLeftLeg"]
+  GETTABLEKS R7 R4 K14 ["assetId"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K15 ["AssetId"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R7 R4 K16 ["enabled"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K17 ["Enabled"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R4 R3 K26 ["bodyAppearanceCustomPartsRightLeg"]
+  GETTABLEKS R5 R1 K27 ["CustomRightLeg"]
+  GETTABLEKS R7 R4 K14 ["assetId"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K15 ["AssetId"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R7 R4 K16 ["enabled"]
+  GETTABLEKS R6 R7 K6 ["set"]
+  GETTABLEKS R7 R5 K17 ["Enabled"]
+  LOADB R8 1
+  CALL R6 2 0
+  GETTABLEKS R5 R3 K28 ["bodyBuildSetting"]
   GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K14 ["CustomHeadId"]
+  GETTABLEKS R5 R1 K29 ["BuildMode"]
   LOADB R6 1
   CALL R4 2 0
-  GETTABLEKS R6 R3 K15 ["bodyAppearanceCustomPartsTorso"]
-  GETTABLEKS R5 R6 K13 ["assetId"]
+  GETTABLEKS R5 R3 K30 ["bodyBuildCustomHeight"]
   GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K16 ["CustomTorsoId"]
+  GETTABLEKS R5 R1 K31 ["CustomHeightScale"]
   LOADB R6 1
   CALL R4 2 0
-  GETTABLEKS R6 R3 K17 ["bodyAppearanceCustomPartsLeftArm"]
-  GETTABLEKS R5 R6 K13 ["assetId"]
+  GETTABLEKS R5 R3 K32 ["bodyBuildCustomWidth"]
   GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K18 ["CustomLeftArmId"]
+  GETTABLEKS R5 R1 K33 ["CustomWidthScale"]
   LOADB R6 1
   CALL R4 2 0
-  GETTABLEKS R6 R3 K19 ["bodyAppearanceCustomPartsRightArm"]
-  GETTABLEKS R5 R6 K13 ["assetId"]
+  GETTABLEKS R5 R3 K34 ["bodyBuildCustomHead"]
   GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K20 ["CustomRightArmId"]
+  GETTABLEKS R5 R1 K35 ["CustomHeadScale"]
   LOADB R6 1
   CALL R4 2 0
-  GETTABLEKS R6 R3 K21 ["bodyAppearanceCustomPartsLeftLeg"]
-  GETTABLEKS R5 R6 K13 ["assetId"]
+  GETTABLEKS R5 R3 K36 ["bodyBuildCustomBodyType"]
   GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K22 ["CustomLeftLegId"]
+  GETTABLEKS R5 R1 K37 ["CustomBodyTypeScale"]
   LOADB R6 1
   CALL R4 2 0
-  GETTABLEKS R6 R3 K23 ["bodyAppearanceCustomPartsRightLeg"]
-  GETTABLEKS R5 R6 K13 ["assetId"]
+  GETTABLEKS R5 R3 K38 ["bodyBuildCustomProportions"]
   GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K24 ["CustomRightLegId"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K25 ["bodyBuildSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K26 ["BuildMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K27 ["bodyBuildCustomHeight"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K28 ["CustomHeightScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K29 ["bodyBuildCustomWidth"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K30 ["CustomWidthScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K31 ["bodyBuildCustomHead"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K32 ["CustomHeadScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K33 ["bodyBuildCustomBodyType"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K34 ["CustomBodyTypeScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K35 ["bodyBuildCustomProportions"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K36 ["CustomProportionsScale"]
+  GETTABLEKS R5 R1 K39 ["CustomProportionsScale"]
   LOADB R6 1
   CALL R4 2 0
   RETURN R0 0

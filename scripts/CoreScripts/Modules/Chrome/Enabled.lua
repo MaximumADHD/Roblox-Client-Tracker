@@ -5,6 +5,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local IsExperienceMenuABTestEnabled = require(Chrome.Parent.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(Chrome.Parent.ExperienceMenuABTestManager)
 local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
+local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 
 game:DefineFastFlag("EnableInGameMenuChrome", false)
 local FFlagDebugEnableChromeOnUnsupportedDevices = game:DefineFastFlag("DebugEnableChromeOnUnsupportedDevices", false)
@@ -30,6 +31,10 @@ return function()
 	end
 
 	if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isChromeEnabled() then
+		return true
+	end
+
+	if FFlagExperienceMenuGamepadExposureEnabled then
 		return true
 	end
 

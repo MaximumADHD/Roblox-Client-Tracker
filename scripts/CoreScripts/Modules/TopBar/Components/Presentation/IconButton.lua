@@ -5,6 +5,8 @@ local GuiService = game:GetService("GuiService")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
+local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -62,6 +64,7 @@ IconButton.validateProps = t.strictInterface({
 	forwardRef = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
 	onSelectionChanged = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.callback) else nil :: never,
 	nextSelectionRightRef = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
+	modal = if FFlagAddUILessMode and FIntAddUILessModeVariant == 2 then t.optional(t.boolean) else nil :: never,
 })
 
 function AnimatedScaleIcon(props)
@@ -138,8 +141,8 @@ function IconButton:renderWithCursor(getCursor)
 
 		return Roact.createElement(Interactable, {
 			onStateChanged = self.controlStateUpdated,
-
 			ZIndex = 1,
+			Modal = if FFlagAddUILessMode and FIntAddUILessModeVariant == 2 then self.props.modal else nil,
 			BackgroundTransparency = if isNewTiltIconEnabled()
 				then if GetFFlagChromeUsePreferredTransparency()
 					then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency

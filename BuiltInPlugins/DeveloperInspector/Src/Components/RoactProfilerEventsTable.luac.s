@@ -240,7 +240,10 @@ MAIN:
   GETTABLEKS R7 R8 K10 ["Util"]
   GETTABLEKS R6 R7 K12 ["TableIds"]
   CALL R5 1 1
-  GETTABLEKS R6 R3 K13 ["DeveloperTools"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Packages"]
+  GETTABLEKS R7 R8 K13 ["DeveloperTools"]
+  CALL R6 1 1
   GETTABLEKS R7 R6 K14 ["RoactInspectorApi"]
   GETTABLEKS R9 R0 K9 ["Src"]
   GETTABLEKS R8 R9 K15 ["Actions"]

@@ -36,53 +36,16 @@ MAIN:
   CALL R2 0 1
   JUMPIFNOT R2 [+1]
   RETURN R0 0
-  GETIMPORT R2 K7 [require]
-  GETTABLEKS R5 R0 K13 ["Bin"]
-  GETTABLEKS R4 R5 K14 ["Common"]
-  GETTABLEKS R3 R4 K15 ["defineLuaFlags"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K16 ["getFFlagEnableControlsEmulator"]
-  CALL R3 0 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K7 [require]
-  GETTABLEKS R6 R0 K13 ["Bin"]
-  GETTABLEKS R5 R6 K14 ["Common"]
-  GETTABLEKS R4 R5 K17 ["pluginType"]
-  CALL R3 1 1
-  GETTABLEKS R4 R2 K18 ["getFFlagFixEmulatorStartupSequence"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+20]
-  GETIMPORT R5 K1 [plugin]
-  GETTABLEKS R4 R5 K19 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R5 R4 K20 ["FocusedDataModelSession"]
-  GETTABLEKS R6 R5 K21 ["CurrentDataModelTypeAboutToChange"]
-  DUPCLOSURE R8 K22 [PROTO_0]
-  NAMECALL R6 R6 K23 ["Connect"]
-  CALL R6 2 0
-  GETTABLEKS R6 R5 K24 ["CurrentDataModelTypeChanged"]
-  DUPCLOSURE R8 K25 [PROTO_1]
-  CAPTURE VAL R5
-  NAMECALL R6 R6 K23 ["Connect"]
-  CALL R6 2 0
-  RETURN R0 0
-  GETTABLEKS R4 R3 K26 ["get"]
-  CALL R4 0 1
-  GETTABLEKS R5 R3 K27 ["Asset"]
-  JUMPIFEQ R4 R5 [+2]
-  RETURN R0 0
-  GETIMPORT R4 K7 [require]
-  GETTABLEKS R7 R0 K13 ["Bin"]
-  GETTABLEKS R6 R7 K14 ["Common"]
-  GETTABLEKS R5 R6 K28 ["setup"]
-  CALL R4 1 1
-  GETIMPORT R5 K7 [require]
-  GETTABLEKS R8 R0 K13 ["Bin"]
-  GETTABLEKS R7 R8 K14 ["Common"]
-  GETTABLEKS R6 R7 K29 ["setupMain"]
-  CALL R5 1 1
-  MOVE R6 R4
-  GETIMPORT R7 K1 [plugin]
-  MOVE R8 R5
-  CALL R6 2 0
+  GETIMPORT R3 K1 [plugin]
+  GETTABLEKS R2 R3 K13 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R3 R2 K14 ["FocusedDataModelSession"]
+  GETTABLEKS R4 R3 K15 ["CurrentDataModelTypeAboutToChange"]
+  DUPCLOSURE R6 K16 [PROTO_0]
+  NAMECALL R4 R4 K17 ["Connect"]
+  CALL R4 2 0
+  GETTABLEKS R4 R3 K18 ["CurrentDataModelTypeChanged"]
+  DUPCLOSURE R6 K19 [PROTO_1]
+  CAPTURE VAL R3
+  NAMECALL R4 R4 K17 ["Connect"]
+  CALL R4 2 0
   RETURN R0 0

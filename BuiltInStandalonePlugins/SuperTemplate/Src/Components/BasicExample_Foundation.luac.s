@@ -7,7 +7,7 @@ PROTO_0:
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K2 ["View"]
   DUPTABLE R4 K4 [{"tag"}]
-  LOADK R5 K5 ["row align-y-center padding-small bg-emphasis"]
+  LOADK R5 K5 ["size-full-full row align-y-center padding-medium bg-surface-200"]
   SETTABLEKS R5 R4 K3 ["tag"]
   DUPTABLE R5 K7 [{"OptionalContent"}]
   GETTABLEKS R7 R0 K8 ["showContent"]
@@ -19,7 +19,7 @@ PROTO_0:
   DUPTABLE R8 K10 [{"Text", "tag"}]
   LOADK R9 K11 ["Kangaroos are great!"]
   SETTABLEKS R9 R8 K9 ["Text"]
-  LOADK R9 K12 ["padding-small grow size-2800 bg-alert"]
+  LOADK R9 K12 ["padding-small grow auto-y bg-action-standard content-action-standard text-heading-medium radius-small"]
   SETTABLEKS R9 R8 K3 ["tag"]
   CALL R6 2 1
   JUMP [+1]

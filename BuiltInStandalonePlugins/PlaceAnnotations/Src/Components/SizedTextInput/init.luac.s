@@ -318,18 +318,13 @@ PROTO_7:
   SETTABLEKS R16 R15 K32 ["InputBox"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K18 ["ScrollingFrame"]
-  GETUPVAL R14 3
-  GETTABLEKS R13 R14 K42 ["fflagAnnotationsAddTagging"]
-  JUMPIFNOT R13 [+11]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K8 ["createElement"]
   GETUPVAL R13 6
-  DUPTABLE R14 K44 [{"InputBoxRef", "Text"}]
-  SETTABLEKS R3 R14 K43 ["InputBoxRef"]
+  DUPTABLE R14 K43 [{"InputBoxRef", "Text"}]
+  SETTABLEKS R3 R14 K42 ["InputBoxRef"]
   SETTABLEKS R7 R14 K4 ["Text"]
   CALL R12 2 1
-  JUMP [+1]
-  LOADNIL R12
   SETTABLEKS R12 R11 K19 ["TaggingDropdown"]
   CALL R8 3 -1
   RETURN R8 -1

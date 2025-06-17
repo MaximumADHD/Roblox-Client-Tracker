@@ -382,6 +382,7 @@ return {
 			return MenuContainerPosition
 		end
 	end,
+	ExtraPageBottomPaddingMobile = 48,
 	ButtonHeight = 36,
 	LargeButtonHeight = 48,
 	SelectorArrowButtonWidth = 32,

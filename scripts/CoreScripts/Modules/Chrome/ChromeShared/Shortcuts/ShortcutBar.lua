@@ -7,18 +7,56 @@ local GamepadConnector = require(Root.Parent.Parent.TopBar.Components.GamepadCon
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
 local ShortcutBar = UIBlox.App.Navigation.ShortcutBar
 local Types = require(Root.Service.Types)
 local Constants = require(Root.Unibar.Constants)
+local ViewportUtil = require(Root.Service.ViewportUtil)
+local useObservableValue = require(Root.Hooks.useObservableValue)
+local useTokens = Foundation.Hooks.useTokens
 
 local ChromeService = require(Root.Service)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeUnbindShortcutBarOnHide = SharedFlags.FFlagChromeUnbindShortcutBarOnHide
+local FFlagShortcutBarUseTokens = SharedFlags.FFlagShortcutBarUseTokens
 
 function ChromeShortcutBar(props)
 	local shortcuts, setShortcuts = React.useState({})
+	local trimmedShortcuts, setTrimmedShortcuts = React.useState({})
 	local showShortcutBar, setShowShortcutBar = React.useBinding(false)
+	local designTokens = useTokens()
+
+	local screenSize = useObservableValue(ViewportUtil.screenSize) :: Vector2
+	local shortcutBarWidth = React.useRef(0)
+
+	local function checkOverflow()
+		if not FFlagShortcutBarUseTokens then
+			return
+		end
+
+		if shortcutBarWidth.current > screenSize.X then
+			local removeIndex = 1
+			for i, s in shortcuts do
+				local shortcut = s :: Types.ShortcutProps
+				local index = i :: number
+				if shortcut.displayPriority <= shortcuts[removeIndex].displayPriority then
+					removeIndex = index
+				end
+			end
+
+			local trimmedShortcuts = table.clone(shortcuts)
+			table.remove(trimmedShortcuts, removeIndex)
+			setTrimmedShortcuts(trimmedShortcuts)
+		end
+	end
+
+	if FFlagShortcutBarUseTokens then
+		React.useEffect(function()
+			setTrimmedShortcuts({})
+			checkOverflow()
+		end, { screenSize })
+	end
 
 	React.useEffect(function()
 		ChromeService:onShortcutBarChanged():connect(function()
@@ -48,8 +86,11 @@ function ChromeShortcutBar(props)
 		end
 	end, {})
 
+	local shortcutList = (
+		if FFlagShortcutBarUseTokens and #trimmedShortcuts > 0 then trimmedShortcuts else shortcuts
+	) :: { Types.ShortcutProps }
 	local shortcutItems = {}
-	for k, s in shortcuts do
+	for _, s in shortcutList do
 		local shortcut = s :: Types.ShortcutProps
 		if not shortcut.label then
 			continue
@@ -64,19 +105,46 @@ function ChromeShortcutBar(props)
 	end
 
 	return ReactRoblox.createPortal({
-		Name = React.createElement("ScreenGui", {
-			Name = "ShortcutBar",
-			DisplayOrder = Constants.SHORTCUTBAR_DISPLAYORDER,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			Enabled = if FFlagChromeUnbindShortcutBarOnHide then nil else showShortcutBar,
-		}, {
-			React.createElement(ShortcutBar, {
-				position = UDim2.fromScale(0.5, 0.9),
-				anchorPoint = Vector2.new(0.5, 0),
-				-- ShortcutBar will not render if there are no items
-				items = shortcutItems,
-			}),
-		}),
+		Name = React.createElement(
+			"ScreenGui",
+			{
+				Name = "ShortcutBar",
+				DisplayOrder = Constants.SHORTCUTBAR_DISPLAYORDER,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				Enabled = if FFlagChromeUnbindShortcutBarOnHide then nil else showShortcutBar,
+			},
+			if FFlagShortcutBarUseTokens
+				then {
+					React.createElement("Frame", {
+						Name = "ShortcutBarWrapper",
+						AutomaticSize = Enum.AutomaticSize.XY,
+						Position = UDim2.new(0.5, 0, 1, if designTokens then -designTokens.Gap.Medium else 0),
+						AnchorPoint = Vector2.new(0.5, 1),
+						BorderSizePixel = 0,
+						BackgroundTransparency = 1,
+						[React.Change.AbsoluteSize] = if FFlagShortcutBarUseTokens
+							then function(rbx)
+								shortcutBarWidth.current = rbx.AbsoluteSize.X
+								checkOverflow()
+							end
+							else nil,
+					}, {
+						Layout = React.createElement("UIListLayout"),
+						React.createElement(ShortcutBar, {
+							-- ShortcutBar will not render if there are no items
+							items = shortcutItems,
+						}),
+					}),
+				}
+				else {
+					React.createElement(ShortcutBar, {
+						position = UDim2.fromScale(0.5, 0.9),
+						anchorPoint = Vector2.new(0.5, 0),
+						-- ShortcutBar will not render if there are no items
+						items = shortcutItems,
+					}),
+				}
+		),
 	}, CoreGui :: Instance)
 end
 

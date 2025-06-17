@@ -33,7 +33,6 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
-local GetFFlagLuaAppEnableFoundationColors = require(SharedFlags).GetFFlagLuaAppEnableFoundationColors
 local createShallowEqualAndTables = require(PlayerList.createShallowEqualAndTables)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 
@@ -163,7 +162,7 @@ function PlayerEntry:getTextStyle(layoutValues, style)
 		return style.Theme.TextEmphasis
 	end
 
-	return if GetFFlagLuaAppEnableFoundationColors() then style.Theme.TextDefault else style.Theme.TextMuted
+	return style.Theme.TextDefault
 end
 
 function PlayerEntry:getPlayerNameFont(layoutValues, style)

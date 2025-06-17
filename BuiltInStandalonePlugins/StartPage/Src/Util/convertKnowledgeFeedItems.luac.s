@@ -90,40 +90,60 @@ PROTO_1:
   GETUPVAL R11 0
   GETTABLEKS R12 R7 K17 ["id"]
   CALL R11 1 1
-  DUPTABLE R12 K22 [{"Id", "ContentId", "Name", "Description"}]
+  DUPTABLE R12 K25 [{"Id", "ContentId", "Name", "Description", "UniverseId", "RootPlaceId", "Difficulty"}]
   SETTABLEKS R11 R12 K18 ["Id"]
   GETTABLEKS R14 R7 K17 ["id"]
   FASTCALL1 TOSTRING R14 [+2]
-  GETIMPORT R13 K24 [tostring]
+  GETIMPORT R13 K27 [tostring]
   CALL R13 1 1
   SETTABLEKS R13 R12 K19 ["ContentId"]
   SETTABLEKS R9 R12 K20 ["Name"]
   SETTABLEKS R10 R12 K21 ["Description"]
+  GETTABLEKS R14 R7 K28 ["universeId"]
+  FASTCALL1 TONUMBER R14 [+2]
+  GETIMPORT R13 K30 [tonumber]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K22 ["UniverseId"]
+  GETTABLEKS R14 R7 K31 ["placeId"]
+  FASTCALL1 TONUMBER R14 [+2]
+  GETIMPORT R13 K30 [tonumber]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K23 ["RootPlaceId"]
+  GETTABLEKS R13 R7 K32 ["difficulty"]
+  SETTABLEKS R13 R12 K24 ["Difficulty"]
+  GETTABLEKS R13 R7 K33 ["categories"]
+  JUMPIFNOT R13 [+10]
+  GETTABLEKS R14 R7 K33 ["categories"]
+  LENGTH R13 R14
+  LOADN R14 0
+  JUMPIFNOTLT R14 R13 [+5]
+  GETTABLEKS R13 R7 K33 ["categories"]
+  SETTABLEKS R13 R12 K34 ["Categories"]
   JUMPIFNOT R8 [+13]
   LOADN R15 1
   LOADN R16 11
   FASTCALL3 STRING_SUB R8 R15 R16
   MOVE R14 R8
-  GETIMPORT R13 K26 [string.sub]
+  GETIMPORT R13 K36 [string.sub]
   CALL R13 3 1
-  JUMPIFNOTEQKS R13 K27 ["rbxasset://"] [+4]
-  SETTABLEKS R8 R12 K28 ["ImageUrl"]
+  JUMPIFNOTEQKS R13 K37 ["rbxasset://"] [+4]
+  SETTABLEKS R8 R12 K38 ["ImageUrl"]
   JUMP [+2]
-  SETTABLEKS R8 R12 K29 ["CDNUrl"]
+  SETTABLEKS R8 R12 K39 ["CDNUrl"]
   GETTABLEKS R13 R7 K4 ["url"]
   JUMPIFNOT R13 [+4]
   GETTABLEKS R13 R7 K4 ["url"]
-  SETTABLEKS R13 R12 K30 ["Link"]
-  GETTABLEKS R13 R7 K31 ["launchTutorialOnClick"]
+  SETTABLEKS R13 R12 K40 ["Link"]
+  GETTABLEKS R13 R7 K41 ["launchTutorialOnClick"]
   JUMPIFEQKNIL R13 [+5]
-  GETTABLEKS R13 R7 K31 ["launchTutorialOnClick"]
-  SETTABLEKS R13 R12 K32 ["LaunchTutorialOnClick"]
+  GETTABLEKS R13 R7 K41 ["launchTutorialOnClick"]
+  SETTABLEKS R13 R12 K42 ["LaunchTutorialOnClick"]
   FASTCALL2 TABLE_INSERT R2 R12 [+5]
   MOVE R14 R2
   MOVE R15 R12
-  GETIMPORT R13 K35 [table.insert]
+  GETIMPORT R13 K45 [table.insert]
   CALL R13 2 0
-  FORGLOOP R3 2 [inext] [-140]
+  FORGLOOP R3 2 [inext] [-173]
   RETURN R2 1
 
 MAIN:
