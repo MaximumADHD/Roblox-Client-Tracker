@@ -3,10 +3,12 @@ local Navigation = ControllerBar.Parent
 local App = Navigation.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local React = require(Packages.React)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
+local Foundation = require(Packages.Foundation)
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -39,8 +41,11 @@ local defaultPublicProps = {
 local function renderIcon(props: IconProps, style)
 	local layoutOrder = props.layoutOrder
 	local itemProps = props.itemProps
+	local tokens = Foundation.Hooks.useTokens()
 
-	local frameSize = getIconSize(IconSize.Medium)
+	local frameSize = if UIBloxConfig.useTokenizedShortcutBar
+		then tokens.Size.Size_600
+		else getIconSize(IconSize.Medium)
 	local hasProgress = itemProps.hasProgress
 
 	local progressProps: Types.ShortcutProgressProps
@@ -114,6 +119,7 @@ local function Shortcut(providedProps: Types.ShortcutProps)
 	local publicProps: Types.ShortcutPublicProps = Object.assign({}, defaultPublicProps, props.publicProps)
 
 	local style = useStyle()
+	local tokens = Foundation.Hooks.useTokens()
 	local index = props.index
 
 	return React.createElement("Frame", {
@@ -159,6 +165,7 @@ local function Shortcut(providedProps: Types.ShortcutProps)
 			Size = UDim2.fromOffset(0, 0),
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Text = publicProps.text,
+			TextSize = if UIBloxConfig.useTokenizedShortcutBar then tokens.FontSize.FontSize_50 else nil,
 			colorStyle = style.Theme.TextEmphasis,
 			fontStyle = style.Font.SubHeader1,
 			BackgroundTransparency = 1,

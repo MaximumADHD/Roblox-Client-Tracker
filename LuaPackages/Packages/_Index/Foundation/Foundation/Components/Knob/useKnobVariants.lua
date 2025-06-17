@@ -6,6 +6,9 @@ type InputSize = InputSize.InputSize
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
+local Types = require(Foundation.Components.Types)
+type ColorStyleValue = Types.ColorStyleValue
+
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
@@ -16,6 +19,7 @@ type KnobVariantProps = {
 	knob: {
 		tag: string,
 		size: UDim2,
+		style: ColorStyleValue,
 	},
 	knobShadow: {
 		tag: string,
@@ -45,11 +49,13 @@ local function variantsFactory(tokens: Tokens)
 	local common = {
 		knob = {
 			tag = "radius-circle",
+			style = tokens.Color.Extended.White.White_100,
 		},
 		knobShadow = {
 			tag = "anchor-center-center position-center-center",
 		},
 	}
+
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = computeProps({
 			size = getKnobSize(tokens, InputSize.XSmall),
@@ -61,7 +67,7 @@ local function variantsFactory(tokens: Tokens)
 		}),
 		[InputSize.Medium] = computeProps({
 			size = getKnobSize(tokens, InputSize.Medium),
-			shadowPadding = tokens.Padding.XSmall,
+			shadowPadding = tokens.Padding.Small,
 		}),
 		[InputSize.Large] = computeProps({
 			size = getKnobSize(tokens, InputSize.Large),

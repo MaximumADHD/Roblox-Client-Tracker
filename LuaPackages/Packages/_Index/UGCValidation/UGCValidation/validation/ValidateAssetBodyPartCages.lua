@@ -16,13 +16,18 @@ local pcallDeferred = require(util.pcallDeferred)
 local getEditableMeshFromContext = require(util.getEditableMeshFromContext)
 local FailureReasonsAccumulator = require(util.FailureReasonsAccumulator)
 local getExpectedPartSize = require(util.getExpectedPartSize)
+local getMeshInfo = require(util.getMeshInfo)
+local AssetCalculator = require(util.AssetCalculator)
 
 local flags = root.flags
 local GetFStringUGCValidationMaxCageDistance = require(flags.GetFStringUGCValidationMaxCageDistance)
+local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
+local getFFlagUGCValidationHyperlinksInCageQuality = require(root.flags.getFFlagUGCValidationHyperlinksInCageQuality)
 
 local ValidateAssetBodyPartCages = {}
 
-local function getMeshInfo(
+-- TODO: Remove with FFlagConsolidateGetMeshInfos
+local function DEPRECATED_getMeshInfo(
 	inst: Instance,
 	fieldName: string,
 	contentId: string,
@@ -50,26 +55,53 @@ local function validateInternal(
 	meshHandle: MeshPart,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local getMeshInfoSuccess, meshInfo =
-		getMeshInfo(meshHandle, "MeshId", meshHandle.MeshId, meshHandle.Name, validationContext)
+	local getMeshInfoSuccess, meshInfoErrors, meshInfo
+	if getFFlagUGCValidationConsolidateGetMeshInfos() then
+		getMeshInfoSuccess, meshInfoErrors, meshInfo =
+			getMeshInfo(meshHandle, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
+	else
+		getMeshInfoSuccess, meshInfo =
+			DEPRECATED_getMeshInfo(meshHandle, "MeshId", meshHandle.MeshId, meshHandle.Name, validationContext)
+	end
+
 	if not getMeshInfoSuccess then
-		return false, { "Failed to load " .. meshHandle.Name .. "'s render mesh data" }
+		if getFFlagUGCValidationConsolidateGetMeshInfos() then
+			return false, meshInfoErrors
+		else
+			return false, { "Failed to load " .. meshHandle.Name .. "'s render mesh data" }
+		end
 	end
 
 	local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
 	assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
-	local getWrapTargetCageInfoSuccess, cageInfo =
-		getMeshInfo(wrapTarget, "CageMeshId", wrapTarget.CageMeshId, wrapTarget.ClassName, validationContext)
+	local getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo
+	if getFFlagUGCValidationConsolidateGetMeshInfos() then
+		getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo =
+			getMeshInfo(wrapTarget, Constants.MESH_CONTENT_TYPE.OUTER_CAGE, validationContext)
+	else
+		getWrapTargetCageInfoSuccess, cageInfo = DEPRECATED_getMeshInfo(
+			wrapTarget,
+			"CageMeshId",
+			wrapTarget.CageMeshId,
+			wrapTarget.ClassName,
+			validationContext
+		)
+	end
+
 	if not getWrapTargetCageInfoSuccess then
-		return false, { "Failed to load " .. meshHandle.Name .. "'s WrapTarget's cage mesh data" }
+		if getFFlagUGCValidationConsolidateGetMeshInfos() then
+			return false, cageInfoErrors
+		else
+			return false, { "Failed to load " .. meshHandle.Name .. "'s WrapTarget's cage mesh data" }
+		end
 	end
 
 	local scale = getExpectedPartSize(meshHandle, validationContext)
 		/ getExpectedPartSize(meshHandle, validationContext, true)
 	local successfullyExecuted, maxCageDistance = pcallDeferred(function()
 		return (UGCValidationService :: any):CalculateBodyPartMaxCageDistance(
-			cageInfo.editableMesh :: EditableMesh,
-			meshInfo.editableMesh :: EditableMesh,
+			(cageInfo :: Types.MeshInfo).editableMesh :: EditableMesh,
+			(meshInfo :: Types.MeshInfo).editableMesh :: EditableMesh,
 			wrapTarget.CageOrigin,
 			scale
 		)
@@ -109,7 +141,7 @@ local function validateInternal(
 	return true
 end
 
-function ValidateAssetBodyPartCages.validate(
+function ValidateAssetBodyPartCages.validateSingleBodyPart(
 	inst: Instance,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
@@ -130,6 +162,120 @@ function ValidateAssetBodyPartCages.validate(
 	end
 	Analytics.recordScriptTime(script.Name, startTime, validationContext)
 	return reasonsAccumulator:getFinalResults()
+end
+
+function ValidateAssetBodyPartCages.validateFullBody(
+	fullBodyAssets: Types.AllBodyParts,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local startTime = tick()
+
+	local partsCFrames = AssetCalculator.calculateAllTransformsForFullBody(fullBodyAssets)
+
+	local testInputInfo = {}
+	for _, meshHandle in fullBodyAssets do
+		local getMeshInfoSuccess, meshInfoErrors, meshInfo
+		if getFFlagUGCValidationConsolidateGetMeshInfos() then
+			getMeshInfoSuccess, meshInfoErrors, meshInfo =
+				getMeshInfo(meshHandle, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
+		else
+			getMeshInfoSuccess, meshInfo = DEPRECATED_getMeshInfo(
+				meshHandle,
+				"MeshId",
+				(meshHandle :: MeshPart).MeshId,
+				meshHandle.Name,
+				validationContext
+			)
+		end
+
+		if not getMeshInfoSuccess then
+			if getFFlagUGCValidationConsolidateGetMeshInfos() then
+				return false, meshInfoErrors
+			else
+				return false, { "Failed to load " .. meshHandle.Name .. "'s render mesh data" }
+			end
+		end
+
+		local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
+		assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
+		local getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo
+		if getFFlagUGCValidationConsolidateGetMeshInfos() then
+			getWrapTargetCageInfoSuccess, cageInfoErrors, cageInfo =
+				getMeshInfo(wrapTarget, Constants.MESH_CONTENT_TYPE.OUTER_CAGE, validationContext)
+		else
+			getWrapTargetCageInfoSuccess, cageInfo = DEPRECATED_getMeshInfo(
+				wrapTarget,
+				"CageMeshId",
+				wrapTarget.CageMeshId,
+				wrapTarget.ClassName,
+				validationContext
+			)
+		end
+
+		if not getWrapTargetCageInfoSuccess then
+			if getFFlagUGCValidationConsolidateGetMeshInfos() then
+				return false, cageInfoErrors
+			else
+				return false, { "Failed to load " .. meshHandle.Name .. "'s WrapTarget's cage mesh data" }
+			end
+		end
+
+		local scale = getExpectedPartSize(meshHandle :: MeshPart, validationContext)
+			/ getExpectedPartSize(meshHandle :: MeshPart, validationContext, true)
+
+		table.insert(testInputInfo, {
+			renderMesh = (meshInfo :: Types.MeshInfo).editableMesh,
+			outerCage = (cageInfo :: Types.MeshInfo).editableMesh,
+			renderMeshTransform = partsCFrames[meshHandle.Name],
+			-- outerCageLocalTransform is an offset from the render mesh transform, so if it's identity then the cage has the same world space transform as the render mesh
+			outerCageLocalTransform = wrapTarget.CageOrigin,
+			scale = scale,
+			name = meshHandle.Name,
+		})
+	end
+
+	local successfullyExecuted, maxCageDistance, partCageWithMaxCageDistance = pcallDeferred(function()
+		return (UGCValidationService :: any):CalculateBodyMaxCageDistance(testInputInfo)
+	end, validationContext)
+
+	Analytics.recordScriptTime(script.Name, startTime, validationContext)
+
+	if not successfullyExecuted then
+		local errorString =
+			`Failed to execute body max cage distance check. Make sure all render meshes and their WrapTarget cage meshes exist, and try again.`
+		if nil ~= validationContext.isServer and validationContext.isServer then
+			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
+			-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
+			-- which would mean the asset failed validation
+			error(errorString)
+		end
+		Analytics.reportFailure(Analytics.ErrorType.validateBodyPartCage_FailedToExecute, nil, validationContext)
+		return false, { errorString }
+	end
+
+	if maxCageDistance > GetFStringUGCValidationMaxCageDistance.asNumber() then
+		Analytics.reportFailure(
+			Analytics.ErrorType.validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh,
+			nil,
+			validationContext
+		)
+
+		local errorString = string.format(
+			"A vertex was found on the %s's cage mesh that is %.2f studs away from the closest render mesh. %s studs is the maximum. Make the cage mesh more closely match the shape and size of the render mesh.",
+			partCageWithMaxCageDistance,
+			maxCageDistance,
+			GetFStringUGCValidationMaxCageDistance.asString()
+		)
+		if getFFlagUGCValidationHyperlinksInCageQuality() then
+			errorString = errorString
+				.. "[Read more](https://create.roblox.com/docs/art/validation-errors#bodyCageMaxSize)"
+		end
+
+		return false, {
+			errorString,
+		}
+	end
+	return true
 end
 
 return ValidateAssetBodyPartCages

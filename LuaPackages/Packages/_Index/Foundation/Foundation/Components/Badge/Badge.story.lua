@@ -8,10 +8,12 @@ local Tile = require(Foundation.Components.Tile)
 local MediaType = require(Foundation.Enums.MediaType)
 local Theme = require(Foundation.Enums.Theme)
 
-local Badge = require(Foundation.Components.Badge)
+local View = require(Foundation.Components.View)
+local Text = require(Foundation.Components.Text)
+local Badge_NEW = require(Foundation.Components.Badge.Badge)
+local Badge_DEPRECATED = require(Foundation.Components.Badge.Badge_DEPRECATED)
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 type BadgeVariant = BadgeVariant.BadgeVariant
-local BadgeSize = require(Foundation.Enums.BadgeSize)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local Flags = require(Foundation.Utility.Flags)
@@ -19,14 +21,21 @@ local Flags = require(Foundation.Utility.Flags)
 local itemTileSize = UDim2.fromOffset(150, 240)
 local itemId = 21070012
 
+-- DEPRECATED Primary and Secondary variants are scheduled for removal in the next major release (2.0)
+local nonDeprecatedVariants = Dash.filter(Dash.values(BadgeVariant), function(item)
+	return item ~= BadgeVariant.Primary and item ~= BadgeVariant.Secondary
+end) :: { BadgeVariant }
+
 return {
 	summary = "Badge",
-	stories = Dash.map(BadgeVariant, function(variant)
-		return {
-			name = variant,
+	stories = {
+		{
+			name = "Base",
 			story = function(props): React.Node
 				Flags.FoundationDisableBadgeTruncation = props.controls.disableBadgeTruncation
+				Flags.FoundationUpdateBadgeDesign = props.controls.updateBadgeDesign
 				local tokens = useTokens()
+				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 
 				local item, setItem = React.useState({} :: { Name: string?, PriceText: string? })
 				React.useEffect(function()
@@ -72,7 +81,7 @@ return {
 								icon = if props.controls.icon ~= "" then props.controls.icon else nil,
 								size = props.controls.size,
 								isDisabled = props.controls.isDisabled,
-								variant = variant,
+								variant = props.controls.variant,
 							}),
 						}),
 						TileContent = React.createElement(Tile.Content, {}, {
@@ -100,21 +109,71 @@ return {
 					icon = if props.controls.icon ~= "" then props.controls.icon else nil,
 					size = props.controls.size,
 					isDisabled = props.controls.isDisabled,
-					variant = variant,
+					variant = props.controls.variant,
 				})
 			end,
-		}
-	end),
+		} :: unknown,
+		{
+			name = "All variants",
+			story = function(props)
+				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
+				return React.createElement(
+					View,
+					{ tag = "row wrap auto-xy gap-xlarge" },
+					Dash.map(nonDeprecatedVariants, function(variant)
+						return React.createElement(
+							View,
+							{ tag = "col gap-medium auto-xy" },
+							React.createElement(Text, { tag = "auto-xy text-align-x-left", Text = variant }),
+							React.createElement(Badge, {
+								text = props.controls.text,
+								icon = if props.controls.icon ~= "" then props.controls.icon else nil,
+								size = props.controls.size,
+								isDisabled = props.controls.isDisabled,
+								variant = variant :: BadgeVariant,
+							})
+						)
+					end)
+				)
+			end,
+		},
+		{
+			name = "Deprecated variants",
+			story = function(props)
+				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
+				return React.createElement(
+					View,
+					{ tag = "row wrap auto-xy gap-xlarge" },
+					Dash.map({ BadgeVariant.Primary :: BadgeVariant, BadgeVariant.Secondary }, function(variant)
+						return React.createElement(
+							View,
+							{ tag = "col gap-medium auto-xy" },
+							React.createElement(Text, { tag = "auto-xy text-align-x-left", Text = variant }),
+							React.createElement(Badge, {
+								text = props.controls.text,
+								icon = if props.controls.icon ~= "" then props.controls.icon else nil,
+								size = props.controls.size,
+								isDisabled = props.controls.isDisabled,
+								variant = variant :: BadgeVariant,
+							})
+						)
+					end)
+				)
+			end,
+		},
+	},
 	controls = {
-		text = "NEW",
+		text = "Label",
 		icon = {
+			"diamond-simplified",
+			"house",
 			"icons/placeholder/placeholderOn_small",
 			"icons/menu/clothing/limited_on",
 			"",
 		},
-		size = Dash.values(BadgeSize),
-		isDisabled = false,
+		variant = nonDeprecatedVariants,
 		onTile = false,
 		disableBadgeTruncation = Flags.FoundationDisableBadgeTruncation,
+		updateBadgeDesign = Flags.FoundationUpdateBadgeDesign,
 	},
 }

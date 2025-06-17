@@ -126,7 +126,8 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	} :: Types.TextureInfo
 
 	local getEditableImageSuccess, editableImage = getEditableImageFromContext(handle, "TextureID", validationContext)
-	if not getEditableImageSuccess then
+	-- if validateSurfaceAppearances is enabled, TextureId is optional
+	if not getEditableImageSuccess and not getFFlagMeshPartAccessoryPBRSupport() then
 		return false,
 			{
 				string.format(

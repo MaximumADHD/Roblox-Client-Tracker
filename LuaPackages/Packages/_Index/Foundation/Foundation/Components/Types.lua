@@ -179,12 +179,14 @@ export type FontStyle = {
 export type InternalTextInputRef = {
 	getIsFocused: () -> boolean,
 	focus: () -> (),
+	releaseFocus: () -> (),
 	setHover: (isHovering: boolean) -> (),
 }
 
 export type TextInputRef = {
 	getIsFocused: () -> boolean,
 	focus: () -> (),
+	releaseFocus: () -> (),
 }
 
 return {}

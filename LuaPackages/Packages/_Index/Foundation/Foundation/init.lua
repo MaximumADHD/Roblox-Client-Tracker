@@ -19,30 +19,34 @@ export type Tokens = Tokens.Tokens
 
 local Foundation = strict({
 	-- Components
+	Avatar = require(script.Components.Avatar),
+	AvatarGroup = require(script.Components.AvatarGroup),
 	Badge = require(script.Components.Badge),
 	Button = require(script.Components.Button),
 	Checkbox = require(script.Components.Checkbox),
+	Chip = require(script.Components.Chip),
 	Divider = require(script.Components.Divider),
 	Empty = require(script.Components.Empty),
 	Icon = require(script.Components.Icon),
 	IconButton = require(script.Components.IconButton),
 	Image = require(script.Components.Image),
 	InputLabel = require(script.Components.InputLabel),
+	KeyLabel = require(script.Components.KeyLabel),
+	Knob = require(script.Components.Knob),
 	Loading = require(script.Components.Loading),
-	Chip = require(script.Components.Chip),
+	NumberInput = require(script.Components.NumberInput),
 	Pill = require(script.Components.Chip),
 	Popover = require(script.Components.Popover),
 	RadioGroup = require(script.Components.RadioGroup),
 	ScrollView = require(script.Components.ScrollView),
 	Skeleton = require(script.Components.Skeleton),
-	Toggle = require(script.Components.Toggle),
-	Tooltip = require(script.Components.Tooltip),
+	Slider = require(script.Components.Slider),
 	Text = require(script.Components.Text),
 	TextInput = require(script.Components.TextInput),
-	NumberInput = require(script.Components.NumberInput),
+	Toggle = require(script.Components.Toggle),
+	Tooltip = require(script.Components.Tooltip),
 	Toast = require(script.Components.Toast),
 	View = require(script.Components.View),
-	KeyLabel = require(script.Components.KeyLabel),
 
 	-- Providers
 	FoundationProvider = require(script.Providers.Foundation),
@@ -54,16 +58,19 @@ local Foundation = strict({
 		withCursor = require(script.Providers.Cursor.withCursor),
 		useDefaultTags = require(script.Utility.useDefaultTags),
 		useIconSize = require(script.Utility.useIconSize),
+		usePointerPosition = require(script.Utility.usePointerPosition),
 		usePreferences = require(script.Providers.Preferences.usePreferences),
 		useRotation = require(script.Utility.useRotation),
 		useScaledValue = require(script.Utility.useScaledValue),
 		useStyleTags = require(script.Providers.Style.useStyleTags),
+		useTextSizeOffset = require(script.Providers.Style.useTextSizeOffset),
 		useTokens = require(script.Providers.Style.useTokens),
 		useStyleSheet = require(script.Providers.Style.StyleSheetContext).useStyleSheet,
 	},
 
 	-- Enums
 	Enums = {
+		AvatarGroupType = require(script.Enums.AvatarGroupType),
 		BadgeSize = require(script.Enums.BadgeSize),
 		BadgeVariant = require(script.Enums.BadgeVariant),
 		-- ButtonSize is deprecated. Use InputSize instead.
@@ -83,7 +90,9 @@ local Foundation = strict({
 		PopoverAlign = require(script.Enums.PopoverAlign),
 		PopoverSide = require(script.Enums.PopoverSide),
 		Radius = require(script.Enums.Radius),
-		ScrollBarVisibility = require(script.Enums.ScrollBarVisibility),
+		-- ScrollBarVisibility is deprecated. Use Visibility instead.
+		ScrollBarVisibility = require(script.Enums.Visibility),
+		SliderVariant = require(script.Enums.SliderVariant),
 		StateLayerAffordance = require(script.Enums.StateLayerAffordance),
 		StateLayerMode = require(script.Enums.StateLayerMode),
 		Theme = require(script.Enums.Theme),
@@ -91,6 +100,8 @@ local Foundation = strict({
 		ThumbnailSize = require(script.Enums.ThumbnailSize),
 		-- ToggleSize is deprecated. Use InputSize instead.
 		ToggleSize = require(script.Enums.InputSize),
+		UserPresence = require(script.Enums.UserPresence),
+		Visibility = require(script.Enums.Visibility),
 	},
 
 	-- Utility

@@ -5,89 +5,97 @@ type BadgeVariant = BadgeVariant.BadgeVariant
 local BadgeSize = require(Foundation.Enums.BadgeSize)
 type BadgeSize = BadgeSize.BadgeSize
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local Flags = require(Foundation.Utility.Flags)
-
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
-type SizeConstraint = Types.SizeConstraint
 
-type BadgeStyle = {
-	backgroundStyle: ColorStyleValue,
-	contentStyle: ColorStyleValue,
+local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
+type VariantProps = composeStyleVariant.VariantProps
+
+local Tokens = require(Foundation.Providers.Style.Tokens)
+type Tokens = Tokens.Tokens
+
+local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
+
+type BadgeVariantProps = {
+	container: { tag: string, backgroundStyle: ColorStyleValue, stroke: Types.Stroke },
+	text: { tag: string },
+	content: { style: ColorStyleValue },
 }
 
-local textStyle: { [BadgeSize]: string } = {
-	[BadgeSize.Small] = "text-caption-small",
-	[BadgeSize.Medium] = "text-label-small",
-}
-
-return function(
-	variant: BadgeVariant,
-	size: BadgeSize,
-	hasIcon: boolean,
-	hasText: boolean
-): (BadgeStyle, SizeConstraint, SizeConstraint, string, string)
-	local tokens = useTokens()
-
-	local badgeVariants: { [BadgeVariant]: BadgeStyle } = {
-		[BadgeVariant.Primary] = {
-			backgroundStyle = tokens.Color.System.Contrast,
-			contentStyle = tokens.Inverse.Content.Emphasis,
+function variantsFactory(tokens: Tokens)
+	local common = {
+		container = {
+			tag = "radius-circle row align-y-center align-x-center gap-xsmall",
 		},
-		[BadgeVariant.Secondary] = {
-			backgroundStyle = tokens.Color.Shift.Shift_200,
-			contentStyle = tokens.Color.Content.Emphasis,
+		text = {
+			tag = "auto-xy text-label-small",
 		},
+	}
+
+	local variants: { [BadgeVariant]: VariantProps } = {
 		[BadgeVariant.Alert] = {
-			backgroundStyle = tokens.Color.System.Alert,
-			contentStyle = tokens.DarkMode.Content.Emphasis,
+			container = {
+				backgroundStyle = tokens.Color.System.Alert,
+			},
+			content = {
+				style = tokens.DarkMode.Content.Emphasis,
+			},
+		},
+		[BadgeVariant.Success] = {
+			container = {
+				backgroundStyle = tokens.Color.System.Success,
+			},
+			content = {
+				style = tokens.LightMode.Content.Emphasis,
+			},
+		},
+		[BadgeVariant.Warning] = {
+			container = {
+				backgroundStyle = tokens.Color.System.Warning,
+			},
+			content = {
+				style = tokens.LightMode.Content.Emphasis,
+			},
+		},
+		[BadgeVariant.Contrast] = {
+			container = {
+				backgroundStyle = tokens.Color.System.Contrast,
+			},
+			content = {
+				style = tokens.Inverse.Content.Emphasis,
+			},
+		},
+		[BadgeVariant.Neutral] = {
+			container = {
+				backgroundStyle = tokens.Color.Shift.Shift_300,
+			},
+			content = {
+				style = tokens.Color.Content.Emphasis,
+			},
+		},
+		[BadgeVariant.OverMedia] = {
+			container = {
+				backgroundStyle = tokens.LightMode.Surface.Surface_100,
+				stroke = {
+					Color = tokens.LightMode.Stroke.Default.Color3,
+					Transparency = tokens.LightMode.Stroke.Default.Transparency,
+				},
+			},
+			content = {
+				style = tokens.LightMode.Content.Emphasis,
+			},
 		},
 	}
 
-	local minSize: { [BadgeSize]: number } = {
-		-- 12 - 4 (padding)
-		[BadgeSize.Small] = tokens.Size.Size_300 - tokens.Padding.XXSmall * 2,
-		-- 24 - 2 (stroke) - 4 (padding)
-		[BadgeSize.Medium] = tokens.Size.Size_600 - tokens.Stroke.Standard * 2 - tokens.Padding.XXSmall * 2,
+	local iconOnly: { [boolean]: any } = {
+		[true] = { container = { tag = "size-600" } },
+		[false] = { container = { tag = "size-0-600 auto-x padding-x-small" } },
 	}
 
-	local containerPadding = if hasIcon or hasText then "padding-xxsmall" else ""
-	local textPadding = "padding-x-xsmall"
-	local fontStyle = textStyle[size]
+	return { common = common, variants = variants, iconOnly = iconOnly }
+end
 
-	-- Necessary to ensure that the ... fits inside badge
-	local maxSize = if hasIcon
-		then Vector2.new(
-			if Flags.FoundationDisableBadgeTruncation
-				then math.huge
-				else (
-					tokens.Size.Size_1600
-					- tokens.Semantic.Icon.Size.Small -- TODO(tokens): replace with non-semantic value
-					- tokens.Padding.XXSmall
-				),
-			math.huge
-		)
-		else nil
-
-	local textSizeConstraint = {
-		MaxSize = maxSize,
-	}
-
-	local containerMinSize = if hasText or hasIcon then minSize[size] else tokens.Size.Size_200
-
-	local containerSizeConstraint = {
-		MinSize = Vector2.new(containerMinSize, containerMinSize),
-		MaxSize = Vector2.new(
-			if Flags.FoundationDisableBadgeTruncation then math.huge else tokens.Size.Size_1600,
-			math.huge
-		),
-	}
-
-	local containerTags = `auto-xy radius-circle row align-y-center align-x-center stroke-thick {containerPadding}`
-	local textTags = if Flags.FoundationDisableBadgeTruncation
-		then `auto-xy {textPadding} {fontStyle}`
-		else `auto-xy text-truncate-end {textPadding} {fontStyle}`
-
-	return badgeVariants[variant], containerSizeConstraint, textSizeConstraint, containerTags, textTags
+return function(tokens: Tokens, variant: BadgeVariant, isIconOnly: boolean): BadgeVariantProps
+	local props = VariantsContext.useVariants("Badge", variantsFactory, tokens)
+	return composeStyleVariant(props.common, props.variants[variant], props.iconOnly[isIconOnly])
 end

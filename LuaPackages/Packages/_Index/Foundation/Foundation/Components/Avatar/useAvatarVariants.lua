@@ -34,6 +34,7 @@ type AvatarVariantProps = {
 	container: {
 		tag: string,
 		stroke: Types.Stroke,
+		backgroundStyle: Types.ColorStyle?,
 	},
 	avatar: {
 		tag: string,
@@ -43,12 +44,8 @@ type AvatarVariantProps = {
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
-		container = {
-			tag = "radius-circle",
-		},
-		avatar = {
-			tag = "radius-circle size-full",
-		},
+		container = { tag = "radius-circle" },
+		avatar = { tag = "radius-circle size-full" },
 		indicatorBackplate = {
 			ZIndex = 2,
 			tag = "bg-surface-0 anchor-bottom-right radius-circle auto-xy position-bottom-right",
@@ -57,22 +54,10 @@ local function variantsFactory(tokens: Tokens)
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
-		[InputSize.XSmall] = {
-			container = { tag = "size-600" },
-			indicator = { size = tokens.Size.Size_150 },
-		},
-		[InputSize.Small] = {
-			container = { tag = "size-800" },
-			indicator = { size = tokens.Size.Size_150 },
-		},
-		[InputSize.Medium] = {
-			container = { tag = "size-1000" },
-			indicator = { size = tokens.Size.Size_200 },
-		},
-		[InputSize.Large] = {
-			container = { tag = "size-1200" },
-			indicator = { size = tokens.Size.Size_200 },
-		},
+		[InputSize.XSmall] = { indicator = { size = tokens.Size.Size_150 } },
+		[InputSize.Small] = { indicator = { size = tokens.Size.Size_150 } },
+		[InputSize.Medium] = { indicator = { size = tokens.Size.Size_200 } },
+		[InputSize.Large] = { indicator = { size = tokens.Size.Size_200 } },
 	}
 
 	local presence: { [UserPresence]: VariantProps } = {
@@ -108,6 +93,8 @@ return function(
 					Thickness = tokens.Stroke.Thicker,
 				}
 				else nil,
+			-- We only need the background for a real backplate when stroke is also used for the presence ring
+			backgroundStyle = backplateStyle,
 		},
 	})
 end

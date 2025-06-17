@@ -23,7 +23,7 @@ See how to style `ScrollView` quickly with the [[Style Tags]].
 ```lua
 local Foundation = require(Packages.Foundation)
 local ScrollView = Foundation.ScrollView
-local ScrollBarVisibility = Foundation.Enums.ScrollBarVisibility
+local Visibility = Foundation.Enums.Visibility
 ...
 
 local onStateChanged = React.useCallback(function(state)
@@ -33,7 +33,7 @@ end, {})
 return React.createElement(ScrollView, {
     onStateChanged = onStateChanged,
     scroll = {
-        scrollBarVisibility = ScrollBarVisibility.Always,
+        scrollBarVisibility = Visibility.Always,
 	    ScrollingDirection = Enum.ScrollingDirection.Y,
     },
     tag = "row align-y-center padding-small",

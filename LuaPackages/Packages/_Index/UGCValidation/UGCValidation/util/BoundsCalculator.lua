@@ -12,6 +12,7 @@ calculateFullBodyBounds:
 ]]
 
 local root = script.Parent.Parent
+local Constants = require(root.Constants)
 local Types = require(root.util.Types)
 local ConstantsInterface = require(root.ConstantsInterface)
 local AssetCalculator = require(root.util.AssetCalculator)
@@ -26,6 +27,7 @@ local getFFlagUGCValidateCalculateScaleToValidateBounds =
 	require(root.flags.getFFlagUGCValidateCalculateScaleToValidateBounds)
 local getFFlagUGCValidateUseMeshSizeProperty = require(root.flags.getFFlagUGCValidateUseMeshSizeProperty)
 local getFFlagUGCValidateUseDataCache = require(root.flags.getFFlagUGCValidateUseDataCache)
+local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 
 local BoundsCalculator = {}
 
@@ -191,7 +193,13 @@ local function calculateAllPartsBoundsData(
 
 		local meshInfo = nil
 		if not getFFlagUGCValidateUseDataCache() or not dataCache then
-			local success, failureReasons, meshInfoOpt = getMeshInfo(meshPart, validationContext)
+			local success, failureReasons, meshInfoOpt
+			if getFFlagUGCValidationConsolidateGetMeshInfos() then
+				success, failureReasons, meshInfoOpt =
+					getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
+			else
+				success, failureReasons, meshInfoOpt = (getMeshInfo :: any)(meshPart, validationContext)
+			end
 			if not success then
 				return success, failureReasons
 			end

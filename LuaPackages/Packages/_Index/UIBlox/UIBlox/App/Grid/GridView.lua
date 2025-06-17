@@ -5,6 +5,7 @@ local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
 local RoactGamepad = require(Packages.RoactGamepad)
 local isCallable = require(UIBloxRoot.Utility.isCallable)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
@@ -174,7 +175,13 @@ function GridView:render()
 			-- Optional Gamepad prop callback which is called when a grid member is focused on
 			onFocusGained = self.props.onFocusGained,
 		}, {
-			Content = isVisible and self.props.renderItem(items[itemIndex], itemIndex),
+			Content = isVisible and self.props.renderItem(
+				items[itemIndex],
+				itemIndex,
+				if UIBloxConfig.passRowAndColumnDataToItemInGridView
+					then { row = currentRow, column = currentCol }
+					else nil
+			),
 		})
 	end
 

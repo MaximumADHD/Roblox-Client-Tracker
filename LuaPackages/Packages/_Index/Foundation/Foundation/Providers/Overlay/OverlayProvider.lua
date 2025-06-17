@@ -10,7 +10,7 @@ local PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
 	then Players.LocalPlayer:WaitForChild("PlayerGui", 3)
 	else nil
 
-local isCoreGui = require(Foundation.Utility.isCoreGui)
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local Flags = require(Foundation.Utility.Flags)
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
 
@@ -24,7 +24,7 @@ type Props = {
 	children: React.ReactNode,
 }
 
-local mainGui = if isCoreGui then CoreGui else PlayerGui
+local mainGui = if isPluginSecurity() then CoreGui else PlayerGui
 
 local function OverlayProvider(props: Props)
 	local overlay: GuiBase2d?, setOverlay = React.useState(props.gui)

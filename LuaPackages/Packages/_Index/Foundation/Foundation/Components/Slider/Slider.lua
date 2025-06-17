@@ -1,0 +1,245 @@
+local Foundation = script:FindFirstAncestor("Foundation")
+local Packages = Foundation.Parent
+
+local React = require(Packages.React)
+
+local View = require(Foundation.Components.View)
+local Types = require(Foundation.Components.Types)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local useBindable = require(Foundation.Utility.useBindable)
+local usePointerPosition = require(Foundation.Utility.usePointerPosition)
+local useLayerCollector = require(Foundation.Utility.useLayerCollector)
+local useGuiInset = require(Foundation.Utility.useGuiInset)
+local Flags = require(Foundation.Utility.Flags)
+
+local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
+
+local Visibility = require(Foundation.Enums.Visibility)
+type Visibility = Visibility.Visibility
+
+local SliderVariant = require(Foundation.Enums.SliderVariant)
+type SliderVariant = SliderVariant.SliderVariant
+
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local ControlState = require(Foundation.Enums.ControlState)
+type ControlState = ControlState.ControlState
+
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local useSliderVariants = require(Foundation.Components.Slider.useSliderVariants)
+local useSliderMotionStates = require(Foundation.Components.Slider.useSliderMotionStates)
+local Knob = require(Foundation.Components.Knob)
+
+type Bindable<T> = Types.Bindable<T>
+
+export type SliderProps = {
+	value: Bindable<number>,
+	range: NumberRange?,
+
+	size: InputSize?,
+	width: UDim?,
+	variant: SliderVariant?,
+	isDisabled: boolean?,
+	isContained: boolean?,
+	knobVisibility: Visibility?,
+	knob: React.ReactElement?,
+
+	onValueChanged: ((newValue: number) -> ())?,
+	onDragStarted: (() -> ())?,
+	onDragEnded: (() -> ())?,
+} & Types.CommonProps
+
+local defaultProps = {
+	range = NumberRange.new(0, 1),
+	size = InputSize.Medium,
+	width = UDim.new(1, 0),
+	variant = SliderVariant.Standard,
+	isDisabled = false,
+	isContained = false,
+	knobVisibility = Visibility.Auto,
+}
+
+local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>?)
+	local props = withDefaults(sliderProps, defaultProps)
+	local tokens = useTokens()
+	local controlState, setControlState = React.useState(ControlState.Initialize :: ControlState)
+	local isDragging, setIsDragging = React.useState(false)
+	local isKnobVisible, setIsKnobVisible = React.useState(false)
+	local value = useBindable(props.value)
+
+	local ref = React.useRef(nil :: GuiObject?)
+	React.useImperativeHandle(forwardRef, function()
+		return ref.current
+	end, {})
+
+	local pointerPosition = usePointerPosition(ref.current)
+	local guiInset = useGuiInset()
+	local layerCollector = useLayerCollector(ref.current)
+
+	local variant = useSliderVariants(tokens, props.size, props.variant)
+	local motionStates = useSliderMotionStates(variant.knob.style, variant.knob.dragStyle)
+
+	-- Determine current motion state based on visibility and interaction
+	local currentMotionState = React.useMemo(function()
+		if not isKnobVisible then
+			return motionStates.Hidden
+		end
+		return if isDragging then motionStates.Dragging else motionStates.Idle
+	end, { tokens :: any, isKnobVisible, isDragging, motionStates })
+
+	React.useEffect(function()
+		if props.knobVisibility :: Visibility == Visibility.None then
+			setIsKnobVisible(false)
+		elseif props.knobVisibility :: Visibility == Visibility.Always then
+			setIsKnobVisible(true)
+		else
+			setIsKnobVisible(
+				isDragging
+					or controlState == ControlState.Hover
+					or controlState == ControlState.Selected
+					or controlState == ControlState.Pressed
+			)
+		end
+	end, { props.knobVisibility :: any, controlState, isDragging })
+
+	local calculateValueFromAbsPosition = React.useCallback(function(position: Vector2)
+		if ref.current then
+			local bounds = NumberRange.new(
+				ref.current.AbsolutePosition.X,
+				ref.current.AbsolutePosition.X + ref.current.AbsoluteSize.X
+			)
+
+			local valueAsPercent = (position.X - bounds.Min) / (bounds.Max - bounds.Min)
+			local newValue = valueAsPercent * props.range.Max
+
+			return math.clamp(newValue, props.range.Min, props.range.Max)
+		else
+			return 0
+		end
+	end, { props.range } :: { unknown })
+
+	local updateValue = React.useCallback(function(newValue: number)
+		if newValue ~= value:getValue() then
+			if props.onValueChanged then
+				props.onValueChanged(newValue)
+			end
+		end
+	end, { value, props.onValueChanged } :: { unknown })
+
+	local onSeek = React.useCallback(function()
+		local newValue = calculateValueFromAbsPosition(pointerPosition:getValue())
+		updateValue(newValue)
+	end, { calculateValueFromAbsPosition, pointerPosition, updateValue } :: { unknown })
+
+	local onDragStarted = React.useCallback(function()
+		setIsDragging(true)
+
+		if props.onDragStarted then
+			props.onDragStarted()
+		end
+	end, { props.onDragStarted })
+
+	local onDrag = React.useCallback(function(_rbx, position: Vector2)
+		--[[
+			To get dragging working correctly in the app we need to shift the
+			position over by the left/right GuiInsets
+			
+			When testing with Studio or on-device the drag position passed in
+			from `DragContinue` was offset by 64px. It turns out this is because
+			the system bar and the universal app are two separate containers, and
+			the UA container is offset by GuiInset, so its AbsolutePosition
+			starts 64px shifted to the right but is still 0.
+		]]
+		local guiInsets = if Flags.FoundationDisableDragPositionAdjustmentForGuiInsets
+			then Vector2.zero
+			else (if layerCollector
+					and layerCollector:IsA("ScreenGui")
+					and not layerCollector.IgnoreGuiInset
+				then Vector2.new(guiInset.Width, guiInset.Height)
+				else Vector2.zero)
+		local newValue = calculateValueFromAbsPosition(position - guiInsets)
+		updateValue(newValue)
+	end, { updateValue, calculateValueFromAbsPosition, guiInset, layerCollector } :: { unknown })
+
+	local onDragEnded = React.useCallback(function()
+		setIsDragging(false)
+
+		if props.onDragEnded then
+			props.onDragEnded()
+		end
+	end, { props.onDragEnded })
+
+	local onStateChanged = React.useCallback(function(state: ControlState)
+		setControlState(state)
+
+		-- Only need to set this once on Pressed to jump to the right position.
+		-- The UIDragDetector takes care of the rest
+		if state == ControlState.Pressed then
+			onSeek()
+		end
+	end, { onSeek })
+
+	local knobAnchorPoint = if props.isContained
+		then (value :: React.Binding<number>):map(function(currentValue: number)
+			local valuePercent = (currentValue - props.range.Min) / (props.range.Max - props.range.Min)
+			return Vector2.new(valuePercent, 0.5)
+		end)
+		else Vector2.new(0.5, 0.5)
+
+	return React.createElement(
+		View,
+		withCommonProps(props, {
+			Size = UDim2.new(props.width, UDim.new(0, variant.hitbox.height)),
+			GroupTransparency = if props.isDisabled then 0.5 else nil,
+			stateLayer = {
+				-- This element is just the hitbox so we don't actually want it to visually change
+				affordance = StateLayerAffordance.None,
+			},
+			onStateChanged = onStateChanged,
+			isDisabled = props.isDisabled,
+			ref = ref,
+		}),
+		{
+			DragDetector = React.createElement("UIDragDetector", {
+				DragStyle = Enum.UIDragDetectorDragStyle.Scriptable,
+				[React.Event.DragStart] = onDragStarted :: any,
+				[React.Event.DragContinue] = onDrag :: any,
+				[React.Event.DragEnd] = onDragEnded :: any,
+				Enabled = not props.isDisabled,
+			}),
+
+			Bar = React.createElement(View, {
+				tag = variant.bar.tag,
+				testId = "--foundation-slider-bar",
+			}, {
+				Fill = React.createElement(View, {
+					tag = variant.fill.tag,
+					Size = (value :: React.Binding<number>):map(function(alpha: number)
+						return UDim2.fromScale(alpha / props.range.Max, 1)
+					end),
+					testId = "--foundation-slider-fill",
+				}, {
+					Knob = if props.knob
+						then React.createElement(View, {
+							tag = "position-center-right auto-xy size-0-0",
+							AnchorPoint = knobAnchorPoint,
+							Visible = isKnobVisible,
+							testId = "--foundation-knob",
+						}, props.knob)
+						else React.createElement(Knob, {
+							AnchorPoint = knobAnchorPoint,
+							Position = UDim2.fromScale(1, 0.5),
+							size = props.size,
+							style = currentMotionState.knobStyle,
+							stroke = variant.knob.stroke,
+							hasShadow = variant.knob.hasShadow,
+							testId = "--foundation-knob",
+						}),
+				}),
+			}),
+		}
+	)
+end
+
+return React.forwardRef(Slider)

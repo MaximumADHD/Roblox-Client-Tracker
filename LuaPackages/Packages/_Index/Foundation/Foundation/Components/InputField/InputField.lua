@@ -61,6 +61,7 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 
 		return {
 			focus = textBoxRef.current.focus,
+			releaseFocus = textBoxRef.current.releaseFocus,
 			getIsFocused = textBoxRef.current.getIsFocused,
 		}
 	end, {})

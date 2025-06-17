@@ -3,17 +3,26 @@
 ]]
 
 local root = script.Parent.Parent
-
+local Constants = require(root.Constants)
 local Types = require(root.util.Types)
 local getMeshInfo = require(root.util.getMeshInfo)
 local getMeshMinMax = require(root.util.getMeshMinMax)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
+local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
+
 local function getRenderMeshScale(
 	meshPart: MeshPart,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?, Vector3?)
-	local success, failureReasons, meshInfoOpt = getMeshInfo(meshPart, validationContext)
+	local success, failureReasons, meshInfoOpt
+	if getFFlagUGCValidationConsolidateGetMeshInfos() then
+		success, failureReasons, meshInfoOpt =
+			getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
+	else
+		success, failureReasons, meshInfoOpt = (getMeshInfo :: any)(meshPart, validationContext)
+	end
+
 	if not success then
 		return success, failureReasons
 	end

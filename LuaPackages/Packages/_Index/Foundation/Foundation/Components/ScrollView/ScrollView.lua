@@ -15,8 +15,8 @@ local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 
-local ScrollBarVisibility = require(Foundation.Enums.ScrollBarVisibility)
-type ScrollBarVisibility = ScrollBarVisibility.ScrollBarVisibility
+local Visibility = require(Foundation.Enums.Visibility)
+type Visibility = Visibility.Visibility
 
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
@@ -32,7 +32,7 @@ export type Scroll = {
 	ScrollingDirection: Bindable<Enum.ScrollingDirection>?,
 	VerticalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
 	HorizontalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
-	scrollBarVisibility: Bindable<ScrollBarVisibility>?,
+	scrollBarVisibility: Bindable<Visibility>?,
 }
 
 export type ScrollViewProps = {
@@ -48,7 +48,7 @@ local defaultProps = {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	} :: ListLayout,
 	scroll = {
-		scrollBarVisibility = ScrollBarVisibility.Auto,
+		scrollBarVisibility = Visibility.Auto,
 	} :: Scroll,
 	AutoLocalize = false,
 	BorderSizePixel = 0,

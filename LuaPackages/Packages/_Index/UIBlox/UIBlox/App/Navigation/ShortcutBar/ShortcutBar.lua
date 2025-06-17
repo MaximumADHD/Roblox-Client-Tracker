@@ -4,9 +4,11 @@ local Navigation = script.Parent.Parent
 local App = Navigation.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
+local Foundation = require(Packages.Foundation)
 
 local ReactUtils = require(Packages.ReactUtils)
 local useDelayedActionHandler = ReactUtils.useDelayedActionHandler
@@ -70,21 +72,34 @@ local function ShortcutBar(providedProps: ShortcutBarProps): React.ReactElement?
 	local props: ShortcutBarProps = Object.assign({}, defaultProps, providedProps)
 	local style = useStyle()
 
+	local tokens = Foundation.Hooks.useTokens()
+
+	local tokenizedSpacingTop, tokenizedSpacingTrailing, tokenizedSpacingBottom, tokenizedSpacingLeading, tokenizedItemsGap, tokenizedItemIconLabelGap, tokenizedActionTextSpacingLeading
+	if UIBloxConfig.useTokenizedShortcutBar then
+		tokenizedSpacingTop = providedProps.spacingTop or tokens.Padding.Small
+		tokenizedSpacingTrailing = providedProps.spacingTrailing or tokens.Padding.XLarge
+		tokenizedSpacingBottom = providedProps.spacingBottom or tokens.Padding.Small
+		tokenizedSpacingLeading = providedProps.spacingLeading or tokens.Padding.Medium
+		tokenizedItemsGap = providedProps.itemsGap or tokens.Gap.Large
+		tokenizedItemIconLabelGap = providedProps.itemIconLabelGap or tokens.Gap.XSmall
+		tokenizedActionTextSpacingLeading = providedProps.actionTextSpacingLeading or tokens.Padding.Small
+	end
+
 	local children = {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0.5, 0),
 		}),
 		Padding = React.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, props.spacingTop),
-			PaddingRight = UDim.new(0, props.spacingTrailing),
-			PaddingBottom = UDim.new(0, props.spacingBottom),
-			PaddingLeft = UDim.new(0, props.spacingLeading),
+			PaddingTop = UDim.new(0, tokenizedSpacingTop or props.spacingTop),
+			PaddingRight = UDim.new(0, tokenizedSpacingTrailing or props.spacingTrailing),
+			PaddingBottom = UDim.new(0, tokenizedSpacingBottom or props.spacingBottom),
+			PaddingLeft = UDim.new(0, tokenizedSpacingLeading or props.spacingLeading),
 		}),
 		ListLayout = React.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, props.itemsGap),
+			Padding = UDim.new(0, tokenizedItemsGap or props.itemsGap),
 		}),
 	}
 
@@ -121,8 +136,8 @@ local function ShortcutBar(providedProps: ShortcutBarProps): React.ReactElement?
 	for index, item: Types.ShortcutInternalProps in ipairs(items) do
 		children["Item" .. tostring(index)] = React.createElement(Shortcut, {
 			index = index,
-			iconLabelGap = props.itemIconLabelGap,
-			actionTextSpacingLeading = props.actionTextSpacingLeading,
+			iconLabelGap = tokenizedItemIconLabelGap or props.itemIconLabelGap,
+			actionTextSpacingLeading = tokenizedActionTextSpacingLeading or props.actionTextSpacingLeading,
 			publicProps = item,
 		})
 	end

@@ -25,8 +25,6 @@ local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local ICON_SIZE_TO_RADIUS_DEPRECATED: { [IconSize]: Radius } = {
 	[IconSize.XSmall] = Radius.Small,
 	[IconSize.Small] = Radius.Small,
@@ -99,7 +97,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 				NextSelectionLeft = props.NextSelectionLeft,
 				NextSelectionRight = props.NextSelectionRight,
 			},
-			isDisabled = if Flags.FoundationFixDisablingForIconButtons then props.isDisabled else nil,
+			isDisabled = props.isDisabled,
 			padding = padding,
 			cornerRadius = UDim.new(0, radius),
 

@@ -1,5 +1,5 @@
-game:DefineFastFlag("MeshPartAccessoryPBRSupport2", false)
+game:DefineFastFlag("MeshPartAccessoryPBRSupport3", false)
 
 return function()
-	return game:GetFastFlag("MeshPartAccessoryPBRSupport2")
+	return game:GetFastFlag("MeshPartAccessoryPBRSupport3")
 end

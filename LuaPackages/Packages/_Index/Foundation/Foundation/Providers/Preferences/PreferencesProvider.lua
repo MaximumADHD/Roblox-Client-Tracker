@@ -13,6 +13,7 @@ export type PreferencesProps = {
 	preferredTextSize: Enum.PreferredTextSize?,
 	preferredTransparency: number?,
 	reducedMotion: boolean?,
+	scale: number?,
 }
 
 export type PreferencesProviderProps = {
@@ -23,6 +24,7 @@ local defaultPreferences = {
 	preferredTextSize = Enum.PreferredTextSize.Medium,
 	preferredTransparency = 1,
 	reducedMotion = false,
+	scale = 1,
 }
 
 local function PreferencesProvider(preferencesProviderProps: PreferencesProviderProps)

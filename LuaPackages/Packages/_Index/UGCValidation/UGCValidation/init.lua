@@ -1,5 +1,6 @@
 local root = script
 
+local getFFlagMeshPartAccessoryPBRSupport = require(root.flags.getFFlagMeshPartAccessoryPBRSupport)
 local getFFlagUGCValidateUseDataCache = require(root.flags.getFFlagUGCValidateUseDataCache)
 local getEngineFeatureUGCValidationWithContextEntrypoint =
 	require(root.flags.getEngineFeatureUGCValidationWithContextEntrypoint)
@@ -122,6 +123,17 @@ function UGCValidation.validate(
 		end
 	end
 
+	local shouldValidateMeshPartAccessories
+	if getFFlagMeshPartAccessoryPBRSupport() then
+		-- default to true if the flag is enabled
+		shouldValidateMeshPartAccessories = if validateMeshPartAccessories ~= nil
+			then validateMeshPartAccessories
+			else true
+	else
+		-- old logic, defaults to false
+		shouldValidateMeshPartAccessories = if validateMeshPartAccessories then true else false
+	end
+
 	local validationContext = {
 		instances = instances :: { Instance },
 		assetTypeEnum = assetTypeEnum :: Enum.AssetType,
@@ -133,7 +145,7 @@ function UGCValidation.validate(
 		isAsync = false,
 		allowEditableInstances = allowEditableInstances :: boolean,
 		bypassFlags = bypassFlags,
-		validateMeshPartAccessories = if validateMeshPartAccessories then true else false,
+		validateMeshPartAccessories = shouldValidateMeshPartAccessories,
 		lastTickSeconds = tick(),
 		shouldYield = shouldYield,
 		editableMeshes = result.editableMeshes :: Types.EditableMeshes,

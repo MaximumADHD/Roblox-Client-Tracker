@@ -14,7 +14,7 @@ local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local isCoreGui = require(Foundation.Utility.isCoreGui)
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -74,6 +74,12 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		end
 	end, {})
 
+	local releaseTextBoxFocus = React.useCallback(function()
+		if textBox.current then
+			textBox.current:ReleaseFocus()
+		end
+	end, {})
+
 	local getIsFocused = React.useCallback(function()
 		if textBox.current then
 			return textBox.current:IsFocused() :: boolean?
@@ -85,9 +91,10 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		return {
 			getIsFocused = getIsFocused,
 			focus = focusTextBox,
+			releaseFocus = releaseTextBoxFocus,
 			setHover = setHover,
 		}
-	end, { getIsFocused :: unknown, focusTextBox })
+	end, { getIsFocused :: unknown, focusTextBox, releaseTextBoxFocus })
 
 	local onTextChange = React.useCallback(function(rbx: TextBox?)
 		if rbx == nil then
@@ -191,7 +198,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						TextBox = React.createElement("TextBox", {
 							ref = textBox,
 							Text = props.text,
-							TextInputType = if isCoreGui then props.textInputType else nil,
+							TextInputType = if isPluginSecurity() then props.textInputType else nil,
 							ClearTextOnFocus = false,
 							TextEditable = not props.isDisabled,
 							PlaceholderText = props.placeholder,

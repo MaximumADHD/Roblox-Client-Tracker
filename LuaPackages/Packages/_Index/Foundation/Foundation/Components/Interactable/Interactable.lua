@@ -54,10 +54,11 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 
 	local onStateChanged = React.useCallback(function(newState: ControlState)
 		if controlState:getValue() == ControlState.Default and guiObjectRef.current ~= nil then
-			local guiObjectColor3 = if Flags.FoundationMigrateStylingV2
+			local guiObjectColor3 = if not Flags.FoundationStylingPolyfill and Flags.FoundationMigrateStylingV2
 				then guiObjectRef.current:GetStyled("BackgroundColor3")
 				else guiObjectRef.current.BackgroundColor3
-			local guiObjectTransparency = if Flags.FoundationMigrateStylingV2
+			local guiObjectTransparency = if not Flags.FoundationStylingPolyfill
+					and Flags.FoundationMigrateStylingV2
 				then guiObjectRef.current:GetStyled("BackgroundTransparency")
 				else guiObjectRef.current.BackgroundTransparency
 			if guiObjectColor3 ~= DEFAULT_GRAY or guiObjectTransparency ~= 0 then

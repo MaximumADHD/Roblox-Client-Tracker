@@ -103,7 +103,7 @@ local function validateMeshPartBodyPart(
 	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
 
 	if getEngineFeatureUGCValidateBodyPartCageMeshDistance() then
-		reasonsAccumulator:updateReasons(ValidateAssetBodyPartCages.validate(inst, validationContext))
+		reasonsAccumulator:updateReasons(ValidateAssetBodyPartCages.validateSingleBodyPart(inst, validationContext))
 	end
 
 	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))

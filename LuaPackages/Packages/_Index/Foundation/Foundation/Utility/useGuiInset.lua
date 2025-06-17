@@ -1,35 +1,48 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local React = require(Packages.React)
+
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local Wrappers = require(Foundation.Utility.Wrappers)
+local Connection = Wrappers.Connection
 local Instance = Wrappers.Instance
+local Signal = Wrappers.Signal
 local GuiService = Wrappers.Services.GuiService
 local UserInputService = Wrappers.Services.UserInputService
 
-local React = require(Packages.React)
-local ReactUtils = require(Packages.ReactUtils)
-
-local useCallback = React.useCallback
-local useExternalEvent = ReactUtils.useEventConnection
-
-local function getGuiInset()
+local function getGuiInset(): Rect
 	local topLeftInset, bottomRightInset = GuiService:GetGuiInset()
 
 	return Rect.new(topLeftInset, bottomRightInset)
 end
 
-local function useGuiInset()
+local function useGuiInset(): Rect
 	local guiInset, setGuiInset = React.useState(function()
 		return getGuiInset()
 	end)
 
-	local updateGuiInset = useCallback(function()
+	local updateGuiInset = React.useCallback(function()
 		setGuiInset(getGuiInset())
 	end, {})
 
-	useExternalEvent(GuiService.SafeZoneOffsetsChanged, updateGuiInset)
-	useExternalEvent(Instance.GetPropertyChangedSignal(UserInputService, "BottomBarSize"), updateGuiInset)
-	useExternalEvent(Instance.GetPropertyChangedSignal(UserInputService, "RightBarSize"), updateGuiInset)
+	React.useEffect(function()
+		local connections: { RBXScriptConnection } = {}
+
+		if isPluginSecurity() then
+			connections = {
+				Signal.Connect(GuiService.SafeZoneOffsetsChanged, updateGuiInset),
+				Signal.Connect(Instance.GetPropertyChangedSignal(UserInputService, "BottomBarSize"), updateGuiInset),
+				Signal.Connect(Instance.GetPropertyChangedSignal(UserInputService, "RightBarSize"), updateGuiInset),
+			}
+		end
+
+		return function()
+			for _, connection in connections do
+				Connection.Disconnect(connection)
+			end
+		end
+	end, {})
 
 	return guiInset
 end

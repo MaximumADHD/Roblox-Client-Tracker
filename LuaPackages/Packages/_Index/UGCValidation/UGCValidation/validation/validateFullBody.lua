@@ -9,6 +9,8 @@ local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
 local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
+local getEngineFeatureUGCValidateBodyMaxCageMeshDistance =
+	require(root.flags.getEngineFeatureUGCValidateBodyMaxCageMeshDistance)
 
 local Types = require(root.util.Types)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -17,6 +19,7 @@ local validateWithSchema = require(root.util.validateWithSchema)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
+local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPartCages)
 
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
 local createLimbsAndTorsoSchema = require(root.util.createLimbsAndTorsoSchema)
@@ -231,6 +234,11 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 			end
 		end
 
+		if getEngineFeatureUGCValidateBodyMaxCageMeshDistance() then
+			reasonsAccumulator:updateReasons(
+				ValidateAssetBodyPartCages.validateFullBody(allBodyParts, validationContext)
+			)
+		end
 		reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, validationContext))
 	end
 	return reasonsAccumulator:getFinalResults()

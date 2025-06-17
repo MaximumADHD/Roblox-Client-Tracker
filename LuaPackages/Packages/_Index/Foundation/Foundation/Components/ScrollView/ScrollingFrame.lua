@@ -10,8 +10,8 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
 
-local ScrollBarVisibility = require(Foundation.Enums.ScrollBarVisibility)
-type ScrollBarVisibility = ScrollBarVisibility.ScrollBarVisibility
+local Visibility = require(Foundation.Enums.Visibility)
+type Visibility = Visibility.Visibility
 
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
@@ -24,7 +24,7 @@ local ANIMATION_CONFIG = {
 
 export type ScrollingFrameProps = {
 	controlState: ControlState,
-	scrollBarVisibility: Bindable<ScrollBarVisibility>?,
+	scrollBarVisibility: Bindable<Visibility>?,
 	onCanvasPositionChanged: ((instance: ScrollingFrame) -> ())?,
 	onAbsoluteCanvasSizeChanged: ((instance: ScrollingFrame) -> ())?,
 	onAbsoluteWindowSizeChanged: ((instance: ScrollingFrame) -> ())?,

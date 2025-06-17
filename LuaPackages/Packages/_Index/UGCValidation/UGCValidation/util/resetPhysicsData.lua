@@ -53,7 +53,7 @@ local function resetPhysicsData(roots: { Instance }, validationContext: Types.Va
 							)
 							return false,
 								string.format(
-									"%s has too much %d mass while the limit is %d.",
+									"%s has a mass of %d while the limit is %d.",
 									instance.Name,
 									instance:GetMass(),
 									getFIntUGCValidationPartMaxMass()

@@ -41,6 +41,10 @@ local function Story(props)
 		print("focus gained!")
 	end
 
+	local function onFocusLost()
+		print("focus lost!")
+	end
+
 	local function onReturnPressed()
 		print("Return pressed!")
 		setNumReturnPressed(function(numPressed)
@@ -60,6 +64,7 @@ local function Story(props)
 			isRequired = controls.isRequired,
 			onChanged = handleChange,
 			onFocusGained = onFocusGained,
+			onFocusLost = onFocusLost,
 			onReturnPressed = onReturnPressed,
 			label = controls.label,
 			size = controls.size,

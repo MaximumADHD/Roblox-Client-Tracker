@@ -12,6 +12,7 @@ local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFie
 local getFFlagFixValidateTransparencyProperty = require(root.flags.getFFlagFixValidateTransparencyProperty)
 local getFFlagUGCValidateWrapLayersEnabled = require(root.flags.getFFlagUGCValidateWrapLayersEnabled)
 local getFFlagUGCValidatePropertiesRefactor = require(root.flags.getFFlagUGCValidatePropertiesRefactor)
+local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -495,5 +496,19 @@ if not getEngineFeatureRemoveProxyWrap() then
 	Constants.ProxyWrapAttributeName = "RBX_WRAP_DEFORMER_PROXY"
 end
 Constants.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID"
+
+if getFFlagUGCValidationConsolidateGetMeshInfos() then
+	Constants.MESH_CONTENT_TYPE = {
+		RENDER_MESH = "RenderMesh",
+		OUTER_CAGE = "OuterCage",
+		INNER_CAGE = "InnerCage",
+	}
+
+	Constants.MESH_CONTENT_TYPE_TO_FIELD_NAME = {
+		[Constants.MESH_CONTENT_TYPE.RENDER_MESH] = "MeshId",
+		[Constants.MESH_CONTENT_TYPE.OUTER_CAGE] = "CageMeshId",
+		[Constants.MESH_CONTENT_TYPE.INNER_CAGE] = "ReferenceMeshId",
+	}
+end
 
 return Constants

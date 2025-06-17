@@ -35,35 +35,32 @@ local function useInputMotionStates(tokens: Tokens, customCheckedStyle: ColorSty
 
 	return {
 		Default = Motion.createState({
-			backgroundColor = defaultStyle.Color3,
-			backgroundTransparency = 1,
-			strokeColor = defaultStyle.Color3,
-			strokeTransparency = defaultStyle.Transparency,
-			labelColor = defaultStyle.Color3,
-			labelTransparency = defaultStyle.Transparency,
+			backgroundStyle = {
+				Color3 = defaultStyle.Color3,
+				Transparency = 1,
+			},
+			strokeStyle = defaultStyle,
+			labelStyle = defaultStyle,
 		}, {
 			default = Motion.transition(TransitionPreset.Default, { duration = 0.2 }),
 			transparency = Motion.transition({ easingStyle = Enum.EasingStyle.Linear, duration = 0.2 }),
 		}),
 		Hover = Motion.createState({
-			backgroundColor = hoverStyle.Color3,
-			backgroundTransparency = 1,
-			strokeColor = hoverStyle.Color3,
-			strokeTransparency = hoverStyle.Transparency,
-			labelColor = hoverStyle.Color3,
-			labelTransparency = hoverStyle.Transparency,
+			backgroundStyle = {
+				Color3 = hoverStyle.Color3,
+				Transparency = 1,
+			},
+			strokeStyle = hoverStyle,
+			labelStyle = hoverStyle,
 		}, {
 			default = Motion.transition(TransitionPreset.Default, { duration = 0 }),
 			transparency = Motion.transition({ easingStyle = Enum.EasingStyle.Linear, duration = 0 }),
 		}),
 		Checked = Motion.createState({
 			-- Stroke and background color are the same for checked state
-			backgroundColor = checkedStyle.Color3,
-			backgroundTransparency = checkedStyle.Transparency,
-			strokeColor = checkedStyle.Color3,
-			strokeTransparency = checkedStyle.Transparency,
-			labelColor = hoverStyle.Color3,
-			labelTransparency = hoverStyle.Transparency,
+			backgroundStyle = checkedStyle,
+			strokeStyle = checkedStyle,
+			labelStyle = hoverStyle,
 		}, {
 			default = Motion.transition(TransitionPreset.Default, { duration = 0.2 }),
 			transparency = Motion.transition({ easingStyle = Enum.EasingStyle.Linear, duration = 0.2 }),

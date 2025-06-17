@@ -22,6 +22,8 @@ type InputSize = InputSize.InputSize
 local UserPresence = require(Foundation.Enums.UserPresence)
 type UserPresence = UserPresence.UserPresence
 
+local getAvatarSize = require(script.Parent.getAvatarSize)
+
 export type AvatarProps = {
 	-- Roblox user id
 	userId: number,
@@ -41,6 +43,7 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 
 	local variantProps = useAvatarVariants(tokens, props.size, props.userPresence, props.backplateStyle)
+	local size = getAvatarSize(tokens, props.size)
 	local hasIndicator = props.userPresence == UserPresence.Active or props.userPresence == UserPresence.Away
 
 	return React.createElement(
@@ -48,13 +51,15 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 		withCommonProps(props, {
 			tag = variantProps.container.tag,
 			ref = ref,
-			backgroundStyle = props.backgroundStyle,
+			backgroundStyle = variantProps.container.backgroundStyle,
 			stroke = variantProps.container.stroke,
+			Size = UDim2.fromOffset(size, size),
 		}),
 		{
 			Image = React.createElement(Image, {
 				Image = getRbxThumb(ThumbnailType.AvatarHeadShot, props.userId, ThumbnailSize.Medium),
 				tag = variantProps.avatar.tag,
+				backgroundStyle = props.backgroundStyle,
 			}),
 			Indicator = if hasIndicator
 				then React.createElement(

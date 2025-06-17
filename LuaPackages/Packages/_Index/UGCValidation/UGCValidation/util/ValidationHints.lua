@@ -26,6 +26,7 @@ local calculateMinMax = require(root.util.calculateMinMax)
 local getFFlagUGCValidateCalculateScaleToValidateBounds =
 	require(root.flags.getFFlagUGCValidateCalculateScaleToValidateBounds)
 local getFFlagUGCValidateUseMeshSizeProperty = require(root.flags.getFFlagUGCValidateUseMeshSizeProperty)
+local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 
 local ValidationHints = {}
 
@@ -203,7 +204,13 @@ function ValidationHints.preprocessDataAsync(
 			assert(allBodyData[subPartName].ClassName == "MeshPart")
 			local meshPart = allBodyData[subPartName] :: MeshPart
 
-			local success, failureReasons, meshInfoOpt = getMeshInfo(meshPart, validationContext)
+			local success, failureReasons, meshInfoOpt
+			if getFFlagUGCValidationConsolidateGetMeshInfos() then
+				success, failureReasons, meshInfoOpt =
+					getMeshInfo(meshPart, Constants.MESH_CONTENT_TYPE.RENDER_MESH, validationContext)
+			else
+				success, failureReasons, meshInfoOpt = (getMeshInfo :: any)(meshPart, validationContext)
+			end
 			if not success then
 				return {
 					ok = false,

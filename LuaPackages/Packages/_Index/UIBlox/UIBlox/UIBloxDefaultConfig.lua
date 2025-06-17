@@ -136,4 +136,9 @@ return {
 
 	-- Uses the Foundation Interactable component instead
 	useFoundationInteractable = false,
+
+	-- Use design tokens for sizing the shortcut bar
+	useTokenizedShortcutBar = false,
+	-- Pass gridInfo to renderItem when using GridView
+	passRowAndColumnDataToItemInGridView = false,
 }

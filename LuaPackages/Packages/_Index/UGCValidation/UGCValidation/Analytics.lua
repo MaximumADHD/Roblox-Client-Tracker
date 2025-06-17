@@ -36,6 +36,8 @@ local getFFlagUGCValidateUseAnalyticsEntryPoint = require(root.flags.getFFlagUGC
 local getEngineFeatureUGCValidateExtraShoesTests = require(root.flags.getEngineFeatureUGCValidateExtraShoesTests)
 local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
 	require(root.flags.getEngineFeatureUGCValidateBodyPartCageMeshDistance)
+local getEngineFeatureUGCValidateBodyMaxCageMeshDistance =
+	require(root.flags.getEngineFeatureUGCValidateBodyMaxCageMeshDistance)
 local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
 local getFFlagRefactorBodyAttachmentOrientationsCheck =
 	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
@@ -213,7 +215,7 @@ if getEngineFeatureUGCValidateExtraShoesTests() then
 		"validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly"
 end
 
-if getEngineFeatureUGCValidateBodyPartCageMeshDistance() then
+if getEngineFeatureUGCValidateBodyPartCageMeshDistance() or getEngineFeatureUGCValidateBodyMaxCageMeshDistance() then
 	Analytics.ErrorType.validateBodyPartCage_FailedToExecute = "validateBodyPartCage_FailedToExecute"
 	Analytics.ErrorType.validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh =
 		"validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh"
