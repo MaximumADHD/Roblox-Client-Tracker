@@ -715,6 +715,7 @@ SmoothClusterVTVS_00000000,Vertex
 SmootherStepFS,Fragment
 SmoothWaterFSUnified_10000000,Fragment
 SmoothWaterFSUnified_10000400,Fragment
+SmoothWaterFSUnified_20000000,Fragment
 SmoothWaterVS_00000000,Vertex
 SmoothWaterVSUnified_10000000,Vertex
 SmoothWaterVSUnified_10000400,Vertex
@@ -729,6 +730,7 @@ SSAOVS,Vertex
 StarsFS,Fragment
 StarsVS,Vertex
 TexCompFS,Fragment
+TexCompOversampleVS,Vertex
 TexCompPMAFS,Fragment
 TexCompVS,Vertex
 TrailFS,Fragment

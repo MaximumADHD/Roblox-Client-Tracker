@@ -16188,7 +16188,7 @@
       "@roblox/globaltype/BadgeService.IsLegal/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsLegal",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 0\n\nlocal function awardBadge(player, badgeId)\n\t-- check badge can be awarded\n\tif BadgeService:IsLegal(badgeId) and not BadgeService:IsDisabled(badgeId) then\n\t\t-- award badge\n\t\tBadgeService:AwardBadge(player.UserId, badgeId)\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tawardBadge(player, BADGE_ID)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 0\n\nlocal function awardBadge(player, badgeId)\n\t-- バッジが授与できるかどうかをチェック\n\tif BadgeService:IsLegal(badgeId) and not BadgeService:IsDisabled(badgeId) then\n\t\t-- アワードバッジ\n\t\tBadgeService:AwardBadge(player.UserId, badgeId)\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tawardBadge(player, BADGE_ID)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/0": {
     "documentation": "バッジと賞品に関する情報を提供し、授与します。"
@@ -16256,7 +16256,7 @@
       "@roblox/globaltype/BadgeService.UserHasBadgeAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#UserHasBadgeAsync",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal badgeId = 00000000 -- Change this to your badge ID\n\nlocal function onPlayerAdded(player)\n\t-- Check if the player has the badge\n\tlocal success, hasBadge = pcall(function()\n\t\treturn BadgeService:UserHasBadgeAsync(player.UserId, badgeId)\n\tend)\n\n\t-- If there's an error, issue a warning and exit the function\n\tif not success then\n\t\twarn(\"Error while checking if player has badge!\")\n\t\treturn\n\tend\n\n\tif hasBadge then\n\t\t-- Handle player's badge ownership as needed\n\t\tprint(player.Name, \"has badge\", badgeId)\n\tend\nend\n\n-- Connect \"PlayerAdded\" events to the \"onPlayerAdded()\" function\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal badgeId = 00000000 -- これをバッジ ID に変更\n\nlocal function onPlayerAdded(player)\n\t-- プレイヤーがバッジを持っているかどうかをチェック\n\tlocal success, hasBadge = pcall(function()\n\t\treturn BadgeService:UserHasBadgeAsync(player.UserId, badgeId)\n\tend)\n\n\t-- エラーが発生した場合は、警告を発行して機能を終了する\n\tif not success then\n\t\twarn(\"Error while checking if player has badge!\")\n\t\treturn\n\tend\n\n\tif hasBadge then\n\t\t-- 必要に応じてプレイヤーのバッジ所有権を処理\n\t\tprint(player.Name, \"has badge\", badgeId)\n\tend\nend\n\n-- 「PlayerAdded」イベントを「onPlayerAdded()」関数に接続\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/BasePart": {
     "documentation": "物理的に相互作用する世界のオブジェクトの抽象ベースクラス。",
@@ -17986,7 +17986,7 @@
   "@roblox/globaltype/Humanoid.AutoJumpEnabled": {
     "documentation": "キャラクターがモバイルデバイス上のプレイヤーとして障害物に自動的に飛び込むかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#AutoJumpEnabled",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Update button text\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump is ON\"\n\telse\n\t\tbutton.Text = \"Auto-Jump is OFF\"\n\tend\n\t-- Reflect the property in the player's character, if they have one\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Toggle auto-jump\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Update everything else\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 更新ボタンのテキストを変更\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump is ON\"\n\telse\n\t\tbutton.Text = \"Auto-Jump is OFF\"\n\tend\n\t-- プレイヤーのキャラクターに属性を反映する、もし持っていれば\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 自動ジャンプを切り替え\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- その他のすべてを更新する\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Humanoid.AutoRotate": {
     "documentation": "自動回転は、ヒューマノイドが自動的に動いている方向に向かって回転するかどうかを設定します。",
@@ -18810,7 +18810,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#UnequipTools",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ContextActionService = game:GetService(\"ContextActionService\")\n\nlocal player = Players.LocalPlayer\n\nContextActionService:BindAction(\"unequipTools\", function(_, userInputState)\n\tif userInputState == Enum.UserInputState.Begin then\n\t\tif player.Character then\n\t\t\tlocal humanoid = player.Character:FindFirstChildOfClass(\"Humanoid\")\n\t\t\tif humanoid then\n\t\t\t\thumanoid:UnequipTools()\n\t\t\tend\n\t\tend\n\tend\nend, false, Enum.KeyCode.U)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Humanoid.loadAnimation/param/0": {
     "documentation": "モデルにキャラクターの機能を提供する特別なオブジェクト。"
@@ -38292,7 +38292,7 @@
       "IsModifierKeyDown": "@roblox/globaltype/InputObject.IsModifierKeyDown"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputObject",
-    "code_sample": "-- インプットビギンイベントを使用するには、ユーザー輸入サービスサービスを使用する必要があります\nlocal UserInputService = game:GetService(\"UserInputService\")\n\n-- さまざまな種類のユーザー入力に対する複数の使用ケースを提供するサンプル機能\nUserInputService.InputBegan:Connect(function(input, gameProcessed)\n\tif input.UserInputType == Enum.UserInputType.Keyboard then\n\t\tprint(\"A key is being pushed down! Key:\", input.KeyCode)\n\telseif input.UserInputType == Enum.UserInputType.MouseButton1 then\n\t\tprint(\"The left mouse button has been pressed down at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.MouseButton2 then\n\t\tprint(\"The right mouse button has been pressed down at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.Touch then\n\t\tprint(\"A touchscreen input has started at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.Gamepad1 then\n\t\tprint(\"A button is being pressed on a gamepad! Button:\", input.KeyCode)\n\tend\n\n\tif gameProcessed then\n\t\tprint(\"The game engine internally observed this input!\")\n\telse\n\t\tprint(\"The game engine did not internally observe this input!\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/InputObject.Delta": {
     "documentation": "マウス/ジョイスティック移動の間のデルタを説明する Vector3。",
@@ -38307,7 +38307,7 @@
   "@roblox/globaltype/InputObject.Position": {
     "documentation": "この入力の位置値を説明します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputObject#Position",
-    "code_sample": "-- インプットビギンイベントを使用するには、ユーザー輸入サービスサービスを使用する必要があります\nlocal UserInputService = game:GetService(\"UserInputService\")\n\n-- さまざまな種類のユーザー入力に対する複数の使用ケースを提供するサンプル機能\nUserInputService.InputBegan:Connect(function(input, gameProcessed)\n\tif input.UserInputType == Enum.UserInputType.Keyboard then\n\t\tprint(\"A key is being pushed down! Key:\", input.KeyCode)\n\telseif input.UserInputType == Enum.UserInputType.MouseButton1 then\n\t\tprint(\"The left mouse button has been pressed down at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.MouseButton2 then\n\t\tprint(\"The right mouse button has been pressed down at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.Touch then\n\t\tprint(\"A touchscreen input has started at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.Gamepad1 then\n\t\tprint(\"A button is being pressed on a gamepad! Button:\", input.KeyCode)\n\tend\n\n\tif gameProcessed then\n\t\tprint(\"The game engine internally observed this input!\")\n\telse\n\t\tprint(\"The game engine did not internally observe this input!\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/InputObject.UserInputState": {
     "documentation": "入力が実行されている状態を説明し、<code>UserInputType</code> に基づいて特定のフローに従って行われます。",
@@ -43474,7 +43474,7 @@
   "@roblox/globaltype/Player.AutoJumpEnabled": {
     "documentation": "モバイルデバイスを使用しているプレイヤーのキャラクターが、障害物に当たると自動的にジャンプするかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Update button text\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump is ON\"\n\telse\n\t\tbutton.Text = \"Auto-Jump is OFF\"\n\tend\n\t-- Reflect the property in the player's character, if they have one\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Toggle auto-jump\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Update everything else\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 更新ボタンのテキストを変更\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump is ON\"\n\telse\n\t\tbutton.Text = \"Auto-Jump is OFF\"\n\tend\n\t-- プレイヤーのキャラクターに属性を反映する、もし持っていれば\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 自動ジャンプを切り替え\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- その他のすべてを更新する\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
     "documentation": "プレイヤーのカメラがズームアウトできる最大距離。",
@@ -55593,7 +55593,7 @@
   "@roblox/globaltype/StarterPlayer.AutoJumpEnabled": {
     "documentation": "キャラクターがモバイルデバイスで障害物に当たったときに自動的にジャンプするかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AutoJumpEnabled",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Update button text\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump is ON\"\n\telse\n\t\tbutton.Text = \"Auto-Jump is OFF\"\n\tend\n\t-- Reflect the property in the player's character, if they have one\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Toggle auto-jump\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Update everything else\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 更新ボタンのテキストを変更\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump is ON\"\n\telse\n\t\tbutton.Text = \"Auto-Jump is OFF\"\n\tend\n\t-- プレイヤーのキャラクターに属性を反映する、もし持っていれば\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 自動ジャンプを切り替え\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- その他のすべてを更新する\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
     "documentation": "",
@@ -64388,7 +64388,7 @@
       "SetNavigationGamepad": "@roblox/globaltype/UserInputService.SetNavigationGamepad"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService",
-    "code_sample": "-- We must get the UserInputService before we can use it\nlocal UserInputService = game:GetService(\"UserInputService\")\n\n-- A sample function providing one usage of InputBegan\nlocal function onInputBegan(input, _gameProcessed)\n\tif input.UserInputType == Enum.UserInputType.MouseButton1 then\n\t\tprint(\"The left mouse button has been pressed!\")\n\tend\nend\n\nUserInputService.InputBegan:Connect(onInputBegan)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.AccelerometerEnabled": {
     "documentation": "ユーザのデバイスに加速度センサーがあるかどうかを説明します。",
@@ -64398,7 +64398,7 @@
   "@roblox/globaltype/UserInputService.GamepadEnabled": {
     "documentation": "ユーザーが使用しているデバイスにゲームパッドが使用可能かどうかを説明します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GamepadEnabled",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal function getActiveGamepad()\n\tlocal activeGamepad = nil\n\n\tlocal connectedGamepads = UserInputService:GetConnectedGamepads()\n\n\tif #connectedGamepads > 0 then\n\t\tfor _, gamepad in connectedGamepads do\n\t\t\tif activeGamepad == nil or gamepad.Value < activeGamepad.Value then\n\t\t\t\tactiveGamepad = gamepad\n\t\t\tend\n\t\tend\n\tend\n\n\tif activeGamepad == nil then -- Nothing is connected; set up for \"Gamepad1\"\n\t\tactiveGamepad = Enum.UserInputType.Gamepad1\n\tend\n\n\treturn activeGamepad\nend\n\nif UserInputService.GamepadEnabled then\n\tlocal activeGamepad = getActiveGamepad()\n\tprint(activeGamepad)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GyroscopeEnabled": {
     "documentation": "ユーザーのデバイスにジロスコープがあるかどうかを説明します。",
@@ -64408,12 +64408,12 @@
   "@roblox/globaltype/UserInputService.KeyboardEnabled": {
     "documentation": "ユーザーのデバイスにキーボードがあるかどうかを説明します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#KeyboardEnabled",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nif UserInputService.KeyboardEnabled then\n\tprint(\"The user's device has an available keyboard!\")\nelse\n\tprint(\"The user's device does not have an available keyboard!\")\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.ModalEnabled": {
     "documentation": "<strong>Deprecated:</strong> このアイテムは <code>GuiService.TouchControlsEnabled</code> に置き換えられ、すべての新しい作業で使用する必要があります。<br>Roblox のモバイルコントロールがモバイルデバイスで非表示になるかどうかを切り替えます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#ModalEnabled",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nwhile true do\n\tUserInputService.ModalEnabled = not UserInputService.ModalEnabled\n\ttask.wait(5)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.MouseBehavior": {
     "documentation": "ユーザーのマウスを自由に動かせるか、ロックされているかを決定します。",
@@ -64443,7 +64443,7 @@
   "@roblox/globaltype/UserInputService.OnScreenKeyboardPosition": {
     "documentation": "画面上のキーボードの位置を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#OnScreenKeyboardPosition",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nprint(UserInputService.OnScreenKeyboardPosition)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.OnScreenKeyboardSize": {
     "documentation": "画面上のキーボードのサイズを決定します。",
@@ -64507,7 +64507,7 @@
       "@roblox/globaltype/UserInputService.GamepadSupports/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GamepadSupports",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nlocal ContextActionService = game:GetService(\"ContextActionService\")\n\nlocal controller = Enum.UserInputType.Gamepad1\nlocal buttonX = Enum.KeyCode.ButtonX\n\nlocal function isSupported(gamepad, keycode)\n\treturn UserInputService:GamepadSupports(gamepad, keycode)\nend\n\nlocal function action()\n\tprint(\"Action\")\nend\n\nif isSupported(controller, buttonX) then\n\tContextActionService:BindAction(\"sample action\", action, false, buttonX)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetConnectedGamepads/param/0": {
     "documentation": "<code>UserInputService</code> は、ユーザのデバイスで利用可能な入力の種類を検出するために使用されるサービスで、<code>LocalScript</code> を使用します。サービスは、入力イベントを検出するのにも使用されます。"
@@ -64527,7 +64527,7 @@
       "@roblox/globaltype/UserInputService.GetConnectedGamepads/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GetConnectedGamepads",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal function getActiveGamepad()\n\tlocal activeGamepad = nil\n\n\tlocal connectedGamepads = UserInputService:GetConnectedGamepads()\n\n\tif #connectedGamepads > 0 then\n\t\tfor _, gamepad in connectedGamepads do\n\t\t\tif activeGamepad == nil or gamepad.Value < activeGamepad.Value then\n\t\t\t\tactiveGamepad = gamepad\n\t\t\tend\n\t\tend\n\tend\n\n\tif activeGamepad == nil then -- Nothing is connected; set up for \"Gamepad1\"\n\t\tactiveGamepad = Enum.UserInputType.Gamepad1\n\tend\n\n\treturn activeGamepad\nend\n\nif UserInputService.GamepadEnabled then\n\tlocal activeGamepad = getActiveGamepad()\n\tprint(activeGamepad)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetDeviceAcceleration/param/0": {
     "documentation": "<code>UserInputService</code> は、ユーザのデバイスで利用可能な入力の種類を検出するために使用されるサービスで、<code>LocalScript</code> を使用します。サービスは、入力イベントを検出するのにも使用されます。"
@@ -64728,7 +64728,7 @@
       "@roblox/globaltype/UserInputService.GetLastInputType/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GetLastInputType",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal lastInput = UserInputService:GetLastInputType()\n\nif lastInput == Enum.UserInputType.Keyboard then\n\tprint(\"Most recent input was via keyboard\")\nend"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nif UserInputService:GetLastInputType() == Enum.UserInputType.Keyboard then\n\tprint(\"Most recent input was keyboard!\")\nend"
   },
   "@roblox/globaltype/UserInputService.GetMouseButtonsPressed/param/0": {
     "documentation": "<code>UserInputService</code> は、ユーザのデバイスで利用可能な入力の種類を検出するために使用されるサービスで、<code>LocalScript</code> を使用します。サービスは、入力イベントを検出するのにも使用されます。"
@@ -64748,7 +64748,7 @@
       "@roblox/globaltype/UserInputService.GetMouseButtonsPressed/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GetMouseButtonsPressed",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\n-- InputBegan is a UserInputService event that fires when the player\n-- begins interacting via a Human-User input device\nUserInputService.InputBegan:Connect(function(_input, _gameProcessedEvent)\n\t-- Returns an array of the pressed MouseButtons\n\tlocal buttons = UserInputService:GetMouseButtonsPressed()\n\n\tlocal m1Pressed, m2Pressed = false, false\n\tfor _, button in pairs(buttons) do\n\t\tif button.UserInputType.Name == \"MouseButton1\" then\n\t\t\tprint(\"MouseButton1 is pressed\")\n\t\t\tm1Pressed = true\n\t\tend\n\n\t\tif button.UserInputType.Name == \"MouseButton2\" then\n\t\t\tprint(\"MouseButton2 is pressed\")\n\t\t\tm2Pressed = true\n\t\tend\n\n\t\tif m1Pressed and m2Pressed then\n\t\t\tprint(\"Both mouse buttons are pressed\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nUserInputService.InputBegan:Connect(function(input, gameProcessedEvent)\n\t-- Return an array of the pressed mouse buttons\n\tlocal buttonsPressed = UserInputService:GetMouseButtonsPressed()\n\n\tlocal m1, m2 = false, false\n\tfor _, button in buttonsPressed do\n\t\tif button.UserInputType == Enum.UserInputType.MouseButton1 then\n\t\t\tprint(\"MouseButton1 pressed!\")\n\t\t\tm1 = true\n\t\tend\n\n\t\tif button.UserInputType == Enum.UserInputType.MouseButton2 then\n\t\t\tprint(\"MouseButton2 pressed!\")\n\t\t\tm2 = true\n\t\tend\n\n\t\tif m1 and m2 then\n\t\t\tprint(\"Both mouse buttons pressed!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/UserInputService.GetMouseDelta/param/0": {
     "documentation": "<code>UserInputService</code> は、ユーザのデバイスで利用可能な入力の種類を検出するために使用されるサービスで、<code>LocalScript</code> を使用します。サービスは、入力イベントを検出するのにも使用されます。"
@@ -64788,7 +64788,7 @@
       "@roblox/globaltype/UserInputService.GetMouseLocation/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GetMouseLocation",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nlocal RunService = game:GetService(\"RunService\")\n\nlocal gui = script.Parent\nlocal screenGui = gui.Parent\nscreenGui.IgnoreGuiInset = true\n\nlocal function moveGuiToMouse()\n\tlocal mouseLocation = UserInputService:GetMouseLocation()\n\tgui.Position = UDim2.fromOffset(mouseLocation.X, mouseLocation.Y)\nend\n\nmoveGuiToMouse()\nRunService:BindToRenderStep(\"moveGuiToMouse\", 1, moveGuiToMouse)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetNavigationGamepads/param/0": {
     "documentation": "<code>UserInputService</code> は、ユーザのデバイスで利用可能な入力の種類を検出するために使用されるサービスで、<code>LocalScript</code> を使用します。サービスは、入力イベントを検出するのにも使用されます。"
@@ -65019,7 +65019,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#RecenterUserHeadCFrame",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nUserInputService:RecenterUserHeadCFrame()"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.SetNavigationGamepad/param/0": {
     "documentation": "<code>UserInputService</code> は、ユーザのデバイスで利用可能な入力の種類を検出するために使用されるサービスで、<code>LocalScript</code> を使用します。サービスは、入力イベントを検出するのにも使用されます。"
@@ -65576,7 +65576,7 @@
       "Wait": "@roblox/globaltype/UserInputService.InputBegan.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#InputBegan",
-    "code_sample": "-- インプットビギンイベントを使用するには、ユーザー輸入サービスサービスを使用する必要があります\nlocal UserInputService = game:GetService(\"UserInputService\")\n\n-- さまざまな種類のユーザー入力に対する複数の使用ケースを提供するサンプル機能\nUserInputService.InputBegan:Connect(function(input, gameProcessed)\n\tif input.UserInputType == Enum.UserInputType.Keyboard then\n\t\tprint(\"A key is being pushed down! Key:\", input.KeyCode)\n\telseif input.UserInputType == Enum.UserInputType.MouseButton1 then\n\t\tprint(\"The left mouse button has been pressed down at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.MouseButton2 then\n\t\tprint(\"The right mouse button has been pressed down at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.Touch then\n\t\tprint(\"A touchscreen input has started at\", input.Position)\n\telseif input.UserInputType == Enum.UserInputType.Gamepad1 then\n\t\tprint(\"A button is being pressed on a gamepad! Button:\", input.KeyCode)\n\tend\n\n\tif gameProcessed then\n\t\tprint(\"The game engine internally observed this input!\")\n\telse\n\t\tprint(\"The game engine did not internally observe this input!\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.InputChanged.Connect/param/0": {
     "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
@@ -67160,7 +67160,7 @@
       "Wait": "@roblox/globaltype/UserInputService.TouchTapInWorld.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#TouchTapInWorld",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal camera = workspace.CurrentCamera\nlocal LENGTH = 500\n\nlocal function createPart(position, processedByUI)\n\t-- Do not create a part if the player clicked on a GUI/UI element\n\tif processedByUI then\n\t\treturn\n\tend\n\n\t-- Get Vector3 world position from the Vector2 viewport position\n\tlocal unitRay = camera:ViewportPointToRay(position.X, position.Y)\n\tlocal ray = Ray.new(unitRay.Origin, unitRay.Direction * LENGTH)\n\tlocal hitPart, worldPosition = workspace:FindPartOnRay(ray)\n\n\t-- Create a new part at the world position if the player clicked on a part\n\t-- Do not create a new part if player clicks on empty skybox\n\tif hitPart then\n\t\tlocal part = Instance.new(\"Part\")\n\t\tpart.Parent = workspace\n\t\tpart.Anchored = true\n\t\tpart.Size = Vector3.new(1, 1, 1)\n\t\tpart.Position = worldPosition\n\tend\nend\n\nUserInputService.TouchTapInWorld:Connect(createPart)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.UserCFrameChanged.Connect/param/0": {
     "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
@@ -67336,7 +67336,7 @@
       "Wait": "@roblox/globaltype/UserInputService.WindowFocusReleased.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#WindowFocusReleased",
-    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal afkEvent = Instance.new(\"RemoteEvent\")\nafkEvent.Name = \"AfkEvent\"\nafkEvent.Parent = ReplicatedStorage\n\nlocal function setAfk(player, afk)\n\tif afk then\n\t\tlocal forcefield = Instance.new(\"ForceField\")\n\t\tforcefield.Parent = player.Character\n\telse\n\t\tlocal forcefield = player.Character:FindFirstChildOfClass(\"ForceField\")\n\t\tif forcefield then\n\t\t\tforcefield:Destroy()\n\t\tend\n\tend\nend\n\nafkEvent.OnServerEvent:Connect(setAfk)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.WindowFocused.Connect/param/0": {
     "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
@@ -67424,7 +67424,7 @@
       "Wait": "@roblox/globaltype/UserInputService.WindowFocused.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#WindowFocused",
-    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal afkEvent = Instance.new(\"RemoteEvent\")\nafkEvent.Name = \"AfkEvent\"\nafkEvent.Parent = ReplicatedStorage\n\nlocal function setAfk(player, afk)\n\tif afk then\n\t\tlocal forcefield = Instance.new(\"ForceField\")\n\t\tforcefield.Parent = player.Character\n\telse\n\t\tlocal forcefield = player.Character:FindFirstChildOfClass(\"ForceField\")\n\t\tif forcefield then\n\t\t\tforcefield:Destroy()\n\t\tend\n\tend\nend\n\nafkEvent.OnServerEvent:Connect(setAfk)"
+    "code_sample": ""
   },
   "@roblox/globaltype/VelocityMotor": {
     "documentation": "",

@@ -735,6 +735,7 @@ Class AudioPlayer : Instance
 	Property AudioPlayer.AutoLoad: boolean
 	Property AudioPlayer.IsReady: boolean [ReadOnly]
 	Property AudioPlayer.TimeLength: number [ReadOnly]
+	Property AudioPlayer.IsMutedForCapture: boolean {RobloxScriptSecurity}
 	Property AudioPlayer.IsPlaying: boolean {✏️RobloxSecurity}
 	Property AudioPlayer.Looping: boolean
 	Property AudioPlayer.PlaybackSpeed: number
@@ -872,6 +873,7 @@ Class AvatarAccessoryRules : Instance
 	Property AvatarAccessoryRules.EnableVFX: boolean {RobloxScriptSecurity}
 	Property AvatarAccessoryRules.LimitBounds: Vector3 {RobloxScriptSecurity}
 	Property AvatarAccessoryRules.LimitMethod: Enum.AvatarSettingsAccessoryLimitMethod {RobloxScriptSecurity}
+	Function AvatarAccessoryRules:willRemoveAccessory(humanoid: Humanoid, accessory: Accoutrement) -> boolean {RobloxScriptSecurity}
 Class AvatarAnimationRules : Instance
 	Property AvatarAnimationRules.AnimationClipsMode: Enum.AvatarSettingsAnimationClipsMode {RobloxScriptSecurity}
 	Property AvatarAnimationRules.AnimationPacksMode: Enum.AvatarSettingsAnimationPacksMode {RobloxScriptSecurity}
@@ -901,6 +903,8 @@ Class AvatarBodyRules : Instance
 	Property AvatarBodyRules.CustomBodyBundleId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomBodyType: Enum.AvatarSettingsCustomBodyType {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomBodyTypeScale: NumberRange {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomFaceEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomFaceId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomHeadEnabled: boolean {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomHeadId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomHeadScale: NumberRange {RobloxScriptSecurity}
@@ -2743,6 +2747,7 @@ Class TextBox : GuiObject
 	Property TextBox.ReturnKeyType: Enum.ReturnKeyType {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.SelectionStart: number
 	Property TextBox.ShouldEmitReturnEvents: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property TextBox.ShouldEmitTabEvents: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.ShouldEmitUpAndDownArrowEvents: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.ShowNativeInput: boolean
 	Property TextBox.TextEditable: boolean
@@ -3059,6 +3064,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.SelectedObject: GuiObject?
 	Property GuiService.TopbarInset: Rect [ReadOnly]
 	Property GuiService.TouchControlsEnabled: boolean
+	Property GuiService.ViewportSizeInMM: Vector2 {RobloxScriptSecurity} [ReadOnly]
 	Function GuiService:AddCenterDialog(dialog: Instance, centerDialogType: Enum.CenterDialogType, showFunction: (...any) -> ...any, hideFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function GuiService:AddKey(key: string) -> () {RobloxScriptSecurity}
 	Function GuiService:AddSelectionParent(selectionName: string, selectionParent: Instance) -> () [Deprecated]
@@ -3966,6 +3972,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetUserSubscriptionDetailsInternalAsync(subscriptionId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:GetUserSubscriptionPaymentHistoryAsync(user: Player, subscriptionId: string) -> { any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionStatusAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
+	Function MarketplaceService:GetUsersPriceLevelsAsync(userIds: { any }) -> { any } [Yields]
 	Function MarketplaceService:PerformBulkPurchase(orderRequest: { [string]: any }, options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformCancelSubscription(subscriptionId: string) -> () {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformPurchase(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectibleItemId: string? = "", collectibleProductId: string? = "", idempotencyKey: string? = "", purchaseAuthToken: string? = "") -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -4046,14 +4053,7 @@ Class MatchmakingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function MatchmakingService:InitializeServerAttributesForStudio(serverAttributes: { [string]: any }) -> ...any
 	Function MatchmakingService:SetServerAttribute(name: string, value: any) -> ...any
 Class MaterialGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function MaterialGenerationService:DEPRECATED_GenerateMaterialVariantsAync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
-	Function MaterialGenerationService:DEPRECATED_UploadMaterialVariantsAsync(materialVaraints: { Instance }) -> () {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:GenerateMaterialVariantsAsync(prompt: string, samples: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
-	Function MaterialGenerationService:StartSession() -> MaterialGenerationSession {RobloxScriptSecurity}
-Class MaterialGenerationSession : Instance [NotCreatable] [NotReplicated]
-	Function MaterialGenerationSession:GenerateImagesAsync(prompt: string, options: { [string]: any }) -> ...any {RobloxScriptSecurity} [Yields]
-	Function MaterialGenerationSession:GenerateMaterialMapsAsync(imageId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
-	Function MaterialGenerationSession:UploadMaterialAsync(imageId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 Class MaterialService : Instance [NotCreatable] [Service]
 	Property MaterialService.AsphaltName: string {RobloxSecurity} [NotScriptable]
 	Property MaterialService.BasaltName: string {RobloxSecurity} [NotScriptable]
@@ -4207,10 +4207,11 @@ Class MetaBreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event MetaBreakpointManager.MetaBreakpointChanged(breakpoint: MetaBreakpoint) {RobloxScriptSecurity}
 	Event MetaBreakpointManager.MetaBreakpointRemoved(breakpoint: MetaBreakpoint) {RobloxScriptSecurity}
 	Event MetaBreakpointManager.MetaBreakpointSetChanged(breakpoint: MetaBreakpoint, detail: { [string]: any }) {RobloxScriptSecurity}
-Class Moderation : Instance [NotCreatable] [Service] [NotReplicated]
-	Function Moderation:InternalCreateReviewableContentAsync(config: { [string]: any }) -> string [Yields]
-	Function Moderation:InternalRequestReviewableContentReviewAsync(config: { [string]: any }) -> () [Yields]
-	Callback Moderation.InternalProcessReviewableContentEvent(event: { [string]: any }) -> boolean
+Class MicroProfilerService : Instance [NotCreatable] [Service] [NotReplicated]
+Class ModerationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ModerationService:InternalCreateReviewableContentAsync(config: { [string]: any }) -> string [Yields]
+	Function ModerationService:InternalRequestReviewableContentReviewAsync(config: { [string]: any }) -> () [Yields]
+	Callback ModerationService.InternalProcessReviewableContentEvent(event: { [string]: any }) -> boolean
 Class Mouse : Instance [NotCreatable]
 	Property Mouse.Hit: CFrame [ReadOnly]
 	Property Mouse.Icon: string
@@ -4549,6 +4550,7 @@ Class Terrain : BasePart [NotCreatable]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.FluidFidelityInternal: Enum.FluidFidelity {RobloxSecurity} [Hidden] [NotScriptable]
+	Property TriangleMeshPart.InertiaMigrated: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property TriangleMeshPart.UnscaledCofm: Vector3 {RobloxSecurity} [Hidden]
 	Property TriangleMeshPart.UnscaledVolInertiaDiags: Vector3 {RobloxSecurity} [Hidden]
 	Property TriangleMeshPart.UnscaledVolInertiaOffDiags: Vector3 {RobloxSecurity} [Hidden]
@@ -5984,6 +5986,7 @@ Class ServiceVisibilityService : Instance [NotCreatable] [Service]
 	Property ServiceVisibilityService.VisibleServices: BinaryString {RobloxSecurity}
 	Function ServiceVisibilityService:SetServiceVisibilityPreference(service: Instance, visible: boolean) -> () {RobloxScriptSecurity}
 	Event ServiceVisibilityService.ServiceVisibilityChanged(serviceName: string) {RobloxScriptSecurity}
+Class SessionCheckService : Instance [NotCreatable] [Service]
 Class SessionService : Instance [NotCreatable] [Service]
 	Function SessionService:AcquireContextFocus(context: string) -> () {RobloxScriptSecurity}
 	Function SessionService:GenerateSessionInfoString(includeArbitrarySessions: boolean, includeTag: boolean, includeTimestamps: boolean, includeMetadata: boolean) -> string {RobloxScriptSecurity}
@@ -6072,6 +6075,7 @@ Class Sound : Instance
 	Property Sound.PlayOnRemove: boolean
 	Property Sound.UsageContextPermission: Enum.UsageContext {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Sound.EmitterSize: number [📁 LoadOnly] [Deprecated]
+	Property Sound.IsMutedForCapture: boolean {RobloxScriptSecurity}
 	Property Sound.MaxDistance: number [Deprecated]
 	Property Sound.MinDistance: number [📁 LoadOnly] [Deprecated]
 	Property Sound.Pitch: number [📁 LoadOnly] [Deprecated]
@@ -6595,6 +6599,7 @@ Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioPublishService:PublishAs(universeId: number, placeId: number, groupId: number, isPublish: boolean, publishParameters: any, willRetryOnConflict: boolean? = false, allowOpeningNewPlace: boolean? = true) -> () {RobloxScriptSecurity}
 	Function StudioPublishService:PublishThenTurnOnTeamCreate() -> () {RobloxScriptSecurity}
 	Function StudioPublishService:RefreshDocumentDisplayName() -> () {RobloxScriptSecurity}
+	Function StudioPublishService:RegisterPublishHold(priority: number, callback: (...any) -> ...any) -> RBXScriptConnection {RobloxScriptSecurity}
 	Function StudioPublishService:SetTeamCreateOnPublishInfo(shouldTurnOnTcOnPublish: boolean, newPlaceName: string) -> () {RobloxScriptSecurity}
 	Function StudioPublishService:SetUniverseDisplayName(newName: string) -> () {RobloxScriptSecurity}
 	Function StudioPublishService:SetUploadNames(placeName: string, universeName: string) -> () {RobloxScriptSecurity}
@@ -6833,6 +6838,7 @@ Class TestService : Instance [Service]
 	Function TestService:Require(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Run() -> () {PluginSecurity} [Yields]
 	Function TestService:ScopeTime() -> { [string]: any }
+	Function TestService:TakeSnapshot(snapshotname: string) -> ()
 	Function TestService:Warn(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:isFeatureEnabled(name: string) -> boolean
 	Event TestService.ServerCollectConditionalResult(condition: boolean, text: string, script: Instance, line: number)
@@ -6963,7 +6969,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.CreateDefaultCommands: boolean {✏️PluginSecurity}
 	Property TextChatService.CreateDefaultTextChannels: boolean {✏️PluginSecurity}
 	Property TextChatService.HasSeenDeprecationDialog: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property TextChatService.IsLegacyChatDisabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property TextChatService.IsLegacyChatDisabled: boolean {RobloxScriptSecurity} [Hidden]
 	Function TextChatService:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function TextChatService:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } [Yields]
@@ -7142,6 +7148,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetPropertyValue(instance: Instance, property: string) -> any {RobloxScriptSecurity}
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:IsDeformedLayeredClothingOutOfRenderBounds(accessory: Accessory) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:IsEditableMeshNumCoplanarIntersectionsOverLimit(editableMesh: EditableMesh, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:IsNumCoplanarIntersectionsOverLimit(meshId: string, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:RegisterAlternateMesh(alternateId: string, binaryStringValue: BinaryStringValue) -> () {RobloxScriptSecurity}
@@ -7213,6 +7220,11 @@ Class UISizeConstraint : UIConstraint
 Class UITextSizeConstraint : UIConstraint
 	Property UITextSizeConstraint.MaxTextSize: number
 	Property UITextSizeConstraint.MinTextSize: number
+Class UIContainerQuery : UIComponent [NotReplicated] [NotBrowsable]
+	Property UIContainerQuery.Active: boolean
+	Property UIContainerQuery.AspectRatioRange: NumberRange
+	Property UIContainerQuery.MaxSize: Vector2
+	Property UIContainerQuery.MinSize: Vector2
 Class UICorner : UIComponent
 	Property UICorner.CornerRadius: UDim
 Class UIDragDetector : UIComponent
@@ -8244,6 +8256,8 @@ Enum AvatarPromptResult
 Enum AvatarSettingsAccessoryLimitMethod
 	EnumItem AvatarSettingsAccessoryLimitMethod.Scale : 0
 	EnumItem AvatarSettingsAccessoryLimitMethod.Remove : 1
+	EnumItem AvatarSettingsAccessoryLimitMethod.PreviewScale : 2
+	EnumItem AvatarSettingsAccessoryLimitMethod.PreviewRemove : 3
 Enum AvatarSettingsAccessoryMode
 	EnumItem AvatarSettingsAccessoryMode.PlayerChoice : 0
 	EnumItem AvatarSettingsAccessoryMode.CustomLimit : 1
@@ -9234,6 +9248,7 @@ Enum HttpError
 	EnumItem HttpError.Unknown : 12
 	EnumItem HttpError.ConnectionClosed : 13
 	EnumItem HttpError.ServerProtocolError : 14
+	EnumItem HttpError.CreatorEnvironmentsNotSupportedByService : 15
 Enum HttpRequestType
 	EnumItem HttpRequestType.Default : 0
 	EnumItem HttpRequestType.MarketplaceService : 2

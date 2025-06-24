@@ -2,6 +2,7 @@ Key,Context,Source,en-us
 Studio.App.FileType.AllFiles,,All Files,All Files
 Studio.App.FileType.AnimationFiles,,Animation Files,Animation Files
 Studio.App.FileType.AudioFiles,,Audio Files,Audio Files
+Studio.App.FileType.GltfFiles,The file type that will be displayed to the window when a user exports Roblox content as a glTF file,glTF Files,glTF Files
 Studio.App.FileType.Images,,Images,Images
 Studio.App.FileType.JSONFiles,,JSON Files,JSON Files
 Studio.App.FileType.LocalizationTableCSV,,LocalizationTable CSV,LocalizationTable CSV

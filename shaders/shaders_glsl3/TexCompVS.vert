@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
 #include <Globals.h>
-uniform vec4 CB1[2];
+uniform vec4 CB1[3];
 uniform vec4 CB0[61];
 in vec4 POSITION;
 in vec2 TEXCOORD0;

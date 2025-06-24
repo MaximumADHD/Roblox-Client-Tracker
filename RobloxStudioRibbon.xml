@@ -32,7 +32,7 @@
       <submenu name="Advanced" text="Studio.App.RobloxRibbonMainWindow.Advanced">
         <addaction name="fileOpenAutoSavesAction"/>
         <addaction name="exportPlaceAction"/>
-        <addaction fflag="DisplayExportAsinStudioMenu" name="exportAsGltfAction"/>
+        <addaction fflag="DevAssetExport" name="exportPlaceAsGltfAction"/>
         <addaction name="shortcutHelpAction"/>
         <addaction name="managePluginsAction"/>
         <addaction name="flagEditorAction"/>
@@ -452,8 +452,10 @@
 
         <addaction name="toggleStudioActivityFeedAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip" modernIcon="ActivityHistory" ischeckable="true" />
         <addaction name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
+        <addaction fflag="EnableNewAssistant_Dev" name="toggleAssistantDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
         <addaction fflag="COLLAB6176PlaceAnnotations4" name="toggleStudioAnnotationsAction" style="textbesideicon" />
+        <addaction fflag="EnablePlaceVersionHistory" name="togglePlaceVersionHistoryAction" style="textbesideicon"/>
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions" modernIcon="ViewSelector" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32">
         <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" modernIcon="ViewSelector" width="32" height="32"/>

@@ -18042,7 +18042,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Humanoid.EvaluateStateMachine": {
-    "documentation": "",
+    "documentation": "Used to disable the internal physics and state machine of the Humanoid.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#EvaluateStateMachine",
     "code_sample": ""
   },
@@ -18828,7 +18828,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#UnequipTools",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ContextActionService = game:GetService(\"ContextActionService\")\n\nlocal player = Players.LocalPlayer\n\nContextActionService:BindAction(\"unequipTools\", function(_, userInputState)\n\tif userInputState == Enum.UserInputState.Begin then\n\t\tif player.Character then\n\t\t\tlocal humanoid = player.Character:FindFirstChildOfClass(\"Humanoid\")\n\t\t\tif humanoid then\n\t\t\t\thumanoid:UnequipTools()\n\t\t\tend\n\t\tend\n\tend\nend, false, Enum.KeyCode.U)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Humanoid.loadAnimation/param/0": {
     "documentation": "A special object that gives models the functionality of a character."
@@ -31678,7 +31678,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Brown\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.ManualActivationOnly": {
-    "documentation": "The ManualActivationOnly property controls whether the <code>Tool</code> can be activated without executing <code>Tool:Activate()</code>.",
+    "documentation": "Controls whether the <code>Tool</code> can be activated without executing <code>Tool:Activate()</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ManualActivationOnly",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Sprint\"\ntool.RequiresHandle = false\ntool.Parent = player:WaitForChild(\"Backpack\")\n\nfunction toolActivated()\n\thumanoid.WalkSpeed = 30\n\ttool.ManualActivationOnly = true\n\ttask.wait(5)\n\ttool.ManualActivationOnly = false\n\thumanoid.WalkSpeed = 16\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.WalkSpeed = 16\nend)"
   },
@@ -38319,7 +38319,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputObject.Delta": {
-    "documentation": "A Vector3 describing the Delta between mouse/joystick movements.",
+    "documentation": "A <code>Vector3</code> describing the delta between input movements.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputObject#Delta",
     "code_sample": ""
   },
@@ -38329,7 +38329,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputObject.Position": {
-    "documentation": "Describes a positional value of this input.",
+    "documentation": "A <code>Vector3</code> describing the positional value of this input.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputObject#Position",
     "code_sample": ""
   },
@@ -38339,7 +38339,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputObject.UserInputType": {
-    "documentation": "Describes the kind of input being performed (mouse, keyboard, gamepad, touch, etc).",
+    "documentation": "Describes the kind of input being performed (mouse, keyboard, gamepad, touch, etc.).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputObject#UserInputType",
     "code_sample": ""
   },
@@ -38350,10 +38350,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/InputObject.IsModifierKeyDown/return/0": {
-    "documentation": ""
+    "documentation": "<code>true</code> if the passed in <code>modifierKey</code> is being held down; <code>false</code> otherwise."
   },
   "@roblox/globaltype/InputObject.IsModifierKeyDown": {
-    "documentation": "",
+    "documentation": "Returns whether the passed in modifier key is down.",
     "params": [
       {
         "name": "self",
@@ -54688,7 +54688,6 @@
       "AddSelectionTuple": "@roblox/globaltype/GuiService.AddSelectionTuple",
       "CloseInspectMenu": "@roblox/globaltype/GuiService.CloseInspectMenu",
       "DismissNotification": "@roblox/globaltype/GuiService.DismissNotification",
-      "GetClosestVisibleDialogToPosition": "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition",
       "GetEmotesMenuOpen": "@roblox/globaltype/GuiService.GetEmotesMenuOpen",
       "GetGameplayPausedNotificationEnabled": "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled",
       "GetGuiInset": "@roblox/globaltype/GuiService.GetGuiInset",
@@ -54864,33 +54863,6 @@
       "@roblox/globaltype/GuiService.DismissNotification/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#DismissNotification",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
-  },
-  "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/param/0"
-      },
-      {
-        "name": "position",
-        "documentation": "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/GuiService.GetClosestVisibleDialogToPosition/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#GetClosestVisibleDialogToPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen/param/0": {
@@ -55849,24 +55821,24 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerCameraMovementMode": {
-    "documentation": "Lets developer overwrite the default camera mode for each player if the player is on a computer.",
+    "documentation": "Lets you overwrite the player's camera mode on a computer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerCameraMovementMode",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- Set the player's camera movement mode on computers to classic\nplayer.DevComputerCameraMode = Enum.DevComputerCameraMovementMode.Classic"
+    "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerMovementMode": {
-    "documentation": "Lets developer overwrite the player's movement mode if the player is on a computer.",
+    "documentation": "Lets you overwrite the player's movement mode on a computer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchCameraMovementMode": {
-    "documentation": "Lets developer overwrite the default camera movement mode for each player if the player is on a mobile device.",
+    "documentation": "Lets you overwrite the player's camera mode on a touch-enabled device.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchCameraMovementMode",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- Set the player's camera movement mode on mobile devices to classic\nplayer.DevTouchCameraMovementMode = Enum.DevTouchCameraMovementMode.Classic"
+    "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchMovementMode": {
-    "documentation": "Lets developer overwrite the player's movement mode if the player is on a touch device.",
+    "documentation": "Lets you overwrite the player's movement mode on a touch-enabled device.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchMovementMode",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\ngame.Players.PlayerAdded:Connect(function(player)\n\t-- Set the player's movement mode on mobile devices to a dynamic thumbstick\n\tplayer.DevTouchMovementMode = Enum.DevTouchMovementMode.DynamicThumbstick\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
     "documentation": "",
@@ -61368,6 +61340,7 @@
     "keys": {
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "SkinningEnabled": "@roblox/globaltype/EditableMesh.SkinningEnabled",
+      "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
@@ -61379,6 +61352,12 @@
       "FindVerticesWithinSphere": "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere",
       "GetAdjacentFaces": "@roblox/globaltype/EditableMesh.GetAdjacentFaces",
       "GetAdjacentVertices": "@roblox/globaltype/EditableMesh.GetAdjacentVertices",
+      "GetBoneByName": "@roblox/globaltype/EditableMesh.GetBoneByName",
+      "GetBoneCFrame": "@roblox/globaltype/EditableMesh.GetBoneCFrame",
+      "GetBoneIsVirtual": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual",
+      "GetBoneName": "@roblox/globaltype/EditableMesh.GetBoneName",
+      "GetBoneParent": "@roblox/globaltype/EditableMesh.GetBoneParent",
+      "GetBones": "@roblox/globaltype/EditableMesh.GetBones",
       "GetCenter": "@roblox/globaltype/EditableMesh.GetCenter",
       "GetColor": "@roblox/globaltype/EditableMesh.GetColor",
       "GetColorAlpha": "@roblox/globaltype/EditableMesh.GetColorAlpha",
@@ -61389,29 +61368,45 @@
       "GetFaceVertices": "@roblox/globaltype/EditableMesh.GetFaceVertices",
       "GetFaces": "@roblox/globaltype/EditableMesh.GetFaces",
       "GetFacesWithAttribute": "@roblox/globaltype/EditableMesh.GetFacesWithAttribute",
+      "GetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose",
+      "GetFacsCorrectivePoses": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses",
+      "GetFacsPose": "@roblox/globaltype/EditableMesh.GetFacsPose",
+      "GetFacsPoses": "@roblox/globaltype/EditableMesh.GetFacsPoses",
       "GetNormal": "@roblox/globaltype/EditableMesh.GetNormal",
       "GetNormals": "@roblox/globaltype/EditableMesh.GetNormals",
       "GetPosition": "@roblox/globaltype/EditableMesh.GetPosition",
       "GetSize": "@roblox/globaltype/EditableMesh.GetSize",
       "GetUV": "@roblox/globaltype/EditableMesh.GetUV",
       "GetUVs": "@roblox/globaltype/EditableMesh.GetUVs",
+      "GetVertexBoneWeights": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights",
+      "GetVertexBones": "@roblox/globaltype/EditableMesh.GetVertexBones",
       "GetVertices": "@roblox/globaltype/EditableMesh.GetVertices",
       "GetVerticesWithAttribute": "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute",
       "IdDebugString": "@roblox/globaltype/EditableMesh.IdDebugString",
       "MergeVertices": "@roblox/globaltype/EditableMesh.MergeVertices",
       "RaycastLocal": "@roblox/globaltype/EditableMesh.RaycastLocal",
+      "RemoveBone": "@roblox/globaltype/EditableMesh.RemoveBone",
       "RemoveFace": "@roblox/globaltype/EditableMesh.RemoveFace",
       "RemoveUnused": "@roblox/globaltype/EditableMesh.RemoveUnused",
       "ResetNormal": "@roblox/globaltype/EditableMesh.ResetNormal",
+      "SetBoneCFrame": "@roblox/globaltype/EditableMesh.SetBoneCFrame",
+      "SetBoneIsVirtual": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual",
+      "SetBoneName": "@roblox/globaltype/EditableMesh.SetBoneName",
+      "SetBoneParent": "@roblox/globaltype/EditableMesh.SetBoneParent",
       "SetColor": "@roblox/globaltype/EditableMesh.SetColor",
       "SetColorAlpha": "@roblox/globaltype/EditableMesh.SetColorAlpha",
       "SetFaceColors": "@roblox/globaltype/EditableMesh.SetFaceColors",
       "SetFaceNormals": "@roblox/globaltype/EditableMesh.SetFaceNormals",
       "SetFaceUVs": "@roblox/globaltype/EditableMesh.SetFaceUVs",
       "SetFaceVertices": "@roblox/globaltype/EditableMesh.SetFaceVertices",
+      "SetFacsBonePose": "@roblox/globaltype/EditableMesh.SetFacsBonePose",
+      "SetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose",
+      "SetFacsPose": "@roblox/globaltype/EditableMesh.SetFacsPose",
       "SetNormal": "@roblox/globaltype/EditableMesh.SetNormal",
       "SetPosition": "@roblox/globaltype/EditableMesh.SetPosition",
       "SetUV": "@roblox/globaltype/EditableMesh.SetUV",
+      "SetVertexBoneWeights": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights",
+      "SetVertexBones": "@roblox/globaltype/EditableMesh.SetVertexBones",
       "Triangulate": "@roblox/globaltype/EditableMesh.Triangulate"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh",
@@ -61425,6 +61420,33 @@
   "@roblox/globaltype/EditableMesh.SkinningEnabled": {
     "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SkinningEnabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.AddBone/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.AddBone/param/1": {
+    "documentation": "Options table containing bone parameters: <ul> <li><code>Name</code> — A string that specifies the bone name. Note that all bone   names in a mesh must be unique.</li> <li><code>ParentId</code> — Optional bone ID of the new bone's parent.</li> <li><code>CFrame</code> — Initial <code>CFrame</code> of the bone in the bind pose of   the mesh, in the mesh's local space.</li> <li><code>Virtual</code> — Boolean that specifies whether this bone is virtual.   Virtual bones can only be bound to a <code>FaceControls</code> instance.</li> </ul>"
+  },
+  "@roblox/globaltype/EditableMesh.AddBone/return/0": {
+    "documentation": "Stable bone ID of the new bone."
+  },
+  "@roblox/globaltype/EditableMesh.AddBone": {
+    "documentation": "Adds a new bone and returns a stable bone ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/0"
+      },
+      {
+        "name": "boneProperties",
+        "documentation": "@roblox/globaltype/EditableMesh.AddBone/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.AddBone/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddBone",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddColor/param/0": {
@@ -61740,6 +61762,161 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetAdjacentVertices",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.GetBoneByName/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneByName/param/1": {
+    "documentation": "Bone name to search for."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneByName/return/0": {
+    "documentation": "Bone ID of the bone with the given name."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneByName": {
+    "documentation": "Finds the bone ID of the bone with the given name.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/0"
+      },
+      {
+        "name": "boneName",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneByName/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetBoneByName/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneByName",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
+    "documentation": "Bone ID for which to get the <code>CFrame</code>."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
+    "documentation": "Initial <code>CFrame</code> of the bone in the bind pose of the mesh, in the mesh's local space."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
+    "documentation": "Returns the initial <code>CFrame</code> of the bone in the bind pose of the mesh.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneCFrame",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
+    "documentation": "Bone ID for which to get whether the bone is virtual."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
+    "documentation": "Whether the bone with the given bone ID is virtual. Virtual bones can only be bound to a <code>FaceControls</code> instance."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
+    "documentation": "Returns <code>true</code> if the bone is virtual.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneIsVirtual",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneName/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
+    "documentation": "Bone ID for which to get the name."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
+    "documentation": "Name of the bone with the given bone ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneName": {
+    "documentation": "Returns the bone name.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneName/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetBoneName/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneName",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneParent/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
+    "documentation": "Bone ID for which to get the parent."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneParent/return/0": {
+    "documentation": "Bone ID for the parent of the bone with the given bone ID. If there is no parent, returns <code>0</code>."
+  },
+  "@roblox/globaltype/EditableMesh.GetBoneParent": {
+    "documentation": "Returns the parent bone ID, if any.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBoneParent/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetBoneParent/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBoneParent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetBones/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetBones/return/0": {
+    "documentation": "List of stable bone IDs."
+  },
+  "@roblox/globaltype/EditableMesh.GetBones": {
+    "documentation": "Returns all bones of the mesh.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetBones/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetBones/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetBones",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.GetCenter/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -61989,6 +62166,100 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithAttribute",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1": {
+    "documentation": "Array or 2 or 3 <code>FacsActionUnit</code> values that specify a corrective pose."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
+    "documentation": "Array of bone IDs and corresponding array of bone <code>CFrames</code>."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
+    "documentation": "Returns bone IDs and bone <code>CFrames</code> for all bones in a specific FACS corrective pose.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0"
+      },
+      {
+        "name": "actions",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePose",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
+    "documentation": "Array of corrective poses. Each corrective pose is specified by a small array of 2 or 3 <code>FacsActionUnit</code> values."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses": {
+    "documentation": "Returns all FACS corrective poses that are in use.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsCorrectivePoses",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsPose/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsPose/param/1": {
+    "documentation": "FACS action unit for which to get the pose."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
+    "documentation": "Array of bone IDs and corresponding array of bone <code>CFrame</code>."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsPose": {
+    "documentation": "Returns bone IDs and bone <code>CFrames</code> for all bones in a specific FACS action unit.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/0"
+      },
+      {
+        "name": "action",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPose/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetFacsPose/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPose",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
+    "documentation": "Array of <code>FacsActionUnit</code>, one for each FACS action unit that has a pose defined."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacsPoses": {
+    "documentation": "Returns all FACS action units that have poses defined.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacsPoses",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.GetNormal/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -62130,6 +62401,60 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetUVs",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
+    "documentation": "Vertex ID for which to get the associated bone weights."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
+    "documentation": "Skinning blend weights for each bone that is associated with the vertex."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
+    "documentation": "Returns skinning blend weights for each bone that is associated with the vertex.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBoneWeights",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexBones/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
+    "documentation": "Vertex ID for which to get the associated bones."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
+    "documentation": "Bone IDs associated with the vertex for skinning."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexBones": {
+    "documentation": "Returns all bone IDs that are associated with the vertex for skinning.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexBones/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexBones/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBones",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.GetVertices/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -62265,6 +62590,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RaycastLocal",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.RemoveBone/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/EditableMesh.RemoveBone": {
+    "documentation": "Removes a bone using its stable bone ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.RemoveBone/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#RemoveBone",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -62327,6 +62674,122 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#ResetNormal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
+    "documentation": "Bone ID for which to set the initial <code>CFrame</code>."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
+    "documentation": "Initial <code>CFrame</code> for the bone in the mesh's bind pose, in the mesh's local space."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
+    "documentation": "Set the initial <code>CFrame</code> for a bone in the mesh's bind pose.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1"
+      },
+      {
+        "name": "cframe",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneCFrame",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
+    "documentation": "Bone ID for which to set whether the bone is virtual."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2": {
+    "documentation": "Whether the bone should be virtual."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
+    "documentation": "Set whether a bone is virtual.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1"
+      },
+      {
+        "name": "virtual",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneIsVirtual",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneName/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
+    "documentation": "Bone ID for which to set the name."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneName/param/2": {
+    "documentation": "Bone name to set."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneName": {
+    "documentation": "Sets the name for a bone.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/1"
+      },
+      {
+        "name": "name",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneName/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneName",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneParent/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
+    "documentation": "Bone ID for which to set the parent."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneParent/param/2": {
+    "documentation": "Parent bone ID."
+  },
+  "@roblox/globaltype/EditableMesh.SetBoneParent": {
+    "documentation": "Set a parent for a bone.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/0"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/1"
+      },
+      {
+        "name": "parentBoneId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetBoneParent/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetBoneParent",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/0": {
@@ -62503,6 +62966,114 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFaceVertices",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
+    "documentation": "FACS action unit for which to set the pose."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2": {
+    "documentation": "Bone to set a <code>CFrame</code> for this pose."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
+    "documentation": "<code>CFrame</code> which transforms the bone from the initial bone <code>CFrame</code> in the bind pose of the mesh to the combined bone <code>CFrame</code> for this pose. All <code>CFrames</code> are in the mesh's local space."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
+    "documentation": "Set <code>CFrame</code> for an individual bone in a specific FACS action unit.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0"
+      },
+      {
+        "name": "action",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1"
+      },
+      {
+        "name": "boneId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2"
+      },
+      {
+        "name": "cframe",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsBonePose",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1": {
+    "documentation": "Array or 2 or 3 <code>FacsActionUnit</code> values to apply as a corrective pose."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2": {
+    "documentation": "Bones to set a <code>CFrame</code> for this pose."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
+    "documentation": "<code>CFrame</code> transforms for the bones in this corrective pose. Each bone <code>CFrame</code> transforms the bone from the initial bone <code>CFrame</code> in the bind pose of the mesh to the combined bone <code>CFrame</code> for this pose. All <code>CFrames</code> are in the mesh's local space."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
+    "documentation": "Set pose for all bones in a specific FACS corrective pose.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0"
+      },
+      {
+        "name": "actions",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1"
+      },
+      {
+        "name": "boneIds",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2"
+      },
+      {
+        "name": "cframes",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsCorrectivePose",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsPose/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsPose/param/1": {
+    "documentation": "FACS action unit to set the pose for."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsPose/param/2": {
+    "documentation": "Bones for which to set a <code>CFrame</code> for this pose."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
+    "documentation": "<code>CFrame</code> transforms for the bones in this pose. Each bone <code>CFrame</code> transforms the bone from the initial bone <code>CFrame</code> in the bind pose of the mesh to the combined bone <code>CFrame</code> for this pose. All <code>CFrames</code> are in the mesh's local space."
+  },
+  "@roblox/globaltype/EditableMesh.SetFacsPose": {
+    "documentation": "Set pose for all bones in a specific FACS action unit.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/0"
+      },
+      {
+        "name": "action",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/1"
+      },
+      {
+        "name": "boneIds",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/2"
+      },
+      {
+        "name": "cframes",
+        "documentation": "@roblox/globaltype/EditableMesh.SetFacsPose/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetFacsPose",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.SetNormal/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -62588,6 +63159,64 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetUV",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
+    "documentation": "Vertex ID on which to set skinning blend weights."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
+    "documentation": "Skinning blend weights to set on the vertex."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexBoneWeights": {
+    "documentation": "Sets skinning blend weights for each bone associated with the vertex.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1"
+      },
+      {
+        "name": "boneWeights",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBoneWeights",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexBones/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
+    "documentation": "Vertex ID to set vertex skinning bones."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
+    "documentation": "Bone IDs to use with this vertex for skinning."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexBones": {
+    "documentation": "Assign a list of bones with the vertex for skinning.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/1"
+      },
+      {
+        "name": "boneIDs",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexBones/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBones",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Triangulate/param/0": {
@@ -64184,8 +64813,7 @@
       "Tone": "@roblox/globaltype/Dialog.Tone",
       "TriggerDistance": "@roblox/globaltype/Dialog.TriggerDistance",
       "TriggerOffset": "@roblox/globaltype/Dialog.TriggerOffset",
-      "GetCurrentPlayers": "@roblox/globaltype/Dialog.GetCurrentPlayers",
-      "SetGuiObject": "@roblox/globaltype/Dialog.SetGuiObject"
+      "GetCurrentPlayers": "@roblox/globaltype/Dialog.GetCurrentPlayers"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Dialog",
     "code_sample": ""
@@ -64259,28 +64887,6 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Dialog#GetCurrentPlayers",
     "code_sample": "local dialog = script.Parent\n\nlocal function onChoiceSelected(_player, _choice)\n\tlocal currentPlayers = dialog:GetCurrentPlayers()\n\tprint(\"The current players in the dialog:\")\n\tfor _, player in ipairs(currentPlayers) do\n\t\tprint(player)\n\tend\nend\n\ndialog.DialogChoiceSelected:Connect(onChoiceSelected)"
-  },
-  "@roblox/globaltype/Dialog.SetGuiObject/param/0": {
-    "documentation": "Creates NPC billboard-style dialog bubbles."
-  },
-  "@roblox/globaltype/Dialog.SetGuiObject/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Dialog.SetGuiObject": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Dialog.SetGuiObject/param/0"
-      },
-      {
-        "name": "gui",
-        "documentation": "@roblox/globaltype/Dialog.SetGuiObject/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Dialog#SetGuiObject",
-    "code_sample": ""
   },
   "@roblox/globaltype/Dialog.DialogChoiceSelected.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -64557,7 +65163,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events.",
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events.",
     "keys": {
       "AccelerometerEnabled": "@roblox/globaltype/UserInputService.AccelerometerEnabled",
       "GamepadEnabled": "@roblox/globaltype/UserInputService.GamepadEnabled",
@@ -64602,7 +65208,7 @@
       "SetNavigationGamepad": "@roblox/globaltype/UserInputService.SetNavigationGamepad"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService",
-    "code_sample": "-- We must get the UserInputService before we can use it\nlocal UserInputService = game:GetService(\"UserInputService\")\n\n-- A sample function providing one usage of InputBegan\nlocal function onInputBegan(input, _gameProcessed)\n\tif input.UserInputType == Enum.UserInputType.MouseButton1 then\n\t\tprint(\"The left mouse button has been pressed!\")\n\tend\nend\n\nUserInputService.InputBegan:Connect(onInputBegan)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.AccelerometerEnabled": {
     "documentation": "Describes whether the user's device has an accelerometer.",
@@ -64610,9 +65216,9 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal UserInputService = game:GetService(\"UserInputService\")\n\nlocal ball = script.Parent:WaitForChild(\"Ball\")\nlocal mass = ball:GetMass()\nlocal gravityForce = ball:WaitForChild(\"GravityForce\")\n\nlocal function moveBall(gravity)\n\tgravityForce.Force = gravity.Position * Workspace.Gravity * mass\nend\n\nif UserInputService.AccelerometerEnabled then\n\tUserInputService.DeviceGravityChanged:Connect(moveBall)\nend"
   },
   "@roblox/globaltype/UserInputService.GamepadEnabled": {
-    "documentation": "Describes whether the device being used by a user has an available gamepad.",
+    "documentation": "Describes whether the user's device has an available gamepad.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GamepadEnabled",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal function getActiveGamepad()\n\tlocal activeGamepad = nil\n\n\tlocal connectedGamepads = UserInputService:GetConnectedGamepads()\n\n\tif #connectedGamepads > 0 then\n\t\tfor _, gamepad in connectedGamepads do\n\t\t\tif activeGamepad == nil or gamepad.Value < activeGamepad.Value then\n\t\t\t\tactiveGamepad = gamepad\n\t\t\tend\n\t\tend\n\tend\n\n\tif activeGamepad == nil then -- Nothing is connected; set up for \"Gamepad1\"\n\t\tactiveGamepad = Enum.UserInputType.Gamepad1\n\tend\n\n\treturn activeGamepad\nend\n\nif UserInputService.GamepadEnabled then\n\tlocal activeGamepad = getActiveGamepad()\n\tprint(activeGamepad)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GyroscopeEnabled": {
     "documentation": "Describes whether the user's device has a gyroscope.",
@@ -64622,12 +65228,12 @@
   "@roblox/globaltype/UserInputService.KeyboardEnabled": {
     "documentation": "Describes whether the user's device has a keyboard available.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#KeyboardEnabled",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nif UserInputService.KeyboardEnabled then\n\tprint(\"The user's device has an available keyboard!\")\nelse\n\tprint(\"The user's device does not have an available keyboard!\")\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.ModalEnabled": {
     "documentation": "<strong>Deprecated:</strong> This item has been superseded by <code>GuiService.TouchControlsEnabled</code> which should be used in all new work.<br>Toggles whether Roblox's mobile controls are hidden on mobile devices.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#ModalEnabled",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nwhile true do\n\tUserInputService.ModalEnabled = not UserInputService.ModalEnabled\n\ttask.wait(5)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.MouseBehavior": {
     "documentation": "Determines whether the user's mouse can be moved freely or is locked.",
@@ -64645,19 +65251,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.MouseIcon": {
-    "documentation": "The content ID of the image used as the user mouse icon.",
+    "documentation": "The content ID of the image for the user's mouse icon.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#MouseIcon",
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.MouseIconEnabled": {
-    "documentation": "Determines whether the <code>Mouse</code> icon is visible.",
+    "documentation": "Determines whether the mouse icon is visible.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#MouseIconEnabled",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal mouseInput = {\n\tEnum.UserInputType.MouseButton1,\n\tEnum.UserInputType.MouseButton2,\n\tEnum.UserInputType.MouseButton3,\n\tEnum.UserInputType.MouseMovement,\n\tEnum.UserInputType.MouseWheel,\n}\n\nlocal keyboard = Enum.UserInputType.Keyboard\n\nlocal function toggleMouse(lastInputType)\n\tif lastInputType == keyboard then\n\t\tUserInputService.MouseIconEnabled = false\n\t\treturn\n\tend\n\n\tfor _, mouse in pairs(mouseInput) do\n\t\tif lastInputType == mouse then\n\t\t\tUserInputService.MouseIconEnabled = true\n\t\t\treturn\n\t\tend\n\tend\nend\n\nUserInputService.LastInputTypeChanged:Connect(toggleMouse)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.OnScreenKeyboardPosition": {
     "documentation": "Determines the position of the on-screen keyboard.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#OnScreenKeyboardPosition",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nprint(UserInputService.OnScreenKeyboardPosition)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.OnScreenKeyboardSize": {
     "documentation": "Determines the size of the on-screen keyboard.",
@@ -64670,12 +65276,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.PreferredInput": {
-    "documentation": "",
+    "documentation": "Queries the primary input type a player is using, based on anticipated user behavior.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#PreferredInput",
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.TouchEnabled": {
-    "documentation": "Describes whether the user's current device has a touch-screen available.",
+    "documentation": "Describes whether the user's device has a touch screen available.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#TouchEnabled",
     "code_sample": ""
   },
@@ -64687,10 +65293,10 @@
   "@roblox/globaltype/UserInputService.VREnabled": {
     "documentation": "Indicates whether the user is using a virtual reality headset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#VREnabled",
-    "code_sample": "local VRService = game:GetService(\"VRService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.CharacterAdded:Wait()\nlocal head = character:WaitForChild(\"Head\")\n\nlocal function TrackHead(inputType, value)\n\tif inputType == Enum.UserCFrame.Head then\n\t\thead.CFrame = value\n\tend\nend\n\nif VRService.VREnabled then\n\t-- Set the initial CFrame\n\thead.CFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)\n\n\t-- Track VR headset movement and mirror for character's head\n\tVRService.UserCFrameChanged:Connect(TrackHead)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GamepadSupports/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GamepadSupports/param/1": {
     "documentation": "The <code>UserInputType</code> of the gamepad."
@@ -64721,10 +65327,10 @@
       "@roblox/globaltype/UserInputService.GamepadSupports/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GamepadSupports",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nlocal ContextActionService = game:GetService(\"ContextActionService\")\n\nlocal controller = Enum.UserInputType.Gamepad1\nlocal buttonX = Enum.KeyCode.ButtonX\n\nlocal function isSupported(gamepad, keycode)\n\treturn UserInputService:GamepadSupports(gamepad, keycode)\nend\n\nlocal function action()\n\tprint(\"Action\")\nend\n\nif isSupported(controller, buttonX) then\n\tContextActionService:BindAction(\"sample action\", action, false, buttonX)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetConnectedGamepads/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetConnectedGamepads/return/0": {
     "documentation": "An array of <code>UserInputTypes</code> corresponding with the gamepads connected to the user's device."
@@ -64741,10 +65347,10 @@
       "@roblox/globaltype/UserInputService.GetConnectedGamepads/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GetConnectedGamepads",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal function getActiveGamepad()\n\tlocal activeGamepad = nil\n\n\tlocal connectedGamepads = UserInputService:GetConnectedGamepads()\n\n\tif #connectedGamepads > 0 then\n\t\tfor _, gamepad in connectedGamepads do\n\t\t\tif activeGamepad == nil or gamepad.Value < activeGamepad.Value then\n\t\t\t\tactiveGamepad = gamepad\n\t\t\tend\n\t\tend\n\tend\n\n\tif activeGamepad == nil then -- Nothing is connected; set up for \"Gamepad1\"\n\t\tactiveGamepad = Enum.UserInputType.Gamepad1\n\tend\n\n\treturn activeGamepad\nend\n\nif UserInputService.GamepadEnabled then\n\tlocal activeGamepad = getActiveGamepad()\n\tprint(activeGamepad)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetDeviceAcceleration/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetDeviceAcceleration/return/0": {
     "documentation": ""
@@ -64764,7 +65370,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetDeviceGravity/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetDeviceGravity/return/0": {
     "documentation": ""
@@ -64784,13 +65390,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetDeviceRotation/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetDeviceRotation/return/0": {
-    "documentation": "A tuple containing two properties: <ol> <li>The delta property describes the amount of rotation that last    happened</li> <li>The CFrame is the device's current rotation relative to its default    reference frame.</li> </ol>"
+    "documentation": "A tuple containing two properties: The delta describing the amount of rotation that last happened, and the <code>CFrame</code> of the device's current rotation relative to its default reference frame."
   },
   "@roblox/globaltype/UserInputService.GetDeviceRotation": {
-    "documentation": "Returns an <code>InputObject</code> and a <code>CFrame</code>,describing the device's current rotation vector.",
+    "documentation": "Returns an <code>InputObject</code> and a <code>CFrame</code> describing the device's current rotation vector.",
     "params": [
       {
         "name": "self",
@@ -64804,7 +65410,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetFocusedTextBox/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetFocusedTextBox/return/0": {
     "documentation": ""
@@ -64824,7 +65430,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetGamepadConnected/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetGamepadConnected/param/1": {
     "documentation": "The <code>UserInputType</code> of the gamepad in question."
@@ -64833,7 +65439,7 @@
     "documentation": "Whether a gamepad associated with <code>UserInputType</code> is connected."
   },
   "@roblox/globaltype/UserInputService.GetGamepadConnected": {
-    "documentation": "Returns whether a gamepad with the given <code>UserInputType</code>''gamepadNum'' is connected.",
+    "documentation": "Returns whether a gamepad with the given <code>UserInputType</code> is connected.",
     "params": [
       {
         "name": "self",
@@ -64851,7 +65457,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetGamepadState/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetGamepadState/param/1": {
     "documentation": "The <code>UserInputType</code> corresponding with the gamepad in question."
@@ -64878,7 +65484,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetImageForKeyCode/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetImageForKeyCode/param/1": {
     "documentation": "The <code>KeyCode</code> for which to fetch the associated image."
@@ -64905,7 +65511,7 @@
     "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal imageLabel = script.Parent\nlocal key = Enum.KeyCode.ButtonA\n\nlocal mappedIconImage = UserInputService:GetImageForKeyCode(key)\nimageLabel.Image = mappedIconImage"
   },
   "@roblox/globaltype/UserInputService.GetKeysPressed/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetKeysPressed/return/0": {
     "documentation": "An array of <code>InputObjects</code> associated with the keys currently being pressed."
@@ -64925,7 +65531,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetLastInputType/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetLastInputType/return/0": {
     "documentation": "The <code>UserInputType</code> associated with the user's most recent input."
@@ -64942,16 +65548,16 @@
       "@roblox/globaltype/UserInputService.GetLastInputType/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GetLastInputType",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal lastInput = UserInputService:GetLastInputType()\n\nif lastInput == Enum.UserInputType.Keyboard then\n\tprint(\"Most recent input was via keyboard\")\nend"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nif UserInputService:GetLastInputType() == Enum.UserInputType.Keyboard then\n\tprint(\"Most recent input was keyboard!\")\nend"
   },
   "@roblox/globaltype/UserInputService.GetMouseButtonsPressed/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetMouseButtonsPressed/return/0": {
     "documentation": "An array of <code>InputObjects</code> corresponding to the mouse buttons currently being currently held down."
   },
   "@roblox/globaltype/UserInputService.GetMouseButtonsPressed": {
-    "documentation": "Returns an array of <code>InputObjects</code> corresponding with the mouse buttons currently being held down.",
+    "documentation": "Returns an array of <code>InputObjects</code> associated with the mouse buttons currently being held down.",
     "params": [
       {
         "name": "self",
@@ -64962,10 +65568,10 @@
       "@roblox/globaltype/UserInputService.GetMouseButtonsPressed/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GetMouseButtonsPressed",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\n-- InputBegan is a UserInputService event that fires when the player\n-- begins interacting via a Human-User input device\nUserInputService.InputBegan:Connect(function(_input, _gameProcessedEvent)\n\t-- Returns an array of the pressed MouseButtons\n\tlocal buttons = UserInputService:GetMouseButtonsPressed()\n\n\tlocal m1Pressed, m2Pressed = false, false\n\tfor _, button in pairs(buttons) do\n\t\tif button.UserInputType.Name == \"MouseButton1\" then\n\t\t\tprint(\"MouseButton1 is pressed\")\n\t\t\tm1Pressed = true\n\t\tend\n\n\t\tif button.UserInputType.Name == \"MouseButton2\" then\n\t\t\tprint(\"MouseButton2 is pressed\")\n\t\t\tm2Pressed = true\n\t\tend\n\n\t\tif m1Pressed and m2Pressed then\n\t\t\tprint(\"Both mouse buttons are pressed\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nUserInputService.InputBegan:Connect(function(input, gameProcessedEvent)\n\t-- Return an array of the pressed mouse buttons\n\tlocal buttonsPressed = UserInputService:GetMouseButtonsPressed()\n\n\tlocal m1, m2 = false, false\n\tfor _, button in buttonsPressed do\n\t\tif button.UserInputType == Enum.UserInputType.MouseButton1 then\n\t\t\tprint(\"MouseButton1 pressed!\")\n\t\t\tm1 = true\n\t\tend\n\n\t\tif button.UserInputType == Enum.UserInputType.MouseButton2 then\n\t\t\tprint(\"MouseButton2 pressed!\")\n\t\t\tm2 = true\n\t\tend\n\n\t\tif m1 and m2 then\n\t\t\tprint(\"Both mouse buttons pressed!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/UserInputService.GetMouseDelta/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetMouseDelta/return/0": {
     "documentation": "Change in movement of the mouse."
@@ -64985,13 +65591,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetMouseLocation/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetMouseLocation/return/0": {
     "documentation": "A <code>Vector2</code> representing the current screen location of the mouse, in pixels."
   },
   "@roblox/globaltype/UserInputService.GetMouseLocation": {
-    "documentation": "Returns the current screen location of the player's <code>Mouse</code> relative to the top left corner of the screen.",
+    "documentation": "Returns the current screen location of the player's <code>Mouse</code> relative to the top-left corner of the screen.",
     "params": [
       {
         "name": "self",
@@ -65002,16 +65608,16 @@
       "@roblox/globaltype/UserInputService.GetMouseLocation/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#GetMouseLocation",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nlocal RunService = game:GetService(\"RunService\")\n\nlocal gui = script.Parent\nlocal screenGui = gui.Parent\nscreenGui.IgnoreGuiInset = true\n\nlocal function moveGuiToMouse()\n\tlocal mouseLocation = UserInputService:GetMouseLocation()\n\tgui.Position = UDim2.fromOffset(mouseLocation.X, mouseLocation.Y)\nend\n\nmoveGuiToMouse()\nRunService:BindToRenderStep(\"moveGuiToMouse\", 1, moveGuiToMouse)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetNavigationGamepads/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetNavigationGamepads/return/0": {
-    "documentation": "An array of <code>UserInputTypes</code> that can be used for GUI navigation, in descending order of priority."
+    "documentation": "An array of <code>UserInputTypes</code> that can be used for navigation, in descending order of priority."
   },
   "@roblox/globaltype/UserInputService.GetNavigationGamepads": {
-    "documentation": "Returns an array of <code>gamepads</code> connected and enabled for GUI navigation in descending order of priority.",
+    "documentation": "Returns an array of gamepads connected and enabled for <code>GuiObject</code> navigation in descending order of priority.",
     "params": [
       {
         "name": "self",
@@ -65025,7 +65631,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetStringForKeyCode/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetStringForKeyCode/param/1": {
     "documentation": ""
@@ -65052,7 +65658,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetSupportedGamepadKeyCodes/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetSupportedGamepadKeyCodes/param/1": {
     "documentation": "The <code>UserInputType</code> of the gamepad."
@@ -65079,7 +65685,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GetUserCFrame/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.GetUserCFrame/param/1": {
     "documentation": "The <code>UserCFrame</code> corresponding to the VR device."
@@ -65106,19 +65712,19 @@
     "code_sample": "local VRService = game:GetService(\"VRService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.CharacterAdded:Wait()\nlocal head = character:WaitForChild(\"Head\")\n\nlocal function TrackHead(inputType, value)\n\tif inputType == Enum.UserCFrame.Head then\n\t\thead.CFrame = value\n\tend\nend\n\nif VRService.VREnabled then\n\t-- Set the initial CFrame\n\thead.CFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)\n\n\t-- Track VR headset movement and mirror for character's head\n\tVRService.UserCFrameChanged:Connect(TrackHead)\nend"
   },
   "@roblox/globaltype/UserInputService.IsGamepadButtonDown/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.IsGamepadButtonDown/param/1": {
     "documentation": "The <code>UserInputType</code> of the given gamepad."
   },
   "@roblox/globaltype/UserInputService.IsGamepadButtonDown/param/2": {
-    "documentation": "The <code>KeyCode</code> of the specified button."
+    "documentation": "The <code>KeyCode</code> of the specified gamepad button."
   },
   "@roblox/globaltype/UserInputService.IsGamepadButtonDown/return/0": {
-    "documentation": "Whether the specified gamepad button on the given gamepad is pressed is pressed."
+    "documentation": "Whether the specified button on the given gamepad is pressed is pressed."
   },
   "@roblox/globaltype/UserInputService.IsGamepadButtonDown": {
-    "documentation": "Determines whether a particular button is pressed on a particular gamepad.",
+    "documentation": "Determines whether a particular button is pressed on a gamepad.",
     "params": [
       {
         "name": "self",
@@ -65140,7 +65746,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.IsKeyDown/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.IsKeyDown/param/1": {
     "documentation": "The <code>KeyCode</code> of the key."
@@ -65167,7 +65773,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.IsMouseButtonPressed/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.IsMouseButtonPressed/param/1": {
     "documentation": "The <code>UserInputType</code> of the mouse button."
@@ -65176,7 +65782,7 @@
     "documentation": "Whether the given mouse button is currently held down."
   },
   "@roblox/globaltype/UserInputService.IsMouseButtonPressed": {
-    "documentation": "Returns whether the given <code>mouse button</code> is currently held down.",
+    "documentation": "Returns whether the given mouse button is currently held down.",
     "params": [
       {
         "name": "self",
@@ -65194,7 +65800,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.IsNavigationGamepad/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.IsNavigationGamepad/param/1": {
     "documentation": "The <code>UserInputType</code> of the specified gamepad."
@@ -65203,7 +65809,7 @@
     "documentation": "Whether the specified gamepad is a navigation gamepad."
   },
   "@roblox/globaltype/UserInputService.IsNavigationGamepad": {
-    "documentation": "Returns true if the specified <code>UserInputType</code> gamepad is allowed to control the navigation <code>GuiObjects</code>.",
+    "documentation": "Returns <code>true</code> if the specified gamepad is allowed to control navigation and selection <code>GuiObjects</code>.",
     "params": [
       {
         "name": "self",
@@ -65221,7 +65827,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.RecenterUserHeadCFrame/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.RecenterUserHeadCFrame": {
     "documentation": "Recenters the <code>CFrame</code> of the VR headset to the current orientation of the headset worn by the user.",
@@ -65233,10 +65839,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#RecenterUserHeadCFrame",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nUserInputService:RecenterUserHeadCFrame()"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.SetNavigationGamepad/param/0": {
-    "documentation": "<code>UserInputService</code> is a service used to detect the type of input available on a user's device via the use of a <code>LocalScript</code>. The service is also used to detect input events."
+    "documentation": "<code>UserInputService</code> is primarily used to detect the input types available on a user's device, as well as detect input events."
   },
   "@roblox/globaltype/UserInputService.SetNavigationGamepad/param/1": {
     "documentation": "The <code>UserInputType</code> of the specified gamepad."
@@ -65245,7 +65851,7 @@
     "documentation": "Whether the specified gamepad can move the GUI navigator."
   },
   "@roblox/globaltype/UserInputService.SetNavigationGamepad": {
-    "documentation": "Sets whether or not the specified <code>Gamepad</code> can move the <code>GuiObject</code> navigator.",
+    "documentation": "Sets whether or not the specified gamepad can move the <code>GuiObject</code> navigator.",
     "params": [
       {
         "name": "self",
@@ -65262,7 +65868,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#SetNavigationGamepad",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nUserInputService:SetNavigationGamepad(Enum.UserInputType.Gamepad1, true)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.DeviceAccelerationChanged.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -65342,7 +65948,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.DeviceAccelerationChanged": {
-    "documentation": "Fired when a user moves a device that has an accelerometer. Used to track real-world device movement within a Roblox game.",
+    "documentation": "Fires when a user moves a device that has an accelerometer.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.DeviceAccelerationChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.DeviceAccelerationChanged.ConnectParallel",
@@ -65430,7 +66036,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.DeviceGravityChanged": {
-    "documentation": "Fired when the force of gravity changes on a device that has an enabled accelerometer - such as a mobile device.",
+    "documentation": "Fires when the force of gravity changes on a device that has an enabled accelerometer.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.DeviceGravityChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.DeviceGravityChanged.ConnectParallel",
@@ -65518,7 +66124,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.DeviceRotationChanged": {
-    "documentation": "Fired when a user rotates a device that has a gyroscope.",
+    "documentation": "Fires when a user rotates a device that has a gyroscope.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.DeviceRotationChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.DeviceRotationChanged.ConnectParallel",
@@ -65606,7 +66212,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.GamepadConnected": {
-    "documentation": "Fires when a gamepad is connected to the client. Passes the ''gamepadNum'' of the gamepad that was connected.",
+    "documentation": "Fires when a gamepad is connected to the client.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.GamepadConnected.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.GamepadConnected.ConnectParallel",
@@ -65694,7 +66300,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.GamepadDisconnected": {
-    "documentation": "Fires when a gamepad is disconnected from the client. Passes the <code>UserInputType</code> of the gamepad that was disconnected.",
+    "documentation": "Fires when a gamepad is disconnected from the client.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.GamepadDisconnected.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.GamepadDisconnected.ConnectParallel",
@@ -65782,7 +66388,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.InputBegan": {
-    "documentation": "Fired when a user begins interacting via a Human-Computer Interface device - such as a mouse or gamepad.",
+    "documentation": "Fires when a user begins interacting with an input device such as a mouse or gamepad.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.InputBegan.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.InputBegan.ConnectParallel",
@@ -65870,7 +66476,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.InputChanged": {
-    "documentation": "Fired when a user changes how they're interacting via a Human-Computer Interface device.",
+    "documentation": "Fires when a user changes how they're interacting with an input device such as a mouse or gamepad.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.InputChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.InputChanged.ConnectParallel",
@@ -65958,7 +66564,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.InputEnded": {
-    "documentation": "Fires when a user stops interacting via a Human-Computer Interface device.",
+    "documentation": "Fires when a user stops interacting with an input device such as a mouse or gamepad.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.InputEnded.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.InputEnded.ConnectParallel",
@@ -66054,7 +66660,7 @@
       "Wait": "@roblox/globaltype/UserInputService.JumpRequest.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#JumpRequest",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n-- Fires when the user tries to jump\nlocal function jump()\n\thumanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)\nend\n\nUserInputService.JumpRequest:Connect(jump)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nhumanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)\n\nlocal processJumpRequest = false\n\nlocal COOLDOWN_TIME = 0.5\n\nlocal function jumpRequest()\n\tif processJumpRequest == false then\n\t\tprocessJumpRequest = true\n\t\t-- Process custom jump request\n\t\tprint(\"Jump requested!\")\n\t\t-- Reset debounce variable after cooldown\n\t\ttask.wait(COOLDOWN_TIME)\n\t\tprocessJumpRequest = false\n\tend\nend\n\nUserInputService.JumpRequest:Connect(jumpRequest)"
   },
   "@roblox/globaltype/UserInputService.LastInputTypeChanged.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -66134,7 +66740,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.LastInputTypeChanged": {
-    "documentation": "Fires when the client's <code>UserInputType</code> is changed.",
+    "documentation": "Fires whenever the client's <code>UserInputType</code> is changed.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.LastInputTypeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.LastInputTypeChanged.ConnectParallel",
@@ -66142,7 +66748,7 @@
       "Wait": "@roblox/globaltype/UserInputService.LastInputTypeChanged.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#LastInputTypeChanged",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal mouseInput = {\n\tEnum.UserInputType.MouseButton1,\n\tEnum.UserInputType.MouseButton2,\n\tEnum.UserInputType.MouseButton3,\n\tEnum.UserInputType.MouseMovement,\n\tEnum.UserInputType.MouseWheel,\n}\n\nlocal keyboard = Enum.UserInputType.Keyboard\n\nlocal function toggleMouse(lastInputType)\n\tif lastInputType == keyboard then\n\t\tUserInputService.MouseIconEnabled = false\n\t\treturn\n\tend\n\n\tfor _, mouse in pairs(mouseInput) do\n\t\tif lastInputType == mouse then\n\t\t\tUserInputService.MouseIconEnabled = true\n\t\t\treturn\n\t\tend\n\tend\nend\n\nUserInputService.LastInputTypeChanged:Connect(toggleMouse)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.PointerAction.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -66222,7 +66828,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.PointerAction": {
-    "documentation": "Fires when the user performs a specific pointer action (wheel, pinch, pan).",
+    "documentation": "Fires when the user performs a specific pointer action.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.PointerAction.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.PointerAction.ConnectParallel",
@@ -66310,7 +66916,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TextBoxFocusReleased": {
-    "documentation": "Fired when the client loses focus on a <code>TextBox</code>.",
+    "documentation": "Fires when the client loses focus on a <code>TextBox</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TextBoxFocusReleased.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TextBoxFocusReleased.ConnectParallel",
@@ -66318,7 +66924,7 @@
       "Wait": "@roblox/globaltype/UserInputService.TextBoxFocusReleased.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#TextBoxFocusReleased",
-    "code_sample": ""
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal function textBoxFocused(textBox)\n\ttextBox.BackgroundTransparency = 0\nend\n\nlocal function textBoxFocusReleased(textBox)\n\ttextBox.BackgroundTransparency = 0.5\nend\n\nUserInputService.TextBoxFocused:Connect(textBoxFocused)\nUserInputService.TextBoxFocusReleased:Connect(textBoxFocusReleased)"
   },
   "@roblox/globaltype/UserInputService.TextBoxFocused.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -66398,7 +67004,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TextBoxFocused": {
-    "documentation": "Fired when the client focuses on a <code>TextBox</code>.",
+    "documentation": "Fires when the client focuses on a <code>TextBox</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TextBoxFocused.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TextBoxFocused.ConnectParallel",
@@ -66406,7 +67012,7 @@
       "Wait": "@roblox/globaltype/UserInputService.TextBoxFocused.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#TextBoxFocused",
-    "code_sample": ""
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal function textBoxFocused(textBox)\n\ttextBox.BackgroundTransparency = 0\nend\n\nlocal function textBoxFocusReleased(textBox)\n\ttextBox.BackgroundTransparency = 0.5\nend\n\nUserInputService.TextBoxFocused:Connect(textBoxFocused)\nUserInputService.TextBoxFocusReleased:Connect(textBoxFocusReleased)"
   },
   "@roblox/globaltype/UserInputService.TouchDrag.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -66486,7 +67092,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchDrag": {
-    "documentation": "",
+    "documentation": "Fires when the user drags on the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchDrag.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchDrag.ConnectParallel",
@@ -66574,7 +67180,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchEnded": {
-    "documentation": "Fired when a user releases their finger from the screen on a TouchEnabled device - such as the screen of a mobile device.",
+    "documentation": "Fires when a user releases their finger from the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchEnded.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchEnded.ConnectParallel",
@@ -66662,7 +67268,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchLongPress": {
-    "documentation": "Fired when a user holds at least one finger for a short amount of time on the same screen position on a TouchEnabled device - such as the screen of a mobile device.",
+    "documentation": "Fires when a user holds at least one finger for a short amount of time on the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchLongPress.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchLongPress.ConnectParallel",
@@ -66750,7 +67356,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchMoved": {
-    "documentation": "Fires when a user moves their finger on a <code>TouchEnabled</code> device, such as a tablet or smartphone.",
+    "documentation": "Fires when a user moves their finger on the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchMoved.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchMoved.ConnectParallel",
@@ -66838,7 +67444,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchPan": {
-    "documentation": "Fired when a user drags at least one finger on a <code>TouchEnabled</code> device - such as the screen of a mobile device.",
+    "documentation": "Fires when the user drags at least one finger on the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchPan.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchPan.ConnectParallel",
@@ -66926,7 +67532,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchPinch": {
-    "documentation": "Fired when a user pinches their fingers on a <code>TouchEnabled</code> device - such as the screen of a mobile device.",
+    "documentation": "Fires when a user performs a pinch gesture on the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchPinch.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchPinch.ConnectParallel",
@@ -67014,7 +67620,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchRotate": {
-    "documentation": "Fires when a user rotates two fingers on a <code>TouchEnabled</code> device - such as the screen of a mobile device.",
+    "documentation": "Fires when a user rotates two fingers on the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchRotate.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchRotate.ConnectParallel",
@@ -67102,7 +67708,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchStarted": {
-    "documentation": "Fired when a user places their finger on a TouchEnabled device - such as the screen of an Apple iPad or iPhone or a Google Android phone.",
+    "documentation": "Fires when a user places their finger on the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchStarted.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchStarted.ConnectParallel",
@@ -67190,7 +67796,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchSwipe": {
-    "documentation": "Fires on a <code>TouchEnabled</code> device when a user places their finger(s) down on the screen, pans across the screen, and lifts their finger off with a certain speed of movement.",
+    "documentation": "Fires on a <code>TouchEnabled</code> device when a user places their finger(s) down on the screen, pans across the screen, and lifts their finger(s) off with a certain speed of movement.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchSwipe.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchSwipe.ConnectParallel",
@@ -67278,7 +67884,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchTap": {
-    "documentation": "Fired when a user taps their finger on a <code>TouchEnabled</code> device - such as the screen of a mobile device.",
+    "documentation": "Fires when a user taps their finger on the screen of a <code>TouchEnabled</code> device.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchTap.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchTap.ConnectParallel",
@@ -67366,7 +67972,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.TouchTapInWorld": {
-    "documentation": "Fires when a user taps the game world on a <code>TouchEnabled</code> device - such as the screen of a mobile device.",
+    "documentation": "Fires when a user taps their finger on the screen of a <code>TouchEnabled</code> device and the tap location is in the 3D world.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.TouchTapInWorld.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.TouchTapInWorld.ConnectParallel",
@@ -67374,7 +67980,7 @@
       "Wait": "@roblox/globaltype/UserInputService.TouchTapInWorld.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#TouchTapInWorld",
-    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal camera = workspace.CurrentCamera\nlocal LENGTH = 500\n\nlocal function createPart(position, processedByUI)\n\t-- Do not create a part if the player clicked on a GUI/UI element\n\tif processedByUI then\n\t\treturn\n\tend\n\n\t-- Get Vector3 world position from the Vector2 viewport position\n\tlocal unitRay = camera:ViewportPointToRay(position.X, position.Y)\n\tlocal ray = Ray.new(unitRay.Origin, unitRay.Direction * LENGTH)\n\tlocal hitPart, worldPosition = workspace:FindPartOnRay(ray)\n\n\t-- Create a new part at the world position if the player clicked on a part\n\t-- Do not create a new part if player clicks on empty skybox\n\tif hitPart then\n\t\tlocal part = Instance.new(\"Part\")\n\t\tpart.Parent = workspace\n\t\tpart.Anchored = true\n\t\tpart.Size = Vector3.new(1, 1, 1)\n\t\tpart.Position = worldPosition\n\tend\nend\n\nUserInputService.TouchTapInWorld:Connect(createPart)"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.UserCFrameChanged.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -67550,7 +68156,7 @@
       "Wait": "@roblox/globaltype/UserInputService.WindowFocusReleased.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#WindowFocusReleased",
-    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal afkEvent = Instance.new(\"RemoteEvent\")\nafkEvent.Name = \"AfkEvent\"\nafkEvent.Parent = ReplicatedStorage\n\nlocal function setAfk(player, afk)\n\tif afk then\n\t\tlocal forcefield = Instance.new(\"ForceField\")\n\t\tforcefield.Parent = player.Character\n\telse\n\t\tlocal forcefield = player.Character:FindFirstChildOfClass(\"ForceField\")\n\t\tif forcefield then\n\t\t\tforcefield:Destroy()\n\t\tend\n\tend\nend\n\nafkEvent.OnServerEvent:Connect(setAfk)"
+    "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal awayEvent = ReplicatedStorage:WaitForChild(\"AwayEvent\")\n\nlocal function focusGained()\n\tawayEvent:FireServer(false)\nend\n\nlocal function focusReleased()\n\tawayEvent:FireServer(true)\nend\n\nUserInputService.WindowFocused:Connect(focusGained)\nUserInputService.WindowFocusReleased:Connect(focusReleased)"
   },
   "@roblox/globaltype/UserInputService.WindowFocused.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -67638,7 +68244,7 @@
       "Wait": "@roblox/globaltype/UserInputService.WindowFocused.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#WindowFocused",
-    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal afkEvent = Instance.new(\"RemoteEvent\")\nafkEvent.Name = \"AfkEvent\"\nafkEvent.Parent = ReplicatedStorage\n\nlocal function setAfk(player, afk)\n\tif afk then\n\t\tlocal forcefield = Instance.new(\"ForceField\")\n\t\tforcefield.Parent = player.Character\n\telse\n\t\tlocal forcefield = player.Character:FindFirstChildOfClass(\"ForceField\")\n\t\tif forcefield then\n\t\t\tforcefield:Destroy()\n\t\tend\n\tend\nend\n\nafkEvent.OnServerEvent:Connect(setAfk)"
+    "code_sample": ""
   },
   "@roblox/globaltype/VelocityMotor": {
     "documentation": "",
@@ -68207,7 +68813,6 @@
   "@roblox/globaltype/CaptureService": {
     "documentation": "A service which provides control over screenshot capture features.",
     "keys": {
-      "CanCaptureVideo": "@roblox/globaltype/CaptureService.CanCaptureVideo",
       "CaptureScreenshot": "@roblox/globaltype/CaptureService.CaptureScreenshot",
       "PromptSaveCapturesToGallery": "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery",
       "PromptShareCapture": "@roblox/globaltype/CaptureService.PromptShareCapture",
@@ -68216,26 +68821,6 @@
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/CaptureService.CanCaptureVideo/param/0": {
-    "documentation": "A service which provides control over screenshot capture features."
-  },
-  "@roblox/globaltype/CaptureService.CanCaptureVideo/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.CanCaptureVideo": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/CaptureService.CanCaptureVideo/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/CaptureService.CanCaptureVideo/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#CanCaptureVideo",
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/0": {
@@ -69946,7 +70531,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.Backward": {
-    "documentation": "",
+    "documentation": "Specifies an alternate <code>KeyCode</code> for dispatching directionally \"backward\" inputs to the parent <code>InputAction</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Backward",
     "code_sample": ""
   },
@@ -69956,7 +70541,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.Forward": {
-    "documentation": "",
+    "documentation": "Specifies an alternate <code>KeyCode</code> for dispatching directionally \"forward\" inputs to the parent <code>InputAction</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Forward",
     "code_sample": ""
   },
@@ -73957,7 +74542,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.ClearTextOnFocus": {
-    "documentation": "Determines whether clicking on the TextBox will clear its <code>TextBox.Text</code> property.",
+    "documentation": "Determines whether clicking on the <code>TextBox</code> will clear its <code>TextBox.Text</code> property.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ClearTextOnFocus",
     "code_sample": ""
   },
@@ -73997,7 +74582,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MultiLine": {
-    "documentation": "When set to true, text inside a TextBox is able to move onto multiple lines. This also enables players to use the enter key to move onto a new line.",
+    "documentation": "When set to <code>true</code>, text inside a <code>TextBox</code> is able to move onto multiple lines. This also enables players to use the enter key to move onto a new line.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MultiLine",
     "code_sample": ""
   },
@@ -74012,17 +74597,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderColor3": {
-    "documentation": "Sets the text color that gets used when no text has been entered into the TextBox yet.",
+    "documentation": "Sets the text color that gets used when no text has been entered into the <code>TextBox</code> yet.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderText": {
-    "documentation": "Sets the text that gets displayed when no text has been entered into the TextBox yet.",
+    "documentation": "Sets the text that gets displayed when no text has been entered into the <code>TextBox</code> yet.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.RichText": {
-    "documentation": "Determines whether the TextBox renders the <code>TextBox.Text</code> string using rich text formatting.",
+    "documentation": "Determines whether the <code>TextBox</code> renders the <code>TextBox.Text</code> string using rich text formatting.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#RichText",
     "code_sample": ""
   },
@@ -74143,7 +74728,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextBox.IsFocused": {
-    "documentation": "Returns true if the textbox is focused, or false if it is not.",
+    "documentation": "Returns <code>true</code> if the <code>TextBox</code> is focused or <code>false</code> if it is not.",
     "params": [
       {
         "name": "self",
@@ -82126,17 +82711,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction1DState": {
-    "documentation": "",
+    "documentation": "Non-scriptable read-only property useful for debugging <code>Direction1D</code> input actions.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction2DState": {
-    "documentation": "",
+    "documentation": "Non-scriptable read-only property useful for debugging <code>Direction2D</code> input actions.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction3DState": {
-    "documentation": "",
+    "documentation": "Non-scriptable read-only property useful for debugging <code>Direction3D</code> input actions.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
@@ -86700,7 +87285,6 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
-      "IsLegacyChatDisabled": "@roblox/globaltype/TextChatService.IsLegacyChatDisabled",
       "DisplayBubble": "@roblox/globaltype/TextChatService.DisplayBubble",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
@@ -86730,11 +87314,6 @@
   "@roblox/globaltype/TextChatService.CreateDefaultTextChannels": {
     "documentation": "Determines whether <code>TextChatService</code> should create default <code>TextChannels</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TextChatService.IsLegacyChatDisabled": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#IsLegacyChatDisabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/0": {
@@ -91115,7 +91694,6 @@
   "@roblox/globaltype/WorldRoot": {
     "documentation": "Base class for handling physics simulation and 3D spatial queries.",
     "keys": {
-      "PhysicsStepTime": "@roblox/globaltype/WorldRoot.PhysicsStepTime",
       "ArePartsTouchingOthers": "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers",
       "Blockcast": "@roblox/globaltype/WorldRoot.Blockcast",
       "BulkMoveTo": "@roblox/globaltype/WorldRoot.BulkMoveTo",
@@ -91139,11 +91717,6 @@
       "findPartsInRegion3": "@roblox/globaltype/WorldRoot.findPartsInRegion3"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldRoot",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/WorldRoot.PhysicsStepTime": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldRoot#PhysicsStepTime",
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/0": {
@@ -93422,7 +93995,6 @@
       "HideSelfView": "@roblox/globaltype/SocialService.HideSelfView",
       "PromptGameInvite": "@roblox/globaltype/SocialService.PromptGameInvite",
       "PromptPhoneBook": "@roblox/globaltype/SocialService.PromptPhoneBook",
-      "PromptRsvpToEventCompleted": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted",
       "ShowSelfView": "@roblox/globaltype/SocialService.ShowSelfView",
       "CanSendCallInviteAsync": "@roblox/globaltype/SocialService.CanSendCallInviteAsync",
       "CanSendGameInviteAsync": "@roblox/globaltype/SocialService.CanSendGameInviteAsync",
@@ -93534,42 +94106,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptPhoneBook",
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal SocialService = game:GetService(\"SocialService\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\nbutton.Visible = false\n\n-- Function to check whether the player can send a call invite\nlocal function canSendCallingInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendCallInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canCall = canSendCallingInvite(player)\nif canCall then\n\tbutton.Visible = true\n\tbutton.Activated:Connect(function()\n\t\tSocialService:PromptPhoneBook(player, \"\")\n\tend)\nend"
   },
-  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/0": {
-    "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
-  },
-  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/0"
-      },
-      {
-        "name": "eventId",
-        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/1"
-      },
-      {
-        "name": "success",
-        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/2"
-      },
-      {
-        "name": "rsvpStatus",
-        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventCompleted/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptRsvpToEventCompleted",
-    "code_sample": ""
-  },
   "@roblox/globaltype/SocialService.ShowSelfView/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
@@ -93657,13 +94193,13 @@
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/1": {
-    "documentation": ""
+    "documentation": "The event ID of the event to prompt the player to change their RSVP status for. This must be a valid event ID that exists in the current experience, represented as a string (not a number)."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/return/0": {
-    "documentation": ""
+    "documentation": "Returns an <code>RsvpStatus</code> indicating the player's current RSVP status for the event. If the player has not RSVP'd to the event, this will return <code>RsvpStatus.None</code>."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync": {
-    "documentation": "",
+    "documentation": "Returns the local player's RSVP status for the given event.",
     "params": [
       {
         "name": "self",
@@ -93711,13 +94247,13 @@
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
-    "documentation": ""
+    "documentation": "The event ID of the event to prompt the player to change their RSVP status for. This must be a valid event ID that exists in the current experience, represented as a string (not a number)."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
-    "documentation": ""
+    "documentation": "Returns a <code>RsvpStatus</code> indicating the player's new RSVP status after the prompt is closed. If the player closes the prompt without changing their RSVP status, this will return <code>RsvpStatus.None</code> or their old <code>RsvpStatus</code> if they had already selected a status."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
-    "documentation": "",
+    "documentation": "Prompts the local <code>Player</code> with a prompt to change their RSVP status to the given event.",
     "params": [
       {
         "name": "self",
@@ -94023,94 +94559,6 @@
       "Wait": "@roblox/globaltype/SocialService.PhoneBookPromptClosed.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PhoneBookPromptClosed",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect/param/0": {
-    "documentation": "An object that runs connected functions upon a specific occurrence."
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect": {
-    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel/param/0": {
-    "documentation": "An object that runs connected functions upon a specific occurrence."
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel": {
-    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once/param/0": {
-    "documentation": "An object that runs connected functions upon a specific occurrence."
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once": {
-    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Wait/param/0": {
-    "documentation": "An object that runs connected functions upon a specific occurrence."
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Wait": {
-    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Connect",
-      "ConnectParallel": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.ConnectParallel",
-      "Once": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Once",
-      "Wait": "@roblox/globaltype/SocialService.ShowPromptRsvpToEvent.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#ShowPromptRsvpToEvent",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderingTest": {
@@ -98372,7 +98820,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DevTouchMovementMode.UserChoice": {
-    "documentation": "The player's character will moved based on the user's settings.",
+    "documentation": "Allows players to choose their desired control scheme from the in-experience menu. This is the default movement mode.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -98422,7 +98870,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DevTouchMovementMode.Scriptable": {
-    "documentation": "The player will not respond to default controls; any character movement must be defined in custom scripts.",
+    "documentation": "The player's character will not respond to default controls; any character movement must be defined in custom scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -98432,7 +98880,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DevTouchMovementMode.DynamicThumbstick": {
-    "documentation": "The player's character is controlled with a virtual thumbstick that appears when they touch the lower portion of the screen. Jumping is controlled with a separate button. Good for portrait mode and one handed play.",
+    "documentation": "The player's character is controlled with a virtual thumbstick that appears when they touch the lower portion of the screen. Jumping is controlled with a separate button.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -98442,7 +98890,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.DevTouchMovementMode": {
-    "documentation": "Overrides the movement mode of players who are playing on touch devices.",
+    "documentation": "Overrides the movement mode of players who are playing on touch-enabled devices.",
     "keys": {
       "UserChoice": "@roblox/enum/DevTouchMovementMode.UserChoice",
       "Thumbstick": "@roblox/enum/DevTouchMovementMode.Thumbstick",
@@ -106457,7 +106905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DevComputerMovementMode.UserChoice": {
-    "documentation": "The player's character will moved based on the user's settings.",
+    "documentation": "Allows players to choose their desired control scheme from the in-experience menu. This is the default movement mode.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106477,7 +106925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DevComputerMovementMode.ClickToMove": {
-    "documentation": "The player can right click in the game world and the character will move there. Player can also control character with mouse and keyboard.",
+    "documentation": "Players can only move through the experience by clicking a target location. The player's character will automatically jump when reaching a surmountable obstacle/gap while moving to the click destination.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106487,7 +106935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DevComputerMovementMode.Scriptable": {
-    "documentation": "The player will not respond to default controls. You must define any character movement in custom scripts.",
+    "documentation": "Disables all default controls and allows you to script your own control scheme.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112584,7 +113032,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UserInputState.Begin": {
-    "documentation": "Occurs when an <code>InputObject</code> starts to interact with the game. For example, a mouse button down, or a key down, or when a touch begins touching the screen.",
+    "documentation": "Occurs when an <code>InputObject</code> starts to interact with the experience. For example, a mouse button down, a key down, or when the player begins touching the screen.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112594,7 +113042,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UserInputState.Change": {
-    "documentation": "Occurs each frame an <code>InputObject</code> has already begun interacting with the game and part of its state is changing. For example, a movement of the mouse position, a gamepad thumbstick, gamepad trigger button, or screen touch point.",
+    "documentation": "Occurs each frame an <code>InputObject</code> has already begun interacting with the experience and part of its state is changing. For example, movement of the mouse position, a gamepad thumbstick movement, an analog gamepad trigger button change, or screen touch point change.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112604,7 +113052,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UserInputState.End": {
-    "documentation": "When an <code>InputObject</code> finishes interacting with the game. For example, a mouse button up, or a key up, or when a touch stops touching the screen.",
+    "documentation": "Occurs when an <code>InputObject</code> finishes interacting with the experience. For example, a mouse button up, a key up, or when the player stops touching the screen.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112614,7 +113062,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UserInputState.Cancel": {
-    "documentation": "A special circumstance state that indicates this input is no longer relevant, particularly with <code>ContextActionService</code>. For example, binding two action-handling functions will cause the first to Cancel if an input was already in-progress when the second was bound.",
+    "documentation": "A special circumstance state that indicates this input is no longer relevant, particularly with <code>ContextActionService</code>. For example, binding two action-handling functions will cause the first to <code>Cancel</code> if an input was already in-progress when the second was bound.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112624,7 +113072,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UserInputState.None": {
-    "documentation": "A state that should never be seen in a game, essentially just marks the end of the enum.",
+    "documentation": "A state that should never be seen in an experience; essentially just marks the end of the enum.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112634,7 +113082,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.UserInputState": {
-    "documentation": "The <strong>UserInputState</strong> enum describes the state of an input that is currently or was recently performed.",
+    "documentation": "This enum describes the state of an input that is currently or was recently performed.",
     "keys": {
       "Begin": "@roblox/enum/UserInputState.Begin",
       "Change": "@roblox/enum/UserInputState.Change",
@@ -124140,7 +124588,7 @@
     "code_sample": ""
   },
   "@roblox/enum/InputActionType.Bool": {
-    "documentation": "The <code>InputAction</code> will receive boolean values from button inputs, for example <code>true</code>/<code>false</code> on press/release from inputs such as <code>KeyCode.ButtonA</code> or <code>KeyCode.E</code>.",
+    "documentation": "The <code>InputAction</code> will receive boolean values from button inputs, for example <code>true</code>/<code>false</code> on press/release from inputs such as <code>KeyCode.ButtonA</code> or <code>KeyCode.E</code>. This setting also exposes the <code>UIButton</code> property on child <code>InputBindings</code>, allowing you to easily hook up press or release of a <code>GuiButton</code> for the action.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -124150,7 +124598,7 @@
     "code_sample": ""
   },
   "@roblox/enum/InputActionType.Direction1D": {
-    "documentation": "The <code>InputAction</code> will receive numerical values, generally from analog gamepad triggers such as <code>KeyCode.ButtonL2</code> or <code>KeyCode.ButtonR2</code>.",
+    "documentation": "The <code>InputAction</code> will receive numerical values, generally from analog gamepad triggers such as <code>KeyCode.ButtonL2</code> or <code>KeyCode.ButtonR2</code>. This setting also exposes the <code>Up</code> and <code>Down</code> properties on child <code>InputBindings</code>, allowing for boolean inputs or \"1D\" inputs as composite directions for the action.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -124160,7 +124608,7 @@
     "code_sample": ""
   },
   "@roblox/enum/InputActionType.Direction2D": {
-    "documentation": "The <code>InputAction</code> will receive <code>Vector2</code> values, generally from thumbstick inputs such as <code>KeyCode.Thumbstick1</code> and <code>KeyCode.Thumbstick2</code>.",
+    "documentation": "The <code>InputAction</code> will receive <code>Vector2</code> values, generally from thumbstick inputs such as <code>KeyCode.Thumbstick1</code> and <code>KeyCode.Thumbstick2</code>. This setting also exposes the <code>Up</code>, <code>Down</code>, <code>Left</code>, and <code>Right</code> properties on child <code>InputBindings</code>, allowing for \"2D\" inputs as composite directions for the action.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -124170,7 +124618,7 @@
     "code_sample": ""
   },
   "@roblox/enum/InputActionType.Direction3D": {
-    "documentation": "",
+    "documentation": "The <code>InputAction</code> will receive <code>Vector3</code> values from inputs assigned to the <code>Up</code>, <code>Down</code>, <code>Left</code>, <code>Right</code>, <code>Forward</code>, and/or <code>Backward</code> properties on child <code>InputBindings</code>, allowing for \"3D\" inputs as composite directions for the action.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127006,7 +127454,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredInput.KeyboardAndMouse": {
-    "documentation": "",
+    "documentation": "The player has connected or most recently interacted with a keyboard or mouse.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127016,7 +127464,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredInput.Gamepad": {
-    "documentation": "",
+    "documentation": "The player has connected or most recently interacted with a gamepad.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127026,7 +127474,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredInput.Touch": {
-    "documentation": "",
+    "documentation": "The player's device has touch capability and no other input method is available or connected.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127036,7 +127484,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PreferredInput": {
-    "documentation": "",
+    "documentation": "This enum is used with <code>UserInputService.PreferredInput</code> to indicate the primary input type a player is likely using.",
     "keys": {
       "KeyboardAndMouse": "@roblox/enum/PreferredInput.KeyboardAndMouse",
       "Gamepad": "@roblox/enum/PreferredInput.Gamepad",
@@ -129410,7 +129858,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ContextActionResult.Sink": {
-    "documentation": "If <em>functionToBind</em> from <code>ContextActionService:BindAction()</code> returns Enum.ContextActionResult.Sink, the input event will stop at that function and no other bound actions under it will be processed. This is the default behavior if <em>functionToBind</em> does not return anything or yields in any way.",
+    "documentation": "If <code>functionToBind</code> from <code>ContextActionService:BindAction()</code> returns <code>ContextActionResult.Sink</code>, the input event will stop at that function and no other bound actions under it will be processed. This is the default behavior if <code>functionToBind</code> does not return anything or yields in any way.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129420,7 +129868,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ContextActionResult.Pass": {
-    "documentation": "If <em>functionToBind</em> from <code>ContextActionService:BindAction()</code> returns Enum.ContextActionResult.Pass, the input event is considered to have not been handled by <em>functionToBind</em> and will continue being passed to actions bound to the same input type.",
+    "documentation": "If <code>functionToBind</code> from <code>ContextActionService:BindAction()</code> returns <code>ContextActionResult.Pass</code>, the input event is considered to have not been handled by <code>functionToBind</code> and will continue being passed to actions bound to the same input type.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129430,7 +129878,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ContextActionResult": {
-    "documentation": "Describes whether a ContextAction should sink or pass input events.",
+    "documentation": "Describes whether a contextual action should sink or pass input events.",
     "keys": {
       "Sink": "@roblox/enum/ContextActionResult.Sink",
       "Pass": "@roblox/enum/ContextActionResult.Pass"

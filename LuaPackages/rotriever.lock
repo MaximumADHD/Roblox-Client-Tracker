@@ -32,7 +32,7 @@ dependencies = [
     "LuauRegExp RegExp 0.2.2 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "React React 17.2.0 registry",
-    "ReactTestingLibrary ReactTestingLibrary 12.3.2 registry",
+    "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
     "ZenObservable ZenObservable 0.8.16-roblox.0 registry",
 ]
 
@@ -50,7 +50,7 @@ dependencies = ["Number Number 1.2.3 registry"]
 
 [[package]]
 name = "BuilderIcons"
-version = "0.1.0"
+version = "0.1.8"
 source = "registry"
 
 [[package]]
@@ -90,16 +90,16 @@ dependencies = [
     "ApolloClient ApolloClient 0.3.10 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps 0.0.1 registry",
-    "BuilderIcons BuilderIcons 0.1.0 registry",
+    "BuilderIcons BuilderIcons 0.1.8 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 0.1.9 registry",
     "DataLoader DataLoader 0.2.0 registry",
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.29.1 registry",
-    "FoundationImages FoundationImages 1.25.0 registry",
-    "FoundationTestingLibrary FoundationTestingLibrary 0.1.0 registry",
+    "Foundation Foundation 1.31.0 registry",
+    "FoundationImages FoundationImages 1.26.0 registry",
+    "FoundationTestingLibrary FoundationTestingLibrary 0.1.1 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
@@ -132,7 +132,7 @@ dependencies = [
     "ReactReconciler ReactReconciler 17.2.0 registry",
     "ReactRoblox ReactRoblox 17.2.0 registry",
     "ReactSceneUnderstanding ReactSceneUnderstanding 0.13.0 registry",
-    "ReactTestingLibrary ReactTestingLibrary 12.3.2 registry",
+    "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
     "ReactTestingUtils ReactTestingUtils 1.3.1 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
     "RecordPlayback RecordPlayback 0.1.1 registry",
@@ -159,9 +159,9 @@ dependencies = [
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.3.0 registry",
-    "UGCValidation UGCValidation 1.16.8 registry",
-    "UIBlox UIBlox 0.2.92 registry",
-    "UrlBuilder UrlBuilder 1.2.11 registry",
+    "UGCValidation UGCValidation 1.16.9 registry",
+    "UIBlox UIBlox 0.2.102 registry",
+    "UrlBuilder UrlBuilder 1.2.12 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
     "enumerate enumerate 1.1.0 registry",
@@ -304,13 +304,13 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.29.1"
+version = "1.31.0"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.0 registry",
+    "BuilderIcons BuilderIcons 0.1.8 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 1.1.0 registry",
-    "FoundationImages FoundationImages 1.25.0 registry",
+    "FoundationImages FoundationImages 1.26.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Motion Motion 0.1.0 registry",
     "Otter Otter 1.3.3 registry",
@@ -328,17 +328,23 @@ dependencies = [
 
 [[package]]
 name = "FoundationImages"
-version = "1.25.0"
+version = "1.26.0"
 source = "registry"
 
 [[package]]
 name = "FoundationTestingLibrary"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry"
 dependencies = [
+    "BuilderIcons BuilderIcons 0.1.8 registry",
     "Cryo Cryo 1.1.0 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "FoundationImages FoundationImages 1.25.0 registry",
+    "Foundation Foundation 1.31.0 registry",
+    "FoundationImages FoundationImages 1.26.0 registry",
+    "JestGlobals JestGlobals 3.13.3 registry",
+    "React React 17.2.0 registry",
+    "ReactIs ReactIs 17.2.0 registry",
+    "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
 ]
 
 [[package]]
@@ -400,7 +406,7 @@ dependencies = [
     "Roact RoactCompat 17.2.0 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.92 registry",
+    "UIBlox UIBlox 0.2.102 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -1377,7 +1383,7 @@ dependencies = [
 
 [[package]]
 name = "ReactTestingLibrary"
-version = "12.3.2"
+version = "12.3.4"
 source = "registry"
 dependencies = [
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
@@ -1396,7 +1402,7 @@ version = "1.3.1"
 source = "registry"
 dependencies = [
     "React React 17.2.0 registry",
-    "ReactTestingLibrary ReactTestingLibrary 12.3.2 registry",
+    "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
 ]
 
@@ -1759,7 +1765,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.92 registry",
+    "UIBlox UIBlox 0.2.102 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1847,7 +1853,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.16.8"
+version = "1.16.9"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1856,13 +1862,14 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.92"
+version = "0.2.102"
 source = "registry"
 dependencies = [
+    "BuilderIcons BuilderIcons 0.1.8 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.29.1 registry",
-    "FoundationImages FoundationImages 1.25.0 registry",
+    "Foundation Foundation 1.31.0 registry",
+    "FoundationImages FoundationImages 1.26.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -1885,7 +1892,7 @@ dependencies = [
 
 [[package]]
 name = "UrlBuilder"
-version = "1.2.11"
+version = "1.2.12"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",

@@ -188,6 +188,7 @@ Studio.App.RBXMainWindow.InsertObjectsFromWeb,,Insert Objects from Web,Insert Ob
 Studio.App.RBXMainWindow.InsertObjectsWidgetExplorer,,Open insert objects widget in explorer,Open insert objects widget in explorer
 Studio.App.RBXMainWindow.InsertObjectsWidgetMenu,,Open insert object menu,Open insert object menu
 Studio.App.RBXMainWindow.InsertPart,,Insert Part,Insert Part
+Studio.App.RBXMainWindow.InsertPartIntoSelection,Describes an action that can be used to insert a Part into an instance the user has selected,Insert Part into selection,Insert Part into selection
 Studio.App.RBXMainWindow.InsertServices,,Insert Services.,Insert Services.
 Studio.App.RBXMainWindow.InstanceDefaultsEditor,,Instance Defaults Editor,Instance Defaults Editor
 Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump

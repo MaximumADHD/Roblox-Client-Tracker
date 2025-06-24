@@ -121,7 +121,7 @@ Studio.TerrainEditor.PivotPosition.Center,,,Center,Center,الوسط,Mitte,Centr
 Studio.TerrainEditor.PivotPosition.Top,,,Top,Top,أعلى,Oben,Superior,Haut,ऊपर,Atas,Superiore,上,상단,Góra,Superior,,ด้านบน,Üst,Trên,顶部,顶部,頂
 Studio.TerrainEditor.PlaneLock.Off,,,Off,Off,معطّل,Aus,Desactivado,Off,ऑफ़ है/बंद है,Mati,Off,オフ,끄기,Wył.,A partir de,,ปิด,Kapalı,Tắt,关闭,关闭,關閉
 Studio.TerrainEditor.PlaneLock.Auto,,,Auto,Auto,تلقائي,Auto,Autom.,Auto,ऑटो,Otomatis,Auto,自動,자동,Auto,Automático,,อัตโนมัติ,Otomatik,Tự Động,自动,自动,自動
-Studio.TerrainEditor.PlaneLock.Manual,,,Manual,Manual,يدوي,Manuell,Manual,Manuel,मैन्युअल,Manual,Manuale,マニュアル,수동,Ręcznie,Manual,,ด้วยตัวเอง,Manuel,Thủ Công,手动,手动,手動
+Studio.TerrainEditor.PlaneLock.Manual,,,Manual,Manual,يدوي,Manuell,Manual,Manuel,मैन्युअल,Manual,Manuale,手動,수동,Ręcznie,Manual,,ด้วยตัวเอง,Manuel,Thủ Công,手动,手动,手動
 Studio.TerrainEditor.EditorEnum.BrushMode,,,Brush Mode,Brush Mode,وضع الفرشاة,Pinselmodus,Modo Pincel,En mode pinceau,ब्रश मोड,Mode Kuas,Modalità pennello,ブラシモード,브러시 모드,Tryb pędzla,Modo pincel,,โหมดแปรง,Fırça Modu,Chế Độ Cọ Vẽ,涂刷模式,涂刷模式,筆刷模式
 Studio.TerrainEditor.EditorEnum.BrushShape,,,Brush Shape,Brush Shape,شكل الفرشاة,Pinselform,Forma del pincel,Forme du pinceau,ब्रश का आकार,Bentuk Kuas,Forma pennello,ブラシの形状,브러시 모양,Kształt pędzla,Forma de pincel,,รูปร่างแปรง,Fırça Şekli,Hình Dạng Cọ Vẽ,涂刷形状,涂刷形状,筆刷形狀
 Studio.TerrainEditor.EditorEnum.FlattenMode,,,Flatten Mode,Flatten Mode,وضع التسوية,Abflachungsmodus,Modo Aplanado,Aplanir le mode,सपाट मोड,Mode Ratakan,Modalità appiattimento,平地化モード,평탄화 모드,Tryb spłaszczania,Modo achatar,,โหมดทำให้เรียบแบน,Düzleştirme Modu,Chế Độ Làm Phẳng,扁平化模式,扁平化模式,平地化模式

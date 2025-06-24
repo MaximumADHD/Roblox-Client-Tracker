@@ -4181,6 +4181,44 @@
         </Item>
       </Item>
     </Item>
+    
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">UIContainerQuery</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="PreferredParent">GuiBase2d</string>
+        <bool name="FFlag">UIContainerQuery</bool>
+      </Properties>
+
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MinSize</string>
+            <string name="PropertyOrder">1</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxSize</string>
+            <string name="PropertyOrder">2</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AspectRatioRange</string>
+            <string name="PropertyOrder">3</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Active</string>
+            <string name="PropertyOrder">4</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
 
     <Item class="ReflectionMetadataClass">
       <Properties>
