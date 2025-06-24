@@ -154,62 +154,62 @@ PROTO_0:
   SETTABLEKS R22 R21 K37 ["Size"]
   LOADN R22 1
   SETTABLEKS R22 R21 K38 ["BackgroundTransparency"]
-  DUPTABLE R22 K45 [{"Layout", "Padding", "GeometryDrawer", "CPUDrawer", "SettingsButtonFrame", "EditDMWarning"}]
+  DUPTABLE R22 K46 [{"Layout", "Padding", "GeometryDrawer", "CPUDrawer", "RenderSettingDrawer", "SettingsButtonFrame", "EditDMWarning"}]
   GETUPVAL R24 2
   GETTABLEKS R23 R24 K30 ["createElement"]
-  LOADK R24 K46 ["UIListLayout"]
-  DUPTABLE R25 K51 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R26 K53 [UDim.new]
+  LOADK R24 K47 ["UIListLayout"]
+  DUPTABLE R25 K52 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R26 K54 [UDim.new]
   LOADN R27 0
   LOADN R28 10
   CALL R26 2 1
   SETTABLEKS R26 R25 K40 ["Padding"]
-  GETIMPORT R26 K56 [Enum.FillDirection.Vertical]
-  SETTABLEKS R26 R25 K47 ["FillDirection"]
-  GETIMPORT R26 K58 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R26 R25 K48 ["HorizontalAlignment"]
-  GETIMPORT R26 K60 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R26 R25 K49 ["VerticalAlignment"]
-  GETIMPORT R26 K62 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R26 R25 K50 ["SortOrder"]
+  GETIMPORT R26 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R26 R25 K48 ["FillDirection"]
+  GETIMPORT R26 K59 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R26 R25 K49 ["HorizontalAlignment"]
+  GETIMPORT R26 K61 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R26 R25 K50 ["VerticalAlignment"]
+  GETIMPORT R26 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R26 R25 K51 ["SortOrder"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K39 ["Layout"]
   GETUPVAL R24 2
   GETTABLEKS R23 R24 K30 ["createElement"]
-  LOADK R24 K63 ["UIPadding"]
-  DUPTABLE R25 K68 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R26 K53 [UDim.new]
+  LOADK R24 K64 ["UIPadding"]
+  DUPTABLE R25 K69 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R26 K54 [UDim.new]
   LOADN R27 0
   LOADN R28 10
   CALL R26 2 1
-  SETTABLEKS R26 R25 K64 ["PaddingTop"]
-  GETIMPORT R26 K53 [UDim.new]
+  SETTABLEKS R26 R25 K65 ["PaddingTop"]
+  GETIMPORT R26 K54 [UDim.new]
   LOADN R27 0
   LOADN R28 10
   CALL R26 2 1
-  SETTABLEKS R26 R25 K65 ["PaddingBottom"]
-  GETIMPORT R26 K53 [UDim.new]
+  SETTABLEKS R26 R25 K66 ["PaddingBottom"]
+  GETIMPORT R26 K54 [UDim.new]
   LOADN R27 0
   LOADN R28 12
   CALL R26 2 1
-  SETTABLEKS R26 R25 K66 ["PaddingLeft"]
-  GETIMPORT R26 K53 [UDim.new]
+  SETTABLEKS R26 R25 K67 ["PaddingLeft"]
+  GETIMPORT R26 K54 [UDim.new]
   LOADN R27 0
   LOADN R28 12
   CALL R26 2 1
-  SETTABLEKS R26 R25 K67 ["PaddingRight"]
+  SETTABLEKS R26 R25 K68 ["PaddingRight"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K40 ["Padding"]
   GETUPVAL R24 2
   GETTABLEKS R23 R24 K30 ["createElement"]
   GETUPVAL R24 3
-  DUPTABLE R25 K71 [{"LayoutOrder", "TopContent", "ExpandingContent"}]
+  DUPTABLE R25 K72 [{"LayoutOrder", "TopContent", "ExpandingContent"}]
   LOADN R26 1
-  SETTABLEKS R26 R25 K61 ["LayoutOrder"]
+  SETTABLEKS R26 R25 K62 ["LayoutOrder"]
   GETUPVAL R27 2
   GETTABLEKS R26 R27 K30 ["createElement"]
   LOADK R27 K31 ["Frame"]
-  DUPTABLE R28 K73 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
+  DUPTABLE R28 K74 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
   GETIMPORT R29 K36 [UDim2.new]
   LOADN R30 1
   LOADN R31 0
@@ -219,145 +219,145 @@ PROTO_0:
   SETTABLEKS R29 R28 K37 ["Size"]
   LOADN R29 1
   SETTABLEKS R29 R28 K38 ["BackgroundTransparency"]
-  GETIMPORT R29 K75 [Enum.AutomaticSize.Y]
-  SETTABLEKS R29 R28 K72 ["AutomaticSize"]
-  DUPTABLE R29 K77 [{"Layout", "Padding", "MeasuringBar"}]
+  GETIMPORT R29 K76 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K73 ["AutomaticSize"]
+  DUPTABLE R29 K78 [{"Layout", "Padding", "MeasuringBar"}]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
-  LOADK R31 K46 ["UIListLayout"]
-  DUPTABLE R32 K51 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R33 K53 [UDim.new]
+  LOADK R31 K47 ["UIListLayout"]
+  DUPTABLE R32 K52 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
   SETTABLEKS R33 R32 K40 ["Padding"]
-  GETIMPORT R33 K56 [Enum.FillDirection.Vertical]
-  SETTABLEKS R33 R32 K47 ["FillDirection"]
-  GETIMPORT R33 K58 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R33 R32 K48 ["HorizontalAlignment"]
-  GETIMPORT R33 K60 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R33 R32 K49 ["VerticalAlignment"]
-  GETIMPORT R33 K62 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R33 R32 K50 ["SortOrder"]
+  GETIMPORT R33 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R33 R32 K48 ["FillDirection"]
+  GETIMPORT R33 K59 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R33 R32 K49 ["HorizontalAlignment"]
+  GETIMPORT R33 K61 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R33 R32 K50 ["VerticalAlignment"]
+  GETIMPORT R33 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R33 R32 K51 ["SortOrder"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K39 ["Layout"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
-  LOADK R31 K63 ["UIPadding"]
-  DUPTABLE R32 K68 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R33 K53 [UDim.new]
+  LOADK R31 K64 ["UIPadding"]
+  DUPTABLE R32 K69 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K64 ["PaddingTop"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K65 ["PaddingTop"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K65 ["PaddingBottom"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K66 ["PaddingBottom"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K66 ["PaddingLeft"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K67 ["PaddingLeft"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K67 ["PaddingRight"]
+  SETTABLEKS R33 R32 K68 ["PaddingRight"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K40 ["Padding"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
   GETUPVAL R31 4
-  DUPTABLE R32 K84 [{"FillAmount", "MainText", "Text", "Size", "Pips", "ThresholdTooltips", "ThresholdExtraInfo"}]
-  SETTABLEKS R13 R32 K78 ["FillAmount"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K86 ["GeometryBudget"]
-  NAMECALL R33 R1 K87 ["getText"]
+  DUPTABLE R32 K85 [{"FillAmount", "MainText", "Text", "Size", "Pips", "ThresholdTooltips", "ThresholdExtraInfo"}]
+  SETTABLEKS R13 R32 K79 ["FillAmount"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K87 ["GeometryBudget"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K79 ["MainText"]
-  LOADK R34 K88 ["%*%%"]
+  SETTABLEKS R33 R32 K80 ["MainText"]
+  LOADK R34 K89 ["%*%%"]
   MOVE R36 R14
   NAMECALL R34 R34 K21 ["format"]
   CALL R34 2 1
   MOVE R33 R34
-  SETTABLEKS R33 R32 K80 ["Text"]
-  GETIMPORT R33 K90 [UDim2.fromScale]
+  SETTABLEKS R33 R32 K81 ["Text"]
+  GETIMPORT R33 K91 [UDim2.fromScale]
   LOADN R34 1
   LOADN R35 1
   CALL R33 2 1
   SETTABLEKS R33 R32 K37 ["Size"]
   NEWTABLE R33 0 2
   GETUPVAL R36 5
-  GETTABLEKS R35 R36 K91 ["Threshold"]
-  GETTABLEKS R34 R35 K92 ["Medium"]
+  GETTABLEKS R35 R36 K92 ["Threshold"]
+  GETTABLEKS R34 R35 K93 ["Medium"]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K93 ["High"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K94 ["High"]
   SETLIST R33 R34 2 [1]
-  SETTABLEKS R33 R32 K81 ["Pips"]
+  SETTABLEKS R33 R32 K82 ["Pips"]
   NEWTABLE R33 0 3
-  DUPTABLE R34 K96 [{"Threshold", "TitleText", "BodyText"}]
+  DUPTABLE R34 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K97 ["Low"]
-  SETTABLEKS R35 R34 K91 ["Threshold"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K98 ["LowGeometrySceneComplexity"]
-  NAMECALL R35 R1 K87 ["getText"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K98 ["Low"]
+  SETTABLEKS R35 R34 K92 ["Threshold"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K99 ["LowGeometrySceneComplexity"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K94 ["TitleText"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K99 ["GeometryBudgetLow"]
-  NAMECALL R35 R1 K87 ["getText"]
+  SETTABLEKS R35 R34 K95 ["TitleText"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K100 ["GeometryBudgetLow"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K95 ["BodyText"]
-  DUPTABLE R35 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R35 R34 K96 ["BodyText"]
+  DUPTABLE R35 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R38 5
-  GETTABLEKS R37 R38 K91 ["Threshold"]
-  GETTABLEKS R36 R37 K92 ["Medium"]
-  SETTABLEKS R36 R35 K91 ["Threshold"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K100 ["MediumGeometrySceneComplexity"]
-  NAMECALL R36 R1 K87 ["getText"]
+  GETTABLEKS R37 R38 K92 ["Threshold"]
+  GETTABLEKS R36 R37 K93 ["Medium"]
+  SETTABLEKS R36 R35 K92 ["Threshold"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K101 ["MediumGeometrySceneComplexity"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K94 ["TitleText"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K101 ["GeometryBudgetMedium"]
-  NAMECALL R36 R1 K87 ["getText"]
+  SETTABLEKS R36 R35 K95 ["TitleText"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K102 ["GeometryBudgetMedium"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K95 ["BodyText"]
-  DUPTABLE R36 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R36 R35 K96 ["BodyText"]
+  DUPTABLE R36 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R39 5
-  GETTABLEKS R38 R39 K91 ["Threshold"]
-  GETTABLEKS R37 R38 K93 ["High"]
-  SETTABLEKS R37 R36 K91 ["Threshold"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K102 ["HighGeometrySceneComplexity"]
-  NAMECALL R37 R1 K87 ["getText"]
+  GETTABLEKS R38 R39 K92 ["Threshold"]
+  GETTABLEKS R37 R38 K94 ["High"]
+  SETTABLEKS R37 R36 K92 ["Threshold"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K103 ["HighGeometrySceneComplexity"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K94 ["TitleText"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K103 ["GeometryBudgetHigh"]
-  NAMECALL R37 R1 K87 ["getText"]
+  SETTABLEKS R37 R36 K95 ["TitleText"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K104 ["GeometryBudgetHigh"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K95 ["BodyText"]
+  SETTABLEKS R37 R36 K96 ["BodyText"]
   SETLIST R33 R34 3 [1]
-  SETTABLEKS R33 R32 K82 ["ThresholdTooltips"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K104 ["GeometryBudgetExtraInfo"]
-  NAMECALL R33 R1 K87 ["getText"]
+  SETTABLEKS R33 R32 K83 ["ThresholdTooltips"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K105 ["GeometryBudgetExtraInfo"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K83 ["ThresholdExtraInfo"]
+  SETTABLEKS R33 R32 K84 ["ThresholdExtraInfo"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K76 ["MeasuringBar"]
+  SETTABLEKS R30 R29 K77 ["MeasuringBar"]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K69 ["TopContent"]
+  SETTABLEKS R26 R25 K70 ["TopContent"]
   GETUPVAL R27 2
   GETTABLEKS R26 R27 K30 ["createElement"]
   LOADK R27 K31 ["Frame"]
-  DUPTABLE R28 K73 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
+  DUPTABLE R28 K74 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
   GETIMPORT R29 K36 [UDim2.new]
   LOADN R30 1
   LOADN R31 0
@@ -367,252 +367,252 @@ PROTO_0:
   SETTABLEKS R29 R28 K37 ["Size"]
   LOADN R29 1
   SETTABLEKS R29 R28 K38 ["BackgroundTransparency"]
-  GETIMPORT R29 K75 [Enum.AutomaticSize.Y]
-  SETTABLEKS R29 R28 K72 ["AutomaticSize"]
-  DUPTABLE R29 K107 [{"Layout", "Padding", "TriangleBar", "DrawCallBar"}]
+  GETIMPORT R29 K76 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K73 ["AutomaticSize"]
+  DUPTABLE R29 K108 [{"Layout", "Padding", "TriangleBar", "DrawCallBar"}]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
-  LOADK R31 K46 ["UIListLayout"]
-  DUPTABLE R32 K51 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R33 K53 [UDim.new]
+  LOADK R31 K47 ["UIListLayout"]
+  DUPTABLE R32 K52 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 12
   CALL R33 2 1
   SETTABLEKS R33 R32 K40 ["Padding"]
-  GETIMPORT R33 K56 [Enum.FillDirection.Vertical]
-  SETTABLEKS R33 R32 K47 ["FillDirection"]
-  GETIMPORT R33 K58 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R33 R32 K48 ["HorizontalAlignment"]
-  GETIMPORT R33 K60 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R33 R32 K49 ["VerticalAlignment"]
-  GETIMPORT R33 K62 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R33 R32 K50 ["SortOrder"]
+  GETIMPORT R33 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R33 R32 K48 ["FillDirection"]
+  GETIMPORT R33 K59 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R33 R32 K49 ["HorizontalAlignment"]
+  GETIMPORT R33 K61 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R33 R32 K50 ["VerticalAlignment"]
+  GETIMPORT R33 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R33 R32 K51 ["SortOrder"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K39 ["Layout"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
-  LOADK R31 K63 ["UIPadding"]
-  DUPTABLE R32 K68 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R33 K53 [UDim.new]
+  LOADK R31 K64 ["UIPadding"]
+  DUPTABLE R32 K69 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K64 ["PaddingTop"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K65 ["PaddingTop"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 12
   CALL R33 2 1
-  SETTABLEKS R33 R32 K65 ["PaddingBottom"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K66 ["PaddingBottom"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K66 ["PaddingLeft"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K67 ["PaddingLeft"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K67 ["PaddingRight"]
+  SETTABLEKS R33 R32 K68 ["PaddingRight"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K40 ["Padding"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
   GETUPVAL R31 4
-  DUPTABLE R32 K109 [{"FillAmount", "MainText", "IsChildRenderBar", "Text", "LayoutOrder", "Pips", "ThresholdTooltips", "ThresholdExtraInfo"}]
-  SETTABLEKS R9 R32 K78 ["FillAmount"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K110 ["TrianglesScene"]
-  NAMECALL R33 R1 K87 ["getText"]
+  DUPTABLE R32 K110 [{"FillAmount", "MainText", "IsChildRenderBar", "Text", "LayoutOrder", "Pips", "ThresholdTooltips", "ThresholdExtraInfo"}]
+  SETTABLEKS R9 R32 K79 ["FillAmount"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K111 ["TrianglesScene"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K79 ["MainText"]
+  SETTABLEKS R33 R32 K80 ["MainText"]
   LOADB R33 1
-  SETTABLEKS R33 R32 K108 ["IsChildRenderBar"]
-  LOADK R34 K111 ["%* / %*"]
+  SETTABLEKS R33 R32 K109 ["IsChildRenderBar"]
+  LOADK R34 K112 ["%* / %*"]
   MOVE R36 R4
   MOVE R37 R5
   NAMECALL R34 R34 K21 ["format"]
   CALL R34 3 1
   MOVE R33 R34
-  SETTABLEKS R33 R32 K80 ["Text"]
+  SETTABLEKS R33 R32 K81 ["Text"]
   LOADN R33 1
-  SETTABLEKS R33 R32 K61 ["LayoutOrder"]
+  SETTABLEKS R33 R32 K62 ["LayoutOrder"]
   NEWTABLE R33 0 2
   GETUPVAL R36 5
-  GETTABLEKS R35 R36 K91 ["Threshold"]
-  GETTABLEKS R34 R35 K92 ["Medium"]
+  GETTABLEKS R35 R36 K92 ["Threshold"]
+  GETTABLEKS R34 R35 K93 ["Medium"]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K93 ["High"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K94 ["High"]
   SETLIST R33 R34 2 [1]
-  SETTABLEKS R33 R32 K81 ["Pips"]
+  SETTABLEKS R33 R32 K82 ["Pips"]
   NEWTABLE R33 0 3
-  DUPTABLE R34 K96 [{"Threshold", "TitleText", "BodyText"}]
+  DUPTABLE R34 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K97 ["Low"]
-  SETTABLEKS R35 R34 K91 ["Threshold"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K112 ["LowTriangleCount"]
-  NAMECALL R35 R1 K87 ["getText"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K98 ["Low"]
+  SETTABLEKS R35 R34 K92 ["Threshold"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K113 ["LowTriangleCount"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K94 ["TitleText"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K113 ["SceneTriangleBudgetLow"]
-  NAMECALL R35 R1 K87 ["getText"]
+  SETTABLEKS R35 R34 K95 ["TitleText"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K114 ["SceneTriangleBudgetLow"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K95 ["BodyText"]
-  DUPTABLE R35 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R35 R34 K96 ["BodyText"]
+  DUPTABLE R35 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R38 5
-  GETTABLEKS R37 R38 K91 ["Threshold"]
-  GETTABLEKS R36 R37 K92 ["Medium"]
-  SETTABLEKS R36 R35 K91 ["Threshold"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K114 ["MediumTriangleCount"]
-  NAMECALL R36 R1 K87 ["getText"]
+  GETTABLEKS R37 R38 K92 ["Threshold"]
+  GETTABLEKS R36 R37 K93 ["Medium"]
+  SETTABLEKS R36 R35 K92 ["Threshold"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K115 ["MediumTriangleCount"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K94 ["TitleText"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K115 ["SceneTriangleBudgetMedium"]
-  NAMECALL R36 R1 K87 ["getText"]
+  SETTABLEKS R36 R35 K95 ["TitleText"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K116 ["SceneTriangleBudgetMedium"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K95 ["BodyText"]
-  DUPTABLE R36 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R36 R35 K96 ["BodyText"]
+  DUPTABLE R36 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R39 5
-  GETTABLEKS R38 R39 K91 ["Threshold"]
-  GETTABLEKS R37 R38 K93 ["High"]
-  SETTABLEKS R37 R36 K91 ["Threshold"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K116 ["HighTriangleCount"]
-  NAMECALL R37 R1 K87 ["getText"]
+  GETTABLEKS R38 R39 K92 ["Threshold"]
+  GETTABLEKS R37 R38 K94 ["High"]
+  SETTABLEKS R37 R36 K92 ["Threshold"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K117 ["HighTriangleCount"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K94 ["TitleText"]
-  LOADK R43 K85 ["SceneBudgetThermometer"]
-  LOADK R44 K117 ["SceneTriangleBudgetHigh1"]
-  NAMECALL R41 R1 K87 ["getText"]
+  SETTABLEKS R37 R36 K95 ["TitleText"]
+  LOADK R43 K86 ["SceneBudgetThermometer"]
+  LOADK R44 K118 ["SceneTriangleBudgetHigh1"]
+  NAMECALL R41 R1 K88 ["getText"]
   CALL R41 3 1
   MOVE R38 R41
-  LOADK R39 K118 ["<br/>"]
-  LOADK R42 K85 ["SceneBudgetThermometer"]
-  LOADK R43 K119 ["SceneTriangleBudgetHigh2"]
-  NAMECALL R40 R1 K87 ["getText"]
+  LOADK R39 K119 ["<br/>"]
+  LOADK R42 K86 ["SceneBudgetThermometer"]
+  LOADK R43 K120 ["SceneTriangleBudgetHigh2"]
+  NAMECALL R40 R1 K88 ["getText"]
   CALL R40 3 1
   CONCAT R37 R38 R40
-  SETTABLEKS R37 R36 K95 ["BodyText"]
+  SETTABLEKS R37 R36 K96 ["BodyText"]
   SETLIST R33 R34 3 [1]
-  SETTABLEKS R33 R32 K82 ["ThresholdTooltips"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K120 ["SceneTriangleBudgetExtraInfo"]
-  NAMECALL R33 R1 K87 ["getText"]
+  SETTABLEKS R33 R32 K83 ["ThresholdTooltips"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K121 ["SceneTriangleBudgetExtraInfo"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K83 ["ThresholdExtraInfo"]
+  SETTABLEKS R33 R32 K84 ["ThresholdExtraInfo"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K105 ["TriangleBar"]
+  SETTABLEKS R30 R29 K106 ["TriangleBar"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
   GETUPVAL R31 4
-  DUPTABLE R32 K121 [{"FillAmount", "Text", "MainText", "IsChildRenderBar", "LayoutOrder", "Pips", "ThresholdTooltips", "ThresholdExtraInfo"}]
-  SETTABLEKS R10 R32 K78 ["FillAmount"]
-  LOADK R34 K111 ["%* / %*"]
+  DUPTABLE R32 K122 [{"FillAmount", "Text", "MainText", "IsChildRenderBar", "LayoutOrder", "Pips", "ThresholdTooltips", "ThresholdExtraInfo"}]
+  SETTABLEKS R10 R32 K79 ["FillAmount"]
+  LOADK R34 K112 ["%* / %*"]
   MOVE R36 R7
   MOVE R37 R8
   NAMECALL R34 R34 K21 ["format"]
   CALL R34 3 1
   MOVE R33 R34
-  SETTABLEKS R33 R32 K80 ["Text"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K122 ["DrawcallsScene"]
-  NAMECALL R33 R1 K87 ["getText"]
+  SETTABLEKS R33 R32 K81 ["Text"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K123 ["DrawcallsScene"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K79 ["MainText"]
+  SETTABLEKS R33 R32 K80 ["MainText"]
   LOADB R33 1
-  SETTABLEKS R33 R32 K108 ["IsChildRenderBar"]
+  SETTABLEKS R33 R32 K109 ["IsChildRenderBar"]
   LOADN R33 2
-  SETTABLEKS R33 R32 K61 ["LayoutOrder"]
+  SETTABLEKS R33 R32 K62 ["LayoutOrder"]
   NEWTABLE R33 0 2
   GETUPVAL R36 5
-  GETTABLEKS R35 R36 K91 ["Threshold"]
-  GETTABLEKS R34 R35 K92 ["Medium"]
+  GETTABLEKS R35 R36 K92 ["Threshold"]
+  GETTABLEKS R34 R35 K93 ["Medium"]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K93 ["High"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K94 ["High"]
   SETLIST R33 R34 2 [1]
-  SETTABLEKS R33 R32 K81 ["Pips"]
+  SETTABLEKS R33 R32 K82 ["Pips"]
   NEWTABLE R33 0 3
-  DUPTABLE R34 K96 [{"Threshold", "TitleText", "BodyText"}]
+  DUPTABLE R34 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K97 ["Low"]
-  SETTABLEKS R35 R34 K91 ["Threshold"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K123 ["LowDrawcallCount"]
-  NAMECALL R35 R1 K87 ["getText"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K98 ["Low"]
+  SETTABLEKS R35 R34 K92 ["Threshold"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K124 ["LowDrawcallCount"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K94 ["TitleText"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K124 ["SceneDrawcallBudgetLow"]
-  NAMECALL R35 R1 K87 ["getText"]
+  SETTABLEKS R35 R34 K95 ["TitleText"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K125 ["SceneDrawcallBudgetLow"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K95 ["BodyText"]
-  DUPTABLE R35 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R35 R34 K96 ["BodyText"]
+  DUPTABLE R35 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R38 5
-  GETTABLEKS R37 R38 K91 ["Threshold"]
-  GETTABLEKS R36 R37 K92 ["Medium"]
-  SETTABLEKS R36 R35 K91 ["Threshold"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K125 ["MediumDrawcallCount"]
-  NAMECALL R36 R1 K87 ["getText"]
+  GETTABLEKS R37 R38 K92 ["Threshold"]
+  GETTABLEKS R36 R37 K93 ["Medium"]
+  SETTABLEKS R36 R35 K92 ["Threshold"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K126 ["MediumDrawcallCount"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K94 ["TitleText"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K126 ["SceneDrawcallBudgetMedium"]
-  NAMECALL R36 R1 K87 ["getText"]
+  SETTABLEKS R36 R35 K95 ["TitleText"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K127 ["SceneDrawcallBudgetMedium"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K95 ["BodyText"]
-  DUPTABLE R36 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R36 R35 K96 ["BodyText"]
+  DUPTABLE R36 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R39 5
-  GETTABLEKS R38 R39 K91 ["Threshold"]
-  GETTABLEKS R37 R38 K93 ["High"]
-  SETTABLEKS R37 R36 K91 ["Threshold"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K127 ["HighDrawcallCount"]
-  NAMECALL R37 R1 K87 ["getText"]
+  GETTABLEKS R38 R39 K92 ["Threshold"]
+  GETTABLEKS R37 R38 K94 ["High"]
+  SETTABLEKS R37 R36 K92 ["Threshold"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K128 ["HighDrawcallCount"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K94 ["TitleText"]
-  LOADK R43 K85 ["SceneBudgetThermometer"]
-  LOADK R44 K128 ["SceneDrawcallBudgetHigh1"]
-  NAMECALL R41 R1 K87 ["getText"]
+  SETTABLEKS R37 R36 K95 ["TitleText"]
+  LOADK R43 K86 ["SceneBudgetThermometer"]
+  LOADK R44 K129 ["SceneDrawcallBudgetHigh1"]
+  NAMECALL R41 R1 K88 ["getText"]
   CALL R41 3 1
   MOVE R38 R41
-  LOADK R39 K118 ["<br/>"]
-  LOADK R42 K85 ["SceneBudgetThermometer"]
-  LOADK R43 K129 ["SceneDrawcallBudgetHigh2"]
-  NAMECALL R40 R1 K87 ["getText"]
+  LOADK R39 K119 ["<br/>"]
+  LOADK R42 K86 ["SceneBudgetThermometer"]
+  LOADK R43 K130 ["SceneDrawcallBudgetHigh2"]
+  NAMECALL R40 R1 K88 ["getText"]
   CALL R40 3 1
   CONCAT R37 R38 R40
-  SETTABLEKS R37 R36 K95 ["BodyText"]
+  SETTABLEKS R37 R36 K96 ["BodyText"]
   SETLIST R33 R34 3 [1]
-  SETTABLEKS R33 R32 K82 ["ThresholdTooltips"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K130 ["SceneDrawcallBudgetExtraInfo"]
-  NAMECALL R33 R1 K87 ["getText"]
+  SETTABLEKS R33 R32 K83 ["ThresholdTooltips"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K131 ["SceneDrawcallBudgetExtraInfo"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K83 ["ThresholdExtraInfo"]
+  SETTABLEKS R33 R32 K84 ["ThresholdExtraInfo"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K106 ["DrawCallBar"]
+  SETTABLEKS R30 R29 K107 ["DrawCallBar"]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K70 ["ExpandingContent"]
+  SETTABLEKS R26 R25 K71 ["ExpandingContent"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K41 ["GeometryDrawer"]
   GETUPVAL R24 2
   GETTABLEKS R23 R24 K30 ["createElement"]
   GETUPVAL R24 3
-  DUPTABLE R25 K71 [{"LayoutOrder", "TopContent", "ExpandingContent"}]
+  DUPTABLE R25 K72 [{"LayoutOrder", "TopContent", "ExpandingContent"}]
   LOADN R26 2
-  SETTABLEKS R26 R25 K61 ["LayoutOrder"]
+  SETTABLEKS R26 R25 K62 ["LayoutOrder"]
   GETUPVAL R27 2
   GETTABLEKS R26 R27 K30 ["createElement"]
   LOADK R27 K31 ["Frame"]
-  DUPTABLE R28 K73 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
+  DUPTABLE R28 K74 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
   GETIMPORT R29 K36 [UDim2.new]
   LOADN R30 1
   LOADN R31 0
@@ -622,159 +622,159 @@ PROTO_0:
   SETTABLEKS R29 R28 K37 ["Size"]
   LOADN R29 1
   SETTABLEKS R29 R28 K38 ["BackgroundTransparency"]
-  GETIMPORT R29 K75 [Enum.AutomaticSize.Y]
-  SETTABLEKS R29 R28 K72 ["AutomaticSize"]
-  DUPTABLE R29 K77 [{"Layout", "Padding", "MeasuringBar"}]
+  GETIMPORT R29 K76 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K73 ["AutomaticSize"]
+  DUPTABLE R29 K78 [{"Layout", "Padding", "MeasuringBar"}]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
-  LOADK R31 K46 ["UIListLayout"]
-  DUPTABLE R32 K51 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R33 K53 [UDim.new]
+  LOADK R31 K47 ["UIListLayout"]
+  DUPTABLE R32 K52 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
   SETTABLEKS R33 R32 K40 ["Padding"]
-  GETIMPORT R33 K56 [Enum.FillDirection.Vertical]
-  SETTABLEKS R33 R32 K47 ["FillDirection"]
-  GETIMPORT R33 K58 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R33 R32 K48 ["HorizontalAlignment"]
-  GETIMPORT R33 K60 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R33 R32 K49 ["VerticalAlignment"]
-  GETIMPORT R33 K62 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R33 R32 K50 ["SortOrder"]
+  GETIMPORT R33 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R33 R32 K48 ["FillDirection"]
+  GETIMPORT R33 K59 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R33 R32 K49 ["HorizontalAlignment"]
+  GETIMPORT R33 K61 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R33 R32 K50 ["VerticalAlignment"]
+  GETIMPORT R33 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R33 R32 K51 ["SortOrder"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K39 ["Layout"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
-  LOADK R31 K63 ["UIPadding"]
-  DUPTABLE R32 K68 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R33 K53 [UDim.new]
+  LOADK R31 K64 ["UIPadding"]
+  DUPTABLE R32 K69 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K64 ["PaddingTop"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K65 ["PaddingTop"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K65 ["PaddingBottom"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K66 ["PaddingBottom"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K66 ["PaddingLeft"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K67 ["PaddingLeft"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K67 ["PaddingRight"]
+  SETTABLEKS R33 R32 K68 ["PaddingRight"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K40 ["Padding"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
   GETUPVAL R31 4
-  DUPTABLE R32 K84 [{"FillAmount", "MainText", "Text", "Size", "Pips", "ThresholdTooltips", "ThresholdExtraInfo"}]
-  SETTABLEKS R15 R32 K78 ["FillAmount"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K131 ["CPUBudget"]
-  NAMECALL R33 R1 K87 ["getText"]
+  DUPTABLE R32 K85 [{"FillAmount", "MainText", "Text", "Size", "Pips", "ThresholdTooltips", "ThresholdExtraInfo"}]
+  SETTABLEKS R15 R32 K79 ["FillAmount"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K132 ["CPUBudget"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K79 ["MainText"]
-  LOADK R34 K88 ["%*%%"]
+  SETTABLEKS R33 R32 K80 ["MainText"]
+  LOADK R34 K89 ["%*%%"]
   MOVE R36 R16
   NAMECALL R34 R34 K21 ["format"]
   CALL R34 2 1
   MOVE R33 R34
-  SETTABLEKS R33 R32 K80 ["Text"]
-  GETIMPORT R33 K90 [UDim2.fromScale]
+  SETTABLEKS R33 R32 K81 ["Text"]
+  GETIMPORT R33 K91 [UDim2.fromScale]
   LOADN R34 1
   LOADN R35 1
   CALL R33 2 1
   SETTABLEKS R33 R32 K37 ["Size"]
   NEWTABLE R33 0 2
   GETUPVAL R36 5
-  GETTABLEKS R35 R36 K91 ["Threshold"]
-  GETTABLEKS R34 R35 K92 ["Medium"]
+  GETTABLEKS R35 R36 K92 ["Threshold"]
+  GETTABLEKS R34 R35 K93 ["Medium"]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K93 ["High"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K94 ["High"]
   SETLIST R33 R34 2 [1]
-  SETTABLEKS R33 R32 K81 ["Pips"]
+  SETTABLEKS R33 R32 K82 ["Pips"]
   NEWTABLE R33 0 3
-  DUPTABLE R34 K96 [{"Threshold", "TitleText", "BodyText"}]
+  DUPTABLE R34 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K97 ["Low"]
-  SETTABLEKS R35 R34 K91 ["Threshold"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K132 ["LowCPUUsage"]
-  NAMECALL R35 R1 K87 ["getText"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K98 ["Low"]
+  SETTABLEKS R35 R34 K92 ["Threshold"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K133 ["LowCPUUsage"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K94 ["TitleText"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K133 ["CPUBudgetLow"]
-  NAMECALL R35 R1 K87 ["getText"]
+  SETTABLEKS R35 R34 K95 ["TitleText"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K134 ["CPUBudgetLow"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K95 ["BodyText"]
-  DUPTABLE R35 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R35 R34 K96 ["BodyText"]
+  DUPTABLE R35 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R38 5
-  GETTABLEKS R37 R38 K91 ["Threshold"]
-  GETTABLEKS R36 R37 K92 ["Medium"]
-  SETTABLEKS R36 R35 K91 ["Threshold"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K134 ["MediumCPUUsage"]
-  NAMECALL R36 R1 K87 ["getText"]
+  GETTABLEKS R37 R38 K92 ["Threshold"]
+  GETTABLEKS R36 R37 K93 ["Medium"]
+  SETTABLEKS R36 R35 K92 ["Threshold"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K135 ["MediumCPUUsage"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K94 ["TitleText"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K135 ["CPUBudgetMedium"]
-  NAMECALL R36 R1 K87 ["getText"]
+  SETTABLEKS R36 R35 K95 ["TitleText"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K136 ["CPUBudgetMedium"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K95 ["BodyText"]
-  DUPTABLE R36 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R36 R35 K96 ["BodyText"]
+  DUPTABLE R36 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R39 5
-  GETTABLEKS R38 R39 K91 ["Threshold"]
-  GETTABLEKS R37 R38 K93 ["High"]
-  SETTABLEKS R37 R36 K91 ["Threshold"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K136 ["HighCPUUsage"]
-  NAMECALL R37 R1 K87 ["getText"]
+  GETTABLEKS R38 R39 K92 ["Threshold"]
+  GETTABLEKS R37 R38 K94 ["High"]
+  SETTABLEKS R37 R36 K92 ["Threshold"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K137 ["HighCPUUsage"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K94 ["TitleText"]
-  LOADK R43 K85 ["SceneBudgetThermometer"]
-  LOADK R44 K137 ["CPUBudgetHigh"]
-  NAMECALL R41 R1 K87 ["getText"]
+  SETTABLEKS R37 R36 K95 ["TitleText"]
+  LOADK R43 K86 ["SceneBudgetThermometer"]
+  LOADK R44 K138 ["CPUBudgetHigh"]
+  NAMECALL R41 R1 K88 ["getText"]
   CALL R41 3 1
   MOVE R38 R41
-  LOADK R39 K118 ["<br/>"]
-  LOADK R42 K85 ["SceneBudgetThermometer"]
-  LOADK R43 K138 ["HighBudgetLowFPS"]
-  NAMECALL R40 R1 K87 ["getText"]
+  LOADK R39 K119 ["<br/>"]
+  LOADK R42 K86 ["SceneBudgetThermometer"]
+  LOADK R43 K139 ["HighBudgetLowFPS"]
+  NAMECALL R40 R1 K88 ["getText"]
   CALL R40 3 1
   CONCAT R37 R38 R40
-  SETTABLEKS R37 R36 K95 ["BodyText"]
+  SETTABLEKS R37 R36 K96 ["BodyText"]
   SETLIST R33 R34 3 [1]
-  SETTABLEKS R33 R32 K82 ["ThresholdTooltips"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K139 ["MicroprofilerExtraInfo1"]
-  NAMECALL R37 R1 K87 ["getText"]
+  SETTABLEKS R33 R32 K83 ["ThresholdTooltips"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K140 ["MicroprofilerExtraInfo1"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
   MOVE R34 R37
-  LOADK R35 K118 ["<br/>"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K140 ["MicroprofilerExtraInfo2"]
-  NAMECALL R36 R1 K87 ["getText"]
+  LOADK R35 K119 ["<br/>"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K141 ["MicroprofilerExtraInfo2"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
   CONCAT R33 R34 R36
-  SETTABLEKS R33 R32 K83 ["ThresholdExtraInfo"]
+  SETTABLEKS R33 R32 K84 ["ThresholdExtraInfo"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K76 ["MeasuringBar"]
+  SETTABLEKS R30 R29 K77 ["MeasuringBar"]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K69 ["TopContent"]
+  SETTABLEKS R26 R25 K70 ["TopContent"]
   GETUPVAL R27 2
   GETTABLEKS R26 R27 K30 ["createElement"]
   LOADK R27 K31 ["Frame"]
-  DUPTABLE R28 K73 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
+  DUPTABLE R28 K74 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
   GETIMPORT R29 K36 [UDim2.new]
   LOADN R30 1
   LOADN R31 0
@@ -784,236 +784,236 @@ PROTO_0:
   SETTABLEKS R29 R28 K37 ["Size"]
   LOADN R29 1
   SETTABLEKS R29 R28 K38 ["BackgroundTransparency"]
-  GETIMPORT R29 K75 [Enum.AutomaticSize.Y]
-  SETTABLEKS R29 R28 K72 ["AutomaticSize"]
-  DUPTABLE R29 K144 [{"Layout", "Padding", "GameRenderMsBar", "ScriptThreadMsBar", "MicroprofilerButtonFrame"}]
+  GETIMPORT R29 K76 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K73 ["AutomaticSize"]
+  DUPTABLE R29 K145 [{"Layout", "Padding", "GameRenderMsBar", "ScriptThreadMsBar", "MicroprofilerButtonFrame"}]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
-  LOADK R31 K46 ["UIListLayout"]
-  DUPTABLE R32 K51 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R33 K53 [UDim.new]
+  LOADK R31 K47 ["UIListLayout"]
+  DUPTABLE R32 K52 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 12
   CALL R33 2 1
   SETTABLEKS R33 R32 K40 ["Padding"]
-  GETIMPORT R33 K56 [Enum.FillDirection.Vertical]
-  SETTABLEKS R33 R32 K47 ["FillDirection"]
-  GETIMPORT R33 K58 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R33 R32 K48 ["HorizontalAlignment"]
-  GETIMPORT R33 K60 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R33 R32 K49 ["VerticalAlignment"]
-  GETIMPORT R33 K62 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R33 R32 K50 ["SortOrder"]
+  GETIMPORT R33 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R33 R32 K48 ["FillDirection"]
+  GETIMPORT R33 K59 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R33 R32 K49 ["HorizontalAlignment"]
+  GETIMPORT R33 K61 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R33 R32 K50 ["VerticalAlignment"]
+  GETIMPORT R33 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R33 R32 K51 ["SortOrder"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K39 ["Layout"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
-  LOADK R31 K63 ["UIPadding"]
-  DUPTABLE R32 K68 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R33 K53 [UDim.new]
+  LOADK R31 K64 ["UIPadding"]
+  DUPTABLE R32 K69 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K64 ["PaddingTop"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K65 ["PaddingTop"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 12
   CALL R33 2 1
-  SETTABLEKS R33 R32 K65 ["PaddingBottom"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K66 ["PaddingBottom"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K66 ["PaddingLeft"]
-  GETIMPORT R33 K53 [UDim.new]
+  SETTABLEKS R33 R32 K67 ["PaddingLeft"]
+  GETIMPORT R33 K54 [UDim.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K67 ["PaddingRight"]
+  SETTABLEKS R33 R32 K68 ["PaddingRight"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K40 ["Padding"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
   GETUPVAL R31 4
-  DUPTABLE R32 K146 [{"FillAmount", "Text", "MainText", "IsChildRenderBar", "LayoutOrder", "PipCount", "ThresholdTooltips", "ThresholdExtraInfo"}]
-  SETTABLEKS R11 R32 K78 ["FillAmount"]
-  SETTABLEKS R17 R32 K80 ["Text"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K147 ["FrameRenderTime"]
-  NAMECALL R33 R1 K87 ["getText"]
+  DUPTABLE R32 K147 [{"FillAmount", "Text", "MainText", "IsChildRenderBar", "LayoutOrder", "PipCount", "ThresholdTooltips", "ThresholdExtraInfo"}]
+  SETTABLEKS R11 R32 K79 ["FillAmount"]
+  SETTABLEKS R17 R32 K81 ["Text"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K148 ["FrameRenderTime"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K79 ["MainText"]
+  SETTABLEKS R33 R32 K80 ["MainText"]
   LOADB R33 1
-  SETTABLEKS R33 R32 K108 ["IsChildRenderBar"]
+  SETTABLEKS R33 R32 K109 ["IsChildRenderBar"]
   LOADN R33 2
-  SETTABLEKS R33 R32 K61 ["LayoutOrder"]
+  SETTABLEKS R33 R32 K62 ["LayoutOrder"]
   GETTABLEKS R33 R0 K15 ["MaxTotalRenderMs"]
-  SETTABLEKS R33 R32 K145 ["PipCount"]
+  SETTABLEKS R33 R32 K146 ["PipCount"]
   NEWTABLE R33 0 3
-  DUPTABLE R34 K96 [{"Threshold", "TitleText", "BodyText"}]
+  DUPTABLE R34 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K97 ["Low"]
-  SETTABLEKS R35 R34 K91 ["Threshold"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K148 ["LowRenderThreadUsage"]
-  NAMECALL R35 R1 K87 ["getText"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K98 ["Low"]
+  SETTABLEKS R35 R34 K92 ["Threshold"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K149 ["LowRenderThreadUsage"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K94 ["TitleText"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K149 ["RenderCPUBudgetLow"]
-  NAMECALL R35 R1 K87 ["getText"]
+  SETTABLEKS R35 R34 K95 ["TitleText"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K150 ["RenderCPUBudgetLow"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K95 ["BodyText"]
-  DUPTABLE R35 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R35 R34 K96 ["BodyText"]
+  DUPTABLE R35 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R38 5
-  GETTABLEKS R37 R38 K91 ["Threshold"]
-  GETTABLEKS R36 R37 K92 ["Medium"]
-  SETTABLEKS R36 R35 K91 ["Threshold"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K150 ["MediumRenderThreadUsage"]
-  NAMECALL R36 R1 K87 ["getText"]
+  GETTABLEKS R37 R38 K92 ["Threshold"]
+  GETTABLEKS R36 R37 K93 ["Medium"]
+  SETTABLEKS R36 R35 K92 ["Threshold"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K151 ["MediumRenderThreadUsage"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K94 ["TitleText"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K151 ["RenderCPUBudgetMedium"]
-  NAMECALL R36 R1 K87 ["getText"]
+  SETTABLEKS R36 R35 K95 ["TitleText"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K152 ["RenderCPUBudgetMedium"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K95 ["BodyText"]
-  DUPTABLE R36 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R36 R35 K96 ["BodyText"]
+  DUPTABLE R36 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R39 5
-  GETTABLEKS R38 R39 K91 ["Threshold"]
-  GETTABLEKS R37 R38 K93 ["High"]
-  SETTABLEKS R37 R36 K91 ["Threshold"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K152 ["HighRenderThreadUsage"]
-  NAMECALL R37 R1 K87 ["getText"]
+  GETTABLEKS R38 R39 K92 ["Threshold"]
+  GETTABLEKS R37 R38 K94 ["High"]
+  SETTABLEKS R37 R36 K92 ["Threshold"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K153 ["HighRenderThreadUsage"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K94 ["TitleText"]
-  LOADK R43 K85 ["SceneBudgetThermometer"]
-  LOADK R44 K153 ["RenderCPUBudgetHigh"]
-  NAMECALL R41 R1 K87 ["getText"]
+  SETTABLEKS R37 R36 K95 ["TitleText"]
+  LOADK R43 K86 ["SceneBudgetThermometer"]
+  LOADK R44 K154 ["RenderCPUBudgetHigh"]
+  NAMECALL R41 R1 K88 ["getText"]
   CALL R41 3 1
   MOVE R38 R41
-  LOADK R39 K118 ["<br/>"]
-  LOADK R42 K85 ["SceneBudgetThermometer"]
-  LOADK R43 K138 ["HighBudgetLowFPS"]
-  NAMECALL R40 R1 K87 ["getText"]
+  LOADK R39 K119 ["<br/>"]
+  LOADK R42 K86 ["SceneBudgetThermometer"]
+  LOADK R43 K139 ["HighBudgetLowFPS"]
+  NAMECALL R40 R1 K88 ["getText"]
   CALL R40 3 1
   CONCAT R37 R38 R40
-  SETTABLEKS R37 R36 K95 ["BodyText"]
+  SETTABLEKS R37 R36 K96 ["BodyText"]
   SETLIST R33 R34 3 [1]
-  SETTABLEKS R33 R32 K82 ["ThresholdTooltips"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K139 ["MicroprofilerExtraInfo1"]
-  NAMECALL R37 R1 K87 ["getText"]
+  SETTABLEKS R33 R32 K83 ["ThresholdTooltips"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K140 ["MicroprofilerExtraInfo1"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
   MOVE R34 R37
-  LOADK R35 K118 ["<br/>"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K140 ["MicroprofilerExtraInfo2"]
-  NAMECALL R36 R1 K87 ["getText"]
+  LOADK R35 K119 ["<br/>"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K141 ["MicroprofilerExtraInfo2"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
   CONCAT R33 R34 R36
-  SETTABLEKS R33 R32 K83 ["ThresholdExtraInfo"]
+  SETTABLEKS R33 R32 K84 ["ThresholdExtraInfo"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K141 ["GameRenderMsBar"]
+  SETTABLEKS R30 R29 K142 ["GameRenderMsBar"]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
   GETUPVAL R31 4
-  DUPTABLE R32 K146 [{"FillAmount", "Text", "MainText", "IsChildRenderBar", "LayoutOrder", "PipCount", "ThresholdTooltips", "ThresholdExtraInfo"}]
-  SETTABLEKS R12 R32 K78 ["FillAmount"]
-  SETTABLEKS R18 R32 K80 ["Text"]
-  LOADK R35 K85 ["SceneBudgetThermometer"]
-  LOADK R36 K154 ["PerFrameTaskTime"]
-  NAMECALL R33 R1 K87 ["getText"]
+  DUPTABLE R32 K147 [{"FillAmount", "Text", "MainText", "IsChildRenderBar", "LayoutOrder", "PipCount", "ThresholdTooltips", "ThresholdExtraInfo"}]
+  SETTABLEKS R12 R32 K79 ["FillAmount"]
+  SETTABLEKS R18 R32 K81 ["Text"]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K155 ["PerFrameTaskTime"]
+  NAMECALL R33 R1 K88 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K79 ["MainText"]
+  SETTABLEKS R33 R32 K80 ["MainText"]
   LOADB R33 1
-  SETTABLEKS R33 R32 K108 ["IsChildRenderBar"]
+  SETTABLEKS R33 R32 K109 ["IsChildRenderBar"]
   LOADN R33 3
-  SETTABLEKS R33 R32 K61 ["LayoutOrder"]
+  SETTABLEKS R33 R32 K62 ["LayoutOrder"]
   GETTABLEKS R33 R0 K17 ["MaxTotalTaskMs"]
-  SETTABLEKS R33 R32 K145 ["PipCount"]
+  SETTABLEKS R33 R32 K146 ["PipCount"]
   NEWTABLE R33 0 3
-  DUPTABLE R34 K96 [{"Threshold", "TitleText", "BodyText"}]
+  DUPTABLE R34 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K91 ["Threshold"]
-  GETTABLEKS R35 R36 K97 ["Low"]
-  SETTABLEKS R35 R34 K91 ["Threshold"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K155 ["LowTaskThreadUsage"]
-  NAMECALL R35 R1 K87 ["getText"]
+  GETTABLEKS R36 R37 K92 ["Threshold"]
+  GETTABLEKS R35 R36 K98 ["Low"]
+  SETTABLEKS R35 R34 K92 ["Threshold"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K156 ["LowTaskThreadUsage"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K94 ["TitleText"]
-  LOADK R37 K85 ["SceneBudgetThermometer"]
-  LOADK R38 K156 ["TaskCPUBudgetLow"]
-  NAMECALL R35 R1 K87 ["getText"]
+  SETTABLEKS R35 R34 K95 ["TitleText"]
+  LOADK R37 K86 ["SceneBudgetThermometer"]
+  LOADK R38 K157 ["TaskCPUBudgetLow"]
+  NAMECALL R35 R1 K88 ["getText"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K95 ["BodyText"]
-  DUPTABLE R35 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R35 R34 K96 ["BodyText"]
+  DUPTABLE R35 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R38 5
-  GETTABLEKS R37 R38 K91 ["Threshold"]
-  GETTABLEKS R36 R37 K92 ["Medium"]
-  SETTABLEKS R36 R35 K91 ["Threshold"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K157 ["MediumTaskThreadUsage"]
-  NAMECALL R36 R1 K87 ["getText"]
+  GETTABLEKS R37 R38 K92 ["Threshold"]
+  GETTABLEKS R36 R37 K93 ["Medium"]
+  SETTABLEKS R36 R35 K92 ["Threshold"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K158 ["MediumTaskThreadUsage"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K94 ["TitleText"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K158 ["TaskCPUBudgetMedium"]
-  NAMECALL R36 R1 K87 ["getText"]
+  SETTABLEKS R36 R35 K95 ["TitleText"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K159 ["TaskCPUBudgetMedium"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
-  SETTABLEKS R36 R35 K95 ["BodyText"]
-  DUPTABLE R36 K96 [{"Threshold", "TitleText", "BodyText"}]
+  SETTABLEKS R36 R35 K96 ["BodyText"]
+  DUPTABLE R36 K97 [{"Threshold", "TitleText", "BodyText"}]
   GETUPVAL R39 5
-  GETTABLEKS R38 R39 K91 ["Threshold"]
-  GETTABLEKS R37 R38 K93 ["High"]
-  SETTABLEKS R37 R36 K91 ["Threshold"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K159 ["HighTaskThreadUsage"]
-  NAMECALL R37 R1 K87 ["getText"]
+  GETTABLEKS R38 R39 K92 ["Threshold"]
+  GETTABLEKS R37 R38 K94 ["High"]
+  SETTABLEKS R37 R36 K92 ["Threshold"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K160 ["HighTaskThreadUsage"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K94 ["TitleText"]
-  LOADK R43 K85 ["SceneBudgetThermometer"]
-  LOADK R44 K160 ["TaskCPUBudgetHigh"]
-  NAMECALL R41 R1 K87 ["getText"]
+  SETTABLEKS R37 R36 K95 ["TitleText"]
+  LOADK R43 K86 ["SceneBudgetThermometer"]
+  LOADK R44 K161 ["TaskCPUBudgetHigh"]
+  NAMECALL R41 R1 K88 ["getText"]
   CALL R41 3 1
   MOVE R38 R41
-  LOADK R39 K118 ["<br/>"]
-  LOADK R42 K85 ["SceneBudgetThermometer"]
-  LOADK R43 K138 ["HighBudgetLowFPS"]
-  NAMECALL R40 R1 K87 ["getText"]
+  LOADK R39 K119 ["<br/>"]
+  LOADK R42 K86 ["SceneBudgetThermometer"]
+  LOADK R43 K139 ["HighBudgetLowFPS"]
+  NAMECALL R40 R1 K88 ["getText"]
   CALL R40 3 1
   CONCAT R37 R38 R40
-  SETTABLEKS R37 R36 K95 ["BodyText"]
+  SETTABLEKS R37 R36 K96 ["BodyText"]
   SETLIST R33 R34 3 [1]
-  SETTABLEKS R33 R32 K82 ["ThresholdTooltips"]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K139 ["MicroprofilerExtraInfo1"]
-  NAMECALL R37 R1 K87 ["getText"]
+  SETTABLEKS R33 R32 K83 ["ThresholdTooltips"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K140 ["MicroprofilerExtraInfo1"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
   MOVE R34 R37
-  LOADK R35 K118 ["<br/>"]
-  LOADK R38 K85 ["SceneBudgetThermometer"]
-  LOADK R39 K140 ["MicroprofilerExtraInfo2"]
-  NAMECALL R36 R1 K87 ["getText"]
+  LOADK R35 K119 ["<br/>"]
+  LOADK R38 K86 ["SceneBudgetThermometer"]
+  LOADK R39 K141 ["MicroprofilerExtraInfo2"]
+  NAMECALL R36 R1 K88 ["getText"]
   CALL R36 3 1
   CONCAT R33 R34 R36
-  SETTABLEKS R33 R32 K83 ["ThresholdExtraInfo"]
+  SETTABLEKS R33 R32 K84 ["ThresholdExtraInfo"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K142 ["ScriptThreadMsBar"]
+  SETTABLEKS R30 R29 K143 ["ScriptThreadMsBar"]
   GETUPVAL R32 6
-  GETTABLEKS R31 R32 K161 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
+  GETTABLEKS R31 R32 K162 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
   CALL R31 0 1
   JUMPIFNOT R31 [+67]
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K30 ["createElement"]
   LOADK R31 K31 ["Frame"]
-  DUPTABLE R32 K162 [{"LayoutOrder", "Size", "BackgroundTransparency", "AutomaticSize"}]
+  DUPTABLE R32 K163 [{"LayoutOrder", "Size", "BackgroundTransparency", "AutomaticSize"}]
   LOADN R33 4
-  SETTABLEKS R33 R32 K61 ["LayoutOrder"]
+  SETTABLEKS R33 R32 K62 ["LayoutOrder"]
   GETIMPORT R33 K36 [UDim2.new]
   LOADN R34 1
   LOADN R35 0
@@ -1023,52 +1023,288 @@ PROTO_0:
   SETTABLEKS R33 R32 K37 ["Size"]
   LOADN R33 1
   SETTABLEKS R33 R32 K38 ["BackgroundTransparency"]
-  GETIMPORT R33 K75 [Enum.AutomaticSize.Y]
-  SETTABLEKS R33 R32 K72 ["AutomaticSize"]
-  DUPTABLE R33 K164 [{"MicroprofilerButton"}]
+  GETIMPORT R33 K76 [Enum.AutomaticSize.Y]
+  SETTABLEKS R33 R32 K73 ["AutomaticSize"]
+  DUPTABLE R33 K165 [{"MicroprofilerButton"}]
   GETUPVAL R35 2
   GETTABLEKS R34 R35 K30 ["createElement"]
   GETUPVAL R35 7
-  DUPTABLE R36 K168 [{"Cursor", "Text", "OnClick", "Position"}]
-  LOADK R37 K169 ["PointingHand"]
-  SETTABLEKS R37 R36 K165 ["Cursor"]
-  GETTABLEKS R38 R0 K170 ["MicroprofilerVisible"]
+  DUPTABLE R36 K169 [{"Cursor", "Text", "OnClick", "Position"}]
+  LOADK R37 K170 ["PointingHand"]
+  SETTABLEKS R37 R36 K166 ["Cursor"]
+  GETTABLEKS R38 R0 K171 ["MicroprofilerVisible"]
   JUMPIFNOT R38 [+6]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K171 ["CloseMicroprofiler"]
-  NAMECALL R37 R1 K87 ["getText"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K172 ["CloseMicroprofiler"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
   JUMPIF R37 [+5]
-  LOADK R39 K85 ["SceneBudgetThermometer"]
-  LOADK R40 K172 ["OpenMicroprofiler"]
-  NAMECALL R37 R1 K87 ["getText"]
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K173 ["OpenMicroprofiler"]
+  NAMECALL R37 R1 K88 ["getText"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K80 ["Text"]
-  GETTABLEKS R37 R0 K173 ["OnToggleMicroprofiler"]
-  SETTABLEKS R37 R36 K166 ["OnClick"]
+  SETTABLEKS R37 R36 K81 ["Text"]
+  GETTABLEKS R37 R0 K174 ["OnToggleMicroprofiler"]
+  SETTABLEKS R37 R36 K167 ["OnClick"]
   GETIMPORT R37 K36 [UDim2.new]
   LOADN R38 0
   LOADN R39 0
   LOADN R40 0
   LOADN R41 0
   CALL R37 4 1
-  SETTABLEKS R37 R36 K167 ["Position"]
+  SETTABLEKS R37 R36 K168 ["Position"]
   CALL R34 2 1
-  SETTABLEKS R34 R33 K163 ["MicroprofilerButton"]
+  SETTABLEKS R34 R33 K164 ["MicroprofilerButton"]
   CALL R30 3 1
   JUMPIF R30 [+1]
   LOADNIL R30
-  SETTABLEKS R30 R29 K143 ["MicroprofilerButtonFrame"]
+  SETTABLEKS R30 R29 K144 ["MicroprofilerButtonFrame"]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K70 ["ExpandingContent"]
+  SETTABLEKS R26 R25 K71 ["ExpandingContent"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K42 ["CPUDrawer"]
   GETUPVAL R24 2
   GETTABLEKS R23 R24 K30 ["createElement"]
+  GETUPVAL R24 3
+  DUPTABLE R25 K72 [{"LayoutOrder", "TopContent", "ExpandingContent"}]
+  LOADN R26 3
+  SETTABLEKS R26 R25 K62 ["LayoutOrder"]
+  GETUPVAL R27 2
+  GETTABLEKS R26 R27 K30 ["createElement"]
+  LOADK R27 K31 ["Frame"]
+  DUPTABLE R28 K74 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
+  GETIMPORT R29 K36 [UDim2.new]
+  LOADN R30 1
+  LOADN R31 0
+  LOADN R32 0
+  LOADN R33 20
+  CALL R29 4 1
+  SETTABLEKS R29 R28 K37 ["Size"]
+  LOADN R29 1
+  SETTABLEKS R29 R28 K38 ["BackgroundTransparency"]
+  GETIMPORT R29 K76 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K73 ["AutomaticSize"]
+  DUPTABLE R29 K176 [{"MainTitle"}]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K30 ["createElement"]
+  LOADK R31 K177 ["TextLabel"]
+  NEWTABLE R32 4 0
+  GETUPVAL R34 2
+  GETTABLEKS R33 R34 K32 ["Tag"]
+  LOADK R34 K178 ["Heading"]
+  SETTABLE R34 R32 R33
+  GETTABLEKS R34 R0 K13 ["IsEditMode"]
+  JUMPIFNOT R34 [+6]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K179 ["GraphicsQualityEditor"]
+  NAMECALL R33 R1 K88 ["getText"]
+  CALL R33 3 1
+  JUMPIF R33 [+5]
+  LOADK R35 K86 ["SceneBudgetThermometer"]
+  LOADK R36 K180 ["GraphicsQualityGame"]
+  NAMECALL R33 R1 K88 ["getText"]
+  CALL R33 3 1
+  SETTABLEKS R33 R32 K81 ["Text"]
+  GETIMPORT R33 K182 [Enum.TextXAlignment.Left]
+  SETTABLEKS R33 R32 K181 ["TextXAlignment"]
+  GETIMPORT R33 K36 [UDim2.new]
+  LOADN R34 0
+  LOADN R35 0
+  LOADN R36 0
+  LOADN R37 12
+  CALL R33 4 1
+  SETTABLEKS R33 R32 K168 ["Position"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K175 ["MainTitle"]
+  CALL R26 3 1
+  SETTABLEKS R26 R25 K70 ["TopContent"]
+  GETUPVAL R27 2
+  GETTABLEKS R26 R27 K30 ["createElement"]
+  LOADK R27 K31 ["Frame"]
+  DUPTABLE R28 K74 [{"Size", "BackgroundTransparency", "AutomaticSize"}]
+  GETIMPORT R29 K36 [UDim2.new]
+  LOADN R30 1
+  LOADN R31 0
+  LOADN R32 0
+  LOADN R33 0
+  CALL R29 4 1
+  SETTABLEKS R29 R28 K37 ["Size"]
+  LOADN R29 1
+  SETTABLEKS R29 R28 K38 ["BackgroundTransparency"]
+  GETIMPORT R29 K76 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K73 ["AutomaticSize"]
+  DUPTABLE R29 K185 [{"Layout", "Padding", "GraphicsQualitySettings", "GraphicsQualitySettingsWarning"}]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K30 ["createElement"]
+  LOADK R31 K47 ["UIListLayout"]
+  DUPTABLE R32 K52 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R33 K54 [UDim.new]
+  LOADN R34 0
+  LOADN R35 5
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K40 ["Padding"]
+  GETIMPORT R33 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R33 R32 K48 ["FillDirection"]
+  GETIMPORT R33 K59 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R33 R32 K49 ["HorizontalAlignment"]
+  GETIMPORT R33 K187 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R33 R32 K50 ["VerticalAlignment"]
+  GETIMPORT R33 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R33 R32 K51 ["SortOrder"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K39 ["Layout"]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K30 ["createElement"]
+  LOADK R31 K64 ["UIPadding"]
+  DUPTABLE R32 K69 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R33 K54 [UDim.new]
+  LOADN R34 0
+  LOADN R35 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K65 ["PaddingTop"]
+  GETIMPORT R33 K54 [UDim.new]
+  LOADN R34 0
+  LOADN R35 12
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K66 ["PaddingBottom"]
+  GETIMPORT R33 K54 [UDim.new]
+  LOADN R34 0
+  LOADN R35 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K67 ["PaddingLeft"]
+  GETIMPORT R33 K54 [UDim.new]
+  LOADN R34 0
+  LOADN R35 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K68 ["PaddingRight"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K40 ["Padding"]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K30 ["createElement"]
+  GETUPVAL R31 8
+  NEWTABLE R32 4 0
+  GETUPVAL R34 2
+  GETTABLEKS R33 R34 K32 ["Tag"]
+  LOADK R34 K188 ["X-Fit X-Row X-Corner"]
+  SETTABLE R34 R32 R33
+  LOADN R33 1
+  SETTABLEKS R33 R32 K62 ["LayoutOrder"]
+  GETTABLEKS R33 R0 K13 ["IsEditMode"]
+  SETTABLEKS R33 R32 K13 ["IsEditMode"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K183 ["GraphicsQualitySettings"]
+  GETTABLEKS R30 R0 K13 ["IsEditMode"]
+  JUMPIFNOT R30 [+142]
+  GETUPVAL R31 2
+  GETTABLEKS R30 R31 K30 ["createElement"]
+  LOADK R31 K31 ["Frame"]
+  NEWTABLE R32 4 0
+  GETUPVAL R34 2
+  GETTABLEKS R33 R34 K32 ["Tag"]
+  LOADK R34 K188 ["X-Fit X-Row X-Corner"]
+  SETTABLE R34 R32 R33
+  LOADN R33 1
+  SETTABLEKS R33 R32 K38 ["BackgroundTransparency"]
+  LOADN R33 2
+  SETTABLEKS R33 R32 K62 ["LayoutOrder"]
+  DUPTABLE R33 K191 [{"Layout", "Padding", "InformationImageLabel", "GraphicsQualityWarningLabel"}]
+  GETUPVAL R35 2
+  GETTABLEKS R34 R35 K30 ["createElement"]
+  LOADK R35 K47 ["UIListLayout"]
+  DUPTABLE R36 K52 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R37 K54 [UDim.new]
+  LOADN R38 0
+  LOADN R39 5
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K40 ["Padding"]
+  GETIMPORT R37 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R37 R36 K48 ["FillDirection"]
+  GETIMPORT R37 K59 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R37 R36 K49 ["HorizontalAlignment"]
+  GETIMPORT R37 K187 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R37 R36 K50 ["VerticalAlignment"]
+  GETIMPORT R37 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R37 R36 K51 ["SortOrder"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K39 ["Layout"]
+  GETUPVAL R35 2
+  GETTABLEKS R34 R35 K30 ["createElement"]
+  LOADK R35 K64 ["UIPadding"]
+  DUPTABLE R36 K69 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R37 K54 [UDim.new]
+  LOADN R38 0
+  LOADN R39 0
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K65 ["PaddingTop"]
+  GETIMPORT R37 K54 [UDim.new]
+  LOADN R38 0
+  LOADN R39 0
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K66 ["PaddingBottom"]
+  GETIMPORT R37 K54 [UDim.new]
+  LOADN R38 0
+  LOADN R39 0
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K67 ["PaddingLeft"]
+  GETIMPORT R37 K54 [UDim.new]
+  LOADN R38 0
+  LOADN R39 0
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K68 ["PaddingRight"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K40 ["Padding"]
+  GETUPVAL R35 2
+  GETTABLEKS R34 R35 K30 ["createElement"]
+  LOADK R35 K192 ["ImageLabel"]
+  NEWTABLE R36 4 0
+  GETUPVAL R38 2
+  GETTABLEKS R37 R38 K32 ["Tag"]
+  LOADK R38 K193 ["InformationLabel"]
+  SETTABLE R38 R36 R37
+  GETIMPORT R37 K36 [UDim2.new]
+  LOADN R38 0
+  LOADN R39 16
+  LOADN R40 0
+  LOADN R41 16
+  CALL R37 4 1
+  SETTABLEKS R37 R36 K37 ["Size"]
+  LOADN R37 1
+  SETTABLEKS R37 R36 K38 ["BackgroundTransparency"]
+  LOADN R37 1
+  SETTABLEKS R37 R36 K62 ["LayoutOrder"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K189 ["InformationImageLabel"]
+  GETUPVAL R35 2
+  GETTABLEKS R34 R35 K30 ["createElement"]
+  LOADK R35 K177 ["TextLabel"]
+  NEWTABLE R36 4 0
+  GETUPVAL R38 2
+  GETTABLEKS R37 R38 K32 ["Tag"]
+  LOADK R38 K194 ["X-Fit"]
+  SETTABLE R38 R36 R37
+  LOADK R39 K86 ["SceneBudgetThermometer"]
+  LOADK R40 K195 ["QualitySettingWarning"]
+  NAMECALL R37 R1 K88 ["getText"]
+  CALL R37 3 1
+  SETTABLEKS R37 R36 K81 ["Text"]
+  LOADB R37 1
+  SETTABLEKS R37 R36 K196 ["TextWrapped"]
+  LOADN R37 2
+  SETTABLEKS R37 R36 K62 ["LayoutOrder"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K190 ["GraphicsQualityWarningLabel"]
+  CALL R30 3 1
+  SETTABLEKS R30 R29 K184 ["GraphicsQualitySettingsWarning"]
+  CALL R26 3 1
+  SETTABLEKS R26 R25 K71 ["ExpandingContent"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K43 ["RenderSettingDrawer"]
+  GETUPVAL R24 2
+  GETTABLEKS R23 R24 K30 ["createElement"]
   LOADK R24 K31 ["Frame"]
-  DUPTABLE R25 K162 [{"LayoutOrder", "Size", "BackgroundTransparency", "AutomaticSize"}]
-  LOADN R26 5
-  SETTABLEKS R26 R25 K61 ["LayoutOrder"]
+  DUPTABLE R25 K163 [{"LayoutOrder", "Size", "BackgroundTransparency", "AutomaticSize"}]
+  LOADN R26 4
+  SETTABLEKS R26 R25 K62 ["LayoutOrder"]
   GETIMPORT R26 K36 [UDim2.new]
   LOADN R27 1
   LOADN R28 0
@@ -1078,35 +1314,35 @@ PROTO_0:
   SETTABLEKS R26 R25 K37 ["Size"]
   LOADN R26 1
   SETTABLEKS R26 R25 K38 ["BackgroundTransparency"]
-  GETIMPORT R26 K75 [Enum.AutomaticSize.Y]
-  SETTABLEKS R26 R25 K72 ["AutomaticSize"]
-  DUPTABLE R26 K175 [{"SettingsButton"}]
+  GETIMPORT R26 K76 [Enum.AutomaticSize.Y]
+  SETTABLEKS R26 R25 K73 ["AutomaticSize"]
+  DUPTABLE R26 K198 [{"SettingsButton"}]
   GETUPVAL R28 2
   GETTABLEKS R27 R28 K30 ["createElement"]
   GETUPVAL R28 7
-  DUPTABLE R29 K177 [{"LeftIcon", "Cursor", "Text", "OnClick", "Position"}]
-  LOADK R30 K178 ["rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png"]
-  SETTABLEKS R30 R29 K176 ["LeftIcon"]
-  LOADK R30 K169 ["PointingHand"]
-  SETTABLEKS R30 R29 K165 ["Cursor"]
-  LOADK R32 K179 ["General"]
-  LOADK R33 K180 ["Settings"]
-  NAMECALL R30 R1 K87 ["getText"]
+  DUPTABLE R29 K200 [{"LeftIcon", "Cursor", "Text", "OnClick", "Position"}]
+  LOADK R30 K201 ["rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png"]
+  SETTABLEKS R30 R29 K199 ["LeftIcon"]
+  LOADK R30 K170 ["PointingHand"]
+  SETTABLEKS R30 R29 K166 ["Cursor"]
+  LOADK R32 K202 ["General"]
+  LOADK R33 K203 ["Settings"]
+  NAMECALL R30 R1 K88 ["getText"]
   CALL R30 3 1
-  SETTABLEKS R30 R29 K80 ["Text"]
-  GETTABLEKS R30 R0 K181 ["OnOpenSettings"]
-  SETTABLEKS R30 R29 K166 ["OnClick"]
+  SETTABLEKS R30 R29 K81 ["Text"]
+  GETTABLEKS R30 R0 K204 ["OnOpenSettings"]
+  SETTABLEKS R30 R29 K167 ["OnClick"]
   GETIMPORT R30 K36 [UDim2.new]
   LOADN R31 0
   LOADN R32 0
   LOADN R33 0
   LOADN R34 0
   CALL R30 4 1
-  SETTABLEKS R30 R29 K167 ["Position"]
+  SETTABLEKS R30 R29 K168 ["Position"]
   CALL R27 2 1
-  SETTABLEKS R27 R26 K174 ["SettingsButton"]
+  SETTABLEKS R27 R26 K197 ["SettingsButton"]
   CALL R23 3 1
-  SETTABLEKS R23 R22 K43 ["SettingsButtonFrame"]
+  SETTABLEKS R23 R22 K44 ["SettingsButtonFrame"]
   GETTABLEKS R24 R0 K13 ["IsEditMode"]
   JUMPIFNOT R24 [+143]
   GETUPVAL R24 2
@@ -1115,65 +1351,65 @@ PROTO_0:
   NEWTABLE R25 4 0
   GETUPVAL R27 2
   GETTABLEKS R26 R27 K32 ["Tag"]
-  LOADK R27 K182 ["X-Fit X-Row X-Corner"]
+  LOADK R27 K188 ["X-Fit X-Row X-Corner"]
   SETTABLE R27 R25 R26
   LOADN R26 1
   SETTABLEKS R26 R25 K38 ["BackgroundTransparency"]
-  LOADN R26 6
-  SETTABLEKS R26 R25 K61 ["LayoutOrder"]
-  DUPTABLE R26 K185 [{"Layout", "Padding", "InformationImageLabel", "EditDMWarningLabel"}]
+  LOADN R26 5
+  SETTABLEKS R26 R25 K62 ["LayoutOrder"]
+  DUPTABLE R26 K206 [{"Layout", "Padding", "InformationImageLabel", "EditDMWarningLabel"}]
   GETUPVAL R28 2
   GETTABLEKS R27 R28 K30 ["createElement"]
-  LOADK R28 K46 ["UIListLayout"]
-  DUPTABLE R29 K51 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R30 K53 [UDim.new]
+  LOADK R28 K47 ["UIListLayout"]
+  DUPTABLE R29 K52 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R30 K54 [UDim.new]
   LOADN R31 0
   LOADN R32 5
   CALL R30 2 1
   SETTABLEKS R30 R29 K40 ["Padding"]
-  GETIMPORT R30 K56 [Enum.FillDirection.Vertical]
-  SETTABLEKS R30 R29 K47 ["FillDirection"]
-  GETIMPORT R30 K58 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R30 R29 K48 ["HorizontalAlignment"]
+  GETIMPORT R30 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R30 R29 K48 ["FillDirection"]
+  GETIMPORT R30 K59 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R30 R29 K49 ["HorizontalAlignment"]
   GETIMPORT R30 K187 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R30 R29 K49 ["VerticalAlignment"]
-  GETIMPORT R30 K62 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R30 R29 K50 ["SortOrder"]
+  SETTABLEKS R30 R29 K50 ["VerticalAlignment"]
+  GETIMPORT R30 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R30 R29 K51 ["SortOrder"]
   CALL R27 2 1
   SETTABLEKS R27 R26 K39 ["Layout"]
   GETUPVAL R28 2
   GETTABLEKS R27 R28 K30 ["createElement"]
-  LOADK R28 K63 ["UIPadding"]
-  DUPTABLE R29 K68 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R30 K53 [UDim.new]
+  LOADK R28 K64 ["UIPadding"]
+  DUPTABLE R29 K69 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R30 K54 [UDim.new]
   LOADN R31 0
   LOADN R32 0
   CALL R30 2 1
-  SETTABLEKS R30 R29 K64 ["PaddingTop"]
-  GETIMPORT R30 K53 [UDim.new]
+  SETTABLEKS R30 R29 K65 ["PaddingTop"]
+  GETIMPORT R30 K54 [UDim.new]
   LOADN R31 0
   LOADN R32 0
   CALL R30 2 1
-  SETTABLEKS R30 R29 K65 ["PaddingBottom"]
-  GETIMPORT R30 K53 [UDim.new]
+  SETTABLEKS R30 R29 K66 ["PaddingBottom"]
+  GETIMPORT R30 K54 [UDim.new]
   LOADN R31 0
   LOADN R32 0
   CALL R30 2 1
-  SETTABLEKS R30 R29 K66 ["PaddingLeft"]
-  GETIMPORT R30 K53 [UDim.new]
+  SETTABLEKS R30 R29 K67 ["PaddingLeft"]
+  GETIMPORT R30 K54 [UDim.new]
   LOADN R31 0
   LOADN R32 0
   CALL R30 2 1
-  SETTABLEKS R30 R29 K67 ["PaddingRight"]
+  SETTABLEKS R30 R29 K68 ["PaddingRight"]
   CALL R27 2 1
   SETTABLEKS R27 R26 K40 ["Padding"]
   GETUPVAL R28 2
   GETTABLEKS R27 R28 K30 ["createElement"]
-  LOADK R28 K188 ["ImageLabel"]
+  LOADK R28 K192 ["ImageLabel"]
   NEWTABLE R29 4 0
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K32 ["Tag"]
-  LOADK R31 K189 ["InformationLabel"]
+  LOADK R31 K193 ["InformationLabel"]
   SETTABLE R31 R29 R30
   GETIMPORT R30 K36 [UDim2.new]
   LOADN R31 0
@@ -1185,32 +1421,32 @@ PROTO_0:
   LOADN R30 1
   SETTABLEKS R30 R29 K38 ["BackgroundTransparency"]
   LOADN R30 1
-  SETTABLEKS R30 R29 K61 ["LayoutOrder"]
+  SETTABLEKS R30 R29 K62 ["LayoutOrder"]
   CALL R27 2 1
-  SETTABLEKS R27 R26 K183 ["InformationImageLabel"]
+  SETTABLEKS R27 R26 K189 ["InformationImageLabel"]
   GETUPVAL R28 2
   GETTABLEKS R27 R28 K30 ["createElement"]
-  LOADK R28 K190 ["TextLabel"]
+  LOADK R28 K177 ["TextLabel"]
   NEWTABLE R29 4 0
   GETUPVAL R31 2
   GETTABLEKS R30 R31 K32 ["Tag"]
-  LOADK R31 K191 ["X-Fit"]
+  LOADK R31 K194 ["X-Fit"]
   SETTABLE R31 R29 R30
-  LOADK R32 K85 ["SceneBudgetThermometer"]
-  LOADK R33 K44 ["EditDMWarning"]
-  NAMECALL R30 R1 K87 ["getText"]
+  LOADK R32 K86 ["SceneBudgetThermometer"]
+  LOADK R33 K45 ["EditDMWarning"]
+  NAMECALL R30 R1 K88 ["getText"]
   CALL R30 3 1
-  SETTABLEKS R30 R29 K80 ["Text"]
+  SETTABLEKS R30 R29 K81 ["Text"]
   LOADB R30 1
-  SETTABLEKS R30 R29 K192 ["TextWrapped"]
+  SETTABLEKS R30 R29 K196 ["TextWrapped"]
   LOADN R30 2
-  SETTABLEKS R30 R29 K61 ["LayoutOrder"]
+  SETTABLEKS R30 R29 K62 ["LayoutOrder"]
   CALL R27 2 1
-  SETTABLEKS R27 R26 K184 ["EditDMWarningLabel"]
+  SETTABLEKS R27 R26 K205 ["EditDMWarningLabel"]
   CALL R23 3 1
   JUMPIF R23 [+1]
   LOADNIL R23
-  SETTABLEKS R23 R22 K44 ["EditDMWarning"]
+  SETTABLEKS R23 R22 K45 ["EditDMWarning"]
   CALL R19 3 -1
   RETURN R19 -1
 
@@ -1252,16 +1488,22 @@ MAIN:
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K11 ["Src"]
-  GETTABLEKS R11 R12 K20 ["Util"]
-  GETTABLEKS R10 R11 K21 ["ThermometerEnums"]
+  GETTABLEKS R11 R12 K12 ["Components"]
+  GETTABLEKS R10 R11 K20 ["QualitySettings"]
   CALL R9 1 1
-  DUPCLOSURE R10 K22 [PROTO_0]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K11 ["Src"]
+  GETTABLEKS R12 R13 K21 ["Util"]
+  GETTABLEKS R11 R12 K22 ["ThermometerEnums"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K23 [PROTO_0]
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R4
-  CAPTURE VAL R9
+  CAPTURE VAL R10
   CAPTURE VAL R8
   CAPTURE VAL R3
-  RETURN R10 1
+  CAPTURE VAL R9
+  RETURN R11 1

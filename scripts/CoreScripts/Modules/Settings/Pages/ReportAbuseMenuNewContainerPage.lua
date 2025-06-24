@@ -5,9 +5,12 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Packages.Roact)
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration['uiblox']
 
 local AbuseReportMenu = require(RobloxGui.Modules.AbuseReportMenu).AbuseReportMenu
 local ReportAbuseAnalytics = require(RobloxGui.Modules.AbuseReportMenu).ReportAbuseAnalytics
+local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -72,10 +75,17 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "ReportAbuseTab"
-	local icon = Theme.Images["icons/actions/feedback"]
-	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-	this.TabHeader.TabLabel.Icon.Image = icon.Image
+
+	if FFlagBuilderIcons then
+		local icon = migrationLookup["icons/actions/feedback"]
+		this.TabHeader.TabLabel.Icon.Text = icon.name
+		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
+	else
+		local icon = Theme.Images["icons/actions/feedback"]
+		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
+		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
+		this.TabHeader.TabLabel.Icon.Image = icon.Image
+	end
 	this.TabHeader.TabLabel.Title.Text = "Report"
 
 	------ PAGE CUSTOMIZATION -------

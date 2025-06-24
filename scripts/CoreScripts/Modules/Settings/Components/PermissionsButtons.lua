@@ -43,7 +43,6 @@ local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.Ge
 local FFlagAvatarChatCoreScriptSupport =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
-local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagRemoveInGameChatBubbleChatReferences =
 	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
@@ -149,31 +148,30 @@ function PermissionsButtons:init()
 		isFetchingMicPermissions = if GetFFlagUseMicPermForEnrollment() then true else nil,
 	})
 
-	if GetFFlagShowMicConnectingIconAndToast() then
-		VoiceChatServiceManager:asyncInit()
-			:andThen(function()
-				local voiceService = VoiceChatServiceManager:getService()
-				if voiceService then
-					self:setState({
-						voiceServiceInitialized = true,
-					})
 
-					-- Before we enable and join voice through the upsell, mic permissions state should be false. However
-					-- after enabling and connecting to voice, the user should have provided mic permissions. We should
-					-- confirm that we have mic permissions so we can change that state and update the UI accordingly.
-					if
-						GetFFlagEnableInExpVoiceUpsell()
-						and GetFFlagPassShouldRequestPermsArg()
-						and not self.state.hasMicPermissions
-					then
-						self:getMicPermission(false)
-					end
+	VoiceChatServiceManager:asyncInit()
+		:andThen(function()
+			local voiceService = VoiceChatServiceManager:getService()
+			if voiceService then
+				self:setState({
+					voiceServiceInitialized = true,
+				})
+
+				-- Before we enable and join voice through the upsell, mic permissions state should be false. However
+				-- after enabling and connecting to voice, the user should have provided mic permissions. We should
+				-- confirm that we have mic permissions so we can change that state and update the UI accordingly.
+				if
+					GetFFlagEnableInExpVoiceUpsell()
+					and GetFFlagPassShouldRequestPermsArg()
+					and not self.state.hasMicPermissions
+				then
+					self:getMicPermission(false)
 				end
-			end)
-			:catch(function()
-				log:warning("VoiceChatServiceManager failed to initialize")
-			end)
-	end
+			end
+		end)
+		:catch(function()
+			log:warning("VoiceChatServiceManager failed to initialize")
+		end)
 
 	self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
 		self:setState({
@@ -206,7 +204,7 @@ function PermissionsButtons:init()
 
 	-- toggle mic permissions
 	self.toggleMic = function()
-		if GetFFlagShowMicConnectingIconAndToast() and self.state.isVoiceConnecting then
+		if self.state.isVoiceConnecting then
 			VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 			return
 		end
@@ -319,16 +317,14 @@ function PermissionsButtons:init()
 		})
 	end
 
-	if GetFFlagShowMicConnectingIconAndToast() then
-		self.onVoiceStateChange = function(oldState, newState)
-			local voiceManagerState = VoiceChatServiceManager:GetVoiceStateFromEnum(newState)
-			local inConnectingState = voiceManagerState == VoiceChatServiceManager.VOICE_STATE.CONNECTING
+	self.onVoiceStateChange = function(oldState, newState)
+		local voiceManagerState = VoiceChatServiceManager:GetVoiceStateFromEnum(newState)
+		local inConnectingState = voiceManagerState == VoiceChatServiceManager.VOICE_STATE.CONNECTING
 
-			if not inConnectingState and self.state.isVoiceConnecting then
-				self:setState({
-					isVoiceConnecting = false,
-				})
-			end
+		if not inConnectingState and self.state.isVoiceConnecting then
+			self:setState({
+				isVoiceConnecting = false,
+			})
 		end
 	end
 
@@ -620,12 +616,10 @@ function PermissionsButtons:render()
 		and not self.props.isTenFootInterface
 		and not self.props.isSmallTouchScreen
 	) or self.props.useNewMenuTheme
-	local shouldShowRecordingIndicator = (
-		not GetFFlagShowMicConnectingIconAndToast() or not self.state.isVoiceConnecting
-	) and shouldShowMicButtons
+	local shouldShowRecordingIndicator = not self.state.isVoiceConnecting and shouldShowMicButtons
 	local micImage = MIC_IMAGE
 	local micImageLabelProps = nil
-	if GetFFlagShowMicConnectingIconAndToast() and self.state.isVoiceConnecting then
+	if self.state.isVoiceConnecting then
 		micImage = VoiceChatServiceManager:GetIcon("Connecting", "New")
 		micImageLabelProps = { Size = UDim2.fromOffset(14, 22), Position = UDim2.fromOffset(9, 4) }
 	elseif not self.state.microphoneEnabled then
@@ -742,8 +736,7 @@ function PermissionsButtons:render()
 					event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 					callback = self.updateVideoCaptureEnabled,
 				}),
-				VoiceStateChangeEvent = if GetFFlagShowMicConnectingIconAndToast()
-						and self.state.voiceServiceInitialized
+				VoiceStateChangeEvent = if self.state.voiceServiceInitialized
 					then Roact.createElement(ExternalEventConnection, {
 						event = VoiceChatServiceManager:getService().StateChanged,
 						callback = self.onVoiceStateChange,
@@ -866,8 +859,7 @@ function PermissionsButtons:render()
 					event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 					callback = self.updateVideoCaptureEnabled,
 				}),
-				VoiceStateChangeEvent = if GetFFlagShowMicConnectingIconAndToast()
-						and self.state.voiceServiceInitialized
+				VoiceStateChangeEvent = if self.state.voiceServiceInitialized
 					then Roact.createElement(ExternalEventConnection, {
 						event = VoiceChatServiceManager:getService().StateChanged,
 						callback = self.onVoiceStateChange,

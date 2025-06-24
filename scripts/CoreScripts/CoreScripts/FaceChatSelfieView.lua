@@ -144,7 +144,6 @@ local AUTO_HIDE_CD = 5
 local updateCloneCurrentCoolDown = 0
 
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
-local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
 local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 
@@ -652,17 +651,12 @@ function initVoiceChatServiceManager()
 						end
 					end
 					voiceService.StateChanged:Connect(function(_oldState, newState)
-						local voiceManagerState = LOCAL_STATE_MAP[newState]
-						if GetFFlagShowMicConnectingIconAndToast() then
-							voiceManagerState = VoiceChatServiceManager:GetVoiceStateFromEnum(newState)
-						end
+						local voiceManagerState = VoiceChatServiceManager:GetVoiceStateFromEnum(newState)
 						if voiceManagerState then
-							if GetFFlagShowMicConnectingIconAndToast() then
-								local inConnectingState = voiceManagerState
-									== VoiceChatServiceManager.VOICE_STATE.CONNECTING
-								if not inConnectingState and isVoiceConnecting then
-									isVoiceConnecting = false
-								end
+							local inConnectingState = voiceManagerState
+								== VoiceChatServiceManager.VOICE_STATE.CONNECTING
+							if not inConnectingState and isVoiceConnecting then
+								isVoiceConnecting = false
 							end
 							updateMicIcon(voiceManagerState, cachedLevel)
 						elseif newState == (Enum :: any).VoiceChatState.Ended then
@@ -1254,11 +1248,9 @@ local function createViewport()
 					.. tostring(hasMicPermissions)
 			)
 			if voiceService and getShouldShowMicButton() then
-				if GetFFlagShowMicConnectingIconAndToast() then
-					if isVoiceConnecting then
-						VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
-						return
-					end
+				if isVoiceConnecting then
+					VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
+					return
 				end
 				VoiceChatServiceManager:ToggleMic("LegacySelfView")
 				Analytics:setLastCtx("SelfView")
@@ -1336,7 +1328,7 @@ local function createViewport()
 		micIcon.Parent = micButton
 		micIcon.AnchorPoint = Vector2.new(0.5, 0.5)
 		micIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-		if GetFFlagShowMicConnectingIconAndToast() and isVoiceConnecting then
+		if isVoiceConnecting then
 			micIcon.Size = UDim2.fromOffset(16, 20)
 			micIcon.Image = VoiceChatServiceManager:GetIcon("Connecting", "New")
 			micIcon.ImageRectOffset = Vector2.new(0, 0)

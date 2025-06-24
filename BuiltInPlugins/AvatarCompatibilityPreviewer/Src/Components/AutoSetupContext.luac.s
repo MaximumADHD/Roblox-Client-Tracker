@@ -43,7 +43,7 @@ PROTO_0:
   SETTABLEKS R4 R3 K1 ["jobId"]
   LOADK R4 K22 ["info"]
   SETTABLEKS R4 R3 K18 ["level"]
-  LOADK R4 K23 ["Test message for status notification"]
+  LOADK R4 K23 ["Unknown"]
   SETTABLEKS R4 R3 K19 ["message"]
   CALL R2 1 0
   MOVE R2 R0

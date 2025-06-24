@@ -14,53 +14,63 @@ MAIN:
   CALL R2 0 1
   JUMPIF R2 [+1]
   RETURN R0 0
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["TestLoader"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K12 ["isCli"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["FFlagIsLuobuBuild"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K9 ["Get"]
+  MOVE R3 R2
   CALL R3 0 1
-  JUMPIFNOT R3 [+5]
-  GETIMPORT R3 K14 [error]
-  LOADK R4 K15 ["roblox-cli should not be loading standalone plugins"]
-  CALL R3 1 0
+  JUMPIFNOT R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K16 ["Bin"]
-  GETTABLEKS R5 R6 K17 ["Common"]
-  GETTABLEKS R4 R5 K18 ["pluginType"]
+  GETTABLEKS R5 R0 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["TestLoader"]
   CALL R3 1 1
-  GETTABLEKS R5 R3 K19 ["get"]
-  CALL R5 0 1
-  GETTABLEKS R6 R3 K20 ["Standalone"]
-  JUMPIFEQ R5 R6 [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  JUMPIFNOT R4 [+42]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K16 ["Bin"]
-  GETTABLEKS R7 R8 K17 ["Common"]
-  GETTABLEKS R6 R7 K21 ["toolInit"]
-  CALL R5 1 1
-  MOVE R6 R5
-  GETIMPORT R7 K23 [plugin]
-  DUPTABLE R8 K26 [{"isUIDM", "isEditableDM"}]
-  SETTABLEKS R4 R8 K24 ["isUIDM"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K25 ["isEditableDM"]
-  CALL R6 2 0
+  GETTABLEKS R4 R3 K13 ["isCli"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+5]
+  GETIMPORT R4 K15 [error]
+  LOADK R5 K16 ["roblox-cli should not be loading standalone plugins"]
+  CALL R4 1 0
+  RETURN R0 0
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K17 ["Bin"]
+  GETTABLEKS R6 R7 K18 ["Common"]
+  GETTABLEKS R5 R6 K19 ["pluginType"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K20 ["get"]
+  CALL R6 0 1
+  GETTABLEKS R7 R4 K21 ["Standalone"]
+  JUMPIFEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  JUMPIFNOT R5 [+42]
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K16 ["Bin"]
-  GETTABLEKS R8 R9 K17 ["Common"]
-  GETTABLEKS R7 R8 K27 ["setup"]
+  GETTABLEKS R9 R0 K17 ["Bin"]
+  GETTABLEKS R8 R9 K18 ["Common"]
+  GETTABLEKS R7 R8 K22 ["toolInit"]
   CALL R6 1 1
+  MOVE R7 R6
+  GETIMPORT R8 K24 [plugin]
+  DUPTABLE R9 K27 [{"isUIDM", "isEditableDM"}]
+  SETTABLEKS R5 R9 K25 ["isUIDM"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K26 ["isEditableDM"]
+  CALL R7 2 0
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K16 ["Bin"]
-  GETTABLEKS R9 R10 K17 ["Common"]
-  GETTABLEKS R8 R9 K28 ["setupMain"]
+  GETTABLEKS R10 R0 K17 ["Bin"]
+  GETTABLEKS R9 R10 K18 ["Common"]
+  GETTABLEKS R8 R9 K28 ["setup"]
   CALL R7 1 1
-  MOVE R8 R6
-  GETIMPORT R9 K23 [plugin]
-  MOVE R10 R7
-  CALL R8 2 0
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K17 ["Bin"]
+  GETTABLEKS R10 R11 K18 ["Common"]
+  GETTABLEKS R9 R10 K29 ["setupMain"]
+  CALL R8 1 1
+  MOVE R9 R7
+  GETIMPORT R10 K24 [plugin]
+  MOVE R11 R8
+  CALL R9 2 0
   RETURN R0 0

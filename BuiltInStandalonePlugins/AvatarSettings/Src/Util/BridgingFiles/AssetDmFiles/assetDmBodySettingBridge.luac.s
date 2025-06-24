@@ -55,109 +55,118 @@ PROTO_2:
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K12 ["CustomHead"]
+  LOADK R7 K12 ["CustomFace"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K13 ["bodyAppearanceCustomPartsHead"]
+  GETTABLEKS R7 R8 K13 ["bodyAppearanceCustomPartsFace"]
   CALL R4 3 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K14 ["CustomTorso"]
+  LOADK R7 K14 ["CustomHead"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K15 ["bodyAppearanceCustomPartsTorso"]
+  GETTABLEKS R7 R8 K15 ["bodyAppearanceCustomPartsHead"]
   CALL R4 3 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K16 ["CustomLeftArm"]
+  LOADK R7 K16 ["CustomTorso"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K17 ["bodyAppearanceCustomPartsLeftArm"]
+  GETTABLEKS R7 R8 K17 ["bodyAppearanceCustomPartsTorso"]
   CALL R4 3 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K18 ["CustomRightArm"]
+  LOADK R7 K18 ["CustomLeftArm"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K19 ["bodyAppearanceCustomPartsRightArm"]
+  GETTABLEKS R7 R8 K19 ["bodyAppearanceCustomPartsLeftArm"]
   CALL R4 3 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K20 ["CustomLeftLeg"]
+  LOADK R7 K20 ["CustomRightArm"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K21 ["bodyAppearanceCustomPartsLeftLeg"]
+  GETTABLEKS R7 R8 K21 ["bodyAppearanceCustomPartsRightArm"]
   CALL R4 3 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K22 ["CustomRightLeg"]
+  LOADK R7 K22 ["CustomLeftLeg"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K23 ["bodyAppearanceCustomPartsRightLeg"]
+  GETTABLEKS R7 R8 K23 ["bodyAppearanceCustomPartsLeftLeg"]
+  CALL R4 3 0
+  GETUPVAL R4 3
+  MOVE R5 R0
+  DUPTABLE R6 K5 [{"ruleInstance", "property"}]
+  SETTABLEKS R1 R6 K3 ["ruleInstance"]
+  LOADK R7 K24 ["CustomRightLeg"]
+  SETTABLEKS R7 R6 K4 ["property"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K25 ["bodyAppearanceCustomPartsRightLeg"]
   CALL R4 3 0
   GETUPVAL R4 1
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K24 ["BuildMode"]
+  LOADK R7 K26 ["BuildMode"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K25 ["bodyBuildSetting"]
+  GETTABLEKS R7 R8 K27 ["bodyBuildSetting"]
   CALL R4 3 0
   GETUPVAL R4 1
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K26 ["CustomHeightScale"]
+  LOADK R7 K28 ["CustomHeightScale"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K27 ["bodyBuildCustomHeight"]
+  GETTABLEKS R7 R8 K29 ["bodyBuildCustomHeight"]
   CALL R4 3 0
   GETUPVAL R4 1
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K28 ["CustomWidthScale"]
+  LOADK R7 K30 ["CustomWidthScale"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K29 ["bodyBuildCustomWidth"]
+  GETTABLEKS R7 R8 K31 ["bodyBuildCustomWidth"]
   CALL R4 3 0
   GETUPVAL R4 1
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K30 ["CustomHeadScale"]
+  LOADK R7 K32 ["CustomHeadScale"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K31 ["bodyBuildCustomHead"]
+  GETTABLEKS R7 R8 K33 ["bodyBuildCustomHead"]
   CALL R4 3 0
   GETUPVAL R4 1
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K32 ["CustomBodyTypeScale"]
+  LOADK R7 K34 ["CustomBodyTypeScale"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K33 ["bodyBuildCustomBodyType"]
+  GETTABLEKS R7 R8 K35 ["bodyBuildCustomBodyType"]
   CALL R4 3 0
   GETUPVAL R4 1
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K34 ["CustomProportionsScale"]
+  LOADK R7 K36 ["CustomProportionsScale"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K35 ["bodyBuildCustomProportions"]
+  GETTABLEKS R7 R8 K37 ["bodyBuildCustomProportions"]
   CALL R4 3 0
   RETURN R0 0
 

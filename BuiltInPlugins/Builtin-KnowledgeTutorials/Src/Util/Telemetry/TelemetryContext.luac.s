@@ -1,0 +1,142 @@
+PROTO_0:
+  FASTCALL2K ASSERT R0 K0 [+5]
+  MOVE R2 R0
+  LOADK R3 K0 ["TelemetryContext.new expects a Telemetry instance."]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K5 [{"telemetry", "tutorialData"}]
+  SETTABLEKS R0 R1 K3 ["telemetry"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K4 ["tutorialData"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K7 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["telemetry"]
+  RETURN R1 1
+
+PROTO_2:
+  SETTABLEKS R1 R0 K0 ["tutorialData"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R3 R0 K0 ["tutorialData"]
+  GETTABLEKS R4 R0 K1 ["telemetry"]
+  MOVE R6 R1
+  LOADNIL R7
+  GETUPVAL R8 0
+  DUPTABLE R9 K8 [{"studioSessionId", "clientId", "tutorialTitle", "tutorialSummary", "tutorialDifficulty", "tutorialCategories"}]
+  GETUPVAL R10 1
+  NAMECALL R10 R10 K9 ["GetSessionId"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K2 ["studioSessionId"]
+  GETUPVAL R10 1
+  NAMECALL R10 R10 K10 ["GetClientId"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K3 ["clientId"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R11 R3 K11 ["info"]
+  JUMPIFNOT R11 [+5]
+  GETTABLEKS R11 R3 K11 ["info"]
+  GETTABLEKS R10 R11 K12 ["title"]
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K4 ["tutorialTitle"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R11 R3 K11 ["info"]
+  JUMPIFNOT R11 [+5]
+  GETTABLEKS R11 R3 K11 ["info"]
+  GETTABLEKS R10 R11 K13 ["summary"]
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K5 ["tutorialSummary"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R11 R3 K11 ["info"]
+  JUMPIFNOT R11 [+5]
+  GETTABLEKS R11 R3 K11 ["info"]
+  GETTABLEKS R10 R11 K14 ["difficulty"]
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K6 ["tutorialDifficulty"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R11 R3 K11 ["info"]
+  JUMPIFNOT R11 [+5]
+  GETTABLEKS R11 R3 K11 ["info"]
+  GETTABLEKS R10 R11 K15 ["categories"]
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K7 ["tutorialCategories"]
+  MOVE R10 R2
+  CALL R8 2 -1
+  NAMECALL R4 R4 K16 ["logRobloxTelemetryEvent"]
+  CALL R4 -1 -1
+  RETURN R4 -1
+
+PROTO_4:
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  DUPTABLE R2 K2 [{"logRobloxTelemetryEvent"}]
+  MOVE R3 R0
+  JUMPIF R3 [+1]
+  DUPCLOSURE R3 K3 [PROTO_4]
+  SETTABLEKS R3 R2 K1 ["logRobloxTelemetryEvent"]
+  CALL R1 1 1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["KnowledgeTutorials"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["Services"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K10 ["RbxAnalyticsService"]
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K11 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["TelemetryProtocolTypes"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K13 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Framework"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K13 ["Packages"]
+  GETTABLEKS R7 R8 K15 ["Dash"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K16 ["join"]
+  GETTABLEKS R9 R5 K17 ["ContextServices"]
+  GETTABLEKS R8 R9 K18 ["ContextItem"]
+  LOADK R11 K19 ["Telemetry"]
+  NAMECALL R9 R8 K20 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K21 [PROTO_0]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R9 K22 ["new"]
+  DUPCLOSURE R10 K23 [PROTO_1]
+  SETTABLEKS R10 R9 K24 ["get"]
+  DUPCLOSURE R10 K25 [PROTO_2]
+  SETTABLEKS R10 R9 K26 ["setTutorialData"]
+  DUPCLOSURE R10 K27 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K28 ["log"]
+  DUPCLOSURE R10 K29 [PROTO_5]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R9 K30 ["mock"]
+  RETURN R9 1

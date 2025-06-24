@@ -1,0 +1,115 @@
+PROTO_0:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["Invalid flag state"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K3 ["props"]
+  GETTABLEKS R2 R1 K4 ["Stylizer"]
+  GETTABLEKS R3 R1 K5 ["Localization"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["createElement"]
+  GETUPVAL R5 2
+  NEWTABLE R6 0 0
+  DUPTABLE R7 K8 [{"Label"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  LOADK R9 K9 ["TextLabel"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K10 ["Dictionary"]
+  GETTABLEKS R10 R11 K11 ["join"]
+  GETTABLEKS R12 R2 K12 ["fontStyle"]
+  GETTABLEKS R11 R12 K13 ["Normal"]
+  DUPTABLE R12 K18 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency"}]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K14 ["LayoutOrder"]
+  LOADK R15 K19 ["General"]
+  LOADK R16 K20 ["MovedToAvatarSettingsPanel"]
+  NAMECALL R13 R3 K21 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K15 ["Text"]
+  GETIMPORT R13 K24 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K16 ["Size"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K17 ["BackgroundTransparency"]
+  CALL R10 2 1
+  DUPTABLE R11 K26 [{"Padding"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K6 ["createElement"]
+  LOADK R13 K27 ["UIPadding"]
+  DUPTABLE R14 K30 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R15 K33 [UDim.new]
+  LOADN R16 0
+  GETTABLEKS R19 R2 K35 ["settingsPage"]
+  GETTABLEKS R18 R19 K36 ["failLabelPaddingX"]
+  DIVK R17 R18 K34 [2]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K28 ["PaddingLeft"]
+  GETIMPORT R15 K33 [UDim.new]
+  LOADN R16 0
+  GETTABLEKS R19 R2 K35 ["settingsPage"]
+  GETTABLEKS R18 R19 K36 ["failLabelPaddingX"]
+  DIVK R17 R18 K34 [2]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K29 ["PaddingRight"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K25 ["Padding"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K7 ["Label"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R6 R3 K11 ["UI"]
+  GETTABLEKS R7 R6 K12 ["Container"]
+  GETTABLEKS R8 R1 K13 ["Component"]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K14 ["Name"]
+  NAMECALL R8 R8 K15 ["extend"]
+  CALL R8 2 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K16 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Flags"]
+  GETTABLEKS R10 R11 K18 ["getFFlagEnableAvatarSettings"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K19 [PROTO_0]
+  CAPTURE VAL R9
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  SETTABLEKS R10 R8 K20 ["render"]
+  MOVE R10 R5
+  DUPTABLE R11 K23 [{"Stylizer", "Localization"}]
+  GETTABLEKS R12 R4 K21 ["Stylizer"]
+  SETTABLEKS R12 R11 K21 ["Stylizer"]
+  GETTABLEKS R12 R4 K22 ["Localization"]
+  SETTABLEKS R12 R11 K22 ["Localization"]
+  CALL R10 1 1
+  MOVE R11 R8
+  CALL R10 1 1
+  MOVE R8 R10
+  RETURN R8 1

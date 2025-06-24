@@ -224,10 +224,15 @@ PROTO_8:
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["Row"]
   GETTABLEKS R1 R2 K2 ["currentPreset"]
-  GETTABLEKS R2 R0 K3 ["PresetController"]
-  MOVE R4 R1
-  NAMECALL R2 R2 K4 ["applyPresetToAllSessions"]
-  CALL R2 2 0
+  GETTABLEKS R3 R0 K3 ["CellProps"]
+  GETTABLEKS R2 R3 K4 ["UpdateCreator"]
+  GETTABLEKS R3 R0 K5 ["PresetController"]
+  MOVE R5 R1
+  MOVE R6 R2
+  GETTABLEKS R8 R0 K1 ["Row"]
+  GETTABLEKS R7 R8 K6 ["creatorId"]
+  NAMECALL R3 R3 K7 ["applyPresetToAllSessions"]
+  CALL R3 4 0
   RETURN R0 0
 
 PROTO_9:
@@ -1164,7 +1169,22 @@ PROTO_22:
   MOVE R8 R5
   GETUPVAL R11 6
   GETTABLEKS R10 R11 K31 ["createFragment"]
-  DUPTABLE R11 K33 [{"Alert"}]
+  DUPTABLE R11 K34 [{"Layout", "Alert"}]
+  GETUPVAL R13 2
+  CALL R13 0 1
+  JUMPIFNOT R13 [+2]
+  LOADNIL R12
+  JUMP [+14]
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K14 ["createElement"]
+  LOADK R13 K35 ["UIListLayout"]
+  DUPTABLE R14 K38 [{"HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R15 K41 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R15 R14 K36 ["HorizontalAlignment"]
+  GETIMPORT R15 K42 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R15 R14 K37 ["VerticalAlignment"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K32 ["Layout"]
   GETUPVAL R13 0
   CALL R13 0 1
   JUMPIFNOT R13 [+16]
@@ -1174,9 +1194,9 @@ PROTO_22:
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K14 ["createElement"]
   GETUPVAL R13 8
-  DUPTABLE R14 K35 [{"tag"}]
-  LOADK R15 K36 ["auto-xy anchor-center-center position-center-center"]
-  SETTABLEKS R15 R14 K34 ["tag"]
+  DUPTABLE R14 K44 [{"tag"}]
+  LOADK R15 K45 ["auto-xy anchor-center-center position-center-center"]
+  SETTABLEKS R15 R14 K43 ["tag"]
   MOVE R15 R9
   CALL R12 3 1
   JUMP [+29]
@@ -1200,7 +1220,7 @@ PROTO_22:
   LOADN R15 2
   SETTABLEKS R15 R14 K24 ["LayoutOrder"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K32 ["Alert"]
+  SETTABLEKS R12 R11 K33 ["Alert"]
   CALL R10 1 -1
   RETURN R10 -1
 

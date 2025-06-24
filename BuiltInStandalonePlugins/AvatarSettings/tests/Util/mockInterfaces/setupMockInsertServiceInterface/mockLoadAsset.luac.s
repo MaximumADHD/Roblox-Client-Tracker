@@ -1,12 +1,20 @@
 PROTO_0:
-  GETIMPORT R2 K2 [Instance.new]
-  LOADK R3 K3 ["Part"]
-  CALL R2 1 1
+  LOADNIL R2
+  JUMPIFNOT R1 [+6]
+  GETIMPORT R3 K2 [Instance.new]
+  LOADK R4 K3 ["Accessory"]
+  CALL R3 1 1
+  MOVE R2 R3
+  JUMP [+5]
+  GETIMPORT R3 K2 [Instance.new]
+  LOADK R4 K4 ["Part"]
+  CALL R3 1 1
+  MOVE R2 R3
   FASTCALL1 TOSTRING R0 [+3]
   MOVE R4 R0
-  GETIMPORT R3 K5 [tostring]
+  GETIMPORT R3 K6 [tostring]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K6 ["Name"]
+  SETTABLEKS R3 R2 K7 ["Name"]
   RETURN R2 1
 
 MAIN:

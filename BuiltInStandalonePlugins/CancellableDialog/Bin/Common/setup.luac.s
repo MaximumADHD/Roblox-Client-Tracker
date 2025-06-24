@@ -38,27 +38,27 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["PluginLoader"]
-  GETTABLEKS R2 R3 K8 ["PluginLoaderBuilder"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["PluginLoader"]
   CALL R1 1 1
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Resources"]
-  GETTABLEKS R3 R4 K11 ["Localization"]
-  GETTABLEKS R2 R3 K12 ["SourceStrings"]
+  GETTABLEKS R2 R1 K8 ["PluginLoaderBuilder"]
   GETTABLEKS R6 R0 K9 ["Src"]
   GETTABLEKS R5 R6 K10 ["Resources"]
   GETTABLEKS R4 R5 K11 ["Localization"]
-  GETTABLEKS R3 R4 K13 ["LocalizedStrings"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K14 ["Bin"]
-  GETTABLEKS R6 R7 K15 ["Common"]
-  GETTABLEKS R5 R6 K16 ["pluginType"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K17 [PROTO_0]
+  GETTABLEKS R3 R4 K12 ["SourceStrings"]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Resources"]
+  GETTABLEKS R5 R6 K11 ["Localization"]
+  GETTABLEKS R4 R5 K13 ["LocalizedStrings"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K14 ["Bin"]
+  GETTABLEKS R7 R8 K15 ["Common"]
+  GETTABLEKS R6 R7 K16 ["pluginType"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K17 [PROTO_0]
   CAPTURE VAL R0
-  CAPTURE VAL R3
-  CAPTURE VAL R2
   CAPTURE VAL R4
-  CAPTURE VAL R1
-  RETURN R5 1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R6 1

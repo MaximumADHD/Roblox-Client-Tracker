@@ -21,7 +21,9 @@ local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil :: never
 
-local FFlagChromeHideShortcutBarOnInspectAndBuy = require(CorePackages.Workspace.Packages.SharedFlags).FFlagChromeHideShortcutBarOnInspectAndBuy
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagChromeHideShortcutBarOnInspectAndBuy = SharedFlags.FFlagChromeHideShortcutBarOnInspectAndBuy
+local FFlagChromeEnabledShortcutBarFix = SharedFlags.FFlagChromeEnabledShortcutBarFix
 
 local InspectAndBuyFolder = script.Parent.Parent
 local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInformation)
@@ -164,7 +166,7 @@ function InspectAndBuy:didMount()
 	self:configureInputType()
 	self:pushMouseIconOverride()
 
-	if FFlagChromeHideShortcutBarOnInspectAndBuy and ChromeEnabled then
+	if FFlagChromeHideShortcutBarOnInspectAndBuy and (if FFlagChromeEnabledShortcutBarFix then ChromeEnabled() else ChromeEnabled) then
 		ChromeService:setHideShortcutBar(MODULE_NAME, true)
 	end
 
@@ -270,7 +272,7 @@ function InspectAndBuy:willUnmount()
 	ContextActionService:UnbindCoreAction(BACK_BUTTON_KEY)
 	self:popMouseIconOverride()
 
-	if FFlagChromeHideShortcutBarOnInspectAndBuy and ChromeEnabled then
+	if FFlagChromeHideShortcutBarOnInspectAndBuy and (if FFlagChromeEnabledShortcutBarFix then ChromeEnabled() else ChromeEnabled) then
 		ChromeService:setHideShortcutBar(MODULE_NAME, false)
 	end
 end

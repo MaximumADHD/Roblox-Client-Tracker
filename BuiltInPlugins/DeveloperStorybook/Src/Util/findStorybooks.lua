@@ -248,9 +248,8 @@ local function findStorybooks()
 		insert(sources, foundation)
 	end
 
-	-- TODO (AleksandrSl 10/04/2025): Enable when MaterialFramework is migrated
-	-- local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
-	-- insert(sources, materialFramework)
+	local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
+	insert(sources, materialFramework)
 	insert(
 		sources,
 		if index then index.ViewportToolingFramework.ViewportToolingFramework else Main.Parent.ViewportToolingFramework

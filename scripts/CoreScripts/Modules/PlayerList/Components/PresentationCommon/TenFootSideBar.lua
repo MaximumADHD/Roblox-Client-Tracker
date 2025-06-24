@@ -19,17 +19,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local TenFootSideBar = Roact.PureComponent:extend("TenFootSideBar")
 
-local FFlagRemoveGamerCardFromSideBar = game:DefineFastFlag("RemoveGamerCardFromSideBar", false)
-
-local function openPlatformProfileUI(platformId) -- Remove alongside FFlagRemoveGamerCardFromSideBar
-	pcall(function()
-		local platformService = game:GetService("PlatformService")
-		if platformId and #platformId > 0 then
-			platformService:PopupProfileUI(Enum.UserInputType.Gamepad1, platformId)
-		end
-	end)
-end
-
 function TenFootSideBar:init()
 	self.sideBar = nil
 end
@@ -38,38 +27,9 @@ function TenFootSideBar:render()
 	return nil
 end
 
-function TenFootSideBar:shouldShowSidebar(player, platformId) -- Remove alongside FFlagRemoveGamerCardFromSideBar
-	if RunService:IsStudio() then
-		--Don't show sidebar in xbox emulator in studio.
-		return false, false
-	end
-
-	local addReportItem = false
-	if player ~= Players.LocalPlayer then
-		addReportItem = true
-	end
-	local addGamerCardItem = false
-	if platformId and #platformId > 0 then
-		addGamerCardItem = true
-	end
-	return addReportItem, addGamerCardItem
-end
-
 function TenFootSideBar:openSidebar(player)
-	local addReportItem
 	local addGamerCardItem = false
-
-	local platformId -- remove alongside FFlagRemoveGamerCardFromSideBar
-	if FFlagRemoveGamerCardFromSideBar then
-		addReportItem = not RunService:IsStudio() and player ~= Players.LocalPlayer
-	else
-		pcall(function()
-			local platformService = game:GetService("PlatformService")
-			platformId = platformService:GetPlatformId(player.UserId)
-		end)
-
-		addReportItem, addGamerCardItem = self:shouldShowSidebar(player, platformId)
-	end
+	local addReportItem = not RunService:IsStudio() and player ~= Players.LocalPlayer
 
 	if not (addReportItem or addGamerCardItem) then
 		self.props.closeSideBar()
@@ -91,13 +51,6 @@ function TenFootSideBar:openSidebar(player)
 	end
 
 	self.sideBar:RemoveAllItems()
-	if not FFlagRemoveGamerCardFromSideBar then
-		if addGamerCardItem then
-			self.sideBar:AddItem(Strings:LocalizedString("ViewGamerCardWord"), function()
-				openPlatformProfileUI(platformId)
-			end)
-		end
-	end
 
 	--We can't report localplayer
 	if addReportItem then

@@ -15,6 +15,9 @@ local InExperienceCapabilities =
 	require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 
 local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local withStyle = UIBlox.Style.withStyle
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -27,7 +30,13 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local PlayerIcon = require(Components.PresentationCommon.PlayerIcon)
 local PlayerNameTag = require(script.Parent.PlayerNameTag)
-local StatEntry = require(script.Parent.StatEntry)
+
+local StatEntry
+if FFlagUseNewPlayerList then
+	StatEntry = PlayerListPackage.Presentation.StatEntry
+else
+	StatEntry = require(script.Parent.StatEntry)
+end
 
 local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)

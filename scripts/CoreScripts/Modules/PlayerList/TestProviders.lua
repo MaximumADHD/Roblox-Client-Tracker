@@ -68,7 +68,7 @@ local function TestProviders(props: any)
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = props.layoutValues or CreateLayoutValues(false),
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, props.children),
+				ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {}, props.children),
 			}),
 		}),
 	})

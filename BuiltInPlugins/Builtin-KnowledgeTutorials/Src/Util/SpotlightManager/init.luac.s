@@ -1,0 +1,114 @@
+PROTO_0:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  GETTABLE R2 R3 R1
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["Panels"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["FocusAsync"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["_getUriForTargetId"]
+  CALL R2 2 1
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R3 R0 K1 ["Widgets"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K2 ["GetWidgetAsync"]
+  CALL R3 2 1
+  GETTABLEKS R4 R3 K3 ["Exists"]
+  JUMPIF R4 [+1]
+  RETURN R0 0
+  GETTABLEKS R4 R0 K4 ["Spotlight"]
+  NAMECALL R4 R4 K5 ["ApplyShadowsAsync"]
+  CALL R4 1 0
+  GETIMPORT R4 K7 [pcall]
+  GETTABLEKS R5 R0 K8 ["_focusOnTargetUri"]
+  MOVE R6 R0
+  MOVE R7 R2
+  CALL R4 3 0
+  GETTABLEKS R4 R0 K4 ["Spotlight"]
+  MOVE R6 R2
+  NAMECALL R4 R4 K9 ["ApplySpotlightAsync"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R2 K1 [pcall]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["ShowWidgets"]
+  GETUPVAL R4 0
+  MOVE R5 R1
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["Spotlight"]
+  NAMECALL R1 R1 K1 ["HideSpotlightAsync"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["clear"]
+  CALL R0 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["KnowledgeTutorials"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["Services"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["TutorialService"]
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K10 ["getTargetIdMappings"]
+  CALL R3 1 1
+  GETIMPORT R4 K12 [plugin]
+  JUMPIF R4 [+6]
+  GETIMPORT R4 K1 [script]
+  LOADK R6 K13 ["Plugin"]
+  NAMECALL R4 R4 K14 ["FindFirstAncestorWhichIsA"]
+  CALL R4 2 1
+  NEWTABLE R5 8 0
+  LOADK R8 K15 ["Spotlight"]
+  NAMECALL R6 R4 K16 ["GetPluginComponent"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K15 ["Spotlight"]
+  LOADK R8 K17 ["Panels"]
+  NAMECALL R6 R4 K16 ["GetPluginComponent"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K17 ["Panels"]
+  LOADK R8 K18 ["Widgets"]
+  NAMECALL R6 R4 K16 ["GetPluginComponent"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K18 ["Widgets"]
+  DUPCLOSURE R6 K19 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K20 ["_getUriForTargetId"]
+  DUPCLOSURE R6 K21 [PROTO_1]
+  SETTABLEKS R6 R5 K22 ["_focusOnTargetUri"]
+  DUPCLOSURE R6 K23 [PROTO_2]
+  SETTABLEKS R6 R5 K24 ["applyTargetId"]
+  DUPCLOSURE R6 K25 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K26 ["showWidgets"]
+  DUPCLOSURE R6 K27 [PROTO_4]
+  SETTABLEKS R6 R5 K28 ["clear"]
+  GETTABLEKS R6 R4 K29 ["Unloading"]
+  DUPCLOSURE R8 K30 [PROTO_5]
+  CAPTURE VAL R5
+  NAMECALL R6 R6 K31 ["Connect"]
+  CALL R6 2 0
+  RETURN R5 1

@@ -54,6 +54,7 @@ local requiredServices = {
 }
 
 local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
+local FFlagEnableUpsellSuggestionsAnalyticsId = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAnalyticsId
 
 local function handleSuccessfulUpsellSuggestions(store, upsellSuggestions)
 	-- Check if the user cancel the purchase before this could return
@@ -173,8 +174,10 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 			local itemProductId = productInfo.ProductId
 			local itemName = productInfo.DisplayName
 
-			if FFlagEnableUpsellSuggestionsAPI then				
-				return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId):andThen(
+			if FFlagEnableUpsellSuggestionsAPI then
+				local analyticId = FFlagEnableUpsellSuggestionsAnalyticsId and state.purchaseFlowUUID or nil
+
+				return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId, analyticId):andThen(
 					-- success handler
 					function(upsellSuggestions)
 						return handleSuccessfulUpsellSuggestions(store, upsellSuggestions)

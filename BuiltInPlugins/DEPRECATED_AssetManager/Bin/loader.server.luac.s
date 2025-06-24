@@ -105,17 +105,14 @@ MAIN:
   LOADK R2 K12 ["EnableAssetManagerSortButton"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K13 ["StudioAssetManagerAddRecentlyImportedView"]
-  NAMECALL R1 R1 K3 ["GetFastFlag"]
-  CALL R1 2 1
-  GETIMPORT R4 K9 [script]
-  GETTABLEKS R3 R4 K10 ["Parent"]
+  GETIMPORT R3 K9 [script]
   GETTABLEKS R2 R3 K10 ["Parent"]
-  GETIMPORT R3 K7 [require]
-  GETTABLEKS R5 R2 K14 ["PluginLoader"]
-  GETTABLEKS R4 R5 K15 ["PluginLoaderBuilder"]
-  CALL R3 1 1
+  GETTABLEKS R1 R2 K10 ["Parent"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R4 R1 K13 ["Packages"]
+  GETTABLEKS R3 R4 K14 ["PluginLoader"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K15 ["PluginLoaderBuilder"]
   GETIMPORT R4 K1 [game]
   LOADK R6 K16 ["AssetManagerService"]
   NAMECALL R4 R4 K17 ["GetService"]
@@ -128,10 +125,10 @@ MAIN:
   LOADK R8 K19 ["StudioPublishService"]
   NAMECALL R6 R6 K17 ["GetService"]
   CALL R6 2 1
-  GETTABLEKS R9 R2 K20 ["Src"]
+  GETTABLEKS R9 R1 K20 ["Src"]
   GETTABLEKS R8 R9 K21 ["Resources"]
   GETTABLEKS R7 R8 K22 ["SourceStrings"]
-  GETTABLEKS R10 R2 K20 ["Src"]
+  GETTABLEKS R10 R1 K20 ["Src"]
   GETTABLEKS R9 R10 K21 ["Resources"]
   GETTABLEKS R8 R9 K23 ["LocalizedStrings"]
   DUPTABLE R9 K34 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
@@ -192,11 +189,8 @@ MAIN:
   DUPCLOSURE R11 K69 [PROTO_7]
   CAPTURE VAL R5
   SETTABLEKS R11 R10 K70 ["BulkImportService.BulkImportFinished"]
-  JUMPIFNOT R1 [+3]
   DUPCLOSURE R11 K71 [PROTO_8]
   CAPTURE VAL R5
-  JUMP [+1]
-  LOADNIL R11
   SETTABLEKS R11 R10 K72 ["BulkImportService.AssetImported"]
   DUPCLOSURE R11 K73 [PROTO_9]
   CAPTURE VAL R6

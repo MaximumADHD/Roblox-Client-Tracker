@@ -2,78 +2,22 @@ PROTO_0:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["pluginGui"]
   GETTABLEKS R3 R1 K2 ["networkInterface"]
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIFNOT R4 [+23]
-  GETUPVAL R5 1
+  GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["provide"]
   NEWTABLE R5 0 2
-  GETUPVAL R7 2
+  GETUPVAL R7 1
   GETTABLEKS R6 R7 K4 ["new"]
   MOVE R7 R2
   CALL R6 1 1
-  GETUPVAL R8 3
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K4 ["new"]
   MOVE R8 R3
   CALL R7 1 -1
   SETLIST R5 R6 -1 [1]
-  GETUPVAL R8 4
+  GETUPVAL R8 3
   GETTABLEKS R7 R8 K5 ["Children"]
   GETTABLE R6 R1 R7
   CALL R4 2 -1
-  RETURN R4 -1
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K6 ["createElement"]
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K7 ["ContextStack"]
-  DUPTABLE R6 K9 [{"providers"}]
-  NEWTABLE R7 0 1
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  GETUPVAL R10 6
-  GETTABLEKS R9 R10 K10 ["SceneAnalysisProvider"]
-  DUPTABLE R10 K14 [{"pollingSeconds", "rangeQueryOptions", "viewportQueryOptions"}]
-  GETUPVAL R12 7
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  LOADNIL R11
-  JUMP [+1]
-  GETUPVAL R11 8
-  SETTABLEKS R11 R10 K11 ["pollingSeconds"]
-  DUPTABLE R11 K17 [{"limit", "maxDistance"}]
-  GETUPVAL R12 9
-  SETTABLEKS R12 R11 K15 ["limit"]
-  GETUPVAL R12 10
-  SETTABLEKS R12 R11 K16 ["maxDistance"]
-  SETTABLEKS R11 R10 K12 ["rangeQueryOptions"]
-  DUPTABLE R11 K19 [{"limit", "maxDistance", "maxScreenDivisions"}]
-  GETUPVAL R12 9
-  SETTABLEKS R12 R11 K15 ["limit"]
-  GETUPVAL R12 11
-  SETTABLEKS R12 R11 K16 ["maxDistance"]
-  GETUPVAL R12 12
-  SETTABLEKS R12 R11 K18 ["maxScreenDivisions"]
-  SETTABLEKS R11 R10 K13 ["viewportQueryOptions"]
-  CALL R8 2 -1
-  SETLIST R7 R8 -1 [1]
-  SETTABLEKS R7 R6 K8 ["providers"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K3 ["provide"]
-  NEWTABLE R8 0 2
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K4 ["new"]
-  MOVE R10 R2
-  CALL R9 1 1
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K4 ["new"]
-  MOVE R11 R3
-  CALL R10 1 -1
-  SETLIST R8 R9 -1 [1]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K5 ["Children"]
-  GETTABLE R9 R1 R10
-  CALL R7 2 -1
-  CALL R4 -1 -1
   RETURN R4 -1
 
 MAIN:
@@ -86,73 +30,28 @@ MAIN:
   GETIMPORT R2 K5 [require]
   GETTABLEKS R3 R1 K6 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R1 K7 ["ReactUtils"]
-  CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R5 R1 K8 ["ReactSceneUnderstanding"]
+  GETTABLEKS R5 R1 K7 ["Framework"]
   CALL R4 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R1 K9 ["Framework"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K10 ["ContextServices"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Core"]
-  GETTABLEKS R8 R9 K10 ["ContextServices"]
-  GETTABLEKS R7 R8 K12 ["ModalContext"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K11 ["Core"]
-  GETTABLEKS R9 R10 K10 ["ContextServices"]
-  GETTABLEKS R8 R9 K13 ["NetworkContext"]
-  CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K11 ["Core"]
-  GETTABLEKS R10 R11 K14 ["Flags"]
-  GETTABLEKS R9 R10 K15 ["getFFlagToolboxThrottleContextualRecommendationRequests"]
-  CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K11 ["Core"]
-  GETTABLEKS R11 R12 K14 ["Flags"]
-  GETTABLEKS R10 R11 K16 ["getFFlagToolboxRemoveContextualAudioRecommendations"]
-  CALL R9 1 1
-  GETTABLEKS R10 R2 K17 ["Component"]
-  LOADK R12 K18 ["ExternalServicesWrapper"]
-  NAMECALL R10 R10 K19 ["extend"]
-  CALL R10 2 1
-  GETIMPORT R11 K21 [game]
-  LOADK R13 K22 ["ToolboxSceneAnalysisPollingSeconds"]
-  NAMECALL R11 R11 K23 ["GetFastInt"]
-  CALL R11 2 1
-  GETIMPORT R12 K21 [game]
-  LOADK R14 K24 ["ToolboxSceneAnalysisViewportMaxScreenDivisions"]
-  NAMECALL R12 R12 K23 ["GetFastInt"]
-  CALL R12 2 1
-  GETIMPORT R13 K21 [game]
-  LOADK R15 K25 ["ToolboxSceneAnalysisViewportMaxDistance"]
-  NAMECALL R13 R13 K23 ["GetFastInt"]
-  CALL R13 2 1
-  GETIMPORT R14 K21 [game]
-  LOADK R16 K26 ["ToolboxSceneAnalysisRangeMaxDistance"]
-  NAMECALL R14 R14 K23 ["GetFastInt"]
-  CALL R14 2 1
-  GETIMPORT R15 K21 [game]
-  LOADK R17 K27 ["ToolboxSceneAnalysisAssetLimit"]
-  NAMECALL R15 R15 K23 ["GetFastInt"]
-  CALL R15 2 1
-  DUPCLOSURE R16 K28 [PROTO_0]
-  CAPTURE VAL R9
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R2
+  GETTABLEKS R3 R4 K8 ["ContextServices"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Core"]
+  GETTABLEKS R6 R7 K8 ["ContextServices"]
+  GETTABLEKS R5 R6 K10 ["ModalContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Core"]
+  GETTABLEKS R7 R8 K8 ["ContextServices"]
+  GETTABLEKS R6 R7 K11 ["NetworkContext"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K12 ["Component"]
+  LOADK R8 K13 ["ExternalServicesWrapper"]
+  NAMECALL R6 R6 K14 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K15 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R8
-  CAPTURE VAL R11
-  CAPTURE VAL R15
-  CAPTURE VAL R14
-  CAPTURE VAL R13
-  CAPTURE VAL R12
-  SETTABLEKS R16 R10 K29 ["render"]
-  RETURN R10 1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K16 ["render"]
+  RETURN R6 1

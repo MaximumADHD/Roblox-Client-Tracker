@@ -360,40 +360,49 @@ PROTO_6:
   GETUPVAL R10 7
   GETTABLEKS R9 R10 K23 ["onStoreTabOpened"]
   CALL R9 0 0
-  JUMPIFNOT R6 [+47]
+  JUMPIFNOT R6 [+58]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K24 ["state"]
   GETTABLEKS R9 R10 K25 ["webViewLoadingStatus"]
   GETUPVAL R12 8
   GETTABLEKS R11 R12 K26 ["WebViewLoadingStatus"]
   GETTABLEKS R10 R11 K27 ["PASSED"]
-  JUMPIFNOTEQ R9 R10 [+36]
+  JUMPIFNOTEQ R9 R10 [+47]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K12 ["MARKETPLACE_KEY"]
-  JUMPIFNOTEQ R8 R9 [+13]
+  JUMPIFNOTEQ R8 R9 [+24]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K12 ["MARKETPLACE_KEY"]
-  JUMPIFNOTEQ R0 R9 [+8]
+  JUMPIFNOTEQ R0 R9 [+19]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K28 ["_toolboxManagerComponent"]
   NAMECALL R9 R9 K29 ["ReloadWebBrowserWidgetAsync"]
   CALL R9 1 0
+  GETUPVAL R9 9
+  CALL R9 0 1
+  JUMPIFNOT R9 [+27]
+  GETUPVAL R9 1
+  DUPTABLE R11 K31 [{"webViewReloading"}]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K30 ["webViewReloading"]
+  NAMECALL R9 R9 K32 ["setState"]
+  CALL R9 2 0
   JUMP [+18]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K12 ["MARKETPLACE_KEY"]
   JUMPIFNOTEQ R0 R9 [+8]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K28 ["_toolboxManagerComponent"]
-  NAMECALL R9 R9 K30 ["ShowWebBrowserWidgetAsync"]
+  NAMECALL R9 R9 K33 ["ShowWebBrowserWidgetAsync"]
   CALL R9 1 0
   JUMP [+6]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K28 ["_toolboxManagerComponent"]
-  NAMECALL R9 R9 K31 ["HideWebBrowserWidgetAsync"]
+  NAMECALL R9 R9 K34 ["HideWebBrowserWidgetAsync"]
   CALL R9 1 0
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K1 ["props"]
-  GETTABLEKS R9 R10 K32 ["changeMarketplaceTab"]
+  GETTABLEKS R9 R10 K35 ["changeMarketplaceTab"]
   MOVE R10 R5
   MOVE R11 R0
   MOVE R12 R2
@@ -409,18 +418,18 @@ PROTO_6:
   GETTABLEKS R18 R19 K24 ["state"]
   GETTABLEKS R17 R18 K25 ["webViewLoadingStatus"]
   CALL R9 8 0
-  GETUPVAL R10 9
-  GETTABLEKS R9 R10 K33 ["getCategory"]
+  GETUPVAL R10 10
+  GETTABLEKS R9 R10 K36 ["getCategory"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K1 ["props"]
   GETTABLEKS R10 R11 K6 ["categoryName"]
   CALL R9 1 1
-  GETUPVAL R11 9
-  GETTABLEKS R10 R11 K33 ["getCategory"]
+  GETUPVAL R11 10
+  GETTABLEKS R10 R11 K36 ["getCategory"]
   GETTABLEKS R11 R3 K6 ["categoryName"]
   CALL R10 1 1
   GETUPVAL R12 7
-  GETTABLEKS R11 R12 K34 ["onCategorySelected"]
+  GETTABLEKS R11 R12 K37 ["onCategorySelected"]
   MOVE R12 R9
   MOVE R13 R10
   CALL R11 2 0
@@ -475,175 +484,331 @@ PROTO_8:
 
 PROTO_9:
   GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getTabKeyForCategoryName"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["categoryName"]
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["MARKETPLACE_KEY"]
+  JUMPIFEQ R1 R2 [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["_toolboxManagerComponent"]
+  NAMECALL R1 R1 K5 ["ShowWebBrowserWidgetAsync"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["_toolboxManagerComponent"]
+  NAMECALL R1 R1 K6 ["HideWebBrowserWidgetAsync"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_10:
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+94]
+  GETUPVAL R2 1
   GETTABLEKS R1 R2 K0 ["state"]
   GETTABLEKS R0 R1 K1 ["webViewLoadingStatus"]
-  GETUPVAL R3 1
+  GETUPVAL R3 2
   GETTABLEKS R2 R3 K2 ["WebViewLoadingStatus"]
-  GETTABLEKS R1 R2 K3 ["WAITING"]
-  JUMPIFEQ R0 R1 [+2]
+  GETTABLEKS R1 R2 K3 ["FAILED"]
+  JUMPIFNOTEQ R0 R1 [+2]
   RETURN R0 0
-  GETUPVAL R0 0
-  DUPTABLE R2 K6 [{"webViewLoadingStatus", "webViewError", "webViewRetryAttempt"}]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["WebViewLoadingStatus"]
-  GETTABLEKS R3 R4 K7 ["PASSED"]
-  SETTABLEKS R3 R2 K1 ["webViewLoadingStatus"]
-  GETUPVAL R4 2
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K4 ["webViewReloading"]
+  JUMPIFNOT R0 [+21]
+  GETUPVAL R0 1
+  DUPTABLE R2 K7 [{"webViewError", "webViewReloading", "webViewRetryAttempt"}]
+  GETUPVAL R4 3
   GETTABLEKS R3 R4 K8 ["None"]
-  SETTABLEKS R3 R2 K4 ["webViewError"]
+  SETTABLEKS R3 R2 K5 ["webViewError"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K4 ["webViewReloading"]
   LOADN R3 0
-  SETTABLEKS R3 R2 K5 ["webViewRetryAttempt"]
+  SETTABLEKS R3 R2 K6 ["webViewRetryAttempt"]
   NAMECALL R0 R0 K9 ["setState"]
   CALL R0 2 0
-  GETUPVAL R0 3
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K10 ["showOrHideWebView"]
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K11 ["hasWebViewEverLoaded"]
+  JUMPIF R0 [+142]
+  GETUPVAL R0 1
+  DUPTABLE R2 K12 [{"webViewLoadingStatus", "webViewError", "webViewRetryAttempt", "hasWebViewEverLoaded", "webViewReloading"}]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["WebViewLoadingStatus"]
+  GETTABLEKS R3 R4 K13 ["PASSED"]
+  SETTABLEKS R3 R2 K1 ["webViewLoadingStatus"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["None"]
+  SETTABLEKS R3 R2 K5 ["webViewError"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K6 ["webViewRetryAttempt"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K11 ["hasWebViewEverLoaded"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K4 ["webViewReloading"]
+  NAMECALL R0 R0 K9 ["setState"]
+  CALL R0 2 0
+  GETUPVAL R0 4
   CALL R0 0 1
   JUMPIFNOT R0 [+5]
-  GETUPVAL R1 4
-  GETTABLEKS R0 R1 K10 ["onWebViewInit"]
+  GETUPVAL R1 5
+  GETTABLEKS R0 R1 K14 ["onWebViewInit"]
   CALL R0 0 0
   JUMP [+9]
-  GETUPVAL R1 4
-  GETTABLEKS R0 R1 K11 ["onWebViewInitDeprecated"]
-  GETIMPORT R2 K14 [DateTime.now]
+  GETUPVAL R1 5
+  GETTABLEKS R0 R1 K15 ["onWebViewInitDeprecated"]
+  GETIMPORT R2 K18 [DateTime.now]
   CALL R2 0 1
-  GETTABLEKS R1 R2 K15 ["UnixTimestampMillis"]
+  GETTABLEKS R1 R2 K19 ["UnixTimestampMillis"]
   CALL R0 1 0
-  GETUPVAL R0 5
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K16 ["props"]
-  GETTABLEKS R1 R2 K17 ["IXP"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K16 ["props"]
-  GETTABLEKS R2 R3 K18 ["WebViewManagerContext"]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K10 ["showOrHideWebView"]
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K1 ["webViewLoadingStatus"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["WebViewLoadingStatus"]
+  GETTABLEKS R1 R2 K20 ["WAITING"]
+  JUMPIFEQ R0 R1 [+2]
+  RETURN R0 0
+  GETUPVAL R0 1
+  DUPTABLE R2 K21 [{"webViewLoadingStatus", "webViewError", "webViewRetryAttempt"}]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["WebViewLoadingStatus"]
+  GETTABLEKS R3 R4 K13 ["PASSED"]
+  SETTABLEKS R3 R2 K1 ["webViewLoadingStatus"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["None"]
+  SETTABLEKS R3 R2 K5 ["webViewError"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K6 ["webViewRetryAttempt"]
+  NAMECALL R0 R0 K9 ["setState"]
+  CALL R0 2 0
+  GETUPVAL R0 4
+  CALL R0 0 1
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 5
+  GETTABLEKS R0 R1 K14 ["onWebViewInit"]
+  CALL R0 0 0
+  JUMP [+9]
+  GETUPVAL R1 5
+  GETTABLEKS R0 R1 K15 ["onWebViewInitDeprecated"]
+  GETIMPORT R2 K18 [DateTime.now]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K19 ["UnixTimestampMillis"]
+  CALL R0 1 0
+  GETUPVAL R0 6
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K22 ["props"]
+  GETTABLEKS R1 R2 K23 ["IXP"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K22 ["props"]
+  GETTABLEKS R2 R3 K24 ["WebViewManagerContext"]
   CALL R0 2 1
   MOVE R1 R0
   JUMPIFNOT R1 [+16]
-  GETUPVAL R3 6
-  GETTABLEKS R2 R3 K19 ["getTabKeyForCategoryName"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K16 ["props"]
-  GETTABLEKS R3 R4 K20 ["categoryName"]
+  GETUPVAL R3 7
+  GETTABLEKS R2 R3 K25 ["getTabKeyForCategoryName"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K22 ["props"]
+  GETTABLEKS R3 R4 K26 ["categoryName"]
   CALL R2 1 1
-  GETUPVAL R4 6
-  GETTABLEKS R3 R4 K21 ["MARKETPLACE_KEY"]
+  GETUPVAL R4 7
+  GETTABLEKS R3 R4 K27 ["MARKETPLACE_KEY"]
   JUMPIFEQ R2 R3 [+2]
   LOADB R1 0 +1
   LOADB R1 1
   JUMPIFNOT R1 [+7]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K22 ["_toolboxManagerComponent"]
-  NAMECALL R2 R2 K23 ["ShowWebBrowserWidgetAsync"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K28 ["_toolboxManagerComponent"]
+  NAMECALL R2 R2 K29 ["ShowWebBrowserWidgetAsync"]
   CALL R2 1 0
   RETURN R0 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K22 ["_toolboxManagerComponent"]
-  NAMECALL R2 R2 K24 ["HideWebBrowserWidgetAsync"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K28 ["_toolboxManagerComponent"]
+  NAMECALL R2 R2 K30 ["HideWebBrowserWidgetAsync"]
   CALL R2 1 0
-  RETURN R0 0
-
-PROTO_10:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["state"]
-  GETTABLEKS R1 R2 K1 ["webViewLoadingStatus"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K2 ["WebViewLoadingStatus"]
-  GETTABLEKS R2 R3 K3 ["FAILED"]
-  JUMPIFEQ R1 R2 [+5]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K4 ["isMounted"]
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETUPVAL R1 2
-  CALL R1 0 1
-  JUMPIFNOT R1 [+6]
-  GETUPVAL R2 3
-  GETTABLEKS R1 R2 K5 ["onFallbackToLuaUi"]
-  MOVE R2 R0
-  CALL R1 1 0
-  JUMP [+10]
-  GETUPVAL R2 3
-  GETTABLEKS R1 R2 K6 ["onFallbackToLuaUiDeprecated"]
-  GETIMPORT R3 K9 [DateTime.now]
-  CALL R3 0 1
-  GETTABLEKS R2 R3 K10 ["UnixTimestampMillis"]
-  MOVE R3 R0
-  CALL R1 2 0
-  GETUPVAL R1 4
-  CALL R1 0 1
-  JUMPIFNOT R1 [+31]
-  GETUPVAL R1 0
-  DUPTABLE R3 K14 [{"showFallbackAnnouncement", "webViewLoadingStatus", "webViewError", "webViewRetryAttempt"}]
-  GETUPVAL R5 5
-  GETTABLEKS R4 R5 K15 ["GetService"]
-  LOADK R5 K16 ["RunService"]
-  CALL R4 1 1
-  NAMECALL R4 R4 K17 ["IsEdit"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K11 ["showFallbackAnnouncement"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K2 ["WebViewLoadingStatus"]
-  GETTABLEKS R4 R5 K3 ["FAILED"]
-  SETTABLEKS R4 R3 K1 ["webViewLoadingStatus"]
-  GETUPVAL R5 6
-  GETTABLEKS R4 R5 K18 ["None"]
-  SETTABLEKS R4 R3 K12 ["webViewError"]
-  LOADN R4 0
-  SETTABLEKS R4 R3 K13 ["webViewRetryAttempt"]
-  NAMECALL R1 R1 K19 ["setState"]
-  CALL R1 2 0
-  JUMP [+20]
-  GETUPVAL R1 0
-  DUPTABLE R3 K20 [{"webViewLoadingStatus", "webViewError", "webViewRetryAttempt"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K2 ["WebViewLoadingStatus"]
-  GETTABLEKS R4 R5 K3 ["FAILED"]
-  SETTABLEKS R4 R3 K1 ["webViewLoadingStatus"]
-  GETUPVAL R5 6
-  GETTABLEKS R4 R5 K18 ["None"]
-  SETTABLEKS R4 R3 K12 ["webViewError"]
-  LOADN R4 0
-  SETTABLEKS R4 R3 K13 ["webViewRetryAttempt"]
-  NAMECALL R1 R1 K19 ["setState"]
-  CALL R1 2 0
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K21 ["connectAllSignals"]
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_11:
-  GETIMPORT R1 K2 [string.find]
-  MOVE R2 R0
-  LOADK R3 K3 ["WEBVIEW_LOAD_FAILED"]
-  CALL R1 2 1
-  JUMPIF R1 [+18]
-  GETIMPORT R1 K2 [string.find]
-  MOVE R2 R0
-  LOADK R3 K4 ["WEBVIEW_INVALID_WIDGET"]
-  CALL R1 2 1
-  JUMPIF R1 [+12]
-  GETIMPORT R1 K2 [string.find]
-  MOVE R2 R0
-  LOADK R3 K5 ["WEBVIEW_INVALID_PARENT"]
-  CALL R1 2 1
-  JUMPIF R1 [+6]
-  GETIMPORT R1 K2 [string.find]
-  MOVE R2 R0
-  LOADK R3 K6 ["WEBVIEW_INVALID_CHILD"]
-  CALL R1 2 1
-  JUMPIFNOT R1 [+8]
-  GETUPVAL R1 0
-  DUPTABLE R3 K8 [{"webViewError"}]
-  SETTABLEKS R0 R3 K7 ["webViewError"]
-  NAMECALL R1 R1 K9 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K10 ["handleFallBackToLuaUI"]
-  MOVE R2 R0
-  CALL R1 1 0
   RETURN R0 0
 
 PROTO_12:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+24]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["webViewLoadingStatus"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["WebViewLoadingStatus"]
+  GETTABLEKS R2 R3 K3 ["FAILED"]
+  JUMPIFEQ R1 R2 [+11]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["isMounted"]
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K5 ["hasWebViewEverLoaded"]
+  JUMPIFNOT R1 [+19]
+  RETURN R0 0
+  JUMP [+17]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["webViewLoadingStatus"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["WebViewLoadingStatus"]
+  GETTABLEKS R2 R3 K3 ["FAILED"]
+  JUMPIFEQ R1 R2 [+5]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["isMounted"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 3
+  CALL R1 0 1
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K6 ["onFallbackToLuaUi"]
+  MOVE R2 R0
+  CALL R1 1 0
+  JUMP [+10]
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K7 ["onFallbackToLuaUiDeprecated"]
+  GETIMPORT R3 K10 [DateTime.now]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K11 ["UnixTimestampMillis"]
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R1 5
+  CALL R1 0 1
+  JUMPIFNOT R1 [+31]
+  GETUPVAL R1 1
+  DUPTABLE R3 K15 [{"showFallbackAnnouncement", "webViewLoadingStatus", "webViewError", "webViewRetryAttempt"}]
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K16 ["GetService"]
+  LOADK R5 K17 ["RunService"]
+  CALL R4 1 1
+  NAMECALL R4 R4 K18 ["IsEdit"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K12 ["showFallbackAnnouncement"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["WebViewLoadingStatus"]
+  GETTABLEKS R4 R5 K3 ["FAILED"]
+  SETTABLEKS R4 R3 K1 ["webViewLoadingStatus"]
+  GETUPVAL R5 7
+  GETTABLEKS R4 R5 K19 ["None"]
+  SETTABLEKS R4 R3 K13 ["webViewError"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K14 ["webViewRetryAttempt"]
+  NAMECALL R1 R1 K20 ["setState"]
+  CALL R1 2 0
+  JUMP [+20]
+  GETUPVAL R1 1
+  DUPTABLE R3 K21 [{"webViewLoadingStatus", "webViewError", "webViewRetryAttempt"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["WebViewLoadingStatus"]
+  GETTABLEKS R4 R5 K3 ["FAILED"]
+  SETTABLEKS R4 R3 K1 ["webViewLoadingStatus"]
+  GETUPVAL R5 7
+  GETTABLEKS R4 R5 K19 ["None"]
+  SETTABLEKS R4 R3 K13 ["webViewError"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K14 ["webViewRetryAttempt"]
+  NAMECALL R1 R1 K20 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K22 ["connectAllSignals"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+50]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["_toolboxManagerComponent"]
+  NAMECALL R1 R1 K1 ["HideWebBrowserWidgetAsync"]
+  CALL R1 1 0
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K5 ["WEBVIEW_LOAD_FAILED"]
+  CALL R1 2 1
+  JUMPIF R1 [+24]
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K6 ["WEBVIEW_INVALID_WIDGET"]
+  CALL R1 2 1
+  JUMPIF R1 [+18]
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K7 ["WEBVIEW_INVALID_PARENT"]
+  CALL R1 2 1
+  JUMPIF R1 [+12]
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K8 ["WEBVIEW_INVALID_CHILD"]
+  CALL R1 2 1
+  JUMPIF R1 [+6]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K9 ["state"]
+  GETTABLEKS R1 R2 K10 ["hasWebViewEverLoaded"]
+  JUMPIFNOT R1 [+8]
+  GETUPVAL R1 1
+  DUPTABLE R3 K12 [{"webViewError"}]
+  SETTABLEKS R0 R3 K11 ["webViewError"]
+  NAMECALL R1 R1 K13 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K14 ["handleFallBackToLuaUI"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K5 ["WEBVIEW_LOAD_FAILED"]
+  CALL R1 2 1
+  JUMPIF R1 [+18]
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K6 ["WEBVIEW_INVALID_WIDGET"]
+  CALL R1 2 1
+  JUMPIF R1 [+12]
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K7 ["WEBVIEW_INVALID_PARENT"]
+  CALL R1 2 1
+  JUMPIF R1 [+6]
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K8 ["WEBVIEW_INVALID_CHILD"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+8]
+  GETUPVAL R1 1
+  DUPTABLE R3 K12 [{"webViewError"}]
+  SETTABLEKS R0 R3 K11 ["webViewError"]
+  NAMECALL R1 R1 K13 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K14 ["handleFallBackToLuaUI"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_14:
   GETUPVAL R0 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["props"]
@@ -679,7 +844,7 @@ PROTO_12:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_15:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["state"]
   GETTABLEKS R1 R2 K1 ["webViewError"]
@@ -705,7 +870,7 @@ PROTO_13:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_16:
   GETUPVAL R2 0
   GETTABLEKS R3 R1 K0 ["IXP"]
   GETTABLEKS R4 R1 K1 ["WebViewManagerContext"]
@@ -714,15 +879,15 @@ PROTO_14:
   GETTABLEKS R3 R4 K2 ["setToolboxInitTimestamp"]
   MOVE R4 R2
   CALL R3 1 0
-  DUPTABLE R3 K10 [{"hasValidSize", "toolboxWidth", "showSearchOptions", "webViewError", "webViewLoadingStatus", "webViewRetryAttempt", "showFallbackAnnouncement"}]
+  DUPTABLE R3 K12 [{"hasValidSize", "toolboxWidth", "showSearchOptions", "webViewError", "webViewLoadingStatus", "webViewRetryAttempt", "showFallbackAnnouncement", "hasWebViewEverLoaded", "webViewReloading"}]
   LOADB R4 0
   SETTABLEKS R4 R3 K3 ["hasValidSize"]
-  GETTABLEKS R6 R1 K12 ["initialWidth"]
-  ORK R5 R6 K11 [0]
+  GETTABLEKS R6 R1 K14 ["initialWidth"]
+  ORK R5 R6 K13 [0]
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K13 ["TOOLBOX_MIN_WIDTH"]
+  GETTABLEKS R6 R7 K15 ["TOOLBOX_MIN_WIDTH"]
   FASTCALL2 MATH_MAX R5 R6 [+3]
-  GETIMPORT R4 K16 [math.max]
+  GETIMPORT R4 K18 [math.max]
   CALL R4 2 1
   SETTABLEKS R4 R3 K4 ["toolboxWidth"]
   LOADB R4 0
@@ -730,8 +895,8 @@ PROTO_14:
   LOADNIL R4
   SETTABLEKS R4 R3 K6 ["webViewError"]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K17 ["WebViewLoadingStatus"]
-  GETTABLEKS R4 R5 K18 ["WAITING"]
+  GETTABLEKS R5 R6 K19 ["WebViewLoadingStatus"]
+  GETTABLEKS R4 R5 K20 ["WAITING"]
   SETTABLEKS R4 R3 K7 ["webViewLoadingStatus"]
   LOADN R4 0
   SETTABLEKS R4 R3 K8 ["webViewRetryAttempt"]
@@ -741,118 +906,145 @@ PROTO_14:
   NOT R4 R2
   JUMPIFNOT R4 [+10]
   GETUPVAL R5 5
-  GETTABLEKS R4 R5 K19 ["GetService"]
-  LOADK R5 K20 ["RunService"]
+  GETTABLEKS R4 R5 K21 ["GetService"]
+  LOADK R5 K22 ["RunService"]
   CALL R4 1 1
-  NAMECALL R4 R4 K21 ["IsEdit"]
+  NAMECALL R4 R4 K23 ["IsEdit"]
   CALL R4 1 1
   JUMP [+1]
   LOADB R4 0
   SETTABLEKS R4 R3 K9 ["showFallbackAnnouncement"]
-  SETTABLEKS R3 R0 K22 ["state"]
+  GETUPVAL R5 6
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADB R4 0
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K10 ["hasWebViewEverLoaded"]
+  GETUPVAL R5 6
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADB R4 0
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K11 ["webViewReloading"]
+  SETTABLEKS R3 R0 K24 ["state"]
   LOADB R3 1
-  SETTABLEKS R3 R0 K23 ["isMounted"]
+  SETTABLEKS R3 R0 K25 ["isMounted"]
   LOADNIL R3
-  SETTABLEKS R3 R0 K24 ["prevSize"]
+  SETTABLEKS R3 R0 K26 ["prevSize"]
   NEWCLOSURE R3 P0
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   CAPTURE UPVAL U1
-  SETTABLEKS R3 R0 K25 ["onAbsoluteSizeChange"]
-  NAMECALL R3 R0 K26 ["handleInitialSettings"]
+  SETTABLEKS R3 R0 K27 ["onAbsoluteSizeChange"]
+  NAMECALL R3 R0 K28 ["handleInitialSettings"]
   CALL R3 1 0
   NEWCLOSURE R3 P1
   CAPTURE VAL R0
-  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
   CAPTURE UPVAL U1
-  SETTABLEKS R3 R0 K27 ["toggleSearchOptions"]
-  DUPCLOSURE R3 K28 [PROTO_4]
-  CAPTURE UPVAL U7
-  DUPCLOSURE R4 K29 [PROTO_5]
+  SETTABLEKS R3 R0 K29 ["toggleSearchOptions"]
+  DUPCLOSURE R3 K30 [PROTO_4]
   CAPTURE UPVAL U8
-  CAPTURE UPVAL U7
-  NEWCLOSURE R5 P4
-  CAPTURE UPVAL U7
-  CAPTURE VAL R0
+  DUPCLOSURE R4 K31 [PROTO_5]
   CAPTURE UPVAL U9
-  CAPTURE UPVAL U10
-  CAPTURE VAL R3
   CAPTURE UPVAL U8
+  NEWCLOSURE R5 P4
+  CAPTURE UPVAL U8
+  CAPTURE VAL R0
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
+  CAPTURE VAL R3
+  CAPTURE UPVAL U9
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U11
-  SETTABLEKS R5 R0 K30 ["changeMarketplaceTab"]
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U12
+  SETTABLEKS R5 R0 K32 ["changeMarketplaceTab"]
   NEWCLOSURE R5 P5
   CAPTURE VAL R0
-  CAPTURE UPVAL U7
-  SETTABLEKS R5 R0 K31 ["onBackToHome"]
+  CAPTURE UPVAL U8
+  SETTABLEKS R5 R0 K33 ["onBackToHome"]
   NEWCLOSURE R5 P6
   CAPTURE VAL R0
-  SETTABLEKS R5 R0 K32 ["updatePageInfoWithSearchTerm"]
+  SETTABLEKS R5 R0 K34 ["updatePageInfoWithSearchTerm"]
+  GETUPVAL R6 6
+  CALL R6 0 1
+  JUMPIFNOT R6 [+4]
   NEWCLOSURE R5 P7
+  CAPTURE UPVAL U8
+  CAPTURE VAL R0
+  JUMP [+1]
+  DUPCLOSURE R5 K35 [PROTO_10]
+  SETTABLEKS R5 R0 K36 ["showOrHideWebView"]
+  NEWCLOSURE R5 P9
+  CAPTURE UPVAL U6
   CAPTURE VAL R0
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U12
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U13
+  CAPTURE UPVAL U7
   CAPTURE UPVAL U1
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U7
-  SETTABLEKS R5 R0 K33 ["handleWebViewLoaded"]
-  NEWCLOSURE R5 P8
+  CAPTURE UPVAL U8
+  SETTABLEKS R5 R0 K37 ["handleWebViewLoaded"]
+  NEWCLOSURE R5 P10
+  CAPTURE UPVAL U6
   CAPTURE VAL R0
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   CAPTURE UPVAL U1
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  CAPTURE UPVAL U12
-  SETTABLEKS R5 R0 K34 ["handleFallBackToLuaUI"]
-  NEWCLOSURE R5 P9
+  CAPTURE UPVAL U13
+  SETTABLEKS R5 R0 K38 ["handleFallBackToLuaUI"]
+  NEWCLOSURE R5 P11
+  CAPTURE UPVAL U6
   CAPTURE VAL R0
-  SETTABLEKS R5 R0 K35 ["handleWebViewError"]
-  GETUPVAL R6 13
+  SETTABLEKS R5 R0 K39 ["handleWebViewError"]
+  GETUPVAL R6 14
   CALL R6 0 1
   JUMPIFNOT R6 [+5]
-  NEWCLOSURE R5 P10
+  NEWCLOSURE R5 P12
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE UPVAL U3
   JUMP [+1]
   LOADNIL R5
-  SETTABLEKS R5 R0 K36 ["startInitCheck"]
+  SETTABLEKS R5 R0 K40 ["startInitCheck"]
   GETUPVAL R5 0
-  GETTABLEKS R7 R0 K37 ["props"]
+  GETTABLEKS R7 R0 K41 ["props"]
   GETTABLEKS R6 R7 K0 ["IXP"]
-  GETTABLEKS R8 R0 K37 ["props"]
+  GETTABLEKS R8 R0 K41 ["props"]
   GETTABLEKS R7 R8 K1 ["WebViewManagerContext"]
   CALL R5 2 1
   JUMPIFNOT R5 [+28]
-  GETUPVAL R5 13
+  GETUPVAL R5 14
   CALL R5 0 1
   JUMPIFNOT R5 [+16]
-  GETTABLEKS R7 R0 K22 ["state"]
+  GETTABLEKS R7 R0 K24 ["state"]
   GETTABLEKS R6 R7 K3 ["hasValidSize"]
   JUMPIFNOT R6 [+7]
-  GETIMPORT R5 K40 [task.delay]
-  GETUPVAL R6 14
-  GETTABLEKS R7 R0 K36 ["startInitCheck"]
+  GETIMPORT R5 K44 [task.delay]
+  GETUPVAL R6 15
+  GETTABLEKS R7 R0 K40 ["startInitCheck"]
   CALL R5 2 1
   JUMP [+1]
   LOADNIL R5
-  SETTABLEKS R5 R0 K41 ["initCheckTimer"]
+  SETTABLEKS R5 R0 K45 ["initCheckTimer"]
   RETURN R0 0
-  GETIMPORT R5 K40 [task.delay]
-  GETUPVAL R6 14
-  NEWCLOSURE R7 P11
+  GETIMPORT R5 K44 [task.delay]
+  GETUPVAL R6 15
+  NEWCLOSURE R7 P13
   CAPTURE VAL R0
   CAPTURE UPVAL U3
   CALL R5 2 1
-  SETTABLEKS R5 R0 K41 ["initCheckTimer"]
+  SETTABLEKS R5 R0 K45 ["initCheckTimer"]
   RETURN R0 0
 
-PROTO_15:
+PROTO_17:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R4 R1 K1 ["searchId"]
   GETTABLEKS R5 R3 K1 ["searchId"]
@@ -878,7 +1070,7 @@ PROTO_15:
   SETTABLEKS R4 R0 K4 ["initCheckTimer"]
   RETURN R0 0
 
-PROTO_16:
+PROTO_18:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["plugin"]
   JUMPIF R1 [+5]
@@ -897,7 +1089,7 @@ PROTO_16:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_19:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["WHITELISTED_PLUGINS"]
   GETTABLEKS R0 R1 K1 ["name"]
@@ -913,7 +1105,7 @@ PROTO_17:
   CALL R1 0 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_20:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["changeMarketplaceTab"]
   GETUPVAL R3 1
@@ -927,7 +1119,7 @@ PROTO_18:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_21:
   GETIMPORT R2 K2 [Enum.AssetType]
   GETTABLE R1 R2 R0
   GETUPVAL R3 0
@@ -948,7 +1140,7 @@ PROTO_19:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_22:
   GETTABLEKS R1 R0 K0 ["_showPluginsTabConnection"]
   JUMPIFNOTEQKNIL R1 [+27]
   GETTABLEKS R2 R0 K1 ["props"]
@@ -1010,7 +1202,7 @@ PROTO_20:
   SETTABLEKS R1 R0 K9 ["_changeMarketplaceTabConnection"]
   RETURN R0 0
 
-PROTO_21:
+PROTO_23:
   GETTABLEKS R1 R0 K0 ["_showPluginsTabConnection"]
   JUMPIFNOT R1 [+8]
   GETTABLEKS R1 R0 K0 ["_showPluginsTabConnection"]
@@ -1034,7 +1226,7 @@ PROTO_21:
   SETTABLEKS R1 R0 K3 ["_changeMarketplaceTabConnection"]
   RETURN R0 0
 
-PROTO_22:
+PROTO_24:
   GETUPVAL R1 0
   JUMPIF R1 [+3]
   NAMECALL R1 R0 K0 ["handleInitialSettings"]
@@ -1066,14 +1258,14 @@ PROTO_22:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_25:
   GETIMPORT R0 K2 [task.cancel]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K3 ["initCheckTimer"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_26:
   NAMECALL R1 R0 K0 ["disconnectAllSignals"]
   CALL R1 1 0
   LOADNIL R1
@@ -1096,7 +1288,7 @@ PROTO_24:
   CALL R1 0 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_27:
   GETUPVAL R0 0
   DUPTABLE R2 K1 [{"showFallbackAnnouncement"}]
   LOADB R3 0
@@ -1105,80 +1297,116 @@ PROTO_25:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_28:
   GETUPVAL R0 0
-  GETUPVAL R3 1
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIFNOT R1 [+49]
+  GETUPVAL R3 2
   GETTABLEKS R2 R3 K0 ["state"]
   GETTABLEKS R1 R2 K1 ["webViewRetryAttempt"]
-  JUMPIFNOTLE R0 R1 [+36]
-  GETUPVAL R5 1
+  JUMPIFNOTLE R0 R1 [+85]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K2 ["hasWebViewEverLoaded"]
+  JUMPIF R1 [+78]
+  GETUPVAL R5 2
   GETTABLEKS R4 R5 K0 ["state"]
-  GETTABLEKS R3 R4 K2 ["webViewError"]
+  GETTABLEKS R3 R4 K3 ["webViewError"]
   FASTCALL1 TYPEOF R3 [+2]
-  GETIMPORT R2 K4 [typeof]
+  GETIMPORT R2 K5 [typeof]
   CALL R2 1 1
-  JUMPIFNOTEQKS R2 K5 ["string"] [+14]
+  JUMPIFNOTEQKS R2 K6 ["string"] [+14]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K7 ["WebViewErrors"]
+  GETTABLEKS R2 R5 K8 ["MAX_MANUAL_RETRIES"]
+  LOADK R3 K9 ["_"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K6 ["WebViewErrors"]
-  GETTABLEKS R2 R5 K7 ["MAX_MANUAL_RETRIES"]
-  LOADK R3 K8 ["_"]
-  GETUPVAL R6 1
   GETTABLEKS R5 R6 K0 ["state"]
-  GETTABLEKS R4 R5 K2 ["webViewError"]
+  GETTABLEKS R4 R5 K3 ["webViewError"]
   CONCAT R1 R2 R4
   JUMP [+5]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K7 ["WebViewErrors"]
+  GETTABLEKS R1 R2 K8 ["MAX_MANUAL_RETRIES"]
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K6 ["WebViewErrors"]
-  GETTABLEKS R1 R2 K7 ["MAX_MANUAL_RETRIES"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K9 ["handleFallBackToLuaUI"]
+  GETTABLEKS R2 R3 K10 ["handleFallBackToLuaUI"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0
-  GETUPVAL R4 1
+  JUMP [+42]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["webViewRetryAttempt"]
+  JUMPIFNOTLE R0 R1 [+36]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["state"]
+  GETTABLEKS R3 R4 K3 ["webViewError"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K5 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K6 ["string"] [+14]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K7 ["WebViewErrors"]
+  GETTABLEKS R2 R5 K8 ["MAX_MANUAL_RETRIES"]
+  LOADK R3 K9 ["_"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K0 ["state"]
+  GETTABLEKS R4 R5 K3 ["webViewError"]
+  CONCAT R1 R2 R4
+  JUMP [+5]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K7 ["WebViewErrors"]
+  GETTABLEKS R1 R2 K8 ["MAX_MANUAL_RETRIES"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K10 ["handleFallBackToLuaUI"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+  GETUPVAL R4 2
   GETTABLEKS R3 R4 K0 ["state"]
   GETTABLEKS R2 R3 K1 ["webViewRetryAttempt"]
-  ADDK R1 R2 K10 [1]
-  GETUPVAL R2 3
+  ADDK R1 R2 K11 [1]
+  GETUPVAL R2 4
   CALL R2 0 1
   JUMPIFNOT R2 [+17]
-  GETUPVAL R3 4
-  GETTABLEKS R2 R3 K11 ["onWebViewRetryClicked"]
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K12 ["onWebViewRetryClicked"]
   MOVE R3 R1
   MOVE R4 R0
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K0 ["state"]
-  GETTABLEKS R5 R6 K2 ["webViewError"]
-  GETUPVAL R8 1
+  GETTABLEKS R5 R6 K3 ["webViewError"]
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K0 ["state"]
-  GETTABLEKS R6 R7 K12 ["webViewLoadingStatus"]
+  GETTABLEKS R6 R7 K13 ["webViewLoadingStatus"]
   CALL R2 4 0
   JUMP [+21]
-  GETUPVAL R3 4
-  GETTABLEKS R2 R3 K13 ["onWebViewRetryClickedDeprecated"]
-  GETIMPORT R4 K16 [DateTime.now]
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K14 ["onWebViewRetryClickedDeprecated"]
+  GETIMPORT R4 K17 [DateTime.now]
   CALL R4 0 1
-  GETTABLEKS R3 R4 K17 ["UnixTimestampMillis"]
+  GETTABLEKS R3 R4 K18 ["UnixTimestampMillis"]
   MOVE R4 R1
   MOVE R5 R0
-  GETUPVAL R8 1
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K0 ["state"]
-  GETTABLEKS R6 R7 K2 ["webViewError"]
-  GETUPVAL R9 1
+  GETTABLEKS R6 R7 K3 ["webViewError"]
+  GETUPVAL R9 2
   GETTABLEKS R8 R9 K0 ["state"]
-  GETTABLEKS R7 R8 K12 ["webViewLoadingStatus"]
+  GETTABLEKS R7 R8 K13 ["webViewLoadingStatus"]
   CALL R2 5 0
-  GETUPVAL R2 1
-  DUPTABLE R4 K18 [{"webViewError", "webViewRetryAttempt"}]
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K19 ["None"]
-  SETTABLEKS R5 R4 K2 ["webViewError"]
+  GETUPVAL R2 2
+  DUPTABLE R4 K19 [{"webViewError", "webViewRetryAttempt"}]
+  GETUPVAL R6 6
+  GETTABLEKS R5 R6 K20 ["None"]
+  SETTABLEKS R5 R4 K3 ["webViewError"]
   SETTABLEKS R1 R4 K1 ["webViewRetryAttempt"]
-  NAMECALL R2 R2 K20 ["setState"]
+  NAMECALL R2 R2 K21 ["setState"]
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_29:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R2 K2 ["toolboxWidth"]
@@ -1352,81 +1580,99 @@ PROTO_27:
   JUMPIFEQ R30 R31 [+2]
   LOADB R29 0 +1
   LOADB R29 1
-  MOVE R30 R28
-  JUMPIFNOT R30 [+13]
+  LOADNIL R30
+  GETUPVAL R31 12
+  CALL R31 0 1
+  JUMPIFNOT R31 [+20]
+  MOVE R31 R28
+  JUMPIFNOT R31 [+16]
+  LOADB R31 1
+  GETTABLEKS R33 R0 K1 ["state"]
+  GETTABLEKS R32 R33 K55 ["webViewLoadingStatus"]
+  GETUPVAL R35 11
+  GETTABLEKS R34 R35 K56 ["WebViewLoadingStatus"]
+  GETTABLEKS R33 R34 K58 ["WAITING"]
+  JUMPIFEQ R32 R33 [+5]
   GETTABLEKS R32 R0 K1 ["state"]
-  GETTABLEKS R31 R32 K55 ["webViewLoadingStatus"]
-  GETUPVAL R34 11
-  GETTABLEKS R33 R34 K56 ["WebViewLoadingStatus"]
-  GETTABLEKS R32 R33 K58 ["WAITING"]
-  JUMPIFEQ R31 R32 [+2]
-  LOADB R30 0 +1
-  LOADB R30 1
+  GETTABLEKS R31 R32 K59 ["webViewReloading"]
+  MOVE R30 R31
+  JUMP [+16]
+  MOVE R31 R28
+  JUMPIFNOT R31 [+13]
+  GETTABLEKS R33 R0 K1 ["state"]
+  GETTABLEKS R32 R33 K55 ["webViewLoadingStatus"]
+  GETUPVAL R35 11
+  GETTABLEKS R34 R35 K56 ["WebViewLoadingStatus"]
+  GETTABLEKS R33 R34 K58 ["WAITING"]
+  JUMPIFEQ R32 R33 [+2]
+  LOADB R31 0 +1
+  LOADB R31 1
+  MOVE R30 R31
   JUMPIF R30 [+2]
   MOVE R31 R29
   JUMPIFNOT R31 [+8]
   GETTABLEKS R33 R0 K1 ["state"]
-  GETTABLEKS R32 R33 K59 ["webViewError"]
+  GETTABLEKS R32 R33 K60 ["webViewError"]
   JUMPIFNOTEQKNIL R32 [+2]
   LOADB R31 0 +1
   LOADB R31 1
   GETUPVAL R33 5
   GETTABLEKS R32 R33 K46 ["createElement"]
-  LOADK R33 K60 ["Frame"]
+  LOADK R33 K61 ["Frame"]
   NEWTABLE R34 8 0
-  GETIMPORT R35 K63 [UDim2.new]
+  GETIMPORT R35 K64 [UDim2.new]
   LOADN R36 0
   LOADN R37 0
   LOADN R38 0
   LOADN R39 0
   CALL R35 4 1
-  SETTABLEKS R35 R34 K64 ["Position"]
+  SETTABLEKS R35 R34 K65 ["Position"]
   SETTABLEKS R16 R34 K15 ["Size"]
   LOADN R35 0
-  SETTABLEKS R35 R34 K65 ["BorderSizePixel"]
-  GETTABLEKS R35 R17 K66 ["backgroundColor"]
-  SETTABLEKS R35 R34 K67 ["BackgroundColor3"]
+  SETTABLEKS R35 R34 K66 ["BorderSizePixel"]
+  GETTABLEKS R35 R17 K67 ["backgroundColor"]
+  SETTABLEKS R35 R34 K68 ["BackgroundColor3"]
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K68 ["Change"]
-  GETTABLEKS R35 R36 K69 ["AbsoluteSize"]
+  GETTABLEKS R36 R37 K69 ["Change"]
+  GETTABLEKS R35 R36 K70 ["AbsoluteSize"]
   SETTABLE R20 R34 R35
   GETUPVAL R37 5
-  GETTABLEKS R36 R37 K70 ["Event"]
-  GETTABLEKS R35 R36 K71 ["MouseEnter"]
-  GETTABLEKS R36 R1 K72 ["onMouseEnter"]
+  GETTABLEKS R36 R37 K71 ["Event"]
+  GETTABLEKS R35 R36 K72 ["MouseEnter"]
+  GETTABLEKS R36 R1 K73 ["onMouseEnter"]
   SETTABLE R36 R34 R35
-  DUPTABLE R35 K80 [{"AnnouncementDialogContainer", "Tabs", "Header", "WebViewConnector", "MainView", "SearchOptions", "AudioPreview"}]
+  DUPTABLE R35 K81 [{"AnnouncementDialogContainer", "Tabs", "Header", "WebViewConnector", "MainView", "SearchOptions", "AudioPreview"}]
   GETUPVAL R37 5
   GETTABLEKS R36 R37 K46 ["createElement"]
-  GETUPVAL R37 12
-  DUPTABLE R38 K84 [{"checkUserInIXP", "shouldIgnoreDateAndIXPChecks", "onCloseDialog"}]
-  GETUPVAL R39 13
-  SETTABLEKS R39 R38 K81 ["checkUserInIXP"]
-  GETUPVAL R40 14
+  GETUPVAL R37 13
+  DUPTABLE R38 K85 [{"checkUserInIXP", "shouldIgnoreDateAndIXPChecks", "onCloseDialog"}]
+  GETUPVAL R39 14
+  SETTABLEKS R39 R38 K82 ["checkUserInIXP"]
+  GETUPVAL R40 15
   CALL R40 0 1
   JUMPIFNOT R40 [+5]
   GETTABLEKS R40 R0 K1 ["state"]
-  GETTABLEKS R39 R40 K85 ["showFallbackAnnouncement"]
+  GETTABLEKS R39 R40 K86 ["showFallbackAnnouncement"]
   JUMP [+1]
   LOADNIL R39
-  SETTABLEKS R39 R38 K82 ["shouldIgnoreDateAndIXPChecks"]
-  GETUPVAL R40 14
+  SETTABLEKS R39 R38 K83 ["shouldIgnoreDateAndIXPChecks"]
+  GETUPVAL R40 15
   CALL R40 0 1
   JUMPIFNOT R40 [+3]
   NEWCLOSURE R39 P0
   CAPTURE VAL R0
   JUMP [+1]
   LOADNIL R39
-  SETTABLEKS R39 R38 K83 ["onCloseDialog"]
+  SETTABLEKS R39 R38 K84 ["onCloseDialog"]
   CALL R36 2 1
-  SETTABLEKS R36 R35 K73 ["AnnouncementDialogContainer"]
+  SETTABLEKS R36 R35 K74 ["AnnouncementDialogContainer"]
   GETUPVAL R37 5
   GETTABLEKS R36 R37 K46 ["createElement"]
-  GETUPVAL R37 15
-  DUPTABLE R38 K89 [{"Disabled", "Size", "Tabs", "CurrentTab", "onTabSelected"}]
-  GETTABLEKS R39 R1 K90 ["hasTutorialLimits"]
-  SETTABLEKS R39 R38 K86 ["Disabled"]
-  GETIMPORT R39 K63 [UDim2.new]
+  GETUPVAL R37 16
+  DUPTABLE R38 K90 [{"Disabled", "Size", "Tabs", "CurrentTab", "onTabSelected"}]
+  GETTABLEKS R39 R1 K91 ["hasTutorialLimits"]
+  SETTABLEKS R39 R38 K87 ["Disabled"]
+  GETIMPORT R39 K64 [UDim2.new]
   LOADN R40 1
   LOADN R41 0
   LOADN R42 0
@@ -1434,131 +1680,120 @@ PROTO_27:
   GETTABLEKS R43 R44 K20 ["TAB_WIDGET_HEIGHT"]
   CALL R39 4 1
   SETTABLEKS R39 R38 K15 ["Size"]
-  GETUPVAL R40 16
+  GETUPVAL R40 17
   CALL R40 0 1
   JUMPIFNOT R40 [+8]
-  GETUPVAL R39 17
+  GETUPVAL R39 18
   MOVE R40 R18
-  GETTABLEKS R41 R1 K91 ["roles"]
+  GETTABLEKS R41 R1 K92 ["roles"]
   GETTABLEKS R42 R1 K53 ["IXP"]
   CALL R39 3 1
   JUMP [+3]
-  GETUPVAL R39 17
+  GETUPVAL R39 18
   MOVE R40 R18
   CALL R39 1 1
-  SETTABLEKS R39 R38 K74 ["Tabs"]
-  SETTABLEKS R13 R38 K87 ["CurrentTab"]
-  GETTABLEKS R39 R0 K92 ["changeMarketplaceTab"]
-  SETTABLEKS R39 R38 K88 ["onTabSelected"]
+  SETTABLEKS R39 R38 K75 ["Tabs"]
+  SETTABLEKS R13 R38 K88 ["CurrentTab"]
+  GETTABLEKS R39 R0 K93 ["changeMarketplaceTab"]
+  SETTABLEKS R39 R38 K89 ["onTabSelected"]
   CALL R36 2 1
-  SETTABLEKS R36 R35 K74 ["Tabs"]
+  SETTABLEKS R36 R35 K75 ["Tabs"]
   JUMPIF R30 [+1]
   JUMPIFNOT R31 [+2]
   LOADNIL R36
   JUMP [+23]
   GETUPVAL R37 5
   GETTABLEKS R36 R37 K46 ["createElement"]
-  GETUPVAL R37 18
-  DUPTABLE R38 K94 [{"Position", "maxWidth", "onSearchOptionsToggled", "pluginGui"}]
-  GETIMPORT R39 K63 [UDim2.new]
+  GETUPVAL R37 19
+  DUPTABLE R38 K95 [{"Position", "maxWidth", "onSearchOptionsToggled", "pluginGui"}]
+  GETIMPORT R39 K64 [UDim2.new]
   LOADN R40 0
   LOADN R41 0
   LOADN R42 0
   MOVE R43 R21
   CALL R39 4 1
-  SETTABLEKS R39 R38 K64 ["Position"]
-  SETTABLEKS R3 R38 K93 ["maxWidth"]
+  SETTABLEKS R39 R38 K65 ["Position"]
+  SETTABLEKS R3 R38 K94 ["maxWidth"]
   GETTABLEKS R39 R0 K49 ["toggleSearchOptions"]
   SETTABLEKS R39 R38 K51 ["onSearchOptionsToggled"]
   SETTABLEKS R15 R38 K14 ["pluginGui"]
   CALL R36 2 1
-  SETTABLEKS R36 R35 K75 ["Header"]
-  JUMPIFNOT R27 [+61]
+  SETTABLEKS R36 R35 K76 ["Header"]
+  JUMPIFNOT R27 [+57]
   GETUPVAL R37 5
   GETTABLEKS R36 R37 K46 ["createElement"]
-  GETUPVAL R37 19
-  DUPTABLE R38 K102 [{"hasValidSize", "webViewLoadingStatus", "webViewError", "manualRetryAttempt", "ChangeMarketplaceTab", "HandleFailedInitCheck", "HandlePassedInitAndLoadingCheck", "Plugin", "PluginLoaderContext"}]
+  GETUPVAL R37 20
+  DUPTABLE R38 K104 [{"hasValidSize", "webViewLoadingStatus", "webViewError", "manualRetryAttempt", "ChangeMarketplaceTab", "HandleFailedInitCheck", "HandlePassedInitAndLoadingCheck", "Plugin", "PluginLoaderContext", "hasWebViewEverLoaded"}]
   GETTABLEKS R40 R0 K1 ["state"]
-  GETTABLEKS R39 R40 K95 ["hasValidSize"]
-  SETTABLEKS R39 R38 K95 ["hasValidSize"]
-  GETUPVAL R40 20
-  CALL R40 0 1
-  JUMPIFNOT R40 [+5]
+  GETTABLEKS R39 R40 K96 ["hasValidSize"]
+  SETTABLEKS R39 R38 K96 ["hasValidSize"]
   GETTABLEKS R40 R0 K1 ["state"]
   GETTABLEKS R39 R40 K55 ["webViewLoadingStatus"]
-  JUMP [+1]
-  LOADNIL R39
   SETTABLEKS R39 R38 K55 ["webViewLoadingStatus"]
-  GETUPVAL R40 20
-  CALL R40 0 1
-  JUMPIFNOT R40 [+5]
   GETTABLEKS R40 R0 K1 ["state"]
-  GETTABLEKS R39 R40 K59 ["webViewError"]
-  JUMP [+1]
-  LOADNIL R39
-  SETTABLEKS R39 R38 K59 ["webViewError"]
+  GETTABLEKS R39 R40 K60 ["webViewError"]
+  SETTABLEKS R39 R38 K60 ["webViewError"]
   GETTABLEKS R40 R0 K1 ["state"]
-  GETTABLEKS R39 R40 K103 ["webViewRetryAttempt"]
-  SETTABLEKS R39 R38 K96 ["manualRetryAttempt"]
-  GETTABLEKS R39 R0 K92 ["changeMarketplaceTab"]
-  SETTABLEKS R39 R38 K97 ["ChangeMarketplaceTab"]
-  GETTABLEKS R39 R0 K104 ["handleWebViewError"]
-  SETTABLEKS R39 R38 K98 ["HandleFailedInitCheck"]
-  GETTABLEKS R39 R0 K105 ["handleWebViewLoaded"]
-  SETTABLEKS R39 R38 K99 ["HandlePassedInitAndLoadingCheck"]
-  GETTABLEKS R39 R1 K106 ["plugin"]
-  SETTABLEKS R39 R38 K100 ["Plugin"]
-  GETTABLEKS R39 R1 K107 ["pluginLoaderContext"]
-  SETTABLEKS R39 R38 K101 ["PluginLoaderContext"]
+  GETTABLEKS R39 R40 K105 ["webViewRetryAttempt"]
+  SETTABLEKS R39 R38 K97 ["manualRetryAttempt"]
+  GETTABLEKS R39 R0 K93 ["changeMarketplaceTab"]
+  SETTABLEKS R39 R38 K98 ["ChangeMarketplaceTab"]
+  GETTABLEKS R39 R0 K106 ["handleWebViewError"]
+  SETTABLEKS R39 R38 K99 ["HandleFailedInitCheck"]
+  GETTABLEKS R39 R0 K107 ["handleWebViewLoaded"]
+  SETTABLEKS R39 R38 K100 ["HandlePassedInitAndLoadingCheck"]
+  GETTABLEKS R39 R1 K108 ["plugin"]
+  SETTABLEKS R39 R38 K101 ["Plugin"]
+  GETTABLEKS R39 R1 K109 ["pluginLoaderContext"]
+  SETTABLEKS R39 R38 K102 ["PluginLoaderContext"]
+  GETTABLEKS R40 R0 K1 ["state"]
+  GETTABLEKS R39 R40 K103 ["hasWebViewEverLoaded"]
+  SETTABLEKS R39 R38 K103 ["hasWebViewEverLoaded"]
   CALL R36 2 1
   JUMP [+1]
   LOADNIL R36
-  SETTABLEKS R36 R35 K76 ["WebViewConnector"]
-  JUMPIFNOT R31 [+27]
+  SETTABLEKS R36 R35 K77 ["WebViewConnector"]
+  JUMPIFNOT R31 [+23]
   GETUPVAL R37 5
   GETTABLEKS R36 R37 K46 ["createElement"]
   GETUPVAL R37 21
-  DUPTABLE R38 K110 [{"reason", "OnRetryClicked"}]
-  GETUPVAL R40 20
-  CALL R40 0 1
-  JUMPIFNOT R40 [+5]
+  DUPTABLE R38 K112 [{"reason", "OnRetryClicked"}]
   GETTABLEKS R40 R0 K1 ["state"]
-  GETTABLEKS R39 R40 K59 ["webViewError"]
-  JUMP [+1]
-  LOADNIL R39
-  SETTABLEKS R39 R38 K108 ["reason"]
+  GETTABLEKS R39 R40 K60 ["webViewError"]
+  SETTABLEKS R39 R38 K110 ["reason"]
   NEWCLOSURE R39 P1
   CAPTURE UPVAL U22
+  CAPTURE UPVAL U12
   CAPTURE VAL R0
   CAPTURE UPVAL U11
   CAPTURE UPVAL U23
   CAPTURE UPVAL U24
   CAPTURE UPVAL U5
-  SETTABLEKS R39 R38 K109 ["OnRetryClicked"]
+  SETTABLEKS R39 R38 K111 ["OnRetryClicked"]
   CALL R36 2 1
   JUMP [+129]
   JUMPIFNOT R30 [+30]
   GETUPVAL R37 5
   GETTABLEKS R36 R37 K46 ["createElement"]
   GETUPVAL R37 25
-  DUPTABLE R38 K112 [{"Size", "AnchorPoint", "Position"}]
-  GETIMPORT R39 K63 [UDim2.new]
+  DUPTABLE R38 K114 [{"Size", "AnchorPoint", "Position"}]
+  GETIMPORT R39 K64 [UDim2.new]
   LOADN R40 0
   LOADN R41 100
   LOADN R42 0
   LOADN R43 100
   CALL R39 4 1
   SETTABLEKS R39 R38 K15 ["Size"]
-  GETIMPORT R39 K114 [Vector2.new]
-  LOADK R40 K115 [0.5]
-  LOADK R41 K115 [0.5]
+  GETIMPORT R39 K116 [Vector2.new]
+  LOADK R40 K117 [0.5]
+  LOADK R41 K117 [0.5]
   CALL R39 2 1
-  SETTABLEKS R39 R38 K111 ["AnchorPoint"]
-  GETIMPORT R39 K117 [UDim2.fromScale]
-  LOADK R40 K115 [0.5]
-  LOADK R41 K115 [0.5]
+  SETTABLEKS R39 R38 K113 ["AnchorPoint"]
+  GETIMPORT R39 K119 [UDim2.fromScale]
+  LOADK R40 K117 [0.5]
+  LOADK R41 K117 [0.5]
   CALL R39 2 1
-  SETTABLEKS R39 R38 K64 ["Position"]
+  SETTABLEKS R39 R38 K65 ["Position"]
   CALL R36 2 1
   JUMP [+98]
   JUMPIFNOT R29 [+2]
@@ -1568,78 +1803,78 @@ PROTO_27:
   GETUPVAL R37 5
   GETTABLEKS R36 R37 K46 ["createElement"]
   GETUPVAL R37 26
-  DUPTABLE R38 K123 [{"AssetType", "CategoryName", "Locale", "Position", "Size", "SortName", "TryOpenAssetConfig", "EnabledAssetTypes"}]
+  DUPTABLE R38 K125 [{"AssetType", "CategoryName", "Locale", "Position", "Size", "SortName", "TryOpenAssetConfig", "EnabledAssetTypes"}]
   SETTABLEKS R24 R38 K33 ["AssetType"]
-  SETTABLEKS R9 R38 K118 ["CategoryName"]
-  SETTABLEKS R19 R38 K119 ["Locale"]
-  GETIMPORT R39 K63 [UDim2.new]
+  SETTABLEKS R9 R38 K120 ["CategoryName"]
+  SETTABLEKS R19 R38 K121 ["Locale"]
+  GETIMPORT R39 K64 [UDim2.new]
   LOADN R40 0
   LOADN R41 0
   LOADN R42 0
   GETUPVAL R46 1
-  GETTABLEKS R45 R46 K125 ["HEADER_HEIGHT"]
+  GETTABLEKS R45 R46 K127 ["HEADER_HEIGHT"]
   ADD R44 R21 R45
-  ADDK R43 R44 K124 [1]
+  ADDK R43 R44 K126 [1]
   CALL R39 4 1
-  SETTABLEKS R39 R38 K64 ["Position"]
-  GETIMPORT R39 K63 [UDim2.new]
+  SETTABLEKS R39 R38 K65 ["Position"]
+  GETIMPORT R39 K64 [UDim2.new]
   LOADN R40 1
   LOADN R41 0
   LOADN R42 1
   GETUPVAL R47 1
-  GETTABLEKS R46 R47 K125 ["HEADER_HEIGHT"]
+  GETTABLEKS R46 R47 K127 ["HEADER_HEIGHT"]
   ADD R45 R46 R21
-  ADDK R44 R45 K126 [2]
+  ADDK R44 R45 K128 [2]
   MINUS R43 R44
   CALL R39 4 1
   SETTABLEKS R39 R38 K15 ["Size"]
   GETUPVAL R40 27
-  GETTABLEKS R39 R40 K127 ["getDefaultSortNameForCategory"]
+  GETTABLEKS R39 R40 K129 ["getDefaultSortNameForCategory"]
   MOVE R40 R9
   CALL R39 1 1
-  SETTABLEKS R39 R38 K120 ["SortName"]
-  SETTABLEKS R14 R38 K121 ["TryOpenAssetConfig"]
-  SETTABLEKS R23 R38 K122 ["EnabledAssetTypes"]
+  SETTABLEKS R39 R38 K122 ["SortName"]
+  SETTABLEKS R14 R38 K123 ["TryOpenAssetConfig"]
+  SETTABLEKS R23 R38 K124 ["EnabledAssetTypes"]
   CALL R36 2 1
   JUMP [+43]
   GETUPVAL R37 5
   GETTABLEKS R36 R37 K46 ["createElement"]
   GETUPVAL R37 28
-  DUPTABLE R38 K129 [{"Position", "Size", "maxWidth", "suggestions", "tryOpenAssetConfig", "onBackToHome"}]
-  GETIMPORT R39 K63 [UDim2.new]
+  DUPTABLE R38 K131 [{"Position", "Size", "maxWidth", "suggestions", "tryOpenAssetConfig", "onBackToHome"}]
+  GETIMPORT R39 K64 [UDim2.new]
   LOADN R40 0
   LOADN R41 0
   LOADN R42 0
   GETUPVAL R46 1
-  GETTABLEKS R45 R46 K125 ["HEADER_HEIGHT"]
+  GETTABLEKS R45 R46 K127 ["HEADER_HEIGHT"]
   ADD R44 R21 R45
-  ADDK R43 R44 K124 [1]
+  ADDK R43 R44 K126 [1]
   CALL R39 4 1
-  SETTABLEKS R39 R38 K64 ["Position"]
-  GETIMPORT R39 K63 [UDim2.new]
+  SETTABLEKS R39 R38 K65 ["Position"]
+  GETIMPORT R39 K64 [UDim2.new]
   LOADN R40 1
   LOADN R41 0
   LOADN R42 1
   GETUPVAL R47 1
-  GETTABLEKS R46 R47 K125 ["HEADER_HEIGHT"]
+  GETTABLEKS R46 R47 K127 ["HEADER_HEIGHT"]
   ADD R45 R46 R21
-  ADDK R44 R45 K126 [2]
+  ADDK R44 R45 K128 [2]
   MINUS R43 R44
   CALL R39 4 1
   SETTABLEKS R39 R38 K15 ["Size"]
-  SETTABLEKS R3 R38 K93 ["maxWidth"]
+  SETTABLEKS R3 R38 K94 ["maxWidth"]
   SETTABLEKS R8 R38 K7 ["suggestions"]
   SETTABLEKS R14 R38 K13 ["tryOpenAssetConfig"]
-  GETTABLEKS R39 R0 K128 ["onBackToHome"]
-  SETTABLEKS R39 R38 K128 ["onBackToHome"]
+  GETTABLEKS R39 R0 K130 ["onBackToHome"]
+  SETTABLEKS R39 R38 K130 ["onBackToHome"]
   CALL R36 2 1
-  SETTABLEKS R36 R35 K77 ["MainView"]
+  SETTABLEKS R36 R35 K78 ["MainView"]
   JUMPIF R30 [+1]
   JUMPIFNOT R29 [+2]
   LOADNIL R36
   JUMP [+1]
   MOVE R36 R26
-  SETTABLEKS R36 R35 K78 ["SearchOptions"]
+  SETTABLEKS R36 R35 K79 ["SearchOptions"]
   JUMPIF R30 [+1]
   JUMPIFNOT R29 [+2]
   LOADNIL R36
@@ -1648,11 +1883,11 @@ PROTO_27:
   GETTABLEKS R36 R37 K46 ["createElement"]
   GETUPVAL R37 29
   CALL R36 1 1
-  SETTABLEKS R36 R35 K79 ["AudioPreview"]
+  SETTABLEKS R36 R35 K80 ["AudioPreview"]
   CALL R32 3 -1
   RETURN R32 -1
 
-PROTO_28:
+PROTO_30:
   MOVE R2 R0
   JUMPIF R2 [+2]
   NEWTABLE R2 0 0
@@ -1705,7 +1940,7 @@ PROTO_28:
   SETTABLEKS R4 R3 K10 ["hasTutorialLimits"]
   RETURN R3 1
 
-PROTO_29:
+PROTO_31:
   GETUPVAL R1 0
   JUMPIFNOT R1 [+6]
   GETUPVAL R1 1
@@ -1721,7 +1956,7 @@ PROTO_29:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_32:
   GETUPVAL R3 0
   GETUPVAL R4 1
   MOVE R5 R0
@@ -1731,7 +1966,7 @@ PROTO_30:
   CALL R3 -1 0
   RETURN R0 0
 
-PROTO_31:
+PROTO_33:
   GETUPVAL R8 0
   GETUPVAL R9 1
   MOVE R10 R0
@@ -1746,7 +1981,7 @@ PROTO_31:
   CALL R8 -1 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_34:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1754,7 +1989,7 @@ PROTO_32:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_35:
   GETUPVAL R3 0
   GETUPVAL R4 1
   MOVE R5 R0
@@ -1764,7 +1999,7 @@ PROTO_33:
   CALL R3 -1 0
   RETURN R0 0
 
-PROTO_34:
+PROTO_36:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1773,7 +2008,7 @@ PROTO_34:
   CALL R1 -1 -1
   RETURN R1 -1
 
-PROTO_35:
+PROTO_37:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1781,7 +2016,7 @@ PROTO_35:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_36:
+PROTO_38:
   DUPTABLE R1 K7 [{"setRoles", "updatePageInfo", "changeMarketplaceTab", "getRobuxBalance", "getToolboxManageableGroups", "logSearchAnalytics", "setLayoutMode"}]
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U0
@@ -2102,57 +2337,57 @@ MAIN:
   GETTABLEKS R69 R0 K5 ["Core"]
   GETTABLEKS R68 R69 K6 ["Util"]
   GETTABLEKS R67 R68 K7 ["SharedFlags"]
-  GETTABLEKS R66 R67 K84 ["ToolboxWVInitAutoRetry"]
+  GETTABLEKS R66 R67 K84 ["getFFlagToolboxRetryReloadFailures"]
   CALL R65 1 1
-  GETTABLEKS R66 R65 K85 ["getFlagEnabled"]
+  GETIMPORT R66 K4 [require]
+  GETTABLEKS R69 R0 K5 ["Core"]
+  GETTABLEKS R68 R69 K31 ["Types"]
+  GETTABLEKS R67 R68 K85 ["LayoutMode"]
+  CALL R66 1 1
   GETIMPORT R67 K4 [require]
   GETTABLEKS R70 R0 K5 ["Core"]
   GETTABLEKS R69 R70 K31 ["Types"]
-  GETTABLEKS R68 R69 K86 ["LayoutMode"]
+  GETTABLEKS R68 R69 K86 ["Background"]
   CALL R67 1 1
   GETIMPORT R68 K4 [require]
-  GETTABLEKS R71 R0 K5 ["Core"]
-  GETTABLEKS R70 R71 K31 ["Types"]
-  GETTABLEKS R69 R70 K87 ["Background"]
+  GETTABLEKS R72 R0 K5 ["Core"]
+  GETTABLEKS R71 R72 K35 ["Components"]
+  GETTABLEKS R70 R71 K40 ["WebView"]
+  GETTABLEKS R69 R70 K87 ["WebViewTypes"]
   CALL R68 1 1
-  GETIMPORT R69 K4 [require]
-  GETTABLEKS R73 R0 K5 ["Core"]
-  GETTABLEKS R72 R73 K35 ["Components"]
-  GETTABLEKS R71 R72 K40 ["WebView"]
-  GETTABLEKS R70 R71 K88 ["WebViewTypes"]
-  CALL R69 1 1
-  GETTABLEKS R70 R7 K89 ["PureComponent"]
-  LOADK R72 K90 ["Toolbox"]
-  NAMECALL R70 R70 K91 ["extend"]
-  CALL R70 2 1
-  DUPTABLE R71 K93 [{"Size"}]
-  GETIMPORT R72 K96 [UDim2.new]
-  LOADN R73 1
-  LOADN R74 0
-  LOADN R75 1
-  LOADN R76 0
-  CALL R72 4 1
-  SETTABLEKS R72 R71 K92 ["Size"]
-  SETTABLEKS R71 R70 K97 ["defaultProps"]
-  DUPCLOSURE R71 K98 [PROTO_0]
+  GETTABLEKS R69 R7 K88 ["PureComponent"]
+  LOADK R71 K89 ["Toolbox"]
+  NAMECALL R69 R69 K90 ["extend"]
+  CALL R69 2 1
+  DUPTABLE R70 K92 [{"Size"}]
+  GETIMPORT R71 K95 [UDim2.new]
+  LOADN R72 1
+  LOADN R73 0
+  LOADN R74 1
+  LOADN R75 0
+  CALL R71 4 1
+  SETTABLEKS R71 R70 K91 ["Size"]
+  SETTABLEKS R70 R69 K96 ["defaultProps"]
+  DUPCLOSURE R70 K97 [PROTO_0]
   CAPTURE VAL R58
-  CAPTURE VAL R68
+  CAPTURE VAL R67
   CAPTURE VAL R23
   CAPTURE VAL R18
   CAPTURE VAL R57
   CAPTURE VAL R2
   CAPTURE VAL R24
   CAPTURE VAL R59
-  CAPTURE VAL R67
-  SETTABLEKS R71 R70 K99 ["handleInitialSettings"]
-  DUPCLOSURE R71 K100 [PROTO_1]
-  DUPCLOSURE R72 K101 [PROTO_14]
+  CAPTURE VAL R66
+  SETTABLEKS R70 R69 K98 ["handleInitialSettings"]
+  DUPCLOSURE R70 K99 [PROTO_1]
+  DUPCLOSURE R71 K100 [PROTO_16]
   CAPTURE VAL R12
   CAPTURE VAL R18
   CAPTURE VAL R15
-  CAPTURE VAL R69
+  CAPTURE VAL R68
   CAPTURE VAL R64
   CAPTURE VAL R20
+  CAPTURE VAL R65
   CAPTURE VAL R62
   CAPTURE VAL R23
   CAPTURE VAL R10
@@ -2162,29 +2397,29 @@ MAIN:
   CAPTURE VAL R7
   CAPTURE VAL R63
   CAPTURE VAL R60
-  SETTABLEKS R72 R70 K102 ["init"]
-  DUPCLOSURE R72 K103 [PROTO_15]
+  SETTABLEKS R71 R69 K101 ["init"]
+  DUPCLOSURE R71 K102 [PROTO_17]
   CAPTURE VAL R63
   CAPTURE VAL R60
-  SETTABLEKS R72 R70 K104 ["didUpdate"]
-  DUPCLOSURE R72 K105 [PROTO_16]
-  SETTABLEKS R72 R70 K106 ["setUpToolboxManagerComponent"]
-  DUPCLOSURE R72 K107 [PROTO_20]
+  SETTABLEKS R71 R69 K103 ["didUpdate"]
+  DUPCLOSURE R71 K104 [PROTO_18]
+  SETTABLEKS R71 R69 K105 ["setUpToolboxManagerComponent"]
+  DUPCLOSURE R71 K106 [PROTO_22]
   CAPTURE VAL R13
   CAPTURE VAL R23
   CAPTURE VAL R18
   CAPTURE VAL R15
-  SETTABLEKS R72 R70 K108 ["connectAllSignals"]
-  DUPCLOSURE R72 K109 [PROTO_21]
-  SETTABLEKS R72 R70 K110 ["disconnectAllSignals"]
-  DUPCLOSURE R72 K111 [PROTO_22]
+  SETTABLEKS R71 R69 K107 ["connectAllSignals"]
+  DUPCLOSURE R71 K108 [PROTO_23]
+  SETTABLEKS R71 R69 K109 ["disconnectAllSignals"]
+  DUPCLOSURE R71 K110 [PROTO_24]
   CAPTURE VAL R56
   CAPTURE VAL R12
-  SETTABLEKS R72 R70 K112 ["didMount"]
-  DUPCLOSURE R72 K113 [PROTO_24]
+  SETTABLEKS R71 R69 K111 ["didMount"]
+  DUPCLOSURE R71 K112 [PROTO_26]
   CAPTURE VAL R18
-  SETTABLEKS R72 R70 K114 ["willUnmount"]
-  DUPCLOSURE R72 K115 [PROTO_27]
+  SETTABLEKS R71 R69 K113 ["willUnmount"]
+  DUPCLOSURE R71 K114 [PROTO_29]
   CAPTURE VAL R23
   CAPTURE VAL R15
   CAPTURE VAL R3
@@ -2196,7 +2431,8 @@ MAIN:
   CAPTURE VAL R35
   CAPTURE VAL R33
   CAPTURE VAL R12
-  CAPTURE VAL R69
+  CAPTURE VAL R68
+  CAPTURE VAL R65
   CAPTURE VAL R26
   CAPTURE VAL R19
   CAPTURE VAL R64
@@ -2205,7 +2441,6 @@ MAIN:
   CAPTURE VAL R17
   CAPTURE VAL R28
   CAPTURE VAL R37
-  CAPTURE VAL R66
   CAPTURE VAL R30
   CAPTURE VAL R61
   CAPTURE VAL R62
@@ -2215,38 +2450,38 @@ MAIN:
   CAPTURE VAL R22
   CAPTURE VAL R29
   CAPTURE VAL R31
-  SETTABLEKS R72 R70 K116 ["render"]
-  MOVE R72 R48
-  DUPTABLE R73 K122 [{"IXP", "Stylizer", "Localization", "Settings", "Modal", "Network", "WebViewManagerContext"}]
-  MOVE R75 R57
-  CALL R75 0 1
-  JUMPIF R75 [+6]
-  MOVE R75 R58
-  CALL R75 0 1
-  JUMPIF R75 [+3]
-  MOVE R75 R59
-  CALL R75 0 1
-  JUMPIFNOT R75 [+2]
-  MOVE R74 R46
+  SETTABLEKS R71 R69 K115 ["render"]
+  MOVE R71 R48
+  DUPTABLE R72 K121 [{"IXP", "Stylizer", "Localization", "Settings", "Modal", "Network", "WebViewManagerContext"}]
+  MOVE R74 R57
+  CALL R74 0 1
+  JUMPIF R74 [+6]
+  MOVE R74 R58
+  CALL R74 0 1
+  JUMPIF R74 [+3]
+  MOVE R74 R59
+  CALL R74 0 1
+  JUMPIFNOT R74 [+2]
+  MOVE R73 R46
   JUMP [+1]
-  LOADNIL R74
-  SETTABLEKS R74 R73 K117 ["IXP"]
-  GETTABLEKS R74 R47 K118 ["Stylizer"]
-  SETTABLEKS R74 R73 K118 ["Stylizer"]
-  GETTABLEKS R74 R47 K119 ["Localization"]
-  SETTABLEKS R74 R73 K119 ["Localization"]
-  SETTABLEKS R49 R73 K64 ["Settings"]
-  SETTABLEKS R50 R73 K120 ["Modal"]
-  SETTABLEKS R51 R73 K121 ["Network"]
-  SETTABLEKS R52 R73 K67 ["WebViewManagerContext"]
-  CALL R72 1 1
-  MOVE R73 R70
-  CALL R72 1 1
-  MOVE R70 R72
-  DUPCLOSURE R72 K123 [PROTO_28]
+  LOADNIL R73
+  SETTABLEKS R73 R72 K116 ["IXP"]
+  GETTABLEKS R73 R47 K117 ["Stylizer"]
+  SETTABLEKS R73 R72 K117 ["Stylizer"]
+  GETTABLEKS R73 R47 K118 ["Localization"]
+  SETTABLEKS R73 R72 K118 ["Localization"]
+  SETTABLEKS R49 R72 K64 ["Settings"]
+  SETTABLEKS R50 R72 K119 ["Modal"]
+  SETTABLEKS R51 R72 K120 ["Network"]
+  SETTABLEKS R52 R72 K67 ["WebViewManagerContext"]
+  CALL R71 1 1
+  MOVE R72 R69
+  CALL R71 1 1
+  MOVE R69 R71
+  DUPCLOSURE R71 K122 [PROTO_30]
   CAPTURE VAL R23
   CAPTURE VAL R6
-  DUPCLOSURE R73 K124 [PROTO_36]
+  DUPCLOSURE R72 K123 [PROTO_38]
   CAPTURE VAL R55
   CAPTURE VAL R44
   CAPTURE VAL R43
@@ -2257,10 +2492,10 @@ MAIN:
   CAPTURE VAL R54
   CAPTURE VAL R58
   CAPTURE VAL R53
-  GETTABLEKS R74 R8 K125 ["connect"]
+  GETTABLEKS R73 R8 K124 ["connect"]
+  MOVE R74 R71
   MOVE R75 R72
-  MOVE R76 R73
-  CALL R74 2 1
-  MOVE R75 R70
-  CALL R74 1 -1
-  RETURN R74 -1
+  CALL R73 2 1
+  MOVE R74 R69
+  CALL R73 1 -1
+  RETURN R73 -1

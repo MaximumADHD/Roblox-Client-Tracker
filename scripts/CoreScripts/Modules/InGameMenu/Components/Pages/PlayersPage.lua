@@ -53,8 +53,11 @@ local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.UnblockPlayer)
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
+local onBlockButtonActivated = require(RobloxGui.Modules.Settings.onBlockButtonActivated)
 
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
+
+local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
 
 local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
 
@@ -77,7 +80,7 @@ PlayersPage.validateProps = t.strictInterface({
 	inspectMenuEnabled = t.boolean,
 	friends = t.map(t.integer, t.enum(Enum.FriendStatus)),
 	closeMenu = t.callback,
-	blockPlayer = t.callback,
+	blockPlayer = if FFlagNavigateToBlockingModal then nil else t.callback,
 	unblockPlayer = t.callback,
 	pageTitle = t.string,
 	screenSize = t.Vector2,
@@ -330,7 +333,11 @@ function PlayersPage:getMoreActions(localized)
 					if isBlocked then
 						self.props.unblockPlayer(player)
 					else
-						self.props.blockPlayer(player)
+						if FFlagNavigateToBlockingModal then
+							onBlockButtonActivated(player, nil, self.__componentName)
+						else
+							self.props.blockPlayer(player)
+						end
 					end
 
 					self:setState({
@@ -535,7 +542,7 @@ end, function(dispatch)
 			dispatch(CloseMenu)
 		end,
 
-		blockPlayer = function(player)
+		blockPlayer = if FFlagNavigateToBlockingModal then nil else function(player)
 			return dispatch(BlockPlayer(player))
 		end,
 

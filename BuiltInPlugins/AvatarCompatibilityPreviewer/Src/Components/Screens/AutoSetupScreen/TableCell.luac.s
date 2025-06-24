@@ -1,0 +1,148 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["Value"]
+  GETTABLEKS R2 R0 K1 ["Style"]
+  GETTABLEKS R3 R0 K2 ["Width"]
+  JUMPIF R3 [+8]
+  GETIMPORT R3 K5 [UDim.new]
+  GETTABLEKS R6 R0 K7 ["Columns"]
+  LENGTH R5 R6
+  DIVRK R4 R6 K5 [UDim.new]
+  LOADN R5 0
+  CALL R3 2 1
+  GETTABLEKS R5 R0 K8 ["Emphasis"]
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R4 R2 K9 ["BackgroundOdd"]
+  JUMP [+2]
+  GETTABLEKS R4 R2 K10 ["BackgroundEven"]
+  LOADNIL R5
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K12 [typeof]
+  CALL R6 1 1
+  JUMPIFNOTEQKS R6 K13 ["number"] [+15]
+  FASTCALL1 MATH_FLOOR R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K16 [math.floor]
+  CALL R6 1 1
+  JUMPIFEQ R6 R1 [+8]
+  LOADK R6 K17 ["%.3f"]
+  MOVE R8 R1
+  NAMECALL R6 R6 K18 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  JUMP [+6]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K20 [tostring]
+  CALL R6 1 1
+  MOVE R5 R6
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K21 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K32 [{"HorizontalAlignment", "LayoutOrder", "Layout", "Padding", "Spacing", "Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants"}]
+  GETIMPORT R9 K35 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K22 ["HorizontalAlignment"]
+  GETTABLEKS R9 R0 K36 ["ColumnIndex"]
+  SETTABLEKS R9 R8 K23 ["LayoutOrder"]
+  GETIMPORT R9 K39 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K24 ["Layout"]
+  DUPTABLE R9 K43 [{"Top", "Bottom", "Left", "Right"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K40 ["Top"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K41 ["Bottom"]
+  LOADN R10 5
+  SETTABLEKS R10 R9 K34 ["Left"]
+  LOADN R10 5
+  SETTABLEKS R10 R9 K42 ["Right"]
+  SETTABLEKS R9 R8 K25 ["Padding"]
+  LOADN R9 6
+  SETTABLEKS R9 R8 K26 ["Spacing"]
+  LOADK R9 K44 ["Box"]
+  SETTABLEKS R9 R8 K1 ["Style"]
+  SETTABLEKS R4 R8 K27 ["BackgroundColor3"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K28 ["BorderSizePixel"]
+  GETTABLEKS R9 R2 K45 ["Border"]
+  SETTABLEKS R9 R8 K29 ["BorderColor3"]
+  GETIMPORT R9 K47 [UDim2.new]
+  GETTABLEKS R10 R3 K48 ["Scale"]
+  GETTABLEKS R11 R3 K49 ["Offset"]
+  LOADN R12 1
+  LOADN R13 0
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K30 ["Size"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K31 ["ClipsDescendants"]
+  DUPTABLE R9 K52 [{"Icon", "Text"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K21 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K54 [{"LayoutOrder", "Size", "Image"}]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K23 ["LayoutOrder"]
+  GETIMPORT R13 K56 [UDim2.fromOffset]
+  LOADN R14 16
+  LOADN R15 16
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K30 ["Size"]
+  GETUPVAL R14 3
+  GETTABLEKS R18 R0 K57 ["Row"]
+  GETTABLEKS R17 R18 K58 ["Instance"]
+  GETTABLEKS R16 R17 K59 ["ClassName"]
+  NAMECALL R14 R14 K60 ["GetClassIcon"]
+  CALL R14 2 1
+  GETTABLEKS R13 R14 K53 ["Image"]
+  SETTABLEKS R13 R12 K53 ["Image"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K50 ["Icon"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K21 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K63 [{"LayoutOrder", "Text", "TextTruncate", "Size", "TextXAlignment"}]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K23 ["LayoutOrder"]
+  SETTABLEKS R5 R12 K51 ["Text"]
+  GETIMPORT R13 K65 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R13 R12 K61 ["TextTruncate"]
+  GETIMPORT R13 K67 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K30 ["Size"]
+  GETIMPORT R13 K68 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K62 ["TextXAlignment"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K51 ["Text"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K13 ["UI"]
+  GETTABLEKS R5 R4 K14 ["Image"]
+  GETTABLEKS R6 R4 K15 ["Pane"]
+  GETTABLEKS R7 R4 K16 ["TextLabel"]
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  RETURN R8 1

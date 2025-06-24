@@ -1,4 +1,13 @@
 MAIN:
   PREPVARARGS 0
-  LOADNIL R0
-  RETURN R0 1
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["ProviderTypes"]
+  CALL R1 1 1
+  LOADNIL R2
+  RETURN R2 1

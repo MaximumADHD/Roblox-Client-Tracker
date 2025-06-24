@@ -1,18 +1,22 @@
 PROTO_0:
-  LOADK R3 K0 ["HumanoidDescription"]
-  NAMECALL R1 R0 K1 ["FindFirstChildWhichIsA"]
-  CALL R1 2 1
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["originalHumanoidDescription"]
-  NAMECALL R3 R1 K3 ["Clone"]
+  NAMECALL R2 R0 K0 ["GetAppliedDescription"]
+  CALL R2 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["originalHumanoidDescription"]
+  GETTABLE R3 R4 R0
+  JUMPIF R3 [+9]
+  NAMECALL R3 R2 K2 ["Clone"]
   CALL R3 1 1
-  SETTABLE R3 R2 R0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["applyAvatarRulesToAvatar"]
-  MOVE R3 R0
-  CALL R2 1 0
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["originalHumanoidDescription"]
+  SETTABLE R3 R4 R0
+  JUMPIF R1 [+5]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["applyAvatarRulesToAvatar"]
+  MOVE R4 R0
+  CALL R3 1 0
   RETURN R0 0
 
 PROTO_1:
@@ -46,15 +50,23 @@ PROTO_2:
   GETUPVAL R1 0
   JUMPIF R1 [+1]
   RETURN R0 0
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["applyAvatarRules"]
-  MOVE R2 R0
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K1 ["originalHumanoidDescription"]
-  GETTABLE R3 R4 R0
-  NAMECALL R3 R3 K2 ["Clone"]
-  CALL R3 1 -1
-  CALL R1 -1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["originalHumanoidDescription"]
+  GETTABLE R1 R2 R0
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["originalHumanoidDescription"]
+  GETTABLE R1 R2 R0
+  NAMECALL R1 R1 K1 ["Clone"]
+  CALL R1 1 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["applyAvatarRules"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
   RETURN R0 0
 
 PROTO_3:
@@ -409,8 +421,8 @@ MAIN:
   SETTABLEKS R10 R6 K22 ["removeHumanoidFromPreviewFolder"]
   NEWCLOSURE R10 P2
   CAPTURE REF R7
-  CAPTURE VAL R3
   CAPTURE VAL R6
+  CAPTURE VAL R3
   SETTABLEKS R10 R6 K23 ["applyAvatarRulesToAvatar"]
   NEWCLOSURE R10 P3
   CAPTURE REF R7

@@ -13,14 +13,14 @@ local GetUpsellSuggestions = IAPExperience.Api.PaymentsGateway.GetUpsellSuggesti
 local UpsellSuggestionsAPIMaxPackages =
 	require(CorePackages.Workspace.Packages.SharedFlags).UpsellSuggestionsAPIMaxPackages
 
-return function(price: number, robuxBalance: number, paymentPlatform: string, itemProductId: number?, itemName: string?, universeId: number?)
+return function(price: number, robuxBalance: number, paymentPlatform: string, itemProductId: number?, itemName: string?, universeId: number?, analyticId: string?)
     local upsellPlatform = paymentPlatformToUpsellPlatform(paymentPlatform)
 
 	-- Create a promise that will resolve with the upsell suggestions
 	local promise = Promise.new(function(resolve, reject)
 		-- Spawn a new thread to avoid blocking the main thread
 		spawn(function()
-			local success, response = GetUpsellSuggestions(upsellPlatform, robuxBalance, price, UpsellSuggestionsAPIMaxPackages, itemProductId, itemName, universeId)
+			local success, response = GetUpsellSuggestions(upsellPlatform, robuxBalance, price, UpsellSuggestionsAPIMaxPackages, itemProductId, itemName, universeId, analyticId)
 			if not success then
 				return reject(PurchaseError.UnknownFailure)
 			end

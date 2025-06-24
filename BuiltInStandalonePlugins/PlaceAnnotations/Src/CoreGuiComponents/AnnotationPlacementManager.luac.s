@@ -152,26 +152,15 @@ PROTO_7:
   LOADB R6 1
   NAMECALL R3 R3 K0 ["FindFirstChild"]
   CALL R3 3 1
-  JUMPIFNOT R3 [+27]
+  JUMPIFNOT R3 [+13]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K1 ["fflagAnnotationsSyncTagging"]
-  JUMPIFNOT R4 [+14]
+  GETTABLEKS R4 R5 K1 ["syncStandaloneAnnotation"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["syncStandaloneAnnotation"]
-  GETUPVAL R5 3
   MOVE R6 R3
-  DUPTABLE R7 K5 [{"Contents", "TaggedUsers"}]
-  SETTABLEKS R2 R7 K3 ["Contents"]
-  GETTABLEKS R8 R3 K4 ["TaggedUsers"]
-  SETTABLEKS R8 R7 K4 ["TaggedUsers"]
-  CALL R4 3 0
-  RETURN R0 0
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["syncStandaloneAnnotation"]
-  GETUPVAL R5 3
-  MOVE R6 R3
-  DUPTABLE R7 K6 [{"Contents"}]
-  SETTABLEKS R2 R7 K3 ["Contents"]
+  DUPTABLE R7 K4 [{"Contents", "TaggedUsers"}]
+  SETTABLEKS R2 R7 K2 ["Contents"]
+  GETTABLEKS R8 R3 K3 ["TaggedUsers"]
+  SETTABLEKS R8 R7 K3 ["TaggedUsers"]
   CALL R4 3 0
   RETURN R0 0
 
@@ -347,7 +336,6 @@ PROTO_13:
   GETTABLEKS R4 R5 K11 ["AnnotationEdited"]
   NEWCLOSURE R6 P3
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U6
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   NAMECALL R4 R4 K8 ["Connect"]

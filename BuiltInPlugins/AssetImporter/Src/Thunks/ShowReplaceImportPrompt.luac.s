@@ -95,9 +95,9 @@ PROTO_2:
   GETTABLEKS R10 R11 K4 ["Sessions"]
   GETTABLEKS R9 R10 K5 ["sessionQueue"]
   GETTABLE R7 R9 R8
-  DUPTABLE R8 K13 [{"timestamp", "session"}]
-  GETTABLEKS R9 R2 K11 ["timestamp"]
-  SETTABLEKS R9 R8 K11 ["timestamp"]
+  DUPTABLE R8 K13 [{"sortOrder", "session"}]
+  GETTABLEKS R9 R2 K11 ["sortOrder"]
+  SETTABLEKS R9 R8 K11 ["sortOrder"]
   SETTABLEKS R3 R8 K12 ["session"]
   CALL R6 2 -1
   NAMECALL R4 R0 K8 ["dispatch"]
@@ -117,9 +117,9 @@ PROTO_2:
   GETTABLEKS R8 R9 K4 ["Sessions"]
   GETTABLEKS R7 R8 K5 ["sessionQueue"]
   GETTABLE R5 R7 R6
-  DUPTABLE R6 K15 [{"timestamp"}]
-  GETTABLEKS R7 R2 K11 ["timestamp"]
-  SETTABLEKS R7 R6 K11 ["timestamp"]
+  DUPTABLE R6 K15 [{"sortOrder"}]
+  GETTABLEKS R7 R2 K11 ["sortOrder"]
+  SETTABLEKS R7 R6 K11 ["sortOrder"]
   CALL R4 2 1
   GETUPVAL R7 10
   MOVE R8 R4

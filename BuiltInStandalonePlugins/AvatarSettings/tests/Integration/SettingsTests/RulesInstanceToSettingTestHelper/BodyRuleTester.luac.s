@@ -117,7 +117,7 @@ PROTO_3:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["queryByText"]
-  LOADK R4 K7 ["AppearanceSectionHead"]
+  LOADK R4 K7 ["AppearanceSectionFace"]
   DUPTABLE R5 K3 [{"exact"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["exact"]
@@ -129,7 +129,7 @@ PROTO_3:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["queryByText"]
-  LOADK R4 K9 ["AppearanceSectionTorso"]
+  LOADK R4 K9 ["AppearanceSectionHead"]
   DUPTABLE R5 K3 [{"exact"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["exact"]
@@ -141,7 +141,7 @@ PROTO_3:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["queryByText"]
-  LOADK R4 K10 ["AppearanceSectionLeftArm"]
+  LOADK R4 K10 ["AppearanceSectionTorso"]
   DUPTABLE R5 K3 [{"exact"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["exact"]
@@ -153,7 +153,7 @@ PROTO_3:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["queryByText"]
-  LOADK R4 K11 ["AppearanceSectionRightArm"]
+  LOADK R4 K11 ["AppearanceSectionLeftArm"]
   DUPTABLE R5 K3 [{"exact"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["exact"]
@@ -165,7 +165,7 @@ PROTO_3:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["queryByText"]
-  LOADK R4 K12 ["AppearanceSectionLeftLeg"]
+  LOADK R4 K12 ["AppearanceSectionRightArm"]
   DUPTABLE R5 K3 [{"exact"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["exact"]
@@ -177,7 +177,7 @@ PROTO_3:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["queryByText"]
-  LOADK R4 K13 ["AppearanceSectionRightLeg"]
+  LOADK R4 K13 ["AppearanceSectionLeftLeg"]
   DUPTABLE R5 K3 [{"exact"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["exact"]
@@ -189,7 +189,7 @@ PROTO_3:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["queryByText"]
-  LOADK R4 K14 ["AppearanceSectionMethod"]
+  LOADK R4 K14 ["AppearanceSectionRightLeg"]
   DUPTABLE R5 K3 [{"exact"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["exact"]
@@ -201,7 +201,19 @@ PROTO_3:
   GETUPVAL R2 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["queryByText"]
-  LOADK R4 K15 ["AppearanceSectionBody"]
+  LOADK R4 K15 ["AppearanceSectionMethod"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K16 ["AppearanceSectionBody"]
   DUPTABLE R5 K3 [{"exact"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["exact"]
@@ -215,39 +227,45 @@ PROTO_3:
 PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
-  LOADK R1 K1 ["AppearanceSectionHead"]
+  LOADK R1 K1 ["AppearanceSectionFace"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["CustomHeadId"]
+  GETTABLEKS R2 R3 K2 ["CustomFaceId"]
   CALL R0 2 0
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
-  LOADK R1 K3 ["AppearanceSectionTorso"]
+  LOADK R1 K3 ["AppearanceSectionHead"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K4 ["CustomTorsoId"]
+  GETTABLEKS R2 R3 K4 ["CustomHeadId"]
   CALL R0 2 0
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
-  LOADK R1 K5 ["AppearanceSectionLeftArm"]
+  LOADK R1 K5 ["AppearanceSectionTorso"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K6 ["CustomLeftArmId"]
+  GETTABLEKS R2 R3 K6 ["CustomTorsoId"]
   CALL R0 2 0
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
-  LOADK R1 K7 ["AppearanceSectionRightArm"]
+  LOADK R1 K7 ["AppearanceSectionLeftArm"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K8 ["CustomRightArmId"]
+  GETTABLEKS R2 R3 K8 ["CustomLeftArmId"]
   CALL R0 2 0
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
-  LOADK R1 K9 ["AppearanceSectionLeftLeg"]
+  LOADK R1 K9 ["AppearanceSectionRightArm"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K10 ["CustomLeftLegId"]
+  GETTABLEKS R2 R3 K10 ["CustomRightArmId"]
   CALL R0 2 0
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
-  LOADK R1 K11 ["AppearanceSectionRightLeg"]
+  LOADK R1 K11 ["AppearanceSectionLeftLeg"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K12 ["CustomRightLegId"]
+  GETTABLEKS R2 R3 K12 ["CustomLeftLegId"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
+  LOADK R1 K13 ["AppearanceSectionRightLeg"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K14 ["CustomRightLegId"]
   CALL R0 2 0
   RETURN R0 0
 

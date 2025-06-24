@@ -1,1 +1,1 @@
-return game:DefineFastFlag("EnableNewBlockingModal_v1", false)
+return game:DefineFastFlag("EnableNewBlockingModal_v2", false)

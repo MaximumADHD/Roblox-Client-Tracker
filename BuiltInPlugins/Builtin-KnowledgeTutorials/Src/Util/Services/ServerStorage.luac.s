@@ -1,0 +1,27 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ServerStorage"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R0 K2 [Instance.new]
+  LOADK R1 K3 ["Folder"]
+  CALL R0 1 1
+  LOADK R1 K4 ["ServerStorage"]
+  SETTABLEKS R1 R0 K5 ["Name"]
+  GETIMPORT R1 K7 [game]
+  SETTABLEKS R1 R0 K8 ["Parent"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  LOADK R1 K0 ["ServerStorage"]
+  SETTABLEKS R1 R0 K1 ["Name"]
+  DUPCLOSURE R1 K2 [PROTO_0]
+  SETTABLEKS R1 R0 K3 ["real"]
+  DUPCLOSURE R1 K4 [PROTO_1]
+  SETTABLEKS R1 R0 K5 ["mock"]
+  RETURN R0 1

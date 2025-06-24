@@ -1,0 +1,214 @@
+PROTO_0:
+  JUMPIFNOT R2 [+5]
+  LOADN R3 20
+  JUMPIFNOTLT R3 R2 [+3]
+  LOADNIL R3
+  RETURN R3 1
+  GETTABLEKS R3 R0 K0 ["children"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K1 ["name"]
+  JUMPIFNOTEQKS R8 K2 ["TAG"] [+6]
+  GETTABLEKS R8 R7 K3 ["text"]
+  JUMPIFNOTEQ R8 R1 [+2]
+  RETURN R7 1
+  GETTABLEKS R8 R7 K0 ["children"]
+  JUMPIFNOT R8 [+8]
+  GETUPVAL R8 0
+  MOVE R9 R7
+  MOVE R10 R1
+  ORK R12 R2 K5 [0]
+  ADDK R11 R12 K4 [1]
+  CALL R8 3 1
+  JUMPIFNOT R8 [+1]
+  RETURN R8 1
+  FORGLOOP R3 2 [-21]
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_1:
+  DUPTABLE R1 K4 [{"title", "summary", "difficulty", "categories"}]
+  LOADK R2 K5 ["Untitled"]
+  SETTABLEKS R2 R1 K0 ["title"]
+  LOADK R2 K6 [""]
+  SETTABLEKS R2 R1 K1 ["summary"]
+  LOADK R2 K6 [""]
+  SETTABLEKS R2 R1 K2 ["difficulty"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K3 ["categories"]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  LOADK R4 K7 ["TutorialInfo"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+58]
+  GETTABLEKS R3 R2 K8 ["attributes"]
+  JUMPIFNOT R3 [+55]
+  GETTABLEKS R6 R2 K8 ["attributes"]
+  GETTABLEKS R5 R6 K0 ["title"]
+  ORK R4 R5 K5 ["Untitled"]
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K10 [tostring]
+  CALL R3 1 1
+  SETTABLEKS R3 R1 K0 ["title"]
+  GETTABLEKS R6 R2 K8 ["attributes"]
+  GETTABLEKS R5 R6 K1 ["summary"]
+  ORK R4 R5 K6 [""]
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K10 [tostring]
+  CALL R3 1 1
+  SETTABLEKS R3 R1 K1 ["summary"]
+  GETTABLEKS R6 R2 K8 ["attributes"]
+  GETTABLEKS R5 R6 K2 ["difficulty"]
+  ORK R4 R5 K6 [""]
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K10 [tostring]
+  CALL R3 1 1
+  SETTABLEKS R3 R1 K2 ["difficulty"]
+  GETTABLEKS R5 R2 K8 ["attributes"]
+  GETTABLEKS R4 R5 K3 ["categories"]
+  JUMPIFNOT R4 [+13]
+  GETIMPORT R3 K13 [string.split]
+  GETTABLEKS R6 R2 K8 ["attributes"]
+  GETTABLEKS R5 R6 K3 ["categories"]
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K10 [tostring]
+  CALL R4 1 1
+  LOADK R5 K14 [", "]
+  CALL R3 2 1
+  JUMP [+2]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R1 K3 ["categories"]
+  RETURN R1 1
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"ast"}]
+  DUPTABLE R2 K5 [{"name", "offset", "children"}]
+  LOADK R3 K6 ["ROOT"]
+  SETTABLEKS R3 R2 K2 ["name"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K3 ["offset"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K4 ["children"]
+  SETTABLEKS R2 R1 K0 ["ast"]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  LOADK R4 K7 ["TutorialHome"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+6]
+  GETTABLEKS R3 R1 K0 ["ast"]
+  GETTABLEKS R4 R2 K4 ["children"]
+  SETTABLEKS R4 R3 K4 ["children"]
+  RETURN R1 1
+
+PROTO_3:
+  NEWTABLE R1 0 0
+  GETTABLEKS R2 R0 K0 ["children"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R6 K1 ["name"]
+  JUMPIFNOTEQKS R7 K2 ["TAG"] [+38]
+  GETTABLEKS R7 R6 K3 ["text"]
+  JUMPIFNOTEQKS R7 K4 ["TutorialSection"] [+34]
+  DUPTABLE R7 K7 [{"title", "ast"}]
+  GETTABLEKS R9 R6 K8 ["attributes"]
+  JUMPIFNOT R9 [+6]
+  GETTABLEKS R10 R6 K8 ["attributes"]
+  GETTABLEKS R9 R10 K5 ["title"]
+  ORK R8 R9 K9 [""]
+  JUMP [+1]
+  LOADK R8 K9 [""]
+  SETTABLEKS R8 R7 K5 ["title"]
+  DUPTABLE R8 K11 [{"name", "offset", "children"}]
+  LOADK R9 K12 ["ROOT"]
+  SETTABLEKS R9 R8 K1 ["name"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K10 ["offset"]
+  GETTABLEKS R9 R6 K0 ["children"]
+  SETTABLEKS R9 R8 K0 ["children"]
+  SETTABLEKS R8 R7 K6 ["ast"]
+  FASTCALL2 TABLE_INSERT R1 R7 [+5]
+  MOVE R9 R1
+  MOVE R10 R7
+  GETIMPORT R8 K15 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R2 2 [-42]
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["safeParse"]
+  MOVE R3 R1
+  DUPTABLE R4 K2 [{"inlineTags"}]
+  DUPTABLE R5 K4 [{"ActionButton"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K3 ["ActionButton"]
+  SETTABLEKS R5 R4 K1 ["inlineTags"]
+  CALL R2 2 2
+  JUMPIF R2 [+11]
+  GETIMPORT R4 K6 [warn]
+  LOADK R6 K7 ["Tutorial failed to parse: %*"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K8 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  CALL R4 1 0
+  LOADNIL R4
+  RETURN R4 1
+  DUPTABLE R4 K12 [{"info", "home", "sections"}]
+  GETUPVAL R5 2
+  MOVE R6 R3
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K9 ["info"]
+  GETUPVAL R5 3
+  MOVE R6 R3
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K10 ["home"]
+  GETUPVAL R5 4
+  MOVE R6 R3
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K11 ["sections"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["KnowledgeTutorials"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["MarkdownParser"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K8 ["Util"]
+  GETTABLEKS R5 R6 K12 ["getTutorialSource"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R5
+  DUPCLOSURE R6 K14 [PROTO_1]
+  CAPTURE VAL R5
+  DUPCLOSURE R7 K15 [PROTO_2]
+  CAPTURE VAL R5
+  DUPCLOSURE R8 K16 [PROTO_3]
+  DUPCLOSURE R9 K17 [PROTO_4]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  RETURN R9 1

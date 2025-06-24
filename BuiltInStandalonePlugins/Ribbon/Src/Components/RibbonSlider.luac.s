@@ -11,52 +11,55 @@ PROTO_1:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["Tag"]
   GETTABLE R1 R0 R2
-  GETTABLEKS R2 R0 K1 ["Minimum"]
+  GETIMPORT R2 K2 [warn]
+  LOADK R3 K3 ["RibbonSlider is not design approved and should not be used in production until it is Foundation styled"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K4 ["Minimum"]
   JUMPIFNOT R2 [+25]
-  GETTABLEKS R2 R0 K2 ["Maximum"]
+  GETTABLEKS R2 R0 K5 ["Maximum"]
   JUMPIFNOT R2 [+22]
-  GETTABLEKS R3 R0 K1 ["Minimum"]
+  GETTABLEKS R3 R0 K4 ["Minimum"]
   FASTCALL1 TYPE R3 [+2]
-  GETIMPORT R2 K4 [type]
+  GETIMPORT R2 K7 [type]
   CALL R2 1 1
-  JUMPIFNOTEQKS R2 K5 ["number"] [+15]
-  GETTABLEKS R3 R0 K2 ["Maximum"]
+  JUMPIFNOTEQKS R2 K8 ["number"] [+15]
+  GETTABLEKS R3 R0 K5 ["Maximum"]
   FASTCALL1 TYPE R3 [+2]
-  GETIMPORT R2 K4 [type]
+  GETIMPORT R2 K7 [type]
   CALL R2 1 1
-  JUMPIFNOTEQKS R2 K5 ["number"] [+7]
-  GETTABLEKS R2 R0 K1 ["Minimum"]
-  GETTABLEKS R3 R0 K2 ["Maximum"]
+  JUMPIFNOTEQKS R2 K8 ["number"] [+7]
+  GETTABLEKS R2 R0 K4 ["Minimum"]
+  GETTABLEKS R3 R0 K5 ["Maximum"]
   JUMPIFNOTLE R3 R2 [+19]
-  GETIMPORT R2 K7 [warn]
-  LOADK R4 K8 ["Invalid range %* - %* for ribbon slider"]
-  GETTABLEKS R6 R0 K1 ["Minimum"]
-  GETTABLEKS R7 R0 K2 ["Maximum"]
-  NAMECALL R4 R4 K9 ["format"]
+  GETIMPORT R2 K2 [warn]
+  LOADK R4 K9 ["Invalid range %* - %* for ribbon slider"]
+  GETTABLEKS R6 R0 K4 ["Minimum"]
+  GETTABLEKS R7 R0 K5 ["Maximum"]
+  NAMECALL R4 R4 K10 ["format"]
   CALL R4 3 1
   MOVE R3 R4
   CALL R2 1 0
   LOADN R2 0
-  SETTABLEKS R2 R0 K1 ["Minimum"]
+  SETTABLEKS R2 R0 K4 ["Minimum"]
   LOADN R2 1
-  SETTABLEKS R2 R0 K2 ["Maximum"]
+  SETTABLEKS R2 R0 K5 ["Maximum"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K10 ["createElement"]
-  LOADK R3 K11 ["Frame"]
+  GETTABLEKS R2 R3 K11 ["createElement"]
+  LOADK R3 K12 ["Frame"]
   NEWTABLE R4 2 0
-  GETTABLEKS R5 R0 K12 ["LayoutOrder"]
-  SETTABLEKS R5 R4 K12 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K13 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K13 ["LayoutOrder"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["Tag"]
   GETUPVAL R6 1
-  LOADK R7 K13 ["Component-RibbonButton X-Fit X-Column X-Center"]
+  LOADK R7 K14 ["Component-RibbonButton X-Fit X-Column X-Center"]
   MOVE R8 R1
   CALL R6 2 1
   SETTABLE R6 R4 R5
-  DUPTABLE R5 K16 [{"RibbonTool", "Text"}]
+  DUPTABLE R5 K17 [{"RibbonTool", "Text"}]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K10 ["createElement"]
-  LOADK R7 K11 ["Frame"]
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  LOADK R7 K12 ["Frame"]
   NEWTABLE R8 1 0
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K0 ["Tag"]
@@ -64,81 +67,81 @@ PROTO_1:
   GETUPVAL R12 2
   CALL R12 0 1
   JUMPIFNOT R12 [+2]
-  LOADK R11 K17 ["Role-Surface X-Fit"]
+  LOADK R11 K18 ["Role-Surface X-Fit"]
   JUMP [+1]
-  LOADK R11 K18 ["Role-Surface X-Fit X-PadRibbonTool X-CornerM"]
+  LOADK R11 K19 ["Role-Surface X-Fit X-PadRibbonTool X-CornerM"]
   GETUPVAL R13 3
   CALL R13 0 1
   JUMPIFNOT R13 [+10]
-  LOADK R13 K19 ["data-testid=%*"]
+  LOADK R13 K20 ["data-testid=%*"]
   GETUPVAL R15 4
-  GETTABLEKS R16 R0 K20 ["Uri"]
+  GETTABLEKS R16 R0 K21 ["Uri"]
   CALL R15 1 1
-  NAMECALL R13 R13 K9 ["format"]
+  NAMECALL R13 R13 K10 ["format"]
   CALL R13 2 1
   MOVE R12 R13
   JUMP [+1]
   LOADNIL R12
   CALL R10 2 1
   SETTABLE R10 R8 R9
-  DUPTABLE R9 K22 [{"SliderBody"}]
+  DUPTABLE R9 K23 [{"SliderBody"}]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K10 ["createElement"]
+  GETTABLEKS R10 R11 K11 ["createElement"]
   GETUPVAL R11 5
   NEWTABLE R12 16 0
-  GETTABLEKS R13 R0 K1 ["Minimum"]
-  SETTABLEKS R13 R12 K23 ["Min"]
-  GETTABLEKS R13 R0 K2 ["Maximum"]
-  SETTABLEKS R13 R12 K24 ["Max"]
-  GETTABLEKS R13 R0 K25 ["Value"]
-  SETTABLEKS R13 R12 K25 ["Value"]
-  GETTABLEKS R14 R0 K26 ["HideInput"]
+  GETTABLEKS R13 R0 K4 ["Minimum"]
+  SETTABLEKS R13 R12 K24 ["Min"]
+  GETTABLEKS R13 R0 K5 ["Maximum"]
+  SETTABLEKS R13 R12 K25 ["Max"]
+  GETTABLEKS R13 R0 K26 ["Value"]
+  SETTABLEKS R13 R12 K26 ["Value"]
+  GETTABLEKS R14 R0 K27 ["HideInput"]
   NOT R13 R14
-  SETTABLEKS R13 R12 K27 ["ShowInput"]
-  GETTABLEKS R13 R0 K28 ["Disabled"]
-  SETTABLEKS R13 R12 K28 ["Disabled"]
-  GETTABLEKS R13 R0 K12 ["LayoutOrder"]
-  SETTABLEKS R13 R12 K12 ["LayoutOrder"]
-  GETTABLEKS R13 R0 K29 ["Precision"]
-  SETTABLEKS R13 R12 K30 ["InputPrecision"]
-  GETTABLEKS R13 R0 K31 ["Increment"]
-  SETTABLEKS R13 R12 K32 ["SnapIncrement"]
+  SETTABLEKS R13 R12 K28 ["ShowInput"]
+  GETTABLEKS R13 R0 K29 ["Disabled"]
+  SETTABLEKS R13 R12 K29 ["Disabled"]
+  GETTABLEKS R13 R0 K13 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K13 ["LayoutOrder"]
+  GETTABLEKS R13 R0 K30 ["Precision"]
+  SETTABLEKS R13 R12 K31 ["InputPrecision"]
+  GETTABLEKS R13 R0 K32 ["Increment"]
+  SETTABLEKS R13 R12 K33 ["SnapIncrement"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K33 ["VerticalDragTolerance"]
+  SETTABLEKS R13 R12 K34 ["VerticalDragTolerance"]
   NEWCLOSURE R13 P0
   CAPTURE VAL R0
-  SETTABLEKS R13 R12 K34 ["OnValueChanged"]
+  SETTABLEKS R13 R12 K35 ["OnValueChanged"]
   GETUPVAL R13 6
-  SETTABLEKS R13 R12 K35 ["Size"]
+  SETTABLEKS R13 R12 K36 ["Size"]
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K0 ["Tag"]
-  LOADK R14 K36 ["Icon-Large"]
+  LOADK R14 K37 ["Icon-Large"]
   SETTABLE R14 R12 R13
   CALL R10 2 1
-  SETTABLEKS R10 R9 K21 ["SliderBody"]
+  SETTABLEKS R10 R9 K22 ["SliderBody"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K14 ["RibbonTool"]
-  GETTABLEKS R7 R0 K15 ["Text"]
-  JUMPIFEQKS R7 K37 [""] [+23]
+  SETTABLEKS R6 R5 K15 ["RibbonTool"]
+  GETTABLEKS R7 R0 K16 ["Text"]
+  JUMPIFEQKS R7 K38 [""] [+23]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K10 ["createElement"]
-  LOADK R7 K38 ["TextLabel"]
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  LOADK R7 K39 ["TextLabel"]
   NEWTABLE R8 2 0
-  GETTABLEKS R9 R0 K15 ["Text"]
-  SETTABLEKS R9 R8 K15 ["Text"]
+  GETTABLEKS R9 R0 K16 ["Text"]
+  SETTABLEKS R9 R8 K16 ["Text"]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K0 ["Tag"]
   GETUPVAL R11 2
   CALL R11 0 1
   JUMPIFNOT R11 [+2]
-  LOADK R10 K39 ["X-Fit"]
+  LOADK R10 K40 ["X-Fit"]
   JUMP [+1]
-  LOADK R10 K40 ["X-Fit X-PadButtonLabel"]
+  LOADK R10 K41 ["X-Fit X-PadButtonLabel"]
   SETTABLE R10 R8 R9
   CALL R6 2 1
   JUMP [+1]
   LOADNIL R6
-  SETTABLEKS R6 R5 K15 ["Text"]
+  SETTABLEKS R6 R5 K16 ["Text"]
   CALL R2 3 -1
   RETURN R2 -1
 

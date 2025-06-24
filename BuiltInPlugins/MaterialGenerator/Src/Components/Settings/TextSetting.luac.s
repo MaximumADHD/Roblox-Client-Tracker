@@ -44,89 +44,64 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["OnValueChanged"]
-  JUMPIFNOT R2 [+4]
-  GETTABLEKS R2 R1 K1 ["OnValueChanged"]
-  MOVE R3 R0
-  CALL R2 1 0
-  RETURN R0 0
-
-PROTO_2:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+12]
-  GETUPVAL R2 1
   GETTABLEKS R1 R2 K0 ["createRef"]
   CALL R1 0 1
   SETTABLEKS R1 R0 K1 ["textInputRef"]
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
-  CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
   SETTABLEKS R1 R0 K2 ["focusLost"]
   RETURN R0 0
-  NEWCLOSURE R1 P1
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K3 ["valueChanged"]
-  RETURN R0 0
 
-PROTO_3:
+PROTO_2:
   GETTABLEKS R1 R0 K0 ["props"]
-  LOADNIL R2
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+18]
-  DUPTABLE R3 K4 [{"HorizontalSpacing", "Size", "ValueLabelWidth"}]
-  LOADN R4 16
-  SETTABLEKS R4 R3 K1 ["HorizontalSpacing"]
-  GETIMPORT R4 K7 [UDim2.new]
-  LOADN R5 1
+  DUPTABLE R2 K4 [{"HorizontalSpacing", "Size", "ValueLabelWidth"}]
+  LOADN R3 16
+  SETTABLEKS R3 R2 K1 ["HorizontalSpacing"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 1
+  LOADN R5 0
   LOADN R6 0
-  LOADN R7 0
-  LOADN R8 30
-  CALL R4 4 1
-  SETTABLEKS R4 R3 K2 ["Size"]
-  LOADN R4 30
-  SETTABLEKS R4 R3 K3 ["ValueLabelWidth"]
-  MOVE R2 R3
-  JUMP [+4]
-  GETTABLEKS R3 R1 K8 ["Stylizer"]
-  GETTABLEKS R2 R3 K9 ["Setting"]
-  GETTABLEKS R3 R1 K10 ["Disabled"]
+  LOADN R7 30
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["Size"]
+  LOADN R3 30
+  SETTABLEKS R3 R2 K3 ["ValueLabelWidth"]
+  GETTABLEKS R3 R1 K8 ["Disabled"]
   GETTABLEKS R4 R2 K1 ["HorizontalSpacing"]
-  GETTABLEKS R5 R1 K11 ["LabelWidth"]
-  GETUPVAL R6 1
+  GETTABLEKS R5 R1 K9 ["LabelWidth"]
+  GETUPVAL R6 0
   GETTABLEKS R7 R1 K2 ["Size"]
   GETTABLEKS R8 R2 K2 ["Size"]
   CALL R6 2 1
   JUMPIFNOT R3 [+4]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K10 ["Disabled"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K8 ["Disabled"]
   JUMP [+1]
   LOADNIL R7
-  GETTABLEKS R8 R1 K12 ["Value"]
+  GETTABLEKS R8 R1 K10 ["Value"]
   ADD R9 R5 R4
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K11 ["createElement"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K13 ["createElement"]
-  GETUPVAL R11 4
-  DUPTABLE R12 K19 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
-  GETIMPORT R13 K22 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R13 R12 K14 ["HorizontalAlignment"]
-  GETIMPORT R13 K25 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R13 R12 K15 ["Layout"]
-  GETTABLEKS R13 R1 K16 ["LayoutOrder"]
-  SETTABLEKS R13 R12 K16 ["LayoutOrder"]
+  DUPTABLE R12 K17 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
+  GETIMPORT R13 K20 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R13 R12 K12 ["HorizontalAlignment"]
+  GETIMPORT R13 K23 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R13 R12 K13 ["Layout"]
+  GETTABLEKS R13 R1 K14 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K14 ["LayoutOrder"]
   SETTABLEKS R6 R12 K2 ["Size"]
-  SETTABLEKS R4 R12 K17 ["Spacing"]
-  GETIMPORT R13 K27 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R13 R12 K18 ["VerticalAlignment"]
-  DUPTABLE R13 K30 [{"Label", "TextInput"}]
-  GETUPVAL R15 3
-  GETTABLEKS R14 R15 K13 ["createElement"]
-  GETUPVAL R15 5
-  DUPTABLE R16 K34 [{"LayoutOrder", "Size", "StyleModifier", "Text", "TextXAlignment"}]
+  SETTABLEKS R4 R12 K15 ["Spacing"]
+  GETIMPORT R13 K25 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R13 R12 K16 ["VerticalAlignment"]
+  DUPTABLE R13 K28 [{"Label", "TextInput"}]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K32 [{"LayoutOrder", "Size", "StyleModifier", "Text", "TextXAlignment"}]
   LOADN R17 1
-  SETTABLEKS R17 R16 K16 ["LayoutOrder"]
+  SETTABLEKS R17 R16 K14 ["LayoutOrder"]
   GETIMPORT R17 K7 [UDim2.new]
   LOADN R18 0
   MOVE R19 R5
@@ -134,36 +109,24 @@ PROTO_3:
   LOADN R21 0
   CALL R17 4 1
   SETTABLEKS R17 R16 K2 ["Size"]
-  SETTABLEKS R7 R16 K31 ["StyleModifier"]
-  GETTABLEKS R17 R1 K32 ["Text"]
-  SETTABLEKS R17 R16 K32 ["Text"]
-  GETIMPORT R17 K35 [Enum.TextXAlignment.Left]
-  SETTABLEKS R17 R16 K33 ["TextXAlignment"]
+  SETTABLEKS R7 R16 K29 ["StyleModifier"]
+  GETTABLEKS R17 R1 K30 ["Text"]
+  SETTABLEKS R17 R16 K30 ["Text"]
+  GETIMPORT R17 K33 [Enum.TextXAlignment.Left]
+  SETTABLEKS R17 R16 K31 ["TextXAlignment"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K28 ["Label"]
-  GETUPVAL R15 3
-  GETTABLEKS R14 R15 K13 ["createElement"]
-  GETUPVAL R15 6
-  DUPTABLE R16 K39 [{"Disabled", "ForwardRef", "LayoutOrder", "OnTextChanged", "OnFocusLost", "Size", "Text"}]
-  SETTABLEKS R3 R16 K10 ["Disabled"]
-  GETTABLEKS R17 R0 K40 ["textInputRef"]
-  SETTABLEKS R17 R16 K36 ["ForwardRef"]
+  SETTABLEKS R14 R13 K26 ["Label"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R15 5
+  DUPTABLE R16 K36 [{"Disabled", "ForwardRef", "LayoutOrder", "OnFocusLost", "Size", "Text"}]
+  SETTABLEKS R3 R16 K8 ["Disabled"]
+  GETTABLEKS R17 R0 K37 ["textInputRef"]
+  SETTABLEKS R17 R16 K34 ["ForwardRef"]
   LOADN R17 2
-  SETTABLEKS R17 R16 K16 ["LayoutOrder"]
-  GETUPVAL R18 0
-  CALL R18 0 1
-  JUMPIFNOT R18 [+2]
-  LOADNIL R17
-  JUMP [+2]
-  GETTABLEKS R17 R0 K41 ["valueChanged"]
-  SETTABLEKS R17 R16 K37 ["OnTextChanged"]
-  GETUPVAL R18 0
-  CALL R18 0 1
-  JUMPIFNOT R18 [+3]
-  GETTABLEKS R17 R0 K42 ["focusLost"]
-  JUMP [+1]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K38 ["OnFocusLost"]
+  SETTABLEKS R17 R16 K14 ["LayoutOrder"]
+  GETTABLEKS R17 R0 K38 ["focusLost"]
+  SETTABLEKS R17 R16 K35 ["OnFocusLost"]
   GETIMPORT R17 K7 [UDim2.new]
   LOADN R18 1
   MINUS R19 R9
@@ -171,9 +134,9 @@ PROTO_3:
   LOADN R21 0
   CALL R17 4 1
   SETTABLEKS R17 R16 K2 ["Size"]
-  SETTABLEKS R8 R16 K32 ["Text"]
+  SETTABLEKS R8 R16 K30 ["Text"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K29 ["TextInput"]
+  SETTABLEKS R14 R13 K27 ["TextInput"]
   CALL R10 3 -1
   RETURN R10 -1
 
@@ -207,37 +170,30 @@ MAIN:
   GETTABLEKS R11 R2 K17 ["Util"]
   GETTABLEKS R12 R11 K18 ["StyleModifier"]
   GETTABLEKS R13 R11 K19 ["prioritize"]
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R17 R0 K20 ["Src"]
-  GETTABLEKS R16 R17 K21 ["Flags"]
-  GETTABLEKS R15 R16 K22 ["getFFlagMaterialGeneratorNewUI"]
-  CALL R14 1 1
-  GETTABLEKS R15 R3 K23 ["PureComponent"]
-  LOADK R17 K24 ["TextSetting"]
-  NAMECALL R15 R15 K25 ["extend"]
-  CALL R15 2 1
-  DUPTABLE R16 K27 [{"Disabled"}]
-  LOADB R17 0
-  SETTABLEKS R17 R16 K26 ["Disabled"]
-  SETTABLEKS R16 R15 K28 ["defaultProps"]
-  DUPCLOSURE R16 K29 [PROTO_2]
-  CAPTURE VAL R14
+  GETTABLEKS R14 R3 K20 ["PureComponent"]
+  LOADK R16 K21 ["TextSetting"]
+  NAMECALL R14 R14 K22 ["extend"]
+  CALL R14 2 1
+  DUPTABLE R15 K24 [{"Disabled"}]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K23 ["Disabled"]
+  SETTABLEKS R15 R14 K25 ["defaultProps"]
+  DUPCLOSURE R15 K26 [PROTO_1]
   CAPTURE VAL R3
   CAPTURE VAL R1
-  SETTABLEKS R16 R15 K30 ["init"]
-  DUPCLOSURE R16 K31 [PROTO_3]
-  CAPTURE VAL R14
+  SETTABLEKS R15 R14 K27 ["init"]
+  DUPCLOSURE R15 K28 [PROTO_2]
   CAPTURE VAL R13
   CAPTURE VAL R12
   CAPTURE VAL R3
   CAPTURE VAL R8
   CAPTURE VAL R10
   CAPTURE VAL R9
-  SETTABLEKS R16 R15 K32 ["render"]
-  MOVE R16 R5
-  DUPTABLE R17 K33 [{"Stylizer"}]
-  SETTABLEKS R6 R17 K12 ["Stylizer"]
-  CALL R16 1 1
-  MOVE R17 R15
-  CALL R16 1 -1
-  RETURN R16 -1
+  SETTABLEKS R15 R14 K29 ["render"]
+  MOVE R15 R5
+  DUPTABLE R16 K30 [{"Stylizer"}]
+  SETTABLEKS R6 R16 K12 ["Stylizer"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 -1
+  RETURN R15 -1

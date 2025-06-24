@@ -35,6 +35,8 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
+local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration['uiblox']
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -49,6 +51,7 @@ local GetFFlagOptimizeHelpMenuInputEvent = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 ------------ Localization -------------------
 local locales = nil
@@ -732,12 +735,17 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "HelpTab"
-	this.TabHeader.TabLabel.Icon.Image ="rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
-
-	local icon = Theme.Images["icons/menu/help"]
-	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-	this.TabHeader.TabLabel.Icon.Image = icon.Image
+	if FFlagBuilderIcons then
+		local icon = migrationLookup["icons/menu/help"]
+		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
+		this.TabHeader.TabLabel.Icon.Text = icon.name
+	else
+		this.TabHeader.TabLabel.Icon.Image ="rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
+		local icon = Theme.Images["icons/menu/help"]
+		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
+		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
+		this.TabHeader.TabLabel.Icon.Image = icon.Image
+	end
 	this.TabHeader.TabLabel.Title.Text = "Help"
 	
 	------ PAGE CUSTOMIZATION -------

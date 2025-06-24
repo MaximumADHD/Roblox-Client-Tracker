@@ -16,7 +16,6 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
-local FFlagUnibarCallBarPositionFixEnabled = game:DefineFastFlag("UnibarCallBarPositionFixEnabled", false)
 
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = if GetFFlagFixChromeReferences()
@@ -183,17 +182,12 @@ local function CallBarContainer(passedProps: Props)
 		end
 	end, { props.callProtocol })
 
-	local unibarMounted, setUnibarMounted = React.useState(false)
 	local unibarDimension, setUnibarDimension = React.useState(nil :: never)
 	if ChromeEnabled() and ChromeService then
 		React.useEffect(function()
 			-- Listen for when Unibar has finished mounting
 			local unibarLayoutConnection = ChromeService:layout():connect(function(dimensions)
-				if FFlagUnibarCallBarPositionFixEnabled then
-					setUnibarDimension(dimensions)
-				else
-					setUnibarMounted(true)
-				end
+				setUnibarDimension(dimensions)
 			end)
 
 			return function()
@@ -225,8 +219,7 @@ local function CallBarContainer(passedProps: Props)
 	end, {
 		currentCallStatus,
 		instanceId,
-		if FFlagUnibarCallBarPositionFixEnabled then nil else unibarMounted,
-		if FFlagUnibarCallBarPositionFixEnabled then unibarDimension else nil,
+		unibarDimension,
 	})
 
 	React.useEffect(function()

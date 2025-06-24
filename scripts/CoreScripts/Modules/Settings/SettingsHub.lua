@@ -48,6 +48,8 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommon).Stores
 local Signals = require(CorePackages.Packages.Signals)
 local createSignal = Signals.createSignal
+local AppStyleProvider = require(CorePackages.Packages.UIBlox).App.Style.AppStyleProvider
+local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 local Theme = require(script.Parent.Theme)
 
@@ -96,7 +98,6 @@ local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGu
 local GetFStringGameInviteMenuLayer = SharedFlags.GetFStringGameInviteMenuLayer
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
-local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM2", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableConnectDisconnectButtonAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectButtonAnalytics)
 local GetFFlagEnableShowVoiceUI = SharedFlags.GetFFlagEnableShowVoiceUI
@@ -132,6 +133,7 @@ local FFlagTiltMenuShortcutBarPadding = SharedFlags.FFlagTiltMenuShortcutBarPadd
 local FFlagIEMResumeButtonPressBugfix = SharedFlags.FFlagIEMResumeButtonPressBugfix
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
+local FFlagIEMEndFocusNavTiltMenuHidden = SharedFlags.FFlagIEMEndFocusNavTiltMenuHidden
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -1068,17 +1070,33 @@ local function CreateSettingsHub()
 			return
 		end
 
-		return Roact.createElement(PermissionsButtons, {
-			isTenFootInterface = isTenFootInterface,
-			isPortrait = utility:IsPortrait(),
-			isSmallTouchScreen = utility:IsSmallTouchScreen(),
-			ZIndex = this.Shield.ZIndex,
-			LayoutOrder = -1,
-			shouldFillScreen = shouldFillScreen,
-			selfViewOpen = this.selfViewOpen,
-			useNewMenuTheme = true,
-			hubRef = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then this else nil,
-		})
+		if FFlagBuilderIcons then
+			return React.createElement(AppStyleProvider, {}, {
+				PermissionsButtons = Roact.createElement(PermissionsButtons, {
+					isTenFootInterface = isTenFootInterface,
+					isPortrait = utility:IsPortrait(),
+					isSmallTouchScreen = utility:IsSmallTouchScreen(),
+					ZIndex = this.Shield.ZIndex,
+					LayoutOrder = -1,
+					shouldFillScreen = shouldFillScreen,
+					selfViewOpen = this.selfViewOpen,
+					useNewMenuTheme = true,
+					hubRef = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then this else nil,
+				})
+			})
+		else
+			return Roact.createElement(PermissionsButtons, {
+				isTenFootInterface = isTenFootInterface,
+				isPortrait = utility:IsPortrait(),
+				isSmallTouchScreen = utility:IsSmallTouchScreen(),
+				ZIndex = this.Shield.ZIndex,
+				LayoutOrder = -1,
+				shouldFillScreen = shouldFillScreen,
+				selfViewOpen = this.selfViewOpen,
+				useNewMenuTheme = true,
+				hubRef = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then this else nil,
+			})
+		end
 	end
 
 	local getCanRespawn, setCanRespawn = createSignal(true)
@@ -1788,36 +1806,69 @@ local function CreateSettingsHub()
 		if EngineFeatureTeleportHistoryButtons then
 			this.BackBarRef = Roact.createRef()
 			this.FrontBarRef = Roact.createRef()
-			this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
-				value = IXPService,
-			}, 
-			{
-				ButtonsFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					LayoutOrder = -1,
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Size = UDim2.new(1, 0, 0, 0)
-				}, {
-					BackButton = Roact.createElement(MenuBackButton, {
-						BackBarRef = this.BackBarRef,
-						HubBar = this.HubBar,
-						LayoutOrder = 1,
-					}),
-					FrontButton = Roact.createElement(MenuFrontButton, {
-						FrontBarRef = this.FrontBarRef,
-						HubBar = this.HubBar,
-						LayoutOrder = 2,
-					}),
+			this.BackBar = if FFlagBuilderIcons then
+				Roact.createElement(RoactAppExperiment.Provider, {
+					value = IXPService,
+				}, 
+				{
+					AppStyleProvider = Roact.createElement(AppStyleProvider, {}, {
+						ButtonsFrame = Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							LayoutOrder = -1,
+							AutomaticSize = Enum.AutomaticSize.Y,
+							Size = UDim2.new(1, 0, 0, 0)
+						}, {
+							BackButton = Roact.createElement(MenuBackButton, {
+								BackBarRef = this.BackBarRef,
+								HubBar = this.HubBar,
+								LayoutOrder = 1,
+							}),
+							FrontButton = Roact.createElement(MenuFrontButton, {
+								FrontBarRef = this.FrontBarRef,
+								HubBar = this.HubBar,
+								LayoutOrder = 2,
+							}),
+						})
+					})
+				}) else
+				Roact.createElement(RoactAppExperiment.Provider, {
+					value = IXPService,
+				}, 
+				{
+					ButtonsFrame = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = -1,
+						AutomaticSize = Enum.AutomaticSize.Y,
+						Size = UDim2.new(1, 0, 0, 0)
+					}, {
+						BackButton = Roact.createElement(MenuBackButton, {
+							BackBarRef = this.BackBarRef,
+							HubBar = this.HubBar,
+							LayoutOrder = 1,
+						}),
+						FrontButton = Roact.createElement(MenuFrontButton, {
+							FrontBarRef = this.FrontBarRef,
+							HubBar = this.HubBar,
+							LayoutOrder = 2,
+						}),
+					})
 				})
-			})
 			Roact.mount(this.BackBar, menuParent, "BackBar")	
 		else
 			this.BackBarRef = Roact.createRef()
-			this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
-				value = IXPService,
-			}, {
-				BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
-			})
+			this.BackBar = if FFlagBuilderIcons then 
+				Roact.createElement(RoactAppExperiment.Provider, {
+					value = IXPService,
+				}, {
+					AppStyleProvider = Roact.createElement(AppStyleProvider, {}, {
+						BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
+					})
+				}) else
+				Roact.createElement(RoactAppExperiment.Provider, {
+					value = IXPService,
+				}, {
+					BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
+				})
 			Roact.mount(this.BackBar, menuParent, "BackBar")
 		end
 
@@ -3394,15 +3445,13 @@ local function CreateSettingsHub()
 
 				if GameSettings.ReducedMotion then
 
-					if FFlagFixReducedMotionStuckIGM then
-						if this.ReducedMotionOpenTween then
-							this.ReducedMotionOpenTween:Cancel()
-							this.ReducedMotionOpenTween = nil
-						end
-						if this.ReducedMotionCloseTween then
-							this.ReducedMotionCloseTween:Cancel()
-							this.ReducedMotionCloseTween = nil
-						end
+					if this.ReducedMotionOpenTween then
+						this.ReducedMotionOpenTween:Cancel()
+						this.ReducedMotionOpenTween = nil
+					end
+					if this.ReducedMotionCloseTween then
+						this.ReducedMotionCloseTween:Cancel()
+						this.ReducedMotionCloseTween = nil
 					end
 
 					this.Shield.Parent = this.CanvasGroup
@@ -3418,13 +3467,9 @@ local function CreateSettingsHub()
 					this.ReducedMotionOpenTween:Play()
 
 					this.ReducedMotionOpenTween.Completed:Connect(function(playbackState)
-						if FFlagFixReducedMotionStuckIGM then
-							if playbackState == Enum.PlaybackState.Completed then
-								this.Shield.Parent = this.ClippingShield
-								this.ReducedMotionOpenTween = nil
-							end
-						else
+						if playbackState == Enum.PlaybackState.Completed then
 							this.Shield.Parent = this.ClippingShield
+							this.ReducedMotionOpenTween = nil
 						end
 
 						this.CanvasGroup.Visible = false
@@ -3611,15 +3656,13 @@ local function CreateSettingsHub()
 				end
 
 				if GameSettings.ReducedMotion then
-					if FFlagFixReducedMotionStuckIGM then
-						if this.ReducedMotionOpenTween then
-							this.ReducedMotionOpenTween:Cancel()
-							this.ReducedMotionOpenTween = nil
-						end
-						if this.ReducedMotionCloseTween then
-							this.ReducedMotionCloseTween:Cancel()
-							this.ReducedMotionCloseTween = nil
-						end
+					if this.ReducedMotionOpenTween then
+						this.ReducedMotionOpenTween:Cancel()
+						this.ReducedMotionOpenTween = nil
+					end
+					if this.ReducedMotionCloseTween then
+						this.ReducedMotionCloseTween:Cancel()
+						this.ReducedMotionCloseTween = nil
 					end
 
 					this.Shield.Parent = this.CanvasGroup
@@ -3632,19 +3675,12 @@ local function CreateSettingsHub()
 					this.ReducedMotionCloseTween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
 					this.ReducedMotionCloseTween:Play()
 					this.ReducedMotionCloseTween.Completed:Connect(function(playbackState)
-						if FFlagFixReducedMotionStuckIGM then
-							if playbackState == Enum.PlaybackState.Completed then
-								this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
-
-								this.Shield.Visible = this.Visible
-								this.Shield.Parent = this.ClippingShield
-								this.ReducedMotionCloseTween = nil
-							end
-						else
+						if playbackState == Enum.PlaybackState.Completed then
 							this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 
 							this.Shield.Visible = this.Visible
 							this.Shield.Parent = this.ClippingShield
+							this.ReducedMotionCloseTween = nil
 						end
 						this.CanvasGroup.Visible = false
 					end)
@@ -3727,7 +3763,7 @@ local function CreateSettingsHub()
 				removeBottomBarBindings(0.4)
 			end
 
-			if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then 
+			if FFlagIEMEndFocusNavTiltMenuHidden or not (FFlagEnableChromeShortcutBar and ChromeEnabled) then 
 				GuiService.SelectedCoreObject = nil
 			end
 
@@ -3993,7 +4029,7 @@ local function CreateSettingsHub()
 	end
 
 	if InExperienceCapabilities.canListPeopleInSameServer then
-		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
+		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.PeopleWrapper)
 		this.PlayersPage:SetHub(this)
 		if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen() then
 			this.PlayersPage:CreateMenuButtonsContainer()

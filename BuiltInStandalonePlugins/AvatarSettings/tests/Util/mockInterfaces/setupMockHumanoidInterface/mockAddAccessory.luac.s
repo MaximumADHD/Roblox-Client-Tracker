@@ -1,5 +1,11 @@
 PROTO_0:
-  SETTABLEKS R0 R1 K0 ["Parent"]
+  GETTABLEKS R2 R0 K0 ["Parent"]
+  FASTCALL2K ASSERT R2 K1 [+5]
+  MOVE R4 R2
+  LOADK R5 K1 ["Humanoid must be a child of a Model"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  SETTABLEKS R2 R1 K0 ["Parent"]
   RETURN R0 0
 
 MAIN:

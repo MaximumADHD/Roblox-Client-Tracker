@@ -62,7 +62,6 @@ local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSetting
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local GetFFlagEnableCrossExpVoiceVolumeIXPCheck = SharedFlags.GetFFlagEnableCrossExpVoiceVolumeIXPCheck
 local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
-local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding2", false)
 local GetFFlagDebounceConnectDisconnectButton = require(RobloxGui.Modules.Flags.GetFFlagDebounceConnectDisconnectButton)
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
 local FFlagInExperienceMenuReorderFirstVariant =
@@ -73,6 +72,7 @@ local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSe
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoiceChatClientRewriteDisableVCSDevice
+local GetFFlagAudioDevicesCanDefaultToOSLua = SharedFlags.GetFFlagAudioDevicesCanDefaultToOSLua
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 
 local CrossExpVoiceIXPManager = require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager.default
@@ -240,6 +240,8 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local GfxReset = require(script.Parent.Parent.GfxReset)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local throttle = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.ThrottleFunctionCall)
+local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -293,6 +295,7 @@ local FFlagFeedbackEntryPointButtonSizeAdjustment =
 local FFlagFeedbackEntryPointImprovedStrictnessCheck =
 	game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
 local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
+local FFlagBuilderIcon = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if
@@ -2454,17 +2457,13 @@ local function Initialize()
 
 		this.MouseAdvancedEntry.SliderFrame.Size = UDim2.new(
 			this.MouseAdvancedEntry.SliderFrame.Size.X.Scale,
-			if FFlagCameraSensitivityPadding
-				then this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth - textBoxPadding
-				else this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth,
+			this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth - textBoxPadding,
 			this.MouseAdvancedEntry.SliderFrame.Size.Y.Scale,
 			this.MouseAdvancedEntry.SliderFrame.Size.Y.Offset - 6
 		)
 		this.MouseAdvancedEntry.SliderFrame.Position = UDim2.new(
 			this.MouseAdvancedEntry.SliderFrame.Position.X.Scale,
-			if FFlagCameraSensitivityPadding
-				then this.MouseAdvancedEntry.SliderFrame.Position.X.Offset - textBoxWidth - textBoxPadding
-				else this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth,
+			this.MouseAdvancedEntry.SliderFrame.Position.X.Offset - textBoxWidth - textBoxPadding,
 			this.MouseAdvancedEntry.SliderFrame.Position.Y.Scale,
 			this.MouseAdvancedEntry.SliderFrame.Position.Y.Offset
 		)
@@ -2479,7 +2478,7 @@ local function Initialize()
 			Font = Theme.font(Enum.Font.SourceSans),
 			TextSize = Theme.textSize(18),
 			Size = UDim2.new(0, textBoxWidth, 0.8, 0),
-			Position = UDim2.new(1, if FFlagCameraSensitivityPadding then textBoxPadding / 2 else -2, 0.5, 0),
+			Position = UDim2.new(1, textBoxPadding / 2, 0.5, 0),
 			AnchorPoint = Vector2.new(0, 0.5),
 			ZIndex = 3,
 			Selectable = false,
@@ -3043,6 +3042,10 @@ local function Initialize()
 
 		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
 			if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
+				if GetFFlagAudioDevicesCanDefaultToOSLua() and deviceGuids[1] == "" then
+					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
+				end
+
 				this[deviceType .. "DeviceNames"] = deviceNames
 				this[deviceType .. "DeviceGuids"] = deviceGuids
 				this[deviceType .. "DeviceIndex"] = selectedIndex
@@ -3056,6 +3059,10 @@ local function Initialize()
 			end
 		else
 			if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
+				if GetFFlagAudioDevicesCanDefaultToOSLua() and deviceGuids[1] == "" then
+					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
+				end
+				
 				this[deviceType .. "DeviceNames"] = deviceNames
 				this[deviceType .. "VCSDeviceNames"] = deviceNames
 				this[deviceType .. "VCSDeviceGuids"] = deviceGuids
@@ -3101,6 +3108,10 @@ local function Initialize()
 				success
 				and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
 			then
+				if GetFFlagAudioDevicesCanDefaultToOSLua() and deviceGuids[1] == "" then
+					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
+				end
+
 				this[deviceType .. "DeviceNames"] = deviceNames
 				this[deviceType .. "DeviceGuids"] = deviceGuids
 				this[deviceType .. "DeviceIndex"] = selectedIndex
@@ -3131,6 +3142,10 @@ local function Initialize()
 				and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
 				and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex)
 			then
+				if GetFFlagAudioDevicesCanDefaultToOSLua() and deviceGuids[1] == "" then
+					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
+				end
+
 				this[deviceType .. "DeviceNames"] = deviceNames
 				this[deviceType .. "VCSDeviceNames"] = VCSDeviceNames
 				this[deviceType .. "VCSDeviceGuids"] = VCSDeviceGuids
@@ -3856,11 +3871,18 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "GameSettingsTab"
-	local icon = Theme.Images["icons/common/settings"]
-	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-	this.TabHeader.TabLabel.Icon.Image = icon.Image
-	this.TabHeader.TabLabel.Title.Text = "Settings"
+	if FFlagBuilderIcon then
+		local icon = migrationLookup['uiblox']["icons/common/settings"]
+		this.TabHeader.TabLabel.Icon.Text = icon.name
+		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
+		this.TabHeader.TabLabel.Title.Text = "Settings"
+	else
+		local icon = Theme.Images["icons/common/settings"]
+		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
+		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
+		this.TabHeader.TabLabel.Icon.Image = icon.Image
+		this.TabHeader.TabLabel.Title.Text = "Settings"
+	end
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.ZIndex = 5

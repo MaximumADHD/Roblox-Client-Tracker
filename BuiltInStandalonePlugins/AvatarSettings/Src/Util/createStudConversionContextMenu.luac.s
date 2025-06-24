@@ -96,7 +96,7 @@ MAIN:
   GETIMPORT R3 K10 [require]
   GETTABLEKS R6 R0 K11 ["Src"]
   GETTABLEKS R5 R6 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["AvatarSettingsProviderTypes"]
+  GETTABLEKS R4 R5 K13 ["ProviderTypes"]
   CALL R3 1 1
   GETIMPORT R4 K10 [require]
   GETTABLEKS R7 R0 K11 ["Src"]

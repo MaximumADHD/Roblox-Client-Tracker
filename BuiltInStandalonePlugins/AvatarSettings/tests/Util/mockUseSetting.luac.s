@@ -1,0 +1,59 @@
+PROTO_0:
+  GETIMPORT R2 K1 [error]
+  LOADK R3 K2 ["This function is a placeholder and should not be called."]
+  CALL R2 1 0
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  SETTABLEKS R0 R2 K0 ["value"]
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K2 [{"value", "set"}]
+  SETTABLEKS R0 R1 K0 ["value"]
+  DUPCLOSURE R2 K3 [PROTO_0]
+  SETTABLEKS R2 R1 K1 ["set"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K1 ["set"]
+  RETURN R1 1
+
+PROTO_3:
+  DUPTABLE R2 K2 [{"enabled", "assetId"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["mockUseSetting"]
+  MOVE R4 R0
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K0 ["enabled"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["mockUseSetting"]
+  MOVE R4 R1
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K1 ["assetId"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["AvatarSettingsProviderTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K9 ["ProviderTypes"]
+  CALL R2 1 1
+  NEWTABLE R3 2 0
+  DUPCLOSURE R4 K10 [PROTO_2]
+  SETTABLEKS R4 R3 K11 ["mockUseSetting"]
+  DUPCLOSURE R4 K12 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K13 ["mockUseAssetIdSetting"]
+  RETURN R3 1

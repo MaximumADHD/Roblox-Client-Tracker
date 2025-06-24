@@ -10,6 +10,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
+local FFlagChromeEnabledRequireGamepadConnectorFix = SharedFlags.FFlagChromeEnabledRequireGamepadConnectorFix
 
 local useExternalEvent = UIBlox.Core.Hooks.useExternalEvent
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
@@ -18,7 +19,7 @@ local Topbar = script.Parent.Parent.Parent.Parent
 local Modules = Topbar.Parent
 local Chrome = Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)()
-local GamepadConnector = require(Topbar.Components.GamepadConnector)
+local GamepadConnector = if (not FFlagChromeEnabledRequireGamepadConnectorFix or ChromeEnabled) then require(Topbar.Components.GamepadConnector) else nil :: never
 local ChromeService = if not FFlagTiltIconUnibarFocusNav and ChromeEnabled then require(Chrome.Service) else nil :: never
 local useObservableValue = require(Chrome.ChromeShared.Hooks.useObservableValue)
 

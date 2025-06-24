@@ -292,149 +292,152 @@ MAIN:
   LOADK R5 K14 ["LoadedCode"]
   NAMECALL R3 R3 K15 ["FindFirstChild"]
   CALL R3 2 1
-  JUMPIFNOT R3 [+28]
-  LOADK R6 K16 ["lib"]
+  JUMPIFNOT R3 [+32]
+  LOADK R6 K16 ["EvalUtils"]
   NAMECALL R4 R3 K15 ["FindFirstChild"]
+  CALL R4 2 1
+  LOADK R6 K17 ["lib"]
+  NAMECALL R4 R4 K15 ["FindFirstChild"]
   CALL R4 2 1
   JUMPIFNOT R4 [+23]
   GETIMPORT R5 K5 [require]
   MOVE R6 R4
   CALL R5 1 1
-  GETTABLEKS R6 R5 K17 ["thisIsEvalFramework"]
+  GETTABLEKS R6 R5 K18 ["thisIsEvalFramework"]
   JUMPIFNOT R6 [+16]
   LOADB R6 1
   SETTABLEKS R6 R2 K8 ["RunningEval"]
-  GETIMPORT R6 K20 [Instance.new]
-  LOADK R7 K21 ["ObjectValue"]
+  GETIMPORT R6 K21 [Instance.new]
+  LOADK R7 K22 ["ObjectValue"]
   CALL R6 1 1
-  LOADK R7 K22 ["CliAdapter"]
-  SETTABLEKS R7 R6 K23 ["Name"]
+  LOADK R7 K23 ["CliAdapter"]
+  SETTABLEKS R7 R6 K24 ["Name"]
   GETIMPORT R7 K1 [script]
-  SETTABLEKS R7 R6 K24 ["Value"]
-  SETTABLEKS R3 R6 K25 ["Parent"]
-  GETTABLEKS R4 R1 K26 ["isCli"]
+  SETTABLEKS R7 R6 K25 ["Value"]
+  SETTABLEKS R3 R6 K26 ["Parent"]
+  GETTABLEKS R4 R1 K27 ["isCli"]
   CALL R4 0 1
   JUMPIF R4 [+7]
-  DUPCLOSURE R4 K27 [PROTO_0]
-  SETTABLEKS R4 R2 K28 ["GetService"]
-  DUPCLOSURE R4 K29 [PROTO_1]
-  SETTABLEKS R4 R2 K30 ["GetPluginComponent"]
+  DUPCLOSURE R4 K28 [PROTO_0]
+  SETTABLEKS R4 R2 K29 ["GetService"]
+  DUPCLOSURE R4 K30 [PROTO_1]
+  SETTABLEKS R4 R2 K31 ["GetPluginComponent"]
   RETURN R2 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K31 ["Src"]
-  GETTABLEKS R7 R8 K32 ["Flags"]
-  GETTABLEKS R6 R7 K33 ["FFlagConvAIMeshGen"]
+  GETTABLEKS R8 R0 K32 ["Src"]
+  GETTABLEKS R7 R8 K33 ["Flags"]
+  GETTABLEKS R6 R7 K34 ["FFlagConvAIMeshGen"]
   CALL R5 1 1
-  GETTABLEKS R4 R5 K34 ["Get"]
-  DUPTABLE R5 K36 [{"__call"}]
-  DUPCLOSURE R6 K37 [PROTO_2]
-  SETTABLEKS R6 R5 K35 ["__call"]
-  SETTABLEKS R5 R5 K38 ["__index"]
-  DUPCLOSURE R6 K39 [PROTO_3]
-  DUPCLOSURE R7 K40 [PROTO_5]
+  GETTABLEKS R4 R5 K35 ["Get"]
+  DUPTABLE R5 K37 [{"__call"}]
+  DUPCLOSURE R6 K38 [PROTO_2]
+  SETTABLEKS R6 R5 K36 ["__call"]
+  SETTABLEKS R5 R5 K39 ["__index"]
+  DUPCLOSURE R6 K40 [PROTO_3]
+  DUPCLOSURE R7 K41 [PROTO_5]
   CAPTURE VAL R6
-  SETTABLEKS R7 R5 K41 ["Connect"]
-  DUPCLOSURE R7 K42 [PROTO_6]
+  SETTABLEKS R7 R5 K42 ["Connect"]
+  DUPCLOSURE R7 K43 [PROTO_6]
   CAPTURE VAL R5
-  SETTABLEKS R7 R5 K19 ["new"]
-  DUPTABLE R7 K43 [{"__index"}]
-  DUPCLOSURE R8 K44 [PROTO_7]
+  SETTABLEKS R7 R5 K20 ["new"]
+  DUPTABLE R7 K44 [{"__index"}]
+  DUPCLOSURE R8 K45 [PROTO_7]
   CAPTURE VAL R6
-  SETTABLEKS R8 R7 K38 ["__index"]
+  SETTABLEKS R8 R7 K39 ["__index"]
   NEWTABLE R8 1 0
-  DUPCLOSURE R9 K45 [PROTO_13]
+  DUPCLOSURE R9 K46 [PROTO_13]
   CAPTURE VAL R4
-  SETTABLEKS R9 R8 K19 ["new"]
-  DUPCLOSURE R9 K46 [PROTO_15]
+  SETTABLEKS R9 R8 K20 ["new"]
+  DUPCLOSURE R9 K47 [PROTO_15]
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K31 ["Src"]
-  GETTABLEKS R12 R13 K47 ["Mocks"]
-  GETTABLEKS R11 R12 K48 ["MockChangeHistoryService"]
+  GETTABLEKS R13 R0 K32 ["Src"]
+  GETTABLEKS R12 R13 K48 ["Mocks"]
+  GETTABLEKS R11 R12 K49 ["MockChangeHistoryService"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K31 ["Src"]
-  GETTABLEKS R13 R14 K47 ["Mocks"]
-  GETTABLEKS R12 R13 K49 ["MockChatbotUIService"]
+  GETTABLEKS R14 R0 K32 ["Src"]
+  GETTABLEKS R13 R14 K48 ["Mocks"]
+  GETTABLEKS R12 R13 K50 ["MockChatbotUIService"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K31 ["Src"]
-  GETTABLEKS R14 R15 K47 ["Mocks"]
-  GETTABLEKS R13 R14 K50 ["MockMaterialGenerationService"]
+  GETTABLEKS R15 R0 K32 ["Src"]
+  GETTABLEKS R14 R15 K48 ["Mocks"]
+  GETTABLEKS R13 R14 K51 ["MockMaterialGenerationService"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K31 ["Src"]
-  GETTABLEKS R15 R16 K47 ["Mocks"]
-  GETTABLEKS R14 R15 K51 ["MockStreamingService"]
+  GETTABLEKS R16 R0 K32 ["Src"]
+  GETTABLEKS R15 R16 K48 ["Mocks"]
+  GETTABLEKS R14 R15 K52 ["MockStreamingService"]
   CALL R13 1 1
   NEWTABLE R15 0 0
   FASTCALL2 SETMETATABLE R15 R7 [+4]
   MOVE R16 R7
-  GETIMPORT R14 K53 [setmetatable]
+  GETIMPORT R14 K54 [setmetatable]
   CALL R14 2 1
   NEWTABLE R16 0 0
   FASTCALL2 SETMETATABLE R16 R7 [+4]
   MOVE R17 R7
-  GETIMPORT R15 K53 [setmetatable]
+  GETIMPORT R15 K54 [setmetatable]
   CALL R15 2 1
   NEWTABLE R17 0 0
   FASTCALL2 SETMETATABLE R17 R7 [+4]
   MOVE R18 R7
-  GETIMPORT R16 K53 [setmetatable]
+  GETIMPORT R16 K54 [setmetatable]
   CALL R16 2 1
   NEWTABLE R18 0 0
   FASTCALL2 SETMETATABLE R18 R7 [+4]
   MOVE R19 R7
-  GETIMPORT R17 K53 [setmetatable]
+  GETIMPORT R17 K54 [setmetatable]
   CALL R17 2 1
   NEWTABLE R19 0 0
   FASTCALL2 SETMETATABLE R19 R7 [+4]
   MOVE R20 R7
-  GETIMPORT R18 K53 [setmetatable]
+  GETIMPORT R18 K54 [setmetatable]
   CALL R18 2 1
   NEWTABLE R20 0 0
   FASTCALL2 SETMETATABLE R20 R7 [+4]
   MOVE R21 R7
-  GETIMPORT R19 K53 [setmetatable]
+  GETIMPORT R19 K54 [setmetatable]
   CALL R19 2 1
   NEWTABLE R21 0 0
   FASTCALL2 SETMETATABLE R21 R7 [+4]
   MOVE R22 R7
-  GETIMPORT R20 K53 [setmetatable]
+  GETIMPORT R20 K54 [setmetatable]
   CALL R20 2 1
   GETTABLEKS R21 R2 K13 ["Globals"]
   NEWTABLE R23 0 0
   FASTCALL2 SETMETATABLE R23 R7 [+4]
   MOVE R24 R7
-  GETIMPORT R22 K53 [setmetatable]
+  GETIMPORT R22 K54 [setmetatable]
   CALL R22 2 1
   SETTABLEKS R22 R21 K10 ["game"]
-  DUPTABLE R21 K55 [{"UpdateSourceAsync"}]
-  DUPCLOSURE R22 K56 [PROTO_16]
-  SETTABLEKS R22 R21 K54 ["UpdateSourceAsync"]
-  DUPTABLE R22 K71 [{"StreamingService", "ChatbotUIService", "MarketplaceService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "MemStorageService", "StudioAssetService", "ScriptEditorService", "PublishService", "RunService", "ChangeHistoryService", "InsertService", "GenerationService", "AssetService"}]
-  GETTABLEKS R23 R13 K19 ["new"]
+  DUPTABLE R21 K56 [{"UpdateSourceAsync"}]
+  DUPCLOSURE R22 K57 [PROTO_16]
+  SETTABLEKS R22 R21 K55 ["UpdateSourceAsync"]
+  DUPTABLE R22 K72 [{"StreamingService", "ChatbotUIService", "MarketplaceService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "MemStorageService", "StudioAssetService", "ScriptEditorService", "PublishService", "RunService", "ChangeHistoryService", "InsertService", "GenerationService", "AssetService"}]
+  GETTABLEKS R23 R13 K20 ["new"]
   MOVE R24 R2
   CALL R23 1 1
-  SETTABLEKS R23 R22 K57 ["StreamingService"]
-  GETTABLEKS R23 R11 K19 ["new"]
+  SETTABLEKS R23 R22 K58 ["StreamingService"]
+  GETTABLEKS R23 R11 K20 ["new"]
   CALL R23 0 1
-  SETTABLEKS R23 R22 K58 ["ChatbotUIService"]
-  SETTABLEKS R14 R22 K59 ["MarketplaceService"]
-  SETTABLEKS R16 R22 K60 ["ConversationalAIAcceptanceService"]
-  GETTABLEKS R23 R12 K19 ["new"]
+  SETTABLEKS R23 R22 K59 ["ChatbotUIService"]
+  SETTABLEKS R14 R22 K60 ["MarketplaceService"]
+  SETTABLEKS R16 R22 K61 ["ConversationalAIAcceptanceService"]
+  GETTABLEKS R23 R12 K20 ["new"]
   CALL R23 0 1
-  SETTABLEKS R23 R22 K61 ["MaterialGenerationService"]
-  SETTABLEKS R15 R22 K62 ["MemStorageService"]
-  SETTABLEKS R17 R22 K63 ["StudioAssetService"]
-  SETTABLEKS R21 R22 K64 ["ScriptEditorService"]
-  SETTABLEKS R18 R22 K65 ["PublishService"]
-  SETTABLEKS R19 R22 K66 ["RunService"]
-  GETTABLEKS R23 R10 K19 ["new"]
+  SETTABLEKS R23 R22 K62 ["MaterialGenerationService"]
+  SETTABLEKS R15 R22 K63 ["MemStorageService"]
+  SETTABLEKS R17 R22 K64 ["StudioAssetService"]
+  SETTABLEKS R21 R22 K65 ["ScriptEditorService"]
+  SETTABLEKS R18 R22 K66 ["PublishService"]
+  SETTABLEKS R19 R22 K67 ["RunService"]
+  GETTABLEKS R23 R10 K20 ["new"]
   CALL R23 0 1
-  SETTABLEKS R23 R22 K67 ["ChangeHistoryService"]
-  GETTABLEKS R23 R8 K19 ["new"]
-  GETIMPORT R25 K73 [pcall]
-  LOADK R27 K68 ["InsertService"]
+  SETTABLEKS R23 R22 K68 ["ChangeHistoryService"]
+  GETTABLEKS R23 R8 K20 ["new"]
+  GETIMPORT R25 K74 [pcall]
+  LOADK R27 K69 ["InsertService"]
   NEWCLOSURE R26 P10
   CAPTURE VAL R27
   CALL R25 1 2
@@ -443,20 +446,20 @@ MAIN:
   JUMP [+1]
   LOADNIL R24
   CALL R23 1 1
-  SETTABLEKS R23 R22 K68 ["InsertService"]
+  SETTABLEKS R23 R22 K69 ["InsertService"]
   MOVE R24 R4
   CALL R24 0 1
   JUMPIFNOT R24 [+2]
   MOVE R23 R20
   JUMP [+1]
   LOADNIL R23
-  SETTABLEKS R23 R22 K69 ["GenerationService"]
+  SETTABLEKS R23 R22 K70 ["GenerationService"]
   MOVE R24 R4
   CALL R24 0 1
   JUMPIFNOT R24 [+14]
-  GETTABLEKS R23 R8 K19 ["new"]
-  GETIMPORT R25 K73 [pcall]
-  LOADK R27 K70 ["AssetService"]
+  GETTABLEKS R23 R8 K20 ["new"]
+  GETIMPORT R25 K74 [pcall]
+  LOADK R27 K71 ["AssetService"]
   NEWCLOSURE R26 P10
   CAPTURE VAL R27
   CALL R25 1 2
@@ -467,20 +470,20 @@ MAIN:
   CALL R23 1 1
   JUMP [+1]
   LOADNIL R23
-  SETTABLEKS R23 R22 K70 ["AssetService"]
-  DUPCLOSURE R23 K74 [PROTO_18]
+  SETTABLEKS R23 R22 K71 ["AssetService"]
+  DUPCLOSURE R23 K75 [PROTO_18]
   CAPTURE VAL R2
   CAPTURE VAL R22
-  SETTABLEKS R23 R2 K28 ["GetService"]
-  DUPTABLE R23 K76 [{"MaterialGenerator"}]
+  SETTABLEKS R23 R2 K29 ["GetService"]
+  DUPTABLE R23 K77 [{"MaterialGenerator"}]
   NEWTABLE R25 0 0
   FASTCALL2 SETMETATABLE R25 R7 [+4]
   MOVE R26 R7
-  GETIMPORT R24 K53 [setmetatable]
+  GETIMPORT R24 K54 [setmetatable]
   CALL R24 2 1
-  SETTABLEKS R24 R23 K75 ["MaterialGenerator"]
-  DUPCLOSURE R24 K77 [PROTO_20]
+  SETTABLEKS R24 R23 K76 ["MaterialGenerator"]
+  DUPCLOSURE R24 K78 [PROTO_20]
   CAPTURE VAL R2
   CAPTURE VAL R23
-  SETTABLEKS R24 R2 K30 ["GetPluginComponent"]
+  SETTABLEKS R24 R2 K31 ["GetPluginComponent"]
   RETURN R2 1

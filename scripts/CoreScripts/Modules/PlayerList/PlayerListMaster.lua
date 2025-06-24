@@ -27,7 +27,6 @@ local GlobalConfig = require(PlayerList.GlobalConfig)
 local PlayerListSwitcher = require(PlayerList.PlayerListSwitcher)
 
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
-local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
 
 -- Actions
 local SetPlayerListEnabled = require(PlayerList.Actions.SetPlayerListEnabled)
@@ -36,27 +35,18 @@ local SetTempHideKey = require(PlayerList.Actions.SetTempHideKey)
 local SetTenFootInterface = require(PlayerList.Actions.SetTenFootInterface)
 local SetSmallTouchDevice = require(PlayerList.Actions.SetSmallTouchDevice)
 local SetIsUsingGamepad = require(PlayerList.Actions.SetIsUsingGamepad)
-local SetHasPermissionToVoiceChat = require(PlayerList.Actions.SetHasPermissionToVoiceChat)
 local SetMinimized = require(PlayerList.Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(PlayerList.Actions.SetSubjectToChinaPolicies)
 local SetSettings = require(PlayerList.Actions.SetSettings)
-
-local FFlagXboxRemoveLatentVoiceChatPrivilegeCheck =
-	game:DefineFastFlag("XboxRemoveLatentVoiceChatPrivilegeCheck", false)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 end
 
-local FFlagPlayerlistUseSignals = require(PlayerList.Flags.FFlagPlayerlistUseSignals)
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
-local PlayerListContainer = nil
-
-if FFlagPlayerlistUseSignals then
-	PlayerListContainer = require(CorePackages.Workspace.Packages.PlayerList).PlayerListContainer
-end
-
-local XPRIVILEGE_COMMUNICATION_VOICE_INGAME = 205
+local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
+local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
 
 local function isSmallTouchScreen()
 	if _G.__TESTEZ_RUNNING_TEST__ then
@@ -118,23 +108,6 @@ function PlayerListMaster.new()
 
 	self.store:dispatch(SetTenFootInterface(TenFootInterface:IsEnabled()))
 
-	if not FFlagXboxRemoveLatentVoiceChatPrivilegeCheck then
-		if TenFootInterface:IsEnabled() then
-			coroutine.wrap(function()
-				pcall(function()
-					--This is pcalled because platformService won't exist in Roblox studio when emulating xbox.
-					local platformService = game:GetService("PlatformService")
-					if
-						platformService:BeginCheckXboxPrivilege(XPRIVILEGE_COMMUNICATION_VOICE_INGAME).PrivilegeCheckResult
-						== "NoIssue"
-					then
-						self.store:dispatch(SetHasPermissionToVoiceChat(true))
-					end
-				end)
-			end)()
-		end
-	end
-
 	coroutine.wrap(function()
 		self.store:dispatch(SetSubjectToChinaPolicies(CachedPolicyService:IsSubjectToChinaPolicies()))
 	end)()
@@ -178,10 +151,12 @@ function PlayerListMaster.new()
 		LeaderboardStoreInstanceManager.cleanUpInstance()
 	end
 
-	if FFlagPlayerlistUseSignals then
+	if FFlagUseNewPlayerList then
 		self._mountLeaderboardStore()
 		self.root = Roact.createElement(PlayerListContainer, {
 			leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance(false),
+			TopBarConstants = require(RobloxGui.Modules.TopBar.Constants),
+			isTenFoot = TenFootInterface:IsEnabled(),
 		}, {
 			PlayerListMaster = self.root,
 		})
@@ -219,14 +194,14 @@ function PlayerListMaster:_updateMounted()
 	if not TenFootInterface:IsEnabled() then
 		local shouldMount = self.coreGuiEnabled and self.topBarEnabled
 		if shouldMount and not self.mounted then
-			if FFlagPlayerlistUseSignals then
+			if FFlagUseNewPlayerList then
 				self._mountLeaderboardStore()
 			end
 			self.element = Roact.mount(self.root, CoreGui, "PlayerList")
 			self.mounted = true
 		elseif not shouldMount and self.mounted then
 			Roact.unmount(self.element)
-			if FFlagPlayerlistUseSignals then
+			if FFlagUseNewPlayerList then
 				self._unmountLeaderboardStore()
 			end
 			self.mounted = false

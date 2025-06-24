@@ -1,0 +1,45 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R5 R0 K0 ["text"]
+  GETTABLE R3 R4 R5
+  JUMPIF R3 [+2]
+  LOADNIL R4
+  RETURN R4 1
+  MOVE R4 R3
+  DUPTABLE R5 K4 [{"node", "context", "extraContext"}]
+  SETTABLEKS R0 R5 K1 ["node"]
+  SETTABLEKS R1 R5 K2 ["context"]
+  SETTABLEKS R2 R5 K3 ["extraContext"]
+  CALL R4 1 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["KnowledgeTutorials"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Packages"]
+  GETTABLEKS R3 R4 K9 ["React"]
+  CALL R2 1 1
+  DUPTABLE R3 K12 [{"ActionButton", "Step"}]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Components"]
+  GETTABLEKS R5 R6 K10 ["ActionButton"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K10 ["ActionButton"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Components"]
+  GETTABLEKS R5 R6 K11 ["Step"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K11 ["Step"]
+  DUPCLOSURE R4 K14 [PROTO_0]
+  CAPTURE VAL R3
+  RETURN R4 1

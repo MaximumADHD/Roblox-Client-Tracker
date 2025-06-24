@@ -17,6 +17,7 @@ local ScreenshotFlowStepHandlerContainer = require(root.ReportAnything.Component
 local ReportAnythingAnalytics = require(root.ReportAnything.Utility.ReportAnythingAnalytics)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagChromeEnabledShortcutBarFix = SharedFlags.FFlagChromeEnabledShortcutBarFix
 local FFlagChromeHideShortcutBarOnAnnotationModal = SharedFlags.FFlagChromeHideShortcutBarOnAnnotationModal
 
 local elements: any = {
@@ -26,7 +27,10 @@ local elements: any = {
 }
 
 local function unmountAnnotationPage()
-	if FFlagChromeHideShortcutBarOnAnnotationModal and ChromeEnabled then
+	if
+		FFlagChromeHideShortcutBarOnAnnotationModal
+		and (if FFlagChromeEnabledShortcutBarFix then ChromeEnabled() else ChromeEnabled)
+	then
 		ChromeService:setHideShortcutBar("AnnotationModal", false)
 	end
 	if elements.annotationPageHandle ~= nil then
@@ -47,7 +51,10 @@ local function mountAnnotationPage(
 	reportAnythingState: Types.ReportAnythingState,
 	reportAnythingDispatch: (action: { type: string }) -> ()
 )
-	if FFlagChromeHideShortcutBarOnAnnotationModal and ChromeEnabled then
+	if
+		FFlagChromeHideShortcutBarOnAnnotationModal
+		and (if FFlagChromeEnabledShortcutBarFix then ChromeEnabled() else ChromeEnabled)
+	then
 		ChromeService:setHideShortcutBar("AnnotationModal", true)
 	end
 	local topCornerInset, _ = GuiService:GetGuiInset()

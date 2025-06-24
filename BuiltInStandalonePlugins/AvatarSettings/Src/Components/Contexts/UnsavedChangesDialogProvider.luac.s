@@ -1,0 +1,51 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  DUPTABLE R1 K2 [{"default", "getUnsavedChangesDialog"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["default"]
+  DUPCLOSURE R2 K3 [PROTO_0]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["getUnsavedChangesDialog"]
+  GETUPVAL R2 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K4 ["Provider"]
+  DUPTABLE R4 K6 [{"value"}]
+  SETTABLEKS R1 R4 K5 ["value"]
+  GETTABLEKS R5 R0 K7 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Components"]
+  GETTABLEKS R3 R4 K10 ["UnsavedChangesDialog"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Components"]
+  GETTABLEKS R5 R6 K11 ["Contexts"]
+  GETTABLEKS R4 R5 K12 ["UnsavedChangesDialogContext"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K13 ["createElement"]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R5 1

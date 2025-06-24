@@ -106,8 +106,11 @@ function PlatformInterface.new()
 		GuiService:OpenBrowserWindow(("%sUpgrades/Robux.aspx"):format(BASE_URL))
 	end
 
-	function service.openRobuxStoreWithContext(context: BaseContext)
+	function service.openRobuxStoreWithContext(context: BaseContext, productId: string?)
 		local url = ("%sUpgrades/Robux.aspx"):format(BASE_URL)
+		if productId then
+			url = url .. ("?product_id=%s"):format(productId)
+		end
 		url = addContextToUrl(url, context)
 		GuiService:OpenBrowserWindow(url)
 	end

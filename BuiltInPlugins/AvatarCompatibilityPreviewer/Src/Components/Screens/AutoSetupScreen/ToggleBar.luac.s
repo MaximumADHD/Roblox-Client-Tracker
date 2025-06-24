@@ -35,21 +35,26 @@ PROTO_0:
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K1 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K27 [{"Text"}]
-  LOADK R9 K28 ["Configure Parts"]
+  DUPTABLE R8 K28 [{"Text", "TextTruncate"}]
+  LOADK R11 K29 ["ToggleBar"]
+  LOADK R12 K30 ["ConfigureModels"]
+  NAMECALL R9 R1 K31 ["getText"]
+  CALL R9 3 1
   SETTABLEKS R9 R8 K26 ["Text"]
+  GETIMPORT R9 K33 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R9 R8 K27 ["TextTruncate"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K23 ["Label"]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K1 ["createElement"]
   GETUPVAL R7 2
-  DUPTABLE R8 K31 [{"LayoutOrder", "AutomaticSize", "OnClick", "AnchorPoint", "Position"}]
+  DUPTABLE R8 K36 [{"LayoutOrder", "AutomaticSize", "OnClick", "AnchorPoint", "Position"}]
   LOADN R9 1
   SETTABLEKS R9 R8 K3 ["LayoutOrder"]
-  GETIMPORT R9 K33 [Enum.AutomaticSize.XY]
-  SETTABLEKS R9 R8 K29 ["AutomaticSize"]
+  GETIMPORT R9 K38 [Enum.AutomaticSize.XY]
+  SETTABLEKS R9 R8 K34 ["AutomaticSize"]
   GETTABLEKS R9 R0 K24 ["Toggle"]
-  SETTABLEKS R9 R8 K30 ["OnClick"]
+  SETTABLEKS R9 R8 K35 ["OnClick"]
   GETIMPORT R9 K15 [Vector2.new]
   LOADN R10 1
   LOADK R11 K16 [0.5]
@@ -62,23 +67,23 @@ PROTO_0:
   LOADN R13 0
   CALL R9 4 1
   SETTABLEKS R9 R8 K6 ["Position"]
-  DUPTABLE R9 K35 [{"Icon"}]
+  DUPTABLE R9 K40 [{"Icon"}]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K1 ["createElement"]
   GETUPVAL R11 4
-  DUPTABLE R12 K38 [{"Rotation", "Style", "ImageColor3"}]
-  GETTABLEKS R14 R0 K39 ["isTableHidden"]
+  DUPTABLE R12 K43 [{"Rotation", "Style", "ImageColor3"}]
+  GETTABLEKS R14 R0 K44 ["isTableHidden"]
   JUMPIFNOT R14 [+2]
   LOADN R13 180
   JUMP [+1]
   LOADN R13 0
-  SETTABLEKS R13 R12 K36 ["Rotation"]
-  LOADK R13 K40 ["Collapse"]
+  SETTABLEKS R13 R12 K41 ["Rotation"]
+  LOADK R13 K45 ["Collapse"]
   SETTABLEKS R13 R12 K8 ["Style"]
-  GETTABLEKS R13 R0 K41 ["ButtonColor"]
-  SETTABLEKS R13 R12 K37 ["ImageColor3"]
+  GETTABLEKS R13 R0 K46 ["ButtonColor"]
+  SETTABLEKS R13 R12 K42 ["ImageColor3"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K34 ["Icon"]
+  SETTABLEKS R10 R9 K39 ["Icon"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K24 ["Toggle"]
   CALL R2 3 -1

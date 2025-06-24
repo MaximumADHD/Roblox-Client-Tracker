@@ -1,10 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local HttpRequest = require(CorePackages.Packages.HttpRequest)
+local FFlagLuaAppDefaultHttpRetry = 
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppDefaultHttpRetry
 local httpRequest = HttpRequest.config({
     requestFunction = function(url, requestMethod, requestOptions)
         return HttpRequest.requestFunctions.HttpRbxApi(url, requestMethod, requestOptions)
-    end
+    end,
+    maxRetryCount = if FFlagLuaAppDefaultHttpRetry then game:DefineFastInt("WithReferralRewardTooltipInfoHttpRetryCount", 4) else nil
 })
 local Url = require(CorePackages.Workspace.Packages.Http).Url
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization

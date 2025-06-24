@@ -168,6 +168,58 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["overrideAssetTypes"]
+  GETTABLE R1 R2 R0
+  JUMPIF R1 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["avatarAccessoryRules"]
+  CALL R1 0 1
+  FASTCALL2K ASSERT R1 K2 [+5]
+  MOVE R3 R1
+  LOADK R4 K2 ["Attempting to check override asset type without avatar accessory rules"]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K5 ["AccessoryAssetTypes"]
+  GETTABLE R2 R3 R0
+  JUMPIFNOT R2 [+9]
+  GETTABLEKS R3 R1 K6 ["CustomAccessoryMode"]
+  GETIMPORT R4 K10 [Enum.AvatarSettingsCustomAccessoryMode.CustomAccessories]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["avatarClothingRules"]
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K12 [+5]
+  MOVE R4 R2
+  LOADK R5 K12 ["Attempting to check override asset type without avatar clothing rules"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K13 ["ClothingAssetTypes"]
+  GETTABLE R3 R4 R0
+  JUMPIFNOT R3 [+9]
+  GETTABLEKS R4 R2 K14 ["CustomClothingMode"]
+  GETIMPORT R5 K17 [Enum.AvatarSettingsCustomClothingMode.CustomClothing]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  RETURN R3 1
+  GETIMPORT R3 K19 [error]
+  LOADK R5 K20 ["Asset Type Name "]
+  MOVE R6 R0
+  LOADK R7 K21 [" is not a valid accessory or clothing type"]
+  CONCAT R4 R5 R7
+  CALL R3 1 0
+  LOADB R3 0
+  RETURN R3 1
+
+PROTO_8:
   NAMECALL R1 R0 K0 ["GetAppliedDescription"]
   CALL R1 1 1
   LOADB R4 1
@@ -182,16 +234,17 @@ PROTO_7:
   GETTABLEKS R10 R11 K2 ["AccessoryTypeToAssetType"]
   GETTABLEKS R11 R8 K3 ["AccessoryType"]
   GETTABLE R9 R10 R11
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K4 ["overrideAssetTypes"]
-  GETTABLE R10 R11 R9
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K4 ["shouldApplyOverrideAssetType"]
+  MOVE R11 R9
+  CALL R10 1 1
   JUMPIF R10 [+7]
   FASTCALL2 TABLE_INSERT R3 R8 [+5]
   MOVE R11 R3
   MOVE R12 R8
   GETIMPORT R10 K7 [table.insert]
   CALL R10 2 0
-  FORGLOOP R4 2 [-19]
+  FORGLOOP R4 2 [-20]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K8 ["HumanoidDescriptionClothingTypes"]
   GETUPVAL R8 0
@@ -199,9 +252,10 @@ PROTO_7:
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K4 ["overrideAssetTypes"]
-  GETTABLE R10 R11 R9
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K4 ["shouldApplyOverrideAssetType"]
+  MOVE R11 R9
+  CALL R10 1 1
   JUMPIFNOT R10 [+15]
   GETUPVAL R13 1
   GETTABLEKS R12 R13 K10 ["overrideAccessoriesAndClothingAssets"]
@@ -215,7 +269,7 @@ PROTO_7:
   LOADN R10 0
   GETTABLE R11 R4 R9
   SETTABLE R10 R1 R11
-  FORGLOOP R5 2 [-21]
+  FORGLOOP R5 2 [-22]
   MOVE R7 R3
   LOADB R8 1
   NAMECALL R5 R1 K12 ["SetAccessories"]
@@ -230,21 +284,23 @@ PROTO_7:
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K4 ["overrideAssetTypes"]
-  GETTABLEKS R12 R9 K14 ["assetType"]
-  GETTABLE R10 R11 R12
-  JUMPIFNOT R10 [+13]
-  GETTABLEKS R10 R9 K15 ["instance"]
-  JUMPIFNOT R10 [+10]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K16 ["AddAccessory"]
-  MOVE R11 R0
-  GETTABLEKS R12 R9 K15 ["instance"]
-  NAMECALL R12 R12 K17 ["Clone"]
-  CALL R12 1 -1
-  CALL R10 -1 0
-  FORGLOOP R5 2 [-21]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K4 ["shouldApplyOverrideAssetType"]
+  GETTABLEKS R11 R9 K14 ["assetType"]
+  CALL R10 1 1
+  JUMPIFNOT R10 [+15]
+  GETTABLEKS R11 R9 K15 ["instance"]
+  JUMPIFNOT R11 [+12]
+  GETTABLEKS R11 R9 K15 ["instance"]
+  NAMECALL R11 R11 K16 ["Clone"]
+  CALL R11 1 1
+  JUMPIFNOT R11 [+6]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K17 ["AddAccessory"]
+  MOVE R13 R0
+  MOVE R14 R11
+  CALL R12 2 0
+  FORGLOOP R5 2 [-23]
   GETUPVAL R5 3
   MOVE R6 R0
   CALL R5 1 0
@@ -281,24 +337,24 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["InsertServiceInterface"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K7 ["Util"]
-  GETTABLEKS R8 R9 K14 ["BridgingFiles"]
-  GETTABLEKS R7 R8 K15 ["AssetDmFiles"]
-  GETTABLEKS R6 R7 K16 ["assetDmTypes"]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K7 ["Util"]
+  GETTABLEKS R7 R8 K8 ["AvatarPreview"]
+  GETTABLEKS R6 R7 K14 ["addAvatarPartScaleTypeToAccessories"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R11 R0 K6 ["Src"]
   GETTABLEKS R10 R11 K7 ["Util"]
-  GETTABLEKS R9 R10 K14 ["BridgingFiles"]
-  GETTABLEKS R8 R9 K15 ["AssetDmFiles"]
-  GETTABLEKS R7 R8 K17 ["assetDmUtils"]
+  GETTABLEKS R9 R10 K15 ["BridgingFiles"]
+  GETTABLEKS R8 R9 K16 ["AssetDmFiles"]
+  GETTABLEKS R7 R8 K17 ["assetDmTypes"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R11 R0 K6 ["Src"]
-  GETTABLEKS R10 R11 K7 ["Util"]
-  GETTABLEKS R9 R10 K8 ["AvatarPreview"]
-  GETTABLEKS R8 R9 K18 ["addAvatarPartScaleTypeToAccessories"]
+  GETTABLEKS R12 R0 K6 ["Src"]
+  GETTABLEKS R11 R12 K7 ["Util"]
+  GETTABLEKS R10 R11 K15 ["BridgingFiles"]
+  GETTABLEKS R9 R10 K16 ["AssetDmFiles"]
+  GETTABLEKS R8 R9 K18 ["assetDmUtils"]
   CALL R7 1 1
   DUPTABLE R8 K21 [{"overrideAssetTypes", "overrideAccessoriesAndClothingAssets"}]
   NEWTABLE R9 0 0
@@ -319,23 +375,28 @@ MAIN:
   DUPCLOSURE R9 K28 [PROTO_3]
   CAPTURE VAL R8
   DUPCLOSURE R10 K29 [PROTO_4]
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R9
   CAPTURE VAL R1
   DUPCLOSURE R11 K30 [PROTO_5]
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R9
   CAPTURE VAL R1
   DUPCLOSURE R12 K31 [PROTO_6]
   CAPTURE VAL R8
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R9
   CAPTURE VAL R1
   SETTABLEKS R12 R8 K32 ["updateOverrideAccessoriesAndClothingAssetsAsync"]
   DUPCLOSURE R12 K33 [PROTO_7]
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  SETTABLEKS R12 R8 K34 ["shouldApplyOverrideAssetType"]
+  DUPCLOSURE R12 K35 [PROTO_8]
   CAPTURE VAL R1
   CAPTURE VAL R8
   CAPTURE VAL R3
-  CAPTURE VAL R7
-  SETTABLEKS R12 R8 K34 ["applyAccessoriesAndClothingOverridesAsync"]
+  CAPTURE VAL R5
+  SETTABLEKS R12 R8 K36 ["applyAccessoriesAndClothingOverridesAsync"]
   RETURN R8 1

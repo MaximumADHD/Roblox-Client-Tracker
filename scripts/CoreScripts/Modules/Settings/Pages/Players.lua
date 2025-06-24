@@ -55,6 +55,9 @@ local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 local MenuButtonsContainer = require(RobloxGui.Modules.Settings.Components.MenuButtons.MenuButtonsContainer)
 
+local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration['uiblox']
+
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 
@@ -69,6 +72,7 @@ local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagRenameFriendsToConnectionsCoreUI = SharedFlags.FFlagRenameFriendsToConnectionsCoreUI
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
 local GetFFlagUseUserProfileStore = SharedFlags.GetFFlagUseUserProfileStore
@@ -85,11 +89,24 @@ local Constants =
 
 local FRAME_DEFAULT_TRANSPARENCY = 0.85
 local FRAME_SELECTED_TRANSPARENCY = 0.65
-local REPORT_PLAYER_IMAGE = Theme.Images["icons/actions/feedback"]
-local INSPECT_IMAGE = Theme.Images["icons/actions/zoomIn"]
-local BLOCK_IMAGE = Theme.Images["icons/actions/block"]
-local ADD_FRIEND_IMAGE = Theme.Images["icons/actions/friends/friendAdd"]
-local FRIEND_IMAGE = Theme.Images["icons/menu/friends"]
+local REPORT_PLAYER_IMAGE
+local INSPECT_IMAGE
+local BLOCK_IMAGE
+local ADD_FRIEND_IMAGE
+local FRIEND_IMAGE
+if FFlagBuilderIcons then
+	REPORT_PLAYER_IMAGE = "icons/actions/feedback"
+	INSPECT_IMAGE = "icons/actions/zoomIn"
+	BLOCK_IMAGE = "icons/actions/block"
+	ADD_FRIEND_IMAGE = "icons/actions/friends/friendAdd"
+	FRIEND_IMAGE = "icons/menu/friends"
+else
+	REPORT_PLAYER_IMAGE = Theme.Images["icons/actions/feedback"]
+	INSPECT_IMAGE = Theme.Images["icons/actions/zoomIn"]
+	BLOCK_IMAGE = Theme.Images["icons/actions/block"]
+	ADD_FRIEND_IMAGE = Theme.Images["icons/actions/friends/friendAdd"]
+	FRIEND_IMAGE = Theme.Images["icons/menu/friends"]
+end
 
 local PLAYER_ROW_HEIGHT = 62
 local PLAYER_ROW_HEIGHT_PORTRAIT = 105
@@ -185,10 +202,17 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "PlayersTab"
 
-	local icon = Theme.Images["icons/menu/friends"]
-	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-	this.TabHeader.TabLabel.Icon.Image = icon.Image
+	if FFlagBuilderIcons then 
+		local icon = migrationLookup["icons/menu/friends"]
+		this.TabHeader.TabLabel.Icon.Text = icon.name
+		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
+	else
+		local icon = Theme.Images["icons/menu/friends"]
+		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
+		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
+		this.TabHeader.TabLabel.Icon.Image = icon.Image
+	end
+
 	this.TabHeader.TabLabel.Title.Text = "People"
 
 	----- FRIENDSHIP FUNCTIONS ------
@@ -1026,7 +1050,7 @@ local function Initialize()
 		end
 	end
 
-	local function createRow(frameClassName, hasSecondRow)
+	local function createRow(frameClassName, hasSecondRow, usesMigratedIcon: boolean?)
 		local frame = Instance.new(frameClassName)
 		frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT)
 		frame.Position = UDim2.new(0, 0, 0, 0)
@@ -1038,7 +1062,14 @@ local function Initialize()
 			Parent = frame,
 		})
 
-		local icon = Instance.new("ImageLabel")
+		local icon
+		if FFlagBuilderIcons and usesMigratedIcon then
+			icon = Instance.new("TextLabel")
+			icon.TextColor3 = Color3.new(1, 1, 1)
+			icon.TextSize = 24
+		else
+			icon = Instance.new("ImageLabel")
+		end
 		icon.Name = "Icon"
 		icon.BackgroundTransparency = 1
 		icon.Size = UDim2.new(0, 36, 0, 36)
@@ -1079,7 +1110,7 @@ local function Initialize()
 
 	local TAP_ACCURACY_THREASHOLD = 20
 	createShareGameButton = function()
-		local frame = createRow("ImageButton")
+		local frame = createRow("ImageButton", nil, FFlagBuilderIcons)
 		frame.Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT)
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
@@ -1098,11 +1129,17 @@ local function Initialize()
 
 		icon.AnchorPoint = Vector2.new(0, 0.5)
 		icon.Position = UDim2.new(0, 18, 0.5, 0)
-		local iconImg = Theme.Images["icons/actions/friends/friendInvite"]
+		local isMigrated = FFlagBuilderIcons and migrationLookup["icons/actions/friends/friendInvite"]
+		local iconImg = if isMigrated then migrationLookup["icons/actions/friends/friendInvite"] else Theme.Images["icons/actions/friends/friendInvite"]
 		if iconImg then
-			icon.Image = iconImg.Image
-			icon.ImageRectOffset = iconImg.ImageRectOffset
-			icon.ImageRectSize = iconImg.ImageRectSize
+			if isMigrated then
+				icon.Text = iconImg.name
+				icon.FontFace = BuilderIcons.Font[iconImg.variant]
+			else
+				icon.Image = iconImg.Image
+				icon.ImageRectOffset = iconImg.ImageRectOffset
+				icon.ImageRectSize = iconImg.ImageRectSize
+			end
 		end
 
 		local function setIsHighlighted(isHighlighted)
@@ -1212,7 +1249,7 @@ local function Initialize()
 		end
 
 		createChatButton = function()
-			local frame = createRow("ImageButton")
+			local frame = createRow("ImageButton", nil, FFlagBuilderIcons)
 			local textLabel = frame.TextLabel
 			local icon = frame.Icon
 
@@ -1234,17 +1271,24 @@ local function Initialize()
 			icon.Position = UDim2.new(0, 18, 0.5, 0)
 
 			local iconImg
+			local iconName
 			if FFlagAppChatRebrandInNonChrome then
-				iconImg = Theme.Images["icons/menu/2-person-with-bubble"]
+				iconName = "icons/menu/2-person-with-bubble"
 			elseif FFlagAppChatTiltMenuConnectIcon then
-				iconImg = Theme.Images["icons/menu/platformChatOff"]
+				iconName = "icons/menu/platformChatOff"
 			else
-				iconImg = Theme.Images["icons/menu/chat_off"]
+				iconName = "icons/menu/chat_off"
 			end
-
-			icon.Image = iconImg.Image
-			icon.ImageRectOffset = iconImg.ImageRectOffset
-			icon.ImageRectSize = iconImg.ImageRectSize
+			if FFlagBuilderIcons then
+				iconImg = migrationLookup[iconName]
+				icon.Text = iconImg.Name
+				icon.FontFace = BuilderIcons.Font[iconImg.variant]
+			else
+				iconImg = Theme.Images[iconName]
+				icon.Image = iconImg.Image
+				icon.ImageRectOffset = iconImg.ImageRectOffset
+				icon.ImageRectSize = iconImg.ImageRectSize
+			end
 
 			local setHighlighted = function(isHighlighted)
 				frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY

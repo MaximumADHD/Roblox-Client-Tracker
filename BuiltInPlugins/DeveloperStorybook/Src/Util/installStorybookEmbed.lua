@@ -162,6 +162,7 @@ local function installStorybookEmbed(parent: Instance)
 
 	local SrcPackages = getDeepFolder({ "Packages" }, StorybookFolder)
 	createPackageLink("Cryo", SrcPackages)
+	createPackageLink("Dash", SrcPackages)
 	createPackageLink("Framework", SrcPackages)
 	createPackageLink("MaterialFramework", SrcPackages)
 	createPackageLink("ReactIs", SrcPackages)

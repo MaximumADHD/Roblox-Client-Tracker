@@ -8,11 +8,14 @@ local GuiService = game:GetService("GuiService")
 local LocalizationService = game:GetService("LocalizationService")
 local VRService = game:GetService("VRService")
 local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
 
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Constants = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Constants
 local Shimmer = require(RobloxGui.Modules.Shimmer)
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization;
+local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 local FFlagFixGamepadDisconnectHighlight = game:DefineFastFlag("FixGamepadDisconnectHighlight2", false)
@@ -27,6 +30,7 @@ local coreScriptTableTranslator
 local function onLocaleIdChanged()
 	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 end
+local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 onLocaleIdChanged()
 LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
@@ -242,8 +246,8 @@ function ErrorPrompt.new(style, extraConfiguration)
 	return self
 end
 
-function ErrorPrompt:_open(errorMsg, errorCode)
-	self:setErrorText(errorMsg, errorCode)
+function ErrorPrompt:_open(errorMsg, errorCode, shouldShowChannelName)
+	self:setErrorText(errorMsg, errorCode, shouldShowChannelName)
 	self:_resizeHeight(RobloxGui.AbsoluteSize.Y)
 	if not self._isOpen then
 		MouseIconOverrideService.push("ErrorPromptOverride", Enum.OverrideMouseIconBehavior.ForceShow)
@@ -291,10 +295,10 @@ function ErrorPrompt:setParent(parent)
 	self._frame.Parent = parent
 end
 
-function ErrorPrompt:setErrorText(errorMsg, errorCode)
-
+function ErrorPrompt:setErrorText(errorMsg, errorCode, shouldShowChannelName)
 	-- Any unknown error that uses guiservices will have errno(UNKNOWN) as -1
 	local errorLabel = self._frame.MessageArea.ErrorFrame.ErrorMessage
+	local clientChannel = RunService:GetRobloxClientChannel()
 	if self._hideErrorCode then
 		errorLabel.Text = errorMsg
 	else
@@ -308,7 +312,18 @@ function ErrorPrompt:setErrorText(errorMsg, errorCode)
 				"InGame.ConnectionError.Message.ErrorCode",
 				defaultErrorCodeString,
 				{ERROR_CODE = tostring(errorCodeValue)})
-			errorLabel.Text = ("%s\n(%s)"):format(errorMsg,localizedErrorCodeString)
+			local errorLabelText = nil
+			if GetFFlagDisplayChannelNameOnErrorPrompt() and shouldShowChannelName and clientChannel then
+				local channelNameString = locales:Format("InGame.ConnectionError.Message.ChannelName", {CHANNEL_NAME = clientChannel})
+				if not channelNameString then
+					channelNameString = ("Channel: %s"):format(clientChannel)
+				end
+				errorLabelText = ("%s\n(%s, %s)"):format(errorMsg, localizedErrorCodeString, channelNameString)
+			end
+			if not errorLabelText then
+				errorLabelText = ("%s\n(%s)"):format(errorMsg, localizedErrorCodeString)
+			end
+			errorLabel.Text = errorLabelText
 		else
 			if not errorCode then
 				errorLabel.Text = ("%s\n(Error Code: -1)"):format(errorMsg)
@@ -331,11 +346,11 @@ function ErrorPrompt:setErrorTitle(title, localizationKey)
 	end
 end
 
-function ErrorPrompt:onErrorChanged(errorMsg, errorCode)
+function ErrorPrompt:onErrorChanged(errorMsg, errorCode, shouldShowChannelName)
 	if errorMsg == "" then
 		self:_close()
 	elseif errorMsg ~= "" then
-		self:_open(errorMsg, errorCode)
+		self:_open(errorMsg, errorCode, shouldShowChannelName)
 	end
 end
 

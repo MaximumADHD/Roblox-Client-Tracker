@@ -52,32 +52,36 @@ PROTO_2:
   SETTABLEKS R2 R1 K12 ["CustomBodyTypeScale"]
   GETTABLEKS R2 R0 K13 ["CustomProportionsScale"]
   SETTABLEKS R2 R1 K13 ["CustomProportionsScale"]
-  NEWTABLE R2 0 6
+  NEWTABLE R2 0 7
   DUPTABLE R3 K17 [{"ruleInstance", "property"}]
   SETTABLEKS R0 R3 K15 ["ruleInstance"]
-  LOADK R4 K18 ["CustomHead"]
+  LOADK R4 K18 ["CustomFace"]
   SETTABLEKS R4 R3 K16 ["property"]
   DUPTABLE R4 K17 [{"ruleInstance", "property"}]
   SETTABLEKS R0 R4 K15 ["ruleInstance"]
-  LOADK R5 K19 ["CustomTorso"]
+  LOADK R5 K19 ["CustomHead"]
   SETTABLEKS R5 R4 K16 ["property"]
   DUPTABLE R5 K17 [{"ruleInstance", "property"}]
   SETTABLEKS R0 R5 K15 ["ruleInstance"]
-  LOADK R6 K20 ["CustomLeftArm"]
+  LOADK R6 K20 ["CustomTorso"]
   SETTABLEKS R6 R5 K16 ["property"]
   DUPTABLE R6 K17 [{"ruleInstance", "property"}]
   SETTABLEKS R0 R6 K15 ["ruleInstance"]
-  LOADK R7 K21 ["CustomRightArm"]
+  LOADK R7 K21 ["CustomLeftArm"]
   SETTABLEKS R7 R6 K16 ["property"]
   DUPTABLE R7 K17 [{"ruleInstance", "property"}]
   SETTABLEKS R0 R7 K15 ["ruleInstance"]
-  LOADK R8 K22 ["CustomLeftLeg"]
+  LOADK R8 K22 ["CustomRightArm"]
   SETTABLEKS R8 R7 K16 ["property"]
   DUPTABLE R8 K17 [{"ruleInstance", "property"}]
   SETTABLEKS R0 R8 K15 ["ruleInstance"]
-  LOADK R9 K23 ["CustomRightLeg"]
+  LOADK R9 K23 ["CustomLeftLeg"]
   SETTABLEKS R9 R8 K16 ["property"]
-  SETLIST R2 R3 6 [1]
+  DUPTABLE R9 K17 [{"ruleInstance", "property"}]
+  SETTABLEKS R0 R9 K15 ["ruleInstance"]
+  LOADK R10 K24 ["CustomRightLeg"]
+  SETTABLEKS R10 R9 K16 ["property"]
+  SETLIST R2 R3 7 [1]
   MOVE R3 R2
   LOADNIL R4
   LOADNIL R5
@@ -85,16 +89,16 @@ PROTO_2:
   GETTABLEKS R8 R7 K16 ["property"]
   GETTABLEKS R10 R7 K15 ["ruleInstance"]
   GETTABLEKS R12 R7 K16 ["property"]
-  LOADK R13 K24 ["Id"]
+  LOADK R13 K25 ["Id"]
   CONCAT R11 R12 R13
   GETTABLEKS R13 R7 K16 ["property"]
-  LOADK R14 K25 ["Enabled"]
+  LOADK R14 K26 ["Enabled"]
   CONCAT R12 R13 R14
-  DUPTABLE R9 K27 [{"AssetId", "Enabled"}]
+  DUPTABLE R9 K28 [{"AssetId", "Enabled"}]
   GETTABLE R13 R10 R11
-  SETTABLEKS R13 R9 K26 ["AssetId"]
+  SETTABLEKS R13 R9 K27 ["AssetId"]
   GETTABLE R13 R10 R12
-  SETTABLEKS R13 R9 K25 ["Enabled"]
+  SETTABLEKS R13 R9 K26 ["Enabled"]
   SETTABLE R9 R1 R8
   FORGLOOP R3 2 [-21]
   RETURN R1 1

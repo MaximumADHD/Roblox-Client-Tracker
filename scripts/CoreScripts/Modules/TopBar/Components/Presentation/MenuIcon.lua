@@ -16,6 +16,7 @@ local FFlagMenuIconRemoveBinding = SharedFlags.FFlagMenuIconRemoveBinding
 local FFlagChromeFixMenuIconBackButton = SharedFlags.FFlagChromeFixMenuIconBackButton
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
+local FFlagChromeEnabledRequireGamepadConnectorFix = SharedFlags.FFlagChromeEnabledRequireGamepadConnectorFix
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -62,7 +63,7 @@ local Constants = require(Components.Parent.Constants)
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
 local SetKeepOutArea = require(Actions.SetKeepOutArea)
 local menuIconHoveredSignal = require(script.Parent.menuIconHoveredSignal)
-local GamepadConnector = require(script.Parent.Parent.GamepadConnector)
+local GamepadConnector = if (not FFlagChromeEnabledRequireGamepadConnectorFix or ChromeEnabled()) then require(script.Parent.Parent.GamepadConnector) else nil :: never
 
 local InGameMenu
 if isNewInGameMenuEnabled() then
@@ -276,7 +277,7 @@ function MenuIcon:init()
 		end
 	end
 
-	if ChromeEnabled and FFlagHideTopBarConsole then 
+	if (if FFlagChromeEnabledRequireGamepadConnectorFix then ChromeEnabled() and GamepadConnector else ChromeEnabled) and FFlagHideTopBarConsole then 
 		local showTopBarSignal = GamepadConnector:getShowTopBar()
 
 		self.showIcon, self.setShowIcon = Roact.createBinding(showTopBarSignal:get())
@@ -393,7 +394,7 @@ function MenuIcon:render()
 			if FFlagReduceTopBarInsetsWhileHidden then
 				self.priorAbsolutePosition = rbx.AbsolutePosition
 				self.priorAbsoluteSize = rbx.AbsoluteSize
-				if GamepadConnector:getShowTopBar():get() then 
+				if (not FFlagChromeEnabledRequireGamepadConnectorFix or ChromeEnabled()) and GamepadConnector:getShowTopBar():get() then 
 					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
 				end 
 			elseif FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false) then

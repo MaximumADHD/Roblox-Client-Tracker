@@ -20,6 +20,7 @@ local ChromeService = require(Root.Service)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeUnbindShortcutBarOnHide = SharedFlags.FFlagChromeUnbindShortcutBarOnHide
 local FFlagShortcutBarUseTokens = SharedFlags.FFlagShortcutBarUseTokens
+local FFlagChromeShortcutBarInitHide = SharedFlags.FFlagChromeShortcutBarInitHide
 
 function ChromeShortcutBar(props)
 	local shortcuts, setShortcuts = React.useState({})
@@ -71,6 +72,9 @@ function ChromeShortcutBar(props)
 			local function shouldHideShortcutBar()
 				local shouldHide = not showTopBar:get() or not gamepadActive:get()
 				ChromeService:setHideShortcutBar("TopBar", shouldHide)
+			end
+			if FFlagChromeShortcutBarInitHide then
+				shouldHideShortcutBar()
 			end
 
 			showTopBar:connect(shouldHideShortcutBar)

@@ -127,7 +127,7 @@ PROTO_0:
   GETTABLEKS R20 R21 K41 ["set"]
   SETTABLEKS R20 R19 K52 ["setValue"]
   LOADK R22 K55 ["General"]
-  LOADK R23 K56 ["PercentOfAvatar"]
+  LOADK R23 K56 ["PaddingAroundAvatar"]
   NAMECALL R20 R1 K15 ["getText"]
   CALL R20 3 1
   SETTABLEKS R20 R19 K26 ["text"]

@@ -32,6 +32,7 @@ local FFlagAddDropdownTypeToGetValueChanger = game:DefineFastFlag("AddDropdownTy
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
+local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -74,7 +75,17 @@ local function Initialize()
 		end
 	end)
 
-	local icon = Create'ImageLabel'
+	local icon = if FFlagBuilderIcons then Create'TextLabel'{
+		Name = "Icon",
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0.5, 0, 0.5, 0),
+		Position = UDim2.new(0,10,0.5,-18),
+		Text = "",
+		TextColor3 = Color3.new(1, 1, 1),
+		TextScaled = true,
+		TextTransparency = 0.5,
+		Parent = this.TabHeader
+    } else Create'ImageLabel'
 	{
 		Name = "Icon",
 		BackgroundTransparency = 1,
@@ -188,6 +199,11 @@ local function Initialize()
 			layout.FillDirection = Enum.FillDirection.Horizontal
 			layout.Padding = UDim.new(0, 10)
 		end
+		if FFlagBuilderIcons then
+			-- old icons have padding built in equal to 1/3 of the full size, so icon functionally appeared as 2/3 of it's actual size
+			-- to ensure consistent sizing with migrations, we multiply size by 2/3
+			icon.Size = UDim2.fromOffset(icon.Size.X.Offset * (2/3), icon.Size.Y.Offset * (2/3))
+		end
 	end --end local function onResized()
 
 	utility:OnResized(this.TabHeader, onResized)
@@ -275,7 +291,11 @@ local function Initialize()
 
 		if this.TabHeader then
 			this.TabHeader.TabSelection.Visible = true
-			icon.ImageTransparency = 0
+			if FFlagBuilderIcons then
+				icon.TextTransparency = 0
+			else
+				icon.ImageTransparency = 0
+			end
 			title.TextTransparency = 0
 		end
 
@@ -327,7 +347,11 @@ local function Initialize()
 
 		if this.TabHeader then
 			this.TabHeader.TabSelection.Visible = false
-			icon.ImageTransparency = 0.5
+			if FFlagBuilderIcons then
+				icon.TextTransparency = 0.5
+			else
+				icon.ImageTransparency = 0.5
+			end
 			title.TextTransparency = 0.5
 		end
 

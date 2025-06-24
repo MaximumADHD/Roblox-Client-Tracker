@@ -3,7 +3,8 @@ PROTO_0:
   GETTABLEKS R1 R2 K0 ["getAvatarPreviewFolder"]
   GETUPVAL R2 1
   CALL R1 1 1
-  GETUPVAL R2 2
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["insertToFolder"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0

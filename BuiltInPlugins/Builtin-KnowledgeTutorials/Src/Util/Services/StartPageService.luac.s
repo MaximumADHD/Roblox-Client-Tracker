@@ -1,0 +1,42 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StartPageService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R0 K1 [require]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["Packages"]
+  GETTABLEKS R2 R3 K3 ["Dev"]
+  GETTABLEKS R1 R2 K4 ["JestGlobals"]
+  CALL R0 1 1
+  GETTABLEKS R1 R0 K5 ["jest"]
+  DUPTABLE R2 K9 [{"openLink", "openLocalFile", "openPlace"}]
+  GETTABLEKS R3 R1 K10 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K6 ["openLink"]
+  GETTABLEKS R3 R1 K10 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K7 ["openLocalFile"]
+  GETTABLEKS R3 R1 K10 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K8 ["openPlace"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["KnowledgeTutorials"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  NEWTABLE R1 4 0
+  LOADK R2 K4 ["StartPageService"]
+  SETTABLEKS R2 R1 K5 ["Name"]
+  DUPCLOSURE R2 K6 [PROTO_0]
+  SETTABLEKS R2 R1 K7 ["real"]
+  DUPCLOSURE R2 K8 [PROTO_1]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K9 ["mock"]
+  RETURN R1 1

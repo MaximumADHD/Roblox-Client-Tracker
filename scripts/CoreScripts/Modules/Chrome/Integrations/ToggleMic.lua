@@ -11,8 +11,6 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
 local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
-
-local GetFFlagFixMicSelection = require(Chrome.Flags.GetFFlagFixMicSelection)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 local FFlagEnableChromeAudioFocusManagement = game:DefineFastFlag("EnableChromeAudioFocusManagement", false)
@@ -65,7 +63,7 @@ muteSelf = ChromeService:register({
 					userId = tostring((Players.LocalPlayer :: Player).UserId),
 					hideOnError = false,
 					iconStyle = "MicLight",
-					selectable = if GetFFlagFixMicSelection() then false else nil,
+					selectable = false,
 					size = ICON_SIZE,
 					showConnectingShimmer = true,
 				}) :: any,

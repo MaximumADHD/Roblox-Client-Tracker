@@ -52,6 +52,22 @@ do
     FFlagUserShowGuiHideToggles = success and result
 end
 
+local FFlagUserFixFreecamDeltaTimeCalculation
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixFreecamDeltaTimeCalculation")
+	end)
+	FFlagUserFixFreecamDeltaTimeCalculation = success and result
+end
+
+local FFlagUserFixFreecamGuiChangeVisibility
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixFreecamGuiChangeVisibility")
+	end)
+	FFlagUserFixFreecamGuiChangeVisibility = success and result
+end
+
 ------------------------------------------------------------------------
 
 local FREECAM_ENABLED_ATTRIBUTE_NAME = "FreecamEnabled"
@@ -170,11 +186,14 @@ local Input = {} do
 		MouseWheel = 0,
 	}
 
+	local DEFAULT_FPS        = 60
 	local NAV_GAMEPAD_SPEED  = Vector3.new(1, 1, 1)
 	local NAV_KEYBOARD_SPEED = Vector3.new(1, 1, 1)
 	local PAN_MOUSE_SPEED    = Vector2.new(1, 1)*(pi/64)
+	local PAN_MOUSE_SPEED_DT = PAN_MOUSE_SPEED/DEFAULT_FPS
 	local PAN_GAMEPAD_SPEED  = Vector2.new(1, 1)*(pi/8)
 	local FOV_WHEEL_SPEED    = 1.0
+	local FOV_WHEEL_SPEED_DT = FOV_WHEEL_SPEED/DEFAULT_FPS
 	local FOV_GAMEPAD_SPEED  = 0.25
 	local NAV_ADJ_SPEED      = 0.75
 	local NAV_SHIFT_MUL      = 0.25
@@ -207,6 +226,11 @@ local Input = {} do
 			thumbstickCurve(-gamepad.Thumbstick2.X)
 		)*PAN_GAMEPAD_SPEED
 		local kMouse = mouse.Delta*PAN_MOUSE_SPEED
+		if FFlagUserFixFreecamDeltaTimeCalculation then
+			if dt > 0 then
+				kMouse = (mouse.Delta/dt)*PAN_MOUSE_SPEED_DT
+			end
+		end
 		mouse.Delta = Vector2.new()
 		return kGamepad + kMouse
 	end
@@ -214,6 +238,11 @@ local Input = {} do
 	function Input.Fov(dt)
 		local kGamepad = (gamepad.ButtonX - gamepad.ButtonY)*FOV_GAMEPAD_SPEED
 		local kMouse = mouse.MouseWheel*FOV_WHEEL_SPEED
+		if FFlagUserFixFreecamDeltaTimeCalculation then
+			if dt > 0 then
+				kMouse = (mouse.MouseWheel/dt)*FOV_WHEEL_SPEED_DT
+			end
+		end
 		mouse.MouseWheel = 0
 		return kGamepad + kMouse
 	end
@@ -358,6 +387,14 @@ local PlayerState = {} do
 					gui.Enabled = false
 				end
 			end
+			if FFlagUserFixFreecamGuiChangeVisibility then
+				playergui.ChildAdded:Connect(function(child)
+					if child:IsA("ScreenGui") and child.Enabled then
+						screenGuis[#screenGuis + 1] = child
+						child.Enabled = false
+					end
+				end)
+			end
 		end
 
 		cameraFieldOfView = Camera.FieldOfView
@@ -392,6 +429,9 @@ local PlayerState = {} do
 			if gui.Parent then
 				gui.Enabled = true
 			end
+		end
+		if FFlagUserFixFreecamGuiChangeVisibility then
+			screenGuis = {}
 		end
 
 		Camera.FieldOfView = cameraFieldOfView

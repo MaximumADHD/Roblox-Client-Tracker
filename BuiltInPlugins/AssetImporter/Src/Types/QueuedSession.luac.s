@@ -24,10 +24,8 @@ PROTO_1:
   RETURN R2 -1
 
 PROTO_2:
-  GETTABLEKS R4 R0 K0 ["timestamp"]
-  GETTABLEKS R3 R4 K1 ["UnixTimestampMillis"]
-  GETTABLEKS R5 R1 K0 ["timestamp"]
-  GETTABLEKS R4 R5 K1 ["UnixTimestampMillis"]
+  GETTABLEKS R3 R0 K0 ["sortOrder"]
+  GETTABLEKS R4 R1 K0 ["sortOrder"]
   JUMPIFLT R4 R3 [+2]
   LOADB R2 0 +1
   LOADB R2 1
@@ -60,9 +58,9 @@ MAIN:
   LOADNIL R7
   MOVE R8 R5
   CALL R8 0 1
-  JUMPIFNOT R8 [+61]
+  JUMPIFNOT R8 [+59]
   GETIMPORT R8 K19 [table.freeze]
-  DUPTABLE R9 K37 [{"assetName", "creatorId", "currentPreset", "enabled", "errors", "uploadErrorsExpanded", "filepath", "importDataError", "progressValue", "settingsChanged", "session", "state", "timestamp", "uploaded", "uploadResults", "validSession", "warnings"}]
+  DUPTABLE R9 K37 [{"assetName", "creatorId", "currentPreset", "enabled", "errors", "uploadErrorsExpanded", "filepath", "importDataError", "progressValue", "settingsChanged", "session", "sortOrder", "state", "uploaded", "uploadResults", "validSession", "warnings"}]
   LOADK R10 K38 [""]
   SETTABLEKS R10 R9 K20 ["assetName"]
   LOADN R10 0
@@ -84,12 +82,11 @@ MAIN:
   SETTABLEKS R10 R9 K29 ["settingsChanged"]
   LOADNIL R10
   SETTABLEKS R10 R9 K30 ["session"]
+  LOADN R10 255
+  SETTABLEKS R10 R9 K31 ["sortOrder"]
   GETTABLEKS R11 R4 K39 ["SessionState"]
   GETTABLEKS R10 R11 K40 ["Invalid"]
-  SETTABLEKS R10 R9 K31 ["state"]
-  GETIMPORT R10 K43 [DateTime.now]
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K32 ["timestamp"]
+  SETTABLEKS R10 R9 K32 ["state"]
   LOADB R10 0
   SETTABLEKS R10 R9 K33 ["uploaded"]
   SETTABLEKS R3 R9 K34 ["uploadResults"]
@@ -99,9 +96,9 @@ MAIN:
   SETTABLEKS R10 R9 K36 ["warnings"]
   CALL R8 1 1
   MOVE R7 R8
-  JUMP [+60]
+  JUMP [+58]
   GETIMPORT R8 K19 [table.freeze]
-  DUPTABLE R9 K37 [{"assetName", "creatorId", "currentPreset", "enabled", "errors", "uploadErrorsExpanded", "filepath", "importDataError", "progressValue", "settingsChanged", "session", "state", "timestamp", "uploaded", "uploadResults", "validSession", "warnings"}]
+  DUPTABLE R9 K37 [{"assetName", "creatorId", "currentPreset", "enabled", "errors", "uploadErrorsExpanded", "filepath", "importDataError", "progressValue", "settingsChanged", "session", "sortOrder", "state", "uploaded", "uploadResults", "validSession", "warnings"}]
   LOADK R10 K38 [""]
   SETTABLEKS R10 R9 K20 ["assetName"]
   LOADN R10 255
@@ -123,12 +120,11 @@ MAIN:
   SETTABLEKS R10 R9 K29 ["settingsChanged"]
   LOADNIL R10
   SETTABLEKS R10 R9 K30 ["session"]
+  LOADN R10 255
+  SETTABLEKS R10 R9 K31 ["sortOrder"]
   GETTABLEKS R11 R4 K39 ["SessionState"]
   GETTABLEKS R10 R11 K40 ["Invalid"]
-  SETTABLEKS R10 R9 K31 ["state"]
-  GETIMPORT R10 K43 [DateTime.now]
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K32 ["timestamp"]
+  SETTABLEKS R10 R9 K32 ["state"]
   LOADB R10 0
   SETTABLEKS R10 R9 K33 ["uploaded"]
   SETTABLEKS R3 R9 K34 ["uploadResults"]
@@ -142,11 +138,11 @@ MAIN:
   NEWCLOSURE R9 P0
   CAPTURE REF R7
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K44 ["new"]
-  DUPCLOSURE R9 K45 [PROTO_1]
+  SETTABLEKS R9 R8 K41 ["new"]
+  DUPCLOSURE R9 K42 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K46 ["update"]
-  DUPCLOSURE R9 K47 [PROTO_2]
-  SETTABLEKS R9 R8 K48 ["compare"]
+  SETTABLEKS R9 R8 K43 ["update"]
+  DUPCLOSURE R9 K44 [PROTO_2]
+  SETTABLEKS R9 R8 K45 ["compare"]
   CLOSEUPVALS R7
   RETURN R8 1

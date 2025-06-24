@@ -1,0 +1,30 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Publish"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R1 K1 [pcall]
+  DUPCLOSURE R2 K2 [PROTO_0]
+  CAPTURE UPVAL U0
+  CALL R1 1 2
+  JUMPIF R1 [+9]
+  GETIMPORT R3 K4 [warn]
+  LOADK R5 K5 ["Failed to publish avatar settings: %*"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K6 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_1]
+  CAPTURE VAL R0
+  RETURN R1 1

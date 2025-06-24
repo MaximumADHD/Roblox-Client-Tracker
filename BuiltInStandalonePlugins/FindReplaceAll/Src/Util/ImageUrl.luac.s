@@ -24,9 +24,18 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 2 0
-  DUPCLOSURE R1 K0 [PROTO_0]
-  SETTABLEKS R1 R0 K1 ["scriptTypeIcons"]
-  DUPCLOSURE R1 K2 [PROTO_1]
-  SETTABLEKS R1 R0 K3 ["collapseExpandArrowIcon"]
-  RETURN R0 1
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Contexts"]
+  GETTABLEKS R2 R3 K8 ["ThemeContext"]
+  CALL R1 1 1
+  NEWTABLE R2 2 0
+  DUPCLOSURE R3 K9 [PROTO_0]
+  SETTABLEKS R3 R2 K10 ["scriptTypeIcons"]
+  DUPCLOSURE R3 K11 [PROTO_1]
+  SETTABLEKS R3 R2 K12 ["collapseExpandArrowIcon"]
+  RETURN R2 1

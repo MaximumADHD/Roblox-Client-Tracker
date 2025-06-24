@@ -11,12 +11,14 @@ local GetFFlagEnableReferredPlayerJoinRemoteEvent =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableReferredPlayerJoinRemoteEvent
 local GetFIntReferredPlayerJoinRemoteEventTimeout =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntReferredPlayerJoinRemoteEventTimeout
-
+local FFlagLuaAppDefaultHttpRetry = 
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppDefaultHttpRetry
 local HttpRequest = require(CorePackages.Packages.HttpRequest)
 local httpRequest = HttpRequest.config({
     requestFunction = function(url, requestMethod, requestOptions)
         return HttpRequest.requestFunctions.HttpRbxApi(url, requestMethod, requestOptions)
-    end
+    end,
+    maxRetryCount = if FFlagLuaAppDefaultHttpRetry then game:DefineFastInt("SocialContextToastHttpRetryCount", 4) else nil
 })
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics

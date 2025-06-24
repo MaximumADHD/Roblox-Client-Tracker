@@ -20,7 +20,7 @@ PROTO_0:
   LOADNIL R1
   GETUPVAL R3 3
   GETTABLEKS R2 R3 K5 ["new"]
-  DUPTABLE R3 K12 [{"assetName", "enabled", "filepath", "session", "timestamp", "validSession"}]
+  DUPTABLE R3 K12 [{"assetName", "enabled", "filepath", "session", "sortOrder", "validSession"}]
   JUMPIFNOT R1 [+3]
   GETTABLEKS R4 R1 K13 ["ImportName"]
   JUMP [+3]
@@ -36,20 +36,22 @@ PROTO_0:
   SETTABLEKS R4 R3 K8 ["filepath"]
   GETUPVAL R4 2
   SETTABLEKS R4 R3 K9 ["session"]
-  GETIMPORT R4 K16 [DateTime.now]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K10 ["timestamp"]
+  GETUPVAL R4 5
+  SETTABLEKS R4 R3 K10 ["sortOrder"]
   JUMPIFNOTEQKNIL R1 [+2]
   LOADB R4 0 +1
   LOADB R4 1
   SETTABLEKS R4 R3 K11 ["validSession"]
   CALL R2 1 1
-  GETUPVAL R5 5
+  GETUPVAL R4 5
+  ADDK R3 R4 K14 [1]
+  SETUPVAL R3 5
+  GETUPVAL R5 6
   MOVE R6 R2
   CALL R5 1 -1
   NAMECALL R3 R0 K3 ["dispatch"]
   CALL R3 -1 0
-  GETUPVAL R5 6
+  GETUPVAL R5 7
   MOVE R6 R2
   CALL R5 1 1
   NAMECALL R3 R0 K3 ["dispatch"]
@@ -65,6 +67,7 @@ PROTO_1:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   RETURN R2 1
 
 MAIN:
@@ -98,10 +101,13 @@ MAIN:
   GETTABLEKS R7 R8 K14 ["Utility"]
   GETTABLEKS R6 R7 K15 ["trimFilename"]
   CALL R5 1 1
-  DUPCLOSURE R6 K16 [PROTO_1]
+  LOADN R6 1
+  NEWCLOSURE R7 P0
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
+  CAPTURE REF R6
   CAPTURE VAL R2
   CAPTURE VAL R1
-  RETURN R6 1
+  CLOSEUPVALS R6
+  RETURN R7 1

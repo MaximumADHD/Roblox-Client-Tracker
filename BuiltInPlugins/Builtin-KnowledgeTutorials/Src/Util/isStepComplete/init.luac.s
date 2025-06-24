@@ -1,0 +1,58 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["completionType"]
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K2 [type]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K3 ["string"] [+3]
+  LOADB R2 0
+  RETURN R2 1
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+11]
+  GETIMPORT R3 K5 [warn]
+  LOADK R5 K6 ["No handler found for completion type: %*"]
+  MOVE R7 R1
+  NAMECALL R5 R5 K7 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  LOADB R3 0
+  RETURN R3 1
+  GETIMPORT R3 K9 [pcall]
+  MOVE R4 R2
+  MOVE R5 R0
+  CALL R3 2 2
+  JUMPIF R3 [+12]
+  GETIMPORT R5 K5 [warn]
+  LOADK R7 K10 ["Error in handler for completion type %*: %*"]
+  MOVE R9 R1
+  MOVE R10 R4
+  NAMECALL R7 R7 K7 ["format"]
+  CALL R7 3 1
+  MOVE R6 R7
+  CALL R5 1 0
+  LOADB R5 0
+  RETURN R5 1
+  JUMPIFEQKB R4 TRUE [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["KnowledgeTutorials"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K8 ["stepHandlers"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

@@ -41,29 +41,31 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  DUPTABLE R0 K3 [{"_screenGui", "_windowFocused", "_windowFocusReleased"}]
-  GETIMPORT R1 K6 [Instance.new]
-  LOADK R2 K7 ["ScreenGui"]
+  MOVE R1 R0
+  JUMPIF R1 [+4]
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["ScreenGui"]
   CALL R1 1 1
-  SETTABLEKS R1 R0 K0 ["_screenGui"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K5 ["new"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K1 ["_windowFocused"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K5 ["new"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K2 ["_windowFocusReleased"]
-  DUPTABLE R3 K10 [{"__index", "__newIndex"}]
-  DUPCLOSURE R4 K11 [PROTO_1]
-  SETTABLEKS R4 R3 K8 ["__index"]
-  DUPCLOSURE R4 K12 [PROTO_2]
-  SETTABLEKS R4 R3 K9 ["__newIndex"]
-  FASTCALL2 SETMETATABLE R0 R3 [+4]
-  MOVE R2 R0
-  GETIMPORT R1 K14 [setmetatable]
-  CALL R1 2 1
-  RETURN R1 1
+  DUPTABLE R2 K7 [{"_screenGui", "_windowFocused", "_windowFocusReleased"}]
+  SETTABLEKS R1 R2 K4 ["_screenGui"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K5 ["_windowFocused"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K6 ["_windowFocusReleased"]
+  DUPTABLE R5 K10 [{"__index", "__newIndex"}]
+  DUPCLOSURE R6 K11 [PROTO_1]
+  SETTABLEKS R6 R5 K8 ["__index"]
+  DUPCLOSURE R6 K12 [PROTO_2]
+  SETTABLEKS R6 R5 K9 ["__newIndex"]
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K14 [setmetatable]
+  CALL R3 2 1
+  RETURN R3 1
 
 MAIN:
   PREPVARARGS 0

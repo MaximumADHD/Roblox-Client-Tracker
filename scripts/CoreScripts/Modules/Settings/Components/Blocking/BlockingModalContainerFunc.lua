@@ -5,7 +5,7 @@ local React = require(CorePackages.Packages.React)
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
-local TrustAndSafety = require(Modules.TrustAndSafety)
+local isNewInGameMenuEnabled = require(Modules.isNewInGameMenuEnabled)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Toast = UIBlox.App.Dialog.Toast
@@ -27,14 +27,12 @@ type Props = {
 	onBlockingSuccess: () -> ()?,
 
 	blockingUtility: any?,
-	trustAndSafetyModule: any?,
 }
 
 local function BlockingModalContainer(props: Props)
 	local player = props.player
 	local closeModal = props.closeModal
 	local blockingUtility = props.blockingUtility or BlockingUtility
-	local trustAndSafetyModule = props.trustAndSafetyModule or TrustAndSafety
 	local analytics = props.analytics
 	local source = props.source
 	local onBlockingSuccess = props.onBlockingSuccess
@@ -74,7 +72,15 @@ local function BlockingModalContainer(props: Props)
 	local onBlockAndReport = React.useCallback(function()
 		onBlock()
 
-		trustAndSafetyModule.openReportDialogForPlayer(player, source)
+		local sourceForReporting = source or "BlockingModal"
+
+		if isNewInGameMenuEnabled() then
+			local InGameMenu = require(Modules.InGameMenuInit)
+			InGameMenu.openReportDialog(player, sourceForReporting)
+		else
+			local ReportAbuseMenu = require(Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
+			ReportAbuseMenu:ReportPlayer(player, sourceForReporting)
+		end
 	end, { onBlock, player, source } :: { any })
 
 	local localized = useLocalization({

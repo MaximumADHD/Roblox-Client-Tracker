@@ -114,7 +114,7 @@ local function launchRobuxUpsell()
 				end
 				-- Gate experiment logic on there being a variation
 				if upsellExpVariant == DesktopUpsellExperiment.variants.OpenRobuxStore then
-					platformInterface.openRobuxStoreWithContext(context)
+					platformInterface.openRobuxStoreWithContext(context, SelectedRobuxPackage.getProductId(state))
 				elseif upsellExpVariant == DesktopUpsellExperiment.variants.OpenPaymentsPage then
 					platformInterface.openPaymentsPageWithContext(context, SelectedRobuxPackage.getProductId(state))
 				elseif FFlagInExperiencePurchaseFlowRework then

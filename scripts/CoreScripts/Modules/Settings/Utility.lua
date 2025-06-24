@@ -52,7 +52,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
-local FFlagUnbindRenderSteps = game:DefineFastFlag("UnbindRenderSteps", false)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 local FFlagRemovePreferredTextSizePcall = game:DefineFastFlag("RemovePreferredTextSizePcall", false)
 
@@ -71,6 +70,7 @@ end
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
+local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 ------------------ Modules --------------------
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -78,6 +78,8 @@ local CorePackages = game:GetService("CorePackages")
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = AppCommonLib.Signal
 local Create = AppCommonLib.Create
+local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
@@ -499,19 +501,37 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 		image = image.Image
 	end
 
-	local imageLabel = Create("ImageLabel")({
+	local imageLabel
+	local migrationImage = migrationLookup['uiblox'][image] or migrationLookup['luaApps'][image]
+	if FFlagBuilderIcons and migrationImage then
+		imageLabel = Create("TextLabel")({
+			Name = name .. "TextLabel",
+			BackgroundTransparency = 1,
+			Size = imageSize,
+			TextSize = imageSize.Y.Offset * (2/3), 
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			TextColor3 = Color3.new(1, 1, 1),
+			Text = migrationImage.name,
+			FontFace = BuilderIcons.Font[migrationImage.variant],
+			Parent = button,
+			ZIndex = 2,
+		})
+	else
+		imageLabel = Create("ImageLabel")({
 		Name = name .. "ImageLabel",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Size = imageSize,
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Image = image,
+		Image = if FFlagBuilderIcons then Theme.Images[image] else image,
 		ImageRectOffset = imageRectOffset,
 		ImageRectSize = imageRectSize,
 		ZIndex = 2,
 		Parent = button,
 	})
+	end
 	if style == "ImageButton" then
 		button.Border.Thickness = 0
 		button.Border.Transparency = 1
@@ -560,10 +580,7 @@ local function MakeRoundedRectFocusState(instance, renderStepName)
 		Transparency = Theme.selectionCursor.GradientTransparencySequence,
 		Parent = stroke,
 	})
-
-	if FFlagUnbindRenderSteps then
-		RunService:UnbindFromRenderStep(renderStepName)
-	end
+	RunService:UnbindFromRenderStep(renderStepName)
 
 	RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
 		local rotation = gradient.Rotation + FOCUS_GRADIENT_ROTATION_SPEED

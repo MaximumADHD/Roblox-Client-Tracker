@@ -40,6 +40,8 @@ local FFlagAllowDisconnectGuiForOkUnknown = require(RobloxGui.Modules.Flags.FFla
 
 local FFlagEnableExperienceGenericChallengeRenderingConnection = game:DefineFastFlag("EnableExperienceGenericChallengeRenderingConnection", false)
 
+local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
+
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function()
 		return tonumber(settings():GetFVariable(name))
@@ -633,7 +635,11 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 	end
 
 	if errorPrompt then
-		errorPrompt:onErrorChanged(errorMsg, errorCode)
+		if GetFFlagDisplayChannelNameOnErrorPrompt() then
+			errorPrompt:onErrorChanged(errorMsg, errorCode, true)
+		else
+			errorPrompt:onErrorChanged(errorMsg, errorCode)
+		end
 	end
 end
 
