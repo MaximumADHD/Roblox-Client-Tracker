@@ -11,6 +11,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local AssetCalculator = require(root.util.AssetCalculator)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
@@ -20,6 +21,7 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local Types = require(root.util.Types)
 
 local getFStringUGCValidateBoundsInflationThreshold = require(root.flags.getFStringUGCValidateBoundsInflationThreshold)
+local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 
 type Extents = {
 	min: Vector3,
@@ -301,6 +303,12 @@ local function validateAccurateBoundingBox(
 	checkInflatingGeo(validExtents, smallIslands, 3, "small geometry", assetType, reasonsAccumulator)
 
 	checkInflatingGeo(validExtents, skinnyTris, 3, "skinny triangle(s)", assetType, reasonsAccumulator)
+
+	if getFFlagReportVisibilityAndIslandTelemetry() then
+		if not (reasonsAccumulator:getFinalResults()) then
+			Analytics.reportFailure(Analytics.ErrorType.validateAccurateBoundingBox :: string, nil, validationContext)
+		end
+	end
 
 	return reasonsAccumulator:getFinalResults()
 end

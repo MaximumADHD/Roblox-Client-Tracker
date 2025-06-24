@@ -181,4 +181,4 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 	)
 end
 
-return React.forwardRef(NumberInput)
+return React.memo(React.forwardRef(NumberInput))

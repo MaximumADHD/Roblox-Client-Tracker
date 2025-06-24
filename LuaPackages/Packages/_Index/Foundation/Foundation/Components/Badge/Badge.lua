@@ -3,6 +3,10 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local BuilderIcons = require(Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration["uiblox"]
+type IconVariant = BuilderIcons.IconVariant
+
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local Types = require(Foundation.Components.Types)
 local Image = require(Foundation.Components.Image)
@@ -12,9 +16,11 @@ local Text = require(Foundation.Components.Text)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local useBadgeVariants = require(script.Parent.useBadgeVariants)
-local isBuilderIcon = require(Foundation.Components.Icon.isBuilderIcon)
 local getIconScale = require(Foundation.Utility.getIconScale)
 local useIconSize = require(Foundation.Utility.useIconSize)
+local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local isMigrated = iconMigrationUtils.isMigrated
+local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 type BadgeVariant = BadgeVariant.BadgeVariant
@@ -28,6 +34,7 @@ type IconPosition = IconPosition.IconPosition
 
 type Icon = {
 	name: string,
+	variant: IconVariant?,
 	position: IconPosition,
 }
 
@@ -78,9 +85,10 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 	local BadgeIcon: React.ReactElement
 	if icon ~= nil then
 		local layoutOrder = if icon.position == IconPosition.Left then 1 else 3
-		if isBuilderIcon(icon.name) then
+		if isBuilderIconOrMigrated(icon.name) then
 			BadgeIcon = React.createElement(Icon, {
-				name = icon.name,
+				name = if isMigrated(icon.name) then migrationLookup[icon.name].name else icon.name,
+				variant = if isMigrated(icon.name) then migrationLookup[icon.name].variant else icon.variant,
 				size = iconSize,
 				style = variantProps.content.style,
 				LayoutOrder = layoutOrder,

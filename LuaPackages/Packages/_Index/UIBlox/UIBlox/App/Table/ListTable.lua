@@ -9,8 +9,6 @@ local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 local withStyle = require(Core.Style.withStyle)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local DIVIDER_START_OFFSET = 24
 
 --[[
@@ -31,7 +29,7 @@ ListTable.validateProps = t.strictInterface({
 	showDividers = t.optional(t.boolean),
 	-- The starting offset of the dividers.
 	-- If it's not set, the divider start offset defaults to DIVIDER_START_OFFSET
-	dividerStartOffset = if UIBloxConfig.enableEdpComponentAlignment then t.optional(t.number) else nil,
+	dividerStartOffset = t.optional(t.number),
 	-- The AnchorPoint of the list table
 	anchorPoint = t.optional(t.Vector2),
 	-- The Position of the list table
@@ -45,7 +43,7 @@ ListTable.validateProps = t.strictInterface({
 
 ListTable.defaultProps = {
 	showDividers = true,
-	dividerStartOffset = if UIBloxConfig.enableEdpComponentAlignment then DIVIDER_START_OFFSET else nil,
+	dividerStartOffset = DIVIDER_START_OFFSET,
 }
 
 function ListTable:render()
@@ -88,22 +86,8 @@ function ListTable:render()
 			}, {
 				Content = value,
 				Divider = shouldShowDivider and Roact.createElement("Frame", {
-					Size = UDim2.new(
-						1,
-						if UIBloxConfig.enableEdpComponentAlignment
-							then -self.props.dividerStartOffset
-							else -DIVIDER_START_OFFSET,
-						0,
-						1
-					),
-					Position = UDim2.new(
-						0,
-						if UIBloxConfig.enableEdpComponentAlignment
-							then self.props.dividerStartOffset
-							else DIVIDER_START_OFFSET,
-						1,
-						-1
-					),
+					Size = UDim2.new(1, -self.props.dividerStartOffset, 0, 1),
+					Position = UDim2.new(0, self.props.dividerStartOffset, 1, -1),
 					BorderSizePixel = 0,
 					BackgroundColor3 = style.Theme.Divider.Color,
 					BackgroundTransparency = style.Theme.Divider.Transparency,

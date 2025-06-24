@@ -3,10 +3,17 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local BuilderIcons = require(Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration["uiblox"]
+type IconVariant = BuilderIcons.IconVariant
+
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local Icon = require(Foundation.Components.Icon)
+local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local isMigrated = iconMigrationUtils.isMigrated
+local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 
 local useAccessoryVariants = require(script.Parent.useAccessoryVariants)
 
@@ -22,6 +29,7 @@ type AccessoryProps = {
 
 export type Accessory = {
 	iconName: string,
+	iconVariant: IconVariant?,
 	isCircular: boolean?,
 	onActivated: (() -> ())?,
 }
@@ -50,12 +58,22 @@ local function Accessory(accessoryProps: AccessoryProps)
 			onActivated = fullConfig.onActivated,
 			LayoutOrder = if accessoryProps.isLeading then 1 else 3,
 		},
-		React.createElement(Image, {
-			Image = fullConfig.iconName,
-			Size = variants.accessory.Size,
-			imageStyle = accessoryProps.contentStyle,
-			stateLayer = { affordance = StateLayerAffordance.None },
-		})
+		if isBuilderIconOrMigrated(fullConfig.iconName)
+			then React.createElement(Icon, {
+				name = if isMigrated(fullConfig.iconName)
+					then migrationLookup[fullConfig.iconName].name
+					else fullConfig.iconName,
+				variant = if isMigrated(fullConfig.iconName)
+					then migrationLookup[fullConfig.iconName].variant
+					else fullConfig.iconVariant,
+				size = variants.accessory.Size.Y.Offset,
+				style = accessoryProps.contentStyle,
+			})
+			else React.createElement(Image, {
+				Image = fullConfig.iconName,
+				Size = variants.accessory.Size,
+				imageStyle = accessoryProps.contentStyle,
+			})
 	)
 end
 

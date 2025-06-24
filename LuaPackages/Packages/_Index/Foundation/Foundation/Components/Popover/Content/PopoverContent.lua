@@ -8,6 +8,9 @@ local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useFloating = require(script.Parent.Parent.useFloating)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
+local usePointerPosition = require(Foundation.Utility.usePointerPosition)
+local isPointInGuiObjectBounds = require(Foundation.Utility.isPointInGuiObjectBounds)
+local Flags = require(Foundation.Utility.Flags)
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
@@ -64,6 +67,8 @@ local SHADOW_VERTICAL_OFFSET = 2
 local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: React.Ref<GuiObject>?)
 	local props = withDefaults(contentProps, defaultProps)
 	local popoverContext = React.useContext(PopoverContext)
+	local pointerPosition = usePointerPosition(popoverContext.anchor)
+
 	local overlay = useOverlay()
 
 	local tokens = useTokens()
@@ -99,11 +104,23 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		if instance ~= nil and props.onPressedOutside then
 			backdropListener.current = instance:GetPropertyChangedSignal("GuiState"):Connect(function()
 				if instance.GuiState == Enum.GuiState.Press then
+					if Flags.FoundationSkipPopoverOnPressedOutsideWhenClickingAnchor then
+						-- If popover anchor is clicked, skip the onPressedOutside callback
+						if popoverContext.anchor then
+							local pointerPositionValue = pointerPosition:getValue()
+
+							if isPointInGuiObjectBounds(popoverContext.anchor, pointerPositionValue) then
+								return
+							end
+						end
+					end
+
+					-- Otherwise, treat as outside click
 					props.onPressedOutside()
 				end
 			end)
 		end
-	end, { props.onPressedOutside })
+	end, { props.onPressedOutside :: unknown, popoverContext.anchor })
 
 	React.useEffect(function()
 		return function()

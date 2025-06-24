@@ -2,11 +2,15 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local BuilderIcons = require(Packages.BuilderIcons)
 
 local Components = Foundation.Components
 local Image = require(Components.Image)
+local Text = require(Components.Text)
 local Input = require(Components.InternalInput)
 local Types = require(Components.Types)
+
+local Flags = require(Foundation.Utility.Flags)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -55,10 +59,19 @@ local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
 		}),
 		{
 			Checkmark = if props.isChecked
-				then React.createElement(Image, {
-					Image = "icons/status/success_small",
-					tag = variantProps.checkmark.tag,
-				})
+				then if Flags.FoundationMigrateIconNames
+					then React.createElement(Text, {
+						Text = BuilderIcons.Icon.Check,
+						fontStyle = {
+							Font = BuilderIcons.Font[BuilderIcons.IconVariant.Filled],
+						},
+						TextScaled = true,
+						tag = variantProps.checkmark.tag,
+					})
+					else React.createElement(Image, {
+						Image = "icons/status/success_small",
+						tag = variantProps.checkmark.tag,
+					})
 				else nil,
 		}
 	)

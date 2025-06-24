@@ -11,6 +11,7 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Types = require(root.util.Types)
 local Constants = require(root.Constants)
 local tryYield = require(root.util.tryYield)
@@ -29,6 +30,7 @@ local getEngineFeatureEditableImageDrawTriangleEnabled =
 local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
 local getFFlagUGCValidateFixTransparencyReporting = require(root.flags.getFFlagUGCValidateFixTransparencyReporting)
 local getFFlagUGCValidateMinBoundsVisibility = require(root.flags.getFFlagUGCValidateMinBoundsVisibility)
+local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 
 local FFlagFixNonZeroTransparency = game:DefineFastFlag("FixNonZeroTransparency", false)
 
@@ -515,6 +517,16 @@ local function validateAssetTransparency(inst: Instance, validationContext: Vali
 			end
 		end
 
+		if getFFlagReportVisibilityAndIslandTelemetry() then
+			if not (reasonsAccumulator:getFinalResults()) then
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateAssetTransparency_AssetTransparencyThresholds :: string,
+					nil,
+					validationContext
+				)
+			end
+		end
+
 		return reasonsAccumulator:getFinalResults()
 	else
 		local reasonsAccumulator = FailureReasonsAccumulator.new()
@@ -566,6 +578,16 @@ local function validateAssetTransparency(inst: Instance, validationContext: Vali
 				})
 			end
 			editableImage:Destroy()
+		end
+
+		if getFFlagReportVisibilityAndIslandTelemetry() then
+			if not (reasonsAccumulator:getFinalResults()) then
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateAssetTransparency_AssetTransparencyThresholds :: string,
+					nil,
+					validationContext
+				)
+			end
 		end
 
 		return reasonsAccumulator:getFinalResults()

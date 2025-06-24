@@ -63,16 +63,16 @@ local tileInterface = t.strictInterface({
 	titleTextLineCount = t.optional(t.integer),
 
 	-- The vertical padding between elements in the ItemTile
-	innerPadding = t.optional(t.integer),
+	innerPadding = t.optional(t.number),
 
 	-- The additional vertical padding above the title area
-	titleTopPadding = t.optional(t.integer),
+	titleTopPadding = t.optional(t.number),
 
 	-- The additional vertical padding above the title area
-	subtitleTopPadding = t.optional(t.integer),
+	subtitleTopPadding = t.optional(t.number),
 
 	-- The additional vertical padding above the footer area
-	footerTopPadding = t.optional(t.integer),
+	footerTopPadding = t.optional(t.number),
 
 	-- The function that gets called on itemTile click
 	onActivated = t.optional(t.callback),

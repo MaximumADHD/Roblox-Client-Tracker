@@ -21,6 +21,7 @@ local validateHSR = require(root.validation.validateHSR)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
+local validateLCInRenderBounds = require(root.validation.validateLayeredClothingInRenderBounds)
 
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
@@ -49,6 +50,8 @@ local getFFlagUGCValidatePropertiesRefactor = require(root.flags.getFFlagUGCVali
 
 local getFIntUGCValidationLCHandleScaleOffsetMaximum =
 	require(root.flags.getFIntUGCValidationLCHandleScaleOffsetMaximum) -- / 1000
+local getFFlagValidateDeformedLayeredClothingIsInBounds =
+	require(root.flags.getFFlagValidateDeformedLayeredClothingIsInBounds)
 
 local maxAccessoryCageOrigin = getFIntUGCValidateAccessoryMaxCageOrigin() / 100
 
@@ -385,6 +388,14 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 			for _, issue in failedReason do
 				table.insert(reasons, issue)
 			end
+			validationResult = false
+		end
+	end
+
+	if getFFlagValidateDeformedLayeredClothingIsInBounds() then
+		success, failedReason = validateLCInRenderBounds(instance, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
 		end
 	end

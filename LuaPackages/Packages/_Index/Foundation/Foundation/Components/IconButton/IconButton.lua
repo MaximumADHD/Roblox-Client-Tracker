@@ -19,7 +19,7 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useIconSize = require(Foundation.Utility.useIconSize)
 local useIconButtonPadding = require(script.Parent.useIconButtonPadding)
-local isBuilderIcon = require(Foundation.Components.Icon.isBuilderIcon)
+local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
 
 local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
@@ -76,7 +76,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	local paddingOffset = useIconButtonPadding(props.size, isBuilderIcon)
 	local padding = UDim.new(0, paddingOffset)
 
-	local size = useIconSize(props.size, isBuilderIcon)
+	local size = useIconSize(props.size, isBuilderIcon) :: UDim2 -- We don't support bindings for IconButton size
 
 	local cursor = useCursor({
 		radius = UDim.new(0, radius),

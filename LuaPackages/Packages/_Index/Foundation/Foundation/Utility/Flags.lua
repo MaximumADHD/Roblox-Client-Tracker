@@ -16,9 +16,15 @@ return {
 	FoundationAdjustButtonIconSizes = SafeFlags.createGetFFlag("FoundationAdjustButtonIconSizes2")(),
 	FoundationFixBackgroundForStylingV2 = SafeFlags.createGetFFlag("FoundationFixBackgroundForStylingV2")(),
 	FoundationRefactorInputs = SafeFlags.createGetFFlag("FoundationRefactorInputs")(),
+	FoundationStandardizeInputLabelSizes = SafeFlags.createGetFFlag("FoundationStandardizeInputLabelSizes")(),
+	FoundationMigrateIconNames = SafeFlags.createGetFFlag("FoundationMigrateIconNames")(),
 	FoundationDisableDragPositionAdjustmentForGuiInsets = SafeFlags.createGetFFlag(
 		"FoundationDisableDragPositionAdjustmentForGuiInsets"
 	)(),
 	FoundationChipDesignUpdate = SafeFlags.createGetFFlag("FoundationChipDesignUpdate")(),
 	FoundationUpdateBadgeDesign = SafeFlags.createGetFFlag("FoundationUpdateBadgeDesign")(),
+	FoundationSkipPopoverOnPressedOutsideWhenClickingAnchor = SafeFlags.createGetFFlag(
+		"FoundationSkipPopoverOnPressedOutsideWhenClickingAnchor"
+	)(),
+	FoundationSliderOrientationImprovement = SafeFlags.createGetFFlag("FoundationSliderOrientationImprovement")(),
 }

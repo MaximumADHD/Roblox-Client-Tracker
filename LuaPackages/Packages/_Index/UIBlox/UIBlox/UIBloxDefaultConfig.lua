@@ -36,8 +36,6 @@ return {
 	-- Use InteractionFeedbackManager, which is injected via InteractionFeedbackContext
 	enableInteractionFeedback = false,
 
-	-- Fix existing bugs and update MediaGallerySingle
-	updateMediaGallerySingle = false,
 	-- Multiply FontSizeMax by line height to get the correct textbound in GenericTextLabel
 	fixGenericTextLabelTextBound = false,
 
@@ -119,15 +117,6 @@ return {
 	-- Remove Details Page files moved to LuaApps
 	moveDetailsPageToLuaApps = false,
 
-	-- Enable changes to align all EDP components
-	enableEdpComponentAlignment = false,
-
-	-- Add the option to pass in callback to MediaGalleryPreview that runs on thumbnail activation
-	addThumbnailCallbackToMediaGalleryPreview = false,
-
-	-- Remove Media Gallery files moved to LuaApps
-	moveMediaGalleryToLuaApps = false,
-
 	-- Allow to disable color mapping for the color experiment on SignUp/Login
 	allowDisableColorMapping = false,
 
@@ -137,8 +126,15 @@ return {
 	-- Uses the Foundation Interactable component instead
 	useFoundationInteractable = false,
 
+	-- Adds BuilderIcon migration to createImageSetComponent,
+	migrateBuilderIcon = false,
+
 	-- Use design tokens for sizing the shortcut bar
 	useTokenizedShortcutBar = false,
+
 	-- Pass gridInfo to renderItem when using GridView
 	passRowAndColumnDataToItemInGridView = false,
+
+	-- Always use provided ref for button
+	useProvidedRefForButton = false,
 }

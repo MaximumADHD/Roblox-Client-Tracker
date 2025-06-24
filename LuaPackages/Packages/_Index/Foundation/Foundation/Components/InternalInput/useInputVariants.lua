@@ -7,9 +7,6 @@ type Padding = Types.Padding
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local ControlState = require(Foundation.Enums.ControlState)
-type ControlState = ControlState.ControlState
-
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 

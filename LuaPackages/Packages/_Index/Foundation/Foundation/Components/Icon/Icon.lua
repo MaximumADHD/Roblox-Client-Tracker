@@ -13,12 +13,15 @@ local Image = require(Foundation.Components.Image)
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
+local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useIconSize = require(Foundation.Utility.useIconSize)
 local Logger = require(Foundation.Utility.Logger)
-local isBuilderIcon = require(script.Parent.isBuilderIcon)
+local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
+local migrateIconName = require(script.Parent.migrateIconName)
+local migrateFontSize = require(script.Parent.migrateFontSize)
 
 local Types = require(Foundation.Components.Types)
 type Bindable<T> = Types.Bindable<T>
@@ -27,7 +30,7 @@ type ColorStyle = Types.ColorStyle
 type IconProps = {
 	name: string,
 	style: ColorStyle?,
-	size: IconSize | number?,
+	size: IconSize | Bindable<number>?,
 	variant: IconVariant?,
 	Rotation: Bindable<number>?,
 	-- **DEPRECATED**
@@ -42,12 +45,28 @@ local defaultProps = {
 local function Icon(iconProps: IconProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(iconProps, defaultProps)
 	local tokens = useTokens()
+	local textSizeOffset = useTextSizeOffset()
 	local isBuilderIcon = isBuilderIcon(props.name)
+	local migratedIcon = migrateIconName(props.name)
 	local size = useIconSize(props.size, isBuilderIcon)
+
+	local variant = props.variant
+	local name = props.name
+	local fontSize: number? = if typeof(size) == "table" then nil else size.Y.Offset
+	if not isBuilderIcon then
+		if migratedIcon then
+			if typeof(size) == "table" then
+				error("Binding size isn't supported when migrating a UIBlox icon, use Builder Icons directly")
+			end
+			variant = migratedIcon.variant or variant
+			name = migratedIcon.name
+			fontSize = migrateFontSize(fontSize :: number, tokens)
+		end
+	end
 
 	local iconStyle = props.style or tokens.Color.Content.Default
 
-	if not isBuilderIcon then
+	if not isBuilderIcon and not migratedIcon then
 		if iconProps.variant ~= nil then
 			Logger:warning("variant is not supported when using FoundationImages, consider using BuilderIcons")
 		end
@@ -69,17 +88,26 @@ local function Icon(iconProps: IconProps, ref: React.Ref<GuiObject>?)
 			Text,
 			withCommonProps(props, {
 				textStyle = iconStyle,
-				Text = props.name,
+				Text = name,
 				fontStyle = {
-					Font = Font[props.variant],
-					FontSize = size.Y.Offset,
+					Font = Font[variant],
+					FontSize = fontSize,
 				},
+				TextScaled = typeof(size) == "table",
 				Size = size,
 
 				-- Pass through props
 				ref = ref,
 				Rotation = props.Rotation,
-			})
+			}),
+			{
+				UITextSizeConstraint = if textSizeOffset > 0 and fontSize
+					then React.createElement("UITextSizeConstraint", {
+						MaxTextSize = fontSize,
+					})
+					else nil,
+				Children = React.createElement(React.Fragment, props.children),
+			}
 		)
 	end
 end

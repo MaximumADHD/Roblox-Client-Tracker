@@ -6,19 +6,11 @@ Foundation provides a set of images and icons to use in your components. These i
 
 To use these, you'll pass the image's string to the `Image` property of the [[Image]] component or the `name` property of the [[Icon]] component.
 
-**In general, you'll use the simple, opinionated [[Icon]] component for icon images**. It sizes the Icon and applies default styling for you.
+**In general, you'll use the simple, opinionated [[Icon]] component for icons**. It sizes the Icon and applies default styling for you. Most of the icons here are deprecated in favor of Builder Icons. Read more on the [[Icon]] page.
 
-```lua title="Icon"
-local Icon = Foundation.Icon
-local IconSize = Foundation.Enums.IconSize
+!!! warning "Deprecated Icons"
 
-local function MyAdd()
-  return React.createElement(Icon, {
-    name = "icons/actions/edit/add",
-    size = IconSize.Medium
-  })
-end
-```
+    The majority of icons in this set are deprecated in favor of Builder Icons. They will be removed in a future release. Use the [[Icon]] component with Builder Icons instead.
 
 The [[Image]] component is used for graphics that use non standard sizes and other images that require slicing.
 

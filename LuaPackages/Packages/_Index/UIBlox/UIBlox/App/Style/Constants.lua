@@ -42,6 +42,7 @@ Constants.DefaultSettings = {
 	preferredTransparency = 1,
 	reducedMotion = false,
 	preferredTextSize = if EngineFeaturedPreferredTextSizeExists then Enum.PreferredTextSize.Medium else nil,
+	scale = 1,
 }
 
 return Constants

@@ -26,6 +26,7 @@ local Foundation = strict({
 	Checkbox = require(script.Components.Checkbox),
 	Chip = require(script.Components.Chip),
 	Divider = require(script.Components.Divider),
+	Dropdown = require(script.Components.Dropdown),
 	Empty = require(script.Components.Empty),
 	Icon = require(script.Components.Icon),
 	IconButton = require(script.Components.IconButton),
@@ -47,6 +48,7 @@ local Foundation = strict({
 	Tooltip = require(script.Components.Tooltip),
 	Toast = require(script.Components.Toast),
 	View = require(script.Components.View),
+	SegmentedControl = require(script.Components.SegmentedControl),
 
 	-- Providers
 	FoundationProvider = require(script.Providers.Foundation),
@@ -112,6 +114,9 @@ local Foundation = strict({
 		mockComponent = require(script.Utility.mockComponent),
 		withCommonProps = require(script.Utility.withCommonProps),
 		withDefaults = require(script.Utility.withDefaults),
+		isPointInGuiObjectBounds = require(script.Utility.isPointInGuiObjectBounds),
+		Flags = require(script.Utility.Flags),
+		isBuilderIcon = require(script.Utility.isBuilderIcon),
 	},
 
 	-- Unstable APIs, do not use

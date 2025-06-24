@@ -301,26 +301,6 @@ local function initializeLibrary(configs)
 			HorizontalPageMargin = lazify(function()
 				return require(script.App.Container.HorizontalPageMargin)
 			end),
-
-			-- remove when cleaning up moveMediaGalleryToLuaApps as true
-			-- start
-			calcMediaGallerySizesFromWidth = require(script.App.Container.MediaGallery.calcMediaGallerySizesFromWidth),
-			MediaGalleryPreview = lazify(function()
-				return require(script.App.Container.MediaGallery.MediaGalleryPreview)
-			end),
-			MediaGalleryFullScreen = lazify(function()
-				return require(script.App.Container.MediaGallery.MediaGalleryFullScreen)
-			end),
-			MediaGalleryHorizontal = lazify(function()
-				return require(script.App.Container.MediaGallery.MediaGalleryHorizontal)
-			end),
-			MediaGalleryExpandableView = lazify(function()
-				return require(script.App.Container.MediaGallery.MediaGalleryExpandableView)
-			end),
-			CrossFadeAnimatedView = lazify(function()
-				return require(script.App.Container.MediaGallery.CrossFadeAnimatedView)
-			end),
-			--end
 		}),
 
 		Slider = strict({
@@ -566,6 +546,9 @@ local function initializeLibrary(configs)
 			}),
 			ShortcutBar = lazify(function()
 				return require(script.App.Navigation.ShortcutBar.ShortcutBar)
+			end),
+			Shortcut = lazify(function()
+				return require(script.App.Navigation.ShortcutBar.Shortcut)
 			end),
 		}),
 

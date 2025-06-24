@@ -1,11 +1,18 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Types = require(Foundation.Components.Types)
+type Bindable<T> = Types.Bindable<T>
+
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local function useIconSize(size: IconSize | number, isBuilderIcon: boolean): UDim2
+local function isNumber(value: any): boolean
+	return typeof(value) == "number" or (typeof(value) == "table" and typeof(value:getValue()) == "number")
+end
+
+local function useIconSize(size: IconSize | Bindable<number>, isBuilderIcon: boolean): Bindable<UDim2>
 	local tokens = useTokens()
 
 	local iconSizes = if isBuilderIcon
@@ -24,9 +31,9 @@ local function useIconSize(size: IconSize | number, isBuilderIcon: boolean): UDi
 			[IconSize.XXLarge :: IconSize] = 24 * tokens.Size.Size_200,
 		}
 
-	local iconSize: number? = if typeof(size) == "number" then size else iconSizes[size]
+	local iconSize: Bindable<number>? = if isNumber(size) then size else iconSizes[size :: IconSize]
 
-	if not isBuilderIcon and typeof(size) == "number" then
+	if not isBuilderIcon and isNumber(size) then
 		iconSize = nil
 	end
 
@@ -34,7 +41,11 @@ local function useIconSize(size: IconSize | number, isBuilderIcon: boolean): UDi
 		error("Invalid icon size: " .. tostring(size))
 	end
 
-	return UDim2.fromOffset(iconSize, iconSize)
+	return if typeof(iconSize) == "table"
+		then iconSize:map(function(value)
+			return UDim2.fromOffset(value, value)
+		end)
+		else UDim2.fromOffset(iconSize, iconSize)
 end
 
 return useIconSize

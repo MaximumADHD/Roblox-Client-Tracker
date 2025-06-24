@@ -3,6 +3,9 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local BuilderIcons = require(Packages.BuilderIcons)
+type IconVariant = BuilderIcons.IconVariant
+
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local Types = require(Foundation.Components.Types)
 local Icon = require(Foundation.Components.Icon)
@@ -23,6 +26,7 @@ type IconPosition = IconPosition.IconPosition
 
 type Icon = {
 	name: string,
+	variant: IconVariant?,
 	position: IconPosition,
 }
 

@@ -41,6 +41,9 @@ local getEngineFeatureUGCValidateBodyMaxCageMeshDistance =
 local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
 local getFFlagRefactorBodyAttachmentOrientationsCheck =
 	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
+local getFFlagValidateDeformedLayeredClothingIsInBounds =
+	require(root.flags.getFFlagValidateDeformedLayeredClothingIsInBounds)
+local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 
 local function joinTables(...)
 	local result = {}
@@ -57,6 +60,9 @@ local Analytics = {}
 Analytics.ErrorType = {
 	resetPhysicsData_FailedToLoadMesh = "resetPhysicsData_FailedToLoadMesh",
 	validateAccessoryName = "validateAccessoryName",
+	validateAccurateBoundingBox = if getFFlagReportVisibilityAndIslandTelemetry()
+		then "validateAccurateBoundingBox"
+		else nil,
 	validateAssetBounds_AssetSizeTooBig = "validateAssetBounds_AssetSizeTooBig",
 	validateAssetBounds_AssetSizeTooSmall = "validateAssetBounds_AssetSizeTooSmall",
 	validateAssetBounds_InconsistentAvatarPartScaleType = "validateAssetBounds_InconsistentAvatarPartScaleType",
@@ -64,6 +70,9 @@ Analytics.ErrorType = {
 	validateAssetCreator_DependencyNotOwnedByCreator = "validateAssetCreator_DependencyNotOwnedByCreator",
 	validateAssetCreator_FailedToLoad = "validateAssetCreator_FailedToLoad",
 	validateAssetCreator_TooManyDependencies = "validateAssetCreator_TooManyDependencies",
+	validateAssetTransparency_AssetTransparencyThresholds = if getFFlagReportVisibilityAndIslandTelemetry()
+		then "validateAssetTransparency_AssetTransparencyThresholds"
+		else nil,
 	validateAttributes = "validateAttributes",
 	validateBodyPartChildAttachmentBounds_AttachmentRotated = if getFFlagRefactorBodyAttachmentOrientationsCheck()
 		then nil
@@ -257,6 +266,13 @@ if getFFlagRefactorBodyAttachmentOrientationsCheck() then
 		"validateBodyPartChildAttachmentOrientations_RotatedRig"
 	Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedGrip =
 		"validateBodyPartChildAttachmentOrientations_RotatedGrip"
+end
+
+if getFFlagValidateDeformedLayeredClothingIsInBounds() then
+	Analytics.ErrorType.validateDeformedLayeredClothingInRenderBounds_FailedToExecute =
+		"validateDeformedLayeredClothingInRenderBounds_FailedToExecute"
+	Analytics.ErrorType.validateDeformedLayeredClothingInRenderBounds_ClothingOutOfBounds =
+		"validateDeformedLayeredClothingInRenderBounds_ClothingOutOfBounds"
 end
 
 setmetatable(Analytics.ErrorType, {

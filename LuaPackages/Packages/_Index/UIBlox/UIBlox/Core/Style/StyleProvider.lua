@@ -42,6 +42,7 @@ local DEFAULT_STYLE = {
 		PreferredTransparency = 1,
 		ReducedMotion = false,
 		PreferredTextSize = if EngineFeaturedPreferredTextSizeExists then Enum.PreferredTextSize.Medium else nil,
+		Scale = 1,
 	},
 }
 
@@ -86,7 +87,8 @@ function StyleProvider:render()
 		-- If tokens were not passed in, fetch them with the style object now that defaults are applied.
 		style.Tokens = getTokens(
 			Constants.DefaultDeviceType :: DeviceType,
-			if style.Theme == Themes.LightTheme then Constants.ThemeName.Light else Constants.ThemeName.Dark
+			if style.Theme == Themes.LightTheme then Constants.ThemeName.Light else Constants.ThemeName.Dark,
+			(style.Settings :: any).Scale
 		)
 	end
 

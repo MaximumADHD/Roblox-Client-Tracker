@@ -48,7 +48,7 @@ Checkbox.defaultProps = {
 	isDisabled = false,
 }
 
-local CHECKMARK_SIZE = 14
+local CHECKMARK_SIZE = if UIBloxConfig.migrateBuilderIcon then 20 else 14
 
 function Checkbox:init()
 	self.state = {

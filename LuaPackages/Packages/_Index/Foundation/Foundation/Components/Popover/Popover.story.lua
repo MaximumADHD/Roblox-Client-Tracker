@@ -109,10 +109,10 @@ return {
 									tag = "auto-xy text-heading-medium",
 								}),
 								Button = React.createElement(Button, {
-									text = "Click me to open!",
+									text = "Click me to toggle!",
 									size = InputSize.Medium,
 									onActivated = function()
-										setOpen(true)
+										setOpen(not open)
 									end,
 								}),
 							})

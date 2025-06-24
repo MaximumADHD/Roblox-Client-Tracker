@@ -101,4 +101,4 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 	)
 end
 
-return React.forwardRef(InputField)
+return React.memo(React.forwardRef(InputField))

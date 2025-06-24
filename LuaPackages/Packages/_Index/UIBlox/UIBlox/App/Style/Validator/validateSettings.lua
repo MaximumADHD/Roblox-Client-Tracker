@@ -14,6 +14,7 @@ local Settings = t.strictInterface({
 	PreferredTextSize = if EngineFeaturedPreferredTextSizeExists
 		then t.optional(t.enum(Enum.PreferredTextSize))
 		else nil,
+	Scale = t.optional(t.number),
 })
 
 return Settings

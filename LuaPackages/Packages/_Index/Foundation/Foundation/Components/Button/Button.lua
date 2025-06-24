@@ -1,6 +1,9 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local BuilderIcons = require(Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration["uiblox"]
+
 local Motion = require(Packages.Motion)
 local useMotion = Motion.useMotion
 local AnimatePresence = Motion.AnimatePresence
@@ -30,11 +33,15 @@ local Flags = require(Foundation.Utility.Flags)
 local getIconScale = require(Foundation.Utility.getIconScale)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local isMigrated = iconMigrationUtils.isMigrated
+local isBuilderOrMigratedIcon = iconMigrationUtils.isBuilderOrMigratedIcon
 
 local useButtonVariants = require(script.Parent.useButtonVariants)
 local useButtonMotionStates = require(script.Parent.useButtonMotionStates)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
+local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
 
 type StateChangedCallback = Types.StateChangedCallback
 
@@ -107,6 +114,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	local inputDelay: number = props.inputDelay
 	local intrinsicIconSize, scale = getIconScale(props.icon, props.size)
 
+	local textSizeOffset = useTextSizeOffset()
 	local controlState, setControlState = React.useBinding(ControlState.Initialize :: ControlState)
 	local isDelaying, setIsDelaying = React.useState(inputDelay > 0)
 	local progress, setGoal = ReactOtter.useAnimatedBinding(0, function(value: number)
@@ -235,22 +243,51 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 							})
 							else nil,
 						Icon = if not props.isLoading and props.icon
-							then React.createElement(Image, {
-								tag = "anchor-center-center position-center-center",
-								Image = props.icon,
-								Size = if Flags.FoundationAdjustButtonIconSizes and intrinsicIconSize
-									then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)
-									else variantProps.icon.size,
-								imageStyle = disabledValues.transparency:map(function(transparency)
-									return {
-										Color3 = variantProps.content.style.Color3,
-										Transparency = transparency,
-									}
-								end),
-								scale = values.iconScale:map(function(iconScale: number)
-									return iconScale * (if Flags.FoundationAdjustButtonIconSizes then scale else 1)
-								end),
-							})
+							then if isBuilderOrMigratedIcon(props.icon)
+								then React.createElement(Text, {
+									Text = if isMigrated(props.icon)
+										then migrationLookup[props.icon].name
+										else props.icon,
+									fontStyle = {
+										Font = BuilderIcons.Font[if isMigrated(props.icon)
+											then migrationLookup[props.icon].variant
+											else BuilderIcons.IconVariant.Regular],
+										FontSize = variantProps.icon.size.Y.Offset,
+									},
+									tag = "anchor-center-center position-center-center",
+									Size = variantProps.icon.size,
+									textStyle = disabledValues.transparency:map(function(transparency)
+										return {
+											Color3 = variantProps.content.style.Color3,
+											Transparency = transparency,
+										}
+									end),
+									scale = values.iconScale,
+								}, {
+									UITextSizeConstraint = if textSizeOffset > 0
+										then React.createElement("UITextSizeConstraint", {
+											MaxTextSize = values.iconScale:map(function(iconScale: number)
+												return iconScale * variantProps.icon.size.Y.Offset
+											end),
+										})
+										else nil,
+								})
+								else React.createElement(Image, {
+									tag = "anchor-center-center position-center-center",
+									Image = props.icon,
+									Size = if Flags.FoundationAdjustButtonIconSizes and intrinsicIconSize
+										then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)
+										else variantProps.icon.size,
+									imageStyle = disabledValues.transparency:map(function(transparency)
+										return {
+											Color3 = variantProps.content.style.Color3,
+											Transparency = transparency,
+										}
+									end),
+									scale = values.iconScale:map(function(iconScale: number)
+										return iconScale * (if Flags.FoundationAdjustButtonIconSizes then scale else 1)
+									end),
+								})
 							else nil,
 					}),
 				})

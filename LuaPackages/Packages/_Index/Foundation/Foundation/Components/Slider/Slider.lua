@@ -105,19 +105,35 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 
 	local calculateValueFromAbsPosition = React.useCallback(function(position: Vector2)
 		if ref.current then
-			local bounds = NumberRange.new(
-				ref.current.AbsolutePosition.X,
-				ref.current.AbsolutePosition.X + ref.current.AbsoluteSize.X
-			)
+			if Flags.FoundationSliderOrientationImprovement then
+				local orientation = ref.current.AbsoluteRotation
+				local sliderFrame = ref.current
 
-			local valueAsPercent = (position.X - bounds.Min) / (bounds.Max - bounds.Min)
-			local newValue = valueAsPercent * props.range.Max
+				local length = sliderFrame.AbsoluteSize.Magnitude
+				local centerPoint = sliderFrame.AbsolutePosition + sliderFrame.AbsoluteSize * 0.5
 
-			return math.clamp(newValue, props.range.Min, props.range.Max)
+				local radians = math.rad(orientation)
+				local unit = Vector2.new(math.cos(radians), math.sin(radians))
+
+				local dotProduct = (position - centerPoint):Dot(unit)
+				local percentage = dotProduct / length + 0.5
+				local clampedPercent = math.clamp(percentage, 0, 1)
+
+				local rangeSpan = props.range.Max - props.range.Min
+				return clampedPercent * rangeSpan + props.range.Min
+			else
+				local bounds = NumberRange.new(
+					ref.current.AbsolutePosition.X,
+					ref.current.AbsolutePosition.X + ref.current.AbsoluteSize.X
+				)
+				local valueAsPercent = (position.X - bounds.Min) / (bounds.Max - bounds.Min)
+				local newValue = valueAsPercent * props.range.Max
+				return math.clamp(newValue, props.range.Min, props.range.Max)
+			end
 		else
 			return 0
 		end
-	end, { props.range } :: { unknown })
+	end, { ref, props.range } :: { unknown })
 
 	local updateValue = React.useCallback(function(newValue: number)
 		if newValue ~= value:getValue() then

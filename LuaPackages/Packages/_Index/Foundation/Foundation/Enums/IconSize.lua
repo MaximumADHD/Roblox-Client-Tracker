@@ -5,7 +5,9 @@ local IconSizeEnum = {
 	Small = "Small" :: "Small",
 	Medium = "Medium" :: "Medium",
 	Large = "Large" :: "Large",
+	-- Deprecated with BuilderIcons
 	XLarge = "XLarge" :: "XLarge",
+	-- Deprecated with BuilderIcons
 	XXLarge = "XXLarge" :: "XXLarge",
 }
 

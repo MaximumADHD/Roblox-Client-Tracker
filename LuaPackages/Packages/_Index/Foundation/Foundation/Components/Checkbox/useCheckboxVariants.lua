@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type Padding = Types.Padding
@@ -39,19 +40,19 @@ local function variantsFactory(tokens: Tokens)
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
 			input = { size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400) },
-			checkmark = { tag = "size-300" },
+			checkmark = { tag = if Flags.FoundationMigrateIconNames then "size-400" else "size-300" },
 		},
 		[InputSize.Small] = {
 			input = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
-			checkmark = { tag = "size-350" },
+			checkmark = { tag = if Flags.FoundationMigrateIconNames then "size-500" else "size-350" },
 		},
 		[InputSize.Medium] = {
 			input = { size = UDim2.fromOffset(tokens.Size.Size_600, tokens.Size.Size_600) },
-			checkmark = { tag = "size-400" },
+			checkmark = { tag = if Flags.FoundationMigrateIconNames then "size-600" else "size-400" },
 		},
 		[InputSize.Large] = {
 			input = { size = UDim2.fromOffset(tokens.Size.Size_700, tokens.Size.Size_700) },
-			checkmark = { tag = "size-500" },
+			checkmark = { tag = if Flags.FoundationMigrateIconNames then "size-700" else "size-500" },
 		},
 	}
 

@@ -251,7 +251,7 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 					else nil,
 				onActivated = props.onActivated,
 				testId = FoundationButtonUtils.getTestId(props[React.Tag]),
-				ref = ref or props.buttonRef,
+				ref = if UIBloxConfig.useProvidedRefForButton then props.buttonRef or ref else ref or props.buttonRef,
 
 				AnchorPoint = props.anchorPoint,
 				Position = props.position,
@@ -267,7 +267,7 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 		return React.createElement(
 			if UIBloxConfig.useNewSelectionCursor then ButtonFunctionalWrapper else Button,
 			Cryo.Dictionary.join(buttonProps, {
-				buttonRef = ref,
+				buttonRef = if UIBloxConfig.useProvidedRefForButton then buttonProps.buttonRef or ref else ref,
 			})
 		)
 	end

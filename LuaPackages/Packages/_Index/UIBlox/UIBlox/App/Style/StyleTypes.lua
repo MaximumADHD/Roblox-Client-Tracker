@@ -24,6 +24,7 @@ export type Settings = {
 	preferredTransparency: number?,
 	reducedMotion: boolean?,
 	preferredTextSize: Enum.PreferredTextSize?,
+	scale: number?,
 }
 
 export type DropShadowItem = {

@@ -84,7 +84,8 @@ local defaultStyle: StyleProps = {
 local function AppStyleProvider(props: Props)
 	local style: StyleProps = Object.assign({}, defaultStyle, props.style)
 	local themeName, setThemeName = React.useState(style.themeName)
-	local tokens: Tokens = getTokens(style.deviceType, themeName) :: Tokens
+	local scale = style.settings and style.settings.scale
+	local tokens: Tokens = getTokens(style.deviceType, themeName, scale) :: Tokens
 	local textSizeOffset, setTextSizeOffset = React.useState(0)
 	local theme = getThemeFromName(themeName)
 	local foundationProviderPresent = useTokens().Config ~= nil
@@ -121,6 +122,7 @@ local function AppStyleProvider(props: Props)
 				PreferredTransparency = style.settings.preferredTransparency,
 				ReducedMotion = style.settings.reducedMotion,
 				PreferredTextSize = style.settings.preferredTextSize,
+				Scale = style.settings.scale,
 			}
 			else Constants.DefaultSettings,
 	}

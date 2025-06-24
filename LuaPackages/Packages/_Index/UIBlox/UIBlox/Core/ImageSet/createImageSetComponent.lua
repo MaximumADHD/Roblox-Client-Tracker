@@ -4,7 +4,15 @@ local Core = ImageSet.Parent
 local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
+local BuilderIcons = require(Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration["uiblox"]
+local Foundation = require(Packages.Foundation)
+local useTokens = Foundation.Hooks.useTokens
+local useTextSizeOffset = Foundation.Hooks.useTextSizeOffset
 local scaleSliceToResolution = require(UIBlox.App.ImageSet.scaleSliceToResolution)
+local ImagesInverse = require(UIBlox.App.ImageSet.ImagesInverse)
+local getBuilderIconElement = require(ImageSet.getBuilderIconElement)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 return function(innerComponent, resolutionScale)
 	assert(
@@ -26,6 +34,25 @@ return function(innerComponent, resolutionScale)
 				imageSetProps = value
 			else
 				fullProps[key] = value
+			end
+		end
+		if UIBloxConfig.migrateBuilderIcon then
+			local tokens = useTokens()
+			local textSizeOffset = useTextSizeOffset()
+			if usesImageSet then
+				local imageName = ImagesInverse[imageSetProps]
+				if imageName and migrationLookup[imageName] then
+					local scaleValue = tokens.Stroke.Standard -- 1pt scaled
+					return getBuilderIconElement(
+						fullProps,
+						innerComponent,
+						migrationLookup[imageName],
+						imageName,
+						tokens,
+						textSizeOffset,
+						scaleValue
+					)
+				end
 			end
 		end
 

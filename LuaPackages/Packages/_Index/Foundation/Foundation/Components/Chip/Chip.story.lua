@@ -3,6 +3,8 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local ChipSize = require(Foundation.Enums.ChipSize)
 local IconPosition = require(Foundation.Enums.IconPosition)
 local View = require(Foundation.Components.View)
@@ -26,6 +28,7 @@ return {
 		{
 			name = "Basic",
 			story = function(props)
+				Flags.FoundationMigrateIconNames = props.controls.migrateIconNames
 				return Story({
 					text = props.controls.text,
 					onActivated = function()
@@ -95,7 +98,8 @@ return {
 	},
 	controls = {
 		leading = {
-			"icons/actions/filter" :: any,
+			"robux" :: any,
+			"icons/actions/filter",
 			"icons/common/robux",
 			"icons/common/play",
 			{
@@ -108,10 +112,12 @@ return {
 			"",
 		},
 		trailing = {
-			"icons/actions/filter" :: any,
+			"three-bars-horizontal-narrowing" :: any,
+			"icons/actions/filter",
 			"icons/common/robux",
 			"icons/common/play",
 			"icons/status/success_small",
+			"icons/actions/truncationExpand_small",
 			{
 				iconName = "icons/actions/selectOn",
 				onActivated = function()
@@ -124,5 +130,6 @@ return {
 		size = Dash.values(ChipSize),
 		text = "Filter",
 		isChecked = false,
+		migrateIconNames = Flags.FoundationMigrateIconNames,
 	},
 }

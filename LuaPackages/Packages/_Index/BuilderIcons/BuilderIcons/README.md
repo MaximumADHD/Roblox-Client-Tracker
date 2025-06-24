@@ -18,7 +18,7 @@ local React = require(Packages.React)
 
 local function HomeIcon()
   return React.createElement("TextLabel", {
-    Text = Icon.Home,
+    Text = Icon.House,
     FontFace = Font[IconVariant.Regular],
   })
 end

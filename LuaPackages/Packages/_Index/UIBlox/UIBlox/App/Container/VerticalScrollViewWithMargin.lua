@@ -49,6 +49,8 @@ VerticalScrollView.validateProps = t.strictInterface({
 	-- Width of the left and right padding. Minimum 12 points.
 	-- If not given, VerticalScrollView will use [dynamic margins](https://confluence.rbx.com/pages/viewpage.action?pageId=153532381)
 	paddingHorizontal = t.optional(t.number),
+	-- Height of the top padding.
+	paddingTop = t.optional(t.number),
 	-- Whether or not the component should be wrapped in a RoactGamepad.Focusable.
 	-- If it's true, it may also accept some other props related to focus that are documented in the RoactGamepad library.
 	isGamepadFocusable = t.optional(t.boolean),
@@ -185,6 +187,7 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 
 	local scrollingFrameChildren = Cryo.Dictionary.join({
 		scrollingFrameInnerMargin = Roact.createElement("UIPadding", {
+			PaddingTop = if self.props.paddingTop ~= nil then UDim.new(0, self.props.paddingTop) else nil,
 			PaddingLeft = self.getPadding(),
 			PaddingRight = self.getPadding(SCROLL_BAR_RIGHT_PADDING),
 		}),
