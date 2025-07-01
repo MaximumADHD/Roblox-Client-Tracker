@@ -42,6 +42,11 @@ PROTO_2:
   GETTABLEKS R3 R4 K4 ["addOnInvokeConnection"]
   MOVE R4 R2
   CALL R3 1 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["previewDeactivated"]
+  GETTABLEKS R5 R6 K5 ["fromAssetDm"]
+  NAMECALL R3 R0 K6 ["Invoke"]
+  CALL R3 2 0
   RETURN R0 0
 
 PROTO_3:

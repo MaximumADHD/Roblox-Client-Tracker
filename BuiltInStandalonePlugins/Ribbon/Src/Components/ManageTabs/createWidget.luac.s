@@ -87,45 +87,46 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["StudioUri"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["StudioFoundation"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K9 ["FoundationInspector"]
-  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["StudioUri"]
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K10 ["SharedFlags"]
-  GETTABLEKS R4 R5 K11 ["getFFlagDebugEnableFoundationInspector"]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["FoundationInspector"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K10 ["SharedFlags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagRibbonCloseTools"]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K12 ["SharedFlags"]
+  GETTABLEKS R5 R6 K13 ["getFFlagDebugEnableFoundationInspector"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K10 ["SharedFlags"]
-  GETTABLEKS R6 R7 K13 ["getFFlagRibbonDensityModeStyles"]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K12 ["SharedFlags"]
+  GETTABLEKS R6 R7 K14 ["getFFlagRibbonCloseTools"]
   CALL R5 1 1
-  MOVE R7 R5
-  CALL R7 0 1
-  JUMPIFNOT R7 [+6]
-  GETIMPORT R6 K16 [Vector2.new]
-  LOADN R7 46
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K12 ["SharedFlags"]
+  GETTABLEKS R7 R8 K15 ["getFFlagRibbonDensityModeStyles"]
+  CALL R6 1 1
+  MOVE R8 R6
+  CALL R8 0 1
+  JUMPIFNOT R8 [+6]
+  GETIMPORT R7 K18 [Vector2.new]
   LOADN R8 46
-  CALL R6 2 1
+  LOADN R9 46
+  CALL R7 2 1
   JUMP [+5]
-  GETIMPORT R6 K16 [Vector2.new]
-  LOADN R7 240
-  LOADN R8 144
-  CALL R6 2 1
-  DUPCLOSURE R7 K17 [PROTO_2]
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  CAPTURE VAL R3
+  GETIMPORT R7 K18 [Vector2.new]
+  LOADN R8 240
+  LOADN R9 144
+  CALL R7 2 1
+  DUPCLOSURE R8 K19 [PROTO_2]
+  CAPTURE VAL R7
   CAPTURE VAL R2
   CAPTURE VAL R4
-  RETURN R7 1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  RETURN R8 1

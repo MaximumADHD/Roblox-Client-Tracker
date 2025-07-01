@@ -115,13 +115,6 @@ PROTO_4:
   LOADK R4 K0 ["state is nil. Either GetAsync is remarkably slow, or you are not passing in the same StudioUri that is in ContextMenuActionList."]
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
-  GETUPVAL R2 1
-  CALL R2 0 1
-  JUMPIF R2 [+6]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K3 ["Visible"]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K4 ["Enabled"]
   RETURN R1 1
 
 PROTO_5:
@@ -153,7 +146,6 @@ PROTO_6:
   CALL R4 1 1
   NEWCLOSURE R5 P1
   CAPTURE VAL R2
-  CAPTURE UPVAL U2
   NEWCLOSURE R6 P2
   CAPTURE VAL R4
   CAPTURE VAL R3
@@ -185,13 +177,7 @@ MAIN:
   GETTABLEKS R5 R6 K11 ["Util"]
   GETTABLEKS R4 R5 K12 ["exhaustiveMatch"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Flags"]
-  GETTABLEKS R5 R6 K14 ["getFFlagExplorerNotSourceOfTruthForActions"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K15 [PROTO_6]
+  DUPCLOSURE R4 K13 [PROTO_6]
   CAPTURE VAL R3
   CAPTURE VAL R1
-  CAPTURE VAL R4
-  RETURN R5 1
+  RETURN R4 1

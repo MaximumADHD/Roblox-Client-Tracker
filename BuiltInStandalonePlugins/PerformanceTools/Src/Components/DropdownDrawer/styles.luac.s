@@ -13,7 +13,7 @@ MAIN:
   MOVE R3 R2
   LOADK R4 K10 [".Component-DropdownDrawer"]
   NEWTABLE R5 0 0
-  NEWTABLE R6 0 3
+  NEWTABLE R6 0 2
   MOVE R7 R2
   LOADK R8 K11 [">> .UseDownArrow"]
   DUPTABLE R9 K13 [{"Image"}]
@@ -25,15 +25,7 @@ MAIN:
   DUPTABLE R10 K13 [{"Image"}]
   LOADK R11 K16 ["$UpArrow"]
   SETTABLEKS R11 R10 K12 ["Image"]
-  CALL R8 2 1
-  MOVE R9 R2
-  LOADK R10 K17 [">> .SimpleDivider"]
-  DUPTABLE R11 K20 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R12 K21 ["$HeavyDivider"]
-  SETTABLEKS R12 R11 K18 ["BackgroundColor3"]
-  LOADK R12 K22 [0.75]
-  SETTABLEKS R12 R11 K19 ["BackgroundTransparency"]
-  CALL R9 2 -1
+  CALL R8 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

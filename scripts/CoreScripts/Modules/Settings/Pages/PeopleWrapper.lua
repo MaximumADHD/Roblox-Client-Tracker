@@ -15,11 +15,12 @@ local FFlagRefactorPeoplePage = require(Modules.Settings.Flags.FFlagRefactorPeop
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 -- Modules
-local Constants = require(CorePackages.Workspace.Packages.PeopleReactView).Constants
 local Foundation = require(CorePackages.Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local PeopleReactView = require(CorePackages.Workspace.Packages.PeopleReactView).PeopleReactView
+local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
@@ -27,6 +28,24 @@ local Theme = require(RobloxGui.Modules.Settings.Theme)
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
+
+-- Focus Navigation
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusRoot = FocusNavigationUtils.FocusRoot
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
+local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
+local focusNavigationService = ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
+local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
+local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
+
+local Integrations
+local Constants
+local Utils
+if FFlagRefactorPeoplePage then
+	Constants = require(CorePackages.Workspace.Packages.PeopleReactView).Constants
+	Integrations = require(Modules.Settings.Integrations)
+	Utils = Integrations.Utils
+end
 
 -- Returns GameSettings Page with Settings Framework
 local function createPeoplePage()
@@ -47,11 +66,31 @@ local function createPeoplePage()
 	end
 	PeoplePage.TabHeader.TabLabel.Title.Text = locales:Format(Constants.PEOPLEPAGE.TAB_HEADER.TEXT)
 
-	------ PAGE CUSTOMIZATION -------
-	local People = React.createElement(FoundationProvider, {
-		theme = Foundation.Enums.Theme.Dark,
+	-- Register the SettingsHub instance with the PeopleService
+	PeopleService.SettingsHubService.register(PeoplePage)
+
+	------ PAGE CUSTOMIZATION -------	
+	local People = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
+		value = focusNavigationService,
 	}, {
-		Child = React.createElement(PeopleReactView)
+		FocusNavigationRegistryProvider = React.createElement(FocusNavigationRegistryProvider, nil, {
+			LocalizationProvider = React.createElement(LocalizationProvider, {
+				localization = locales,
+			}, {
+				FoundationProvider = React.createElement(FoundationProvider, {
+					theme = Foundation.Enums.Theme.Dark,
+					device = Utils.getDeviceType(),
+				}, {
+					FocusRoot = React.createElement(FocusRoot, {
+						surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+						isIsolated = true,
+						isAutoFocusRoot = true,
+					}, {
+						PeopleReactView = React.createElement(PeopleReactView)
+					})
+				})
+			})
+		})
 	})
 
 	local tree = ReactRoblox.createRoot(PeoplePage.Page)

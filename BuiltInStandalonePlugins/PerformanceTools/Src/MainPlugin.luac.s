@@ -173,7 +173,7 @@ PROTO_9:
   SETTABLEKS R11 R10 K16 ["Id"]
   SETTABLEKS R4 R10 K17 ["Enabled"]
   GETTABLEKS R11 R0 K8 ["localization"]
-  LOADK R13 K18 ["SceneBudgetThermometer"]
+  LOADK R13 K18 ["SceneMonitor"]
   LOADK R14 K19 ["Name"]
   NAMECALL R11 R11 K20 ["getText"]
   CALL R11 3 1

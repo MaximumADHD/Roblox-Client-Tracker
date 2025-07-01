@@ -24,7 +24,6 @@ local GetFFlagChromeSupportSocialService = require(Chrome.Flags.GetFFlagChromeSu
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
 local GetFFlagChromeTrackWindowPosition = require(Chrome.Flags.GetFFlagChromeTrackWindowPosition)
 local GetFFlagChromeTrackWindowStatus = require(Chrome.Flags.GetFFlagChromeTrackWindowStatus)
-local FFlagDisableCameraOnCoreGuiDisabled = game:DefineFastFlag("DisableCameraOnCoreGuiDisabled", false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeSelfieViewUsePolicy = SharedFlags.FFlagChromeSelfieViewUsePolicy
@@ -119,7 +118,7 @@ local updateAvailability = function(): ()
 	local coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 	if not GetFFlagChromeSelfViewIgnoreCoreGui() and not coreGuiEnabled then
 		-- If CoreGuiType disabled while camera is on, turn it off
-		if FFlagDisableCameraOnCoreGuiDisabled and FaceChatUtils.isCameraOn() then
+		if FaceChatUtils.isCameraOn() then
 			FaceChatUtils.toggleVideoAnimation()
 		end
 		selfieViewChromeIntegration.availability:unavailable()

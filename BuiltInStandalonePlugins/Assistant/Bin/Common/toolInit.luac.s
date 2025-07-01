@@ -11,24 +11,46 @@ PROTO_1:
   GETTABLEKS R4 R5 K3 ["Util"]
   GETTABLEKS R3 R4 K4 ["Networking"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K5 ["create"]
-  DUPTABLE R4 K9 [{"plugin", "isUIDM", "isEditableDM"}]
-  SETTABLEKS R0 R4 K6 ["plugin"]
-  GETTABLEKS R5 R1 K7 ["isUIDM"]
-  SETTABLEKS R5 R4 K7 ["isUIDM"]
-  GETTABLEKS R5 R1 K8 ["isEditableDM"]
-  SETTABLEKS R5 R4 K8 ["isEditableDM"]
-  CALL R3 1 0
   GETIMPORT R3 K1 [require]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Tools"]
-  CALL R3 1 0
-  GETTABLEKS R3 R0 K11 ["Unloading"]
-  NEWCLOSURE R5 P0
+  GETTABLEKS R5 R6 K5 ["Packages"]
+  GETTABLEKS R4 R5 K6 ["AssistantUI"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["Src"]
+  GETTABLEKS R6 R7 K3 ["Util"]
+  GETTABLEKS R5 R6 K7 ["LLMRequestNetworking"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K8 ["create"]
+  DUPTABLE R6 K12 [{"plugin", "isUIDM", "isEditableDM"}]
+  SETTABLEKS R0 R6 K9 ["plugin"]
+  GETTABLEKS R7 R1 K10 ["isUIDM"]
+  SETTABLEKS R7 R6 K10 ["isUIDM"]
+  GETTABLEKS R7 R1 K11 ["isEditableDM"]
+  SETTABLEKS R7 R6 K11 ["isEditableDM"]
+  CALL R5 1 0
+  GETTABLEKS R6 R3 K13 ["Guest"]
+  GETTABLEKS R5 R6 K14 ["startGuest"]
+  DUPTABLE R6 K16 [{"LLMRequestNetworking", "EnvironmentOverride"}]
+  GETTABLEKS R7 R4 K8 ["create"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K7 ["LLMRequestNetworking"]
+  GETUPVAL R7 1
+  MOVE R8 R0
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K15 ["EnvironmentOverride"]
+  CALL R5 1 0
+  GETIMPORT R5 K1 [require]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["Src"]
+  GETTABLEKS R6 R7 K17 ["Tools"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K18 ["Unloading"]
+  NEWCLOSURE R7 P0
   CAPTURE VAL R2
-  NAMECALL R3 R3 K12 ["Connect"]
-  CALL R3 2 0
+  NAMECALL R5 R5 K19 ["Connect"]
+  CALL R5 2 0
   RETURN R0 0
 
 MAIN:
@@ -37,6 +59,12 @@ MAIN:
   LOADK R2 K2 ["Assistant"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_1]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["StudioEnvironment"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K9 [PROTO_1]
   CAPTURE VAL R0
-  RETURN R1 1
+  CAPTURE VAL R1
+  RETURN R2 1

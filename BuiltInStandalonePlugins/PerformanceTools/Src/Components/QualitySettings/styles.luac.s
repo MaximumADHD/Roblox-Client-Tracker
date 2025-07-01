@@ -13,7 +13,7 @@ MAIN:
   MOVE R3 R2
   LOADK R4 K10 [".Component-QualitySettings"]
   NEWTABLE R5 0 0
-  NEWTABLE R6 0 6
+  NEWTABLE R6 0 5
   MOVE R7 R2
   LOADK R8 K11 [">> .LeftArrow"]
   DUPTABLE R9 K13 [{"Image"}]
@@ -27,29 +27,23 @@ MAIN:
   SETTABLEKS R11 R10 K12 ["Image"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K17 [">> .MainTitle"]
-  DUPTABLE R11 K19 [{"TextSize"}]
-  LOADK R12 K20 ["$FontSize_350"]
-  SETTABLEKS R12 R11 K18 ["TextSize"]
+  LOADK R10 K17 [">> .QualityBarFullSquare"]
+  DUPTABLE R11 K19 [{"BackgroundColor3"}]
+  LOADK R12 K20 ["$QualityBarFullSquare"]
+  SETTABLEKS R12 R11 K18 ["BackgroundColor3"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K21 [">> .QualityBarFullSquare"]
-  DUPTABLE R12 K23 [{"BackgroundColor3"}]
-  LOADK R13 K24 ["$QualityBarFullSquare"]
-  SETTABLEKS R13 R12 K22 ["BackgroundColor3"]
+  LOADK R11 K21 [">> .QualityBarEmptySquare"]
+  DUPTABLE R12 K19 [{"BackgroundColor3"}]
+  LOADK R13 K22 ["$QualityBarEmptySquare"]
+  SETTABLEKS R13 R12 K18 ["BackgroundColor3"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K25 [">> .QualityBarEmptySquare"]
-  DUPTABLE R13 K23 [{"BackgroundColor3"}]
-  LOADK R14 K26 ["$QualityBarEmptySquare"]
-  SETTABLEKS R14 R13 K22 ["BackgroundColor3"]
-  CALL R11 2 1
-  MOVE R12 R2
-  LOADK R13 K27 [">> .QualityBarDisabledSquare"]
-  DUPTABLE R14 K23 [{"BackgroundColor3"}]
-  LOADK R15 K28 ["$QualityBarDisabledSquare"]
-  SETTABLEKS R15 R14 K22 ["BackgroundColor3"]
-  CALL R12 2 -1
+  LOADK R12 K23 [">> .QualityBarDisabledSquare"]
+  DUPTABLE R13 K19 [{"BackgroundColor3"}]
+  LOADK R14 K24 ["$QualityBarDisabledSquare"]
+  SETTABLEKS R14 R13 K18 ["BackgroundColor3"]
+  CALL R11 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

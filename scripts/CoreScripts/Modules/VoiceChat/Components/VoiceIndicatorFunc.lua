@@ -26,6 +26,8 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 
 local GetFFlagRemoveInGameChatBubbleChatReferences =
 	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+local FFlagVoiceToggleShowConnectingIconWhenHidden =
+	game:DefineFastFlag("VoiceToggleShowConnectingIconWhenHidden", false)
 
 if GetFFlagRemoveInGameChatBubbleChatReferences() then
 	Constants = require(RobloxGui.Modules.VoiceChat.Constants) :: any
@@ -46,7 +48,11 @@ local function mapLevelToIcon(iconStyle, showShimmer)
 		local level = values[2]
 		if voiceState == Constants.VOICE_STATE.MUTED or voiceState == Constants.VOICE_STATE.LOCAL_MUTED then
 			return VoiceChatServiceManager:GetIcon("Muted", iconStyle)
-		elseif voiceState == Constants.VOICE_STATE.CONNECTING then
+		elseif voiceState == Constants.VOICE_STATE.CONNECTING or
+			if FFlagVoiceToggleShowConnectingIconWhenHidden
+				then voiceState == Constants.VOICE_STATE.HIDDEN
+				else nil
+		then
 			if showShimmer and iconStyle == "MicLight" then
 				return VoiceChatServiceManager:GetIcon("Connecting", "MicDark")
 			else

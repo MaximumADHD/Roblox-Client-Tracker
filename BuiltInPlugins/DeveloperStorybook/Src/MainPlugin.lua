@@ -5,6 +5,7 @@
 local Main = script.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local Rodux = require(Main.Packages.Rodux)
+local StudioFoundation = require(Main.Packages.StudioFoundation)
 
 local MainReducer = require(Main.Src.Reducers.MainReducer)
 
@@ -26,6 +27,7 @@ local InspectorContext = require(Main.Src.Util.InspectorContext)
 local MakeTheme = require(Main.Src.Resources.MakeTheme)
 
 local registerPluginStyles = Framework.Styling.registerPluginStyles
+local FFlagStudioStyleSheetSwitcher = Framework.SharedFlags.getFFlagStudioStyleSheetSwitcher()
 
 local SourceStrings = Main.Src.Resources.SourceStrings
 local LocalizedStrings = Main.Src.Resources.LocalizedStrings
@@ -104,7 +106,16 @@ function MainPlugin:init(props)
 		},
 	})
 
-	self.design = registerPluginStyles(props.Plugin)
+	if FFlagStudioStyleSheetSwitcher then
+		local binding, onStyleSheetChange = StudioFoundation.Util.createFoundationDesignBinding()
+		self.onFoundationStyleSheetChange = onStyleSheetChange
+		self.design = registerPluginStyles(props.Plugin, nil, nil, {
+			FoundationBinging = binding,
+		})
+	else
+		self.design = registerPluginStyles(props.Plugin)
+	end
+
 	self.theme = MakeTheme()
 
 	self.contextItems = {
@@ -142,7 +153,6 @@ end
 function MainPlugin:render()
 	local state = self.state
 	local enabled = state.enabled
-
 	return ContextServices.provide(self.contextItems, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = "Storybook",
@@ -150,20 +160,28 @@ function MainPlugin:render()
 				return self:renderButtons(toolbar)
 			end,
 		}),
-		MainWidget = Roact.createElement(DockWidget, {
-			Enabled = enabled,
-			Title = self.localization:getText("Toolbar", "Title"),
-			Id = Main.Name,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Bottom,
-			Size = Vector2.new(640, 480),
-			MinSize = Vector2.new(250, 200),
-			OnClose = self.onClose,
-			ShouldRestore = true,
-			OnWidgetRestored = self.onRestore,
-			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
-			PluginDesign = self.design,
-		}, Roact.createElement(FoundationProvider, nil, { Window = enabled and Roact.createElement(Window) })),
+		MainWidget = Roact.createElement(
+			DockWidget,
+			{
+				Enabled = enabled,
+				Title = self.localization:getText("Toolbar", "Title"),
+				Id = Main.Name,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				InitialDockState = Enum.InitialDockState.Bottom,
+				Size = Vector2.new(640, 480),
+				MinSize = Vector2.new(250, 200),
+				OnClose = self.onClose,
+				ShouldRestore = true,
+				OnWidgetRestored = self.onRestore,
+				[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
+				PluginDesign = self.design,
+			},
+			Roact.createElement(
+				FoundationProvider,
+				{ onStyleSheetChange = self.onFoundationStyleSheetChange },
+				{ Window = enabled and Roact.createElement(Window) }
+			)
+		),
 	})
 end
 

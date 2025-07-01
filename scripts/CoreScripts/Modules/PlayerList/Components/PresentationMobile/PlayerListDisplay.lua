@@ -11,27 +11,32 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local withStyle = UIBlox.Style.withStyle
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
-local Components = script.Parent.Parent
+local Presentation = script.Parent
+local Components = Presentation.Parent
+local PlayerList = Presentation.Parent.Parent
+
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local PlayerEntry = require(script.Parent.PlayerEntry)
+local PlayerEntryContainer = require(Components.Container.PlayerEntryContainer)
 local TeamEntry = require(script.Parent.TeamEntry)
+local TeamEntryContainer = require(PlayerList.Components.Container.TeamEntryContainer)
 local TitleBar = require(script.Parent.TitleBar)
-
-local Presentation = script.Parent
-local PlayerList = Presentation.Parent.Parent
+local TitleViewContainer = require(PlayerList.Components.Container.TitleViewContainer)
 
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
 local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local RENDER_OUTSIDE_WINDOW_ELEMENTS = 3
 
@@ -167,7 +172,7 @@ function PlayerListDisplay:render()
 			end
 
 			if self:getShowTitlePlayer() then
-				childElements.TitlePlayer = Roact.createElement(PlayerEntry, {
+				childElements.TitlePlayer = Roact.createElement(if FFlagUseNewPlayerList then PlayerEntryContainer else PlayerEntry, {
 					player = LocalPlayer,
 					playerStats = self.props.playerStats[LocalPlayer.UserId] or {},
 					playerIconInfo = self.props.playerIconInfo[LocalPlayer.UserId] or { isPlaceOwner = false },
@@ -177,7 +182,7 @@ function PlayerListDisplay:render()
 						isFollowing = false,
 						isFollower = false,
 					},
-					titlePlayerEntry = true,
+					titlePlayerEntry = if FFlagUseNewPlayerList then nil else true,
 					gameStats = if FFlagPlayerListReduceRerenders then nil else self.props.gameStats,
 					gameStatNames = gameStatNames,
 					entrySize = self.props.entrySize,
@@ -188,12 +193,13 @@ function PlayerListDisplay:render()
 				penPositionY += playerEntrySizeY + entryPadding
 			end
 
-			childElements.TitleBar = Roact.createElement(TitleBar, {
+			childElements.TitleBar = Roact.createElement(if FFlagUseNewPlayerList then TitleViewContainer else TitleBar, {
 				contentsVisible = self.state.contentsVisible,
 				gameStats = self.props.gameStats,
 				Size = UDim2.new(1, 0, 0, 24),
 				entrySize = self.props.entrySize,
 				Position = UDim2.fromOffset(0, penPositionY),
+				isSmallTouchDevice = if FFlagUseNewPlayerList then true else nil,
 			})
 			penPositionY += teamEntrySizeY + entryPadding
 
@@ -219,7 +225,18 @@ function PlayerListDisplay:render()
 					canvasSizeY += teamEntrySizeY + (playerEntrySizeY + entryPadding) * #teamPlayers
 
 					if self:inVerticalScrollWindow(penPositionY, teamEntrySizeY) then
-						childElements["Team_" .. tostring(i)] = Roact.createElement(TeamEntry, {
+						childElements["Team_" .. tostring(i)] = if FFlagUseNewPlayerList then Roact.createElement(TeamEntryContainer, {
+							teamName = self.props.teamNames[sortedTeam.team],
+							teamColor = self.props.teamColors[sortedTeam.team],
+							leaderstats = self.props.teamScores[sortedTeam.team],
+							gameStats = if FFlagPlayerListReduceRerenders then nil else self.props.gameStats,
+							gameStatNames = gameStatNames,
+							entrySize = self.props.entrySize,
+							layoutOrder = getLayoutOrder(),
+							size = UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY),
+							position = UDim2.fromOffset(0, penPositionY),
+							isSmallTouchDevice = true,
+						}) else Roact.createElement(TeamEntry, {
 							teamName = self.props.teamNames[sortedTeam.team],
 							teamColor = self.props.teamColors[sortedTeam.team],
 							leaderstats = self.props.teamScores[sortedTeam.team],
@@ -238,7 +255,7 @@ function PlayerListDisplay:render()
 						end
 						if firstPlayer or self:inVerticalScrollWindow(penPositionY, playerEntrySizeY) then
 							local userId = player.UserId
-							childElements["Player_" .. tostring(player.UserId)] = Roact.createElement(PlayerEntry, {
+							childElements["Player_" .. tostring(player.UserId)] = Roact.createElement(if FFlagUseNewPlayerList then PlayerEntryContainer else PlayerEntry, {
 								player = player,
 								playerStats = self.props.playerStats[userId],
 								playerIconInfo = self.props.playerIconInfo[userId],
@@ -267,7 +284,7 @@ function PlayerListDisplay:render()
 					end
 					if i == 1 or self:inVerticalScrollWindow(penPositionY, playerEntrySizeY) then
 						local userId = player.UserId
-						childElements["Player_" .. tostring(userId)] = Roact.createElement(PlayerEntry, {
+						childElements["Player_" .. tostring(userId)] = Roact.createElement(if FFlagUseNewPlayerList then PlayerEntryContainer else PlayerEntry, {
 							player = player,
 							playerStats = self.props.playerStats[userId],
 							playerIconInfo = self.props.playerIconInfo[userId],

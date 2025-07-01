@@ -20,7 +20,7 @@ PROTO_1:
   NAMECALL R1 R1 K2 ["Connect"]
   CALL R1 2 1
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K3 ["addPropertyChangedConnection"]
+  GETTABLEKS R2 R3 K3 ["addRBXScriptConnection"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0

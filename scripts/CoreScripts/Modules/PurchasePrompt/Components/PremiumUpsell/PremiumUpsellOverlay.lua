@@ -34,6 +34,7 @@ type Props = {
 
 	promptState: any,
 	purchaseError: any?,
+	economicRestrictionError: any?,
 
 	currencySymbol: string,
 	robuxPrice: number,
@@ -117,6 +118,8 @@ function PremiumUpsellOverlay:getErrorType()
 		return PurchaseErrorType.AlreadyPremium
 	elseif props.purchaseError == PurchaseError.PremiumUnavailablePlatform then
 		return PurchaseErrorType.PremiumPlatformUnavailable
+	elseif props.purchaseError == PurchaseError.EconomicRestriction then
+		return PurchaseErrorType.EconomicRestriction
 	end
 
 	return PurchaseErrorType.Unknown
@@ -148,6 +151,7 @@ function PremiumUpsellOverlay:render()
 
 		purchaseState = self:getFlowState(),
 		errorType = self:getErrorType(),
+		economicRestrictionError = props.economicRestrictionError,
 		purchaseVPCType = self:getVPCModalType(),
 
 		acceptControllerIcon = if props.isGamepadEnabled then BUTTON_A_ICON else nil,

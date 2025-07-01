@@ -45,5 +45,30 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K13 ["Collab6182_LightThemeHighlightCollabSearchBox"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K14 ["COLLAB8701_LogAddUserCollaboratorEvent"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K15 ["COLLAB8701_LogRemoveUserCollaboratorEvent"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K16 ["AddUserCollaboratorEventThrottleHundrethsPercent"]
+  LOADN R3 0
+  NAMECALL R0 R0 K3 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K17 ["RemoveUserCollaboratorEventThrottleHundrethsPercent"]
+  LOADN R3 0
+  NAMECALL R0 R0 K3 ["DefineFastInt"]
+  CALL R0 3 0
   LOADNIL R0
   RETURN R0 1

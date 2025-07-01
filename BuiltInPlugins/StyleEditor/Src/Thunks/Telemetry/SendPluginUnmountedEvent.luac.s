@@ -8,11 +8,20 @@ PROTO_0:
   SUB R4 R3 R5
   LOADNIL R5
   GETUPVAL R6 0
-  JUMPIFNOT R6 [+11]
+  JUMPIFNOT R6 [+21]
   GETTABLEKS R7 R2 K4 ["SessionStats"]
   GETTABLEKS R6 R7 K6 ["PluginFocusEndWithoutStartCount"]
   GETTABLEKS R8 R2 K4 ["SessionStats"]
   GETTABLEKS R7 R8 K7 ["PluginFocusEndWithStartCount"]
+  GETUPVAL R8 1
+  JUMPIFNOT R8 [+8]
+  LOADN R5 0
+  LOADN R8 0
+  JUMPIFNOTLT R8 R6 [+8]
+  ADD R9 R6 R7
+  DIV R8 R6 R9
+  MULK R5 R8 K8 [100]
+  JUMP [+3]
   ADD R9 R6 R7
   DIV R8 R6 R9
   MULK R5 R8 K8 [100]
@@ -21,10 +30,6 @@ PROTO_0:
   JUMP [+4]
   GETTABLEKS R6 R2 K4 ["SessionStats"]
   GETTABLEKS R5 R6 K6 ["PluginFocusEndWithoutStartCount"]
-  GETUPVAL R6 1
-  JUMPIFNOT R6 [+2]
-  JUMPIF R5 [+1]
-  LOADN R5 0
   GETTABLEKS R6 R1 K9 ["Telemetry"]
   GETUPVAL R9 2
   DUPTABLE R10 K14 [{"sessionLengthSeconds", "focusTimeSeconds", "unmatchedFocusEndCount", "buttonPressCounts"}]
@@ -66,7 +71,7 @@ MAIN:
   CALL R1 1 1
   CALL R1 0 1
   GETIMPORT R2 K9 [game]
-  LOADK R4 K10 ["StyleEditorUnmountedCrash"]
+  LOADK R4 K10 ["StyleEditorUnmountedCrash2"]
   LOADB R5 0
   NAMECALL R2 R2 K11 ["DefineFastFlag"]
   CALL R2 3 1

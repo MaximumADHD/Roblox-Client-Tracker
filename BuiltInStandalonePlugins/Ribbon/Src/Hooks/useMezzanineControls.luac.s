@@ -3,31 +3,19 @@ PROTO_0:
   GETUPVAL R3 1
   CALL R2 1 1
   GETTABLEKS R3 R2 K0 ["Definition"]
-  LOADNIL R4
   GETUPVAL R5 2
-  CALL R5 0 1
-  JUMPIFNOT R5 [+8]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K1 ["getMezzanineFromTestModeSetting"]
-  MOVE R6 R3
-  MOVE R7 R0
-  CALL R5 2 1
-  MOVE R4 R5
-  JUMP [+10]
-  GETTABLEKS R6 R3 K2 ["MezzanineControls"]
-  GETTABLEKS R5 R6 K3 ["BuiltIn_LeftMezzanine"]
-  JUMPIFNOT R5 [+3]
-  GETTABLEKS R4 R5 K4 ["Controls"]
-  JUMP [+2]
-  NEWTABLE R4 0 0
+  GETTABLEKS R4 R5 K1 ["getMezzanineFromTestModeSetting"]
+  MOVE R5 R3
+  MOVE R6 R0
+  CALL R4 2 1
   JUMPIFNOT R1 [+2]
-  LOADK R5 K5 ["BuiltIn_RightMezzanine"]
+  LOADK R5 K2 ["BuiltIn_RightMezzanine"]
   JUMP [+1]
-  LOADK R5 K6 ["BuiltIn_RightMezzanineStartPage"]
-  GETTABLEKS R7 R3 K2 ["MezzanineControls"]
+  LOADK R5 K3 ["BuiltIn_RightMezzanineStartPage"]
+  GETTABLEKS R7 R3 K4 ["MezzanineControls"]
   GETTABLE R6 R7 R5
   JUMPIFNOT R6 [+3]
-  GETTABLEKS R7 R6 K4 ["Controls"]
+  GETTABLEKS R7 R6 K5 ["Controls"]
   JUMP [+2]
   NEWTABLE R7 0 0
   MOVE R8 R4
@@ -58,15 +46,9 @@ MAIN:
   GETTABLEKS R6 R0 K8 ["Src"]
   GETTABLEKS R5 R6 K13 ["Types"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K14 ["SharedFlags"]
-  GETTABLEKS R6 R7 K15 ["getFFlagTestingControlsOptOut"]
-  CALL R5 1 1
-  GETTABLEKS R6 R1 K16 ["useContext"]
-  DUPCLOSURE R7 K17 [PROTO_0]
-  CAPTURE VAL R6
-  CAPTURE VAL R2
+  GETTABLEKS R5 R1 K14 ["useContext"]
+  DUPCLOSURE R6 K15 [PROTO_0]
   CAPTURE VAL R5
+  CAPTURE VAL R2
   CAPTURE VAL R3
-  RETURN R7 1
+  RETURN R6 1

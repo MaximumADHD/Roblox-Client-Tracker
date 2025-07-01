@@ -154,7 +154,7 @@ function PlayerListMaster.new()
 	if FFlagUseNewPlayerList then
 		self._mountLeaderboardStore()
 		self.root = Roact.createElement(PlayerListContainer, {
-			leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance(false),
+			leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance,
 			TopBarConstants = require(RobloxGui.Modules.TopBar.Constants),
 			isTenFoot = TenFootInterface:IsEnabled(),
 		}, {

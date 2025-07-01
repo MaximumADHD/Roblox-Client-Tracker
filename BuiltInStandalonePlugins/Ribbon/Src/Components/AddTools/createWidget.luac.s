@@ -84,32 +84,33 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["StudioUri"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["StudioFoundation"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K9 ["FoundationInspector"]
-  CALL R2 1 1
-  GETIMPORT R3 K12 [Vector2.new]
-  LOADN R4 128
-  LOADN R5 244
-  CALL R3 2 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K13 ["SharedFlags"]
-  GETTABLEKS R5 R6 K14 ["getFFlagDebugEnableFoundationInspector"]
-  CALL R4 1 1
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["StudioUri"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["FoundationInspector"]
+  CALL R3 1 1
+  GETIMPORT R4 K14 [Vector2.new]
+  LOADN R5 128
+  LOADN R6 244
+  CALL R4 2 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K13 ["SharedFlags"]
-  GETTABLEKS R6 R7 K15 ["getFFlagRibbonCloseTools"]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K15 ["SharedFlags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagDebugEnableFoundationInspector"]
   CALL R5 1 1
-  DUPCLOSURE R6 K16 [PROTO_2]
-  CAPTURE VAL R3
-  CAPTURE VAL R1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K15 ["SharedFlags"]
+  GETTABLEKS R7 R8 K17 ["getFFlagRibbonCloseTools"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K18 [PROTO_2]
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R5
-  RETURN R6 1
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  RETURN R7 1

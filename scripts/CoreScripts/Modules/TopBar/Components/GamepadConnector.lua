@@ -28,6 +28,8 @@ local FFlagGamepadConnectorSetCoreGuiNavEnabled = SharedFlags.FFlagGamepadConnec
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 
+local FFlagUseToBarFocusedToToggleTopBar = game:DefineFastFlag("UseToBarFocusedToToggleTopBar", false)
+
 local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
 local TopBarTelemetry = require(TopBar:WaitForChild("Telemetry"))
@@ -41,6 +43,8 @@ local ObservableValue = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFl
 local ToastNotificationConstants = require(CorePackages.Workspace.Packages.ToastNotification).ToastNotificationConstants
 local Constants = require(script.Parent.Parent.Constants)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
+
+local MenuIconSelectedSignal = ChromeFocusUtils.MenuIconSelectedSignal
 
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
@@ -248,7 +252,9 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 					return Enum.ContextActionResult.Pass
 				end
 			end
-			local toggleTopBarOpen = self:getSelectedCoreObject():get() == nil
+			local toggleTopBarOpen = if FFlagUseToBarFocusedToToggleTopBar then 
+				not (self._topbarFocused:get() or MenuIconSelectedSignal:get() or ExpChatFocusNavigationStore.getChatInputBarFocused(false)) 
+			else self:getSelectedCoreObject():get() == nil
 			if toggleTopBarOpen then
 				if FFlagGamepadConnectorUseChromeFocusAPI then
 					self:_focusGamepadToTopBar()

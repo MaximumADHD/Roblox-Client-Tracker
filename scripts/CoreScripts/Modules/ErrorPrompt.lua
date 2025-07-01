@@ -18,7 +18,6 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
-local FFlagFixGamepadDisconnectHighlight = game:DefineFastFlag("FixGamepadDisconnectHighlight2", false)
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
@@ -261,18 +260,10 @@ function ErrorPrompt:_open(errorMsg, errorCode, shouldShowChannelName)
 		else
 			self._frame.PromptScale.Scale = 1
 		end
-
-		if not FFlagFixGamepadDisconnectHighlight then
-			if VRService.VREnabled or GuiService:IsTenFootInterface() then
-				GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
-			end
-		end
 	end
 
-	if FFlagFixGamepadDisconnectHighlight then
-		if self._isOpen and (VRService.VREnabled or GuiService:IsTenFootInterface()) then
-			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
-		end
+	if self._isOpen and (VRService.VREnabled or GuiService:IsTenFootInterface()) then
+		GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
 	end
 end
 

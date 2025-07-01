@@ -135,25 +135,22 @@ MAIN:
   GETIMPORT R1 K5 [pcall]
   DUPCLOSURE R2 K6 [PROTO_0]
   CALL R1 1 2
-  JUMPIF R1 [+6]
-  GETIMPORT R3 K8 [warn]
-  LOADK R4 K9 ["StudioPublishService is not available. Publishing functionality will be limited. Disregard for unit tests."]
-  CALL R3 1 0
-  DUPCLOSURE R3 K10 [PROTO_1]
+  JUMPIF R1 [+2]
+  DUPCLOSURE R3 K7 [PROTO_1]
   RETURN R3 1
-  GETIMPORT R3 K12 [require]
-  GETTABLEKS R8 R0 K13 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Util"]
-  GETTABLEKS R6 R7 K15 ["BridgingFiles"]
-  GETTABLEKS R5 R6 K16 ["AssetDmFiles"]
-  GETTABLEKS R4 R5 K17 ["assetDmDatabaseLoadedManager"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Util"]
+  GETTABLEKS R6 R7 K12 ["BridgingFiles"]
+  GETTABLEKS R5 R6 K13 ["AssetDmFiles"]
+  GETTABLEKS R4 R5 K14 ["assetDmDatabaseLoadedManager"]
   CALL R3 1 1
-  GETIMPORT R4 K12 [require]
-  GETTABLEKS R7 R0 K13 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Util"]
-  GETTABLEKS R5 R6 K18 ["InvokeKeys"]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K15 ["InvokeKeys"]
   CALL R4 1 1
-  DUPCLOSURE R5 K19 [PROTO_6]
+  DUPCLOSURE R5 K16 [PROTO_6]
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R2

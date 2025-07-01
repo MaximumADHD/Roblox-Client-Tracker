@@ -20,7 +20,8 @@ local rawKeyToRawValue = {
 	Web = "Web",
 	Maquettes = "Maquettes",
 	Palisades = "Palisades",
-	Microsoft = "Microsoft"
+	Microsoft = "Microsoft",
+	MilkyWay = "MilkyWay"
 }
 
 -- The values here correspond to values in the requested web view.

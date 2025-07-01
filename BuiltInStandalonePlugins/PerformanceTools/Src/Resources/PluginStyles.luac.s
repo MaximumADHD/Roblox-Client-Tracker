@@ -12,7 +12,7 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
   GETTABLEKS R4 R1 K8 ["Styling"]
   GETTABLEKS R3 R4 K10 ["createStyleSheet"]
-  NEWTABLE R4 0 3
+  NEWTABLE R4 0 4
   MOVE R5 R2
   LOADK R6 K11 ["#BackToMainButton"]
   DUPTABLE R7 K13 [{"Image"}]
@@ -30,17 +30,25 @@ MAIN:
   DUPTABLE R9 K13 [{"Image"}]
   LOADK R10 K18 ["$InformationImage"]
   SETTABLEKS R10 R9 K12 ["Image"]
-  CALL R7 2 -1
+  CALL R7 2 1
+  MOVE R8 R2
+  LOADK R9 K19 [">> .SimpleDivider"]
+  DUPTABLE R10 K22 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R11 K23 ["$HeavyDivider"]
+  SETTABLEKS R11 R10 K20 ["BackgroundColor3"]
+  LOADK R11 K24 [0.75]
+  SETTABLEKS R11 R10 K21 ["BackgroundTransparency"]
+  CALL R8 2 -1
   SETLIST R4 R5 -1 [1]
-  DUPTABLE R5 K22 [{"FontSize_300", "FontSize_350", "HeavyDivider"}]
+  DUPTABLE R5 K28 [{"FontSize_300", "FontSize_350", "HeavyDivider"}]
   LOADN R6 15
-  SETTABLEKS R6 R5 K19 ["FontSize_300"]
+  SETTABLEKS R6 R5 K25 ["FontSize_300"]
   LOADN R6 17
-  SETTABLEKS R6 R5 K20 ["FontSize_350"]
-  GETIMPORT R6 K25 [Color3.fromHex]
-  LOADK R7 K26 ["#000000"]
+  SETTABLEKS R6 R5 K26 ["FontSize_350"]
+  GETIMPORT R6 K31 [Color3.fromHex]
+  LOADK R7 K32 ["#000000"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K21 ["HeavyDivider"]
+  SETTABLEKS R6 R5 K27 ["HeavyDivider"]
   MOVE R6 R3
   LOADK R7 K2 ["PerformanceTools"]
   MOVE R8 R4

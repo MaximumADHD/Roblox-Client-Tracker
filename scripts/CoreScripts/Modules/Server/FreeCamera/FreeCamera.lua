@@ -68,6 +68,14 @@ do
 	FFlagUserFixFreecamGuiChangeVisibility = success and result
 end
 
+local FFlagUserFreecamControlSpeed
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFreecamControlSpeed")
+	end)
+	FFlagUserFreecamControlSpeed = success and result
+end
+
 ------------------------------------------------------------------------
 
 local FREECAM_ENABLED_ATTRIBUTE_NAME = "FreecamEnabled"
@@ -156,6 +164,8 @@ local Input = {} do
 		ButtonY = 0,
 		DPadDown = 0,
 		DPadUp = 0,
+		DPadLeft = 0,
+		DPadRight = 0,
 		ButtonL2 = 0,
 		ButtonR2 = 0,
 		Thumbstick1 = Vector2.new(),
@@ -177,6 +187,8 @@ local Input = {} do
 		Y = 0,
 		Up = 0,
 		Down = 0,
+		Left = 0,
+		Right = 0,
 		LeftShift = 0,
 		RightShift = 0,
 	}
@@ -196,13 +208,22 @@ local Input = {} do
 	local FOV_WHEEL_SPEED_DT = FOV_WHEEL_SPEED/DEFAULT_FPS
 	local FOV_GAMEPAD_SPEED  = 0.25
 	local NAV_ADJ_SPEED      = 0.75
+	local NAV_MIN_SPEED      = 0.01
+	local NAV_MAX_SPEED      = 4.0
 	local NAV_SHIFT_MUL      = 0.25
+	local FOV_ADJ_SPEED      = 0.75
+	local FOV_MIN_SPEED      = 0.01
+	local FOV_MAX_SPEED      = 4.0
 
 	local navSpeed = 1
+	local fovSpeed = 1
 
 	function Input.Vel(dt)
-		navSpeed = clamp(navSpeed + dt*(keyboard.Up - keyboard.Down)*NAV_ADJ_SPEED, 0.01, 4)
-
+		if FFlagUserFreecamControlSpeed then
+			navSpeed = clamp(navSpeed + dt*(keyboard.Up - keyboard.Down + gamepad.DPadUp - gamepad.DPadDown)*NAV_ADJ_SPEED, NAV_MIN_SPEED, NAV_MAX_SPEED)
+		else
+			navSpeed = clamp(navSpeed + dt*(keyboard.Up - keyboard.Down)*NAV_ADJ_SPEED, 0.01, 4)
+		end
 		local kGamepad = Vector3.new(
 			thumbstickCurve(gamepad.Thumbstick1.X),
 			thumbstickCurve(gamepad.ButtonR2) - thumbstickCurve(gamepad.ButtonL2),
@@ -236,6 +257,9 @@ local Input = {} do
 	end
 
 	function Input.Fov(dt)
+		if FFlagUserFreecamControlSpeed then
+			fovSpeed = clamp(fovSpeed + dt*(keyboard.Right - keyboard.Left + gamepad.DPadRight - gamepad.DPadLeft)*FOV_ADJ_SPEED, FOV_MIN_SPEED, FOV_MAX_SPEED)
+		end
 		local kGamepad = (gamepad.ButtonX - gamepad.ButtonY)*FOV_GAMEPAD_SPEED
 		local kMouse = mouse.MouseWheel*FOV_WHEEL_SPEED
 		if FFlagUserFixFreecamDeltaTimeCalculation then
@@ -244,7 +268,11 @@ local Input = {} do
 			end
 		end
 		mouse.MouseWheel = 0
-		return kGamepad + kMouse
+		if FFlagUserFreecamControlSpeed then
+			return (kGamepad + kMouse)*fovSpeed
+		else
+			return kGamepad + kMouse
+		end
 	end
 
 	do
@@ -286,15 +314,34 @@ local Input = {} do
 		end
 
 		function Input.StartCapture()
-			ContextActionService:BindActionAtPriority("FreecamKeyboard", Keypress, false, INPUT_PRIORITY,
-				Enum.KeyCode.W, Enum.KeyCode.U,
-				Enum.KeyCode.A, Enum.KeyCode.H,
-				Enum.KeyCode.S, Enum.KeyCode.J,
-				Enum.KeyCode.D, Enum.KeyCode.K,
-				Enum.KeyCode.E, Enum.KeyCode.I,
-				Enum.KeyCode.Q, Enum.KeyCode.Y,
-				Enum.KeyCode.Up, Enum.KeyCode.Down
-			)
+			if FFlagUserFreecamControlSpeed then
+				ContextActionService:BindActionAtPriority("FreecamKeyboard", Keypress, false, INPUT_PRIORITY,
+					Enum.KeyCode.W, Enum.KeyCode.U,
+					Enum.KeyCode.A, Enum.KeyCode.H,
+					Enum.KeyCode.S, Enum.KeyCode.J,
+					Enum.KeyCode.D, Enum.KeyCode.K,
+					Enum.KeyCode.E, Enum.KeyCode.I,
+					Enum.KeyCode.Q, Enum.KeyCode.Y
+				)
+				ContextActionService:BindActionAtPriority("FreecamKeyboardControlSpeed", Keypress, false, INPUT_PRIORITY,
+					Enum.KeyCode.Up, Enum.KeyCode.Down,
+					Enum.KeyCode.Left, Enum.KeyCode.Right
+				)
+				ContextActionService:BindActionAtPriority("FreecamGamepadControlSpeed", GpButton, false, INPUT_PRIORITY, 
+					Enum.KeyCode.DPadUp, Enum.KeyCode.DPadDown, 
+					Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight
+				)
+			else
+				ContextActionService:BindActionAtPriority("FreecamKeyboard", Keypress, false, INPUT_PRIORITY,
+					Enum.KeyCode.W, Enum.KeyCode.U,
+					Enum.KeyCode.A, Enum.KeyCode.H,
+					Enum.KeyCode.S, Enum.KeyCode.J,
+					Enum.KeyCode.D, Enum.KeyCode.K,
+					Enum.KeyCode.E, Enum.KeyCode.I,
+					Enum.KeyCode.Q, Enum.KeyCode.Y,
+					Enum.KeyCode.Up, Enum.KeyCode.Down
+				)
+			end
 			ContextActionService:BindActionAtPriority("FreecamMousePan",          MousePan,   false, INPUT_PRIORITY, Enum.UserInputType.MouseMovement)
 			ContextActionService:BindActionAtPriority("FreecamMouseWheel",        MouseWheel, false, INPUT_PRIORITY, Enum.UserInputType.MouseWheel)
 			ContextActionService:BindActionAtPriority("FreecamGamepadButton",     GpButton,   false, INPUT_PRIORITY, Enum.KeyCode.ButtonX, Enum.KeyCode.ButtonY)
@@ -304,10 +351,17 @@ local Input = {} do
 
 		function Input.StopCapture()
 			navSpeed = 1
+			if FFlagUserFreecamControlSpeed then
+				fovSpeed = 1
+			end
 			Zero(gamepad)
 			Zero(keyboard)
 			Zero(mouse)
 			ContextActionService:UnbindAction("FreecamKeyboard")
+			if FFlagUserFreecamControlSpeed then
+				ContextActionService:UnbindAction("FreecamKeyboardControlSpeed")
+				ContextActionService:UnbindAction("FreecamGamepadControlSpeed")
+			end
 			ContextActionService:UnbindAction("FreecamMousePan")
 			ContextActionService:UnbindAction("FreecamMouseWheel")
 			ContextActionService:UnbindAction("FreecamGamepadButton")

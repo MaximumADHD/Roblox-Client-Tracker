@@ -153,7 +153,7 @@ PROTO_6:
 PROTO_7:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["plugin"]
-  LOADK R2 K2 ["AccessoryFittingTool"]
+  LOADK R2 K2 ["LayeredClothingEditor"]
   SETTABLEKS R2 R1 K3 ["Name"]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K4 ["Plugin"]
@@ -187,7 +187,7 @@ PROTO_7:
   GETTABLEKS R3 R4 K15 ["Localization"]
   GETTABLEKS R2 R3 K5 ["new"]
   DUPTABLE R3 K20 [{"pluginName", "stringResourceTable", "translationResourceTable", "libraries"}]
-  LOADK R4 K2 ["AccessoryFittingTool"]
+  LOADK R4 K2 ["LayeredClothingEditor"]
   SETTABLEKS R4 R3 K16 ["pluginName"]
   GETUPVAL R4 6
   SETTABLEKS R4 R3 K17 ["stringResourceTable"]

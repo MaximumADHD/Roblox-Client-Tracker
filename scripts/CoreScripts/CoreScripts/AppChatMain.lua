@@ -4,12 +4,21 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
+local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local Rodux = require(CorePackages.Packages.Rodux)
 local SocialCommon = require(CorePackages.Workspace.Packages.SocialCommon)
 local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
+local InputHandlers = require(CorePackages.Packages.InputHandlers)
 local ChatEntryPointNames = SocialCommon.Enums.ChatEntryPointNames
 
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
+
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
+local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
+local FocusRoot = FocusNavigationUtils.FocusRoot
+local FocusNavigationEventNameEnum = FocusNavigationUtils.FocusNavigationEventNameEnum
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local GetFFlagFixSettingshubImportOrder = require(RobloxGui.Modules.Flags.GetFFlagFixSettingshubImportOrder)
 if GetFFlagFixSettingshubImportOrder() then
@@ -27,6 +36,7 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local ViewportUtil = require(RobloxGui.Modules.Chrome.ChromeShared.Service.ViewportUtil)
 local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
+local FFlagEnableAppChatFocusableFixes = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAppChatFocusableFixes
 local ChatSelector = if getFFlagAppChatCoreUIConflictFix() then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local PlayerListManager = if getFFlagAppChatCoreUIConflictFix() then require(RobloxGui.Modules.PlayerList.PlayerListManager) else nil :: never
 
@@ -44,6 +54,10 @@ local root = ReactRoblox.createRoot(folder)
 local store = Rodux.Store.new(AppChatReducer, nil, {
 	Rodux.thunkMiddleware,
 })
+
+local focusNavigationService = if FFlagEnableAppChatFocusableFixes
+	then ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
+	else nil
 
 local shouldUseIndependentAppChatContainer = if FFlagUpdateSquadInDefaultAppChatContainer
 	then InExperienceAppChatExperimentation.default:shouldUseIndependentAppChatContainer()
@@ -108,15 +122,67 @@ if shouldUseIndependentAppChatContainer then
 	}
 end
 
-local tree = React.createElement(InExperienceAppChatProviders, {
-	store = store,
-	-- this anonymous function to be replaced by one used by unibar
-	updateAppChatUnreadMessagesCount = updateAppChatUnreadMessagesCount,
-	parentContainerContext = parentContainerContext,
-	apolloClient = if getFFlagAppChatMoveApolloProvider() then ApolloClient else nil,
-}, {
-	appChat = React.createElement(InExperienceAppChat, {
-		apolloClient = if getFFlagAppChatMoveApolloProvider() then nil else ApolloClient,
-	}),
-})
+local function AppChatMainWithFocusRoot()
+	local customEventHandlers = {
+			[FocusNavigationEventNameEnum.NavigateBack :: string] = {
+				handler = InputHandlers.onRelease(function(event)
+					parentContainerContext.hideParentContainer()
+					event:cancel()
+				end),
+			}
+		} 
+
+	local eventMap =  {
+			[Enum.KeyCode.ButtonB] = FocusNavigationEventNameEnum.NavigateBack :: string,
+			[Enum.KeyCode.Escape] = FocusNavigationEventNameEnum.NavigateBack :: string,
+		}
+
+
+	return React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
+		value = focusNavigationService,
+	}, {
+		FocusNavigationRegistryProvider = React.createElement(
+			FocusNavigationRegistryProvider,
+			nil,
+			{ FocusRoot = React.createElement(FocusRoot, {
+				surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.PopUp,
+				isAutoFocusRoot = true,
+				isIsolated = true,
+				eventHandlers = customEventHandlers,
+				eventMap = eventMap,
+			}, {
+				InExperienceAppChatProviders = React.createElement(InExperienceAppChatProviders, {
+					store = store,
+					-- this anonymous function to be replaced by one used by unibar
+					updateAppChatUnreadMessagesCount = updateAppChatUnreadMessagesCount,
+					parentContainerContext = parentContainerContext,
+					apolloClient = if getFFlagAppChatMoveApolloProvider() then ApolloClient else nil,
+				}, {
+					appChat = React.createElement(InExperienceAppChat, {
+						apolloClient = if getFFlagAppChatMoveApolloProvider() then nil else ApolloClient,
+					}),
+				}),
+			})}
+		),
+	})
+end
+
+local function AppChatMainWithoutFocusRoot()
+	return React.createElement(InExperienceAppChatProviders, {
+		store = store,
+		-- this anonymous function to be replaced by one used by unibar
+		updateAppChatUnreadMessagesCount = updateAppChatUnreadMessagesCount,
+		parentContainerContext = parentContainerContext,
+		apolloClient = if getFFlagAppChatMoveApolloProvider() then ApolloClient else nil,
+	}, {
+		appChat = React.createElement(InExperienceAppChat, {
+			apolloClient = if getFFlagAppChatMoveApolloProvider() then nil else ApolloClient,
+		}),
+	})
+end
+
+local tree = if FFlagEnableAppChatFocusableFixes
+	then AppChatMainWithFocusRoot()
+	else AppChatMainWithoutFocusRoot()
+
 root:render(tree)

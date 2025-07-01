@@ -22,6 +22,8 @@ return function(paymentPlatform)
         return "PalisadesStore"
     elseif paymentPlatform == PaymentPlatform.Microsoft then
         return "MicrosoftStore"
+    elseif paymentPlatform == PaymentPlatform.MilkyWay then
+        return "MilkyWayStore"
     else
         return "None"
     end

@@ -309,15 +309,15 @@ PROTO_10:
   SETTABLEKS R23 R22 K31 ["UICorner"]
   GETTABLEKS R25 R0 K13 ["state"]
   GETTABLEKS R24 R25 K46 ["imageUrlsForCarousel"]
-  JUMPIFEQKNIL R24 [+53]
+  JUMPIFEQKNIL R24 [+60]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
   GETUPVAL R24 4
-  DUPTABLE R25 K56 [{"AutoAdvanceTimer", "ImageScaleType", "ImageCornerRadius", "ImageStrings", "OnImageChange", "OnImageChangeTransparencyThreshold", "OnSetImages", "ResetWhenHoveredOff", "Size"}]
+  DUPTABLE R25 K57 [{"AutoAdvanceTimer", "ImageScaleType", "ImageCornerRadius", "ImageStrings", "OnImageChange", "OnImageChangeTransparencyThreshold", "OnSetImages", "ResetWhenHoveredOff", "Size", "DisableAnimations"}]
   GETUPVAL R27 0
-  GETTABLEKS R26 R27 K57 ["ASSET_TILE_IMAGE_CAROUSEL_AUTO_ADVANCE_TIMER"]
+  GETTABLEKS R26 R27 K58 ["ASSET_TILE_IMAGE_CAROUSEL_AUTO_ADVANCE_TIMER"]
   SETTABLEKS R26 R25 K47 ["AutoAdvanceTimer"]
-  GETIMPORT R26 K60 [Enum.ScaleType.Crop]
+  GETIMPORT R26 K61 [Enum.ScaleType.Crop]
   SETTABLEKS R26 R25 K48 ["ImageScaleType"]
   GETUPVAL R27 0
   GETTABLEKS R26 R27 K45 ["ASSET_CORNER_RADIUS"]
@@ -325,41 +325,47 @@ PROTO_10:
   GETTABLEKS R27 R0 K13 ["state"]
   GETTABLEKS R26 R27 K46 ["imageUrlsForCarousel"]
   SETTABLEKS R26 R25 K50 ["ImageStrings"]
-  GETTABLEKS R26 R0 K61 ["OnImageCarouselChange"]
+  GETTABLEKS R26 R0 K62 ["OnImageCarouselChange"]
   SETTABLEKS R26 R25 K51 ["OnImageChange"]
   GETUPVAL R27 0
-  GETTABLEKS R26 R27 K62 ["IMAGE_CAROUSEL_ON_IMAGE_CHANGE_TRANSPARENCY_THRESHOLD"]
+  GETTABLEKS R26 R27 K63 ["IMAGE_CAROUSEL_ON_IMAGE_CHANGE_TRANSPARENCY_THRESHOLD"]
   SETTABLEKS R26 R25 K52 ["OnImageChangeTransparencyThreshold"]
-  GETTABLEKS R26 R0 K63 ["OnSetImageCarouselImages"]
+  GETTABLEKS R26 R0 K64 ["OnSetImageCarouselImages"]
   SETTABLEKS R26 R25 K53 ["OnSetImages"]
   LOADB R26 1
   SETTABLEKS R26 R25 K54 ["ResetWhenHoveredOff"]
-  GETIMPORT R26 K65 [UDim2.new]
+  GETIMPORT R26 K66 [UDim2.new]
   LOADN R27 1
   LOADN R28 0
   LOADN R29 1
   LOADN R30 0
   CALL R26 4 1
   SETTABLEKS R26 R25 K55 ["Size"]
+  GETUPVAL R27 5
+  JUMPIFNOT R27 [+2]
+  LOADB R26 1
+  JUMP [+1]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K56 ["DisableAnimations"]
   CALL R23 2 1
   JUMP [+41]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
-  GETUPVAL R24 5
-  DUPTABLE R25 K69 [{"BackgroundTransparency", "Size", "Image", "defaultImage"}]
+  GETUPVAL R24 6
+  DUPTABLE R25 K70 [{"BackgroundTransparency", "Size", "Image", "defaultImage"}]
   LOADN R26 1
-  SETTABLEKS R26 R25 K66 ["BackgroundTransparency"]
-  GETIMPORT R26 K65 [UDim2.new]
+  SETTABLEKS R26 R25 K67 ["BackgroundTransparency"]
+  GETIMPORT R26 K66 [UDim2.new]
   LOADN R27 1
   LOADN R28 0
   LOADN R29 1
   LOADN R30 0
   CALL R26 4 1
   SETTABLEKS R26 R25 K55 ["Size"]
-  SETTABLEKS R16 R25 K67 ["Image"]
-  LOADK R26 K70 [""]
-  SETTABLEKS R26 R25 K68 ["defaultImage"]
-  DUPTABLE R26 K71 [{"UICorner"}]
+  SETTABLEKS R16 R25 K68 ["Image"]
+  LOADK R26 K71 [""]
+  SETTABLEKS R26 R25 K69 ["defaultImage"]
+  DUPTABLE R26 K72 [{"UICorner"}]
   GETUPVAL R28 3
   GETTABLEKS R27 R28 K39 ["createElement"]
   LOADK R28 K31 ["UICorner"]
@@ -378,11 +384,11 @@ PROTO_10:
   JUMPIFNOT R8 [+13]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
-  GETUPVAL R24 6
-  DUPTABLE R25 K73 [{"assetId", "isPackage", "floatLeft"}]
+  GETUPVAL R24 7
+  DUPTABLE R25 K74 [{"assetId", "isPackage", "floatLeft"}]
   SETTABLEKS R2 R25 K1 ["assetId"]
   SETTABLEKS R8 R25 K8 ["isPackage"]
-  SETTABLEKS R19 R25 K72 ["floatLeft"]
+  SETTABLEKS R19 R25 K73 ["floatLeft"]
   CALL R23 2 1
   JUMP [+1]
   LOADNIL R23
@@ -391,10 +397,10 @@ PROTO_10:
   JUMPIFNOT R23 [+15]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
-  GETUPVAL R24 7
-  DUPTABLE R25 K75 [{"ZIndex", "assetId", "currentSoundId", "isLoading"}]
+  GETUPVAL R24 8
+  DUPTABLE R25 K76 [{"ZIndex", "assetId", "currentSoundId", "isLoading"}]
   LOADN R26 3
-  SETTABLEKS R26 R25 K74 ["ZIndex"]
+  SETTABLEKS R26 R25 K75 ["ZIndex"]
   SETTABLEKS R2 R25 K1 ["assetId"]
   SETTABLEKS R9 R25 K9 ["currentSoundId"]
   SETTABLEKS R10 R25 K10 ["isLoading"]
@@ -404,25 +410,25 @@ PROTO_10:
   JUMPIFNOT R23 [+38]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
-  GETUPVAL R24 8
-  DUPTABLE R25 K78 [{"AnchorPoint", "assetId", "currentSoundId", "BackgroundTransparency", "Position", "Size"}]
-  GETIMPORT R26 K80 [Vector2.new]
+  GETUPVAL R24 9
+  DUPTABLE R25 K79 [{"AnchorPoint", "assetId", "currentSoundId", "BackgroundTransparency", "Position", "Size"}]
+  GETIMPORT R26 K81 [Vector2.new]
   LOADN R27 0
   LOADN R28 1
   CALL R26 2 1
-  SETTABLEKS R26 R25 K76 ["AnchorPoint"]
+  SETTABLEKS R26 R25 K77 ["AnchorPoint"]
   SETTABLEKS R2 R25 K1 ["assetId"]
   SETTABLEKS R9 R25 K9 ["currentSoundId"]
   LOADN R26 1
-  SETTABLEKS R26 R25 K66 ["BackgroundTransparency"]
-  GETIMPORT R26 K65 [UDim2.new]
+  SETTABLEKS R26 R25 K67 ["BackgroundTransparency"]
+  GETIMPORT R26 K66 [UDim2.new]
   LOADN R27 0
   LOADN R28 0
   LOADN R29 1
   LOADN R30 0
   CALL R26 4 1
-  SETTABLEKS R26 R25 K77 ["Position"]
-  GETIMPORT R26 K65 [UDim2.new]
+  SETTABLEKS R26 R25 K78 ["Position"]
+  GETIMPORT R26 K66 [UDim2.new]
   LOADN R27 1
   LOADN R28 0
   LOADN R29 0
@@ -435,15 +441,15 @@ PROTO_10:
   JUMPIFNOT R23 [+18]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
-  GETUPVAL R24 9
-  DUPTABLE R25 K84 [{"position", "ShowIcon", "onClick", "ZIndex"}]
-  GETUPVAL R26 10
-  SETTABLEKS R26 R25 K81 ["position"]
-  SETTABLEKS R14 R25 K82 ["ShowIcon"]
-  GETTABLEKS R26 R0 K85 ["onAssetPreviewButtonClicked"]
-  SETTABLEKS R26 R25 K83 ["onClick"]
+  GETUPVAL R24 10
+  DUPTABLE R25 K85 [{"position", "ShowIcon", "onClick", "ZIndex"}]
+  GETUPVAL R26 11
+  SETTABLEKS R26 R25 K82 ["position"]
+  SETTABLEKS R14 R25 K83 ["ShowIcon"]
+  GETTABLEKS R26 R0 K86 ["onAssetPreviewButtonClicked"]
+  SETTABLEKS R26 R25 K84 ["onClick"]
   LOADN R26 2
-  SETTABLEKS R26 R25 K74 ["ZIndex"]
+  SETTABLEKS R26 R25 K75 ["ZIndex"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K36 ["AssetPreviewTriggerButton"]
   MOVE R23 R14
@@ -452,57 +458,57 @@ PROTO_10:
   JUMPIFNOT R23 [+24]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
-  LOADK R24 K86 ["ImageLabel"]
-  DUPTABLE R25 K87 [{"Position", "AnchorPoint", "Size", "Image", "BackgroundTransparency"}]
-  GETUPVAL R26 11
-  SETTABLEKS R26 R25 K77 ["Position"]
-  GETIMPORT R26 K80 [Vector2.new]
-  LOADK R27 K88 [0.5]
-  LOADK R28 K88 [0.5]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K76 ["AnchorPoint"]
+  LOADK R24 K87 ["ImageLabel"]
+  DUPTABLE R25 K88 [{"Position", "AnchorPoint", "Size", "Image", "BackgroundTransparency"}]
   GETUPVAL R26 12
+  SETTABLEKS R26 R25 K78 ["Position"]
+  GETIMPORT R26 K81 [Vector2.new]
+  LOADK R27 K89 [0.5]
+  LOADK R28 K89 [0.5]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K77 ["AnchorPoint"]
+  GETUPVAL R26 13
   SETTABLEKS R26 R25 K55 ["Size"]
-  SETTABLEKS R20 R25 K67 ["Image"]
+  SETTABLEKS R20 R25 K68 ["Image"]
   LOADN R26 1
-  SETTABLEKS R26 R25 K66 ["BackgroundTransparency"]
+  SETTABLEKS R26 R25 K67 ["BackgroundTransparency"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K27 ["AssetStatus"]
   MOVE R23 R13
   JUMPIFNOT R23 [+12]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
-  GETUPVAL R24 13
-  DUPTABLE R25 K90 [{"Text", "canShowCurrentTooltip", "isHovered"}]
-  SETTABLEKS R3 R25 K89 ["Text"]
+  GETUPVAL R24 14
+  DUPTABLE R25 K91 [{"Text", "canShowCurrentTooltip", "isHovered"}]
+  SETTABLEKS R3 R25 K90 ["Text"]
   SETTABLEKS R18 R25 K21 ["canShowCurrentTooltip"]
   SETTABLEKS R13 R25 K14 ["isHovered"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K37 ["TooltipWrapper"]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K39 ["createElement"]
-  GETUPVAL R24 14
+  GETUPVAL R24 15
   NEWTABLE R25 8 0
   SETTABLEKS R5 R25 K5 ["backgroundIndex"]
-  GETIMPORT R26 K65 [UDim2.new]
+  GETIMPORT R26 K66 [UDim2.new]
   LOADN R27 1
   LOADN R28 0
   LOADN R29 1
   LOADN R30 0
   CALL R26 4 1
   SETTABLEKS R26 R25 K55 ["Size"]
-  GETIMPORT R26 K93 [Enum.SizeConstraint.RelativeXX]
-  SETTABLEKS R26 R25 K91 ["SizeConstraint"]
+  GETIMPORT R26 K94 [Enum.SizeConstraint.RelativeXX]
+  SETTABLEKS R26 R25 K92 ["SizeConstraint"]
   LOADN R26 1
-  SETTABLEKS R26 R25 K74 ["ZIndex"]
+  SETTABLEKS R26 R25 K75 ["ZIndex"]
   SETTABLEKS R4 R25 K4 ["LayoutOrder"]
   GETUPVAL R28 3
-  GETTABLEKS R27 R28 K94 ["Event"]
-  GETTABLEKS R26 R27 K95 ["MouseEnter"]
+  GETTABLEKS R27 R28 K95 ["Event"]
+  GETTABLEKS R26 R27 K96 ["MouseEnter"]
   SETTABLE R11 R25 R26
   GETUPVAL R28 3
-  GETTABLEKS R27 R28 K94 ["Event"]
-  GETTABLEKS R26 R27 K96 ["MouseLeave"]
+  GETTABLEKS R27 R28 K95 ["Event"]
+  GETTABLEKS R26 R27 K97 ["MouseLeave"]
   SETTABLE R12 R25 R26
   MOVE R26 R22
   CALL R23 3 -1
@@ -675,25 +681,30 @@ MAIN:
   LOADN R30 0
   LOADN R31 16
   CALL R27 4 1
-  DUPCLOSURE R28 K41 [PROTO_1]
+  GETIMPORT R28 K42 [game]
+  LOADK R30 K43 ["ToolboxDisableImageCarouselAnimation"]
+  NAMECALL R28 R28 K44 ["GetFastFlag"]
+  CALL R28 2 1
+  DUPCLOSURE R29 K45 [PROTO_1]
   CAPTURE VAL R5
   CAPTURE VAL R10
   CAPTURE VAL R8
-  SETTABLEKS R28 R24 K42 ["_createImageDataForCarousel"]
-  DUPCLOSURE R28 K43 [PROTO_8]
+  SETTABLEKS R29 R24 K46 ["_createImageDataForCarousel"]
+  DUPCLOSURE R29 K47 [PROTO_8]
   CAPTURE VAL R10
   CAPTURE VAL R8
-  SETTABLEKS R28 R24 K44 ["init"]
-  DUPCLOSURE R28 K45 [PROTO_9]
+  SETTABLEKS R29 R24 K48 ["init"]
+  DUPCLOSURE R29 K49 [PROTO_9]
   CAPTURE VAL R10
   CAPTURE VAL R8
-  SETTABLEKS R28 R24 K46 ["didUpdate"]
-  DUPCLOSURE R28 K47 [PROTO_10]
+  SETTABLEKS R29 R24 K50 ["didUpdate"]
+  DUPCLOSURE R29 K51 [PROTO_10]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R12
   CAPTURE VAL R2
   CAPTURE VAL R21
+  CAPTURE VAL R28
   CAPTURE VAL R17
   CAPTURE VAL R13
   CAPTURE VAL R15
@@ -704,23 +715,23 @@ MAIN:
   CAPTURE VAL R27
   CAPTURE VAL R18
   CAPTURE VAL R14
-  SETTABLEKS R28 R24 K48 ["render"]
-  MOVE R28 R23
-  DUPTABLE R29 K52 [{"AssetAnalytics", "Stylizer", "Modal"}]
-  SETTABLEKS R7 R29 K49 ["AssetAnalytics"]
-  GETTABLEKS R30 R22 K50 ["Stylizer"]
-  SETTABLEKS R30 R29 K50 ["Stylizer"]
-  SETTABLEKS R20 R29 K51 ["Modal"]
-  CALL R28 1 1
-  MOVE R29 R24
-  CALL R28 1 1
-  MOVE R24 R28
-  DUPCLOSURE R28 K53 [PROTO_11]
-  CAPTURE VAL R12
-  GETTABLEKS R29 R3 K54 ["connect"]
-  MOVE R30 R28
-  LOADNIL R31
-  CALL R29 2 1
+  SETTABLEKS R29 R24 K52 ["render"]
+  MOVE R29 R23
+  DUPTABLE R30 K56 [{"AssetAnalytics", "Stylizer", "Modal"}]
+  SETTABLEKS R7 R30 K53 ["AssetAnalytics"]
+  GETTABLEKS R31 R22 K54 ["Stylizer"]
+  SETTABLEKS R31 R30 K54 ["Stylizer"]
+  SETTABLEKS R20 R30 K55 ["Modal"]
+  CALL R29 1 1
   MOVE R30 R24
-  CALL R29 1 -1
-  RETURN R29 -1
+  CALL R29 1 1
+  MOVE R24 R29
+  DUPCLOSURE R29 K57 [PROTO_11]
+  CAPTURE VAL R12
+  GETTABLEKS R30 R3 K58 ["connect"]
+  MOVE R31 R29
+  LOADNIL R32
+  CALL R30 2 1
+  MOVE R31 R24
+  CALL R30 1 -1
+  RETURN R30 -1

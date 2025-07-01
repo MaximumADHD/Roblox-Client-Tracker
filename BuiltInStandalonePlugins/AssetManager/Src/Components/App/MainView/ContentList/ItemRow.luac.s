@@ -530,7 +530,7 @@ MAIN:
   GETIMPORT R23 K5 [require]
   GETTABLEKS R26 R0 K8 ["Src"]
   GETTABLEKS R25 R26 K36 ["Flags"]
-  GETTABLEKS R24 R25 K37 ["getFFlagAmrLayoutController"]
+  GETTABLEKS R24 R25 K37 ["getFFlagAmrSaveConfig"]
   CALL R23 1 1
   GETIMPORT R24 K5 [require]
   GETTABLEKS R27 R0 K8 ["Src"]

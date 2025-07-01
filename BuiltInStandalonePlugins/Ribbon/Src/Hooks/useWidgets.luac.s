@@ -83,38 +83,32 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
-  GETUPVAL R4 0
-  JUMPIFNOT R4 [+5]
   LOADK R5 K0 ["PluginGui"]
   NAMECALL R3 R2 K1 ["FindFirstAncestorWhichIsA"]
   CALL R3 2 1
-  JUMP [+4]
-  LOADK R5 K0 ["PluginGui"]
-  NAMECALL R3 R2 K2 ["FindFirstAncestor"]
-  CALL R3 2 1
   JUMPIF R3 [+5]
-  LOADK R6 K3 ["ScreenGui"]
+  LOADK R6 K2 ["ScreenGui"]
   NAMECALL R4 R2 K1 ["FindFirstAncestorWhichIsA"]
   CALL R4 2 1
   MOVE R3 R4
   JUMPIFNOT R3 [+26]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["toString"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["toString"]
   MOVE R5 R1
   CALL R4 1 1
-  GETTABLEKS R5 R0 K5 ["registeredWidgets"]
+  GETTABLEKS R5 R0 K4 ["registeredWidgets"]
   SETTABLE R2 R5 R4
-  GETTABLEKS R5 R0 K6 ["pendingRegisters"]
-  DUPTABLE R6 K10 [{"Uri", "Widget", "DEPRECATED_PluginGui"}]
-  SETTABLEKS R1 R6 K7 ["Uri"]
-  SETTABLEKS R2 R6 K8 ["Widget"]
-  SETTABLEKS R3 R6 K9 ["DEPRECATED_PluginGui"]
+  GETTABLEKS R5 R0 K5 ["pendingRegisters"]
+  DUPTABLE R6 K9 [{"Uri", "Widget", "DEPRECATED_PluginGui"}]
+  SETTABLEKS R1 R6 K6 ["Uri"]
+  SETTABLEKS R2 R6 K7 ["Widget"]
+  SETTABLEKS R3 R6 K8 ["DEPRECATED_PluginGui"]
   SETTABLE R6 R5 R4
-  GETTABLEKS R5 R0 K11 ["pendingDeregisters"]
+  GETTABLEKS R5 R0 K10 ["pendingDeregisters"]
   LOADNIL R6
   SETTABLE R6 R5 R4
-  GETUPVAL R5 2
-  NAMECALL R5 R5 K12 ["run"]
+  GETUPVAL R5 1
+  NAMECALL R5 R5 K11 ["run"]
   CALL R5 1 0
   RETURN R0 0
 
@@ -164,45 +158,40 @@ MAIN:
   GETTABLEKS R6 R5 K14 ["ContextServices"]
   GETTABLEKS R7 R6 K15 ["Plugin"]
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K16 ["Src"]
-  GETTABLEKS R10 R11 K17 ["Util"]
-  GETTABLEKS R9 R10 K18 ["StudioUri"]
+  GETTABLEKS R10 R0 K6 ["Packages"]
+  GETTABLEKS R9 R10 K16 ["StudioFoundation"]
   CALL R8 1 1
-  GETIMPORT R9 K20 [game]
-  LOADK R11 K21 ["BugFixWhichIsAUseWidgets"]
-  LOADB R12 0
-  NAMECALL R9 R9 K22 ["DefineFastFlag"]
-  CALL R9 3 1
-  DUPTABLE R10 K28 [{"Widgets", "pendingRegisters", "pendingDeregisters", "registeredWidgets", "running"}]
+  GETTABLEKS R10 R8 K17 ["Util"]
+  GETTABLEKS R9 R10 K18 ["StudioUri"]
+  DUPTABLE R10 K24 [{"Widgets", "pendingRegisters", "pendingDeregisters", "registeredWidgets", "running"}]
   LOADNIL R11
-  SETTABLEKS R11 R10 K23 ["Widgets"]
+  SETTABLEKS R11 R10 K19 ["Widgets"]
   NEWTABLE R11 0 0
-  SETTABLEKS R11 R10 K24 ["pendingRegisters"]
+  SETTABLEKS R11 R10 K20 ["pendingRegisters"]
   NEWTABLE R11 0 0
-  SETTABLEKS R11 R10 K25 ["pendingDeregisters"]
+  SETTABLEKS R11 R10 K21 ["pendingDeregisters"]
   NEWTABLE R11 0 0
-  SETTABLEKS R11 R10 K26 ["registeredWidgets"]
+  SETTABLEKS R11 R10 K22 ["registeredWidgets"]
   LOADB R11 0
-  SETTABLEKS R11 R10 K27 ["running"]
-  DUPCLOSURE R11 K29 [PROTO_2]
+  SETTABLEKS R11 R10 K23 ["running"]
+  DUPCLOSURE R11 K25 [PROTO_2]
   CAPTURE VAL R4
   CAPTURE VAL R10
   CAPTURE VAL R2
   CAPTURE VAL R3
-  SETTABLEKS R11 R10 K30 ["flush"]
-  DUPCLOSURE R11 K31 [PROTO_4]
+  SETTABLEKS R11 R10 K26 ["flush"]
+  DUPCLOSURE R11 K27 [PROTO_4]
   CAPTURE VAL R10
-  SETTABLEKS R11 R10 K32 ["run"]
-  DUPCLOSURE R11 K33 [PROTO_5]
+  SETTABLEKS R11 R10 K28 ["run"]
+  DUPCLOSURE R11 K29 [PROTO_5]
   CAPTURE VAL R9
-  CAPTURE VAL R8
   CAPTURE VAL R10
-  SETTABLEKS R11 R10 K34 ["register"]
-  DUPCLOSURE R11 K35 [PROTO_6]
-  CAPTURE VAL R8
+  SETTABLEKS R11 R10 K30 ["register"]
+  DUPCLOSURE R11 K31 [PROTO_6]
+  CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R11 R10 K36 ["deregister"]
-  DUPCLOSURE R11 K37 [PROTO_7]
+  SETTABLEKS R11 R10 K32 ["deregister"]
+  DUPCLOSURE R11 K33 [PROTO_7]
   CAPTURE VAL R7
   CAPTURE VAL R10
   RETURN R11 1

@@ -166,22 +166,22 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K38 ["STM5706Enabled2"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K39 ["ToolboxWVInitTimeoutSeconds"]
+  LOADK R2 K38 ["ToolboxWVInitTimeoutSeconds"]
   LOADN R3 10
   NAMECALL R0 R0 K19 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K40 ["ToolboxMaxManualRetryAttempts"]
+  LOADK R2 K39 ["ToolboxMaxManualRetryAttempts"]
   LOADN R3 3
   NAMECALL R0 R0 K19 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K41 ["ToolboxEnablePreviewAreaAssetIdLink2"]
+  LOADK R2 K40 ["ToolboxEnablePreviewAreaAssetIdLink2"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K41 ["ToolboxDisableImageCarouselAnimation"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

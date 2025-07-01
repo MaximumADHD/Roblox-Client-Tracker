@@ -30,82 +30,61 @@ MAIN:
   GETTABLEKS R4 R5 K8 ["Util"]
   GETTABLEKS R3 R4 K9 ["DebugFlags"]
   CALL R2 1 1
+  GETTABLEKS R3 R2 K10 ["RunningUnderCLI"]
+  CALL R3 0 1
+  JUMPIF R3 [+4]
+  GETTABLEKS R3 R2 K11 ["RunTests"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+69]
+  GETIMPORT R3 K13 [game]
+  LOADK R5 K14 ["RetireAudioDiscoveryPlugin"]
+  NAMECALL R3 R3 K15 ["GetFastFlag"]
+  CALL R3 2 1
+  JUMPIF R3 [+62]
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K10 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Framework"]
+  GETTABLEKS R6 R0 K16 ["Packages"]
+  GETTABLEKS R5 R6 K17 ["Dev"]
+  GETTABLEKS R4 R5 K18 ["TestEZ"]
   CALL R3 1 1
-  GETTABLEKS R4 R2 K12 ["RunningUnderCLI"]
-  CALL R4 0 1
-  JUMPIF R4 [+4]
-  GETTABLEKS R4 R2 K13 ["RunTests"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+92]
-  GETIMPORT R4 K15 [game]
-  LOADK R6 K16 ["RetireAudioDiscoveryPlugin"]
-  NAMECALL R4 R4 K17 ["GetFastFlag"]
-  CALL R4 2 1
-  JUMPIF R4 [+85]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K10 ["Packages"]
-  GETTABLEKS R6 R7 K18 ["Dev"]
-  GETTABLEKS R5 R6 K19 ["TestEZ"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K20 ["TestBootstrap"]
-  GETTABLEKS R7 R4 K21 ["Reporters"]
-  GETTABLEKS R6 R7 K22 ["TeamCityReporter"]
-  GETTABLEKS R8 R4 K21 ["Reporters"]
-  GETTABLEKS R7 R8 K23 ["TextReporter"]
-  GETIMPORT R10 K26 [_G]
-  GETTABLEKS R9 R10 K24 ["TEAMCITY"]
-  JUMPIFNOT R9 [+2]
-  MOVE R8 R6
-  JUMPIF R8 [+1]
-  MOVE R8 R7
-  GETTABLEKS R9 R0 K7 ["Src"]
-  DUPTABLE R10 K30 [{"showTimingInfo", "testNamePattern", "extraEnvironment"}]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K27 ["showTimingInfo"]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K28 ["testNamePattern"]
-  NEWTABLE R11 0 0
-  SETTABLEKS R11 R10 K29 ["extraEnvironment"]
-  GETIMPORT R11 K32 [print]
-  LOADK R13 K33 ["----- All "]
-  GETTABLEKS R14 R0 K34 ["Name"]
-  LOADK R15 K35 [" Tests ------"]
-  CONCAT R12 R13 R15
-  CALL R11 1 0
-  NEWTABLE R13 0 1
-  MOVE R14 R9
-  SETLIST R13 R14 1 [1]
-  MOVE R14 R8
-  MOVE R15 R10
-  NAMECALL R11 R5 K36 ["run"]
-  CALL R11 4 0
-  GETIMPORT R11 K32 [print]
-  LOADK R12 K37 ["----------------------------------"]
-  CALL R11 1 0
-  GETTABLEKS R11 R2 K38 ["RunDeveloperFrameworkTests"]
-  CALL R11 0 1
-  JUMPIFNOT R11 [+19]
-  GETIMPORT R11 K32 [print]
-  LOADK R12 K39 [""]
-  CALL R11 1 0
-  GETIMPORT R11 K32 [print]
-  LOADK R12 K40 ["----- All DeveloperFramework Tests ------"]
-  CALL R11 1 0
-  GETTABLEKS R12 R3 K41 ["TestHelpers"]
-  GETTABLEKS R11 R12 K42 ["runFrameworkTests"]
-  MOVE R12 R4
+  GETTABLEKS R4 R3 K19 ["TestBootstrap"]
+  GETTABLEKS R6 R3 K20 ["Reporters"]
+  GETTABLEKS R5 R6 K21 ["TeamCityReporter"]
+  GETTABLEKS R7 R3 K20 ["Reporters"]
+  GETTABLEKS R6 R7 K22 ["TextReporter"]
+  GETIMPORT R9 K25 [_G]
+  GETTABLEKS R8 R9 K23 ["TEAMCITY"]
+  JUMPIFNOT R8 [+2]
+  MOVE R7 R5
+  JUMPIF R7 [+1]
+  MOVE R7 R6
+  GETTABLEKS R8 R0 K7 ["Src"]
+  DUPTABLE R9 K29 [{"showTimingInfo", "testNamePattern", "extraEnvironment"}]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K26 ["showTimingInfo"]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K27 ["testNamePattern"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K28 ["extraEnvironment"]
+  GETIMPORT R10 K31 [print]
+  LOADK R12 K32 ["----- All "]
+  GETTABLEKS R13 R0 K33 ["Name"]
+  LOADK R14 K34 [" Tests ------"]
+  CONCAT R11 R12 R14
+  CALL R10 1 0
+  NEWTABLE R12 0 1
   MOVE R13 R8
-  CALL R11 2 0
-  GETIMPORT R11 K32 [print]
-  LOADK R12 K37 ["----------------------------------"]
-  CALL R11 1 0
-  GETTABLEKS R4 R2 K12 ["RunningUnderCLI"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+4]
-  GETIMPORT R4 K44 [pcall]
-  DUPCLOSURE R5 K45 [PROTO_0]
-  CALL R4 1 0
+  SETLIST R12 R13 1 [1]
+  MOVE R13 R7
+  MOVE R14 R9
+  NAMECALL R10 R4 K35 ["run"]
+  CALL R10 4 0
+  GETIMPORT R10 K31 [print]
+  LOADK R11 K36 ["----------------------------------"]
+  CALL R10 1 0
+  GETTABLEKS R3 R2 K10 ["RunningUnderCLI"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+4]
+  GETIMPORT R3 K38 [pcall]
+  DUPCLOSURE R4 K39 [PROTO_0]
+  CALL R3 1 0
   RETURN R0 0

@@ -50,6 +50,7 @@ local Signals = require(CorePackages.Packages.Signals)
 local createSignal = Signals.createSignal
 local AppStyleProvider = require(CorePackages.Packages.UIBlox).App.Style.AppStyleProvider
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
+local FFlagInExperienceUseAppStyleProvider = SharedFlags.FFlagInExperienceUseAppStyleProvider
 
 local Theme = require(script.Parent.Theme)
 
@@ -118,7 +119,6 @@ local GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Fl
 local GetFStringInExperienceMenuIXPVar = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar)
 local GetFFlagPackagifySettingsShowSignal = SharedFlags.GetFFlagPackagifySettingsShowSignal
 local FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false)
-local FFlagCenterIGMConsoleBottomButtons = game:DefineFastFlag("CenterIGMConsoleBottomButtons", false)
 local FFlagDelayEscCoreActionIEMOpen = game:DefineFastFlag("DelayEscCoreActionIEMOpen", false)
 local GetFFlagRemovePermissionsButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagRemovePermissionsButtons)
 local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Flags.FFlagAddNextUpContainer)
@@ -1070,7 +1070,7 @@ local function CreateSettingsHub()
 			return
 		end
 
-		if FFlagBuilderIcons then
+		if FFlagInExperienceUseAppStyleProvider then
 			return React.createElement(AppStyleProvider, {}, {
 				PermissionsButtons = Roact.createElement(PermissionsButtons, {
 					isTenFootInterface = isTenFootInterface,
@@ -2174,7 +2174,7 @@ local function CreateSettingsHub()
 			Padding = UDim.new(0, 12),
 			FillDirection = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			HorizontalAlignment = if FFlagCenterIGMConsoleBottomButtons then Enum.HorizontalAlignment.Center else Enum.HorizontalAlignment.Left,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Parent = this.BottomButtonFrame
 		}

@@ -71,9 +71,15 @@ MAIN:
   NAMECALL R0 R0 K7 ["DefineFastString"]
   CALL R0 3 0
   DUPCLOSURE R0 K8 [PROTO_0]
-  DUPTABLE R1 K11 [{"GetFFlagEnableRewardedVideoAdsStudioSettings", "GetFFlagEnableShowRewardedAdsToggleBackendFlag"}]
-  DUPCLOSURE R2 K12 [PROTO_1]
-  SETTABLEKS R2 R1 K9 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
-  DUPCLOSURE R2 K13 [PROTO_2]
-  SETTABLEKS R2 R1 K10 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
+  DUPTABLE R1 K12 [{"FFlagEnableToggleRegardlessOfUniverseEligibility", "GetFFlagEnableRewardedVideoAdsStudioSettings", "GetFFlagEnableShowRewardedAdsToggleBackendFlag"}]
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K13 ["EnableToggleRegardlessOfUniverseEligibility"]
+  LOADB R5 0
+  NAMECALL R2 R2 K3 ["DefineFastFlag"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K9 ["FFlagEnableToggleRegardlessOfUniverseEligibility"]
+  DUPCLOSURE R2 K14 [PROTO_1]
+  SETTABLEKS R2 R1 K10 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
+  DUPCLOSURE R2 K15 [PROTO_2]
+  SETTABLEKS R2 R1 K11 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
   RETURN R1 1

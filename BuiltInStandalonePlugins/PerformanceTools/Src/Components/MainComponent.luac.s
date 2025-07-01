@@ -189,55 +189,63 @@ PROTO_7:
   JUMPIF R16 [+1]
   LOADNIL R16
   SETTABLEKS R16 R15 K19 ["ThermometerSettings"]
-  JUMPIF R1 [+74]
+  JUMPIF R1 [+85]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K7 ["createElement"]
   GETUPVAL R17 9
-  DUPTABLE R18 K52 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "MaxTotalTaskMs", "MaxTotalRenderMs", "MaxTriangles", "MaxDrawCalls", "IsEditMode", "MicroprofilerVisible", "OnOpenSettings", "OnToggleMicroprofiler"}]
-  GETTABLEKS R20 R9 K54 ["drawCallCount"]
-  ORK R19 R20 K53 [0]
+  DUPTABLE R18 K53 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "MaxTotalTaskMs", "MaxTotalRenderMs", "MaxTriangles", "MaxDrawCalls", "IsEditMode", "MicroprofilerVisible", "AutomaticGraphicsQuality", "OnOpenSettings", "OnToggleMicroprofiler"}]
+  GETTABLEKS R20 R9 K55 ["drawCallCount"]
+  ORK R19 R20 K54 [0]
   SETTABLEKS R19 R18 K44 ["DrawCallCount"]
-  GETTABLEKS R20 R9 K55 ["triangleCount"]
-  ORK R19 R20 K53 [0]
+  GETTABLEKS R20 R9 K56 ["triangleCount"]
+  ORK R19 R20 K54 [0]
   SETTABLEKS R19 R18 K45 ["TriangleCount"]
-  GETTABLEKS R20 R9 K56 ["renderThreadAverageMs"]
-  ORK R19 R20 K53 [0]
+  GETTABLEKS R20 R9 K57 ["renderThreadAverageMs"]
+  ORK R19 R20 K54 [0]
   SETTABLEKS R19 R18 K46 ["RenderThreadAverageMs"]
-  GETTABLEKS R20 R9 K57 ["taskThreadAverageMs"]
-  ORK R19 R20 K53 [0]
+  GETTABLEKS R20 R9 K58 ["taskThreadAverageMs"]
+  ORK R19 R20 K54 [0]
   SETTABLEKS R19 R18 K47 ["TaskThreadAverageMs"]
   GETTABLEKS R20 R9 K38 ["maxTotalTaskMs"]
-  ORK R19 R20 K58 [1]
+  ORK R19 R20 K59 [1]
   SETTABLEKS R19 R18 K24 ["MaxTotalTaskMs"]
   GETTABLEKS R20 R9 K39 ["maxTotalRenderMs"]
-  ORK R19 R20 K58 [1]
+  ORK R19 R20 K59 [1]
   SETTABLEKS R19 R18 K25 ["MaxTotalRenderMs"]
   GETTABLEKS R20 R9 K34 ["maxTriangles"]
-  ORK R19 R20 K58 [1]
+  ORK R19 R20 K59 [1]
   SETTABLEKS R19 R18 K22 ["MaxTriangles"]
   GETTABLEKS R20 R9 K37 ["maxDrawCalls"]
-  ORK R19 R20 K58 [1]
+  ORK R19 R20 K59 [1]
   SETTABLEKS R19 R18 K23 ["MaxDrawCalls"]
-  GETTABLEKS R19 R9 K59 ["isEditDM"]
+  GETTABLEKS R19 R9 K60 ["isEditDM"]
   SETTABLEKS R19 R18 K48 ["IsEditMode"]
   GETUPVAL R21 10
-  GETTABLEKS R20 R21 K60 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
+  GETTABLEKS R20 R21 K61 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
   CALL R20 0 1
   JUMPIFNOT R20 [+3]
-  GETTABLEKS R19 R9 K61 ["microprofilerVisible"]
+  GETTABLEKS R19 R9 K62 ["microprofilerVisible"]
   JUMPIF R19 [+1]
   LOADB R19 0
   SETTABLEKS R19 R18 K49 ["MicroprofilerVisible"]
+  GETUPVAL R21 10
+  GETTABLEKS R20 R21 K63 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
+  CALL R20 0 1
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R9 K64 ["automaticGraphicsQuality"]
+  JUMPIF R19 [+1]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K50 ["AutomaticGraphicsQuality"]
   NEWCLOSURE R19 P5
   CAPTURE VAL R3
   CAPTURE UPVAL U11
   CAPTURE VAL R2
-  SETTABLEKS R19 R18 K50 ["OnOpenSettings"]
+  SETTABLEKS R19 R18 K51 ["OnOpenSettings"]
   NEWCLOSURE R19 P6
   CAPTURE VAL R3
   CAPTURE UPVAL U12
   CAPTURE VAL R5
-  SETTABLEKS R19 R18 K51 ["OnToggleMicroprofiler"]
+  SETTABLEKS R19 R18 K52 ["OnToggleMicroprofiler"]
   CALL R16 2 1
   JUMPIF R16 [+1]
   LOADNIL R16

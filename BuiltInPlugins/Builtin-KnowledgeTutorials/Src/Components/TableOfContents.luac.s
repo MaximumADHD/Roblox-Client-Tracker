@@ -83,110 +83,130 @@ PROTO_2:
   GETUPVAL R2 0
   NAMECALL R2 R2 K2 ["use"]
   CALL R2 1 1
-  NEWTABLE R3 0 0
-  GETTABLEKS R7 R1 K3 ["home"]
-  GETTABLEKS R6 R7 K4 ["ast"]
-  GETTABLEKS R5 R6 K5 ["children"]
-  LENGTH R4 R5
-  LOADN R5 1
-  JUMPIFNOTLT R5 R4 [+31]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K6 ["createElement"]
-  GETUPVAL R5 2
-  DUPTABLE R6 K11 [{"title", "index", "isSelected", "onSectionClicked"}]
-  LOADK R9 K12 ["Plugin"]
-  LOADK R10 K13 ["Home"]
-  NAMECALL R7 R2 K14 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K7 ["title"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K8 ["index"]
-  GETTABLEKS R8 R0 K15 ["currentSectionIndex"]
-  JUMPIFEQKN R8 K16 [0] [+2]
-  LOADB R7 0 +1
-  LOADB R7 1
-  SETTABLEKS R7 R6 K9 ["isSelected"]
-  GETTABLEKS R7 R0 K10 ["onSectionClicked"]
-  SETTABLEKS R7 R6 K10 ["onSectionClicked"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K13 ["Home"]
-  GETTABLEKS R4 R1 K17 ["sections"]
-  LOADNIL R5
-  LOADNIL R6
-  FORGPREP R4
-  LOADK R10 K18 ["Section_%*"]
-  MOVE R12 R7
-  NAMECALL R10 R10 K19 ["format"]
-  CALL R10 2 1
-  MOVE R9 R10
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K6 ["createElement"]
-  GETUPVAL R11 2
-  DUPTABLE R12 K11 [{"title", "index", "isSelected", "onSectionClicked"}]
-  GETTABLEKS R13 R8 K7 ["title"]
-  JUMPIF R13 [+8]
-  LOADK R15 K12 ["Plugin"]
-  LOADK R16 K20 ["SectionInfo"]
-  DUPTABLE R17 K21 [{"index"}]
-  SETTABLEKS R7 R17 K8 ["index"]
-  NAMECALL R13 R2 K14 ["getText"]
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K7 ["title"]
-  SETTABLEKS R7 R12 K8 ["index"]
-  GETTABLEKS R14 R0 K15 ["currentSectionIndex"]
-  JUMPIFEQ R14 R7 [+2]
-  LOADB R13 0 +1
-  LOADB R13 1
-  SETTABLEKS R13 R12 K9 ["isSelected"]
-  GETTABLEKS R13 R0 K10 ["onSectionClicked"]
-  SETTABLEKS R13 R12 K10 ["onSectionClicked"]
-  CALL R10 2 1
-  SETTABLE R10 R3 R9
-  FORGLOOP R4 2 [-41]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K6 ["createElement"]
-  GETUPVAL R5 3
-  DUPTABLE R6 K23 [{"tag"}]
-  LOADK R7 K24 ["col align-x-center gap-medium size-full bg-surface-100"]
-  SETTABLEKS R7 R6 K22 ["tag"]
-  DUPTABLE R7 K27 [{"Title", "ScrollView"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  GETUPVAL R9 4
-  DUPTABLE R10 K30 [{"Text", "LayoutOrder", "tag"}]
-  LOADK R13 K12 ["Plugin"]
-  LOADK R14 K31 ["TableOfContents"]
-  NAMECALL R11 R2 K14 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K28 ["Text"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K29 ["LayoutOrder"]
-  LOADK R11 K32 ["text-title-medium text-align-x-left size-full-0 text-wrap auto-y"]
-  SETTABLEKS R11 R10 K22 ["tag"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K25 ["Title"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  GETUPVAL R9 5
-  DUPTABLE R10 K34 [{"tag", "scroll", "LayoutOrder"}]
-  LOADK R11 K35 ["col gap-small size-full-0 fill"]
-  SETTABLEKS R11 R10 K22 ["tag"]
-  DUPTABLE R11 K39 [{"AutomaticCanvasSize", "ScrollingDirection", "CanvasSize"}]
-  GETIMPORT R12 K43 [Enum.AutomaticSize.Y]
-  SETTABLEKS R12 R11 K36 ["AutomaticCanvasSize"]
-  GETIMPORT R12 K44 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R12 R11 K37 ["ScrollingDirection"]
-  GETIMPORT R12 K47 [UDim2.new]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K38 ["CanvasSize"]
-  SETTABLEKS R11 R10 K33 ["scroll"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K29 ["LayoutOrder"]
-  MOVE R11 R3
+  GETTABLEKS R4 R5 K3 ["Hooks"]
+  GETTABLEKS R3 R4 K4 ["useTokens"]
+  CALL R3 0 1
+  NEWTABLE R4 0 0
+  GETTABLEKS R8 R1 K5 ["home"]
+  GETTABLEKS R7 R8 K6 ["ast"]
+  GETTABLEKS R6 R7 K7 ["children"]
+  LENGTH R5 R6
+  LOADN R6 1
+  JUMPIFNOTLT R6 R5 [+31]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K13 [{"title", "index", "isSelected", "onSectionClicked"}]
+  LOADK R10 K14 ["Plugin"]
+  LOADK R11 K15 ["Home"]
+  NAMECALL R8 R2 K16 ["getText"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K26 ["ScrollView"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  SETTABLEKS R8 R7 K9 ["title"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K10 ["index"]
+  GETTABLEKS R9 R0 K17 ["currentSectionIndex"]
+  JUMPIFEQKN R9 K18 [0] [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  SETTABLEKS R8 R7 K11 ["isSelected"]
+  GETTABLEKS R8 R0 K12 ["onSectionClicked"]
+  SETTABLEKS R8 R7 K12 ["onSectionClicked"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K15 ["Home"]
+  GETTABLEKS R5 R1 K19 ["sections"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  LOADK R11 K20 ["Section_%*"]
+  MOVE R13 R8
+  NAMECALL R11 R11 K21 ["format"]
+  CALL R11 2 1
+  MOVE R10 R11
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K8 ["createElement"]
+  GETUPVAL R12 3
+  DUPTABLE R13 K13 [{"title", "index", "isSelected", "onSectionClicked"}]
+  GETTABLEKS R14 R9 K9 ["title"]
+  JUMPIF R14 [+8]
+  LOADK R16 K14 ["Plugin"]
+  LOADK R17 K22 ["SectionInfo"]
+  DUPTABLE R18 K23 [{"index"}]
+  SETTABLEKS R8 R18 K10 ["index"]
+  NAMECALL R14 R2 K16 ["getText"]
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K9 ["title"]
+  SETTABLEKS R8 R13 K10 ["index"]
+  GETTABLEKS R15 R0 K17 ["currentSectionIndex"]
+  JUMPIFEQ R15 R8 [+2]
+  LOADB R14 0 +1
+  LOADB R14 1
+  SETTABLEKS R14 R13 K11 ["isSelected"]
+  GETTABLEKS R14 R0 K12 ["onSectionClicked"]
+  SETTABLEKS R14 R13 K12 ["onSectionClicked"]
+  CALL R11 2 1
+  SETTABLE R11 R4 R10
+  FORGLOOP R5 2 [-41]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETUPVAL R6 4
+  DUPTABLE R7 K25 [{"tag"}]
+  LOADK R8 K26 ["col align-x-center gap-medium size-full bg-surface-100"]
+  SETTABLEKS R8 R7 K24 ["tag"]
+  DUPTABLE R8 K29 [{"Title", "ScrollView"}]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K32 [{"LayoutOrder", "Text", "tag"}]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K30 ["LayoutOrder"]
+  LOADK R14 K14 ["Plugin"]
+  LOADK R15 K33 ["TableOfContents"]
+  NAMECALL R12 R2 K16 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K31 ["Text"]
+  LOADK R12 K34 ["text-title-medium text-align-x-left size-full-0 text-wrap auto-y"]
+  SETTABLEKS R12 R11 K24 ["tag"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K27 ["Title"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R10 6
+  DUPTABLE R11 K37 [{"LayoutOrder", "tag", "scroll", "layout"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K30 ["LayoutOrder"]
+  LOADK R12 K38 ["size-full-0 fill"]
+  SETTABLEKS R12 R11 K24 ["tag"]
+  DUPTABLE R12 K42 [{"AutomaticCanvasSize", "ScrollingDirection", "CanvasSize"}]
+  GETIMPORT R13 K46 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K39 ["AutomaticCanvasSize"]
+  GETIMPORT R13 K47 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R13 R12 K40 ["ScrollingDirection"]
+  GETIMPORT R13 K50 [UDim2.new]
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K41 ["CanvasSize"]
+  SETTABLEKS R12 R11 K35 ["scroll"]
+  DUPTABLE R12 K56 [{"SortOrder", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "Padding"}]
+  GETIMPORT R13 K57 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R13 R12 K51 ["SortOrder"]
+  GETIMPORT R13 K59 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K52 ["FillDirection"]
+  GETIMPORT R13 K61 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R13 R12 K53 ["HorizontalAlignment"]
+  GETIMPORT R13 K63 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R13 R12 K54 ["VerticalAlignment"]
+  GETIMPORT R13 K65 [UDim.new]
+  LOADN R14 0
+  GETTABLEKS R16 R3 K66 ["Gap"]
+  GETTABLEKS R15 R16 K67 ["Small"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K55 ["Padding"]
+  SETTABLEKS R12 R11 K36 ["layout"]
+  MOVE R12 R4
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K28 ["ScrollView"]
+  CALL R5 3 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
@@ -221,6 +241,7 @@ MAIN:
   CAPTURE VAL R9
   DUPCLOSURE R11 K18 [PROTO_2]
   CAPTURE VAL R6
+  CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R10
   CAPTURE VAL R7

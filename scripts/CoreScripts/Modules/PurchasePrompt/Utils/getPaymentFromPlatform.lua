@@ -5,12 +5,14 @@ local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 local GetFFlagEnablePalisadesPaymentsPlatform = require(Root.Flags.GetFFlagEnablePalisadesPaymentsPlatform)
 local FFlagEnableMicrosoftStorePaymentsPlatform =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableMicrosoftStorePaymentsPlatform
+local FFlagEnableMilkyWayPaymentsPlatform =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableMilkyWayPaymentsPlatform
 
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local getAppFeaturePolicies = UniversalAppPolicy.getAppFeaturePolicies
 
 -- To add a new payment platform. Also update the Modules.LuaApp.Util.getPaymentFromPlatform for LuaApp.
-return function(platform, isLuobu, isAmazon, isMaquettes)
+return function(platform, isLuobu, isAmazon, isMaquettes, isMilkyWay)
 	if platform == Enum.Platform.XBoxOne then
 		return PaymentPlatform.Xbox
 	elseif platform == Enum.Platform.IOS then
@@ -34,6 +36,8 @@ return function(platform, isLuobu, isAmazon, isMaquettes)
 			return PaymentPlatform.Amazon
 		elseif isMaquettes then
 			return PaymentPlatform.Maquettes
+		elseif FFlagEnableMilkyWayPaymentsPlatform and isMilkyWay then
+			return PaymentPlatform.MilkyWay
 		else
 			return PaymentPlatform.Google
 		end

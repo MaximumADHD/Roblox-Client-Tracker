@@ -49,13 +49,10 @@ PROTO_0:
   CALL R3 3 0
   GETTABLEKS R3 R0 K23 ["ReplyCount"]
   SETTABLEKS R3 R2 K23 ["ReplyCount"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K24 ["fflagAnnotationsAddTaggingFiltering"]
-  JUMPIFNOT R3 [+9]
-  GETTABLEKS R3 R0 K25 ["TaggedUsersInThread"]
+  GETTABLEKS R3 R0 K24 ["TaggedUsersInThread"]
   JUMPIFNOT R3 [+6]
-  LOADK R5 K25 ["TaggedUsersInThread"]
-  GETTABLEKS R6 R0 K25 ["TaggedUsersInThread"]
+  LOADK R5 K24 ["TaggedUsersInThread"]
+  GETTABLEKS R6 R0 K24 ["TaggedUsersInThread"]
   NAMECALL R3 R2 K21 ["SetAttribute"]
   CALL R3 3 0
   RETURN R0 0
@@ -96,13 +93,10 @@ PROTO_1:
   JUMPIFEQKNIL R3 [+5]
   GETTABLEKS R3 R1 K8 ["TaggedUsers"]
   SETTABLEKS R3 R2 K8 ["TaggedUsers"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K9 ["fflagAnnotationsAddTaggingFiltering"]
-  JUMPIFNOT R3 [+10]
-  GETTABLEKS R3 R1 K10 ["TaggedUsersInThread"]
+  GETTABLEKS R3 R1 K9 ["TaggedUsersInThread"]
   JUMPIFEQKNIL R3 [+7]
-  LOADK R5 K10 ["TaggedUsersInThread"]
-  GETTABLEKS R6 R1 K10 ["TaggedUsersInThread"]
+  LOADK R5 K9 ["TaggedUsersInThread"]
+  GETTABLEKS R6 R1 K9 ["TaggedUsersInThread"]
   NAMECALL R3 R2 K4 ["SetAttribute"]
   CALL R3 3 0
   RETURN R0 0
@@ -158,13 +152,11 @@ PROTO_5:
   LOADK R3 K3 ["CreateAnnotation"]
   DUPCLOSURE R4 K4 [PROTO_0]
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
   NAMECALL R1 R0 K5 ["OnInvoke"]
   CALL R1 3 1
   LOADK R4 K6 ["SyncStandaloneAnnotation"]
   DUPCLOSURE R5 K7 [PROTO_1]
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
   NAMECALL R2 R0 K5 ["OnInvoke"]
   CALL R2 3 1
   LOADK R5 K8 ["AnnotationDeleted"]
@@ -563,43 +555,37 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["AnnotationEditingMode"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Bin"]
-  GETTABLEKS R4 R5 K10 ["Common"]
-  GETTABLEKS R3 R4 K11 ["defineLuaFlags"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K12 ["Types"]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["zoomToAnnotation"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Util"]
-  GETTABLEKS R5 R6 K14 ["zoomToAnnotation"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K12 ["selectAnnotation"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Util"]
-  GETTABLEKS R6 R7 K15 ["selectAnnotation"]
+  GETTABLEKS R7 R8 K7 ["Enums"]
+  GETTABLEKS R6 R7 K13 ["AnnotationRequestStatus"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K7 ["Enums"]
-  GETTABLEKS R7 R8 K16 ["AnnotationRequestStatus"]
-  CALL R6 1 1
-  GETIMPORT R7 K18 [game]
-  LOADK R9 K19 ["AnnotationsService"]
-  NAMECALL R7 R7 K20 ["GetService"]
-  CALL R7 2 1
-  DUPTABLE R8 K23 [{"registerStandaloneCallbacks", "registerEditCallbacks"}]
-  DUPCLOSURE R9 K24 [PROTO_5]
-  CAPTURE VAL R7
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K21 ["registerStandaloneCallbacks"]
-  DUPCLOSURE R9 K25 [PROTO_19]
-  CAPTURE VAL R7
+  GETIMPORT R6 K15 [game]
+  LOADK R8 K16 ["AnnotationsService"]
+  NAMECALL R6 R6 K17 ["GetService"]
+  CALL R6 2 1
+  DUPTABLE R7 K20 [{"registerStandaloneCallbacks", "registerEditCallbacks"}]
+  DUPCLOSURE R8 K21 [PROTO_5]
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K18 ["registerStandaloneCallbacks"]
+  DUPCLOSURE R8 K22 [PROTO_19]
+  CAPTURE VAL R6
   CAPTURE VAL R1
+  CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K22 ["registerEditCallbacks"]
-  RETURN R8 1
+  SETTABLEKS R8 R7 K19 ["registerEditCallbacks"]
+  RETURN R7 1

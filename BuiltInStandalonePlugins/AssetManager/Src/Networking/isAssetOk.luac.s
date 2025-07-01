@@ -1,0 +1,35 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["assetItem"]
+  GETTABLEKS R1 R2 K1 ["asset"]
+  MOVE R2 R1
+  JUMPIFNOT R2 [+15]
+  GETTABLEKS R3 R1 K2 ["creationContext"]
+  GETTABLEKS R2 R3 K3 ["creator"]
+  JUMPIFNOT R2 [+10]
+  GETTABLEKS R2 R1 K4 ["createTime"]
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R2 R1 K5 ["updateTime"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 0
+  GETTABLEKS R3 R1 K6 ["assetType"]
+  CALL R2 1 1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["convertAssetTypeStringToEnum"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

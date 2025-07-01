@@ -6,9 +6,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local withStyle = UIBlox.Style.withStyle
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -20,12 +18,7 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local StatEntry
-if FFlagUseNewPlayerList then
-	StatEntry = PlayerListPackage.Presentation.StatEntry
-else
-	StatEntry = require(script.Parent.StatEntry)
-end
+local StatEntry = require(script.Parent.StatEntry)
 
 local PlayerList = Components.Parent
 local createShallowEqualAndTables = require(PlayerList.createShallowEqualAndTables)

@@ -8,18 +8,21 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local Otter = require(CorePackages.Packages.Otter)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local StatsUtils = require(RobloxGui.Modules.Stats.StatsUtils)
 
 local Presentation = script.Parent
+local PresentationCommon = Presentation.Parent.PresentationCommon
 local PlayerList = Presentation.Parent.Parent
 
 local FFlagPlayerListClosedNoRender = require(PlayerList.Flags.FFlagPlayerListClosedNoRender)
 local FFlagPlayerListClosedNoRenderWithTenFoot = require(PlayerList.Flags.FFlagPlayerListClosedNoRenderWithTenFoot)
 
 local PlayerListSorter = require(Presentation.PlayerListSorter)
+local PlayerEntryContainer = require(PlayerList.Components.Container.PlayerEntryContainer)
 local PlayerEntry = require(Presentation.PlayerEntry)
-local TenFootSideBar = require(Presentation.Parent.PresentationCommon.TenFootSideBar)
+local TenFootSideBar = require(PresentationCommon.TenFootSideBar)
 
 local Connection = PlayerList.Components.Connection
 local EventConnections = require(Connection.EventConnections)
@@ -28,6 +31,8 @@ local TopStatConnector = require(Connection.TopStatConnector)
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
+
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -156,7 +161,7 @@ function PlayerListApp:render()
 						Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 						BackgroundTransparency = 1,
 					}, {
-						PlayerEntry = Roact.createElement(PlayerEntry, {
+						PlayerEntry = Roact.createElement(if FFlagUseNewPlayerList then PlayerEntryContainer else PlayerEntry, {
 							player = player,
 							playerStats = self.props.playerStats[player.UserId],
 							playerIconInfo = self.props.playerIconInfo[player.UserId],

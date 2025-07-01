@@ -19,7 +19,7 @@ PROTO_3:
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
-  LOADK R6 K0 ["SceneBudgetThermometer"]
+  LOADK R6 K0 ["SceneMonitor"]
   LOADK R7 K1 ["Name"]
   CALL R3 4 -1
   RETURN R3 -1

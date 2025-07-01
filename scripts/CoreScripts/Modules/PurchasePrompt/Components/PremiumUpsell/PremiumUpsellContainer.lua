@@ -100,6 +100,7 @@ function PremiumUpsellContainer:createElement()
 
 			promptState = props.promptState,
 			purchaseError = props.purchaseError,
+			economicRestrictionError = props.economicRestrictionError,
 
 			currencySymbol = props.premiumProductInfo.currencySymbol,
 			robuxPrice = props.premiumProductInfo.price,
@@ -161,6 +162,7 @@ PremiumUpsellContainer = connectToStore(function(state)
 
 		promptState = state.promptState,
 		purchaseError = state.purchaseError,
+		economicRestrictionError = state.economicRestrictionError,
 
 		premiumProductInfo = state.premiumProductInfo,
 

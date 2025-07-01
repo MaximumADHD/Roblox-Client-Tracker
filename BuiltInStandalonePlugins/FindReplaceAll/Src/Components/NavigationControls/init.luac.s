@@ -1,4 +1,51 @@
 PROTO_0:
+  GETUPVAL R2 0
+  LOADK R4 K0 ["WidgetBody"]
+  LOADK R5 K1 ["ResultsLabel"]
+  DUPTABLE R6 K6 [{"numResults", "resultString", "numResultFiles", "fileString"}]
+  LOADK R8 K7 ["%*"]
+  MOVE R10 R0
+  NAMECALL R8 R8 K8 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  SETTABLEKS R7 R6 K2 ["numResults"]
+  JUMPIFNOTEQKN R0 K9 [1] [+8]
+  GETUPVAL R7 0
+  LOADK R9 K1 ["ResultsLabel"]
+  LOADK R10 K10 ["ResultString"]
+  NAMECALL R7 R7 K11 ["getText"]
+  CALL R7 3 1
+  JUMP [+6]
+  GETUPVAL R7 0
+  LOADK R9 K1 ["ResultsLabel"]
+  LOADK R10 K12 ["ResultStringPlural"]
+  NAMECALL R7 R7 K11 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K3 ["resultString"]
+  LOADK R8 K7 ["%*"]
+  MOVE R10 R1
+  NAMECALL R8 R8 K8 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  SETTABLEKS R7 R6 K4 ["numResultFiles"]
+  JUMPIFNOTEQKN R1 K9 [1] [+8]
+  GETUPVAL R7 0
+  LOADK R9 K1 ["ResultsLabel"]
+  LOADK R10 K13 ["FileString"]
+  NAMECALL R7 R7 K11 ["getText"]
+  CALL R7 3 1
+  JUMP [+6]
+  GETUPVAL R7 0
+  LOADK R9 K1 ["ResultsLabel"]
+  LOADK R10 K14 ["FileStringPlural"]
+  NAMECALL R7 R7 K11 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K5 ["fileString"]
+  NAMECALL R2 R2 K11 ["getText"]
+  CALL R2 4 -1
+  RETURN R2 -1
+
+PROTO_1:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
@@ -43,158 +90,127 @@ PROTO_0:
   MOVE R12 R2
   CALL R12 0 1
   SETTABLEKS R12 R11 K20 ["LayoutOrder"]
-  LOADK R14 K21 ["WidgetBody"]
-  LOADK R15 K15 ["ResultsLabel"]
-  DUPTABLE R16 K26 [{"numResults", "resultString", "numResultFiles", "fileString"}]
-  LOADK R18 K27 ["%*"]
-  GETTABLEKS R20 R0 K28 ["numAllResults"]
-  NAMECALL R18 R18 K29 ["format"]
-  CALL R18 2 1
-  MOVE R17 R18
-  SETTABLEKS R17 R16 K22 ["numResults"]
-  GETTABLEKS R18 R0 K28 ["numAllResults"]
-  JUMPIFNOTEQKN R18 K30 [1] [+7]
-  LOADK R19 K15 ["ResultsLabel"]
-  LOADK R20 K31 ["ResultString"]
-  NAMECALL R17 R1 K32 ["getText"]
-  CALL R17 3 1
-  JUMP [+5]
-  LOADK R19 K15 ["ResultsLabel"]
-  LOADK R20 K33 ["ResultStringPlural"]
-  NAMECALL R17 R1 K32 ["getText"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K23 ["resultString"]
-  LOADK R18 K27 ["%*"]
-  GETTABLEKS R20 R0 K34 ["numAllScripts"]
-  NAMECALL R18 R18 K29 ["format"]
-  CALL R18 2 1
-  MOVE R17 R18
-  SETTABLEKS R17 R16 K24 ["numResultFiles"]
-  GETTABLEKS R18 R0 K34 ["numAllScripts"]
-  JUMPIFNOTEQKN R18 K30 [1] [+7]
-  LOADK R19 K15 ["ResultsLabel"]
-  LOADK R20 K35 ["FileString"]
-  NAMECALL R17 R1 K32 ["getText"]
-  CALL R17 3 1
-  JUMP [+5]
-  LOADK R19 K15 ["ResultsLabel"]
-  LOADK R20 K36 ["FileStringPlural"]
-  NAMECALL R17 R1 K32 ["getText"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K25 ["fileString"]
-  NAMECALL R12 R1 K32 ["getText"]
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K37 ["Text"]
+  GETUPVAL R12 6
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R1
+  GETTABLEKS R15 R0 K21 ["numAllResults"]
+  GETTABLEKS R14 R15 K22 ["getBinding"]
+  CALL R14 0 1
+  GETTABLEKS R16 R0 K23 ["numAllScripts"]
+  GETTABLEKS R15 R16 K22 ["getBinding"]
+  CALL R15 0 -1
+  CALL R12 -1 1
+  SETTABLEKS R12 R11 K24 ["Text"]
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K13 ["Tag"]
-  LOADK R13 K38 ["X-FitX"]
+  LOADK R13 K25 ["X-FitX"]
   SETTABLE R13 R11 R12
   CALL R9 2 1
   SETTABLEKS R9 R8 K15 ["ResultsLabel"]
   GETUPVAL R9 3
-  LOADK R10 K39 ["ImageButton"]
+  LOADK R10 K26 ["ImageButton"]
   NEWTABLE R11 8 0
   MOVE R12 R2
   CALL R12 0 1
   SETTABLEKS R12 R11 K20 ["LayoutOrder"]
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K40 ["Event"]
-  GETTABLEKS R12 R13 K41 ["MouseEnter"]
-  GETTABLEKS R13 R4 K42 ["enable"]
+  GETTABLEKS R13 R14 K27 ["Event"]
+  GETTABLEKS R12 R13 K28 ["MouseEnter"]
+  GETTABLEKS R13 R4 K29 ["enable"]
   SETTABLE R13 R11 R12
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K40 ["Event"]
-  GETTABLEKS R12 R13 K43 ["MouseLeave"]
-  GETTABLEKS R13 R4 K44 ["disable"]
+  GETTABLEKS R13 R14 K27 ["Event"]
+  GETTABLEKS R12 R13 K30 ["MouseLeave"]
+  GETTABLEKS R13 R4 K31 ["disable"]
   SETTABLE R13 R11 R12
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K40 ["Event"]
-  GETTABLEKS R12 R13 K45 ["MouseButton1Click"]
-  GETTABLEKS R13 R0 K46 ["onFindPreviousClicked"]
+  GETTABLEKS R13 R14 K27 ["Event"]
+  GETTABLEKS R12 R13 K32 ["MouseButton1Click"]
+  GETTABLEKS R13 R0 K33 ["onFindPreviousClicked"]
   SETTABLE R13 R11 R12
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K13 ["Tag"]
-  GETUPVAL R13 6
-  LOADK R14 K47 ["data-testid=FindPreviousButton"]
-  GETTABLEKS R16 R0 K48 ["NavigationEnabled"]
+  GETUPVAL R13 7
+  LOADK R14 K34 ["data-testid=FindPreviousButton"]
+  GETTABLEKS R16 R0 K35 ["NavigationEnabled"]
   JUMPIFNOT R16 [+5]
-  GETTABLEKS R16 R4 K49 ["enabled"]
+  GETTABLEKS R16 R4 K36 ["enabled"]
   JUMPIFNOT R16 [+2]
-  LOADK R15 K50 ["Hover"]
+  LOADK R15 K37 ["Hover"]
   JUMP [+1]
   LOADNIL R15
-  GETTABLEKS R17 R0 K48 ["NavigationEnabled"]
+  GETTABLEKS R17 R0 K35 ["NavigationEnabled"]
   JUMPIF R17 [+2]
-  LOADK R16 K51 ["Disabled"]
+  LOADK R16 K38 ["Disabled"]
   JUMP [+1]
   LOADNIL R16
   CALL R13 3 1
   SETTABLE R13 R11 R12
-  DUPTABLE R12 K53 [{"Icon"}]
+  DUPTABLE R12 K40 [{"Icon"}]
   GETUPVAL R13 3
-  LOADK R14 K54 ["ImageLabel"]
+  LOADK R14 K41 ["ImageLabel"]
   NEWTABLE R15 2 0
-  LOADK R16 K55 [0.5]
-  SETTABLEKS R16 R15 K56 ["ImageTransparency"]
+  LOADK R16 K42 [0.5]
+  SETTABLEKS R16 R15 K43 ["ImageTransparency"]
   GETUPVAL R17 5
   GETTABLEKS R16 R17 K13 ["Tag"]
-  LOADK R17 K57 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard FindReplaceAll-BG-Input FindPreviousIcon"]
+  LOADK R17 K44 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard FindReplaceAll-BG-Input FindPreviousIcon"]
   SETTABLE R17 R15 R16
   CALL R13 2 1
-  SETTABLEKS R13 R12 K52 ["Icon"]
+  SETTABLEKS R13 R12 K39 ["Icon"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K16 ["FindPreviousButton"]
   GETUPVAL R9 3
-  LOADK R10 K39 ["ImageButton"]
+  LOADK R10 K26 ["ImageButton"]
   NEWTABLE R11 8 0
   MOVE R12 R2
   CALL R12 0 1
   SETTABLEKS R12 R11 K20 ["LayoutOrder"]
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K40 ["Event"]
-  GETTABLEKS R12 R13 K41 ["MouseEnter"]
-  GETTABLEKS R13 R3 K42 ["enable"]
+  GETTABLEKS R13 R14 K27 ["Event"]
+  GETTABLEKS R12 R13 K28 ["MouseEnter"]
+  GETTABLEKS R13 R3 K29 ["enable"]
   SETTABLE R13 R11 R12
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K40 ["Event"]
-  GETTABLEKS R12 R13 K43 ["MouseLeave"]
-  GETTABLEKS R13 R3 K44 ["disable"]
+  GETTABLEKS R13 R14 K27 ["Event"]
+  GETTABLEKS R12 R13 K30 ["MouseLeave"]
+  GETTABLEKS R13 R3 K31 ["disable"]
   SETTABLE R13 R11 R12
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K40 ["Event"]
-  GETTABLEKS R12 R13 K45 ["MouseButton1Click"]
-  GETTABLEKS R13 R0 K58 ["onFindNextClicked"]
+  GETTABLEKS R13 R14 K27 ["Event"]
+  GETTABLEKS R12 R13 K32 ["MouseButton1Click"]
+  GETTABLEKS R13 R0 K45 ["onFindNextClicked"]
   SETTABLE R13 R11 R12
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K13 ["Tag"]
-  GETUPVAL R13 6
-  LOADK R14 K59 ["data-testid=FindNextButton"]
-  GETTABLEKS R16 R0 K48 ["NavigationEnabled"]
+  GETUPVAL R13 7
+  LOADK R14 K46 ["data-testid=FindNextButton"]
+  GETTABLEKS R16 R0 K35 ["NavigationEnabled"]
   JUMPIFNOT R16 [+5]
-  GETTABLEKS R16 R3 K49 ["enabled"]
+  GETTABLEKS R16 R3 K36 ["enabled"]
   JUMPIFNOT R16 [+2]
-  LOADK R15 K50 ["Hover"]
+  LOADK R15 K37 ["Hover"]
   JUMP [+1]
   LOADNIL R15
-  GETTABLEKS R17 R0 K48 ["NavigationEnabled"]
+  GETTABLEKS R17 R0 K35 ["NavigationEnabled"]
   JUMPIF R17 [+2]
-  LOADK R16 K51 ["Disabled"]
+  LOADK R16 K38 ["Disabled"]
   JUMP [+1]
   LOADNIL R16
   CALL R13 3 1
   SETTABLE R13 R11 R12
-  DUPTABLE R12 K53 [{"Icon"}]
+  DUPTABLE R12 K40 [{"Icon"}]
   GETUPVAL R13 3
-  LOADK R14 K54 ["ImageLabel"]
+  LOADK R14 K41 ["ImageLabel"]
   NEWTABLE R15 2 0
-  LOADK R16 K55 [0.5]
-  SETTABLEKS R16 R15 K56 ["ImageTransparency"]
+  LOADK R16 K42 [0.5]
+  SETTABLEKS R16 R15 K43 ["ImageTransparency"]
   GETUPVAL R17 5
   GETTABLEKS R16 R17 K13 ["Tag"]
-  LOADK R17 K60 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard FindReplaceAll-BG-Input FindNextIcon"]
+  LOADK R17 K47 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard FindReplaceAll-BG-Input FindNextIcon"]
   SETTABLE R17 R15 R16
   CALL R13 2 1
-  SETTABLEKS R13 R12 K52 ["Icon"]
+  SETTABLEKS R13 R12 K39 ["Icon"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K17 ["FindNextButton"]
   CALL R5 3 -1
@@ -215,30 +231,41 @@ MAIN:
   GETTABLEKS R3 R4 K8 ["ReactUtils"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Framework"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Observable"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K10 ["ContextServices"]
-  GETTABLEKS R5 R4 K11 ["Localization"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Resources"]
-  GETTABLEKS R7 R8 K14 ["StyleConstants"]
-  CALL R6 1 1
-  GETTABLEKS R8 R3 K15 ["Styling"]
-  GETTABLEKS R7 R8 K16 ["joinTags"]
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K6 ["Packages"]
-  GETTABLEKS R10 R11 K8 ["ReactUtils"]
-  CALL R9 1 1
-  GETTABLEKS R8 R9 K17 ["createNextOrder"]
-  GETTABLEKS R9 R1 K18 ["createElement"]
-  DUPCLOSURE R10 K19 [PROTO_0]
-  CAPTURE VAL R5
-  CAPTURE VAL R8
-  CAPTURE VAL R2
-  CAPTURE VAL R9
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K13 ["ContextServices"]
+  GETTABLEKS R6 R5 K14 ["Localization"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Resources"]
+  GETTABLEKS R8 R9 K16 ["StyleConstants"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K10 ["Util"]
+  GETTABLEKS R9 R10 K17 ["joinAndMapBindings"]
+  CALL R8 1 1
+  GETTABLEKS R10 R4 K18 ["Styling"]
+  GETTABLEKS R9 R10 K19 ["joinTags"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K6 ["Packages"]
+  GETTABLEKS R12 R13 K8 ["ReactUtils"]
+  CALL R11 1 1
+  GETTABLEKS R10 R11 K20 ["createNextOrder"]
+  GETTABLEKS R11 R1 K21 ["createElement"]
+  DUPCLOSURE R12 K22 [PROTO_1]
   CAPTURE VAL R6
-  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R11
   CAPTURE VAL R7
-  RETURN R10 1
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  RETURN R12 1

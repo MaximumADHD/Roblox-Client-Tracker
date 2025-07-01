@@ -20,7 +20,7 @@ PROTO_2:
   MOVE R3 R0
   CALL R2 1 0
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["addPropertyChangedConnection"]
+  GETTABLEKS R2 R3 K1 ["addRBXScriptConnection"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0
@@ -58,7 +58,7 @@ MAIN:
   SETTABLEKS R3 R2 K1 ["addOnInvokeConnection"]
   DUPCLOSURE R3 K2 [PROTO_1]
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K3 ["addPropertyChangedConnection"]
+  SETTABLEKS R3 R2 K3 ["addRBXScriptConnection"]
   DUPCLOSURE R3 K4 [PROTO_2]
   CAPTURE VAL R2
   SETTABLEKS R3 R2 K5 ["addConnections"]
