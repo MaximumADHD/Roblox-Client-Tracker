@@ -14,8 +14,6 @@ return {
 	FoundationFixChipEmphasisHoverState = SafeFlags.createGetFFlag("FoundationFixChipEmphasisHoverState")(),
 	FoundationFixUseFloatingContentSize = SafeFlags.createGetFFlag("FoundationFixUseFloatingContentSize")(),
 	FoundationAdjustButtonIconSizes = SafeFlags.createGetFFlag("FoundationAdjustButtonIconSizes2")(),
-	FoundationFixBackgroundForStylingV2 = SafeFlags.createGetFFlag("FoundationFixBackgroundForStylingV2")(),
-	FoundationRefactorInputs = SafeFlags.createGetFFlag("FoundationRefactorInputs")(),
 	FoundationStandardizeInputLabelSizes = SafeFlags.createGetFFlag("FoundationStandardizeInputLabelSizes")(),
 	FoundationMigrateIconNames = SafeFlags.createGetFFlag("FoundationMigrateIconNames")(),
 	FoundationDisableDragPositionAdjustmentForGuiInsets = SafeFlags.createGetFFlag(
@@ -27,4 +25,5 @@ return {
 		"FoundationSkipPopoverOnPressedOutsideWhenClickingAnchor"
 	)(),
 	FoundationSliderOrientationImprovement = SafeFlags.createGetFFlag("FoundationSliderOrientationImprovement")(),
+	FoundationFixVisibleNoneScrollBarThickness = SafeFlags.createGetFFlag("FoundationFixVisibleNoneScrollBarThickness")(),
 }

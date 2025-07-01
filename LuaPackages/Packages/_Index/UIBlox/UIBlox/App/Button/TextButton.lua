@@ -126,13 +126,9 @@ end
 function TextButton:render()
 	return withStyle(function(style)
 		return withSelectionCursorProvider(function(getSelectionCursor)
-			if UIBloxConfig.useNewSelectionCursor then
-				return withCursor(function(context)
-					return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
-				end)
-			else
-				return self:renderWithProviders(style, getSelectionCursor)
-			end
+			return withCursor(function(context)
+				return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
+			end)
 		end)
 	end)
 end

@@ -17,8 +17,6 @@ local Interactable = require(Core.Control.Interactable)
 local useControlState = require(Core.Control.useControlState)
 local StyleTypes = require(App.Style.StyleTypes)
 local Fonts = require(App.Style.Fonts)
-local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
-local CursorKind = require(App.SelectionImage.CursorKind)
 local useCursor = require(App.SelectionCursor.useCursor)
 
 local Constants = require(ExperienceTileRoot.Constants)
@@ -28,7 +26,6 @@ local getAspectRatio = require(ExperienceTileRoot.getAspectRatio)
 local VerticalTile = require(SplitTileRoot.VerticalTile.VerticalTile)
 local TileContentPanel = require(SplitTileRoot.TileContentPanel)
 local VerticalTileThumbnail = require(SplitTileRoot.VerticalTile.VerticalTileThumbnail)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 export type AspectRatioMode = AspectRatioModeEnum.AspectRatioMode
 
@@ -254,9 +251,7 @@ local function ExperienceTileV3(props: Props)
 
 	local controlState, updateControlState = useControlState()
 	-- TODO: Use RoundedRect here until the selection cursor for ExperienceTileV3 is ready, as it's currently the only type of cursor with additional outter spacing.
-	local selectionCursor = if UIBloxConfig.useNewSelectionCursor
-		then useCursor(border.CornerRadius)
-		else useSelectionCursor(CursorKind.RoundedRect)
+	local selectionCursor = useCursor(border.CornerRadius)
 	local colorForCurrentControlState: StyleTypes.ThemeItem? = getControlStateColor(controlState, overlayColors)
 	local overlayColor: Color3 | nil
 	local overlayTransparency: number

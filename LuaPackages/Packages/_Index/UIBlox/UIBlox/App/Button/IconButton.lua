@@ -24,7 +24,6 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
-local CursorKind = require(App.SelectionImage.CursorKind)
 local RoactGamepad = require(Packages.RoactGamepad)
 local Focusable = RoactGamepad.Focusable
 local isCallable = require(UIBlox.Utility.isCallable)
@@ -164,13 +163,9 @@ end
 function IconButton:render()
 	return withStyle(function(style)
 		return withSelectionCursorProvider(function(getSelectionCursor)
-			if UIBloxConfig.useNewSelectionCursor then
-				return withCursor(function(context)
-					return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
-				end)
-			else
-				return self:renderWithProviders(style, getSelectionCursor)
-			end
+			return withCursor(function(context)
+				return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
+			end)
 		end)
 	end)
 end
@@ -216,9 +211,7 @@ function IconButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
 		inputBindings = self.props.inputBindings,
-		SelectionImageObject = if UIBloxConfig.useNewSelectionCursor
-			then getCursor(CORNER_RADIUS)
-			else getSelectionCursor(CursorKind.RoundedRectNoInset),
+		SelectionImageObject = getCursor(CORNER_RADIUS),
 	}, {
 		sizeConstraint = Roact.createElement("UISizeConstraint", {
 			MinSize = Vector2.new(iconSizeMeasurement, iconSizeMeasurement),

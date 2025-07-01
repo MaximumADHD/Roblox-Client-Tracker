@@ -85,7 +85,7 @@ local CURSOR_TYPE_DETAILS: { [CursorType]: SlicedImage | FixedSizeImage | Rounde
 	[CursorType.RoundedRectNoInset] = {
 		Tag = "RoundedImage",
 		CornerRadius = UDim.new(0, 8),
-		Offset = 9,
+		Offset = 0,
 		BorderWidth = 3,
 	},
 	[CursorType.RoundedSlot] = {
@@ -154,12 +154,14 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 
 		if cursorDetails.Tag == "FixedSizeImage" then
 			local size = UDim2.fromOffset(cursorDetails.Size, cursorDetails.Size)
+			local position = UDim2.new(0.5, -size.X.Offset / 2, 0.5, -size.Y.Offset / 2)
 			return React.createElement(Image, {
 				Image = cursorDetails.Image,
 				imageStyle = {
 					Color3 = WHITE,
 				},
 				Size = size,
+				Position = position,
 				ref = ref,
 			}, {
 				AnimatedGradient = if props.isVisible then React.createElement(AnimatedGradient) else nil,

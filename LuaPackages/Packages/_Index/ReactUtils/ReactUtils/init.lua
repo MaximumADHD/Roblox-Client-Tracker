@@ -25,6 +25,8 @@ return {
 	usePrevious = require(script.usePrevious),
 	useProperties = require(script.useProperties),
 	usePropertiesDeferred = require(script.usePropertiesDeferred),
+	useRefCache = require(script.useRefCache),
+	useRefs = require(script.useRefs),
 	useRefToState = require(script.useRefToState),
 	useStackState = require(script.useStackState),
 	useToggleState = require(script.useToggleState),

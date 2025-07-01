@@ -64,18 +64,9 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 
 	local defaultTags = DEFAULT_TAGS
 	if Flags.FoundationMigrateStylingV2 then
-		if Flags.FoundationFixBackgroundForStylingV2 then
-			-- Once someone set the background it's their responsibility to provide both color and transparency. We negate the transparency added by gui-object-defaults to avoid UIBLOX-2074
-			if props.backgroundStyle ~= nil then
-				defaultTags = DEFAULT_TAGS_WITH_BG
-			end
-		else
-			local transparency = if props.backgroundStyle ~= nil
-				then indexBindable(props.backgroundStyle, "Transparency") :: any
-				else nil
-			if transparency == 0 then
-				defaultTags ..= " x-default-transparency"
-			end
+		-- Once someone set the background it's their responsibility to provide both color and transparency. We negate the transparency added by gui-object-defaults to avoid UIBLOX-2074
+		if props.backgroundStyle ~= nil then
+			defaultTags = DEFAULT_TAGS_WITH_BG
 		end
 	end
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)

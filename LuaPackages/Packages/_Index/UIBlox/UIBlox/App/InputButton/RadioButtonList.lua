@@ -10,9 +10,6 @@ local Cryo = require(Packages.Cryo)
 
 local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
-local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
-local CursorType = require(UIBlox.App.SelectionCursor.CursorType)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local RadioButtonList = Roact.PureComponent:extend("RadioButtonList")
 
@@ -92,9 +89,7 @@ function RadioButtonList:renderWithProviders(getSelectionCursor, cursor)
 			[Roact.Ref] = self.gamepadRefs[i],
 			NextSelectionUp = i > 1 and self.gamepadRefs[i - 1] or nil,
 			NextSelectionDown = i < #self.props.radioButtons and self.gamepadRefs[i + 1] or nil,
-			SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
-				then cursor
-				else getSelectionCursor(CursorKind.RoundedRect),
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			inputBindings = {
 				OnActivatedButton = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
 					self.doLogic(i)
@@ -118,14 +113,7 @@ end
 
 function RadioButtonList:render()
 	return withSelectionCursorProvider(function(getSelectionCursor)
-		if UIBloxConfig.migrateToNewSelectionCursor then
-			return withCursor(function(context)
-				local cursor = context.getCursorByType(CursorType.RoundedRect)
-				return self:renderWithProviders(getSelectionCursor, cursor)
-			end)
-		else
-			return self:renderWithProviders(getSelectionCursor)
-		end
+		return self:renderWithProviders(getSelectionCursor)
 	end)
 end
 

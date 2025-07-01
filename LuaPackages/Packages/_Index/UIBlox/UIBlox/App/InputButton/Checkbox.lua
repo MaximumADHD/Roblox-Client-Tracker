@@ -8,8 +8,6 @@ local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
 local CursorKind = require(Packages.UIBlox.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(Packages.UIBlox.App.SelectionImage.withSelectionCursorProvider)
-local withCursor = require(Packages.UIBlox.App.SelectionCursor.withCursor)
-local CursorType = require(Packages.UIBlox.App.SelectionCursor.CursorType)
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 --TODO: This code is considered Control.Checkbox by design, consider moving this out of InputButton for consistency.
@@ -66,14 +64,7 @@ end
 function Checkbox:render()
 	return withSelectionCursorProvider(function(getSelectionCursor)
 		return withStyle(function(style)
-			if UIBloxConfig.migrateToNewSelectionCursor then
-				return withCursor(function(context)
-					local cursor = context.getCursorByType(CursorType.InputButton)
-					return self:renderWithProviders(style, getSelectionCursor, cursor)
-				end)
-			else
-				return self:renderWithProviders(style, getSelectionCursor)
-			end
+			return self:renderWithProviders(style, getSelectionCursor)
 		end)
 	end)
 end
@@ -115,9 +106,7 @@ function Checkbox:renderWithProviders(style, getSelectionCursor, cursor)
 		layoutOrder = self.props.layoutOrder,
 		isDisabled = self.props.isDisabled,
 		[Roact.Ref] = self.props.frameRef,
-		SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
-			then cursor
-			else getSelectionCursor(CursorKind.InputButton),
+		SelectionImageObject = getSelectionCursor(CursorKind.InputButton),
 	})
 end
 

@@ -5,7 +5,7 @@ local Packages = ReactUtils.Parent
 local React = require(Packages.React)
 
 export type Props = {
-	providers: { React.ReactElement },
+	providers: { React.ReactElement<any, any> },
 	children: React.ReactNode,
 }
 

@@ -75,6 +75,7 @@ export type StateLayer = {
 -- SelectionProps are broken out such that any Foundation component that is selectable
 -- can have these properties without needing to include the entire Selection type
 export type SelectionProps = {
+	Selectable: Bindable<boolean>?,
 	NextSelectionUp: Bindable<React.Ref<GuiObject>>?,
 	NextSelectionDown: Bindable<React.Ref<GuiObject>>?,
 	NextSelectionLeft: Bindable<React.Ref<GuiObject>>?,
@@ -82,15 +83,18 @@ export type SelectionProps = {
 }
 
 -- Unfortunately SelectionProps can't be unioned with Selection
--- without anlyze becoming incredibly umhappy, so we jsut duplicate them.
+-- without anlyze becoming incredibly unhappy, so we jsut duplicate them.
 export type Selection = {
-	Selectable: Bindable<boolean>,
-	SelectionImageObject: Bindable<React.Ref<GuiObject>>?,
-	SelectionOrder: Bindable<number>?,
+	-- SelectionProps
+	Selectable: Bindable<boolean>?,
 	NextSelectionUp: Bindable<React.Ref<GuiObject>>?,
 	NextSelectionDown: Bindable<React.Ref<GuiObject>>?,
 	NextSelectionLeft: Bindable<React.Ref<GuiObject>>?,
 	NextSelectionRight: Bindable<React.Ref<GuiObject>>?,
+
+	-- Additional Selection properties
+	SelectionImageObject: Bindable<React.Ref<GuiObject>>?,
+	SelectionOrder: Bindable<number>?,
 }
 
 export type SelectionGroup = {

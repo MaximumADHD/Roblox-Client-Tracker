@@ -91,6 +91,7 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 				Divider = if isLast
 					then nil
 					else React.createElement(View, {
+						tag = variantProps.divider.tag,
 						backgroundStyle = hoveredSegmentId:map(function(id)
 							local isHovered = id == segment.id
 							local isNextHovered = nextSegment and id == nextSegment.id

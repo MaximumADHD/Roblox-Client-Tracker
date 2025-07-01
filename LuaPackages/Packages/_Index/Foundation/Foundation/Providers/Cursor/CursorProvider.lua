@@ -5,7 +5,8 @@ local CoreGui = require(Foundation.Utility.Wrappers).Services.CoreGui
 local GuiService = require(Foundation.Utility.Wrappers).Services.GuiService
 
 local React = require(Packages.React)
-local RoactGamepad = require(Packages.RoactGamepad)
+local ReactUtils = require(Packages.ReactUtils)
+local useRefCache = ReactUtils.useRefCache
 
 local CursorContext = require(script.Parent.CursorContext)
 local CursorComponent = require(script.Parent.CursorComponent)
@@ -50,7 +51,7 @@ local function CursorProvider(props: Props)
 	local mountedCursors, setMountedCursors = React.useState({} :: { [string]: boolean })
 	local frameRef = React.useRef(nil :: GuiObject?)
 	local selectionImageObject, setSelectionImageObject = React.useState(nil)
-	local refCache = RoactGamepad.useRefCache()
+	local refCache = useRefCache()
 
 	local contextValue = React.useMemo(function()
 		return {
@@ -95,9 +96,7 @@ local function CursorProvider(props: Props)
 			return
 		end
 
-		local isDescendantOfCoreGui = if frameRef.current ~= nil
-			then frameRef.current:IsDescendantOf(CoreGui)
-			else false
+		local isDescendantOfCoreGui = frameRef.current:IsDescendantOf(CoreGui)
 
 		local function setUpSelectionImageObjectConnection()
 			-- Listen to different signals depending on whether it's under CoreGui or PlayerGui.
@@ -123,23 +122,19 @@ local function CursorProvider(props: Props)
 		end
 
 		local selectionImageObjectConnection = setUpSelectionImageObjectConnection()
-		local ancestryConnection = if frameRef.current ~= nil
-			then frameRef.current.AncestryChanged:Connect(function()
-				-- This component listens for the event "all parents have been set".
-				-- In didMount, parents of the mounted component are not required to be set,
-				-- therefore we can't do ancestry checks (like checking to see if the mounted
-				-- component is a child of CoreGui or PlayerGui). This component makes it easy to
-				-- do this check and trigger functions when all parents are assigned after didMount.
-				selectionImageObjectConnection:Disconnect()
-				selectionImageObjectConnection = setUpSelectionImageObjectConnection()
-			end)
-			else nil
+		local ancestryConnection = frameRef.current.AncestryChanged:Connect(function()
+			-- This component listens for the event "all parents have been set".
+			-- In didMount, parents of the mounted component are not required to be set,
+			-- therefore we can't do ancestry checks (like checking to see if the mounted
+			-- component is a child of CoreGui or PlayerGui). This component makes it easy to
+			-- do this check and trigger functions when all parents are assigned after didMount.
+			selectionImageObjectConnection:Disconnect()
+			selectionImageObjectConnection = setUpSelectionImageObjectConnection()
+		end)
 
 		return function()
 			selectionImageObjectConnection:Disconnect()
-			if ancestryConnection ~= nil then
-				ancestryConnection:Disconnect()
-			end
+			ancestryConnection:Disconnect()
 		end
 	end, {})
 

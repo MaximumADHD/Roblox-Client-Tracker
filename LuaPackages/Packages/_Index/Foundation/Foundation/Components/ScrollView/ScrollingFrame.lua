@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
@@ -45,7 +46,15 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 	local props = withDefaults(scrollingFrameProps, defaultProps)
 	local tokens = useTokens()
 	local scrollBarStyle = tokens.Semantic.Color.Common.Placeholder
-	local scrollBarThickness = tokens.Size.Size_300
+	local scrollBarThickness = if Flags.FoundationFixVisibleNoneScrollBarThickness
+		then React.useMemo(function()
+			if props.scrollBarVisibility == Visibility.None then
+				return 0
+			else
+				return tokens.Size.Size_300
+			end
+		end, { props.scrollBarVisibility })
+		else tokens.Size.Size_300
 	local cursor = useCursor()
 
 	local delayRef = React.useRef(nil :: thread?)

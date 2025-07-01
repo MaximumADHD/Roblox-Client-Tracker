@@ -371,10 +371,7 @@ function Tile:render()
 						Image = React.createElement(TileThumbnail, {
 							Image = thumbnail,
 							hasRoundedCorners = hasRoundedCorners,
-							cornerRadius = if self.props.isCircular
-								then UDim.new(0.5, 0)
-								elseif UIBloxConfig.useNewSelectionCursor then THUMBNAIL_CORNER_RADIUS
-								else nil,
+							cornerRadius = THUMBNAIL_CORNER_RADIUS,
 							isSelected = isSelected,
 							multiSelect = multiSelect,
 							overlayComponents = thumbnailOverlayComponents,
@@ -465,7 +462,7 @@ end
 
 return React.forwardRef(function(props, ref)
 	return React.createElement(
-		if UIBloxConfig.useNewSelectionCursor then TileFunctionalWrapper else Tile,
+		TileFunctionalWrapper,
 		Cryo.Dictionary.join(props, {
 			thumbnailRef = ref,
 		})

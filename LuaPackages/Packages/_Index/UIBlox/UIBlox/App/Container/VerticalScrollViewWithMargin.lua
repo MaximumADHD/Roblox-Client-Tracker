@@ -16,10 +16,7 @@ local Focusable = RoactGamepad.Focusable
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
-local withCursor = require(App.SelectionCursor.withCursor)
-local CursorType = require(App.SelectionCursor.CursorType)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local getPageMargin = require(UIBlox.App.Container.getPageMargin)
 
 local SCROLL_BAR_RIGHT_PADDING = 4
@@ -221,9 +218,7 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			ScrollingEnabled = self.props.ScrollingEnabled,
 			CanvasPosition = self.props.CanvasPosition,
 
-			SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
-				then cursor
-				else getSelectionCursor(CursorKind.RoundedRect),
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			onFocusGained = isGamepadFocusable and self.onGamepadFocused or nil,
 			onFocusLost = isGamepadFocusable and self.onGamepadFocusLost or nil,
 
@@ -252,16 +247,9 @@ end
 
 function VerticalScrollView:render()
 	return withStyle(function(stylePalette)
-		if UIBloxConfig.migrateToNewSelectionCursor then
-			return withCursor(function(context)
-				local cursor = context.getCursorByType(CursorType.RoundedRect)
-				return self:renderWithProviders(stylePalette, nil, cursor)
-			end) :: any
-		else
-			return withSelectionCursorProvider(function(getSelectionCursor)
-				return self:renderWithProviders(stylePalette, getSelectionCursor)
-			end) :: any
-		end
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithProviders(stylePalette, getSelectionCursor)
+		end) :: any
 	end)
 end
 

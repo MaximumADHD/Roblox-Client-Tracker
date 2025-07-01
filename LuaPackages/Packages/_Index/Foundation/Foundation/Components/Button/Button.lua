@@ -209,7 +209,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 			),
 			-- Allow focus to be set if inputDelay or isLoading is responsible for disabling the button
 			selection = {
-				Selectable = not props.isDisabled,
+				Selectable = if props.isDisabled then false else props.Selectable,
 				SelectionImageObject = cursor,
 				NextSelectionUp = props.NextSelectionUp,
 				NextSelectionDown = props.NextSelectionDown,

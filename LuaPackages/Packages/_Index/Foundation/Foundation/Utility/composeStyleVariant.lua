@@ -18,6 +18,9 @@ end
 function composeStyleVariant(source: VariantProps, ...: VariantProps): VariantProps
 	local result = Dash.copy(source)
 	Dash.forEachArgs(function(arg)
+		if arg == nil then
+			return
+		end
 		for key, value in arg do
 			result[key] = mergeProps(result[key] or {}, value)
 		end

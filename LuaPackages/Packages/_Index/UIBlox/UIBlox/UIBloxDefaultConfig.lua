@@ -5,12 +5,6 @@ return {
 	-- Add gamepad support to LinkButton
 	enableLinkButtonGamepadSupport = false,
 
-	-- Use new selection cursor in related components
-	useNewSelectionCursor = false,
-
-	-- Migrate selection image to new selection cursor
-	migrateToNewSelectionCursor = false,
-
 	-- Set zindex on ResponsiveCell
 	setZIndexOnGridCells = false,
 

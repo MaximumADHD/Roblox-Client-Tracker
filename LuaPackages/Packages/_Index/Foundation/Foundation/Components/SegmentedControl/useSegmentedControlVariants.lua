@@ -21,14 +21,15 @@ type SegmentedControlVariantProps = {
 	container: { tag: string },
 	segment: { tag: string },
 	text: { tag: string },
-	divider: { Size: UDim2 },
+	divider: { Size: UDim2?, tag: string? },
 }
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
-		container = { tag = "auto-xy align-y-center row items-stretch bg-surface-300" },
-		segment = { tag = "auto-xy row align-y-center" },
+		container = { tag = "auto-xy align-y-center row bg-surface-300" },
+		segment = { tag = "auto-xy row size-0-full align-y-center" },
 		text = { tag = "auto-x text-truncate-end content-emphasis" },
+		divider = { tag = "row" },
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
@@ -36,25 +37,25 @@ local function variantsFactory(tokens: Tokens)
 			container = { tag = "size-600 padding-xsmall radius-small" },
 			segment = { tag = "padding-small radius-small" },
 			text = { tag = "text-caption-small" },
-			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 0, tokens.Size.Size_600) },
+			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 		},
 		[InputSize.Small] = {
 			container = { tag = "size-800 padding-xsmall radius-medium" },
 			segment = { tag = "padding-small radius-small" },
 			text = { tag = "text-caption-small" },
-			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 0, tokens.Size.Size_800) },
+			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 		},
 		[InputSize.Medium] = {
 			container = { tag = "size-1000 padding-xsmall radius-medium" },
 			segment = { tag = "padding-small radius-small" },
 			text = { tag = "text-caption-medium" },
-			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 0, tokens.Size.Size_1000) },
+			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 		},
 		[InputSize.Large] = {
 			container = { tag = "size-1200 padding-xsmall radius-medium" },
 			segment = { tag = "padding-medium radius-small" },
 			text = { tag = "text-caption-medium" },
-			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 0, tokens.Size.Size_1200) },
+			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 		},
 	}
 

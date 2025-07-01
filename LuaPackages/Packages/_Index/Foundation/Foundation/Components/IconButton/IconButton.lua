@@ -90,7 +90,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 
 			Size = size + UDim2.new(padding, padding) + UDim2.new(padding, padding),
 			selection = {
-				Selectable = not props.isDisabled,
+				Selectable = if props.isDisabled then false else props.Selectable,
 				SelectionImageObject = cursor,
 				NextSelectionUp = props.NextSelectionUp,
 				NextSelectionDown = props.NextSelectionDown,

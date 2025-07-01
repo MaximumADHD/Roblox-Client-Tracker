@@ -15,8 +15,6 @@ local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCurs
 local CursorKind = require(App.SelectionImage.CursorKind)
 local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
-local useCursorByType = require(App.SelectionCursor.useCursorByType)
-local CursorType = require(App.SelectionCursor.CursorType)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DISABLED_TRANSPARENCY = 0.5
@@ -68,8 +66,6 @@ Cell.validateProps = t.strictInterface({
 	[Roact.Change.AbsolutePosition] = t.optional(t.callback),
 	[Roact.Ref] = t.optional(t.union(t.callback, t.table)),
 	forwardRef = t.optional(t.union(t.callback, t.table)),
-	-- Selection cursor
-	selectionCursor = if UIBloxConfig.migrateToNewSelectionCursor then t.optional(t.any) else nil,
 })
 
 Cell.defaultProps = {
@@ -160,9 +156,7 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 		BackgroundTransparency = 1,
 		AutoButtonColor = false,
 		Selectable = self.props.selectable,
-		SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
-			then self.props.selectionCursor
-			else (getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset)),
+		SelectionImageObject = (getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset)),
 
 		isDisabled = isDisabled,
 		onStateChanged = self.onStateChanged,
@@ -235,12 +229,6 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 end
 
 return Roact.forwardRef(function(props, ref)
-	local selectionCursor = useCursorByType(CursorType.RoundedRectNoInset)
-	if UIBloxConfig.migrateToNewSelectionCursor then
-		props = Cryo.Dictionary.join({
-			selectionCursor = selectionCursor,
-		}, props)
-	end
 	return Roact.createElement(
 		Cell,
 		Cryo.Dictionary.join(props, {

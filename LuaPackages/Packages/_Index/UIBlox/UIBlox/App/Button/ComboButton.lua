@@ -17,8 +17,6 @@ local GenericButton = require(Core.Button.GenericButton)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local withStyle = require(Core.Style.withStyle)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local ComboButton = Roact.PureComponent:extend("ComboButton")
 
 local BUTTON_GAP = 1
@@ -85,13 +83,9 @@ end
 function ComboButton:render()
 	return withStyle(function(style)
 		return withSelectionCursorProvider(function(getSelectionCursor)
-			if UIBloxConfig.useNewSelectionCursor then
-				return withCursor(function(context)
-					return self:renderWithProviders(style, nil, context.getCursor)
-				end)
-			else
-				return self:renderWithProviders(style, getSelectionCursor, nil)
-			end
+			return withCursor(function(context)
+				return self:renderWithProviders(style, nil, context.getCursor)
+			end)
 		end)
 	end)
 end
