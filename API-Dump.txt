@@ -133,7 +133,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Property Instance.RobloxLocked: boolean {PluginSecurity} [Hidden]
 	Property Instance.SourceAssetId: number {RobloxScriptSecurity} [Hidden]
 	Property Instance.Tags: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
-	Property Instance.UniqueId: UniqueId {RobloxSecurity} [NotReplicated] [NotScriptable]
+	Property Instance.UniqueId: UniqueId {RobloxScriptSecurity} {✏️RobloxSecurity} [NotReplicated]
 	Property Instance.Capabilities: SecurityCapabilities {🔐CapabilityControl}
 	Property Instance.DefinesCapabilities: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Instance.Sandboxed: boolean {🔐CapabilityControl} [NotReplicated]
@@ -354,7 +354,7 @@ Class AnimationTrack : Instance [NotCreatable]
 	Event AnimationTrack.KeyframeReached(keyframeName: string)
 	Event AnimationTrack.Stopped()
 Class Animator : Instance
-	Property Animator.EvaluationThrottled: boolean [ReadOnly] [NotBrowsable]
+	Property Animator.EvaluationThrottled: boolean [ReadOnly]
 	Property Animator.PreferLodEnabled: boolean
 	Property Animator.RootMotion: CFrame [ReadOnly] [NotBrowsable]
 	Property Animator.RootMotionWeight: number [ReadOnly] [NotBrowsable]
@@ -408,8 +408,6 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Property AnnotationsService.ResolvedLoadingStatus: Enum.AnnotationRequestStatus {RobloxScriptSecurity} [Hidden]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
-	Function AnnotationsService:DEPRECATED_EditAnnotation(uniqueId: string, contents: string) -> () {RobloxScriptSecurity}
-	Function AnnotationsService:DEPRECATED_LoadAnnotationReplies(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DeleteAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:EditAnnotation(uniqueId: string, contents: string, taggedUsers: string) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
@@ -421,8 +419,6 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Event AnnotationsService.AnnotationDeleted(requestId: string, annotation: Annotation) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationEdited(requestId: string, uniqueId: string, contents: string, taggedUsers: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationResolved(requestId: string, annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
-	Event AnnotationsService.DEPRECATED_AnnotationEdited(requestId: string, uniqueId: string, contents: string) {RobloxScriptSecurity}
-	Event AnnotationsService.DEPRECATED_ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation, reverseOrder: boolean, loadAll: boolean) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadAnnotations(resolved: boolean) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadResolvedAnnotations(count: number) {RobloxSecurity}
@@ -696,6 +692,16 @@ Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AudioFocusService.OnContextUnregistered(contextId: number) {RobloxScriptSecurity}
 	Event AudioFocusService.OnDeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
 	Event AudioFocusService.OnUndeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
+Class AudioGate : Instance [NotBrowsable]
+	Property AudioGate.Attack: number
+	Property AudioGate.Bypass: boolean
+	Property AudioGate.Release: number
+	Property AudioGate.Threshold: NumberRange
+	Function AudioGate:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioGate:GetInputPins() -> { any }
+	Function AudioGate:GetOutputPins() -> { any }
+	Function AudioGate:Reset() -> () {RobloxScriptSecurity}
+	Event AudioGate.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioLimiter : Instance
 	Property AudioLimiter.Bypass: boolean
 	Property AudioLimiter.MaxLevel: number
@@ -800,7 +806,7 @@ Class AudioSpeechToText : Instance [NotBrowsable]
 	Property AudioSpeechToText.VoiceDetected: boolean [ReadOnly]
 	Function AudioSpeechToText:GetConnectedWires(pin: string) -> { Instance }
 	Event AudioSpeechToText.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
-Class AudioTextToSpeech : Instance [NotBrowsable]
+Class AudioTextToSpeech : Instance
 	Property AudioTextToSpeech.IsLoaded: boolean [ReadOnly]
 	Property AudioTextToSpeech.Pitch: number
 	Property AudioTextToSpeech.Speed: number
@@ -833,6 +839,8 @@ Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Property AuroraService.HashRoundingPoint: number [Deprecated]
 	Property AuroraService.IgnoreRotation: boolean [Deprecated]
+	Property AuroraService.InputDropRate: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
+	Property AuroraService.RCCHeartbeatFPS: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.RollbackOffset: number [Deprecated]
 	Function AuroraService:GetPredictedInstances() -> { any } [Deprecated]
 	Function AuroraService:GetRemoteWorldStepId() -> number [Deprecated]
@@ -1581,6 +1589,7 @@ Class CollaboratorsService : Instance [NotCreatable] [Service]
 	Event CollaboratorsService.CollaboratorInstanceDestroyedSignal(collaboratorId: number) {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorStatusUpdateRequestedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxScriptSecurity} [Hidden]
 	Event CollaboratorsService.CollaboratorStatusUpdatedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxScriptSecurity}
+	Event CollaboratorsService.ToggleSelectionHighlightsSignal(areHighlightsShown: boolean) {RobloxScriptSecurity}
 Class CollectionService : Instance [NotCreatable] [Service]
 	Function CollectionService:AddTag(instance: Instance, tag: string) -> () [CustomLuaState]
 	Function CollectionService:GetAllTags() -> { any } {🧬Safe}
@@ -3064,6 +3073,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.SelectedObject: GuiObject?
 	Property GuiService.TopbarInset: Rect [ReadOnly]
 	Property GuiService.TouchControlsEnabled: boolean
+	Property GuiService.ViewportDisplaySize: Enum.DisplaySize {RobloxScriptSecurity} [ReadOnly]
 	Property GuiService.ViewportSizeInMM: Vector2 {RobloxScriptSecurity} [ReadOnly]
 	Function GuiService:AddCenterDialog(dialog: Instance, centerDialogType: Enum.CenterDialogType, showFunction: (...any) -> ...any, hideFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function GuiService:AddKey(key: string) -> () {RobloxScriptSecurity}
@@ -4918,6 +4928,15 @@ Class ParticleEmitter : Instance
 	Function ParticleEmitter:FastForward(numFrames: number) -> () {RobloxScriptSecurity}
 	Event ParticleEmitter.OnClearRequested() [Hidden]
 	Event ParticleEmitter.OnEmitRequested(particleCount: number) [Hidden]
+Class PartyEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function PartyEmulatorService:CreateNewParty() -> string {RobloxScriptSecurity}
+	Function PartyEmulatorService:DeleteParty(partyId: string) -> () {RobloxScriptSecurity}
+	Function PartyEmulatorService:GetCurrentConfiguration() -> { [string]: any } {RobloxScriptSecurity}
+	Function PartyEmulatorService:GetEmulatedPartyAsync(partyId: string) -> { any } {RobloxScriptSecurity} [Yields]
+	Function PartyEmulatorService:GetIsEmulationEnabled() -> boolean {RobloxScriptSecurity}
+	Function PartyEmulatorService:SetIsEmulationEnabled(isEnabled: boolean) -> () {RobloxScriptSecurity}
+	Function PartyEmulatorService:SetPlayerPartyId(userId: number, partyId: string) -> () {RobloxScriptSecurity}
+	Function PartyEmulatorService:applyPartyIdToPlayer(player: Player) -> () {RobloxScriptSecurity}
 Class PatchBundlerFileWatch : Instance [NotCreatable] [Service] [NotReplicated]
 Class PatchMapping : Instance [NotCreatable] [NotReplicated]
 	Property PatchMapping.FlattenTree: boolean
@@ -6049,7 +6068,9 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:InvokeGameInvitePromptClosed(player: Instance, recipientIds: { any }) -> () {RobloxScriptSecurity}
 	Function SocialService:InvokeIrisInvite(player: Instance, tag: string, irisParticipants: { any }) -> () {RobloxScriptSecurity}
 	Function SocialService:InvokeIrisInvitePromptClosed(player: Instance) -> () {RobloxScriptSecurity}
+	Function SocialService:InvokeShareSheetClosed() -> () {RobloxScriptSecurity}
 	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> ()
+	Function SocialService:PromptLinkSharing(player: Player, options: { [string]: any }? = nil) -> ...any [Yields]
 	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> ()
 	Function SocialService:PromptRsvpToEventAsync(eventId: string) -> Enum.RsvpStatus [Yields]
 	Function SocialService:PromptRsvpToEventCompleted(eventId: string, success: boolean, rsvpStatus: Enum.RsvpStatus) -> () {RobloxScriptSecurity}
@@ -6058,12 +6079,14 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState)
 	Event SocialService.GameInvitePromptClosed(player: Instance, recipientIds: { any })
 	Event SocialService.IrisInviteInitiated(message: string) {RobloxSecurity} [Hidden]
+	Event SocialService.OpenShareSheetWithLink(link: string) {RobloxScriptSecurity}
 	Event SocialService.PhoneBookPromptClosed(player: Instance)
 	Event SocialService.PlayerPartyDataChanged(partyId: string) {RobloxScriptSecurity}
 	Event SocialService.PromptInviteRequested(player: Instance, experienceInviteOptions: Instance) {RobloxScriptSecurity}
 	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {RobloxScriptSecurity}
 	Event SocialService.SelfViewHidden() {RobloxScriptSecurity}
 	Event SocialService.SelfViewVisible(selfViewPosition: Enum.SelfViewPosition) {RobloxScriptSecurity}
+	Event SocialService.ShareSheetClosed(player: Player)
 	Event SocialService.ShowPromptRsvpToEvent(eventId: string) {RobloxScriptSecurity}
 	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance
 Class Sound : Instance
@@ -8833,6 +8856,10 @@ Enum DialogTone
 	EnumItem DialogTone.Neutral : 0
 	EnumItem DialogTone.Friendly : 1
 	EnumItem DialogTone.Enemy : 2
+Enum DisplaySize
+	EnumItem DisplaySize.Small : 0
+	EnumItem DisplaySize.Medium : 1
+	EnumItem DisplaySize.Large : 2
 Enum DominantAxis
 	EnumItem DominantAxis.Width : 0
 	EnumItem DominantAxis.Height : 1
@@ -10127,6 +10154,10 @@ Enum PromptCreateAvatarResult
 	EnumItem PromptCreateAvatarResult.PurchaseFailure : 10
 	EnumItem PromptCreateAvatarResult.UnknownFailure : 11
 	EnumItem PromptCreateAvatarResult.TokenInvalid : 12
+Enum PromptLinkSharingResult
+	EnumItem PromptLinkSharingResult.Success : 1
+	EnumItem PromptLinkSharingResult.PlayerLeft : 2
+	EnumItem PromptLinkSharingResult.InvalidLaunchData : 3
 Enum PromptPublishAssetResult
 	EnumItem PromptPublishAssetResult.Success : 1
 	EnumItem PromptPublishAssetResult.PermissionDenied : 2

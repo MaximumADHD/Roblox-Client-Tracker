@@ -1,6 +1,7 @@
 Name,Shader Type
 AdornAALineFS,Fragment
 AdornAALineVS,Vertex
+AdornDebugFS,Fragment
 AdornFixedWidthAALineVS,Vertex
 AdornFS,Fragment
 AdornLightingVS,Vertex
@@ -715,6 +716,7 @@ SmoothClusterVTVS_00000000,Vertex
 SmootherStepFS,Fragment
 SmoothWaterFSUnified_10000000,Fragment
 SmoothWaterFSUnified_10000400,Fragment
+SmoothWaterFSUnified_12000000,Fragment
 SmoothWaterFSUnified_20000000,Fragment
 SmoothWaterVS_00000000,Vertex
 SmoothWaterVSUnified_10000000,Vertex

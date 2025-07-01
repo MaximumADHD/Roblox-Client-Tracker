@@ -1,6 +1,7 @@
 Name,Shader Type
 AdornAALineFS,Fragment
 AdornAALineVS,Vertex
+AdornDebugFS,Fragment
 AdornFixedWidthAALineVS,Vertex
 AdornFS,Fragment
 AdornLightingVS,Vertex
@@ -622,6 +623,7 @@ DefaultUnifiedSurfaceAppearanceVS_88000001,Vertex
 DefaultUnifiedSurfaceAppearanceVS_88000002,Vertex
 DefaultUnifiedSurfaceAppearanceVS_88000006,Vertex
 DefaultUnifiedSurfaceAppearanceVS_88000200,Vertex
+DefaultUnifiedSurfaceAppearanceVS_88000201,Vertex
 DefaultUnifiedSurfaceAppearanceVS_88001000,Vertex
 DefaultUnifiedSurfaceAppearanceVS_88001002,Vertex
 DefaultUnifiedSurfaceAppearanceVS_88001006,Vertex

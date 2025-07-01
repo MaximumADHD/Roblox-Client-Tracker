@@ -6427,6 +6427,7 @@
       "Message": "@roblox/globaltype/TestService.Message",
       "Require": "@roblox/globaltype/TestService.Require",
       "ScopeTime": "@roblox/globaltype/TestService.ScopeTime",
+      "TakeSnapshot": "@roblox/globaltype/TestService.TakeSnapshot",
       "Warn": "@roblox/globaltype/TestService.Warn",
       "isFeatureEnabled": "@roblox/globaltype/TestService.isFeatureEnabled",
       "Run": "@roblox/globaltype/TestService.Run"
@@ -6762,6 +6763,28 @@
       "@roblox/globaltype/TestService.ScopeTime/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ScopeTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
+    "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
+  },
+  "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TestService.TakeSnapshot": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/0"
+      },
+      {
+        "name": "snapshotname",
+        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TakeSnapshot",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Warn/param/0": {
@@ -15031,6 +15054,203 @@
   "@roblox/globaltype/ImageButton.TileSize": {
     "documentation": "Sets the tiling scale of the ImageButton.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageButton#TileSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService": {
+    "documentation": "",
+    "keys": {
+      "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
+      "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
+      "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
+      "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
+      "RemoveItemAsync": "@roblox/globaltype/RecommendationService.RemoveItemAsync",
+      "UpdateItemAsync": "@roblox/globaltype/RecommendationService.UpdateItemAsync"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/0"
+      },
+      {
+        "name": "actionType",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/1"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/2"
+      },
+      {
+        "name": "tracingId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/3"
+      },
+      {
+        "name": "actionEventDetails",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/4"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogActionEvent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0"
+      },
+      {
+        "name": "impressionType",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2"
+      },
+      {
+        "name": "tracingId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3"
+      },
+      {
+        "name": "impressionEventDetails",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogImpressionEvent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0"
+      },
+      {
+        "name": "generateRecommendationItemListRequest",
+        "documentation": "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GenerateItemListAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0"
+      },
+      {
+        "name": "registerRecommendationItemsRequest",
+        "documentation": "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#RegisterItemAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RemoveItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#RemoveItemAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0"
+      },
+      {
+        "name": "updateRecommendationItemRequest",
+        "documentation": "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#UpdateItemAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/Feature": {
@@ -24880,6 +25100,7 @@
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AllowThirdPartySales": "@roblox/globaltype/Workspace.AllowThirdPartySales",
+      "AuthorityMode": "@roblox/globaltype/Workspace.AuthorityMode",
       "AvatarUnificationMode": "@roblox/globaltype/Workspace.AvatarUnificationMode",
       "ClientAnimatorThrottling": "@roblox/globaltype/Workspace.ClientAnimatorThrottling",
       "CurrentCamera": "@roblox/globaltype/Workspace.CurrentCamera",
@@ -24893,6 +25114,7 @@
       "IKControlConstraintSupport": "@roblox/globaltype/Workspace.IKControlConstraintSupport",
       "InsertPoint": "@roblox/globaltype/Workspace.InsertPoint",
       "InterpolationThrottling": "@roblox/globaltype/Workspace.InterpolationThrottling",
+      "LuauTypeCheckMode": "@roblox/globaltype/Workspace.LuauTypeCheckMode",
       "MeshPartHeadsAndAccessories": "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories",
       "ModelStreamingBehavior": "@roblox/globaltype/Workspace.ModelStreamingBehavior",
       "MoverConstraintRootBehavior": "@roblox/globaltype/Workspace.MoverConstraintRootBehavior",
@@ -24915,6 +25137,7 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
+      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -24938,6 +25161,11 @@
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
     "documentation": "Determines whether assets created by other users can be sold in the game.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AllowThirdPartySales",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.AuthorityMode": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AuthorityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AvatarUnificationMode": {
@@ -25003,6 +25231,11 @@
   "@roblox/globaltype/Workspace.InterpolationThrottling": {
     "documentation": "<strong>Deprecated:</strong> This property should not be used for new work.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InterpolationThrottling",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.LuauTypeCheckMode": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#LuauTypeCheckMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
@@ -25113,6 +25346,11 @@
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
     "documentation": "Determines whether <code>parts</code> in different groups set to not collide will ignore collisions and touch events.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
@@ -35404,6 +35642,7 @@
       "CameraOrbitSensitivity": "@roblox/globaltype/Studio.CameraOrbitSensitivity",
       "CameraPanSensitivity": "@roblox/globaltype/Studio.CameraPanSensitivity",
       "CameraShiftFactor": "@roblox/globaltype/Studio.CameraShiftFactor",
+      "CameraSpeedLockDefault": "@roblox/globaltype/Studio.CameraSpeedLockDefault",
       "CameraTweenFocus": "@roblox/globaltype/Studio.CameraTweenFocus",
       "CameraZoomSpeed": "@roblox/globaltype/Studio.CameraZoomSpeed",
       "Clear Output On Start": "@roblox/globaltype/Studio.Clear Output On Start",
@@ -35713,6 +35952,11 @@
   "@roblox/globaltype/Studio.CameraShiftFactor": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraShiftFactor",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Studio.CameraSpeedLockDefault": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraSpeedLockDefault",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraTweenFocus": {
@@ -43437,7 +43681,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
-    "documentation": "An object that represents a presently connected client to the game.",
+    "documentation": "An object that represents a presently connected client to the experience.",
     "keys": {
       "AccountAge": "@roblox/globaltype/Player.AccountAge",
       "AutoJumpEnabled": "@roblox/globaltype/Player.AutoJumpEnabled",
@@ -43518,7 +43762,7 @@
       "waitForDataReady": "@roblox/globaltype/Player.waitForDataReady"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\t-- Create a container for leaderstats\n\tlocal leaderstats = Instance.new(\"Folder\")\n\tleaderstats.Name = \"leaderstats\"\n\n\t-- Create one leaderstat value\n\tlocal vScore = Instance.new(\"IntValue\")\n\tvScore.Name = \"Score\"\n\tvScore.Value = 0\n\tvScore.Parent = leaderstats\n\n\t-- Add to player (displaying it)\n\tleaderstats.Parent = player\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.AccountAge": {
     "documentation": "Describes the player's account age in days.",
@@ -43533,12 +43777,12 @@
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
     "documentation": "The maximum distance the player's camera is allowed to zoom out.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMaxZoomDistance",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMaxZoomDistance = 50\nplayer.CameraMinZoomDistance = 75"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMinZoomDistance": {
     "documentation": "The minimum distance the player's camera is allowed to zoom in.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMinZoomDistance",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMaxZoomDistance = 50\nplayer.CameraMinZoomDistance = 75"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMode": {
     "documentation": "Changes the camera's mode to either first or third person.",
@@ -43546,9 +43790,9 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "Determines whether the character's appearance will be loaded when the player spawns. If false, the player will spawn with a default appearance.",
+    "documentation": "Determines whether the character's appearance will be loaded when the player spawns. If <code>false</code>, the player will spawn with a default appearance.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CanLoadCharacterAppearance = false"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.Character": {
     "documentation": "A <code>Model</code> controlled by the player that contains a <code>Humanoid</code>, body parts, scripts, and other objects.",
@@ -43561,7 +43805,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "Determines the user ID of the account whose character appearance is used for a player's <code>character</code>.",
+    "documentation": "Determines the user ID of the account whose character appearance is used for a player's <code>Character</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
@@ -43581,37 +43825,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerCameraMode": {
-    "documentation": "Determines player's camera movement mode when using a desktop version of Roblox.",
+    "documentation": "Determines player's camera movement mode when using a device with a mouse and keyboard.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerCameraMode",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- Set the player's camera movement mode on computers to classic\nplayer.DevComputerCameraMode = Enum.DevComputerCameraMovementMode.Classic"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerMovementMode": {
-    "documentation": "Determines player's character movement mode when using a desktop version of Roblox.",
+    "documentation": "Determines player's character movement mode when using a device with a mouse and keyboard.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevEnableMouseLock": {
     "documentation": "Determines if the player can toggle mouse lock.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevEnableMouseLock",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function toggleMouseLock(player)\n\tplayer.DevEnableMouseLock = not player.DevEnableMouseLock\n\tif player.DevEnableMouseLock then\n\t\tprint(\"Mouse lock is available\")\n\telse\n\t\tprint(\"Mouse lock is not available\")\n\tend\nend\n\nlocal function onPlayerChatted(player, message, _recipient)\n\tif message == \"mouselock\" then\n\t\ttoggleMouseLock(player)\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.Chatted:Connect(function(...)\n\t\tonPlayerChatted(player, ...)\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchCameraMode": {
-    "documentation": "Determines player's camera movement mode when using a touch device.",
+    "documentation": "Determines player's camera movement mode when using a touch-enabled device.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchCameraMode",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- Set the player's camera movement mode on mobile devices to classic\nplayer.DevTouchCameraMovementMode = Enum.DevTouchCameraMovementMode.Classic"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchMovementMode": {
-    "documentation": "Determines player's character movement mode when using a touch device.",
+    "documentation": "Determines player's character movement mode when using a touch-enabled device.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\ngame.Players.PlayerAdded:Connect(function(player)\n\t-- Set the player's movement mode on mobile devices to a dynamic thumbstick\n\tplayer.DevTouchMovementMode = Enum.DevTouchMovementMode.DynamicThumbstick\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.DisplayName": {
-    "documentation": "The DisplayName of the UserId associated with the Player.",
+    "documentation": "The display name of the authenticated user associated with the <code>Player</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DisplayName",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.FollowUserId": {
-    "documentation": "Describes the user ID of the player who was followed into a game by a player.",
+    "documentation": "Describes the user ID of the player who was followed into an experience by a player.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#FollowUserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.Parent = player:WaitForChild(\"PlayerGui\")\n\nlocal function onPlayerAdded(newPlayer)\n\tif newPlayer.FollowUserId == player.UserId then\n\t\tlocal textLabel = Instance.new(\"TextLabel\")\n\t\ttextLabel.Parent = screenGui\n\t\ttextLabel.Text = \"You were followed to this game by \" .. newPlayer.Name .. \"!\"\n\t\ttask.delay(3, function()\n\t\t\tif textLabel then\n\t\t\t\ttextLabel:Destroy()\n\t\t\tend\n\t\tend)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
@@ -43621,19 +43865,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasVerifiedBadge": {
-    "documentation": "Indicates if a player has a Verified Badge.",
+    "documentation": "Indicates if a player has a <strong>Verified</strong> badge.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasVerifiedBadge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HealthDisplayDistance": {
-    "documentation": "Sets the distance at which this player will see other Humanoid's health bars. If set to 0, the health bars will not be displayed.",
+    "documentation": "Sets the distance at which this player will see other players' health bars.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
-    "documentation": "This property shows the locale id that the local player has set for their Roblox account.",
+    "documentation": "This property shows the locale ID that the local player has set for their Roblox account.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nprint(player.LocaleId)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.MembershipType": {
     "documentation": "Describes the account's membership type.",
@@ -43641,14 +43885,14 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- Take some action specifically for Premium members\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "Sets the distance at which this player will see other Humanoid's names. If set to 0, names are hidden.",
+    "documentation": "Sets the distance at which this player will see other players' names.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.Neutral": {
     "documentation": "Determines whether the player is on a specific team.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Neutral",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.Neutral then\n\tprint(\"Player is neutral!\")\nelse\n\tprint(\"Player is not neutral!\")\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.PartyId": {
     "documentation": "A unique identifier of the party a <code>Player</code> belongs to.",
@@ -43658,7 +43902,7 @@
   "@roblox/globaltype/Player.ReplicationFocus": {
     "documentation": "Sets the part to focus replication around.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ReplicationFocus",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal PLAYER_NAME = \"polarpanda16\"\n\nlocal player = Players:WaitForChild(PLAYER_NAME)\n\nlocal part = Instance.new(\"Part\")\npart.Parent = workspace\npart.Name = \"ReplicationFocusPart\"\npart.Anchored = true\nplayer.ReplicationFocus = part"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
     "documentation": "If set, the player will respawn at the given <code>SpawnLocation</code>.",
@@ -43671,12 +43915,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Team": {
-    "documentation": "Determines the Team with which a Player is associated.",
+    "documentation": "Determines the <code>Team</code> with which the player is associated.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Team",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "Determines the Team with which a Player is associated.",
+    "documentation": "Determines the <code>Team</code> with which the player is associated with according to that team's <code>Team.TeamColor</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -43696,7 +43940,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
     "documentation": ""
@@ -43718,10 +43962,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance": {
-    "documentation": "Removes all accessories and other character appearance objects from a player's Character.",
+    "documentation": "Removes all accessories and other character appearance objects from a player's <code>Character</code>.",
     "params": [
       {
         "name": "self",
@@ -43733,7 +43977,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function onChildRemoved(child)\n\tprint(child.ClassName, \"removed from character\")\nend\n\ncharacter.ChildRemoved:Connect(onChildRemoved)\n\nplayer:ClearCharacterAppearance()\n--> BodyColors removed from character\n--> ShirtGraphic removed from character\n--> Shirt removed from character\n--> Pants removed from character\n--> CharacterMesh removed from character\n--> Hat removed from character\n--> Shirt removed from character"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/1": {
     "documentation": "The location from which player's distance to is being measured."
@@ -43742,7 +43986,7 @@
     "documentation": "The distance in studs between the player and the location."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "Returns the distance between the character's head and the given Vector3 point. Returns 0 if the player has no character.",
+    "documentation": "Returns the distance between the character's head and the given <code>Vector3</code>, or <code>0</code> if the player has no character.",
     "params": [
       {
         "name": "self",
@@ -43760,13 +44004,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
     "documentation": "A dictionary containing PlaceId and UserId values (see table in description)."
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "Returns a dictionary containing information describing how the <code>Player</code> joins the experience.",
+    "documentation": "Returns a dictionary containing information describing how the player joins the experience.",
     "params": [
       {
         "name": "self",
@@ -43780,7 +44024,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetMouse/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.GetMouse/return/0": {
     "documentation": ""
@@ -43797,10 +44041,10 @@
       "@roblox/globaltype/Player.GetMouse/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetMouse",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal mouse = player:GetMouse()\n\nlocal function onButton1Down()\n\tprint(\"Button 1 is down\")\nend\n\nmouse.Button1Down:Connect(onButton1Down)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.GetNetworkPing/return/0": {
     "documentation": ""
@@ -43820,7 +44064,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
     "documentation": "A boolean indicating whether or not the appearance of the player's character has loaded."
@@ -43840,7 +44084,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tlocal loaded = player:HasAppearanceLoaded()\n\tprint(loaded)\n\n\twhile not loaded do\n\t\tloaded = player:HasAppearanceLoaded()\n\t\tprint(loaded)\n\t\ttask.wait()\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsVerified/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.IsVerified/return/0": {
     "documentation": "A boolean indicating whether the player is verified."
@@ -43860,13 +44104,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player:IsVerified())\nend\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tonPlayerAdded(player)\nend\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.Kick/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.Kick/param/1": {
     "documentation": "The message to show the user upon kicking."
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "Forcibly disconnect a player from the game, optionally providing a message.",
+    "documentation": "Forcibly disconnect a player from the experience, optionally providing a message.",
     "params": [
       {
         "name": "self",
@@ -43882,7 +44126,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadBoolean/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadBoolean/param/1": {
     "documentation": ""
@@ -43909,7 +44153,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/1": {
     "documentation": "An instance of the asset being loaded, which can be obtained using the <code>InsertService:LoadAsset()</code> function."
@@ -43931,7 +44175,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal InsertService = game:GetService(\"InsertService\")\n\nlocal function onPlayerAdded(player)\n\tlocal function onChatted(message)\n\t\tlocal assetId = message:match(\"id=(%d+)\")\n\t\tif assetId then\n\t\t\tlocal model = InsertService:LoadAsset(assetId)\n\t\t\tfor _, child in pairs(model:GetChildren()) do\n\t\t\t\tplayer:LoadCharacterAppearance(child)\n\t\t\tend\n\t\tend\n\tend\n\n\tplayer.Chatted:Connect(onChatted)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadInstance/param/1": {
     "documentation": ""
@@ -43958,7 +44202,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tlocal model = player:LoadInstance(\"Model\")\n\t\tmodel.Parent = workspace\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadNumber/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadNumber/param/1": {
     "documentation": ""
@@ -43985,7 +44229,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tprint(player:LoadNumber(\"TotalPlays\"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadString/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadString/param/1": {
     "documentation": ""
@@ -44012,7 +44256,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tprint(Player:LoadString(\"TheirName\"))\n\tend\nend)"
   },
   "@roblox/globaltype/Player.Move/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.Move/param/1": {
     "documentation": "The Vector3 direction that the player should move."
@@ -44041,7 +44285,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
     "documentation": ""
@@ -44063,7 +44307,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveBoolean/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.SaveBoolean/param/1": {
     "documentation": ""
@@ -44092,7 +44336,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tPlayer:SaveBoolean(\"HasPlayed\", true)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.SaveInstance/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.SaveInstance/param/1": {
     "documentation": ""
@@ -44121,7 +44365,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tPlayer:WaitForDataReady()\n\tPlayer:SaveInstance(\"Model\", game.Workspace.Model)\nend)"
   },
   "@roblox/globaltype/Player.SaveNumber/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.SaveNumber/param/1": {
     "documentation": ""
@@ -44150,7 +44394,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tlocal OldValue = Player:SaveNumber(\"TotalPlays\")\n\t\tPlayer:SaveNumber(\"TotalPlays\", OldValue + 1)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.SaveString/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.SaveString/param/1": {
     "documentation": ""
@@ -44179,13 +44423,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tplayer:SaveString(\"TheirName\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.SetAccountAge/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
     "documentation": "The age of the account in days."
   },
   "@roblox/globaltype/Player.SetAccountAge": {
-    "documentation": "Sets the AccountAge of the player.",
+    "documentation": "Sets the <code>AccountAge</code> of the player.",
     "params": [
       {
         "name": "self",
@@ -44198,10 +44442,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#SetAccountAge",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer:SetAccountAge(100)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
     "documentation": "A boolean indicating whether or not the player sees filtered chat."
@@ -44223,7 +44467,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadBoolean/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.loadBoolean/param/1": {
     "documentation": ""
@@ -44250,7 +44494,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadInstance/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.loadInstance/param/1": {
     "documentation": ""
@@ -44277,7 +44521,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadNumber/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.loadNumber/param/1": {
     "documentation": ""
@@ -44304,7 +44548,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadString/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.loadString/param/1": {
     "documentation": ""
@@ -44331,7 +44575,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveBoolean/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.saveBoolean/param/1": {
     "documentation": ""
@@ -44360,7 +44604,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveInstance/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.saveInstance/param/1": {
     "documentation": ""
@@ -44389,7 +44633,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveNumber/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.saveNumber/param/1": {
     "documentation": ""
@@ -44418,7 +44662,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveString/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.saveString/param/1": {
     "documentation": ""
@@ -44447,7 +44691,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/1": {
     "documentation": "The maximum number of online friends to return."
@@ -44474,7 +44718,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Failed to get online players: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/1": {
     "documentation": "The <code>groupId</code> of the specified group."
@@ -44483,7 +44727,7 @@
     "documentation": "The player's rank in the group."
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "Returns the player's rank in the group as an integer between 0 and 255, where 0 is a non-member and 255 is the group's owner.",
+    "documentation": "Returns the player's rank in the group as an integer.",
     "params": [
       {
         "name": "self",
@@ -44501,16 +44745,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Player is the owner of the group, 'LOL'!\")\n\telse\n\t\tprint(\"Player is NOT the owner of the group, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/1": {
-    "documentation": "The <em>groupId</em> of the specified group."
+    "documentation": "The group ID of the specified group."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "The player's role in the specified group, or <em>Guest</em> if the player is not a member."
+    "documentation": "The player's role in the specified group, or <code>Guest</code> if the player is not a member."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "Returns the player's role in the group as a string, or \"Guest\" if the player isn't part of the group.",
+    "documentation": "Returns the player's role in the group as a string, or <code>Guest</code> if the player isn't part of the group.",
     "params": [
       {
         "name": "self",
@@ -44528,7 +44772,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"Player is ranked as '\", player:GetRoleInGroup(2), \"' in group, 'LOL'!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/1": {
     "documentation": ""
@@ -44555,7 +44799,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/1": {
     "documentation": "The <code>Player.UserId</code> of the specified player."
@@ -44582,10 +44826,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" is friends with gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
-    "documentation": "The <em>groupId</em> of the specified group."
+    "documentation": "The group ID of the specified group."
   },
   "@roblox/globaltype/Player.IsInGroup/return/0": {
     "documentation": "A boolean indicating whether the player is in the specified group."
@@ -44606,10 +44850,10 @@
       "@roblox/globaltype/Player.IsInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsInGroup(7) then\n\t\tprint(\"Player is in the Roblox Fan club!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
     "documentation": "Creates a new character for the player, removing the old one. Also clears the player's <code>Backpack</code> and <code>PlayerGui</code>.",
@@ -44624,13 +44868,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
     "documentation": "A <code>HumanoidDescription</code> containing traits like body parts/colors, body scaling, accessories, clothing, and animations that will be equipped to the loaded character."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "Spawns an avatar so it has everything equipped in the passed in <code>HumanoidDescription</code>.",
+    "documentation": "Spawns a player character with everything equipped in the passed in <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -44646,7 +44890,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/1": {
     "documentation": "World location where streaming is requested."
@@ -44675,7 +44919,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.WaitForDataReady/return/0": {
     "documentation": ""
@@ -44695,7 +44939,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.isFriendsWith/param/1": {
     "documentation": ""
@@ -44722,7 +44966,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.waitForDataReady/param/0": {
-    "documentation": "An object that represents a presently connected client to the game."
+    "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.waitForDataReady/return/0": {
     "documentation": ""
@@ -44819,7 +45063,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAdded": {
-    "documentation": "Fired when a player's character spawns or respawns.",
+    "documentation": "Fires when a player's character spawns or respawns.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAdded.ConnectParallel",
@@ -44907,7 +45151,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAppearanceLoaded": {
-    "documentation": "Fires when the full appearance of a <code>Player.Character</code> has been inserted.",
+    "documentation": "Fires when the full appearance of a <code>Character</code> has been inserted.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAppearanceLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAppearanceLoaded.ConnectParallel",
@@ -44995,7 +45239,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterRemoving": {
-    "documentation": "Fired right before a player's character is removed.",
+    "documentation": "Fires right before a player's character is removed.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterRemoving.ConnectParallel",
@@ -45003,7 +45247,7 @@
       "Wait": "@roblox/globaltype/Player.CharacterRemoving.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterRemoving",
-    "code_sample": "game.Players.PlayerAdded:Connect(function(player)\n\tplayer.CharacterRemoving:Connect(function(character)\n\t\tprint(character.Name .. \" has died.\")\n\tend)\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\tprint(character.Name .. \" has spawned\")\nend\n\nlocal function onCharacterRemoving(character)\n\tprint(character.Name .. \" is despawning\")\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\tplayer.CharacterRemoving:Connect(onCharacterRemoving)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.Chatted.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -45083,7 +45327,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Chatted": {
-    "documentation": "Fires when a player chats in-game using Roblox's provided chat bar.",
+    "documentation": "Fires when a player chats in experience using Roblox's provided chat bar.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Chatted.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Chatted.ConnectParallel",
@@ -45091,7 +45335,7 @@
       "Wait": "@roblox/globaltype/Player.Chatted.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Chatted",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tlocal function onChatted(message)\n\t\t-- do stuff with message and player\n\t\tprint(message)\n\tend\n\n\tplayer.Chatted:Connect(onChatted)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.Idled.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -45171,7 +45415,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "This event fires approximately two minutes after the game engine classifies the <code>player</code> as idle. Time is the number of seconds that have elapsed since that point.",
+    "documentation": "This event fires approximately two minutes after the engine classifies the player as idle. Time is the number of seconds that have elapsed since that point.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -45179,7 +45423,7 @@
       "Wait": "@roblox/globaltype/Player.Idled.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Idled",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onIdled(idleTime)\n\tprint(`Player has been idle for {idleTime} seconds`)\n\tif idleTime > 900 then\n\t\t-- warn player that they've been idle for 15 minutes\n\t\t-- and will be disconnected in another 5\n\tend\nend\n\nPlayers.LocalPlayer.Idled:Connect(onIdled)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.OnTeleport.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -45259,7 +45503,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.OnTeleport": {
-    "documentation": "Fired when the TeleportState of a player changes.",
+    "documentation": "Fires when the teleport state of a player changes.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.OnTeleport.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.OnTeleport.ConnectParallel",
@@ -47778,12 +48022,12 @@
     "code_sample": "local humanoid = script.Parent:WaitForChild(\"Humanoid\")\nlocal animator = humanoid:WaitForChild(\"Animator\")\n\nanimator.AnimationPlayed:Connect(function(animationTrack)\n\tlocal animationName = animationTrack.Animation.Name\n\tprint(\"Animation playing \" .. animationName)\nend)"
   },
   "@roblox/globaltype/AnimationTrack.IsPlaying": {
-    "documentation": "A read only property that returns true when the <code>AnimationTrack</code> is playing.",
+    "documentation": "A read-only property that returns true when the <code>AnimationTrack</code> is playing.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#IsPlaying",
     "code_sample": "local function playOrAdjust(animationTrack, fadeTime, weight, speed)\n\tif not animationTrack.IsPlaying then\n\t\tanimationTrack:Play(fadeTime, weight, speed)\n\telse\n\t\tanimationTrack:AdjustSpeed(speed)\n\t\tanimationTrack:AdjustWeight(weight, fadeTime)\n\tend\nend\n\nlocal animation = Instance.new(\"Animation\")\nanimation.AnimationId = \"rbxassetid://507765644\"\n\nlocal humanoid = script.Parent:WaitForChild(\"Humanoid\")\nlocal animator = humanoid:WaitForChild(\"Animator\")\nlocal animationTrack = animator:LoadAnimation(animation)\n\nplayOrAdjust(animationTrack, 1, 0.6, 1)"
   },
   "@roblox/globaltype/AnimationTrack.Length": {
-    "documentation": "A read only property that returns the length (in seconds) of an <code>AnimationTrack</code>. This will return 0 until the animation has fully loaded and thus may not be immediately available.",
+    "documentation": "A read-only property that returns the length (in seconds) of an <code>AnimationTrack</code>. This will return <code>0</code> until the animation has fully loaded and thus may not be immediately available.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#Length",
     "code_sample": "local function playAnimationForDuration(animationTrack, duration)\n\tlocal speed = animationTrack.Length / duration\n\tanimationTrack:Play()\n\tanimationTrack:AdjustSpeed(speed)\nend\n\nlocal animation = Instance.new(\"Animation\")\nanimation.AnimationId = \"rbxassetid://507765000\"\n\nlocal humanoid = script.Parent:WaitForChild(\"Humanoid\")\nlocal animator = humanoid:WaitForChild(\"Animator\")\n\nlocal animationTrack = animator:LoadAnimation(animation)\n\nplayAnimationForDuration(animationTrack, 3)"
   },
@@ -47798,7 +48042,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationTrack.Speed": {
-    "documentation": "The Speed of an <code>AnimationTrack</code> is a read only property that gives the current playback speed of the <code>AnimationTrack</code>. This has a default value of 1. When speed is equal to 1, the amount of time an animation takes to complete is equal to <code>AnimationTrack.Length</code> (in seconds).",
+    "documentation": "Read-only property that gives the current playback speed of the <code>AnimationTrack</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#Speed",
     "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\nlocal Players = game:GetService(\"Players\")\n\nlocal localPlayer = Players.LocalPlayer\nwhile not localPlayer.Character do\n\ttask.wait()\nend\nlocal character = localPlayer.Character\nlocal humanoid = character:WaitForChild(\"Humanoid\")\nlocal animator = humanoid:WaitForChild(\"Animator\")\nlocal animation = Instance.new(\"Animation\")\nanimation.AnimationId = \"rbxassetid://507770453\"\n\nContentProvider:PreloadAsync({ animation })\n\nlocal animationTrack = animator:LoadAnimation(animation)\n\nlocal normalSpeedTime = animationTrack.Length / animationTrack.Speed\nanimationTrack:AdjustSpeed(3)\nlocal fastSpeedTime = animationTrack.Length / animationTrack.Speed\n\nprint(\"At normal speed the animation will play for\", normalSpeedTime, \"seconds\")\nprint(\"At 3x speed the animation will play for\", fastSpeedTime, \"seconds\")"
   },
@@ -47808,7 +48052,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationTrack.WeightCurrent": {
-    "documentation": "Read-only property that gives the current weight of the <code>AnimationTrack</code>. It has a default value of 1.",
+    "documentation": "Read-only property that gives the current weight of the <code>AnimationTrack</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#WeightCurrent",
     "code_sample": ""
   },
@@ -47824,7 +48068,7 @@
     "documentation": "The playback speed the animation is to be changed to."
   },
   "@roblox/globaltype/AnimationTrack.AdjustSpeed": {
-    "documentation": "Changes the <code>AnimationTrack.Speed</code> of an animation. A positive value for speed plays the animation forward, a negative one plays it backwards, and 0 pauses it.",
+    "documentation": "Changes the <code>AnimationTrack.Speed</code> of an animation. A positive value for speed plays the animation forward, a negative one plays it backwards, and <code>0</code> pauses it.",
     "params": [
       {
         "name": "self",
@@ -47849,7 +48093,7 @@
     "documentation": "The duration of time that the animation will fade between the old weight and the new weight for."
   },
   "@roblox/globaltype/AnimationTrack.AdjustWeight": {
-    "documentation": "Changes the weight of an animation, with the optional fadeTime parameter determining how long it takes for <code>AnimationTrack.WeightCurrent</code> to reach <code>AnimationTrack.WeightTarget</code>.",
+    "documentation": "Changes the weight of an animation, with the optional <code>fadeTime</code> parameter determining how long it takes for <code>AnimationTrack.WeightCurrent</code> to reach <code>AnimationTrack.WeightTarget</code>.",
     "params": [
       {
         "name": "self",
@@ -47982,7 +48226,7 @@
     "documentation": "The playback speed of the animation."
   },
   "@roblox/globaltype/AnimationTrack.Play": {
-    "documentation": "Plays the <code>AnimationTrack</code>. Once called an <code>AnimationTrack</code> will play with the specified fadeTime, weight and speed.",
+    "documentation": "Plays the <code>AnimationTrack</code>. Once called an <code>AnimationTrack</code> will play with the specified <code>fadeTime</code>, weight and speed.",
     "params": [
       {
         "name": "self",
@@ -48222,7 +48466,7 @@
     "returns": []
   },
   "@roblox/globaltype/AnimationTrack.Ended": {
-    "documentation": "Fires when the <code>AnimationTrack</code> is completely done moving anything in the world. The animation has finished playing, the \"fade out\" is finished, and the subject is in a neutral pose.",
+    "documentation": "Fires when the <code>AnimationTrack</code> is completely done moving anything in the world.",
     "keys": {
       "Connect": "@roblox/globaltype/AnimationTrack.Ended.Connect",
       "ConnectParallel": "@roblox/globaltype/AnimationTrack.Ended.ConnectParallel",
@@ -48310,7 +48554,7 @@
     "returns": []
   },
   "@roblox/globaltype/AnimationTrack.KeyframeReached": {
-    "documentation": "Fires every time playback of an <code>AnimationTrack</code> reaches a <code>Keyframe</code> that does not have the default name - \"Keyframe.\".",
+    "documentation": "Fires every time playback of an <code>AnimationTrack</code> reaches a <code>Keyframe</code> that does not have the default name of <code>Keyframe</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AnimationTrack.KeyframeReached.Connect",
       "ConnectParallel": "@roblox/globaltype/AnimationTrack.KeyframeReached.ConnectParallel",
@@ -52572,85 +52816,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
   },
-  "@roblox/globaltype/Moderation": {
-    "documentation": "",
-    "keys": {
-      "InternalCreateReviewableContentAsync": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync",
-      "InternalProcessReviewableContentEvent": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalCreateReviewableContentAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalRequestReviewableContentReviewAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "event",
-        "documentation": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalProcessReviewableContentEvent",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TimerService": {
     "documentation": "An internal service responsible for scheduling timed events. It is used by the <code>Debris</code> class. Its functionality can not be accessed by developers.",
     "keys": {},
@@ -54684,6 +54849,7 @@
       "SelectedObject": "@roblox/globaltype/GuiService.SelectedObject",
       "TopbarInset": "@roblox/globaltype/GuiService.TopbarInset",
       "TouchControlsEnabled": "@roblox/globaltype/GuiService.TouchControlsEnabled",
+      "ViewportSizeInMM": "@roblox/globaltype/GuiService.ViewportSizeInMM",
       "AddSelectionParent": "@roblox/globaltype/GuiService.AddSelectionParent",
       "AddSelectionTuple": "@roblox/globaltype/GuiService.AddSelectionTuple",
       "CloseInspectMenu": "@roblox/globaltype/GuiService.CloseInspectMenu",
@@ -54763,6 +54929,11 @@
   "@roblox/globaltype/GuiService.TouchControlsEnabled": {
     "documentation": "Used to enable and disable touch controls and touch control display UI. Defaults to true.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#TouchControlsEnabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/GuiService.ViewportSizeInMM": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ViewportSizeInMM",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/0": {
@@ -56223,6 +56394,7 @@
     "keys": {
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
+      "CreateSurfaceAppearance": "@roblox/globaltype/AssetService.CreateSurfaceAppearance",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
@@ -56295,6 +56467,33 @@
       "@roblox/globaltype/AssetService.CreateEditableMesh/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateEditableMesh",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.CreateSurfaceAppearance/param/0": {
+    "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
+  },
+  "@roblox/globaltype/AssetService.CreateSurfaceAppearance/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AssetService.CreateSurfaceAppearance/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AssetService.CreateSurfaceAppearance": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateSurfaceAppearance/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateSurfaceAppearance/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateSurfaceAppearance/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateSurfaceAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
@@ -63498,6 +63697,9 @@
   "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/param/1": {
     "documentation": ""
   },
+  "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/param/2": {
+    "documentation": ""
+  },
   "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/return/0": {
     "documentation": ""
   },
@@ -63511,6 +63713,10 @@
       {
         "name": "script",
         "documentation": "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/ScriptEditorService.OpenScriptDocumentAsync/param/2"
       }
     ],
     "returns": [
@@ -72825,6 +73031,85 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RigidConstraint",
     "code_sample": ""
   },
+  "@roblox/globaltype/ModerationService": {
+    "documentation": "",
+    "keys": {
+      "InternalCreateReviewableContentAsync": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync",
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync",
+      "InternalProcessReviewableContentEvent": "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalCreateReviewableContentAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "event",
+        "documentation": "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalProcessReviewableContentEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SpawnLocation": {
     "documentation": "<code>SpawnLocations</code>, or \"spawns\" determine where a <code>Player</code> respawns when they die. They can be configured to allow only certain players to use each spawn, using <code>Teams</code>. They also control how <code>ForceFields</code> are set up for newly-spawned players.",
     "keys": {
@@ -75257,6 +75542,7 @@
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "GetUsersPriceLevelsAsync": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
       "UserOwnsGamePassAsync": "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync",
@@ -75706,6 +75992,33 @@
       "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/0"
+      },
+      {
+        "name": "userIds",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUsersPriceLevelsAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
@@ -79752,6 +80065,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Handles#MouseLeave",
     "code_sample": ""
   },
+  "@roblox/globaltype/MicroProfilerService": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MicroProfilerService",
+    "code_sample": ""
+  },
   "@roblox/globaltype/BodyPosition": {
     "documentation": "<strong>Deprecated:</strong> This object is deprecated and should not be used for new work. Use <code>AlignPosition</code> instead, and see the <a href=\"../../../physics/mover-constraints.md#legacy-mover-conversion\">legacy conversion notes</a>.<br>Applies a force to maintain a constant position.",
     "keys": {
@@ -83104,6 +83423,7 @@
       "ChannelCount": "@roblox/globaltype/Sound.ChannelCount",
       "EmitterSize": "@roblox/globaltype/Sound.EmitterSize",
       "IsLoaded": "@roblox/globaltype/Sound.IsLoaded",
+      "IsMutedForCapture": "@roblox/globaltype/Sound.IsMutedForCapture",
       "IsPaused": "@roblox/globaltype/Sound.IsPaused",
       "IsPlaying": "@roblox/globaltype/Sound.IsPlaying",
       "LoopRegion": "@roblox/globaltype/Sound.LoopRegion",
@@ -83151,6 +83471,11 @@
     "documentation": "This property is <code>true</code> when the <code>Sound</code> has loaded from Roblox servers and is ready to play.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsLoaded",
     "code_sample": "local sound = script.Parent.Sound\n\nif not sound.IsLoaded then\n\tsound.Loaded:Wait()\nend\n\nprint(\"The sound has loaded!\")"
+  },
+  "@roblox/globaltype/Sound.IsMutedForCapture": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsMutedForCapture",
+    "code_sample": ""
   },
   "@roblox/globaltype/Sound.IsPaused": {
     "documentation": "Read-only property which returns <code>true</code> when the <code>Sound</code> is not playing.",
@@ -84108,6 +84433,7 @@
       "Asset": "@roblox/globaltype/AudioPlayer.Asset",
       "AssetId": "@roblox/globaltype/AudioPlayer.AssetId",
       "AutoLoad": "@roblox/globaltype/AudioPlayer.AutoLoad",
+      "IsMutedForCapture": "@roblox/globaltype/AudioPlayer.IsMutedForCapture",
       "IsPlaying": "@roblox/globaltype/AudioPlayer.IsPlaying",
       "IsReady": "@roblox/globaltype/AudioPlayer.IsReady",
       "LoopRegion": "@roblox/globaltype/AudioPlayer.LoopRegion",
@@ -84140,6 +84466,11 @@
   "@roblox/globaltype/AudioPlayer.AutoLoad": {
     "documentation": "Controls whether <code>Asset</code> loads automatically once assigned.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#AutoLoad",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioPlayer.IsMutedForCapture": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsMutedForCapture",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.IsPlaying": {
@@ -88195,6 +88526,12 @@
   "@roblox/globaltype/BackpackItem.TextureId": {
     "documentation": "The texture icon that is displayed for a tool in the player's backpack.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem#TextureId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/SessionCheckService": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SessionCheckService",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoCapture": {
@@ -93849,6 +94186,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIPageLayout#Stopped",
     "code_sample": ""
   },
+  "@roblox/globaltype/RecommendationPages": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationPages",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnimationClip": {
     "documentation": "Represents all types of animation data that the Roblox animation system can consume.",
     "keys": {
@@ -95260,6 +95603,35 @@
       "MessageError": "@roblox/enum/MessageType.MessageError"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/MessageType",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemVisibility.Private": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemVisibility#Private",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemVisibility.Public": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemVisibility#Public",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationItemVisibility": {
+    "documentation": "",
+    "keys": {
+      "Private": "@roblox/enum/RecommendationItemVisibility.Private",
+      "Public": "@roblox/enum/RecommendationItemVisibility.Public"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemVisibility",
     "code_sample": ""
   },
   "@roblox/enum/StreamingPauseMode.Default": {
@@ -98299,6 +98671,46 @@
       "TeleportUnknown": "@roblox/enum/TeleportMethod.TeleportUnknown"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TeleportMethod",
+    "code_sample": ""
+  },
+  "@roblox/enum/LuauTypeCheckMode.NoCheck": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/LuauTypeCheckMode#NoCheck",
+    "code_sample": ""
+  },
+  "@roblox/enum/LuauTypeCheckMode.Nonstrict": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/LuauTypeCheckMode#Nonstrict",
+    "code_sample": ""
+  },
+  "@roblox/enum/LuauTypeCheckMode.Strict": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/LuauTypeCheckMode#Strict",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.LuauTypeCheckMode": {
+    "documentation": "",
+    "keys": {
+      "NoCheck": "@roblox/enum/LuauTypeCheckMode.NoCheck",
+      "Nonstrict": "@roblox/enum/LuauTypeCheckMode.Nonstrict",
+      "Strict": "@roblox/enum/LuauTypeCheckMode.Strict"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/LuauTypeCheckMode",
     "code_sample": ""
   },
   "@roblox/enum/AvatarSettingsClothingMode.PlayerChoice": {
@@ -103250,68 +103662,6 @@
       "Auto": "@roblox/enum/TrackerLodValueMode.Auto"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TrackerLodValueMode",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.Content": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#Content",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.Final": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#Final",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.GameJoin": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#GameJoin",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.Interaction": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#Interaction",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.Sharing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#Sharing",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.FeedRankingScoreType": {
-    "documentation": "",
-    "keys": {
-      "Content": "@roblox/enum/FeedRankingScoreType.Content",
-      "Final": "@roblox/enum/FeedRankingScoreType.Final",
-      "GameJoin": "@roblox/enum/FeedRankingScoreType.GameJoin",
-      "Interaction": "@roblox/enum/FeedRankingScoreType.Interaction",
-      "Sharing": "@roblox/enum/FeedRankingScoreType.Sharing"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType",
     "code_sample": ""
   },
   "@roblox/enum/TextInputType.Default": {
@@ -109202,6 +109552,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdUIType",
     "code_sample": ""
   },
+  "@roblox/enum/RecommendationImpressionType.View": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#View",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationImpressionType": {
+    "documentation": "",
+    "keys": {
+      "View": "@roblox/enum/RecommendationImpressionType.View"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType",
+    "code_sample": ""
+  },
   "@roblox/enum/CollisionFidelity.Default": {
     "documentation": "Collision model uses a voxel-based convex-hull decomposition that is relatively fast but may not be highly accurate, especially for holes, doorways, and cavities in general.",
     "keys": {
@@ -112149,6 +112517,35 @@
       "Expired": "@roblox/enum/SubscriptionState.Expired"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SubscriptionState",
+    "code_sample": ""
+  },
+  "@roblox/enum/AuthorityMode.Server": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AuthorityMode#Server",
+    "code_sample": ""
+  },
+  "@roblox/enum/AuthorityMode.Automatic": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AuthorityMode#Automatic",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AuthorityMode": {
+    "documentation": "",
+    "keys": {
+      "Server": "@roblox/enum/AuthorityMode.Server",
+      "Automatic": "@roblox/enum/AuthorityMode.Automatic"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AuthorityMode",
     "code_sample": ""
   },
   "@roblox/enum/ChatStyle.Classic": {
@@ -116201,6 +116598,90 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
     "code_sample": ""
   },
+  "@roblox/enum/RecommendationActionType.AddReaction": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#AddReaction",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.RemoveReaction": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#RemoveReaction",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Share": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Share",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Report": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Report",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Comment": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Comment",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Play": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Play",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Purchase": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Purchase",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationActionType": {
+    "documentation": "",
+    "keys": {
+      "AddReaction": "@roblox/enum/RecommendationActionType.AddReaction",
+      "RemoveReaction": "@roblox/enum/RecommendationActionType.RemoveReaction",
+      "Share": "@roblox/enum/RecommendationActionType.Share",
+      "Report": "@roblox/enum/RecommendationActionType.Report",
+      "Comment": "@roblox/enum/RecommendationActionType.Comment",
+      "Play": "@roblox/enum/RecommendationActionType.Play",
+      "Purchase": "@roblox/enum/RecommendationActionType.Purchase"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType",
+    "code_sample": ""
+  },
   "@roblox/enum/Font.Legacy": {
     "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
     "keys": {
@@ -117214,6 +117695,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HttpError#ServerProtocolError",
     "code_sample": ""
   },
+  "@roblox/enum/HttpError.CreatorEnvironmentsNotSupportedByService": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HttpError#CreatorEnvironmentsNotSupportedByService",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.HttpError": {
     "documentation": "",
     "keys": {
@@ -117231,7 +117722,8 @@
       "SslVerificationFail": "@roblox/enum/HttpError.SslVerificationFail",
       "Unknown": "@roblox/enum/HttpError.Unknown",
       "ConnectionClosed": "@roblox/enum/HttpError.ConnectionClosed",
-      "ServerProtocolError": "@roblox/enum/HttpError.ServerProtocolError"
+      "ServerProtocolError": "@roblox/enum/HttpError.ServerProtocolError",
+      "CreatorEnvironmentsNotSupportedByService": "@roblox/enum/HttpError.CreatorEnvironmentsNotSupportedByService"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HttpError",
     "code_sample": ""
@@ -126359,11 +126851,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AvatarSettingsAccessoryLimitMethod#Remove",
     "code_sample": ""
   },
+  "@roblox/enum/AvatarSettingsAccessoryLimitMethod.PreviewScale": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AvatarSettingsAccessoryLimitMethod#PreviewScale",
+    "code_sample": ""
+  },
+  "@roblox/enum/AvatarSettingsAccessoryLimitMethod.PreviewRemove": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AvatarSettingsAccessoryLimitMethod#PreviewRemove",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AvatarSettingsAccessoryLimitMethod": {
     "documentation": "",
     "keys": {
       "Scale": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.Scale",
-      "Remove": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.Remove"
+      "Remove": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.Remove",
+      "PreviewScale": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.PreviewScale",
+      "PreviewRemove": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.PreviewRemove"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AvatarSettingsAccessoryLimitMethod",
     "code_sample": ""
@@ -128294,7 +128808,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Glass": {
-    "documentation": "Applies to <code>BasePart</code> only.",
+    "documentation": "Applies to <code>BasePart</code> only. Note that refraction of light through this material is not supported on mobile devices due to computational limitations.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -128304,7 +128818,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.ForceField": {
-    "documentation": "Must be used on a <code>MeshPart</code> with UVs laid out to cover much of the 0:1 UV space or more (larger is better). The <code>MeshPart</code> must also have a texture applied to its <code>TextureID</code>, and that texture image must have a wide value range since the material displays the range from dark/black to light/white values. Obtain <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">this model</a> for a functional example of the <strong>ForceField</strong> material.",
+    "documentation": "Must be used on a <code>MeshPart</code> with UVs laid out to cover much of the 0:1 UV space or more (larger is better). The <code>MeshPart</code> must also have a texture applied to its <code>TextureID</code>, and that texture image must have a wide value range since the material displays the range from dark/black to light/white values. Obtain <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">this model</a> for a functional example.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

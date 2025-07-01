@@ -1,6 +1,7 @@
 Name,Shader Type
 AdornAALineFS,Fragment
 AdornAALineVS,Vertex
+AdornDebugFS,Fragment
 AdornFixedWidthAALineVS,Vertex
 AdornFS,Fragment
 AdornLightingVS,Vertex
@@ -381,6 +382,7 @@ DefaultUnifiedNeonInGuiFS_10000400,Fragment
 DefaultUnifiedNeonInGuiFS_11000000,Fragment
 DefaultUnifiedNeonInGuiFS_11000400,Fragment
 DefaultUnifiedNeonInGuiFS_20000000,Fragment
+DefaultUnifiedNeonInGuiFS_21000000,Fragment
 DefaultUnifiedNeonInGuiVS_00000800,Vertex
 DefaultUnifiedNeonInGuiVS_00000801,Vertex
 DefaultUnifiedNeonInGuiVS_00000802,Vertex

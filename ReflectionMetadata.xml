@@ -2924,6 +2924,43 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">AudioGate</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <string name="FFlag">EnableAudioGate</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Attack</string>
+            <double name="UIMinimum">0.001</double>
+            <double name="UIMaximum">5</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Release</string>
+            <double name="UIMinimum">0.001</double>
+            <double name="UIMaximum">5</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Threshold</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">30</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">AudioEcho</string>
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>

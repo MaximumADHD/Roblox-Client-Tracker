@@ -15015,6 +15015,203 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageButton#TileSize",
     "code_sample": ""
   },
+  "@roblox/globaltype/RecommendationService": {
+    "documentation": "",
+    "keys": {
+      "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
+      "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
+      "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
+      "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
+      "RemoveItemAsync": "@roblox/globaltype/RecommendationService.RemoveItemAsync",
+      "UpdateItemAsync": "@roblox/globaltype/RecommendationService.UpdateItemAsync"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogActionEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/0"
+      },
+      {
+        "name": "actionType",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/1"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/2"
+      },
+      {
+        "name": "tracingId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/3"
+      },
+      {
+        "name": "actionEventDetails",
+        "documentation": "@roblox/globaltype/RecommendationService.LogActionEvent/param/4"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogActionEvent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0"
+      },
+      {
+        "name": "impressionType",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2"
+      },
+      {
+        "name": "tracingId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3"
+      },
+      {
+        "name": "impressionEventDetails",
+        "documentation": "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogImpressionEvent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0"
+      },
+      {
+        "name": "generateRecommendationItemListRequest",
+        "documentation": "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GenerateItemListAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0"
+      },
+      {
+        "name": "registerRecommendationItemsRequest",
+        "documentation": "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#RegisterItemAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RemoveItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#RemoveItemAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0"
+      },
+      {
+        "name": "updateRecommendationItemRequest",
+        "documentation": "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#UpdateItemAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Feature": {
     "documentation": "Miras motor sistemi için temel sınıf.",
     "keys": {
@@ -52402,85 +52599,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
   },
-  "@roblox/globaltype/Moderation": {
-    "documentation": "",
-    "keys": {
-      "InternalCreateReviewableContentAsync": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync",
-      "InternalProcessReviewableContentEvent": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Moderation.InternalCreateReviewableContentAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalCreateReviewableContentAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/Moderation.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalRequestReviewableContentReviewAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "event",
-        "documentation": "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Moderation.InternalProcessReviewableContentEvent/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Moderation#InternalProcessReviewableContentEvent",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TimerService": {
     "documentation": "Zamanlı etkinliklerin planlanmasından sorumlu bir iç hizmet. <code>Debris</code> sınıfı tarafından kullanılır. İşlevselliğine geliştiriciler erişemez.",
     "keys": {},
@@ -71993,6 +72111,85 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RigidConstraint",
     "code_sample": ""
   },
+  "@roblox/globaltype/ModerationService": {
+    "documentation": "",
+    "keys": {
+      "InternalCreateReviewableContentAsync": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync",
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync",
+      "InternalProcessReviewableContentEvent": "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalCreateReviewableContentAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "event",
+        "documentation": "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalProcessReviewableContentEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SpawnLocation": {
     "documentation": "<code>SpawnLocations</code> veya \"doğar\" bir <code>Player</code> yeniden doğduğunda nerede yeniden doğacağını belirler.Sadece belirli oyuncuların her doğumu kullanmasına izin vermek için yapılandırılabilirler, bunu da <code>Teams</code> kullanarak.Ayrıca yeni oluşturulan oyuncular için nasıl <code>ForceFields</code> kurulduğunu da kontrol ederler.",
     "keys": {
@@ -74425,6 +74622,7 @@
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "GetUsersPriceLevelsAsync": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
       "UserOwnsGamePassAsync": "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync",
@@ -74874,6 +75072,33 @@
       "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/0"
+      },
+      {
+        "name": "userIds",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUsersPriceLevelsAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
@@ -78924,6 +79149,12 @@
       "Wait": "@roblox/globaltype/Handles.MouseLeave.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Handles#MouseLeave",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MicroProfilerService": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MicroProfilerService",
     "code_sample": ""
   },
   "@roblox/globaltype/BodyPosition": {
@@ -87484,6 +87715,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem#TextureId",
     "code_sample": ""
   },
+  "@roblox/globaltype/SessionCheckService": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SessionCheckService",
+    "code_sample": ""
+  },
   "@roblox/globaltype/VideoCapture": {
     "documentation": "",
     "keys": {
@@ -93102,6 +93339,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIPageLayout#Stopped",
     "code_sample": ""
   },
+  "@roblox/globaltype/RecommendationPages": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationPages",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnimationClip": {
     "documentation": "Roblox animasyon sisteminin tüketebileceği tüm animasyon verilerini temsil eder.",
     "keys": {
@@ -93251,7 +93494,9 @@
       "ShowSelfView": "@roblox/globaltype/SocialService.ShowSelfView",
       "CanSendCallInviteAsync": "@roblox/globaltype/SocialService.CanSendCallInviteAsync",
       "CanSendGameInviteAsync": "@roblox/globaltype/SocialService.CanSendGameInviteAsync",
+      "GetEventRsvpStatusAsync": "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync",
       "GetPartyAsync": "@roblox/globaltype/SocialService.GetPartyAsync",
+      "PromptRsvpToEventAsync": "@roblox/globaltype/SocialService.PromptRsvpToEventAsync",
       "OnCallInviteInvoked": "@roblox/globaltype/SocialService.OnCallInviteInvoked"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService",
@@ -93440,6 +93685,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#CanSendGameInviteAsync",
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- Function to check whether the player can send an invite\nlocal function canSendGameInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendGameInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canInvite = canSendGameInvite(player)\nif canInvite then\n\tSocialService:PromptGameInvite(player)\nend"
   },
+  "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/0": {
+    "documentation": "Roblox platformunda yapılan ilişkilere etki eden sosyal işlevleri kolaylaştırır."
+  },
+  "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/1": {
+    "documentation": "Oyuncunun RSVP durumunu değiştirmesini istemek için olayın ID'si.Bu, mevcut deneyimde mevcut ve bir dize olarak temsil edilen geçerli bir etkinlik kimliği olmalıdır (bir sayı değil)."
+  },
+  "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/return/0": {
+    "documentation": "Oyuncunun etkinlik için mevcut RSVP durumunu gösteren bir <code>RsvpStatus</code> döndürür.Oyuncu etkinliğe RSVP yapmadıysa, bu <code>RsvpStatus.None</code> döndürecektir."
+  },
+  "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync": {
+    "documentation": "Verilen etkinlik için yerel oyuncunun RSVP durumunu döndürür.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/0"
+      },
+      {
+        "name": "eventId",
+        "documentation": "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetEventRsvpStatusAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.GetPartyAsync/param/0": {
     "documentation": "Roblox platformunda yapılan ilişkilere etki eden sosyal işlevleri kolaylaştırır."
   },
@@ -93466,6 +93738,33 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetPartyAsync",
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId == \"\" then\n\t\twarn(\"Player is not in a party\")\n\t\treturn\n\tend\n\n\tlocal success, partyData = pcall(function()\n\t\treturn SocialService:GetPartyAsync(partyId)\n\tend)\n\n\tif success and partyData then\n\t\tfor _, partyMemberData in partyData do\n\t\t\tprint(\n\t\t\t\tpartyMemberData.UserId,\n\t\t\t\tpartyMemberData.PlaceId,\n\t\t\t\tpartyMemberData.JobId,\n\t\t\t\tpartyMemberData.PrivateServerId,\n\t\t\t\tpartyMemberData.ReservedServerAccessCode\n\t\t\t)\n\t\tend\n\telse\n\t\twarn(\"Failed to retrieve party data\")\n\tend\nend)"
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/0": {
+    "documentation": "Roblox platformunda yapılan ilişkilere etki eden sosyal işlevleri kolaylaştırır."
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
+    "documentation": "Oyuncunun RSVP durumunu değiştirmesini istemek için olayın ID'si.Bu, mevcut deneyimde mevcut ve bir dize olarak temsil edilen geçerli bir etkinlik kimliği olmalıdır (bir sayı değil)."
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
+    "documentation": "İstek kapatıldıktan sonra oyuncunun yeni RSVP durumunu gösteren bir <code>RsvpStatus</code> döndürür.Oyuncu RSVP durumunu değiştirmeden istemiyi kapatırsa, bu <code>RsvpStatus.None</code> veya eski <code>RsvpStatus</code> durumlarını geri döndürecektir, eğer zaten bir durum seçmişlerse."
+  },
+  "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
+    "documentation": "Yerel <code>Player</code> ile bir soru sorar ve RSVP durumunu verilen etkinliğe değiştirmesini ister.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/0"
+      },
+      {
+        "name": "eventId",
+        "documentation": "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptRsvpToEventAsync",
+    "code_sample": ""
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/param/0": {
     "documentation": "Farklı telefon rehberi giriş noktaları arasında ayırt etmeye yardımcı olan dize."
@@ -94457,6 +94756,35 @@
       "MessageError": "@roblox/enum/MessageType.MessageError"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/MessageType",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemVisibility.Private": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemVisibility#Private",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemVisibility.Public": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemVisibility#Public",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationItemVisibility": {
+    "documentation": "",
+    "keys": {
+      "Private": "@roblox/enum/RecommendationItemVisibility.Private",
+      "Public": "@roblox/enum/RecommendationItemVisibility.Public"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemVisibility",
     "code_sample": ""
   },
   "@roblox/enum/StreamingPauseMode.Default": {
@@ -97496,6 +97824,46 @@
       "TeleportUnknown": "@roblox/enum/TeleportMethod.TeleportUnknown"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TeleportMethod",
+    "code_sample": ""
+  },
+  "@roblox/enum/LuauTypeCheckMode.NoCheck": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/LuauTypeCheckMode#NoCheck",
+    "code_sample": ""
+  },
+  "@roblox/enum/LuauTypeCheckMode.Nonstrict": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/LuauTypeCheckMode#Nonstrict",
+    "code_sample": ""
+  },
+  "@roblox/enum/LuauTypeCheckMode.Strict": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/LuauTypeCheckMode#Strict",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.LuauTypeCheckMode": {
+    "documentation": "",
+    "keys": {
+      "NoCheck": "@roblox/enum/LuauTypeCheckMode.NoCheck",
+      "Nonstrict": "@roblox/enum/LuauTypeCheckMode.Nonstrict",
+      "Strict": "@roblox/enum/LuauTypeCheckMode.Strict"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/LuauTypeCheckMode",
     "code_sample": ""
   },
   "@roblox/enum/AvatarSettingsClothingMode.PlayerChoice": {
@@ -102447,68 +102815,6 @@
       "Auto": "@roblox/enum/TrackerLodValueMode.Auto"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TrackerLodValueMode",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.Content": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#Content",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.Final": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#Final",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.GameJoin": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#GameJoin",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.Interaction": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#Interaction",
-    "code_sample": ""
-  },
-  "@roblox/enum/FeedRankingScoreType.Sharing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType#Sharing",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.FeedRankingScoreType": {
-    "documentation": "",
-    "keys": {
-      "Content": "@roblox/enum/FeedRankingScoreType.Content",
-      "Final": "@roblox/enum/FeedRankingScoreType.Final",
-      "GameJoin": "@roblox/enum/FeedRankingScoreType.GameJoin",
-      "Interaction": "@roblox/enum/FeedRankingScoreType.Interaction",
-      "Sharing": "@roblox/enum/FeedRankingScoreType.Sharing"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FeedRankingScoreType",
     "code_sample": ""
   },
   "@roblox/enum/TextInputType.Default": {
@@ -108399,6 +108705,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdUIType",
     "code_sample": ""
   },
+  "@roblox/enum/RecommendationImpressionType.View": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#View",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationImpressionType": {
+    "documentation": "",
+    "keys": {
+      "View": "@roblox/enum/RecommendationImpressionType.View"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType",
+    "code_sample": ""
+  },
   "@roblox/enum/CollisionFidelity.Default": {
     "documentation": "Çarpışma modeli, nispeten hızlı olan bir voksel tabanlı konveks kabuk yıkımı kullanır, ancak genel olarak delikler, koridorlar ve genel olarak boşluklar ve kaviteler için oldukça doğru olmayabilir.",
     "keys": {
@@ -111346,6 +111670,35 @@
       "Expired": "@roblox/enum/SubscriptionState.Expired"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SubscriptionState",
+    "code_sample": ""
+  },
+  "@roblox/enum/AuthorityMode.Server": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AuthorityMode#Server",
+    "code_sample": ""
+  },
+  "@roblox/enum/AuthorityMode.Automatic": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AuthorityMode#Automatic",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AuthorityMode": {
+    "documentation": "",
+    "keys": {
+      "Server": "@roblox/enum/AuthorityMode.Server",
+      "Automatic": "@roblox/enum/AuthorityMode.Automatic"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AuthorityMode",
     "code_sample": ""
   },
   "@roblox/enum/ChatStyle.Classic": {
@@ -115396,6 +115749,90 @@
       "Closed": "@roblox/enum/WebSocketState.Closed"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.AddReaction": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#AddReaction",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.RemoveReaction": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#RemoveReaction",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Share": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Share",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Report": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Report",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Comment": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Comment",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Play": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Play",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationActionType.Purchase": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType#Purchase",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationActionType": {
+    "documentation": "",
+    "keys": {
+      "AddReaction": "@roblox/enum/RecommendationActionType.AddReaction",
+      "RemoveReaction": "@roblox/enum/RecommendationActionType.RemoveReaction",
+      "Share": "@roblox/enum/RecommendationActionType.Share",
+      "Report": "@roblox/enum/RecommendationActionType.Report",
+      "Comment": "@roblox/enum/RecommendationActionType.Comment",
+      "Play": "@roblox/enum/RecommendationActionType.Play",
+      "Purchase": "@roblox/enum/RecommendationActionType.Purchase"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationActionType",
     "code_sample": ""
   },
   "@roblox/enum/Font.Legacy": {
@@ -125523,11 +125960,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AvatarSettingsAccessoryLimitMethod#Remove",
     "code_sample": ""
   },
+  "@roblox/enum/AvatarSettingsAccessoryLimitMethod.PreviewScale": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AvatarSettingsAccessoryLimitMethod#PreviewScale",
+    "code_sample": ""
+  },
+  "@roblox/enum/AvatarSettingsAccessoryLimitMethod.PreviewRemove": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AvatarSettingsAccessoryLimitMethod#PreviewRemove",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AvatarSettingsAccessoryLimitMethod": {
     "documentation": "",
     "keys": {
       "Scale": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.Scale",
-      "Remove": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.Remove"
+      "Remove": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.Remove",
+      "PreviewScale": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.PreviewScale",
+      "PreviewRemove": "@roblox/enum/AvatarSettingsAccessoryLimitMethod.PreviewRemove"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AvatarSettingsAccessoryLimitMethod",
     "code_sample": ""

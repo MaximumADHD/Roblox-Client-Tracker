@@ -82,6 +82,8 @@ Studio.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor 
 Studio.BetaFeatures.CreateAnimationFromVideoTitle,,Live Animation Creator,Live Animation Creator
 Studio.BetaFeatures.CreateAssetAsyncDescription,,Enables the use of AssetService:CreateAssetAsync and AssetService:CreateAssetVersionAsync for programatic upload of assets from Lua,Enables the use of AssetService:CreateAssetAsync and AssetService:CreateAssetVersionAsync for programatic upload of assets from Lua
 Studio.BetaFeatures.CreateAssetAsyncTitle,,CreateAssetAsync Lua API,CreateAssetAsync Lua API
+Studio.BetaFeatures.CreateSurfaceAppearanceDescription,-,Enables the use of AssetService:CreateSurfaceAppearance() to create SurfaceAppearance instances with EditableImage content at run time.,Enables the use of AssetService:CreateSurfaceAppearance() to create SurfaceAppearance instances with EditableImage content at run time.
+Studio.BetaFeatures.CreateSurfaceAppearanceTitle,-,EditableImage support for SurfaceAppearance maps,EditableImage support for SurfaceAppearance maps
 Studio.BetaFeatures.CustomVideoUploadDescription,,Enables video uploads through the Asset Manager for eligible users.,Enables video uploads through the Asset Manager for eligible users.
 Studio.BetaFeatures.CustomVideoUploadTitle,,Video Uploads,Video Uploads
 Studio.BetaFeatures.DetachedAttachmentsDescription,note that Attachment refers to the class name https://create.roblox.com/docs/reference/engine/classes/Attachment,"Loosens restrictions, allowing Attachments as children of anything.","Loosens restrictions, allowing Attachments as children of anything."
@@ -108,7 +110,7 @@ Studio.BetaFeatures.GamepadEmulatorDescription,,Enabling this feature allows you
 Studio.BetaFeatures.GamepadEmulatorTitle,,Gamepad Emulator,Gamepad Emulator
 Studio.BetaFeatures.HapticEffectDescription,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.
 Studio.BetaFeatures.HapticEffectTitle,Haptic Effects,Haptic Effects,Haptic Effects
-Studio.BetaFeatures.IEAvatarAutoSetupTitleDescription,Description for the Studio Beta Feature for In-Experience Avatar Auto Setup,Enables In-Experience Avatar Auto Setup APIs.,Enables In-Experience Avatar Auto Setup APIs.
+Studio.BetaFeatures.IEAvatarAutoSetupTitleDescription,Description for the Studio Beta Feature for In-Experience Avatar Auto Setup,Enables in-experience automated creation of avatars from 3D models of humanoid-like bodies.,Enables in-experience automated creation of avatars from 3D models of humanoid-like bodies.
 Studio.BetaFeatures.IEAvatarAutoSetupTitleTitle,Title for the Studio Beta Feature for In-Experience Avatar Auto Setup,In-Experience Avatar Auto Setup,In-Experience Avatar Auto Setup
 Studio.BetaFeatures.ImportQueueDescription,,Enable the bulk import of multiple 3D files through the Import 3D tool.,Enable the bulk import of multiple 3D files through the Import 3D tool.
 Studio.BetaFeatures.ImportQueueTitle,,Import Queue,Import Queue

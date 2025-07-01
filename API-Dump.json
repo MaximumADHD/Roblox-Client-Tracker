@@ -2802,7 +2802,7 @@
                     "MemberType": "Property",
                     "Name": "UniqueId",
                     "Security": {
-                        "Read": "RobloxSecurity",
+                        "Read": "RobloxScriptSecurity",
                         "Write": "RobloxSecurity"
                     },
                     "Serialization": {
@@ -2810,8 +2810,7 @@
                         "CanSave": true
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -7032,8 +7031,7 @@
                     },
                     "Tags": [
                         "ReadOnly",
-                        "NotReplicated",
-                        "NotBrowsable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "Safe",
                     "ValueType": {
@@ -7954,51 +7952,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "DEPRECATED_EditAnnotation",
-                    "Parameters": [
-                        {
-                            "Name": "uniqueId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "contents",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DEPRECATED_LoadAnnotationReplies",
-                    "Parameters": [
-                        {
-                            "Name": "annotation",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Annotation"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "DeleteAnnotation",
                     "Parameters": [
                         {
@@ -8275,50 +8228,6 @@
                         }
                     ],
                     "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "DEPRECATED_AnnotationEdited",
-                    "Parameters": [
-                        {
-                            "Name": "requestId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "uniqueId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "contents",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "DEPRECATED_ServerLoadAnnotationReplies",
-                    "Parameters": [
-                        {
-                            "Name": "annotation",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Annotation"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -13891,6 +13800,214 @@
                     },
                     "Category": "State",
                     "MemberType": "Property",
+                    "Name": "Attack",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio"
+                        ]
+                    },
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Bypass",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio"
+                        ]
+                    },
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Release",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio"
+                        ]
+                    },
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Threshold",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                },
+                {
+                    "Capabilities": [
+                        "Audio"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Audio"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetInputPins",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Audio"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetOutputPins",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Audio"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "Reset",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Audio"
+                    ],
+                    "MemberType": "Event",
+                    "Name": "WiringChanged",
+                    "Parameters": [
+                        {
+                            "Name": "connected",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "wire",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Wire"
+                            }
+                        },
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Internal",
+            "Name": "AudioGate",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio"
+                        ]
+                    },
+                    "Category": "State",
+                    "MemberType": "Property",
                     "Name": "Bypass",
                     "Security": {
                         "Read": "None",
@@ -16489,10 +16606,7 @@
             ],
             "MemoryCategory": "Internal",
             "Name": "AudioTextToSpeech",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -30507,6 +30621,21 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "CollaboratorStatus"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ToggleSelectionHighlightsSignal",
+                    "Parameters": [
+                        {
+                            "Name": "areHighlightsShown",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
                             }
                         }
                     ],
@@ -60879,6 +61008,28 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ViewportDisplaySize",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "DisplaySize"
                     }
                 },
                 {
@@ -96282,6 +96433,159 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateNewParty",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DeleteParty",
+                    "Parameters": [
+                        {
+                            "Name": "partyId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetCurrentConfiguration",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetIsEmulationEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetIsEmulationEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "isEnabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetPlayerPartyId",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "partyId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "applyPartyIdToPlayer",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetEmulatedPartyAsync",
+                    "Parameters": [
+                        {
+                            "Name": "partyId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PartyEmulatorService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "PatchBundlerFileWatch",
@@ -117510,6 +117814,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "InvokeShareSheetClosed",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptGameInvite",
                     "Parameters": [
                         {
@@ -117731,6 +118047,36 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptLinkSharing",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptRsvpToEventAsync",
                     "Parameters": [
                         {
@@ -117793,6 +118139,21 @@
                         }
                     ],
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OpenShareSheetWithLink",
+                    "Parameters": [
+                        {
+                            "Name": "link",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -117890,6 +118251,21 @@
                         }
                     ],
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ShareSheetClosed",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        }
+                    ],
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -156170,6 +156546,23 @@
         {
             "Items": [
                 {
+                    "Name": "Small",
+                    "Value": 0
+                },
+                {
+                    "Name": "Medium",
+                    "Value": 1
+                },
+                {
+                    "Name": "Large",
+                    "Value": 2
+                }
+            ],
+            "Name": "DisplaySize"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Width",
                     "Value": 0
                 },
@@ -161928,6 +162321,23 @@
                 }
             ],
             "Name": "PromptCreateAvatarResult"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Success",
+                    "Value": 1
+                },
+                {
+                    "Name": "PlayerLeft",
+                    "Value": 2
+                },
+                {
+                    "Name": "InvalidLaunchData",
+                    "Value": 3
+                }
+            ],
+            "Name": "PromptLinkSharingResult"
         },
         {
             "Items": [

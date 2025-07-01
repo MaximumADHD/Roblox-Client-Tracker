@@ -2,7 +2,7 @@ Key,Context,Source,en-us
 Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
 Studio.Ribbon.Action.FindAndReplaceAll,Tool to find and replace all instances of something within a script,Find and Replace All,Find and Replace All
 Studio.Ribbon.Action.ImportRobloxModel,Import from file a Roblox model,Import Roblox Model,Import Roblox Model
-Studio.Ribbon.Action.InviteCollaborators,Share your project and start building together,Invite collaborators,Invite collaborators
+Studio.Ribbon.Action.InviteCollaborators,Share your project and start building together,Invite Collaborators,Invite Collaborators
 Studio.Ribbon.Action.Pivot,Edit the point around which the selected object rotates and translates,Pivot,Pivot
 Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
 Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currently selected test mode,Launch Test Mode,Launch Test Mode
@@ -34,16 +34,16 @@ Studio.Ribbon.Plugin.Filter.RobloxStudio,Dropdown option for filtering tools in 
 Studio.Ribbon.Plugin.Geometric,,Geometric,Geometric
 Studio.Ribbon.Plugin.ImportQueueButton,Title of the Import Queue Modal,Import Queue,Import Queue
 Studio.Ribbon.Plugin.ImportQueueTooltip,"Tooltip that appears when hovering over the ""Import Queue"" button.",Open the Import Queue,Open the Import Queue
-Studio.Ribbon.Plugin.InviteCollaborators,Share your project and start building together.,Invite collaborators,Invite collaborators
+Studio.Ribbon.Plugin.InviteCollaborators,Share your project and start building together.,Invite Collaborators,Invite Collaborators
 Studio.Ribbon.Plugin.InviteCollaboratorsTooltip,Tooltip for the manage collaborator button when in a non-team create place,Share your project and start building together,Share your project and start building together
 Studio.Ribbon.Plugin.Lock,,Lock,Lock
 Studio.Ribbon.Plugin.LockToolRibbonAction,,Select object to Lock,Select object to Lock
-Studio.Ribbon.Plugin.ManageCollaborators,See and manage your collaborators,Manage collaborators,Manage collaborators
+Studio.Ribbon.Plugin.ManageCollaborators,See and manage your collaborators,Manage Collaborators,Manage Collaborators
 Studio.Ribbon.Plugin.ManageCollaboratorsTooltip,Tooltip for manage collaborators button when in a team create place,See and manage your collaborators,See and manage your collaborators
 Studio.Ribbon.Plugin.ManageTabs,The title of the context menu action to manage Studio Ribbon tabs,Manage tabs,Manage tabs
 Studio.Ribbon.Plugin.ManageTabs.Title,The title of the Manage Tabs dialog in the Studio Ribbon,Manage Tabs,Manage Tabs
-Studio.Ribbon.Plugin.MoveLeft,The name of the button that moves a tab or control to the left in the Ribbon UI,Move left,Move left
-Studio.Ribbon.Plugin.MoveRight,The name of the button that moves a tab or control to the right in the Ribbon UI,Move right,Move right
+Studio.Ribbon.Plugin.MoveLeft,The name of the button that moves a tab or control to the left in the Ribbon UI,Move up,Move up
+Studio.Ribbon.Plugin.MoveRight,The name of the button that moves a tab or control to the right in the Ribbon UI,Move down,Move down
 Studio.Ribbon.Plugin.Name,,Ribbon,Ribbon
 Studio.Ribbon.Plugin.Physical,,Physical,Physical
 Studio.Ribbon.Plugin.PlayersFormat,Format for displaying the number of players to add to a server,{amount} players,{amount} players
@@ -58,6 +58,7 @@ Studio.Ribbon.Plugin.Search,The search bar placeholder in the Ribbon Add Tools d
 Studio.Ribbon.Plugin.Setting.AddClients,,Add Clients,Add Clients
 Studio.Ribbon.Plugin.Setting.Anchor,,Anchor,Anchor
 Studio.Ribbon.Plugin.Setting.Appearance,,Appearance,Appearance
+Studio.Ribbon.Plugin.Setting.Attachment,Create an attachment point on a BasePart for physics or effects,Attachment,Attachment
 Studio.Ribbon.Plugin.Setting.Constraint,,Constraint,Constraint
 Studio.Ribbon.Plugin.Setting.Effect,,Effect,Effect
 Studio.Ribbon.Plugin.Setting.Find,,Find,Find
@@ -88,6 +89,7 @@ Studio.Ribbon.Plugin.Setting.TestingMode.TeamTest,Collaborators can join the sim
 Studio.Ribbon.Plugin.Setting.TestingMode.Test,"Start simulation with a player at a SpawnLocation or coordinates of around (0,100)",Test,Test
 Studio.Ribbon.Plugin.Setting.TestingMode.TestHere,Start the simulation at the camera's current position,Test Here,Test Here
 Studio.Ribbon.Plugin.Setting.UIConstraint,,Constraint,Constraint
+Studio.Ribbon.Plugin.Setting.Weld,Connect BaseParts into rigid assemblies,Weld,Weld
 Studio.Ribbon.Plugin.ShowHideLabels,,Show/Hide labels,Show/Hide labels
 Studio.Ribbon.Plugin.ShowHideRibbon,,Show/Hide ribbon,Show/Hide ribbon
 Studio.Ribbon.Plugin.SocialPresence.Collaborate,,Collaborate,Collaborate
@@ -95,7 +97,7 @@ Studio.Ribbon.Plugin.SortBy.AZ,Dropdown option for filtering tools in the Ribbon
 Studio.Ribbon.Plugin.SortBy.ZA,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Sort by Z-A,Sort by Z-A
 Studio.Ribbon.Plugin.StudsFormat,Format for displaying the stud increment for moving parts,{amount} studs,{amount} studs
 Studio.Ribbon.Plugin.StudsSuffix,,studs,studs
-Studio.Ribbon.Plugin.TabLocation,The label for the dropdown menu to change the alignment of the Ribbon tabs. It is situated in the Manage Tabs dialog in Studio Ribbon,Tab Location,Tab Location
+Studio.Ribbon.Plugin.TabLocation,The label for the dropdown menu to change the alignment of the Ribbon tabs. It is situated in the Manage Tabs dialog in Studio Ribbon,Align tabs to,Align tabs to
 Studio.Ribbon.Plugin.TabLocation.Center,"The ""Left"" setting of the tab location dropdown menu in Manage Tabs dialog opened from Studio Ribbon context menu",Center,Center
 Studio.Ribbon.Plugin.TabLocation.Left,"The ""Left"" setting of the tab location dropdown menu in Manage Tabs dialog opened from Studio Ribbon context menu",Left,Left
 Studio.Ribbon.Plugin.Tab.Avatar,,Avatar,Avatar
@@ -113,7 +115,8 @@ Studio.Ribbon.Plugin.Tab.UI,,UI,UI
 Studio.Ribbon.Plugin.Tab.Untitled,Placeholder name for a newly added tab,Untitled,Untitled
 Studio.Ribbon.Plugin.Text,,Example Text!,Example Text!
 Studio.Ribbon.Plugin.ToolPluginName,"The format of a plugin name in the Add Tools UI. For example, this might read ""Cloud Plugin: Rojo"" or ""Local Plugin: Test.rbxm""",{pluginType} Plugin: {pluginName},{pluginType} Plugin: {pluginName}
-Studio.Ribbon.Plugin.Tooltip.Constraint,,Create a new physics constraint or attachment,Create a new physics constraint or attachment
+Studio.Ribbon.Plugin.Tooltip.Attachment,Tooltip for the attachment split button on ribbon,Create an attachment point on a BasePart for physics or effects,Create an attachment point on a BasePart for physics or effects
+Studio.Ribbon.Plugin.Tooltip.Constraint,Tooltip for Constraint split button on Ribbon,Move or connect BaseParts with physics,Move or connect BaseParts with physics
 Studio.Ribbon.Plugin.Tooltip.Format,,Format selected range of the script with correct layout and indentation,Format selected range of the script with correct layout and indentation
 Studio.Ribbon.Plugin.Tooltip.GUI,,Create a new GUI container,Create a new GUI container
 Studio.Ribbon.Plugin.Tooltip.Group,,Group selected parts into a new container,Group selected parts into a new container
@@ -123,6 +126,7 @@ Studio.Ribbon.Plugin.Tooltip.InsertSpatial,Tooltip for the InsertSpatial button 
 Studio.Ribbon.Plugin.Tooltip.Mode,,Toggle between transforming objects geometrically or with physics simulation,Toggle between transforming objects geometrically or with physics simulation
 Studio.Ribbon.Plugin.Tooltip.Part,,Create a new Part,Create a new Part
 Studio.Ribbon.Plugin.Tooltip.Script,,Create a Script in the selected object,Create a Script in the selected object
+Studio.Ribbon.Plugin.Tooltip.Weld,Tooltip for Weld split button on Ribbon,Connect BaseParts into rigid assemblies,Connect BaseParts into rigid assemblies
 Studio.Ribbon.SystemMenu.Help,File menu option for user to get help on what to do in studio,Help,Help
 Studio.Ribbon.SystemMenu.OpenFromFile,Open a roblox game from a file,Open from File,Open from File
 Studio.Ribbon.SystemMenu.Plugins,Plugins that the user owns,Plugins,Plugins

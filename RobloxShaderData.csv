@@ -1,6 +1,7 @@
 Name,Shader Type,d3d10,d3d10_1,d3d11,glsl,glsl3,vulkan_desktop
 AdornAALineFS,Fragment,✔,✔,✔,✔,✔,✔
 AdornAALineVS,Vertex,✔,✔,✔,✔,✔,✔
+AdornDebugFS,Fragment,✔,✔,✔,✔,✔,✔
 AdornFixedWidthAALineVS,Vertex,✔,✔,✔,✔,✔,✔
 AdornFS,Fragment,✔,✔,✔,✔,✔,✔
 AdornLightingVS,Vertex,✔,✔,✔,✔,✔,✔
@@ -604,7 +605,7 @@ DefaultUnifiedNeonInGuiFS_10000400,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiFS_11000000,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiFS_11000400,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiFS_20000000,Fragment,❌,❌,❌,✔,✔,❌
-DefaultUnifiedNeonInGuiFS_21000000,Fragment,❌,❌,❌,✔,❌,❌
+DefaultUnifiedNeonInGuiFS_21000000,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiVS_00000800,Vertex,❌,❌,❌,❌,✔,❌
 DefaultUnifiedNeonInGuiVS_00000801,Vertex,❌,❌,❌,❌,✔,❌
 DefaultUnifiedNeonInGuiVS_00000802,Vertex,❌,❌,❌,❌,✔,❌
@@ -832,7 +833,7 @@ DefaultUnifiedSurfaceAppearanceEditableImageFS_21800000,Fragment,❌,❌,❌,✔
 DefaultUnifiedSurfaceAppearanceFS_00000800,Fragment,❌,❌,✔,❌,✔,✔
 DefaultUnifiedSurfaceAppearanceFS_00800800,Fragment,❌,❌,✔,❌,✔,✔
 DefaultUnifiedSurfaceAppearanceFS_01000800,Fragment,❌,❌,✔,❌,✔,✔
-DefaultUnifiedSurfaceAppearanceFS_01800800,Fragment,❌,❌,❌,❌,✔,❌
+DefaultUnifiedSurfaceAppearanceFS_01800800,Fragment,❌,❌,✔,❌,✔,✔
 DefaultUnifiedSurfaceAppearanceFS_10000000,Fragment,❌,❌,✔,✔,✔,✔
 DefaultUnifiedSurfaceAppearanceFS_10000400,Fragment,❌,❌,✔,✔,✔,✔
 DefaultUnifiedSurfaceAppearanceFS_10800000,Fragment,❌,❌,✔,✔,✔,✔
@@ -1003,9 +1004,9 @@ DefaultUnifiedSurfaceAppearanceVS_88000001,Vertex,✔,✔,✔,❌,❌,✔
 DefaultUnifiedSurfaceAppearanceVS_88000002,Vertex,✔,✔,✔,❌,❌,✔
 DefaultUnifiedSurfaceAppearanceVS_88000006,Vertex,✔,✔,✔,❌,❌,✔
 DefaultUnifiedSurfaceAppearanceVS_88000200,Vertex,✔,✔,✔,❌,❌,✔
-DefaultUnifiedSurfaceAppearanceVS_88000201,Vertex,❌,✔,✔,❌,❌,✔
+DefaultUnifiedSurfaceAppearanceVS_88000201,Vertex,✔,✔,✔,❌,❌,✔
 DefaultUnifiedSurfaceAppearanceVS_88000202,Vertex,❌,✔,✔,❌,❌,✔
-DefaultUnifiedSurfaceAppearanceVS_88000206,Vertex,❌,❌,✔,❌,❌,✔
+DefaultUnifiedSurfaceAppearanceVS_88000206,Vertex,❌,✔,✔,❌,❌,✔
 DefaultUnifiedSurfaceAppearanceVS_88001000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultUnifiedSurfaceAppearanceVS_88001002,Vertex,✔,✔,✔,❌,❌,✔
 DefaultUnifiedSurfaceAppearanceVS_88001006,Vertex,✔,✔,✔,❌,❌,✔
@@ -1422,6 +1423,7 @@ SmoothClusterVTVS_00000000,Vertex,✔,✔,✔,✔,✔,✔
 SmootherStepFS,Fragment,✔,✔,✔,✔,✔,✔
 SmoothWaterFSUnified_10000000,Fragment,❌,❌,❌,✔,❌,❌
 SmoothWaterFSUnified_10000400,Fragment,❌,❌,❌,✔,❌,❌
+SmoothWaterFSUnified_12000000,Fragment,❌,❌,❌,✔,❌,❌
 SmoothWaterFSUnified_20000000,Fragment,❌,❌,❌,✔,❌,❌
 SmoothWaterVS_00000000,Vertex,✔,✔,✔,✔,✔,✔
 SmoothWaterVSUnified_10000000,Vertex,❌,❌,❌,✔,❌,❌
