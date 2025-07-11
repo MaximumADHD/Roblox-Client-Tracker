@@ -4,20 +4,20 @@
         "RobloxDefault": {
             "Default": "#000000",
             "Operator": "#976C00",
-            "Number": "#056C82",
+            "Number": "#0C9B5A",
             "String": "#6E0785",
             "Comment": "#015F35",
             "Keyword": "#001B7A",
             "Builtin": "#830F07",
-            "Method": "#0494B2",
+            "Method": "#002DD6",
             "Property": "#6A6F81",
-            "Nil": "#056C82",
-            "Bool": "#056C82",
+            "Nil": "#0C9B5A",
+            "Bool": "#0C9B5A",
             "Function": "#001B7A",
             "Local": "#001B7A",
             "Self": "#001B7A",
             "LuauKeyword": "#001B7A",
-            "FunctionName": "#0494B2",
+            "FunctionName": "#002DD6",
             "TODO": "#015F35",
             "Background": "#FFFFFF",
             "SelectionText": "#FFFFFF",
@@ -26,7 +26,7 @@
             "MatchingWordBackground": "#E6E7EA",
             "Warning": "#0035F5",
             "Error": "#DF281F",
-            "Hint": "#0494B2",
+            "Hint": "#335FFF",
             "Info": "#BCBEC8",
             "ActiveLine": "#EEEFF1",
             "Whitespace": "#BCBEC8",
@@ -38,7 +38,7 @@
             "MenuSecondaryText": "#BCBEC8",
             "MenuSelectedText": "#FFFFFF",
             "MenuBackground": "#FFFFFF",
-            "MenuSelectedBackground": "#127D98",
+            "MenuSelectedBackground": "#0027B8",
             "MenuScrollbarBackground": "#FFFFFF",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#6A6F81",
@@ -48,7 +48,7 @@
             "AICOOverlayButtonBackgroundHover": "#E6E7EA",
             "AICOOverlayButtonBackgroundPressed": "#BCBEC8",
             "IndentationRuler": "#BCBEC8",
-            "Type": "#16A9C7"
+            "Type": "#0C9B5A"
         },
         "Extra1": {
             "Default": "#000000",
@@ -75,7 +75,7 @@
             "MatchingWordBackground": "#E6E7EA",
             "Warning": "#0035F5",
             "Error": "#DF281F",
-            "Hint": "#0494B2",
+            "Hint": "#335FFF",
             "Info": "#BCBEC8",
             "ActiveLine": "#EEEFF1",
             "Whitespace": "#BCBEC8",
@@ -87,7 +87,7 @@
             "MenuSecondaryText": "#BCBEC8",
             "MenuSelectedText": "#FFFFFF",
             "MenuBackground": "#FFFFFF",
-            "MenuSelectedBackground": "#127D98",
+            "MenuSelectedBackground": "#0027B8",
             "MenuScrollbarBackground": "#FFFFFF",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#6A6F81",
@@ -97,7 +97,7 @@
             "AICOOverlayButtonBackgroundHover": "#E6E7EA",
             "AICOOverlayButtonBackgroundPressed": "#BCBEC8",
             "IndentationRuler": "#BCBEC8",
-            "Type": "#16A9C7"
+            "Type": "#0C9B5A"
         },
         "Extra2": {
             "Default": "#D5D7DD",
@@ -124,7 +124,7 @@
             "MatchingWordBackground": "#494D5A",
             "Warning": "#0035F5",
             "Error": "#DF281F",
-            "Hint": "#0494B2",
+            "Hint": "#335FFF",
             "Info": "#BCBEC8",
             "ActiveLine": "#494D5A",
             "Whitespace": "#BCBEC8",
@@ -136,7 +136,7 @@
             "MenuSecondaryText": "#BCBEC8",
             "MenuSelectedText": "#FFFFFF",
             "MenuBackground": "#FFFFFF",
-            "MenuSelectedBackground": "#127D98",
+            "MenuSelectedBackground": "#0027B8",
             "MenuScrollbarBackground": "#FFFFFF",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#6A6F81",
@@ -146,25 +146,25 @@
             "AICOOverlayButtonBackgroundHover": "#353741",
             "AICOOverlayButtonBackgroundPressed": "#353741",
             "IndentationRuler": "#BCBEC8",
-            "Type": "#39BDD8"
+            "Type": "#528BFF"
         },
         "Custom": {
             "Default": "#000000",
             "Operator": "#976C00",
-            "Number": "#056C82",
+            "Number": "#0C9B5A",
             "String": "#6E0785",
             "Comment": "#015F35",
             "Keyword": "#001B7A",
             "Builtin": "#830F07",
-            "Method": "#0494B2",
+            "Method": "#002DD6",
             "Property": "#6A6F81",
-            "Nil": "#056C82",
-            "Bool": "#056C82",
+            "Nil": "#0C9B5A",
+            "Bool": "#0C9B5A",
             "Function": "#001B7A",
             "Local": "#001B7A",
             "Self": "#001B7A",
             "LuauKeyword": "#001B7A",
-            "FunctionName": "#0494B2",
+            "FunctionName": "#002DD6",
             "TODO": "#015F35",
             "Background": "#FFFFFF",
             "SelectionText": "#FFFFFF",
@@ -173,7 +173,7 @@
             "MatchingWordBackground": "#E6E7EA",
             "Warning": "#0035F5",
             "Error": "#DF281F",
-            "Hint": "#0494B2",
+            "Hint": "#335FFF",
             "Info": "#BCBEC8",
             "ActiveLine": "#EEEFF1",
             "Whitespace": "#BCBEC8",
@@ -185,7 +185,7 @@
             "MenuSecondaryText": "#BCBEC8",
             "MenuSelectedText": "#FFFFFF",
             "MenuBackground": "#FFFFFF",
-            "MenuSelectedBackground": "#127D98",
+            "MenuSelectedBackground": "#0027B8",
             "MenuScrollbarBackground": "#FFFFFF",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#6A6F81",
@@ -195,7 +195,7 @@
             "AICOOverlayButtonBackgroundHover": "#E6E7EA",
             "AICOOverlayButtonBackgroundPressed": "#BCBEC8",
             "IndentationRuler": "#BCBEC8",
-            "Type": "#16A9C7"
+            "Type": "#0C9B5A"
         }
     },
     "Colors": [
@@ -286,7 +286,7 @@
         },
         {
             "RibbonTab": {
-                "Default": "#F7F7F8",
+                "Default": "#EEEFF1",
                 "Selected": "#FFFFFF",
                 "Hover": "#FFFFFF"
             }
@@ -342,7 +342,7 @@
         {
             "CheckedFieldBackground": {
                 "Default": "#FFFFFF",
-                "Selected": "#16A9C7",
+                "Selected": "#335FFF",
                 "Hover": "#EBF1FF",
                 "Pressed": "#D5D7DD",
                 "Disabled": "#BCBEC8"
@@ -417,8 +417,8 @@
         },
         {
             "CurrentMarker": {
-                "Default": "#16A9C7",
-                "Selected": "#16A9C7"
+                "Default": "#335FFF",
+                "Selected": "#335FFF"
             }
         },
         {
@@ -438,7 +438,7 @@
         },
         {
             "Light": {
-                "Default": "#F7F7F8"
+                "Default": "#EEEFF1"
             }
         },
         {
@@ -489,7 +489,7 @@
         },
         {
             "LinkText": {
-                "Default": "#39BDD8"
+                "Default": "#528BFF"
             }
         },
         {
@@ -589,7 +589,7 @@
         },
         {
             "DiffLineNumSeparatorBackgroundHover": {
-                "Default": "#39BDD8"
+                "Default": "#528BFF"
             }
         },
         {
@@ -685,11 +685,11 @@
         },
         {
             "DialogMainButton": {
-                "Default": "#16A9C7",
-                "Hover": "#39BDD8",
-                "Selected": "#0494B2",
-                "Pressed": "#0494B2",
-                "Disabled": "#A3EFFE"
+                "Default": "#335FFF",
+                "Hover": "#528BFF",
+                "Selected": "#002DD6",
+                "Pressed": "#002DD6",
+                "Disabled": "#ADC9FF"
             }
         },
         {
@@ -724,7 +724,7 @@
         },
         {
             "FontFamilyPickerTabSelected": {
-                "Default": "#335FFF"
+                "Default": "#528BFF"
             }
         },
         {
@@ -735,8 +735,8 @@
         {
             "FontFamilyPickerMoreFontsText": {
                 "Default": "#000000",
-                "Hover": "#335FFF",
-                "Pressed": "#335FFF"
+                "Hover": "#528BFF",
+                "Pressed": "#528BFF"
             }
         },
         {
@@ -747,7 +747,7 @@
         {
             "ToggleButtonBackground": {
                 "Default": "#FFFFFF",
-                "Selected": "#16A9C7",
+                "Selected": "#335FFF",
                 "Hover": "#EBF1FF",
                 "Pressed": "#D5D7DD"
             }
@@ -759,7 +759,7 @@
         },
         {
             "ToggleButtonMultiValuedBorder": {
-                "Default": "#16A9C7"
+                "Default": "#335FFF"
             }
         },
         {
@@ -769,12 +769,12 @@
         },
         {
             "Action Enabled": {
-                "Default": "#353741"
+                "Default": "#202227"
             }
         },
         {
             "Action FocusBorder": {
-                "Default": "#0494B2"
+                "Default": "#335FFF"
             }
         },
         {
@@ -784,7 +784,7 @@
         },
         {
             "Action Selected": {
-                "Default": "#C8F6FF"
+                "Default": "#CCDDFF"
             }
         },
         {
@@ -844,12 +844,12 @@
         },
         {
             "Primary Main": {
-                "Default": "#0494B2"
+                "Default": "#335FFF"
             }
         },
         {
             "Primary States HoverBackground": {
-                "Default": "#39BDD8"
+                "Default": "#528BFF"
             }
         },
         {
@@ -914,12 +914,12 @@
         },
         {
             "Text Secondary": {
-                "Default": "#353741"
+                "Default": "#202227"
             }
         },
         {
             "Text TextLink": {
-                "Default": "#0494B2"
+                "Default": "#0027B8"
             }
         },
         {
@@ -949,7 +949,7 @@
         },
         {
             "AlertBackground Inform SubtleFill": {
-                "Default": "#C8F6FF"
+                "Default": "#CCDDFF"
             }
         },
         {
@@ -1380,7 +1380,7 @@
     ],
     "Package": {
         "ProgressBar": {
-            "default": "#16A9C7",
+            "default": "#335FFF",
             "background": "#EEEFF1",
             "status-text": "#6A6F81",
             "status-error-text": "#EB7973"
@@ -1395,7 +1395,7 @@
             "stop1": "#00FFFFFF"
         },
         "ErrorText": {
-            "color": "#F2BA2A"
+            "color": "#DBA61F"
         }
     },
     "BulkImport": {
@@ -1424,7 +1424,7 @@
         },
         "ProgressBar": {
             "background-color": "#E6E7EA",
-            "color": "#16A9C7"
+            "color": "#335FFF"
         }
     },
     "Merge": {
@@ -1452,7 +1452,7 @@
             "color": "#EB7973"
         },
         "ProgressBar": {
-            "background-color": "#16A9C7"
+            "background-color": "#335FFF"
         },
         "ScrollBarHandle": {
             "background-color": "#BCBEC8"
@@ -1464,7 +1464,7 @@
     "CommonStyle": {
         "mainBackground": "#FFFFFF",
         "inputFieldBackground": "#FFFFFF",
-        "currentItemMarker": "#335FFF",
+        "currentItemMarker": "#528BFF",
         "tooltip": "#FFFFFF",
         "tooltipBorder": "#BCBEC8",
         "tooltipText": "#000000",
@@ -1477,15 +1477,15 @@
     },
     "Ribbon": {
         "background": "#FFFFFF",
-        "tabBar": "#F7F7F8",
-        "tab": "#F7F7F8",
+        "tabBar": "#EEEFF1",
+        "tab": "#EEEFF1",
         "tab-selected": "#FFFFFF",
-        "tab-hover": "#F7F7F8",
+        "tab-hover": "#EEEFF1",
         "tab-topbar": "#FFFFFF",
         "tabText": "#000000",
         "tabText-selected": "#70A0FF",
         "tabText-hover": "#70A0FF",
-        "systemButton": "#F7F7F8",
+        "systemButton": "#EEEFF1",
         "systemButton-hover": "#8FB4FF",
         "button-selected": "#D5D7DD",
         "button-hover": "#EBF1FF",
@@ -1498,7 +1498,7 @@
         "scrollViewBackground": "#FFFFFF",
         "categoryText": "#6A6F81",
         "separator": "#D5D7DD",
-        "searchBoxBorder": "#335FFF",
+        "searchBoxBorder": "#528BFF",
         "settingsBorder": "#BCBEC8",
         "dropShadow": "#80000000",
         "dropdownIcon": "qrc:/images/BulkImport/collapse.png",
@@ -1568,7 +1568,7 @@
         "background": "#F7F7F8",
         "messageText": "#191A1F",
         "border": "#E6E7EA",
-        "actionText": "#16A9C7",
+        "actionText": "#335FFF",
         "shadow": {
             "background": "#B0C1C1C1",
             "radius": 12,
@@ -1601,7 +1601,7 @@
         {
             "GameWidget": {
                 "background": "#FFFFFF",
-                "backgroundSelected": "#16A9C7",
+                "backgroundSelected": "#335FFF",
                 "border": "#E6E7EA",
                 "subText": "#BCBEC8",
                 "messageText": "#191A1F",
@@ -1622,7 +1622,7 @@
                 "background": "#FFFFFF",
                 "selectedRow": "#EBF1FF",
                 "headerText": "#6A6F81",
-                "headerTextSelected": "#16A9C7",
+                "headerTextSelected": "#335FFF",
                 "border": "#E6E7EA",
                 "sortArrowAscending": "qrc:/images/StartPage/SortArrowAscending.png",
                 "sortArrowDescending": "qrc:/images/StartPage/SortArrowDescending.png",
@@ -1646,11 +1646,11 @@
         },
         {
             "Sidebar": {
-                "background": "#0494B2",
+                "background": "#002DD6",
                 "buttonText": "#FFFFFF",
                 "selectedButtonText": "#FFFFFF",
-                "buttonHover": "#056C82",
-                "buttonSelected": "#056C82",
+                "buttonHover": "#002299",
+                "buttonSelected": "#002299",
                 "border": "#E6E7EA",
                 "borderWidth": 0,
                 "buttonWidth": 90
@@ -1720,10 +1720,10 @@
     ],
     "Action": {
         "Activated": "#BCBEC8",
-        "Enabled": "#353741",
-        "FocusBorder": "#0494B2",
+        "Enabled": "#202227",
+        "FocusBorder": "#335FFF",
         "Hover": "#E6E7EA",
-        "Selected": "#C8F6FF"
+        "Selected": "#CCDDFF"
     },
     "Background": {
         "Default": "#E6E7EA",
@@ -1744,9 +1744,9 @@
         "FilledInputBackground": "#FFFFFF"
     },
     "Primary": {
-        "Main": "#0494B2",
+        "Main": "#335FFF",
         "States": {
-            "HoverBackground": "#39BDD8"
+            "HoverBackground": "#528BFF"
         }
     },
     "Secondary": {
@@ -1768,8 +1768,8 @@
         "Disabled": "#6A6F81",
         "Inverse": "#FFFFFF",
         "Primary": "#191A1F",
-        "Secondary": "#353741",
-        "TextLink": "#0494B2"
+        "Secondary": "#202227",
+        "TextLink": "#0027B8"
     },
     "Warning": {
         "Main": "#AE800B",

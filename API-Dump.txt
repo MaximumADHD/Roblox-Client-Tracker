@@ -236,10 +236,12 @@ Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:HandleWhyThisAdClicked(advertiserName: string, payerName: string) -> () {RobloxScriptSecurity}
 	Function AdService:HideEudsaDisclosure() -> () {RobloxScriptSecurity}
 	Function AdService:OnDemandVideoCompleteFromUI(result: Enum.ShowAdResult, encryptedAdTrackingData: string, encryptionMetadata: string, rewardDetails: string) -> () {RobloxScriptSecurity}
+	Function AdService:RegisterAdOpportunityAsync(instance: Instance, placementId: number?) -> () [Yields]
 	Function AdService:ReturnToPublisherExperience(adTeleportMethod: Enum.AdTeleportMethod) -> () {RobloxScriptSecurity}
 	Function AdService:SetAdGuiInteractivityHandlerInitialized() -> () {RobloxScriptSecurity}
 	Function AdService:ShowRewardedVideoAdAsync(player: Player, reward: AdReward, placementId: number?) -> Enum.ShowAdResult [Yields]
 	Function AdService:ShowVideoAd() -> () [Deprecated]
+	Function AdService:UnregisterAdOpportunity(instance: Instance) -> ()
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
 	Event AdService.PortalPrompt(destinationId: number, portal: Instance, requiresNoButton: boolean) {RobloxScriptSecurity}
@@ -452,7 +454,6 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetImportService:SavePreset(name: string, preset: { [string]: any }) -> boolean {RobloxScriptSecurity}
 	Function AssetImportService:StartSessionWithPath(filePath: string) -> AssetImportSession {RobloxScriptSecurity}
 	Function AssetImportService:StartSessionWithPathAsync(filePath: string) -> AssetImportSession {RobloxScriptSecurity} [Yields]
-	Function AssetImportService:StartSessionWithPrompt() -> AssetImportSession {RobloxScriptSecurity} [Yields]
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetManagerService:AddNewPlace() -> number {RobloxScriptSecurity} [Yields]
 	Function AssetManagerService:CreateAlias(assetType: number, assetId: number, aliasName: string) -> () {RobloxScriptSecurity} [Yields]
@@ -486,7 +487,6 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CanEditAssetAsync(content: Content) -> boolean {RobloxScriptSecurity} [Yields]
-	Function AssetService:CheckTextureAlphaAsync(textureId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function AssetService:CreateAssetAsync(object: Object, assetType: Enum.AssetType, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
 	Function AssetService:CreateAssetVersionAsync(object: Object, assetType: Enum.AssetType, assetId: number, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
 	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> EditableImage
@@ -833,25 +833,32 @@ Class AuroraScriptObject : Instance [NotCreatable] [Deprecated]
 	Property AuroraScriptObject.FrameId: number [Deprecated]
 	Property AuroraScriptObject.LODLevel: number [Deprecated]
 	Property AuroraScriptObject.MaxFrequency: number [Hidden] [NotScriptable] [Deprecated]
+	Property AuroraScriptObject.PriorFrameInvoked: number [Deprecated]
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () [Deprecated] {🧬Safe}
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
+	Property AuroraService.BufferFullInputCount: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.HashRoundingPoint: number [Deprecated]
 	Property AuroraService.IgnoreRotation: boolean [Deprecated]
 	Property AuroraService.InputDropRate: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
+	Property AuroraService.OutOfOrderInputCount: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.RCCHeartbeatFPS: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.RollbackOffset: number [Deprecated]
+	Property AuroraService.TooOldInputCount: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Function AuroraService:GetPredictedInstances() -> { any } [Deprecated]
 	Function AuroraService:GetRemoteWorldStepId() -> number [Deprecated]
 	Function AuroraService:GetServerView(target: Instance) -> Instance? [Deprecated]
 	Function AuroraService:GetWorldStepId() -> number [Deprecated]
 	Function AuroraService:IsPredicted(target: Instance) -> boolean [Deprecated]
+	Function AuroraService:PlayInputRecording() -> () [Deprecated]
 	Function AuroraService:SetIncomingReplicationLag(seconds: number) -> () [Deprecated]
 	Function AuroraService:SetPropertyIsInput(target: Instance, propertyName: string, isInput: boolean) -> () [Deprecated]
 	Function AuroraService:ShowDebugVisualizer(state: boolean) -> () [Deprecated]
+	Function AuroraService:StartInputRecording() -> () [Deprecated]
 	Function AuroraService:StartPrediction(target: Instance) -> () [Deprecated]
 	Function AuroraService:StepPhysics(worldSteps: number, parts: { Instance }?) -> () [Deprecated]
+	Function AuroraService:StopInputRecording() -> () [Deprecated]
 	Function AuroraService:StopPrediction(target: Instance) -> () [Deprecated]
 	Function AuroraService:UpdateProperties(target: Instance) -> () [Deprecated]
 	Event AuroraService.FixedRateTick(deltaTime: number, worldStepId: number) [Deprecated]
@@ -911,6 +918,10 @@ Class AvatarBodyRules : Instance
 	Property AvatarBodyRules.CustomBodyBundleId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomBodyType: Enum.AvatarSettingsCustomBodyType {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomBodyTypeScale: NumberRange {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomEyebrowEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomEyebrowId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomEyelashEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomEyelashId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomFaceEnabled: boolean {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomFaceId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomHeadEnabled: boolean {RobloxScriptSecurity}
@@ -922,6 +933,8 @@ Class AvatarBodyRules : Instance
 	Property AvatarBodyRules.CustomLeftArmId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomLeftLegEnabled: boolean {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomLeftLegId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomMoodEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomMoodId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomProportionsScale: NumberRange {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomRightArmEnabled: boolean {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomRightArmId: number {RobloxScriptSecurity}
@@ -1080,7 +1093,7 @@ Class AvatarPreloader : Instance [NotCreatable] [Service] [NotReplicated]
 Class AvatarRules : Instance
 	Property AvatarRules.AvatarType: Enum.GameAvatarType {RobloxScriptSecurity}
 Class AvatarSettings : Instance [NotCreatable] [Service]
-	Property AvatarSettings.Loaded: boolean {RobloxScriptSecurity} [ReadOnly]
+	Property AvatarSettings.Loaded: boolean {RobloxScriptSecurity} {✏️NotAccessibleSecurity}
 	Function AvatarSettings:Publish() -> () {RobloxScriptSecurity}
 Class Backpack : Instance
 Class BadgeService : Instance [NotCreatable] [Service]
@@ -1604,22 +1617,6 @@ Class CollectionService : Instance [NotCreatable] [Service]
 	Event CollectionService.ItemRemoved(instance: Instance) [Deprecated]
 	Event CollectionService.TagAdded(tag: string)
 	Event CollectionService.TagRemoved(tag: string)
-Class CommandInstance : Instance [NotCreatable] [NotReplicated]
-	Property CommandInstance.AllowGUIAccessPoints: boolean [ReadOnly]
-	Property CommandInstance.Checked: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Property CommandInstance.DefaultShortcut: string {RobloxScriptSecurity} [ReadOnly]
-	Property CommandInstance.DisplayName: string [📁 LoadOnly] [NotReplicated]
-	Property CommandInstance.Enabled: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Property CommandInstance.Icon: string {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Property CommandInstance.Name: string [ReadOnly]
-	Property CommandInstance.Permission: Enum.CommandPermission {RobloxScriptSecurity} [ReadOnly]
-	Property CommandInstance.StatusTip: string {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Function CommandInstance:EnableGuiAccess(displayName: string, statusTip: string, defaultShortcut: string) -> () {RobloxScriptSecurity}
-	Function CommandInstance:RegisterExecutionCallback(callbackFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
-Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function CommandService:Execute(name: string, params: any) -> any {RobloxScriptSecurity} [Yields]
-	Function CommandService:RegisterCommand(plugin: Plugin, name: string, context: string, permission: Enum.CommandPermission? = "LocalUser") -> CommandInstance {RobloxScriptSecurity} [Yields]
-	Event CommandService.CommandExecuting(name: string, params: any) {RobloxScriptSecurity}
 Class CommerceService : Instance [NotCreatable] [Service]
 	Function CommerceService:GetCommerceProductInfoAsync(commerceProductId: string) -> { [string]: any } [Yields]
 	Function CommerceService:PrepareCommerceProductPurchase(commerceProductId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -2768,6 +2765,7 @@ Class TextBox : GuiObject
 	Property TextBox.LineHeight: number
 	Property TextBox.LocalizationMatchIdentifier: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.LocalizationMatchedSourceText: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property TextBox.LocalizedPlaceholderText: string {RobloxSecurity} [Hidden] [ReadOnly] [NotScriptable]
 	Property TextBox.MaxVisibleGraphemes: number
 	Property TextBox.OpenTypeFeatures: string
 	Property TextBox.OpenTypeFeaturesError: string [ReadOnly]
@@ -2820,7 +2818,7 @@ Class VideoFrame : GuiObject
 	Property VideoFrame.TimePosition: number [NotReplicated]
 	Property VideoFrame.TimePositionReplicating: number [Hidden] [NotScriptable]
 	Property VideoFrame.Video: string
-	Property VideoFrame.VideoContent: Content {RobloxScriptSecurity} [Hidden]
+	Property VideoFrame.VideoContent: Content [Hidden]
 	Property VideoFrame.Volume: number
 	Function VideoFrame:Pause() -> ()
 	Function VideoFrame:Play() -> ()
@@ -3312,6 +3310,7 @@ Class Humanoid : Instance
 	Property Humanoid.RigType: Enum.HumanoidRigType
 	Property Humanoid.RightLeg: BasePart? [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Humanoid.RootPart: BasePart? [ReadOnly]
+	Property Humanoid.RotationType: Enum.RotationType {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Humanoid.Torso: BasePart? [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Humanoid.AutomaticScalingEnabled: boolean
 	Property Humanoid.Health: number [📁 LoadOnly] [NotReplicated]
@@ -3624,7 +3623,7 @@ Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated
 	Property IncrementalPatchBuilder.HighCompression: boolean
 	Property IncrementalPatchBuilder.SerializePatch: boolean
 	Property IncrementalPatchBuilder.ZstdCompression: boolean
-Class InputAction : Instance [NotBrowsable]
+Class InputAction : Instance
 	Property InputAction.Enabled: boolean
 	Property InputAction.Type: Enum.InputActionType
 	Property InputAction.BoolState: boolean {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
@@ -3636,7 +3635,7 @@ Class InputAction : Instance [NotBrowsable]
 	Event InputAction.Pressed()
 	Event InputAction.Released()
 	Event InputAction.StateChanged(value: any)
-Class InputBinding : Instance [NotBrowsable]
+Class InputBinding : Instance
 	Property InputBinding.KeyCode: Enum.KeyCode
 	Property InputBinding.PressedThreshold: number
 	Property InputBinding.ReleasedThreshold: number
@@ -3649,7 +3648,7 @@ Class InputBinding : Instance [NotBrowsable]
 	Property InputBinding.Left: Enum.KeyCode
 	Property InputBinding.Right: Enum.KeyCode
 	Property InputBinding.Up: Enum.KeyCode
-Class InputContext : Instance [NotBrowsable]
+Class InputContext : Instance
 	Property InputContext.Enabled: boolean
 	Property InputContext.Priority: number
 	Property InputContext.Sink: boolean
@@ -3780,6 +3779,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Lighting.ColorShift_Top: Color3
 	Property Lighting.EnvironmentDiffuseScale: number
 	Property Lighting.EnvironmentSpecularScale: number
+	Property Lighting.ExtendLightRangeTo120: Enum.RolloutState [NotScriptable]
 	Property Lighting.GlobalShadows: boolean
 	Property Lighting.LightingStyle: Enum.LightingStyle [NotScriptable]
 	Property Lighting.OutdoorAmbient: Color3
@@ -3944,7 +3944,7 @@ Class AuroraScript : LuaSourceContainer [Deprecated]
 	Function AuroraScript:AddTo(instance: Instance) -> () [Deprecated]
 	Function AuroraScript:IsOnInstance(instance: Instance) -> boolean [Deprecated]
 	Function AuroraScript:RemoveFrom(instance: Instance) -> () [Deprecated]
-	Event AuroraScript.SynchronizeState(frameId: number, instance: Instance, state: { [string]: any }, ingressHeaders: string, ingressArgs: { any }, egressHeaders: string, egressArgs: { any }) {RobloxSecurity} [Hidden] [Deprecated]
+	Event AuroraScript.SynchronizeState(frameId: number, instance: Instance, state: { [string]: any }, ingressHeaders: string, ingressArgs: { any }, egressHeaders: string, egressArgs: { any }, lodLevel: number, priorInvocationFrame: number) {RobloxSecurity} [Hidden] [Deprecated]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property BaseScript.Disabled: boolean
 	Property BaseScript.Enabled: boolean [NotReplicated]
@@ -4432,7 +4432,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:GetNoCollisionConstraints() -> { Instance }
 	Function BasePart:GetPhysicsCost() -> number {RobloxScriptSecurity} {🧬Safe}
 	Function BasePart:GetRenderCFrame() -> CFrame [Deprecated]
-	Function BasePart:GetRootPart() -> Instance? {🧬Safe}
+	Function BasePart:GetRootPart() -> Instance? [Deprecated] {🧬Safe}
 	Function BasePart:GetTouchingParts() -> { Instance }
 	Function BasePart:GetVelocityAtPosition(position: Vector3) -> Vector3 {🧬Safe}
 	Function BasePart:IntersectAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
@@ -4788,7 +4788,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.Gravity: number
 	Property Workspace.IKControlConstraintSupport: Enum.IKControlConstraintSupport [NotScriptable]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
-	Property Workspace.LuauTypeCheckMode: Enum.LuauTypeCheckMode {PluginSecurity}
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
 	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable]
@@ -4807,11 +4806,12 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.TouchEventsUseCollisionGroups: Enum.RolloutState [NotScriptable]
 	Property Workspace.TouchesUseCollisionGroups: boolean [NotScriptable]
 	Property Workspace.UseImprovedModelLod: Enum.RolloutState [NotScriptable]
-	Property Workspace.UseNewLuauTypeSolver: Enum.RolloutState [NotScriptable]
 	Property Workspace.CurrentCamera: Camera? [NotReplicated]
 	Property Workspace.DistributedGameTime: number [NotReplicated]
 	Property Workspace.InsertPoint: Vector3 [NotReplicated]
 	Property Workspace.RejectCharacterDeletions: Enum.RejectCharacterDeletions [NotScriptable]
+	Property Workspace.LuauTypeCheckMode: Enum.LuauTypeCheckMode {PluginSecurity}
+	Property Workspace.UseNewLuauTypeSolver: Enum.RolloutState [NotScriptable]
 	Property Workspace.AuthorityMode: Enum.AuthorityMode [NotScriptable]
 	Property Workspace.ModelStreamingBehavior: Enum.ModelStreamingBehavior [NotScriptable]
 	Property Workspace.StreamOutBehavior: Enum.StreamOutBehavior [NotScriptable]
@@ -5199,6 +5199,7 @@ Class Player : Instance
 	Event Player.FriendStatusChanged(player: Player, friendStatus: Enum.FriendStatus) {RobloxScriptSecurity}
 	Event Player.Idled(time: number)
 	Event Player.Kill() {LocalUserSecurity} [Hidden]
+	Event Player.NotifyStreamingUnpinned(instance: Instance, depth: number) {RobloxSecurity} [Hidden]
 	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string)
 	Event Player.OnTeleportInternal(teleportState: Enum.TeleportState, teleportInfo: { [string]: any }, customLoadingScreen: Instance) {RobloxSecurity} [Hidden]
 	Event Player.OverrideStreamRadii(minRadius: number, targetRadius: number) {RobloxSecurity} [Hidden]
@@ -5746,6 +5747,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
 	Property SafetyService.IsCaptureModeForReport: boolean {RobloxScriptSecurity}
+	Function SafetyService:DecodeAvatarMovementProto(avatarMovementProtoString: string) -> { [string]: any } {RobloxScriptSecurity}
 	Function SafetyService:ReportMenuTabClose() -> () {RobloxScriptSecurity}
 	Function SafetyService:ReportMenuTabOpen() -> () {RobloxScriptSecurity}
 	Function SafetyService:TakeScreenshot(screenshotOptions: { [string]: any }) -> number {RobloxScriptSecurity}
@@ -6670,7 +6672,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioService:PromptImportFile(fileTypeFilter: { any }? = {}) -> Instance? {PluginSecurity} [Yields]
 	Function StudioService:PromptImportFiles(fileTypeFilter: { any }? = {}) -> { Instance } {PluginSecurity} [Yields]
 	Function StudioService:SetPluginEnabled(assetId: number, state: boolean) -> () {RobloxScriptSecurity}
-	Function StudioService:ShowPlaceVersionHistoryDialog(placeId: number) -> () {RobloxScriptSecurity}
+	Function StudioService:ShowPlaceVersionHistoryDialog(placeId: number) -> () {RobloxScriptSecurity} [Deprecated]
 	Function StudioService:ShowPublishToRoblox() -> () {RobloxScriptSecurity}
 	Function StudioService:TryInstallPlugin(assetId: number, assetVersionId: number) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioService:UninstallPlugin(assetId: number) -> () {RobloxScriptSecurity}
@@ -7221,6 +7223,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateMisMatchUV(innerCageMeshId: string, outerCageMeshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateNumTextureChannels(textureId: string, numChannelsRequired: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateOverlappingVertices(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidatePartBBoxAfterFullFacs(headEditableMesh: EditableMesh, partEditableMesh: EditableMesh, headScale: Vector3, partScale: Vector3, boundsMaxMultiplier: number) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateSkinnedEditableMesh(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateSkinnedMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlpha(textureId: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]

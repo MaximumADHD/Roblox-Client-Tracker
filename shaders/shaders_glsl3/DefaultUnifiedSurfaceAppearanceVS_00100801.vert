@@ -3,8 +3,10 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <InstanceData.h>
+#include <SAParams.h>
 uniform vec4 CB0[61];
 uniform vec4 CB1[511];
+uniform vec4 CB3[1];
 in vec4 POSITION;
 in vec4 TEXCOORD1;
 in vec2 TEXCOORD0;
@@ -57,7 +59,7 @@ void main()
     v24.z = v21.z;
     vec4 v25 = v24;
     v25.w = abs(CB1[gl_InstanceID * 7 + 3].w);
-    float v26 = CB1[gl_InstanceID * 7 + 6].z * 0.50359976291656494140625;
+    float v26 = CB3[0].z * 0.50359976291656494140625;
     float v27 = clamp(v16, 0.0, 1.0);
     vec3 v28 = (CB0[15].xyz * v27) + (CB0[17].xyz * clamp(-v16, 0.0, 1.0));
     vec4 v29 = vec4(0.0);
@@ -67,7 +69,7 @@ void main()
     vec4 v31 = v30;
     v31.z = v28.z;
     vec4 v32 = v31;
-    v32.w = v27 * ((CB1[gl_InstanceID * 7 + 6].z * 0.055555999279022216796875) * exp2((v26 * dot(v9, normalize(v15 + normalize(v10)))) - v26));
+    v32.w = v27 * ((CB3[0].z * 0.055555999279022216796875) * exp2((v26 * dot(v9, normalize(v15 + normalize(v10)))) - v26));
     vec4 v33 = vec4(dot(CB0[25], v17), dot(CB0[26], v17), dot(CB0[27], v17), 0.0);
     v33.w = CB1[gl_InstanceID * 7 + 6].w;
     gl_Position = v18;

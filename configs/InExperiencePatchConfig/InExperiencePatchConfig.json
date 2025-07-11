@@ -1,9 +1,9 @@
 {
   "AppStorageResetId": "0",
   "AssetId": "80471914653504",
-  "AssetVersion": "2565",
+  "AssetVersion": "2638",
   "IsForcedUpdate": false,
   "LocalAssetURI": "rbxasset://models/InExperience/InExperience.rbxm",
-  "LocalAssetHash": "db3567504717097c812657eb21f45c67",
-  "MaxAppVersion": "680"
+  "LocalAssetHash": "e0505e849084b2585f65ecb3509d7d5a",
+  "MaxAppVersion": "681"
 }

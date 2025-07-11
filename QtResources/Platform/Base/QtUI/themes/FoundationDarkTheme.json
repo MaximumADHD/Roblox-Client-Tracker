@@ -8,7 +8,7 @@
             "String": "#8EE9B6",
             "Comment": "#6A6F81",
             "Keyword": "#EB7973",
-            "Builtin": "#7EE5F8",
+            "Builtin": "#8FB4FF",
             "Method": "#FAE4AA",
             "Property": "#70A0FF",
             "Nil": "#F2BA2A",
@@ -21,34 +21,34 @@
             "TODO": "#6A6F81",
             "Background": "#202227",
             "SelectionText": "#FFFFFF",
-            "SelectionBackground": "#127D98",
+            "SelectionBackground": "#0027B8",
             "FindSelectionBackground": "#976C00",
             "MatchingWordBackground": "#494D5A",
             "Warning": "#F57630",
             "Error": "#DF281F",
-            "Hint": "#0494B2",
+            "Hint": "#335FFF",
             "Info": "#494D5A",
             "ActiveLine": "#353741",
             "Whitespace": "#494D5A",
             "DebuggerCurrentLine": "#353741",
-            "DebuggerErrorLine": "#272930",
+            "DebuggerErrorLine": "#353741",
             "Ruler": "#6A6F81",
             "Bracket": "#BCBEC8",
             "MenuPrimaryText": "#FFFFFF",
             "MenuSecondaryText": "#6A6F81",
             "MenuSelectedText": "#FFFFFF",
-            "MenuBackground": "#272930",
-            "MenuSelectedBackground": "#127D98",
-            "MenuScrollbarBackground": "#272930",
+            "MenuBackground": "#121215",
+            "MenuSelectedBackground": "#0027B8",
+            "MenuScrollbarBackground": "#121215",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#000000",
             "DocViewCodeBackground": "#353741",
             "AICOOverlayText": "#FFFFFF",
             "AICOOverlayButtonBackground": "#353741",
             "AICOOverlayButtonBackgroundHover": "#353741",
-            "AICOOverlayButtonBackgroundPressed": "#272930",
+            "AICOOverlayButtonBackgroundPressed": "#353741",
             "IndentationRuler": "#6A6F81",
-            "Type": "#39BDD8"
+            "Type": "#528BFF"
         },
         "Extra1": {
             "Default": "#D5D7DD",
@@ -59,7 +59,7 @@
             "Keyword": "#F38FB8",
             "Builtin": "#FAE4AA",
             "Method": "#FAE4AA",
-            "Property": "#A3EFFE",
+            "Property": "#ADC9FF",
             "Nil": "#528BFF",
             "Bool": "#528BFF",
             "Function": "#F38FB8",
@@ -70,34 +70,34 @@
             "TODO": "#6A6F81",
             "Background": "#191A1F",
             "SelectionText": "#FFFFFF",
-            "SelectionBackground": "#127D98",
+            "SelectionBackground": "#0027B8",
             "FindSelectionBackground": "#976C00",
             "MatchingWordBackground": "#533D02",
             "Warning": "#F57630",
             "Error": "#DF281F",
-            "Hint": "#0494B2",
+            "Hint": "#335FFF",
             "Info": "#494D5A",
             "ActiveLine": "#353741",
             "Whitespace": "#494D5A",
             "DebuggerCurrentLine": "#353741",
-            "DebuggerErrorLine": "#272930",
+            "DebuggerErrorLine": "#353741",
             "Ruler": "#6A6F81",
             "Bracket": "#D5D7DD",
             "MenuPrimaryText": "#FFFFFF",
             "MenuSecondaryText": "#6A6F81",
             "MenuSelectedText": "#FFFFFF",
-            "MenuBackground": "#272930",
-            "MenuSelectedBackground": "#127D98",
-            "MenuScrollbarBackground": "#272930",
+            "MenuBackground": "#121215",
+            "MenuSelectedBackground": "#0027B8",
+            "MenuScrollbarBackground": "#121215",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#000000",
             "DocViewCodeBackground": "#353741",
             "AICOOverlayText": "#FFFFFF",
             "AICOOverlayButtonBackground": "#353741",
             "AICOOverlayButtonBackgroundHover": "#353741",
-            "AICOOverlayButtonBackgroundPressed": "#272930",
+            "AICOOverlayButtonBackgroundPressed": "#353741",
             "IndentationRuler": "#6A6F81",
-            "Type": "#39BDD8"
+            "Type": "#528BFF"
         },
         "Extra2": {
             "Default": "#F7F7F8",
@@ -107,46 +107,46 @@
             "Comment": "#6A6F81",
             "Keyword": "#CD377B",
             "Builtin": "#F7F7F8",
-            "Method": "#5CD2E8",
+            "Method": "#8FB4FF",
             "Property": "#F7F7F8",
             "Nil": "#A766F5",
             "Bool": "#A766F5",
-            "Function": "#5CD2E8",
+            "Function": "#8FB4FF",
             "Local": "#CD377B",
             "Self": "#F57630",
             "LuauKeyword": "#CD377B",
-            "FunctionName": "#F2BA2A",
+            "FunctionName": "#C49315",
             "TODO": "#6A6F81",
             "Background": "#202227",
             "SelectionText": "#FFFFFF",
-            "SelectionBackground": "#127D98",
+            "SelectionBackground": "#0027B8",
             "FindSelectionBackground": "#976C00",
             "MatchingWordBackground": "#494D5A",
             "Warning": "#F57630",
             "Error": "#DF281F",
-            "Hint": "#0494B2",
+            "Hint": "#335FFF",
             "Info": "#494D5A",
             "ActiveLine": "#272930",
             "Whitespace": "#494D5A",
             "DebuggerCurrentLine": "#353741",
-            "DebuggerErrorLine": "#272930",
+            "DebuggerErrorLine": "#353741",
             "Ruler": "#6A6F81",
             "Bracket": "#CD377B",
             "MenuPrimaryText": "#FFFFFF",
             "MenuSecondaryText": "#6A6F81",
             "MenuSelectedText": "#FFFFFF",
-            "MenuBackground": "#272930",
-            "MenuSelectedBackground": "#127D98",
-            "MenuScrollbarBackground": "#272930",
+            "MenuBackground": "#121215",
+            "MenuSelectedBackground": "#0027B8",
+            "MenuScrollbarBackground": "#121215",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#000000",
             "DocViewCodeBackground": "#353741",
             "AICOOverlayText": "#FFFFFF",
             "AICOOverlayButtonBackground": "#353741",
             "AICOOverlayButtonBackgroundHover": "#353741",
-            "AICOOverlayButtonBackgroundPressed": "#272930",
+            "AICOOverlayButtonBackgroundPressed": "#353741",
             "IndentationRuler": "#6A6F81",
-            "Type": "#39BDD8"
+            "Type": "#528BFF"
         },
         "Custom": {
             "Default": "#BCBEC8",
@@ -155,7 +155,7 @@
             "String": "#8EE9B6",
             "Comment": "#6A6F81",
             "Keyword": "#EB7973",
-            "Builtin": "#7EE5F8",
+            "Builtin": "#8FB4FF",
             "Method": "#FAE4AA",
             "Property": "#70A0FF",
             "Nil": "#F2BA2A",
@@ -168,60 +168,60 @@
             "TODO": "#6A6F81",
             "Background": "#202227",
             "SelectionText": "#FFFFFF",
-            "SelectionBackground": "#127D98",
+            "SelectionBackground": "#0027B8",
             "FindSelectionBackground": "#976C00",
             "MatchingWordBackground": "#494D5A",
             "Warning": "#F57630",
             "Error": "#DF281F",
-            "Hint": "#0494B2",
+            "Hint": "#335FFF",
             "Info": "#494D5A",
             "ActiveLine": "#353741",
             "Whitespace": "#494D5A",
             "DebuggerCurrentLine": "#353741",
-            "DebuggerErrorLine": "#272930",
+            "DebuggerErrorLine": "#353741",
             "Ruler": "#6A6F81",
             "Bracket": "#BCBEC8",
             "MenuPrimaryText": "#FFFFFF",
             "MenuSecondaryText": "#6A6F81",
             "MenuSelectedText": "#FFFFFF",
-            "MenuBackground": "#272930",
-            "MenuSelectedBackground": "#127D98",
-            "MenuScrollbarBackground": "#272930",
+            "MenuBackground": "#121215",
+            "MenuSelectedBackground": "#0027B8",
+            "MenuScrollbarBackground": "#121215",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#000000",
             "DocViewCodeBackground": "#353741",
             "AICOOverlayText": "#FFFFFF",
             "AICOOverlayButtonBackground": "#353741",
             "AICOOverlayButtonBackgroundHover": "#353741",
-            "AICOOverlayButtonBackgroundPressed": "#272930",
+            "AICOOverlayButtonBackgroundPressed": "#353741",
             "IndentationRuler": "#6A6F81",
-            "Type": "#39BDD8"
+            "Type": "#528BFF"
         }
     },
     "Colors": [
         {
             "MainBackground": {
-                "Default": "#272930"
+                "Default": "#121215"
             }
         },
         {
             "Titlebar": {
-                "Default": "#353741"
+                "Default": "#191A1F"
             }
         },
         {
             "Dropdown": {
-                "Default": "#272930"
+                "Default": "#121215"
             }
         },
         {
             "Tooltip": {
-                "Default": "#353741"
+                "Default": "#191A1F"
             }
         },
         {
             "Notification": {
-                "Default": "#272930"
+                "Default": "#121215"
             }
         },
         {
@@ -239,19 +239,19 @@
         },
         {
             "TabBar": {
-                "Default": "#272930"
+                "Default": "#121215"
             }
         },
         {
             "Tab": {
-                "Default": "#353741",
+                "Default": "#191A1F",
                 "Selected": "#202227",
                 "Hover": "#272930"
             }
         },
         {
             "FilterButtonDefault": {
-                "Default": "#272930"
+                "Default": "#121215"
             }
         },
         {
@@ -266,17 +266,17 @@
         },
         {
             "FilterButtonAccent": {
-                "Default": "#353741"
+                "Default": "#191A1F"
             }
         },
         {
             "FilterButtonBorder": {
-                "Default": "#272930"
+                "Default": "#121215"
             }
         },
         {
             "FilterButtonBorderAlt": {
-                "Default": "#353741"
+                "Default": "#191A1F"
             }
         },
         {
@@ -286,34 +286,34 @@
         },
         {
             "RibbonTab": {
-                "Default": "#353741",
-                "Selected": "#272930",
-                "Hover": "#272930"
+                "Default": "#191A1F",
+                "Selected": "#121215",
+                "Hover": "#121215"
             }
         },
         {
             "RibbonTabTopBar": {
-                "Default": "#39BDD8"
+                "Default": "#528BFF"
             }
         },
         {
             "Button": {
                 "Default": "#353741",
                 "Pressed": "#272930",
-                "Selected": "#16A9C7",
+                "Selected": "#335FFF",
                 "Hover": "#353741"
             }
         },
         {
             "MainButton": {
-                "Default": "#16A9C7",
-                "Pressed": "#0494B2",
-                "Hover": "#39BDD8"
+                "Default": "#335FFF",
+                "Pressed": "#002DD6",
+                "Hover": "#528BFF"
             }
         },
         {
             "RibbonButton": {
-                "Default": "#272930",
+                "Default": "#121215",
                 "Selected": "#191A1F",
                 "Pressed": "#191A1F",
                 "Hover": "#202227"
@@ -327,7 +327,7 @@
         {
             "InputFieldBackground": {
                 "Default": "#202227",
-                "Disabled": "#353741",
+                "Disabled": "#191A1F",
                 "Hover": "#353741"
             }
         },
@@ -335,14 +335,14 @@
             "InputFieldBorder": {
                 "Default": "#191A1F",
                 "Hover": "#353741",
-                "Selected": "#39BDD8",
+                "Selected": "#528BFF",
                 "Disabled": "#353741"
             }
         },
         {
             "CheckedFieldBackground": {
                 "Default": "#202227",
-                "Disabled": "#353741"
+                "Disabled": "#191A1F"
             }
         },
         {
@@ -354,27 +354,27 @@
         },
         {
             "CheckedFieldIndicator": {
-                "Default": "#39BDD8",
+                "Default": "#528BFF",
                 "Disabled": "#494D5A"
             }
         },
         {
             "Item": {
-                "Default": "#272930",
-                "Selected": "#127D98",
+                "Default": "#121215",
+                "Selected": "#0027B8",
                 "Hover": "#353741"
             }
         },
         {
             "TableItem": {
                 "Default": "#272930",
-                "Selected": "#127D98",
+                "Selected": "#0027B8",
                 "Hover": "#353741"
             }
         },
         {
             "CategoryItem": {
-                "Default": "#353741"
+                "Default": "#191A1F"
             }
         },
         {
@@ -386,36 +386,36 @@
         {
             "GameSettingsTableItem": {
                 "Default": "#272930",
-                "Selected": "#127D98",
+                "Selected": "#0027B8",
                 "Hover": "#353741"
             }
         },
         {
             "GameSettingsTooltip": {
-                "Default": "#353741"
+                "Default": "#191A1F"
             }
         },
         {
             "EmulatorBar": {
-                "Default": "#272930",
+                "Default": "#121215",
                 "Hover": "#202227"
             }
         },
         {
             "EmulatorDropDown": {
-                "Default": "#272930",
+                "Default": "#121215",
                 "Hover": "#353741"
             }
         },
         {
             "ColorPickerFrame": {
-                "Default": "#272930"
+                "Default": "#121215"
             }
         },
         {
             "CurrentMarker": {
                 "Default": "#353741",
-                "Selected": "#127D98"
+                "Selected": "#0027B8"
             }
         },
         {
@@ -487,7 +487,7 @@
         },
         {
             "LinkText": {
-                "Default": "#39BDD8"
+                "Default": "#528BFF"
             }
         },
         {
@@ -502,7 +502,7 @@
         },
         {
             "InfoText": {
-                "Default": "#7EE5F8"
+                "Default": "#8FB4FF"
             }
         },
         {
@@ -522,7 +522,7 @@
         },
         {
             "DiffFilePathBackground": {
-                "Default": "#353741"
+                "Default": "#191A1F"
             }
         },
         {
@@ -562,7 +562,7 @@
         },
         {
             "DiffTextAdditionBackground": {
-                "Default": "#272930"
+                "Default": "#353741"
             }
         },
         {
@@ -587,7 +587,7 @@
         },
         {
             "DiffLineNumSeparatorBackgroundHover": {
-                "Default": "#39BDD8"
+                "Default": "#528BFF"
             }
         },
         {
@@ -649,22 +649,22 @@
         },
         {
             "HeaderSection": {
-                "Default": "#353741",
+                "Default": "#191A1F",
                 "Hover": "#494D5A",
                 "Pressed": "#272930"
             }
         },
         {
             "StatusBar": {
-                "Default": "#272930"
+                "Default": "#121215"
             }
         },
         {
             "DialogButton": {
                 "Default": "#353741",
                 "Hover": "#353741",
-                "Selected": "#272930",
-                "Pressed": "#272930"
+                "Selected": "#353741",
+                "Pressed": "#353741"
             }
         },
         {
@@ -680,10 +680,10 @@
         },
         {
             "DialogMainButton": {
-                "Default": "#16A9C7",
-                "Hover": "#39BDD8",
-                "Selected": "#0494B2",
-                "Pressed": "#0494B2",
+                "Default": "#335FFF",
+                "Hover": "#528BFF",
+                "Selected": "#002DD6",
+                "Pressed": "#002DD6",
                 "Disabled": "#353741"
             }
         },
@@ -770,7 +770,7 @@
         },
         {
             "Action FocusBorder": {
-                "Default": "#0494B2"
+                "Default": "#335FFF"
             }
         },
         {
@@ -780,7 +780,7 @@
         },
         {
             "Action Selected": {
-                "Default": "#056C82"
+                "Default": "#002299"
             }
         },
         {
@@ -805,7 +805,7 @@
         },
         {
             "Foreground Contrast": {
-                "Default": "#353741"
+                "Default": "#202227"
             }
         },
         {
@@ -840,17 +840,17 @@
         },
         {
             "Primary Main": {
-                "Default": "#0494B2"
+                "Default": "#335FFF"
             }
         },
         {
             "Primary States HoverBackground": {
-                "Default": "#39BDD8"
+                "Default": "#528BFF"
             }
         },
         {
             "Secondary Contrast": {
-                "Default": "#BCBEC8"
+                "Default": "#6A6F81"
             }
         },
         {
@@ -865,7 +865,7 @@
         },
         {
             "Secondary States HoverBackground": {
-                "Default": "#BCBEC8"
+                "Default": "#6A6F81"
             }
         },
         {
@@ -885,7 +885,7 @@
         },
         {
             "Success Text": {
-                "Default": "#39C582"
+                "Default": "#1DB16A"
             }
         },
         {
@@ -910,12 +910,12 @@
         },
         {
             "Text Secondary": {
-                "Default": "#BCBEC8"
+                "Default": "#6A6F81"
             }
         },
         {
             "Text TextLink": {
-                "Default": "#39BDD8"
+                "Default": "#528BFF"
             }
         },
         {
@@ -945,7 +945,7 @@
         },
         {
             "AlertBackground Inform SubtleFill": {
-                "Default": "#02353F"
+                "Default": "#00145C"
             }
         },
         {
@@ -1386,7 +1386,7 @@
     ],
     "Package": {
         "ProgressBar": {
-            "default": "#39BDD8",
+            "default": "#528BFF",
             "background": "#202227",
             "status-text": "#BCBEC8",
             "status-error-text": "#E75750"
@@ -1398,7 +1398,7 @@
         "HoverWindowShadow": {
             "stop0": "#202227",
             "bottom-stop0": "#202227",
-            "stop1": "#272930"
+            "stop1": "#121215"
         },
         "ErrorText": {
             "color": "#F57630"
@@ -1414,7 +1414,7 @@
             "color": "#6A6F81"
         },
         "ImportButtonFrame": {
-            "background-color": "#272930"
+            "background-color": "#121215"
         },
         "ImportWidget": {
             "background-color": "#353741"
@@ -1430,7 +1430,7 @@
         },
         "ProgressBar": {
             "background-color": "#202227",
-            "color": "#16A9C7"
+            "color": "#335FFF"
         }
     },
     "Merge": {
@@ -1449,7 +1449,7 @@
     },
     "MeshSplitting": {
         "CancelButton": {
-            "background-color": "#272930"
+            "background-color": "#121215"
         },
         "CancelButtonHover": {
             "background-color": "#353741"
@@ -1458,7 +1458,7 @@
             "color": "#E75750"
         },
         "ProgressBar": {
-            "background-color": "#16A9C7"
+            "background-color": "#335FFF"
         },
         "ScrollBarHandle": {
             "background-color": "#BCBEC8"
@@ -1468,39 +1468,39 @@
         "overrideBackground": "#732800"
     },
     "CommonStyle": {
-        "mainBackground": "#353741",
+        "mainBackground": "#191A1F",
         "inputFieldBackground": "#202227",
         "currentItemMarker": "#353741",
-        "tooltip": "#353741",
+        "tooltip": "#191A1F",
         "tooltipBorder": "#202227",
         "tooltipText": "#BCBEC8",
         "mainText": "#BCBEC8",
         "mutedText": "#000000",
         "dimmedText": "#6A6F81",
-        "linkText": "#39BDD8",
+        "linkText": "#528BFF",
         "textRenderType": 0,
         "fontWeight": 50
     },
     "Ribbon": {
-        "background": "#272930",
-        "tabBar": "#353741",
-        "tab": "#353741",
-        "tab-selected": "#272930",
-        "tab-hover": "#272930",
-        "tab-topbar": "#39BDD8",
+        "background": "#121215",
+        "tabBar": "#191A1F",
+        "tab": "#191A1F",
+        "tab-selected": "#121215",
+        "tab-hover": "#121215",
+        "tab-topbar": "#528BFF",
         "tabText": "#BCBEC8",
         "tabText-selected": "#E6E7EA",
         "tabText-hover": "#E6E7EA",
-        "systemButton": "#353741",
-        "systemButton-hover": "#272930",
+        "systemButton": "#191A1F",
+        "systemButton-hover": "#121215",
         "button-selected": "#191A1F",
         "button-hover": "#202227",
-        "buttonBorder": "#353741",
+        "buttonBorder": "#191A1F",
         "accentText": "#BCBEC8",
         "disabledIconOpacity": 0.3
     },
     "InsertObjectWindow": {
-        "mainBackground": "#353741",
+        "mainBackground": "#191A1F",
         "scrollViewBackground": "#272930",
         "categoryText": "#6A6F81",
         "separator": "#202227",
@@ -1520,13 +1520,13 @@
         "topMargin": 0,
         "text": "#BCBEC8",
         "border": "#353741",
-        "opened": "#353741",
+        "opened": "#191A1F",
         "openedBorder": "#353741",
         "openedText": "#BCBEC8",
         "downArrowIcon": "qrc:/images/StartPage/ArrowDownIconWhite.png",
         "openedDownArrowIcon": "qrc:/images/StartPage/ArrowDownIconWhite.png",
         "Dropdown": {
-            "background": "#272930",
+            "background": "#121215",
             "frameVisible": false,
             "itemHover": "#353741",
             "shadow": "#40000000",
@@ -1555,14 +1555,14 @@
             "background-color": "#353741"
         },
         "Pressed": {
-            "background-color": "#272930"
+            "background-color": "#353741"
         },
         "Disabled": {
             "color": "#6A6F81"
         }
     },
     "Menu": {
-        "background": "#272930",
+        "background": "#121215",
         "itemHover": "#353741",
         "shadow": "#80000000",
         "shadowRadius": 12,
@@ -1574,7 +1574,7 @@
         "background": "#353741",
         "border": "#202227",
         "messageText": "#BCBEC8",
-        "actionText": "#39BDD8",
+        "actionText": "#528BFF",
         "shadow": {
             "background": "#80000000",
             "radius": 12,
@@ -1587,8 +1587,8 @@
     "StartPage": [
         {
             "Page": {
-                "background": "#272930",
-                "noGamesRect": "#272930",
+                "background": "#121215",
+                "noGamesRect": "#121215",
                 "messageText": "#6A6F81",
                 "dimmedText": "#6A6F81",
                 "labelText": "#BCBEC8",
@@ -1597,7 +1597,7 @@
         },
         {
             "HeaderTab": {
-                "selectedMarker": "#39BDD8",
+                "selectedMarker": "#528BFF",
                 "text": "#BCBEC8",
                 "hoverText": "#E6E7EA",
                 "shadow": "#4D191919",
@@ -1607,7 +1607,7 @@
         {
             "GameWidget": {
                 "background": "#272930",
-                "backgroundSelected": "#39BDD8",
+                "backgroundSelected": "#528BFF",
                 "border": "#202227",
                 "subText": "#6A6F81",
                 "messageText": "#6A6F81",
@@ -1629,7 +1629,7 @@
                 "selectedRow": "#353741",
                 "headerText": "#BCBEC8",
                 "headerTextSelected": "#FFFFFF",
-                "border": "#272930",
+                "border": "#121215",
                 "sortArrowAscending": "qrc:/images/StartPage/DarkTheme/SortArrowAscending.png",
                 "sortArrowDescending": "qrc:/images/StartPage/DarkTheme/SortArrowDescending.png",
                 "checkmarkIcon": "qrc:/images/StartPage/checkmark.png",
@@ -1639,7 +1639,7 @@
                 "cloudIcon": "qrc:/images/StartPage/DarkTheme/ListCloudIcon.png",
                 "gridIcon": "qrc:/images/StartPage/DarkTheme/GamesGridIcon.png",
                 "listIcon": "qrc:/images/StartPage/DarkTheme/GamesListIcon.png",
-                "toggleButton": "#272930",
+                "toggleButton": "#121215",
                 "toggleHover": "#353741"
             }
         },
@@ -1656,7 +1656,7 @@
                 "buttonText": "#BCBEC8",
                 "selectedButtonText": "#FFFFFF",
                 "buttonHover": "#353741",
-                "buttonSelected": "#127D98",
+                "buttonSelected": "#0027B8",
                 "border": "#202227",
                 "borderWidth": 1,
                 "buttonWidth": 88
@@ -1666,13 +1666,13 @@
             "ShareModal": {
                 "background": "#272930",
                 "blurBackground": "#000000",
-                "titleBarBackground": "#353741",
-                "grayBackground": "#272930",
+                "titleBarBackground": "#191A1F",
+                "grayBackground": "#121215",
                 "stripeBackground": "#191A1F",
                 "shareButtonBackground": "#353741",
                 "shareButtonBorderWidth": 0,
                 "imageDivider": "#BCBEC8",
-                "shareText": "#39BDD8",
+                "shareText": "#528BFF",
                 "subText": "#BCBEC8",
                 "messageText": "#BCBEC8",
                 "conversationMaskImage": "qrc:/images/StartPage/ProfileBorder_Dark.png",
@@ -1687,8 +1687,8 @@
         {
             "TeamCreatePresence": {
                 "background": "#202227",
-                "border": "#353741",
-                "avatarBackground": "#BCBEC8",
+                "border": "#202227",
+                "avatarBackground": "#6A6F81",
                 "indicator": "#1DB16A",
                 "text": "#E6E7EA",
                 "avatarPopup": "#272930"
@@ -1696,12 +1696,12 @@
         },
         {
             "LoginPage": {
-                "background": "#272930",
+                "background": "#121215",
                 "separator": "#6A6F81",
                 "statusText": "#FFFFFF",
                 "versionText": "#BCBEC8",
-                "loginButton": "#16A9C7",
-                "loginButtonHover": "#39BDD8"
+                "loginButton": "#335FFF",
+                "loginButtonHover": "#528BFF"
             }
         },
         {
@@ -1716,7 +1716,7 @@
         },
         {
             "TutorialBanner": {
-                "BannerBackground": "#353741",
+                "BannerBackground": "#191A1F",
                 "TextboxBackground": "#272930",
                 "TextColor": "#FFFFFF",
                 "OpenTutorialsButtonColor": "#EEEFF1"
@@ -1726,9 +1726,9 @@
     "Action": {
         "Activated": "#191A1F",
         "Enabled": "#E6E7EA",
-        "FocusBorder": "#0494B2",
+        "FocusBorder": "#335FFF",
         "Hover": "#494D5A",
-        "Selected": "#056C82"
+        "Selected": "#002299"
     },
     "Background": {
         "Default": "#121215",
@@ -1739,7 +1739,7 @@
         "Text": "#EB7973"
     },
     "Foreground": {
-        "Contrast": "#353741",
+        "Contrast": "#202227",
         "Inverse": "#F7F7F8",
         "Main": "#272930",
         "Muted": "#191A1F"
@@ -1749,32 +1749,32 @@
         "FilledInputBackground": "#202227"
     },
     "Primary": {
-        "Main": "#0494B2",
+        "Main": "#335FFF",
         "States": {
-            "HoverBackground": "#39BDD8"
+            "HoverBackground": "#528BFF"
         }
     },
     "Secondary": {
-        "Contrast": "#BCBEC8",
+        "Contrast": "#6A6F81",
         "Main": "#494D5A",
         "Muted": "#191A1F",
         "States": {
-            "HoverBackground": "#BCBEC8",
+            "HoverBackground": "#6A6F81",
             "HoverOutlineBorder": "#494D5A",
             "RestingOutlineBorder": "#121215"
         }
     },
     "Success": {
         "Main": "#1DB16A",
-        "Text": "#39C582"
+        "Text": "#1DB16A"
     },
     "Text": {
         "Contrast": "#FFFFFF",
         "Disabled": "#494D5A",
         "Inverse": "#191A1F",
         "Primary": "#E6E7EA",
-        "Secondary": "#BCBEC8",
-        "TextLink": "#39BDD8"
+        "Secondary": "#6A6F81",
+        "TextLink": "#528BFF"
     },
     "Warning": {
         "Main": "#F2BA2A",

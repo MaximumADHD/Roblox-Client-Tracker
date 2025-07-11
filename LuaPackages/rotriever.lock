@@ -50,7 +50,7 @@ dependencies = ["Number Number 1.2.3 registry"]
 
 [[package]]
 name = "BuilderIcons"
-version = "0.1.8"
+version = "0.1.9"
 source = "registry"
 
 [[package]]
@@ -90,14 +90,14 @@ dependencies = [
     "ApolloClient ApolloClient 0.3.10 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps 0.0.1 registry",
-    "BuilderIcons BuilderIcons 0.1.8 registry",
+    "BuilderIcons BuilderIcons 0.1.9 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 0.1.9 registry",
     "DataLoader DataLoader 0.2.0 registry",
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.32.0 registry",
+    "Foundation Foundation 1.33.1 registry",
     "FoundationImages FoundationImages 1.26.0 registry",
     "FoundationTestingLibrary FoundationTestingLibrary 0.1.1 registry",
     "GraphQL GraphQL 15.6.3 registry",
@@ -154,13 +154,14 @@ dependencies = [
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.2.0 registry",
     "Signal Signal 1.0.0 registry",
-    "Signals Signals 0.2.0 registry",
-    "SignalsReact SignalsReact 0.2.0 registry",
+    "Signals Signals 0.5.0 registry",
+    "SignalsExperimental SignalsExperimental 0.5.0 registry",
+    "SignalsReact SignalsReact 0.5.0 registry",
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.3.0 registry",
-    "UGCValidation UGCValidation 1.16.9 registry",
-    "UIBlox UIBlox 0.2.106 registry",
+    "UGCValidation UGCValidation 1.16.10 registry",
+    "UIBlox UIBlox 0.2.109 registry",
     "UrlBuilder UrlBuilder 1.2.12 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
@@ -304,10 +305,10 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.32.0"
+version = "1.33.1"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.8 registry",
+    "BuilderIcons BuilderIcons 0.1.9 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 1.1.0 registry",
     "FoundationImages FoundationImages 1.26.0 registry",
@@ -335,10 +336,10 @@ name = "FoundationTestingLibrary"
 version = "0.1.1"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.8 registry",
+    "BuilderIcons BuilderIcons 0.1.9 registry",
     "Cryo Cryo 1.1.0 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "Foundation Foundation 1.32.0 registry",
+    "Foundation Foundation 1.33.1 registry",
     "FoundationImages FoundationImages 1.26.0 registry",
     "JestGlobals JestGlobals 3.13.3 registry",
     "React React 17.2.0 registry",
@@ -405,7 +406,7 @@ dependencies = [
     "Roact RoactCompat 17.2.0 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.106 registry",
+    "UIBlox UIBlox 0.2.109 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -1732,16 +1733,23 @@ source = "registry"
 
 [[package]]
 name = "Signals"
-version = "0.2.0"
+version = "0.5.0"
 source = "registry"
 
 [[package]]
+name = "SignalsExperimental"
+version = "0.5.0"
+source = "registry"
+dependencies = ["Signals Signals 0.5.0 registry"]
+
+[[package]]
 name = "SignalsReact"
-version = "0.2.0"
+version = "0.5.0"
 source = "registry"
 dependencies = [
     "React React 17.2.0 registry",
-    "Signals Signals 0.2.0 registry",
+    "SafeFlags SafeFlags 0.1.1 registry",
+    "Signals Signals 0.5.0 registry",
 ]
 
 [[package]]
@@ -1764,7 +1772,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.106 registry",
+    "UIBlox UIBlox 0.2.109 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1852,7 +1860,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.16.9"
+version = "1.16.10"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1861,13 +1869,13 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.106"
+version = "0.2.109"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.8 registry",
+    "BuilderIcons BuilderIcons 0.1.9 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.32.0 registry",
+    "Foundation Foundation 1.33.1 registry",
     "FoundationImages FoundationImages 1.26.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",

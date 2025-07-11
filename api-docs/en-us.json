@@ -47130,7 +47130,7 @@
     "documentation": "An asset loaded from a file on disk."
   },
   "@roblox/globaltype/File.GetTemporaryId/return/0": {
-    "documentation": "The temporary asset id."
+    "documentation": "The temporary asset ID."
   },
   "@roblox/globaltype/File.GetTemporaryId": {
     "documentation": "Gets a <code>rbxtemp://</code> asset ID for this <code>File</code>.",
@@ -56387,7 +56387,7 @@
     "documentation": "A container object that holds a player's inventory. Any <code>Tool</code> in a player's Backpack will be displayed in their inventory at the bottom of their screen.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Backpack",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function giveTool(player, tool)\n\tlocal backpack = player:FindFirstChildOfClass(\"Backpack\")\n\tif backpack then\n\t\ttool.Parent = backpack\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tlocal tool = Instance.new(\"Tool\")\n\tgiveTool(player, tool)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n  local player = Players:GetPlayerFromCharacter(character)\n  local tool = Instance.new(\"Tool\")\n  local backpack = player:FindFirstChildOfClass(\"Backpack\")\n  tool.Parent = backpack\nend\n\nlocal function onPlayerAdded(player)\n  if player.Character then\n    onCharacterAdded(player.Character)\n  end\n  player.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/AssetService": {
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API.",
@@ -65203,7 +65203,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LocalizationService.SystemLocaleId": {
-    "documentation": "The locale id that the local player has set for their operating system.",
+    "documentation": "The locale ID that the local player has set for their operating system.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LocalizationService#SystemLocaleId",
     "code_sample": ""
   },
@@ -72243,7 +72243,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PackageLink.PackageId": {
-    "documentation": "The id of the asset this package corresponds to.",
+    "documentation": "The ID of the asset this package corresponds to.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PackageLink#PackageId",
     "code_sample": ""
   },
@@ -81045,7 +81045,7 @@
     "documentation": "A service to support developer Avatar Editors."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite/param/1": {
-    "documentation": "The id of the specified asset or bundle."
+    "documentation": "The ID of the specified asset or bundle."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite/param/2": {
     "documentation": "The <code>AvatarItemType</code> of the specified asset or bundle."
@@ -81204,13 +81204,13 @@
     "documentation": "The type of asset recommendations to retrieve recommendations for. Only affects the response when item based recommendations don't exist for the given <code>contextAssetId</code>."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets/param/2": {
-    "documentation": "The id of an asset with a type matching the provided assetType used for context when retrieving recommendations."
+    "documentation": "The ID of an asset with a type matching the provided assetType used for context when retrieving recommendations."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets/return/0": {
     "documentation": "A list of recommendations based on the given <code>AssetType</code>."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets": {
-    "documentation": "Returns a list of recommended assets based on a given <code>AssetType</code> and asset id.",
+    "documentation": "Returns a list of recommended assets based on a given <code>AssetType</code> and asset ID.",
     "params": [
       {
         "name": "self",
@@ -91347,7 +91347,7 @@
     "documentation": "A service that contains presently connected <code>Player</code> objects."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId/param/1": {
-    "documentation": "The id of the outfit for which the HumanoidDescription is sought."
+    "documentation": "The ID of the outfit for which the HumanoidDescription is sought."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId/return/0": {
     "documentation": "HumanoidDescription initialized with the specification for the passed in outfitId."
@@ -120794,7 +120794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/MouseBehavior.LockCenter": {
-    "documentation": "The mouse is locked, and cannot move from, the center of the user's screen.",
+    "documentation": "The mouse is locked and cannot move from the center of the user's screen.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120804,7 +120804,7 @@
     "code_sample": ""
   },
   "@roblox/enum/MouseBehavior.LockCurrentPosition": {
-    "documentation": "The mouse is locked, and cannot move from, it's current position on the user's screen at the time of locking.",
+    "documentation": "The mouse is locked and cannot move from its current position on the user's screen at the time of locking.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123687,7 +123687,7 @@
     "code_sample": ""
   },
   "@roblox/enum/MeshType.FileMesh": {
-    "documentation": "The mesh is determined by the Roblox mesh asset id provided.",
+    "documentation": "The mesh is determined by the Roblox mesh asset ID provided.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

@@ -2,8 +2,10 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
+#include <SAParams.h>
 uniform vec4 CB0[61];
 uniform vec4 CB1[216];
+uniform vec4 CB3[1];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
 attribute vec2 TEXCOORD0;
@@ -61,7 +63,7 @@ void main()
     v30.z = v27.z;
     vec4 v31 = v30;
     v31.w = 0.0;
-    float v32 = COLOR1.y * 0.50359976291656494140625;
+    float v32 = CB3[0].z * 0.50359976291656494140625;
     float v33 = clamp(v22, 0.0, 1.0);
     vec3 v34 = (CB0[15].xyz * v33) + (CB0[17].xyz * clamp(-v22, 0.0, 1.0));
     vec4 v35 = vec4(0.0);
@@ -71,7 +73,7 @@ void main()
     vec4 v37 = v36;
     v37.z = v34.z;
     vec4 v38 = v37;
-    v38.w = v33 * ((COLOR1.y * 0.055555999279022216796875) * exp2((v32 * dot(v18, normalize(v21 + normalize(v19)))) - v32));
+    v38.w = v33 * ((CB3[0].z * 0.055555999279022216796875) * exp2((v32 * dot(v18, normalize(v21 + normalize(v19)))) - v32));
     vec4 v39 = vec4(dot(CB0[25], v23), dot(CB0[26], v23), dot(CB0[27], v23), 0.0);
     v39.w = 0.0;
     gl_Position = v24;

@@ -483,6 +483,7 @@ function InitDataVars() {
     window.DumpUtcCaptureTime = undefined;
     window.AggregateInfo = undefined;
     window.PlatformInfo = undefined;
+    window.GeneralInfo = undefined;
     window.CategoryInfo = undefined;
     window.GroupInfo = undefined;
     window.TimerInfo = undefined;
@@ -854,6 +855,132 @@ function OverflowAllowance(threadIdx, frame) {
     return (ThreadGpu[threadIdx] ? frame.frameendgpu : frame.frameend) + FrameOverflowDetection;
 }
 
+/*
+
+"layout" is formatted as such...
+type InfoLayout = {
+    Name: string;
+    Contents: (
+        string |
+        {
+            [key: string]: (
+                string |
+                {
+                    Display: string;
+                    Link?: string;
+                    Style?: {
+                        [key: string]: string;
+                    };
+                }
+            );
+        }
+    )[];
+}[];
+
+*/
+function BuildInfoInnerHtml(div, layout) {
+    function createPair(key, value) {
+        const p = document.createElement("p");
+        p.style.margin = "0";
+        p.style.fontFamily = "monospace";
+
+        const keyText = document.createElement("span");
+        keyText.style.opacity = "0.5";
+        keyText.textContent = `${key} `;
+        p.appendChild(keyText);
+
+        const valueText = document.createElement("span");
+        valueText.style.opacity = "1";
+        valueText.style.fontWeight = "bold";
+
+        if (typeof value === "object" && value !== null) {
+            if ("Display" in value) {
+                if ("Link" in value && value.Link !== undefined) {
+                    const a = document.createElement("a");
+                    a.href = value.Link;
+                    a.textContent = value.Display;
+                    valueText.appendChild(a);
+                } else {
+                    valueText.textContent = value.Display;
+                }
+            } else {
+                valueText.textContent = String(value);
+            }
+
+            if ("Style" in value && typeof value.Style === "object" && value.Style !== null) {
+                for (const [styleKey, styleValue] of Object.entries(value.Style)) {
+                    valueText.style[styleKey] = styleValue;
+                }
+            }
+        } else {
+            valueText.textContent = value;
+        }
+
+        p.appendChild(valueText);
+        return p;
+    }
+
+    const categoryDivs = [];
+
+    layout.forEach((categoryObject, categoryIndex) => {
+        const pElementsForCategory = [];
+
+        const headerP = document.createElement("p");
+        headerP.classList.add("category-header");
+        headerP.style.fontWeight = "bold";
+        headerP.style.margin = "0 0 4px 0";
+        headerP.style.fontFamily = "monospace";
+        headerP.textContent = `${categoryObject.Name}`;
+        headerP.style.color = "#ccc";
+        pElementsForCategory.push(headerP);
+
+        categoryObject.Contents.forEach(item => {
+            if (typeof item === "string") {
+                const value = window.PlatformInfo[item] || window[item];
+                if (value !== null && value !== undefined) {
+                    pElementsForCategory.push(createPair(item, value));
+                }
+            } else if (typeof item === "object" && item !== null) {
+                for (const key in item) {
+                    if (Object.prototype.hasOwnProperty.call(item, key)) {
+                        const value = item[key];
+                        if (value !== null && value !== undefined) {
+                            pElementsForCategory.push(createPair(key, value));
+                        }
+                    }
+                }
+            }
+        });
+
+        if (pElementsForCategory.length === 1) {
+            return;
+        }
+
+        const categoryDiv = document.createElement("div");
+
+        pElementsForCategory.forEach((p, index) => {
+            categoryDiv.appendChild(p);
+        });
+
+        categoryDivs.push(categoryDiv);
+    });
+
+    for (let i = 0; i < categoryDivs.length; i++) {
+        const categoryDiv = categoryDivs[i];
+
+        div.appendChild(categoryDiv);
+
+        if (i < categoryDivs.length - 1) {
+            const hr = document.createElement("hr");
+            hr.style.border = "0.5px solid #888";
+            hr.style.margin = "8px 0";
+            div.appendChild(hr);
+        }
+    }
+
+    div.style.padding = "8px";
+}
+
 function InitFrameInfo() {
     AggregateInfo.EmptyFrames = Array(Frames.length);
     emptyFrames = 0;
@@ -911,7 +1038,48 @@ function InitFrameInfo() {
         return (Frames.length - AggregateInfo.EmptyFrameCount);
     }
     var div = document.getElementById('infowindow');
-    div.innerHTML = PlatformInfo;
+    if (window.EnabledFastFlags.includes("MicroProfilerPlatformInfoJson"))
+    {
+        try {
+            window.PlatformInfo = JSON.parse(window.PlatformInfo);
+        } catch (e) {
+            console.warn("Failed to parse PlatformInfo.", e);
+        }
+
+        BuildInfoInnerHtml(div, [
+            {
+                "Name": "General",
+                "Contents": [
+                    {
+                        "PlaceId": {
+                            "Display": window.GeneralInfo.PlaceId,
+                            "Link": `https://www.roblox.com/games/${window.GeneralInfo.PlaceId}/`
+                        }
+                    }
+                ]
+            },
+            {
+                "Name": "Build",
+                "Contents": ["Build", "Version", "Configuration", "Platform"]
+            },
+            {
+                "Name": "System",
+                "Contents": ["DeviceName", "OS", "CpuMake", "CoreCount", "SystemMemoryMB", "GpuMake", "DeviceManufacturer"],
+            },
+            {
+                "Name": "GPU",
+                "Contents": ["GpuName", "GpuDriver", "FeatureLevel", "ShadingLanguage", "VideoMemoryMB"],
+            },
+            {
+                "Name": "Miscellaneous",
+                "Contents": ["Technology", "DisplaySize", "DrawSize", "ScreenDpiScale", "QualityLevel"]
+            }
+        ]);
+    }
+    else
+    {
+        div.innerHTML = PlatformInfo;
+    }
 }
 function InitGroups() {
     for (groupid in GroupInfo) {
@@ -1484,7 +1652,8 @@ function ExportSummaryJSON() {
     if (debugPrint) {
         console.log(PlatformInfo);
     }
-    resultingJson["platform_info"] = String(PlatformInfo);
+    resultingJson["platform_info"] = PlatformInfo;
+    resultingJson["general_info"] = GeneralInfo;
 
     const downloadContent = JSON.stringify(resultingJson);
     SaveExportResult(downloadContent);

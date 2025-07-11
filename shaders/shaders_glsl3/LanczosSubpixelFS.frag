@@ -36,11 +36,14 @@ void main()
                     f10 = 0.0;
                     break;
                 }
+                else
+                {
+                    float f11 = 3.1415927410125732421875 * f8;
+                    vec2 f12 = sin(vec2(f11, f8 * 1.0471975803375244140625));
+                    f10 = ((3.0 * f12.x) * f12.y) / (f11 * f11);
+                    break;
+                }
             }
-            float f11 = 3.1415927410125732421875 * f8;
-            vec2 f12 = sin(vec2(f11, f8 * 1.0471975803375244140625));
-            f10 = ((3.0 * f12.x) * f12.y) / (f11 * f11);
-            break;
         } while(false);
         float f13;
         do
@@ -57,11 +60,14 @@ void main()
                     f13 = 0.0;
                     break;
                 }
+                else
+                {
+                    float f14 = 3.1415927410125732421875 * f9;
+                    vec2 f15 = sin(vec2(f14, f9 * 1.0471975803375244140625));
+                    f13 = ((3.0 * f15.x) * f15.y) / (f14 * f14);
+                    break;
+                }
             }
-            float f14 = 3.1415927410125732421875 * f9;
-            vec2 f15 = sin(vec2(f14, f9 * 1.0471975803375244140625));
-            f13 = ((3.0 * f15.x) * f15.y) / (f14 * f14);
-            break;
         } while(false);
         float f16 = f10 + f13;
         f5 = f4 + (texture(Texture0Texture, min(((f7 + (CB1[2].xy * ((-0.5) + (f13 / f16)))) * f1) * CB1[1].xy, CB1[12].xy)) * f16);

@@ -66,11 +66,14 @@ void main()
                                 f22 = 0.0;
                                 break;
                             }
+                            else
+                            {
+                                float f23 = 3.1415927410125732421875 * f21;
+                                vec2 f24 = sin(vec2(f23, f21 * 1.0471975803375244140625));
+                                f22 = ((3.0 * f24.x) * f24.y) / (f23 * f23);
+                                break;
+                            }
                         }
-                        float f23 = 3.1415927410125732421875 * f21;
-                        vec2 f24 = sin(vec2(f23, f21 * 1.0471975803375244140625));
-                        f22 = ((3.0 * f24.x) * f24.y) / (f23 * f23);
-                        break;
                     } while(false);
                     float f25 = f20.y;
                     float f26;
@@ -88,11 +91,14 @@ void main()
                                 f26 = 0.0;
                                 break;
                             }
+                            else
+                            {
+                                float f27 = 3.1415927410125732421875 * f25;
+                                vec2 f28 = sin(vec2(f27, f25 * 1.0471975803375244140625));
+                                f26 = ((3.0 * f28.x) * f28.y) / (f27 * f27);
+                                break;
+                            }
                         }
-                        float f27 = 3.1415927410125732421875 * f25;
-                        vec2 f28 = sin(vec2(f27, f25 * 1.0471975803375244140625));
-                        f26 = ((3.0 * f28.x) * f28.y) / (f27 * f27);
-                        break;
                     } while(false);
                     float f29 = f22 * f26;
                     vec3 f30 = texture(Texture0Texture, min((f19 * f1) * CB1[1].xy, CB1[12].xy)).xyz;
