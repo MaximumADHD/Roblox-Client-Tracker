@@ -1,229 +1,265 @@
 PROTO_0:
-  DUPTABLE R0 K17 [{"bodyScaleSetting", "bodyScaleCustomHeightSetMinMax", "bodyScaleCustomHeight", "bodyAppearanceSetting", "bodyAppearanceCustomPartsFace", "bodyAppearanceCustomPartsHead", "bodyAppearanceCustomPartsTorso", "bodyAppearanceCustomPartsLeftArm", "bodyAppearanceCustomPartsRightArm", "bodyAppearanceCustomPartsLeftLeg", "bodyAppearanceCustomPartsRightLeg", "bodyBuildSetting", "bodyBuildCustomHeight", "bodyBuildCustomWidth", "bodyBuildCustomHead", "bodyBuildCustomBodyType", "bodyBuildCustomProportions"}]
+  DUPTABLE R0 K20 [{"bodyScaleSetting", "bodyScaleCustomHeightSetMinMax", "bodyScaleCustomHeight", "bodyAppearanceSetting", "bodyAppearanceCustomPartsFace", "bodyAppearanceCustomPartsHead", "bodyAppearanceCustomPartsMood", "bodyAppearanceCustomPartsEyebrow", "bodyAppearanceCustomPartsEyelash", "bodyAppearanceCustomPartsTorso", "bodyAppearanceCustomPartsLeftArm", "bodyAppearanceCustomPartsRightArm", "bodyAppearanceCustomPartsLeftLeg", "bodyAppearanceCustomPartsRightLeg", "bodyBuildSetting", "bodyBuildCustomHeight", "bodyBuildCustomWidth", "bodyBuildCustomHead", "bodyBuildCustomBodyType", "bodyBuildCustomProportions"}]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K22 [Enum.AvatarSettingsScaleMode.PlayerChoice]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K25 [Enum.AvatarSettingsScaleMode.PlayerChoice]
   CALL R1 1 1
   SETTABLEKS R1 R0 K0 ["bodyScaleSetting"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
   LOADB R2 0
   CALL R1 1 1
   SETTABLEKS R1 R0 K1 ["bodyScaleCustomHeightSetMinMax"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 6
   LOADN R4 6
   CALL R2 2 -1
   CALL R1 -1 1
   SETTABLEKS R1 R0 K2 ["bodyScaleCustomHeight"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K27 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K30 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
   CALL R1 1 1
   SETTABLEKS R1 R0 K3 ["bodyAppearanceSetting"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K28 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
   SETTABLEKS R1 R0 K4 ["bodyAppearanceCustomPartsFace"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K28 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
   SETTABLEKS R1 R0 K5 ["bodyAppearanceCustomPartsHead"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K28 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K6 ["bodyAppearanceCustomPartsTorso"]
+  SETTABLEKS R1 R0 K6 ["bodyAppearanceCustomPartsMood"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K28 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K7 ["bodyAppearanceCustomPartsLeftArm"]
+  SETTABLEKS R1 R0 K7 ["bodyAppearanceCustomPartsEyebrow"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K28 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K8 ["bodyAppearanceCustomPartsRightArm"]
+  SETTABLEKS R1 R0 K8 ["bodyAppearanceCustomPartsEyelash"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K28 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K9 ["bodyAppearanceCustomPartsLeftLeg"]
+  SETTABLEKS R1 R0 K9 ["bodyAppearanceCustomPartsTorso"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K28 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K10 ["bodyAppearanceCustomPartsRightLeg"]
+  SETTABLEKS R1 R0 K10 ["bodyAppearanceCustomPartsLeftArm"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K30 [Enum.AvatarSettingsBuildMode.PlayerChoice]
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
+  LOADB R2 0
+  LOADN R3 0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K11 ["bodyAppearanceCustomPartsRightArm"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
+  LOADB R2 0
+  LOADN R3 0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K12 ["bodyAppearanceCustomPartsLeftLeg"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K31 ["mockUseAssetIdSetting"]
+  LOADB R2 0
+  LOADN R3 0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K13 ["bodyAppearanceCustomPartsRightLeg"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K33 [Enum.AvatarSettingsBuildMode.PlayerChoice]
   CALL R1 1 1
-  SETTABLEKS R1 R0 K11 ["bodyBuildSetting"]
+  SETTABLEKS R1 R0 K14 ["bodyBuildSetting"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 90
   LOADN R4 100
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K12 ["bodyBuildCustomHeight"]
+  SETTABLEKS R1 R0 K15 ["bodyBuildCustomHeight"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 90
   LOADN R4 100
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K13 ["bodyBuildCustomWidth"]
+  SETTABLEKS R1 R0 K16 ["bodyBuildCustomWidth"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 90
   LOADN R4 100
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K14 ["bodyBuildCustomHead"]
+  SETTABLEKS R1 R0 K17 ["bodyBuildCustomHead"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 90
   LOADN R4 100
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K15 ["bodyBuildCustomBodyType"]
+  SETTABLEKS R1 R0 K18 ["bodyBuildCustomBodyType"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 90
   LOADN R4 100
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K16 ["bodyBuildCustomProportions"]
+  SETTABLEKS R1 R0 K19 ["bodyBuildCustomProportions"]
   RETURN R0 1
 
 PROTO_1:
-  DUPTABLE R0 K17 [{"bodyScaleSetting", "bodyScaleCustomHeightSetMinMax", "bodyScaleCustomHeight", "bodyAppearanceSetting", "bodyAppearanceCustomPartsFace", "bodyAppearanceCustomPartsHead", "bodyAppearanceCustomPartsTorso", "bodyAppearanceCustomPartsLeftArm", "bodyAppearanceCustomPartsRightArm", "bodyAppearanceCustomPartsLeftLeg", "bodyAppearanceCustomPartsRightLeg", "bodyBuildSetting", "bodyBuildCustomHeight", "bodyBuildCustomWidth", "bodyBuildCustomHead", "bodyBuildCustomBodyType", "bodyBuildCustomProportions"}]
+  DUPTABLE R0 K20 [{"bodyScaleSetting", "bodyScaleCustomHeightSetMinMax", "bodyScaleCustomHeight", "bodyAppearanceSetting", "bodyAppearanceCustomPartsFace", "bodyAppearanceCustomPartsHead", "bodyAppearanceCustomPartsMood", "bodyAppearanceCustomPartsEyebrow", "bodyAppearanceCustomPartsEyelash", "bodyAppearanceCustomPartsTorso", "bodyAppearanceCustomPartsLeftArm", "bodyAppearanceCustomPartsRightArm", "bodyAppearanceCustomPartsLeftLeg", "bodyAppearanceCustomPartsRightLeg", "bodyBuildSetting", "bodyBuildCustomHeight", "bodyBuildCustomWidth", "bodyBuildCustomHead", "bodyBuildCustomBodyType", "bodyBuildCustomProportions"}]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K22 [Enum.AvatarSettingsScaleMode.CustomScale]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K25 [Enum.AvatarSettingsScaleMode.CustomScale]
   CALL R1 1 1
   SETTABLEKS R1 R0 K0 ["bodyScaleSetting"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
   LOADB R2 1
   CALL R1 1 1
   SETTABLEKS R1 R0 K1 ["bodyScaleCustomHeightSetMinMax"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 2
   LOADN R4 5
   CALL R2 2 -1
   CALL R1 -1 1
   SETTABLEKS R1 R0 K2 ["bodyScaleCustomHeight"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K28 [Enum.AvatarSettingsAppearanceMode.CustomParts]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K31 [Enum.AvatarSettingsAppearanceMode.CustomParts]
   CALL R1 1 1
   SETTABLEKS R1 R0 K3 ["bodyAppearanceSetting"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K29 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
   LOADB R2 1
   LOADN R3 12
   CALL R1 2 1
   SETTABLEKS R1 R0 K4 ["bodyAppearanceCustomPartsFace"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K29 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
   LOADB R2 1
   LOADN R3 12
   CALL R1 2 1
   SETTABLEKS R1 R0 K5 ["bodyAppearanceCustomPartsHead"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K29 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
   LOADB R2 1
   LOADN R3 12
   CALL R1 2 1
-  SETTABLEKS R1 R0 K6 ["bodyAppearanceCustomPartsTorso"]
+  SETTABLEKS R1 R0 K6 ["bodyAppearanceCustomPartsMood"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K29 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
   LOADB R2 1
   LOADN R3 12
   CALL R1 2 1
-  SETTABLEKS R1 R0 K7 ["bodyAppearanceCustomPartsLeftArm"]
+  SETTABLEKS R1 R0 K7 ["bodyAppearanceCustomPartsEyebrow"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K29 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
   LOADB R2 1
   LOADN R3 12
   CALL R1 2 1
-  SETTABLEKS R1 R0 K8 ["bodyAppearanceCustomPartsRightArm"]
+  SETTABLEKS R1 R0 K8 ["bodyAppearanceCustomPartsEyelash"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K29 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
   LOADB R2 1
   LOADN R3 12
   CALL R1 2 1
-  SETTABLEKS R1 R0 K9 ["bodyAppearanceCustomPartsLeftLeg"]
+  SETTABLEKS R1 R0 K9 ["bodyAppearanceCustomPartsTorso"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K29 ["mockUseAssetIdSetting"]
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
   LOADB R2 1
   LOADN R3 12
   CALL R1 2 1
-  SETTABLEKS R1 R0 K10 ["bodyAppearanceCustomPartsRightLeg"]
+  SETTABLEKS R1 R0 K10 ["bodyAppearanceCustomPartsLeftArm"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K32 [Enum.AvatarSettingsBuildMode.CustomBuild]
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
+  LOADB R2 1
+  LOADN R3 12
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K11 ["bodyAppearanceCustomPartsRightArm"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
+  LOADB R2 1
+  LOADN R3 12
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K12 ["bodyAppearanceCustomPartsLeftLeg"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K32 ["mockUseAssetIdSetting"]
+  LOADB R2 1
+  LOADN R3 12
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K13 ["bodyAppearanceCustomPartsRightLeg"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K35 [Enum.AvatarSettingsBuildMode.CustomBuild]
   CALL R1 1 1
-  SETTABLEKS R1 R0 K11 ["bodyBuildSetting"]
+  SETTABLEKS R1 R0 K14 ["bodyBuildSetting"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 20
   LOADN R4 70
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K12 ["bodyBuildCustomHeight"]
+  SETTABLEKS R1 R0 K15 ["bodyBuildCustomHeight"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 20
   LOADN R4 70
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K13 ["bodyBuildCustomWidth"]
+  SETTABLEKS R1 R0 K16 ["bodyBuildCustomWidth"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 20
   LOADN R4 70
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K14 ["bodyBuildCustomHead"]
+  SETTABLEKS R1 R0 K17 ["bodyBuildCustomHead"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 20
   LOADN R4 70
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K15 ["bodyBuildCustomBodyType"]
+  SETTABLEKS R1 R0 K18 ["bodyBuildCustomBodyType"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K18 ["mockUseSetting"]
-  GETIMPORT R2 K25 [NumberRange.new]
+  GETTABLEKS R1 R2 K21 ["mockUseSetting"]
+  GETIMPORT R2 K28 [NumberRange.new]
   LOADN R3 20
   LOADN R4 70
   CALL R2 2 -1
   CALL R1 -1 1
-  SETTABLEKS R1 R0 K16 ["bodyBuildCustomProportions"]
+  SETTABLEKS R1 R0 K19 ["bodyBuildCustomProportions"]
   RETURN R0 1
 
 MAIN:

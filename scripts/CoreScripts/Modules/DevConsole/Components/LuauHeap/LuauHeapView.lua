@@ -177,7 +177,7 @@ function LuauHeapView:renderChildren()
 	return Roact.createElement(LuauHeapViewEntry, {
 		layoutOrder = 0,
 		depth = 0,
-		data = data.Graph,
+		data = if data then data.Graph else nil,
 		compare = if compare then compare.Graph else nil,
 	})
 end

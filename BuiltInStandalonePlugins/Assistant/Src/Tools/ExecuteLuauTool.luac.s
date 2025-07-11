@@ -1,50 +1,152 @@
 PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["stopCode"]
+  GETTABLEKS R3 R1 K1 ["id"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIFEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["contentId"]
+  JUMPIFNOT R0 [+15]
+  LOADB R0 1
+  SETUPVAL R0 2
+  GETUPVAL R0 3
+  LOADK R2 K1 ["ExecuteLuauTool_codeRunStatus"]
+  LOADNIL R3
+  DUPTABLE R4 K4 [{"id", "status"}]
+  GETUPVAL R5 4
+  SETTABLEKS R5 R4 K2 ["id"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K3 ["status"]
+  NAMECALL R0 R0 K5 ["FireGuest"]
+  CALL R0 4 0
+  RETURN R0 0
+
+PROTO_2:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["runCode"]
   GETUPVAL R1 1
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_1:
-  GETTABLEKS R2 R1 K0 ["code"]
-  GETUPVAL R3 0
-  LOADB R5 0
-  NAMECALL R3 R3 K1 ["GenerateGUID"]
-  CALL R3 2 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["startRecording"]
-  MOVE R5 R3
-  CALL R4 1 0
+PROTO_3:
+  GETUPVAL R2 0
+  LOADB R4 0
+  NAMECALL R2 R2 K0 ["GenerateGUID"]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["startRecording"]
+  MOVE R4 R2
+  CALL R3 1 0
+  GETTABLEKS R3 R1 K2 ["id"]
+  JUMPIFNOT R3 [+16]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K3 ["loadCode"]
-  MOVE R5 R2
+  GETTABLEKS R4 R5 K3 ["isRunning"]
+  MOVE R5 R3
   CALL R4 1 1
-  GETIMPORT R5 K5 [pcall]
-  NEWCLOSURE R6 P0
-  CAPTURE UPVAL U2
-  CAPTURE VAL R4
-  CALL R5 1 2
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K6 ["endRecording"]
+  JUMPIFNOT R4 [+10]
+  GETIMPORT R4 K5 [error]
+  LOADK R6 K6 ["Code is already running with id: "]
+  FASTCALL1 TOSTRING R3 [+3]
   MOVE R8 R3
-  CALL R7 1 0
-  JUMPIFNOT R5 [+6]
-  FASTCALL1 TOSTRING R6 [+3]
-  MOVE R8 R6
   GETIMPORT R7 K8 [tostring]
   CALL R7 1 1
-  RETURN R7 1
-  GETIMPORT R7 K10 [error]
-  MOVE R8 R6
-  CALL R7 1 0
-  RETURN R0 0
+  CONCAT R5 R6 R7
+  CALL R4 1 0
+  GETTABLEKS R4 R1 K9 ["code"]
+  JUMPIF R3 [+23]
+  JUMPIFNOT R4 [+22]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K10 ["loadCode"]
+  MOVE R6 R4
+  CALL R5 1 1
+  MOVE R3 R5
+  GETTABLEKS R6 R1 K11 ["contentId"]
+  JUMPIFNOT R6 [+13]
+  GETUPVAL R6 3
+  LOADK R8 K12 ["ExecuteLuauTool_bindCodeId"]
+  LOADNIL R9
+  DUPTABLE R10 K14 [{"contentId", "newCodeId"}]
+  GETTABLEKS R11 R1 K11 ["contentId"]
+  SETTABLEKS R11 R10 K11 ["contentId"]
+  SETTABLEKS R3 R10 K13 ["newCodeId"]
+  NAMECALL R6 R6 K15 ["FireGuest"]
+  CALL R6 4 0
+  FASTCALL2K ASSERT R3 K16 [+5]
+  MOVE R6 R3
+  LOADK R7 K16 ["No loadedId provided or created"]
+  GETIMPORT R5 K18 [assert]
+  CALL R5 2 0
+  LOADNIL R5
+  LOADNIL R6
+  LOADB R7 0
+  GETIMPORT R8 K21 [task.delay]
+  LOADK R9 K22 [0.1]
+  NEWCLOSURE R10 P0
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  CAPTURE REF R7
+  CAPTURE UPVAL U3
+  CAPTURE REF R3
+  CALL R8 2 0
+  GETIMPORT R8 K24 [pcall]
+  NEWCLOSURE R9 P1
+  CAPTURE UPVAL U2
+  CAPTURE REF R3
+  CALL R8 1 2
+  MOVE R5 R8
+  MOVE R6 R9
+  JUMPIFNOT R7 [+12]
+  GETUPVAL R8 3
+  LOADK R10 K25 ["ExecuteLuauTool_codeRunStatus"]
+  LOADNIL R11
+  DUPTABLE R12 K27 [{"id", "status"}]
+  SETTABLEKS R3 R12 K2 ["id"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K26 ["status"]
+  NAMECALL R8 R8 K15 ["FireGuest"]
+  CALL R8 4 0
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K28 ["endRecording"]
+  MOVE R9 R2
+  CALL R8 1 0
+  DUPTABLE R8 K32 [{"success", "result", "loadedId"}]
+  SETTABLEKS R5 R8 K29 ["success"]
+  SETTABLEKS R6 R8 K30 ["result"]
+  SETTABLEKS R3 R8 K31 ["loadedId"]
+  CLOSEUPVALS R3
+  RETURN R8 1
 
-PROTO_2:
+PROTO_4:
   GETUPVAL R1 0
   LOADNIL R2
   MOVE R3 R0
-  CALL R1 2 -1
-  RETURN R1 -1
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K0 ["success"]
+  JUMPIFNOT R2 [+22]
+  GETTABLEKS R3 R1 K1 ["result"]
+  FASTCALL1 TYPE R3 [+2]
+  GETIMPORT R2 K3 [type]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K4 ["table"] [+8]
+  GETUPVAL R2 1
+  GETTABLEKS R4 R1 K1 ["result"]
+  NAMECALL R2 R2 K5 ["JSONEncode"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETTABLEKS R3 R1 K1 ["result"]
+  FASTCALL1 TOSTRING R3 [+2]
+  GETIMPORT R2 K7 [tostring]
+  CALL R2 1 1
+  RETURN R2 1
+  GETIMPORT R2 K9 [error]
+  GETTABLEKS R3 R1 K1 ["result"]
+  CALL R2 1 0
+  RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
@@ -60,51 +162,58 @@ MAIN:
   GETTABLEKS R4 R0 K10 ["Packages"]
   GETTABLEKS R3 R4 K11 ["AssistantUI"]
   CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["ModelContextProtocol"]
+  CALL R3 1 1
   GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K12 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Util"]
-  GETTABLEKS R5 R6 K14 ["Networking"]
+  GETTABLEKS R7 R0 K13 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Util"]
+  GETTABLEKS R5 R6 K15 ["StudioNetworking"]
   CALL R4 1 1
-  GETTABLEKS R3 R4 K15 ["get"]
-  CALL R3 0 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R0 K10 ["Packages"]
-  GETTABLEKS R5 R6 K16 ["ModelContextProtocol"]
-  CALL R4 1 1
-  GETTABLEKS R6 R4 K13 ["Util"]
-  GETTABLEKS R5 R6 K17 ["ToolBuilder"]
-  GETTABLEKS R7 R2 K18 ["Utils"]
-  GETTABLEKS R6 R7 K19 ["Tools"]
-  GETTABLEKS R8 R2 K18 ["Utils"]
-  GETTABLEKS R7 R8 K20 ["CommandExecution"]
-  LOADK R10 K21 ["ExecuteLuauTool_doLoadstring"]
-  DUPCLOSURE R11 K22 [PROTO_1]
-  CAPTURE VAL R1
+  GETTABLEKS R6 R2 K16 ["Utils"]
+  GETTABLEKS R5 R6 K17 ["Tools"]
+  GETTABLEKS R7 R2 K16 ["Utils"]
+  GETTABLEKS R6 R7 K18 ["CommandExecution"]
+  GETTABLEKS R8 R3 K14 ["Util"]
+  GETTABLEKS R7 R8 K19 ["ToolBuilder"]
+  GETTABLEKS R8 R4 K20 ["get"]
+  CALL R8 0 1
+  LOADK R11 K21 ["ExecuteLuauTool_stopCode"]
+  DUPCLOSURE R12 K22 [PROTO_0]
   CAPTURE VAL R6
-  CAPTURE VAL R7
-  NAMECALL R8 R3 K23 ["OnEditableDMInvoke"]
-  CALL R8 3 1
-  DUPCLOSURE R9 K24 [PROTO_2]
+  NAMECALL R9 R8 K23 ["OnHostEvent"]
+  CALL R9 3 0
+  LOADK R11 K24 ["ExecuteLuauTool_doLoadstring"]
+  DUPCLOSURE R12 K25 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R6
   CAPTURE VAL R8
-  GETTABLEKS R10 R5 K25 ["define"]
-  CALL R10 0 1
-  LOADK R12 K26 ["execute_luau"]
-  NAMECALL R10 R10 K27 ["setName"]
-  CALL R10 2 1
-  LOADK R12 K28 ["Executes Luau code in Roblox Studio. Returns the result of the executed code or an error message if the code fails to execute."]
-  NAMECALL R10 R10 K29 ["setDescription"]
-  CALL R10 2 1
-  LOADK R12 K30 ["code"]
-  DUPTABLE R13 K33 [{"type", "description"}]
-  LOADK R14 K34 ["string"]
-  SETTABLEKS R14 R13 K31 ["type"]
-  LOADK R14 K35 ["The Luau code to execute"]
-  SETTABLEKS R14 R13 K32 ["description"]
-  NAMECALL R10 R10 K36 ["addArgument"]
-  CALL R10 3 1
-  MOVE R12 R9
-  NAMECALL R10 R10 K37 ["setHandler"]
-  CALL R10 2 1
-  NAMECALL R10 R10 K38 ["build"]
-  CALL R10 1 -1
-  RETURN R10 -1
+  NAMECALL R9 R8 K26 ["OnHostInvokeAsync"]
+  CALL R9 3 1
+  DUPCLOSURE R10 K27 [PROTO_4]
+  CAPTURE VAL R9
+  CAPTURE VAL R1
+  GETTABLEKS R11 R7 K28 ["define"]
+  CALL R11 0 1
+  LOADK R13 K29 ["execute_luau"]
+  NAMECALL R11 R11 K30 ["setName"]
+  CALL R11 2 1
+  LOADK R13 K31 ["Executes Luau code in Roblox Studio. Returns the result of the executed code or an error message if the code fails to execute."]
+  NAMECALL R11 R11 K32 ["setDescription"]
+  CALL R11 2 1
+  LOADK R13 K33 ["code"]
+  DUPTABLE R14 K36 [{"type", "description"}]
+  LOADK R15 K37 ["string"]
+  SETTABLEKS R15 R14 K34 ["type"]
+  LOADK R15 K38 ["The Luau code to execute"]
+  SETTABLEKS R15 R14 K35 ["description"]
+  NAMECALL R11 R11 K39 ["addArgument"]
+  CALL R11 3 1
+  MOVE R13 R10
+  NAMECALL R11 R11 K40 ["setHandler"]
+  CALL R11 2 1
+  NAMECALL R11 R11 K41 ["build"]
+  CALL R11 1 -1
+  RETURN R11 -1

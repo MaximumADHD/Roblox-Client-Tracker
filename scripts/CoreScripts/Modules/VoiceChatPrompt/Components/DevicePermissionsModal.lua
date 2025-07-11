@@ -4,6 +4,7 @@ local TextService = game:GetService("TextService")
 local React = require(CorePackages.Packages.React)
 local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
+local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Button = UIBlox.App.Button.Button
@@ -15,6 +16,9 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 
 local getMicDeeplinkDirections = require(script.Parent.Parent.Helpers.getMicDeeplinkDirections)
 local getPrimingText = require(script.Parent.Parent.Helpers.getPrimingText)
+
+local VoiceChatFlags = VoiceChat.Flags
+local GetFFlagSupportGamepadNavInVoiceModals = VoiceChatFlags.GetFFlagSupportGamepadNavInVoiceModals
 
 -- Constants
 local OVERLAY_WIDTH = 365
@@ -58,7 +62,7 @@ local validateProps = ArgCheck.wrap(t.strictInterface({
 	UserInputService = t.table,
 }))
 
-local function DevicePermissionsModal(props: Props)
+local function DevicePermissionsModal(props: Props, ref: React.Ref<GuiObject>?)
 	assert(validateProps(props))
 
 	local infoText = getMicDeeplinkDirections(props.settingsAppAvailable, props.UserInputService)
@@ -119,6 +123,9 @@ local function DevicePermissionsModal(props: Props)
 		paddingMultiplier = 5.5
 	end
 
+	local selectionBehavior = if GetFFlagSupportGamepadNavInVoiceModals() then Enum.SelectionBehavior.Stop else nil
+	local isSelectable = if GetFFlagSupportGamepadNavInVoiceModals() then true else nil
+
 	return React.createElement("ScreenGui", {
 		DisplayOrder = 8,
 		IgnoreGuiInset = true,
@@ -157,6 +164,16 @@ local function DevicePermissionsModal(props: Props)
 			),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			SliceCenter = Assets.Images.RoundedRect.SliceCenter,
+			-- Define a restricted SelectionGroup to only allow navigating between the
+			-- VoiceChatConsentModal's buttons
+			SelectionBehaviorDown = selectionBehavior,
+			SelectionBehaviorLeft = selectionBehavior,
+			SelectionBehaviorRight = selectionBehavior,
+			SelectionBehaviorUp = selectionBehavior,
+			SelectionGroup = isSelectable,
+			-- Pass down a ref from VoiceChatPromptFrame so that VoiceChatPromptFrame can auto-select a button
+			-- and support gamepad navigation within this modal
+			ref = if GetFFlagSupportGamepadNavInVoiceModals() then ref else nil,
 		}, {
 			Padding = React.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, SMALLER_PADDING),
@@ -298,6 +315,7 @@ local function DevicePermissionsModal(props: Props)
 						size = UDim2.new(0.5, -5, 0, BUTTON_CONTAINER_SIZE),
 						text = notNow,
 						onActivated = props.handleSecondaryActivated,
+						Selectable = isSelectable,
 					})
 					else nil,
 				ConfirmButton = React.createElement(Button, {
@@ -306,10 +324,15 @@ local function DevicePermissionsModal(props: Props)
 					size = UDim2.new(if props.settingsAppAvailable then 0.5 else 1, -5, 0, BUTTON_CONTAINER_SIZE),
 					text = if props.settingsAppAvailable then openSettings else ok,
 					onActivated = props.handlePrimaryActivated,
+					Selectable = isSelectable,
 				}),
 			}),
 		}),
 	})
 end
 
-return DevicePermissionsModal :: DevicePermissionsModalType
+if GetFFlagSupportGamepadNavInVoiceModals() then
+	return React.forwardRef(DevicePermissionsModal) :: any
+else
+	return DevicePermissionsModal :: DevicePermissionsModalType
+end

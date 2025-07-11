@@ -16,13 +16,18 @@ PROTO_1:
   RETURN R2 1
 
 PROTO_2:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnablePlaceVersionHistory"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
+  GETIMPORT R1 K1 [pcall]
+  LOADK R3 K2 ["EnablePlaceVersionHistory"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R3
+  CALL R1 1 2
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  JUMP [+1]
+  MOVE R0 R2
   JUMPIFNOT R0 [+21]
-  GETIMPORT R1 K5 [pcall]
-  LOADK R3 K6 ["PlaceSessionContextBridgeComponent"]
+  GETIMPORT R1 K1 [pcall]
+  LOADK R3 K3 ["PlaceSessionContextBridgeComponent"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R3
   CALL R1 1 2
@@ -31,8 +36,8 @@ PROTO_2:
   JUMP [+1]
   MOVE R0 R2
   JUMPIFNOT R0 [+10]
-  GETIMPORT R1 K5 [pcall]
-  LOADK R3 K7 ["StudioPlaceOpenerPlaceVersion"]
+  GETIMPORT R1 K1 [pcall]
+  LOADK R3 K4 ["StudioPlaceOpenerPlaceVersion"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R3
   CALL R1 1 2

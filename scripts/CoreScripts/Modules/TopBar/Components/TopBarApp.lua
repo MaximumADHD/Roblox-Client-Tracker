@@ -35,7 +35,6 @@ local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
 local ChatIcon = require(Presentation.ChatIcon)
-local ConnectIcon = require(Presentation.ConnectIcon)
 local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
@@ -47,7 +46,6 @@ local BadgeOver13 = require(Presentation.BadgeOver13)
 local Chrome = script.Parent.Parent.Parent.Chrome
 
 local ChromeEnabled = require(Chrome.Enabled)
-local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
@@ -120,7 +118,6 @@ local FFlagControlBetaBadgeWithGuac = game:DefineFastFlag("ControlBetaBadgeWithG
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
-local GetFFlagEnablePartyIconInNonChrome = SharedFlags.GetFFlagEnablePartyIconInNonChrome
 
 local PartyMicBinder = require(script.Parent.Parent.Parent.Chrome.Integrations.Party.PartyMicBinder)
 
@@ -824,16 +821,6 @@ function TopBarApp:renderWithStyle(style)
 						layoutOrder = 1,
 						showBadgeOver12 = self.props.showBadgeOver12,
 					}),
-
-					ConnectIcon = not chromeEnabled
-							and GetFFlagEnablePartyIconInNonChrome()
-							and GetShouldShowPlatformChatBasedOnPolicy()
-							and Roact.createElement(ConnectIcon, {
-								setKeepOutArea = self.props.setKeepOutArea,
-								removeKeepOutArea = self.props.removeKeepOutArea,
-								layoutOrder = 2,
-							})
-						or nil,
 
 					ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 						layoutOrder = 3,

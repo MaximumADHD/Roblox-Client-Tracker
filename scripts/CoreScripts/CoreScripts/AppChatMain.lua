@@ -44,7 +44,6 @@ local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
 	require(RobloxGui.Modules.Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
 local TopBarTopMargin = require(RobloxGui.Modules.TopBar.Constants).TopBarTopMargin
 local getFFlagAppChatMoveApolloProvider = AppChat.Flags.getFFlagAppChatMoveApolloProvider
-local FFlagUpdateSquadInDefaultAppChatContainer = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUpdateSquadInDefaultAppChatContainer
 
 local folder = Instance.new("Folder")
 folder.Name = "AppChat"
@@ -59,68 +58,36 @@ local focusNavigationService = if FFlagEnableAppChatFocusableFixes
 	then ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
 	else nil
 
-local shouldUseIndependentAppChatContainer = if FFlagUpdateSquadInDefaultAppChatContainer
-	then InExperienceAppChatExperimentation.default:shouldUseIndependentAppChatContainer()
-	else InExperienceAppChatExperimentation.default.getShowPlatformChatInChrome()
-local updateAppChatUnreadMessagesCount = SettingsHub.Instance.PlayersPage.UpdateAppChatUnreadMessagesCount
+InExperienceAppChatModal.default:initialize(TopBarTopMargin, SettingsHub, ViewportUtil, ChatSelector, PlayerListManager)
+
+local updateAppChatUnreadMessagesCount = function(newCount)
+	InExperienceAppChatModal:setUnreadCount(newCount)
+end
+
 local parentContainerContext: AppChat.ParentContainerContextType = {
 	getParentContainer = function()
-		return SettingsHub.Instance.MenuContainer
+		return InExperienceAppChatModal.default.frame
 	end,
-	visibilitySignal = SettingsHub.CurrentPageSignal,
-	getShouldSetAppChatVisible = function(newPage: string)
-		return newPage == "AppChatPage"
+	visibilitySignal = InExperienceAppChatModal.default.visibilitySignal.Event,
+	getShouldSetAppChatVisible = function(...)
+		return InExperienceAppChatModal:getVisible()
 	end,
 	-- todo: ROACTCHAT-1352 consolidate with UA entry point logic
-	entryPoint = ChatEntryPointNames.SettingsHub,
+	entryPoint = if InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeUnibarEntryPoint
+		then ChatEntryPointNames.ChromeUnibar
+		else ChatEntryPointNames.ChromeDropdown,
 	hideParentContainer = function()
-		if SettingsHub:GetVisibility() then
-			SettingsHub.Instance:PopMenu(false, true)
-		end
+		InExperienceAppChatModal.default:setVisible(false)
 	end,
 	showParentContainer = function()
-		SettingsHub.Instance:SetVisibility(true, false)
-		SettingsHub:SwitchToPage(SettingsHub.Instance.AppChatPage)
+		InExperienceAppChatModal.default:setVisible(true)
 	end,
 	updateCurrentSquadId = function(squadId)
-		if FFlagUpdateSquadInDefaultAppChatContainer and SquadExperimentation.getSquadEntrypointsEnabled() then
-			SettingsHub.Instance.AppChatPage.SetCurrentSquadId(squadId)
+		if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() and SquadExperimentation.getSquadEntrypointsEnabled() then
+			InExperienceAppChatModal:setCurrentSquadId(squadId)
 		end
 	end,
 }
-
-if shouldUseIndependentAppChatContainer then
-	InExperienceAppChatModal.default:initialize(TopBarTopMargin, SettingsHub, ViewportUtil, ChatSelector, PlayerListManager)
-
-	updateAppChatUnreadMessagesCount = function(newCount)
-		InExperienceAppChatModal:setUnreadCount(newCount)
-	end
-
-	parentContainerContext = {
-		getParentContainer = function()
-			return InExperienceAppChatModal.default.frame
-		end,
-		visibilitySignal = InExperienceAppChatModal.default.visibilitySignal.Event,
-		getShouldSetAppChatVisible = function(...)
-			return InExperienceAppChatModal:getVisible()
-		end,
-		-- todo: ROACTCHAT-1352 consolidate with UA entry point logic
-		entryPoint = if InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeUnibarEntryPoint
-			then ChatEntryPointNames.ChromeUnibar
-			else ChatEntryPointNames.ChromeDropdown,
-		hideParentContainer = function()
-			InExperienceAppChatModal.default:setVisible(false)
-		end,
-		showParentContainer = function()
-			InExperienceAppChatModal.default:setVisible(true)
-		end,
-		updateCurrentSquadId = function(squadId)
-			if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() and SquadExperimentation.getSquadEntrypointsEnabled() then
-				InExperienceAppChatModal:setCurrentSquadId(squadId)
-			end
-		end,
-	}
-end
 
 local function AppChatMainWithFocusRoot()
 	local customEventHandlers = {

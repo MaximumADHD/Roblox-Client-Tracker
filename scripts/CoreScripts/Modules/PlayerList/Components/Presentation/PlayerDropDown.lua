@@ -10,6 +10,7 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -38,6 +39,7 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
@@ -269,8 +271,12 @@ function PlayerDropDown:didMount()
 end
 
 function PlayerDropDown:willUpdate(nextProps, nextState)
-	if nextProps.selectedPlayer ~= self.props.selectedPlayer then
+	if FFlagUseNewPlayerList then
 		self.dropDownPosition = nextProps.positionY
+	else
+		if nextProps.selectedPlayer ~= self.props.selectedPlayer then
+			self.dropDownPosition = nextProps.positionY
+		end
 	end
 end
 

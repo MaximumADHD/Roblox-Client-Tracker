@@ -1,52 +1,99 @@
 local CorePackages = game:GetService("CorePackages")
+
 local PlayerList = script.Parent.Parent.Parent
 
 local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
-local Cryo = require(CorePackages.Packages.Cryo)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local Signals = require(CorePackages.Packages.Signals)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
-type LeaderboardStore = LeaderboardStore.LeaderboardStore
 
-local createSignalMap = LeaderboardStore.createSignalMap
 local useLeaderboardStore = PlayerListPackage.Hooks.useLeaderboardStore
 
 local PlayerEntryView = require(PlayerList.Components.PresentationCommon.PlayerEntryView)
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
-type SignalMap<K, V> = LeaderboardStore.SignalMap<K, V>
+type PlayerEntryViewProps = PlayerEntryView.PlayerEntryViewProps
+
+type LeaderboardStore = LeaderboardStore.LeaderboardStore
 type PlayerEntry = LeaderboardStore.PlayerEntry
+type TeamEntry = LeaderboardStore.TeamEntry
+type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
+type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
+type GameStatList = LeaderboardStore.GameStatList
+type StatList = LeaderboardStore.StatList
 
-local function PlayerEntryContainer(props)
-	local leaderboardStore: LeaderboardStore? = useLeaderboardStore() :: any?
-	local gameStats = if leaderboardStore then leaderboardStore.getGameStatsList() else createSignalMap()
+type PlayerEntryContainerProps = {
+	-- Layout options
+	size: UDim2?,
+	entrySizeX: number,
+	layoutOrder: number?,
+	
+	-- Store data
+	player: Player,
+	titlePlayerEntry: boolean,
+	teamData: TeamEntry?,
+	playerIconInfo: PlayerIconInfoProps,
+	playerRelationship: PlayerRelationshipProps,
+	
+	-- Dropdown data
+	dropdownOpen: boolean?,
+	selectedPlayer: Player?,
+	firstPlayerRef: React.Ref<GuiObject?>?,
+	openDropdown: ((Player) -> ())?,
+	closeDropdown: (() -> ())?,
+	setDropDownPlayerDimensionY: ((vec2: Vector2) -> ())?,
+	
+	-- Device type
+	isSmallTouchDevice: boolean?,
+	isDirectionalPreferred: boolean?,
+}
 
-	local playerEntry: PlayerEntry? = if leaderboardStore then leaderboardStore.getPlayerEntry(props.player, false :: any) else nil
-	local playerStats = if playerEntry then playerEntry.stats else createSignalMap()
+local function PlayerEntryContainer(props: PlayerEntryContainerProps)
+	local leaderboardStore: LeaderboardStore = useLeaderboardStore() :: LeaderboardStore
 
-	local mergedProps = Cryo.Dictionary.join(props, 
-		{
-			playerStats = playerStats,
-			gameStats = gameStats,
-			gameStatNames = Cryo.None,
+	local gameStats: GameStatList = leaderboardStore.getGameStatsList()
+	local playerData: PlayerEntry? = leaderboardStore.getPlayerEntry(props.player, false :: any)
 
-			selectedPlayer = props.selectedPlayer,
-			dropdownOpen = props.dropdownOpen,
-			isSmallTouchDevice = props.isSmallTouchDevice,
-			isDirectionalPreferred = props.isDirectionalPreferred,
-			closeDropdown = props.closeDropdown,
-			openDropdown = props.openDropdown,
-		}
-	)
+	local gameStatsCount = SignalsReact.useSignalState(gameStats.getCount)
 
-	return React.createElement(PlayerEntryView, mergedProps)
+	local teamPlayersCount = Signals.createComputed(function(scope)
+		return if props.teamData then props.teamData.players.getCount(scope) else 1
+	end)
+
+	return if playerData 
+		then React.createElement(PlayerEntryView, {
+				playerData = playerData,
+				gameStats = gameStats,
+				gameStatsCount = gameStatsCount,
+				
+				size = props.size,
+				entrySizeX = props.entrySizeX,
+				layoutOrder = props.layoutOrder,
+				player = props.player,
+				titlePlayerEntry = props.titlePlayerEntry,
+				teamPlayersCount = teamPlayersCount,
+				playerIconInfo = props.playerIconInfo,
+				playerRelationship = props.playerRelationship,
+				dropdownOpen = props.dropdownOpen,
+				selectedPlayer = props.selectedPlayer,
+				firstPlayerRef = props.firstPlayerRef,
+				openDropdown = props.openDropdown,
+				closeDropdown = props.closeDropdown,
+				setDropDownPlayerDimensionY = props.setDropDownPlayerDimensionY,
+				isSmallTouchDevice = props.isSmallTouchDevice,
+				isDirectionalPreferred = props.isDirectionalPreferred,
+			})
+		else nil
 end
 
 local function mapStateToProps(state)
 	return {
 		selectedPlayer = state.playerDropDown.selectedPlayer,
 		dropdownOpen = state.playerDropDown.isVisible,
+
 		isSmallTouchDevice = state.displayOptions.isSmallTouchDevice,
 		isDirectionalPreferred = state.displayOptions.isTenFootInterface,
 	}
@@ -63,15 +110,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-PlayerEntryContainer = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerEntryContainer)
-
-local ForwardRefPlayerEntryContainer = React.forwardRef(function(props, ref)
-	return React.createElement(
-		PlayerEntryContainer,
-		Cryo.Dictionary.join(props, {
-			forwardRef = ref,
-		})
-	)
-end)
-
-return React.memo(ForwardRefPlayerEntryContainer)
+return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerEntryContainer))

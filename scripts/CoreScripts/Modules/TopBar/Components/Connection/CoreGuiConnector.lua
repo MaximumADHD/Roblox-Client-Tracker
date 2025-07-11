@@ -17,7 +17,6 @@ local UpdateCoreGuiEnabled = require(TopBar.Actions.UpdateCoreGuiEnabled)
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
-local FFlagMountCoreGuiHealthBar = require(TopBar.Flags.FFlagMountCoreGuiHealthBar)
 
 local CoreGuiConnector = Roact.PureComponent:extend("CoreGuiConnector")
 
@@ -30,25 +29,13 @@ function CoreGuiConnector:didMount()
 	local initalCoreGuiTypes = Enum.CoreGuiType:GetEnumItems()
 	for _, coreGuiType in ipairs(initalCoreGuiTypes) do
 		if FFlagMountCoreGuiBackpack then
-			if FFlagMountCoreGuiHealthBar then
-				if coreGuiType ~= Enum.CoreGuiType.All and coreGuiType ~= Enum.CoreGuiType.Health and coreGuiType ~= Enum.CoreGuiType.Backpack then
-					self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
-				end
-			else
 				if coreGuiType ~= Enum.CoreGuiType.All and coreGuiType ~= Enum.CoreGuiType.Backpack then
 					self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
 				end
-			end
 		else
-			if FFlagMountCoreGuiHealthBar then
-				if coreGuiType ~= Enum.CoreGuiType.All and coreGuiType ~= Enum.CoreGuiType.Health then
-					self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
-				end
-			else
 				if coreGuiType ~= Enum.CoreGuiType.All then
 					self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
 				end
-			end
 		end
 	end
 end
@@ -59,23 +46,11 @@ function CoreGuiConnector:render()
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = function(coreGuiType, enabled)
 				if FFlagMountCoreGuiBackpack then
-					if FFlagMountCoreGuiHealthBar then
-						if coreGuiType ~= Enum.CoreGuiType.Health and coreGuiType ~= Enum.CoreGuiType.Backpack then
-							self.props.updateCoreGuiEnabled(coreGuiType, enabled)
-						end
-					else
 						if coreGuiType ~= Enum.CoreGuiType.Backpack then
 							self.props.updateCoreGuiEnabled(coreGuiType, enabled)
 						end
-					end
 				else
-					if FFlagMountCoreGuiHealthBar then
-						if coreGuiType ~= Enum.CoreGuiType.Health then
-							self.props.updateCoreGuiEnabled(coreGuiType, enabled)
-						end
-					else
 						self.props.updateCoreGuiEnabled(coreGuiType, enabled)
-					end
 				end
 			end,
 		}),

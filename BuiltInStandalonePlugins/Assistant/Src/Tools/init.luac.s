@@ -1,49 +1,75 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R0 R3 K0 ["Builtin"]
+  LOADNIL R1
+  LOADNIL R2
+  FORGPREP R0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["addTool"]
+  MOVE R6 R4
+  CALL R5 1 0
+  FORGLOOP R0 2 [-6]
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [require]
-  GETIMPORT R2 K3 [script]
-  GETTABLEKS R1 R2 K4 ["ExecuteLuauTool"]
-  CALL R0 1 1
-  GETIMPORT R1 K1 [require]
-  GETIMPORT R3 K3 [script]
-  GETTABLEKS R2 R3 K5 ["MarketplaceInsertionTool"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Assistant"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K6 ["ExecuteLuauTool"]
   CALL R1 1 1
-  GETIMPORT R2 K1 [require]
-  GETIMPORT R4 K3 [script]
-  GETTABLEKS R3 R4 K6 ["MaterialGenTool"]
+  GETIMPORT R2 K5 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K7 ["MarketplaceInsertionTool"]
   CALL R2 1 1
-  GETIMPORT R3 K1 [require]
-  GETIMPORT R5 K3 [script]
-  GETTABLEKS R4 R5 K7 ["MeshGenTool"]
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K8 ["MaterialGenTool"]
   CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETIMPORT R6 K3 [script]
-  GETTABLEKS R5 R6 K8 ["SwapAssetTool"]
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K9 ["MeshGenTool"]
   CALL R4 1 1
-  GETIMPORT R5 K3 [script]
-  LOADK R7 K9 ["Assistant"]
-  NAMECALL R5 R5 K10 ["FindFirstAncestor"]
-  CALL R5 2 1
-  GETIMPORT R6 K1 [require]
-  GETTABLEKS R8 R5 K11 ["Packages"]
-  GETTABLEKS R7 R8 K12 ["ModelContextProtocol"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["ModelContextProtocol"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K12 ["ScriptInsertionTool"]
   CALL R6 1 1
-  GETTABLEKS R7 R6 K13 ["ToolRegistry"]
-  DUPTABLE R8 K15 [{"Builtin"}]
-  NEWTABLE R9 0 5
-  MOVE R10 R1
-  MOVE R11 R4
-  MOVE R12 R3
-  MOVE R13 R2
-  MOVE R14 R0
-  SETLIST R9 R10 5 [1]
-  SETTABLEKS R9 R8 K14 ["Builtin"]
-  GETTABLEKS R9 R8 K14 ["Builtin"]
-  LOADNIL R10
-  LOADNIL R11
-  FORGPREP R9
-  GETTABLEKS R14 R7 K16 ["addTool"]
-  MOVE R15 R13
-  CALL R14 1 0
-  FORGLOOP R9 2 [-5]
-  RETURN R8 1
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K13 ["SwapAssetTool"]
+  CALL R7 1 1
+  GETTABLEKS R8 R5 K14 ["ToolRegistry"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K15 ["Src"]
+  GETTABLEKS R12 R13 K16 ["Flags"]
+  GETTABLEKS R11 R12 K17 ["FFlagEnableScriptInsertionTool"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K18 ["Get"]
+  DUPTABLE R10 K20 [{"Builtin"}]
+  NEWTABLE R11 0 6
+  MOVE R12 R2
+  MOVE R13 R7
+  MOVE R14 R4
+  MOVE R15 R3
+  MOVE R16 R1
+  MOVE R18 R9
+  CALL R18 0 1
+  JUMPIFNOT R18 [+2]
+  MOVE R17 R6
+  JUMPIF R17 [+1]
+  LOADNIL R17
+  SETLIST R11 R12 6 [1]
+  SETTABLEKS R11 R10 K19 ["Builtin"]
+  DUPCLOSURE R11 K21 [PROTO_0]
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  DUPTABLE R12 K23 [{"registerBuiltinTools"}]
+  SETTABLEKS R11 R12 K22 ["registerBuiltinTools"]
+  RETURN R12 1

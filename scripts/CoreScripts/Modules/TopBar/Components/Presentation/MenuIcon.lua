@@ -118,8 +118,6 @@ local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 local BADGE_INDENT = 1
 local BADGE_OFFSET = 4
 
-local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
-
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	setGamepadMenuOpen = t.callback,
@@ -140,7 +138,7 @@ function MenuIcon:init()
 		enableFlashingDot = false,
 	})
 
-	if GetFFlagVoiceRecordingIndicatorsEnabled() and not ChromeEnabled() then
+	if not ChromeEnabled() then
 		-- We spawn a new coroutine so that this doesn't block the UI from loading.
 		task.spawn(function()
 			self:setState({

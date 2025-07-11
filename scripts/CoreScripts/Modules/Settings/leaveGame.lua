@@ -12,6 +12,10 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 
 -------------- Flags ----------------------------------------------------------
+local SettingsFlags = require(script.Parent.Flags)
+local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
@@ -39,10 +43,16 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
     end
     GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
 
+	local playsessionid = ""
+	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		playsessionid = AnalyticsService:GetPlaySessionId()
+	end
+
 	local customTelemetryFields = {
 		confirmed = Constants.AnalyticsConfirmedName,
 		universeid = tostring(game.GameId),
-		source = Constants.AnalyticsLeaveGameSource
+		source = Constants.AnalyticsLeaveGameSource,
+		playsessionid = if FFlagIEMSettingsAddPlaySessionID then playsessionid else nil,
 	}
 	if FFlagLeaveActionChromeShortcutTelemetry and props and props.telemetryFields then
 		customTelemetryFields = Cryo.Dictionary.join(customTelemetryFields, props.telemetryFields)

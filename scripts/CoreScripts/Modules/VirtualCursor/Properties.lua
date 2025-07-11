@@ -6,6 +6,7 @@ local properties = {
 
 	CursorRadius = 40,                  -- pixel radius for cursor display
 	SelectionRadius = 40,               -- pixel radius for selection (for pointer support, might want to keep radius, but make it smaller)
+	OcclusionRadiusScale = 0.7,			-- scale of radius for occlusion checking, smaller means occlusion is more generous -> harder to accidentally click outside of an occluder
 
 	MaxSpeedRelative = 0.7,             -- viewport radii/s
 	ThumbstickDeadzone = 0.20,          -- 20% of thumbstick is deadzone

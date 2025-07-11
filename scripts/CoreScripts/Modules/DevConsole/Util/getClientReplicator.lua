@@ -1,7 +1,5 @@
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
-local GetFFlagClientReplicatorCheck = require(RobloxGui.Modules.Flags.GetFFlagGetClientReplicatorCheck)
-
 local clientReplicator
 local function getClientReplicator()
 	if clientReplicator == nil then
@@ -11,11 +9,7 @@ local function getClientReplicator()
 		end
 	end
 	
-	if GetFFlagClientReplicatorCheck() then
-		return if clientReplicator and clientReplicator:IsDescendantOf(game) then clientReplicator else nil
-	end
-	
-	return clientReplicator
+	return if clientReplicator and clientReplicator:IsDescendantOf(game) then clientReplicator else nil
 end
 
 return getClientReplicator

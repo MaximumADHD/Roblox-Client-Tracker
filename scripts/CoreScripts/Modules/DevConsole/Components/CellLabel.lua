@@ -6,7 +6,6 @@ local TEXT_SIZE = Constants.DefaultFontSize.MainWindow
 local TEXT_COLOR = Constants.Color.Text
 local MAIN_FONT = Constants.Font.MainWindow
 local MAIN_FONT_BOLD = Constants.Font.MainWindowBold
-local FFlagAddTextWrapToCellLabel = require(script.Parent.Parent.Parent.Flags.FFlagAddTextWrapToCellLabel)
 
 export type Props = {
 	text: string,
@@ -34,7 +33,7 @@ local function CellLabel(props: Props)
 		TextSize = TEXT_SIZE,
 		TextColor3 = TEXT_COLOR,
 		TextXAlignment = Enum.TextXAlignment.Left,
-		TextWrapped = (if FFlagAddTextWrapToCellLabel then textWrapped else true),
+		TextWrapped = textWrapped,
 		TextTruncate = textTruncate,
 		Font = bold and MAIN_FONT_BOLD or MAIN_FONT,
 

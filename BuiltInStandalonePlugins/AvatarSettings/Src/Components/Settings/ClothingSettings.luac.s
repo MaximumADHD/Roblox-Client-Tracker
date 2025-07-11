@@ -13,32 +13,42 @@ PROTO_0:
   CALL R2 2 0
   GETUPVAL R2 2
   CALL R2 0 1
-  GETUPVAL R3 3
-  GETUPVAL R4 4
-  NEWTABLE R5 1 0
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K5 ["Tag"]
-  LOADK R7 K6 ["AvatarSettings-SettingsPage X-Column"]
-  SETTABLE R7 R5 R6
-  DUPTABLE R6 K9 [{"ClothingScaleSection", "CustomClothingSection"}]
-  GETUPVAL R7 3
-  GETUPVAL R8 5
-  DUPTABLE R9 K11 [{"layoutOrder"}]
-  MOVE R10 R2
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K10 ["layoutOrder"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K7 ["ClothingScaleSection"]
-  GETUPVAL R7 3
-  GETUPVAL R8 6
-  DUPTABLE R9 K11 [{"layoutOrder"}]
-  MOVE R10 R2
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K10 ["layoutOrder"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K8 ["CustomClothingSection"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  GETTABLEKS R7 R1 K1 ["settings"]
+  GETTABLEKS R6 R7 K5 ["navigationBarSettings"]
+  GETTABLEKS R5 R6 K6 ["avatarType"]
+  GETTABLEKS R4 R5 K7 ["value"]
+  GETIMPORT R5 K11 [Enum.GameAvatarType.R6]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETUPVAL R4 3
+  GETUPVAL R5 4
+  NEWTABLE R6 1 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K12 ["Tag"]
+  LOADK R8 K13 ["AvatarSettings-SettingsPage X-Column"]
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K16 [{"ClothingScaleSection", "CustomClothingSection"}]
+  NOT R8 R3
+  JUMPIFNOT R8 [+8]
+  GETUPVAL R8 3
+  GETUPVAL R9 5
+  DUPTABLE R10 K18 [{"layoutOrder"}]
+  MOVE R11 R2
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K17 ["layoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["ClothingScaleSection"]
+  GETUPVAL R8 3
+  GETUPVAL R9 6
+  DUPTABLE R10 K18 [{"layoutOrder"}]
+  MOVE R11 R2
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K17 ["layoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["CustomClothingSection"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0

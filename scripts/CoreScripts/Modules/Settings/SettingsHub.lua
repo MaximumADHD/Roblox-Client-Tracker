@@ -76,6 +76,9 @@ local CHECK_LEAVE_GAME_UPSELL_COOLDOWN = game:DefineFastInt("CheckLeaveGameUpsel
 local GET_SERVER_CHANNEL_RETRIES = game:DefineFastInt("GetServerChannelRetries", 10)
 
 -- [[ FAST FLAGS ]]
+local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
+local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
@@ -92,13 +95,11 @@ local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
 local GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
 local FFlagAvatarChatCoreScriptSupport = SharedFlags.GetFFlagAvatarChatCoreScriptSupport()
-local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = SharedFlags.GetFStringGameInviteMenuLayer
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
-local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableConnectDisconnectButtonAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectButtonAnalytics)
 local GetFFlagEnableShowVoiceUI = SharedFlags.GetFFlagEnableShowVoiceUI
@@ -228,13 +229,10 @@ local SettingsUtility = if GetFFlagPackagifySettingsShowSignal() then require(Co
 
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 
-local SPRING_PARAMS = {}
-if GetFFlagVoiceRecordingIndicatorsEnabled() then
-	SPRING_PARAMS = {
-		frequency = 4,
-		dampingRatio = 1,
-	}
-end
+local SPRING_PARAMS = {
+	frequency = 4,
+	dampingRatio = 1,
+}
 
 export type ExperienceControlStore = {
 	-- Data
@@ -254,11 +252,8 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
-local RobloxTranslator = nil
-if shouldTryLocalizeVersionLabels or GetFFlagVoiceRecordingIndicatorsEnabled() then
-	RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
-end
 local function tryTranslate(key, defaultString)
 	if not RobloxTranslator then
 		return defaultString
@@ -375,10 +370,8 @@ local function CreateSettingsHub()
 		this.uiLessStore = CoreGuiCommonStores.GetUILessStore(false)
 	end
 
-	if GetFFlagVoiceRecordingIndicatorsEnabled() then
-		this.isMuted = nil
-		this.lastVoiceRecordingIndicatorTextUpdated = nil
-	end
+	this.isMuted = nil
+	this.lastVoiceRecordingIndicatorTextUpdated = nil
 
 	--[[
 		Keep the status of whether the user has enabled Self View or not. This is used
@@ -394,6 +387,11 @@ local function CreateSettingsHub()
 		this.selfViewVisibilitySignal = selfViewVisibilityUpdatedSignal:connect(function()
 			this.selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
 		end)
+	end
+
+	this.playSessionId = ""
+	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then 
+		this.playSessionId = AnalyticsService:GetPlaySessionId()
 	end
 
 	local pageChangeCon = nil
@@ -791,11 +789,9 @@ local function CreateSettingsHub()
 						RunService:UnbindFromRenderStep(renderStepName)
 					end
 
-					if GetFFlagVoiceRecordingIndicatorsEnabled() then
-						if isOpen then
-							this.lastVoiceRecordingIndicatorTextUpdated = tick()
-							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-						end
+					if isOpen then
+						this.lastVoiceRecordingIndicatorTextUpdated = tick()
+						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
 					end
 				end)
 			end
@@ -828,19 +824,17 @@ local function CreateSettingsHub()
 			if GetFFlagEnableShowVoiceUI() then
 				local function showUI()
 					voiceEnabled = true
-					if GetFFlagVoiceRecordingIndicatorsEnabled() then
-						this.VoiceRecordingText.Visible = true
-						local VCS = VoiceChatServiceManager:getService()
-						VCS.StateChanged:Connect(function(_oldState, newState)
-							if newState == (Enum :: any).VoiceChatState.Joined then
-								-- If voice has been turned off, but now rejoined
-								if voiceEnabled == false then
-									addMuteButtonToBar()
-								end
-								this.VoiceRecordingText.Visible = true
+					this.VoiceRecordingText.Visible = true
+					local VCS = VoiceChatServiceManager:getService()
+					VCS.StateChanged:Connect(function(_oldState, newState)
+						if newState == (Enum :: any).VoiceChatState.Joined then
+							-- If voice has been turned off, but now rejoined
+							if voiceEnabled == false then
+								addMuteButtonToBar()
 							end
-						end)
-					end
+							this.VoiceRecordingText.Visible = true
+						end
+					end)
 					VoiceChatServiceManager:SetupParticipantListeners()
 					if GetFFlagEnableInExpJoinVoiceAnalytics() then
 						local callback = function(response)
@@ -852,15 +846,13 @@ local function CreateSettingsHub()
 					if GetFFlagMuteButtonRaceConditionFix() then
 						muteChangedEvent = VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 							updateIcon()
-							if GetFFlagVoiceRecordingIndicatorsEnabled() then
-								this.isMuted = muted
-								this.lastVoiceRecordingIndicatorTextUpdated = tick()
-								this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-								if this.isMuted then
-									this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
-								else
-									this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
-								end
+							this.isMuted = muted
+							this.lastVoiceRecordingIndicatorTextUpdated = tick()
+							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+							if this.isMuted then
+								this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
+							else
+								this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
 							end
 						end)
 
@@ -883,11 +875,9 @@ local function CreateSettingsHub()
 									RunService:UnbindFromRenderStep(renderStepName)
 								end
 
-								if GetFFlagVoiceRecordingIndicatorsEnabled() then
-									if isOpen then
-										this.lastVoiceRecordingIndicatorTextUpdated = tick()
-										this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-									end
+								if isOpen then
+									this.lastVoiceRecordingIndicatorTextUpdated = tick()
+									this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
 								end
 							end)
 						end
@@ -913,23 +903,21 @@ local function CreateSettingsHub()
 			else
 				VoiceChatServiceManager:asyncInit():andThen(function()
 					voiceEnabled = true
-					if GetFFlagVoiceRecordingIndicatorsEnabled() then
-						this.VoiceRecordingText.Visible = true
-						local VCS = VoiceChatServiceManager:getService()
-						VCS.StateChanged:Connect(function(_oldState, newState)
-							if newState == (Enum :: any).VoiceChatState.Ended then
-								this.VoiceRecordingText.Visible = false
-								voiceEnabled = false
-								hideVoiceUx()
-							elseif newState == (Enum :: any).VoiceChatState.Joined then
-								-- If voice has been turned off, but now rejoined
-								if voiceEnabled == false then
-									addMuteButtonToBar()
-								end
-								this.VoiceRecordingText.Visible = true
+					this.VoiceRecordingText.Visible = true
+					local VCS = VoiceChatServiceManager:getService()
+					VCS.StateChanged:Connect(function(_oldState, newState)
+						if newState == (Enum :: any).VoiceChatState.Ended then
+							this.VoiceRecordingText.Visible = false
+							voiceEnabled = false
+							hideVoiceUx()
+						elseif newState == (Enum :: any).VoiceChatState.Joined then
+							-- If voice has been turned off, but now rejoined
+							if voiceEnabled == false then
+								addMuteButtonToBar()
 							end
-						end)
-					end
+							this.VoiceRecordingText.Visible = true
+						end
+					end)
 					VoiceChatServiceManager:SetupParticipantListeners()
 					if GetFFlagEnableInExpJoinVoiceAnalytics() then
 						local callback = function(response)
@@ -941,15 +929,13 @@ local function CreateSettingsHub()
 					if GetFFlagMuteButtonRaceConditionFix() then
 						VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 							updateIcon()
-							if GetFFlagVoiceRecordingIndicatorsEnabled() then
-								this.isMuted = muted
-								this.lastVoiceRecordingIndicatorTextUpdated = tick()
-								this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-								if this.isMuted then
-									this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
-								else
-									this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
-								end
+							this.isMuted = muted
+							this.lastVoiceRecordingIndicatorTextUpdated = tick()
+							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+							if this.isMuted then
+								this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
+							else
+								this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
 							end
 						end)
 
@@ -972,12 +958,11 @@ local function CreateSettingsHub()
 									RunService:UnbindFromRenderStep(renderStepName)
 								end
 
-								if GetFFlagVoiceRecordingIndicatorsEnabled() then
-									if isOpen then
-										this.lastVoiceRecordingIndicatorTextUpdated = tick()
-										this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-									end
+								if isOpen then
+									this.lastVoiceRecordingIndicatorTextUpdated = tick()
+									this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
 								end
+
 							end)
 						end
 					end
@@ -1174,7 +1159,10 @@ local function CreateSettingsHub()
 					Constants.AnalyticsTargetName,
 					Constants.AnalyticsResumeGameName,
 					Constants.AnalyticsMenuActionName,
-					{ source = source }
+					{ 
+						source = source, 
+						playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
+					}
 				)
 
 				TelemetryService:LogCounter(MenuResumeTelemetryConfig, {
@@ -1619,10 +1607,8 @@ local function CreateSettingsHub()
 		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
 			local paddingTop = topCornerInset.Y
-			if FFlagAvatarChatCoreScriptSupport or GetFFlagVoiceRecordingIndicatorsEnabled() then
-				-- Audio/Video permissions bar takes up padding, but not voice recording indicator.
-				paddingTop = 0
-			end
+			-- Audio/Video permissions bar takes up padding, but not voice recording indicator.
+			paddingTop = 0
 			this.MenuContainerPadding.PaddingTop = UDim.new(0, paddingTop)
 		end
 
@@ -1883,7 +1869,7 @@ local function CreateSettingsHub()
 			this.HubBar.Position = UDim2.new(0.5,0,0.1,0)
 		end
 
-		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() and not FFlagAvatarChatCoreScriptSupport then Create'Frame'
+		this.VoiceRecordingIndicatorFrame = if not FFlagAvatarChatCoreScriptSupport then Create'Frame'
 			{
 				Size = if ChromeEnabled then UDim2.new(1, 0, 0, 100) else UDim2.fromOffset(0, 100),
 				Position = UDim2.new(0,0,0,0),
@@ -1891,7 +1877,7 @@ local function CreateSettingsHub()
 				BackgroundTransparency = 1,
 			} else nil
 
-		this.VoiceRecordingText = if GetFFlagVoiceRecordingIndicatorsEnabled() then Create'TextLabel'
+		this.VoiceRecordingText = Create'TextLabel'
 			{
 				Parent = this.VoiceRecordingIndicatorFrame,
 				Text = "",
@@ -1904,57 +1890,56 @@ local function CreateSettingsHub()
 				TextYAlignment = Enum.TextYAlignment.Center,
 				TextColor3 = Color3.fromRGB(255,255,255),
 				BackgroundTransparency = 1,
-			} else nil
+			}
 
-		if GetFFlagVoiceRecordingIndicatorsEnabled() then
-			if utility:IsSmallTouchScreen() then
-				this.VoiceRecordingText.Size = UDim2.fromScale(1, 1)
-				this.VoiceRecordingText.AnchorPoint = Vector2.new(0,0)
-				if ChromeEnabled then
-					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
-					this.VoiceRecordingText.Position = UDim2.new(0,0,0,-60)
-				else
-					this.VoiceRecordingText.Position = UDim2.new(0,60,0,-60)
-				end
-			elseif isTenFootInterface then
-				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
-				if ChromeEnabled then
-					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
-					this.VoiceRecordingText.Size = UDim2.new(1,0,0,100)
-					this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
-				else
-					this.VoiceRecordingText.Size = UDim2.new(0,1200,0,100)
-					this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
-				end
+		if utility:IsSmallTouchScreen() then
+			this.VoiceRecordingText.Size = UDim2.fromScale(1, 1)
+			this.VoiceRecordingText.AnchorPoint = Vector2.new(0,0)
+			if ChromeEnabled then
+				this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
+				this.VoiceRecordingText.Position = UDim2.new(0,0,0,-60)
 			else
-				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
-				if ChromeEnabled then
-					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
-					this.VoiceRecordingText.Size = UDim2.new(1, 0, 0, 60)
-					this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
-				else
-					this.VoiceRecordingText.Size = UDim2.new(0, 800, 0, 60)
-					this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
-				end
+				this.VoiceRecordingText.Position = UDim2.new(0,60,0,-60)
 			end
-
-			this.voiceRecordingIndicatorTextMotor = Otter.createSingleMotor(0)
-			this.voiceRecordingIndicatorTextMotor:onStep(function(value)
-				this.VoiceRecordingText.TextTransparency = value
-			end)
-
-			spawn(function()
-				RunService:BindToRenderStep("VoiceRecordingIndicator", 1, function()
-					if this.isMuted ~= nil and this.lastVoiceRecordingIndicatorTextUpdated ~= nil then
-						local timeDiff = tick() - this.lastVoiceRecordingIndicatorTextUpdated
-						if timeDiff >= VOICE_RECORDING_INDICATOR_FADE_TIME and this.isMuted then
-							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.spring(1, SPRING_PARAMS))
-							this.voiceRecordingIndicatorTextMotor:start()
-						end
-					end
-				end)
-			end)
+		elseif isTenFootInterface then
+			this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
+			if ChromeEnabled then
+				this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
+				this.VoiceRecordingText.Size = UDim2.new(1,0,0,100)
+				this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
+			else
+				this.VoiceRecordingText.Size = UDim2.new(0,1200,0,100)
+				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+			end
+		else
+			this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
+			if ChromeEnabled then
+				this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
+				this.VoiceRecordingText.Size = UDim2.new(1, 0, 0, 60)
+				this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
+			else
+				this.VoiceRecordingText.Size = UDim2.new(0, 800, 0, 60)
+				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+			end
 		end
+
+		this.voiceRecordingIndicatorTextMotor = Otter.createSingleMotor(0)
+		this.voiceRecordingIndicatorTextMotor:onStep(function(value)
+			this.VoiceRecordingText.TextTransparency = value
+		end)
+
+		spawn(function()
+			RunService:BindToRenderStep("VoiceRecordingIndicator", 1, function()
+				if this.isMuted ~= nil and this.lastVoiceRecordingIndicatorTextUpdated ~= nil then
+					local timeDiff = tick() - this.lastVoiceRecordingIndicatorTextUpdated
+					if timeDiff >= VOICE_RECORDING_INDICATOR_FADE_TIME and this.isMuted then
+						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.spring(1, SPRING_PARAMS))
+						this.voiceRecordingIndicatorTextMotor:start()
+					end
+				end
+			end)
+		end)
+
 
 		this.PageViewClipper = Create'Frame'
 		{
@@ -2131,7 +2116,10 @@ local function CreateSettingsHub()
 				Constants.AnalyticsTargetName,
 				Constants.AnalyticsResumeGameName,
 				Constants.AnalyticsMenuActionName,
-				{ source = source }
+				{
+					source = source, 
+					playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil, 
+				}
 			)
 			if FFlagIEMResumeButtonPressBugfix then
 				GuiService.SelectedCoreObject = nil
@@ -2333,9 +2321,7 @@ local function CreateSettingsHub()
 		end
 
 		local function cameraViewportChanged()
-			if FFlagIGMThemeResizeFix then
-				Theme.viewportResized()
-			end
+			Theme.viewportResized()
 			utility:FireOnResized()
 		end
 
@@ -3210,6 +3196,12 @@ local function CreateSettingsHub()
 			end
 		end
 
+		if FFlagIEMSettingsAddPlaySessionID then
+			if eventTable["playsessionid"] == nil then
+				eventTable["playsessionid"] = this.playSessionId
+			end
+		end
+
 		if pageToSwitchTo then
 			if this.GameSettingsPage == pageToSwitchTo then
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)
@@ -3774,16 +3766,24 @@ local function CreateSettingsHub()
 			end
 		end
 
+		local visibilityAnalyticsPayload = {}
+		if FFlagIEMSettingsAddPlaySessionID then
+			visibilityAnalyticsPayload = {
+				source = analyticsContext,
+				playsessionid = this.playSessionId
+			}
+		end
+
 		if visibilityChanged then
 			if visible then
-				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, if FFlagIEMSettingsAddPlaySessionID then visibilityAnalyticsPayload else {
 					source = analyticsContext,
 				})
 				if GetFFlagEnableLeaveGameUpsellEntrypoint() then
 					task.spawn(checkLeaveGameUpsell)
 				end
 			else
-				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, if FFlagIEMSettingsAddPlaySessionID then visibilityAnalyticsPayload else {
 					source = analyticsContext,
 				})
 			end
@@ -4046,11 +4046,6 @@ local function CreateSettingsHub()
 		this.LeaveGameToHomePage:SetHub(this)
 	end
 
-	if GetFFlagEnableAppChatInExperience() then
-		this.AppChatPage = require(RobloxGui.Modules.Settings.Pages.AppChat)
-		this.AppChatPage:SetHub(this)
-	end
-
 	if not isTenFootInterface then
 		local shareGameCorePackages = {
 			"Roact",
@@ -4158,12 +4153,6 @@ local function CreateSettingsHub()
 				end
 				ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 			end
-		end
-	end
-
-	if GetFFlagEnableAppChatInExperience() then
-		if this.AppChatPage then
-			this:AddPage(this.AppChatPage)
 		end
 	end
 

@@ -70,7 +70,7 @@ end
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
-local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
+local FFlagUIBloxMigrateBuilderIcon = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 ------------------ Modules --------------------
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -495,6 +495,12 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 	local imageRectOffset = nil
 	local imageRectSize = nil
 
+	local migrationImage = nil
+	if FFlagUIBloxMigrateBuilderIcon then
+		migrationImage = migrationLookup['uiblox'][image] or migrationLookup['luaApps'][image]
+		image = if string.match(image, "^rbxasset://") then image else Theme.Images[image]
+	end
+	
 	if typeof(image) == "table" then
 		imageRectOffset = image.ImageRectOffset
 		imageRectSize = image.ImageRectSize
@@ -502,8 +508,7 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 	end
 
 	local imageLabel
-	local migrationImage = migrationLookup['uiblox'][image] or migrationLookup['luaApps'][image]
-	if FFlagBuilderIcons and migrationImage then
+	if FFlagUIBloxMigrateBuilderIcon and migrationImage then
 		imageLabel = Create("TextLabel")({
 			Name = name .. "TextLabel",
 			BackgroundTransparency = 1,
@@ -525,7 +530,7 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 		Size = imageSize,
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Image = if FFlagBuilderIcons then Theme.Images[image] else image,
+		Image = image,
 		ImageRectOffset = imageRectOffset,
 		ImageRectSize = imageRectSize,
 		ZIndex = 2,

@@ -57,10 +57,10 @@ MAIN:
   CALL R6 1 1
   MOVE R7 R6
   GETIMPORT R8 K1 [plugin]
-  DUPTABLE R9 K25 [{"isUIDM", "isEditableDM"}]
-  SETTABLEKS R5 R9 K23 ["isUIDM"]
+  DUPTABLE R9 K25 [{"isGuest", "isHost"}]
+  SETTABLEKS R5 R9 K23 ["isGuest"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K24 ["isEditableDM"]
+  SETTABLEKS R10 R9 K24 ["isHost"]
   CALL R7 2 0
   JUMPIFNOT R5 [+23]
   GETIMPORT R7 K7 [require]

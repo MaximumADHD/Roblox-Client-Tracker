@@ -32,6 +32,11 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
+local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
+local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
@@ -48,6 +53,11 @@ local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
 
+	this.playsessionid = ""
+	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		this.playsessionid = AnalyticsService:GetPlaySessionId()
+	end
+
 	this.LeaveFunc = function()
 		if GetFFlagEnableInGameMenuDurationLogger() then
 			PerfUtils.leavingGame()
@@ -62,7 +72,8 @@ local function Initialize()
 				{
 					confirmed = Constants.AnalyticsConfirmedName,
 					universeid = tostring(game.GameId),
-					source = Constants.AnalyticsLeaveToHomeSource
+					source = Constants.AnalyticsLeaveToHomeSource,
+					playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playsessionid else nil,
 				}
 			)
 		end
@@ -92,7 +103,8 @@ local function Initialize()
 				{
 					confirmed = Constants.AnalyticsCancelledName,
 					universeid = tostring(game.GameId),
-					source = Constants.AnalyticsLeaveToHomeSource
+					source = Constants.AnalyticsLeaveToHomeSource,
+					playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playsessionid else nil,
 				}
 			)								
 		end

@@ -4,6 +4,13 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
 
+local Settings = InGameMenu.Parent.Settings
+
+local SettingsFlags = require(Settings.Flags)
+local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+
 local InputTypeMap = Constants.InputTypeMap
 
 return function(eventContext, eventName, eventTable, replaceEventNameWithGameSettings, analyticsServiceImpl)
@@ -64,6 +71,10 @@ return function(eventContext, eventName, eventTable, replaceEventNameWithGameSet
 
 	local lastUsedInputType = InputTypeMap[UserInputService:GetLastInputType()] or UserInputService:GetLastInputType()
 	eventTable["inputDevice"] = tostring(lastUsedInputType)
+
+	if FFlagIEMSettingsAddPlaySessionID and eventTable["playsessionid"] == nil and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		eventTable["playsessionid"] = AnalyticsService:GetPlaySessionId()
+	end
 
 	analyticsServiceImpl:SetRBXEventStream(Constants.AnalyticsTargetName, eventContext, eventName, eventTable)
 end

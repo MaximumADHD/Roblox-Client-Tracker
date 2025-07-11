@@ -11,6 +11,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local Presentation = script.Parent
+
 local PlayerListDisplay = require(Presentation.PlayerListDisplay)
 
 local PlayerList = Presentation.Parent.Parent

@@ -1,32 +1,25 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local PresentationCommon = script.Parent
 local Components = PresentationCommon.Parent
 local PlayerList = Components.Parent
 
--------------------------------- Packages --------------------------------
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
-local Signals = require(CorePackages.Packages.Signals)
-local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
--------------------------------- Components --------------------------------
-local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
-local useSignalState = SignalsReact.useSignalState
+
 local EntryFrameView = PlayerListPackage.Presentation.EntryFrameView
 local StatEntryContainer = require(PlayerList.Components.Container.StatEntryContainer)
 
--------------------------------- Legacy Components --------------------------------
 local CellExtender = require(Components.Presentation.CellExtender)
 
-local createShallowEqualAndTables = require(PlayerList.createShallowEqualAndTables)
-
-type SignalMap<K, V> = LeaderboardStore.SignalMap<K, V>
+type TeamEntry = LeaderboardStore.TeamEntry
+type GameStatList = LeaderboardStore.GameStatList
+type StatList = LeaderboardStore.StatList
 
 type ColorStyle = {
 	Color: Color3,
@@ -34,17 +27,22 @@ type ColorStyle = {
 }
 
 export type TeamEntryViewProps = {
-	size: UDim2?,
-	position: UDim2?,
-	teamName: string?,
-	teamColor: BrickColor?,
-	entrySize: number?,
+	-- Layout options
+	size: UDim2,
+	entrySizeX: number,
 	layoutOrder: number?,
+
+	-- Store data
+	teamName: React.Binding<string>,
+	teamColor: Color3,
+	gameStats: GameStatList,
+	teamStats: StatList,
+	gameStatsCount: number,
+	teamStatsCount: number,
+
+	-- Device type
 	isSmallTouchDevice: boolean?,
 	isDirectionalPreferred: boolean?,
-	gameStatNames: { string }?,
-	gameStats: SignalMap<string, any>?,
-	teamStats: SignalMap<string, any>?,
 }
 
 local function TeamEntryView(props: TeamEntryViewProps)
@@ -52,20 +50,6 @@ local function TeamEntryView(props: TeamEntryViewProps)
 	local style = useStyle()
 	local isSmallTouchDevice = props.isSmallTouchDevice or false
 	local isDirectionalPreferred = props.isDirectionalPreferred or false
-	local gameStats = props.gameStats
-	local teamStats = props.teamStats
-	local gameStatsCount = useSignalState(if gameStats then gameStats.getCount else Signals.createSignal(0))
-	local teamStatsCount = useSignalState(if teamStats then teamStats.getCount else Signals.createSignal(0))
-
-	-- Team name and color logic
-	local teamName = layoutValues.NeutralTeamName
-	local teamColor = layoutValues.NeutralTeamColor.Color
-	if props.teamName then
-		teamName = GameTranslator:TranslateGameText(CoreGui, props.teamName)
-	end
-	if props.teamColor then
-		teamColor = props.teamColor.Color
-	end
 
 	-- Text styling
 	local textStyle = style.Theme.TextEmphasis
@@ -80,57 +64,44 @@ local function TeamEntryView(props: TeamEntryViewProps)
 	end
 
 	-- Background styling
+	-- TODO: Flatten props like backgroundStyle and use bindings for color (APPEXP-2920)
 	local backgroundStyle: ColorStyle = React.useMemo(function()
 		if isSmallTouchDevice then
 			-- Mobile: simple background with team color
 			local settings = style.Settings
 			return {
-				Color = teamColor,
+				Color = props.teamColor,
 				Transparency = settings.PreferredTransparency * 0.5,
 			}
-		else
-			-- Desktop/TenFoot: more complex background logic
-			if not isDirectionalPreferred then
-				if props.teamColor then
-					return {
-						Color = props.teamColor.Color,
-						Transparency = layoutValues.TeamEntryBackgroundTransparency
-							* style.Settings.PreferredTransparency,
-					}
-				else
-					return style.Theme.Divider
-				end
-			else
-				return {
-					Color = teamColor,
-					Transparency = if layoutValues.BackgroundStyle
-						then layoutValues.BackgroundStyle.Default.Transparency
-						else 0,
-				}
-			end
 		end
-	end, { isSmallTouchDevice, isDirectionalPreferred, teamColor, style, layoutValues } :: { any })
 
-	local overlayStyle: ColorStyle? = React.useMemo(function()
-		if not isSmallTouchDevice then
+		if isDirectionalPreferred then
 			return {
-				Color = Color3.new(1, 1, 1),
-				Transparency = 1,
+				Color = props.teamColor,
+				Transparency = if layoutValues.BackgroundStyle
+					then layoutValues.BackgroundStyle.Default.Transparency
+					else 0,
 			}
-		else
-			return nil :: any
 		end
-	end, { isSmallTouchDevice })
+
+		return {
+			Color = props.teamColor,
+			Transparency = layoutValues.TeamEntryBackgroundTransparency
+				* style.Settings.PreferredTransparency,
+		}
+	end, { isSmallTouchDevice, isDirectionalPreferred, props.teamColor, style, layoutValues } :: { any })
+
+	local overlayStyle: ColorStyle = {
+		Color = Color3.new(1, 1, 1),
+		Transparency = 1,
+	}
 
 	-- Max leaderstats calculation
 	local maxLeaderstats = layoutValues.MaxLeaderstats
-	if isSmallTouchDevice then
-		maxLeaderstats = layoutValues.MaxLeaderstatsSmallScreen or layoutValues.MaxLeaderstats
-	end
 
 	-- Mobile rendering path
 	if isSmallTouchDevice then
-		local teamEntryChildren = {}
+		local teamEntryChildren: { [string]: React.ReactNode } = {}
 
 		teamEntryChildren.UIListLayout = React.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -148,7 +119,7 @@ local function TeamEntryView(props: TeamEntryViewProps)
 			TextStrokeTransparency = textStyle.StrokeTransparency,
 			TextStrokeColor3 = textStyle.StrokeColor,
 			BackgroundTransparency = 1,
-			Text = teamName,
+			Text = props.teamName,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 		}, {
 			UIPadding = React.createElement("UIPadding", {
@@ -157,32 +128,28 @@ local function TeamEntryView(props: TeamEntryViewProps)
 		})
 
 		-- Add stats for mobile
-			if gameStats and gameStatsCount > 0 and teamStats and teamStatsCount > 0 then
-				gameStats.iterateData(function(gameStatName, value)
-					if value.order(false) > maxLeaderstats then
-						return
-					end
-	
-					local teamStat = teamStats.getData(gameStatName, false)
-					if teamStat then
-						teamEntryChildren["gameStat_" .. gameStatName] = React.createElement(StatEntryContainer, {
-							statName = gameStatName,
-							statSignal = teamStat,
-							isTitleEntry = false,
-							isTeamEntry = true,
-							textStyle = textStyle,
-							layoutOrder = value.order,
-						})
-					end
-				end, false)
-			end
+		if props.gameStatsCount > 0 and props.teamStatsCount >= 0 then
+			props.gameStats.iterateData(function(gameStatName, value)
+				if value.order(false) > maxLeaderstats then
+					return
+				end
+
+				local teamStat = props.teamStats.getData(gameStatName, false)
+				teamEntryChildren["GameStat_" .. gameStatName] = React.createElement(StatEntryContainer, {
+					statName = gameStatName,
+					stat = teamStat,
+					isTeamEntry = true,
+					showStatTitle = false,
+					textStyle = textStyle,
+				})
+			end, false)
+		end
 
 		return React.createElement(
 			"Frame",
 			{
 				LayoutOrder = props.layoutOrder,
 				Size = props.size,
-				Position = props.position,
 				BackgroundColor3 = backgroundStyle.Color,
 				BackgroundTransparency = backgroundStyle.Transparency,
 				BorderSizePixel = 0,
@@ -192,24 +159,22 @@ local function TeamEntryView(props: TeamEntryViewProps)
 		)
 	else
 		-- All other rendering path
-		local teamEntryChildren = {}
+		local teamEntryChildren: { [string]: React.ReactNode } = {}
 		local padding = nil
 		if isDirectionalPreferred then
 			padding = UDim.new(0, layoutValues.PlayerEntryPadding)
 		end
 
-		teamEntryChildren["Layout"] = React.createElement("UIListLayout", {
+		teamEntryChildren.UIListLayout = React.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			Padding = padding,
 		})
 
-		local entrySizeX = props.entrySize
-
-		teamEntryChildren["NameFrame"] = React.createElement("Frame", {
+		teamEntryChildren.NameFrame = React.createElement("Frame", {
 			LayoutOrder = 0,
-			Size = UDim2.new(0, entrySizeX, 0, layoutValues.TeamEntrySizeY),
+			Size = UDim2.new(0, props.entrySizeX, 0, layoutValues.TeamEntrySizeY),
 			BackgroundTransparency = 1,
 		}, {
 			Shadow = React.createElement("ImageLabel", {
@@ -223,8 +188,7 @@ local function TeamEntryView(props: TeamEntryViewProps)
 			}),
 
 			BGFrame = React.createElement(EntryFrameView, {
-				sizeX = entrySizeX,
-				sizeY = layoutValues.TeamEntrySizeY,
+				size = UDim2.new(0, props.entrySizeX, 0, layoutValues.TeamEntrySizeY),
 				isTeamFrame = true,
 				backgroundStyle = backgroundStyle,
 				overlayStyle = overlayStyle,
@@ -240,7 +204,7 @@ local function TeamEntryView(props: TeamEntryViewProps)
 					TextStrokeTransparency = textStyle.StrokeTransparency,
 					TextStrokeColor3 = textStyle.StrokeColor,
 					BackgroundTransparency = 1,
-					Text = teamName,
+					Text = props.teamName,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				}, {
 					React.createElement("UIPadding", {
@@ -250,32 +214,29 @@ local function TeamEntryView(props: TeamEntryViewProps)
 			}),
 		})
 
-		if gameStats and gameStatsCount > 0 and teamStats and teamStatsCount > 0 then
-			gameStats.iterateData(function(gameStatName, value)
+		if props.gameStatsCount > 0 and props.teamStatsCount >= 0 then
+			props.gameStats.iterateData(function(gameStatName, value)
 				if value.order(false) > maxLeaderstats then
 					return
 				end
 
-				local teamStat = teamStats.getData(gameStatName, false)
-				if teamStat then
-					teamEntryChildren["gameStat_" .. gameStatName] = React.createElement(StatEntryContainer, {
-						statName = gameStatName,
-						statSignal = teamStat,
-						isTitleEntry = false,
-						isTeamEntry = true,
-						layoutOrder = value.order,
-						backgroundStyle = backgroundStyle,
-						overlayStyle = overlayStyle,
-						doubleOverlay = false,
-						textStyle = textStyle,
-					})
-				end
+				local teamStat = props.teamStats.getData(gameStatName, false)
+				teamEntryChildren["GameStat_" .. gameStatName] = React.createElement(StatEntryContainer, {
+					statName = gameStatName,
+					stat = teamStat,
+					isTeamEntry = true,
+					showStatTitle = false,
+					backgroundStyle = backgroundStyle,
+					overlayStyle = overlayStyle,
+					doubleOverlay = false,
+					textStyle = textStyle,
+				})
 			end, false)
 		end
 
 		-- Add background extender for other devices (not tenfoot)
 		if not isDirectionalPreferred then
-			teamEntryChildren["BackgroundExtender"] = React.createElement(CellExtender, {
+			teamEntryChildren.BackgroundExtender = React.createElement(CellExtender, {
 				layoutOrder = 100,
 				size = UDim2.new(0, layoutValues.ExtraContainerPadding, 1, 0),
 				backgroundStyle = backgroundStyle,
@@ -288,7 +249,6 @@ local function TeamEntryView(props: TeamEntryViewProps)
 			"Frame",
 			{
 				Size = props.size,
-				Position = props.position,
 				BackgroundColor3 = Color3.new(1, 1, 1),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -300,4 +260,4 @@ local function TeamEntryView(props: TeamEntryViewProps)
 	end
 end
 
-return React.memo(TeamEntryView, createShallowEqualAndTables({ "gameStatNames", "leaderstats" }))
+return React.memo(TeamEntryView)

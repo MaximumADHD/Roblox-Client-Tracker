@@ -120,6 +120,16 @@ PROTO_0:
   CALL R6 2 -1
   CALL R3 -1 1
   SETTABLEKS R3 R2 K12 ["animationClipsClimbSetting"]
+  GETUPVAL R3 4
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 5
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K13 ["bodyAppearanceCustomPartsMood"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K14 ["animationClipsMoodSetting"]
   RETURN R2 1
 
 MAIN:

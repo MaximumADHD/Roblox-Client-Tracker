@@ -26,7 +26,6 @@ local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
 local getFFlagExpChatMigrationSetup = SharedFlags.getFFlagExpChatMigrationSetup
-local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowToggled
 local getFFlagFireSignalForLegacyWindow = SharedFlags.getFFlagFireSignalForLegacyWindow
 local GetFFlagUnreduxChatTransparency = SharedFlags.GetFFlagUnreduxChatTransparency
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
@@ -120,9 +119,7 @@ do
 		if GetFFlagUnreduxChatTransparency() and ChatWindowState.Visible then
 			transparencyStore.resetAllTransparency()
 		end
-		if getFFlagExposeChatWindowToggled() then
-			moduleApiTable.ChatWindowToggled:fire(ChatWindowState.Visible)
-		end
+		moduleApiTable.ChatWindowToggled:fire(ChatWindowState.Visible)
 	end
 
 	function moduleApiTable:SetVisible(visible)
@@ -133,9 +130,7 @@ do
 		if GetFFlagUnreduxChatTransparency() and ChatWindowState.Visible then
 			transparencyStore.resetAllTransparency()
 		end
-		if getFFlagExposeChatWindowToggled() then
-			moduleApiTable.ChatWindowToggled:fire(ChatWindowState.Visible)
-		end
+		moduleApiTable.ChatWindowToggled:fire(ChatWindowState.Visible)
 
 		if shouldForceLegacyChatToBeHidden() then
 			DispatchEvent("SetVisible", false)
@@ -237,9 +232,7 @@ do
 
 	moduleApiTable.ChatBarFocusChanged = Util.Signal()
 	moduleApiTable.VisibilityStateChanged = Util.Signal()
-	if getFFlagExposeChatWindowToggled() then
-		moduleApiTable.ChatWindowToggled = Util.Signal()
-	end
+	moduleApiTable.ChatWindowToggled = Util.Signal()
 	moduleApiTable.MessagesChanged = Util.Signal()
 
 	-- Signals that are called when we get information on if Bubble Chat and Classic chat are enabled from the chat.
@@ -345,9 +338,7 @@ do
 
 				DoConnect("ChatBarFocusChanged")
 				DoConnect("VisibilityStateChanged")
-				if getFFlagExposeChatWindowToggled() then
-					DoConnect("ChatWindowToggled")
-				end
+				DoConnect("ChatWindowToggled")
 				DoConnect("MessagesChanged")
 
 				local index = "MessagePosted"

@@ -9,7 +9,6 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
-local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local withStyle = UIBlox.Style.withStyle
 local IconButton = UIBlox.App.Button.IconButton
@@ -30,12 +29,9 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 local PlayerList = Components.Parent
 
 local PlayerEntry = require(script.Parent.PlayerEntry)
-local PlayerEntryContainer = require(PlayerList.Components.Container.PlayerEntryContainer)
 local TeamEntry = require(script.Parent.TeamEntry)
-local TeamEntryContainer = require(PlayerList.Components.Container.TeamEntryContainer)
 local PlayerDropDown = require(script.Parent.PlayerDropDown)
 local TitleBar = require(script.Parent.TitleBar)
-local TitleViewContainer = require(PlayerList.Components.Container.TitleViewContainer)
 
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
@@ -46,8 +42,6 @@ local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 local FFlagDisablePlayerListDisplayCloseBtn = game:DefineFastFlag("DisablePlayerListDisplayCloseBtn", false)
 local EnableCloseButton = ChromeEnabled() and not FFlagDisablePlayerListDisplayCloseBtn
 local TopBottomCornerRadius = 7
-
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -225,18 +219,7 @@ function PlayerListDisplay:render()
 				local firstPlayer = true
 				for i, sortedTeam in ipairs(self.props.sortedTeams) do
 					if self:inVerticalScrollWindow(canvasSizeY, teamEntrySizeY) then
-						childElements["t_" .. tostring(i)] = if FFlagUseNewPlayerList then Roact.createElement(TeamEntryContainer, {
-							size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.TeamEntrySizeY),
-							position = UDim2.fromOffset(0, canvasSizeY),
-							teamName = self.props.teamNames[sortedTeam.team],
-							teamColor = self.props.teamColors[sortedTeam.team],
-							leaderstats = self.props.teamScores[sortedTeam.team],
-							gameStats = if FFlagPlayerListReduceRerenders then nil else self.props.gameStats,
-							gameStatNames = gameStatNames,
-							entrySize = self.props.entrySize,
-							isSmallTouchDevice = false,
-							isDirectionalPreferred = layoutValues.IsTenFoot,
-						}) else Roact.createElement("Frame", {
+						childElements["t_" .. tostring(i)] = Roact.createElement("Frame", {
 							Position = UDim2.fromOffset(0, canvasSizeY),
 							Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.TeamEntrySizeY),
 							BackgroundTransparency = 1,
@@ -274,7 +257,7 @@ function PlayerListDisplay:render()
 								Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 								BackgroundTransparency = 1,
 							}, {
-								Roact.createElement(if FFlagUseNewPlayerList then PlayerEntryContainer else PlayerEntry, {
+								Roact.createElement(PlayerEntry, {
 									player = player,
 									playerStats = self.props.playerStats[userId],
 									playerIconInfo = self.props.playerIconInfo[userId],
@@ -308,7 +291,7 @@ function PlayerListDisplay:render()
 							Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 							BackgroundTransparency = 1,
 						}, {
-							Roact.createElement(if FFlagUseNewPlayerList then PlayerEntryContainer else PlayerEntry, {
+							Roact.createElement(PlayerEntry, {
 								player = player,
 								playerStats = self.props.playerStats[userId],
 								playerIconInfo = self.props.playerIconInfo[userId],
@@ -453,9 +436,10 @@ function PlayerListDisplay:render()
 								}),
 							}),
 
-						TitleBar = #self.props.gameStats > 0 and Roact.createElement(if FFlagUseNewPlayerList then TitleViewContainer else TitleBar, {
+						TitleBar = #self.props.gameStats > 0 and Roact.createElement(TitleBar, {
 							LayoutOrder = 2,
 							contentsVisible = self.state.contentsVisible,
+							showBackground = true,
 							backgroundTransparency = transparencyBinding,
 							gameStats = self.props.gameStats,
 							Size = UDim2.new(1, 0, 0, layoutValues.TitleBarSizeY),

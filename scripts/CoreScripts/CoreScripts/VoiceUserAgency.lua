@@ -28,7 +28,6 @@ local FIntVoiceUserAgencyAlertInitTimeOffset = game:DefineFastInt("VoiceUserAgen
 local FIntVoiceUserAgencyAlertStartTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertStartTimeOffset", 3)
 local FIntVoiceUserAgencyAlertTimerDuration = game:DefineFastInt("VoiceUserAgencyAlertTimerDuration", 7)
 local FFlagMuteNonFriendsEvent = require(RobloxGuiModules.Flags.FFlagMuteNonFriendsEvent)
-local GetFFlagShowMuteToggles = require(RobloxGuiModules.Settings.Flags.GetFFlagShowMuteToggles)
 
 local FFlagVoiceUserAgencyAddMuteDecisionAnalytics =
 	game:DefineFastFlag("VoiceUserAgencyAddMuteDecisionAnalytics", false)
@@ -133,9 +132,7 @@ local function removeUserAgencyPrompt(screenGui, shouldRememberSetting, isMuteAl
 		})
 	end
 
-	if GetFFlagShowMuteToggles() then
-		VoiceChatServiceManager:FireUserAgencySelectedEvent(isMuteAll)
-	end
+	VoiceChatServiceManager:FireUserAgencySelectedEvent(isMuteAll)
 
 	bindResetHistory()
 end
@@ -179,9 +176,8 @@ local function showUserAgencyPrompt()
 	end
 	if isMutedAllHistory ~= nil then
 		VoiceChatServiceManager:MuteAll(isMutedAllHistory, Constants.VOICE_CONTEXT_TYPE.USER_AGENCY)
-		if GetFFlagShowMuteToggles() then
-			VoiceChatServiceManager:FireUserAgencySelectedEvent(isMutedAllHistory)
-		end
+		VoiceChatServiceManager:FireUserAgencySelectedEvent(isMutedAllHistory)
+
 		bindResetHistory()
 		AnalyticsService:SendEventDeferred("client", "voiceChat", "JoinWithVoice", {
 			userId = PLAYER_USER_ID,

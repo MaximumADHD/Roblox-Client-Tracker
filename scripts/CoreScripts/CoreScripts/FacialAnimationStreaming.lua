@@ -38,6 +38,7 @@ local FIntUXForCameraPerformanceSessionDelay = game:DefineFastInt("UXForCameraPe
 local FIntUXForCameraPerformanceDeviceDelay = game:DefineFastInt("UXForCameraPerformanceDeviceDelay", 43200) -- in seconds
 local GetFFlagUXForCameraPerformanceIXPEnabled = require(RobloxGui.Modules.Flags.GetFFlagUXForCameraPerformanceIXPEnabled)
 local GetFStringUXForCameraPerformanceIXPLayerName = require(RobloxGui.Modules.Flags.GetFStringUXForCameraPerformanceIXPLayerName)
+local FFlagSelfieViewAddPlayerWithoutVoice = game:DefineFastFlag("SelfieViewAddPlayerWithoutVoice", false)
 local isCamEnabledForUserAndPlace = function()
 	return true
 end
@@ -80,7 +81,9 @@ local isPlayerAllowedViaThrottle = false
 
 local playerJoinUnixTime = os.time()
 
+-- A list of players joined VoiceChat
 local playerJoinedChat = {}
+-- A list of players joined Game
 local playerJoinedGame = {}
 
 local playerAnimations = {}
@@ -525,6 +528,20 @@ local function JoinAllExistingPlayers()
 		playerJoinedGame[player.UserId] = true
 		playerUpdate(player)
 	end
+
+	if FFlagSelfieViewAddPlayerWithoutVoice then
+		Players.PlayerRemoving:Connect(function(player)
+			playerTrace("Player leaving game", player)
+			playerJoinedGame[player.UserId] = nil
+			playerUpdate(player)
+		end)
+
+		Players.PlayerAdded:Connect(function(player)
+			playerTrace("Player joining game", player)
+			playerJoinedGame[player.UserId] = true
+			playerUpdate(player)
+		end)
+	end
 end
 
 local function ConnectStateChangeCallback()
@@ -565,18 +582,19 @@ local function ConnectStateChangeCallback()
 		-- This will happen if mic permissions were denied.
 		log:trace("Could not find VoiceChatService")
 	end
-	Players.PlayerRemoving:Connect(function(player)
-		playerTrace("Player leaving game", player)
-		playerJoinedGame[player.UserId] = nil
-		playerUpdate(player)
-	end)
+	if not FFlagSelfieViewAddPlayerWithoutVoice then
+		Players.PlayerRemoving:Connect(function(player)
+			playerTrace("Player leaving game", player)
+			playerJoinedGame[player.UserId] = nil
+			playerUpdate(player)
+		end)
 
-	Players.PlayerAdded:Connect(function(player)
-		playerTrace("Player joining game", player)
-
-		playerJoinedGame[player.UserId] = true
-		playerUpdate(player)
-	end)
+		Players.PlayerAdded:Connect(function(player)
+			playerTrace("Player joining game", player)
+			playerJoinedGame[player.UserId] = true
+			playerUpdate(player)
+		end)
+	end
 end
 
 local function AttemptToShowCameraPerformanceToast(isSkipSessionDurationCheck)
@@ -647,7 +665,9 @@ end
 --
 function InitializeVoiceChat()
 	local onCompletion = function()
-		JoinAllExistingPlayers()
+		if not FFlagSelfieViewAddPlayerWithoutVoice then
+			JoinAllExistingPlayers()
+		end
 		ConnectStateChangeCallback()
 	end
 
@@ -758,6 +778,11 @@ function InitializeFacialAnimationStreaming(settings)
 		end
 
 		InitializeVoiceChat()
+		if FFlagSelfieViewAddPlayerWithoutVoice then
+			-- we want to let eligible players join with FAS regardless of their voice status
+			-- therefore we can add players and connect their audio/video states without waiting for VCSM 
+			JoinAllExistingPlayers()
+		end
 		heartbeatStats.Initialize()
 	end)
 end

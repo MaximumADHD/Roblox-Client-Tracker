@@ -46,6 +46,11 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
+local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
+local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
@@ -181,6 +186,11 @@ local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
 
+	this.playsessionid = ""
+	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		this.playsessionid = AnalyticsService:GetPlaySessionId()
+	end
+
 	this.DontLeaveFunc = function(isUsingGamepad)
 		if this.HubRef then
 			this.HubRef:PopMenu(isUsingGamepad, true)
@@ -193,7 +203,8 @@ local function Initialize()
 			{
 				confirmed = Constants.AnalyticsCancelledName,
 				universeid = tostring(game.GameId),
-				source = Constants.AnalyticsLeaveGameSource
+				source = Constants.AnalyticsLeaveGameSource,
+				playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playsessionid else nil,
 			}
 		)
 	end

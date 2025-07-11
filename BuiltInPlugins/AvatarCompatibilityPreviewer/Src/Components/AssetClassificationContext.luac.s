@@ -2,18 +2,18 @@ PROTO_0:
   JUMPIFNOTEQKS R0 K0 ["Body"] [+6]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["increment"]
-  CALL R1 0 -1
-  RETURN R1 -1
+  CALL R1 0 0
+  RETURN R0 0
   JUMPIFNOTEQKS R0 K2 ["Layered"] [+6]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K1 ["increment"]
-  CALL R1 0 -1
-  RETURN R1 -1
+  CALL R1 0 0
+  RETURN R0 0
   JUMPIFNOTEQKS R0 K3 ["Rigid"] [+6]
   GETUPVAL R2 2
   GETTABLEKS R1 R2 K1 ["increment"]
-  CALL R1 0 -1
-  RETURN R1 -1
+  CALL R1 0 0
+  RETURN R0 0
   GETUPVAL R2 3
   GETTABLEKS R1 R2 K1 ["increment"]
   CALL R1 0 0
@@ -23,18 +23,18 @@ PROTO_1:
   JUMPIFNOTEQKS R0 K0 ["Body"] [+6]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["decrement"]
-  CALL R1 0 -1
-  RETURN R1 -1
+  CALL R1 0 0
+  RETURN R0 0
   JUMPIFNOTEQKS R0 K2 ["Layered"] [+6]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K1 ["decrement"]
-  CALL R1 0 -1
-  RETURN R1 -1
+  CALL R1 0 0
+  RETURN R0 0
   JUMPIFNOTEQKS R0 K3 ["Rigid"] [+6]
   GETUPVAL R2 2
   GETTABLEKS R1 R2 K1 ["decrement"]
-  CALL R1 0 -1
-  RETURN R1 -1
+  CALL R1 0 0
+  RETURN R0 0
   GETUPVAL R2 3
   GETTABLEKS R1 R2 K1 ["decrement"]
   CALL R1 0 0
@@ -48,95 +48,53 @@ PROTO_2:
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
   GETUPVAL R1 1
-  NAMECALL R1 R1 K3 ["use"]
-  CALL R1 1 1
-  GETUPVAL R2 2
+  CALL R1 0 1
+  GETUPVAL R2 1
   CALL R2 0 1
-  GETUPVAL R3 2
+  GETUPVAL R3 1
   CALL R3 0 1
-  GETUPVAL R4 2
+  GETUPVAL R4 1
   CALL R4 0 1
-  GETUPVAL R5 2
-  CALL R5 0 1
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K4 ["useCallback"]
-  NEWCLOSURE R7 P0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R5
+  CAPTURE VAL R1
+  NEWTABLE R7 0 4
+  GETTABLEKS R8 R2 K4 ["increment"]
+  GETTABLEKS R9 R3 K4 ["increment"]
+  GETTABLEKS R10 R4 K4 ["increment"]
+  GETTABLEKS R11 R1 K4 ["increment"]
+  SETLIST R7 R8 4 [1]
+  CALL R5 2 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K3 ["useCallback"]
+  NEWCLOSURE R7 P1
   CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R1
   NEWTABLE R8 0 4
-  GETTABLEKS R9 R3 K5 ["increment"]
-  GETTABLEKS R10 R4 K5 ["increment"]
-  GETTABLEKS R11 R5 K5 ["increment"]
-  GETTABLEKS R12 R2 K5 ["increment"]
+  GETTABLEKS R9 R2 K5 ["decrement"]
+  GETTABLEKS R10 R3 K5 ["decrement"]
+  GETTABLEKS R11 R4 K5 ["decrement"]
+  GETTABLEKS R12 R1 K5 ["decrement"]
   SETLIST R8 R9 4 [1]
   CALL R6 2 1
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K4 ["useCallback"]
-  NEWCLOSURE R8 P1
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R2
-  NEWTABLE R9 0 4
-  GETTABLEKS R10 R3 K6 ["decrement"]
-  GETTABLEKS R11 R4 K6 ["decrement"]
-  GETTABLEKS R12 R5 K6 ["decrement"]
-  GETTABLEKS R13 R2 K6 ["decrement"]
-  SETLIST R9 R10 4 [1]
-  CALL R7 2 1
-  LOADB R8 0
-  GETTABLEKS R9 R2 K7 ["amount"]
-  JUMPIFNOTEQKN R9 K8 [0] [+13]
-  LOADB R8 0
-  GETTABLEKS R9 R3 K7 ["amount"]
-  JUMPIFNOTEQKN R9 K9 [1] [+8]
-  GETTABLEKS R9 R4 K7 ["amount"]
-  LOADN R10 7
-  JUMPIFLE R9 R10 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  JUMPIF R8 [+33]
-  GETTABLEKS R10 R2 K7 ["amount"]
-  JUMPIFEQKN R10 K8 [0] [+7]
-  LOADK R11 K10 ["AssetClassification"]
-  LOADK R12 K11 ["SelectionIncompleteHint"]
-  NAMECALL R9 R1 K12 ["getText"]
-  CALL R9 3 1
-  JUMP [+24]
-  GETTABLEKS R10 R3 K7 ["amount"]
-  JUMPIFEQKN R10 K9 [1] [+7]
-  LOADK R11 K10 ["AssetClassification"]
-  LOADK R12 K13 ["SelectOneBodyHint"]
-  NAMECALL R9 R1 K12 ["getText"]
-  CALL R9 3 1
-  JUMP [+14]
-  GETTABLEKS R10 R4 K7 ["amount"]
-  LOADN R11 7
-  JUMPIFNOTLT R11 R10 [+7]
-  LOADK R11 K10 ["AssetClassification"]
-  LOADK R12 K14 ["SelectLessLayeredHint"]
-  NAMECALL R9 R1 K12 ["getText"]
-  CALL R9 3 1
-  JUMP [+3]
-  LOADNIL R9
-  JUMP [+1]
-  LOADNIL R9
-  DUPTABLE R10 K19 [{"isValidForAutoSetup", "explanationTooltip", "incrementCount", "decrementCount"}]
-  SETTABLEKS R8 R10 K15 ["isValidForAutoSetup"]
-  SETTABLEKS R9 R10 K16 ["explanationTooltip"]
-  SETTABLEKS R6 R10 K17 ["incrementCount"]
-  SETTABLEKS R7 R10 K18 ["decrementCount"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K20 ["createElement"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K21 ["Provider"]
-  DUPTABLE R13 K23 [{"value"}]
-  SETTABLEKS R10 R13 K22 ["value"]
-  GETTABLEKS R14 R0 K24 ["children"]
-  CALL R11 3 -1
-  RETURN R11 -1
+  DUPTABLE R7 K8 [{"incrementCount", "decrementCount"}]
+  SETTABLEKS R5 R7 K6 ["incrementCount"]
+  SETTABLEKS R6 R7 K7 ["decrementCount"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K10 ["Provider"]
+  DUPTABLE R10 K12 [{"value"}]
+  SETTABLEKS R7 R10 K11 ["value"]
+  GETTABLEKS R11 R0 K13 ["children"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0
@@ -146,55 +104,46 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["AssetClassificationUtils"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["AssetClassificationUtils"]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K11 ["createUnimplemented"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K10 ["Util"]
-  GETTABLEKS R5 R6 K12 ["createUnimplemented"]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Flags"]
+  GETTABLEKS R5 R6 K13 ["getFFlagAvatarPreviewerSortClothingUI"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Flags"]
-  GETTABLEKS R6 R7 K14 ["getFFlagAvatarPreviewerSortClothingUI"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Hooks"]
+  GETTABLEKS R6 R7 K15 ["useIncrementedState"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Hooks"]
-  GETTABLEKS R7 R8 K16 ["useIncrementedState"]
-  CALL R6 1 1
-  GETTABLEKS R8 R1 K17 ["ContextServices"]
-  GETTABLEKS R7 R8 K18 ["Localization"]
-  DUPTABLE R8 K22 [{"isValidForAutoSetup", "incrementCount", "decrementCount"}]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K19 ["isValidForAutoSetup"]
-  MOVE R9 R4
-  LOADK R10 K20 ["incrementCount"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K20 ["incrementCount"]
-  MOVE R9 R4
-  LOADK R10 K21 ["decrementCount"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K21 ["decrementCount"]
-  GETTABLEKS R9 R2 K23 ["createContext"]
-  MOVE R10 R8
-  CALL R9 1 1
-  DUPCLOSURE R10 K24 [PROTO_2]
+  DUPTABLE R6 K18 [{"incrementCount", "decrementCount"}]
+  MOVE R7 R3
+  LOADK R8 K16 ["incrementCount"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K16 ["incrementCount"]
+  MOVE R7 R3
+  LOADK R8 K17 ["decrementCount"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K17 ["decrementCount"]
+  GETTABLEKS R7 R1 K19 ["createContext"]
+  MOVE R8 R6
+  CALL R7 1 1
+  DUPCLOSURE R8 K20 [PROTO_2]
+  CAPTURE VAL R4
   CAPTURE VAL R5
+  CAPTURE VAL R1
   CAPTURE VAL R7
-  CAPTURE VAL R6
-  CAPTURE VAL R2
-  CAPTURE VAL R9
-  DUPTABLE R11 K27 [{"Context", "Provider"}]
-  SETTABLEKS R9 R11 K25 ["Context"]
-  SETTABLEKS R10 R11 K26 ["Provider"]
-  RETURN R11 1
+  DUPTABLE R9 K23 [{"Context", "Provider"}]
+  SETTABLEKS R7 R9 K21 ["Context"]
+  SETTABLEKS R8 R9 K22 ["Provider"]
+  RETURN R9 1

@@ -5,6 +5,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local VRService = game:GetService("VRService")
+local GuiService = game:GetService("GuiService")
 
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
@@ -35,14 +36,6 @@ local ZOOM_SPEED_KEYS = 0.1 -- (studs/s)
 local ZOOM_SPEED_TOUCH = 0.04 -- (scaled studs/DIP %)
 
 local MIN_TOUCH_SENSITIVITY_FRACTION = 0.25 -- 25% sensitivity at 90°
-
-local FFlagUserResetTouchStateOnMenuOpen
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserResetTouchStateOnMenuOpen")
-	end)
-	FFlagUserResetTouchStateOnMenuOpen = success and result
-end
 
 local FFlagUserClearPanOnCameraDisable
 do
@@ -386,9 +379,7 @@ do
 				touches = {}
 				dynamicThumbstickInput = nil
 				lastPinchDiameter = nil
-				if FFlagUserResetTouchStateOnMenuOpen then
-					resetPanInputCount()
-				end
+				resetPanInputCount()
 			end
 		end
 
@@ -478,10 +469,7 @@ do
 				table.insert(connectionList, UserInputService.InputChanged:Connect(inputChanged))
 				table.insert(connectionList, UserInputService.InputEnded:Connect(inputEnded))
 				table.insert(connectionList, UserInputService.PointerAction:Connect(pointerAction))
-				if FFlagUserResetTouchStateOnMenuOpen then
-					local GuiService = game:GetService("GuiService")
-					table.insert(connectionList, GuiService.MenuOpened:connect(resetTouchState))
-				end
+				table.insert(connectionList, GuiService.MenuOpened:connect(resetTouchState))
 
 			else -- disable
 				ContextActionService:UnbindAction("RbxCameraThumbstick")

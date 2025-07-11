@@ -5,6 +5,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
+local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Button = UIBlox.App.Button.Button
@@ -15,6 +16,9 @@ local Images = UIBlox.App.ImageSet.Images
 local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
+
+local VoiceChatFlags = VoiceChat.Flags
+local GetFFlagSupportGamepadNavInVoiceModals = VoiceChatFlags.GetFFlagSupportGamepadNavInVoiceModals
 
 -- Constants
 local OVERLAY_WIDTH = 365
@@ -53,7 +57,7 @@ local validateProps = ArgCheck.wrap(t.strictInterface({
 	showPrompt = t.optional(t.boolean),
 }))
 
-local function VoiceChatConsentModal(props: Props)
+local function VoiceChatConsentModal(props: Props, ref: React.Ref<GuiObject>?)
 	assert(validateProps(props))
 
 	local isSelected, setIsSelected = React.useState(false)
@@ -87,6 +91,9 @@ local function VoiceChatConsentModal(props: Props)
 		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
 	).Y
 	local infoTextContainerHeight = PADDING + infoTextHeight
+
+	local selectionBehavior = if GetFFlagSupportGamepadNavInVoiceModals() then Enum.SelectionBehavior.Stop else nil
+	local isSelectable = if GetFFlagSupportGamepadNavInVoiceModals() then true else nil
 
 	return Roact.createElement("ScreenGui", {
 		DisplayOrder = 8,
@@ -125,6 +132,16 @@ local function VoiceChatConsentModal(props: Props)
 			),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			SliceCenter = Assets.Images.RoundedRect.SliceCenter,
+			-- Define a restricted SelectionGroup to only allow navigating between the
+			-- VoiceChatConsentModal's buttons
+			SelectionBehaviorDown = selectionBehavior,
+			SelectionBehaviorLeft = selectionBehavior,
+			SelectionBehaviorRight = selectionBehavior,
+			SelectionBehaviorUp = selectionBehavior,
+			SelectionGroup = isSelectable,
+			-- Pass down a ref from VoiceChatPromptFrame so that VoiceChatPromptFrame can auto-select a button
+			-- and support gamepad navigation within this modal
+			ref = if GetFFlagSupportGamepadNavInVoiceModals() then ref else nil,
 		}, {
 			Padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, TOP_PADDING),
@@ -243,6 +260,7 @@ local function VoiceChatConsentModal(props: Props)
 					size = UDim2.new(0.5, -5, 0, BUTTON_CONTAINER_SIZE),
 					text = notNow,
 					onActivated = props.handleSecondaryActivated,
+					Selectable = isSelectable,
 				}),
 				ConfirmButton = Roact.createElement(Button, {
 					buttonType = ButtonType.PrimarySystem,
@@ -251,10 +269,15 @@ local function VoiceChatConsentModal(props: Props)
 					text = turnOn,
 					isDisabled = props.showCheckbox and not isSelected,
 					onActivated = props.handlePrimaryActivated,
+					Selectable = isSelectable,
 				}),
 			}),
 		}),
 	})
 end
 
-return VoiceChatConsentModal :: VoiceChatConsentModalType
+if GetFFlagSupportGamepadNavInVoiceModals() then
+	return React.forwardRef(VoiceChatConsentModal) :: any
+else
+	return VoiceChatConsentModal :: VoiceChatConsentModalType
+end

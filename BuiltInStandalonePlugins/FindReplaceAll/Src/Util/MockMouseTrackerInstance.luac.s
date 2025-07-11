@@ -1,0 +1,32 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["new"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_2:
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["MockSignal"]
+  CALL R1 1 1
+  DUPTABLE R2 K12 [{"GetAttribute", "GetAttributeChangedSignal", "Destroy"}]
+  DUPCLOSURE R3 K13 [PROTO_0]
+  SETTABLEKS R3 R2 K9 ["GetAttribute"]
+  DUPCLOSURE R3 K14 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K10 ["GetAttributeChangedSignal"]
+  DUPCLOSURE R3 K15 [PROTO_2]
+  SETTABLEKS R3 R2 K11 ["Destroy"]
+  RETURN R2 1

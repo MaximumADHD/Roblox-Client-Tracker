@@ -27,8 +27,6 @@ local VRService = game:GetService("VRService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
-local GetFFlagChatActiveChangedSignal = SharedFlags.GetFFlagChatActiveChangedSignal
-local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowToggled
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 
@@ -152,15 +150,12 @@ do
 
 
 	interface.ChatBarFocusChanged = Util.Signal()
-	if getFFlagExposeChatWindowToggled() then
-		interface.ChatWindowToggled = Util.Signal()
-	end
-	if GetFFlagChatActiveChangedSignal() then
-		interface.ChatActiveChanged = Util.Signal()
-		interface.ChatActiveChanged:connect(function(visible)
-			 interface:SetVisible(visible)
-		end)
-	end
+	interface.ChatWindowToggled = Util.Signal()
+	interface.ChatActiveChanged = Util.Signal()
+	interface.ChatActiveChanged:connect(function(visible)
+			interface:SetVisible(visible)
+	end)
+
 	interface.VisibilityStateChanged = Util.Signal()
 	interface.MessagesChanged = Util.Signal()
 
@@ -190,11 +185,7 @@ StarterGui:RegisterGetCore("ChatActive", function()
 	return interface:GetVisibility()
 end)
 StarterGui:RegisterSetCore("ChatActive", function(visible)
-	if GetFFlagChatActiveChangedSignal() then
-		interface.ChatActiveChanged:fire(visible)
-	else
-		return interface:SetVisible(visible)
-	end
+	interface.ChatActiveChanged:fire(visible)
 end)
 
 
@@ -213,12 +204,8 @@ if TenFootInterfaceExpChatExperimentation.getIsEnabled() or (not isConsole) then
 
 		ConnectSignals(useModule, interface, "ChatBarFocusChanged")
 		ConnectSignals(useModule, interface, "VisibilityStateChanged")
-		if getFFlagExposeChatWindowToggled() then
-			ConnectSignals(useModule, interface, "ChatWindowToggled")
-		end
-		if GetFFlagChatActiveChangedSignal() then
-			ConnectSignals(useModule, interface, "ChatActiveChanged")
-		end
+		ConnectSignals(useModule, interface, "ChatWindowToggled")
+		ConnectSignals(useModule, interface, "ChatActiveChanged")
 		ConnectSignals(useModule, interface, "BubbleChatOnlySet")
 		ConnectSignals(useModule, interface, "ChatDisabled")
 

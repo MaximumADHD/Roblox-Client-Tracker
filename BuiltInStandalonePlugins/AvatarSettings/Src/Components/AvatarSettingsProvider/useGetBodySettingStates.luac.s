@@ -92,95 +92,125 @@ PROTO_1:
   GETUPVAL R6 6
   MOVE R7 R0
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K12 ["bodyAppearanceCustomPartsTorso"]
+  GETTABLEKS R8 R9 K12 ["bodyAppearanceCustomPartsMood"]
   CALL R6 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K12 ["bodyAppearanceCustomPartsTorso"]
+  SETTABLEKS R3 R2 K12 ["bodyAppearanceCustomPartsMood"]
   GETUPVAL R3 5
   LOADB R4 0
   LOADN R5 0
   GETUPVAL R6 6
   MOVE R7 R0
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K13 ["bodyAppearanceCustomPartsLeftArm"]
+  GETTABLEKS R8 R9 K13 ["bodyAppearanceCustomPartsEyebrow"]
   CALL R6 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K13 ["bodyAppearanceCustomPartsLeftArm"]
+  SETTABLEKS R3 R2 K13 ["bodyAppearanceCustomPartsEyebrow"]
   GETUPVAL R3 5
   LOADB R4 0
   LOADN R5 0
   GETUPVAL R6 6
   MOVE R7 R0
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K14 ["bodyAppearanceCustomPartsRightArm"]
+  GETTABLEKS R8 R9 K14 ["bodyAppearanceCustomPartsEyelash"]
   CALL R6 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K14 ["bodyAppearanceCustomPartsRightArm"]
+  SETTABLEKS R3 R2 K14 ["bodyAppearanceCustomPartsEyelash"]
   GETUPVAL R3 5
   LOADB R4 0
   LOADN R5 0
   GETUPVAL R6 6
   MOVE R7 R0
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K15 ["bodyAppearanceCustomPartsLeftLeg"]
+  GETTABLEKS R8 R9 K15 ["bodyAppearanceCustomPartsTorso"]
   CALL R6 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K15 ["bodyAppearanceCustomPartsLeftLeg"]
+  SETTABLEKS R3 R2 K15 ["bodyAppearanceCustomPartsTorso"]
   GETUPVAL R3 5
   LOADB R4 0
   LOADN R5 0
   GETUPVAL R6 6
   MOVE R7 R0
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K16 ["bodyAppearanceCustomPartsRightLeg"]
+  GETTABLEKS R8 R9 K16 ["bodyAppearanceCustomPartsLeftArm"]
   CALL R6 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K16 ["bodyAppearanceCustomPartsRightLeg"]
+  SETTABLEKS R3 R2 K16 ["bodyAppearanceCustomPartsLeftArm"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K17 ["bodyAppearanceCustomPartsRightArm"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K17 ["bodyAppearanceCustomPartsRightArm"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K18 ["bodyAppearanceCustomPartsLeftLeg"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K18 ["bodyAppearanceCustomPartsLeftLeg"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K19 ["bodyAppearanceCustomPartsRightLeg"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K19 ["bodyAppearanceCustomPartsRightLeg"]
   GETUPVAL R3 1
-  GETTABLEKS R4 R1 K17 ["bodyBuildSetting"]
+  GETTABLEKS R4 R1 K20 ["bodyBuildSetting"]
   GETUPVAL R5 2
   MOVE R6 R0
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K17 ["bodyBuildSetting"]
+  GETTABLEKS R7 R8 K20 ["bodyBuildSetting"]
   CALL R5 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K17 ["bodyBuildSetting"]
+  SETTABLEKS R3 R2 K20 ["bodyBuildSetting"]
   GETUPVAL R3 1
   GETIMPORT R4 K5 [NumberRange.new]
-  LOADK R5 K18 [0.9]
-  LOADK R6 K19 [1.05]
+  LOADK R5 K21 [0.9]
+  LOADK R6 K22 [1.05]
   CALL R4 2 1
   GETUPVAL R5 2
   MOVE R6 R0
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K20 ["bodyBuildCustomHeight"]
+  GETTABLEKS R7 R8 K23 ["bodyBuildCustomHeight"]
   CALL R5 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K20 ["bodyBuildCustomHeight"]
+  SETTABLEKS R3 R2 K23 ["bodyBuildCustomHeight"]
   GETUPVAL R3 1
   GETIMPORT R4 K5 [NumberRange.new]
-  LOADK R5 K21 [0.7]
+  LOADK R5 K24 [0.7]
   LOADN R6 1
   CALL R4 2 1
   GETUPVAL R5 2
   MOVE R6 R0
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K22 ["bodyBuildCustomWidth"]
+  GETTABLEKS R7 R8 K25 ["bodyBuildCustomWidth"]
   CALL R5 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K22 ["bodyBuildCustomWidth"]
+  SETTABLEKS R3 R2 K25 ["bodyBuildCustomWidth"]
   GETUPVAL R3 1
   GETIMPORT R4 K5 [NumberRange.new]
-  LOADK R5 K23 [0.95]
+  LOADK R5 K26 [0.95]
   LOADN R6 1
   CALL R4 2 1
   GETUPVAL R5 2
   MOVE R6 R0
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K24 ["bodyBuildCustomHead"]
+  GETTABLEKS R7 R8 K27 ["bodyBuildCustomHead"]
   CALL R5 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K24 ["bodyBuildCustomHead"]
+  SETTABLEKS R3 R2 K27 ["bodyBuildCustomHead"]
   GETUPVAL R3 1
   GETIMPORT R4 K5 [NumberRange.new]
   LOADN R5 0
@@ -189,10 +219,10 @@ PROTO_1:
   GETUPVAL R5 2
   MOVE R6 R0
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K25 ["bodyBuildCustomBodyType"]
+  GETTABLEKS R7 R8 K28 ["bodyBuildCustomBodyType"]
   CALL R5 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K25 ["bodyBuildCustomBodyType"]
+  SETTABLEKS R3 R2 K28 ["bodyBuildCustomBodyType"]
   GETUPVAL R3 1
   GETIMPORT R4 K5 [NumberRange.new]
   LOADN R5 0
@@ -201,10 +231,10 @@ PROTO_1:
   GETUPVAL R5 2
   MOVE R6 R0
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K26 ["bodyBuildCustomProportions"]
+  GETTABLEKS R7 R8 K29 ["bodyBuildCustomProportions"]
   CALL R5 2 -1
   CALL R3 -1 1
-  SETTABLEKS R3 R2 K26 ["bodyBuildCustomProportions"]
+  SETTABLEKS R3 R2 K29 ["bodyBuildCustomProportions"]
   RETURN R2 1
 
 MAIN:

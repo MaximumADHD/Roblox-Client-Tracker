@@ -47,7 +47,6 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 ------------ FFLAGS -------------------
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local GetFFlagOptimizeHelpMenuInputEvent = require(RobloxGui.Modules.Flags.GetFFlagOptimizeHelpMenuInputEvent)
 local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -751,16 +750,6 @@ local function Initialize()
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Help"
 
-	if not GetFFlagOptimizeHelpMenuInputEvent() then
-		UserInputService.InputBegan:connect(function(inputObject)
-			local inputType = inputObject.UserInputType
-			if inputType ~= Enum.UserInputType.Focus and inputType ~= Enum.UserInputType.None then
-				lastInputType = inputObject.UserInputType
-				showTypeOfHelp()
-			end
-		end)
-	end
-
 	utility:OnResized(this, function(newSize, isPortrait)
 		if this.HelpPages[TOUCH_TAG] then
 			adjustForScreenLayout(newSize)
@@ -776,9 +765,7 @@ do
   PageInstance = Initialize()
 
   PageInstance.Displayed.Event:connect(function()
-      if GetFFlagOptimizeHelpMenuInputEvent() then
-        PageInstance:PageDisplayed()
-      end
+      PageInstance:PageDisplayed()
       if not GetFFlagFixIGMBottomBarVisibility() then
         local isPortrait = utility:IsPortrait()
         if PageInstance:GetCurrentInputType() == TOUCH_TAG then
@@ -793,9 +780,7 @@ do
     end)
 
   PageInstance.Hidden.Event:connect(function()
-      if GetFFlagOptimizeHelpMenuInputEvent() then
-        PageInstance:PageHidden()
-      end
+      PageInstance:PageHidden()
       PageInstance.HubRef.PageViewClipper.ClipsDescendants = true
       PageInstance.HubRef.PageView.ClipsDescendants = true
 

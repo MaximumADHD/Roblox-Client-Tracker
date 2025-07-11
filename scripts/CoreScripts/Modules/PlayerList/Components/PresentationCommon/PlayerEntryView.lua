@@ -5,15 +5,14 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
-
 local PresentationCommon = script.Parent
 local Components = PresentationCommon.Parent
 local PlayerList = Components.Parent
 
--------------------------------- Packages --------------------------------
 local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
+local Signals = require(CorePackages.Packages.Signals)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local InExperienceCapabilities =
 	require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
@@ -21,84 +20,62 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
-local SignalsReact = require(CorePackages.Packages.SignalsReact)
-local Signals = require(CorePackages.Packages.Signals)
 
--------------------------------- Hooks --------------------------------
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
-local useSignalState = SignalsReact.useSignalState
 
--------------------------------- Components --------------------------------
 local View = Foundation.View
 local ControlState = Foundation.Enums.ControlState
 
 local EntryFrameView = PlayerListPackage.Presentation.EntryFrameView
 local StatEntryContainer = require(PlayerList.Components.Container.StatEntryContainer)
 
--------------------------------- Legacy Components --------------------------------
-
 local CellExtender = require(Components.Presentation.CellExtender)
 local PlayerIcon = require(PresentationCommon.PlayerIcon)
 local PlayerNameTag = require(Components.Presentation.PlayerNameTag)
 
-local createShallowEqualAndTables = require(PlayerList.createShallowEqualAndTables)
-
--------------------------------- Flags --------------------------------
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
 
-type SignalMap<K, V> = LeaderboardStore.SignalMap<K, V>
-
--- Type definitions
-type PlayerIconInfo = {
-	isPlaceOwner: boolean,
-	avatarIcon: { [string]: any }?,
-	specialGroupIcon: { [string]: any }?,
-}
-
-type PlayerRelationship = {
-	isBlocked: boolean,
-	friendStatus: Enum.FriendStatus,
-	isFollowing: boolean,
-	isFollower: boolean,
-}
-
-type GameStat = {
-	name: string,
-	text: string,
-	addId: number,
-	isPrimary: boolean,
-	priority: number,
-}
+type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
+type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
+type PlayerEntry = LeaderboardStore.PlayerEntry
+type GameStatList = LeaderboardStore.GameStatList
+type StatList = LeaderboardStore.StatList
 
 type ColorStyle = {
 	Color: Color3,
 	Transparency: number,
 }
 
-export type PlayerEntryProps = {
+export type PlayerEntryViewProps = {
+	-- Layout options
 	size: UDim2?,
+	entrySizeX: number,
+	layoutOrder: number?,
+
+	-- Store data
 	player: Player,
+	playerData: PlayerEntry,
 	titlePlayerEntry: boolean,
-	entrySize: number,
-	playerStats: SignalMap<string, any>?,
-	playerIconInfo: PlayerIconInfo,
-	playerRelationship: PlayerRelationship,
-	gameStats: SignalMap<string, any>?,
-	gameStatNames: { string }?,
-	selectedPlayer: Player?,
+	playerIconInfo: PlayerIconInfoProps,
+	playerRelationship: PlayerRelationshipProps,
+	gameStats: GameStatList?,
+	gameStatsCount: number,
+	teamPlayersCount: Signals.getter<number>,
+
+	-- Dropdown data
 	dropdownOpen: boolean?,
+	selectedPlayer: Player?,
+	firstPlayerRef: React.Ref<GuiObject?>?,
+	openDropdown: ((Player) -> ())?,
+	closeDropdown: (() -> ())?,
+	setDropDownPlayerDimensionY: ((vec2: Vector2) -> ())?,
+
+	-- Device type
 	isSmallTouchDevice: boolean?,
 	isDirectionalPreferred: boolean?,
-	closeDropdown: (() -> ())?,
-	openDropdown: ((Player) -> ())?,
-	-- Mobile specific props
-	topDiv: boolean?,
-	bottomDiv: boolean?,
-	Position: UDim2?,
-	layoutOrder: number?,
-	-- Desktop specific props
-	hasDivider: boolean?,
 }
 
 local defaultOverlayStyle = {
@@ -108,8 +85,8 @@ local defaultOverlayStyle = {
 
 type IconAndNameProps = {
 	player: Player,
-	playerIconInfo: PlayerIconInfo,
-	playerRelationship: PlayerRelationship,
+	playerIconInfo: PlayerIconInfoProps,
+	playerRelationship: PlayerRelationshipProps,
 	titlePlayerEntry: boolean,
 	isHovered: boolean,
 	textStyle: { [string]: any },
@@ -161,12 +138,14 @@ type PlayerEntryChildrenProps = {
 	overlayStyle: { [string]: any },
 	isPressed: boolean,
 	player: Player,
-	playerIconInfo: PlayerIconInfo,
-	playerRelationship: PlayerRelationship,
+	playerIconInfo: PlayerIconInfoProps,
+	playerRelationship: PlayerRelationshipProps,
 	titlePlayerEntry: boolean,
-	entrySize: number,
-	playerStats: SignalMap<string, any>?,
-	gameStats: SignalMap<string, any>?,
+	entrySizeX: number,
+	playerStats: StatList?,
+	gameStats: GameStatList?,
+	playerStatsCount: number,
+	gameStatsCount: number,
 	backgroundFrameProps: { [string]: any },
 }
 
@@ -182,9 +161,8 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 	local isPressed = props.isPressed
 	local gameStats = props.gameStats
 	local playerStats = props.playerStats
-
-	local gameStatsCount = useSignalState(if gameStats then gameStats.getCount else Signals.createSignal(0))
-	local playerStatsCount = useSignalState(if playerStats then playerStats.getCount else Signals.createSignal(0))
+	local gameStatsCount = props.gameStatsCount
+	local playerStatsCount = props.playerStatsCount
 
 	-- Common children for both mobile and desktop
 	local children = {}
@@ -196,8 +174,8 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 		VerticalAlignment = Enum.VerticalAlignment.Center,
 	}
 
-	-- Add padding for desktop tenfoot mode
-	if not isSmallTouchDevice and isDirectionalPreferred then
+	-- Add padding for tenfoot mode
+	if isDirectionalPreferred then
 		layoutProps.Padding = UDim.new(0, layoutValues.PlayerEntryPadding)
 	end
 
@@ -224,7 +202,7 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 	if isSmallTouchDevice then
 		nameFrameProps.Size = UDim2.new(0, layoutValues.PlayerNameSizeXMobile, 0, layoutValues.PlayerEntrySizeY)
 	else
-		nameFrameProps.Size = UDim2.new(0, props.entrySize, 0, layoutValues.PlayerEntrySizeY)
+		nameFrameProps.Size = UDim2.new(0, props.entrySizeX, 0, layoutValues.PlayerEntrySizeY)
 	end
 
 	children.NameFrame = React.createElement("Frame", nameFrameProps, playerComponents)
@@ -248,35 +226,32 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 	-- Add game stats
 	local maxLeaderstats = layoutValues.MaxLeaderstats
 	local statProps = {
-		isTitleEntry = props.titlePlayerEntry,
 		isTeamEntry = false,
+		showStatTitle = props.titlePlayerEntry and isDirectionalPreferred,
 		textStyle = textStyle,
 	}
 
 	-- Add desktop and tenfoot specific props
-	if not isSmallTouchDevice then
+	if isDirectionalPreferred then
 		statProps.backgroundStyle = backgroundStyle
 		statProps.overlayStyle = overlayStyle
 		statProps.doubleOverlay = isPressed
 	end
 
-	if gameStats and gameStatsCount > 0 and playerStats and playerStatsCount > 0 then
+	if gameStats and gameStatsCount > 0 and playerStats and playerStatsCount >= 0 then
 		gameStats.iterateData(function(gameStatName, value)
 			if value.order(false) > maxLeaderstats then
 				return
 			end
 
 			local playerStat = playerStats.getData(gameStatName, false)
-			if playerStat then
-				children["GameStat_" .. gameStatName] = React.createElement(
-					StatEntryContainer,
-					Cryo.Dictionary.join(statProps, {
-						statName = gameStatName,
-						statSignal = playerStat,
-						layoutOrder = value.order,
-					})
-				)
-			end
+			children["GameStat_" .. gameStatName] = React.createElement(
+				StatEntryContainer,
+				Cryo.Dictionary.join(statProps, {
+					statName = gameStatName,
+					stat = playerStat,
+				})
+			)
 		end, false)
 	end
 
@@ -285,8 +260,14 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 		children.BackgroundExtender = React.createElement(CellExtender, {
 			layoutOrder = 100,
 			size = UDim2.new(0, layoutValues.ExtraContainerPadding, 1, 0),
-			backgroundStyle = backgroundStyle,
-			overlayStyle = overlayStyle,
+			backgroundStyle = {
+				Color = Color3.new(1, 1, 1),
+				Transparency = 1,
+			},
+			overlayStyle = {
+				Color = Color3.new(1, 1, 1),
+				Transparency = 1,
+			},
 			doubleOverlay = isPressed,
 		})
 	end
@@ -295,10 +276,33 @@ end
 
 PlayerEntryChildren = React.memo(PlayerEntryChildren) :: any
 
-local function PlayerEntryView(props)
+local function PlayerEntryView(props: PlayerEntryViewProps)
+	local playerStatsCount = SignalsReact.useSignalState(props.playerData.stats.getCount)
+
+	local playerOrder = SignalsReact.useSignalBinding(props.playerData.order)
+
+	-- TODO: Move hasDivider, topDiv, and bottomDiv logic as well as their corresponding components to TeamListView (APPEXP-2906)
+	local bottomDiv = SignalsReact.useSignalBinding(function(scope)
+		return props.playerData.order(scope) == props.teamPlayersCount(scope) or props.titlePlayerEntry
+	end)
+
+	local hasDivider = SignalsReact.useSignalBinding(function(scope)
+		return props.playerData.order(scope) ~= props.teamPlayersCount(scope)
+	end)
+
+	local layoutOrder = React.useMemo(function()
+		return if props.layoutOrder then props.layoutOrder else playerOrder
+	end, { props.layoutOrder, playerOrder } :: { any })
+
+	local firstPlayerRef = React.useMemo(function()
+		return if props.playerData.order(false) == 1 then props.firstPlayerRef else nil	
+	end, { props.playerData.order, props.firstPlayerRef } :: { any })
+
 	-- TODO: APPEXP-2323 Turn these state changes into bindings
 	local isHovered, setIsHovered = React.useState(false)
 	local isPressed, setIsPressed = React.useState(false)
+
+	local playerEntryRef = React.useRef(nil :: GuiObject?)
 
 	local chromeEnabled = ChromeEnabled()
 	local layoutValues = useLayoutValues()
@@ -310,18 +314,34 @@ local function PlayerEntryView(props)
 	local isLocalPlayer = props.player == Players.LocalPlayer
 
 	local onActivated = React.useCallback(function()
+		if not props.openDropdown or not props.closeDropdown then
+			return
+		end
+
 		if props.dropdownOpen and props.selectedPlayer == props.player then
 			props.closeDropdown()
 		else
 			if GetFFlagGateLeaderboardPlayerDropdownViaGUAC() then
 				if InExperienceCapabilities.canViewPlayerDropdownInLeaderboard then
 					props.openDropdown(props.player)
+					if playerEntryRef.current then
+						local dimensionY = Vector2.new(playerEntryRef.current.AbsolutePosition.Y, playerEntryRef.current.AbsoluteSize.Y)
+						if props.setDropDownPlayerDimensionY then
+							props.setDropDownPlayerDimensionY(dimensionY)
+						end
+					end
 				end
 			else
 				props.openDropdown(props.player)
+				if playerEntryRef.current then
+					local dimensionY = Vector2.new(playerEntryRef.current.AbsolutePosition.Y, playerEntryRef.current.AbsoluteSize.Y)
+					if props.setDropDownPlayerDimensionY then
+						props.setDropDownPlayerDimensionY(dimensionY)
+					end
+				end
 			end
 		end
-	end, {props.dropdownOpen, props.selectedPlayer, props.player, props.openDropdown, props.closeDropdown})
+	end, { props.dropdownOpen, props.selectedPlayer, props.player, props.openDropdown, props.closeDropdown, props.setDropDownPlayerDimensionY, playerEntryRef.current } :: { any })
 
 	-- TODO: APPEXP-2323 Turn these state changes into bindings
 	local onStateChanged = React.useCallback(function(newState)
@@ -499,29 +519,25 @@ local function PlayerEntryView(props)
 	local overlayStyle = getOverlayStyle()
 	local backgroundFrameProps = React.useMemo(function()
 		return {
-			sizeX = props.entrySize,
-			sizeY = layoutValues.PlayerEntrySizeY,
+			size = UDim2.new(0, props.entrySizeX, 0, layoutValues.PlayerEntrySizeY),
 			isTeamFrame = false,
 			backgroundStyle = backgroundStyle,
 			overlayStyle = overlayStyle,
 			doubleOverlay = isPressed,
+			firstPlayerRef = firstPlayerRef,
 
 			onActivated = onActivated,
 			onStateChanged = onStateChanged,
-
-			ref = props.forwardRef,
 		}
 	end, {
-		props.entrySize,
+		props.entrySizeX,
 		layoutValues.PlayerEntrySizeY,
 		backgroundStyle,
 		overlayStyle,
 		isPressed,
 		onActivated,
 		onStateChanged,
-		props.forwardRef,
 	}:: { any })
-
 
 	local playerEntryChildrenProps: PlayerEntryChildrenProps = React.useMemo(function()
 		return {
@@ -538,9 +554,11 @@ local function PlayerEntryView(props)
 			playerIconInfo = props.playerIconInfo,
 			playerRelationship = props.playerRelationship,
 			titlePlayerEntry = props.titlePlayerEntry :: boolean,
-			entrySize = props.entrySize,
+			entrySizeX = props.entrySizeX,
 			gameStats = props.gameStats,
-			playerStats = props.playerStats,
+			playerStats = props.playerData.stats,
+			playerStatsCount = playerStatsCount,
+			gameStatsCount = props.gameStatsCount,
 			backgroundFrameProps = backgroundFrameProps,
 		}
 	end, {
@@ -557,34 +575,36 @@ local function PlayerEntryView(props)
 		props.playerIconInfo,
 		props.playerRelationship,
 		props.titlePlayerEntry,
-		props.entrySize,
-		props.playerStats,
+		props.entrySizeX,
+		props.playerData.stats,
 		props.gameStats,
+		playerStatsCount,
+		props.gameStatsCount,
 		backgroundFrameProps,
 	} :: { any })
 
 	-- Create the main container based on platform
 	if isSmallTouchDevice then
 		return React.createElement(View, {
-			Position = props.Position,
 			Size = size,
 			BackgroundColor3 = backgroundStyle.Color,
 			BackgroundTransparency = backgroundStyle.Transparency,
 			AutoButtonColor = false,
 			BorderSizePixel = 0,
 			Image = "",
-			LayoutOrder = props.layoutOrder,
+			LayoutOrder = layoutOrder,
+			ref = playerEntryRef,
 
 			onActivated = onActivated,
 			onStateChanged = onStateChanged,
-		}, {
+		} :: any, {
 			ChildrenFrame = React.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
 				Position = UDim2.new(0, 0, 0, 0),
 				BackgroundTransparency = 1,
 			}, React.createElement(PlayerEntryChildren, playerEntryChildrenProps)),
 
-			TopDiv = props.topDiv and React.createElement("Frame", {
+			TopDiv = not props.titlePlayerEntry and React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 1),
 				Position = UDim2.new(0, 0, 0, 0),
 				AnchorPoint = Vector2.new(0, 0),
@@ -592,51 +612,48 @@ local function PlayerEntryView(props)
 				BackgroundTransparency = 0.8,
 			}) or nil,
 
-			BottomDiv = props.bottomDiv and React.createElement("Frame", {
+			BottomDiv = React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				AnchorPoint = Vector2.new(0, 1),
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 0.8,
-			}) or nil,
+				Visible = bottomDiv,
+			}),
 		})
 	elseif isDirectionalPreferred then
 		return React.createElement("Frame", {
 			Size = size,
 			BackgroundTransparency = 1,
-			LayoutOrder = props.layoutOrder,
+			LayoutOrder = layoutOrder,
+			ref = playerEntryRef,
 		} :: any, React.createElement(PlayerEntryChildren, playerEntryChildrenProps))
 	else
 		return React.createElement("Frame", {
 			Size = size,
 			BackgroundTransparency = 1,
-			LayoutOrder = props.layoutOrder,
+			LayoutOrder = layoutOrder,
+			ref = playerEntryRef,
 		} :: any, {
 			PlayerEntryContentFrame = React.createElement(
 				EntryFrameView,
-				backgroundFrameProps,
+				Cryo.Dictionary.join(backgroundFrameProps, {
+					size = UDim2.new(1, 0, 0, layoutValues.PlayerEntrySizeY),
+				}),
 				React.createElement(PlayerEntryChildren, playerEntryChildrenProps)
 			),
 
-			Divider = not isDirectionalPreferred and props.hasDivider and React.createElement("Frame", {
+			Divider = React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				AnchorPoint = Vector2.new(0, 1),
 				BackgroundTransparency = style.Theme.Divider.Transparency,
 				BackgroundColor3 = style.Theme.Divider.Color,
 				BorderSizePixel = 0,
+				Visible = hasDivider,
 			}),
 		})
 	end
 end
 
-local ForwardRefPlayerEntryView = React.forwardRef(function(props, ref)
-	return React.createElement(
-		PlayerEntryView,
-		Cryo.Dictionary.join(props, {
-			forwardRef = ref,
-		})
-	)
-end)
-
-return React.memo(ForwardRefPlayerEntryView, createShallowEqualAndTables({ "gameStatNames" }))
+return React.memo(PlayerEntryView)

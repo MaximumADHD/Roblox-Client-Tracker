@@ -441,19 +441,30 @@ MAIN:
   SETTABLEKS R11 R10 K12 ["Size"]
   GETIMPORT R11 K132 [Enum.SizeConstraint.RelativeYY]
   SETTABLEKS R11 R10 K127 ["SizeConstraint"]
-  CALL R8 2 1
+  NEWTABLE R11 0 1
+  MOVE R12 R2
+  LOADK R13 K133 [".AssetIdSelector"]
+  DUPTABLE R14 K134 [{"Size"}]
+  GETIMPORT R15 K78 [UDim2.fromOffset]
+  LOADN R16 20
+  LOADN R17 20
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K12 ["Size"]
+  CALL R12 2 -1
+  SETLIST R11 R12 -1 [1]
+  CALL R8 3 1
   MOVE R9 R2
-  LOADK R10 K133 [".Component-HoverTextBox"]
-  DUPTABLE R11 K136 [{"TextWrapped", "TextXAlignment", "TextYAlignment", "AutomaticSize", "BackgroundColor3"}]
+  LOADK R10 K135 [".Component-HoverTextBox"]
+  DUPTABLE R11 K138 [{"TextWrapped", "TextXAlignment", "TextYAlignment", "AutomaticSize", "BackgroundColor3"}]
   LOADB R12 1
-  SETTABLEKS R12 R11 K134 ["TextWrapped"]
-  GETIMPORT R12 K138 [Enum.TextXAlignment.Center]
+  SETTABLEKS R12 R11 K136 ["TextWrapped"]
+  GETIMPORT R12 K140 [Enum.TextXAlignment.Center]
   SETTABLEKS R12 R11 K26 ["TextXAlignment"]
-  GETIMPORT R12 K139 [Enum.TextYAlignment.Center]
-  SETTABLEKS R12 R11 K135 ["TextYAlignment"]
+  GETIMPORT R12 K141 [Enum.TextYAlignment.Center]
+  SETTABLEKS R12 R11 K137 ["TextYAlignment"]
   GETIMPORT R12 K81 [Enum.AutomaticSize.XY]
   SETTABLEKS R12 R11 K15 ["AutomaticSize"]
-  LOADK R12 K140 ["$ActionEnabled"]
+  LOADK R12 K142 ["$ActionEnabled"]
   SETTABLEKS R12 R11 K13 ["BackgroundColor3"]
   NEWTABLE R12 0 2
   MOVE R13 R2
@@ -461,7 +472,7 @@ MAIN:
   CALL R13 1 1
   MOVE R14 R2
   LOADK R15 K64 ["::UIPadding"]
-  DUPTABLE R16 K142 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
+  DUPTABLE R16 K144 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
   GETIMPORT R17 K69 [UDim.new]
   LOADN R18 0
   LOADN R19 4
@@ -476,7 +487,7 @@ MAIN:
   LOADN R18 0
   LOADN R19 8
   CALL R17 2 1
-  SETTABLEKS R17 R16 K141 ["PaddingRight"]
+  SETTABLEKS R17 R16 K143 ["PaddingRight"]
   GETIMPORT R17 K69 [UDim.new]
   LOADN R18 0
   LOADN R19 4
@@ -486,32 +497,32 @@ MAIN:
   SETLIST R12 R13 -1 [1]
   CALL R9 3 1
   MOVE R10 R2
-  LOADK R11 K143 [".GenericModeSelector-Subtext"]
-  DUPTABLE R12 K145 [{"TextXAlignment", "TextYAlignment", "TextWrapped", "AutomaticSize", "TextColor3", "TextSize"}]
+  LOADK R11 K145 [".GenericModeSelector-Subtext"]
+  DUPTABLE R12 K147 [{"TextXAlignment", "TextYAlignment", "TextWrapped", "AutomaticSize", "TextColor3", "TextSize"}]
   GETIMPORT R13 K30 [Enum.TextXAlignment.Left]
   SETTABLEKS R13 R12 K26 ["TextXAlignment"]
-  GETIMPORT R13 K147 [Enum.TextYAlignment.Top]
-  SETTABLEKS R13 R12 K135 ["TextYAlignment"]
+  GETIMPORT R13 K149 [Enum.TextYAlignment.Top]
+  SETTABLEKS R13 R12 K137 ["TextYAlignment"]
   LOADB R13 1
-  SETTABLEKS R13 R12 K134 ["TextWrapped"]
+  SETTABLEKS R13 R12 K136 ["TextWrapped"]
   GETIMPORT R13 K109 [Enum.AutomaticSize.Y]
   SETTABLEKS R13 R12 K15 ["AutomaticSize"]
   LOADK R13 K39 ["$TextSecondary"]
   SETTABLEKS R13 R12 K32 ["TextColor3"]
   LOADN R13 18
-  SETTABLEKS R13 R12 K144 ["TextSize"]
+  SETTABLEKS R13 R12 K146 ["TextSize"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K148 [".RadioButtonContainer >> TextLabel #DescriptionTextLabel"]
-  DUPTABLE R13 K149 [{"TextSize", "TextColor3"}]
+  LOADK R12 K150 [".RadioButtonContainer >> TextLabel #DescriptionTextLabel"]
+  DUPTABLE R13 K151 [{"TextSize", "TextColor3"}]
   LOADN R14 16
-  SETTABLEKS R14 R13 K144 ["TextSize"]
+  SETTABLEKS R14 R13 K146 ["TextSize"]
   LOADK R14 K39 ["$TextSecondary"]
   SETTABLEKS R14 R13 K32 ["TextColor3"]
   CALL R11 2 1
   MOVE R12 R2
-  LOADK R13 K150 [".PresetHoverTooltipDivider"]
-  DUPTABLE R14 K151 [{"Size", "BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R13 K152 [".PresetHoverTooltipDivider"]
+  DUPTABLE R14 K153 [{"Size", "BackgroundTransparency", "BackgroundColor3"}]
   GETIMPORT R15 K61 [UDim2.new]
   LOADN R16 1
   LOADN R17 0
@@ -525,43 +536,43 @@ MAIN:
   SETTABLEKS R15 R14 K13 ["BackgroundColor3"]
   CALL R12 2 1
   MOVE R13 R2
-  LOADK R14 K152 [".PresetHoverTooltip"]
+  LOADK R14 K154 [".PresetHoverTooltip"]
   NEWTABLE R15 0 0
   NEWTABLE R16 0 2
   MOVE R17 R2
-  LOADK R18 K153 [">> Frame #ContentPane"]
-  DUPTABLE R19 K154 [{"AutomaticSize"}]
+  LOADK R18 K155 [">> Frame #ContentPane"]
+  DUPTABLE R19 K156 [{"AutomaticSize"}]
   GETIMPORT R20 K81 [Enum.AutomaticSize.XY]
   SETTABLEKS R20 R19 K15 ["AutomaticSize"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K155 [">> ImageLabel #DropShadow"]
-  DUPTABLE R20 K154 [{"AutomaticSize"}]
+  LOADK R19 K157 [">> ImageLabel #DropShadow"]
+  DUPTABLE R20 K156 [{"AutomaticSize"}]
   GETIMPORT R21 K81 [Enum.AutomaticSize.XY]
   SETTABLEKS R21 R20 K15 ["AutomaticSize"]
   CALL R18 2 -1
   SETLIST R16 R17 -1 [1]
   CALL R13 3 1
   MOVE R14 R2
-  LOADK R15 K156 [".PresetHoverTooltipCheckImage"]
+  LOADK R15 K158 [".PresetHoverTooltipCheckImage"]
   DUPTABLE R16 K42 [{"Image"}]
-  LOADK R17 K157 ["$PresetTooltipCheckImage"]
+  LOADK R17 K159 ["$PresetTooltipCheckImage"]
   SETTABLEKS R17 R16 K41 ["Image"]
   CALL R14 2 1
   MOVE R15 R2
-  LOADK R16 K158 [".PresetHoverTooltipXImage"]
+  LOADK R16 K160 [".PresetHoverTooltipXImage"]
   DUPTABLE R17 K42 [{"Image"}]
-  LOADK R18 K159 ["$PresetTooltipXImage"]
+  LOADK R18 K161 ["$PresetTooltipXImage"]
   SETTABLEKS R18 R17 K41 ["Image"]
   CALL R15 2 1
   MOVE R16 R2
-  LOADK R17 K160 [".GeneralSettingsGameplayDescriptionImage"]
+  LOADK R17 K162 [".GeneralSettingsGameplayDescriptionImage"]
   DUPTABLE R18 K42 [{"Image"}]
-  LOADK R19 K161 ["$PresetInfoImage"]
+  LOADK R19 K163 ["$PresetInfoImage"]
   SETTABLEKS R19 R18 K41 ["Image"]
   CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K162 [".ColumnSpacing-Standard ::UIListLayout"]
+  LOADK R18 K164 [".ColumnSpacing-Standard ::UIListLayout"]
   DUPTABLE R19 K103 [{"Padding"}]
   GETIMPORT R20 K69 [UDim.new]
   LOADN R21 0
@@ -570,31 +581,31 @@ MAIN:
   SETTABLEKS R20 R19 K102 ["Padding"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K163 [".VerticalFlex-Fill ::UIListLayout"]
-  DUPTABLE R20 K165 [{"VerficalFlex"}]
-  GETIMPORT R21 K168 [Enum.UIFlexAlignment.Fill]
-  SETTABLEKS R21 R20 K164 ["VerficalFlex"]
+  LOADK R19 K165 [".VerticalFlex-Fill ::UIListLayout"]
+  DUPTABLE R20 K167 [{"VerficalFlex"}]
+  GETIMPORT R21 K170 [Enum.UIFlexAlignment.Fill]
+  SETTABLEKS R21 R20 K166 ["VerficalFlex"]
   CALL R18 2 1
   MOVE R19 R2
-  LOADK R20 K169 [".PublishBar"]
-  DUPTABLE R21 K170 [{"BackgroundTransparency"}]
+  LOADK R20 K171 [".PublishBar"]
+  DUPTABLE R21 K172 [{"BackgroundTransparency"}]
   LOADN R22 1
   SETTABLEKS R22 R21 K14 ["BackgroundTransparency"]
   NEWTABLE R22 0 3
   MOVE R23 R2
   LOADK R24 K82 ["::UIStroke"]
-  DUPTABLE R25 K171 [{"Color"}]
+  DUPTABLE R25 K173 [{"Color"}]
   LOADK R26 K63 ["$Divider"]
   SETTABLEKS R26 R25 K83 ["Color"]
   CALL R23 2 1
   MOVE R24 R2
   LOADK R25 K64 ["::UIPadding"]
-  DUPTABLE R26 K172 [{"PaddingRight"}]
+  DUPTABLE R26 K174 [{"PaddingRight"}]
   GETIMPORT R27 K69 [UDim.new]
   LOADN R28 0
   LOADN R29 8
   CALL R27 2 1
-  SETTABLEKS R27 R26 K141 ["PaddingRight"]
+  SETTABLEKS R27 R26 K143 ["PaddingRight"]
   CALL R24 2 1
   MOVE R25 R2
   LOADK R26 K101 ["::UIListLayout"]
@@ -608,18 +619,18 @@ MAIN:
   SETLIST R22 R23 -1 [1]
   CALL R19 3 1
   MOVE R20 R2
-  LOADK R21 K173 [".TitledComponentLabel"]
-  DUPTABLE R22 K175 [{"FontFace"}]
-  GETIMPORT R23 K177 [Font.new]
-  LOADK R24 K178 ["rbxasset://fonts/families/SourceSansPro.json"]
-  GETIMPORT R25 K181 [Enum.FontWeight.Regular]
-  GETIMPORT R26 K184 [Enum.FontStyle.Normal]
+  LOADK R21 K175 [".TitledComponentLabel"]
+  DUPTABLE R22 K177 [{"FontFace"}]
+  GETIMPORT R23 K179 [Font.new]
+  LOADK R24 K180 ["rbxasset://fonts/families/SourceSansPro.json"]
+  GETIMPORT R25 K183 [Enum.FontWeight.Regular]
+  GETIMPORT R26 K186 [Enum.FontStyle.Normal]
   CALL R23 3 1
-  SETTABLEKS R23 R22 K174 ["FontFace"]
+  SETTABLEKS R23 R22 K176 ["FontFace"]
   CALL R20 2 1
   SETLIST R4 R5 16 [17]
   MOVE R5 R2
-  LOADK R6 K185 [".PresetImage"]
+  LOADK R6 K187 [".PresetImage"]
   NEWTABLE R7 0 0
   NEWTABLE R8 0 3
   MOVE R9 R2
@@ -637,55 +648,55 @@ MAIN:
   SETTABLEKS R12 R11 K66 ["PaddingBottom"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K186 [".PlayerChoice"]
+  LOADK R11 K188 [".PlayerChoice"]
   DUPTABLE R12 K42 [{"Image"}]
-  LOADK R13 K187 ["$PlayerChoicePresetImage"]
+  LOADK R13 K189 ["$PlayerChoicePresetImage"]
   SETTABLEKS R13 R12 K41 ["Image"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K188 [".Consistent"]
+  LOADK R12 K190 [".Consistent"]
   DUPTABLE R13 K42 [{"Image"}]
-  LOADK R14 K189 ["$ConsistentPresetImage"]
+  LOADK R14 K191 ["$ConsistentPresetImage"]
   SETTABLEKS R14 R13 K41 ["Image"]
   CALL R11 2 -1
   SETLIST R8 R9 -1 [1]
   CALL R5 3 1
   MOVE R6 R2
-  LOADK R7 K190 [".HoverTooltipPresetImage"]
+  LOADK R7 K192 [".HoverTooltipPresetImage"]
   NEWTABLE R8 0 0
   NEWTABLE R9 0 2
   MOVE R10 R2
-  LOADK R11 K186 [".PlayerChoice"]
+  LOADK R11 K188 [".PlayerChoice"]
   DUPTABLE R12 K42 [{"Image"}]
-  LOADK R13 K187 ["$PlayerChoicePresetImage"]
+  LOADK R13 K189 ["$PlayerChoicePresetImage"]
   SETTABLEKS R13 R12 K41 ["Image"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K188 [".Consistent"]
+  LOADK R12 K190 [".Consistent"]
   DUPTABLE R13 K42 [{"Image"}]
-  LOADK R14 K189 ["$ConsistentPresetImage"]
+  LOADK R14 K191 ["$ConsistentPresetImage"]
   SETTABLEKS R14 R13 K41 ["Image"]
   CALL R11 2 -1
   SETLIST R9 R10 -1 [1]
   CALL R6 3 1
   MOVE R7 R2
-  LOADK R8 K191 [".SaveToRobloxButton"]
+  LOADK R8 K193 [".SaveToRobloxButton"]
   NEWTABLE R9 0 0
   NEWTABLE R10 0 1
   MOVE R11 R2
-  LOADK R12 K192 [">> TextLabel"]
-  DUPTABLE R13 K193 [{"TextSize", "FontFace"}]
+  LOADK R12 K194 [">> TextLabel"]
+  DUPTABLE R13 K195 [{"TextSize", "FontFace"}]
   LOADN R14 20
-  SETTABLEKS R14 R13 K144 ["TextSize"]
-  GETIMPORT R14 K177 [Font.new]
-  LOADK R15 K178 ["rbxasset://fonts/families/SourceSansPro.json"]
-  GETIMPORT R16 K195 [Enum.FontWeight.Bold]
-  GETIMPORT R17 K184 [Enum.FontStyle.Normal]
+  SETTABLEKS R14 R13 K146 ["TextSize"]
+  GETIMPORT R14 K179 [Font.new]
+  LOADK R15 K180 ["rbxasset://fonts/families/SourceSansPro.json"]
+  GETIMPORT R16 K197 [Enum.FontWeight.Bold]
+  GETIMPORT R17 K186 [Enum.FontStyle.Normal]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K174 ["FontFace"]
+  SETTABLEKS R14 R13 K176 ["FontFace"]
   NEWTABLE R14 0 1
   MOVE R15 R2
-  LOADK R16 K196 ["UIPadding"]
+  LOADK R16 K198 ["UIPadding"]
   DUPTABLE R17 K67 [{"PaddingTop", "PaddingBottom"}]
   GETIMPORT R18 K69 [UDim.new]
   LOADN R19 0
@@ -703,38 +714,38 @@ MAIN:
   SETLIST R10 R11 -1 [1]
   CALL R7 3 1
   MOVE R8 R2
-  LOADK R9 K197 ["TextLabel"]
+  LOADK R9 K199 ["TextLabel"]
   NEWTABLE R10 0 0
   NEWTABLE R11 0 1
   MOVE R12 R2
-  LOADK R13 K198 [".Bold"]
-  DUPTABLE R14 K175 [{"FontFace"}]
-  GETIMPORT R15 K177 [Font.new]
-  LOADK R16 K178 ["rbxasset://fonts/families/SourceSansPro.json"]
-  GETIMPORT R17 K195 [Enum.FontWeight.Bold]
-  GETIMPORT R18 K184 [Enum.FontStyle.Normal]
+  LOADK R13 K200 [".Bold"]
+  DUPTABLE R14 K177 [{"FontFace"}]
+  GETIMPORT R15 K179 [Font.new]
+  LOADK R16 K180 ["rbxasset://fonts/families/SourceSansPro.json"]
+  GETIMPORT R17 K197 [Enum.FontWeight.Bold]
+  GETIMPORT R18 K186 [Enum.FontStyle.Normal]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K174 ["FontFace"]
+  SETTABLEKS R15 R14 K176 ["FontFace"]
   CALL R12 2 -1
   SETLIST R11 R12 -1 [1]
   CALL R8 3 1
   MOVE R9 R2
-  LOADK R10 K199 ["TextButton"]
-  DUPTABLE R11 K200 [{"FontFace", "TextSize"}]
-  GETIMPORT R12 K177 [Font.new]
-  LOADK R13 K178 ["rbxasset://fonts/families/SourceSansPro.json"]
-  GETIMPORT R14 K202 [Enum.FontWeight.Medium]
-  GETIMPORT R15 K184 [Enum.FontStyle.Normal]
+  LOADK R10 K201 ["TextButton"]
+  DUPTABLE R11 K202 [{"FontFace", "TextSize"}]
+  GETIMPORT R12 K179 [Font.new]
+  LOADK R13 K180 ["rbxasset://fonts/families/SourceSansPro.json"]
+  GETIMPORT R14 K204 [Enum.FontWeight.Medium]
+  GETIMPORT R15 K186 [Enum.FontStyle.Normal]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K174 ["FontFace"]
+  SETTABLEKS R12 R11 K176 ["FontFace"]
   LOADN R12 18
-  SETTABLEKS R12 R11 K144 ["TextSize"]
+  SETTABLEKS R12 R11 K146 ["TextSize"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K203 ["UIListLayout"]
-  DUPTABLE R12 K205 [{"SortOrder"}]
-  GETIMPORT R13 K207 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R13 R12 K204 ["SortOrder"]
+  LOADK R11 K205 ["UIListLayout"]
+  DUPTABLE R12 K207 [{"SortOrder"}]
+  GETIMPORT R13 K209 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R13 R12 K206 ["SortOrder"]
   CALL R10 2 -1
   SETLIST R4 R5 -1 [33]
   NEWTABLE R5 0 0

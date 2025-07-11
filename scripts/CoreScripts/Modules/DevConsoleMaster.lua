@@ -46,8 +46,6 @@ local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissi
 
 local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
 
-local GetFFlagRequestServerStatsFix = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagRequestServerStatsFix)
-
 local DEV_TAB_LIST = {
 	Log = {
 		tab = Log,
@@ -274,11 +272,8 @@ function DevConsoleMaster:Start()
 
 				self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
 			end)
-			if GetFFlagRequestServerStatsFix() then
-				self:SetServerStatsConnection(true)
-			else
-				clientReplicator:RequestServerStats(true)
-			end
+			
+			self:SetServerStatsConnection(true)
 		end
 	end
 end
@@ -289,11 +284,7 @@ function DevConsoleMaster:ToggleVisibility()
 	end
 
 	local isVisible = not self.store:getState().DisplayOptions.isVisible
-	if GetFFlagRequestServerStatsFix() then
-		self:SetVisibility(isVisible)
-	else
-		self.store:dispatch(SetDevConsoleVisibility(isVisible))
-	end
+	self:SetVisibility(isVisible)
 end
 
 function DevConsoleMaster:GetVisibility()
@@ -324,9 +315,7 @@ function DevConsoleMaster:SetVisibility(value)
 			master:Start()
 		end
 
-		if GetFFlagRequestServerStatsFix() then
-			self:SetServerStatsConnection(value)
-		end
+		self:SetServerStatsConnection(value)
 
 		self.store:dispatch(SetDevConsoleVisibility(value))
 	end

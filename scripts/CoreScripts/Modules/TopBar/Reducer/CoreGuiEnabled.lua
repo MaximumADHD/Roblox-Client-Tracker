@@ -9,36 +9,18 @@ local TopBar = script.Parent.Parent
 
 local Actions = TopBar.Actions
 local UpdateCoreGuiEnabled = require(Actions.UpdateCoreGuiEnabled)
-
-local FFlagMountCoreGuiHealthBar = require(TopBar.Flags.FFlagMountCoreGuiHealthBar)
 local FFlagMountCoreGuiBackpack = require(RobloxGui.Modules.Flags.FFlagMountCoreGuiBackpack)
 
 
 local initialCoreGuiEnabled = nil
 if FFlagMountCoreGuiBackpack then
-	if FFlagMountCoreGuiHealthBar then
-		initialCoreGuiEnabled = {
-			[Enum.CoreGuiType.PlayerList] = true,
-			[Enum.CoreGuiType.Chat] = true,
-			[Enum.CoreGuiType.EmotesMenu] = true,
-		}
-	else
 		initialCoreGuiEnabled = {
 			[Enum.CoreGuiType.PlayerList] = true,
 			[Enum.CoreGuiType.Health] = true,
 			[Enum.CoreGuiType.Chat] = true,
 			[Enum.CoreGuiType.EmotesMenu] = true,
 		}
-	end
 else
-	if FFlagMountCoreGuiHealthBar then
-		initialCoreGuiEnabled = {
-			[Enum.CoreGuiType.PlayerList] = true,
-			[Enum.CoreGuiType.Backpack] = true,
-			[Enum.CoreGuiType.Chat] = true,
-			[Enum.CoreGuiType.EmotesMenu] = true,
-		}
-	else
 		initialCoreGuiEnabled = {
 			[Enum.CoreGuiType.PlayerList] = true,
 			[Enum.CoreGuiType.Health] = true,
@@ -46,7 +28,6 @@ else
 			[Enum.CoreGuiType.Chat] = true,
 			[Enum.CoreGuiType.EmotesMenu] = true,
 		}
-	end
 end
 
 local CoreGuiEanbled = Rodux.createReducer(initialCoreGuiEnabled, {

@@ -41,7 +41,8 @@ PROTO_2:
   GETTABLEKS R6 R5 K11 ["new"]
   CALL R6 0 1
   GETTABLEKS R9 R4 K11 ["new"]
-  CALL R9 0 -1
+  MOVE R10 R0
+  CALL R9 1 -1
   NAMECALL R7 R6 K12 ["add"]
   CALL R7 -1 0
   GETTABLEKS R7 R1 K13 ["createElement"]

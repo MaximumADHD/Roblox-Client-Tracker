@@ -1,13 +1,13 @@
 PROTO_0:
-  DUPTABLE R0 K16 [{"bodyScaleSetting", "bodyScaleCustomHeight", "bodyAppearanceSetting", "bodyAppearanceCustomPartsFace", "bodyAppearanceCustomPartsHead", "bodyAppearanceCustomPartsTorso", "bodyAppearanceCustomPartsLeftArm", "bodyAppearanceCustomPartsRightArm", "bodyAppearanceCustomPartsLeftLeg", "bodyAppearanceCustomPartsRightLeg", "bodyBuildSetting", "bodyBuildCustomHeight", "bodyBuildCustomWidth", "bodyBuildCustomHead", "bodyBuildCustomBodyType", "bodyBuildCustomProportions"}]
-  GETIMPORT R1 K20 [Enum.AvatarSettingsScaleMode.PlayerChoice]
+  DUPTABLE R0 K19 [{"bodyScaleSetting", "bodyScaleCustomHeight", "bodyAppearanceSetting", "bodyAppearanceCustomPartsFace", "bodyAppearanceCustomPartsHead", "bodyAppearanceCustomPartsMood", "bodyAppearanceCustomPartsEyebrow", "bodyAppearanceCustomPartsEyelash", "bodyAppearanceCustomPartsTorso", "bodyAppearanceCustomPartsLeftArm", "bodyAppearanceCustomPartsRightArm", "bodyAppearanceCustomPartsLeftLeg", "bodyAppearanceCustomPartsRightLeg", "bodyBuildSetting", "bodyBuildCustomHeight", "bodyBuildCustomWidth", "bodyBuildCustomHead", "bodyBuildCustomBodyType", "bodyBuildCustomProportions"}]
+  GETIMPORT R1 K23 [Enum.AvatarSettingsScaleMode.PlayerChoice]
   SETTABLEKS R1 R0 K0 ["bodyScaleSetting"]
-  GETIMPORT R1 K23 [NumberRange.new]
+  GETIMPORT R1 K26 [NumberRange.new]
   LOADN R2 6
   LOADN R3 6
   CALL R1 2 1
   SETTABLEKS R1 R0 K1 ["bodyScaleCustomHeight"]
-  GETIMPORT R1 K25 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
+  GETIMPORT R1 K28 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
   SETTABLEKS R1 R0 K2 ["bodyAppearanceSetting"]
   GETUPVAL R1 0
   LOADB R2 0
@@ -23,54 +23,69 @@ PROTO_0:
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K5 ["bodyAppearanceCustomPartsTorso"]
+  SETTABLEKS R1 R0 K5 ["bodyAppearanceCustomPartsMood"]
   GETUPVAL R1 0
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K6 ["bodyAppearanceCustomPartsLeftArm"]
+  SETTABLEKS R1 R0 K6 ["bodyAppearanceCustomPartsEyebrow"]
   GETUPVAL R1 0
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K7 ["bodyAppearanceCustomPartsRightArm"]
+  SETTABLEKS R1 R0 K7 ["bodyAppearanceCustomPartsEyelash"]
   GETUPVAL R1 0
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K8 ["bodyAppearanceCustomPartsLeftLeg"]
+  SETTABLEKS R1 R0 K8 ["bodyAppearanceCustomPartsTorso"]
   GETUPVAL R1 0
   LOADB R2 0
   LOADN R3 0
   CALL R1 2 1
-  SETTABLEKS R1 R0 K9 ["bodyAppearanceCustomPartsRightLeg"]
-  GETIMPORT R1 K27 [Enum.AvatarSettingsBuildMode.PlayerChoice]
-  SETTABLEKS R1 R0 K10 ["bodyBuildSetting"]
-  GETIMPORT R1 K23 [NumberRange.new]
+  SETTABLEKS R1 R0 K9 ["bodyAppearanceCustomPartsLeftArm"]
+  GETUPVAL R1 0
+  LOADB R2 0
+  LOADN R3 0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K10 ["bodyAppearanceCustomPartsRightArm"]
+  GETUPVAL R1 0
+  LOADB R2 0
+  LOADN R3 0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K11 ["bodyAppearanceCustomPartsLeftLeg"]
+  GETUPVAL R1 0
+  LOADB R2 0
+  LOADN R3 0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K12 ["bodyAppearanceCustomPartsRightLeg"]
+  GETIMPORT R1 K30 [Enum.AvatarSettingsBuildMode.PlayerChoice]
+  SETTABLEKS R1 R0 K13 ["bodyBuildSetting"]
+  GETIMPORT R1 K26 [NumberRange.new]
   LOADN R2 100
   LOADN R3 100
   CALL R1 2 1
-  SETTABLEKS R1 R0 K11 ["bodyBuildCustomHeight"]
-  GETIMPORT R1 K23 [NumberRange.new]
+  SETTABLEKS R1 R0 K14 ["bodyBuildCustomHeight"]
+  GETIMPORT R1 K26 [NumberRange.new]
   LOADN R2 100
   LOADN R3 100
   CALL R1 2 1
-  SETTABLEKS R1 R0 K12 ["bodyBuildCustomWidth"]
-  GETIMPORT R1 K23 [NumberRange.new]
+  SETTABLEKS R1 R0 K15 ["bodyBuildCustomWidth"]
+  GETIMPORT R1 K26 [NumberRange.new]
   LOADN R2 100
   LOADN R3 100
   CALL R1 2 1
-  SETTABLEKS R1 R0 K13 ["bodyBuildCustomHead"]
-  GETIMPORT R1 K23 [NumberRange.new]
+  SETTABLEKS R1 R0 K16 ["bodyBuildCustomHead"]
+  GETIMPORT R1 K26 [NumberRange.new]
   LOADN R2 100
   LOADN R3 100
   CALL R1 2 1
-  SETTABLEKS R1 R0 K14 ["bodyBuildCustomBodyType"]
-  GETIMPORT R1 K23 [NumberRange.new]
+  SETTABLEKS R1 R0 K17 ["bodyBuildCustomBodyType"]
+  GETIMPORT R1 K26 [NumberRange.new]
   LOADN R2 100
   LOADN R3 100
   CALL R1 2 1
-  SETTABLEKS R1 R0 K15 ["bodyBuildCustomProportions"]
+  SETTABLEKS R1 R0 K18 ["bodyBuildCustomProportions"]
   RETURN R0 1
 
 MAIN:

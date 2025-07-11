@@ -17,6 +17,15 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["GameId"]
+  GETIMPORT R4 K2 [game]
+  GETTABLEKS R3 R4 K0 ["GameId"]
+  NAMECALL R0 R0 K3 ["SetItem"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_2:
   GETIMPORT R1 K1 [pcall]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K2 ["OpenPlace"]
@@ -29,7 +38,7 @@ PROTO_1:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   GETIMPORT R0 K1 [pcall]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["AddNewPlace"]
@@ -48,7 +57,7 @@ PROTO_2:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETIMPORT R1 K1 [pcall]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K2 ["RemovePlace"]
@@ -67,7 +76,7 @@ PROTO_3:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETIMPORT R1 K1 [pcall]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K2 ["RenamePlace"]
@@ -87,7 +96,7 @@ PROTO_4:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   DUPTABLE R1 K5 [{"eventType", "placeId", "universeId", "studioSid", "clientId"}]
   GETTABLEKS R2 R0 K6 ["Event"]
   SETTABLEKS R2 R1 K0 ["eventType"]
@@ -122,7 +131,7 @@ PROTO_5:
   CALL R3 5 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R3 0
   LOADK R5 K0 ["BulkImportAssetImported"]
   MOVE R6 R2
@@ -130,65 +139,77 @@ PROTO_6:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_7:
-  NEWTABLE R1 8 0
+PROTO_8:
+  NEWTABLE R1 16 0
   LOADK R4 K0 ["GameId"]
   GETIMPORT R6 K2 [game]
   GETTABLEKS R5 R6 K0 ["GameId"]
   NAMECALL R2 R0 K3 ["SetItem"]
   CALL R2 3 0
-  LOADK R4 K4 ["OnInsertItems"]
-  GETUPVAL R5 0
-  NAMECALL R2 R0 K5 ["OnInvoke"]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K6 ["OnInsertItemsConnection"]
-  LOADK R4 K7 ["OnOpenBulkImport"]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+13]
+  GETIMPORT R2 K2 [game]
+  LOADK R4 K0 ["GameId"]
+  NAMECALL R2 R2 K4 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K5 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K6 ["OnGameIdChangedConnection"]
+  LOADK R4 K7 ["OnInsertItems"]
   GETUPVAL R5 1
-  NAMECALL R2 R0 K5 ["OnInvoke"]
+  NAMECALL R2 R0 K8 ["OnInvoke"]
   CALL R2 3 1
-  SETTABLEKS R2 R1 K8 ["OnOpenBulkImportConnection"]
-  LOADK R4 K9 ["OnOpenPlace"]
-  DUPCLOSURE R5 K10 [PROTO_1]
-  CAPTURE UPVAL U2
-  NAMECALL R2 R0 K5 ["OnInvoke"]
+  SETTABLEKS R2 R1 K9 ["OnInsertItemsConnection"]
+  LOADK R4 K10 ["OnOpenBulkImport"]
+  GETUPVAL R5 2
+  NAMECALL R2 R0 K8 ["OnInvoke"]
   CALL R2 3 1
-  SETTABLEKS R2 R1 K11 ["OnOpenPlaceConnection"]
-  LOADK R4 K12 ["OnAddPlace"]
-  NEWCLOSURE R5 P1
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  NAMECALL R2 R0 K5 ["OnInvoke"]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K13 ["OnAddPlaceConnection"]
-  LOADK R4 K14 ["OnRemovePlace"]
-  NEWCLOSURE R5 P2
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  NAMECALL R2 R0 K5 ["OnInvoke"]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K15 ["OnRemovePlaceConnection"]
-  LOADK R4 K16 ["OnRenamePlace"]
-  NEWCLOSURE R5 P3
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  NAMECALL R2 R0 K5 ["OnInvoke"]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K17 ["OnRenamePlaceConnection"]
-  LOADK R4 K18 ["SendAnalyticsEvent"]
-  DUPCLOSURE R5 K19 [PROTO_5]
+  SETTABLEKS R2 R1 K11 ["OnOpenBulkImportConnection"]
+  LOADK R4 K12 ["OnOpenPlace"]
+  DUPCLOSURE R5 K13 [PROTO_2]
   CAPTURE UPVAL U3
+  NAMECALL R2 R0 K8 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K14 ["OnOpenPlaceConnection"]
+  LOADK R4 K15 ["OnAddPlace"]
+  NEWCLOSURE R5 P2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NAMECALL R2 R0 K8 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K16 ["OnAddPlaceConnection"]
+  LOADK R4 K17 ["OnRemovePlace"]
+  NEWCLOSURE R5 P3
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NAMECALL R2 R0 K8 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K18 ["OnRemovePlaceConnection"]
+  LOADK R4 K19 ["OnRenamePlace"]
+  NEWCLOSURE R5 P4
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NAMECALL R2 R0 K8 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K20 ["OnRenamePlaceConnection"]
+  LOADK R4 K21 ["SendAnalyticsEvent"]
+  DUPCLOSURE R5 K22 [PROTO_6]
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  NAMECALL R2 R0 K5 ["OnInvoke"]
+  CAPTURE UPVAL U6
+  NAMECALL R2 R0 K8 ["OnInvoke"]
   CALL R2 3 1
-  SETTABLEKS R2 R1 K20 ["SendAnalyticsEventConnection"]
-  GETUPVAL R3 6
-  GETTABLEKS R2 R3 K21 ["AssetImported"]
-  NEWCLOSURE R4 P5
+  SETTABLEKS R2 R1 K23 ["SendAnalyticsEventConnection"]
+  GETUPVAL R3 7
+  GETTABLEKS R2 R3 K24 ["AssetImported"]
+  NEWCLOSURE R4 P6
   CAPTURE VAL R0
-  NAMECALL R2 R2 K22 ["Connect"]
+  NAMECALL R2 R2 K5 ["Connect"]
   CALL R2 2 1
-  SETTABLEKS R2 R1 K23 ["BulkImportImportedConnection"]
+  SETTABLEKS R2 R1 K25 ["BulkImportImportedConnection"]
   RETURN R1 1
 
 MAIN:
@@ -206,38 +227,44 @@ MAIN:
   GETTABLEKS R4 R5 K9 ["Util"]
   GETTABLEKS R3 R4 K10 ["Services"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K11 ["Analytics"]
+  GETTABLEKS R3 R2 K11 ["GetService"]
+  LOADK R4 K12 ["AssetManagerService"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Asset"]
-  GETTABLEKS R6 R7 K9 ["Util"]
-  GETTABLEKS R5 R6 K13 ["handleInvokeOnInsertItems"]
+  GETTABLEKS R4 R2 K11 ["GetService"]
+  LOADK R5 K13 ["BulkImportService"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Src"]
-  GETTABLEKS R8 R9 K12 ["Asset"]
-  GETTABLEKS R7 R8 K9 ["Util"]
-  GETTABLEKS R6 R7 K14 ["handleInvokeOnOpenBulkImport"]
+  GETTABLEKS R5 R2 K11 ["GetService"]
+  LOADK R6 K14 ["RbxAnalyticsService"]
   CALL R5 1 1
-  GETTABLEKS R6 R2 K15 ["GetService"]
-  LOADK R7 K16 ["AssetManagerService"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Analytics"]
   CALL R6 1 1
-  GETTABLEKS R7 R2 K15 ["GetService"]
-  LOADK R8 K17 ["BulkImportService"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Asset"]
+  GETTABLEKS R9 R10 K9 ["Util"]
+  GETTABLEKS R8 R9 K17 ["handleInvokeOnInsertItems"]
   CALL R7 1 1
-  GETTABLEKS R8 R2 K15 ["GetService"]
-  LOADK R9 K18 ["RbxAnalyticsService"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Asset"]
+  GETTABLEKS R10 R11 K9 ["Util"]
+  GETTABLEKS R9 R10 K18 ["handleInvokeOnOpenBulkImport"]
   CALL R8 1 1
-  DUPCLOSURE R9 K19 [PROTO_0]
-  DUPCLOSURE R10 K20 [PROTO_7]
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R8
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K19 ["Flags"]
+  GETTABLEKS R10 R11 K20 ["getFFlagAmrFixBulkImportButton"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K21 [PROTO_0]
+  DUPCLOSURE R11 K22 [PROTO_8]
   CAPTURE VAL R9
-  CAPTURE VAL R1
   CAPTURE VAL R7
-  RETURN R10 1
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R10
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  RETURN R11 1

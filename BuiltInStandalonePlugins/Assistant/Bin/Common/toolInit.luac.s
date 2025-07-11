@@ -9,48 +9,43 @@ PROTO_1:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K2 ["Src"]
   GETTABLEKS R4 R5 K3 ["Util"]
-  GETTABLEKS R3 R4 K4 ["Networking"]
+  GETTABLEKS R3 R4 K4 ["StudioNetworking"]
   CALL R2 1 1
   GETIMPORT R3 K1 [require]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K5 ["Packages"]
   GETTABLEKS R4 R5 K6 ["AssistantUI"]
   CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K2 ["Src"]
-  GETTABLEKS R6 R7 K3 ["Util"]
-  GETTABLEKS R5 R6 K7 ["LLMRequestNetworking"]
+  GETTABLEKS R4 R2 K7 ["create"]
+  DUPTABLE R5 K11 [{"plugin", "isGuest", "isHost"}]
+  SETTABLEKS R0 R5 K8 ["plugin"]
+  GETTABLEKS R6 R1 K9 ["isGuest"]
+  SETTABLEKS R6 R5 K9 ["isGuest"]
+  GETTABLEKS R6 R1 K10 ["isHost"]
+  SETTABLEKS R6 R5 K10 ["isHost"]
   CALL R4 1 1
-  GETTABLEKS R5 R2 K8 ["create"]
-  DUPTABLE R6 K12 [{"plugin", "isUIDM", "isEditableDM"}]
-  SETTABLEKS R0 R6 K9 ["plugin"]
-  GETTABLEKS R7 R1 K10 ["isUIDM"]
-  SETTABLEKS R7 R6 K10 ["isUIDM"]
-  GETTABLEKS R7 R1 K11 ["isEditableDM"]
-  SETTABLEKS R7 R6 K11 ["isEditableDM"]
-  CALL R5 1 0
-  GETTABLEKS R6 R3 K13 ["Guest"]
-  GETTABLEKS R5 R6 K14 ["startGuest"]
+  GETTABLEKS R6 R3 K12 ["Guest"]
+  GETTABLEKS R5 R6 K13 ["startGuest"]
   DUPTABLE R6 K16 [{"LLMRequestNetworking", "EnvironmentOverride"}]
-  GETTABLEKS R7 R4 K8 ["create"]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K7 ["LLMRequestNetworking"]
+  SETTABLEKS R4 R6 K14 ["LLMRequestNetworking"]
   GETUPVAL R7 1
   MOVE R8 R0
-  CALL R7 1 1
+  MOVE R9 R4
+  CALL R7 2 1
   SETTABLEKS R7 R6 K15 ["EnvironmentOverride"]
   CALL R5 1 0
   GETIMPORT R5 K1 [require]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K2 ["Src"]
   GETTABLEKS R6 R7 K17 ["Tools"]
-  CALL R5 1 0
-  GETTABLEKS R5 R0 K18 ["Unloading"]
-  NEWCLOSURE R7 P0
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K18 ["registerBuiltinTools"]
+  CALL R6 0 0
+  GETTABLEKS R6 R0 K19 ["Unloading"]
+  NEWCLOSURE R8 P0
   CAPTURE VAL R2
-  NAMECALL R5 R5 K19 ["Connect"]
-  CALL R5 2 0
+  NAMECALL R6 R6 K20 ["Connect"]
+  CALL R6 2 0
   RETURN R0 0
 
 MAIN:

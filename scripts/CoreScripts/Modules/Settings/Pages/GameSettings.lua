@@ -287,6 +287,7 @@ local GetFFlagFixCyclicFullscreenIndexEvent =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
 local FFlagUserShowGuiHideToggles = game:DefineFastFlag("UserShowGuiHideToggles", false)
+local FFlagUserFreecamGuiDestabilization = game:DefineFastFlag("UserFreecamGuiDestabilization", false)
 local FFlagFixDeveloperConsoleButtonSizeAndPositioning =
 	game:DefineFastFlag("FixDeveloperConsoleButtonSizeAndPositioning", false)
 local FFlagEnableTFFeedbackModeEntryCheck = game:DefineFastFlag("EnableTFFeedbackModeEntryCheck", false)
@@ -2729,7 +2730,7 @@ local function Initialize()
 	end
 
 	local function createUiToggleOptions()
-		if FFlagUserShowGuiHideToggles then
+		if FFlagUserFreecamGuiDestabilization or FFlagUserShowGuiHideToggles then
 			local selectorTypes = {
 				{ label = "Custom", type = Enum.GuiType.Custom, layoutOrderKey = "UiToggleRowCustom" },
 				{
@@ -2804,7 +2805,7 @@ local function Initialize()
 	end
 
 	local function updateUiToggleSelection()
-		if FFlagUserShowGuiHideToggles then
+		if FFlagUserFreecamGuiDestabilization or FFlagUserShowGuiHideToggles then
 			-- If the toggle doesn't exist, we probably don't have permission to change this
 			if not this.uiToggleSelectors then
 				return

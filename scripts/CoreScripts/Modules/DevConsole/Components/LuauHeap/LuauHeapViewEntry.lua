@@ -23,8 +23,6 @@ local VALUE_PADDING = Constants.LuauHeapFormatting.ValuePadding
 
 local LuauHeapViewEntry = Roact.PureComponent:extend("LuauHeapViewEntry")
 
-local FFlagAddTextWrapToCellLabel = require(script.Parent.Parent.Parent.Parent.Flags.FFlagAddTextWrapToCellLabel)
-
 type BorderedCellLabelProps = {
 	text: string,
 	size: UDim2,
@@ -325,8 +323,8 @@ function LuauHeapViewEntry:render()
 				text = name,
 				size = UDim2.new(nameWidth, UDim.new(1, 0)),
 				pos = UDim2.new(0, CELL_PADDING + offset, 0, 0),
-				textTruncate = (if FFlagAddTextWrapToCellLabel then Enum.TextTruncate.SplitWord else nil),
-				textWrapped = (if FFlagAddTextWrapToCellLabel then false else true),
+				textTruncate = Enum.TextTruncate.SplitWord,
+				textWrapped = false,
 			}),
 			values = Roact.createFragment(self:renderValues(values)),
 		}),

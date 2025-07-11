@@ -167,7 +167,7 @@ PROTO_5:
   LOADK R8 K13 ["user"]
   SETTABLEKS R8 R7 K14 ["gameType"]
   SETTABLEKS R3 R7 K15 ["actions"]
-  SETTABLEKS R4 R7 K16 ["ids"]
+  SETTABLEKS R4 R7 K16 ["ids_str"]
   SETTABLEKS R5 R7 K17 ["permissionLevels"]
   SETTABLEKS R6 R7 K18 ["types"]
   GETUPVAL R8 1

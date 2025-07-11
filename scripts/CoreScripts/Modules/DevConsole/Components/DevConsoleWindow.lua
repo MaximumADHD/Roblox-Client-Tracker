@@ -23,8 +23,6 @@ local ChangeDevConsoleSize = require(Actions.ChangeDevConsoleSize)
 local SetDevConsoleVisibility = require(Actions.SetDevConsoleVisibility)
 local SetDevConsoleMinimized = require(Actions.SetDevConsoleMinimized)
 
-local GetFFlagRequestServerStatsFix = require(CoreGui.Modules.Flags.GetFFlagRequestServerStatsFix)
-
 local BORDER_SIZE = 16
 
 local DevConsoleWindow = Roact.PureComponent:extend("DevConsoleWindow")
@@ -38,9 +36,7 @@ function DevConsoleWindow:onMaximizeClicked()
 end
 
 function DevConsoleWindow:onCloseClicked()
-	if GetFFlagRequestServerStatsFix() then
-		self.props.onCloseCallback(false)
-	end
+	self.props.onCloseCallback(false)
 	self.props.dispatchSetDevConsolVisibility(false)
 end
 

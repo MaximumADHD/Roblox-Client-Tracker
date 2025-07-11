@@ -184,7 +184,7 @@ PROTO_1:
   GETTABLEKS R14 R15 K23 ["Tag"]
   LOADK R15 K53 ["Role-Surface X-FitY X-ColumnS X-Pad"]
   SETTABLE R15 R13 R14
-  DUPTABLE R14 K57 [{"Styles", "Text", "Background", "Padding", "Layout", "Stroke", "Gradient"}]
+  DUPTABLE R14 K57 [{"Styles", "Text", "Font", "Background", "Padding", "Layout", "Stroke", "Gradient"}]
   GETTABLEKS R16 R2 K37 ["Styles"]
   JUMPIFNOT R16 [+12]
   GETUPVAL R15 2
@@ -216,7 +216,34 @@ PROTO_1:
   JUMP [+1]
   LOADNIL R15
   SETTABLEKS R15 R14 K43 ["Text"]
-  GETTABLEKS R16 R2 K64 ["BackgroundColor3"]
+  GETTABLEKS R16 R2 K64 ["FontFace"]
+  JUMPIF R16 [+3]
+  GETTABLEKS R16 R2 K65 ["TextSize"]
+  JUMPIFNOT R16 [+28]
+  GETUPVAL R15 2
+  GETUPVAL R16 4
+  NEWTABLE R17 4 0
+  MOVE R18 R1
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K18 ["LayoutOrder"]
+  LOADK R19 K66 ["Font %* @ %*"]
+  GETTABLEKS R22 R2 K64 ["FontFace"]
+  ORK R21 R22 K67 ["Default"]
+  GETTABLEKS R23 R2 K65 ["TextSize"]
+  ORK R22 R23 K68 ["0"]
+  NAMECALL R19 R19 K39 ["format"]
+  CALL R19 3 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K43 ["Text"]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K23 ["Tag"]
+  LOADK R19 K52 ["X-Fit"]
+  SETTABLE R19 R17 R18
+  CALL R15 2 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K40 ["Font"]
+  GETTABLEKS R16 R2 K69 ["BackgroundColor3"]
   JUMPIFNOT R16 [+18]
   GETUPVAL R15 2
   GETUPVAL R16 5
@@ -224,9 +251,9 @@ PROTO_1:
   MOVE R18 R1
   CALL R18 0 1
   SETTABLEKS R18 R17 K18 ["LayoutOrder"]
-  GETTABLEKS R18 R2 K64 ["BackgroundColor3"]
+  GETTABLEKS R18 R2 K69 ["BackgroundColor3"]
   SETTABLEKS R18 R17 K60 ["Color"]
-  GETTABLEKS R19 R2 K65 ["BackgroundToken"]
+  GETTABLEKS R19 R2 K70 ["BackgroundToken"]
   ORK R18 R19 K7 [""]
   SETTABLEKS R18 R17 K61 ["Token"]
   CALL R15 2 1
@@ -241,7 +268,7 @@ PROTO_1:
   MOVE R18 R1
   CALL R18 0 1
   SETTABLEKS R18 R17 K18 ["LayoutOrder"]
-  LOADK R19 K66 ["Padding %*"]
+  LOADK R19 K71 ["Padding %*"]
   GETTABLEKS R21 R2 K29 ["Padding"]
   NAMECALL R19 R19 K39 ["format"]
   CALL R19 2 1
@@ -263,7 +290,7 @@ PROTO_1:
   MOVE R18 R1
   CALL R18 0 1
   SETTABLEKS R18 R17 K18 ["LayoutOrder"]
-  LOADK R19 K67 ["Layout %*"]
+  LOADK R19 K72 ["Layout %*"]
   GETTABLEKS R21 R2 K25 ["Layout"]
   NAMECALL R19 R19 K39 ["format"]
   CALL R19 2 1
@@ -285,7 +312,7 @@ PROTO_1:
   MOVE R18 R1
   CALL R18 0 1
   SETTABLEKS R18 R17 K18 ["LayoutOrder"]
-  LOADK R19 K68 ["Stroke %*"]
+  LOADK R19 K73 ["Stroke %*"]
   GETTABLEKS R21 R2 K55 ["Stroke"]
   NAMECALL R19 R19 K39 ["format"]
   CALL R19 2 1
@@ -307,7 +334,7 @@ PROTO_1:
   MOVE R18 R1
   CALL R18 0 1
   SETTABLEKS R18 R17 K18 ["LayoutOrder"]
-  LOADK R19 K69 ["Gradient %*"]
+  LOADK R19 K74 ["Gradient %*"]
   GETTABLEKS R21 R2 K56 ["Gradient"]
   NAMECALL R19 R19 K39 ["format"]
   CALL R19 2 1

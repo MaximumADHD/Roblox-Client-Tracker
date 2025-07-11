@@ -68,11 +68,14 @@ local FFlagLogPartyVoiceReconnect = game:DefineFastFlag("LogPartyVoiceReconnect"
 local FFlagPartyVoiceReportJoinFailed = game:DefineFastFlag("PartyVoiceReportJoinFailed", false)
 local FFlagPartyVoiceCatchError = game:DefineFastFlag("PartyVoiceCatchError", false)
 local FFlagPartyVoiceFixCaptureVideoCheck = game:DefineFastFlag("PartyVoiceFixCaptureVideoCheck", false)
-local FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit = game:DefineFastFlag("PartyVoiceExecuteVoiceActionsPostAsyncInit", false)
+local FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit =
+	game:DefineFastFlag("PartyVoiceExecuteVoiceActionsPostAsyncInit", false)
+local FIntVoiceJoinTimeoutInSeconds = game:DefineFastInt("VoiceJoinTimeoutInSeconds", 15)
 
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
+local CevReadinessSync = game:GetEngineFeature("CevReadinessSync")
 
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local Analytics = VoiceChatCore.Analytics.new()
@@ -139,6 +142,21 @@ local coreVoiceManagerState = {
 	previousMutedState = false,
 }
 local cevEventManager = CrossExperience.EventManager.new(CrossExperience.Constants.EXPERIENCE_TYPE_VOICE, true)
+
+local onForegroundReadySignal = Instance.new("BindableEvent")
+local foregroundIsReady = false
+local readinessObserverId = nil
+
+if CevReadinessSync then
+	log:info("Registering early observer for foreground readiness signal.")
+	readinessObserverId = cevEventManager:addObserver(CrossExperience.Constants.EVENTS.FOREGROUND_UI_READY, function()
+		if not foregroundIsReady then
+			log:info("Received foreground UI readiness signal.")
+			foregroundIsReady = true
+			onForegroundReadySignal:Fire()
+		end
+	end)
+end
 
 local function notifyVoiceStatusChange(status: VoiceStatus, detail: string?)
 	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
@@ -234,7 +252,7 @@ local onLocalPlayerMuteChanged = function(isMuted)
 			cevEventManager:notify(eventName, {
 				userId = localUserId,
 				isLocalUser = true,
-			})	
+			})
 		end)
 	else
 		cevEventManager:notify(eventName, {
@@ -643,7 +661,7 @@ function initializeAFM()
 				if (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
 					CoreVoiceManager:MuteAll(true, "AudioFocusManagement CEV")
 				end
-	
+
 				if not CoreVoiceManager.localMuted then
 					CoreVoiceManager:ToggleMic()
 				end
@@ -653,7 +671,7 @@ function initializeAFM()
 				if (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
 					CoreVoiceManager:MuteAll(false, "AudioFocusManagement CEV")
 				end
-				
+
 				if CoreVoiceManager.localMuted then
 					CoreVoiceManager:ToggleMic()
 				end
@@ -690,14 +708,20 @@ function initializeAFM()
 					if focusGranted then
 						log:info("CEV audio focus request granted, preparing to undeafen.")
 						CoreVoiceManager.muteChanged.Event:Once(function(muted)
-							if muted ~= nil and (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
+							if
+								muted ~= nil and (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo())
+								or not isCapturingVideo
+							then
 								CoreVoiceManager:MuteAll(false, "AudioFocusManagement CEV")
 							end
 						end)
 					else
 						log:info("CEV audio focus request denied, preparing to deafen.")
 						CoreVoiceManager.muteChanged.Event:Once(function(muted)
-							if muted ~= nil and (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
+							if
+								muted ~= nil and (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo())
+								or not isCapturingVideo
+							then
 								CoreVoiceManager:MuteAll(true, "AudioFocusManagement CEV")
 							end
 						end)
@@ -791,5 +815,56 @@ cevEventManager:addObserver(CrossExperience.Constants.EVENTS.PARTY_VOICE_RECONNE
 		rejoinVoice()
 	end
 end)
+local voiceStarted = false
+local function doStartVoice()
+	if voiceStarted then
+		return
+	end
+	voiceStarted = true
 
-startVoice()
+	if readinessObserverId then
+		cevEventManager:removeObserver(readinessObserverId, CrossExperience.Constants.EVENTS.FOREGROUND_UI_READY)
+		readinessObserverId = nil
+	end
+
+	log:info("Proceeding to start voice connection.")
+	startVoice()
+end
+
+if CevReadinessSync then
+	if foregroundIsReady then
+		log:info("Foreground was ready before setup finished. Starting voice now.")
+		doStartVoice()
+	else
+		log:info("Waiting for foreground UI readiness signal (with promise race)...")
+
+		-- promise #1: resolves when the signal is fired.
+		local signalPromise = Promise.new(function(resolve)
+			onForegroundReadySignal.Event:Once(function()
+				resolve("signal")
+			end)
+		end)
+
+		-- promise #2: resolves after a timeout.
+		local timeoutPromise = Promise.delay(FIntVoiceJoinTimeoutInSeconds):andThen(function()
+			return "timeout"
+		end)
+
+		Promise.race({ signalPromise, timeoutPromise }):andThen(function(winner)
+			if winner == "signal" then
+				log:info("Readiness signal received within timeout.")
+			else
+				log:info("Timed out waiting for readiness signal. Starting voice anyway.")
+				sendAnalyticsEvent(
+					"partyVoiceInitTimedOut",
+					{ userId = localUserId, timeout = FIntVoiceJoinTimeoutInSeconds }
+				)
+			end
+
+			doStartVoice()
+		end)
+	end
+else
+	log:info("Foreground UI not using readiness sync. Starting voice connection immediately.")
+	startVoice()
+end

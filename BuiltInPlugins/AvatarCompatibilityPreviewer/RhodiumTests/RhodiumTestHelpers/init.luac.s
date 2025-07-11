@@ -1205,9 +1205,17 @@ PROTO_70:
   RETURN R0 1
 
 PROTO_71:
-  GETUPVAL R1 0
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R1 1
   GETTABLEKS R0 R1 K0 ["clickPath"]
-  LOADK R1 K1 ["Provider.Controls.Start"]
+  LOADK R1 K1 ["Provider.Controls.Controls.Contents.Start"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["clickPath"]
+  LOADK R1 K2 ["Provider.Controls.Start"]
   CALL R0 1 0
   RETURN R0 0
 
@@ -1868,6 +1876,7 @@ PROTO_94:
   GETTABLEKS R11 R8 K76 ["AutoSetupScreen"]
   SETTABLEKS R10 R11 K67 ["getDummy"]
   NEWCLOSURE R10 P49
+  CAPTURE UPVAL U19
   CAPTURE VAL R8
   GETTABLEKS R11 R8 K76 ["AutoSetupScreen"]
   SETTABLEKS R10 R11 K79 ["startAutoSetup"]

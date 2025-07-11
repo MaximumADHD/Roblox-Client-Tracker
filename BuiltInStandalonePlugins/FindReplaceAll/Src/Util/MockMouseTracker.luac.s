@@ -1,0 +1,36 @@
+PROTO_0:
+  GETUPVAL R1 0
+  RETURN R1 1
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"RegisterMouseTrackingRelativeToWidgetAsync"}]
+  DUPCLOSURE R2 K2 [PROTO_0]
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["RegisterMouseTrackingRelativeToWidgetAsync"]
+  DUPTABLE R4 K4 [{"__index"}]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K3 ["__index"]
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K6 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["MockMouseTrackerInstance"]
+  CALL R1 1 1
+  NEWTABLE R2 2 0
+  SETTABLEKS R2 R2 K9 ["__index"]
+  DUPCLOSURE R3 K10 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K11 ["new"]
+  RETURN R2 1

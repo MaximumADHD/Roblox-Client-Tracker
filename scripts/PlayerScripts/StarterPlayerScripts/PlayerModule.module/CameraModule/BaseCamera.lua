@@ -27,8 +27,6 @@ do
 	FFlagUserFixGamepadMaxZoom = success and result
 end
 
-local FFlagUserFixCameraCameraCharacterUpdates = FlagUtil.getUserFlag("UserFixCameraCameraCharacterUpdates")
-
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
 
@@ -113,12 +111,6 @@ function BaseCamera.new()
 
 	self.enabled = false
 
-	-- Input Event Connections
-
-	if not FFlagUserFixCameraCameraCharacterUpdates then
-		self.PlayerGui = nil
-	end
-
 	self.cameraChangedConn = nil
 	self.viewportSizeChangedConn = nil
 
@@ -154,13 +146,7 @@ function BaseCamera:_setUpConfigurations()
 	self._connections:trackConnection(CONNECTIONS.CHARACTER_ADDED, player.CharacterAdded:Connect(function(char)
 		self:OnCharacterAdded(char)
 	end))
-	if FFlagUserFixCameraCameraCharacterUpdates then
-		self.humanoidRootPart = nil
-	else
-		if player.Character then
-			self:OnCharacterAdded(player.Character)
-		end
-	end
+	self.humanoidRootPart = nil
 
 	self._connections:trackConnection(CONNECTIONS.CAMERA_MODE_CHANGED, player:GetPropertyChangedSignal("CameraMode"):Connect(function()
 		self:OnPlayerCameraPropertyChange()
@@ -179,26 +165,6 @@ function BaseCamera:OnCharacterAdded(char)
 	-- not when the camera disables and reenables
 	self.resetCameraAngle = self.resetCameraAngle or self:GetEnabled()
 	self.humanoidRootPart = nil
-	if not FFlagUserFixCameraCameraCharacterUpdates then
-		if UserInputService.TouchEnabled then
-			self.PlayerGui = player:WaitForChild("PlayerGui")
-			for _, child in ipairs(char:GetChildren()) do
-				if child:IsA("Tool") then
-					self.isAToolEquipped = true
-				end
-			end
-			char.ChildAdded:Connect(function(child)
-				if child:IsA("Tool") then
-					self.isAToolEquipped = true
-				end
-			end)
-			char.ChildRemoved:Connect(function(child)
-				if child:IsA("Tool") then
-					self.isAToolEquipped = false
-				end
-			end)
-		end
-	end
 end
 
 function BaseCamera:GetHumanoidRootPart(): BasePart

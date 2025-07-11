@@ -78,35 +78,35 @@ MAIN:
   GETTABLEKS R4 R0 K10 ["Packages"]
   GETTABLEKS R3 R4 K11 ["AssistantUI"]
   CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["ModelContextProtocol"]
+  CALL R3 1 1
   GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K12 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Util"]
-  GETTABLEKS R5 R6 K14 ["Networking"]
+  GETTABLEKS R7 R0 K13 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Util"]
+  GETTABLEKS R5 R6 K15 ["StudioNetworking"]
   CALL R4 1 1
-  GETTABLEKS R3 R4 K15 ["get"]
-  CALL R3 0 1
-  GETTABLEKS R5 R2 K16 ["Utils"]
-  GETTABLEKS R4 R5 K17 ["Tools"]
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R7 R0 K10 ["Packages"]
-  GETTABLEKS R6 R7 K18 ["ModelContextProtocol"]
-  CALL R5 1 1
-  GETTABLEKS R7 R5 K13 ["Util"]
-  GETTABLEKS R6 R7 K19 ["ToolBuilder"]
-  LOADK R9 K20 ["SwapAssetTool_swapAsset"]
-  DUPCLOSURE R10 K21 [PROTO_0]
-  CAPTURE VAL R4
+  GETTABLEKS R6 R2 K16 ["Utils"]
+  GETTABLEKS R5 R6 K17 ["Tools"]
+  GETTABLEKS R7 R3 K14 ["Util"]
+  GETTABLEKS R6 R7 K18 ["ToolBuilder"]
+  GETTABLEKS R7 R4 K19 ["get"]
+  CALL R7 0 1
+  LOADK R10 K20 ["SwapAssetTool_swapAsset"]
+  DUPCLOSURE R11 K21 [PROTO_0]
+  CAPTURE VAL R5
   CAPTURE VAL R1
-  NAMECALL R7 R3 K22 ["OnEditableDMInvoke"]
-  CALL R7 3 1
-  DUPCLOSURE R8 K23 [PROTO_1]
-  CAPTURE VAL R7
-  GETTABLEKS R9 R6 K24 ["define"]
-  CALL R9 0 1
-  LOADK R11 K25 ["swap_asset"]
-  NAMECALL R9 R9 K26 ["setName"]
-  CALL R9 2 1
-  LOADK R11 K27 ["Swaps a priorly inserted asset with a new one. 
+  NAMECALL R8 R7 K22 ["OnHostInvokeAsync"]
+  CALL R8 3 1
+  DUPCLOSURE R9 K23 [PROTO_1]
+  CAPTURE VAL R8
+  GETTABLEKS R10 R6 K24 ["define"]
+  CALL R10 0 1
+  LOADK R12 K25 ["swap_asset"]
+  NAMECALL R10 R10 K26 ["setName"]
+  CALL R10 2 1
+  LOADK R12 K27 ["Swaps a priorly inserted asset with a new one. 
 MUST be used in conjunction with the insert_from_marketplace tool. 
 
 Intended use: 
@@ -114,27 +114,27 @@ Intended use:
 2. Read primaryResult's insertGuid.
 3. Then call swap_asset with any new assetId.
 "]
-  NAMECALL R9 R9 K28 ["setDescription"]
-  CALL R9 2 1
-  LOADK R11 K29 ["assetId"]
-  DUPTABLE R12 K32 [{"type", "description"}]
-  LOADK R13 K33 ["string"]
-  SETTABLEKS R13 R12 K30 ["type"]
-  LOADK R13 K34 ["The asset ID of the new asset to load."]
-  SETTABLEKS R13 R12 K31 ["description"]
-  NAMECALL R9 R9 K35 ["addArgument"]
-  CALL R9 3 1
-  LOADK R11 K36 ["insertGuid"]
-  DUPTABLE R12 K32 [{"type", "description"}]
-  LOADK R13 K33 ["string"]
-  SETTABLEKS R13 R12 K30 ["type"]
-  LOADK R13 K37 ["The unique GUID of the asset to swap. The GUID MUST be the same as the one returned from insert_from_marketplace tool, otherwise the command WILL NOT work."]
-  SETTABLEKS R13 R12 K31 ["description"]
-  NAMECALL R9 R9 K35 ["addArgument"]
-  CALL R9 3 1
-  MOVE R11 R8
-  NAMECALL R9 R9 K38 ["setHandler"]
-  CALL R9 2 1
-  NAMECALL R9 R9 K39 ["build"]
-  CALL R9 1 -1
-  RETURN R9 -1
+  NAMECALL R10 R10 K28 ["setDescription"]
+  CALL R10 2 1
+  LOADK R12 K29 ["assetId"]
+  DUPTABLE R13 K32 [{"type", "description"}]
+  LOADK R14 K33 ["string"]
+  SETTABLEKS R14 R13 K30 ["type"]
+  LOADK R14 K34 ["The asset ID of the new asset to load."]
+  SETTABLEKS R14 R13 K31 ["description"]
+  NAMECALL R10 R10 K35 ["addArgument"]
+  CALL R10 3 1
+  LOADK R12 K36 ["insertGuid"]
+  DUPTABLE R13 K32 [{"type", "description"}]
+  LOADK R14 K33 ["string"]
+  SETTABLEKS R14 R13 K30 ["type"]
+  LOADK R14 K37 ["The unique GUID of the asset to swap. The GUID MUST be the same as the one returned from insert_from_marketplace tool, otherwise the command WILL NOT work."]
+  SETTABLEKS R14 R13 K31 ["description"]
+  NAMECALL R10 R10 K35 ["addArgument"]
+  CALL R10 3 1
+  MOVE R12 R9
+  NAMECALL R10 R10 K38 ["setHandler"]
+  CALL R10 2 1
+  NAMECALL R10 R10 K39 ["build"]
+  CALL R10 1 -1
+  RETURN R10 -1

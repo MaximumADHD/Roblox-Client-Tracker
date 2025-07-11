@@ -430,86 +430,86 @@ MAIN:
   GETTABLEKS R6 R0 K12 ["Packages"]
   GETTABLEKS R5 R6 K13 ["AssistantUI"]
   CALL R4 1 1
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R7 R0 K12 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["ModelContextProtocol"]
+  CALL R5 1 1
   GETIMPORT R6 K11 [require]
-  GETTABLEKS R9 R0 K14 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Util"]
-  GETTABLEKS R7 R8 K16 ["Networking"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K17 ["get"]
-  CALL R5 0 1
-  GETIMPORT R6 K11 [require]
-  GETTABLEKS R9 R0 K14 ["Src"]
-  GETTABLEKS R8 R9 K18 ["Tools"]
-  GETTABLEKS R7 R8 K19 ["SwapAssetTool"]
+  GETTABLEKS R9 R0 K15 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Util"]
+  GETTABLEKS R7 R8 K17 ["StudioNetworking"]
   CALL R6 1 1
   GETIMPORT R7 K11 [require]
-  GETTABLEKS R9 R0 K12 ["Packages"]
-  GETTABLEKS R8 R9 K20 ["ModelContextProtocol"]
+  GETTABLEKS R10 R0 K15 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Tools"]
+  GETTABLEKS R8 R9 K19 ["SwapAssetTool"]
   CALL R7 1 1
-  GETTABLEKS R9 R7 K15 ["Util"]
-  GETTABLEKS R8 R9 K21 ["ToolBuilder"]
-  GETTABLEKS R10 R4 K22 ["Components"]
-  GETTABLEKS R9 R10 K23 ["ExternalHooks"]
-  GETTABLEKS R10 R9 K24 ["addContent"]
-  GETTABLEKS R11 R9 K25 ["editContent"]
-  GETTABLEKS R12 R9 K26 ["getOrAddMessage"]
-  GETTABLEKS R15 R4 K22 ["Components"]
-  GETTABLEKS R14 R15 K27 ["BuiltinContentWidgets"]
-  GETTABLEKS R13 R14 K28 ["AssetVariationContentWidget"]
-  GETTABLEKS R15 R4 K29 ["Utils"]
-  GETTABLEKS R14 R15 K18 ["Tools"]
-  GETTABLEKS R17 R4 K30 ["Resources"]
-  GETTABLEKS R16 R17 K31 ["Localization"]
-  GETTABLEKS R15 R16 K32 ["Translator"]
-  NEWTABLE R16 0 0
-  DUPCLOSURE R17 K33 [PROTO_0]
+  GETTABLEKS R9 R4 K20 ["Components"]
+  GETTABLEKS R8 R9 K21 ["ExternalHooks"]
+  GETTABLEKS R9 R8 K22 ["addContent"]
+  GETTABLEKS R10 R8 K23 ["editContent"]
+  GETTABLEKS R11 R8 K24 ["getOrAddMessage"]
+  GETTABLEKS R14 R4 K20 ["Components"]
+  GETTABLEKS R13 R14 K25 ["BuiltinContentWidgets"]
+  GETTABLEKS R12 R13 K26 ["AssetVariationContentWidget"]
+  GETTABLEKS R14 R4 K27 ["Utils"]
+  GETTABLEKS R13 R14 K18 ["Tools"]
+  GETTABLEKS R16 R4 K28 ["Resources"]
+  GETTABLEKS R15 R16 K29 ["Localization"]
+  GETTABLEKS R14 R15 K30 ["Translator"]
+  GETTABLEKS R16 R5 K16 ["Util"]
+  GETTABLEKS R15 R16 K31 ["ToolBuilder"]
+  GETTABLEKS R16 R6 K32 ["get"]
+  CALL R16 0 1
+  NEWTABLE R17 0 0
+  DUPCLOSURE R18 K33 [PROTO_0]
   CAPTURE VAL R3
-  LOADK R20 K34 ["MarketplaceInsertionTool_updateContentName"]
-  DUPCLOSURE R21 K35 [PROTO_2]
-  CAPTURE VAL R11
-  NAMECALL R18 R5 K36 ["OnUIDMEvent"]
-  CALL R18 3 1
-  LOADK R21 K37 ["MarketplaceInsertionTool_listenToTagChanges"]
-  DUPCLOSURE R22 K38 [PROTO_5]
-  CAPTURE VAL R1
-  CAPTURE VAL R15
-  CAPTURE VAL R18
-  CAPTURE VAL R16
-  NAMECALL R19 R5 K39 ["OnEditableDMEvent"]
-  CALL R19 3 1
-  DUPCLOSURE R20 K40 [PROTO_8]
-  CAPTURE VAL R12
-  CAPTURE VAL R13
-  CAPTURE VAL R6
+  LOADK R21 K34 ["MarketplaceInsertionTool_updateContentName"]
+  DUPCLOSURE R22 K35 [PROTO_2]
   CAPTURE VAL R10
-  CAPTURE VAL R19
-  LOADK R23 K41 ["MarketplaceInsertionTool_insertFromMarketplace"]
-  DUPCLOSURE R24 K42 [PROTO_10]
-  CAPTURE VAL R2
+  NAMECALL R19 R16 K36 ["OnGuestEvent"]
+  CALL R19 3 1
+  LOADK R22 K37 ["MarketplaceInsertionTool_listenToTagChanges"]
+  DUPCLOSURE R23 K38 [PROTO_5]
   CAPTURE VAL R1
   CAPTURE VAL R14
-  CAPTURE VAL R17
-  NAMECALL R21 R5 K43 ["OnEditableDMInvoke"]
-  CALL R21 3 1
-  DUPCLOSURE R22 K44 [PROTO_11]
-  CAPTURE VAL R21
-  CAPTURE VAL R12
-  CAPTURE VAL R13
-  CAPTURE VAL R6
-  CAPTURE VAL R10
   CAPTURE VAL R19
+  CAPTURE VAL R17
+  NAMECALL R20 R16 K39 ["OnHostEvent"]
+  CALL R20 3 1
+  DUPCLOSURE R21 K40 [PROTO_8]
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R20
+  LOADK R24 K41 ["MarketplaceInsertionTool_insertFromMarketplace"]
+  DUPCLOSURE R25 K42 [PROTO_10]
   CAPTURE VAL R2
-  GETTABLEKS R23 R5 K45 ["Destroying"]
-  DUPCLOSURE R25 K46 [PROTO_12]
-  CAPTURE VAL R16
-  NAMECALL R23 R23 K47 ["Connect"]
-  CALL R23 2 0
-  GETTABLEKS R23 R8 K48 ["define"]
-  CALL R23 0 1
-  LOADK R25 K49 ["insert_from_marketplace"]
-  NAMECALL R23 R23 K50 ["setName"]
-  CALL R23 2 1
-  LOADK R25 K51 ["Inserts a model from the Roblox marketplace into the game. 
+  CAPTURE VAL R1
+  CAPTURE VAL R13
+  CAPTURE VAL R18
+  NAMECALL R22 R16 K43 ["OnHostInvokeAsync"]
+  CALL R22 3 1
+  DUPCLOSURE R23 K44 [PROTO_11]
+  CAPTURE VAL R22
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R20
+  CAPTURE VAL R2
+  GETTABLEKS R24 R16 K45 ["Destroying"]
+  DUPCLOSURE R26 K46 [PROTO_12]
+  CAPTURE VAL R17
+  NAMECALL R24 R24 K47 ["Connect"]
+  CALL R24 2 0
+  GETTABLEKS R24 R15 K48 ["define"]
+  CALL R24 0 1
+  LOADK R26 K49 ["insert_from_marketplace"]
+  NAMECALL R24 R24 K50 ["setName"]
+  CALL R24 2 1
+  LOADK R26 K51 ["Inserts a model from the Roblox marketplace into the game. 
 Returns the inserted asset ID, a unique GUID to use for the asset in subsequent commands, and a list of other asset IDs that were found in the search. 
 
 The inserted model will be tagged with the GUID, prefixed with 'Assistant:'. 
@@ -522,27 +522,27 @@ For example:
 	instances[1].Pivot = CFrame.new(0, 0, 0)
 will move the model to the origin.
 "]
-  NAMECALL R23 R23 K52 ["setDescription"]
-  CALL R23 2 1
-  LOADK R25 K53 ["query"]
-  DUPTABLE R26 K56 [{"type", "description"}]
-  LOADK R27 K57 ["string"]
-  SETTABLEKS R27 R26 K54 ["type"]
-  LOADK R27 K58 ["The name of the asset to insert."]
-  SETTABLEKS R27 R26 K55 ["description"]
-  NAMECALL R23 R23 K59 ["addArgument"]
-  CALL R23 3 1
-  LOADK R25 K60 ["tag"]
-  DUPTABLE R26 K56 [{"type", "description"}]
-  LOADK R27 K57 ["string"]
-  SETTABLEKS R27 R26 K54 ["type"]
-  LOADK R27 K61 ["Tag of a reference asset to clone, rather than downloading from the marketplace. Tag was likely generated in a previous marketplace insertion request."]
-  SETTABLEKS R27 R26 K55 ["description"]
-  NAMECALL R23 R23 K62 ["addOptionalArgument"]
-  CALL R23 3 1
-  MOVE R25 R22
-  NAMECALL R23 R23 K63 ["setHandler"]
-  CALL R23 2 1
-  NAMECALL R23 R23 K64 ["build"]
-  CALL R23 1 -1
-  RETURN R23 -1
+  NAMECALL R24 R24 K52 ["setDescription"]
+  CALL R24 2 1
+  LOADK R26 K53 ["query"]
+  DUPTABLE R27 K56 [{"type", "description"}]
+  LOADK R28 K57 ["string"]
+  SETTABLEKS R28 R27 K54 ["type"]
+  LOADK R28 K58 ["The name of the asset to insert."]
+  SETTABLEKS R28 R27 K55 ["description"]
+  NAMECALL R24 R24 K59 ["addArgument"]
+  CALL R24 3 1
+  LOADK R26 K60 ["tag"]
+  DUPTABLE R27 K56 [{"type", "description"}]
+  LOADK R28 K57 ["string"]
+  SETTABLEKS R28 R27 K54 ["type"]
+  LOADK R28 K61 ["Tag of a reference asset to clone, rather than downloading from the marketplace. Tag was likely generated in a previous marketplace insertion request."]
+  SETTABLEKS R28 R27 K55 ["description"]
+  NAMECALL R24 R24 K62 ["addOptionalArgument"]
+  CALL R24 3 1
+  MOVE R26 R23
+  NAMECALL R24 R24 K63 ["setHandler"]
+  CALL R24 2 1
+  NAMECALL R24 R24 K64 ["build"]
+  CALL R24 1 -1
+  RETURN R24 -1

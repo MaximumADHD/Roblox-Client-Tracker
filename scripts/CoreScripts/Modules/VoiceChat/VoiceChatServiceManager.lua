@@ -43,7 +43,6 @@ local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagA
 local GetFFlagNonVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNonVoiceFTUX
 local GetFFlagEnableNudgeAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableNudgeAnalytics)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
-local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
 local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
@@ -249,7 +248,7 @@ local VoiceChatServiceManager = {
 	hideVoiceUI = Instance.new("BindableEvent"),
 	voiceUIVisible = false,
 	mutedNonFriends = if FFlagMuteNonFriendsEvent then Instance.new("BindableEvent") else nil,
-	userAgencySelected = if GetFFlagShowMuteToggles() then Instance.new("BindableEvent") else nil,
+	userAgencySelected = Instance.new("BindableEvent"),
 	sendMuteEvent = nil,
 	LikelySpeakingUsersEvent = nil,
 	muteAll = false,
@@ -1662,9 +1661,7 @@ function VoiceChatServiceManager:EnsureCorrectMuteState(userIds: { number }, mut
 end
 
 function VoiceChatServiceManager:FireUserAgencySelectedEvent(muteState: boolean)
-	if GetFFlagShowMuteToggles() then
-		self.userAgencySelected:Fire(muteState)
-	end
+	self.userAgencySelected:Fire(muteState)
 end
 
 function VoiceChatServiceManager:ParticipantStateToIcon(participantState, level)

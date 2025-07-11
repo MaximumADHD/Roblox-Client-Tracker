@@ -1,7 +1,6 @@
 local Chrome = script:FindFirstAncestor("Chrome")
 
 local CoreGui = game:GetService("CoreGui")
-local StarterGui = game:GetService("StarterGui")
 local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -35,17 +34,11 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
-local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowToggled
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
-local GetFFlagChatActiveChangedSignal =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChatActiveChangedSignal
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local GetFFlagDisableLegacyChatSimpleUnreadMessageCount = SharedFlags.GetFFlagDisableLegacyChatSimpleUnreadMessageCount
 
-local FFlagShowChatButtonWhenChatForceOpened = game:DefineFastFlag("ShowChatButtonWhenChatForceOpened", false)
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
-local FFlagAlwaysShowChatButtonWhenWindowIsVisible =
-	game:DefineFastFlag("AlwaysShowChatButtonWhenWindowIsVisibleV2", false)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
@@ -74,22 +67,18 @@ end
 
 -- MappedSignal doesn't seem to fire in the event where the in-experience menu is closed, but does when it's opened, causing
 -- the chat button to be hidden when the window is open. Using the signal directly fixes this issue
-if FFlagAlwaysShowChatButtonWhenWindowIsVisible then
-	chatSelectorVisibilitySignal:connect(function(visible)
-		if visible then
-			chatChromeIntegration.availability:pinned()
-		end
-	end)
-end
+chatSelectorVisibilitySignal:connect(function(visible)
+	if visible then
+		chatChromeIntegration.availability:pinned()
+	end
+end)
 
-if getFFlagExposeChatWindowToggled() then
-	local chatWindowToggled = ChatSelector.ChatWindowToggled
-	chatWindowToggled:connect(function(visible)
-		if visible then
-			chatChromeIntegration.availability:pinned()
-		end
-	end)
-end
+local chatWindowToggled = ChatSelector.ChatWindowToggled
+chatWindowToggled:connect(function(visible)
+	if visible then
+		chatChromeIntegration.availability:pinned()
+	end
+end)
 
 local chatVisibilitySignal = MappedSignal.new(chatSelectorVisibilitySignal, function()
 	return chatVisibility
@@ -234,25 +223,14 @@ else
 	end)
 end
 
-if GetFFlagChatActiveChangedSignal() then
-	ChatSelector.ChatActiveChanged:connect(function(visible: boolean)
-		if visible then
-			local canLocalUserChat = localUserCanChat()
-			if not canLocalUserChat then
-				chatChromeIntegration.availability:available()
-			end
+ChatSelector.ChatActiveChanged:connect(function(visible: boolean)
+	if visible then
+		local canLocalUserChat = localUserCanChat()
+		if not canLocalUserChat then
+			chatChromeIntegration.availability:available()
 		end
-	end)
-elseif FFlagShowChatButtonWhenChatForceOpened then
-	StarterGui:RegisterSetCore("ChatActive", function(visible)
-		if visible then
-			local canLocalUserChat = localUserCanChat()
-			if not canLocalUserChat then
-				chatChromeIntegration.availability:available()
-			end
-		end
-	end)
-end
+	end
+end)
 
 coroutine.wrap(function()
 	local LocalPlayer = Players.LocalPlayer
@@ -261,18 +239,7 @@ coroutine.wrap(function()
 		LocalPlayer = Players.LocalPlayer
 	end
 
-	local canChat = true
-	if FFlagShowChatButtonWhenChatForceOpened then
-		canChat = localUserCanChat()
-	else
-		if not RunService:IsStudio() then
-			local success, localUserCanChat = pcall(function()
-				return Chat:CanUserChatAsync(LocalPlayer and LocalPlayer.UserId or 0)
-			end)
-			canChat = success and localUserCanChat
-		end
-	end
-
+	local canChat = localUserCanChat()
 	if canChat and chatChromeIntegration.availability then
 		ChromeUtils.setCoreGuiAvailability(chatChromeIntegration, Enum.CoreGuiType.Chat, function(enabled)
 			if enabled then

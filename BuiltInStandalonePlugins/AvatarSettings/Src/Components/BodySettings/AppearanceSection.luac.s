@@ -36,265 +36,373 @@ PROTO_0:
   SETLIST R4 R5 2 [1]
   GETTABLEKS R6 R3 K2 ["settings"]
   GETTABLEKS R5 R6 K19 ["bodySettings"]
-  GETTABLEKS R7 R5 K20 ["bodyAppearanceSetting"]
-  GETTABLEKS R6 R7 K21 ["value"]
-  GETIMPORT R7 K24 [UDim.new]
-  LOADN R8 0
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
-  CALL R7 2 1
-  GETIMPORT R9 K17 [Enum.AvatarSettingsAppearanceMode.CustomParts]
-  JUMPIFEQ R6 R9 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  GETUPVAL R9 5
-  GETUPVAL R10 6
-  DUPTABLE R11 K28 [{"text", "layoutOrder"}]
-  LOADK R14 K13 ["BodySettings"]
-  LOADK R15 K29 ["AppearanceSection"]
-  NAMECALL R12 R1 K15 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K26 ["text"]
-  GETTABLEKS R12 R0 K27 ["layoutOrder"]
-  SETTABLEKS R12 R11 K27 ["layoutOrder"]
-  DUPTABLE R12 K38 [{"AppearanceGenericModeSelector", "FaceAssetSelector", "HeadAssetSelector", "TorsoAssetSelector", "LeftArmAssetSelector", "RightArmAssetSelector", "LeftLegAssetSelector", "RightLegAssetSelector"}]
-  GETUPVAL R13 5
-  GETUPVAL R14 7
-  DUPTABLE R15 K43 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  SETTABLEKS R4 R15 K39 ["items"]
-  SETTABLEKS R6 R15 K40 ["selected"]
-  GETTABLEKS R17 R5 K20 ["bodyAppearanceSetting"]
-  GETTABLEKS R16 R17 K44 ["set"]
-  SETTABLEKS R16 R15 K41 ["onItemActivated"]
-  LOADK R18 K13 ["BodySettings"]
-  GETIMPORT R20 K12 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
-  JUMPIFNOTEQ R6 R20 [+3]
-  LOADK R19 K45 ["AppearanceSectionPlayerChoiceSubText"]
+  GETTABLEKS R6 R3 K2 ["settings"]
+  GETTABLEKS R10 R6 K20 ["navigationBarSettings"]
+  GETTABLEKS R9 R10 K21 ["avatarType"]
+  GETTABLEKS R8 R9 K22 ["value"]
+  GETIMPORT R9 K25 [Enum.GameAvatarType.R6]
+  JUMPIFEQ R8 R9 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETTABLEKS R9 R5 K26 ["bodyAppearanceSetting"]
+  GETTABLEKS R8 R9 K22 ["value"]
+  GETIMPORT R9 K29 [UDim.new]
+  LOADN R10 0
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K30 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
+  CALL R9 2 1
+  GETIMPORT R11 K17 [Enum.AvatarSettingsAppearanceMode.CustomParts]
+  JUMPIFEQ R8 R11 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  GETUPVAL R11 5
+  GETUPVAL R12 6
+  DUPTABLE R13 K33 [{"text", "layoutOrder"}]
+  LOADK R16 K13 ["BodySettings"]
+  LOADK R17 K34 ["AppearanceSection"]
+  NAMECALL R14 R1 K15 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K31 ["text"]
+  GETTABLEKS R14 R0 K32 ["layoutOrder"]
+  SETTABLEKS R14 R13 K32 ["layoutOrder"]
+  DUPTABLE R14 K46 [{"AppearanceGenericModeSelector", "FaceAssetSelector", "HeadAssetSelector", "MoodAssetSelector", "EyebrowAssetSelector", "EyelashAssetSelector", "TorsoAssetSelector", "LeftArmAssetSelector", "RightArmAssetSelector", "LeftLegAssetSelector", "RightLegAssetSelector"}]
+  GETUPVAL R15 5
+  GETUPVAL R16 7
+  DUPTABLE R17 K51 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  SETTABLEKS R4 R17 K47 ["items"]
+  SETTABLEKS R8 R17 K48 ["selected"]
+  GETTABLEKS R19 R5 K26 ["bodyAppearanceSetting"]
+  GETTABLEKS R18 R19 K52 ["set"]
+  SETTABLEKS R18 R17 K49 ["onItemActivated"]
+  LOADK R20 K13 ["BodySettings"]
+  GETIMPORT R22 K12 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
+  JUMPIFNOTEQ R8 R22 [+3]
+  LOADK R21 K53 ["AppearanceSectionPlayerChoiceSubText"]
   JUMP [+1]
-  LOADK R19 K46 ["AppearanceSectionCustomPartsSubText"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K42 ["subText"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K30 ["AppearanceGenericModeSelector"]
-  MOVE R13 R8
-  JUMPIFNOT R13 [+38]
-  GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K49 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K47 ["minTextLabelWidth"]
-  LOADK R16 K50 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K48 ["textLabelTags"]
-  LOADK R18 K13 ["BodySettings"]
-  LOADK R19 K51 ["AppearanceSectionFace"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["text"]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  DUPTABLE R16 K53 [{"Content"}]
-  GETUPVAL R17 5
-  GETUPVAL R18 9
-  DUPTABLE R19 K57 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
-  GETTABLEKS R20 R5 K58 ["bodyAppearanceCustomPartsFace"]
-  SETTABLEKS R20 R19 K54 ["assetIdSetting"]
-  GETIMPORT R20 K61 [Enum.AssetType.Face]
-  SETTABLEKS R20 R19 K55 ["expectedAssetType"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K56 ["assetCannotBeEmpty"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K52 ["Content"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K31 ["FaceAssetSelector"]
-  MOVE R13 R8
-  JUMPIFNOT R13 [+44]
-  GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K49 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K47 ["minTextLabelWidth"]
-  LOADK R16 K50 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K48 ["textLabelTags"]
-  LOADK R18 K13 ["BodySettings"]
-  LOADK R19 K62 ["AppearanceSectionHead"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["text"]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  DUPTABLE R16 K53 [{"Content"}]
-  GETUPVAL R17 5
-  GETUPVAL R18 9
-  DUPTABLE R19 K57 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
-  GETTABLEKS R20 R5 K63 ["bodyAppearanceCustomPartsHead"]
-  SETTABLEKS R20 R19 K54 ["assetIdSetting"]
-  NEWTABLE R20 0 2
-  GETIMPORT R21 K65 [Enum.AssetType.Head]
-  GETIMPORT R22 K67 [Enum.AssetType.DynamicHead]
-  SETLIST R20 R21 2 [1]
-  SETTABLEKS R20 R19 K55 ["expectedAssetType"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K56 ["assetCannotBeEmpty"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K52 ["Content"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K32 ["HeadAssetSelector"]
-  MOVE R13 R8
-  JUMPIFNOT R13 [+38]
-  GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K49 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K47 ["minTextLabelWidth"]
-  LOADK R16 K50 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K48 ["textLabelTags"]
-  LOADK R18 K13 ["BodySettings"]
-  LOADK R19 K68 ["AppearanceSectionTorso"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["text"]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  DUPTABLE R16 K53 [{"Content"}]
-  GETUPVAL R17 5
-  GETUPVAL R18 9
-  DUPTABLE R19 K57 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
-  GETTABLEKS R20 R5 K69 ["bodyAppearanceCustomPartsTorso"]
-  SETTABLEKS R20 R19 K54 ["assetIdSetting"]
-  GETIMPORT R20 K71 [Enum.AssetType.Torso]
-  SETTABLEKS R20 R19 K55 ["expectedAssetType"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K56 ["assetCannotBeEmpty"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K52 ["Content"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K33 ["TorsoAssetSelector"]
-  MOVE R13 R8
-  JUMPIFNOT R13 [+38]
-  GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K49 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K47 ["minTextLabelWidth"]
-  LOADK R16 K50 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K48 ["textLabelTags"]
-  LOADK R18 K13 ["BodySettings"]
-  LOADK R19 K72 ["AppearanceSectionLeftArm"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["text"]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  DUPTABLE R16 K53 [{"Content"}]
-  GETUPVAL R17 5
-  GETUPVAL R18 9
-  DUPTABLE R19 K57 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
-  GETTABLEKS R20 R5 K73 ["bodyAppearanceCustomPartsLeftArm"]
-  SETTABLEKS R20 R19 K54 ["assetIdSetting"]
-  GETIMPORT R20 K75 [Enum.AssetType.LeftArm]
-  SETTABLEKS R20 R19 K55 ["expectedAssetType"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K56 ["assetCannotBeEmpty"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K52 ["Content"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K34 ["LeftArmAssetSelector"]
-  MOVE R13 R8
-  JUMPIFNOT R13 [+38]
-  GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K49 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K47 ["minTextLabelWidth"]
-  LOADK R16 K50 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K48 ["textLabelTags"]
-  LOADK R18 K13 ["BodySettings"]
-  LOADK R19 K76 ["AppearanceSectionRightArm"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["text"]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  DUPTABLE R16 K53 [{"Content"}]
-  GETUPVAL R17 5
-  GETUPVAL R18 9
-  DUPTABLE R19 K57 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
-  GETTABLEKS R20 R5 K77 ["bodyAppearanceCustomPartsRightArm"]
-  SETTABLEKS R20 R19 K54 ["assetIdSetting"]
-  GETIMPORT R20 K79 [Enum.AssetType.RightArm]
-  SETTABLEKS R20 R19 K55 ["expectedAssetType"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K56 ["assetCannotBeEmpty"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K52 ["Content"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K35 ["RightArmAssetSelector"]
-  MOVE R13 R8
-  JUMPIFNOT R13 [+38]
-  GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K49 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K47 ["minTextLabelWidth"]
-  LOADK R16 K50 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K48 ["textLabelTags"]
-  LOADK R18 K13 ["BodySettings"]
-  LOADK R19 K80 ["AppearanceSectionLeftLeg"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["text"]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  DUPTABLE R16 K53 [{"Content"}]
-  GETUPVAL R17 5
-  GETUPVAL R18 9
-  DUPTABLE R19 K57 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
-  GETTABLEKS R20 R5 K81 ["bodyAppearanceCustomPartsLeftLeg"]
-  SETTABLEKS R20 R19 K54 ["assetIdSetting"]
-  GETIMPORT R20 K83 [Enum.AssetType.LeftLeg]
-  SETTABLEKS R20 R19 K55 ["expectedAssetType"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K56 ["assetCannotBeEmpty"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K52 ["Content"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K36 ["LeftLegAssetSelector"]
-  MOVE R13 R8
-  JUMPIFNOT R13 [+38]
-  GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K49 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K47 ["minTextLabelWidth"]
-  LOADK R16 K50 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K48 ["textLabelTags"]
-  LOADK R18 K13 ["BodySettings"]
-  LOADK R19 K84 ["AppearanceSectionRightLeg"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["text"]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  DUPTABLE R16 K53 [{"Content"}]
-  GETUPVAL R17 5
-  GETUPVAL R18 9
-  DUPTABLE R19 K57 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
-  GETTABLEKS R20 R5 K85 ["bodyAppearanceCustomPartsRightLeg"]
-  SETTABLEKS R20 R19 K54 ["assetIdSetting"]
-  GETIMPORT R20 K87 [Enum.AssetType.RightLeg]
-  SETTABLEKS R20 R19 K55 ["expectedAssetType"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K56 ["assetCannotBeEmpty"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K52 ["Content"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K37 ["RightLegAssetSelector"]
-  CALL R9 3 -1
-  RETURN R9 -1
+  LOADK R21 K54 ["AppearanceSectionCustomPartsSubText"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K50 ["subText"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K35 ["AppearanceGenericModeSelector"]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K59 ["AppearanceSectionFace"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K65 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
+  GETTABLEKS R22 R5 K66 ["bodyAppearanceCustomPartsFace"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  GETIMPORT R22 K69 [Enum.AssetType.Face]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K36 ["FaceAssetSelector"]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+44]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K70 ["AppearanceSectionHead"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K65 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
+  GETTABLEKS R22 R5 K71 ["bodyAppearanceCustomPartsHead"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  NEWTABLE R22 0 2
+  GETIMPORT R23 K73 [Enum.AssetType.Head]
+  GETIMPORT R24 K75 [Enum.AssetType.DynamicHead]
+  SETLIST R22 R23 2 [1]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K37 ["HeadAssetSelector"]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+40]
+  NOT R15 R7
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K76 ["AppearanceSectionMood"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K77 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType"}]
+  GETTABLEKS R22 R5 K78 ["bodyAppearanceCustomPartsMood"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  GETIMPORT R22 K80 [Enum.AssetType.Animation]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K38 ["MoodAssetSelector"]
+  GETUPVAL R15 10
+  JUMPIFNOT R15 [+42]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+40]
+  NOT R15 R7
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K81 ["AppearanceSectionEyebrow"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K77 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType"}]
+  GETTABLEKS R22 R5 K82 ["bodyAppearanceCustomPartsEyebrow"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  GETIMPORT R22 K84 [Enum.AssetType.EyebrowAccessory]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K39 ["EyebrowAssetSelector"]
+  GETUPVAL R15 10
+  JUMPIFNOT R15 [+42]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+40]
+  NOT R15 R7
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K85 ["AppearanceSectionEyelash"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K77 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType"}]
+  GETTABLEKS R22 R5 K86 ["bodyAppearanceCustomPartsEyelash"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  GETIMPORT R22 K88 [Enum.AssetType.EyelashAccessory]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K40 ["EyelashAssetSelector"]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K89 ["AppearanceSectionTorso"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K65 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
+  GETTABLEKS R22 R5 K90 ["bodyAppearanceCustomPartsTorso"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  GETIMPORT R22 K92 [Enum.AssetType.Torso]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K41 ["TorsoAssetSelector"]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K93 ["AppearanceSectionLeftArm"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K65 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
+  GETTABLEKS R22 R5 K94 ["bodyAppearanceCustomPartsLeftArm"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  GETIMPORT R22 K96 [Enum.AssetType.LeftArm]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K42 ["LeftArmAssetSelector"]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K97 ["AppearanceSectionRightArm"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K65 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
+  GETTABLEKS R22 R5 K98 ["bodyAppearanceCustomPartsRightArm"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  GETIMPORT R22 K100 [Enum.AssetType.RightArm]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K43 ["RightArmAssetSelector"]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K101 ["AppearanceSectionLeftLeg"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K65 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
+  GETTABLEKS R22 R5 K102 ["bodyAppearanceCustomPartsLeftLeg"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  GETIMPORT R22 K104 [Enum.AssetType.LeftLeg]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K44 ["LeftLegAssetSelector"]
+  MOVE R15 R10
+  JUMPIFNOT R15 [+38]
+  GETUPVAL R15 5
+  GETUPVAL R16 8
+  DUPTABLE R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R9 R17 K55 ["minTextLabelWidth"]
+  LOADK R18 K58 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R18 R17 K56 ["textLabelTags"]
+  LOADK R20 K13 ["BodySettings"]
+  LOADK R21 K105 ["AppearanceSectionRightLeg"]
+  NAMECALL R18 R1 K15 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K31 ["text"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K32 ["layoutOrder"]
+  DUPTABLE R18 K61 [{"Content"}]
+  GETUPVAL R19 5
+  GETUPVAL R20 9
+  DUPTABLE R21 K65 [{"assetIdSetting", "expectedAssetType", "assetCannotBeEmpty"}]
+  GETTABLEKS R22 R5 K106 ["bodyAppearanceCustomPartsRightLeg"]
+  SETTABLEKS R22 R21 K62 ["assetIdSetting"]
+  GETIMPORT R22 K108 [Enum.AssetType.RightLeg]
+  SETTABLEKS R22 R21 K63 ["expectedAssetType"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K64 ["assetCannotBeEmpty"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["Content"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K45 ["RightLegAssetSelector"]
+  CALL R11 3 -1
+  RETURN R11 -1
 
 MAIN:
   PREPVARARGS 0
@@ -349,7 +457,12 @@ MAIN:
   GETTABLEKS R11 R10 K21 ["Localization"]
   GETTABLEKS R12 R8 K22 ["createNextOrder"]
   GETTABLEKS R13 R7 K23 ["createElement"]
-  DUPCLOSURE R14 K24 [PROTO_0]
+  GETIMPORT R14 K25 [game]
+  LOADK R16 K26 ["AvatarSettingsEyebrowEyelashSelectors"]
+  LOADB R17 0
+  NAMECALL R14 R14 K27 ["DefineFastFlag"]
+  CALL R14 3 1
+  DUPCLOSURE R15 K28 [PROTO_0]
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R7
@@ -360,4 +473,5 @@ MAIN:
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R1
-  RETURN R14 1
+  CAPTURE VAL R14
+  RETURN R15 1

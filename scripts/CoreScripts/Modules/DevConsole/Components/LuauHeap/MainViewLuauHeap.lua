@@ -32,7 +32,8 @@ local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientRe
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagHeapProfilerSearch = require(RobloxGui.Modules.Flags.FFlagHeapProfilerSearch)
+
+local FFlagFixSearchCrash = game:DefineFastFlag("FixSearchCrash", false)
 
 local function filterNode(entry: any, term: string?): any?
 	if term == nil then
@@ -93,59 +94,223 @@ local function filterNode(entry: any, term: string?): any?
 	end
 end
 
-local function filterSnapshots(snapshots: { LuauHeapTypes.HeapReport }, term: string?): { LuauHeapTypes.HeapReport }
+local function filterHeapReportsStatEntryList(
+	statList: { LuauHeapTypes.HeapReportStatsEntry },
+	term: string?
+): { LuauHeapTypes.HeapReportStatsEntry }
 	if term == nil then
-		return snapshots
+		return statList
 	end
 
-	local newSnapshots = {}
-	for _, snapshot in snapshots do
-		local newSnapshot = table.clone(snapshot) :: LuauHeapTypes.HeapReport
-
-		-- Filter newState.TagBreakdown
-		local newTagBreakdown = {}
-		for _, node in newSnapshot.TagBreakdown do
-			local newNode = filterNode(node, term)
-			if newNode then
-				table.insert(newTagBreakdown, newNode)
-			end
+	local newStatList = {}
+	for _, stat in statList do
+		if string.find(string.lower(stat.Name), string.lower(term), 1, true) ~= nil then
+			local newStat = table.clone(stat) :: LuauHeapTypes.HeapReportStatsEntry
+			table.insert(newStatList, newStat)
 		end
-		newSnapshot.TagBreakdown = newTagBreakdown
-
-		-- Filter newState.MemcatBreakdown
-		local newMemcatBreakdown = {}
-		for _, node in newSnapshot.MemcatBreakdown do
-			local newNode = filterNode(node, term)
-			if newNode then
-				table.insert(newMemcatBreakdown, newNode)
-			end
-		end
-		newSnapshot.MemcatBreakdown = newMemcatBreakdown 
-
-		-- Filter newState.UserdataBreakdown
-		local newUserdataBreakdown = {}
-		for _, node in newSnapshot.UserdataBreakdown do
-			local newNode = filterNode(node, term)
-			if newNode then
-				table.insert(newUserdataBreakdown, newNode)
-			end
-		end
-		newSnapshot.UserdataBreakdown = newUserdataBreakdown 
-
-		-- Filter newState.Graph
-		newSnapshot.Graph = filterNode(newSnapshot.Graph, term) :: LuauHeapTypes.HeapReportGraphEntry
-
-		-- Filter newState.Refs.Roots
-		if newSnapshot.Refs then
-			newSnapshot.Refs = filterNode(newSnapshot.Refs, term)
-		end
-
-		table.insert(newSnapshots, newSnapshot)
 	end
 
-	return newSnapshots
+	return newStatList
 end
 
+local function filterHeapReportGraph(
+	graph: LuauHeapTypes.HeapReportGraphEntry, term: string?, depth : number): LuauHeapTypes.HeapReportGraphEntry?
+	if term == nil then
+		return graph
+	end
+	graph = table.clone(graph) :: LuauHeapTypes.HeapReportGraphEntry
+	local newChildren = {}
+	for _, child in graph.Children do
+		local newChild = filterHeapReportGraph(child, term, depth + 1)
+		if newChild then
+			table.insert(newChildren, newChild)
+		end
+	end
+	graph.Children = newChildren
+
+	if depth == 0 then
+		return graph
+	end
+
+	local shouldReturn = #newChildren > 0
+
+	if string.find(string.lower(graph.Name), string.lower(term), 1, true) ~= nil then
+		shouldReturn = true
+	end
+
+	if shouldReturn then
+		return graph
+	end
+	return nil
+end
+
+local function filterUniqueRefEntryPath(
+	entry: LuauHeapTypes.UniqueRefEntryPath, term: string?): LuauHeapTypes.UniqueRefEntryPath?
+	if term == nil then
+		return entry
+	end
+
+	local newEntryPath = {}
+	for _, path in entry do
+		if string.find(string.lower(path), string.lower(term), 1, true) ~= nil then
+			table.insert(newEntryPath, path)
+		end
+	end
+	if #newEntryPath > 0 then
+		return newEntryPath
+	else
+		return nil
+	end
+end
+
+local function filterUniqueRefEntryPathList(
+	paths :{ LuauHeapTypes.UniqueRefEntryPath },
+	term: string?
+)
+	if term == nil then
+		return paths
+	end
+
+	local newPaths = {}
+	for _, path in paths do
+		local newPath = filterUniqueRefEntryPath(path, term)
+		if newPath then
+			table.insert(newPaths, newPath)
+		end
+	end
+
+	return newPaths
+
+end
+
+local function filterUniqueRefEntry(
+	entry: LuauHeapTypes.UniqueRefEntry,
+	term: string?
+): LuauHeapTypes.UniqueRefEntry?
+	if term == nil then
+		return entry
+	end
+	local entry = table.clone(entry) :: LuauHeapTypes.UniqueRefEntry
+
+	local shouldReturn = false
+	if string.find(string.lower(entry.Name), string.lower(term), 1, true) ~= nil then
+		shouldReturn = true
+	end
+
+	local newPaths = filterUniqueRefEntryPathList(entry.Paths, term)	
+
+	entry.Paths = newPaths	
+
+	if #newPaths > 0 then
+		shouldReturn = true
+	end
+	
+	if shouldReturn then
+		return entry
+	else
+		return nil
+	end	
+end
+
+local function filterUniqueRefReport(
+	refs: LuauHeapTypes.UniqueRefReport?,
+	term: string?
+): LuauHeapTypes.UniqueRefReport?
+	if term == nil or refs == nil then
+		return refs
+	end
+	refs = table.clone(refs) :: LuauHeapTypes.UniqueRefReport
+	local newRoots = {}
+	for _, root in refs.Roots do
+		local newRoot = filterUniqueRefEntry(root, term)
+		if newRoot then
+			table.insert(newRoots, newRoot)
+		end
+	end
+	refs.Roots = newRoots
+	return refs
+end
+
+local function filterSnapshots(snapshots: { LuauHeapTypes.HeapReport }, term: string?, version : number): { LuauHeapTypes.HeapReport }
+	if FFlagFixSearchCrash then
+		if term == nil then
+			return snapshots
+		end
+
+		local newSnapshots = {}
+		for _, snapshot in snapshots do
+			local newSnapshot = table.clone(snapshot) :: LuauHeapTypes.HeapReport
+
+			-- Filter newState.TagBreakdown
+			newSnapshot.TagBreakdown = filterHeapReportsStatEntryList(newSnapshot.TagBreakdown, term)
+
+			newSnapshot.MemcatBreakdown = filterHeapReportsStatEntryList(newSnapshot.MemcatBreakdown, term) 
+
+			newSnapshot.UserdataBreakdown = filterHeapReportsStatEntryList(newSnapshot.UserdataBreakdown, term)
+
+			-- Filter newState.Graph
+			newSnapshot.Graph = filterHeapReportGraph(newSnapshot.Graph, term, 0) :: LuauHeapTypes.HeapReportGraphEntry
+			-- Filter newState.Refs.Roots
+			if newSnapshot.Refs then
+				newSnapshot.Refs = filterUniqueRefReport(newSnapshot.Refs, term)
+			end
+
+			table.insert(newSnapshots, newSnapshot)
+		end
+		return newSnapshots
+	else	
+		if term == nil then
+			return snapshots
+		end
+
+		local newSnapshots = {}
+		for _, snapshot in snapshots do
+			local newSnapshot = table.clone(snapshot) :: LuauHeapTypes.HeapReport
+
+			-- Filter newState.TagBreakdown
+			local newTagBreakdown = {}
+			for _, node in newSnapshot.TagBreakdown do
+				local newNode = filterNode(node, term)
+			if newNode then
+					table.insert(newTagBreakdown, newNode)
+				end
+			end
+			newSnapshot.TagBreakdown = newTagBreakdown
+
+			-- Filter newState.MemcatBreakdown
+			local newMemcatBreakdown = {}
+			for _, node in newSnapshot.MemcatBreakdown do
+				local newNode = filterNode(node, term)
+				if newNode then
+					table.insert(newMemcatBreakdown, newNode)
+				end
+			end
+			newSnapshot.MemcatBreakdown = newMemcatBreakdown 
+
+			-- Filter newState.UserdataBreakdown
+			local newUserdataBreakdown = {}
+			for _, node in newSnapshot.UserdataBreakdown do
+				local newNode = filterNode(node, term)
+				if newNode then
+					table.insert(newUserdataBreakdown, newNode)
+				end
+			end
+			newSnapshot.UserdataBreakdown = newUserdataBreakdown 
+
+			-- Filter newState.Graph
+			newSnapshot.Graph = filterNode(newSnapshot.Graph, term) :: LuauHeapTypes.HeapReportGraphEntry
+
+			-- Filter newState.Refs.Roots
+			if newSnapshot.Refs then
+				newSnapshot.Refs = filterNode(newSnapshot.Refs, term)
+			end
+
+			table.insert(newSnapshots, newSnapshot)
+		end
+
+		return newSnapshots
+	end
+end
 
 function MainViewLuauHeap:getState(isClient: boolean): LuauHeapTypes.SessionState
 	return if isClient then self.props.client else self.props.server
@@ -162,6 +327,12 @@ function MainViewLuauHeap:init()
 		})
 	end
 
+	self.version = 0
+
+	self.dispatchSetLuauHeapState = function(isClientState: boolean, sessionState: LuauHeapTypes.SessionState?)
+		self.version = self.version + 1
+		self.props.dispatchSetLuauHeapState(isClientState, sessionState)
+	end
 	self.onClientButton = function()
 		self.props.dispatchSetLuauHeapProfileTarget(true)
 	end
@@ -198,7 +369,11 @@ function MainViewLuauHeap:init()
 
 			newState.active = #newState.snapshots
 
-			self.props.dispatchSetLuauHeapState(isClientView, newState)
+			if FFlagFixSearchCrash then 
+				self.dispatchSetLuauHeapState(isClientView, newState)
+			else
+				self.props.dispatchSetLuauHeapState(isClientView, newState)
+			end
 		else
 			if isClientView then
 				local snapshot = ScriptContext:GetLuauHeapMemoryReport("game") :: LuauHeapTypes.HeapReport
@@ -211,7 +386,11 @@ function MainViewLuauHeap:init()
 
 				newState.active = #newState.snapshots
 
-				self.props.dispatchSetLuauHeapState(true, newState)
+				if FFlagFixSearchCrash then
+					self.dispatchSetLuauHeapState(true, newState)
+				else
+					self.props.dispatchSetLuauHeapState(true, newState)
+				end
 			else
 				local clientReplicator = getClientReplicator()
 
@@ -229,8 +408,12 @@ function MainViewLuauHeap:init()
 
 		table.clear(newState.snapshots)
 		newState.active = 0
-
-		self.props.dispatchSetLuauHeapState(isClientView, newState)
+		
+		if FFlagFixSearchCrash then
+			self.dispatchSetLuauHeapState(isClientView, newState)
+		else
+			self.props.dispatchSetLuauHeapState(isClientView, newState)
+		end
 	end
 
 	self.utilRef = Roact.createRef()
@@ -272,8 +455,12 @@ function MainViewLuauHeap:didMount()
 			table.insert(newState.snapshots, snapshot)
 
 			newState.active = #newState.snapshots
-
-			self.props.dispatchSetLuauHeapState(false, newState)
+			
+			if FFlagFixSearchCrash then
+				self.dispatchSetLuauHeapState(false, newState)
+			else
+				self.props.dispatchSetLuauHeapState(false, newState)
+			end
 		end)
 	end
 end
@@ -327,7 +514,7 @@ function MainViewLuauHeap:render()
 			refForParent = self.utilRef,
 			onHeightChanged = self.onUtilTabHeightChanged,
 
-			onSearchTermChanged = if FFlagHeapProfilerSearch then self.onSearchTermChanged else nil,
+			onSearchTermChanged = self.onSearchTermChanged,
 		}, {
 			Roact.createElement(BoxButton, {
 				text = "Create Snapshot",
@@ -343,7 +530,7 @@ function MainViewLuauHeap:render()
 		LuauHeapView = Roact.createElement(LuauHeapView, {
 			size = UDim2.new(1, 0, 1, -utilTabHeight),
 			layoutOrder = 2,
-			data = if FFlagHeapProfilerSearch then self.filterSnapshots(state.snapshots, self.state.searchTerm) else state.snapshots,
+			data = if FFlagFixSearchCrash then self.filterSnapshots(state.snapshots, self.state.searchTerm, self.version) else self.filterSnapshots(state.snapshots, self.state.searchTerm),
 			activeSnapshot = state.active,
 			compareSnapshot = state.compare,
 		}),

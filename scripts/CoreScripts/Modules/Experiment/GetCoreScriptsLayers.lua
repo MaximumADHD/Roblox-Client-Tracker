@@ -24,8 +24,6 @@ local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(script.Parent.Parent.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local getFStringDesktopToastNotificationLayer =
 	require(CorePackages.Workspace.Packages.SharedFlags).getFStringDesktopToastNotificationLayer
-local GetFFlagMuteTogglesEnableIXP = require(script.Parent.Parent.Settings.Flags.GetFFlagMuteTogglesEnableIXP)
-local GetFStringMuteTogglesIXPLayerName = require(script.Parent.Parent.Settings.Flags.GetFStringMuteTogglesIXPLayerName)
 local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
 local GetFFlagUXForCameraPerformanceIXPEnabled =
 	require(script.Parent.Parent.Flags.GetFFlagUXForCameraPerformanceIXPEnabled)
@@ -82,10 +80,6 @@ return function()
 	end
 	if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 		table.insert(layers, GetFStringGameInviteMenuLayer())
-	end
-
-	if GetFFlagMuteTogglesEnableIXP() then
-		table.insert(layers, GetFStringMuteTogglesIXPLayerName())
 	end
 
 	if GetFFlagUXForCameraPerformanceIXPEnabled() then

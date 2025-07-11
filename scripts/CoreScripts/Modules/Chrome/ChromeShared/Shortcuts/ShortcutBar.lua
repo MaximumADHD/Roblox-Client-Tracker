@@ -63,6 +63,9 @@ function ChromeShortcutBar(props)
 		ChromeService:onShortcutBarChanged():connect(function()
 			local s = ChromeService:getCurrentShortcuts()
 			setShortcuts(s)
+			if FFlagShortcutBarUseTokens then
+				setTrimmedShortcuts({})
+			end
 		end)
 
 		local showTopBar = GamepadConnector:getShowTopBar()

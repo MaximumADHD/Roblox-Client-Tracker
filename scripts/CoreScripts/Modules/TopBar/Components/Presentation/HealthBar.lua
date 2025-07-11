@@ -20,7 +20,6 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
 local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
-local FFlagMountCoreGuiHealthBar = require(TopBar.Flags.FFlagMountCoreGuiHealthBar)
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -50,7 +49,7 @@ HealthBar.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 
 	screenSize = t.Vector2,
-	healthEnabled = if FFlagMountCoreGuiHealthBar then nil else t.boolean,
+	healthEnabled = t.boolean,
 	health = t.number,
 	maxHealth = t.number,
 
@@ -99,40 +98,13 @@ end
 
 function HealthBar:init()
 	self.rootRef = Roact.createRef()
-	if FFlagMountCoreGuiHealthBar then
-		local function getHealthEnabled()
-			return StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Health)
-		end
-
-		local coreGuiChangedSignalConn = StarterGui.CoreGuiChangedSignal:Connect(
-			function(coreGuiType: Enum.CoreGuiType, enabled: boolean)
-				if coreGuiType == Enum.CoreGuiType.Health or coreGuiType == Enum.CoreGuiType.All then
-					self:setState({
-						mount = enabled,
-					})
-				end
-			end
-		)
-		self:setState({
-			mount = getHealthEnabled(),
-			coreGuiChangedSignalConn = coreGuiChangedSignalConn,
-		})
-	end
 end
 
 function HealthBar:onUnmount()
-	if FFlagMountCoreGuiHealthBar then
-		self.state.coreGuiChangedSignalConn:Disconnect()
-	end
 end
 
 function HealthBar:renderHealth()
-	local healthVisible = nil
-	if FFlagMountCoreGuiHealthBar then
-		healthVisible = self.props.health < self.props.maxHealth
-	else
-		healthVisible = self.props.healthEnabled and self.props.health < self.props.maxHealth
-	end
+	local healthVisible = self.props.healthEnabled and self.props.health < self.props.maxHealth
 
 	local healthPercent = 1
 	if self.props.isDead then
@@ -238,28 +210,16 @@ function HealthBar:renderHealth()
 end
 
 function HealthBar:render()
-	if FFlagMountCoreGuiHealthBar then
-		return if self.state.mount then self:renderHealth() else nil
-	else
 		return self:renderHealth()
-	end
 end
 
 local function mapStateToProps(state)
-	if FFlagMountCoreGuiHealthBar then
-		return {
-			screenSize = state.displayOptions.screenSize,
-			health = state.health.currentHealth,
-			maxHealth = state.health.maxHealth,
-		}
-	else
 		return {
 			screenSize = state.displayOptions.screenSize,
 			health = state.health.currentHealth,
 			maxHealth = state.health.maxHealth,
 			healthEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Health],
 		}
-	end
 end
 
 local function mapDispatchToProps(dispatch)

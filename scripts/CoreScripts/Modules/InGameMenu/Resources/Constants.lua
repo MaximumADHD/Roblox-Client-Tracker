@@ -144,7 +144,6 @@ local Constants = {
 	ChromeSeenCountKey = "ChromeSeenCount",
 
 	--[[ Localization Keys ]]
-	PartyLocalizedKey = "Feature.Squads.Label.Party",
 	RespawnLocalizedKey = "CoreScripts.InGameMenu.QuickActions.Respawn",
 	LeaveGameLocalizedKey = "CoreScripts.InGameMenu.LeaveGame",
 	ResumeLocalizedKey = "CoreScripts.InGameMenu.Prompt.ResumeGame",

@@ -158,20 +158,26 @@ PROTO_5:
   GETTABLEKS R13 R0 K37 ["onMouseLeave"]
   SETTABLE R13 R11 R12
   DUPTABLE R12 K41 [{"SetMembershipButton", "GroupRenameTextBox", "Text"}]
-  JUMPIF R7 [+26]
+  JUMPIF R7 [+34]
+  GETIMPORT R14 K43 [game]
+  LOADK R16 K44 ["CGELargeGroupNameEntryFix"]
+  NAMECALL R14 R14 K45 ["GetFastFlag"]
+  CALL R14 2 1
+  JUMPIFNOT R14 [+1]
+  JUMPIF R4 [+26]
   GETUPVAL R14 2
   GETTABLEKS R13 R14 K17 ["createElement"]
   GETUPVAL R14 4
-  DUPTABLE R15 K43 [{"Style", "TooltipMessage", "OnClick", "LayoutOrder"}]
-  LOADK R16 K44 ["SetMembership"]
+  DUPTABLE R15 K47 [{"Style", "TooltipMessage", "OnClick", "LayoutOrder"}]
+  LOADK R16 K48 ["SetMembership"]
   SETTABLEKS R16 R15 K19 ["Style"]
-  LOADK R18 K45 ["Tooltip"]
-  LOADK R19 K46 ["Add"]
-  NAMECALL R16 R3 K47 ["getText"]
+  LOADK R18 K49 ["Tooltip"]
+  LOADK R19 K50 ["Add"]
+  NAMECALL R16 R3 K51 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K42 ["TooltipMessage"]
+  SETTABLEKS R16 R15 K46 ["TooltipMessage"]
   GETTABLEKS R17 R1 K3 ["Group"]
-  GETTABLEKS R16 R17 K48 ["OnMembershipSet"]
+  GETTABLEKS R16 R17 K52 ["OnMembershipSet"]
   SETTABLEKS R16 R15 K30 ["OnClick"]
   LOADN R16 1
   SETTABLEKS R16 R15 K23 ["LayoutOrder"]
@@ -184,7 +190,7 @@ PROTO_5:
   GETUPVAL R14 2
   GETTABLEKS R13 R14 K17 ["createElement"]
   GETUPVAL R14 5
-  DUPTABLE R15 K49 [{"Size", "Group", "LayoutOrder"}]
+  DUPTABLE R15 K53 [{"Size", "Group", "LayoutOrder"}]
   GETTABLEKS R17 R2 K14 ["GroupLabelStyle"]
   GETTABLEKS R16 R17 K16 ["GroupNameLabelSize"]
   SETTABLEKS R16 R15 K22 ["Size"]
@@ -199,7 +205,7 @@ PROTO_5:
   GETUPVAL R14 2
   GETTABLEKS R13 R14 K17 ["createElement"]
   GETUPVAL R14 6
-  DUPTABLE R15 K53 [{"Size", "Style", "LayoutOrder", "Text", "TextWrapped", "TextTruncate", "TextXAlignment", "StyleModifier"}]
+  DUPTABLE R15 K57 [{"Size", "Style", "LayoutOrder", "Text", "TextWrapped", "TextTruncate", "TextXAlignment", "StyleModifier"}]
   SETTABLEKS R8 R15 K22 ["Size"]
   LOADK R16 K18 ["GroupLabel"]
   SETTABLEKS R16 R15 K19 ["Style"]
@@ -207,21 +213,21 @@ PROTO_5:
   SETTABLEKS R16 R15 K23 ["LayoutOrder"]
   SETTABLEKS R6 R15 K40 ["Text"]
   LOADB R16 1
-  SETTABLEKS R16 R15 K50 ["TextWrapped"]
-  GETIMPORT R16 K55 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R16 R15 K51 ["TextTruncate"]
-  GETIMPORT R16 K57 [Enum.TextXAlignment.Right]
-  SETTABLEKS R16 R15 K52 ["TextXAlignment"]
+  SETTABLEKS R16 R15 K54 ["TextWrapped"]
+  GETIMPORT R16 K59 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R16 R15 K55 ["TextTruncate"]
+  GETIMPORT R16 K61 [Enum.TextXAlignment.Right]
+  SETTABLEKS R16 R15 K56 ["TextXAlignment"]
   SETTABLEKS R5 R15 K20 ["StyleModifier"]
-  DUPTABLE R16 K59 [{"HoverArea"}]
+  DUPTABLE R16 K63 [{"HoverArea"}]
   GETUPVAL R18 2
   GETTABLEKS R17 R18 K17 ["createElement"]
   GETUPVAL R18 7
-  DUPTABLE R19 K61 [{"Cursor"}]
-  LOADK R20 K62 ["PointingHand"]
-  SETTABLEKS R20 R19 K60 ["Cursor"]
+  DUPTABLE R19 K65 [{"Cursor"}]
+  LOADK R20 K66 ["PointingHand"]
+  SETTABLEKS R20 R19 K64 ["Cursor"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["HoverArea"]
+  SETTABLEKS R17 R16 K62 ["HoverArea"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K40 ["Text"]
   CALL R9 3 -1

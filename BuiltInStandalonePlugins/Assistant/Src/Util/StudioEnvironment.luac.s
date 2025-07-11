@@ -34,32 +34,87 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
-  PREPVARARGS 0
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+16]
+  GETUPVAL R5 1
+  DUPTABLE R7 K5 [{"requestId", "instanceId", "script", "source", "isNewScript"}]
+  SETTABLEKS R0 R7 K0 ["requestId"]
+  SETTABLEKS R1 R7 K1 ["instanceId"]
+  SETTABLEKS R2 R7 K2 ["script"]
+  SETTABLEKS R3 R7 K3 ["source"]
+  SETTABLEKS R4 R7 K4 ["isNewScript"]
+  NAMECALL R5 R5 K6 ["UpdateScriptSourceAsync"]
+  CALL R5 2 0
+  RETURN R0 0
+  GETUPVAL R5 2
+  LOADK R7 K7 ["UpdateScriptSource"]
+  DUPTABLE R8 K5 [{"requestId", "instanceId", "script", "source", "isNewScript"}]
+  SETTABLEKS R0 R8 K0 ["requestId"]
+  SETTABLEKS R1 R8 K1 ["instanceId"]
+  SETTABLEKS R2 R8 K2 ["script"]
+  SETTABLEKS R3 R8 K3 ["source"]
+  SETTABLEKS R4 R8 K4 ["isNewScript"]
+  NAMECALL R5 R5 K8 ["DisplayContent"]
+  CALL R5 3 0
+  RETURN R0 0
+
+PROTO_6:
   GETIMPORT R0 K1 [error]
   LOADK R1 K2 ["Code execution not available for this environment"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_6:
-  NEWTABLE R1 4 0
-  DUPCLOSURE R2 K0 [PROTO_0]
-  SETTABLEKS R2 R1 K1 ["isDevFrameworkAvailable"]
-  GETIMPORT R2 K3 [pcall]
-  NEWCLOSURE R3 P1
+PROTO_7:
+  GETIMPORT R0 K1 [error]
+  LOADK R1 K2 ["updateScriptSource is not available for this environment"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["CopyToClipboard"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_10:
+  NEWTABLE R2 8 0
+  DUPCLOSURE R3 K0 [PROTO_0]
+  SETTABLEKS R3 R2 K1 ["isDevFrameworkAvailable"]
+  GETIMPORT R3 K3 [pcall]
+  NEWCLOSURE R4 P1
   CAPTURE VAL R0
-  CALL R2 1 2
-  JUMPIFNOT R2 [+9]
-  NEWCLOSURE R4 P2
-  CAPTURE VAL R3
-  SETTABLEKS R4 R1 K4 ["loadCode"]
-  NEWCLOSURE R4 P3
-  CAPTURE VAL R3
-  SETTABLEKS R4 R1 K5 ["stopCode"]
-  RETURN R1 1
-  DUPCLOSURE R4 K6 [PROTO_5]
-  SETTABLEKS R4 R1 K4 ["loadCode"]
-  SETTABLEKS R4 R1 K5 ["stopCode"]
-  RETURN R1 1
+  CALL R3 1 2
+  JUMPIFNOT R3 [+15]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R4
+  SETTABLEKS R5 R2 K4 ["loadCode"]
+  NEWCLOSURE R5 P3
+  CAPTURE VAL R4
+  SETTABLEKS R5 R2 K5 ["stopCode"]
+  NEWCLOSURE R5 P4
+  CAPTURE UPVAL U0
+  CAPTURE VAL R4
+  CAPTURE UPVAL U1
+  SETTABLEKS R5 R2 K6 ["updateScriptSource"]
+  JUMP [+8]
+  DUPCLOSURE R5 K7 [PROTO_6]
+  SETTABLEKS R5 R2 K4 ["loadCode"]
+  SETTABLEKS R5 R2 K5 ["stopCode"]
+  DUPCLOSURE R6 K8 [PROTO_7]
+  SETTABLEKS R6 R2 K6 ["updateScriptSource"]
+  DUPCLOSURE R5 K9 [PROTO_8]
+  CAPTURE UPVAL U2
+  SETTABLEKS R5 R2 K10 ["copyToClipboard"]
+  NEWCLOSURE R5 P8
+  CAPTURE VAL R1
+  SETTABLEKS R5 R2 K11 ["getNetworking"]
+  RETURN R2 1
 
 MAIN:
   PREPVARARGS 0
@@ -67,9 +122,33 @@ MAIN:
   LOADK R2 K2 ["Assistant"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["AssistantUI"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_6]
-  RETURN R2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["StudioService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [pcall]
+  GETIMPORT R4 K5 [game]
+  GETTABLEKS R3 R4 K7 ["GetService"]
+  GETIMPORT R4 K5 [game]
+  LOADK R5 K10 ["ChatbotUIService"]
+  CALL R2 3 2
+  GETIMPORT R4 K12 [require]
+  GETTABLEKS R6 R0 K13 ["Packages"]
+  GETTABLEKS R5 R6 K14 ["AssistantUI"]
+  CALL R4 1 1
+  GETIMPORT R5 K12 [require]
+  GETTABLEKS R8 R0 K15 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Util"]
+  GETTABLEKS R6 R7 K17 ["StudioNetworking"]
+  CALL R5 1 1
+  GETIMPORT R7 K12 [require]
+  GETTABLEKS R10 R0 K15 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Flags"]
+  GETTABLEKS R8 R9 K19 ["FFlagStudioAssistantBridgeScriptDiff"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K20 ["Get"]
+  DUPCLOSURE R7 K21 [PROTO_10]
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R7 1

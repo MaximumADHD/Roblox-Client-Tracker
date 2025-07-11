@@ -4,6 +4,7 @@ local TextService = game:GetService("TextService")
 local ContextActionService = game:GetService("ContextActionService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local UserInputService = game:GetService("UserInputService")
+local GuiService = game:GetService("GuiService")
 
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -11,6 +12,9 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
+
+local Responsive = require(CorePackages.Workspace.Packages.Responsive)
+local useLastInput = Responsive.useLastInput
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Button = UIBlox.App.Button.Button
@@ -29,12 +33,16 @@ local DevicePermissionsModal = require(script.Parent.DevicePermissionsModal)
 local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
+local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
+
+local VoiceChatFlags = VoiceChat.Flags
 
 local CoreGui = game:GetService("CoreGui")
 local runService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
 local GetFFlagEnableVoiceNudge = require(VoiceChatCore.Flags.GetFFlagEnableVoiceNudge)
+local GetFFlagSupportGamepadNavInVoiceModals = VoiceChatFlags.GetFFlagSupportGamepadNavInVoiceModals
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
@@ -265,6 +273,7 @@ VoiceChatPromptFrame.validateProps = t.strictInterface({
 	appStyle = validateStyle,
 	settingsAppAvailable = t.optional(t.boolean),
 	UserInputService = t.optional(t.table),
+	lastInput = t.optional(t.string),
 })
 
 function VoiceChatPromptFrame:init()
@@ -280,6 +289,8 @@ function VoiceChatPromptFrame:init()
 		banEnd = "",
 		showPrompt = true,
 	}
+
+	self.ref = if GetFFlagSupportGamepadNavInVoiceModals() then Roact.createRef() else nil
 
 	if self.props.showNewContent then
 		local micSuspended = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicUseSuspended")
@@ -500,6 +511,9 @@ function VoiceChatPromptFrame:render()
 
 		local showSecondaryButton = ShouldShowSecondaryButton(self.state.promptType)
 
+		local selectionBehavior = if GetFFlagSupportGamepadNavInVoiceModals() then Enum.SelectionBehavior.Stop else nil
+		local isSelectable = if GetFFlagSupportGamepadNavInVoiceModals() then true else nil
+
 		local inGameMenuInformationalDialog = Roact.createElement("ScreenGui", {
 			DisplayOrder = 8,
 			IgnoreGuiInset = true,
@@ -538,6 +552,16 @@ function VoiceChatPromptFrame:render()
 				),
 				AutomaticSize = automaticSize,
 				SliceCenter = Assets.Images.RoundedRect.SliceCenter,
+				-- Define a restricted SelectionGroup to only allow navigating between the
+				-- VoiceChatConsentModal's buttons
+				SelectionBehaviorDown = selectionBehavior,
+				SelectionBehaviorLeft = selectionBehavior,
+				SelectionBehaviorRight = selectionBehavior,
+				SelectionBehaviorUp = selectionBehavior,
+				SelectionGroup = isSelectable,
+				-- Use a ref that VoiceChatPromptFrame can access so that VoiceChatPromptFrame can auto-select a button
+				-- and support gamepad navigation
+				ref = if GetFFlagSupportGamepadNavInVoiceModals() then self.ref else nil,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, PADDING),
@@ -645,6 +669,7 @@ function VoiceChatPromptFrame:render()
 						onActivated = if GetFFlagEnableVoiceNudge()
 							then self.handlePrimayActivated
 							else self.closeVoiceBanPrompt,
+						Selectable = isSelectable,
 					}),
 					SecondaryButton = showSecondaryButton and Roact.createElement(UIBlox.App.Button.LinkButton, {
 						layoutOrder = 1,
@@ -671,6 +696,7 @@ function VoiceChatPromptFrame:render()
 				UserInputService = if self.props.UserInputService ~= nil
 					then self.props.UserInputService
 					else UserInputService,
+				ref = if GetFFlagSupportGamepadNavInVoiceModals() then self.ref else nil,
 			})
 		end
 
@@ -684,6 +710,7 @@ function VoiceChatPromptFrame:render()
 				showCheckbox = self.props.showCheckbox,
 				promptStyle = self.promptStyle,
 				showPrompt = self.state.showPrompt,
+				ref = if GetFFlagSupportGamepadNavInVoiceModals() then self.ref else nil,
 			})
 		end
 
@@ -718,7 +745,10 @@ function VoiceChatPromptFrame:render()
 		end
 
 		local showThisToast = self.state.showPrompt
-		if self.state.promptType == PromptType.VoiceDataConsentOptOutToast and GetFFlagEnableSeamlessVoiceDataConsentToast() then
+		if
+			self.state.promptType == PromptType.VoiceDataConsentOptOutToast
+			and GetFFlagEnableSeamlessVoiceDataConsentToast()
+		then
 			showThisToast = if self.props.showDataConsentToast then self.props.showDataConsentToast else false
 		end
 
@@ -744,6 +774,38 @@ function VoiceChatPromptFrame:render()
 	return voiceChatPromptFrame
 end
 
+function VoiceChatPromptFrame:didUpdate()
+	if GetFFlagSupportGamepadNavInVoiceModals() then
+		if self.props.lastInput == Responsive.Input.Directional then
+			-- Get a ref to a parent instance that contains selectable buttons.
+			-- This ref is only passed to components rendering a modal, such as
+			-- the voice consent modal. This ref is not passed to toasts, which
+			-- do not need gamepad navigation
+			local selectableGroup = self.ref:getValue()
+
+			-- If we're showing a modal and we're using a gamepad, select a
+			-- selectable button within the parent instance provided through
+			-- the ref above
+			if self.state.showPrompt and selectableGroup then
+				GuiService:Select(selectableGroup)
+			end
+			-- If we're hiding a modal and we're using a gamepad, clear selected objects
+			-- so we deselect and the gamepad can be used for character movement again.
+			-- If this isn't done, the UI will still be selecting a nonexistent button
+			-- and the gamepad can't be used for movement
+			if not self.state.showPrompt and selectableGroup then
+				GuiService.SelectedCoreObject = nil
+			end
+		else
+			-- When using any other input method besides a gamepad, stop selecting an
+			-- object if one is selected
+			if GuiService.SelectedCoreObject then
+				GuiService.SelectedCoreObject = nil
+			end
+		end
+	end
+end
+
 function VoiceChatPromptFrame:didMount()
 	if self.props.onReadyForSignal then
 		self.props.onReadyForSignal()
@@ -766,16 +828,20 @@ VoiceChatPromptFrame = InGameMenuPolicy.connect(function(appPolicy, props)
 	return {
 		showNewContent = appPolicy.getGameInfoShowChatFeatures(),
 		showCheckbox = if GetFFlagEnableInExpVoiceUpsell() then appPolicy.getDisplayCheckboxInVoiceConsent() else true,
-		showDataConsentToast = if appPolicy.getDisplayCheckboxInVoiceConsent() == nil then false else appPolicy.getDisplayCheckboxInVoiceConsent(),
+		showDataConsentToast = if appPolicy.getDisplayCheckboxInVoiceConsent() == nil
+			then false
+			else appPolicy.getDisplayCheckboxInVoiceConsent(),
 	}
 end)(VoiceChatPromptFrame)
 
 local function WrappedVoiceChatPromptFrame(props: any)
 	local style = useStyle()
+	local lastInput = if GetFFlagSupportGamepadNavInVoiceModals() then useLastInput() else nil
 	return Roact.createElement(
 		VoiceChatPromptFrame,
 		Cryo.Dictionary.join(props, {
 			appStyle = style,
+			lastInput = if GetFFlagSupportGamepadNavInVoiceModals() then lastInput else nil,
 		})
 	)
 end

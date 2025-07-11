@@ -1,20 +1,19 @@
 PROTO_0:
-  MOVE R2 R1
-  LOADK R3 K0 ["selected"]
-  GETTABLEKS R5 R0 K1 ["isSelected"]
-  JUMPIFNOT R5 [+2]
-  LOADK R4 K2 ["FindReplaceAll-Selected"]
+  MOVE R3 R2
+  LOADK R4 K0 ["selected"]
+  GETTABLEKS R6 R0 K1 ["isSelected"]
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K2 ["FindReplaceAll-Selected"]
   JUMP [+1]
-  LOADNIL R4
-  CALL R2 2 0
-  MOVE R2 R1
-  LOADK R3 K3 ["hovered"]
-  GETTABLEKS R5 R0 K4 ["isHovered"]
-  JUMPIFNOT R5 [+2]
-  LOADK R4 K5 ["FindReplaceAll-Hovered"]
+  LOADNIL R5
+  CALL R3 2 0
+  MOVE R3 R2
+  LOADK R4 K3 ["hovered"]
+  JUMPIFNOT R1 [+2]
+  LOADK R5 K4 ["FindReplaceAll-Hovered"]
   JUMP [+1]
-  LOADK R4 K6 ["FindReplaceAll-NotHovered"]
-  CALL R2 2 0
+  LOADK R5 K5 ["FindReplaceAll-NotHovered"]
+  CALL R3 2 0
   RETURN R0 0
 
 PROTO_1:
@@ -22,23 +21,31 @@ PROTO_1:
   GETTABLEKS R1 R2 K0 ["visibleNodeObservable"]
   GETTABLEKS R0 R1 K1 ["get"]
   CALL R0 0 1
-  GETUPVAL R1 1
-  MOVE R2 R1
-  LOADK R3 K2 ["selected"]
-  GETTABLEKS R5 R0 K3 ["isSelected"]
-  JUMPIFNOT R5 [+2]
-  LOADK R4 K4 ["FindReplaceAll-Selected"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["hoveredObservable"]
+  GETTABLEKS R2 R3 K1 ["get"]
+  CALL R2 0 1
+  GETTABLEKS R4 R0 K3 ["datum"]
+  GETTABLEKS R3 R4 K4 ["id"]
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETUPVAL R2 1
+  MOVE R3 R2
+  LOADK R4 K5 ["selected"]
+  GETTABLEKS R6 R0 K6 ["isSelected"]
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K7 ["FindReplaceAll-Selected"]
   JUMP [+1]
-  LOADNIL R4
-  CALL R2 2 0
-  MOVE R2 R1
-  LOADK R3 K5 ["hovered"]
-  GETTABLEKS R5 R0 K6 ["isHovered"]
-  JUMPIFNOT R5 [+2]
-  LOADK R4 K7 ["FindReplaceAll-Hovered"]
+  LOADNIL R5
+  CALL R3 2 0
+  MOVE R3 R2
+  LOADK R4 K8 ["hovered"]
+  JUMPIFNOT R1 [+2]
+  LOADK R5 K9 ["FindReplaceAll-Hovered"]
   JUMP [+1]
-  LOADK R4 K8 ["FindReplaceAll-NotHovered"]
-  CALL R2 2 0
+  LOADK R5 K10 ["FindReplaceAll-NotHovered"]
+  CALL R3 2 0
   RETURN R0 0
 
 PROTO_2:
