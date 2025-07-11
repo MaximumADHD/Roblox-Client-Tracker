@@ -6,7 +6,9 @@ category: Inputs
 
 `TextInput` is a single line text input with optional label, helper text, and icons.
 
-## How to Use
+---
+
+## Usage
 
 `TextInput` has a default width of 400px unless `width` is specified. The height is static and will depend on whether a label and helper text are provided.
 

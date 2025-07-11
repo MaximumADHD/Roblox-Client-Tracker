@@ -15,7 +15,9 @@ Text and icon content type can be added any of the badges
 * If text and icon are nil it will be a (small, empty state) blank badge
 * Otherwise, it will be an icon and text badge
 
-## How to Use
+---
+
+## Usage
 
 `Badge`s will grow to fit their text. Badge text does *not* wrap to multiple lines.
 

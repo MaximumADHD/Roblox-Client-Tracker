@@ -8,9 +8,25 @@ local Migration = {
       name = "arm",
       variant = "Regular",
     },
-    ["icons/menu/clothing/rightArm_small"] = {
+    ["icons/menu/clothing/arms_on"] = {
       name = "arm",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/leftArm_small"] = {
+      name = "arm-left",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/leftArm_small_fill"] = {
+      name = "arm-left",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/rightArm_small"] = {
+      name = "arm-right",
+      variant = "Regular",
+    },
+    ["icons/menu/clothing/rightArm_small_fill"] = {
+      name = "arm-right",
+      variant = "Filled",
     },
     ["icons/actions/download_medium"] = {
       name = "arrow-down-to-line",
@@ -30,6 +46,10 @@ local Migration = {
     },
     ["icons/navigation/pushRight_small"] = {
       name = "arrow-large-right",
+      variant = "Regular",
+    },
+    ["icons/controls/vehicle/exit"] = {
+      name = "arrow-right-from-portrait-rectangle",
       variant = "Regular",
     },
     ["icons/graphic/lock_xxlarge"] = {
@@ -116,6 +136,26 @@ local Migration = {
       name = "bell",
       variant = "Filled",
     },
+    ["icons/common/snoozeNotificationsOff"] = {
+      name = "bell-clock",
+      variant = "Regular",
+    },
+    ["icons/common/snoozeNotificationsOn"] = {
+      name = "bell-clock",
+      variant = "Filled",
+    },
+    ["icons/common/muteNotification"] = {
+      name = "bell-slash",
+      variant = "Regular",
+    },
+    ["icons/common/muteNotificationsOff"] = {
+      name = "bell-slash",
+      variant = "Regular",
+    },
+    ["icons/common/muteNotificationsOn"] = {
+      name = "bell-slash",
+      variant = "Filled",
+    },
     ["icons/menu/clothing/waist_off"] = {
       name = "belt",
       variant = "Regular",
@@ -131,6 +171,10 @@ local Migration = {
     ["icons/menu/clothing/accessories_off"] = {
       name = "bow-tie",
       variant = "Regular",
+    },
+    ["icons/controls/weapon/fire"] = {
+      name = "bullet-flying",
+      variant = "Filled",
     },
     ["icons/menu/clothing/back_off"] = {
       name = "butterfly-wings",
@@ -304,6 +348,14 @@ local Migration = {
       name = "circle-slash",
       variant = "Regular",
     },
+    ["icons/menu/clothing/featured_off"] = {
+      name = "circle-star",
+      variant = "Regular",
+    },
+    ["icons/menu/clothing/featured_on"] = {
+      name = "circle-star",
+      variant = "Filled",
+    },
     ["icons/common/more"] = {
       name = "circle-three-dots-horizontal",
       variant = "Regular",
@@ -348,6 +400,18 @@ local Migration = {
       name = "clothes-hanger",
       variant = "Filled",
     },
+    ["icons/controls/weapon/scopeOn"] = {
+      name = "crosshairs",
+      variant = "Regular",
+    },
+    ["icons/controls/weapon/scopeOff"] = {
+      name = "crosshairs-slash",
+      variant = "Regular",
+    },
+    ["icons/menu/AR"] = {
+      name = "cube-vertexes",
+      variant = "Regular",
+    },
     ["icons/placeholder/placeholderOff"] = {
       name = "diamond-simplified",
       variant = "Regular",
@@ -375,6 +439,10 @@ local Migration = {
     ["icons/menu/clothing/dresses_off"] = {
       name = "dress",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/dresses_on"] = {
+      name = "dress",
+      variant = "Filled",
     },
     ["icons/menu/adjust/positionX"] = {
       name = "dual-arrows-horizontal",
@@ -411,6 +479,10 @@ local Migration = {
     ["icons/menu/clothing/eyelash_off"] = {
       name = "eyelashes",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/faces_on"] = {
+      name = "face-winking",
+      variant = "Filled",
     },
     ["icons/brands/facebook"] = {
       name = "facebook",
@@ -456,6 +528,14 @@ local Migration = {
       name = "frame-camera",
       variant = "Regular",
     },
+    ["icons/common/musicTrackingBorder_medium"] = {
+      name = "frame-corners",
+      variant = "Regular",
+    },
+    ["icons/common/musicTrackingBorder_small"] = {
+      name = "frame-corners",
+      variant = "Regular",
+    },
     ["icons/controls/screenrecord"] = {
       name = "frame-record",
       variant = "Regular",
@@ -488,6 +568,10 @@ local Migration = {
       name = "gear",
       variant = "Filled",
     },
+    ["icons/controls/controls"] = {
+      name = "generic-dpad",
+      variant = "Regular",
+    },
     ["icons/common/giftBox_medium"] = {
       name = "gift-card",
       variant = "Regular",
@@ -508,6 +592,10 @@ local Migration = {
       name = "glasses",
       variant = "Regular",
     },
+    ["icons/menu/clothing/eyes_on"] = {
+      name = "glasses",
+      variant = "Filled",
+    },
     ["icons/status/public"] = {
       name = "globe-detailed",
       variant = "Regular",
@@ -527,6 +615,10 @@ local Migration = {
     ["icons/menu/community_small"] = {
       name = "globe-simplified",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/community_on"] = {
+      name = "globe-simplified",
+      variant = "Filled",
     },
     ["icons/brands/guilded"] = {
       name = "guilded",
@@ -676,6 +768,10 @@ local Migration = {
       name = "jacket",
       variant = "Regular",
     },
+    ["icons/menu/clothing/jackets_on"] = {
+      name = "jacket",
+      variant = "Filled",
+    },
     ["icons/menu/passkey"] = {
       name = "key",
       variant = "Regular",
@@ -700,17 +796,41 @@ local Migration = {
       name = "key",
       variant = "Filled",
     },
-    ["icons/controls/language"] = {
-      name = "language-characters",
+    ["icons/controls/keys/alt"] = {
+      name = "key-alt",
       variant = "Regular",
     },
-    ["icons/menu/clothing/leftLeg_small"] = {
-      name = "leg",
+    ["icons/controls/keys/option"] = {
+      name = "key-alt",
+      variant = "Regular",
+    },
+    ["icons/controls/language"] = {
+      name = "language-characters",
       variant = "Regular",
     },
     ["icons/menu/clothing/legs_off"] = {
       name = "leg",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/legs_on"] = {
+      name = "leg",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/leftLeg_small"] = {
+      name = "leg-left",
+      variant = "Regular",
+    },
+    ["icons/menu/clothing/leftLeg_small_fill"] = {
+      name = "leg-left",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/rightLeg_small"] = {
+      name = "leg-right",
+      variant = "Regular",
+    },
+    ["icons/menu/clothing/rightLeg_small_fill"] = {
+      name = "leg-right",
+      variant = "Filled",
     },
     ["icons/menu/feed"] = {
       name = "lightning-bolt",
@@ -751,6 +871,10 @@ local Migration = {
     ["icons/menu/clothing/mouse_off"] = {
       name = "lollipop",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/mouse_on"] = {
+      name = "lollipop",
+      variant = "Filled",
     },
     ["icons/actions/friend_sort/search_people"] = {
       name = "magnifying-glass",
@@ -856,6 +980,10 @@ local Migration = {
       name = "nose",
       variant = "Regular",
     },
+    ["icons/menu/clothing/neck_on"] = {
+      name = "nose",
+      variant = "Filled",
+    },
     ["icons/menu/document"] = {
       name = "page",
       variant = "Regular",
@@ -863,6 +991,18 @@ local Migration = {
     ["icons/menu/clothing/pants_off"] = {
       name = "pants",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/pants_on"] = {
+      name = "pants",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/classicPants_off"] = {
+      name = "pants-2d-text",
+      variant = "Regular",
+    },
+    ["icons/menu/clothing/classicPants_on"] = {
+      name = "pants-2d-text",
+      variant = "Filled",
     },
     ["icons/actions/send"] = {
       name = "paper-airplane",
@@ -1008,6 +1148,10 @@ local Migration = {
       name = "person-plus",
       variant = "Regular",
     },
+    ["icons/actions/respawn"] = {
+      name = "person-standing-arrow-reverse",
+      variant = "Regular",
+    },
     ["icons/actions/friends/friendRemove"] = {
       name = "person-trash-can",
       variant = "Regular",
@@ -1100,9 +1244,25 @@ local Migration = {
       name = "premium",
       variant = "Regular",
     },
+    ["icons/actions/pumpkin_medium"] = {
+      name = "pumpkin",
+      variant = "Regular",
+    },
+    ["icons/actions/pumpkin_small"] = {
+      name = "pumpkin",
+      variant = "Regular",
+    },
+    ["icons/actions/pumpkinOn_medium"] = {
+      name = "pumpkin",
+      variant = "Filled",
+    },
     ["icons/menu/clothing/front_off"] = {
       name = "purse",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/front_on"] = {
+      name = "purse",
+      variant = "Filled",
     },
     ["icons/common/goldrobux"] = {
       name = "robux",
@@ -1144,16 +1304,40 @@ local Migration = {
       name = "shirt",
       variant = "Regular",
     },
-    ["icons/menu/clothing/rightShoe_small"] = {
-      name = "shoe",
+    ["icons/menu/clothing/shirts_on"] = {
+      name = "shirt",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/classicShirts_off"] = {
+      name = "shirt-2d-text",
       variant = "Regular",
+    },
+    ["icons/menu/clothing/classicShirts_on"] = {
+      name = "shirt-2d-text",
+      variant = "Filled",
     },
     ["icons/menu/clothing/shoes_off"] = {
       name = "shoe",
       variant = "Regular",
     },
-    ["icons/menu/clothing/rightShoe_small_fill"] = {
+    ["icons/menu/clothing/shoes_on"] = {
       name = "shoe",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/leftShoe_small"] = {
+      name = "shoe-left",
+      variant = "Regular",
+    },
+    ["icons/menu/clothing/leftShoe_small_fill"] = {
+      name = "shoe-left",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/rightShoe_small"] = {
+      name = "shoe-right",
+      variant = "Regular",
+    },
+    ["icons/menu/clothing/rightShoe_small_fill"] = {
+      name = "shoe-right",
       variant = "Filled",
     },
     ["icons/menu/shop"] = {
@@ -1340,6 +1524,10 @@ local Migration = {
       name = "sword",
       variant = "Regular",
     },
+    ["icons/menu/clothing/gear_on"] = {
+      name = "sword",
+      variant = "Filled",
+    },
     ["icons/common/hamburgermenu"] = {
       name = "three-bars-horizontal",
       variant = "Regular",
@@ -1350,6 +1538,14 @@ local Migration = {
     },
     ["icons/actions/filter_small"] = {
       name = "three-bars-horizontal-narrowing",
+      variant = "Regular",
+    },
+    ["icons/controls/vehicle/backward"] = {
+      name = "three-chevrons-enlarging-down",
+      variant = "Regular",
+    },
+    ["icons/controls/vehicle/forward"] = {
+      name = "three-chevrons-enlarging-up",
       variant = "Regular",
     },
     ["icons/actions/overflow"] = {
@@ -1488,6 +1684,18 @@ local Migration = {
       name = "tshirt",
       variant = "Regular",
     },
+    ["icons/menu/clothing/tshirts_on"] = {
+      name = "tshirt",
+      variant = "Filled",
+    },
+    ["icons/menu/clothing/classicTshirts_off"] = {
+      name = "tshirt-2d-text",
+      variant = "Regular",
+    },
+    ["icons/menu/clothing/classicTshirts_on"] = {
+      name = "tshirt-2d-text",
+      variant = "Filled",
+    },
     ["icons/brands/twitch"] = {
       name = "twitch",
       variant = "Regular",
@@ -1570,6 +1778,10 @@ local Migration = {
     },
     ["icons/menu/wallet"] = {
       name = "wallet",
+      variant = "Regular",
+    },
+    ["icons/brands/whatsapp"] = {
+      name = "whatsapp",
       variant = "Regular",
     },
     ["icons/navigation/close"] = {

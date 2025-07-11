@@ -244,9 +244,7 @@ local function TextField(props: TextFieldProps)
 						TextColor3 = textFieldStyle.Base.FieldValue.ContentColor.Color3,
 						TextTransparency = textFieldStyle.Base.FieldValue.ContentColor.Transparency,
 						PlaceholderText = props.placeholder,
-						PlaceholderColor3 = if UIBloxConfig.useFoundationColors
-							then tokens.Semantic.Color.Text.Default.Color3
-							else nil,
+						PlaceholderColor3 = tokens.Semantic.Color.Text.Default.Color3,
 						ClipsDescendants = true,
 						Selectable = false,
 						LayoutOrder = 2,

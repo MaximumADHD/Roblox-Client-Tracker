@@ -71,7 +71,9 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 		return getTokens(props.device, props.theme)
 	end, { props.device :: any, props.theme })
 
-	local rules = if Flags.FoundationStylingPolyfill then useGeneratedRules(props.theme, props.device) else nil
+	local rules = if not Flags.FoundationDisableStylingPolyfill
+		then useGeneratedRules(props.theme, props.device)
+		else nil
 
 	local preferences = usePreferences()
 	local preferredTextSize = preferences.preferredTextSize
@@ -91,11 +93,14 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 				{
 					value = useVariants,
 				},
-				if Flags.FoundationStylingPolyfill
+				if not Flags.FoundationDisableStylingPolyfill
 					then {
 						RulesContext = React.createElement(RulesContext.Provider, {
 							value = rules,
 						}, styleProviderProps.children),
+						StyleLink = if Flags.FoundationWarnOnMultipleStyleLinks
+							then React.createElement("StyleLink")
+							else nil,
 					}
 					else {
 						TagsContext = React.createElement(

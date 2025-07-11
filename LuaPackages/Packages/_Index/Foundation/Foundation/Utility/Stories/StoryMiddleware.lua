@@ -34,7 +34,7 @@ local function StyleLinkPortal(props: { overlay: GuiBase2d })
 	end
 
 	return ReactRoblox.createPortal(
-		if not Flags.FoundationStylingPolyfill
+		if Flags.FoundationDisableStylingPolyfill
 			then React.createElement("StyleLink", {
 				StyleSheet = styleSheet,
 			})

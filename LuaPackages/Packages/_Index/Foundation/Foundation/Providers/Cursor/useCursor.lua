@@ -5,8 +5,8 @@ local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local KeyUtilities = require(script.Parent.KeyUtilities)
 
-local getCursorKey = require(script.Parent.getCursorKey)
 local CursorContext = require(script.Parent.CursorContext)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
@@ -26,9 +26,9 @@ local function useCursor(cursor: (CursorType | CursorConfig)?): React.Ref<GuiObj
 
 	local key = React.useMemo(function()
 		if typeof(cursor) == "table" then
-			return getCursorKey(tokens, cursor.radius, cursor.offset, cursor.borderWidth)
+			return KeyUtilities.encodeKey(tokens, cursor.radius, cursor.offset, cursor.borderWidth)
 		elseif cursor == nil then
-			return getCursorKey(tokens)
+			return KeyUtilities.encodeKey(tokens)
 		end
 		return cursor
 	end, { cursor :: unknown, tokens })

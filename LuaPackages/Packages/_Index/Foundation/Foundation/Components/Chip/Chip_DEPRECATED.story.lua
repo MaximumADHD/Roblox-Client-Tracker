@@ -7,8 +7,6 @@ local Dash = require(Packages.Dash)
 local Chip = require(Foundation.Components.Chip.Chip_DEPRECATED)
 local IconPosition = require(Foundation.Enums.IconPosition)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local function Story(props)
 	return React.createElement(Chip, {
 		icon = props.icon,
@@ -22,8 +20,6 @@ end
 return {
 	summary = "Chip",
 	story = function(props)
-		Flags.FoundationFixChipEmphasisHoverState = props.controls.fixEmphasisHoverState
-
 		return Story({
 			icon = if props.controls.icon ~= ""
 				then {
@@ -40,7 +36,6 @@ return {
 		})
 	end,
 	controls = {
-		fixEmphasisHoverState = Flags.FoundationFixChipEmphasisHoverState,
 		icon = {
 			"icons/actions/filter",
 			"icons/common/robux",

@@ -13,7 +13,9 @@ A `Tile` is a surface that displays content and actions on a single topic. The `
 * [TileFooter](#footer): a wrapper for the `Tile` footer, to be used as part of [TileContent](#content).
 * [TileActions](#actions): an optional wrapper that groups a set of actions, to be used as a child of [TileContent](#content).
 
-## How to Use
+---
+
+## Usage
 
 ```lua
 local Foundation = require(Packages.Foundation)

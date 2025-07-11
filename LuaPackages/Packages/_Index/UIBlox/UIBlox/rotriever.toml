@@ -1,6 +1,6 @@
 [package]
 name = "UIBlox"
-version = "0.2.106"
+version = "0.2.109"
 readme = "README.md"
 content_root = "src"
 files = [

@@ -6,7 +6,9 @@ category: Display
 
 The `Avatar` component displays a user's profile picture or a default icon if no image is available with an optional userPresence indicator.
 
-## How to Use
+---
+
+## Usage
 
 ```luau
 local Foundation = require(Packages.Foundation)

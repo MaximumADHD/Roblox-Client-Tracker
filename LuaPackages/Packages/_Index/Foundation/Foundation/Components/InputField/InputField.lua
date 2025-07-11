@@ -31,6 +31,7 @@ type InputFieldProps = {
 	textBoxRef: React.Ref<TextInputRef>?,
 	-- Hint text below the input, is red on error
 	hint: string?,
+	width: UDim?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -70,7 +71,6 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 		View,
 		withCommonProps(props, {
 			Size = UDim2.new(props.width, UDim.new(0, 0)),
-
 			tag = "col gap-xsmall auto-y",
 			ref = ref,
 		}),

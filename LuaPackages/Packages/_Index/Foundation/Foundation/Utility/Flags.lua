@@ -7,14 +7,13 @@ local SafeFlags = require(Packages.SafeFlags)
 -- Example:
 -- 	MyFastFlag = SafeFlags.createGetFFlag("MyFastFlag")(), <-- Make sure to call the function to get the value
 return {
-	FoundationStylingPolyfill = SafeFlags.createGetFFlag("FoundationStylingPolyfill")(),
+	FoundationDisableStylingPolyfill = SafeFlags.createGetFFlag("FoundationDisableStylingPolyfill")(),
 	FoundationDisableBadgeTruncation = SafeFlags.createGetFFlag("FoundationDisableBadgeTruncation")(),
-	FoundationMigrateStylingV2 = SafeFlags.createGetFFlag("FoundationMigrateStylingV2")(),
 	FoundationTextStateLayer = SafeFlags.createGetFFlag("FoundationTextStateLayer")(),
-	FoundationFixChipEmphasisHoverState = SafeFlags.createGetFFlag("FoundationFixChipEmphasisHoverState")(),
 	FoundationFixUseFloatingContentSize = SafeFlags.createGetFFlag("FoundationFixUseFloatingContentSize")(),
 	FoundationAdjustButtonIconSizes = SafeFlags.createGetFFlag("FoundationAdjustButtonIconSizes2")(),
 	FoundationStandardizeInputLabelSizes = SafeFlags.createGetFFlag("FoundationStandardizeInputLabelSizes")(),
+	FoundationWarnOnMultipleStyleLinks = SafeFlags.createGetFFlag("FoundationWarnOnMultipleStyleLinks")(),
 	FoundationMigrateIconNames = SafeFlags.createGetFFlag("FoundationMigrateIconNames")(),
 	FoundationDisableDragPositionAdjustmentForGuiInsets = SafeFlags.createGetFFlag(
 		"FoundationDisableDragPositionAdjustmentForGuiInsets"
@@ -26,4 +25,5 @@ return {
 	)(),
 	FoundationSliderOrientationImprovement = SafeFlags.createGetFFlag("FoundationSliderOrientationImprovement")(),
 	FoundationFixVisibleNoneScrollBarThickness = SafeFlags.createGetFFlag("FoundationFixVisibleNoneScrollBarThickness")(),
+	FoundationFixInputFieldWidth = SafeFlags.createGetFFlag("FoundationFixInputFieldWidth")(),
 }

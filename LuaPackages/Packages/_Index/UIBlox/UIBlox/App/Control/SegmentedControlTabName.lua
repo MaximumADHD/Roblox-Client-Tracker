@@ -21,7 +21,6 @@ local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 
@@ -90,8 +89,8 @@ SegmentedControlTabName.defaultProps = {
 	isSelectedStyle = false,
 	SliceCenter = Rect.new(8, 8, 9, 9),
 	textStateColorMap = {
-		[ControlState.Default] = if UIBloxConfig.useFoundationColors then "TextDefault" else "SecondaryContent",
-		[ControlState.Hover] = if UIBloxConfig.useFoundationColors then "TextEmphasis" else "SecondaryOnHover",
+		[ControlState.Default] = "TextDefault",
+		[ControlState.Hover] = "TextEmphasis",
 	},
 	buttonStateColorMap = {
 		[ControlState.Default] = "SecondaryContent",

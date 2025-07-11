@@ -7,7 +7,9 @@ category: Media
 The AvatarGroup component displays a collection of user avatars in a horizontal arrangement, with options for "spread"
 to evenly distribute the avatars or "stacked" to overlap them slightly.
 
-## How to Use
+---
+
+## Usage
 
 ```luau
 local Foundation = require(Packages.Foundation)

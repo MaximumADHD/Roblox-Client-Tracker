@@ -6,7 +6,9 @@ category: Inputs
 
 Toggles are controls for turning a boolean value on or off.
 
-## How to Use
+---
+
+## Usage
 
 A `Toggle` should be used with a standard size defined in [[ToggleSize]] (`Medium`/`Large`). `Large` is the default.
 

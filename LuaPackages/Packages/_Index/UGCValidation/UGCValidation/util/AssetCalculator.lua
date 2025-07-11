@@ -11,6 +11,8 @@ calculateAllTransformsForFullBody:
 	calculate the cframes for all parts of the full body
 calculatePartsLocalToAsset:
 	calculate the cframes for the upper part, lower part, and hand/foot in the local space of the asset cframe
+getBodyPartsToParents:
+	returns a table of each body part name to its parent name
 ]]
 
 local root = script.Parent.Parent
@@ -22,6 +24,9 @@ local Types = require(root.util.Types)
 local canBeNormalized = require(root.util.canBeNormalized)
 local getPartNamesInHierarchyOrder = require(root.util.getPartNamesInHierarchyOrder)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
+
+local getFFlagUGCValidateEmoteAnimationExtendedTests =
+	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
 
 local fullBodyAssetHierarchy = {
 	root = "LowerTorso",
@@ -35,6 +40,13 @@ local fullBodyAssetHierarchy = {
 		},
 		LeftUpperLeg = AssetTraversalUtils.assetHierarchy[Enum.AssetType.LeftLeg],
 		RightUpperLeg = AssetTraversalUtils.assetHierarchy[Enum.AssetType.RightLeg],
+	},
+}
+
+local fullBodyFromHumanoidRootPartAssetHierarchy = {
+	root = "HumanoidRootPart",
+	children = {
+		LowerTorso = fullBodyAssetHierarchy,
 	},
 }
 
@@ -63,8 +75,16 @@ local function calculatePartTransformInHierarchy(
 	meshHandle: MeshPart,
 	parentName: string?,
 	parentCFrame: CFrame,
-	findMeshHandle: (string) -> MeshPart
+	findMeshHandle: (string) -> MeshPart,
+	animationTransforms: { string: CFrame }? -- optional transforms for the mesh handle, used for animations
 )
+	local animTransForPart = nil
+	if getFFlagUGCValidateEmoteAnimationExtendedTests() then
+		animTransForPart = if animationTransforms and animationTransforms[meshHandle.Name]
+			then animationTransforms[meshHandle.Name]
+			else CFrame.new()
+	end
+
 	local cframe = parentCFrame
 	if parentName then
 		local parentMeshHandle = findMeshHandle(parentName :: string)
@@ -76,21 +96,36 @@ local function calculatePartTransformInHierarchy(
 		local attachment: Attachment? = meshHandle:FindFirstChild(rigAttachmentName) :: Attachment
 		assert(attachment)
 
-		cframe = (cframe * (parentAttachment :: Attachment).CFrame) * (attachment :: Attachment).CFrame:Inverse()
+		if getFFlagUGCValidateEmoteAnimationExtendedTests() then
+			cframe = (cframe * (parentAttachment :: Attachment).CFrame)
+				* animTransForPart
+				* ((attachment :: Attachment).CFrame:Inverse())
+		else
+			cframe = (cframe * (parentAttachment :: Attachment).CFrame) * (attachment :: Attachment).CFrame:Inverse()
+		end
 	else
-		cframe = CFrame.new()
+		if getFFlagUGCValidateEmoteAnimationExtendedTests() then
+			cframe = animTransForPart
+		else
+			cframe = CFrame.new()
+		end
 	end
 	return cframe
 end
 
-local function calculateHierarchyTransforms(mainDetails: any, findMeshHandle: (string) -> MeshPart): { string: CFrame }
+local function calculateHierarchyTransforms(
+	mainDetails: any,
+	findMeshHandle: (string) -> MeshPart,
+	animationTransforms: { string: CFrame }? -- optional transforms for the mesh handle, used for animations
+): { string: CFrame }
 	local results = {}
 
 	local function calculateAllTransformsInternal(name: string, parentName: string?, details: any, parentCFrame: CFrame)
 		local meshHandle = findMeshHandle(name)
 		assert(meshHandle)
 
-		local cframe = calculatePartTransformInHierarchy(meshHandle, parentName, parentCFrame, findMeshHandle)
+		local cframe =
+			calculatePartTransformInHierarchy(meshHandle, parentName, parentCFrame, findMeshHandle, animationTransforms)
 		results[meshHandle.Name] = cframe
 
 		if not details.children then
@@ -239,12 +274,22 @@ function AssetCalculator.calculateAllTransformsForAsset(singleAsset: Enum.AssetT
 	return calculateHierarchyTransforms(AssetTraversalUtils.assetHierarchy[singleAsset], findMeshHandle)
 end
 
-function AssetCalculator.calculateAllTransformsForFullBody(fullBodyAssets: Types.AllBodyParts): { string: CFrame }
+function AssetCalculator.calculateAllTransformsForFullBody(
+	fullBodyAssets: Types.AllBodyParts,
+	animationTransforms: { string: CFrame }?
+): { string: CFrame }
 	local function findMeshHandle(name: string): MeshPart
 		return fullBodyAssets[name] :: MeshPart
 	end
 
-	return calculateHierarchyTransforms(fullBodyAssetHierarchy, findMeshHandle)
+	if getFFlagUGCValidateEmoteAnimationExtendedTests() then
+		local hierarchy = if animationTransforms
+			then fullBodyFromHumanoidRootPartAssetHierarchy
+			else fullBodyAssetHierarchy
+		return calculateHierarchyTransforms(hierarchy, findMeshHandle, animationTransforms)
+	else
+		return calculateHierarchyTransforms(fullBodyAssetHierarchy, findMeshHandle)
+	end
 end
 
 function AssetCalculator.calculatePartsLocalToAsset(
@@ -266,6 +311,25 @@ function AssetCalculator.calculatePartsLocalToAsset(
 			else partsCFrames[partName]
 	end
 	return result
+end
+
+-- returns a table of each body part name to its parent name
+function AssetCalculator.getBodyPartsToParents(): { string: string }
+	local results = {}
+
+	local function calculateAllTransformsInternal(name: string, parentName: string?, details: any)
+		results[name] = if parentName then parentName else "HumanoidRootPart"
+
+		if not details.children then
+			return
+		end
+		for childName, childDetails in details.children do
+			calculateAllTransformsInternal(childName, name, childDetails)
+		end
+	end
+
+	calculateAllTransformsInternal(fullBodyAssetHierarchy.root, nil, fullBodyAssetHierarchy)
+	return results
 end
 
 return AssetCalculator

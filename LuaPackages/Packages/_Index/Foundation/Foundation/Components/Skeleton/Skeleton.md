@@ -8,7 +8,9 @@ category: Display
 
 Pages can feel like they're loading faster by using `Skeleton`. Things feel like they are happening immediately, and information can be incrementally displayed on the screen.
 
-## How to Use
+---
+
+## Usage
 
 ```lua
 local Foundation = require(Packages.Foundation)

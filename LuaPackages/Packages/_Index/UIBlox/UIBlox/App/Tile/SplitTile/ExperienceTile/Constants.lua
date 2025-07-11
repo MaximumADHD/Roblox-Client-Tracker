@@ -2,12 +2,9 @@ local ExperienceTileRoot = script.Parent
 local SplitTileRoot = ExperienceTileRoot.Parent
 local TileRoot = SplitTileRoot.Parent
 local App = TileRoot.Parent
-local UIBlox = App.Parent
 
 local StyleTypes = require(App.Style.StyleTypes)
 local Fonts = require(App.Style.Fonts)
-
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DEFAULT_FOOTER_HEIGHT = 22
 local DEFAULT_TEXT_LINE_COUNT = 2
@@ -37,12 +34,8 @@ local function getDefaultStyleProps(style: StyleTypes.AppStyle): StyleProps
 	assert(style.Tokens ~= nil, "Design token support is not enabled!")
 	return {
 		backgroundColor = {
-			Color = if UIBloxConfig.useFoundationColors
-				then style.Tokens.Semantic.Color.Background.Muted.Color3
-				else style.Tokens.Component.VerticalTile.Base.Container.Background.Color3,
-			Transparency = if UIBloxConfig.useFoundationColors
-				then style.Tokens.Semantic.Color.Background.Muted.Transparency
-				else style.Tokens.Component.VerticalTile.Base.Container.Background.Transparency,
+			Color = style.Tokens.Semantic.Color.Background.Muted.Color3,
+			Transparency = style.Tokens.Semantic.Color.Background.Muted.Transparency,
 		},
 		border = {
 			BorderColor = {

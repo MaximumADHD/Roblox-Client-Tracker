@@ -10,7 +10,9 @@ To use the new Builder Icons, find the icon from [icons.foundation.roblox.com](h
 
 Use the provided [[IconSize]] enum to set the size of the icon. The available sizes are `XSmall` (12pt), `Small` (16pt), `Medium` (20pt), and `Large` (24pt). If you have a very specific reason not to use these sizes, you can also set the size to a custom value by passing a size token like `tokens.Size.Size_1200`.
 
-## How to Use
+---
+
+## Usage
 
 ```lua
 local Foundation = require(Packages.Foundation)

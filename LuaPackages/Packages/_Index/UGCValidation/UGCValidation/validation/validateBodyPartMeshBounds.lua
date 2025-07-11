@@ -18,11 +18,7 @@ local getMeshInfo = require(root.util.getMeshInfo)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
-local getFIntUGCValidateBodyPartMaxCageOrigin = require(root.flags.getFIntUGCValidateBodyPartMaxCageOrigin)
-local getFFlagUGCValidatePropertiesRefactor = require(root.flags.getFFlagUGCValidatePropertiesRefactor)
 local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
-
-local maxBodyPartCageOrigin = getFIntUGCValidateBodyPartMaxCageOrigin() / 100
 
 -- TODO: Remove with FFlagConsolidateGetMeshInfos
 local function DEPRECATED_getMeshInfoHelper(
@@ -168,30 +164,6 @@ local function calculateMeshSize(
 	return true, nil, meshSize
 end
 
--- if the CageOrigin is far from the origin, then layered clothing can get fitted to the character, but it will be visibly offset from the character
-local function validateCageOrigin(
-	meshHandle: MeshPart,
-	validationContext: Types.ValidationContext
-): (boolean, { string }?)
-	local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
-	-- the existance of all required Instances has been checked prior to calling this function where the asset is checked against the schema
-	assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
-
-	if wrapTarget.CageOrigin.Position.Magnitude > maxBodyPartCageOrigin :: number then
-		Analytics.reportFailure(Analytics.ErrorType.validateBodyPart_CageOriginOutOfBounds, nil, validationContext)
-		return false,
-			{
-				string.format(
-					"WrapTarget %s found under %s has a CageOrigin position greater than %.2f. You need to set CageOrigin.Position to 0,0,0.",
-					wrapTarget.Name,
-					meshHandle.Name,
-					maxBodyPartCageOrigin :: number
-				),
-			}
-	end
-	return true
-end
-
 local function validateInternal(
 	meshHandle: MeshPart,
 	validationContext: Types.ValidationContext
@@ -206,9 +178,6 @@ local function validateInternal(
 	local meshScale = getExpectedPartSize(meshHandle, validationContext) / meshSize
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
-	if not getFFlagUGCValidatePropertiesRefactor() then
-		reasonsAccumulator:updateReasons(validateCageOrigin(meshHandle, validationContext))
-	end
 
 	reasonsAccumulator:updateReasons(validateWrapTargetComparison(meshScale, meshHandle, validationContext))
 

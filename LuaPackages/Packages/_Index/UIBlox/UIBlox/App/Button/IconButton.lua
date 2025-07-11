@@ -7,7 +7,6 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 local enumerate = require(Packages.enumerate)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local Interactable = require(Core.Control.Interactable)
 
@@ -113,8 +112,8 @@ IconButton.defaultProps = {
 	icon = "",
 	iconSize = IconSize.Medium,
 
-	colorStyleDefault = if UIBloxConfig.useFoundationColors then "IconEmphasis" else "SystemPrimaryDefault",
-	colorStyleHover = if UIBloxConfig.useFoundationColors then "IconEmphasis" else "SystemPrimaryDefault",
+	colorStyleDefault = "IconEmphasis",
+	colorStyleHover = "IconEmphasis",
 
 	iconColor3 = nil,
 	iconTransparency = nil,

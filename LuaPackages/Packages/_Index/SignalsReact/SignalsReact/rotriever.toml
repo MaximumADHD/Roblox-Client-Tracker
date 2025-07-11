@@ -1,16 +1,29 @@
 [package]
 name = "SignalsReact"
-version = "0.2.0"
+version = "0.5.0"
 readme = "README.md"
 content_root = "src"
-files = ["*"]
+files = [
+    "*",
+    "!jest.config.lua",
+    "!**/__tests__/**",
+]
 publish = true
 authors = ["Jonathan Kelaty <jkelaty@roblox.com>"]
 [dependencies.React]
 version = "^17.1.19"
 
+[dependencies.SafeFlags]
+version = "^0.1.1"
+
 [dependencies.Signals]
 package = "Signals"
-version = "^0.2.0"
+version = "^0.5.0"
+[dev_dependencies.Jest]
+version = "^3.12.0"
+
 [dev_dependencies.JestGlobals]
 version = "^3.12.0"
+
+[dev_dependencies.ReactRoblox]
+version = "^17.1.19"

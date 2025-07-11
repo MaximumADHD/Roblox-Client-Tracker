@@ -12,7 +12,9 @@ category: Display
 
 If any of the fields are not provided then the corresponding components will not display.
 
-## How to Use
+---
+
+## Usage
 
 `Toast` will automatically change its layout and resize accordingly based on the props provided. Body text will wrap, header text will not.
 

@@ -36,9 +36,6 @@ local getFFlagUGCValidateCageUVTriangleArea = require(root.flags.getFFlagUGCVali
 local getFFlagUGCValidateUVValuesInReference = require(root.flags.getFFlagUGCValidateUVValuesInReference)
 local getFFlagUGCValidateAllowFlexibleTriangleLimit = require(root.flags.getFFlagUGCValidateAllowFlexibleTriangleLimit)
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
-local getFFlagUGCValidateImportOrigin = require(root.flags.getFFlagUGCValidateImportOrigin)
-local getFIntUGCValidateBodyImportOriginMax = require(root.flags.getFIntUGCValidateBodyImportOriginMax)
-local getFFlagUGCValidatePropertiesRefactor = require(root.flags.getFFlagUGCValidatePropertiesRefactor)
 local getEngineFeatureEngineEditableMeshAvatarPublish =
 	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
 
@@ -340,23 +337,6 @@ local function validateDescendantMeshMetrics(
 			end
 
 			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
-
-			if not getFFlagUGCValidatePropertiesRefactor() then
-				if getFFlagUGCValidateImportOrigin() then
-					local importOriginMagnitude = data.instance.ImportOrigin.Position.Magnitude
-					local importOriginMax = getFIntUGCValidateBodyImportOriginMax() / 100
-					if importOriginMagnitude > importOriginMax then
-						reasonsAccumulator:updateReasons(false, {
-							string.format(
-								"WrapTarget '%s' has ImportOrigin %.2f away from the origin. The max is %.2f. You should move the Position closer to the origin",
-								data.instance:GetFullName(),
-								importOriginMagnitude,
-								importOriginMax
-							),
-						})
-					end
-				end
-			end
 		end
 
 		if getFFlagUGCValidateBodyPartsExtendedMeshTests() then

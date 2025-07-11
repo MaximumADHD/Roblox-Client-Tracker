@@ -18,7 +18,7 @@
 			}
 			
 			Here, we should only run the suite of tests on Enums that are not LCs. After that, we would have the following tests to check for:
-			- Transparency <= 0.5
+			- Transparency < 0.5
 			- "isMultipleOf0.1" would be need to be added in extractSubProperty(), to convert the actual value into true/false.
 			- For DynamicHead, an additional test is run
 			- For Torsos, an additional test is run
@@ -33,6 +33,7 @@ local Constants = require(root.Constants)
 local Types = require(root.util.Types)
 local valueToString = require(root.util.valueToString)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
 
 local EPSILON = 1e-5
 
@@ -109,6 +110,8 @@ local function extractSubProperty(propName: string, currentValue: any): (boolean
 		return true, currentValue.Position.Magnitude
 	elseif typeof(currentValue) == "CFrame" and propName == "Orientation" then
 		return true, Vector3.new(currentValue:ToOrientation())
+	elseif getFFlagUGCValidateBindOffset() and (typeof(currentValue) == "CFrame" and propName == "Position") then
+		return true, currentValue.Position
 	end
 
 	return false

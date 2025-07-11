@@ -58,12 +58,14 @@ local defaultProps = {
 local defaultTags = "gui-object-defaults"
 
 local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiObject>?)
-	local defaultPropsWithStyles = if Flags.FoundationStylingPolyfill
+	local defaultPropsWithStyles = if not Flags.FoundationDisableStylingPolyfill
 		then useStyledDefaults("View", scrollViewProps.tag, defaultTags, defaultProps)
 		else nil
 	local props = withDefaults(
 		scrollViewProps,
-		(if Flags.FoundationStylingPolyfill then defaultPropsWithStyles else defaultProps) :: typeof(defaultProps)
+		(
+				if not Flags.FoundationDisableStylingPolyfill then defaultPropsWithStyles else defaultProps
+			) :: typeof(defaultProps)
 	)
 
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)

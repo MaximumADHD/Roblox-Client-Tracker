@@ -18,8 +18,6 @@ local ToastFrame = require(ToastRoot.ToastFrame)
 local ToastIcon = require(ToastRoot.ToastIcon)
 local ToastText = require(ToastRoot.ToastText)
 
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
-
 local ANIMATION_SPRING_SETTINGS = {
 	dampingRatio = 1,
 	frequency = 4,
@@ -80,12 +78,8 @@ function InteractiveToast:render()
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Image = TOAST_BACKGROUND_IMAGE,
-			ImageColor3 = if UIBloxConfig.useFoundationColors
-				then theme.BackgroundUIDefault.Color
-				else theme.SystemPrimaryContent.Color,
-			ImageTransparency = if UIBloxConfig.useFoundationColors
-				then theme.BackgroundUIDefault.Transparency
-				else theme.SystemPrimaryContent.Transparency,
+			ImageColor3 = theme.BackgroundUIDefault.Color,
+			ImageTransparency = theme.BackgroundUIDefault.Transparency,
 			LayoutOrder = self.props.layoutOrder,
 			Position = self.props.position,
 			ScaleType = Enum.ScaleType.Slice,

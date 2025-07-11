@@ -6,7 +6,9 @@ category: Layout
 
 View is a container component that can be used to layout other components. It's used in place of `Frame` and `CanvasGroup` engine components.
 
-## How to Use
+---
+
+## Usage
 
 In normal cases, you can replace `Frame` and `CanvasGroup` with `View` directly. Note that some properties have been put into tables to improve structure and compatibility with style tokens.
 

@@ -25,7 +25,11 @@ return function(accessory: Accessory, validationContext: Types.ValidationContext
 			}
 	end
 
-	local wrapLayer = accessory:FindFirstChildWhichIsA("WrapLayer")
+	local handle = accessory:FindFirstChild("Handle")
+	if not handle then
+		return false, { "Accessory does not have a Handle. Cannot validate layered clothing out of bounds." }
+	end
+	local wrapLayer = handle:FindFirstChildWhichIsA("WrapLayer")
 	if not wrapLayer then
 		return false, { "Accessory does not have a WrapLayer. Cannot validate layered clothing out of bounds." }
 	end

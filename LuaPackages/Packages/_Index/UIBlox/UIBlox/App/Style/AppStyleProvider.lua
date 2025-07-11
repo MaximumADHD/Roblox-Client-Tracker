@@ -97,18 +97,16 @@ local function AppStyleProvider(props: Props)
 			else false
 	end
 
-	if UIBloxConfig.useFoundationColors then
-		if UIBloxConfig.allowDisableColorMapping then
-			if not disableColorMapping then
-				local foundationTokens = getFoundationTokens(style.deviceType, themeName)
-				tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
-				theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
-			end
-		else
+	if UIBloxConfig.allowDisableColorMapping then
+		if not disableColorMapping then
 			local foundationTokens = getFoundationTokens(style.deviceType, themeName)
 			tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
 			theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
 		end
+	else
+		local foundationTokens = getFoundationTokens(style.deviceType, themeName)
+		tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
+		theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
 	end
 
 	-- TODO: Add additional validation for tokens here to make it safe. We can remove the call after design token stuff is fully stable.

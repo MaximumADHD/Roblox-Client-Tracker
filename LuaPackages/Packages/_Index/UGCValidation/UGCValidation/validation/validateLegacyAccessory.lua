@@ -13,7 +13,7 @@ local validateMaterials = require(root.validation.validateMaterials)
 local validateTags = require(root.validation.validateTags)
 local validateMeshBounds = require(root.validation.validateMeshBounds)
 local validateTextureSize = require(root.validation.validateTextureSize)
-local validateProperties = require(root.validation.validateProperties)
+local validatePropertyRequirements = require(root.validation.validatePropertyRequirements)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
@@ -155,7 +155,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	success, failedReason = validateProperties(instance, nil, validationContext)
+	success, failedReason = validatePropertyRequirements(instance, nil, validationContext)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false

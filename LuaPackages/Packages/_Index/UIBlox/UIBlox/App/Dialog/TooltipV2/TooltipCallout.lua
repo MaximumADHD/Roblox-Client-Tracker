@@ -248,9 +248,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		Consts.CARET_DISTANCE + math.min(0, caretOffset) + distanceOffset
 	) + props.contentOffsetVector
 
-	local defaultBackgroundStyle = if UIBloxConfig.useFoundationColors
-		then theme.BackgroundUIDefault
-		else theme.UIDefault
+	local defaultBackgroundStyle = theme.BackgroundUIDefault
 	local backgroundColor = props.backgroundColor or defaultBackgroundStyle.Color
 	local backgroundTransparency = (props.backgroundTransparency or defaultBackgroundStyle.Transparency)
 		* settings.PreferredTransparency

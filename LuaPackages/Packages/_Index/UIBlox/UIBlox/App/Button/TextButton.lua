@@ -23,7 +23,6 @@ local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
 
 local CORNER_RADIUS = UDim.new(0, 8)
@@ -96,8 +95,8 @@ TextButton.defaultProps = {
 	showBackground = false,
 
 	fontStyle = "Header2",
-	colorStyleDefault = if UIBloxConfig.useFoundationColors then "TextEmphasis" else "SystemPrimaryDefault",
-	colorStyleHover = if UIBloxConfig.useFoundationColors then "TextEmphasis" else "SystemPrimaryDefault",
+	colorStyleDefault = "TextEmphasis",
+	colorStyleHover = "TextEmphasis",
 	hoverBackgroundEnabled = true,
 	richText = false,
 

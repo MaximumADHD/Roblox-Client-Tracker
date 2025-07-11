@@ -6,7 +6,9 @@ category: Inputs
 
 SegmentedControl is a horizontal control that allows users to select one of several mutually exclusive options. It is typically used for navigation or filtering content.
 
-## How to Use
+---
+
+## Usage
 
 ```lua
 local Foundation = require(Packages.Foundation)

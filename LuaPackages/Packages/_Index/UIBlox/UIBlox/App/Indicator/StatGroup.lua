@@ -12,8 +12,6 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local useStyle = require(Core.Style.useStyle)
 local Fonts = require(App.Style.Fonts)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local RATING_ICON = "icons/status/games/rating_small"
 local PLAYERS_ICON = "icons/status/games/people-playing_small"
 
@@ -33,12 +31,8 @@ local function renderStatItem(containerProps, icon, text, stylePalette)
 
 	local statSpacingGap = tokens.Global.Space_25
 	local statIconSize = tokens.Semantic.Icon.Size.Small
-	local statIconContentColor = if UIBloxConfig.useFoundationColors
-		then tokens.Semantic.Color.Text.Default
-		else tokens.Semantic.Color.Text.Muted
-	local statLabelContentColor = if UIBloxConfig.useFoundationColors
-		then tokens.Semantic.Color.Text.Default
-		else tokens.Semantic.Color.Text.Muted
+	local statIconContentColor = tokens.Semantic.Color.Text.Default
+	local statLabelContentColor = tokens.Semantic.Color.Text.Default
 
 	return React.createElement("Frame", containerProps, {
 		UIListLayout = React.createElement("UIListLayout", {

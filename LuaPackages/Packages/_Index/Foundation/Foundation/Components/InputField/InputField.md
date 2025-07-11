@@ -7,7 +7,9 @@ category: Display
 InputField is a flexible input wrapper component that supports label, hint text, 
 and various input states such as error, disabled, and required.
 
-## How to Use
+---
+
+## Usage
 
 `InputField` has a default width of 400px unless `width` is specified. The height is static and will depend on whether a label and helper text are provided.
 

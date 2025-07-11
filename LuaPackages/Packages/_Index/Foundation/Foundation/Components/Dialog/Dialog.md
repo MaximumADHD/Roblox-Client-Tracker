@@ -18,7 +18,9 @@ The dialog will automatically constrain itself to fit smaller viewports while ma
 
 The dialog's height is automatically determined by its content.
 
-## How to Use
+---
+
+## Usage
 
 ### Comprehensive Example
 ```lua

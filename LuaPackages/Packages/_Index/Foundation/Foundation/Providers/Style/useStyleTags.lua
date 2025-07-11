@@ -13,7 +13,7 @@ type Tags = Types.Tags
 local function useStyleTags(tags: Tags?): string?
 	local formattedTags = getFormattedTags(tags)
 
-	if Flags.FoundationStylingPolyfill then
+	if not Flags.FoundationDisableStylingPolyfill then
 		return formattedTags
 	end
 

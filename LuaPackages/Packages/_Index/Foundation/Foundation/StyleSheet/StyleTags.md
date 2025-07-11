@@ -1,12 +1,25 @@
 # Style Tags
 
-Foundation provides utility tags to style your components. These tags are backed by design tokens to ensure a consistent look and feel across all components. They are inspired by the [Tailwind CSS](https://tailwindcss.com/) utility-first approach to styling.
+<p class="intro">Foundation provides utility tags to style your components. These tags are backed by design tokens to ensure a consistent look and feel across all components.</p>
 
-Style tags help consolidate your styling into a single place, separating it from business logic in props and shortening the amount of code you need to write.
+<div class="hero full-offset" markdown>
+![Foundation Style Tags](../../assets/img/hero-styletags.png)
+</div>
 
-## How to Use
+## Overview
 
-Style tags are applied to `tag` property of Foundation base components like [[View]] and [[Image]]. Some other Foundation components also support this property, but not all.
+Style tags help consolidate your styling into a single place, separating it from business logic in props and shortening the amount of code you need to write. They are inspired by the [Tailwind CSS](https://tailwindcss.com/){ target="_blank" } utility-first approach to styling.
+
+- **Foundation Tokens:** Style Tags are powered by [Foundation tokens](../tokens/) to maintain a consistent and cohesive look across surfaces, while working within defined constraints.
+- **Colocate Styles:** Organize your styles in one place—separate from, but located within the same file as your business logic—for clarity and maintainability.
+- **Predictable Tags:** Utility tags are clear, explicit, and atomic, eliminating the guesswork of what styles apply to components like `checkbox`.
+
+
+---
+
+## Usage
+
+Style tags are applied to the `tag` property of Foundation base components like [[View]] and [[Image]], however, not all components support this property.
 
 ```lua
 React.createElement(View, {
@@ -17,10 +30,6 @@ React.createElement(View, {
 This will apply the Surface-100 background color and a small corner radius to the [[View]] component. These values come from our tokens.
 
 ### Engine Components
-
-!!! warning "Styling Polyfill"
-    A styling polyfill has been added to Foundation while the Engine UI team works on improving the Styling Engine's performance. This polyfill does not support `useStyleTags`. While the polyfill is in place, you will need to use [[View]], [[Image]], and [[Text]] components to apply style tags.
-
 
 Not every tag listed below is rendered. Instead, we conditionally render the tags that are in use to maintain performance and avoid mounting tens of thousands of style rules. Our base components automatically add tags you give them to the rendered list. You can still use style tags with Engine components, but you need to make sure to wrap the tags in the `useStyleTags` hook; this will add them to the list of rendered tags.
 
@@ -36,7 +45,13 @@ React.createElement("Frame", {
 })
 ```
 
+!!! warning "Styling Polyfill"
+
+    A styling polyfill has been added to Foundation while the Engine UI team works on improving the Styling Engine's performance. This polyfill does not support `useStyleTags`. While the polyfill is in place, you will need to use [[View]], [[Image]], and [[Text]] components to apply style tags.
+
+
 A good rule of thumb is if you are using the `tag` prop on Foundation components, you don't need to wrap the tags in `useStyleTags`, but otherwise you do.
+
 
 ### VSCode Intellisense
 
@@ -48,9 +63,11 @@ If you're using VSCode, you can get intellisense for the available tags and hove
 
 You should be using the [Luau Language Server](https://marketplace.visualstudio.com/items?itemName=JohnnyMorganz.luau-lsp), as this extension requires the Luau textmate grammar to work.
 
-## Example
+
+### Example
 
 If you wanted to create a vertical list of centered elements with a gap between them and a rounded corner, you would write that traditionally like this:
+
 
 ```lua
 React.createElement("Frame", {
@@ -67,6 +84,7 @@ React.createElement("Frame", {
   ... -- Children
 })
 ```
+
 With Foundation utility style tags, you can write the same thing like this:
 
 ```lua
@@ -77,7 +95,7 @@ React.createElement(View, {
 })
 ```
 
-## Conditional Tags
+### Conditional Tags
 
 You can conditionally apply tags by passing a table of tags to the `tag` property. This is useful for applying different styles based on props. The key is your tag value(s) and the value can be any boolean expression.
 
@@ -90,25 +108,4 @@ React.createElement(View, {
 })
 ```
 
-## Why?
-
-> Now I know what you’re thinking, *"this is an atrocity, what a horrible mess!"* and you’re right, it’s kind of ugly. In fact it’s just about impossible to think this is a good idea the first time you see it — **you have to actually try it**.
-
-— *[Tailwind CSS Docs](https://tailwindcss.com/docs/utility-first)*
-
-- **Backed by RDL tokens**: Ensure a consistent look and feel across surfaces with constraints.
-- **Colocate styles**: Keep your styles in one place, separate but in the same file as business logic.
-- **Predictable tags**: No guessing what styles a `checkbox` tag applies, every utility tag is explicit and atomic.
-
-<style>
-table {
-	max-height: 500px;
-	overflow-y: auto;
-}
-
-table td:first-child {
-	white-space: nowrap;
-}
-</style>
-
-## Reference
+---

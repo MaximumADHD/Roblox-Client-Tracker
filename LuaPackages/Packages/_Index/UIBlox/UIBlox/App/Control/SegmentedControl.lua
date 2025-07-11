@@ -21,7 +21,6 @@ local getContentStyle = require(Core.Button.getContentStyle)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local FRAME_PADDING = 4
 local MIN_TAB_WIDTH = 80
@@ -32,7 +31,6 @@ local SPRING_PARAMS = {
 	dampingRatio = 1,
 }
 local BACKGROUND_IMAGE = Images["component_assets/circle_17"]
-local SHADOW_IMAGE = Images["component_assets/dropshadow_16_20"]
 local BACKGROUND_COLOR_STATE_MAP = {
 	[ControlState.Default] = "BackgroundUIDefault",
 }
@@ -40,10 +38,7 @@ local DIVIDER_COLOR_STATE_MAP = {
 	[ControlState.Default] = "Divider",
 }
 local SELECTED_BACKGROUND_COLOR_STATE_MAP = {
-	[ControlState.Default] = if UIBloxConfig.useFoundationColors then "UIEmphasis" else "UIDefault",
-}
-local DROPSHADOW_COLOR_STATE_MAP = {
-	[ControlState.Default] = "DropShadow",
+	[ControlState.Default] = "UIEmphasis",
 }
 
 local ICON_STATE_COLOR = {
@@ -158,7 +153,6 @@ function SegmentedControl:render()
 		local dividerStyle = getContentStyle(DIVIDER_COLOR_STATE_MAP, currentState, style)
 		local selectedBackgroundStyle =
 			getContentStyle(SELECTED_BACKGROUND_COLOR_STATE_MAP, forceSelectedBGState, style)
-		local dropshadowStyle = getContentStyle(DROPSHADOW_COLOR_STATE_MAP, currentState, style)
 		local tabWidth = self.state.tabWidth
 		local iconWidth = if self.props.icon then ICON_WIDTH else 0 -- if icon is specified, budget space for it, otherwise don't.
 
@@ -324,22 +318,6 @@ function SegmentedControl:render()
 					SliceCenter = Rect.new(8, 8, 9, 9),
 					ZIndex = 4,
 				}),
-				-- the shadow for selected tab background
-				SelectedBackgroundShadow = if UIBloxConfig.useFoundationColors
-					then nil
-					else (not isDisabled and Roact.createElement(ImageSetComponent.Label, {
-						Size = UDim2.fromOffset(tabWidth + 6 * 2, TAB_HEIGHT + 6 * 2),
-						Position = self.selectedBackgroundPositionX:map(function(value)
-							return UDim2.fromOffset(value - 6, (INTERACTION_HEIGHT - TAB_HEIGHT) / 2 - 6 + 2)
-						end),
-						BackgroundTransparency = 1,
-						Image = SHADOW_IMAGE,
-						ImageColor3 = dropshadowStyle.Color,
-						ImageTransparency = 0.3,
-						ScaleType = Enum.ScaleType.Slice,
-						SliceCenter = Rect.new(27, 27, 29, 29),
-						ZIndex = 3,
-					})),
 				-- container for tabs
 				TabContainer = Roact.createElement(RoactGamepad.Focusable.Frame, {
 					Size = UDim2.fromScale(1, 1),

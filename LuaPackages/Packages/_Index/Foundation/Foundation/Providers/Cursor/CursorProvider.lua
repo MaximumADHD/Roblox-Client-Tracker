@@ -11,41 +11,13 @@ local useRefCache = ReactUtils.useRefCache
 local CursorContext = require(script.Parent.CursorContext)
 local CursorComponent = require(script.Parent.CursorComponent)
 local Cursor = require(script.Parent.Cursors.Cursor)
+local KeyUtilities = require(script.Parent.KeyUtilities)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
 
 type Props = {
 	children: React.ReactNode,
 }
-
-local decodeKey = function(key: string): (UDim, number, number)
-	local radius1 = math.huge
-	local radius2 = math.huge
-	local offset = math.huge
-	local borderWidth = math.huge
-
-	for idx, token in string.split(key, " ") do
-		local num = tonumber(token)
-		if num ~= nil then
-			if idx == 1 then
-				radius1 = num
-			elseif idx == 2 then
-				radius2 = num
-			elseif idx == 3 then
-				offset = num
-			elseif idx == 4 then
-				borderWidth = num
-			end
-		end
-	end
-	assert(
-		radius1 ~= math.huge and radius2 ~= math.huge and offset ~= math.huge and borderWidth ~= math.huge,
-		"Error! Not all parameters are decoded."
-	)
-	local cornerRadius = UDim.new(radius1, math.max(0, radius2 + offset))
-
-	return cornerRadius, offset, borderWidth
-end
 
 local function CursorProvider(props: Props)
 	local mountedCursors, setMountedCursors = React.useState({} :: { [string]: boolean })
@@ -76,7 +48,7 @@ local function CursorProvider(props: Props)
 					cursorType = key :: CursorType,
 				})
 			else
-				local cornerRadius, offset, borderWidth = decodeKey(key)
+				local cornerRadius, offset, borderWidth = KeyUtilities.decodeKey(key)
 
 				cursors[key] = React.createElement(CursorComponent, {
 					ref = refCache[key],

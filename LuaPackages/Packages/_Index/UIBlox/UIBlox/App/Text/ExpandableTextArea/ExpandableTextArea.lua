@@ -18,7 +18,6 @@ local ExpandableTextUtils = require(UIBlox.Core.Text.ExpandableText.ExpandableTe
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DEFAULT_PADDING_TOP = 30
 local PADDING_TOP = DEFAULT_PADDING_TOP
@@ -59,7 +58,7 @@ ExpandableTextArea.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	frameRef = t.optional(t.table),
 
-	gradientColor = if UIBloxConfig.enableExpandableTextAreaGradientFix then t.optional(t.Color3) else nil,
+	gradientColor = t.optional(t.Color3),
 })
 
 ExpandableTextArea.defaultProps = {
@@ -240,9 +239,7 @@ function ExpandableTextArea:render()
 							AnchorPoint = Vector2.new(0, 1),
 							BackgroundTransparency = 1,
 							Image = GRADIENT_IMAGE,
-							ImageColor3 = if UIBloxConfig.enableExpandableTextAreaGradientFix
-								then (gradientColor or theme.BackgroundDefault.Color)
-								else theme.BackgroundDefault.Color,
+							ImageColor3 = gradientColor or theme.BackgroundDefault.Color,
 						},
 						springOptions = GRADIENT_ANIMATION_SPRING_SETTINGS,
 					}),

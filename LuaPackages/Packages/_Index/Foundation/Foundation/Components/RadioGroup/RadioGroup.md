@@ -6,7 +6,9 @@ category: Inputs
 
 A `RadioGroup` is a way to have a list of options that only allows one choice checked at a time. Any of these may optionally be disabled. The `RadioGroup` component is composed of a list of [RadioGroup.Item](#item)s.
 
-## How to Use
+---
+
+## Usage
 
 ```lua
 local Foundation = require(Packages.Foundation)

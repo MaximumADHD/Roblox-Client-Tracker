@@ -1,7 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
-local Flags = require(Foundation.Utility.Flags)
 
 type StyleRuleProps = {
 	Priority: number?,
@@ -19,7 +18,7 @@ local function StyleRule(props: StyleRuleProps)
 	end, { props.properties })
 
 	return React.createElement("StyleRule", {
-		Priority = if Flags.FoundationMigrateStylingV2 then props.Priority or 1 else nil, -- 0 reserved for default styles
+		Priority = props.Priority or 1, -- 0 reserved for default styles
 		Selector = props.Selector,
 		ref = rule,
 	})

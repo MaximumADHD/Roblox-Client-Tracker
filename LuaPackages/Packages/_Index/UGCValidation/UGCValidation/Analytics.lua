@@ -44,6 +44,10 @@ local getFFlagRefactorBodyAttachmentOrientationsCheck =
 local getFFlagValidateDeformedLayeredClothingIsInBounds =
 	require(root.flags.getFFlagValidateDeformedLayeredClothingIsInBounds)
 local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
+local getFFlagUGCValidateEmoteAnimationExtendedTests =
+	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
+
+local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
 
 local function joinTables(...)
 	local result = {}
@@ -186,6 +190,12 @@ Analytics.ErrorType = {
 	validateCoplanarIntersection_CoplanarIntersection = "validateCoplanarIntersection_CoplanarIntersection",
 }
 
+if getEngineFeatureUGCValidationFullBodyFacs() then
+	Analytics.ErrorType.validateEachBodyPartFacsBounds_FailedToExecute =
+		"validateEachBodyPartFacsBounds_FailedToExecute"
+	Analytics.ErrorType.validateEachBodyPartFacsBounds_ExtendedBounds = "validateEachBodyPartFacsBounds_ExtendedBounds"
+end
+
 if getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity() then
 	Analytics.ErrorType.validateVerticesSimilarity_FailedToExecute = "validateVerticesSimilarity_FailedToExecute"
 	Analytics.ErrorType.validateVerticesSimilarity_MaxSimilarityExceeded =
@@ -273,6 +283,18 @@ if getFFlagValidateDeformedLayeredClothingIsInBounds() then
 		"validateDeformedLayeredClothingInRenderBounds_FailedToExecute"
 	Analytics.ErrorType.validateDeformedLayeredClothingInRenderBounds_ClothingOutOfBounds =
 		"validateDeformedLayeredClothingInRenderBounds_ClothingOutOfBounds"
+end
+
+if getFFlagUGCValidateEmoteAnimationExtendedTests() then
+	Analytics.ErrorType.validateEmoteAnimation_FailedToDownloadCurveAnimation =
+		"validateEmoteAnimation_FailedToDownloadCurveAnimation"
+	Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect =
+		"validateCurveAnimation_AnimationHierarchyIsIncorrect"
+	Analytics.ErrorType.validateCurveAnimation_AnimationContainsNoJointManipulation =
+		"validateCurveAnimation_AnimationContainsNoJointManipulation"
+	Analytics.ErrorType.validateCurveAnimation_UnacceptableLength = "validateCurveAnimation_UnacceptableLength"
+	Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds = "validateCurveAnimation_UnacceptableSizeBounds"
+	Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
 end
 
 setmetatable(Analytics.ErrorType, {

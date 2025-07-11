@@ -6,7 +6,9 @@ category: Display
 
 `Slider` is a draggable bar that can be used for form fields, media timelines, or anything else where you need to slide a bar around.
 
-## How to Use
+---
+
+## Usage
 
 Slider is designed such that the consumer controls the current bar fill percentage.
 

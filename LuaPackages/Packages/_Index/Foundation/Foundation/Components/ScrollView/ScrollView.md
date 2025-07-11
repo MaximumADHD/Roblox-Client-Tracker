@@ -6,7 +6,9 @@ category: Layout
 
 ScrollView is a container component that can be used to layout other components. It's used in place of the `ScrollingFrame` engine component.
 
-## How to Use
+---
+
+## Usage
 
 In normal cases, you can replace `ScrollingFrame` with `ScrollView` directly. Note that some properties have been put into tables to improve structure and compatibility with style tokens.
 

@@ -1,8 +1,12 @@
 # Images
 
-Foundation provides a set of images and icons to use in your components. These images can be loaded using either an [[Image]] component or an [[Icon]] component.
+<p class="intro" markdown>Foundation provides a set of images and icons to use in your components. These images can be loaded using either an [[Image]] component or an [[Icon]] component.</p>
 
-## How to Use
+<!-- ![FPO](../../assets/img/darkmode/fpo.png){ .img-hero } -->
+
+---
+
+## Usage
 
 To use these, you'll pass the image's string to the `Image` property of the [[Image]] component or the `name` property of the [[Icon]] component.
 
@@ -29,6 +33,9 @@ local function MyImage()
 end
 ```
 
+<!-- 
 ## Reference
 
-You can use the copy button next to each image name to copy the full image path to your clipboard. This is passed to [[Image]]'s `Image` property or [[Icon]]'s `name` property.
+You can use the copy button next to each image name to copy the full image path to your clipboard. This is passed to [[Image]]'s `Image` property or [[Icon]]'s `name` property. -->
+
+---

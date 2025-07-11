@@ -6,8 +6,6 @@ local root = script.Parent.Parent
 local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
 local getEngineFeatureEngineEditableMeshAvatarPublish =
 	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
-local getFFlagUGCValidateSupportSurfaceAppearanceContent =
-	require(root.flags.getFFlagUGCValidateSupportSurfaceAppearanceContent)
 
 local AssetService = game:GetService("AssetService")
 
@@ -92,61 +90,25 @@ local function getTextureContentMap(instance, contentIdToContentMap)
 			"EditableImage"
 		)
 	elseif instance:IsA("SurfaceAppearance") then
-		if getFFlagUGCValidateSupportSurfaceAppearanceContent() then
-			addContent(
-				contentIdToContentMap,
-				"ColorMap",
-				(instance :: SurfaceAppearance).ColorMapContent,
-				"EditableImage"
-			)
-			addContent(
-				contentIdToContentMap,
-				"MetalnessMap",
-				(instance :: SurfaceAppearance).MetalnessMapContent,
-				"EditableImage"
-			)
-			addContent(
-				contentIdToContentMap,
-				"NormalMap",
-				(instance :: SurfaceAppearance).NormalMapContent,
-				"EditableImage"
-			)
-			addContent(
-				contentIdToContentMap,
-				"RoughnessMap",
-				(instance :: SurfaceAppearance).RoughnessMapContent,
-				"EditableImage"
-			)
-		else
-			addContent(
-				contentIdToContentMap,
-				"ColorMap",
-				-- selene: allow(undefined_variable) | Content global will be added later
-				Content.fromUri((instance :: SurfaceAppearance).ColorMap),
-				"EditableImage"
-			)
-			addContent(
-				contentIdToContentMap,
-				"MetalnessMap",
-				-- selene: allow(undefined_variable) | Content global will be added later
-				Content.fromUri((instance :: SurfaceAppearance).MetalnessMap),
-				"EditableImage"
-			)
-			addContent(
-				contentIdToContentMap,
-				"NormalMap",
-				-- selene: allow(undefined_variable) | Content global will be added later
-				Content.fromUri((instance :: SurfaceAppearance).NormalMap),
-				"EditableImage"
-			)
-			addContent(
-				contentIdToContentMap,
-				"RoughnessMap",
-				-- selene: allow(undefined_variable) | Content global will be added later
-				Content.fromUri((instance :: SurfaceAppearance).RoughnessMap),
-				"EditableImage"
-			)
-		end
+		addContent(contentIdToContentMap, "ColorMap", (instance :: SurfaceAppearance).ColorMapContent, "EditableImage")
+		addContent(
+			contentIdToContentMap,
+			"MetalnessMap",
+			(instance :: SurfaceAppearance).MetalnessMapContent,
+			"EditableImage"
+		)
+		addContent(
+			contentIdToContentMap,
+			"NormalMap",
+			(instance :: SurfaceAppearance).NormalMapContent,
+			"EditableImage"
+		)
+		addContent(
+			contentIdToContentMap,
+			"RoughnessMap",
+			(instance :: SurfaceAppearance).RoughnessMapContent,
+			"EditableImage"
+		)
 	end
 end
 

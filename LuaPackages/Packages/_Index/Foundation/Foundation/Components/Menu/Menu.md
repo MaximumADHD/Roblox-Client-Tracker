@@ -4,7 +4,9 @@ category: Layout
 
 ## Overview
 
-## How to Use
+---
+
+## Usage
 
 ```lua
 local Foundation = require(Packages.Foundation)

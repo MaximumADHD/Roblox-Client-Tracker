@@ -5,7 +5,6 @@ local React = require(Packages.React)
 local StyleRule = require(StyleSheetRoot.StyleRule)
 local generateRules = require(StyleSheetRoot.generateRules)
 local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
-local Flags = require(Foundation.Utility.Flags)
 
 local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
@@ -29,32 +28,15 @@ local function insertRule(ruleNodes: { React.ReactNode }, rule: StyleRuleNoTag, 
 	local pseudo = if rule.pseudo ~= nil then " ::" .. rule.pseudo else ""
 	local selector = tagSelector .. modifier .. pseudo
 
-	if Flags.FoundationMigrateStylingV2 then
-		table.insert(
-			ruleNodes,
-			React.createElement(StyleRule, {
-				key = selector, -- Improves readability and improves performance during reconciliaton
-				Priority = rule.priority,
-				Selector = selector,
-				properties = properties,
-			})
-		)
-	else
-		table.insert(
-			ruleNodes,
-			if tag == "gui-object-defaults"
-					or tag == "text-defaults"
-					or tag == "text-size-defaults"
-					or tag == "text-color-defaults"
-				then 1
-				else #ruleNodes + 1,
-			React.createElement(StyleRule, {
-				key = selector, -- Improves readability and improves performance during reconciliaton
-				Selector = selector,
-				properties = properties,
-			})
-		)
-	end
+	table.insert(
+		ruleNodes,
+		React.createElement(StyleRule, {
+			key = selector, -- Improves readability and improves performance during reconciliaton
+			Priority = rule.priority,
+			Selector = selector,
+			properties = properties,
+		})
+	)
 end
 
 local function createRules(rules: { [string]: StyleRuleNoTag }, tags: { [string]: boolean }): React.ReactNode

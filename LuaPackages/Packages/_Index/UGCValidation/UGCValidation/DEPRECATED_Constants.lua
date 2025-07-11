@@ -16,7 +16,8 @@ local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFla
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
-local getFFlagFixValidateTransparencyProperty = require(root.flags.getFFlagFixValidateTransparencyProperty)
+local getFFlagUGCValidateEmoteAnimationExtendedTests =
+	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
 
 local FIntUGCValidateTriangleLimitDynamicHead = game:DefineFastInt("UGCValidateTriangleLimitDynamicHead", 4000)
 local FIntUGCValidateTriangleLimitLeftArm = game:DefineFastInt("UGCValidateTriangleLimitLeftArm", 1248)
@@ -707,10 +708,6 @@ Constants.LC_BOUNDS = {
 
 Constants.PROPERTIES_UNRESTRICTED = {}
 
-if getFFlagFixValidateTransparencyProperty() then
-	Constants.PROP_PRECISE = {}
-end
-
 Constants.PROPERTIES = {
 	Instance = {
 		Archivable = true,
@@ -735,7 +732,7 @@ Constants.PROPERTIES = {
 		Reflectance = 0,
 		RootPriority = 0,
 		RotVelocity = Vector3.new(0, 0, 0),
-		Transparency = if getFFlagFixValidateTransparencyProperty() then { 0, Constants.PROP_PRECISE } else 0,
+		Transparency = 0,
 		Velocity = Vector3.new(0, 0, 0),
 
 		-- surface properties
@@ -795,12 +792,14 @@ Constants.CONTENT_ID_FIELDS = {
 	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
 	WrapLayer = { "CageMeshId", "ReferenceMeshId" },
 	WrapTarget = { "CageMeshId" },
+	Animation = if getFFlagUGCValidateEmoteAnimationExtendedTests() then { "AnimationId" } else nil,
 }
 
 Constants.CONTENT_ID_REQUIRED_FIELDS = {
 	SpecialMesh = { MeshId = true, TextureId = true },
 	MeshPart = { MeshId = true },
 	WrapTarget = { CageMeshId = true },
+	Animation = if getFFlagUGCValidateEmoteAnimationExtendedTests() then { "AnimationId" } else nil,
 }
 
 Constants.MESH_CONTENT_ID_FIELDS = {

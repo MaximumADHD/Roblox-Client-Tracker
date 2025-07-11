@@ -6,7 +6,9 @@ category: Display
 
 Text displays... text! It's used in place of `TextLabel` and `TextButton` engine components.
 
-## How to Use
+---
+
+## Usage
 
 In normal cases, you can replace `TextLabel` and `TextButton` with `Text` directly. Note that some properties have been put into tables to improve structure and compatibility with style tokens.
 
@@ -37,4 +39,5 @@ return React.createElement(Text, {
 ```
 
 !!! warning "Line Height and Padding"
+
     When using `fontStyle.LineHeight` and the Builder Sans font, padding will be set automatically to ensure that line height behaves the same as Figma. If you also set padding, it will override the automatic padding. A longer term engine solution is being looked into.

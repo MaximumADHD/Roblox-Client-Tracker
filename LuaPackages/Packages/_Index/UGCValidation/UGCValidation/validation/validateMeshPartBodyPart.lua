@@ -30,7 +30,7 @@ local validateDescendantTextureMetrics = require(root.validation.validateDescend
 local validateSurfaceAppearances = require(root.validation.validateSurfaceAppearances)
 local validateMaterials = require(root.validation.validateMaterials)
 local validateTags = require(root.validation.validateTags)
-local validateProperties = require(root.validation.validateProperties)
+local validatePropertyRequirements = require(root.validation.validatePropertyRequirements)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateHSR = require(root.validation.validateHSR)
 local validateBodyPartCollisionFidelity = require(root.validation.validateBodyPartCollisionFidelity)
@@ -144,7 +144,7 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateMaterials(inst, validationContext))
 
-	reasonsAccumulator:updateReasons(validateProperties(inst, assetTypeEnum, validationContext))
+	reasonsAccumulator:updateReasons(validatePropertyRequirements(inst, assetTypeEnum, validationContext))
 
 	if getFFlagUGCValidateBodyPartsCollisionFidelity() then
 		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst, validationContext))

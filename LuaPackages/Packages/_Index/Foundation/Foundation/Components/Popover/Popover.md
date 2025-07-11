@@ -10,7 +10,9 @@ A `Popover` is a surface that displays content relative to an anchor element. Th
 - [Popover.Anchor](#anchor): a component that acts as the anchor element for the `Popover`.
 - [Popover.Content](#content): the wrapper for the `Popover`'s main content.
 
-## How to Use
+---
+
+## Usage
 
 ```lua
 local Foundation = require(Packages.Foundation)

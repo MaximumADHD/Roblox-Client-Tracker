@@ -5,7 +5,8 @@ local runContinuations = Scheduler.runContinuations
 
 export type getter<T> = (scope | false) -> T
 export type setter<T> = (update<T>) -> ()
-export type update<T> = T | (previous: T) -> T
+export type update<T> = ((previous: T) -> T) | T
+export type equals<T> = (current: T, incoming: T) -> boolean
 export type dispose = () -> ()
 
 -- The "scope" function is used by a source (signals and computeds) to register itself with
@@ -21,15 +22,14 @@ type source = (observer?, true?) -> number
 -- The "observer" function is used by a source to notify the observer that one of its sources may be stale
 type observer = () -> ()
 
-type equals<T> = (current: T, incoming: T) -> boolean
-local function defaultEquals<T>(current: T, incoming: T)
-	return current == incoming
-end
-
 type set<T> = { [T]: true? }
 local WeakSetMetatable = { __mode = "k" }
 local function createWeakSet<T>(set: set<T>)
 	return (setmetatable(set, WeakSetMetatable) :: unknown) :: set<T>
+end
+
+local function defaultEquals<T>(current: T, incoming: T)
+	return current == incoming
 end
 
 local function handleError(ok: boolean, ...)
@@ -39,33 +39,33 @@ local function handleError(ok: boolean, ...)
 	end
 end
 
-local function handleScopeValidation<Rets...>(kill: () -> (), ok: boolean, ...: Rets...): Rets...
+local function handleScopeValidation<Ts...>(kill: () -> (), ok: boolean, ...: Ts...): Ts...
 	kill()
 	handleError(ok, ...)
 	return ...
 end
 
-local function callUserSpaceWithScopeValidation<Args..., Rets...>(fn: (scope, Args...) -> Rets..., scope: scope, ...: Args...): Rets...
-	local isActive = true
+local function callUserSpaceWithScopeValidation<Ts...>(fn: (scope) -> Ts..., scope: scope): Ts...
+	local isAlive = true
 
 	local function wrappedScope(source: source)
-		if not isActive then
+		if not isAlive then
 			error("attempted to use scope beyond scope's lifetime")
 		end
 		return scope(source)
 	end
 
 	local function kill()
-		isActive = false
+		isAlive = false
 	end
 
-	return handleScopeValidation(kill, pcall(callUserSpace, fn, wrappedScope, ...))
+	return handleScopeValidation(kill, pcall(callUserSpace, fn, wrappedScope))
 end
 
 local validationEnabled = _G.__SIGNALS_VALIDATION_ENABLED__ or _G.__DEV__
 local callUserSpaceWithScope = if validationEnabled then callUserSpaceWithScopeValidation else callUserSpace :: never
 
-local function createSignal<T>(initial: T | () -> T, equals: equals<T>?): (getter<T>, setter<T>)
+local function createSignal<T>(initial: (() -> T) | T, equals: equals<T>?): (getter<T>, setter<T>)
 	local isInitialized = false
 	local version = 0
 
@@ -165,7 +165,7 @@ local function createComputed<T>(computed: (scope) -> T, equals: equals<T>?): ge
 		if not isInitialized then
 			isInitialized = true
 			observers = createWeakSet({})
-			sources = createWeakSet({})
+			sources = {}
 			value = callUserSpaceWithScope(computed, scope)
 			absoluteVersion = os.clock()
 			cachedVersion = absoluteVersion
@@ -232,12 +232,12 @@ local function createComputed<T>(computed: (scope) -> T, equals: equals<T>?): ge
 	return getter
 end
 
-local function createEffect(effect: (scope, dispose) -> ()): dispose
+local function createEffect(effect: (scope) -> ()): dispose
 	local isScheduled = false
 	local isDisposed = false
 	local version = 0
 
-	local sources: set<source> = createWeakSet({})
+	local sources: set<source> = {}
 
 	local observer: observer
 
@@ -265,7 +265,7 @@ local function createEffect(effect: (scope, dispose) -> ()): dispose
 				local newVersion = parentSource()
 				if newVersion > version then
 					disconnectSources()
-					callUserSpaceWithScope(effect, scope, dispose)
+					callUserSpaceWithScope(effect, scope)
 					version = os.clock()
 					return
 				end
@@ -285,7 +285,7 @@ local function createEffect(effect: (scope, dispose) -> ()): dispose
 		end
 	end
 
-	callUserSpaceWithScope(effect, scope, dispose)
+	callUserSpaceWithScope(effect, scope)
 	version = os.clock()
 
 	return dispose

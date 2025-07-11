@@ -23,7 +23,9 @@ Text and icon content type can be added any of the buttons
 * If text and icon are nil it will be a blank button
 * Otherwise, it will be a icon and text button
 
-## How to Use
+---
+
+## Usage
 
 A `Button` should be used with a standard size defined in [[InputSize]] (`Large`/`Medium`/`Small`/`XSmall`).
 

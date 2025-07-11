@@ -6,7 +6,9 @@ category: Display
 
 Tooltip is a component for displaying a popover with a title, optional text and optional shortcut when hovering over an anchor element.
 
-## How to Use
+---
+
+## Usage
 
 Wrap the element you want to trigger the tooltip on with the Tooltip component. By default, the tooltip will appear to the
  right of the anchor element.

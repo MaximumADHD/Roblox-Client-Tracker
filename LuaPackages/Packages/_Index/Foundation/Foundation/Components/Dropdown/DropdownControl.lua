@@ -18,6 +18,7 @@ local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
+local Flags = require(Foundation.Utility.Flags)
 
 local useDropdownVariants = require(script.Parent.useDropdownVariants)
 
@@ -75,9 +76,12 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 			label = props.label,
 			hint = props.hint,
 			ref = ref,
+			width = if Flags.FoundationFixInputFieldWidth then props.width else nil,
 			input = function(inputRef)
 				return React.createElement(View, {
-					Size = UDim2.new(props.width, variantProps.container.height),
+					Size = if Flags.FoundationFixInputFieldWidth
+						then nil
+						else UDim2.new(props.width, variantProps.container.height),
 					onStateChanged = updateControlState,
 					isDisabled = props.isDisabled,
 					onActivated = props.onActivated,

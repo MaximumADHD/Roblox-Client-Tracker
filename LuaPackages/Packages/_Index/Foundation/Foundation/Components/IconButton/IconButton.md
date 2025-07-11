@@ -8,7 +8,9 @@ The `IconButton` component allows you to render an interactive icon at one of th
 
 To browse icons available for use through this component, visit [[Images]].
 
-## How to Use
+---
+
+## Usage
 
 ```lua
 ...

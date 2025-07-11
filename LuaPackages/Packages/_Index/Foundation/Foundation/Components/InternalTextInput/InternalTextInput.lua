@@ -133,7 +133,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		setHover(newState == ControlState.Hover)
 	end, {})
 
-	local textBoxTag = if Flags.FoundationStylingPolyfill then nil else useStyleTags(variantProps.textBox.tag)
+	local textBoxTag = if Flags.FoundationDisableStylingPolyfill then useStyleTags(variantProps.textBox.tag) else nil
 
 	local inputCursor = useCursor({
 		radius = UDim.new(0, variantProps.innerContainer.radius),
@@ -204,7 +204,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 							PlaceholderText = props.placeholder,
 							Selectable = false,
 							LineHeight = 1,
-							-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+							-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 							Size = UDim2.fromScale(1, 1),
 							BackgroundTransparency = 1,
 							ClipsDescendants = true,
@@ -214,7 +214,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 							TextSize = variantProps.textBox.FontSize,
 							TextColor3 = tokens.Color.Content.Emphasis.Color3,
 							TextTransparency = tokens.Color.Content.Emphasis.Transparency,
-							-- END: Remove when Flags.FoundationStylingPolyfill is removed
+							-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 
 							[React.Tag] = textBoxTag :: any,
 							[React.Event.Focused] = onFocusGained,

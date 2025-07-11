@@ -4,7 +4,9 @@
 
 It accepts all props that can be passed into an `ImageButton` or the props of the custom component that is passed in as the `component` prop.
 
-## How to Use
+---
+
+## Usage
 
 
 ```lua

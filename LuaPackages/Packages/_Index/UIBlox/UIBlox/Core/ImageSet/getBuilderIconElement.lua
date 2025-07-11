@@ -57,12 +57,12 @@ end
 
 local mapTextSize = function(size: UDim2, scaled: boolean, tokens, migration, scaleValue: number): number
 	local textSize = size.Y.Offset
-	if not (textSize == 0 or scaled) then
+	if not (textSize == 0 or scaled) and not migrationExceptions[migration.name] then
 		local snapInterval = tokens.Size.Size_100
 		local mediumMin = tokens.Size.Size_600
 		local mediumMax = 38 * scaleValue
 
-		if textSize >= mediumMin and textSize <= mediumMax and not migrationExceptions[migration.name] then
+		if textSize >= mediumMin and textSize <= mediumMax then
 			textSize = mediumMin
 		else
 			textSize = math.round(textSize / snapInterval) * snapInterval

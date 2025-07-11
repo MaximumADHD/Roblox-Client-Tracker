@@ -33,10 +33,10 @@ type TextInputVariantProps = {
 	},
 	textBox: {
 		tag: string,
-		-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+		-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 		Font: Enum.Font,
 		FontSize: number,
-		-- END: Remove when Flags.FoundationStylingPolyfill is removed
+		-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 	},
 	icon: {
 		size: IconSize,
@@ -73,10 +73,10 @@ local function computeProps(props: {
 		},
 		textBox = {
 			tag = props.textBoxTag,
-			-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+			-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			Font = props.typography.Font,
 			FontSize = props.typography.FontSize,
-			-- END: Remove when Flags.FoundationStylingPolyfill is removed
+			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 		},
 		icon = {
 			size = props.iconSize,
@@ -108,9 +108,9 @@ local function variantsFactory(tokens: Tokens)
 			horizontalPadding = tokens.Padding.XSmall,
 			gap = tokens.Gap.Small,
 			textBoxTag = "text-body-small",
-			-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+			-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			typography = tokens.Typography.BodySmall,
-			-- END: Remove when Flags.FoundationStylingPolyfill is removed
+			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			iconSize = IconSize.XSmall,
 		}),
 		[InputSize.Small] = computeProps({
@@ -121,9 +121,9 @@ local function variantsFactory(tokens: Tokens)
 			horizontalPadding = tokens.Padding.Small,
 			gap = tokens.Gap.Medium,
 			textBoxTag = "text-body-medium",
-			-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+			-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			typography = tokens.Typography.BodyMedium,
-			-- END: Remove when Flags.FoundationStylingPolyfill is removed
+			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			iconSize = IconSize.XSmall,
 		}),
 		[InputSize.Medium] = computeProps({
@@ -134,9 +134,9 @@ local function variantsFactory(tokens: Tokens)
 			horizontalPadding = tokens.Padding.Small,
 			gap = tokens.Gap.Large,
 			textBoxTag = "text-body-medium",
-			-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+			-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			typography = tokens.Typography.BodyMedium,
-			-- END: Remove when Flags.FoundationStylingPolyfill is removed
+			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			iconSize = IconSize.Small,
 		}),
 		[InputSize.Large] = computeProps({
@@ -147,9 +147,9 @@ local function variantsFactory(tokens: Tokens)
 			horizontalPadding = tokens.Padding.Medium,
 			gap = tokens.Gap.Large,
 			textBoxTag = "text-body-large",
-			-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+			-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			typography = tokens.Typography.BodyLarge,
-			-- END: Remove when Flags.FoundationStylingPolyfill is removed
+			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			iconSize = IconSize.Small,
 		}),
 	}

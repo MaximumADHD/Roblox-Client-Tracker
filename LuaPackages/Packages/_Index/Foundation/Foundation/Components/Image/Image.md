@@ -6,7 +6,9 @@ category: Display
 
 Image displays [[Images]] or any other image asset. It's used in place of `ImageLabel` and `ImageButton` engine components.
 
-## How to Use
+---
+
+## Usage
 
 `Image` takes an `Image` property that is either an image path from [[Images]] or a Roblox asset ID.
 

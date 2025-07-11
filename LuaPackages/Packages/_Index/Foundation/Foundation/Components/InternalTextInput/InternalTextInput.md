@@ -6,7 +6,9 @@ category: Inputs
 
 `InternalTextInput` is a single line input with optional leading and trailing elements
 
-## How to Use
+---
+
+## Usage
 
 `InternalTextInput` takes full width of the parent component, the height is static.
 You can provide any element as `leadingElement` or `trailingElement`. The input will take the rest space without any paddings by default. 

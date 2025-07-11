@@ -10,7 +10,9 @@ if `holdBehavior` is not provided then KeyLabel will be a static element that di
 
 if `holdBehavior` is provided then KeyLabel will call `onBeginHold` and display a circular progress bar when the given `keyCode` is pressed, and will trigger `onEndHold` when the key is released or `holdTime` duration is reached. `onEndHold` will receive one argument, `didActivate`, which indicates whether the button was held for the full `holdTime` duration.
 
-## How to Use
+---
+
+## Usage
 
 Here is an example of how to create a `KeyLabel` component with a `holdTime` of 1 second.
 

@@ -1,5 +1,6 @@
 {
   "name": "Builder Icons",
+  "loadStrategy": "sameFamilyOnly",
   "faces": [
     {
       "name": "Regular",

@@ -5,7 +5,7 @@ local Constants = require(root.Constants)
 
 local validateMeshPartBodyPart = require(root.validation.validateMeshPartBodyPart)
 local validateTags = require(root.validation.validateTags)
-local validateProperties = require(root.validation.validateProperties)
+local validatePropertyRequirements = require(root.validation.validatePropertyRequirements)
 local validateAttributes = require(root.validation.validateAttributes)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -126,7 +126,7 @@ local function validateR6Folder(
 
 	reasonsAccumulator:updateReasons(validateTags(inst, validationContext))
 
-	reasonsAccumulator:updateReasons(validateProperties(inst, assetTypeEnum, validationContext))
+	reasonsAccumulator:updateReasons(validatePropertyRequirements(inst, assetTypeEnum, validationContext))
 
 	reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
 

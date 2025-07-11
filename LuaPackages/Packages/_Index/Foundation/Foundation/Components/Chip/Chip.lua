@@ -8,7 +8,6 @@ local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
-local Flags = require(Foundation.Utility.Flags)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
@@ -96,7 +95,7 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 				SelectionImageObject = cursor,
 			},
 			onActivated = props.onActivated,
-			stateLayer = if Flags.FoundationFixChipEmphasisHoverState and props.isChecked
+			stateLayer = if props.isChecked
 				then {
 					mode = StateLayerMode.Inverse,
 				}

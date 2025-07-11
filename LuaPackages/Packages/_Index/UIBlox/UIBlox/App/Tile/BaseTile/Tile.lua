@@ -371,7 +371,7 @@ function Tile:render()
 						Image = React.createElement(TileThumbnail, {
 							Image = thumbnail,
 							hasRoundedCorners = hasRoundedCorners,
-							cornerRadius = THUMBNAIL_CORNER_RADIUS,
+							cornerRadius = if self.props.isCircular then UDim.new(0.5, 0) else THUMBNAIL_CORNER_RADIUS,
 							isSelected = isSelected,
 							multiSelect = multiSelect,
 							overlayComponents = thumbnailOverlayComponents,

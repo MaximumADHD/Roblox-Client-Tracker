@@ -55,7 +55,7 @@ local function OverlayProvider(props: Props)
 					ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets,
 					ref = overlayRefCallback,
 				}, {
-					FoundationStyleLink = if not Flags.FoundationStylingPolyfill
+					FoundationStyleLink = if Flags.FoundationDisableStylingPolyfill
 						then React.createElement("StyleLink", {
 							StyleSheet = styleSheet,
 						})

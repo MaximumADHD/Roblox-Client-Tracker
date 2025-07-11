@@ -69,9 +69,6 @@ return {
 	-- Indicate whether the fix for the additional NavigationBar#onSelectionChanged call is enabled
 	enableNavigationBarSelectionChangeFix = false,
 
-	-- Use colors from Foundation tokens
-	useFoundationColors = false,
-
 	-- Use new Foundation components
 	useFoundationSkeleton = false,
 
@@ -84,17 +81,11 @@ return {
 	-- Add optional action bar label to DetailsPageHeader
 	enableDetailsPageHeaderActionBarLabel = false,
 
-	-- Fix gradient issue in ExpandableTextArea in color update
-	enableExpandableTextAreaGradientFix = false,
-
 	-- Fix incorrect disabling of LaserPointer in PointerOverlay
 	fixLaserPointerDisable = false,
 
 	-- Enable Panel managed anchoring for Panel3D
 	enablePanelManagedAnchoring = false,
-
-	-- Fix press state for modal bottom sheet
-	fixModalBottomSheetPressState = false,
 
 	-- Fix the AppNav related test issues
 	fixAppNavTestIssues = false,
