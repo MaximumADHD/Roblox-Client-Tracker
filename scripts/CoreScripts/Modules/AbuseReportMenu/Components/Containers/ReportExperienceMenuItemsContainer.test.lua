@@ -27,7 +27,6 @@ local StyleProviderWithDefaultTheme = Style.StyleProviderWithDefaultTheme
 
 local utilityProps = {
 	onReportComplete = function() end,
-	onDropdownMenuOpenChange = function() end,
 	isReportTabVisible = true,
 	hideReportTab = function() end,
 	reportAnythingAnalytics = reportAnythingAnalytics,

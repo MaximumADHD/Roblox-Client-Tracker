@@ -13,11 +13,6 @@ local View = Foundation.View
 local ModalBasedSelectorDialogController = require(root.Components.ModalBasedSelectorDialogController)
 
 local GetFFlagAddAbuseReportMenuCoreScriptsProvider = require(root.Flags.GetFFlagAddAbuseReportMenuCoreScriptsProvider)
-local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
-local FFlagModalBasedSelectorOnCloseUseCallback = game:DefineFastFlag("ModalBasedSelectorOnCloseUseCallback", false)
-
-local FFlagPreferredTextSizeReportMenuButtonTextFix =
-	game:DefineFastFlag("PreferredTextSizeReportMenuButtonTextFix", false)
 
 type Props = {
 	layoutOrder: number,
@@ -30,23 +25,6 @@ type Props = {
 }
 
 local function ModalBasedSelector(props)
-	local onOpen
-	if FFlagHideShortcutsOnReportDropdown then
-		onOpen = React.useCallback(function()
-			props.onMenuOpenChange(true)
-		end, { props.onMenuOpenChange })
-	end
-
-	local onClose
-	if FFlagModalBasedSelectorOnCloseUseCallback then
-		onClose = React.useCallback(function()
-			ModalBasedSelectorDialogController.unmountModalSelector()
-			if FFlagHideShortcutsOnReportDropdown then
-				props.onMenuOpenChange(false)
-			end
-		end, { props.onMenuOpenChange })
-	end
-
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, props.selectorHeight),
 		BackgroundTransparency = 1,
@@ -60,24 +38,15 @@ local function ModalBasedSelector(props)
 						props.viewportWidth,
 						props.selections,
 						props.onSelect,
-						if FFlagModalBasedSelectorOnCloseUseCallback
-							then onClose
-							else function()
-								ModalBasedSelectorDialogController.unmountModalSelector()
-								if FFlagHideShortcutsOnReportDropdown then
-									props.onMenuOpenChange(false)
-								end
-							end,
-						onOpen
+						function()
+							ModalBasedSelectorDialogController.unmountModalSelector()
+						end
 					)
 				end,
 			}, {
 				Text = React.createElement(Text, {
 					Text = props.selectedValue or props.placeholderText,
 					tag = "size-full anchor-center-center position-center-center",
-					TextTruncate = if FFlagPreferredTextSizeReportMenuButtonTextFix
-						then Enum.TextTruncate.AtEnd
-						else nil,
 				}),
 				Icon = React.createElement(Icon, {
 					name = "icons/actions/truncationExpand",
@@ -98,15 +67,9 @@ local function ModalBasedSelector(props)
 						props.viewportWidth,
 						props.selections,
 						props.onSelect,
-						if FFlagModalBasedSelectorOnCloseUseCallback
-							then onClose
-							else function()
-								ModalBasedSelectorDialogController.unmountModalSelector()
-								if FFlagHideShortcutsOnReportDropdown then
-									props.onMenuOpenChange(false)
-								end
-							end,
-						onOpen
+						function()
+							ModalBasedSelectorDialogController.unmountModalSelector()
+						end
 					)
 				end,
 			}),

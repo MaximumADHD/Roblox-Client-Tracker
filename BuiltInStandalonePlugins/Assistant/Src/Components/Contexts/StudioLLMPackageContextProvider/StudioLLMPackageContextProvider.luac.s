@@ -4,36 +4,32 @@ PROTO_0:
   CALL R1 1 1
   NAMECALL R1 R1 K1 ["get"]
   CALL R1 1 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K2 ["Components"]
-  GETTABLEKS R4 R5 K3 ["DefaultLLMProvider"]
-  GETTABLEKS R3 R4 K4 ["LLMProcessEvent"]
-  GETTABLEKS R2 R3 K5 ["createProcessEventHandler"]
-  CALL R2 0 3
-  GETUPVAL R5 2
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K2 ["Components"]
-  GETTABLEKS R7 R8 K6 ["Contexts"]
-  GETTABLEKS R6 R7 K7 ["LLMPackageContextProvider"]
-  DUPTABLE R7 K14 [{"requestHandler", "processEvent", "createLLMSession", "closeSession", "formatTools", "systemMessage"}]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K15 ["createRequestHandler"]
-  MOVE R9 R1
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K8 ["requestHandler"]
-  SETTABLEKS R2 R7 K9 ["processEvent"]
-  SETTABLEKS R3 R7 K10 ["createLLMSession"]
-  SETTABLEKS R4 R7 K11 ["closeSession"]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K12 ["formatTools"]
-  SETTABLEKS R8 R7 K12 ["formatTools"]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K16 ["getSystemMessage"]
-  CALL R8 0 1
-  SETTABLEKS R8 R7 K13 ["systemMessage"]
-  GETTABLEKS R8 R0 K17 ["children"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["createProcessEventHandler"]
+  CALL R2 0 2
+  GETUPVAL R4 2
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K3 ["Components"]
+  GETTABLEKS R6 R7 K4 ["Contexts"]
+  GETTABLEKS R5 R6 K5 ["LLMPackageContextProvider"]
+  DUPTABLE R6 K11 [{"requestHandler", "processEvent", "createLLMSession", "formatTools", "systemMessage"}]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K12 ["createRequestHandler"]
+  MOVE R8 R1
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K6 ["requestHandler"]
+  SETTABLEKS R2 R6 K7 ["processEvent"]
+  SETTABLEKS R3 R6 K8 ["createLLMSession"]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K9 ["formatTools"]
+  SETTABLEKS R7 R6 K9 ["formatTools"]
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K13 ["getSystemMessage"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K10 ["systemMessage"]
+  GETTABLEKS R7 R0 K14 ["children"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -58,20 +54,24 @@ MAIN:
   GETIMPORT R7 K1 [script]
   GETTABLEKS R6 R7 K12 ["Parent"]
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R8 R6 K13 ["StudioLLMRequest"]
+  GETTABLEKS R8 R6 K13 ["StudioLLMProcessEvent"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R9 R6 K14 ["StudioLLMSystemMessage"]
+  GETTABLEKS R9 R6 K14 ["StudioLLMRequest"]
   CALL R8 1 1
-  GETTABLEKS R11 R1 K15 ["Components"]
-  GETTABLEKS R10 R11 K16 ["Claude"]
-  GETTABLEKS R9 R10 K17 ["ClaudeLLMToolFormat"]
-  GETTABLEKS R10 R3 K18 ["createElement"]
-  DUPCLOSURE R11 K19 [PROTO_0]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R6 K15 ["StudioLLMSystemMessage"]
+  CALL R9 1 1
+  GETTABLEKS R12 R1 K16 ["Components"]
+  GETTABLEKS R11 R12 K17 ["Claude"]
+  GETTABLEKS R10 R11 K18 ["ClaudeLLMToolFormat"]
+  GETTABLEKS R11 R3 K19 ["createElement"]
+  DUPCLOSURE R12 K20 [PROTO_0]
   CAPTURE VAL R5
-  CAPTURE VAL R1
-  CAPTURE VAL R10
   CAPTURE VAL R7
-  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R1
   CAPTURE VAL R8
-  RETURN R11 1
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  RETURN R12 1

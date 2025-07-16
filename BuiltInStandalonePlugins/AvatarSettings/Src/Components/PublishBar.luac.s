@@ -46,7 +46,7 @@ PROTO_2:
   SETTABLEKS R8 R7 K12 ["Size"]
   GETTABLEKS R8 R0 K13 ["layoutOrder"]
   SETTABLEKS R8 R7 K14 ["LayoutOrder"]
-  DUPTABLE R8 K17 [{"RevertChangesButton", "SaveChangesButton"}]
+  DUPTABLE R8 K17 [{"DiscardChangesButton", "SaveChangesButton"}]
   GETUPVAL R9 4
   GETUPVAL R10 7
   NEWTABLE R11 8 0
@@ -63,7 +63,7 @@ PROTO_2:
   GETIMPORT R12 K25 [Enum.AutomaticSize.X]
   SETTABLEKS R12 R11 K23 ["AutomaticSize"]
   LOADK R14 K26 ["Publish"]
-  LOADK R15 K27 ["RevertChanges"]
+  LOADK R15 K27 ["DiscardChanges"]
   NAMECALL R12 R1 K28 ["getText"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K29 ["Text"]
@@ -77,7 +77,7 @@ PROTO_2:
   CAPTURE VAL R4
   SETTABLEKS R12 R11 K32 ["OnClick"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K15 ["RevertChangesButton"]
+  SETTABLEKS R9 R8 K15 ["DiscardChangesButton"]
   GETUPVAL R9 4
   GETUPVAL R10 7
   NEWTABLE R11 8 0

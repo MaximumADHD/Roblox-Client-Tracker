@@ -27,7 +27,7 @@ PROTO_2:
   SETTABLEKS R6 R5 K2 ["ZIndex"]
   GETUPVAL R7 3
   GETTABLEKS R6 R7 K3 ["Tag"]
-  LOADK R7 K4 ["FindReplaceAll-SidePadM FindReplaceAll-ReplaceAllConfirmationDialog X-Row data-testid=ConfirmationDialogFrame"]
+  LOADK R7 K4 ["FindReplaceAll-ReplaceAllConfirmationDialog X-Row data-testid=ConfirmationDialogFrame"]
   SETTABLE R7 R5 R6
   GETTABLEKS R6 R0 K5 ["Visible"]
   SETTABLEKS R6 R5 K5 ["Visible"]

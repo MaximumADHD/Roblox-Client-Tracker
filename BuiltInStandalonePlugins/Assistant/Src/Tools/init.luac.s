@@ -23,63 +23,53 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K7 ["FileSearchTool"]
+  GETTABLEKS R3 R4 K7 ["MarketplaceInsertionTool"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K8 ["GrepSearchTool"]
+  GETTABLEKS R4 R5 K8 ["MaterialGenTool"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K9 ["MarketplaceInsertionTool"]
+  GETTABLEKS R5 R6 K9 ["MeshGenTool"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETIMPORT R7 K1 [script]
-  GETTABLEKS R6 R7 K10 ["MaterialGenTool"]
+  GETTABLEKS R7 R0 K10 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["ModelContextProtocol"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K11 ["MeshGenTool"]
+  GETTABLEKS R7 R8 K12 ["ScriptInsertionTool"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K12 ["Packages"]
-  GETTABLEKS R8 R9 K13 ["ModelContextProtocol"]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K13 ["SwapAssetTool"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K14 ["ScriptInsertionTool"]
-  CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETIMPORT R11 K1 [script]
-  GETTABLEKS R10 R11 K15 ["SwapAssetTool"]
-  CALL R9 1 1
-  GETTABLEKS R10 R7 K16 ["ToolRegistry"]
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K17 ["Src"]
-  GETTABLEKS R14 R15 K18 ["Flags"]
-  GETTABLEKS R13 R14 K19 ["FFlagEnableScriptInsertionTool"]
-  CALL R12 1 1
-  GETTABLEKS R11 R12 K20 ["Get"]
-  DUPTABLE R12 K22 [{"Builtin"}]
-  NEWTABLE R13 0 8
+  GETTABLEKS R8 R5 K14 ["ToolRegistry"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K15 ["Src"]
+  GETTABLEKS R12 R13 K16 ["Flags"]
+  GETTABLEKS R11 R12 K17 ["FFlagEnableScriptInsertionTool"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K18 ["Get"]
+  DUPTABLE R10 K20 [{"Builtin"}]
+  NEWTABLE R11 0 6
+  MOVE R12 R2
+  MOVE R13 R7
   MOVE R14 R4
-  MOVE R15 R9
-  MOVE R16 R6
-  MOVE R17 R5
-  MOVE R18 R1
-  MOVE R20 R11
-  CALL R20 0 1
-  JUMPIFNOT R20 [+2]
-  MOVE R19 R8
-  JUMPIF R19 [+1]
-  LOADNIL R19
-  MOVE R20 R2
-  MOVE R21 R3
-  SETLIST R13 R14 8 [1]
-  SETTABLEKS R13 R12 K21 ["Builtin"]
-  DUPCLOSURE R13 K23 [PROTO_0]
-  CAPTURE VAL R12
+  MOVE R15 R3
+  MOVE R16 R1
+  MOVE R18 R9
+  CALL R18 0 1
+  JUMPIFNOT R18 [+2]
+  MOVE R17 R6
+  JUMPIF R17 [+1]
+  LOADNIL R17
+  SETLIST R11 R12 6 [1]
+  SETTABLEKS R11 R10 K19 ["Builtin"]
+  DUPCLOSURE R11 K21 [PROTO_0]
   CAPTURE VAL R10
-  DUPTABLE R14 K25 [{"registerBuiltinTools"}]
-  SETTABLEKS R13 R14 K24 ["registerBuiltinTools"]
-  RETURN R14 1
+  CAPTURE VAL R8
+  DUPTABLE R12 K23 [{"registerBuiltinTools"}]
+  SETTABLEKS R11 R12 K22 ["registerBuiltinTools"]
+  RETURN R12 1

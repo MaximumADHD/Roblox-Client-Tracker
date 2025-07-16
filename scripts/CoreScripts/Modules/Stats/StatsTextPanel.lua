@@ -18,6 +18,9 @@ local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 local StatsAggregatorClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsAggregator)
 local DecoratedValueLabelClass = require(CoreGuiService.RobloxGui.Modules.Stats.DecoratedValueLabel)
 
+--[[ FFlags ]]--
+local FFlagFixStatsViewerMissingMethod = require(CoreGuiService.RobloxGui.Modules.Flags.FFlagFixStatsViewerMissingMethod)
+
 --[[ Globals ]]--
 -- Positions
 local top = StatsUtils.TextPanelTopMarginPix
@@ -200,6 +203,7 @@ function StatsTextPanelClass:_shouldBeVisible()
 	end
 end
 
+
 function StatsTextPanelClass:_refreshVisibility()  
 	if self:_shouldBeVisible() then
 		self:_startListening()
@@ -209,8 +213,10 @@ function StatsTextPanelClass:_refreshVisibility()
 	end
 end
 
-function StatsTextPanelClass:OnPerformanceStatsShouldBeVisibleChanged()
-	self:_refreshVisibility()
+if FFlagFixStatsViewerMissingMethod then
+	function StatsTextPanelClass:OnPerformanceStatsShouldBeVisibleChanged()
+		self:_refreshVisibility()
+	end
 end
 
 function StatsTextPanelClass:_stopListening()

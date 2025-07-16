@@ -17,16 +17,6 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R3 0
-  GETUPVAL R4 1
-  GETTABLE R2 R3 R4
-  GETTABLEKS R1 R2 K0 ["Type"]
-  JUMPIFEQKS R1 K1 ["Separator"] [+2]
-  LOADB R0 0 +1
-  LOADB R0 1
-  RETURN R0 1
-
-PROTO_3:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["RemoveControlFromTab"]
   GETUPVAL R1 1
@@ -34,7 +24,7 @@ PROTO_3:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_3:
   GETTABLEKS R2 R0 K0 ["UserInputType"]
   GETIMPORT R3 K3 [Enum.UserInputType.MouseButton2]
   JUMPIFEQ R2 R3 [+2]
@@ -115,7 +105,7 @@ PROTO_4:
   SETTABLEKS R10 R9 K18 ["Action"]
   SETLIST R5 R6 4 [1]
   MOVE R4 R5
-  JUMP [+281]
+  JUMP [+278]
   GETUPVAL R5 3
   MOVE R6 R3
   CALL R5 1 1
@@ -124,7 +114,7 @@ PROTO_4:
   GETTABLEKS R8 R9 K28 ["TabControls"]
   GETTABLE R7 R8 R5
   GETTABLEKS R6 R7 K29 ["Controls"]
-  JUMPIFEQKNIL R1 [+137]
+  JUMPIFEQKNIL R1 [+134]
   GETTABLEKS R7 R1 K30 ["self"]
   GETTABLEKS R8 R1 K31 ["left"]
   GETTABLEKS R9 R1 K32 ["right"]
@@ -189,48 +179,44 @@ PROTO_4:
   MOVE R11 R4
   GETIMPORT R10 K44 [table.insert]
   CALL R10 2 0
-  GETIMPORT R10 K47 [pcall]
-  NEWCLOSURE R11 P2
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CALL R10 1 2
-  JUMPIFNOT R10 [+2]
-  MOVE R12 R11
-  JUMPIF R12 [+1]
-  LOADB R12 0
-  DUPTABLE R15 K39 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
-  LOADK R16 K48 ["Delete"]
-  SETTABLEKS R16 R15 K17 ["Id"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K36 ["Enabled"]
-  LOADK R16 K21 ["Option"]
-  SETTABLEKS R16 R15 K15 ["Type"]
-  JUMPIFNOT R12 [+7]
-  GETUPVAL R16 4
-  LOADK R18 K41 ["Plugin"]
-  LOADK R19 K49 ["DeleteSeparator"]
-  NAMECALL R16 R16 K42 ["getText"]
-  CALL R16 3 1
+  GETTABLE R12 R6 R7
+  GETTABLEKS R11 R12 K15 ["Type"]
+  JUMPIFEQKS R11 K24 ["Separator"] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  DUPTABLE R13 K39 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
+  LOADK R14 K46 ["Delete"]
+  SETTABLEKS R14 R13 K17 ["Id"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K36 ["Enabled"]
+  LOADK R14 K21 ["Option"]
+  SETTABLEKS R14 R13 K15 ["Type"]
+  JUMPIFNOT R10 [+7]
+  GETUPVAL R14 4
+  LOADK R16 K41 ["Plugin"]
+  LOADK R17 K47 ["DeleteSeparator"]
+  NAMECALL R14 R14 K42 ["getText"]
+  CALL R14 3 1
   JUMP [+6]
-  GETUPVAL R16 4
-  LOADK R18 K41 ["Plugin"]
-  LOADK R19 K50 ["DeleteTool"]
-  NAMECALL R16 R16 K42 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K37 ["Text"]
-  NEWCLOSURE R16 P3
+  GETUPVAL R14 4
+  LOADK R16 K41 ["Plugin"]
+  LOADK R17 K48 ["DeleteTool"]
+  NAMECALL R14 R14 K42 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K37 ["Text"]
+  NEWCLOSURE R14 P2
   CAPTURE UPVAL U2
   CAPTURE VAL R3
   CAPTURE VAL R7
-  SETTABLEKS R16 R15 K38 ["OnSelect"]
-  FASTCALL2 TABLE_INSERT R4 R15 [+4]
-  MOVE R14 R4
-  GETIMPORT R13 K44 [table.insert]
-  CALL R13 2 0
+  SETTABLEKS R14 R13 K38 ["OnSelect"]
+  FASTCALL2 TABLE_INSERT R4 R13 [+4]
+  MOVE R12 R4
+  GETIMPORT R11 K44 [table.insert]
+  CALL R11 2 0
   JUMP [+132]
   NEWTABLE R7 0 7
-  DUPTABLE R8 K52 [{"Id", "Enabled", "Type", "Action", "TextOnly"}]
-  LOADK R9 K53 ["AddTools"]
+  DUPTABLE R8 K50 [{"Id", "Enabled", "Type", "Action", "TextOnly"}]
+  LOADK R9 K51 ["AddTools"]
   SETTABLEKS R9 R8 K17 ["Id"]
   LOADB R9 1
   SETTABLEKS R9 R8 K36 ["Enabled"]
@@ -242,7 +228,7 @@ PROTO_4:
   DUPTABLE R11 K7 [{"Category", "ItemId"}]
   LOADK R12 K22 ["Actions"]
   SETTABLEKS R12 R11 K5 ["Category"]
-  LOADK R12 K53 ["AddTools"]
+  LOADK R12 K51 ["AddTools"]
   SETTABLEKS R12 R11 K6 ["ItemId"]
   CALL R9 2 1
   SETTABLEKS R9 R8 K18 ["Action"]
@@ -252,9 +238,9 @@ PROTO_4:
   LOADB R9 1
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K51 ["TextOnly"]
-  DUPTABLE R9 K54 [{"Id", "Enabled", "Type", "Action"}]
-  LOADK R10 K55 ["AddSeparator"]
+  SETTABLEKS R9 R8 K49 ["TextOnly"]
+  DUPTABLE R9 K52 [{"Id", "Enabled", "Type", "Action"}]
+  LOADK R10 K53 ["AddSeparator"]
   SETTABLEKS R10 R9 K17 ["Id"]
   LOADB R10 1
   SETTABLEKS R10 R9 K36 ["Enabled"]
@@ -266,7 +252,7 @@ PROTO_4:
   DUPTABLE R12 K7 [{"Category", "ItemId"}]
   LOADK R13 K22 ["Actions"]
   SETTABLEKS R13 R12 K5 ["Category"]
-  LOADK R13 K55 ["AddSeparator"]
+  LOADK R13 K53 ["AddSeparator"]
   SETTABLEKS R13 R12 K6 ["ItemId"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K18 ["Action"]
@@ -323,37 +309,37 @@ PROTO_4:
   SETTABLEKS R15 R14 K18 ["Action"]
   SETLIST R7 R8 7 [1]
   MOVE R4 R7
-  DUPTABLE R5 K57 [{"Type", "Children"}]
-  LOADK R6 K58 ["Column"]
+  DUPTABLE R5 K55 [{"Type", "Children"}]
+  LOADK R6 K56 ["Column"]
   SETTABLEKS R6 R5 K15 ["Type"]
-  SETTABLEKS R4 R5 K56 ["Children"]
+  SETTABLEKS R4 R5 K54 ["Children"]
   GETUPVAL R6 6
   NEWTABLE R7 0 1
   MOVE R8 R5
   SETLIST R7 R8 1 [1]
   MOVE R8 R2
-  DUPTABLE R9 K62 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  GETIMPORT R10 K65 [Vector2.new]
+  DUPTABLE R9 K60 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  GETIMPORT R10 K63 [Vector2.new]
   LOADN R11 0
   LOADN R12 0
   CALL R10 2 1
-  SETTABLEKS R10 R9 K59 ["SubjectAnchorPoint"]
-  GETIMPORT R10 K65 [Vector2.new]
+  SETTABLEKS R10 R9 K57 ["SubjectAnchorPoint"]
+  GETIMPORT R10 K63 [Vector2.new]
   LOADN R11 0
   LOADN R12 0
   CALL R10 2 1
-  SETTABLEKS R10 R9 K60 ["TargetAnchorPoint"]
-  GETIMPORT R10 K65 [Vector2.new]
-  GETTABLEKS R12 R0 K66 ["Position"]
-  GETTABLEKS R11 R12 K67 ["X"]
-  GETTABLEKS R13 R0 K66 ["Position"]
-  GETTABLEKS R12 R13 K68 ["Y"]
+  SETTABLEKS R10 R9 K58 ["TargetAnchorPoint"]
+  GETIMPORT R10 K63 [Vector2.new]
+  GETTABLEKS R12 R0 K64 ["Position"]
+  GETTABLEKS R11 R12 K65 ["X"]
+  GETTABLEKS R13 R0 K64 ["Position"]
+  GETTABLEKS R12 R13 K66 ["Y"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K61 ["Offset"]
+  SETTABLEKS R10 R9 K59 ["Offset"]
   CALL R6 3 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_4:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
@@ -432,7 +418,7 @@ MAIN:
   GETTABLEKS R15 R16 K25 ["Hooks"]
   GETTABLEKS R14 R15 K26 ["useMenu"]
   CALL R13 1 1
-  DUPCLOSURE R14 K27 [PROTO_5]
+  DUPCLOSURE R14 K27 [PROTO_4]
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R11

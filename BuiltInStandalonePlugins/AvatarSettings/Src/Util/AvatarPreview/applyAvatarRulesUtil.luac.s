@@ -81,22 +81,52 @@ PROTO_3:
   GETUPVAL R4 1
   NAMECALL R2 R0 K5 ["ApplyDescriptionReset"]
   CALL R2 2 0
-  GETUPVAL R5 2
+  GETUPVAL R2 2
+  CALL R2 0 1
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R5 3
   GETTABLEKS R4 R5 K6 ["avatarRules"]
   CALL R4 0 -1
   NAMECALL R2 R0 K7 ["ApplyAvatarRules"]
   CALL R2 -1 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K8 ["alignHumanoid"]
-  MOVE R3 R0
-  CALL R2 1 0
+  JUMP [+37]
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K9 ["setCollisionBoxTransparency"]
+  GETTABLEKS R2 R3 K6 ["avatarRules"]
+  CALL R2 0 1
+  NAMECALL R2 R2 K8 ["Clone"]
+  CALL R2 1 1
+  LOADK R5 K9 ["AvatarAccessoryRules"]
+  NAMECALL R3 R2 K10 ["FindFirstChildWhichIsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+21]
+  GETTABLEKS R4 R3 K11 ["LimitMethod"]
+  GETIMPORT R5 K15 [Enum.AvatarSettingsAccessoryLimitMethod.Scale]
+  JUMPIFNOTEQ R4 R5 [+6]
+  GETIMPORT R4 K17 [Enum.AvatarSettingsAccessoryLimitMethod.PreviewScale]
+  SETTABLEKS R4 R3 K11 ["LimitMethod"]
+  JUMP [+10]
+  GETTABLEKS R4 R3 K11 ["LimitMethod"]
+  GETIMPORT R5 K19 [Enum.AvatarSettingsAccessoryLimitMethod.Remove]
+  JUMPIFNOTEQ R4 R5 [+5]
+  GETIMPORT R4 K21 [Enum.AvatarSettingsAccessoryLimitMethod.PreviewRemove]
+  SETTABLEKS R4 R3 K11 ["LimitMethod"]
+  MOVE R6 R2
+  NAMECALL R4 R0 K7 ["ApplyAvatarRules"]
+  CALL R4 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K22 ["alignHumanoid"]
   MOVE R3 R0
   CALL R2 1 0
   GETUPVAL R3 4
-  GETTABLEKS R2 R3 K10 ["loadAvatar"]
+  GETTABLEKS R2 R3 K23 ["setCollisionBoxTransparency"]
   MOVE R3 R0
+  CALL R2 1 0
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K24 ["loadAvatar"]
+  MOVE R3 R0
+  CALL R2 1 0
+  GETUPVAL R2 6
+  GETTABLEKS R3 R0 K0 ["Parent"]
   CALL R2 1 0
   RETURN R0 0
 
@@ -109,6 +139,8 @@ PROTO_4:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
   MOVE R4 R0
   CALL R2 2 0
   RETURN R0 0
@@ -145,34 +177,48 @@ MAIN:
   GETTABLEKS R9 R0 K6 ["Src"]
   GETTABLEKS R8 R9 K7 ["Util"]
   GETTABLEKS R7 R8 K8 ["AvatarPreview"]
-  GETTABLEKS R6 R7 K16 ["horizontalAligner"]
+  GETTABLEKS R6 R7 K16 ["highlightAccessories"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R10 R0 K6 ["Src"]
   GETTABLEKS R9 R10 K7 ["Util"]
   GETTABLEKS R8 R9 K8 ["AvatarPreview"]
-  GETTABLEKS R7 R8 K17 ["previewAnimationManager"]
+  GETTABLEKS R7 R8 K17 ["horizontalAligner"]
   CALL R6 1 1
-  NEWTABLE R7 4 0
-  LOADNIL R8
-  NEWCLOSURE R9 P0
-  CAPTURE REF R8
-  SETTABLEKS R9 R7 K18 ["getCurrentSettingsPage"]
-  NEWCLOSURE R9 P1
-  CAPTURE REF R8
-  CAPTURE VAL R6
-  SETTABLEKS R9 R7 K19 ["setCurrentSettingsPage"]
-  NEWCLOSURE R9 P2
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Src"]
+  GETTABLEKS R10 R11 K7 ["Util"]
+  GETTABLEKS R9 R10 K8 ["AvatarPreview"]
+  GETTABLEKS R8 R9 K18 ["isAccessoryModePlayerChoice"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Src"]
+  GETTABLEKS R11 R12 K7 ["Util"]
+  GETTABLEKS R10 R11 K8 ["AvatarPreview"]
+  GETTABLEKS R9 R10 K19 ["previewAnimationManager"]
+  CALL R8 1 1
+  NEWTABLE R9 4 0
+  LOADNIL R10
+  NEWCLOSURE R11 P0
+  CAPTURE REF R10
+  SETTABLEKS R11 R9 K20 ["getCurrentSettingsPage"]
+  NEWCLOSURE R11 P1
+  CAPTURE REF R10
+  CAPTURE VAL R8
+  SETTABLEKS R11 R9 K21 ["setCurrentSettingsPage"]
+  NEWCLOSURE R11 P2
   CAPTURE VAL R4
-  CAPTURE REF R8
+  CAPTURE REF R10
   CAPTURE VAL R1
-  SETTABLEKS R9 R7 K20 ["setCollisionBoxTransparency"]
-  DUPCLOSURE R9 K21 [PROTO_4]
+  SETTABLEKS R11 R9 K22 ["setCollisionBoxTransparency"]
+  DUPCLOSURE R11 K23 [PROTO_4]
   CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  CAPTURE VAL R7
   CAPTURE VAL R6
-  SETTABLEKS R9 R7 K22 ["applyAvatarRules"]
-  CLOSEUPVALS R8
-  RETURN R7 1
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  SETTABLEKS R11 R9 K24 ["applyAvatarRules"]
+  CLOSEUPVALS R10
+  RETURN R9 1

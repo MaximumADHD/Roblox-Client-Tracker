@@ -46,6 +46,8 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+17]
   LOADB R1 0
   GETIMPORT R2 K3 [Enum.AudioFilterType.LowShelf]
   JUMPIFEQ R0 R2 [+12]
@@ -53,6 +55,14 @@ PROTO_3:
   GETIMPORT R2 K5 [Enum.AudioFilterType.HighShelf]
   JUMPIFEQ R0 R2 [+7]
   GETIMPORT R2 K7 [Enum.AudioFilterType.Lowpass6dB]
+  JUMPIFNOTEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+  LOADB R1 0
+  GETIMPORT R2 K3 [Enum.AudioFilterType.LowShelf]
+  JUMPIFEQ R0 R2 [+7]
+  GETIMPORT R2 K5 [Enum.AudioFilterType.HighShelf]
   JUMPIFNOTEQ R0 R2 [+2]
   LOADB R1 0 +1
   LOADB R1 1
@@ -109,89 +119,103 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Src"]
   GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
-  NEWTABLE R2 8 0
-  NEWTABLE R3 0 12
-  DUPTABLE R4 K10 [{"Id", "Value"}]
-  LOADK R5 K11 ["Peak"]
-  SETTABLEKS R5 R4 K8 ["Id"]
-  GETIMPORT R5 K14 [Enum.AudioFilterType.Peak]
-  SETTABLEKS R5 R4 K9 ["Value"]
-  DUPTABLE R5 K10 [{"Id", "Value"}]
-  LOADK R6 K15 ["LowShelf"]
-  SETTABLEKS R6 R5 K8 ["Id"]
-  GETIMPORT R6 K16 [Enum.AudioFilterType.LowShelf]
-  SETTABLEKS R6 R5 K9 ["Value"]
-  DUPTABLE R6 K10 [{"Id", "Value"}]
-  LOADK R7 K17 ["HighShelf"]
-  SETTABLEKS R7 R6 K8 ["Id"]
-  GETIMPORT R7 K18 [Enum.AudioFilterType.HighShelf]
-  SETTABLEKS R7 R6 K9 ["Value"]
-  DUPTABLE R7 K10 [{"Id", "Value"}]
-  LOADK R8 K19 ["Lowpass6dB"]
-  SETTABLEKS R8 R7 K8 ["Id"]
-  GETIMPORT R8 K20 [Enum.AudioFilterType.Lowpass6dB]
-  SETTABLEKS R8 R7 K9 ["Value"]
-  DUPTABLE R8 K10 [{"Id", "Value"}]
-  LOADK R9 K21 ["Lowpass12dB"]
-  SETTABLEKS R9 R8 K8 ["Id"]
-  GETIMPORT R9 K22 [Enum.AudioFilterType.Lowpass12dB]
-  SETTABLEKS R9 R8 K9 ["Value"]
-  DUPTABLE R9 K10 [{"Id", "Value"}]
-  LOADK R10 K23 ["Lowpass24dB"]
-  SETTABLEKS R10 R9 K8 ["Id"]
-  GETIMPORT R10 K24 [Enum.AudioFilterType.Lowpass24dB]
-  SETTABLEKS R10 R9 K9 ["Value"]
-  DUPTABLE R10 K10 [{"Id", "Value"}]
-  LOADK R11 K25 ["Lowpass48dB"]
-  SETTABLEKS R11 R10 K8 ["Id"]
-  GETIMPORT R11 K26 [Enum.AudioFilterType.Lowpass48dB]
-  SETTABLEKS R11 R10 K9 ["Value"]
-  DUPTABLE R11 K10 [{"Id", "Value"}]
-  LOADK R12 K27 ["Highpass12dB"]
-  SETTABLEKS R12 R11 K8 ["Id"]
-  GETIMPORT R12 K28 [Enum.AudioFilterType.Highpass12dB]
-  SETTABLEKS R12 R11 K9 ["Value"]
-  DUPTABLE R12 K10 [{"Id", "Value"}]
-  LOADK R13 K29 ["Highpass24dB"]
-  SETTABLEKS R13 R12 K8 ["Id"]
-  GETIMPORT R13 K30 [Enum.AudioFilterType.Highpass24dB]
-  SETTABLEKS R13 R12 K9 ["Value"]
-  DUPTABLE R13 K10 [{"Id", "Value"}]
-  LOADK R14 K31 ["Highpass48dB"]
-  SETTABLEKS R14 R13 K8 ["Id"]
-  GETIMPORT R14 K32 [Enum.AudioFilterType.Highpass48dB]
-  SETTABLEKS R14 R13 K9 ["Value"]
-  DUPTABLE R14 K10 [{"Id", "Value"}]
-  LOADK R15 K33 ["Bandpass"]
-  SETTABLEKS R15 R14 K8 ["Id"]
-  GETIMPORT R15 K34 [Enum.AudioFilterType.Bandpass]
-  SETTABLEKS R15 R14 K9 ["Value"]
-  DUPTABLE R15 K10 [{"Id", "Value"}]
-  LOADK R16 K35 ["Notch"]
-  SETTABLEKS R16 R15 K8 ["Id"]
-  GETIMPORT R16 K36 [Enum.AudioFilterType.Notch]
-  SETTABLEKS R16 R15 K9 ["Value"]
-  SETLIST R3 R4 12 [1]
-  GETIMPORT R4 K39 [table.clone]
-  MOVE R5 R3
-  CALL R4 1 1
-  GETIMPORT R5 K39 [table.clone]
-  MOVE R6 R3
-  CALL R5 1 1
-  DUPCLOSURE R6 K40 [PROTO_0]
-  CAPTURE VAL R3
-  SETTABLEKS R6 R2 K41 ["filterTypeToId"]
-  DUPCLOSURE R6 K42 [PROTO_1]
-  CAPTURE VAL R3
-  SETTABLEKS R6 R2 K43 ["idToFilterType"]
-  DUPCLOSURE R6 K44 [PROTO_2]
-  SETTABLEKS R6 R2 K45 ["hasGain"]
-  DUPCLOSURE R6 K46 [PROTO_3]
-  SETTABLEKS R6 R2 K47 ["hasQ"]
-  DUPCLOSURE R6 K48 [PROTO_4]
-  CAPTURE VAL R4
-  SETTABLEKS R6 R2 K49 ["getDropdownItems"]
-  DUPCLOSURE R6 K50 [PROTO_6]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Bin"]
+  GETTABLEKS R4 R5 K9 ["Common"]
+  GETTABLEKS R3 R4 K10 ["defineLuaFlags"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K11 ["getFFlagAudioEqualizerEditorSupportsLowpass6dB"]
+  CALL R3 0 1
+  NEWTABLE R4 8 0
+  NEWTABLE R5 0 11
+  DUPTABLE R6 K14 [{"Id", "Value"}]
+  LOADK R7 K15 ["Peak"]
+  SETTABLEKS R7 R6 K12 ["Id"]
+  GETIMPORT R7 K18 [Enum.AudioFilterType.Peak]
+  SETTABLEKS R7 R6 K13 ["Value"]
+  DUPTABLE R7 K14 [{"Id", "Value"}]
+  LOADK R8 K19 ["LowShelf"]
+  SETTABLEKS R8 R7 K12 ["Id"]
+  GETIMPORT R8 K20 [Enum.AudioFilterType.LowShelf]
+  SETTABLEKS R8 R7 K13 ["Value"]
+  DUPTABLE R8 K14 [{"Id", "Value"}]
+  LOADK R9 K21 ["HighShelf"]
+  SETTABLEKS R9 R8 K12 ["Id"]
+  GETIMPORT R9 K22 [Enum.AudioFilterType.HighShelf]
+  SETTABLEKS R9 R8 K13 ["Value"]
+  DUPTABLE R9 K14 [{"Id", "Value"}]
+  LOADK R10 K23 ["Lowpass12dB"]
+  SETTABLEKS R10 R9 K12 ["Id"]
+  GETIMPORT R10 K24 [Enum.AudioFilterType.Lowpass12dB]
+  SETTABLEKS R10 R9 K13 ["Value"]
+  DUPTABLE R10 K14 [{"Id", "Value"}]
+  LOADK R11 K25 ["Lowpass24dB"]
+  SETTABLEKS R11 R10 K12 ["Id"]
+  GETIMPORT R11 K26 [Enum.AudioFilterType.Lowpass24dB]
+  SETTABLEKS R11 R10 K13 ["Value"]
+  DUPTABLE R11 K14 [{"Id", "Value"}]
+  LOADK R12 K27 ["Lowpass48dB"]
+  SETTABLEKS R12 R11 K12 ["Id"]
+  GETIMPORT R12 K28 [Enum.AudioFilterType.Lowpass48dB]
+  SETTABLEKS R12 R11 K13 ["Value"]
+  DUPTABLE R12 K14 [{"Id", "Value"}]
+  LOADK R13 K29 ["Highpass12dB"]
+  SETTABLEKS R13 R12 K12 ["Id"]
+  GETIMPORT R13 K30 [Enum.AudioFilterType.Highpass12dB]
+  SETTABLEKS R13 R12 K13 ["Value"]
+  DUPTABLE R13 K14 [{"Id", "Value"}]
+  LOADK R14 K31 ["Highpass24dB"]
+  SETTABLEKS R14 R13 K12 ["Id"]
+  GETIMPORT R14 K32 [Enum.AudioFilterType.Highpass24dB]
+  SETTABLEKS R14 R13 K13 ["Value"]
+  DUPTABLE R14 K14 [{"Id", "Value"}]
+  LOADK R15 K33 ["Highpass48dB"]
+  SETTABLEKS R15 R14 K12 ["Id"]
+  GETIMPORT R15 K34 [Enum.AudioFilterType.Highpass48dB]
+  SETTABLEKS R15 R14 K13 ["Value"]
+  DUPTABLE R15 K14 [{"Id", "Value"}]
+  LOADK R16 K35 ["Bandpass"]
+  SETTABLEKS R16 R15 K12 ["Id"]
+  GETIMPORT R16 K36 [Enum.AudioFilterType.Bandpass]
+  SETTABLEKS R16 R15 K13 ["Value"]
+  DUPTABLE R16 K14 [{"Id", "Value"}]
+  LOADK R17 K37 ["Notch"]
+  SETTABLEKS R17 R16 K12 ["Id"]
+  GETIMPORT R17 K38 [Enum.AudioFilterType.Notch]
+  SETTABLEKS R17 R16 K13 ["Value"]
+  SETLIST R5 R6 11 [1]
+  JUMPIFNOT R3 [+15]
+  LOADN R8 4
+  DUPTABLE R9 K14 [{"Id", "Value"}]
+  LOADK R10 K39 ["Lowpass6dB"]
+  SETTABLEKS R10 R9 K12 ["Id"]
+  GETIMPORT R10 K40 [Enum.AudioFilterType.Lowpass6dB]
+  SETTABLEKS R10 R9 K13 ["Value"]
+  FASTCALL3 TABLE_INSERT R5 R8 R9
+  MOVE R7 R5
+  GETIMPORT R6 K43 [table.insert]
+  CALL R6 3 0
+  GETIMPORT R6 K45 [table.clone]
+  MOVE R7 R5
+  CALL R6 1 1
+  GETIMPORT R7 K45 [table.clone]
+  MOVE R8 R5
+  CALL R7 1 1
+  DUPCLOSURE R8 K46 [PROTO_0]
   CAPTURE VAL R5
-  SETTABLEKS R6 R2 K51 ["getContextMenuItems"]
-  RETURN R2 1
+  SETTABLEKS R8 R4 K47 ["filterTypeToId"]
+  DUPCLOSURE R8 K48 [PROTO_1]
+  CAPTURE VAL R5
+  SETTABLEKS R8 R4 K49 ["idToFilterType"]
+  DUPCLOSURE R8 K50 [PROTO_2]
+  SETTABLEKS R8 R4 K51 ["hasGain"]
+  DUPCLOSURE R8 K52 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R8 R4 K53 ["hasQ"]
+  DUPCLOSURE R8 K54 [PROTO_4]
+  CAPTURE VAL R6
+  SETTABLEKS R8 R4 K55 ["getDropdownItems"]
+  DUPCLOSURE R8 K56 [PROTO_6]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R4 K57 ["getContextMenuItems"]
+  RETURN R4 1

@@ -70,15 +70,5 @@ MAIN:
   LOADN R3 0
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K18 ["Collab8766_LogCollabSearchItemClickedEvent"]
-  LOADB R3 0
-  NAMECALL R0 R0 K5 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K19 ["CollaboratorSearchItemClickedEventThrottleHundrethsPercent"]
-  LOADN R3 0
-  NAMECALL R0 R0 K3 ["DefineFastInt"]
-  CALL R0 3 0
   LOADNIL R0
   RETURN R0 1

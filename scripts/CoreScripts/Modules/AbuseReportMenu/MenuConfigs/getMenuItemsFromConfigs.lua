@@ -19,7 +19,6 @@ local ButtonVariant = Foundation.Enums.ButtonVariant
 local Images = UIBlox.App.ImageSet.Images
 
 local GetFFlagAddAbuseReportMenuCoreScriptsProvider = require(root.Flags.GetFFlagAddAbuseReportMenuCoreScriptsProvider)
-local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 
 local function getMenuItemsFromConfigs(
 	menuUIStates: Types.ReportPersonState | Types.ReportExperienceState,
@@ -31,15 +30,6 @@ local function getMenuItemsFromConfigs(
 	local sizings = getMenuItemSizings()
 	local menuItems = {}
 	local localizedText = useLocalization(Constants.localizationKeys)
-
-	local onMenuOpenChange
-	if FFlagHideShortcutsOnReportDropdown then
-		onMenuOpenChange = React.useCallback(function(isOpen)
-			if utilityProps.onDropdownMenuOpenChange then
-				utilityProps.onDropdownMenuOpenChange(isOpen)
-			end
-		end, { utilityProps.onDropdownMenuOpenChange })
-	end
 
 	for i, config in configList do
 		if config.getIsVisible(menuUIStates) then
@@ -112,7 +102,6 @@ local function getMenuItemsFromConfigs(
 					onSelect = function(selectedItem)
 						config.onUpdateSelectedOption(selectedItem, menuUIStates, dispatchUIStates, utilityProps)
 					end,
-					onMenuOpenChange = onMenuOpenChange,
 					menuContainerWidth = utilityProps.menuWidth,
 					readonlyValue = localizedText[config.readonlyValue],
 					selections = config.getMenuItems(menuUIStates),
@@ -131,7 +120,6 @@ local function getMenuItemsFromConfigs(
 						}
 						config.onUpdateSelectedOption(selectedItem, menuUIStates, dispatchUIStates, utilityProps)
 					end,
-					onMenuOpenChange = onMenuOpenChange,
 					menuContainerWidth = utilityProps.menuWidth,
 					selectorHeight = Constants.MenuItemHeight,
 					selectedValue = if config.getSelectedValue

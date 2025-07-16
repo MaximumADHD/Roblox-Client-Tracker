@@ -273,7 +273,7 @@ PROTO_11:
   SETTABLEKS R27 R26 K18 ["ZIndex"]
   GETUPVAL R28 0
   GETTABLEKS R27 R28 K24 ["Tag"]
-  LOADK R28 K30 ["FindReplaceAll-SidePadM X-FitY X-Transparent data-testid=WidgetControlsContainer"]
+  LOADK R28 K30 ["X-FitY X-Transparent data-testid=WidgetControlsContainer"]
   SETTABLE R28 R26 R27
   DUPTABLE R27 K33 [{"NavigationControls", "ReplaceControls"}]
   GETUPVAL R28 7

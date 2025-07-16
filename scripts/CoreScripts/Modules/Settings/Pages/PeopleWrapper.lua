@@ -67,12 +67,7 @@ local function createPeoplePage()
 	PeoplePage.TabHeader.TabLabel.Title.Text = locales:Format(Constants.PEOPLEPAGE.TAB_HEADER.TEXT)
 
 	-- Register the SettingsHub instance with the PeopleService
-	local SettingsHubService = PeopleService.getService("SettingsHubService")
-	SettingsHubService.register(PeoplePage)
-
-	function PeoplePage:CreateMenuButtonsContainer()
-		SettingsHubService.get().setShowMenuButtonsContainer(true)
-	end
+	PeopleService.SettingsHubService.register(PeoplePage)
 
 	------ PAGE CUSTOMIZATION -------	
 	local People = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
@@ -100,9 +95,6 @@ local function createPeoplePage()
 
 	local tree = ReactRoblox.createRoot(PeoplePage.Page)
 	tree:render(People)
-
-	PeoplePage.Page.Size = UDim2.new(1, 0, 0, 0)
-	PeoplePage.Page.AutomaticSize = Enum.AutomaticSize.Y
 
 	return PeoplePage
 end

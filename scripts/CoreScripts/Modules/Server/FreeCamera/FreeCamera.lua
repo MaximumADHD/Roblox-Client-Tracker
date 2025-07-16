@@ -21,7 +21,6 @@ local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
-local Lighting = game:GetService("Lighting")
 
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
@@ -36,8 +35,6 @@ Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 		Camera = newCamera
 	end
 end)
-
-local FreecamDepthOfField = nil
 
 local FFlagUserExitFreecamBreaksWithShiftlock
 do
@@ -103,14 +100,6 @@ do
 	FFlagUserFreecamGuiDestabilization = success and result
 end
 
-local FFlagUserFreecamDepthOfFieldEffect
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFreecamDepthOfFieldEffect")
-	end)
-	FFlagUserFreecamDepthOfFieldEffect = success and result
-end
-
 ------------------------------------------------------------------------
 
 local FREECAM_ENABLED_ATTRIBUTE_NAME = "FreecamEnabled"
@@ -124,9 +113,6 @@ local FREECAM_TILT_RESET_KB = {
 local FREECAM_TILT_RESET_GP = {
 	[Enum.KeyCode.ButtonL1] = true,
 	[Enum.KeyCode.ButtonR1] = true
-}
-local FREECAM_DOF_TOGGLE = {
-	[Enum.KeyCode.BackSlash] = true
 }
 
 local NAV_GAIN = Vector3.new(1, 1, 1)*64
@@ -161,7 +147,6 @@ local lastResetTime = 0
 local DOUBLE_TAP_TIME_THRESHOLD = 0.25
 local DOUBLE_TAP_DEBOUNCE_TIME = 0.1
 
-local postEffects = {}
 ------------------------------------------------------------------------
 
 local Spring = {} do
@@ -284,9 +269,6 @@ local Input = {} do
 		B = 0,
 		N = 0,
 		M = 0,
-		BackSlash = 0,
-		Minus = 0,
-		Equals = 0
 	}
 
 	local mouse = {
@@ -315,28 +297,6 @@ local Input = {} do
 	local ROLL_ADJ_SPEED      = 0.75
 	local ROLL_MIN_SPEED      = 0.01
 	local ROLL_MAX_SPEED      = 4.0
-	local DoFConstants = {
-		FarIntensity = {
-			ADJ = 0.1,
-			MIN = 0.0,
-			MAX = 1.0,
-		},
-		NearIntensity = {
-			ADJ = 0.1,
-			MIN = 0.0,
-			MAX = 1.0,
-		},
-		FocusDistance = {
-			ADJ = 20.0,
-			MIN = 0.0,
-			MAX = 200.0,
-		},
-		FocusRadius = {
-			ADJ = 5.0,
-			MIN = 0.0,
-			MAX = 50.0,
-		},
-	}
 
 	local navSpeed = 1
 	local rollSpeed = 1
@@ -407,17 +367,8 @@ local Input = {} do
 
 		return (kGamepad + kKeyboard)*rollSpeed
 	end
-
+	
 	function Input.SpringControl(dt)
-		if FFlagUserFreecamDepthOfFieldEffect then 
-			local shiftIsDown = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
-			local ctrlIsDown = UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) or UserInputService:IsKeyDown(Enum.KeyCode.RightControl)
-
-			if shiftIsDown or ctrlIsDown then
-				return -- reserve Shift+Keybinds for other actions, in this case Shift+Brackets for Depth of Field controls
-			end
-		end
-
 		VEL_STIFFNESS = clamp(VEL_STIFFNESS + dt*(keyboard.RightBracket - keyboard.LeftBracket)*VEL_ADJ_STIFFNESS, VEL_MIN_STIFFNESS, VEL_MAX_STIFFNESS)
 		velSpring:SetFreq(VEL_STIFFNESS)
 
@@ -431,45 +382,7 @@ local Input = {} do
 		rollSpring:SetFreq(ROLL_STIFFNESS)
 	end
 
-	function Input.DoF(dt)
-		local shiftIsDown = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
-		local ctrlIsDown = UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) or UserInputService:IsKeyDown(Enum.KeyCode.RightControl)
-
-		if shiftIsDown then
-			FreecamDepthOfField.FarIntensity = clamp(
-				FreecamDepthOfField.FarIntensity + dt * (keyboard.RightBracket - keyboard.LeftBracket) * DoFConstants.FarIntensity.ADJ,
-				DoFConstants.FarIntensity.MIN,
-				DoFConstants.FarIntensity.MAX
-			)
-			FreecamDepthOfField.InFocusRadius = clamp(
-				FreecamDepthOfField.InFocusRadius + dt * (keyboard.Equals - keyboard.Minus) * DoFConstants.FocusRadius.ADJ,
-				DoFConstants.FocusRadius.MIN,
-				DoFConstants.FocusRadius.MAX
-			)
-		elseif ctrlIsDown then
-			FreecamDepthOfField.NearIntensity = clamp(
-				FreecamDepthOfField.NearIntensity + dt * (keyboard.RightBracket - keyboard.LeftBracket) * DoFConstants.NearIntensity.ADJ,
-				DoFConstants.NearIntensity.MIN,
-				DoFConstants.NearIntensity.MAX
-			)
-		else
-			FreecamDepthOfField.FocusDistance = clamp(
-				FreecamDepthOfField.FocusDistance + dt * (keyboard.Equals - keyboard.Minus) * DoFConstants.FocusDistance.ADJ,
-				DoFConstants.FocusDistance.MIN,
-				DoFConstants.FocusDistance.MAX
-			)
-		end
-	end
-
 	do
-		local function resetKeys(keys, table)
-			for keyEnum, _ in pairs(keys) do
-				if table[keyEnum.Name] then 
-					table[keyEnum.Name] = 0
-				end
-			end
-		end
-
 		local function handleDoubleTapReset(keyCode)
 			local currentTime = os.clock()
 
@@ -480,70 +393,22 @@ local Input = {} do
 				if (currentTime - lastResetTime) >= DOUBLE_TAP_DEBOUNCE_TIME then
 					cameraRot = Vector3.new(cameraRot.x, cameraRot.y, 0)
 					rollSpring:Reset(0)
-					if FFlagUserFreecamDepthOfFieldEffect then 
-						resetKeys(FREECAM_TILT_RESET_GP, gamepad)
-						resetKeys(FREECAM_TILT_RESET_KB, keyboard)
-					else 
-						gamepad.ButtonL1 = 0
-						gamepad.ButtonR1 = 0
-						keyboard.C = 0
-						keyboard.Z = 0
-					end
+					gamepad.ButtonL1 = 0
+					gamepad.ButtonR1 = 0
+					keyboard.C = 0
+					keyboard.Z = 0
 					lastResetTime = currentTime
 				end
 			end
 			lastPressTime[keyCode] = currentTime
 		end
-
+		
 		local function Keypress(action, state, input)
 			keyboard[input.KeyCode.Name] = state == Enum.UserInputState.Begin and 1 or 0
 
 			if FFlagUserFreecamTiltControl then
 				if FREECAM_TILT_RESET_KB[input.KeyCode] and input.UserInputState == Enum.UserInputState.Begin then
 					handleDoubleTapReset(input.KeyCode)
-				end
-			end
-
-			if FFlagUserFreecamDepthOfFieldEffect then
-				if FREECAM_DOF_TOGGLE[input.KeyCode] and input.UserInputState == Enum.UserInputState.Begin then
-					if not FreecamDepthOfField.Enabled then
-						postEffects = {}
-						-- Disable all existing DepthOfFieldEffects to be controlled by custom Freecam DoF.
-						for _, effect in ipairs(Camera:GetChildren()) do
-							if effect:IsA("DepthOfFieldEffect") and effect.Enabled then
-								postEffects[#postEffects + 1] = effect
-								effect.Enabled = false
-							end
-						end
-						for _, effect in ipairs(Lighting:GetChildren()) do
-							if effect:IsA("DepthOfFieldEffect") and effect.Enabled then
-								postEffects[#postEffects + 1] = effect
-								effect.Enabled = false
-							end
-						end
-						Camera.ChildAdded:Connect(function(child)
-							if child:IsA("DepthOfFieldEffect") and child.Enabled then
-								postEffects[#postEffects + 1] = child
-								child.Enabled = false
-							end
-						end)
-						Lighting.ChildAdded:Connect(function(child)
-							if child:IsA("DepthOfFieldEffect") and child.Enabled then
-								postEffects[#postEffects + 1] = child
-								child.Enabled = false
-							end
-						end)
-					else
-						-- Re-enable all existing DepthOfFieldEffects when custom Freecam DoF is off.
-						for _, effect in ipairs(postEffects) do
-							if effect.Parent then
-								effect.Enabled = true
-							end
-						end
-						postEffects = {}
-					end
-					FreecamDepthOfField.Enabled = not FreecamDepthOfField.Enabled
-					resetKeys(FREECAM_DOF_TOGGLE, keyboard)
 				end
 			end
 
@@ -638,12 +503,6 @@ local Input = {} do
 					)
 				end
 			end
-			if FFlagUserFreecamDepthOfFieldEffect then
-				ContextActionService:BindActionAtPriority("FreecamKeyboardDoFToggle", Keypress, false, INPUT_PRIORITY, Enum.KeyCode.BackSlash)
-				ContextActionService:BindActionAtPriority("FreecamKeyboardDoFControls", Keypress, false, INPUT_PRIORITY,
-					Enum.KeyCode.Minus, Enum.KeyCode.Equals
-				)
-			end
 			ContextActionService:BindActionAtPriority("FreecamMousePan",          MousePan,   false, INPUT_PRIORITY, Enum.UserInputType.MouseMovement)
 			ContextActionService:BindActionAtPriority("FreecamMouseWheel",        MouseWheel, false, INPUT_PRIORITY, Enum.UserInputType.MouseWheel)
 			ContextActionService:BindActionAtPriority("FreecamGamepadButton",     GpButton,   false, INPUT_PRIORITY, Enum.KeyCode.ButtonX, Enum.KeyCode.ButtonY)
@@ -675,10 +534,6 @@ local Input = {} do
 					ContextActionService:UnbindAction("FreecamKeyboardSmoothnessControl")
 				end
 			end
-			if FFlagUserFreecamDepthOfFieldEffect then
-				ContextActionService:UnbindAction("FreecamKeyboardDoFToggle")
-				ContextActionService:UnbindAction("FreecamKeyboardDoFControls")
-			end
 			ContextActionService:UnbindAction("FreecamMousePan")
 			ContextActionService:UnbindAction("FreecamMouseWheel")
 			ContextActionService:UnbindAction("FreecamGamepadButton")
@@ -693,12 +548,6 @@ end
 local function StepFreecam(dt)
 	if FFlagUserFreecamSmoothnessControl then
 		Input.SpringControl(dt)
-	end
-
-	if FFlagUserFreecamDepthOfFieldEffect then
-		if FreecamDepthOfField and FreecamDepthOfField.Parent then
-			Input.DoF(dt)
-		end
 	end
 
 	local vel = velSpring:Update(dt, Input.Vel(dt))
@@ -884,16 +733,6 @@ local function StartFreecam()
 	end
 
 	PlayerState.Push()
-
-	if FFlagUserFreecamDepthOfFieldEffect then
-		if not FreecamDepthOfField or not FreecamDepthOfField.Parent then 
-			FreecamDepthOfField = Instance.new("DepthOfFieldEffect")
-			FreecamDepthOfField.Enabled = false
-			FreecamDepthOfField.Name = "FreecamDepthOfField"
-			FreecamDepthOfField.Parent = Camera
-		end
-	end
-
 	RunService:BindToRenderStep("Freecam", Enum.RenderPriority.Camera.Value, StepFreecam)
 	Input.StartCapture()
 end
@@ -902,20 +741,6 @@ local function StopFreecam()
 	if not FFlagUserFreecamGuiDestabilization then
 		if FFlagUserShowGuiHideToggles then
 			script:SetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME, false)
-		end
-	end
-
-	if FFlagUserFreecamDepthOfFieldEffect then
-		if FreecamDepthOfField and FreecamDepthOfField.Parent then
-			if FreecamDepthOfField.Enabled then 
-				for _, effect in ipairs(postEffects) do 
-					if effect.Parent then 
-						effect.Enabled = true
-					end
-				end
-				postEffects = {}
-			end
-			FreecamDepthOfField.Enabled = false
 		end
 	end
 

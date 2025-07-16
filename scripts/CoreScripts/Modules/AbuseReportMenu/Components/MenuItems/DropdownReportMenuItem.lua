@@ -9,8 +9,6 @@ local ReportMenuItem = require(root.Components.MenuItems.ReportMenuItem)
 local useStyle = UIBlox.Core.Style.useStyle
 local getMenuItemSizings = require(root.Utility.getMenuItemSizings)
 
-local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
-
 local Cryo = require(CorePackages.Packages.Cryo)
 
 type Props = {
@@ -58,7 +56,6 @@ local function DropdownReportMenuItem(props: any)
 			cellDatas = Cryo.List.map(props.selections, function(item)
 				return { text = item }
 			end),
-			onMenuOpenChange = if FFlagHideShortcutsOnReportDropdown then props.onMenuOpenChange else nil,
 		})
 
 	return React.createElement(ReportMenuItem, {

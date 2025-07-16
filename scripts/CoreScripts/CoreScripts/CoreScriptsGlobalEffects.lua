@@ -14,6 +14,7 @@ local DeviceTypeEnum = RobloxAppEnums.DeviceType
 local useLogInputTypeChanged = require(CorePackages.Workspace.Packages.UiShellEvents).useLogInputTypeChanged
 local useLogOrientationChanged = require(CorePackages.Workspace.Packages.UiShellEvents).useLogOrientationChanged
 
+local GetFFlagLogInputTypeChanged = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLogInputTypeChanged
 local GetFFlagLogOrientationChanged = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLogOrientationChanged
 local EventIngestService = game:GetService("EventIngestService")
 local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
@@ -22,10 +23,12 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeatur
 
 -- Mount this at the root to sit persistently while in-experience.
 local function CoreScriptsGlobalEffects(props)
-	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-		useLogInputTypeChanged(eventIngest, AnalyticsService:GetPlaySessionId())
-	else 
-		useLogInputTypeChanged(eventIngest)
+	if GetFFlagLogInputTypeChanged() then
+		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+			useLogInputTypeChanged(eventIngest, AnalyticsService:GetPlaySessionId())
+		else 
+			useLogInputTypeChanged(eventIngest)
+		end
 	end
 
 	if GetFFlagLogOrientationChanged() then

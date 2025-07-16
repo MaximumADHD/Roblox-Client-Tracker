@@ -49,24 +49,6 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
-  GETIMPORT R3 K1 [settings]
-  CALL R3 0 1
-  GETTABLEKS R2 R3 K2 ["Studio"]
-  GETTABLEKS R1 R2 K3 ["Theme"]
-  GETTABLEKS R0 R1 K4 ["Name"]
-  RETURN R0 1
-
-PROTO_4:
-  GETIMPORT R0 K1 [pcall]
-  DUPCLOSURE R1 K2 [PROTO_3]
-  CALL R0 1 2
-  JUMPIFNOT R0 [+2]
-  JUMPIFNOT R1 [+1]
-  RETURN R1 1
-  LOADK R2 K3 ["Dark"]
-  RETURN R2 1
-
-PROTO_5:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -75,31 +57,77 @@ PROTO_5:
   CALL R2 2 1
   SETTABLEKS R2 R0 K2 ["currentData"]
   GETTABLEKS R2 R0 K2 ["currentData"]
-  GETGLOBAL R3 K3 ["getStudioTheme"]
-  CALL R3 0 1
-  JUMPIFNOTEQKS R3 K4 ["Light"] [+7]
-  GETTABLEKS R4 R0 K5 ["mainButton"]
-  LOADK R5 K6 ["rbxasset://studio_svg_textures/Lua/FileSync/Light/Standard/Info.png"]
-  SETTABLEKS R5 R4 K7 ["Icon"]
-  JUMP [+5]
-  GETTABLEKS R4 R0 K5 ["mainButton"]
-  LOADK R5 K8 ["rbxasset://studio_svg_textures/Lua/FileSync/Dark/Standard/Info.png"]
-  SETTABLEKS R5 R4 K7 ["Icon"]
-  GETTABLEKS R4 R0 K9 ["providerFunction"]
-  JUMPIFNOT R4 [+4]
-  GETTABLEKS R4 R0 K9 ["providerFunction"]
-  MOVE R5 R2
-  CALL R4 1 0
+  GETTABLEKS R5 R2 K3 ["triangleCount"]
+  GETTABLEKS R6 R2 K4 ["maxTriangles"]
+  DIV R4 R5 R6
+  FASTCALL2K MATH_MIN R4 K5 [+4]
+  LOADK R5 K5 [1]
+  GETIMPORT R3 K8 [math.min]
+  CALL R3 2 1
+  GETTABLEKS R6 R2 K9 ["drawCallCount"]
+  GETTABLEKS R7 R2 K10 ["maxDrawCalls"]
+  DIV R5 R6 R7
+  FASTCALL2K MATH_MIN R5 K5 [+4]
+  LOADK R6 K5 [1]
+  GETIMPORT R4 K8 [math.min]
+  CALL R4 2 1
+  GETTABLEKS R6 R2 K11 ["isEditDM"]
+  JUMPIF R6 [+12]
+  GETTABLEKS R7 R2 K12 ["renderThreadAverageMs"]
+  GETTABLEKS R8 R2 K13 ["maxTotalRenderMs"]
+  DIV R6 R7 R8
+  FASTCALL2K MATH_MIN R6 K5 [+4]
+  LOADK R7 K5 [1]
+  GETIMPORT R5 K8 [math.min]
+  CALL R5 2 1
+  JUMPIF R5 [+1]
+  LOADN R5 0
+  GETTABLEKS R7 R2 K11 ["isEditDM"]
+  JUMPIF R7 [+12]
+  GETTABLEKS R8 R2 K14 ["taskThreadAverageMs"]
+  GETTABLEKS R9 R2 K15 ["maxTotalTaskMs"]
+  DIV R7 R8 R9
+  FASTCALL2K MATH_MIN R7 K5 [+4]
+  LOADK R8 K5 [1]
+  GETIMPORT R6 K8 [math.min]
+  CALL R6 2 1
+  JUMPIF R6 [+1]
+  LOADN R6 0
+  MOVE R8 R3
+  MOVE R9 R4
+  MOVE R10 R5
+  MOVE R11 R6
+  FASTCALL MATH_MAX [+2]
+  GETIMPORT R7 K17 [math.max]
+  CALL R7 4 1
+  LOADK R8 K18 ["ThermometerLow"]
+  LOADN R9 1
+  JUMPIFNOTLE R9 R7 [+3]
+  LOADK R8 K19 ["ThermometerHigh"]
+  JUMP [+4]
+  LOADK R9 K20 [0.5]
+  JUMPIFNOTLT R9 R7 [+2]
+  LOADK R8 K21 ["ThermometerMedium"]
+  GETTABLEKS R9 R0 K22 ["mainButton"]
+  LOADK R11 K23 ["rbxlocaltheme://"]
+  MOVE R12 R8
+  CONCAT R10 R11 R12
+  SETTABLEKS R10 R9 K24 ["Icon"]
+  GETTABLEKS R9 R0 K25 ["providerFunction"]
+  JUMPIFNOT R9 [+4]
+  GETTABLEKS R9 R0 K25 ["providerFunction"]
+  MOVE R10 R2
+  CALL R9 1 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_4:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["refreshState"]
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_5:
   SETTABLEKS R2 R0 K0 ["mainButton"]
   GETTABLEKS R3 R0 K1 ["currentData"]
   GETUPVAL R10 0
@@ -148,11 +176,11 @@ PROTO_7:
   SETTABLEKS R4 R3 K15 ["Name"]
   RETURN R0 0
 
-PROTO_8:
+PROTO_6:
   SETTABLEKS R1 R0 K0 ["providerFunction"]
   RETURN R0 0
 
-PROTO_9:
+PROTO_7:
   GETTABLEKS R1 R0 K0 ["setStateAndRefreshConnection"]
   NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
@@ -180,16 +208,14 @@ MAIN:
   SETTABLEKS R4 R3 K13 ["new"]
   DUPCLOSURE R4 K14 [PROTO_2]
   SETTABLEKS R4 R3 K15 ["getCurrentState"]
-  DUPCLOSURE R4 K16 [PROTO_4]
-  SETGLOBAL R4 K17 ["getStudioTheme"]
-  DUPCLOSURE R4 K18 [PROTO_5]
+  DUPCLOSURE R4 K16 [PROTO_3]
   CAPTURE VAL R1
-  SETTABLEKS R4 R3 K19 ["refreshState"]
-  DUPCLOSURE R4 K20 [PROTO_7]
+  SETTABLEKS R4 R3 K17 ["refreshState"]
+  DUPCLOSURE R4 K18 [PROTO_5]
   CAPTURE VAL R2
-  SETTABLEKS R4 R3 K21 ["connect"]
-  DUPCLOSURE R4 K22 [PROTO_8]
-  SETTABLEKS R4 R3 K23 ["setContextProviderFunction"]
-  DUPCLOSURE R4 K24 [PROTO_9]
-  SETTABLEKS R4 R3 K25 ["disconnect"]
+  SETTABLEKS R4 R3 K19 ["connect"]
+  DUPCLOSURE R4 K20 [PROTO_6]
+  SETTABLEKS R4 R3 K21 ["setContextProviderFunction"]
+  DUPCLOSURE R4 K22 [PROTO_7]
+  SETTABLEKS R4 R3 K23 ["disconnect"]
   RETURN R3 1
