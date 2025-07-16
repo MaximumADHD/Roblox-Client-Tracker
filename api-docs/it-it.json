@@ -15015,195 +15015,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageButton#TileSize",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioGate": {
-    "documentation": "",
-    "keys": {
-      "Attack": "@roblox/globaltype/AudioGate.Attack",
-      "Bypass": "@roblox/globaltype/AudioGate.Bypass",
-      "Release": "@roblox/globaltype/AudioGate.Release",
-      "Threshold": "@roblox/globaltype/AudioGate.Threshold",
-      "GetConnectedWires": "@roblox/globaltype/AudioGate.GetConnectedWires",
-      "GetInputPins": "@roblox/globaltype/AudioGate.GetInputPins",
-      "GetOutputPins": "@roblox/globaltype/AudioGate.GetOutputPins"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioGate.Attack": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Attack",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioGate.Bypass": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Bypass",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioGate.Release": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Release",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioGate.Threshold": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Threshold",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioGate.GetConnectedWires/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.GetConnectedWires/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.GetConnectedWires": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AudioGate.GetConnectedWires/param/0"
-      },
-      {
-        "name": "pin",
-        "documentation": "@roblox/globaltype/AudioGate.GetConnectedWires/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AudioGate.GetConnectedWires/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#GetConnectedWires",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioGate.GetInputPins/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.GetInputPins": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AudioGate.GetInputPins/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AudioGate.GetInputPins/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#GetInputPins",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioGate.GetOutputPins/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.GetOutputPins": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AudioGate.GetOutputPins/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AudioGate.GetOutputPins/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#GetOutputPins",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.Connect/param/0": {
-    "documentation": "Un oggetto che esegue funzioni connesse su una specifica occorrenza."
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.Connect": {
-    "documentation": "Collega la funzione data all'evento e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel/param/0": {
-    "documentation": "Un oggetto che esegue funzioni connesse su una specifica occorrenza."
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel": {
-    "documentation": "Collega la funzione data all'evento e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.Once/param/0": {
-    "documentation": "Un oggetto che esegue funzioni connesse su una specifica occorrenza."
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.Once": {
-    "documentation": "Collega la funzione data all'evento (per una singola richiesta) e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.Wait/param/0": {
-    "documentation": "Un oggetto che esegue funzioni connesse su una specifica occorrenza."
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged.Wait": {
-    "documentation": "Rende il thread attuale fino a quando il segnale si attiva e restituisce gli argomenti forniti dal segnale.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/AudioGate.WiringChanged": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
-      "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
-      "Once": "@roblox/globaltype/AudioGate.WiringChanged.Once",
-      "Wait": "@roblox/globaltype/AudioGate.WiringChanged.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#WiringChanged",
-    "code_sample": ""
-  },
   "@roblox/globaltype/RecommendationService": {
     "documentation": "",
     "keys": {
@@ -85295,6 +85106,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ChannelTabsConfiguration#TextStrokeTransparency",
     "code_sample": ""
   },
+  "@roblox/globaltype/CommandService": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CommandService",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TeleportService": {
     "documentation": "Enables transporting <code>Players</code> between places and servers.",
     "keys": {
@@ -106966,46 +106783,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TextTruncate",
     "code_sample": ""
   },
-  "@roblox/enum/DisplaySize.Small": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DisplaySize#Small",
-    "code_sample": ""
-  },
-  "@roblox/enum/DisplaySize.Medium": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DisplaySize#Medium",
-    "code_sample": ""
-  },
-  "@roblox/enum/DisplaySize.Large": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DisplaySize#Large",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.DisplaySize": {
-    "documentation": "",
-    "keys": {
-      "Small": "@roblox/enum/DisplaySize.Small",
-      "Medium": "@roblox/enum/DisplaySize.Medium",
-      "Large": "@roblox/enum/DisplaySize.Large"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DisplaySize",
-    "code_sample": ""
-  },
   "@roblox/enum/CameraType.Fixed": {
     "documentation": "La fotocamera è ferma.",
     "keys": {
@@ -110529,46 +110306,6 @@
       "Win": "@roblox/enum/ActionType.Win"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionType",
-    "code_sample": ""
-  },
-  "@roblox/enum/PromptLinkSharingResult.Success": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#Success",
-    "code_sample": ""
-  },
-  "@roblox/enum/PromptLinkSharingResult.PlayerLeft": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#PlayerLeft",
-    "code_sample": ""
-  },
-  "@roblox/enum/PromptLinkSharingResult.InvalidLaunchData": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#InvalidLaunchData",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.PromptLinkSharingResult": {
-    "documentation": "",
-    "keys": {
-      "Success": "@roblox/enum/PromptLinkSharingResult.Success",
-      "PlayerLeft": "@roblox/enum/PromptLinkSharingResult.PlayerLeft",
-      "InvalidLaunchData": "@roblox/enum/PromptLinkSharingResult.InvalidLaunchData"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult",
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Default": {

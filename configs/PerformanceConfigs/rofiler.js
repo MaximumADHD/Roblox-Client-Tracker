@@ -432,8 +432,7 @@ function MakeGroup(id, name, category, numtimers, isgpu, total, average, max, co
 }
 
 function MakeTimer(id, name, group, color, colordark, average, max, min, exclaverage, exclmax, callaverage, callcount, total, meta, metaagg, metamax) {
-    // TODO: on removal of flag MicroprofilerLabelSubstitution, delete property namelabel
-    var timer = { "id": id, "name": name, "namelabel": name.startsWith("$"), "color": color, "colordark": colordark, "timercolor": color, "textcolor": InvertColor(color), "group": group, "average": average, "max": max, "min": min, "exclaverage": exclaverage, "exclmax": exclmax, "callaverage": callaverage, "callcount": callcount, "total": total, "meta": meta, "textcolorindex": InvertColorIndex(color), "metaagg": metaagg, "metamax": metamax, "worst": 0, "worststart": 0, "worstend": 0 };
+    var timer = { "id": id, "name": name, "color": color, "colordark": colordark, "timercolor": color, "textcolor": InvertColor(color), "group": group, "average": average, "max": max, "min": min, "exclaverage": exclaverage, "exclmax": exclmax, "callaverage": callaverage, "callcount": callcount, "total": total, "meta": meta, "textcolorindex": InvertColorIndex(color), "metaagg": metaagg, "metamax": metamax, "worst": 0, "worststart": 0, "worstend": 0 };
     return timer;
 }
 
@@ -512,7 +511,6 @@ function InitDataVars() {
 }
 
 function InitViewerVars() {
-    window.FFlagMicroprofilerLabelSubstitution = EnabledFastFlags.includes("MicroprofilerLabelSubstitution");
     window.FFlagMicroprofilerThreadSearch = EnabledFastFlags.includes("MicroprofilerThreadSearch");
     window.FFlagMicroprofilerPerFrameCpuSpeed = EnabledFastFlags.includes("MicroprofilerPerFrameCpuSpeed");
 
@@ -683,9 +681,6 @@ function InitViewerVars() {
     window.g_TypeArray;
     window.g_TimeArray;
     window.g_IndexArray;
-    if (!FFlagMicroprofilerLabelSubstitution) {
-        window.g_LabelArray;
-    }
     window.g_XtraArray; // Events
     window.LodData = new Array();
     window.NumLodSplits = 10;
@@ -2288,140 +2283,68 @@ function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc) {
         if (!globalThis.g_cliMode)
             console.log(...args);
     }
-    if (FFlagMicroprofilerLabelSubstitution) {
-        ProfileEnter('PreprocessTimerSubstitutions');
-        const nTimersWhenStarted = TimerInfo.length;
-        const newTimers = {};
-        // keys are the ids of timers that may be substituted, values are the number of subs made
-        const subsPerID = Object.fromEntries(TimerInfo.filter(timerPredicate).map(t => [t.id, 0]));
-        for (let nLog = 0; nLog < Frames[0].tt.length; nLog++) {
-            let discardLast = false;
-            const newTimerStack = [];
-            for (let i = 0; i < Frames.length; i++) {
-                const frame = Frames[i];
-                const frameDiscard = OverflowAllowance(nLog, frame);
-                const [tt, ts, ti, tl] = [frame.tt[nLog], frame.ts[nLog], frame.ti[nLog], frame.tl[nLog]];
-                for (let xx = 0; xx < tt.length; xx++) {
-                    // discard markers that are from the ring buffer wrap around
-                    if ((tt[xx] === 4) ? discardLast : (tt[xx] < EventBaseId && ts[xx] > frameDiscard)) {
-                        discardLast = true;
-                        continue;
-                    }
-                    discardLast = false;
-                    // ENTER SCOPE
-                    if (tt[xx] === 1 && subsPerID[ti[xx]] !== undefined) {
-                        // get label from next log entry
-                        if (xx + 1 >= tt.length || tt[xx + 1] !== 3)
-                            continue;
-                        const label = tl[ti[xx + 1]];
-                        // get new timer name
-                        const oldTimer = TimerInfo[ti[xx]];
-                        const newTimerName = newTimerNameFunc(oldTimer.group.name, oldTimer.name, label);
-                        // make a new timer iff it doesn't exist already
-                        let newTimer = newTimers[newTimerName];
-                        if (!newTimer) {
-                            newTimer = { ...oldTimer, name: newTimerName, id: TimerInfo.length };
-                            newTimers[newTimerName] = newTimer;
-                            subsPerID[ti[xx]]++;
-                            TimerInfo.push(newTimer);
-                        }
-                        // replace timer index
-                        ti[xx] = newTimer.id;
-                        newTimerStack.push(newTimer.id);
-                    }
-                    // EXIT SCOPE
-                    else if (tt[xx] === 0 && subsPerID[ti[xx]] && newTimerStack.length > 0) {
-                        ti[xx] = newTimerStack.pop();
-                    }
-                } // for xx (log entries)
-            } // for i (frames)
-        } // for nLog
-        for (const [id, nSubs] of Object.entries(subsPerID)) {
-            const timer = TimerInfo[id];
-            if (nSubs > 0) {
-                LogNonCli(`Substitutions made for ${timer.name}: ${nSubs}`);
-                GroupInfo[timer.group].numtimers += nSubs;
-            }
-        }
-        const nTimersWhenFinished = TimerInfo.length;
-        const nTimersAdded = nTimersWhenFinished - nTimersWhenStarted;
-        if (nTimersAdded > 0) {
-            LogNonCli(`Total timer count increased from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
-        } else {
-            LogNonCli(`No substitutions were made. Total timer count is still ${nTimersWhenStarted} (+0)`);
-        }
-        ProfileLeave();
-    } else {
-        // old names of params
-        const SubstituteGroup = timerPredicate;
-        const SubstituteTimer = newTimerNameFunc;
-
-        // old version of the function
-        var SubIndex = TimerInfo.findIndex((element) => (element.name == SubstituteTimer && GroupInfo[element.group].name == SubstituteGroup));
-        if (SubIndex == -1)
-            return;
-        if (!TimerInfo[SubIndex].namelabel)
-            return;
-        ProfileEnter('PreprocessTimerSubstitutions');
-        var SubstituteName = TimerInfo[SubIndex].name.slice(1) + '_';
-        var TimerInfoStartLength = TimerInfo.length;
-        var ReferenceTimer = Object.assign({}, TimerInfo[SubIndex]);
-        var NewTimers = [];
-        var nNumLogs = Frames[0].ts.length;
-        for (nLog = 0; nLog < nNumLogs; nLog++) {
-            var Discard = 0;
-            var NewTimerIndex = -1;
-            var NewTimerStack = Array();
-            for (var i = 0; i < Frames.length; i++) {
-                var Frame_ = Frames[i];
-                var FrameDiscard = OverflowAllowance(nLog, Frame_);
-                var tt = Frame_.tt[nLog];
-                var ts = Frame_.ts[nLog];
-                var ti = Frame_.ti[nLog];
-                var tl = Frame_.tl[nLog];
-                var len = tt.length;
-                for (var xx = 0; xx < len; ++xx) {
-                    var Skip = (tt[xx] == 4) ? DiscardLast : (tt[xx] < EventBaseId && ts[xx] > FrameDiscard);
-                    if (Skip) {
-                        Discard++;
-                        DiscardLast = 1;
-                    }
-                    else {
-                        DiscardLast = 0;
-
-                        // Use label after the region instead of the region name for some regions
-                        if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && ti[xx] == SubIndex) {
-                            // ENTER
-                            var Label = tl[ti[xx + 1]];
-                            var NewName = SubstituteName + Label;
-                            NewTimerIndex = NewTimers.findIndex((element) => (element == NewName));
-                            if (NewTimerIndex == -1) {
-                                NewTimerIndex = NewTimers.length;
-                                NewTimers.push(NewName);
-                                var finalIndex = TimerInfo.length;
-                                TimerInfo[finalIndex] = Object.assign({}, ReferenceTimer);
-                                TimerInfo[finalIndex].name = NewName;
-                                TimerInfo[finalIndex].id = finalIndex;
-                                TimerInfo[finalIndex].namelabel = 0;
-                            }
-
-                            NewTimerIndex += TimerInfoStartLength;
-                            Frame_.ti[nLog][xx] = NewTimerIndex;
-                            NewTimerStack.push(NewTimerIndex);
-                        }
-                        else if (tt[xx] == 0 && ti[xx] == SubIndex && NewTimerStack.length > 0) {
-                            // EXIT
-                            Frame_.ti[nLog][xx] = NewTimerStack.pop();
-                        }
-                    }
+    ProfileEnter('PreprocessTimerSubstitutions');
+    const nTimersWhenStarted = TimerInfo.length;
+    const newTimers = {};
+    // keys are the ids of timers that may be substituted, values are the number of subs made
+    const subsPerID = Object.fromEntries(TimerInfo.filter(timerPredicate).map(t => [t.id, 0]));
+    for (let nLog = 0; nLog < Frames[0].tt.length; nLog++) {
+        let discardLast = false;
+        const newTimerStack = [];
+        for (let i = 0; i < Frames.length; i++) {
+            const frame = Frames[i];
+            const frameDiscard = OverflowAllowance(nLog, frame);
+            const [tt, ts, ti, tl] = [frame.tt[nLog], frame.ts[nLog], frame.ti[nLog], frame.tl[nLog]];
+            for (let xx = 0; xx < tt.length; xx++) {
+                // discard markers that are from the ring buffer wrap around
+                if ((tt[xx] === 4) ? discardLast : (tt[xx] < EventBaseId && ts[xx] > frameDiscard)) {
+                    discardLast = true;
+                    continue;
                 }
-            }
+                discardLast = false;
+                // ENTER SCOPE
+                if (tt[xx] === 1 && subsPerID[ti[xx]] !== undefined) {
+                    // get label from next log entry
+                    if (xx + 1 >= tt.length || tt[xx + 1] !== 3)
+                        continue;
+                    const label = tl[ti[xx + 1]];
+                    // get new timer name
+                    const oldTimer = TimerInfo[ti[xx]];
+                    const newTimerName = newTimerNameFunc(oldTimer.group.name, oldTimer.name, label);
+                    // make a new timer iff it doesn't exist already
+                    let newTimer = newTimers[newTimerName];
+                    if (!newTimer) {
+                        newTimer = { ...oldTimer, name: newTimerName, id: TimerInfo.length };
+                        newTimers[newTimerName] = newTimer;
+                        subsPerID[ti[xx]]++;
+                        TimerInfo.push(newTimer);
+                    }
+                    // replace timer index
+                    ti[xx] = newTimer.id;
+                    newTimerStack.push(newTimer.id);
+                }
+                // EXIT SCOPE
+                else if (tt[xx] === 0 && subsPerID[ti[xx]] && newTimerStack.length > 0) {
+                    ti[xx] = newTimerStack.pop();
+                }
+            } // for xx (log entries)
+        } // for i (frames)
+    } // for nLog
+    for (const [id, nSubs] of Object.entries(subsPerID)) {
+        const timer = TimerInfo[id];
+        if (nSubs > 0) {
+            LogNonCli(`Substitutions made for ${timer.name}: ${nSubs}`);
+            GroupInfo[timer.group].numtimers += nSubs;
         }
-        var GroupNum = ReferenceTimer.group;
-        GroupInfo[GroupNum].numtimers += NewTimers.length;
-        LogNonCli('Substitution for ' + SubstituteTimer + ' increased timer count by ' + NewTimers.length + ' to ' + TimerInfo.length);
-        ProfileLeave();
     }
+    const nTimersWhenFinished = TimerInfo.length;
+    const nTimersAdded = nTimersWhenFinished - nTimersWhenStarted;
+    if (nTimersAdded > 0) {
+        LogNonCli(`Total timer count increased from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
+    } else {
+        LogNonCli(`No substitutions were made. Total timer count is still ${nTimersWhenStarted} (+0)`);
+    }
+    ProfileLeave();
 }
 
 function PreprocessCalculateAllTimers() {
@@ -4520,9 +4443,6 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 var TypeArray = g_TypeArray[nLog];
                 var TimeArray = g_TimeArray[nLog];
                 var IndexArray = g_IndexArray[nLog];
-                if (!FFlagMicroprofilerLabelSubstitution) {
-                    var LabelArray = g_LabelArray[nLog];
-                }
                 var XtraArray = g_XtraArray[nLog];
                 var GlobalArray = Lod.GlobalArray[nLog];
 
@@ -4597,11 +4517,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                     if (XText + WText > nWidth) {
                                         WText = nWidth - XText;
                                     }
-                                    if (FFlagMicroprofilerLabelSubstitution) {
-                                        var Name = TimerInfo[index].name;
-                                    } else {
-                                        var Name = LabelArray[globstart] ? LabelArray[globstart] : TimerInfo[index].name;
-                                    }
+                                    var Name = TimerInfo[index].name;
                                     var BarTextLen = Math.floor((WText - 2) / FontWidth);
                                     var TimeText = TimeToMsString(timeend - timestart);
                                     var TimeTextLen = TimeText.length;
@@ -6668,9 +6584,6 @@ function PreprocessGlobalArray() {
     g_TypeArray = new Array(nNumLogs);
     g_TimeArray = new Array(nNumLogs);
     g_IndexArray = new Array(nNumLogs);
-    if (!FFlagMicroprofilerLabelSubstitution) {
-        g_LabelArray = new Array(nNumLogs);
-    }
     g_XtraArray = new Array(nNumLogs); // Events
 
     var StackPos = 0;
@@ -6690,9 +6603,6 @@ function PreprocessGlobalArray() {
         var TypeArray = new Array();
         var TimeArray = new Array();
         var IndexArray = new Array();
-        if (!FFlagMicroprofilerLabelSubstitution) {
-            var LabelArray = new Array();
-        }
         var XtraArray = new Array();
 
         for (var i = 0; i < Frames.length; i++) {
@@ -6703,9 +6613,6 @@ function PreprocessGlobalArray() {
             var ts = Frame_.ts[nLog];
             var ti = Frame_.ti[nLog];
             var tx = Frame_.tx[nLog];
-            if (!FFlagMicroprofilerLabelSubstitution) {
-                var tl = Frame_.tl[nLog];
-            }
             var len = tt.length;
             var DiscardLast = 0;
             for (var xx = 0; xx < len; ++xx) {
@@ -6722,16 +6629,6 @@ function PreprocessGlobalArray() {
                     IndexArray.push(ti[xx]);
                     if (tx[xx] != undefined)
                         XtraArray[TypeArray.length - 1] = tx[xx];
-
-                    if (!FFlagMicroprofilerLabelSubstitution) {
-                        // Use label after the region instead of the region name for some regions
-                        var Label = null;
-                        if (xx + 1 < len && tt[xx] == 1 && tt[xx + 1] == 3 && TimerInfo[ti[xx]].namelabel) {
-                            Label = tl[ti[xx + 1]];
-                        }
-
-                        LabelArray.push(Label);
-                    }
                 }
             }
             Frame_.LogEnd[nLog] = TimeArray.length;
@@ -6740,9 +6637,6 @@ function PreprocessGlobalArray() {
         g_TypeArray[nLog] = TypeArray;
         g_TimeArray[nLog] = TimeArray;
         g_IndexArray[nLog] = IndexArray;
-        if (!FFlagMicroprofilerLabelSubstitution) {
-            g_LabelArray[nLog] = LabelArray;
-        }
         g_XtraArray[nLog] = XtraArray;
 
         if (Discard) {
@@ -6834,17 +6728,10 @@ function PreprocessMeta() {
 }
 
 function PreprocessMinimal() {
-    if (FFlagMicroprofilerLabelSubstitution) {
-        PreprocessTimerSubstitutions(
-            timer => timer.name.startsWith("$"),
-            (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label,
-        );
-    } else {
-        PreprocessTimerSubstitutions('Lua', '$Script');
-        PreprocessTimerSubstitutions('LuaBridge', '$namecall');
-        PreprocessTimerSubstitutions('LuaBridge', '$index');
-        PreprocessTimerSubstitutions('LuaBridge', '$newindex');
-    }
+    PreprocessTimerSubstitutions(
+        timer => timer.name.startsWith("$"),
+        (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label,
+    );
     PreprocessCalculateAllTimers();
 }
 

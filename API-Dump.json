@@ -20959,18 +20959,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "Discard",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "Publish",
                     "Parameters": [
                     ],
@@ -20978,14 +20966,6 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "RefreshPluginState",
-                    "Parameters": [
-                    ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 }
@@ -27070,21 +27050,6 @@
                         "Name": "null"
                     },
                     "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "InternalTest"
-                    ],
-                    "MemberType": "Function",
-                    "Name": "GetDeviceInfo",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -87267,28 +87232,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SetPredictionMode",
-                    "Parameters": [
-                        {
-                            "Name": "mode",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "PredictionMode"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "TorqueToAngularAcceleration",
                     "Parameters": [
                         {
@@ -130322,8 +130265,8 @@
                     "MemberType": "Property",
                     "Name": "AlphaMode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -144512,28 +144455,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "ReadAloud",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -161997,26 +161918,6 @@
                 }
             ],
             "Name": "PositionAlignmentMode"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Auto",
-                    "Value": 0
-                },
-                {
-                    "Name": "None",
-                    "Value": 1
-                },
-                {
-                    "Name": "Forced",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 2
-                }
-            ],
-            "Name": "PredictionMode"
         },
         {
             "Items": [

@@ -20,8 +20,8 @@
             "FunctionName": "#002DD6",
             "TODO": "#015F35",
             "Background": "#FFFFFF",
-            "SelectionText": "#000000",
-            "SelectionBackground": "#D0DAFE",
+            "SelectionText": "#FFFFFF",
+            "SelectionBackground": "#70A0FF",
             "FindSelectionBackground": "#FAE4AA",
             "MatchingWordBackground": "#E6E7EA",
             "Warning": "#0035F5",
@@ -69,8 +69,8 @@
             "FunctionName": "#815D00",
             "TODO": "#015F35",
             "Background": "#FFFFFF",
-            "SelectionText": "#000000",
-            "SelectionBackground": "#D0DAFE",
+            "SelectionText": "#FFFFFF",
+            "SelectionBackground": "#70A0FF",
             "FindSelectionBackground": "#FAE4AA",
             "MatchingWordBackground": "#E6E7EA",
             "Warning": "#0035F5",
@@ -118,8 +118,8 @@
             "FunctionName": "#65D79D",
             "TODO": "#BCBEC8",
             "Background": "#353741",
-            "SelectionText": "#000000",
-            "SelectionBackground": "#D0DAFE",
+            "SelectionText": "#FFFFFF",
+            "SelectionBackground": "#70A0FF",
             "FindSelectionBackground": "#FAE4AA",
             "MatchingWordBackground": "#494D5A",
             "Warning": "#0035F5",
@@ -167,8 +167,8 @@
             "FunctionName": "#002DD6",
             "TODO": "#015F35",
             "Background": "#FFFFFF",
-            "SelectionText": "#000000",
-            "SelectionBackground": "#D0DAFE",
+            "SelectionText": "#FFFFFF",
+            "SelectionBackground": "#70A0FF",
             "FindSelectionBackground": "#FAE4AA",
             "MatchingWordBackground": "#E6E7EA",
             "Warning": "#0035F5",
@@ -364,14 +364,14 @@
         {
             "Item": {
                 "Default": "#FFFFFF",
-                "Selected": "#D0DAFE",
+                "Selected": "#70A0FF",
                 "Hover": "#EBF1FF"
             }
         },
         {
             "TableItem": {
                 "Default": "#F7F7F8",
-                "Selected": "#D0DAFE",
+                "Selected": "#70A0FF",
                 "Hover": "#EBF1FF"
             }
         },
@@ -460,7 +460,7 @@
             "MainText": {
                 "Default": "#000000",
                 "Disabled": "#6A6F81",
-                "Selected": "#000000"
+                "Selected": "#FFFFFF"
             }
         },
         {
