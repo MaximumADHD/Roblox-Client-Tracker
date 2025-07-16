@@ -20,6 +20,7 @@ local useInputVariants = require(script.Parent.useInputVariants)
 local useInputMotionStates = require(script.Parent.useInputMotionStates)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
@@ -87,16 +88,17 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 	end, { props.isChecked })
 
 	local variantProps = useInputVariants(tokens, props.size)
-
-	local cursor = React.useMemo(function()
+	local cursorConfig = React.useMemo(function()
+		local radius = if hasLabel
+			then UDim.new(0, tokens.Radius.Small)
+			else props.customVariantProps.cursorRadius or UDim.new(0, 0)
 		return {
-			radius = if hasLabel
-				then UDim.new(0, tokens.Radius.Small)
-				else props.customVariantProps.cursorRadius or UDim.new(0, 0),
+			radius = radius,
 			offset = tokens.Size.Size_200,
 			borderWidth = tokens.Stroke.Thicker,
 		}
-	end, { tokens :: unknown, hasLabel, props.customVariantProps.cursorRadius })
+	end, { tokens :: any, hasLabel })
+	local cursor = useCursor(cursorConfig)
 
 	local motionStates = useInputMotionStates(tokens, props.customVariantProps.checkedStyle)
 	local values, animate = useMotion(motionStates.Default)
@@ -133,8 +135,8 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		stateLayer = { affordance = StateLayerAffordance.None },
 		selection = {
 			Selectable = not props.isDisabled,
+			SelectionImageObject = cursor,
 		},
-		cursor = cursor,
 		isDisabled = props.isDisabled,
 		ref = ref,
 	}

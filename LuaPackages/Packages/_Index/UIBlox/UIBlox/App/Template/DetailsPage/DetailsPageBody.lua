@@ -86,6 +86,7 @@ function DetailsPageBody:renderSinglePanel()
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			LayoutOrder = v.portraitLayoutOrder,
+			Visible = if UIBloxConfig.addEdpComponentVisibility then v.visible else nil,
 		}, {
 			[k] = v.renderComponent(),
 		})
@@ -134,6 +135,7 @@ function DetailsPageBody:renderDualPanel()
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			LayoutOrder = v.landscapeLayoutOrder,
+			Visible = if UIBloxConfig.addEdpComponentVisibility then v.visible else nil,
 		}, {
 			[k] = v.renderComponent(),
 		})

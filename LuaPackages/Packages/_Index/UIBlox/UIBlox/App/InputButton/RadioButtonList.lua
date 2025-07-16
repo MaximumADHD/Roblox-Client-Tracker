@@ -42,14 +42,7 @@ RadioButtonList.validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	forwardRef = t.optional(t.table),
-
-	-- Whether to enable RoactGamepad functionality
-	isRoactGamepadEnabled = t.optional(t.boolean),
 })
-
-RadioButtonList.defaultProps = {
-	isRoactGamepadEnabled = true,
-}
 
 function RadioButtonList:init()
 	self.state = {
@@ -72,7 +65,7 @@ function RadioButtonList:init()
 		self.props.onActivated(key)
 	end
 
-	self.gamepadRefs = self.props.isRoactGamepadEnabled and RoactGamepad.createRefCache() or {}
+	self.gamepadRefs = RoactGamepad.createRefCache()
 end
 
 function RadioButtonList:renderWithProviders(getSelectionCursor, cursor)
@@ -83,48 +76,38 @@ function RadioButtonList:renderWithProviders(getSelectionCursor, cursor)
 	})
 
 	for i, value in ipairs(self.props.radioButtons) do
-		if not self.props.isRoactGamepadEnabled then
-			self.gamepadRefs[i] = self.gamepadRefs[i] or Roact.createRef()
-		end
-
-		radioButtons["RadioButton" .. i] = Roact.createElement(
-			if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable[RadioButton] else RadioButton,
-			{
-				text = type(value) == "table" and value.label or value,
-				isSelected = if self.props.currentValue ~= nil
-					then i == self.props.currentValue
-					else i == self.state.currentValue,
-				isDisabled = self.state.disabledIndices[i],
-				onActivated = self.doLogic,
-				size = self.props.elementSize,
-				layoutOrder = i,
-				id = i,
-				isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
-				[Roact.Ref] = self.gamepadRefs[i],
-				NextSelectionUp = i > 1 and self.gamepadRefs[i - 1] or nil,
-				NextSelectionDown = i < #self.props.radioButtons and self.gamepadRefs[i + 1] or nil,
-				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
-				inputBindings = if self.props.isRoactGamepadEnabled
-					then {
-						OnActivatedButton = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
-							self.doLogic(i)
-						end),
-					}
-					else nil,
-			}
-		)
+		radioButtons["RadioButton" .. i] = Roact.createElement(RoactGamepad.Focusable[RadioButton], {
+			text = type(value) == "table" and value.label or value,
+			isSelected = if self.props.currentValue ~= nil
+				then i == self.props.currentValue
+				else i == self.state.currentValue,
+			isDisabled = self.state.disabledIndices[i],
+			onActivated = self.doLogic,
+			size = self.props.elementSize,
+			layoutOrder = i,
+			id = i,
+			[Roact.Ref] = self.gamepadRefs[i],
+			NextSelectionUp = i > 1 and self.gamepadRefs[i - 1] or nil,
+			NextSelectionDown = i < #self.props.radioButtons and self.gamepadRefs[i + 1] or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+			inputBindings = {
+				OnActivatedButton = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
+					self.doLogic(i)
+				end),
+			},
+		})
 	end
 
-	return Roact.createElement(if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable.Frame else "Frame", {
+	return Roact.createElement(RoactGamepad.Focusable.Frame, {
 		Size = if self.props.automaticSize then UDim2.fromScale(1, 0) else UDim2.fromScale(1, 1),
 		AutomaticSize = if self.props.automaticSize then Enum.AutomaticSize.Y else nil,
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.layoutOrder,
-		[Roact.Ref] = self.props.forwardRef,
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionDown = self.props.NextSelectionDown,
 		NextSelectionUp = self.props.NextSelectionUp,
+		[Roact.Ref] = self.props.forwardRef,
 	}, radioButtons)
 end
 

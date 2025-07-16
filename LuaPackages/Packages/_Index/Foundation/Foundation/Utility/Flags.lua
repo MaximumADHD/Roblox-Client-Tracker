@@ -9,10 +9,9 @@ local SafeFlags = require(Packages.SafeFlags)
 return {
 	FoundationDisableStylingPolyfill = SafeFlags.createGetFFlag("FoundationDisableStylingPolyfill")(),
 	FoundationDisableBadgeTruncation = SafeFlags.createGetFFlag("FoundationDisableBadgeTruncation")(),
+	FoundationTextStateLayer = SafeFlags.createGetFFlag("FoundationTextStateLayer")(),
+	FoundationFixUseFloatingContentSize = SafeFlags.createGetFFlag("FoundationFixUseFloatingContentSize")(),
 	FoundationAdjustButtonIconSizes = SafeFlags.createGetFFlag("FoundationAdjustButtonIconSizes2")(),
-	FoundationFixScrollViewBackgroundForStylingV2 = SafeFlags.createGetFFlag(
-		"FoundationFixScrollViewBackgroundForStylingV2"
-	)(),
 	FoundationStandardizeInputLabelSizes = SafeFlags.createGetFFlag("FoundationStandardizeInputLabelSizes")(),
 	FoundationWarnOnMultipleStyleLinks = SafeFlags.createGetFFlag("FoundationWarnOnMultipleStyleLinks")(),
 	FoundationMigrateIconNames = SafeFlags.createGetFFlag("FoundationMigrateIconNames")(),
@@ -27,6 +26,4 @@ return {
 	FoundationSliderOrientationImprovement = SafeFlags.createGetFFlag("FoundationSliderOrientationImprovement")(),
 	FoundationFixVisibleNoneScrollBarThickness = SafeFlags.createGetFFlag("FoundationFixVisibleNoneScrollBarThickness")(),
 	FoundationFixInputFieldWidth = SafeFlags.createGetFFlag("FoundationFixInputFieldWidth")(),
-	FoundationSelectionCursorMigration = SafeFlags.createGetFFlag("FoundationSelectionCursorMigration")(),
-	FoundationFixCursorStyling = SafeFlags.createGetFFlag("FoundationFixCursorStyling")(),
 }

@@ -11,6 +11,7 @@ local Interactable = require(Foundation.Components.Interactable)
 local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useDefaultTags = require(Foundation.Utility.useDefaultTags)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
 local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
 local indexBindable = require(Foundation.Utility.indexBindable)
@@ -148,9 +149,10 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 			component = engineComponent,
 			onActivated = props.onActivated,
 			onStateChanged = props.onStateChanged,
-			stateLayer = props.stateLayer,
+			stateLayer = if Flags.FoundationTextStateLayer
+				then props.stateLayer
+				else if props.onStateChanged then props.stateLayer else { affordance = StateLayerAffordance.None },
 			isDisabled = props.isDisabled,
-			cursor = props.cursor,
 		})
 		else engineComponentProps
 

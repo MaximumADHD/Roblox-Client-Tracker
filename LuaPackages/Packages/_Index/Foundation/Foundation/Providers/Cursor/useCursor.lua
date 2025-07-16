@@ -4,12 +4,20 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 
-local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local CursorContext = require(script.Parent.CursorContext)
 local KeyUtilities = require(script.Parent.KeyUtilities)
 
-local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
+local CursorContext = require(script.Parent.CursorContext)
+local CursorType = require(Foundation.Enums.CursorType)
+type CursorType = CursorType.CursorType
+
+type CursorConfig = {
+	radius: UDim?,
+	offset: number?,
+	borderWidth: number?,
+}
+
+local function useCursor(cursor: (CursorType | CursorConfig)?): React.Ref<GuiObject>?
 	local tokens = useTokens()
 
 	local context = React.useContext(CursorContext)

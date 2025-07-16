@@ -1,19 +1,13 @@
 --!nonstrict
-local SelectionImage = script.Parent.Parent
-local UIBlox = SelectionImage.Parent.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local UIBloxRoot = script.Parent.Parent.Parent.Parent
+local Packages = UIBloxRoot.Parent
 
-if UIBloxConfig.updateAnimatedGradient then
-	return require(SelectionImage.Parent.SelectionCursor.Cursors.AnimatedGradient)
-end
-
-local Packages = UIBlox.Parent
 local React = require(Packages.React)
 
 local ReactUtils = require(Packages.ReactUtils)
 local EventConnection = ReactUtils.EventConnection
 
-local useStyle = require(UIBlox.Core.Style.useStyle)
+local useStyle = require(UIBloxRoot.Core.Style.useStyle)
 
 local RunService = game:GetService("RunService")
 

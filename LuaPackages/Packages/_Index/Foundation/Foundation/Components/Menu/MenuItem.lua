@@ -10,6 +10,7 @@ local Types = require(Foundation.Components.Types)
 type ItemId = Types.ItemId
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local useCursor = require(Foundation.Providers.Cursor.useCursor)
 
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -39,19 +40,17 @@ local function MenuItem(menuItemProps: MenuItemProps, ref: React.Ref<GuiObject>?
 	local props = withDefaults(menuItemProps, defaultProps)
 	local tokens = useTokens()
 
+	local cursor = useCursor({
+		radius = UDim.new(0, tokens.Radius.Small),
+		offset = tokens.Size.Size_200,
+		borderWidth = tokens.Stroke.Thicker,
+	})
+
 	local variantProps = useMenuItemVariants(tokens, props.size, props.isChecked)
 
 	local onActivated = React.useCallback(function()
 		props.onActivated(props.id)
 	end, { props.onActivated })
-
-	local cursor = React.useMemo(function()
-		return {
-			radius = UDim.new(0, tokens.Radius.Small),
-			offset = tokens.Size.Size_200,
-			borderWidth = tokens.Stroke.Thicker,
-		}
-	end, { tokens })
 
 	return React.createElement(
 		View,
@@ -61,8 +60,8 @@ local function MenuItem(menuItemProps: MenuItemProps, ref: React.Ref<GuiObject>?
 			onActivated = onActivated,
 			selection = {
 				Selectable = not props.isDisabled,
+				SelectionImageObject = cursor,
 			},
-			cursor = cursor,
 			tag = variantProps.container.tag,
 			ref = ref,
 		}),

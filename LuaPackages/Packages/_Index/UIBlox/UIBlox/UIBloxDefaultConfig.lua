@@ -30,6 +30,9 @@ return {
 	-- Use InteractionFeedbackManager, which is injected via InteractionFeedbackContext
 	enableInteractionFeedback = false,
 
+	-- Multiply FontSizeMax by line height to get the correct textbound in GenericTextLabel
+	fixGenericTextLabelTextBound = false,
+
 	-- Indicate whether the fix for the unexpected TooltipV2 Re-Render issue is enabled
 	enableTooltipV2HoverControllerReRenderFix = false,
 
@@ -41,6 +44,9 @@ return {
 
 	-- Disable token scaling for console
 	disableTokenScalingForConsole = false,
+
+	-- Indicate whether the fix for button loading shimmer panel not covering edges is enabled
+	enableButtonLoadingShimmerPanelFix = false,
 
 	-- Bugfix for HeaderBar title flickering
 	fixHeaderBarTitleFlickering = false,
@@ -56,6 +62,9 @@ return {
 
 	-- Add the option to pass in callbacks for AccordionView that run on expansion and collapse
 	addCallbacksToAccordionView = false,
+
+	-- Add the option to pass in a visibility property for Experience Details Page components
+	addEdpComponentVisibility = false,
 
 	-- Indicate whether the fix for the additional NavigationBar#onSelectionChanged call is enabled
 	enableNavigationBarSelectionChangeFix = false,
@@ -78,6 +87,15 @@ return {
 	-- Enable Panel managed anchoring for Panel3D
 	enablePanelManagedAnchoring = false,
 
+	-- Fix the AppNav related test issues
+	fixAppNavTestIssues = false,
+
+	-- Update NavigationBar & NavigationRail's backgrounds to be transparent
+	enableAppNavTransparentBackground = false,
+
+	-- Enable the workaround to fix the text flickering engine bug
+	enableAppNavTextFlickerFix = false,
+
 	-- Enable better laser pointer mode
 	enableBetterLaserPointerMode = false,
 
@@ -86,9 +104,6 @@ return {
 
 	-- Allow to disable color mapping for the color experiment on SignUp/Login
 	allowDisableColorMapping = false,
-
-	-- Consolidate AnimatedGradients and update to use Foundation tokens
-	updateAnimatedGradient = false,
 
 	-- Uses engine rich text support for GetTextBoundsAsync
 	useEngineRichTextBounds = false,
@@ -107,7 +122,4 @@ return {
 
 	-- Always use provided ref for button
 	useProvidedRefForButton = false,
-
-	-- Enable font scaling for legacy fonts
-	enableFontScaling = false,
 }

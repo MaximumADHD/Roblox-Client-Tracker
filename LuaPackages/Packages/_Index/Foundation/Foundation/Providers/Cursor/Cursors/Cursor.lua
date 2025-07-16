@@ -8,8 +8,6 @@ local CursorComponent = require(script.Parent.Parent.CursorComponent)
 local AnimatedGradient = require(script.Parent.AnimatedGradient)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local Flags = require(Foundation.Utility.Flags)
 
 --selene: allow(roblox_internal_custom_color)
 local WHITE = Color3.new(1, 1, 1)
@@ -19,7 +17,7 @@ type SlicedImage = {
 	Tag: "SlicedImage",
 	Image: string,
 	SliceCenter: Rect,
-	InsetAdjustment: Vector2,
+	InsetAdjustment: number,
 	Padding: number?,
 }
 
@@ -41,25 +39,25 @@ local CURSOR_TYPE_DETAILS: { [CursorType]: SlicedImage | FixedSizeImage | Rounde
 		Tag = "SlicedImage",
 		Image = "component_assets/bulletUp_17_stroke_3",
 		SliceCenter = Rect.new(8, 8, 9, 9),
-		InsetAdjustment = Vector2.new(2, 2),
+		InsetAdjustment = 2,
 	},
 	[CursorType.BulletDown] = {
 		Tag = "SlicedImage",
 		Image = "component_assets/bulletDown_17_stroke_3",
 		SliceCenter = Rect.new(8, 8, 9, 9),
-		InsetAdjustment = Vector2.new(2, 2),
+		InsetAdjustment = 2,
 	},
 	[CursorType.InputFields] = {
 		Tag = "SlicedImage",
 		Image = "component_assets/circle_22_stroke_3",
 		SliceCenter = Rect.new(11, 11, 12, 12),
-		InsetAdjustment = if Flags.FoundationFixCursorStyling then Vector2.new(7, 0) else Vector2.new(14, 14),
+		InsetAdjustment = 14,
 	},
 	[CursorType.SelectionCell] = {
 		Tag = "SlicedImage",
 		Image = "component_assets/square_7_stroke_3",
 		SliceCenter = Rect.new(3.5, 3.5, 3.5, 3.5),
-		InsetAdjustment = Vector2.new(2, 2),
+		InsetAdjustment = 2,
 		Padding = 50,
 	},
 	[CursorType.SelectedKnob] = {
@@ -87,7 +85,7 @@ local CURSOR_TYPE_DETAILS: { [CursorType]: SlicedImage | FixedSizeImage | Rounde
 	[CursorType.RoundedRectNoInset] = {
 		Tag = "RoundedImage",
 		CornerRadius = UDim.new(0, 8),
-		Offset = if Flags.FoundationFixCursorStyling then 0 else 9,
+		Offset = 0,
 		BorderWidth = 3,
 	},
 	[CursorType.RoundedSlot] = {
@@ -134,16 +132,15 @@ type Props = {
 }
 
 local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
-	local tokens = useTokens()
 	if props.cursorType == CursorType.NavHighlight then
 		return React.createElement("Frame", {
 			AnchorPoint = Vector2.new(0, 1),
 			Position = UDim2.new(0, 0, 1, -NAV_HIGHLIGHT_HEIGHT),
 			Size = UDim2.new(1, 0, 0, NAV_HIGHLIGHT_HEIGHT),
 			BorderSizePixel = 1,
-			BackgroundColor3 = if Flags.FoundationFixCursorStyling then tokens.Color.Selection.Start.Color3 else WHITE,
+			BackgroundColor3 = WHITE,
 			BackgroundTransparency = 0,
-			BorderColor3 = if Flags.FoundationFixCursorStyling then tokens.Color.Selection.Start.Color3 else WHITE,
+			BorderColor3 = WHITE,
 			ref = ref,
 		})
 	elseif props.cursorType == CursorType.Invisible then
@@ -157,9 +154,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 
 		if cursorDetails.Tag == "FixedSizeImage" then
 			local size = UDim2.fromOffset(cursorDetails.Size, cursorDetails.Size)
-			local position = if Flags.FoundationFixCursorStyling
-				then UDim2.new(0.5, -size.X.Offset / 2, 0.5, -size.Y.Offset / 2)
-				else nil
+			local position = UDim2.new(0.5, -size.X.Offset / 2, 0.5, -size.Y.Offset / 2)
 			return React.createElement(Image, {
 				Image = cursorDetails.Image,
 				imageStyle = {
@@ -173,7 +168,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 			})
 		elseif cursorDetails.Tag == "SlicedImage" then
 			local inset = cursorDetails.InsetAdjustment
-			local size = UDim2.new(1, inset.X * 2, 1, inset.Y * 2)
+			local size = UDim2.new(1, inset * 2, 1, inset * 2)
 			local padding = if cursorDetails.Padding
 				then React.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, cursorDetails.Padding),
@@ -191,7 +186,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 					center = cursorDetails.SliceCenter,
 				},
 				Size = size,
-				Position = UDim2.fromOffset(-inset.X, -inset.Y),
+				Position = UDim2.fromOffset(-inset, -inset),
 				ref = ref,
 			}, {
 				Padding = padding,

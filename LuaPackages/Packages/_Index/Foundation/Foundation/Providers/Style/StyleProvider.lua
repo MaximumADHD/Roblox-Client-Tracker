@@ -26,7 +26,6 @@ local getTokens = Tokens.getTokens
 export type StyleProviderProps = {
 	theme: Theme,
 	device: Device?,
-	scale: number?,
 	-- **Deprecated**. Use useStyleSheet hook insteads to derive the Foundation styles.
 	derives: { StyleSheet }?,
 	children: React.ReactNode,
@@ -41,7 +40,6 @@ type Tokens = Tokens.Tokens
 local defaultStyle = {
 	theme = Theme.Dark :: Theme,
 	device = Device.Desktop :: Device,
-	scale = 1,
 }
 
 function StyleSheetContextWrapper(props: {
@@ -62,7 +60,6 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local props = withDefaults({
 		theme = styleProviderProps.theme,
 		device = styleProviderProps.device,
-		scale = styleProviderProps.scale,
 	}, defaultStyle)
 
 	-- Hack to update the sibling node, without rerendering the parent
@@ -71,8 +68,8 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local useVariants = VariantsContext.useVariantsState()
 
 	local tokens: Tokens = React.useMemo(function()
-		return getTokens(props.device, props.theme, props.scale)
-	end, { props.device :: any, props.theme, props.scale })
+		return getTokens(props.device, props.theme)
+	end, { props.device :: any, props.theme })
 
 	local rules = if not Flags.FoundationDisableStylingPolyfill
 		then useGeneratedRules(props.theme, props.device)

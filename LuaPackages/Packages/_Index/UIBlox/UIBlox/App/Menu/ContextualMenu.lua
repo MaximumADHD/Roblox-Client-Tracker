@@ -103,8 +103,6 @@ ContextualMenu.validateProps = t.strictInterface({
 	headerHeight = t.optional(t.number),
 	-- If the shadow effect is visible
 	showDropShadow = t.optional(t.boolean),
-	-- Whether to enable RoactGamepad functionality
-	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 ContextualMenu.defaultProps = {
@@ -268,7 +266,6 @@ function ContextualMenu:render()
 					renderHeader = self.props.renderHeader,
 					headerHeight = self.props.headerHeight,
 					showDropShadow = self.props.showDropShadow,
-					isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 				}),
 			}),
 		})

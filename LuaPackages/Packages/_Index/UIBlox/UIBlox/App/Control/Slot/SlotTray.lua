@@ -54,9 +54,6 @@ local validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-
-	-- Whether to enable RoactGamepad functionality
-	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 export type Slot = {
@@ -108,9 +105,6 @@ export type Props = {
 	NextSelectionUp: any?,
 	-- Next selection for gamepad focus
 	NextSelectionDown: any?,
-
-	-- Whether to enable RoactGamepad functionality
-	isRoactGamepadEnabled: boolean?,
 }
 
 -- Returns a motor that can be used to update the ScrollingFrame CanvasPosition
@@ -136,9 +130,7 @@ local function useScrollingFrameMotor(scrollingFrameRef: any, initialValue: numb
 end
 
 local function SlotTray(props: Props)
-	local isRoactGamepadEnabled = if props.isRoactGamepadEnabled ~= nil then props.isRoactGamepadEnabled else true
-	local refCache = React.useRef({})
-	local slotRefs = if isRoactGamepadEnabled then RoactGamepad.useRefCache() else refCache.current
+	local slotRefs = RoactGamepad.useRefCache()
 
 	local scrollingFrameRef = React.useRef(nil)
 	if props.scrollingFrameRef then
@@ -198,11 +190,7 @@ local function SlotTray(props: Props)
 	local theme = style.Theme
 
 	local slots = Cryo.List.map(props.slots, function(slot, index)
-		if not isRoactGamepadEnabled then
-			slotRefs[index] = slotRefs[index] or React.createRef()
-		end
-
-		return React.createElement(if isRoactGamepadEnabled then Focusable.Frame else "Frame", {
+		return React.createElement(Focusable.Frame, {
 			key = "Slot" .. tostring(index),
 			LayoutOrder = index,
 			Size = UDim2.fromOffset(DEFAULT_SLOT_SIZE, DEFAULT_SLOT_SIZE),
@@ -211,11 +199,9 @@ local function SlotTray(props: Props)
 			ref = slotRefs[index],
 			NextSelectionRight = index < #props.slots and slotRefs[index + 1] or nil,
 			NextSelectionLeft = index > 1 and slotRefs[index - 1] or nil,
-			onFocusGained = if isRoactGamepadEnabled
-				then function()
-					selectIndex(index)
-				end
-				else nil,
+			onFocusGained = function()
+				selectIndex(index)
+			end,
 			SelectionImageObject = selectionCursor,
 		}, {
 			Slot = React.createElement(TileSlot, {
@@ -240,7 +226,7 @@ local function SlotTray(props: Props)
 	})
 	table.insert(slots, UIListLayout)
 
-	return React.createElement(if isRoactGamepadEnabled then Focusable.ScrollingFrame else "ScrollingFrame", {
+	return React.createElement(Focusable.ScrollingFrame, {
 		Size = UDim2.fromOffset(frameWidth, DEFAULT_SLOTTRAY_HEIGHT),
 		CanvasSize = UDim2.new(0, canvasWidth, 0, DEFAULT_SLOTTRAY_HEIGHT),
 		BackgroundTransparency = 1,
@@ -255,14 +241,14 @@ local function SlotTray(props: Props)
 
 		[React.Event.InputBegan] = props.onInputBegan,
 		[React.Event.InputEnded] = props.onInputEnded,
-		onFocusChanged = if isRoactGamepadEnabled then props.onFocusChanged else nil,
-		inputBindings = if isRoactGamepadEnabled then props.inputBindings else nil,
+		onFocusChanged = props.onFocusChanged,
+		inputBindings = props.inputBindings,
 		NextSelectionDown = props.NextSelectionDown,
 		NextSelectionUp = props.NextSelectionUp,
 		NextSelectionLeft = props.NextSelectionLeft,
 		NextSelectionRight = props.NextSelectionRight,
-		defaultChild = if isRoactGamepadEnabled then slotRefs[1] else nil,
-		restorePreviousChildFocus = if isRoactGamepadEnabled then true else nil,
+		defaultChild = slotRefs[1],
+		restorePreviousChildFocus = true,
 	}, {
 		SlotContainer = React.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),

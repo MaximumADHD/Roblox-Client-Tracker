@@ -57,15 +57,13 @@ ExpandableTextArea.validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	frameRef = t.optional(t.table),
+
 	gradientColor = t.optional(t.Color3),
-	-- Whether to enable RoactGamepad functionality
-	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 ExpandableTextArea.defaultProps = {
 	compactNumberOfLines = 2,
 	Text = "",
-	isRoactGamepadEnabled = true,
 }
 
 function ExpandableTextArea:init()
@@ -155,9 +153,7 @@ function ExpandableTextArea:render()
 			local gradientHeight = isExpanded and 0 or GRADIENT_HEIGHT
 
 			local isFocusable = canExpand
-			local frameComponent = if self.props.isRoactGamepadEnabled and isFocusable
-				then RoactGamepad.Focusable.Frame
-				else "Frame"
+			local frameComponent = isFocusable and RoactGamepad.Focusable.Frame or "Frame"
 
 			return Roact.createElement(frameComponent, {
 				BackgroundTransparency = 1,
@@ -178,15 +174,14 @@ function ExpandableTextArea:render()
 						})
 					end
 				end,
+
 				NextSelectionUp = self.props.NextSelectionUp,
 				NextSelectionDown = self.props.NextSelectionDown,
 				NextSelectionLeft = self.props.NextSelectionLeft,
 				NextSelectionRight = self.props.NextSelectionRight,
-				inputBindings = if self.props.isRoactGamepadEnabled and isFocusable
-					then {
-						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.onClick),
-					}
-					else nil,
+				inputBindings = isFocusable and {
+					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.onClick),
+				} or nil,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,

@@ -26,7 +26,6 @@ local function FoundationProvider(props: FoundationProviderProps)
 			theme = props.theme,
 			device = props.device,
 			derives = props.derives,
-			scale = preferences.scale,
 		}, {
 			OverlayProvider = React.createElement(OverlayProvider, { gui = props.overlayGui }, {
 				CursorProvider = React.createElement(CursorProvider, nil, props.children),

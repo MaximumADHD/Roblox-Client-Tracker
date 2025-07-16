@@ -75,8 +75,6 @@ PlayerTile.validateProps = t.strictInterface({
 	onActivated = t.optional(t.callback),
 	forwardedRef = t.optional(t.table),
 	openTypeFeatures = t.optional(t.string),
-	-- Whether to enable RoactGamepad functionality
-	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 PlayerTile.defaultProps = {
@@ -87,7 +85,6 @@ PlayerTile.defaultProps = {
 	Selectable = false,
 	isCircular = false,
 	openTypeFeatures = nil,
-	isRoactGamepadEnabled = true,
 }
 
 local ANIMATION_SPRING_SETTINGS = {
@@ -220,7 +217,6 @@ local function thumbnailOverlayComponents(props)
 								onActivated = button.onActivated,
 								mouseEnter = props.hoverMouseEnter,
 								mouseLeave = props.hoverMouseLeave,
-								isRoactGamepadEnabled = props.isRoactGamepadEnabled,
 							})
 						end),
 						{

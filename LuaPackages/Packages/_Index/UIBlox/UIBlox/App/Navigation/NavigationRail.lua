@@ -11,6 +11,7 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local InteractableList = require(UIBlox.Core.Control.InteractableList)
 local ControlStateEnum = require(UIBlox.Core.Control.Enum.ControlState)
 local NavigationRailAlignment = require(App.Navigation.Enum.NavigationRailAlignment)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local defaultProps = {
 	visible = true,
@@ -46,6 +47,8 @@ export type Props = {
 	renderItem: (NavigationRailItem, ControlState, boolean, number) -> (React.ReactElement?, { [any]: any }?),
 	-- Overrides the default color and transparency of the navigation rail background
 	backgroundColor: StyleTypes.BackgroundStyle?,
+	-- Overrides the default color and transparency of the root background
+	rootBackgroundColor: StyleTypes.BackgroundStyle?,
 	-- Override paddings to adapt a navigation rail instance to Safe Area Insets
 	paddings: StyleTypes.PaddingItem?,
 	-- Override the position of the NavigationRail
@@ -83,16 +86,27 @@ local function NavigationRail(providedProps: Props)
 		local renderPrimeryItems = {} :: any
 		local renderSecondaryItems = {} :: any
 		local hasSecondaryNavigation = false
-		for i, item in ipairs(items) do
-			local listItem = renderItem(i)
-			-- workaround: remove the key property set by InteractableList's renderItem function to avoid conflict
-			listItem["key"] = nil
-			if item.isSecondary then
-				renderSecondaryItems[tostring(i)] = listItem
-				hasSecondaryNavigation = true
-			else
-				renderPrimeryItems[tostring(i)] = listItem
+		if UIBloxConfig.fixAppNavTestIssues then
+			for i, item in ipairs(items) do
+				local listItem = renderItem(i)
+				-- workaround: remove the key property set by InteractableList's renderItem function to avoid conflict
+				listItem["key"] = nil
+				if item.isSecondary then
+					renderSecondaryItems[tostring(i)] = listItem
+					hasSecondaryNavigation = true
+				else
+					renderPrimeryItems[tostring(i)] = listItem
+				end
 			end
+		else
+			for i, item in ipairs(items) do
+				if item.isSecondary then
+					table.insert(renderSecondaryItems, renderItem(i))
+				else
+					table.insert(renderPrimeryItems, renderItem(i))
+				end
+			end
+			hasSecondaryNavigation = (#renderSecondaryItems > 0)
 		end
 		local uiPadding = React.createElement("UIPadding", {
 			PaddingTop = if props.paddings and props.paddings.Top
@@ -110,7 +124,17 @@ local function NavigationRail(providedProps: Props)
 		})
 
 		return React.createElement("Frame", {
-			BackgroundTransparency = 1,
+			BackgroundColor3 = if UIBloxConfig.enableAppNavTransparentBackground
+				then nil
+				else (if props.rootBackgroundColor
+					then props.rootBackgroundColor.Color
+					else style.Theme.BackgroundDefault.Color),
+			BackgroundTransparency = if UIBloxConfig.enableAppNavTransparentBackground
+				then 1
+				else (if props.rootBackgroundColor
+					then props.rootBackgroundColor.Transparency
+					else style.Theme.BackgroundDefault.Transparency),
+			BorderSizePixel = if UIBloxConfig.enableAppNavTransparentBackground then nil else 0,
 			ClipsDescendants = props.clipsDescendants,
 			Size = props.size,
 			Position = props.position,
@@ -153,12 +177,21 @@ local function NavigationRail(providedProps: Props)
 							AutomaticSize = Enum.AutomaticSize.Y,
 							LayoutOrder = 1,
 						},
-						Cryo.Dictionary.join({
-							Layout = React.createElement("UIListLayout", {
-								FillDirection = Enum.FillDirection.Vertical,
-								HorizontalAlignment = Enum.HorizontalAlignment.Center,
-							}),
-						}, renderPrimeryItems)
+						if UIBloxConfig.fixAppNavTestIssues
+							then Cryo.Dictionary.join({
+								Layout = React.createElement("UIListLayout", {
+									FillDirection = Enum.FillDirection.Vertical,
+									HorizontalAlignment = Enum.HorizontalAlignment.Center,
+								}),
+							}, renderPrimeryItems)
+							else {
+								Cryo.Dictionary.join({
+									Layout = React.createElement("UIListLayout", {
+										FillDirection = Enum.FillDirection.Vertical,
+										HorizontalAlignment = Enum.HorizontalAlignment.Center,
+									}),
+								}, renderPrimeryItems),
+							}
 					),
 					CenteredSeondaryItems = if hasSecondaryNavigation
 							and props.alignment == NavigationRailAlignment.Centered
@@ -170,12 +203,21 @@ local function NavigationRail(providedProps: Props)
 								AutomaticSize = Enum.AutomaticSize.Y,
 								LayoutOrder = 2,
 							},
-							Cryo.Dictionary.join({
-								Layout = React.createElement("UIListLayout", {
-									FillDirection = Enum.FillDirection.Vertical,
-									HorizontalAlignment = Enum.HorizontalAlignment.Center,
-								}),
-							}, renderSecondaryItems)
+							if UIBloxConfig.fixAppNavTestIssues
+								then Cryo.Dictionary.join({
+									Layout = React.createElement("UIListLayout", {
+										FillDirection = Enum.FillDirection.Vertical,
+										HorizontalAlignment = Enum.HorizontalAlignment.Center,
+									}),
+								}, renderSecondaryItems)
+								else {
+									Cryo.Dictionary.join({
+										Layout = React.createElement("UIListLayout", {
+											FillDirection = Enum.FillDirection.Vertical,
+											HorizontalAlignment = Enum.HorizontalAlignment.Center,
+										}),
+									}, renderSecondaryItems),
+								}
 						)
 						else nil,
 				}),
@@ -188,14 +230,25 @@ local function NavigationRail(providedProps: Props)
 							Size = UDim2.new(1, 0, 1, 0),
 							BackgroundTransparency = 1,
 						},
-						Cryo.Dictionary.join({
-							Layout = React.createElement("UIListLayout", {
-								FillDirection = Enum.FillDirection.Vertical,
-								VerticalAlignment = Enum.VerticalAlignment.Bottom,
-								HorizontalAlignment = Enum.HorizontalAlignment.Center,
-							}),
-							UIPadding = uiPadding,
-						}, renderSecondaryItems)
+						if UIBloxConfig.fixAppNavTestIssues
+							then Cryo.Dictionary.join({
+								Layout = React.createElement("UIListLayout", {
+									FillDirection = Enum.FillDirection.Vertical,
+									VerticalAlignment = Enum.VerticalAlignment.Bottom,
+									HorizontalAlignment = Enum.HorizontalAlignment.Center,
+								}),
+								UIPadding = uiPadding,
+							}, renderSecondaryItems)
+							else {
+								Cryo.Dictionary.join({
+									Layout = React.createElement("UIListLayout", {
+										FillDirection = Enum.FillDirection.Vertical,
+										VerticalAlignment = Enum.VerticalAlignment.Bottom,
+										HorizontalAlignment = Enum.HorizontalAlignment.Center,
+									}),
+									UIPadding = uiPadding,
+								}, renderSecondaryItems),
+							}
 					)
 					else nil,
 			}),
@@ -209,6 +262,7 @@ local function NavigationRail(providedProps: Props)
 		props.visible,
 		props.zIndex,
 		props.paddings,
+		if UIBloxConfig.enableAppNavTransparentBackground then nil else props.rootBackgroundColor,
 		props.backgroundColor,
 	} :: { any })
 

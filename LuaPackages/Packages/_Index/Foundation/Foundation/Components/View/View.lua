@@ -101,7 +101,6 @@ local function View(viewProps: ViewProps, ref: React.Ref<GuiObject>?)
 			onStateChanged = props.onStateChanged,
 			stateLayer = props.stateLayer,
 			isDisabled = props.isDisabled,
-			cursor = props.cursor,
 		})
 		else engineComponentProps
 

@@ -11,6 +11,7 @@ local Types = require(Components.Types)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
+local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
@@ -61,6 +62,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	local hover, setHover = React.useState(false)
 	local focus, setFocus = React.useState(false)
 
+	local selectionBorderThickness = tokens.Stroke.Thick
 	local outerBorderThickness = tokens.Stroke.Standard
 	local outerBorderOffset = math.ceil(outerBorderThickness) * 2
 	local innerBorderThickness = tokens.Stroke.Thick
@@ -133,13 +135,11 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 
 	local textBoxTag = if Flags.FoundationDisableStylingPolyfill then useStyleTags(variantProps.textBox.tag) else nil
 
-	local cursor = React.useMemo(function()
-		return {
-			radius = UDim.new(0, variantProps.innerContainer.radius),
-			offset = tokens.Stroke.Thick,
-			borderWidth = tokens.Stroke.Thick,
-		}
-	end, { tokens :: unknown, variantProps.innerContainer.radius })
+	local inputCursor = useCursor({
+		radius = UDim.new(0, variantProps.innerContainer.radius),
+		offset = selectionBorderThickness,
+		borderWidth = selectionBorderThickness,
+	})
 
 	return React.createElement(
 		View,
@@ -153,8 +153,8 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				Position = UDim2.new(0, outerBorderOffset / 2, 0, outerBorderOffset / 2),
 				selection = {
 					Selectable = not props.isDisabled,
+					SelectionImageObject = inputCursor,
 				},
-				cursor = cursor,
 				stroke = {
 					Color = if props.hasError
 						then tokens.Color.System.Alert.Color3
