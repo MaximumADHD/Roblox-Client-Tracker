@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
@@ -60,7 +59,6 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(chipProps, defaultProps)
 
 	local tokens = useTokens()
-	local cursor = useCursor(CursorType.SmallPill)
 	local leading, trailing = React.useMemo(function()
 		local leading, trailing
 		if props.icon == nil then
@@ -92,7 +90,6 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 		withCommonProps(props, {
 			selection = {
 				Selectable = true,
-				SelectionImageObject = cursor,
 			},
 			onActivated = props.onActivated,
 			stateLayer = if props.isChecked
@@ -102,6 +99,7 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 				else nil,
 			backgroundStyle = variantProps.chip.backgroundStyle,
 			padding = variantProps.chip.padding,
+			cursor = CursorType.SmallPill,
 			tag = variantProps.chip.tag,
 			ref = ref,
 		}),

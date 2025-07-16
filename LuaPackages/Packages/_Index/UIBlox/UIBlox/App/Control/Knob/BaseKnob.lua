@@ -84,12 +84,16 @@ BaseKnob.validateProps = t.interface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	controlRef = t.optional(t.table),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 BaseKnob.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0.5),
 	userInteractionEnabled = true,
 	isDisabled = false,
+	isRoactGamepadEnabled = true,
 }
 
 function BaseKnob:init()
@@ -136,26 +140,25 @@ function BaseKnob:render()
 				Active = true,
 				BackgroundTransparency = 1,
 			}),
-			KnobButton = Roact.createElement(RoactGamepad.Focusable[Interactable], {
-				Size = UDim2.fromScale(1, 1),
-
-				isDisabled = self.props.isDisabled,
-				onStateChanged = self.onStateChanged,
-				userInteractionEnabled = self.props.userInteractionEnabled,
-				BackgroundTransparency = 1,
-
-				Image = Images["component_assets/circle_29"],
-				ImageColor3 = color.Color,
-				ImageTransparency = color.Transparency,
-
-				[Roact.Ref] = self.props.forwardedRef,
-				[Roact.Event.Activated] = self.props.onActivated,
-
-				NextSelectionLeft = self.props.NextSelectionLeft,
-				NextSelectionRight = self.props.NextSelectionRight,
-				NextSelectionUp = self.props.NextSelectionUp,
-				NextSelectionDown = self.props.NextSelectionDown,
-			}),
+			KnobButton = Roact.createElement(
+				if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable[Interactable] else Interactable,
+				{
+					Size = UDim2.fromScale(1, 1),
+					isDisabled = self.props.isDisabled,
+					onStateChanged = self.onStateChanged,
+					userInteractionEnabled = self.props.userInteractionEnabled,
+					BackgroundTransparency = 1,
+					Image = Images["component_assets/circle_29"],
+					ImageColor3 = color.Color,
+					ImageTransparency = color.Transparency,
+					[Roact.Ref] = self.props.forwardedRef,
+					[Roact.Event.Activated] = self.props.onActivated,
+					NextSelectionLeft = self.props.NextSelectionLeft,
+					NextSelectionRight = self.props.NextSelectionRight,
+					NextSelectionUp = self.props.NextSelectionUp,
+					NextSelectionDown = self.props.NextSelectionDown,
+				}
+			),
 		})
 	end)
 end

@@ -6,8 +6,6 @@ local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local positioning = require(script.Parent.positioning)
 
-local Flags = require(Foundation.Utility.Flags)
-
 type PopoverSide = PopoverSide.PopoverSide
 type PopoverAlign = PopoverAlign.PopoverAlign
 
@@ -121,10 +119,9 @@ local function useFloating(
 		recalculatePosition()
 	end, { recalculatePosition })
 
-	local callback = if Flags.FoundationFixUseFloatingContentSize then recalculatePositionRef else recalculatePosition
-	useConnectSignals(anchor, { "AbsolutePosition", "AbsoluteSize" }, callback)
-	useConnectSignals(content, { "AbsoluteSize" }, callback)
-	useConnectSignals(overlay, { "AbsoluteSize" }, callback)
+	useConnectSignals(anchor, { "AbsolutePosition", "AbsoluteSize" }, recalculatePositionRef)
+	useConnectSignals(content, { "AbsoluteSize" }, recalculatePositionRef)
+	useConnectSignals(overlay, { "AbsoluteSize" }, recalculatePositionRef)
 
 	return position, isVisible, contentSize, arrowPosition, screenSize
 end

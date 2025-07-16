@@ -62,10 +62,14 @@ DefaultMetricsGridView.validateProps = t.strictInterface({
 
 	-- which selection will initially be selected (if using roact-gamepad)
 	defaultChildIndex = t.optional(t.numberMin(1)),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 DefaultMetricsGridView.defaultProps = {
 	maxHeight = math.huge,
+	isRoactGamepadEnabled = true,
 }
 
 function DefaultMetricsGridView:init()
@@ -103,9 +107,12 @@ function DefaultMetricsGridView:render()
 		[Roact.Ref] = self.props.frameRef,
 
 		-- Optional gamepad props
-		defaultChildIndex = self.props.defaultChildIndex,
-		restorePreviousChildFocus = self.props.restorePreviousChildFocus,
-		onFocusGained = self.props.onFocusGained,
+		defaultChildIndex = if self.props.isRoactGamepadEnabled then self.props.defaultChildIndex else nil,
+		restorePreviousChildFocus = if self.props.isRoactGamepadEnabled
+			then self.props.restorePreviousChildFocus
+			else nil,
+		onFocusGained = if self.props.isRoactGamepadEnabled then self.props.onFocusGained else nil,
+		isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 
 		onWidthChanged = function(newWidth)
 			if self.isMounted then

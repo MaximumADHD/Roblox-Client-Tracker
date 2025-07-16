@@ -38,12 +38,15 @@ Checkbox.validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	-- An Instance for gamepad NextSelectionRight
 	NextSelectionRight = t.optional(t.table),
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 Checkbox.defaultProps = {
 	text = "Checkbox Text",
 	isSelected = false,
 	isDisabled = false,
+	isRoactGamepadEnabled = true,
 }
 
 local CHECKMARK_SIZE = if UIBloxConfig.migrateBuilderIcon then 20 else 14
@@ -105,6 +108,7 @@ function Checkbox:renderWithProviders(style, getSelectionCursor, cursor)
 		transparency = transparency,
 		layoutOrder = self.props.layoutOrder,
 		isDisabled = self.props.isDisabled,
+		isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 		[Roact.Ref] = self.props.frameRef,
 		SelectionImageObject = getSelectionCursor(CursorKind.InputButton),
 	})

@@ -7,6 +7,9 @@ type StateLayerAffordance = StateLayerAffordance.StateLayerAffordance
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 type StateLayerMode = StateLayerMode.StateLayerMode
 
+local CursorType = require(Foundation.Enums.CursorType)
+type CursorType = CursorType.CursorType
+
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 export type StateChangedCallback = (newState: ControlState) -> ()
@@ -118,6 +121,7 @@ export type GuiObjectProps = {
 
 	backgroundStyle: ColorStyle?,
 	selection: Selection?,
+	cursor: Cursor?,
 	selectionGroup: Bindable<boolean>? | SelectionGroup?,
 
 	AutoLocalize: Bindable<boolean>?,
@@ -192,5 +196,13 @@ export type TextInputRef = {
 	focus: () -> (),
 	releaseFocus: () -> (),
 }
+
+export type CursorConfig = {
+	radius: UDim?,
+	offset: number?,
+	borderWidth: number?,
+}
+
+export type Cursor = CursorType | CursorConfig
 
 return {}

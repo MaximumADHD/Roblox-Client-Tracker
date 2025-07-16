@@ -47,6 +47,8 @@ export type Props = {
 	-- Navigation parameter for RoactGamepad support
 	NextSelectionDown: any,
 	forwardRef: any,
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled: boolean?,
 }
 
 local PILL_GROUP_HEIGHT = 52
@@ -56,7 +58,8 @@ local BUTTON_PADDING = 8
 local DEFAULT_LEFT_RIGHT_PADDING = 15
 
 local function PillGroup(props: Props)
-	local isGamepad = useIsGamepad()
+	local isRoactGamepadEnabled = if props.isRoactGamepadEnabled ~= nil then props.isRoactGamepadEnabled else true
+	local isGamepad = useIsGamepad() and isRoactGamepadEnabled
 
 	local scrollingFrameRef = React.useRef(nil)
 
@@ -81,7 +84,8 @@ local function PillGroup(props: Props)
 		end
 	end)
 
-	local pillRefs = RoactGamepad.useRefCache()
+	local refCache = React.useRef({})
+	local pillRefs = isRoactGamepadEnabled and RoactGamepad.useRefCache() or refCache.current
 
 	local clearPills = React.useCallback(function()
 		if props.onSelectionChanged then
@@ -139,20 +143,24 @@ local function PillGroup(props: Props)
 			allPillsLoading = false
 		end
 
-		children[i] = React.createElement(Focusable[Pill], {
+		if not isRoactGamepadEnabled then
+			pillRefs[i] = pillRefs[i] or React.createRef()
+		end
+
+		children[i] = React.createElement(if isRoactGamepadEnabled then Focusable[Pill] else Pill, {
 			layoutOrder = i + 1,
 			key = tostring(i),
 			text = pill,
 			isSelected = isSelected,
 			isLoading = props.isLoading and not isSelected,
+			onActivated = onActivated,
 			ref = pillRefs[i],
 			NextSelectionLeft = if i > 1 or showClearButton then pillRefs[i - 1] else nil,
 			NextSelectionRight = if i < #sortedPills then pillRefs[i + 1] else nil,
-			onActivated = onActivated,
 		})
 	end
 
-	if allPillsLoading and isGamepad then
+	if allPillsLoading and isGamepad and isRoactGamepadEnabled then
 		-- If using gamepad navigation, create a dummy pill to hold focus
 		-- for the brief time when no active pills are visible.
 		-- Otherwise, this component may suddenly have no focusable children,
@@ -186,7 +194,7 @@ local function PillGroup(props: Props)
 		buttonRefs[i] = pillRefs[i]
 	end
 
-	return React.createElement(Focusable.Frame, {
+	return React.createElement(if isRoactGamepadEnabled then Focusable.Frame else "Frame", {
 		Size = UDim2.new(1, 0, 0, PILL_GROUP_HEIGHT),
 		BackgroundColor3 = theme.BackgroundDefault.Color,
 		BackgroundTransparency = theme.BackgroundDefault.Transparency,
@@ -195,7 +203,7 @@ local function PillGroup(props: Props)
 		ref = props.forwardRef,
 		NextSelectionUp = props.NextSelectionUp,
 		NextSelectionDown = props.NextSelectionDown,
-		defaultChild = pillRefs[1],
+		defaultChild = if isRoactGamepadEnabled then pillRefs[1] else nil,
 	}, {
 		ScrollingList = React.createElement(ScrollingListWithArrowsAndGradient, {
 			-- Purposely causing ScrollingListWithArrowsAndGradient to rerender when we are rerendered.

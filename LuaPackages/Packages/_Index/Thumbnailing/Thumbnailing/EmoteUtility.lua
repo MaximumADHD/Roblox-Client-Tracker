@@ -9,10 +9,14 @@ local AnimationClipProvider = game:GetService("AnimationClipProvider")
 local InsertService = game:GetService("InsertService")
 local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
+local FFlagAnimationSilhouetteCurveAnimations = game:DefineFastFlag("AnimationSilhouetteCurveAnimations", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local module = {}
+
+-- Needs to be exposed for AnimationSilhouette.lua
+module.FFlagAnimationSilhouetteCurveAnimations = FFlagAnimationSilhouetteCurveAnimations
 
 type AnimationAssetIdOrUrl = string | number
 
@@ -781,17 +785,30 @@ end
 -- May return nil if we have problems fetching animation clip.
 -- This returns either a KeyframeSequence or a CurveAnimation or nil.
 -- KeyframeSequence and CurveAnimation are both AnimationClips.
-module.GetAnimationClip = function(keyframeSequenceOrAnimation: KeyframeSequence | Animation): AnimationClip?
-	-- Just a heads-up: currently the animationAsset is a keyframe sequence iff the user did not make
+module.GetAnimationClip = function(animationAsset: KeyframeSequence | CurveAnimation | Animation): AnimationClip?
+	-- Just a heads-up: currently the animationAsset is a keyframe sequence if the user did not make
 	-- an explicit "I want this emote" choice, and we are falling back to a pose based on user's
 	-- current idle animation.
-	if keyframeSequenceOrAnimation:IsA("KeyframeSequence") then
-		return keyframeSequenceOrAnimation :: KeyframeSequence
-	elseif keyframeSequenceOrAnimation:IsA("Animation") then
-		return getAnimationClipByAssetId((keyframeSequenceOrAnimation :: Animation).AnimationId)
+	if FFlagAnimationSilhouetteCurveAnimations then
+		if animationAsset:IsA("KeyframeSequence") then
+			return animationAsset :: KeyframeSequence
+		elseif animationAsset:IsA("CurveAnimation") then
+			return animationAsset :: CurveAnimation
+		elseif animationAsset:IsA("Animation") then
+			return getAnimationClipByAssetId((animationAsset :: Animation).AnimationId)
+		else
+			error("Cannot get AnimationClip from type:" .. animationAsset.ClassName)
+			return nil
+		end
 	else
-		error("Unknown keyframeSequenceOrAnimation type:" .. keyframeSequenceOrAnimation.ClassName)
-		return nil
+		if animationAsset:IsA("KeyframeSequence") then
+			return animationAsset :: KeyframeSequence
+		elseif animationAsset:IsA("Animation") then
+			return getAnimationClipByAssetId((animationAsset :: Animation).AnimationId)
+		else
+			error("Unknown keyframeSequenceOrAnimation type:" .. animationAsset.ClassName)
+			return nil
+		end
 	end
 end
 

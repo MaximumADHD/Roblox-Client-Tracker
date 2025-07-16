@@ -102,6 +102,9 @@ IconButton.validateProps = t.strictInterface({
 	buttonRef = t.optional(t.union(t.callback, t.table)),
 
 	[Roact.Change.AbsoluteSize] = t.optional(t.callback),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 IconButton.defaultProps = {
@@ -125,6 +128,8 @@ IconButton.defaultProps = {
 	userInteractionEnabled = true,
 
 	[IconButton.debugProps.controlState] = nil,
+
+	isRoactGamepadEnabled = true,
 }
 
 function IconButton:init()
@@ -188,7 +193,7 @@ function IconButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		backgroundColor = self.props.backgroundColor
 	end
 
-	return Roact.createElement(Focusable[Interactable], {
+	return Roact.createElement(if self.props.isRoactGamepadEnabled then Focusable[Interactable] else Interactable, {
 		AnchorPoint = self.props.anchorPoint,
 		LayoutOrder = self.props.layoutOrder,
 		Position = self.props.position,
@@ -209,7 +214,7 @@ function IconButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
-		inputBindings = self.props.inputBindings,
+		inputBindings = if self.props.isRoactGamepadEnabled then self.props.inputBindings else nil,
 		SelectionImageObject = getCursor(CORNER_RADIUS),
 	}, {
 		sizeConstraint = Roact.createElement("UISizeConstraint", {

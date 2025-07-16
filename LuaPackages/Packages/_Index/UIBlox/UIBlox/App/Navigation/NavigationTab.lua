@@ -13,7 +13,6 @@ local Badge = require(UIBlox.App.Indicator.Badge)
 local NavigationTabLayout = require(UIBlox.App.Navigation.Enum.NavigationTabLayout)
 local ImagesTypes = require(UIBlox.App.ImageSet.ImagesTypes)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local HUGE_VECTOR = Vector2.new(math.huge, math.huge)
 local LABEL_PADDING = 2
@@ -71,24 +70,21 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 	end, {})
 	-- calculate labelSize
 	local labelSize
-	if UIBloxConfig.enableAppNavTextFlickerFix then
-		local fontSize
-		if props.labelTypography then
-			fontSize = props.labelTypography.FontSize
-			if fontSize ~= nil and typeof(fontSize) ~= "number" then
-				-- fontSize can be a binding
-				fontSize = fontSize:getValue()
-			end
+	local fontSize
+	if props.labelTypography then
+		fontSize = props.labelTypography.FontSize
+		if fontSize ~= nil and typeof(fontSize) ~= "number" then
+			-- fontSize can be a binding
+			fontSize = fontSize:getValue()
 		end
-		labelSize = React.useMemo(function(): UDim2?
-			if props.hasLabel and props.labelText and props.labelTypography then
-				local textSize =
-					TextService:GetTextSize(props.labelText, fontSize, props.labelTypography.Font, HUGE_VECTOR)
-				return UDim2.new(0, textSize.X + LABEL_PADDING, 0, textSize.Y + LABEL_PADDING)
-			end
-			return nil
-		end, { props.hasLabel, props.labelText, props.labelTypography, fontSize })
 	end
+	labelSize = React.useMemo(function(): UDim2?
+		if props.hasLabel and props.labelText and props.labelTypography then
+			local textSize = TextService:GetTextSize(props.labelText, fontSize, props.labelTypography.Font, HUGE_VECTOR)
+			return UDim2.new(0, textSize.X + LABEL_PADDING, 0, textSize.Y + LABEL_PADDING)
+		end
+		return nil
+	end, { props.hasLabel, props.labelText, props.labelTypography, fontSize })
 
 	-- iconComponent
 	local iconComponent
@@ -132,10 +128,8 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 			then tokens.Semantic.Color.Text.Emphasis
 			else tokens.Semantic.Color.Text.Default
 		labelComponent = React.createElement("TextLabel", {
-			AutomaticSize = if UIBloxConfig.enableAppNavTextFlickerFix and labelSize
-				then nil
-				else Enum.AutomaticSize.XY,
-			Size = if UIBloxConfig.enableAppNavTextFlickerFix then labelSize else nil,
+			AutomaticSize = if labelSize then nil else Enum.AutomaticSize.XY,
+			Size = labelSize,
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
 			TextXAlignment = Enum.TextXAlignment.Center,

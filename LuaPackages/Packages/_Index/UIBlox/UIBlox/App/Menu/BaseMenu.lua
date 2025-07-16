@@ -74,6 +74,9 @@ BaseMenu.validateProps = t.strictInterface({
 	headerHeight = t.optional(t.number),
 	-- Override selection order. This selection order only affects calling GuiService:Select() on an ancestor. This property does not affect directional navigation.
 	selectionOrder = t.optional(t.number),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 BaseMenu.defaultProps = {
@@ -89,10 +92,11 @@ BaseMenu.defaultProps = {
 	borderCornerRadius = 4,
 	enableTokenOverride = true,
 	headerHeight = 0,
+	isRoactGamepadEnabled = true,
 }
 
 function BaseMenu:init()
-	self.gamepadRefs = RoactGamepad.createRefCache()
+	self.gamepadRefs = self.props.isRoactGamepadEnabled and RoactGamepad.createRefCache() or {}
 end
 
 function BaseMenu:renderFixedHeightMenu(props, stylePalette, children)
@@ -185,6 +189,10 @@ function BaseMenu:render()
 			borderCornerRadius = self.props.borderCornerRadius,
 			background = self.props.background,
 		})
+		if not self.props.isRoactGamepadEnabled then
+			self.gamepadRefs[index] = self.gamepadRefs[index] or Roact.createRef()
+		end
+
 		local cursorKind
 		if mergedProps.hasRoundBottom and mergedProps.hasRoundTop then
 			cursorKind = CursorKind.RoundedRectNoInset
@@ -202,23 +210,29 @@ function BaseMenu:render()
 		})
 
 		children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)
-			return Roact.createElement(RoactGamepad.Focusable.Frame, {
-				Size = UDim2.new(self.props.width, UDim.new(0, self.props.elementHeight)),
-				BackgroundTransparency = 1,
-				LayoutOrder = index,
+			return Roact.createElement(
+				if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable.Frame else "Frame",
+				{
+					Size = UDim2.new(self.props.width, UDim.new(0, self.props.elementHeight)),
+					BackgroundTransparency = 1,
+					LayoutOrder = index,
 
-				[Roact.Ref] = self.gamepadRefs[index],
-				NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
-				NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
-				inputBindings = {
-					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated, {
-						key = cellProps.inputBindingKey,
-					}),
+					[Roact.Ref] = self.gamepadRefs[index],
+					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+					NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
+					inputBindings = if self.props.isRoactGamepadEnabled
+						then {
+							Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated, {
+								key = cellProps.inputBindingKey,
+							}),
+						}
+						else nil,
+					SelectionImageObject = getSelectionCursor(cursorKind),
 				},
-				SelectionImageObject = getSelectionCursor(cursorKind),
-			}, {
-				Cell = Roact.createElement(Cell, mergedProps),
-			})
+				{
+					Cell = Roact.createElement(Cell, mergedProps),
+				}
+			)
 		end)
 	end
 

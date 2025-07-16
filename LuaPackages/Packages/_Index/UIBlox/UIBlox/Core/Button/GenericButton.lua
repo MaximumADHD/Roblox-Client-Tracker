@@ -31,7 +31,6 @@ local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local StandardButtonSize = require(Button.Enum.StandardButtonSize)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 
@@ -342,15 +341,11 @@ function GenericButton:renderButton(loadingProgress)
 		local buttonContentLayer
 		if isLoading then
 			buttonContentLayer = {
-				isLoadingShimmer = if UIBloxConfig.enableButtonLoadingShimmerPanelFix
-					then Roact.createElement(ShimmerPanel, {
-						Size = if standardSize then UDim2.new(1, 2 * sidePadding, 1, 0) else UDim2.new(1, 0, 1, 0),
-						Position = if standardSize then UDim2.new(0, -sidePadding, 0, 0) else nil,
-						cornerRadius = UDim.new(0, BUTTON_IMAGE_CORNER_RADIUS),
-					})
-					else Roact.createElement(ShimmerPanel, {
-						Size = UDim2.new(1, 0, 1, 0),
-					}),
+				isLoadingShimmer = Roact.createElement(ShimmerPanel, {
+					Size = if standardSize then UDim2.new(1, 2 * sidePadding, 1, 0) else UDim2.new(1, 0, 1, 0),
+					Position = if standardSize then UDim2.new(0, -sidePadding, 0, 0) else nil,
+					cornerRadius = UDim.new(0, BUTTON_IMAGE_CORNER_RADIUS),
+				}),
 			}
 		else
 			-- We want to set maxSize for the textLabel: what's the biggest the text can be.

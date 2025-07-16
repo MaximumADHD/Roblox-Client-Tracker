@@ -26,6 +26,8 @@ PlayerTileButton.validateProps = t.strictInterface({
 	tileSize = t.optional(t.UDim2),
 	mouseEnter = t.optional(t.callback),
 	mouseLeave = t.optional(t.callback),
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 PlayerTileButton.defaultProps = {
@@ -34,6 +36,7 @@ PlayerTileButton.defaultProps = {
 	buttonHeight = 36,
 	outerButtonPadding = 10,
 	tileSize = UDim2.new(0, 150, 0, 150),
+	isRoactGamepadEnabled = true,
 }
 
 function PlayerTileButton:render()
@@ -59,6 +62,7 @@ function PlayerTileButton:render()
 		onActivated = onActivated or function() end,
 		isDisabled = isDisabled,
 		icon = icon,
+		isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 		onStateChanged = function(newState, oldState)
 			if newState == ControlState.Hover then
 				self.props.mouseEnter()

@@ -38,6 +38,9 @@ SaveTile.validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	thumbnailRef = t.optional(t.table),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 SaveTile.defaultProps = {
@@ -45,6 +48,7 @@ SaveTile.defaultProps = {
 	thumbnail = Images["icons/actions/edit/add"],
 	thumbnailSize = UDim2.new(0, 36, 0, 36),
 	thumbnailTransparency = 0,
+	isRoactGamepadEnabled = true,
 }
 
 function SaveTile:render()
@@ -63,7 +67,7 @@ function SaveTile:render()
 		thumbnail = thumbnail,
 		thumbnailSize = thumbnailSize,
 		thumbnailTransparency = thumbnailTransparency,
-
+		isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,

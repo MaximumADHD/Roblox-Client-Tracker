@@ -4,6 +4,7 @@ local Packages = Foundation.Parent
 local CoreGui = require(Foundation.Utility.Wrappers).Services.CoreGui
 local GuiService = require(Foundation.Utility.Wrappers).Services.GuiService
 
+local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local ReactUtils = require(Packages.ReactUtils)
 local useRefCache = ReactUtils.useRefCache
@@ -14,6 +15,10 @@ local Cursor = require(script.Parent.Cursors.Cursor)
 local KeyUtilities = require(script.Parent.KeyUtilities)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local Types = require(Foundation.Components.Types)
+
+local Flags = require(Foundation.Utility.Flags)
 
 type Props = {
 	children: React.ReactNode,
@@ -24,13 +29,28 @@ local function CursorProvider(props: Props)
 	local frameRef = React.useRef(nil :: GuiObject?)
 	local selectionImageObject, setSelectionImageObject = React.useState(nil)
 	local refCache = useRefCache()
+	local tokens = useTokens()
 
 	local contextValue = React.useMemo(function()
 		return {
 			refCache = refCache,
 			setMountedCursors = setMountedCursors,
+			getCursor = function(cursor: Types.Cursor?)
+				local key = KeyUtilities.mapCursorToKey(cursor, tokens)
+
+				setMountedCursors(function(mountedExisting)
+					if mountedExisting[key] == nil then
+						return Cryo.Dictionary.union(mountedExisting, {
+							[key] = true,
+						})
+					end
+					return mountedExisting
+				end)
+
+				return refCache[key]
+			end,
 		}
-	end, { refCache :: any, setMountedCursors })
+	end, { refCache :: any, setMountedCursors, if Flags.FoundationSelectionCursorMigration then tokens else nil })
 
 	local renderCursors = function(): any
 		local cursors: { [string | CursorType]: React.ReactElement<any> } = {}

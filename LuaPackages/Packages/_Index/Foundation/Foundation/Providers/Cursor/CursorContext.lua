@@ -5,10 +5,14 @@ local Logger = require(Foundation.Utility.Logger)
 
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
+local Types = require(Foundation.Components.Types)
 
 local CursorContext = React.createContext({
 	refCache = {},
 	setMountedCursors = function(set: ({ [string | CursorType]: boolean }) -> { [string | CursorType]: boolean })
+		Logger:warning("No Cursor Provider found")
+	end,
+	getCursor = function(cursor: Types.Cursor?)
 		Logger:warning("No Cursor Provider found")
 	end,
 })
