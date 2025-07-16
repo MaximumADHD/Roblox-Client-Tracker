@@ -57,6 +57,7 @@ local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
 local FStringEARReportMenuIXPLayer = SharedFlags.FStringEARReportMenuIXPLayer
 local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
 local IXPFieldWHAM1707 = game:DefineFastString("WHAM1707IXPField", "EnableWHAM1707")
+local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -76,6 +77,7 @@ export type Props = {
 	registerSetNextPlayerToReport: ((player: Player) -> ()) -> (),
 	registerOnMenuWidthChange: ((width: number) -> ()) -> (),
 	onReportComplete: (text: string) -> (),
+	onDropdownMenuOpenChange: (isOpen: boolean) -> (),
 }
 
 local function isInSelectInSceneExperiment(): boolean
@@ -227,6 +229,7 @@ local AbuseReportMenuNew = function(props: Props)
 
 	local utilityProps = {
 		onReportComplete = props.onReportComplete,
+		onDropdownMenuOpenChange = if FFlagHideShortcutsOnReportDropdown then props.onDropdownMenuOpenChange else nil,
 		reportAnythingAnalytics = ReportAnythingAnalytics,
 		reportAnythingState = reportAnythingState,
 		reportAnythingDispatch = reportAnythingDispatch,

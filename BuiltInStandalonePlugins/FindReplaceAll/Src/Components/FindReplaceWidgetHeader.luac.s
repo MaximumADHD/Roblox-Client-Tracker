@@ -217,10 +217,14 @@ PROTO_8:
   GETTABLEKS R1 R2 K0 ["resultManager"]
   GETTABLEKS R0 R1 K1 ["expandAllFiles"]
   CALL R0 0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["resultManager"]
+  GETTABLEKS R0 R1 K2 ["clearSelection"]
+  CALL R0 0 0
   GETUPVAL R0 1
   CALL R0 0 0
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K2 ["disableConfirmationDialog"]
+  GETTABLEKS R0 R1 K3 ["disableConfirmationDialog"]
   CALL R0 0 0
   RETURN R0 0
 
@@ -366,7 +370,7 @@ PROTO_10:
   SETTABLE R24 R22 R23
   GETUPVAL R24 2
   GETTABLEKS R23 R24 K17 ["Tag"]
-  LOADK R24 K18 ["X-FitY X-Column X-Top data-testid=WidgetHeaderFrame"]
+  LOADK R24 K18 ["FindReplaceAll-SidePadM X-FitY X-Column X-Top data-testid=WidgetHeaderFrame"]
   SETTABLE R24 R22 R23
   DUPTABLE R23 K22 [{"SearchHeader", "IncludeFilterHeader", "ReplaceHeader"}]
   GETUPVAL R24 7

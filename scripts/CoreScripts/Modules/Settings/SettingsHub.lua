@@ -135,6 +135,8 @@ local FFlagIEMResumeButtonPressBugfix = SharedFlags.FFlagIEMResumeButtonPressBug
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagIEMEndFocusNavTiltMenuHidden = SharedFlags.FFlagIEMEndFocusNavTiltMenuHidden
+local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
+local FFlagChromeShortcutBarRemoveOnInviteFriends = SharedFlags.FFlagChromeShortcutBarRemoveOnInviteFriends
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -2707,6 +2709,9 @@ local function CreateSettingsHub()
 	local GetHeaderPosition = nil
 
 	local switchTab = function(direction, cycle)
+		if FFlagInExperienceReportClosingBugfix and not this.HubBar.Visible then
+			return
+		end
 		local currentTabPosition = GetHeaderPosition(this.Pages.CurrentPage)
 		if currentTabPosition < 0 then return end
 
@@ -3597,7 +3602,7 @@ local function CreateSettingsHub()
 			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then (FFlagAppChatReappearIfClosedByTiltMenu and connectWasVisible) else false
 
 
-			if ChromeEnabled and FFlagEnableChromeShortcutBar then 
+			if ChromeEnabled and FFlagEnableChromeShortcutBar then
 				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
 				local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
 				ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
@@ -3837,6 +3842,10 @@ local function CreateSettingsHub()
 			GameInviteModalManager:openModal({
 				trigger = GameInviteConstants.Triggers.GameMenu
 			})
+			if FFlagChromeShortcutBarRemoveOnInviteFriends and ChromeEnabled then
+				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+				ChromeService:setShortcutBar(nil)
+			end
 		else
 			this:AddToMenuStack(this.Pages.CurrentPage)
 			this:SwitchToPage(this.ShareGamePage, nil, 1, true)

@@ -14,9 +14,6 @@ local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 local StatsTextPanelClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsTextPanel)
 local StatsAnnotatedGraphClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsAnnotatedGraph)
 
---[[ FFlags ]]--
-local FFlagFixStatsViewerMissingMethod = require(CoreGuiService.RobloxGui.Modules.Flags.FFlagFixStatsViewerMissingMethod)
-
 --[[ Globals ]]--
 local TextPanelXFraction = 0.4
 local GraphXFraction = 1 - TextPanelXFraction
@@ -55,17 +52,8 @@ function StatsViewerClass:OnPerformanceStatsShouldBeVisibleChanged()
   if self._graph then 
     self._graph:OnPerformanceStatsShouldBeVisibleChanged()
   end
-  if FFlagFixStatsViewerMissingMethod then
-    if self._textPanel then 
-      self._textPanel:OnPerformanceStatsShouldBeVisibleChanged()
-    end
-  else
-    if self._textPanel then 
-      self._textPanel:OnPerformanceStatsShouldBeVisibleChanged()
-    end
-    if self._textPanel then 
-      self._textPanel:OnVisibilityChanged()
-    end
+  if self._textPanel then 
+    self._textPanel:OnPerformanceStatsShouldBeVisibleChanged()
   end
 end
 

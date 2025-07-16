@@ -375,7 +375,7 @@ MAIN:
   MOVE R19 R2
   LOADK R20 K112 [".VisualizationModes-MainScrollingFrame"]
   DUPTABLE R21 K114 [{"ScrollBarThickness"}]
-  LOADN R22 3
+  LOADN R22 8
   SETTABLEKS R22 R21 K113 ["ScrollBarThickness"]
   NEWTABLE R22 0 1
   MOVE R23 R2
@@ -383,7 +383,7 @@ MAIN:
   DUPTABLE R25 K116 [{"Size"}]
   GETIMPORT R26 K19 [UDim2.new]
   LOADN R27 1
-  LOADN R28 252
+  LOADN R28 247
   LOADN R29 0
   LOADN R30 0
   CALL R26 4 1

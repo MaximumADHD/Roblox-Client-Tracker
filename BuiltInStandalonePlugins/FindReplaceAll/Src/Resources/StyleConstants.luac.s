@@ -73,7 +73,7 @@ MAIN:
   SETTABLEKS R1 R0 K43 ["iconSize"]
   LOADN R1 16
   SETTABLEKS R1 R0 K44 ["fieldSize"]
-  LOADN R1 32
+  LOADN R1 28
   SETTABLEKS R1 R0 K45 ["resultRowHeight"]
   LOADK R1 K46 [0.16]
   SETTABLEKS R1 R0 K47 ["arrowImageTransparency"]
@@ -82,63 +82,33 @@ MAIN:
   LOADN R1 10
   SETTABLEKS R1 R0 K49 ["circleOffset"]
   DUPTABLE R1 K52 [{"Dark", "Light"}]
-  DUPTABLE R2 K56 [{"Color_Found_Background", "Color_Replaced_Background", "Color_Replacement_Background"}]
+  DUPTABLE R2 K56 [{"find", "replaced", "replacement"}]
   GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K60 ["#7A5200"]
+  LOADK R4 K60 ["#473200"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K53 ["Color_Found_Background"]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K61 ["#720000"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K54 ["Color_Replaced_Background"]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K62 ["#0C3D25"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K55 ["Color_Replacement_Background"]
-  SETTABLEKS R2 R1 K50 ["Dark"]
-  DUPTABLE R2 K56 [{"Color_Found_Background", "Color_Replaced_Background", "Color_Replacement_Background"}]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K63 ["#F9DE6F"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K53 ["Color_Found_Background"]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K64 ["#FFBEB0"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K54 ["Color_Replaced_Background"]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K65 ["#68F9A9"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K55 ["Color_Replacement_Background"]
-  SETTABLEKS R2 R1 K51 ["Light"]
-  SETTABLEKS R1 R0 K66 ["HighlightColors"]
-  DUPTABLE R1 K52 [{"Dark", "Light"}]
-  DUPTABLE R2 K70 [{"find", "replaced", "replacement"}]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K71 ["#473200"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K67 ["find"]
+  SETTABLEKS R3 R2 K53 ["find"]
   GETIMPORT R3 K59 [Color3.fromHex]
   LOADK R4 K61 ["#720000"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K68 ["replaced"]
+  SETTABLEKS R3 R2 K54 ["replaced"]
   GETIMPORT R3 K59 [Color3.fromHex]
   LOADK R4 K62 ["#0C3D25"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K69 ["replacement"]
+  SETTABLEKS R3 R2 K55 ["replacement"]
   SETTABLEKS R2 R1 K50 ["Dark"]
-  DUPTABLE R2 K70 [{"find", "replaced", "replacement"}]
+  DUPTABLE R2 K56 [{"find", "replaced", "replacement"}]
   GETIMPORT R3 K59 [Color3.fromHex]
   LOADK R4 K63 ["#F9DE6F"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K67 ["find"]
+  SETTABLEKS R3 R2 K53 ["find"]
   GETIMPORT R3 K59 [Color3.fromHex]
   LOADK R4 K64 ["#FFBEB0"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K68 ["replaced"]
+  SETTABLEKS R3 R2 K54 ["replaced"]
   GETIMPORT R3 K59 [Color3.fromHex]
   LOADK R4 K65 ["#68F9A9"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K69 ["replacement"]
+  SETTABLEKS R3 R2 K55 ["replacement"]
   SETTABLEKS R2 R1 K51 ["Light"]
-  SETTABLEKS R1 R0 K72 ["RichTagColors"]
+  SETTABLEKS R1 R0 K66 ["RichTagColors"]
   RETURN R0 1

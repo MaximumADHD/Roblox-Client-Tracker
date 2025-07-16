@@ -450,6 +450,13 @@ local function Initialize()
 		end
 	end
 
+	local function getDisplayNameLabel(frame)
+		if frame and frame.Parent then
+			return frame:FindFirstChild("DisplayNameLabel")
+		end
+		return nil
+	end
+
 	local function getInExperienceCombinedName(profiles)
 		if #profiles == 0 then
 			return ""
@@ -1482,7 +1489,7 @@ local function Initialize()
 			else
 				if GetFFlagUseUserProfileStore() then
 					UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
-						local displayNameLabel = frame.DisplayNameLabel
+						local displayNameLabel = getDisplayNameLabel(frame)
 						if displayNameLabel == nil then
 							return
 						end
@@ -1552,7 +1559,7 @@ local function Initialize()
 					else
 						if GetFFlagUseUserProfileStore() then
 							UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
-								local displayNameLabel = frame.DisplayNameLabel
+								local displayNameLabel = getDisplayNameLabel(frame)
 								if displayNameLabel == nil then
 									return
 								end
@@ -1632,7 +1639,7 @@ local function Initialize()
 			else
 				if GetFFlagUseUserProfileStore() then
 					UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
-						local displayNameLabel = frame.DisplayNameLabel
+						local displayNameLabel = getDisplayNameLabel(frame)
 						if displayNameLabel == nil then
 							return
 						end

@@ -5,19 +5,19 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETIMPORT R1 K1 [pcall]
-  DUPCLOSURE R2 K2 [PROTO_0]
+  GETIMPORT R0 K1 [pcall]
+  DUPCLOSURE R1 K2 [PROTO_0]
   CAPTURE UPVAL U0
-  CALL R1 1 2
-  JUMPIF R1 [+9]
-  GETIMPORT R3 K4 [warn]
-  LOADK R5 K5 ["Failed to publish avatar settings: %*"]
-  MOVE R7 R2
-  NAMECALL R5 R5 K6 ["format"]
-  CALL R5 2 1
-  MOVE R4 R5
-  CALL R3 1 0
-  RETURN R1 1
+  CALL R0 1 2
+  JUMPIF R0 [+9]
+  GETIMPORT R2 K4 [warn]
+  LOADK R4 K5 ["Failed to publish avatar settings: %*"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K6 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  RETURN R0 1
 
 MAIN:
   PREPVARARGS 0

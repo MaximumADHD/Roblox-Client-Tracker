@@ -4,10 +4,16 @@ PROTO_0:
   SETTABLEKS R1 R0 K0 ["onPublishSettings"]
   GETUPVAL R0 0
   GETUPVAL R1 2
-  SETTABLEKS R1 R0 K1 ["setupHolds"]
+  SETTABLEKS R1 R0 K1 ["onDiscardSettings"]
   GETUPVAL R0 0
   GETUPVAL R1 3
-  SETTABLEKS R1 R0 K2 ["showSaveOrPublishPlaceToRoblox"]
+  SETTABLEKS R1 R0 K2 ["setupHolds"]
+  GETUPVAL R0 0
+  GETUPVAL R1 4
+  SETTABLEKS R1 R0 K3 ["showSaveOrPublishPlaceToRoblox"]
+  GETUPVAL R0 0
+  GETUPVAL R1 5
+  SETTABLEKS R1 R0 K4 ["connectRefreshPluginState"]
   RETURN R0 0
 
 MAIN:
@@ -36,7 +42,7 @@ MAIN:
   GETTABLEKS R7 R8 K7 ["Util"]
   GETTABLEKS R6 R7 K11 ["mockInterfaces"]
   GETTABLEKS R5 R6 K12 ["setupMockPublishingInterface"]
-  GETTABLEKS R4 R5 K14 ["mockSetupHolds"]
+  GETTABLEKS R4 R5 K14 ["mockOnDiscardSettings"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R10 R0 K6 ["Src"]
@@ -44,11 +50,29 @@ MAIN:
   GETTABLEKS R8 R9 K7 ["Util"]
   GETTABLEKS R7 R8 K11 ["mockInterfaces"]
   GETTABLEKS R6 R7 K12 ["setupMockPublishingInterface"]
-  GETTABLEKS R5 R6 K15 ["mockShowSaveOrPublishPlaceToRoblox"]
+  GETTABLEKS R5 R6 K15 ["mockSetupHolds"]
   CALL R4 1 1
-  DUPCLOSURE R5 K16 [PROTO_0]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Src"]
+  GETTABLEKS R10 R11 K10 ["tests"]
+  GETTABLEKS R9 R10 K7 ["Util"]
+  GETTABLEKS R8 R9 K11 ["mockInterfaces"]
+  GETTABLEKS R7 R8 K12 ["setupMockPublishingInterface"]
+  GETTABLEKS R6 R7 K16 ["mockShowSaveOrPublishPlaceToRoblox"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Src"]
+  GETTABLEKS R11 R12 K10 ["tests"]
+  GETTABLEKS R10 R11 K7 ["Util"]
+  GETTABLEKS R9 R10 K11 ["mockInterfaces"]
+  GETTABLEKS R8 R9 K12 ["setupMockPublishingInterface"]
+  GETTABLEKS R7 R8 K17 ["mockConnectRefreshPluginState"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K18 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R4
-  RETURN R5 1
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  RETURN R7 1

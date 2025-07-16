@@ -124,45 +124,45 @@ MAIN:
   CALL R4 1 1
   SETTABLEKS R4 R3 K92 ["SemanticColorContentDefault"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K93 ["#EEEFF1"]
+  LOADK R5 K89 ["#F7F7F8"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K94 ["SemanticColorContentEmphasis"]
+  SETTABLEKS R4 R3 K93 ["SemanticColorContentEmphasis"]
   GETIMPORT R4 K61 [Color3.fromHex]
   LOADK R5 K89 ["#F7F7F8"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K95 ["ColorActionEmphasisForeground"]
+  SETTABLEKS R4 R3 K94 ["ColorActionEmphasisForeground"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K96 ["#335FFF"]
+  LOADK R5 K95 ["#335FFF"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K97 ["ColorActionEmphasisBackground"]
+  SETTABLEKS R4 R3 K96 ["ColorActionEmphasisBackground"]
   GETIMPORT R4 K61 [Color3.fromHex]
   LOADK R5 K89 ["#F7F7F8"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K98 ["ColorActionStandardForeground"]
+  SETTABLEKS R4 R3 K97 ["ColorActionStandardForeground"]
   GETIMPORT R4 K61 [Color3.fromHex]
   LOADK R5 K76 ["#D0D9FB"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K99 ["ColorActionStandardBackground"]
+  SETTABLEKS R4 R3 K98 ["ColorActionStandardBackground"]
   LOADK R4 K66 [0.88]
-  SETTABLEKS R4 R3 K100 ["ColorActionStandardBackgroundTransparency"]
+  SETTABLEKS R4 R3 K99 ["ColorActionStandardBackgroundTransparency"]
   GETIMPORT R4 K61 [Color3.fromHex]
   LOADK R5 K91 ["#D5D7DD"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K101 ["ColorContentDefault"]
+  SETTABLEKS R4 R3 K100 ["ColorContentDefault"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K102 ["#121215"]
+  LOADK R5 K101 ["#121215"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K103 ["ColorSurfaceSurface0"]
+  SETTABLEKS R4 R3 K102 ["ColorSurfaceSurface0"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K104 ["#606064"]
+  LOADK R5 K103 ["#606064"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K105 ["SemanticColorComponentHoverBackground"]
+  SETTABLEKS R4 R3 K104 ["SemanticColorComponentHoverBackground"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K106 ["#357bb7"]
+  LOADK R5 K105 ["#357bb7"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K107 ["SemanticColorComponentSelectedBackground"]
+  SETTABLEKS R4 R3 K106 ["SemanticColorComponentSelectedBackground"]
   MOVE R4 R2
-  LOADK R5 K108 ["FindReplaceAllDarkTheme"]
+  LOADK R5 K107 ["FindReplaceAllDarkTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

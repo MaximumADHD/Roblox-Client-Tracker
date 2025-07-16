@@ -58,6 +58,13 @@ local FFlagRemovePreferredTextSizePcall = game:DefineFastFlag("RemovePreferredTe
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 
+local Chrome = RobloxGui.Modules.Chrome
+local ChromeEnabled = require(Chrome.Enabled)()
+local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
+
+local ChromeFlags = require(Chrome.Flags)
+local FFlagHideShortcutsWhileIemDropdownActive = ChromeFlags.FFlagHideShortcutsWhileIemDropdownActive
+
 local isPreferredTextSizePropValid, _result 
 if FFlagRemovePreferredTextSizePcall then
 	isPreferredTextSizePropValid = game:GetEngineFeature("EnablePreferredTextSizeAccessGuiService")
@@ -800,6 +807,15 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			end
 		end)
 
+		local hideDropDownSelectionAction = hideDropDownSelection
+		if FFlagHideShortcutsWhileIemDropdownActive then
+			ChromeService:setHideShortcutBar("InExperienceMenuDropdown", true)
+			hideDropDownSelectionAction = function(name, inputState)
+				hideDropDownSelection(name, inputState)
+				ChromeService:setHideShortcutBar("InExperienceMenuDropdown", false)
+			end
+		end
+
 		ContextActionService:BindCoreAction(
 			guid .. "FreezeAction",
 			noOpFunc,
@@ -809,7 +825,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		)
 		ContextActionService:BindCoreAction(
 			guid .. "Action",
-			hideDropDownSelection,
+			hideDropDownSelectionAction,
 			false,
 			Enum.KeyCode.ButtonB,
 			Enum.KeyCode.Escape

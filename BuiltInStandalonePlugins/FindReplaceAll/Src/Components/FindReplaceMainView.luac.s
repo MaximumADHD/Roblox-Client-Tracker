@@ -45,12 +45,12 @@ PROTO_1:
   SETTABLEKS R12 R11 K10 ["Size"]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K11 ["Tag"]
-  LOADK R13 K12 ["FindReplaceAll-XPad FindReplaceAll-BG-Surface100 data-testid=MainViewFrame"]
+  LOADK R13 K12 ["FindReplaceAll-TopPadM FindReplaceAll-BG-Surface100 data-testid=MainViewFrame"]
   SETTABLE R13 R11 R12
   DUPTABLE R12 K16 [{"DropdownOverlay", "WidgetHeader", "WidgetBody"}]
   GETUPVAL R13 5
   LOADK R14 K5 ["Frame"]
-  DUPTABLE R15 K20 [{"Size", "BackgroundTransparency", "ZIndex", "ref"}]
+  NEWTABLE R15 8 0
   GETIMPORT R16 K9 [UDim2.fromScale]
   LOADN R17 1
   LOADN R18 1
@@ -61,6 +61,10 @@ PROTO_1:
   LOADN R16 3
   SETTABLEKS R16 R15 K18 ["ZIndex"]
   SETTABLEKS R2 R15 K19 ["ref"]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K11 ["Tag"]
+  LOADK R17 K20 ["FindReplaceAll-SidePadM"]
+  SETTABLE R17 R15 R16
   CALL R13 2 1
   SETTABLEKS R13 R12 K13 ["DropdownOverlay"]
   GETUPVAL R13 5

@@ -1,12 +1,13 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["mockGamePublishFinishedSignal"]
-  MOVE R4 R0
-  LOADN R5 1
-  NAMECALL R1 R0 K1 ["Invoke"]
-  CALL R1 4 0
-  LOADB R1 1
-  RETURN R1 1
+  GETIMPORT R0 K1 [plugin]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["mockGamePublishFinishedSignal"]
+  GETIMPORT R3 K1 [plugin]
+  LOADN R4 1
+  NAMECALL R0 R0 K3 ["Invoke"]
+  CALL R0 4 0
+  LOADB R0 1
+  RETURN R0 1
 
 MAIN:
   PREPVARARGS 0

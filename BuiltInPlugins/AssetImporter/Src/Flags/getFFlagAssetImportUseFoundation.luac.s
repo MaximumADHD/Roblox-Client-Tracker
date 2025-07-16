@@ -3,12 +3,8 @@ PROTO_0:
   LOADK R2 K2 ["AssetImportUseFoundation"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  JUMPIFNOT R0 [+6]
-  GETUPVAL R1 0
-  CALL R1 0 1
-  NOT R0 R1
   JUMPIFNOT R0 [+2]
-  GETUPVAL R0 1
+  GETUPVAL R0 0
   CALL R0 0 1
   RETURN R0 1
 
@@ -21,19 +17,13 @@ MAIN:
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagFoundationStylingPolyfill"]
+  GETTABLEKS R2 R3 K8 ["getFFlagImportQueuePerSessionState"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Flags"]
-  GETTABLEKS R3 R4 K9 ["getFFlagImportQueuePerSessionState"]
-  CALL R2 1 1
-  GETIMPORT R3 K11 [game]
-  LOADK R5 K12 ["AssetImportUseFoundation"]
-  LOADB R6 0
-  NAMECALL R3 R3 K13 ["DefineFastFlag"]
-  CALL R3 3 0
-  DUPCLOSURE R3 K14 [PROTO_0]
+  GETIMPORT R2 K10 [game]
+  LOADK R4 K11 ["AssetImportUseFoundation"]
+  LOADB R5 0
+  NAMECALL R2 R2 K12 ["DefineFastFlag"]
+  CALL R2 3 0
+  DUPCLOSURE R2 K13 [PROTO_0]
   CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R3 1
+  RETURN R2 1

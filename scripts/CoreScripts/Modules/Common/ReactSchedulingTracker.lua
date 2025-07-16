@@ -6,7 +6,6 @@ local FIntReactLowEndMemoryCutoff: number = game:DefineFastInt("ReactLowEndMemor
 local FIntReactHighEndMemoryCutoff: number = game:DefineFastInt("ReactHighEndMemoryCutoff", 7500)
 local FFlagDisableReactSchedulingTimePctStats = game:DefineFastFlag("DisableReactSchedulingTimePctStats", false)
 local FFlagDisableReactSchedulingAvgMaxMsStats = game:DefineFastFlag("DisableReactSchedulingAvgMaxMsStats", false)
-local FFlagAddFrameCountParams = game:DefineFastFlag("AddFrameCountParams", false)
 
 local MAX_SAMPLE_RATE = 10000
 local SAMPLE_ID_BIAS = 1409
@@ -617,8 +616,8 @@ function ReactSchedulingTracker:reportPeriod()
 		period_length_ms = periodLengthMs,
 		react_total_time_ms = frameMetrics.totalReactTimeMs,
 		react_total_time_pct = frameMetrics.totalReactTimeMs / periodLengthMs,
-		react_frame_count = if FFlagAddFrameCountParams then frameMetrics.reactFrameCount else nil,
-                total_frame_count = if FFlagAddFrameCountParams then frameMetrics.totalFrameCount else nil,
+		react_frame_count = frameMetrics.reactFrameCount,
+        total_frame_count = frameMetrics.totalFrameCount,
 		average_react_all_frame_ms = frameMetrics.totalReactTimeMs / frameMetrics.totalFrameCount,
 		average_react_only_frame_ms = if frameMetrics.reactFrameCount > 0
 			then frameMetrics.totalReactTimeMs / frameMetrics.reactFrameCount

@@ -197,31 +197,34 @@ PROTO_7:
   GETTABLEKS R1 R2 K0 ["query"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["tag"]
-  DUPTABLE R3 K7 [{"type", "name", "tag", "assetIds", "expanded", "onSelectionChange"}]
+  DUPTABLE R3 K8 [{"type", "name", "tag", "className", "assetIds", "expanded", "onSelectionChange"}]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["Type"]
+  GETTABLEKS R4 R5 K9 ["Type"]
   SETTABLEKS R4 R3 K2 ["type"]
   SETTABLEKS R1 R3 K3 ["name"]
   SETTABLEKS R2 R3 K1 ["tag"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K9 ["assets"]
-  SETTABLEKS R4 R3 K4 ["assetIds"]
+  GETTABLEKS R4 R5 K4 ["className"]
+  SETTABLEKS R4 R3 K4 ["className"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K10 ["assets"]
+  SETTABLEKS R4 R3 K5 ["assetIds"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K5 ["expanded"]
+  SETTABLEKS R4 R3 K6 ["expanded"]
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U2
   CAPTURE UPVAL U0
-  SETTABLEKS R4 R3 K6 ["onSelectionChange"]
+  SETTABLEKS R4 R3 K7 ["onSelectionChange"]
   GETUPVAL R4 3
-  DUPTABLE R5 K12 [{"messageId", "content"}]
-  SETTABLEKS R0 R5 K10 ["messageId"]
-  SETTABLEKS R3 R5 K11 ["content"]
+  DUPTABLE R5 K13 [{"messageId", "content"}]
+  SETTABLEKS R0 R5 K11 ["messageId"]
+  SETTABLEKS R3 R5 K12 ["content"]
   CALL R4 1 1
   GETUPVAL R5 4
   LOADNIL R6
-  DUPTABLE R7 K14 [{"messageId", "contentId", "name", "tag"}]
-  SETTABLEKS R0 R7 K10 ["messageId"]
-  SETTABLEKS R4 R7 K13 ["contentId"]
+  DUPTABLE R7 K15 [{"messageId", "contentId", "name", "tag"}]
+  SETTABLEKS R0 R7 K11 ["messageId"]
+  SETTABLEKS R4 R7 K14 ["contentId"]
   SETTABLEKS R1 R7 K3 ["name"]
   SETTABLEKS R2 R7 K1 ["tag"]
   CALL R5 2 0
@@ -277,7 +280,8 @@ PROTO_9:
   CALL R4 1 0
   MOVE R4 R3
   MOVE R5 R2
-  RETURN R4 2
+  GETTABLEKS R6 R1 K14 ["ClassName"]
+  RETURN R4 3
 
 PROTO_10:
   GETTABLEKS R2 R1 K0 ["query"]
@@ -341,32 +345,33 @@ PROTO_10:
   CAPTURE VAL R2
   MOVE R9 R8
   MOVE R10 R7
-  CALL R9 1 2
-  MOVE R11 R6
-  LOADNIL R12
+  CALL R9 1 3
+  MOVE R12 R6
   LOADNIL R13
-  FORGPREP R11
-  GETIMPORT R16 K26 [task.spawn]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K27 ["loadAssetAsync"]
-  MOVE R18 R15
-  CALL R16 2 0
-  FORGLOOP R11 2 [-8]
-  DUPTABLE R11 K29 [{"result", "responseInfo"}]
-  DUPTABLE R12 K32 [{"primaryResult", "secondaryResults"}]
-  DUPTABLE R13 K35 [{"assetId", "insertGuid"}]
-  SETTABLEKS R7 R13 K33 ["assetId"]
+  LOADNIL R14
+  FORGPREP R12
+  GETIMPORT R17 K26 [task.spawn]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K27 ["loadAssetAsync"]
+  MOVE R19 R16
+  CALL R17 2 0
+  FORGLOOP R12 2 [-8]
+  DUPTABLE R12 K29 [{"result", "responseInfo"}]
+  DUPTABLE R13 K32 [{"primaryResult", "secondaryResults"}]
+  DUPTABLE R14 K35 [{"assetId", "insertGuid"}]
+  SETTABLEKS R7 R14 K33 ["assetId"]
+  SETTABLEKS R10 R14 K34 ["insertGuid"]
+  SETTABLEKS R14 R13 K30 ["primaryResult"]
+  SETTABLEKS R6 R13 K31 ["secondaryResults"]
+  SETTABLEKS R13 R12 K15 ["result"]
+  DUPTABLE R13 K39 [{"assets", "tag", "query", "insertGuid", "className"}]
+  SETTABLEKS R5 R13 K36 ["assets"]
+  SETTABLEKS R9 R13 K37 ["tag"]
+  SETTABLEKS R2 R13 K0 ["query"]
   SETTABLEKS R10 R13 K34 ["insertGuid"]
-  SETTABLEKS R13 R12 K30 ["primaryResult"]
-  SETTABLEKS R6 R12 K31 ["secondaryResults"]
-  SETTABLEKS R12 R11 K15 ["result"]
-  DUPTABLE R12 K38 [{"assets", "tag", "query", "insertGuid"}]
-  SETTABLEKS R5 R12 K36 ["assets"]
-  SETTABLEKS R9 R12 K37 ["tag"]
-  SETTABLEKS R2 R12 K0 ["query"]
-  SETTABLEKS R10 R12 K34 ["insertGuid"]
-  SETTABLEKS R12 R11 K28 ["responseInfo"]
-  RETURN R11 1
+  SETTABLEKS R11 R13 K38 ["className"]
+  SETTABLEKS R13 R12 K28 ["responseInfo"]
+  RETURN R12 1
 
 PROTO_11:
   GETUPVAL R1 0

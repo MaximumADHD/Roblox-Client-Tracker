@@ -22,6 +22,8 @@ local DeleteOutfitPrompt = require(Prompts.DeleteOutfitPrompt)
 local RenameOutfitPrompt = require(Prompts.RenameOutfitPrompt)
 local UpdateOutfitPrompt = require(Prompts.UpdateOutfitPrompt)
 
+local FFlagAvatarEditorPromptsNoPromptNoRender = game:DefineFastFlag("AvatarEditorPromptsNoPromptNoRender", false)
+
 local LocalPlayer = Players.LocalPlayer
 
 local AvatarEditorPrompts = script.Parent.Parent
@@ -91,34 +93,36 @@ function AvatarEditorPromptsApp:render()
 		end
 	end
 
-	return Roact.createElement("ScreenGui", {
-		IgnoreGuiInset = true,
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		AutoLocalize = false,
-		DisplayOrder = AVATAR_PROMPTS_DISPLAY_ORDER,
+	return if FFlagAvatarEditorPromptsNoPromptNoRender and promptElement == nil
+		then nil
+		else Roact.createElement("ScreenGui", {
+			IgnoreGuiInset = true,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			AutoLocalize = false,
+			DisplayOrder = AVATAR_PROMPTS_DISPLAY_ORDER,
 
-		[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
-	}, {
-		Connection = Roact.createElement(Connection),
-
-		LastInputTypeConnection = Roact.createElement(ExternalEventConnection, {
-			event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
-			callback = function(lastInputType)
-				self:setState({
-					isGamepad = GAMEPAD_INPUT_TYPES[lastInputType] or false,
-				})
-			end,
-		}) or nil,
-
-		PromptFrame = Roact.createElement(RoactGamepad.Focusable.Frame, {
-			focusController = self.focusController,
-
-			BackgroundTransparency = 1,
-			Size = UDim2.fromScale(1, 1),
+			[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
 		}, {
-			Prompt = promptElement,
-		}) or nil,
-	})
+			Connection = Roact.createElement(Connection),
+
+			LastInputTypeConnection = Roact.createElement(ExternalEventConnection, {
+				event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
+				callback = function(lastInputType)
+					self:setState({
+						isGamepad = GAMEPAD_INPUT_TYPES[lastInputType] or false,
+					})
+				end,
+			}) or nil,
+
+			PromptFrame = Roact.createElement(RoactGamepad.Focusable.Frame, {
+				focusController = self.focusController,
+
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+			}, {
+				Prompt = promptElement,
+			}) or nil,
+		})
 end
 
 function AvatarEditorPromptsApp:revertSelectedGuiObject()
