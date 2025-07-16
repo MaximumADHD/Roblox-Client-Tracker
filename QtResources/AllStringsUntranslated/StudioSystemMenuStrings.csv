@@ -57,8 +57,10 @@ Studio.SystemMenu.Title.ShowWireframeRendering,"Display mode that shows the 3D o
 Studio.SystemMenu.Title.SixStuds,"When we toggle the 3d grid, this is the 6 studs grid size",6 Studs,6 Studs
 Studio.SystemMenu.Title.SixteenStuds,"When we toggle the 3d grid, this is the 16 studs grid size",16 Studs,16 Studs
 Studio.SystemMenu.Title.StartStudioTour,Starts the Studio Tour,Start Studio Tour,Start Studio Tour
+Studio.SystemMenu.Title.StartTestSession,"Submenu title that contains the different types of testing modes like Test, Test Here, Run, Team Test, and Server and Clients",Start Test Session,Start Test Session
 Studio.SystemMenu.Title.StudioSettings,"Opens a dialog that contains all the possible settings to change and configure Roblox Studio with such as theme, script editor, debugging, language, etc.",Studio Settings,Studio Settings
 Studio.SystemMenu.Title.SuperTemplate,Name of the action to display the Super Template plugin,Super Template,Super Template
+Studio.SystemMenu.Title.Test,"Menu title which contains Emulation controls, Debug Errors, and testing controls actions",Test,Test
 Studio.SystemMenu.Title.TwoStuds,"When we toggle the 3d grid, this is the 2 studs grid size",2 Studs,2 Studs
 Studio.SystemMenu.Title.UI,Menu to display UI related studio plugins,UI,UI
 Studio.SystemMenu.Title.View,"Menu in Roblox Studio offers tools and settings to control the display and presentation of the 3D workspace. It allows developers to customize how they view and interact with their game world, providing options for zoom, grid settings, rendering modes, UI visibility, and debugging aids",View,View

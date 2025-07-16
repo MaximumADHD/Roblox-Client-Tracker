@@ -692,7 +692,7 @@ Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AudioFocusService.OnContextUnregistered(contextId: number) {RobloxScriptSecurity}
 	Event AudioFocusService.OnDeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
 	Event AudioFocusService.OnUndeafenVoiceAudio(contextId: number) {RobloxScriptSecurity}
-Class AudioGate : Instance [NotBrowsable]
+Class AudioGate : Instance
 	Property AudioGate.Attack: number
 	Property AudioGate.Bypass: boolean
 	Property AudioGate.Release: number
@@ -842,6 +842,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Property AuroraService.HashRoundingPoint: number [Deprecated]
 	Property AuroraService.IgnoreRotation: boolean [Deprecated]
 	Property AuroraService.InputDropRate: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
+	Property AuroraService.LockStepIdOffset: boolean [Deprecated]
 	Property AuroraService.OutOfOrderInputCount: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.RCCHeartbeatFPS: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.RollbackOffset: number [Deprecated]
@@ -1094,7 +1095,10 @@ Class AvatarRules : Instance
 	Property AvatarRules.AvatarType: Enum.GameAvatarType {RobloxScriptSecurity}
 Class AvatarSettings : Instance [NotCreatable] [Service]
 	Property AvatarSettings.Loaded: boolean {RobloxScriptSecurity} {✏️NotAccessibleSecurity}
+	Function AvatarSettings:Discard() -> () {RobloxScriptSecurity}
 	Function AvatarSettings:Publish() -> () {RobloxScriptSecurity}
+	Event AvatarSettings.DiscardRequested() {RobloxSecurity} [Hidden]
+	Event AvatarSettings.RefreshPluginState() {RobloxScriptSecurity}
 Class Backpack : Instance
 Class BadgeService : Instance [NotCreatable] [Service]
 	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean [Yields]
@@ -1412,6 +1416,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:GetCaptureSizeAsync(captureContent: Content) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureUploadDataAsync(capturePath: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function CaptureService:GetDeviceInfo() -> { [string]: any }
 	Function CaptureService:IsCapturingVideo() -> boolean {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
@@ -4441,6 +4446,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:Resize(normalId: Enum.NormalId, deltaAmount: number) -> boolean
 	Function BasePart:SetNetworkOwner(playerInstance: Player? = nil) -> ()
 	Function BasePart:SetNetworkOwnershipAuto() -> ()
+	Function BasePart:SetPredictionMode(mode: Enum.PredictionMode) -> () {RobloxScriptSecurity} [Deprecated]
 	Function BasePart:SubtractAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
 	Function BasePart:TorqueToAngularAcceleration(torque: Vector3, angVelocity: Vector3?) -> Vector3
 	Function BasePart:UnionAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
@@ -6732,7 +6738,7 @@ Class StylingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StylingService:GetStyleSheetInfo(styleSheet: StyleSheet) -> { [string]: any } {RobloxScriptSecurity}
 	Function StylingService:UpdateUnitTestOnly() -> () {RobloxScriptSecurity}
 Class SurfaceAppearance : Instance
-	Property SurfaceAppearance.AlphaMode: Enum.AlphaMode {PluginSecurity}
+	Property SurfaceAppearance.AlphaMode: Enum.AlphaMode
 	Property SurfaceAppearance.Color: Color3
 	Property SurfaceAppearance.ColorMap: string {PluginSecurity}
 	Property SurfaceAppearance.ColorMapContent: Content {✏️PluginSecurity} [Hidden]
@@ -7411,6 +7417,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings] [NotReplicated]
 	Property UserGameSettings.QualityResetLevel: number {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.RCCProfilerRecordFrameRate: number
 	Property UserGameSettings.RCCProfilerRecordTimeFrame: number
+	Property UserGameSettings.ReadAloud: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.ReducedMotion: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.StartMaximized: boolean {RobloxScriptSecurity} [NotReplicated] [NotScriptable]
 	Property UserGameSettings.StartScreenPosition: Vector2 {RobloxScriptSecurity} [NotReplicated] [NotScriptable]
@@ -10099,6 +10106,10 @@ Enum PoseEasingStyle
 Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
+Enum PredictionMode
+	EnumItem PredictionMode.Auto : 0
+	EnumItem PredictionMode.None : 1
+	EnumItem PredictionMode.Forced : 2 [Deprecated]
 Enum PreferredInput
 	EnumItem PreferredInput.KeyboardAndMouse : 0
 	EnumItem PreferredInput.Gamepad : 1

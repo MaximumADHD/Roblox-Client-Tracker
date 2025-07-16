@@ -1382,14 +1382,10 @@ SmoothClusterVSUnified_10020000,Vertex,❌,❌,❌,✔,❌,❌
 SmoothClusterVSUnified_10020400,Vertex,❌,❌,❌,✔,❌,❌
 SmoothClusterVSUnified_10040000,Vertex,❌,❌,❌,✔,❌,❌
 SmoothClusterVSUnified_10040400,Vertex,❌,❌,❌,✔,❌,❌
-SmoothClusterVSUnified_10088000,Vertex,❌,❌,❌,✔,❌,❌
-SmoothClusterVSUnified_10088400,Vertex,❌,❌,❌,✔,❌,❌
-SmoothClusterVSUnified_10090000,Vertex,❌,❌,❌,✔,❌,❌
 SmoothClusterVSUnified_20008000,Vertex,❌,❌,❌,✔,❌,❌
 SmoothClusterVSUnified_20010000,Vertex,❌,❌,❌,✔,❌,❌
 SmoothClusterVSUnified_20020000,Vertex,❌,❌,❌,✔,❌,❌
 SmoothClusterVSUnified_20040000,Vertex,❌,❌,❌,✔,❌,❌
-SmoothClusterVSUnified_20088000,Vertex,❌,❌,❌,✔,❌,❌
 SmoothClusterVTDepthFS,Fragment,✔,✔,✔,✔,✔,✔
 SmoothClusterVTDepthVS,Vertex,✔,✔,✔,✔,✔,✔
 SmoothClusterVTTranslationFS,Fragment,✔,✔,✔,✔,✔,✔
