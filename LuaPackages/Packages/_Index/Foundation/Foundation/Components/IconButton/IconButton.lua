@@ -14,7 +14,6 @@ local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useIconSize = require(Foundation.Utility.useIconSize)
@@ -75,13 +74,17 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 
 	local paddingOffset = useIconButtonPadding(props.size, isBuilderIcon)
 	local padding = UDim.new(0, paddingOffset)
+	local componentRadius = UDim.new(0, radius)
 
 	local size = useIconSize(props.size, isBuilderIcon) :: UDim2 -- We don't support bindings for IconButton size
 
-	local cursor = useCursor({
-		radius = UDim.new(0, radius),
-		borderWidth = tokens.Stroke.Thicker,
-	})
+	local cursor = React.useMemo(function()
+		return {
+			radius = componentRadius,
+			offset = tokens.Size.Size_150,
+			borderWidth = tokens.Stroke.Thicker,
+		}
+	end, { tokens :: unknown, componentRadius })
 
 	return React.createElement(
 		View,
@@ -91,7 +94,6 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 			Size = size + UDim2.new(padding, padding) + UDim2.new(padding, padding),
 			selection = {
 				Selectable = if props.isDisabled then false else props.Selectable,
-				SelectionImageObject = cursor,
 				NextSelectionUp = props.NextSelectionUp,
 				NextSelectionDown = props.NextSelectionDown,
 				NextSelectionLeft = props.NextSelectionLeft,
@@ -99,7 +101,8 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 			},
 			isDisabled = props.isDisabled,
 			padding = padding,
-			cornerRadius = UDim.new(0, radius),
+			cornerRadius = componentRadius,
+			cursor = cursor,
 
 			ref = ref,
 		}),

@@ -20,6 +20,8 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 local validateFontInfo = require(Packages.UIBlox.Core.Style.Validator.validateFontInfo)
 
+local UIBloxConfig = require(UIBlox.UIBloxDefaultConfig)
+
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 
 local KeyLabel = require(script.Parent.KeyLabel.KeyLabel)
@@ -105,6 +107,9 @@ Cell.validateProps = t.strictInterface({
 	background = t.optional(validateColorInfo),
 
 	selectionOrder = t.optional(t.number),
+
+	-- optional selectionCursor
+	selectionCursor = if UIBloxConfig.useFoundationSelectionCursor then t.optional(t.table) else nil,
 })
 
 Cell.defaultProps = {
@@ -402,7 +407,9 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 			LayoutOrder = self.props.layoutOrder,
 			BorderSizePixel = 0,
 			[Roact.Ref] = self.props.setButtonRef,
-			SelectionImageObject = getSelectionCursor(self.props.cursorKind),
+			SelectionImageObject = if UIBloxConfig.useFoundationSelectionCursor
+				then self.props.selectionCursor
+				else getSelectionCursor(self.props.cursorKind),
 			SelectionOrder = self.props.selectionOrder,
 			onStateChanged = self.onStateChanged,
 			[Roact.Event.Activated] = self.props.onActivated,

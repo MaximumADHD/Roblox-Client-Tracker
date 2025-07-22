@@ -5,8 +5,8 @@ local React = require(Packages.React)
 
 local Components = Foundation.Components
 local View = require(Components.View)
-local Menu = require(Components.Menu)
-type MenuItem = Menu.MenuItem
+local InternalMenu = require(Components.InternalMenu)
+type MenuItem = InternalMenu.MenuItem
 local Text = require(Components.Text)
 local Types = require(Foundation.Components.Types)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
@@ -14,7 +14,6 @@ local Icon = require(Components.Icon)
 local InputField = require(Components.InputField)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
@@ -61,11 +60,13 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 	local variantProps =
 		useDropdownVariants(tokens, props.size, controlState :: ControlState, showPlaceholder, props.hasError or false)
 
-	local cursor = useCursor({
-		radius = UDim.new(0, tokens.Radius.Small),
-		offset = tokens.Size.Size_200,
-		borderWidth = tokens.Stroke.Thicker,
-	})
+	local cursor = React.useMemo(function()
+		return {
+			radius = UDim.new(0, tokens.Radius.Small),
+			offset = tokens.Size.Size_200,
+			borderWidth = tokens.Stroke.Thicker,
+		}
+	end, { tokens })
 
 	return React.createElement(
 		InputField,
@@ -87,8 +88,8 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 					onActivated = props.onActivated,
 					selection = {
 						Selectable = not props.isDisabled,
-						SelectionImageObject = cursor,
 					},
+					cursor = cursor,
 					stateLayer = { affordance = StateLayerAffordance.None },
 					tag = variantProps.container.tag,
 					ref = props.inputRef,

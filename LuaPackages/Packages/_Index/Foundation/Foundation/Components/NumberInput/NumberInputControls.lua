@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Components = Foundation.Components
@@ -30,10 +29,14 @@ type NumberInputControlsProps = {
 local IconButton = function(props)
 	local tokens = useTokens()
 	local radius = UDim.new(0, tokens.Radius.Medium)
-	local cursor = useCursor({
-		radius = radius,
-		borderWidth = tokens.Stroke.Thicker,
-	})
+
+	local cursor = React.useMemo(function()
+		return {
+			radius = radius,
+			offset = tokens.Size.Size_150,
+			borderWidth = tokens.Stroke.Thicker,
+		}
+	end, { tokens })
 
 	return React.createElement(View, {
 		onActivated = props.onActivated,
@@ -41,8 +44,8 @@ local IconButton = function(props)
 		isDisabled = props.isDisabled,
 		selection = {
 			Selectable = not props.isDisabled,
-			SelectionImageObject = cursor,
 		},
+		cursor = cursor,
 		padding = props.padding,
 		cornerRadius = radius,
 		tag = props.tag,

@@ -136,6 +136,9 @@ ItemTile.validateProps = t.strictInterface({
 
 	-- Callback for when the image is loaded
 	onThumbnailLoaded = t.optional(t.callback),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 ItemTile.defaultProps = {
@@ -146,6 +149,7 @@ ItemTile.defaultProps = {
 	isPremium = false,
 	hasRoundedCorners = true,
 	Selectable = false,
+	isRoactGamepadEnabled = true,
 }
 
 local function isIconStatusStyle(statusStyle)
@@ -259,6 +263,7 @@ function ItemTile:render()
 		ref = self.props.thumbnailRef,
 		[React.Tag] = self.props[React.Tag],
 		onThumbnailLoaded = self.props.onThumbnailLoaded,
+		isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 	})
 end
 

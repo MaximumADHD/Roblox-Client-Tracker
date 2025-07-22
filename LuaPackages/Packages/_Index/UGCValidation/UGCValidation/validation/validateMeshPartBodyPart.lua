@@ -8,8 +8,6 @@ local Analytics = require(root.Analytics)
 
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
-local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
-local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
 local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
 local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
 local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
@@ -17,6 +15,7 @@ local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
 local getFFlagRefactorBodyAttachmentOrientationsCheck =
 	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
 local getFFlagUGCValidateBoundsManipulation = require(root.flags.getFFlagUGCValidateBoundsManipulation)
+local getFFlagCheckBodyPartMeshSize = require(root.flags.getFFlagCheckBodyPartMeshSize)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
@@ -36,13 +35,17 @@ local validateHSR = require(root.validation.validateHSR)
 local validateBodyPartCollisionFidelity = require(root.validation.validateBodyPartCollisionFidelity)
 local validateModeration = require(root.validation.validateModeration)
 local validateAssetTransparency = require(root.validation.validateAssetTransparency)
-local DEPRECATED_validateAssetTransparency = require(root.validation.DEPRECATED_validateAssetTransparency)
 local validatePose = require(root.validation.validatePose)
 local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
 local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPartCages)
+local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local validateBodyPartVertsSkinnedToR15 = require(root.validation.validateBodyPartVertsSkinnedToR15)
+local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
+	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
+
 local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
 
@@ -54,7 +57,6 @@ local function validateMeshPartBodyPart(
 	local isServer = validationContext.isServer
 	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
 	local allowUnreviewedAssets = validationContext.allowUnreviewedAssets
-	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
 	local restrictedUserIds = validationContext.restrictedUserIds
 
 	local validationResult = validateWithSchema(schema, inst, validationContext)
@@ -98,6 +100,14 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
+	if getFFlagCheckBodyPartMeshSize() then
+		local successValidateMeshSizeProperty, errors =
+			ValidateMeshSizeProperty.validateBodyAsset(inst, validationContext)
+		if not successValidateMeshSizeProperty then
+			return false, errors
+		end
+	end
+
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
@@ -130,17 +140,9 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
 
-	if getFFlagRefactorValidateAssetTransparency() then
-		local startTime = tick()
-		reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
-		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
-	elseif not skipSnapshot then
-		local startTime = tick()
-		reasonsAccumulator:updateReasons(
-			DEPRECATED_validateAssetTransparency(inst, assetTypeEnum, isServer, validationContext)
-		)
-		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
-	end
+	local startTime = tick()
+	reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
+	Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 
 	reasonsAccumulator:updateReasons(validateMaterials(inst, validationContext))
 
@@ -154,14 +156,16 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
 
-	if getFFlagUGCValidateBodyPartsModeration() then
-		local checkModeration = not isServer
-		if allowUnreviewedAssets then
-			checkModeration = false
-		end
-		if checkModeration then
-			reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds, validationContext))
-		end
+	if getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15() and assetTypeEnum ~= Enum.AssetType.DynamicHead then
+		reasonsAccumulator:updateReasons(validateBodyPartVertsSkinnedToR15(inst, validationContext))
+	end
+
+	local checkModeration = not isServer
+	if allowUnreviewedAssets then
+		checkModeration = false
+	end
+	if checkModeration then
+		reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds, validationContext))
 	end
 
 	return reasonsAccumulator:getFinalResults()

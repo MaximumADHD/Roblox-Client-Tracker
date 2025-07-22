@@ -7,7 +7,7 @@ dependencies = [
     "Lumberyak lumberyak 0.1.1 registry",
     "Mock mock 0.1.0 registry",
     "Promise <patched> Promise 3.5.0 registry",
-    "Roact <patched> RoactCompat 17.2.0 registry",
+    "Roact <patched> RoactCompat 17.2.1 registry",
     "Symbol lua-symbol 0.1.0 registry",
     "tutils tutils 0.1.2 registry",
 ]

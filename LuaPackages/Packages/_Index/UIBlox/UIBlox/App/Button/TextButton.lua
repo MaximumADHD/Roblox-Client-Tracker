@@ -7,8 +7,9 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 local React = require(Packages.React)
-local enumerate = require(Packages.enumerate)
+local Cryo = require(Packages.Cryo)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Interactable = require(Core.Control.Interactable)
 
 local ControlState = require(Core.Control.Enum.ControlState)
@@ -24,14 +25,11 @@ local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 
 local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
+local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
 
 local CORNER_RADIUS = UDim.new(0, 8)
 
 local TextButton = Roact.PureComponent:extend("TextButton")
-TextButton.debugProps = enumerate("debugProps", {
-	"getTextSize",
-	"controlState",
-})
 
 TextButton.validateProps = t.strictInterface({
 	[React.Tag] = isReactTagProp,
@@ -75,12 +73,14 @@ TextButton.validateProps = t.strictInterface({
 	size = t.optional(t.UDim2),
 	-- The Text of the button
 	text = t.optional(t.string),
+	-- The selectionCursor to use
+	cursor = if UIBloxConfig.useFoundationSelectionCursor then t.optional(t.table) else nil,
 
 	-- A callback that replaces getTextSize implementation
-	[TextButton.debugProps.getTextSize] = t.optional(t.callback),
+	debugGetTextSize = t.optional(t.callback),
 
 	-- Override the default controlState
-	[TextButton.debugProps.controlState] = t.optional(ControlState.isEnumValue),
+	debugControlState = t.optional(ControlState.isEnumValue),
 })
 
 TextButton.defaultProps = {
@@ -103,8 +103,8 @@ TextButton.defaultProps = {
 	isDisabled = false,
 	userInteractionEnabled = true,
 
-	[TextButton.debugProps.getTextSize] = GetTextSize,
-	[TextButton.debugProps.controlState] = nil,
+	debugGetTextSize = GetTextSize,
+	debugControlState = nil,
 }
 
 function TextButton:init()
@@ -124,16 +124,20 @@ end
 
 function TextButton:render()
 	return withStyle(function(style)
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return withCursor(function(context)
-				return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
+		if UIBloxConfig.useFoundationSelectionCursor then
+			return self:renderWithProviders(style, nil, nil)
+		else
+			return withSelectionCursorProvider(function(getSelectionCursor)
+				return withCursor(function(context)
+					return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
+				end)
 			end)
-		end)
+		end
 	end)
 end
 
 function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
-	local currentState = self.props[TextButton.debugProps.controlState] or self.state.controlState
+	local currentState = self.props.debugControlState or self.state.controlState
 
 	local textStateColorMap = {
 		[ControlState.Default] = self.props.colorStyleDefault,
@@ -144,7 +148,7 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 	local fontStyle = style.Font[self.props.fontStyle]
 
 	local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
-	local getTextSize = self.props[TextButton.debugProps.getTextSize]
+	local getTextSize = self.props.debugGetTextSize
 
 	local manipulatedText = self.props.richText and cleanRichTextTags(self.props.text) or self.props.text
 	local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
@@ -208,4 +212,26 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 	})
 end
 
+if UIBloxConfig.useFoundationSelectionCursor then
+	local function TextButtonFunctionalWrapper(props)
+		local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursor(CORNER_RADIUS) else nil
+
+		return Roact.createElement(
+			TextButton,
+			Cryo.Dictionary.join(props, {
+				cursor = cursor,
+			})
+		)
+	end
+
+	local TextButtonOuterWrapper = Roact.PureComponent:extend("TextButtonOuterWrapper")
+
+	TextButtonOuterWrapper.validateProps = TextButton.validateProps
+
+	function TextButtonOuterWrapper:render()
+		return Roact.createElement(TextButtonFunctionalWrapper, self.props)
+	end
+
+	return TextButtonOuterWrapper
+end
 return TextButton

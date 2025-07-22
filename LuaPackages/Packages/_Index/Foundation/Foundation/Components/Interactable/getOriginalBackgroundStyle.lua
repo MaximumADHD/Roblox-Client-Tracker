@@ -9,8 +9,8 @@ type ColorStyle = Types.ColorStyle
 type Bindable<T> = Types.Bindable<T>
 
 local function getOriginalBackgroundStyle(
-	backgroundColor: Bindable<Color3>,
-	backgroundTransparency: Bindable<number>
+	backgroundColor: Bindable<Color3>?,
+	backgroundTransparency: Bindable<number>?
 ): ColorStyle
 	if ReactIs.isBinding(backgroundColor) and ReactIs.isBinding(backgroundTransparency) then
 		return React.joinBindings({

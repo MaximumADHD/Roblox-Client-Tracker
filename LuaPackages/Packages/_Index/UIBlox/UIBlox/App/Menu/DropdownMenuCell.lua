@@ -19,6 +19,9 @@ local ControlState = require(Core.Control.Enum.ControlState)
 local withStyle = require(Core.Style.withStyle)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local useCursorByType = require(App.SelectionCursor.useCursorByType)
+local CursorType = require(App.SelectionCursor.CursorType)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local ShimmerPanel = require(App.Loading.ShimmerPanel)
@@ -379,6 +382,13 @@ end
 
 return function(providedProps: any)
 	local props = providedProps
+	local selectionCursor
+	if UIBloxConfig.useFoundationSelectionCursor then
+		selectionCursor = useCursorByType(CursorType.RoundedRectNoInset)
+		props = Cryo.Dictionary.join(props, {
+			selectionCursor = selectionCursor,
+		})
+	end
 	if providedProps.enableTokenOverride then
 		local style = useStyle()
 		props = Cryo.Dictionary.join(StyleDefaults.getDropdownMenuCellDefaultTokens(style), providedProps)

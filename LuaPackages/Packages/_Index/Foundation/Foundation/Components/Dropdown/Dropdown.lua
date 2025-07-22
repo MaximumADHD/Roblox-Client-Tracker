@@ -6,7 +6,7 @@ local Dash = require(Packages.Dash)
 
 local Types = require(Foundation.Components.Types)
 local Popover = require(Foundation.Components.Popover)
-local Menu = require(Foundation.Components.Menu)
+local InternalMenu = require(Foundation.Components.InternalMenu)
 
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -18,7 +18,7 @@ type InputSize = InputSize.InputSize
 
 local DropdownControl = require(script.Parent.DropdownControl)
 
-type MenuItem = Menu.MenuItem
+type MenuItem = InternalMenu.MenuItem
 type ItemId = Types.ItemId
 
 export type DropdownProps = {
@@ -105,7 +105,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				side = sideConfig,
 				onPressedOutside = closeMenu,
 			},
-			React.createElement(Menu, {
+			React.createElement(InternalMenu, {
 				size = props.size,
 				width = props.width,
 				items = Dash.map(props.items, function(item, i)

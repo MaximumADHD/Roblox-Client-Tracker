@@ -29,7 +29,6 @@ local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 
-local Flags = require(Foundation.Utility.Flags)
 local getIconScale = require(Foundation.Utility.getIconScale)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -40,7 +39,6 @@ local isBuilderOrMigratedIcon = iconMigrationUtils.isBuilderOrMigratedIcon
 local useButtonVariants = require(script.Parent.useButtonVariants)
 local useButtonMotionStates = require(script.Parent.useButtonMotionStates)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
 
 type StateChangedCallback = Types.StateChangedCallback
@@ -134,12 +132,6 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local variantProps = useButtonVariants(tokens, props.size, props.variant)
 
-	local cursor = useCursor({
-		radius = UDim.new(0, variantProps.container.radius),
-		offset = tokens.Size.Size_200,
-		borderWidth = tokens.Stroke.Thicker,
-	})
-
 	local motionStates = useButtonMotionStates(variantProps.content.style.Transparency, DISABLED_TRANSPARENCY)
 	local disabledValues, animateDisabledValues = useMotion(motionStates.Default)
 	local values, animate = useMotion(motionStates.Default)
@@ -159,6 +151,14 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 			animateDisabledValues(motionStates.Default)
 		end
 	end, { props.isDisabled })
+
+	local cursor = React.useMemo(function()
+		return {
+			radius = UDim.new(0, variantProps.container.radius),
+			offset = tokens.Size.Size_200,
+			borderWidth = tokens.Stroke.Thicker,
+		}
+	end, { tokens :: unknown, variantProps.container.radius })
 
 	local hasText = props.text and props.text ~= ""
 
@@ -210,12 +210,12 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 			-- Allow focus to be set if inputDelay or isLoading is responsible for disabling the button
 			selection = {
 				Selectable = if props.isDisabled then false else props.Selectable,
-				SelectionImageObject = cursor,
 				NextSelectionUp = props.NextSelectionUp,
 				NextSelectionDown = props.NextSelectionDown,
 				NextSelectionLeft = props.NextSelectionLeft,
 				NextSelectionRight = props.NextSelectionRight,
 			},
+			cursor = cursor,
 			onActivated = props.onActivated,
 			onStateChanged = setControlState :: StateChangedCallback,
 			isDisabled = props.isDisabled or props.isLoading or isDelaying,
@@ -275,7 +275,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 								else React.createElement(Image, {
 									tag = "anchor-center-center position-center-center",
 									Image = props.icon,
-									Size = if Flags.FoundationAdjustButtonIconSizes and intrinsicIconSize
+									Size = if intrinsicIconSize
 										then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)
 										else variantProps.icon.size,
 									imageStyle = disabledValues.transparency:map(function(transparency)
@@ -285,7 +285,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 										}
 									end),
 									scale = values.iconScale:map(function(iconScale: number)
-										return iconScale * (if Flags.FoundationAdjustButtonIconSizes then scale else 1)
+										return iconScale * scale
 									end),
 								})
 							else nil,

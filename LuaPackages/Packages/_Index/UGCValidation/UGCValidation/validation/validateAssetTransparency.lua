@@ -25,21 +25,12 @@ local SummedAreaTable = require(root.util.SummedAreaTable)
 
 local ConstantsTransparencyValidation = require(root.ConstantsTransparencyValidation)
 
-local getEngineFeatureEditableImageDrawTriangleEnabled =
-	require(root.flags.getEngineFeatureEditableImageDrawTriangleEnabled)
-local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
 local getFFlagUGCValidateFixTransparencyReporting = require(root.flags.getFFlagUGCValidateFixTransparencyReporting)
 local getFFlagUGCValidateMinBoundsVisibility = require(root.flags.getFFlagUGCValidateMinBoundsVisibility)
 local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 
-local FFlagFixNonZeroTransparency = game:DefineFastFlag("FixNonZeroTransparency", false)
-
 type SummedAreaTable = SummedAreaTable.SummedAreaTable
 type ValidationContext = Types.ValidationContext
-
-local function checkFlags()
-	return getEngineFeatureEditableImageDrawTriangleEnabled() and getFFlagRefactorValidateAssetTransparency()
-end
 
 local function getViews()
 	return {
@@ -388,11 +379,7 @@ local function checkPartsTransparency(meshParts)
 	return true, {}
 end
 
-local function validateAssetTransparency(inst: Instance, validationContext: ValidationContext)
-	if not checkFlags() then
-		return true
-	end
-
+local function validateAssetTransparency(inst: Instance, validationContext: ValidationContext): (boolean, { string }?)
 	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
 
 	local meshParts = {}
@@ -412,12 +399,9 @@ local function validateAssetTransparency(inst: Instance, validationContext: Vali
 		end
 	end
 
-	local transparentCheckSuccess, errorMessages
-	if FFlagFixNonZeroTransparency then
-		transparentCheckSuccess, errorMessages = checkPartsTransparency(meshParts)
-		if not transparentCheckSuccess then
-			return false, errorMessages
-		end
+	local transparentCheckSuccess, errorMessages = checkPartsTransparency(meshParts)
+	if not transparentCheckSuccess then
+		return false, errorMessages
 	end
 
 	local boundsSuccess, boundsErrors, originsOpt =

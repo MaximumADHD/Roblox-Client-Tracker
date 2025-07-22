@@ -2,20 +2,80 @@ local strict = require(script.Utility.strict)
 
 local Types = require(script.Components.Types)
 local Tokens = require(script.Providers.Style.Tokens)
-local ControlState = require(script.Enums.ControlState)
+local PreferencesProvider = require(script.Providers.Preferences)
+
+local Packages = script.Parent
+local BuilderIcons = require(Packages.BuilderIcons)
 
 export type Bindable<T> = Types.Bindable<T>
 export type CommonProps = Types.CommonProps
 export type StateChangedCallback = Types.StateChangedCallback
-export type ControlState = ControlState.ControlState
 export type StateLayer = Types.StateLayer
 export type Tags = Types.Tags
+export type Preferences = PreferencesProvider.PreferencesProps
+export type PreferencesProviderProps = PreferencesProvider.PreferencesProviderProps
 
 -- Token types
 export type ColorStyle = Types.ColorStyle
 export type ColorStyleValue = Types.ColorStyleValue
 export type FontStyle = Types.FontStyle
 export type Tokens = Tokens.Tokens
+
+-- Enums and their types
+local AvatarGroupType = require(script.Enums.AvatarGroupType)
+local BadgeSize = require(script.Enums.BadgeSize)
+local BadgeVariant = require(script.Enums.BadgeVariant)
+local ButtonVariant = require(script.Enums.ButtonVariant)
+local ControlState = require(script.Enums.ControlState)
+local CursorType = require(script.Enums.CursorType)
+local Device = require(script.Enums.Device)
+local DividerVariant = require(script.Enums.DividerVariant)
+local FillBehavior = require(script.Enums.FillBehavior)
+local IconName = BuilderIcons.Icon
+local IconPosition = require(script.Enums.IconPosition)
+local IconSize = require(script.Enums.IconSize)
+local IconVariant = BuilderIcons.IconVariant
+local InputSize = require(script.Enums.InputSize)
+local InputLabelSize = require(script.Enums.InputLabelSize)
+local PopoverAlign = require(script.Enums.PopoverAlign)
+local PopoverSide = require(script.Enums.PopoverSide)
+local Radius = require(script.Enums.Radius)
+local SliderVariant = require(script.Enums.SliderVariant)
+local StateLayerAffordance = require(script.Enums.StateLayerAffordance)
+local StateLayerMode = require(script.Enums.StateLayerMode)
+local Theme = require(script.Enums.Theme)
+local ThumbnailType = require(script.Enums.ThumbnailType)
+local ThumbnailSize = require(script.Enums.ThumbnailSize)
+local UserPresence = require(script.Enums.UserPresence)
+local Visibility = require(script.Enums.Visibility)
+
+export type AvatarGroupType = AvatarGroupType.AvatarGroupType
+export type BadgeSize = BadgeSize.BadgeSize
+export type BadgeVariant = BadgeVariant.BadgeVariant
+export type ButtonVariant = ButtonVariant.ButtonVariant
+export type ControlState = ControlState.ControlState
+export type CursorType = CursorType.CursorType
+export type Device = Device.Device
+export type DividerVariant = DividerVariant.DividerVariant
+export type FillBehavior = FillBehavior.FillBehavior
+export type IconPosition = IconPosition.IconPosition
+export type IconName = BuilderIcons.Icon
+export type IconSize = IconSize.IconSize
+export type InputSize = InputSize.InputSize
+export type IconVariant = BuilderIcons.IconVariant
+export type InputLabelSize = InputLabelSize.InputLabelSize
+export type PopoverAlign = PopoverAlign.PopoverAlign
+export type PopoverSide = PopoverSide.PopoverSide
+export type Radius = Radius.Radius
+export type SliderVariant = SliderVariant.SliderVariant
+export type StateLayerAffordance = StateLayerAffordance.StateLayerAffordance
+export type StateLayerMode = StateLayerMode.StateLayerMode
+export type Theme = Theme.Theme
+export type ThumbnailType = ThumbnailType.ThumbnailType
+export type ThumbnailSize = ThumbnailSize.ThumbnailSize
+export type UserPresence = UserPresence.UserPresence
+export type Visibility = Visibility.Visibility
+-- enums end
 
 local Foundation = strict({
 	-- Components
@@ -35,6 +95,7 @@ local Foundation = strict({
 	KeyLabel = require(script.Components.KeyLabel),
 	Knob = require(script.Components.Knob),
 	Loading = require(script.Components.Loading),
+	Menu = require(script.Components.Menu),
 	NumberInput = require(script.Components.NumberInput),
 	Pill = require(script.Components.Chip),
 	Popover = require(script.Components.Popover),
@@ -53,6 +114,7 @@ local Foundation = strict({
 	-- Providers
 	FoundationProvider = require(script.Providers.Foundation),
 	OverlayProvider = require(script.Providers.Overlay),
+	BackgroundStyleContext = require(script.Providers.Style.BackgroundStyleContext),
 
 	-- Hooks
 	Hooks = {
@@ -62,6 +124,7 @@ local Foundation = strict({
 		useIconSize = require(script.Utility.useIconSize),
 		usePointerPosition = require(script.Utility.usePointerPosition),
 		usePreferences = require(script.Providers.Preferences.usePreferences),
+		useCumulativeBackground = require(script.Utility.useCumulativeBackground),
 		useRotation = require(script.Utility.useRotation),
 		useScaledValue = require(script.Utility.useScaledValue),
 		useStyleTags = require(script.Providers.Style.useStyleTags),
@@ -72,38 +135,40 @@ local Foundation = strict({
 
 	-- Enums
 	Enums = {
-		AvatarGroupType = require(script.Enums.AvatarGroupType),
-		BadgeSize = require(script.Enums.BadgeSize),
-		BadgeVariant = require(script.Enums.BadgeVariant),
-		-- ButtonSize is deprecated. Use InputSize instead.
+		AvatarGroupType = AvatarGroupType,
+		BadgeSize = BadgeSize,
+		BadgeVariant = BadgeVariant,
+		-- **DEPRECATED**: ButtonSize is deprecated. Use InputSize instead.
 		ButtonSize = require(script.Enums.InputSize),
-		ButtonVariant = require(script.Enums.ButtonVariant),
-		-- CheckboxSize is deprecated. Use InputSize instead.
+		ButtonVariant = ButtonVariant,
+		-- **DEPRECATED**: CheckboxSize is deprecated. Use InputSize instead.
 		CheckboxSize = require(script.Enums.InputSize),
 		ControlState = ControlState,
-		CursorType = require(script.Enums.CursorType),
-		Device = require(script.Enums.Device),
-		DividerVariant = require(script.Enums.DividerVariant),
-		FillBehavior = require(script.Enums.FillBehavior),
-		IconPosition = require(script.Enums.IconPosition),
-		IconSize = require(script.Enums.IconSize),
-		InputSize = require(script.Enums.InputSize),
-		InputLabelSize = require(script.Enums.InputLabelSize),
-		PopoverAlign = require(script.Enums.PopoverAlign),
-		PopoverSide = require(script.Enums.PopoverSide),
-		Radius = require(script.Enums.Radius),
-		-- ScrollBarVisibility is deprecated. Use Visibility instead.
+		CursorType = CursorType,
+		Device = Device,
+		DividerVariant = DividerVariant,
+		FillBehavior = FillBehavior,
+		IconName = IconName,
+		IconPosition = IconPosition,
+		IconSize = IconSize,
+		IconVariant = IconVariant,
+		InputSize = InputSize,
+		InputLabelSize = InputLabelSize,
+		PopoverAlign = PopoverAlign,
+		PopoverSide = PopoverSide,
+		Radius = Radius,
+		-- **DEPRECATED**: ScrollBarVisibility is deprecated. Use Visibility instead.
 		ScrollBarVisibility = require(script.Enums.Visibility),
-		SliderVariant = require(script.Enums.SliderVariant),
-		StateLayerAffordance = require(script.Enums.StateLayerAffordance),
-		StateLayerMode = require(script.Enums.StateLayerMode),
-		Theme = require(script.Enums.Theme),
-		ThumbnailType = require(script.Enums.ThumbnailType),
-		ThumbnailSize = require(script.Enums.ThumbnailSize),
-		-- ToggleSize is deprecated. Use InputSize instead.
+		SliderVariant = SliderVariant,
+		StateLayerAffordance = StateLayerAffordance,
+		StateLayerMode = StateLayerMode,
+		Theme = Theme,
+		ThumbnailType = ThumbnailType,
+		ThumbnailSize = ThumbnailSize,
+		-- **DEPRECATED**: ToggleSize is deprecated. Use InputSize instead.
 		ToggleSize = require(script.Enums.InputSize),
-		UserPresence = require(script.Enums.UserPresence),
-		Visibility = require(script.Enums.Visibility),
+		UserPresence = UserPresence,
+		Visibility = Visibility,
 	},
 
 	-- Utility
@@ -123,6 +188,7 @@ local Foundation = strict({
 	UNSTABLE = {
 		-- Use View/Text/Image instead
 		Interactable = require(script.Components.Interactable),
+		withCursorMigration = require(script.Providers.Cursor.withCursorMigration),
 	},
 })
 

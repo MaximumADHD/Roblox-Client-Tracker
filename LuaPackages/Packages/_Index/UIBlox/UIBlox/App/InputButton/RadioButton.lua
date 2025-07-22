@@ -34,6 +34,8 @@ RadioButton.validateProps = t.strictInterface({
 	-- An Instance for gamepad NextSelectionRight
 	NextSelectionRight = t.optional(t.table),
 	SelectionImageObject = t.optional(t.table),
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 	forwardRef = t.optional(t.table),
 })
 
@@ -42,6 +44,7 @@ RadioButton.defaultProps = {
 	isSelected = false,
 	isDisabled = false,
 	layoutOrder = 0,
+	isRoactGamepadEnabled = true,
 }
 
 local INNER_BUTTON_SIZE = 18
@@ -82,7 +85,9 @@ function RadioButton:render()
 			fillImageSize = UDim2.new(0, 0, 0, 0)
 		end
 
-		local buttonComponent = RoactGamepad.Focusable[InputButton]
+		local buttonComponent = if self.props.isRoactGamepadEnabled
+			then RoactGamepad.Focusable[InputButton]
+			else InputButton
 
 		return Roact.createElement(buttonComponent, {
 			text = self.props.text,
@@ -98,7 +103,7 @@ function RadioButton:render()
 			transparency = transparency,
 			layoutOrder = self.props.layoutOrder,
 			isDisabled = self.props.isDisabled,
-
+			isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 			[Roact.Ref] = self.props.forwardRef,
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,

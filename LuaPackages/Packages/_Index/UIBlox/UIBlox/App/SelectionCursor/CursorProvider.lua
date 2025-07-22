@@ -13,6 +13,8 @@ local CursorContext = require(script.Parent.CursorContext)
 local CursorComponent = require(script.Parent.CursorComponent)
 local CursorType = require(script.Parent.CursorType)
 
+local UIBloxConfig = require(UIBlox.UIBloxDefaultConfig)
+
 export type Props = {
 	children: React.ReactNode,
 }
@@ -59,6 +61,11 @@ local CursorProvider = function(props: Props)
 	local componentTokens = useStyle().Tokens.Component.SelectionCursor
 
 	local getCursor = function(radius: UDim?, offset: number?, borderWidth: number?): React.Ref<GuiObject>
+		assert(
+			UIBloxConfig.useFoundationSelectionCursor == false,
+			"UIBlox's SelectionCursor is deprecated and should not be used anymore."
+		)
+
 		local pRadius = UDim.new(0, 0)
 		if radius ~= nil then
 			pRadius = radius
@@ -95,6 +102,10 @@ local CursorProvider = function(props: Props)
 		assert(
 			CursorType.isEnumValue(cursorType),
 			("Error! expected a CursorType enum, got %s"):format(tostring(cursorType))
+		)
+		assert(
+			UIBloxConfig.useFoundationSelectionCursor == false,
+			"UIBlox's SelectionCursor is deprecated and should not be used anymore."
 		)
 
 		if mountedImageCursors[cursorType] == nil then

@@ -10,8 +10,6 @@ local IconSize = require(Foundation.Enums.IconSize)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 
-local Flags = require(Foundation.Utility.Flags)
-
 -- Used as a constant on purpose, otherwise a new table will be created each render, causing extra renders.
 local shortcut = { Enum.KeyCode.F2, Enum.KeyCode.One, Enum.KeyCode.ButtonR3 }
 
@@ -21,7 +19,6 @@ return {
 		{
 			name = "Base",
 			story = function(props)
-				Flags.FoundationFixUseFloatingContentSize = props.controls.fixUseFloatingContentSize
 				return React.createElement(
 					View,
 					{
@@ -73,7 +70,6 @@ return {
 		},
 	},
 	controls = {
-		fixUseFloatingContentSize = Flags.FoundationFixUseFloatingContentSize,
 		title = "Title",
 		side = Dash.values(PopoverSide),
 		align = Dash.values(PopoverAlign),

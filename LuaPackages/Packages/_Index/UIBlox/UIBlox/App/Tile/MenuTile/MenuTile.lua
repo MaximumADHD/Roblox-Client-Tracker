@@ -9,6 +9,7 @@ local Packages = UIBlox.Parent
 local Otter = require(Packages.Otter)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Cryo = require(Packages.Cryo)
 
 local Badge = require(App.Indicator.Badge)
 local BadgeStates = require(App.Indicator.Enum.BadgeStates)
@@ -28,6 +29,9 @@ local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypog
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
+local CursorType = require(App.SelectionCursor.CursorType)
+local useCursorByType = require(App.SelectionCursor.useCursorByType)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local FULLY_TRANSPARENT = 1
@@ -69,6 +73,9 @@ MenuTile.validateProps = t.strictInterface({
 	-- The layout order of the menu tile.
 	layoutOrder = t.optional(t.number),
 
+	-- selectionCursor object
+	cursor = if UIBloxConfig.useFoundationSelectionCursor then t.table else nil,
+
 	-- Value displayed in the badge.
 	badgeValue = t.optional(t.union(t.string, t.number, BadgeStates.isEnumValue)),
 	-- Variant for the badge
@@ -92,11 +99,15 @@ MenuTile.validateProps = t.strictInterface({
 	})),
 })
 
-local function withProviders(renderCallback)
+local function withProviders(renderCallback, cursor)
 	return withStyle(function(stylePalette)
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return renderCallback(stylePalette, getSelectionCursor)
-		end)
+		if UIBloxConfig.useFoundationSelectionCursor then
+			return renderCallback(stylePalette, nil, cursor)
+		else
+			return withSelectionCursorProvider(function(getSelectionCursor)
+				return renderCallback(stylePalette, getSelectionCursor)
+			end)
+		end
 	end)
 end
 
@@ -168,7 +179,9 @@ function MenuTile:render()
 		local titleTextOneLineSizeY =
 			GetTextSize(title, titleFontSize, titleFont.Font, Vector2.new(100, titleFontSize)).Y
 
-		local selectionCursor = getSelectionCursor(CursorKind.RoundedRect)
+		local selectionCursor = if UIBloxConfig.useFoundationSelectionCursor
+			then cursor
+			else getSelectionCursor(CursorKind.RoundedRect)
 
 		local function onStateChanged(oldState, newState)
 			if newState == ControlState.Hover then
@@ -298,12 +311,29 @@ function MenuTile:render()
 				}),
 			}),
 		})
-	end)
+	end, if UIBloxConfig.useFoundationSelectionCursor then self.props.cursor else nil)
 end
 
 function MenuTile:willUnmount()
 	if self.hoverTransparencyMotor then
 		self.hoverTransparencyMotor:destroy()
 	end
+end
+
+if UIBloxConfig.useFoundationSelectionCursor then
+	function MenuTileFunctionalWrapper(props)
+		local cursor = if UIBloxConfig.useFoundationSelectionCursor
+			then useCursorByType(CursorType.RoundedRect)
+			else nil
+
+		return Roact.createElement(
+			MenuTile,
+			Cryo.Dictionary.join(props, {
+				cursor = cursor,
+			})
+		)
+	end
+
+	return MenuTileFunctionalWrapper
 end
 return MenuTile

@@ -39,7 +39,7 @@ type AvatarVariantProps = {
 	avatar: {
 		tag: string,
 	},
-	indicator: { size: number, shape: IndicatorShape?, variant: IndicatorVariant? },
+	indicator: { size: number, shape: IndicatorShape?, variant: IndicatorVariant?, isVisible: boolean },
 }
 
 local function variantsFactory(tokens: Tokens)
@@ -71,18 +71,31 @@ local function variantsFactory(tokens: Tokens)
 		[UserPresence.None] = {},
 	}
 
-	return { common = common, sizes = sizes, presence = presence }
+	local iconSizeStrokes: { [InputSize]: number } = {
+		[InputSize.XSmall] = tokens.Stroke.Standard,
+		-- It's 2px in deisgn, but we don't have a token for it, so let it be tokens.Stroke.Thick
+		[InputSize.Small] = tokens.Stroke.Thick,
+		[InputSize.Medium] = tokens.Stroke.Thick,
+		[InputSize.Large] = tokens.Stroke.Thicker,
+	}
+
+	return { common = common, sizes = sizes, presence = presence, iconSizeStrokes = iconSizeStrokes }
 end
 
 return function(
 	tokens: Tokens,
 	size: InputSize,
 	presence: UserPresence,
-	backplateStyle: Types.ColorStyle?
+	backplateStyle: Types.ColorStyle?,
+	isIconSize: boolean
 ): AvatarVariantProps
 	local props = VariantsContext.useVariants("Avatar", variantsFactory, tokens)
 
-	local strokeColor = if presence == UserPresence.InExperience then tokens.Color.System.Emphasis else backplateStyle
+	local hasIndicator = not isIconSize and (presence == UserPresence.Active or presence == UserPresence.Away)
+	local strokeColor = if not isIconSize and presence == UserPresence.InExperience
+		then tokens.Color.System.Emphasis
+		else backplateStyle
+	local strokeThickness = if not isIconSize then tokens.Stroke.Thicker else props.iconSizeStrokes[size]
 
 	return composeStyleVariant(props.common, props.sizes[size], props.presence[presence], {
 		container = {
@@ -90,11 +103,14 @@ return function(
 				then {
 					Color = indexBindable(strokeColor, "Color3"),
 					Transparency = indexBindable(strokeColor, "Transparency"),
-					Thickness = tokens.Stroke.Thicker,
+					Thickness = strokeThickness,
 				}
 				else nil,
 			-- We only need the background for a real backplate when stroke is also used for the presence ring
 			backgroundStyle = backplateStyle,
+		},
+		indicator = {
+			isVisible = hasIndicator,
 		},
 	})
 end

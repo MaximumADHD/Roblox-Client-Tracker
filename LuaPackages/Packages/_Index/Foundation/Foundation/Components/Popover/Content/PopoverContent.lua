@@ -139,6 +139,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				},
 				Size = UDim2.fromScale(1, 1),
 				ref = backdropCallback,
+				testId = "--foundation-popover-backdrop",
 			})
 			else nil,
 		Shadow = React.createElement(Image, {
@@ -155,6 +156,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
 			},
 			imageStyle = tokens.Color.Extended.Black.Black_20,
+			testId = "--foundation-popover-shadow",
 		}),
 		Arrow = if props.hasArrow
 			then React.createElement(View, {
@@ -167,6 +169,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				Visible = isVisible,
 				backgroundStyle = backgroundStyle,
 				tag = "anchor-center-center",
+				testId = "--foundation-popover-arrow",
 			})
 			else nil,
 		Content = React.createElement(View, {
@@ -187,6 +190,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 			backgroundStyle = backgroundStyle,
 			tag = `auto-xy {radiusToTag[props.radius]}`,
 			ref = ref,
+			testId = "--foundation-popover-content",
 		}, props.children),
 	})
 

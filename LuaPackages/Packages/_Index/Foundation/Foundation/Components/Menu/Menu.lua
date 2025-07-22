@@ -2,92 +2,91 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
-local Dash = require(Packages.Dash)
 
-local View = require(Foundation.Components.View)
-local useScaledValue = require(Foundation.Utility.useScaledValue)
-
+local Types = require(Foundation.Components.Types)
+local Popover = require(Foundation.Components.Popover)
+local InternalMenu = require(Foundation.Components.InternalMenu)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
-local Types = require(Foundation.Components.Types)
-type ItemId = Types.ItemId
+local PopoverSide = require(Foundation.Enums.PopoverSide)
+local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local InputSize = require(Foundation.Enums.InputSize)
+
 type InputSize = InputSize.InputSize
+type PopoverSide = PopoverSide.PopoverSide
+type PopoverAlign = PopoverAlign.PopoverAlign
 
-local MenuItem = require(script.Parent.MenuItem)
-
-export type MenuItem = {
-	id: ItemId,
-	icon: string?,
-	isDisabled: boolean?,
-	isChecked: boolean?,
-	text: string,
-}
-
-type MenuProps = {
+export type MenuItem = InternalMenu.MenuItem
+export type MenuProps = {
+	-- Whether the menu is open
+	isOpen: boolean,
 	-- List of items to display in the menu
 	items: { MenuItem },
 	-- Size of the menu and its items
 	size: InputSize?,
 	-- Width of the component. If not specified, the menu is sized based on the content.
 	width: UDim?,
-	onActivated: ((id: ItemId) -> ()),
+	-- The side the popover should be anchored to
+	side: PopoverSide?,
+	-- The alignment of the popover relative to the anchor
+	align: PopoverAlign?,
+	-- Callback for when the backdrop is pressed
+	onPressedOutside: (() -> ())?,
+	-- Callback for when a menu item is activated
+	onActivated: (id: Types.ItemId) -> (),
+	-- Children to render as the anchor
+	children: React.ReactNode,
 } & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Medium,
-}
-
-local MIN_WIDTH = 260
-local EMPTY_ICON = ""
-
-local SIZE_TO_PADDING: { [InputSize]: string } = {
-	[InputSize.XSmall] = "padding-xsmall",
-	[InputSize.Small] = "padding-small",
-	[InputSize.Medium] = "padding-small",
-	[InputSize.Large] = "padding-small",
+	side = PopoverSide.Bottom,
+	align = PopoverAlign.Start,
 }
 
 local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(menuProps, defaultProps)
-
-	local hasIcon = React.useMemo(function()
-		for _, value in props.items do
-			if value.icon ~= nil then
-				return true
-			end
-		end
-		return false
-	end, { props.items })
+	local tokens = useTokens()
+	local strokeThickness = tokens.Stroke.Standard
 
 	return React.createElement(
-		View,
+		Popover.Root,
 		withCommonProps(props, {
-			Size = if props.width
-				then UDim2.new(props.width, UDim.new())
-				else UDim2.fromOffset(useScaledValue(MIN_WIDTH), 0),
-			tag = {
-				[`col gap-xxsmall {SIZE_TO_PADDING[props.size]}`] = true,
-				["auto-y"] = props.width ~= nil,
-				["auto-xy"] = props.width == nil,
-			},
+			isOpen = props.isOpen,
 			ref = ref,
 		}),
-		Dash.map(props.items, function(item, index)
-			return React.createElement(MenuItem, {
-				LayoutOrder = index,
-				key = item.id,
-				icon = item.icon or (if hasIcon then EMPTY_ICON else nil),
-				isChecked = item.isChecked,
-				isDisabled = item.isDisabled,
-				text = item.text,
-				onActivated = props.onActivated,
-				size = props.size,
-				id = item.id,
-				testId = "--foundation-menu-item",
-			})
-		end)
+		{
+			Anchor = React.createElement(Popover.Anchor, nil, props.children),
+			Content = React.createElement(
+				Popover.Content,
+				{
+					side = {
+						position = props.side,
+						offset = strokeThickness + tokens.Padding.Small,
+					},
+					align = props.align,
+					hasArrow = false,
+					onPressedOutside = props.onPressedOutside,
+					backgroundStyle = tokens.Color.Surface.Surface_100,
+					ref = ref,
+				},
+				React.createElement(React.Fragment, nil, {
+					Menu = React.createElement(InternalMenu, {
+						items = props.items,
+						size = props.size,
+						width = props.width,
+						onActivated = props.onActivated,
+					}),
+					Border = React.createElement("UIStroke", {
+						Color = tokens.Color.Stroke.Default.Color3,
+						Transparency = tokens.Color.Stroke.Default.Transparency,
+						Thickness = strokeThickness,
+					}),
+				})
+			),
+		}
 	)
 end
 

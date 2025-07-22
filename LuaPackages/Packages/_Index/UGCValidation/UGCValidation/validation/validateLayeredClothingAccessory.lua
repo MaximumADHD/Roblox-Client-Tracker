@@ -22,6 +22,7 @@ local validateThumbnailConfiguration = require(root.validation.validateThumbnail
 local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateLCInRenderBounds = require(root.validation.validateLayeredClothingInRenderBounds)
+local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
@@ -50,6 +51,7 @@ local getFIntUGCValidationLCHandleScaleOffsetMaximum =
 	require(root.flags.getFIntUGCValidationLCHandleScaleOffsetMaximum) -- / 1000
 local getFFlagValidateDeformedLayeredClothingIsInBounds =
 	require(root.flags.getFFlagValidateDeformedLayeredClothingIsInBounds)
+local getFFlagCheckLayeredClothingMeshSize = require(root.flags.getFFlagCheckLayeredClothingMeshSize)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -308,6 +310,14 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
+		end
+
+		if getFFlagCheckLayeredClothingMeshSize() then
+			success, failedReason = ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 
 		success, failedReason = validateMeshBounds(

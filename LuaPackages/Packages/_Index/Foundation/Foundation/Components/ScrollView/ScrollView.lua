@@ -55,21 +55,28 @@ local defaultProps = {
 	isDisabled = false,
 }
 
+-- TODO: Remove when FoundationFixScrollViewBackgroundForStylingV2 is removed
 local defaultTags = "gui-object-defaults"
 
 local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiObject>?)
 	local defaultPropsWithStyles = if not Flags.FoundationDisableStylingPolyfill
+			and not Flags.FoundationFixScrollViewBackgroundForStylingV2
 		then useStyledDefaults("View", scrollViewProps.tag, defaultTags, defaultProps)
 		else nil
 	local props = withDefaults(
 		scrollViewProps,
 		(
-				if not Flags.FoundationDisableStylingPolyfill then defaultPropsWithStyles else defaultProps
+				if not Flags.FoundationDisableStylingPolyfill
+						and not Flags.FoundationFixScrollViewBackgroundForStylingV2
+					then defaultPropsWithStyles
+					else defaultProps
 			) :: typeof(defaultProps)
 	)
 
+	-- TODO: Remove when FoundationFixScrollViewBackgroundForStylingV2 is removed
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)
 	local tag = useStyleTags(tagsWithDefaults)
+	-- end of code for removal
 
 	local controlState, setControlState = React.useState(ControlState.Initialize :: ControlState)
 
@@ -90,7 +97,8 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 		},
 
 		ref = ref,
-		[React.Tag] = tag,
+		[React.Tag] = if Flags.FoundationFixScrollViewBackgroundForStylingV2 then nil else tag,
+		tag = if Flags.FoundationFixScrollViewBackgroundForStylingV2 then props.tag else nil,
 	})
 
 	viewProps.scroll = nil

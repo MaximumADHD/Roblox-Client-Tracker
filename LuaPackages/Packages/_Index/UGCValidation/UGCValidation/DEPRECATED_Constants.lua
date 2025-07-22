@@ -18,6 +18,7 @@ local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
 local getFFlagUGCValidateEmoteAnimationExtendedTests =
 	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
+local getFFlagUGCValidateAnimationRequiredFieldsFix = require(root.flags.getFFlagUGCValidateAnimationRequiredFieldsFix)
 
 local FIntUGCValidateTriangleLimitDynamicHead = game:DefineFastInt("UGCValidateTriangleLimitDynamicHead", 4000)
 local FIntUGCValidateTriangleLimitLeftArm = game:DefineFastInt("UGCValidateTriangleLimitLeftArm", 1248)
@@ -799,8 +800,13 @@ Constants.CONTENT_ID_REQUIRED_FIELDS = {
 	SpecialMesh = { MeshId = true, TextureId = true },
 	MeshPart = { MeshId = true },
 	WrapTarget = { CageMeshId = true },
+	-- when FFlagUGCValidateAnimationRequiredFieldsFix is removed true, this can be changed to { AnimationId = true }
 	Animation = if getFFlagUGCValidateEmoteAnimationExtendedTests() then { "AnimationId" } else nil,
 }
+
+if getFFlagUGCValidateAnimationRequiredFieldsFix() then
+	Constants.CONTENT_ID_REQUIRED_FIELDS.Animation = { AnimationId = true }
+end
 
 Constants.MESH_CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId" },

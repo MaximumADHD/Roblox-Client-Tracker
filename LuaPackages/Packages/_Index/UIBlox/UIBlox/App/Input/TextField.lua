@@ -78,9 +78,6 @@ local function TextField(props: TextFieldProps)
 	local width = if props.width ~= nil then props.width else defaultProps.width
 
 	local function canUseTextInputType(): boolean
-		if not UIBloxConfig.enableTextFieldInputType then
-			return false
-		end
 		local success, value = pcall(function()
 			local CoreGui = game:GetService("CoreGui")
 			local _ = CoreGui.Name

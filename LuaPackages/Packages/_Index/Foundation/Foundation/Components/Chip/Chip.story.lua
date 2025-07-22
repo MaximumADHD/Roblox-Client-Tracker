@@ -8,6 +8,9 @@ local Flags = require(Foundation.Utility.Flags)
 local ChipSize = require(Foundation.Enums.ChipSize)
 local IconPosition = require(Foundation.Enums.IconPosition)
 local View = require(Foundation.Components.View)
+local AvatarGroupType = require(Foundation.Enums.AvatarGroupType)
+local BackgroundStyleContext = require(Foundation.Providers.Style.BackgroundStyleContext)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Chip = require(Foundation.Components.Chip.Chip)
 
@@ -62,6 +65,69 @@ return {
 							chipDesignUpdate = props.controls.chipDesignUpdate,
 						})
 					end)
+				)
+			end,
+		},
+		{
+			name = "AvatarGroup",
+			story = function(props)
+				return React.createElement(Chip, {
+					text = props.controls.text,
+					onActivated = function()
+						print(`Chip activated`)
+					end,
+					leading = {
+						type = "AvatarGroup" :: "AvatarGroup",
+						props = {
+							avatars = {
+								24813339,
+								24813338,
+								24813337,
+								24813336,
+							},
+							type = AvatarGroupType.Stacked,
+							max = 3,
+						},
+					},
+					isChecked = props.controls.isChecked,
+					size = props.controls.size,
+					chipDesignUpdate = props.controls.chipDesignUpdate,
+				})
+			end,
+		},
+		{
+			name = "AvatarGroup on custom background",
+			story = function(props)
+				local tokens = useTokens()
+				return React.createElement(
+					View,
+					{ tag = "bg-surface-300 auto-xy padding-large" },
+					React.createElement(
+						BackgroundStyleContext.Provider,
+						{ value = tokens.Color.Surface.Surface_300 },
+						React.createElement(Chip, {
+							text = props.controls.text,
+							onActivated = function()
+								print(`Chip activated`)
+							end,
+							leading = {
+								type = "AvatarGroup" :: "AvatarGroup",
+								props = {
+									avatars = {
+										24813339,
+										24813338,
+										24813337,
+										24813336,
+									},
+									type = AvatarGroupType.Stacked,
+									max = 3,
+								},
+							},
+							isChecked = props.controls.isChecked,
+							size = props.controls.size,
+							chipDesignUpdate = props.controls.chipDesignUpdate,
+						})
+					)
 				)
 			end,
 		},

@@ -29,6 +29,8 @@ type IconProps = {
 local defaultProps = {
 	iconLabelGap = 6,
 	actionTextSpacingLeading = 12,
+	size = UDim2.fromOffset(0, 0),
+	automaticSize = Enum.AutomaticSize.XY,
 }
 
 local defaultPublicProps = {
@@ -124,10 +126,10 @@ local function Shortcut(providedProps: Types.ShortcutProps)
 
 	return React.createElement("Frame", {
 		LayoutOrder = index,
-		Size = UDim2.fromOffset(0, 0),
+		Size = if UIBloxConfig.enableShortcutCustomization then props.size else UDim2.fromOffset(0, 0),
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
-		AutomaticSize = Enum.AutomaticSize.XY,
+		AutomaticSize = if UIBloxConfig.enableShortcutCustomization then props.automaticSize else Enum.AutomaticSize.XY,
 	}, {
 		UIListLayout = React.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -156,18 +158,28 @@ local function Shortcut(providedProps: Types.ShortcutProps)
 				}),
 			})
 			else nil,
-		Icon = renderIcon({
-			layoutOrder = 2,
-			itemProps = publicProps,
-		}, style),
+		Icon = if UIBloxConfig.enableShortcutCustomization and props.renderIcon
+			then props.renderIcon({
+				layoutOrder = 2,
+			})
+			else renderIcon({
+				layoutOrder = 2,
+				itemProps = publicProps,
+			}, style),
 		LabelText = React.createElement(GenericTextLabel, {
 			LayoutOrder = 3,
 			Size = UDim2.fromOffset(0, 0),
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Text = publicProps.text,
-			TextSize = if UIBloxConfig.useTokenizedShortcutBar then tokens.FontSize.FontSize_50 else nil,
-			colorStyle = style.Theme.TextEmphasis,
-			fontStyle = style.Font.SubHeader1,
+			TextSize = if UIBloxConfig.enableShortcutCustomization and props.labelTextSize
+				then props.labelTextSize
+				else (if UIBloxConfig.useTokenizedShortcutBar then tokens.FontSize.FontSize_50 else nil),
+			colorStyle = if UIBloxConfig.enableShortcutCustomization and props.labelColorStyle
+				then props.labelColorStyle
+				else style.Theme.TextEmphasis,
+			fontStyle = if UIBloxConfig.enableShortcutCustomization and props.labelFontStyle
+				then props.labelFontStyle
+				else style.Font.SubHeader1,
 			BackgroundTransparency = 1,
 		}),
 	})

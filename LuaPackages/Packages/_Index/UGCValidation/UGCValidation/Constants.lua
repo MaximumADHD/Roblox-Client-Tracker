@@ -15,6 +15,8 @@ local getFFlagUGCValidationFixConstantsTypoLeg = require(root.flags.getFFlagUGCV
 local getFFlagUGCValidateEmoteAnimationExtendedTests =
 	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
 local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
+local getFFlagUGCValidateAnimationRequiredFieldsFix = require(root.flags.getFFlagUGCValidateAnimationRequiredFieldsFix)
+local getFFlagUGCValidationFixBannedNamesTypo = require(root.flags.getFFlagUGCValidationFixBannedNamesTypo)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -52,27 +54,76 @@ Constants.R6_BODY_PARTS = {
 	"Left Arm",
 	"Right Arm",
 }
+if getFFlagUGCValidationFixBannedNamesTypo() then
+	Constants.R15_BODY_PARTS = {
+		"Head",
 
-Constants.R15_BODY_PARTS = {
-	"UpperTorso",
-	"LowerTorso",
+		"UpperTorso",
+		"LowerTorso",
 
-	"LeftUpperLeg",
-	"LeftLowerLeg",
-	"LeftFoot",
+		"LeftUpperLeg",
+		"LeftLowerLeg",
+		"LeftFoot",
 
-	"RightUpperLeg",
-	"RightLowerLeg",
-	"RightFoot",
+		"RightUpperLeg",
+		"RightLowerLeg",
+		"RightFoot",
 
-	"LeftUpperArm",
-	"LeftLowerArm",
-	"LeftHand",
+		"LeftUpperArm",
+		"LeftLowerArm",
+		"LeftHand",
 
-	"RightUpperArm",
-	"RightLowerArm",
-	"RightHand",
+		"RightUpperArm",
+		"RightLowerArm",
+		"RightHand",
+	}
+else
+	Constants.R15_BODY_PARTS = {
+		"UpperTorso",
+		"LowerTorso",
+
+		"LeftUpperLeg",
+		"LeftLowerLeg",
+		"LeftFoot",
+
+		"RightUpperLeg",
+		"RightLowerLeg",
+		"RightFoot",
+
+		"LeftUpperArm",
+		"LeftLowerArm",
+		"LeftHand",
+
+		"RightUpperArm",
+		"RightLowerArm",
+		"RightHand",
+	}
+end
+
+Constants.R15_STANDARD_JOINT_NAMES = {
+	["Root"] = true,
+	["HumanoidRootNode"] = true,
+	["DynamicHead"] = true,
+	["Head"] = true,
+	["UpperTorso"] = true,
+	["LowerTorso"] = true,
+	["LeftUpperLeg"] = true,
+	["LeftLowerLeg"] = true,
+	["LeftFoot"] = true,
+	["RightUpperLeg"] = true,
+	["RightLowerLeg"] = true,
+	["RightFoot"] = true,
+	["LeftUpperArm"] = true,
+	["LeftLowerArm"] = true,
+	["LeftHand"] = true,
+	["RightUpperArm"] = true,
+	["RightLowerArm"] = true,
+	["RightHand"] = true,
 }
+
+for _, bodyPart in Constants.R15_BODY_PARTS do
+	Constants.R15_STANDARD_JOINT_NAMES[bodyPart] = true
+end
 
 Constants.UGC_BODY_PARTS = {
 	"Head",
@@ -147,9 +198,19 @@ for _, name in ipairs(extraBannedNames) do
 	table.insert(Constants.EXTRA_BANNED_NAMES, name)
 end
 
-Constants.BANNED_NAMES = convertArrayToTable(
-	Cryo.Dictionary.join(Constants.R6_BODY_PARTS, Constants.R15_BODY_PARTS, Constants.EXTRA_BANNED_NAMES)
-)
+if getFFlagUGCValidationFixBannedNamesTypo() then
+	Constants.BANNED_NAMES = {}
+	local tables_with_banned_names = { Constants.R6_BODY_PARTS, Constants.R15_BODY_PARTS, Constants.EXTRA_BANNED_NAMES }
+	for _, tab in tables_with_banned_names do
+		for _, name in tab do
+			Constants.BANNED_NAMES[name] = true
+		end
+	end
+else
+	Constants.BANNED_NAMES = convertArrayToTable(
+		Cryo.Dictionary.join(Constants.R6_BODY_PARTS, Constants.R15_BODY_PARTS, Constants.EXTRA_BANNED_NAMES)
+	)
+end
 
 Constants.ASSET_STATUS = {
 	UNKNOWN = "Unknown",
@@ -390,8 +451,13 @@ Constants.CONTENT_ID_REQUIRED_FIELDS = {
 	SpecialMesh = { MeshId = true, TextureId = true },
 	MeshPart = { MeshId = true },
 	WrapTarget = { CageMeshId = true },
+	-- when FFlagUGCValidateAnimationRequiredFieldsFix is removed true, this can be changed to { AnimationId = true }
 	Animation = if getFFlagUGCValidateEmoteAnimationExtendedTests() then { "AnimationId" } else nil,
 }
+
+if getFFlagUGCValidateAnimationRequiredFieldsFix() then
+	Constants.CONTENT_ID_REQUIRED_FIELDS.Animation = { AnimationId = true }
+end
 
 Constants.MESH_CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId" },

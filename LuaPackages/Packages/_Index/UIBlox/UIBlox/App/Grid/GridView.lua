@@ -52,6 +52,9 @@ GridView.validateProps = t.strictInterface({
 
 	-- which selection will initally be selected (if using roact-gamepad)
 	defaultChildIndex = t.optional(t.numberMin(1)),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 function GridView:itemsAreVisible()
@@ -65,6 +68,7 @@ end
 GridView.defaultProps = {
 	maxHeight = math.huge,
 	restorePreviousChildFocus = true,
+	isRoactGamepadEnabled = true,
 }
 
 function GridView:init()
@@ -78,7 +82,7 @@ function GridView:init()
 		isInDataModel = false,
 	}
 
-	self.focusableRefs = RoactGamepad.createRefCache()
+	self.focusableRefs = self.props.isRoactGamepadEnabled and RoactGamepad.createRefCache() or {}
 
 	self.onAncestryChanged = function(instance)
 		if instance:IsDescendantOf(game) then
@@ -163,7 +167,11 @@ function GridView:render()
 		-- Also shouldn't be rendering grid items if the item size is 0.
 		local isVisible = self:itemsAreVisible()
 
-		return Roact.createElement(RoactGamepad.Focusable.Frame, {
+		if not self.props.isRoactGamepadEnabled then
+			self.focusableRefs[itemIndex] = self.focusableRefs[itemIndex] or Roact.createRef()
+		end
+
+		return Roact.createElement(if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable.Frame else "Frame", {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, x, 0, y),
 			Size = UDim2.new(0, itemSize.X, 0, itemSize.Y),
@@ -172,8 +180,7 @@ function GridView:render()
 			NextSelectionUp = getItemIndexRef(currentRow - 1, currentCol),
 			NextSelectionDown = getItemIndexRef(currentRow + 1, currentCol),
 			[Roact.Ref] = self.focusableRefs[itemIndex],
-			-- Optional Gamepad prop callback which is called when a grid member is focused on
-			onFocusGained = self.props.onFocusGained,
+			onFocusGained = if self.props.isRoactGamepadEnabled then self.props.onFocusGained else nil,
 		}, {
 			Content = isVisible and self.props.renderItem(
 				items[itemIndex],
@@ -224,7 +231,7 @@ function GridView:render()
 		end
 	end
 
-	return Roact.createElement(RoactGamepad.Focusable.Frame, {
+	return Roact.createElement(if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable.Frame else "Frame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, containerHeight),
@@ -249,18 +256,17 @@ function GridView:render()
 			end
 		end,
 		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
-
+		[Roact.Ref] = self.props.frameRef or self.frameRef,
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
-
-		[Roact.Ref] = self.props.frameRef or self.frameRef,
-		-- Optional Gamepad prop for which grid member to focus on by default
-		defaultChild = defaultChildIndex and self.focusableRefs[defaultChildIndex] or nil,
-		-- Optional Gamepad prop for whether the previous focused on grid member should be refocused
-		-- when returning focus to the grid
-		restorePreviousChildFocus = self.props.restorePreviousChildFocus,
+		defaultChild = if self.props.isRoactGamepadEnabled and defaultChildIndex
+			then self.focusableRefs[defaultChildIndex]
+			else nil,
+		restorePreviousChildFocus = if self.props.isRoactGamepadEnabled
+			then self.props.restorePreviousChildFocus
+			else nil,
 	}, gridChildren)
 end
 

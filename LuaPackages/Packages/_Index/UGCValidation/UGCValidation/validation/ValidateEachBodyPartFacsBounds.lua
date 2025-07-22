@@ -1,5 +1,6 @@
 --[[
 	ValidateEachBodyPartFacsBounds.lua verifies that no body part vert extends beyond 1.5x (based on FFlag) of the original body part BBox, when FACS are all = 1.
+	This is an extra test in case we decide to be more lenient on skinning virtual joints.
 ]]
 
 local root = script.Parent.Parent
@@ -17,6 +18,9 @@ local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local flags = root.flags
 local getEngineFeatureUGCValidationFullBodyFacs = require(flags.getEngineFeatureUGCValidationFullBodyFacs)
 local getFIntUGCValidationAcceptableBodyFacsExpansion = require(flags.getFIntUGCValidationAcceptableBodyFacsExpansion)
+local getEngineFeatureEngineEditableMeshAvatarPublish =
+	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
+local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningValidation)
 
 local ValidateEachBodyPartFacsBounds = function(
 	allBodyParts: { [string]: Instance },
@@ -30,10 +34,27 @@ local ValidateEachBodyPartFacsBounds = function(
 	local headScale = getExpectedPartSize(headMesh, validationContext)
 		/ getExpectedPartSize(headMesh, validationContext, true)
 
-	local getEditableMeshSuccess, headEditableMesh = getEditableMeshFromContext(headMesh, "MeshId", validationContext)
+	local canFetchHeadData, headData = pcallDeferred(function()
+		if getEngineFeatureEngineEditableMeshAvatarPublish() then
+			local getEditableMeshSuccess, editableMesh =
+				getEditableMeshFromContext(headMesh, "MeshId", validationContext)
+			if not getEditableMeshSuccess then
+				error("Failed to retrieve MeshContent")
+			end
 
-	if not getEditableMeshSuccess then
-		return false, { "Could not load editable mesh for body FACS test." }
+			return editableMesh
+		else
+			return getMeshIdForSkinningValidation(headMesh, validationContext.allowEditableInstances)
+		end
+	end, validationContext)
+
+	if not canFetchHeadData then
+		Analytics.reportFailure(
+			Analytics.ErrorType.validateEachBodyPartFacsBounds_FailedToExecute,
+			nil,
+			validationContext
+		)
+		return false, { "Could not load head data for FACS bounds test. Please try again later or make a bug report." }
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
@@ -44,27 +65,42 @@ local ValidateEachBodyPartFacsBounds = function(
 		local partScale = getExpectedPartSize(partMesh, validationContext)
 			/ getExpectedPartSize(partMesh, validationContext, true)
 
-		local getOtherEditableMeshSuccess, partEditableMesh =
-			getEditableMeshFromContext(partMesh, "MeshId", validationContext)
+		local success, result
+		if getEngineFeatureEngineEditableMeshAvatarPublish() then
+			local getOtherEditableMeshSuccess, partEditableMesh =
+				getEditableMeshFromContext(partMesh, "MeshId", validationContext)
 
-		if not getOtherEditableMeshSuccess then
-			Analytics.reportFailure(
-				Analytics.ErrorType.validateEachBodyPartFacsBounds_FailedToExecute,
-				nil,
-				validationContext
-			)
-			return false, { `Could not load {bodyPartName} editable mesh for body FACS test.` }
+			if not getOtherEditableMeshSuccess then
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateEachBodyPartFacsBounds_FailedToExecute,
+					nil,
+					validationContext
+				)
+				return false, { `Could not load {bodyPartName} editable mesh for body FACS test.` }
+			end
+			assert(partEditableMesh)
+
+			success, result = pcallDeferred(function()
+				return UGCValidationService:ValidatePartBBoxAfterFullFacs(
+					headData,
+					partEditableMesh,
+					headScale,
+					partScale,
+					boundsMaxMultiplier
+				)
+			end, validationContext)
+		else
+			local partMeshId = getMeshIdForSkinningValidation(partMesh, validationContext.allowEditableInstances)
+			success, result = pcallDeferred(function()
+				return (UGCValidationService :: any):ValidatePartBBoxAfterFullFacsFromMeshIds(
+					headData,
+					partMeshId,
+					headScale,
+					partScale,
+					boundsMaxMultiplier
+				)
+			end, validationContext)
 		end
-
-		local success, result = pcallDeferred(function()
-			return (UGCValidationService :: any):ValidatePartBBoxAfterFullFacs(
-				headEditableMesh,
-				partEditableMesh,
-				headScale,
-				partScale,
-				boundsMaxMultiplier
-			)
-		end, validationContext)
 
 		if not success then
 			Analytics.reportFailure(

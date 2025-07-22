@@ -4,6 +4,7 @@ local App = Style.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Cryo = require(Packages.Cryo)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local StyleTypes = require(Style.StyleTypes)
 
 local FONT_CONFIG = {
@@ -77,51 +78,69 @@ end
 
 function FontLoader:mapLegacyFont(fontWithToken, baseSize)
 	return {
-		Title = {
-			Font = fontWithToken.HeadingLarge.Font,
-			RelativeSize = 28 / baseSize,
-			RelativeMinSize = 24 / baseSize,
-		},
-		Header1 = {
-			Font = fontWithToken.HeadingSmall.Font,
-			RelativeSize = 20 / baseSize,
-			RelativeMinSize = 16 / baseSize,
-		},
-		Header2 = {
-			Font = fontWithToken.TitleLarge.Font,
-			RelativeSize = 16 / baseSize,
-			RelativeMinSize = 12 / baseSize,
-		},
-		SubHeader1 = {
-			Font = fontWithToken.TitleLarge.Font,
-			RelativeSize = 16 / baseSize,
-			RelativeMinSize = 12 / baseSize,
-		},
-		Body = {
-			Font = fontWithToken.BodyLarge.Font,
-			RelativeSize = 16 / baseSize,
-			RelativeMinSize = 12 / baseSize,
-		},
-		CaptionHeader = {
-			Font = fontWithToken.CaptionLarge.Font,
-			RelativeSize = 12 / baseSize,
-			RelativeMinSize = 9 / baseSize,
-		},
-		CaptionSubHeader = {
-			Font = fontWithToken.CaptionLarge.Font,
-			RelativeSize = 12 / baseSize,
-			RelativeMinSize = 9 / baseSize,
-		},
-		CaptionBody = {
-			Font = fontWithToken.BodySmall.Font,
-			RelativeSize = 12 / baseSize,
-			RelativeMinSize = 9 / baseSize,
-		},
-		Footer = {
-			Font = fontWithToken.CaptionSmall.Font,
-			RelativeSize = 10 / baseSize,
-			RelativeMinSize = 8 / baseSize,
-		},
+		Title = if UIBloxConfig.enableFontScaling
+			then fontWithToken.HeadingLarge
+			else {
+				Font = fontWithToken.HeadingLarge.Font,
+				RelativeSize = 28 / baseSize,
+				RelativeMinSize = 24 / baseSize,
+			},
+		Header1 = if UIBloxConfig.enableFontScaling
+			then fontWithToken.HeadingSmall
+			else {
+				Font = fontWithToken.HeadingSmall.Font,
+				RelativeSize = 20 / baseSize,
+				RelativeMinSize = 16 / baseSize,
+			},
+		Header2 = if UIBloxConfig.enableFontScaling
+			then fontWithToken.TitleLarge
+			else {
+				Font = fontWithToken.TitleLarge.Font,
+				RelativeSize = 16 / baseSize,
+				RelativeMinSize = 12 / baseSize,
+			},
+		SubHeader1 = if UIBloxConfig.enableFontScaling
+			then fontWithToken.TitleLarge
+			else {
+				Font = fontWithToken.TitleLarge.Font,
+				RelativeSize = 16 / baseSize,
+				RelativeMinSize = 12 / baseSize,
+			},
+		Body = if UIBloxConfig.enableFontScaling
+			then fontWithToken.BodyLarge
+			else {
+				Font = fontWithToken.BodyLarge.Font,
+				RelativeSize = 16 / baseSize,
+				RelativeMinSize = 12 / baseSize,
+			},
+		CaptionHeader = if UIBloxConfig.enableFontScaling
+			then fontWithToken.CaptionLarge
+			else {
+				Font = fontWithToken.CaptionLarge.Font,
+				RelativeSize = 12 / baseSize,
+				RelativeMinSize = 9 / baseSize,
+			},
+		CaptionSubHeader = if UIBloxConfig.enableFontScaling
+			then fontWithToken.CaptionLarge
+			else {
+				Font = fontWithToken.CaptionLarge.Font,
+				RelativeSize = 12 / baseSize,
+				RelativeMinSize = 9 / baseSize,
+			},
+		CaptionBody = if UIBloxConfig.enableFontScaling
+			then fontWithToken.BodySmall
+			else {
+				Font = fontWithToken.BodySmall.Font,
+				RelativeSize = 12 / baseSize,
+				RelativeMinSize = 9 / baseSize,
+			},
+		Footer = if UIBloxConfig.enableFontScaling
+			then fontWithToken.CaptionSmall
+			else {
+				Font = fontWithToken.CaptionSmall.Font,
+				RelativeSize = 10 / baseSize,
+				RelativeMinSize = 8 / baseSize,
+			},
 	}
 end
 

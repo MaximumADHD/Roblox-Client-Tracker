@@ -8,8 +8,8 @@ local Types = require(Foundation.Components.Types)
 local Dropdown = require(Foundation.Components.Dropdown)
 local InputSize = require(Foundation.Enums.InputSize)
 
-local Menu = require(Foundation.Components.Menu)
-type MenuItem = Menu.MenuItem
+local InternalMenu = require(Foundation.Components.InternalMenu)
+type MenuItem = InternalMenu.MenuItem
 type ItemId = Types.ItemId
 
 local function getItems(hasIcon: boolean): { MenuItem }

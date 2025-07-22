@@ -71,9 +71,7 @@ function GenericTextLabel:render()
 				sampleText = sampleText .. "..."
 			end
 			local textBounds = self.props.maxSize
-			local lineHeightMax = if UIBloxConfig.fixGenericTextLabelTextBound and self.props.LineHeight
-				then fontSizeMax * self.props.LineHeight
-				else fontSizeMax
+			local lineHeightMax = if self.props.LineHeight then fontSizeMax * self.props.LineHeight else fontSizeMax
 			local textboxBounds = GetTextSize(sampleText, lineHeightMax, textFont, textBounds)
 			textboxSize = UDim2.new(0, textboxBounds.X, 0, textboxBounds.Y)
 		end

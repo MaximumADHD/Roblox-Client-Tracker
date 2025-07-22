@@ -17,14 +17,12 @@ Use the provided [[IconSize]] enum to set the size of the icon. The available si
 ```lua
 local Foundation = require(Packages.Foundation)
 local Icon = Foundation.Icon
-
-local BuilderIcons = require(Packages.BuilderIcons)
-local House = BuilderIcons.Icon.House
+local Enums = Foundation.Enums
 
 ...
 React.createElement(Icon, {
-    name = House,
-    size = IconSize.Medium,
+    name = Enums.IconName.House,
+    size = Enums.IconSize.Medium,
 })
 ...
 ```

@@ -22,6 +22,7 @@ type AppliedGuiObjectProps = {
 	BackgroundColor3: Bindable<Color3>?,
 	BackgroundTransparency: Bindable<number>?,
 	BorderSizePixel: Bindable<number>?,
+	BorderColor3: Bindable<Color3>?,
 	ClipsDescendants: Bindable<boolean>?,
 	Rotation: Bindable<number>?,
 	Selectable: Bindable<boolean>?,
@@ -46,6 +47,7 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 			then indexBindable(props.backgroundStyle, "Transparency")
 			else nil
 		baseProps.BorderSizePixel = props.BorderSizePixel
+		baseProps.BorderColor3 = props.BorderColor3
 		baseProps.ClipsDescendants = props.ClipsDescendants
 		baseProps.Rotation = props.Rotation
 		baseProps.SizeConstraint = props.SizeConstraint

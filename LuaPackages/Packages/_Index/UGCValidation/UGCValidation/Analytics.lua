@@ -46,8 +46,13 @@ local getFFlagValidateDeformedLayeredClothingIsInBounds =
 local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 local getFFlagUGCValidateEmoteAnimationExtendedTests =
 	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
+local getFFlagCheckAccessoryMeshSize = require(root.flags.getFFlagCheckAccessoryMeshSize)
+local getFFlagCheckBodyPartMeshSize = require(root.flags.getFFlagCheckBodyPartMeshSize)
+local getFFlagCheckLayeredClothingMeshSize = require(root.flags.getFFlagCheckLayeredClothingMeshSize)
 
 local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
+local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
+	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
 
 local function joinTables(...)
 	local result = {}
@@ -295,6 +300,18 @@ if getFFlagUGCValidateEmoteAnimationExtendedTests() then
 	Analytics.ErrorType.validateCurveAnimation_UnacceptableLength = "validateCurveAnimation_UnacceptableLength"
 	Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds = "validateCurveAnimation_UnacceptableSizeBounds"
 	Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
+end
+
+if getFFlagCheckAccessoryMeshSize() or getFFlagCheckBodyPartMeshSize() or getFFlagCheckLayeredClothingMeshSize() then
+	Analytics.ErrorType.validateMeshSizeProperty_FailedToLoadMesh = "validateMeshSizeProperty_FailedToLoadMesh"
+	Analytics.ErrorType.validateMeshSizeProperty_Mismatch = "validateMeshSizeProperty_Mismatch"
+end
+
+if getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15() then
+	Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning =
+		"validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning"
+	Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints =
+		"validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints"
 end
 
 setmetatable(Analytics.ErrorType, {

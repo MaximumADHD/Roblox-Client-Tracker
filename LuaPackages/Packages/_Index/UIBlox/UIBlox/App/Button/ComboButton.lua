@@ -6,16 +6,19 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Cryo = require(Packages.Cryo)
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local Images = require(App.ImageSet.Images)
 local withCursor = require(App.SelectionCursor.withCursor)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local useCursor = require(App.SelectionCursor.useCursor)
 
 local ControlState = require(Core.Control.Enum.ControlState)
 local GenericButton = require(Core.Button.GenericButton)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local withStyle = require(Core.Style.withStyle)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ComboButton = Roact.PureComponent:extend("ComboButton")
 
@@ -62,6 +65,9 @@ ComboButton.validateProps = t.strictInterface({
 
 	-- The layout order of the component
 	layoutOrder = t.optional(t.number),
+
+	-- the selectionCursor to use
+	cursor = if UIBloxConfig.useFoundationSelectionCursor then t.optional(t.table) else nil,
 })
 
 ComboButton.defaultProps = {
@@ -82,11 +88,15 @@ end
 
 function ComboButton:render()
 	return withStyle(function(style)
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return withCursor(function(context)
-				return self:renderWithProviders(style, nil, context.getCursor)
+		if UIBloxConfig.useFoundationSelectionCursor then
+			return self:renderWithProviders(style, nil, nil)
+		else
+			return withSelectionCursorProvider(function(getSelectionCursor)
+				return withCursor(function(context)
+					return self:renderWithProviders(style, nil, context.getCursor)
+				end)
 			end)
-		end)
+		end
 	end)
 end
 
@@ -113,9 +123,11 @@ function ComboButton:renderWithProviders(style, getSelectionCursor, getCursor)
 			isHoverBackgroundEnabled = true,
 			onActivated = self.props.button.onActivated,
 			onStateChanged = self.onButtonStateChanged,
-			SelectionImageObject = if getCursor
-				then getCursor(CORNER_RADIUS)
-				else getSelectionCursor(CursorKind.RoundedRectNoInset),
+			SelectionImageObject = if UIBloxConfig.useFoundationSelectionCursor
+				then self.props.cursor
+				else if getCursor
+					then getCursor(CORNER_RADIUS)
+					else getSelectionCursor(CursorKind.RoundedRectNoInset),
 			text = self.props.button.text,
 			ZIndex = 0,
 		}),
@@ -134,11 +146,36 @@ function ComboButton:renderWithProviders(style, getSelectionCursor, getCursor)
 			isHoverBackgroundEnabled = true,
 			onActivated = self.props.overflow.onActivated,
 			onStateChanged = self.onOverflowStateChanged,
-			SelectionImageObject = if getCursor
-				then getCursor(CORNER_RADIUS)
-				else getSelectionCursor(CursorKind.RoundedRectNoInset),
+			SelectionImageObject = if UIBloxConfig.useFoundationSelectionCursor
+				then self.props.cursor
+				else if getCursor
+					then getCursor(CORNER_RADIUS)
+					else getSelectionCursor(CursorKind.RoundedRectNoInset),
 		}),
 	})
+end
+
+if UIBloxConfig.useFoundationSelectionCursor then
+	function ComboButtonFunctionalWrapper(props)
+		local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursor(CORNER_RADIUS) else nil
+
+		return Roact.createElement(
+			ComboButton,
+			Cryo.Dictionary.join(props, {
+				cursor = cursor,
+			})
+		)
+	end
+
+	local ComboButtonOuterWrapper = Roact.PureComponent:extend("ComboButtonOuterWrapper")
+
+	ComboButtonOuterWrapper.validateProps = ComboButton.validateProps
+
+	function ComboButtonOuterWrapper:render()
+		return Roact.createElement(ComboButtonFunctionalWrapper, self.props)
+	end
+
+	return ComboButtonOuterWrapper
 end
 
 return ComboButton

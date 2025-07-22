@@ -30,23 +30,14 @@ return {
 	-- Use InteractionFeedbackManager, which is injected via InteractionFeedbackContext
 	enableInteractionFeedback = false,
 
-	-- Multiply FontSizeMax by line height to get the correct textbound in GenericTextLabel
-	fixGenericTextLabelTextBound = false,
-
 	-- Indicate whether the fix for the unexpected TooltipV2 Re-Render issue is enabled
 	enableTooltipV2HoverControllerReRenderFix = false,
 
 	-- Indicate whether the fix for the the TooltipV2 body font is enabled
 	enableTooltipV2BodyFontFix = false,
 
-	-- Allow the user to specify the input type for TextField
-	enableTextFieldInputType = false,
-
 	-- Disable token scaling for console
 	disableTokenScalingForConsole = false,
-
-	-- Indicate whether the fix for button loading shimmer panel not covering edges is enabled
-	enableButtonLoadingShimmerPanelFix = false,
 
 	-- Bugfix for HeaderBar title flickering
 	fixHeaderBarTitleFlickering = false,
@@ -62,9 +53,6 @@ return {
 
 	-- Add the option to pass in callbacks for AccordionView that run on expansion and collapse
 	addCallbacksToAccordionView = false,
-
-	-- Add the option to pass in a visibility property for Experience Details Page components
-	addEdpComponentVisibility = false,
 
 	-- Indicate whether the fix for the additional NavigationBar#onSelectionChanged call is enabled
 	enableNavigationBarSelectionChangeFix = false,
@@ -87,15 +75,6 @@ return {
 	-- Enable Panel managed anchoring for Panel3D
 	enablePanelManagedAnchoring = false,
 
-	-- Fix the AppNav related test issues
-	fixAppNavTestIssues = false,
-
-	-- Update NavigationBar & NavigationRail's backgrounds to be transparent
-	enableAppNavTransparentBackground = false,
-
-	-- Enable the workaround to fix the text flickering engine bug
-	enableAppNavTextFlickerFix = false,
-
 	-- Enable better laser pointer mode
 	enableBetterLaserPointerMode = false,
 
@@ -105,11 +84,17 @@ return {
 	-- Allow to disable color mapping for the color experiment on SignUp/Login
 	allowDisableColorMapping = false,
 
+	-- Consolidate AnimatedGradients and update to use Foundation tokens
+	updateAnimatedGradient = false,
+
 	-- Uses engine rich text support for GetTextBoundsAsync
 	useEngineRichTextBounds = false,
 
 	-- Uses the Foundation Interactable component instead
 	useFoundationInteractable = false,
+
+	-- Uses the Foundation selectionCursor instead
+	useFoundationSelectionCursor = false,
 
 	-- Adds BuilderIcon migration to createImageSetComponent,
 	migrateBuilderIcon = false,
@@ -122,4 +107,10 @@ return {
 
 	-- Always use provided ref for button
 	useProvidedRefForButton = false,
+
+	-- Enable font scaling for legacy fonts
+	enableFontScaling = false,
+
+	-- Enable icon and style customization on Shortcut
+	enableShortcutCustomization = false,
 }

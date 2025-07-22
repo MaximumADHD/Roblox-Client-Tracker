@@ -24,6 +24,7 @@ local validateSurfaceAppearanceTransparency = require(root.validation.validateSu
 local validateScaleType = require(root.validation.validateScaleType)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateRigidMeshNotSkinned = require(root.validation.validateRigidMeshNotSkinned)
+local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
@@ -38,6 +39,7 @@ local getFFlagMeshPartAccessoryPBRSupport = require(root.flags.getFFlagMeshPartA
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
+local getFFlagCheckAccessoryMeshSize = require(root.flags.getFFlagCheckAccessoryMeshSize)
 
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
@@ -189,6 +191,10 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	if hasMeshContent then
 		reasonsAccumulator:updateReasons(validateTotalSurfaceArea(meshInfo, meshScale, validationContext))
+
+		if getFFlagCheckAccessoryMeshSize() then
+			reasonsAccumulator:updateReasons(ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext))
+		end
 
 		reasonsAccumulator:updateReasons(
 			validateMeshBounds(

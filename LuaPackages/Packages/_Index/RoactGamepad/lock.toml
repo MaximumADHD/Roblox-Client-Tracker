@@ -4,8 +4,8 @@ version = "0.5.13"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React React 17.2.0 registry",
-    "Roact RoactCompat 17.2.0 registry",
+    "React React 17.2.1 registry",
+    "Roact RoactCompat 17.2.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.6 registry",
 ]

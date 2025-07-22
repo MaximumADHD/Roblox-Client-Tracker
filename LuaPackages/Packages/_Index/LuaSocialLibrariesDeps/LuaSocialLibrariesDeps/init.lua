@@ -3,7 +3,6 @@ local lazyRequire = require(LuaSocialLibrariesDeps.LazyRequire).lazyRequire
 
 local FFlagLuaAppLazyRequireSocialLibsDeps = game:DefineFastFlag("LuaAppLazyRequireSocialLibsDeps", false)
 local FFlagRemoveFriendsRoduxAndNetworking = game:DefineFastFlag("RemoveFriendsRoduxAndNetworking", false)
-local FFlagRemoveShareLinksRoduxAndNetworking = game:DefineFastFlag("RemoveShareLinksRoduxAndNetworking_v2", false)
 
 return if FFlagLuaAppLazyRequireSocialLibsDeps
 	then {
@@ -28,11 +27,6 @@ return if FFlagLuaAppLazyRequireSocialLibsDeps
 		NetworkingGames = lazyRequire(LuaSocialLibrariesDeps.NetworkingGames) :: typeof(require(LuaSocialLibrariesDeps.NetworkingGames)),
 		NetworkingPremiumFeatures = lazyRequire(LuaSocialLibrariesDeps.NetworkingPremiumFeatures) :: typeof(require(LuaSocialLibrariesDeps.NetworkingPremiumFeatures)),
 		NetworkingPresence = lazyRequire(LuaSocialLibrariesDeps.NetworkingPresence) :: typeof(require(LuaSocialLibrariesDeps.NetworkingPresence)),
-		NetworkingShareLinks = if FFlagRemoveShareLinksRoduxAndNetworking
-			then nil
-			else lazyRequire(
-					LuaSocialLibrariesDeps.NetworkingShareLinks
-				) :: typeof(require(LuaSocialLibrariesDeps.NetworkingShareLinks)),
 		NetworkingUsers = lazyRequire(LuaSocialLibrariesDeps.NetworkingUsers) :: typeof(require(LuaSocialLibrariesDeps.NetworkingUsers)),
 		NetworkingUserSettings = lazyRequire(LuaSocialLibrariesDeps.NetworkingUserSettings) :: typeof(require(LuaSocialLibrariesDeps.NetworkingUserSettings)),
 		RoactFitComponents = lazyRequire(LuaSocialLibrariesDeps.RoactFitComponents) :: typeof(require(LuaSocialLibrariesDeps.RoactFitComponents)),
@@ -47,11 +41,6 @@ return if FFlagLuaAppLazyRequireSocialLibsDeps
 		RoduxGames = lazyRequire(LuaSocialLibrariesDeps.RoduxGames) :: typeof(require(LuaSocialLibrariesDeps.RoduxGames)),
 		RoduxNetworking = lazyRequire(LuaSocialLibrariesDeps.RoduxNetworking) :: typeof(require(LuaSocialLibrariesDeps.RoduxNetworking)),
 		RoduxPresence = lazyRequire(LuaSocialLibrariesDeps.RoduxPresence) :: typeof(require(LuaSocialLibrariesDeps.RoduxPresence)),
-		RoduxShareLinks = if FFlagRemoveShareLinksRoduxAndNetworking
-			then nil
-			else lazyRequire(
-					LuaSocialLibrariesDeps.RoduxShareLinks
-				) :: typeof(require(LuaSocialLibrariesDeps.RoduxShareLinks)),
 		RoduxUserPermissions = lazyRequire(LuaSocialLibrariesDeps.RoduxUserPermissions) :: typeof(require(LuaSocialLibrariesDeps.RoduxUserPermissions)),
 		RoduxUsers = lazyRequire(LuaSocialLibrariesDeps.RoduxUsers) :: typeof(require(LuaSocialLibrariesDeps.RoduxUsers)),
 		SocialLibraries = lazyRequire(LuaSocialLibrariesDeps.SocialLibraries) :: typeof(require(LuaSocialLibrariesDeps.SocialLibraries)),
@@ -76,9 +65,6 @@ return if FFlagLuaAppLazyRequireSocialLibsDeps
 		NetworkingGames = require(LuaSocialLibrariesDeps.NetworkingGames),
 		NetworkingPremiumFeatures = require(LuaSocialLibrariesDeps.NetworkingPremiumFeatures),
 		NetworkingPresence = require(LuaSocialLibrariesDeps.NetworkingPresence),
-		NetworkingShareLinks = if FFlagRemoveShareLinksRoduxAndNetworking
-			then nil
-			else require(LuaSocialLibrariesDeps.NetworkingShareLinks),
 		NetworkingUsers = require(LuaSocialLibrariesDeps.NetworkingUsers),
 		NetworkingUserSettings = require(LuaSocialLibrariesDeps.NetworkingUserSettings),
 		RoactFitComponents = require(LuaSocialLibrariesDeps.RoactFitComponents),
@@ -91,9 +77,6 @@ return if FFlagLuaAppLazyRequireSocialLibsDeps
 		RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),
 		RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 		RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
-		RoduxShareLinks = if FFlagRemoveShareLinksRoduxAndNetworking
-			then nil
-			else require(LuaSocialLibrariesDeps.RoduxShareLinks),
 		RoduxUserPermissions = require(LuaSocialLibrariesDeps.RoduxUserPermissions),
 		RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 		SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),

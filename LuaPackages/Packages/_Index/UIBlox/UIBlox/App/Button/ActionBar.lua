@@ -28,7 +28,7 @@ local ActionBar = Roact.PureComponent:extend("ActionBar")
 local BUTTON_PADDING = 12
 
 function ActionBar:init()
-	self.buttonRefs = RoactGamepad.createRefCache()
+	self.buttonRefs = self.props.isRoactGamepadEnabled and RoactGamepad.createRefCache() or {}
 
 	self.state = {
 		frameWidth = 0,
@@ -111,6 +111,9 @@ ActionBar.validateProps = t.strictInterface({
 	textButtons = t.optional(t.array(t.strictInterface({
 		props = TextButton.validateProps,
 	}))),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 ActionBar.defaultProps = {
@@ -118,6 +121,7 @@ ActionBar.defaultProps = {
 	iconSize = 36,
 	buttonHeight = 48,
 	buttonPadding = 12,
+	isRoactGamepadEnabled = true,
 }
 
 function ActionBar:render()
@@ -162,27 +166,36 @@ function ActionBar:render()
 				}
 				local iconButtonProps = Cryo.Dictionary.join(newProps, iconButton.props)
 
-				local gamepadFrameProps = {
-					key = "Button" .. tostring(iconButtonIndex),
-					Size = UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
-					BackgroundTransparency = 1,
-					[Roact.Ref] = self.buttonRefs[iconButtonIndex],
-					NextSelectionUp = nil,
-					NextSelectionDown = nil,
-					NextSelectionLeft = self.getGamepadNextSelectionLeft(iconButtonIndex, buttonRefNumber),
-					NextSelectionRight = self.getGamepadNextSelectionRight(iconButtonIndex, buttonRefNumber),
-					inputBindings = {
-						Activated = iconButtonProps.onActivated
-								and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, iconButtonProps.onActivated)
-							or nil,
-					},
-				}
+				if not self.props.isRoactGamepadEnabled then
+					self.buttonRefs[iconButtonIndex] = self.buttonRefs[iconButtonIndex] or Roact.createRef()
+				end
 
 				table.insert(
 					buttonTable,
-					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-						Icon = Roact.createElement(IconButton, iconButtonProps),
-					})
+					Roact.createElement(
+						if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable.Frame else "Frame",
+						{
+							key = "Button" .. tostring(iconButtonIndex),
+							Size = UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
+							BackgroundTransparency = 1,
+							[Roact.Ref] = self.buttonRefs[iconButtonIndex],
+							NextSelectionUp = nil,
+							NextSelectionDown = nil,
+							NextSelectionLeft = self.getGamepadNextSelectionLeft(iconButtonIndex, buttonRefNumber),
+							NextSelectionRight = self.getGamepadNextSelectionRight(iconButtonIndex, buttonRefNumber),
+							inputBindings = if self.props.isRoactGamepadEnabled
+								then {
+									Activated = iconButtonProps.onActivated and RoactGamepad.Input.onBegin(
+										Enum.KeyCode.ButtonA,
+										iconButtonProps.onActivated
+									) or nil,
+								}
+								else nil,
+						},
+						{
+							Icon = Roact.createElement(IconButton, iconButtonProps),
+						}
+					)
 				)
 			end
 		end
@@ -196,28 +209,37 @@ function ActionBar:render()
 				}
 				local textButtonProps = Cryo.Dictionary.join(newProps, textButton.props)
 
-				local gamepadFrameProps = {
-					key = "Button" .. tostring(textButtonIndex),
-					Size = UDim2.fromOffset(0, self.props.iconSize),
-					AutomaticSize = Enum.AutomaticSize.X,
-					BackgroundTransparency = 1,
-					[Roact.Ref] = self.buttonRefs[textButtonIndex],
-					NextSelectionUp = nil,
-					NextSelectionDown = nil,
-					NextSelectionLeft = self.getGamepadNextSelectionLeft(textButtonIndex, buttonRefNumber),
-					NextSelectionRight = self.getGamepadNextSelectionRight(textButtonIndex, buttonRefNumber),
-					inputBindings = {
-						Activated = textButtonProps.onActivated
-								and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, textButtonProps.onActivated)
-							or nil,
-					},
-				}
+				if not self.props.isRoactGamepadEnabled then
+					self.buttonRefs[textButtonIndex] = self.buttonRefs[textButtonIndex] or Roact.createRef()
+				end
 
 				table.insert(
 					buttonTable,
-					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-						TextButton = Roact.createElement(TextButton, textButtonProps),
-					})
+					Roact.createElement(
+						if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable.Frame else "Frame",
+						{
+							key = "Button" .. tostring(textButtonIndex),
+							Size = UDim2.fromOffset(0, self.props.iconSize),
+							AutomaticSize = Enum.AutomaticSize.X,
+							BackgroundTransparency = 1,
+							[Roact.Ref] = self.buttonRefs[textButtonIndex],
+							NextSelectionUp = nil,
+							NextSelectionDown = nil,
+							NextSelectionLeft = self.getGamepadNextSelectionLeft(textButtonIndex, buttonRefNumber),
+							NextSelectionRight = self.getGamepadNextSelectionRight(textButtonIndex, buttonRefNumber),
+							inputBindings = if self.props.isRoactGamepadEnabled
+								then {
+									Activated = textButtonProps.onActivated and RoactGamepad.Input.onBegin(
+										Enum.KeyCode.ButtonA,
+										textButtonProps.onActivated
+									) or nil,
+								}
+								else nil,
+						},
+						{
+							TextButton = Roact.createElement(TextButton, textButtonProps),
+						}
+					)
 				)
 			end
 		end
@@ -236,32 +258,36 @@ function ActionBar:render()
 			}
 			local buttonProps = Cryo.Dictionary.join(newProps, self.props.button.props)
 
-			local gamepadFrameProps = {
-				key = "Button" .. buttonIndex,
-				Size = buttonSize,
-				BackgroundTransparency = 1,
-				[Roact.Ref] = self.buttonRefs[buttonIndex],
-				NextSelectionUp = nil,
-				NextSelectionDown = nil,
-				NextSelectionLeft = self.getGamepadNextSelectionLeft(buttonIndex, buttonRefNumber),
-				NextSelectionRight = self.getGamepadNextSelectionRight(buttonIndex, buttonRefNumber),
-				inputBindings = {
-					Activated = if not useComboButton
-						then RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, buttonProps.onActivated)
-						else nil,
-				},
-			}
-
 			if not useComboButton and buttonProps.buttonType == nil then
 				buttonProps.buttonType = if iconNumber == 0
 					then ButtonType.PrimarySystem
 					else ButtonType.PrimaryContextual
 			end
 
+			if not self.props.isRoactGamepadEnabled then
+				self.buttonRefs[buttonIndex] = self.buttonRefs[buttonIndex] or Roact.createRef()
+			end
+
 			table.insert(
 				buttonTable,
 				isButtonAtStart and 1 or buttonRefNumber,
-				Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
+				Roact.createElement(if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable.Frame else "Frame", {
+					key = "Button" .. buttonIndex,
+					Size = buttonSize,
+					BackgroundTransparency = 1,
+					[Roact.Ref] = self.buttonRefs[buttonIndex],
+					NextSelectionUp = nil,
+					NextSelectionDown = nil,
+					NextSelectionLeft = self.getGamepadNextSelectionLeft(buttonIndex, buttonRefNumber),
+					NextSelectionRight = self.getGamepadNextSelectionRight(buttonIndex, buttonRefNumber),
+					inputBindings = if self.props.isRoactGamepadEnabled
+						then {
+							Activated = if not useComboButton
+								then RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, buttonProps.onActivated)
+								else nil,
+						}
+						else nil,
+				}, {
 					Icon = Roact.createElement(if useComboButton then ComboButton else Button, buttonProps),
 				})
 			)
@@ -271,24 +297,27 @@ function ActionBar:render()
 			buttonTable = self.props[Roact.Children]
 		end
 
-		return Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
-			BackgroundTransparency = 1,
-			minimumSize = UDim2.new(1, 0, 0, self.props.buttonHeight),
-			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = self.props.horizontalAlignment,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Position = UDim2.new(0, 0, 1, 0),
-			AnchorPoint = Vector2.new(0, 1),
-			contentPadding = UDim.new(0, BUTTON_PADDING),
-			[Roact.Ref] = self.frameRef,
-			[Roact.Change.AbsoluteSize] = self.updateFrameSize,
-			margin = innerMargin,
-
-			NextSelectionLeft = self.props.NextSelectionLeft,
-			NextSelectionRight = self.props.NextSelectionRight,
-			NextSelectionUp = self.props.NextSelectionUp,
-			NextSelectionDown = self.props.NextSelectionDown,
-		}, buttonTable)
+		return Roact.createElement(
+			if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable[FitFrameOnAxis] else FitFrameOnAxis,
+			{
+				BackgroundTransparency = 1,
+				minimumSize = UDim2.new(1, 0, 0, self.props.buttonHeight),
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = self.props.horizontalAlignment,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				Position = UDim2.new(0, 0, 1, 0),
+				AnchorPoint = Vector2.new(0, 1),
+				contentPadding = UDim.new(0, BUTTON_PADDING),
+				[Roact.Ref] = self.frameRef,
+				[Roact.Change.AbsoluteSize] = self.updateFrameSize,
+				margin = innerMargin,
+				NextSelectionLeft = self.props.NextSelectionLeft,
+				NextSelectionRight = self.props.NextSelectionRight,
+				NextSelectionUp = self.props.NextSelectionUp,
+				NextSelectionDown = self.props.NextSelectionDown,
+			},
+			buttonTable
+		)
 	end)
 end
 

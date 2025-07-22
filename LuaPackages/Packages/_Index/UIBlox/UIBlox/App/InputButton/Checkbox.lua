@@ -9,6 +9,7 @@ local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
 local CursorKind = require(Packages.UIBlox.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(Packages.UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local useCursorByType = require(Packages.UIBlox.App.SelectionCursor.useCursorByType)
 
 --TODO: This code is considered Control.Checkbox by design, consider moving this out of InputButton for consistency.
 
@@ -38,12 +39,17 @@ Checkbox.validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	-- An Instance for gamepad NextSelectionRight
 	NextSelectionRight = t.optional(t.table),
+	-- selectionCursor object
+	cursor = if UIBloxConfig.useFoundationSelectionCursor then t.table else nil,
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 Checkbox.defaultProps = {
 	text = "Checkbox Text",
 	isSelected = false,
 	isDisabled = false,
+	isRoactGamepadEnabled = true,
 }
 
 local CHECKMARK_SIZE = if UIBloxConfig.migrateBuilderIcon then 20 else 14
@@ -64,7 +70,11 @@ end
 function Checkbox:render()
 	return withSelectionCursorProvider(function(getSelectionCursor)
 		return withStyle(function(style)
-			return self:renderWithProviders(style, getSelectionCursor)
+			if UIBloxConfig.useFoundationSelectionCursor then
+				return self:renderWithProviders(style, getSelectionCursor, self.props.cursor)
+			else
+				return self:renderWithProviders(style, getSelectionCursor)
+			end
 		end)
 	end)
 end
@@ -105,11 +115,15 @@ function Checkbox:renderWithProviders(style, getSelectionCursor, cursor)
 		transparency = transparency,
 		layoutOrder = self.props.layoutOrder,
 		isDisabled = self.props.isDisabled,
+		isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 		[Roact.Ref] = self.props.frameRef,
-		SelectionImageObject = getSelectionCursor(CursorKind.InputButton),
+		SelectionImageObject = if UIBloxConfig.useFoundationSelectionCursor
+			then cursor
+			else getSelectionCursor(CursorKind.InputButton),
 	})
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(Checkbox, Cryo.Dictionary.join(props, { frameRef = ref }))
+	local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursorByType(CursorKind.InputButton) else nil
+	return Roact.createElement(Checkbox, Cryo.Dictionary.join(props, { frameRef = ref, cursor = cursor }))
 end)

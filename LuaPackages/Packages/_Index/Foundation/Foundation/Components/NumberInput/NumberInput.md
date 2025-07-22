@@ -29,7 +29,6 @@ local NumberInput = Foundation.NumberInput
 ...
 local value, setValue = React.useState(0)
 React.createElement(NumberInput, {
-	text = text,
 	isRequired = true,
 	label = "Padding",
 	onChanged = function(v)

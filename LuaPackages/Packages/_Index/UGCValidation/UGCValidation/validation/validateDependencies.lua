@@ -1,14 +1,12 @@
 --[[
 	validateDependencies.lua checks that all the properties in the hierarchy tree of an asset that should contain a value, do contain an asset id, and
-	that asset id points to an asset that exists (and when used from Studio, it uses validateModeration.lua which ensures the assets are created by the
-	currently logged in Studio user)
+	that asset id points to an asset that exists
 ]]
 
 local root = script.Parent.Parent
 
 local RunService = game:GetService("RunService")
 
-local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local FFlagValidateUserAndUniverseNoModeration = game:DefineFastFlag("ValidateUserAndUniverseNoModeration", false)
 local FFlagNoStudioOwnershipCheck = game:DefineFastFlag("NoStudioOwnershipCheck", false)
@@ -21,7 +19,6 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getAssetCreationDetailsRCC = require(root.util.getAssetCreationDetailsRCC)
 local Types = require(root.util.Types)
 
-local validateModeration = require(root.validation.validateModeration)
 local validateCanLoad = require(root.validation.validateCanLoad)
 local validateAssetCreator = require(root.validation.validateAssetCreator)
 
@@ -171,7 +168,6 @@ local function validateDependencies(
 	local startTime = tick()
 
 	local isServer = if validationContext then validationContext.isServer else nil
-	local allowUnreviewedAssets = if validationContext then validationContext.allowUnreviewedAssets else nil
 	local allowEditableInstances = validationContext.allowEditableInstances
 	local restrictedUserIds = if validationContext then validationContext.restrictedUserIds else nil
 	local universeId = if validationContext then validationContext.universeId else nil
@@ -211,16 +207,6 @@ local function validateDependencies(
 					validateModerationRCC(restrictedUserIds :: Types.RestrictedUserIds, contentIdMap, validationContext)
 				)
 			end
-		end
-	end
-
-	if not getFFlagUGCValidateBodyPartsModeration() then
-		local checkModeration = not isServer
-		if allowUnreviewedAssets then
-			checkModeration = false
-		end
-		if checkModeration then
-			reasonsAccumulator:updateReasons(validateModeration(instance, restrictedUserIds, validationContext))
 		end
 	end
 

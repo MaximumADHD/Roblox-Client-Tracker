@@ -4,10 +4,11 @@ local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
 local Checkbox = require(Foundation.Components.Checkbox)
-local Menu = require(Foundation.Components.Menu)
+local InternalMenu = require(Foundation.Components.InternalMenu)
 local Chip = require(Foundation.Components.Chip)
 local View = require(Foundation.Components.View)
 local Divider = require(Foundation.Components.Divider)
+local Interactable = require(Foundation.Components.Interactable)
 
 local function DynamicComponent(props)
 	return React.createElement(View, {
@@ -65,7 +66,7 @@ local function UseCursorStory()
 
 		Divider2 = React.createElement(Divider, { LayoutOrder = 7 }),
 
-		TestMenu = React.createElement(Menu, {
+		TestMenu = React.createElement(InternalMenu, {
 			LayoutOrder = 8,
 			items = {
 				{
@@ -102,8 +103,16 @@ local function UseCursorStory()
 
 		Divider4 = React.createElement(Divider, { LayoutOrder = 12 }),
 
-		ToggleButton = React.createElement(Button, {
+		DefaultCursor = React.createElement(Interactable, {
 			LayoutOrder = 13,
+			cursor = {},
+			Size = UDim2.new(0, 50, 0, 50),
+		}),
+
+		Divider5 = React.createElement(Divider, { LayoutOrder = 14 }),
+
+		ToggleButton = React.createElement(Button, {
+			LayoutOrder = 15,
 			text = showDynamic and "Hide Dynamic Component" or "Show Dynamic Component",
 			onActivated = function()
 				setShowDynamic(not showDynamic)

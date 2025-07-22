@@ -36,11 +36,15 @@ InputButton.validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	SelectionImageObject = t.optional(t.table),
+
+	-- Whether to enable RoactGamepad functionality
+	isRoactGamepadEnabled = t.optional(t.boolean),
 })
 
 InputButton.defaultProps = {
 	layoutOrder = 0,
 	isDisabled = false,
+	isRoactGamepadEnabled = true,
 }
 
 local SELECTION_BUTTON_SIZE = 26
@@ -126,78 +130,86 @@ function InputButton:render()
 			})
 		end
 
-		frameComponent = RoactGamepad.Focusable[frameComponent]
-
 		local fillImage = self.props.fillImage
 
-		return Roact.createElement(frameComponent, {
-			Size = not useAutomaticSizing and (self.props.size or self.sizeBinding) or nil,
-			height = useAutomaticSizing and UDim.new(0, SELECTION_BUTTON_SIZE) or nil,
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-			LayoutOrder = self.props.layoutOrder,
-			[Roact.Ref] = self.props.frameRef,
-			SelectionImageObject = self.props.SelectionImageObject,
-			inputBindings = {
-				Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.props.onActivated),
+		return Roact.createElement(
+			if self.props.isRoactGamepadEnabled then RoactGamepad.Focusable[frameComponent] else frameComponent,
+			{
+				Size = not useAutomaticSizing and (self.props.size or self.sizeBinding) or nil,
+				height = useAutomaticSizing and UDim.new(0, SELECTION_BUTTON_SIZE) or nil,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				LayoutOrder = self.props.layoutOrder,
+				[Roact.Ref] = self.props.frameRef,
+				SelectionImageObject = self.props.SelectionImageObject,
+				FillDirection = useAutomaticSizing and Enum.FillDirection.Horizontal or nil,
+				VerticalAlignment = useAutomaticSizing and Enum.VerticalAlignment.Center or nil,
+				contentPadding = useAutomaticSizing and UDim.new(0, HORIZONTAL_PADDING) or nil,
+				NextSelectionLeft = self.props.NextSelectionLeft,
+				NextSelectionRight = self.props.NextSelectionRight,
+				NextSelectionUp = self.props.NextSelectionUp,
+				NextSelectionDown = self.props.NextSelectionDown,
+				inputBindings = if self.props.isRoactGamepadEnabled
+					then {
+						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.props.onActivated),
+					}
+					else nil,
 			},
-			FillDirection = useAutomaticSizing and Enum.FillDirection.Horizontal or nil,
-			VerticalAlignment = useAutomaticSizing and Enum.VerticalAlignment.Center or nil,
-			contentPadding = useAutomaticSizing and UDim.new(0, HORIZONTAL_PADDING) or nil,
-		}, {
-			HorizontalLayout = not useAutomaticSizing and Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = UDim.new(0, HORIZONTAL_PADDING),
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-			}) or nil,
-			Padding = not useAutomaticSizing and Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
-			}) or nil,
-			InputButtonImage = Roact.createElement(Controllable, {
-				controlComponent = {
-					component = ImageSetComponent.Button,
-					props = {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(0, SELECTION_BUTTON_SIZE, 0, SELECTION_BUTTON_SIZE),
-						Image = self.props.image,
-						ImageTransparency = self.props.transparency,
-						ScaleType = self.props.buttonSliceType,
-						SliceCenter = self.props.buttonSliceCenter,
-						ImageColor3 = self.state.outerImageColor,
-						[Roact.Event.Activated] = self.props.onActivated,
-						LayoutOrder = 1,
-					},
-					children = {
-						InputFillImage = fillImage and Roact.createElement(ImageSetComponent.Label, {
+			{
+				HorizontalLayout = not useAutomaticSizing and Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, HORIZONTAL_PADDING),
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}) or nil,
+				Padding = not useAutomaticSizing and Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
+				}) or nil,
+				InputButtonImage = Roact.createElement(Controllable, {
+					controlComponent = {
+						component = ImageSetComponent.Button,
+						props = {
 							BackgroundTransparency = 1,
-							Size = self.props.fillImageSize,
-							Image = fillImage,
+							Size = UDim2.new(0, SELECTION_BUTTON_SIZE, 0, SELECTION_BUTTON_SIZE),
+							Image = self.props.image,
 							ImageTransparency = self.props.transparency,
-							ImageColor3 = self.props.fillImageColor,
-							AnchorPoint = Vector2.new(0.5, 0.5),
-							Position = UDim2.new(0.5, 0, 0.5, 0),
-						}),
+							ScaleType = self.props.buttonSliceType,
+							SliceCenter = self.props.buttonSliceCenter,
+							ImageColor3 = self.state.outerImageColor,
+							[Roact.Event.Activated] = self.props.onActivated,
+							LayoutOrder = 1,
+						},
+						children = {
+							InputFillImage = fillImage and Roact.createElement(ImageSetComponent.Label, {
+								BackgroundTransparency = 1,
+								Size = self.props.fillImageSize,
+								Image = fillImage,
+								ImageTransparency = self.props.transparency,
+								ImageColor3 = self.props.fillImageColor,
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								Position = UDim2.new(0.5, 0, 0.5, 0),
+							}),
+						},
 					},
-				},
-				isDisabled = self.props.isDisabled,
+					isDisabled = self.props.isDisabled,
 
-				onStateChanged = function(_, newState)
-					self.changeSprite(newState)
-				end,
-			}),
-			-- Only create this element if there is text to display
-			InputButtonText = (self.props.text ~= "") and Roact.createElement(Controllable, {
-				controlComponent = {
-					component = textComponent,
-					props = textComponentProps,
-				},
-				isDisabled = self.props.isDisabled,
-				onStateChanged = function(_, newState)
-					self.changeSprite(newState)
-				end,
-			}),
-		})
+					onStateChanged = function(_, newState)
+						self.changeSprite(newState)
+					end,
+				}),
+				-- Only create this element if there is text to display
+				InputButtonText = (self.props.text ~= "") and Roact.createElement(Controllable, {
+					controlComponent = {
+						component = textComponent,
+						props = textComponentProps,
+					},
+					isDisabled = self.props.isDisabled,
+					onStateChanged = function(_, newState)
+						self.changeSprite(newState)
+					end,
+				}),
+			}
+		)
 	end)
 end
 

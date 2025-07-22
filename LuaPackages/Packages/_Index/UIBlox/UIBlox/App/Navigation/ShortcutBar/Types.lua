@@ -6,6 +6,7 @@ local InputType = require(UIBlox.Enums.InputType)
 local Packages = UIBlox.Parent
 local React = require(Packages.React)
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
+local Foundation = require(Packages.Foundation)
 
 export type Icon = string | ImagesTypes.ImageSetImage
 
@@ -68,6 +69,12 @@ export type ShortcutProps = {
 	iconLabelGap: number?,
 	actionTextSpacingLeading: number?,
 	publicProps: ShortcutInternalProps,
+	size: UDim2?,
+	automaticSize: Enum.AutomaticSize?,
+	renderIcon: ((props: { layoutOrder: number }) -> React.Element<any>?)?,
+	labelTextSize: number?,
+	labelColorStyle: Foundation.ColorStyle?,
+	labelFontStyle: Foundation.FontStyle?,
 }
 
 export type ShortcutPublicProps = {
