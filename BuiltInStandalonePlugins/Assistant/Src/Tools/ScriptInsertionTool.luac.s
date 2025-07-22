@@ -150,8 +150,15 @@ PROTO_4:
   GETUPVAL R1 0
   LOADNIL R2
   MOVE R3 R0
-  CALL R1 2 -1
-  RETURN R1 -1
+  CALL R1 2 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  MOVE R4 R1
+  NAMECALL R2 R2 K0 ["addText"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K1 ["build"]
+  CALL R2 1 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -182,56 +189,59 @@ MAIN:
   GETTABLEKS R6 R7 K18 ["Tools"]
   GETTABLEKS R8 R3 K14 ["Util"]
   GETTABLEKS R7 R8 K19 ["ToolBuilder"]
-  GETTABLEKS R8 R4 K20 ["get"]
-  CALL R8 0 1
-  DUPCLOSURE R9 K21 [PROTO_1]
-  LOADK R12 K22 ["ScriptInsertionTool_InsertScript"]
-  DUPCLOSURE R13 K23 [PROTO_3]
+  GETTABLEKS R9 R3 K14 ["Util"]
+  GETTABLEKS R8 R9 K20 ["ToolResult"]
+  GETTABLEKS R9 R4 K21 ["get"]
+  CALL R9 0 1
+  DUPCLOSURE R10 K22 [PROTO_1]
+  LOADK R13 K23 ["ScriptInsertionTool_InsertScript"]
+  DUPCLOSURE R14 K24 [PROTO_3]
   CAPTURE VAL R1
   CAPTURE VAL R6
-  CAPTURE VAL R9
-  CAPTURE VAL R5
-  NAMECALL R10 R8 K24 ["OnHostInvokeAsync"]
-  CALL R10 3 1
-  DUPCLOSURE R11 K25 [PROTO_4]
   CAPTURE VAL R10
-  GETTABLEKS R12 R7 K26 ["define"]
-  CALL R12 0 1
-  LOADK R14 K27 ["script_insertion"]
-  NAMECALL R12 R12 K28 ["setName"]
-  CALL R12 2 1
-  LOADK R14 K29 ["Insert a script or modify an existing script.
+  CAPTURE VAL R5
+  NAMECALL R11 R9 K25 ["OnHostInvokeAsync"]
+  CALL R11 3 1
+  DUPCLOSURE R12 K26 [PROTO_4]
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  GETTABLEKS R13 R7 K27 ["define"]
+  CALL R13 0 1
+  LOADK R15 K28 ["script_insertion"]
+  NAMECALL R13 R13 K29 ["setName"]
+  CALL R13 2 1
+  LOADK R15 K30 ["Insert a script or modify an existing script.
 Before using this tool, execute Luau code to find the script path first
 "]
-  NAMECALL R12 R12 K30 ["setDescription"]
-  CALL R12 2 1
-  LOADK R14 K31 ["className"]
-  DUPTABLE R15 K34 [{"type", "description"}]
-  LOADK R16 K35 ["string"]
-  SETTABLEKS R16 R15 K32 ["type"]
-  LOADK R16 K36 ["The class name of the script to insert (e.g., 'Script', 'LocalScript', 'ModuleScript'), used for creating new Instance, leave empty if exists"]
-  SETTABLEKS R16 R15 K33 ["description"]
-  NAMECALL R12 R12 K37 ["addOptionalArgument"]
-  CALL R12 3 1
-  LOADK R14 K38 ["code"]
-  DUPTABLE R15 K34 [{"type", "description"}]
-  LOADK R16 K35 ["string"]
-  SETTABLEKS R16 R15 K32 ["type"]
-  LOADK R16 K39 ["The updated Luau code"]
-  SETTABLEKS R16 R15 K33 ["description"]
-  NAMECALL R12 R12 K40 ["addArgument"]
-  CALL R12 3 1
-  LOADK R14 K41 ["scriptPath"]
-  DUPTABLE R15 K34 [{"type", "description"}]
-  LOADK R16 K35 ["string"]
-  SETTABLEKS R16 R15 K32 ["type"]
-  LOADK R16 K42 ["The path to the script to modify or create (e.g., 'game.Workspace.Scripts.MyScript')"]
-  SETTABLEKS R16 R15 K33 ["description"]
-  NAMECALL R12 R12 K40 ["addArgument"]
-  CALL R12 3 1
-  MOVE R14 R11
-  NAMECALL R12 R12 K43 ["setHandler"]
-  CALL R12 2 1
-  NAMECALL R12 R12 K44 ["build"]
-  CALL R12 1 -1
-  RETURN R12 -1
+  NAMECALL R13 R13 K31 ["setDescription"]
+  CALL R13 2 1
+  LOADK R15 K32 ["className"]
+  DUPTABLE R16 K35 [{"type", "description"}]
+  LOADK R17 K36 ["string"]
+  SETTABLEKS R17 R16 K33 ["type"]
+  LOADK R17 K37 ["The class name of the script to insert (e.g., 'Script', 'LocalScript', 'ModuleScript'), used for creating new Instance, leave empty if exists"]
+  SETTABLEKS R17 R16 K34 ["description"]
+  NAMECALL R13 R13 K38 ["addOptionalArgument"]
+  CALL R13 3 1
+  LOADK R15 K39 ["code"]
+  DUPTABLE R16 K35 [{"type", "description"}]
+  LOADK R17 K36 ["string"]
+  SETTABLEKS R17 R16 K33 ["type"]
+  LOADK R17 K40 ["The updated Luau code"]
+  SETTABLEKS R17 R16 K34 ["description"]
+  NAMECALL R13 R13 K41 ["addArgument"]
+  CALL R13 3 1
+  LOADK R15 K42 ["scriptPath"]
+  DUPTABLE R16 K35 [{"type", "description"}]
+  LOADK R17 K36 ["string"]
+  SETTABLEKS R17 R16 K33 ["type"]
+  LOADK R17 K43 ["The path to the script to modify or create (e.g., 'game.Workspace.Scripts.MyScript')"]
+  SETTABLEKS R17 R16 K34 ["description"]
+  NAMECALL R13 R13 K41 ["addArgument"]
+  CALL R13 3 1
+  MOVE R15 R12
+  NAMECALL R13 R13 K44 ["setHandler"]
+  CALL R13 2 1
+  NAMECALL R13 R13 K45 ["build"]
+  CALL R13 1 -1
+  RETURN R13 -1

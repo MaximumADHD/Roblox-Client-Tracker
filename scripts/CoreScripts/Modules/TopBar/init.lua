@@ -35,6 +35,9 @@ local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigati
 
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
+
 if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing) then
 	-- set this prior to TopBarApp require
 	local guiInsetTopLeft, guiInsetBottomRight = GuiService:GetGuiInset()
@@ -104,7 +107,9 @@ function TopBar.new()
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,
 	})
-	registerSetCores(self.store)
+	if not FFlagTopBarSignalizeSetCores	then
+		registerSetCores(self.store)
+	end
 	self.store:dispatch(GetCanChat)
 
 	self.store:dispatch(GetGameName)

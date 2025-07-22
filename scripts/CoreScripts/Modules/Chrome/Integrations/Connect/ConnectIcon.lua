@@ -34,8 +34,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
 local FFlagConnectIconUsesAppChatConfig = game:DefineFastFlag("ConnectIconUsesAppChatConfig", false)
 local FIntUnibarConnectIconTooltipPriority = game:DefineFastInt("UnibarConnectIconTooltipPriority", 1500)
-
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
+local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
 
 local AVATAR_SIZE = 24
 
@@ -122,12 +121,10 @@ local function ConnectIcon(_props: Props): React.ReactElement
 			priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarConnectIconTooltipPriority else nil,
 			isIconVisible = props.isIconVisible,
 
-			headerKey = if GetFFlagAppChatRebrandStringUpdates()
-					and SquadExperimentation.getSquadEntrypointsEnabled()
+			headerKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
 				then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 				else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
-			bodyKey = if GetFFlagAppChatRebrandStringUpdates()
-					and SquadExperimentation.getSquadEntrypointsEnabled()
+			bodyKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
 				then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 				else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 			localStorageKey = GetFStringConnectTooltipLocalStorageKey(),

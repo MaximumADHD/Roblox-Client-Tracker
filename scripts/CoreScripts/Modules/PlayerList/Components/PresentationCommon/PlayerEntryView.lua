@@ -3,6 +3,7 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
+local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local PresentationCommon = script.Parent
@@ -17,6 +18,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local InExperienceCapabilities =
 	require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 local Foundation = require(CorePackages.Packages.Foundation)
+local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
@@ -25,6 +27,7 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
+local useFocusGuiObject = ReactFocusNavigation.useFocusGuiObject
 
 local View = Foundation.View
 local ControlState = Foundation.Enums.ControlState
@@ -37,6 +40,7 @@ local PlayerIcon = require(PresentationCommon.PlayerIcon)
 local PlayerNameTag = require(Components.Presentation.PlayerNameTag)
 
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
+local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 
 type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
@@ -72,6 +76,10 @@ export type PlayerEntryViewProps = {
 	openDropdown: ((Player) -> ())?,
 	closeDropdown: (() -> ())?,
 	setDropDownPlayerDimensionY: ((vec2: Vector2) -> ())?,
+
+	-- Focus nav data
+	prevFocusedEntry: React.RefObject<GuiObject?>?,
+	destroyedFocusedPlayerId: React.RefObject<number?>?,
 
 	-- Device type
 	isSmallTouchDevice: boolean?,
@@ -303,6 +311,9 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 	local isPressed, setIsPressed = React.useState(false)
 
 	local playerEntryRef = React.useRef(nil :: GuiObject?)
+	local entryFrameRef = React.useRef(nil :: GuiObject?)
+
+	local focusGuiObject = useFocusGuiObject()
 
 	local chromeEnabled = ChromeEnabled()
 	local layoutValues = useLayoutValues()
@@ -525,6 +536,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			overlayStyle = overlayStyle,
 			doubleOverlay = isPressed,
 			firstPlayerRef = firstPlayerRef,
+			ref = if FFlagAddNewPlayerListFocusNav then entryFrameRef else nil,
 
 			onActivated = onActivated,
 			onStateChanged = onStateChanged,
@@ -535,6 +547,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 		backgroundStyle,
 		overlayStyle,
 		isPressed,
+		entryFrameRef,
 		onActivated,
 		onStateChanged,
 	}:: { any })
@@ -582,6 +595,40 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 		props.gameStatsCount,
 		backgroundFrameProps,
 	} :: { any })
+
+	React.useEffect(function()
+		local selectionLostConnection = nil
+		local destroyingConnection = nil
+
+		if FFlagAddNewPlayerListFocusNav then
+			if entryFrameRef.current and props.prevFocusedEntry and props.destroyedFocusedPlayerId then
+				local savedEntryFrame = entryFrameRef.current
+
+				selectionLostConnection = entryFrameRef.current.SelectionLost:Connect(function()
+					-- Store the previously focused object to refocus in the case that the currently focused player leaves
+					props.prevFocusedEntry.current = savedEntryFrame
+				end)
+
+				destroyingConnection = entryFrameRef.current.Destroying:Connect(function()
+					selectionLostConnection:Disconnect()
+
+					if GuiService.SelectedCoreObject == savedEntryFrame then
+						-- Store the player's id to refocus in the case that the player moves teams
+						props.destroyedFocusedPlayerId.current = props.player.UserId
+						focusGuiObject(nil)
+					end
+
+					destroyingConnection:Disconnect()
+				end)
+			end
+		end
+
+		return function()
+			if selectionLostConnection then
+				selectionLostConnection:Disconnect()
+			end
+		end
+	end, { focusGuiObject, props.player, props.prevFocusedEntry, props.destroyedFocusedPlayerId, entryFrameRef.current } :: { any })
 
 	-- Create the main container based on platform
 	if isSmallTouchDevice then

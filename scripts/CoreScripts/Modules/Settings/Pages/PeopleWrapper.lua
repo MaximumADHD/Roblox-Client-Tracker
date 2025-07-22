@@ -19,8 +19,6 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
-local PeopleReactView = require(CorePackages.Workspace.Packages.PeopleReactView).PeopleReactView
-local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
@@ -41,7 +39,7 @@ local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local Integrations
 local Constants
 local Utils
-if FFlagRefactorPeoplePage then
+if FFlagRefactorPeoplePage() then
 	Constants = require(CorePackages.Workspace.Packages.PeopleReactView).Constants
 	Integrations = require(Modules.Settings.Integrations)
 	Utils = Integrations.Utils
@@ -49,6 +47,8 @@ end
 
 -- Returns GameSettings Page with Settings Framework
 local function createPeoplePage()
+	local PeopleReactView = require(CorePackages.Workspace.Packages.PeopleReactView).PeopleReactView
+	local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
 	local PeoplePage = SettingsPageFactory:CreateNewPage()
 	
 	------ TAB CUSTOMIZATION -------
@@ -67,7 +67,12 @@ local function createPeoplePage()
 	PeoplePage.TabHeader.TabLabel.Title.Text = locales:Format(Constants.PEOPLEPAGE.TAB_HEADER.TEXT)
 
 	-- Register the SettingsHub instance with the PeopleService
-	PeopleService.SettingsHubService.register(PeoplePage)
+	local SettingsHubService = PeopleService.getService("SettingsHubService")
+	SettingsHubService.register(PeoplePage)
+
+	function PeoplePage:CreateMenuButtonsContainer()
+		SettingsHubService.setShowMenuButtonsContainer(true)
+	end
 
 	------ PAGE CUSTOMIZATION -------	
 	local People = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
@@ -83,7 +88,6 @@ local function createPeoplePage()
 				}, {
 					FocusRoot = React.createElement(FocusRoot, {
 						surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-						isIsolated = true,
 						isAutoFocusRoot = true,
 					}, {
 						PeopleReactView = React.createElement(PeopleReactView)
@@ -95,6 +99,9 @@ local function createPeoplePage()
 
 	local tree = ReactRoblox.createRoot(PeoplePage.Page)
 	tree:render(People)
+
+	PeoplePage.Page.Size = UDim2.new(1, 0, 0, 0)
+	PeoplePage.Page.AutomaticSize = Enum.AutomaticSize.Y
 
 	return PeoplePage
 end

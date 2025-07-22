@@ -19,7 +19,7 @@ local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
+local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -60,6 +60,8 @@ local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbi
 local GetFFlagShouldShowSimpleMusicFtuxTooltip = require(Chrome.Flags.GetFFlagShouldShowSimpleMusicFtuxTooltip)
 local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
 local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
+local GetFFlagSongbirdCleanupExperiment =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdCleanupExperiment
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
@@ -75,9 +77,9 @@ local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagAppChatEnabledChromeDropdownFtuxTooltip
 	and GetShouldShowPlatformChatBasedOnPolicy()
 
-local shouldShowMusicTooltip = FFlagEnableUnibarFtuxTooltips
-	and GetFFlagShouldShowMusicFtuxTooltip()
-	and GetFFlagEnableSongbirdInChrome()
+local shouldShowMusicTooltip = if GetFFlagSongbirdCleanupExperiment()
+	then FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip()
+	else FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip() and GetFFlagEnableSongbirdInChrome()
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -329,12 +331,10 @@ function HamburgerButton(props)
 				priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarConnectIconTooltipPriority else nil,
 				isIconVisible = props.visible,
 
-				headerKey = if GetFFlagAppChatRebrandStringUpdates()
-						and SquadExperimentation.getSquadEntrypointsEnabled()
+				headerKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
 					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
-				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
-						and SquadExperimentation.getSquadEntrypointsEnabled()
+				bodyKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
 					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 
@@ -349,12 +349,10 @@ function HamburgerButton(props)
 				priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarConnectIconTooltipPriority else nil,
 				isIconVisible = props.visible,
 
-				headerKey = if GetFFlagAppChatRebrandStringUpdates()
-						and SquadExperimentation.getSquadEntrypointsEnabled()
+				headerKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
 					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
-				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
-						and SquadExperimentation.getSquadEntrypointsEnabled()
+				bodyKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
 					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 

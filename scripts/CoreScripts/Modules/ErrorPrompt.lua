@@ -16,6 +16,9 @@ local Constants = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Con
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization;
 local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
+local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
@@ -27,15 +30,25 @@ local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quint, Enum.EasingDirecti
 
 local coreScriptTableTranslator
 local function onLocaleIdChanged()
+	if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then return end
 	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 end
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
-onLocaleIdChanged()
-LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
+if not GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
+	onLocaleIdChanged()
+	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
+end
 
 
 local function attemptTranslate(key, defaultString, parameters)
+	if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
+		local success,result = pcall(function()
+			return locales:Format(key, parameters)
+		end)
+		return success and result or defaultString
+	end
+
 	if not coreScriptTableTranslator then
 		return defaultString
 	end

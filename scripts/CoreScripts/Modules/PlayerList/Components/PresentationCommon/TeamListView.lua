@@ -33,6 +33,10 @@ export type TeamListViewProps = {
 	firstPlayerRef: React.Ref<GuiObject?>?,
 	setDropDownPlayerDimensionY: ((vec2: Vector2) -> ())?,
 
+	-- Focus nav data
+	prevFocusedEntry: React.RefObject<GuiObject?>?,
+	destroyedFocusedPlayerId: React.RefObject<number?>?,
+
 	-- Device type
 	isSmallTouchDevice: boolean?,
 	isDirectionalPreferred: boolean?,
@@ -69,13 +73,14 @@ local function TeamListView(props: TeamListViewProps)
 			local playerIconInfo = props.playerIconInfos[playerId]
 			local playerRelationship = props.playerRelationships[playerId]
 
+			-- TODO: Remove when playerIconInfo and playerRelationship data gets moved to leaderboard store (APPEXP-2963)
 			-- TeamList can get rendered before playerIconInfo and playerRelationship values are updated
 			-- Prevent rendering PlayerEntries until these values are available
 			if not playerIconInfo or not playerRelationship then
 				return
 			end
 
-			childElements["p_" .. tostring(playerId)] = React.createElement(PlayerEntryContainer, {
+			childElements["PlayerEntry_" .. tostring(playerId)] = React.createElement(PlayerEntryContainer, {
 				size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 				player = player,
 				titlePlayerEntry = false,
@@ -85,6 +90,8 @@ local function TeamListView(props: TeamListViewProps)
 				teamData = props.teamData,
 				setDropDownPlayerDimensionY = props.setDropDownPlayerDimensionY,
 				firstPlayerRef = props.firstPlayerRef,
+				prevFocusedEntry = props.prevFocusedEntry,
+				destroyedFocusedPlayerId = props.destroyedFocusedPlayerId,
 			})
 		end, false)
 	end

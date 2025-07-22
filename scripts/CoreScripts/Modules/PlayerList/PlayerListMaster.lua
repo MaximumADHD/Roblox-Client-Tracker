@@ -21,6 +21,8 @@ local ApolloClientInstance = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
 local ApolloProvider = ApolloClientModule.ApolloProvider
 local PlayerList = script.Parent
+local Signals = require(CorePackages.Packages.Signals)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 
 local Reducer = require(PlayerList.Reducers.Reducer)
 local GlobalConfig = require(PlayerList.GlobalConfig)
@@ -44,9 +46,12 @@ if not Players.LocalPlayer then
 end
 
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
+local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 
 local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
 local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
+
+local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 
 local function isSmallTouchScreen()
 	if _G.__TESTEZ_RUNNING_TEST__ then
@@ -180,10 +185,27 @@ function PlayerListMaster.new()
 	self:_updateMounted()
 
 	self.SetVisibleChangedEvent = Instance.new("BindableEvent")
+	if FFlagAddNewPlayerListFocusNav then
+		self.VisibilityChangedEvent = Instance.new("BindableEvent")
+	end
+
+	if FFlagTopBarSignalizeSetCores then 
+		self.disposeEffect = Signals.createEffect(function(scope)
+			local getTopBarStore = CoreGuiCommon.Stores.GetTopBarStore
+			if getTopBarStore then
+				self:SetTopBarEnabled(getTopBarStore(scope).getTopBarCoreGuiEnabled(scope))
+			end
+		end)
+	end
 
 	self.store.changed:connect(function(newState, oldState)
 		if newState.displayOptions.setVisible ~= oldState.displayOptions.setVisible then
 			self.SetVisibleChangedEvent:Fire(newState.displayOptions.setVisible)
+		end
+		if FFlagAddNewPlayerListFocusNav then
+			if newState.displayOptions.isVisible ~= oldState.displayOptions.isVisible then
+				self.VisibilityChangedEvent:Fire(newState.displayOptions.isVisible)
+			end
 		end
 	end)
 
@@ -225,6 +247,12 @@ end
 
 function PlayerListMaster:GetVisibility()
 	return self.store:getState().displayOptions.isVisible
+end
+
+if FFlagAddNewPlayerListFocusNav then
+	function PlayerListMaster:GetVisibilityChangedEvent()
+		return self.VisibilityChangedEvent
+	end
 end
 
 function PlayerListMaster:GetSetVisible()

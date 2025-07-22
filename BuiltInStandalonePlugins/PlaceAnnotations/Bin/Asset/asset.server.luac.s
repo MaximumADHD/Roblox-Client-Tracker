@@ -52,112 +52,135 @@ MAIN:
   LOADK R5 K19 ["CollaboratorsService"]
   NAMECALL R3 R3 K20 ["GetService"]
   CALL R3 2 1
-  NAMECALL R5 R3 K21 ["GetCollaboratorsList"]
+  GETTABLEKS R4 R2 K21 ["fflagCOLLAB8658AnnotationsDisableNonTCRestore"]
+  JUMPIFNOT R4 [+33]
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R7 R0 K11 ["Src"]
+  GETTABLEKS R6 R7 K22 ["Util"]
+  GETTABLEKS R5 R6 K23 ["Constants"]
+  CALL R4 1 1
+  NAMECALL R6 R3 K24 ["GetCollaboratorsList"]
+  CALL R6 1 1
+  LENGTH R5 R6
+  JUMPIFNOTEQKN R5 K25 [0] [+10]
+  GETIMPORT R5 K1 [plugin]
+  GETTABLEKS R7 R4 K26 ["TCEnabledKey"]
+  LOADB R8 0
+  NAMECALL R5 R5 K27 ["SetItem"]
+  CALL R5 3 0
+  RETURN R0 0
+  GETIMPORT R5 K1 [plugin]
+  GETTABLEKS R7 R4 K26 ["TCEnabledKey"]
+  LOADB R8 1
+  NAMECALL R5 R5 K27 ["SetItem"]
+  CALL R5 3 0
+  JUMP [+7]
+  NAMECALL R5 R3 K24 ["GetCollaboratorsList"]
   CALL R5 1 1
   LENGTH R4 R5
-  JUMPIFNOTEQKN R4 K22 [0] [+2]
+  JUMPIFNOTEQKN R4 K25 [0] [+2]
   RETURN R0 0
   GETIMPORT R4 K18 [game]
-  LOADK R6 K23 ["RunService"]
+  LOADK R6 K28 ["RunService"]
   NAMECALL R4 R4 K20 ["GetService"]
   CALL R4 2 1
-  NAMECALL R5 R4 K24 ["IsEdit"]
+  NAMECALL R5 R4 K29 ["IsEdit"]
   CALL R5 1 1
   JUMPIF R5 [+1]
   RETURN R0 0
   GETIMPORT R5 K7 [require]
   GETTABLEKS R7 R0 K8 ["Packages"]
-  GETTABLEKS R6 R7 K25 ["ReactRoblox"]
+  GETTABLEKS R6 R7 K30 ["ReactRoblox"]
   CALL R5 1 1
   GETIMPORT R6 K7 [require]
   GETTABLEKS R8 R0 K8 ["Packages"]
-  GETTABLEKS R7 R8 K26 ["React"]
+  GETTABLEKS R7 R8 K31 ["React"]
   CALL R6 1 1
   GETIMPORT R7 K7 [require]
   GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K27 ["CoreGuiRoot"]
+  GETTABLEKS R8 R9 K32 ["CoreGuiRoot"]
   CALL R7 1 1
   GETIMPORT R9 K7 [require]
   GETTABLEKS R12 R0 K11 ["Src"]
-  GETTABLEKS R11 R12 K28 ["Contexts"]
-  GETTABLEKS R10 R11 K29 ["TagDropdownContext"]
+  GETTABLEKS R11 R12 K33 ["Contexts"]
+  GETTABLEKS R10 R11 K34 ["TagDropdownContext"]
   CALL R9 1 1
-  GETTABLEKS R8 R9 K30 ["TagDropdownProvider"]
-  GETIMPORT R9 K33 [Instance.new]
-  LOADK R10 K34 ["Folder"]
+  GETTABLEKS R8 R9 K35 ["TagDropdownProvider"]
+  GETIMPORT R9 K38 [Instance.new]
+  LOADK R10 K39 ["Folder"]
   CALL R9 1 1
   LOADK R10 K4 ["PlaceAnnotations"]
-  SETTABLEKS R10 R9 K35 ["Name"]
+  SETTABLEKS R10 R9 K40 ["Name"]
   GETIMPORT R11 K18 [game]
-  GETTABLEKS R10 R11 K36 ["CoreGui"]
-  SETTABLEKS R10 R9 K37 ["Parent"]
-  GETIMPORT R10 K33 [Instance.new]
-  LOADK R11 K38 ["ScreenGui"]
+  GETTABLEKS R10 R11 K41 ["CoreGui"]
+  SETTABLEKS R10 R9 K42 ["Parent"]
+  GETIMPORT R10 K38 [Instance.new]
+  LOADK R11 K43 ["ScreenGui"]
   CALL R10 1 1
-  LOADK R11 K39 ["PlaceAnnotationsGui"]
-  SETTABLEKS R11 R10 K35 ["Name"]
-  SETTABLEKS R9 R10 K37 ["Parent"]
-  GETIMPORT R11 K43 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K41 ["ZIndexBehavior"]
-  GETTABLEKS R11 R5 K44 ["createRoot"]
+  LOADK R11 K44 ["PlaceAnnotationsGui"]
+  SETTABLEKS R11 R10 K40 ["Name"]
+  SETTABLEKS R9 R10 K42 ["Parent"]
+  GETIMPORT R11 K48 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K46 ["ZIndexBehavior"]
+  GETTABLEKS R11 R5 K49 ["createRoot"]
   MOVE R12 R10
   CALL R11 1 1
-  GETTABLEKS R12 R2 K45 ["fflagAnnotationsFixForPolyfillOff"]
+  GETTABLEKS R12 R2 K50 ["fflagAnnotationsFixForPolyfillOff"]
   JUMPIFNOT R12 [+13]
-  GETTABLEKS R14 R6 K46 ["createElement"]
+  GETTABLEKS R14 R6 K51 ["createElement"]
   MOVE R15 R7
-  DUPTABLE R16 K48 [{"Plugin"}]
+  DUPTABLE R16 K53 [{"Plugin"}]
   GETIMPORT R17 K1 [plugin]
-  SETTABLEKS R17 R16 K47 ["Plugin"]
+  SETTABLEKS R17 R16 K52 ["Plugin"]
   CALL R14 2 -1
-  NAMECALL R12 R11 K49 ["render"]
+  NAMECALL R12 R11 K54 ["render"]
   CALL R12 -1 0
   JUMP [+17]
-  GETTABLEKS R14 R6 K46 ["createElement"]
+  GETTABLEKS R14 R6 K51 ["createElement"]
   MOVE R15 R8
   LOADNIL R16
-  GETTABLEKS R17 R6 K46 ["createElement"]
+  GETTABLEKS R17 R6 K51 ["createElement"]
   MOVE R18 R7
-  DUPTABLE R19 K48 [{"Plugin"}]
+  DUPTABLE R19 K53 [{"Plugin"}]
   GETIMPORT R20 K1 [plugin]
-  SETTABLEKS R20 R19 K47 ["Plugin"]
+  SETTABLEKS R20 R19 K52 ["Plugin"]
   CALL R17 2 -1
   CALL R14 -1 -1
-  NAMECALL R12 R11 K49 ["render"]
+  NAMECALL R12 R11 K54 ["render"]
   CALL R12 -1 0
   GETIMPORT R13 K1 [plugin]
-  GETTABLEKS R12 R13 K50 ["Unloading"]
+  GETTABLEKS R12 R13 K55 ["Unloading"]
   NEWCLOSURE R14 P0
   CAPTURE REF R11
   CAPTURE REF R9
-  NAMECALL R12 R12 K51 ["Connect"]
+  NAMECALL R12 R12 K56 ["Connect"]
   CALL R12 2 0
   GETIMPORT R12 K1 [plugin]
-  LOADK R14 K52 ["PlaceId"]
+  LOADK R14 K57 ["PlaceId"]
   GETIMPORT R16 K18 [game]
-  GETTABLEKS R15 R16 K52 ["PlaceId"]
-  NAMECALL R12 R12 K53 ["SetItem"]
+  GETTABLEKS R15 R16 K57 ["PlaceId"]
+  NAMECALL R12 R12 K27 ["SetItem"]
   CALL R12 3 0
   GETIMPORT R12 K7 [require]
   GETTABLEKS R15 R0 K13 ["Bin"]
   GETTABLEKS R14 R15 K14 ["Common"]
-  GETTABLEKS R13 R14 K54 ["pluginType"]
+  GETTABLEKS R13 R14 K58 ["pluginType"]
   CALL R12 1 1
-  GETTABLEKS R13 R12 K55 ["get"]
+  GETTABLEKS R13 R12 K59 ["get"]
   CALL R13 0 1
-  GETTABLEKS R14 R12 K56 ["Asset"]
+  GETTABLEKS R14 R12 K60 ["Asset"]
   JUMPIFEQ R13 R14 [+3]
   CLOSEUPVALS R9
   RETURN R0 0
   GETIMPORT R13 K7 [require]
   GETTABLEKS R16 R0 K13 ["Bin"]
   GETTABLEKS R15 R16 K14 ["Common"]
-  GETTABLEKS R14 R15 K57 ["setup"]
+  GETTABLEKS R14 R15 K61 ["setup"]
   CALL R13 1 1
   GETIMPORT R14 K7 [require]
   GETTABLEKS R17 R0 K13 ["Bin"]
   GETTABLEKS R16 R17 K14 ["Common"]
-  GETTABLEKS R15 R16 K58 ["setupMain"]
+  GETTABLEKS R15 R16 K62 ["setupMain"]
   CALL R14 1 1
   MOVE R15 R13
   GETIMPORT R16 K1 [plugin]

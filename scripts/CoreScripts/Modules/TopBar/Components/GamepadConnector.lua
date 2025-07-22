@@ -12,6 +12,7 @@ local UserInputService = game:GetService("UserInputService")
 local GamepadService = game:GetService("GamepadService")
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local ExperimentLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 -- Modules
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
@@ -28,6 +29,8 @@ local FFlagGamepadConnectorSetCoreGuiNavEnabled = SharedFlags.FFlagGamepadConnec
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 
+local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+
 local FFlagUseToBarFocusedToToggleTopBar = game:DefineFastFlag("UseToBarFocusedToToggleTopBar", false)
 
 local Modules = script.Parent.Parent.Parent
@@ -43,6 +46,8 @@ local ObservableValue = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFl
 local ToastNotificationConstants = require(CorePackages.Workspace.Packages.ToastNotification).ToastNotificationConstants
 local Constants = require(script.Parent.Parent.Constants)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
+local PlayerList = Modules.PlayerList
+local PlayerListManager = require(PlayerList.PlayerListManager)
 
 local MenuIconSelectedSignal = ChromeFocusUtils.MenuIconSelectedSignal
 
@@ -146,6 +151,7 @@ function GamepadConnector.new(): GamepadConnector
 	if ChromeEnabled and FFlagHideTopBarConsole then
 		self._gamepadActive = (ObservableValue::never).new(isInputGamepad(UserInputService:GetLastInputType()))
 		self._tiltMenuOpen = if FFlagEnableChromeShortcutBar then (ObservableValue::never).new(false) else nil :: never
+		self._playerListOpen = if FFlagAddNewPlayerListFocusNav then (ObservableValue::never).new(false) else nil :: never
 		self._showTopBar = (ObservableValue::never).new(true)
 
 		UserInputService.LastInputTypeChanged:Connect(function(lastInputType)
@@ -158,12 +164,19 @@ function GamepadConnector.new(): GamepadConnector
 			end)
 		end
 
+		if FFlagAddNewPlayerListFocusNav then
+			PlayerListManager:GetVisibilityChangedEvent().Event:Connect(function()
+				self._playerListOpen:set(PlayerListManager:GetVisibility())
+			end)
+		end
+
 		local shouldShowTopBar = function() 
 			local showTopBar = 
 				not self._gamepadActive:get() 
 				or self._topbarFocused:get() 
 				or self._selectedCoreObject:get() ~= nil
 				or (FFlagEnableChromeShortcutBar and self._tiltMenuOpen:get())
+				or (FFlagAddNewPlayerListFocusNav and self._playerListOpen:get())
 				or (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled)
 			self._showTopBar:set(showTopBar)
 			if FFlagGamepadConnectorSetCoreGuiNavEnabled then

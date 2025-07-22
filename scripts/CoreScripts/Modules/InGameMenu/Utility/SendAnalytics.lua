@@ -1,13 +1,12 @@
 --!nonstrict
 local UserInputService = game:GetService("UserInputService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local CorePackages = game:GetService("CorePackages")
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
 
-local Settings = InGameMenu.Parent.Settings
-
-local SettingsFlags = require(Settings.Flags)
-local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 

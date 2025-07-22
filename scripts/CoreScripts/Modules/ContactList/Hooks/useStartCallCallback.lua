@@ -1,5 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 
@@ -8,6 +10,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager
 
 local React = require(CorePackages.Packages.React)
+local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
@@ -20,6 +23,8 @@ local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local Pages = require(ContactList.Enums.Pages)
 type PagesType = Pages.PagesType
+
+local EngineFeatureEnableIrisRerouteToRCC = game:GetEngineFeature("EnableIrisRerouteToRCC")
 
 return function(
 	tag,
@@ -49,11 +54,28 @@ return function(
 			isSuggestedUser = analyticsInfo.isSuggestedUser,
 			page = tostring(analyticsInfo.page),
 		})
-		coroutine.wrap(function()
-			local invokeIrisInviteRemoteEvent =
-				RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
-			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(userId), combinedName, isMuted, isCamEnabled)
-		end)()
+
+		if EngineFeatureEnableIrisRerouteToRCC then
+			local localPlayer = Players.LocalPlayer
+			if localPlayer then
+				CallProtocol:initCall(
+					tonumber(localPlayer.UserId) or 0,
+					tonumber(userId) or 0,
+					localPlayer.DisplayName,
+					combinedName,
+					isMuted,
+					isCamEnabled,
+					HttpService:GenerateGUID(false),
+					tag
+				)
+			end
+		else
+			coroutine.wrap(function()
+				local invokeIrisInviteRemoteEvent =
+					RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
+				invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(userId), combinedName, isMuted, isCamEnabled)
+			end)()
+		end
 
 		onStartCallProcessed()
 	end, dependencyArray(tag, userId, combinedName, onStartCallProcessed, analyticsInfo))

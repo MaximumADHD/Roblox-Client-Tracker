@@ -104,6 +104,7 @@ export type ReportExperienceState = {
 
 export type MenuUtilityProps = {
 	onReportComplete: (text: string) -> (),
+	onDropdownMenuOpenChange: (isOpen: boolean) -> (),
 	isReportTabVisible: boolean?,
 	hideReportTab: () -> (),
 	reportAnythingAnalytics: typeof(ReportAnythingAnalytics),

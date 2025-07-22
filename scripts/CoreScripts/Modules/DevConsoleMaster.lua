@@ -28,6 +28,7 @@ local MicroProfiler = require(Components.MicroProfiler.MainViewMicroProfiler)
 local ScriptProfiler = require(Components.ScriptProfiler.MainViewScriptProfiler)
 local DebugVisualizations = require(Components.DebugVisualizations.MainViewDebugVisualizations)
 local LuauHeap = require(Components.LuauHeap.MainViewLuauHeap)
+local VoiceChat = require(Components.VoiceChat.MainViewVoiceChat)
 
 local RCCProfilerDataCompleteListener = require(Components.MicroProfiler.RCCProfilerDataCompleteListener)
 local getClientReplicator = require(DevConsole.Util.getClientReplicator)
@@ -45,6 +46,8 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
+
+local VoiceChatServiceManager = require(CoreGui.RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -121,6 +124,11 @@ local ADMIN_TAB_LIST = {
 		tab = LuauHeap,
 		layoutOrder = 4,
 	},
+	VoiceChat = if game:GetEngineFeature("VoiceChatDevConsoleTabEnabled") and VoiceChatServiceManager and VoiceChatServiceManager:canUseService()
+	then {
+		tab = VoiceChat,
+		layoutOrder = 5,
+	} else nil,
 }
 
 local PLAYER_TAB_LIST = {

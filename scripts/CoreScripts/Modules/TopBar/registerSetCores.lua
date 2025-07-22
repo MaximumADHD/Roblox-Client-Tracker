@@ -1,4 +1,9 @@
+-- Remove with FFlagTopBarSignalizeSetCores
 local StarterGui = game:GetService("StarterGui")
+
+local CorePackages = game:GetService("CorePackages")
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 
 local TopBar = script.Parent
 
@@ -18,4 +23,4 @@ local function registerSetCores(store)
 	end)
 end
 
-return registerSetCores
+return if FFlagTopBarSignalizeSetCores then nil :: never else registerSetCores

@@ -1,7 +1,7 @@
 PROTO_0:
   NAMECALL R1 R0 K0 ["GetUri"]
   CALL R1 1 1
-  DUPTABLE R3 K9 [{"width", "expanded", "floating", "showLabels", "plugin", "panelUri", "floatingUri", "Panels"}]
+  DUPTABLE R3 K10 [{"width", "expanded", "floating", "showLabels", "compactDensity", "plugin", "panelUri", "floatingUri", "Panels"}]
   LOADN R4 0
   SETTABLEKS R4 R3 K1 ["width"]
   LOADB R4 0
@@ -10,90 +10,120 @@ PROTO_0:
   SETTABLEKS R4 R3 K3 ["floating"]
   LOADB R4 0
   SETTABLEKS R4 R3 K4 ["showLabels"]
-  SETTABLEKS R0 R3 K5 ["plugin"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K5 ["compactDensity"]
+  SETTABLEKS R0 R3 K6 ["plugin"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K10 ["join"]
+  GETTABLEKS R4 R5 K11 ["join"]
   MOVE R5 R1
-  DUPTABLE R6 K13 [{"Category", "ItemId"}]
-  LOADK R7 K8 ["Panels"]
-  SETTABLEKS R7 R6 K11 ["Category"]
-  LOADK R7 K14 ["Ribbon"]
-  SETTABLEKS R7 R6 K12 ["ItemId"]
+  DUPTABLE R6 K14 [{"Category", "ItemId"}]
+  LOADK R7 K9 ["Panels"]
+  SETTABLEKS R7 R6 K12 ["Category"]
+  LOADK R7 K15 ["Ribbon"]
+  SETTABLEKS R7 R6 K13 ["ItemId"]
   CALL R4 2 1
-  SETTABLEKS R4 R3 K6 ["panelUri"]
+  SETTABLEKS R4 R3 K7 ["panelUri"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K10 ["join"]
+  GETTABLEKS R4 R5 K11 ["join"]
   MOVE R5 R1
-  DUPTABLE R6 K13 [{"Category", "ItemId"}]
-  LOADK R7 K8 ["Panels"]
-  SETTABLEKS R7 R6 K11 ["Category"]
-  LOADK R7 K15 ["Floating"]
-  SETTABLEKS R7 R6 K12 ["ItemId"]
+  DUPTABLE R6 K14 [{"Category", "ItemId"}]
+  LOADK R7 K9 ["Panels"]
+  SETTABLEKS R7 R6 K12 ["Category"]
+  LOADK R7 K16 ["Floating"]
+  SETTABLEKS R7 R6 K13 ["ItemId"]
   CALL R4 2 1
-  SETTABLEKS R4 R3 K7 ["floatingUri"]
-  LOADK R6 K8 ["Panels"]
-  NAMECALL R4 R0 K16 ["GetPluginComponent"]
+  SETTABLEKS R4 R3 K8 ["floatingUri"]
+  LOADK R6 K9 ["Panels"]
+  NAMECALL R4 R0 K17 ["GetPluginComponent"]
   CALL R4 2 1
-  SETTABLEKS R4 R3 K8 ["Panels"]
-  DUPTABLE R4 K18 [{"__index"}]
+  SETTABLEKS R4 R3 K9 ["Panels"]
+  DUPTABLE R4 K19 [{"__index"}]
   GETUPVAL R5 1
-  SETTABLEKS R5 R4 K17 ["__index"]
+  SETTABLEKS R5 R4 K18 ["__index"]
   FASTCALL2 SETMETATABLE R3 R4 [+3]
-  GETIMPORT R2 K20 [setmetatable]
+  GETIMPORT R2 K21 [setmetatable]
   CALL R2 2 1
   RETURN R2 1
 
 PROTO_1:
-  SETTABLEKS R1 R0 K0 ["expanded"]
-  SETTABLEKS R2 R0 K1 ["floating"]
-  SETTABLEKS R3 R0 K2 ["showLabels"]
-  JUMPIFNOT R1 [+48]
-  JUMPIFNOT R2 [+30]
-  JUMPIFNOT R3 [+2]
-  GETUPVAL R4 0
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+58]
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+36]
+  GETUPVAL R1 2
+  JUMPIFNOT R1 [+2]
+  GETUPVAL R0 3
   JUMP [+1]
-  GETUPVAL R4 1
-  GETTABLEKS R5 R0 K3 ["Panels"]
-  GETTABLEKS R7 R0 K4 ["floatingUri"]
-  GETIMPORT R8 K7 [Vector2.new]
-  GETTABLEKS R9 R0 K8 ["width"]
-  MOVE R10 R4
-  CALL R8 2 -1
-  NAMECALL R5 R5 K9 ["SetSizeAsync"]
-  CALL R5 -1 0
-  GETTABLEKS R5 R0 K3 ["Panels"]
-  GETTABLEKS R7 R0 K10 ["panelUri"]
-  GETIMPORT R8 K7 [Vector2.new]
-  LOADN R9 0
-  GETUPVAL R10 2
-  CALL R8 2 -1
-  NAMECALL R5 R5 K9 ["SetSizeAsync"]
-  CALL R5 -1 0
+  GETUPVAL R0 4
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K0 ["Panels"]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K1 ["floatingUri"]
+  GETIMPORT R4 K4 [Vector2.new]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K5 ["width"]
+  MOVE R6 R0
+  CALL R4 2 -1
+  NAMECALL R1 R1 K6 ["SetSizeAsync"]
+  CALL R1 -1 0
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K0 ["Panels"]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K7 ["panelUri"]
+  GETIMPORT R4 K4 [Vector2.new]
+  LOADN R5 0
+  GETUPVAL R6 6
+  CALL R4 2 -1
+  NAMECALL R1 R1 K6 ["SetSizeAsync"]
+  CALL R1 -1 0
   RETURN R0 0
-  JUMPIFNOT R3 [+2]
-  GETUPVAL R4 3
+  GETUPVAL R1 2
+  JUMPIFNOT R1 [+2]
+  GETUPVAL R0 7
   JUMP [+1]
-  GETUPVAL R4 4
-  GETTABLEKS R5 R0 K3 ["Panels"]
-  GETTABLEKS R7 R0 K10 ["panelUri"]
-  GETIMPORT R8 K7 [Vector2.new]
-  LOADN R9 0
-  MOVE R10 R4
-  CALL R8 2 -1
-  NAMECALL R5 R5 K9 ["SetSizeAsync"]
-  CALL R5 -1 0
+  GETUPVAL R0 8
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K0 ["Panels"]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K7 ["panelUri"]
+  GETIMPORT R4 K4 [Vector2.new]
+  LOADN R5 0
+  MOVE R6 R0
+  CALL R4 2 -1
+  NAMECALL R1 R1 K6 ["SetSizeAsync"]
+  CALL R1 -1 0
   RETURN R0 0
-  GETTABLEKS R4 R0 K3 ["Panels"]
-  GETTABLEKS R6 R0 K10 ["panelUri"]
-  GETIMPORT R7 K7 [Vector2.new]
-  LOADN R8 0
-  GETUPVAL R9 2
-  CALL R7 2 -1
-  NAMECALL R4 R4 K9 ["SetSizeAsync"]
-  CALL R4 -1 0
+  GETUPVAL R1 5
+  GETTABLEKS R0 R1 K0 ["Panels"]
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K7 ["panelUri"]
+  GETIMPORT R3 K4 [Vector2.new]
+  LOADN R4 0
+  GETUPVAL R5 6
+  CALL R3 2 -1
+  NAMECALL R0 R0 K6 ["SetSizeAsync"]
+  CALL R0 -1 0
   RETURN R0 0
 
 PROTO_2:
+  SETTABLEKS R1 R0 K0 ["expanded"]
+  SETTABLEKS R2 R0 K1 ["floating"]
+  SETTABLEKS R3 R0 K2 ["showLabels"]
+  GETIMPORT R5 K4 [pcall]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_3:
   GETUPVAL R3 0
   CALL R3 0 1
   JUMPIFNOT R3 [+2]
@@ -189,14 +219,14 @@ MAIN:
   CAPTURE VAL R3
   CAPTURE VAL R12
   SETTABLEKS R13 R12 K15 ["new"]
-  DUPCLOSURE R13 K16 [PROTO_1]
+  DUPCLOSURE R13 K16 [PROTO_2]
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R13 R12 K17 ["update"]
-  DUPCLOSURE R13 K18 [PROTO_2]
+  DUPCLOSURE R13 K18 [PROTO_3]
   CAPTURE VAL R1
   CAPTURE VAL R11
   CAPTURE VAL R6

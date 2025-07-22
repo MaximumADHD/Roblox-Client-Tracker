@@ -17,6 +17,7 @@ local UpdateCoreGuiEnabled = require(TopBar.Actions.UpdateCoreGuiEnabled)
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
+local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
 
 local CoreGuiConnector = Roact.PureComponent:extend("CoreGuiConnector")
 
@@ -28,14 +29,12 @@ CoreGuiConnector.validateProps = t.strictInterface({
 function CoreGuiConnector:didMount()
 	local initalCoreGuiTypes = Enum.CoreGuiType:GetEnumItems()
 	for _, coreGuiType in ipairs(initalCoreGuiTypes) do
-		if FFlagMountCoreGuiBackpack then
-				if coreGuiType ~= Enum.CoreGuiType.All and coreGuiType ~= Enum.CoreGuiType.Backpack then
-					self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
-				end
-		else
-				if coreGuiType ~= Enum.CoreGuiType.All then
-					self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
-				end
+		if FFlagMountCoreGuiBackpack and coreGuiType == Enum.CoreGuiType.Backpack then 
+			continue
+		elseif FFlagTopBarSignalizeHealthBar and coreGuiType == Enum.CoreGuiType.Health then 
+			continue
+		elseif coreGuiType ~= Enum.CoreGuiType.All then
+			self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
 		end
 	end
 end

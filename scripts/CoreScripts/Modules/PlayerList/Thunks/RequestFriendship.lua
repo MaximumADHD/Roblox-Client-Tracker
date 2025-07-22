@@ -12,6 +12,8 @@ local FriendingUtility = require(RobloxGui.Modules.FriendingUtility)
 local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
 local FFlagRemoveHardCodedFriendLimitPrompt = require(RobloxGui.Modules.Flags.FFlagRemoveHardCodedFriendLimitPrompt)
 
+local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
+
 local MAX_FRIEND_COUNT = 200
 
 local function RequestFriendship(player, isAcceptRequest)
@@ -47,7 +49,7 @@ local function RequestFriendship(player, isAcceptRequest)
 				elseif theirFriendCount >= MAX_FRIEND_COUNT then
 					local title = isAcceptRequest and "Cannot accept friend request" or "Cannot send friend request"
 					local text = RobloxTranslator:FormatByKey(
-						"PlayerDropDown.OtherPlayerFriendLimit",
+						if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.OtherPlayerFriendLimit" else "PlayerDropDown.OtherPlayerFriendLimit",
 						{RBX_NAME = player.Name}
 					)
 					SendNotification:Fire({

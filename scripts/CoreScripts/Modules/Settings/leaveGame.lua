@@ -12,8 +12,8 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 
 -------------- Flags ----------------------------------------------------------
-local SettingsFlags = require(script.Parent.Flags)
-local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 

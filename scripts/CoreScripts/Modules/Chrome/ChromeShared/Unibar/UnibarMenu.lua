@@ -24,6 +24,7 @@ local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocus
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
+local GetFFlagSongbirdCleanupExperiment = SharedFlags.GetFFlagSongbirdCleanupExperiment
 
 local ChromeFlags = script.Parent.Parent.Parent.Flags
 local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
@@ -143,8 +144,14 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
 		-- selene: allow(denylist_filter)
 		local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
-		if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
-			table.insert(nineDot, 4, "music_entrypoint")
+		if GetFFlagSongbirdCleanupExperiment() then
+			if isNotVROrConsole then
+				table.insert(nineDot, 4, "music_entrypoint")
+			end
+		else
+			if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
+				table.insert(nineDot, 4, "music_entrypoint")
+			end
 		end
 
 		ChromeService:configureSubMenu("nine_dot", nineDot)

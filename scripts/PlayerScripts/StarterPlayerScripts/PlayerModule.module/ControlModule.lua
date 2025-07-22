@@ -10,7 +10,13 @@
 	the previous generation of PlayerScripts.
 
 	2018 PlayerScripts Update - AllYourBlox
---]]
+
+
+	Release notes:
+		7/14/2025 - Use PreferredInput instead of LastInputType for enabling/disabling virtual thumbstick
+
+]]--
+
 local ControlModule = {}
 ControlModule.__index = ControlModule
 
@@ -35,6 +41,13 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
 	end)
 	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
+end
+
+local FFlagUserControlModuleUsePreferredInput do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserControlModuleUsePreferredInput")
+	end)
+	FFlagUserControlModuleUsePreferredInput = success and result
 end
 
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
@@ -126,9 +139,11 @@ function ControlModule.new()
 		self:OnRenderStepped(dt)
 	end)
 
-	UserInputService.LastInputTypeChanged:Connect(function(newLastInputType)
-		self:OnLastInputTypeChanged(newLastInputType)
-	end)
+	if not FFlagUserControlModuleUsePreferredInput then
+		UserInputService.LastInputTypeChanged:Connect(function(newLastInputType)
+			self:OnLastInputTypeChanged(newLastInputType)
+		end)
+	end
 
 
 	UserGameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(function()
@@ -159,7 +174,9 @@ function ControlModule.new()
 		self.playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
 		if self.playerGui then
 			self:CreateTouchGuiContainer()
-			self:OnLastInputTypeChanged(UserInputService:GetLastInputType())
+			if not FFlagUserControlModuleUsePreferredInput then
+				self:OnLastInputTypeChanged(UserInputService:GetLastInputType())
+			end
 		else
 			self.playerGuiAddedConn = Players.LocalPlayer.ChildAdded:Connect(function(child)
 				if child:IsA("PlayerGui") then
@@ -167,12 +184,23 @@ function ControlModule.new()
 					self:CreateTouchGuiContainer()
 					self.playerGuiAddedConn:Disconnect()
 					self.playerGuiAddedConn = nil
-					self:OnLastInputTypeChanged(UserInputService:GetLastInputType())
+					if not FFlagUserControlModuleUsePreferredInput then
+						self:OnLastInputTypeChanged(UserInputService:GetLastInputType())
+					end
 				end
 			end)
 		end
 	else
-		self:OnLastInputTypeChanged(UserInputService:GetLastInputType())
+		if not FFlagUserControlModuleUsePreferredInput then
+			self:OnLastInputTypeChanged(UserInputService:GetLastInputType())
+		end
+	end
+
+	if FFlagUserControlModuleUsePreferredInput then
+		UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
+			self:PreferredInputChanged()
+		end)
+		self:PreferredInputChanged()
 	end
 
 	return self
@@ -352,7 +380,16 @@ function ControlModule:SelectComputerMovementModule(): ({}?, boolean)
 	local DevMovementMode = Players.LocalPlayer.DevComputerMovementMode
 
 	if DevMovementMode == Enum.DevComputerMovementMode.UserChoice then
-		computerModule = computerInputTypeToModuleMap[lastInputType]
+		if FFlagUserControlModuleUsePreferredInput then
+			if UserInputService.PreferredInput == Enum.PreferredInput.Gamepad then
+				computerModule = Gamepad
+			elseif UserInputService.PreferredInput == Enum.PreferredInput.KeyboardAndMouse then
+				computerModule = Keyboard
+			end
+		else
+			computerModule = computerInputTypeToModuleMap[lastInputType]
+		end
+
 		if UserGameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove and computerModule == Keyboard then
 			-- User has ClickToMove set in Settings, prefer ClickToMove controller for keyboard and mouse lastInputTypes
 			computerModule = ClickToMove
@@ -621,6 +658,26 @@ function ControlModule:SwitchToController(controlModule)
 	end
 end
 
+function ControlModule:PreferredInputChanged()
+	if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
+		local touchModule, success = self:SelectTouchModule()
+		if success then
+			while not self.touchControlFrame do
+				wait()
+			end
+			self:SwitchToController(touchModule)
+		end
+	else
+		local computerModule = self:SelectComputerMovementModule()
+		if computerModule then
+			self:SwitchToController(computerModule)
+		end
+	end
+
+	self:UpdateTouchGuiVisibility()
+end
+
+-- remove with FFlagUserControlModuleUsePreferredInput
 function ControlModule:OnLastInputTypeChanged(newLastInputType)
 	if lastInputType == newLastInputType then
 		warn("LastInputType Change listener called with current type.")

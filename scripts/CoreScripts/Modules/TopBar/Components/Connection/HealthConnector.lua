@@ -1,3 +1,4 @@
+-- Remove with FFlagTopBarSignalizeHealthBar
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
@@ -8,6 +9,7 @@ local t = require(CorePackages.Packages.t)
 
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
+local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
 
 local SetIsDead = require(TopBar.Actions.SetIsDead)
 local UpdateHealth = require(TopBar.Actions.UpdateHealth)
@@ -131,4 +133,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(HealthConnector)
+return if FFlagTopBarSignalizeHealthBar then nil :: never else RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(HealthConnector)

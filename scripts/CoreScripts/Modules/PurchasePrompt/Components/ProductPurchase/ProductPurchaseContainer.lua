@@ -65,7 +65,7 @@ local FFlagInExperiencePurchaseFlowRework = require(CorePackages.Workspace.Packa
 local setPurchaseFlowUUID = require(Root.Actions.SetPurchaseFlowUUID)
 
 -- Imports needed for the new upsell modal experiment
-local DesktopUpsellExperiment = require(Root.Utils.DesktopUpsellExperiment)
+local DesktopUpsellExperiment = IAPExperience.Utility.DesktopUpsellExperiment
 local PurchaseProductModal = IAPExperience.ProductPurchaseModal
 local RobuxUpsellModal = IAPExperience.RobuxUpsellModal
 local RobuxUpsellModalTooExpensiveFallback = IAPExperience.RobuxUpsellModalTooExpensiveFallback
@@ -471,7 +471,7 @@ function ProductPurchaseContainer:determinePrompt()
 		return nil
 	elseif promptState == PromptState.PromptPurchase or promptState == PromptState.PurchaseInProgress then
 		-- For buy item flow, we're just updating modal, so we don't need to check the experiment
-		if self.props.desktopUpsellExpVariant and self.props.desktopUpsellExpVariant ~= DesktopUpsellExperiment.variants.Control then
+		if DesktopUpsellExperiment.shouldShowNewModal() then
 			return Roact.createElement(PurchaseProductModal, {
 				screenSize = self.state.screenSize,
 				product = {
@@ -499,6 +499,7 @@ function ProductPurchaseContainer:determinePrompt()
 			itemName = productInfo.name,
 			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 			currentBalance = accountInfo.balance,
+			currentBalanceValid = not accountInfo.hasFailed,
 			testPurchase = isTestPurchase,
 
 			isDelayedInput = self.hasDelayedInput(),
@@ -513,7 +514,7 @@ function ProductPurchaseContainer:determinePrompt()
 			isLuobu = self.state.isLuobu,
 		})
 	elseif promptState == PromptState.RobuxUpsell or promptState == PromptState.UpsellInProgress then
-		if self.props.desktopUpsellExpVariant and self.props.desktopUpsellExpVariant ~= DesktopUpsellExperiment.variants.Control then
+		if DesktopUpsellExperiment.shouldShowNewModal() then
 			return Roact.createElement(RobuxUpsellModal, {
 				screenSize = self.state.screenSize,
 				
@@ -546,7 +547,7 @@ function ProductPurchaseContainer:determinePrompt()
 						self.emitPurchaseFlowEvent("UserInput", "Cancel")
 					end,
 					cancelControllerIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
-					opensBuyRobuxPage = self.props.desktopUpsellExpVariant == DesktopUpsellExperiment.variants.OpenRobuxStore, -- We want to open the buy robux page if the variant is 1
+					opensBuyRobuxPage = DesktopUpsellExperiment.getVariant() == DesktopUpsellExperiment.variants.OpenRobuxStore,
 				},
 				
 			})
@@ -660,8 +661,7 @@ function ProductPurchaseContainer:determinePrompt()
 	elseif 
 		promptState == PromptState.Error 
 		and purchaseError == PurchaseError.NotEnoughRobuxXbox 
-		and self.props.desktopUpsellExpVariant 
-		and self.props.desktopUpsellExpVariant ~= DesktopUpsellExperiment.variants.Control
+		and DesktopUpsellExperiment.shouldShowNewModal()
 	then
 		-- Currently this specific scenario is being handled with all other errors
 		-- introducing handling if user is in the experiment

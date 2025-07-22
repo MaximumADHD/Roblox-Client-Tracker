@@ -76,8 +76,9 @@ local CHECK_LEAVE_GAME_UPSELL_COOLDOWN = game:DefineFastInt("CheckLeaveGameUpsel
 local GET_SERVER_CHANNEL_RETRIES = game:DefineFastInt("GetServerChannelRetries", 10)
 
 -- [[ FAST FLAGS ]]
-local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
-local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
+local FFlagIEMAddSettingsUniverseId = SharedFlags.FFlagIEMAddSettingsUniverseId
 
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
@@ -135,6 +136,9 @@ local FFlagIEMResumeButtonPressBugfix = SharedFlags.FFlagIEMResumeButtonPressBug
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagIEMEndFocusNavTiltMenuHidden = SharedFlags.FFlagIEMEndFocusNavTiltMenuHidden
+local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
+local FFlagChromeShortcutBarRemoveOnInviteFriends = SharedFlags.FFlagChromeShortcutBarRemoveOnInviteFriends
+local FFlagAddMuteSelfTopOfPlayersPane = require(RobloxGui.Modules.Settings.Flags.FFlagAddMuteSelfTopOfPlayersPane)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -347,7 +351,12 @@ local function CreateSettingsHub()
 	end
 	this.PreferredTransparencyChangedConnection = nil
 	this.TabConnection = nil
-	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
+
+	if FFlagAddNextUpContainer then
+		this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp)
+	else
+		this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
+	end
 	this.LeaveGameUpsellPage = if GetFFlagEnableLeaveGameUpsellEntrypoint() then require(RobloxGui.Modules.Settings.Pages.LeaveGameUpsell.LeaveGameUpsell) else nil
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
 	-- remove utility CreateSignal upon removing this flag
@@ -533,7 +542,7 @@ local function CreateSettingsHub()
 	local localization = Localization.new(localeId)
 
 	local function updateIcon()
-		if ChromeEnabled then
+		if ChromeEnabled or FFlagAddMuteSelfTopOfPlayersPane then
 			return
 		end
 		local buttonHint = this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true)
@@ -799,7 +808,7 @@ local function CreateSettingsHub()
 	end
 
 	local function addMuteButtonToBar()
-		if ChromeEnabled then
+		if ChromeEnabled or FFlagAddMuteSelfTopOfPlayersPane then
 			return
 		end
 		local buttonSize = UDim2.new(0,235,0,Theme.LargeButtonHeight)
@@ -1162,6 +1171,7 @@ local function CreateSettingsHub()
 					{ 
 						source = source, 
 						playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
+						universeid = if FFlagIEMAddSettingsUniverseId then tostring(game.GameId) else nil,
 					}
 				)
 
@@ -2119,6 +2129,7 @@ local function CreateSettingsHub()
 				{
 					source = source, 
 					playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil, 
+					universeid = if FFlagIEMAddSettingsUniverseId then tostring(game.GameId) else nil,
 				}
 			)
 			if FFlagIEMResumeButtonPressBugfix then
@@ -2608,6 +2619,18 @@ local function CreateSettingsHub()
 			)
 		end
 
+		if FFlagAddNextUpContainer then
+			if this.Pages.CurrentPage and this.Pages.CurrentPage.ShrinkwrapPageViewClipper and not utility:IsSmallTouchScreen() then
+				local pageSize = this.Pages.CurrentPage:GetSize()
+				newPageViewClipperSize = UDim2.new(
+					newPageViewClipperSize.X.Scale, 
+					newPageViewClipperSize.X.Offset, 
+					newPageViewClipperSize.Y.Scale, 
+					math.min(pageSize.Y - this.PageView.Size.Y.Offset, usePageSize)
+				)
+			end
+		end
+
 		this.PageViewClipper.Size = newPageViewClipperSize
 		this.defaultPageViewClipperSize = newPageViewClipperSize
 		if not isPortrait then
@@ -2707,6 +2730,9 @@ local function CreateSettingsHub()
 	local GetHeaderPosition = nil
 
 	local switchTab = function(direction, cycle)
+		if FFlagInExperienceReportClosingBugfix and not this.HubBar.Visible then
+			return
+		end
 		local currentTabPosition = GetHeaderPosition(this.Pages.CurrentPage)
 		if currentTabPosition < 0 then return end
 
@@ -3076,7 +3102,7 @@ local function CreateSettingsHub()
 			topExtra = UDim.new(0, this.HubBar.AbsoluteSize.Y)
 		end
 
-		if this.BottomButtonFrame and hasBottomButtons and not shouldShowBottomBar(pageToSwitchTo) then
+		if this.BottomButtonFrame and hasBottomButtons and not shouldShowBottomBar(pageToSwitchTo) and not (FFlagAddNextUpContainer and pageToSwitchTo.ShrinkwrapPageViewClipper) then
 			bottomExtra = UDim.new(0, this.BottomButtonFrame.AbsoluteSize.Y)
 		end
 
@@ -3102,6 +3128,10 @@ local function CreateSettingsHub()
 			end
 			local cs = this.PageViewClipper.Size
 			this.PageViewClipper.Size = UDim2.new(cs.X.Scale, this.HubBar.Size.X.Offset, cs.Y.Scale, cs.Y.Offset)
+		elseif FFlagAddNextUpContainer and pageToSwitchTo.ShrinkwrapPageViewClipper then
+			local cs = this.PageViewClipper.Size
+			local pageSize = pageToSwitchTo:GetSize()
+			this.PageViewClipper.Size = UDim2.new(cs.X.Scale, this.HubBar.Size.X.Offset, cs.Y.Scale, pageSize.Y)
 		end
 
 		-- detect direction
@@ -3167,6 +3197,12 @@ local function CreateSettingsHub()
 				if prop == "AbsoluteSize" then
 					local pageSize = this.Pages.CurrentPage:GetSize()
 					this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+
+					if FFlagAddNextUpContainer then
+						if this.Pages.CurrentPage.ShrinkwrapPageViewClipper then
+							onScreenSizeChanged()
+						end
+					end
 				end
 			end)
 
@@ -3597,7 +3633,7 @@ local function CreateSettingsHub()
 			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then (FFlagAppChatReappearIfClosedByTiltMenu and connectWasVisible) else false
 
 
-			if ChromeEnabled and FFlagEnableChromeShortcutBar then 
+			if ChromeEnabled and FFlagEnableChromeShortcutBar then
 				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
 				local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
 				ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
@@ -3766,13 +3802,11 @@ local function CreateSettingsHub()
 			end
 		end
 
-		local visibilityAnalyticsPayload = {}
-		if FFlagIEMSettingsAddPlaySessionID then
-			visibilityAnalyticsPayload = {
-				source = analyticsContext,
-				playsessionid = this.playSessionId
-			}
-		end
+		local visibilityAnalyticsPayload = {
+			source = analyticsContext,
+			playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
+			universeid = if FFlagIEMAddSettingsUniverseId then tostring(game.GameId) else nil,
+		}
 
 		if visibilityChanged then
 			if visible then
@@ -3837,6 +3871,10 @@ local function CreateSettingsHub()
 			GameInviteModalManager:openModal({
 				trigger = GameInviteConstants.Triggers.GameMenu
 			})
+			if FFlagChromeShortcutBarRemoveOnInviteFriends and ChromeEnabled then
+				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+				ChromeService:setShortcutBar(nil)
+			end
 		else
 			this:AddToMenuStack(this.Pages.CurrentPage)
 			this:SwitchToPage(this.ShareGamePage, nil, 1, true)
@@ -4018,7 +4056,7 @@ local function CreateSettingsHub()
 	this.ReportSentPageV2 = require(RobloxGui.Modules.Settings.Pages.ReportSentPageV2)
 	this.ReportSentPageV2:SetHub(this)
 
-	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
+	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.HelpWrapper)
 	this.HelpPage:SetHub(this)
 
 	local shouldShowRecord = not CachedPolicyService:IsSubjectToChinaPolicies()

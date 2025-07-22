@@ -49,273 +49,275 @@ PROTO_0:
   LOADB R8 1
   GETUPVAL R9 5
   GETUPVAL R10 6
-  DUPTABLE R11 K29 [{"text", "contentTags", "layoutOrder"}]
+  DUPTABLE R11 K30 [{"text", "contentTags", "layoutOrder", "showWarning"}]
   LOADK R14 K13 ["AccessoriesSettings"]
-  LOADK R15 K30 ["CustomAccessoriesSection"]
+  LOADK R15 K31 ["CustomAccessoriesSection"]
   NAMECALL R12 R1 K15 ["getText"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K26 ["text"]
-  LOADK R12 K31 ["Component-ExpandableSection-Content"]
+  LOADK R12 K32 ["Component-ExpandableSection-Content"]
   SETTABLEKS R12 R11 K27 ["contentTags"]
   GETTABLEKS R12 R0 K28 ["layoutOrder"]
   SETTABLEKS R12 R11 K28 ["layoutOrder"]
-  DUPTABLE R12 K42 [{"UIListLayout", "CustomAccessoriesModeSelector", "HairAssetSelector", "HeadAssetSelector", "FaceAssetSelector", "NeckAssetSelector", "ShoulderAssetSelector", "FrontAssetSelector", "BackAssetSelector", "WaistAssetSelector"}]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K29 ["showWarning"]
+  DUPTABLE R12 K43 [{"UIListLayout", "CustomAccessoriesModeSelector", "HairAssetSelector", "HeadAssetSelector", "FaceAssetSelector", "NeckAssetSelector", "ShoulderAssetSelector", "FrontAssetSelector", "BackAssetSelector", "WaistAssetSelector"}]
   GETUPVAL R13 5
-  LOADK R14 K32 ["UIListLayout"]
-  DUPTABLE R15 K44 [{"Padding"}]
+  LOADK R14 K33 ["UIListLayout"]
+  DUPTABLE R15 K45 [{"Padding"}]
   GETIMPORT R16 K24 [UDim.new]
   LOADN R17 0
   LOADN R18 12
   CALL R16 2 1
-  SETTABLEKS R16 R15 K43 ["Padding"]
+  SETTABLEKS R16 R15 K44 ["Padding"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K32 ["UIListLayout"]
+  SETTABLEKS R13 R12 K33 ["UIListLayout"]
   GETUPVAL R13 5
   GETUPVAL R14 7
-  DUPTABLE R15 K49 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+  DUPTABLE R15 K50 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  SETTABLEKS R4 R15 K45 ["items"]
-  SETTABLEKS R6 R15 K46 ["selected"]
+  SETTABLEKS R4 R15 K46 ["items"]
+  SETTABLEKS R6 R15 K47 ["selected"]
   GETTABLEKS R17 R5 K20 ["customAccessoriesSetting"]
-  GETTABLEKS R16 R17 K50 ["set"]
-  SETTABLEKS R16 R15 K47 ["onItemActivated"]
+  GETTABLEKS R16 R17 K51 ["set"]
+  SETTABLEKS R16 R15 K48 ["onItemActivated"]
   LOADK R18 K13 ["AccessoriesSettings"]
   GETIMPORT R20 K12 [Enum.AvatarSettingsCustomAccessoryMode.PlayerChoice]
   JUMPIFNOTEQ R6 R20 [+3]
-  LOADK R19 K51 ["CustomAccessoriesSectionPlayerChoiceSubText"]
+  LOADK R19 K52 ["CustomAccessoriesSectionPlayerChoiceSubText"]
   JUMP [+1]
-  LOADK R19 K52 ["CustomAccessoriesSectionCustomAccessoriesSubText"]
+  LOADK R19 K53 ["CustomAccessoriesSectionCustomAccessoriesSubText"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K48 ["subText"]
+  SETTABLEKS R16 R15 K49 ["subText"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K33 ["CustomAccessoriesModeSelector"]
+  SETTABLEKS R13 R12 K34 ["CustomAccessoriesModeSelector"]
   MOVE R13 R8
   JUMPIFNOT R13 [+35]
   GETUPVAL R13 5
   GETUPVAL R14 8
-  DUPTABLE R15 K55 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K53 ["minTextLabelWidth"]
-  LOADK R16 K56 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K54 ["textLabelTags"]
+  DUPTABLE R15 K56 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R7 R15 K54 ["minTextLabelWidth"]
+  LOADK R16 K57 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R16 R15 K55 ["textLabelTags"]
   LOADK R18 K13 ["AccessoriesSettings"]
-  LOADK R19 K57 ["CustomAccessoriesSectionCustomAccessoriesHair"]
+  LOADK R19 K58 ["CustomAccessoriesSectionCustomAccessoriesHair"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K26 ["text"]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  DUPTABLE R16 K59 [{"Content"}]
+  DUPTABLE R16 K60 [{"Content"}]
   GETUPVAL R17 5
   GETUPVAL R18 9
-  DUPTABLE R19 K62 [{"assetIdSetting", "expectedAssetType"}]
-  GETTABLEKS R20 R5 K63 ["customAccessoriesHairSetting"]
-  SETTABLEKS R20 R19 K60 ["assetIdSetting"]
-  GETIMPORT R20 K66 [Enum.AssetType.HairAccessory]
-  SETTABLEKS R20 R19 K61 ["expectedAssetType"]
+  DUPTABLE R19 K63 [{"assetIdSetting", "expectedAssetType"}]
+  GETTABLEKS R20 R5 K64 ["customAccessoriesHairSetting"]
+  SETTABLEKS R20 R19 K61 ["assetIdSetting"]
+  GETIMPORT R20 K67 [Enum.AssetType.HairAccessory]
+  SETTABLEKS R20 R19 K62 ["expectedAssetType"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["Content"]
+  SETTABLEKS R17 R16 K59 ["Content"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K34 ["HairAssetSelector"]
+  SETTABLEKS R13 R12 K35 ["HairAssetSelector"]
   MOVE R13 R8
   JUMPIFNOT R13 [+35]
   GETUPVAL R13 5
   GETUPVAL R14 8
-  DUPTABLE R15 K55 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K53 ["minTextLabelWidth"]
-  LOADK R16 K56 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K54 ["textLabelTags"]
+  DUPTABLE R15 K56 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R7 R15 K54 ["minTextLabelWidth"]
+  LOADK R16 K57 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R16 R15 K55 ["textLabelTags"]
   LOADK R18 K13 ["AccessoriesSettings"]
-  LOADK R19 K67 ["CustomAccessoriesSectionCustomAccessoriesHead"]
+  LOADK R19 K68 ["CustomAccessoriesSectionCustomAccessoriesHead"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K26 ["text"]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  DUPTABLE R16 K59 [{"Content"}]
+  DUPTABLE R16 K60 [{"Content"}]
   GETUPVAL R17 5
   GETUPVAL R18 9
-  DUPTABLE R19 K62 [{"assetIdSetting", "expectedAssetType"}]
-  GETTABLEKS R20 R5 K68 ["customAccessoriesHeadSetting"]
-  SETTABLEKS R20 R19 K60 ["assetIdSetting"]
-  GETIMPORT R20 K70 [Enum.AssetType.Hat]
-  SETTABLEKS R20 R19 K61 ["expectedAssetType"]
+  DUPTABLE R19 K63 [{"assetIdSetting", "expectedAssetType"}]
+  GETTABLEKS R20 R5 K69 ["customAccessoriesHeadSetting"]
+  SETTABLEKS R20 R19 K61 ["assetIdSetting"]
+  GETIMPORT R20 K71 [Enum.AssetType.Hat]
+  SETTABLEKS R20 R19 K62 ["expectedAssetType"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["Content"]
+  SETTABLEKS R17 R16 K59 ["Content"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K35 ["HeadAssetSelector"]
+  SETTABLEKS R13 R12 K36 ["HeadAssetSelector"]
   MOVE R13 R8
   JUMPIFNOT R13 [+35]
   GETUPVAL R13 5
   GETUPVAL R14 8
-  DUPTABLE R15 K55 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K53 ["minTextLabelWidth"]
-  LOADK R16 K56 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K54 ["textLabelTags"]
+  DUPTABLE R15 K56 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R7 R15 K54 ["minTextLabelWidth"]
+  LOADK R16 K57 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R16 R15 K55 ["textLabelTags"]
   LOADK R18 K13 ["AccessoriesSettings"]
-  LOADK R19 K71 ["CustomAccessoriesSectionCustomAccessoriesFace"]
+  LOADK R19 K72 ["CustomAccessoriesSectionCustomAccessoriesFace"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K26 ["text"]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  DUPTABLE R16 K59 [{"Content"}]
+  DUPTABLE R16 K60 [{"Content"}]
   GETUPVAL R17 5
   GETUPVAL R18 9
-  DUPTABLE R19 K62 [{"assetIdSetting", "expectedAssetType"}]
-  GETTABLEKS R20 R5 K72 ["customAccessoriesFaceSetting"]
-  SETTABLEKS R20 R19 K60 ["assetIdSetting"]
-  GETIMPORT R20 K74 [Enum.AssetType.FaceAccessory]
-  SETTABLEKS R20 R19 K61 ["expectedAssetType"]
+  DUPTABLE R19 K63 [{"assetIdSetting", "expectedAssetType"}]
+  GETTABLEKS R20 R5 K73 ["customAccessoriesFaceSetting"]
+  SETTABLEKS R20 R19 K61 ["assetIdSetting"]
+  GETIMPORT R20 K75 [Enum.AssetType.FaceAccessory]
+  SETTABLEKS R20 R19 K62 ["expectedAssetType"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["Content"]
+  SETTABLEKS R17 R16 K59 ["Content"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K36 ["FaceAssetSelector"]
+  SETTABLEKS R13 R12 K37 ["FaceAssetSelector"]
   MOVE R13 R8
   JUMPIFNOT R13 [+35]
   GETUPVAL R13 5
   GETUPVAL R14 8
-  DUPTABLE R15 K55 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K53 ["minTextLabelWidth"]
-  LOADK R16 K56 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K54 ["textLabelTags"]
+  DUPTABLE R15 K56 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R7 R15 K54 ["minTextLabelWidth"]
+  LOADK R16 K57 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R16 R15 K55 ["textLabelTags"]
   LOADK R18 K13 ["AccessoriesSettings"]
-  LOADK R19 K75 ["CustomAccessoriesSectionCustomAccessoriesNeck"]
+  LOADK R19 K76 ["CustomAccessoriesSectionCustomAccessoriesNeck"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K26 ["text"]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  DUPTABLE R16 K59 [{"Content"}]
+  DUPTABLE R16 K60 [{"Content"}]
   GETUPVAL R17 5
   GETUPVAL R18 9
-  DUPTABLE R19 K62 [{"assetIdSetting", "expectedAssetType"}]
-  GETTABLEKS R20 R5 K76 ["customAccessoriesNeckSetting"]
-  SETTABLEKS R20 R19 K60 ["assetIdSetting"]
-  GETIMPORT R20 K78 [Enum.AssetType.NeckAccessory]
-  SETTABLEKS R20 R19 K61 ["expectedAssetType"]
+  DUPTABLE R19 K63 [{"assetIdSetting", "expectedAssetType"}]
+  GETTABLEKS R20 R5 K77 ["customAccessoriesNeckSetting"]
+  SETTABLEKS R20 R19 K61 ["assetIdSetting"]
+  GETIMPORT R20 K79 [Enum.AssetType.NeckAccessory]
+  SETTABLEKS R20 R19 K62 ["expectedAssetType"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["Content"]
+  SETTABLEKS R17 R16 K59 ["Content"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K37 ["NeckAssetSelector"]
+  SETTABLEKS R13 R12 K38 ["NeckAssetSelector"]
   MOVE R13 R8
   JUMPIFNOT R13 [+35]
   GETUPVAL R13 5
   GETUPVAL R14 8
-  DUPTABLE R15 K55 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K53 ["minTextLabelWidth"]
-  LOADK R16 K56 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K54 ["textLabelTags"]
+  DUPTABLE R15 K56 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R7 R15 K54 ["minTextLabelWidth"]
+  LOADK R16 K57 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R16 R15 K55 ["textLabelTags"]
   LOADK R18 K13 ["AccessoriesSettings"]
-  LOADK R19 K79 ["CustomAccessoriesSectionCustomAccessoriesShoulder"]
+  LOADK R19 K80 ["CustomAccessoriesSectionCustomAccessoriesShoulder"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K26 ["text"]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  DUPTABLE R16 K59 [{"Content"}]
+  DUPTABLE R16 K60 [{"Content"}]
   GETUPVAL R17 5
   GETUPVAL R18 9
-  DUPTABLE R19 K62 [{"assetIdSetting", "expectedAssetType"}]
-  GETTABLEKS R20 R5 K80 ["customAccessoriesShoulderSetting"]
-  SETTABLEKS R20 R19 K60 ["assetIdSetting"]
-  GETIMPORT R20 K82 [Enum.AssetType.ShoulderAccessory]
-  SETTABLEKS R20 R19 K61 ["expectedAssetType"]
+  DUPTABLE R19 K63 [{"assetIdSetting", "expectedAssetType"}]
+  GETTABLEKS R20 R5 K81 ["customAccessoriesShoulderSetting"]
+  SETTABLEKS R20 R19 K61 ["assetIdSetting"]
+  GETIMPORT R20 K83 [Enum.AssetType.ShoulderAccessory]
+  SETTABLEKS R20 R19 K62 ["expectedAssetType"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["Content"]
+  SETTABLEKS R17 R16 K59 ["Content"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K38 ["ShoulderAssetSelector"]
+  SETTABLEKS R13 R12 K39 ["ShoulderAssetSelector"]
   MOVE R13 R8
   JUMPIFNOT R13 [+35]
   GETUPVAL R13 5
   GETUPVAL R14 8
-  DUPTABLE R15 K55 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K53 ["minTextLabelWidth"]
-  LOADK R16 K56 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K54 ["textLabelTags"]
+  DUPTABLE R15 K56 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R7 R15 K54 ["minTextLabelWidth"]
+  LOADK R16 K57 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R16 R15 K55 ["textLabelTags"]
   LOADK R18 K13 ["AccessoriesSettings"]
-  LOADK R19 K83 ["CustomAccessoriesSectionCustomAccessoriesFront"]
+  LOADK R19 K84 ["CustomAccessoriesSectionCustomAccessoriesFront"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K26 ["text"]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  DUPTABLE R16 K59 [{"Content"}]
+  DUPTABLE R16 K60 [{"Content"}]
   GETUPVAL R17 5
   GETUPVAL R18 9
-  DUPTABLE R19 K62 [{"assetIdSetting", "expectedAssetType"}]
-  GETTABLEKS R20 R5 K84 ["customAccessoriesFrontSetting"]
-  SETTABLEKS R20 R19 K60 ["assetIdSetting"]
-  GETIMPORT R20 K86 [Enum.AssetType.FrontAccessory]
-  SETTABLEKS R20 R19 K61 ["expectedAssetType"]
+  DUPTABLE R19 K63 [{"assetIdSetting", "expectedAssetType"}]
+  GETTABLEKS R20 R5 K85 ["customAccessoriesFrontSetting"]
+  SETTABLEKS R20 R19 K61 ["assetIdSetting"]
+  GETIMPORT R20 K87 [Enum.AssetType.FrontAccessory]
+  SETTABLEKS R20 R19 K62 ["expectedAssetType"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["Content"]
+  SETTABLEKS R17 R16 K59 ["Content"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K39 ["FrontAssetSelector"]
+  SETTABLEKS R13 R12 K40 ["FrontAssetSelector"]
   MOVE R13 R8
   JUMPIFNOT R13 [+35]
   GETUPVAL R13 5
   GETUPVAL R14 8
-  DUPTABLE R15 K55 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K53 ["minTextLabelWidth"]
-  LOADK R16 K56 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K54 ["textLabelTags"]
+  DUPTABLE R15 K56 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R7 R15 K54 ["minTextLabelWidth"]
+  LOADK R16 K57 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R16 R15 K55 ["textLabelTags"]
   LOADK R18 K13 ["AccessoriesSettings"]
-  LOADK R19 K87 ["CustomAccessoriesSectionCustomAccessoriesBack"]
+  LOADK R19 K88 ["CustomAccessoriesSectionCustomAccessoriesBack"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K26 ["text"]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  DUPTABLE R16 K59 [{"Content"}]
+  DUPTABLE R16 K60 [{"Content"}]
   GETUPVAL R17 5
   GETUPVAL R18 9
-  DUPTABLE R19 K62 [{"assetIdSetting", "expectedAssetType"}]
-  GETTABLEKS R20 R5 K88 ["customAccessoriesBackSetting"]
-  SETTABLEKS R20 R19 K60 ["assetIdSetting"]
-  GETIMPORT R20 K90 [Enum.AssetType.BackAccessory]
-  SETTABLEKS R20 R19 K61 ["expectedAssetType"]
+  DUPTABLE R19 K63 [{"assetIdSetting", "expectedAssetType"}]
+  GETTABLEKS R20 R5 K89 ["customAccessoriesBackSetting"]
+  SETTABLEKS R20 R19 K61 ["assetIdSetting"]
+  GETIMPORT R20 K91 [Enum.AssetType.BackAccessory]
+  SETTABLEKS R20 R19 K62 ["expectedAssetType"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["Content"]
+  SETTABLEKS R17 R16 K59 ["Content"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K40 ["BackAssetSelector"]
+  SETTABLEKS R13 R12 K41 ["BackAssetSelector"]
   MOVE R13 R8
   JUMPIFNOT R13 [+35]
   GETUPVAL R13 5
   GETUPVAL R14 8
-  DUPTABLE R15 K55 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K53 ["minTextLabelWidth"]
-  LOADK R16 K56 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K54 ["textLabelTags"]
+  DUPTABLE R15 K56 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R7 R15 K54 ["minTextLabelWidth"]
+  LOADK R16 K57 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R16 R15 K55 ["textLabelTags"]
   LOADK R18 K13 ["AccessoriesSettings"]
-  LOADK R19 K91 ["CustomAccessoriesSectionCustomAccessoriesWaist"]
+  LOADK R19 K92 ["CustomAccessoriesSectionCustomAccessoriesWaist"]
   NAMECALL R16 R1 K15 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K26 ["text"]
   MOVE R16 R2
   CALL R16 0 1
   SETTABLEKS R16 R15 K28 ["layoutOrder"]
-  DUPTABLE R16 K59 [{"Content"}]
+  DUPTABLE R16 K60 [{"Content"}]
   GETUPVAL R17 5
   GETUPVAL R18 9
-  DUPTABLE R19 K62 [{"assetIdSetting", "expectedAssetType"}]
-  GETTABLEKS R20 R5 K92 ["customAccessoriesWaistSetting"]
-  SETTABLEKS R20 R19 K60 ["assetIdSetting"]
-  GETIMPORT R20 K94 [Enum.AssetType.WaistAccessory]
-  SETTABLEKS R20 R19 K61 ["expectedAssetType"]
+  DUPTABLE R19 K63 [{"assetIdSetting", "expectedAssetType"}]
+  GETTABLEKS R20 R5 K93 ["customAccessoriesWaistSetting"]
+  SETTABLEKS R20 R19 K61 ["assetIdSetting"]
+  GETIMPORT R20 K95 [Enum.AssetType.WaistAccessory]
+  SETTABLEKS R20 R19 K62 ["expectedAssetType"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K58 ["Content"]
+  SETTABLEKS R17 R16 K59 ["Content"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K41 ["WaistAssetSelector"]
+  SETTABLEKS R13 R12 K42 ["WaistAssetSelector"]
   CALL R9 3 -1
   RETURN R9 -1
 

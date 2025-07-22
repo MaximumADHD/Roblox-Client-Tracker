@@ -33,86 +33,76 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K16 ["getFFlagEnableKnowledgeTutorials"]
   CALL R3 0 1
+  JUMPIF R3 [+5]
+  GETTABLEKS R3 R2 K17 ["getFFlagDebugKnowledgeTutorials"]
+  CALL R3 0 1
   JUMPIF R3 [+1]
   RETURN R0 0
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R6 R0 K12 ["Src"]
-  GETTABLEKS R5 R6 K17 ["Util"]
-  GETTABLEKS R4 R5 K18 ["Services"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K19 ["TutorialService"]
-  GETTABLEKS R5 R2 K20 ["getFFlagDebugKnowledgeTutorials"]
-  CALL R5 0 1
-  JUMPIF R5 [+5]
-  NAMECALL R5 R4 K21 ["ShouldLaunchTutorial"]
-  CALL R5 1 1
-  JUMPIF R5 [+1]
+  GETIMPORT R3 K19 [game]
+  LOADK R5 K20 ["RunService"]
+  NAMECALL R3 R3 K21 ["GetService"]
+  CALL R3 2 1
+  NAMECALL R4 R3 K22 ["IsEdit"]
+  CALL R4 1 1
+  JUMPIF R4 [+1]
   RETURN R0 0
-  GETIMPORT R5 K23 [game]
-  LOADK R7 K24 ["RunService"]
-  NAMECALL R5 R5 K25 ["GetService"]
-  CALL R5 2 1
-  NAMECALL R6 R5 K26 ["IsEdit"]
-  CALL R6 1 1
-  JUMPIF R6 [+1]
-  RETURN R0 0
-  GETIMPORT R6 K8 [require]
-  GETTABLEKS R8 R0 K9 ["Packages"]
-  GETTABLEKS R7 R8 K27 ["PluginLoader"]
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K28 ["PluginLoaderBuilder"]
-  GETTABLEKS R11 R0 K12 ["Src"]
-  GETTABLEKS R10 R11 K29 ["Resources"]
-  GETTABLEKS R9 R10 K30 ["Localization"]
-  GETTABLEKS R8 R9 K31 ["SourceStrings"]
-  GETTABLEKS R12 R0 K12 ["Src"]
-  GETTABLEKS R11 R12 K29 ["Resources"]
-  GETTABLEKS R10 R11 K30 ["Localization"]
-  GETTABLEKS R9 R10 K32 ["LocalizedStrings"]
-  DUPTABLE R10 K37 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar"}]
-  GETIMPORT R11 K5 [plugin]
-  SETTABLEKS R11 R10 K4 ["plugin"]
-  LOADK R11 K2 ["KnowledgeTutorials"]
-  SETTABLEKS R11 R10 K33 ["pluginName"]
-  SETTABLEKS R9 R10 K34 ["translationResourceTable"]
-  SETTABLEKS R8 R10 K35 ["fallbackResourceTable"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K36 ["noToolbar"]
-  GETTABLEKS R11 R7 K38 ["build"]
-  MOVE R12 R10
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R0 K9 ["Packages"]
+  GETTABLEKS R5 R6 K23 ["PluginLoader"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K24 ["PluginLoaderBuilder"]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K25 ["Resources"]
+  GETTABLEKS R7 R8 K26 ["Localization"]
+  GETTABLEKS R6 R7 K27 ["SourceStrings"]
+  GETTABLEKS R10 R0 K12 ["Src"]
+  GETTABLEKS R9 R10 K25 ["Resources"]
+  GETTABLEKS R8 R9 K26 ["Localization"]
+  GETTABLEKS R7 R8 K28 ["LocalizedStrings"]
+  DUPTABLE R8 K33 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar"}]
+  GETIMPORT R9 K5 [plugin]
+  SETTABLEKS R9 R8 K4 ["plugin"]
+  LOADK R9 K2 ["KnowledgeTutorials"]
+  SETTABLEKS R9 R8 K29 ["pluginName"]
+  SETTABLEKS R7 R8 K30 ["translationResourceTable"]
+  SETTABLEKS R6 R8 K31 ["fallbackResourceTable"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K32 ["noToolbar"]
+  GETTABLEKS R9 R5 K34 ["build"]
+  MOVE R10 R8
+  CALL R9 1 1
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R12 R0 K9 ["Packages"]
+  GETTABLEKS R11 R12 K35 ["React"]
+  CALL R10 1 1
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R13 R0 K9 ["Packages"]
+  GETTABLEKS R12 R13 K36 ["ReactRoblox"]
   CALL R11 1 1
   GETIMPORT R12 K8 [require]
-  GETTABLEKS R14 R0 K9 ["Packages"]
-  GETTABLEKS R13 R14 K39 ["React"]
+  GETTABLEKS R14 R0 K12 ["Src"]
+  GETTABLEKS R13 R14 K37 ["MainPlugin"]
   CALL R12 1 1
-  GETIMPORT R13 K8 [require]
-  GETTABLEKS R15 R0 K9 ["Packages"]
-  GETTABLEKS R14 R15 K40 ["ReactRoblox"]
-  CALL R13 1 1
-  GETIMPORT R14 K8 [require]
-  GETTABLEKS R16 R0 K12 ["Src"]
-  GETTABLEKS R15 R16 K41 ["MainPlugin"]
+  GETTABLEKS R13 R10 K38 ["createElement"]
+  MOVE R14 R12
+  DUPTABLE R15 K41 [{"Plugin", "PluginLoaderContext"}]
+  GETIMPORT R16 K5 [plugin]
+  SETTABLEKS R16 R15 K39 ["Plugin"]
+  SETTABLEKS R9 R15 K40 ["PluginLoaderContext"]
+  CALL R13 2 1
+  GETIMPORT R14 K44 [Instance.new]
+  LOADK R15 K45 ["Frame"]
   CALL R14 1 1
-  GETTABLEKS R15 R12 K42 ["createElement"]
+  GETTABLEKS R15 R11 K46 ["createRoot"]
   MOVE R16 R14
-  DUPTABLE R17 K45 [{"Plugin", "PluginLoaderContext"}]
-  GETIMPORT R18 K5 [plugin]
-  SETTABLEKS R18 R17 K43 ["Plugin"]
-  SETTABLEKS R11 R17 K44 ["PluginLoaderContext"]
-  CALL R15 2 1
-  GETIMPORT R16 K48 [Instance.new]
-  LOADK R17 K49 ["Frame"]
-  CALL R16 1 1
-  GETTABLEKS R17 R13 K50 ["createRoot"]
-  MOVE R18 R16
-  CALL R17 1 1
-  MOVE R20 R15
-  NAMECALL R18 R17 K51 ["render"]
-  CALL R18 2 0
-  GETIMPORT R19 K5 [plugin]
-  GETTABLEKS R18 R19 K52 ["Unloading"]
-  DUPCLOSURE R20 K53 [PROTO_0]
-  CAPTURE VAL R17
-  NAMECALL R18 R18 K54 ["Connect"]
-  CALL R18 2 0
+  CALL R15 1 1
+  MOVE R18 R13
+  NAMECALL R16 R15 K47 ["render"]
+  CALL R16 2 0
+  GETIMPORT R17 K5 [plugin]
+  GETTABLEKS R16 R17 K48 ["Unloading"]
+  DUPCLOSURE R18 K49 [PROTO_0]
+  CAPTURE VAL R15
+  NAMECALL R16 R16 K50 ["Connect"]
+  CALL R16 2 0
   RETURN R0 0

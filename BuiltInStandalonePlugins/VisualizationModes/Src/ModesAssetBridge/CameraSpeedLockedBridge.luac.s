@@ -1,0 +1,76 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["CameraSpeedLockedUpdated"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["LockCameraSpeed"]
+  NAMECALL R0 R0 K2 ["Invoke"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["CameraSpeedLockedUpdated"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K1 ["Invoke"]
+  CALL R1 3 0
+  GETUPVAL R1 1
+  SETTABLEKS R0 R1 K2 ["LockCameraSpeed"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["CameraSpeedLockedUpdated"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["LockCameraSpeed"]
+  NAMECALL R0 R0 K2 ["Invoke"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  CALL R2 0 1
+  LOADK R7 K1 ["RequestCameraSpeedLockedUpdate"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NAMECALL R5 R0 K2 ["OnInvoke"]
+  CALL R5 3 -1
+  NAMECALL R3 R2 K3 ["add"]
+  CALL R3 -1 0
+  LOADK R7 K4 ["SetCameraSpeedLocked"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NAMECALL R5 R0 K2 ["OnInvoke"]
+  CALL R5 3 -1
+  NAMECALL R3 R2 K3 ["add"]
+  CALL R3 -1 0
+  LOADK R7 K5 ["LockCameraSpeed"]
+  NAMECALL R5 R1 K6 ["GetPropertyChangedSignal"]
+  CALL R5 2 1
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NAMECALL R5 R5 K7 ["Connect"]
+  CALL R5 2 -1
+  NAMECALL R3 R2 K3 ["add"]
+  CALL R3 -1 0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["VisualizationModes"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["Maid"]
+  CALL R1 1 1
+  NEWTABLE R2 1 0
+  DUPCLOSURE R3 K9 [PROTO_3]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K10 ["new"]
+  RETURN R2 1

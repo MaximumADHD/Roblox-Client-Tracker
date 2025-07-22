@@ -20,9 +20,9 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 	end,
 	[BalanceInfoRecieved.name] = function(state, action)
 		local balanceInfo = action.balanceInfo
-
 		return {
 			balance = balanceInfo.robux,
+			hasFailed = balanceInfo.hasFailed,
 			membershipType = state.membershipType,
 		}
 	end,

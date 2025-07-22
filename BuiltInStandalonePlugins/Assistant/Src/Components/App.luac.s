@@ -1,27 +1,29 @@
 PROTO_0:
   GETUPVAL R1 0
   GETUPVAL R2 1
-  LOADNIL R3
-  DUPTABLE R4 K1 [{"ContextStack"}]
+  DUPTABLE R3 K1 [{"onStyleSheetChange"}]
+  GETTABLEKS R4 R0 K2 ["onFoundationStyleSheetChange"]
+  SETTABLEKS R4 R3 K0 ["onStyleSheetChange"]
+  DUPTABLE R4 K4 [{"ContextStack"}]
   GETUPVAL R5 0
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K0 ["ContextStack"]
-  DUPTABLE R7 K3 [{"providers"}]
-  NEWTABLE R8 0 6
+  GETTABLEKS R6 R7 K3 ["ContextStack"]
+  DUPTABLE R7 K6 [{"providers"}]
+  NEWTABLE R8 0 7
   GETUPVAL R9 0
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K4 ["Components"]
-  GETTABLEKS R11 R12 K5 ["Contexts"]
-  GETTABLEKS R10 R11 K6 ["ConversationContextProvider"]
+  GETTABLEKS R12 R13 K7 ["Components"]
+  GETTABLEKS R11 R12 K8 ["Contexts"]
+  GETTABLEKS R10 R11 K9 ["ConversationContextProvider"]
   CALL R9 1 1
   GETUPVAL R10 0
   GETUPVAL R11 4
   CALL R10 1 1
   GETUPVAL R11 0
   GETUPVAL R15 3
-  GETTABLEKS R14 R15 K4 ["Components"]
-  GETTABLEKS R13 R14 K5 ["Contexts"]
-  GETTABLEKS R12 R13 K7 ["ThreadIdContextProvider"]
+  GETTABLEKS R14 R15 K7 ["Components"]
+  GETTABLEKS R13 R14 K8 ["Contexts"]
+  GETTABLEKS R12 R13 K10 ["ThreadIdContextProvider"]
   CALL R11 1 1
   GETUPVAL R12 0
   GETUPVAL R13 5
@@ -31,23 +33,26 @@ PROTO_0:
   CALL R13 1 1
   GETUPVAL R14 0
   GETUPVAL R15 7
-  CALL R14 1 -1
+  CALL R14 1 1
+  GETUPVAL R15 0
+  GETUPVAL R16 8
+  CALL R15 1 -1
   SETLIST R8 R9 -1 [1]
-  SETTABLEKS R8 R7 K2 ["providers"]
-  DUPTABLE R8 K10 [{"UIListLayout", "MainView"}]
+  SETTABLEKS R8 R7 K5 ["providers"]
+  DUPTABLE R8 K13 [{"UIListLayout", "MainView"}]
   GETUPVAL R9 0
-  LOADK R10 K8 ["UIListLayout"]
-  DUPTABLE R11 K12 [{"FillDirection"}]
-  GETIMPORT R12 K15 [Enum.FillDirection.Vertical]
-  SETTABLEKS R12 R11 K11 ["FillDirection"]
+  LOADK R10 K11 ["UIListLayout"]
+  DUPTABLE R11 K15 [{"FillDirection"}]
+  GETIMPORT R12 K18 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K14 ["FillDirection"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K8 ["UIListLayout"]
+  SETTABLEKS R9 R8 K11 ["UIListLayout"]
   GETUPVAL R9 0
-  GETUPVAL R10 8
+  GETUPVAL R10 9
   CALL R9 1 1
-  SETTABLEKS R9 R8 K9 ["MainView"]
+  SETTABLEKS R9 R8 K12 ["MainView"]
   CALL R5 3 1
-  SETTABLEKS R5 R4 K0 ["ContextStack"]
+  SETTABLEKS R5 R4 K3 ["ContextStack"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -80,37 +85,44 @@ MAIN:
   GETTABLEKS R6 R7 K14 ["StudioFoundation"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K11 ["Components"]
-  GETTABLEKS R9 R10 K12 ["Contexts"]
-  GETTABLEKS R8 R9 K15 ["StudioLLMPackageContextProvider"]
-  GETTABLEKS R7 R8 K15 ["StudioLLMPackageContextProvider"]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K11 ["Components"]
+  GETTABLEKS R8 R9 K12 ["Contexts"]
+  GETTABLEKS R7 R8 K15 ["StudioInputStateContextProvider"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K11 ["Components"]
-  GETTABLEKS R9 R10 K12 ["Contexts"]
-  GETTABLEKS R8 R9 K16 ["StudioMcpClientContextProvider"]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K11 ["Components"]
+  GETTABLEKS R10 R11 K12 ["Contexts"]
+  GETTABLEKS R9 R10 K16 ["StudioLLMPackageContextProvider"]
+  GETTABLEKS R8 R9 K16 ["StudioLLMPackageContextProvider"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R12 R0 K10 ["Src"]
   GETTABLEKS R11 R12 K11 ["Components"]
   GETTABLEKS R10 R11 K12 ["Contexts"]
-  GETTABLEKS R9 R10 K17 ["StudioOptionsContextProvider"]
+  GETTABLEKS R9 R10 K17 ["StudioMcpClientContextProvider"]
   CALL R8 1 1
-  GETTABLEKS R10 R5 K11 ["Components"]
-  GETTABLEKS R9 R10 K18 ["FoundationProviderAdapter"]
-  GETTABLEKS R11 R1 K11 ["Components"]
-  GETTABLEKS R10 R11 K19 ["MainView"]
-  GETTABLEKS R11 R2 K20 ["createElement"]
-  DUPCLOSURE R12 K21 [PROTO_0]
-  CAPTURE VAL R11
-  CAPTURE VAL R9
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R13 R0 K10 ["Src"]
+  GETTABLEKS R12 R13 K11 ["Components"]
+  GETTABLEKS R11 R12 K12 ["Contexts"]
+  GETTABLEKS R10 R11 K18 ["StudioOptionsContextProvider"]
+  CALL R9 1 1
+  GETTABLEKS R11 R5 K11 ["Components"]
+  GETTABLEKS R10 R11 K19 ["FoundationProviderAdapter"]
+  GETTABLEKS R12 R1 K11 ["Components"]
+  GETTABLEKS R11 R12 K20 ["MainView"]
+  GETTABLEKS R12 R2 K21 ["createElement"]
+  DUPCLOSURE R13 K22 [PROTO_0]
+  CAPTURE VAL R12
+  CAPTURE VAL R10
   CAPTURE VAL R3
   CAPTURE VAL R1
   CAPTURE VAL R4
-  CAPTURE VAL R7
-  CAPTURE VAL R6
   CAPTURE VAL R8
-  CAPTURE VAL R10
-  RETURN R12 1
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  RETURN R13 1

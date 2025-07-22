@@ -17,11 +17,18 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 -- Flags
 local FFlagFixChatLanguageSwitcherLabel = game:DefineFastFlag("FixChatLanguageSwitcherLabel", false)
 local GetFStringChatTranslationEnabledLocales = require(RobloxGui.Modules.Flags.GetFStringChatTranslationEnabledLocales)
 local ChatTranslationSettingsMoved = game:GetEngineFeature("TextChatServiceSettingsSaved")
+local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
+
+local UNAVAILABLE_TEXT
+if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
+    UNAVAILABLE_TEXT = RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.Unavailable")
+end
 
 return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
     -- English is set up as a special case since we always need an option representing English to be available. Otherwise supported languages are determined via fast string
@@ -57,10 +64,18 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
             log:warning("GameSettings chat language selector initialization failed to get all required information; defaulting to unavailable for the remainder of this session. Error message: " .. errorMsg)
             if FFlagFixChatLanguageSwitcherLabel then
                 menu.ChatLanguageSelectorFrame, menu.ChatLanguageSelectorLabel, menu.ChatLanguageSelectorMode =
-                    utility:AddNewRow(menu, "Chat Translation Language", "DropDown", {"Unavailable"}, 1)
+                    utility:AddNewRow(
+                        menu,
+                        if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
+                            RobloxTranslator:FormatByKey("Feature.SettingsHub.Chat.ChatLanguageSelectionLabel") else
+                            "Chat Translation Language",
+                        "DropDown",
+                        { if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then UNAVAILABLE_TEXT else "Unavailable" },
+                    1
+                )
             else
                 menu.ChatLanguageSelectorFrame, menu.ChatLanguageSelectorLabel, menu.ChatLanguageSelectorMode =
-                    utility:AddNewRow(menu, "Chat Language", "DropDown", {"Unavailable"}, 1)
+                    utility:AddNewRow(menu, "Chat Language", "DropDown", { if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then UNAVAILABLE_TEXT else "Unavailable" }, 1)
             end
 
             menu.ChatLanguageSelectorFrame.LayoutOrder = layoutOrderTable["ChatLanguageSelectorFrame"]
@@ -139,7 +154,15 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
 
         -- Chat translation on/off toggle for ability for users to view untranslated messages in chat
         menu.ChatTranslationToggleFrame, menu.ChatTranslationToggleLabel, menu.ChatTranslationToggleEnabler =
-            utility:AddNewRow(menu, "Option to View Untranslated Message", "Selector", {"On", "Off"}, chatTranslationToggleEnabled)
+            utility:AddNewRow(
+                menu,
+                if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
+                    RobloxTranslator:FormatByKey("Feature.SettingsHub.Chat.TranslationToggleSetting") else
+                    "Option to View Untranslated Message",
+                "Selector",
+                {"On", "Off"},
+                chatTranslationToggleEnabled
+            )
         menu.ChatTranslationToggleFrame.LayoutOrder = layoutOrderTable["ChatTranslationToggleFrame"]
 
         menu.ChatTranslationToggleEnabler.IndexChanged:connect(
@@ -170,7 +193,15 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
         end
 
         menu.ChatTranslationFrame, menu.ChatTranslationLabel, menu.ChatTranslationEnabler =
-            utility:AddNewRow(menu, "Automatic Chat Translation", "Selector", {"On", "Off"}, chatTranslationStartingIndex)
+            utility:AddNewRow(
+                menu,
+                if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
+                    RobloxTranslator:FormatByKey("Feature.SettingsHub.Chat.TranslationSetting") else
+                    "Automatic Chat Translation",
+                "Selector",
+                {"On", "Off"},
+                chatTranslationStartingIndex
+            )
         menu.ChatTranslationFrame.LayoutOrder = layoutOrderTable["ChatTranslationFrame"]
 
         menu.ChatTranslationEnabler.IndexChanged:connect(

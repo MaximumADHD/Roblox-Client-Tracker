@@ -27,7 +27,6 @@ local GetFFlagChromeTrackWindowStatus = require(Chrome.Flags.GetFFlagChromeTrack
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeSelfieViewUsePolicy = SharedFlags.FFlagChromeSelfieViewUsePolicy
-local FFlagSelfViewFixes = SharedFlags.GetFFlagSelfViewFixes()
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -98,9 +97,7 @@ local selfieViewChromeIntegration = ChromeService:register({
 			return React.createElement(SelfieView.Window, {
 				id = ID,
 				windowSize = windowSize,
-				isDraggedOut = if FFlagSelfViewFixes
-					then connectionObject ~= nil and connectionObject.connection ~= nil
-					else connectionObject ~= nil,
+				isDraggedOut = connectionObject ~= nil and connectionObject.connection ~= nil,
 			}, {})
 		end,
 	},

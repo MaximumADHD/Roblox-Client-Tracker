@@ -20,6 +20,8 @@ local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Signals = require(CorePackages.Packages.Signals)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 
 local EmotesModules = script.Parent
 local CoreScriptModules = EmotesModules.Parent
@@ -37,6 +39,7 @@ local TopBarConstant = require(CoreScriptModules.TopBar.Constants)
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
 local getFFlagAppChatCoreUIConflictFix =
 	require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
+local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 
 local StyleConstants = UIBlox.App.Style.Constants
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
@@ -294,6 +297,15 @@ function EmotesMenuMaster:_connectListeners()
 			self:_unmount()
 		end
 	end)
+
+	if FFlagTopBarSignalizeSetCores then 
+		self.disposeEffect = Signals.createEffect(function(scope)
+			local getTopBarStore = CoreGuiCommon.Stores.GetTopBarStore
+			if getTopBarStore then
+				self:setTopBarEnabled(getTopBarStore(scope).getTopBarCoreGuiEnabled(scope))
+			end
+		end)
+	end
 end
 
 function EmotesMenuMaster:_onStateChanged(newState, oldState)

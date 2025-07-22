@@ -34,8 +34,8 @@ local getPlatformTarget = require(CorePackages.Workspace.Packages.Analytics).get
 local EventStreamConstants = require(CorePackages.Workspace.Packages.AuthAnalytics).EventStreamConstants
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
-local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
-local FFlagIEMSettingsAddPlaySessionID = SettingsFlags.FFlagIEMSettingsAddPlaySessionID
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 

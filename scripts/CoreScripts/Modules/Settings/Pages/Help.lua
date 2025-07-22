@@ -51,6 +51,7 @@ local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Fla
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
+local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 ------------ Localization -------------------
 local locales = nil
@@ -404,7 +405,14 @@ local function Initialize()
 		local cameraOffset = -10
 
 		createGamepadLabel("Switch Tool", UDim2.new(0.5, leftOffset, 0, 15), UDim2.new(0, 100, 0, textVerticalSize), true)
-		createGamepadLabel("Game Menu Toggle", UDim2.new(0.5, leftOffset, 0.15, 10), UDim2.new(0, 164, 0, textVerticalSize), true)
+		createGamepadLabel(
+			if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
+				RobloxTranslator:FormatByKey("InGame.HelpMenu.Controls.ToggleGameMenu") else
+				"Game Menu Toggle",
+			UDim2.new(0.5, leftOffset, 0.15, 10),
+			UDim2.new(0, 164, 0, textVerticalSize),
+			true
+		)
 		createGamepadLabel("Move", UDim2.new(0.5, leftOffset, 0.31, 5), UDim2.new(0, 46, 0, textVerticalSize), true)
 		createGamepadLabel("Menu Navigation", UDim2.new(0.5, leftOffset, 0.46, 0), UDim2.new(0, 164, 0, textVerticalSize), true)
 

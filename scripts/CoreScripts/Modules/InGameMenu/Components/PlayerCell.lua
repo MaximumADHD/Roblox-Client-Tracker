@@ -12,7 +12,6 @@ local Cryo = InGameMenuDependencies.Cryo
 local t = InGameMenuDependencies.t
 
 local Cell = UIBlox.App.Table.Cell
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local LoadableImage = UIBlox.App.Loading.LoadableImage
 local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
@@ -113,7 +112,6 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 			onActivated = self.onActivated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = self.props.forwardRef or nil,
-			SelectionImageObject = getSelectionCursor(CursorKind.Square),
 
 			layoutOrder = props.LayoutOrder,
 			size = UDim2.new(1, 0, 0, CONTAINER_FRAME_HEIGHT),

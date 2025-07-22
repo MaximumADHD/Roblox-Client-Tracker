@@ -1,3 +1,4 @@
+-- TODO: Remove when cleaning up FFlagSongbirdCleanupExperiment
 local Chrome = script:FindFirstAncestor("Chrome")
 
 local IsExperienceMenuABTestEnabled = require(Chrome.Parent.IsExperienceMenuABTestEnabled)

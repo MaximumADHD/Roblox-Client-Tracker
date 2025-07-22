@@ -90,6 +90,7 @@ return {
 
 	TopBarPadding = topBarPadding,
 
+	InitialHealth = 100,
 	HealthPercentForOverlay = 5 / 100,
 	HealthRedColor = Color3.fromRGB(255, 28, 0),
 	HealthYellowColor = Color3.fromRGB(250, 235, 0),

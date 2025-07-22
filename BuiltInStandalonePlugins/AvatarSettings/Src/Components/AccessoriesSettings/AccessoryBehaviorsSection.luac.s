@@ -42,93 +42,95 @@ PROTO_2:
   GETTABLEKS R4 R5 K6 ["accessoriesSettings"]
   GETUPVAL R5 4
   GETUPVAL R6 5
-  DUPTABLE R7 K9 [{"text", "layoutOrder"}]
-  LOADK R10 K10 ["AccessoriesSettings"]
-  LOADK R11 K11 ["AccessoryBehaviorsSection"]
-  NAMECALL R8 R1 K12 ["getText"]
+  DUPTABLE R7 K10 [{"text", "layoutOrder", "showWarning"}]
+  LOADK R10 K11 ["AccessoriesSettings"]
+  LOADK R11 K12 ["AccessoryBehaviorsSection"]
+  NAMECALL R8 R1 K13 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K7 ["text"]
   GETTABLEKS R8 R0 K8 ["layoutOrder"]
   SETTABLEKS R8 R7 K8 ["layoutOrder"]
-  DUPTABLE R8 K16 [{"Description", "EnableSoundCheckbox", "EnableVFXCheckbox"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K9 ["showWarning"]
+  DUPTABLE R8 K17 [{"Description", "EnableSoundCheckbox", "EnableVFXCheckbox"}]
   GETUPVAL R9 4
-  LOADK R10 K17 ["TextLabel"]
+  LOADK R10 K18 ["TextLabel"]
   NEWTABLE R11 8 0
   GETUPVAL R13 2
-  GETTABLEKS R12 R13 K18 ["Tag"]
-  LOADK R13 K19 ["Component-TextLabel SubText"]
+  GETTABLEKS R12 R13 K19 ["Tag"]
+  LOADK R13 K20 ["Component-TextLabel SubText"]
   SETTABLE R13 R11 R12
-  GETIMPORT R12 K22 [UDim2.fromOffset]
+  GETIMPORT R12 K23 [UDim2.fromOffset]
   LOADN R13 0
   GETUPVAL R15 6
-  GETTABLEKS R14 R15 K23 ["STANDARD_HEIGHT"]
+  GETTABLEKS R14 R15 K24 ["STANDARD_HEIGHT"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K24 ["Size"]
-  GETIMPORT R12 K28 [Enum.AutomaticSize.XY]
-  SETTABLEKS R12 R11 K26 ["AutomaticSize"]
-  LOADK R14 K10 ["AccessoriesSettings"]
-  LOADK R15 K29 ["AccessoryBehaviorsSectionSubText"]
-  NAMECALL R12 R1 K12 ["getText"]
+  SETTABLEKS R12 R11 K25 ["Size"]
+  GETIMPORT R12 K29 [Enum.AutomaticSize.XY]
+  SETTABLEKS R12 R11 K27 ["AutomaticSize"]
+  LOADK R14 K11 ["AccessoriesSettings"]
+  LOADK R15 K30 ["AccessoryBehaviorsSectionSubText"]
+  NAMECALL R12 R1 K13 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K30 ["Text"]
-  GETIMPORT R12 K33 [Enum.TextXAlignment.Left]
-  SETTABLEKS R12 R11 K31 ["TextXAlignment"]
+  SETTABLEKS R12 R11 K31 ["Text"]
+  GETIMPORT R12 K34 [Enum.TextXAlignment.Left]
+  SETTABLEKS R12 R11 K32 ["TextXAlignment"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K34 ["TextWrapped"]
+  SETTABLEKS R12 R11 K35 ["TextWrapped"]
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K35 ["LayoutOrder"]
-  DUPTABLE R12 K37 [{"Tooltip"}]
+  SETTABLEKS R12 R11 K36 ["LayoutOrder"]
+  DUPTABLE R12 K38 [{"Tooltip"}]
   GETUPVAL R13 4
   GETUPVAL R14 7
-  DUPTABLE R15 K38 [{"Text"}]
-  LOADK R18 K10 ["AccessoriesSettings"]
-  LOADK R19 K29 ["AccessoryBehaviorsSectionSubText"]
-  NAMECALL R16 R1 K12 ["getText"]
+  DUPTABLE R15 K39 [{"Text"}]
+  LOADK R18 K11 ["AccessoriesSettings"]
+  LOADK R19 K30 ["AccessoryBehaviorsSectionSubText"]
+  NAMECALL R16 R1 K13 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K30 ["Text"]
+  SETTABLEKS R16 R15 K31 ["Text"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K36 ["Tooltip"]
+  SETTABLEKS R13 R12 K37 ["Tooltip"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K13 ["Description"]
+  SETTABLEKS R9 R8 K14 ["Description"]
   GETUPVAL R9 4
   GETUPVAL R10 8
-  DUPTABLE R11 K41 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+  DUPTABLE R11 K42 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K35 ["LayoutOrder"]
-  GETTABLEKS R13 R4 K42 ["accessoryBehaviorEnableSoundSetting"]
-  GETTABLEKS R12 R13 K43 ["value"]
-  SETTABLEKS R12 R11 K39 ["Checked"]
-  LOADK R14 K10 ["AccessoriesSettings"]
-  LOADK R15 K44 ["AccessoryBehaviorsSectionEnableSound"]
-  NAMECALL R12 R1 K12 ["getText"]
+  SETTABLEKS R12 R11 K36 ["LayoutOrder"]
+  GETTABLEKS R13 R4 K43 ["accessoryBehaviorEnableSoundSetting"]
+  GETTABLEKS R12 R13 K44 ["value"]
+  SETTABLEKS R12 R11 K40 ["Checked"]
+  LOADK R14 K11 ["AccessoriesSettings"]
+  LOADK R15 K45 ["AccessoryBehaviorsSectionEnableSound"]
+  NAMECALL R12 R1 K13 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K30 ["Text"]
+  SETTABLEKS R12 R11 K31 ["Text"]
   NEWCLOSURE R12 P0
   CAPTURE VAL R4
-  SETTABLEKS R12 R11 K40 ["OnClick"]
+  SETTABLEKS R12 R11 K41 ["OnClick"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K14 ["EnableSoundCheckbox"]
+  SETTABLEKS R9 R8 K15 ["EnableSoundCheckbox"]
   GETUPVAL R9 4
   GETUPVAL R10 8
-  DUPTABLE R11 K41 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
+  DUPTABLE R11 K42 [{"LayoutOrder", "Checked", "Text", "OnClick"}]
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K35 ["LayoutOrder"]
-  GETTABLEKS R13 R4 K45 ["accessoryBehaviorEnableVFXSetting"]
-  GETTABLEKS R12 R13 K43 ["value"]
-  SETTABLEKS R12 R11 K39 ["Checked"]
-  LOADK R14 K10 ["AccessoriesSettings"]
-  LOADK R15 K46 ["AccessoryBehaviorsSectionEnableVFX"]
-  NAMECALL R12 R1 K12 ["getText"]
+  SETTABLEKS R12 R11 K36 ["LayoutOrder"]
+  GETTABLEKS R13 R4 K46 ["accessoryBehaviorEnableVFXSetting"]
+  GETTABLEKS R12 R13 K44 ["value"]
+  SETTABLEKS R12 R11 K40 ["Checked"]
+  LOADK R14 K11 ["AccessoriesSettings"]
+  LOADK R15 K47 ["AccessoryBehaviorsSectionEnableVFX"]
+  NAMECALL R12 R1 K13 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K30 ["Text"]
+  SETTABLEKS R12 R11 K31 ["Text"]
   NEWCLOSURE R12 P1
   CAPTURE VAL R4
-  SETTABLEKS R12 R11 K40 ["OnClick"]
+  SETTABLEKS R12 R11 K41 ["OnClick"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K15 ["EnableVFXCheckbox"]
+  SETTABLEKS R9 R8 K16 ["EnableVFXCheckbox"]
   CALL R5 3 -1
   RETURN R5 -1
 

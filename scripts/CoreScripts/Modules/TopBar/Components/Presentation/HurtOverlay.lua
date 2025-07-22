@@ -10,9 +10,15 @@ local Otter = require(CorePackages.Packages.Otter)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
+local CoreGuiModules = RobloxGui:FindFirstChild("Modules")
+local CommonModules = CoreGuiModules:FindFirstChild("Common")
+local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
+
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
 local Constants = require(TopBar.Constants)
+
+local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
 
 local MOTOR_OPTIONS = {
 	frequency = 0.75,
@@ -24,7 +30,7 @@ local WHITE_OVERLAY_COLOR = Color3.new(1, 1, 1)
 
 local HurtOverlay = Roact.PureComponent:extend("HurtOverlay")
 
-HurtOverlay.validateProps = t.strictInterface({
+HurtOverlay.validateProps = t.strictInterface(if FFlagTopBarSignalizeHealthBar then {} else {
 	healthEnabled = t.boolean,
 	health = t.number,
 	maxHealth = t.number,
@@ -32,9 +38,6 @@ HurtOverlay.validateProps = t.strictInterface({
 })
 
 function HurtOverlay:init()
-	self.state = {
-		isAnimating = false,
-	}
 
 	self.animationBinding, self.animationBindingUpdate = Roact.createBinding(0)
 
@@ -45,19 +48,121 @@ function HurtOverlay:init()
 		return UDim2.new(1 + 19 * animation, 0, 1 + 19 * animation, 0)
 	end)
 
+	if FFlagTopBarSignalizeHealthBar then
+		self.isAnimating, self.setIsAnimating = Roact.createBinding(false)
+		self.health, self.setHealth = Roact.createBinding(Constants.InitialHealth)
+		self.maxHealth, self.setMaxHealth = Roact.createBinding(Constants.InitialHealth)	
+		self.isDead, self.setIsDead = Roact.createBinding(false)
+		self.prevHealth = self.health:getValue()
+		self.prevIsDead = self.isDead:getValue()
+
+		self.showHurtOverlay = Roact.joinBindings({self.isAnimating, self.health, self.maxHealth, self.isDead}):map(function(values) 
+			local isAnimating = values[1]
+			local currentHealth = values[2]
+			local maxHealth = values[3]
+			local isDead = values[4]
+			local prevHealth = self.prevHealth
+			local prevIsDead = self.prevIsDead
+
+			self.prevHealth = currentHealth
+			self.prevIsDead = isDead
+
+			if isAnimating then 
+				return true 
+			end
+
+			if currentHealth < prevHealth then
+				if not (isDead and prevIsDead) then
+					local healthChange = prevHealth - currentHealth
+					if healthChange / maxHealth >= Constants.HealthPercentForOverlay then
+						self.motor:setGoal(Otter.instant(0))
+						self.motor:step(0)
+						self.motor:setGoal(Otter.spring(1, MOTOR_OPTIONS))
+						self.motor:start()
+						self.setIsAnimating(true)
+						return true
+					end
+				end
+			end
+			return false
+		end) 
+	else
+		self.state = {
+			isAnimating = false,
+		}
+	end
+
 	self.motor = Otter.createSingleMotor(0)
 	self.motor:onStep(function(value)
 		self.animationBindingUpdate(value)
 	end)
 	self.motor:onComplete(function()
-		self:setState({
-			isAnimating = false,
-		})
+		if FFlagTopBarSignalizeHealthBar then
+			self.setIsAnimating(false)
+		else
+			self:setState({
+				isAnimating = false,
+			})
+		end
 	end)
+
+	if FFlagTopBarSignalizeHealthBar then
+		local function getHealthEnabled()
+			return StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Health)
+		end
+
+		self.coreGuiChangedSignalConn = StarterGui.CoreGuiChangedSignal:Connect(
+			function(coreGuiType: Enum.CoreGuiType, enabled: boolean)
+				if coreGuiType == Enum.CoreGuiType.Health or coreGuiType == Enum.CoreGuiType.All then
+					if self.state.mountHurtOverlay ~= enabled then
+						self:setState({
+							mountHurtOverlay = enabled,
+						})
+					end
+				end
+			end
+		)
+		self:setState({
+			mountHurtOverlay = getHealthEnabled(),
+		})
+		HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
+			local healthChangedConn
+			local characterRemovingConn
+			local diedConn
+			local function disconnect()
+				healthChangedConn:Disconnect()
+				characterRemovingConn:Disconnect()
+				diedConn:Disconnect()
+			end
+			
+			self.setHealth(humanoid.Health)
+			self.setMaxHealth(humanoid.MaxHealth)
+			self.setIsDead(false)
+
+			healthChangedConn = humanoid.HealthChanged:Connect(function()
+				self.setHealth(humanoid.Health)
+				self.setMaxHealth(humanoid.MaxHealth)
+			end)
+
+			diedConn = humanoid.Died:Connect(function()
+				disconnect()
+				self.setIsDead(true)
+			end)
+
+			characterRemovingConn = player.CharacterRemoving:Connect(function(removedCharacter)
+				if removedCharacter == character then
+					disconnect()
+				end
+			end)
+		end)
+	end
 end
 
 function HurtOverlay:renderOverlay()
-	local overlayVisible = self.props.healthEnabled and self.state.isAnimating
+	local overlayVisible = nil
+	if not FFlagTopBarSignalizeHealthBar then 
+		overlayVisible = self.props.healthEnabled and self.state.isAnimating
+	end
 
 	local hurtOverlayImage = "rbxasset://textures/ui/TopBar/WhiteOverlayAsset.png"
 	local hurtOverlayColor = RED_OVERLAY_COLOR
@@ -66,7 +171,7 @@ function HurtOverlay:renderOverlay()
 	end
 
 	return Roact.createElement("ImageLabel", {
-		Visible = overlayVisible,
+		Visible = if FFlagTopBarSignalizeHealthBar then self.showHurtOverlay else overlayVisible,
 		BackgroundTransparency = 1,
 		Image = hurtOverlayImage,
 		ImageColor3 = hurtOverlayColor,
@@ -76,10 +181,18 @@ function HurtOverlay:renderOverlay()
 end
 
 function HurtOverlay:render()
+	if FFlagTopBarSignalizeHealthBar then
+		return if self.state.mountHurtOverlay then self:renderOverlay() else nil
+	else
 		return self:renderOverlay()
+	end
 end
 
 function HurtOverlay:didUpdate(prevProps, prevState)
+	if FFlagTopBarSignalizeHealthBar then 
+		return
+	end
+
 	if self.props.health < prevProps.health then
 		if not (self.props.isDead and prevProps.isDead) then
 			local healthChange = prevProps.health - self.props.health
@@ -96,13 +209,23 @@ function HurtOverlay:didUpdate(prevProps, prevState)
 	end
 end
 
-local function mapStateToProps(state)
-		return {
-			health = state.health.currentHealth,
-			maxHealth = state.health.maxHealth,
-			isDead = state.health.isDead,
-			healthEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Health],
-		}
+if FFlagTopBarSignalizeHealthBar then
+	function HurtOverlay:onUnmount()
+		self.coreGuiChangedSignalConn:Disconnect()
+	end
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(HurtOverlay)
+local function mapStateToProps(state)
+	return {
+		health = state.health.currentHealth,
+		maxHealth = state.health.maxHealth,
+		isDead = state.health.isDead,
+		healthEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Health],
+	}
+end
+
+if FFlagTopBarSignalizeHealthBar then 
+	return HurtOverlay
+else
+	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(HurtOverlay)
+end

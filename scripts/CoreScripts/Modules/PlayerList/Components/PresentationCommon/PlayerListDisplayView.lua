@@ -12,6 +12,7 @@ local PlayerList = Components.Parent
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Otter = require(CorePackages.Packages.Otter)
+local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
@@ -19,6 +20,8 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
+local useFocusGuiObject = ReactFocusNavigation.useFocusGuiObject
+local useFocusedGuiObject = ReactFocusNavigation.useFocusedGuiObject
 
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
@@ -34,6 +37,7 @@ local PlayerDropDown = require(Components.Presentation.PlayerDropDown)
 
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
 local FFlagDisablePlayerListDisplayCloseBtn = game:DefineFastFlag("DisablePlayerListDisplayCloseBtn", false)
+local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local EnableCloseButton = ChromeEnabled() and not FFlagDisablePlayerListDisplayCloseBtn
 
 local TOP_BOTTOM_CORNER_RADIUS = 7
@@ -77,8 +81,13 @@ local function PlayerListDisplayView(props: PlayerListDisplayViewProps): React.R
 	local layoutValues = useLayoutValues()
 	local style = useStyle()
 
+	local focusGuiObject = useFocusGuiObject()
+	local focusedGuiObject = useFocusedGuiObject()
+
 	local scrollingFrameRef = React.useRef(nil :: ScrollingFrame?)
 	local firstPlayerRef = React.useRef(nil :: GuiObject?)
+	local prevFocusedEntry = React.useRef(nil :: GuiObject?)
+	local destroyedFocusedPlayerId = React.useRef(nil :: number?)
 	local minimizedMotor = React.useRef(Otter.createSingleMotor(0))
 
 	local lastCanvasPosition, setLastCanvasPosition = React.useState(Vector2.new(0, 0))
@@ -193,38 +202,94 @@ local function PlayerListDisplayView(props: PlayerListDisplayViewProps): React.R
 				setCanvasPositionOverride(nil)
 			end
 		end
-
 	end, { dropDownPlayerDimensionY, props.isSmallTouchDevice, scrollingFrameRef.current } :: { any })
 
 	React.useEffect(function()
-		if props.isVisible then
-			if props.isDirectionalPreferred and props.isUsingGamepad then
-				GuiService.SelectedCoreObject = firstPlayerRef.current
-				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-			end
-			if scrollingFrameRef.current and not props.isSmallTouchDevice then
-				scrollingFrameRef.current.SelectionGroup = true
-				scrollingFrameRef.current.SelectionBehaviorUp = Enum.SelectionBehavior.Stop
-				scrollingFrameRef.current.SelectionBehaviorDown = Enum.SelectionBehavior.Stop
-				scrollingFrameRef.current.SelectionBehaviorLeft = Enum.SelectionBehavior.Stop
-				scrollingFrameRef.current.SelectionBehaviorRight = Enum.SelectionBehavior.Stop
-			end
-		else
-			if props.isDirectionalPreferred and props.isUsingGamepad then
-				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
-			end
-			if
-				scrollingFrameRef.current
-				and GuiService.SelectedCoreObject
-				and GuiService.SelectedCoreObject:IsDescendantOf(scrollingFrameRef.current)
-			then
-				GuiService.SelectedCoreObject = nil
-			end
-			if scrollingFrameRef.current and not props.isSmallTouchDevice then
-				scrollingFrameRef.current.SelectionGroup = false
+		if not FFlagAddNewPlayerListFocusNav then
+			if props.isVisible then
+				if props.isDirectionalPreferred and props.isUsingGamepad then
+					GuiService.SelectedCoreObject = firstPlayerRef.current
+					UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+				end
+				if scrollingFrameRef.current and not props.isSmallTouchDevice then
+					scrollingFrameRef.current.SelectionGroup = true
+					scrollingFrameRef.current.SelectionBehaviorUp = Enum.SelectionBehavior.Stop
+					scrollingFrameRef.current.SelectionBehaviorDown = Enum.SelectionBehavior.Stop
+					scrollingFrameRef.current.SelectionBehaviorLeft = Enum.SelectionBehavior.Stop
+					scrollingFrameRef.current.SelectionBehaviorRight = Enum.SelectionBehavior.Stop
+				end
+			else
+				if props.isDirectionalPreferred and props.isUsingGamepad then
+					UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+				end
+				if
+					scrollingFrameRef.current
+					and GuiService.SelectedCoreObject
+					and GuiService.SelectedCoreObject:IsDescendantOf(scrollingFrameRef.current)
+				then
+					GuiService.SelectedCoreObject = nil
+				end
+				if scrollingFrameRef.current and not props.isSmallTouchDevice then
+					scrollingFrameRef.current.SelectionGroup = false
+				end
 			end
 		end
 	end, { props.isVisible, props.isSmallTouchDevice, props.isDirectionalPreferred, props.isUsingGamepad, firstPlayerRef.current, scrollingFrameRef.current } :: { any })
+
+	React.useEffect(function()
+		if FFlagAddNewPlayerListFocusNav then
+			if props.isVisible and scrollingFrameRef.current then
+				if props.isDirectionalPreferred and props.isUsingGamepad then
+					focusGuiObject(nil)
+					focusGuiObject(scrollingFrameRef.current)
+					UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+				end
+				if not props.isSmallTouchDevice then
+					scrollingFrameRef.current.SelectionGroup = true
+					scrollingFrameRef.current.SelectionBehaviorUp = Enum.SelectionBehavior.Stop
+					scrollingFrameRef.current.SelectionBehaviorDown = Enum.SelectionBehavior.Stop
+					scrollingFrameRef.current.SelectionBehaviorLeft = Enum.SelectionBehavior.Stop
+					scrollingFrameRef.current.SelectionBehaviorRight = Enum.SelectionBehavior.Stop
+				end
+			end
+		end
+	end, { focusGuiObject, props.isVisible, props.isSmallTouchDevice, props.isDirectionalPreferred, props.isUsingGamepad, scrollingFrameRef.current } :: { any })
+	
+	React.useEffect(function()
+		if FFlagAddNewPlayerListFocusNav then
+			if not props.isVisible and scrollingFrameRef.current then
+				if props.isDirectionalPreferred and props.isUsingGamepad then
+					UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+				end
+				if focusedGuiObject and focusedGuiObject:IsDescendantOf(scrollingFrameRef.current) then
+					focusGuiObject(nil)
+				end
+				if not props.isSmallTouchDevice then
+					scrollingFrameRef.current.SelectionGroup = false
+				end
+			end
+		end
+	end, { focusedGuiObject, focusGuiObject, props.isVisible, props.isSmallTouchDevice, props.isDirectionalPreferred, props.isUsingGamepad, scrollingFrameRef.current } :: { any })
+
+	React.useEffect(function()
+		if FFlagAddNewPlayerListFocusNav then
+			if props.isVisible and not focusedGuiObject and destroyedFocusedPlayerId.current and scrollingFrameRef.current then
+				local playerEntry = scrollingFrameRef.current:FindFirstChild("PlayerEntry_" .. destroyedFocusedPlayerId.current, true)
+				if playerEntry and playerEntry:IsA("GuiObject") then
+					-- Player switched teams, refocus the same player
+					focusGuiObject(playerEntry)
+				else
+					-- Player left the game, change focus to previously focused player or first player
+					if prevFocusedEntry.current and prevFocusedEntry.current:IsDescendantOf(scrollingFrameRef.current) then
+						focusGuiObject(prevFocusedEntry.current)
+					else
+						focusGuiObject(scrollingFrameRef.current)
+					end
+				end
+				destroyedFocusedPlayerId.current = nil
+			end
+		end
+	end, { focusedGuiObject, focusGuiObject, props.isVisible, prevFocusedEntry.current, destroyedFocusedPlayerId.current, scrollingFrameRef.current } :: { any })
 
 	local childElements: { [string]: React.ReactNode } = {}
 
@@ -264,25 +329,27 @@ local function PlayerListDisplayView(props: PlayerListDisplayViewProps): React.R
 	end
 
 	if props.teamListCount > 0 then
-		local addedTeamListCount = 0
 		local minTeamOrder = math.huge
 		props.teamList.iterateData(function(teamName, teamData)
 			-- firstPlayerRef will continue to be overriden until it is set to the actual first player
 			local potentialFirstPlayer = false 
-			if teamData.order(false) <= minTeamOrder and teamData.players.getCount(false) > 0 then
-				minTeamOrder = teamData.order(false)
-				potentialFirstPlayer = true 
+			if not FFlagAddNewPlayerListFocusNav then
+				if teamData.order(false) <= minTeamOrder and teamData.players.getCount(false) > 0 then
+					minTeamOrder = teamData.order(false)
+					potentialFirstPlayer = true 
+				end
 			end
-			
-			addedTeamListCount += 1
-			childElements["t_" .. tostring(addedTeamListCount)] = React.createElement(TeamListContainer, {
+
+			childElements["TeamList_" .. tostring(teamName)] = React.createElement(TeamListContainer, {
 				size = UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY),
 				entrySizeX = props.entrySizeX,
 				teamData = teamData,
 				playerIconInfos = props.playerIconInfo,
 				playerRelationships = props.playerRelationship,
-				firstPlayerRef = if potentialFirstPlayer then firstPlayerRef else nil,
+				firstPlayerRef = if not FFlagAddNewPlayerListFocusNav and potentialFirstPlayer then firstPlayerRef else nil,
 				setDropDownPlayerDimensionY = setDropDownPlayerDimensionY,
+				prevFocusedEntry = if FFlagAddNewPlayerListFocusNav then prevFocusedEntry else nil,
+				destroyedFocusedPlayerId = if FFlagAddNewPlayerListFocusNav then destroyedFocusedPlayerId else nil,
 				isSmallTouchDevice = props.isSmallTouchDevice,
 				isDirectionalPreferred = props.isDirectionalPreferred,
 			})

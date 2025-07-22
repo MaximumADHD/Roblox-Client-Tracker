@@ -2,13 +2,8 @@ PROTO_0:
   GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["ToolboxValidSizeRetry2"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  JUMPIFNOT R0 [+6]
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["ToolboxValidSizeAnalytics"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  RETURN R0 1
+  CALL R0 2 -1
+  RETURN R0 -1
 
 MAIN:
   PREPVARARGS 0

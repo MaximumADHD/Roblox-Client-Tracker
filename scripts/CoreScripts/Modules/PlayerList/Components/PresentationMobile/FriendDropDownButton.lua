@@ -19,6 +19,8 @@ local Images = UIBlox.App.ImageSet.Images
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
+local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
+
 local LocalPlayer = Players.LocalPlayer
 
 local LOCALIZATION_TEXT = {
@@ -57,23 +59,23 @@ local function getFriendTextAndIcon(friendStatus)
 		if shouldRenameFriends then
 			return locales:Format(LOCALIZATION_TEXT.removeConnection), unfriendIcon
 		else
-			return RobloxTranslator:FormatByKey("PlayerDropDown.Unfriend"), unfriendIcon
+			return RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.Unfriend" else "PlayerDropDown.Unfriend"), unfriendIcon
 		end
 	elseif friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
 		if shouldRenameFriends then
 			return locales:Format(LOCALIZATION_TEXT.connectionRequest), addFriendIcon
 		else
-			return RobloxTranslator:FormatByKey("PlayerDropDown.FriendRequest"), addFriendIcon
+			return RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.FriendRequest" else "PlayerDropDown.FriendRequest"), addFriendIcon
 		end
 	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
-		return RobloxTranslator:FormatByKey("PlayerDropDown.CancelRequest"), addFriendIcon
+		return RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.CancelRequest" else "PlayerDropDown.CancelRequest"), addFriendIcon
 	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
-		return RobloxTranslator:FormatByKey("PlayerDropDown.Accept"), addFriendIcon
+		return RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.Accept" else "PlayerDropDown.Accept"), addFriendIcon
 	end
 	if shouldRenameFriends then
 		return locales:Format(LOCALIZATION_TEXT.connectionRequest), addFriendIcon
 	else
-		return RobloxTranslator:FormatByKey("PlayerDropDown.Friend Request"), addFriendIcon
+		return RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.Friend Request" else "PlayerDropDown.Friend Request"), addFriendIcon
 	end
 end
 

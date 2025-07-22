@@ -150,7 +150,7 @@ local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
 end
 
-local NUM_EXPERIENCES_USER_SEEN_UI_LESS_TOOLTIP_KEY = "NumExperiencesUserSeenUILessTooltipKey"
+local NUM_EXPERIENCES_USER_SEEN_UI_LESS_TOOLTIP_KEY = "NumExperiencesUserSeenUILessTooltipKey2"
 
 local TopBarApp = Roact.PureComponent:extend("TopBarApp")
 

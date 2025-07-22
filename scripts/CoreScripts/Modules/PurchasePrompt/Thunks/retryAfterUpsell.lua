@@ -39,11 +39,18 @@ local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.
 local MAX_RETRIES = game:DefineFastInt("UpsellAccountBalanceRetryAttemps", 3)
 local RETRY_RATE = game:DefineFastInt("UpsellAccountBalanceRetryIntervalSec", 1)
 
+local FFlagRetryAfterUpsellV2 = game:DefineFastFlag("RetryAfterUpsellV2", false)
+local retryAfterUpsellV2 = require(script.Parent.retryAfterUpsellV2)
+
 local requiredServices = {
 	Analytics,
 	Network,
 	ExternalSettings,
 }
+
+if FFlagRetryAfterUpsellV2 then
+	return retryAfterUpsellV2
+end
 
 local function retryAfterUpsell(retriesRemaining)
 	retriesRemaining = retriesRemaining or MAX_RETRIES

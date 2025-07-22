@@ -16,24 +16,19 @@ local CallBarContainer = require(ContactList.Components.CallBarContainer)
 local CallDialogContainer = require(ContactList.Components.CallDialogContainer)
 local PlayerMenuContainer = require(ContactList.Components.PlayerMenuContainer)
 
-local FFlagContactListNavigatorEnabled = game:DefineFastFlag("ContactListNavigatorEnabled", false)
-
 return function()
-	local navigator = nil
-	if FFlagContactListNavigatorEnabled then
-		-- This is a workaround since the PeekView expects to be hosted in a
-		-- navigation container. We are not using the navigation here at all,
-		-- but could convert to do so.
-		navigator = React.useMemo(function()
-			return RoactNavigation.createAppContainer(RoactNavigation.createRobloxStackNavigator({
-				{ ["ContactList"] = { screen = ContactListContainer } },
-			}, {
-				defaultNavigationOptions = {
-					absorbInput = false,
-				},
-			}))
-		end, {})
-	end
+	-- This is a workaround since the PeekView expects to be hosted in a
+	-- navigation container. We are not using the navigation here at all,
+	-- but could convert to do so.
+	local navigator = React.useMemo(function()
+		return RoactNavigation.createAppContainer(RoactNavigation.createRobloxStackNavigator({
+			{ ["ContactList"] = { screen = ContactListContainer } },
+		}, {
+			defaultNavigationOptions = {
+				absorbInput = false,
+			},
+		}))
+	end, {})
 
 	React.useEffect(function()
 		SoundManager:CreateSoundGroup(SoundGroups.Iris.Name)
@@ -41,9 +36,7 @@ return function()
 
 	return React.createElement("Folder", {}, {
 		CallDialogContainer = React.createElement(CallDialogContainer),
-		ContactListContainer = if FFlagContactListNavigatorEnabled
-			then React.createElement(navigator)
-			else React.createElement(ContactListContainer),
+		ContactListContainer = React.createElement(navigator),
 		PlayerMenuContainer = React.createElement(PlayerMenuContainer),
 		CallBarContainer = React.createElement(CallBarContainer),
 	})

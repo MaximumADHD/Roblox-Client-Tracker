@@ -10,7 +10,16 @@ local migrationLookup = BuilderIcons.Migration['uiblox']
 
 local AbuseReportMenu = require(RobloxGui.Modules.AbuseReportMenu).AbuseReportMenu
 local ReportAbuseAnalytics = require(RobloxGui.Modules.AbuseReportMenu).ReportAbuseAnalytics
-local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
+
+local Chrome = RobloxGui.Modules.Chrome
+local ChromeEnabled = require(Chrome.Enabled)()
+local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
+local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
+
+local FFlagHideShortcutsOnReportDropdown = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -119,11 +128,17 @@ local function Initialize()
 			this:showReportSentPage(reportedPlayer)
 		end,
 		onReportComplete = function(text)
+			if FFlagInExperienceReportClosingBugfix and ChromeEnabled then
+				ChromeService:setShortcutBar(nil)
+			end
 			this:showAlert(text, "Ok", function()
 				-- callback function once we click "Ok" in the success screen
 				this:HideMenu()
 			end)
 		end,
+		onDropdownMenuOpenChange = if FFlagHideShortcutsOnReportDropdown and ChromeEnabled then function(isOpen)
+			ChromeService:setHideShortcutBar("InExperienceReportDropdown", isOpen)
+		end else nil,
 	})
 	Roact.mount(abuseReportMenu, this.Page, "AbuseReportMenu")
 

@@ -292,26 +292,26 @@ PROTO_13:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K4 ["AvatarPreviewFolderName"]
   SETTABLEKS R1 R0 K5 ["Name"]
-  LOADB R1 0
-  SETTABLEKS R1 R0 K6 ["Archivable"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["AvatarPreviewFolderTag"]
-  NAMECALL R1 R0 K8 ["AddTag"]
+  GETTABLEKS R3 R4 K6 ["AvatarPreviewFolderTag"]
+  NAMECALL R1 R0 K7 ["AddTag"]
   CALL R1 2 0
-  GETIMPORT R2 K10 [workspace]
-  GETTABLEKS R1 R2 K11 ["CurrentCamera"]
+  GETIMPORT R2 K9 [workspace]
+  GETTABLEKS R1 R2 K10 ["CurrentCamera"]
   JUMPIF R1 [+16]
   GETIMPORT R2 K2 [Instance.new]
-  LOADK R3 K12 ["Camera"]
+  LOADK R3 K11 ["Camera"]
   CALL R2 1 1
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K13 ["ParentCameraName"]
+  GETTABLEKS R3 R4 K12 ["ParentCameraName"]
   SETTABLEKS R3 R2 K5 ["Name"]
   LOADB R3 0
-  SETTABLEKS R3 R2 K6 ["Archivable"]
-  GETIMPORT R3 K10 [workspace]
+  SETTABLEKS R3 R2 K13 ["Archivable"]
+  GETIMPORT R3 K9 [workspace]
   SETTABLEKS R3 R2 K14 ["Parent"]
   SETTABLEKS R1 R0 K14 ["Parent"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K13 ["Archivable"]
   RETURN R0 1
 
 PROTO_14:

@@ -1,77 +1,4 @@
 PROTO_0:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_1:
-  GETIMPORT R1 K1 [pairs]
-  MOVE R2 R0
-  CALL R1 1 3
-  FORGPREP_NEXT R1
-  JUMPIFEQKNIL R5 [+11]
-  GETUPVAL R6 0
-  GETUPVAL R11 1
-  GETTABLEKS R9 R11 K2 ["SettingsPrefix"]
-  MOVE R10 R4
-  CONCAT R8 R9 R10
-  MOVE R9 R5
-  NAMECALL R6 R6 K3 ["SetSetting"]
-  CALL R6 3 0
-  FORGLOOP R1 2 [-13]
-  RETURN R0 0
-
-PROTO_2:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["logEvent"]
-  CALL R0 2 0
-  GETUPVAL R0 2
-  LOADB R1 0
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_3:
-  GETUPVAL R1 0
-  GETUPVAL R3 1
-  MOVE R4 R0
-  NAMECALL R1 R1 K0 ["logEvent"]
-  CALL R1 3 0
-  GETUPVAL R1 2
-  MOVE R2 R0
-  CALL R1 1 0
-  GETUPVAL R1 3
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_4:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["logEvent"]
-  CALL R0 2 0
-  DUPTABLE R0 K5 [{"maxTriangles", "maxDrawCalls", "maxTotalTaskMs", "maxTotalRenderMs"}]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K6 ["defaultMaxTriangles"]
-  SETTABLEKS R1 R0 K1 ["maxTriangles"]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K7 ["defaultMaxDrawCalls"]
-  SETTABLEKS R1 R0 K2 ["maxDrawCalls"]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K8 ["defaultMaxTaskMs"]
-  SETTABLEKS R1 R0 K3 ["maxTotalTaskMs"]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K9 ["defaultMaxRenderMs"]
-  SETTABLEKS R1 R0 K4 ["maxTotalRenderMs"]
-  GETUPVAL R1 3
-  MOVE R2 R0
-  CALL R1 1 0
-  GETUPVAL R1 4
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_5:
   GETUPVAL R0 0
   GETUPVAL R2 1
   NAMECALL R0 R0 K0 ["logEvent"]
@@ -81,7 +8,7 @@ PROTO_5:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_1:
   GETUPVAL R0 0
   GETUPVAL R2 1
   NAMECALL R0 R0 K0 ["logEvent"]
@@ -92,7 +19,7 @@ PROTO_6:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useState"]
   LOADB R2 0
@@ -115,143 +42,71 @@ PROTO_7:
   CALL R7 0 2
   MOVE R9 R7
   CALL R9 0 1
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R8
-  NEWCLOSURE R11 P1
-  CAPTURE VAL R5
-  CAPTURE UPVAL U4
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K7 ["createElement"]
-  LOADK R13 K8 ["Frame"]
-  DUPTABLE R14 K12 [{"AutomaticSize", "Size", "BackgroundTransparency"}]
-  GETIMPORT R15 K15 [Enum.AutomaticSize.Y]
-  SETTABLEKS R15 R14 K9 ["AutomaticSize"]
-  GETIMPORT R15 K18 [UDim2.fromScale]
-  LOADN R16 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["createElement"]
+  LOADK R11 K8 ["Frame"]
+  DUPTABLE R12 K12 [{"AutomaticSize", "Size", "BackgroundTransparency"}]
+  GETIMPORT R13 K15 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K9 ["AutomaticSize"]
+  GETIMPORT R13 K18 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K10 ["Size"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K11 ["BackgroundTransparency"]
+  DUPTABLE R13 K20 [{"ThermometerWrapper"}]
+  JUMPIF R1 [+65]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K30 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "IsEditMode", "MicroprofilerVisible", "AutomaticGraphicsQuality", "OnOpenSettings", "OnToggleMicroprofiler"}]
+  GETTABLEKS R18 R9 K32 ["drawCallCount"]
+  ORK R17 R18 K31 [0]
+  SETTABLEKS R17 R16 K21 ["DrawCallCount"]
+  GETTABLEKS R18 R9 K33 ["triangleCount"]
+  ORK R17 R18 K31 [0]
+  SETTABLEKS R17 R16 K22 ["TriangleCount"]
+  GETTABLEKS R18 R9 K34 ["renderThreadAverageMs"]
+  ORK R17 R18 K31 [0]
+  SETTABLEKS R17 R16 K23 ["RenderThreadAverageMs"]
+  GETTABLEKS R18 R9 K35 ["taskThreadAverageMs"]
+  ORK R17 R18 K31 [0]
+  SETTABLEKS R17 R16 K24 ["TaskThreadAverageMs"]
+  GETTABLEKS R17 R9 K36 ["isEditDM"]
+  SETTABLEKS R17 R16 K25 ["IsEditMode"]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K37 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
+  CALL R18 0 1
+  JUMPIFNOT R18 [+3]
+  GETTABLEKS R17 R9 K38 ["microprofilerVisible"]
+  JUMPIF R17 [+1]
+  LOADB R17 0
+  SETTABLEKS R17 R16 K26 ["MicroprofilerVisible"]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K39 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
+  CALL R18 0 1
+  JUMPIFNOT R18 [+3]
+  GETTABLEKS R17 R9 K40 ["automaticGraphicsQuality"]
+  JUMPIF R17 [+1]
   LOADN R17 0
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K10 ["Size"]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K11 ["BackgroundTransparency"]
-  DUPTABLE R15 K21 [{"ThermometerSettings", "ThermometerWrapper"}]
-  JUMPIFNOT R1 [+76]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 5
-  DUPTABLE R18 K33 [{"MaxTriangles", "MaxDrawCalls", "MaxTotalTaskMs", "MaxTotalRenderMs", "DefaultMaxTriangles", "DefaultMaxDrawCalls", "DefaultMaxTaskMs", "DefaultMaxRenderMs", "OnCloseSettings", "OnSettingsUpdated", "OnResetToDefault"}]
-  GETTABLEKS R20 R9 K34 ["maxTriangles"]
-  FASTCALL1 TOSTRING R20 [+2]
-  GETIMPORT R19 K36 [tostring]
-  CALL R19 1 1
-  SETTABLEKS R19 R18 K22 ["MaxTriangles"]
-  GETTABLEKS R20 R9 K37 ["maxDrawCalls"]
-  FASTCALL1 TOSTRING R20 [+2]
-  GETIMPORT R19 K36 [tostring]
-  CALL R19 1 1
-  SETTABLEKS R19 R18 K23 ["MaxDrawCalls"]
-  GETTABLEKS R20 R9 K38 ["maxTotalTaskMs"]
-  FASTCALL1 TOSTRING R20 [+2]
-  GETIMPORT R19 K36 [tostring]
-  CALL R19 1 1
-  SETTABLEKS R19 R18 K24 ["MaxTotalTaskMs"]
-  GETTABLEKS R20 R9 K39 ["maxTotalRenderMs"]
-  FASTCALL1 TOSTRING R20 [+2]
-  GETIMPORT R19 K36 [tostring]
-  CALL R19 1 1
-  SETTABLEKS R19 R18 K25 ["MaxTotalRenderMs"]
-  GETTABLEKS R19 R9 K40 ["defaultMaxTriangles"]
-  SETTABLEKS R19 R18 K26 ["DefaultMaxTriangles"]
-  GETTABLEKS R19 R9 K41 ["defaultMaxDrawCalls"]
-  SETTABLEKS R19 R18 K27 ["DefaultMaxDrawCalls"]
-  GETTABLEKS R19 R9 K42 ["defaultMaxTaskMs"]
-  SETTABLEKS R19 R18 K28 ["DefaultMaxTaskMs"]
-  GETTABLEKS R19 R9 K43 ["defaultMaxRenderMs"]
-  SETTABLEKS R19 R18 K29 ["DefaultMaxRenderMs"]
-  NEWCLOSURE R19 P2
+  SETTABLEKS R17 R16 K27 ["AutomaticGraphicsQuality"]
+  NEWCLOSURE R17 P0
   CAPTURE VAL R3
   CAPTURE UPVAL U6
   CAPTURE VAL R2
-  SETTABLEKS R19 R18 K30 ["OnCloseSettings"]
-  NEWCLOSURE R19 P3
+  SETTABLEKS R17 R16 K28 ["OnOpenSettings"]
+  NEWCLOSURE R17 P1
   CAPTURE VAL R3
   CAPTURE UPVAL U7
-  CAPTURE VAL R11
-  CAPTURE VAL R8
-  SETTABLEKS R19 R18 K31 ["OnSettingsUpdated"]
-  NEWCLOSURE R19 P4
-  CAPTURE VAL R3
-  CAPTURE UPVAL U8
-  CAPTURE VAL R9
-  CAPTURE VAL R11
-  CAPTURE VAL R8
-  SETTABLEKS R19 R18 K32 ["OnResetToDefault"]
-  CALL R16 2 1
-  JUMPIF R16 [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K19 ["ThermometerSettings"]
-  JUMPIF R1 [+85]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 9
-  DUPTABLE R18 K53 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "MaxTotalTaskMs", "MaxTotalRenderMs", "MaxTriangles", "MaxDrawCalls", "IsEditMode", "MicroprofilerVisible", "AutomaticGraphicsQuality", "OnOpenSettings", "OnToggleMicroprofiler"}]
-  GETTABLEKS R20 R9 K55 ["drawCallCount"]
-  ORK R19 R20 K54 [0]
-  SETTABLEKS R19 R18 K44 ["DrawCallCount"]
-  GETTABLEKS R20 R9 K56 ["triangleCount"]
-  ORK R19 R20 K54 [0]
-  SETTABLEKS R19 R18 K45 ["TriangleCount"]
-  GETTABLEKS R20 R9 K57 ["renderThreadAverageMs"]
-  ORK R19 R20 K54 [0]
-  SETTABLEKS R19 R18 K46 ["RenderThreadAverageMs"]
-  GETTABLEKS R20 R9 K58 ["taskThreadAverageMs"]
-  ORK R19 R20 K54 [0]
-  SETTABLEKS R19 R18 K47 ["TaskThreadAverageMs"]
-  GETTABLEKS R20 R9 K38 ["maxTotalTaskMs"]
-  ORK R19 R20 K59 [1]
-  SETTABLEKS R19 R18 K24 ["MaxTotalTaskMs"]
-  GETTABLEKS R20 R9 K39 ["maxTotalRenderMs"]
-  ORK R19 R20 K59 [1]
-  SETTABLEKS R19 R18 K25 ["MaxTotalRenderMs"]
-  GETTABLEKS R20 R9 K34 ["maxTriangles"]
-  ORK R19 R20 K59 [1]
-  SETTABLEKS R19 R18 K22 ["MaxTriangles"]
-  GETTABLEKS R20 R9 K37 ["maxDrawCalls"]
-  ORK R19 R20 K59 [1]
-  SETTABLEKS R19 R18 K23 ["MaxDrawCalls"]
-  GETTABLEKS R19 R9 K60 ["isEditDM"]
-  SETTABLEKS R19 R18 K48 ["IsEditMode"]
-  GETUPVAL R21 10
-  GETTABLEKS R20 R21 K61 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
-  CALL R20 0 1
-  JUMPIFNOT R20 [+3]
-  GETTABLEKS R19 R9 K62 ["microprofilerVisible"]
-  JUMPIF R19 [+1]
-  LOADB R19 0
-  SETTABLEKS R19 R18 K49 ["MicroprofilerVisible"]
-  GETUPVAL R21 10
-  GETTABLEKS R20 R21 K63 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
-  CALL R20 0 1
-  JUMPIFNOT R20 [+3]
-  GETTABLEKS R19 R9 K64 ["automaticGraphicsQuality"]
-  JUMPIF R19 [+1]
-  LOADN R19 0
-  SETTABLEKS R19 R18 K50 ["AutomaticGraphicsQuality"]
-  NEWCLOSURE R19 P5
-  CAPTURE VAL R3
-  CAPTURE UPVAL U11
-  CAPTURE VAL R2
-  SETTABLEKS R19 R18 K51 ["OnOpenSettings"]
-  NEWCLOSURE R19 P6
-  CAPTURE VAL R3
-  CAPTURE UPVAL U12
   CAPTURE VAL R5
-  SETTABLEKS R19 R18 K52 ["OnToggleMicroprofiler"]
-  CALL R16 2 1
-  JUMPIF R16 [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K20 ["ThermometerWrapper"]
-  CALL R12 3 -1
-  RETURN R12 -1
+  SETTABLEKS R17 R16 K29 ["OnToggleMicroprofiler"]
+  CALL R14 2 1
+  JUMPIF R14 [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K19 ["ThermometerWrapper"]
+  CALL R10 3 -1
+  RETURN R10 -1
 
 MAIN:
   PREPVARARGS 0
@@ -274,79 +129,43 @@ MAIN:
   GETTABLEKS R5 R6 K12 ["MainThermometer"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Util"]
-  GETTABLEKS R6 R7 K14 ["ThermometerConstants"]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Util"]
+  GETTABLEKS R7 R8 K14 ["Telemetry"]
+  GETTABLEKS R6 R7 K15 ["TelemetryContext"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Components"]
-  GETTABLEKS R7 R8 K15 ["ThermometerSettings"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
   GETTABLEKS R11 R0 K10 ["Src"]
   GETTABLEKS R10 R11 K13 ["Util"]
-  GETTABLEKS R9 R10 K16 ["Telemetry"]
-  GETTABLEKS R8 R9 K17 ["TelemetryContext"]
+  GETTABLEKS R9 R10 K14 ["Telemetry"]
+  GETTABLEKS R8 R9 K16 ["Events"]
+  GETTABLEKS R7 R8 K17 ["OpenSettings"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K13 ["Util"]
+  GETTABLEKS R10 R11 K14 ["Telemetry"]
+  GETTABLEKS R9 R10 K16 ["Events"]
+  GETTABLEKS R8 R9 K18 ["ToggleMicroprofiler"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K13 ["Util"]
-  GETTABLEKS R11 R12 K16 ["Telemetry"]
-  GETTABLEKS R10 R11 K18 ["Events"]
-  GETTABLEKS R9 R10 K19 ["OpenSettings"]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K11 ["Components"]
+  GETTABLEKS R10 R11 K19 ["Contexts"]
+  GETTABLEKS R9 R10 K20 ["AssetDMDataManagerContext"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R14 R0 K10 ["Src"]
-  GETTABLEKS R13 R14 K13 ["Util"]
-  GETTABLEKS R12 R13 K16 ["Telemetry"]
-  GETTABLEKS R11 R12 K18 ["Events"]
-  GETTABLEKS R10 R11 K20 ["CloseSettings"]
+  GETTABLEKS R12 R0 K21 ["Bin"]
+  GETTABLEKS R11 R12 K22 ["Common"]
+  GETTABLEKS R10 R11 K23 ["DefineLuaFlags"]
   CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R15 R0 K10 ["Src"]
-  GETTABLEKS R14 R15 K13 ["Util"]
-  GETTABLEKS R13 R14 K16 ["Telemetry"]
-  GETTABLEKS R12 R13 K18 ["Events"]
-  GETTABLEKS R11 R12 K21 ["UpdateSettings"]
-  CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R16 R0 K10 ["Src"]
-  GETTABLEKS R15 R16 K13 ["Util"]
-  GETTABLEKS R14 R15 K16 ["Telemetry"]
-  GETTABLEKS R13 R14 K18 ["Events"]
-  GETTABLEKS R12 R13 K22 ["ResetToDefaultSettings"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R17 R0 K10 ["Src"]
-  GETTABLEKS R16 R17 K13 ["Util"]
-  GETTABLEKS R15 R16 K16 ["Telemetry"]
-  GETTABLEKS R14 R15 K18 ["Events"]
-  GETTABLEKS R13 R14 K23 ["ToggleMicroprofiler"]
-  CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R17 R0 K10 ["Src"]
-  GETTABLEKS R16 R17 K11 ["Components"]
-  GETTABLEKS R15 R16 K24 ["Contexts"]
-  GETTABLEKS R14 R15 K25 ["AssetDMDataManagerContext"]
-  CALL R13 1 1
-  GETIMPORT R14 K5 [require]
-  GETTABLEKS R17 R0 K26 ["Bin"]
-  GETTABLEKS R16 R17 K27 ["Common"]
-  GETTABLEKS R15 R16 K28 ["DefineLuaFlags"]
-  CALL R14 1 1
-  DUPCLOSURE R15 K29 [PROTO_7]
+  DUPCLOSURE R10 K24 [PROTO_2]
   CAPTURE VAL R1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CAPTURE VAL R13
   CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R11
-  CAPTURE VAL R4
-  CAPTURE VAL R14
+  CAPTURE VAL R3
   CAPTURE VAL R8
-  CAPTURE VAL R12
-  RETURN R15 1
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  RETURN R10 1

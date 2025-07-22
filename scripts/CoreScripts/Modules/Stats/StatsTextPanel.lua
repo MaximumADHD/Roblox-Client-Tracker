@@ -12,14 +12,17 @@
 
 --[[ Services ]]--
 local CoreGuiService = game:GetService('CoreGui')
+local CorePackages = game:GetService("CorePackages")
 
 --[[ Modules ]]--
 local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 local StatsAggregatorClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsAggregator)
 local DecoratedValueLabelClass = require(CoreGuiService.RobloxGui.Modules.Stats.DecoratedValueLabel)
 
---[[ FFlags ]]--
-local FFlagFixStatsViewerMissingMethod = require(CoreGuiService.RobloxGui.Modules.Flags.FFlagFixStatsViewerMissingMethod)
+local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
+
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
 
 --[[ Globals ]]--
 -- Positions
@@ -109,7 +112,8 @@ end
 -- TODO APPEXP-2201: Localize Text
 function StatsTextPanelClass:_addCurrentValueWidget()
 	self._currentValueWidget = DecoratedValueLabelClass.new(self._statType, 
-		"Current")
+		if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() and FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Current" else "Current"
+	)
 
 	self._currentValueWidget:PlaceInParent(self._frame, 
 		LegendItemValueSize, 
@@ -131,7 +135,8 @@ end
 
 function StatsTextPanelClass:_addTargetValueWidget()
 	self._targetValueWidget = DecoratedValueLabelClass.new(self._statType, 
-		"Target")
+		if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() and FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Target" else "Target"
+	)
 
 	self._targetValueWidget:PlaceInParent(self._frame, 
 		LegendItemValueSize, 
@@ -151,7 +156,8 @@ end
 
 function StatsTextPanelClass:_addAverageValueWidget()
 	self._averageValueWidget = DecoratedValueLabelClass.new(self._statType, 
-		"Average")
+		if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() and FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Average" else "Average"
+	)
 
 	self._averageValueWidget:PlaceInParent(self._frame, 
 		LegendItemValueSize, 
@@ -203,7 +209,6 @@ function StatsTextPanelClass:_shouldBeVisible()
 	end
 end
 
-
 function StatsTextPanelClass:_refreshVisibility()  
 	if self:_shouldBeVisible() then
 		self:_startListening()
@@ -213,10 +218,8 @@ function StatsTextPanelClass:_refreshVisibility()
 	end
 end
 
-if FFlagFixStatsViewerMissingMethod then
-	function StatsTextPanelClass:OnPerformanceStatsShouldBeVisibleChanged()
-		self:_refreshVisibility()
-	end
+function StatsTextPanelClass:OnPerformanceStatsShouldBeVisibleChanged()
+	self:_refreshVisibility()
 end
 
 function StatsTextPanelClass:_stopListening()

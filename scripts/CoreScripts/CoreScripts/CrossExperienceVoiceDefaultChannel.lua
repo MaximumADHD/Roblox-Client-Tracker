@@ -10,6 +10,8 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local FFlagEnableCEVErrorRCCTimeoutLogs =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableCEVErrorRCCTimeoutLogs
+local FFlagRecordTimestampforCEVEvents =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRecordTimestampforCEVEvents
 local function sendAnalyticsEvent(eventName: string, args: { [string]: any }?)
 	AnalyticsService:SendEventDeferred("client", "partyVoice", eventName, args or {})
 end
@@ -22,6 +24,7 @@ end
 if FFlagEnableCEVErrorRCCTimeoutLogs then
 	sendAnalyticsEvent("partyVoiceCEVChannelFileLoaded", {
 		userId = localUserId,
+		clientTimeStamp = if FFlagRecordTimestampforCEVEvents then os.time() else nil :: never,
 	})
 end
 
@@ -30,6 +33,7 @@ local PlayerAudioFocusChanged = ReplicatedStorage:WaitForChild("PlayerAudioFocus
 if FFlagEnableCEVErrorRCCTimeoutLogs then
 	sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedLoaded", {
 		userId = localUserId,
+		clientTimeStamp = if FFlagRecordTimestampforCEVEvents then os.time() else nil :: never,
 	})
 end
 
@@ -76,6 +80,8 @@ local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDef
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 local CevReadinessSync = game:GetEngineFeature("CevReadinessSync")
+
+local FFlagCevFixDuplicateObservers = game:DefineFastFlag("CevFixDuplicateObservers", false)
 
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local Analytics = VoiceChatCore.Analytics.new()
@@ -124,6 +130,7 @@ end
 if FFlagEnableCEVErrorRCCTimeoutLogs then
 	sendAnalyticsEvent("partyVoiceCrossExperienceReducerLoaded", {
 		userId = localUserId,
+		clientTimeStamp = if FFlagRecordTimestampforCEVEvents then os.time() else nil :: never,
 	})
 end
 
@@ -187,6 +194,7 @@ end
 if FFlagEnableCEVErrorRCCTimeoutLogs then
 	sendAnalyticsEvent("partyVoiceGameLoaded", {
 		userId = localUserId,
+		clientTimeStamp = if FFlagRecordTimestampforCEVEvents then os.time() else nil :: never,
 	})
 end
 
@@ -522,7 +530,20 @@ local function getPermissions(permissions): Promise<PermissionResult>
 	end)
 end
 
+
+local setupListenersInitialized = false
+
 local function setupListeners()
+	if FFlagCevFixDuplicateObservers and setupListenersInitialized then
+		log:debug("listeners already registered, skipping duplicate setup")
+		return
+	end
+
+	if FFlagCevFixDuplicateObservers then
+		setupListenersInitialized = true
+
+		log:debug("setting up listeners for the first time")
+	end
 	CoreVoiceManager:subscribe("GetPermissions", function(callback, permissions)
 		if FFlagFixPartyVoiceGetPermissions then
 			getPermissions(permissions):andThen(callback)
@@ -857,7 +878,11 @@ if CevReadinessSync then
 				log:info("Timed out waiting for readiness signal. Starting voice anyway.")
 				sendAnalyticsEvent(
 					"partyVoiceInitTimedOut",
-					{ userId = localUserId, timeout = FIntVoiceJoinTimeoutInSeconds }
+					{
+						userId = localUserId,
+						timeout = FIntVoiceJoinTimeoutInSeconds,
+						clientTimeStamp = if FFlagRecordTimestampforCEVEvents then os.time() else nil :: never,
+					}
 				)
 			end
 

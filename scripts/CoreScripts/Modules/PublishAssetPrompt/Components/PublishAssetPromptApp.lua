@@ -34,6 +34,7 @@ local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableS
 
 -- flagging roact gamepad for removal due to deprecation - focusNavigation will be used instead for engine navigation
 local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
+local FFlagPublishAssetPromptNoPromptNoRender = game:DefineFastFlag("PublishAssetPromptNoPromptNoRender", false)
 
 --Displays behind the in-game menu so that developers can't block interaction with the InGameMenu by constantly prompting.
 --The in-game menu displays at level 0, to render behind it we need to display at level -1.
@@ -93,53 +94,65 @@ function PublishAssetPromptApp:render()
 		end
 	end
 
-	return Roact.createElement("ScreenGui", {
-		IgnoreGuiInset = true,
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		AutoLocalize = false,
-		DisplayOrder = DISPLAY_ORDER,
+	return if FFlagPublishAssetPromptNoPromptNoRender and promptElement == nil
+		then nil
+		else Roact.createElement("ScreenGui", {
+			IgnoreGuiInset = true,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			AutoLocalize = false,
+			DisplayOrder = DISPLAY_ORDER,
 
-		[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
-	}, {
-		LastInputTypeConnection = Roact.createElement(ExternalEventConnection, {
-			event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
-			callback = function(lastInputType)
-				self:setState({
-					isGamepad = isGamepadInput(lastInputType),
-				})
-			end,
-		}),
-
-		PromptFrame = Roact.createElement(RoactGamepad.Focusable.Frame, {
-			BackgroundTransparency = 1,
-			Size = UDim2.fromScale(1, 1),
+			[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
 		}, {
-			CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-				FocusNavigationProvider = Roact.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
-					value = focusNavigationService,
-				}, {
-					FocusNavigationRegistryProvider = Roact.createElement(FocusNavigationRegistryProvider, nil, {
-						FocusNavigationCoreScriptsWrapper = Roact.createElement(
-							if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
-							if FFlagCSFocusWrapperRefactor
-								then {
-									surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-									isIsolated = true,
-									isAutoFocusRoot = true,
+			LastInputTypeConnection = Roact.createElement(ExternalEventConnection, {
+				event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
+				callback = function(lastInputType)
+					self:setState({
+						isGamepad = isGamepadInput(lastInputType),
+					})
+				end,
+			}),
+
+			PromptFrame = Roact.createElement(RoactGamepad.Focusable.Frame, {
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+			}, {
+				CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+					FocusNavigationProvider = Roact.createElement(
+						ReactFocusNavigation.FocusNavigationContext.Provider,
+						{
+							value = focusNavigationService,
+						},
+						{
+							FocusNavigationRegistryProvider = Roact.createElement(
+								FocusNavigationRegistryProvider,
+								nil,
+								{
+									FocusNavigationCoreScriptsWrapper = Roact.createElement(
+										if FFlagCSFocusWrapperRefactor
+											then FocusRoot
+											else FocusNavigationCoreScriptsWrapper,
+										if FFlagCSFocusWrapperRefactor
+											then {
+												surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+												isIsolated = true,
+												isAutoFocusRoot = true,
+											}
+											else {
+												selectionGroupName = SELECTION_GROUP_NAME,
+												focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+											},
+										{
+											Prompt = promptElement,
+										}
+									),
 								}
-								else {
-									selectionGroupName = SELECTION_GROUP_NAME,
-									focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-								},
-							{
-								Prompt = promptElement,
-							}
-						),
-					}),
+							),
+						}
+					),
 				}),
 			}),
-		}),
-	})
+		})
 end
 
 local function mapStateToProps(state)

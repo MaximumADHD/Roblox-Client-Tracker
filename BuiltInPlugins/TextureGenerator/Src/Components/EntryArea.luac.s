@@ -1020,7 +1020,7 @@ PROTO_17:
   GETUPVAL R34 0
   GETTABLEKS R33 R34 K22 ["createElement"]
   GETUPVAL R34 17
-  DUPTABLE R35 K128 [{"HorizontalAlignment", "Layout", "VerticalAlignment", "Spacing"}]
+  DUPTABLE R35 K128 [{"HorizontalAlignment", "Layout", "VerticalAlignment", "Spacing", "Size"}]
   GETIMPORT R36 K129 [Enum.HorizontalAlignment.Center]
   SETTABLEKS R36 R35 K124 ["HorizontalAlignment"]
   GETIMPORT R36 K132 [Enum.FillDirection.Vertical]
@@ -1034,6 +1034,18 @@ PROTO_17:
   JUMP [+1]
   LOADN R36 0
   SETTABLEKS R36 R35 K127 ["Spacing"]
+  GETUPVAL R37 8
+  CALL R37 0 1
+  JUMPIFNOT R37 [+8]
+  GETIMPORT R36 K52 [UDim2.new]
+  LOADN R37 1
+  LOADN R38 246
+  LOADN R39 1
+  LOADN R40 0
+  CALL R36 4 1
+  JUMP [+1]
+  LOADNIL R36
+  SETTABLEKS R36 R35 K38 ["Size"]
   MOVE R36 R27
   CALL R33 3 1
   SETTABLEKS R33 R32 K106 ["List"]

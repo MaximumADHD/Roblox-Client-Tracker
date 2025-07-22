@@ -12,14 +12,19 @@ local Components = script.Parent.Parent
 local TopBar = Components.Parent
 local Constants = require(TopBar.Constants)
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreGuiModules = RobloxGui:FindFirstChild("Modules")
+local CommonModules = CoreGuiModules:FindFirstChild("Common")
+local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
+
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
-local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
+local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -49,9 +54,9 @@ HealthBar.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 
 	screenSize = t.Vector2,
-	healthEnabled = t.boolean,
-	health = t.number,
-	maxHealth = t.number,
+	healthEnabled = if FFlagTopBarSignalizeHealthBar then nil else t.boolean,
+	health = if FFlagTopBarSignalizeHealthBar then nil else t.number,
+	maxHealth = if FFlagTopBarSignalizeHealthBar then nil else t.number,
 
 	setKeepOutArea = t.callback,
 	removeKeepOutArea = t.callback,
@@ -98,19 +103,97 @@ end
 
 function HealthBar:init()
 	self.rootRef = Roact.createRef()
+	if FFlagTopBarSignalizeHealthBar then
+		self.health, self.setHealth = Roact.createBinding(Constants.InitialHealth)
+		self.maxHealth, self.setMaxHealth = Roact.createBinding(Constants.InitialHealth)	
+		self.isDead, self.setIsDead = Roact.createBinding(false)
+		self.healthPercent = Roact.joinBindings({ self.health, self.maxHealth, self.isDead }):map(function(values) 
+			local health = values[1]
+			local maxHealth = values[2]
+			local isDead = values[3]
+
+			local healthPercent = 1
+			if isDead then
+				healthPercent = 0
+			elseif maxHealth > 0 then
+				healthPercent = health / maxHealth
+			end
+
+			return healthPercent
+		end)
+		self.healthVisible = Roact.joinBindings({ self.health, self.maxHealth }):map(function(values) 
+			return values[1] < values[2]
+		end)
+
+		local function getHealthEnabled()
+			return StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Health)
+		end
+
+		self.coreGuiChangedSignalConn = StarterGui.CoreGuiChangedSignal:Connect(
+			function(coreGuiType: Enum.CoreGuiType, enabled: boolean)
+				if coreGuiType == Enum.CoreGuiType.Health or coreGuiType == Enum.CoreGuiType.All then
+					if self.state.mountHealthBar ~= enabled then
+						self:setState({
+							mountHealthBar = enabled,
+						})
+					end
+				end
+			end
+		)
+		self:setState({
+			mountHealthBar = getHealthEnabled(),
+		})
+		HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
+			local healthChangedConn
+			local characterRemovingConn
+			local diedConn
+			local function disconnect()
+				healthChangedConn:Disconnect()
+				characterRemovingConn:Disconnect()
+				diedConn:Disconnect()
+			end
+			
+			self.setHealth(humanoid.Health)
+			self.setMaxHealth(humanoid.MaxHealth)
+			self.setIsDead(false)
+
+			healthChangedConn = humanoid.HealthChanged:Connect(function()
+				self.setHealth(humanoid.Health)
+				self.setMaxHealth(humanoid.MaxHealth)
+			end)
+
+			diedConn = humanoid.Died:Connect(function()
+				disconnect()
+				self.setIsDead(true)
+			end)
+
+			characterRemovingConn = player.CharacterRemoving:Connect(function(removedCharacter)
+				if removedCharacter == character then
+					disconnect()
+				end
+			end)
+		end)
+	end
 end
 
 function HealthBar:onUnmount()
+	if FFlagTopBarSignalizeHealthBar then 
+		self.coreGuiChangedSignalConn:Disconnect()
+	end
 end
-
 function HealthBar:renderHealth()
-	local healthVisible = self.props.healthEnabled and self.props.health < self.props.maxHealth
+	local healthVisible = nil
+	if not FFlagTopBarSignalizeHealthBar then 
+		healthVisible = self.props.healthEnabled and self.props.health < self.props.maxHealth
+	end
 
 	local healthPercent = 1
-	if self.props.isDead then
-		healthPercent = 0
-	elseif self.props.maxHealth > 0 then
-		healthPercent = self.props.health / self.props.maxHealth
+	if not FFlagTopBarSignalizeHealthBar then 
+		if self.props.isDead then
+			healthPercent = 0
+		elseif self.props.maxHealth > 0 then
+			healthPercent = self.props.health / self.props.maxHealth
+		end
 	end
 
 	local healthBarSize
@@ -158,7 +241,7 @@ function HealthBar:renderHealth()
 
 	local onAreaChanged = function(rbx)
 		if not UseUpdatedHealthBar then
-			if healthVisible and rbx then
+			if (FFlagTopBarSignalizeHealthBar and self.healthVisible or not FFlagTopBarSignalizeHealthBar and healthVisible) and rbx then
 				self.props.setKeepOutArea(Constants.HealthBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
 			else
 				self.props.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
@@ -172,11 +255,11 @@ function HealthBar:renderHealth()
 		end
 	end
 
-	local healthBarColor = getHealthBarColor(healthPercent)
+	local healthBarColor = if FFlagTopBarSignalizeHealthBar then self.healthPercent:map(getHealthBarColor) else getHealthBarColor(healthPercent)
 	return Roact.createElement("Frame", {
 		AnchorPoint = if UseUpdatedHealthBar then Vector2.new(1, 0) else nil,
 		Position = if UseUpdatedHealthBar then UDim2.new(1, 0, 0, 0) else nil,
-		Visible = healthVisible,
+		Visible = if FFlagTopBarSignalizeHealthBar then self.healthVisible else healthVisible,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(healthBarSize.X, UDim.new(1, 0)),
 		LayoutOrder = self.props.layoutOrder,
@@ -203,23 +286,29 @@ function HealthBar:renderHealth()
 				ImageColor3 = healthBarColor,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = sliceCenter,
-				Size = UDim2.fromScale(healthPercent, 1),
+				Size = if FFlagTopBarSignalizeHealthBar then self.healthPercent:map(function(healthPercent) 
+					return UDim2.fromScale(healthPercent, 1)
+				end) else UDim2.fromScale(healthPercent, 1),
 			}),
 		}),
 	})
 end
 
 function HealthBar:render()
+	if FFlagTopBarSignalizeHealthBar then
+		return if self.state.mountHealthBar then self:renderHealth() else nil
+	else
 		return self:renderHealth()
+	end
 end
 
 local function mapStateToProps(state)
-		return {
-			screenSize = state.displayOptions.screenSize,
-			health = state.health.currentHealth,
-			maxHealth = state.health.maxHealth,
-			healthEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Health],
-		}
+	return {
+		screenSize = state.displayOptions.screenSize,
+		health = if FFlagTopBarSignalizeHealthBar then nil else state.health.currentHealth,
+		maxHealth = if FFlagTopBarSignalizeHealthBar then nil else state.health.maxHealth,
+		healthEnabled = if FFlagTopBarSignalizeHealthBar then nil else state.coreGuiEnabled[Enum.CoreGuiType.Health],
+	}
 end
 
 local function mapDispatchToProps(dispatch)

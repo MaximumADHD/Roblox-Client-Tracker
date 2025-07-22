@@ -23,6 +23,7 @@ local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinI
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagEnableJoinVoiceOnUnibar = SharedFlags.GetFFlagEnableJoinVoiceOnUnibar
 local FFlagChromeCentralizedShortcutConfig = SharedFlags.FFlagChromeCentralizedShortcutConfig
+local GetFFlagSongbirdCleanupExperiment = SharedFlags.GetFFlagSongbirdCleanupExperiment
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -96,8 +97,14 @@ local function configureUnibar()
 	-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
 	-- selene: allow(denylist_filter)
 	local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
-	if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
-		table.insert(nineDot, 4, "music_entrypoint")
+	if GetFFlagSongbirdCleanupExperiment() then
+		if isNotVROrConsole then
+			table.insert(nineDot, 4, "music_entrypoint")
+		end
+	else
+		if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
+			table.insert(nineDot, 4, "music_entrypoint")
+		end
 	end
 
 	ChromeService:configureSubMenu("nine_dot", nineDot)

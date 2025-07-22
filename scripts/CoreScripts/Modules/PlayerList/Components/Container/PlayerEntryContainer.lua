@@ -45,10 +45,15 @@ type PlayerEntryContainerProps = {
 	openDropdown: ((Player) -> ())?,
 	closeDropdown: (() -> ())?,
 	setDropDownPlayerDimensionY: ((vec2: Vector2) -> ())?,
+
+	-- Focus nav data
+	prevFocusedEntry: React.RefObject<GuiObject?>?,
+	destroyedFocusedPlayerId: React.RefObject<number?>?,
 	
 	-- Device type
 	isSmallTouchDevice: boolean?,
 	isDirectionalPreferred: boolean?,
+
 }
 
 local function PlayerEntryContainer(props: PlayerEntryContainerProps)
@@ -83,6 +88,8 @@ local function PlayerEntryContainer(props: PlayerEntryContainerProps)
 				openDropdown = props.openDropdown,
 				closeDropdown = props.closeDropdown,
 				setDropDownPlayerDimensionY = props.setDropDownPlayerDimensionY,
+				prevFocusedEntry = props.prevFocusedEntry,
+				destroyedFocusedPlayerId = props.destroyedFocusedPlayerId,
 				isSmallTouchDevice = props.isSmallTouchDevice,
 				isDirectionalPreferred = props.isDirectionalPreferred,
 			})

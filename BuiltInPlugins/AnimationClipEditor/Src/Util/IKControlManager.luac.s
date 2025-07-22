@@ -30,10 +30,10 @@ PROTO_0:
   LOADK R5 K12 ["HumanoidRigDescription was not initialized correctly"]
   GETIMPORT R3 K4 [assert]
   CALL R3 2 0
+  SETTABLEKS R0 R2 K13 ["Parent"]
   MOVE R5 R0
-  NAMECALL R3 R2 K13 ["Automap"]
+  NAMECALL R3 R2 K14 ["Automap"]
   CALL R3 2 0
-  SETTABLEKS R0 R2 K14 ["Parent"]
   DUPTABLE R4 K20 [{"_model", "_ikControls", "_attachments", "_selectedPart", "_hrd"}]
   SETTABLEKS R0 R4 K15 ["_model"]
   NEWTABLE R5 0 0

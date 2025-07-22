@@ -76,6 +76,7 @@ local FFlagFixSTUXShowingIncorrectly = game:DefineFastFlag("FixSTUXShowingIncorr
 local FFlagSendUserConnectionStatus = game:DefineFastFlag("SendUserConnectionStatus", false)
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
 local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
+local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermissionPromptDeeplink", false)
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
@@ -132,7 +133,7 @@ local SeamlessVoiceStatus = require(RobloxGui.Modules.Settings.Enum.SeamlessVoic
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local GetFFlagVoiceChatClientRewriteMasterLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteMasterLua
-local GetFFlagVoiceChatClientRewriteDisableVCSDevice = 
+local GetFFlagVoiceChatClientRewriteDisableVCSDevice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteDisableVCSDevice
 local GetFFlagEnableSeamlessVoiceV2 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSeamlessVoiceV2
 local GetFFlagDisconnectToastClientRewrite =
@@ -627,10 +628,10 @@ function VoiceChatServiceManager.new(
 		if GetFFlagEnableVoiceChatMuteForVideoCaptures() and self.CaptureService:IsCapturingVideo() then
 			if GetFFlagEnableCrossExperienceVoiceCaptureMute() then
 				GlobalVoiceManager:MuteAll("Capture")
-        self:HideVoiceUI()
+				self:HideVoiceUI()
 			else
 				self:MuteAll(true, "Capture")
-        self:HideVoiceUI()
+				self:HideVoiceUI()
 			end
 		end
 
@@ -1302,7 +1303,9 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 						self.Analytics:reportAcknowledgedNudge(self:GetNudgeAnalyticsData())
 					end
 					elseif
-						GetFFlagJoinWithoutMicPermissions() and promptType == VoiceChatPromptType.Permission
+						not FFlagDisablePermissionPromptDeeplink
+						and GetFFlagJoinWithoutMicPermissions()
+						and promptType == VoiceChatPromptType.Permission
 					then function()
 						local settingsAppAvailable = LinkingProtocol:supportsSwitchToSettingsApp():await()
 						log:debug("Settings app available: {}", settingsAppAvailable)

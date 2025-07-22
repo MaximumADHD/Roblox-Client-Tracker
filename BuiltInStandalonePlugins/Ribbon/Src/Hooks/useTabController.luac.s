@@ -3,7 +3,7 @@ PROTO_0:
   NAMECALL R0 R0 K0 ["GetUri"]
   CALL R0 1 1
   GETUPVAL R1 1
-  NEWTABLE R2 0 7
+  NEWTABLE R2 0 8
   DUPTABLE R3 K3 [{"Id", "Text"}]
   LOADK R4 K4 ["Hide"]
   SETTABLEKS R4 R3 K1 ["Id"]
@@ -59,7 +59,7 @@ PROTO_0:
   CALL R9 2 1
   SETTABLEKS R9 R8 K13 ["Action"]
   DUPTABLE R9 K14 [{"Id", "Action"}]
-  LOADK R10 K22 ["ShowHideLabels"]
+  LOADK R10 K22 ["CompactDensity"]
   SETTABLEKS R10 R9 K1 ["Id"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K16 ["join"]
@@ -67,11 +67,24 @@ PROTO_0:
   DUPTABLE R12 K19 [{"Category", "ItemId"}]
   LOADK R13 K20 ["Actions"]
   SETTABLEKS R13 R12 K17 ["Category"]
-  LOADK R13 K22 ["ShowHideLabels"]
+  LOADK R13 K22 ["CompactDensity"]
   SETTABLEKS R13 R12 K18 ["ItemId"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K13 ["Action"]
-  SETLIST R2 R3 7 [1]
+  DUPTABLE R10 K14 [{"Id", "Action"}]
+  LOADK R11 K23 ["ShowHideLabels"]
+  SETTABLEKS R11 R10 K1 ["Id"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K16 ["join"]
+  MOVE R12 R0
+  DUPTABLE R13 K19 [{"Category", "ItemId"}]
+  LOADK R14 K20 ["Actions"]
+  SETTABLEKS R14 R13 K17 ["Category"]
+  LOADK R14 K23 ["ShowHideLabels"]
+  SETTABLEKS R14 R13 K18 ["ItemId"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Action"]
+  SETLIST R2 R3 8 [1]
   CALL R1 1 -1
   RETURN R1 -1
 
@@ -80,7 +93,7 @@ PROTO_1:
   NAMECALL R0 R0 K0 ["GetUri"]
   CALL R0 1 1
   GETUPVAL R1 1
-  NEWTABLE R2 0 9
+  NEWTABLE R2 0 10
   DUPTABLE R3 K3 [{"Id", "Text"}]
   LOADK R4 K4 ["Rename"]
   SETTABLEKS R4 R3 K1 ["Id"]
@@ -140,7 +153,7 @@ PROTO_1:
   CALL R11 2 1
   SETTABLEKS R11 R10 K13 ["Action"]
   DUPTABLE R11 K14 [{"Id", "Action"}]
-  LOADK R12 K22 ["ShowHideLabels"]
+  LOADK R12 K22 ["CompactDensity"]
   SETTABLEKS R12 R11 K1 ["Id"]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K16 ["join"]
@@ -148,11 +161,24 @@ PROTO_1:
   DUPTABLE R14 K19 [{"Category", "ItemId"}]
   LOADK R15 K20 ["Actions"]
   SETTABLEKS R15 R14 K17 ["Category"]
-  LOADK R15 K22 ["ShowHideLabels"]
+  LOADK R15 K22 ["CompactDensity"]
   SETTABLEKS R15 R14 K18 ["ItemId"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K13 ["Action"]
-  SETLIST R2 R3 9 [1]
+  DUPTABLE R12 K14 [{"Id", "Action"}]
+  LOADK R13 K23 ["ShowHideLabels"]
+  SETTABLEKS R13 R12 K1 ["Id"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K16 ["join"]
+  MOVE R14 R0
+  DUPTABLE R15 K19 [{"Category", "ItemId"}]
+  LOADK R16 K20 ["Actions"]
+  SETTABLEKS R16 R15 K17 ["Category"]
+  LOADK R16 K23 ["ShowHideLabels"]
+  SETTABLEKS R16 R15 K18 ["ItemId"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K13 ["Action"]
+  SETLIST R2 R3 10 [1]
   CALL R1 1 -1
   RETURN R1 -1
 

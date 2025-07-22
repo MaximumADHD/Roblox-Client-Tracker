@@ -8,11 +8,11 @@ local GetFFlagAppChatAddConnectUnibarForActiveSquad =
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
-
 local registerConnectIntegration = require(script.Parent.registerConnectIntegration)
 local isConnectUnibarEnabled = require(script.Parent.isConnectUnibarEnabled)
 local isConnectDropdownEnabled = require(script.Parent.isConnectDropdownEnabled)
+
+local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
 -- "Connect_Unibar" icon and option are used to open AppChat (InExperienceAppChat)
 -- It will also serve as an entry point for Party
@@ -26,7 +26,7 @@ if isConnectUnibarEnabled() then
 	--   see logic below
 
 	local currentIntegrationSoleyForParty = GetFFlagAppChatAddConnectUnibarForActiveSquad()
-		and SquadExperimentation.getSquadEntrypointsEnabled()
+		and GetFFlagIsSquadEnabled()
 		and isConnectDropdownEnabled()
 	integration = registerConnectIntegration(
 		"connect_unibar",

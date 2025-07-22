@@ -32,7 +32,7 @@ local PreparePaymentCheck = IAPExperience.PreparePaymentCheck
 local GetFFlagEnableConsolePreparePaymentCheck = IAPExperience.GetEnableConsolePreparePaymentCheck
 
 local SelectedRobuxPackage = require(Root.Utils.SelectedRobuxPackage)
-local DesktopUpsellExperiment = require(Root.Utils.DesktopUpsellExperiment)
+local DesktopUpsellExperiment = IAPExperience.Utility.DesktopUpsellExperiment
 
 local requiredServices = {
 	Analytics,
@@ -108,11 +108,8 @@ local function launchRobuxUpsell()
 				local context = {
 					analyticId = state.purchaseFlowUUID,
 				}
-				local upsellExpVariant = DesktopUpsellExperiment.variants.Control
-				if state.abVariations and state.abVariations.DesktopUpsellExpVariant then
-					upsellExpVariant = state.abVariations.DesktopUpsellExpVariant
-				end
 				-- Gate experiment logic on there being a variation
+				local upsellExpVariant = DesktopUpsellExperiment.getVariant()
 				if upsellExpVariant == DesktopUpsellExperiment.variants.OpenRobuxStore then
 					platformInterface.openRobuxStoreWithContext(context, SelectedRobuxPackage.getProductId(state))
 				elseif upsellExpVariant == DesktopUpsellExperiment.variants.OpenPaymentsPage then

@@ -35,6 +35,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
 local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
+local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -246,6 +247,7 @@ function PlayerListApp:render()
 			childElements["PlayerScrollList"] = Roact.createElement(if FFlagUseNewPlayerList then PlayerListDisplayContainer else PlayerListSorter, {
 				screenSizeY = self.props.screenSizeY,
 				entrySize = entrySize,
+				isVisible = if FFlagAddNewPlayerListFocusNav then self.props.displayOptions.isVisible else nil,
 			})
 		end
 		childElements["EventConnections"] = Roact.createElement(EventConnections)

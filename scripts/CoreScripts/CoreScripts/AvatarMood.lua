@@ -7,6 +7,7 @@
 ]]--
 game:DefineFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator", false)
 game:DefineFastFlag("AvatarMoodValidateMoodAnimation", false)
+game:DefineFastFlag("AvatarMoodWaitForAnimateInitDone", false)
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -219,14 +220,29 @@ local function updateCharacterMoodOnAnimatorAdded(character, moodAnimation, huma
 	currentMoodTrack = animator:LoadAnimation(currentMoodAnimationInstance)
 	currentMoodTrack.Priority = currentMoodTrackPriority
 
-	if currentEmoteTrack == nil then
-		currentMoodTrack:Play()
+	if game:GetFastFlag("AvatarMoodWaitForAnimateInitDone") then
+		--note: this wait is needed because Animate script has code in it to stop all animation tracks in it initially
+		--and we don't want the mood track to get stopped right on/before even playing
+		task.delay(0.1, function()
+			if currentEmoteTrack == nil then
+				currentMoodTrack:Play()
+			end
+
+			-- listen for emotes
+			disconnectAndRemoveConnection(Connection.EmoteTriggered)
+
+			connections[Connection.EmoteTriggered] = humanoid.EmoteTriggered:Connect(onEmoteTriggered)
+		end)		
+	else
+		if currentEmoteTrack == nil then
+			currentMoodTrack:Play()
+		end
+
+		-- listen for emotes
+		disconnectAndRemoveConnection(Connection.EmoteTriggered)
+
+		connections[Connection.EmoteTriggered] = humanoid.EmoteTriggered:Connect(onEmoteTriggered)
 	end
-
-	-- listen for emotes
-	disconnectAndRemoveConnection(Connection.EmoteTriggered)
-
-	connections[Connection.EmoteTriggered] = humanoid.EmoteTriggered:Connect(onEmoteTriggered)
 end
 
 local function updateCharacterMoodOnHumanoidAdded(character, moodAnimation, humanoid)

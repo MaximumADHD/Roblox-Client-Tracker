@@ -5,6 +5,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local TopBar = script.Parent.Parent
 
 local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
+local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
 
 local CoreGuiConnector = require(script.CoreGuiConnector)
 local MenuConnector = require(script.MenuConnector)
@@ -21,7 +22,7 @@ function Connection:render()
 		CoreGuiConnector = Roact.createElement(CoreGuiConnector),
 		MenuConnector = Roact.createElement(MenuConnector),
 		ChatConnector = Roact.createElement(ChatConnector),
-		HealthConnector = Roact.createElement(HealthConnector),
+		HealthConnector = if FFlagTopBarSignalizeHealthBar then nil else Roact.createElement(HealthConnector),
 		EnabledNotifier = Roact.createElement(EnabledNotifier),
 		OpenUIConnector = Roact.createElement(OpenUIConnector),
 		LastInputTypeConnector = if FFlagRemoveTopBarInputTypeRodux then nil else Roact.createElement(LastInputTypeConnector),

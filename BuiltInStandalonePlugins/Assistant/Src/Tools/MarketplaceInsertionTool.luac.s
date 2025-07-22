@@ -197,31 +197,34 @@ PROTO_7:
   GETTABLEKS R1 R2 K0 ["query"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["tag"]
-  DUPTABLE R3 K7 [{"type", "name", "tag", "assetIds", "expanded", "onSelectionChange"}]
+  DUPTABLE R3 K8 [{"type", "name", "tag", "className", "assetIds", "expanded", "onSelectionChange"}]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["Type"]
+  GETTABLEKS R4 R5 K9 ["Type"]
   SETTABLEKS R4 R3 K2 ["type"]
   SETTABLEKS R1 R3 K3 ["name"]
   SETTABLEKS R2 R3 K1 ["tag"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K9 ["assets"]
-  SETTABLEKS R4 R3 K4 ["assetIds"]
+  GETTABLEKS R4 R5 K4 ["className"]
+  SETTABLEKS R4 R3 K4 ["className"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K10 ["assets"]
+  SETTABLEKS R4 R3 K5 ["assetIds"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K5 ["expanded"]
+  SETTABLEKS R4 R3 K6 ["expanded"]
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U2
   CAPTURE UPVAL U0
-  SETTABLEKS R4 R3 K6 ["onSelectionChange"]
+  SETTABLEKS R4 R3 K7 ["onSelectionChange"]
   GETUPVAL R4 3
-  DUPTABLE R5 K12 [{"messageId", "content"}]
-  SETTABLEKS R0 R5 K10 ["messageId"]
-  SETTABLEKS R3 R5 K11 ["content"]
+  DUPTABLE R5 K13 [{"messageId", "content"}]
+  SETTABLEKS R0 R5 K11 ["messageId"]
+  SETTABLEKS R3 R5 K12 ["content"]
   CALL R4 1 1
   GETUPVAL R5 4
   LOADNIL R6
-  DUPTABLE R7 K14 [{"messageId", "contentId", "name", "tag"}]
-  SETTABLEKS R0 R7 K10 ["messageId"]
-  SETTABLEKS R4 R7 K13 ["contentId"]
+  DUPTABLE R7 K15 [{"messageId", "contentId", "name", "tag"}]
+  SETTABLEKS R0 R7 K11 ["messageId"]
+  SETTABLEKS R4 R7 K14 ["contentId"]
   SETTABLEKS R1 R7 K3 ["name"]
   SETTABLEKS R2 R7 K1 ["tag"]
   CALL R5 2 0
@@ -277,7 +280,8 @@ PROTO_9:
   CALL R4 1 0
   MOVE R4 R3
   MOVE R5 R2
-  RETURN R4 2
+  GETTABLEKS R6 R1 K14 ["ClassName"]
+  RETURN R4 3
 
 PROTO_10:
   GETTABLEKS R2 R1 K0 ["query"]
@@ -341,32 +345,33 @@ PROTO_10:
   CAPTURE VAL R2
   MOVE R9 R8
   MOVE R10 R7
-  CALL R9 1 2
-  MOVE R11 R6
-  LOADNIL R12
+  CALL R9 1 3
+  MOVE R12 R6
   LOADNIL R13
-  FORGPREP R11
-  GETIMPORT R16 K26 [task.spawn]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K27 ["loadAssetAsync"]
-  MOVE R18 R15
-  CALL R16 2 0
-  FORGLOOP R11 2 [-8]
-  DUPTABLE R11 K29 [{"result", "responseInfo"}]
-  DUPTABLE R12 K32 [{"primaryResult", "secondaryResults"}]
-  DUPTABLE R13 K35 [{"assetId", "insertGuid"}]
-  SETTABLEKS R7 R13 K33 ["assetId"]
+  LOADNIL R14
+  FORGPREP R12
+  GETIMPORT R17 K26 [task.spawn]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K27 ["loadAssetAsync"]
+  MOVE R19 R16
+  CALL R17 2 0
+  FORGLOOP R12 2 [-8]
+  DUPTABLE R12 K29 [{"result", "responseInfo"}]
+  DUPTABLE R13 K32 [{"primaryResult", "secondaryResults"}]
+  DUPTABLE R14 K35 [{"assetId", "insertGuid"}]
+  SETTABLEKS R7 R14 K33 ["assetId"]
+  SETTABLEKS R10 R14 K34 ["insertGuid"]
+  SETTABLEKS R14 R13 K30 ["primaryResult"]
+  SETTABLEKS R6 R13 K31 ["secondaryResults"]
+  SETTABLEKS R13 R12 K15 ["result"]
+  DUPTABLE R13 K39 [{"assets", "tag", "query", "insertGuid", "className"}]
+  SETTABLEKS R5 R13 K36 ["assets"]
+  SETTABLEKS R9 R13 K37 ["tag"]
+  SETTABLEKS R2 R13 K0 ["query"]
   SETTABLEKS R10 R13 K34 ["insertGuid"]
-  SETTABLEKS R13 R12 K30 ["primaryResult"]
-  SETTABLEKS R6 R12 K31 ["secondaryResults"]
-  SETTABLEKS R12 R11 K15 ["result"]
-  DUPTABLE R12 K38 [{"assets", "tag", "query", "insertGuid"}]
-  SETTABLEKS R5 R12 K36 ["assets"]
-  SETTABLEKS R9 R12 K37 ["tag"]
-  SETTABLEKS R2 R12 K0 ["query"]
-  SETTABLEKS R10 R12 K34 ["insertGuid"]
-  SETTABLEKS R12 R11 K28 ["responseInfo"]
-  RETURN R11 1
+  SETTABLEKS R11 R13 K38 ["className"]
+  SETTABLEKS R13 R12 K28 ["responseInfo"]
+  RETURN R12 1
 
 PROTO_11:
   GETUPVAL R1 0
@@ -389,11 +394,18 @@ PROTO_11:
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
   CALL R3 2 0
-  GETUPVAL R2 6
-  GETTABLEKS R4 R1 K6 ["result"]
-  NAMECALL R2 R2 K7 ["JSONEncode"]
-  CALL R2 2 -1
-  RETURN R2 -1
+  GETUPVAL R3 6
+  GETTABLEKS R2 R3 K6 ["toString"]
+  GETTABLEKS R3 R1 K7 ["result"]
+  CALL R2 1 1
+  GETUPVAL R3 7
+  CALL R3 0 1
+  MOVE R5 R2
+  NAMECALL R3 R3 K8 ["addText"]
+  CALL R3 2 1
+  NAMECALL R3 R3 K9 ["build"]
+  CALL R3 1 -1
+  RETURN R3 -1
 
 PROTO_12:
   GETUPVAL R0 0
@@ -459,57 +471,60 @@ MAIN:
   GETTABLEKS R14 R15 K30 ["Translator"]
   GETTABLEKS R16 R5 K16 ["Util"]
   GETTABLEKS R15 R16 K31 ["ToolBuilder"]
-  GETTABLEKS R16 R6 K32 ["get"]
-  CALL R16 0 1
-  NEWTABLE R17 0 0
-  DUPCLOSURE R18 K33 [PROTO_0]
+  GETTABLEKS R17 R5 K16 ["Util"]
+  GETTABLEKS R16 R17 K32 ["ToolResult"]
+  GETTABLEKS R17 R6 K33 ["get"]
+  CALL R17 0 1
+  NEWTABLE R18 0 0
+  DUPCLOSURE R19 K34 [PROTO_0]
   CAPTURE VAL R3
-  LOADK R21 K34 ["MarketplaceInsertionTool_updateContentName"]
-  DUPCLOSURE R22 K35 [PROTO_2]
+  LOADK R22 K35 ["MarketplaceInsertionTool_updateContentName"]
+  DUPCLOSURE R23 K36 [PROTO_2]
   CAPTURE VAL R10
-  NAMECALL R19 R16 K36 ["OnGuestEvent"]
-  CALL R19 3 1
-  LOADK R22 K37 ["MarketplaceInsertionTool_listenToTagChanges"]
-  DUPCLOSURE R23 K38 [PROTO_5]
+  NAMECALL R20 R17 K37 ["OnGuestEvent"]
+  CALL R20 3 1
+  LOADK R23 K38 ["MarketplaceInsertionTool_listenToTagChanges"]
+  DUPCLOSURE R24 K39 [PROTO_5]
   CAPTURE VAL R1
   CAPTURE VAL R14
-  CAPTURE VAL R19
-  CAPTURE VAL R17
-  NAMECALL R20 R16 K39 ["OnHostEvent"]
-  CALL R20 3 1
-  DUPCLOSURE R21 K40 [PROTO_8]
+  CAPTURE VAL R20
+  CAPTURE VAL R18
+  NAMECALL R21 R17 K40 ["OnHostEvent"]
+  CALL R21 3 1
+  DUPCLOSURE R22 K41 [PROTO_8]
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R7
   CAPTURE VAL R9
-  CAPTURE VAL R20
-  LOADK R24 K41 ["MarketplaceInsertionTool_insertFromMarketplace"]
-  DUPCLOSURE R25 K42 [PROTO_10]
+  CAPTURE VAL R21
+  LOADK R25 K42 ["MarketplaceInsertionTool_insertFromMarketplace"]
+  DUPCLOSURE R26 K43 [PROTO_10]
   CAPTURE VAL R2
   CAPTURE VAL R1
   CAPTURE VAL R13
-  CAPTURE VAL R18
-  NAMECALL R22 R16 K43 ["OnHostInvokeAsync"]
-  CALL R22 3 1
-  DUPCLOSURE R23 K44 [PROTO_11]
-  CAPTURE VAL R22
+  CAPTURE VAL R19
+  NAMECALL R23 R17 K44 ["OnHostInvokeAsync"]
+  CALL R23 3 1
+  DUPCLOSURE R24 K45 [PROTO_11]
+  CAPTURE VAL R23
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R7
   CAPTURE VAL R9
-  CAPTURE VAL R20
-  CAPTURE VAL R2
-  GETTABLEKS R24 R16 K45 ["Destroying"]
-  DUPCLOSURE R26 K46 [PROTO_12]
-  CAPTURE VAL R17
-  NAMECALL R24 R24 K47 ["Connect"]
-  CALL R24 2 0
-  GETTABLEKS R24 R15 K48 ["define"]
-  CALL R24 0 1
-  LOADK R26 K49 ["insert_from_marketplace"]
-  NAMECALL R24 R24 K50 ["setName"]
-  CALL R24 2 1
-  LOADK R26 K51 ["Inserts a model from the Roblox marketplace into the game. 
+  CAPTURE VAL R21
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  GETTABLEKS R25 R17 K46 ["Destroying"]
+  DUPCLOSURE R27 K47 [PROTO_12]
+  CAPTURE VAL R18
+  NAMECALL R25 R25 K48 ["Connect"]
+  CALL R25 2 0
+  GETTABLEKS R25 R15 K49 ["define"]
+  CALL R25 0 1
+  LOADK R27 K50 ["insert_from_marketplace"]
+  NAMECALL R25 R25 K51 ["setName"]
+  CALL R25 2 1
+  LOADK R27 K52 ["Inserts a model from the Roblox marketplace into the game. 
 Returns the inserted asset ID, a unique GUID to use for the asset in subsequent commands, and a list of other asset IDs that were found in the search. 
 
 The inserted model will be tagged with the GUID, prefixed with 'Assistant:'. 
@@ -522,27 +537,27 @@ For example:
 	instances[1].Pivot = CFrame.new(0, 0, 0)
 will move the model to the origin.
 "]
-  NAMECALL R24 R24 K52 ["setDescription"]
-  CALL R24 2 1
-  LOADK R26 K53 ["query"]
-  DUPTABLE R27 K56 [{"type", "description"}]
-  LOADK R28 K57 ["string"]
-  SETTABLEKS R28 R27 K54 ["type"]
-  LOADK R28 K58 ["The name of the asset to insert."]
-  SETTABLEKS R28 R27 K55 ["description"]
-  NAMECALL R24 R24 K59 ["addArgument"]
-  CALL R24 3 1
-  LOADK R26 K60 ["tag"]
-  DUPTABLE R27 K56 [{"type", "description"}]
-  LOADK R28 K57 ["string"]
-  SETTABLEKS R28 R27 K54 ["type"]
-  LOADK R28 K61 ["Tag of a reference asset to clone, rather than downloading from the marketplace. Tag was likely generated in a previous marketplace insertion request."]
-  SETTABLEKS R28 R27 K55 ["description"]
-  NAMECALL R24 R24 K62 ["addOptionalArgument"]
-  CALL R24 3 1
-  MOVE R26 R23
-  NAMECALL R24 R24 K63 ["setHandler"]
-  CALL R24 2 1
-  NAMECALL R24 R24 K64 ["build"]
-  CALL R24 1 -1
-  RETURN R24 -1
+  NAMECALL R25 R25 K53 ["setDescription"]
+  CALL R25 2 1
+  LOADK R27 K54 ["query"]
+  DUPTABLE R28 K57 [{"type", "description"}]
+  LOADK R29 K58 ["string"]
+  SETTABLEKS R29 R28 K55 ["type"]
+  LOADK R29 K59 ["The name of the asset to insert."]
+  SETTABLEKS R29 R28 K56 ["description"]
+  NAMECALL R25 R25 K60 ["addArgument"]
+  CALL R25 3 1
+  LOADK R27 K61 ["tag"]
+  DUPTABLE R28 K57 [{"type", "description"}]
+  LOADK R29 K58 ["string"]
+  SETTABLEKS R29 R28 K55 ["type"]
+  LOADK R29 K62 ["Tag of a reference asset to clone, rather than downloading from the marketplace. Tag was likely generated in a previous marketplace insertion request."]
+  SETTABLEKS R29 R28 K56 ["description"]
+  NAMECALL R25 R25 K63 ["addOptionalArgument"]
+  CALL R25 3 1
+  MOVE R27 R24
+  NAMECALL R25 R25 K64 ["setHandler"]
+  CALL R25 2 1
+  NAMECALL R25 R25 K65 ["build"]
+  CALL R25 1 -1
+  RETURN R25 -1

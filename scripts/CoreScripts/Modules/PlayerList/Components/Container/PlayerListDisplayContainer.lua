@@ -13,6 +13,8 @@ local useLeaderboardStore = PlayerListPackage.Hooks.useLeaderboardStore
 local PlayerListDisplayView = require(PlayerList.Components.PresentationCommon.PlayerListDisplayView)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
+local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+
 type PlayerListDisplayViewProps = PlayerListDisplayView.PlayerListDisplayViewProps
 
 type LeaderboardStore = LeaderboardStore.LeaderboardStore
@@ -93,7 +95,7 @@ local function mapStateToProps(state)
 	local isMinimized = state.displayOptions.isMinimized
 
 	return {
-		isVisible = state.displayOptions.isVisible,
+		isVisible = if FFlagAddNewPlayerListFocusNav then nil else state.displayOptions.isVisible,
 		isMinimized = isMinimized,
 		isDirectionalPreferred = state.displayOptions.isTenFootInterface,
 		isUsingGamepad = state.displayOptions.isUsingGamepad,

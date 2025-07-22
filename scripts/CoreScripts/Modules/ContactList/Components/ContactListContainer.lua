@@ -59,8 +59,6 @@ local PHONEBOOK_CONTAINER_TOP_MARGIN = PHONEBOOK_CONTAINER_MARGIN + TopBarConsta
 -- calculate the content size
 local PEEK_HEADER_HEIGHT = 25
 
-local FFlagContactListPeekViewFixEnabled = game:DefineFastFlag("ContactListPeekViewFixEnabled", false)
-
 local function ContactListContainer()
 	local analytics = useAnalytics()
 	local style = useStyle()
@@ -253,21 +251,17 @@ local function ContactListContainer()
 					else UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
 				AutoButtonColor = false,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
-				BackgroundTransparency = if FFlagContactListPeekViewFixEnabled
-					then theme.BackgroundDefault.Transparency
-					else nil,
-				BorderSizePixel = if FFlagContactListPeekViewFixEnabled then 0 else nil,
+				BackgroundTransparency = theme.BackgroundDefault.Transparency,
+				BorderSizePixel = 0,
 				ref = contactListContainerRef,
 			}, {
-				UICorner = if FFlagContactListPeekViewFixEnabled and isSmallScreen
+				UICorner = if isSmallScreen
 					then nil
 					else React.createElement("UICorner", {
 						CornerRadius = UDim.new(0, 12),
 					}),
 				UIPadding = React.createElement("UIPadding", {
-					PaddingTop = if not FFlagContactListPeekViewFixEnabled and isSmallScreen
-						then UDim.new(0, 0)
-						else UDim.new(0, PADDING),
+					PaddingTop = UDim.new(0, PADDING),
 				}),
 				Layout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,

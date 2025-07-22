@@ -1,0 +1,6 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K1 [{"TCEnabledKey"}]
+  LOADK R1 K2 ["TCEnabled"]
+  SETTABLEKS R1 R0 K0 ["TCEnabledKey"]
+  RETURN R0 1

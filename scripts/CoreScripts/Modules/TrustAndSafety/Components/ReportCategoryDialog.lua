@@ -35,8 +35,6 @@ local Assets = require(TnsModule.Resources.Assets)
 local GameCell = require(TnsModule.Components.GameCell)
 local BarOnTopScrollingFrame = require(Dependencies.BarOnTopScrollingFrame)
 local Cell = UIBlox.App.Table.Cell
-local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local StyleProvider = UIBlox.Core.Style.Provider
 local withStyle = UIBlox.Core.Style.withStyle
 local Colors = UIBlox.App.Style.Colors
@@ -145,7 +143,6 @@ local function CategoryCell(props)
 	return Roact.createElement(Cell, {
 		userInteractionEnabled = true,
 		onActivated = props.onActivated,
-		SelectionImageObject = useSelectionCursor(CursorKind.Square),
 		layoutOrder = props.layoutOrder,
 		size = UDim2.new(1, 0, 0, CELL_HEIGHT),
 		head = CategoryCellContent(props),

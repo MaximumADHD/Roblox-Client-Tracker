@@ -30,6 +30,8 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 local FFlagRemoveHardCodedFriendLimitPrompt = require(CoreGuiModules.Flags.FFlagRemoveHardCodedFriendLimitPrompt)
 
+local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
+
 local THUMBNAIL_SIZE = 200
 local BUST_THUMBNAIL_SIZE = 420
 
@@ -118,7 +120,13 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 					local mainText = string.format("You can not send a friend request to %s because they are at the max friend limit.",  playerToFriend.Name)
 
 					if FFlagUseNotificationsLocalization then
-						mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit",mainText),"{RBX_NAME}",playerToFriend.Name)
+						mainText = string.gsub(LocalizedGetString(
+							if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
+								"InGame.FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit" 
+							else
+								"FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit",
+								mainText
+							),"{RBX_NAME}",playerToFriend.Name)
 					end
 
 					PromptCreator:CreatePrompt({
@@ -141,7 +149,13 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 
                         local mainText = string.format("An error occurred while sending %s a friend request. Please try again later.", playerToFriend.Name)
 						if FFlagUseNotificationsLocalization then
-							mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.UnknownError",mainText),"{RBX_NAME}",playerToFriend.Name)
+							mainText = string.gsub(LocalizedGetString(
+								if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
+									"InGame.FriendPlayerPrompt.promptCompletedCallback.UnknownError" 
+								else 
+									"FriendPlayerPrompt.promptCompletedCallback.UnknownError",
+									mainText
+								),"{RBX_NAME}",playerToFriend.Name)
 						end
 
 						PromptCreator:CreatePrompt({
@@ -164,11 +178,19 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 	local mainText = string.format("Would you like to send %s a Friend Request?", playerToFriend.Name)
 
 	if FFlagUseNotificationsLocalization then
-		mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.DoPromptRequestFriendPlayer",mainText),"{RBX_NAME}",playerToFriend.Name)
+		mainText = string.gsub(LocalizedGetString(
+			if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
+				"InGame.FriendPlayerPrompt.DoPromptRequestFriendPlayer" 
+			else 
+				"FriendPlayerPrompt.DoPromptRequestFriendPlayer",
+				mainText
+			),"{RBX_NAME}",playerToFriend.Name)
 	end
 
 	PromptCreator:CreatePrompt({
-		WindowTitle = "Send Friend Request?",
+		WindowTitle = if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
+			RobloxTranslator:FormatByKey("InGame.FriendPlayerPrompt.Title.SendFriendRequest") else
+			"Send Friend Request?",
 		MainText = mainText,
 		ConfirmationText = "Send Request",
 		CancelText = "Cancel",
@@ -223,7 +245,13 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 
 				local mainText = string.format("An error occurred while unfriending %s. Please try again later.", playerToUnfriend.Name)
 				if FFlagUseNotificationsLocalization then
-					mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.UnknownError",mainText),"{RBX_NAME}",playerToUnfriend.Name)
+					mainText = string.gsub(LocalizedGetString(
+						if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
+							"InGame.FriendPlayerPrompt.promptCompletedCallback.UnknownError" 
+						else 
+							"FriendPlayerPrompt.promptCompletedCallback.UnknownError",
+							mainText
+						),"{RBX_NAME}",playerToUnfriend.Name)
 				end
 
 				PromptCreator:CreatePrompt({
@@ -243,7 +271,13 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 
 	local mainText = string.format("Would you like to remove %s from your friends list?", playerToUnfriend.Name)
 	if FFlagUseNotificationsLocalization then
-		mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.DoPromptUnfriendPlayer",mainText),"{RBX_NAME}",playerToUnfriend.Name)
+		mainText = string.gsub(LocalizedGetString(
+			if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
+				"InGame.FriendPlayerPrompt.DoPromptUnfriendPlayer" 
+			else 
+				"FriendPlayerPrompt.DoPromptUnfriendPlayer",
+				mainText
+			),"{RBX_NAME}",playerToUnfriend.Name)
 	end
 
 	PromptCreator:CreatePrompt({

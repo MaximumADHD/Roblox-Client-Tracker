@@ -9,13 +9,6 @@ PROTO_0:
   JUMPIFNOT R1 [+2]
   LOADB R1 0
   RETURN R1 1
-  GETIMPORT R1 K8 [game]
-  LOADK R3 K9 ["EnableTagEditorPlugin7"]
-  NAMECALL R1 R1 K10 ["GetFastFlag"]
-  CALL R1 2 1
-  JUMPIF R1 [+2]
-  LOADB R1 0
-  RETURN R1 1
   LOADB R1 1
   RETURN R1 1
 

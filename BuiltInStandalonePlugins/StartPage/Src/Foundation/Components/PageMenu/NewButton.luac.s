@@ -1,0 +1,236 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  LOADN R3 0
+  LOADB R4 0
+  NAMECALL R0 R0 K0 ["openPlace"]
+  CALL R0 4 0
+  GETUPVAL R0 2
+  JUMPIFNOT R0 [+15]
+  GETUPVAL R0 3
+  GETUPVAL R2 4
+  DUPTABLE R3 K4 [{"telemetryType", "telemetrySubtype", "action"}]
+  LOADK R4 K5 ["interaction"]
+  SETTABLEKS R4 R3 K1 ["telemetryType"]
+  LOADK R4 K6 ["place_open"]
+  SETTABLEKS R4 R3 K2 ["telemetrySubtype"]
+  LOADK R4 K7 ["new_file"]
+  SETTABLEKS R4 R3 K3 ["action"]
+  NAMECALL R0 R0 K8 ["log"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R4 3
+  CALL R4 0 1
+  GETUPVAL R5 4
+  LOADK R6 K1 ["PointingHand"]
+  CALL R5 1 1
+  LOADK R8 K2 ["Plugin"]
+  LOADK R9 K3 ["NewExperience"]
+  NAMECALL R6 R2 K4 ["getText"]
+  CALL R6 3 1
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R8 6
+  DUPTABLE R9 K10 [{"LayoutOrder", "onActivated", "onStateChanged", "tag"}]
+  GETTABLEKS R10 R0 K6 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K6 ["LayoutOrder"]
+  NEWCLOSURE R10 P0
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  CAPTURE VAL R1
+  CAPTURE UPVAL U10
+  SETTABLEKS R10 R9 K7 ["onActivated"]
+  SETTABLEKS R5 R9 K8 ["onStateChanged"]
+  LOADK R10 K11 ["row align-x-left align-y-center radius-medium padding-medium gap-medium auto-xy"]
+  SETTABLEKS R10 R9 K9 ["tag"]
+  DUPTABLE R10 K14 [{"PlusIcon", "Text"}]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R12 6
+  DUPTABLE R13 K15 [{"LayoutOrder", "tag"}]
+  MOVE R14 R3
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K6 ["LayoutOrder"]
+  LOADK R14 K16 ["padding-xsmall radius-circle bg-system-emphasis row align-x-center align-y-center auto-xy"]
+  SETTABLEKS R14 R13 K9 ["tag"]
+  GETUPVAL R15 11
+  JUMPIFNOT R15 [+28]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K5 ["createElement"]
+  GETUPVAL R15 12
+  DUPTABLE R16 K21 [{"name", "size", "variant", "contentStyle"}]
+  LOADK R17 K22 ["plus-small"]
+  SETTABLEKS R17 R16 K17 ["name"]
+  GETUPVAL R18 13
+  GETTABLEKS R17 R18 K23 ["Small"]
+  SETTABLEKS R17 R16 K18 ["size"]
+  GETUPVAL R18 14
+  GETTABLEKS R17 R18 K24 ["Filled"]
+  SETTABLEKS R17 R16 K19 ["variant"]
+  GETTABLEKS R19 R4 K25 ["Color"]
+  GETTABLEKS R18 R19 K26 ["ActionEmphasis"]
+  GETTABLEKS R17 R18 K27 ["Foreground"]
+  SETTABLEKS R17 R16 K20 ["contentStyle"]
+  CALL R14 2 1
+  JUMP [+20]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K5 ["createElement"]
+  GETUPVAL R15 15
+  DUPTABLE R16 K30 [{"Image", "tag", "imageStyle"}]
+  LOADK R17 K31 ["icons/common/plus"]
+  SETTABLEKS R17 R16 K28 ["Image"]
+  LOADK R17 K32 ["size-400 content-emphasis"]
+  SETTABLEKS R17 R16 K9 ["tag"]
+  GETTABLEKS R19 R4 K25 ["Color"]
+  GETTABLEKS R18 R19 K26 ["ActionEmphasis"]
+  GETTABLEKS R17 R18 K27 ["Foreground"]
+  SETTABLEKS R17 R16 K29 ["imageStyle"]
+  CALL R14 2 1
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K12 ["PlusIcon"]
+  GETTABLEKS R12 R0 K33 ["isCollapsed"]
+  JUMPIFNOT R12 [+2]
+  LOADNIL R11
+  JUMP [+15]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R12 16
+  DUPTABLE R13 K34 [{"Text", "LayoutOrder", "tag"}]
+  SETTABLEKS R6 R13 K13 ["Text"]
+  MOVE R14 R3
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K6 ["LayoutOrder"]
+  LOADK R14 K35 ["text-align-x-left auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R14 R13 K9 ["tag"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Text"]
+  CALL R7 3 1
+  GETTABLEKS R8 R0 K33 ["isCollapsed"]
+  JUMPIFNOT R8 [+19]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R9 17
+  DUPTABLE R10 K38 [{"title", "align", "LayoutOrder"}]
+  SETTABLEKS R6 R10 K36 ["title"]
+  GETUPVAL R12 18
+  GETTABLEKS R11 R12 K39 ["Center"]
+  SETTABLEKS R11 R10 K37 ["align"]
+  GETTABLEKS R11 R0 K6 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K6 ["LayoutOrder"]
+  MOVE R11 R7
+  CALL R8 3 -1
+  RETURN R8 -1
+  RETURN R7 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K9 ["ContextServices"]
+  GETTABLEKS R3 R4 K10 ["Localization"]
+  GETTABLEKS R5 R2 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["counter"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K13 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Util"]
+  GETTABLEKS R6 R7 K14 ["Foundation"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K15 ["View"]
+  GETTABLEKS R7 R5 K16 ["Image"]
+  GETTABLEKS R8 R5 K17 ["Text"]
+  GETTABLEKS R9 R5 K18 ["Icon"]
+  GETTABLEKS R10 R5 K19 ["Tooltip"]
+  GETTABLEKS R12 R5 K20 ["Enums"]
+  GETTABLEKS R11 R12 K21 ["PopoverAlign"]
+  GETTABLEKS R13 R5 K20 ["Enums"]
+  GETTABLEKS R12 R13 K22 ["IconSize"]
+  GETTABLEKS R14 R5 K23 ["Hooks"]
+  GETTABLEKS R13 R14 K24 ["useTokens"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R16 R0 K6 ["Packages"]
+  GETTABLEKS R15 R16 K25 ["BuilderIcons"]
+  CALL R14 1 1
+  GETTABLEKS R15 R14 K26 ["IconVariant"]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K13 ["Src"]
+  GETTABLEKS R18 R19 K23 ["Hooks"]
+  GETTABLEKS R17 R18 K27 ["useOnStateChangedCursor"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K13 ["Src"]
+  GETTABLEKS R19 R20 K11 ["Util"]
+  GETTABLEKS R18 R19 K28 ["Services"]
+  CALL R17 1 1
+  GETTABLEKS R18 R17 K29 ["StartPageManager"]
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K13 ["Src"]
+  GETTABLEKS R21 R22 K30 ["SharedFlags"]
+  GETTABLEKS R20 R21 K31 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
+  CALL R19 1 1
+  CALL R19 0 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K13 ["Src"]
+  GETTABLEKS R22 R23 K30 ["SharedFlags"]
+  GETTABLEKS R21 R22 K32 ["getFFlagLuaStartPageBuilderIcons"]
+  CALL R20 1 1
+  CALL R20 0 1
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R25 R0 K13 ["Src"]
+  GETTABLEKS R24 R25 K11 ["Util"]
+  GETTABLEKS R23 R24 K33 ["Telemetry"]
+  GETTABLEKS R22 R23 K34 ["TelemetryContext"]
+  CALL R21 1 1
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R26 R0 K13 ["Src"]
+  GETTABLEKS R25 R26 K11 ["Util"]
+  GETTABLEKS R24 R25 K33 ["Telemetry"]
+  GETTABLEKS R23 R24 K35 ["StartPageTelemetryEvent"]
+  CALL R22 1 1
+  GETIMPORT R23 K5 [require]
+  GETTABLEKS R26 R0 K13 ["Src"]
+  GETTABLEKS R25 R26 K30 ["SharedFlags"]
+  GETTABLEKS R24 R25 K36 ["getFStringStudioDefaultNewTemplatePlaceId"]
+  CALL R23 1 1
+  CALL R23 0 1
+  DUPCLOSURE R24 K37 [PROTO_1]
+  CAPTURE VAL R21
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R18
+  CAPTURE VAL R23
+  CAPTURE VAL R19
+  CAPTURE VAL R22
+  CAPTURE VAL R20
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  RETURN R24 1

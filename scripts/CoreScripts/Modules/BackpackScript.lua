@@ -8,11 +8,20 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local Modules = RobloxGui.Modules
+local Signals = require(CorePackages.Packages.Signals)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
-local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
+local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
+
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
+
+local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
@@ -105,12 +114,16 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local GameTranslator = require(Modules.GameTranslator)
 
 pcall(function()
-	local LocalizationService = game:GetService("LocalizationService")
-	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-	SEARCH_TEXT = CorescriptLocalization:GetString(
-		LocalizationService.RobloxLocaleId,
-		"BACKPACK_SEARCH"
-	)
+	if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
+		SEARCH_TEXT = RobloxTranslator:FormatByKey("InGame.UnknownNamespace.BACKPACK_SEARCH")
+	else
+		local LocalizationService = game:GetService("LocalizationService")
+		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+		SEARCH_TEXT = CorescriptLocalization:GetString(
+			LocalizationService.RobloxLocaleId,
+			"BACKPACK_SEARCH"
+		)
+	end
 end)
 
 local TopbarEnabled = true
@@ -1860,6 +1873,15 @@ function BackpackScript:TopbarEnabledChanged(enabled)
 	TopbarEnabled = enabled
 	-- Update coregui to reflect new topbar status
 	OnCoreGuiChanged(Enum.CoreGuiType.Backpack, StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Backpack))
+end
+
+if FFlagTopBarSignalizeSetCores then 
+	BackpackScript.disposeEffect = Signals.createEffect(function(scope)
+		local getTopBarStore = CoreGuiCommon.Stores.GetTopBarStore
+		if getTopBarStore then
+			BackpackScript:TopbarEnabledChanged(getTopBarStore(scope).getTopBarCoreGuiEnabled(scope))
+		end
+	end)
 end
 
 -- Listen to enable/disable signals from the StarterGui

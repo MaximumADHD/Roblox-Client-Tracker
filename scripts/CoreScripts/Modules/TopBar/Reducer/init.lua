@@ -4,6 +4,8 @@ local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperi
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
 local createPersistenceMiddleware = CrossExperience.Middlewares.createPersistenceMiddleware
 
+local TopBar = script.Parent
+local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
 
 local DisplayOptions = require(script.DisplayOptions)
@@ -17,7 +19,7 @@ local GameInfo = require(script.GameInfo)
 local reducers = {
 	displayOptions = DisplayOptions,
 	coreGuiEnabled = CoreGuiEnabled,
-	health = Health,
+	health = if FFlagTopBarSignalizeHealthBar then nil else Health,
 	moreMenu = MoreMenu,
 	chat = Chat,
 	respawn = Respawn,

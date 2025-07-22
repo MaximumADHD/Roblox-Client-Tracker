@@ -59,6 +59,12 @@ PROTO_4:
   RETURN R1 1
 
 PROTO_5:
+  GETUPVAL R0 0
+  LOADNIL R1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
   NEWTABLE R4 0 0
   MOVE R5 R1
   GETTABLEKS R6 R0 K0 ["Guid"]
@@ -128,7 +134,7 @@ PROTO_5:
   FORNLOOP R16
   RETURN R4 2
 
-PROTO_6:
+PROTO_7:
   JUMPIFEQKNIL R0 [+5]
   JUMPIFEQKNIL R1 [+3]
   JUMPIFNOTEQKNIL R2 [+3]
@@ -152,7 +158,7 @@ PROTO_6:
   LOADB R3 1
   RETURN R3 1
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R1 0
   GETUPVAL R2 1
   JUMPIFEQ R1 R2 [+2]
@@ -227,7 +233,7 @@ PROTO_7:
   CALL R5 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   JUMPIFNOTEQKN R0 K0 [0] [+6]
   GETUPVAL R2 0
   NEWTABLE R3 0 0
@@ -325,7 +331,7 @@ PROTO_8:
   CALL R8 2 -1
   RETURN R8 -1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R1 0
   GETUPVAL R2 1
   JUMPIFEQ R1 R2 [+2]
@@ -361,7 +367,7 @@ PROTO_9:
   RETURN R1 -1
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   LOADN R2 1
   LOADN R5 1
   GETUPVAL R8 0
@@ -446,7 +452,7 @@ PROTO_10:
   CALL R5 -1 -1
   RETURN R5 -1
 
-PROTO_11:
+PROTO_12:
   LOADN R1 1
   LOADN R4 1
   GETUPVAL R7 0
@@ -485,7 +491,7 @@ PROTO_11:
   LOADB R2 0
   RETURN R2 1
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["create"]
   LOADN R1 0
@@ -542,8 +548,10 @@ PROTO_12:
   CAPTURE VAL R10
   NEWCLOSURE R25 P4
   CAPTURE VAL R10
-  DUPCLOSURE R26 K1 [PROTO_5]
-  NEWCLOSURE R27 P6
+  NEWCLOSURE R26 P5
+  CAPTURE VAL R15
+  DUPCLOSURE R27 K1 [PROTO_6]
+  NEWCLOSURE R28 P7
   CAPTURE UPVAL U2
   CAPTURE VAL R0
   CAPTURE VAL R1
@@ -551,7 +559,7 @@ PROTO_12:
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
-  NEWCLOSURE R28 P7
+  NEWCLOSURE R29 P8
   CAPTURE VAL R16
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
@@ -570,40 +578,41 @@ PROTO_12:
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R26
-  NEWCLOSURE R29 P8
+  CAPTURE VAL R27
+  NEWCLOSURE R30 P9
   CAPTURE VAL R16
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE REF R19
-  CAPTURE VAL R28
-  DUPTABLE R30 K26 [{"totalNumElementsObservable", "totalNumResultsObservable", "totalNumScriptsObservable", "resultsObservable", "setResults", "collapsedFilesObservable", "setCollapsedFiles", "hoveredObservable", "setHovered", "selectedIdObservable", "setSelectedId", "scrollHeightObservable", "setScrollHeight", "fetchAroundVisibleIndex", "maybeRefetchAroundVisibleIndex", "queryIdObservable", "setQueryId", "isCollapsed", "collapseFile", "expandFile", "expandAllFiles", "getCollapsedFiles", "flattenFileEntry", "updatePageMetadata"}]
-  SETTABLEKS R0 R30 K2 ["totalNumElementsObservable"]
-  SETTABLEKS R2 R30 K3 ["totalNumResultsObservable"]
-  SETTABLEKS R4 R30 K4 ["totalNumScriptsObservable"]
-  SETTABLEKS R8 R30 K5 ["resultsObservable"]
-  SETTABLEKS R9 R30 K6 ["setResults"]
-  SETTABLEKS R10 R30 K7 ["collapsedFilesObservable"]
-  SETTABLEKS R11 R30 K8 ["setCollapsedFiles"]
-  SETTABLEKS R12 R30 K9 ["hoveredObservable"]
-  SETTABLEKS R13 R30 K10 ["setHovered"]
-  SETTABLEKS R14 R30 K11 ["selectedIdObservable"]
-  SETTABLEKS R15 R30 K12 ["setSelectedId"]
-  SETTABLEKS R16 R30 K13 ["scrollHeightObservable"]
-  SETTABLEKS R17 R30 K14 ["setScrollHeight"]
-  SETTABLEKS R28 R30 K15 ["fetchAroundVisibleIndex"]
-  SETTABLEKS R29 R30 K16 ["maybeRefetchAroundVisibleIndex"]
-  SETTABLEKS R6 R30 K17 ["queryIdObservable"]
-  SETTABLEKS R7 R30 K18 ["setQueryId"]
-  SETTABLEKS R24 R30 K19 ["isCollapsed"]
-  SETTABLEKS R21 R30 K20 ["collapseFile"]
-  SETTABLEKS R22 R30 K21 ["expandFile"]
-  SETTABLEKS R23 R30 K22 ["expandAllFiles"]
-  SETTABLEKS R25 R30 K23 ["getCollapsedFiles"]
-  SETTABLEKS R26 R30 K24 ["flattenFileEntry"]
-  SETTABLEKS R27 R30 K25 ["updatePageMetadata"]
+  CAPTURE VAL R29
+  DUPTABLE R31 K27 [{"totalNumElementsObservable", "totalNumResultsObservable", "totalNumScriptsObservable", "resultsObservable", "setResults", "collapsedFilesObservable", "setCollapsedFiles", "hoveredObservable", "setHovered", "selectedObservable", "setSelected", "scrollHeightObservable", "setScrollHeight", "fetchAroundVisibleIndex", "maybeRefetchAroundVisibleIndex", "queryIdObservable", "setQueryId", "isCollapsed", "collapseFile", "expandFile", "expandAllFiles", "getCollapsedFiles", "clearSelection", "flattenFileEntry", "updatePageMetadata"}]
+  SETTABLEKS R0 R31 K2 ["totalNumElementsObservable"]
+  SETTABLEKS R2 R31 K3 ["totalNumResultsObservable"]
+  SETTABLEKS R4 R31 K4 ["totalNumScriptsObservable"]
+  SETTABLEKS R8 R31 K5 ["resultsObservable"]
+  SETTABLEKS R9 R31 K6 ["setResults"]
+  SETTABLEKS R10 R31 K7 ["collapsedFilesObservable"]
+  SETTABLEKS R11 R31 K8 ["setCollapsedFiles"]
+  SETTABLEKS R12 R31 K9 ["hoveredObservable"]
+  SETTABLEKS R13 R31 K10 ["setHovered"]
+  SETTABLEKS R14 R31 K11 ["selectedObservable"]
+  SETTABLEKS R15 R31 K12 ["setSelected"]
+  SETTABLEKS R16 R31 K13 ["scrollHeightObservable"]
+  SETTABLEKS R17 R31 K14 ["setScrollHeight"]
+  SETTABLEKS R29 R31 K15 ["fetchAroundVisibleIndex"]
+  SETTABLEKS R30 R31 K16 ["maybeRefetchAroundVisibleIndex"]
+  SETTABLEKS R6 R31 K17 ["queryIdObservable"]
+  SETTABLEKS R7 R31 K18 ["setQueryId"]
+  SETTABLEKS R24 R31 K19 ["isCollapsed"]
+  SETTABLEKS R21 R31 K20 ["collapseFile"]
+  SETTABLEKS R22 R31 K21 ["expandFile"]
+  SETTABLEKS R23 R31 K22 ["expandAllFiles"]
+  SETTABLEKS R25 R31 K23 ["getCollapsedFiles"]
+  SETTABLEKS R26 R31 K24 ["clearSelection"]
+  SETTABLEKS R27 R31 K25 ["flattenFileEntry"]
+  SETTABLEKS R28 R31 K26 ["updatePageMetadata"]
   CLOSEUPVALS R18
-  RETURN R30 1
+  RETURN R31 1
 
 MAIN:
   PREPVARARGS 0
@@ -645,7 +654,7 @@ MAIN:
   GETTABLEKS R10 R0 K6 ["Src"]
   GETTABLEKS R9 R10 K18 ["Types"]
   CALL R8 1 1
-  DUPCLOSURE R9 K19 [PROTO_12]
+  DUPCLOSURE R9 K19 [PROTO_13]
   CAPTURE VAL R3
   CAPTURE VAL R7
   CAPTURE VAL R5

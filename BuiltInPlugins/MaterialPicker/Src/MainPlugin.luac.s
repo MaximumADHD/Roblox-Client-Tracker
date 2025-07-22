@@ -421,47 +421,57 @@ PROTO_19:
 
 PROTO_20:
   GETUPVAL R0 0
-  DUPTABLE R2 K6 [{"Uri", "Enabled", "Text", "Tooltip", "IsCheckable", "Checked"}]
-  DUPTABLE R3 K11 [{"DataModel", "PluginId", "Category", "ItemId"}]
-  LOADK R4 K12 ["Standalone"]
-  SETTABLEKS R4 R3 K7 ["DataModel"]
-  LOADK R4 K13 ["MaterialPicker"]
-  SETTABLEKS R4 R3 K8 ["PluginId"]
-  LOADK R4 K14 ["Actions"]
-  SETTABLEKS R4 R3 K9 ["Category"]
-  LOADK R4 K15 ["MaterialPickerDropdown"]
-  SETTABLEKS R4 R3 K10 ["ItemId"]
+  DUPTABLE R2 K7 [{"Uri", "Enabled", "Text", "Tooltip", "IsCheckable", "Checkable", "Checked"}]
+  DUPTABLE R3 K12 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R4 K13 ["Standalone"]
+  SETTABLEKS R4 R3 K8 ["DataModel"]
+  LOADK R4 K14 ["MaterialPicker"]
+  SETTABLEKS R4 R3 K9 ["PluginId"]
+  LOADK R4 K15 ["Actions"]
+  SETTABLEKS R4 R3 K10 ["Category"]
+  LOADK R4 K16 ["MaterialPickerDropdown"]
+  SETTABLEKS R4 R3 K11 ["ItemId"]
   SETTABLEKS R3 R2 K0 ["Uri"]
   LOADB R3 1
   SETTABLEKS R3 R2 K1 ["Enabled"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K16 ["localization"]
-  LOADK R5 K17 ["Plugin"]
-  LOADK R6 K18 ["Button"]
-  NAMECALL R3 R3 K19 ["getText"]
+  GETTABLEKS R3 R4 K17 ["localization"]
+  LOADK R5 K18 ["Plugin"]
+  LOADK R6 K19 ["Button"]
+  NAMECALL R3 R3 K20 ["getText"]
   CALL R3 3 1
   SETTABLEKS R3 R2 K2 ["Text"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K16 ["localization"]
-  LOADK R5 K17 ["Plugin"]
-  LOADK R6 K20 ["Description"]
-  NAMECALL R3 R3 K19 ["getText"]
+  GETTABLEKS R3 R4 K17 ["localization"]
+  LOADK R5 K18 ["Plugin"]
+  LOADK R6 K21 ["Description"]
+  NAMECALL R3 R3 K20 ["getText"]
   CALL R3 3 1
   SETTABLEKS R3 R2 K3 ["Tooltip"]
+  GETUPVAL R4 2
+  JUMPIFNOT R4 [+2]
+  LOADNIL R3
+  JUMP [+1]
   LOADB R3 1
   SETTABLEKS R3 R2 K4 ["IsCheckable"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K5 ["Checked"]
+  GETUPVAL R4 2
+  JUMPIFNOT R4 [+2]
   LOADB R3 1
-  NAMECALL R0 R0 K21 ["CreateAsync"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K5 ["Checkable"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K6 ["Checked"]
+  LOADB R3 1
+  NAMECALL R0 R0 K22 ["CreateAsync"]
   CALL R0 3 1
   GETUPVAL R1 1
   GETTABLEN R2 R0 1
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U1
-  NAMECALL R2 R2 K22 ["Connect"]
+  NAMECALL R2 R2 K23 ["Connect"]
   CALL R2 2 1
-  SETTABLEKS R2 R1 K23 ["activatedConnection"]
+  SETTABLEKS R2 R1 K24 ["activatedConnection"]
   RETURN R0 0
 
 PROTO_21:
@@ -643,7 +653,7 @@ PROTO_21:
   SETTABLEKS R2 R0 K69 ["themeTable"]
   GETUPVAL R2 4
   CALL R2 0 1
-  JUMPIFNOT R2 [+13]
+  JUMPIFNOT R2 [+14]
   GETUPVAL R3 20
   GETTABLEKS R2 R3 K70 ["Parent"]
   LOADK R4 K71 ["Actions"]
@@ -653,6 +663,7 @@ PROTO_21:
   NEWCLOSURE R4 P14
   CAPTURE VAL R2
   CAPTURE VAL R0
+  CAPTURE UPVAL U21
   CALL R3 1 0
   RETURN R0 0
 
@@ -1181,27 +1192,31 @@ MAIN:
   LOADK R30 K45 ["EnableRibbonPlugin"]
   NAMECALL R28 R28 K46 ["GetFastFlag"]
   CALL R28 2 1
-  GETTABLEKS R30 R0 K6 ["Src"]
-  GETTABLEKS R29 R30 K47 ["Components"]
-  GETIMPORT R30 K5 [require]
-  GETTABLEKS R31 R29 K48 ["MainView"]
-  CALL R30 1 1
-  GETTABLEKS R31 R6 K49 ["PureComponent"]
-  LOADK R33 K50 ["MainPlugin"]
-  NAMECALL R31 R31 K51 ["extend"]
-  CALL R31 2 1
-  GETIMPORT R32 K54 [string.format]
-  LOADK R33 K55 ["rbxasset://textures/MaterialFramework/%s/Material.png"]
-  LOADK R34 K56 ["Light"]
+  GETIMPORT R29 K44 [game]
+  LOADK R31 K47 ["ReplaceIsCheckableWithCheckable"]
+  NAMECALL R29 R29 K48 ["GetEngineFeature"]
+  CALL R29 2 1
+  GETTABLEKS R31 R0 K6 ["Src"]
+  GETTABLEKS R30 R31 K49 ["Components"]
+  GETIMPORT R31 K5 [require]
+  GETTABLEKS R32 R30 K50 ["MainView"]
+  CALL R31 1 1
+  GETTABLEKS R32 R6 K51 ["PureComponent"]
+  LOADK R34 K52 ["MainPlugin"]
+  NAMECALL R32 R32 K53 ["extend"]
   CALL R32 2 1
-  GETIMPORT R33 K54 [string.format]
-  LOADK R34 K55 ["rbxasset://textures/MaterialFramework/%s/Material.png"]
-  LOADK R35 K57 ["Dark"]
+  GETIMPORT R33 K56 [string.format]
+  LOADK R34 K57 ["rbxasset://textures/MaterialFramework/%s/Material.png"]
+  LOADK R35 K58 ["Light"]
   CALL R33 2 1
-  DUPCLOSURE R34 K58 [PROTO_0]
-  CAPTURE VAL R32
+  GETIMPORT R34 K56 [string.format]
+  LOADK R35 K57 ["rbxasset://textures/MaterialFramework/%s/Material.png"]
+  LOADK R36 K59 ["Dark"]
+  CALL R34 2 1
+  DUPCLOSURE R35 K60 [PROTO_0]
   CAPTURE VAL R33
-  DUPCLOSURE R35 K59 [PROTO_21]
+  CAPTURE VAL R34
+  DUPCLOSURE R36 K61 [PROTO_21]
   CAPTURE VAL R6
   CAPTURE VAL R16
   CAPTURE VAL R24
@@ -1211,8 +1226,8 @@ MAIN:
   CAPTURE VAL R17
   CAPTURE VAL R18
   CAPTURE VAL R3
-  CAPTURE VAL R32
   CAPTURE VAL R33
+  CAPTURE VAL R34
   CAPTURE VAL R7
   CAPTURE VAL R19
   CAPTURE VAL R12
@@ -1223,36 +1238,37 @@ MAIN:
   CAPTURE VAL R15
   CAPTURE VAL R21
   CAPTURE VAL R0
-  SETTABLEKS R35 R31 K60 ["init"]
-  DUPCLOSURE R35 K61 [PROTO_22]
+  CAPTURE VAL R29
+  SETTABLEKS R36 R32 K62 ["init"]
+  DUPCLOSURE R36 K63 [PROTO_22]
   CAPTURE VAL R24
   CAPTURE VAL R25
-  SETTABLEKS R35 R31 K62 ["willUnmount"]
-  DUPCLOSURE R35 K63 [PROTO_24]
+  SETTABLEKS R36 R32 K64 ["willUnmount"]
+  DUPCLOSURE R36 K65 [PROTO_24]
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R25
   CAPTURE VAL R28
   CAPTURE VAL R24
-  CAPTURE VAL R32
   CAPTURE VAL R33
+  CAPTURE VAL R34
   CAPTURE VAL R26
   CAPTURE VAL R1
   CAPTURE VAL R2
-  SETTABLEKS R35 R31 K64 ["renderButtons"]
-  DUPCLOSURE R35 K65 [PROTO_26]
+  SETTABLEKS R36 R32 K66 ["renderButtons"]
+  DUPCLOSURE R36 K67 [PROTO_26]
   CAPTURE VAL R26
   CAPTURE VAL R6
   CAPTURE VAL R11
-  CAPTURE VAL R30
+  CAPTURE VAL R31
   CAPTURE VAL R24
-  SETTABLEKS R35 R31 K66 ["renderPopup"]
-  DUPCLOSURE R35 K67 [PROTO_28]
+  SETTABLEKS R36 R32 K68 ["renderPopup"]
+  DUPCLOSURE R36 K69 [PROTO_28]
   CAPTURE VAL R12
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R10
   CAPTURE VAL R26
-  SETTABLEKS R35 R31 K68 ["render"]
-  RETURN R31 1
+  SETTABLEKS R36 R32 K70 ["render"]
+  RETURN R32 1

@@ -37,7 +37,6 @@ local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
 local getPaymentFromPlatformLegacy = require(Root.Utils.getPaymentFromPlatformLegacy)
 local getHasAmazonUserAgent = require(Root.Utils.getHasAmazonUserAgent)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
-local DesktopUpsellExperiment = require(Root.Utils.DesktopUpsellExperiment)
 
 local Thunk = require(Root.Thunk)
 
@@ -133,6 +132,7 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 		end
 
 		local robuxBalance = balanceInfo.robux
+		local robuxBalanceFailed = balanceInfo.hasFailed
 		local isPlayerPremium = accountInfo.isPremium
 		local price = getPlayerProductInfoPrice(productInfo, isPlayerPremium)
 		if expectedPrice ~= nil then
@@ -140,10 +140,7 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 		end
 		local platform = UserInputService:GetPlatform()
 
-		DesktopUpsellExperiment.determineVariant(store)
-		if price > robuxBalance then
-			-- Need the IXP exposure to only happen when there is an upsell flow
-			DesktopUpsellExperiment.logExposure()
+		if not robuxBalanceFailed and price > robuxBalance then
 			if externalSettings.getFFlagDisableRobuxUpsell() then
 				return store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxNoUpsell))
 			end

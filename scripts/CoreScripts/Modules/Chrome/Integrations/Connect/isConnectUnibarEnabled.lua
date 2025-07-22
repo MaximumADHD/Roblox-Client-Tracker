@@ -12,7 +12,7 @@ local GetFFlagAppChatAddConnectUnibarForActiveSquad =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAppChatAddConnectUnibarForActiveSquad
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
+local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
 return function()
 	-- AppChat Unibar EntryPoint enabled, "connect_unibar" shared by AppChat and Party
@@ -31,6 +31,6 @@ return function()
 		or (
 			isAppChatDropdownEntryPointEnabled
 			and GetFFlagAppChatAddConnectUnibarForActiveSquad()
-			and SquadExperimentation.getSquadEntrypointsEnabled()
+			and GetFFlagIsSquadEnabled()
 		)
 end

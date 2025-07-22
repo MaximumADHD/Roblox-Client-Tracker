@@ -31,9 +31,13 @@ type TeamListContainerProps = {
 	playerIconInfos: { [number]: PlayerIconInfoProps },
 	playerRelationships: { [number]: PlayerRelationshipProps },
 
-	-- Dropdown
+	-- Dropdown data
 	firstPlayerRef: React.Ref<GuiObject?>?,
 	setDropDownPlayerDimensionY: ((vec2: Vector2) -> ())?,
+
+	-- Focus nav data
+	prevFocusedEntry: React.RefObject<GuiObject?>?,
+	destroyedFocusedPlayerId: React.RefObject<number?>?,
 
 	-- Device type
 	isSmallTouchDevice: boolean?,
@@ -75,6 +79,8 @@ local function TeamListContainer(props: TeamListContainerProps)
 		playerRelationships = props.playerRelationships,
 		firstPlayerRef = props.firstPlayerRef,
 		setDropDownPlayerDimensionY = props.setDropDownPlayerDimensionY,
+		prevFocusedEntry = props.prevFocusedEntry,
+		destroyedFocusedPlayerId = props.destroyedFocusedPlayerId,
 		isSmallTouchDevice = props.isSmallTouchDevice,
 		isDirectionalPreferred = props.isDirectionalPreferred,
 	})

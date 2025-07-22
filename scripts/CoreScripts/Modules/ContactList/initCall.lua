@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local HttpService = game:GetService("HttpService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -12,10 +13,13 @@ local RoduxCall = dependencies.RoduxCall
 local CallAction = RoduxCall.Enums.CallAction
 local teleportToRootPlace = dependencies.teleportToRootPlace
 
+local EngineFeatureEnableIrisRerouteToRCC = game:GetEngineFeature("EnableIrisRerouteToRCC")
+
 local _handleCamAndMicChangedFromCallConn
 local _handleTeleportingCallConn
 local _handleTransferCallTeleportJoinConn
 local _handleTransferCallTeleportLeaveConn
+local _handleInitCallConn
 local _handleActiveCallConn
 local _handleEndCallConn
 
@@ -142,6 +146,24 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 		-- server. This server is no longer associated with the call.
 		updateCurrentCall(nil)
 	end)
+
+	if EngineFeatureEnableIrisRerouteToRCC then
+		_handleInitCallConn = callProtocol:listenToHandleInitCall(function(params)
+			coroutine.wrap(function()
+				local contactListInvokeIrisInviteRemoteEvent =
+					RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
+				contactListInvokeIrisInviteRemoteEvent:FireServer(
+					params.tag,
+					params.calleeId,
+					params.calleeCombinedName,
+					params.muted,
+					params.camEnabled,
+					HttpService:GetUserAgent(),
+					2
+				)
+			end)()
+		end)
+	end
 
 	_handleActiveCallConn = callProtocol:listenToHandleActiveCall(function(params)
 		updateCurrentCall({

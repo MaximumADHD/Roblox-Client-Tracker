@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AddNextUpContainer", false)
+return game:DefineFastFlag("AddNextUpContainer2", false)

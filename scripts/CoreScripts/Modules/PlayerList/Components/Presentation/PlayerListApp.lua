@@ -40,6 +40,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
+local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -100,7 +101,11 @@ end
 
 function PlayerListApp:render()
 	if (FFlagPlayerListClosedNoRender or FFlagPlayerListClosedNoRenderWithTenFoot) and not self.state.visible then
-		return Roact.createElement(ContextActionsBinder)
+		return Roact.createFragment({
+			Roact.createElement(ContextActionsBinder),
+			-- TODO: Remove when playerIconInfo and playerRelationship data gets moved to leaderboard store (APPEXP-2963)
+			if FFlagAddNewPlayerListFocusNav then Roact.createElement(EventConnections) else nil,
+		})
 	end
 	return WithLayoutValues(function(layoutValues)
 		local containerPosition = layoutValues.ContainerPosition
@@ -202,6 +207,7 @@ function PlayerListApp:render()
 		childElements["PlayerScrollList"] = Roact.createElement(if FFlagUseNewPlayerList then PlayerListDisplayContainer else PlayerListSorter, {
 			screenSizeY = self.props.screenSizeY,
 			entrySize = entrySize,
+			isVisible = if FFlagAddNewPlayerListFocusNav then self.state.visible else nil,
 		})
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)

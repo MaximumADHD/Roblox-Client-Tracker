@@ -6,13 +6,13 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Cryo"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["Style"]
+  GETTABLEKS R3 R1 K9 ["Style"]
   GETTABLEKS R4 R3 K10 ["StyleKey"]
   GETTABLEKS R5 R3 K11 ["ComponentSymbols"]
   NEWTABLE R6 0 0

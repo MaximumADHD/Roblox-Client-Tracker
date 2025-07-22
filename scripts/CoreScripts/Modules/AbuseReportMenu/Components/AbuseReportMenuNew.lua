@@ -39,17 +39,13 @@ local isShowUKOSAIllegalContentReportingLink = DSAReportingPackage.isShowUKOSAIl
 local OSAReportLink = DSAReportingPackage.OSAReportLink
 local StyleProviderWithDefaultTheme = Style.StyleProviderWithDefaultTheme
 
-local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
-local focusNavigationService =
-	ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCSFocusWrapperRefactor = SharedFlags.FFlagCSFocusWrapperRefactor
-local GetFFlagAddAbuseReportMenuCoreScriptsProvider = require(root.Flags.GetFFlagAddAbuseReportMenuCoreScriptsProvider)
 local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
 local GetFFlagWHAM1707ExperimentForceEnabled = require(root.Flags.GetFFlagWHAM1707ExperimentForceEnabled)
 
@@ -57,6 +53,7 @@ local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
 local FStringEARReportMenuIXPLayer = SharedFlags.FStringEARReportMenuIXPLayer
 local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
 local IXPFieldWHAM1707 = game:DefineFastString("WHAM1707IXPField", "EnableWHAM1707")
+local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -76,6 +73,7 @@ export type Props = {
 	registerSetNextPlayerToReport: ((player: Player) -> ()) -> (),
 	registerOnMenuWidthChange: ((width: number) -> ()) -> (),
 	onReportComplete: (text: string) -> (),
+	onDropdownMenuOpenChange: (isOpen: boolean) -> (),
 }
 
 local function isInSelectInSceneExperiment(): boolean
@@ -227,6 +225,7 @@ local AbuseReportMenuNew = function(props: Props)
 
 	local utilityProps = {
 		onReportComplete = props.onReportComplete,
+		onDropdownMenuOpenChange = if FFlagHideShortcutsOnReportDropdown then props.onDropdownMenuOpenChange else nil,
 		reportAnythingAnalytics = ReportAnythingAnalytics,
 		reportAnythingState = reportAnythingState,
 		reportAnythingDispatch = reportAnythingDispatch,
@@ -401,41 +400,21 @@ end
 local MenuContainer = function(props: Props)
 	local localization = Localization.new(LocalizationService.RobloxLocaleId)
 
-	return React.createElement(
-		StyleProviderWithDefaultTheme,
-		{
-			withDarkTheme = true,
-		},
-		if GetFFlagAddAbuseReportMenuCoreScriptsProvider()
-			then {
-				CoreScriptsRootProvider = React.createElement(CoreScriptsRootProvider, {}, {
-					LocalizationProvider = React.createElement(LocalizationProvider, {
-						localization = localization,
-					}, {
-						FoundationProvider = React.createElement(Foundation.FoundationProvider, {
-							theme = Foundation.Enums.Theme.Dark,
-						}, {
-							[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
-						}),
-					}),
-				}),
-			}
-			else {
-				LocalizationProvider = React.createElement(LocalizationProvider, {
-					localization = localization,
+	return React.createElement(StyleProviderWithDefaultTheme, {
+		withDarkTheme = true,
+	}, {
+		CoreScriptsRootProvider = React.createElement(CoreScriptsRootProvider, {}, {
+			LocalizationProvider = React.createElement(LocalizationProvider, {
+				localization = localization,
+			}, {
+				FoundationProvider = React.createElement(Foundation.FoundationProvider, {
+					theme = Foundation.Enums.Theme.Dark,
 				}, {
-					FocusNavigationProvider = React.createElement(
-						ReactFocusNavigation.FocusNavigationContext.Provider,
-						{
-							value = focusNavigationService,
-						},
-						{
-							[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
-						}
-					),
+					[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
 				}),
-			}
-	)
+			}),
+		}),
+	})
 end
 
 return MenuContainer

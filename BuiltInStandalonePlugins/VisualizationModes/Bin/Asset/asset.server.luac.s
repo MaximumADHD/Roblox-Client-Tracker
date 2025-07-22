@@ -21,23 +21,64 @@ PROTO_0:
   GETTABLEKS R5 R6 K8 ["Tracking"]
   GETTABLEKS R4 R5 K9 ["VisualizationModeServiceTracker"]
   CALL R3 1 1
-  GETTABLEKS R6 R3 K0 ["new"]
-  CALL R6 0 -1
-  NAMECALL R4 R0 K10 ["add"]
-  CALL R4 -1 1
-  GETTABLEKS R7 R2 K0 ["new"]
-  GETIMPORT R8 K12 [plugin]
-  MOVE R9 R4
-  CALL R7 2 -1
-  NAMECALL R5 R0 K10 ["add"]
-  CALL R5 -1 0
-  GETTABLEKS R7 R1 K0 ["new"]
-  GETIMPORT R8 K12 [plugin]
-  CALL R7 1 -1
-  NAMECALL R5 R0 K10 ["add"]
-  CALL R5 -1 0
-  GETUPVAL R5 2
-  SETTABLEKS R0 R5 K13 ["_mount"]
+  GETIMPORT R4 K2 [require]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K3 ["Src"]
+  GETTABLEKS R6 R7 K10 ["ModesAssetBridge"]
+  GETTABLEKS R5 R6 K11 ["ConstraintScaleBridge"]
+  CALL R4 1 1
+  GETIMPORT R5 K2 [require]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["Src"]
+  GETTABLEKS R7 R8 K10 ["ModesAssetBridge"]
+  GETTABLEKS R6 R7 K12 ["SelectionStyleBridge"]
+  CALL R5 1 1
+  GETIMPORT R6 K2 [require]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K3 ["Src"]
+  GETTABLEKS R8 R9 K10 ["ModesAssetBridge"]
+  GETTABLEKS R7 R8 K13 ["CameraSpeedLockedBridge"]
+  CALL R6 1 1
+  GETTABLEKS R9 R3 K0 ["new"]
+  CALL R9 0 -1
+  NAMECALL R7 R0 K14 ["add"]
+  CALL R7 -1 1
+  GETTABLEKS R10 R2 K0 ["new"]
+  GETIMPORT R11 K16 [plugin]
+  MOVE R12 R7
+  CALL R10 2 -1
+  NAMECALL R8 R0 K14 ["add"]
+  CALL R8 -1 0
+  GETTABLEKS R10 R1 K0 ["new"]
+  GETIMPORT R11 K16 [plugin]
+  CALL R10 1 -1
+  NAMECALL R8 R0 K14 ["add"]
+  CALL R8 -1 0
+  GETTABLEKS R10 R4 K0 ["new"]
+  GETIMPORT R11 K16 [plugin]
+  GETIMPORT R12 K16 [plugin]
+  LOADK R14 K17 ["ConstraintGizmoManager"]
+  NAMECALL R12 R12 K18 ["GetPluginComponent"]
+  CALL R12 2 -1
+  CALL R10 -1 -1
+  NAMECALL R8 R0 K14 ["add"]
+  CALL R8 -1 0
+  GETTABLEKS R10 R5 K0 ["new"]
+  GETIMPORT R11 K16 [plugin]
+  CALL R10 1 -1
+  NAMECALL R8 R0 K14 ["add"]
+  CALL R8 -1 0
+  GETTABLEKS R10 R6 K0 ["new"]
+  GETIMPORT R11 K16 [plugin]
+  GETIMPORT R12 K20 [game]
+  LOADK R14 K21 ["StudioCameraService"]
+  NAMECALL R12 R12 K22 ["GetService"]
+  CALL R12 2 -1
+  CALL R10 -1 -1
+  NAMECALL R8 R0 K14 ["add"]
+  CALL R8 -1 0
+  GETUPVAL R8 2
+  SETTABLEKS R0 R8 K23 ["_mount"]
   RETURN R0 0
 
 PROTO_1:

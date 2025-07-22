@@ -6,7 +6,6 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
 local Cell = UIBlox.App.Table.Cell
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 
 local TnsModule = script.Parent.Parent
@@ -32,7 +31,6 @@ function GameCell:renderWithSelectionCursor(getSelectionCursor)
 	})(function(localized)
 		return Roact.createElement(Cell, {
 			onActivated = props.onActivated,
-			SelectionImageObject = getSelectionCursor(CursorKind.Square),
 			layoutOrder = props.layoutOrder,
 			size = UDim2.new(1, 0, 0, CELL_HEIGHT),
 			head = Roact.createElement("Frame", {

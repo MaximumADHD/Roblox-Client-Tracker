@@ -1,6 +1,6 @@
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 4 0
+  NEWTABLE R0 8 0
   DUPTABLE R1 K2 [{"Image", "Scene"}]
   LOADK R2 K3 ["ImageImportSession"]
   SETTABLEKS R2 R1 K0 ["Image"]
@@ -33,4 +33,12 @@ MAIN:
   LOADK R5 K22 ["Invalid"]
   SETTABLEKS R5 R4 K22 ["Invalid"]
   SETTABLEKS R4 R0 K24 ["SessionState"]
+  DUPTABLE R5 K28 [{"Waiting", "Succeeded", "Failed"}]
+  LOADK R6 K25 ["Waiting"]
+  SETTABLEKS R6 R5 K25 ["Waiting"]
+  LOADK R6 K26 ["Succeeded"]
+  SETTABLEKS R6 R5 K26 ["Succeeded"]
+  LOADK R6 K27 ["Failed"]
+  SETTABLEKS R6 R5 K27 ["Failed"]
+  SETTABLEKS R5 R0 K29 ["UploadRequestStatus"]
   RETURN R0 1

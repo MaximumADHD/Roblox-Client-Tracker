@@ -1,3 +1,4 @@
+-- Remove with FFlagTopBarSignalizeHealthBar
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
@@ -6,6 +7,13 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local Actions = script.Parent.Parent.Actions
 local UpdateHealth = require(Actions.UpdateHealth)
 local SetIsDead = require(Actions.SetIsDead)
+
+local TopBar = script.Parent.Parent
+local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+
+if FFlagTopBarSignalizeHealthBar then 
+	return nil :: never 
+end
 
 local initialHealth = {
 	isDead = false,

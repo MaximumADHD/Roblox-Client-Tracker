@@ -15,9 +15,12 @@ local ActionBindingsData = require(Components.ActionBindings.ActionBindingsData)
 local ServerJobsData = require(Components.ServerJobs.ServerJobsData)
 local DebugVisualizationsData = require(Components.DebugVisualizations.DebugVisualizationsData)
 local LuauHeapData = require(Components.LuauHeap.LuauHeapData)
+local VoiceChatData = require(Components.VoiceChat.VoiceChatData)
 local DataContext = require(Components.DataContext)
 
 local DataProvider = Roact.Component:extend("DataProvider")
+
+local VoiceChatDevConsoleEngineFeatureEnabled = game:GetEngineFeature("VoiceChatDevConsoleTabEnabled")
 
 function DataProvider:init()
 	self:setState({
@@ -35,6 +38,7 @@ function DataProvider:init()
 			ServerJobsData = ServerJobsData.new(),
 			DebugVisualizationsData = DebugVisualizationsData.new(),
 			LuauHeapData = LuauHeapData.new(),
+			VoiceChatData = if VoiceChatDevConsoleEngineFeatureEnabled then VoiceChatData.new() else nil,
 		},
 	})
 end
@@ -42,6 +46,10 @@ end
 function DataProvider:didMount()
 	self.state.DevConsoleData.ClientLogData:start()
 	self.state.DevConsoleData.ClientMemoryData:start()
+	
+	if VoiceChatDevConsoleEngineFeatureEnabled then
+		self.state.DevConsoleData.VoiceChatData:start()
+	end
 end
 
 function DataProvider:willUpdate(nextProps, nextState)

@@ -70,8 +70,6 @@ local reconnectDisabledReason = safeGetFString(
 
 local lastErrorTimeStamp = tick()
 
-local coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
-
 -- The new, supported way to translate strings in the client.
 -- This function should be used instead of coreScriptTableTranslator:FormatByKey.
 -- Errors will be caught and an empty string will be returned if the translation fails.
@@ -663,13 +661,8 @@ local function onScreenSizeChanged()
 	end
 end
 
-local function onLocaleIdChanged()
-	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
-end
-
 -- This script is always loaded from the engine
 RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
-LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
 
 -- pre-run it once in case some error occurs before the connection
 onErrorMessageChanged()

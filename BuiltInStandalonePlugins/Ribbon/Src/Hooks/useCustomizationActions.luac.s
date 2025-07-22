@@ -82,15 +82,15 @@ PROTO_5:
   NAMECALL R2 R2 K3 ["GetUri"]
   CALL R2 1 -1
   CALL R1 -1 1
-  DUPTABLE R2 K11 [{"Uri", "Enabled", "Exists", "Visible", "Checkable", "Text", "Tooltip"}]
+  DUPTABLE R2 K12 [{"Uri", "Enabled", "Exists", "Visible", "IsCheckable", "Checkable", "Text", "Tooltip"}]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K12 ["join"]
+  GETTABLEKS R3 R4 K13 ["join"]
   MOVE R4 R1
-  DUPTABLE R5 K15 [{"Category", "ItemId"}]
+  DUPTABLE R5 K16 [{"Category", "ItemId"}]
   LOADK R6 K0 ["Actions"]
-  SETTABLEKS R6 R5 K13 ["Category"]
-  LOADK R6 K16 ["ReloadTabs"]
-  SETTABLEKS R6 R5 K14 ["ItemId"]
+  SETTABLEKS R6 R5 K14 ["Category"]
+  LOADK R6 K17 ["ReloadTabs"]
+  SETTABLEKS R6 R5 K15 ["ItemId"]
   CALL R3 2 1
   SETTABLEKS R3 R2 K4 ["Uri"]
   LOADB R3 1
@@ -99,29 +99,39 @@ PROTO_5:
   SETTABLEKS R3 R2 K6 ["Exists"]
   LOADB R3 1
   SETTABLEKS R3 R2 K7 ["Visible"]
+  GETUPVAL R4 2
+  JUMPIFNOT R4 [+2]
+  LOADNIL R3
+  JUMP [+1]
   LOADB R3 0
-  SETTABLEKS R3 R2 K8 ["Checkable"]
-  GETUPVAL R3 2
-  LOADK R5 K17 ["Plugin"]
-  LOADK R6 K16 ["ReloadTabs"]
-  NAMECALL R3 R3 K18 ["getText"]
+  SETTABLEKS R3 R2 K8 ["IsCheckable"]
+  GETUPVAL R4 2
+  JUMPIFNOT R4 [+2]
+  LOADB R3 0
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K9 ["Checkable"]
+  GETUPVAL R3 3
+  LOADK R5 K18 ["Plugin"]
+  LOADK R6 K17 ["ReloadTabs"]
+  NAMECALL R3 R3 K19 ["getText"]
   CALL R3 3 1
-  SETTABLEKS R3 R2 K9 ["Text"]
-  GETUPVAL R3 2
-  LOADK R5 K17 ["Plugin"]
-  LOADK R6 K19 ["ReloadTabsTooltip"]
-  NAMECALL R3 R3 K18 ["getText"]
+  SETTABLEKS R3 R2 K10 ["Text"]
+  GETUPVAL R3 3
+  LOADK R5 K18 ["Plugin"]
+  LOADK R6 K20 ["ReloadTabsTooltip"]
+  NAMECALL R3 R3 K19 ["getText"]
   CALL R3 3 1
-  SETTABLEKS R3 R2 K10 ["Tooltip"]
-  DUPTABLE R3 K11 [{"Uri", "Enabled", "Exists", "Visible", "Checkable", "Text", "Tooltip"}]
+  SETTABLEKS R3 R2 K11 ["Tooltip"]
+  DUPTABLE R3 K12 [{"Uri", "Enabled", "Exists", "Visible", "IsCheckable", "Checkable", "Text", "Tooltip"}]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K12 ["join"]
+  GETTABLEKS R4 R5 K13 ["join"]
   MOVE R5 R1
-  DUPTABLE R6 K15 [{"Category", "ItemId"}]
+  DUPTABLE R6 K16 [{"Category", "ItemId"}]
   LOADK R7 K0 ["Actions"]
-  SETTABLEKS R7 R6 K13 ["Category"]
-  LOADK R7 K20 ["PrintActions"]
-  SETTABLEKS R7 R6 K14 ["ItemId"]
+  SETTABLEKS R7 R6 K14 ["Category"]
+  LOADK R7 K21 ["PrintActions"]
+  SETTABLEKS R7 R6 K15 ["ItemId"]
   CALL R4 2 1
   SETTABLEKS R4 R3 K4 ["Uri"]
   LOADB R4 1
@@ -130,35 +140,45 @@ PROTO_5:
   SETTABLEKS R4 R3 K6 ["Exists"]
   LOADB R4 1
   SETTABLEKS R4 R3 K7 ["Visible"]
+  GETUPVAL R5 2
+  JUMPIFNOT R5 [+2]
+  LOADNIL R4
+  JUMP [+1]
   LOADB R4 0
-  SETTABLEKS R4 R3 K8 ["Checkable"]
-  GETUPVAL R4 2
-  LOADK R6 K17 ["Plugin"]
-  LOADK R7 K20 ["PrintActions"]
-  NAMECALL R4 R4 K18 ["getText"]
+  SETTABLEKS R4 R3 K8 ["IsCheckable"]
+  GETUPVAL R5 2
+  JUMPIFNOT R5 [+2]
+  LOADB R4 0
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K9 ["Checkable"]
+  GETUPVAL R4 3
+  LOADK R6 K18 ["Plugin"]
+  LOADK R7 K21 ["PrintActions"]
+  NAMECALL R4 R4 K19 ["getText"]
   CALL R4 3 1
-  SETTABLEKS R4 R3 K9 ["Text"]
-  GETUPVAL R4 2
-  LOADK R6 K17 ["Plugin"]
-  LOADK R7 K21 ["PrintActionsTooltip"]
-  NAMECALL R4 R4 K18 ["getText"]
+  SETTABLEKS R4 R3 K10 ["Text"]
+  GETUPVAL R4 3
+  LOADK R6 K18 ["Plugin"]
+  LOADK R7 K22 ["PrintActionsTooltip"]
+  NAMECALL R4 R4 K19 ["getText"]
   CALL R4 3 1
-  SETTABLEKS R4 R3 K10 ["Tooltip"]
+  SETTABLEKS R4 R3 K11 ["Tooltip"]
   LOADNIL R4
   LOADNIL R5
-  GETIMPORT R6 K24 [task.spawn]
+  GETIMPORT R6 K25 [task.spawn]
   NEWCLOSURE R7 P0
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE REF R4
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CALL R6 1 1
-  GETIMPORT R7 K24 [task.spawn]
+  GETIMPORT R7 K25 [task.spawn]
   NEWCLOSURE R8 P1
   CAPTURE VAL R0
   CAPTURE VAL R3
   CAPTURE REF R5
-  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   CALL R7 1 1
   NEWCLOSURE R8 P2
   CAPTURE VAL R6
@@ -192,6 +212,7 @@ PROTO_6:
   NEWCLOSURE R6 P1
   CAPTURE VAL R1
   CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   CAPTURE VAL R0
   CAPTURE VAL R3
   CAPTURE VAL R4
@@ -239,7 +260,11 @@ MAIN:
   GETTABLEKS R9 R2 K19 ["useCallback"]
   GETTABLEKS R10 R2 K20 ["useContext"]
   GETTABLEKS R11 R2 K21 ["useEffect"]
-  DUPCLOSURE R12 K22 [PROTO_6]
+  GETIMPORT R12 K23 [game]
+  LOADK R14 K24 ["ReplaceIsCheckableWithCheckable"]
+  NAMECALL R12 R12 K25 ["GetEngineFeature"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K26 [PROTO_6]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R10
@@ -247,4 +272,5 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R11
   CAPTURE VAL R5
-  RETURN R12 1
+  CAPTURE VAL R12
+  RETURN R13 1
