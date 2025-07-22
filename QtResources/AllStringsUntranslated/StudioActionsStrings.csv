@@ -1,3 +1,6 @@
 Key,Context,Source,en-us
 Studio.Actions.ConnectionIndicator,,Connection Status,Connection Status
 Studio.Actions.TBD,,TBD,TBD
+Studio.Actions.Title.Diagnostics,Action to view diagnostic information of your game,Diagnostics,Diagnostics
+Studio.Actions.Title.MicroProfiler,The MicroProfiler is a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,MicroProfiler,MicroProfiler
+Studio.Actions.Tooltip.MicroProfiler,Tooltip for the MicroProfiler - a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks

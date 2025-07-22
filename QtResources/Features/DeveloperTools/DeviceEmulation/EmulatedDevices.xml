@@ -683,4 +683,16 @@
         resolution_scale="3.0"
         user_agent="Mozilla/5.0 (X11; Linux x86_64; Quest 3) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/34.0.0.121.29.615295309 Chrome/126.0.6478.50 VR Safari/537.36"
     ></Device>
+    <Device name="Generic_Handheld"
+        device_id="generic_handheld"
+        translation_id = "Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheld"
+        dpi="96"
+        memoryMB="16384"
+        width="1920"
+        height="1080"
+        device_form="handheld"
+        platform="Windows"
+        resolution_scale="1.5"
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0 RobloxStudio/1.0.0 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
+    ></Device>
 </EmulatedDevices>

@@ -52,6 +52,7 @@ Studio.App.RobloxRibbonMainWindow.BallInSocket,,Ball in Socket,Ball in Socket
 Studio.App.RobloxRibbonMainWindow.BallOnAxis,,Ball on axis,Ball on axis
 Studio.App.RobloxRibbonMainWindow.Beam,Name of the action to insert a Beam (A Beam object connects two Attachments by drawing a texture between them.) into the workspace,Beam,Beam
 Studio.App.RobloxRibbonMainWindow.Block,,Block,Block
+Studio.App.RobloxRibbonMainWindow.Bone,"String labeling a button for creating a bone in studio, similar to attachments and constraints",Bone,Bone
 Studio.App.RobloxRibbonMainWindow.BoundingBoxes,,Bounding Boxes,Bounding Boxes
 Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip,,Sets selection rendering mode to bounding boxes,Sets selection rendering mode to bounding boxes
 Studio.App.RobloxRibbonMainWindow.Brick,,Brick,Brick
@@ -186,6 +187,7 @@ Studio.App.RobloxRibbonMainWindow.InsertAModuleScript,,Insert a module script,In
 Studio.App.RobloxRibbonMainWindow.InsertAScript,,Insert a script,Insert a script
 Studio.App.RobloxRibbonMainWindow.InsertAttachment,,Insert attachment,Insert attachment
 Studio.App.RobloxRibbonMainWindow.InsertBlockPart,,Insert block part,Insert block part
+Studio.App.RobloxRibbonMainWindow.InsertBone,"Tooltip for button that creates a bone, a specialized form of attachments, used exclusively for animation rigs",Insert bone,Insert bone
 Studio.App.RobloxRibbonMainWindow.InsertCornerWedge,,Insert CornerWedgePart,Insert CornerWedgePart
 Studio.App.RobloxRibbonMainWindow.InsertCylinderPart,,Insert cylinder part,Insert cylinder part
 Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection,,Insert service from a service selection,Insert service from a service selection

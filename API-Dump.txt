@@ -204,6 +204,8 @@ Class AccountService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AccountService:GetDeviceAccessToken() -> string {RobloxScriptSecurity} [Yields]
 	Function AccountService:GetDeviceIntegrityToken(data: string) -> string {RobloxScriptSecurity}
 	Function AccountService:GetDeviceIntegrityTokenYield(data: string) -> string {RobloxScriptSecurity} [Yields]
+	Function AccountService:MagicLogin(data: string) -> () {RobloxScriptSecurity}
+	Event AccountService.MagicLoginEvent(data: string) {RobloxScriptSecurity}
 Class Accoutrement : Instance
 	Property Accoutrement.BackendAccoutrementState: number [Hidden] [NotScriptable]
 	Property Accoutrement.AttachmentForward: Vector3 [Hidden] [NotReplicated]
@@ -318,6 +320,7 @@ Class AnimationRigData : Instance
 	Property AnimationRigData.preTransform: BinaryString [Hidden] [NotScriptable]
 	Property AnimationRigData.transform: BinaryString [Hidden] [NotScriptable]
 	Function AnimationRigData:LoadFromHumanoid(humanoid: Instance) -> boolean {RobloxScriptSecurity}
+	Function AnimationRigData:LoadFromModel(model: Instance) -> boolean {RobloxScriptSecurity}
 Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
 	Property AnimationStreamTrack.Animation: TrackerStreamAnimation? [Hidden] [ReadOnly]
 	Property AnimationStreamTrack.FACSDataLod: Enum.FACSDataLod [Hidden] [ReadOnly]
@@ -629,6 +632,7 @@ Class AudioEcho : Instance
 	Function AudioEcho:Reset() -> () {RobloxScriptSecurity}
 	Event AudioEcho.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioEmitter : Instance
+	Property AudioEmitter.PositionOverride: Instance? {RobloxSecurity}
 	Property AudioEmitter.AngleAttenuation: BinaryString {RobloxSecurity}
 	Property AudioEmitter.DistanceAttenuation: BinaryString {RobloxSecurity}
 	Property AudioEmitter.AudioInteractionGroup: string
@@ -712,6 +716,7 @@ Class AudioLimiter : Instance
 	Function AudioLimiter:GetOutputPins() -> { any }
 	Event AudioLimiter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioListener : Instance
+	Property AudioListener.PositionOverride: Instance? {RobloxSecurity}
 	Property AudioListener.AudioInteractionGroup: string
 	Property AudioListener.AngleAttenuation: BinaryString {RobloxSecurity}
 	Property AudioListener.DistanceAttenuation: BinaryString {RobloxSecurity}
@@ -842,6 +847,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Property AuroraService.HashRoundingPoint: number [Deprecated]
 	Property AuroraService.IgnoreRotation: boolean [Deprecated]
 	Property AuroraService.InputDropRate: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
+	Property AuroraService.LockStepIdOffset: boolean [Deprecated]
 	Property AuroraService.OutOfOrderInputCount: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.RCCHeartbeatFPS: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.RollbackOffset: number [Deprecated]
@@ -1094,7 +1100,10 @@ Class AvatarRules : Instance
 	Property AvatarRules.AvatarType: Enum.GameAvatarType {RobloxScriptSecurity}
 Class AvatarSettings : Instance [NotCreatable] [Service]
 	Property AvatarSettings.Loaded: boolean {RobloxScriptSecurity} {✏️NotAccessibleSecurity}
+	Function AvatarSettings:Discard() -> () {RobloxScriptSecurity}
 	Function AvatarSettings:Publish() -> () {RobloxScriptSecurity}
+	Event AvatarSettings.DiscardRequested() {RobloxSecurity} [Hidden]
+	Event AvatarSettings.RefreshPluginState() {RobloxScriptSecurity}
 Class Backpack : Instance
 Class BadgeService : Instance [NotCreatable] [Service]
 	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean [Yields]
@@ -1412,6 +1421,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:GetCaptureSizeAsync(captureContent: Content) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureUploadDataAsync(capturePath: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function CaptureService:GetDeviceInfo() -> { [string]: any }
 	Function CaptureService:IsCapturingVideo() -> boolean {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
@@ -1436,9 +1446,11 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Event CaptureService.CaptureEnded(captureType: Enum.CaptureType)
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) [Deprecated]
 	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {RobloxScriptSecurity}
+	Event CaptureService.OnCaptureAndMetadataSignatureResult(content: string, captureSignature: string, captureSignatureVersion: number, metadataSignature: string, metadataSignatureVersion: number) {RobloxSecurity} [Hidden]
 	Event CaptureService.OnCaptureSignatureResult(content: string, signature: string, signatureVersion: number) {RobloxSecurity} [Hidden]
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, captures: { any }) {RobloxScriptSecurity}
 	Event CaptureService.OpenShareCapturePrompt(promptId: number, captureContent: any, launchData: string) {RobloxScriptSecurity}
+	Event CaptureService.RequestCaptureAndMetadataSignature(content: string, audioAssetIds: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.RequestCaptureSignature(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.RequestCaptureSignatureV2(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
@@ -2228,6 +2240,9 @@ Class EventIngestService : Instance [NotCreatable] [Service]
 Class ExampleService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ExampleService:PrintHello() -> () {RobloxScriptSecurity}
 	Event ExampleService.OnPolo(message: string) {RobloxScriptSecurity}
+Class ExampleV2Service : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ExampleV2Service:PrintHello() -> () {RobloxScriptSecurity}
+	Event ExampleV2Service.OnPolo(message: string) {RobloxScriptSecurity}
 Class ExperienceAuthService : Instance [NotCreatable] [Service]
 	Function ExperienceAuthService:ScopeCheckUIComplete(guid: string, scopes: { any }, result: Enum.ScopeCheckResult, metadata: { [string]: any }) -> () {RobloxScriptSecurity}
 	Event ExperienceAuthService.OpenAuthPrompt(guid: string, scopes: { any }, metadata: { [string]: any }) {RobloxScriptSecurity}
@@ -2356,11 +2371,19 @@ Class FaceInstance : Instance [NotCreatable] [NotBrowsable]
 Class Decal : FaceInstance
 	Property Decal.Color3: Color3
 	Property Decal.LocalTransparencyModifier: number [Hidden] [NotReplicated]
+	Property Decal.MetalnessMap: string {PluginSecurity} [Hidden]
+	Property Decal.MetalnessMapContent: Content {✏️PluginSecurity}
+	Property Decal.NormalMap: string {PluginSecurity} [Hidden]
+	Property Decal.NormalMapContent: Content {✏️PluginSecurity}
+	Property Decal.RoughnessMap: string {PluginSecurity} [Hidden]
+	Property Decal.RoughnessMapContent: Content {✏️PluginSecurity}
 	Property Decal.Shiny: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Decal.Specular: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Decal.Texture: string
 	Property Decal.TextureContent: Content
 	Property Decal.Transparency: number
+	Property Decal.UVOffset: Vector2
+	Property Decal.UVScale: Vector2
 	Property Decal.ZIndex: number
 Class Texture : Decal
 	Property Texture.OffsetStudsU: number
@@ -2515,6 +2538,7 @@ Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property GuiBase2d.AbsolutePosition: Vector2 [ReadOnly] {🧬Unsafe}
 	Property GuiBase2d.AbsoluteRotation: number [ReadOnly] {🧬Unsafe}
 	Property GuiBase2d.AbsoluteSize: Vector2 [ReadOnly] {🧬Unsafe}
+	Property GuiBase2d.ActiveQueryNames: string {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property GuiBase2d.ReplicatedInsertionOrder: number {RobloxSecurity} [Hidden] [NotScriptable]
 	Property GuiBase2d.ClippedRect: Rect {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property GuiBase2d.IsNotOccluded: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -3611,6 +3635,7 @@ Class AssetImportSession : ImportSession [NotCreatable] [NotReplicated]
 	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
 	Function AssetImportSession:GetRigVisualization(importDataInstance: Instance) -> Instance? {RobloxScriptSecurity}
+	Function AssetImportSession:GetUploadStatus() -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:HasAnimation() -> boolean {RobloxScriptSecurity}
 	Function AssetImportSession:IsAvatar() -> boolean {RobloxScriptSecurity}
 	Function AssetImportSession:IsGltf() -> boolean {RobloxScriptSecurity}
@@ -4441,6 +4466,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:Resize(normalId: Enum.NormalId, deltaAmount: number) -> boolean
 	Function BasePart:SetNetworkOwner(playerInstance: Player? = nil) -> ()
 	Function BasePart:SetNetworkOwnershipAuto() -> ()
+	Function BasePart:SetPredictionMode(mode: Enum.PredictionMode) -> () {RobloxScriptSecurity} [Deprecated]
 	Function BasePart:SubtractAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
 	Function BasePart:TorqueToAngularAcceleration(torque: Vector3, angVelocity: Vector3?) -> Vector3
 	Function BasePart:UnionAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
@@ -5287,7 +5313,7 @@ Class PlayerViewService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PlayerViewService:OnCameraCFrameReplicationRequest() -> () {RobloxScriptSecurity}
 	Function PlayerViewService:UpdateDeviceCFrame(player: Player? = nil, cframe: CFrame?, timestamp: number? = 0) -> () {RobloxScriptSecurity}
 Class Players : Instance [NotCreatable] [Service]
-	Property Players.BanningEnabled: boolean [NotReplicated] [NotScriptable]
+	Property Players.BanningEnabled: boolean [NotScriptable]
 	Property Players.CharacterAutoLoads: boolean [NotReplicated]
 	Property Players.UseStrafingAnimations: boolean [NotScriptable]
 	Property Players.BubbleChat: boolean [ReadOnly]
@@ -5588,7 +5614,7 @@ Class RecommendationService : Instance [NotCreatable] [Service]
 	Function RecommendationService:GenerateItemListAsync(generateRecommendationItemListRequest: { [string]: any }) -> RecommendationPages [Yields]
 	Function RecommendationService:LogActionEvent(actionType: Enum.RecommendationActionType, itemId: string, tracingId: string, actionEventDetails: { [string]: any }? = nil) -> ()
 	Function RecommendationService:LogImpressionEvent(impressionType: Enum.RecommendationImpressionType, itemId: string, tracingId: string, impressionEventDetails: { [string]: any }? = nil) -> ()
-	Function RecommendationService:RegisterItemAsync(registerRecommendationItemsRequest: { [string]: any }) -> { [string]: any } [Yields]
+	Function RecommendationService:RegisterItemAsync(player: Player, registerRecommendationItemsRequest: { [string]: any }) -> { [string]: any } [Yields]
 	Function RecommendationService:RemoveItemAsync(itemId: string) -> () [Yields]
 	Function RecommendationService:UpdateItemAsync(updateRecommendationItemRequest: { [string]: any }) -> () [Yields]
 Class ReflectionMetadata : Instance
@@ -6732,7 +6758,7 @@ Class StylingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StylingService:GetStyleSheetInfo(styleSheet: StyleSheet) -> { [string]: any } {RobloxScriptSecurity}
 	Function StylingService:UpdateUnitTestOnly() -> () {RobloxScriptSecurity}
 Class SurfaceAppearance : Instance
-	Property SurfaceAppearance.AlphaMode: Enum.AlphaMode {PluginSecurity}
+	Property SurfaceAppearance.AlphaMode: Enum.AlphaMode
 	Property SurfaceAppearance.Color: Color3
 	Property SurfaceAppearance.ColorMap: string {PluginSecurity}
 	Property SurfaceAppearance.ColorMapContent: Content {✏️PluginSecurity} [Hidden]
@@ -7163,6 +7189,8 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetEditableMeshVertColors(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshVerticesSimilarityRate(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshVerts(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
+	Function UGCValidationService:GetFacsDrivenJointNamesFromEditableMesh(editableMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:GetFacsDrivenJointNamesFromMeshId(meshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetImageTransparencyWithByteString(textureId: string) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetImageTransparencyWithTextureID(textureId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMaxNearbyVerticesCollisions(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
@@ -7172,6 +7200,8 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetMeshVerticesSimilarityRate(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetPropertyValue(instance: Instance, property: string) -> any {RobloxScriptSecurity}
+	Function UGCValidationService:GetSkinnedJointNamesFromEditableMesh(editableMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:GetSkinnedJointNamesFromMeshId(meshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:IsDeformedLayeredClothingOutOfRenderBounds(accessory: Accessory) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:IsEditableMeshNumCoplanarIntersectionsOverLimit(editableMesh: EditableMesh, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity}
@@ -7224,6 +7254,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateNumTextureChannels(textureId: string, numChannelsRequired: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateOverlappingVertices(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidatePartBBoxAfterFullFacs(headEditableMesh: EditableMesh, partEditableMesh: EditableMesh, headScale: Vector3, partScale: Vector3, boundsMaxMultiplier: number) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidatePartBBoxAfterFullFacsFromMeshIds(headMeshId: string, partMeshId: string, headScale: Vector3, partScale: Vector3, boundsMaxMultiplier: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateSkinnedEditableMesh(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateSkinnedMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlpha(textureId: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
@@ -7247,8 +7278,8 @@ Class UITextSizeConstraint : UIConstraint
 	Property UITextSizeConstraint.MaxTextSize: number
 	Property UITextSizeConstraint.MinTextSize: number
 Class UIContainerQuery : UIComponent [NotReplicated] [NotBrowsable]
-	Property UIContainerQuery.Active: boolean
 	Property UIContainerQuery.AspectRatioRange: NumberRange
+	Property UIContainerQuery.IsActive: boolean
 	Property UIContainerQuery.MaxSize: Vector2
 	Property UIContainerQuery.MinSize: Vector2
 Class UICorner : UIComponent
@@ -7411,6 +7442,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings] [NotReplicated]
 	Property UserGameSettings.QualityResetLevel: number {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.RCCProfilerRecordFrameRate: number
 	Property UserGameSettings.RCCProfilerRecordTimeFrame: number
+	Property UserGameSettings.ReadAloud: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.ReducedMotion: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.StartMaximized: boolean {RobloxScriptSecurity} [NotReplicated] [NotScriptable]
 	Property UserGameSettings.StartScreenPosition: Vector2 {RobloxScriptSecurity} [NotReplicated] [NotScriptable]
@@ -7782,6 +7814,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function VoiceChatService:getInternalVoiceChatApiVersion() -> number {RobloxScriptSecurity}
 	Function VoiceChatService:isInternalPublishPaused() -> boolean {RobloxScriptSecurity}
 	Function VoiceChatService:joinVoice() -> () {RobloxScriptSecurity}
+	Function VoiceChatService:lastVoiceChatStats() -> { [string]: any } {RobloxScriptSecurity}
 	Function VoiceChatService:leaveVoice() -> () {RobloxScriptSecurity}
 	Function VoiceChatService:rejoinVoice() -> () {RobloxScriptSecurity}
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
@@ -7819,6 +7852,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(muteState: Enum.MuteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventClientToServer(tag: number, value: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventServerToClient(tag: number, value: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.VoiceChatStatsCollected() {RobloxScriptSecurity}
 	Event VoiceChatService.VoiceChatSubscriptionInitialBatchEmpty(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatplayerMuteStatusChangedEvent(userId: number, muted: boolean, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceSetupFailed(voiceControlPath: Enum.VoiceControlPath, serializedFailure: string, sessionId: string) {RobloxSecurity} [Hidden]
@@ -8661,6 +8695,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.PhantomFreeze : 303
 	EnumItem ConnectionError.AndroidAnticheatKick : 304
 	EnumItem ConnectionError.AndroidEmulatorKick : 305
+	EnumItem ConnectionError.AndroidRootedKick : 306
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -8839,6 +8874,7 @@ Enum DeviceForm
 	EnumItem DeviceForm.Tablet : 2
 	EnumItem DeviceForm.Desktop : 3
 	EnumItem DeviceForm.VR : 4
+	EnumItem DeviceForm.Handheld : 5
 Enum DeviceLevel
 	EnumItem DeviceLevel.Low : 0
 	EnumItem DeviceLevel.Medium : 1
@@ -10099,6 +10135,10 @@ Enum PoseEasingStyle
 Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
+Enum PredictionMode
+	EnumItem PredictionMode.Auto : 0
+	EnumItem PredictionMode.None : 1
+	EnumItem PredictionMode.Forced : 2 [Deprecated]
 Enum PreferredInput
 	EnumItem PreferredInput.KeyboardAndMouse : 0
 	EnumItem PreferredInput.Gamepad : 1

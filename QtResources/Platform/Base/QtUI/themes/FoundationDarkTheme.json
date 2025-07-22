@@ -21,7 +21,7 @@
             "TODO": "#6A6F81",
             "Background": "#202227",
             "SelectionText": "#FFFFFF",
-            "SelectionBackground": "#0027B8",
+            "SelectionBackground": "#13235D",
             "FindSelectionBackground": "#976C00",
             "MatchingWordBackground": "#494D5A",
             "Warning": "#F57630",
@@ -37,9 +37,9 @@
             "MenuPrimaryText": "#FFFFFF",
             "MenuSecondaryText": "#6A6F81",
             "MenuSelectedText": "#FFFFFF",
-            "MenuBackground": "#121215",
+            "MenuBackground": "#191A1F",
             "MenuSelectedBackground": "#0027B8",
-            "MenuScrollbarBackground": "#121215",
+            "MenuScrollbarBackground": "#191A1F",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#000000",
             "DocViewCodeBackground": "#353741",
@@ -70,7 +70,7 @@
             "TODO": "#6A6F81",
             "Background": "#191A1F",
             "SelectionText": "#FFFFFF",
-            "SelectionBackground": "#0027B8",
+            "SelectionBackground": "#13235D",
             "FindSelectionBackground": "#976C00",
             "MatchingWordBackground": "#533D02",
             "Warning": "#F57630",
@@ -86,9 +86,9 @@
             "MenuPrimaryText": "#FFFFFF",
             "MenuSecondaryText": "#6A6F81",
             "MenuSelectedText": "#FFFFFF",
-            "MenuBackground": "#121215",
+            "MenuBackground": "#191A1F",
             "MenuSelectedBackground": "#0027B8",
-            "MenuScrollbarBackground": "#121215",
+            "MenuScrollbarBackground": "#191A1F",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#000000",
             "DocViewCodeBackground": "#353741",
@@ -119,7 +119,7 @@
             "TODO": "#6A6F81",
             "Background": "#202227",
             "SelectionText": "#FFFFFF",
-            "SelectionBackground": "#0027B8",
+            "SelectionBackground": "#13235D",
             "FindSelectionBackground": "#976C00",
             "MatchingWordBackground": "#494D5A",
             "Warning": "#F57630",
@@ -135,9 +135,9 @@
             "MenuPrimaryText": "#FFFFFF",
             "MenuSecondaryText": "#6A6F81",
             "MenuSelectedText": "#FFFFFF",
-            "MenuBackground": "#121215",
+            "MenuBackground": "#191A1F",
             "MenuSelectedBackground": "#0027B8",
-            "MenuScrollbarBackground": "#121215",
+            "MenuScrollbarBackground": "#191A1F",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#000000",
             "DocViewCodeBackground": "#353741",
@@ -167,8 +167,8 @@
             "FunctionName": "#FAE4AA",
             "TODO": "#6A6F81",
             "Background": "#202227",
-            "SelectionText": "#FFFFFF",
-            "SelectionBackground": "#0027B8",
+            "SelectionText": "#FFFFFFF",
+            "SelectionBackground": "#13235D",
             "FindSelectionBackground": "#976C00",
             "MatchingWordBackground": "#494D5A",
             "Warning": "#F57630",
@@ -184,9 +184,9 @@
             "MenuPrimaryText": "#FFFFFF",
             "MenuSecondaryText": "#6A6F81",
             "MenuSelectedText": "#FFFFFF",
-            "MenuBackground": "#121215",
+            "MenuBackground": "#191A1F",
             "MenuSelectedBackground": "#0027B8",
-            "MenuScrollbarBackground": "#121215",
+            "MenuScrollbarBackground": "#191A1F",
             "MenuScrollbarHandle": "#BCBEC8",
             "MenuBorder": "#000000",
             "DocViewCodeBackground": "#353741",
@@ -201,27 +201,27 @@
     "Colors": [
         {
             "MainBackground": {
-                "Default": "#121215"
+                "Default": "#191A1F"
             }
         },
         {
             "Titlebar": {
-                "Default": "#191A1F"
+                "Default": "#202227"
             }
         },
         {
             "Dropdown": {
-                "Default": "#121215"
-            }
-        },
-        {
-            "Tooltip": {
                 "Default": "#191A1F"
             }
         },
         {
+            "Tooltip": {
+                "Default": "#202227"
+            }
+        },
+        {
             "Notification": {
-                "Default": "#121215"
+                "Default": "#191A1F"
             }
         },
         {
@@ -239,19 +239,19 @@
         },
         {
             "TabBar": {
-                "Default": "#121215"
+                "Default": "#191A1F"
             }
         },
         {
             "Tab": {
-                "Default": "#191A1F",
+                "Default": "#202227",
                 "Selected": "#202227",
                 "Hover": "#272930"
             }
         },
         {
             "FilterButtonDefault": {
-                "Default": "#121215"
+                "Default": "#191A1F"
             }
         },
         {
@@ -266,17 +266,17 @@
         },
         {
             "FilterButtonAccent": {
-                "Default": "#191A1F"
+                "Default": "#202227"
             }
         },
         {
             "FilterButtonBorder": {
-                "Default": "#121215"
+                "Default": "#191A1F"
             }
         },
         {
             "FilterButtonBorderAlt": {
-                "Default": "#191A1F"
+                "Default": "#202227"
             }
         },
         {
@@ -286,9 +286,9 @@
         },
         {
             "RibbonTab": {
-                "Default": "#191A1F",
-                "Selected": "#121215",
-                "Hover": "#121215"
+                "Default": "#202227",
+                "Selected": "#191A1F",
+                "Hover": "#191A1F"
             }
         },
         {
@@ -313,7 +313,7 @@
         },
         {
             "RibbonButton": {
-                "Default": "#121215",
+                "Default": "#191A1F",
                 "Selected": "#191A1F",
                 "Pressed": "#191A1F",
                 "Hover": "#202227"
@@ -327,7 +327,7 @@
         {
             "InputFieldBackground": {
                 "Default": "#202227",
-                "Disabled": "#191A1F",
+                "Disabled": "#202227",
                 "Hover": "#353741"
             }
         },
@@ -342,7 +342,7 @@
         {
             "CheckedFieldBackground": {
                 "Default": "#202227",
-                "Disabled": "#191A1F"
+                "Disabled": "#202227"
             }
         },
         {
@@ -360,21 +360,21 @@
         },
         {
             "Item": {
-                "Default": "#121215",
-                "Selected": "#0027B8",
+                "Default": "#191A1F",
+                "Selected": "#13235D",
                 "Hover": "#353741"
             }
         },
         {
             "TableItem": {
                 "Default": "#272930",
-                "Selected": "#0027B8",
+                "Selected": "#13235D",
                 "Hover": "#353741"
             }
         },
         {
             "CategoryItem": {
-                "Default": "#191A1F"
+                "Default": "#202227"
             }
         },
         {
@@ -386,30 +386,30 @@
         {
             "GameSettingsTableItem": {
                 "Default": "#272930",
-                "Selected": "#0027B8",
+                "Selected": "#13235D",
                 "Hover": "#353741"
             }
         },
         {
             "GameSettingsTooltip": {
-                "Default": "#191A1F"
+                "Default": "#202227"
             }
         },
         {
             "EmulatorBar": {
-                "Default": "#121215",
+                "Default": "#191A1F",
                 "Hover": "#202227"
             }
         },
         {
             "EmulatorDropDown": {
-                "Default": "#121215",
+                "Default": "#191A1F",
                 "Hover": "#353741"
             }
         },
         {
             "ColorPickerFrame": {
-                "Default": "#121215"
+                "Default": "#191A1F"
             }
         },
         {
@@ -457,7 +457,7 @@
             "MainText": {
                 "Default": "#BCBEC8",
                 "Disabled": "#494D5A",
-                "Selected": "#FFFFFF",
+                "Selected": "#00000",
                 "Hover": "#FFFFFF"
             }
         },
@@ -522,7 +522,7 @@
         },
         {
             "DiffFilePathBackground": {
-                "Default": "#191A1F"
+                "Default": "#202227"
             }
         },
         {
@@ -649,14 +649,14 @@
         },
         {
             "HeaderSection": {
-                "Default": "#191A1F",
+                "Default": "#202227",
                 "Hover": "#494D5A",
                 "Pressed": "#272930"
             }
         },
         {
             "StatusBar": {
-                "Default": "#121215"
+                "Default": "#191A1F"
             }
         },
         {
@@ -805,7 +805,7 @@
         },
         {
             "Foreground Contrast": {
-                "Default": "#202227"
+                "Default": "#272930"
             }
         },
         {
@@ -1398,7 +1398,7 @@
         "HoverWindowShadow": {
             "stop0": "#202227",
             "bottom-stop0": "#202227",
-            "stop1": "#121215"
+            "stop1": "#191A1F"
         },
         "ErrorText": {
             "color": "#F57630"
@@ -1414,7 +1414,7 @@
             "color": "#6A6F81"
         },
         "ImportButtonFrame": {
-            "background-color": "#121215"
+            "background-color": "#191A1F"
         },
         "ImportWidget": {
             "background-color": "#353741"
@@ -1449,7 +1449,7 @@
     },
     "MeshSplitting": {
         "CancelButton": {
-            "background-color": "#121215"
+            "background-color": "#191A1F"
         },
         "CancelButtonHover": {
             "background-color": "#353741"
@@ -1468,10 +1468,10 @@
         "overrideBackground": "#732800"
     },
     "CommonStyle": {
-        "mainBackground": "#191A1F",
+        "mainBackground": "#202227",
         "inputFieldBackground": "#202227",
         "currentItemMarker": "#353741",
-        "tooltip": "#191A1F",
+        "tooltip": "#202227",
         "tooltipBorder": "#202227",
         "tooltipText": "#BCBEC8",
         "mainText": "#BCBEC8",
@@ -1482,25 +1482,25 @@
         "fontWeight": 50
     },
     "Ribbon": {
-        "background": "#121215",
-        "tabBar": "#191A1F",
-        "tab": "#191A1F",
-        "tab-selected": "#121215",
-        "tab-hover": "#121215",
+        "background": "#191A1F",
+        "tabBar": "#202227",
+        "tab": "#202227",
+        "tab-selected": "#191A1F",
+        "tab-hover": "#191A1F",
         "tab-topbar": "#528BFF",
         "tabText": "#BCBEC8",
         "tabText-selected": "#E6E7EA",
         "tabText-hover": "#E6E7EA",
-        "systemButton": "#191A1F",
-        "systemButton-hover": "#121215",
+        "systemButton": "#202227",
+        "systemButton-hover": "#191A1F",
         "button-selected": "#191A1F",
         "button-hover": "#202227",
-        "buttonBorder": "#191A1F",
+        "buttonBorder": "#202227",
         "accentText": "#BCBEC8",
         "disabledIconOpacity": 0.3
     },
     "InsertObjectWindow": {
-        "mainBackground": "#191A1F",
+        "mainBackground": "#202227",
         "scrollViewBackground": "#272930",
         "categoryText": "#6A6F81",
         "separator": "#202227",
@@ -1520,13 +1520,13 @@
         "topMargin": 0,
         "text": "#BCBEC8",
         "border": "#353741",
-        "opened": "#191A1F",
+        "opened": "#202227",
         "openedBorder": "#353741",
         "openedText": "#BCBEC8",
         "downArrowIcon": "qrc:/images/StartPage/ArrowDownIconWhite.png",
         "openedDownArrowIcon": "qrc:/images/StartPage/ArrowDownIconWhite.png",
         "Dropdown": {
-            "background": "#121215",
+            "background": "#191A1F",
             "frameVisible": false,
             "itemHover": "#353741",
             "shadow": "#40000000",
@@ -1562,7 +1562,7 @@
         }
     },
     "Menu": {
-        "background": "#121215",
+        "background": "#191A1F",
         "itemHover": "#353741",
         "shadow": "#80000000",
         "shadowRadius": 12,
@@ -1587,8 +1587,8 @@
     "StartPage": [
         {
             "Page": {
-                "background": "#121215",
-                "noGamesRect": "#121215",
+                "background": "#191A1F",
+                "noGamesRect": "#191A1F",
                 "messageText": "#6A6F81",
                 "dimmedText": "#6A6F81",
                 "labelText": "#BCBEC8",
@@ -1629,7 +1629,7 @@
                 "selectedRow": "#353741",
                 "headerText": "#BCBEC8",
                 "headerTextSelected": "#FFFFFF",
-                "border": "#121215",
+                "border": "#191A1F",
                 "sortArrowAscending": "qrc:/images/StartPage/DarkTheme/SortArrowAscending.png",
                 "sortArrowDescending": "qrc:/images/StartPage/DarkTheme/SortArrowDescending.png",
                 "checkmarkIcon": "qrc:/images/StartPage/checkmark.png",
@@ -1639,7 +1639,7 @@
                 "cloudIcon": "qrc:/images/StartPage/DarkTheme/ListCloudIcon.png",
                 "gridIcon": "qrc:/images/StartPage/DarkTheme/GamesGridIcon.png",
                 "listIcon": "qrc:/images/StartPage/DarkTheme/GamesListIcon.png",
-                "toggleButton": "#121215",
+                "toggleButton": "#191A1F",
                 "toggleHover": "#353741"
             }
         },
@@ -1666,8 +1666,8 @@
             "ShareModal": {
                 "background": "#272930",
                 "blurBackground": "#000000",
-                "titleBarBackground": "#191A1F",
-                "grayBackground": "#121215",
+                "titleBarBackground": "#202227",
+                "grayBackground": "#191A1F",
                 "stripeBackground": "#191A1F",
                 "shareButtonBackground": "#353741",
                 "shareButtonBorderWidth": 0,
@@ -1687,7 +1687,7 @@
         {
             "TeamCreatePresence": {
                 "background": "#202227",
-                "border": "#202227",
+                "border": "#272930",
                 "avatarBackground": "#6A6F81",
                 "indicator": "#1DB16A",
                 "text": "#E6E7EA",
@@ -1696,7 +1696,7 @@
         },
         {
             "LoginPage": {
-                "background": "#121215",
+                "background": "#191A1F",
                 "separator": "#6A6F81",
                 "statusText": "#FFFFFF",
                 "versionText": "#BCBEC8",
@@ -1716,7 +1716,7 @@
         },
         {
             "TutorialBanner": {
-                "BannerBackground": "#191A1F",
+                "BannerBackground": "#202227",
                 "TextboxBackground": "#272930",
                 "TextColor": "#FFFFFF",
                 "OpenTutorialsButtonColor": "#EEEFF1"
@@ -1739,7 +1739,7 @@
         "Text": "#EB7973"
     },
     "Foreground": {
-        "Contrast": "#202227",
+        "Contrast": "#272930",
         "Inverse": "#F7F7F8",
         "Main": "#272930",
         "Muted": "#191A1F"

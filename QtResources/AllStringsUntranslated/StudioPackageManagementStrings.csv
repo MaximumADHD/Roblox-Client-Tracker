@@ -1,0 +1,5 @@
+Key,Context,Source,en-us
+Studio.PackageManagement.MenuEntry.Permissions,,Permissions,Permissions
+Studio.PackageManagement.Meta.PluginName,,Package Configuration,Package Configuration
+Studio.PackageManagement.UpdateModified.MultipleConfirm,Confirm button for dialog when a package update is going to overwrite local changes.,Overwrite & Update All,Overwrite & Update All
+Studio.PackageManagement.UpdateModified.SingleConfirm,Confirm button for dialog when a package update is going to overwrite local changes,Overwrite & Update,Overwrite & Update

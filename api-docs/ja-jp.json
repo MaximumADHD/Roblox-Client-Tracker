@@ -15015,6 +15015,195 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageButton#TileSize",
     "code_sample": ""
   },
+  "@roblox/globaltype/AudioGate": {
+    "documentation": "",
+    "keys": {
+      "Attack": "@roblox/globaltype/AudioGate.Attack",
+      "Bypass": "@roblox/globaltype/AudioGate.Bypass",
+      "Release": "@roblox/globaltype/AudioGate.Release",
+      "Threshold": "@roblox/globaltype/AudioGate.Threshold",
+      "GetConnectedWires": "@roblox/globaltype/AudioGate.GetConnectedWires",
+      "GetInputPins": "@roblox/globaltype/AudioGate.GetInputPins",
+      "GetOutputPins": "@roblox/globaltype/AudioGate.GetOutputPins"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioGate.Attack": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Attack",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioGate.Bypass": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Bypass",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioGate.Release": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Release",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioGate.Threshold": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#Threshold",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioGate.GetConnectedWires/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.GetConnectedWires/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.GetConnectedWires": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioGate.GetConnectedWires/param/0"
+      },
+      {
+        "name": "pin",
+        "documentation": "@roblox/globaltype/AudioGate.GetConnectedWires/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioGate.GetConnectedWires/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#GetConnectedWires",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioGate.GetInputPins/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.GetInputPins": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioGate.GetInputPins/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioGate.GetInputPins/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#GetInputPins",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioGate.GetOutputPins/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.GetOutputPins": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioGate.GetOutputPins/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioGate.GetOutputPins/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#GetOutputPins",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.Connect/param/0": {
+    "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel/param/0": {
+    "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.Once/param/0": {
+    "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.Once": {
+    "documentation": "指定された関数をイベントに接続し(単一の呼び出しの場合)、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.Wait/param/0": {
+    "documentation": "特定の発生に接続された機能を実行するオブジェクト。"
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged.Wait": {
+    "documentation": "シグナルが発火して返されるまで、現在のスレッドを生成し、シグナルが提供する引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioGate.WiringChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AudioGate.WiringChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/AudioGate.WiringChanged.Once",
+      "Wait": "@roblox/globaltype/AudioGate.WiringChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioGate#WiringChanged",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RecommendationService": {
     "documentation": "",
     "keys": {
@@ -18293,7 +18482,7 @@
   "@roblox/globaltype/Humanoid.NameOcclusion": {
     "documentation": "ヒューマノイドの名前と健康バーが壁や他のオブジェクトの後ろで見えるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#NameOcclusion",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\thumanoid.NamOcclusion = Enum.NameOcclusion.OccludeAll\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\thumanoid.NameOcclusion = Enum.NameOcclusion.OccludeAll\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Humanoid.PlatformStand": {
     "documentation": "現在 <code>Humanoid</code> が <code>HumanoidStateType.PlatformStanding</code> 状態にあるかどうかを決定します。",
@@ -44722,7 +44911,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" is friends with gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" is connections with gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
     "documentation": "現在接続されているクライアントをゲームに表現するオブジェクト。"
@@ -56992,7 +57181,7 @@
   "@roblox/globaltype/StyleRule.Selector": {
     "documentation": "<code>StyleRule</code> が影響するインスタンスを指定する文字列。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#Selector",
-    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal screenGui = script.Parent\n\nlocal coreSheet = Instance.new(\"StyleSheet\")\ncoreSheet.Parent = ReplicatedStorage\nlocal styleLink = Instance.new(\"StyleLink\")\nstyleLink.StyleSheet = coreSheet\nstyleLink.Parent = screenGui\nlocal rule = Instance.new(\"StyleRule\")\nrule.Parent = coreSheet\n\n-- Class selector\nrule.Selector = \"TextButton\"\n\n-- Set rule properties\nrule:SetProperties({\n\t[\"BackgroundColor3\"] = Color3.fromHex(\"335FFF\"),\n\t[\"TextColor3\"] = Color3.fromHex(\"E1E1E1\"),\n\t[\"Size\"] = UDim2.new(0.15, 0, 0, 40),\n\t[\"BorderSizePixel\"] = 0\n})\n\nlocal button = Instance.new(\"TextButton\")\nbutton.Text = \"Main Menu\"\nbutton.Parent = screenGui"
+    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal screenGui = script.Parent\n\nlocal coreSheet = Instance.new(\"StyleSheet\")\ncoreSheet.Parent = ReplicatedStorage\nlocal styleLink = Instance.new(\"StyleLink\")\nstyleLink.StyleSheet = coreSheet\nstyleLink.Parent = screenGui\nlocal rule = Instance.new(\"StyleRule\")\nrule.Parent = coreSheet\n\n-- Class selector\nrule.Selector = \"TextButton\"\n\n-- Set rule properties\nrule:SetProperties({\n\t[\"BackgroundColor3\"] = Color3.fromHex(\"335FFF\"),\n\t[\"TextColor3\"] = Color3.fromHex(\"E1E1E1\"),\n\t[\"Size\"] = UDim2.new(0.15, 0, 0, 40),\n\t[\"BorderSizePixel\"] = 0,\n})\n\nlocal button = Instance.new(\"TextButton\")\nbutton.Text = \"Main Menu\"\nbutton.Parent = screenGui"
   },
   "@roblox/globaltype/StyleRule.SelectorError": {
     "documentation": "<code>Selector</code> プロパティからのエラーを表示する読み込み専用の文字列。",
@@ -85106,12 +85295,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ChannelTabsConfiguration#TextStrokeTransparency",
     "code_sample": ""
   },
-  "@roblox/globaltype/CommandService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CommandService",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TeleportService": {
     "documentation": "Enables transporting <code>Players</code> between places and servers.",
     "keys": {
@@ -106783,6 +106966,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TextTruncate",
     "code_sample": ""
   },
+  "@roblox/enum/DisplaySize.Small": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DisplaySize#Small",
+    "code_sample": ""
+  },
+  "@roblox/enum/DisplaySize.Medium": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DisplaySize#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/DisplaySize.Large": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DisplaySize#Large",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.DisplaySize": {
+    "documentation": "",
+    "keys": {
+      "Small": "@roblox/enum/DisplaySize.Small",
+      "Medium": "@roblox/enum/DisplaySize.Medium",
+      "Large": "@roblox/enum/DisplaySize.Large"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DisplaySize",
+    "code_sample": ""
+  },
   "@roblox/enum/CameraType.Fixed": {
     "documentation": "カメラは静止しています。",
     "keys": {
@@ -110306,6 +110529,46 @@
       "Win": "@roblox/enum/ActionType.Win"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionType",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptLinkSharingResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptLinkSharingResult.PlayerLeft": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#PlayerLeft",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptLinkSharingResult.InvalidLaunchData": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#InvalidLaunchData",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PromptLinkSharingResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/PromptLinkSharingResult.Success",
+      "PlayerLeft": "@roblox/enum/PromptLinkSharingResult.PlayerLeft",
+      "InvalidLaunchData": "@roblox/enum/PromptLinkSharingResult.InvalidLaunchData"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult",
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Default": {
@@ -129478,6 +129741,46 @@
       "Error": "@roblox/enum/FacialAgeEstimationResultType.Error"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FacialAgeEstimationResultType",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictionMode.Auto": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#Auto",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictionMode.None": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictionMode.Forced": {
+    "documentation": "<strong>Deprecated:</strong> ",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#Forced",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PredictionMode": {
+    "documentation": "",
+    "keys": {
+      "Auto": "@roblox/enum/PredictionMode.Auto",
+      "None": "@roblox/enum/PredictionMode.None",
+      "Forced": "@roblox/enum/PredictionMode.Forced"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode",
     "code_sample": ""
   },
   "@roblox/enum/ContextActionResult.Sink": {

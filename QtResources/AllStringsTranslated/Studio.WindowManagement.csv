@@ -6,3 +6,4 @@ Studio.WindowManagement.DockPanelAction.WindowPosition,,,Window Position,Window 
 Studio.WindowManagement.DockPanelAction.Float,,,Float,Float,طفو,Schweben,Flotante,Flottant,फ़्लोट करें,Terapung,Fluttuante,フロート,플로팅,Pływające,Flutuante,,ตัวเลขทศนิยม,Yüzer,Nổi,浮点,浮点,浮動
 Studio.WindowManagement.DockPanelAction.Dock,,,Dock,Dock,إرساء,Andocken,Acoplar,Dock,डॉक करें,Tertambat,Dock,ドック,도킹,Dokowane,Ancorar,,เชื่อมต่อ,Yerleşik,Bến Đậu,固定,固定,固定
 Studio.WindowManagement.DockPanelAction.Hide,,,Hide,Hide,,,,,,,,,,,,,,,,,,
+Studio.WindowManagement.DumpWindowHierarchyToLog,,,Dump Window Hierarchy to Log,Dump Window Hierarchy to Log,,,,Extraire la hiérarchie de la fenêtre vers le journal,,,,,,,,,,,,,,

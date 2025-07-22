@@ -25,7 +25,7 @@ Studio.SystemMenu.Title.GroupAsFolder,Group the selected Instances under a new F
 Studio.SystemMenu.Title.GroupAsModel,Group the selected Instances under a new Model,Group as Model,Group as Model
 Studio.SystemMenu.Title.LiveCollaborators,"Plugin that allows users to view collaborators currently active (""live"") in their Team Create session.",Live Collaborators,Live Collaborators
 Studio.SystemMenu.Title.Localization,Menu that contains localization related studio plugins,Localization,Localization
-Studio.SystemMenu.Title.LocalizationTool,Name of the action to display the Localization Tools plugin,Localization Tool,Localization Tool
+Studio.SystemMenu.Title.LocalizationTool,Name of the action to display the Localization Tools plugin,Localization Tools,Localization Tools
 Studio.SystemMenu.Title.Lock,Menu that contains lock selection and lock tool actions,Lock,Lock
 Studio.SystemMenu.Title.LockSelection,Toggle whether an object can be selected,Lock Selection,Lock Selection
 Studio.SystemMenu.Title.ManageCollaborators,Widget that allows users to manage their Team Create collaborator permissions.,Manage Collaborators,Manage Collaborators
@@ -45,6 +45,7 @@ Studio.SystemMenu.Title.ResetLayout,Reset Widget and Toolbar position,Reset Layo
 Studio.SystemMenu.Title.SaveAsLocalPlugin,Create a local plugin from this script,Save as Local Plugin,Save as Local Plugin
 Studio.SystemMenu.Title.SaveToFileAs,Save the active local file with a new name,Save to File As,Save to File As
 Studio.SystemMenu.Title.SaveToRobloxAs,Save active document to Roblox as,Save to Roblox As,Save to Roblox As
+Studio.SystemMenu.Title.SaveToRobloxWithNotes,Save active document to Roblox with notes,Save to Roblox with Notes,Save to Roblox with Notes
 Studio.SystemMenu.Title.Screenshot,Takes a screenshot of the Roblox Studio application,Screenshot,Screenshot
 Studio.SystemMenu.Title.Script,"The Script submenu in Roblox Studio provides tools and actions essential for writing, editing, and debugging Lua scripts. It offers options to access script editing utilities, manage drafts, find and replace text, inspect objects, execute scripts directly, and monitor script performance",Script,Script
 Studio.SystemMenu.Title.ShowConstraintDetails,Provides a visual overlay that displays the location and orientation of attachments and constraints connecting parts,Show Constraint Details,Show Constraint Details
@@ -57,9 +58,13 @@ Studio.SystemMenu.Title.ShowWireframeRendering,"Display mode that shows the 3D o
 Studio.SystemMenu.Title.SixStuds,"When we toggle the 3d grid, this is the 6 studs grid size",6 Studs,6 Studs
 Studio.SystemMenu.Title.SixteenStuds,"When we toggle the 3d grid, this is the 16 studs grid size",16 Studs,16 Studs
 Studio.SystemMenu.Title.StartStudioTour,Starts the Studio Tour,Start Studio Tour,Start Studio Tour
+Studio.SystemMenu.Title.StartTestSession,"Submenu title that contains the different types of testing modes like Test, Test Here, Run, Team Test, and Server and Clients",Start Test Session,Start Test Session
 Studio.SystemMenu.Title.StudioSettings,"Opens a dialog that contains all the possible settings to change and configure Roblox Studio with such as theme, script editor, debugging, language, etc.",Studio Settings,Studio Settings
 Studio.SystemMenu.Title.SuperTemplate,Name of the action to display the Super Template plugin,Super Template,Super Template
+Studio.SystemMenu.Title.Test,"Menu title which contains Emulation controls, Debug Errors, and testing controls actions",Test,Test
 Studio.SystemMenu.Title.TwoStuds,"When we toggle the 3d grid, this is the 2 studs grid size",2 Studs,2 Studs
 Studio.SystemMenu.Title.UI,Menu to display UI related studio plugins,UI,UI
+Studio.SystemMenu.Title.Untitled,"Label used in the Studio System Menu for any plugins or plugin controls that are untitled. Previously, they would just show up as a blank entry.",Untitled,Untitled
 Studio.SystemMenu.Title.View,"Menu in Roblox Studio offers tools and settings to control the display and presentation of the 3D workspace. It allows developers to customize how they view and interact with their game world, providing options for zoom, grid settings, rendering modes, UI visibility, and debugging aids",View,View
 Studio.SystemMenu.Title.Window,"The Window menu in Roblox Studio system menu, which provides access to various tools and panels that allow developers to manage the Studio interface, inspect game objects and performance, and access specialized editors for specific content types",Window,Window
+Studio.SystemMenu.Tooltip.SaveToRobloxWithNotes,tooltip for saving with version notes,Save active document to Roblox with version notes,Save active document to Roblox with version notes
