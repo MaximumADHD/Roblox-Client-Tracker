@@ -5820,6 +5820,7 @@ AvatarSettingsCollisionMode
 AvatarSettingsCustomAccessoryMode
 AvatarSettingsCustomBodyType
 AvatarSettingsCustomClothingMode
+AvatarSettingsDontOverrideAnimsInStandardR15Setting
 AvatarSettingsHitAndTouchDetectionMode
 AvatarSettingsJumpMode
 AvatarSettingsLegacyCollisionMode
@@ -15079,7 +15080,7 @@ CC583B11E29A3DBD856014A660
 CCCC0C1CCCCCCCCCCCCCC2CC345CCCCCCCC6CCCC789
 CCCCCCCCCCCCCCC
 CCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCACCBZ3
+CCCCCCCCCCCCCCCCCCCCCCCCACCB
 CCCCCCCCCCCCCCCCCCCCCCCCCC
 CCCCCCCCCCCCCDC
 CCCCCCCCCCCCCDCCCCCCC0123CCCCCCCCCC
@@ -18900,6 +18901,7 @@ CSArrayOut.push
 CsatCompletedSurveyIds
 CSC.AssetPreloading
 CSC.TeleportHistory
+CSessionTracker
 CsFilterMessageSignalRateLimitCapacity
 CsFilterMessageSignalRateLimitDuration
 CsFilterMessageSignalRatePermyriad
@@ -22508,7 +22510,7 @@ Dinonaktifkan
 Dinonaktifkan]
 Dinormalkan[Fitur
 Dioptimalkan
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos`
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
 Dipengaruhi
 Dipercepat
 DIPERDAGANGKAN
@@ -39959,6 +39961,7 @@ NavigationHang
 NavigationHeightfieldMemory
 NavigationHeightfieldTerrainMemory
 NavigationHighComputePathTimeThresholdMsec
+NavigationHundredthPercent
 NavigationImprovedSearchCounter
 NavigationImprovedWallEdgeRecog
 NavigationIncorrectPolyRefPathfindingLink
@@ -81147,7 +81150,7 @@ WilError_03
 Willkommen
 WillReturn
 WIN32_LEAN_AND_MEAN
-Win64.683.14800
+Win64.683.15033
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
