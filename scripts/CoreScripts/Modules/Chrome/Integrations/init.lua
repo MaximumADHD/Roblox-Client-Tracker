@@ -5,7 +5,7 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 
 return {
 	OverflowMenu = require(script.OverflowMenu),
-	Chat = require(script.Chat),
+	Chat = require(script.ExpChat.ChatChromeIntegration),
 	ConnectUnibar = require(script.Connect.ConnectIconUnibar),
 	ConnectDropdown = require(script.Connect.ConnectIconDropdown),
 	UnibarMenuToggleButton = require(script.UnibarMenuToggleButtonV2),

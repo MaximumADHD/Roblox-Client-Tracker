@@ -4,6 +4,7 @@ local GuiService = game:GetService("GuiService")
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService.RobloxGui
 local CoreGuiModules = RobloxGui.Modules
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local InspectAndBuyModules = CoreGuiModules.InspectAndBuy
 local Roact = require(CorePackages.Packages.Roact)
 local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
@@ -12,6 +13,8 @@ local InspectAndBuyInstanceHandle = nil
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local TopBar = require(RobloxGui.Modules.TopBar)
+
+local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -52,7 +55,12 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 	end
 	GuiService:SetMenuIsOpen(true, INSPECT_MENU_KEY)
 
-	TopBar:setInspectMenuOpen(true)
+	if FFlagTopBarSignalizeMenuOpen then 
+		local getInspectAndBuyStore = CoreGuiCommon.Stores.GetInspectAndBuyStore
+		getInspectAndBuyStore(false).setInspectAndBuyOpen(true)
+	else
+		TopBar:setInspectMenuOpen(true)
+	end
 end
 
 local function unmountInspectAndBuy()
@@ -61,7 +69,12 @@ local function unmountInspectAndBuy()
 		InspectAndBuyInstanceHandle = nil
 		GuiService:SetMenuIsOpen(false, INSPECT_MENU_KEY)
 
-		TopBar:setInspectMenuOpen(false)
+		if FFlagTopBarSignalizeMenuOpen then 
+			local getInspectAndBuyStore = CoreGuiCommon.Stores.GetInspectAndBuyStore
+			getInspectAndBuyStore(false).setInspectAndBuyOpen(false)
+		else
+			TopBar:setInspectMenuOpen(false)
+		end
 	end
 end
 

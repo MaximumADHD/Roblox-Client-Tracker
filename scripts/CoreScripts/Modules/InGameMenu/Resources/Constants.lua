@@ -155,6 +155,7 @@ local Constants = {
 	ConnectionLocalizedKey = "CommonUI.Features.Label.Connection",
 	AddConnectionLocalizedKey = "CommonUI.Features.Label.AddConnection",
 	InviteConnectionsLocalizedKey = "CommonUI.Features.Label.InviteConnections",
+	MovementModeDynamicThumbstickKey = "Feature.SettingsHub.Default.DynamicThumbstick",
 }
 
 return Constants

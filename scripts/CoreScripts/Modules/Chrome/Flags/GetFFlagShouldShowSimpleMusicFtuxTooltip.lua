@@ -1,3 +1,4 @@
+-- TODO: Remove when cleaning up FFlagSongbirdCleanupMusicTooltip
 game:DefineFastFlag("ShouldShowSimpleMusicFtuxTooltip2", false)
 
 return function()

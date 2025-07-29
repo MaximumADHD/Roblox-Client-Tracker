@@ -496,8 +496,8 @@ PROTO_0:
   SETTABLEKS R13 R12 K114 ["Image"]
   SETTABLEKS R12 R11 K158 ["Warning"]
   SETTABLEKS R11 R10 K29 ["StatusIcon"]
-  DUPTABLE R11 K170 [{"CreateNewVariant", "ShowInExplorer", "DEPRECATED_MaterialAsToolMouseIcon", "TopBarButtonWidth", "BackgroundColor", "ViewTypeBackground", "ButtonSize", "Padding", "SearchBarMaxWidth", "SpacerWidth", "ViewTypeSize"}]
-  DUPTABLE R12 K173 [{"Image", "Color", "Position", "Size"}]
+  DUPTABLE R11 K169 [{"CreateNewVariant", "ShowInExplorer", "TopBarButtonWidth", "BackgroundColor", "ViewTypeBackground", "ButtonSize", "Padding", "SearchBarMaxWidth", "SpacerWidth", "ViewTypeSize"}]
+  DUPTABLE R12 K172 [{"Image", "Color", "Position", "Size"}]
   LOADK R13 K148 ["rbxasset://textures/MaterialManager/Create_New_Variant.png"]
   SETTABLEKS R13 R12 K114 ["Image"]
   GETUPVAL R14 0
@@ -507,15 +507,15 @@ PROTO_0:
   LOADN R14 6
   LOADN R15 6
   CALL R13 2 1
-  SETTABLEKS R13 R12 K171 ["Position"]
+  SETTABLEKS R13 R12 K170 ["Position"]
   GETIMPORT R13 K6 [UDim2.fromOffset]
   LOADN R14 16
   LOADN R15 16
   CALL R13 2 1
-  SETTABLEKS R13 R12 K172 ["Size"]
+  SETTABLEKS R13 R12 K171 ["Size"]
   SETTABLEKS R12 R11 K162 ["CreateNewVariant"]
   NEWTABLE R12 8 0
-  LOADK R13 K174 ["rbxasset://textures/MaterialManager/Show_In_Explorer.png"]
+  LOADK R13 K173 ["rbxasset://textures/MaterialManager/Show_In_Explorer.png"]
   SETTABLEKS R13 R12 K114 ["Image"]
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K117 ["BrightText"]
@@ -524,58 +524,27 @@ PROTO_0:
   LOADN R14 6
   LOADN R15 6
   CALL R13 2 1
-  SETTABLEKS R13 R12 K171 ["Position"]
+  SETTABLEKS R13 R12 K170 ["Position"]
   GETIMPORT R13 K6 [UDim2.fromOffset]
   LOADN R14 16
   LOADN R15 16
   CALL R13 2 1
-  SETTABLEKS R13 R12 K172 ["Size"]
+  SETTABLEKS R13 R12 K171 ["Size"]
   GETUPVAL R14 7
-  GETTABLEKS R13 R14 K175 ["Disabled"]
-  DUPTABLE R14 K177 [{"Transparency"}]
+  GETTABLEKS R13 R14 K174 ["Disabled"]
+  DUPTABLE R14 K176 [{"Transparency"}]
   LOADK R15 K131 [0.5]
-  SETTABLEKS R15 R14 K176 ["Transparency"]
+  SETTABLEKS R15 R14 K175 ["Transparency"]
   SETTABLE R14 R12 R13
   SETTABLEKS R12 R11 K163 ["ShowInExplorer"]
-  NEWTABLE R12 8 0
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K178 ["FillBucket"]
-  SETTABLEKS R13 R12 K114 ["Image"]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K117 ["BrightText"]
-  SETTABLEKS R13 R12 K89 ["Color"]
-  GETIMPORT R13 K6 [UDim2.fromOffset]
-  LOADN R14 3
-  LOADN R15 3
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K171 ["Position"]
-  GETIMPORT R13 K6 [UDim2.fromOffset]
-  LOADN R14 20
-  LOADN R15 20
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K172 ["Size"]
-  GETUPVAL R14 7
-  GETTABLEKS R13 R14 K175 ["Disabled"]
-  DUPTABLE R14 K177 [{"Transparency"}]
-  LOADK R15 K131 [0.5]
-  SETTABLEKS R15 R14 K176 ["Transparency"]
-  SETTABLE R14 R12 R13
-  GETUPVAL R14 7
-  GETTABLEKS R13 R14 K179 ["Pressed"]
-  DUPTABLE R14 K180 [{"BackgroundColor"}]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K181 ["ButtonPressed"]
-  SETTABLEKS R15 R14 K35 ["BackgroundColor"]
-  SETTABLE R14 R12 R13
-  SETTABLEKS R12 R11 K164 ["DEPRECATED_MaterialAsToolMouseIcon"]
   LOADN R12 28
-  SETTABLEKS R12 R11 K165 ["TopBarButtonWidth"]
+  SETTABLEKS R12 R11 K164 ["TopBarButtonWidth"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K98 ["Titlebar"]
   SETTABLEKS R12 R11 K35 ["BackgroundColor"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K63 ["Button"]
-  SETTABLEKS R12 R11 K166 ["ViewTypeBackground"]
+  SETTABLEKS R12 R11 K165 ["ViewTypeBackground"]
   GETIMPORT R12 K6 [UDim2.fromOffset]
   LOADN R13 28
   LOADN R14 28
@@ -584,106 +553,106 @@ PROTO_0:
   LOADN R12 4
   SETTABLEKS R12 R11 K46 ["Padding"]
   LOADN R12 88
-  SETTABLEKS R12 R11 K167 ["SearchBarMaxWidth"]
+  SETTABLEKS R12 R11 K166 ["SearchBarMaxWidth"]
   LOADN R12 12
-  SETTABLEKS R12 R11 K168 ["SpacerWidth"]
+  SETTABLEKS R12 R11 K167 ["SpacerWidth"]
   GETIMPORT R12 K10 [UDim2.new]
   LOADN R13 0
   LOADN R14 50
   LOADN R15 1
   LOADN R16 0
   CALL R12 4 1
-  SETTABLEKS R12 R11 K169 ["ViewTypeSize"]
+  SETTABLEKS R12 R11 K168 ["ViewTypeSize"]
   SETTABLEKS R11 R10 K30 ["TopBar"]
-  DUPTABLE R11 K204 [{"ExpandIcon", "ClearIcon", "ImportIcon", "PreviewBackgroundColor", "PreviewBorderColor", "ImportIconColor", "ImportImageBackground", "ButtonColor", "ButtonHeight", "ButtonIconColor", "ButtonIconHoveredColor", "ToolbarTransparency", "ToolbarBackgroundColor", "ToolbarButtonBackgroundColor", "ToolbarHeight", "ColumnWidth", "LabelColumnWidth", "PreviewSize", "PaddingVertical", "PaddingHorizontal", "TextHeight", "ExpandedPreviewDefaultSize", "ExpandedPreviewMinSize", "ExpandedPreviewPadding"}]
-  LOADK R12 K205 ["rbxasset://textures/StudioSharedUI/preview_expand.png"]
-  SETTABLEKS R12 R11 K182 ["ExpandIcon"]
-  LOADK R12 K206 ["rbxasset://textures/StudioSharedUI/preview_clear.png"]
-  SETTABLEKS R12 R11 K183 ["ClearIcon"]
-  LOADK R12 K207 ["rbxasset://textures/StudioSharedUI/import@2x.png"]
-  SETTABLEKS R12 R11 K184 ["ImportIcon"]
+  DUPTABLE R11 K199 [{"ExpandIcon", "ClearIcon", "ImportIcon", "PreviewBackgroundColor", "PreviewBorderColor", "ImportIconColor", "ImportImageBackground", "ButtonColor", "ButtonHeight", "ButtonIconColor", "ButtonIconHoveredColor", "ToolbarTransparency", "ToolbarBackgroundColor", "ToolbarButtonBackgroundColor", "ToolbarHeight", "ColumnWidth", "LabelColumnWidth", "PreviewSize", "PaddingVertical", "PaddingHorizontal", "TextHeight", "ExpandedPreviewDefaultSize", "ExpandedPreviewMinSize", "ExpandedPreviewPadding"}]
+  LOADK R12 K200 ["rbxasset://textures/StudioSharedUI/preview_expand.png"]
+  SETTABLEKS R12 R11 K177 ["ExpandIcon"]
+  LOADK R12 K201 ["rbxasset://textures/StudioSharedUI/preview_clear.png"]
+  SETTABLEKS R12 R11 K178 ["ClearIcon"]
+  LOADK R12 K202 ["rbxasset://textures/StudioSharedUI/import@2x.png"]
+  SETTABLEKS R12 R11 K179 ["ImportIcon"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K50 ["ScrollingFrameBackgroundColor"]
-  SETTABLEKS R12 R11 K185 ["PreviewBackgroundColor"]
+  SETTABLEKS R12 R11 K180 ["PreviewBackgroundColor"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K208 ["Border"]
-  SETTABLEKS R12 R11 K186 ["PreviewBorderColor"]
+  GETTABLEKS R12 R13 K203 ["Border"]
+  SETTABLEKS R12 R11 K181 ["PreviewBorderColor"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K52 ["ButtonText"]
-  SETTABLEKS R12 R11 K187 ["ImportIconColor"]
+  SETTABLEKS R12 R11 K182 ["ImportIconColor"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K188 ["ImportImageBackground"]
-  SETTABLEKS R12 R11 K188 ["ImportImageBackground"]
+  GETTABLEKS R12 R13 K183 ["ImportImageBackground"]
+  SETTABLEKS R12 R11 K183 ["ImportImageBackground"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K63 ["Button"]
-  SETTABLEKS R12 R11 K189 ["ButtonColor"]
+  SETTABLEKS R12 R11 K184 ["ButtonColor"]
   LOADN R12 24
-  SETTABLEKS R12 R11 K190 ["ButtonHeight"]
+  SETTABLEKS R12 R11 K185 ["ButtonHeight"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K209 ["Icon"]
-  SETTABLEKS R12 R11 K191 ["ButtonIconColor"]
+  GETTABLEKS R12 R13 K204 ["Icon"]
+  SETTABLEKS R12 R11 K186 ["ButtonIconColor"]
   GETIMPORT R12 K60 [Color3.fromRGB]
   LOADN R13 255
   LOADN R14 255
   LOADN R15 255
   CALL R12 3 1
-  SETTABLEKS R12 R11 K192 ["ButtonIconHoveredColor"]
-  LOADK R12 K210 [0.4]
-  SETTABLEKS R12 R11 K193 ["ToolbarTransparency"]
+  SETTABLEKS R12 R11 K187 ["ButtonIconHoveredColor"]
+  LOADK R12 K205 [0.4]
+  SETTABLEKS R12 R11 K188 ["ToolbarTransparency"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K194 ["ToolbarBackgroundColor"]
-  SETTABLEKS R12 R11 K194 ["ToolbarBackgroundColor"]
+  GETTABLEKS R12 R13 K189 ["ToolbarBackgroundColor"]
+  SETTABLEKS R12 R11 K189 ["ToolbarBackgroundColor"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K195 ["ToolbarButtonBackgroundColor"]
-  SETTABLEKS R12 R11 K195 ["ToolbarButtonBackgroundColor"]
+  GETTABLEKS R12 R13 K190 ["ToolbarButtonBackgroundColor"]
+  SETTABLEKS R12 R11 K190 ["ToolbarButtonBackgroundColor"]
   LOADN R12 32
-  SETTABLEKS R12 R11 K196 ["ToolbarHeight"]
+  SETTABLEKS R12 R11 K191 ["ToolbarHeight"]
   LOADN R12 145
   SETTABLEKS R12 R11 K71 ["ColumnWidth"]
   SETTABLEKS R5 R11 K67 ["LabelColumnWidth"]
   LOADN R12 74
-  SETTABLEKS R12 R11 K197 ["PreviewSize"]
+  SETTABLEKS R12 R11 K192 ["PreviewSize"]
   LOADN R12 4
-  SETTABLEKS R12 R11 K198 ["PaddingVertical"]
+  SETTABLEKS R12 R11 K193 ["PaddingVertical"]
   LOADN R12 21
-  SETTABLEKS R12 R11 K199 ["PaddingHorizontal"]
+  SETTABLEKS R12 R11 K194 ["PaddingHorizontal"]
   LOADN R12 16
-  SETTABLEKS R12 R11 K200 ["TextHeight"]
+  SETTABLEKS R12 R11 K195 ["TextHeight"]
   GETIMPORT R12 K130 [Vector2.new]
   LOADN R13 144
   LOADN R14 144
   CALL R12 2 1
-  SETTABLEKS R12 R11 K201 ["ExpandedPreviewDefaultSize"]
+  SETTABLEKS R12 R11 K196 ["ExpandedPreviewDefaultSize"]
   GETIMPORT R12 K130 [Vector2.new]
   LOADN R13 100
   LOADN R14 100
   CALL R12 2 1
-  SETTABLEKS R12 R11 K202 ["ExpandedPreviewMinSize"]
+  SETTABLEKS R12 R11 K197 ["ExpandedPreviewMinSize"]
   GETIMPORT R12 K9 [UDim.new]
   LOADN R13 0
   LOADN R14 16
   CALL R12 2 1
-  SETTABLEKS R12 R11 K203 ["ExpandedPreviewPadding"]
+  SETTABLEKS R12 R11 K198 ["ExpandedPreviewPadding"]
   SETTABLEKS R11 R10 K31 ["PromptSelectorWithPreview"]
-  DUPTABLE R11 K213 [{"Grid", "List", "ViewTypeBackground", "ViewTypeSize"}]
+  DUPTABLE R11 K208 [{"Grid", "List", "ViewTypeBackground", "ViewTypeSize"}]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K214 ["GridIcon"]
-  SETTABLEKS R12 R11 K211 ["Grid"]
+  GETTABLEKS R12 R13 K209 ["GridIcon"]
+  SETTABLEKS R12 R11 K206 ["Grid"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K215 ["ListIcon"]
-  SETTABLEKS R12 R11 K212 ["List"]
+  GETTABLEKS R12 R13 K210 ["ListIcon"]
+  SETTABLEKS R12 R11 K207 ["List"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K63 ["Button"]
-  SETTABLEKS R12 R11 K166 ["ViewTypeBackground"]
+  SETTABLEKS R12 R11 K165 ["ViewTypeBackground"]
   GETIMPORT R12 K10 [UDim2.new]
   LOADN R13 0
   LOADN R14 50
   LOADN R15 1
   LOADN R16 0
   CALL R12 4 1
-  SETTABLEKS R12 R11 K169 ["ViewTypeSize"]
+  SETTABLEKS R12 R11 K168 ["ViewTypeSize"]
   SETTABLEKS R11 R10 K32 ["ViewTypeButton"]
-  DUPTABLE R11 K216 [{"ButtonSize"}]
+  DUPTABLE R11 K211 [{"ButtonSize"}]
   GETIMPORT R12 K6 [UDim2.fromOffset]
   LOADN R13 28
   LOADN R14 28

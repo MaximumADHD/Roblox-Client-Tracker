@@ -37,6 +37,7 @@ local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnrea
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
+local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 
 if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing) then
 	-- set this prior to TopBarApp require
@@ -236,6 +237,9 @@ function TopBar.new()
 end
 
 function TopBar:setInspectMenuOpen(open)
+	if FFlagTopBarSignalizeMenuOpen then 
+		return 
+	end
 	self.store:dispatch(SetInspectMenuOpen(open))
 end
 

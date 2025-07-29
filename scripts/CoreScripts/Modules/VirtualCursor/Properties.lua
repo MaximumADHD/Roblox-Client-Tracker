@@ -1,3 +1,6 @@
+-- This package is DEPRECATED, per https://roblox.atlassian.net/browse/UIBLOX-2597
+-- Virtual Cursor has been moved to lua-apps/modules/app-common/virtual-cursor, this location's VC will be deleted after rollout of FFlagUseAppCommonVirtualCursorWithFixes
+
 -- this is mostly for product purposes (to allow testing of many different variables to figure out which works best, without having to make new builds each time something needs to get changed)
 -- moving adjustable properties into a separate module that can be required by all other modules
 -- also will allow for smoother ways to adjust them, such as a gui interface that can accept number/bool/string input.

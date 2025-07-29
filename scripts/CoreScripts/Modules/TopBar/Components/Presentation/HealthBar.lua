@@ -12,6 +12,7 @@ local Components = script.Parent.Parent
 local TopBar = Components.Parent
 local Constants = require(TopBar.Constants)
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local CoreGuiModules = RobloxGui:FindFirstChild("Modules")
 local CommonModules = CoreGuiModules:FindFirstChild("Common")
 local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
@@ -25,6 +26,7 @@ local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
 local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -58,8 +60,8 @@ HealthBar.validateProps = t.strictInterface({
 	health = if FFlagTopBarSignalizeHealthBar then nil else t.number,
 	maxHealth = if FFlagTopBarSignalizeHealthBar then nil else t.number,
 
-	setKeepOutArea = t.callback,
-	removeKeepOutArea = t.callback,
+	setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
+	removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 })
 
 local function color3ToVector3(color3)
@@ -174,6 +176,9 @@ function HealthBar:init()
 			end)
 		end)
 	end
+	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
+	end
 end
 
 function HealthBar:onUnmount()
@@ -242,9 +247,17 @@ function HealthBar:renderHealth()
 	local onAreaChanged = function(rbx)
 		if not UseUpdatedHealthBar then
 			if (FFlagTopBarSignalizeHealthBar and self.healthVisible or not FFlagTopBarSignalizeHealthBar and healthVisible) and rbx then
-				self.props.setKeepOutArea(Constants.HealthBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+				if FFlagTopBarSignalizeKeepOutAreas then
+					self.keepOutAreasStore.setKeepOutArea(Constants.HealthBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+				else
+					self.props.setKeepOutArea(Constants.HealthBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+				end
 			else
-				self.props.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
+				if FFlagTopBarSignalizeKeepOutAreas then 
+					self.keepOutAreasStore.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
+				else
+					self.props.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
+				end
 			end
 		end
 	end
@@ -312,6 +325,9 @@ local function mapStateToProps(state)
 end
 
 local function mapDispatchToProps(dispatch)
+	if FFlagTopBarSignalizeKeepOutAreas then 
+		return {} 
+	end
 	return {
 		setKeepOutArea = function(id, position, size)
 			return dispatch(SetKeepOutArea(id, position, size))
@@ -322,4 +338,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(HealthBar)
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, if FFlagTopBarSignalizeKeepOutAreas then nil else mapDispatchToProps)(HealthBar)

@@ -90,7 +90,6 @@ local GAMEPAD_MENU_KEY = "GamepadMenu"
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
-local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagGamepadMenuActionTelemetry = require(TopBar.Flags.FFlagGamepadMenuActionTelemetry)
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
@@ -106,14 +105,11 @@ local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
 local ToastRoot
 local ToastGui
 local Toast
--- Loading the ToastNotification takes several seconds on Console, ensure this is wrapped in a task/coroutine
-if GetFFlagToastNotificationsGamepadSupport() then
 	task.spawn(function()
 			ToastRoot = CoreGui:WaitForChild("ToastNotification", 3)
 			ToastGui = if ToastRoot ~= nil then ToastRoot:WaitForChild("ToastNotificationWrapper", 3) else nil
 			Toast = if ToastGui ~= nil then ToastGui:FindFirstChild("Toast", true) else nil
 	end)
-end
 
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -181,7 +177,6 @@ function GamepadMenu:init()
 	end
 
 	self.toggleMenuVisibleAction = function(actionName, userInputState, input)
-		if GetFFlagToastNotificationsGamepadSupport() then
 			if self.props.menuOpen then
 				return Enum.ContextActionResult.Pass
 			end
@@ -201,17 +196,6 @@ function GamepadMenu:init()
 			end
 
 			return Enum.ContextActionResult.Pass
-		else
-			if userInputState ~= Enum.UserInputState.Begin or self.props.menuOpen then
-				return Enum.ContextActionResult.Pass
-			end
-
-			self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
-			LogGamepadOpenExperienceControlsMenu(not self.props.isGamepadMenuOpen)
-			self:logExperienceMenuGamepadExposure()
-
-			return Enum.ContextActionResult.Sink
-		end
 	end
 
 	self.closeMenuAction = function(actionName, userInputState, input)

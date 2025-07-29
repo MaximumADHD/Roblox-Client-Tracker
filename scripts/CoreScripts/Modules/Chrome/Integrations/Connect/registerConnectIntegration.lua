@@ -14,7 +14,7 @@ local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 
-local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 
 local FFlagAppChatInExpForceCursor = game:DefineFastFlag("AppChatInExpForceCursor", false)

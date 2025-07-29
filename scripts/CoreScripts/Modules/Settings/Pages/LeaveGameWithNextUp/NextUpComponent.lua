@@ -13,6 +13,9 @@ local useNextUpSort = require(script.Parent.useNextUpSort)
 local NextUpTile = require(script.Parent.NextUpTile)
 local NextUpState = require(script.Parent.NextUpState)
 
+local FFlagEnableInGameExitModalNextUpUiRequestCache =
+	require(script.Parent.Flags.FFlagEnableInGameExitModalNextUpUiRequestCache)
+
 local useRoactService = RobloxAppHooks.useRoactService
 local AppEventIngestService = RoactServiceTags.AppEventIngestService
 local RoactAnalytics = RoactServiceTags.RoactAnalytics
@@ -45,7 +48,7 @@ type SortEntry = useNextUpSort.SortEntry
 
 type Props = {
 	tilePairWidth: number,
-	pageVisible: boolean,
+	nextUpSort: useNextUpSort.NextUpSort?,
 }
 
 type ImpressionList = { number }
@@ -58,7 +61,9 @@ local function NextUpComponent(props: Props)
 		NextUpHeader = "CoreScripts.InGameMenu.NextUpExitMenu.Title",
 	})
 
-	local nextUpSort = useNextUpSort()
+	local nextUpSort = (
+		if FFlagEnableInGameExitModalNextUpUiRequestCache then props.nextUpSort else useNextUpSort()
+	) :: useNextUpSort.NextUpSort
 	local sortData = nextUpSort.data
 	local loading = nextUpSort.loading
 
@@ -95,10 +100,6 @@ local function NextUpComponent(props: Props)
 
 	React.useEffect(
 		function()
-			if not props.pageVisible then
-				return
-			end
-
 			if not (sortData and currentImpressionIndices) then
 				return
 			end
@@ -111,7 +112,6 @@ local function NextUpComponent(props: Props)
 			sendImpressions(currentImpressionIndices, sortData.entries, sortData.topicId)
 		end,
 		{
-			props.pageVisible,
 			sortData,
 			currentImpressionIndices,
 			impressionsSent,

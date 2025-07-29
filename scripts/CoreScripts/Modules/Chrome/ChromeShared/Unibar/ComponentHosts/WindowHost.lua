@@ -9,11 +9,12 @@ local TweenService = game:GetService("TweenService")
 local VRService = game:GetService("VRService")
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
+local Signals = require(CorePackages.Packages.Signals)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
 
-local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 local INGAME_SELFVIEW_CURSOR_OVERRIDE_KEY = Symbol.named("SelfieViewCursorOverride")
 
@@ -25,6 +26,10 @@ local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
 local FFlagWindowFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagWindowFixes()
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
+
+local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
@@ -68,9 +73,20 @@ local WindowHost = function(props: WindowHostProps)
 		return nil
 	end, {})
 
-	local isMenuOpen = useSelector(function(state)
-		return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
-	end)
+	local tiltMenuOpen, setTiltMenuOpen = React.useBinding(false)
+	local inspectMenuOpen, setInspectMenuOpen = React.useBinding(false)
+
+	local menuOpenBinding = if FFlagTopBarSignalizeMenuOpen
+		then React.joinBindings({ tiltMenuOpen, inspectMenuOpen }):map(function(values)
+			return values[1] or values[2]
+		end)
+		else nil
+
+	local isMenuOpen = if not FFlagTopBarSignalizeMenuOpen
+		then useSelector(function(state)
+			return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
+		end)
+		else nil
 
 	-- When a reposition tween is playing, momentarily disallow dragging the window
 	local isRepositioning, updateIsRepositioning = React.useBinding(false)
@@ -98,6 +114,23 @@ local WindowHost = function(props: WindowHostProps)
 			setFrameHeight(ReactOtter.spring(windowSize.Y.Offset, MOTOR_OPTIONS))
 		end
 	end, { windowSize.Y.Offset })
+
+	if FFlagTopBarSignalizeMenuOpen then
+		React.useEffect(function()
+			local dispose = Signals.createEffect(function(scope)
+				local isOpen = CoreGuiCommon.Stores.GetInspectAndBuyStore(scope).getInspectAndBuyOpen(scope)
+				setInspectMenuOpen(isOpen)
+			end)
+
+			SettingsShowSignal:connect(function(isOpen)
+				setTiltMenuOpen(isOpen)
+			end)
+
+			return function()
+				dispose()
+			end
+		end, {})
+	end
 
 	-- This effect is responsible for ultimately assigning the window position to the window host frame.
 	-- Check whether the window was opened as a result of a drag from IconHost, when
@@ -409,7 +442,12 @@ local WindowHost = function(props: WindowHostProps)
 			[React.Change.AbsoluteSize] = debounce(function()
 				repositionWindowWithinScreenBounds()
 			end, RESIZE_DEBOUNCE_TIME),
-			DisplayOrder = if isMenuOpen then -1 else windowDisplayOrder,
+			DisplayOrder = if FFlagTopBarSignalizeMenuOpen and menuOpenBinding
+				then menuOpenBinding:map(function(value)
+					return if value then -1 else windowDisplayOrder
+				end)
+				elseif isMenuOpen then -1
+				else windowDisplayOrder,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		}, {
 			WindowFrame = React.createElement("Frame", {

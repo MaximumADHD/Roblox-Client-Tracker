@@ -1,10 +1,12 @@
 --!nonstrict
 local Root = script.Parent.Parent
+local HttpService = game:GetService("HttpService")
+local CorePackages = game:GetService("CorePackages")
 
 local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
 local PurchaseError = require(Root.Enums.PurchaseError)
-
+local setPurchaseFlowUUID = require(Root.Actions.SetPurchaseFlowUUID)
 local RequestPremiumPurchase = require(Root.Actions.RequestPremiumPurchase)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local getPremiumUpsellPrecheck = require(Root.Network.getPremiumUpsellPrecheck)
@@ -15,6 +17,13 @@ local Network = require(Root.Services.Network)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local resolvePremiumPromptState = require(Root.Thunks.resolvePremiumPromptState)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
+
+local FFlagEnablePurchaseFlowUUIDMigration = require(Root.Flags.FFlagEnablePurchaseFlowUUIDMigration)
+
+-- Import centralized telemetry configs from Events directory
+local CentralizedTelemetry = require(Root.Events.PurchaseFlowUUIDTelemetry)
 
 local requiredServices = {
 	Network,
@@ -26,6 +35,21 @@ local function initiatePremiumPurchase(id, infoType, equipIfPurchased)
 		local network = services[Network]
 		local externalSettings = services[ExternalSettings]
 
+		-- Generate a new purchase flow UUID at the start of each purchase attempt
+		-- When flag is disabled, UUID generation happens in ProductPurchaseContainer
+		if FFlagEnablePurchaseFlowUUIDMigration then
+			local newUUID = HttpService:GenerateGUID(false)
+			store:dispatch(setPurchaseFlowUUID(newUUID))
+			
+			LoggingProtocol.default:logRobloxTelemetryCounter(
+				CentralizedTelemetry.InitiatePurchaseCounter,
+				1.0,
+				{
+					method = "initiatePremiumPurchase",
+				}
+			)
+		end
+		
 		if hasPendingRequest(store:getState()) then
 			return nil
 		end

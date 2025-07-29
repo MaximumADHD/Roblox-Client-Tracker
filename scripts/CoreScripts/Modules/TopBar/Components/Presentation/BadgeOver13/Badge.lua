@@ -15,6 +15,9 @@ local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableC
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local Constants = require(TopBar.Constants)
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+
 local STROKE_THICKNESS = 2
 
 function noop() end
@@ -30,6 +33,11 @@ return function(props: Props)
 	local dispatch = useDispatch()
 	local isHoveredOrPressed, setHoveredOrPressed = React.useState(false)
 
+	local keepOutAreasStore
+	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+		keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
+	end
+
 	local onAreaChanged = function(rbx: GuiObject?)
 		if FFlagEnableChromeBackwardsSignalAPI and rbx then
 			-- Need to recalculate the position as stroke is not part of AbsolutePosition/AbsoluteSize
@@ -37,7 +45,11 @@ return function(props: Props)
 				Vector2.new(rbx.AbsolutePosition.X - STROKE_THICKNESS, rbx.AbsolutePosition.Y - STROKE_THICKNESS)
 			local strokeSize =
 				Vector2.new(rbx.AbsoluteSize.X + 2 * STROKE_THICKNESS, rbx.AbsoluteSize.Y + 2 * STROKE_THICKNESS)
-			dispatch(SetKeepOutArea(Constants.BadgeOver13KeepOutAreaId, strokePosition, strokeSize))
+			if FFlagTopBarSignalizeKeepOutAreas then 
+				keepOutAreasStore.setKeepOutArea(Constants.BadgeOver13KeepOutAreaId, strokePosition, strokeSize)
+			else
+				dispatch(SetKeepOutArea(Constants.BadgeOver13KeepOutAreaId, strokePosition, strokeSize))
+			end
 		end
 	end
 

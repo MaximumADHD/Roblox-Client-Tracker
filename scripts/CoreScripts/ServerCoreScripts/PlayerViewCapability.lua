@@ -8,11 +8,28 @@ local GetFFlagPlayerViewRemoteEnabled = require(RobloxGui.Modules.Common.Flags.G
 local GetFFlagPlayerViewValidateRequesteeEnabled =
 	require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewValidateRequesteeEnabled)
 
+local FFlagEnablePlayerViewRemoteEventValidation = game:DefineFastFlag("EnablePlayerViewRemoteEventValidation", false)
+
 local RequestDeviceCameraOrientationCapability = Instance.new("RemoteEvent")
 RequestDeviceCameraOrientationCapability.Name = "RequestDeviceCameraOrientationCapability"
 RequestDeviceCameraOrientationCapability.Parent = RobloxReplicatedStorage
 
+local cameraOrientationRequests: { [number]: number } = {}
+
 RequestDeviceCameraOrientationCapability.OnServerEvent:Connect(function(requestorPlayer, targetPlayer)
+	if FFlagEnablePlayerViewRemoteEventValidation then
+		local now = os.clock()
+		local lastTime = cameraOrientationRequests[requestorPlayer.UserId]
+		if lastTime and (now - lastTime) < 2 then
+			return
+		end
+		if typeof(targetPlayer) ~= "Instance" or not targetPlayer:IsA("Player") then
+			return
+		end
+
+		cameraOrientationRequests[requestorPlayer.UserId] = now
+	end
+
 	local platform = targetPlayer.OsPlatform
 	RequestDeviceCameraOrientationCapability:FireClient(
 		requestorPlayer,
@@ -20,6 +37,12 @@ RequestDeviceCameraOrientationCapability.OnServerEvent:Connect(function(requesto
 		platform == "iOS" or platform == "Android"
 	)
 end)
+
+if FFlagEnablePlayerViewRemoteEventValidation then
+	Players.PlayerRemoving:Connect(function(player)
+		cameraOrientationRequests[player.UserId] = nil
+	end)
+end
 
 if GetFFlagPlayerViewRemoteEnabled() then
 	local RequestDeviceCameraCFrameRemoteEvent = Instance.new("RemoteEvent")

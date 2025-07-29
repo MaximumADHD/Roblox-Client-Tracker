@@ -2,6 +2,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local GamepadService = game:GetService("GamepadService")
+local GameSettings = UserSettings().GameSettings
 
 local Chrome = script:FindFirstAncestor("Chrome")
 local Root = script:FindFirstAncestor("ChromeShared")
@@ -24,6 +25,7 @@ local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShort
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagShortcutBarUseTokens = SharedFlags.FFlagShortcutBarUseTokens
 local FFlagChromeFixMenuIconBackButton = SharedFlags.FFlagChromeFixMenuIconBackButton
+local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
 
 local ChromeFlags = Chrome.Flags
 local FFlagRespawnChromeShortcutTelemetry = require(ChromeFlags.FFlagRespawnChromeShortcutTelemetry)
@@ -160,21 +162,40 @@ function registerShortcuts()
 	ChromeService:registerShortcut({
 		id = "chat",
 		label = "CoreScripts.TopBar.Chat",
-		keyCode = Enum.KeyCode.ButtonR1,
+		keyCode = if FFlagChromeShortcutChatOpenKeyboard then Enum.KeyCode.ButtonL2 else Enum.KeyCode.ButtonR1,
 		integration = "chat",
 		actionName = "UnibarGamepadChat",
 		activated = if FFlagConsoleChatOnExpControls
 			then function()
 				local chatVisible = ChatSelector:GetVisibility()
-				ChatSelector:SetVisible(not chatVisible)
-				if not chatVisible then
-					FocusSelectExpChat("chat")
-				elseif
-					FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false)
-				then
-					ChromeFocusUtils.FocusOnChrome(function()
-						ExpChatFocusNavigationStore.unfocusChatInputBar()
-					end, "chat")
+				if FFlagChromeShortcutChatOpenKeyboard then
+					if
+						FFlagConsoleChatUseChromeFocusUtils
+						and ExpChatFocusNavigationStore.getChatInputBarFocused(false)
+					then
+						ChromeFocusUtils.FocusOnChrome(function()
+							ExpChatFocusNavigationStore.unfocusChatInputBar()
+						end, "chat")
+						ChatSelector:SetVisible(false)
+						GameSettings.ChatVisible = false
+					else
+						ChatSelector:SetVisible(true)
+						GameSettings.ChatVisible = true
+						ChatSelector:FocusChatBar()
+						FocusSelectExpChat("chat")
+					end
+				else
+					ChatSelector:SetVisible(not chatVisible)
+					if not chatVisible then
+						FocusSelectExpChat("chat")
+					elseif
+						FFlagConsoleChatUseChromeFocusUtils
+						and ExpChatFocusNavigationStore.getChatInputBarFocused(false)
+					then
+						ChromeFocusUtils.FocusOnChrome(function()
+							ExpChatFocusNavigationStore.unfocusChatInputBar()
+						end, "chat")
+					end
 				end
 				return
 			end

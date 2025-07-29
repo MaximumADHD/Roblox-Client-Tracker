@@ -42,7 +42,7 @@ PROTO_0:
   GETTABLEKS R11 R12 K12 ["createElement"]
   GETUPVAL R12 2
   DUPTABLE R13 K19 [{"tag"}]
-  LOADK R14 K20 ["row gap-medium padding-small align-x-left align-y-center size-full radius-small bg-surface-100"]
+  LOADK R14 K20 ["row gap-medium padding-small align-x-left align-y-top size-full radius-small bg-surface-100"]
   SETTABLEKS R14 R13 K13 ["tag"]
   DUPTABLE R14 K23 [{"Number", "Content"}]
   GETUPVAL R16 1
@@ -59,7 +59,7 @@ PROTO_0:
   GETTABLEKS R19 R20 K31 ["ActionStandard"]
   GETTABLEKS R18 R19 K17 ["Background"]
   SETTABLEKS R18 R17 K24 ["backgroundStyle"]
-  LOADK R18 K32 ["text-body-medium size-800-800 text-align-x-center radius-circle content-action-standard"]
+  LOADK R18 K32 ["text-body-medium size-600-600 text-align-x-center radius-circle content-action-standard"]
   SETTABLEKS R18 R17 K13 ["tag"]
   JUMPIFNOT R6 [+2]
   LOADK R18 K33 [""]

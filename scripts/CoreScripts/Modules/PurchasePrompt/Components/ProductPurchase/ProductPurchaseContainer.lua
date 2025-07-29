@@ -61,8 +61,15 @@ local FFlagAddCursorProviderToPurchasePromptApp = require(Root.Flags.FFlagAddCur
 
 -- Imports needed for analytics
 local HttpService = game:GetService("HttpService")
-local FFlagInExperiencePurchaseFlowRework = require(CorePackages.Workspace.Packages.SharedFlags).FFlagInExperiencePurchaseFlowRework
 local setPurchaseFlowUUID = require(Root.Actions.SetPurchaseFlowUUID)
+
+-- Used for PurchaseFlowUUID migration metrics
+local FFlagEnablePurchaseFlowUUIDMigration = require(Root.Flags.FFlagEnablePurchaseFlowUUIDMigration)
+
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
+
+-- Import centralized telemetry configs from Events directory
+local CentralizedTelemetry = require(Root.Events.PurchaseFlowUUIDTelemetry)
 
 -- Imports needed for the new upsell modal experiment
 local DesktopUpsellExperiment = IAPExperience.Utility.DesktopUpsellExperiment
@@ -124,7 +131,18 @@ function ProductPurchaseContainer:init()
 		isLuobu = false,
 		analyticId = HttpService:GenerateGUID(false),
 	}
-	self.props.setPurchaseFlowUUID(HttpService:GenerateGUID(false))
+
+	if not FFlagEnablePurchaseFlowUUIDMigration then
+		-- Legacy: generate UUID in component init
+		self.props.setPurchaseFlowUUID(HttpService:GenerateGUID(false))
+		LoggingProtocol.default:logRobloxTelemetryCounter(
+			CentralizedTelemetry.ProductPurchaseContainerMigrationCounter, 
+			1.0,
+			{
+				method = "ProductPurchaseContainerInit",
+			}
+		)
+	end
 
 	coroutine.wrap(function()
 		if CachedPolicyService:IsSubjectToChinaPolicies() then
@@ -144,7 +162,7 @@ function ProductPurchaseContainer:init()
 			return
 		end
 		local data = {
-			purchase_flow_uuid = if FFlagInExperiencePurchaseFlowRework then self.props.purchaseFlowUUID else self.state.analyticId,
+			purchase_flow_uuid = self.props.purchaseFlowUUID,
 			purchase_flow = "InGameRobuxUpsell",
 			view_name = viewName,
 			purchase_event_type = eventType,
@@ -331,10 +349,24 @@ function ProductPurchaseContainer:willUpdate(nextProps)
 end
 
 function ProductPurchaseContainer:didUpdate(prevProps, prevState)
-	-- We want to generate a new purchase flow uuid when the prompt state is reset
-	if self.props.promptState ~= prevProps.promptState and self.props.promptState == PromptState.None then
-		self.props.setPurchaseFlowUUID(HttpService:GenerateGUID(false))
+	-- Legacy UUID generation - only when flag is disabled
+	-- When flag is enabled, UUID generation happens in initiatePurchase thunk
+	if not FFlagEnablePurchaseFlowUUIDMigration 
+		and self.props.promptState ~= prevProps.promptState 
+		and self.props.promptState == PromptState.None 
+	then
+		local newUUID = HttpService:GenerateGUID(false)
+		self.props.setPurchaseFlowUUID(newUUID)
+
+		LoggingProtocol.default:logRobloxTelemetryCounter(
+			CentralizedTelemetry.ProductPurchaseContainerMigrationCounter,
+			1.0,
+			{
+				method = "ProductPurchaseContainerDidUpdate",
+			}
+		)
 	end
+	
 	-- Game unpause and purchase workflow could be triggered at the same time by doing some hack.
 	-- The fix is to check the game pause status in didUpdate(), and close ourchase prompt if in game pause.
 	-- More details in https://jira.rbx.com/browse/CLI-59903.

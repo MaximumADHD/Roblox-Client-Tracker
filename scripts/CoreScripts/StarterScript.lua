@@ -78,6 +78,8 @@ local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 	game:DefineFastFlag("EnableExperienceGenericChallengeRenderingOnLoadingScript", false)
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 
+local FFlagUseAppCommonVirtualCursorWithFixes = game:DefineFastFlag("UseAppCommonVirtualCursorWithFixes", false)
+
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
 UIBlox.init(uiBloxConfig)
@@ -318,7 +320,12 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.Captures.CapturesApp)
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 
 -- GamepadVirtualCursor
-coroutine.wrap(safeRequire)(RobloxGui.Modules.VirtualCursor.VirtualCursorMain)
+if FFlagUseAppCommonVirtualCursorWithFixes then
+	-- due to init already requiring VC instance, no longer need to access VirtualCursorMain
+	coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.VirtualCursor) 
+else
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.VirtualCursor.VirtualCursorMain)
+end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)
@@ -531,13 +538,19 @@ end
 
 local FIntReactSchedulingTrackerStartUpDelayMs = game:DefineFastInt("ReactSchedulingTrackerStartUpDelayMs", 5000)
 local ReactSchedulingDelaySeconds = FIntReactSchedulingTrackerStartUpDelayMs / 1000
+local FStringReactSchedulingContext = game:DefineFastString("ReactSchedulingContext", "default")
 
 local ReactSchedulingTracker = require(CoreGuiModules.Common.ReactSchedulingTracker)
 if ReactSchedulingTracker then
-	local FStringReactSchedulingContext = game:DefineFastString("ReactSchedulingContext", "default")
 	local reactSchedulingTracker = ReactSchedulingTracker.new(FStringReactSchedulingContext)
 	-- delay to reduce startup noise
 	task.delay(ReactSchedulingDelaySeconds, function()
 		reactSchedulingTracker:start()
 	end)
+end
+
+local CorescriptMemoryTracker = require(CoreGuiModules.Common.CorescriptMemoryTracker)
+local coreScriptMemoryTracker = CorescriptMemoryTracker(FStringReactSchedulingContext)
+if coreScriptMemoryTracker then
+    coreScriptMemoryTracker:start()
 end

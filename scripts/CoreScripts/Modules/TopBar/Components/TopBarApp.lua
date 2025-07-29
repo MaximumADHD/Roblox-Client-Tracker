@@ -24,11 +24,17 @@ local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local Images = UIBlox.App.ImageSet.Images
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
-local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommon).Stores
+
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local CoreGuiCommonStores = CoreGuiCommon.Stores
 local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
+local Signals = require(CorePackages.Packages.Signals)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local CoreGuiCommonStores = CoreGuiCommon.Stores
 
 local InGameMenuConstants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 
 local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
 
@@ -53,10 +59,13 @@ local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
 local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FIntUILessTooltipDuration = game:DefineFastInt("UILessTooltipDuration", 10)
+
+local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -155,13 +164,13 @@ local NUM_EXPERIENCES_USER_SEEN_UI_LESS_TOOLTIP_KEY = "NumExperiencesUserSeenUIL
 local TopBarApp = Roact.PureComponent:extend("TopBarApp")
 
 TopBarApp.validateProps = t.strictInterface({
-	menuOpen = t.optional(t.boolean),
-	inspectMenuOpen = t.optional(t.boolean),
+	menuOpen = if FFlagTopBarSignalizeMenuOpen then nil else t.optional(t.boolean),
+	inspectMenuOpen = if FFlagTopBarSignalizeMenuOpen then nil else t.optional(t.boolean),
 	displayBetaBadge = t.boolean,
 
 	setScreenSize = t.callback,
-	setKeepOutArea = t.callback,
-	removeKeepOutArea = t.callback,
+	setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
+	removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 	showBadgeOver12 = t.optional(t.boolean),
 })
 
@@ -259,6 +268,24 @@ function TopBarApp:init()
 		end
 	end
 
+	if FFlagTopBarSignalizeMenuOpen then 
+		self.tiltMenuOpen, self.setTiltMenuOpen = Roact.createBinding(false)
+		self.inspectMenuOpen, self.setInspectMenuOpen = Roact.createBinding(false)
+
+		self.inspectMenuDisposeEffect = Signals.createEffect(function(scope)
+			local isOpen = CoreGuiCommonStores.GetInspectAndBuyStore(scope).getInspectAndBuyOpen(scope)
+			self.setInspectMenuOpen(isOpen)
+		end)
+
+		SettingsShowSignal:connect(function(isOpen)
+			self.setTiltMenuOpen(isOpen)
+		end)
+  end
+          
+	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
+	end
+
 	self.onCloseBtnStateChange = function(_, newControlState)
 		self.setCloseButtonState(newControlState)
 	end
@@ -336,6 +363,21 @@ function TopBarApp:willUnmount()
 			ContextActionService:UnbindCoreAction("ToggleUILess")
 		end
 	end
+
+	if FFlagTopBarSignalizeMenuOpen then 
+		if self.tiltMenuDisposeEffect then
+			self.tiltMenuDisposeEffect()
+		end
+		if self.inspectMenuDisposeEffect then 
+			self.inspectMenuDisposeEffect()
+    end
+  end
+           
+	if FFlagTopBarSignalizeKeepOutAreas then 
+		if self.keepOutAreasStore then 
+			self.keepOutAreasStore.cleanup() 
+		end
+	end
 end
 
 function TopBarApp:render()
@@ -369,7 +411,12 @@ function TopBarApp:renderWithStyle(style)
 			topBarHeight = Constants.TopBarHeightTenFoot
 		end
 	end
-	local isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
+	local isTopBarVisible = if FFlagTopBarSignalizeMenuOpen then 
+		Roact.joinBindings({self.tiltMenuOpen, self.inspectMenuOpen}):map(function(values) 
+			return not (values[0] or values[1])
+		end) 
+		else not (self.props.menuOpen or self.props.inspectMenuOpen)
+
 	local topBarFramePosition =
 		UDim2.new(0, 0, 0, if GetFFlagChangeTopbarHeightCalculation() then Constants.TopBarTopMargin else 0)
 	local topBarFrameHeight = topBarHeight - Constants.TopBarTopMargin
@@ -394,11 +441,12 @@ function TopBarApp:renderWithStyle(style)
 		})
 
 	local newMenuIcon = Roact.createElement(MenuIcon, {
-		iconScale = if self.props.menuOpen then 1.25 else 1,
+		iconScale = if FFlagTopBarSignalizeMenuOpen then nil elseif self.props.menuOpen then Constants.MenuIconOpenScale else 1,
 		layoutOrder = 1,
 		showBadgeOver12 = self.props.showBadgeOver12,
 		menuIconRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav then self.menuIconRef else nil :: never,
 		unibarMenuRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav then self.unibarMenuRef else nil :: never,
+		onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas then self.keepOutAreasStore.setKeepOutArea else nil,
 	})
 	newMenuIcon = Roact.createElement(SelectionCursorProvider, {}, {
 		Icon = newMenuIcon,
@@ -440,7 +488,7 @@ function TopBarApp:renderWithStyle(style)
 			else nil,
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
 		VRBottomBar = VRService.VREnabled and bottomBar or nil,
-		KeepOutAreasHandler = if FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
+		KeepOutAreasHandler = if not FFlagTopBarSignalizeKeepOutAreas and FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
 			then Roact.createElement(KeepOutAreasHandler)
 			else nil,
 
@@ -532,7 +580,7 @@ function TopBarApp:renderWithStyle(style)
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, screenSideOffset, 0, 0),
 			Size = UDim2.new(1, 0, 0, topBarHeight),
-			Visible = self.props.menuOpen,
+			Visible = if FFlagTopBarSignalizeMenuOpen then self.tiltMenuOpen else self.props.menuOpen,
 		}, {
 			-- Backup  Unibar Impl
 			CloseMenuButtonRound = Unibar and Roact.createElement(Interactable, {
@@ -648,7 +696,7 @@ function TopBarApp:renderWithStyle(style)
 						then Roact.createElement(PartyMicBinder)
 						else nil,
 					ChromeAnalytics = if ChromeAnalytics then Roact.createElement(ChromeAnalytics) else nil,
-					KeepOutAreasHandler = if not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
+					KeepOutAreasHandler = if not FFlagTopBarSignalizeKeepOutAreas and not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
 						then Roact.createElement(KeepOutAreasHandler)
 						else nil,
 					Padding = Roact.createElement("UIPadding", {
@@ -666,7 +714,7 @@ function TopBarApp:renderWithStyle(style)
 						}, {
 							React.createElement(Unibar, {
 								layoutOrder = 1,
-								onAreaChanged = self.props.setKeepOutArea,
+								onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas then self.keepOutAreasStore.setKeepOutArea else self.props.setKeepOutArea,
 								onMinWidthChanged = function(width: number)
 									self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
 								end,
@@ -677,7 +725,9 @@ function TopBarApp:renderWithStyle(style)
 						})
 						else Roact.createElement(Unibar, {
 							layoutOrder = 1,
-							onAreaChanged = self.props.setKeepOutArea,
+							onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas 
+								then self.keepOutAreasStore.setKeepOutArea 
+								else self.props.setKeepOutArea,
 							onMinWidthChanged = function(width: number)
 								self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
 							end,
@@ -778,7 +828,9 @@ function TopBarApp:renderWithStyle(style)
 					}),
 
 					Unibar = Roact.createElement(Unibar, {
-						onAreaChanged = self.props.setKeepOutArea,
+						onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas 
+							then self.keepOutAreasStore.setKeepOutArea 
+							else self.props.setKeepOutArea,
 						layoutOrder = 2,
 					}),
 				})
@@ -820,6 +872,7 @@ function TopBarApp:renderWithStyle(style)
 					MenuIcon = not isNewTiltIconEnabled() and Roact.createElement(MenuIcon, {
 						layoutOrder = 1,
 						showBadgeOver12 = self.props.showBadgeOver12,
+						onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas then self.keepOutAreasStore.setKeepOutArea else nil,
 					}),
 
 					ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
@@ -872,6 +925,10 @@ function TopBarApp:renderWithStyle(style)
 end
 
 local function mapStateToProps(state)
+	if FFlagTopBarSignalizeMenuOpen then 
+		return nil 
+	end
+
 	local inspectMenuOpen = state.displayOptions.inspectMenuOpen
 
 	return {
@@ -892,13 +949,17 @@ local function mapDispatchToProps(dispatch)
 		setScreenSize = function(screenSize)
 			return dispatch(SetScreenSize(screenSize))
 		end,
-		setKeepOutArea = function(id, position, size)
-			return dispatch(SetKeepOutArea(id, position, size))
-		end,
-		removeKeepOutArea = function(id)
-			return dispatch(RemoveKeepOutArea(id))
-		end,
+		setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas 
+			then nil 
+			else function(id, position, size)
+				return dispatch(SetKeepOutArea(id, position, size))
+			end,
+		removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas 
+			then nil 
+			else function(id)
+				return dispatch(RemoveKeepOutArea(id))
+			end,
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(TopBarAppWithPolicy)
+return RoactRodux.UNSTABLE_connect2(if FFlagTopBarSignalizeMenuOpen then nil else mapStateToProps, mapDispatchToProps)(TopBarAppWithPolicy)

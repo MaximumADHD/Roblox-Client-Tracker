@@ -1,3 +1,4 @@
+local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
@@ -5,23 +6,46 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local SocialService = game:GetService("SocialService")
 local TeleportService = game:GetService("TeleportService")
 
-local CorePackages = game:GetService("CorePackages")
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
+local FFlagEnableContactListRemoteEventValidation = game:DefineFastFlag("EnableContactListRemoteEventValidation", false)
 local EngineFeatureEnableIrisRerouteToRCC = game:GetEngineFeature("EnableIrisRerouteToRCC")
 
 local RemoteInvokeIrisInvite = Instance.new("RemoteEvent")
 RemoteInvokeIrisInvite.Name = "ContactListInvokeIrisInvite"
 RemoteInvokeIrisInvite.Parent = RobloxReplicatedStorage
 
-RemoteInvokeIrisInvite.OnServerEvent:Connect(function(player, tag, calleeId, calleeCombinedName, muted, camEnabled, userAgent, version)
-	-- We want to fire this event from the server because there's a callback it
-	-- uses that must be set on the server. This is a Roblox internal event.
-	SocialService:InvokeIrisInvite(player, tag, {
-		{ userId = player.UserId, combinedName = player.DisplayName, muted = muted, camEnabled = camEnabled, userAgent = if EngineFeatureEnableIrisRerouteToRCC then userAgent else nil, version = if EngineFeatureEnableIrisRerouteToRCC then version else nil },
-		{ userId = calleeId, combinedName = calleeCombinedName },
-	})
-end)
+RemoteInvokeIrisInvite.OnServerEvent:Connect(
+	function(player, tag, calleeId, calleeCombinedName, muted, camEnabled, userAgent, version)
+		if FFlagEnableContactListRemoteEventValidation then
+			-- Validation for invalid strings
+			if
+				typeof(tag) ~= "string"
+				or #tag > 1000
+				or typeof(calleeId) ~= "string"
+				or #calleeId > 1000
+				or typeof(calleeCombinedName) ~= "string"
+				or #calleeCombinedName > 1000
+			then
+				return
+			end
+		end
+
+		-- We want to fire this event from the server because there's a callback it
+		-- uses that must be set on the server. This is a Roblox internal event.
+		SocialService:InvokeIrisInvite(player, tag, {
+			{
+				userId = player.UserId,
+				combinedName = player.DisplayName,
+				muted = muted,
+				camEnabled = camEnabled,
+				userAgent = if EngineFeatureEnableIrisRerouteToRCC then userAgent else nil,
+				version = if EngineFeatureEnableIrisRerouteToRCC then version else nil,
+			},
+			{ userId = calleeId, combinedName = calleeCombinedName },
+		})
+	end
+)
 
 local RemoteIrisInviteTeleport = Instance.new("RemoteEvent")
 RemoteIrisInviteTeleport.Name = "ContactListIrisInviteTeleport"
@@ -36,10 +60,7 @@ end)
 RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanceId, reservedServerAccessCode)
 	local contactListTeleportAttempt = playerContactListTeleportAttempt[player.UserId]
 	-- Rate limit in case of DoS
-	if
-		contactListTeleportAttempt ~= nil
-		and contactListTeleportAttempt > 5
-	then
+	if contactListTeleportAttempt ~= nil and contactListTeleportAttempt > 5 then
 		return
 	end
 	if contactListTeleportAttempt == nil then
@@ -135,11 +156,7 @@ end
 
 local function validateCall(player: Player, callId: string, callParticipants: { [number]: string })
 	-- Sanity check the call infos before sending to backend service
-	if
-		typeof(callId) ~= "string"
-		or #callId > kMaxCallIdLength
-		or not sanityCheckParticipants(callParticipants)
-	then
+	if typeof(callId) ~= "string" or #callId > kMaxCallIdLength or not sanityCheckParticipants(callParticipants) then
 		return 400
 	end
 	local success, _ = pcall(function()

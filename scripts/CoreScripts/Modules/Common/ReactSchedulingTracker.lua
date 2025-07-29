@@ -2,10 +2,10 @@ local FIntReactSchedulingTrackerEnableHunderedthsPercent: number = game:DefineFa
 local FIntReactSchedulingTrackerPeriodMs: number = game:DefineFastInt("ReactSchedulingTrackerPeriodMs", 30000)
 local EngineFeatureTelemetryServiceMemoryCPUInfoEnabled = game:GetEngineFeature("TelemetryServiceMemoryCPUInfoEnabled")
 local FFlagEnableReactDeviceTierCardinality = game:DefineFastFlag("EnableReactDeviceTierCardinality", false)
-local FIntReactLowEndMemoryCutoff: number = game:DefineFastInt("ReactLowEndMemoryCutoff", 3500)
-local FIntReactHighEndMemoryCutoff: number = game:DefineFastInt("ReactHighEndMemoryCutoff", 7500)
 local FFlagDisableReactSchedulingTimePctStats = game:DefineFastFlag("DisableReactSchedulingTimePctStats", false)
 local FFlagDisableReactSchedulingAvgMaxMsStats = game:DefineFastFlag("DisableReactSchedulingAvgMaxMsStats", false)
+local FFlagReactSchedulingTrackerLayoutEffects = game:DefineFastFlag("ReactSchedulingTrackerLayoutEffects", false)
+local FFlagReactSchedulingTrackerDataModelUpdate = game:DefineFastFlag("ReactSchedulingTrackerDataModelUpdate", false)
 
 local MAX_SAMPLE_RATE = 10000
 local SAMPLE_ID_BIAS = 1409
@@ -63,7 +63,8 @@ local CorePackages = game:GetService("CorePackages")
 local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local ReactReconciler = require(CorePackages.Packages.ReactReconciler)
-local SystemInfoProtocol = require(CorePackages.Workspace.Packages.SystemInfoProtocol).SystemInfoProtocol
+local CommonUtil = require(script.Parent.CommonUtil)
+
 type FiberRoot = ReactReconciler.FiberRoot
 
 local schedulingProfiler = ReactRoblox.schedulingProfiler
@@ -78,48 +79,13 @@ local SchedulerStates = {
 	PassiveEffects = "PassiveEffects" :: "PassiveEffects",
 }
 
-type DeviceTier = "LowEnd" | "MidTier" | "HighEnd"
-
-local DeviceTier = {
-	LowEnd = "LowEnd" :: "LowEnd",
-	MidTier = "MidTier" :: "MidTier",
-	HighEnd = "HighEnd" :: "HighEnd",
-}
-
 local function getCurrentTimeMs(): number
 	return os.clock() * 1000
 end
 
--- return the "memory tier" of current device based on available memory
-function deviceMemoryTier(): DeviceTier?
-	if not FFlagEnableReactDeviceTierCardinality then
-		return nil
-	end
-
-	local success, systemInfo = pcall(function()
-		return SystemInfoProtocol.default:getSystemInfo({SystemInfoProtocol.InfoNames.MAX_MEMORY})
-	end)
-	if success and typeof(systemInfo) == "table" then
-		local maxMemory = tonumber(systemInfo[SystemInfoProtocol.InfoNames.MAX_MEMORY])
-		if not maxMemory then
-			return nil
-		end
-
-		if maxMemory <= FIntReactLowEndMemoryCutoff then
-			return DeviceTier.LowEnd
-		elseif maxMemory >= FIntReactHighEndMemoryCutoff then
-			return DeviceTier.HighEnd
-		else
-			return DeviceTier.MidTier
-		end
-	end
-
-	return nil
-end
-
 local deviceTier
 if FFlagEnableReactDeviceTierCardinality then 
-	deviceTier = deviceMemoryTier()
+	deviceTier = CommonUtil.GetDeviceMemoryTier()
 end
 
 local SchedulerStateMachine = {}
@@ -129,6 +95,7 @@ type RootUpdateTime = {
 	tag: "RootUpdateTime",
 	RenderMs: number, -- For measuring concurrent rendering time
 	CommitMs: number, -- For measuring all commit time, may include synchronous rendering and layout effects
+	LayoutEffectsMs: number, -- For measuring layout effects time, if applicable
 	StartTimeMs: number, -- For measuring time taken to complete updating
 }
 
@@ -145,6 +112,7 @@ type SchedulerStateMachine = typeof(setmetatable(
 		rootReporter: (RootTaskTime, FiberRoot?) -> (),
 		currentState: SchedulerStates,
 		timerStartMs: number,
+		layoutTimerStartMs: number,
 		rootUpdateInProgress: boolean,
 		rootUpdateTime: RootUpdateTime,
 		rootPassiveEffectsTime: RootPassiveEffectsTime,
@@ -165,11 +133,13 @@ function SchedulerStateMachine.new(
 		rootReporter = rootReporter,
 		currentState = SchedulerStates.Idle,
 		timerStartMs = 0,
+		layoutTimerStartMs = if FFlagReactSchedulingTrackerLayoutEffects then 0 else nil :: never,
 		rootUpdateInProgress = false,
 		rootUpdateTime = {
 			tag = "RootUpdateTime" :: "RootUpdateTime",
 			RenderMs = 0,
 			CommitMs = 0,
+			LayoutEffectsMs = if FFlagReactSchedulingTrackerLayoutEffects then 0 else nil :: never,
 			StartTimeMs = 0,
 		},
 		rootPassiveEffectsTime = {
@@ -187,6 +157,7 @@ function SchedulerStateMachine.new(
 							tag = "RootUpdateTime",
 							RenderMs = 0,
 							CommitMs = 0,
+							LayoutEffectsMs = if FFlagReactSchedulingTrackerLayoutEffects then 0 else nil :: never,
 							StartTimeMs = getCurrentTimeMs(),
 						}
 					end
@@ -225,6 +196,9 @@ function SchedulerStateMachine.new(
 			): SchedulerStates?
 				if event == SchedulerEvents.CommitStop then
 					if self.renderLevel > 0 then
+						if FFlagReactSchedulingTrackerLayoutEffects and self.renderLevel == 1 then
+							self.rootUpdateTime.LayoutEffectsMs += getCurrentTimeMs() - self.layoutTimerStartMs
+						end
 						-- Synchronous sub-render ended
 						self.renderLevel -= 1
 						return nil
@@ -239,6 +213,19 @@ function SchedulerStateMachine.new(
 				elseif event == SchedulerEvents.RenderStart then
 					-- New synchronous render started during commit phase
 					self.renderLevel += 1
+					if FFlagReactSchedulingTrackerLayoutEffects and self.renderLevel == 1 then
+						self.layoutTimerStartMs = getCurrentTimeMs()
+					end
+					return nil
+				elseif FFlagReactSchedulingTrackerLayoutEffects and (event == SchedulerEvents.LayoutEffectsStart or event == SchedulerEvents.PassiveEffectsStart) then
+					if self.renderLevel == 0 then
+						self.layoutTimerStartMs = getCurrentTimeMs()
+					end
+					return nil
+				elseif FFlagReactSchedulingTrackerLayoutEffects and (event == SchedulerEvents.LayoutEffectsStop or event == SchedulerEvents.PassiveEffectsStop) then
+					if self.renderLevel == 0 then
+						self.rootUpdateTime.LayoutEffectsMs += getCurrentTimeMs() - self.layoutTimerStartMs
+					end
 					return nil
 				elseif event ~= SchedulerEvents.RenderYield then
 					-- RenderYield is the only event not possible in Commit since any re-render will be synchronous
@@ -385,10 +372,15 @@ type ReactSchedulingTracker = typeof(setmetatable(
 		rootsMetrics: {
 			[string]: {
 				update_count: number,
+				layout_effects_count: number,
 				render_total_time_ms: number,
 				commit_total_time_ms: number,
+				layout_effects_total_time_ms: number,
+				data_model_update_total_time_ms: number,
 				max_render_time_ms: number,
 				max_commit_time_ms: number,
+				max_layout_effects_time_ms: number,
+				max_data_model_update_time_ms: number,
 				max_update_time_ms: number,
 				passive_effects_count: number,
 				passive_effects_total_time_ms: number,
@@ -489,11 +481,16 @@ function ReactSchedulingTracker:reportRoot(rootTime: RootTaskTime, root: FiberRo
 	if not self.rootsMetrics[name] then
 		self.rootsMetrics[name] = {
 			update_count = 0,
+			layout_effects_count = if FFlagReactSchedulingTrackerLayoutEffects then 0 else nil :: never,
 			render_total_time_ms = 0,
 			commit_total_time_ms = 0,
+			layout_effects_total_time_ms = if FFlagReactSchedulingTrackerLayoutEffects then 0 else nil :: never,
+			data_model_update_total_time_ms = if FFlagReactSchedulingTrackerLayoutEffects and FFlagReactSchedulingTrackerDataModelUpdate then 0 else nil :: never,
 			max_render_time_ms = 0,
 			max_commit_time_ms = 0,
 			max_update_time_ms = 0,
+			max_layout_effects_time_ms = if FFlagReactSchedulingTrackerLayoutEffects then 0 else nil :: never,
+			max_data_model_update_time_ms = if FFlagReactSchedulingTrackerLayoutEffects and FFlagReactSchedulingTrackerDataModelUpdate then 0 else nil :: never,
 			passive_effects_count = 0,
 			passive_effects_total_time_ms = 0,
 			max_passive_effects_time_ms = 0,
@@ -558,6 +555,32 @@ function ReactSchedulingTracker:reportRoot(rootTime: RootTaskTime, root: FiberRo
 			} },
 			rootTime.CommitMs
 		)
+		if FFlagReactSchedulingTrackerLayoutEffects then
+			if rootTime.LayoutEffectsMs > 0 then
+				TelemetryService:LogStat(
+					RootUpdateStatConfig,
+					{ customFields = {
+						rootName = name,
+						deviceTier = deviceTier,
+						updateType = "LayoutEffects",
+						context = self.context,
+					} },
+					rootTime.LayoutEffectsMs
+				)
+			end
+			if FFlagReactSchedulingTrackerDataModelUpdate then
+				TelemetryService:LogStat(
+					RootUpdateStatConfig,
+					{ customFields = {
+						rootName = name,
+						deviceTier = deviceTier,
+						updateType = "DataModelUpdate",
+						context = self.context,
+					} },
+					rootTime.CommitMs - rootTime.LayoutEffectsMs
+				)
+			end
+		end
 		rootMetrics.update_count += 1
 		if rootTime.RenderMs + rootTime.CommitMs > rootMetrics.max_update_time_ms then
 			rootMetrics.max_update_time_ms = rootTime.RenderMs + rootTime.CommitMs
@@ -569,6 +592,21 @@ function ReactSchedulingTracker:reportRoot(rootTime: RootTaskTime, root: FiberRo
 		end
 		if rootTime.CommitMs > rootMetrics.max_commit_time_ms then
 			rootMetrics.max_commit_time_ms = rootTime.CommitMs
+		end
+		if FFlagReactSchedulingTrackerLayoutEffects then
+			if rootTime.LayoutEffectsMs > 0 then
+				rootMetrics.layout_effects_count += 1
+				rootMetrics.layout_effects_total_time_ms += rootTime.LayoutEffectsMs
+				if rootTime.LayoutEffectsMs > rootMetrics.max_layout_effects_time_ms then
+					rootMetrics.max_layout_effects_time_ms = rootTime.LayoutEffectsMs
+				end
+			end
+			if FFlagReactSchedulingTrackerDataModelUpdate then
+				rootMetrics.data_model_update_total_time_ms += rootTime.CommitMs - rootTime.LayoutEffectsMs
+				if rootTime.CommitMs - rootTime.LayoutEffectsMs > rootMetrics.max_data_model_update_time_ms then
+					rootMetrics.max_data_model_update_time_ms = rootTime.CommitMs - rootTime.LayoutEffectsMs
+				end
+			end
 		end
 	end
 end
@@ -702,6 +740,12 @@ function ReactSchedulingTracker:reportPeriod()
 		root.total_time_pct = (root.update_total_time_ms + root.passive_effects_total_time_ms) / periodSummary.react_total_time_ms
 		root.avg_update_time_ms = root.update_total_time_ms / root.update_count
 		root.avg_commit_time_ms = root.commit_total_time_ms / root.update_count
+		if FFlagReactSchedulingTrackerLayoutEffects then
+			root.avg_layout_effects_time_ms = root.layout_effects_total_time_ms / root.layout_effects_count
+			if FFlagReactSchedulingTrackerDataModelUpdate then
+				root.avg_data_model_update_time_ms = root.data_model_update_total_time_ms / root.update_count
+			end
+		end
 		root.avg_passive_effects_time_ms = root.passive_effects_total_time_ms / root.passive_effects_count
 		root.avg_time_to_update_ms = root.total_time_to_update_ms / root.update_count
 
@@ -733,6 +777,18 @@ function ReactSchedulingTracker:reportPeriod()
 			} },
 			root.update_count
 		)
+		if FFlagReactSchedulingTrackerLayoutEffects then
+			TelemetryService:LogCounter(
+				RootTaskCountConfig,
+				{ customFields = {
+					rootName = root.root_name,
+					deviceTier = deviceTier,
+					task = "LayoutEffects",
+					context = self.context,
+				} },
+				root.layout_effects_count
+			)
+		end
 		TelemetryService:LogCounter(
 			RootTaskCountConfig,
 			{ customFields = {
@@ -767,6 +823,32 @@ function ReactSchedulingTracker:reportPeriod()
 				} },
 				root.avg_commit_time_ms
 			)
+			if FFlagReactSchedulingTrackerLayoutEffects then
+				TelemetryService:LogStat(
+					RootPeriodTaskStatConfig,
+					{ customFields = {
+						rootName = root.root_name,
+						deviceTier = deviceTier,
+						task = "LayoutEffects",
+						stat = "AvgMs",
+						context = self.context,
+					} },
+					root.avg_layout_effects_time_ms
+				)
+				if FFlagReactSchedulingTrackerDataModelUpdate then
+					TelemetryService:LogStat(
+						RootPeriodTaskStatConfig,
+						{ customFields = {
+							rootName = root.root_name,
+							deviceTier = deviceTier,
+							task = "DataModelUpdate",
+							stat = "AvgMs",
+							context = self.context,
+						} },
+						root.avg_data_model_update_time_ms
+					)
+				end
+			end
 			TelemetryService:LogStat(
 				RootPeriodTaskStatConfig,
 				{ customFields = {
@@ -812,6 +894,32 @@ function ReactSchedulingTracker:reportPeriod()
 				} },
 				root.max_commit_time_ms
 			)
+			if FFlagReactSchedulingTrackerLayoutEffects then
+				TelemetryService:LogStat(
+					RootPeriodTaskStatConfig,
+					{ customFields = {
+						rootName = root.root_name,
+						deviceTier = deviceTier,
+						task = "LayoutEffects",
+						stat = "MaxMs",
+						context = self.context,
+					} },
+					root.max_layout_effects_time_ms
+				)
+				if FFlagReactSchedulingTrackerDataModelUpdate then
+					TelemetryService:LogStat(
+						RootPeriodTaskStatConfig,
+						{ customFields = {
+							rootName = root.root_name,
+							deviceTier = deviceTier,
+							task = "DataModelUpdate",
+							stat = "MaxMs",
+							context = self.context,
+						} },
+						root.max_data_model_update_time_ms
+					)
+				end
+			end
 			TelemetryService:LogStat(
 				RootPeriodTaskStatConfig,
 				{ customFields = {

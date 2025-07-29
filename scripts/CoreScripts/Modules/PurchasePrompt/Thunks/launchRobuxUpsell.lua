@@ -22,8 +22,6 @@ local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppP
 local getAppFeaturePolicies = UniversalAppPolicy.getAppFeaturePolicies
 local GetFStringVNGWebshopUrl =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringVNGWebshopUrl
-local FFlagInExperiencePurchaseFlowRework =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInExperiencePurchaseFlowRework
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
@@ -114,10 +112,8 @@ local function launchRobuxUpsell()
 					platformInterface.openRobuxStoreWithContext(context, SelectedRobuxPackage.getProductId(state))
 				elseif upsellExpVariant == DesktopUpsellExperiment.variants.OpenPaymentsPage then
 					platformInterface.openPaymentsPageWithContext(context, SelectedRobuxPackage.getProductId(state))
-				elseif FFlagInExperiencePurchaseFlowRework then
-					platformInterface.startRobuxUpsellWebByFlowWithContext(context, state.purchaseFlow, SelectedRobuxPackage.getProductId(state))
 				else
-					platformInterface.startRobuxUpsellWebByFlow(state.purchaseFlow, SelectedRobuxPackage.getProductId(state))
+					platformInterface.startRobuxUpsellWebByFlowWithContext(context, state.purchaseFlow, SelectedRobuxPackage.getProductId(state))
 				end
 				store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			end

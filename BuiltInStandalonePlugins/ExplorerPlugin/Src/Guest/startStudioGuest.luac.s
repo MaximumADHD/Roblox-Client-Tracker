@@ -17,7 +17,7 @@ PROTO_1:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K14 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "clickScript", "openScript", "fieldsConfig", "DEBUG_dataModelType", "DEBUG_startTime"}]
+  DUPTABLE R5 K15 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "clickScript", "openScript", "fieldsConfig", "enableOpenContextMenuDelayHack", "DEBUG_dataModelType", "DEBUG_startTime"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
@@ -37,19 +37,21 @@ PROTO_1:
   SETTABLEKS R6 R5 K9 ["clickScript"]
   GETUPVAL R6 10
   SETTABLEKS R6 R5 K10 ["openScript"]
-  DUPTABLE R6 K17 [{"createLiveSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
+  DUPTABLE R6 K18 [{"createLiveSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
   GETUPVAL R7 11
-  SETTABLEKS R7 R6 K15 ["createLiveSyncStatusWatcher"]
+  SETTABLEKS R7 R6 K16 ["createLiveSyncStatusWatcher"]
   GETUPVAL R7 12
-  SETTABLEKS R7 R6 K16 ["createCollaboratorSelectionWatcher"]
+  SETTABLEKS R7 R6 K17 ["createCollaboratorSelectionWatcher"]
   SETTABLEKS R6 R5 K11 ["fieldsConfig"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K12 ["enableOpenContextMenuDelayHack"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K18 ["HostDataModelType"]
-  GETTABLEKS R6 R7 K19 ["Name"]
-  SETTABLEKS R6 R5 K12 ["DEBUG_dataModelType"]
-  GETIMPORT R6 K22 [os.clock]
+  GETTABLEKS R7 R8 K19 ["HostDataModelType"]
+  GETTABLEKS R6 R7 K20 ["Name"]
+  SETTABLEKS R6 R5 K13 ["DEBUG_dataModelType"]
+  GETIMPORT R6 K23 [os.clock]
   CALL R6 0 1
-  SETTABLEKS R6 R5 K13 ["DEBUG_startTime"]
+  SETTABLEKS R6 R5 K14 ["DEBUG_startTime"]
   CALL R1 4 -1
   RETURN R1 -1
 

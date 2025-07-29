@@ -73,18 +73,14 @@ export type ResetProps = {
 ----------- CLASS DECLARATION --------------
 
 type Props = {
-	dontResetCharFromButton: (isUsingGamepad: boolean) -> (),
 	onResetFunction: () -> (),
-	pageDisplayed: BindableEvent,
-	pageHidden: BindableEvent,
+	dontResetCharFromButton: (isUsingGamepad: boolean) -> (),
 }
 
 local function ResetCharacterButtonsContainer(props: Props)
 	local resetCharacterButtonRef = React.useRef(nil)
 
-	local pageVisible, setPageVisible = React.useState(false)
-
-	local useLastInputMode = useLastInputMode()
+	local lastInputMode = useLastInputMode()
 	local focusGuiObject = useFocusGuiObject()
 
 	local localizedText = useLocalization({
@@ -93,33 +89,17 @@ local function ResetCharacterButtonsContainer(props: Props)
 		DontResetCharacter = Constants.DontResetCharacterLocalizedKey,
 	}) 
 
-	React.useEffect(function()
-		local displayedConnection = props.pageDisplayed.Event:Connect(function()
-			setPageVisible(true)
-		end)
-		local hiddenConnection = props.pageHidden.Event:Connect(function()
-			setPageVisible(false)
-		end)
-	
-		return function()
-			displayedConnection:Disconnect()
-			hiddenConnection:Disconnect()
-		end
-	end, { props.pageDisplayed, props.pageHidden })
-
 	React.useEffect(function() 
-		if pageVisible then
-			if useLastInputMode == "Focus" then
-				focusGuiObject(resetCharacterButtonRef.current)
-			else
-				focusGuiObject(nil)
-			end
+		if lastInputMode == "Focus" then
+			focusGuiObject(resetCharacterButtonRef.current)
+		else
+			focusGuiObject(nil)
 		end
-	end, { pageVisible, useLastInputMode, resetCharacterButtonRef.current })
+	end, { lastInputMode, focusGuiObject })
 
 	local onDontResetCharacter = React.useCallback(function()
 		props.dontResetCharFromButton(utility:IsUsingGamepad())
-	end, {})
+	end, { utility, props.dontResetCharFromButton })
 
 	return React.createElement(View, {
 		Position = UDim2.new(0, 0, 0, if isTenFootInterface then 100 else 0),
@@ -315,13 +295,19 @@ local function Initialize()
 	end
 
 	if FFlagRefactorMenuConfirmationButtons then
-		this.PageRoot = ReactRoblox.createRoot(this.Page)
-		this.PageRoot:render(React.createElement(ResetCharacterContainer, {
-			onResetFunction = onResetFunction,
-			dontResetCharFromButton = this.DontResetCharFromButton,
-			pageDisplayed = this.Displayed,
-			pageHidden = this.Hidden,
-		}))
+		this.RenderPage = function()
+			this.PageRoot = ReactRoblox.createRoot(this.Page)
+			this.PageRoot:render(React.createElement(ResetCharacterContainer, {
+				onResetFunction = onResetFunction,
+				dontResetCharFromButton = this.DontResetCharFromButton,
+			}))
+		end
+
+		this.UnmountPage = function()
+			if this.PageRoot then
+				this.PageRoot:unmount()
+			end
+		end
 	end
 
 	return this
@@ -334,6 +320,9 @@ local isOpen = false
 
 PageInstance.Displayed.Event:connect(function()
 	isOpen = true
+	if FFlagRefactorMenuConfirmationButtons then
+		PageInstance.RenderPage()
+	end
 	if not FFlagRefactorMenuConfirmationButtons then
 		GuiService.SelectedCoreObject = PageInstance.ResetCharacterButton
 	end
@@ -352,6 +341,9 @@ end)
 
 PageInstance.Hidden.Event:connect(function()
 	isOpen = false
+	if FFlagRefactorMenuConfirmationButtons then
+		PageInstance.UnmountPage()
+	end
 	ContextActionService:UnbindCoreAction(RESET_CHARACTER_GAME_ACTION)
 end)
 

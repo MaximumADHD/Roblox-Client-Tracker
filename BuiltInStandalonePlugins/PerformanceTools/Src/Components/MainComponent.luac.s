@@ -56,7 +56,7 @@ PROTO_2:
   LOADN R13 1
   SETTABLEKS R13 R12 K11 ["BackgroundTransparency"]
   DUPTABLE R13 K20 [{"ThermometerWrapper"}]
-  JUMPIF R1 [+65]
+  JUMPIF R1 [+58]
   GETUPVAL R15 0
   GETTABLEKS R14 R15 K7 ["createElement"]
   GETUPVAL R15 4
@@ -75,19 +75,13 @@ PROTO_2:
   SETTABLEKS R17 R16 K24 ["TaskThreadAverageMs"]
   GETTABLEKS R17 R9 K36 ["isEditDM"]
   SETTABLEKS R17 R16 K25 ["IsEditMode"]
-  GETUPVAL R19 5
-  GETTABLEKS R18 R19 K37 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
-  CALL R18 0 1
-  JUMPIFNOT R18 [+3]
-  GETTABLEKS R17 R9 K38 ["microprofilerVisible"]
-  JUMPIF R17 [+1]
-  LOADB R17 0
+  GETTABLEKS R17 R9 K37 ["microprofilerVisible"]
   SETTABLEKS R17 R16 K26 ["MicroprofilerVisible"]
   GETUPVAL R19 5
-  GETTABLEKS R18 R19 K39 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
+  GETTABLEKS R18 R19 K38 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
   CALL R18 0 1
   JUMPIFNOT R18 [+3]
-  GETTABLEKS R17 R9 K40 ["automaticGraphicsQuality"]
+  GETTABLEKS R17 R9 K39 ["automaticGraphicsQuality"]
   JUMPIF R17 [+1]
   LOADN R17 0
   SETTABLEKS R17 R16 K27 ["AutomaticGraphicsQuality"]

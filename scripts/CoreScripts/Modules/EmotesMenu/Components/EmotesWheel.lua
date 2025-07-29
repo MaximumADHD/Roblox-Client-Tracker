@@ -8,7 +8,7 @@ local VRService = game:GetService("VRService")
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
-local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 
 local Components = script.Parent
 local EmotesMenu = Components.Parent

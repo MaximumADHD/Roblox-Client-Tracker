@@ -53,8 +53,11 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
-local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Flags.FFlagAddNextUpContainer)
+local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
 local FFlagRemovePreferredTextSizePcall = game:DefineFastFlag("RemovePreferredTextSizePcall", false)
+
+local SettingsFlags = require(Settings.Flags)
+local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
@@ -201,6 +204,14 @@ function PropertyTweener(instance, prop, start, final, duration, easingFunc, cbF
 	return this
 end
 
+local function isTouchInput()
+	if FFlagGameSettingsUsePreferredInputMovement then
+		return UserInputService.PreferredInput == Enum.PreferredInput.Touch
+	else
+		return UserInputService.TouchEnabled
+	end
+end
+
 ----------- CLASS DECLARATION --------------
 
 local function CreateSignal() -- Remove alongside GetFFlagPackagifySettingsShowSignal
@@ -266,7 +277,7 @@ local function usesSelectedObject()
 		return false
 	end
 	--Touch does not use selected objects unless there's also a gamepad
-	if UserInputService.TouchEnabled and not UserInputService.GamepadEnabled then
+	if isTouchInput() and not UserInputService.GamepadEnabled then
 		return false
 	end
 	--PC with gamepad, console... does use selected objects
@@ -1217,7 +1228,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		ZIndex = 4,
 		Parent = rightButton,
 	})
-	if not UserInputService.TouchEnabled then
+	if not isTouchInput() then
 		local applyNormal, applyHover =
 			function(instance)
 				instance.ImageColor3 = ARROW_COLOR
@@ -1490,7 +1501,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		end
 	end)
 	leftButton.MouseButton1Click:Connect(function()
-		if not UserInputService.TouchEnabled then
+		if not isTouchInput() then
 			stepFunc(nil, -1)
 		end
 	end)
@@ -1500,7 +1511,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		end
 	end)
 	rightButton.MouseButton1Click:Connect(function()
-		if not UserInputService.TouchEnabled then
+		if not isTouchInput() then
 			stepFunc(nil, 1)
 		end
 	end)
@@ -1972,7 +1983,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		Image = "rbxasset://textures/ui/Settings/Slider/Less.png",
 		ZIndex = 4,
 		Parent = leftButton,
-		ImageColor3 = UserInputService.TouchEnabled and ARROW_COLOR_TOUCH or ARROW_COLOR,
+		ImageColor3 = isTouchInput() and ARROW_COLOR_TOUCH or ARROW_COLOR,
 	})
 	local rightButtonImage = Create("ImageLabel")({
 		Name = "RightButton",
@@ -1983,9 +1994,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		Image = "rbxasset://textures/ui/Settings/Slider/More.png",
 		ZIndex = 4,
 		Parent = rightButton,
-		ImageColor3 = UserInputService.TouchEnabled and ARROW_COLOR_TOUCH or ARROW_COLOR,
+		ImageColor3 = isTouchInput() and ARROW_COLOR_TOUCH or ARROW_COLOR,
 	})
-	if not UserInputService.TouchEnabled then
+	if not isTouchInput() then
 		local onNormalButtonState, onHoverButtonState =
 			function(instance)
 				instance.ImageColor3 = ARROW_COLOR

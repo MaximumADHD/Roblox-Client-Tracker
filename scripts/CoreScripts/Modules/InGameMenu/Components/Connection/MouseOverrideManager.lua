@@ -3,7 +3,7 @@ local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
 
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
-local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact

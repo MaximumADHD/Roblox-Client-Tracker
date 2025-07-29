@@ -395,12 +395,12 @@ local function getPremiumUpsellPrecheck()
 	end)
 end
 
-local function getSubscriptionPurchaseInfo(subscriptinId)
-	return MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptinId)
+local function getSubscriptionPurchaseInfo(subscriptionId)
+	return MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptionId)
 end
 
-local function performSubscriptionPurchase(subscriptinId, paymentMethod)
-	return MarketplaceService:PerformSubscriptionPurchaseV2(subscriptinId, paymentMethod)
+local function performSubscriptionPurchase(subscriptionId, paymentMethod)
+	return MarketplaceService:PerformSubscriptionPurchaseV2(subscriptionId, paymentMethod)
 end
 
 local function getPurchaseWarning(mobileProductId: string?, productId: number?, isPremium: boolean)

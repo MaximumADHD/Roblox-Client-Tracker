@@ -74,16 +74,12 @@ local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspac
 
 type Props = {
 	dontLeaveFromButton: (isUsingGamepad: boolean) -> (),
-	pageDisplayed: BindableEvent,
-	pageHidden: BindableEvent,
 }
 
 local function LeaveButtonsContainer(props: Props)
 	local leaveButtonRef = React.useRef(nil)
 
-	local pageVisible, setPageVisible = React.useState(false)
-
-	local useLastInputMode = useLastInputMode()
+	local lastInputMode = useLastInputMode()
 	local focusGuiObject = useFocusGuiObject()
 
 	local localizedText = useLocalization({
@@ -92,37 +88,21 @@ local function LeaveButtonsContainer(props: Props)
 		DontLeaveGame = Constants.DontLeaveGameLocalizedKey,
 	}) 
 
-	React.useEffect(function()
-		local displayedConnection = props.pageDisplayed.Event:Connect(function()
-			setPageVisible(true)
-		end)
-		local hiddenConnection = props.pageHidden.Event:Connect(function()
-			setPageVisible(false)
-		end)
-	
-		return function()
-			displayedConnection:Disconnect()
-			hiddenConnection:Disconnect()
-		end
-	end, { props.pageDisplayed, props.pageHidden })
-
 	React.useEffect(function() 
-		if pageVisible then
-			if useLastInputMode == "Focus" then
-				focusGuiObject(leaveButtonRef.current)
-			else
-				focusGuiObject(nil)
-			end
+		if lastInputMode == "Focus" then
+			focusGuiObject(leaveButtonRef.current)
+		else
+			focusGuiObject(nil)
 		end
-	end, { pageVisible, useLastInputMode, leaveButtonRef.current })
+	end, { lastInputMode, focusGuiObject })
 
 	local onLeaveGame = React.useCallback(function()
 		leaveGame(true)
-	end, {})
+	end, { leaveGame })
 
 	local onDontLeaveGame = React.useCallback(function()
 		props.dontLeaveFromButton(utility:IsUsingGamepad())
-	end, {})
+	end, { utility, props.dontLeaveFromButton })
 
 	return React.createElement(View, {
 		Position = UDim2.new(0, 0, 0, if isTenFootInterface then 100 else 0),
@@ -229,12 +209,18 @@ local function Initialize()
 	this.ShouldShowHubBar = false
 
 	if FFlagRefactorMenuConfirmationButtons then
-		this.PageRoot = ReactRoblox.createRoot(this.Page)
-		this.PageRoot:render(React.createElement(LeaveGameContainer, {
-			dontLeaveFromButton = this.DontLeaveFromButton,
-			pageDisplayed = this.Displayed,
-			pageHidden = this.Hidden,
-		}))
+		this.RenderPage = function()
+			this.PageRoot = ReactRoblox.createRoot(this.Page)
+			this.PageRoot:render(React.createElement(LeaveGameContainer, {
+				dontLeaveFromButton = this.DontLeaveFromButton,
+			}))
+		end
+
+		this.UnmountPage = function()
+			if this.PageRoot then
+				this.PageRoot:unmount()
+			end
+		end
 	else
 		local leaveGameConfirmationText = if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then RobloxTranslator:FormatByKey(Constants.ConfirmLeaveGameLocalizedKey) else "Are you sure you want to leave the experience?"
 
@@ -309,6 +295,9 @@ end
 PageInstance = Initialize()
 
 PageInstance.Displayed.Event:connect(function()
+	if FFlagRefactorMenuConfirmationButtons then
+		PageInstance.RenderPage()
+	end
 	if not FFlagRefactorMenuConfirmationButtons then
 		GuiService.SelectedCoreObject = PageInstance.LeaveGameButton
 	end
@@ -326,6 +315,9 @@ PageInstance.Displayed.Event:connect(function()
 end)
 
 PageInstance.Hidden.Event:connect(function()
+	if FFlagRefactorMenuConfirmationButtons then
+		PageInstance.UnmountPage()
+	end
 	ContextActionService:UnbindCoreAction(LEAVE_GAME_ACTION)
 end)
 

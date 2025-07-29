@@ -1,0 +1,96 @@
+PROTO_0:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+8]
+  GETIMPORT R3 K1 [print]
+  LOADK R4 K2 ["Logging stat"]
+  GETTABLEKS R5 R0 K3 ["eventName"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R3 4 0
+  GETUPVAL R3 1
+  MOVE R5 R0
+  MOVE R6 R2
+  MOVE R7 R1
+  NAMECALL R3 R3 K4 ["LogStat"]
+  CALL R3 4 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+7]
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["Logging event"]
+  GETTABLEKS R4 R0 K3 ["eventName"]
+  MOVE R5 R1
+  CALL R2 3 0
+  GETUPVAL R2 1
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K4 ["LogEvent"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+8]
+  GETIMPORT R3 K1 [print]
+  LOADK R4 K2 ["Logging counter"]
+  GETTABLEKS R5 R0 K3 ["eventName"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R3 4 0
+  GETUPVAL R3 1
+  MOVE R5 R0
+  MOVE R6 R2
+  MOVE R7 R1
+  NAMECALL R3 R3 K4 ["LogCounter"]
+  CALL R3 4 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Assistant"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AssistantUI"]
+  CALL R1 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["FFlagDebugLogAssistantUI"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K11 ["Get"]
+  GETIMPORT R3 K13 [game]
+  LOADK R5 K14 ["TelemetryService"]
+  NAMECALL R3 R3 K15 ["GetService"]
+  CALL R3 2 1
+  DUPTABLE R4 K20 [{"EventIngest", "Points", "RobloxTelemetryCounter", "RobloxTelemetryStat"}]
+  LOADK R5 K16 ["EventIngest"]
+  SETTABLEKS R5 R4 K16 ["EventIngest"]
+  LOADK R5 K17 ["Points"]
+  SETTABLEKS R5 R4 K17 ["Points"]
+  LOADK R5 K18 ["RobloxTelemetryCounter"]
+  SETTABLEKS R5 R4 K18 ["RobloxTelemetryCounter"]
+  LOADK R5 K19 ["RobloxTelemetryStat"]
+  SETTABLEKS R5 R4 K19 ["RobloxTelemetryStat"]
+  DUPTABLE R5 K22 [{"Backends"}]
+  SETTABLEKS R4 R5 K21 ["Backends"]
+  DUPCLOSURE R6 K23 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K24 ["logStat"]
+  DUPCLOSURE R6 K25 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K26 ["logEvent"]
+  DUPCLOSURE R6 K27 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K28 ["logCounter"]
+  RETURN R5 1

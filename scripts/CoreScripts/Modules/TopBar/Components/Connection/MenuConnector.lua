@@ -21,10 +21,13 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local GetFFlagEnableInGameMenuDurationLogger =
 	require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+
 local MenuConnector = Roact.PureComponent:extend("MenuConnector")
 
 MenuConnector.validateProps = t.strictInterface({
-	setMenuOpen = t.callback,
+	setMenuOpen = if FFlagTopBarSignalizeMenuOpen then nil else t.callback,
 
 	setRespawnBehaviour = t.callback,
 })
@@ -32,13 +35,17 @@ MenuConnector.validateProps = t.strictInterface({
 function MenuConnector:didMount()
 	if isNewInGameMenuEnabled() then
 		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
-		self.props.setMenuOpen(InGameMenu.getOpen())
+		if not FFlagTopBarSignalizeMenuOpen then
+			self.props.setMenuOpen(InGameMenu.getOpen())
+		end
 
 		local isEnabled, customCallback = InGameMenu.getRespawnBehaviour()
 		self.props.setRespawnBehaviour(isEnabled, customCallback)
 	else
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-		self.props.setMenuOpen(SettingsHub:GetVisibility())
+		if not FFlagTopBarSignalizeMenuOpen then
+			self.props.setMenuOpen(SettingsHub:GetVisibility())
+		end
 
 		local isEnabled, customCallback = SettingsHub:GetRespawnBehaviour()
 		self.props.setRespawnBehaviour(isEnabled, customCallback)
@@ -55,7 +62,7 @@ function MenuConnector:render()
 		respawnBehaviourChangedEvent = InGameMenu.getRespawnBehaviourChangedEvent()
 
 		return Roact.createFragment({
-			MenuOpenChangedConnection = Roact.createElement(EventConnection, {
+			MenuOpenChangedConnection = if FFlagTopBarSignalizeMenuOpen then nil else Roact.createElement(EventConnection, {
 				event = inGameMenuOpenChangedEvent.Event,
 				callback = function(open)
 					self.props.setMenuOpen(open)
@@ -76,7 +83,7 @@ function MenuConnector:render()
 		local respawnBehaviourChangedEvent = SettingsHub.RespawnBehaviourChangedEvent
 
 		return Roact.createFragment({
-			MenuOpenChangedConnection = Roact.createElement(EventConnection, {
+			MenuOpenChangedConnection = if FFlagTopBarSignalizeMenuOpen then nil else Roact.createElement(EventConnection, {
 				event = settingsHubOpenedEvent.Event,
 				callback = function(open)
 					if GetFFlagEnableInGameMenuDurationLogger() and open then
@@ -98,7 +105,7 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		setMenuOpen = function(open)
+		setMenuOpen = if FFlagTopBarSignalizeMenuOpen then nil else function(open)
 			return dispatch(SetMenuOpen(open))
 		end,
 

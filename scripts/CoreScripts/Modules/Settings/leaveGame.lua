@@ -41,6 +41,12 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
     if GetFFlagEnableInGameMenuDurationLogger() then
         PerfUtils.leavingGame()
     end
+    local CorescriptMemoryTracker = require(RobloxGui.Modules.Common.CorescriptMemoryTracker)
+    local coreScriptMemoryTracker = CorescriptMemoryTracker()
+    if coreScriptMemoryTracker then
+        coreScriptMemoryTracker:destroy()
+    end
+
     GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
 
 	local playsessionid = ""

@@ -4,8 +4,12 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local React = require(CorePackages.Packages.React)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+local Signals = require(CorePackages.Packages.Signals)
 local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 local Constants = require(Root.Unibar.Constants)
+
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 
 local FIntLuaUIOcclusionMetricsReportingPeriodSeconds =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntLuaUIOcclusionMetricsReportingPeriodSeconds()
@@ -45,18 +49,29 @@ local function OcclusionMetricsManager()
 		return
 	end
 
+	local disposeEffect
+
 	local unibarAreaRef = React.useRef({
 		id = Constants.UNIBAR_KEEP_OUT_AREA_ID,
 		position = Vector2.new(),
 		size = Vector2.new(),
 	} :: KeepOutArea?)
-	local unibarArea: KeepOutArea? = useSelector(function(state)
-		return state.displayOptions.keepOutAreas[Constants.UNIBAR_KEEP_OUT_AREA_ID]
-	end)
 
-	React.useEffect(function()
-		unibarAreaRef.current = unibarArea
-	end, { unibarArea })
+	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then
+		local keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
+
+		disposeEffect = Signals.createEffect(function(scope)
+			unibarAreaRef.current = keepOutAreasStore.getKeepOutAreas(false)[Constants.UNIBAR_KEEP_OUT_AREA_ID]
+		end)
+	else
+		local unibarArea: KeepOutArea? = useSelector(function(state)
+			return state.displayOptions.keepOutAreas[Constants.UNIBAR_KEEP_OUT_AREA_ID]
+		end)
+
+		React.useEffect(function()
+			unibarAreaRef.current = unibarArea
+		end, { unibarArea })
+	end
 
 	React.useEffect(function()
 		-- Start reporting task on mount
@@ -72,6 +87,10 @@ local function OcclusionMetricsManager()
 		return function()
 			-- On unmount, stop task
 			task.cancel(reportingTask)
+
+			if FFlagTopBarSignalizeKeepOutAreas then
+				disposeEffect()
+			end
 		end
 	end, {})
 end

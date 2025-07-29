@@ -69,6 +69,7 @@ return {
 
 	LegacyCloseMenuIconSize = if isNewTiltIconEnabled() then (topbarHeight - if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_100 else 4) else 30,
 	MENU_ICON_SIZE = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_600 else 24,
+	MenuIconOpenScale = 1.25,
 
 	UnibarFrame = {
 		PaddingTop = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XXSmall else 2,

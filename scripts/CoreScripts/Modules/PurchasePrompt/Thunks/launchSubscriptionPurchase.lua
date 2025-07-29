@@ -1,15 +1,21 @@
 local Root = script.Parent.Parent
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
+local SetEconomicRestrictionError = require(Root.Actions.SetEconomicRestrictionError)
 local PurchaseCompleteRecieved = require(Root.Actions.PurchaseCompleteRecieved)
-local SetWindowState = require(Root.Actions.SetWindowState)
 local SetPromptState = require(Root.Actions.SetPromptState)
 local PromptState = require(Root.Enums.PromptState)
-local WindowState = require(Root.Enums.WindowState)
 local performSubscriptionPurchase = require(Root.Network.performSubscriptionPurchase)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local Network = require(Root.Services.Network)
 local Thunk = require(Root.Thunk)
 local hideWindow = require(Root.Thunks.hideWindow)
+local PurchaseError = require(Root.Enums.PurchaseError)
+
+local CorePackages = game:GetService("CorePackages")
+local IAPExperience = require(CorePackages.Workspace.Packages.IAPExperience)
+local FFlagEnableEconomicRestrictionInExpDevSub = IAPExperience.Flags.FFlagEnableEconomicRestrictionInExpDevSub
+local isErrorReasonPrefixWithEconomicRestrictions = IAPExperience.Utility.isErrorReasonPrefixWithEconomicRestrictions
+local parseErrorReasonToEconomicRestriction = IAPExperience.Utility.parseErrorReasonToEconomicRestriction
 
 local requiredServices = {
 	ExternalSettings,
@@ -29,7 +35,13 @@ local function launchSubscriptionPurchase(paymentMethod)
 
 		performSubscriptionPurchase(network, store:getState().promptRequest.id, paymentMethod):catch(
 			function(errorReason)
-				store:dispatch(ErrorOccurred(errorReason))
+				if FFlagEnableEconomicRestrictionInExpDevSub and isErrorReasonPrefixWithEconomicRestrictions(errorReason) then
+					local economicRestrictionError = parseErrorReasonToEconomicRestriction(errorReason)
+					store:dispatch(SetEconomicRestrictionError(economicRestrictionError.violationType, economicRestrictionError.timeoutMinutes))
+					store:dispatch(ErrorOccurred(PurchaseError.EconomicRestriction))
+				else
+					store:dispatch(ErrorOccurred(errorReason))
+				end
 			end
 		)
 		store:dispatch(SetPromptState(PromptState.UpsellInProgress))

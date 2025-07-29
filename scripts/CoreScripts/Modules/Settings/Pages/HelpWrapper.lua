@@ -10,12 +10,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local LocalizationService = game:GetService("LocalizationService")
 local Modules = RobloxGui.Modules
 
--- Flags
-local FFlagRefactorHelpPage = require(Modules.Settings.Flags.FFlagRefactorHelpPage)
-local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
-
 -- Modules
-local HelpReactView = require(CorePackages.Workspace.Packages.HelpPage).HelpReactView
+local HelpPage = require(CorePackages.Workspace.Packages.HelpPage)
+local HelpReactView = HelpPage.HelpReactView
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
@@ -27,13 +24,17 @@ local FoundationProvider = Foundation.FoundationProvider
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 
+-- Flags
+local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
+local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
+
 local Integrations = nil
 local Constants = nil
 local Utils = nil
 if FFlagRefactorHelpPage then
 	Integrations = require(Modules.Settings.Integrations)
 	Utils = Integrations.Utils
-    Constants = require(CorePackages.Workspace.Packages.HelpPage).Constants
+    Constants = HelpPage.Constants
 end
 
 local function createHelpPage()

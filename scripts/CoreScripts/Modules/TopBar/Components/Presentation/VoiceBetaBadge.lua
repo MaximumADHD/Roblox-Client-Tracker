@@ -33,6 +33,9 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+
 local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
 
 local Chrome = TopBar.Parent.Chrome
@@ -44,8 +47,8 @@ local ChromeService = if GetFFlagFixChromeReferences() then
 VoiceBetaBadge.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	Analytics = t.table,
-	setKeepOutArea = t.optional(t.callback),
-	removeKeepOutArea = t.optional(t.callback),
+	setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.optional(t.callback),
+	removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.optional(t.callback),
 })
 
 local CustomWebviewType: { [string]: number } = {
@@ -114,6 +117,10 @@ function VoiceBetaBadge:init()
 		openWebview(url)
 		self.props.Analytics.EventStream:setRBXEvent(eventContext, "clickBetaBadgeLearnMore")
 	end
+
+	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
+	end
 end
 
 function VoiceBetaBadge:render()
@@ -126,9 +133,17 @@ function VoiceBetaBadge:render()
 				Vector2.new(rbx.AbsolutePosition.X - STROKE_THICKNESS, rbx.AbsolutePosition.Y - STROKE_THICKNESS)
 			local strokeSize =
 				Vector2.new(rbx.AbsoluteSize.X + 2 * STROKE_THICKNESS, rbx.AbsoluteSize.Y + 2 * STROKE_THICKNESS)
-			self.props.setKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId, strokePosition, strokeSize)
+			if FFlagTopBarSignalizeKeepOutAreas then
+				self.keepOutAreasStore.setKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId, strokePosition, strokeSize)
+			else
+				self.props.setKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId, strokePosition, strokeSize)
+			end
 		else
-			self.props.removeKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId)
+			if FFlagTopBarSignalizeKeepOutAreas then 
+				self.keepOutAreasStore.removeKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId)
+			else
+				self.props.removeKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId)
+			end
 		end
 	end
 
@@ -286,6 +301,9 @@ end
 
 if FFlagEnableChromeBackwardsSignalAPI then
 	local function mapDispatchToProps(dispatch)
+		if FFlagTopBarSignalizeKeepOutAreas then
+			return {}
+		end
 		return {
 			setKeepOutArea = function(id, position, size)
 				return dispatch(SetKeepOutArea(id, position, size))
@@ -296,7 +314,11 @@ if FFlagEnableChromeBackwardsSignalAPI then
 		}
 	end
 
-	return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(VoiceBetaBadge)
+	if FFlagTopBarSignalizeKeepOutAreas then 
+		return VoiceBetaBadge
+	else
+		return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(VoiceBetaBadge)
+	end
 end
 
 return VoiceBetaBadge

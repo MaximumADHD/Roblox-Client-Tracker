@@ -141,8 +141,8 @@ if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
   strSentNetwork = LocalizeWithFallback("InGame.UnknownNamespace.Sent", "Sent")  .. "\n" .. networkStr
   strReceivedNetwork = LocalizeWithFallback("InGame.UnknownNamespace.Received", "Received")  .. "\n" .. networkStr
 else
-  local strSentNetwork = LocalizedGetKey("Sent") .. "\n" .. LocalizedGetKey("Network")
-  local strReceivedNetwork = LocalizedGetKey("Received") .. "\n" .. LocalizedGetKey("Network")
+  strSentNetwork = LocalizedGetKey("Sent") .. "\n" .. LocalizedGetKey("Network")
+  strReceivedNetwork = LocalizedGetKey("Received") .. "\n" .. LocalizedGetKey("Network")
 end
 
 StatsUtils.TypeToName = {

@@ -102,6 +102,7 @@ function SubscriptionPurchaseContainer:createElement()
 
 			promptState = props.promptState,
 			purchaseError = props.purchaseError,
+			economicRestrictionError = props.economicRestrictionError,
 
 			subscriptionId = props.subscriptionId,
 			name = props.subscriptionPurchaseInfo.Name,
@@ -172,6 +173,7 @@ SubscriptionPurchaseContainer = connectToStore(function(state)
 
 		promptState = state.promptState,
 		purchaseError = state.purchaseError,
+		economicRestrictionError = state.economicRestrictionError,
 
 		subscriptionPurchaseInfo = state.subscriptionPurchaseInfo,
 		subscriptionId = state.promptRequest.id,

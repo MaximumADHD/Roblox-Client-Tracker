@@ -1,9 +1,12 @@
 --!nonstrict
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local CorePackages = game:GetService("CorePackages")
 
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local RequestBundlePurchase = require(Root.Actions.RequestBundlePurchase)
+local setPurchaseFlowUUID = require(Root.Actions.SetPurchaseFlowUUID)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local getBundleDetails = require(Root.Network.getBundleDetails)
 local getProductPurchasableDetails = require(Root.Network.getProductPurchasableDetails)
@@ -16,12 +19,18 @@ local ExternalSettings = require(Root.Services.ExternalSettings)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
 local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 
 local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
 local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
 local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
 	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
+local FFlagEnablePurchaseFlowUUIDMigration = require(Root.Flags.FFlagEnablePurchaseFlowUUIDMigration)
+
+-- Import centralized telemetry configs from Events directory
+local CentralizedTelemetry = require(Root.Events.PurchaseFlowUUIDTelemetry)
 
 local requiredServices = {
 	Network,
@@ -46,6 +55,21 @@ local function initiateBundlePurchase(
 
 		if hasPendingRequest(store:getState()) then
 			return nil
+		end
+
+		-- Generate a new purchase flow UUID at the start of each purchase attempt
+		-- When flag is disabled, UUID generation happens in ProductPurchaseContainer
+		if FFlagEnablePurchaseFlowUUIDMigration then
+			local newUUID = HttpService:GenerateGUID(false)
+			store:dispatch(setPurchaseFlowUUID(newUUID))
+			
+			LoggingProtocol.default:logRobloxTelemetryCounter(
+				CentralizedTelemetry.InitiatePurchaseCounter,
+				1.0,
+				{
+					method = "initiateBundlePurchase",
+				}
+			)
 		end
 
 		store:dispatch(

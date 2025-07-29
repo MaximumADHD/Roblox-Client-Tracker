@@ -3,24 +3,42 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui.RobloxGui
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local Constants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
-local useLocalPlayer = require(RobloxGui.Modules.Common.Hooks.useLocalPlayer)
 
 local View = Foundation.View
 local BaseComponent = require(script.BaseComponent)
 local NextUpComponent = require(script.NextUpComponent)
 local LeaveButtonsContainer = require(script.LeaveButtonsContainer)
+local useNextUpSort = require(script.useNextUpSort)
 
 local FIntNextUpShadowTrafficPercent = game:DefineFastInt("NextUpShadowTrafficPercent", 0)
 local FFlagEnableInGameExitModalNextUpUi =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableInGameExitModalNextUpUi
 local FFlagEnableInGameExitModalNextUpUiRequestCache =
-	game:DefineFastFlag("EnableInGameExitModalNextUpUiRequestCache", false)
+	require(script.Flags.FFlagEnableInGameExitModalNextUpUiRequestCache)
+
+-- if this flag is off, we use the default LeaveGame page but can hit the backend with nextup traffic
+if not FFlagEnableInGameExitModalNextUpUi then
+	local player = Players.LocalPlayer
+	local userId = player and player.UserId or 99
+	if userId % 100 < FIntNextUpShadowTrafficPercent then
+		local root = ReactRoblox.createRoot(Instance.new("ScreenGui"))
+		root:render(React.createElement(BaseComponent, nil, {
+			nextUpShadowTraffic = React.createElement(function()
+				useNextUpSort()
+				return nil
+			end),
+		}))
+	end
+
+	return require(script.Parent.LeaveGame)
+end
 
 local MIN_HEIGHT = 350
 
@@ -63,12 +81,10 @@ end
 
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local buttonSize = if isTenFootInterface then 300 else 200
-local root = ReactRoblox.createRoot(PageInstance.Page)
 
 local function LeaveGameWithNextUpComponent()
 	local visible, setVisible = React.useState(false)
-	local enableTraffic, setEnableTraffic = React.useState(FFlagEnableInGameExitModalNextUpUi)
-	local localPlayer = useLocalPlayer()
+	local nextUpSort = if FFlagEnableInGameExitModalNextUpUiRequestCache then useNextUpSort() else nil
 
 	React.useEffect(function()
 		local connections = {}
@@ -93,41 +109,29 @@ local function LeaveGameWithNextUpComponent()
 		end
 	end, {})
 
-	React.useEffect(function()
-		local userId = if localPlayer then localPlayer.UserId else 99
-		setEnableTraffic(FFlagEnableInGameExitModalNextUpUi or userId % 100 < FIntNextUpShadowTrafficPercent)
-	end, { localPlayer })
-
-	local renderNextUpComponent = if FFlagEnableInGameExitModalNextUpUiRequestCache
-		then enableTraffic -- persist the fetch results between page opens, and re-fetch every so often in the background
-		else visible and enableTraffic -- re-fetch every time the UI opens
+	if not visible then
+		return React.None
+	end
 
 	return React.createElement(BaseComponent, nil, {
 		mainContainer = React.createElement(View, {
 			tag = "size-full-0 auto-y margin-large col gap-large",
 		}, {
 			LeaveButtonsContainer = React.createElement(LeaveButtonsContainer, {
-				visible = visible,
 				onDontLeave = onDontLeave,
 				buttonSize = buttonSize,
 			}),
-			nextUpComponent = if renderNextUpComponent
-				then React.createElement(NextUpComponent, {
-					tilePairWidth = buttonSize,
-					pageVisible = visible,
-				})
-				else nil,
+			nextUpComponent = React.createElement(NextUpComponent, {
+				tilePairWidth = buttonSize,
+				nextUpSort = if FFlagEnableInGameExitModalNextUpUiRequestCache then nextUpSort else nil,
+			}),
 		}),
 	})
 end
 
+local root = ReactRoblox.createRoot(PageInstance.Page)
 root:render(React.createElement(BaseComponent, nil, {
-	React.createElement(LeaveGameWithNextUpComponent),
+	leaveGameWithNextUp = React.createElement(LeaveGameWithNextUpComponent),
 }))
-
-if not FFlagEnableInGameExitModalNextUpUi then
-	-- if this flag is off, we use the default LeaveGame page but can hit the backend with nextup traffic
-	return require(script.Parent.LeaveGame)
-end
 
 return PageInstance

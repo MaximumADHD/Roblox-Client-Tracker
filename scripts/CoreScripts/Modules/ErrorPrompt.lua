@@ -11,7 +11,7 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
-local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local Constants = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Constants
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization;

@@ -98,6 +98,13 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["importQueueParseHalted"]
+  NEWTABLE R3 0 0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R2 0
   LOADK R3 K0 ["importQueueStarted"]
   DUPTABLE R4 K2 [{"fileCount"}]
@@ -105,7 +112,7 @@ PROTO_5:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -115,7 +122,7 @@ PROTO_6:
   NEWCLOSURE R2 P1
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  DUPTABLE R3 K4 [{"ImportQueueEnabled", "ImportQueueDisabled", "ImportQueueHalted", "ImportQueueStarted"}]
+  DUPTABLE R3 K5 [{"ImportQueueEnabled", "ImportQueueDisabled", "ImportQueueHalted", "ImportQueueParseHalted", "ImportQueueStarted"}]
   NEWCLOSURE R4 P2
   CAPTURE VAL R1
   SETTABLEKS R4 R3 K0 ["ImportQueueEnabled"]
@@ -127,7 +134,10 @@ PROTO_6:
   SETTABLEKS R4 R3 K2 ["ImportQueueHalted"]
   NEWCLOSURE R4 P5
   CAPTURE VAL R1
-  SETTABLEKS R4 R3 K3 ["ImportQueueStarted"]
+  SETTABLEKS R4 R3 K3 ["ImportQueueParseHalted"]
+  NEWCLOSURE R4 P6
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K4 ["ImportQueueStarted"]
   RETURN R3 1
 
 MAIN:
@@ -154,7 +164,7 @@ MAIN:
   LOADK R7 K16 ["StudioService"]
   NAMECALL R5 R5 K15 ["GetService"]
   CALL R5 2 1
-  DUPCLOSURE R6 K17 [PROTO_6]
+  DUPCLOSURE R6 K17 [PROTO_7]
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R3

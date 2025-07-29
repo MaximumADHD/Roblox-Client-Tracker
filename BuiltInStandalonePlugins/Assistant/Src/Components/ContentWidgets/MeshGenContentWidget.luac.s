@@ -320,7 +320,7 @@ PROTO_9:
   GETUPVAL R10 1
   GETUPVAL R11 5
   DUPTABLE R12 K27 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R13 K28 ["grow auto-xy text-align-x-left text-body-medium"]
+  LOADK R13 K28 ["grow auto-xy text-align-x-left text-body-small"]
   SETTABLEKS R13 R12 K0 ["tag"]
   GETTABLEKS R13 R0 K29 ["text"]
   SETTABLEKS R13 R12 K9 ["Text"]

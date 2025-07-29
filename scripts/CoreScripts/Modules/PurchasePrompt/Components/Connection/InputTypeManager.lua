@@ -9,7 +9,7 @@ local UserInputService = game:GetService("UserInputService")
 local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 
-local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 
 local SetGamepadEnabled = require(Root.Actions.SetGamepadEnabled)
 local PromptState = require(Root.Enums.PromptState)

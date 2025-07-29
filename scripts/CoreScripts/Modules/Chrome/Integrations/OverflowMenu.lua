@@ -65,6 +65,7 @@ local GetFFlagSongbirdCleanupExperiment =
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
+local GetFFlagSongbirdCleanupMusicTooltip = SharedFlags.GetFFlagSongbirdCleanupMusicTooltip
 
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 	game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
@@ -77,9 +78,11 @@ local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagAppChatEnabledChromeDropdownFtuxTooltip
 	and GetShouldShowPlatformChatBasedOnPolicy()
 
-local shouldShowMusicTooltip = if GetFFlagSongbirdCleanupExperiment()
-	then FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip()
-	else FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip() and GetFFlagEnableSongbirdInChrome()
+local shouldShowMusicTooltip = if GetFFlagSongbirdCleanupMusicTooltip()
+	then nil
+	else if GetFFlagSongbirdCleanupExperiment()
+		then FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip()
+		else FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip() and GetFFlagEnableSongbirdInChrome()
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -256,76 +259,86 @@ function HamburgerButton(props)
 	-- Only show the Music Ftux Tooltip if a track with valid ISRC is encountered
 	-- @aquach - Clean this block up once GetFFlagShouldShowSimpleMusicFtuxTooltip is cleaned up
 	local songMeetsCriteria = false
-	if
-		shouldShowMusicTooltip
-		and not GetFFlagShouldShowSimpleMusicFtuxTooltip()
-		and GetFFlagShouldShowMusicFtuxTooltipXTimes()
-	then
-		local song = useCurrentSong()
-		songMeetsCriteria = useMemo(function()
-			return if song then song.meetsCriteria else false
-		end, { song })
+	if not GetFFlagSongbirdCleanupMusicTooltip() then
+		if
+			shouldShowMusicTooltip
+			and not GetFFlagShouldShowSimpleMusicFtuxTooltip()
+			and GetFFlagShouldShowMusicFtuxTooltipXTimes()
+		then
+			local song = useCurrentSong()
+			songMeetsCriteria = useMemo(function()
+				return if song then song.meetsCriteria else false
+			end, { song })
+		end
 	end
 
 	-- Tooltips should be shown one after the other (Connect, then Music)
 	local hasUserAlreadySeenConnectTooltip = if shouldShowConnectTooltip
 		then LocalStore.getValue(GetFStringConnectTooltipLocalStorageKey()) or false
 		else true
-	local hasUserAlreadySeenMusicTooltip = if GetFFlagShouldShowMusicFtuxTooltipXTimes()
-		then LocalStore.getNumUniversesExposedTo(GetFStringMusicTooltipLocalStorageKey_v2())
-			>= Constants.MAX_NUM_UNIVERSES_SHOWN
-		else LocalStore.getValue(GetFStringMusicTooltipLocalStorageKey())
+	local hasUserAlreadySeenMusicTooltip = if GetFFlagSongbirdCleanupMusicTooltip()
+		then nil
+		else if GetFFlagShouldShowMusicFtuxTooltipXTimes()
+			then LocalStore.getNumUniversesExposedTo(GetFStringMusicTooltipLocalStorageKey_v2())
+				>= Constants.MAX_NUM_UNIVERSES_SHOWN
+			else LocalStore.getValue(GetFStringMusicTooltipLocalStorageKey())
 
 	local isMusicTooltipVisible, setMusicTooltipVisibility, onMusicTooltipDismissed
-	if GetFFlagShouldShowMusicFtuxTooltipXTimes() then
-		if GetFFlagShouldShowSimpleMusicFtuxTooltip() then
-			isMusicTooltipVisible, setMusicTooltipVisibility =
-				useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip)
+	if not GetFFlagSongbirdCleanupMusicTooltip() then
+		if GetFFlagShouldShowMusicFtuxTooltipXTimes() then
+			if GetFFlagShouldShowSimpleMusicFtuxTooltip() then
+				isMusicTooltipVisible, setMusicTooltipVisibility =
+					useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip)
 
-			useEffect(function()
-				if not isMusicTooltipVisible and shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip then
-					setMusicTooltipVisibility(true)
-				end
-			end, { isMusicTooltipVisible, shouldShowMusicTooltip, hasUserAlreadySeenConnectTooltip })
+				useEffect(function()
+					if not isMusicTooltipVisible and shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip then
+						setMusicTooltipVisibility(true)
+					end
+				end, { isMusicTooltipVisible, shouldShowMusicTooltip, hasUserAlreadySeenConnectTooltip })
 
-			onMusicTooltipDismissed = useCallback(function()
-				LocalStore.addUniverseToExposureList(GetFStringMusicTooltipLocalStorageKey_v2(), game.GameId)
-			end, { game.GameId })
+				onMusicTooltipDismissed = useCallback(function()
+					LocalStore.addUniverseToExposureList(GetFStringMusicTooltipLocalStorageKey_v2(), game.GameId)
+				end, { game.GameId })
+			else
+				isMusicTooltipVisible, setMusicTooltipVisibility =
+					useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip and songMeetsCriteria)
+
+				useEffect(function()
+					if
+						not isMusicTooltipVisible
+						and shouldShowMusicTooltip
+						and hasUserAlreadySeenConnectTooltip
+						and songMeetsCriteria
+					then
+						setMusicTooltipVisibility(true)
+					end
+				end, {
+					isMusicTooltipVisible,
+					shouldShowMusicTooltip,
+					hasUserAlreadySeenConnectTooltip,
+					songMeetsCriteria,
+				})
+
+				onMusicTooltipDismissed = useCallback(function()
+					LocalStore.addUniverseToExposureList(GetFStringMusicTooltipLocalStorageKey_v2(), game.GameId)
+				end, { game.GameId })
+			end
 		else
 			isMusicTooltipVisible, setMusicTooltipVisibility =
-				useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip and songMeetsCriteria)
-
-			useEffect(function()
-				if
-					not isMusicTooltipVisible
-					and shouldShowMusicTooltip
-					and hasUserAlreadySeenConnectTooltip
-					and songMeetsCriteria
-				then
-					setMusicTooltipVisibility(true)
-				end
-			end, {
-				isMusicTooltipVisible,
-				shouldShowMusicTooltip,
-				hasUserAlreadySeenConnectTooltip,
-				songMeetsCriteria,
-			})
-
-			onMusicTooltipDismissed = useCallback(function()
-				LocalStore.addUniverseToExposureList(GetFStringMusicTooltipLocalStorageKey_v2(), game.GameId)
-			end, { game.GameId })
+				useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip)
 		end
-	else
-		isMusicTooltipVisible, setMusicTooltipVisibility =
-			useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip)
 	end
 
-	local onConnectTooltipDismissed = useCallback(function()
-		setMusicTooltipVisibility(true)
-	end)
+	local onConnectTooltipDismissed = if GetFFlagSongbirdCleanupMusicTooltip()
+		then nil
+		else useCallback(function()
+			setMusicTooltipVisibility(true)
+		end)
 
 	local connectTooltip = if shouldShowConnectTooltip
-		then if shouldShowMusicTooltip and not hasUserAlreadySeenConnectTooltip
+		then if not GetFFlagSongbirdCleanupMusicTooltip()
+				and shouldShowMusicTooltip
+				and not hasUserAlreadySeenConnectTooltip
 			then CommonFtuxTooltip({
 				id = if FFlagEnableUnibarTooltipQueue then "CONNECT_TOOLTIP" else nil,
 				priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarConnectIconTooltipPriority else nil,
@@ -363,28 +376,30 @@ function HamburgerButton(props)
 			})
 		else nil
 
-	local musicTooltip = if isMusicTooltipVisible and not hasUserAlreadySeenMusicTooltip
-		then CommonFtuxTooltip({
-			id = if FFlagEnableUnibarTooltipQueue then "MUSIC_TOOLTIP" else nil,
-			priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarMusicIconTooltipPriority else nil,
-			isIconVisible = props.visible,
+	local musicTooltip = if GetFFlagSongbirdCleanupMusicTooltip()
+		then nil
+		else if isMusicTooltipVisible and not hasUserAlreadySeenMusicTooltip
+			then CommonFtuxTooltip({
+				id = if FFlagEnableUnibarTooltipQueue then "MUSIC_TOOLTIP" else nil,
+				priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarMusicIconTooltipPriority else nil,
+				isIconVisible = props.visible,
 
-			headerKey = "CoreScripts.FTUX.Heading.MusicIsAvailable",
-			bodyKey = "CoreScripts.FTUX.Label.MusicViewCurrentTrack",
+				headerKey = "CoreScripts.FTUX.Heading.MusicIsAvailable",
+				bodyKey = "CoreScripts.FTUX.Label.MusicViewCurrentTrack",
 
-			localStorageKey = if GetFFlagShouldShowMusicFtuxTooltipXTimes()
-				then
-					-- Prevents the tooltip from being shown again in an experience where it was already seen
-					GetFStringMusicTooltipLocalStorageKey_v2()
-						.. "_"
-						.. tostring(game.GameId)
-				else GetFStringMusicTooltipLocalStorageKey(),
+				localStorageKey = if GetFFlagShouldShowMusicFtuxTooltipXTimes()
+					then
+						-- Prevents the tooltip from being shown again in an experience where it was already seen
+						GetFStringMusicTooltipLocalStorageKey_v2()
+							.. "_"
+							.. tostring(game.GameId)
+					else GetFStringMusicTooltipLocalStorageKey(),
 
-			showDelay = GetFIntMusicFtuxShowDelayMs(),
-			dismissDelay = GetFIntMusicFtuxDismissDelayMs(),
-			onDismissed = if GetFFlagShouldShowMusicFtuxTooltipXTimes() then onMusicTooltipDismissed else nil,
-		})
-		else nil
+				showDelay = GetFIntMusicFtuxShowDelayMs(),
+				dismissDelay = GetFIntMusicFtuxDismissDelayMs(),
+				onDismissed = if GetFFlagShouldShowMusicFtuxTooltipXTimes() then onMusicTooltipDismissed else nil,
+			})
+			else nil
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
@@ -439,7 +454,7 @@ function HamburgerButton(props)
 			})
 			else nil,
 		connectTooltip,
-		musicTooltip,
+		if GetFFlagSongbirdCleanupMusicTooltip() then nil else musicTooltip,
 	})
 end
 

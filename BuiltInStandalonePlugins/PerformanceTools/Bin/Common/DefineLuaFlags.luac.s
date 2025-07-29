@@ -24,18 +24,6 @@ PROTO_2:
 
 PROTO_3:
   GETIMPORT R1 K1 [pcall]
-  LOADK R3 K2 ["StudioAddPerformanceBridgeMicroprofilerInfo"]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R3
-  CALL R1 1 2
-  JUMPIF R1 [+2]
-  LOADB R0 0
-  RETURN R0 1
-  MOVE R0 R2
-  RETURN R0 1
-
-PROTO_4:
-  GETIMPORT R1 K1 [pcall]
   LOADK R3 K2 ["StudioSceneMonitorGetAutomaticGraphicsQuality"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R3
@@ -53,17 +41,10 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["StudioAddPerformanceBridgeMicroprofilerInfo"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  DUPCLOSURE R0 K5 [PROTO_1]
-  DUPTABLE R1 K9 [{"GetFFlagRIDE11263EnableFeature", "GetStudioAddPerformanceBridgeMicroprofilerInfo", "GetStudioSceneMonitorGetAutomaticGraphicsQuality"}]
-  DUPCLOSURE R2 K10 [PROTO_2]
-  SETTABLEKS R2 R1 K6 ["GetFFlagRIDE11263EnableFeature"]
-  DUPCLOSURE R2 K11 [PROTO_3]
-  SETTABLEKS R2 R1 K7 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
-  DUPCLOSURE R2 K12 [PROTO_4]
-  SETTABLEKS R2 R1 K8 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
+  DUPCLOSURE R0 K4 [PROTO_1]
+  DUPTABLE R1 K7 [{"GetFFlagRIDE11263EnableFeature", "GetStudioSceneMonitorGetAutomaticGraphicsQuality"}]
+  DUPCLOSURE R2 K8 [PROTO_2]
+  SETTABLEKS R2 R1 K5 ["GetFFlagRIDE11263EnableFeature"]
+  DUPCLOSURE R2 K9 [PROTO_3]
+  SETTABLEKS R2 R1 K6 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
   RETURN R1 1

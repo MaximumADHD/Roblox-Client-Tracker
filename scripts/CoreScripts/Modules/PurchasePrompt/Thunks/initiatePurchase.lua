@@ -1,12 +1,15 @@
 --!nonstrict
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local CorePackages = game:GetService("CorePackages")
 
 local SetABVariation = require(Root.Actions.SetABVariation)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local RequestAssetPurchase = require(Root.Actions.RequestAssetPurchase)
 local RequestGamepassPurchase = require(Root.Actions.RequestGamepassPurchase)
 local RequestProductPurchase = require(Root.Actions.RequestProductPurchase)
+local setPurchaseFlowUUID = require(Root.Actions.SetPurchaseFlowUUID)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local Constants = require(Root.Misc.Constants)
 local Network = require(Root.Services.Network)
@@ -20,10 +23,16 @@ local ExternalSettings = require(Root.Services.ExternalSettings)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
 local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 
 local resolvePromptState = require(script.Parent.resolvePromptState)
 
 local GetFFlagEnableCreatorStorePurchasingCutover = require(Root.Flags.GetFFlagEnableCreatorStorePurchasingCutover)
+local FFlagEnablePurchaseFlowUUIDMigration = require(Root.Flags.FFlagEnablePurchaseFlowUUIDMigration)
+
+-- Import centralized telemetry configs from Events directory
+local CentralizedTelemetry = require(Root.Events.PurchaseFlowUUIDTelemetry)
 
 local requiredServices = {
 	--ABTest,
@@ -40,9 +49,23 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 		if hasPendingRequest(store:getState()) then
 			return nil
 		end
-
-		--store:dispatch(SetABVariation("ExampleABTest", abTest.getLayerData("ExampleABTest"))
 		
+		-- Generate a new purchase flow UUID at the start of each purchase attempt
+		-- When flag is disabled, UUID generation happens in ProductPurchaseContainer
+		if FFlagEnablePurchaseFlowUUIDMigration then
+			local newUUID = HttpService:GenerateGUID(false)
+			store:dispatch(setPurchaseFlowUUID(newUUID))
+
+			LoggingProtocol.default:logRobloxTelemetryCounter(
+				CentralizedTelemetry.InitiatePurchaseCounter,
+				1.0,
+				{
+					method = "initiatePurchase",
+				}
+			)
+		end
+
+		--store:dispatch(SetABVariation("ExampleABTest", abTest.getLayerData("ExampleABTest"))	
 		if infoType == Enum.InfoType.Asset then
 			store:dispatch(RequestAssetPurchase(id, equipIfPurchased, isRobloxPurchase, idempotencyKey, purchaseAuthToken, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice))
 		elseif infoType == Enum.InfoType.GamePass then

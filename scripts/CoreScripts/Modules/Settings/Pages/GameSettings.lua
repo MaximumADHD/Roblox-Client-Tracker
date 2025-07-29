@@ -75,6 +75,9 @@ local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoice
 local GetFFlagAudioDevicesCanDefaultToOSLua = SharedFlags.GetFFlagAudioDevicesCanDefaultToOSLua
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 
+local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
+local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
+
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
@@ -88,6 +91,10 @@ local hasPartyVoiceVolume = GetFFlagEnableCrossExpVoiceVolumeIXPCheck()
 	and CrossExpVoiceIXPManager.getHasPartyVoiceVolume()
 
 -------------- CONSTANTS --------------
+local Constants = require(
+	RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants")
+)
+
 local GRAPHICS_QUALITY_LEVELS = 10
 
 local GRAPHICS_QUALITY_TO_INT = {
@@ -112,7 +119,11 @@ local TOUCH_CHANGED_PROPS = {
 	DevTouchMovementMode = true,
 	DevTouchCameraMode = true,
 }
-local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Follow)" or "Default (Classic)"
+local CAMERA_MODE_VALUE_ENUM = {
+	DEFAULT_FOLLOW = "Default (Follow)",
+	DEFAULT_CLASSIC = "Default (Classic)",
+}
+local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and CAMERA_MODE_VALUE_ENUM.DEFAULT_FOLLOW or CAMERA_MODE_VALUE_ENUM.DEFAULT_CLASSIC
 
 local VOICE_CHAT_DEVICE_TYPE = {
 	Input = "Input",
@@ -121,14 +132,20 @@ local VOICE_CHAT_DEVICE_TYPE = {
 
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
+local MOVEMENT_MODE_VALUE_ENUM = {
+	DEFAULT_THUMBSTICK = "Default (Dynamic Thumbstick)",
+	DEFAULT_KEYBOARD = "Default (Keyboard)",
+	TAP_TO_MOVE = "Tap to Move",
+	CLICK_TO_MOVE = "Click to Move",
+}
 local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and (
-	if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
-		RobloxTranslator:FormatByKey("Feature.SettingsHub.Default.DynamicThumbstick") else 
-		"Default (Dynamic Thumbstick)"
+	if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
+		RobloxTranslator:FormatByKey(Constants.MovementModeDynamicThumbstickKey) else
+		MOVEMENT_MODE_VALUE_ENUM.DEFAULT_THUMBSTICK
 	)
-	or "Default (Keyboard)"
+	or MOVEMENT_MODE_VALUE_ENUM.DEFAULT_KEYBOARD
 local MOVEMENT_MODE_KEYBOARDMOUSE_STRING = "Keyboard + Mouse"
-local MOVEMENT_MODE_CLICKTOMOVE_STRING = UserInputService.TouchEnabled and "Tap to Move" or "Click to Move"
+local MOVEMENT_MODE_CLICKTOMOVE_STRING = UserInputService.TouchEnabled and MOVEMENT_MODE_VALUE_ENUM.TAP_TO_MOVE or MOVEMENT_MODE_VALUE_ENUM.CLICK_TO_MOVE
 local MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING = "Dynamic Thumbstick"
 local MOVEMENT_MODE_THUMBSTICK_STRING = if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
 	RobloxTranslator:FormatByKey("Feature.SettingsHub.TouchMovementMode.ClassicThumbstick") else 
@@ -139,6 +156,40 @@ local GIVE_FEEDBACK_TEXT
 if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
 	UNAVAILABLE_TEXT = RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.Unavailable")
 	GIVE_FEEDBACK_TEXT = RobloxTranslator:FormatByKey("CoreScripts.Feedback.EntryPoint.ButtonText")
+end
+
+local function getDefaultCameraMode()
+	local isPreferredInputTouch = if FFlagGameSettingsUsePreferredInputMovement then 
+		UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+	if isPreferredInputTouch then
+		return CAMERA_MODE_VALUE_ENUM.DEFAULT_FOLLOW
+	else
+		return CAMERA_MODE_VALUE_ENUM.DEFAULT_CLASSIC
+	end
+end
+
+local function getDefaultMovementMode()
+	local isPreferredInputTouch = if FFlagGameSettingsUsePreferredInputMovement then 
+		UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+	if isPreferredInputTouch then
+		return (
+			if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
+				RobloxTranslator:FormatByKey(Constants.MovementModeDynamicThumbstickKey) else
+				MOVEMENT_MODE_VALUE_ENUM.DEFAULT_THUMBSTICK
+		)
+	else
+		return MOVEMENT_MODE_VALUE_ENUM.DEFAULT_KEYBOARD
+	end
+end
+
+local function getDefaultSelectToMove()
+	local isPreferredInputTouch = if FFlagGameSettingsUsePreferredInputMovement then 
+		UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+	if isPreferredInputTouch then
+		return MOVEMENT_MODE_VALUE_ENUM.TAP_TO_MOVE
+	else
+		return MOVEMENT_MODE_VALUE_ENUM.CLICK_TO_MOVE
+	end
 end
 
 ----------- VIDEO CAMERA ------------
@@ -243,9 +294,6 @@ local GameBasicSettingsFramerateCap = game:GetEngineFeature("GameBasicSettingsFr
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local Constants = require(
-	RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants")
-)
 
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 
@@ -346,13 +394,15 @@ end
 
 local function reportSettingsForAnalytics()
 	local stringTable = {}
-	if UserInputService.TouchEnabled then
+	local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+		UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+	if isTouchInput then
 		stringTable["camera_mode_touch"] = tostring(GameSettings.TouchCameraMovementMode)
 	else
 		stringTable["camera_mode_desktop"] = tostring(GameSettings.ComputerCameraMovementMode)
 	end
 
-	if UserInputService.TouchEnabled then
+	if isTouchInput then
 		stringTable["movement_mode_touch"] = tostring(GameSettings.TouchMovementMode)
 	else
 		stringTable["movement_mode_desktop"] = tostring(GameSettings.ComputerMovementMode)
@@ -820,9 +870,13 @@ local function Initialize()
 	end
 
 	local function createUiNavigationKeyBindOptions()
-		local startIndex = 2
+		local UiNavigationValueEnum = {
+			On = 1,
+			Off = 2,
+		}
+		local startIndex = UiNavigationValueEnum.Off
 		if GameSettings.UiNavigationKeyBindEnabled then
-			startIndex = 1
+			startIndex = UiNavigationValueEnum.On
 		end
 
 		local uiNavigationKeyBindLabel =
@@ -848,7 +902,7 @@ local function Initialize()
 
 		this.UiNavigationKeyBindEnabledMode.IndexChanged:connect(function(newIndex)
 			local oldValue = GameSettings.UiNavigationKeyBindEnabled
-			GameSettings.UiNavigationKeyBindEnabled = newIndex == 1
+			GameSettings.UiNavigationKeyBindEnabled = newIndex == UiNavigationValueEnum.On
 
 			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
 				reportSettingsChangeForAnalytics(
@@ -859,6 +913,27 @@ local function Initialize()
 			end
 			reportSettingsForAnalytics()
 		end)
+
+		if FFlagGameSettingsUsePreferredInputMovement then
+			local function updateUiNavigationKeyBindVisibility()
+				local enableUiNavigationKeyBind = UserInputService.KeyboardEnabled
+				if this.UiNavigationKeyBindEnabledFrame then
+					this.UiNavigationKeyBindEnabledFrame.Visible = enableUiNavigationKeyBind
+					if enableUiNavigationKeyBind then
+						this.UiNavigationKeyBindEnabledMode:SetSelectionIndex(GameSettings.UiNavigationKeyBindEnabled and UiNavigationValueEnum.On or UiNavigationValueEnum.Off)
+					else
+						this.UiNavigationKeyBindEnabledMode:SetSelectionIndex(UiNavigationValueEnum.Off)
+						GameSettings.UiNavigationKeyBindEnabled = false
+					end
+				end
+			end
+
+			updateUiNavigationKeyBindVisibility()
+
+			UserInputService:GetPropertyChangedSignal("KeyboardEnabled"):Connect(function()
+				updateUiNavigationKeyBindVisibility()
+			end)
+		end
 	end
 
 	local function createPerformanceStatsOptions()
@@ -1112,10 +1187,10 @@ local function Initialize()
 		------------------------------------------------------
 		------------------
 		------------------ Shift Lock Switch -----------------
-		if UserInputService.MouseEnabled and not isTenFootInterface then
+		if FFlagGameSettingsUsePreferredInputMovement or UserInputService.MouseEnabled and not isTenFootInterface then
 			this.ShiftLockFrame, this.ShiftLockLabel, this.ShiftLockMode, this.ShiftLockOverrideText = nil
 
-			if UserInputService.MouseEnabled and UserInputService.KeyboardEnabled then
+			if FFlagGameSettingsUsePreferredInputMovement or UserInputService.MouseEnabled and UserInputService.KeyboardEnabled then
 				local startIndex = 2
 				if GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch then
 					startIndex = 1
@@ -1165,10 +1240,31 @@ local function Initialize()
 			end
 		end
 
+		if FFlagGameSettingsUsePreferredInputMovement then
+			local function updateShiftLockVisibility()
+				local enableShiftLock = UserInputService.MouseEnabled and UserInputService.KeyboardEnabled
+				if this.ShiftLockFrame then
+					this.ShiftLockFrame.Visible = enableShiftLock
+				end
+			end
+
+			updateShiftLockVisibility()
+
+			UserInputService:GetPropertyChangedSignal("MouseEnabled"):Connect(function()
+				updateShiftLockVisibility()
+			end)
+
+			UserInputService:GetPropertyChangedSignal("KeyboardEnabled"):Connect(function()
+				updateShiftLockVisibility()
+			end)
+		end
+
 		-----------------------------------------------------------
 		----------------------- Camera Mode -----------------------
 		function cameraModeIsUserChoice()
-			if UserInputService.TouchEnabled then
+			local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+				UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+			if isTouchInput then
 				return LocalPlayer.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice
 			else
 				return LocalPlayer.DevComputerCameraMode == Enum.DevComputerCameraMovementMode.UserChoice
@@ -1201,7 +1297,9 @@ local function Initialize()
 				local actuallyUpdated
 				local oldValue
 
-				if UserInputService.TouchEnabled then
+				local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+					UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+				if isTouchInput then
 					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
 						oldValue = GameSettings.TouchCameraMovementMode.Value
 					end
@@ -1228,7 +1326,9 @@ local function Initialize()
 				local enumsToAdd = {}
 
 				if PlayerScripts then
-					if UserInputService.TouchEnabled then
+					local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+						UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+					if isTouchInput then
 						enumsToAdd = PlayerScripts:GetRegisteredTouchCameraMovementModes()
 					else
 						enumsToAdd = PlayerScripts:GetRegisteredComputerCameraMovementModes()
@@ -1253,7 +1353,11 @@ local function Initialize()
 					local newCameraMode = enumsToAdd[i]
 					local displayName = newCameraMode.Name
 					if displayName == "Default" then
-						displayName = CAMERA_MODE_DEFAULT_STRING
+						if FFlagGameSettingsUsePreferredInputMovement then
+							displayName = getDefaultCameraMode()
+						else
+							displayName = CAMERA_MODE_DEFAULT_STRING
+						end
 					end
 
 					cameraEnumNames[#cameraEnumNames + 1] = displayName
@@ -1266,7 +1370,9 @@ local function Initialize()
 
 				local currentSavedMode = -1
 
-				if UserInputService.TouchEnabled then
+				local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+					UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+				if isTouchInput then
 					currentSavedMode = GameSettings.TouchCameraMovementMode.Value
 				else
 					currentSavedMode = GameSettings.ComputerCameraMovementMode.Value
@@ -1278,7 +1384,7 @@ local function Initialize()
 					-- CameraToggle, specifically (and only) does not follow this pattern.
 					-- Temporary fix due to https://roblox.atlassian.net/browse/APPEXP-2069 being planned soon
 					if
-						UserInputService.TouchEnabled
+						isTouchInput
 						or GameSettings.ComputerCameraMovementMode
 							~= Enum.ComputerCameraMovementMode.CameraToggle
 					then
@@ -1323,6 +1429,12 @@ local function Initialize()
 					if UserInputService.MouseEnabled then
 						updateCameraMovementModes()
 					end
+				end)
+			end
+
+			if FFlagGameSettingsUsePreferredInputMovement then
+				UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
+					updateCameraMovementModes()
 				end)
 			end
 
@@ -1418,11 +1530,19 @@ local function Initialize()
 				local displayName = name
 
 				if name == "Default" then
-					displayName = MOVEMENT_MODE_DEFAULT_STRING
+					if FFlagGameSettingsUsePreferredInputMovement then
+						displayName = getDefaultMovementMode()
+					else
+						displayName = MOVEMENT_MODE_DEFAULT_STRING
+					end
 				elseif name == "KeyboardMouse" then
 					displayName = MOVEMENT_MODE_KEYBOARDMOUSE_STRING
 				elseif name == "ClickToMove" then
-					displayName = MOVEMENT_MODE_CLICKTOMOVE_STRING
+					if FFlagGameSettingsUsePreferredInputMovement then
+						displayName = getDefaultSelectToMove()
+					else
+						displayName = MOVEMENT_MODE_CLICKTOMOVE_STRING
+					end
 				elseif name == "DynamicThumbstick" then
 					displayName = MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING
 				elseif name == "Thumbstick" then
@@ -1466,7 +1586,9 @@ local function Initialize()
 
 				local oldValue
 
-				if UserInputService.TouchEnabled then
+				local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+					UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+				if isTouchInput then
 					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
 						oldValue = GameSettings.TouchMovementMode
 					end
@@ -1485,7 +1607,9 @@ local function Initialize()
 
 			local function updateMovementModes()
 				if PlayerScripts then
-					if UserInputService.TouchEnabled then
+					local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+						UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+					if isTouchInput then
 						movementModes = PlayerScripts:GetRegisteredTouchMovementModes()
 					else
 						movementModes = PlayerScripts:GetRegisteredComputerMovementModes()
@@ -1517,7 +1641,9 @@ local function Initialize()
 
 				local currentSavedMode = -1
 
-				if UserInputService.TouchEnabled then
+				local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+					UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+				if isTouchInput then
 					currentSavedMode = GameSettings.TouchMovementMode.Value
 				else
 					currentSavedMode = GameSettings.ComputerMovementMode.Value
@@ -1552,6 +1678,12 @@ local function Initialize()
 				end)
 			end
 
+			if FFlagGameSettingsUsePreferredInputMovement then
+				UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
+					updateMovementModes()
+				end)
+			end
+
 			this.MovementMode.IndexChanged:connect(function(newIndex)
 				setMovementModeToIndex(newIndex)
 				reportSettingsForAnalytics()
@@ -1561,16 +1693,24 @@ local function Initialize()
 		------------------------------------------------------
 		------------------
 		------------------------- Connection Setup -----------
-		function setShiftLockVisible(visible)
+		function setShiftLockSelectorVisible(visible: boolean)
+			local enableShiftLock
+			if FFlagGameSettingsUsePreferredInputMovement then
+				enableShiftLock = visible and LocalPlayer.DevEnableMouseLock
+			else
+				enableShiftLock = visible
+			end
 			if this.ShiftLockMode then
-				this.ShiftLockMode.SelectorFrame.Visible = visible
-				this.ShiftLockMode:SetInteractable(visible)
+				this.ShiftLockMode.SelectorFrame.Visible = enableShiftLock
+				this.ShiftLockMode:SetInteractable(enableShiftLock)
 			end
 		end
 
 		do -- initial set of dev vs user choice for guis
 			local isUserChoiceCamera = false
-			if UserInputService.TouchEnabled then
+			local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+				UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+			if isTouchInput then
 				isUserChoiceCamera = LocalPlayer.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice
 			else
 				isUserChoiceCamera = LocalPlayer.DevComputerCameraMode == Enum.DevComputerCameraMovementMode.UserChoice
@@ -1585,7 +1725,7 @@ local function Initialize()
 			end
 
 			local isUserChoiceMovement = false
-			if UserInputService.TouchEnabled then
+			if isTouchInput then
 				isUserChoiceMovement = LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice
 			else
 				isUserChoiceMovement = LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice
@@ -1603,14 +1743,14 @@ local function Initialize()
 
 			if this.ShiftLockOverrideText then
 				this.ShiftLockOverrideText.Visible = not LocalPlayer.DevEnableMouseLock
-				setShiftLockVisible(LocalPlayer.DevEnableMouseLock)
+				setShiftLockSelectorVisible(LocalPlayer.DevEnableMouseLock)
 			end
 		end
 
 		local function updateUserSettingsMenu(property)
 			if this.ShiftLockOverrideText and property == "DevEnableMouseLock" then
 				this.ShiftLockOverrideText.Visible = not LocalPlayer.DevEnableMouseLock
-				setShiftLockVisible(LocalPlayer.DevEnableMouseLock)
+				setShiftLockSelectorVisible(LocalPlayer.DevEnableMouseLock)
 			elseif property == "DevComputerCameraMode" then
 				local isUserChoice = LocalPlayer.DevComputerCameraMode == Enum.DevComputerCameraMovementMode.UserChoice
 				setCameraModeVisible(isUserChoice)
@@ -3871,7 +4011,7 @@ local function Initialize()
 		createPreferredTextSizeOptions()
 	end
 
-	if UserInputService.KeyboardEnabled then
+	if FFlagGameSettingsUsePreferredInputMovement or UserInputService.KeyboardEnabled then
 		createUiNavigationKeyBindOptions()
 	end
 

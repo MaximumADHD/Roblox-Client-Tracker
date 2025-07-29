@@ -32,7 +32,7 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
-local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local isSubjectToDesktopPolicies = SharedFlags.isSubjectToDesktopPolicies
 local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
@@ -49,6 +49,7 @@ local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommo
 local Signals = require(CorePackages.Packages.Signals)
 local createSignal = Signals.createSignal
 local AppStyleProvider = require(CorePackages.Packages.UIBlox).App.Style.AppStyleProvider
+local DarkTheme = require(CorePackages.Packages.UIBlox).App.Style.Constants.ThemeName.Dark 
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagInExperienceUseAppStyleProvider = SharedFlags.FFlagInExperienceUseAppStyleProvider
 
@@ -123,7 +124,7 @@ local GetFFlagPackagifySettingsShowSignal = SharedFlags.GetFFlagPackagifySetting
 local FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false)
 local FFlagDelayEscCoreActionIEMOpen = game:DefineFastFlag("DelayEscCoreActionIEMOpen", false)
 local GetFFlagRemovePermissionsButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagRemovePermissionsButtons)
-local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Flags.FFlagAddNextUpContainer)
+local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
 local FFlagUpdateTiltMenuButtonIcons = SharedFlags.FFlagUpdateTiltMenuButtonIcons
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -138,7 +139,7 @@ local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagIEMEndFocusNavTiltMenuHidden = SharedFlags.FFlagIEMEndFocusNavTiltMenuHidden
 local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
 local FFlagChromeShortcutBarRemoveOnInviteFriends = SharedFlags.FFlagChromeShortcutBarRemoveOnInviteFriends
-local FFlagAddMuteSelfTopOfPlayersPane = require(RobloxGui.Modules.Settings.Flags.FFlagAddMuteSelfTopOfPlayersPane)
+local FFlagAddMuteSelfTopOfPlayersPane = SharedFlags.FFlagAddMuteSelfTopOfPlayersPane
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -232,6 +233,7 @@ local SettingsShowSignal = if GetFFlagPackagifySettingsShowSignal() then require
 local SettingsUtility = if GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsUtility else nil
 
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagPassThemeToAppStyleProviderSettingsHub = game:DefineFastFlag("PassThemeToAppStyleProviderSettingsHub", false)
 
 local SPRING_PARAMS = {
 	frequency = 4,
@@ -1065,7 +1067,11 @@ local function CreateSettingsHub()
 		end
 
 		if FFlagInExperienceUseAppStyleProvider then
-			return React.createElement(AppStyleProvider, {}, {
+			return React.createElement(AppStyleProvider, {
+				style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
+					themeName = DarkTheme,
+				} else nil,
+			}, {
 				PermissionsButtons = Roact.createElement(PermissionsButtons, {
 					isTenFootInterface = isTenFootInterface,
 					isPortrait = utility:IsPortrait(),
@@ -1807,7 +1813,11 @@ local function CreateSettingsHub()
 					value = IXPService,
 				}, 
 				{
-					AppStyleProvider = Roact.createElement(AppStyleProvider, {}, {
+					AppStyleProvider = Roact.createElement(AppStyleProvider, {
+						style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
+							themeName = DarkTheme,
+						} else nil,
+					}, {
 						ButtonsFrame = Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
 							LayoutOrder = -1,
@@ -1856,7 +1866,11 @@ local function CreateSettingsHub()
 				Roact.createElement(RoactAppExperiment.Provider, {
 					value = IXPService,
 				}, {
-					AppStyleProvider = Roact.createElement(AppStyleProvider, {}, {
+					AppStyleProvider = Roact.createElement(AppStyleProvider, {
+						style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
+							themeName = DarkTheme,
+						} else nil,
+					}, {
 						BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
 					})
 				}) else

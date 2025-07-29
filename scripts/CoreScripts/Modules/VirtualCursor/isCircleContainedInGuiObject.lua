@@ -1,3 +1,6 @@
+-- This package is DEPRECATED, per https://roblox.atlassian.net/browse/UIBLOX-2597
+-- Virtual Cursor has been moved to lua-apps/modules/app-common/virtual-cursor, this location's VC will be deleted after rollout of FFlagUseAppCommonVirtualCursorWithFixes
+
 -- Given a GuiObject and a circle at some position, checks if the circle is fully contained by the gui object
 return function(circlePos : Vector2, circleRad : number, guiObject : GuiObject)
 	-- Assume circlePos is in same coordinate space as guiObject, i.e. GuiInset is already accounted for

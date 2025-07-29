@@ -1,1 +1,1 @@
-return game:DefineFastFlag("RefactorMenuConfirmationButtons2", false)
+return game:DefineFastFlag("RefactorMenuConfirmationButtons3", false)

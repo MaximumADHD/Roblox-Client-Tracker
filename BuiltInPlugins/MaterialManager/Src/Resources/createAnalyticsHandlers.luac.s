@@ -379,34 +379,6 @@ PROTO_13:
   GETIMPORT R1 K3 [print]
   LOADK R2 K4 ["%s ReportCounter counterName=%s count=%s"]
   LOADK R4 K5 ["MaterialManager"]
-  LOADK R6 K6 ["MaterialAsTool"]
-  FASTCALL1 TOSTRING R6 [+2]
-  GETIMPORT R5 K8 [tostring]
-  CALL R5 1 1
-  FASTCALL1 TOSTRING R0 [+3]
-  MOVE R7 R0
-  GETIMPORT R6 K8 [tostring]
-  CALL R6 1 1
-  NAMECALL R2 R2 K9 ["format"]
-  CALL R2 4 -1
-  CALL R1 -1 0
-  GETUPVAL R1 1
-  LOADK R3 K6 ["MaterialAsTool"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K10 ["ReportCounter"]
-  CALL R1 3 0
-  RETURN R0 0
-
-PROTO_14:
-  LOADNIL R0
-  ORK R0 R0 K0 [1]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K1 ["LogAnalytics"]
-  CALL R1 0 1
-  JUMPIFNOT R1 [+18]
-  GETIMPORT R1 K3 [print]
-  LOADK R2 K4 ["%s ReportCounter counterName=%s count=%s"]
-  LOADK R4 K5 ["MaterialManager"]
   LOADK R6 K6 ["SetOverrideToggled"]
   FASTCALL1 TOSTRING R6 [+2]
   GETIMPORT R5 K8 [tostring]
@@ -425,7 +397,7 @@ PROTO_14:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_14:
   LOADNIL R0
   ORK R0 R0 K0 [1]
   GETUPVAL R2 0
@@ -453,7 +425,7 @@ PROTO_15:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_15:
   LOADNIL R0
   ORK R0 R0 K0 [1]
   GETUPVAL R2 0
@@ -481,7 +453,7 @@ PROTO_16:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_16:
   LOADNIL R0
   ORK R0 R0 K0 [1]
   GETUPVAL R2 0
@@ -509,7 +481,7 @@ PROTO_17:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_17:
   LOADNIL R0
   ORK R0 R0 K0 [1]
   GETUPVAL R2 0
@@ -537,7 +509,7 @@ PROTO_18:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_18:
   LOADNIL R0
   ORK R0 R0 K0 [1]
   GETUPVAL R2 0
@@ -565,7 +537,7 @@ PROTO_19:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_19:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -578,7 +550,7 @@ PROTO_20:
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  DUPTABLE R4 K17 [{"newMaterialVariant", "newMaterialVariantCounter", "showInExplorer", "clickOnCategoriesOpen", "importTextureMap", "uploadAssetIdTextureMap", "uploadTextureMapSuccess", "deleteMaterialVariant", "applyToSelectionButton", "applyToSelectionAction", "materialAsTool", "setOverrideToggled", "searchBar", "importTextureMapError", "uploadFromURLTextureMapError", "uploadTextureMapFromFileError", "uploadTextureMapGeneralError"}]
+  DUPTABLE R4 K16 [{"newMaterialVariant", "newMaterialVariantCounter", "showInExplorer", "clickOnCategoriesOpen", "importTextureMap", "uploadAssetIdTextureMap", "uploadTextureMapSuccess", "deleteMaterialVariant", "applyToSelectionButton", "applyToSelectionAction", "setOverrideToggled", "searchBar", "importTextureMapError", "uploadFromURLTextureMapError", "uploadTextureMapFromFileError", "uploadTextureMapGeneralError"}]
   NEWCLOSURE R5 P3
   CAPTURE VAL R3
   SETTABLEKS R5 R4 K0 ["newMaterialVariant"]
@@ -618,39 +590,30 @@ PROTO_20:
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   SETTABLEKS R5 R4 K9 ["applyToSelectionAction"]
-  GETUPVAL R6 3
-  CALL R6 0 1
-  JUMPIFNOT R6 [+2]
-  LOADNIL R5
-  JUMP [+3]
   NEWCLOSURE R5 P13
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K10 ["materialAsTool"]
+  SETTABLEKS R5 R4 K10 ["setOverrideToggled"]
   NEWCLOSURE R5 P14
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K11 ["setOverrideToggled"]
+  SETTABLEKS R5 R4 K11 ["searchBar"]
   NEWCLOSURE R5 P15
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K12 ["searchBar"]
+  SETTABLEKS R5 R4 K12 ["importTextureMapError"]
   NEWCLOSURE R5 P16
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K13 ["importTextureMapError"]
+  SETTABLEKS R5 R4 K13 ["uploadFromURLTextureMapError"]
   NEWCLOSURE R5 P17
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K14 ["uploadFromURLTextureMapError"]
+  SETTABLEKS R5 R4 K14 ["uploadTextureMapFromFileError"]
   NEWCLOSURE R5 P18
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K15 ["uploadTextureMapFromFileError"]
-  NEWCLOSURE R5 P19
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  SETTABLEKS R5 R4 K16 ["uploadTextureMapGeneralError"]
+  SETTABLEKS R5 R4 K15 ["uploadTextureMapGeneralError"]
   RETURN R4 1
 
 MAIN:
@@ -672,14 +635,8 @@ MAIN:
   LOADK R5 K12 ["HttpService"]
   NAMECALL R3 R3 K13 ["GetService"]
   CALL R3 2 1
-  GETTABLEKS R5 R0 K7 ["Src"]
-  GETTABLEKS R4 R5 K14 ["Flags"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R6 R4 K15 ["getFFlagMaterialActionAsTool"]
-  CALL R5 1 1
-  DUPCLOSURE R6 K16 [PROTO_20]
+  DUPCLOSURE R4 K14 [PROTO_19]
   CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R5
-  RETURN R6 1
+  RETURN R4 1

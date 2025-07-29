@@ -1,6 +1,11 @@
 local Root = script.Parent.Parent
 local PurchaseError = require(Root.Enums.PurchaseError)
 
+local CorePackages = game:GetService("CorePackages")
+local IAPExperience = require(CorePackages.Workspace.Packages.IAPExperience)
+local isErrorReasonPrefixWithEconomicRestrictions = IAPExperience.Utility.isErrorReasonPrefixWithEconomicRestrictions
+local FFlagEnableEconomicRestrictionInExpDevSub = IAPExperience.Flags.FFlagEnableEconomicRestrictionInExpDevSub
+
 local function parseSubscriptionError(errorReason)
 	if errorReason == "UserHasSpendLimitSet" then
 		return PurchaseError.SubscriptionExceededUserSpendLimit
@@ -20,6 +25,8 @@ local function parseSubscriptionError(errorReason)
 		return PurchaseError.VpcRequired
 	elseif errorReason == "ExceedParentalSpendLimit" then
 		return PurchaseError.ExceedParentalSpendLimit
+	elseif FFlagEnableEconomicRestrictionInExpDevSub and isErrorReasonPrefixWithEconomicRestrictions(errorReason) then
+		return errorReason -- Error reason for economic restriction contains timeoutMinutes and violationType
 	end
 
 	return PurchaseError.UnknownFailure

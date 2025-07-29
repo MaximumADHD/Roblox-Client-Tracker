@@ -4,14 +4,6 @@ local Root = script.Parent.Parent
 local RobuxUpsell =  require(Root.Models.RobuxUpsell)
 type RobuxUpsellProduct = RobuxUpsell.Product
 
-local makeActionCreator = require(script.Parent.makeActionCreator)
-
-local FFlagTypeCheckedActionProducer = game:DefineFastFlag("TypeCheckedActionProducer", false)
-
-if not FFlagTypeCheckedActionProducer then
-	return makeActionCreator(script.Name, "products", "selection", "virtualItemBadgeType")
-end
-
 -- Create the action creator
 local actionCreator = Action(script.Name, function(
 	products: {[number]: RobuxUpsellProduct}, 

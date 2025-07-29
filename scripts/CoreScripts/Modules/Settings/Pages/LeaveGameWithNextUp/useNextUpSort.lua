@@ -2,6 +2,7 @@
 
 local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
+local ContentProvider = game:GetService("ContentProvider")
 
 local requestInternalWrapper = require(CorePackages.Workspace.Packages.Http).NetworkLayers.requestInternalWrapper
 local MakeOmniRecommendationsRequest =
@@ -11,12 +12,18 @@ local t = require(CorePackages.Packages.t)
 local Promise = require(CorePackages.Packages.Promise)
 local Telemetry = require(script.Parent.Telemetry)
 
+local FFlagEnableInGameExitModalNextUpUiRequestCache =
+	require(script.Parent.Flags.FFlagEnableInGameExitModalNextUpUiRequestCache)
+
 local networkImpl = requestInternalWrapper(nil)
 
 local PAGE_CONTEXT = "InGameExitModal"
 local REQUEST_INTENT = "gameExitRecommendation"
 local FStringInGameExitModalNextUpUiSortTopicId =
 	game:DefineFastString("InGameExitModalNextUpUiSortTopicId", "100000014")
+local FFlagInGameExitModalEnableFilterForCurrentExperience =
+	game:DefineFastFlag("InGameExitModalEnableFilterForCurrentExperience", false)
+
 local MIN_TILES = 4
 
 export type SortEntry = {
@@ -100,6 +107,10 @@ local function parseSortEntries(sort, gameMetadata): { SortEntry }
 			continue
 		end
 
+		if FFlagInGameExitModalEnableFilterForCurrentExperience and tileData.universeId == tostring(game.GameId) then
+			continue
+		end
+
 		table.insert(entries, tileData)
 	end
 
@@ -149,7 +160,12 @@ local function parseOmniResponse(response): ParsedOmniData?
 	return nil
 end
 
-return function(): { loading: boolean, data: ParsedOmniData? }
+export type NextUpSort = {
+	data: ParsedOmniData?,
+	loading: boolean,
+}
+
+return function(): NextUpSort
 	local parsedOmniResponse: ParsedOmniData?, setParsedOmniResponse: (ParsedOmniData?) -> () =
 		React.useState(nil :: ParsedOmniData?)
 	local loading, setLoading = React.useState(false)
@@ -183,6 +199,14 @@ return function(): { loading: boolean, data: ParsedOmniData? }
 
 					if #parsedResponse.entries < MIN_TILES then
 						return
+					end
+
+					if FFlagEnableInGameExitModalNextUpUiRequestCache then
+						local imagesToPreload = {}
+						for i = 1, MIN_TILES do
+							table.insert(imagesToPreload, parsedResponse.entries[i].image)
+						end
+						ContentProvider:PreloadAsync(imagesToPreload)
 					end
 
 					setParsedOmniResponse(parsedResponse)

@@ -158,30 +158,17 @@ PROTO_5:
   GETTABLEKS R1 R0 K1 ["Row"]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K2 ["SessionState"]
-  GETUPVAL R3 2
-  CALL R3 0 1
-  JUMPIFNOT R3 [+32]
   GETTABLEKS R3 R1 K3 ["importDataError"]
-  JUMPIF R3 [+44]
+  JUMPIF R3 [+28]
   GETTABLEKS R3 R1 K4 ["state"]
   GETTABLEKS R4 R2 K5 ["Importing"]
-  JUMPIFEQ R3 R4 [+39]
+  JUMPIFEQ R3 R4 [+23]
   GETTABLEKS R3 R1 K4 ["state"]
   GETTABLEKS R4 R2 K6 ["Parsing"]
-  JUMPIFEQ R3 R4 [+33]
+  JUMPIFEQ R3 R4 [+17]
   GETTABLEKS R3 R1 K4 ["state"]
   GETTABLEKS R4 R2 K7 ["Invalid"]
-  JUMPIFEQ R3 R4 [+27]
-  GETTABLEKS R4 R0 K8 ["CellProps"]
-  GETTABLEKS R3 R4 K9 ["OnCheckboxToggle"]
-  MOVE R4 R3
-  GETTABLEKS R6 R0 K1 ["Row"]
-  GETTABLEKS R5 R6 K10 ["filepath"]
-  CALL R4 1 0
-  RETURN R0 0
-  GETTABLEKS R4 R0 K8 ["CellProps"]
-  GETTABLEKS R3 R4 K11 ["Uploading"]
-  JUMPIF R3 [+10]
+  JUMPIFEQ R3 R4 [+11]
   GETTABLEKS R4 R0 K8 ["CellProps"]
   GETTABLEKS R3 R4 K9 ["OnCheckboxToggle"]
   MOVE R4 R3
@@ -305,86 +292,35 @@ PROTO_12:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["Row"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["props"]
-  GETTABLEKS R2 R3 K2 ["CellProps"]
-  GETTABLEKS R1 R2 K3 ["Parsing"]
-  GETUPVAL R2 1
-  CALL R2 0 1
-  JUMPIFNOT R2 [+22]
-  LOADB R2 0
-  GETTABLEKS R3 R0 K4 ["state"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K5 ["SessionState"]
-  GETTABLEKS R4 R5 K6 ["Parsed"]
-  JUMPIFEQ R3 R4 [+12]
-  GETTABLEKS R3 R0 K4 ["state"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K5 ["SessionState"]
-  GETTABLEKS R4 R5 K7 ["Invalid"]
-  JUMPIFNOTEQ R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
-  GETTABLEKS R3 R0 K8 ["enabled"]
-  NOT R2 R3
-  JUMPIF R2 [+7]
-  GETTABLEKS R2 R0 K9 ["uploaded"]
-  JUMPIF R2 [+4]
-  GETTABLEKS R2 R0 K10 ["importDataError"]
-  JUMPIF R2 [+1]
-  MOVE R2 R1
-  RETURN R2 1
+  LOADB R1 0
+  GETTABLEKS R2 R0 K2 ["state"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["SessionState"]
+  GETTABLEKS R3 R4 K4 ["Parsed"]
+  JUMPIFEQ R2 R3 [+12]
+  GETTABLEKS R2 R0 K2 ["state"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["SessionState"]
+  GETTABLEKS R3 R4 K5 ["Invalid"]
+  JUMPIFNOTEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
 
 PROTO_13:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["Row"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["props"]
-  GETTABLEKS R2 R3 K2 ["CellProps"]
-  GETTABLEKS R1 R2 K3 ["Parsing"]
-  GETUPVAL R2 1
-  CALL R2 0 1
-  JUMPIFNOT R2 [+12]
-  GETTABLEKS R3 R0 K4 ["state"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K5 ["SessionState"]
-  GETTABLEKS R4 R5 K6 ["Invalid"]
-  JUMPIFEQ R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
-  GETTABLEKS R2 R0 K7 ["uploaded"]
-  JUMPIF R2 [+5]
-  GETTABLEKS R3 R0 K8 ["validSession"]
-  NOT R2 R3
-  JUMPIF R2 [+1]
-  MOVE R2 R1
-  RETURN R2 1
+  GETTABLEKS R2 R0 K2 ["state"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["SessionState"]
+  GETTABLEKS R3 R4 K4 ["Invalid"]
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
 
 PROTO_14:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["Row"]
-  GETTABLEKS R1 R0 K2 ["validSession"]
-  RETURN R1 1
-
-PROTO_15:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["Row"]
-  GETTABLEKS R1 R0 K2 ["uploaded"]
-  JUMPIF R1 [+10]
-  GETTABLEKS R1 R0 K3 ["importDataError"]
-  JUMPIF R1 [+7]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["props"]
-  GETTABLEKS R2 R3 K4 ["CellProps"]
-  GETTABLEKS R1 R2 K5 ["Uploading"]
-  RETURN R1 1
-
-PROTO_16:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["Row"]
@@ -404,7 +340,7 @@ PROTO_16:
   GETTABLEKS R1 R0 K7 ["enabled"]
   RETURN R1 1
 
-PROTO_17:
+PROTO_15:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K0 ["openImportPreview"]
@@ -423,14 +359,13 @@ PROTO_17:
   NEWCLOSURE R1 P4
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U4
   SETTABLEKS R1 R0 K5 ["toggleCheckbox"]
   NEWCLOSURE R1 P5
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K6 ["updateCreator"]
   NEWCLOSURE R1 P6
   CAPTURE VAL R0
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U0
   SETTABLEKS R1 R0 K7 ["onStateChanged"]
   NEWCLOSURE R1 P7
@@ -445,551 +380,303 @@ PROTO_17:
   CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U5
   SETTABLEKS R3 R0 K9 ["showContextMenu"]
   NEWCLOSURE R3 P11
   CAPTURE VAL R0
-  CAPTURE UPVAL U4
   CAPTURE UPVAL U0
   SETTABLEKS R3 R0 K10 ["isDisabled"]
   NEWCLOSURE R3 P12
   CAPTURE VAL R0
-  CAPTURE UPVAL U4
   CAPTURE UPVAL U0
   SETTABLEKS R3 R0 K11 ["isInactive"]
-  GETUPVAL R4 4
-  CALL R4 0 1
-  JUMPIFNOT R4 [+2]
-  LOADNIL R3
-  JUMP [+2]
   NEWCLOSURE R3 P13
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K12 ["showCheckbox"]
-  GETUPVAL R4 4
-  CALL R4 0 1
-  JUMPIFNOT R4 [+2]
-  LOADNIL R3
-  JUMP [+2]
-  NEWCLOSURE R3 P14
-  CAPTURE VAL R0
-  SETTABLEKS R3 R0 K13 ["disableCheckbox"]
-  GETUPVAL R3 4
-  CALL R3 0 1
-  JUMPIFNOT R3 [+6]
-  NEWCLOSURE R3 P15
-  CAPTURE VAL R0
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U7
-  SETTABLEKS R3 R0 K14 ["isChecked"]
+  CAPTURE UPVAL U6
+  SETTABLEKS R3 R0 K12 ["isChecked"]
   RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createFragment"]
+  DUPTABLE R3 K4 [{"Layout", "Checkbox"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["createElement"]
+  LOADK R5 K6 ["UIListLayout"]
+  DUPTABLE R6 K10 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R7 K13 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R7 R6 K7 ["FillDirection"]
+  GETIMPORT R7 K15 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R7 R6 K8 ["HorizontalAlignment"]
+  GETIMPORT R7 K16 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R7 R6 K9 ["VerticalAlignment"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["Layout"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K20 [{"OnClick", "Key", "Checked"}]
+  GETTABLEKS R7 R0 K21 ["toggleCheckbox"]
+  SETTABLEKS R7 R6 K17 ["OnClick"]
+  GETTABLEKS R7 R1 K22 ["RowIndex"]
+  SETTABLEKS R7 R6 K18 ["Key"]
+  GETTABLEKS R7 R0 K23 ["isChecked"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K19 ["Checked"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["Checkbox"]
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_17:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Style"]
+  GETTABLEKS R3 R2 K2 ["ImportQueue"]
+  GETTABLEKS R4 R3 K3 ["Padding"]
+  GETTABLEKS R5 R3 K4 ["DisabledTransparancy"]
+  GETTABLEKS R6 R1 K5 ["Row"]
+  GETTABLEKS R8 R6 K6 ["errors"]
+  GETTABLEKS R9 R6 K7 ["warnings"]
+  ADD R7 R8 R9
+  GETTABLEKS R8 R0 K8 ["getModelIcon"]
+  CALL R8 0 1
+  LOADNIL R9
+  GETUPVAL R10 0
+  CALL R10 0 1
+  JUMPIF R10 [+16]
+  GETTABLEKS R11 R8 K9 ["ImageRectSize"]
+  GETTABLEKS R10 R11 K10 ["X"]
+  GETTABLEKS R12 R1 K11 ["CellProps"]
+  GETTABLEKS R11 R12 K12 ["StatusIconSize"]
+  LOADN R13 0
+  JUMPIFNOTLT R13 R7 [+3]
+  ADD R12 R11 R4
+  JUMP [+1]
+  LOADN R12 0
+  ADD R13 R10 R4
+  ADD R9 R13 R12
+  GETTABLEKS R10 R0 K13 ["isInactive"]
+  CALL R10 0 1
+  GETTABLEKS R11 R0 K14 ["isDisabled"]
+  CALL R11 0 1
+  GETTABLEKS R13 R1 K11 ["CellProps"]
+  GETTABLEKS R12 R13 K15 ["Uploading"]
+  JUMPIFNOT R10 [+2]
+  GETUPVAL R13 1
+  JUMP [+1]
+  GETUPVAL R13 2
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K16 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K20 [{"Layout", "HorizontalAlignment", "Padding", "Spacing"}]
+  GETIMPORT R17 K24 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R17 R16 K17 ["Layout"]
+  GETIMPORT R17 K26 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R17 R16 K18 ["HorizontalAlignment"]
+  DUPTABLE R17 K28 [{"Left", "Right"}]
+  SETTABLEKS R4 R17 K25 ["Left"]
+  SETTABLEKS R4 R17 K27 ["Right"]
+  SETTABLEKS R17 R16 K3 ["Padding"]
+  SETTABLEKS R4 R16 K19 ["Spacing"]
+  DUPTABLE R17 K32 [{"Icon", "AssetName", "Status"}]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K16 ["createElement"]
+  GETUPVAL R19 4
+  DUPTABLE R20 K37 [{"LayoutOrder", "Size", "Image", "ImageTransparency"}]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K33 ["LayoutOrder"]
+  GETIMPORT R21 K40 [UDim2.fromOffset]
+  GETTABLEKS R23 R8 K9 ["ImageRectSize"]
+  GETTABLEKS R22 R23 K10 ["X"]
+  GETTABLEKS R24 R8 K9 ["ImageRectSize"]
+  GETTABLEKS R23 R24 K41 ["Y"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K34 ["Size"]
+  GETTABLEKS R21 R8 K35 ["Image"]
+  SETTABLEKS R21 R20 K35 ["Image"]
+  JUMPIFNOT R11 [+2]
+  MOVE R21 R5
+  JUMP [+1]
+  LOADN R21 0
+  SETTABLEKS R21 R20 K36 ["ImageTransparency"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K29 ["Icon"]
+  GETUPVAL R19 0
+  CALL R19 0 1
+  JUMPIFNOT R19 [+76]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K16 ["createElement"]
+  GETUPVAL R19 4
+  DUPTABLE R20 K42 [{"LayoutOrder", "Layout", "HorizontalAlignment"}]
+  LOADN R21 2
+  SETTABLEKS R21 R20 K33 ["LayoutOrder"]
+  GETIMPORT R21 K24 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R21 R20 K17 ["Layout"]
+  GETIMPORT R21 K26 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R21 R20 K18 ["HorizontalAlignment"]
+  DUPTABLE R21 K45 [{"FlexItem", "Text"}]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K16 ["createElement"]
+  LOADK R23 K46 ["UIFlexItem"]
+  DUPTABLE R24 K48 [{"FlexMode"}]
+  GETIMPORT R25 K51 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R25 R24 K47 ["FlexMode"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K43 ["FlexItem"]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K16 ["createElement"]
+  MOVE R23 R13
+  DUPTABLE R24 K56 [{"TextXAlignment", "TextWrapped", "OnClick", "Text", "Size", "TextTruncate", "Style"}]
+  GETIMPORT R25 K57 [Enum.TextXAlignment.Left]
+  SETTABLEKS R25 R24 K52 ["TextXAlignment"]
+  LOADB R25 1
+  SETTABLEKS R25 R24 K53 ["TextWrapped"]
+  JUMPIF R10 [+4]
+  JUMPIF R12 [+3]
+  GETTABLEKS R25 R0 K58 ["openImportPreview"]
+  JUMP [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K54 ["OnClick"]
+  GETTABLEKS R25 R6 K59 ["assetName"]
+  SETTABLEKS R25 R24 K44 ["Text"]
+  GETIMPORT R25 K61 [UDim2.fromScale]
+  LOADN R26 1
+  LOADN R27 1
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K34 ["Size"]
+  GETIMPORT R25 K63 [Enum.TextTruncate.SplitWord]
+  SETTABLEKS R25 R24 K55 ["TextTruncate"]
+  JUMPIFNOT R11 [+3]
+  JUMPIF R10 [+2]
+  LOADK R25 K64 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K1 ["Style"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K44 ["Text"]
+  CALL R18 3 1
+  JUMP [+45]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K16 ["createElement"]
+  MOVE R19 R13
+  DUPTABLE R20 K65 [{"LayoutOrder", "TextXAlignment", "OnClick", "Text", "Size", "TextTruncate", "Style"}]
+  LOADN R21 2
+  SETTABLEKS R21 R20 K33 ["LayoutOrder"]
+  GETIMPORT R21 K57 [Enum.TextXAlignment.Left]
+  SETTABLEKS R21 R20 K52 ["TextXAlignment"]
+  JUMPIF R10 [+4]
+  JUMPIF R12 [+3]
+  GETTABLEKS R21 R0 K58 ["openImportPreview"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K54 ["OnClick"]
+  GETTABLEKS R21 R6 K59 ["assetName"]
+  SETTABLEKS R21 R20 K44 ["Text"]
+  GETIMPORT R21 K67 [UDim2.new]
+  LOADN R22 1
+  MINUS R23 R9
+  LOADN R24 1
+  LOADN R25 0
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K34 ["Size"]
+  GETIMPORT R21 K63 [Enum.TextTruncate.SplitWord]
+  SETTABLEKS R21 R20 K55 ["TextTruncate"]
+  JUMPIFNOT R11 [+3]
+  JUMPIF R10 [+2]
+  LOADK R21 K64 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K1 ["Style"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K30 ["AssetName"]
+  GETTABLEKS R18 R0 K68 ["getAssetStatus"]
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K31 ["Status"]
+  CALL R14 3 -1
+  RETURN R14 -1
 
 PROTO_18:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Row"]
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIFNOT R4 [+2]
-  LOADNIL R3
-  JUMP [+5]
-  GETTABLEKS R3 R2 K2 ["enabled"]
-  JUMPIF R3 [+2]
-  GETTABLEKS R3 R2 K3 ["uploaded"]
-  GETUPVAL R5 0
+  GETTABLEKS R3 R1 K2 ["Style"]
+  GETTABLEKS R5 R0 K3 ["isInactive"]
   CALL R5 0 1
-  JUMPIF R5 [+4]
-  GETTABLEKS R5 R0 K4 ["showCheckbox"]
-  CALL R5 0 1
-  JUMPIFNOT R5 [+62]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K5 ["createFragment"]
-  DUPTABLE R5 K8 [{"Layout", "Checkbox"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K9 ["createElement"]
-  LOADK R7 K10 ["UIListLayout"]
-  DUPTABLE R8 K14 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
-  GETIMPORT R9 K17 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R9 R8 K11 ["FillDirection"]
-  GETIMPORT R9 K19 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R9 R8 K12 ["HorizontalAlignment"]
-  GETIMPORT R9 K20 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R9 R8 K13 ["VerticalAlignment"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K6 ["Layout"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K9 ["createElement"]
-  GETUPVAL R7 2
-  DUPTABLE R8 K25 [{"OnClick", "Key", "Checked", "Disabled"}]
-  GETTABLEKS R9 R0 K26 ["toggleCheckbox"]
-  SETTABLEKS R9 R8 K21 ["OnClick"]
-  GETTABLEKS R9 R1 K27 ["RowIndex"]
-  SETTABLEKS R9 R8 K22 ["Key"]
-  GETUPVAL R10 0
-  CALL R10 0 1
-  JUMPIFNOT R10 [+4]
-  GETTABLEKS R9 R0 K28 ["isChecked"]
-  CALL R9 0 1
-  JUMP [+1]
-  MOVE R9 R3
-  SETTABLEKS R9 R8 K23 ["Checked"]
-  GETUPVAL R10 0
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  LOADNIL R9
-  JUMP [+3]
-  GETTABLEKS R9 R0 K29 ["disableCheckbox"]
-  CALL R9 0 1
-  SETTABLEKS R9 R8 K24 ["Disabled"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K7 ["Checkbox"]
-  CALL R4 1 1
-  RETURN R4 1
-  LOADNIL R4
-  RETURN R4 1
+  NOT R4 R5
+  JUMPIFNOT R4 [+11]
+  GETTABLEKS R6 R1 K4 ["CellProps"]
+  GETTABLEKS R5 R6 K5 ["Uploading"]
+  NOT R4 R5
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R6 R1 K4 ["CellProps"]
+  GETTABLEKS R5 R6 K6 ["Parsing"]
+  NOT R4 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["createFragment"]
+  DUPTABLE R6 K10 [{"PresetSelector", "Padding"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K11 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K14 [{"QueueItem", "Enabled"}]
+  SETTABLEKS R2 R9 K12 ["QueueItem"]
+  SETTABLEKS R4 R9 K13 ["Enabled"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K8 ["PresetSelector"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K11 ["createElement"]
+  LOADK R8 K15 ["UIPadding"]
+  GETTABLEKS R10 R3 K16 ["AssetListCell"]
+  GETTABLEKS R9 R10 K9 ["Padding"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K9 ["Padding"]
+  CALL R5 1 -1
+  RETURN R5 -1
 
 PROTO_19:
   GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Localization"]
-  GETTABLEKS R3 R1 K2 ["Style"]
-  GETTABLEKS R4 R3 K3 ["ImportQueue"]
-  GETTABLEKS R5 R4 K4 ["Padding"]
-  GETTABLEKS R6 R4 K5 ["DisabledTransparancy"]
-  GETTABLEKS R7 R1 K6 ["Row"]
-  GETTABLEKS R9 R7 K7 ["errors"]
-  GETTABLEKS R10 R7 K8 ["warnings"]
-  ADD R8 R9 R10
-  GETTABLEKS R9 R0 K9 ["getModelIcon"]
-  CALL R9 0 1
-  LOADNIL R10
-  GETUPVAL R11 0
-  CALL R11 0 1
-  JUMPIF R11 [+16]
-  GETTABLEKS R12 R9 K10 ["ImageRectSize"]
-  GETTABLEKS R11 R12 K11 ["X"]
-  GETTABLEKS R13 R1 K12 ["CellProps"]
-  GETTABLEKS R12 R13 K13 ["StatusIconSize"]
-  LOADN R14 0
-  JUMPIFNOTLT R14 R8 [+3]
-  ADD R13 R12 R5
-  JUMP [+1]
-  LOADN R13 0
-  ADD R14 R11 R5
-  ADD R10 R14 R13
-  LOADNIL R11
-  LOADNIL R12
-  GETUPVAL R13 1
-  CALL R13 0 1
-  JUMPIF R13 [+52]
-  GETTABLEKS R13 R7 K7 ["errors"]
-  LOADN R14 0
-  JUMPIFNOTLT R14 R13 [+4]
-  GETTABLEKS R11 R3 K14 ["ErrorIcon"]
-  JUMP [+2]
-  GETTABLEKS R11 R3 K15 ["WarningIcon"]
-  GETTABLEKS R14 R7 K7 ["errors"]
-  LOADN R15 0
-  JUMPIFNOTLT R15 R14 [+4]
-  GETTABLEKS R13 R7 K7 ["errors"]
-  JUMP [+2]
-  GETTABLEKS R13 R7 K8 ["warnings"]
-  GETTABLEKS R15 R7 K7 ["errors"]
-  LOADN R16 0
-  JUMPIFNOTLT R16 R15 [+7]
-  LOADK R16 K16 ["AssetImportTree"]
-  LOADK R17 K17 ["Errors"]
-  NAMECALL R14 R2 K18 ["getText"]
-  CALL R14 3 1
-  JUMP [+5]
-  LOADK R16 K16 ["AssetImportTree"]
-  LOADK R17 K19 ["Warnings"]
-  NAMECALL R14 R2 K18 ["getText"]
-  CALL R14 3 1
-  LOADK R17 K16 ["AssetImportTree"]
-  LOADK R18 K20 ["DescendantsContain2"]
-  DUPTABLE R19 K23 [{"statusCount", "statusType"}]
-  FASTCALL1 TOSTRING R13 [+3]
-  MOVE R21 R13
-  GETIMPORT R20 K25 [tostring]
-  CALL R20 1 1
-  SETTABLEKS R20 R19 K21 ["statusCount"]
-  SETTABLEKS R14 R19 K22 ["statusType"]
-  NAMECALL R15 R2 K18 ["getText"]
-  CALL R15 4 1
-  MOVE R12 R15
-  GETTABLEKS R13 R0 K26 ["isInactive"]
-  CALL R13 0 1
-  GETTABLEKS R14 R0 K27 ["isDisabled"]
-  CALL R14 0 1
-  GETTABLEKS R16 R1 K12 ["CellProps"]
-  GETTABLEKS R15 R16 K28 ["Uploading"]
-  GETTABLEKS R17 R1 K12 ["CellProps"]
-  GETTABLEKS R16 R17 K29 ["Parsing"]
-  JUMPIFNOT R13 [+2]
-  GETUPVAL R17 2
-  JUMP [+1]
-  GETUPVAL R17 3
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K30 ["createElement"]
-  GETUPVAL R19 5
-  DUPTABLE R20 K34 [{"Layout", "HorizontalAlignment", "Padding", "Spacing"}]
-  GETIMPORT R21 K38 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R21 R20 K31 ["Layout"]
-  GETIMPORT R21 K40 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R21 R20 K32 ["HorizontalAlignment"]
-  DUPTABLE R21 K42 [{"Left", "Right"}]
-  SETTABLEKS R5 R21 K39 ["Left"]
-  SETTABLEKS R5 R21 K41 ["Right"]
-  SETTABLEKS R21 R20 K4 ["Padding"]
-  SETTABLEKS R5 R20 K33 ["Spacing"]
-  DUPTABLE R21 K46 [{"Icon", "AssetName", "Status"}]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K30 ["createElement"]
-  GETUPVAL R23 5
-  DUPTABLE R24 K51 [{"LayoutOrder", "Size", "Image", "ImageTransparency"}]
-  LOADN R25 1
-  SETTABLEKS R25 R24 K47 ["LayoutOrder"]
-  GETIMPORT R25 K54 [UDim2.fromOffset]
-  GETTABLEKS R27 R9 K10 ["ImageRectSize"]
-  GETTABLEKS R26 R27 K11 ["X"]
-  GETTABLEKS R28 R9 K10 ["ImageRectSize"]
-  GETTABLEKS R27 R28 K55 ["Y"]
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K48 ["Size"]
-  GETTABLEKS R25 R9 K49 ["Image"]
-  SETTABLEKS R25 R24 K49 ["Image"]
-  JUMPIFNOT R14 [+2]
-  MOVE R25 R6
-  JUMP [+1]
-  LOADN R25 0
-  SETTABLEKS R25 R24 K50 ["ImageTransparency"]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K43 ["Icon"]
-  GETUPVAL R23 0
-  CALL R23 0 1
-  JUMPIFNOT R23 [+76]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K30 ["createElement"]
-  GETUPVAL R23 5
-  DUPTABLE R24 K56 [{"LayoutOrder", "Layout", "HorizontalAlignment"}]
-  LOADN R25 2
-  SETTABLEKS R25 R24 K47 ["LayoutOrder"]
-  GETIMPORT R25 K38 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R25 R24 K31 ["Layout"]
-  GETIMPORT R25 K40 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R25 R24 K32 ["HorizontalAlignment"]
-  DUPTABLE R25 K59 [{"FlexItem", "Text"}]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K30 ["createElement"]
-  LOADK R27 K60 ["UIFlexItem"]
-  DUPTABLE R28 K62 [{"FlexMode"}]
-  GETIMPORT R29 K65 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R29 R28 K61 ["FlexMode"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K57 ["FlexItem"]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K30 ["createElement"]
-  MOVE R27 R17
-  DUPTABLE R28 K70 [{"TextXAlignment", "TextWrapped", "OnClick", "Text", "Size", "TextTruncate", "Style"}]
-  GETIMPORT R29 K71 [Enum.TextXAlignment.Left]
-  SETTABLEKS R29 R28 K66 ["TextXAlignment"]
-  LOADB R29 1
-  SETTABLEKS R29 R28 K67 ["TextWrapped"]
-  JUMPIF R13 [+4]
-  JUMPIF R15 [+3]
-  GETTABLEKS R29 R0 K72 ["openImportPreview"]
-  JUMP [+1]
-  LOADNIL R29
-  SETTABLEKS R29 R28 K68 ["OnClick"]
-  GETTABLEKS R29 R7 K73 ["assetName"]
-  SETTABLEKS R29 R28 K58 ["Text"]
-  GETIMPORT R29 K75 [UDim2.fromScale]
-  LOADN R30 1
-  LOADN R31 1
-  CALL R29 2 1
-  SETTABLEKS R29 R28 K48 ["Size"]
-  GETIMPORT R29 K77 [Enum.TextTruncate.SplitWord]
-  SETTABLEKS R29 R28 K69 ["TextTruncate"]
-  JUMPIFNOT R14 [+3]
-  JUMPIF R13 [+2]
-  LOADK R29 K78 ["Disabled"]
-  JUMP [+1]
-  LOADNIL R29
-  SETTABLEKS R29 R28 K2 ["Style"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K58 ["Text"]
-  CALL R22 3 1
-  JUMP [+45]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K30 ["createElement"]
-  MOVE R23 R17
-  DUPTABLE R24 K79 [{"LayoutOrder", "TextXAlignment", "OnClick", "Text", "Size", "TextTruncate", "Style"}]
-  LOADN R25 2
-  SETTABLEKS R25 R24 K47 ["LayoutOrder"]
-  GETIMPORT R25 K71 [Enum.TextXAlignment.Left]
-  SETTABLEKS R25 R24 K66 ["TextXAlignment"]
-  JUMPIF R13 [+4]
-  JUMPIF R15 [+3]
-  GETTABLEKS R25 R0 K72 ["openImportPreview"]
-  JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K68 ["OnClick"]
-  GETTABLEKS R25 R7 K73 ["assetName"]
-  SETTABLEKS R25 R24 K58 ["Text"]
-  GETIMPORT R25 K81 [UDim2.new]
-  LOADN R26 1
-  MINUS R27 R10
-  LOADN R28 1
-  LOADN R29 0
-  CALL R25 4 1
-  SETTABLEKS R25 R24 K48 ["Size"]
-  GETIMPORT R25 K77 [Enum.TextTruncate.SplitWord]
-  SETTABLEKS R25 R24 K69 ["TextTruncate"]
-  JUMPIFNOT R14 [+3]
-  JUMPIF R13 [+2]
-  LOADK R25 K78 ["Disabled"]
-  JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K2 ["Style"]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K44 ["AssetName"]
-  GETUPVAL R23 1
-  CALL R23 0 1
-  JUMPIFNOT R23 [+4]
-  GETTABLEKS R22 R0 K82 ["getAssetStatus"]
-  CALL R22 0 1
-  JUMP [+40]
-  LOADN R23 0
-  JUMPIFNOTLT R23 R8 [+37]
-  GETTABLEKS R23 R7 K83 ["uploaded"]
-  JUMPIF R23 [+33]
-  JUMPIF R16 [+32]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K30 ["createElement"]
-  GETUPVAL R23 6
-  DUPTABLE R24 K84 [{"LayoutOrder", "Style", "Size"}]
-  LOADN R25 3
-  SETTABLEKS R25 R24 K47 ["LayoutOrder"]
-  DUPTABLE R25 K85 [{"Image"}]
-  GETTABLEKS R26 R11 K49 ["Image"]
-  SETTABLEKS R26 R25 K49 ["Image"]
-  SETTABLEKS R25 R24 K2 ["Style"]
-  GETTABLEKS R25 R11 K48 ["Size"]
-  SETTABLEKS R25 R24 K48 ["Size"]
-  DUPTABLE R25 K87 [{"Tooltip"}]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K30 ["createElement"]
-  GETUPVAL R27 7
-  DUPTABLE R28 K88 [{"Text"}]
-  SETTABLEKS R12 R28 K58 ["Text"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K86 ["Tooltip"]
-  CALL R22 3 1
-  JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K45 ["Status"]
-  CALL R18 3 -1
-  RETURN R18 -1
+  GETTABLEKS R2 R1 K1 ["Style"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K2 ["Row"]
+  GETTABLEKS R3 R4 K3 ["creatorId"]
+  GETTABLEKS R5 R0 K4 ["isInactive"]
+  CALL R5 0 1
+  NOT R4 R5
+  JUMPIFNOT R4 [+11]
+  GETTABLEKS R6 R1 K5 ["CellProps"]
+  GETTABLEKS R5 R6 K6 ["Uploading"]
+  NOT R4 R5
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R6 R1 K5 ["CellProps"]
+  GETTABLEKS R5 R6 K7 ["Parsing"]
+  NOT R4 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["createFragment"]
+  DUPTABLE R6 K11 [{"CreatorSelector", "Padding"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K12 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K17 [{"Localization", "OnSetItem", "Value", "Enabled"}]
+  GETTABLEKS R11 R0 K0 ["props"]
+  GETTABLEKS R10 R11 K13 ["Localization"]
+  SETTABLEKS R10 R9 K13 ["Localization"]
+  GETTABLEKS R10 R0 K18 ["updateCreator"]
+  SETTABLEKS R10 R9 K14 ["OnSetItem"]
+  SETTABLEKS R3 R9 K15 ["Value"]
+  SETTABLEKS R4 R9 K16 ["Enabled"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K9 ["CreatorSelector"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K12 ["createElement"]
+  LOADK R8 K19 ["UIPadding"]
+  GETTABLEKS R10 R2 K20 ["AssetListCell"]
+  GETTABLEKS R9 R10 K10 ["Padding"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K10 ["Padding"]
+  CALL R5 1 -1
+  RETURN R5 -1
 
 PROTO_20:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Row"]
-  GETTABLEKS R3 R1 K2 ["Style"]
-  GETTABLEKS R4 R1 K3 ["Localization"]
-  LOADK R6 K4 ["Error"]
-  LOADK R7 K5 ["WindowTitle"]
-  NAMECALL R4 R4 K6 ["getText"]
-  CALL R4 3 1
-  GETTABLEKS R6 R0 K7 ["isInactive"]
-  CALL R6 0 1
-  NOT R5 R6
-  JUMPIFNOT R5 [+11]
-  GETTABLEKS R7 R1 K8 ["CellProps"]
-  GETTABLEKS R6 R7 K9 ["Uploading"]
-  NOT R5 R6
-  JUMPIFNOT R5 [+5]
-  GETTABLEKS R7 R1 K8 ["CellProps"]
-  GETTABLEKS R6 R7 K10 ["Parsing"]
-  NOT R5 R6
-  GETUPVAL R6 0
-  CALL R6 0 1
-  JUMPIFNOT R6 [+29]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K11 ["createFragment"]
-  DUPTABLE R7 K14 [{"PresetSelector", "Padding"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K15 ["createElement"]
-  GETUPVAL R9 2
-  DUPTABLE R10 K18 [{"QueueItem", "Enabled"}]
-  SETTABLEKS R2 R10 K16 ["QueueItem"]
-  SETTABLEKS R5 R10 K17 ["Enabled"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K12 ["PresetSelector"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K15 ["createElement"]
-  LOADK R9 K19 ["UIPadding"]
-  GETTABLEKS R11 R3 K20 ["AssetListCell"]
-  GETTABLEKS R10 R11 K13 ["Padding"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K13 ["Padding"]
-  CALL R6 1 -1
-  RETURN R6 -1
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K11 ["createFragment"]
-  DUPTABLE R7 K14 [{"PresetSelector", "Padding"}]
-  JUMPIFNOT R5 [+12]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K15 ["createElement"]
-  GETUPVAL R9 2
-  DUPTABLE R10 K18 [{"QueueItem", "Enabled"}]
-  SETTABLEKS R2 R10 K16 ["QueueItem"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K17 ["Enabled"]
-  CALL R8 2 1
-  JUMP [+40]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K15 ["createElement"]
-  GETUPVAL R9 3
-  DUPTABLE R10 K24 [{"Text", "TextXAlignment", "TextTruncate"}]
-  GETUPVAL R12 0
-  CALL R12 0 1
-  JUMPIFNOT R12 [+14]
-  GETTABLEKS R12 R2 K25 ["state"]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K26 ["SessionState"]
-  GETTABLEKS R13 R14 K27 ["Invalid"]
-  JUMPIFEQ R12 R13 [+4]
-  GETTABLEKS R11 R2 K28 ["currentPreset"]
-  JUMP [+9]
-  LOADK R11 K29 [""]
-  JUMP [+7]
-  GETTABLEKS R12 R2 K30 ["validSession"]
-  JUMPIFNOT R12 [+3]
-  GETTABLEKS R11 R2 K28 ["currentPreset"]
-  JUMP [+1]
-  MOVE R11 R4
-  SETTABLEKS R11 R10 K21 ["Text"]
-  GETIMPORT R11 K33 [Enum.TextXAlignment.Left]
-  SETTABLEKS R11 R10 K22 ["TextXAlignment"]
-  GETIMPORT R11 K35 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R11 R10 K23 ["TextTruncate"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K12 ["PresetSelector"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K15 ["createElement"]
-  LOADK R9 K19 ["UIPadding"]
-  GETTABLEKS R11 R3 K20 ["AssetListCell"]
-  GETTABLEKS R10 R11 K13 ["Padding"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K13 ["Padding"]
-  CALL R6 1 -1
-  RETURN R6 -1
-
-PROTO_21:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Row"]
-  GETTABLEKS R3 R1 K2 ["Style"]
-  GETTABLEKS R6 R0 K0 ["props"]
-  GETTABLEKS R5 R6 K1 ["Row"]
-  GETTABLEKS R4 R5 K3 ["creatorId"]
-  GETTABLEKS R6 R1 K4 ["CellProps"]
-  GETTABLEKS R5 R6 K5 ["GetCreatorNameById"]
-  GETTABLEKS R7 R0 K6 ["isInactive"]
-  CALL R7 0 1
-  NOT R6 R7
-  JUMPIFNOT R6 [+11]
-  GETTABLEKS R8 R1 K4 ["CellProps"]
-  GETTABLEKS R7 R8 K7 ["Uploading"]
-  NOT R6 R7
-  JUMPIFNOT R6 [+5]
-  GETTABLEKS R8 R1 K4 ["CellProps"]
-  GETTABLEKS R7 R8 K8 ["Parsing"]
-  NOT R6 R7
-  GETUPVAL R7 0
-  CALL R7 0 1
-  JUMPIFNOT R7 [+39]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K9 ["createFragment"]
-  DUPTABLE R8 K12 [{"CreatorSelector", "Padding"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["createElement"]
-  GETUPVAL R10 2
-  DUPTABLE R11 K18 [{"Localization", "OnSetItem", "Value", "Enabled"}]
-  GETTABLEKS R13 R0 K0 ["props"]
-  GETTABLEKS R12 R13 K14 ["Localization"]
-  SETTABLEKS R12 R11 K14 ["Localization"]
-  GETTABLEKS R12 R0 K19 ["updateCreator"]
-  SETTABLEKS R12 R11 K15 ["OnSetItem"]
-  SETTABLEKS R4 R11 K16 ["Value"]
-  SETTABLEKS R6 R11 K17 ["Enabled"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K10 ["CreatorSelector"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["createElement"]
-  LOADK R10 K20 ["UIPadding"]
-  GETTABLEKS R12 R3 K21 ["AssetListCell"]
-  GETTABLEKS R11 R12 K11 ["Padding"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["Padding"]
-  CALL R7 1 -1
-  RETURN R7 -1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K9 ["createFragment"]
-  DUPTABLE R8 K23 [{"PresetSelector", "Padding"}]
-  JUMPIFNOT R6 [+19]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["createElement"]
-  GETUPVAL R10 2
-  DUPTABLE R11 K24 [{"Localization", "OnSetItem", "Value"}]
-  GETTABLEKS R13 R0 K0 ["props"]
-  GETTABLEKS R12 R13 K14 ["Localization"]
-  SETTABLEKS R12 R11 K14 ["Localization"]
-  GETTABLEKS R12 R0 K19 ["updateCreator"]
-  SETTABLEKS R12 R11 K15 ["OnSetItem"]
-  SETTABLEKS R4 R11 K16 ["Value"]
-  CALL R9 2 1
-  JUMP [+42]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["createElement"]
-  GETUPVAL R10 3
-  DUPTABLE R11 K28 [{"Text", "TextXAlignment", "TextTruncate"}]
-  GETUPVAL R13 0
-  CALL R13 0 1
-  JUMPIFNOT R13 [+15]
-  GETTABLEKS R13 R2 K29 ["state"]
-  GETUPVAL R16 4
-  GETTABLEKS R15 R16 K30 ["SessionState"]
-  GETTABLEKS R14 R15 K31 ["Invalid"]
-  JUMPIFEQ R13 R14 [+5]
-  MOVE R12 R5
-  MOVE R13 R4
-  CALL R12 1 1
-  JUMP [+10]
-  LOADK R12 K32 [""]
-  JUMP [+8]
-  GETTABLEKS R13 R2 K33 ["validSession"]
-  JUMPIFNOT R13 [+4]
-  MOVE R12 R5
-  MOVE R13 R4
-  CALL R12 1 1
-  JUMP [+1]
-  LOADK R12 K32 [""]
-  SETTABLEKS R12 R11 K25 ["Text"]
-  GETIMPORT R12 K36 [Enum.TextXAlignment.Left]
-  SETTABLEKS R12 R11 K26 ["TextXAlignment"]
-  GETIMPORT R12 K38 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R12 R11 K27 ["TextTruncate"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K22 ["PresetSelector"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["createElement"]
-  LOADK R10 K20 ["UIPadding"]
-  GETTABLEKS R12 R3 K21 ["AssetListCell"]
-  GETTABLEKS R11 R12 K11 ["Padding"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["Padding"]
-  CALL R7 1 -1
-  RETURN R7 -1
-
-PROTO_22:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Style"]
   GETTABLEKS R3 R2 K2 ["ImportQueue"]
@@ -1106,77 +793,67 @@ PROTO_22:
   CALL R8 1 -1
   RETURN R8 -1
 
-PROTO_23:
+PROTO_21:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Row"]
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIF R3 [+6]
-  GETTABLEKS R3 R2 K2 ["uploadResults"]
-  JUMPIFNOTEQKNIL R3 [+3]
-  LOADNIL R3
-  RETURN R3 1
-  GETTABLEKS R3 R1 K3 ["Style"]
-  GETTABLEKS R5 R3 K4 ["Icons"]
-  GETTABLEKS R4 R5 K5 ["SuccessIconSolid"]
-  GETTABLEKS R6 R3 K4 ["Icons"]
-  GETTABLEKS R5 R6 K6 ["ErrorIconSolid"]
-  GETTABLEKS R7 R3 K4 ["Icons"]
-  GETTABLEKS R6 R7 K7 ["SmallLength"]
-  GETTABLEKS R8 R3 K8 ["ImportQueue"]
-  GETTABLEKS R7 R8 K9 ["IconButtonSize"]
+  GETTABLEKS R3 R1 K2 ["Style"]
+  GETTABLEKS R5 R3 K3 ["Icons"]
+  GETTABLEKS R4 R5 K4 ["SuccessIconSolid"]
+  GETTABLEKS R6 R3 K3 ["Icons"]
+  GETTABLEKS R5 R6 K5 ["ErrorIconSolid"]
+  GETTABLEKS R7 R3 K3 ["Icons"]
+  GETTABLEKS R6 R7 K6 ["SmallLength"]
+  GETTABLEKS R8 R3 K7 ["ImportQueue"]
+  GETTABLEKS R7 R8 K8 ["IconButtonSize"]
   LOADNIL R8
   LOADNIL R9
-  GETUPVAL R10 0
-  CALL R10 0 1
-  JUMPIFNOT R10 [+86]
-  GETTABLEKS R10 R2 K10 ["state"]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K11 ["SessionState"]
-  GETTABLEKS R11 R12 K12 ["Parsing"]
+  GETTABLEKS R10 R2 K9 ["state"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K10 ["SessionState"]
+  GETTABLEKS R11 R12 K11 ["Parsing"]
   JUMPIFEQ R10 R11 [+10]
-  GETTABLEKS R10 R2 K10 ["state"]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K11 ["SessionState"]
-  GETTABLEKS R11 R12 K13 ["Importing"]
+  GETTABLEKS R10 R2 K9 ["state"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K10 ["SessionState"]
+  GETTABLEKS R11 R12 K12 ["Importing"]
   JUMPIFNOTEQ R10 R11 [+20]
-  GETUPVAL R10 2
+  GETUPVAL R10 1
   CALL R10 0 1
   JUMPIFNOT R10 [+13]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K13 ["createElement"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K14 ["createElement"]
-  GETUPVAL R11 4
-  DUPTABLE R12 K16 [{"size"}]
-  GETUPVAL R14 5
-  GETTABLEKS R13 R14 K17 ["Small"]
-  SETTABLEKS R13 R12 K15 ["size"]
+  DUPTABLE R12 K15 [{"size"}]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K16 ["Small"]
+  SETTABLEKS R13 R12 K14 ["size"]
   CALL R10 2 1
   MOVE R9 R10
-  JUMP [+60]
+  JUMP [+51]
   LOADNIL R10
   RETURN R10 1
-  JUMP [+57]
-  GETTABLEKS R10 R2 K10 ["state"]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K11 ["SessionState"]
-  GETTABLEKS R11 R12 K18 ["Imported"]
+  JUMP [+48]
+  GETTABLEKS R10 R2 K9 ["state"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K10 ["SessionState"]
+  GETTABLEKS R11 R12 K17 ["Imported"]
   JUMPIFNOTEQ R10 R11 [+38]
-  GETTABLEKS R11 R2 K2 ["uploadResults"]
+  GETTABLEKS R11 R2 K18 ["uploadResults"]
   GETTABLEKS R10 R11 K19 ["Succeeded"]
   JUMPIFNOT R10 [+2]
   MOVE R8 R4
   JUMP [+1]
   MOVE R8 R5
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K13 ["createElement"]
   GETUPVAL R11 6
-  GETTABLEKS R10 R11 K14 ["createElement"]
-  GETUPVAL R11 7
   DUPTABLE R12 K25 [{"IconSize", "LeftIcon", "OnClick", "Style", "Size", "LayoutOrder"}]
   SETTABLEKS R6 R12 K20 ["IconSize"]
   SETTABLEKS R8 R12 K21 ["LeftIcon"]
   GETTABLEKS R13 R0 K26 ["onStatusClicked"]
   SETTABLEKS R13 R12 K22 ["OnClick"]
   LOADK R13 K27 ["IconOnly"]
-  SETTABLEKS R13 R12 K3 ["Style"]
+  SETTABLEKS R13 R12 K2 ["Style"]
   GETIMPORT R13 K30 [UDim2.fromOffset]
   MOVE R14 R7
   MOVE R15 R7
@@ -1186,26 +863,19 @@ PROTO_23:
   SETTABLEKS R13 R12 K24 ["LayoutOrder"]
   CALL R10 2 1
   MOVE R9 R10
-  JUMP [+11]
+  JUMP [+2]
   LOADNIL R10
   RETURN R10 1
-  JUMP [+8]
-  GETTABLEKS R11 R2 K2 ["uploadResults"]
-  GETTABLEKS R10 R11 K19 ["Succeeded"]
-  JUMPIFNOT R10 [+2]
-  MOVE R8 R4
-  JUMP [+1]
-  MOVE R8 R5
-  GETUPVAL R11 6
+  GETUPVAL R11 5
   GETTABLEKS R10 R11 K31 ["createFragment"]
   DUPTABLE R11 K34 [{"Layout", "Alert"}]
-  GETUPVAL R13 2
+  GETUPVAL R13 1
   CALL R13 0 1
   JUMPIFNOT R13 [+2]
   LOADNIL R12
   JUMP [+14]
-  GETUPVAL R13 6
-  GETTABLEKS R12 R13 K14 ["createElement"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K13 ["createElement"]
   LOADK R13 K35 ["UIListLayout"]
   DUPTABLE R14 K38 [{"HorizontalAlignment", "VerticalAlignment"}]
   GETIMPORT R15 K41 [Enum.HorizontalAlignment.Center]
@@ -1214,19 +884,16 @@ PROTO_23:
   SETTABLEKS R15 R14 K37 ["VerticalAlignment"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K32 ["Layout"]
-  GETUPVAL R13 0
-  CALL R13 0 1
-  JUMPIFNOT R13 [+25]
-  GETUPVAL R13 2
+  GETUPVAL R13 1
   CALL R13 0 1
   JUMPIFNOT R13 [+20]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K14 ["createElement"]
-  GETUPVAL R13 8
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K13 ["createElement"]
+  GETUPVAL R13 7
   DUPTABLE R14 K45 [{"tag", "onStateChanged"}]
   LOADK R15 K46 ["auto-xy anchor-center-center position-center-center"]
   SETTABLEKS R15 R14 K43 ["tag"]
-  GETUPVAL R16 9
+  GETUPVAL R16 8
   CALL R16 0 1
   JUMPIFNOT R16 [+3]
   GETTABLEKS R15 R0 K44 ["onStateChanged"]
@@ -1235,32 +902,13 @@ PROTO_23:
   SETTABLEKS R15 R14 K44 ["onStateChanged"]
   MOVE R15 R9
   CALL R12 3 1
-  JUMP [+29]
+  JUMP [+1]
   MOVE R12 R9
-  JUMP [+27]
-  GETUPVAL R13 6
-  GETTABLEKS R12 R13 K14 ["createElement"]
-  GETUPVAL R13 7
-  DUPTABLE R14 K25 [{"IconSize", "LeftIcon", "OnClick", "Style", "Size", "LayoutOrder"}]
-  SETTABLEKS R6 R14 K20 ["IconSize"]
-  SETTABLEKS R8 R14 K21 ["LeftIcon"]
-  GETTABLEKS R15 R0 K26 ["onStatusClicked"]
-  SETTABLEKS R15 R14 K22 ["OnClick"]
-  LOADK R15 K27 ["IconOnly"]
-  SETTABLEKS R15 R14 K3 ["Style"]
-  GETIMPORT R15 K30 [UDim2.fromOffset]
-  MOVE R16 R7
-  MOVE R17 R7
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K23 ["Size"]
-  LOADN R15 2
-  SETTABLEKS R15 R14 K24 ["LayoutOrder"]
-  CALL R12 2 1
   SETTABLEKS R12 R11 K33 ["Alert"]
   CALL R10 1 -1
   RETURN R10 -1
 
-PROTO_24:
+PROTO_22:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R4 R1 K1 ["Columns"]
   GETTABLEKS R5 R1 K2 ["ColumnIndex"]
@@ -1296,7 +944,7 @@ PROTO_24:
   LOADNIL R3
   RETURN R3 1
 
-PROTO_25:
+PROTO_23:
   GETTABLEKS R1 R0 K0 ["props"]
   GETUPVAL R3 0
   CALL R3 0 1
@@ -1458,98 +1106,81 @@ MAIN:
   GETIMPORT R29 K5 [require]
   GETTABLEKS R32 R0 K29 ["Src"]
   GETTABLEKS R31 R32 K40 ["Flags"]
-  GETTABLEKS R30 R31 K42 ["getFFlagImportQueuePerSessionState"]
+  GETTABLEKS R30 R31 K42 ["getFFlagAssetImportUseFoundation"]
   CALL R29 1 1
   GETIMPORT R30 K5 [require]
   GETTABLEKS R33 R0 K29 ["Src"]
   GETTABLEKS R32 R33 K40 ["Flags"]
-  GETTABLEKS R31 R32 K43 ["getFFlagAssetImportUseFoundation"]
+  GETTABLEKS R31 R32 K43 ["getFFlagCinAssetUploadStatusWidget"]
   CALL R30 1 1
-  GETIMPORT R31 K5 [require]
-  GETTABLEKS R34 R0 K29 ["Src"]
-  GETTABLEKS R33 R34 K40 ["Flags"]
-  GETTABLEKS R32 R33 K44 ["getFFlagCinAssetUploadStatusWidget"]
-  CALL R31 1 1
-  GETTABLEKS R32 R2 K45 ["PureComponent"]
-  LOADK R34 K46 ["AssetListCell"]
-  NAMECALL R32 R32 K47 ["extend"]
-  CALL R32 2 1
-  DUPCLOSURE R33 K48 [PROTO_17]
+  GETTABLEKS R31 R2 K44 ["PureComponent"]
+  LOADK R33 K45 ["AssetListCell"]
+  NAMECALL R31 R31 K46 ["extend"]
+  CALL R31 2 1
+  DUPCLOSURE R32 K47 [PROTO_15]
   CAPTURE VAL R27
   CAPTURE VAL R2
   CAPTURE VAL R11
   CAPTURE VAL R16
-  CAPTURE VAL R29
   CAPTURE VAL R20
   CAPTURE VAL R14
   CAPTURE VAL R9
-  SETTABLEKS R33 R32 K49 ["init"]
-  DUPCLOSURE R33 K50 [PROTO_18]
-  CAPTURE VAL R29
+  SETTABLEKS R32 R31 K48 ["init"]
+  DUPCLOSURE R32 K49 [PROTO_16]
   CAPTURE VAL R2
   CAPTURE VAL R9
-  SETTABLEKS R33 R32 K51 ["renderCheckboxCell"]
-  DUPCLOSURE R33 K52 [PROTO_19]
+  SETTABLEKS R32 R31 K50 ["renderCheckboxCell"]
+  DUPCLOSURE R32 K51 [PROTO_17]
   CAPTURE VAL R28
-  CAPTURE VAL R29
   CAPTURE VAL R15
   CAPTURE VAL R12
   CAPTURE VAL R2
   CAPTURE VAL R13
-  CAPTURE VAL R11
-  CAPTURE VAL R16
-  SETTABLEKS R33 R32 K53 ["renderAssetCell"]
-  DUPCLOSURE R33 K54 [PROTO_20]
-  CAPTURE VAL R29
+  SETTABLEKS R32 R31 K52 ["renderAssetCell"]
+  DUPCLOSURE R32 K53 [PROTO_18]
   CAPTURE VAL R2
   CAPTURE VAL R22
-  CAPTURE VAL R15
-  CAPTURE VAL R27
-  SETTABLEKS R33 R32 K55 ["renderPresetCell"]
-  DUPCLOSURE R33 K56 [PROTO_21]
-  CAPTURE VAL R29
+  SETTABLEKS R32 R31 K54 ["renderPresetCell"]
+  DUPCLOSURE R32 K55 [PROTO_19]
   CAPTURE VAL R2
   CAPTURE VAL R23
-  CAPTURE VAL R15
-  CAPTURE VAL R27
-  SETTABLEKS R33 R32 K57 ["renderCreatorCell"]
-  DUPCLOSURE R33 K58 [PROTO_22]
+  SETTABLEKS R32 R31 K56 ["renderCreatorCell"]
+  DUPCLOSURE R32 K57 [PROTO_20]
   CAPTURE VAL R28
   CAPTURE VAL R2
   CAPTURE VAL R13
   CAPTURE VAL R12
-  SETTABLEKS R33 R32 K59 ["renderPathCell"]
-  DUPCLOSURE R33 K60 [PROTO_23]
-  CAPTURE VAL R29
+  SETTABLEKS R32 R31 K58 ["renderPathCell"]
+  DUPCLOSURE R32 K59 [PROTO_21]
   CAPTURE VAL R27
-  CAPTURE VAL R30
+  CAPTURE VAL R29
   CAPTURE VAL R1
   CAPTURE VAL R18
   CAPTURE VAL R17
   CAPTURE VAL R2
   CAPTURE VAL R10
   CAPTURE VAL R19
-  CAPTURE VAL R31
-  SETTABLEKS R33 R32 K61 ["renderStatusCell"]
-  DUPCLOSURE R33 K62 [PROTO_24]
+  CAPTURE VAL R30
+  SETTABLEKS R32 R31 K60 ["renderStatusCell"]
+  DUPCLOSURE R32 K61 [PROTO_22]
   CAPTURE VAL R28
-  SETTABLEKS R33 R32 K63 ["getContent"]
-  DUPCLOSURE R33 K64 [PROTO_25]
+  SETTABLEKS R32 R31 K62 ["getContent"]
+  DUPCLOSURE R32 K63 [PROTO_23]
   CAPTURE VAL R28
   CAPTURE VAL R7
   CAPTURE VAL R2
   CAPTURE VAL R13
-  SETTABLEKS R33 R32 K65 ["render"]
-  GETTABLEKS R33 R5 K66 ["withContext"]
-  DUPTABLE R34 K68 [{"Localization", "FileController", "PresetController", "QueueController", "Plugin"}]
-  SETTABLEKS R6 R34 K12 ["Localization"]
-  SETTABLEKS R24 R34 K37 ["FileController"]
-  SETTABLEKS R25 R34 K38 ["PresetController"]
-  SETTABLEKS R26 R34 K39 ["QueueController"]
-  GETTABLEKS R35 R5 K67 ["Plugin"]
-  SETTABLEKS R35 R34 K67 ["Plugin"]
-  CALL R33 1 1
-  MOVE R34 R32
-  CALL R33 1 1
-  MOVE R32 R33
-  RETURN R32 1
+  SETTABLEKS R32 R31 K64 ["render"]
+  GETTABLEKS R32 R5 K65 ["withContext"]
+  DUPTABLE R33 K67 [{"Localization", "FileController", "PresetController", "QueueController", "Plugin"}]
+  SETTABLEKS R6 R33 K12 ["Localization"]
+  SETTABLEKS R24 R33 K37 ["FileController"]
+  SETTABLEKS R25 R33 K38 ["PresetController"]
+  SETTABLEKS R26 R33 K39 ["QueueController"]
+  GETTABLEKS R34 R5 K66 ["Plugin"]
+  SETTABLEKS R34 R33 K66 ["Plugin"]
+  CALL R32 1 1
+  MOVE R33 R31
+  CALL R32 1 1
+  MOVE R31 R32
+  RETURN R31 1

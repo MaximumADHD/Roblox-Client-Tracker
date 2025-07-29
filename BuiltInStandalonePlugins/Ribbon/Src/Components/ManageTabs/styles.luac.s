@@ -10,68 +10,42 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K11 ["SharedFlags"]
-  GETTABLEKS R4 R5 K12 ["getFFlagRibbonDensityModeStyles"]
-  CALL R3 1 1
-  MOVE R4 R2
-  LOADK R5 K13 [".Component-TabRow"]
-  DUPTABLE R6 K16 [{"AutoButtonColor", "Text"}]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K14 ["AutoButtonColor"]
-  LOADK R7 K17 [""]
-  SETTABLEKS R7 R6 K15 ["Text"]
-  NEWTABLE R7 0 4
-  MOVE R9 R3
-  CALL R9 0 1
-  JUMPIF R9 [+23]
+  MOVE R3 R2
+  LOADK R4 K10 [".Component-TabRow"]
+  DUPTABLE R5 K13 [{"AutoButtonColor", "Text"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K11 ["AutoButtonColor"]
+  LOADK R6 K14 [""]
+  SETTABLEKS R6 R5 K12 ["Text"]
+  NEWTABLE R6 0 3
+  MOVE R7 R2
+  LOADK R8 K15 [":hover"]
+  DUPTABLE R9 K18 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R10 K19 ["$SemanticColorStatesHover"]
+  SETTABLEKS R10 R9 K16 ["BackgroundColor3"]
+  LOADK R10 K20 ["$SemanticColorStatesHoverTransparency"]
+  SETTABLEKS R10 R9 K17 ["BackgroundTransparency"]
+  CALL R7 2 1
   MOVE R8 R2
-  LOADK R9 K18 ["> TextLabel"]
-  DUPTABLE R10 K24 [{"BackgroundTransparency", "Font", "Text", "TextSize", "LayoutOrder", "TextColor3"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K19 ["BackgroundTransparency"]
-  LOADK R11 K25 ["$FontWeight400"]
-  SETTABLEKS R11 R10 K20 ["Font"]
-  LOADK R11 K17 [""]
-  SETTABLEKS R11 R10 K15 ["Text"]
-  LOADK R11 K26 ["$FontSize150"]
-  SETTABLEKS R11 R10 K21 ["TextSize"]
-  LOADN R11 2
-  SETTABLEKS R11 R10 K22 ["LayoutOrder"]
-  LOADK R11 K27 ["$SemanticColorContentStandard"]
-  SETTABLEKS R11 R10 K23 ["TextColor3"]
+  LOADK R9 K21 [".Selected"]
+  DUPTABLE R10 K22 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R11 K23 ["$SemanticColorStatesSelectedTransparency"]
+  SETTABLEKS R11 R10 K17 ["BackgroundTransparency"]
+  LOADK R11 K24 ["$SemanticColorStatesSelected"]
+  SETTABLEKS R11 R10 K16 ["BackgroundColor3"]
   CALL R8 2 1
-  JUMP [+1]
-  LOADNIL R8
   MOVE R9 R2
-  LOADK R10 K28 [":hover"]
-  DUPTABLE R11 K30 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R12 K31 ["$SemanticColorStatesHover"]
-  SETTABLEKS R12 R11 K29 ["BackgroundColor3"]
-  LOADK R12 K32 ["$SemanticColorStatesHoverTransparency"]
-  SETTABLEKS R12 R11 K19 ["BackgroundTransparency"]
-  CALL R9 2 1
-  MOVE R10 R2
-  LOADK R11 K33 [".Selected"]
-  DUPTABLE R12 K34 [{"BackgroundTransparency", "BackgroundColor3"}]
-  LOADK R13 K35 ["$SemanticColorStatesSelectedTransparency"]
-  SETTABLEKS R13 R12 K19 ["BackgroundTransparency"]
-  LOADK R13 K36 ["$SemanticColorStatesSelected"]
-  SETTABLEKS R13 R12 K29 ["BackgroundColor3"]
-  CALL R10 2 1
-  MOVE R11 R2
-  LOADK R12 K37 ["::UIPadding"]
-  DUPTABLE R13 K42 [{"PaddingLeft", "PaddingTop", "PaddingRight", "PaddingBottom"}]
-  LOADK R14 K43 ["$GlobalSpace100"]
-  SETTABLEKS R14 R13 K38 ["PaddingLeft"]
-  LOADK R14 K44 ["$GlobalSpace50"]
-  SETTABLEKS R14 R13 K39 ["PaddingTop"]
-  LOADK R14 K43 ["$GlobalSpace100"]
-  SETTABLEKS R14 R13 K40 ["PaddingRight"]
-  LOADK R14 K44 ["$GlobalSpace50"]
-  SETTABLEKS R14 R13 K41 ["PaddingBottom"]
-  CALL R11 2 -1
-  SETLIST R7 R8 -1 [1]
-  CALL R4 3 -1
-  RETURN R4 -1
+  LOADK R10 K25 ["::UIPadding"]
+  DUPTABLE R11 K30 [{"PaddingLeft", "PaddingTop", "PaddingRight", "PaddingBottom"}]
+  LOADK R12 K31 ["$GlobalSpace100"]
+  SETTABLEKS R12 R11 K26 ["PaddingLeft"]
+  LOADK R12 K32 ["$GlobalSpace50"]
+  SETTABLEKS R12 R11 K27 ["PaddingTop"]
+  LOADK R12 K31 ["$GlobalSpace100"]
+  SETTABLEKS R12 R11 K28 ["PaddingRight"]
+  LOADK R12 K32 ["$GlobalSpace50"]
+  SETTABLEKS R12 R11 K29 ["PaddingBottom"]
+  CALL R9 2 -1
+  SETLIST R6 R7 -1 [1]
+  CALL R3 3 -1
+  RETURN R3 -1

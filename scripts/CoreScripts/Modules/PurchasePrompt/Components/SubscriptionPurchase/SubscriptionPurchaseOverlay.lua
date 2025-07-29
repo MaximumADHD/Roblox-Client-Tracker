@@ -35,6 +35,7 @@ type Props = {
 
 	promptState: any,
 	purchaseError: any?,
+	economicRestrictionError: any?,
 
 	subscriptionId: string,
 	name: string,
@@ -124,6 +125,8 @@ function SubscriptionPurchaseOverlay:getErrorType()
 		return PurchaseErrorType.VpcRequired
 	elseif props.purchaseError == PurchaseError.ExceedParentalSpendLimit then
 		return PurchaseErrorType.ExceedParentalSpendLimit
+	elseif props.purchaseError == PurchaseError.EconomicRestriction then
+		return PurchaseErrorType.EconomicRestriction
 	end
 
 	return PurchaseErrorType.Unknown
@@ -148,6 +151,7 @@ function SubscriptionPurchaseOverlay:render()
 
 		purchaseState = purchaseState,
 		errorType = errorType,
+		economicRestrictionError = props.economicRestrictionError,
 		purchaseVPCType = self:getVPCModalType(purchaseState),
 
 		subscriptionId = props.subscriptionId,

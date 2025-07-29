@@ -40,8 +40,10 @@ local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local BadgeOver12 = require(script.Parent.BadgeOver12)
-local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommon).Stores
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local CoreGuiCommonStores = CoreGuiCommon.Stores
 local Signals = require(CorePackages.Packages.Signals)
+local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 local createEffect = Signals.createEffect
 
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
@@ -50,12 +52,16 @@ local isSubjectToDesktopPolicies = SharedFlags.isSubjectToDesktopPolicies
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+
 local GetFFlagChangeTopbarHeightCalculation =
 	require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 local FFlagEnableChromeBackwardsSignalAPI =
 	require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local FFlagFixMenuIconBackground = game:DefineFastFlag("FixMenuIconBackground", false)
 local FFlagEnableReferralRewardTooltip = game:DefineFastFlag("EnableReferralRewardTooltip", false)
+local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -121,7 +127,7 @@ local BADGE_OFFSET = 4
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	setGamepadMenuOpen = t.callback,
-	iconScale = t.optional(t.number),
+	iconScale = if FFlagTopBarSignalizeMenuOpen then nil else t.optional(t.number),
 	onAreaChanged = t.optional(t.callback),
 	showBadgeOver12 = t.optional(t.boolean),
 	menuIconRef = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
@@ -137,6 +143,15 @@ function MenuIcon:init()
 		clickLatched = if tooltipEnabled then false else nil,
 		enableFlashingDot = false,
 	})
+
+
+	if FFlagTopBarSignalizeMenuOpen then 
+		SettingsShowSignal:connect(function(isOpen)
+			self:setState({
+				tiltMenuOpen = isOpen,
+			})
+		end)
+	end
 
 	if not ChromeEnabled() then
 		-- We spawn a new coroutine so that this doesn't block the UI from loading.
@@ -377,6 +392,11 @@ function MenuIcon:willUnmount()
 			self.disposeEffect()
 		end
 	end
+	if FFlagTopBarSignalizeMenuOpen then 
+		if self.tiltMenuDisposeEffect then
+			self.tiltMenuDisposeEffect()
+		end
+	end
 end
 
 function MenuIcon:render()
@@ -412,7 +432,9 @@ function MenuIcon:render()
 		icon = if isNewTiltIconEnabled()
 			then UIBloxImages["icons/logo/block"]
 			else "rbxasset://textures/ui/TopBar/coloredlogo.png",
-		iconSize = Constants.MENU_ICON_SIZE * (self.props.iconScale or 1),
+		iconSize = if FFlagTopBarSignalizeMenuOpen 
+			then Constants.MENU_ICON_SIZE * (if self.state.tiltMenuOpen then Constants.MenuIconOpenScale else 1)
+			else Constants.MENU_ICON_SIZE * (self.props.iconScale or 1),
 		useIconScaleAnimation = isNewTiltIconEnabled(),
 		onActivated = self.menuIconActivated,
 		onHover = self.menuIconOnHover,
@@ -479,7 +501,9 @@ function MenuIcon:render()
 					icon = if isNewTiltIconEnabled()
 						then UIBloxImages["icons/logo/block"]
 						else "rbxasset://textures/ui/TopBar/coloredlogo.png",
-					iconSize = Constants.MENU_ICON_SIZE * (self.props.iconScale or 1),
+					iconSize = if FFlagTopBarSignalizeMenuOpen 
+						then Constants.MENU_ICON_SIZE * (if self.state.tiltMenuOpen then Constants.MenuIconOpenScale else 1)
+						else Constants.MENU_ICON_SIZE * (self.props.iconScale or 1),
 					useIconScaleAnimation = isNewTiltIconEnabled(),
 					onActivated = self.menuIconActivated,
 					onHover = self.menuIconOnHover,
@@ -539,9 +563,11 @@ local function mapDispatchToProps(dispatch)
 		setGamepadMenuOpen = function(open)
 			return dispatch(SetGamepadMenuOpen(open))
 		end,
-		onAreaChanged = function(id, position, size)
-			return dispatch(SetKeepOutArea(id, position, size))
-		end,
+		onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas 
+			then nil 
+			else function(id, position, size)
+				return dispatch(SetKeepOutArea(id, position, size))
+			end,
 	}
 end
 

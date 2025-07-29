@@ -66,7 +66,7 @@ end
 local FFlagUserFixFreecamGuiChangeVisibility
 do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixFreecamGuiChangeVisibility")
+		return UserSettings():IsUserFeatureEnabled("UserFixFreecamGuiChangeVisibility2")
 	end)
 	FFlagUserFixFreecamGuiChangeVisibility = success and result
 end
@@ -106,7 +106,7 @@ end
 local FFlagUserFreecamDepthOfFieldEffect
 do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFreecamDepthOfFieldEffect")
+		return UserSettings():IsUserFeatureEnabled("UserFreecamDepthOfFieldEffect2")
 	end)
 	FFlagUserFreecamDepthOfFieldEffect = success and result
 end
@@ -162,6 +162,10 @@ local DOUBLE_TAP_TIME_THRESHOLD = 0.25
 local DOUBLE_TAP_DEBOUNCE_TIME = 0.1
 
 local postEffects = {}
+
+local playerGuiConnection = nil
+local cameraConnection = nil
+local lightingConnection = nil
 ------------------------------------------------------------------------
 
 local Spring = {} do
@@ -521,13 +525,13 @@ local Input = {} do
 								effect.Enabled = false
 							end
 						end
-						Camera.ChildAdded:Connect(function(child)
+						cameraConnection = Camera.ChildAdded:Connect(function(child)
 							if child:IsA("DepthOfFieldEffect") and child.Enabled then
 								postEffects[#postEffects + 1] = child
 								child.Enabled = false
 							end
 						end)
-						Lighting.ChildAdded:Connect(function(child)
+						lightingConnection = Lighting.ChildAdded:Connect(function(child)
 							if child:IsA("DepthOfFieldEffect") and child.Enabled then
 								postEffects[#postEffects + 1] = child
 								child.Enabled = false
@@ -539,6 +543,14 @@ local Input = {} do
 							if effect.Parent then
 								effect.Enabled = true
 							end
+						end
+						if cameraConnection then
+							cameraConnection:Disconnect()
+							cameraConnection = nil
+						end
+						if lightingConnection then
+							lightingConnection:Disconnect()
+							lightingConnection = nil
 						end
 						postEffects = {}
 					end
@@ -787,7 +799,7 @@ local PlayerState = {} do
 				end
 			end
 			if FFlagUserFixFreecamGuiChangeVisibility then
-				playergui.ChildAdded:Connect(function(child)
+				playerGuiConnection = playergui.ChildAdded:Connect(function(child)
 					if child:IsA("ScreenGui") and child.Enabled then
 						screenGuis[#screenGuis + 1] = child
 						child.Enabled = false
@@ -830,6 +842,11 @@ local PlayerState = {} do
 			end
 		end
 		if FFlagUserFixFreecamGuiChangeVisibility then
+			if playerGuiConnection then
+				playerGuiConnection:Disconnect()
+				playerGuiConnection = nil
+			end
+
 			screenGuis = {}
 		end
 

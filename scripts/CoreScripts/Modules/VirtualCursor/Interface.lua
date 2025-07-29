@@ -1,4 +1,7 @@
 --!nonstrict
+-- This package is DEPRECATED, per https://roblox.atlassian.net/browse/UIBLOX-2597
+-- Virtual Cursor has been moved to lua-apps/modules/app-common/virtual-cursor, this location's VC will be deleted after rollout of FFlagUseAppCommonVirtualCursorWithFixes
+
 -- module to contain methods related to managing ui and ui effects.
 local VirtualCursorFolder = script.Parent
 

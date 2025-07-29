@@ -81,7 +81,12 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K20 ["Collab8824_EnableManageCollaboratorsReactFoundation"]
+  LOADK R2 K20 ["Collab8818_ShowSearchItemDisplayName"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K21 ["Collab8824_EnableManageCollaboratorsReactFoundation"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

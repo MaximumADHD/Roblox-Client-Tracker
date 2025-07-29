@@ -27,6 +27,8 @@ local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableC
 local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 local Constants = require(TopBar.Constants)
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
@@ -72,8 +74,8 @@ ChatIcon.validateProps = t.strictInterface({
 	topBarEnabled = t.boolean,
 	chatEnabled = t.boolean,
 
-	setKeepOutArea = t.callback,
-	removeKeepOutArea = t.callback,
+	setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
+	removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 })
 
 function ChatIcon:init()
@@ -92,6 +94,10 @@ function ChatIcon:init()
 				AppStorageService:SetItem(TOOLTIP_LOCAL_STORAGE_KEY, "true")
 			end)
 		end
+	end
+
+	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 	end
 end
 
@@ -130,9 +136,17 @@ function ChatIcon:render()
 
 		local onAreaChanged = function(rbx)
 			if chatEnabled and rbx then
-				self.props.setKeepOutArea(Constants.ChatIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+				if FFlagTopBarSignalizeKeepOutAreas then 
+					self.keepOutAreasStore.setKeepOutArea(Constants.ChatIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+				else 
+					self.props.setKeepOutArea(Constants.ChatIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+				end
 			else
-				self.props.removeKeepOutArea(Constants.ChatIconKeepOutAreaId)
+				if FFlagTopBarSignalizeKeepOutAreas then
+					self.keepOutAreasStore.removeKeepOutArea(Constants.ChatIconKeepOutAreaId)
+				else
+					self.props.removeKeepOutArea(Constants.ChatIconKeepOutAreaId)
+				end
 			end
 		end
 
@@ -220,6 +234,9 @@ local function mapStateToProps(state)
 end
 
 local function mapDispatchToProps(dispatch)
+	if FFlagTopBarSignalizeKeepOutAreas then 
+		return {} 
+	end 
 	return {
 		setKeepOutArea = function(id, position, size)
 			return dispatch(SetKeepOutArea(id, position, size))
@@ -230,4 +247,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(ChatIcon)
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, if FFlagTopBarSignalizeKeepOutAreas then nil else mapDispatchToProps)(ChatIcon)

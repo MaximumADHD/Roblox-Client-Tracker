@@ -24,6 +24,9 @@ local SetMoreMenuOpen = require(Actions.SetMoreMenuOpen)
 
 local TopBarAnalytics = require(TopBar.Analytics)
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+
 local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
 local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
@@ -96,8 +99,8 @@ MoreMenu.validateProps = t.strictInterface({
 	emotesOpen = t.boolean,
 
 	inputType = if FFlagRemoveTopBarInputTypeRodux then nil else t.string,
-	setKeepOutArea = t.callback,
-	removeKeepOutArea = t.callback,
+	setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
+	removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 })
 
 function MoreMenu:init()
@@ -134,6 +137,10 @@ function MoreMenu:init()
 		if self.analytics then
 			self.analytics:onMoreMenuActivated()
 		end
+	end
+
+	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 	end
 end
 
@@ -247,9 +254,17 @@ function MoreMenu:renderWithStyle(style)
 
 	local onAreaChanged = function(rbx)
 		if moreButtonVisible and rbx then
-			self.props.setKeepOutArea(Constants.MoreMenuKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+			if FFlagTopBarSignalizeKeepOutAreas then
+				self.keepOutAreasStore.setKeepOutArea(Constants.MoreMenuKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+			else
+				self.props.setKeepOutArea(Constants.MoreMenuKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+			end
 		else
-			self.props.removeKeepOutArea(Constants.MoreMenuKeepOutAreaId)
+			if FFlagTopBarSignalizeKeepOutAreas then
+				self.keepOutAreasStore.removeKeepOutArea(Constants.MoreMenuKeepOutAreaId)
+			else
+				self.props.removeKeepOutArea(Constants.MoreMenuKeepOutAreaId)
+			end
 		end
 	end
 
@@ -378,12 +393,16 @@ local function mapDispatchToProps(dispatch)
 		setMoreMenuOpen = function(open)
 			return dispatch(SetMoreMenuOpen(open))
 		end,
-		setKeepOutArea = function(id, position, size)
-			return dispatch(SetKeepOutArea(id, position, size))
-		end,
-		removeKeepOutArea = function(id)
-			return dispatch(RemoveKeepOutArea(id))
-		end,
+		setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas 
+			then nil 
+			else function(id, position, size)
+				return dispatch(SetKeepOutArea(id, position, size))
+			end,
+		removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas 
+			then nil 
+			else function(id)
+				return dispatch(RemoveKeepOutArea(id))
+			end,
 	}
 end
 

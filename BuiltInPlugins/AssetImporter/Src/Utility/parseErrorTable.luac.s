@@ -81,6 +81,25 @@ PROTO_1:
   MOVE R10 R5
   CALL R6 4 1
   MOVE R4 R6
+  GETUPVAL R5 3
+  CALL R5 0 1
+  JUMPIFNOT R5 [+19]
+  JUMPIFNOT R4 [+2]
+  MOVE R5 R4
+  JUMP [+2]
+  GETTABLEKS R5 R3 K20 ["simpleErrorMessage"]
+  MOVE R7 R5
+  LOADK R8 K30 ["
+"]
+  LOADK R11 K31 ["Upload"]
+  LOADK R12 K32 ["OperationId"]
+  DUPTABLE R13 K34 [{"operationId"}]
+  GETTABLEKS R14 R3 K33 ["operationId"]
+  SETTABLEKS R14 R13 K33 ["operationId"]
+  NAMECALL R9 R1 K7 ["getText"]
+  CALL R9 4 1
+  CONCAT R6 R7 R9
+  RETURN R6 1
   JUMPIFNOT R4 [+1]
   RETURN R4 1
   GETTABLEKS R5 R3 K20 ["simpleErrorMessage"]
@@ -105,10 +124,16 @@ MAIN:
   GETTABLEKS R5 R6 K12 ["Utility"]
   GETTABLEKS R4 R5 K13 ["GetLocalizedString"]
   CALL R3 1 1
-  DUPCLOSURE R4 K14 [PROTO_1]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Flags"]
+  GETTABLEKS R5 R6 K15 ["getEFCinOperationIdInErrorEF"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K16 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R2
-  SETGLOBAL R4 K15 ["parseErrorMessage"]
-  GETGLOBAL R4 K15 ["parseErrorMessage"]
-  RETURN R4 1
+  CAPTURE VAL R4
+  SETGLOBAL R5 K17 ["parseErrorMessage"]
+  GETGLOBAL R5 K17 ["parseErrorMessage"]
+  RETURN R5 1

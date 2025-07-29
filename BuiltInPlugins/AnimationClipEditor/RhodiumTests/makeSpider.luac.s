@@ -32,7 +32,7 @@ PROTO_0:
   SETTABLEKS R2 R3 K18 ["Part1"]
   SETTABLEKS R2 R3 K7 ["Parent"]
   GETIMPORT R4 K2 [Instance.new]
-  LOADK R5 K19 ["AnimationController"]
+  LOADK R5 K19 ["Humanoid"]
   MOVE R6 R0
   CALL R4 2 1
   LOADN R7 1

@@ -1,4 +1,7 @@
 --!nonstrict
+-- This package is DEPRECATED, per https://roblox.atlassian.net/browse/UIBLOX-2597
+-- Virtual Cursor has been moved to lua-apps/modules/app-common/virtual-cursor, this location's VC will be deleted after rollout of FFlagUseAppCommonVirtualCursorWithFixes
+
 local VirtualCursorFolder = script.Parent
 
 local ContextActionService = game:GetService("ContextActionService")
@@ -16,9 +19,11 @@ local properties = require(VirtualCursorFolder.Properties)
 local Interface = require(VirtualCursorFolder.Interface)
 local getFFlagPointAndClickCursor = require(VirtualCursorFolder.getFFlagPointAndClickCursor)
 local getFFlagInputEndedEventChange = require(VirtualCursorFolder.getFFlagInputEndedEventChange)
+local getFFlagInputDeferredLuaFix = require(VirtualCursorFolder.getFFlagInputDeferredLuaFix)
 
 local FFlagPointAndClickCursor = getFFlagPointAndClickCursor()
 local FFlagInputEndedEventChange = getFFlagInputEndedEventChange()
+local FFlagInputDeferredLuaFix = getFFlagInputDeferredLuaFix()
 
 local Input = {}
 
@@ -81,12 +86,23 @@ local function processPreviewEnabled(enabled: boolean)
         gamepadSelectionRect2DChangedConnection:Disconnect()
     end
 
-    if previewEnabled and GuiService.SelectedObject then
-        gamepadSelectionRect2DChangedConnection = GuiService.SelectedObject:GetPropertyChangedSignal("SelectionRect2D"):Connect(function()
-            if previewEnabled then
-                Interface:TweenCursorPosition(getRectCenter(GuiService.SelectedObject.SelectionRect2D))
-            end
-        end)
+    if FFlagInputDeferredLuaFix then
+        if previewEnabled and GuiService.SelectedObject then
+            local selectedObject = GuiService.SelectedObject
+            gamepadSelectionRect2DChangedConnection = selectedObject:GetPropertyChangedSignal("SelectionRect2D"):Connect(function()
+                if selectedObject and previewEnabled then
+                    Interface:TweenCursorPosition(getRectCenter(selectedObject.SelectionRect2D))
+                end
+            end)
+        end
+    else
+        if previewEnabled and GuiService.SelectedObject then
+            gamepadSelectionRect2DChangedConnection = GuiService.SelectedObject:GetPropertyChangedSignal("SelectionRect2D"):Connect(function()
+                if previewEnabled then
+                    Interface:TweenCursorPosition(getRectCenter(GuiService.SelectedObject.SelectionRect2D))
+                end
+            end)
+        end
     end
 
     if enabled then

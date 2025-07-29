@@ -32,6 +32,7 @@ local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperime
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
+local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
 
 -- Hold strong references near root of features so they can be cleaned
 -- up when no longer in use e.g. feature hidden. In this case chat is never explicitly unmounted
@@ -148,7 +149,7 @@ do
 	function moduleApiTable:FocusChatBar()
 		DispatchEvent("FocusChatBar")
 
-		if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
+		if FFlagChromeShortcutChatOpenKeyboard or TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 			ExperienceChat.Events.ChatTopBarFocusActivated()
 		end
 	end

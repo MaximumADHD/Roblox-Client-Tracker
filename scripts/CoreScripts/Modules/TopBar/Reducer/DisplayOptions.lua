@@ -20,8 +20,14 @@ local SetGamepadNavigationDialogOpen = require(Actions.SetGamepadNavigationDialo
 local FFlagRemoveTopBarInputTypeRodux = require(script.Parent.Parent.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
 local FFlagGamepadNavigationDialogABTest = require(script.Parent.Parent.Flags.FFlagGamepadNavigationDialogABTest)
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
+
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -39,7 +45,7 @@ local initialDisplayOptions = {
 }
 
 local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
-	[SetMenuOpen.name] = function(state, action)
+	[if FFlagTopBarSignalizeMenuOpen then "" else SetMenuOpen.name] = if FFlagTopBarSignalizeMenuOpen then nil else function(state, action)
 		--when the main menu opens, close the gamepad menu
 		local gamepadMenuOpen = state.isGamepadMenuOpen
 		if not state.menuOpen and action.menuOpen then
@@ -78,7 +84,7 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		end
 	else nil,
 
-	[SetInspectMenuOpen.name] = function(state, action)
+	[if FFlagTopBarSignalizeMenuOpen then "" else SetInspectMenuOpen.name] = if FFlagTopBarSignalizeMenuOpen then nil else function(state, action)
 		return Cryo.Dictionary.join(state, {
 			inspectMenuOpen = action.inspectMenuOpen,
 		})
@@ -99,7 +105,7 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		end
 		else nil,
 
-	[SetKeepOutArea.name] = function(state, action)
+	[if FFlagTopBarSignalizeKeepOutAreas then "" else SetKeepOutArea.name] = if FFlagTopBarSignalizeKeepOutAreas then nil else function(state, action)
 		local keepOutAreas = table.clone(state.keepOutAreas)
 		keepOutAreas[action.id] = {
 			size = action.size,
@@ -111,7 +117,7 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		})
 	end,
 
-	[RemoveKeepOutArea.name] = function(state, action)
+	[if FFlagTopBarSignalizeKeepOutAreas then "" else RemoveKeepOutArea.name] = if FFlagTopBarSignalizeKeepOutAreas then nil else function(state, action)
 		local keepOutAreas = table.clone(state.keepOutAreas)
 		keepOutAreas[action.id] = nil
 

@@ -16,7 +16,6 @@ local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 -- Modules
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
@@ -57,14 +56,11 @@ local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false
 local ToastRoot = nil
 local ToastGui = nil
 local Toast = nil
--- Loading the ToastNotification takes several seconds on Console, ensure this is wrapped in a task/coroutine
-if GetFFlagToastNotificationsGamepadSupport() then
 	task.spawn(function()
 		ToastRoot = CoreGui:WaitForChild("ToastNotification", 3)
 		ToastGui = if ToastRoot ~= nil then ToastRoot:WaitForChild("ToastNotificationWrapper", 3) else nil
 		Toast = if ToastGui ~= nil then ToastGui:FindFirstChild("Toast", true) :: any else nil
 	end)
-end
 
 -- Types
 export type ContextActionName = string

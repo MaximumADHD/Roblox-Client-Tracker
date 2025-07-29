@@ -40,7 +40,6 @@ local LEAVE_GAME_ACTION = "LeaveGameCancelAction"
 
 type Props = {
 	onDontLeave: (isUsingGamepad: boolean) -> (),
-	visible: boolean,
 	buttonSize: number,
 }
 
@@ -49,7 +48,6 @@ local function LeaveButtonsContainer(props: Props)
 	local leaveButtonRef = React.useRef(nil)
 	local useLastInputMode = useLastInputMode()
 	local focusGuiObject = useFocusGuiObject()
-	local pageVisible = props.visible
 
 	local localizedText = useLocalization({
 		[Constants.ConfirmLeaveGameLocalizedKey] = Constants.ConfirmLeaveGameLocalizedKey,
@@ -69,39 +67,30 @@ local function LeaveButtonsContainer(props: Props)
 	end, { props.onDontLeave })
 
 	React.useEffect(function()
-		if pageVisible then
-			if FFlagEnableChromeShortcutBar then
-				if ChromeEnabled and ChromeService and ChromeConstants then
-					if FFlagChromeShortcutRemoveRespawnOnLeavePage then
-						ChromeService:setShortcutBar(ChromeConstants.TILTMENU_LEAVE_DIALOG_SHORTCUTBAR_ID)
-					else
-						ChromeService:setShortcutBar(ChromeConstants.TILTMENU_DIALOG_SHORTCUTBAR_ID)
-					end
+		if FFlagEnableChromeShortcutBar then
+			if ChromeEnabled and ChromeService and ChromeConstants then
+				if FFlagChromeShortcutRemoveRespawnOnLeavePage then
+					ChromeService:setShortcutBar(ChromeConstants.TILTMENU_LEAVE_DIALOG_SHORTCUTBAR_ID)
+				else
+					ChromeService:setShortcutBar(ChromeConstants.TILTMENU_DIALOG_SHORTCUTBAR_ID)
 				end
-			else
-				ContextActionService:BindCoreAction(
-					LEAVE_GAME_ACTION,
-					dontLeaveContextAction,
-					false,
-					Enum.KeyCode.ButtonB
-				)
 			end
+		else
+			ContextActionService:BindCoreAction(LEAVE_GAME_ACTION, dontLeaveContextAction, false, Enum.KeyCode.ButtonB)
 		end
 
 		return function()
 			ContextActionService:UnbindCoreAction(LEAVE_GAME_ACTION)
 		end
-	end, { pageVisible, dontLeaveContextAction } :: { any })
+	end, { dontLeaveContextAction } :: { any })
 
 	React.useEffect(function()
-		if pageVisible then
-			if useLastInputMode == "Focus" then
-				focusGuiObject(leaveButtonRef.current)
-			else
-				focusGuiObject(nil)
-			end
+		if useLastInputMode == "Focus" then
+			focusGuiObject(leaveButtonRef.current)
+		else
+			focusGuiObject(nil)
 		end
-	end, { pageVisible, useLastInputMode, leaveButtonRef.current } :: { any })
+	end, { useLastInputMode, leaveButtonRef.current } :: { any })
 
 	local onLeaveGame = React.useCallback(function()
 		Telemetry.logNextUpSortView(NextUpState.getNextUpTilesLoaded())
