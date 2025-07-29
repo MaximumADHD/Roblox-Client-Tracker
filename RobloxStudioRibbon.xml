@@ -24,6 +24,7 @@
       <addaction name="fileSaveAction"/>
       <addaction name="fileSaveAsAction"/>
       <addaction name="savePlaceToRobloxAction"/>
+      <addaction fflag="EnablePlaceVersionHistory" name="savePlaceToRobloxWithNotesAction"/>
       <addaction name="savePlaceToRobloxAsAction"/>
       <addaction name="publishToRobloxAction"/>
       <addaction name="publishToRobloxAsAction"/>
@@ -99,11 +100,8 @@
       <Group name="Edit" text="Studio.Common.Action.Edit" options="true" modernIcon="MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" width="32" height="32">
         <groupoptionsmenu tooltip="Studio.App.RobloxRibbonMainWindow.ActionsAsTools" handleMenuTrigger="true">
           <addaction name="colorFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.ColorActionAsTool" modernIcon="ColorPicker" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesColorActionAsTool"/>
-          <addaction fflagList="MaterialActionAsTool,MaterialPickerBetaEnabled" name="materialFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool" modernIcon="Material" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool"/>
+          <addaction name="materialFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool" modernIcon="Material" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool"/>
         </groupoptionsmenu>
-        <addaction fflagList="!MaterialPickerBetaEnabled,EnableRibbonPlugin2" name="materialManagerAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="MaterialManager" style="textundericon" width="32" height="32" />
-        <addaction fflagList="!MaterialPickerBetaEnabled,!EnableRibbonPlugin2" name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="MaterialManager" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
-        <addaction fflag="EnableMaterialGenerator" fflagList="EnableMaterialGenerator,!MaterialPickerBetaEnabled" name="materialGeneratorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialGenerator" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Generator.png" modernIcon="MaterialGenerator" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialGeneratorToolTip" width="32" height="32" />
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" modernIcon="ColorPicker" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
         <DropdownButton fflag="MainRibbonDropdownButton" name="materialPickerAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.MaterialPicker" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip" width="32" height="32" />
         <addseparator visible="false"/>
@@ -186,7 +184,7 @@
       <Group name="Parts" text="Studio.App.RobloxRibbonMainWindow.Parts" options="true" modernIcon="Part_Block" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32">
         <groupoptionsmenu tooltip="Studio.App.RobloxRibbonMainWindow.ActionsAsTools" handleMenuTrigger="true">
           <addaction name="colorFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.ColorActionAsTool" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesColorActionAsTool"/>
-          <addaction fflagList="MaterialActionAsTool,MaterialPickerBetaEnabled" name="materialFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool"/>
+          <addaction name="materialFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool"/>
         </groupoptionsmenu>
         <MenuPopupButton handleMenuTrigger="true" name="placePartAction"  value="PartLargeAction" style="textundericon" popupStyle="menubutton" text="Studio.App.RobloxRibbonMainWindow.Part" tooltip="Studio.App.RobloxRibbonMainWindow.PlacePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" modernIcon="Part_Block" width="32" height="32">
           <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
@@ -197,8 +195,6 @@
             <addaction name="CylinderLargeAction" text="Studio.App.Shapes.Cylinder" value="Cylinder" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCylinderPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" modernIcon="Part_Cylinder" width="32" height="32" />
           </ActionGroup>
         </MenuPopupButton>
-        <addaction fflagList="!MaterialPickerBetaEnabled,EnableRibbonPlugin2" name="materialManagerAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" style="textundericon" width="32" height="32" />
-        <addaction fflagList="!MaterialPickerBetaEnabled,!EnableRibbonPlugin2" name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" modernIcon="ColorPicker" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32" />
         <DropdownButton fflag="MainRibbonDropdownButton" name="materialPickerAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.MaterialPicker" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip" width="32" height="32" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool" style="textundericon" width="32" height="32" />

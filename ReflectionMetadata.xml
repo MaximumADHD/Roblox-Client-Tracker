@@ -4250,8 +4250,9 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">Active</string>
+            <string name="Name">IsActive</string>
             <string name="PropertyOrder">4</string>
+            <bool name="EditingDisabled">true</bool>
           </Properties>
         </Item>
       </Item>

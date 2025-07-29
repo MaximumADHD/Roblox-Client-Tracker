@@ -1,12 +1,12 @@
 Key,Context,Source,en-us
-Studio.App.TeamCreate.AnnotationCalloutDescription,Description of the new comments/annotations feature.,"Click the Add Comment button or press C, then click anywhere in the 3D workspace to leave a comment for your collaborators.","Click the Add Comment button or press C, then click anywhere in the 3D workspace to leave a comment for your collaborators."
+Studio.App.TeamCreate.AnnotationCalloutDescription,Description of the new comments/annotations feature.,"Click the Add Comment button or press C, then click anywhere in the 3D workspace to leave a comment.","Click the Add Comment button or press C, then click anywhere in the 3D workspace to leave a comment."
 Studio.App.TeamCreate.AnnotationsCalloutTitle,Title of the callout introducing the 'Comments' feature.,Introducing Comments!,Introducing Comments!
 Studio.App.TeamCreate.ConfirmDisable,,Are you sure you want to turn Team Create off?,Are you sure you want to turn Team Create off?
 Studio.App.TeamCreate.ConfirmLossyDisable,,"Turning off team create may result in loss of work.
 Are you sure ?","Turning off team create may result in loss of work.
 Are you sure ?"
 Studio.App.TeamCreate.ConnectionResult1,,Connection Result: %1,Connection Result: %1
-Studio.App.TeamCreate.EditYourPlaceWithConnections,migration of friends to connections. for team create widget to turn on team create,"Edit your place with connections, see the updates instantly.","Edit your place with connections, see the updates instantly."
+Studio.App.TeamCreate.EditYourPlaceWithConnections,migration of friends to connections. for team create widget to turn on team create,"Edit your place with Connections, see the updates instantly.","Edit your place with Connections, see the updates instantly."
 Studio.App.TeamCreate.EditYourPlaceWithFriends,,"Edit your place with friends, see the updates instantly.","Edit your place with friends, see the updates instantly."
 Studio.App.TeamCreate.EnableTeamCreateEditPlaceTogether,,"Enable Team Create: edit your place together, see updates instantly.","Enable Team Create: edit your place together, see updates instantly."
 Studio.App.TeamCreate.FailedToCreatePlace,,Failed to create new place,Failed to create new place
@@ -24,11 +24,11 @@ Studio.App.TeamCreate.MultipleUsers,,Multiple Users,Multiple Users
 Studio.App.TeamCreate.PermissionsMovedMessage1,,"We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>","We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>"
 Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,Request Status Code: %1,Request Status Code: %1
 Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogether,,Publish and enable Team Create to build this place together with your friends.,Publish and enable Team Create to build this place together with your friends.
-Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogetherConnection,migration of friends to connections. Publish place to be able to use team create message,Publish and enable Team Create to build this place together with your connections.,Publish and enable Team Create to build this place together with your connections.
+Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogetherConnection,migration of friends to connections. Publish place to be able to use team create message,Publish and enable Team Create to build this place together with your Connections.,Publish and enable Team Create to build this place together with your Connections.
 Studio.App.TeamCreate.PublishingCurrentPlace,,Publishing current place...,Publishing current place...
 Studio.App.TeamCreate.RemovingThisUserWillPrevent,,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?
 Studio.App.TeamCreate.SaveAndEnableteamCreateToBuildTogether,,Save and enable Team Create to build this place together with your friends.,Save and enable Team Create to build this place together with your friends.
-Studio.App.TeamCreate.SaveAndEnableteamCreateToBuildTogetherConnection,Save place to enable Team Create message. Part of Friend to Connection migration,Save and enable Team Create to build this place together with your connections.,Save and enable Team Create to build this place together with your connections.
+Studio.App.TeamCreate.SaveAndEnableteamCreateToBuildTogetherConnection,Save place to enable Team Create message. Part of Friend to Connection migration,Save and enable Team Create to build this place together with your Connections.,Save and enable Team Create to build this place together with your Connections.
 Studio.App.TeamCreate.SaveFailedConfirmation,,"Save failed. Turning off team create may result in loss of work.
 Are you sure?","Save failed. Turning off team create may result in loss of work.
 Are you sure?"

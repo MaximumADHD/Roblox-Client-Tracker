@@ -15207,14 +15207,41 @@
   "@roblox/globaltype/RecommendationService": {
     "documentation": "",
     "keys": {
+      "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
-      "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
       "RemoveItemAsync": "@roblox/globaltype/RecommendationService.RemoveItemAsync",
       "UpdateItemAsync": "@roblox/globaltype/RecommendationService.UpdateItemAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.GenerateItemListAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0"
+      },
+      {
+        "name": "generateRecommendationItemListRequest",
+        "documentation": "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GenerateItemListAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
@@ -15303,37 +15330,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogImpressionEvent",
     "code_sample": ""
   },
-  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.GenerateItemListAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0"
-      },
-      {
-        "name": "generateRecommendationItemListRequest",
-        "documentation": "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GenerateItemListAsync",
-    "code_sample": ""
-  },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
     "documentation": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
@@ -15347,8 +15350,12 @@
         "documentation": "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0"
       },
       {
-        "name": "registerRecommendationItemsRequest",
+        "name": "player",
         "documentation": "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1"
+      },
+      {
+        "name": "registerRecommendationItemsRequest",
+        "documentation": "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2"
       }
     ],
     "returns": [
@@ -18482,7 +18489,7 @@
   "@roblox/globaltype/Humanoid.NameOcclusion": {
     "documentation": "控制是否可以在牆壁或其他物體後面看到機器人的名稱和生命條。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#NameOcclusion",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\thumanoid.NameOcclusion = Enum.NameOcclusion.OccludeAll\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\thumanoid.NamOcclusion = Enum.NameOcclusion.OccludeAll\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Humanoid.PlatformStand": {
     "documentation": "決定是否 <code>Humanoid</code> 目前在 <code>HumanoidStateType.PlatformStanding</code> 狀態。",
@@ -43935,7 +43942,7 @@
   "@roblox/globaltype/Player.DevTouchMovementMode": {
     "documentation": "當使用觸摸裝置時，決定玩家的角色移動模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\ngame.Players.PlayerAdded:Connect(function(player)\n\t-- Set the player's movement mode on mobile devices to a dynamic thumbstick\n\tplayer.DevTouchMovementMode = Enum.DevTouchMovementMode.DynamicThumbstick\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.DisplayName": {
     "documentation": "與玩家相關的使用者ID的顯示名稱。",
@@ -55975,7 +55982,7 @@
   "@roblox/globaltype/StarterPlayer.DevTouchMovementMode": {
     "documentation": "如果玩家使用觸摸設裝置，讓開發者覆蓋玩家的移動模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchMovementMode",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\ngame.Players.PlayerAdded:Connect(function(player)\n\t-- Set the player's movement mode on mobile devices to a dynamic thumbstick\n\tplayer.DevTouchMovementMode = Enum.DevTouchMovementMode.DynamicThumbstick\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
     "documentation": "",
@@ -74797,14 +74804,6 @@
   "@roblox/globaltype/MarketplaceService": {
     "documentation": "The service responsible for in-experience transactions.",
     "keys": {
-      "PromptBulkPurchase": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase",
-      "PromptBundlePurchase": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase",
-      "PromptCancelSubscription": "@roblox/globaltype/MarketplaceService.PromptCancelSubscription",
-      "PromptGamePassPurchase": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase",
-      "PromptPremiumPurchase": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase",
-      "PromptProductPurchase": "@roblox/globaltype/MarketplaceService.PromptProductPurchase",
-      "PromptPurchase": "@roblox/globaltype/MarketplaceService.PromptPurchase",
-      "PromptSubscriptionPurchase": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase",
       "GetDeveloperProductsAsync": "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync",
       "GetProductInfo": "@roblox/globaltype/MarketplaceService.GetProductInfo",
       "GetSubscriptionProductInfoAsync": "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync",
@@ -74814,270 +74813,18 @@
       "GetUsersPriceLevelsAsync": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
+      "PromptBulkPurchase": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase",
+      "PromptBundlePurchase": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase",
+      "PromptCancelSubscription": "@roblox/globaltype/MarketplaceService.PromptCancelSubscription",
+      "PromptGamePassPurchase": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase",
+      "PromptPremiumPurchase": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase",
+      "PromptProductPurchase": "@roblox/globaltype/MarketplaceService.PromptProductPurchase",
+      "PromptPurchase": "@roblox/globaltype/MarketplaceService.PromptPurchase",
+      "PromptSubscriptionPurchase": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase",
       "UserOwnsGamePassAsync": "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync",
       "ProcessReceipt": "@roblox/globaltype/MarketplaceService.ProcessReceipt"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
-    "documentation": "The service responsible for in-experience transactions."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "The user to prompt to purchase items."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "An array of avatar items to be included in the bulk purchase. Each line item contains the following structure: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> Each line item contains the following pairs: <ul> <li><code>Type</code>: The corresponding <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: The ID of the asset or bundle.</li> </ul>"
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
-    "documentation": "Not available at this time."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "Prompts a user to purchase multiple avatar items with the given <code>assetId</code> or <code>bundleId</code>.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0"
-      },
-      {
-        "name": "player",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1"
-      },
-      {
-        "name": "lineItems",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2"
-      },
-      {
-        "name": "options",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptBulkPurchase",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/0": {
-    "documentation": "The service responsible for in-experience transactions."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "Prompts a user to purchase a bundle with the given <code>bundleId</code>.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/0"
-      },
-      {
-        "name": "player",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/1"
-      },
-      {
-        "name": "bundleId",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptBundlePurchase",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/0": {
-    "documentation": "The service responsible for in-experience transactions."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "Prompts a user to cancel a subscription for the given <code>subscriptionId</code>.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/0"
-      },
-      {
-        "name": "user",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/1"
-      },
-      {
-        "name": "subscriptionId",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptCancelSubscription",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/0": {
-    "documentation": "The service responsible for in-experience transactions."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "Prompts a user to purchase a pass with the given <code>gamePassId</code>.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/0"
-      },
-      {
-        "name": "player",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/1"
-      },
-      {
-        "name": "gamePassId",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptGamePassPurchase",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/0": {
-    "documentation": "The service responsible for in-experience transactions."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "The user being prompted to purchase Premium."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "Prompts a user to purchase Roblox Premium.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/0"
-      },
-      {
-        "name": "player",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptPremiumPurchase",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/0": {
-    "documentation": "The service responsible for in-experience transactions."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/4": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "Prompts a user to purchase a developer product with the given <code>productId</code>.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/0"
-      },
-      {
-        "name": "player",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/1"
-      },
-      {
-        "name": "productId",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/2"
-      },
-      {
-        "name": "equipIfPurchased",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/3"
-      },
-      {
-        "name": "currencyType",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/4"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptProductPurchase",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal productId = 0000000 -- Change this to your developer product ID\n\n-- Function to prompt purchase of the developer product\nlocal function promptPurchase()\n\tMarketplaceService:PromptProductPurchase(player, productId)\nend\n\npromptPurchase()"
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/0": {
-    "documentation": "The service responsible for in-experience transactions."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4": {
-    "documentation": "Ignored."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "Prompts a user to purchase an item with the given <code>assetId</code>. Does not work for USD Creator Store purchases.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/0"
-      },
-      {
-        "name": "player",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/1"
-      },
-      {
-        "name": "assetId",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/2"
-      },
-      {
-        "name": "equipIfPurchased",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/3"
-      },
-      {
-        "name": "currencyType",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptPurchase",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/0": {
-    "documentation": "The service responsible for in-experience transactions."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "The <code>Player</code> object to be prompted to subscribe."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "The ID of the subscription to subscribe to."
-  },
-  "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "Prompts a user to purchase a subscription for the given <code>subscriptionId</code>.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/0"
-      },
-      {
-        "name": "user",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1"
-      },
-      {
-        "name": "subscriptionId",
-        "documentation": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptSubscriptionPurchase",
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync/param/0": {
@@ -75357,6 +75104,266 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- The bundle we're checking for: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundle call failed: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" owns \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" doesn't own \" .. BUNDLE_NAME)\n\tend\nend)"
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
+    "documentation": "The user to prompt to purchase items."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
+    "documentation": "An array of avatar items to be included in the bulk purchase. Each line item contains the following structure: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> Each line item contains the following pairs: <ul> <li><code>Type</code>: The corresponding <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: The ID of the asset or bundle.</li> </ul>"
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
+    "documentation": "Not available at this time."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
+    "documentation": "Prompts a user to purchase multiple avatar items with the given <code>assetId</code> or <code>bundleId</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1"
+      },
+      {
+        "name": "lineItems",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptBulkPurchase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
+    "documentation": "Prompts a user to purchase a bundle with the given <code>bundleId</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/1"
+      },
+      {
+        "name": "bundleId",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptBundlePurchase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
+    "documentation": "Prompts a user to cancel a subscription for the given <code>subscriptionId</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/0"
+      },
+      {
+        "name": "user",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/1"
+      },
+      {
+        "name": "subscriptionId",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptCancelSubscription",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
+    "documentation": "Prompts a user to purchase a pass with the given <code>gamePassId</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/1"
+      },
+      {
+        "name": "gamePassId",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptGamePassPurchase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
+    "documentation": "The user being prompted to purchase Premium."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
+    "documentation": "Prompts a user to purchase Roblox Premium.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptPremiumPurchase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/4": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
+    "documentation": "Prompts a user to purchase a developer product with the given <code>productId</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/1"
+      },
+      {
+        "name": "productId",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/2"
+      },
+      {
+        "name": "equipIfPurchased",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/3"
+      },
+      {
+        "name": "currencyType",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/4"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptProductPurchase",
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal productId = 0000000 -- Change this to your developer product ID\n\n-- Function to prompt purchase of the developer product\nlocal function promptPurchase()\n\tMarketplaceService:PromptProductPurchase(player, productId)\nend\n\npromptPurchase()"
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4": {
+    "documentation": "Ignored."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptPurchase": {
+    "documentation": "Prompts a user to purchase an item with the given <code>assetId</code>. Does not work for USD Creator Store purchases.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/1"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/2"
+      },
+      {
+        "name": "equipIfPurchased",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/3"
+      },
+      {
+        "name": "currencyType",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptPurchase",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
+    "documentation": "The <code>Player</code> object to be prompted to subscribe."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
+    "documentation": "The ID of the subscription to subscribe to."
+  },
+  "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
+    "documentation": "Prompts a user to purchase a subscription for the given <code>subscriptionId</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/0"
+      },
+      {
+        "name": "user",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1"
+      },
+      {
+        "name": "subscriptionId",
+        "documentation": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PromptSubscriptionPurchase",
+    "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/0": {
     "documentation": "The service responsible for in-experience transactions."
@@ -85301,17 +85308,17 @@
       "CustomizedTeleportUI": "@roblox/globaltype/TeleportService.CustomizedTeleportUI",
       "GetArrivingTeleportGui": "@roblox/globaltype/TeleportService.GetArrivingTeleportGui",
       "GetLocalPlayerTeleportData": "@roblox/globaltype/TeleportService.GetLocalPlayerTeleportData",
+      "GetPlayerPlaceInstanceAsync": "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync",
       "GetTeleportSetting": "@roblox/globaltype/TeleportService.GetTeleportSetting",
+      "ReserveServer": "@roblox/globaltype/TeleportService.ReserveServer",
       "SetTeleportGui": "@roblox/globaltype/TeleportService.SetTeleportGui",
       "SetTeleportSetting": "@roblox/globaltype/TeleportService.SetTeleportSetting",
       "Teleport": "@roblox/globaltype/TeleportService.Teleport",
+      "TeleportAsync": "@roblox/globaltype/TeleportService.TeleportAsync",
+      "TeleportPartyAsync": "@roblox/globaltype/TeleportService.TeleportPartyAsync",
       "TeleportToPlaceInstance": "@roblox/globaltype/TeleportService.TeleportToPlaceInstance",
       "TeleportToPrivateServer": "@roblox/globaltype/TeleportService.TeleportToPrivateServer",
-      "TeleportToSpawnByName": "@roblox/globaltype/TeleportService.TeleportToSpawnByName",
-      "GetPlayerPlaceInstanceAsync": "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync",
-      "ReserveServer": "@roblox/globaltype/TeleportService.ReserveServer",
-      "TeleportAsync": "@roblox/globaltype/TeleportService.TeleportAsync",
-      "TeleportPartyAsync": "@roblox/globaltype/TeleportService.TeleportPartyAsync"
+      "TeleportToSpawnByName": "@roblox/globaltype/TeleportService.TeleportToSpawnByName"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService",
     "code_sample": ""
@@ -85361,6 +85368,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#GetLocalPlayerTeleportData",
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\n\nlocal teleportData = TeleportService:GetLocalPlayerTeleportData()\n\nprint(\"Local player arrived with this data:\", teleportData)"
   },
+  "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/0": {
+    "documentation": "Enables transporting <code>Players</code> between places and servers."
+  },
+  "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/1": {
+    "documentation": "The <code>Player.UserId</code> of the <code>Player</code>."
+  },
+  "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/return/0": {
+    "documentation": "See the table above."
+  },
+  "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync": {
+    "documentation": "Returns the <code>PlaceId</code> and <code>JobId</code> of the server the user with the given <code>UserId</code> is in provided it is in the same game as the current place.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#GetPlayerPlaceInstanceAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TeleportService.GetTeleportSetting/param/0": {
     "documentation": "Enables transporting <code>Players</code> between places and servers."
   },
@@ -85386,6 +85420,33 @@
       "@roblox/globaltype/TeleportService.GetTeleportSetting/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#GetTeleportSetting",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TeleportService.ReserveServer/param/0": {
+    "documentation": "Enables transporting <code>Players</code> between places and servers."
+  },
+  "@roblox/globaltype/TeleportService.ReserveServer/param/1": {
+    "documentation": "The <code>DataModel.PlaceId</code> of the place the reserved server is being created for."
+  },
+  "@roblox/globaltype/TeleportService.ReserveServer/return/0": {
+    "documentation": "The server access code required by <code>TeleportService:TeleportToPrivateServer()</code> and the <code>DataModel.PrivateServerId</code> for the reserved server."
+  },
+  "@roblox/globaltype/TeleportService.ReserveServer": {
+    "documentation": "Returns an access code that can be used to teleport players to a reserved server, along with the <code>DataModel.PrivateServerId</code> for it.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TeleportService.ReserveServer/param/0"
+      },
+      {
+        "name": "placeId",
+        "documentation": "@roblox/globaltype/TeleportService.ReserveServer/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TeleportService.ReserveServer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#ReserveServer",
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.SetTeleportGui/param/0": {
@@ -85481,6 +85542,95 @@
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#Teleport",
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\nlocal Players = game:GetService(\"Players\")\n\nlocal playerGui = Players.LocalPlayer:WaitForChild(\"PlayerGui\")\n\nlocal PLACE_ID = 0 -- 在此處取代\nlocal loadingGui = ReplicatedStorage:FindFirstChild(\"LoadingGui\")\n\n-- 為此位置載入 gui 的父\nloadingGui.Parent = playerGui\n\n-- 設置目的地的載入gui\nTeleportService:SetTeleportGui(loadingGui)\n\nTeleportService:Teleport(PLACE_ID)"
+  },
+  "@roblox/globaltype/TeleportService.TeleportAsync/param/0": {
+    "documentation": "Enables transporting <code>Players</code> between places and servers."
+  },
+  "@roblox/globaltype/TeleportService.TeleportAsync/param/1": {
+    "documentation": "The place ID the player(s) should be teleported to."
+  },
+  "@roblox/globaltype/TeleportService.TeleportAsync/param/2": {
+    "documentation": "An array of the player(s) to teleport."
+  },
+  "@roblox/globaltype/TeleportService.TeleportAsync/param/3": {
+    "documentation": "An optional <code>TeleportOptions</code> object containing additional arguments to the <code>TeleportService:TeleportAsync()</code> call. If this is not passed, no result will be returned."
+  },
+  "@roblox/globaltype/TeleportService.TeleportAsync/return/0": {
+    "documentation": "If a <code>TeleportOptions</code> parameter is passed, this will be a <code>TeleportAsyncResult</code> object that provides information about the final teleport destination."
+  },
+  "@roblox/globaltype/TeleportService.TeleportAsync": {
+    "documentation": "The all-encompassing method to teleport a player or group of players from one server to another.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportAsync/param/0"
+      },
+      {
+        "name": "placeId",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportAsync/param/1"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportAsync/param/2"
+      },
+      {
+        "name": "teleportOptions",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportAsync/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TeleportService.TeleportAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/0": {
+    "documentation": "Enables transporting <code>Players</code> between places and servers."
+  },
+  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/1": {
+    "documentation": "The ID of the place to teleport to."
+  },
+  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/2": {
+    "documentation": "An array containing the <code>Players</code> to teleport."
+  },
+  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/3": {
+    "documentation": "Optional data to be passed to the destination place. Can be retrieved using <code>TeleportService:GetLocalPlayerTeleportData()</code>."
+  },
+  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/4": {
+    "documentation": "Optional custom loading screen to be placed in the <code>CoreGui</code> at the destination place. Can be retrieved using <code>TeleportService:GetArrivingTeleportGui()</code>."
+  },
+  "@roblox/globaltype/TeleportService.TeleportPartyAsync/return/0": {
+    "documentation": "The <code>DataModel.JobId</code> of the server instance the <code>Players</code> were teleported to."
+  },
+  "@roblox/globaltype/TeleportService.TeleportPartyAsync": {
+    "documentation": "Teleports a group of <code>Players</code> to the same server of the place with the given <code>PlaceId</code>, returning the <code>JobId</code> of the server instance they were teleported to.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/0"
+      },
+      {
+        "name": "placeId",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/1"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/2"
+      },
+      {
+        "name": "teleportData",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/3"
+      },
+      {
+        "name": "customLoadingScreen",
+        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/4"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TeleportService.TeleportPartyAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportPartyAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal TeleportService = game:GetService(\"TeleportService\")\n\nlocal PLACE_ID = 0 -- replace\nlocal playerList = Players:GetPlayers()\n\nlocal success, result = pcall(function()\n\treturn TeleportService:TeleportPartyAsync(PLACE_ID, playerList)\nend)\n\nif success then\n\tlocal jobId = result\n\tprint(\"Players teleported to\", jobId)\nelse\n\twarn(result)\nend"
   },
   "@roblox/globaltype/TeleportService.TeleportToPlaceInstance/param/0": {
     "documentation": "Enables transporting <code>Players</code> between places and servers."
@@ -85645,149 +85795,6 @@
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportToSpawnByName",
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\n\nTeleportService:TeleportToSpawnByName(1818, \"TeleportSpawn\")"
-  },
-  "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
-  },
-  "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/1": {
-    "documentation": "The <code>Player.UserId</code> of the <code>Player</code>."
-  },
-  "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/return/0": {
-    "documentation": "See the table above."
-  },
-  "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync": {
-    "documentation": "Returns the <code>PlaceId</code> and <code>JobId</code> of the server the user with the given <code>UserId</code> is in provided it is in the same game as the current place.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/0"
-      },
-      {
-        "name": "userId",
-        "documentation": "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#GetPlayerPlaceInstanceAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TeleportService.ReserveServer/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
-  },
-  "@roblox/globaltype/TeleportService.ReserveServer/param/1": {
-    "documentation": "The <code>DataModel.PlaceId</code> of the place the reserved server is being created for."
-  },
-  "@roblox/globaltype/TeleportService.ReserveServer/return/0": {
-    "documentation": "The server access code required by <code>TeleportService:TeleportToPrivateServer()</code> and the <code>DataModel.PrivateServerId</code> for the reserved server."
-  },
-  "@roblox/globaltype/TeleportService.ReserveServer": {
-    "documentation": "Returns an access code that can be used to teleport players to a reserved server, along with the <code>DataModel.PrivateServerId</code> for it.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TeleportService.ReserveServer/param/0"
-      },
-      {
-        "name": "placeId",
-        "documentation": "@roblox/globaltype/TeleportService.ReserveServer/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TeleportService.ReserveServer/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#ReserveServer",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TeleportService.TeleportAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
-  },
-  "@roblox/globaltype/TeleportService.TeleportAsync/param/1": {
-    "documentation": "The place ID the player(s) should be teleported to."
-  },
-  "@roblox/globaltype/TeleportService.TeleportAsync/param/2": {
-    "documentation": "An array of the player(s) to teleport."
-  },
-  "@roblox/globaltype/TeleportService.TeleportAsync/param/3": {
-    "documentation": "An optional <code>TeleportOptions</code> object containing additional arguments to the <code>TeleportService:TeleportAsync()</code> call. If this is not passed, no result will be returned."
-  },
-  "@roblox/globaltype/TeleportService.TeleportAsync/return/0": {
-    "documentation": "If a <code>TeleportOptions</code> parameter is passed, this will be a <code>TeleportAsyncResult</code> object that provides information about the final teleport destination."
-  },
-  "@roblox/globaltype/TeleportService.TeleportAsync": {
-    "documentation": "The all-encompassing method to teleport a player or group of players from one server to another.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportAsync/param/0"
-      },
-      {
-        "name": "placeId",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportAsync/param/1"
-      },
-      {
-        "name": "players",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportAsync/param/2"
-      },
-      {
-        "name": "teleportOptions",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportAsync/param/3"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TeleportService.TeleportAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
-  },
-  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/1": {
-    "documentation": "The ID of the place to teleport to."
-  },
-  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/2": {
-    "documentation": "An array containing the <code>Players</code> to teleport."
-  },
-  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/3": {
-    "documentation": "Optional data to be passed to the destination place. Can be retrieved using <code>TeleportService:GetLocalPlayerTeleportData()</code>."
-  },
-  "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/4": {
-    "documentation": "Optional custom loading screen to be placed in the <code>CoreGui</code> at the destination place. Can be retrieved using <code>TeleportService:GetArrivingTeleportGui()</code>."
-  },
-  "@roblox/globaltype/TeleportService.TeleportPartyAsync/return/0": {
-    "documentation": "The <code>DataModel.JobId</code> of the server instance the <code>Players</code> were teleported to."
-  },
-  "@roblox/globaltype/TeleportService.TeleportPartyAsync": {
-    "documentation": "Teleports a group of <code>Players</code> to the same server of the place with the given <code>PlaceId</code>, returning the <code>JobId</code> of the server instance they were teleported to.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/0"
-      },
-      {
-        "name": "placeId",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/1"
-      },
-      {
-        "name": "players",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/2"
-      },
-      {
-        "name": "teleportData",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/3"
-      },
-      {
-        "name": "customLoadingScreen",
-        "documentation": "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/4"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TeleportService.TeleportPartyAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportPartyAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal TeleportService = game:GetService(\"TeleportService\")\n\nlocal PLACE_ID = 0 -- replace\nlocal playerList = Players:GetPlayers()\n\nlocal success, result = pcall(function()\n\treturn TeleportService:TeleportPartyAsync(PLACE_ID, playerList)\nend)\n\nif success then\n\tlocal jobId = result\n\tprint(\"Players teleported to\", jobId)\nelse\n\twarn(result)\nend"
   },
   "@roblox/globaltype/TeleportService.LocalPlayerArrivedFromTeleport.Connect/param/0": {
     "documentation": "一個對特定發生事件運行連接功能的對象。"
@@ -110531,46 +110538,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionType",
     "code_sample": ""
   },
-  "@roblox/enum/PromptLinkSharingResult.Success": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#Success",
-    "code_sample": ""
-  },
-  "@roblox/enum/PromptLinkSharingResult.PlayerLeft": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#PlayerLeft",
-    "code_sample": ""
-  },
-  "@roblox/enum/PromptLinkSharingResult.InvalidLaunchData": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult#InvalidLaunchData",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.PromptLinkSharingResult": {
-    "documentation": "",
-    "keys": {
-      "Success": "@roblox/enum/PromptLinkSharingResult.Success",
-      "PlayerLeft": "@roblox/enum/PromptLinkSharingResult.PlayerLeft",
-      "InvalidLaunchData": "@roblox/enum/PromptLinkSharingResult.InvalidLaunchData"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptLinkSharingResult",
-    "code_sample": ""
-  },
   "@roblox/enum/PathfindingUseImprovedSearch.Default": {
     "documentation": "",
     "keys": {
@@ -129741,46 +129708,6 @@
       "Error": "@roblox/enum/FacialAgeEstimationResultType.Error"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FacialAgeEstimationResultType",
-    "code_sample": ""
-  },
-  "@roblox/enum/PredictionMode.Auto": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#Auto",
-    "code_sample": ""
-  },
-  "@roblox/enum/PredictionMode.None": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#None",
-    "code_sample": ""
-  },
-  "@roblox/enum/PredictionMode.Forced": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#Forced",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.PredictionMode": {
-    "documentation": "",
-    "keys": {
-      "Auto": "@roblox/enum/PredictionMode.Auto",
-      "None": "@roblox/enum/PredictionMode.None",
-      "Forced": "@roblox/enum/PredictionMode.Forced"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode",
     "code_sample": ""
   },
   "@roblox/enum/ContextActionResult.Sink": {

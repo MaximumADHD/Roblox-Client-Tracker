@@ -6,10 +6,15 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Function Object:isA(className: string) -> boolean [Deprecated] [CustomLuaState]
 	Event Object.Changed(property: string)
 Class Capture : Object [NotCreatable] [NotReplicated]
+	Property Capture.CaptureTime: DateTime {🔐InternalTest} [ReadOnly]
+	Property Capture.CaptureType: Enum.CaptureType {🔐InternalTest} [ReadOnly]
+	Property Capture.LocalId: string {🔐InternalTest} [ReadOnly]
+	Property Capture.SourcePlaceId: number {🔐InternalTest} [ReadOnly]
+	Property Capture.SourceUniverseId: number {🔐InternalTest} [ReadOnly]
 Class ScreenshotCapture : Capture [NotCreatable] [NotReplicated]
 Class VideoCapture : Capture [NotCreatable] [NotReplicated]
 	Property VideoCapture.FilePath: string {RobloxScriptSecurity} [ReadOnly]
-	Property VideoCapture.TimeLength: number {RobloxScriptSecurity} [ReadOnly]
+	Property VideoCapture.TimeLength: number {🔐InternalTest} [ReadOnly]
 Class ConfigSnapshot : Object [NotCreatable] [NotReplicated]
 	Property ConfigSnapshot.Error: Enum.ConfigSnapshotErrorState [ReadOnly]
 	Property ConfigSnapshot.Outdated: boolean [ReadOnly]
@@ -500,7 +505,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreateMeshPartAsync(meshContent: Content, options: { [string]: any }? = nil) -> MeshPart [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
-	Function AssetService:CreateSurfaceAppearance(content: { [string]: any }) -> SurfaceAppearance
+	Function AssetService:CreateSurfaceAppearanceAsync(content: { [string]: any }) -> SurfaceAppearance [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
 	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } [Yields]
 	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } [Yields]
@@ -1001,7 +1006,7 @@ Class AvatarCollisionRules : Instance
 	Property AvatarCollisionRules.LegacyCollisionMode: Enum.AvatarSettingsLegacyCollisionMode {RobloxScriptSecurity}
 	Property AvatarCollisionRules.SingleColliderSize: Vector3 {RobloxScriptSecurity}
 Class AvatarCreationService : Instance [NotCreatable] [Service]
-	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, model: Model) -> string [Yields]
+	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, model: Model, progressCallback: ((...any) -> ...any)?) -> string [Yields]
 	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {RobloxScriptSecurity}
 	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }) -> string [Yields]
@@ -1425,13 +1430,16 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:IsCapturingVideo() -> boolean {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
+	Function CaptureService:OnCapturePermissionsPromptFinished(promptId: number, wasAccepted: boolean) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity} [CustomLuaState]
 	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnVideoCaptureShared(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
 	Function CaptureService:PreVideoCaptureShared(videoCapture: VideoCapture) -> string {RobloxScriptSecurity}
+	Function CaptureService:PromptCaptureGalleryPermission(captureGalleryPermission: Enum.CaptureGalleryPermission, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
+	Function CaptureService:ReadCapturesFromGalleryAsync(captureTypeFilters: { any }? = {}) -> ...any [Yields]
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
 	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
@@ -1442,12 +1450,14 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:StopVideoCapture() -> ()
 	Function CaptureService:StopVideoCaptureInternal() -> () {RobloxScriptSecurity}
 	Function CaptureService:TakeCapture(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> ()
+	Function CaptureService:UploadCaptureAsync(capture: Capture) -> ...any [Yields]
 	Event CaptureService.CaptureBegan(captureType: Enum.CaptureType)
 	Event CaptureService.CaptureEnded(captureType: Enum.CaptureType)
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) [Deprecated]
 	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {RobloxScriptSecurity}
 	Event CaptureService.OnCaptureAndMetadataSignatureResult(content: string, captureSignature: string, captureSignatureVersion: number, metadataSignature: string, metadataSignatureVersion: number) {RobloxSecurity} [Hidden]
 	Event CaptureService.OnCaptureSignatureResult(content: string, signature: string, signatureVersion: number) {RobloxSecurity} [Hidden]
+	Event CaptureService.OpenCapturePermissionsPrompt(promptId: number, captureGalleryPermission: Enum.CaptureGalleryPermission) {RobloxScriptSecurity}
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, captures: { any }) {RobloxScriptSecurity}
 	Event CaptureService.OpenShareCapturePrompt(promptId: number, captureContent: any, launchData: string) {RobloxScriptSecurity}
 	Event CaptureService.RequestCaptureAndMetadataSignature(content: string, audioAssetIds: string) {RobloxSecurity} [Hidden]
@@ -2205,23 +2215,23 @@ Class Dragger : Instance
 	Function Dragger:MouseMove(mouseRay: Ray) -> ()
 	Function Dragger:MouseUp() -> ()
 Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property DraggerService.AlignDraggedObjects: boolean [ReadOnly]
-	Property DraggerService.AngleSnapEnabled: boolean [ReadOnly]
-	Property DraggerService.AngleSnapIncrement: number [ReadOnly]
-	Property DraggerService.AnimateHover: boolean [ReadOnly]
-	Property DraggerService.CollisionsEnabled: boolean [ReadOnly]
-	Property DraggerService.DraggerCoordinateSpace: Enum.DraggerCoordinateSpace [ReadOnly]
-	Property DraggerService.DraggerMovementMode: Enum.DraggerMovementMode [ReadOnly]
-	Property DraggerService.GeometrySnapColor: Color3 [ReadOnly]
-	Property DraggerService.HoverAnimateFrequency: number [ReadOnly]
-	Property DraggerService.HoverLineThickness: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property DraggerService.HoverThickness: number [ReadOnly]
-	Property DraggerService.JointsEnabled: boolean [ReadOnly]
-	Property DraggerService.LinearSnapEnabled: boolean [ReadOnly]
-	Property DraggerService.LinearSnapIncrement: number [ReadOnly]
-	Property DraggerService.PartSnapEnabled: boolean {RobloxScriptSecurity} [ReadOnly]
-	Property DraggerService.PivotSnapToGeometry: boolean {RobloxScriptSecurity} [ReadOnly]
-	Property DraggerService.ShowHover: boolean [ReadOnly]
+	Property DraggerService.AlignDraggedObjects: boolean [NotReplicated]
+	Property DraggerService.AngleSnapEnabled: boolean [NotReplicated]
+	Property DraggerService.AngleSnapIncrement: number [NotReplicated]
+	Property DraggerService.AnimateHover: boolean [NotReplicated]
+	Property DraggerService.CollisionsEnabled: boolean [NotReplicated]
+	Property DraggerService.DraggerCoordinateSpace: Enum.DraggerCoordinateSpace [NotReplicated]
+	Property DraggerService.DraggerMovementMode: Enum.DraggerMovementMode [NotReplicated]
+	Property DraggerService.GeometrySnapColor: Color3 [NotReplicated]
+	Property DraggerService.HoverAnimateFrequency: number [NotReplicated]
+	Property DraggerService.HoverLineThickness: number {RobloxScriptSecurity} [Hidden]
+	Property DraggerService.HoverThickness: number [NotReplicated]
+	Property DraggerService.JointsEnabled: boolean [NotReplicated]
+	Property DraggerService.LinearSnapEnabled: boolean [NotReplicated]
+	Property DraggerService.LinearSnapIncrement: number [NotReplicated]
+	Property DraggerService.PartSnapEnabled: boolean {RobloxScriptSecurity} [NotReplicated]
+	Property DraggerService.PivotSnapToGeometry: boolean {RobloxScriptSecurity} [NotReplicated]
+	Property DraggerService.ShowHover: boolean [NotReplicated]
 	Property DraggerService.ShowPivotIndicator: boolean [NotReplicated]
 Class EditableService : Instance [NotCreatable] [Service]
 	Property EditableService.EditableStatus: Enum.EditableStatus {RobloxSecurity} [Hidden] [NotScriptable]
@@ -4896,6 +4906,7 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 	Function Pages:GetCurrentPage() -> { any }
 Class AudioPages : Pages [NotCreatable] [NotReplicated]
 Class BanHistoryPages : Pages [NotCreatable] [NotReplicated]
+Class CapturesPages : Pages [NotCreatable] [NotReplicated]
 Class CatalogPages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreKeyPages : Pages [NotCreatable] [NotReplicated]
 	Property DataStoreKeyPages.Cursor: string [ReadOnly]
@@ -4957,12 +4968,14 @@ Class ParticleEmitter : Instance
 Class PartyEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PartyEmulatorService:CreateNewParty() -> string {RobloxScriptSecurity}
 	Function PartyEmulatorService:DeleteParty(partyId: string) -> () {RobloxScriptSecurity}
-	Function PartyEmulatorService:GetCurrentConfiguration() -> { [string]: any } {RobloxScriptSecurity}
 	Function PartyEmulatorService:GetEmulatedPartyAsync(partyId: string) -> { any } {RobloxScriptSecurity} [Yields]
+	Function PartyEmulatorService:GetEmulatedPartyConfiguration() -> { [string]: any } {RobloxScriptSecurity}
 	Function PartyEmulatorService:GetIsEmulationEnabled() -> boolean {RobloxScriptSecurity}
+	Function PartyEmulatorService:OnTestPlayerCountChanged(newPlayerCount: number) -> () {RobloxScriptSecurity}
 	Function PartyEmulatorService:SetIsEmulationEnabled(isEnabled: boolean) -> () {RobloxScriptSecurity}
 	Function PartyEmulatorService:SetPlayerPartyId(userId: number, partyId: string) -> () {RobloxScriptSecurity}
 	Function PartyEmulatorService:applyPartyIdToPlayer(player: Player) -> () {RobloxScriptSecurity}
+	Event PartyEmulatorService.ConfigurationChanged(configuration: { [string]: any }) {RobloxScriptSecurity}
 Class PatchBundlerFileWatch : Instance [NotCreatable] [Service] [NotReplicated]
 Class PatchMapping : Instance [NotCreatable] [NotReplicated]
 	Property PatchMapping.FlattenTree: boolean
@@ -5229,7 +5242,6 @@ Class Player : Instance
 	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string)
 	Event Player.OnTeleportInternal(teleportState: Enum.TeleportState, teleportInfo: { [string]: any }, customLoadingScreen: Instance) {RobloxSecurity} [Hidden]
 	Event Player.OverrideStreamRadii(minRadius: number, targetRadius: number) {RobloxSecurity} [Hidden]
-	Event Player.PinStreamingStart(instance: Instance, depth: number) {RobloxSecurity} [Hidden]
 	Event Player.PlayerCharacterLoaded(metrics: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event Player.PlayerChatTranslationSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
 	Event Player.PlayerExperienceSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
@@ -6455,6 +6467,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.DraggerSummonMarginFactor: number {RobloxScriptSecurity}
 	Property Studio.DraggerTiltRotateDuration: number {RobloxScriptSecurity}
 	Property Studio.LoadAllBuiltinPluginsInRunModes: boolean {RobloxScriptSecurity}
+	Property Studio.LoadInternalPlugins: boolean {RobloxSecurity}
 	Property Studio.LoadUserPluginsInRunModes: boolean {RobloxScriptSecurity}
 	Property Studio.ActionOnAutoResumeSync: Enum.ActionOnAutoResumeSync {RobloxScriptSecurity}
 	Property Studio.ActionOnStopSync: Enum.ActionOnStopSync
@@ -6665,7 +6678,7 @@ Class StudioSdkService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioSdkService:GetSdk() -> Instance? {RobloxScriptSecurity}
 	Function StudioSdkService:SetSdk(sdk: Instance) -> () {RobloxScriptSecurity}
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property StudioService.AlignDraggedObjects: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property StudioService.AlignDraggedObjects: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StudioService.DraggerSolveConstraints: boolean [ReadOnly]
 	Property StudioService.DrawConstraintsOnTop: boolean [ReadOnly] [Deprecated]
 	Property StudioService.GridSize: number [ReadOnly]
@@ -6882,6 +6895,7 @@ Class TestService : Instance [Service]
 	Property TestService.Timeout: number
 	Function TestService:Check(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Checkpoint(text: string, source: Instance? = nil, line: number? = 0) -> ()
+	Function TestService:CreateAndSavePropertySet(source: Instance, fileName: string) -> () {RobloxScriptSecurity}
 	Function TestService:Done() -> ()
 	Function TestService:Error(description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Fail(description: string, source: Instance? = nil, line: number? = 0) -> ()
@@ -7379,6 +7393,8 @@ Class UIScale : UIComponent
 	Property UIScale.Scale: number
 Class UIStroke : UIComponent
 	Property UIStroke.ApplyStrokeMode: Enum.ApplyStrokeMode
+	Property UIStroke.BorderOffset: UDim
+	Property UIStroke.BorderStrokePosition: Enum.BorderStrokePosition
 	Property UIStroke.Color: Color3
 	Property UIStroke.LineJoinMode: Enum.LineJoinMode
 	Property UIStroke.Thickness: number
@@ -7802,6 +7818,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.UseNewAudioApi: boolean {RobloxScriptSecurity} [Hidden]
 	Property VoiceChatService.UseNewControlPaths: boolean {RobloxSecurity} [Hidden]
 	Property VoiceChatService.UseNewJoinFlow: boolean {RobloxSecurity} [Hidden]
+	Property VoiceChatService.UseStreamSwitching: boolean {RobloxSecurity} [Hidden]
 	Property VoiceChatService.VoiceChatEnabledForPlaceOnRcc: boolean {RobloxScriptSecurity} [Hidden]
 	Property VoiceChatService.VoiceChatEnabledForUniverseOnRcc: boolean {RobloxScriptSecurity} [Hidden]
 	Function VoiceChatService:IsVoiceEnabledForUserIdAsync(userId: number) -> boolean [Yields]
@@ -8413,6 +8430,10 @@ Enum BorderMode
 	EnumItem BorderMode.Outline : 0
 	EnumItem BorderMode.Middle : 1
 	EnumItem BorderMode.Inset : 2
+Enum BorderStrokePosition
+	EnumItem BorderStrokePosition.Outer : 0
+	EnumItem BorderStrokePosition.Center : 1
+	EnumItem BorderStrokePosition.Inner : 2
 Enum BreakReason
 	EnumItem BreakReason.Other : 0
 	EnumItem BreakReason.Error : 1
@@ -8463,9 +8484,11 @@ Enum CameraType
 	EnumItem CameraType.Custom : 5
 	EnumItem CameraType.Scriptable : 6
 	EnumItem CameraType.Orbital : 7
+Enum CaptureGalleryPermission
+	EnumItem CaptureGalleryPermission.ReadAndUpload : 0
 Enum CaptureType
-	EnumItem CaptureType.Screenshot : 0
-	EnumItem CaptureType.Video : 1
+	EnumItem CaptureType.Screenshot : 1
+	EnumItem CaptureType.Video : 2
 Enum CatalogCategoryFilter
 	EnumItem CatalogCategoryFilter.None : 1
 	EnumItem CatalogCategoryFilter.Featured : 2
@@ -10054,6 +10077,11 @@ Enum PathfindingUseImprovedSearch
 	EnumItem PathfindingUseImprovedSearch.Default : 0
 	EnumItem PathfindingUseImprovedSearch.Disabled : 1
 	EnumItem PathfindingUseImprovedSearch.Enabled : 2
+Enum PerformanceOverlayMode
+	EnumItem PerformanceOverlayMode.Overdraw : 0
+	EnumItem PerformanceOverlayMode.Transparent : 1
+	EnumItem PerformanceOverlayMode.Decals : 2
+	EnumItem PerformanceOverlayMode.Lights : 3
 Enum PermissionLevelShown
 	EnumItem PermissionLevelShown.Game : 0
 	EnumItem PermissionLevelShown.RobloxGame : 1
@@ -10252,6 +10280,9 @@ Enum R15CollisionType
 Enum RaycastFilterType
 	EnumItem RaycastFilterType.Exclude : 0
 	EnumItem RaycastFilterType.Include : 1
+Enum ReadCapturesFromGalleryResult
+	EnumItem ReadCapturesFromGalleryResult.Success : 0
+	EnumItem ReadCapturesFromGalleryResult.NeedPermission : 1
 Enum RecommendationActionType
 	EnumItem RecommendationActionType.AddReaction : 0
 	EnumItem RecommendationActionType.RemoveReaction : 1
@@ -11100,6 +11131,12 @@ Enum UITheme [Deprecated]
 Enum UiMessageType
 	EnumItem UiMessageType.UiMessageError : 0
 	EnumItem UiMessageType.UiMessageInfo : 1
+Enum UploadCaptureResult
+	EnumItem UploadCaptureResult.Success : 0
+	EnumItem UploadCaptureResult.NeedPermission : 1
+	EnumItem UploadCaptureResult.CaptureModerated : 2
+	EnumItem UploadCaptureResult.CaptureNotInGallery : 3
+	EnumItem UploadCaptureResult.IneligibleCapture : 4
 Enum UsageContext
 	EnumItem UsageContext.Default : 0
 	EnumItem UsageContext.Preview : 1
