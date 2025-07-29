@@ -6,8 +6,9 @@ local React = require(Packages.React)
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
-local CheckedValueContext = require(script.Parent.CheckedValueContext)
+local RadioGroupContext = require(script.Parent.RadioGroupContext)
 
 type RadioGroupProps = {
 	-- The value of the currently checked radio item.
@@ -15,9 +16,14 @@ type RadioGroupProps = {
 	value: string?,
 	onValueChanged: (newValue: string) -> (),
 	children: React.ReactNode?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
-local function RadioGroup(props: RadioGroupProps, ref: React.Ref<GuiObject>?)
+local defaultProps = {
+	Selectable = true,
+}
+
+local function RadioGroup(radioGroupProps: RadioGroupProps, ref: React.Ref<GuiObject>?)
+	local props = withDefaults(radioGroupProps, defaultProps)
 	local value, setValue = React.useState(props.value)
 
 	React.useEffect(function()
@@ -38,10 +44,11 @@ local function RadioGroup(props: RadioGroupProps, ref: React.Ref<GuiObject>?)
 			ref = ref,
 		}),
 		{
-			CheckedValueContext = React.createElement(CheckedValueContext.Provider, {
+			RadioGroupContext = React.createElement(RadioGroupContext.Provider, {
 				value = {
 					value = value,
 					onValueChanged = onValueChanged,
+					Selectable = props.Selectable,
 				},
 			}, props.children),
 		}

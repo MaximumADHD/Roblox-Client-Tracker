@@ -41,10 +41,11 @@ type Props = {
 	-- A label for the toggle. To omit, set it to an empty string.
 	label: string,
 	size: InputSize?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Medium,
+	Selectable = true,
 }
 
 local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
@@ -93,6 +94,11 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,
+			Selectable = props.Selectable,
+			NextSelectionUp = props.NextSelectionUp,
+			NextSelectionDown = props.NextSelectionDown,
+			NextSelectionLeft = props.NextSelectionLeft,
+			NextSelectionRight = props.NextSelectionRight,
 		}),
 		{
 			Knob = React.createElement(Knob, {

@@ -5,5 +5,5 @@ source = "registry"
 dependencies = [
     "Dash Dash 1.1.0 registry",
     "Otter Otter 1.3.3 registry",
-    "React React 17.2.1 registry",
+    "React React 17.2.2 registry",
 ]

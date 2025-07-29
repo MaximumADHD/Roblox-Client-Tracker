@@ -3,7 +3,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 
-local CheckedValueContext = require(script.Parent.Parent.CheckedValueContext)
+local RadioGroupContext = require(script.Parent.Parent.RadioGroupContext)
 local RadioGroup = require(Foundation.Components.RadioGroup)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -12,8 +12,8 @@ local function Story(props)
 	local controls = props.controls
 	local value, setValue = React.useState(nil)
 
-	return React.createElement(CheckedValueContext.Provider, {
-		value = { value = value, onValueChanged = setValue },
+	return React.createElement(RadioGroupContext.Provider, {
+		value = { value = value, onValueChanged = setValue, Selectable = true },
 	}, {
 		React.createElement(RadioGroup.Item, {
 			value = controls.value,

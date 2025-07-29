@@ -64,10 +64,11 @@ type Props = {
 	-- Custom styles for the input.
 	customVariantProps: InputVariantProps,
 	children: React.ReactNode?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Medium,
+	Selectable = true,
 }
 
 local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
@@ -125,15 +126,21 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		props.onActivated(not isChecked)
 	end, { props.isDisabled :: any, props.isChecked, props.onActivated, isChecked })
 
+	local selectionProps = {
+		Selectable = if props.isDisabled then false else props.Selectable,
+		NextSelectionUp = props.NextSelectionUp,
+		NextSelectionDown = props.NextSelectionDown,
+		NextSelectionLeft = props.NextSelectionLeft,
+		NextSelectionRight = props.NextSelectionRight,
+	}
+
 	local interactionProps = {
 		Active = not props.isDisabled,
 		GroupTransparency = if props.isDisabled then DISABLED_TRANSPARENCY else 0,
 		onActivated = onActivated,
 		onStateChanged = onInputStateChanged,
 		stateLayer = { affordance = StateLayerAffordance.None },
-		selection = {
-			Selectable = not props.isDisabled,
-		},
+		selection = selectionProps,
 		cursor = cursor,
 		isDisabled = props.isDisabled,
 		ref = ref,
@@ -162,11 +169,17 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 			end),
 			Thickness = strokeThickness,
 		},
+		selection = if not hasLabel
+			then selectionProps
+			else {
+				Selectable = false,
+			},
 		--[[
 			Labels for radio buttons and most other inputs should be positioned after the field.
 			Source: https://www.w3.org/TR/WCAG20-TECHS/G162.html
 		]]
 		LayoutOrder = if hasLabel then (if labelPosition == Enum.HorizontalAlignment.Left then 1 else -1) else nil,
+		testId = "--foundation-input-container",
 	}
 
 	if not hasLabel then
@@ -204,6 +217,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 					Text = label,
 					textStyle = values.labelStyle,
 					size = getInputTextSize(props.size, true),
+					testId = "--foundation-input-label",
 				})
 				else label,
 		}

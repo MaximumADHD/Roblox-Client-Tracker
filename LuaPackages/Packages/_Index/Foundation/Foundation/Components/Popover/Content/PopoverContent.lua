@@ -10,7 +10,6 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local usePointerPosition = require(Foundation.Utility.usePointerPosition)
 local isPointInGuiObjectBounds = require(Foundation.Utility.isPointInGuiObjectBounds)
-local Flags = require(Foundation.Utility.Flags)
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
@@ -104,14 +103,12 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		if instance ~= nil and props.onPressedOutside then
 			backdropListener.current = instance:GetPropertyChangedSignal("GuiState"):Connect(function()
 				if instance.GuiState == Enum.GuiState.Press then
-					if Flags.FoundationSkipPopoverOnPressedOutsideWhenClickingAnchor then
-						-- If popover anchor is clicked, skip the onPressedOutside callback
-						if popoverContext.anchor then
-							local pointerPositionValue = pointerPosition:getValue()
+					-- If popover anchor is clicked, skip the onPressedOutside callback
+					if popoverContext.anchor then
+						local pointerPositionValue = pointerPosition:getValue()
 
-							if isPointInGuiObjectBounds(popoverContext.anchor, pointerPositionValue) then
-								return
-							end
+						if isPointInGuiObjectBounds(popoverContext.anchor, pointerPositionValue) then
+							return
 						end
 					end
 

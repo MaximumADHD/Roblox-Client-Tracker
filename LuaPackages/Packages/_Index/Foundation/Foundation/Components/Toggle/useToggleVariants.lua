@@ -46,7 +46,12 @@ local function computeProps(props: {
 end
 
 local function variantsFactory(tokens: Tokens)
-	local common = { input = { checkedStyle = tokens.Color.ActionEmphasis.Background, cursorRadius = UDim.new(0, 0) } }
+	local common = {
+		input = {
+			checkedStyle = tokens.Color.ActionEmphasis.Background,
+			cursorRadius = UDim.new(0, tokens.Radius.Medium),
+		},
+	}
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = computeProps({

@@ -1,6 +1,6 @@
 [package]
 name = "RoactCompat"
-version = "17.2.1"
+version = "17.2.2"
 content_root = "src"
 files = [
     "*",
@@ -21,12 +21,12 @@ version = "^1"
 
 [dependencies.React]
 package = "React"
-version = "^17.2.1"
+version = "^17.2.2"
 
 [dependencies.ReactRoblox]
 package = "ReactRoblox"
-version = "^17.2.1"
+version = "^17.2.2"
 
 [dependencies.Shared]
 package = "Shared"
-version = "^17.2.1"
+version = "^17.2.2"

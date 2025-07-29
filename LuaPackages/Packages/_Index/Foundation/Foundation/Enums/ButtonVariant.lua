@@ -1,13 +1,27 @@
-export type ButtonVariant = "Emphasis" | "SubEmphasis" | "SoftEmphasis" | "Standard" | "Subtle" | "Alert" | "Text" | "Link"
+export type ButtonVariant =
+	"Emphasis"
+	| "SubEmphasis"
+	| "SoftEmphasis"
+	| "Standard"
+	| "Subtle"
+	| "Alert"
+	| "Text"
+	| "Link"
+	| "Utility"
 
 local ButtonVariantEnum = {
 	Emphasis = "Emphasis" :: "Emphasis",
-	SubEmphasis = "SubEmphasis" :: "SubEmphasis",
 	SoftEmphasis = "SoftEmphasis" :: "SoftEmphasis",
 	Standard = "Standard" :: "Standard",
-	Subtle = "Subtle" :: "Subtle",
+	Utility = "Utility" :: "Utility",
 	Alert = "Alert" :: "Alert",
+	-- **DEPRECATED** - Use `SoftEmphasis` instead
+	SubEmphasis = "SubEmphasis" :: "SubEmphasis",
+	-- **DEPRECATED** - Use `Standard` instead
+	Subtle = "Subtle" :: "Subtle",
+	-- **DEPRECATED** - Use `Utility` or `Standard` instead
 	Text = "Text" :: "Text",
+	-- **DEPRECATED** - Use `Utility` or `Standard` instead
 	Link = "Link" :: "Link",
 }
 

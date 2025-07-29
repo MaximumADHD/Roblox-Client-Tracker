@@ -50,6 +50,8 @@ return {
 	end),
 	controls = {
 		icon = {
+			"chain-link",
+			"tilt",
 			"icons/placeholder/placeholderOn",
 			"icons/common/robux",
 			"icons/common/play",

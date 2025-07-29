@@ -1,6 +1,6 @@
 [package]
 name = "ReactSceneUnderstanding"
-version = "0.13.0"
+version = "0.13.1"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -31,14 +31,14 @@ version = "^0.1.1"
 
 [dependencies.SceneUnderstanding]
 package = "SceneUnderstanding"
-version = "^0.13.0"
+version = "^0.13.1"
 [dev_dependencies.Examples]
 package = "Examples"
-version = "^0.13.0"
+version = "^0.13.1"
 
 [dev_dependencies.InternalTestUtils]
 package = "InternalTestUtils"
-version = "^0.13.0"
+version = "^0.13.1"
 
 [dev_dependencies.Jest]
 version = "^3.8.0"

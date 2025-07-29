@@ -1,6 +1,6 @@
 [package]
 name = "Scheduler"
-version = "17.2.1"
+version = "17.2.2"
 content_root = "src"
 files = [
     "*",
@@ -24,4 +24,4 @@ version = "^0.1.1"
 
 [dependencies.Shared]
 package = "Shared"
-version = "^17.2.1"
+version = "^17.2.2"

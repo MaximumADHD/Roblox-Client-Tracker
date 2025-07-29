@@ -17,7 +17,7 @@ local useRadioGroupItemVariants = require(script.Parent.useRadioGroupItemVariant
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local useCheckedValue = require(script.Parent.Parent.useCheckedValue)
+local useRadioGroupValues = require(script.Parent.Parent.useRadioGroupValues)
 
 type Props = {
 	-- A unique value for the radio item.
@@ -40,7 +40,7 @@ local defaultProps = {
 local function RadioGroupItem(radioGroupItemProps: Props, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(radioGroupItemProps, defaultProps)
 	local isDisabled = props.isDisabled
-	local value, setValue = useCheckedValue()
+	local value, setValue, selectable = useRadioGroupValues()
 
 	local isChecked = value == props.value
 	local label = props.label or props.value
@@ -65,6 +65,7 @@ local function RadioGroupItem(radioGroupItemProps: Props, ref: React.Ref<GuiObje
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,
+			Selectable = selectable,
 		}),
 		{
 			Center = if isChecked

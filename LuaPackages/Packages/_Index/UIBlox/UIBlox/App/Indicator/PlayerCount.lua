@@ -10,6 +10,8 @@ local StatWidget = require(App.Indicator.StatWidget)
 local Fonts = require(App.Style.Fonts)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 
 local TEXT_MAX_BOUND = 10000
 local ICON_SIZE = getIconSize(IconSize.Large)
@@ -34,10 +36,11 @@ local function getTextWidth(text, fontStyle: Fonts.Font, style)
 	return GetTextSize(text, fontSize, fontStyle.Font, bounds).X
 end
 
-local function getMeasuredSectionWidth(countInfo, style)
+local function getMeasuredSectionWidth(countInfo, style: StyleTypes.AppStyle)
+	local iconSize = if UIBloxConfig.enableScalingForSomeEdpIcons then getIconSize(IconSize.Large, style) else ICON_SIZE
 	local countWidth = getTextWidth(countInfo.countText, style.Font.Title, style)
 	local labelWidth = getTextWidth(countInfo.labelText, style.Font.CaptionHeader, style)
-	return math.max(countWidth, labelWidth) + ICON_SIZE + ICON_TEXT_PADDING
+	return math.max(countWidth, labelWidth) + iconSize + ICON_TEXT_PADDING
 end
 
 local function PlayerCount(props: Props)
@@ -66,6 +69,11 @@ local function PlayerCount(props: Props)
 			anchorPoint = Vector2.new(0, 0),
 			size = UDim2.new(leftSectionWeight, 0, 1, 0),
 			horizontalAlignment = Enum.HorizontalAlignment.Left,
+			styleProps = if UIBloxConfig.enableScalingForSomeEdpIcons
+				then {
+					iconSize = math.floor(getIconSize(IconSize.Large, style)),
+				}
+				else nil,
 		}),
 		RightSection = React.createElement(StatWidget, {
 			countText = countRight.countText,
@@ -76,6 +84,11 @@ local function PlayerCount(props: Props)
 			anchorPoint = Vector2.new(1, 0),
 			size = UDim2.new(rightSectionWeight, 0, 1, 0),
 			horizontalAlignment = Enum.HorizontalAlignment.Right,
+			styleProps = if UIBloxConfig.enableScalingForSomeEdpIcons
+				then {
+					iconSize = math.floor(getIconSize(IconSize.Large, style)),
+				}
+				else nil,
 		}),
 	})
 end

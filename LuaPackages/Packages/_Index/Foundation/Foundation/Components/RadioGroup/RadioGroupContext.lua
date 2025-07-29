@@ -6,6 +6,7 @@ local React = require(Packages.React)
 return React.createContext({
 	value = nil,
 	onValueChanged = function(newValue: string)
-		warn("No CheckedValueProvider found for RadioGroup")
+		warn("No RadioGroupProvider found for RadioGroup")
 	end,
+	Selectable = true,
 })

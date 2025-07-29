@@ -4,6 +4,7 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local FoundationImages = require(Packages.FoundationImages)
 local Images = FoundationImages.Images
+local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
 
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
@@ -52,7 +53,7 @@ local iconScales: { [UIBloxIconSize]: { [IconSize]: number } } = {
 }
 
 local function useIcon(name: string?, size: IconSize): (Vector2?, number)
-	if not name then
+	if not name or isBuilderIcon(name) then
 		return nil, 1
 	end
 

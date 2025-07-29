@@ -18,6 +18,8 @@ local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local PlayerContext = Roact.PureComponent:extend("PlayerContext")
 
 local SECONDARY_CONTENT_STATE_COLOR = {
@@ -158,8 +160,12 @@ function PlayerContext:render()
 				}),
 			}),
 			Text = text and Roact.createElement(GenericTextLabel, {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Size = UDim2.fromScale(0, 0),
+				AutomaticSize = if UIBloxConfig.fixPlayerContextTextWidth
+					then Enum.AutomaticSize.Y
+					else Enum.AutomaticSize.XY,
+				Size = if UIBloxConfig.fixPlayerContextTextWidth
+					then UDim2.new(1, if icon then -(iconFrameWidth + iconTextSpacing) else 0, 0, 0)
+					else UDim2.fromOffset(0, 0),
 				Text = text,
 				TextWrapped = true,
 				TextXAlignment = Enum.TextXAlignment.Left,

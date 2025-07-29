@@ -12,6 +12,8 @@ local usePointerPosition = require(Foundation.Utility.usePointerPosition)
 local useLayerCollector = require(Foundation.Utility.useLayerCollector)
 local useGuiInset = require(Foundation.Utility.useGuiInset)
 local Flags = require(Foundation.Utility.Flags)
+local useLastInputMode = require(Foundation.Utility.Input.useLastInputMode)
+local InputMode = require(Foundation.Utility.Input.InputMode)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -30,6 +32,15 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local useSliderVariants = require(Foundation.Components.Slider.useSliderVariants)
 local useSliderMotionStates = require(Foundation.Components.Slider.useSliderMotionStates)
 local Knob = require(Foundation.Components.Knob)
+
+-- When observing the drag deltas this was a reasonably large value that would
+-- only realistically be reached from the directional input jumping back to the
+-- center.
+--
+-- The actual deltas were much smaller on average, but there are properties on
+-- UIDragDetector to adjust the speed it moves for directional input, so this
+-- may not work forever.
+local MAX_DIRECTIONAL_INPUT_DRAG_DELTA = 0.01
 
 type Bindable<T> = Types.Bindable<T>
 
@@ -68,14 +79,21 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	local isKnobVisible, setIsKnobVisible = React.useState(false)
 	local value = useBindable(props.value)
 
+	local lastDragPosition = if Flags.FoundationSliderDirectionalInputSupport()
+		then React.useRef(nil :: Vector2?)
+		else nil :: never
+	local lastInputMode = if Flags.FoundationSliderDirectionalInputSupport then useLastInputMode() else nil :: never
+
 	local ref = React.useRef(nil :: GuiObject?)
 	React.useImperativeHandle(forwardRef, function()
 		return ref.current
 	end, {})
 
 	local pointerPosition = usePointerPosition(ref.current)
-	local guiInset = useGuiInset()
-	local layerCollector = useLayerCollector(ref.current)
+	local guiInset = if Flags.FoundationSliderDirectionalInputSupport() then nil :: never else useGuiInset()
+	local layerCollector = if Flags.FoundationSliderDirectionalInputSupport()
+		then nil :: never
+		else useLayerCollector(ref.current)
 
 	local variant = useSliderVariants(tokens, props.size, props.variant)
 	local motionStates = useSliderMotionStates(variant.knob.style, variant.knob.dragStyle)
@@ -148,7 +166,10 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		updateValue(newValue)
 	end, { calculateValueFromAbsPosition, pointerPosition, updateValue } :: { unknown })
 
-	local onDragStarted = React.useCallback(function()
+	local onDragStarted = React.useCallback(function(_rbx, inputPosition: Vector2)
+		if Flags.FoundationSliderDirectionalInputSupport() then
+			lastDragPosition.current = inputPosition
+		end
 		setIsDragging(true)
 
 		if props.onDragStarted then
@@ -156,30 +177,63 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		end
 	end, { props.onDragStarted })
 
-	local onDrag = React.useCallback(function(_rbx, position: Vector2)
-		--[[
-			To get dragging working correctly in the app we need to shift the
-			position over by the left/right GuiInsets
-			
-			When testing with Studio or on-device the drag position passed in
-			from `DragContinue` was offset by 64px. It turns out this is because
-			the system bar and the universal app are two separate containers, and
-			the UA container is offset by GuiInset, so its AbsolutePosition
-			starts 64px shifted to the right but is still 0.
-		]]
-		local guiInsets = if Flags.FoundationDisableDragPositionAdjustmentForGuiInsets
-			then Vector2.zero
-			else (if layerCollector
-					and layerCollector:IsA("ScreenGui")
-					and not layerCollector.IgnoreGuiInset
-				then Vector2.new(guiInset.Width, guiInset.Height)
-				else Vector2.zero)
-		local newValue = calculateValueFromAbsPosition(position - guiInsets)
-		updateValue(newValue)
-	end, { updateValue, calculateValueFromAbsPosition, guiInset, layerCollector } :: { unknown })
+	local onDrag = if Flags.FoundationSliderDirectionalInputSupport()
+		then React.useCallback(function(_rbx, position: Vector2)
+			if ref.current and lastDragPosition.current then
+				local length = ref.current.AbsoluteSize.Magnitude
+				local delta = (position - lastDragPosition.current).X / length
+
+				lastDragPosition.current = position
+
+				-- When using directional input (Gamepad/WASD/Arrow keys) with a
+				-- Scriptable UIDragDetector, the `position` gets reset when
+				-- making significant directional changes. Examples of this
+				-- include going from Right -> Right+Up or Right -> Left.
+				--
+				-- In practice, this means that if the user moves the Slider to
+				-- the right then wants to adjust and move back a bit towards
+				-- the left, this will immediately jump to the center of the
+				-- bar. To work around this, we discard that jump in position by
+				-- making sure the delta isn't too large, then from there we
+				-- receive incremental changes like normal and sliding continues
+				-- to work smoothly.
+				if lastInputMode == InputMode.Directional and math.abs(delta) > MAX_DIRECTIONAL_INPUT_DRAG_DELTA then
+					return
+				end
+
+				local current = value:getValue() :: number
+				local newValue = math.clamp(current + delta, props.range.Min, props.range.Max)
+
+				updateValue(newValue)
+			end
+		end, { ref, lastDragPosition, value, updateValue, lastInputMode } :: { unknown })
+		else React.useCallback(function(_rbx, position: Vector2)
+			--[[
+				To get dragging working correctly in the app we need to shift the
+				position over by the left/right GuiInsets
+
+				When testing with Studio or on-device the drag position passed in
+				from `DragContinue` was offset by 64px. It turns out this is because
+				the system bar and the universal app are two separate containers, and
+				the UA container is offset by GuiInset, so its AbsolutePosition
+				starts 64px shifted to the right but is still 0.
+			]]
+			local guiInsets = if Flags.FoundationDisableDragPositionAdjustmentForGuiInsets
+				then Vector2.zero
+				else (if layerCollector
+						and layerCollector:IsA("ScreenGui")
+						and not layerCollector.IgnoreGuiInset
+					then Vector2.new(guiInset.Width, guiInset.Height)
+					else Vector2.zero)
+			local newValue = calculateValueFromAbsPosition(position - guiInsets)
+			updateValue(newValue)
+		end, { updateValue, calculateValueFromAbsPosition, guiInset, layerCollector } :: { unknown })
 
 	local onDragEnded = React.useCallback(function()
 		setIsDragging(false)
+		if Flags.FoundationSliderDirectionalInputSupport() then
+			lastDragPosition.current = nil
+		end
 
 		if props.onDragEnded then
 			props.onDragEnded()

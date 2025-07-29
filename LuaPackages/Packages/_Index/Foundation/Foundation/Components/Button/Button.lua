@@ -54,17 +54,10 @@ local PROGRESS_TRANSPARENCY = 0.5
 local DISABLED_TRANSPARENCY = 0.5
 
 local function onProgressChange(progress: number)
-	local percentage = progress
-	if percentage == 1 then
-		return NumberSequence.new(0)
-	elseif percentage == 0 then
-		return NumberSequence.new(PROGRESS_TRANSPARENCY)
-	end
-
 	return NumberSequence.new({
 		NumberSequenceKeypoint.new(0, 0),
-		NumberSequenceKeypoint.new(math.max(0, percentage - 0.0001), 0),
-		NumberSequenceKeypoint.new(percentage, PROGRESS_TRANSPARENCY),
+		NumberSequenceKeypoint.new(math.max(0, progress - 0.0001), 0),
+		NumberSequenceKeypoint.new(math.min(1, progress + 0.0001), PROGRESS_TRANSPARENCY),
 		NumberSequenceKeypoint.new(1, PROGRESS_TRANSPARENCY),
 	})
 end
@@ -93,8 +86,7 @@ type ButtonProps = {
 	width: UDim?,
 	fillBehavior: FillBehavior?,
 	-- The delay in seconds before the button is enabled.
-	-- This will only take effect on component mount and visually show on buttons
-	-- whose variants use a filled background (Standard and Emphasis).
+	-- This will only visually show on buttons whose variants use a filled background.
 	inputDelay: number?,
 } & Types.SelectionProps & Types.CommonProps
 
@@ -119,15 +111,27 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 		setIsDelaying(false)
 	end)
 
-	-- UIBLOX-1801: Support inputDelay at times other than just component mount
 	React.useEffect(function()
+		if isDelaying == false then
+			setGoal(ReactOtter.instant(0))
+		end
+	end, { isDelaying })
+
+	React.useEffect(function()
+		-- If the button is already in a delay, stop it
+		if isDelaying then
+			setIsDelaying(false)
+		end
+
 		if inputDelay > 0 then
+			-- Start input delay
+			setIsDelaying(true)
 			setGoal(ReactOtter.ease(1, {
 				duration = inputDelay,
 				easingStyle = Enum.EasingStyle.Quad,
 			}) :: ReactOtter.Goal)
 		end
-	end, {})
+	end, { inputDelay })
 
 	local tokens = useTokens()
 	local variantProps = useButtonVariants(tokens, props.size, props.variant)

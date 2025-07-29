@@ -6,19 +6,17 @@ type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
-local StateLayerMode = require(Foundation.Enums.StateLayerMode)
-
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type StateLayer = Types.StateLayer
-type Stroke = {
-	Color: Color3,
-	Transparency: number,
-}
+type Stroke = Types.Stroke
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
+
+local getSharedVariants = require(script.Parent.getSharedVariants)
+type ButtonStroke = getSharedVariants.ButtonStroke
 
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
@@ -27,7 +25,7 @@ type ButtonVariantProps = {
 	container: {
 		tag: string,
 		height: number,
-		stroke: Stroke,
+		stroke: ButtonStroke?,
 		radius: number,
 		style: ColorStyleValue,
 		stateLayer: StateLayer?,
@@ -43,14 +41,9 @@ type ButtonVariantProps = {
 	},
 }
 
-local function toStroke(token: { Color3: Color3, Transparency: number }): Stroke
-	return {
-		Color = token.Color3,
-		Transparency = token.Transparency,
-	}
-end
-
 local variants = function(tokens: Tokens)
+	local sharedVariants = getSharedVariants(tokens)
+
 	local common = {
 		container = {
 			tag = "row align-y-center align-x-center clip",
@@ -64,8 +57,8 @@ local variants = function(tokens: Tokens)
 		[InputSize.XSmall] = {
 			container = {
 				tag = "gap-xsmall padding-small",
-				radius = tokens.Radius.Small,
-				height = tokens.Size.Size_600,
+				radius = sharedVariants.sizes[InputSize.XSmall].container.radius,
+				height = sharedVariants.sizes[InputSize.XSmall].container.height,
 			},
 			icon = {
 				size = UDim2.fromOffset(tokens.Size.Size_300, tokens.Size.Size_300),
@@ -77,8 +70,8 @@ local variants = function(tokens: Tokens)
 		[InputSize.Small] = {
 			container = {
 				tag = "gap-xsmall padding-small",
-				radius = tokens.Radius.Medium,
-				height = tokens.Size.Size_800,
+				radius = sharedVariants.sizes[InputSize.Small].container.radius,
+				height = sharedVariants.sizes[InputSize.Small].container.height,
 			},
 			icon = {
 				size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400),
@@ -90,8 +83,8 @@ local variants = function(tokens: Tokens)
 		[InputSize.Medium] = {
 			container = {
 				tag = "gap-small padding-medium",
-				radius = tokens.Radius.Medium,
-				height = tokens.Size.Size_1000,
+				radius = sharedVariants.sizes[InputSize.Medium].container.radius,
+				height = sharedVariants.sizes[InputSize.Medium].container.height,
 			},
 			icon = {
 				size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500),
@@ -103,8 +96,8 @@ local variants = function(tokens: Tokens)
 		[InputSize.Large] = {
 			container = {
 				tag = "gap-small padding-medium",
-				radius = tokens.Radius.Medium,
-				height = tokens.Size.Size_1200,
+				radius = sharedVariants.sizes[InputSize.Large].container.radius,
+				height = sharedVariants.sizes[InputSize.Large].container.height,
 			},
 			icon = {
 				size = UDim2.fromOffset(tokens.Size.Size_600, tokens.Size.Size_600),
@@ -115,77 +108,7 @@ local variants = function(tokens: Tokens)
 		},
 	}
 
-	local types: { [ButtonVariant]: VariantProps } = {
-		[ButtonVariant.Emphasis] = {
-			container = {
-				style = tokens.Color.ActionEmphasis.Background,
-				stroke = toStroke(tokens.Color.ActionEmphasis.Border),
-			},
-			content = {
-				style = tokens.Color.ActionEmphasis.Foreground,
-			},
-		},
-		[ButtonVariant.SubEmphasis] = {
-			container = {
-				style = tokens.Color.ActionSubEmphasis.Background,
-				stroke = toStroke(tokens.Color.ActionSubEmphasis.Border),
-				stateLayer = {
-					mode = StateLayerMode.Inverse,
-				},
-			},
-			content = {
-				style = tokens.Color.ActionSubEmphasis.Foreground,
-			},
-		},
-		[ButtonVariant.SoftEmphasis] = {
-			container = {
-				style = tokens.Color.ActionSoftEmphasis.Background,
-				stroke = toStroke(tokens.Color.ActionSoftEmphasis.Border),
-			},
-			content = {
-				style = tokens.Color.ActionSoftEmphasis.Foreground,
-			},
-		},
-		[ButtonVariant.Standard] = {
-			container = {
-				style = tokens.Color.ActionStandard.Background,
-				stroke = toStroke(tokens.Color.ActionStandard.Border),
-			},
-			content = {
-				style = tokens.Color.ActionStandard.Foreground,
-			},
-		},
-		[ButtonVariant.Subtle] = {
-			container = {
-				style = tokens.Color.ActionSubtle.Background,
-				stroke = toStroke(tokens.Color.ActionSubtle.Border),
-			},
-			content = {
-				style = tokens.Color.ActionSubtle.Foreground,
-			},
-		},
-		[ButtonVariant.Alert] = {
-			container = {
-				style = tokens.Color.ActionAlert.Background,
-				stroke = toStroke(tokens.Color.ActionAlert.Border),
-			},
-			content = {
-				style = tokens.Color.ActionAlert.Foreground,
-			},
-		},
-		[ButtonVariant.Text] = {
-			content = {
-				style = tokens.Color.Content.Emphasis,
-			},
-		},
-		[ButtonVariant.Link] = {
-			content = {
-				style = tokens.Color.Content.Link,
-			},
-		},
-	}
-
-	return { common = common, sizes = sizes, types = types }
+	return { common = common, sizes = sizes, types = sharedVariants.types }
 end
 
 return function(tokens: Tokens, size: InputSize, variant: ButtonVariant): ButtonVariantProps

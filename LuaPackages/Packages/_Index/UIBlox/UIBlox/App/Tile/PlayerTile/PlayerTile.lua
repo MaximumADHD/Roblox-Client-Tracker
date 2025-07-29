@@ -77,6 +77,7 @@ PlayerTile.validateProps = t.strictInterface({
 	openTypeFeatures = t.optional(t.string),
 	-- Whether to enable RoactGamepad functionality
 	isRoactGamepadEnabled = t.optional(t.boolean),
+	buttonRef = t.optional(t.table),
 })
 
 PlayerTile.defaultProps = {
@@ -290,6 +291,7 @@ function PlayerTile:render()
 			[Roact.Ref] = self.props.forwardedRef,
 		}, {
 			Tile = Roact.createElement(Tile, {
+				textButtonRef = self.props.buttonRef,
 				footer = footer({
 					-- If PlayerTile is selectable, we don't need the footer to be selectable.
 					-- This is consistent with that we only tap/click the entire PlayerTile on mobile and DUA.

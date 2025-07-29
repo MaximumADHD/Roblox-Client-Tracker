@@ -4,7 +4,7 @@
 Ready-to-use foundational React Lua components.
 
 <p align="center">
-	<a href="https://uiblox.roblox.com">
+	<a href="https://roblox.github.io/uiblox">
 		<img src="https://img.shields.io/badge/%E2%80%8E-Documentation-6AE488?logo=materialformkdocs&logoColor=white" alt="Documentation Link">
 	</a>
 	<a href="https://roblox.atlassian.net/wiki/spaces/UIBlox/overview">

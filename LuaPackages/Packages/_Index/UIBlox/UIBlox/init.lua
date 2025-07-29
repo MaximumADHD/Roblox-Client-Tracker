@@ -488,6 +488,7 @@ local function initializeLibrary(configs)
 			KeyLabel = lazify(function()
 				return require(script.App.Menu.KeyLabel.KeyLabel)
 			end),
+			KeyLabelUtilities = require(script.App.Menu.KeyLabel.Utilities),
 		}),
 
 		Control = strict({

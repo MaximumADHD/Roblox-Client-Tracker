@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.36.0"
+version = "1.37.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -81,7 +81,7 @@ version = "^0.1.13"
 
 [dev_dependencies.FoundationTestingLibrary]
 package = "FoundationTestingLibrary"
-version = "^0.1.1"
+version = "^0.1.2"
 
 [dev_dependencies.Jest]
 version = "^3.11.1"

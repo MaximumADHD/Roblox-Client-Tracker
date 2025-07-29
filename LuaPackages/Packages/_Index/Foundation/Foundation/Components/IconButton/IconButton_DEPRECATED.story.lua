@@ -3,9 +3,12 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 
+local View = require(Foundation.Components.View)
 local IconButton = require(Foundation.Components.IconButton)
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
+
+local Flags = require(Foundation.Utility.Flags)
 
 local function Story(props)
 	local controls = props.controls
@@ -15,26 +18,31 @@ local function Story(props)
 		onActivated = function() end,
 		size = controls.size,
 		icon = controls.name,
+		isCircular = controls.isCircular,
 	})
 end
 
-local iconSizes = { IconSize.Medium, IconSize.Small, IconSize.Large, IconSize.XLarge, IconSize.XXLarge } :: { IconSize }
+local iconSizes = { IconSize.Small, IconSize.Medium, IconSize.Large, IconSize.XLarge, IconSize.XXLarge } :: { IconSize }
 
 return {
 	summary = "Icon component for displaying icons",
-	stories = Dash.map(iconSizes, function(size: IconSize)
-		return {
-			name = size,
-			story = function(props)
+	story = function(props)
+		Flags.FoundationUpdateIconButtonSizes = props.controls.updateIconButtonSizes
+
+		return React.createElement(
+			View,
+			{ tag = "row gap-medium auto-y size-full-0 align-y-center" },
+			Dash.map(iconSizes, function(size)
 				return Story({
 					controls = {
 						size = size,
 						name = props.controls.name,
+						isCircular = props.controls.isCircular,
 					},
 				})
-			end,
-		}
-	end),
+			end)
+		)
+	end,
 	controls = {
 		name = {
 			"icons/common/notificationOff",
@@ -43,5 +51,7 @@ return {
 			"icons/controls/voice/microphone_off_light",
 			"icons/controls/voice/video_on_light",
 		},
+		isCircular = false,
+		updateIconButtonSizes = Flags.FoundationUpdateIconButtonSizes,
 	},
 }

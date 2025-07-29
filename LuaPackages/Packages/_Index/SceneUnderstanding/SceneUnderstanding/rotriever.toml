@@ -1,6 +1,6 @@
 [package]
 name = "SceneUnderstanding"
-version = "0.13.0"
+version = "0.13.1"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -28,7 +28,7 @@ documentation = "https://roblox.github.io/scene-understanding-internal/"
 version = "^0.1.1"
 [dev_dependencies.InternalTestUtils]
 package = "InternalTestUtils"
-version = "^0.13.0"
+version = "^0.13.1"
 
 [dev_dependencies.Jest]
 version = "^3.8.0"

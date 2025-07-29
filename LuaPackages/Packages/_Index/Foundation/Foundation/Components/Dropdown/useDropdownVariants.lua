@@ -40,7 +40,9 @@ type State = ControlState | "Error"
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = { tag = "row radius-medium align-y-center flex-x-between stroke-standard" },
-		text = { tag = "auto-xy" },
+		text = {
+			tag = `auto-xy {if Flags.FoundationFixDropdownValueTuncation then "text-truncate-split shrink" else ""}`,
+		},
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
@@ -48,7 +50,7 @@ local function variantsFactory(tokens: Tokens)
 			container = {
 				-- TODO (AleksandrSl 26/06/2025): Drop height from containers of all sizes, when FoundationFixInputFieldWidth flag is removed
 				height = UDim.new(0, tokens.Size.Size_600),
-				tag = `padding-small {if Flags.FoundationFixInputFieldWidth then "size-full-600" else ""}`,
+				tag = `padding-small {if Flags.FoundationFixDropdownValueTuncation then "gap-xxsmall" else ""} {if Flags.FoundationFixInputFieldWidth then "size-full-600" else ""}`,
 			},
 			text = { tag = "text-body-small" },
 			arrow = { size = InputSize.Small },
@@ -56,7 +58,7 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Small] = {
 			container = {
 				height = UDim.new(0, tokens.Size.Size_800),
-				tag = `padding-medium {if Flags.FoundationFixInputFieldWidth then "size-full-800" else ""}`,
+				tag = `padding-medium {if Flags.FoundationFixDropdownValueTuncation then "gap-xxsmall" else ""} {if Flags.FoundationFixInputFieldWidth then "size-full-800" else ""}`,
 			},
 			text = { tag = "text-body-small" },
 			arrow = { size = InputSize.Small },

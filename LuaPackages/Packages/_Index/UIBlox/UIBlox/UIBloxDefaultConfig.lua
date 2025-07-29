@@ -111,6 +111,15 @@ return {
 	-- Enable font scaling for legacy fonts
 	enableFontScaling = false,
 
+	-- Add button override to ActionBar
+	enableActionBarButtonOverride = false,
+
 	-- Enable icon and style customization on Shortcut
 	enableShortcutCustomization = false,
+
+	-- Enable icon scaling for some icons used by experience details
+	enableScalingForSomeEdpIcons = false,
+
+	-- Fix PlayerContext text width to not exceed it's frame
+	fixPlayerContextTextWidth = false,
 }

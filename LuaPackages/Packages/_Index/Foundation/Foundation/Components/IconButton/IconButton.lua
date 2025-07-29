@@ -3,60 +3,62 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
+local migrationLookup = BuilderIcons.Migration["uiblox"]
+
+local Flags = require(Foundation.Utility.Flags)
+
+local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
 
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+type ButtonVariant = ButtonVariant.ButtonVariant
+
 local Radius = require(Foundation.Enums.Radius)
 type Radius = Radius.Radius
-
-local ControlState = require(Foundation.Enums.ControlState)
-type ControlState = ControlState.ControlState
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useIconSize = require(Foundation.Utility.useIconSize)
+local getIconScale = require(Foundation.Utility.getIconScale)
+local useIconButtonVariants = require(script.Parent.useIconButtonVariants)
 local useIconButtonPadding = require(script.Parent.useIconButtonPadding)
 local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
+local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local isMigrated = iconMigrationUtils.isMigrated
+local isBuilderOrMigratedIcon = iconMigrationUtils.isBuilderOrMigratedIcon
 
 local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
+local Text = require(Foundation.Components.Text)
+local Image = require(Foundation.Components.Image)
 local Types = require(Foundation.Components.Types)
-
-local ICON_SIZE_TO_RADIUS_DEPRECATED: { [IconSize]: Radius } = {
-	[IconSize.XSmall] = Radius.Small,
-	[IconSize.Small] = Radius.Small,
-	[IconSize.Medium] = Radius.Medium,
-	[IconSize.Large] = Radius.Large,
-	-- No Xlarge, map to large
-	[IconSize.XLarge] = Radius.Large,
-	-- No XXlarge, map to large
-	[IconSize.XXLarge] = Radius.Large,
-}
-
-local ICON_SIZE_TO_RADIUS: { [IconSize]: Radius } = {
-	[IconSize.XSmall] = Radius.Small,
-	[IconSize.Small] = Radius.Medium,
-	[IconSize.Medium] = Radius.Medium,
-	[IconSize.Large] = Radius.Medium,
-}
 
 type IconButtonProps = {
 	onActivated: () -> (),
 	isDisabled: boolean?,
 	isCircular: boolean?,
-	size: IconSize?,
+	-- Size of IconButton. `IconSize` is deprecated - use `InputSize`.
+	-- `Large` and `XLarge` `IconSize`s map to `InputSize.Large` and are not supported.
+	size: (InputSize | IconSize)?,
+	variant: ButtonVariant?,
 	icon: string | {
-		name: BuilderIcons.Icon,
+		name: string,
 		variant: BuilderIcons.IconVariant?,
 	},
 } & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	isDisabled = false,
-	size = IconSize.Medium,
+	size = if Flags.FoundationUpdateIconButtonSizes then InputSize.Medium else IconSize.Medium,
+	isCircular = false,
+	variant = ButtonVariant.Utility,
 }
+
+local DISABLED_TRANSPARENCY = 0.5
 
 local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(iconButtonProps, defaultProps)
@@ -66,17 +68,26 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	local iconVariant: BuilderIcons.IconVariant? = if typeof(props.icon) == "table" then props.icon.variant else nil
 
 	local isBuilderIcon = isBuilderIcon(iconName)
+	local intrinsicIconSize: Vector2?, scale
+	if isBuilderOrMigratedIcon(iconName) then
+		intrinsicIconSize, scale = nil, 1
+	else
+		intrinsicIconSize, scale = getIconScale(iconName, props.size)
+	end
 
-	local radiusEnum = if isBuilderIcon
-		then ICON_SIZE_TO_RADIUS[props.size]
-		else ICON_SIZE_TO_RADIUS_DEPRECATED[props.size]
-	local radius = tokens.Radius[radiusEnum]
+	-- Use variant system for styling
+	local variantProps = useIconButtonVariants(tokens, props.size, props.variant)
 
+	-- Remove with FoundationUpdateIconButtonSizes
 	local paddingOffset = useIconButtonPadding(props.size, isBuilderIcon)
 	local padding = UDim.new(0, paddingOffset)
-	local componentRadius = UDim.new(0, radius)
 
-	local size = useIconSize(props.size, isBuilderIcon) :: UDim2 -- We don't support bindings for IconButton size
+	-- Override radius if circular
+	local componentRadius = if props.isCircular
+		then UDim.new(0, tokens.Radius.Circle)
+		else UDim.new(0, variantProps.container.radius or tokens.Radius.Large)
+
+	local iconSize = useIconSize(props.size, isBuilderIcon) :: UDim2 -- We don't support bindings for IconButton size
 
 	local cursor = React.useMemo(function()
 		return {
@@ -90,8 +101,9 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 		View,
 		withCommonProps(props, {
 			onActivated = props.onActivated,
-
-			Size = size + UDim2.new(padding, padding) + UDim2.new(padding, padding),
+			Size = if Flags.FoundationUpdateIconButtonSizes
+				then variantProps.container.size
+				else iconSize + UDim2.new(padding, padding) + UDim2.new(padding, padding),
 			selection = {
 				Selectable = if props.isDisabled then false else props.Selectable,
 				NextSelectionUp = props.NextSelectionUp,
@@ -100,19 +112,45 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 				NextSelectionRight = props.NextSelectionRight,
 			},
 			isDisabled = props.isDisabled,
-			padding = padding,
+			padding = if Flags.FoundationUpdateIconButtonSizes then variantProps.container.padding else padding,
 			cornerRadius = componentRadius,
+			backgroundStyle = variantProps.container.style,
+			stroke = variantProps.container.stroke,
 			cursor = cursor,
-
+			tag = if Flags.FoundationUpdateIconButtonSizes then variantProps.container.tag else nil,
+			GroupTransparency = if props.isDisabled then DISABLED_TRANSPARENCY else nil,
 			ref = ref,
 		}),
 		{
-			Icon = React.createElement(Icon, {
-				name = iconName,
-				variant = iconVariant,
-				size = props.size,
-				style = tokens.Color.Content.Emphasis,
-			}),
+			Icon = if Flags.FoundationUpdateIconButtonSizes
+				then (if isBuilderOrMigratedIcon(iconName)
+					then React.createElement(Text, {
+						Text = if isMigrated(iconName) then migrationLookup[iconName].name else iconName,
+						fontStyle = {
+							Font = BuilderIcons.Font[if isMigrated(iconName)
+								then migrationLookup[iconName].variant
+								else iconVariant or BuilderIcons.IconVariant.Regular],
+							FontSize = iconSize.Y.Offset,
+						},
+						tag = "anchor-center-center position-center-center",
+						Size = iconSize,
+						textStyle = variantProps.content.style,
+					})
+					else React.createElement(Image, {
+						tag = "anchor-center-center position-center-center",
+						Image = iconName,
+						Size = if intrinsicIconSize
+							then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)
+							else iconSize,
+						imageStyle = variantProps.content.style,
+						scale = scale,
+					}))
+				else React.createElement(Icon, {
+					name = iconName,
+					variant = iconVariant,
+					size = props.size,
+					style = variantProps.content.style,
+				}),
 		}
 	)
 end

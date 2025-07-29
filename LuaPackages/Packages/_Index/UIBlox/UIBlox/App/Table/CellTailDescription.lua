@@ -17,6 +17,7 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local PADDING_ITEM = 8
 local NAVIGATION_PUSH_RIGHT_SMALL = "icons/navigation/pushRight_small"
@@ -90,7 +91,9 @@ function CellTailDescription:render()
 			Description = self.getDescription(text, textColor, textFont, 1, override),
 			RightArrow = showArrow and Roact.createElement(ImageSetComponent.Label, {
 				LayoutOrder = 2,
-				Size = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
+				Size = if UIBloxConfig.enableScalingForSomeEdpIcons
+					then UDim2.fromOffset(getIconSize(IconSize.Small, style), getIconSize(IconSize.Small, style))
+					else UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
 				BackgroundTransparency = 1,
 				Image = Images[NAVIGATION_PUSH_RIGHT_SMALL],
 				ImageColor3 = style.Theme.TextEmphasis.Color,
@@ -98,7 +101,9 @@ function CellTailDescription:render()
 			}) or nil,
 			InfoIcon = hasInfoIcon and Roact.createElement(ImageSetComponent.Label, {
 				LayoutOrder = 2,
-				Size = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
+				Size = if UIBloxConfig.enableScalingForSomeEdpIcons
+					then UDim2.fromOffset(getIconSize(IconSize.Small, style), getIconSize(IconSize.Small, style))
+					else UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
 				Image = self.props.infoIcon,
 				ImageColor3 = style.Theme.IconEmphasis.Color,
 				ImageTransparency = style.Theme.IconEmphasis.Transparency,

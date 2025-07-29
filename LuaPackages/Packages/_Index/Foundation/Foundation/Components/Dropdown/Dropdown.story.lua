@@ -17,6 +17,10 @@ local function getItems(hasIcon: boolean): { MenuItem }
 	return {
 		{ id = "A", text = "Item A" },
 		{ id = "B", text = "Item B", isDisabled = true },
+		{
+			id = "G",
+			text = "Sie dürfen das Geschwindigkeitsbegrenzung nicht überschreiten, die Strafe beträgt 100 Euro",
+		},
 		{ id = "C", text = "Item C", icon = icon },
 	}
 end

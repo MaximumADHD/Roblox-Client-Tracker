@@ -4,44 +4,64 @@ local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 local BuilderIcons = require(Packages.BuilderIcons)
 
+local View = require(Foundation.Components.View)
 local IconButton = require(Foundation.Components.IconButton)
-local IconSize = require(Foundation.Enums.IconSize)
-type IconSize = IconSize.IconSize
 
-local function Story(props)
-	local controls = props.controls
+local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
 
-	return React.createElement(IconButton, {
-		isDisabled = false,
-		onActivated = function() end,
-		size = controls.size,
-		icon = {
-			name = controls.name,
-			variant = controls.variant,
-		},
-	})
-end
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+type ButtonVariant = ButtonVariant.ButtonVariant
 
-local iconSizes = { IconSize.Large, IconSize.XSmall, IconSize.Small, IconSize.Medium } :: { IconSize }
+local Flags = require(Foundation.Utility.Flags)
+
+-- Only show the supported variants for IconButton
+local SUPPORTED_VARIANTS: { ButtonVariant } = {
+	ButtonVariant.Utility,
+	ButtonVariant.Standard,
+	ButtonVariant.Emphasis,
+	ButtonVariant.Alert,
+}
 
 return {
-	summary = "Icon component for displaying icons",
-	stories = Dash.map(iconSizes, function(size: IconSize)
+	summary = "IconButton",
+	stories = Dash.map(SUPPORTED_VARIANTS, function(variant)
 		return {
-			name = size,
+			name = variant,
 			story = function(props)
-				return Story({
-					controls = {
-						size = size,
-						name = props.controls.name,
-						variant = props.controls.variant,
-					},
-				})
+				local controls = props.controls
+				Flags.FoundationUpdateIconButtonSizes = controls.updateIconButtonSizes
+
+				return React.createElement(
+					View,
+					{ tag = "row gap-medium auto-y size-full-0 align-y-center" },
+					Dash.map(
+						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
+						function(size)
+							return React.createElement(IconButton, {
+								icon = {
+									name = props.controls.name,
+									variant = props.controls.variant,
+								},
+								variant = variant,
+								onActivated = function()
+									print(`{variant} IconButton ({size}) activated`)
+								end,
+								isDisabled = controls.isDisabled,
+								size = size,
+								isCircular = controls.isCircular,
+							})
+						end
+					)
+				)
 			end,
 		}
 	end),
 	controls = {
 		name = Dash.values(BuilderIcons.Icon),
 		variant = Dash.values(BuilderIcons.IconVariant),
+		isDisabled = false,
+		isCircular = false,
+		updateIconButtonSizes = Flags.FoundationUpdateIconButtonSizes,
 	},
 }

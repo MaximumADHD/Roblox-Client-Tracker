@@ -34,10 +34,11 @@ type Props = {
 	-- A label for the checkbox. To omit, set it to an empty string.
 	label: string,
 	size: InputSize?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Medium,
+	Selectable = true,
 }
 
 local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
@@ -56,6 +57,11 @@ local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,
+			Selectable = props.Selectable,
+			NextSelectionUp = props.NextSelectionUp,
+			NextSelectionDown = props.NextSelectionDown,
+			NextSelectionLeft = props.NextSelectionLeft,
+			NextSelectionRight = props.NextSelectionRight,
 		}),
 		{
 			Checkmark = if props.isChecked

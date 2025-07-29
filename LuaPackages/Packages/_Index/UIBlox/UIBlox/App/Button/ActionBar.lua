@@ -23,6 +23,8 @@ local IconSize = require(App.ImageSet.Enum.IconSize)
 local getPageMargin = require(App.Container.getPageMargin)
 local StyleConstants = require(App.Style.Constants)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local ActionBar = Roact.PureComponent:extend("ActionBar")
 
 local BUTTON_PADDING = 12
@@ -67,6 +69,9 @@ ActionBar.validateProps = t.strictInterface({
 			t.strictInterface({ props = ComboButton.validateProps })
 		)
 	),
+
+	-- Component that will be rendered instead of the above button table if it exists
+	buttonOverride = t.optional(t.table),
 
 	-- Height of the icon wrapper
 	iconSize = t.optional(t.number),
@@ -152,7 +157,12 @@ function ActionBar:render()
 			textNumber = #self.props.textButtons
 		end
 
-		local buttonNumber = self.props.button ~= nil and 1 or 0
+		local buttonNumber = (
+			self.props.button ~= nil
+			or (UIBloxConfig.enableActionBarButtonOverride and self.props.buttonOverride ~= nil)
+		)
+				and 1
+			or 0
 		local isButtonAtStart = self.props.enableButtonAtStart == true and buttonNumber ~= 0
 		local buttonRefNumber = textNumber + iconNumber + buttonNumber
 		local buttonTable = {}
@@ -251,17 +261,21 @@ function ActionBar:render()
 			)
 			local buttonIndex = isButtonAtStart and 1 or iconNumber + 1
 
-			local useComboButton = ComboButton.validateProps(self.props.button.props)
-			local newProps = {
-				layoutOrder = buttonIndex,
-				size = buttonSize,
-			}
-			local buttonProps = Cryo.Dictionary.join(newProps, self.props.button.props)
+			local useComboButton
+			local buttonProps
+			if not UIBloxConfig.enableActionBarButtonOverride or not self.props.buttonOverride then
+				useComboButton = ComboButton.validateProps(self.props.button.props)
+				local newProps = {
+					layoutOrder = buttonIndex,
+					size = buttonSize,
+				}
+				buttonProps = Cryo.Dictionary.join(newProps, self.props.button.props)
 
-			if not useComboButton and buttonProps.buttonType == nil then
-				buttonProps.buttonType = if iconNumber == 0
-					then ButtonType.PrimarySystem
-					else ButtonType.PrimaryContextual
+				if not useComboButton and buttonProps.buttonType == nil then
+					buttonProps.buttonType = if iconNumber == 0
+						then ButtonType.PrimarySystem
+						else ButtonType.PrimaryContextual
+				end
 			end
 
 			if not self.props.isRoactGamepadEnabled then
@@ -283,12 +297,18 @@ function ActionBar:render()
 					inputBindings = if self.props.isRoactGamepadEnabled
 						then {
 							Activated = if not useComboButton
+									and (
+										not UIBloxConfig.enableActionBarButtonOverride
+										or not self.props.buttonOverride
+									)
 								then RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, buttonProps.onActivated)
 								else nil,
 						}
 						else nil,
 				}, {
-					Icon = Roact.createElement(if useComboButton then ComboButton else Button, buttonProps),
+					Icon = if UIBloxConfig.enableActionBarButtonOverride and self.props.buttonOverride
+						then self.props.buttonOverride
+						else Roact.createElement(if useComboButton then ComboButton else Button, buttonProps),
 				})
 			)
 		end
