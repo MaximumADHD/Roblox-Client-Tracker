@@ -3893,8 +3893,10 @@ AssetService_AssetPublishSuccess
 AssetServiceDeserializeInstance
 AssetServiceUGCValidation
 AssetsFetched
+AssetsMismatch
 AssetSoundEffect
 AssetsOverMaxLimit
+AssetsOverwrite
 AssetsUnsupported
 AssetsUploadApi
 AssetsUploadApiFlow
@@ -6336,6 +6338,7 @@ AvatarSettingsAnimationClipsMode
 AvatarSettingsAnimationPacksMode
 AvatarSettingsAppearanceMode
 AvatarSettingsBuildMode
+AvatarSettingsCheckCollider
 AvatarSettingsClothingMode
 AvatarSettingsCollisionMode
 AvatarSettingsCustomAccessoryMode
@@ -22379,6 +22382,7 @@ DebugOpenPlaceCreateDataModelError
 DebugOpenPlaceLoadDataModelError
 DebugOpenPlacePostLoadDataModelError
 DebugOpenPlaceRunServerError
+DebugOTASkipPopulatingLegacyContentTable
 DebugOuterCageSelection
 DebugOverrideDPIScale
 DebugOverridePerformanceToolsLayer
@@ -25250,7 +25254,6 @@ EAAEB11E38B9D871882A8E559
 EAAF011E38B9D871882A8E559
 EAAF886F11E18561866242201959
 EAAHPEAVPrimitive
-EAAHW4Call
 EAAJJPEAUICoreWebView2Controller
 EAAJJPEAUICoreWebView2CookieList
 EAAJJPEAUICoreWebView2Environment
@@ -35689,7 +35692,7 @@ InPhysicsVelocity
 InPipelineMilliseconds
 InplaceDemoter
 InPlaySession
-InpnsientSuppressorH
+InpnsientSuppressorHC
 INPPPPdikkqvvvvvxx
 InPrepareHeader
 InProgress
@@ -41411,6 +41414,7 @@ MFCreateDXGISurfaceBuffer
 MFCreateMediaType
 MFCreateMemoryBuffer
 MFCreateSample
+MfileOpenRecentAction
 MFMediaType_Video
 MFPlat.DLL
 MFSetAttributeRatio
@@ -49509,6 +49513,7 @@ QAbstractListModel
 QAbstractNativeEventFilter
 QAbstractProxyModel
 QAbstractScrollArea
+QAbstractSlide
 QAbstractSlider
 QAbstractSpinBox
 QAbstractTableModel
@@ -51555,6 +51560,7 @@ RECORDLISTCHANGED
 RecordName
 RecordNumDrivers
 RecordPadding
+RecordPatchAssetsMismatch
 RecordPosition
 RecordRecording
 RecordToggle
@@ -64750,6 +64756,7 @@ Studio.App.RobloxRibbonMainWindow.AngularVelocity
 Studio.App.RobloxRibbonMainWindow.AngularVelocityTooltip
 Studio.App.RobloxRibbonMainWindow.AnimationEditor
 Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip
+Studio.App.RobloxRibbonMainWindow.AssetIdOfText
 Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture
 Studio.App.RobloxRibbonMainWindow.ATextEntryBox
 Studio.App.RobloxRibbonMainWindow.AttachAHingeToAPart
@@ -78190,7 +78197,6 @@ UnknownAttempt
 UnknownBespokeFilter
 UnknownCacheReadResult
 UnknownCacheWriteResult
-UnknownComponent
 UnknownDataModelChild
 UnknownDataStoreType
 UnknownDataStructure
@@ -83609,6 +83615,7 @@ VQListView
 VQModelIndex
 VQNetworkAddressEntry
 VQNetworkInterface
+VQPaintEvent
 VQPersistentModelIndex
 VQPushButton
 VQRegularExpression
@@ -84379,6 +84386,7 @@ VUniversalConstraint
 VUniverseController
 Vunknown_exception
 Vunknown_option
+VUnknownComponent
 VUnreliableRemoteEvent
 VUnsecuredStudioGame
 VUnstartedCallDestination
@@ -85330,7 +85338,6 @@ WindControl.rbxm_windControl
 WindControl.rbxm_windControl_WindControl
 WinDiskInfo
 Windkontrolle
-Window.InsertCylinderPart
 Window_showMessageRequest
 WINDOW_UPADATE
 WINDOW_UPDATE

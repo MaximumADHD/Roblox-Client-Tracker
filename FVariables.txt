@@ -146,6 +146,7 @@
 [C++] DFFlagAvatarChatServiceUserPermissionsVideoOptIn
 [C++] DFFlagAvatarClothingAndDecalTelemetry
 [C++] DFFlagAvatarMemoryTrackingBugFix
+[C++] DFFlagAvatarSettingsCheckCollider
 [C++] DFFlagAvatarUseBatchedRaycasts
 [C++] DFFlagBacklogDetectorEnable
 [C++] DFFlagBadgesCacheBadgeOwnedOn409
@@ -6940,6 +6941,7 @@
 [C++] FFlagDebugOpenPlaceLoadDataModelError
 [C++] FFlagDebugOpenPlacePostLoadDataModelError
 [C++] FFlagDebugOpenPlaceRunServerError
+[C++] FFlagDebugOTASkipPopulatingLegacyContentTable
 [C++] FFlagDebugOuterCageSelection
 [C++] FFlagDebugOverridePerformanceToolsLayer
 [C++] FFlagDebugPackageHistoryIdCollisions
@@ -8637,6 +8639,7 @@
 [C++] FFlagRecentsWidgetClickedTelemetry
 [C++] FFlagReconnectDisabled
 [C++] FFlagRecordHopperServiceStats
+[C++] FFlagRecordPatchAssetsMismatch
 [Com] FFlagRecordRecording
 [C++] FFlagRecordVoiceClientCullingOperationStats
 [C++] FFlagRecordVoiceClientOperationLatencyMetrics
