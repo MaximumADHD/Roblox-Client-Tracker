@@ -3,6 +3,7 @@ export type ButtonVariant =
 	| "SubEmphasis"
 	| "SoftEmphasis"
 	| "Standard"
+	| "OverMedia"
 	| "Subtle"
 	| "Alert"
 	| "Text"
@@ -14,6 +15,7 @@ local ButtonVariantEnum = {
 	SoftEmphasis = "SoftEmphasis" :: "SoftEmphasis",
 	Standard = "Standard" :: "Standard",
 	Utility = "Utility" :: "Utility",
+	OverMedia = "OverMedia" :: "OverMedia",
 	Alert = "Alert" :: "Alert",
 	-- **DEPRECATED** - Use `SoftEmphasis` instead
 	SubEmphasis = "SubEmphasis" :: "SubEmphasis",

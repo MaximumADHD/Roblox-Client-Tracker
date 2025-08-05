@@ -93,6 +93,7 @@ local function StoryMiddleware(story)
 				theme = theme,
 				device = Device[storyProps.platform],
 				preferences = storyProps.settings,
+				scale = storyProps.settings and storyProps.settings.scale,
 				overlayGui = overlay,
 			}, {
 				Child = React.createElement(story, storyProps),

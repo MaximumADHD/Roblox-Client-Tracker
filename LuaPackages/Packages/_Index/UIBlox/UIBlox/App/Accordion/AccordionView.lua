@@ -3,7 +3,6 @@ local AccordionRoot = script.Parent
 local AppRoot = AccordionRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -53,7 +52,7 @@ function AccordionView:init()
 	}
 
 	self.onExpandButtonActivated = function()
-		if UIBloxConfig.addCallbacksToAccordionView and self.props.onExpand then
+		if self.props.onExpand then
 			self.props.onExpand()
 		end
 		self:setState({
@@ -63,7 +62,7 @@ function AccordionView:init()
 	end
 
 	self.onCollapseButtonActivated = function()
-		if UIBloxConfig.addCallbacksToAccordionView and self.props.onCollapse then
+		if self.props.onCollapse then
 			self.props.onCollapse()
 		end
 		self:setState({

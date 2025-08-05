@@ -14,11 +14,16 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 local ParseContentIds = require(root.util.ParseContentIds)
 
+local FIntAccessoryColorMapMaxSize = game:DefineFastInt("AccessoryColorMapMaxSize", 1024)
+local FIntAccessoryMetalnessMapMaxSize = game:DefineFastInt("AccessoryMetalnessMapMaxSize", 256)
+local FIntAccessoryNormalMapMaxSize = game:DefineFastInt("AccessoryNormalMapMaxSize", 256)
+local FIntAccessoryRoughnessMapMaxSize = game:DefineFastInt("AccessoryRoughnessMapMaxSize", 256)
+
 local MAX_TEXTURE_SIZES = {
-	ColorMap = 1024,
-	MetalnessMap = 256,
-	NormalMap = 256,
-	RoughnessMap = 256,
+	ColorMap = FIntAccessoryColorMapMaxSize,
+	MetalnessMap = FIntAccessoryMetalnessMapMaxSize,
+	NormalMap = FIntAccessoryNormalMapMaxSize,
+	RoughnessMap = FIntAccessoryRoughnessMapMaxSize,
 }
 
 local function validateSurfaceAppearanceTextureSize(

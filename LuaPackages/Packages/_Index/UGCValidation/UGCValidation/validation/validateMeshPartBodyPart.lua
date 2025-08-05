@@ -7,7 +7,6 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
-local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
 local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
 local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
 local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
@@ -148,9 +147,7 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validatePropertyRequirements(inst, assetTypeEnum, validationContext))
 
-	if getFFlagUGCValidateBodyPartsCollisionFidelity() then
-		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst, validationContext))
-	end
+	reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst, validationContext))
 
 	reasonsAccumulator:updateReasons(validateTags(inst, validationContext))
 

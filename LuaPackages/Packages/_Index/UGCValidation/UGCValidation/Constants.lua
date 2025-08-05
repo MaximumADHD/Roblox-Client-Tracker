@@ -7,7 +7,6 @@ local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemov
 local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
 
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
-local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidateWrapLayersEnabled = require(root.flags.getFFlagUGCValidateWrapLayersEnabled)
 local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
@@ -373,11 +372,9 @@ Constants.PROPERTIES = {
 	Part = {
 		Shape = Enum.PartType.Block,
 	},
-	SurfaceAppearance = if getFFlagUGCValidateSurfaceAppearanceAlphaMode()
-		then {
-			AlphaMode = Enum.AlphaMode.Overlay,
-		}
-		else nil,
+	SurfaceAppearance = {
+		AlphaMode = Enum.AlphaMode.Overlay,
+	},
 	WrapLayer = {
 		-- ====== Simple checks ======
 		Enabled = if getFFlagUGCValidateWrapLayersEnabled() then true else nil,

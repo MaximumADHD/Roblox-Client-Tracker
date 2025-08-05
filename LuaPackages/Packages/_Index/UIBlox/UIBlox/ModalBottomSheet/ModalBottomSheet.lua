@@ -145,7 +145,7 @@ function ModalBottomSheet:didMount()
 	self.motor:start()
 end
 
-function ModalBottomSheet:wilUnmount()
+function ModalBottomSheet:willUnmount()
 	self.motor:destroy()
 end
 

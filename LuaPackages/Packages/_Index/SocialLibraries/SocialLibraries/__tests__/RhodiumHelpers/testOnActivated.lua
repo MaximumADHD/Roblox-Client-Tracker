@@ -22,7 +22,7 @@ return function(component)
 	local withStyle = mockStyle(ElementGui)
 
 	local instance = Roact.mount(withStyle, CoreGui, "TestRoot")
-	local buttonPath = XPath.new("game.CoreGui.TestRoot.buttonElement")
+	local buttonPath = XPath.new("game.CoreGui.Children.buttonElement")
 
 	local button = Element.new(buttonPath)
 

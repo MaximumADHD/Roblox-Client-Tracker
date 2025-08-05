@@ -49,9 +49,9 @@ return {
 		Component = t.strictInterface(Validators.Component),
 	}),
 	Types = Types,
-	getFoundationTokens = function(deviceType: DeviceType, themeName: ThemeName | string)
+	getFoundationTokens = function(deviceType: DeviceType, themeName: ThemeName | string, scaleFactor: number?)
 		local foundationTokens = GetFoundationTokens(themeName) or GetFoundationTokens(Constants.DefaultThemeName)
-		local scale = getPlatformScale(deviceType)
+		local scale = getPlatformScale(deviceType, scaleFactor)
 
 		return foundationTokens(scale)
 	end,

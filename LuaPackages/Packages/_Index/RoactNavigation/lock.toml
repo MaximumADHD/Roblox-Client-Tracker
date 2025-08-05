@@ -5,6 +5,6 @@ source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Otter Otter 0.1.4 registry",
-    "React React 17.2.2 registry",
+    "React React 17.3.0 registry",
     "RegExp RegExp 0.2.2 registry",
 ]

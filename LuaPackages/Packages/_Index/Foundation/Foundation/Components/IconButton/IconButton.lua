@@ -16,6 +16,16 @@ type IconSize = IconSize.IconSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
+-- IconButton and Button variants are not currently aligned, but eventually it should be.
+-- For now we don't want to create a new variant enum for IconButton, so we'll use the Button variant enum
+-- and extract only the supported variants.
+type SupportedIconButtonVariant =
+	typeof(ButtonVariant.Standard)
+	| typeof(ButtonVariant.Emphasis)
+	| typeof(ButtonVariant.Utility)
+	| typeof(ButtonVariant.OverMedia)
+	| typeof(ButtonVariant.Alert)
+
 local Radius = require(Foundation.Enums.Radius)
 type Radius = Radius.Radius
 
@@ -44,7 +54,7 @@ type IconButtonProps = {
 	-- Size of IconButton. `IconSize` is deprecated - use `InputSize`.
 	-- `Large` and `XLarge` `IconSize`s map to `InputSize.Large` and are not supported.
 	size: (InputSize | IconSize)?,
-	variant: ButtonVariant?,
+	variant: SupportedIconButtonVariant?,
 	icon: string | {
 		name: string,
 		variant: BuilderIcons.IconVariant?,

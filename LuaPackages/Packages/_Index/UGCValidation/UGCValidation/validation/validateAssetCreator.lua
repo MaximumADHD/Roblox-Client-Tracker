@@ -29,7 +29,6 @@ local Constants = require(root.Constants)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
-local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 
 local function createCanPublishPromise(url, assetIds, restrictedIds, token, universeId)
 	if #assetIds == 0 then
@@ -136,7 +135,7 @@ local function validateAssetCreator(
 	for _, response in responses do
 		local results = response.result
 		for instanceId, allowed in pairs(results) do
-			if getFFlagUGCValidationAnalytics() and not allowed then
+			if not allowed then
 				Analytics.reportFailure(
 					Analytics.ErrorType.validateAssetCreator_DependencyNotOwnedByCreator,
 					nil,

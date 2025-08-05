@@ -12,7 +12,6 @@ local getFIntMeshDivisionNarrow = require(root.flags.getFIntMeshDivisionNarrow)
 local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
 
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
-local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
@@ -766,11 +765,9 @@ Constants.PROPERTIES = {
 	Part = {
 		Shape = Enum.PartType.Block,
 	},
-	SurfaceAppearance = if getFFlagUGCValidateSurfaceAppearanceAlphaMode()
-		then {
-			AlphaMode = Enum.AlphaMode.Overlay,
-		}
-		else nil,
+	SurfaceAppearance = {
+		AlphaMode = Enum.AlphaMode.Overlay,
+	},
 }
 
 local bodyPartSpecificProperties = {

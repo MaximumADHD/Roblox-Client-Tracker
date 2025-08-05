@@ -1,7 +1,8 @@
-export type DialogSize = "Small" | "Large"
+export type DialogSize = "Small" | "Medium" | "Large"
 
 local DialogSizeEnum = {
 	Small = "Small" :: "Small",
+	Medium = "Medium" :: "Medium",
 	Large = "Large" :: "Large",
 }
 

@@ -52,7 +52,7 @@ local function variantsFactory(tokens: Tokens)
 			},
 		},
 		[SliderVariant.Standard] = {
-			bar = { tag = "bg-shift-400 " },
+			bar = { tag = "bg-shift-400" },
 			fill = { tag = "bg-system-contrast" },
 			knob = {
 				style = tokens.Color.System.Contrast,

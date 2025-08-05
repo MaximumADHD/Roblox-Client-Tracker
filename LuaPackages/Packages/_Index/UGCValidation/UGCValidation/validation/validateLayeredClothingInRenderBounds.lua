@@ -12,6 +12,7 @@ local Types = require(util.Types)
 local pcallDeferred = require(util.pcallDeferred)
 
 local getEngineFeatureEngineUGCValidationLCOOB = require(root.flags.getEngineFeatureEngineUGCValidationLCOOB)
+local getFFlagEnforceMaxSizeOffsetForLC = require(root.flags.getFFlagEnforceMaxSizeOffsetForLC)
 
 return function(accessory: Accessory, validationContext: Types.ValidationContext): (boolean, { string }?)
 	if validationContext.allowEditableInstances then
@@ -33,8 +34,18 @@ return function(accessory: Accessory, validationContext: Types.ValidationContext
 	if not wrapLayer then
 		return false, { "Accessory does not have a WrapLayer. Cannot validate layered clothing out of bounds." }
 	end
-	wrapLayer.MaxSize = Vector3.zero
-	wrapLayer.Offset = Vector3.zero
+
+	if getFFlagEnforceMaxSizeOffsetForLC() then
+		if wrapLayer.MaxSize ~= Vector3.new(0, 0, 0) then
+			return false, { "Accessory has a non-zero MaxSize." }
+		end
+		if wrapLayer.Offset ~= Vector3.new(0, 0, 0) then
+			return false, { "Accessory has a non-zero Offset." }
+		end
+	else
+		wrapLayer.MaxSize = Vector3.new(0, 0, 0)
+		wrapLayer.Offset = Vector3.new(0, 0, 0)
+	end
 
 	local startTime = tick()
 	local success, isOOB = pcallDeferred(function()

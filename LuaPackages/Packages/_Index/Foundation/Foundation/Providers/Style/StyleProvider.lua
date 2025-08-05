@@ -99,7 +99,10 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 				if not Flags.FoundationDisableStylingPolyfill
 					then {
 						RulesContext = React.createElement(RulesContext.Provider, {
-							value = rules,
+							value = {
+								rules = rules,
+								scale = props.scale,
+							},
 						}, styleProviderProps.children),
 						StyleLink = if Flags.FoundationWarnOnMultipleStyleLinks
 							then React.createElement("StyleLink")
@@ -118,6 +121,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 						StyleSheet = React.createElement(StyleSheet, {
 							theme = props.theme :: Theme,
 							device = props.device :: Device,
+							scale = props.scale,
 							tags = tags,
 							derives = styleProviderProps.derives,
 							setStyleSheetRef = setStyleSheetRef,

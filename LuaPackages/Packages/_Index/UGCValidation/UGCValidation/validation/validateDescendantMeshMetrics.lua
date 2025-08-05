@@ -32,8 +32,6 @@ local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningVal
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
-local getFFlagUGCValidateCageUVTriangleArea = require(root.flags.getFFlagUGCValidateCageUVTriangleArea)
-local getFFlagUGCValidateUVValuesInReference = require(root.flags.getFFlagUGCValidateUVValuesInReference)
 local getFFlagUGCValidateAllowFlexibleTriangleLimit = require(root.flags.getFFlagUGCValidateAllowFlexibleTriangleLimit)
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
 local getEngineFeatureEngineEditableMeshAvatarPublish =
@@ -326,15 +324,11 @@ local function validateDescendantMeshMetrics(
 
 			reasonsAccumulator:updateReasons(validateCageUVs(meshInfo, data.instance :: WrapTarget, validationContext))
 
-			if getFFlagUGCValidateCageUVTriangleArea() then
-				reasonsAccumulator:updateReasons(validateCageUVTriangleArea(meshInfo, validationContext))
-			end
+			reasonsAccumulator:updateReasons(validateCageUVTriangleArea(meshInfo, validationContext))
 
-			if getFFlagUGCValidateUVValuesInReference() then
-				reasonsAccumulator:updateReasons(
-					validateCageUVValues(meshInfo, data.instance :: WrapTarget, validationContext)
-				)
-			end
+			reasonsAccumulator:updateReasons(
+				validateCageUVValues(meshInfo, data.instance :: WrapTarget, validationContext)
+			)
 
 			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
 		end

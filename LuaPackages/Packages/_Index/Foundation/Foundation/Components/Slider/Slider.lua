@@ -123,6 +123,8 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 
 	local calculateValueFromAbsPosition = React.useCallback(function(position: Vector2)
 		if ref.current then
+			local sliderValue
+
 			if Flags.FoundationSliderOrientationImprovement then
 				local orientation = ref.current.AbsoluteRotation
 				local sliderFrame = ref.current
@@ -138,16 +140,18 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 				local clampedPercent = math.clamp(percentage, 0, 1)
 
 				local rangeSpan = props.range.Max - props.range.Min
-				return clampedPercent * rangeSpan + props.range.Min
+				sliderValue = clampedPercent * rangeSpan + props.range.Min
 			else
-				local bounds = NumberRange.new(
+				local screenBounds = NumberRange.new(
 					ref.current.AbsolutePosition.X,
 					ref.current.AbsolutePosition.X + ref.current.AbsoluteSize.X
 				)
-				local valueAsPercent = (position.X - bounds.Min) / (bounds.Max - bounds.Min)
-				local newValue = valueAsPercent * props.range.Max
-				return math.clamp(newValue, props.range.Min, props.range.Max)
+				local valueAsPercent = (position.X - screenBounds.Min) / (screenBounds.Max - screenBounds.Min)
+				local valueRangeMagnitude = math.abs(props.range.Max - props.range.Min)
+				sliderValue = (valueAsPercent * valueRangeMagnitude) + props.range.Min
 			end
+
+			return math.clamp(sliderValue, props.range.Min, props.range.Max)
 		else
 			return 0
 		end
@@ -286,7 +290,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 				Fill = React.createElement(View, {
 					tag = variant.fill.tag,
 					Size = (value :: React.Binding<number>):map(function(alpha: number)
-						return UDim2.fromScale(alpha / props.range.Max, 1)
+						return UDim2.fromScale((alpha - props.range.Min) / (props.range.Max - props.range.Min), 1)
 					end),
 					testId = "--foundation-slider-fill",
 				}, {

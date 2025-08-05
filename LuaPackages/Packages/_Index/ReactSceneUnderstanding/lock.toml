@@ -4,7 +4,7 @@ version = "0.13.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React React 17.2.2 registry",
+    "React React 17.3.0 registry",
     "ReactUtils ReactUtils 1.9.0 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
     "SceneUnderstanding SceneUnderstanding 0.13.1 registry",

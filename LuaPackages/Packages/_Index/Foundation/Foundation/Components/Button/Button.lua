@@ -18,6 +18,22 @@ type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
+-- Extract all button variants except OverMedia
+type SupportedButtonVariant =
+	typeof(ButtonVariant.Standard)
+	| typeof(ButtonVariant.Emphasis)
+	| typeof(ButtonVariant.SoftEmphasis)
+	| typeof(ButtonVariant.Alert)
+	| typeof(ButtonVariant.Utility)
+	-- **DEPRECATED** - Use `SoftEmphasis` instead
+	| typeof(ButtonVariant.SubEmphasis)
+	-- **DEPRECATED** - Use `Standard` instead
+	| typeof(ButtonVariant.Subtle)
+	-- **DEPRECATED** - Use `Utility` or `Standard` instead
+	| typeof(ButtonVariant.Text)
+	-- **DEPRECATED** - Use `Utility` or `Standard` instead
+	| typeof(ButtonVariant.Link)
+
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior
 
@@ -80,7 +96,8 @@ type ButtonProps = {
 	onActivated: () -> (),
 	isDisabled: boolean?,
 	isLoading: boolean?,
-	variant: ButtonVariant?,
+	-- Officially supported variants are `Standard`, `Emphasis`, `SoftEmphasis`, `Alert` and `Utility`
+	variant: SupportedButtonVariant?,
 	size: InputSize?,
 	-- Width of the button. `fillBehavior` is preferred and works better with flex layouts. Intended for cross-directional scaled sizing.
 	width: UDim?,

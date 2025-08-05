@@ -45,7 +45,7 @@ local function CustomSelectionStory(props)
 		onActivated = function()
 			setIsChecked(not isChecked)
 		end,
-		tag = "auto-y col align-x-center align-y-center gap-medium padding-large radius-medium bg-surface-100 border-stroke-muted",
+		tag = "auto-y col align-x-center align-y-center gap-medium padding-large radius-medium bg-surface-100 stroke-muted",
 		Size = UDim2.fromOffset(300, 120),
 	}, {
 		Checkbox = React.createElement(Checkbox, {

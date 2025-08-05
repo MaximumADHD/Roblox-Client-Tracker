@@ -85,6 +85,7 @@ local function getButtonTypes(tokens: Tokens): { [ButtonVariant]: VariantProps }
 		[ButtonVariant.Link] = {
 			content = { style = tokens.Color.Content.Link },
 		},
+		[ButtonVariant.OverMedia] = createButtonVariantStyle(tokens.Color.ActionOverMedia),
 	}
 end
 

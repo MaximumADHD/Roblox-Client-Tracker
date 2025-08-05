@@ -42,7 +42,7 @@ local function CustomSelectionStory(props)
 		return React.createElement(View, {
 			cursor = cursor,
 			onActivated = onToggle,
-			tag = "col padding-large radius-medium gap-medium bg-surface-100 border-stroke-muted",
+			tag = "col padding-large radius-medium gap-medium bg-surface-100 stroke-muted",
 			Size = UDim2.fromOffset(320, 100),
 		}, {
 			TextContainer = React.createElement(View, {

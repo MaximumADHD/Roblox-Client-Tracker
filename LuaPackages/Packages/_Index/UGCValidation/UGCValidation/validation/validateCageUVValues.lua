@@ -13,8 +13,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local WRAP_TARGET_CAGE_REFERENCE_VALUES = require(root.WrapTargetCageUVReferenceValues)
 
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
-local getEngineFeatureEngineValidateUVValuesInReference =
-	require(root.flags.getEngineFeatureEngineUGCValidateUVValuesInReference)
 
 local Analytics = require(root.Analytics)
 
@@ -29,10 +27,6 @@ local function validateCageUVValues(
 
 	local isServer = validationContext.isServer
 	if not getEngineFeatureEngineUGCValidateBodyParts() then
-		return true
-	end
-
-	if not getEngineFeatureEngineValidateUVValuesInReference() then
 		return true
 	end
 

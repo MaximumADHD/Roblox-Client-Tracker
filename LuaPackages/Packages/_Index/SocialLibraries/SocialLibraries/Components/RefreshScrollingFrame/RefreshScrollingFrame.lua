@@ -59,6 +59,7 @@ RefreshScrollingFrameNew.validateProps = t.interface({
 	onCanvasPositionChangedCallback = t.optional(t.callback),
 	onStatusBarTapped = t.optional(t.callback),
 	refresh = t.optional(t.callback),
+	usesBuilderIcon = t.optional(t.boolean),
 
 	[Roact.Children] = t.optional(t.any),
 })
@@ -91,11 +92,19 @@ function RefreshScrollingFrameNew:init()
 
 			-- As the spinner is pulled down, it slightly rotates, and also changes transparency
 			local lerpValue = newSpinnerFrameHeight / refreshThreshold
-			self.spinnerRef.current.ImageTransparency = lerp(
-				SPINNER_TRANSPARENCY.Start,
-				SPINNER_TRANSPARENCY.End,
-				lerpValue
-			)
+			if self.props.usesBuilderIcon then
+				self.spinnerRef.current.TextTransparency = lerp(
+					SPINNER_TRANSPARENCY.Start,
+					SPINNER_TRANSPARENCY.End,
+					lerpValue
+				)
+			else
+				self.spinnerRef.current.ImageTransparency = lerp(
+					SPINNER_TRANSPARENCY.Start,
+					SPINNER_TRANSPARENCY.End,
+					lerpValue
+				)
+			end
 
 			local isSpinning = self.state.isRefreshing
 			if not isSpinning then

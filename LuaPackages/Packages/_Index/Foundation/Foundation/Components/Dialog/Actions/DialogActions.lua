@@ -11,6 +11,8 @@ local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 
+local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
+
 type Bindable<T> = Types.Bindable<T>
 type ButtonVariant = ButtonVariant.ButtonVariant
 
@@ -30,6 +32,8 @@ export type DialogActionsProps = {
 }
 
 local function DialogActions(props: DialogActionsProps)
+	local variants = useDialogVariants()
+
 	local actions = React.useMemo(function()
 		return React.createElement(
 			React.Fragment,
@@ -61,7 +65,7 @@ local function DialogActions(props: DialogActionsProps)
 		ActionsLabel = if props.label
 			then React.createElement(Text, {
 				Text = props.label,
-				tag = "text-label-small text-align-x-center text-align-y-top auto-y size-full-0",
+				tag = variants.dialogActionsLabel.tag,
 				LayoutOrder = 2,
 			})
 			else nil,

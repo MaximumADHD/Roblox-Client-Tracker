@@ -40,6 +40,8 @@ local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidate
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getFFlagCheckAccessoryMeshSize = require(root.flags.getFFlagCheckAccessoryMeshSize)
+local FFlagUGCValidationValidateMeshPartDoubleSided =
+	game:DefineFastFlag("UGCValidationValidateMeshPartDoubleSided", false)
 
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
@@ -88,6 +90,18 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	} :: Types.MeshInfo
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	if FFlagUGCValidationValidateMeshPartDoubleSided then
+		if handle.DoubleSided then
+			reasonsAccumulator:updateReasons(false, {
+				string.format(
+					"MeshPart '%s' is double-sided. Double-sided meshes are not allowed in rigid accessories.",
+					handle:GetFullName()
+				),
+			})
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshPartAccessory_DoubleSided, nil, validationContext)
+		end
+	end
 
 	local hasMeshContent = meshInfo.contentId ~= nil and meshInfo.contentId ~= ""
 	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(handle, "MeshId", validationContext)

@@ -20,6 +20,7 @@ local SUPPORTED_VARIANTS: { ButtonVariant } = {
 	ButtonVariant.Utility,
 	ButtonVariant.Standard,
 	ButtonVariant.Emphasis,
+	ButtonVariant.OverMedia,
 	ButtonVariant.Alert,
 }
 

@@ -295,7 +295,7 @@ function ContextualMenu:didUpdate(previousProps, previousState)
 	end
 end
 
-function ContextualMenu:wilUnmount()
+function ContextualMenu:willUnmount()
 	self.motor:destroy()
 end
 

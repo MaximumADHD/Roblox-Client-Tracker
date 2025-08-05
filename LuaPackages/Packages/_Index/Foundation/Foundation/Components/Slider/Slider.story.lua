@@ -28,6 +28,7 @@ return {
 
 				return React.createElement(Slider, {
 					value = value,
+					range = NumberRange.new(props.controls.rangeMin, props.controls.rangeMax),
 					size = props.controls.size,
 					knobVisibility = props.controls.knobVisibility,
 					variant = props.controls.variant,
@@ -175,5 +176,7 @@ return {
 		isContained = false,
 		variant = Dash.values(SliderVariant),
 		hasCustomKnob = false,
+		rangeMin = -50,
+		rangeMax = 100,
 	},
 }

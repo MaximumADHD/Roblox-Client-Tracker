@@ -3,34 +3,31 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local withDefaults = require(Foundation.Utility.withDefaults)
+local DialogSize = require(Foundation.Enums.DialogSize)
+type DialogSize = DialogSize.DialogSize
+
 local DialogLayoutContext = require(script.Parent.DialogLayoutContext)
 
 export type DialogLayoutProps = {
-	isTitleVisible: boolean?,
-	titleHeight: number?,
-	hasMediaBleed: boolean?,
+	size: DialogSize,
+	responsiveSize: DialogSize?,
+	setResponsiveSize: ((size: DialogSize) -> ())?,
+	setSize: ((size: DialogSize) -> ())?,
+	hasHeroMedia: boolean?,
 	children: React.ReactNode,
 }
 
-local defaultProps = {
-	isTitleVisible = false,
-	titleHeight = 0,
-	hasMediaBleed = false,
-}
-
-local function DialogLayoutProvider(layoutProps: DialogLayoutProps)
-	local props = withDefaults(layoutProps, defaultProps)
-	local titleHeight, setTitleHeight = React.useState(props.titleHeight)
-	local hasMediaBleed, setHasMediaBleed = React.useState(props.hasMediaBleed)
+local function DialogLayoutProvider(props: DialogLayoutProps)
+	local responsiveSize, setResponsiveSize = React.useState(props.responsiveSize)
+	local hasHeroMedia, setHasHeroMedia = React.useState(props.hasHeroMedia)
 
 	return React.createElement(DialogLayoutContext.Provider, {
 		value = {
-			isTitleVisible = props.isTitleVisible,
-			titleHeight = titleHeight,
-			setTitleHeight = setTitleHeight,
-			hasMediaBleed = hasMediaBleed,
-			setHasMediaBleed = setHasMediaBleed,
+			size = props.size,
+			responsiveSize = responsiveSize,
+			setResponsiveSize = setResponsiveSize,
+			hasHeroMedia = hasHeroMedia,
+			setHasHeroMedia = setHasHeroMedia,
 		},
 	}, props.children)
 end

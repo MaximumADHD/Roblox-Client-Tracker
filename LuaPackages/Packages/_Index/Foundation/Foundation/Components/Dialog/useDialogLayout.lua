@@ -3,18 +3,19 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local DialogSize = require(Foundation.Enums.DialogSize)
+type DialogSize = DialogSize.DialogSize
+
 local DialogLayoutContext = require(script.Parent.DialogLayoutContext)
 
 type DialogLayout = {
-	isTitleVisible: boolean,
-	titleHeight: number,
-	setTitleHeight: (titleHeight: number) -> (),
-	hasMediaBleed: boolean,
-	setHasMediaBleed: (hasMediaBleed: boolean) -> (),
+	size: DialogSize,
+	responsiveSize: DialogSize,
+	setResponsiveSize: (size: DialogSize) -> (),
+	hasHeroMedia: boolean,
+	setHasHeroMedia: (has: boolean) -> (),
 }
 
-local function useDialogLayout(): DialogLayout
+return function(): DialogLayout
 	return React.useContext(DialogLayoutContext)
 end
-
-return useDialogLayout

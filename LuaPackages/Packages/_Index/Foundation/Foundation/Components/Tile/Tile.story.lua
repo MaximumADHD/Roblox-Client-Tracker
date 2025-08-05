@@ -555,7 +555,7 @@ return {
 									return React.createElement(Button, {
 										onActivated = button.onActivated,
 										isDisabled = button.isDisabled,
-										variant = button.variant :: ButtonVariant.ButtonVariant,
+										variant = button.variant,
 										size = InputSize.Medium :: InputSize.InputSize,
 										icon = button.icon,
 									})

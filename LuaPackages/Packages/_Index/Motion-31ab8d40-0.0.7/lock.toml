@@ -3,8 +3,8 @@ name = "Motion"
 version = "0.0.7"
 source = "registry"
 dependencies = [
-    "React React 17.2.2 registry",
+    "React React 17.3.0 registry",
     "ReactOtter ReactOtter 1.3.3 registry",
-    "RoactCompat RoactCompat 17.2.2 registry",
+    "RoactCompat RoactCompat 17.3.0 registry",
     "tutils tutils 0.1.2 registry",
 ]

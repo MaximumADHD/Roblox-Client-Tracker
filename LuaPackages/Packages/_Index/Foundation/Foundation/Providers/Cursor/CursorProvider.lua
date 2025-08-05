@@ -99,7 +99,14 @@ local function CursorProvider(props: Props)
 					if GuiService.SelectedCoreObject == nil then
 						setSelectionImageObject(nil)
 					else
-						setSelectionImageObject(GuiService.SelectedCoreObject.SelectionImageObject :: any)
+						if Flags.FoundationFallbackCoreGuiSelectionCursor then
+							setSelectionImageObject(
+								GuiService.SelectedCoreObject.SelectionImageObject
+									or CoreGui.SelectionImageObject :: any
+							)
+						else
+							setSelectionImageObject(GuiService.SelectedCoreObject.SelectionImageObject :: any)
+						end
 					end
 				end)
 			else

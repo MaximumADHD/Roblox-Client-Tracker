@@ -7,7 +7,6 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local StudioService = if RunService:IsStudio() then game:GetService("StudioService") else nil
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
-local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local getEngineFeatureEngineUGCValidationReportScriptTime =
 	require(root.flags.getEngineFeatureEngineUGCValidationReportScriptTime)
 local getEngineFeatureUGCValidateCageMeshDistance = require(root.flags.getEngineFeatureUGCValidateCageMeshDistance)
@@ -145,6 +144,7 @@ Analytics.ErrorType = {
 	validateMeshBounds_FailedToLoadMesh = "validateMeshBounds_FailedToLoadMesh",
 	validateMeshBounds_TooLarge = "validateMeshBounds_TooLarge",
 	validateMeshComparison = "validateMeshComparison",
+	validateMeshPartAccessory_DoubleSided = "validateMeshPartAccessory_DoubleSided",
 	validateMeshPartAccessory_FailedToLoadMesh = "validateMeshPartAccessory_FailedToLoadMesh",
 	validateMeshPartAccessory_NoMeshId = "validateMeshPartAccessory_NoMeshId",
 	validateMeshPartBodyPart_ValidateWithSchema = "validateMeshPartBodyPart_ValidateWithSchema",
@@ -323,9 +323,6 @@ setmetatable(Analytics.ErrorType, {
 Analytics.metadata = {}
 
 function Analytics.setMetadata(metadata: { [string]: any })
-	if not getFFlagUGCValidationAnalytics() then
-		return
-	end
 	local result = {}
 	for k, v in metadata do
 		result[k] = tostring(v)
@@ -360,10 +357,6 @@ function Analytics.reportFailure(
 	extraArgs: { [string]: string }?,
 	validationContext: Types.ValidationContext
 )
-	if not getFFlagUGCValidationAnalytics() then
-		return
-	end
-
 	local target = if RunService:IsStudio() then "studio" else "rcc"
 	local args = joinTables(Analytics.metadata, extraArgs or {}, {
 		errorType = errorType,
@@ -380,9 +373,6 @@ function Analytics.reportFailure(
 end
 
 function Analytics.reportThumbnailing(time: number, extraArgs: { [string]: string }?)
-	if not getFFlagUGCValidationAnalytics() then
-		return
-	end
 	local target = if RunService:IsStudio() then "studio" else "rcc"
 	local args = joinTables(Analytics.metadata, extraArgs or {}, {
 		time = time,

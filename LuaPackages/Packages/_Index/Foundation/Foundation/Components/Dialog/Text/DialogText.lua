@@ -6,18 +6,20 @@ local React = require(Packages.React)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 
-type Bindable<T> = Types.Bindable<T>
+local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
 
 export type DialogTextProps = {
-	Text: Bindable<string>?,
-	LayoutOrder: Bindable<number>?,
+	Text: Types.Bindable<string>?,
+	LayoutOrder: Types.Bindable<number>?,
 }
 
 local function DialogText(props: DialogTextProps)
+	local variants = useDialogVariants()
+
 	return React.createElement(Text, {
 		Text = props.Text,
 		RichText = true, -- This circumvents a bug with TextLabel where it doesn't update the size in scrollview
-		tag = "text-body-large text-wrap text-align-x-left text-align-y-top auto-y size-full-0",
+		tag = variants.dialogContentText.tag,
 		LayoutOrder = props.LayoutOrder,
 	})
 end

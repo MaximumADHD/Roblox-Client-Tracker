@@ -1,5 +1,7 @@
 #  Social Libraries
 
+### 🚧 In the process of deprecation, do not add unless necessary 🚧
+
 [![ci](https://github.com/Roblox/social-libraries/actions/workflows/lest.yml/badge.svg)](https://github.com/Roblox/social-libraries/actions/workflows/lest.yml)
 
 Part of the [Social Package Ecosystem](https://confluence.rbx.com/pages/viewpage.action?pageId=244706438). Check out [this link](https://confluence.rbx.com/pages/viewpage.action?pageId=244706438) for more information!

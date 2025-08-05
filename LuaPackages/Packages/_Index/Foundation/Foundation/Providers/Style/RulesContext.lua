@@ -3,7 +3,12 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local StyleSheet = require(Foundation.StyleSheet.StyleSheet)
-type StyleRuleNoTag = StyleSheet.StyleRuleNoTag
+local Types = require(Foundation.StyleSheet.Rules.Types)
+type StyleRuleNoTag = Types.StyleRuleNoTag
 
-return React.createContext({} :: { [string]: StyleRuleNoTag })
+type RulesContext = {
+	rules: { [string]: StyleRuleNoTag },
+	scale: number,
+}
+
+return React.createContext({} :: RulesContext)
