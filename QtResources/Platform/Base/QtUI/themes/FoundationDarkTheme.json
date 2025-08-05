@@ -261,7 +261,7 @@
         },
         {
             "FilterButtonChecked": {
-                "Default": "#191A1F"
+                "Default": "#2E2E38"
             }
         },
         {
@@ -276,7 +276,7 @@
         },
         {
             "FilterButtonBorderAlt": {
-                "Default": "#202227"
+                "Default": "#2E2E38"
             }
         },
         {
@@ -314,8 +314,8 @@
         {
             "RibbonButton": {
                 "Default": "#191A1F",
-                "Selected": "#191A1F",
-                "Pressed": "#191A1F",
+                "Selected": "#2E2E38",
+                "Pressed": "#2E2E38",
                 "Hover": "#202227"
             }
         },

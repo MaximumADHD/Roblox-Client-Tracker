@@ -14900,7 +14900,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TrussPart": {
-    "documentation": "คล้ายกับ <code>Part</code> แต่มีภาพที่แตกต่างกัน <code>Style</code> และความแตกต่างที่สำคัญที่ตัวละครเริ่มต้นสามารถปีนได้",
+    "documentation": "Similar to a <code>Part</code> but with a different visual <code>Style</code> and the important distinction that default characters are able to climb it.",
     "keys": {
       "Style": "@roblox/globaltype/TrussPart.Style"
     },
@@ -14908,7 +14908,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TrussPart.Style": {
-    "documentation": "ตั้งค่าให้แทรสดูเป็นอย่างไร",
+    "documentation": "Sets what the truss looks like.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TrussPart#Style",
     "code_sample": ""
   },
@@ -25251,10 +25251,11 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก",
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world.",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AllowThirdPartySales": "@roblox/globaltype/Workspace.AllowThirdPartySales",
+      "AuthorityMode": "@roblox/globaltype/Workspace.AuthorityMode",
       "AvatarUnificationMode": "@roblox/globaltype/Workspace.AvatarUnificationMode",
       "ClientAnimatorThrottling": "@roblox/globaltype/Workspace.ClientAnimatorThrottling",
       "CurrentCamera": "@roblox/globaltype/Workspace.CurrentCamera",
@@ -25268,6 +25269,7 @@
       "IKControlConstraintSupport": "@roblox/globaltype/Workspace.IKControlConstraintSupport",
       "InsertPoint": "@roblox/globaltype/Workspace.InsertPoint",
       "InterpolationThrottling": "@roblox/globaltype/Workspace.InterpolationThrottling",
+      "LuauTypeCheckMode": "@roblox/globaltype/Workspace.LuauTypeCheckMode",
       "MeshPartHeadsAndAccessories": "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories",
       "ModelStreamingBehavior": "@roblox/globaltype/Workspace.ModelStreamingBehavior",
       "MoverConstraintRootBehavior": "@roblox/globaltype/Workspace.MoverConstraintRootBehavior",
@@ -25290,6 +25292,8 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
+      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
+      "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
@@ -25305,13 +25309,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "ความหนาแน่นของอากาศในระดับพื้นดินที่ใช้ในรูปแบบแรงอากาศ",
+    "documentation": "The air density at ground level, used in the aerodynamic force model.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
-    "documentation": "กำหนดว่าสินทรัพย์ที่สร้างโดยผู้ใช้รายอื่นสามารถขายได้ในเกมหรือไม่",
+    "documentation": "Determines whether assets created by other users can be sold in the game.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AllowThirdPartySales",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.AuthorityMode": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AuthorityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AvatarUnificationMode": {
@@ -25320,17 +25329,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ClientAnimatorThrottling": {
-    "documentation": "กำหนดโหมดการจำกัดอัตราการเร่งแอนิเมชั่นสำหรับไคลเอนต์ท้องถิ่น",
+    "documentation": "Specifies the animation throttling mode for the local client.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ClientAnimatorThrottling",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.CurrentCamera": {
-    "documentation": "วัตถุ <code>Camera</code> ที่ใช้โดยผู้เล่นท้องถิ่น",
+    "documentation": "The <code>Camera</code> object being used by the local player.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#CurrentCamera",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "จํานวนเวลาในวินาทีที่เกมทํางานอยู่",
+    "documentation": "The amount of time, in seconds, that the game has been running.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
@@ -25340,32 +25349,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "กำหนดความสูงที่ตก <code>BaseParts</code> และบรรพบุรุษของพวกเขา <code>Models</code> ถูกลบออกจาก <code>Workspace</code>",
+    "documentation": "Determines the height at which falling <code>BaseParts</code> and their ancestor <code>Models</code> are removed from <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>กำหนดว่าการเปลี่ยนแปลงที่ทำจากไคลเอนต์จะถูกส่งไปยังเซิร์ฟเวอร์หรือไม่",
+    "documentation": "<strong>Deprecated:</strong> <br>Determines whether changes made from the client will replicate to the server or not.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "กำหนดว่าเครื่องกลศาสตร์คำนวณแรงอากาศได้หรือไม่บน <code>BaseParts</code> ที่มีคุณสมบัติ <code>EnableFluidForces</code> เป็นจริง",
+    "documentation": "Determines whether the physics engine computes aerodynamic forces on <code>BaseParts</code> whose <code>EnableFluidForces</code> property is true.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "ระบุเวกเตอร์ลมระดับโลกสำหรับหญ้าพื้นที่เคลื่อนไหว เมฆไดนามิก และอนุภาค",
+    "documentation": "Specifies the global wind vector for animated terrain grass, dynamic clouds, and particles.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Gravity": {
-    "documentation": "กำหนดการเร่งความเร็วเนื่องจากแรงโน้มถ่วงที่ใช้กับการลดลง <code>BaseParts</code>",
+    "documentation": "Determines the acceleration due to gravity applied to falling <code>BaseParts</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Gravity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "เปิดใช้งานการสนับสนุนข้อจํากัดสําหรับ IKControls หากปิดใช้งาน IKControls จะเพิกเฉยข้อจํากัดทางกายภาพ",
+    "documentation": "Enables support for constraints for IKControls. If disabled, IKControls ignore physics constraints.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -25375,12 +25384,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.InterpolationThrottling": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่ควรใช้สำหรับงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> This property should not be used for new work.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InterpolationThrottling",
     "code_sample": ""
   },
+  "@roblox/globaltype/Workspace.LuauTypeCheckMode": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#LuauTypeCheckMode",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "ตั้งค่าว่าหัวและอุปกรณ์เสริมของตัวละครควรดาวน์โหลดเป็นชิ้นส่วนเมชจะได้หรือไม่",
+    "documentation": "Sets whether character Heads and Accessories should be downloaded as MeshParts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -25390,7 +25404,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "ควบคุมโลจิสติกที่ใช้เพื่อเลือกส่วนรากของการประกอบเมื่อใช้ข้อจํากัดเคลื่อนที่ใดๆ",
+    "documentation": "Controls the logic used to select the assembly root part when using any of the mover constraints.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
@@ -25405,7 +25419,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "กำหนดวิธีที่ตัวแก้ปัญหาจะเร่งการจำลองทางฟิสิกส์ไปข้างหน้าในเวลา",
+    "documentation": "Sets how the solver will advance the physics simulation forward in time.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -25445,37 +25459,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.SignalBehavior": {
-    "documentation": "กำหนดค่าเมื่อเครื่องยนต์เริ่มต้นการจัดการเหตุการณ์อีกครั้ง",
+    "documentation": "Configures when the engine resumes event handlers.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#SignalBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "กำหนดวิธีที่เครื่องยนต์ตัดสินใจเมื่อจะสตรีมเนื้อหาออกจากผู้เล่น",
+    "documentation": "Configures how the engine decides when to Stream content away from players.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "ว่าการสตรีมเนื้อหาจะเปิดใช้งานสำหรับสถานที่หรือไม่",
+    "documentation": "Whether content streaming is enabled for the place.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "กำหนดว่า StreamingIntegrityMode จะใช้งานอยู่หรือไม่",
+    "documentation": "Determines whether StreamingIntegrityMode is active.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "ระยะขั้นต่ำที่เนื้อหาจะถูกสตรีมไปยังผู้เล่นที่มีความสําคัญสูง",
+    "documentation": "Minimum distance that content will be streamed to players with high priority.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "ระยะสูงสุดที่เนื้อหาจะถูกสตรีมไปยังผู้เล่น",
+    "documentation": "Maximum distance that content will be streamed to players.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "การอ้างอิงถึงวัตถุ <code>Terrain</code> ที่ถูกผูกกับ <code>Workspace</code> เป็นพ่อ",
+    "documentation": "A reference to the <code>Terrain</code> object parented to the <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
@@ -25485,18 +25499,28 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "กำหนดว่า <code>parts</code> ในกลุ่มที่แตกต่างกันที่ตั้งไว้เพื่อไม่ให้ชนกันจะเพิกเฉยการชนกันและการสัมผัสเหตุการณ์",
+    "documentation": "Determines whether <code>parts</code> in different groups set to not collide will ignore collisions and touch events.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
     "code_sample": ""
   },
+  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseNewLuauTypeSolver",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "ชุดของ <code>BaseParts</code> สำหรับผู้ที่จะทำลายข้อต่อ"
+    "documentation": "An array of <code>BaseParts</code> for whom joints are to be broken."
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>ผ่านทุก <code>BaseParts</code> ที่กำหนด ทำลายข้อต่อใดๆ ที่เชื่อมโยงกับชิ้นส่วนเหล่านี้",
+    "documentation": "<strong>Deprecated:</strong> <br>Goes through all <code>BaseParts</code> given, breaking any joints connected to these parts.",
     "params": [
       {
         "name": "self",
@@ -25512,13 +25536,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "จํานวนชิ้นส่วนที่ตื่นอยู่"
+    "documentation": "The number of awake parts."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "คืนจํานวน <code>BaseParts</code> ที่ถูกมองว่ามีการใช้งานทางกายภาพเนื่องจากอยู่ภายใต้อิทธิพลของฟิสิกส์เมื่อเร็ว ๆ นี้",
+    "documentation": "Returns the number of <code>BaseParts</code> that are deemed physically active, due to being recently under the influence of physics.",
     "params": [
       {
         "name": "self",
@@ -25532,13 +25556,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "เปอร์เซ็นต์ของเวลาจริงที่การจำลองฟิสิกส์กําลังถูกจํากัดอยู่ในขณะนี้"
+    "documentation": "The percentage of real-time that physics simulation is currently being throttled to."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "คืนตัวเลขที่อยู่ระหว่าง 0 และ 100 ซึ่งแทนที่เปอร์เซ็นต์ของการจำลองทางกายภาพที่กําลังถูกจํากัดในเวลาจริง",
+    "documentation": "Returns an integer, between 0 and 100, representing the percentage of real-time that physics simulation is currently being throttled to.",
     "params": [
       {
         "name": "self",
@@ -25552,13 +25576,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "คืนจํานวนเฟรมต่อวินาทีที่ฟิสิกส์กําลังถูกจําลองอยู่ในขณะนี้"
+    "documentation": "Returns the number of frames per second that physics is currently being simulated at."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "คืนจํานวนเฟรมต่อวินาทีที่ฟิสิกส์กําลังถูกจําลองอยู่ในขณะนี้",
+    "documentation": "Returns the number of frames per second that physics is currently being simulated at.",
     "params": [
       {
         "name": "self",
@@ -25572,13 +25596,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick()\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "เวลาที่ประมาณการของ Unix บนเซิร์ฟเวอร์"
+    "documentation": "The estimated Unix timestamp on the server."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "restores เวลา Unix ของเซิร์ฟเวอร์ในวินาที",
+    "documentation": "Returns the server's Unix time in seconds.",
     "params": [
       {
         "name": "self",
@@ -25592,16 +25616,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "ชุดของ <code>BaseParts</code> สำหรับผู้ที่จะทำข้อต่อ"
+    "documentation": "An array of <code>BaseParts</code> for whom joints are to be made."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "The <code>JointCreationMode</code> ที่จะใช้ การส่งผ่านใน <code>Enum.JointCreationMode.All</code> หรือ <code>Enum.JointCreationMode.Surface</code> มีพฤติกรรมเดียวกันซึ่งเทียบเท่ากับเข้าร่วมเสมอ"
+    "documentation": "The <code>JointCreationMode</code> to be used. Passing in <code>Enum.JointCreationMode.All</code> or <code>Enum.JointCreationMode.Surface</code> has the same behavior which equates to Join Always."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "สร้างข้อต่อระหว่าง <code>Parts</code> ที่กำหนดและส่วนใดก็ได้ที่สัมผัสขึ้นอยู่กับพื้นผิวของชิ้นส่วนและโหมดการสร้างข้อต่อที่กำหนด",
+    "documentation": "Creates joints between the specified <code>Parts</code> and any touching parts depending on the parts' surfaces and the specified joint creation mode.",
     "params": [
       {
         "name": "self",
@@ -25621,13 +25645,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "ชุดของ <code>parts</code> สำหรับผู้ที่จะทำข้อต่อ"
+    "documentation": "An array of <code>parts</code> for whom joints are to be made."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>ผ่านทุกส่วน <code>BaseParts</code> ที่กำหนด หากด้านของส่วนใดมี <code>SurfaceType</code> ที่สามารถสร้างข้อต่อได้ จะสร้างข้อต่อกับส่วนที่อยู่ติดกันใดๆ",
+    "documentation": "<strong>Deprecated:</strong> <br>Goes through all <code>BaseParts</code> given. If any part's side has a <code>SurfaceType</code> that can make a joint it will create a joint with any adjacent parts.",
     "params": [
       {
         "name": "self",
@@ -25643,13 +25667,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "ถูกหากตัวแก้ PGS ถูกเปิดใช้งาน"
+    "documentation": "True if the PGS solver is enabled."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "ส่งคืน <code>true</code> หากเกมมีตัวแก้ไขฟิสิกส์ PGS เปิดใช้งาน",
+    "documentation": "Returns <code>true</code> if the game has the PGS Physics solver enabled.",
     "params": [
       {
         "name": "self",
@@ -25663,13 +25687,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "ชุดของ <code>BaseParts</code> สำหรับผู้ที่จะทำลายข้อต่อ"
+    "documentation": "An array of <code>BaseParts</code> for whom joints are to be broken."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "ทำลายข้อต่อทั้งหมดระหว่าง <code>BaseParts</code> และอื่น ๆ <code>BaseParts</code> ที่ระบุ",
+    "documentation": "Breaks all joints between the specified <code>BaseParts</code> and other <code>BaseParts</code>.",
     "params": [
       {
         "name": "self",
@@ -25685,10 +25709,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>พื้นที่ทำงาน</strong> บ้าน 3D วัตถุที่ถูกแสดงให้เป็นโลก 3Dวัตถุที่ไม่ลดลงจากมันจะไม่ถูกแสดงหรือโต้ตอบทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "ตำแหน่งและซูม <code>Workspace.CurrentCamera</code> เพื่อแสดงขนาดของ <code>BaseParts</code> ในปัจจุบันใน <code>Workspace</code>",
+    "documentation": "Positions and zooms the <code>Workspace.CurrentCamera</code> to show the extent of <code>BaseParts</code> currently in the <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -25777,7 +25801,7 @@
     "returns": []
   },
   "@roblox/globaltype/Workspace.PersistentLoaded": {
-    "documentation": "จุดไฟเมื่อโมเดลถาวรถูกส่งไปยังผู้เล่นที่ระบุ",
+    "documentation": "Fires when persistent models have been sent to the specified player.",
     "keys": {
       "Connect": "@roblox/globaltype/Workspace.PersistentLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Workspace.PersistentLoaded.ConnectParallel",
@@ -30063,7 +30087,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Platform": {
-    "documentation": "ในอดีตเป็นรูปแบบของ <code>Seat</code> ที่จะไม่วางผู้เล่นในท่านั่งวัตถุนี้ไม่สามารถสร้างได้อีกต่อไปและไม่สามารถใช้โดยนักพัฒนาได้",
+    "documentation": "Historically a form of <code>Seat</code> that wouldn't place the player in a sitting pose. This object is no longer create-able and cannot be used by developers.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Platform",
     "code_sample": ""
@@ -31410,7 +31434,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector": {
-    "documentation": "คลาสฐานของตัวควบคุม UI 2D ที่เรนเดอร์ <code>GuiObjects</code> ในชั้น",
+    "documentation": "The base class of 2D UI containers which render <code>GuiObjects</code> in layers.",
     "keys": {
       "Enabled": "@roblox/globaltype/LayerCollector.Enabled",
       "ResetOnSpawn": "@roblox/globaltype/LayerCollector.ResetOnSpawn",
@@ -31421,28 +31445,28 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector.Enabled": {
-    "documentation": "สลับการมองเห็นของสิ่งนี้ <code>LayerCollector</code> .",
+    "documentation": "Toggles the visibility of this <code>LayerCollector</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LayerCollector#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector.ResetOnSpawn": {
-    "documentation": "กำหนดว่าการรีเซ็ต <code>LayerCollector</code> จะเกิดขึ้น (ลบตัวเองและรีโคลนเข้าสู่ตัวละครของผู้เล่น <code>PlayerGui</code> ) ทุกครั้งที่ตัวละครของผู้เล่นเกิดใหม่",
+    "documentation": "Determines if the <code>LayerCollector</code> resets (deletes itself and re-clones into the player's <code>PlayerGui</code>) every time the player's character respawns.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LayerCollector#ResetOnSpawn",
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector.ZIndexBehavior": {
-    "documentation": "ควบคุมวิธีที่ <code>GuiObject.ZIndex</code> จะทำงานกับทุกสายลูกของสิ่งนี้ <code>LayerCollector</code>",
+    "documentation": "Controls how <code>GuiObject.ZIndex</code> behaves on all descendants of this <code>LayerCollector</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LayerCollector#ZIndexBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector.GetLayoutNodeTree/param/0": {
-    "documentation": "คลาสฐานของตัวควบคุม UI 2D ที่เรนเดอร์ <code>GuiObjects</code> ในชั้น"
+    "documentation": "The base class of 2D UI containers which render <code>GuiObjects</code> in layers."
   },
   "@roblox/globaltype/LayerCollector.GetLayoutNodeTree/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/LayerCollector.GetLayoutNodeTree": {
-    "documentation": "<strong>Deprecated:</strong> วิธีนี้ไม่ควรใช้สำหรับงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> This method should not be used for new work.",
     "params": [
       {
         "name": "self",
@@ -33610,7 +33634,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform": {
-    "documentation": "<strong>Deprecated:</strong> วัตถุ SkateboardPlatform ถูกยกเลิกและไม่ได้รับการสนับสนุนจาก Roblox อีกต่อไปนักพัฒนาที่ต้องการสร้างสเก็ตบอร์ดหรือยานพาหนะที่คล้ายกันควรโปรแกรมระบบของตนเองนอกจากนี้ วัตถุ <code>VehicleSeat</code> สามารถใช้สร้างยานพาหนะง่ายๆ ได้อย่างรวดเร็ว<br>แพลตฟอร์มสเก็ตบอร์ดสามารถใช้สร้างสเก็ตบอร์ดได้เมื่อตัวละครได้รับบนสเก็ตบอร์ดพวกเขาจะติดอยู่กับมันจนกว่าพวกเขาจะกดปุ่มหนีจนกว่าจะถึงเวลานั้นตัวละครจะใช้แอนิเมชั่นสเก็ตบอร์ดและเดินทางเร็วกว่าตัวละครที่เดินได้",
+    "documentation": "<strong>Deprecated:</strong> The SkateboardPlatform object has been deprecated and is no longer supported by Roblox. Developers looking to create skateboards or similar vehicles are advised to program their own systems. Additionally, the <code>VehicleSeat</code> object can be used to quickly create simple vehicles.<br>A SkateboardPlatform can be used to create a skateboard. When characters get on a skateboard, they are stuck to it until they press the escape key. Until then, the character uses skateboard animations and travels faster than a walking character.",
     "keys": {
       "Controller": "@roblox/globaltype/SkateboardPlatform.Controller",
       "ControllingHumanoid": "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid",
@@ -33623,38 +33647,38 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Controller": {
-    "documentation": "ตัวควบคุมสเก็ตบอร์ดที่ใช้งานของแพลตฟอร์มสเก็ตบอร์ด",
+    "documentation": "The SkateboardPlatform's active SkateboardController.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Controller",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid": {
-    "documentation": "The <code>Humanoid</code> ที่ควบคุม SkateboardPlatform",
+    "documentation": "The <code>Humanoid</code> that is controlling the SkateboardPlatform.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#ControllingHumanoid",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Steer": {
-    "documentation": "ทิศทางการเคลื่อนที่ที่ผูกกับแป้น A และ D ต้องเป็น 1 (ขวา) 0 (ตรง) หรือ -1 (ซ้าย) จะรีเฟรชกลับเป็น 0 เว้นแต่ตั้งค่าอย่างต่อเนื่อง",
+    "documentation": "The direction of movement, tied to the keys A and D. Must be 1 (right), 0 (straight), or -1 (left). Will refresh back to 0 unless constantly set.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Steer",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.StickyWheels": {
-    "documentation": "ถ้าเป็นจริง, ล้อจะไม่กลิ้งโดยไม่มีการป้อนของผู้ใช้",
+    "documentation": "If true, wheels won't roll without user input.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#StickyWheels",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Throttle": {
-    "documentation": "ทิศทางการเคลื่อนที่ที่ผูกกับแป้น W และ Sต้องเป็นจํานวนเต็ม 1 (ไปข้างหน้า) 0 (เปล่า) หรือ -1 (ย้อนกลับ)จะรีเฟรชกลับไปที่ 0 เว้นแต่ตั้งค่าอย่างต่อเนื่อง",
+    "documentation": "The direction of movement, tied to the keys W and S. Must be an integer 1 (forward), 0 (null), or -1 (reverse). Will refresh back to 0 unless constantly set.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Throttle",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/0": {
-    "documentation": "<strong>Deprecated:</strong> วัตถุ SkateboardPlatform ถูกยกเลิกและไม่ได้รับการสนับสนุนจาก Roblox อีกต่อไปนักพัฒนาที่ต้องการสร้างสเก็ตบอร์ดหรือยานพาหนะที่คล้ายกันควรโปรแกรมระบบของตนเองนอกจากนี้ วัตถุ <code>VehicleSeat</code> สามารถใช้สร้างยานพาหนะง่ายๆ ได้อย่างรวดเร็ว<br>แพลตฟอร์มสเก็ตบอร์ดสามารถใช้สร้างสเก็ตบอร์ดได้เมื่อตัวละครได้รับบนสเก็ตบอร์ดพวกเขาจะติดอยู่กับมันจนกว่าพวกเขาจะกดปุ่มหนีจนกว่าจะถึงเวลานั้นตัวละครจะใช้แอนิเมชั่นสเก็ตบอร์ดและเดินทางเร็วกว่าตัวละครที่เดินได้"
+    "documentation": "<strong>Deprecated:</strong> The SkateboardPlatform object has been deprecated and is no longer supported by Roblox. Developers looking to create skateboards or similar vehicles are advised to program their own systems. Additionally, the <code>VehicleSeat</code> object can be used to quickly create simple vehicles.<br>A SkateboardPlatform can be used to create a skateboard. When characters get on a skateboard, they are stuck to it until they press the escape key. Until then, the character uses skateboard animations and travels faster than a walking character."
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse": {
-    "documentation": "เพิ่ม \"impulseWorld\" ให้กับ SkateboardPlatform <code>BasePart.Velocity</code>",
+    "documentation": "Adds ''impulseWorld'' to the SkateboardPlatform's <code>BasePart.Velocity</code>.",
     "params": [
       {
         "name": "self",
@@ -33747,7 +33771,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.Equipped": {
-    "documentation": "ยิงเมื่อสเก็ตบอร์ดถูกติดตั้ง",
+    "documentation": "Fired when the skateboard is equipped.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.Equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.Equipped.ConnectParallel",
@@ -33835,7 +33859,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.MoveStateChanged": {
-    "documentation": "ยิงเมื่อ SkateboardPlatform ของ <code>SkateboardPlatform.ControllingHumanoid</code> เปลี่ยนแรงที่ใช้บน SkateboardPlatform",
+    "documentation": "Fired when the SkateboardPlatform's <code>SkateboardPlatform.ControllingHumanoid</code> changes the force being used on the SkateboardPlatform.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.ConnectParallel",
@@ -33923,7 +33947,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.Unequipped": {
-    "documentation": "ยิงเมื่อใดก็ตามที่สเก็ตบอร์ดถูกถอดออก",
+    "documentation": "Fired whenever the skateboard is unequipped.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.Unequipped.ConnectParallel",
@@ -34011,7 +34035,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.equipped": {
-    "documentation": "<strong>Deprecated:</strong> อีเวนต์ที่ถูกละทิ้งนี้เป็นตัวแปรของ <code>SkateboardPlatform.Equipped</code> ซึ่งถูกละทิ้งไปแล้วเช่นกัน ไม่ควรใช้อีเวนต์ในงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> This deprecated event is a variant of <code>SkateboardPlatform.Equipped</code> which has also been deprecated. Neither event should be used in new work.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.equipped.ConnectParallel",
@@ -34099,7 +34123,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.unequipped": {
-    "documentation": "<strong>Deprecated:</strong> อีเวนต์ที่ถูกละทิ้งนี้เป็นตัวแปรของ <code>SkateboardPlatform.Unequipped</code> ซึ่งถูกละทิ้งไปแล้วเช่นกัน ไม่ควรใช้อีเวนต์ในงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> This deprecated event is a variant of <code>SkateboardPlatform.Unequipped</code> which has also been deprecated. Neither event should be used in new work.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.unequipped.ConnectParallel",
@@ -38520,7 +38544,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TriangleMeshPart": {
-    "documentation": "คลาสชั่วคราวที่จัดการคุณสมบัติทางภาคกายภาพสำหรับ PartOperations และ MeshParts",
+    "documentation": "Abstract intermediate class that manages physical geometry properties for PartOperations and MeshParts.",
     "keys": {
       "CollisionFidelity": "@roblox/globaltype/TriangleMeshPart.CollisionFidelity",
       "FluidFidelity": "@roblox/globaltype/TriangleMeshPart.FluidFidelity",
@@ -38530,12 +38554,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TriangleMeshPart.CollisionFidelity": {
-    "documentation": "กำหนดระดับรายละเอียดที่ฟิสิกส์ของชิ้นส่วนจะปฏิบัติตามเมชของมัน",
+    "documentation": "Determines the level of detail the part's physics will adhere to its mesh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/TriangleMeshPart.FluidFidelity": {
-    "documentation": "กำหนดการแสดงรูปทรงที่ใช้ในการคำนวณแรงและแรงบิดทางอากาศ",
+    "documentation": "Determines the geometric representation used to compute aerodynamic forces and torques.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#FluidFidelity",
     "code_sample": ""
   },
@@ -56030,7 +56054,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart": {
-    "documentation": "รูปแบบของ <code>BasePart</code> ที่รวมถึงเมชที่กําหนดเองที่จําลองทางกายภาพ",
+    "documentation": "A form of <code>BasePart</code> that includes a physically simulated custom mesh.",
     "keys": {
       "DoubleSided": "@roblox/globaltype/MeshPart.DoubleSided",
       "HasJointOffset": "@roblox/globaltype/MeshPart.HasJointOffset",
@@ -56047,7 +56071,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.DoubleSided": {
-    "documentation": "ตัดสินใจว่าจะเรนเดอร์ทั้งสองด้านของโพลิกอนในเมชหรือไม่",
+    "documentation": "Determines whether to render both faces of polygons in the mesh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#DoubleSided",
     "code_sample": ""
   },
@@ -56067,38 +56091,38 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshContent": {
-    "documentation": "เมชที่แสดงบน <code>MeshPart</code> สนับสนุน <a href=\"../../../projects/assets/index.md#asset-uris\">URI สินทรัพย์</a> และ <code>EditableMesh</code>",
+    "documentation": "The mesh that is displayed on the <code>MeshPart</code>. Supports <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> and <code>EditableMesh</code> objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshId": {
-    "documentation": "ทรัพยากร URIs ของเมทช์ที่แสดงบน อ่านและเขียนไปยัง",
+    "documentation": "The <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> of the mesh that is displayed on the <code>MeshPart</code>. Reads and writes to <code>MeshContent</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshId",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.RenderFidelity": {
-    "documentation": "ระดับรายละเอียดที่ใช้ในการแสดงผล <code>MeshPart</code>",
+    "documentation": "The level of detail used to render the <code>MeshPart</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#RenderFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureContent": {
-    "documentation": "เทกเจอร์ที่ใช้กับ <code>MeshPart</code> . สนับสนุน <a href=\"../../../projects/assets/index.md#asset-uris\">URI สินทรัพย์</a> และ <code>EditableImage</code>",
+    "documentation": "The texture applied to the <code>MeshPart</code>. Supports <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> and <code>EditableImage</code> objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureID": {
-    "documentation": "เทกเจอร์ที่ใช้กับ <code>MeshPart</code> อ่านและเขียนไปยัง <code>TextureContent</code>",
+    "documentation": "The texture applied to the <code>MeshPart</code>. Reads and writes to <code>TextureContent</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureID",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh/param/0": {
-    "documentation": "รูปแบบของ <code>BasePart</code> ที่รวมถึงเมชที่กําหนดเองที่จําลองทางกายภาพ"
+    "documentation": "A form of <code>BasePart</code> that includes a physically simulated custom mesh."
   },
   "@roblox/globaltype/MeshPart.ApplyMesh/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh": {
-    "documentation": "เขียนทับ <code>MeshContent</code> , <code>TextureContent</code> , และคุณสมบัติภาพการชนกันของสิ่งนี้ <code>MeshPart</code> จากแหล่งที่กำหนด <code>meshPart</code>",
+    "documentation": "Overwrites the <code>MeshContent</code>, <code>TextureContent</code>, and collision geometry properties of this <code>MeshPart</code> from the given source <code>meshPart</code>.",
     "params": [
       {
         "name": "self",
@@ -61475,7 +61499,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/IntersectOperation": {
-    "documentation": "ผลของชิ้นส่วนที่ถูกแยกออกเป็นโมเดลของของแข็งเดียว",
+    "documentation": "Result of parts that have been intersected into a single solid model.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/IntersectOperation",
     "code_sample": ""
@@ -69473,7 +69497,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Part": {
-    "documentation": "ประเภททั่วไปของ <code>BasePart</code> ที่มาในรูปแบบพื้นฐานที่แตกต่างกัน",
+    "documentation": "A common type of <code>BasePart</code> that comes in different primitive shapes.",
     "keys": {
       "Shape": "@roblox/globaltype/Part.Shape"
     },
@@ -69481,7 +69505,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Name = \"JurassicPart\"\npart.Anchored = true\npart.Shape = Enum.PartType.Ball\npart.Color = Color3.new(1, 1, 1)\npart.Parent = workspace -- Put the part into the Workspace"
   },
   "@roblox/globaltype/Part.Shape": {
-    "documentation": "กำหนดรูปร่างโดยรวมของวัตถุ",
+    "documentation": "Sets the overall shape of the object.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Part#Shape",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Name = \"JurassicPart\"\npart.Anchored = true\npart.Shape = Enum.PartType.Ball\npart.Color = Color3.new(1, 1, 1)\npart.Parent = workspace -- Put the part into the Workspace"
   },
@@ -70824,7 +70848,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiButton": {
-    "documentation": "คลาสที่เป็นนามธรรมสำหรับอินเทอร์เฟซผู้ใช้ 2D โต้ตอบ",
+    "documentation": "An abstract class for interactive 2D user interface elements.",
     "keys": {
       "AutoButtonColor": "@roblox/globaltype/GuiButton.AutoButtonColor",
       "HoverHapticEffect": "@roblox/globaltype/GuiButton.HoverHapticEffect",
@@ -70837,32 +70861,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiButton.AutoButtonColor": {
-    "documentation": "กำหนดว่าปุ่มจะเปลี่ยนสีโดยอัตโนมัติเมื่อเมาส์เลื่อนผ่านหรือคลิกที่มันหรือไม่",
+    "documentation": "Determines whether the button automatically changes color when the mouse hovers over or clicks on it.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#AutoButtonColor",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiButton.HoverHapticEffect": {
-    "documentation": "ตัวอย่าง <code>HapticEffect</code> ที่จะเล่นเมื่อ <code>GuiButton</code> ถูกเลื่อน",
+    "documentation": "A <code>HapticEffect</code> instance that will play when the <code>GuiButton</code> is being hovered.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#HoverHapticEffect",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiButton.Modal": {
-    "documentation": "หาก <code>true</code> ในขณะที่องค์ประกอบ GUI มองเห็นได้ เมาส์จะไม่ถูกล็อคเว้นแต่ปุ่มเมาส์ด้านขวาจะอยู่ใต้",
+    "documentation": "If <code>true</code> while the GUI element is visible, the mouse will not be locked unless the right mouse button is down.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#Modal",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiButton.PressHapticEffect": {
-    "documentation": "ตัวอย่าง <code>HapticEffect</code> ที่จะเล่นเมื่อกด <code>GuiButton</code> จะถูกกด",
+    "documentation": "A <code>HapticEffect</code> instance that will play when the <code>GuiButton</code> is being pressed.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#PressHapticEffect",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiButton.Selected": {
-    "documentation": "คุณสมบัติ boolean ซึ่งระบุว่าวัตถุถูกเลือกหรือไม่",
+    "documentation": "A boolean property which indicates whether the object has been selected.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#Selected",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiButton.Style": {
-    "documentation": "ตั้งสไตล์ของ <code>GuiButton</code> ตามรายการสไตล์ที่กําหนดไว้ล่วงหน้า",
+    "documentation": "Sets the style of the <code>GuiButton</code> based on a list of pre-determined styles.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiButton#Style",
     "code_sample": ""
   },
@@ -70944,7 +70968,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiButton.Activated": {
-    "documentation": "เกิดไฟไหม้เมื่อปุ่มถูกเปิดใช้งาน",
+    "documentation": "Fires when the button is activated.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiButton.Activated.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiButton.Activated.ConnectParallel",
@@ -71032,7 +71056,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiButton.MouseButton1Click": {
-    "documentation": "เกิดไฟไหม้เมื่อเมาส์ของผู้ใช้คลิกเต็มรูปแบบที่ <code>GuiButton</code>",
+    "documentation": "Fires when the user's mouse fully left clicks the <code>GuiButton</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiButton.MouseButton1Click.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiButton.MouseButton1Click.ConnectParallel",
@@ -71120,7 +71144,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiButton.MouseButton1Down": {
-    "documentation": "เกิดไฟไหม้เมื่อผู้ใช้กดปุ่มเมาส์ซ้ายลงบน <code>GuiButton</code>",
+    "documentation": "Fires when the user presses their left mouse button down on the <code>GuiButton</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiButton.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiButton.MouseButton1Down.ConnectParallel",
@@ -71208,7 +71232,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiButton.MouseButton1Up": {
-    "documentation": "เกิดไฟไหม้เมื่อผู้ใช้ปล่อยปุ่มเมาส์ซ้ายออกจาก <code>GuiButton</code>",
+    "documentation": "Fires when the user releases their left mouse button off of the <code>GuiButton</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiButton.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiButton.MouseButton1Up.ConnectParallel",
@@ -71296,7 +71320,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiButton.MouseButton2Click": {
-    "documentation": "เกิดไฟไหม้เมื่อเมาส์ของผู้ใช้คลิกขวาเต็มรูปแบบที่ <code>GuiButton</code>",
+    "documentation": "Fires when the user's mouse fully right clicks the <code>GuiButton</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiButton.MouseButton2Click.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiButton.MouseButton2Click.ConnectParallel",
@@ -71384,7 +71408,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiButton.MouseButton2Down": {
-    "documentation": "เกิดไฟไหม้เมื่อผู้ใช้กดปุ่มเมาส์ขวาลงบน <code>GuiButton</code>",
+    "documentation": "Fires when the user presses their right mouse button down on the <code>GuiButton</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiButton.MouseButton2Down.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiButton.MouseButton2Down.ConnectParallel",
@@ -71472,7 +71496,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiButton.MouseButton2Up": {
-    "documentation": "เกิดไฟไหม้เมื่อผู้ใช้ปล่อยปุ่มเมาส์ขวาออกจาก <code>GuiButton</code>",
+    "documentation": "Fires when the user releases their right mouse button off of the <code>GuiButton</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiButton.MouseButton2Up.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiButton.MouseButton2Up.ConnectParallel",
@@ -72475,7 +72499,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation": {
-    "documentation": "คลาสที่เป็นนามธรรมที่ทุกส่วนที่อ้างอิงจากการจำลองแข็งสืบทอดมา",
+    "documentation": "An abstract class that all parts based on solid modeling inherit from.",
     "keys": {
       "RenderFidelity": "@roblox/globaltype/PartOperation.RenderFidelity",
       "SmoothingAngle": "@roblox/globaltype/PartOperation.SmoothingAngle",
@@ -72487,33 +72511,33 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.RenderFidelity": {
-    "documentation": "ระดับรายละเอียดที่ใช้ในการเรนเดอร์ชิ้นส่วนโมเดลที่แข็ง",
+    "documentation": "The level of detail used to render the solid modeled part.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#RenderFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SmoothingAngle": {
-    "documentation": "มุมในองศาที่มีผลต่อการเรนเดอร์ที่ราบรื่นของส่วนโมเดลที่แข็งแกร่ง",
+    "documentation": "An angle in degrees which affects the smooth shading of a solid modeled part.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#SmoothingAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.TriangleCount": {
-    "documentation": "จํานวนเหลี่ยมในโมเดลของของแข็งนี้",
+    "documentation": "The number of polygons in this solid model.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#TriangleCount",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.UsePartColor": {
-    "documentation": "ตั้งค่าว่า <code>PartOperation</code> สามารถเปลี่ยนสีได้โดยใช้คุณสมบัติสีที่มีอยู่แล้ว",
+    "documentation": "Sets whether the <code>PartOperation</code> can be recolored using inherited color properties.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#UsePartColor",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/0": {
-    "documentation": "คลาสที่เป็นนามธรรมที่ทุกส่วนที่อ้างอิงจากการจำลองแข็งสืบทอดมา"
+    "documentation": "An abstract class that all parts based on solid modeling inherit from."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/1": {
-    "documentation": "เอฟเฟกต์ <code>PartOperation</code> ซึ่งจะแทนที่เอฟเฟกต์ของเอฟเฟกต์นี้ <code>PartOperation</code>"
+    "documentation": "The <code>PartOperation</code> whose geometry will substitute the geometry of this <code>PartOperation</code>."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry": {
-    "documentation": "แทนที่รูปร่างของนี้ <code>PartOperation</code> ด้วยรูปร่างของอีก <code>PartOperation</code> คน",
+    "documentation": "Substitutes the geometry of this <code>PartOperation</code> with the geometry of another <code>PartOperation</code>.",
     "params": [
       {
         "name": "self",
@@ -73458,7 +73482,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FormFactorPart": {
-    "documentation": "คลาส FormFactorPart เป็นคลาสที่เป็นนามธรรม มันมีลักษณะการมรดกจากคลาส BasePart และเพิ่มคุณสมบัติ FormFactor ให้กับคลาสที่มรดกจากมัน",
+    "documentation": "The FormFactorPart class is an abstract class. It inherits from the BasePart class and adds the FormFactor property to classes that inherit from it.",
     "keys": {
       "FormFactor": "@roblox/globaltype/FormFactorPart.FormFactor",
       "formFactor": "@roblox/globaltype/FormFactorPart.formFactor"
@@ -73467,12 +73491,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FormFactorPart.FormFactor": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกละทิ้งและไม่ควรใช้ในงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> This property has been deprecated and should not be used in new work.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FormFactorPart#FormFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/FormFactorPart.formFactor": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกละทิ้งและไม่ควรใช้ในงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> This property has been deprecated and should not be used in new work.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FormFactorPart#formFactor",
     "code_sample": ""
   },
@@ -87778,7 +87802,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WedgePart": {
-    "documentation": "ประเภท <code>BasePart</code> ที่มีรูปทรงบล็อก",
+    "documentation": "A type of <code>BasePart</code> that has a wedge shape.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WedgePart",
     "code_sample": ""

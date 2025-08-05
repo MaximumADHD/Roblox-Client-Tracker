@@ -3269,6 +3269,42 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">AudioFDNReverb</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Wet</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Dry</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RoomSize</string>
+            <double name="UIMinimum">0.1</double>
+            <double name="UIMaximum">1000</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">EchoSoundEffect</string>
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">20</string>

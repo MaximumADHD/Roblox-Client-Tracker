@@ -25336,7 +25336,6 @@
       "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
-      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -25575,26 +25574,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
@@ -27783,341 +27762,8 @@
   },
   "@roblox/globaltype/VirtualUser": {
     "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent.",
-    "keys": {
-      "Button1Down": "@roblox/globaltype/VirtualUser.Button1Down",
-      "Button1Up": "@roblox/globaltype/VirtualUser.Button1Up",
-      "Button2Down": "@roblox/globaltype/VirtualUser.Button2Down",
-      "Button2Up": "@roblox/globaltype/VirtualUser.Button2Up",
-      "CaptureController": "@roblox/globaltype/VirtualUser.CaptureController",
-      "ClickButton1": "@roblox/globaltype/VirtualUser.ClickButton1",
-      "ClickButton2": "@roblox/globaltype/VirtualUser.ClickButton2",
-      "MoveMouse": "@roblox/globaltype/VirtualUser.MoveMouse",
-      "SetKeyDown": "@roblox/globaltype/VirtualUser.SetKeyDown",
-      "SetKeyUp": "@roblox/globaltype/VirtualUser.SetKeyUp",
-      "StartRecording": "@roblox/globaltype/VirtualUser.StartRecording",
-      "StopRecording": "@roblox/globaltype/VirtualUser.StopRecording",
-      "TypeKey": "@roblox/globaltype/VirtualUser.TypeKey"
-    },
+    "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button1Down/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.Button1Down/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button1Down/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button1Down": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.Button1Down/param/0"
-      },
-      {
-        "name": "position",
-        "documentation": "@roblox/globaltype/VirtualUser.Button1Down/param/1"
-      },
-      {
-        "name": "camera",
-        "documentation": "@roblox/globaltype/VirtualUser.Button1Down/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#Button1Down",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button1Up/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.Button1Up/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button1Up/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button1Up": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.Button1Up/param/0"
-      },
-      {
-        "name": "position",
-        "documentation": "@roblox/globaltype/VirtualUser.Button1Up/param/1"
-      },
-      {
-        "name": "camera",
-        "documentation": "@roblox/globaltype/VirtualUser.Button1Up/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#Button1Up",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button2Down/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.Button2Down/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button2Down/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button2Down": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.Button2Down/param/0"
-      },
-      {
-        "name": "position",
-        "documentation": "@roblox/globaltype/VirtualUser.Button2Down/param/1"
-      },
-      {
-        "name": "camera",
-        "documentation": "@roblox/globaltype/VirtualUser.Button2Down/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#Button2Down",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button2Up/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.Button2Up/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button2Up/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.Button2Up": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.Button2Up/param/0"
-      },
-      {
-        "name": "position",
-        "documentation": "@roblox/globaltype/VirtualUser.Button2Up/param/1"
-      },
-      {
-        "name": "camera",
-        "documentation": "@roblox/globaltype/VirtualUser.Button2Up/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#Button2Up",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.CaptureController/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.CaptureController": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.CaptureController/param/0"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#CaptureController",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.ClickButton1/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.ClickButton1/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.ClickButton1/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.ClickButton1": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.ClickButton1/param/0"
-      },
-      {
-        "name": "position",
-        "documentation": "@roblox/globaltype/VirtualUser.ClickButton1/param/1"
-      },
-      {
-        "name": "camera",
-        "documentation": "@roblox/globaltype/VirtualUser.ClickButton1/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#ClickButton1",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.ClickButton2/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.ClickButton2/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.ClickButton2/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.ClickButton2": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.ClickButton2/param/0"
-      },
-      {
-        "name": "position",
-        "documentation": "@roblox/globaltype/VirtualUser.ClickButton2/param/1"
-      },
-      {
-        "name": "camera",
-        "documentation": "@roblox/globaltype/VirtualUser.ClickButton2/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#ClickButton2",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.MoveMouse/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.MoveMouse/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.MoveMouse/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.MoveMouse": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.MoveMouse/param/0"
-      },
-      {
-        "name": "position",
-        "documentation": "@roblox/globaltype/VirtualUser.MoveMouse/param/1"
-      },
-      {
-        "name": "camera",
-        "documentation": "@roblox/globaltype/VirtualUser.MoveMouse/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#MoveMouse",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.SetKeyDown/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.SetKeyDown/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.SetKeyDown": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.SetKeyDown/param/0"
-      },
-      {
-        "name": "key",
-        "documentation": "@roblox/globaltype/VirtualUser.SetKeyDown/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#SetKeyDown",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.SetKeyUp/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.SetKeyUp/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.SetKeyUp": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.SetKeyUp/param/0"
-      },
-      {
-        "name": "key",
-        "documentation": "@roblox/globaltype/VirtualUser.SetKeyUp/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#SetKeyUp",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.StartRecording/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.StartRecording": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.StartRecording/param/0"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#StartRecording",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.StopRecording/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.StopRecording/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.StopRecording": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.StopRecording/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/VirtualUser.StopRecording/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#StopRecording",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VirtualUser.TypeKey/param/0": {
-    "documentation": "VirtualUser is a service that allows you to record the inputs of a user, and then play it back to a limited extent."
-  },
-  "@roblox/globaltype/VirtualUser.TypeKey/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/VirtualUser.TypeKey": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/VirtualUser.TypeKey/param/0"
-      },
-      {
-        "name": "key",
-        "documentation": "@roblox/globaltype/VirtualUser.TypeKey/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VirtualUser#TypeKey",
     "code_sample": ""
   },
   "@roblox/globaltype/EmotesPages": {
@@ -44262,14 +43908,12 @@
       "HasVerifiedBadge": "@roblox/globaltype/Player.HasVerifiedBadge",
       "HealthDisplayDistance": "@roblox/globaltype/Player.HealthDisplayDistance",
       "LocaleId": "@roblox/globaltype/Player.LocaleId",
-      "MaximumSimulationRadius": "@roblox/globaltype/Player.MaximumSimulationRadius",
       "MembershipType": "@roblox/globaltype/Player.MembershipType",
       "NameDisplayDistance": "@roblox/globaltype/Player.NameDisplayDistance",
       "Neutral": "@roblox/globaltype/Player.Neutral",
       "PartyId": "@roblox/globaltype/Player.PartyId",
       "ReplicationFocus": "@roblox/globaltype/Player.ReplicationFocus",
       "RespawnLocation": "@roblox/globaltype/Player.RespawnLocation",
-      "SimulationRadius": "@roblox/globaltype/Player.SimulationRadius",
       "StepIdOffset": "@roblox/globaltype/Player.StepIdOffset",
       "Team": "@roblox/globaltype/Player.Team",
       "TeamColor": "@roblox/globaltype/Player.TeamColor",
@@ -44279,7 +43923,6 @@
       "AddReplicationFocus": "@roblox/globaltype/Player.AddReplicationFocus",
       "ClearCharacterAppearance": "@roblox/globaltype/Player.ClearCharacterAppearance",
       "DistanceFromCharacter": "@roblox/globaltype/Player.DistanceFromCharacter",
-      "GetData": "@roblox/globaltype/Player.GetData",
       "GetFriendsOnline": "@roblox/globaltype/Player.GetFriendsOnline",
       "GetJoinData": "@roblox/globaltype/Player.GetJoinData",
       "GetMouse": "@roblox/globaltype/Player.GetMouse",
@@ -44438,11 +44081,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
-  "@roblox/globaltype/Player.MaximumSimulationRadius": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#MaximumSimulationRadius",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Player.MembershipType": {
     "documentation": "Describes the account's membership type.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#MembershipType",
@@ -44471,11 +44109,6 @@
   "@roblox/globaltype/Player.RespawnLocation": {
     "documentation": "If set, the player will respawn at the given <code>SpawnLocation</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Player.SimulationRadius": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#SimulationRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.StepIdOffset": {
@@ -44571,26 +44204,6 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DistanceFromCharacter",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
-  },
-  "@roblox/globaltype/Player.GetData/param/0": {
-    "documentation": "An object that represents a presently connected client to the experience."
-  },
-  "@roblox/globaltype/Player.GetData/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Player.GetData": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Player.GetData/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Player.GetData/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetData",
-    "code_sample": ""
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -52382,7 +51995,7 @@
     "documentation": "The <code>Player</code> requesting the generation."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "A dictionary for additional generation options to influence the result. The following key is supported: <ul> <li><code>SuggestedSize</code> — Optional <code>Vector3</code> representing a size   guide for the generated asset. The service will attempt to create a   model with a size and proportion similar to the provided   <code>Vector3</code>. This does not guarantee the final output size.</li> </ul>"
+    "documentation": "A dictionary for additional generation options to influence the result. The following key is supported: - <code>SuggestedSize</code> — Optional <code>Vector3</code> representing a size guide for the generated asset. The service will attempt to create a model with a size and proportion similar to the provided <code>Vector3</code>. This does not guarantee the final output size."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
     "documentation": "A callback function triggered with intermediate generation results. Useful for retrieving early mesh versions before textures are applied."
@@ -55439,7 +55052,6 @@
       "TopbarInset": "@roblox/globaltype/GuiService.TopbarInset",
       "TouchControlsEnabled": "@roblox/globaltype/GuiService.TouchControlsEnabled",
       "ViewportDisplaySize": "@roblox/globaltype/GuiService.ViewportDisplaySize",
-      "ViewportSizeInMM": "@roblox/globaltype/GuiService.ViewportSizeInMM",
       "AddSelectionParent": "@roblox/globaltype/GuiService.AddSelectionParent",
       "AddSelectionTuple": "@roblox/globaltype/GuiService.AddSelectionTuple",
       "CloseInspectMenu": "@roblox/globaltype/GuiService.CloseInspectMenu",
@@ -55524,11 +55136,6 @@
   "@roblox/globaltype/GuiService.ViewportDisplaySize": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ViewportDisplaySize",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GuiService.ViewportSizeInMM": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ViewportSizeInMM",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/0": {
@@ -56996,7 +56603,7 @@
       "CreateMeshPartAsync": "@roblox/globaltype/AssetService.CreateMeshPartAsync",
       "CreatePlaceAsync": "@roblox/globaltype/AssetService.CreatePlaceAsync",
       "CreatePlaceInPlayerInventoryAsync": "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync",
-      "CreateSurfaceAppearance": "@roblox/globaltype/AssetService.CreateSurfaceAppearance",
+      "CreateSurfaceAppearanceAsync": "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync",
       "GetAssetIdsForPackage": "@roblox/globaltype/AssetService.GetAssetIdsForPackage",
       "GetAudioMetadataAsync": "@roblox/globaltype/AssetService.GetAudioMetadataAsync",
       "GetBundleDetailsAsync": "@roblox/globaltype/AssetService.GetBundleDetailsAsync",
@@ -57344,31 +56951,31 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreatePlaceInPlayerInventoryAsync",
     "code_sample": ""
   },
-  "@roblox/globaltype/AssetService.CreateSurfaceAppearance/param/0": {
+  "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/0": {
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
   },
-  "@roblox/globaltype/AssetService.CreateSurfaceAppearance/param/1": {
+  "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
     "documentation": ""
   },
-  "@roblox/globaltype/AssetService.CreateSurfaceAppearance/return/0": {
+  "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/AssetService.CreateSurfaceAppearance": {
+  "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
     "documentation": "",
     "params": [
       {
         "name": "self",
-        "documentation": "@roblox/globaltype/AssetService.CreateSurfaceAppearance/param/0"
+        "documentation": "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/0"
       },
       {
         "name": "content",
-        "documentation": "@roblox/globaltype/AssetService.CreateSurfaceAppearance/param/1"
+        "documentation": "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1"
       }
     ],
     "returns": [
-      "@roblox/globaltype/AssetService.CreateSurfaceAppearance/return/0"
+      "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0"
     ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateSurfaceAppearance",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateSurfaceAppearanceAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/param/0": {
@@ -62162,9 +61769,6 @@
       "GetFaceVertices": "@roblox/globaltype/EditableMesh.GetFaceVertices",
       "GetFaces": "@roblox/globaltype/EditableMesh.GetFaces",
       "GetFacesWithAttribute": "@roblox/globaltype/EditableMesh.GetFacesWithAttribute",
-      "GetFacesWithColor": "@roblox/globaltype/EditableMesh.GetFacesWithColor",
-      "GetFacesWithNormal": "@roblox/globaltype/EditableMesh.GetFacesWithNormal",
-      "GetFacesWithUV": "@roblox/globaltype/EditableMesh.GetFacesWithUV",
       "GetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose",
       "GetFacsCorrectivePoses": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses",
       "GetFacsPose": "@roblox/globaltype/EditableMesh.GetFacsPose",
@@ -62177,18 +61781,8 @@
       "GetUVs": "@roblox/globaltype/EditableMesh.GetUVs",
       "GetVertexBoneWeights": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights",
       "GetVertexBones": "@roblox/globaltype/EditableMesh.GetVertexBones",
-      "GetVertexColors": "@roblox/globaltype/EditableMesh.GetVertexColors",
-      "GetVertexFaceColor": "@roblox/globaltype/EditableMesh.GetVertexFaceColor",
-      "GetVertexFaceNormal": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal",
-      "GetVertexFaceUV": "@roblox/globaltype/EditableMesh.GetVertexFaceUV",
-      "GetVertexFaces": "@roblox/globaltype/EditableMesh.GetVertexFaces",
-      "GetVertexNormals": "@roblox/globaltype/EditableMesh.GetVertexNormals",
-      "GetVertexUVs": "@roblox/globaltype/EditableMesh.GetVertexUVs",
       "GetVertices": "@roblox/globaltype/EditableMesh.GetVertices",
       "GetVerticesWithAttribute": "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute",
-      "GetVerticesWithColor": "@roblox/globaltype/EditableMesh.GetVerticesWithColor",
-      "GetVerticesWithNormal": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal",
-      "GetVerticesWithUV": "@roblox/globaltype/EditableMesh.GetVerticesWithUV",
       "IdDebugString": "@roblox/globaltype/EditableMesh.IdDebugString",
       "MergeVertices": "@roblox/globaltype/EditableMesh.MergeVertices",
       "RaycastLocal": "@roblox/globaltype/EditableMesh.RaycastLocal",
@@ -62214,9 +61808,6 @@
       "SetUV": "@roblox/globaltype/EditableMesh.SetUV",
       "SetVertexBoneWeights": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights",
       "SetVertexBones": "@roblox/globaltype/EditableMesh.SetVertexBones",
-      "SetVertexFaceColor": "@roblox/globaltype/EditableMesh.SetVertexFaceColor",
-      "SetVertexFaceNormal": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal",
-      "SetVertexFaceUV": "@roblox/globaltype/EditableMesh.SetVertexFaceUV",
       "Triangulate": "@roblox/globaltype/EditableMesh.Triangulate"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh",
@@ -62976,87 +62567,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithAttribute",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithUV",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -63346,216 +62856,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBones",
     "code_sample": ""
   },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexColors": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexColors/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexColors",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceUV",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexFaces": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaces",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexNormals": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexNormals",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVertexUVs": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexUVs",
-    "code_sample": ""
-  },
   "@roblox/globaltype/EditableMesh.GetVertices/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -63601,87 +62901,6 @@
       "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithAttribute",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.GetVerticesWithUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/0": {
@@ -64399,114 +63618,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBones",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2"
-      },
-      {
-        "name": "colorId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceColor",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2"
-      },
-      {
-        "name": "normalId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceNormal",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0"
-      },
-      {
-        "name": "vertexId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1"
-      },
-      {
-        "name": "faceId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2"
-      },
-      {
-        "name": "uvId",
-        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Triangulate/param/0": {
@@ -78919,7 +78030,6 @@
   "@roblox/globaltype/DataStoreService": {
     "documentation": "A game service that gives access to persistent data storage across places in a game.",
     "keys": {
-      "AutomaticRetry": "@roblox/globaltype/DataStoreService.AutomaticRetry",
       "GetDataStore": "@roblox/globaltype/DataStoreService.GetDataStore",
       "GetGlobalDataStore": "@roblox/globaltype/DataStoreService.GetGlobalDataStore",
       "GetOrderedDataStore": "@roblox/globaltype/DataStoreService.GetOrderedDataStore",
@@ -78928,11 +78038,6 @@
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataStoreService",
     "code_sample": "local DataStoreService = game:GetService(\"DataStoreService\")\n\nfor _, enumItem in pairs(Enum.DataStoreRequestType:GetEnumItems()) do\n\tprint(enumItem.Name, DataStoreService:GetRequestBudgetForRequestType(enumItem))\nend"
-  },
-  "@roblox/globaltype/DataStoreService.AutomaticRetry": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataStoreService#AutomaticRetry",
-    "code_sample": ""
   },
   "@roblox/globaltype/DataStoreService.GetDataStore/param/0": {
     "documentation": "A game service that gives access to persistent data storage across places in a game."
@@ -87809,16 +86914,11 @@
     "documentation": "A service to support developer avatar creators.",
     "keys": {
       "AutoSetupAvatarAsync": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync",
-      "GenerateAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync",
-      "GenerateAvatarAsync": "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync",
       "GetBatchTokenDetailsAsync": "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync",
       "GetValidationRules": "@roblox/globaltype/AvatarCreationService.GetValidationRules",
-      "LoadAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync",
       "LoadGeneratedAvatarAsync": "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync",
       "PrepareAvatarForPreviewAsync": "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync",
       "PromptCreateAvatarAsync": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync",
-      "PromptSelectAvatarGenerationImageAsync": "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync",
-      "RequestAvatarGenerationSessionAsync": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync",
       "ValidateUGCAccessoryAsync": "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync",
       "ValidateUGCBodyPartAsync": "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync",
       "ValidateUGCFullBodyAsync": "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync"
@@ -87834,6 +86934,9 @@
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
     "documentation": "The humanoid <code>Model</code> that will be set up as an avatar."
+  },
+  "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
+    "documentation": "Optional callback function that will be invoked periodically with a progressInfo table with the overall progress (from 0 to 1). Type: <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/return/0": {
     "documentation": "A unique identifier for the generated avatar."
@@ -87852,66 +86955,16 @@
       {
         "name": "model",
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2"
+      },
+      {
+        "name": "progressCallback",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3"
       }
     ],
     "returns": [
       "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AutoSetupAvatarAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/0": {
-    "documentation": "A service to support developer avatar creators."
-  },
-  "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/0"
-      },
-      {
-        "name": "avatarGeneration2dPreviewParams",
-        "documentation": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#GenerateAvatar2DPreviewAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/0": {
-    "documentation": "A service to support developer avatar creators."
-  },
-  "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/0"
-      },
-      {
-        "name": "avatarGenerationParams",
-        "documentation": "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#GenerateAvatarAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/0": {
@@ -87959,33 +87012,6 @@
       "@roblox/globaltype/AvatarCreationService.GetValidationRules/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#GetValidationRules",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/0": {
-    "documentation": "A service to support developer avatar creators."
-  },
-  "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/0"
-      },
-      {
-        "name": "previewId",
-        "documentation": "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#LoadAvatar2DPreviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/0": {
@@ -88076,67 +87102,6 @@
       "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#PromptCreateAvatarAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/0": {
-    "documentation": "A service to support developer avatar creators."
-  },
-  "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/0"
-      },
-      {
-        "name": "player",
-        "documentation": "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#PromptSelectAvatarGenerationImageAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/0": {
-    "documentation": "A service to support developer avatar creators."
-  },
-  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/0"
-      },
-      {
-        "name": "player",
-        "documentation": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/1"
-      },
-      {
-        "name": "callback",
-        "documentation": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#RequestAvatarGenerationSessionAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/0": {
@@ -104670,7 +103635,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.Technology": {
-    "documentation": "Represents the different lighting systems available for rendering the 3D world. It is used by the <code>Lighting.Technology</code> property.",
+    "documentation": "Enum used by <code>Lighting.Technology</code> to represent the different lighting systems available for rendering the 3D world.",
     "keys": {
       "Legacy": "@roblox/enum/Technology.Legacy",
       "Voxel": "@roblox/enum/Technology.Voxel",

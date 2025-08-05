@@ -116,6 +116,8 @@ Studio.BetaFeatures.ImportQueueDescription,,Enable the bulk import of multiple 3
 Studio.BetaFeatures.ImportQueueTitle,,Import Queue,Import Queue
 Studio.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
 Studio.BetaFeatures.ImprovedInnerBoxTitle,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions
+Studio.BetaFeatures.ImprovedStrokesDescription,"Adds a new API for UIStrokes (SizingMode, BorderStrokePosition, BorderOffset, and ZIndex). Allows for multiple strokes to act on a Gui.","Adds a new API for UIStrokes (SizingMode, BorderStrokePosition, BorderOffset, and ZIndex). Allows for multiple strokes to act on a Gui.","Adds a new API for UIStrokes (SizingMode, BorderStrokePosition, BorderOffset, and ZIndex). Allows for multiple strokes to act on a Gui."
+Studio.BetaFeatures.ImprovedStrokesTitle,Improved UIStrokes,Improved UIStrokes,Improved UIStrokes
 Studio.BetaFeatures.InputActionSystemDescription,"A new abstracted input system that enables you to manage actions flexibly across all platforms. This is powered by 3 new instances: InputContext, InputAction, and InputBinding.","A new abstracted input system that enables you to manage actions flexibly across all platforms. This is powered by 3 new instances: InputContext, InputAction, and InputBinding.","A new abstracted input system that enables you to manage actions flexibly across all platforms. This is powered by 3 new instances: InputContext, InputAction, and InputBinding."
 Studio.BetaFeatures.InputActionSystemTitle,Input Action System,Input Action System,Input Action System
 Studio.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
@@ -279,5 +281,7 @@ Studio.BetaFeatures.VREmulatorDescription,,"Enable this feature to simulate a VR
 Studio.BetaFeatures.VREmulatorTitle,,VR Emulator,VR Emulator
 Studio.BetaFeatures.VideoApiDescription,,Enables the VideoPlayer instance for playing videos on multiple surfaces and compatibility with the new Audio API.,Enables the VideoPlayer instance for playing videos on multiple surfaces and compatibility with the new Audio API.
 Studio.BetaFeatures.VideoApiTitle,,New Video API,New Video API
+Studio.BetaFeatures.ViewportDisplaySizeAPIDescription,Description of the ViewportDisplaySize API beta feature,"Adds the ability to retrieve the physical screen size of the viewport in S, M, L buckets.","Adds the ability to retrieve the physical screen size of the viewport in S, M, L buckets."
+Studio.BetaFeatures.ViewportDisplaySizeAPITitle,Title for the ViewportDisplaySize API beta feature,New Display Size API,New Display Size API
 Studio.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
 Studio.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window

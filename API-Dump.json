@@ -27807,6 +27807,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "DeleteVideoCaptureAsync",
+                    "Parameters": [
+                        {
+                            "Name": "videoCapture",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "VideoCapture"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetCaptureFilePathAsync",
                     "Parameters": [
                         {
@@ -44848,6 +44870,25 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "BeginSearch",
+                    "Parameters": [
+                        {
+                            "Name": "root",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetAutocompleter",
                     "Parameters": [
                     ],
@@ -44878,6 +44919,37 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSearchResults",
+                    "Parameters": [
+                        {
+                            "Name": "maxCandidatesToExplore",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "HasMoreResults",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -56672,11 +56744,7 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI",
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
+                            "UI"
                         ]
                     },
                     "Category": "Video",
@@ -56690,9 +56758,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
@@ -61440,8 +61505,8 @@
                     "MemberType": "Property",
                     "Name": "ViewportDisplaySize",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -64307,6 +64372,18 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "HapticService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "HarmonyService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -94165,16 +94242,13 @@
                     "MemberType": "Property",
                     "Name": "AuthorityMode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -108200,6 +108274,29 @@
                     },
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "MaxIndicatorDistance",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "ObjectText",
                     "Security": {
                         "Read": "None",
@@ -108342,6 +108439,28 @@
                         "UI"
                     ],
                     "MemberType": "Event",
+                    "Name": "IndicatorHidden",
+                    "Parameters": [
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Event",
+                    "Name": "IndicatorShown",
+                    "Parameters": [
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Event",
                     "Name": "PromptButtonHoldBegan",
                     "Parameters": [
                         {
@@ -108466,6 +108585,24 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "MaxIndicatorsVisible",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "MaxPromptsVisible",
                     "Security": {
                         "Read": "None",
@@ -108480,6 +108617,36 @@
                         "Category": "Primitive",
                         "Name": "int"
                     }
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "IndicatorHidden",
+                    "Parameters": [
+                        {
+                            "Name": "prompt",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "ProximityPrompt"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "IndicatorShown",
+                    "Parameters": [
+                        {
+                            "Name": "prompt",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "ProximityPrompt"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Event",
@@ -126152,24 +126319,6 @@
                     }
                 },
                 {
-                    "Category": "Camera",
-                    "MemberType": "Property",
-                    "Name": "FreeCameraSpeedScroll",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Function Name Color",
@@ -128064,6 +128213,13 @@
                         },
                         {
                             "Name": "publishInfo",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Name": "telemetryMetadata",
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Dictionary"
@@ -139958,32 +140114,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "ValidateEditableImageNumTextureChannels",
-                    "Parameters": [
-                        {
-                            "Name": "editableImage",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "EditableImage"
-                            }
-                        },
-                        {
-                            "Name": "numTextureChannelsRequired",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ValidateEditableImageSize",
                     "Parameters": [
                         {
@@ -139991,53 +140121,6 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "EditableImage"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateEditableMeshBounds",
-                    "Parameters": [
-                        {
-                            "Name": "editableMesh",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "EditableMesh"
-                            }
-                        },
-                        {
-                            "Name": "meshScale",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        },
-                        {
-                            "Name": "boundsOffset",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        },
-                        {
-                            "Name": "attachmentCF",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        },
-                        {
-                            "Name": "handleCF",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
                             }
                         }
                     ],
@@ -140498,56 +140581,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "CalculateAverageCageMeshDistance",
-                    "Parameters": [
-                        {
-                            "Name": "innerCageMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "outerCageMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "refMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "innerTransform",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        },
-                        {
-                            "Name": "outerTransform",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "CalculateBodyMaxCageDistance",
                     "Parameters": [
                         {
@@ -140570,100 +140603,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "CalculateMeshInsideMeshPercentage",
-                    "Parameters": [
-                        {
-                            "Name": "meshIdRoot",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "meshIdQuery",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "meshqueryTransform",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        },
-                        {
-                            "Name": "meshQueryScale",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "CalculateTotalSurfaceArea",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "meshScale",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "CalculateUniqueUVCount",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "CanLoadAsset",
                     "Parameters": [
                         {
@@ -140671,49 +140610,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "CheckMeshInCameraFrustum",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "meshScale",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        },
-                        {
-                            "Name": "handleWorldCF",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        },
-                        {
-                            "Name": "cameraWorldCF",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
                             }
                         }
                     ],
@@ -141056,35 +140952,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetMeshVerticesSimilarityRate",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "meshScale",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetMeshVerts",
                     "Parameters": [
                         {
@@ -141173,49 +141040,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "IsNumCoplanarIntersectionsOverLimit",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "limit",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        },
-                        {
-                            "Name": "meshScale",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        },
-                        {
-                            "Name": "intersectBackFaces",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ValidateCageMeshIntersection",
                     "Parameters": [
                         {
@@ -141234,28 +141058,6 @@
                         },
                         {
                             "Name": "refMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Tuple"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateCageNonManifoldAndHoles",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -141412,28 +141214,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "ValidateFullBodyCageDeletion",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ValidateImageTransparencyThresholdByteString",
                     "Parameters": [
                         {
@@ -141550,100 +141330,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "ValidateMeshBounds",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "meshScale",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        },
-                        {
-                            "Name": "boundsOffset",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        },
-                        {
-                            "Name": "attachmentCF",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        },
-                        {
-                            "Name": "handleCF",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateMeshTriangleArea",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateMeshTriangles",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ValidateMeshVertColors",
                     "Parameters": [
                         {
@@ -141659,64 +141345,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateMisMatchUV",
-                    "Parameters": [
-                        {
-                            "Name": "innerCageMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "outerCageMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateNumTextureChannels",
-                    "Parameters": [
-                        {
-                            "Name": "textureId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "numChannelsRequired",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
                             }
                         }
                     ],
@@ -141884,79 +141512,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "ValidateTextureSize",
-                    "Parameters": [
-                        {
-                            "Name": "textureId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateUVDuplicates",
-                    "Parameters": [
-                        {
-                            "Name": "referenceValues",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
-                            }
-                        },
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateUVSpace",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ValidateUVValuesInReference",
                     "Parameters": [
                         {
@@ -141971,35 +141526,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ValidateUniqueUVCount",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "numRequired",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
                             }
                         }
                     ],
@@ -144395,6 +143921,29 @@
                     },
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "StrokeSizingMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "StrokeSizingMode"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "Thickness",
                     "Security": {
                         "Read": "None",
@@ -144431,6 +143980,29 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ZIndex",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 }
             ],
@@ -157349,10 +156921,6 @@
                 {
                     "Name": "VR",
                     "Value": 4
-                },
-                {
-                    "Name": "Handheld",
-                    "Value": 5
                 }
             ],
             "Name": "DeviceForm"
@@ -162722,6 +162290,23 @@
         {
             "Items": [
                 {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "Publish",
+                    "Value": 1
+                },
+                {
+                    "Name": "Save",
+                    "Value": 2
+                }
+            ],
+            "Name": "PlacePublishType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Windows",
                     "Value": 0
                 },
@@ -165016,6 +164601,19 @@
                 }
             ],
             "Name": "StreamingPauseMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "FixedSize",
+                    "Value": 0
+                },
+                {
+                    "Name": "ScaledSize",
+                    "Value": 1
+                }
+            ],
+            "Name": "StrokeSizingMode"
         },
         {
             "Items": [

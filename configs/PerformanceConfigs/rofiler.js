@@ -244,7 +244,9 @@ g_Loader.bodyText = `
 <div class="filterinput1">Timer/Thread<br><input type="text" id="filtertimer"></div>
 <div class="filterinputTooltip">Left/Right keys = navigate</div>
 </div>
-<canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas><canvas id="DetailedView" height="200" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
+<canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
+<canvas id="NetworkHistory" height="150" style="background-color:#474747;margin:0px;padding:0px;display:none;"></canvas>
+<canvas id="DetailedView" height="200" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
 <div id="root" class="root" style="display: none;">
 <div class="helpstart" id="helpwindow" style="left:20px;top:20px">
 History View:<br>
@@ -348,6 +350,8 @@ Esc: Exit &amp; Clear filter
         <li id='GroupColors'><a href="javascript:void(0)" onclick="ToggleGroupColors();">Group Colors</a></li>
         <li id='TimersMeta'><a href="javascript:void(0)" onclick="ToggleTimersMeta();">Meta</a></li>
         <li id='ZeroBasedBars'><a href="javascript:void(0)" onclick="ToggleZeroBasedBars();">0-based Bars</a></li>
+        <li id='DetailedNetwork'><a href="javascript:void(0)" onclick="ToggleNetworkPluginMode();">Detailed Network Graph</a></li>
+        <li id='NetworkLogScale'><a href="javascript:void(0)" onclick="ToggleNetworkScale();">Log Scale Graph</a></li>
         <li id='ShowHelp'><a href="javascript:void(0)" onclick="ShowHelp(1,1);">Help</a></li>
 <!-- <li><a href="javascript:void(0)" onclick="ToggleDebug();">DEBUG</a></li> -->
     </ul>
@@ -515,6 +519,7 @@ function InitViewerVars() {
     window.FFlagMicroprofilerLabelSubstitution = EnabledFastFlags.includes("MicroprofilerLabelSubstitution");
     window.FFlagMicroprofilerThreadSearch = EnabledFastFlags.includes("MicroprofilerThreadSearch");
     window.FFlagMicroprofilerPerFrameCpuSpeed = EnabledFastFlags.includes("MicroprofilerPerFrameCpuSpeed");
+    window.FFlagMicroProfilerNetworkPlugin = EnabledFastFlags.includes("MicroProfilerNetworkPlugin");
 
     // Part 1
     if (FFlagMicroprofilerThreadSearch) {
@@ -523,6 +528,7 @@ function InitViewerVars() {
     }
     window.CanvasDetailedView = document.getElementById('DetailedView');
     window.CanvasHistory = document.getElementById('History');
+    window.CanvasNetworkHistory = document.getElementById('NetworkHistory');
     window.CanvasDetailedOffscreen = document.createElement('canvas');
     window.FilterInputGroup = document.getElementById('filtergroup');
     window.FilterInputTimer = document.getElementById('filtertimer');
@@ -540,6 +546,15 @@ function InitViewerVars() {
     window.nHeight = CanvasDetailedView.height;
     window.ReferenceTime = 33;
     window.FrameOverflowDetection = 33; window.nHistoryHeightOrig = 130; window.nHistoryHeight = nHistoryHeightOrig;
+    if (FFlagMicroProfilerNetworkPlugin) {
+        window.nNetworkHistoryHeightOrig = 150;
+        window.nNetworkHistoryHeight = window.nNetworkHistoryHeightOrig;
+        window.nNetworkHistoryBaseHeightOrig = 130;
+        window.nNetworkHistoryBaseHeight = window.nNetworkHistoryBaseHeightOrig;
+        window.nNetworkHistoryCurrentHeight = window.nNetworkHistoryHeightOrig;
+        window.nNetworkHistoryLegendHeightOrig = 20;
+        window.nNetworkHistoryLegendHeight = window.nNetworkHistoryLegendHeightOrig;
+    }
     window.nOffsetY = 0;
     window.nOffsetBarsX = 0;
     window.nOffsetBarsY = 0;
@@ -555,6 +570,8 @@ function InitViewerVars() {
     window.DetailedViewMouseY = 0;
     window.HistoryViewMouseX = -1;
     window.HistoryViewMouseY = -1;
+    window.NetworkViewMouseX = -1;
+    window.NetworkViewMouseY = -1;
     window.MouseHistory = 0;
     window.MouseDetailed = 0;
     window.FontHeight = 10;
@@ -704,6 +721,14 @@ function InitViewerVars() {
     window.MetaLengths = Array();
     window.MetaLengthsAvg = Array();
     window.MetaLengthsMax = Array();
+    window.DetailedNetworkMode = true;
+    window.NetworkLogScale = false;
+    window.ActiveNetworkCategory = -1;
+    window.dirSwapActive = false;
+    window.dirSwapCategory = -1;
+    window.ActiveNetworkFrame = -1;
+    window.ActiveNetworkGraph = -1;
+    window.NetworkMainActiveDirection = undefined;
 
     window.ZoomActive = 0;
 
@@ -1409,6 +1434,10 @@ function UpdateOptionsMenu() {
     ulGroupColors.style['text-decoration'] = GroupColors ? 'underline' : 'none';
     var ulZeroBasedBars = document.getElementById('ZeroBasedBars');
     ulZeroBasedBars.style['text-decoration'] = ZeroBasedBars ? 'underline' : 'none';
+    var ulDetailedNetworkMode = document.getElementById('DetailedNetwork');
+    ulDetailedNetworkMode.style['text-decoration'] = window.DetailedNetworkMode ? 'underline' : 'none';
+    var ulNetworkLogScale = document.getElementById('NetworkLogScale');
+    ulNetworkLogScale.style['text-decoration'] = window.NetworkLogScale ? 'underline' : 'none';
 }
 
 function ToggleTimersMeta() {
@@ -1423,6 +1452,22 @@ function ToggleZeroBasedBars() {
     WriteCookie();
     UpdateOptionsMenu();
     RequestRedraw();
+}
+
+function ToggleNetworkPluginMode() {
+    if (FFlagMicroProfilerNetworkPlugin) {
+        window.DetailedNetworkMode = !window.DetailedNetworkMode;
+        UpdateOptionsMenu();
+        RequestRedraw();
+    }
+}
+
+function ToggleNetworkScale() {
+    if (FFlagMicroProfilerNetworkPlugin) {
+        window.NetworkLogScale = !window.NetworkLogScale;
+        UpdateOptionsMenu();
+        RequestRedraw();
+    }
 }
 
 function getMedian(arr) {
@@ -1815,6 +1860,16 @@ function SetMode(NewMode, Groups) {
     let isDetailed = (NewMode == 'detailed' || NewMode == ModeDetailed);
     let extraEntriesStyle = isDetailed ? 'block' : 'none';
     ilPlugins.style['display'] = ilHighlight.style['display'] = ilExport.style['display'] = extraEntriesStyle;
+
+    if (FFlagMicroProfilerNetworkPlugin) {
+        if (g_Ext && g_Ext.currentPlugin) {
+            if (isDetailed && g_Ext.currentPlugin.ShowCanvas) {
+                g_Ext.currentPlugin.ShowCanvas();
+            } else if (!isDetailed && g_Ext.currentPlugin.HideCanvas) {
+                g_Ext.currentPlugin.HideCanvas();
+            }
+        }
+    }
 
     if (NewMode == 'counters' || NewMode == ModeCounters) {
         buttonCounters.style['text-decoration'] = 'underline';
@@ -2595,6 +2650,243 @@ function DrawCaptureInfo(context) {
     DrawFlashMessage(context);
 }
 
+function DrawNetworkGraphLabel(startY, direction, categoryIndex) {
+    let plugin = g_Ext.currentPlugin;
+    let mouseX = NetworkViewMouseX;
+    let mouseY = NetworkViewMouseY;
+    let context = CanvasNetworkHistory.getContext('2d');
+    let dirText = direction === NetDirection.rx ? "Rx" : "Tx";
+    let categoryTextLabel = plugin.eventCategories[categoryIndex];
+    let fullText = categoryTextLabel + ', ' + dirText;
+    let labelWidth = context.measureText(fullText).width + 10;
+    let labelHeight = 15;
+    if (mouseX > 0 && mouseX < labelWidth && mouseY > startY && mouseY < startY + labelHeight) {
+        context.fillStyle = '#555555'
+        window.dirSwapActive = true;
+        window.dirSwapCategory = categoryIndex;
+    } else {
+        context.fillStyle = '#222222';
+    }
+    context.fillRect(0, startY, labelWidth, labelHeight);
+    context.fillStyle = '#ffffff';
+    context.font = Font;
+    context.fillText(fullText, 5, startY + 10);
+}
+
+function DrawNetworkGraph(startY, height, drawLabel, direction, categoryIndex) {
+    if (direction === undefined) {
+        DrawNetworkGraph(startY, height / 2, false, NetDirection.rx, categoryIndex);
+        DrawNetworkGraph(startY + height / 2, height / 2, false, NetDirection.tx, categoryIndex);
+        return;
+    }
+
+    let context = CanvasNetworkHistory.getContext('2d');
+    let allTraffic = categoryIndex === undefined;
+    let fHeight = height;
+    let fWidth = nWidth / Frames.length;
+    let fX = 0;
+    let plugin = g_Ext.currentPlugin;
+    let pluginStats = plugin.eventStats;
+    let currMode = g_Ext.xray.mode
+
+    for (let frameIndex = 0; frameIndex < Frames.length; frameIndex++) {
+        context.fillStyle = frameIndex % 2 === 0 ? '#333333' : '#444444';
+        context.fillRect(fX, startY, fWidth, fHeight);
+        let fr = Frames[frameIndex];
+        let frameMax = pluginStats.max.getField(currMode, direction);
+        frameMax = Math.max(frameMax, 1);
+        if (window.DetailedNetworkMode || categoryIndex !== undefined) {
+            // Draw baseline
+            context.fillStyle = "#aaaaaa";
+            context.fillRect(fX, startY + fHeight, fWidth, -1);
+            let frameStats = fr.netEventStats;
+            let frameTotals = fr.netTotals;
+            if (frameStats === undefined) {
+                frameStats = new Array();
+            }
+            if (categoryIndex !== undefined) {
+                frameMax = plugin.categoryMax[categoryIndex].getField(currMode, direction);
+                frameMax = Math.max(frameMax, 1);
+            }
+            // Calculate category blocks
+            let categoryBlocks = [];
+            let currFrameTotal = 0;
+            frameStats.forEach((categoryStats, index) => {
+                if (index === categoryIndex || categoryIndex === undefined) {
+                    let currCategoryValue = categoryStats.getField(currMode, direction);
+                    categoryBlocks.push({
+                        value: currCategoryValue,
+                        color: NetworkEventCategoryColor(index),
+                    });
+                    currFrameTotal += currCategoryValue;
+                }
+            });
+            currFrameTotal = Math.max(currFrameTotal, 1);
+            // Scale blocks and draw bar
+            let scale = fHeight / 1.1;
+            if (window.NetworkLogScale) {
+                scale *= ModifiedSafeLog(currFrameTotal) / (ModifiedSafeLog(frameMax) * currFrameTotal);
+            } else {
+                scale /= frameMax;
+            }
+            let currDelta = 0;
+            categoryBlocks.forEach((block) => {
+                context.fillStyle = block.color;
+                let blockHeight = Math.floor(block.value * scale);
+                context.fillRect(fX, startY + fHeight - currDelta - 1, fWidth - 1, -blockHeight);
+                currDelta += blockHeight;
+            });
+        } else {
+            let nFrames = Frames.length;
+            let avg = Math.round(pluginStats.total.getField(currMode, direction) / nFrames);
+            let frameTotals = fr.netTotals;
+            let diff = frameTotals.getField(currMode, direction) - avg;
+            if (window.NetworkLogScale) {
+                diff = diff >= 0 ? ModifiedSafeLog(diff) : -ModifiedSafeLog(-diff);
+                frameMax = ModifiedSafeLog(frameMax);
+            }
+            diff = Math.floor(diff);
+            context.fillStyle = '#0000ff';
+            if (diff === 0) {
+                context.fillRect(fX, startY + fHeight / 2, fWidth, -1);
+            }
+            let netBarHeight = diff * fHeight / (2 * frameMax);
+            context.fillStyle = diff > 0 ? '#ff0000' : '#00ff00';
+            context.fillRect(fX, startY + fHeight / 2, fWidth - 1, -netBarHeight);
+        }
+        fX += fWidth;
+    }
+
+    let mouseX = NetworkViewMouseX;
+    let mouseY = NetworkViewMouseY;
+
+    if (mouseY > startY && mouseY < startY + fHeight) {
+        if (categoryIndex !== undefined) {
+            window.ActiveNetworkGraph = categoryIndex;
+        } else {
+            window.NetworkMainActiveDirection = direction;
+            window.ActiveNetworkGraph = -2;
+        }
+        window.MouseOnNetworkSubgraph = true;
+        let frameIndex = Math.floor(mouseX / fWidth);
+        window.ActiveNetworkFrame = frameIndex;
+        let fr = Frames[frameIndex];
+        if (categoryIndex !== undefined && fr.netEventScopes !== undefined &&
+            fr.netEventScopes[categoryIndex] !== undefined &&
+            fr.netEventStats[categoryIndex].getField(XRayModes.Count, direction) > 0) {
+            let scopes = fr.netEventScopes[categoryIndex];
+            if (direction === NetDirection.rx) {
+                scopes = scopes.rx;
+            } else {
+                scopes = scopes.tx;
+            }
+            RangeCpuHistory.Begin = scopes.start;
+            RangeCpuHistory.End = scopes.end;
+        } else {
+            RangeCpuHistory.Begin = fr.framestart;
+            RangeCpuHistory.End = fr.frameend;
+        }
+        let frameStats;
+        if (categoryIndex === undefined) {
+            frameStats = fr.netTotals
+        } else {
+            frameStats = fr.netEventStats[categoryIndex];
+        }
+        let categoryVal = frameStats.getField(currMode, direction);
+        let frameTextArray = new Array();
+        let valueType = direction === NetDirection.rx ? 'Rx ' : 'Tx '
+        valueType += currMode === XRayModes.Count ? 'count: ' : 'size: ';
+        frameTextArray.push(valueType);
+        frameTextArray.push(plugin.decorate(categoryVal));
+        frameTextArray.push("Left click");
+        frameTextArray.push("Zoom to Scope");
+        frameTextArray.push("Right click");
+        frameTextArray.push("View Events");
+        DrawToolTip(frameTextArray, CanvasNetworkHistory, mouseX + 10, mouseY - 10);
+    }
+
+    if (drawLabel) {
+        DrawNetworkGraphLabel(startY, direction, categoryIndex);
+    }
+}
+
+function DrawNetworkFrameHistory() {
+    ProfileEnter("DrawNetworkFrameHistory");
+    let plugin = g_Ext.currentPlugin;
+
+
+    let mouseX = NetworkViewMouseX;
+    let mouseY = NetworkViewMouseY;
+    let context = CanvasNetworkHistory.getContext('2d');
+    context.clearRect(0, 0, CanvasNetworkHistory.width, CanvasNetworkHistory.height);
+
+    let fHeight = window.nNetworkHistoryBaseHeight;
+    let fWidth = nWidth / Frames.length;
+
+    let legendHeight = window.nNetworkHistoryLegendHeight;
+    let legendX = 2;
+    let legendY = fHeight + 2;
+    let activeCategories = [];
+    for (let i = 0; i < plugin.eventCategories.length; i++) {
+        let max = plugin.categoryMax[i];
+        if (max.rx.count > 0 || max.tx.count > 0) {
+            activeCategories.push(i);
+        }
+    }
+    let legendOffset = nWidth / activeCategories.length;
+    let dim = legendHeight - 4;
+    let legendActive = false;
+    let currMode = g_Ext.xray.mode;
+
+    let frameIndex = Math.floor(mouseX / fWidth);
+
+
+    // Draw legend
+    activeCategories.forEach((categoryIndex) => {
+        let bgColor;
+        if (mouseX > legendX && mouseX < legendX + legendOffset && mouseY > fHeight && mouseY < fHeight + legendHeight) {
+            bgColor = '#555555';
+            window.ActiveNetworkCategory = categoryIndex;
+            legendActive = true;
+        } else {
+            bgColor = '#222222';
+        }
+        context.fillStyle = bgColor;
+        context.fillRect(legendX - 2, legendY - 2, legendOffset, legendHeight);
+        context.fillStyle = NetworkEventCategoryColor(categoryIndex);
+        context.fillRect(legendX, legendY, dim, dim);
+        context.font = Font
+        context.fillStyle = '#ffffff';
+        context.fillText(plugin.eventCategories[categoryIndex], legendX + dim + 4, legendY + dim - 2);
+        legendX += legendOffset;
+    });
+    if (!legendActive) {
+        window.ActiveNetworkCategory = -1;
+    }
+
+    let categoryOverride = legendActive ? window.ActiveNetworkCategory : undefined;
+    window.MouseOnNetworkSubgraph = false;
+    // Draw base graph
+    DrawNetworkGraph(0, fHeight, false, undefined, categoryOverride);
+
+
+
+    let currHeight = nNetworkHistoryBaseHeight + nNetworkHistoryLegendHeight;
+    window.dirSwapActive = false;
+    plugin.activeDetailedCategories.forEach((direction, categoryIndex) => {
+        DrawNetworkGraph(currHeight, fHeight, true, direction, categoryIndex);
+        currHeight += nNetworkHistoryBaseHeight;
+    });
+    if (!window.dirSwapActive) {
+        window.dirSwapCategory = -1;
+    }
+    if (!window.MouseOnNetworkSubgraph) {
+        window.ActiveNetworkGraph = -1;
+    }
+
+    ProfileLeave();
+}
+
 function DrawDetailedFrameHistory() {
     ProfileEnter("DrawDetailedFrameHistory");
     var x = HistoryViewMouseX;
@@ -2815,6 +3107,7 @@ function DrawDetailedFrameHistory() {
         StringArray.push(String(Frames[FrameIndex].allocmsecs.toFixed(3)) + "ms/" + String(Frames[FrameIndex].freemsecs.toFixed(3)) + "ms");
         StringArray.push("Alloc/Free Count");
         StringArray.push(String(Frames[FrameIndex].allocs) + "/" + String(Frames[FrameIndex].frees));
+
         if (AggregateInfo.EmptyFrames[FrameIndex] == 1) {
             StringArray.push("");
             StringArray.push("");
@@ -4627,6 +4920,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                     if (g_Ext.xray.isViewEnabled() || g_Ext.xray.isBarEnabled()) {
                                         var txEntry = xtrastart;
                                         txNorm = GetNormalizedFromTx(txEntry, false);
+                                        if (txEntry.netEvents !== undefined) {
+                                            txNorm.netEvents = txEntry.netEvents
+                                        }
                                         BatchesXtra[batchIndex].push(txNorm);
                                         if (g_Ext.xray.isViewEnabled() && txNorm.value > 0 && g_Ext.currentPlugin) {
                                             Name = "(" + g_Ext.currentPlugin.decorate(txNorm.value) + ") " + Name;
@@ -4793,7 +5089,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 g_Loader.hoverScope.isScanPerformed = true;
                 g_Loader.hoverScope.hasSeveralInstances = hasSeveralSelectedScopeInstances;
             }
-     
+
             for (var i = 0; i < Batches.length; ++i) {
                 var isSelectedScope = (i >= TimerInfo.length);
                 var timerIndex = i % TimerInfo.length;
@@ -5243,7 +5539,6 @@ function ZoomToHighlight(NoGpu) {
         ShowEvents(true);
         return;
     }
-
     if (RangeValid(RangeGpu) && !NoGpu) {
         ZoomTo(RangeGpu.Begin, RangeGpu.End);
     }
@@ -5543,6 +5838,10 @@ function Draw(RedrawMode) {
     }
     DrawDetailedFrameHistory();
 
+    if (FFlagMicroProfilerNetworkPlugin && g_Ext.currentPlugin.DrawPluginFrameHistory) {
+        g_Ext.currentPlugin.DrawPluginFrameHistory();
+    }
+
     if (ProfileMode) {
         ProfileLeave();
         ProfileModeDraw(CanvasDetailedView);
@@ -5653,6 +5952,11 @@ function MeasureFont() {
 function ResizeCanvas() {
     DPR = window.devicePixelRatio;
     nHistoryHeight = nHistoryHeightOrig / (1 + (DPR - 1) * 0.4);
+    if (FFlagMicroProfilerNetworkPlugin) {
+        nNetworkHistoryHeight = nNetworkHistoryCurrentHeight / (1 + (DPR - 1) * 0.4);
+        nNetworkHistoryLegendHeight = nNetworkHistoryLegendHeightOrig / (1 + (DPR - 1) * 0.4);
+        nNetworkHistoryBaseHeight = nNetworkHistoryBaseHeightOrig / (1 + (DPR - 1) * 0.4);
+    }
     nWidth = window.innerWidth;
     nHeight = window.innerHeight - nHistoryHeight - 2;
 
@@ -5668,6 +5972,14 @@ function ResizeCanvas() {
         CanvasHistory.getContext('2d').scale(DPR, DPR);
         CanvasDetailedView.getContext('2d').scale(DPR, DPR);
 
+        if (FFlagMicroProfilerNetworkPlugin) {
+            CanvasNetworkHistory.style.width = window.innerWidth + 'px';
+            CanvasNetworkHistory.style.height = nNetworkHistoryHeight + 'px';
+            CanvasNetworkHistory.width = window.innerWidth * DPR;
+            CanvasNetworkHistory.height = nNetworkHistoryHeight * DPR;
+            CanvasNetworkHistory.getContext('2d').scale(DPR, DPR);
+        }
+
         CanvasDetailedOffscreen.style.width = nWidth + 'px';
         CanvasDetailedOffscreen.style.height = nHeight + 'px';
         CanvasDetailedOffscreen.width = nWidth * DPR;
@@ -5682,6 +5994,10 @@ function ResizeCanvas() {
         CanvasDetailedOffscreen.width = nWidth;
         CanvasDetailedOffscreen.height = nHeight;
         CanvasHistory.width = window.innerWidth;
+        if (FFlagMicroProfilerNetworkPlugin) {
+            CanvasNetworkHistory.width = window.innerWidth;
+            CanvasNetworkHistory.height = nNetworkHistoryHeight;
+        }
     }
     RequestRedraw();
 }
@@ -5949,7 +6265,12 @@ function MouseDrag(Source, Event) {
         ShowDiffWindow(false);
 
         if (Source == MouseDragUp) {
-            MouseHandleDragClick();
+            if (FFlagMicroProfilerNetworkPlugin && MouseDragTarget === CanvasNetworkHistory) {
+                let leftClick = MapMouseButton(Event) !== MouseButtonRight;
+                HandleNetworkViewClick(leftClick);
+            } else {
+                MouseHandleDragClick();
+            }
             MouseDragReset();
         }
         else if (Source == MouseDragMove) {
@@ -5969,6 +6290,7 @@ function MouseMove(evt) {
     MouseHistory = 0;
     MouseDetailed = 0;
     HistoryViewMouseX = HistoryViewMouseY = -1;
+    NetworkViewMouseX = NetworkViewMouseY = -1;
     var rect = evt.target.getBoundingClientRect();
     var x = evt.clientX - rect.left;
     var y = evt.clientY - rect.top;
@@ -5983,6 +6305,10 @@ function MouseMove(evt) {
         var Rect = CanvasHistory.getBoundingClientRect();
         HistoryViewMouseX = x;
         HistoryViewMouseY = y;
+    } else if (evt.target == CanvasNetworkHistory) {
+        var Rect = CanvasNetworkHistory.getBoundingClientRect();
+        NetworkViewMouseX = x;
+        NetworkViewMouseY = y;
     }
     Draw(1);
 }
@@ -6047,6 +6373,9 @@ function MouseOut(evt) {
     } else if (evt.target == CanvasHistory) {
         HistoryViewMouseX = -1;
         HistoryViewMouseY = -1;
+    } else if (evt.target == CanvasNetworkHistory) {
+        NetworkViewMouseX = -1;
+        NetworkViewMouseY = -1;
     }
 
     Draw(1);
@@ -6120,6 +6449,41 @@ function SetFilterInput(group, timer) {
         ShowFilterInput(0);
     }
 
+}
+
+function HandleNetworkViewClick(left) {
+    let plugin = g_Ext.currentPlugin;
+    let activeCategory = window.ActiveNetworkCategory;
+    let activeFrame = window.ActiveNetworkFrame;
+    let categoryMap = plugin.activeDetailedCategories;
+    let activeGraph = window.ActiveNetworkGraph;
+    if (!left) {
+        if (activeGraph >= 0) {
+            let dir = categoryMap.get(activeGraph);
+            ShowEvents(true, activeFrame, {category: activeGraph, direction: dir});
+        } else if (activeGraph === -2) {
+            ShowEvents(true, activeFrame, {category: activeGraph, direction: window.NetworkMainActiveDirection});
+        }
+        return;
+    }
+    if (activeCategory !== -1) {
+        if (!categoryMap.has(activeCategory)) {
+            categoryMap.set(activeCategory, NetDirection.rx);
+        } else {
+            categoryMap.delete(activeCategory);
+        }
+    } else if (dirSwapCategory !== -1) {
+        if (categoryMap.has(dirSwapCategory)) {
+            let currDirection = categoryMap.get(dirSwapCategory);
+            let newDirection = currDirection === NetDirection.rx ? NetDirection.tx : NetDirection.rx;
+            categoryMap.set(dirSwapCategory, newDirection);
+        }
+    } else {
+        ZoomToHighlight(1);
+    }
+    var nAdditionalGraphs = plugin.activeDetailedCategories.size;
+    nNetworkHistoryCurrentHeight = nNetworkHistoryHeightOrig + nNetworkHistoryBaseHeightOrig * nAdditionalGraphs;
+    ResizeCanvas();
 }
 
 function ToggleFilterInput(escape) {
@@ -6433,6 +6797,11 @@ function RegisterInputListeners() {
     CanvasHistory.addEventListener('mouseout', MouseOut);
     CanvasHistory.addEventListener("contextmenu", function (e) { e.preventDefault(); }, false);
     CanvasHistory.addEventListener(mousewheelevt, MouseWheel, false);
+    CanvasNetworkHistory.addEventListener('mousemove', MouseMove);
+    CanvasNetworkHistory.addEventListener('mousedown', function (evt) { MouseButton(true, evt); });
+    CanvasNetworkHistory.addEventListener('mouseup', function (evt) { MouseButton(false, evt); });
+    CanvasNetworkHistory.addEventListener('mouseout', MouseOut);
+    CanvasNetworkHistory.addEventListener('contextmenu', function (e) { e.preventDefault(); }, false);
     FilterInputTimer.addEventListener('keyup', FilterKeyUp);
     FilterInputGroup.addEventListener('keyup', FilterKeyUp);
     window.addEventListener('keydown', KeyDown);
@@ -8081,6 +8450,44 @@ var TxType = {
     },
 };
 
+var NetDirection = {
+    rx: 0,
+    tx: 1,
+};
+
+function NetType() {
+    return {
+        rx: DeepCopy(TxType),
+        tx: DeepCopy(TxType),
+
+        add: function(v, c, dir) {
+            if (dir === NetDirection.rx) {
+                this.rx.add(v, c);
+            } else {
+                this.tx.add(v, c);
+            }
+        },
+
+        getField: function(mode, dir) {
+            if (dir === NetDirection.rx) {
+                return this.rx.getField(mode);
+            } else {
+                return this.tx.getField(mode);
+            }
+        },
+
+        maximize: function(other, dir) {
+            if (dir === NetDirection.rx) {
+                this.rx.count = Math.max(this.rx.count, other.rx.count);
+                this.rx.sum = Math.max(this.rx.sum, other.rx.sum);
+            } else {
+                this.tx.count = Math.max(this.tx.count, other.tx.count);
+                this.tx.sum = Math.max(this.tx.sum, other.tx.sum);
+            }
+        }
+    }
+}
+
 var SpanType = {
     name: "",
     tsBegin: 0,
@@ -8194,8 +8601,8 @@ function ValueToCount(v) {
     return v;
 }
 
-function ValueToBytes(v) {
-    if (g_Ext.xray.mode == XRayModes.Count)
+function ValueToBytes(v, override = false) {
+    if (!override && g_Ext.xray.mode == XRayModes.Count)
         return v;
     var res;
     if (v > 1000000)
@@ -8221,6 +8628,66 @@ function ColorUint32Multiply(color, k) {
     res |= (g << 8);
     res |= (b << 0);
     return res;
+}
+
+/**
+ * Modified log function used for log scale graphs
+ * @param {number} x - the number to take the log of (base 2)
+ * @returns modified log result. Returns 0 if x < 1, returns 1 if 1 <= x < 2, else returns log_2(x) + 1
+ */
+function ModifiedSafeLog(x) {
+    if (x < 1) {
+        return 0;
+    } else if (x < 2) {
+        return 1;
+    }
+    return Math.log(x) / Math.log(2) + 1;
+}
+
+/**
+ * Generates a network event category based color for graphing purposes
+ * @param {number} categoryIndex - the index in netEventsCategory that corresponds to the event
+ * @returns - a unique color for the given category
+ */
+function NetworkEventCategoryColor(categoryIndex) {
+    const categoryColors = [
+        '#00FFFF',
+        '#8000FF',
+        '#FF0000',
+        '#BBFF00',
+        '#00AAFF',
+        '#FF00FF',
+        '#FF7B00',
+        '#00FF7B',
+        '#0000FF',
+        '#FF66B5',
+        '#FFCA00',
+        '#00FF4A',
+        '#6666FF',
+        '#FF005B',
+        '#DBFF00',
+        '#00FFA4',
+    ];
+    return categoryColors[categoryIndex];
+}
+
+/**
+ * Scales down a hex color proportionally towards #000000 by the given factor
+ * @param {string} color - the color to scale down
+ * @param {float} factor - the factor by which to scale down the color
+ * @returns {string} the scaled down color
+ */
+function ScaleDownColor(color, factor) {
+    if (factor >= 1 || factor < 0) {
+        return color;
+    }
+    var r = Number.parseInt(color.slice(1, 3), 16);
+    var g = Number.parseInt(color.slice(3, 5), 16);
+    var b = Number.parseInt(color.slice(5, 7), 16);
+    r *= factor;
+    g *= factor;
+    b *= factor;
+    return '#' + DecimalToHex(r) + DecimalToHex(g) + DecimalToHex(b);
 }
 
 // Calculate threshold values for all sensitivity levels from 0 to 100.
@@ -8249,9 +8716,56 @@ function CalcPercentiles(txEntries, mode) {
     return res;
 }
 
+/**
+ * Gathers all events within the given frame, matching category and direction.
+ * Similar to GatherHoverEvents but for an entire frame.
+ * @param nFrame - Index of the frame to gather from
+ * @param category - Category index of network events to use, where -2 is ALL categories
+ * @param direction - NetDirection to match
+ * @returns {[Object]} - Array of decoded event objects
+ */
+function GatherNetworkFrameEvents(nFrame, category, direction) {
+    g_Ext.plugins.forEach((plugin) => {
+        if (plugin.GatherBefore) {
+            plugin.GatherBefore();
+        }
+    });
+    let fr = Frames[nFrame];
+    let HoverInfo = [];
+    let nNumLogs = fr.ts.length;
+    let dirName = direction === NetDirection.rx ? "Rx" : "Tx";
+    for (let nLog = 0; nLog < nNumLogs; nLog++) {
+        let ts = fr.ts[nLog];
+        let ti = fr.ti[nLog];
+        let tt = fr.tt[nLog];
+        let tl = fr.tl[nLog];
+        let numEntries = ts.length;
+        for (let j = numEntries - 1; j >= 0; j--) {
+            let type = tt[j];
+            if (type > EventBaseId) {
+                let typeLookup = g_Ext.typeLookup[type];
+                if (typeLookup.IsActive() && !typeLookup.isBackground) {
+                    let evt = RawToEvent(ts, ti, tt, tl, j);
+                    let ctx = typeLookup.plugin.decode(evt, true);
+                    if (ctx.directionName === dirName && (ctx.eventCategoryIndex === category || category === -2)) {
+                        let eventList = typeLookup.plugin.GatherEvent(ctx);
+                        HoverInfo.push(...eventList);
+                    }
+                }
+            }
+        }
+    }
+    return HoverInfo.reverse();
+}
+
 function GatherHoverEvents(TimerIndex, StartIndex, nLog, nFrameLast) {
     var HoverInfo = [];
     var StackPos = 1;
+    g_Ext.plugins.forEach((plugin) => {
+        if (plugin.GatherBefore) {
+            plugin.GatherBefore();
+        }
+    });
     //search backwards, aggregate events
     for (var i = nFrameLast; i >= 0; i--) {
         var fr = Frames[i];
@@ -8281,7 +8795,12 @@ function GatherHoverEvents(TimerIndex, StartIndex, nLog, nFrameLast) {
                 if (typeLookup.IsActive() && !typeLookup.isBackground) {
                     var evt = RawToEvent(ts, ti, tt, tl, j);
                     var ctx = typeLookup.plugin.decode(evt, true);
-                    HoverInfo.push(ctx);
+                    if (typeLookup.plugin.GatherEvent) {
+                        let eventList = typeLookup.plugin.GatherEvent(ctx);
+                        HoverInfo.push(...eventList);
+                    } else {
+                        HoverInfo.push(ctx);
+                    }
                 }
             }
         }
@@ -8331,6 +8850,97 @@ function ScanEvents() {
     } // frames
 }
 
+/**
+ * Accumulates the network event into per frame and overall stat measurements
+ * @param plugin - plugin to use (should be Network)
+ * @param fr - frame to add stats to
+ * @param ctx - decoded event
+ * @param start - start time of scope where event occurred
+ * @param end - end time of scope where event occurred
+ */
+function addPerFrameNetworkEvent(plugin, fr, ctx, start, end) {
+    if (fr.netEventStats === undefined) {
+        fr.netEventStats = new Array();
+        for (let i = 0; i < plugin.eventCategories.length; i++) {
+            fr.netEventStats.push(new NetType());
+        }
+    }
+    if (fr.netEventScopes === undefined) {
+        fr.netEventScopes = new Array(plugin.eventCategories.length);
+    }
+    if (fr.netEventScopes[ctx.eventCategoryIndex] === undefined) {
+        fr.netEventScopes[ctx.eventCategoryIndex] = {
+            rx: {
+                start: -1,
+                end: 0,
+            },
+            tx: {
+                start: -1,
+                end: 0,
+            },
+        };
+    }
+    let categoryScope = fr.netEventScopes[ctx.eventCategoryIndex];
+    let direction = ctx.directionName === "Rx" ? NetDirection.rx : NetDirection.tx;
+    if (direction === NetDirection.rx) {
+        categoryScope = categoryScope.rx;
+    } else {
+        categoryScope = categoryScope.tx;
+    }
+    if (categoryScope.start === -1) {
+        categoryScope.start = start;
+    } else {
+        categoryScope.start = Math.min(categoryScope.start, start);
+    }
+    categoryScope.end = Math.max(categoryScope.end, end);
+    fr.netEventStats[ctx.eventCategoryIndex].add(ctx.value, ctx.count, direction);
+    fr.netTotals.add(ctx.value, ctx.count, direction);
+    plugin.eventStats.total.add(ctx.value, ctx.count, direction);
+    plugin.eventStats.max.maximize(fr.netTotals, direction);
+    plugin.categoryMax[ctx.eventCategoryIndex].maximize(fr.netEventStats[ctx.eventCategoryIndex], direction);
+}
+
+/**
+ * Adds an entry to the asset ID map for the given asset ID, stage, and time scope
+ * @param map - map to be updated
+ * @param assetId - asset ID in question
+ * @param stage - stage to add to map
+ * @param timeScope - time scope of the stage
+ */
+function AddAssetMapEntry(map, assetId, stage, timeScope) {
+    if (!map.has(assetId)) {
+        map.set(assetId, {
+            0: undefined,
+            1: undefined,
+            2: undefined,
+            3: undefined,
+        });
+    }
+    let entry = map.get(assetId);
+    entry[stage] = timeScope;
+}
+
+/**
+ * Tries to get the time scope for the next stage in the asset fetching process for the given assetID
+ * @param map - map with assetID -> time scope pairings
+ * @param assetId - assetID in question
+ * @param stage - current stage (0: Asset Req, 1: Asset Res, 2: CDN Req, 3: CDN Res)
+ * @returns {Object|undefined} - Object containing start and end times of times scope, or undefined if it does not exist
+ */
+function GetNextAssetStage(map, assetId, stage) {
+    if (!map.has(assetId)) {
+        return undefined;
+    }
+    return map.get(assetId)[stage + 1];
+}
+
+/**
+ * Collects deserialize replication events and attaches them to a timestamp so that they can be used later
+ * at the receive event stage.
+ * @returns {Map<number, Object>} - a mapping of timestamps to an object containing: start and end times for receive scope,
+ * array of start and end times as well as event identifiers (frame, log, entry) for deserialize events
+ */
+
 function PrepareEvents() {
     g_Ext.prepareEventsBefore();
 
@@ -8346,13 +8956,13 @@ function PrepareEvents() {
             scopeStack: Array(),
         };
     }
-
     for (var i = 0; i < Frames.length; ++i) {
         var fr = Frames[i];
         fr.txAcc = DeepCopy(TxType);
         if (fr.tx == undefined) {
             fr.tx = [];
         }
+        fr.netTotals = new NetType();
         for (var nLog = 0; nLog < nNumLogs; ++nLog) {
             var ts = fr.ts[nLog]; // timestamp (ms)
             var ti = fr.ti[nLog]; // timer index
@@ -8360,6 +8970,7 @@ function PrepareEvents() {
             var tl = fr.tl[nLog]; // timer label
             if (fr.tx[nLog] == undefined) {
                 fr.tx[nLog] = [];
+
             }
             var tx = fr.tx[nLog]; // custom events
             var threadContext = threadContexts[nLog];
@@ -8390,6 +9001,7 @@ function PrepareEvents() {
                         tx[j].sum = 0;
                     }
                     scopeInfo.txEntry = tx[j];
+                    scopeInfo.eventsAccumulator = [];
                     scopeStack.push(scopeInfo);
                 } else if (logType == 0) {
                     // EXIT
@@ -8400,6 +9012,23 @@ function PrepareEvents() {
                             scopeEntries.push(curScopeTx);
                         }
                         threadContext.lastExit = scopeInfo;
+                        // Process accumulated network events
+                        if (FFlagMicroProfilerNetworkPlugin) {
+                            curScope.eventsAccumulator.forEach((eventInfo) => {
+                                let ctx = eventInfo.ctx;
+                                let typeLookup = g_Ext.typeLookup[ctx.evt.type + EventBaseId];
+                                if (typeLookup) {
+                                    let plugin = typeLookup.plugin;
+                                    let start = curScope.timeStamp;
+                                    let end = scopeInfo.timeStamp;
+                                    if (plugin && plugin.ProcessAccumulatedEvent) {
+                                        plugin.ProcessAccumulatedEvent(eventInfo, curScope, fr, start, end);
+                                    }
+                                }
+                            });
+                            // Remove array from scope so it doesn't waste space
+                            delete curScope.eventsAccumulator;
+                        }
                     }
                     scopeStack.pop();
                 }
@@ -8418,8 +9047,32 @@ function PrepareEvents() {
                             });
                         } else if (scopeStack.length > 0) {
                             const curScope = scopeStack[scopeStack.length - 1];
-                            curScope.txEntry.add(ctx.value, ctx.count);
-                            curScope.frame.txAcc.add(ctx.value, ctx.count);
+                            if (FFlagMicroProfilerNetworkPlugin) {
+                                if (!ctx.hidden) {
+                                    curScope.txEntry.add(ctx.value, ctx.count);
+                                    curScope.frame.txAcc.add(ctx.value, ctx.count);
+                                }
+                            } else {
+                                curScope.txEntry.add(ctx.value, ctx.count);
+                                curScope.frame.txAcc.add(ctx.value, ctx.count);
+                            }
+                            if (FFlagMicroProfilerNetworkPlugin) {
+                                if (curScope.txEntry.netEvents === undefined) {
+                                    curScope.txEntry.netEvents = [];
+                                }
+                                if (plugin.accumulateEvents) {
+                                    // Push these for processing on scope exit so we know the end timestamp
+                                    curScope.eventsAccumulator.push({
+                                        ctx: ctx,
+                                        frameIndex: i,
+                                        nLog: nLog,
+                                        j: j,
+                                    });
+                                }
+                                if (plugin.preprocessEvent) {
+                                    plugin.preprocessEvent(ctx);
+                                }
+                            }
                         }
                     } // plugin
                 } // logType
@@ -8442,7 +9095,7 @@ function PrepareEvents() {
     g_Ext.prepareEventsAfter();
 }
 
-function ShowEvents(Show) {
+function ShowEvents(Show, frame, pluginInfo) {
     if (Show) {
         ShowDiffWindow(false);
     }
@@ -8458,7 +9111,15 @@ function ShowEvents(Show) {
         display: none;`;
     var hoverEvents;
     if (Show) {
-        hoverEvents = GatherHoverEvents(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
+        if (FFlagMicroProfilerNetworkPlugin && frame !== undefined) {
+            if (g_Ext.currentPlugin.GatherPluginFrameEvents) {
+                hoverEvents = g_Ext.currentPlugin.GatherPluginFrameEvents(frame, pluginInfo);
+            } else {
+                hoverEvents = [];
+            }
+        } else {
+            hoverEvents = GatherHoverEvents(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
+        }
         Show = (hoverEvents.length > 0);
     }
     if (Show) {
@@ -8484,8 +9145,16 @@ function ShowEvents(Show) {
     for (var i = 0; i < hoverEvents.length; i++) {
         var ctx = hoverEvents[i];
         var dsp = g_Ext.currentPlugin.display(ctx);
-        rows += "<tr>";
-        for (var j = 0; j < dsp.length; j++) {
+        let startIndex = 0;
+        if (FFlagMicroProfilerNetworkPlugin && ctx.deferred === true) {
+            rows += "<tr style='display: none;'>";
+            rows += "<td></td>";
+            rows += "<td style=text-align:right;>&#x21B3;</td>";
+            startIndex = 2;
+        } else {
+            rows += "<tr>";
+        }
+        for (var j = startIndex; j < dsp.length; j++) {
             rows += "<td>" + dsp[j] + "</td>";
         }
         rows += "</tr>";
@@ -8554,10 +9223,57 @@ function ShowEvents(Show) {
     XBack.addEventListener('mouseover', DivOnFn);
     XBack.addEventListener('mouseout', DivOffFn);
 
+    // Handles Asset ID clicks, zooms to the scope where the next stage of the asset fetching occurred.
+    let AssetIdClickFn = function(currctx, index) {
+        let nextScope = GetNextAssetStage(g_Ext.currentPlugin.AssetMap, currctx.assetIds[index], currctx.subtype);
+        if (nextScope === undefined) {
+            return;
+        }
+        RangeCpu.Begin = nextScope.start;
+        RangeCpu.End = nextScope.end;
+        ZoomToHighlight(1);
+    }
+
+    let AssetIdLinkClickFn = function(ctx, index) {
+        if (!ctx.assetIds) {
+            return;
+        }
+        let assetId = ctx.assetIds[index];
+        if (!assetId) {
+            return;
+        }
+        let url = 'https://create.roblox.com/store/asset/';
+        url += assetId.toString();
+        window.open(url);
+    }
+
+    // Locates and highlights the deserialize stage for the given event, if it exists and we have recorded it.
+    let FindDeserializeFn = function(ctx) {
+        if (!ctx.isReplica || !ctx.timestamp || ctx.deserializeStart === undefined || ctx.deserializeEnd === 0) {
+            return;
+        }
+        let entry = g_Ext.currentPlugin.tsMap.get(ctx.timestamp);
+        RangeCpu.Begin = entry.rcv.start;
+        RangeCpu.End = ctx.deserializeEnd + (ctx.deserializeEnd - entry.rcv.start) * 0.25;
+        ZoomToHighlight(1);
+        RangeSelect.Begin = ctx.deserializeStart;
+        RangeSelect.End = ctx.deserializeEnd;
+    }
+
     // Display detailed info
     var RowClickFn = function (index) {
         if (!g_Ext.currentPlugin.detail)
             return;
+
+        if (FFlagMicroProfilerNetworkPlugin) {
+            if (hoverEvents[index].isReplica) {
+                FindDeserializeFn(hoverEvents[index]);
+            }
+            if (hoverEvents[index].hasDeferred) {
+                Expand(index);
+                return;
+            }
+        }
 
         XList.style.display = 'none';
         XListHrd.style.display = 'none';
@@ -8571,11 +9287,52 @@ function ShowEvents(Show) {
             rows += "<tr style='background-color: #555555;'><td>" + dtl.headers[j] + "</td></tr>";
             rows += "<tr><td>" + dtl.fields[j] + "</td><tr>";
         }
+        if (FFlagMicroProfilerNetworkPlugin && ctx.assetIds && ctx.assetIds.length > 0) {
+            let label = ctx.assetIds.length > 1 ? "Asset IDs" : "Asset ID";
+            rows += "<tr style='background-color: #555555;'><td>" + label + "</td></tr>";
+            ctx.assetIds.forEach((assetId) => {
+                rows += "<tr>";
+                rows += "<td class='assetId'>" + assetId + "</td>";
+                rows += "<td class='assetIdLink' style='user-select:none; font-size: 16px;'>+</td>";
+                rows += "</tr>";
+            });
+        }
         var html = "<table><tbody>" + rows + "</tbody></table>";
         XDetails.innerHTML = html;
         XDetails.scrollTop = 0;
         XDetails.scrollLeft = 0;
+
+        if (FFlagMicroProfilerNetworkPlugin) {
+            let assetIdRows = EventsWindow.querySelectorAll('.assetId');
+            assetIdRows.forEach((row, index) => {
+                row.addEventListener('click', function () {
+                    AssetIdClickFn(ctx, index);
+                });
+                row.addEventListener('mouseover', DivOnFn);
+                row.addEventListener('mouseout', DivOffFn);
+            });
+            let assetIdLinkRows = EventsWindow.querySelectorAll('.assetIdLink');
+            assetIdLinkRows.forEach((row, index) => {
+                row.addEventListener('click', function () {
+                    AssetIdLinkClickFn(ctx, index);
+                });
+                row.addEventListener('mouseover', DivOnFn);
+                row.addEventListener('mouseout', DivOffFn);
+            })
+        }
     };
+
+    if (FFlagMicroProfilerNetworkPlugin) {
+        // Expands or hides the sub-events of a clicked packet in the event list, if there are any
+        var Expand = function (index) {
+            let currIndex = index + 1;
+            let rows = EventsWindow.querySelectorAll('tbody tr');
+            while (currIndex < hoverEvents.length && hoverEvents[currIndex].deferred === true) {
+                rows[currIndex].style.display = rows[currIndex].style.display === 'none' ? '' : 'none';
+                currIndex++;
+            }
+        }
+    }
 
     // Attach click event listener to each row
     var rows = EventsWindow.querySelectorAll('tbody tr');
@@ -8591,6 +9348,9 @@ function ShowEvents(Show) {
     var yOffset = 20;
     var x = MouseDragX;
     var y = MouseDragY;
+    if (frame !== undefined) {
+        y = 0;
+    }
     if (x + w > CanvasRect.width) {
         x = CanvasRect.width - w;
     }
@@ -8653,9 +9413,18 @@ function RawToEvent(ts, ti, tt, tl, k) {
 function SetCurrentPlugin(p) {
     if (g_Ext.currentPlugin) {
         g_Ext.currentPlugin.isActive = false;
+        if (g_Ext.currentPlugin.HideCanvas) {
+            g_Ext.currentPlugin.HideCanvas();
+        }
     }
     p.isActive = true;
+    if (p.ShowCanvas) {
+        p.ShowCanvas();
+    }
     g_Ext.currentPlugin = p;
+    if (FFlagMicroProfilerNetworkPlugin && p.preset && p.preset.mode) {
+        g_Ext.xray.mode = p.preset.mode;
+    }
 }
 
 function DefinePlugin(func) {
@@ -9264,57 +10033,371 @@ DefinePlugin(function () {
     }
 });
 
-var eventsCurl = ["CurlRx", "CurlTx"];
-var eventsReplica = ["ReplicaRx", "ReplicaTx"];
+var eventsCurl = ["Http Rx", "Http Tx"];
+var eventsReplica = ["Engine Network Rx", "Engine Network Tx"];
+var eventsReplicaCategory = [
+    "Physics",
+    "Input",
+    "Instance",
+    "Marker",
+    "Ping",
+    "Event",
+    "Tag",
+    "Statistics",
+    "Terrain",
+    "Streaming",
+    "Other",
+    "Data",
+    "LR Data",
+];
+var eventsCurlCategory = [
+    "Asset Fetching",
+];
+var eventsNetCategory = [...eventsReplicaCategory, ...eventsCurlCategory];
+var replicaSubtypeToCategoryMap = {0: 10, 1: 0, 2: 0, 3: 1, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2, 9: 2,
+                            10: 3, 11: 4, 12: 5, 13: 6, 14: 7, 15: 8, 16: 9, 17: 9, 18: 9, 19: 9,
+                            20: 9, 21: 9, 22: 9, 23: 9, 30: 12, 31: 11};
+var eventsReplicaSubtype = [
+    "Other",
+    "Physics",
+    "Physics Touch",
+    "Input",
+    "Instance: New Instance",
+    "Instance: Delete Instance",
+    "Instance: Join Data",
+    "Instance: Change Property",
+    "Instance: Change Attribute",
+    "Instance: Other",
+    "Marker",
+    "Ping",
+    "Event Invocation",
+    "Tag",
+    "Statistics",
+    "Terrain",
+    "Streaming: Data",
+    "Streaming: Info",
+    "Streaming: Region Removal",
+    "Streaming: Instance Removal",
+    "Streaming: Terrain",
+    "Streaming: Other",
+    "UNUSED",
+    "UNUSED",
+    "UNUSED",
+    "UNUSED",
+    "UNUSED",
+    "UNUSED",
+    "UNUSED",
+    "UNUSED",
+    "LR Data",
+    "Batch Data",
+];
+var eventsCurlSubtype = [
+    "Batch Asset Request",
+    "Batch Asset Response",
+    "CDN Request",
+    "Asset Delivery",
+];
 var eventsNet = [...eventsCurl, ...eventsReplica];
 var eventNetRxTag = "Rx";
-var netIdBase = 129;
-var netIdNames = [];
-var netTypeNames = [];
 DefinePlugin(function () {
     return {
         category: "Network",
         events: eventsNet,
+        eventCategories: eventsNetCategory,
         baseId: 1,
         preset: {
             mode: XRayModes.Sum,
             events: eventsNet,
             hideIfNoEvents: true,
         },
+        tooltipBarFrames: ["Network activity"],
+        tooltipBarDetailed: ["Network activity", "localized within frames."],
+        eventStats: {
+            total: new NetType(),
+            max: new NetType(),
+        },
+        categoryMax: new Array(),
+        activeDetailedCategories: new Map(),
+        accumulateEvents: true,
+        preprocessEvent: function(ctx) {
+            if (ctx.isReplica) {
+                if (ctx.timestamp !== undefined && !this.tsMap.has(ctx.timestamp)) {
+                    this.tsMap.set(ctx.timestamp, {
+                        rcv: {
+                            start: 0,
+                            end: 0,
+                        },
+                        deserialize: {
+                            packets: [],
+                        },
+                    });
+                }
+                if (ctx.stage === 1) {
+                    let entry = this.tsMap.get(ctx.timestamp);
+                    this.currDataCollectTs = ctx.timestamp;
+                    if (entry) {
+                        entry.deserialize.packets.push({
+                            values: [],
+                            start: 0,
+                            end: 0,
+                        });
+                    }
+                }
+            }
+        },
+        ProcessAccumulatedEvent: function(eventInfo, curScope, fr, start, end) {
+            let ctx = eventInfo.ctx;
+            if (!ctx.hidden) {
+                curScope.txEntry.netEvents.push([ctx.eventName, ctx.eventCategoryIndex]);
+                addPerFrameNetworkEvent(this, fr, ctx, start, end);
+            }
+            if (ctx.isReplica) {
+                if (ctx.stage === 0 && ctx.timestamp !== undefined) {
+                    let entry = this.tsMap.get(ctx.timestamp);
+                    if (entry) {
+                        entry.rcv.start = start;
+                        entry.rcv.end = end;
+                    }
+                }
+                if (ctx.stage === 1) {
+                    let entry = this.tsMap.get(ctx.timestamp);
+                    if (entry) {
+                        let packets = entry.deserialize.packets
+                        if (packets.length > 0) {
+                            let packet = packets[packets.length - 1];
+                            packet.start = start;
+                            packet.end = end;
+                        }
+                    }
+                } else if (ctx.stage === 2 && ctx.timestamp !== undefined) {
+                    this.currDataCollectTs = ctx.timestamp;
+                    let entry = this.tsMap.get(ctx.timestamp);
+                    if (entry) {
+                        entry.deserialize.packets.push({
+                            values: [],
+                            start: start,
+                            end: end,
+                        });
+                    }
+                } else if (ctx.stage === 2 && !ctx.ignoreEvent) {
+                    let entry = this.tsMap.get(this.currDataCollectTs);
+                    if (entry) {
+                        let packets = entry.deserialize.packets;
+                        if (packets.length > 0) {
+                            packets[packets.length - 1].values.push({
+                                frameIndex: eventInfo.frameIndex,
+                                nLog: eventInfo.nLog,
+                                j: eventInfo.j,
+                            });
+                        }
+                    }
+                }
+            }
+            if (ctx.isCurl && ctx.assetId !== undefined) {
+                let stage = 0;
+                if (ctx.isBatchReport) {
+                    stage = 0;
+                    if (ctx.directionName === "Rx") {
+                        stage += 1;
+                    }
+                } else if (ctx.isCdnReport) {
+                    stage = 2;
+                } else {
+                    stage = 3;
+                }
+                let netPlugin = g_Ext.currentPlugin;
+                AddAssetMapEntry(netPlugin.AssetMap, ctx.assetId, stage, {start: start, end: end});
+            }
+        },
+        DrawPluginFrameHistory: function() {
+            DrawNetworkFrameHistory();
+        },
+        GatherPluginFrameEvents: function(frame, pluginInfo) {
+            return GatherNetworkFrameEvents(frame, pluginInfo.category, pluginInfo.direction);
+        },
+        ShowCanvas: function() {
+            window.CanvasNetworkHistory.style.display = '';
+        },
+        HideCanvas: function() {
+            window.CanvasNetworkHistory.style.display = 'none';
+        },
+        GatherBefore: function() {
+            this.tempMap = new Map();
+            this.currBatch = undefined;
+            this.currCdnReq = undefined;
+        },
+        GatherEvent: function(ctx) {
+            if (ctx.isReplica && ctx.hidden) {
+                return [];
+            }
+            let eventList = [];
+            let deferredArray = [];
+            if (ctx.isBatchCollect) {
+                this.currBatch = ctx;
+            } else if (ctx.isBatchReport && this.currBatch !== undefined) {
+                this.currBatch.assetIds.push(ctx.assetId);
+            } else if (ctx.isCdnRequest) {
+                this.currCdnReq = ctx;
+            } else if (ctx.isAssetIdReport && !ctx.isBatchReport && this.currCdnReq !== undefined) {
+                this.currCdnReq.assetIds = [ctx.assetId];
+            }
+            let deferredEvents = this.tsMap.get(ctx.timestamp);
+            if (deferredEvents) {
+                let deferredPackets = deferredEvents.deserialize.packets;
+                let currPacketArrIndex = this.tempMap.get(ctx.timestamp);
+                if (currPacketArrIndex === undefined) {
+                    currPacketArrIndex = deferredPackets.length - 1;
+                }
+                this.tempMap.set(ctx.timestamp, currPacketArrIndex - 1);
+                if (currPacketArrIndex !== undefined && deferredPackets[currPacketArrIndex] !== undefined) {
+                    let packetInfo = deferredPackets[currPacketArrIndex]
+                    packetInfo.values.forEach((elem) => {
+                        let fr = Frames[elem.frameIndex];
+                        let ts = fr.ts[elem.nLog];
+                        let ti = fr.ti[elem.nLog];
+                        let tt = fr.tt[elem.nLog];
+                        let tl = fr.tl[elem.nLog];
+                        var evt = RawToEvent(ts, ti, tt, tl, elem.j);
+                        var defctx = this.decode(evt, true);
+                        defctx.deferred = true;
+                        deferredArray.push(defctx);
+                    });
+                    ctx.deserializeStart = packetInfo.start;
+                    ctx.deserializeEnd = packetInfo.end;
+                }
+            }
+            if (!ctx.hidden) {
+                eventList.push(...deferredArray.reverse());
+                ctx.hasDeferred = deferredArray.length > 0;
+                eventList.push(ctx);
+            }
+            return eventList;
+        },
         decorate: ValueToBytes,
         decode: function (evt, full) {
-            var ctx = {
+            if (!FFlagMicroProfilerNetworkPlugin) {
+                return {
+                    value: 0,
+                    count: 0,
+                    evt: evt,
+                }
+            }
+            if (evt.type <= 2) {
+                return this.decodeCurl(evt, full);
+            } else {
+                return this.decodeReplica(evt, full);
+            }
+        },
+        decodeReplica: function(evt, full) {
+            let replicaBaseId = 6;
+            let ctx = {
                 value: Number(BigInt(evt.data) & 0xffffffffn),
                 count: 1,
                 evt: evt,
-            };
+                isCurl: false,
+                isReplica: true,
+                subtype: Number(BigInt(evt.data) >> 40n),
+                stage: Number((BigInt(evt.data) >> 32n) & 0xffn),
+                eventName: this.events[evt.type - this.baseId],
+                subsystemName: "Engine Network",
+            }
+            ctx.ignoreEvent = ctx.subtype === 10 || ctx.subtype === 13;
+            ctx.hidden = ctx.stage !== 0;
+            ctx.directionName = ctx.eventName.endsWith(eventNetRxTag) ? "Rx" : "Tx";
+            ctx.eventCategoryIndex = replicaSubtypeToCategoryMap[ctx.subtype];
+            if (ctx.eventCategoryIndex === undefined) {
+                ctx.eventCategoryIndex = 9;
+            }
+            ctx.pktType = eventsReplicaCategory[ctx.eventCategoryIndex];
+            ctx.categoryName = ctx.pktType;
+            const extraView = new DataView(evt.extra.buffer);
+            if (extraView.byteLength >= 8) {
+                ctx.timestamp = extraView.getBigUint64(0, true);
+            }
             if (full) {
-                ctx.eventName = this.events[evt.type - this.baseId];
-                ctx.isCurl = eventsCurl.includes(ctx.eventName);
-                ctx.isReplica = eventsReplica.includes(ctx.eventName);
-                ctx.subsystemName = ctx.isCurl ? "cURL" : "Replica";
-                ctx.directionName = ctx.eventName.endsWith(eventNetRxTag) ? "Rx" : "Tx";
-                ctx.str = evt.str;
-                if (ctx.isCurl) {
-                    var isHeader = (BigInt(evt.data) >> 32n) != 0n;
-                    ctx.pktType = isHeader ? "HEADER" : "BODY";
-                } else if (ctx.isReplica) {
-                    const extraView = new DataView(evt.extra.buffer);
-                    var pktId = extraView.getUint32(0, true);
-                    var pktType = extraView.getUint32(4, true);
-                    var pktSubtype = extraView.getUint32(8, true);
-                    ctx.pktId = (pktId >= netIdBase && pktId - netIdBase < netIdNames.length) ? netIdNames[pktId - netIdBase] : pktId;
-                    ctx.pktType = (pktType < netTypeNames.length) ? netTypeNames[pktType] : pktType;
-                    ctx.pktSubtype = pktSubtype;
+                ctx.pktSubtype = eventsReplicaSubtype[ctx.subtype];
+            }
+            return ctx;
+        },
+        decodeCurl: function(evt, full) {
+            let ctx = {
+                value: 0,
+                count: 0,
+                evt: evt,
+                subtype: Number(BigInt(evt.data) >> 47n),
+                isCurl: true,
+                isReplica: false,
+                eventName: this.events[evt.type - this.baseId],
+                eventCategoryIndex: 13,
+                subsystemName: "HTTP",
+            }
+            ctx.isAssetIdReport = ctx.subtype === 4 || ctx.subtype === 5;
+            ctx.isBatchReport = ctx.subtype === 4;
+            ctx.isCdnReport = ctx.subtype === 5;
+            ctx.isBatchCollect = ctx.subtype <= 1;
+            ctx.isCdnRequest = ctx.subtype === 2;
+            ctx.directionName = ctx.eventName.endsWith(eventNetRxTag) ? "Rx" : "Tx";
+            ctx.categoryName = eventsNetCategory[ctx.eventCategoryIndex];
+            ctx.hidden = ctx.isAssetIdReport;
+            if (!ctx.isAssetIdReport) {
+                ctx.value = Number(BigInt(evt.data) & 0xffffffffn);
+                ctx.count = 1;
+            }
+            const extraView = new DataView(evt.extra.buffer);
+            if (extraView.byteLength >= 8) {
+                ctx.assetId = extraView.getBigUint64(0, true);
+            }
+            if (full) {
+                if (ctx.assetId && !ctx.isAssetIdReport) {
+                    ctx.assetIds = [ctx.assetId];
+                }
+                if (ctx.isAssetIdReport) {
+                    ctx.curlSubtype = "None";
+                } else {
+                    if (ctx.isBatchCollect) {
+                        ctx.assetIds = [];
+                        ctx.batchSize = Number((BigInt(evt.data) >> 39n) & 0xffn);
+                        ctx.queued = Number((BigInt(evt.data) >> 32n) & 0x7fn);
+                    } else {
+                        ctx.queued = Number((BigInt(evt.data) >> 32n) & 0x7fffn);
+                    }
+                    ctx.curlSubtype = eventsCurlSubtype[ctx.subtype];
                 }
             }
             return ctx;
+        },
+        prepareEventsBefore: function () {
+            if (!FFlagMicroProfilerNetworkPlugin) {
+                return;
+            }
+            this.eventStats = {
+                total: new NetType(),
+                max: new NetType(),
+            };
+            for (let frameIndex = 0; frameIndex < Frames.length; frameIndex++) {
+                let fr = Frames[frameIndex];
+                fr.netEventStats = new Array();
+                for (let i = 0; i < this.eventCategories.length; i++) {
+                    fr.netEventStats.push(new NetType());
+                }
+            }
+            this.categoryMax = new Array();
+            for (let i = 0; i < this.eventCategories.length; i++) {
+                this.categoryMax.push(new NetType());
+            }
+            this.AssetMap = new Map();
+            this.tempMap = new Map();
+            this.tsMap = new Map();
+            this.currDataCollectTs = undefined;
         },
         displayInfo: {
             w: 550,
             h: 250,
         },
         displayColumns: function (ctxs) {
+            if (!FFlagMicroProfilerNetworkPlugin) {
+                return [];
+            }
             var hasCurl = false;
             var hasReplica = false;
             ctxs.forEach(function (ctx) {
@@ -9324,62 +10407,74 @@ DefinePlugin(function () {
             var columns4 = [];
             var columns6 = [];
             if (hasCurl) {
-                columns6.push("URL");
-            }
-            if (hasReplica) {
-                columns4.push("ID");
                 columns6.push("Subtype");
             }
-            return ["#", "Subsystem", "Direction", "Size", columns4.join("/"), "Type", columns6.join("/")];
+            if (hasReplica) {
+                columns6.push("Subtype");
+            }
+            return ["#", "Subsystem", "Direction", "Size", "Type"];
         },
         display: function (ctx) {
+            if (!FFlagMicroProfilerNetworkPlugin) {
+                return [];
+            }
             var dsp = [
                 ctx.count,
                 ctx.subsystemName,
                 ctx.directionName,
-                "<div style='text-align: right;'>" + this.decorate(ctx.value) + "</div>",
+                "<div style='text-align: right;'>" + this.decorate(ctx.value, true) + "</div>",
             ];
             if (ctx.isCurl) {
                 dsp.push(
-                    "",
-                    ctx.pktType,
-                    ctx.str,
+                    ctx.curlSubtype,
                 );
             } else if (ctx.isReplica) {
                 dsp.push(
-                    ctx.pktId,
-                    ctx.pktType,
                     ctx.pktSubtype,
                 );
             }
             return dsp;
         },
         detail: function (ctx) {
-            var headers = ["#", "Subsystem", "Direction", "Size"];
+            if (!FFlagMicroProfilerNetworkPlugin) {
+                return {
+                    headers: [],
+                    fields: [],
+                }
+            }
+            var headers = ["#", "Subsystem", "Direction"];
             var fields = [
                 ctx.count,
                 ctx.subsystemName,
                 ctx.directionName,
-                this.decorate(ctx.value),
+                this.decorate(ctx.value, true),
             ];
             if (ctx.isCurl) {
                 headers.push(
+                    "Body Size",
                     "Packet type",
-                    "URL",
                 );
                 fields.push(
-                    ctx.pktType,
-                    ctx.str,
+                    ctx.curlSubtype,
                 );
+                if (ctx.directionName === "Tx") {
+                    headers.push("Queued Requests");
+                    fields.push(ctx.queued);
+                }
+                if (ctx.isBatchCollect) {
+                    headers.push(
+                        "Batch Size",
+                    );
+                    fields.push(
+                        ctx.batchSize,
+                    );
+                }
             } else if (ctx.isReplica) {
                 headers.push(
-                    "Packet ID",
+                    "Size",
                     "Packet type",
-                    "Packet subtype",
                 );
                 fields.push(
-                    ctx.pktId,
-                    ctx.pktType,
                     ctx.pktSubtype,
                 );
             }

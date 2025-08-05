@@ -123,6 +123,7 @@ Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http San
 Studio.App.Property.EnableIndentationRulers,Draw markers for indentation in Script Editor,Enable Indentation Rulers,Enable Indentation Rulers
 Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
+Studio.App.Property.EnableInternalPlugins,This is a string for an internal-only setting to load a specific list of plugins in studio.,Enable Internal Plugins,Enable Internal Plugins
 Studio.App.Property.EnableLinting,,Enable Linting,Enable Linting
 Studio.App.Property.EnableOnTypeAutocomplete,,Enable On-Type Autocomplete,Enable On-Type Autocomplete
 Studio.App.Property.EnableScriptAnalysis,,Enable Script Analysis,Enable Script Analysis
@@ -225,6 +226,7 @@ Studio.App.Property.PhysicsSendRate,,Physics Send Rate,Physics Send Rate
 Studio.App.Property.PivotSnapToGeometryColor,,Pivot Snap To Geometry Color,Pivot Snap To Geometry Color
 Studio.App.Property.PlayerCount,,Player Count,Player Count
 Studio.App.Property.PluginDebuggingEnabled,,Plugin Debugging Enabled,Plugin Debugging Enabled
+Studio.App.Property.PluginHangDetectionEnabled,A setting to enable plugin hang detection,Enable Plugin Hang Detection,Enable Plugin Hang Detection
 Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir
 Studio.App.Property.PreferredClientPort,,Preferred Client Port,Preferred Client Port
 Studio.App.Property.PreprocessorColor,,Preprocessor Color,Preprocessor Color
