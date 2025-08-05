@@ -37,8 +37,6 @@ local Chat = require(CoreScriptModules.ChatSelector)
 local TenFootInterface = require(CoreScriptModules.TenFootInterface)
 local TopBarConstant = require(CoreScriptModules.TopBar.Constants)
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
-local getFFlagAppChatCoreUIConflictFix =
-	require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 
 local StyleConstants = UIBlox.App.Style.Constants
@@ -115,13 +113,11 @@ function EmotesMenuMaster:_connectCoreGuiListeners()
 		end
 	end)
 
-	if getFFlagAppChatCoreUIConflictFix() then
-		InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
-			if visible and self:isOpen() then
-				self:close()
-			end
-		end)
-	end
+	InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
+		if visible and self:isOpen() then
+			self:close()
+		end
+	end)
 end
 
 function EmotesMenuMaster:_connectApiListeners()

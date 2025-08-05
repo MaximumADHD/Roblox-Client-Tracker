@@ -111,6 +111,14 @@ do
 	FFlagUserFreecamDepthOfFieldEffect = success and result
 end
 
+local FFlagUserFreecamPlayerLock
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFreecamPlayerLock")
+	end)
+	FFlagUserFreecamPlayerLock = success and result
+end
+
 ------------------------------------------------------------------------
 
 local FREECAM_ENABLED_ATTRIBUTE_NAME = "FreecamEnabled"
@@ -127,6 +135,11 @@ local FREECAM_TILT_RESET_GP = {
 }
 local FREECAM_DOF_TOGGLE = {
 	[Enum.KeyCode.BackSlash] = true
+}
+local FREECAM_PLAYER_LOCK_TOGGLE = {[Enum.KeyCode.Slash] = true}
+local FREECAM_PLAYER_LOCK_SWITCH = {
+	[Enum.KeyCode.R] = true,
+	[Enum.KeyCode.T] = true
 }
 
 local NAV_GAIN = Vector3.new(1, 1, 1)*64
@@ -166,6 +179,17 @@ local postEffects = {}
 local playerGuiConnection = nil
 local cameraConnection = nil
 local lightingConnection = nil
+local playerAddedConnection = nil
+local playerRemovingConnection = nil
+
+local PLAYER_LOCK_DEFAULT_ZOOM = 20
+local PLAYER_LOCK_MIN_ZOOM = 5
+local PLAYER_LOCK_MAX_ZOOM = 50
+local playerLockEnabled = false
+local playerLockZoom = 20
+local playerList = {}
+local currentTargetIndex = 1
+local rootPart = nil
 ------------------------------------------------------------------------
 
 local Spring = {} do
@@ -290,7 +314,10 @@ local Input = {} do
 		M = 0,
 		BackSlash = 0,
 		Minus = 0,
-		Equals = 0
+		Equals = 0,
+		Slash = 0,
+		R = 0,
+		T = 0
 	}
 
 	local mouse = {
@@ -499,6 +526,20 @@ local Input = {} do
 			lastPressTime[keyCode] = currentTime
 		end
 
+		local function findPlayerLockRootPart()
+			if not playerList or #playerList < 1 then 
+				return nil
+			end
+			local targetPlayer = playerList[currentTargetIndex]
+			local targetCharacter = targetPlayer and targetPlayer.Character
+			return targetCharacter and (
+				targetCharacter:FindFirstChild("HumanoidRootPart") or  -- R15 center
+				targetCharacter:FindFirstChild("Torso") or             -- R6 center
+				targetCharacter:FindFirstChild("UpperTorso") or        -- R15 Torso
+				targetCharacter:FindFirstChild("Head")                 -- Last resort if player doesn't have HRP / Torso
+			)
+		end
+
 		local function Keypress(action, state, input)
 			keyboard[input.KeyCode.Name] = state == Enum.UserInputState.Begin and 1 or 0
 
@@ -556,6 +597,24 @@ local Input = {} do
 					end
 					FreecamDepthOfField.Enabled = not FreecamDepthOfField.Enabled
 					resetKeys(FREECAM_DOF_TOGGLE, keyboard)
+				end
+			end
+
+			if FFlagUserFreecamPlayerLock then
+				if FREECAM_PLAYER_LOCK_TOGGLE[input.KeyCode] and input.UserInputState == Enum.UserInputState.Begin then
+					playerLockEnabled = not playerLockEnabled
+					if playerLockEnabled then
+						playerLockZoom = PLAYER_LOCK_DEFAULT_ZOOM
+						rootPart = findPlayerLockRootPart()
+					end
+					resetKeys(FREECAM_PLAYER_LOCK_TOGGLE, keyboard)
+				end
+				if FREECAM_PLAYER_LOCK_SWITCH[input.KeyCode] and input.UserInputState == Enum.UserInputState.Begin then 
+					if playerLockEnabled and #playerList > 0 then
+						currentTargetIndex = ((currentTargetIndex - 1) + (keyboard.T - keyboard.R)) % #playerList + 1
+						rootPart = findPlayerLockRootPart()
+					end
+					resetKeys(FREECAM_PLAYER_LOCK_SWITCH, keyboard)
 				end
 			end
 
@@ -656,6 +715,14 @@ local Input = {} do
 					Enum.KeyCode.Minus, Enum.KeyCode.Equals
 				)
 			end
+			if FFlagUserFreecamPlayerLock then 
+				ContextActionService:BindActionAtPriority("FreecamKeyboardPlayerLockToggle", Keypress, false, INPUT_PRIORITY, 
+					Enum.KeyCode.Slash
+				)
+				ContextActionService:BindActionAtPriority("FreecamKeyboardPlayerLockSwitch", Keypress, false, INPUT_PRIORITY, 
+					Enum.KeyCode.R, Enum.KeyCode.T
+				)
+			end
 			ContextActionService:BindActionAtPriority("FreecamMousePan",          MousePan,   false, INPUT_PRIORITY, Enum.UserInputType.MouseMovement)
 			ContextActionService:BindActionAtPriority("FreecamMouseWheel",        MouseWheel, false, INPUT_PRIORITY, Enum.UserInputType.MouseWheel)
 			ContextActionService:BindActionAtPriority("FreecamGamepadButton",     GpButton,   false, INPUT_PRIORITY, Enum.KeyCode.ButtonX, Enum.KeyCode.ButtonY)
@@ -691,6 +758,11 @@ local Input = {} do
 				ContextActionService:UnbindAction("FreecamKeyboardDoFToggle")
 				ContextActionService:UnbindAction("FreecamKeyboardDoFControls")
 			end
+			if FFlagUserFreecamPlayerLock then 
+				ContextActionService:UnbindAction("FreecamKeyboardPlayerLockToggle")
+				ContextActionService:UnbindAction("FreecamKeyboardPlayerLockSwitch")
+			end
+
 			ContextActionService:UnbindAction("FreecamMousePan")
 			ContextActionService:UnbindAction("FreecamMouseWheel")
 			ContextActionService:UnbindAction("FreecamGamepadButton")
@@ -742,6 +814,20 @@ local function StepFreecam(dt)
 		cameraCFrame = CFrame.new(cameraPos)*CFrame.fromOrientation(cameraRot.x, cameraRot.y, 0)*CFrame.new(vel*NAV_GAIN*dt)
 	end
 
+	if FFlagUserFreecamPlayerLock then
+		if playerLockEnabled and rootPart then
+			local zoomDelta = vel.Z * NAV_GAIN.Z * dt
+			playerLockZoom = clamp(playerLockZoom + zoomDelta, PLAYER_LOCK_MIN_ZOOM, PLAYER_LOCK_MAX_ZOOM)
+			local targetCFrame = CFrame.new(rootPart.Position)
+			local rotationCFrame
+			if FFlagUserFreecamTiltControl then
+				rotationCFrame = CFrame.fromOrientation(cameraRot.x, cameraRot.y, cameraRot.z)
+			else
+				rotationCFrame = CFrame.fromOrientation(cameraRot.x, cameraRot.y, 0)
+			end
+			cameraCFrame = targetCFrame * rotationCFrame * CFrame.new(0, 0, playerLockZoom)
+		end
+	end
 	cameraPos = cameraCFrame.p
 
 	Camera.CFrame = cameraCFrame
@@ -870,7 +956,52 @@ local PlayerState = {} do
 	end
 end
 
+local function removePlayerFromList(player)
+	for i, p in ipairs(playerList) do
+		if p == player then
+			table.remove(playerList, i)
+			
+			if currentTargetIndex == i and playerLockEnabled then 
+				-- If the player removed is the current target index, disable player lock and turn it back to freecam. 
+				playerLockEnabled = false
+				currentTargetIndex = 1
+			end
+
+			if currentTargetIndex > i then
+				-- If the player removed is before the current target index, table.remove() will move all subsequent indices back.
+				currentTargetIndex = currentTargetIndex - 1 
+			end
+
+			if currentTargetIndex > #playerList or currentTargetIndex < 1 then
+				currentTargetIndex = 1
+			end
+			break
+		end
+	end
+end
+
+local function initializePlayerList()
+	playerList = Players:GetPlayers()
+
+	for i, p in ipairs(playerList) do
+		if p == LocalPlayer then
+			currentTargetIndex = i
+			break
+		end
+	end
+
+	playerAddedConnection = Players.PlayerAdded:Connect(function(player)
+		table.insert(playerList, player)
+	end)
+
+	playerRemovingConnection = Players.PlayerRemoving:Connect(removePlayerFromList)
+end
+
 local function StartFreecam()
+	if FFlagUserFreecamPlayerLock then 
+		initializePlayerList()
+	end
+
 	if not FFlagUserFreecamGuiDestabilization then
 		if FFlagUserShowGuiHideToggles then
 			script:SetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME, true)
@@ -922,6 +1053,20 @@ local function StopFreecam()
 		end
 	end
 
+	if FFlagUserFreecamPlayerLock then 
+		if playerAddedConnection then 
+			playerAddedConnection:Disconnect()
+			playerAddedConnection = nil
+		end
+		if playerRemovingConnection then
+			playerRemovingConnection:Disconnect()
+			playerRemovingConnection = nil
+		end
+		playerLockEnabled = false
+		currentTargetIndex = 1
+		playerList = {}
+	end
+	
 	if FFlagUserFreecamDepthOfFieldEffect then
 		if FreecamDepthOfField and FreecamDepthOfField.Parent then
 			if FreecamDepthOfField.Enabled then 
@@ -1002,3 +1147,5 @@ do
 		end)
 	end
 end
+
+return {}

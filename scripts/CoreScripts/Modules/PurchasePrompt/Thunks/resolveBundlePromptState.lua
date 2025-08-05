@@ -21,7 +21,6 @@ local RobuxUpsell = require(Root.Models.RobuxUpsell)
 
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 
-local getRobuxUpsellProduct = require(Root.Network.getRobuxUpsellProduct)
 local getRobuxUpsellSuggestions = require(Root.Network.getRobuxUpsellSuggestions)
 
 local Analytics = require(Root.Services.Analytics)
@@ -40,7 +39,6 @@ local GetFFlagEnableInsufficientRobuxForBundleUpsellFix =
 local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
 local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
 	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
-local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
 
 local function getBundlePriceFromProductInfo(bundleDetails, isPlayerPremium)
 	if bundleDetails and bundleDetails.product ~= nil then
@@ -220,38 +218,13 @@ local function resolveBundlePromptState(
 
 					local robuxBalance = balanceInfo.robux
 
-					if FFlagEnableUpsellSuggestionsAPI then
-						return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform):andThen(
-							-- success handler
-							function(upsellSuggestions)
-								store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1, upsellSuggestions.virtualItemBadgeType))
-							end,
-							-- failure handler
-							function()
-								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-							end
-						)
-					end
-
-					return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform):andThen(
-						function(product: RobuxUpsell.Product)
-							analytics.signalProductPurchaseUpsellShown(
-								product.id,
-								state.requestType,
-								product.providerId
-							)
-							store:dispatch(
-								PromptNativeUpsell(
-									product.providerId,
-									product.id,
-									product.robuxAmount,
-									product.robuxAmountBeforeBonus,
-									product.price
-								)
-							)
+					return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform):andThen(
+						-- success handler
+						function(upsellSuggestions)
+							store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1, upsellSuggestions.virtualItemBadgeType))
 						end,
+						-- failure handler
 						function()
-							-- No upsell item will provide sufficient funds to make this purchase
 							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
 						end
 					)

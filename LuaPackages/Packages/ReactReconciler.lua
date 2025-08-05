@@ -10,6 +10,13 @@ export type Fiber = Package.Fiber
 export type FiberRoot = Package.FiberRoot
 export type UpdateQueue<T> = Package.UpdateQueue<T> 
 export type RootTag = Package.RootTag
+export type Instance = Package.Instance
+export type Family = Package.Family
+export type RefreshUpdate = Package.RefreshUpdate
+export type SetRefreshHandler = Package.SetRefreshHandler
+export type ScheduleRefresh = Package.ScheduleRefresh
+export type ScheduleRoot = Package.ScheduleRoot
+export type FindHostInstancesForRefresh = Package.FindHostInstancesForRefresh
 
 
 return Package

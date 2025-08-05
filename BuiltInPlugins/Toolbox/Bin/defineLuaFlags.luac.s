@@ -136,42 +136,42 @@ MAIN:
   NAMECALL R0 R0 K18 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K32 ["ToolboxLogInsertDuration"]
+  LOADK R2 K32 ["ToolboxYieldWhenInserting"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K33 ["ToolboxYieldWhenInserting"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K34 ["ToolboxYieldInsertPerInstanceModulus"]
+  LOADK R2 K33 ["ToolboxYieldInsertPerInstanceModulus"]
   LOADN R3 0
   NAMECALL R0 R0 K18 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K35 ["ToolboxEnableOpenPackageVersionHistory"]
+  LOADK R2 K34 ["ToolboxEnableOpenPackageVersionHistory"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K36 ["ToolboxWVInitTimeoutSeconds"]
+  LOADK R2 K35 ["ToolboxWVInitTimeoutSeconds"]
   LOADN R3 10
   NAMECALL R0 R0 K18 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K37 ["ToolboxMaxManualRetryAttempts"]
+  LOADK R2 K36 ["ToolboxMaxManualRetryAttempts"]
   LOADN R3 3
   NAMECALL R0 R0 K18 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K38 ["ToolboxEnablePreviewAreaAssetIdLink2"]
+  LOADK R2 K37 ["ToolboxEnablePreviewAreaAssetIdLink2"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K39 ["ToolboxDisableImageCarouselAnimation"]
+  LOADK R2 K38 ["ToolboxDisableImageCarouselAnimation"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K39 ["ToolboxFixInsertionAnalytics"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

@@ -53,16 +53,33 @@ MAIN:
   GETTABLEKS R12 R13 K2 ["Parent"]
   GETTABLEKS R11 R12 K15 ["FilterPills"]
   CALL R10 1 1
-  GETTABLEKS R11 R1 K16 ["combineReducers"]
-  DUPTABLE R12 K17 [{"GameOwnerMetadata", "Permissions", "GranularPermissions", "GroupMetadata", "GroupRolePermissions", "CollaboratorSearch", "LoadState", "SaveState", "FilterPills"}]
-  SETTABLEKS R6 R12 K11 ["GameOwnerMetadata"]
-  SETTABLEKS R2 R12 K7 ["Permissions"]
-  SETTABLEKS R3 R12 K8 ["GranularPermissions"]
-  SETTABLEKS R4 R12 K9 ["GroupMetadata"]
-  SETTABLEKS R5 R12 K10 ["GroupRolePermissions"]
-  SETTABLEKS R7 R12 K12 ["CollaboratorSearch"]
-  SETTABLEKS R8 R12 K13 ["LoadState"]
-  SETTABLEKS R9 R12 K14 ["SaveState"]
-  SETTABLEKS R10 R12 K15 ["FilterPills"]
-  CALL R11 1 1
-  RETURN R11 1
+  LOADNIL R11
+  GETIMPORT R12 K17 [game]
+  LOADK R14 K18 ["Collab8766_LogCollabSearchItemClickedEventV2"]
+  NAMECALL R12 R12 K19 ["GetFastFlag"]
+  CALL R12 2 1
+  JUMPIFNOT R12 [+10]
+  GETIMPORT R13 K4 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K2 ["Parent"]
+  GETTABLEKS R14 R15 K20 ["SearchItemLogs"]
+  CALL R13 1 1
+  MOVE R11 R13
+  GETTABLEKS R13 R1 K21 ["combineReducers"]
+  DUPTABLE R14 K22 [{"GameOwnerMetadata", "Permissions", "GranularPermissions", "GroupMetadata", "GroupRolePermissions", "CollaboratorSearch", "LoadState", "SaveState", "FilterPills", "SearchItemLogs"}]
+  SETTABLEKS R6 R14 K11 ["GameOwnerMetadata"]
+  SETTABLEKS R2 R14 K7 ["Permissions"]
+  SETTABLEKS R3 R14 K8 ["GranularPermissions"]
+  SETTABLEKS R4 R14 K9 ["GroupMetadata"]
+  SETTABLEKS R5 R14 K10 ["GroupRolePermissions"]
+  SETTABLEKS R7 R14 K12 ["CollaboratorSearch"]
+  SETTABLEKS R8 R14 K13 ["LoadState"]
+  SETTABLEKS R9 R14 K14 ["SaveState"]
+  SETTABLEKS R10 R14 K15 ["FilterPills"]
+  JUMPIFNOT R12 [+2]
+  MOVE R15 R11
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K20 ["SearchItemLogs"]
+  CALL R13 1 1
+  RETURN R13 1

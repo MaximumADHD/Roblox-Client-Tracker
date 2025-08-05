@@ -52,6 +52,10 @@ local GetFFlagChromeCentralizedConfiguration =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeCentralizedConfiguration
 local GetFFlagEnableCrossExpVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
+local FFlagEnableReactSessionMetrics =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableReactSessionMetrics
+local FStringReactSchedulingContext =
+	require(CorePackages.Workspace.Packages.SharedFlags).FStringReactSchedulingContext
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts =
 	game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
@@ -77,8 +81,8 @@ local FFlagEnableExperienceMenuSessionTracking =
 local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 	game:DefineFastFlag("EnableExperienceGenericChallengeRenderingOnLoadingScript", false)
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
-
-local FFlagUseAppCommonVirtualCursorWithFixes = game:DefineFastFlag("UseAppCommonVirtualCursorWithFixes", false)
+local FFlagEnableLinkSharingEvent = game:DefineFastFlag("EnableLinkSharingEvent", false)
+local FFlagUseAppCommonVirtualCursorWithFixes = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUseAppCommonVirtualCursorWithFixes
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -517,6 +521,10 @@ end
 	
 ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui)
 
+if FFlagEnableLinkSharingEvent then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/OpenShareSheetWithLink", RobloxGui)
+end
+
 if not FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript then
 	-- Initializes the in-experience challenge interceptor, used to handle
 	-- rendering challenges such as 2-Step-Verification on suspicious actions e.g. economic actions.
@@ -538,10 +546,14 @@ end
 
 local FIntReactSchedulingTrackerStartUpDelayMs = game:DefineFastInt("ReactSchedulingTrackerStartUpDelayMs", 5000)
 local ReactSchedulingDelaySeconds = FIntReactSchedulingTrackerStartUpDelayMs / 1000
-local FStringReactSchedulingContext = game:DefineFastString("ReactSchedulingContext", "default")
 
 local ReactSchedulingTracker = require(CoreGuiModules.Common.ReactSchedulingTracker)
-if ReactSchedulingTracker then
+if FFlagEnableReactSessionMetrics then
+	-- delay to reduce startup noise
+	task.delay(ReactSchedulingDelaySeconds, function()
+		(ReactSchedulingTracker::ReactSchedulingTracker.ReactSchedulingTracker):start()
+	end)
+elseif ReactSchedulingTracker then
 	local reactSchedulingTracker = ReactSchedulingTracker.new(FStringReactSchedulingContext)
 	-- delay to reduce startup noise
 	task.delay(ReactSchedulingDelaySeconds, function()

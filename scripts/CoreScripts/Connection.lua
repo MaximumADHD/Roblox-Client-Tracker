@@ -10,6 +10,7 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local VRService = game:GetService("VRService")
 local CorePackages = game:GetService("CorePackages")
+local TelemetryService = game:GetService("TelemetryService")
 
 CorePackages:WaitForChild("Workspace"):WaitForChild("Packages") -- WaitForChild used here because Workspace is not available on startup
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
@@ -20,6 +21,39 @@ local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
+
+local fflagConnectionEventMetrics = game:DefineFastFlag("ConnectionEventMetrics", false)
+local fflagUseConfigurableReconnectWait = game:DefineFastFlag("UseConfigurableReconnectWait", false)
+local FIntConfigurableReconnectWaitMs = game:DefineFastInt("ConfigurableReconnectWaitMs", 0)
+
+local connectionEventConfig = {
+	eventName = "ConnectionEvent",
+	backends = { "RobloxTelemetryCounter" },
+	lastUpdated = { 2025, 7, 31 },
+	description = [[Counter to track connection events.]],
+	links = "https://roblox.atlassian.net/browse/CSC-585"
+}
+local timeTakenToFetchStarterPlaceIdConfig = {
+	eventName = "TimeTakenToFetchStarterPlaceId",
+	backends = { "RobloxTelemetryStat" },
+	lastUpdated = { 2025, 7, 31 },
+	description = [[Stat for time taken to fetch starter place ID.]],
+	links = "https://roblox.atlassian.net/browse/CSC-585"
+}
+local GraceTimeoutWaitConfig = {
+	eventName = "GraceTimeoutWait",
+	backends = { "RobloxTelemetryStat" },
+	lastUpdated = { 2025, 7, 31 },
+	description = [[Stat for time waited for legacy or configurable grace timeout.]],
+	links = "https://roblox.atlassian.net/browse/CSC-585"
+}
+local timeUntilStartTeleportConfig = {
+	eventName = "TimeUntilTeleportStartProfiler",
+	backends = { "RobloxTelemetryStat" },
+	lastUpdated = { 2025, 7, 31 },
+	description = [[Stat for time until teleport starts.]],
+	links = "https://roblox.atlassian.net/browse/CSC-585"
+}
 
 -- After 2 hours, disable reconnect after the failure of first try
 local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSeconds", 7200)
@@ -180,10 +214,18 @@ end)()
 
 -- Button Callbacks --
 local reconnectFunction = function()
+	local startTime = tick()
 	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
+		if fflagConnectionEventMetrics then
+			TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "UserClickWhileReconnecting"}}, 1.0)
+		end
 		return
 	end
 
+	if fflagConnectionEventMetrics then
+		TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ReconnectInitiated"}}, 1.0)
+	end
+	-- Remove old report counters once TelemetryV2 flag is enabled
 	AnalyticsService:ReportCounter("ReconnectPrompt-ReconnectActivated")
 	connectionPromptState = ConnectionPromptState.IS_RECONNECTING
 	errorPrompt:primaryShimmerPlay()
@@ -192,14 +234,40 @@ local reconnectFunction = function()
 	if game.GameId > 0 then
 		fetchStarterPlaceSuccess, starterPlaceId = fetchStarterPlaceId(game.GameId)
 	end
-	-- Wait for the remaining time (if there is any)
-	local currentTime = tick()
-	if currentTime < graceTimeout then
-		wait(graceTimeout - currentTime)
+
+	if fflagConnectionEventMetrics then
+		TelemetryService:LogStat(timeTakenToFetchStarterPlaceIdConfig, {}, tick() - startTime)
+	end
+	
+	if fflagUseConfigurableReconnectWait then
+		local waitTimeInSeconds = FIntConfigurableReconnectWaitMs / 1000
+		wait(waitTimeInSeconds)
+		if fflagConnectionEventMetrics then
+			TelemetryService:LogStat(GraceTimeoutWaitConfig, {}, waitTimeInSeconds)
+		end
+	else
+		-- Wait for the remaining time (if there is any)
+		local currentTime = tick()
+		if currentTime < graceTimeout then
+			if fflagConnectionEventMetrics then
+				TelemetryService:LogStat(GraceTimeoutWaitConfig, {}, graceTimeout - currentTime)
+			end
+			wait(graceTimeout - currentTime)
+		end
+	end
+
+	if fflagConnectionEventMetrics then
+		TelemetryService:LogStat(timeUntilStartTeleportConfig, {}, tick() - startTime)
 	end
 	if fetchStarterPlaceSuccess and starterPlaceId > 0 then
+		if fflagConnectionEventMetrics then
+			TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ReconnectToStarterPlaceId"}}, 1.0)
+		end
 		TeleportService:Teleport(starterPlaceId)
 	else
+		if fflagConnectionEventMetrics then
+			TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ReconnectToGamePlaceId"}}, 1.0)
+		end
 		TeleportService:Teleport(game.PlaceId)
 	end
 
@@ -213,6 +281,9 @@ local reconnectFunction = function()
 end
 
 local leaveFunction = function()
+	if fflagConnectionEventMetrics then
+		TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "LeaveInitiated"}}, 1.0)
+	end
 	GuiService.SelectedCoreObject = nil
 	for i = 1, LEAVE_GAME_FRAME_WAITS do
 		RunService.RenderStepped:wait()
@@ -455,6 +526,9 @@ local function stateTransit(errorType, errorCode, oldState)
 			if reconnectDisabledList[errorCode] then
 				return ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT
 			end
+			if fflagConnectionEventMetrics then
+				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "Disconnected"}}, 1.0)
+			end
 			AnalyticsService:ReportCounter("ReconnectPrompt-Disconnect")
 			return ConnectionPromptState.RECONNECT_DISCONNECT
 		elseif errorType == Enum.ConnectionError.PlacelaunchErrors then
@@ -462,9 +536,15 @@ local function stateTransit(errorType, errorCode, oldState)
 			if reconnectDisabledList[errorCode] then
 				return ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH
 			end
+			if fflagConnectionEventMetrics then
+				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlaceLaunchError"}}, 1.0)
+			end
 			AnalyticsService:ReportCounter("ReconnectPrompt-PlaceLaunch")
 			return ConnectionPromptState.RECONNECT_PLACELAUNCH
 		elseif errorType == Enum.ConnectionError.TeleportErrors then
+			if fflagConnectionEventMetrics then
+				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "TeleportError"}}, 1.0)
+			end
 			AnalyticsService:ReportCounter("ReconnectPrompt-TeleportFailed")
 			return ConnectionPromptState.TELEPORT_FAILED
 		end
@@ -472,11 +552,17 @@ local function stateTransit(errorType, errorCode, oldState)
 
 	if oldState == ConnectionPromptState.IS_RECONNECTING then
 		-- if is reconnecting, then it is the reconnect failure
+		if fflagConnectionEventMetrics then
+			TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ReconnectFailed"}}, 1.0)
+		end
 		AnalyticsService:ReportCounter("ReconnectPrompt-ReconnectFailed")
 
 		if errorType == Enum.ConnectionError.TeleportErrors then
 			-- disable reconnect at second try after a long period of time since last error pops up.
 			if tick() > lastErrorTimeStamp + fIntPotentialClientTimeout then
+				if fflagConnectionEventMetrics then
+					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ReconnectTimedOut"}}, 1.0)
+				end
 				if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
 					return ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH
 				else
@@ -485,8 +571,14 @@ local function stateTransit(errorType, errorCode, oldState)
 			end
 
 			if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
+				if fflagConnectionEventMetrics then
+					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlaceLaunchReconnectFailed"}}, 1.0)
+				end
 				return ConnectionPromptState.RECONNECT_PLACELAUNCH
 			elseif errorForReconnect == Enum.ConnectionError.DisconnectErrors then
+				if fflagConnectionEventMetrics then
+					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "DisconnectReconnectFailed"}}, 1.0)
+				end
 				return ConnectionPromptState.RECONNECT_DISCONNECT
 			end
 		end

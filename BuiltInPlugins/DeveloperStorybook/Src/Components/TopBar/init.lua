@@ -67,6 +67,7 @@ function TopBar(props)
 			reducedMotion = not props.Settings.reducedMotion,
 			preferredTransparency = props.Settings.preferredTransparency,
 			preferredTextSize = props.Settings.preferredTextSize,
+			scale = props.Settings.scale,
 		}
 		props.setSettings(settings)
 	end
@@ -76,6 +77,17 @@ function TopBar(props)
 			reducedMotion = props.Settings.reducedMotion,
 			preferredTransparency = value,
 			preferredTextSize = props.Settings.preferredTextSize,
+			scale = props.Settings.scale,
+		}
+		props.setSettings(settings)
+	end
+
+	local onScaleChanged = function(value: number)
+		local settings = {
+			reducedMotion = props.Settings.reducedMotion,
+			preferredTransparency = props.Settings.preferredTransparency,
+			preferredTextSize = props.Settings.preferredTextSize,
+			scale = value,
 		}
 		props.setSettings(settings)
 	end
@@ -84,24 +96,28 @@ function TopBar(props)
 		props.embedStorybook()
 	end
 
-	React.useEffect(function()
-		-- Listen for PreferredTextSize changes
-		local connection = GuiService:GetPropertyChangedSignal("PreferredTextSize"):Connect(function()
-			-- TODO (AleksandrSl 19/05/2025): Turn setSettings into updateSettings so we don't have to keep unrelated values here.
-			local settings = {
-				reducedMotion = props.Settings.reducedMotion,
-				preferredTransparency = props.Settings.preferredTransparency,
-				preferredTextSize = GuiService.PreferredTextSize,
-			}
-			props.setSettings(settings)
-		end)
+	React.useEffect(
+		function()
+			-- Listen for PreferredTextSize changes
+			local connection = GuiService:GetPropertyChangedSignal("PreferredTextSize"):Connect(function()
+				-- TODO (AleksandrSl 19/05/2025): Turn setSettings into updateSettings so we don't have to keep unrelated values here.
+				local settings = {
+					reducedMotion = props.Settings.reducedMotion,
+					preferredTransparency = props.Settings.preferredTransparency,
+					preferredTextSize = GuiService.PreferredTextSize,
+					scale = props.Settings.scale,
+				}
+				props.setSettings(settings)
+			end)
 
-		return function()
-			if connection then
-				connection:Disconnect()
+			return function()
+				if connection then
+					connection:Disconnect()
+				end
 			end
-		end
-	end, { props.Settings.reducedMotion, props.Settings.preferredTransparency, props.setSettings })
+		end,
+		{ props.Settings.reducedMotion, props.Settings.preferredTransparency, props.Settings.scale, props.setSettings }
+	)
 
 	return React.createElement("ScrollingFrame", {
 		[React.Tag] = "X-RowM X-Middle X-PadS X-FitY",
@@ -219,6 +235,26 @@ function TopBar(props)
 			tag = "auto-xy text-align-x-left text-label-small",
 			AnchorPoint = Vector2.new(0, 0),
 			LayoutOrder = 11,
+		}),
+		ScaleLabel = React.createElement(Text, {
+			Text = "Scale:",
+			tag = "auto-xy text-align-x-left text-label-small",
+			AnchorPoint = Vector2.new(0, 0),
+			LayoutOrder = 12,
+		}),
+		ScaleSlider = React.createElement(View, {
+			AnchorPoint = Vector2.new(1, 0),
+			Size = UDim2.new(0, SLIDER_WIDTH, 0, SLIDER_HEIGHT),
+			LayoutOrder = 13,
+		}, {
+			Slider = React.createElement(Slider, {
+				Min = 0,
+				Max = 3,
+				Value = props.Settings.scale,
+				OnValueChanged = onScaleChanged,
+				VerticalDragTolerance = SLIDER_HEIGHT,
+				ShowInput = true,
+			}),
 		}),
 	})
 end

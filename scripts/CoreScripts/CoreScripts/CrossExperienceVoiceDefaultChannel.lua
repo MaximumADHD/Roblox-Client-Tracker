@@ -97,6 +97,7 @@ local VOICE_STATUS = Constants.VOICE_STATUS
 
 local FFlagFixPartyVoiceGetPermissions = SharedFlags.GetFFlagFixPartyVoiceGetPermissions()
 local FFlagEnableCoreVoiceManagerPassErrorInReject = SharedFlags.FFlagEnableCoreVoiceManagerPassErrorInReject
+local FFlagEnablePartyVoiceChangersInLua = SharedFlags.FFlagEnablePartyVoiceChangersInLua
 
 if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	CoreVoiceManager:setOptions({
@@ -228,6 +229,13 @@ local onPlayerAdded = function(player)
 		isLocalUser = player.UserId == localUserId,
 		username = player.Name,
 		displayname = player.DisplayName,
+		-- TODO:
+		-- Check to see if setting new participants' selected voice pack to None might cause desync issues
+		-- with the participant updating their voice pack before things are fully initialized.
+		-- Make sure that the local user can only set their voice pack after the participant is fully set up and added to the
+		-- list of participants, or if the user can set the property beforehand, then make the value be set to that selected
+		-- voice pack instead of defaulting it to None.
+		selectedVoicePack = if FFlagEnablePartyVoiceChangersInLua then "None" else nil,
 	})
 end
 
@@ -313,6 +321,16 @@ local toggleMutePlayer = function(params)
 	end
 end
 
+local function setVoicePack(params)
+	local voicePackName = params.voicePackName
+	CoreVoiceManager:SetVoicePack(voicePackName)
+	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PACK_WAS_SET, {
+		userId = localUserId,
+		isLocalUser = true,
+		voicePackName = voicePackName,
+	})
+end
+
 function handleParticipants()
 	Players.PlayerAdded:Connect(function(player)
 		onPlayerAdded(player)
@@ -334,6 +352,10 @@ function handleMicrophone()
 	CoreVoiceManager.muteChanged.Event:Connect(onLocalPlayerMuteChanged)
 	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.MUTE_PARTY_VOICE_PARTICIPANT, toggleMutePlayer)
 	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.UNMUTE_PARTY_VOICE_PARTICIPANT, toggleMutePlayer)
+end
+
+function handleVoiceChanger()
+	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.SET_PARTY_VOICE_PACK, setVoicePack)
 end
 
 local handleBlockedParticipant = function(params: { userId: number })
@@ -530,7 +552,6 @@ local function getPermissions(permissions): Promise<PermissionResult>
 	end)
 end
 
-
 local setupListenersInitialized = false
 
 local function setupListeners()
@@ -558,6 +579,11 @@ local function setupListeners()
 	-- setup listeners
 	handleParticipants()
 	handleMicrophone()
+
+	if FFlagEnablePartyVoiceChangersInLua then
+		handleVoiceChanger()
+	end
+
 	if FFlagPartyVoiceBlockSync then
 		initializeParticipantBlockListener()
 	end

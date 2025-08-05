@@ -35,10 +35,15 @@ PROTO_1:
   GETTABLEKS R3 R4 K6 ["selectedObservable"]
   GETTABLEKS R2 R3 K1 ["get"]
   CALL R2 0 1
-  JUMPIFNOT R2 [+11]
-  GETTABLEKS R4 R2 K4 ["id"]
+  JUMPIFNOT R2 [+20]
+  LOADB R3 0
+  GETTABLEKS R4 R2 K7 ["Guid"]
   GETTABLEKS R6 R0 K3 ["datum"]
-  GETTABLEKS R5 R6 K4 ["id"]
+  GETTABLEKS R5 R6 K8 ["guid"]
+  JUMPIFNOTEQ R4 R5 [+13]
+  GETTABLEKS R4 R2 K9 ["Index"]
+  GETTABLEKS R6 R0 K3 ["datum"]
+  GETTABLEKS R5 R6 K10 ["matchIndex"]
   JUMPIFEQ R4 R5 [+2]
   LOADB R3 0 +1
   LOADB R3 1
@@ -46,17 +51,17 @@ PROTO_1:
   LOADB R3 0
   GETUPVAL R4 1
   MOVE R5 R4
-  LOADK R6 K7 ["selected"]
+  LOADK R6 K11 ["selected"]
   JUMPIFNOT R3 [+2]
-  LOADK R7 K8 ["FindReplaceAll-Selected"]
+  LOADK R7 K12 ["FindReplaceAll-Selected"]
   JUMP [+1]
   LOADNIL R7
   CALL R5 2 0
   MOVE R5 R4
-  LOADK R6 K9 ["hovered"]
+  LOADK R6 K13 ["hovered"]
   JUMPIFNOT R1 [+3]
   JUMPIF R3 [+2]
-  LOADK R7 K10 ["FindReplaceAll-Hovered"]
+  LOADK R7 K14 ["FindReplaceAll-Hovered"]
   JUMP [+1]
   LOADNIL R7
   CALL R5 2 0
@@ -98,12 +103,12 @@ PROTO_3:
   CALL R0 0 1
   GETTABLEKS R2 R0 K1 ["datum"]
   GETTABLEKS R1 R2 K2 ["isFile"]
-  JUMPIF R1 [+29]
+  JUMPIF R1 [+37]
   GETUPVAL R1 1
   NAMECALL R1 R1 K3 ["isDoubleClick"]
   CALL R1 1 1
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K4 ["openScriptToMatchAsync"]
+  GETTABLEKS R2 R3 K4 ["openScriptToMatch"]
   GETTABLEKS R4 R0 K1 ["datum"]
   GETTABLEKS R3 R4 K5 ["guid"]
   GETTABLEKS R5 R0 K1 ["datum"]
@@ -112,11 +117,15 @@ PROTO_3:
   GETTABLEKS R5 R6 K7 ["scriptVersion"]
   NOT R6 R1
   CALL R2 4 0
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K8 ["resultManager"]
-  GETTABLEKS R2 R3 K9 ["setSelected"]
-  GETTABLEKS R3 R0 K1 ["datum"]
-  CALL R2 1 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K8 ["setSelection"]
+  GETTABLEKS R4 R0 K1 ["datum"]
+  GETTABLEKS R3 R4 K5 ["guid"]
+  GETTABLEKS R5 R0 K1 ["datum"]
+  GETTABLEKS R4 R5 K6 ["matchIndex"]
+  GETTABLEKS R6 R0 K1 ["datum"]
+  GETTABLEKS R5 R6 K7 ["scriptVersion"]
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_4:
@@ -248,7 +257,6 @@ PROTO_10:
   CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE UPVAL U6
-  CAPTURE VAL R0
   NEWTABLE R13 0 2
   MOVE R14 R4
   GETTABLEKS R15 R0 K7 ["resultManager"]

@@ -1,0 +1,200 @@
+PROTO_0:
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["widget"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["cleanupFunc"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["createBinding"]
+  GETTABLEKS R3 R0 K3 ["props"]
+  GETTABLEKS R2 R3 K4 ["onCloseCallback"]
+  CALL R1 1 2
+  SETTABLEKS R1 R0 K4 ["onCloseCallback"]
+  SETTABLEKS R2 R0 K5 ["updateOnCloseCallback"]
+  RETURN R0 0
+
+PROTO_1:
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["localization"]
+  LOADK R3 K1 ["FaceControlEditor"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K2 ["getText"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onCloseCallback"]
+  NAMECALL R0 R0 K1 ["getValue"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+2]
+  MOVE R1 R0
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  GETIMPORT R2 K3 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R3 K7 [Enum.InitialDockState.Left]
+  LOADB R4 1
+  LOADB R5 1
+  LOADN R6 44
+  LOADN R7 88
+  LOADN R8 44
+  LOADN R9 88
+  CALL R2 7 1
+  GETUPVAL R3 0
+  GETTABLEKS R4 R0 K8 ["plugin"]
+  LOADK R6 K9 ["FaceControlEditor"]
+  MOVE R7 R2
+  NAMECALL R4 R4 K10 ["CreateDockWidgetPluginGui"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K11 ["widget"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["widget"]
+  GETTABLEKS R4 R0 K12 ["localization"]
+  LOADK R6 K9 ["FaceControlEditor"]
+  LOADK R7 K13 ["Title"]
+  NAMECALL R4 R4 K14 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K13 ["Title"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["widget"]
+  GETTABLEKS R4 R0 K12 ["localization"]
+  LOADK R6 K9 ["FaceControlEditor"]
+  LOADK R7 K15 ["Name"]
+  NAMECALL R4 R4 K14 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K15 ["Name"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["widget"]
+  GETIMPORT R4 K18 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R4 R3 K16 ["ZIndexBehavior"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["widget"]
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U0
+  NAMECALL R3 R3 K19 ["BindToClose"]
+  CALL R3 2 0
+  GETUPVAL R3 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K20 ["setup"]
+  GETTABLEKS R4 R5 K21 ["mount"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K11 ["widget"]
+  GETTABLEKS R6 R0 K8 ["plugin"]
+  GETTABLEKS R7 R0 K22 ["updateContextFunction"]
+  GETTABLEKS R9 R0 K23 ["animationContext"]
+  GETTABLEKS R8 R9 K24 ["RootInstance"]
+  MOVE R9 R1
+  CALL R4 5 1
+  SETTABLEKS R4 R3 K25 ["cleanupFunc"]
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R1 K2 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["localization"]
+  LOADK R3 K2 ["FaceControlEditor"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K3 ["getText"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["onCloseCallback"]
+  GETTABLEKS R3 R1 K1 ["onCloseCallback"]
+  JUMPIFEQ R2 R3 [+8]
+  GETTABLEKS R2 R0 K2 ["updateOnCloseCallback"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["onCloseCallback"]
+  CALL R2 1 0
+  GETTABLEKS R2 R1 K3 ["animationContext"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["animationContext"]
+  GETTABLEKS R4 R0 K4 ["widget"]
+  JUMPIFNOT R4 [+35]
+  GETTABLEKS R4 R2 K5 ["RootInstance"]
+  GETTABLEKS R5 R3 K5 ["RootInstance"]
+  JUMPIFEQ R4 R5 [+30]
+  GETTABLEKS R4 R0 K6 ["cleanupFunc"]
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R4 R0 K6 ["cleanupFunc"]
+  CALL R4 0 0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["setup"]
+  GETTABLEKS R5 R6 K8 ["mount"]
+  GETTABLEKS R6 R0 K4 ["widget"]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K9 ["plugin"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K10 ["updateContextFunction"]
+  GETTABLEKS R9 R3 K5 ["RootInstance"]
+  MOVE R10 R4
+  CALL R5 5 1
+  SETTABLEKS R5 R0 K6 ["cleanupFunc"]
+  RETURN R0 0
+
+PROTO_8:
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["isMounted"]
+  GETTABLEKS R1 R0 K1 ["cleanupFunc"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R1 R0 K1 ["cleanupFunc"]
+  CALL R1 0 0
+  GETTABLEKS R1 R0 K2 ["widget"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K2 ["widget"]
+  NAMECALL R1 R1 K3 ["Destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["FaceControlEditorComponent"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["Component"]
+  LOADK R5 K10 ["FaceControlEditorWidget"]
+  NAMECALL R3 R3 K11 ["extend"]
+  CALL R3 2 1
+  DUPCLOSURE R4 K12 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K13 ["init"]
+  DUPCLOSURE R4 K14 [PROTO_1]
+  SETTABLEKS R4 R3 K15 ["render"]
+  DUPCLOSURE R4 K16 [PROTO_5]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K17 ["didMount"]
+  DUPCLOSURE R4 K18 [PROTO_7]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K19 ["didUpdate"]
+  DUPCLOSURE R4 K20 [PROTO_8]
+  SETTABLEKS R4 R3 K21 ["willUnmount"]
+  RETURN R3 1

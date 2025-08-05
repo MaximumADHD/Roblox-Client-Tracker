@@ -1,9 +1,15 @@
+local CorePackages = game:GetService("CorePackages")
+
 local FIntReactSchedulingTrackerEnableHunderedthsPercent: number = game:DefineFastInt("ReactSchedulingTracker", 0)
 local FIntReactSchedulingTrackerPeriodMs: number = game:DefineFastInt("ReactSchedulingTrackerPeriodMs", 30000)
 local EngineFeatureTelemetryServiceMemoryCPUInfoEnabled = game:GetEngineFeature("TelemetryServiceMemoryCPUInfoEnabled")
 local FFlagEnableReactDeviceTierCardinality = game:DefineFastFlag("EnableReactDeviceTierCardinality", false)
 local FFlagDisableReactSchedulingTimePctStats = game:DefineFastFlag("DisableReactSchedulingTimePctStats", false)
 local FFlagDisableReactSchedulingAvgMaxMsStats = game:DefineFastFlag("DisableReactSchedulingAvgMaxMsStats", false)
+local FFlagEnableReactSessionMetrics = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableReactSessionMetrics
+local FStringReactSchedulingContext = require(CorePackages.Workspace.Packages.SharedFlags).FStringReactSchedulingContext
+local FStringReactSchedulingPercentiles = game:DefineFastString("ReactSchedulingPercentiles", "10,50,95,99")
+local FIntReactSchedulingKllSketchMaxSize: number = game:DefineFastInt("ReactSchedulingKllSketchMaxSize", 200)
 local FFlagReactSchedulingTrackerLayoutEffects = game:DefineFastFlag("ReactSchedulingTrackerLayoutEffects", false)
 local FFlagReactSchedulingTrackerDataModelUpdate = game:DefineFastFlag("ReactSchedulingTrackerDataModelUpdate", false)
 
@@ -38,10 +44,17 @@ end
 -- Expected value range: 0 .. MAX_SAMPLE_RATE
 local enableKibana = FIntReactSchedulingTrackerEnableHunderedthsPercent
 local enabled = enableKibana > 0
+local periodReportEnabled = true 
+local rootReportEnabled = true
 
 if not enabled then
-	-- Logging is OFF. Don't enable. Early exit.
-	return nil :: ReactSchedulingTracker?
+	if not FFlagEnableReactSessionMetrics then 
+		-- Logging is OFF. Don't enable. Early exit.
+		return nil :: ReactSchedulingTracker?
+	else
+		rootReportEnabled = false
+		periodReportEnabled = false
+	end
 end
 
 local sampleVal = math.random(0, MAX_SAMPLE_RATE)
@@ -53,16 +66,25 @@ end
 enabled = if sampleVal < enableKibana then true else false
 
 if not enabled then
-	-- Not included in sampling. Don't enable. Early exit.
-	return nil :: ReactSchedulingTracker?
+	if not FFlagEnableReactSessionMetrics then 
+		-- Not included in sampling. Don't enable. Early exit.
+		return nil :: ReactSchedulingTracker?
+	else
+		rootReportEnabled = false
+		periodReportEnabled = false
+	end
 end
 
 local RunService = game:GetService("RunService")
 local TelemetryService = game:GetService("TelemetryService")
-local CorePackages = game:GetService("CorePackages")
 local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local ReactReconciler = require(CorePackages.Packages.ReactReconciler)
+local InExperiencePerformance = require(CorePackages.Workspace.Packages.InExperiencePerformance)
+local KllSketch = InExperiencePerformance.KllSketch
+
+local SKETCH_ALL_KEY = "all"
+local SKETCH_PERCENTILES = string.split(FStringReactSchedulingPercentiles)
 local CommonUtil = require(script.Parent.CommonUtil)
 
 type FiberRoot = ReactReconciler.FiberRoot
@@ -120,6 +142,7 @@ type SchedulerStateMachine = typeof(setmetatable(
 		states: {
 			[SchedulerStates]: (SchedulerStateMachine, number, FiberRoot?) -> SchedulerStates?,
 		},
+		transition: (SchedulerStateMachine, number, FiberRoot?) -> ()?
 	},
 	SchedulerStateMachine
 ))
@@ -272,6 +295,21 @@ end
 local DOCS_LINK =
 	"https://roblox.atlassian.net/wiki/spaces/APEX/pages/3321660204/React+Profiler+Metric+Issues+and+Path+Forward#New-Metrics-%E2%9C%A8"
 
+local summaryStandardizedFields = { "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo" }
+if EngineFeatureTelemetryServiceMemoryCPUInfoEnabled then
+	summaryStandardizedFields =
+		{ "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo", "addMemoryInfo", "addCPUInfo" }
+end
+
+local SessionSummaryEvent = {
+	eventName = "ReactSessionSummary",
+	backends = { "EventIngest" },
+	throttlingPercentage = game:DefineFastInt("ReactSessionSummaryEventThrottleHunderedthsPercent", 0),
+	lastUpdated = { 2025, 7, 10 },
+	description = "Summary of React performance over a game session",
+	links = DOCS_LINK,
+}
+
 local PeriodSummaryEvent = {
 	eventName = "ReactPeriodSummary",
 	backends = { "EventIngest" },
@@ -364,8 +402,30 @@ type FrameMetrics = {
 	reactDropChangeHistogram: { number }, -- The bucket histogram for the bucket differential when removing react time from frame time (how much impact react had on the frame)
 }
 
-type ReactSchedulingTracker = typeof(setmetatable(
+type SessionMetrics = {
+	updateTime: {
+		sketches: { [string]: InExperiencePerformance.Sketch },
+		numRoots: number,
+	},
+	commitTime: {
+		sketches: { [string]: InExperiencePerformance.Sketch },
+		numRoots: number,
+	},
+	timeToUpdate: {
+		sketches: { [string]: InExperiencePerformance.Sketch },
+		numRoots: number,
+	},
+	timePerFrame: {
+		sketch: InExperiencePerformance.Sketch
+	},
+	timePerReactFrame: {
+		sketch: InExperiencePerformance.Sketch
+	}
+}
+
+export type ReactSchedulingTracker = typeof(setmetatable(
 	{} :: {
+		started: boolean?,
 		periodStartMs: number,
 		reactFrameTimeMs: number,
 		frameMetrics: FrameMetrics,
@@ -389,13 +449,22 @@ type ReactSchedulingTracker = typeof(setmetatable(
 				max_time_to_update_ms: number,
 			},
 		},
+		sessionMetrics: SessionMetrics?,
 		schedulerStateMachine: SchedulerStateMachine,
 	},
 	ReactSchedulingTracker
 ))
 
 function ReactSchedulingTracker.new(context: string?): ReactSchedulingTracker
+	local updateTimeSketches, commitTimeSketches, timeToUpdateSketches = {}, {}, {}
+	if FFlagEnableReactSessionMetrics then
+		updateTimeSketches[SKETCH_ALL_KEY] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+		commitTimeSketches[SKETCH_ALL_KEY] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+		timeToUpdateSketches[SKETCH_ALL_KEY] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+	end
+
 	local self = setmetatable({
+		started = if FFlagEnableReactSessionMetrics then false else nil,
 		periodStartMs = 0,
 		reactFrameTimeMs = 0,
 		frameMetrics = {
@@ -408,19 +477,45 @@ function ReactSchedulingTracker.new(context: string?): ReactSchedulingTracker
 			reactDropChangeHistogram = { 0, 0, 0, 0 },
 		},
 		rootsMetrics = {},
+		sessionMetrics = if FFlagEnableReactSessionMetrics then {
+			updateTime = {
+				sketches = updateTimeSketches,
+				numRoots = 1,
+			},
+			commitTime = {
+				sketches = commitTimeSketches,
+				numRoots = 1,
+			},
+			timeToUpdate = {
+				sketches = timeToUpdateSketches,
+				numRoots = 1,
+			},
+			timePerFrame = {
+				sketch =  KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+			},
+			timePerReactFrame = {
+				sketch = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+			},
+		} else nil,
 		context = context,
 	}, ReactSchedulingTracker)
 
 	self.schedulerStateMachine = SchedulerStateMachine.new(function(duration)
 		self:addToFrame(duration)
 	end, function(rootTimeMs, root)
-		self:reportRoot(rootTimeMs, root)
+		if FFlagEnableReactSessionMetrics then
+			self:trackSessionSketches(rootTimeMs, root)
+		end
+		if rootReportEnabled then
+			self:reportRoot(rootTimeMs, root)
+		end
 	end)
 
 	return self
 end
 
 function ReactSchedulingTracker:start()
+	self.started = if FFlagEnableReactSessionMetrics then true else nil
 	self:resetState()
 
 	schedulingProfiler.registerProfilerEventCallback(function(type: number, root: FiberRoot?)
@@ -433,12 +528,15 @@ function ReactSchedulingTracker:start()
 
 		local periodEndMs = getCurrentTimeMs()
 		if periodEndMs - self.periodStartMs > FIntReactSchedulingTrackerPeriodMs then
-			self:reportPeriod()
+			if periodReportEnabled then
+				self:reportPeriod()
+			end
 			self:resetState()
 		end
 	end)
 end
 
+-- reset non-session metrics 
 function ReactSchedulingTracker:resetState()
 	self.periodStartMs = getCurrentTimeMs()
 	self.frameMetrics = {
@@ -474,6 +572,42 @@ end
 
 function ReactSchedulingTracker:addToFrame(duration)
 	self.reactFrameTimeMs += duration
+end
+
+function ReactSchedulingTracker:trackSessionSketches(rootTime: RootTaskTime, root: FiberRoot?)
+	if not FFlagEnableReactSessionMetrics or not self.sessionMetrics then
+		return
+	end
+
+	local name = self:getRootName(root)
+	
+	-- skip for passive effects
+	if rootTime.tag == "RootUpdateTime" then
+		local timeToCompleteMs = getCurrentTimeMs() - rootTime.StartTimeMs
+
+		-- insert updates to "all" sketch and corresponding root's sketch
+		self.sessionMetrics.updateTime.sketches[SKETCH_ALL_KEY]:insert(rootTime.RenderMs + rootTime.CommitMs)
+		self.sessionMetrics.commitTime.sketches[SKETCH_ALL_KEY]:insert(rootTime.CommitMs)
+		self.sessionMetrics.timeToUpdate.sketches[SKETCH_ALL_KEY]:insert(timeToCompleteMs)
+
+		if not self.sessionMetrics.updateTime.sketches[name] then
+			self.sessionMetrics.updateTime.sketches[name] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+			self.sessionMetrics.updateTime.numRoots += 1
+		end
+		self.sessionMetrics.updateTime.sketches[name]:insert(rootTime.RenderMs + rootTime.CommitMs)
+
+		if not self.sessionMetrics.commitTime.sketches[name] then
+			self.sessionMetrics.commitTime.sketches[name] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+			self.sessionMetrics.commitTime.numRoots += 1
+		end
+		self.sessionMetrics.commitTime.sketches[name]:insert(rootTime.CommitMs)
+
+		if not self.sessionMetrics.timeToUpdate.sketches[name] then
+			self.sessionMetrics.timeToUpdate.sketches[name] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+			self.sessionMetrics.timeToUpdate.numRoots += 1
+		end
+		self.sessionMetrics.timeToUpdate.sketches[name]:insert(timeToCompleteMs)
+	end
 end
 
 function ReactSchedulingTracker:reportRoot(rootTime: RootTaskTime, root: FiberRoot?)
@@ -629,11 +763,17 @@ function ReactSchedulingTracker:processFrame(frameTimeMs: number)
 	frameMetrics.totalFrameCount += 1
 	local bucket = self:getFrameBucket(frameTimeMs)
 	frameMetrics.allFrameHistogram[bucket] += 1
+	if FFlagEnableReactSessionMetrics then
+		self.sessionMetrics.timePerFrame.sketch:insert(reactFrameTimeMs)
+	end
 
 	if reactFrameTimeMs > 0 then
 		-- React ran this frame
 		frameMetrics.totalReactTimeMs += reactFrameTimeMs
 		frameMetrics.reactFrameHistogram[bucket] += 1
+		if FFlagEnableReactSessionMetrics then
+			self.sessionMetrics.timePerReactFrame.sketch:insert(reactFrameTimeMs)
+		end
 
 		-- update frame summary
 		frameMetrics.reactFrameCount += 1
@@ -675,10 +815,6 @@ function ReactSchedulingTracker:reportPeriod()
 		react_drop_change3 = frameMetrics.reactDropChangeHistogram[4],
 	}
 
-	local summaryStandardizedFields = { "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo" }
-	if EngineFeatureTelemetryServiceMemoryCPUInfoEnabled then
-		summaryStandardizedFields = { "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo", "addMemoryInfo", "addCPUInfo" }
-	end
 	TelemetryService:LogEvent(PeriodSummaryEvent, {
 		standardizedFields = summaryStandardizedFields,
 		customFields = periodSummary
@@ -944,6 +1080,71 @@ function ReactSchedulingTracker:reportPeriod()
 			)
 		end
 	end
+end
+
+function generatePercentilesFromSingleSketch(sketch: InExperiencePerformance.Sketch )
+	local output = "{"
+
+	for i, percentile in SKETCH_PERCENTILES do
+		output ..= "\"p" .. percentile .. "\":"
+		output ..= sketch:getPercentile(tonumber(percentile) or 0)
+		if i < #SKETCH_PERCENTILES then
+			output ..=  ","
+		end
+	end
+
+	return output .. "}"
+end
+
+function generatePercentilesFromSketches(sketches: { [string]: InExperiencePerformance.Sketch }, size: number)
+	local output = "{"
+
+	for i, percentile in SKETCH_PERCENTILES do
+		output ..= "\"p" .. percentile .. "\":{"
+		local percentileNum = tonumber(percentile) or 0
+		local rootIndex = 0
+		for rootName, sketch in sketches do
+			rootIndex += 1
+			output ..= "\"" .. rootName .. "\":".. sketch:getPercentile(percentileNum)
+			if rootIndex < size then
+				output ..= ","
+			end
+		end
+		output ..= if i < #SKETCH_PERCENTILES then "}," else "}"
+	end
+
+	return output .. "}"
+end
+
+function ReactSchedulingTracker:reportSession()
+	-- do not report session unless tracking has started (past delay)
+	if not self.started or not FFlagEnableReactSessionMetrics then
+		return
+	end
+
+	local reactUpdateTime = generatePercentilesFromSketches(self.sessionMetrics.updateTime.sketches, self.sessionMetrics.updateTime.numRoots)
+	local reactCommitTime = generatePercentilesFromSketches(self.sessionMetrics.commitTime.sketches, self.sessionMetrics.commitTime.numRoots)
+	local reactTimeToUpdate = generatePercentilesFromSketches(self.sessionMetrics.timeToUpdate.sketches, self.sessionMetrics.timeToUpdate.numRoots)
+	local timePerFrame = generatePercentilesFromSingleSketch(self.sessionMetrics.timePerFrame.sketch)
+	local timePerReactFrame = generatePercentilesFromSingleSketch(self.sessionMetrics.timePerReactFrame.sketch)
+
+	local sessionSummary = {
+		reactUpdateTime = reactUpdateTime,
+		reactCommitTime = reactCommitTime,
+		reactTimeToUpdate = reactTimeToUpdate,
+		timePerFrame = timePerFrame,
+		timePerReactFrame = timePerReactFrame
+	}
+			
+	TelemetryService:LogEvent(SessionSummaryEvent, {
+		standardizedFields = summaryStandardizedFields,
+		customFields = sessionSummary,
+	})
+end
+
+if FFlagEnableReactSessionMetrics then
+	local instance: ReactSchedulingTracker = ReactSchedulingTracker.new(FStringReactSchedulingContext)
+	return instance
 end
 
 return (ReactSchedulingTracker :: unknown) :: ReactSchedulingTracker

@@ -187,15 +187,6 @@ local function getCatalogItemDetails(itemId: number, itemType: ("asset" | "bundl
 	})
 end
 
-local function getRobuxUpsellProduct(price, robuxBalance, paymentPlatform)
-	return Promise.resolve({
-		roblox_product_id = 50,
-		provider_product_id = "robux50",
-		roblox_product_name = "providerRobux50",
-		robux_amount = 500,
-	})
-end
-
 local function getRobuxUpsellProductWithUniverseItemInfo(price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId)
 	return Promise.resolve({
 		roblox_product_id = 50,
@@ -256,7 +247,6 @@ function MockNetwork.new(successResult, failureResult)
 			getBundleDetails = retFunction,
 			getProductPurchasableDetails = retFunction,
 			getCatalogItemDetails = if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase() then retFunction else nil,
-			getRobuxUpsellProduct = retFunction,
 			getRobuxUpsellProductWithUniverseItemInfo = retFunction,
 			postPremiumImpression = retFunction,
 			getPremiumUpsellPrecheck = retFunction,
@@ -278,7 +268,6 @@ function MockNetwork.new(successResult, failureResult)
 			getCatalogItemDetails = if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase()
 				then getCatalogItemDetails
 				else nil,
-			getRobuxUpsellProduct = getRobuxUpsellProduct,
 			getRobuxUpsellProductWithUniverseItemInfo = getRobuxUpsellProductWithUniverseItemInfo,
 			postPremiumImpression = postPremiumImpression,
 			getPremiumUpsellPrecheck = getPremiumUpsellPrecheck,

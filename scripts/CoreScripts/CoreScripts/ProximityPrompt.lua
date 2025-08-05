@@ -13,6 +13,12 @@ local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
 
+game:DefineFastFlag("EnableProximityPromptIndicatorGui", false)
+local GetFFlagEnableProximityPromptIndicatorGui = function()
+	return game:GetEngineFeature("ProximityPromptIndicators") and
+		   game:GetFastFlag("EnableProximityPromptIndicatorGui")
+end
+
 local LocalPlayer = Players.LocalPlayer
 while LocalPlayer == nil do
 	Players.ChildAdded:wait()
@@ -88,6 +94,16 @@ local KeyCodeToFontSize = {
 	[Enum.KeyCode.Delete] = 10,
 }
 
+-- Colors
+local BackgroundColor = Color3.new(0.07, 0.07, 0.07)
+local ContentColor = Color3.new(1, 1, 1)
+local SecondaryContentColor = Color3.new(0.7, 0.7, 0.7)
+
+-- TweenInfo presets
+local tweenInfoQuick = TweenInfo.new(0.06, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local tweenInfoOutHalfSecond = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local tweenInfoFast = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
 local function getScreenGui()
 	local screenGui = PlayerGui:FindFirstChild("ProximityPrompts")
 	if screenGui == nil then
@@ -125,7 +141,6 @@ local function createProgressBarGradient(parent, leftSide, tweensForFadeOut, twe
 	gradient.Rotation = leftSide and 180 or 0
 	gradient.Parent = image
 
-	local tweenInfoQuick = TweenInfo.new(0.06, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
 	table.insert(tweensForFadeOut, TweenService:Create(image, tweenInfoQuick, { ImageTransparency = 1 }))
 	table.insert(tweensForFadeIn, TweenService:Create(image, tweenInfoQuick, { ImageTransparency = 0 }))
 
@@ -161,9 +176,6 @@ local function createPrompt(prompt, inputType, gui)
 	local tweensForFadeOut = {}
 	local tweensForFadeIn = {}
 	local tweenInfoInFullDuration = TweenInfo.new(prompt.HoldDuration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-	local tweenInfoOutHalfSecond = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-	local tweenInfoFast = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-	local tweenInfoQuick = TweenInfo.new(0.06, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
 
 	local promptUI = Instance.new("BillboardGui")
 	promptUI.Name = "Prompt"
@@ -172,7 +184,7 @@ local function createPrompt(prompt, inputType, gui)
 	local frame = Instance.new("Frame")
 	frame.Size = UDim2.fromScale(0.5, 1)
 	frame.BackgroundTransparency = 1
-	frame.BackgroundColor3 = Color3.new(0.07, 0.07, 0.07)
+	frame.BackgroundColor3 = BackgroundColor
 	frame.AnchorPoint = Vector2.new(0.5, 0)
 	frame.Position = UDim2.fromScale(0.5, 0)
 	frame.Size = UDim2.fromScale(0, 1)
@@ -213,7 +225,7 @@ local function createPrompt(prompt, inputType, gui)
 	actionText.TextSize = 19
 	actionText.BackgroundTransparency = 1
 	actionText.TextTransparency = 1
-	actionText.TextColor3 = Color3.new(1, 1, 1)
+	actionText.TextColor3 = ContentColor
 	actionText.TextXAlignment = Enum.TextXAlignment.Left
 	table.insert(tweensForButtonHoldBegin, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
 	table.insert(tweensForButtonHoldEnd, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
@@ -226,7 +238,7 @@ local function createPrompt(prompt, inputType, gui)
 	objectText.TextSize = 14
 	objectText.BackgroundTransparency = 1
 	objectText.TextTransparency = 1
-	objectText.TextColor3 = Color3.new(0.7, 0.7, 0.7)
+	objectText.TextColor3 = SecondaryContentColor
 	objectText.TextXAlignment = Enum.TextXAlignment.Left
 
 	-- Add list layout, as well a tween out to mimic old shrinking
@@ -238,7 +250,7 @@ local function createPrompt(prompt, inputType, gui)
 	table.insert(tweensForButtonHoldEnd, TweenService:Create(listLayout, tweenInfoFast, { Padding = UDim.new(0, 0) }))
 	table.insert(tweensForFadeOut, TweenService:Create(listLayout, tweenInfoFast, { Padding = UDim.new(-0.25, 0) }))
 	table.insert(tweensForFadeIn, TweenService:Create(listLayout, tweenInfoFast, { Padding = UDim.new(0, 0) }))
-	
+
 	-- Add container for text labels
 	local textFrame = Instance.new("Frame")
 	textFrame.Name = "TextFrame"
@@ -367,7 +379,7 @@ local function createPrompt(prompt, inputType, gui)
 
 			buttonText.BackgroundTransparency = 1
 			buttonText.TextTransparency = 1
-			buttonText.TextColor3 = Color3.new(1, 1, 1)
+			buttonText.TextColor3 = ContentColor
 			buttonText.TextXAlignment = Enum.TextXAlignment.Center
 			buttonText.Text = buttonTextString
 			buttonText.Parent = resizeableInputFrame
@@ -449,7 +461,7 @@ local function createPrompt(prompt, inputType, gui)
 		local promptHeight = 72
 		local promptWidth = 72
 		local textPaddingRight = 24
-		
+
 		local actionTextYOffset = 0
 		if prompt.ObjectText ~= nil and prompt.ObjectText ~= '' then
 			actionTextYOffset = 9
@@ -537,6 +549,65 @@ local function createPrompt(prompt, inputType, gui)
 	return cleanup
 end
 
+local function createIndicator(prompt, gui)
+	local tweensForFadeOut = {}
+	local tweensForFadeIn = {}
+
+	local indicatorUI = Instance.new("BillboardGui")
+	indicatorUI.Name = "Indicator"
+	indicatorUI.Size = UDim2.fromOffset(15, 15)
+	indicatorUI.AlwaysOnTop = true
+
+	local frame = Instance.new("Frame")
+	frame.Size = UDim2.fromScale(1, 1)
+	frame.BackgroundTransparency = 1
+	frame.BackgroundColor3 = BackgroundColor
+	frame.AnchorPoint = Vector2.new(0.5, 0)
+	frame.Position = UDim2.fromScale(0.5, 0)
+	frame.Parent = indicatorUI
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(1, 0)
+	corner.Parent = frame
+
+    local stroke = Instance.new("UIStroke")
+	stroke.Color = ContentColor
+	stroke.Thickness = 1.5
+	stroke.Transparency = 1
+	stroke.Parent = frame
+
+	table.insert(tweensForFadeOut, TweenService:Create(frame, tweenInfoQuick, { BackgroundTransparency = 1 }))
+	table.insert(tweensForFadeOut, TweenService:Create(stroke, tweenInfoQuick, { Transparency = 1 }))
+	table.insert(tweensForFadeIn, TweenService:Create(frame, tweenInfoQuick, { BackgroundTransparency = 0.2 }))
+	table.insert(tweensForFadeIn, TweenService:Create(stroke, tweenInfoQuick, { Transparency = 0.2 }))
+
+	indicatorUI.Adornee = prompt.Parent
+	indicatorUI.Parent = gui
+
+	local function updateUIAncestry()
+		indicatorUI.Adornee = prompt.Parent
+	end
+	local ancestryConnection = prompt.AncestryChanged:Connect(updateUIAncestry)
+
+	for _, tween in ipairs(tweensForFadeIn) do
+		tween:Play()
+	end
+
+	local function cleanup()
+		ancestryConnection:Disconnect()
+
+		for _, tween in ipairs(tweensForFadeOut) do
+			tween:Play()
+		end
+
+		wait(0.2)
+
+		indicatorUI.Parent = nil
+	end
+
+	return cleanup
+end
+
 local function onLoad()
 	ProximityPromptService.PromptShown:Connect(function(prompt, inputType)
 		if prompt.Style == Enum.ProximityPromptStyle.Custom then
@@ -561,6 +632,32 @@ local function onLoad()
 
 		cleanupFunction()
     end)
+
+	if GetFFlagEnableProximityPromptIndicatorGui() then
+		ProximityPromptService.IndicatorShown:Connect(function(prompt)
+			if prompt.Style == Enum.ProximityPromptStyle.Custom then
+				return
+			end
+
+			local gui = getScreenGui()
+
+			local cleanupFunction = createIndicator(prompt, gui)
+
+			-- Wait for either the indicator being hidden or the prompt is destroyed
+			local yield = Instance.new("BindableEvent")
+			local con = prompt.IndicatorHidden:Connect(function()
+				yield:Fire()
+			end)
+			local con2 = prompt.Destroying:Connect(function()
+				yield:Fire()
+			end)
+			yield.Event:Wait()
+			con:Disconnect()
+			con2:Disconnect()
+
+			cleanupFunction()
+		end)
+	end
 end
 
 onLoad()

@@ -48,12 +48,15 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCSFocusWrapperRefactor = SharedFlags.FFlagCSFocusWrapperRefactor
 local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
 local GetFFlagWHAM1707ExperimentForceEnabled = require(root.Flags.GetFFlagWHAM1707ExperimentForceEnabled)
+local FFlagAbuseReportTabRenderPerformanceFixEnabled =
+	require(root.Flags.FFlagAbuseReportTabRenderPerformanceFixEnabled)
 
 local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
 local FStringEARReportMenuIXPLayer = SharedFlags.FStringEARReportMenuIXPLayer
 local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
 local IXPFieldWHAM1707 = game:DefineFastString("WHAM1707IXPField", "EnableWHAM1707")
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
+local FFlagFixDuplicateFoundationStylesheets = game:DefineFastFlag("FixDuplicateFoundationStylesheets", false)
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -220,6 +223,10 @@ local AbuseReportMenuNew = function(props: Props)
 			})
 		end
 	end, { isReportTabVisible, menuWidth } :: { any })
+
+	if FFlagAbuseReportTabRenderPerformanceFixEnabled and not isReportTabVisible then
+		return nil
+	end
 
 	local menuItems = nil
 
@@ -399,6 +406,16 @@ end
 
 local MenuContainer = function(props: Props)
 	local localization = Localization.new(LocalizationService.RobloxLocaleId)
+
+	if FFlagFixDuplicateFoundationStylesheets then
+		return React.createElement(CoreScriptsRootProvider, {}, {
+			LocalizationProvider = React.createElement(LocalizationProvider, {
+				localization = localization,
+			}, {
+				[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
+			}),
+		})
+	end
 
 	return React.createElement(StyleProviderWithDefaultTheme, {
 		withDarkTheme = true,

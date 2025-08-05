@@ -26,7 +26,6 @@ local BubbleChatEnabled = Players.BubbleChat
 local VRService = game:GetService("VRService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 
@@ -36,7 +35,7 @@ local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfac
 local useModule = nil
 
 local visibilityBeforeTempKeyAdded = nil
-local hideTempKeys = if getFFlagAppChatCoreUIConflictFix() then {} else nil :: never
+local hideTempKeys = {}
 local state = {Visible = not VRService.VREnabled}
 local interface = {}
 do
@@ -128,24 +127,22 @@ do
 		return not (BubbleChatEnabled or ClassicChatEnabled)
 	end
 
-	if getFFlagAppChatCoreUIConflictFix() then
-		function interface:HideTemp(key: string, hidden: boolean)
-			local function isHideTempKeysEmpty()
-				return next(hideTempKeys) == nil
-			end
-
-			if isHideTempKeysEmpty() then
-				visibilityBeforeTempKeyAdded = interface:GetVisibility()
-			end
-
-			if hidden then
-				hideTempKeys[key] = hidden
-			else
-				hideTempKeys[key] = nil
-			end
-
-			interface:SetVisible(visibilityBeforeTempKeyAdded and isHideTempKeysEmpty())
+	function interface:HideTemp(key: string, hidden: boolean)
+		local function isHideTempKeysEmpty()
+			return next(hideTempKeys) == nil
 		end
+
+		if isHideTempKeysEmpty() then
+			visibilityBeforeTempKeyAdded = interface:GetVisibility()
+		end
+
+		if hidden then
+			hideTempKeys[key] = hidden
+		else
+			hideTempKeys[key] = nil
+		end
+
+		interface:SetVisible(visibilityBeforeTempKeyAdded and isHideTempKeysEmpty())
 	end
 
 

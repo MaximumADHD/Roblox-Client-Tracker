@@ -28,10 +28,13 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local FFlagLeaveActionChromeShortcutTelemetry = require(RobloxGui.Modules.Chrome.Flags.FFlagLeaveActionChromeShortcutTelemetry)
+local FFlagEnableReactSessionMetrics =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableReactSessionMetrics
 
 local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+local ReactSchedulingTracker = require(RobloxGui.Modules.Common.ReactSchedulingTracker)
 
 export type LeaveGameProps = {
 	telemetryFields: { [string] : any},
@@ -40,6 +43,9 @@ export type LeaveGameProps = {
 local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?)
     if GetFFlagEnableInGameMenuDurationLogger() then
         PerfUtils.leavingGame()
+    end
+    if FFlagEnableReactSessionMetrics then
+        (ReactSchedulingTracker::ReactSchedulingTracker.ReactSchedulingTracker):reportSession()
     end
     local CorescriptMemoryTracker = require(RobloxGui.Modules.Common.CorescriptMemoryTracker)
     local coreScriptMemoryTracker = CorescriptMemoryTracker()

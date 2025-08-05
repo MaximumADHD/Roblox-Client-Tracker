@@ -12,13 +12,13 @@ PROTO_0:
 
 PROTO_1:
   DUPTABLE R0 K4 [{"title", "name", "toolTip", "enabled"}]
-  LOADK R1 K5 ["Device Emulation"]
+  LOADK R1 K5 ["Light Guides"]
   SETTABLEKS R1 R0 K0 ["title"]
-  LOADK R1 K6 ["DeviceEmulation"]
+  LOADK R1 K6 ["LightGuides"]
   SETTABLEKS R1 R0 K1 ["name"]
-  LOADK R1 K7 ["Device Emulation ToolTip"]
+  LOADK R1 K7 ["Light Guides ToolTip"]
   SETTABLEKS R1 R0 K2 ["toolTip"]
-  LOADB R1 1
+  LOADB R1 0
   SETTABLEKS R1 R0 K3 ["enabled"]
   RETURN R0 1
 

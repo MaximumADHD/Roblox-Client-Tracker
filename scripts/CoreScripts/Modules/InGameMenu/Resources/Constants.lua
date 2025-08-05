@@ -28,6 +28,9 @@ local Constants = {
 	MainPagePageKey = "MainPage",
 	InitalPageKey = "InitalPage",
 	ReportDialogKey = "ReportDialog",
+	PeoplePageKey = "peoplepage",
+
+	PeoplePageScrollBuffer = 5,
 
 	AnalyticsTargetName = "client",
 	AnalyticsInGameMenuName = "ingame_menu",

@@ -36,6 +36,12 @@ PROTO_0:
   NAMECALL R1 R1 K2 ["getText"]
   CALL R1 3 1
   SETTABLEN R1 R0 106
+  GETUPVAL R1 0
+  LOADK R3 K0 ["DeviceDropdown"]
+  LOADK R4 K8 ["GenericHandheld"]
+  NAMECALL R1 R1 K2 ["getText"]
+  CALL R1 3 1
+  SETTABLEN R1 R0 107
   RETURN R0 1
 
 PROTO_1:

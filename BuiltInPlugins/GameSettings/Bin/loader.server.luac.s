@@ -61,7 +61,7 @@ MAIN:
   DUPTABLE R8 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
   GETIMPORT R9 K32 [plugin]
   SETTABLEKS R9 R8 K21 ["plugin"]
-  LOADK R9 K33 ["GameSettings"]
+  LOADK R9 K33 ["GameSettingsPlugin"]
   SETTABLEKS R9 R8 K22 ["pluginName"]
   SETTABLEKS R6 R8 K23 ["translationResourceTable"]
   SETTABLEKS R5 R8 K24 ["fallbackResourceTable"]

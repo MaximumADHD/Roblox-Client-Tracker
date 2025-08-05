@@ -16,6 +16,14 @@ local Foundation = require(CorePackages.Packages.Foundation)
 
 local useNextUpSort = require(script.Parent.useNextUpSort)
 local leaveGame = require(script.Parent.Parent.Parent.leaveGame)
+local ImageOrSkeleton = require(script.Parent.ImageOrSkeleton)
+local Telemetry = require(script.Parent.Telemetry)
+
+local FFlagAddSponsoredFooterOnNextUp = game:DefineFastFlag("AddSponsoredFooterOnNextUp", false)
+local FFlagEnableNextUpImageLatencyTelemetry = require(script.Parent.Flags.FFlagEnableNextUpImageLatencyTelemetry)
+local FFlagEnableNextUpTileLeaveGameOnTileJoin = game:DefineFastFlag("EnableNextUpTileLeaveGameOnTileJoin", false)
+
+local SponsoredFooter = if FFlagAddSponsoredFooterOnNextUp then require(script.Parent.SponsoredFooter) else nil :: never
 
 local AppEventIngestService = RoactServiceTags.AppEventIngestService
 local useLocalization = Localization.Hooks.useLocalization
@@ -46,6 +54,7 @@ export type Props = {
 	topicId: string,
 	positionIndex: number,
 	attemptPreloadImage: boolean?,
+	onTileImageLoaded: (() -> ())?,
 }
 
 local function NextUpTile(props: Props)
@@ -57,21 +66,28 @@ local function NextUpTile(props: Props)
 			percentRating = getRatingText(props.entryData),
 		},
 	})
+	local footerLayoutOrder = 3
 
-	React.useEffect(function()
-		if not (props.entryData and props.attemptPreloadImage) then
-			return
-		end
+	if not FFlagEnableNextUpImageLatencyTelemetry then
+		React.useEffect(function()
+			if not (props.entryData and props.attemptPreloadImage) then
+				return
+			end
 
-		local imageUrl = props.entryData.image
-		if imageUrl and imageUrl ~= "" then
-			ContentProvider:PreloadAsync({ imageUrl })
-		end
-	end, { props.entryData, props.attemptPreloadImage } :: { any })
+			local imageUrl = props.entryData.image
+			if imageUrl and imageUrl ~= "" then
+				ContentProvider:PreloadAsync({ imageUrl })
+			end
+		end, { props.entryData, props.attemptPreloadImage } :: { any })
+	end
 
 	local function onJoinGame()
 		if not props.entryData then
 			return
+		end
+
+		if FFlagEnableNextUpImageLatencyTelemetry then
+			Telemetry.logNextUpExitModalAction(Telemetry.NextUpSortViewActionType.JoinGame)
 		end
 
 		local joinAttemptId = HttpService:GenerateGUID(false):lower()
@@ -84,37 +100,68 @@ local function NextUpTile(props: Props)
 			joinAttemptId = joinAttemptId,
 		})
 
-		if RunService:IsStudio() then
-			leaveGame(true)
-			return
-		end
+		if FFlagEnableNextUpTileLeaveGameOnTileJoin then
+			if not RunService:IsStudio() then
+				LaunchGame(props.entryData.placeId, nil, { joinAttemptId = joinAttemptId }, nil :: any)
+			end
 
-		LaunchGame(props.entryData.placeId, nil, { joinAttemptId = joinAttemptId }, nil :: any)
+			-- the message bus that LaunchGame publishes to may not be subscribed to while in experiences depending on device,
+			-- so we need to go back to the universal app to ensure the message is read promptly
+			leaveGame(false)
+		else
+			if RunService:IsStudio() then
+				leaveGame(true)
+				return
+			end
+
+			LaunchGame(props.entryData.placeId, nil, { joinAttemptId = joinAttemptId }, nil :: any)
+		end
 	end
+
+	local onImageStateChanged = if FFlagEnableNextUpImageLatencyTelemetry
+		then React.useCallback(function(loaded: boolean)
+			if loaded and props.onTileImageLoaded then
+				props.onTileImageLoaded()
+			end
+		end, { props.onTileImageLoaded })
+		else nil :: never
 
 	return React.createElement(View, {
 		tag = "size-0-0 auto-y col gap-small align-x-center",
 		LayoutOrder = props.positionIndex,
 	}, {
-		thumbnailContainer = React.createElement(View, {
-			LayoutOrder = 1,
-			SizeConstraint = Enum.SizeConstraint.RelativeXX,
-			Size = UDim2.fromScale(1, 9 / 16),
-			onActivated = onJoinGame,
-		}, {
-			image = if props.entryData
-				then React.createElement(LoadableImage, {
-					BackgroundTransparency = 1,
-					cornerRadius = UDim.new(0, tokens.Radius.Medium),
-					Image = props.entryData.image,
-					Size = UDim2.fromScale(1, 1),
-					useShimmerAnimationWhileLoading = true,
-					showFailedStateWhenLoadingFailed = true,
-				})
-				else React.createElement(Skeleton, {
-					tag = "size-full-full radius-medium",
-				}),
-		}),
+		thumbnail = if FFlagEnableNextUpImageLatencyTelemetry
+			then React.createElement(ImageOrSkeleton, {
+				LayoutOrder = 1,
+				SizeConstraint = Enum.SizeConstraint.RelativeXX,
+				Size = UDim2.fromScale(1, 9 / 16),
+				tag = "radius-medium",
+				onActivated = onJoinGame,
+				Image = if props.entryData then props.entryData.image else nil,
+				onImageStateChanged = onImageStateChanged,
+			})
+			else nil,
+		thumbnailContainer = if not FFlagEnableNextUpImageLatencyTelemetry
+			then React.createElement(View, {
+				LayoutOrder = 1,
+				SizeConstraint = Enum.SizeConstraint.RelativeXX,
+				Size = UDim2.fromScale(1, 9 / 16),
+				onActivated = onJoinGame,
+			}, {
+				image = if props.entryData
+					then React.createElement(LoadableImage, {
+						BackgroundTransparency = 1,
+						cornerRadius = UDim.new(0, tokens.Radius.Medium),
+						Image = props.entryData.image,
+						Size = UDim2.fromScale(1, 1),
+						useShimmerAnimationWhileLoading = true,
+						showFailedStateWhenLoadingFailed = true,
+					})
+					else React.createElement(Skeleton, {
+						tag = "size-full-full radius-medium",
+					}),
+			})
+			else nil,
 		titleContainer = React.createElement(View, {
 			tag = "size-full-0 auto-y col",
 			LayoutOrder = 2,
@@ -124,11 +171,24 @@ local function NextUpTile(props: Props)
 				LayoutOrder = 2,
 				Text = if props.entryData then props.entryData.name else "",
 			}),
-			rating = React.createElement(Text, {
-				tag = "size-full-0 auto-y text-no-wrap text-body-medium content-default text-align-x-left",
-				LayoutOrder = 3,
-				Text = if props.entryData then localized.RatingText else "",
-			}),
+			rating = if not FFlagAddSponsoredFooterOnNextUp
+				then React.createElement(Text, {
+					tag = "size-full-0 auto-y text-no-wrap text-body-medium content-default text-align-x-left",
+					LayoutOrder = 3,
+					Text = if props.entryData then localized.RatingText else "",
+				})
+				else nil,
+			footer = if FFlagAddSponsoredFooterOnNextUp
+				then if props.entryData and props.entryData.isSponsored
+					then React.createElement(SponsoredFooter, {
+						LayoutOrder = footerLayoutOrder,
+					})
+					else React.createElement(Text, {
+						tag = "size-full-0 auto-y text-no-wrap text-body-medium content-default text-align-x-left",
+						LayoutOrder = footerLayoutOrder,
+						Text = if props.entryData then localized.RatingText else "",
+					})
+				else nil,
 		}),
 	})
 end

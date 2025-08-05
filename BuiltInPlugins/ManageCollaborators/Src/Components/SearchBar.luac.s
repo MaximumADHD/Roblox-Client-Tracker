@@ -1728,7 +1728,7 @@ MAIN:
   NAMECALL R24 R24 K36 ["GetFastFlag"]
   CALL R24 2 1
   GETIMPORT R25 K32 [game]
-  LOADK R27 K38 ["Collab8766_LogCollabSearchItemClickedEvent"]
+  LOADK R27 K38 ["Collab8766_LogCollabSearchItemClickedEventV2"]
   NAMECALL R25 R25 K36 ["GetFastFlag"]
   CALL R25 2 1
   GETIMPORT R26 K32 [game]

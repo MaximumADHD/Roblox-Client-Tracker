@@ -43,7 +43,6 @@ local ExternalEventConnection = require(Root.Components.Connection.ExternalEvent
 local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
 	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
 local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
-local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
 local UpsellSuggestionsAPIMaxPackages = require(CorePackages.Workspace.Packages.SharedFlags).UpsellSuggestionsAPIMaxPackages
 
 local RobuxUpsellOverlay = require(script.Parent.RobuxUpsellOverlay)
@@ -100,7 +99,7 @@ function RobuxUpsellContainer:createElement()
 			economicRestrictionError = props.economicRestrictionError,
 
 			-- Robux Upsell Suggestions
-			useUpsellSuggestions = FFlagEnableUpsellSuggestionsAPI and UpsellSuggestionsAPIMaxPackages > 1,
+			useUpsellSuggestions = UpsellSuggestionsAPIMaxPackages > 1,
 			upsellSuggestions = props.robuxSuggestions,
 			selectedUpsellIndex = props.robuxPackageSelection,
 			virtualItemBadgeType = props.virtualItemBadgeType,

@@ -35,16 +35,10 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local renderCoreScriptInExperienceAppChat = AppChat.App.renderCoreScriptInExperienceAppChat
 local ViewportUtil = require(RobloxGui.Modules.Chrome.ChromeShared.Service.ViewportUtil)
-local getFFlagAppChatCoreUIConflictFix =
-	require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 local FFlagEnableAppChatFocusableFixes =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAppChatFocusableFixes
-local ChatSelector = if getFFlagAppChatCoreUIConflictFix()
-	then require(RobloxGui.Modules.ChatSelector)
-	else nil :: never
-local PlayerListManager = if getFFlagAppChatCoreUIConflictFix()
-	then require(RobloxGui.Modules.PlayerList.PlayerListManager)
-	else nil :: never
+local ChatSelector = require(RobloxGui.Modules.ChatSelector)
+local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
 	require(RobloxGui.Modules.Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)

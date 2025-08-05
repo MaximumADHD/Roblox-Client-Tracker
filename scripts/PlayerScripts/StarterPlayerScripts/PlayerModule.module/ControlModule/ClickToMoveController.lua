@@ -28,6 +28,7 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI")
+local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts")
 
 --[[ Configuration ]]
 local ShowPath = true
@@ -882,6 +883,7 @@ function ClickToMove.new(CONTROL_ACTION_PRIORITY)
 	self.characterChildRemovedConn = nil
 	self.renderSteppedConn = nil
 	self.menuOpenedConnection = nil
+	self.preferredInputChangedConnection = nil
 
 	self.running = false
 
@@ -901,6 +903,9 @@ function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.renderSteppedConn)
 	DisconnectEvent(self.characterChildRemovedConn)
 	DisconnectEvent(self.menuOpenedConnection)
+	if FFlagUserPreferredInputPlayerScripts then
+		DisconnectEvent(self.preferredInputChangedConnection)
+	end
 end
 
 function ClickToMove:OnTouchBegan(input, processed)
@@ -926,6 +931,17 @@ function ClickToMove:OnTouchEnded(input, processed)
 	self.fingerTouches[input] = nil
 end
 
+function ClickToMove:OnPreferredInputChanged()
+	local character = Player.Character
+	if character then
+		local toolShouldBeDisabled = (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
+		for _, child in pairs(character:GetChildren()) do
+			if child:IsA('Tool') then
+				child.ManualActivationOnly = toolShouldBeDisabled
+			end
+		end
+	end
+end
 
 function ClickToMove:OnCharacterAdded(character)
 	self:DisconnectEvents()
@@ -985,7 +1001,13 @@ function ClickToMove:OnCharacterAdded(character)
 	end)
 
 	local function OnCharacterChildAdded(child)
-		if UserInputService.TouchEnabled then
+		local touchMode
+		if FFlagUserPreferredInputPlayerScripts then
+			touchMode = (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
+		else
+			touchMode = UserInputService.TouchEnabled
+		end
+		if touchMode then
 			if child:IsA('Tool') then
 				child.ManualActivationOnly = true
 			end
@@ -1004,7 +1026,13 @@ function ClickToMove:OnCharacterAdded(character)
 		OnCharacterChildAdded(child)
 	end)
 	self.characterChildRemovedConn = character.ChildRemoved:Connect(function(child)
-		if UserInputService.TouchEnabled then
+		local touchMode
+		if FFlagUserPreferredInputPlayerScripts then
+			touchMode = (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
+		else
+			touchMode = UserInputService.TouchEnabled
+		end
+		if touchMode then
 			if child:IsA('Tool') then
 				child.ManualActivationOnly = false
 			end
@@ -1012,6 +1040,12 @@ function ClickToMove:OnCharacterAdded(character)
 	end)
 	for _, child in pairs(character:GetChildren()) do
 		OnCharacterChildAdded(child)
+	end
+
+	if FFlagUserPreferredInputPlayerScripts then
+		self.preferredInputChangedConnection = UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
+			self:OnPreferredInputChanged()
+		end)
 	end
 end
 
@@ -1047,7 +1081,13 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 			self:DisconnectEvents()
 			CleanupPath()
 			-- Restore tool activation on shutdown
-			if UserInputService.TouchEnabled then
+			local touchMode
+			if FFlagUserPreferredInputPlayerScripts then
+				touchMode = (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
+			else
+				touchMode = UserInputService.TouchEnabled
+			end
+			if touchMode then
 				local character = Player.Character
 				if character then
 					for _, child in pairs(character:GetChildren()) do

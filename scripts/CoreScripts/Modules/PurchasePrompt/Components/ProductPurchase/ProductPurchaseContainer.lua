@@ -512,6 +512,7 @@ function ProductPurchaseContainer:determinePrompt()
 					itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 				},
 				balanceAmount = accountInfo.balance,
+				balanceAmountValid = game:DefineFastFlag("BalanceNotShowingInExperimentIssueFix", false) and not accountInfo.hasFailed,
 				buttons = {
 					isDisabled = promptState == PromptState.PurchaseInProgress,
 					buyItemActivated = self.confirmButtonPressed,

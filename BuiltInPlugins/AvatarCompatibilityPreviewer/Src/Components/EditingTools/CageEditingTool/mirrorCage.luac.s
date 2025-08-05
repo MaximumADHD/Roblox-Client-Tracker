@@ -166,30 +166,28 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K7 ["_Index"]
-  GETTABLEKS R4 R5 K8 ["LuaMeshEditingModule"]
-  GETTABLEKS R3 R4 K8 ["LuaMeshEditingModule"]
-  GETTABLEKS R2 R3 K9 ["Types"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["LuaMeshEditingModule"]
+  GETTABLEKS R2 R3 K8 ["Types"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K10 ["Src"]
-  GETTABLEKS R3 R4 K9 ["Types"]
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K8 ["Types"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Components"]
-  GETTABLEKS R6 R7 K12 ["EditingTools"]
-  GETTABLEKS R5 R6 K13 ["CageEditingTool"]
-  GETTABLEKS R4 R5 K14 ["findWrapTargetWithName"]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Components"]
+  GETTABLEKS R6 R7 K11 ["EditingTools"]
+  GETTABLEKS R5 R6 K12 ["CageEditingTool"]
+  GETTABLEKS R4 R5 K13 ["findWrapTargetWithName"]
   CALL R3 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R8 R0 K6 ["Packages"]
-  GETTABLEKS R7 R8 K8 ["LuaMeshEditingModule"]
+  GETTABLEKS R7 R8 K7 ["LuaMeshEditingModule"]
   CALL R6 1 1
-  GETTABLEKS R5 R6 K15 ["Util"]
-  GETTABLEKS R4 R5 K16 ["WrapUtil"]
-  DUPCLOSURE R5 K17 [PROTO_3]
+  GETTABLEKS R5 R6 K14 ["Util"]
+  GETTABLEKS R4 R5 K15 ["WrapUtil"]
+  DUPCLOSURE R5 K16 [PROTO_3]
   CAPTURE VAL R3
   CAPTURE VAL R4
   RETURN R5 1

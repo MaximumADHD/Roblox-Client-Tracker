@@ -7,6 +7,10 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  GETTABLEKS R1 R0 K0 ["UniqueId"]
+  RETURN R1 1
+
+PROTO_2:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Guest"]
   GETTABLEKS R2 R3 K1 ["InstanceGuestRPCInterface"]
@@ -17,45 +21,55 @@ PROTO_1:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K15 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "clickScript", "openScript", "fieldsConfig", "enableOpenContextMenuDelayHack", "DEBUG_dataModelType", "DEBUG_startTime"}]
+  DUPTABLE R5 K16 [{"openInsertObjectMenuAsync", "getInstanceId", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "clickScript", "openScript", "fieldsConfig", "enableOpenContextMenuDelayHack", "DEBUG_dataModelType", "DEBUG_startTime"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
   SETTABLEKS R6 R5 K5 ["openInsertObjectMenuAsync"]
-  GETUPVAL R6 5
-  SETTABLEKS R6 R5 K6 ["listenForVisibilityChanges"]
+  GETUPVAL R7 5
+  CALL R7 0 1
+  JUMPIFNOT R7 [+6]
+  GETIMPORT R8 K4 [game]
+  GETTABLEKS R7 R8 K17 ["UniqueId"]
+  JUMPIFNOTEQKS R7 K18 ["00000000-0000-0000-0000-000000000000"] [+3]
+  LOADNIL R6
+  JUMP [+1]
+  DUPCLOSURE R6 K19 [PROTO_1]
+  SETTABLEKS R6 R5 K6 ["getInstanceId"]
   GETUPVAL R6 6
-  SETTABLEKS R6 R5 K7 ["instancePicker"]
+  SETTABLEKS R6 R5 K7 ["listenForVisibilityChanges"]
   GETUPVAL R6 7
-  SETTABLEKS R6 R5 K8 ["isServiceVisible"]
-  GETUPVAL R7 8
+  SETTABLEKS R6 R5 K8 ["instancePicker"]
+  GETUPVAL R6 8
+  SETTABLEKS R6 R5 K9 ["isServiceVisible"]
+  GETUPVAL R7 9
   CALL R7 0 1
   JUMPIFNOT R7 [+2]
-  GETUPVAL R6 9
+  GETUPVAL R6 10
   JUMP [+1]
   LOADNIL R6
-  SETTABLEKS R6 R5 K9 ["clickScript"]
-  GETUPVAL R6 10
-  SETTABLEKS R6 R5 K10 ["openScript"]
-  DUPTABLE R6 K18 [{"createLiveSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
-  GETUPVAL R7 11
-  SETTABLEKS R7 R6 K16 ["createLiveSyncStatusWatcher"]
+  SETTABLEKS R6 R5 K10 ["clickScript"]
+  GETUPVAL R6 11
+  SETTABLEKS R6 R5 K11 ["openScript"]
+  DUPTABLE R6 K22 [{"createLiveSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
   GETUPVAL R7 12
-  SETTABLEKS R7 R6 K17 ["createCollaboratorSelectionWatcher"]
-  SETTABLEKS R6 R5 K11 ["fieldsConfig"]
+  SETTABLEKS R7 R6 K20 ["createLiveSyncStatusWatcher"]
+  GETUPVAL R7 13
+  SETTABLEKS R7 R6 K21 ["createCollaboratorSelectionWatcher"]
+  SETTABLEKS R6 R5 K12 ["fieldsConfig"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K12 ["enableOpenContextMenuDelayHack"]
+  SETTABLEKS R6 R5 K13 ["enableOpenContextMenuDelayHack"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K19 ["HostDataModelType"]
-  GETTABLEKS R6 R7 K20 ["Name"]
-  SETTABLEKS R6 R5 K13 ["DEBUG_dataModelType"]
-  GETIMPORT R6 K23 [os.clock]
+  GETTABLEKS R7 R8 K23 ["HostDataModelType"]
+  GETTABLEKS R6 R7 K24 ["Name"]
+  SETTABLEKS R6 R5 K14 ["DEBUG_dataModelType"]
+  GETIMPORT R6 K27 [os.clock]
   CALL R6 0 1
-  SETTABLEKS R6 R5 K14 ["DEBUG_startTime"]
+  SETTABLEKS R6 R5 K15 ["DEBUG_startTime"]
   CALL R1 4 -1
   RETURN R1 -1
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R0 0
   CALL R0 0 0
   GETUPVAL R0 1
@@ -71,7 +85,7 @@ PROTO_2:
   CALL R0 0 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETIMPORT R1 K1 [warn]
   LOADK R3 K2 ["Error when unloading: %*"]
   GETIMPORT R5 K5 [debug.traceback]
@@ -124,7 +138,7 @@ PROTO_3:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETIMPORT R0 K1 [xpcall]
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
@@ -139,7 +153,7 @@ PROTO_4:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
@@ -168,13 +182,14 @@ PROTO_5:
   CAPTURE VAL R1
   CAPTURE UPVAL U7
   CAPTURE UPVAL U8
-  CAPTURE VAL R6
   CAPTURE UPVAL U9
+  CAPTURE VAL R6
   CAPTURE UPVAL U10
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
   CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
   SETTABLEKS R10 R9 K4 ["createGuestRpcInterface"]
   CALL R8 1 1
   GETTABLEKS R9 R0 K6 ["Unloading"]
@@ -185,7 +200,7 @@ PROTO_5:
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R1
-  CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
   CAPTURE VAL R0
   NAMECALL R9 R9 K7 ["Connect"]
   CALL R9 2 0
@@ -280,7 +295,10 @@ MAIN:
   MOVE R17 R7
   LOADK R18 K31 ["OpenScriptDocOptionsLua"]
   CALL R17 1 1
-  DUPCLOSURE R18 K32 [PROTO_5]
+  MOVE R18 R7
+  LOADK R19 K32 ["UniqueIdOverLuau"]
+  CALL R18 1 1
+  DUPCLOSURE R19 K33 [PROTO_6]
   CAPTURE VAL R6
   CAPTURE VAL R3
   CAPTURE VAL R4
@@ -289,6 +307,7 @@ MAIN:
   CAPTURE VAL R2
   CAPTURE VAL R11
   CAPTURE VAL R15
+  CAPTURE VAL R18
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R17
@@ -297,4 +316,4 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R0
-  RETURN R18 1
+  RETURN R19 1

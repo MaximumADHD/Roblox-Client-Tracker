@@ -1,4 +1,27 @@
 PROTO_0:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["updateEtaSignal"]
+  JUMPIFNOT R4 [+7]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["updateEtaSignal"]
+  MOVE R6 R2
+  NAMECALL R4 R4 K1 ["Connect"]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["signal"]
+  JUMPIFEQKNIL R5 [+7]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["signal"]
+  NAMECALL R5 R5 K3 ["Wait"]
+  CALL R5 1 0
+  JUMPIFEQKNIL R4 [+4]
+  NAMECALL R5 R4 K4 ["Disconnect"]
+  CALL R5 1 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["result"]
+  RETURN R5 1
+
+PROTO_1:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["updateEtaSignal"]
   JUMPIFNOT R3 [+7]
@@ -21,11 +44,11 @@ PROTO_0:
   GETTABLEKS R4 R5 K5 ["result"]
   RETURN R4 1
 
-PROTO_1:
+PROTO_2:
   LOADK R1 K0 ["SERIALIZED_MODEL_DUMMY"]
   RETURN R1 1
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["updateEtaSignal"]
   JUMPIFNOT R2 [+7]
@@ -48,14 +71,14 @@ PROTO_2:
   GETTABLEKS R3 R4 K5 ["result"]
   RETURN R3 1
 
-PROTO_3:
+PROTO_4:
   LOADK R1 K0 ["rbxasset://mock"]
   RETURN R1 1
 
-PROTO_4:
+PROTO_5:
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useCallback"]
   NEWCLOSURE R2 P0
@@ -68,49 +91,59 @@ PROTO_5:
   CALL R1 2 1
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["useCallback"]
-  DUPCLOSURE R3 K4 [PROTO_1]
-  NEWTABLE R4 0 0
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  NEWTABLE R4 0 3
+  GETTABLEKS R5 R0 K1 ["signal"]
+  GETTABLEKS R6 R0 K2 ["result"]
+  GETTABLEKS R7 R0 K3 ["updateEtaSignal"]
+  SETLIST R4 R5 3 [1]
   CALL R2 2 1
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["useCallback"]
-  NEWCLOSURE R4 P2
-  CAPTURE VAL R0
-  NEWTABLE R5 0 3
-  GETTABLEKS R6 R0 K1 ["signal"]
-  GETTABLEKS R7 R0 K2 ["result"]
-  GETTABLEKS R8 R0 K3 ["updateEtaSignal"]
-  SETLIST R5 R6 3 [1]
+  DUPCLOSURE R4 K4 [PROTO_2]
+  NEWTABLE R5 0 0
   CALL R3 2 1
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["useCallback"]
-  DUPCLOSURE R5 K5 [PROTO_3]
-  NEWTABLE R6 0 0
+  NEWCLOSURE R5 P3
+  CAPTURE VAL R0
+  NEWTABLE R6 0 3
+  GETTABLEKS R7 R0 K1 ["signal"]
+  GETTABLEKS R8 R0 K2 ["result"]
+  GETTABLEKS R9 R0 K3 ["updateEtaSignal"]
+  SETLIST R6 R7 3 [1]
   CALL R4 2 1
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["useCallback"]
-  DUPCLOSURE R6 K6 [PROTO_4]
+  DUPCLOSURE R6 K5 [PROTO_4]
   NEWTABLE R7 0 0
   CALL R5 2 1
-  DUPTABLE R6 K14 [{"serializeModel", "uploadModelAsync", "startAutoSetupAsync", "startSerializedAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
-  SETTABLEKS R2 R6 K7 ["serializeModel"]
-  SETTABLEKS R4 R6 K8 ["uploadModelAsync"]
-  SETTABLEKS R1 R6 K9 ["startAutoSetupAsync"]
-  SETTABLEKS R1 R6 K10 ["startSerializedAutoSetupAsync"]
-  SETTABLEKS R3 R6 K11 ["DEPRECATED_startAutoSetupAsync"]
-  GETTABLEKS R7 R0 K12 ["autoSetupClickedSignal"]
-  SETTABLEKS R7 R6 K12 ["autoSetupClickedSignal"]
-  SETTABLEKS R5 R6 K13 ["cancelAutoSetup"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K15 ["createElement"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K16 ["Provider"]
-  DUPTABLE R9 K18 [{"value"}]
-  SETTABLEKS R6 R9 K17 ["value"]
-  GETTABLEKS R10 R0 K19 ["children"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["useCallback"]
+  DUPCLOSURE R7 K6 [PROTO_5]
+  NEWTABLE R8 0 0
+  CALL R6 2 1
+  DUPTABLE R7 K14 [{"serializeModel", "uploadModelAsync", "startAutoSetupAsync", "startSerializedAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
+  SETTABLEKS R3 R7 K7 ["serializeModel"]
+  SETTABLEKS R5 R7 K8 ["uploadModelAsync"]
+  SETTABLEKS R2 R7 K9 ["startAutoSetupAsync"]
+  SETTABLEKS R1 R7 K10 ["startSerializedAutoSetupAsync"]
+  SETTABLEKS R4 R7 K11 ["DEPRECATED_startAutoSetupAsync"]
+  GETTABLEKS R8 R0 K12 ["autoSetupClickedSignal"]
+  SETTABLEKS R8 R7 K12 ["autoSetupClickedSignal"]
+  SETTABLEKS R6 R7 K13 ["cancelAutoSetup"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K15 ["createElement"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K16 ["Provider"]
+  DUPTABLE R10 K18 [{"value"}]
+  SETTABLEKS R7 R10 K17 ["value"]
+  GETTABLEKS R11 R0 K19 ["children"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["signal"]
   NAMECALL R0 R0 K1 ["Wait"]
@@ -129,18 +162,18 @@ PROTO_6:
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_7:
+PROTO_8:
   LOADK R1 K0 ["SERIALIZED_MODEL_DUMMY"]
   RETURN R1 1
 
-PROTO_8:
+PROTO_9:
   LOADK R1 K0 ["rbxasset://mock"]
   RETURN R1 1
 
-PROTO_9:
+PROTO_10:
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useRef"]
   LOADB R2 0
@@ -156,17 +189,17 @@ PROTO_10:
   CALL R2 2 1
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K1 ["useCallback"]
-  DUPCLOSURE R4 K3 [PROTO_7]
+  DUPCLOSURE R4 K3 [PROTO_8]
   NEWTABLE R5 0 0
   CALL R3 2 1
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K1 ["useCallback"]
-  DUPCLOSURE R5 K4 [PROTO_8]
+  DUPCLOSURE R5 K4 [PROTO_9]
   NEWTABLE R6 0 0
   CALL R4 2 1
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K1 ["useCallback"]
-  DUPCLOSURE R6 K5 [PROTO_9]
+  DUPCLOSURE R6 K5 [PROTO_10]
   NEWTABLE R7 0 0
   CALL R5 2 1
   DUPTABLE R6 K13 [{"serializeModel", "uploadModelAsync", "startAutoSetupAsync", "startSerializedAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
@@ -207,10 +240,10 @@ MAIN:
   GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K11 ["Types"]
   CALL R3 1 1
-  DUPCLOSURE R4 K12 [PROTO_5]
+  DUPCLOSURE R4 K12 [PROTO_6]
   CAPTURE VAL R2
   CAPTURE VAL R1
-  DUPCLOSURE R5 K13 [PROTO_10]
+  DUPCLOSURE R5 K13 [PROTO_11]
   CAPTURE VAL R2
   CAPTURE VAL R1
   DUPTABLE R6 K16 [{"Success", "FailsOnce"}]

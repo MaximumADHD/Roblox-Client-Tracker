@@ -19,7 +19,6 @@ local Counter = require(Root.Enums.Counter)
 local sendCounter = require(Root.Thunks.sendCounter)
 
 local RobuxUpsell = require(Root.Models.RobuxUpsell)
-local getRobuxUpsellProduct = require(Root.Network.getRobuxUpsellProduct)
 local getRobuxUpsellSuggestions = require(Root.Network.getRobuxUpsellSuggestions)
 local getBalanceInfo = require(Root.Network.getBalanceInfo)
 local Network = require(Root.Services.Network)
@@ -33,8 +32,6 @@ local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local Thunk = require(Root.Thunk)
 
 local purchaseItem = require(script.Parent.purchaseItem)
-
-local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
 
 local MAX_RETRIES = game:DefineFastInt("UpsellAccountBalanceRetryAttemps", 3)
 local RETRY_RATE = game:DefineFastInt("UpsellAccountBalanceRetryIntervalSec", 1)
@@ -105,45 +102,16 @@ local function retryAfterUpsell(retriesRemaining)
 								local platform = externalSettings.getPlatform()
 								local paymentPlatform = getPaymentPlatform(platform)
 
-								if FFlagEnableUpsellSuggestionsAPI then
-									return getRobuxUpsellSuggestions(price, newBalance, paymentPlatform):andThen(
-										-- success handler
-										function(upsellSuggestions)
-											if not hasPendingRequest(store:getState()) then
-												return
-											end
-											store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1, upsellSuggestions.virtualItemBadgeType))
-											store:dispatch(sendCounter(Counter.UpsellModalShownAgain))
-										end,
-										-- failure handler
-										function()
-											if not hasPendingRequest(store:getState()) then
-												return
-											end
-	
-											store:dispatch(SetPromptState(PromptState.LargeRobuxUpsell))
-											store:dispatch(sendCounter(Counter.UpsellGenericModalShownAgain))
-										end
-									)
-								end
-
-								return getRobuxUpsellProduct(network, price, newBalance, paymentPlatform):andThen(
-									function(product: RobuxUpsell.Product)
+								return getRobuxUpsellSuggestions(price, newBalance, paymentPlatform):andThen(
+									-- success handler
+									function(upsellSuggestions)
 										if not hasPendingRequest(store:getState()) then
 											return
 										end
-
-										store:dispatch(
-											PromptNativeUpsell(
-												product.providerId,
-												product.id,
-												product.robuxAmount,
-												product.robuxAmountBeforeBonus,
-												product.price
-											)
-										)
+										store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1, upsellSuggestions.virtualItemBadgeType))
 										store:dispatch(sendCounter(Counter.UpsellModalShownAgain))
 									end,
+									-- failure handler
 									function()
 										if not hasPendingRequest(store:getState()) then
 											return

@@ -8,13 +8,9 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
-local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
-
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 local defaultLoggingProtocol = LoggingProtocol.default
 local EventStreamReporter = require(CorePackages.Workspace.Packages.TelemetryService).EventStreamReporter
-
-local FFlagInspectAndBuyTelemetry = game:DefineFastFlag("InspectAndBuyTelemetry", false)
 
 local MarketplaceEventSenderAPI = {
 	SEND_EVENT_DEFERRED = 0,
@@ -36,11 +32,7 @@ function Analytics.new(inspecteeUid, ctx)
 
 	setmetatable(service, Analytics)
 
-	if FFlagInspectAndBuyTelemetry then
-		service.eventStream = EventStreamReporter.new(defaultLoggingProtocol)
-	else
-		service.eventStream = EventStream.new(AnalyticsService)
-	end
+	service.eventStream = EventStreamReporter.new(defaultLoggingProtocol)
 
 	service.pid = tostring(game.PlaceId)
 	service.uid = tostring(Players.LocalPlayer.UserId)
@@ -164,18 +156,11 @@ function Analytics:report(eventName, additionalFields)
 		uid = self.uid,
 		inspecteeUid = self.inspecteeUid,
 		feature = INSPECT_TAG,
-		event_sender_api = if FFlagInspectAndBuyTelemetry
-			then MarketplaceEventSenderAPI.SEND_ROBLOX_TELEMETRY_EVENT
-			else nil,
+		event_sender_api = MarketplaceEventSenderAPI.SEND_ROBLOX_TELEMETRY_EVENT,
 	}
 
 	local fields = Cryo.Dictionary.join(requiredFields, additionalFields)
-
-	if FFlagInspectAndBuyTelemetry then
-		self.eventStream:sendTelemetryEvent(self.ctx, eventName, fields)
-	else
-		self.eventStream:sendEventDeferred(self.ctx, eventName, fields)
-	end
+	self.eventStream:sendTelemetryEvent(self.ctx, eventName, fields)
 end
 
 return Analytics

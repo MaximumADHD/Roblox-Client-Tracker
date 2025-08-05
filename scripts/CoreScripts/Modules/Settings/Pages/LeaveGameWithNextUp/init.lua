@@ -22,6 +22,7 @@ local FFlagEnableInGameExitModalNextUpUi =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableInGameExitModalNextUpUi
 local FFlagEnableInGameExitModalNextUpUiRequestCache =
 	require(script.Flags.FFlagEnableInGameExitModalNextUpUiRequestCache)
+local FFlagInGameExitModalFixModalPadding = require(script.Flags.FFlagInGameExitModalFixModalPadding)
 
 -- if this flag is off, we use the default LeaveGame page but can hit the backend with nextup traffic
 if not FFlagEnableInGameExitModalNextUpUi then
@@ -115,7 +116,9 @@ local function LeaveGameWithNextUpComponent()
 
 	return React.createElement(BaseComponent, nil, {
 		mainContainer = React.createElement(View, {
-			tag = "size-full-0 auto-y margin-large col gap-large",
+			tag = if FFlagInGameExitModalFixModalPadding
+				then "size-full-0 auto-y padding-large col gap-xxlarge"
+				else "size-full-0 auto-y margin-large col gap-large",
 		}, {
 			LeaveButtonsContainer = React.createElement(LeaveButtonsContainer, {
 				onDontLeave = onDontLeave,

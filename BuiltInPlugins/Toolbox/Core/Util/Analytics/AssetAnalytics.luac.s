@@ -123,6 +123,16 @@ PROTO_8:
   MOVE R5 R1
   MOVE R6 R3
   CALL R4 2 1
+  LOADNIL R5
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+12]
+  GETTABLEKS R6 R3 K3 ["searchId"]
+  JUMPIFEQKNIL R6 [+6]
+  GETTABLEKS R6 R0 K0 ["Context"]
+  GETTABLEKS R5 R6 K3 ["searchId"]
+  JUMP [+5]
+  GETTABLEKS R5 R1 K3 ["searchId"]
+  JUMP [+2]
   GETTABLEKS R5 R1 K3 ["searchId"]
   LOADNIL R6
   GETTABLEKS R8 R0 K4 ["Asset"]
@@ -134,138 +144,209 @@ PROTO_8:
   CALL R8 2 1
   MOVE R6 R8
   LOADNIL R8
-  GETUPVAL R9 1
+  GETUPVAL R9 2
   CALL R9 0 1
   JUMPIF R9 [+1]
-  JUMPIFNOT R2 [+102]
+  JUMPIFNOT R2 [+178]
+  GETUPVAL R9 1
+  JUMPIFNOT R9 [+74]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K1 ["Dictionary"]
   GETTABLEKS R9 R10 K2 ["join"]
   MOVE R10 R4
-  DUPTABLE R11 K25 [{"assetId", "assetSubTypes", "assetType", "assetTypeId", "userId", "placeId", "platformId", "clientId", "searchId", "studioSid", "isEditMode", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
+  DUPTABLE R11 K19 [{"assetId", "assetSubTypes", "assetType", "assetTypeId", "searchId", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K26 ["Id"]
+  GETTABLEKS R12 R13 K20 ["Id"]
   SETTABLEKS R12 R11 K10 ["assetId"]
   SETTABLEKS R6 R11 K11 ["assetSubTypes"]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K27 ["getAssetCategoryName"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K21 ["getAssetCategoryName"]
   GETTABLEKS R14 R0 K4 ["Asset"]
-  GETTABLEKS R13 R14 K28 ["TypeId"]
+  GETTABLEKS R13 R14 K22 ["TypeId"]
   CALL R12 1 1
   SETTABLEKS R12 R11 K12 ["assetType"]
-  GETUPVAL R13 1
+  GETUPVAL R13 2
   CALL R13 0 1
   JUMPIFNOT R13 [+5]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K28 ["TypeId"]
+  GETTABLEKS R12 R13 K22 ["TypeId"]
   JUMP [+1]
   LOADNIL R12
   SETTABLEKS R12 R11 K13 ["assetTypeId"]
-  GETUPVAL R12 3
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K14 ["userId"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K29 ["getPlaceId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K15 ["placeId"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K30 ["getPlatformId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K16 ["platformId"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K31 ["getClientId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K17 ["clientId"]
   SETTABLEKS R5 R11 K3 ["searchId"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K32 ["getStudioSessionId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K18 ["studioSid"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K33 ["getIsEditMode"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K19 ["isEditMode"]
-  GETTABLEKS R13 R0 K34 ["Creator"]
-  GETTABLEKS R12 R13 K35 ["IsVerifiedCreator"]
-  SETTABLEKS R12 R11 K20 ["isVerifiedCreator"]
+  GETTABLEKS R13 R0 K23 ["Creator"]
+  GETTABLEKS R12 R13 K24 ["IsVerifiedCreator"]
+  SETTABLEKS R12 R11 K14 ["isVerifiedCreator"]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K26 ["Id"]
-  SETTABLEKS R12 R11 K21 ["label"]
+  GETTABLEKS R12 R13 K20 ["Id"]
+  SETTABLEKS R12 R11 K15 ["label"]
   LOADN R12 0
-  SETTABLEKS R12 R11 K22 ["value"]
+  SETTABLEKS R12 R11 K16 ["value"]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K36 ["IsEndorsed"]
-  SETTABLEKS R12 R11 K23 ["isEndorsed"]
+  GETTABLEKS R12 R13 K25 ["IsEndorsed"]
+  SETTABLEKS R12 R11 K17 ["isEndorsed"]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K37 ["HasScripts"]
-  SETTABLEKS R12 R11 K24 ["hasScripts"]
+  GETTABLEKS R12 R13 K26 ["HasScripts"]
+  SETTABLEKS R12 R11 K18 ["hasScripts"]
   CALL R9 2 1
   MOVE R8 R9
-  JUMP [+93]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K27 ["getWebViewTrackingAttributes"]
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
+  JUMP [+221]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K1 ["Dictionary"]
   GETTABLEKS R9 R10 K2 ["join"]
   MOVE R10 R4
-  DUPTABLE R11 K44 [{"assetID", "assetSubTypes", "assetType", "userID", "placeID", "platformID", "clientID", "searchID", "studioSid", "isEditMode", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
+  DUPTABLE R11 K34 [{"assetId", "assetSubTypes", "assetType", "assetTypeId", "userId", "placeId", "platformId", "clientId", "searchId", "studioSid", "isEditMode", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K26 ["Id"]
-  SETTABLEKS R12 R11 K38 ["assetID"]
+  GETTABLEKS R12 R13 K20 ["Id"]
+  SETTABLEKS R12 R11 K10 ["assetId"]
   SETTABLEKS R6 R11 K11 ["assetSubTypes"]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K27 ["getAssetCategoryName"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K21 ["getAssetCategoryName"]
   GETTABLEKS R14 R0 K4 ["Asset"]
-  GETTABLEKS R13 R14 K28 ["TypeId"]
+  GETTABLEKS R13 R14 K22 ["TypeId"]
   CALL R12 1 1
   SETTABLEKS R12 R11 K12 ["assetType"]
-  GETUPVAL R12 3
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K39 ["userID"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K29 ["getPlaceId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K40 ["placeID"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K30 ["getPlatformId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K41 ["platformID"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K31 ["getClientId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K42 ["clientID"]
-  SETTABLEKS R5 R11 K43 ["searchID"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K32 ["getStudioSessionId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K18 ["studioSid"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K33 ["getIsEditMode"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K19 ["isEditMode"]
-  GETTABLEKS R13 R0 K34 ["Creator"]
-  GETTABLEKS R12 R13 K35 ["IsVerifiedCreator"]
-  SETTABLEKS R12 R11 K20 ["isVerifiedCreator"]
+  GETUPVAL R13 2
+  CALL R13 0 1
+  JUMPIFNOT R13 [+5]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K26 ["Id"]
-  SETTABLEKS R12 R11 K21 ["label"]
+  GETTABLEKS R12 R13 K22 ["TypeId"]
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K13 ["assetTypeId"]
+  GETUPVAL R12 5
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K28 ["userId"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K35 ["getPlaceId"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K29 ["placeId"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K36 ["getPlatformId"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K30 ["platformId"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K37 ["getClientId"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K31 ["clientId"]
+  SETTABLEKS R5 R11 K3 ["searchId"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K38 ["getStudioSessionId"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K32 ["studioSid"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K39 ["getIsEditMode"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K33 ["isEditMode"]
+  GETTABLEKS R13 R0 K23 ["Creator"]
+  GETTABLEKS R12 R13 K24 ["IsVerifiedCreator"]
+  SETTABLEKS R12 R11 K14 ["isVerifiedCreator"]
+  GETTABLEKS R13 R0 K4 ["Asset"]
+  GETTABLEKS R12 R13 K20 ["Id"]
+  SETTABLEKS R12 R11 K15 ["label"]
   LOADN R12 0
-  SETTABLEKS R12 R11 K22 ["value"]
+  SETTABLEKS R12 R11 K16 ["value"]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K36 ["IsEndorsed"]
-  SETTABLEKS R12 R11 K23 ["isEndorsed"]
+  GETTABLEKS R12 R13 K25 ["IsEndorsed"]
+  SETTABLEKS R12 R11 K17 ["isEndorsed"]
   GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K37 ["HasScripts"]
-  SETTABLEKS R12 R11 K24 ["hasScripts"]
+  GETTABLEKS R12 R13 K26 ["HasScripts"]
+  SETTABLEKS R12 R11 K18 ["hasScripts"]
   CALL R9 2 1
   MOVE R8 R9
+  JUMP [+119]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K1 ["Dictionary"]
+  GETTABLEKS R9 R10 K2 ["join"]
+  MOVE R10 R4
+  DUPTABLE R11 K46 [{"assetID", "assetId", "assetSubTypes", "assetType", "userID", "placeID", "platformID", "clientID", "searchID", "searchId", "studioSid", "isEditMode", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
+  GETTABLEKS R13 R0 K4 ["Asset"]
+  GETTABLEKS R12 R13 K20 ["Id"]
+  SETTABLEKS R12 R11 K40 ["assetID"]
+  GETUPVAL R13 1
+  JUMPIFNOT R13 [+5]
+  GETTABLEKS R13 R0 K4 ["Asset"]
+  GETTABLEKS R12 R13 K20 ["Id"]
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K10 ["assetId"]
+  SETTABLEKS R6 R11 K11 ["assetSubTypes"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K21 ["getAssetCategoryName"]
+  GETTABLEKS R14 R0 K4 ["Asset"]
+  GETTABLEKS R13 R14 K22 ["TypeId"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K12 ["assetType"]
+  GETUPVAL R12 5
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K41 ["userID"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K35 ["getPlaceId"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K42 ["placeID"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K36 ["getPlatformId"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K43 ["platformID"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K37 ["getClientId"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K44 ["clientID"]
+  SETTABLEKS R5 R11 K45 ["searchID"]
+  GETUPVAL R13 1
+  JUMPIFNOT R13 [+2]
+  MOVE R12 R5
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K3 ["searchId"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K38 ["getStudioSessionId"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K32 ["studioSid"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K39 ["getIsEditMode"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K33 ["isEditMode"]
+  GETTABLEKS R13 R0 K23 ["Creator"]
+  GETTABLEKS R12 R13 K24 ["IsVerifiedCreator"]
+  SETTABLEKS R12 R11 K14 ["isVerifiedCreator"]
+  GETTABLEKS R13 R0 K4 ["Asset"]
+  GETTABLEKS R12 R13 K20 ["Id"]
+  SETTABLEKS R12 R11 K15 ["label"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K16 ["value"]
+  GETTABLEKS R13 R0 K4 ["Asset"]
+  GETTABLEKS R12 R13 K25 ["IsEndorsed"]
+  SETTABLEKS R12 R11 K17 ["isEndorsed"]
+  GETTABLEKS R13 R0 K4 ["Asset"]
+  GETTABLEKS R12 R13 K26 ["HasScripts"]
+  SETTABLEKS R12 R11 K18 ["hasScripts"]
+  CALL R9 2 1
+  MOVE R8 R9
+  GETUPVAL R9 1
+  JUMPIFNOT R9 [+7]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K27 ["getWebViewTrackingAttributes"]
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
+  JUMP [+3]
   LOADNIL R9
   SETTABLEKS R9 R8 K3 ["searchId"]
-  GETIMPORT R9 K46 [pairs]
+  GETUPVAL R9 1
+  JUMPIF R9 [+13]
+  GETIMPORT R9 K48 [pairs]
   MOVE R10 R8
   CALL R9 1 3
   FORGPREP_NEXT R9
   FASTCALL1 TOSTRING R13 [+3]
   MOVE R15 R13
-  GETIMPORT R14 K48 [tostring]
+  GETIMPORT R14 K50 [tostring]
   CALL R14 1 1
   SETTABLE R14 R8 R12
   FORGLOOP R9 2 [-7]
@@ -301,28 +382,47 @@ PROTO_9:
   SETTABLE R8 R7 R6
   GETTABLEKS R8 R0 K8 ["_searches"]
   GETTABLE R7 R8 R6
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K11 ["getTrackingAttributes"]
-  MOVE R9 R1
-  MOVE R10 R2
-  CALL R8 2 1
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K12 ["join"]
+  LOADNIL R8
+  GETUPVAL R9 2
+  JUMPIFNOT R9 [+19]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K11 ["join"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K12 ["getTrackingAttributes"]
+  MOVE R11 R1
+  MOVE R12 R2
+  CALL R10 2 1
+  DUPTABLE R11 K14 [{"layoutMode"}]
+  SETTABLEKS R4 R11 K13 ["layoutMode"]
+  MOVE R12 R3
+  JUMPIF R12 [+2]
+  NEWTABLE R12 0 0
+  CALL R9 3 1
+  MOVE R8 R9
+  JUMP [+50]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K12 ["getTrackingAttributes"]
+  MOVE R10 R1
+  MOVE R11 R2
+  CALL R9 2 1
+  MOVE R8 R9
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K11 ["join"]
   MOVE R10 R8
   DUPTABLE R11 K14 [{"layoutMode"}]
   SETTABLEKS R4 R11 K13 ["layoutMode"]
   CALL R9 2 1
   MOVE R8 R9
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K12 ["join"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K11 ["join"]
   MOVE R10 R8
   MOVE R11 R3
   JUMPIF R11 [+2]
   NEWTABLE R11 0 0
   CALL R9 2 1
   MOVE R8 R9
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K12 ["join"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K11 ["join"]
   MOVE R10 R8
   DUPTABLE R11 K18 [{"timestampMs", "toolboxSid", "pluginUri"}]
   GETIMPORT R13 K21 [DateTime.now]
@@ -456,13 +556,11 @@ PROTO_12:
   GETTABLEKS R8 R9 K1 ["eventTarget"]
   JUMP [+1]
   LOADNIL R8
-  DUPTABLE R9 K3 [{"method"}]
+  DUPTABLE R9 K5 [{"method", "layoutMode", "insertDuration"}]
   SETTABLEKS R2 R9 K2 ["method"]
-  SETTABLEKS R6 R9 K4 ["layoutMode"]
-  GETUPVAL R10 3
-  JUMPIFNOT R10 [+2]
-  SETTABLEKS R7 R9 K5 ["insertDuration"]
-  GETUPVAL R11 4
+  SETTABLEKS R6 R9 K3 ["layoutMode"]
+  SETTABLEKS R7 R9 K4 ["insertDuration"]
+  GETUPVAL R11 3
   GETTABLEKS R10 R11 K6 ["join"]
   MOVE R11 R9
   GETUPVAL R13 0
@@ -723,28 +821,28 @@ MAIN:
   GETTABLEKS R12 R13 K6 ["Parent"]
   GETTABLEKS R11 R12 K20 ["Senders"]
   CALL R10 1 1
-  GETIMPORT R11 K1 [game]
-  LOADK R13 K21 ["ToolboxLogInsertDuration"]
-  NAMECALL R11 R11 K22 ["GetFastFlag"]
-  CALL R11 2 1
+  GETIMPORT R11 K9 [require]
+  GETTABLEKS R15 R1 K12 ["Core"]
+  GETTABLEKS R14 R15 K15 ["Util"]
+  GETTABLEKS R13 R14 K21 ["SharedFlags"]
+  GETTABLEKS R12 R13 K22 ["getFFlagToolboxFFlagFixBuyerStatusAnalytics"]
+  CALL R11 1 1
   GETIMPORT R12 K9 [require]
   GETTABLEKS R16 R1 K12 ["Core"]
   GETTABLEKS R15 R16 K15 ["Util"]
-  GETTABLEKS R14 R15 K23 ["SharedFlags"]
-  GETTABLEKS R13 R14 K24 ["getFFlagToolboxFFlagFixBuyerStatusAnalytics"]
+  GETTABLEKS R14 R15 K21 ["SharedFlags"]
+  GETTABLEKS R13 R14 K23 ["getFFlagToolboxFixAnalyticCapitalization"]
   CALL R12 1 1
   GETIMPORT R13 K9 [require]
   GETTABLEKS R17 R1 K12 ["Core"]
   GETTABLEKS R16 R17 K15 ["Util"]
-  GETTABLEKS R15 R16 K23 ["SharedFlags"]
-  GETTABLEKS R14 R15 K25 ["getFFlagToolboxFixAnalyticCapitalization"]
+  GETTABLEKS R15 R16 K21 ["SharedFlags"]
+  GETTABLEKS R14 R15 K24 ["getFFlagToolboxFixInsertRemains"]
   CALL R13 1 1
-  GETIMPORT R14 K9 [require]
-  GETTABLEKS R18 R1 K12 ["Core"]
-  GETTABLEKS R17 R18 K15 ["Util"]
-  GETTABLEKS R16 R17 K23 ["SharedFlags"]
-  GETTABLEKS R15 R16 K26 ["getFFlagToolboxFixInsertRemains"]
-  CALL R14 1 1
+  GETIMPORT R14 K1 [game]
+  LOADK R16 K25 ["ToolboxFixInsertionAnalytics"]
+  NAMECALL R14 R14 K26 ["GetFastFlag"]
+  CALL R14 2 1
   NEWTABLE R15 32 0
   SETTABLEKS R15 R15 K27 ["__index"]
   NEWTABLE R16 0 3
@@ -775,32 +873,33 @@ MAIN:
   SETTABLEKS R16 R15 K42 ["isAssetTrackable"]
   DUPCLOSURE R16 K43 [PROTO_8]
   CAPTURE VAL R3
-  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R12
   CAPTURE VAL R15
-  CAPTURE VAL R6
   CAPTURE VAL R9
+  CAPTURE VAL R6
   SETTABLEKS R16 R15 K44 ["getTrackingAttributes"]
   DUPCLOSURE R16 K45 [PROTO_9]
   CAPTURE VAL R9
   CAPTURE VAL R15
+  CAPTURE VAL R14
   CAPTURE VAL R4
   SETTABLEKS R16 R15 K46 ["logImpression"]
   DUPCLOSURE R16 K47 [PROTO_10]
   CAPTURE VAL R15
-  CAPTURE VAL R12
+  CAPTURE VAL R11
   CAPTURE VAL R3
   CAPTURE VAL R8
   CAPTURE VAL R9
   SETTABLEKS R16 R15 K48 ["logPreview"]
   DUPCLOSURE R16 K49 [PROTO_12]
   CAPTURE VAL R15
-  CAPTURE VAL R14
+  CAPTURE VAL R13
   CAPTURE VAL R9
-  CAPTURE VAL R11
   CAPTURE VAL R4
   SETTABLEKS R16 R15 K50 ["logInsert"]
   DUPCLOSURE R16 K51 [PROTO_13]
-  CAPTURE VAL R14
+  CAPTURE VAL R13
   CAPTURE VAL R9
   SETTABLEKS R16 R15 K52 ["logRemainsOrDeleted"]
   DUPCLOSURE R16 K53 [PROTO_14]

@@ -48,12 +48,16 @@ local utilityProps = {
 	},
 }
 
+local displayReportTab = function() end
+
 local defaultProps = {
 	hideReportTab = function() end,
 	showReportTab = function() end,
 	showReportSentPage = function() end,
 	registerOnReportTabHidden = function() end,
-	registerOnReportTabDisplayed = function() end,
+	registerOnReportTabDisplayed = function(callWhenDisplayed)
+		displayReportTab = callWhenDisplayed
+	end,
 	registerOnSettingsHidden = function() end,
 	registerSetNextPlayerToReport = function() end,
 	registerOnMenuWidthChange = function() end,
@@ -103,6 +107,11 @@ describe("ReportPersonMenuItemsContainer", function()
 		-- We need to mount the AbuseReportMenuNew or else the ModalSelectorDialogGui will not have a parent component to mount to
 		local AbuseReportMenuInstance = Roact.mount(element2, CoreGui, Constants.AbuseReportMenuRootName)
 		local ReportPersonMenuItemsContainerInstance = Roact.mount(element, RobloxGui, "ReportPersonMenuItemsContainer")
+
+		-- AbuseReportMenuNew won't render anything if the report tab isn't actually visible, so let it know that it is
+		Roact.act(function()
+			displayReportTab()
+		end)
 
 		local PlayerSelector = CoreGui:FindFirstChild("PlayerSelector", true)
 		local PlayerSelectorButtonElement =

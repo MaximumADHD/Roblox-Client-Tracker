@@ -54,7 +54,7 @@ PROTO_4:
   CALL R0 1 1
   JUMP [+6]
   GETIMPORT R0 K3 [game]
-  LOADK R2 K4 ["StudioPublishService"]
+  LOADK R2 K4 ["CollaboratorsService"]
   NAMECALL R0 R0 K5 ["GetService"]
   CALL R0 2 1
   GETUPVAL R2 2

@@ -77,6 +77,7 @@ local function createPeoplePage()
 	
 	------ TAB CUSTOMIZATION -------
 	PeoplePage.TabHeader.Name = Constants.PEOPLEPAGE.TAB_HEADER.NAME
+	PeoplePage.Page.Name = Constants.PEOPLEPAGE.PAGE_ID
 	local icon
 	if FFlagBuilderIcons then
 		icon = migrationLookup[Constants.PEOPLEPAGE.TAB_HEADER.ICON]

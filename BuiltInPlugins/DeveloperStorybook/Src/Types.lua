@@ -87,6 +87,7 @@ export type Settings = {
 	reducedMotion: boolean,
 	preferredTransparency: number,
 	preferredTextSize: Enum.PreferredTextSize,
+	scale: number,
 }
 
 -- Story controls are UI control components which display above your story and be used to control the incoming props to the story

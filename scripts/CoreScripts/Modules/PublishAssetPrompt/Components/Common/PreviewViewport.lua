@@ -26,7 +26,7 @@ local InputType = UIBlox.Core.Enums.InputType
 local getInputGroup = require(CorePackages.Workspace.Packages.InputType).getInputGroup
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local InputTypeConstants = require(CorePackages.Workspace.Packages.InputType).InputTypeConstants
-local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
+local GamepadUtils = require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadUtils
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local InteractionFrame = require(script.Parent.InteractionFrame)

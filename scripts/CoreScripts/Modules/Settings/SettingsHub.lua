@@ -115,7 +115,6 @@ local GetFFlagDisplayServerChannel = SharedFlags.GetFFlagDisplayServerChannel
 local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagSettingsHubIndependentBackgroundVisibility = SharedFlags.getFFlagSettingsHubIndependentBackgroundVisibility()
 local FFlagAppChatReappearIfClosedByTiltMenu = game:DefineFastFlag("AppChatReappearIfClosedByTiltMenu", true)
-local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
 local EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons")
 local FFlagInExperienceMenuReorderFirstVariant = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
 local GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer)
@@ -187,7 +186,6 @@ local isTestEnvironment = not string.find(baseUrl, "www.roblox.com")
 local DevConsoleMaster = require(RobloxGui.Modules.DevConsoleMaster)
 
 local lastInputChangedCon = nil
-local chatWasVisible = false
 local connectWasVisible = false
 
 local connectedServerVersion = nil
@@ -3014,6 +3012,8 @@ local function CreateSettingsHub()
 
 			if ay < this.PageView.CanvasPosition.y then -- Scroll up to fit top
 				this.PageView.CanvasPosition = Vector2.new(0, ay)
+			elseif this.Pages.CurrentPage.Page.Name == Constants.PeoplePageKey and by - this.PageView.CanvasPosition.y > this.PageView.AbsoluteSize.Y - Constants.PeoplePageScrollBuffer then
+				this.PageView.CanvasPosition = Vector2.new(0, by - this.PageView.AbsoluteSize.Y + Constants.PeoplePageScrollBuffer)
 			elseif by - this.PageView.CanvasPosition.y > this.PageViewClipper.Size.Y.Offset then -- Scroll down to fit bottom
 				this.PageView.CanvasPosition = Vector2.new(0, by - this.PageViewClipper.Size.Y.Offset)
 			end
@@ -3613,14 +3613,7 @@ local function CreateSettingsHub()
 			if (if isInExperienceUIVREnabled then not VRService.VREnabled else true) then
 				playerList:HideTemp('SettingsMenu', true)
 
-				if getFFlagAppChatCoreUIConflictFix() then
-					chat:HideTemp('SettingsMenu', true)
-				else
-					if chat:GetVisibility() then
-						chatWasVisible = true
-						chat:ToggleVisibility()
-					end
-				end
+				chat:HideTemp('SettingsMenu', true)
 
 				local backpack = require(RobloxGui.Modules.BackpackScript)
 				if backpack.IsOpen then
@@ -3780,14 +3773,7 @@ local function CreateSettingsHub()
 			if (if isInExperienceUIVREnabled then not VRService.VREnabled else true) then
 				playerList:HideTemp('SettingsMenu', false)
 
-				if getFFlagAppChatCoreUIConflictFix() then
-					chat:HideTemp('SettingsMenu', false)
-				else
-					if chatWasVisible then
-						chat:ToggleVisibility()
-						chatWasVisible = false
-					end
-				end
+				chat:HideTemp('SettingsMenu', false)
 			end
 
 			if not VRService.VREnabled then

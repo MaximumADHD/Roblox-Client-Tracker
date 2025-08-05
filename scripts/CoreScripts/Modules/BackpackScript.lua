@@ -11,9 +11,7 @@ local Modules = RobloxGui.Modules
 local Signals = require(CorePackages.Packages.Signals)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
-local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -1896,13 +1894,11 @@ GuiService.MenuOpened:Connect(function()
 	end
 end)
 
-if getFFlagAppChatCoreUIConflictFix() then
-	InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
-		if visible and BackpackScript.IsOpen then
-			BackpackScript.OpenClose()
-		end
-	end)
-end
+InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
+	if visible and BackpackScript.IsOpen then
+		BackpackScript.OpenClose()
+	end
+end)
 
 local function OnPreferredTransparencyChanged()
 	local preferredTransparency = UserGameSettings.PreferredTransparency

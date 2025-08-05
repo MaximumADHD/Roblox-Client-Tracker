@@ -101,72 +101,51 @@ PROTO_5:
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K12 ["provide"]
   MOVE R5 R3
-  DUPTABLE R6 K18 [{"ImportQueue", "Preview", "UploadWidget", "ErrorWidget", "ParseWidget"}]
+  DUPTABLE R6 K17 [{"ImportQueue", "Preview", "UploadWidget", "ParseWidget"}]
   GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+14]
+  GETTABLEKS R7 R8 K18 ["createElement"]
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K19 ["createElement"]
-  GETUPVAL R8 4
-  DUPTABLE R9 K21 [{"Title"}]
+  DUPTABLE R9 K20 [{"Title"}]
   LOADK R12 K13 ["ImportQueue"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
+  LOADK R13 K21 ["WindowTitle"]
+  NAMECALL R10 R2 K22 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
+  SETTABLEKS R10 R9 K19 ["Title"]
   CALL R7 2 1
-  JUMP [+1]
-  LOADNIL R7
   SETTABLEKS R7 R6 K13 ["ImportQueue"]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K19 ["createElement"]
-  GETUPVAL R8 5
-  DUPTABLE R9 K21 [{"Title"}]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K18 ["createElement"]
+  GETUPVAL R8 4
+  DUPTABLE R9 K20 [{"Title"}]
   LOADK R12 K2 ["Plugin"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
+  LOADK R13 K21 ["WindowTitle"]
+  NAMECALL R10 R2 K22 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
+  SETTABLEKS R10 R9 K19 ["Title"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K14 ["Preview"]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K19 ["createElement"]
-  GETUPVAL R8 6
-  DUPTABLE R9 K21 [{"Title"}]
-  LOADK R12 K24 ["Upload"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K18 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K20 [{"Title"}]
+  LOADK R12 K23 ["Upload"]
+  LOADK R13 K21 ["WindowTitle"]
+  NAMECALL R10 R2 K22 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
+  SETTABLEKS R10 R9 K19 ["Title"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K15 ["UploadWidget"]
   GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIF R8 [+14]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K19 ["createElement"]
-  GETUPVAL R8 7
-  DUPTABLE R9 K21 [{"Title"}]
-  LOADK R12 K25 ["Error"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
+  GETTABLEKS R7 R8 K18 ["createElement"]
+  GETUPVAL R8 6
+  DUPTABLE R9 K20 [{"Title"}]
+  LOADK R12 K24 ["Parse"]
+  LOADK R13 K21 ["WindowTitle"]
+  NAMECALL R10 R2 K22 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
+  SETTABLEKS R10 R9 K19 ["Title"]
   CALL R7 2 1
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K16 ["ErrorWidget"]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K19 ["createElement"]
-  GETUPVAL R8 8
-  DUPTABLE R9 K21 [{"Title"}]
-  LOADK R12 K26 ["Parse"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K17 ["ParseWidget"]
+  SETTABLEKS R7 R6 K16 ["ParseWidget"]
   CALL R4 2 -1
   RETURN R4 -1
 
@@ -196,68 +175,57 @@ MAIN:
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
   GETTABLEKS R9 R4 K11 ["Dialogs"]
-  GETTABLEKS R8 R9 K14 ["ErrorWidget"]
+  GETTABLEKS R8 R9 K14 ["ImportQueue"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
   GETTABLEKS R10 R4 K11 ["Dialogs"]
-  GETTABLEKS R9 R10 K15 ["ImportQueue"]
+  GETTABLEKS R9 R10 K15 ["ParseWidget"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
-  GETTABLEKS R11 R4 K11 ["Dialogs"]
-  GETTABLEKS R10 R11 K16 ["ParseWidget"]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Resources"]
+  GETTABLEKS R10 R11 K17 ["CalloutList"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
   GETTABLEKS R13 R0 K9 ["Src"]
-  GETTABLEKS R12 R13 K17 ["Resources"]
-  GETTABLEKS R11 R12 K18 ["CalloutList"]
+  GETTABLEKS R12 R13 K18 ["Utility"]
+  GETTABLEKS R11 R12 K19 ["GetLocalizedString"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
   GETTABLEKS R14 R0 K9 ["Src"]
-  GETTABLEKS R13 R14 K19 ["Utility"]
-  GETTABLEKS R12 R13 K20 ["GetLocalizedString"]
+  GETTABLEKS R13 R14 K20 ["Flags"]
+  GETTABLEKS R12 R13 K21 ["getFFlagImportQueueRibbonDropdown"]
   CALL R11 1 1
-  GETIMPORT R12 K4 [require]
-  GETTABLEKS R15 R0 K9 ["Src"]
-  GETTABLEKS R14 R15 K21 ["Flags"]
-  GETTABLEKS R13 R14 K22 ["getFFlagAssetImportEnableImportQueueModal"]
-  CALL R12 1 1
-  GETIMPORT R13 K4 [require]
-  GETTABLEKS R16 R0 K9 ["Src"]
-  GETTABLEKS R15 R16 K21 ["Flags"]
-  GETTABLEKS R14 R15 K23 ["getFFlagImportQueueRibbonDropdown"]
-  CALL R13 1 1
-  DUPTABLE R14 K28 [{"DataModel", "PluginId", "Category", "ItemId"}]
-  LOADK R15 K29 ["Standalone"]
-  SETTABLEKS R15 R14 K24 ["DataModel"]
-  LOADK R15 K30 ["MeshImporter"]
-  SETTABLEKS R15 R14 K25 ["PluginId"]
-  LOADK R15 K31 ["Actions"]
-  SETTABLEKS R15 R14 K26 ["Category"]
-  LOADK R15 K32 ["ToggleQueue"]
-  SETTABLEKS R15 R14 K27 ["ItemId"]
-  GETTABLEKS R15 R1 K33 ["PureComponent"]
-  LOADK R17 K34 ["MainPlugin"]
-  NAMECALL R15 R15 K35 ["extend"]
-  CALL R15 2 1
-  DUPCLOSURE R16 K36 [PROTO_0]
+  DUPTABLE R12 K26 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R13 K27 ["Standalone"]
+  SETTABLEKS R13 R12 K22 ["DataModel"]
+  LOADK R13 K28 ["MeshImporter"]
+  SETTABLEKS R13 R12 K23 ["PluginId"]
+  LOADK R13 K29 ["Actions"]
+  SETTABLEKS R13 R12 K24 ["Category"]
+  LOADK R13 K30 ["ToggleQueue"]
+  SETTABLEKS R13 R12 K25 ["ItemId"]
+  GETTABLEKS R13 R1 K31 ["PureComponent"]
+  LOADK R15 K32 ["MainPlugin"]
+  NAMECALL R13 R13 K33 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K34 [PROTO_0]
+  CAPTURE VAL R9
   CAPTURE VAL R10
+  DUPCLOSURE R15 K35 [PROTO_3]
   CAPTURE VAL R11
-  DUPCLOSURE R17 K37 [PROTO_3]
-  CAPTURE VAL R13
   CAPTURE VAL R0
-  CAPTURE VAL R14
-  SETTABLEKS R17 R15 K38 ["init"]
-  DUPCLOSURE R17 K39 [PROTO_4]
-  SETTABLEKS R17 R15 K40 ["didUpdate"]
-  DUPCLOSURE R17 K41 [PROTO_5]
-  CAPTURE VAL R16
-  CAPTURE VAL R3
   CAPTURE VAL R12
+  SETTABLEKS R15 R13 K36 ["init"]
+  DUPCLOSURE R15 K37 [PROTO_4]
+  SETTABLEKS R15 R13 K38 ["didUpdate"]
+  DUPCLOSURE R15 K39 [PROTO_5]
+  CAPTURE VAL R14
+  CAPTURE VAL R3
   CAPTURE VAL R1
-  CAPTURE VAL R8
+  CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R9
-  SETTABLEKS R17 R15 K42 ["render"]
-  RETURN R15 1
+  CAPTURE VAL R8
+  SETTABLEKS R15 R13 K40 ["render"]
+  RETURN R13 1

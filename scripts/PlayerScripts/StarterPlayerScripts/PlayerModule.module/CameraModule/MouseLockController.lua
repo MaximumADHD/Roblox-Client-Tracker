@@ -17,11 +17,14 @@ local CAMERA_OFFSET_DEFAULT = Vector3.new(1.75,0,0)
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
 local ContextActionService = game:GetService("ContextActionService")
+local UserInputService = game:GetService("UserInputService")
 local Settings = UserSettings()	-- ignore warning
 local GameSettings = Settings.GameSettings
 
 --[[ Imports ]]
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
+
+local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts")
 
 
 --[[ The Module ]]--
@@ -76,6 +79,12 @@ function MouseLockController.new()
 		self:UpdateMouseLockAvailability()
 	end)
 
+	if FFlagUserPreferredInputPlayerScripts then
+		UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
+			self:UpdateMouseLockAvailability()
+		end)
+	end
+
 	self:UpdateMouseLockAvailability()
 
 	return self
@@ -98,7 +107,8 @@ function MouseLockController:UpdateMouseLockAvailability()
 	local devMovementModeIsScriptable = PlayersService.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.Scriptable
 	local userHasMouseLockModeEnabled = GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch
 	local userHasClickToMoveEnabled =  GameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove
-	local MouseLockAvailable = devAllowsMouseLock and userHasMouseLockModeEnabled and not userHasClickToMoveEnabled and not devMovementModeIsScriptable
+	local userUsingKeyboardAndMouse = UserInputService.PreferredInput == Enum.PreferredInput.KeyboardAndMouse
+	local MouseLockAvailable = (not FFlagUserPreferredInputPlayerScripts or userUsingKeyboardAndMouse) and devAllowsMouseLock and userHasMouseLockModeEnabled and not userHasClickToMoveEnabled and not devMovementModeIsScriptable
 
 	if MouseLockAvailable~=self.enabled then
 		self:EnableMouseLock(MouseLockAvailable)

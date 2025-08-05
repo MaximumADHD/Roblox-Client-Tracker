@@ -29,6 +29,8 @@ local Text = Foundation.Text
 local View = Foundation.View
 local useTokens = Foundation.Hooks.useTokens
 
+local FFlagEnableNextUpImageLatencyTelemetry = require(script.Parent.Flags.FFlagEnableNextUpImageLatencyTelemetry)
+
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(RobloxGui.Modules.Chrome.Service) else nil
 local ChromeConstants = if ChromeEnabled then require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants) else nil
@@ -92,13 +94,40 @@ local function LeaveButtonsContainer(props: Props)
 		end
 	end, { useLastInputMode, leaveButtonRef.current } :: { any })
 
+	local telemetrySent = if FFlagEnableNextUpImageLatencyTelemetry then React.useRef(false) else nil :: never
+	local sendNextUpTelemetryOnce = if FFlagEnableNextUpImageLatencyTelemetry
+		then function(action)
+			if telemetrySent.current then
+				return
+			end
+			telemetrySent.current = true
+			Telemetry.logNextUpExitModalAction(action)
+		end
+		else nil :: never
+
+	if FFlagEnableNextUpImageLatencyTelemetry then
+		React.useEffect(function()
+			return function()
+				sendNextUpTelemetryOnce(Telemetry.NextUpSortViewActionType.CloseExitModalEscape)
+			end
+		end, {})
+	end
+
 	local onLeaveGame = React.useCallback(function()
-		Telemetry.logNextUpSortView(NextUpState.getNextUpTilesLoaded())
+		if FFlagEnableNextUpImageLatencyTelemetry then
+			sendNextUpTelemetryOnce(Telemetry.NextUpSortViewActionType.LeaveGame)
+		else
+			Telemetry.logNextUpSortView(NextUpState.getNextUpTilesLoaded())
+		end
 		leaveGame(true)
 	end, {})
 
 	local onDontLeaveGame = React.useCallback(function()
-		Telemetry.logNextUpSortView(NextUpState.getNextUpTilesLoaded())
+		if FFlagEnableNextUpImageLatencyTelemetry then
+			sendNextUpTelemetryOnce(Telemetry.NextUpSortViewActionType.CloseExitModalClick)
+		else
+			Telemetry.logNextUpSortView(NextUpState.getNextUpTilesLoaded())
+		end
 		props.onDontLeave(utility:IsUsingGamepad())
 	end, { props.onDontLeave })
 

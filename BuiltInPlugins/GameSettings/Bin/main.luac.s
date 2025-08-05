@@ -998,7 +998,7 @@ PROTO_17:
   GETTABLEKS R75 R15 K95 ["Localization"]
   GETTABLEKS R74 R75 K71 ["new"]
   DUPTABLE R75 K100 [{"pluginName", "stringResourceTable", "translationResourceTable", "libraries"}]
-  GETTABLEKS R76 R10 K101 ["Name"]
+  LOADK R76 K101 ["GameSettings"]
   SETTABLEKS R76 R75 K96 ["pluginName"]
   SETTABLEKS R72 R75 K97 ["stringResourceTable"]
   SETTABLEKS R73 R75 K98 ["translationResourceTable"]

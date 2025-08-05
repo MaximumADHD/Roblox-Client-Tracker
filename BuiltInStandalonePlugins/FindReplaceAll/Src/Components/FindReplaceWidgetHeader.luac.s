@@ -217,14 +217,10 @@ PROTO_8:
   GETTABLEKS R1 R2 K0 ["resultManager"]
   GETTABLEKS R0 R1 K1 ["expandAllFiles"]
   CALL R0 0 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["resultManager"]
-  GETTABLEKS R0 R1 K2 ["clearSelection"]
-  CALL R0 0 0
   GETUPVAL R0 1
   CALL R0 0 0
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K3 ["disableConfirmationDialog"]
+  GETTABLEKS R0 R1 K2 ["disableConfirmationDialog"]
   CALL R0 0 0
   RETURN R0 0
 

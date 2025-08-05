@@ -15,6 +15,8 @@ local LocalizationProvider = require(CorePackages.Workspace.Packages.Localizatio
 local RoactServiceProvider = require(CorePackages.Workspace.Packages.RoactServices).RoactServices.ServiceProvider
 local Style = require(CorePackages.Workspace.Packages.Style)
 
+local FFlagEnableNextUpImageLatencyTelemetry = require(script.Parent.Flags.FFlagEnableNextUpImageLatencyTelemetry)
+
 local FoundationProvider = Foundation.FoundationProvider
 local AppEventIngestService = RoactServiceTags.AppEventIngestService
 local RoactAnalytics = RoactServiceTags.RoactAnalytics
@@ -35,11 +37,21 @@ return function(props)
 			localization = localizationValue,
 		}, {
 			foundationProvider = React.createElement(FoundationProvider, nil, {
-				FocusNavigationProvider = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
-					value = focusNavigationService,
-				}, {
-					uiBloxStyleProvider = React.createElement(StyleProviderWithDefaultTheme, nil, props.children),
-				}),
+				FocusNavigationProvider = React.createElement(
+					ReactFocusNavigation.FocusNavigationContext.Provider,
+					{
+						value = focusNavigationService,
+					},
+					if FFlagEnableNextUpImageLatencyTelemetry
+						then props.children
+						else {
+							uiBloxStyleProvider = React.createElement(
+								StyleProviderWithDefaultTheme,
+								nil,
+								props.children
+							),
+						}
+				),
 			}),
 		}),
 	})

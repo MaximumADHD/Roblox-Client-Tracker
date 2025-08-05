@@ -1,8 +1,26 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["settings"]
-  GETTABLEKS R2 R3 K1 ["workspaceGravity"]
-  GETTABLEKS R1 R2 K2 ["set"]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+23]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["current"]
+  GETTABLEKS R2 R3 K1 ["settings"]
+  FASTCALL2K ASSERT R2 K2 [+4]
+  LOADK R3 K2 ["Expected settings to be present in AvatarSettingsContext"]
+  GETIMPORT R1 K4 [assert]
+  CALL R1 2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["current"]
+  GETTABLEKS R3 R4 K1 ["settings"]
+  GETTABLEKS R2 R3 K5 ["workspaceGravity"]
+  GETTABLEKS R1 R2 K6 ["set"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["settings"]
+  GETTABLEKS R2 R3 K5 ["workspaceGravity"]
+  GETTABLEKS R1 R2 K6 ["set"]
   MOVE R2 R0
   CALL R1 1 0
   RETURN R0 0
@@ -13,32 +31,47 @@ PROTO_1:
   GETTABLEKS R2 R3 K0 ["workspaceGravitySetting"]
   NEWCLOSURE R3 P0
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   NAMECALL R0 R0 K1 ["OnInvoke"]
   CALL R0 3 0
   RETURN R0 0
 
 PROTO_2:
-  GETTABLEKS R3 R0 K0 ["settings"]
-  FASTCALL2K ASSERT R3 K1 [+4]
-  LOADK R4 K1 ["Expected settings to be present in AvatarSettingsContext"]
-  GETIMPORT R2 K3 [assert]
-  CALL R2 2 0
+  LOADNIL R2
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["useEffect"]
-  NEWCLOSURE R3 P0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+8]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["useRef"]
+  MOVE R4 R0
+  CALL R3 1 1
+  MOVE R2 R3
+  SETTABLEKS R0 R2 K1 ["current"]
+  GETTABLEKS R4 R0 K2 ["settings"]
+  FASTCALL2K ASSERT R4 K3 [+4]
+  LOADK R5 K3 ["Expected settings to be present in AvatarSettingsContext"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["useEffect"]
+  NEWCLOSURE R4 P0
   CAPTURE VAL R1
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U0
+  CAPTURE REF R2
   CAPTURE VAL R0
-  NEWTABLE R4 0 0
-  CALL R2 2 0
-  GETUPVAL R2 2
-  MOVE R3 R1
-  GETTABLEKS R6 R0 K0 ["settings"]
-  GETTABLEKS R5 R6 K5 ["navigationBarSettings"]
-  GETTABLEKS R4 R5 K6 ["avatarType"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K6 ["avatarType"]
-  CALL R2 3 0
+  NEWTABLE R5 0 0
+  CALL R3 2 0
+  GETUPVAL R3 3
+  MOVE R4 R1
+  GETTABLEKS R7 R0 K2 ["settings"]
+  GETTABLEKS R6 R7 K7 ["navigationBarSettings"]
+  GETTABLEKS R5 R6 K8 ["avatarType"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K8 ["avatarType"]
+  CALL R3 3 0
+  CLOSEUPVALS R2
   RETURN R0 0
 
 MAIN:
@@ -59,19 +92,25 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["InvokeKeys"]
+  GETTABLEKS R5 R6 K12 ["Flags"]
+  GETTABLEKS R4 R5 K13 ["getFFlagAvatarSettingsStaleStateFix"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K12 ["Util"]
-  GETTABLEKS R7 R8 K14 ["BridgingFiles"]
-  GETTABLEKS R6 R7 K15 ["StandaloneFiles"]
-  GETTABLEKS R5 R6 K16 ["standaloneInvokeUtils"]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Util"]
+  GETTABLEKS R5 R6 K15 ["InvokeKeys"]
   CALL R4 1 1
-  GETTABLEKS R5 R4 K17 ["useCreateInvokes"]
-  DUPCLOSURE R6 K18 [PROTO_2]
-  CAPTURE VAL R2
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Util"]
+  GETTABLEKS R8 R9 K16 ["BridgingFiles"]
+  GETTABLEKS R7 R8 K17 ["StandaloneFiles"]
+  GETTABLEKS R6 R7 K18 ["standaloneInvokeUtils"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K19 ["useCreateInvokes"]
+  DUPCLOSURE R7 K20 [PROTO_2]
   CAPTURE VAL R3
-  CAPTURE VAL R5
-  RETURN R6 1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  RETURN R7 1

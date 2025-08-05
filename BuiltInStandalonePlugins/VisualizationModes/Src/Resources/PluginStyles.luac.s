@@ -12,7 +12,7 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
   GETTABLEKS R4 R1 K8 ["Styling"]
   GETTABLEKS R3 R4 K10 ["createStyleSheet"]
-  NEWTABLE R4 0 18
+  NEWTABLE R4 0 19
   MOVE R5 R2
   LOADK R6 K11 [".VisualizationModes-Bottom-Divider"]
   DUPTABLE R7 K16 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency"}]
@@ -231,7 +231,7 @@ MAIN:
   SETTABLEKS R19 R18 K13 ["Position"]
   CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K82 [":pressed"]
+  LOADK R18 K82 [":press"]
   DUPTABLE R19 K83 [{"ImageColor3"}]
   LOADK R20 K84 ["$TextSecondary"]
   SETTABLEKS R20 R19 K78 ["ImageColor3"]
@@ -308,7 +308,7 @@ MAIN:
   SETLIST R22 R23 -1 [1]
   CALL R19 3 1
   MOVE R20 R2
-  LOADK R21 K97 [".VisualizationModes-Active:pressed > .VisualizationModesEntryBacking-Enabled"]
+  LOADK R21 K97 [".VisualizationModes-Active:press > .VisualizationModesEntryBacking-Enabled"]
   DUPTABLE R22 K98 [{"BackgroundTransparency", "BackgroundColor3"}]
   LOADN R23 0
   SETTABLEKS R23 R22 K15 ["BackgroundTransparency"]
@@ -471,7 +471,37 @@ MAIN:
   SETTABLEKS R9 R8 K12 ["Size"]
   LOADN R9 1
   SETTABLEKS R9 R8 K15 ["BackgroundTransparency"]
-  CALL R6 2 -1
+  CALL R6 2 1
+  MOVE R7 R2
+  LOADK R8 K127 [".Component-Checkbox .VisualizationModes-CameraSpeedLockUnlock"]
+  NEWTABLE R9 0 0
+  NEWTABLE R10 0 4
+  MOVE R11 R2
+  LOADK R12 K128 [">> ImageLabel"]
+  DUPTABLE R13 K88 [{"Image"}]
+  LOADK R14 K129 ["$VisualizationModesCameraSpeedUnlocked"]
+  SETTABLEKS R14 R13 K87 ["Image"]
+  CALL R11 2 1
+  MOVE R12 R2
+  LOADK R13 K130 [".Checked >> ImageLabel"]
+  DUPTABLE R14 K88 [{"Image"}]
+  LOADK R15 K131 ["$VisualizationModesCameraSpeedLocked"]
+  SETTABLEKS R15 R14 K87 ["Image"]
+  CALL R12 2 1
+  MOVE R13 R2
+  LOADK R14 K132 [":hover >> ImageLabel"]
+  DUPTABLE R15 K83 [{"ImageColor3"}]
+  LOADK R16 K84 ["$TextSecondary"]
+  SETTABLEKS R16 R15 K78 ["ImageColor3"]
+  CALL R13 2 1
+  MOVE R14 R2
+  LOADK R15 K133 [":press >> ImageLabel"]
+  DUPTABLE R16 K83 [{"ImageColor3"}]
+  LOADK R17 K84 ["$TextSecondary"]
+  SETTABLEKS R17 R16 K78 ["ImageColor3"]
+  CALL R14 2 -1
+  SETLIST R10 R11 -1 [1]
+  CALL R7 3 -1
   SETLIST R4 R5 -1 [17]
   NEWTABLE R5 0 0
   MOVE R6 R3

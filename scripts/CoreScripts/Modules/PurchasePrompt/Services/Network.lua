@@ -321,31 +321,6 @@ local function getCatalogItemDetails(itemId: number, itemType: ("asset" | "bundl
 	end)
 end
 
-local function getRobuxUpsellProduct(price: number, robuxBalance: number, upsellPlatform: string,  itemProductId: number?, itemName:string?, universeId: number?)
-	local options = {
-		Url = APIS_URL .. "payments-gateway/v1/products/get-upsell-product",
-		Method = "POST",
-		Body = HttpService:JSONEncode({
-			upsell_platform = upsellPlatform,
-			user_robux_balance = robuxBalance,
-			attempt_robux_amount = price,
-			item_product_id = itemProductId,
-			item_name = itemName,
-			universe_id = universeId,
-		}),
-		Headers = {
-			["Content-Type"] = "application/json",
-			["Accept"] = "application/json",
-		},
-	}
-
-	return Promise.new(function(resolve, reject)
-		spawn(function()
-			request(options, resolve, reject)
-		end)
-	end)
-end
-
 local function postPremiumImpression()
 	local url = ECONOMY_CREATOR_STATS_URL
 		.. "v1/universes/"
@@ -500,7 +475,6 @@ function Network.new()
 		getCreatorStoreProductInfo = if GetFFlagEnableCreatorStorePurchasingCutover()
 			then Promise.promisify(getCreatorStoreProductInfo)
 			else nil,
-		getRobuxUpsellProduct = Promise.promisify(getRobuxUpsellProduct),
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),
 		postPremiumImpression = Promise.promisify(postPremiumImpression),
 		getPremiumUpsellPrecheck = Promise.promisify(getPremiumUpsellPrecheck),

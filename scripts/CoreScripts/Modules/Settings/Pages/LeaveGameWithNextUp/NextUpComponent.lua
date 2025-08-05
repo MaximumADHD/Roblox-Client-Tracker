@@ -13,8 +13,10 @@ local useNextUpSort = require(script.Parent.useNextUpSort)
 local NextUpTile = require(script.Parent.NextUpTile)
 local NextUpState = require(script.Parent.NextUpState)
 
+local FFlagEnableNextUpImageLatencyTelemetry = require(script.Parent.Flags.FFlagEnableNextUpImageLatencyTelemetry)
 local FFlagEnableInGameExitModalNextUpUiRequestCache =
 	require(script.Parent.Flags.FFlagEnableInGameExitModalNextUpUiRequestCache)
+local FFlagInGameExitModalFixModalPadding = require(script.Parent.Flags.FFlagInGameExitModalFixModalPadding)
 
 local useRoactService = RobloxAppHooks.useRoactService
 local AppEventIngestService = RoactServiceTags.AppEventIngestService
@@ -80,21 +82,37 @@ local function NextUpComponent(props: Props)
 		{ eventIngest, appAnalytics } :: { any }
 	)
 
+	if FFlagEnableNextUpImageLatencyTelemetry then
+		React.useEffect(function()
+			NextUpState.nextUpComponentShown()
+
+			return function()
+				NextUpState.resetNextUpLatencyTelemetry()
+			end
+		end, {})
+	end
+
 	local impressionsSent, setImpressionsSent = React.useState(false)
 	local currentImpressionIndices, setCurrentImpressionIndices: (ImpressionList?) -> () =
 		React.useState(nil :: ImpressionList?)
-	React.useEffect(function(): ()
+	React.useEffect(function()
 		if not sortData then
-			return nil
+			return
 		end
 
 		setCurrentImpressionIndices(getImpressionIndices(sortData.entries))
 		setImpressionsSent(false)
-		NextUpState.setNextUpTilesLoaded(true)
+		if FFlagEnableNextUpImageLatencyTelemetry then
+			NextUpState.nextUpComponentSortDataLoaded()
+		else
+			NextUpState.setNextUpTilesLoaded(true)
+		end
 
 		return function()
 			setCurrentImpressionIndices(nil)
-			NextUpState.setNextUpTilesLoaded(false)
+			if not FFlagEnableNextUpImageLatencyTelemetry then
+				NextUpState.setNextUpTilesLoaded(false)
+			end
 		end
 	end, { sortData } :: { any })
 
@@ -120,10 +138,16 @@ local function NextUpComponent(props: Props)
 	)
 
 	local createTile = React.useCallback(function(positionIndex: number)
+		local entryData = if sortData then sortData.entries[positionIndex] else nil
 		return React.createElement(NextUpTile, {
-			entryData = if sortData then sortData.entries[positionIndex] else nil,
+			entryData = entryData,
 			topicId = if sortData then sortData.topicId else "",
 			positionIndex = positionIndex,
+			onTileImageLoaded = if FFlagEnableNextUpImageLatencyTelemetry and entryData
+				then function()
+					NextUpState.nextUpTileImageTextureLoaded(positionIndex)
+				end
+				else nil,
 		})
 	end, { sortData } :: { any })
 
@@ -137,7 +161,9 @@ local function NextUpComponent(props: Props)
 			LayoutOrder = 2,
 		}),
 		nextUpSection = React.createElement(View, {
-			tag = "size-full-0 auto-y col gap-xxlarge",
+			tag = if FFlagInGameExitModalFixModalPadding
+				then "size-full-0 auto-y col gap-large"
+				else "size-full-0 auto-y col gap-xxlarge",
 			LayoutOrder = 3,
 		}, {
 			header = React.createElement(View, {
@@ -150,7 +176,6 @@ local function NextUpComponent(props: Props)
 					textStyle = tokens.Color.Extended.White.White_100,
 				}),
 			}),
-
 			rowContainer = React.createElement(View, {
 				tag = "size-full-0 auto-y row gap-medium wrap align-x-center flex-x-fill",
 				LayoutOrder = 2,

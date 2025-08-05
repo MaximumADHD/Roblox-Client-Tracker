@@ -12,11 +12,15 @@ local UIBloxImages = UIBlox.App.ImageSet.Images
 local getIconSize = UIBlox.App.ImageSet.getIconSize
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
+local Display = require(CorePackages.Workspace.Packages.Display)
+local getUIScale = Display.GetDisplayStore(false).getUIScale
+
 local FFlagIncreaseUtilityRowTextSizeConsole = game:DefineFastFlag("IncreaseUtilityRowTextSizeConsole", false)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagSettingsPageScaleTextSize = require(RobloxGui.Modules.Settings.Flags.FFlagSettingsPageScaleTextSize)
 
 local AppFontBaseSize = 16 * 1.2
 
@@ -40,6 +44,7 @@ local fontSizeMap = {
 local nullColor = Color3.fromRGB(0, 0, 0)
 local nullFont: any? = AppFonts.default:getDefault()
 local nullFontSize: any? = fontSizeMap[Enum.FontSize.Size24]
+-- TODO: remove this along with FFlagSettingsPageScaleTextSize
 local nullTextSize: any? = 19
 
 local AppTheme = {
@@ -420,8 +425,16 @@ return {
 		return if AppFont[key] then AppFont[key].RelativeSize else nonThemeFontSize or nullFontSize
 	end,
 	textSize = function(nonThemeTextSize: number, key: string?)
+		local scaleFactor = 1
+		if FFlagSettingsPageScaleTextSize then
+			scaleFactor = getUIScale(false)
+		end
 		if not key then
-			return nonThemeTextSize * nominalSizeFactor or nullTextSize
+			if FFlagSettingsPageScaleTextSize then
+				return nonThemeTextSize * nominalSizeFactor * scaleFactor
+			else
+				return nonThemeTextSize * nominalSizeFactor or nullTextSize
+			end
 		end
 		if IsSmallTouchScreen and key == "UtilityRow" then
 			key = "UtilityRowSmall"
@@ -429,9 +442,15 @@ return {
 			key = "UtilityTextSmall"
 		end
 		key = ComponentThemeKeys[key] or key
-		return if AppFont[key] and AppFont[key].TextSize
-			then AppFont[key].TextSize
-			else nonThemeTextSize * nominalSizeFactor or nullTextSize
+		if FFlagSettingsPageScaleTextSize and nonThemeTextSize ~= nil then
+			return if AppFont[key] and AppFont[key].TextSize
+				then AppFont[key].TextSize * scaleFactor
+				else nonThemeTextSize * nominalSizeFactor * scaleFactor
+		else
+			return if AppFont[key] and AppFont[key].TextSize
+				then AppFont[key].TextSize
+				else nonThemeTextSize * nominalSizeFactor or nullTextSize
+		end
 	end,
 	hydrateLabel = function(instance: any, colorStyle: string, fontStyle: string)
 		colorStyle = ComponentThemeKeys[colorStyle] or colorStyle

@@ -20,7 +20,6 @@ local RequestType = require(Root.Enums.RequestType)
 
 local RobuxUpsell = require(Root.Models.RobuxUpsell)
 
-local getRobuxUpsellProduct = require(Root.Network.getRobuxUpsellProduct)
 local getRobuxUpsellSuggestions = require(Root.Network.getRobuxUpsellSuggestions)
 
 local ABTest = require(Root.Services.ABTest)
@@ -52,7 +51,6 @@ local requiredServices = {
 	Network,
 }
 
-local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
 local FFlagEnableUpsellSuggestionsAnalyticsId = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAnalyticsId
 
 local function handleSuccessfulUpsellSuggestions(store, upsellSuggestions)
@@ -171,45 +169,16 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 			local itemProductId = productInfo.ProductId
 			local itemName = productInfo.DisplayName
 
-			if FFlagEnableUpsellSuggestionsAPI then
-				local analyticId = FFlagEnableUpsellSuggestionsAnalyticsId and state.purchaseFlowUUID or nil
+			local analyticId = FFlagEnableUpsellSuggestionsAnalyticsId and state.purchaseFlowUUID or nil
 
-				return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId, analyticId):andThen(
-					-- success handler
-					function(upsellSuggestions)
-						return handleSuccessfulUpsellSuggestions(store, upsellSuggestions)
-					end,
-					-- failure handler
-					function()
-						return handleFailedUpsellProduct(store, state)
-					end
-				)
-			end
-			
-			-- Item Name can be nil
-			return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId):andThen(
-				function(product: RobuxUpsell.Product)
-					-- Check if the user cancel the purchase before this could return
-					if not hasPendingRequest(store:getState()) then
-						return
-					end
-					
-					return handleSuccessfulUpsellProduct(store, analytics, product, state, itemProductId, itemName, universeId)
+			return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId, analyticId):andThen(
+				-- success handler
+				function(upsellSuggestions)
+					return handleSuccessfulUpsellSuggestions(store, upsellSuggestions)
 				end,
+				-- failure handler
 				function()
-					-- Check if the user cancel the purchase before this could return
-					if not hasPendingRequest(store:getState()) then
-						return
-					end
-
-					-- No upsell item will provide sufficient funds to make this purchase
-					if store:getState().purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
-						store:dispatch(SetPromptState(PromptState.LargeRobuxUpsell))
-						store:dispatch(sendCounter(Counter.UpsellModalShown))
-					else
-						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-						store:dispatch(sendCounter(Counter.UpsellGenericModalShown))
-					end
+					return handleFailedUpsellProduct(store, state)
 				end
 			)
 		end

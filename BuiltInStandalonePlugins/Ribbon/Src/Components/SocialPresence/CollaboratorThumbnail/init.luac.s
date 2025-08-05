@@ -20,62 +20,64 @@ PROTO_1:
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K2 ["Tag"]
   GETTABLE R7 R0 R8
-  CALL R5 2 1
+  LOADK R9 K4 ["data-testid=%*"]
+  GETTABLEKS R11 R0 K5 ["UserId"]
+  NAMECALL R9 R9 K6 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
+  CALL R5 3 1
   SETTABLE R5 R3 R4
-  NEWTABLE R4 1 1
-  GETTABLEKS R7 R0 K4 ["IsIdle"]
-  JUMPIF R7 [+26]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["createElement"]
-  LOADK R7 K1 ["Frame"]
-  NEWTABLE R8 1 0
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K2 ["Tag"]
-  LOADK R10 K5 ["Role-Surface X-Fit"]
-  SETTABLE R10 R8 R9
-  DUPTABLE R9 K7 [{"RingColor"}]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K0 ["createElement"]
-  LOADK R11 K8 ["UIStroke"]
-  DUPTABLE R12 K10 [{"Color"}]
-  GETTABLEKS R13 R0 K6 ["RingColor"]
-  SETTABLEKS R13 R12 K9 ["Color"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K6 ["RingColor"]
-  CALL R6 3 1
-  JUMP [+1]
-  LOADNIL R6
-  SETTABLEKS R6 R4 K11 ["ActivityRing"]
+  DUPTABLE R4 K9 [{"ActivityRing", "Avatar"}]
+  GETTABLEKS R6 R0 K10 ["IsIdle"]
+  JUMPIF R6 [+26]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K12 ["ImageLabel"]
-  NEWTABLE R7 4 0
-  GETTABLEKS R9 R0 K14 ["Username"]
-  ORK R8 R9 K13 ["Avatar"]
-  SETTABLEKS R8 R7 K15 ["key"]
-  GETTABLEKS R9 R0 K16 ["UserId"]
-  GETIMPORT R10 K19 [Vector2.new]
+  LOADK R6 K1 ["Frame"]
+  NEWTABLE R7 1 0
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["Tag"]
+  LOADK R9 K11 ["Role-Surface X-Fit"]
+  SETTABLE R9 R7 R8
+  DUPTABLE R8 K13 [{"RingColor"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["createElement"]
+  LOADK R10 K14 ["UIStroke"]
+  DUPTABLE R11 K16 [{"Color"}]
+  GETTABLEKS R12 R0 K12 ["RingColor"]
+  SETTABLEKS R12 R11 K15 ["Color"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K12 ["RingColor"]
+  CALL R5 3 1
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K7 ["ActivityRing"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K17 ["ImageLabel"]
+  NEWTABLE R7 2 0
+  GETTABLEKS R9 R0 K5 ["UserId"]
+  GETIMPORT R10 K20 [Vector2.new]
   LOADN R11 60
   LOADN R12 60
   CALL R10 2 1
-  LOADK R11 K20 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
+  LOADK R11 K21 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
   MOVE R13 R9
-  GETTABLEKS R14 R10 K21 ["X"]
-  GETTABLEKS R15 R10 K22 ["Y"]
-  NAMECALL R11 R11 K23 ["format"]
+  GETTABLEKS R14 R10 K22 ["X"]
+  GETTABLEKS R15 R10 K23 ["Y"]
+  NAMECALL R11 R11 K6 ["format"]
   CALL R11 4 1
   MOVE R8 R11
   SETTABLEKS R8 R7 K24 ["Image"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K2 ["Tag"]
-  GETTABLEKS R10 R0 K4 ["IsIdle"]
+  GETTABLEKS R10 R0 K10 ["IsIdle"]
   JUMPIFNOT R10 [+2]
   LOADK R9 K25 ["Idle"]
   JUMP [+1]
   LOADNIL R9
   SETTABLE R9 R7 R8
-  CALL R5 2 -1
-  SETLIST R4 R5 -1 [1]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K8 ["Avatar"]
   CALL R1 3 -1
   RETURN R1 -1
 

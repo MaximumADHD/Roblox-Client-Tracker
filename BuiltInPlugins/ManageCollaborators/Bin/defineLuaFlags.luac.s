@@ -46,47 +46,47 @@ MAIN:
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K13 ["Collab6182_LightThemeHighlightCollabSearchBox"]
+  LOADK R2 K13 ["COLLAB8701_LogAddUserCollaboratorEvent"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K14 ["COLLAB8701_LogAddUserCollaboratorEvent"]
+  LOADK R2 K14 ["COLLAB8701_LogRemoveUserCollaboratorEvent"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K15 ["COLLAB8701_LogRemoveUserCollaboratorEvent"]
-  LOADB R3 0
-  NAMECALL R0 R0 K5 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K16 ["AddUserCollaboratorEventThrottleHundrethsPercent"]
+  LOADK R2 K15 ["AddUserCollaboratorEventThrottleHundrethsPercent"]
   LOADN R3 0
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K17 ["RemoveUserCollaboratorEventThrottleHundrethsPercent"]
+  LOADK R2 K16 ["RemoveUserCollaboratorEventThrottleHundrethsPercent"]
   LOADN R3 0
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K18 ["Collab8766_LogCollabSearchItemClickedEvent"]
+  LOADK R2 K17 ["Collab8766_LogCollabSearchItemClickedEventV2"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K19 ["CollaboratorSearchItemClickedEventThrottleHundrethsPercent"]
+  LOADK R2 K18 ["CollaboratorSearchItemClickedEventThrottleHundrethsPercent"]
   LOADN R3 0
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K20 ["Collab8818_ShowSearchItemDisplayName"]
+  LOADK R2 K19 ["Collab8818_ShowSearchItemDisplayName"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K21 ["Collab8824_EnableManageCollaboratorsReactFoundation"]
+  LOADK R2 K20 ["Collab8824_EnableManageCollaboratorsReactFoundation"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K21 ["COLLAB8937FixPrintNumToString"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

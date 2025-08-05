@@ -127,36 +127,34 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["createUnimplemented"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Packages"]
-  GETTABLEKS R8 R9 K12 ["_Index"]
-  GETTABLEKS R7 R8 K13 ["LuaMeshEditingModule"]
-  GETTABLEKS R6 R7 K13 ["LuaMeshEditingModule"]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K12 ["LuaMeshEditingModule"]
   GETTABLEKS R5 R6 K9 ["Types"]
   CALL R4 1 1
-  DUPTABLE R5 K18 [{"getUndoStack", "setUndoStack", "setInitialMeshesData", "getInitialMeshesData"}]
+  DUPTABLE R5 K17 [{"getUndoStack", "setUndoStack", "setInitialMeshesData", "getInitialMeshesData"}]
   MOVE R6 R3
-  LOADK R7 K14 ["getUndoStack"]
+  LOADK R7 K13 ["getUndoStack"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K14 ["getUndoStack"]
+  SETTABLEKS R6 R5 K13 ["getUndoStack"]
   MOVE R6 R3
-  LOADK R7 K15 ["setUndoStack"]
+  LOADK R7 K14 ["setUndoStack"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K15 ["setUndoStack"]
+  SETTABLEKS R6 R5 K14 ["setUndoStack"]
   MOVE R6 R3
-  LOADK R7 K16 ["setInitialMeshesData"]
+  LOADK R7 K15 ["setInitialMeshesData"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K16 ["setInitialMeshesData"]
+  SETTABLEKS R6 R5 K15 ["setInitialMeshesData"]
   MOVE R6 R3
-  LOADK R7 K17 ["getInitialMeshesData"]
+  LOADK R7 K16 ["getInitialMeshesData"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K17 ["getInitialMeshesData"]
-  GETTABLEKS R6 R1 K19 ["createContext"]
+  SETTABLEKS R6 R5 K16 ["getInitialMeshesData"]
+  GETTABLEKS R6 R1 K18 ["createContext"]
   MOVE R7 R5
   CALL R6 1 1
-  DUPCLOSURE R7 K20 [PROTO_5]
+  DUPCLOSURE R7 K19 [PROTO_5]
   CAPTURE VAL R1
   CAPTURE VAL R6
-  DUPTABLE R8 K23 [{"Context", "Provider"}]
-  SETTABLEKS R6 R8 K21 ["Context"]
-  SETTABLEKS R7 R8 K22 ["Provider"]
+  DUPTABLE R8 K22 [{"Context", "Provider"}]
+  SETTABLEKS R6 R8 K20 ["Context"]
+  SETTABLEKS R7 R8 K21 ["Provider"]
   RETURN R8 1

@@ -231,6 +231,36 @@ PROTO_8:
   RETURN R3 1
 
 PROTO_9:
+  GETTABLEKS R2 R1 K0 ["assetIds"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R8 0
+  GETTABLE R7 R8 R6
+  JUMPIFNOT R7 [+4]
+  GETTABLEKS R8 R1 K1 ["studsPerTile"]
+  SETTABLEKS R8 R7 K2 ["StudsPerTile"]
+  FORGLOOP R2 2 [-8]
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R2 R1 K0 ["assetIds"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R8 0
+  GETTABLE R7 R8 R6
+  JUMPIFNOT R7 [+10]
+  GETTABLEKS R9 R1 K1 ["isOrganic"]
+  JUMPIFNOT R9 [+3]
+  GETIMPORT R8 K5 [Enum.MaterialPattern.Organic]
+  JUMP [+2]
+  GETIMPORT R8 K7 [Enum.MaterialPattern.Regular]
+  SETTABLEKS R8 R7 K3 ["MaterialPattern"]
+  FORGLOOP R2 2 [-14]
+  RETURN R0 0
+
+PROTO_11:
   GETUPVAL R3 0
   GETTABLEKS R4 R1 K0 ["assetId"]
   GETTABLE R2 R3 R4
@@ -240,7 +270,7 @@ PROTO_9:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_12:
   GETUPVAL R1 0
   GETUPVAL R2 1
   DUPTABLE R3 K1 [{"assetId"}]
@@ -248,30 +278,65 @@ PROTO_10:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_11:
-  GETTABLEKS R2 R1 K0 ["messageId"]
-  GETTABLEKS R3 R1 K1 ["assetIds"]
-  GETTABLEKS R4 R1 K2 ["studsPerTile"]
-  GETTABLEKS R5 R1 K3 ["isOrganic"]
-  DUPTABLE R6 K6 [{"type", "assetIds", "studsPerTile", "isOrganic", "onClick"}]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K7 ["Type"]
-  SETTABLEKS R7 R6 K4 ["type"]
-  SETTABLEKS R3 R6 K1 ["assetIds"]
-  SETTABLEKS R4 R6 K2 ["studsPerTile"]
-  SETTABLEKS R5 R6 K3 ["isOrganic"]
-  NEWCLOSURE R7 P0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  SETTABLEKS R7 R6 K5 ["onClick"]
-  GETUPVAL R7 2
-  DUPTABLE R8 K9 [{"messageId", "content"}]
-  SETTABLEKS R2 R8 K0 ["messageId"]
-  SETTABLEKS R6 R8 K8 ["content"]
-  CALL R7 1 0
+PROTO_13:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  DUPTABLE R3 K2 [{"assetIds", "studsPerTile"}]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K0 ["assetIds"]
+  SETTABLEKS R0 R3 K1 ["studsPerTile"]
+  CALL R1 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_14:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  DUPTABLE R3 K2 [{"assetIds", "isOrganic"}]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K0 ["assetIds"]
+  SETTABLEKS R0 R3 K1 ["isOrganic"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R2 R1 K0 ["messageId"]
+  GETTABLEKS R3 R1 K1 ["assetIds"]
+  GETTABLEKS R4 R1 K2 ["name"]
+  GETTABLEKS R5 R1 K3 ["studsPerTile"]
+  GETTABLEKS R6 R1 K4 ["isOrganic"]
+  DUPTABLE R7 K10 [{"type", "assetIds", "name", "studsPerTile", "isOrganic", "expanded", "onClickMaterial", "setStudsPerTile", "setIsOrganic"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K11 ["Type"]
+  SETTABLEKS R8 R7 K5 ["type"]
+  SETTABLEKS R3 R7 K1 ["assetIds"]
+  SETTABLEKS R4 R7 K2 ["name"]
+  SETTABLEKS R5 R7 K3 ["studsPerTile"]
+  SETTABLEKS R6 R7 K4 ["isOrganic"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K6 ["expanded"]
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K7 ["onClickMaterial"]
+  NEWCLOSURE R8 P1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLEKS R8 R7 K8 ["setStudsPerTile"]
+  NEWCLOSURE R8 P2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLEKS R8 R7 K9 ["setIsOrganic"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K12 ["addContent"]
+  DUPTABLE R9 K14 [{"messageId", "content"}]
+  SETTABLEKS R2 R9 K0 ["messageId"]
+  SETTABLEKS R7 R9 K13 ["content"]
+  CALL R8 1 0
+  RETURN R0 0
+
+PROTO_16:
   GETUPVAL R2 0
   LOADK R5 K0 ["AssistantMaterials"]
   NAMECALL R3 R2 K1 ["FindFirstChild"]
@@ -343,17 +408,19 @@ PROTO_12:
   FORGLOOP R6 2 [-35]
   GETUPVAL R6 7
   GETUPVAL R7 8
-  DUPTABLE R8 K27 [{"messageId", "assetIds", "studsPerTile", "isOrganic"}]
+  DUPTABLE R8 K28 [{"messageId", "assetIds", "name", "studsPerTile", "isOrganic"}]
   GETUPVAL R9 9
   SETTABLEKS R9 R8 K23 ["messageId"]
   SETTABLEKS R3 R8 K24 ["assetIds"]
-  SETTABLEKS R4 R8 K25 ["studsPerTile"]
-  SETTABLEKS R5 R8 K26 ["isOrganic"]
+  GETUPVAL R9 1
+  SETTABLEKS R9 R8 K25 ["name"]
+  SETTABLEKS R4 R8 K26 ["studsPerTile"]
+  SETTABLEKS R5 R8 K27 ["isOrganic"]
   CALL R6 2 0
   GETTABLEN R6 R0 1
   RETURN R6 1
 
-PROTO_13:
+PROTO_17:
   FASTCALL1 TYPE R0 [+3]
   MOVE R5 R0
   GETIMPORT R4 K1 [type]
@@ -387,7 +454,7 @@ PROTO_13:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_14:
+PROTO_18:
   GETTABLEKS R2 R1 K0 ["messageId"]
   GETTABLEKS R3 R1 K1 ["materialDescription"]
   GETTABLEKS R4 R1 K2 ["baseMaterial"]
@@ -449,7 +516,7 @@ PROTO_14:
   CALL R10 1 0
   RETURN R8 2
 
-PROTO_15:
+PROTO_19:
   DUPTABLE R1 K2 [{"type", "text"}]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K3 ["Type"]
@@ -469,44 +536,45 @@ PROTO_15:
   NAMECALL R2 R2 K11 ["getText"]
   CALL R2 4 1
   SETTABLEKS R2 R1 K1 ["text"]
-  GETUPVAL R2 5
-  DUPTABLE R3 K14 [{"messageId", "content"}]
-  SETTABLEKS R0 R3 K12 ["messageId"]
-  SETTABLEKS R1 R3 K13 ["content"]
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K12 ["addContent"]
+  DUPTABLE R3 K15 [{"messageId", "content"}]
+  SETTABLEKS R0 R3 K13 ["messageId"]
+  SETTABLEKS R1 R3 K14 ["content"]
   CALL R2 1 0
   GETUPVAL R2 6
   LOADNIL R3
-  DUPTABLE R4 K16 [{"messageId", "materialDescription", "baseMaterial", "materialId", "materialPattern"}]
-  SETTABLEKS R0 R4 K12 ["messageId"]
+  DUPTABLE R4 K17 [{"messageId", "materialDescription", "baseMaterial", "materialId", "materialPattern"}]
+  SETTABLEKS R0 R4 K13 ["messageId"]
   GETUPVAL R5 3
   SETTABLEKS R5 R4 K7 ["materialDescription"]
   GETUPVAL R5 2
   SETTABLEKS R5 R4 K6 ["baseMaterial"]
   GETUPVAL R5 7
-  SETTABLEKS R5 R4 K15 ["materialId"]
+  SETTABLEKS R5 R4 K16 ["materialId"]
   GETUPVAL R5 4
   SETTABLEKS R5 R4 K8 ["materialPattern"]
   CALL R2 2 2
-  JUMPIF R2 [+50]
+  JUMPIF R2 [+52]
   GETUPVAL R4 1
   LOADK R6 K4 ["MaterialGen"]
-  LOADK R7 K17 ["FailedToCreateMaterialImprovedError"]
+  LOADK R7 K18 ["FailedToCreateMaterialImprovedError"]
   NAMECALL R4 R4 K11 ["getText"]
   CALL R4 3 1
   GETUPVAL R5 8
   CALL R5 0 1
-  JUMPIFNOT R5 [+41]
-  GETIMPORT R5 K20 [string.find]
+  JUMPIFNOT R5 [+43]
+  GETIMPORT R5 K21 [string.find]
   FASTCALL1 TOSTRING R3 [+3]
   MOVE R7 R3
-  GETIMPORT R6 K22 [tostring]
+  GETIMPORT R6 K23 [tostring]
   CALL R6 1 1
-  LOADK R7 K23 ["text is fully filtered"]
+  LOADK R7 K24 ["text is fully filtered"]
   CALL R5 2 1
   JUMPIFNOT R5 [+7]
   GETUPVAL R5 1
   LOADK R7 K4 ["MaterialGen"]
-  LOADK R8 K24 ["FailedToCreateMaterialTextFilteredError"]
+  LOADK R8 K25 ["FailedToCreateMaterialTextFilteredError"]
   NAMECALL R5 R5 K11 ["getText"]
   CALL R5 3 1
   MOVE R4 R5
@@ -514,24 +582,25 @@ PROTO_15:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K3 ["Type"]
   SETTABLEKS R6 R5 K0 ["type"]
-  GETIMPORT R6 K26 [string.format]
-  LOADK R7 K27 ["
+  GETIMPORT R6 K27 [string.format]
+  LOADK R7 K28 ["
 %s
 "]
   MOVE R8 R4
   CALL R6 2 1
   SETTABLEKS R6 R5 K1 ["text"]
-  GETUPVAL R6 5
-  DUPTABLE R7 K14 [{"messageId", "content"}]
-  SETTABLEKS R0 R7 K12 ["messageId"]
-  SETTABLEKS R5 R7 K13 ["content"]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K12 ["addContent"]
+  DUPTABLE R7 K15 [{"messageId", "content"}]
+  SETTABLEKS R0 R7 K13 ["messageId"]
+  SETTABLEKS R5 R7 K14 ["content"]
   CALL R6 1 0
-  GETIMPORT R6 K29 [error]
+  GETIMPORT R6 K30 [error]
   MOVE R7 R4
   CALL R6 1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_20:
   GETTABLEKS R1 R0 K0 ["materialId"]
   FASTCALL2K ASSERT R1 K1 [+5]
   MOVE R3 R1
@@ -570,19 +639,20 @@ PROTO_16:
   CAPTURE UPVAL U3
   CAPTURE VAL R1
   CAPTURE UPVAL U4
-  GETUPVAL R6 5
-  LOADK R7 K15 ["assistant"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K15 ["getOrAddMessage"]
+  LOADK R7 K16 ["assistant"]
   MOVE R8 R5
   CALL R6 2 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_21:
   GETUPVAL R0 0
   GETUPVAL R1 1
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_22:
   GETIMPORT R1 K2 [task.spawn]
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U0
@@ -603,193 +673,199 @@ MAIN:
   LOADK R2 K2 ["Assistant"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["ChangeHistoryService"]
-  NAMECALL R1 R1 K7 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K5 [game]
-  LOADK R4 K8 ["HttpService"]
-  NAMECALL R2 R2 K7 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R3 K5 [game]
-  LOADK R5 K9 ["MaterialService"]
-  NAMECALL R3 R3 K7 ["GetService"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AssistantUI"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["Utils"]
+  GETTABLEKS R2 R3 K9 ["SpyableGame"]
+  LOADK R5 K10 ["ChangeHistoryService"]
+  NAMECALL R3 R2 K11 ["GetService"]
   CALL R3 2 1
-  GETIMPORT R4 K5 [game]
-  LOADK R6 K10 ["Selection"]
-  NAMECALL R4 R4 K7 ["GetService"]
+  LOADK R6 K12 ["HttpService"]
+  NAMECALL R4 R2 K11 ["GetService"]
   CALL R4 2 1
-  GETIMPORT R5 K12 [pcall]
-  GETIMPORT R7 K5 [game]
-  GETTABLEKS R6 R7 K7 ["GetService"]
-  GETIMPORT R7 K5 [game]
-  LOADK R8 K13 ["MaterialGenerationService"]
-  CALL R5 3 2
-  GETIMPORT R7 K15 [require]
-  GETTABLEKS R9 R0 K16 ["Packages"]
-  GETTABLEKS R8 R9 K17 ["AssistantUI"]
-  CALL R7 1 1
-  GETIMPORT R8 K15 [require]
-  GETTABLEKS R10 R0 K16 ["Packages"]
-  GETTABLEKS R9 R10 K18 ["Dash"]
-  CALL R8 1 1
-  GETIMPORT R9 K15 [require]
-  GETTABLEKS R13 R0 K19 ["Src"]
-  GETTABLEKS R12 R13 K20 ["Components"]
-  GETTABLEKS R11 R12 K21 ["ContentWidgets"]
-  GETTABLEKS R10 R11 K22 ["MaterialGenContentWidget"]
+  LOADK R7 K13 ["MaterialService"]
+  NAMECALL R5 R2 K11 ["GetService"]
+  CALL R5 2 1
+  LOADK R8 K14 ["Selection"]
+  NAMECALL R6 R2 K11 ["GetService"]
+  CALL R6 2 1
+  GETIMPORT R7 K16 [pcall]
+  GETTABLEKS R8 R2 K11 ["GetService"]
+  MOVE R9 R2
+  LOADK R10 K17 ["MaterialGenerationService"]
+  CALL R7 3 2
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Packages"]
+  GETTABLEKS R10 R11 K18 ["Dash"]
   CALL R9 1 1
-  GETIMPORT R10 K15 [require]
-  GETTABLEKS R12 R0 K16 ["Packages"]
-  GETTABLEKS R11 R12 K23 ["ModelContextProtocol"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R14 R0 K19 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Components"]
+  GETTABLEKS R12 R13 K21 ["ContentWidgets"]
+  GETTABLEKS R11 R12 K22 ["MaterialGenContentWidget"]
   CALL R10 1 1
-  GETIMPORT R11 K15 [require]
-  GETTABLEKS R13 R0 K16 ["Packages"]
-  GETTABLEKS R12 R13 K24 ["Promise"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K6 ["Packages"]
+  GETTABLEKS R12 R13 K23 ["ModelContextProtocol"]
   CALL R11 1 1
-  GETIMPORT R12 K15 [require]
-  GETTABLEKS R15 R0 K19 ["Src"]
-  GETTABLEKS R14 R15 K25 ["Util"]
-  GETTABLEKS R13 R14 K26 ["StudioNetworking"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R14 R0 K6 ["Packages"]
+  GETTABLEKS R13 R14 K24 ["Promise"]
   CALL R12 1 1
-  GETTABLEKS R14 R7 K20 ["Components"]
-  GETTABLEKS R13 R14 K27 ["ExternalHooks"]
-  GETTABLEKS R14 R13 K28 ["addContent"]
-  GETTABLEKS R15 R13 K29 ["getOrAddMessage"]
-  GETTABLEKS R18 R7 K20 ["Components"]
-  GETTABLEKS R17 R18 K30 ["BuiltinContentWidgets"]
-  GETTABLEKS R16 R17 K31 ["TextContentWidget"]
-  GETTABLEKS R19 R7 K32 ["Resources"]
-  GETTABLEKS R18 R19 K33 ["Localization"]
-  GETTABLEKS R17 R18 K34 ["Translator"]
-  GETTABLEKS R19 R7 K35 ["Utils"]
-  GETTABLEKS R18 R19 K36 ["Tools"]
-  GETTABLEKS R20 R10 K25 ["Util"]
-  GETTABLEKS R19 R20 K37 ["ToolBuilder"]
-  GETTABLEKS R21 R10 K25 ["Util"]
-  GETTABLEKS R20 R21 K38 ["ToolResult"]
-  GETTABLEKS R21 R12 K39 ["get"]
-  CALL R21 0 1
-  GETIMPORT R23 K15 [require]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K19 ["Src"]
+  GETTABLEKS R15 R16 K25 ["Util"]
+  GETTABLEKS R14 R15 K26 ["StudioNetworking"]
+  CALL R13 1 1
+  GETTABLEKS R15 R1 K20 ["Components"]
+  GETTABLEKS R14 R15 K27 ["ExternalHooks"]
+  GETTABLEKS R17 R1 K20 ["Components"]
+  GETTABLEKS R16 R17 K28 ["BuiltinContentWidgets"]
+  GETTABLEKS R15 R16 K29 ["TextContentWidget"]
+  GETTABLEKS R18 R1 K30 ["Resources"]
+  GETTABLEKS R17 R18 K31 ["Localization"]
+  GETTABLEKS R16 R17 K32 ["Translator"]
+  GETTABLEKS R18 R1 K8 ["Utils"]
+  GETTABLEKS R17 R18 K33 ["Tools"]
+  GETTABLEKS R19 R11 K25 ["Util"]
+  GETTABLEKS R18 R19 K34 ["ToolBuilder"]
+  GETTABLEKS R20 R11 K25 ["Util"]
+  GETTABLEKS R19 R20 K35 ["ToolResult"]
+  GETTABLEKS R20 R13 K36 ["get"]
+  CALL R20 0 1
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R25 R0 K19 ["Src"]
+  GETTABLEKS R24 R25 K37 ["Flags"]
+  GETTABLEKS R23 R24 K38 ["FFlagMaterialGenErrorTextFiltered"]
+  CALL R22 1 1
+  GETTABLEKS R21 R22 K39 ["Get"]
+  GETIMPORT R23 K5 [require]
   GETTABLEKS R26 R0 K19 ["Src"]
-  GETTABLEKS R25 R26 K40 ["Flags"]
-  GETTABLEKS R24 R25 K41 ["FFlagMaterialGenErrorTextFiltered"]
+  GETTABLEKS R25 R26 K37 ["Flags"]
+  GETTABLEKS R24 R25 K40 ["FFlagRejectMaterialGeneratorError"]
   CALL R23 1 1
-  GETTABLEKS R22 R23 K42 ["Get"]
-  GETIMPORT R24 K15 [require]
-  GETTABLEKS R27 R0 K19 ["Src"]
-  GETTABLEKS R26 R27 K40 ["Flags"]
-  GETTABLEKS R25 R26 K43 ["FFlagRejectMaterialGeneratorError"]
-  CALL R24 1 1
-  GETTABLEKS R23 R24 K42 ["Get"]
-  NEWTABLE R24 0 0
-  DUPCLOSURE R25 K44 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  DUPCLOSURE R26 K45 [PROTO_2]
-  CAPTURE VAL R8
+  GETTABLEKS R22 R23 K39 ["Get"]
+  NEWTABLE R23 0 0
+  DUPCLOSURE R24 K41 [PROTO_0]
   CAPTURE VAL R3
-  DUPCLOSURE R27 K46 [PROTO_4]
-  CAPTURE VAL R11
   CAPTURE VAL R6
-  DUPCLOSURE R28 K47 [PROTO_7]
-  CAPTURE VAL R11
-  CAPTURE VAL R12
-  CAPTURE VAL R23
-  DUPCLOSURE R29 K48 [PROTO_8]
-  LOADK R32 K49 ["MaterialGenTool_ApplyMaterialVariant"]
-  DUPCLOSURE R33 K50 [PROTO_9]
-  CAPTURE VAL R24
-  CAPTURE VAL R25
-  NAMECALL R30 R21 K51 ["OnHostEvent"]
-  CALL R30 3 1
-  LOADK R33 K52 ["MaterialGenTool_AddMaterialGenContentWidget"]
-  DUPCLOSURE R34 K53 [PROTO_11]
+  DUPCLOSURE R25 K42 [PROTO_2]
   CAPTURE VAL R9
+  CAPTURE VAL R5
+  DUPCLOSURE R26 K43 [PROTO_4]
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  DUPCLOSURE R27 K44 [PROTO_7]
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R22
+  DUPCLOSURE R28 K45 [PROTO_8]
+  LOADK R31 K46 ["MaterialGenTool_setStudsPerTile"]
+  DUPCLOSURE R32 K47 [PROTO_9]
+  CAPTURE VAL R23
+  NAMECALL R29 R20 K48 ["OnHostEvent"]
+  CALL R29 3 1
+  LOADK R32 K49 ["MaterialGenTool_setOrganicPattern"]
+  DUPCLOSURE R33 K50 [PROTO_10]
+  CAPTURE VAL R23
+  NAMECALL R30 R20 K48 ["OnHostEvent"]
+  CALL R30 3 1
+  LOADK R33 K51 ["MaterialGenTool_ApplyMaterialVariant"]
+  DUPCLOSURE R34 K52 [PROTO_11]
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  NAMECALL R31 R20 K48 ["OnHostEvent"]
+  CALL R31 3 1
+  LOADK R34 K53 ["MaterialGenTool_AddMaterialGenContentWidget"]
+  DUPCLOSURE R35 K54 [PROTO_15]
+  CAPTURE VAL R10
+  CAPTURE VAL R31
+  CAPTURE VAL R29
   CAPTURE VAL R30
   CAPTURE VAL R14
-  NAMECALL R31 R21 K54 ["OnGuestEvent"]
-  CALL R31 3 1
-  LOADK R34 K55 ["MaterialGenTool_GenerateMaterialVariants"]
-  DUPCLOSURE R35 K56 [PROTO_14]
-  CAPTURE VAL R2
-  CAPTURE VAL R18
-  CAPTURE VAL R11
-  CAPTURE VAL R6
-  CAPTURE VAL R12
-  CAPTURE VAL R23
-  CAPTURE VAL R3
-  CAPTURE VAL R26
-  CAPTURE VAL R24
-  CAPTURE VAL R31
-  NAMECALL R32 R21 K57 ["OnHostInvokeAsync"]
+  NAMECALL R32 R20 K55 ["OnGuestEvent"]
   CALL R32 3 1
-  DUPCLOSURE R33 K58 [PROTO_16]
-  CAPTURE VAL R16
+  LOADK R35 K56 ["MaterialGenTool_GenerateMaterialVariants"]
+  DUPCLOSURE R36 K57 [PROTO_18]
+  CAPTURE VAL R4
   CAPTURE VAL R17
-  CAPTURE VAL R14
-  CAPTURE VAL R32
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R13
   CAPTURE VAL R22
+  CAPTURE VAL R5
+  CAPTURE VAL R25
+  CAPTURE VAL R23
+  CAPTURE VAL R32
+  NAMECALL R33 R20 K58 ["OnHostInvokeAsync"]
+  CALL R33 3 1
+  DUPCLOSURE R34 K59 [PROTO_20]
   CAPTURE VAL R15
-  DUPCLOSURE R34 K59 [PROTO_18]
+  CAPTURE VAL R16
+  CAPTURE VAL R14
   CAPTURE VAL R33
-  CAPTURE VAL R20
-  GETTABLEKS R35 R19 K60 ["define"]
-  CALL R35 0 1
-  LOADK R37 K61 ["generate_material"]
-  NAMECALL R35 R35 K62 ["setName"]
-  CALL R35 2 1
-  LOADK R37 K63 ["materialDescription"]
-  DUPTABLE R38 K65 [{"type"}]
-  LOADK R39 K66 ["string"]
-  SETTABLEKS R39 R38 K64 ["type"]
-  NAMECALL R35 R35 K67 ["addArgument"]
-  CALL R35 3 1
-  LOADK R37 K68 ["baseMaterial"]
-  DUPTABLE R38 K70 [{"enum"}]
-  GETTABLEKS R41 R7 K35 ["Utils"]
-  GETTABLEKS R40 R41 K36 ["Tools"]
-  GETTABLEKS R39 R40 K71 ["useEnumExcept"]
-  GETIMPORT R40 K74 [Enum.Material]
-  NEWTABLE R41 8 0
-  GETIMPORT R42 K76 [Enum.Material.Neon]
-  LOADB R43 1
-  SETTABLE R43 R41 R42
-  GETIMPORT R42 K78 [Enum.Material.Glass]
-  LOADB R43 1
-  SETTABLE R43 R41 R42
-  GETIMPORT R42 K80 [Enum.Material.ForceField]
-  LOADB R43 1
-  SETTABLE R43 R41 R42
-  GETIMPORT R42 K82 [Enum.Material.Air]
-  LOADB R43 1
-  SETTABLE R43 R41 R42
-  GETIMPORT R42 K84 [Enum.Material.Water]
-  LOADB R43 1
-  SETTABLE R43 R41 R42
-  CALL R39 2 1
-  SETTABLEKS R39 R38 K69 ["enum"]
-  NAMECALL R35 R35 K67 ["addArgument"]
-  CALL R35 3 1
-  LOADK R37 K85 ["materialPattern"]
-  DUPTABLE R38 K70 [{"enum"}]
-  GETTABLEKS R41 R7 K35 ["Utils"]
-  GETTABLEKS R40 R41 K36 ["Tools"]
-  GETTABLEKS R39 R40 K86 ["useEnum"]
-  GETIMPORT R40 K88 [Enum.MaterialPattern]
-  CALL R39 1 1
-  SETTABLEKS R39 R38 K69 ["enum"]
-  NAMECALL R35 R35 K67 ["addArgument"]
-  CALL R35 3 1
-  LOADK R37 K89 ["materialId"]
-  DUPTABLE R38 K65 [{"type"}]
-  LOADK R39 K66 ["string"]
-  SETTABLEKS R39 R38 K64 ["type"]
-  NAMECALL R35 R35 K67 ["addArgument"]
-  CALL R35 3 1
-  MOVE R37 R34
-  NAMECALL R35 R35 K90 ["setHandler"]
-  CALL R35 2 1
-  NAMECALL R35 R35 K91 ["build"]
-  CALL R35 1 -1
-  RETURN R35 -1
+  CAPTURE VAL R21
+  DUPCLOSURE R35 K60 [PROTO_22]
+  CAPTURE VAL R34
+  CAPTURE VAL R19
+  GETTABLEKS R36 R18 K61 ["define"]
+  CALL R36 0 1
+  LOADK R38 K62 ["generate_material"]
+  NAMECALL R36 R36 K63 ["setName"]
+  CALL R36 2 1
+  LOADK R38 K64 ["materialDescription"]
+  DUPTABLE R39 K66 [{"type"}]
+  LOADK R40 K67 ["string"]
+  SETTABLEKS R40 R39 K65 ["type"]
+  NAMECALL R36 R36 K68 ["addArgument"]
+  CALL R36 3 1
+  LOADK R38 K69 ["baseMaterial"]
+  DUPTABLE R39 K71 [{"enum"}]
+  GETTABLEKS R42 R1 K8 ["Utils"]
+  GETTABLEKS R41 R42 K33 ["Tools"]
+  GETTABLEKS R40 R41 K72 ["useEnumExcept"]
+  GETIMPORT R41 K75 [Enum.Material]
+  NEWTABLE R42 8 0
+  GETIMPORT R43 K77 [Enum.Material.Neon]
+  LOADB R44 1
+  SETTABLE R44 R42 R43
+  GETIMPORT R43 K79 [Enum.Material.Glass]
+  LOADB R44 1
+  SETTABLE R44 R42 R43
+  GETIMPORT R43 K81 [Enum.Material.ForceField]
+  LOADB R44 1
+  SETTABLE R44 R42 R43
+  GETIMPORT R43 K83 [Enum.Material.Air]
+  LOADB R44 1
+  SETTABLE R44 R42 R43
+  GETIMPORT R43 K85 [Enum.Material.Water]
+  LOADB R44 1
+  SETTABLE R44 R42 R43
+  CALL R40 2 1
+  SETTABLEKS R40 R39 K70 ["enum"]
+  NAMECALL R36 R36 K68 ["addArgument"]
+  CALL R36 3 1
+  LOADK R38 K86 ["materialPattern"]
+  DUPTABLE R39 K71 [{"enum"}]
+  GETTABLEKS R42 R1 K8 ["Utils"]
+  GETTABLEKS R41 R42 K33 ["Tools"]
+  GETTABLEKS R40 R41 K87 ["useEnum"]
+  GETIMPORT R41 K89 [Enum.MaterialPattern]
+  CALL R40 1 1
+  SETTABLEKS R40 R39 K70 ["enum"]
+  NAMECALL R36 R36 K68 ["addArgument"]
+  CALL R36 3 1
+  LOADK R38 K90 ["materialId"]
+  DUPTABLE R39 K66 [{"type"}]
+  LOADK R40 K67 ["string"]
+  SETTABLEKS R40 R39 K65 ["type"]
+  NAMECALL R36 R36 K68 ["addArgument"]
+  CALL R36 3 1
+  MOVE R38 R35
+  NAMECALL R36 R36 K91 ["setHandler"]
+  CALL R36 2 1
+  NAMECALL R36 R36 K92 ["build"]
+  CALL R36 1 -1
+  RETURN R36 -1

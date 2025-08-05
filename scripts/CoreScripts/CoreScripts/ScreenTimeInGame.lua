@@ -6,9 +6,10 @@ local RobloxGui = CoreGui.RobloxGui
 local NotificationService = game:GetService("NotificationService")
 local HttpService = game:GetService("HttpService")
 
-local ScreenTimeHttpRequests = require(CorePackages.Regulations.ScreenTime.HttpRequests)
-local ScreenTimeConstants = require(CorePackages.Regulations.ScreenTime.Constants)
-local GetFFlagScreenTimeSignalR = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTimeSignalR)
+local ScreenTime = require(CorePackages.Workspace.Packages.ScreenTime)
+local ScreenTimeHttpRequests = ScreenTime.HttpRequests
+local ScreenTimeConstants = ScreenTime.Constants
+local GetFFlagScreenTimeSignalR = ScreenTime.GetFFlagScreenTimeSignalR
 local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 

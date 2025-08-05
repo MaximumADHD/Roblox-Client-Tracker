@@ -30,7 +30,6 @@ local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSuppo
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
-local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
@@ -121,22 +120,13 @@ end, function(visibility)
 	end
 end)
 
-local dismissCallback = function(menuWasOpen)
-	if getFFlagAppChatCoreUIConflictFix() then
-		if InExperienceAppChatModal:getVisible() then
-			InExperienceAppChatModal.default:setVisible(false)
-		end
-
-		ChatSelector:SetVisible(true)
-	else
-		if menuWasOpen then
-			if not chatVisibility then
-				ChatSelector:ToggleVisibility()
-			end
-		else
-			ChatSelector:ToggleVisibility()
-		end
+local dismissCallback = function()
+	if InExperienceAppChatModal:getVisible() then
+		InExperienceAppChatModal.default:setVisible(false)
 	end
+
+	ChatSelector:SetVisible(true)
+
 	if
 		FFlagConsoleChatOnExpControls
 		and (FFlagChromeChatGamepadSupportFix or TenFootInterfaceExpChatExperimentation.getIsEnabled())
@@ -150,17 +140,13 @@ chatChromeIntegration = ChromeService:register({
 	label = "CoreScripts.TopBar.Chat",
 	activated = function(self)
 		if chatVisibility then
-			if getFFlagAppChatCoreUIConflictFix() then
-				ChatSelector:SetVisible(false)
-			else
-				ChatSelector:ToggleVisibility()
-			end
+			ChatSelector:SetVisible(false)
 		else
 			if isInExperienceUIVREnabled and isSpatial() then
 				ChatSelector:SetVisible(true)
 			else
-				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
-					dismissCallback(menuWasOpen)
+				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+					dismissCallback()
 				end)
 			end
 		end

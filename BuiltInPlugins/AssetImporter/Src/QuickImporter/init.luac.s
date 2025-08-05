@@ -1,0 +1,276 @@
+PROTO_0:
+  NEWTABLE R2 4 0
+  SETTABLEKS R0 R2 K0 ["plugin"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["mock"]
+  CALL R3 0 1
+  JUMP [+14]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["new"]
+  DUPTABLE R4 K6 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K3 ["stringResourceTable"]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K4 ["translationResourceTable"]
+  LOADK R5 K7 ["AssetImporter"]
+  SETTABLEKS R5 R4 K5 ["pluginName"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K8 ["localization"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K9 ["actionConnection"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["new"]
+  MOVE R4 R0
+  LOADNIL R5
+  GETTABLEKS R6 R2 K8 ["localization"]
+  MOVE R7 R1
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K10 ["storelessPresetController"]
+  GETUPVAL R5 4
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K12 [setmetatable]
+  CALL R3 2 1
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["PickMeshFileWithPrompt"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+2]
+  JUMPIFNOTEQKS R0 K1 [""] [+2]
+  RETURN R0 0
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K2 ["run"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["plugin"]
+  LOADK R4 K1 ["Actions"]
+  NAMECALL R2 R2 K2 ["GetPluginComponent"]
+  CALL R2 2 1
+  DUPTABLE R3 K10 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts"}]
+  GETUPVAL R4 0
+  SETTABLEKS R4 R3 K3 ["Uri"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K4 ["Enabled"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K5 ["Visible"]
+  GETTABLEKS R4 R0 K11 ["localization"]
+  LOADK R6 K12 ["QuickImport"]
+  LOADK R7 K13 ["ActionText"]
+  NAMECALL R4 R4 K14 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K6 ["Text"]
+  GETTABLEKS R4 R0 K11 ["localization"]
+  LOADK R6 K12 ["QuickImport"]
+  LOADK R7 K7 ["Tooltip"]
+  NAMECALL R4 R4 K14 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K7 ["Tooltip"]
+  LOADK R4 K15 ["MeshImporter"]
+  SETTABLEKS R4 R3 K8 ["Icon"]
+  NEWTABLE R4 0 1
+  LOADK R5 K16 ["Ctrl+Shift+M"]
+  SETLIST R4 R5 1 [1]
+  SETTABLEKS R4 R3 K9 ["Shortcuts"]
+  GETTABLEKS R4 R0 K17 ["actionConnection"]
+  JUMPIFNOT R4 [+8]
+  GETTABLEKS R4 R0 K17 ["actionConnection"]
+  NAMECALL R4 R4 K18 ["Disconnect"]
+  CALL R4 1 0
+  LOADNIL R4
+  SETTABLEKS R4 R0 K17 ["actionConnection"]
+  MOVE R7 R3
+  LOADB R8 1
+  NAMECALL R5 R2 K19 ["CreateAsync"]
+  CALL R5 3 1
+  GETTABLEN R4 R5 1
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K20 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K17 ["actionConnection"]
+  JUMPIFNOT R1 [+2]
+  MOVE R4 R1
+  CALL R4 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["actionConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["actionConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["actionConnection"]
+  GETTABLEKS R1 R0 K2 ["session"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K2 ["session"]
+  NAMECALL R1 R1 K3 ["Cancel"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["session"]
+  RETURN R0 0
+
+PROTO_4:
+  GETIMPORT R2 K1 [warn]
+  LOADK R4 K2 ["Quick import failed for %*!"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K3 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETUPVAL R1 0
+  GETTABLEKS R1 R0 K1 ["Succeeded"]
+  JUMPIF R1 [+5]
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  NAMECALL R1 R1 K2 ["_importFailed"]
+  CALL R1 2 0
+  GETUPVAL R1 3
+  GETTABLEKS R2 R0 K3 ["AssetIds"]
+  CALL R1 1 0
+  GETUPVAL R1 4
+  MOVE R2 R0
+  GETUPVAL R3 5
+  LOADB R4 1
+  CALL R1 3 1
+  CALL R1 0 0
+  GETUPVAL R1 6
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R1 6
+  GETTABLEKS R2 R0 K4 ["ErrorMessages"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R3 0
+  MOVE R5 R1
+  NAMECALL R3 R3 K0 ["StartSessionWithPathAsync"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K1 ["session"]
+  GETTABLEKS R4 R0 K1 ["session"]
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R3 R0 K1 ["session"]
+  NAMECALL R3 R3 K2 ["GetImportTree"]
+  CALL R3 1 1
+  JUMP [+1]
+  LOADNIL R3
+  JUMPIF R3 [+5]
+  MOVE R6 R1
+  NAMECALL R4 R0 K3 ["_importFailed"]
+  CALL R4 2 0
+  RETURN R0 0
+  NAMECALL R4 R3 K4 ["GetDescendants"]
+  CALL R4 1 3
+  FORGPREP R4
+  LOADK R11 K5 ["AnimationImportData"]
+  NAMECALL R9 R8 K6 ["IsA"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+3]
+  LOADK R9 K7 ["Animation"]
+  SETTABLEKS R9 R8 K8 ["ImportName"]
+  FORGLOOP R4 2 [-9]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K9 ["AddModelToInventory"]
+  LOADNIL R4
+  GETTABLEKS R6 R0 K1 ["session"]
+  GETTABLEKS R5 R6 K10 ["UploadComplete"]
+  NEWCLOSURE R7 P0
+  CAPTURE REF R4
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  NAMECALL R5 R5 K11 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K12 ["uploadConnection"]
+  GETTABLEKS R5 R0 K1 ["session"]
+  NAMECALL R5 R5 K13 ["Upload"]
+  CALL R5 1 0
+  CLOSEUPVALS R4
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["AssetImportService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AssetImporter"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K12 ["ContextServices"]
+  GETTABLEKS R3 R4 K13 ["Localization"]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R7 R1 K14 ["Src"]
+  GETTABLEKS R6 R7 K15 ["Controllers"]
+  GETTABLEKS R5 R6 K16 ["PresetController"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R1 K14 ["Src"]
+  GETTABLEKS R7 R8 K17 ["Thunks"]
+  GETTABLEKS R6 R7 K18 ["InsertModelInWorkspace"]
+  CALL R5 1 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R9 R1 K14 ["Src"]
+  GETTABLEKS R8 R9 K19 ["Utility"]
+  GETTABLEKS R7 R8 K20 ["reportUploadedAssetId"]
+  CALL R6 1 1
+  GETTABLEKS R10 R1 K14 ["Src"]
+  GETTABLEKS R9 R10 K21 ["Resources"]
+  GETTABLEKS R8 R9 K13 ["Localization"]
+  GETTABLEKS R7 R8 K22 ["LocalizedStrings"]
+  GETTABLEKS R11 R1 K14 ["Src"]
+  GETTABLEKS R10 R11 K21 ["Resources"]
+  GETTABLEKS R9 R10 K13 ["Localization"]
+  GETTABLEKS R8 R9 K23 ["SourceStrings"]
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R12 R1 K14 ["Src"]
+  GETTABLEKS R11 R12 K24 ["QuickImporter"]
+  GETTABLEKS R10 R11 K25 ["QuickImportActionUri"]
+  CALL R9 1 1
+  NEWTABLE R10 8 0
+  SETTABLEKS R10 R10 K26 ["__index"]
+  DUPCLOSURE R11 K27 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  SETTABLEKS R11 R10 K28 ["new"]
+  DUPCLOSURE R11 K29 [PROTO_2]
+  CAPTURE VAL R9
+  CAPTURE VAL R0
+  SETTABLEKS R11 R10 K30 ["registerAction"]
+  DUPCLOSURE R11 K31 [PROTO_3]
+  SETTABLEKS R11 R10 K32 ["destroy"]
+  DUPCLOSURE R11 K33 [PROTO_4]
+  SETTABLEKS R11 R10 K34 ["_importFailed"]
+  DUPCLOSURE R11 K35 [PROTO_6]
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  SETTABLEKS R11 R10 K36 ["run"]
+  RETURN R10 1

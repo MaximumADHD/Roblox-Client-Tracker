@@ -57,6 +57,7 @@ local getFFlagDoNotPromptCameraPermissionsOnMount =
 	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAvatarChatCoreScriptSupport = SharedFlags.GetFFlagAvatarChatCoreScriptSupport()
+local GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty = SharedFlags.GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
@@ -2485,6 +2486,16 @@ local function Initialize()
 		this.PartyVoiceVolumeFrame, this.PartyVoiceVolumeLabel, this.PartyVoiceVolumeSlider =
 			utility:AddNewRow(this, "Party Voice Volume", "Slider", 10, startVolumeLevel)
 		this.PartyVoiceVolumeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["PartyVoiceVolumeFrame"]
+
+		if GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty() then
+			this.PartyVoiceVolumeFrame.Visible = CrossExperienceVoiceManager.hasExperienceStarted
+			CrossExperienceVoiceManager.ExperienceJoined.Event:Connect(function()
+				this.PartyVoiceVolumeFrame.Visible = true
+			end)
+			CrossExperienceVoiceManager.ExperienceLeft.Event:Connect(function()
+				this.PartyVoiceVolumeFrame.Visible = false
+			end)
+		end
 
 		this.PartyVoiceVolumeSlider.ValueChanged:connect(function(newValue)
 			local oldValue

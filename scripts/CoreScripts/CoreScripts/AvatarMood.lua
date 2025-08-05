@@ -8,6 +8,7 @@
 game:DefineFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator", false)
 game:DefineFastFlag("AvatarMoodValidateMoodAnimation", false)
 game:DefineFastFlag("AvatarMoodWaitForAnimateInitDone", false)
+game:DefineFastFlag("AvatarMoodMakeSureMoodTrackAvailable", false)
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -225,7 +226,19 @@ local function updateCharacterMoodOnAnimatorAdded(character, moodAnimation, huma
 		--and we don't want the mood track to get stopped right on/before even playing
 		task.delay(0.1, function()
 			if currentEmoteTrack == nil then
-				currentMoodTrack:Play()
+				if game:GetFastFlag("AvatarMoodMakeSureMoodTrackAvailable") then
+					if currentMoodAnimationInstance then
+						if not currentMoodTrack then
+							currentMoodTrack = animator:LoadAnimation(currentMoodAnimationInstance)
+						end
+						if currentMoodTrack then
+							currentMoodTrack.Priority = currentMoodTrackPriority
+							currentMoodTrack:Play()
+						end
+					end
+				else
+					currentMoodTrack:Play()
+				end
 			end
 
 			-- listen for emotes

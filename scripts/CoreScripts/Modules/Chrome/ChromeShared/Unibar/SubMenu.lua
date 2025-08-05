@@ -28,7 +28,7 @@ local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmen
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local GamepadUtils = if FFlagFocusNavOutOfSubmenu
-	then require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
+	then require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadUtils
 	else nil :: never
 local LocalStore = require(Root.Service.LocalStore)
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel

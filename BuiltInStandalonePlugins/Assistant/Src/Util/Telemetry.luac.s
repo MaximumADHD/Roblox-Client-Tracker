@@ -17,19 +17,28 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+7]
-  GETIMPORT R2 K1 [print]
-  LOADK R3 K2 ["Logging event"]
-  GETTABLEKS R4 R0 K3 ["eventName"]
-  MOVE R5 R1
-  CALL R2 3 0
-  GETUPVAL R2 1
+  MOVE R2 R0
+  GETTABLEKS R3 R0 K0 ["throttlingPercentage"]
+  JUMPIF R3 [+8]
+  GETIMPORT R3 K3 [table.clone]
   MOVE R4 R0
-  MOVE R5 R1
-  NAMECALL R2 R2 K4 ["LogEvent"]
-  CALL R2 3 0
+  CALL R3 1 1
+  MOVE R2 R3
+  LOADN R3 16
+  SETTABLEKS R3 R2 K0 ["throttlingPercentage"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+7]
+  GETIMPORT R3 K5 [print]
+  LOADK R4 K6 ["Logging event"]
+  GETTABLEKS R5 R2 K7 ["eventName"]
+  MOVE R6 R1
+  CALL R3 3 0
+  GETUPVAL R3 1
+  MOVE R5 R2
+  MOVE R6 R1
+  NAMECALL R3 R3 K8 ["LogEvent"]
+  CALL R3 3 0
   RETURN R0 0
 
 PROTO_2:

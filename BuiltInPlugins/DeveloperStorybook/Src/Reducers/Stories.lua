@@ -64,6 +64,7 @@ return Rodux.createReducer({
 		reducedMotion = false,
 		preferredTransparency = 1,
 		preferredTextSize = GuiService.PreferredTextSize,
+		scale = 1,
 	},
 	expandedSearchStories = {},
 	stories = {},

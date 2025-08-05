@@ -26,25 +26,21 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  DUPTABLE R1 K1 [{"ForceRefresh"}]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K0 ["ForceRefresh"]
-  SETTABLEKS R1 R0 K2 ["state"]
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K3 ["onToggle"]
+  SETTABLEKS R1 R0 K0 ["onToggle"]
   NEWCLOSURE R1 P1
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K4 ["onToggleAdornment"]
+  SETTABLEKS R1 R0 K1 ["onToggleAdornment"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K5 ["createRef"]
+  GETTABLEKS R1 R2 K2 ["createRef"]
   CALL R1 0 1
-  SETTABLEKS R1 R0 K6 ["toggleRef"]
-  GETIMPORT R1 K9 [TweenInfo.new]
-  LOADK R2 K10 [0.1]
-  GETIMPORT R3 K14 [Enum.EasingStyle.Linear]
+  SETTABLEKS R1 R0 K3 ["toggleRef"]
+  GETIMPORT R1 K6 [TweenInfo.new]
+  LOADK R2 K7 [0.1]
+  GETIMPORT R3 K11 [Enum.EasingStyle.Linear]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K15 ["tweenInfo"]
+  SETTABLEKS R1 R0 K12 ["tweenInfo"]
   RETURN R0 0
 
 PROTO_3:
@@ -88,56 +84,15 @@ PROTO_3:
   RETURN R3 3
 
 PROTO_4:
-  GETUPVAL R0 0
-  DUPTABLE R2 K1 [{"ForceRefresh"}]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K3 ["state"]
-  GETTABLEKS R4 R5 K0 ["ForceRefresh"]
-  ADDK R3 R4 K2 [1]
-  SETTABLEKS R3 R2 K0 ["ForceRefresh"]
-  NAMECALL R0 R0 K4 ["setState"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_5:
-  GETUPVAL R0 0
-  GETIMPORT R3 K1 [settings]
-  CALL R3 0 1
-  GETTABLEKS R2 R3 K2 ["Studio"]
-  GETTABLEKS R1 R2 K3 ["ThemeChanged"]
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U0
-  NAMECALL R1 R1 K4 ["Connect"]
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K5 ["onThemeChanged"]
-  RETURN R0 0
-
-PROTO_6:
-  GETIMPORT R1 K1 [pcall]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_7:
-  GETTABLEKS R1 R0 K0 ["onThemeChanged"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_8:
   GETTABLEKS R3 R0 K0 ["state"]
   GETTABLEKS R4 R0 K1 ["props"]
   GETTABLEKS R5 R4 K2 ["Item"]
   GETTABLEKS R6 R1 K2 ["Item"]
-  GETTABLEKS R7 R3 K3 ["ForceRefresh"]
-  GETTABLEKS R8 R2 K3 ["ForceRefresh"]
-  JUMPIFNOTEQ R7 R8 [+17]
-  GETTABLEKS R7 R4 K4 ["StyleModifier"]
-  GETTABLEKS R8 R1 K4 ["StyleModifier"]
+  GETTABLEKS R7 R4 K3 ["StyleModifier"]
+  GETTABLEKS R8 R1 K3 ["StyleModifier"]
   JUMPIFNOTEQ R7 R8 [+11]
-  GETTABLEKS R7 R4 K5 ["Expanded"]
-  GETTABLEKS R8 R1 K5 ["Expanded"]
+  GETTABLEKS R7 R4 K4 ["Expanded"]
+  GETTABLEKS R8 R1 K4 ["Expanded"]
   JUMPIFNOTEQ R7 R8 [+5]
   JUMPIFNOT R5 [+1]
   JUMPIFNOT R6 [+2]
@@ -149,43 +104,43 @@ PROTO_8:
   JUMPIF R6 [+2]
   LOADB R7 0
   RETURN R7 1
-  GETTABLEKS R7 R5 K6 ["weight"]
-  GETTABLEKS R8 R6 K6 ["weight"]
+  GETTABLEKS R7 R5 K5 ["weight"]
+  GETTABLEKS R8 R6 K5 ["weight"]
   JUMPIFNOTEQ R7 R8 [+7]
-  GETTABLEKS R7 R5 K7 ["id"]
-  GETTABLEKS R8 R6 K7 ["id"]
+  GETTABLEKS R7 R5 K6 ["id"]
+  GETTABLEKS R8 R6 K6 ["id"]
   JUMPIFEQ R7 R8 [+3]
   LOADB R7 1
   RETURN R7 1
-  GETTABLEKS R7 R4 K8 ["Adornments"]
-  GETTABLEKS R8 R1 K8 ["Adornments"]
+  GETTABLEKS R7 R4 K7 ["Adornments"]
+  GETTABLEKS R8 R1 K7 ["Adornments"]
   JUMPIFEQ R7 R8 [+3]
   LOADB R7 1
   RETURN R7 1
   GETTABLEKS R7 R5 K0 ["state"]
   JUMPIFNOT R7 [+32]
   GETTABLEKS R8 R5 K0 ["state"]
-  GETTABLEKS R7 R8 K9 ["timePositionNormalized"]
+  GETTABLEKS R7 R8 K8 ["timePositionNormalized"]
   JUMPIFNOT R7 [+27]
   GETTABLEKS R8 R5 K0 ["state"]
-  GETTABLEKS R7 R8 K10 ["length"]
+  GETTABLEKS R7 R8 K9 ["length"]
   JUMPIFNOT R7 [+22]
   GETTABLEKS R8 R5 K0 ["state"]
-  GETTABLEKS R7 R8 K9 ["timePositionNormalized"]
+  GETTABLEKS R7 R8 K8 ["timePositionNormalized"]
   GETTABLEKS R9 R6 K0 ["state"]
-  GETTABLEKS R8 R9 K9 ["timePositionNormalized"]
+  GETTABLEKS R8 R9 K8 ["timePositionNormalized"]
   JUMPIFNOTEQ R7 R8 [+11]
   GETTABLEKS R8 R5 K0 ["state"]
-  GETTABLEKS R7 R8 K10 ["length"]
+  GETTABLEKS R7 R8 K9 ["length"]
   GETTABLEKS R9 R6 K0 ["state"]
-  GETTABLEKS R8 R9 K10 ["length"]
+  GETTABLEKS R8 R9 K9 ["length"]
   JUMPIFEQ R7 R8 [+3]
   LOADB R7 1
   RETURN R7 1
   LOADB R7 0
   RETURN R7 1
 
-PROTO_9:
+PROTO_5:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Index"]
   GETTABLEKS R3 R1 K2 ["Item"]
@@ -642,13 +597,9 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R20
   SETTABLEKS R27 R26 K44 ["getContents"]
-  DUPCLOSURE R27 K45 [PROTO_6]
-  SETTABLEKS R27 R26 K46 ["didMount"]
-  DUPCLOSURE R27 K47 [PROTO_7]
-  SETTABLEKS R27 R26 K48 ["willUnmount"]
-  DUPCLOSURE R27 K49 [PROTO_8]
-  SETTABLEKS R27 R26 K50 ["shouldComponentUpdate"]
-  DUPCLOSURE R27 K51 [PROTO_9]
+  DUPCLOSURE R27 K45 [PROTO_4]
+  SETTABLEKS R27 R26 K46 ["shouldComponentUpdate"]
+  DUPCLOSURE R27 K47 [PROTO_5]
   CAPTURE VAL R23
   CAPTURE VAL R25
   CAPTURE VAL R20
@@ -661,13 +612,13 @@ MAIN:
   CAPTURE VAL R13
   CAPTURE VAL R15
   CAPTURE VAL R22
-  SETTABLEKS R27 R26 K52 ["render"]
-  DUPTABLE R27 K54 [{"ExpandableRoot"}]
+  SETTABLEKS R27 R26 K48 ["render"]
+  DUPTABLE R27 K50 [{"ExpandableRoot"}]
   LOADB R28 1
-  SETTABLEKS R28 R27 K53 ["ExpandableRoot"]
-  SETTABLEKS R27 R26 K55 ["defaultProps"]
+  SETTABLEKS R28 R27 K49 ["ExpandableRoot"]
+  SETTABLEKS R27 R26 K51 ["defaultProps"]
   MOVE R27 R7
-  DUPTABLE R28 K56 [{"Analytics", "Localization"}]
+  DUPTABLE R28 K52 [{"Analytics", "Localization"}]
   SETTABLEKS R8 R28 K17 ["Analytics"]
   SETTABLEKS R9 R28 K18 ["Localization"]
   CALL R27 1 1

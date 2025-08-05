@@ -13,7 +13,7 @@ MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["ConvAIAssistantMaxTokens"]
-  LOADN R3 0
+  LOADN R3 128
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   DUPTABLE R0 K6 [{"Name", "Get"}]
