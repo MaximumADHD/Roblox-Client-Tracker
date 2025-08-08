@@ -10,6 +10,7 @@ local InsertService = game:GetService("InsertService")
 local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 local FFlagAnimationSilhouetteCurveAnimations = game:DefineFastFlag("AnimationSilhouetteCurveAnimations", false)
+local FFlagFixKeyframeGeneration = game:DefineFastFlag("FixKeyframeGeneration", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
@@ -835,6 +836,9 @@ module.GetCurveAnimationTimeLength = function(curveAnimation: CurveAnimation): n
 
 	for _, desc in curveAnimation:GetDescendants() do
 		if desc:IsA("FloatCurve") then
+			if FFlagFixKeyframeGeneration and desc.Length == 0 then
+				continue
+			end
 			local lastKeyTime = desc:GetKeyAtIndex(desc.Length).Time
 			maxTimeLength = math.max(maxTimeLength, lastKeyTime)
 		end
@@ -863,6 +867,15 @@ module.GetThumbnailKeyframeFromCurve = function(
 		Rotation = true,
 	}
 
+	local function hasSubFolders(folder)
+		for _, child in folder:GetChildren() do
+			if child:IsA("Folder") then
+				return true
+			end
+		end
+		return false
+	end
+
 	local function recurGenerateKeyframe(parent: Instance, folder: Folder)
 		local subPosesContainer: Instance
 
@@ -881,6 +894,14 @@ module.GetThumbnailKeyframeFromCurve = function(
 				pose.Parent = parent
 				subPosesContainer = pose
 			end
+		elseif FFlagFixKeyframeGeneration and hasSubFolders(folder) then
+			local transform = CFrame.new()
+
+			local pose = Instance.new("Pose")
+			pose.CFrame = transform
+			pose.Name = folder.Name
+			pose.Parent = parent
+			subPosesContainer = pose
 		else
 			local container = Instance.new("Folder")
 			container.Name = folder.Name
