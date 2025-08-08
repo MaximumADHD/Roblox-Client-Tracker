@@ -19828,6 +19828,8 @@ CoreScriptTelemetryDownSamplingThousandthsPercent
 CoreScriptTranslations
 CoreScriptVersion
 CoreScriptVersionEnabled
+CoreStrengthIsImportant
+CoreStrengthIsImportantExtra
 CoreStudioSettings
 CoreUISafeInsets
 Cornemuses
@@ -30608,6 +30610,7 @@ FromStringWithFlagType
 FromTeamCreate
 FromToastNotification
 FromTrackerData
+FromUniverse
 FromVideoStream
 FromVoiceChatService
 Front_binder
@@ -48280,6 +48283,7 @@ PlayStationAudioInputDeviceFiltering
 PlayStationController
 PlayStationOnly
 PlayStationPlusItem
+PlayStationUser
 PlayStationUserSeenCommunicationRestrictedDialog
 Playtest_Owners
 PlayTestContext
@@ -50075,6 +50079,7 @@ QEAAPEAVQGraphicsPixmapItem
 QEAAPEAVQListWidgetItem
 QEAAPEAVQMenu
 QEAAPEAVQPointF
+QEAAPEAVQPushBut
 QEAAPEAVQPushButton
 QEAAPEAVQTreeWidgetItem
 QEAAPEAVQWidget
@@ -50292,7 +50297,6 @@ QEAAXW4TickPosition
 QEAAXW4TimeSpec
 QEAAXW4ToolBarArea
 QEAAXW4ToolButtonPopupMode
-QEAAXW4ToolButtonSt
 QEAAXW4ToolButtonStyle
 QEAAXW4UnderlineStyle
 QEAAXW4ViewMode
@@ -63745,7 +63749,6 @@ Studio.App.PlaceVersionHistory.BetaFeatureDescription
 Studio.App.PlaceVersionHistory.BetaFeatureTitle
 Studio.App.PlaceVersionHistoryDialog.Empty
 Studio.App.PlaceVersionHistoryDialog.HelpLink
-Studio.App.PlaceVersionHistoryDialog.PublishedCo
 Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle
 Studio.App.PlaceVersionHistoryDialog.Tip
 Studio.App.PlaceVersionHistoryDialog.Title1
@@ -84906,7 +84909,6 @@ VQNetworkInterface
 VQPersistentModelIndex
 VQPushButton
 VQRegularExpression
-VQResizeEvent
 VQStorageInfo
 VQStringView
 VQtLanguageClient
@@ -86614,7 +86616,7 @@ WilError_03
 Willkommen
 WillReturn
 WIN32_LEAN_AND_MEAN
-Win64.685.34987
+Win64.685.35056
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled

@@ -277,6 +277,8 @@
 [C++] DFFlagConvexDecompCompressionAnalytics
 [C++] DFFlagCookieStoreEnabledMac
 [C++] DFFlagCoreScriptTelemetry
+[C++] DFFlagCoreStrengthIsImportant
+[C++] DFFlagCoreStrengthIsImportantExtra
 [C++] DFFlagCorrectOpusHeader
 [C++] DFFlagCrash155229Fix
 [C++] DFFlagCrashMetricStorageEnableBufferConstantReporting

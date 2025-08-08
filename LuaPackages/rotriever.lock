@@ -161,7 +161,7 @@ dependencies = [
     "SignalsRoblox SignalsRoblox 0.5.0 registry",
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
-    "Thumbnailing Thumbnailing 0.4.0 registry",
+    "Thumbnailing Thumbnailing 0.5.0 registry",
     "UGCValidation UGCValidation 1.16.12 registry",
     "UIBlox UIBlox 0.2.133 registry",
     "UrlBuilder UrlBuilder 1.2.12 registry",
@@ -1862,7 +1862,7 @@ dependencies = [
 
 [[package]]
 name = "Thumbnailing"
-version = "0.4.0"
+version = "0.5.0"
 source = "registry"
 
 [[package]]
