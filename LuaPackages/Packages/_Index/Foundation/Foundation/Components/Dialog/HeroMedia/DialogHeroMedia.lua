@@ -6,12 +6,13 @@ local React = require(Packages.React)
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
 local Types = require(Foundation.Components.Types)
+local Constants = require(Foundation.Constants)
 
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
 local withDefaults = require(Foundation.Utility.withDefaults)
-local renderFade = require(script.Parent.Parent.renderFade)
+local Gradient = require(Foundation.Components.Gradient)
 local useDialogLayout = require(script.Parent.Parent.useDialogLayout)
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
 
@@ -41,22 +42,35 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 		end
 	end, {})
 
-	local offsetX = variants.dialogHeroMedia.offsetX
+	local offsetX = variants.heroMedia.offsetX
 
 	return React.createElement(View, {
-		tag = variants.dialogHeroMediaWrapper.tag,
-		LayoutOrder = -2147483648, -- Ensure HeroMedia is always rendered first
+		tag = variants.heroMediaWrapper.tag,
+		LayoutOrder = Constants.MIN_LAYOUT_ORDER,
 		testId = "--foundation-dialog-hero-media",
 	}, {
-		Image = React.createElement(Image, {
-			tag = variants.dialogHeroMedia.tag,
-			aspectRatio = props.aspectRatio,
+		TransparencyGradient = React.createElement(Gradient, {
+			fillDirection = Enum.FillDirection.Vertical,
+			top = true,
+		}),
+		RoundedCorners = React.createElement(Image, {
 			Image = props.media,
-			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
-			SizeConstraint = Enum.SizeConstraint.RelativeXX,
+			aspectRatio = props.aspectRatio,
 			Position = UDim2.new(0, -offsetX, 0, 0),
+			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
+			ZIndex = 0,
 		}, {
-			TransparencyGradient = renderFade(-90, 0),
+			TransparencyGradient = React.createElement(Gradient, {
+				fillDirection = Enum.FillDirection.Vertical,
+				top = false,
+			}),
+		}),
+		Image = React.createElement(Image, {
+			Image = props.media,
+			tag = variants.heroMedia.tag,
+			aspectRatio = props.aspectRatio,
+			Position = UDim2.new(0, -offsetX, 0, 0),
+			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
 		}),
 	})
 end

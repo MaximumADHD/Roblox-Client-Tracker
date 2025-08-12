@@ -45,8 +45,11 @@ local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 
+local Constants = require(Foundation.Constants)
+
 local getIconScale = require(Foundation.Utility.getIconScale)
 local withDefaults = require(Foundation.Utility.withDefaults)
+
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local isMigrated = iconMigrationUtils.isMigrated
@@ -66,15 +69,12 @@ local BUTTON_VARIANT_TO_RICH_TEXT_FORMAT: { [ButtonVariant]: { format: string, c
 	},
 }
 
-local PROGRESS_TRANSPARENCY = 0.5
-local DISABLED_TRANSPARENCY = 0.5
-
 local function onProgressChange(progress: number)
 	return NumberSequence.new({
 		NumberSequenceKeypoint.new(0, 0),
 		NumberSequenceKeypoint.new(math.max(0, progress - 0.0001), 0),
-		NumberSequenceKeypoint.new(math.min(1, progress + 0.0001), PROGRESS_TRANSPARENCY),
-		NumberSequenceKeypoint.new(1, PROGRESS_TRANSPARENCY),
+		NumberSequenceKeypoint.new(math.min(1, progress + 0.0001), Constants.DISABLED_TRANSPARENCY),
+		NumberSequenceKeypoint.new(1, Constants.DISABLED_TRANSPARENCY),
 	})
 end
 
@@ -153,7 +153,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local variantProps = useButtonVariants(tokens, props.size, props.variant)
 
-	local motionStates = useButtonMotionStates(variantProps.content.style.Transparency, DISABLED_TRANSPARENCY)
+	local motionStates = useButtonMotionStates(variantProps.content.style.Transparency, Constants.DISABLED_TRANSPARENCY)
 	local disabledValues, animateDisabledValues = useMotion(motionStates.Default)
 	local values, animate = useMotion(motionStates.Default)
 

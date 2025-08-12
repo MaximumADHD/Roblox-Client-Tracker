@@ -14,6 +14,8 @@ local fixUpPreValidation = require(root.util.fixUpPreValidation)
 local validateInternal = require(root.validation.validateInternal)
 local validateFullBody = require(root.validation.validateFullBody)
 
+local getFFlagUGCValidateDontUseRestrictedUserTable = require(root.flags.getFFlagUGCValidateDontUseRestrictedUserTable)
+
 -- The order in which validation is performed
 local SORTED_ASSET_TYPES = {
 	Enum.AssetType.DynamicHead,
@@ -164,7 +166,9 @@ local function validateBundleReadyForUpload(
 			instances = instances :: { Instance },
 			assetTypeEnum = piece.assetType :: Enum.AssetType,
 			allowUnreviewedAssets = false,
-			restrictedUserIds = getRestrictedUserTable(),
+			restrictedUserIds = if getFFlagUGCValidateDontUseRestrictedUserTable()
+				then nil
+				else getRestrictedUserTable(),
 			isServer = false,
 			isAsync = false,
 			allowEditableInstances = allowEditableInstances,

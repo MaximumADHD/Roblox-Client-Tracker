@@ -17,6 +17,7 @@ type MediaShape = MediaShape.MediaShape
 local useTileLayout = require(Foundation.Components.Tile.useTileLayout)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local getRbxThumb = require(Foundation.Utility.getRbxThumb)
+local Gradient = require(Foundation.Components.Gradient)
 
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
@@ -52,18 +53,6 @@ local defaultProps = {
 	LayoutOrder = 1,
 }
 
-local function renderGradient(fillDirection: Enum.FillDirection, top: boolean)
-	local gradient = React.createElement("UIGradient", {
-		Rotation = if fillDirection == Enum.FillDirection.Vertical then 90 else 0,
-		Transparency = NumberSequence.new({
-			NumberSequenceKeypoint.new(0, if top then 0 else 1),
-			NumberSequenceKeypoint.new(0.5, 0),
-			NumberSequenceKeypoint.new(1, if top then 1 else 0),
-		}),
-	})
-	return gradient
-end
-
 local function TileMedia(tileMediaProps: TileMediaProps)
 	local props = withDefaults(tileMediaProps, defaultProps)
 
@@ -86,8 +75,18 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 		else UDim.new(0, tokens.Radius.Medium)
 
 	local hasMiddleCorners = tileLayout.isContained and cornerRadius
-	local topGradient = if hasMiddleCorners then renderGradient(tileLayout.fillDirection, true) else nil
-	local bottomGradient = if hasMiddleCorners then renderGradient(tileLayout.fillDirection, false) else nil
+	local topGradient = if hasMiddleCorners
+		then React.createElement(Gradient, {
+			fillDirection = tileLayout.fillDirection,
+			top = true,
+		})
+		else nil
+	local bottomGradient = if hasMiddleCorners
+		then React.createElement(Gradient, {
+			fillDirection = tileLayout.fillDirection,
+			top = false,
+		})
+		else nil
 
 	return React.createElement(if backgroundImage then Image else View, {
 		Image = backgroundImage,

@@ -42,3 +42,7 @@ return React.createElement(Menu, {
 	}),
 })
 ```
+
+`onActivated` can be provide on the component level as in the example above, or you can provide it in the items themselves.
+
+If you don't control the element, you need a menu for, but have a reference to it, you can use the `anchorRef` property. 

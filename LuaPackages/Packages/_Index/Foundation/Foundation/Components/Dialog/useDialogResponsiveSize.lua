@@ -5,14 +5,15 @@ local React = require(Packages.React)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
-local useDialogLayout = require(script.Parent.useDialogLayout)
-
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 
+local useDialogLayout = require(script.Parent.useDialogLayout)
 local getResponsiveSize = require(script.Parent.getResponsiveSize)
 
-local function useDialogResponsiveSize(overlay: GuiBase2d?, size: DialogSize)
+local function useDialogResponsiveSize(size: DialogSize)
 	local tokens = useTokens()
+	local overlay = useOverlay()
 	local layout = useDialogLayout()
 
 	local updateSize = React.useCallback(function()

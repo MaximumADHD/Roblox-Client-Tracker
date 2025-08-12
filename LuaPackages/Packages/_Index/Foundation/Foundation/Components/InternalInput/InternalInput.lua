@@ -24,6 +24,8 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 
+local Constants = require(Foundation.Constants)
+
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
@@ -42,8 +44,6 @@ export type InputVariantProps = {
 	cursorRadius: UDim,
 	checkedStyle: ColorStyleValue?,
 }
-
-local DISABLED_TRANSPARENCY = 0.5
 
 type Props = {
 	-- Whether the input is currently checked. If it is left `nil`,
@@ -136,7 +136,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 
 	local interactionProps = {
 		Active = not props.isDisabled,
-		GroupTransparency = if props.isDisabled then DISABLED_TRANSPARENCY else 0,
+		GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else 0,
 		onActivated = onActivated,
 		onStateChanged = onInputStateChanged,
 		stateLayer = { affordance = StateLayerAffordance.None },
@@ -162,7 +162,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 			Transparency = values.strokeStyle:map(function(value: Types.ColorStyleValue)
 				-- Stroke transparencies are not affected by GroupTransparency
 				if props.isDisabled and not hasLabel then
-					return DISABLED_TRANSPARENCY
+					return Constants.DISABLED_TRANSPARENCY
 				else
 					return value.Transparency :: number
 				end

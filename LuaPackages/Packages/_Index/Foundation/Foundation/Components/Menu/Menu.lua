@@ -17,6 +17,7 @@ local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 type PopoverSide = PopoverSide.PopoverSide
 type PopoverAlign = PopoverAlign.PopoverAlign
+type OnItemActivated = Types.OnItemActivated
 
 export type MenuItem = InternalMenu.MenuItem
 export type MenuProps = {
@@ -34,10 +35,13 @@ export type MenuProps = {
 	align: PopoverAlign?,
 	-- Callback for when the backdrop is pressed
 	onPressedOutside: (() -> ())?,
-	-- Callback for when a menu item is activated
-	onActivated: (id: Types.ItemId) -> (),
+	-- Callback for when a menu item is activated.
+	-- Should be defined either for the whole Menu, or separately for all the MenuItems
+	onActivated: OnItemActivated?,
+	-- Reference to the element that will serve as an anchor
+	anchorRef: React.Ref<GuiObject>?,
 	-- Children to render as the anchor
-	children: React.ReactNode,
+	children: React.ReactNode?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -51,43 +55,43 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local strokeThickness = tokens.Stroke.Standard
 
-	return React.createElement(
-		Popover.Root,
-		withCommonProps(props, {
-			isOpen = props.isOpen,
-			ref = ref,
-		}),
-		{
-			Anchor = React.createElement(Popover.Anchor, nil, props.children),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					side = {
-						position = props.side,
-						offset = strokeThickness + tokens.Padding.Small,
-					},
-					align = props.align,
-					hasArrow = false,
-					onPressedOutside = props.onPressedOutside,
-					backgroundStyle = tokens.Color.Surface.Surface_100,
-					ref = ref,
+	return React.createElement(Popover.Root, {
+		isOpen = props.isOpen,
+		ref = ref,
+	}, {
+		Anchor = React.createElement(
+			Popover.Anchor,
+			withCommonProps(props, { anchorRef = props.anchorRef }),
+			if props.anchorRef then nil else props.children
+		),
+		Content = React.createElement(
+			Popover.Content,
+			{
+				side = {
+					position = props.side,
+					offset = strokeThickness + tokens.Padding.Small,
 				},
-				React.createElement(React.Fragment, nil, {
-					Menu = React.createElement(InternalMenu, {
-						items = props.items,
-						size = props.size,
-						width = props.width,
-						onActivated = props.onActivated,
-					}),
-					Border = React.createElement("UIStroke", {
-						Color = tokens.Color.Stroke.Default.Color3,
-						Transparency = tokens.Color.Stroke.Default.Transparency,
-						Thickness = strokeThickness,
-					}),
-				})
-			),
-		}
-	)
+				align = props.align,
+				hasArrow = false,
+				onPressedOutside = props.onPressedOutside,
+				backgroundStyle = tokens.Color.Surface.Surface_100,
+				ref = ref,
+			},
+			React.createElement(React.Fragment, nil, {
+				Menu = React.createElement(InternalMenu, {
+					items = props.items,
+					size = props.size,
+					width = props.width,
+					onActivated = props.onActivated,
+				}),
+				Border = React.createElement("UIStroke", {
+					Color = tokens.Color.Stroke.Default.Color3,
+					Transparency = tokens.Color.Stroke.Default.Transparency,
+					Thickness = strokeThickness,
+				}),
+			})
+		),
+	})
 end
 
 return React.memo(React.forwardRef(Menu))

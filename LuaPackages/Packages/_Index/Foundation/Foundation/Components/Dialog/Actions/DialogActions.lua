@@ -65,7 +65,7 @@ local function DialogActions(props: DialogActionsProps)
 		ActionsLabel = if props.label
 			then React.createElement(Text, {
 				Text = props.label,
-				tag = variants.dialogActionsLabel.tag,
+				tag = variants.actionsLabel.tag,
 				LayoutOrder = 2,
 			})
 			else nil,

@@ -23,10 +23,13 @@ type Radius = Radius.Radius
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useCloseAffordanceVariants = require(script.Parent.useCloseAffordanceVariants)
+
+local Constants = require(Foundation.Constants)
 
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+
+local useCloseAffordanceVariants = require(script.Parent.useCloseAffordanceVariants)
 
 type CloseAffordanceProps = {
 	onActivated: () -> (),
@@ -41,8 +44,6 @@ local defaultProps = {
 	size = InputSize.Medium,
 	variant = CloseAffordanceVariant.OverMedia,
 }
-
-local DISABLED_TRANSPARENCY = 0.5
 
 local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(closeAffordanceProps, defaultProps)
@@ -80,7 +81,7 @@ local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: 
 			stroke = variantProps.container.stroke,
 			cursor = cursor,
 			tag = variantProps.container.tag,
-			GroupTransparency = if props.isDisabled then DISABLED_TRANSPARENCY else nil,
+			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
 			ref = ref,
 		}),
 		{

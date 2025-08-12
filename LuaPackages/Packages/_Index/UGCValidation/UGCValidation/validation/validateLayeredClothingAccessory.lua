@@ -23,6 +23,7 @@ local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateLCInRenderBounds = require(root.validation.validateLayeredClothingInRenderBounds)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
+local validateDependencies = require(root.validation.validateDependencies)
 
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
@@ -52,6 +53,7 @@ local getFIntUGCValidationLCHandleScaleOffsetMaximum =
 local getFFlagValidateDeformedLayeredClothingIsInBounds =
 	require(root.flags.getFFlagValidateDeformedLayeredClothingIsInBounds)
 local getFFlagCheckLayeredClothingMeshSize = require(root.flags.getFFlagCheckLayeredClothingMeshSize)
+local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -94,6 +96,13 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 
 	if getFFlagUGCValidationNameCheck() and isServer then
 		success, reasons = validateAccessoryName(instance, validationContext)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	if getFFlagUGCValidateAccessoriesRCCOwnership() then
+		success, reasons = validateDependencies(instance, validationContext)
 		if not success then
 			return false, reasons
 		end

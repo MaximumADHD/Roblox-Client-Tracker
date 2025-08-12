@@ -20,6 +20,7 @@ local DropdownControl = require(script.Parent.DropdownControl)
 
 type MenuItem = InternalMenu.MenuItem
 type ItemId = Types.ItemId
+type OnItemActivated = Types.OnItemActivated
 
 export type DropdownProps = {
 	-- The value of the currently selected dropdown item.
@@ -27,7 +28,7 @@ export type DropdownProps = {
 	value: Types.ItemId?,
 	placeholder: string?,
 	items: { MenuItem },
-	onItemChanged: (id: ItemId) -> (),
+	onItemChanged: OnItemActivated,
 	-- Whether the dropdown is in an error state
 	hasError: boolean?,
 	-- Whether the dropdown is disabled

@@ -1,7 +1,9 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Constants = require(Foundation.Constants)
 local Wrappers = require(Foundation.Utility.Wrappers)
+
 local CoreGui = Wrappers.Services.CoreGui
 local RunService = Wrappers.Services.RunService
 local Players = Wrappers.Services.Players
@@ -50,7 +52,7 @@ local function OverlayProvider(props: Props)
 				React.createElement("ScreenGui", {
 					Enabled = true,
 					-- Biggest DisplayOrder allowed. Don't try math.huge, it causes an overflow
-					DisplayOrder = 2147483647,
+					DisplayOrder = Constants.MAX_LAYOUT_ORDER - 1,
 					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 					ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets,
 					ref = overlayRefCallback,

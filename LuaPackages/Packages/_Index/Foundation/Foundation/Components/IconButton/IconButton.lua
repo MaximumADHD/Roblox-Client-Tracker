@@ -41,6 +41,8 @@ local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local isMigrated = iconMigrationUtils.isMigrated
 local isBuilderOrMigratedIcon = iconMigrationUtils.isBuilderOrMigratedIcon
 
+local Constants = require(Foundation.Constants)
+
 local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
@@ -67,8 +69,6 @@ local defaultProps = {
 	isCircular = false,
 	variant = ButtonVariant.Utility,
 }
-
-local DISABLED_TRANSPARENCY = 0.5
 
 local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(iconButtonProps, defaultProps)
@@ -128,7 +128,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 			stroke = variantProps.container.stroke,
 			cursor = cursor,
 			tag = if Flags.FoundationUpdateIconButtonSizes then variantProps.container.tag else nil,
-			GroupTransparency = if props.isDisabled then DISABLED_TRANSPARENCY else nil,
+			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
 			ref = ref,
 		}),
 		{

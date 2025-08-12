@@ -7,7 +7,6 @@ local root = script.Parent.Parent
 
 local RunService = game:GetService("RunService")
 
-local FFlagValidateUserAndUniverseNoModeration = game:DefineFastFlag("ValidateUserAndUniverseNoModeration", false)
 local FFlagNoStudioOwnershipCheck = game:DefineFastFlag("NoStudioOwnershipCheck", false)
 
 local Analytics = require(root.Analytics)
@@ -176,7 +175,7 @@ local function validateDependencies(
 		if isServer then
 			-- This block will check user and universe permissions without considering moderation
 			-- This is from in experience creation, assets may not be moderated yet
-			if FFlagValidateUserAndUniverseNoModeration and universeId then
+			if universeId then
 				reasonsAccumulator:updateReasons(
 					validateAssetCreatorsRCC(contentIdMap, validationContext :: Types.ValidationContext)
 				)

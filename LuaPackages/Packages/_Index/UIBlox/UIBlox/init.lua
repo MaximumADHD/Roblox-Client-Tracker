@@ -530,6 +530,9 @@ local function initializeLibrary(configs)
 			NavigationRail = lazify(function()
 				return require(script.App.Navigation.NavigationRail)
 			end),
+			NavigationRailV2 = lazify(function()
+				return require(script.App.Navigation.NavigationRailV2)
+			end),
 			NavigationTab = require(script.App.Navigation.NavigationTab),
 			PrimaryNavBar = strict({
 				ContextBar = lazify(function()

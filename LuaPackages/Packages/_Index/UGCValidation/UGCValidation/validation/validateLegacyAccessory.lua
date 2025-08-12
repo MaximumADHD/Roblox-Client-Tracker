@@ -22,6 +22,7 @@ local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateRigidMeshNotSkinned = require(root.validation.validateRigidMeshNotSkinned)
+local validateDependencies = require(root.validation.validateDependencies)
 
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createAccessorySchema = require(root.util.createAccessorySchema)
@@ -36,6 +37,7 @@ local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGC
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
+local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
@@ -81,6 +83,13 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 	if getFFlagUGCValidationNameCheck() and isServer then
 		success, reasons = validateAccessoryName(instance, validationContext)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	if getFFlagUGCValidateAccessoriesRCCOwnership() then
+		success, reasons = validateDependencies(instance, validationContext)
 		if not success then
 			return false, reasons
 		end

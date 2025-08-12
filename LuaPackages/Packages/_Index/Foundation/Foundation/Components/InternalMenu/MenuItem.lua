@@ -11,6 +11,7 @@ local Icon = require(Foundation.Components.Icon)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 type ItemId = Types.ItemId
+type OnItemActivated = Types.OnItemActivated
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
@@ -30,7 +31,7 @@ type MenuItemProps = {
 	isChecked: boolean?,
 	isDisabled: boolean?,
 	text: string,
-	onActivated: (id: ItemId) -> (),
+	onActivated: OnItemActivated,
 	size: InputSize,
 } & Types.CommonProps
 

@@ -64,6 +64,8 @@ InteractiveAlert.validateProps = t.strictInterface({
 	-- Function that returns a Roact element to render
 	footerContent = t.optional(t.callback),
 	onCloseClicked = t.optional(t.callback),
+	-- Bottom margin value to override the default; supports more flexible and consistent layouts
+	bottomMargin = t.optional(t.number),
 
 	-- RoactGamepad props. These take effect when isRoactGamepadEnabled is true
 	defaultChildRef = t.optional(t.union(t.table, t.callback)),
@@ -74,6 +76,10 @@ InteractiveAlert.validateProps = t.strictInterface({
 	-- Boolean to determine if the component will use RoactGamepad for focus navigation
 	isRoactGamepadEnabled = t.optional(t.boolean),
 })
+
+InteractiveAlert.defaultProps = {
+	bottomMargin = MARGIN,
+}
 
 function InteractiveAlert:render()
 	return withStyle(function(stylePalette)
@@ -179,7 +185,7 @@ function InteractiveAlert:render()
 			alertType = AlertType.Interactive,
 			margin = {
 				top = 0,
-				bottom = MARGIN,
+				bottom = self.props.bottomMargin,
 				left = MARGIN,
 				right = MARGIN,
 			},

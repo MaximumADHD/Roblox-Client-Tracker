@@ -31,6 +31,7 @@ export type ScrollingFrameProps = {
 	onAbsoluteWindowSizeChanged: ((instance: ScrollingFrame) -> ())?,
 	children: React.Node?,
 
+	AutomaticSize: Enum.AutomaticSize?,
 	AutomaticCanvasSize: Bindable<Enum.AutomaticSize>?,
 	CanvasSize: Bindable<UDim2>?,
 	ScrollingDirection: Bindable<Enum.ScrollingDirection>?,
@@ -107,6 +108,7 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 		-- Invisible frame props
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
+		AutomaticSize = props.AutomaticSize,
 		Size = UDim2.fromScale(1, 1),
 		SelectionImageObject = cursor,
 

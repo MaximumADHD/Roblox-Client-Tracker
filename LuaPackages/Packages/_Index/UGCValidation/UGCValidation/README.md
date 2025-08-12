@@ -42,14 +42,7 @@ As of June 2024, you require this version of rotriever https://github.com/Roblox
 ### Updating UGC Validation in StudioPlugins
 1. Update `rotriever.toml` in [Toolbox folder](https://github.com/Roblox/StudioPlugins/tree/main/Builtin/Toolbox) to include the new version
 2. Run `rotrieve upgrade --packages UGCValidation` locally from `C:\Git\StudioPlugins\Builtin\Toolbox`
-3. Commit all changes to your branch, and open a pull request
+3. Update `rotriever.toml` in [AvatarCompatibilityPreviewer folder](https://github.com/Roblox/StudioPlugins/tree/main/Builtin/AvatarCompatibilityPreviewer) to include the new version
+4. Run `rotrieve upgrade --packages UGCValidation` locally from `C:\Git\StudioPlugins\Builtin\AvatarCompatibilityPreviewer`
+5. Commit all changes to your branch, and open a pull request
    - changes should only be to the rotriever.toml and rotriever.lock files
-
-### Updating UGC Validation in [game-engine](https://github.rbx.com/GameEngine/game-engine)
-
-1. Update the rotriever.toml in AvatarCompatibilityPreviewer to contain the new version of UGCValidation
-2. Run `git rbx lua-projects manage-libraries --install AvatarCompatibilityPreviewer` locally from the game-engine folder
-3. Delete old version in `Client/RobloxStudio/LuaProjects/Libraries/UGCValidation-X.X.X`
-4. Commit all changes on a branch, and open a pull request to merge
-
-NOTE: running `git rbx lua-projects manage-libraries --install` may make changes not just related to the ugc-validation upgrade. Check the changes, you may not want all of them. Also check `lock` and `toml` file changes to make sure they look correct (correct meaning that they only have changes related to ugc-validation)

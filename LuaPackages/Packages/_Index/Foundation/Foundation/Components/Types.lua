@@ -68,6 +68,7 @@ export type ColorStyleValue = {
 export type ColorStyle = Bindable<ColorStyleValue>
 
 export type ItemId = string | number
+export type OnItemActivated = (id: ItemId) -> ()
 
 export type StateLayer = {
 	inset: boolean?,

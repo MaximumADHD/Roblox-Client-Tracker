@@ -214,6 +214,41 @@ return {
 				})
 			end,
 		},
+		{
+			name = "Reference anchor",
+			story = function(props: Props)
+				local ref = React.useRef(nil)
+				local isOpen, setIsOpen = React.useState(false)
+
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 300),
+					tag = "row align-x-center align-y-center",
+				}, {
+					Anchor = React.createElement(Button, {
+						text = "Anchor outside of the menu component",
+						size = InputSize.Medium,
+						ref = ref,
+						onActivated = function()
+							setIsOpen(true)
+						end,
+					}),
+					Menu = React.createElement(Menu, {
+						isOpen = isOpen,
+						items = SAMPLE_MENU_ITEMS,
+						size = props.controls.size,
+						side = props.controls.side,
+						align = props.controls.align,
+						onPressedOutside = function()
+							setIsOpen(false)
+						end,
+						onActivated = function(id)
+							print("Always open menu item activated:", id)
+						end,
+						anchorRef = ref,
+					}),
+				})
+			end,
+		},
 	},
 	controls = {
 		size = Dash.values(InputSize),

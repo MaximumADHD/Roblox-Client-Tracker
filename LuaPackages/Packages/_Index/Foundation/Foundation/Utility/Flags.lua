@@ -13,7 +13,7 @@ return {
 		"FoundationFixScrollViewBackgroundForStylingV2"
 	)(),
 	FoundationStandardizeInputLabelSizes = SafeFlags.createGetFFlag("FoundationStandardizeInputLabelSizes")(),
-	FoundationWarnOnMultipleStyleLinks = SafeFlags.createGetFFlag("FoundationWarnOnMultipleStyleLinks")(),
+	FoundationWarnOnMultipleStyleLinks = SafeFlags.createGetFFlag("DebugFoundationWarnOnMultipleStyleLinks")(),
 	FoundationMigrateIconNames = SafeFlags.createGetFFlag("FoundationMigrateIconNames")(),
 	FoundationDisableDragPositionAdjustmentForGuiInsets = SafeFlags.createGetFFlag(
 		"FoundationDisableDragPositionAdjustmentForGuiInsets"

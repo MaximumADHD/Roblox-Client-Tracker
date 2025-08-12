@@ -119,4 +119,7 @@ return {
 
 	-- Fix PlayerContext text width to not exceed it's frame
 	fixPlayerContextTextWidth = false,
+
+	-- Use the foundation selection cursor for AlertTitle close button
+	fixAlertCloseCursor = false,
 }

@@ -22,6 +22,11 @@ local GetFStringUGCValidationMaxAnimationLength = require(flags.GetFStringUGCVal
 local GetFStringUGCValidationMaxAnimationBounds = require(flags.GetFStringUGCValidationMaxAnimationBounds)
 local GetFStringUGCValidationMaxAnimationDeltas = require(flags.GetFStringUGCValidationMaxAnimationDeltas)
 local getFFlagUGCValidateAccurateCurveFrames = require(flags.getFFlagUGCValidateAccurateCurveFrames)
+local getFFlagUGCValidateNoScriptsInCurveAnim = require(flags.getFFlagUGCValidateNoScriptsInCurveAnim)
+local getFFlagUGCValidateNoExtraInstsInCurveAnim = require(flags.getFFlagUGCValidateNoExtraInstsInCurveAnim)
+local getFFlagUGCValidateCurveAnimChildFix = require(flags.getFFlagUGCValidateCurveAnimChildFix)
+local getFFlagUGCValidateAddObjectValueToAcceptableTypes =
+	require(flags.getFFlagUGCValidateAddObjectValueToAcceptableTypes)
 
 local ValidateCurveAnimation = {}
 
@@ -100,6 +105,60 @@ local function validateSingleBodyRoot(
 	return true
 end
 
+local function validateScripts(
+	curveAnim: CurveAnimation,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	for _, child in curveAnim:GetDescendants() do
+		if child:IsA("Script") or child:IsA("ModuleScript") then
+			return reportFailure(
+				"CurveAnimation hierarchy contains Scripts, LocalScripts, or ModuleScripts. Please remove them.",
+				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+				validationContext
+			)
+		end
+	end
+	return true
+end
+
+local acceptableHierarchyInstanceTypes = {
+	"MarkerCurve",
+	"AnimationRigData",
+	"Folder",
+	"Vector3Curve",
+	"EulerRotationCurve",
+	"FloatCurve",
+	"RotationCurve",
+}
+
+if getFFlagUGCValidateAddObjectValueToAcceptableTypes() then
+	table.insert(acceptableHierarchyInstanceTypes, "ObjectValue")
+end
+
+local function validateExtraInstances(
+	curveAnim: CurveAnimation,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	for _, child in curveAnim:GetDescendants() do
+		local isAcceptableType = false
+		for __, acceptableType in acceptableHierarchyInstanceTypes do
+			if child:IsA(acceptableType) then
+				isAcceptableType = true
+				break
+			end
+		end
+
+		if not isAcceptableType then
+			return reportFailure(
+				`CurveAnimation hierarchy can only contain {table.concat(acceptableHierarchyInstanceTypes, ", ")}. Please remove any other Instance types.`,
+				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+				validationContext
+			)
+		end
+	end
+	return true
+end
+
 -- the root Instance must be a CurveAnimation. Its children can be MarkerCurves, AnimationRigData, and Folders
 -- Folders that have body part names are checked by validateCurveAnimationBodyPartFolder()
 local function validateAnimationHierarchy(
@@ -140,13 +199,33 @@ local function validateAnimationHierarchy(
 			continue
 		end
 
-		reportFailure(
-			"CurveAnimation contains unexpected child: " .. child.Name,
-			Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
-			validationContext
-		)
+		if getFFlagUGCValidateCurveAnimChildFix() then
+			return reportFailure(
+				"CurveAnimation contains unexpected child: " .. child.Name,
+				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+				validationContext
+			)
+		else
+			reportFailure(
+				"CurveAnimation contains unexpected child: " .. child.Name,
+				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+				validationContext
+			)
+		end
 	end
-	return true
+
+	if getFFlagUGCValidateNoScriptsInCurveAnim() or getFFlagUGCValidateNoExtraInstsInCurveAnim() then
+		local reasonsAccumulator = FailureReasonsAccumulator.new()
+		if getFFlagUGCValidateNoScriptsInCurveAnim() then
+			reasonsAccumulator:updateReasons(validateScripts(curveAnim, validationContext))
+		end
+		if getFFlagUGCValidateNoExtraInstsInCurveAnim() then
+			reasonsAccumulator:updateReasons(validateExtraInstances(curveAnim, validationContext))
+		end
+		return reasonsAccumulator:getFinalResults()
+	else
+		return true
+	end
 end
 
 local function createDefaultCharacter(removeMotors: boolean): Model

@@ -19,48 +19,19 @@ local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local useDialogLayout = require(script.Parent.useDialogLayout)
 
 type DialogVariantProps = {
-	dialogBackdrop: {
-		backgroundStyle: ColorStyleValue,
-	},
-	dialogShadow: {
-		imageStyle: ColorStyleValue,
-	},
-	dialogContainer: {
-		tag: string,
-	},
-	dialogInner: {
-		tag: string,
-		maxWidth: number,
-	},
-	dialogBody: {
-		tag: string,
-		maxWidth: number,
-	},
-	dialogCloseAffordance: {
-		offset: number,
-	},
-	dialogHeroMediaWrapper: {
-		tag: string,
-	},
-	dialogHeroMedia: {
-		tag: string,
-		offsetX: number,
-	},
-	dialogTitle: {
-		tag: string,
-	},
-	dialogTitleText: {
-		tag: string,
-	},
-	dialogContent: {
-		tag: string,
-	},
-	dialogContentText: {
-		tag: string,
-	},
-	dialogActionsLabel: {
-		tag: string,
-	},
+	backdrop: { backgroundStyle: ColorStyleValue },
+	shadow: { imageStyle: ColorStyleValue },
+	container: { tag: string },
+	inner: { tag: string, maxWidth: number },
+	body: { tag: string, maxWidth: number },
+	closeAffordance: { offset: number },
+	heroMediaWrapper: { tag: string },
+	heroMedia: { tag: string, offsetX: number },
+	title: { tag: string },
+	titleText: { tag: string },
+	content: { tag: string },
+	contentText: { tag: string },
+	actionsLabel: { tag: string },
 }
 
 local DIALOG_SIZES: { [DialogSize]: number } = {
@@ -71,123 +42,123 @@ local DIALOG_SIZES: { [DialogSize]: number } = {
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
-		dialogBackdrop = {
+		backdrop = {
 			backgroundStyle = tokens.Color.OverMedia.OverMedia_200,
 		},
-		dialogShadow = {
+		shadow = {
 			imageStyle = tokens.Color.Extended.Black.Black_15,
 		},
-		dialogContainer = {
+		container = {
 			tag = "size-full-full col align-x-center align-y-center",
 		},
-		dialogInner = {
+		inner = {
 			tag = "size-full-0 auto-y shrink-1 bg-surface-100 clip",
 		},
-		dialogBody = {
+		body = {
 			tag = "size-full auto-y col padding-bottom-xlarge",
 		},
-		dialogHeroMediaWrapper = {
-			tag = "auto-y size-full-0 position-top-center",
+		heroMediaWrapper = {
+			tag = "auto-y size-full-full position-top-center",
 		},
-		dialogTitle = {
+		title = {
 			tag = "size-full-0 auto-y",
 		},
-		dialogTitleText = {
+		titleText = {
 			tag = "size-full-0 auto-y content-emphasized text-wrap text-align-x-left",
 		},
-		dialogContent = {
+		content = {
 			tag = "auto-y size-full fill",
 		},
-		dialogContentText = {
+		contentText = {
 			tag = "text-wrap text-align-x-left text-align-y-top auto-y size-full-0",
 		},
-		dialogActionsLabel = {
+		actionsLabel = {
 			tag = "text-align-x-left text-wrap text-align-y-top auto-y size-full-0",
 		},
 	}
 
 	local size: { [DialogSize]: VariantProps } = {
 		[DialogSize.Small] = {
-			dialogContainer = {
+			container = {
 				tag = "padding-large",
 			},
-			dialogInner = {
+			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Small],
 				tag = "radius-medium",
 			},
-			dialogBody = {
+			body = {
 				tag = "padding-x-large gap-large",
 			},
-			dialogCloseAffordance = {
+			closeAffordance = {
 				offset = tokens.Size.Size_300,
 			},
-			dialogHeroMedia = {
+			heroMedia = {
 				tag = "radius-medium",
 				offsetX = tokens.Padding.Large,
 			},
-			dialogTitleText = {
+			titleText = {
 				tag = "text-heading-small",
 			},
-			dialogContentText = {
+			contentText = {
 				tag = "text-body-medium",
 			},
-			dialogActionsLabel = {
+			actionsLabel = {
 				tag = "text-label-small",
 			},
 		},
 		[DialogSize.Medium] = {
-			dialogContainer = {
+			container = {
 				tag = "padding-xlarge",
 			},
-			dialogInner = {
+			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Medium],
 				tag = "radius-large",
 			},
-			dialogBody = {
+			body = {
 				tag = "padding-x-xlarge gap-xlarge",
 			},
-			dialogCloseAffordance = {
+			closeAffordance = {
 				offset = tokens.Size.Size_400,
 			},
-			dialogHeroMedia = {
+			heroMedia = {
 				tag = "radius-large",
 				offsetX = tokens.Padding.XLarge,
 			},
-			dialogTitleText = {
+			titleText = {
 				tag = "text-heading-medium",
 			},
-			dialogContentText = {
+			contentText = {
 				tag = "text-body-medium",
 			},
-			dialogActionsLabel = {
+			actionsLabel = {
 				tag = "text-label-small",
 			},
 		},
 		[DialogSize.Large] = {
-			dialogContainer = {
+			container = {
 				tag = "padding-xlarge",
 			},
-			dialogInner = {
+			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Large],
 				tag = "radius-large",
 			},
-			dialogBody = {
+			body = {
 				tag = "padding-x-xlarge gap-xlarge",
 			},
-			dialogCloseAffordance = {
+			closeAffordance = {
 				offset = tokens.Size.Size_400,
 			},
-			dialogHeroMedia = {
+			heroMedia = {
 				tag = "radius-large",
 				offsetX = tokens.Padding.XLarge,
 			},
-			dialogTitleText = {
+			titleText = {
 				tag = "text-heading-large",
 			},
-			dialogContentText = {
+			contentText = {
 				tag = "text-body-large",
 			},
-			dialogActionsLabel = {
+			actionsLabel = {
 				tag = "text-label-small",
 			},
 		},

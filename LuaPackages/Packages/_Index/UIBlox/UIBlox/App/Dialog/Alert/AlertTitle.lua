@@ -8,6 +8,7 @@ local CoreRoot = UIBlox.Core
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Cryo = require(Packages.Cryo)
 
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
@@ -16,10 +17,14 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(AppRoot.ImageSet.Images)
 local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
 
 local MARGIN = 24
 local X_IMAGE = "icons/navigation/close"
 local X_BUTTON_SIZE = 36
+
+local CLOSE_CURSOR_CORNER_RADIUS = UDim.new(0, 8)
 
 local AlertTitle = Roact.PureComponent:extend("AlertTitle")
 
@@ -33,6 +38,9 @@ AlertTitle.validateProps = t.strictInterface({
 	titlePadding = t.optional(t.number),
 	titleContent = t.optional(t.callback),
 	onCloseClicked = t.optional(t.callback),
+
+	-- Internal property, selection cursor to use for the close button
+	closeCursor = if UIBloxConfig.fixAlertCloseCursor then t.optional(t.table) else nil,
 })
 
 AlertTitle.defaultProps = {
@@ -103,6 +111,10 @@ function AlertTitle:render()
 							AnchorPoint = Vector2.new(0, 0.5),
 							Position = UDim2.new(0, 0, 0.5, 0),
 							[Roact.Event.Activated] = self.props.onCloseClicked,
+
+							SelectionImageObject = if UIBloxConfig.fixAlertCloseCursor
+								then self.props.closeCursor
+								else nil,
 						}),
 						TitleText = Roact.createElement(GenericTextLabel, {
 							AnchorPoint = Vector2.new(0.5, 0.5),
@@ -135,6 +147,21 @@ function AlertTitle:render()
 			}),
 		})
 	end)
+end
+
+if UIBloxConfig.fixAlertCloseCursor then
+	local function AlertTitleFunctionalWrapper(props)
+		local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursor(CLOSE_CURSOR_CORNER_RADIUS) else nil
+
+		return Roact.createElement(
+			AlertTitle,
+			Cryo.Dictionary.join(props, {
+				closeCursor = if UIBloxConfig.useFoundationSelectionCursor then cursor else nil,
+			})
+		)
+	end
+
+	return AlertTitleFunctionalWrapper
 end
 
 return AlertTitle

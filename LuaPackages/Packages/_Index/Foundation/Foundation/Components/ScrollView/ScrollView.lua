@@ -27,6 +27,7 @@ type GuiObjectProps = Types.GuiObjectProps
 type CommonProps = Types.CommonProps
 
 export type Scroll = {
+	AutomaticSize: Enum.AutomaticSize?,
 	AutomaticCanvasSize: Bindable<Enum.AutomaticSize>?,
 	CanvasSize: Bindable<UDim2>?,
 	ScrollingDirection: Bindable<Enum.ScrollingDirection>?,
@@ -115,6 +116,7 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 				onAbsoluteWindowSizeChanged = props.onAbsoluteWindowSizeChanged,
 
 				-- Scrolling props
+				AutomaticSize = props.scroll.AutomaticSize,
 				AutomaticCanvasSize = props.scroll.AutomaticCanvasSize,
 				CanvasSize = props.scroll.CanvasSize,
 				ScrollingDirection = props.scroll.ScrollingDirection,

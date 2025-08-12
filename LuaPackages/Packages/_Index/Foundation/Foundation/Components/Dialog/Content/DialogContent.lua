@@ -27,7 +27,7 @@ local function DialogContent(props: DialogContentProps)
 			},
 			onAbsoluteCanvasSizeChanged = updateScrollBarPadding,
 			onAbsoluteWindowSizeChanged = updateScrollBarPadding,
-			tag = variants.dialogContent.tag,
+			tag = variants.content.tag,
 		}),
 		{
 			ScrollPadding = React.createElement("UIPadding", {

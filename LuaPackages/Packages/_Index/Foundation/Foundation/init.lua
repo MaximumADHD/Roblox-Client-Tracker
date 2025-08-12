@@ -26,6 +26,7 @@ local AvatarGroupType = require(script.Enums.AvatarGroupType)
 local BadgeSize = require(script.Enums.BadgeSize)
 local BadgeVariant = require(script.Enums.BadgeVariant)
 local ButtonVariant = require(script.Enums.ButtonVariant)
+local ChipSize = require(script.Enums.ChipSize)
 local ControlState = require(script.Enums.ControlState)
 local CursorType = require(script.Enums.CursorType)
 local Device = require(script.Enums.Device)
@@ -55,6 +56,7 @@ export type AvatarGroupType = AvatarGroupType.AvatarGroupType
 export type BadgeSize = BadgeSize.BadgeSize
 export type BadgeVariant = BadgeVariant.BadgeVariant
 export type ButtonVariant = ButtonVariant.ButtonVariant
+export type ChipSize = ChipSize.ChipSize
 export type ControlState = ControlState.ControlState
 export type CursorType = CursorType.CursorType
 export type Device = Device.Device
@@ -81,6 +83,13 @@ export type UserPresence = UserPresence.UserPresence
 export type Visibility = Visibility.Visibility
 -- enums end
 
+-- Components and their types
+local Menu = require(script.Components.Menu)
+
+export type MenuProps = Menu.MenuProps
+export type MenuItem = Menu.MenuItem
+-- Ccomponents end
+
 local Foundation = strict({
 	-- Components
 	Avatar = require(script.Components.Avatar),
@@ -100,7 +109,7 @@ local Foundation = strict({
 	KeyLabel = require(script.Components.KeyLabel),
 	Knob = require(script.Components.Knob),
 	Loading = require(script.Components.Loading),
-	Menu = require(script.Components.Menu),
+	Menu = Menu,
 	NumberInput = require(script.Components.NumberInput),
 	Pill = require(script.Components.Chip),
 	Popover = require(script.Components.Popover),
@@ -149,6 +158,7 @@ local Foundation = strict({
 		-- **DEPRECATED**: CheckboxSize is deprecated. Use InputSize instead.
 		CheckboxSize = require(script.Enums.InputSize),
 		ControlState = ControlState,
+		ChipSize = ChipSize,
 		CursorType = CursorType,
 		Device = Device,
 		DialogSize = DialogSize,

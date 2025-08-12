@@ -19,7 +19,7 @@ local function DialogText(props: DialogTextProps)
 	return React.createElement(Text, {
 		Text = props.Text,
 		RichText = true, -- This circumvents a bug with TextLabel where it doesn't update the size in scrollview
-		tag = variants.dialogContentText.tag,
+		tag = variants.contentText.tag,
 		LayoutOrder = props.LayoutOrder,
 	})
 end

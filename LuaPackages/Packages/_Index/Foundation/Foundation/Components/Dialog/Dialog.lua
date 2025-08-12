@@ -13,7 +13,6 @@ local OnCloseCallbackReason = require(Foundation.Enums.OnCloseCallbackReason)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
-local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local useDialogVariants = require(script.Parent.useDialogVariants).useDialogVariants
 local useDialogSize = require(script.Parent.useDialogSize)
@@ -24,7 +23,6 @@ type DialogSize = DialogSize.DialogSize
 type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 
 type DialogProps = {
-	title: Types.Bindable<string>?,
 	onClose: ((reason: OnCloseCallbackReason?) -> ())?,
 	size: DialogSize?,
 	children: React.ReactNode,
@@ -35,22 +33,20 @@ type DialogInternalProps = DialogProps & {
 }
 
 local defaultProps = {
-	size = DialogSize.Large,
+	size = DialogSize.Medium,
 }
 
 local SHADOW_IMAGE = "component_assets/dropshadow_17_8"
 local SHADOW_SIZE = 16
 
 local function Dialog(dialogProps: DialogInternalProps)
-	local overriddenProps = Dash.assign({}, dialogProps, { LayoutOrder = 1 })
-	local props = withDefaults(overriddenProps, defaultProps)
-	local overlay = useOverlay()
+	local props = Dash.assign({}, dialogProps, { LayoutOrder = 1 })
 	local variants = useDialogVariants()
-	local maxWidth = useScaledValue(variants.dialogInner.maxWidth)
-	local dialogInnerRef = React.useRef(nil)
-	local dialogSizeBinding = useDialogSize(dialogInnerRef)
+	local maxWidth = useScaledValue(variants.inner.maxWidth)
+	local dialogBodyRef = React.useRef(nil)
+	local dialogSizeBinding = useDialogSize(dialogBodyRef)
 
-	useDialogResponsiveSize(overlay, props.size)
+	useDialogResponsiveSize(props.size)
 
 	return React.createElement(React.Fragment, nil, {
 		Backdrop = React.createElement(View, {
@@ -63,12 +59,12 @@ local function Dialog(dialogProps: DialogInternalProps)
 					props.onClose(OnCloseCallbackReason.BackdropClick)
 				end
 			end,
-			backgroundStyle = variants.dialogBackdrop.backgroundStyle,
-			ZIndex = 1,
+			backgroundStyle = variants.backdrop.backgroundStyle,
+			ZIndex = 2,
 			testId = "--foundation-dialog-backdrop",
 		}),
 		DialogShadowWrapper = React.createElement(View, {
-			tag = variants.dialogContainer.tag,
+			tag = variants.container.tag,
 			ZIndex = 2,
 		}, {
 			Shadow = React.createElement(Image, {
@@ -80,13 +76,13 @@ local function Dialog(dialogProps: DialogInternalProps)
 					center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE),
 					scale = 2,
 				},
-				imageStyle = variants.dialogShadow.imageStyle,
+				imageStyle = variants.shadow.imageStyle,
 				testId = "--foundation-dialog-shadow",
 			}),
 		}),
 	}, {
 		Dialog = React.createElement(View, {
-			tag = variants.dialogContainer.tag,
+			tag = variants.container.tag,
 			testId = "--foundation-dialog",
 			ZIndex = 3,
 		}, {
@@ -97,7 +93,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 			DialogInner = React.createElement(
 				View,
 				withCommonProps(props, {
-					tag = variants.dialogInner.tag,
+					tag = variants.inner.tag,
 					ref = props.forwardRef,
 					sizeConstraint = {
 						MaxSize = Vector2.new(maxWidth, math.huge),
@@ -113,9 +109,9 @@ local function Dialog(dialogProps: DialogInternalProps)
 							onActivated = props.onClose,
 							Position = UDim2.new(
 								1,
-								-variants.dialogCloseAffordance.offset,
+								-variants.closeAffordance.offset,
 								0,
-								variants.dialogCloseAffordance.offset
+								variants.closeAffordance.offset
 							),
 							AnchorPoint = Vector2.new(1, 0),
 							ZIndex = 2,
@@ -123,8 +119,8 @@ local function Dialog(dialogProps: DialogInternalProps)
 						})
 						else nil,
 					DialogBody = React.createElement(View, {
-						tag = variants.dialogBody.tag,
-						ref = dialogInnerRef,
+						tag = variants.body.tag,
+						ref = dialogBodyRef,
 						testId = "--foundation-dialog-body",
 					}, props.children),
 				}
@@ -137,7 +133,9 @@ local function Dialog(dialogProps: DialogInternalProps)
 	})
 end
 
-local function DialogContainer(props: DialogProps, ref: React.Ref<GuiObject>?)
+local function DialogContainer(dialogContainerProps: DialogProps, ref: React.Ref<GuiObject>?)
+	local props = withDefaults(dialogContainerProps, defaultProps)
+
 	return React.createElement(DialogLayoutProvider, {
 		size = props.size :: DialogSize,
 		responsiveSize = props.size :: DialogSize,

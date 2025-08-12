@@ -7,11 +7,13 @@ local Dash = require(Packages.Dash)
 local View = require(Foundation.Components.View)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 
+local Logger = require(Foundation.Utility.Logger)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 local Types = require(Foundation.Components.Types)
 type ItemId = Types.ItemId
+type OnItemActivated = Types.OnItemActivated
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -23,6 +25,7 @@ export type MenuItem = {
 	isDisabled: boolean?,
 	isChecked: boolean?,
 	text: string,
+	onActivated: OnItemActivated?,
 }
 
 type MenuProps = {
@@ -32,7 +35,7 @@ type MenuProps = {
 	size: InputSize?,
 	-- Width of the component. If not specified, the menu is sized based on the content.
 	width: UDim?,
-	onActivated: ((id: ItemId) -> ()),
+	onActivated: OnItemActivated?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -75,6 +78,11 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 			ref = ref,
 		}),
 		Dash.map(props.items, function(item, index)
+			local onActivated = if item.onActivated then item.onActivated else props.onActivated
+			if not onActivated then
+				Logger:warning("Menu should have either onActivated on itself or on all of its children")
+				onActivated = function(itemId: ItemId) end
+			end
 			return React.createElement(MenuItem, {
 				LayoutOrder = index,
 				key = item.id,
@@ -82,7 +90,7 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 				isChecked = item.isChecked,
 				isDisabled = item.isDisabled,
 				text = item.text,
-				onActivated = props.onActivated,
+				onActivated = onActivated :: OnItemActivated,
 				size = props.size,
 				id = item.id,
 				testId = "--foundation-menu-item",
