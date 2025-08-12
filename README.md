@@ -8,15 +8,6 @@
 
 The **Roblox Client Tracker** is an unofficial change tracker which aims to provide detailed difflogs for changes to Roblox's engine. It generates information by datamining builds of Roblox Studio retrieved from their CDN, using various publicly discovered developer channels of Roblox. The data that is analyzed and presented in this repository is generated using publicly reverse engineered Roblox protocols and file formats.
 
-# ~~Comparison Links~~
->This is dead again because Roblox sucks.
-
-~~Use these links to compare development builds of Roblox Studio:~~
-
-* ~~Compare [roblox->zCanary]~~
-* ~~Compare [roblox->zIntegration]~~
-* ~~Compare [zCanary->zIntegration]~~
-
 # Source Code
 
 The backend console application which drives this repository is available to be found here:<br/>
@@ -32,9 +23,6 @@ This is a more *"complete"* version of the normal JSON API Dump. It includes all
 
 ## API-Dump.txt
 A readable version of Roblox's JSON API Dump. This file is generated from the [Roblox API Dump Tool](https://github.com/MaximumADHD/Roblox-API-Dump-Tool).
-
-## AutocompleteMetadata.xml
-A file used by Roblox Studio to provide auto completion for the types built into Roblox's Lua implementation.
 
 ## CppTree.txt
 A sorted list of undecorated C++ symbol names that could be extracted from the exe.
