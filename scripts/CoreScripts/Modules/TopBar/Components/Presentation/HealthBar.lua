@@ -3,10 +3,13 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Workspace = game:GetService("Workspace")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
@@ -27,6 +30,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
 local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -55,7 +59,7 @@ local HealthBar = Roact.PureComponent:extend("HealthBar")
 HealthBar.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 
-	screenSize = t.Vector2,
+	screenSize = if FFlagTopBarSignalizeScreenSize then nil else t.Vector2,
 	healthEnabled = if FFlagTopBarSignalizeHealthBar then nil else t.boolean,
 	health = if FFlagTopBarSignalizeHealthBar then nil else t.number,
 	maxHealth = if FFlagTopBarSignalizeHealthBar then nil else t.number,
@@ -179,11 +183,35 @@ function HealthBar:init()
 	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
 		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 	end
+
+	if FFlagTopBarSignalizeScreenSize then 
+		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
+		self.screenSizeBinding, self.setScreenSizeBinding = Roact.createBinding(getViewportSize(false))
+
+		self.disposeScreenSize = Signals.createEffect(function(scope) 
+			self.setScreenSizeBinding(getViewportSize(scope))
+		end)
+
+		self.healthbarSizeBinding = self.screenSizeBinding:map(function(screenSize) 
+			if TenFootInterface:IsEnabled() then
+				return HEALTHBAR_SIZE_TENFOOT
+			elseif UseUpdatedHealthBar and screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_XSMALL then
+				return HEALTHBAR_SIZE_XSMALL
+			elseif UseUpdatedHealthBar and screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_SMALL then
+				return HEALTHBAR_SIZE_SMALL
+			else
+				return HEALTHBAR_SIZE
+			end
+		end)
+	end
 end
 
 function HealthBar:onUnmount()
 	if FFlagTopBarSignalizeHealthBar then 
 		self.coreGuiChangedSignalConn:Disconnect()
+	end
+	if FFlagTopBarSignalizeScreenSize then 
+		self.disposeScreenSize()
 	end
 end
 function HealthBar:renderHealth()
@@ -202,22 +230,24 @@ function HealthBar:renderHealth()
 	end
 
 	local healthBarSize
-	if UseUpdatedHealthBar then
-		if self.props.screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_XSMALL then
-			healthBarSize = HEALTHBAR_SIZE_XSMALL
-		elseif self.props.screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_SMALL then
-			healthBarSize = HEALTHBAR_SIZE_SMALL
+	if not FFlagTopBarSignalizeScreenSize then
+		if UseUpdatedHealthBar then
+			if self.props.screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_XSMALL then
+				healthBarSize = HEALTHBAR_SIZE_XSMALL
+			elseif self.props.screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_SMALL then
+				healthBarSize = HEALTHBAR_SIZE_SMALL
+			else
+				healthBarSize = HEALTHBAR_SIZE
+			end
+
+			if TenFootInterface:IsEnabled() then
+				healthBarSize = HEALTHBAR_SIZE_TENFOOT
+			end
 		else
 			healthBarSize = HEALTHBAR_SIZE
-		end
-
-		if TenFootInterface:IsEnabled() then
-			healthBarSize = HEALTHBAR_SIZE_TENFOOT
-		end
-	else
-		healthBarSize = HEALTHBAR_SIZE
-		if TenFootInterface:IsEnabled() then
-			healthBarSize = HEALTHBAR_SIZE_TENFOOT
+			if TenFootInterface:IsEnabled() then
+				healthBarSize = HEALTHBAR_SIZE_TENFOOT
+			end
 		end
 	end
 
@@ -274,7 +304,11 @@ function HealthBar:renderHealth()
 		Position = if UseUpdatedHealthBar then UDim2.new(1, 0, 0, 0) else nil,
 		Visible = if FFlagTopBarSignalizeHealthBar then self.healthVisible else healthVisible,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(healthBarSize.X, UDim.new(1, 0)),
+		Size = if FFlagTopBarSignalizeScreenSize 
+			then self.healthbarSizeBinding:map(function(healthBarSize)
+				return UDim2.new(healthBarSize.X, UDim.new(1, 0))
+			end) 
+			else UDim2.new(healthBarSize.X, UDim.new(1, 0)),
 		LayoutOrder = self.props.layoutOrder,
 		[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
 		[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
@@ -289,7 +323,7 @@ function HealthBar:renderHealth()
 			Image = healthBarBase,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = sliceCenter,
-			Size = healthBarSize,
+			Size = if FFlagTopBarSignalizeScreenSize then self.healthbarSizeBinding else healthBarSize,
 			Position = UDim2.fromScale(0, 0.5),
 			AnchorPoint = Vector2.new(0, 0.5),
 		}, {
@@ -317,7 +351,7 @@ end
 
 local function mapStateToProps(state)
 	return {
-		screenSize = state.displayOptions.screenSize,
+		screenSize = if FFlagTopBarSignalizeScreenSize then nil else state.displayOptions.screenSize,
 		health = if FFlagTopBarSignalizeHealthBar then nil else state.health.currentHealth,
 		maxHealth = if FFlagTopBarSignalizeHealthBar then nil else state.health.maxHealth,
 		healthEnabled = if FFlagTopBarSignalizeHealthBar then nil else state.coreGuiEnabled[Enum.CoreGuiType.Health],

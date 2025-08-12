@@ -12,8 +12,6 @@ local Constants = require(script.Parent.Parent.Parent.Parent.Constants)
 local AvatarItemCard = require(script.Parent.AvatarItemCard)
 local ItemTile = UIBlox.Tile.ItemTile
 
-local FFlagAppendBodyPartToTitle = require(script.Parent.Parent.Parent.Parent.FFlagAppendBodyPartToTitle)
-
 local ITEM_HEIGHT_RATIO = 4 / 3
 local ITEM_PADDING = Vector2.new(20, 20)
 local MIN_ITEMS_PER_ROW = 2
@@ -64,16 +62,14 @@ local function getItems(humanoidModel: Model, name: string): ItemCardList
 		{
 			asset = getPart(humanoidModel, "Head"),
 			-- UGC body creation does not localize similar text, so we don't localize here
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Head",
-			partName = if FFlagAppendBodyPartToTitle then "Head" else nil,
+			partName = "Head",
 		},
 		{
 			asset = createObjectsFolder({
 				getPart(humanoidModel, "UpperTorso"),
 				getPart(humanoidModel, "LowerTorso"),
 			}),
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Torso",
-			partName = if FFlagAppendBodyPartToTitle then "Torso" else nil,
+			partName = "Torso",
 		},
 		{
 			asset = createObjectsFolder({
@@ -81,8 +77,7 @@ local function getItems(humanoidModel: Model, name: string): ItemCardList
 				getPart(humanoidModel, "LeftLowerArm"),
 				getPart(humanoidModel, "LeftHand"),
 			}),
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Left Arm",
-			partName = if FFlagAppendBodyPartToTitle then "Left Arm" else nil,
+			partName = "Left Arm",
 		},
 		{
 			asset = createObjectsFolder({
@@ -90,8 +85,7 @@ local function getItems(humanoidModel: Model, name: string): ItemCardList
 				getPart(humanoidModel, "LeftLowerLeg"),
 				getPart(humanoidModel, "LeftFoot"),
 			}),
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Left Leg",
-			partName = if FFlagAppendBodyPartToTitle then "Left Leg" else nil,
+			partName = "Left Leg",
 		},
 		{
 			asset = createObjectsFolder({
@@ -99,8 +93,7 @@ local function getItems(humanoidModel: Model, name: string): ItemCardList
 				getPart(humanoidModel, "RightLowerArm"),
 				getPart(humanoidModel, "RightHand"),
 			}),
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Right Arm",
-			partName = if FFlagAppendBodyPartToTitle then "Right Arm" else nil,
+			partName = "Right Arm",
 		},
 		{
 			asset = createObjectsFolder({
@@ -108,32 +101,28 @@ local function getItems(humanoidModel: Model, name: string): ItemCardList
 				getPart(humanoidModel, "RightLowerLeg"),
 				getPart(humanoidModel, "RightFoot"),
 			}),
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Right Leg",
-			partName = if FFlagAppendBodyPartToTitle then "Right Leg" else nil,
+			partName = "Right Leg",
 		},
 	}
 
 	if eyebrows then
 		table.insert(items, {
 			asset = eyebrows,
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Eyebrows",
-			partName = if FFlagAppendBodyPartToTitle then "Eyebrows" else nil,
+			partName = "Eyebrows",
 		})
 	end
 
 	if eyelashes then
 		table.insert(items, {
 			asset = eyelashes,
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Eyelashes",
-			partName = if FFlagAppendBodyPartToTitle then "Eyelashes" else nil,
+			partName = "Eyelashes",
 		})
 	end
 
 	if hair then
 		table.insert(items, {
 			asset = hair,
-			titleText = if FFlagAppendBodyPartToTitle then nil else name .. "'s Hair",
-			partName = if FFlagAppendBodyPartToTitle then "Hair" else nil,
+			partName = "Hair",
 		})
 	end
 
@@ -166,8 +155,7 @@ local function AvatarPartGrid(props: Props)
 			for index, item in items do
 				newItems[index] = {
 					asset = item.asset,
-					titleText = if FFlagAppendBodyPartToTitle then nil else props.name,
-					partName = if FFlagAppendBodyPartToTitle then item.partName else nil,
+					partName = item.partName,
 				}
 			end
 			setItems(newItems)
@@ -182,16 +170,15 @@ local function AvatarPartGrid(props: Props)
 			-- If the item has viewport info, show the AvatarItemCard
 			return React.createElement(AvatarItemCard, {
 				asset = item.asset,
-				titleText = if FFlagAppendBodyPartToTitle then nil else item.titleText,
-				bodyName = if FFlagAppendBodyPartToTitle then props.name else nil,
-				partName = if FFlagAppendBodyPartToTitle then item.partName else nil,
+				bodyName = props.name,
+				partName = item.partName,
 				viewportSize = itemCardWidth,
 			})
 		else
 			-- If the item is empty, show a shimmer tile
 			return React.createElement(ItemTile)
 		end
-	end, { itemCardWidth, if FFlagAppendBodyPartToTitle then props.name else nil } :: { any })
+	end, { itemCardWidth, props.name } :: { any })
 
 	return React.createElement("Frame", {
 		Size = UDim2.fromScale(1, 0),

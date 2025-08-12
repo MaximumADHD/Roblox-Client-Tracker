@@ -47,53 +47,61 @@ MAIN:
   GETTABLEKS R6 R0 K10 ["Src"]
   GETTABLEKS R5 R6 K11 ["Types"]
   CALL R4 1 1
-  GETIMPORT R5 K14 [utf8.char]
-  LOADN R6 38
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Flags"]
+  GETTABLEKS R6 R7 K13 ["getFFlagImporterAdHocDialogue"]
   CALL R5 1 1
-  GETIMPORT R6 K17 [table.freeze]
-  DUPTABLE R7 K35 [{"assetName", "creatorId", "currentPreset", "enabled", "errors", "uploadErrorsExpanded", "filepath", "importDataError", "progressValue", "settingsChanged", "session", "sortOrder", "state", "uploaded", "uploadResults", "validSession", "warnings"}]
-  LOADK R8 K36 [""]
-  SETTABLEKS R8 R7 K18 ["assetName"]
+  GETIMPORT R6 K16 [table.freeze]
+  DUPTABLE R7 K34 [{"assetName", "creatorId", "currentPreset", "enabled", "errors", "uploadErrorsExpanded", "filepath", "importDataError", "progressValue", "settingsChanged", "session", "sortOrder", "state", "uploaded", "uploadResults", "validSession", "warnings"}]
+  LOADK R8 K35 [""]
+  SETTABLEKS R8 R7 K17 ["assetName"]
   LOADN R8 0
-  SETTABLEKS R8 R7 K19 ["creatorId"]
-  SETTABLEKS R5 R7 K20 ["currentPreset"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K21 ["enabled"]
-  LOADN R8 0
-  SETTABLEKS R8 R7 K22 ["errors"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K23 ["uploadErrorsExpanded"]
-  LOADK R8 K36 [""]
-  SETTABLEKS R8 R7 K24 ["filepath"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K25 ["importDataError"]
-  LOADN R8 0
-  SETTABLEKS R8 R7 K26 ["progressValue"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K27 ["settingsChanged"]
+  SETTABLEKS R8 R7 K18 ["creatorId"]
   LOADNIL R8
-  SETTABLEKS R8 R7 K28 ["session"]
-  LOADN R8 255
-  SETTABLEKS R8 R7 K29 ["sortOrder"]
-  GETTABLEKS R9 R4 K37 ["SessionState"]
-  GETTABLEKS R8 R9 K38 ["Invalid"]
-  SETTABLEKS R8 R7 K30 ["state"]
+  SETTABLEKS R8 R7 K19 ["currentPreset"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K31 ["uploaded"]
-  SETTABLEKS R3 R7 K32 ["uploadResults"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K33 ["validSession"]
+  SETTABLEKS R8 R7 K20 ["enabled"]
   LOADN R8 0
-  SETTABLEKS R8 R7 K34 ["warnings"]
+  SETTABLEKS R8 R7 K21 ["errors"]
+  MOVE R9 R5
+  CALL R9 0 1
+  JUMPIFNOT R9 [+2]
+  LOADNIL R8
+  JUMP [+2]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K22 ["uploadErrorsExpanded"]
+  LOADK R8 K35 [""]
+  SETTABLEKS R8 R7 K23 ["filepath"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K24 ["importDataError"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K25 ["progressValue"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K26 ["settingsChanged"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K27 ["session"]
+  LOADN R8 255
+  SETTABLEKS R8 R7 K28 ["sortOrder"]
+  GETTABLEKS R9 R4 K36 ["SessionState"]
+  GETTABLEKS R8 R9 K37 ["Invalid"]
+  SETTABLEKS R8 R7 K29 ["state"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K30 ["uploaded"]
+  SETTABLEKS R3 R7 K31 ["uploadResults"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K32 ["validSession"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K33 ["warnings"]
   CALL R6 1 1
   NEWTABLE R7 4 0
-  DUPCLOSURE R8 K39 [PROTO_0]
+  DUPCLOSURE R8 K38 [PROTO_0]
   CAPTURE VAL R6
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K40 ["new"]
-  DUPCLOSURE R8 K41 [PROTO_1]
+  SETTABLEKS R8 R7 K39 ["new"]
+  DUPCLOSURE R8 K40 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K42 ["update"]
-  DUPCLOSURE R8 K43 [PROTO_2]
-  SETTABLEKS R8 R7 K44 ["compare"]
+  SETTABLEKS R8 R7 K41 ["update"]
+  DUPCLOSURE R8 K42 [PROTO_2]
+  SETTABLEKS R8 R7 K43 ["compare"]
   RETURN R7 1

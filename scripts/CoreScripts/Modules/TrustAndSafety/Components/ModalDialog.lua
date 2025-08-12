@@ -18,9 +18,6 @@ local IconButton = UIBlox.App.Button.IconButton
 local HeaderBar = UIBlox.App.Bar.HeaderBar
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local UIBloxImages = UIBlox.App.ImageSet.Images
-
-local GetFFlagUIBloxUseNewHeaderBar =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseNewHeaderBar
 local makeBackButton = require(CorePackages.Workspace.Packages.AppHeaderBar).makeBackButton
 
 local MAX_WIDTH = 540
@@ -68,9 +65,7 @@ function ModalDialog:renderHeaderBarLeft()
 		end
 	elseif props.onBackButtonActivated ~= nil then
 		-- back button
-		return if GetFFlagUIBloxUseNewHeaderBar()
-			then makeBackButton(props.onBackButtonActivated)
-			else HeaderBar.renderLeft.backButton(props.onBackButtonActivated)
+		return makeBackButton(props.onBackButtonActivated)
 	else
 		-- placeholder to fix the title style
 		return function()

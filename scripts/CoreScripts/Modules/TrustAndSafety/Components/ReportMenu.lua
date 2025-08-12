@@ -47,9 +47,6 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local isPlayerVerified = UserLib.Utils.isPlayerVerified
-
-local GetFFlagUIBloxUseNewHeaderBar =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseNewHeaderBar
 local makeBackButton = require(CorePackages.Workspace.Packages.AppHeaderBar).makeBackButton
 
 local CELL_THEME_OVERRIDES = {
@@ -191,9 +188,7 @@ end
 function ReportMenu:renderHeaderBar()
 	local leftButton
 	if self.props.canNavigateBack then
-		leftButton = if GetFFlagUIBloxUseNewHeaderBar()
-			then makeBackButton(self.navigateBack)
-			else HeaderBar.renderLeft.backButton(self.navigateBack)
+		leftButton = makeBackButton(self.navigateBack)
 	else
 		leftButton = function()
 			return Roact.createElement(IconButton, {

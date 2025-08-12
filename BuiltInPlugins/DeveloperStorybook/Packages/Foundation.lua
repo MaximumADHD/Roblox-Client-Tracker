@@ -20,9 +20,11 @@ export type AvatarGroupType = Package.AvatarGroupType
 export type BadgeSize = Package.BadgeSize
 export type BadgeVariant = Package.BadgeVariant
 export type ButtonVariant = Package.ButtonVariant
+export type ChipSize = Package.ChipSize
 export type ControlState = Package.ControlState
 export type CursorType = Package.CursorType
 export type Device = Package.Device
+export type DialogSize = Package.DialogSize
 export type DividerVariant = Package.DividerVariant
 export type FillBehavior = Package.FillBehavior
 export type IconPosition = Package.IconPosition
@@ -31,6 +33,7 @@ export type IconSize = Package.IconSize
 export type InputSize = Package.InputSize
 export type IconVariant = Package.IconVariant
 export type InputLabelSize = Package.InputLabelSize
+export type OnCloseCallbackReason = Package.OnCloseCallbackReason
 export type PopoverAlign = Package.PopoverAlign
 export type PopoverSide = Package.PopoverSide
 export type Radius = Package.Radius
@@ -42,6 +45,8 @@ export type ThumbnailType = Package.ThumbnailType
 export type ThumbnailSize = Package.ThumbnailSize
 export type UserPresence = Package.UserPresence
 export type Visibility = Package.Visibility
+export type MenuProps = Package.MenuProps
+export type MenuItem = Package.MenuItem
 
 
 return Package

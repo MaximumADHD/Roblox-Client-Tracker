@@ -178,28 +178,9 @@ PROTO_4:
 
 PROTO_5:
   GETUPVAL R0 0
-  JUMPIFNOT R0 [+6]
-  GETUPVAL R0 1
-  GETUPVAL R2 2
+  GETUPVAL R2 1
   NAMECALL R0 R0 K0 ["OpenBrowserWindow"]
   CALL R0 2 0
-  RETURN R0 0
-  GETUPVAL R0 3
-  JUMPIFNOT R0 [+14]
-  FASTCALL1 STRING_LEN R0 [+3]
-  MOVE R2 R0
-  GETIMPORT R1 K3 [string.len]
-  CALL R1 1 1
-  LOADN R2 0
-  JUMPIFNOTLT R2 R1 [+7]
-  GETUPVAL R1 4
-  MOVE R3 R0
-  NAMECALL R1 R1 K0 ["OpenBrowserWindow"]
-  CALL R1 2 0
-  RETURN R0 0
-  GETIMPORT R1 K5 [error]
-  LOADK R2 K6 ["Failed to open rewarded ads documentation"]
-  CALL R1 1 0
   RETURN R0 0
 
 PROTO_6:
@@ -209,11 +190,9 @@ PROTO_6:
   LOADNIL R4
   LOADNIL R5
   LOADNIL R6
-  GETUPVAL R7 0
-  JUMPIFNOT R7 [+28]
   GETTABLEKS R7 R1 K3 ["Localization"]
   JUMPIFNOT R7 [+25]
-  GETUPVAL R7 1
+  GETUPVAL R7 0
   GETTABLEKS R8 R1 K3 ["Localization"]
   GETTABLEKS R9 R1 K4 ["IsEligible"]
   GETTABLEKS R11 R1 K5 ["IsSuspended"]
@@ -231,7 +210,7 @@ PROTO_6:
   JUMP [+4]
   GETTABLEKS R4 R1 K10 ["SubText"]
   GETTABLEKS R5 R1 K11 ["LinkText"]
-  GETUPVAL R9 2
+  GETUPVAL R9 1
   GETTABLEKS R8 R9 K12 ["Util"]
   GETTABLEKS R7 R8 K13 ["LayoutOrderIterator"]
   GETTABLEKS R8 R7 K14 ["new"]
@@ -240,15 +219,11 @@ PROTO_6:
   CAPTURE VAL R0
   CAPTURE VAL R2
   SETTABLEKS R9 R0 K15 ["updateToggleState"]
-  GETUPVAL R10 0
-  JUMPIFNOT R10 [+4]
   GETTABLEKS R10 R1 K4 ["IsEligible"]
   NOT R9 R10
-  JUMP [+1]
-  LOADNIL R9
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K16 ["createElement"]
-  GETUPVAL R11 4
+  GETUPVAL R11 3
   DUPTABLE R12 K20 [{"AutomaticSize", "Layout", "LayoutOrder"}]
   GETIMPORT R13 K23 [Enum.AutomaticSize.XY]
   SETTABLEKS R13 R12 K17 ["AutomaticSize"]
@@ -258,34 +233,24 @@ PROTO_6:
   GETTABLEKS R13 R14 K19 ["LayoutOrder"]
   SETTABLEKS R13 R12 K19 ["LayoutOrder"]
   DUPTABLE R13 K28 [{"ToggleRewardedVideoAds"}]
-  GETUPVAL R15 3
+  GETUPVAL R15 2
   GETTABLEKS R14 R15 K16 ["createElement"]
-  GETUPVAL R15 5
+  GETUPVAL R15 4
   DUPTABLE R16 K29 [{"LayoutOrder", "Title"}]
   NAMECALL R17 R8 K30 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K19 ["LayoutOrder"]
   SETTABLEKS R3 R16 K2 ["Title"]
   DUPTABLE R17 K33 [{"ToggleButton", "TextContents"}]
-  GETUPVAL R19 3
+  GETUPVAL R19 2
   GETTABLEKS R18 R19 K16 ["createElement"]
-  GETUPVAL R19 6
+  GETUPVAL R19 5
   DUPTABLE R20 K37 [{"Disabled", "Selected", "OnClick", "LayoutOrder"}]
-  GETUPVAL R22 0
-  JUMPIFNOT R22 [+2]
-  MOVE R21 R9
-  JUMP [+1]
-  LOADB R21 0
-  SETTABLEKS R21 R20 K34 ["Disabled"]
-  GETUPVAL R22 0
-  JUMPIFNOT R22 [+7]
+  SETTABLEKS R9 R20 K34 ["Disabled"]
   GETTABLEKS R22 R0 K38 ["state"]
   GETTABLEKS R21 R22 K39 ["IsEnabled"]
-  JUMPIFNOT R21 [+6]
+  JUMPIFNOT R21 [+1]
   NOT R21 R9
-  JUMP [+4]
-  GETTABLEKS R22 R0 K38 ["state"]
-  GETTABLEKS R21 R22 K39 ["IsEnabled"]
   SETTABLEKS R21 R20 K35 ["Selected"]
   GETTABLEKS R21 R0 K15 ["updateToggleState"]
   SETTABLEKS R21 R20 K36 ["OnClick"]
@@ -294,7 +259,7 @@ PROTO_6:
   SETTABLEKS R21 R20 K19 ["LayoutOrder"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K31 ["ToggleButton"]
-  GETUPVAL R19 3
+  GETUPVAL R19 2
   GETTABLEKS R18 R19 K16 ["createElement"]
   LOADK R19 K40 ["Frame"]
   DUPTABLE R20 K42 [{"BackgroundTransparency", "AutomaticSize", "LayoutOrder"}]
@@ -306,78 +271,59 @@ PROTO_6:
   CALL R21 1 1
   SETTABLEKS R21 R20 K19 ["LayoutOrder"]
   DUPTABLE R21 K44 [{"UIListLayout", "SubText", "LinkText"}]
-  GETUPVAL R23 3
+  GETUPVAL R23 2
   GETTABLEKS R22 R23 K16 ["createElement"]
   LOADK R23 K43 ["UIListLayout"]
   DUPTABLE R24 K49 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Wraps"}]
   GETIMPORT R25 K51 [Enum.FillDirection.Horizontal]
   SETTABLEKS R25 R24 K24 ["FillDirection"]
-  GETUPVAL R26 0
-  JUMPIFNOT R26 [+3]
   GETIMPORT R25 K53 [Enum.HorizontalAlignment.Left]
-  JUMP [+2]
-  GETIMPORT R25 K55 [Enum.HorizontalAlignment.Center]
   SETTABLEKS R25 R24 K45 ["HorizontalAlignment"]
-  GETUPVAL R26 0
-  JUMPIFNOT R26 [+3]
-  GETIMPORT R25 K57 [Enum.VerticalAlignment.Top]
-  JUMP [+2]
-  GETIMPORT R25 K58 [Enum.VerticalAlignment.Center]
+  GETIMPORT R25 K55 [Enum.VerticalAlignment.Top]
   SETTABLEKS R25 R24 K46 ["VerticalAlignment"]
-  GETIMPORT R25 K59 [Enum.SortOrder.LayoutOrder]
+  GETIMPORT R25 K56 [Enum.SortOrder.LayoutOrder]
   SETTABLEKS R25 R24 K47 ["SortOrder"]
-  GETUPVAL R26 0
-  JUMPIFNOT R26 [+2]
   LOADB R25 1
-  JUMP [+1]
-  LOADNIL R25
   SETTABLEKS R25 R24 K48 ["Wraps"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K43 ["UIListLayout"]
-  GETUPVAL R23 3
+  GETUPVAL R23 2
   GETTABLEKS R22 R23 K16 ["createElement"]
-  GETUPVAL R23 7
-  DUPTABLE R24 K64 [{"AutomaticSize", "TextXAlignment", "Style", "Text", "TextWrapped", "LayoutOrder"}]
+  GETUPVAL R23 6
+  DUPTABLE R24 K61 [{"AutomaticSize", "TextXAlignment", "Style", "Text", "TextWrapped", "LayoutOrder"}]
   GETIMPORT R25 K23 [Enum.AutomaticSize.XY]
   SETTABLEKS R25 R24 K17 ["AutomaticSize"]
-  GETIMPORT R25 K65 [Enum.TextXAlignment.Left]
-  SETTABLEKS R25 R24 K60 ["TextXAlignment"]
-  LOADK R25 K66 ["Body"]
-  SETTABLEKS R25 R24 K61 ["Style"]
+  GETIMPORT R25 K62 [Enum.TextXAlignment.Left]
+  SETTABLEKS R25 R24 K57 ["TextXAlignment"]
+  LOADK R25 K63 ["Body"]
+  SETTABLEKS R25 R24 K58 ["Style"]
   MOVE R26 R4
-  LOADK R27 K67 [" "]
+  LOADK R27 K64 [" "]
   CONCAT R25 R26 R27
-  SETTABLEKS R25 R24 K62 ["Text"]
+  SETTABLEKS R25 R24 K59 ["Text"]
   LOADB R25 1
-  SETTABLEKS R25 R24 K63 ["TextWrapped"]
+  SETTABLEKS R25 R24 K60 ["TextWrapped"]
   NAMECALL R25 R8 K30 ["getNextOrder"]
   CALL R25 1 1
   SETTABLEKS R25 R24 K19 ["LayoutOrder"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K10 ["SubText"]
-  GETUPVAL R23 3
+  GETUPVAL R23 2
   GETTABLEKS R22 R23 K16 ["createElement"]
-  GETUPVAL R23 8
-  DUPTABLE R24 K68 [{"AutomaticSize", "TextXAlignment", "Style", "TextWrapped", "Text", "OnClick", "LayoutOrder"}]
+  GETUPVAL R23 7
+  DUPTABLE R24 K65 [{"AutomaticSize", "TextXAlignment", "Style", "TextWrapped", "Text", "OnClick", "LayoutOrder"}]
   GETIMPORT R25 K23 [Enum.AutomaticSize.XY]
   SETTABLEKS R25 R24 K17 ["AutomaticSize"]
-  GETIMPORT R25 K65 [Enum.TextXAlignment.Left]
-  SETTABLEKS R25 R24 K60 ["TextXAlignment"]
-  LOADK R25 K66 ["Body"]
-  SETTABLEKS R25 R24 K61 ["Style"]
-  GETUPVAL R26 0
-  JUMPIFNOT R26 [+2]
+  GETIMPORT R25 K62 [Enum.TextXAlignment.Left]
+  SETTABLEKS R25 R24 K57 ["TextXAlignment"]
+  LOADK R25 K63 ["Body"]
+  SETTABLEKS R25 R24 K58 ["Style"]
   LOADB R25 1
-  JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K63 ["TextWrapped"]
-  SETTABLEKS R5 R24 K62 ["Text"]
+  SETTABLEKS R25 R24 K60 ["TextWrapped"]
+  SETTABLEKS R5 R24 K59 ["Text"]
   NEWCLOSURE R25 P1
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U9
+  CAPTURE UPVAL U8
   CAPTURE REF R6
-  CAPTURE UPVAL U10
-  CAPTURE UPVAL U11
   SETTABLEKS R25 R24 K36 ["OnClick"]
   NAMECALL R25 R8 K30 ["getNextOrder"]
   CALL R25 1 1
@@ -414,72 +360,45 @@ MAIN:
   GETTABLEKS R7 R3 K12 ["TitledFrame"]
   GETTABLEKS R8 R3 K13 ["ToggleButton"]
   GETIMPORT R9 K15 [game]
-  LOADK R11 K16 ["GuiService"]
+  LOADK R11 K16 ["BrowserService"]
   NAMECALL R9 R9 K17 ["GetService"]
   CALL R9 2 1
-  GETIMPORT R10 K15 [game]
-  LOADK R12 K18 ["BrowserService"]
-  NAMECALL R10 R10 K17 ["GetService"]
+  GETTABLEKS R10 R1 K18 ["PureComponent"]
+  LOADK R12 K19 ["RewardedOnDemandAdsSetting"]
+  NAMECALL R10 R10 K20 ["extend"]
   CALL R10 2 1
-  GETIMPORT R11 K4 [require]
-  GETIMPORT R15 K1 [script]
-  GETTABLEKS R14 R15 K2 ["Parent"]
-  GETTABLEKS R13 R14 K2 ["Parent"]
-  GETTABLEKS R12 R13 K19 ["Flags"]
-  CALL R11 1 1
-  GETTABLEKS R12 R11 K20 ["FFlagEnableToggleRegardlessOfUniverseEligibility"]
-  GETTABLEKS R13 R1 K21 ["PureComponent"]
-  LOADK R15 K22 ["RewardedOnDemandAdsSetting"]
-  NAMECALL R13 R13 K23 ["extend"]
-  CALL R13 2 1
-  LOADNIL R14
-  LOADNIL R15
-  JUMPIFNOT R12 [+39]
-  DUPTABLE R16 K28 [{"eligible", "appeal", "wasEligible", "ineligible"}]
-  GETIMPORT R17 K15 [game]
-  LOADK R19 K29 ["RewardedVideoAdsDocumentationUrl"]
-  LOADK R20 K30 ["https://www.roblox.com"]
-  NAMECALL R17 R17 K31 ["DefineFastString"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K24 ["eligible"]
-  GETIMPORT R17 K15 [game]
-  LOADK R19 K32 ["RewardedVideoAdsModerationAppealUrl"]
-  LOADK R20 K30 ["https://www.roblox.com"]
-  NAMECALL R17 R17 K31 ["DefineFastString"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K25 ["appeal"]
-  GETIMPORT R17 K15 [game]
-  LOADK R19 K33 ["RewardedVideoAdsWasEligibleDocumentationUrl"]
-  LOADK R20 K30 ["https://www.roblox.com"]
-  NAMECALL R17 R17 K31 ["DefineFastString"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K26 ["wasEligible"]
-  GETIMPORT R17 K15 [game]
-  LOADK R19 K34 ["RewardedVideoAdsIneligibleDocumentationUrl"]
-  LOADK R20 K30 ["https://www.roblox.com"]
-  NAMECALL R17 R17 K31 ["DefineFastString"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K27 ["ineligible"]
-  MOVE R14 R16
-  JUMP [+14]
-  GETIMPORT R16 K15 [game]
-  LOADK R18 K29 ["RewardedVideoAdsDocumentationUrl"]
-  LOADK R19 K30 ["https://www.roblox.com"]
-  NAMECALL R16 R16 K31 ["DefineFastString"]
-  CALL R16 3 0
-  GETIMPORT R16 K15 [game]
-  LOADK R18 K29 ["RewardedVideoAdsDocumentationUrl"]
-  NAMECALL R16 R16 K35 ["GetFastString"]
-  CALL R16 2 1
-  MOVE R15 R16
-  DUPCLOSURE R16 K36 [PROTO_0]
-  NEWCLOSURE R17 P1
-  CAPTURE REF R14
-  DUPCLOSURE R18 K37 [PROTO_2]
-  SETTABLEKS R18 R13 K38 ["init"]
-  NEWCLOSURE R18 P3
-  CAPTURE VAL R12
-  CAPTURE VAL R17
+  DUPTABLE R11 K25 [{"eligible", "appeal", "wasEligible", "ineligible"}]
+  GETIMPORT R12 K15 [game]
+  LOADK R14 K26 ["RewardedVideoAdsDocumentationUrl"]
+  LOADK R15 K27 ["https://www.roblox.com"]
+  NAMECALL R12 R12 K28 ["DefineFastString"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K21 ["eligible"]
+  GETIMPORT R12 K15 [game]
+  LOADK R14 K29 ["RewardedVideoAdsModerationAppealUrl"]
+  LOADK R15 K27 ["https://www.roblox.com"]
+  NAMECALL R12 R12 K28 ["DefineFastString"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K22 ["appeal"]
+  GETIMPORT R12 K15 [game]
+  LOADK R14 K30 ["RewardedVideoAdsWasEligibleDocumentationUrl"]
+  LOADK R15 K27 ["https://www.roblox.com"]
+  NAMECALL R12 R12 K28 ["DefineFastString"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K23 ["wasEligible"]
+  GETIMPORT R12 K15 [game]
+  LOADK R14 K31 ["RewardedVideoAdsIneligibleDocumentationUrl"]
+  LOADK R15 K27 ["https://www.roblox.com"]
+  NAMECALL R12 R12 K28 ["DefineFastString"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K24 ["ineligible"]
+  DUPCLOSURE R12 K32 [PROTO_0]
+  DUPCLOSURE R13 K33 [PROTO_1]
+  CAPTURE VAL R11
+  DUPCLOSURE R14 K34 [PROTO_2]
+  SETTABLEKS R14 R10 K35 ["init"]
+  DUPCLOSURE R14 K36 [PROTO_6]
+  CAPTURE VAL R13
   CAPTURE VAL R2
   CAPTURE VAL R1
   CAPTURE VAL R4
@@ -487,9 +406,6 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R10
-  CAPTURE REF R15
   CAPTURE VAL R9
-  SETTABLEKS R18 R13 K39 ["render"]
-  CLOSEUPVALS R14
-  RETURN R13 1
+  SETTABLEKS R14 R10 K37 ["render"]
+  RETURN R10 1

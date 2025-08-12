@@ -74,16 +74,111 @@ PROTO_5:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["get"]
   CALL R0 0 1
-  JUMPIFNOT R0 [+10]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["replace"]
-  GETTABLEKS R2 R0 K2 ["Guid"]
-  GETTABLEKS R3 R0 K3 ["Index"]
-  GETTABLEKS R4 R0 K4 ["Id"]
+  JUMPIFNOT R0 [+42]
+  GETTABLEKS R2 R0 K1 ["Guid"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["get"]
+  CALL R4 0 1
+  GETTABLE R3 R4 R2
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  JUMPIFNOT R1 [+20]
+  GETTABLEKS R1 R0 K1 ["Guid"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["copy"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["get"]
+  CALL R3 0 -1
+  CALL R2 -1 1
+  LOADNIL R3
+  SETTABLE R3 R2 R1
+  GETUPVAL R3 3
+  MOVE R4 R2
+  CALL R3 1 0
+  GETUPVAL R3 4
+  LOADB R5 0
+  NAMECALL R3 R3 K3 ["Fire"]
+  CALL R3 2 0
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K4 ["replace"]
+  GETTABLEKS R2 R0 K1 ["Guid"]
+  GETTABLEKS R3 R0 K5 ["Index"]
+  GETTABLEKS R4 R0 K6 ["Id"]
   CALL R1 3 0
   RETURN R0 0
 
 PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["get"]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+32]
+  GETTABLEKS R2 R0 K1 ["Guid"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["get"]
+  CALL R4 0 1
+  GETTABLE R3 R4 R2
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  JUMPIFNOT R1 [+20]
+  GETTABLEKS R1 R0 K1 ["Guid"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["copy"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["get"]
+  CALL R3 0 -1
+  CALL R2 -1 1
+  LOADNIL R3
+  SETTABLE R3 R2 R1
+  GETUPVAL R3 3
+  MOVE R4 R2
+  CALL R3 1 0
+  GETUPVAL R3 4
+  LOADB R5 0
+  NAMECALL R3 R3 K3 ["Fire"]
+  CALL R3 2 0
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K4 ["findNext"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["get"]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+32]
+  GETTABLEKS R2 R0 K1 ["Guid"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["get"]
+  CALL R4 0 1
+  GETTABLE R3 R4 R2
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  JUMPIFNOT R1 [+20]
+  GETTABLEKS R1 R0 K1 ["Guid"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["copy"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["get"]
+  CALL R3 0 -1
+  CALL R2 -1 1
+  LOADNIL R3
+  SETTABLE R3 R2 R1
+  GETUPVAL R3 3
+  MOVE R4 R2
+  CALL R3 1 0
+  GETUPVAL R3 4
+  LOADB R5 0
+  NAMECALL R3 R3 K3 ["Fire"]
+  CALL R3 2 0
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K4 ["findPrevious"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_8:
   NEWTABLE R4 0 0
   MOVE R5 R1
   GETTABLEKS R6 R0 K0 ["Guid"]
@@ -153,7 +248,7 @@ PROTO_6:
   FORNLOOP R16
   RETURN R4 2
 
-PROTO_7:
+PROTO_9:
   JUMPIFEQKNIL R0 [+7]
   JUMPIFEQKNIL R1 [+5]
   JUMPIFEQKNIL R2 [+3]
@@ -237,7 +332,7 @@ PROTO_7:
   LOADB R6 1
   RETURN R6 1
 
-PROTO_8:
+PROTO_10:
   GETUPVAL R1 0
   GETUPVAL R2 1
   JUMPIFEQ R1 R2 [+2]
@@ -296,7 +391,7 @@ PROTO_8:
   CALL R5 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_11:
   JUMPIFNOTEQKN R0 K0 [0] [+6]
   GETUPVAL R2 0
   NEWTABLE R3 0 0
@@ -385,7 +480,7 @@ PROTO_9:
   CALL R8 2 -1
   RETURN R8 -1
 
-PROTO_10:
+PROTO_12:
   GETUPVAL R1 0
   GETUPVAL R2 1
   JUMPIFEQ R1 R2 [+2]
@@ -403,7 +498,7 @@ PROTO_10:
   RETURN R1 -1
   RETURN R0 0
 
-PROTO_11:
+PROTO_13:
   LOADN R2 1
   LOADN R5 1
   GETUPVAL R8 0
@@ -477,7 +572,7 @@ PROTO_11:
   CALL R5 -1 -1
   RETURN R5 -1
 
-PROTO_12:
+PROTO_14:
   LOADN R1 1
   LOADN R4 1
   GETUPVAL R7 0
@@ -516,7 +611,7 @@ PROTO_12:
   LOADB R2 0
   RETURN R2 1
 
-PROTO_13:
+PROTO_15:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["create"]
   LOADN R1 0
@@ -582,9 +677,27 @@ PROTO_13:
   CAPTURE VAL R10
   NEWCLOSURE R28 P5
   CAPTURE VAL R15
+  CAPTURE VAL R10
+  CAPTURE UPVAL U2
+  CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE UPVAL U3
-  DUPCLOSURE R29 K2 [PROTO_6]
+  NEWCLOSURE R29 P6
+  CAPTURE VAL R15
+  CAPTURE VAL R10
+  CAPTURE UPVAL U2
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE UPVAL U3
   NEWCLOSURE R30 P7
+  CAPTURE VAL R15
+  CAPTURE VAL R10
+  CAPTURE UPVAL U2
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE UPVAL U3
+  DUPCLOSURE R31 K2 [PROTO_8]
+  NEWCLOSURE R32 P9
   CAPTURE UPVAL U4
   CAPTURE VAL R0
   CAPTURE VAL R1
@@ -598,7 +711,7 @@ PROTO_13:
   CAPTURE UPVAL U2
   CAPTURE VAL R11
   CAPTURE VAL R12
-  NEWCLOSURE R19 P8
+  NEWCLOSURE R19 P10
   CAPTURE VAL R17
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
@@ -611,44 +724,46 @@ PROTO_13:
   CAPTURE VAL R6
   CAPTURE UPVAL U4
   CAPTURE VAL R7
-  CAPTURE VAL R30
-  CAPTURE VAL R29
+  CAPTURE VAL R32
+  CAPTURE VAL R31
   CAPTURE VAL R0
-  NEWCLOSURE R31 P9
+  NEWCLOSURE R33 P11
   CAPTURE VAL R17
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
   CAPTURE REF R21
   CAPTURE REF R19
-  DUPTABLE R32 K29 [{"totalNumElementsObservable", "totalNumResultsObservable", "totalNumScriptsObservable", "resultsObservable", "setResults", "collapsedFilesObservable", "setCollapsedFiles", "hoveredObservable", "setHovered", "selectedObservable", "setSelected", "scrollHeightObservable", "setScrollHeight", "fetchAroundVisibleIndex", "maybeRefetchAroundVisibleIndex", "queryIdObservable", "setQueryId", "isCollapsed", "collapseFile", "expandFile", "expandAllFiles", "getCollapsedFiles", "collapsedFilesSignal", "replace", "flattenFileEntry", "updatePageMetadata"}]
-  SETTABLEKS R0 R32 K3 ["totalNumElementsObservable"]
-  SETTABLEKS R2 R32 K4 ["totalNumResultsObservable"]
-  SETTABLEKS R4 R32 K5 ["totalNumScriptsObservable"]
-  SETTABLEKS R8 R32 K6 ["resultsObservable"]
-  SETTABLEKS R9 R32 K7 ["setResults"]
-  SETTABLEKS R10 R32 K8 ["collapsedFilesObservable"]
-  SETTABLEKS R11 R32 K9 ["setCollapsedFiles"]
-  SETTABLEKS R13 R32 K10 ["hoveredObservable"]
-  SETTABLEKS R14 R32 K11 ["setHovered"]
-  SETTABLEKS R15 R32 K12 ["selectedObservable"]
-  SETTABLEKS R16 R32 K13 ["setSelected"]
-  SETTABLEKS R17 R32 K14 ["scrollHeightObservable"]
-  SETTABLEKS R18 R32 K15 ["setScrollHeight"]
-  SETTABLEKS R19 R32 K16 ["fetchAroundVisibleIndex"]
-  SETTABLEKS R31 R32 K17 ["maybeRefetchAroundVisibleIndex"]
-  SETTABLEKS R6 R32 K18 ["queryIdObservable"]
-  SETTABLEKS R7 R32 K19 ["setQueryId"]
-  SETTABLEKS R23 R32 K20 ["isCollapsed"]
-  SETTABLEKS R24 R32 K21 ["collapseFile"]
-  SETTABLEKS R25 R32 K22 ["expandFile"]
-  SETTABLEKS R26 R32 K23 ["expandAllFiles"]
-  SETTABLEKS R27 R32 K24 ["getCollapsedFiles"]
-  SETTABLEKS R12 R32 K25 ["collapsedFilesSignal"]
-  SETTABLEKS R28 R32 K26 ["replace"]
-  SETTABLEKS R29 R32 K27 ["flattenFileEntry"]
-  SETTABLEKS R30 R32 K28 ["updatePageMetadata"]
+  DUPTABLE R34 K31 [{"totalNumElementsObservable", "totalNumResultsObservable", "totalNumScriptsObservable", "resultsObservable", "setResults", "collapsedFilesObservable", "setCollapsedFiles", "hoveredObservable", "setHovered", "selectedObservable", "setSelected", "scrollHeightObservable", "setScrollHeight", "fetchAroundVisibleIndex", "maybeRefetchAroundVisibleIndex", "queryIdObservable", "setQueryId", "isCollapsed", "collapseFile", "expandFile", "expandAllFiles", "getCollapsedFiles", "collapsedFilesSignal", "replace", "findNext", "findPrevious", "flattenFileEntry", "updatePageMetadata"}]
+  SETTABLEKS R0 R34 K3 ["totalNumElementsObservable"]
+  SETTABLEKS R2 R34 K4 ["totalNumResultsObservable"]
+  SETTABLEKS R4 R34 K5 ["totalNumScriptsObservable"]
+  SETTABLEKS R8 R34 K6 ["resultsObservable"]
+  SETTABLEKS R9 R34 K7 ["setResults"]
+  SETTABLEKS R10 R34 K8 ["collapsedFilesObservable"]
+  SETTABLEKS R11 R34 K9 ["setCollapsedFiles"]
+  SETTABLEKS R13 R34 K10 ["hoveredObservable"]
+  SETTABLEKS R14 R34 K11 ["setHovered"]
+  SETTABLEKS R15 R34 K12 ["selectedObservable"]
+  SETTABLEKS R16 R34 K13 ["setSelected"]
+  SETTABLEKS R17 R34 K14 ["scrollHeightObservable"]
+  SETTABLEKS R18 R34 K15 ["setScrollHeight"]
+  SETTABLEKS R19 R34 K16 ["fetchAroundVisibleIndex"]
+  SETTABLEKS R33 R34 K17 ["maybeRefetchAroundVisibleIndex"]
+  SETTABLEKS R6 R34 K18 ["queryIdObservable"]
+  SETTABLEKS R7 R34 K19 ["setQueryId"]
+  SETTABLEKS R23 R34 K20 ["isCollapsed"]
+  SETTABLEKS R24 R34 K21 ["collapseFile"]
+  SETTABLEKS R25 R34 K22 ["expandFile"]
+  SETTABLEKS R26 R34 K23 ["expandAllFiles"]
+  SETTABLEKS R27 R34 K24 ["getCollapsedFiles"]
+  SETTABLEKS R12 R34 K25 ["collapsedFilesSignal"]
+  SETTABLEKS R28 R34 K26 ["replace"]
+  SETTABLEKS R29 R34 K27 ["findNext"]
+  SETTABLEKS R30 R34 K28 ["findPrevious"]
+  SETTABLEKS R31 R34 K29 ["flattenFileEntry"]
+  SETTABLEKS R32 R34 K30 ["updatePageMetadata"]
   CLOSEUPVALS R19
-  RETURN R32 1
+  RETURN R34 1
 
 MAIN:
   PREPVARARGS 0
@@ -694,7 +809,7 @@ MAIN:
   GETTABLEKS R11 R0 K6 ["Src"]
   GETTABLEKS R10 R11 K19 ["Types"]
   CALL R9 1 1
-  DUPCLOSURE R10 K20 [PROTO_13]
+  DUPCLOSURE R10 K20 [PROTO_15]
   CAPTURE VAL R3
   CAPTURE VAL R8
   CAPTURE VAL R7

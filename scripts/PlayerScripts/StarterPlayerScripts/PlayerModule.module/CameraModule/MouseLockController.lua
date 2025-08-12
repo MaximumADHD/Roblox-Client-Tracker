@@ -24,7 +24,7 @@ local GameSettings = Settings.GameSettings
 --[[ Imports ]]
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
 
-local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts")
+local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts2")
 
 
 --[[ The Module ]]--

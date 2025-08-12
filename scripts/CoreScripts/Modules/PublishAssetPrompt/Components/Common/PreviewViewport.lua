@@ -36,8 +36,6 @@ local Images = UIBlox.App.ImageSet.Images
 local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
 local ResetViewIcon = Images["icons/actions/reset"]
 
-local FFlagFixPublishAvatarVRViewports = require(script.Parent.Parent.Parent.FFlagFixPublishAvatarVRViewports)
-
 local CAMERA_FOV = 30
 local INITIAL_ZOOM_FACTOR = 0.8
 local ANIMATION_CLIP_INITIAL_ZOOM_FACTOR = 0.75
@@ -541,8 +539,8 @@ function PreviewViewport:render()
 					CameraType = Enum.CameraType.Scriptable,
 					FieldOfView = CAMERA_FOV,
 
-					HeadLocked = if FFlagFixPublishAvatarVRViewports then true else nil,
-					VRTiltAndRollEnabled = if FFlagFixPublishAvatarVRViewports then true else nil,
+					HeadLocked = true,
+					VRTiltAndRollEnabled = true,
 
 					CFrame = self.cameraCFrameBinding,
 					Focus = self.cameraFocusBinding,

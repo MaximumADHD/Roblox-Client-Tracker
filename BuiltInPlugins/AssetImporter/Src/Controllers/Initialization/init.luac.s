@@ -39,14 +39,14 @@ PROTO_1:
   LOADK R2 K2 ["FeatureTest"]
   JUMP [+1]
   LOADK R2 K3 ["RobloxCli"]
-  DUPTABLE R3 K9 [{"environment", "plugin", "loader", "story", "storyProps"}]
+  DUPTABLE R3 K10 [{"environment", "plugin", "loader", "story", "storyProps", "handle"}]
   SETTABLEKS R2 R3 K4 ["environment"]
   JUMPIFNOTEQKS R2 K1 ["Production"] [+3]
   MOVE R4 R0
   JUMP [+5]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K10 ["new"]
-  LOADK R5 K11 ["AssetImporter"]
+  GETTABLEKS R4 R5 K11 ["new"]
+  LOADK R5 K12 ["AssetImporter"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K5 ["plugin"]
   SETTABLEKS R1 R3 K6 ["loader"]
@@ -54,39 +54,44 @@ PROTO_1:
   SETTABLEKS R4 R3 K7 ["story"]
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K8 ["storyProps"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K9 ["handle"]
   GETUPVAL R6 4
-  GETTABLEKS R5 R6 K12 ["Store"]
-  GETTABLEKS R4 R5 K10 ["new"]
+  GETTABLEKS R5 R6 K13 ["Store"]
+  GETTABLEKS R4 R5 K11 ["new"]
   GETUPVAL R5 5
   LOADNIL R6
   NEWTABLE R7 0 1
   GETUPVAL R9 4
-  GETTABLEKS R8 R9 K13 ["thunkMiddleware"]
+  GETTABLEKS R8 R9 K14 ["thunkMiddleware"]
   SETLIST R7 R8 1 [1]
   CALL R4 3 1
-  SETTABLEKS R4 R3 K14 ["store"]
+  SETTABLEKS R4 R3 K15 ["store"]
   GETUPVAL R5 6
-  GETTABLEKS R4 R5 K10 ["new"]
+  GETTABLEKS R4 R5 K11 ["new"]
   MOVE R5 R3
   CALL R4 1 1
-  SETTABLEKS R4 R3 K15 ["contextItems"]
+  SETTABLEKS R4 R3 K16 ["contextItems"]
   GETUPVAL R5 7
-  GETTABLEKS R4 R5 K16 ["loadData"]
+  GETTABLEKS R4 R5 K17 ["loadData"]
   MOVE R5 R3
   CALL R4 1 0
+  GETUPVAL R4 8
+  CALL R4 0 1
+  JUMPIF R4 [+19]
   GETTABLEKS R5 R3 K4 ["environment"]
   JUMPIFNOTEQKS R5 K1 ["Production"] [+13]
-  GETUPVAL R5 8
-  GETTABLEKS R4 R5 K17 ["mount"]
-  GETUPVAL R6 8
-  GETTABLEKS R5 R6 K18 ["createElement"]
+  GETUPVAL R5 9
+  GETTABLEKS R4 R5 K18 ["mount"]
+  GETUPVAL R6 9
+  GETTABLEKS R5 R6 K19 ["createElement"]
   GETUPVAL R6 3
-  GETTABLEKS R7 R3 K15 ["contextItems"]
+  GETTABLEKS R7 R3 K16 ["contextItems"]
   CALL R5 2 -1
   CALL R4 -1 1
   JUMP [+1]
   LOADNIL R4
-  SETTABLEKS R4 R3 K19 ["handle"]
+  SETTABLEKS R4 R3 K9 ["handle"]
   GETUPVAL R6 7
   FASTCALL2 SETMETATABLE R3 R6 [+4]
   MOVE R5 R3
@@ -103,6 +108,18 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["mount"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K2 ["contextItems"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  SETTABLEKS R1 R0 K3 ["handle"]
+  RETURN R0 0
+
+PROTO_4:
   JUMPIFNOT R0 [+11]
   GETTABLEKS R2 R0 K0 ["Cancel"]
   FASTCALL1 TYPEOF R2 [+2]
@@ -113,7 +130,7 @@ PROTO_3:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETTABLEKS R1 R0 K0 ["contextItems"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K0 ["contextItems"]
@@ -121,7 +138,7 @@ PROTO_4:
   CALL R1 1 0
   GETTABLEKS R1 R0 K2 ["store"]
   JUMPIFNOT R1 [+83]
-  DUPCLOSURE R1 K3 [PROTO_3]
+  DUPCLOSURE R1 K3 [PROTO_4]
   GETTABLEKS R4 R0 K2 ["store"]
   NAMECALL R4 R4 K4 ["getState"]
   CALL R4 1 1
@@ -205,7 +222,7 @@ PROTO_4:
   FORGLOOP R2 2 [-5]
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["root"]
   GETUPVAL R2 1
@@ -213,7 +230,7 @@ PROTO_5:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETIMPORT R2 K1 [game]
   LOADK R4 K2 ["CoreGui"]
   NAMECALL R2 R2 K3 ["GetService"]
@@ -255,7 +272,7 @@ PROTO_6:
   CALL R6 1 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["root"]
   GETUPVAL R2 1
@@ -263,7 +280,7 @@ PROTO_7:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETIMPORT R1 K1 [game]
   LOADK R3 K2 ["CoreGui"]
   NAMECALL R1 R1 K3 ["GetService"]
@@ -307,11 +324,11 @@ PROTO_8:
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   SETTABLEKS R1 R0 K0 ["story"]
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   SETTABLEKS R1 R0 K0 ["storyProps"]
   RETURN R0 0
 
@@ -375,29 +392,36 @@ MAIN:
   GETIMPORT R18 K1 [script]
   GETTABLEKS R17 R18 K25 ["TestElement"]
   CALL R16 1 1
-  DUPTABLE R17 K33 [{"BlenderCubeDefault", "CubeWithAllPbrs", "CorruptedFile", "BlenderCubeRigged", "RootTwoGroupFiveCube", "UnsupportedFileType", "TextureFile"}]
-  LOADK R18 K34 ["blender-cube-default.fbx"]
-  SETTABLEKS R18 R17 K26 ["BlenderCubeDefault"]
-  LOADK R18 K35 ["cube-with-all-pbrs.fbx"]
-  SETTABLEKS R18 R17 K27 ["CubeWithAllPbrs"]
-  LOADK R18 K36 ["corrupted-file.fbx"]
-  SETTABLEKS R18 R17 K28 ["CorruptedFile"]
-  LOADK R18 K37 ["blender-cube-rigged.fbx"]
-  SETTABLEKS R18 R17 K29 ["BlenderCubeRigged"]
-  LOADK R18 K38 ["root-two-group-five-cube.fbx"]
-  SETTABLEKS R18 R17 K30 ["RootTwoGroupFiveCube"]
-  LOADK R18 K39 ["unsupported-filetype.json"]
-  SETTABLEKS R18 R17 K31 ["UnsupportedFileType"]
-  LOADK R18 K40 ["texturetest0.png"]
-  SETTABLEKS R18 R17 K32 ["TextureFile"]
-  NEWTABLE R18 0 0
-  SETTABLEKS R18 R18 K41 ["__index"]
-  SETTABLEKS R17 R18 K42 ["Resources"]
-  DUPCLOSURE R19 K43 [PROTO_0]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K20 ["Src"]
+  GETTABLEKS R19 R20 K26 ["Flags"]
+  GETTABLEKS R18 R19 K27 ["getFFlagImporterAdHocDialogue"]
+  CALL R17 1 1
+  DUPTABLE R18 K36 [{"BlenderCubeDefault", "CubeWithAllPbrs", "CorruptedFile", "BlenderCubeRigged", "RootTwoGroupFiveCube", "UnsupportedFileType", "TextureFile", "BubblyClimb"}]
+  LOADK R19 K37 ["blender-cube-default.fbx"]
+  SETTABLEKS R19 R18 K28 ["BlenderCubeDefault"]
+  LOADK R19 K38 ["cube-with-all-pbrs.fbx"]
+  SETTABLEKS R19 R18 K29 ["CubeWithAllPbrs"]
+  LOADK R19 K39 ["corrupted-file.fbx"]
+  SETTABLEKS R19 R18 K30 ["CorruptedFile"]
+  LOADK R19 K40 ["blender-cube-rigged.fbx"]
+  SETTABLEKS R19 R18 K31 ["BlenderCubeRigged"]
+  LOADK R19 K41 ["root-two-group-five-cube.fbx"]
+  SETTABLEKS R19 R18 K32 ["RootTwoGroupFiveCube"]
+  LOADK R19 K42 ["unsupported-filetype.json"]
+  SETTABLEKS R19 R18 K33 ["UnsupportedFileType"]
+  LOADK R19 K43 ["texturetest0.png"]
+  SETTABLEKS R19 R18 K34 ["TextureFile"]
+  LOADK R19 K44 ["Bubbly_Climb.fbx"]
+  SETTABLEKS R19 R18 K35 ["BubblyClimb"]
+  NEWTABLE R19 0 0
+  SETTABLEKS R19 R19 K45 ["__index"]
+  SETTABLEKS R18 R19 K46 ["Resources"]
+  DUPCLOSURE R20 K47 [PROTO_0]
   CAPTURE VAL R10
-  CAPTURE VAL R17
-  SETTABLEKS R19 R18 K44 ["getResourcePathForTesting"]
-  DUPCLOSURE R19 K45 [PROTO_1]
+  CAPTURE VAL R18
+  SETTABLEKS R20 R19 K48 ["getResourcePathForTesting"]
+  DUPCLOSURE R20 K49 [PROTO_1]
   CAPTURE VAL R8
   CAPTURE VAL R10
   CAPTURE VAL R12
@@ -405,27 +429,32 @@ MAIN:
   CAPTURE VAL R7
   CAPTURE VAL R14
   CAPTURE VAL R15
-  CAPTURE VAL R18
+  CAPTURE VAL R19
+  CAPTURE VAL R17
   CAPTURE VAL R4
-  SETTABLEKS R19 R18 K46 ["new"]
-  DUPCLOSURE R19 K47 [PROTO_2]
-  SETTABLEKS R19 R18 K48 ["loadData"]
-  DUPCLOSURE R19 K49 [PROTO_4]
+  SETTABLEKS R20 R19 K50 ["new"]
+  DUPCLOSURE R20 K51 [PROTO_2]
+  SETTABLEKS R20 R19 K52 ["loadData"]
+  DUPCLOSURE R20 K53 [PROTO_3]
   CAPTURE VAL R4
-  SETTABLEKS R19 R18 K50 ["destroy"]
-  DUPCLOSURE R19 K51 [PROTO_6]
+  CAPTURE VAL R13
+  SETTABLEKS R20 R19 K54 ["createMainPlugin"]
+  DUPCLOSURE R20 K55 [PROTO_5]
+  CAPTURE VAL R4
+  SETTABLEKS R20 R19 K56 ["destroy"]
+  DUPCLOSURE R20 K57 [PROTO_7]
   CAPTURE VAL R4
   CAPTURE VAL R16
   CAPTURE VAL R6
-  SETTABLEKS R19 R18 K52 ["_createTestElement"]
-  DUPCLOSURE R19 K53 [PROTO_8]
+  SETTABLEKS R20 R19 K58 ["_createTestElement"]
+  DUPCLOSURE R20 K59 [PROTO_9]
   CAPTURE VAL R5
   CAPTURE VAL R16
   CAPTURE VAL R2
   CAPTURE VAL R6
-  SETTABLEKS R19 R18 K54 ["_createFoundationTestElement"]
-  DUPCLOSURE R19 K55 [PROTO_9]
-  SETTABLEKS R19 R18 K56 ["_setStory"]
-  DUPCLOSURE R19 K57 [PROTO_10]
-  SETTABLEKS R19 R18 K58 ["_setStoryProps"]
-  RETURN R18 1
+  SETTABLEKS R20 R19 K60 ["_createFoundationTestElement"]
+  DUPCLOSURE R20 K61 [PROTO_10]
+  SETTABLEKS R20 R19 K62 ["_setStory"]
+  DUPCLOSURE R20 K63 [PROTO_11]
+  SETTABLEKS R20 R19 K64 ["_setStoryProps"]
+  RETURN R19 1

@@ -133,277 +133,151 @@ PROTO_7:
   RETURN R0 0
 
 PROTO_8:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+7]
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["Stylizer"]
   GETTABLEKS R1 R2 K2 ["AssetList"]
-  JUMP [+4]
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["Stylizer"]
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K3 ["Localization"]
-  GETTABLEKS R4 R1 K2 ["AssetList"]
-  GETTABLEKS R3 R4 K4 ["CheckboxWidth"]
-  GETTABLEKS R5 R1 K2 ["AssetList"]
-  GETTABLEKS R4 R5 K5 ["DropdownWidth"]
-  GETTABLEKS R6 R1 K2 ["AssetList"]
-  GETTABLEKS R5 R6 K6 ["StatusWidth"]
-  GETUPVAL R7 0
-  CALL R7 0 1
-  JUMPIFNOT R7 [+2]
-  LOADNIL R6
-  JUMP [+3]
-  ADD R8 R3 R4
-  ADD R7 R8 R5
-  DIVK R6 R7 K7 [2]
-  GETUPVAL R7 0
-  CALL R7 0 1
-  JUMPIFNOT R7 [+115]
-  NEWTABLE R7 0 6
-  DUPTABLE R8 K12 [{"Name", "Key", "Width", "MinWidth"}]
-  LOADK R9 K13 [""]
-  SETTABLEKS R9 R8 K8 ["Name"]
-  LOADK R9 K14 ["Checkbox"]
-  SETTABLEKS R9 R8 K9 ["Key"]
-  GETTABLEKS R9 R1 K4 ["CheckboxWidth"]
-  SETTABLEKS R9 R8 K10 ["Width"]
-  GETTABLEKS R9 R1 K11 ["MinWidth"]
-  SETTABLEKS R9 R8 K11 ["MinWidth"]
-  DUPTABLE R9 K12 [{"Name", "Key", "Width", "MinWidth"}]
-  LOADK R12 K15 ["ImportQueue"]
-  LOADK R13 K16 ["Asset"]
-  NAMECALL R10 R2 K17 ["getText"]
+  NEWTABLE R3 0 6
+  DUPTABLE R4 K8 [{"Name", "Key", "Width", "MinWidth"}]
+  LOADK R5 K9 [""]
+  SETTABLEKS R5 R4 K4 ["Name"]
+  LOADK R5 K10 ["Checkbox"]
+  SETTABLEKS R5 R4 K5 ["Key"]
+  GETTABLEKS R5 R1 K11 ["CheckboxWidth"]
+  SETTABLEKS R5 R4 K6 ["Width"]
+  GETTABLEKS R5 R1 K7 ["MinWidth"]
+  SETTABLEKS R5 R4 K7 ["MinWidth"]
+  DUPTABLE R5 K8 [{"Name", "Key", "Width", "MinWidth"}]
+  LOADK R8 K12 ["ImportQueue"]
+  LOADK R9 K13 ["Asset"]
+  NAMECALL R6 R2 K14 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K4 ["Name"]
+  LOADK R6 K13 ["Asset"]
+  SETTABLEKS R6 R5 K5 ["Key"]
+  GETTABLEKS R6 R1 K15 ["AssetWidth"]
+  SETTABLEKS R6 R5 K6 ["Width"]
+  GETTABLEKS R6 R1 K7 ["MinWidth"]
+  SETTABLEKS R6 R5 K7 ["MinWidth"]
+  DUPTABLE R6 K8 [{"Name", "Key", "Width", "MinWidth"}]
+  LOADK R9 K16 ["Properties"]
+  LOADK R10 K17 ["PreferredUploadId"]
+  NAMECALL R7 R2 K14 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K4 ["Name"]
+  LOADK R7 K18 ["Creator"]
+  SETTABLEKS R7 R6 K5 ["Key"]
+  GETTABLEKS R7 R1 K19 ["DropdownWidth"]
+  SETTABLEKS R7 R6 K6 ["Width"]
+  GETTABLEKS R7 R1 K7 ["MinWidth"]
+  SETTABLEKS R7 R6 K7 ["MinWidth"]
+  DUPTABLE R7 K8 [{"Name", "Key", "Width", "MinWidth"}]
+  LOADK R10 K12 ["ImportQueue"]
+  LOADK R11 K20 ["Preset"]
+  NAMECALL R8 R2 K14 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K4 ["Name"]
+  LOADK R8 K20 ["Preset"]
+  SETTABLEKS R8 R7 K5 ["Key"]
+  GETTABLEKS R8 R1 K19 ["DropdownWidth"]
+  SETTABLEKS R8 R7 K6 ["Width"]
+  GETTABLEKS R8 R1 K7 ["MinWidth"]
+  SETTABLEKS R8 R7 K7 ["MinWidth"]
+  DUPTABLE R8 K8 [{"Name", "Key", "Width", "MinWidth"}]
+  LOADK R11 K12 ["ImportQueue"]
+  LOADK R12 K21 ["Path"]
+  NAMECALL R9 R2 K14 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K4 ["Name"]
+  LOADK R9 K21 ["Path"]
+  SETTABLEKS R9 R8 K5 ["Key"]
+  GETTABLEKS R9 R1 K22 ["FilenameWidth"]
+  SETTABLEKS R9 R8 K6 ["Width"]
+  GETTABLEKS R9 R1 K7 ["MinWidth"]
+  SETTABLEKS R9 R8 K7 ["MinWidth"]
+  DUPTABLE R9 K8 [{"Name", "Key", "Width", "MinWidth"}]
+  LOADK R12 K12 ["ImportQueue"]
+  LOADK R13 K23 ["Status"]
+  NAMECALL R10 R2 K14 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K8 ["Name"]
-  LOADK R10 K16 ["Asset"]
-  SETTABLEKS R10 R9 K9 ["Key"]
-  GETTABLEKS R10 R1 K18 ["AssetWidth"]
-  SETTABLEKS R10 R9 K10 ["Width"]
-  GETTABLEKS R10 R1 K11 ["MinWidth"]
-  SETTABLEKS R10 R9 K11 ["MinWidth"]
-  DUPTABLE R10 K12 [{"Name", "Key", "Width", "MinWidth"}]
-  LOADK R13 K19 ["Properties"]
-  LOADK R14 K20 ["PreferredUploadId"]
-  NAMECALL R11 R2 K17 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K8 ["Name"]
-  LOADK R11 K21 ["Creator"]
-  SETTABLEKS R11 R10 K9 ["Key"]
-  GETTABLEKS R11 R1 K5 ["DropdownWidth"]
-  SETTABLEKS R11 R10 K10 ["Width"]
-  GETTABLEKS R11 R1 K11 ["MinWidth"]
-  SETTABLEKS R11 R10 K11 ["MinWidth"]
-  DUPTABLE R11 K12 [{"Name", "Key", "Width", "MinWidth"}]
-  LOADK R14 K15 ["ImportQueue"]
-  LOADK R15 K22 ["Preset"]
-  NAMECALL R12 R2 K17 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K8 ["Name"]
-  LOADK R12 K22 ["Preset"]
-  SETTABLEKS R12 R11 K9 ["Key"]
-  GETTABLEKS R12 R1 K5 ["DropdownWidth"]
-  SETTABLEKS R12 R11 K10 ["Width"]
-  GETTABLEKS R12 R1 K11 ["MinWidth"]
-  SETTABLEKS R12 R11 K11 ["MinWidth"]
-  DUPTABLE R12 K12 [{"Name", "Key", "Width", "MinWidth"}]
-  LOADK R15 K15 ["ImportQueue"]
-  LOADK R16 K23 ["Path"]
-  NAMECALL R13 R2 K17 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K8 ["Name"]
-  LOADK R13 K23 ["Path"]
-  SETTABLEKS R13 R12 K9 ["Key"]
-  GETTABLEKS R13 R1 K24 ["FilenameWidth"]
-  SETTABLEKS R13 R12 K10 ["Width"]
-  GETTABLEKS R13 R1 K11 ["MinWidth"]
-  SETTABLEKS R13 R12 K11 ["MinWidth"]
-  DUPTABLE R13 K12 [{"Name", "Key", "Width", "MinWidth"}]
-  LOADK R16 K15 ["ImportQueue"]
-  LOADK R17 K25 ["Status"]
-  NAMECALL R14 R2 K17 ["getText"]
-  CALL R14 3 1
-  SETTABLEKS R14 R13 K8 ["Name"]
-  LOADK R14 K25 ["Status"]
-  SETTABLEKS R14 R13 K9 ["Key"]
-  GETTABLEKS R14 R1 K6 ["StatusWidth"]
-  SETTABLEKS R14 R13 K10 ["Width"]
-  GETTABLEKS R14 R1 K11 ["MinWidth"]
-  SETTABLEKS R14 R13 K11 ["MinWidth"]
-  SETLIST R7 R8 6 [1]
-  RETURN R7 1
-  NEWTABLE R7 0 5
-  DUPTABLE R8 K26 [{"Name", "Key", "Width"}]
-  LOADK R9 K13 [""]
-  SETTABLEKS R9 R8 K8 ["Name"]
-  LOADK R9 K14 ["Checkbox"]
-  SETTABLEKS R9 R8 K9 ["Key"]
-  GETIMPORT R9 K29 [UDim.new]
-  LOADN R10 0
-  MOVE R11 R3
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K10 ["Width"]
-  DUPTABLE R9 K26 [{"Name", "Key", "Width"}]
-  LOADK R12 K15 ["ImportQueue"]
-  LOADK R13 K16 ["Asset"]
-  NAMECALL R10 R2 K17 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K8 ["Name"]
-  LOADK R10 K16 ["Asset"]
-  SETTABLEKS R10 R9 K9 ["Key"]
-  GETIMPORT R10 K29 [UDim.new]
-  LOADK R11 K30 [0.5]
-  MINUS R12 R6
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K10 ["Width"]
-  DUPTABLE R10 K26 [{"Name", "Key", "Width"}]
-  LOADK R13 K15 ["ImportQueue"]
-  LOADK R14 K22 ["Preset"]
-  NAMECALL R11 R2 K17 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K8 ["Name"]
-  LOADK R11 K22 ["Preset"]
-  SETTABLEKS R11 R10 K9 ["Key"]
-  GETIMPORT R11 K29 [UDim.new]
-  LOADN R12 0
-  MOVE R13 R4
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K10 ["Width"]
-  DUPTABLE R11 K26 [{"Name", "Key", "Width"}]
-  LOADK R14 K15 ["ImportQueue"]
-  LOADK R15 K23 ["Path"]
-  NAMECALL R12 R2 K17 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K8 ["Name"]
-  LOADK R12 K23 ["Path"]
-  SETTABLEKS R12 R11 K9 ["Key"]
-  GETIMPORT R12 K29 [UDim.new]
-  LOADK R13 K30 [0.5]
-  MINUS R14 R6
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K10 ["Width"]
-  DUPTABLE R12 K26 [{"Name", "Key", "Width"}]
-  LOADK R15 K15 ["ImportQueue"]
-  LOADK R16 K25 ["Status"]
-  NAMECALL R13 R2 K17 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K8 ["Name"]
-  LOADK R13 K25 ["Status"]
-  SETTABLEKS R13 R12 K9 ["Key"]
-  GETIMPORT R13 K29 [UDim.new]
-  LOADN R14 0
-  MOVE R15 R5
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K10 ["Width"]
-  SETLIST R7 R8 5 [1]
-  RETURN R7 1
+  SETTABLEKS R10 R9 K4 ["Name"]
+  LOADK R10 K23 ["Status"]
+  SETTABLEKS R10 R9 K5 ["Key"]
+  GETTABLEKS R10 R1 K24 ["StatusWidth"]
+  SETTABLEKS R10 R9 K6 ["Width"]
+  GETTABLEKS R10 R1 K7 ["MinWidth"]
+  SETTABLEKS R10 R9 K7 ["MinWidth"]
+  SETLIST R3 R4 6 [1]
+  RETURN R3 1
 
 PROTO_9:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["LayoutOrder"]
   GETTABLEKS R3 R1 K2 ["Stylizer"]
-  GETTABLEKS R5 R3 K3 ["PropertyView"]
-  GETTABLEKS R4 R5 K4 ["IconSize"]
-  GETTABLEKS R6 R3 K5 ["AssetList"]
-  GETTABLEKS R5 R6 K6 ["Padding"]
-  GETTABLEKS R7 R3 K5 ["AssetList"]
-  GETTABLEKS R6 R7 K7 ["RowHeight"]
-  GETTABLEKS R8 R3 K5 ["AssetList"]
-  GETTABLEKS R7 R8 K8 ["HeaderHeight"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K9 ["createElement"]
-  GETUPVAL R9 1
-  DUPTABLE R10 K11 [{"Size", "Padding", "LayoutOrder"}]
-  GETTABLEKS R11 R1 K10 ["Size"]
-  SETTABLEKS R11 R10 K10 ["Size"]
-  SETTABLEKS R5 R10 K6 ["Padding"]
-  SETTABLEKS R2 R10 K1 ["LayoutOrder"]
-  DUPTABLE R11 K13 [{"Inner"}]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K9 ["createElement"]
-  GETUPVAL R13 2
-  DUPTABLE R14 K24 [{"Rows", "Columns", "Size", "Scroll", "VerticalScrollBarInset", "CellComponent", "CellProps", "ColumnHeaderHeight", "RowHeight", "OnColumnSizesChange", "UseScale", "ClampSize"}]
-  GETTABLEKS R15 R0 K25 ["getRows"]
-  CALL R15 0 1
-  SETTABLEKS R15 R14 K14 ["Rows"]
-  GETTABLEKS R16 R0 K26 ["state"]
-  GETTABLEKS R15 R16 K27 ["columns"]
-  SETTABLEKS R15 R14 K15 ["Columns"]
-  GETIMPORT R15 K30 [UDim2.fromScale]
+  GETTABLEKS R5 R3 K3 ["AssetList"]
+  GETTABLEKS R4 R5 K4 ["Padding"]
+  GETTABLEKS R6 R3 K3 ["AssetList"]
+  GETTABLEKS R5 R6 K5 ["RowHeight"]
+  GETTABLEKS R7 R3 K3 ["AssetList"]
+  GETTABLEKS R6 R7 K6 ["HeaderHeight"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K9 [{"Size", "Padding", "LayoutOrder"}]
+  GETTABLEKS R10 R1 K8 ["Size"]
+  SETTABLEKS R10 R9 K8 ["Size"]
+  SETTABLEKS R4 R9 K4 ["Padding"]
+  SETTABLEKS R2 R9 K1 ["LayoutOrder"]
+  DUPTABLE R10 K11 [{"Inner"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K7 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K22 [{"Rows", "Columns", "Size", "Scroll", "VerticalScrollBarInset", "CellComponent", "CellProps", "ColumnHeaderHeight", "RowHeight", "OnColumnSizesChange", "UseScale", "ClampSize"}]
+  GETTABLEKS R14 R0 K23 ["getRows"]
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K12 ["Rows"]
+  GETTABLEKS R15 R0 K24 ["state"]
+  GETTABLEKS R14 R15 K25 ["columns"]
+  SETTABLEKS R14 R13 K13 ["Columns"]
+  GETIMPORT R14 K28 [UDim2.fromScale]
+  LOADN R15 1
   LOADN R16 1
-  LOADN R17 1
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K10 ["Size"]
-  LOADB R15 1
-  SETTABLEKS R15 R14 K16 ["Scroll"]
-  GETIMPORT R15 K34 [Enum.ScrollBarInset.None]
-  SETTABLEKS R15 R14 K17 ["VerticalScrollBarInset"]
-  GETUPVAL R15 3
-  SETTABLEKS R15 R14 K18 ["CellComponent"]
-  DUPTABLE R15 K43 [{"GetCreatorNameById", "OnCheckboxToggle", "ShowUploadWidget", "UpdateCreator", "Uploading", "Parsing", "StatusIconSize", "ActionSelectedOverride"}]
-  GETTABLEKS R16 R0 K44 ["getCreatorNameById"]
-  SETTABLEKS R16 R15 K35 ["GetCreatorNameById"]
-  GETTABLEKS R16 R0 K45 ["onCheckboxToggle"]
-  SETTABLEKS R16 R15 K36 ["OnCheckboxToggle"]
-  GETTABLEKS R16 R1 K37 ["ShowUploadWidget"]
-  SETTABLEKS R16 R15 K37 ["ShowUploadWidget"]
-  GETTABLEKS R16 R0 K46 ["updateCreator"]
-  SETTABLEKS R16 R15 K38 ["UpdateCreator"]
-  GETTABLEKS R16 R1 K39 ["Uploading"]
-  SETTABLEKS R16 R15 K39 ["Uploading"]
-  GETTABLEKS R16 R1 K40 ["Parsing"]
-  SETTABLEKS R16 R15 K40 ["Parsing"]
-  GETUPVAL R17 4
-  CALL R17 0 1
-  JUMPIFNOT R17 [+2]
-  LOADNIL R16
-  JUMP [+1]
-  MOVE R16 R4
-  SETTABLEKS R16 R15 K41 ["StatusIconSize"]
-  GETUPVAL R17 4
-  CALL R17 0 1
-  JUMPIFNOT R17 [+2]
-  LOADNIL R16
-  JUMP [+4]
-  GETTABLEKS R17 R3 K47 ["AssetListCell"]
-  GETTABLEKS R16 R17 K42 ["ActionSelectedOverride"]
-  SETTABLEKS R16 R15 K42 ["ActionSelectedOverride"]
-  SETTABLEKS R15 R14 K19 ["CellProps"]
-  GETUPVAL R16 4
-  CALL R16 0 1
-  JUMPIFNOT R16 [+2]
-  MOVE R15 R7
-  JUMP [+1]
-  LOADNIL R15
-  SETTABLEKS R15 R14 K20 ["ColumnHeaderHeight"]
-  SETTABLEKS R6 R14 K7 ["RowHeight"]
-  GETUPVAL R16 4
-  CALL R16 0 1
-  JUMPIFNOT R16 [+3]
-  GETTABLEKS R15 R0 K48 ["onColumnSizesChange"]
-  JUMP [+1]
-  LOADNIL R15
-  SETTABLEKS R15 R14 K21 ["OnColumnSizesChange"]
-  GETUPVAL R16 4
-  CALL R16 0 1
-  JUMPIFNOT R16 [+2]
-  LOADB R15 1
-  JUMP [+1]
-  LOADNIL R15
-  SETTABLEKS R15 R14 K22 ["UseScale"]
-  GETUPVAL R16 4
-  CALL R16 0 1
-  JUMPIFNOT R16 [+2]
-  LOADB R15 1
-  JUMP [+1]
-  LOADNIL R15
-  SETTABLEKS R15 R14 K23 ["ClampSize"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K12 ["Inner"]
-  CALL R8 3 -1
-  RETURN R8 -1
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K8 ["Size"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K14 ["Scroll"]
+  GETIMPORT R14 K32 [Enum.ScrollBarInset.None]
+  SETTABLEKS R14 R13 K15 ["VerticalScrollBarInset"]
+  GETUPVAL R14 3
+  SETTABLEKS R14 R13 K16 ["CellComponent"]
+  DUPTABLE R14 K39 [{"GetCreatorNameById", "OnCheckboxToggle", "ShowUploadWidget", "UpdateCreator", "Uploading", "Parsing"}]
+  GETTABLEKS R15 R0 K40 ["getCreatorNameById"]
+  SETTABLEKS R15 R14 K33 ["GetCreatorNameById"]
+  GETTABLEKS R15 R0 K41 ["onCheckboxToggle"]
+  SETTABLEKS R15 R14 K34 ["OnCheckboxToggle"]
+  GETTABLEKS R15 R1 K35 ["ShowUploadWidget"]
+  SETTABLEKS R15 R14 K35 ["ShowUploadWidget"]
+  GETTABLEKS R15 R0 K42 ["updateCreator"]
+  SETTABLEKS R15 R14 K36 ["UpdateCreator"]
+  GETTABLEKS R15 R1 K37 ["Uploading"]
+  SETTABLEKS R15 R14 K37 ["Uploading"]
+  GETTABLEKS R15 R1 K38 ["Parsing"]
+  SETTABLEKS R15 R14 K38 ["Parsing"]
+  SETTABLEKS R14 R13 K17 ["CellProps"]
+  SETTABLEKS R6 R13 K18 ["ColumnHeaderHeight"]
+  SETTABLEKS R5 R13 K5 ["RowHeight"]
+  GETTABLEKS R14 R0 K43 ["onColumnSizesChange"]
+  SETTABLEKS R14 R13 K19 ["OnColumnSizesChange"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K20 ["UseScale"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K21 ["ClampSize"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K10 ["Inner"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
 PROTO_10:
   GETUPVAL R2 0
@@ -436,13 +310,8 @@ PROTO_12:
 
 PROTO_13:
   DUPTABLE R1 K5 [{"ManagedGroups", "Parsing", "SessionQueue", "SearchTerm", "Uploading"}]
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+5]
   GETTABLEKS R3 R0 K6 ["Dialogs"]
   GETTABLEKS R2 R3 K7 ["managedGroups"]
-  JUMP [+1]
-  LOADNIL R2
   SETTABLEKS R2 R1 K0 ["ManagedGroups"]
   GETTABLEKS R3 R0 K8 ["Sessions"]
   GETTABLEKS R2 R3 K9 ["parsing"]
@@ -521,51 +390,43 @@ MAIN:
   GETTABLEKS R22 R23 K31 ["Types"]
   GETTABLEKS R21 R22 K32 ["QueuedSession"]
   CALL R20 1 1
-  GETIMPORT R21 K5 [require]
-  GETTABLEKS R24 R0 K22 ["Src"]
-  GETTABLEKS R23 R24 K33 ["Flags"]
-  GETTABLEKS R22 R23 K34 ["getFFlagImportQueueGADesignFixes"]
-  CALL R21 1 1
-  GETTABLEKS R22 R1 K35 ["PureComponent"]
-  LOADK R24 K36 ["AssetList"]
-  NAMECALL R22 R22 K37 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K38 [PROTO_6]
+  GETTABLEKS R21 R1 K33 ["PureComponent"]
+  LOADK R23 K34 ["AssetList"]
+  NAMECALL R21 R21 K35 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K36 [PROTO_6]
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R12
   CAPTURE VAL R19
-  SETTABLEKS R23 R22 K39 ["init"]
-  DUPCLOSURE R23 K40 [PROTO_7]
-  SETTABLEKS R23 R22 K41 ["didMount"]
-  DUPCLOSURE R23 K42 [PROTO_8]
-  CAPTURE VAL R21
-  SETTABLEKS R23 R22 K43 ["_getColumns"]
-  DUPCLOSURE R23 K44 [PROTO_9]
+  SETTABLEKS R22 R21 K37 ["init"]
+  DUPCLOSURE R22 K38 [PROTO_7]
+  SETTABLEKS R22 R21 K39 ["didMount"]
+  DUPCLOSURE R22 K40 [PROTO_8]
+  SETTABLEKS R22 R21 K41 ["_getColumns"]
+  DUPCLOSURE R22 K42 [PROTO_9]
   CAPTURE VAL R1
   CAPTURE VAL R11
   CAPTURE VAL R10
   CAPTURE VAL R17
-  CAPTURE VAL R21
-  SETTABLEKS R23 R22 K45 ["render"]
-  MOVE R23 R6
-  DUPTABLE R24 K46 [{"Localization", "Stylizer", "QueueController"}]
-  SETTABLEKS R7 R24 K13 ["Localization"]
-  SETTABLEKS R8 R24 K15 ["Stylizer"]
-  SETTABLEKS R18 R24 K30 ["QueueController"]
-  CALL R23 1 1
-  MOVE R24 R22
-  CALL R23 1 1
-  MOVE R22 R23
-  DUPCLOSURE R23 K47 [PROTO_12]
+  SETTABLEKS R22 R21 K43 ["render"]
+  MOVE R22 R6
+  DUPTABLE R23 K44 [{"Localization", "Stylizer", "QueueController"}]
+  SETTABLEKS R7 R23 K13 ["Localization"]
+  SETTABLEKS R8 R23 K15 ["Stylizer"]
+  SETTABLEKS R18 R23 K30 ["QueueController"]
+  CALL R22 1 1
+  MOVE R23 R21
+  CALL R22 1 1
+  MOVE R21 R22
+  DUPCLOSURE R22 K45 [PROTO_12]
   CAPTURE VAL R15
   CAPTURE VAL R16
-  DUPCLOSURE R24 K48 [PROTO_13]
-  CAPTURE VAL R21
-  GETTABLEKS R25 R2 K49 ["connect"]
-  MOVE R26 R24
-  MOVE R27 R23
-  CALL R25 2 1
+  DUPCLOSURE R23 K46 [PROTO_13]
+  GETTABLEKS R24 R2 K47 ["connect"]
+  MOVE R25 R23
   MOVE R26 R22
-  CALL R25 1 -1
-  RETURN R25 -1
+  CALL R24 2 1
+  MOVE R25 R21
+  CALL R24 1 -1
+  RETURN R24 -1

@@ -211,51 +211,6 @@ PROTO_13:
   RETURN R4 1
 
 PROTO_14:
-  JUMPIFNOT R0 [+13]
-  GETTABLEKS R1 R0 K0 ["responseCode"]
-  JUMPIFNOTEQKN R1 K1 [200] [+10]
-  GETTABLEKS R1 R0 K2 ["responseBody"]
-  JUMPIFNOT R1 [+6]
-  GETTABLEKS R2 R0 K2 ["responseBody"]
-  GETTABLEKS R1 R2 K3 ["isUniverseEligible"]
-  JUMPIFNOTEQKNIL R1 [+12]
-  GETUPVAL R1 0
-  LOADK R2 K4 ["/developer-ads-stats-api/v1/universe-suitability-criteria"]
-  JUMPIFNOT R0 [+3]
-  GETTABLEKS R3 R0 K0 ["responseCode"]
-  JUMP [+1]
-  LOADN R3 255
-  LOADK R4 K5 ["Error fetching rewarded on demand ads eligibility"]
-  CALL R1 3 0
-  LOADB R1 0
-  RETURN R1 1
-  GETTABLEKS R2 R0 K2 ["responseBody"]
-  GETTABLEKS R1 R2 K3 ["isUniverseEligible"]
-  RETURN R1 1
-
-PROTO_15:
-  GETUPVAL R2 0
-  JUMPIFNOT R2 [+13]
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["developerAdsStatsV1GET"]
-  CALL R2 2 1
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U1
-  NAMECALL R2 R2 K1 ["catch"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K2 ["await"]
-  CALL R2 1 1
-  RETURN R2 1
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["developerAdsStatsV1GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K2 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K3 ["responseBody"]
-  GETTABLEKS R3 R4 K4 ["isUniverseEligible"]
-  RETURN R3 1
-
-PROTO_16:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["developerAdsStatsV1GET"]
   CALL R2 2 1
@@ -265,7 +220,7 @@ PROTO_16:
   GETTABLEKS R3 R4 K3 ["showRewardedAdsToggle"]
   RETURN R3 1
 
-PROTO_17:
+PROTO_15:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["configurationV2GET"]
   CALL R2 2 1
@@ -275,10 +230,28 @@ PROTO_17:
   GETTABLEKS R3 R4 K3 ["isRewardedOnDemandAdsAllowed"]
   RETURN R3 1
 
-PROTO_18:
+PROTO_16:
   MOVE R5 R1
   DUPTABLE R6 K1 [{"isRewardedOnDemandAdsAllowed"}]
   SETTABLEKS R2 R6 K0 ["isRewardedOnDemandAdsAllowed"]
+  NAMECALL R3 R0 K2 ["configurationV2PATCH"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_17:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["configurationV2GET"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K1 ["await"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K2 ["responseBody"]
+  GETTABLEKS R3 R4 K3 ["isForSale"]
+  RETURN R3 1
+
+PROTO_18:
+  MOVE R5 R1
+  DUPTABLE R6 K1 [{"isForSale"}]
+  SETTABLEKS R2 R6 K0 ["isForSale"]
   NAMECALL R3 R0 K2 ["configurationV2PATCH"]
   CALL R3 3 0
   RETURN R0 0
@@ -290,31 +263,31 @@ PROTO_19:
   NAMECALL R2 R2 K1 ["await"]
   CALL R2 1 1
   GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["isForSale"]
+  GETTABLEKS R3 R4 K3 ["price"]
   RETURN R3 1
 
 PROTO_20:
   MOVE R5 R1
-  DUPTABLE R6 K1 [{"isForSale"}]
-  SETTABLEKS R2 R6 K0 ["isForSale"]
+  DUPTABLE R6 K1 [{"price"}]
+  SETTABLEKS R2 R6 K0 ["price"]
   NAMECALL R3 R0 K2 ["configurationV2PATCH"]
   CALL R3 3 0
   RETURN R0 0
 
 PROTO_21:
   MOVE R4 R1
-  NAMECALL R2 R0 K0 ["configurationV2GET"]
+  NAMECALL R2 R0 K0 ["vipServersV1GET"]
   CALL R2 2 1
   NAMECALL R2 R2 K1 ["await"]
   CALL R2 1 1
   GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["price"]
+  GETTABLEKS R3 R4 K3 ["isEnabled"]
   RETURN R3 1
 
 PROTO_22:
   MOVE R5 R1
-  DUPTABLE R6 K1 [{"price"}]
-  SETTABLEKS R2 R6 K0 ["price"]
+  DUPTABLE R6 K1 [{"allowPrivateServers"}]
+  SETTABLEKS R2 R6 K0 ["allowPrivateServers"]
   NAMECALL R3 R0 K2 ["configurationV2PATCH"]
   CALL R3 3 0
   RETURN R0 0
@@ -326,13 +299,13 @@ PROTO_23:
   NAMECALL R2 R2 K1 ["await"]
   CALL R2 1 1
   GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["isEnabled"]
+  GETTABLEKS R3 R4 K3 ["price"]
   RETURN R3 1
 
 PROTO_24:
   MOVE R5 R1
-  DUPTABLE R6 K1 [{"allowPrivateServers"}]
-  SETTABLEKS R2 R6 K0 ["allowPrivateServers"]
+  DUPTABLE R6 K1 [{"privateServerPrice"}]
+  SETTABLEKS R2 R6 K0 ["privateServerPrice"]
   NAMECALL R3 R0 K2 ["configurationV2PATCH"]
   CALL R3 3 0
   RETURN R0 0
@@ -344,28 +317,10 @@ PROTO_25:
   NAMECALL R2 R2 K1 ["await"]
   CALL R2 1 1
   GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["price"]
-  RETURN R3 1
-
-PROTO_26:
-  MOVE R5 R1
-  DUPTABLE R6 K1 [{"privateServerPrice"}]
-  SETTABLEKS R2 R6 K0 ["privateServerPrice"]
-  NAMECALL R3 R0 K2 ["configurationV2PATCH"]
-  CALL R3 3 0
-  RETURN R0 0
-
-PROTO_27:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["vipServersV1GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K1 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K2 ["responseBody"]
   GETTABLEKS R3 R4 K3 ["activeServersCount"]
   RETURN R3 1
 
-PROTO_28:
+PROTO_26:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["vipServersV1GET"]
   CALL R2 2 1
@@ -375,14 +330,14 @@ PROTO_28:
   GETTABLEKS R3 R4 K3 ["activeSubscriptionsCount"]
   RETURN R3 1
 
-PROTO_29:
+PROTO_27:
   MOVE R5 R1
   MOVE R6 R2
   NAMECALL R3 R0 K0 ["getDeveloperProductsV2"]
   CALL R3 3 -1
   RETURN R3 -1
 
-PROTO_30:
+PROTO_28:
   MOVE R5 R1
   MOVE R6 R2
   NAMECALL R3 R0 K0 ["developerProductsV2GET"]
@@ -415,7 +370,7 @@ PROTO_30:
   MOVE R8 R4
   RETURN R7 2
 
-PROTO_31:
+PROTO_29:
   MOVE R5 R1
   MOVE R6 R2
   NAMECALL R3 R0 K0 ["developerProductsCreateV1POST"]
@@ -424,7 +379,7 @@ PROTO_31:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_30:
   MOVE R5 R1
   MOVE R6 R2
   NAMECALL R3 R0 K0 ["developerProductsUpdateV1POST"]
@@ -433,7 +388,7 @@ PROTO_32:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_31:
   MOVE R5 R1
   MOVE R6 R2
   NAMECALL R3 R0 K0 ["badgesV1GET"]
@@ -468,7 +423,7 @@ PROTO_33:
 
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 64 0
+  NEWTABLE R0 32 0
   GETIMPORT R5 K1 [script]
   GETTABLEKS R4 R5 K2 ["Parent"]
   GETTABLEKS R3 R4 K2 ["Parent"]
@@ -478,99 +433,77 @@ MAIN:
   GETTABLEKS R4 R1 K5 ["Packages"]
   GETTABLEKS R3 R4 K6 ["Cryo"]
   CALL R2 1 1
-  GETIMPORT R3 K8 [game]
-  LOADK R5 K9 ["LogRewardedOnDemandAdsEligibilityFailureLua"]
-  LOADB R6 0
-  NAMECALL R3 R3 K10 ["DefineFastFlag"]
-  CALL R3 3 1
-  LOADNIL R4
-  JUMPIFNOT R3 [+14]
-  GETIMPORT R5 K4 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K2 ["Parent"]
-  GETTABLEKS R8 R9 K2 ["Parent"]
-  GETTABLEKS R7 R8 K11 ["Util"]
-  GETTABLEKS R6 R7 K12 ["telemetry"]
-  CALL R5 1 1
-  MOVE R4 R5
-  GETIMPORT R5 K4 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETIMPORT R3 K4 [require]
+  GETIMPORT R8 K1 [script]
   GETTABLEKS R7 R8 K2 ["Parent"]
-  GETTABLEKS R6 R7 K13 ["Flags"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K14 ["FFlagEnableToggleRegardlessOfUniverseEligibility"]
-  SETTABLEKS R0 R0 K15 ["__index"]
-  DUPCLOSURE R7 K16 [PROTO_0]
+  GETTABLEKS R6 R7 K2 ["Parent"]
+  GETTABLEKS R5 R6 K7 ["Util"]
+  GETTABLEKS R4 R5 K8 ["telemetry"]
+  CALL R3 1 1
+  SETTABLEKS R0 R0 K9 ["__index"]
+  DUPCLOSURE R4 K10 [PROTO_0]
   CAPTURE VAL R0
-  SETTABLEKS R7 R0 K17 ["new"]
-  DUPCLOSURE R7 K18 [PROTO_1]
-  SETTABLEKS R7 R0 K19 ["economyV1GET"]
-  DUPCLOSURE R7 K20 [PROTO_2]
-  SETTABLEKS R7 R0 K21 ["configurationV2GET"]
-  DUPCLOSURE R7 K22 [PROTO_3]
-  SETTABLEKS R7 R0 K23 ["configurationV2PATCH"]
-  DUPCLOSURE R7 K24 [PROTO_4]
-  SETTABLEKS R7 R0 K25 ["developerAdsStatsV1GET"]
-  DUPCLOSURE R7 K26 [PROTO_5]
-  SETTABLEKS R7 R0 K27 ["vipServersV1GET"]
-  DUPCLOSURE R7 K28 [PROTO_6]
-  SETTABLEKS R7 R0 K29 ["developerProductsV2GET"]
-  DUPCLOSURE R7 K30 [PROTO_7]
-  SETTABLEKS R7 R0 K31 ["developerProductsCreateV1POST"]
-  DUPCLOSURE R7 K32 [PROTO_8]
-  SETTABLEKS R7 R0 K33 ["developerProductsUpdateV1POST"]
-  DUPCLOSURE R7 K34 [PROTO_9]
-  SETTABLEKS R7 R0 K35 ["badgesV1GET"]
-  DUPCLOSURE R7 K36 [PROTO_10]
-  SETTABLEKS R7 R0 K37 ["getTaxRate"]
-  DUPCLOSURE R7 K38 [PROTO_11]
-  SETTABLEKS R7 R0 K39 ["getMinimumFee"]
-  JUMPIFNOT R6 [+5]
-  NEWCLOSURE R7 P12
-  CAPTURE REF R4
-  SETTABLEKS R7 R0 K40 ["getIsUniverseEligibleForRewardedOnDemandAds"]
-  JUMP [+5]
-  NEWCLOSURE R7 P13
+  SETTABLEKS R4 R0 K11 ["new"]
+  DUPCLOSURE R4 K12 [PROTO_1]
+  SETTABLEKS R4 R0 K13 ["economyV1GET"]
+  DUPCLOSURE R4 K14 [PROTO_2]
+  SETTABLEKS R4 R0 K15 ["configurationV2GET"]
+  DUPCLOSURE R4 K16 [PROTO_3]
+  SETTABLEKS R4 R0 K17 ["configurationV2PATCH"]
+  DUPCLOSURE R4 K18 [PROTO_4]
+  SETTABLEKS R4 R0 K19 ["developerAdsStatsV1GET"]
+  DUPCLOSURE R4 K20 [PROTO_5]
+  SETTABLEKS R4 R0 K21 ["vipServersV1GET"]
+  DUPCLOSURE R4 K22 [PROTO_6]
+  SETTABLEKS R4 R0 K23 ["developerProductsV2GET"]
+  DUPCLOSURE R4 K24 [PROTO_7]
+  SETTABLEKS R4 R0 K25 ["developerProductsCreateV1POST"]
+  DUPCLOSURE R4 K26 [PROTO_8]
+  SETTABLEKS R4 R0 K27 ["developerProductsUpdateV1POST"]
+  DUPCLOSURE R4 K28 [PROTO_9]
+  SETTABLEKS R4 R0 K29 ["badgesV1GET"]
+  DUPCLOSURE R4 K30 [PROTO_10]
+  SETTABLEKS R4 R0 K31 ["getTaxRate"]
+  DUPCLOSURE R4 K32 [PROTO_11]
+  SETTABLEKS R4 R0 K33 ["getMinimumFee"]
+  DUPCLOSURE R4 K34 [PROTO_13]
   CAPTURE VAL R3
-  CAPTURE REF R4
-  SETTABLEKS R7 R0 K41 ["getIsUniverseEligibleForRewardedOnDemandAds_deprecated"]
-  DUPCLOSURE R7 K42 [PROTO_16]
-  SETTABLEKS R7 R0 K43 ["getShowRewardedAdsToggle"]
-  DUPCLOSURE R7 K44 [PROTO_17]
-  SETTABLEKS R7 R0 K45 ["getIsRewardedOnDemandAdsAllowed"]
-  DUPCLOSURE R7 K46 [PROTO_18]
-  SETTABLEKS R7 R0 K47 ["setIsRewardedOnDemandAdsAllowed"]
-  DUPCLOSURE R7 K48 [PROTO_19]
-  SETTABLEKS R7 R0 K49 ["getPaidAccessEnabled"]
-  DUPCLOSURE R7 K50 [PROTO_20]
-  SETTABLEKS R7 R0 K51 ["setPaidAccessEnabled"]
-  DUPCLOSURE R7 K52 [PROTO_21]
-  SETTABLEKS R7 R0 K53 ["getPaidAccessPrice"]
-  DUPCLOSURE R7 K54 [PROTO_22]
-  SETTABLEKS R7 R0 K55 ["setPaidAccessPrice"]
-  DUPCLOSURE R7 K56 [PROTO_23]
-  SETTABLEKS R7 R0 K57 ["getVIPServersEnabled"]
-  DUPCLOSURE R7 K58 [PROTO_24]
-  SETTABLEKS R7 R0 K59 ["setVIPServersEnabled"]
-  DUPCLOSURE R7 K60 [PROTO_25]
-  SETTABLEKS R7 R0 K61 ["getVIPServersPrice"]
-  DUPCLOSURE R7 K62 [PROTO_26]
-  SETTABLEKS R7 R0 K63 ["setVIPServersPrice"]
-  DUPCLOSURE R7 K64 [PROTO_27]
-  SETTABLEKS R7 R0 K65 ["getVIPServersActiveServersCount"]
-  DUPCLOSURE R7 K66 [PROTO_28]
-  SETTABLEKS R7 R0 K67 ["getVIPServersActiveSubscriptionsCount"]
-  DUPCLOSURE R7 K68 [PROTO_29]
-  SETTABLEKS R7 R0 K69 ["getDeveloperProducts"]
-  DUPCLOSURE R7 K70 [PROTO_30]
+  SETTABLEKS R4 R0 K35 ["getIsUniverseEligibleForRewardedOnDemandAds"]
+  DUPCLOSURE R4 K36 [PROTO_14]
+  SETTABLEKS R4 R0 K37 ["getShowRewardedAdsToggle"]
+  DUPCLOSURE R4 K38 [PROTO_15]
+  SETTABLEKS R4 R0 K39 ["getIsRewardedOnDemandAdsAllowed"]
+  DUPCLOSURE R4 K40 [PROTO_16]
+  SETTABLEKS R4 R0 K41 ["setIsRewardedOnDemandAdsAllowed"]
+  DUPCLOSURE R4 K42 [PROTO_17]
+  SETTABLEKS R4 R0 K43 ["getPaidAccessEnabled"]
+  DUPCLOSURE R4 K44 [PROTO_18]
+  SETTABLEKS R4 R0 K45 ["setPaidAccessEnabled"]
+  DUPCLOSURE R4 K46 [PROTO_19]
+  SETTABLEKS R4 R0 K47 ["getPaidAccessPrice"]
+  DUPCLOSURE R4 K48 [PROTO_20]
+  SETTABLEKS R4 R0 K49 ["setPaidAccessPrice"]
+  DUPCLOSURE R4 K50 [PROTO_21]
+  SETTABLEKS R4 R0 K51 ["getVIPServersEnabled"]
+  DUPCLOSURE R4 K52 [PROTO_22]
+  SETTABLEKS R4 R0 K53 ["setVIPServersEnabled"]
+  DUPCLOSURE R4 K54 [PROTO_23]
+  SETTABLEKS R4 R0 K55 ["getVIPServersPrice"]
+  DUPCLOSURE R4 K56 [PROTO_24]
+  SETTABLEKS R4 R0 K57 ["setVIPServersPrice"]
+  DUPCLOSURE R4 K58 [PROTO_25]
+  SETTABLEKS R4 R0 K59 ["getVIPServersActiveServersCount"]
+  DUPCLOSURE R4 K60 [PROTO_26]
+  SETTABLEKS R4 R0 K61 ["getVIPServersActiveSubscriptionsCount"]
+  DUPCLOSURE R4 K62 [PROTO_27]
+  SETTABLEKS R4 R0 K63 ["getDeveloperProducts"]
+  DUPCLOSURE R4 K64 [PROTO_28]
   CAPTURE VAL R2
-  SETTABLEKS R7 R0 K71 ["getDeveloperProductsV2"]
-  DUPCLOSURE R7 K72 [PROTO_31]
-  SETTABLEKS R7 R0 K73 ["createDevProduct"]
-  DUPCLOSURE R7 K74 [PROTO_32]
-  SETTABLEKS R7 R0 K75 ["updateDevProduct"]
-  DUPCLOSURE R7 K76 [PROTO_33]
-  SETTABLEKS R7 R0 K77 ["getBadges"]
-  CLOSEUPVALS R4
+  SETTABLEKS R4 R0 K65 ["getDeveloperProductsV2"]
+  DUPCLOSURE R4 K66 [PROTO_29]
+  SETTABLEKS R4 R0 K67 ["createDevProduct"]
+  DUPCLOSURE R4 K68 [PROTO_30]
+  SETTABLEKS R4 R0 K69 ["updateDevProduct"]
+  DUPCLOSURE R4 K70 [PROTO_31]
+  SETTABLEKS R4 R0 K71 ["getBadges"]
   RETURN R0 1

@@ -45,7 +45,7 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
 end
 
-local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts")
+local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts2")
 
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
@@ -729,10 +729,9 @@ function ControlModule:UpdateMovementMode()
 	if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
 		local touchModule, success = self:SelectTouchModule()
 		if success then
-			while not self.touchControlFrame do
-				wait()
+			if self.touchControlFrame then
+				self:SwitchToController(touchModule)
 			end
-			self:SwitchToController(touchModule)
 		end
 	else
 		local computerModule = self:SelectComputerMovementModule()

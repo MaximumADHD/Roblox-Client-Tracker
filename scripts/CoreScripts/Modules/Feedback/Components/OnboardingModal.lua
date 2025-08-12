@@ -6,6 +6,8 @@ local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 -- Services
 local ExperienceStateCaptureService = game:GetService("ExperienceStateCaptureService")
@@ -23,6 +25,9 @@ local ShowOnboardingModalThunk = require(FeedbackModule.Thunks.ShowOnboardingMod
 local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
 local OnboardingModal = Roact.PureComponent:extend("OnboardingModal")
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
+
 local HEIGHT = 200
 local WIDTH = 540
 local BUTTON_HEIGHT = 36
@@ -35,6 +40,22 @@ function OnboardingModal:init()
 	self.onCancel = function()
 		ExperienceStateCaptureService:ToggleCaptureMode()
 	end
+
+	if FFlagTopBarSignalizeScreenSize then
+		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
+
+		self.disposeScreenSize = Signals.createEffect(function(scope)
+			self:setState({
+				screenSize = getViewportSize(scope),
+			})
+		end)
+	end
+end
+
+function OnboardingModal:willUnmount()
+	if FFlagTopBarSignalizeScreenSize then
+		self.disposeScreenSize()
+	end
 end
 
 function OnboardingModal:render()
@@ -46,7 +67,7 @@ function OnboardingModal:render()
 	})(function(localized)
 		return Roact.createElement(ModalDialog, {
 			visible = self.props.visible,
-			screenSize = self.props.screenSize,
+			screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize,
 			titleText = localized.mainHeader,
 			maxHeight = HEIGHT,
 			maxWidth = WIDTH,
@@ -104,7 +125,7 @@ end
 
 return RoactRodux.connect(function(state)
 	return {
-		screenSize = state.displayOptions.screenSize,
+		screenSize = if FFlagTopBarSignalizeScreenSize then nil else state.displayOptions.screenSize,
 		visible = state.common.showOnboardingModal,
 	}
 end, function(dispatch)

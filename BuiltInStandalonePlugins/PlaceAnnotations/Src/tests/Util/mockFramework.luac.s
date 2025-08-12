@@ -1,6 +1,8 @@
 PROTO_0:
-  NEWTABLE R0 0 0
-  RETURN R0 1
+  GETIMPORT R0 K2 [Instance.new]
+  LOADK R1 K3 ["StyleSheet"]
+  CALL R0 1 -1
+  RETURN R0 -1
 
 PROTO_1:
   DUPTABLE R0 K1 [{"Disconnect"}]

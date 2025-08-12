@@ -28,7 +28,7 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI")
-local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts")
+local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts2")
 
 --[[ Configuration ]]
 local ShowPath = true

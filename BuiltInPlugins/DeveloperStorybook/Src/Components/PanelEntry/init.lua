@@ -5,17 +5,20 @@
 		string Header: The header text of this component.
 
 	Optional Props:
-		string Description: A description which displays beneath the header.
+		string Description: A description which displays beneath the header. It also supports Markdown syntax.
 		number LayoutOrder: The sort order of this component.
 ]]
-
 local Main = script.Parent.Parent.Parent
 local React = require(Main.Packages.React)
 local Dash = require(Main.Packages.Dash)
 local mapOne = Dash.mapOne
 
+local Markdown = require(Main.Packages.Markdown)
+
 local Framework = require(Main.Packages.Framework)
 local joinTags = Framework.Styling.joinTags
+
+local MarkdownViewer = Markdown.Components.MarkdownViewer
 
 local Foundation = require(Main.Packages.Foundation)
 local View = Foundation.View
@@ -44,10 +47,11 @@ function PanelEntry(props: {
 				if props.IsTitle then "text-heading-medium" else "text-heading-small"
 			),
 		}),
-		Description = hasDescription and React.createElement(Text, {
-			LayoutOrder = 2,
-			Text = description,
-			tag = "text-body-medium text-wrap size-full-0 auto-y text-align-x-left",
+		Description = hasDescription and React.createElement(MarkdownViewer, {
+			Markdown = description,
+			WrapperProps = {
+				LayoutOrder = 2,
+			},
 		}),
 		Content = hasChild and React.createElement(View, {
 			LayoutOrder = 3,

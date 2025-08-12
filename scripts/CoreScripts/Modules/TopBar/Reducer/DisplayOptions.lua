@@ -22,12 +22,11 @@ local FFlagGamepadNavigationDialogABTest = require(script.Parent.Parent.Flags.FF
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
-
-local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
-local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -70,7 +69,7 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		})
 	end,
 
-	[SetScreenSize.name] = function(state, action)
+	[if FFlagTopBarSignalizeScreenSize then "" else SetScreenSize.name] = if FFlagTopBarSignalizeScreenSize then nil else function(state, action)
 		return Cryo.Dictionary.join(state, {
 			screenSize = action.screenSize,
 		})

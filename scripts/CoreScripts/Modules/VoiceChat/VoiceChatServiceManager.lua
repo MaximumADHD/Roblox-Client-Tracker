@@ -170,6 +170,8 @@ local CoreVoiceManager = VoiceChatCore.CoreVoiceManager
 local CoreVoiceConstants = VoiceChatCore.Constants
 
 local FFlagUseLocalMutePropertyForMutingOthers = game:GetEngineFeature("EnableMutedByLocalUser")
+local FFlagEnablePartyVoiceChangersInLua =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyVoiceChangersInLua
 
 type VoiceMuteIndividualArgs = VoiceChatCore.VoiceMuteIndividualArgs
 type VoiceMuteGroupArgs = VoiceChatCore.VoiceMuteGroupArgs
@@ -515,6 +517,11 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe("OnDeviceMuteChanged", function()
 		self:UpdateAudioDeviceInputDebugger()
 	end)
+	if FFlagEnablePartyVoiceChangersInLua then
+		self.coreVoiceManager:subscribe("OnVoiceChangerChanged", function()
+			self:UpdateAudioDeviceInputDebugger()
+		end)
+	end
 	self.coreVoiceManager:subscribe("OnStateChanged", function(oldState, newState)
 		if getFFlagMicrophoneDevicePermissionsPromptLogging() then
 			MicrophoneDevicePermissionsLogging:setClientSessionId(self.coreVoiceManager:GetSessionId())

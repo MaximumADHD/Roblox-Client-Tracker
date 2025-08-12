@@ -89,37 +89,29 @@ MAIN:
   CALL R9 3 1
   MOVE R10 R3
   LOADK R11 K57 [">> ImageButton"]
-  DUPTABLE R12 K61 [{"BorderSizePixel", "BackgroundColor3", "BackgroundTransparency", "ImageTransparency"}]
+  DUPTABLE R12 K60 [{"BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
   LOADN R13 0
   SETTABLEKS R13 R12 K58 ["BorderSizePixel"]
-  LOADK R13 K62 ["$SemanticColorSurfaceOutline"]
+  LOADK R13 K61 ["$SemanticColorSurfaceOutline"]
   SETTABLEKS R13 R12 K59 ["BackgroundColor3"]
   LOADN R13 1
   SETTABLEKS R13 R12 K14 ["BackgroundTransparency"]
-  LOADN R13 0
-  SETTABLEKS R13 R12 K60 ["ImageTransparency"]
-  NEWTABLE R13 0 3
+  NEWTABLE R13 0 2
   MOVE R14 R3
-  LOADK R15 K63 [".Hover"]
-  DUPTABLE R16 K64 [{"BackgroundTransparency"}]
-  GETTABLEKS R17 R1 K65 ["hoveredTransparency"]
+  LOADK R15 K62 [".Hover"]
+  DUPTABLE R16 K63 [{"BackgroundTransparency"}]
+  GETTABLEKS R17 R1 K64 ["hoveredTransparency"]
   SETTABLEKS R17 R16 K14 ["BackgroundTransparency"]
   CALL R14 2 1
   MOVE R15 R3
-  LOADK R16 K66 [".Disabled"]
-  DUPTABLE R17 K67 [{"ImageTransparency"}]
-  LOADK R18 K68 [0.5]
-  SETTABLEKS R18 R17 K60 ["ImageTransparency"]
-  CALL R15 2 1
-  MOVE R16 R3
-  LOADK R17 K69 ["::UICorner"]
-  DUPTABLE R18 K71 [{"CornerRadius"}]
-  GETIMPORT R19 K25 [UDim.new]
-  LOADN R20 0
-  GETTABLEKS R21 R1 K72 ["radiusMedium"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K70 ["CornerRadius"]
-  CALL R16 2 -1
+  LOADK R16 K65 ["::UICorner"]
+  DUPTABLE R17 K67 [{"CornerRadius"}]
+  GETIMPORT R18 K25 [UDim.new]
+  LOADN R19 0
+  GETTABLEKS R20 R1 K68 ["radiusMedium"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K66 ["CornerRadius"]
+  CALL R15 2 -1
   SETLIST R13 R14 -1 [1]
   CALL R10 3 -1
   SETLIST R7 R8 -1 [1]

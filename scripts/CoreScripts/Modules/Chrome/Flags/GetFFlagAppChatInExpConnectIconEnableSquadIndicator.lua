@@ -1,8 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
-local GetFFlagLuaAppEnableSquadPage = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableSquadPage
+local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
 game:DefineFastFlag("AppChatInExpConnectIconEnableSquadIndicator2", false)
 
 return function()
-	return game:GetFastFlag("AppChatInExpConnectIconEnableSquadIndicator2") and GetFFlagLuaAppEnableSquadPage()
+	return game:GetFastFlag("AppChatInExpConnectIconEnableSquadIndicator2") and GetFFlagIsSquadEnabled()
 end

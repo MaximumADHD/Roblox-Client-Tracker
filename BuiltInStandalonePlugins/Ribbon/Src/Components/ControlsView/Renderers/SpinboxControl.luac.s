@@ -67,30 +67,22 @@ PROTO_1:
   CALL R5 1 0
   LOADNIL R5
   RETURN R5 1
-  GETUPVAL R6 1
-  JUMPIFNOT R6 [+12]
   GETTABLEKS R6 R3 K17 ["Visible"]
   JUMPIFEQKNIL R6 [+5]
   GETTABLEKS R6 R3 K17 ["Visible"]
   JUMPIFNOTEQKB R6 TRUE [+3]
   LOADB R5 1
-  JUMP [+3]
-  LOADB R5 0
   JUMP [+1]
-  LOADB R5 1
-  GETUPVAL R7 1
-  JUMPIFNOT R7 [+12]
+  LOADB R5 0
   GETTABLEKS R7 R3 K18 ["Enabled"]
   JUMPIFEQKNIL R7 [+5]
   GETTABLEKS R7 R3 K18 ["Enabled"]
   JUMPIFNOTEQKB R7 TRUE [+3]
   LOADB R6 1
-  JUMP [+4]
+  JUMP [+1]
   LOADB R6 0
-  JUMP [+2]
-  GETTABLEKS R6 R3 K18 ["Enabled"]
-  GETUPVAL R7 2
-  GETUPVAL R8 3
+  GETUPVAL R7 1
+  GETUPVAL R8 2
   DUPTABLE R9 K30 [{"Uri", "Disabled", "Visible", "Increment", "LayoutOrder", "Maximum", "Minimum", "Precision", "Icon", "FormatStringKey", "Value", "IsShort", "OnValueChanged"}]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K31 ["child"]
@@ -153,24 +145,17 @@ MAIN:
   GETTABLEKS R6 R7 K14 ["RibbonSpinbox"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K15 ["SharedFlags"]
-  GETTABLEKS R7 R8 K16 ["getFFlagLuaRibbonControlVisibility"]
-  CALL R6 1 1
-  CALL R6 0 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R11 R0 K12 ["Src"]
-  GETTABLEKS R10 R11 K13 ["Components"]
-  GETTABLEKS R9 R10 K17 ["ControlsView"]
-  GETTABLEKS R8 R9 K18 ["ControlProps"]
-  CALL R7 1 1
-  GETIMPORT R8 K5 [require]
   GETTABLEKS R10 R0 K12 ["Src"]
-  GETTABLEKS R9 R10 K19 ["Types"]
-  CALL R8 1 1
-  DUPCLOSURE R9 K20 [PROTO_1]
+  GETTABLEKS R9 R10 K13 ["Components"]
+  GETTABLEKS R8 R9 K15 ["ControlsView"]
+  GETTABLEKS R7 R8 K16 ["ControlProps"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K17 ["Types"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K18 [PROTO_1]
   CAPTURE VAL R4
-  CAPTURE VAL R6
   CAPTURE VAL R2
   CAPTURE VAL R5
-  RETURN R9 1
+  RETURN R8 1

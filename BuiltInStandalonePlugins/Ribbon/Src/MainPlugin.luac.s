@@ -255,27 +255,20 @@ PROTO_17:
   GETTABLEKS R2 R3 K0 ["state"]
   GETTABLEKS R1 R2 K1 ["showFloating"]
   NOT R0 R1
-  JUMPIFNOT R0 [+10]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["Panels"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["floatingUri"]
-  NAMECALL R1 R1 K4 ["FocusAsync"]
-  CALL R1 2 0
-  JUMP [+6]
+  JUMPIF R0 [+6]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K5 ["Floating"]
+  GETTABLEKS R1 R2 K2 ["Floating"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K6 ["Enabled"]
+  SETTABLEKS R2 R1 K3 ["Enabled"]
   GETUPVAL R1 2
-  LOADK R3 K7 ["ShowFloating"]
+  LOADK R3 K4 ["ShowFloating"]
   MOVE R4 R0
-  NAMECALL R1 R1 K8 ["SetSetting"]
+  NAMECALL R1 R1 K5 ["SetSetting"]
   CALL R1 3 0
   GETUPVAL R1 0
-  DUPTABLE R3 K9 [{"showFloating"}]
+  DUPTABLE R3 K6 [{"showFloating"}]
   SETTABLEKS R0 R3 K1 ["showFloating"]
-  NAMECALL R1 R1 K10 ["setState"]
+  NAMECALL R1 R1 K7 ["setState"]
   CALL R1 2 0
   RETURN R0 0
 

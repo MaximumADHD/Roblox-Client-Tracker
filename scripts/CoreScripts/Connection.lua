@@ -18,9 +18,11 @@ local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
+local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
 
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
+local fflagUpdateConnectionErrorLoc = game:DefineFastFlag("UpdateConnectionErrorLoc", false)
 
 local fflagConnectionEventMetrics = game:DefineFastFlag("ConnectionEventMetrics", false)
 local fflagUseConfigurableReconnectWait = game:DefineFastFlag("UseConfigurableReconnectWait", false)
@@ -655,6 +657,82 @@ local function getCreatorBanString(errorMsg: string)
 	return errorMsg
 end
 
+local enumToLocalizationKey = {
+	[Enum.ConnectionError.DisconnectErrors] = "InGame.ConnectionError.DisconnectErrors",
+	[Enum.ConnectionError.DisconnectBadhash] = "InGame.ConnectionError.DisconnectBadhash",
+	[Enum.ConnectionError.DisconnectSecurityKeyMismatch] = "InGame.ConnectionError.DisconnectSecurityKeyMismatch",
+	[Enum.ConnectionError.DisconnectProtocolMismatch] = "InGame.ConnectionError.DisconnectProtocolMismatch",
+	[Enum.ConnectionError.DisconnectReceivePacketError] = "InGame.ConnectionError.DisconnectReceivePacketError",
+	[Enum.ConnectionError.DisconnectReceivePacketStreamError] = "InGame.ConnectionError.DisconnectReceivePacketStreamError",
+	[Enum.ConnectionError.DisconnectSendPacketError] = "InGame.ConnectionError.DisconnectSendPacketError",
+	[Enum.ConnectionError.DisconnectIllegalTeleport] = "InGame.ConnectionError.DisconnectIllegalTeleport",
+	[Enum.ConnectionError.DisconnectDuplicatePlayer] = "InGame.ConnectionError.DisconnectDuplicatePlayer",
+	[Enum.ConnectionError.DisconnectDuplicateTicket] = "InGame.ConnectionError.DisconnectDuplicateTicket",
+	[Enum.ConnectionError.DisconnectTimeout] = "InGame.ConnectionError.DisconnectTimeout",
+	[Enum.ConnectionError.DisconnectLuaKick] = "InGame.ConnectionError.DisconnectLuaKick",
+	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = "InGame.ConnectionError.DisconnectOnRemoteSysStats",
+	[Enum.ConnectionError.DisconnectHashTimeout] = "InGame.ConnectionError.DisconnectHashTimeout",
+	[Enum.ConnectionError.DisconnectCloudEditKick] = "InGame.ConnectionError.DisconnectCloudEditKick",
+	[Enum.ConnectionError.DisconnectPlayerless] = "InGame.ConnectionError.DisconnectPlayerless",
+	[Enum.ConnectionError.DisconnectNewSecurityKeyMismatch] = "InGame.ConnectionError.DisconnectNewSecurityKeyMismatch",
+	[Enum.ConnectionError.DisconnectEvicted] = "InGame.ConnectionError.DisconnectEvicted",
+	[Enum.ConnectionError.DisconnectDevMaintenance] = "InGame.ConnectionError.DisconnectDevMaintenance",
+	[Enum.ConnectionError.DisconnectRobloxMaintenance] = "InGame.ConnectionError.DisconnectRobloxMaintenance",
+	[Enum.ConnectionError.DisconnectRejoin] = "InGame.ConnectionError.DisconnectRejoin",
+	[Enum.ConnectionError.DisconnectConnectionLost] = "InGame.ConnectionError.DisconnectConnectionLost",
+	[Enum.ConnectionError.DisconnectIdle] = "InGame.ConnectionError.DisconnectIdle",
+	[Enum.ConnectionError.DisconnectRaknetErrors] = "InGame.ConnectionError.DisconnectRaknetErrors",
+	[Enum.ConnectionError.DisconnectWrongVersion] = "InGame.ConnectionError.DisconnectWrongVersion",
+	[Enum.ConnectionError.DisconnectBySecurityPolicy] = "InGame.ConnectionError.DisconnectBySecurityPolicy",
+	[Enum.ConnectionError.DisconnectBlockedIP] = "InGame.ConnectionError.DisconnectBlockedIP",
+	[Enum.ConnectionError.DisconnectClientFailure] = "InGame.ConnectionError.DisconnectClientFailure",
+	[Enum.ConnectionError.DisconnectClientRequest] = "InGame.ConnectionError.DisconnectClientRequest",
+	[Enum.ConnectionError.DisconnectPrivateServerKickout] = "InGame.ConnectionError.DisconnectPrivateServerKickout",
+	[Enum.ConnectionError.DisconnectModeratedGame] = "InGame.ConnectionError.DisconnectModeratedGame",
+	[Enum.ConnectionError.ServerShutdown] = "InGame.ConnectionError.ServerShutdown",
+	[Enum.ConnectionError.ReplicatorTimeout] = "InGame.ConnectionError.ReplicatorTimeout",
+	[Enum.ConnectionError.PlayerRemoved] = "InGame.ConnectionError.PlayerRemoved",
+	[Enum.ConnectionError.DisconnectOutOfMemoryKeepPlayingLeave] = "InGame.ConnectionError.DisconnectOutOfMemoryKeepPlayingLeave",
+	[Enum.ConnectionError.DisconnectRomarkEndOfTest] = "InGame.ConnectionError.DisconnectRomarkEndOfTest",
+	[Enum.ConnectionError.DisconnectCollaboratorPermissionRevoked] = "InGame.ConnectionError.DisconnectCollaboratorPermissionRevoked",
+	[Enum.ConnectionError.DisconnectCollaboratorUnderage] = "InGame.ConnectionError.DisconnectCollaboratorUnderage",
+	[Enum.ConnectionError.NetworkInternal] = "InGame.ConnectionError.NetworkInternal",
+	[Enum.ConnectionError.NetworkSend] = "InGame.ConnectionError.NetworkSend",
+	[Enum.ConnectionError.NetworkTimeout] = "InGame.ConnectionError.NetworkTimeout",
+	[Enum.ConnectionError.NetworkMisbehavior] = "InGame.ConnectionError.NetworkMisbehavior",
+	[Enum.ConnectionError.NetworkSecurity] = "InGame.ConnectionError.NetworkSecurity",
+	[Enum.ConnectionError.ReplacementReady] = "InGame.ConnectionError.ReplacementReady",
+	[Enum.ConnectionError.ServerEmpty] = "InGame.ConnectionError.ServerEmpty",
+	[Enum.ConnectionError.PhantomFreeze] = "InGame.ConnectionError.PhantomFreeze",
+	[Enum.ConnectionError.AndroidAnticheatKick] = "InGame.ConnectionError.AndroidAnticheatKick",
+	[Enum.ConnectionError.AndroidEmulatorKick] = "InGame.ConnectionError.AndroidEmulatorKick",
+	[Enum.ConnectionError.PlacelaunchErrors] = "InGame.ConnectionError.PlacelaunchErrors",
+	[Enum.ConnectionError.PlacelaunchDisabled] = "InGame.ConnectionError.PlacelaunchDisabled",
+	[Enum.ConnectionError.PlacelaunchError] = "InGame.ConnectionError.PlacelaunchError",
+	[Enum.ConnectionError.PlacelaunchGameEnded] = "InGame.ConnectionError.PlacelaunchGameEnded",
+	[Enum.ConnectionError.PlacelaunchGameFull] = "InGame.ConnectionError.PlacelaunchGameFull",
+	[Enum.ConnectionError.PlacelaunchUserLeft] = "InGame.ConnectionError.PlacelaunchUserLeft",
+	[Enum.ConnectionError.PlacelaunchRestricted] = "InGame.ConnectionError.PlacelaunchRestricted",
+	[Enum.ConnectionError.PlacelaunchUnauthorized] = "InGame.ConnectionError.PlacelaunchUnauthorized",
+	[Enum.ConnectionError.PlacelaunchFlooded] = "InGame.ConnectionError.PlacelaunchFlooded",
+	[Enum.ConnectionError.PlacelaunchHashExpired] = "InGame.ConnectionError.PlacelaunchHashExpired",
+	[Enum.ConnectionError.PlacelaunchHashException] = "InGame.ConnectionError.PlacelaunchHashException",
+	[Enum.ConnectionError.PlacelaunchPartyCannotFit] = "InGame.ConnectionError.PlacelaunchPartyCannotFit",
+	[Enum.ConnectionError.PlacelaunchHttpError] = "InGame.ConnectionError.PlacelaunchHttpError",
+	[Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized] = "InGame.ConnectionError.PlacelaunchUserPrivacyUnauthorized",
+	[Enum.ConnectionError.PlacelaunchCreatorBan] = "InGame.ConnectionError.PlacelaunchCreatorBan",
+	[Enum.ConnectionError.PlacelaunchCustomMessage] = "InGame.ConnectionError.PlacelaunchCustomMessage",
+	[Enum.ConnectionError.PlacelaunchOtherError] = "InGame.ConnectionError.PlacelaunchOtherError",
+	[Enum.ConnectionError.TeleportErrors] = "InGame.ConnectionError.TeleportErrors",
+	[Enum.ConnectionError.TeleportFailure] = "InGame.ConnectionError.TeleportFailure",
+	[Enum.ConnectionError.TeleportGameNotFound] = "InGame.ConnectionError.TeleportGameNotFound",
+	[Enum.ConnectionError.TeleportGameEnded] = "InGame.ConnectionError.TeleportGameEnded",
+	[Enum.ConnectionError.TeleportGameFull] = "InGame.ConnectionError.TeleportGameFull",
+	[Enum.ConnectionError.TeleportUnauthorized] = "InGame.ConnectionError.TeleportUnauthorized",
+	[Enum.ConnectionError.TeleportFlooded] = "InGame.ConnectionError.TeleportFlooded",
+	[Enum.ConnectionError.TeleportIsTeleporting] = "InGame.ConnectionError.TeleportIsTeleporting",
+}
+
 -- Localize the error string, with a fallback to the original string upon failure.
 -- If it is a teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."
 local function getErrorString(errorMsg: string, errorCode, reconnectError)
@@ -682,7 +760,16 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 		return errorMsg
 	end
 
-	local key = string.gsub(tostring(errorCode), "Enum", "InGame")
+	local key
+	if fflagUpdateConnectionErrorLoc then
+		key = enumToLocalizationKey[errorCode]
+		if not key then
+			mutedError("Cannot find localization key for " .. tostring(errorCode))
+			key = "InGame.ConnectionError.UnknownError"
+		end
+	else
+		key = string.gsub(tostring(errorCode), "Enum", "InGame")
+	end
 
 	local attemptTranslation
 	if errorCode == Enum.ConnectionError.DisconnectIdle then

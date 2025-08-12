@@ -1,0 +1,91 @@
+PROTO_0:
+  FASTCALL2K ASSERT R0 K0 [+5]
+  MOVE R2 R0
+  LOADK R3 K0 ["TelemetryContext.new expects a Telemetry instance."]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K4 [{"telemetry"}]
+  SETTABLEKS R0 R1 K3 ["telemetry"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K6 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["telemetry"]
+  RETURN R1 1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["telemetry"]
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R3 K1 ["logRobloxTelemetryEvent"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_3:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["getTelemetryEvent"]
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["AnnotationsPluginActionEvent"]
+  RETURN R1 1
+
+PROTO_5:
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  DUPTABLE R2 K2 [{"logRobloxTelemetryEvent"}]
+  MOVE R3 R0
+  JUMPIF R3 [+1]
+  DUPCLOSURE R3 K3 [PROTO_5]
+  SETTABLEKS R3 R2 K1 ["logRobloxTelemetryEvent"]
+  CALL R1 1 1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceAnnotations"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["TelemetryUtils"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K11 ["ContextServices"]
+  GETTABLEKS R3 R4 K12 ["ContextItem"]
+  LOADK R6 K13 ["Telemetry"]
+  NAMECALL R4 R3 K14 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K15 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K16 ["new"]
+  DUPCLOSURE R5 K17 [PROTO_1]
+  SETTABLEKS R5 R4 K18 ["get"]
+  DUPCLOSURE R5 K19 [PROTO_2]
+  SETTABLEKS R5 R4 K20 ["logRobloxTelemetryEvent"]
+  DUPCLOSURE R5 K21 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K22 ["getTelemetryEvent"]
+  DUPCLOSURE R5 K23 [PROTO_4]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K24 ["getAnnotationsPluginActionEvent"]
+  DUPCLOSURE R5 K25 [PROTO_6]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K26 ["mock"]
+  RETURN R4 1

@@ -20,6 +20,7 @@ export type AvatarGroupType = Package.AvatarGroupType
 export type BadgeSize = Package.BadgeSize
 export type BadgeVariant = Package.BadgeVariant
 export type ButtonVariant = Package.ButtonVariant
+export type ChipSize = Package.ChipSize
 export type ControlState = Package.ControlState
 export type CursorType = Package.CursorType
 export type Device = Package.Device
@@ -44,6 +45,8 @@ export type ThumbnailType = Package.ThumbnailType
 export type ThumbnailSize = Package.ThumbnailSize
 export type UserPresence = Package.UserPresence
 export type Visibility = Package.Visibility
+export type MenuProps = Package.MenuProps
+export type MenuItem = Package.MenuItem
 
 
 return Package

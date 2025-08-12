@@ -3,6 +3,7 @@ local Root = script.Parent.Parent
 local CoreGui = game:GetService("CoreGui")
 local LocalizationService = game:GetService("LocalizationService")
 local CorePackages = game:GetService("CorePackages")
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 local Rodux = PurchasePromptDeps.Rodux
@@ -36,6 +37,8 @@ local SubscriptionPurchaseContainer = require(script.Parent.SubscriptionPurchase
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 
+local FocusNavigationTelemetry = require(Root.Events.FocusNavigationOptimizationTelemetry)
+
 local SelectionCursorProvider = require(CorePackages.Packages.UIBlox).App.SelectionImage.SelectionCursorProvider
 local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local focusNavigationService =
@@ -51,6 +54,12 @@ local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLite
 local FFlagAddCursorProviderToPurchasePromptApp = require(Root.Flags.FFlagAddCursorProviderToPurchasePromptApp)
 local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 
+-- Enums for checking if any prompt is active
+local RequestType = require(Root.Enums.RequestType)
+local PromptState = require(Root.Enums.PromptState)
+local FFlagPurchasePromptAppConditionalFocusNavigation = game:DefineFastFlag("PurchasePromptAppConditionalFocusNavigation", false)
+local FFlagPurchasePromptAppTrackRenderPerformance = game:DefineFastFlag("PurchasePromptAppTrackRenderPerformance", false)
+
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
 local SELECTION_GROUP_NAME = "PurchasePromptApp"
@@ -61,6 +70,53 @@ function PurchasePromptApp:init()
 	self.state = {
 		isTenFootInterface = externalSettings.isTenFootInterface(),
 	}
+	
+	-- Track render performance
+	self.renderCount = 0
+	self.lastRenderTime = 0
+end
+
+function PurchasePromptApp:hasAnyActivePrompt()
+	if not FFlagPurchasePromptAppConditionalFocusNavigation then
+		return true
+	end
+	
+	-- Check if any prompt is active using the same logic as the containers
+	-- This mirrors AvatarEditorPromptsApp's promptElement check
+	if not self.props.store then
+		return false
+	end
+	
+	local state = self.props.store:getState()
+	local promptState = state.promptState
+	local requestType = state.promptRequest.requestType
+	
+	-- Only show focus navigation when there's actual prompt activity
+	return not (promptState == PromptState.None and requestType == RequestType.None)
+end
+
+function PurchasePromptApp:trackRenderPerformance()	
+	-- Only track performance when telemetry flag is enabled
+	if not FFlagPurchasePromptAppTrackRenderPerformance then
+		return
+	end
+	
+	self.renderCount = self.renderCount + 1
+	local now = tick()
+	local timeSinceLastRender = now - self.lastRenderTime
+	
+	-- Log re-render timing as a stat (time between renders in milliseconds)
+	if self.renderCount > 1 then
+		local timeBetweenRendersMs = timeSinceLastRender * 1000
+		LoggingProtocol.default:logRobloxTelemetryStat(
+			FocusNavigationTelemetry.RerenderTimingStat,
+			timeBetweenRendersMs,
+			{
+				optimizationEnabled = tostring(FFlagPurchasePromptAppConditionalFocusNavigation),
+			}
+		)
+	end
+	self.lastRenderTime = now
 end
 
 function PurchasePromptApp:renderWithStyle(children)
@@ -82,7 +138,12 @@ function PurchasePromptApp:render()
 			Toast = if GetFFlagEnableToastLiteRender() then Roact.createElement(Toast) else nil,
 		} :: any
 
-		if FFlagAddCursorProviderToPurchasePromptApp then
+		-- Only add focus navigation when there are active prompts (solves UserInputService.LastInputTypeChanged re-render issue)
+		local shouldAddFocusNavigation = FFlagAddCursorProviderToPurchasePromptApp and self:hasAnyActivePrompt()
+
+		if shouldAddFocusNavigation then
+			self:trackRenderPerformance()
+			
 			children = {
 				CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
 					FocusNavigationProvider = Roact.createElement(

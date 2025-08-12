@@ -14,6 +14,7 @@ local Players = game:GetService("Players")
 -------------- Flags ----------------------------------------------------------
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
+local FFlagEnableGameLeftMessage = SharedFlags.FFlagEnableGameLeftMessage
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
@@ -41,6 +42,10 @@ export type LeaveGameProps = {
 }
 
 local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?)
+    if FFlagEnableGameLeftMessage then
+        MessageBus.publish(Constants.OnAppRatingPromptEventDescriptor, {gameTime = game:getGameTime()})
+    end
+
     if GetFFlagEnableInGameMenuDurationLogger() then
         PerfUtils.leavingGame()
     end

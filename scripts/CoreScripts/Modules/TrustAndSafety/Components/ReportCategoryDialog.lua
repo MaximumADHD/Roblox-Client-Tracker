@@ -8,6 +8,9 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local Cryo = require(CorePackages.Packages.Cryo)
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
+
 
 local TnsModule = script.Parent.Parent
 local Dependencies = require(TnsModule.Dependencies)
@@ -39,6 +42,8 @@ local StyleProvider = UIBlox.Core.Style.Provider
 local withStyle = UIBlox.Core.Style.withStyle
 local Colors = UIBlox.App.Style.Colors
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 local GetFFlagReportMenuCellToUseAutomaticSize =
 	require(RobloxGui.Modules.Flags.GetFFlagReportMenuCellToUseAutomaticSize)
 
@@ -154,7 +159,7 @@ local ReportCategoryDialog = Roact.PureComponent:extend("ReportCategoryDialog")
 
 ReportCategoryDialog.validateProps = t.strictInterface({
 	isReportCategoryMenuOpen = t.boolean,
-	screenSize = t.Vector2,
+	screenSize = if FFlagTopBarSignalizeScreenSize then nil else t.Vector2,
 	inputType = t.optional(t.string),
 	reportType = t.optional(t.valueOf(Constants.ReportType)),
 	targetPlayer = t.optional(playerInterface),
@@ -168,6 +173,22 @@ function ReportCategoryDialog:init()
 	-- Press the "Cancel" button or transparent background.
 	self.onCancel = function()
 		self.props.closeDialog()
+	end
+
+	if FFlagTopBarSignalizeScreenSize then
+		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
+
+		self.disposeScreenSize = Signals.createEffect(function(scope)
+			self:setState({
+				screenSize = getViewportSize(scope),
+			})
+		end)
+	end
+end
+
+function ReportCategoryDialog:willUnmount()
+	if FFlagTopBarSignalizeScreenSize then
+		self.disposeScreenSize()
 	end
 end
 
@@ -317,7 +338,7 @@ function ReportCategoryDialog:render()
 			return Roact.createFragment({
 				ModalDialog = Roact.createElement(ModalDialog, {
 					visible = self.props.isReportCategoryMenuOpen,
-					screenSize = self.props.screenSize,
+					screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize,
 					titleText = localized.titleText,
 					contents = self:renderContents(voiceState.voiceEnabled, localized),
 					showCloseButton = true,
@@ -333,7 +354,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		isReportCategoryMenuOpen = state.report.currentPage == Constants.Page.Category,
 		reportType = state.report.reportType,
 		targetPlayer = state.report.targetPlayer,
-		screenSize = state.displayOptions.screenSize,
+		screenSize = if FFlagTopBarSignalizeScreenSize then nil else state.displayOptions.screenSize,
 		playerFocusedFlow = state.report.beginningReportType == Constants.ReportType.Player,
 		--TODO: integrate inputType
 	}

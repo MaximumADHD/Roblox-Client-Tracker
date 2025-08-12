@@ -1,10 +1,10 @@
 PROTO_0:
-  LOADK R0 K0 ["EnableNewAssistant_Dev"]
+  LOADK R0 K0 ["EnableNewAssistant"]
   RETURN R0 1
 
 PROTO_1:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnableNewAssistant_Dev"]
+  LOADK R2 K2 ["EnableNewAssistant"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 -1
   RETURN R0 -1
@@ -12,7 +12,7 @@ PROTO_1:
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnableNewAssistant_Dev"]
+  LOADK R2 K2 ["EnableNewAssistant"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

@@ -16,6 +16,7 @@ local HelpReactView = HelpPage.HelpReactView
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
+local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
@@ -23,9 +24,12 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
+local Signals = require(CorePackages.Packages.Signals)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 -- Flags
 local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
+local FFlagHelpPageTouch = HelpPage.Flags.FFlagHelpPageTouch
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 local Integrations = nil
@@ -36,6 +40,9 @@ if FFlagRefactorHelpPage then
 	Utils = Integrations.Utils
     Constants = HelpPage.Constants
 end
+
+local tree: ReactRoblox.RootType? = nil
+local getDisplayed, setDisplayed = Signals.createSignal(false)
 
 local function createHelpPage()
     local HelpPage = SettingsPageFactory:CreateNewPage()
@@ -58,15 +65,47 @@ local function createHelpPage()
     ------ PAGE CUSTOMIZATION -------
     HelpPage.Page:ClearAllChildren()
 
-    local Help = React.createElement(FoundationProvider, {
-        theme = Foundation.Enums.Theme.Dark,
-        device = Utils.getDeviceType(),
-    }, {
-        Child = React.createElement(HelpReactView)
-    })
+    local function createReactTree()
+        if tree then
+            return
+        end
 
-    local tree = ReactRoblox.createRoot(HelpPage.Page)
-    tree:render(Help)
+        local HelpConditionalView = function()
+            local displayed = SignalsReact.useSignalState(getDisplayed)
+
+            local Help = if displayed then React.createElement(FoundationProvider, {
+                theme = Foundation.Enums.Theme.Dark,
+                device = Utils.getDeviceType(),
+            }, {
+                Child = React.createElement(LocalizationProvider, {
+                    localization = locales,
+                }, {
+                    Child = React.createElement(HelpReactView)
+                })
+            }) else nil
+
+            return Help
+        end
+
+        tree = ReactRoblox.createRoot(HelpPage.Page)
+        if tree then
+            tree:render(React.createElement(HelpConditionalView))
+        end
+    end
+
+    HelpPage.Displayed.Event:Connect(function()
+        createReactTree()
+        setDisplayed(true)
+    end)
+
+    HelpPage.Hidden.Event:Connect(function()
+        setDisplayed(false)
+    end)
+
+    if FFlagHelpPageTouch then
+        HelpPage.Page.Size = UDim2.fromScale(1, 0)
+        HelpPage.Page.AutomaticSize = Enum.AutomaticSize.Y
+    end
 
     return HelpPage
 end

@@ -24,8 +24,6 @@ local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local PreviewExpandIcon = UIBloxImages["icons/actions/previewExpand"]
 local DropShadow = UIBloxImages["component_assets/dropshadow_25"]
 
-local FFlagFixPublishAvatarVRViewports = require(script.Parent.Parent.Parent.FFlagFixPublishAvatarVRViewports)
-
 local VIEWPORT_HEIGHT = 240
 local DEFAULT_CAMERA_FOV = 30
 local DEFAULT_CAMERA_Y_ROT = 25
@@ -48,10 +46,9 @@ function ObjectViewport:createCamera()
 	local camera = Instance.new("Camera")
 	camera.CameraType = Enum.CameraType.Scriptable
 	camera.Parent = self.worldModelRef:getValue()
-	if FFlagFixPublishAvatarVRViewports then
-		camera.HeadLocked = true
-		camera.VRTiltAndRollEnabled = true
-	end
+	camera.HeadLocked = true
+	camera.VRTiltAndRollEnabled = true
+
 	return camera
 end
 

@@ -3,7 +3,7 @@
 local CorePackages = game:GetService("CorePackages")
 local ScriptContext = game:GetService("ScriptContext")
 local HttpService = game:GetService("HttpService")
-local HeapProfilerService = (if game:GetEngineFeature("HeapProfilerService") then game:GetService("HeapProfilerService") else nil) :: HeapProfilerService
+local HeapProfilerService = game:GetService("HeapProfilerService")
 local Players = game:GetService("Players")
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
@@ -27,8 +27,6 @@ local Constants = require(script.Parent.Parent.Parent.Constants)
 local PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local MainViewLuauHeap = Roact.PureComponent:extend("MainViewLuauHeap")
-
-local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -345,59 +343,33 @@ function MainViewLuauHeap:init()
 
 	self.onCreateSnapshot = function()
 		local isClientView, state = self:getActiveState()
-		if game:GetEngineFeature("HeapProfilerService") then
-			local success, message = nil, nil
-			if isClientView then
-				success, message = pcall(HeapProfilerService.ClientRequestDataAsync, HeapProfilerService, Players.LocalPlayer :: Player)
-			else
-				success, message = pcall(HeapProfilerService.ServerRequestDataAsync, HeapProfilerService)
-			end
-
-			if not success then
-				warn(message)
-				return
-			end
-
-			local data = HttpService:JSONDecode(message)
-			local snapshot = data.Report :: LuauHeapTypes.HeapReport
-			local refs = data.Refs :: LuauHeapTypes.UniqueRefReport
-			snapshot.Refs = refs
-
-			local newState: LuauHeapTypes.SessionState = table.clone(state)
-
-			table.insert(newState.snapshots, snapshot)
-
-			newState.active = #newState.snapshots
-
-			if FFlagFixSearchCrash then 
-				self.dispatchSetLuauHeapState(isClientView, newState)
-			else
-				self.props.dispatchSetLuauHeapState(isClientView, newState)
-			end
+		local success, message = nil, nil
+		if isClientView then
+			success, message = pcall(HeapProfilerService.ClientRequestDataAsync, HeapProfilerService, Players.LocalPlayer :: Player)
 		else
-			if isClientView then
-				local snapshot = ScriptContext:GetLuauHeapMemoryReport("game") :: LuauHeapTypes.HeapReport
+			success, message = pcall(HeapProfilerService.ServerRequestDataAsync, HeapProfilerService)
+		end
 
-				snapshot.Refs = ScriptContext:GetLuauHeapInstanceReferenceReport("game") :: LuauHeapTypes.UniqueRefReport
+		if not success then
+			warn(message)
+			return
+		end
 
-				local newState: LuauHeapTypes.SessionState = table.clone(state)
+		local data = HttpService:JSONDecode(message)
+		local snapshot = data.Report :: LuauHeapTypes.HeapReport
+		local refs = data.Refs :: LuauHeapTypes.UniqueRefReport
+		snapshot.Refs = refs
 
-				table.insert(newState.snapshots, snapshot)
+		local newState: LuauHeapTypes.SessionState = table.clone(state)
 
-				newState.active = #newState.snapshots
+		table.insert(newState.snapshots, snapshot)
 
-				if FFlagFixSearchCrash then
-					self.dispatchSetLuauHeapState(true, newState)
-				else
-					self.props.dispatchSetLuauHeapState(true, newState)
-				end
-			else
-				local clientReplicator = getClientReplicator()
+		newState.active = #newState.snapshots
 
-				if clientReplicator then
-					clientReplicator:RequestServerLuauHeapData()
-				end
-			end
+		if FFlagFixSearchCrash then 
+			self.dispatchSetLuauHeapState(isClientView, newState)
+		else
+			self.props.dispatchSetLuauHeapState(isClientView, newState)
 		end
 	end
 
@@ -441,35 +413,9 @@ function MainViewLuauHeap:didMount()
 	self:setState({
 		utilTabHeight = utilSize.Y.Offset,
 	})
-	if not game:GetEngineFeature("HeapProfilerService") then
-		self.statsConnector = self.props.LuauHeapData:Signal():Connect(function(data)
-			local state = self:getState(false)
-
-			local snapshot = data.Report :: LuauHeapTypes.HeapReport
-			local refs = data.Refs :: LuauHeapTypes.UniqueRefReport
-
-			snapshot.Refs = refs
-
-			local newState: LuauHeapTypes.SessionState = table.clone(state)
-
-			table.insert(newState.snapshots, snapshot)
-
-			newState.active = #newState.snapshots
-			
-			if FFlagFixSearchCrash then
-				self.dispatchSetLuauHeapState(false, newState)
-			else
-				self.props.dispatchSetLuauHeapState(false, newState)
-			end
-		end)
-	end
 end
 
 function MainViewLuauHeap:willUnmount()
-	if not game:GetEngineFeature("HeapProfilerService") then
-		self.statsConnector:Disconnect()
-		self.statsConnector = nil
-	end
 end
 
 function MainViewLuauHeap:didUpdate()
@@ -557,4 +503,5 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
+-- TODO: CLI-163924 Remove LuauHeapData provider
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(DataConsumer(MainViewLuauHeap, "LuauHeapData"))

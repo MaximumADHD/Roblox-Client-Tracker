@@ -19,6 +19,7 @@ local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local GameSettings = UserSettings().GameSettings
 local GuiService = game:GetService("GuiService")
+local GamepadUtils = require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadUtils
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local ChatIconVisibleSignals = require(script.Parent.ChatIconVisibleSignals).default
 local SignalsRoblox = require(CorePackages.Packages.SignalsRoblox)
@@ -38,6 +39,7 @@ local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLab
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local GetFFlagDisableLegacyChatSimpleUnreadMessageCount = SharedFlags.GetFFlagDisableLegacyChatSimpleUnreadMessageCount
+local FFlagExpChatUnibarThumbstickNavigate = game:DefineFastFlag("ExpChatUnibarThumbstickNavigate", false)
 local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUnibarAvailabilityRefactor", false)
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
 local isInExperienceUIVREnabled =
@@ -156,16 +158,48 @@ chatChromeIntegration = ChromeService:register({
 	end,
 	selected = if FFlagConsoleChatOnExpControls
 		then function(self)
-			local chatSelectConn
-			chatSelectConn = UserInputService.InputEnded:Connect(function(input: InputObject)
-				local key = input.KeyCode
-				if key == Enum.KeyCode.DPadDown then
-					FocusSelectExpChat(chatChromeIntegration.id)
-				end
-				if chatSelectConn and ChromeService:selectedItem():get() ~= self.id then
-					chatSelectConn:Disconnect()
-				end
-			end)
+			if FFlagExpChatUnibarThumbstickNavigate then
+				local connSelectedItem
+				local connInputChanged
+				local connInputBegan
+
+				connSelectedItem = ChromeService:selectedItem():connect(function(selectedId)
+					-- Given signals behavior, this should just be called deselection occurs.
+					assert(selectedId ~= self.id)
+
+					connSelectedItem:disconnect()
+
+					connInputChanged:Disconnect()
+					connInputBegan:Disconnect()
+				end)
+
+				connInputChanged = UserInputService.InputChanged:Connect(function(input)
+					if input.KeyCode == Enum.KeyCode.Thumbstick1 then
+						local key = GamepadUtils.mapPositionToDirection(Vector2.new(input.Position.X, input.Position.Y))
+						if key == Enum.KeyCode.Down then
+							FocusSelectExpChat(chatChromeIntegration.id)
+						end
+					end
+				end)
+
+				connInputBegan = UserInputService.InputBegan:Connect(function(input)
+					local key = input.KeyCode
+					if key == Enum.KeyCode.DPadDown or key == Enum.KeyCode.Down then
+						FocusSelectExpChat(chatChromeIntegration.id)
+					end
+				end)
+			else
+				local chatSelectConn
+				chatSelectConn = UserInputService.InputEnded:Connect(function(input: InputObject)
+					local key = input.KeyCode
+					if key == Enum.KeyCode.DPadDown then
+						FocusSelectExpChat(chatChromeIntegration.id)
+					end
+					if chatSelectConn and ChromeService:selectedItem():get() ~= self.id then
+						chatSelectConn:Disconnect()
+					end
+				end)
+			end
 		end
 		else nil,
 	components = {

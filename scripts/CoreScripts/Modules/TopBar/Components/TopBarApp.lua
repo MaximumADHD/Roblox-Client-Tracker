@@ -29,8 +29,6 @@ local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local CoreGuiCommonStores = CoreGuiCommon.Stores
 local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
 local Signals = require(CorePackages.Packages.Signals)
-local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
-local CoreGuiCommonStores = CoreGuiCommon.Stores
 
 local InGameMenuConstants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
@@ -66,6 +64,7 @@ local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FIntUILessTooltipDuration = game:DefineFastInt("UILessTooltipDuration", 10)
 
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -168,7 +167,7 @@ TopBarApp.validateProps = t.strictInterface({
 	inspectMenuOpen = if FFlagTopBarSignalizeMenuOpen then nil else t.optional(t.boolean),
 	displayBetaBadge = t.boolean,
 
-	setScreenSize = t.callback,
+	setScreenSize = if FFlagTopBarSignalizeScreenSize then nil else t.callback,
 	setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 	removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 	showBadgeOver12 = t.optional(t.boolean),
@@ -463,7 +462,7 @@ function TopBarApp:renderWithStyle(style)
 		AutoLocalize = false,
 		DisplayOrder = 6,
 
-		[Roact.Change.AbsoluteSize] = function(rbx)
+		[Roact.Change.AbsoluteSize] = if FFlagTopBarSignalizeScreenSize then nil else function(rbx)
 			self.props.setScreenSize(rbx.AbsoluteSize)
 		end,
 	}, {
@@ -946,9 +945,11 @@ end)(TopBarApp)
 
 local function mapDispatchToProps(dispatch)
 	return {
-		setScreenSize = function(screenSize)
-			return dispatch(SetScreenSize(screenSize))
-		end,
+		setScreenSize = if FFlagTopBarSignalizeScreenSize 
+			then nil 
+			else function(screenSize)
+				return dispatch(SetScreenSize(screenSize))
+			end,
 		setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas 
 			then nil 
 			else function(id, position, size)

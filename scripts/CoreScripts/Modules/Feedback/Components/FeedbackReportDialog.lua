@@ -12,6 +12,8 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 local FeedbackModule = script.Parent.Parent
 
@@ -47,6 +49,8 @@ local GetFFlagEnableFeedbackReportDialogAdjustments =
 local FFlagEnableFeedbackSelectionUpdate = game:DefineFastFlag("EnableFeedbackSelectionUpdate", false)
 local EngineFeatureExperienceStateCaptureSelectionBugFix =
 	game:GetEngineFeature("ExperienceStateCaptureSelectionBugFix")
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local BUTTON_HEIGHT = 36
 local ADDITIONAL_COMMENTS_TEXT_ENTRY_MAX_TEXT_LENGTH = 180
@@ -55,7 +59,7 @@ local FeedbackReportDialog = Roact.PureComponent:extend("FeedbackReportDialog")
 
 FeedbackReportDialog.validateProps = t.strictInterface({
 	isReportDialogOpen = t.boolean,
-	screenSize = t.Vector2,
+	screenSize = if FFlagTopBarSignalizeScreenSize then nil else t.Vector2,
 	closeDialog = t.optional(t.callback),
 	reportCategory = t.optional(t.string),
 })
@@ -255,6 +259,16 @@ function FeedbackReportDialog:init()
 			self.resetLocalState()
 			self.props.setFeedbackFlowState(Constants.State.Default)
 		end
+	end
+
+	if FFlagTopBarSignalizeScreenSize then
+		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
+
+		self.disposeScreenSize = Signals.createEffect(function(scope)
+			self:setState({
+				screenSize = getViewportSize(scope),
+			})
+		end)
 	end
 end
 
@@ -558,7 +572,7 @@ function FeedbackReportDialog:render()
 	})(function(localized)
 		return Roact.createElement(ModalDialog, {
 			visible = self.props.feedbackFlowState == Constants.State.CurrentlyLeavingFeedback,
-			screenSize = self.props.screenSize,
+			screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize,
 			titleText = localized.mainHeader,
 			showCloseButton = if GetFFlagEnableFeedbackReportDialogAdjustments() then true else false,
 			contents = Roact.createElement(
@@ -612,10 +626,16 @@ function FeedbackReportDialog:render()
 	end)
 end
 
+function FeedbackReportDialog:willUnmount()
+	if FFlagTopBarSignalizeScreenSize then
+		self.disposeScreenSize()
+	end
+end
+
 -- Return value
 return RoactRodux.connect(function(state)
 	return {
-		screenSize = state.displayOptions.screenSize,
+		screenSize = if FFlagTopBarSignalizeScreenSize then nil else state.displayOptions.screenSize,
 		feedbackFlowState = state.feedbackFlowState.feedbackFlowState,
 		feedbackReason = state.feedbackFlowState.feedbackReason,
 	}

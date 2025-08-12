@@ -11,9 +11,6 @@ local ModalBasedSelectorDialogController = require(root.Components.ModalBasedSel
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagModalBasedSelectorOnCloseUseCallback = game:DefineFastFlag("ModalBasedSelectorOnCloseUseCallback", false)
 
-local FFlagPreferredTextSizeReportMenuButtonTextFix =
-	game:DefineFastFlag("PreferredTextSizeReportMenuButtonTextFix", false)
-
 type Props = {
 	layoutOrder: number,
 	text: string,
@@ -69,7 +66,7 @@ local function ModalBasedSelector(props)
 			Text = React.createElement(Text, {
 				Text = props.selectedValue or props.placeholderText,
 				tag = "size-full anchor-center-center position-center-center",
-				TextTruncate = if FFlagPreferredTextSizeReportMenuButtonTextFix then Enum.TextTruncate.AtEnd else nil,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),
 			Icon = React.createElement(Icon, {
 				name = "icons/actions/truncationExpand",

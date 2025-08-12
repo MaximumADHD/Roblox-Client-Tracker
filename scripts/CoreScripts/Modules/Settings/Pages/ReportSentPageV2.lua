@@ -16,10 +16,23 @@ local settingsPageFactory = require(RobloxGuiModules.Settings.SettingsPageFactor
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local ReportAbuseAnalytics = require(RobloxGui.Modules.AbuseReportMenu).ReportAbuseAnalytics
 local BlockingAnalytics = require(Settings.Analytics.BlockingAnalytics)
+local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusRoot = FocusNavigationUtils.FocusRoot
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local GetFFlagReportAbuseThankYouPageSizeFix = require(RobloxGui.Modules.Flags.GetFFlagReportAbuseThankYouPageSizeFix)
 
 local ReportConfirmationScreen = require(Settings.Components.ReportConfirmation.ReportConfirmationScreen)
+local ReportConfirmationContainer = require(Settings.Components.ReportConfirmation.ReportConfirmationContainer)
+
+local FFlagReportAbuseThankYouPageGamepadEnable = game:DefineFastFlag("ReportAbuseThankYouPageGamepadEnable", false)
+
+local Chrome = RobloxGui.Modules.Chrome
+local ChromeEnabled = require(Chrome.Enabled)()
+local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local handle
 local unmount = function()
@@ -91,7 +104,7 @@ function ReportSentPageV2:UpdateMenu()
 		end)
 	end
 
-	local reportConfirmationScreen = Roact.createElement(ReportConfirmationScreen, {
+	local props = {
 		player = {
 			UserId = player.UserId,
 			Name = player.Name,
@@ -105,7 +118,28 @@ function ReportSentPageV2:UpdateMenu()
 		reportAbuseAnalytics = reportAbuseAnalytics,
 		blockingAnalytics = blockingAnalytics,
 		onSizeChanged = if GetFFlagReportAbuseThankYouPageSizeFix() then SizeChangedProxy.Event else nil,
-	})
+	}
+
+	-- ReportConfirmationScreen has its own CoreScriptsStyleProvider
+	local reportConfirmationScreen = Roact.createElement(ReportConfirmationScreen, props)
+
+	if FFlagReportAbuseThankYouPageGamepadEnable then
+		reportConfirmationScreen = Roact.createElement(CoreScriptsRootProvider, {}, {
+			FocusRoot = Roact.createElement(FocusRoot, {
+				surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+				isIsolated = true,
+				isAutoFocusRoot = true,
+			}, {
+				-- ReportConfirmationContainer does not have its own CoreScriptsStyleProvider,
+				-- CoreScriptsRootProvider will provide the style context
+				ThankYouScreenRoot = Roact.createElement(ReportConfirmationContainer, props),
+			}),
+		})
+
+		if ChromeEnabled and FFlagEnableConsoleExpControls then
+			ChromeService:setHideShortcutBar("ReportSentPageV2", true)
+		end
+	end
 
 	handle = Roact.mount(reportConfirmationScreen, self.Root, "ReportSentPageV2")
 end
@@ -119,6 +153,10 @@ function ReportSentPageV2:ShowReportedPlayer(player, isVoiceReport)
 end
 
 function ReportSentPageV2:HandleDone()
+	if FFlagReportAbuseThankYouPageGamepadEnable and ChromeEnabled and FFlagEnableConsoleExpControls then
+		ChromeService:setHideShortcutBar("ReportSentPageV2", false)
+	end
+
 	unmount()
 
 	if self.settingsShowChangedSignal then

@@ -10,15 +10,12 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local AvatarPartViewport = require(script.Parent.AvatarPartViewport)
 
-local FFlagAppendBodyPartToTitle = require(script.Parent.Parent.Parent.Parent.FFlagAppendBodyPartToTitle)
-
 local PADDING = 5
 
 export type Props = {
 	asset: { [number]: Folder } | MeshPart | Accessory,
 	LayoutOrder: number?,
 	viewportSize: number?,
-	titleText: string?, -- remove with FFlagAppendBodyPartToTitle
 	bodyName: string?,
 	partName: string?,
 }
@@ -36,14 +33,12 @@ local function AvatarItemCard(props: Props)
 	)
 	local bodyName = props.bodyName
 	local partName = props.partName
-	local showTitleText = if FFlagAppendBodyPartToTitle then bodyName and partName else props.titleText
+	local showTitleText = bodyName and partName
 	local title: string?
-	if FFlagAppendBodyPartToTitle and bodyName and partName then
+	if bodyName and partName then
 		assert(bodyName, "bodyName is nil")
 		assert(partName, "partName is nil")
 		title = bodyName .. "'s " .. partName
-	else
-		title = props.titleText
 	end
 	return React.createElement("Frame", {
 		Size = UDim2.fromScale(1, 1),

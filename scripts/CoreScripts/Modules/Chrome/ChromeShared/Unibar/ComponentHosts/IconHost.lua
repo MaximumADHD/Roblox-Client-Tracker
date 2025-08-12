@@ -14,7 +14,6 @@ local FFlagUnibarMenuOpenHamburger = require(ChromeFlags.FFlagUnibarMenuOpenHamb
 local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local UIBloxBadge = UIBlox.App.Indicator.Badge
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local useCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.useCursor else nil :: never
@@ -83,7 +82,6 @@ local MenuIconContext = if FFlagTiltIconUnibarFocusNav
 	else nil :: never
 
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
-local FFlagReplaceChromeNotificationBadge = SharedFlags.FFlagReplaceChromeNotificationBadge
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 
 type TooltipState = {
@@ -146,13 +144,11 @@ function NotificationBadge(props: IconHostProps): any?
 	end
 
 	local notificationBadgeText
-	if FFlagReplaceChromeNotificationBadge then
-		if notificationCount > 0 then
-			if notificationCount > MAX_BADGE_VALUE then
-				notificationBadgeText = MAX_BADGE_TEXT
-			else
-				notificationBadgeText = tostring(notificationCount)
-			end
+	if notificationCount > 0 then
+		if notificationCount > MAX_BADGE_VALUE then
+			notificationBadgeText = MAX_BADGE_TEXT
+		else
+			notificationBadgeText = tostring(notificationCount)
 		end
 	end
 
@@ -176,36 +172,29 @@ function NotificationBadge(props: IconHostProps): any?
 		ZIndex = 2,
 	}, {
 		Badge = if notificationCount > 0
-			then if not FFlagReplaceChromeNotificationBadge
-				then React.createElement(UIBloxBadge, {
-					position = UDim2.fromOffset(Constants.ICON_BADGE_OFFSET_X, Constants.ICON_BADGE_OFFSET_Y),
-					anchorPoint = Vector2.new(0, 0),
-					hasShadow = false,
-					value = notificationCount,
+			then if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
+				then React.createElement(Foundation.View, {
+					Position = UDim2.new(1, 0, 0.2, 0),
+					backgroundStyle = {
+						Color3 = tokens.Color.System.Contrast.Color3,
+						Transparency = 0,
+					},
+					stroke = {
+						Color = tokens.Color.Surface.Surface_0.Color3,
+						Transparency = 0,
+						Thickness = tokens.Stroke.Thicker,
+					},
+					tag = "anchor-top-right radius-circle size-200 stroke-thicker",
+					ZIndex = 2,
 				})
-				else if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
-					then React.createElement(Foundation.View, {
-						Position = UDim2.new(1, 0, 0.2, 0),
-						backgroundStyle = {
-							Color3 = tokens.Color.System.Contrast.Color3,
-							Transparency = 0,
-						},
-						stroke = {
-							Color = tokens.Color.Surface.Surface_0.Color3,
-							Transparency = 0,
-							Thickness = tokens.Stroke.Thicker,
-						},
-						tag = "anchor-top-right radius-circle size-200 stroke-thicker",
-						ZIndex = 2,
-					})
-					elseif notificationBadgeText then React.createElement(Badge, {
-						AnchorPoint = Vector2.new(0, 0),
-						Position = UDim2.new(0, Constants.ICON_BADGE_OFFSET_X, 0, Constants.ICON_BADGE_OFFSET_Y),
-						variant = BadgeVariant.Primary,
-						size = BadgeSize.Small :: any,
-						text = notificationBadgeText,
-					})
-					else nil
+				elseif notificationBadgeText then React.createElement(Badge, {
+					AnchorPoint = Vector2.new(0, 0),
+					Position = UDim2.new(0, Constants.ICON_BADGE_OFFSET_X, 0, Constants.ICON_BADGE_OFFSET_Y),
+					variant = BadgeVariant.Primary,
+					size = BadgeSize.Small :: any,
+					text = notificationBadgeText,
+				})
+				else nil
 			else nil,
 	})
 end

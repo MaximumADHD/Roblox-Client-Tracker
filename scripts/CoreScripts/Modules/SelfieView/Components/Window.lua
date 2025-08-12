@@ -39,6 +39,7 @@ local useCameraOn = require(script.Parent.Parent.Hooks.useCameraOn)
 local useLocalPlayer = require(script.Parent.Parent.Hooks.useLocalPlayer)
 local useTrackerMessage = require(script.Parent.Parent.Hooks.useTrackerMessage)
 local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismissal)
+local useScreenSize = require(CoreGui.RobloxGui.Modules.Common.Hooks.useScreenSize)
 local Constants = require(script.Parent.Parent.Parent.Chrome.ChromeShared.Unibar.Constants)
 local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
 local Chrome = script.Parent.Parent.Parent.Chrome
@@ -47,6 +48,8 @@ local ChromeService = if GetFFlagFixChromeReferences()
 	then if ChromeEnabled() then require(Chrome.Service) else nil
 	else require(script.Parent.Parent.Parent.Chrome.Service)
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 local FFlagSelfieViewReducedCornerWidth = game:DefineFastFlag("SelfieViewReducedCornerWidth", true)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -95,9 +98,12 @@ local function Window(props: WindowProps): React.ReactNode
 
 	local large = useWindowSizeIsLarge(props.windowSize)
 
-	local frameSize: Vector2 = useSelector(function(state)
-		return SizingUtils.getSize(state.displayOptions.screenSize :: Vector2, large)
-	end)
+	local screenSize = useScreenSize()
+	local frameSize: Vector2 = if FFlagTopBarSignalizeScreenSize
+		then SizingUtils.getSize(screenSize, large)
+		else useSelector(function(state)
+			return SizingUtils.getSize(state.displayOptions.screenSize :: Vector2, large)
+		end)
 	React.useEffect(function()
 		props.windowSize:requestSize(frameSize.X, frameSize.Y)
 	end, { frameSize })

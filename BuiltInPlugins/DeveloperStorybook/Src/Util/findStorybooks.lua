@@ -217,6 +217,9 @@ local function safeGetService(_index: number, serviceName: string)
 	return if ok then maybeService else nil
 end
 
+-- Some components (like DF or the Markdown library) aren't located in the default locations where Storybook discovers stories (e.g. ReplicatedStorage, CoreGui, etc. — see STORYBOOK_SOURCES).
+-- Since these items aren't automatically discoverable, but we still want them to show up in Storybook, a workaround was implemented: we install them as dependencies and manually add their paths to STORYBOOK_SOURCES.
+-- This lets Storybook include them even though they aren't in the usual discovery locations
 local function findStorybooks()
 	-- TODO (AleksandrSl 14/01/2025): Merge isEmbedded checks
 	-- We have an _Index if we are a plugin, not an embedded storybook
@@ -254,6 +257,9 @@ local function findStorybooks()
 		sources,
 		if index then index.ViewportToolingFramework.ViewportToolingFramework else Main.Parent.ViewportToolingFramework
 	)
+
+	local markdown = index and index.Markdown.Markdown or Main.Parent.Markdown
+	insert(sources, markdown)
 
 	if index then
 		local PluginDebugService = safeGetService(0, "PluginDebugService")

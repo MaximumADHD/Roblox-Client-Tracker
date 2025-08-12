@@ -24,13 +24,11 @@ local ChromeService = require(Chrome.Service)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
 local StyleTokens = if FFlagAdaptUnibarAndTiltSizing then GetStyleTokens() else nil :: never
 
-local Constants = require(ChromeShared.Unibar.Constants)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
-local GetFFlagUseNewUnibarIcon = require(Chrome.Flags.GetFFlagUseNewUnibarIcon)
 local GetFFlagUsePolishedAnimations = SharedFlags.GetFFlagUsePolishedAnimations
 
 local UNIBAR_ICON = Images["icons/actions/overflow"]
-local UNIBAR_ICON_SIZE = if GetFFlagUseNewUnibarIcon() then 32 else Constants.ICON_SIZE
+local UNIBAR_ICON_SIZE = 32
 local TOGGLE_MENU_SIZE = if FFlagAdaptUnibarAndTiltSizing
 	then UDim2.new(0, StyleTokens.Size.Size_900, 0, StyleTokens.Size.Size_900)
 	else UDim2.new(0, 36, 0, 36)
@@ -69,11 +67,11 @@ function ToggleMenuButton(props)
 			CornerRadius = UDim.new(1, 0),
 		}) :: any,
 		React.createElement(ImageSetLabel, {
-			Name = if GetFFlagUseNewUnibarIcon() then "Overflow" else "Cube",
+			Name = "Overflow",
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			BackgroundTransparency = 1,
-			Image = if GetFFlagUseNewUnibarIcon() then UNIBAR_ICON else Images["icons/menu/AR"],
+			Image = UNIBAR_ICON,
 			Size = toggleIconTransition:map(function(value: any): any
 				value = 1 - value
 				return UDim2.new(0, UNIBAR_ICON_SIZE * value, 0, UNIBAR_ICON_SIZE * value)
@@ -94,9 +92,7 @@ function ToggleMenuButton(props)
 			Position = toggleIconTransition:map(function(value): any
 				return UDim2.new(0.5, 0, 0.5, 0)
 			end),
-			AnchorPoint = if GetFFlagUseNewUnibarIcon() or GetFFlagUsePolishedAnimations()
-				then Vector2.new(0.5, 0.5)
-				else Vector2.new(0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = toggleIconTransition:map(function(value: any): any
 				local xOffset = 16
 				local yOffset = 2
@@ -121,9 +117,7 @@ function ToggleMenuButton(props)
 			Position = toggleIconTransition:map(function(value): any
 				return UDim2.new(0.5, 0, 0.5, 0)
 			end),
-			AnchorPoint = if GetFFlagUseNewUnibarIcon() or GetFFlagUsePolishedAnimations()
-				then Vector2.new(0.5, 0.5)
-				else Vector2.new(0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = toggleIconTransition:map(function(value: any): any
 				local xOffset = 16
 				local yOffset = 2

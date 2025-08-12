@@ -58,6 +58,7 @@ local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
 local VPCModalType = require(Root.Enums.VPCModalType)
 local Animator = require(script.Parent.Animator)
 local FFlagAddCursorProviderToPurchasePromptApp = require(Root.Flags.FFlagAddCursorProviderToPurchasePromptApp)
+local FFlagPurchasePromptPriceShouldUseProductInfoPrice = game:DefineFastFlag("PurchasePromptPriceShouldUseProductInfoPrice", false)
 
 -- Imports needed for analytics
 local HttpService = game:GetService("HttpService")
@@ -509,7 +510,9 @@ function ProductPurchaseContainer:determinePrompt()
 				product = {
 					itemIcon = productInfo.imageUrl,
 					itemName = productInfo.name,
-					itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
+					itemRobuxCost = if FFlagPurchasePromptPriceShouldUseProductInfoPrice
+						then self.props.productPrice
+						else getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 				},
 				balanceAmount = accountInfo.balance,
 				balanceAmountValid = game:DefineFastFlag("BalanceNotShowingInExperimentIssueFix", false) and not accountInfo.hasFailed,
@@ -530,7 +533,9 @@ function ProductPurchaseContainer:determinePrompt()
 			model = self.props.humanoidModel,
 			itemIcon = productInfo.imageUrl,
 			itemName = productInfo.name,
-			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
+			itemRobuxCost = if FFlagPurchasePromptPriceShouldUseProductInfoPrice
+				then self.props.productPrice
+				else getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 			currentBalance = accountInfo.balance,
 			currentBalanceValid = not accountInfo.hasFailed,
 			testPurchase = isTestPurchase,
@@ -555,7 +560,9 @@ function ProductPurchaseContainer:determinePrompt()
 					model = self.props.humanoidModel,
 					itemIcon = productInfo.imageUrl,
 					itemName = productInfo.name,
-					itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
+					itemRobuxCost = if FFlagPurchasePromptPriceShouldUseProductInfoPrice
+						then self.props.productPrice
+						else getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 				},
 				
 				upsell = {
@@ -592,7 +599,9 @@ function ProductPurchaseContainer:determinePrompt()
 			model = self.props.humanoidModel,
 			itemIcon = productInfo.imageUrl,
 			itemName = productInfo.name,
-			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
+			itemRobuxCost = if FFlagPurchasePromptPriceShouldUseProductInfoPrice
+				then self.props.productPrice
+				else getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 			robuxPurchaseAmount = self.props.robuxPurchaseAmount,
 			robuxPurchaseAmountBeforeBonus = self.props.robuxAmountBeforeBonus,
 			balanceAmount = accountInfo.balance,
@@ -703,7 +712,9 @@ function ProductPurchaseContainer:determinePrompt()
 			product = {
 				itemIcon = productInfo.imageUrl,
 				itemName = productInfo.name,
-				itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
+				itemRobuxCost = if FFlagPurchasePromptPriceShouldUseProductInfoPrice
+					then self.props.productPrice
+					else getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 			},
 			balanceAmount = accountInfo.balance,
 			doneActivated = function()
@@ -809,6 +820,9 @@ local function mapStateToProps(state)
 	local desktopUpsellExpVariant = if state.abVariations then state.abVariations.DesktopUpsellExpVariant else nil
 	
 	return {
+		productPrice = if FFlagPurchasePromptPriceShouldUseProductInfoPrice
+			then getPlayerPrice(state.productInfo, state.accountInfo.membershipType == 4)
+			else nil,
 		purchaseFlowUUID = state.purchaseFlowUUID,
 		purchaseFlow = state.purchaseFlow,
 		promptState = state.promptState,

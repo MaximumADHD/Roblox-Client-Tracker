@@ -7,19 +7,23 @@ local VRService = game:GetService("VRService")
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
 local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local DisconnectedDialog = require(script.DisconnectedDialog)
 
 local HeadsetMenu = Roact.PureComponent:extend("HeadsetMenu")
 
 HeadsetMenu.validateProps = t.strictInterface({
-	screenSize = t.Vector2,
+	screenSize = if FFlagTopBarSignalizeScreenSize then nil else t.Vector2,
 
 	vrService = t.optional(t.union(t.instanceOf("VRService"), t.table)),
 	guiService = t.optional(t.union(t.instanceOf("GuiService"), t.table)),
@@ -54,6 +58,16 @@ function HeadsetMenu:init()
 			shouldShowDisconnectDialog = false,
 		})
 	end
+
+	if FFlagTopBarSignalizeScreenSize then 
+		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
+
+		self.disposeScreenSize = Signals.createEffect(function(scope) 
+			self:setState({
+				screenSize = getViewportSize(scope)
+			})
+		end)
+	end
 end
 
 function HeadsetMenu:render()
@@ -68,7 +82,7 @@ function HeadsetMenu:render()
 		}, {
 			HeadsetDisconnectedDialog = Roact.createElement(DisconnectedDialog, {
 				visible = self.state.shouldShowDisconnectDialog,
-				screenSize = self.props.screenSize,
+				screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize,
 				onConfirm = self.restartApp,
 				guiService = self.props.guiService,
 			}),
@@ -82,6 +96,12 @@ function HeadsetMenu:didMount()
 	})
 end
 
+function HeadsetMenu:willUnmount()
+	if FFlagTopBarSignalizeScreenSize then 
+		self.disposeScreenSize()
+	end
+end
+
 function HeadsetMenu:didUpdate(prevProps, prevState)
 	if self.state.vrDeviceAvailable ~= prevState.vrDeviceAvailable then
 		if not self.state.vrDeviceAvailable then
@@ -92,10 +112,12 @@ function HeadsetMenu:didUpdate(prevProps, prevState)
 	end
 end
 
-HeadsetMenu = RoactRodux.connect(function(state)
-	return {
-		screenSize = state.displayOptions.screenSize,
-	}
-end)(HeadsetMenu)
+if not FFlagTopBarSignalizeScreenSize then 
+	HeadsetMenu = RoactRodux.connect(function(state)
+		return {
+			screenSize = state.displayOptions.screenSize,
+		}
+	end)(HeadsetMenu)
+end
 
 return HeadsetMenu

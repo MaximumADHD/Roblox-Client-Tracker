@@ -7,6 +7,8 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 -- Components
 local FeedbackModule = script.Parent.Parent
@@ -21,12 +23,31 @@ local withLocalization = require(CorePackages.Workspace.Packages.Localization).w
 
 local HelpModal = Roact.PureComponent:extend("HelpModal")
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
+
 local MAX_HEIGHT = 130
 local MAX_WIDTH = 540
 
 function HelpModal:init()
 	self.onDismiss = function()
 		self.props.showHelpModal(false)
+	end
+
+	if FFlagTopBarSignalizeScreenSize then
+		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
+
+		self.disposeScreenSize = Signals.createEffect(function(scope)
+			self:setState({
+				screenSize = getViewportSize(scope),
+			})
+		end)
+	end
+end
+
+function HelpModal:willUnmount()
+	if FFlagTopBarSignalizeScreenSize then
+		self.disposeScreenSize()
 	end
 end
 
@@ -37,7 +58,7 @@ function HelpModal:render()
 	})(function(localized)
 		return Roact.createElement(ModalDialog, {
 			visible = self.props.visible,
-			screenSize = self.props.screenSize,
+			screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize,
 			titleText = localized.mainHeader,
 			maxHeight = MAX_HEIGHT,
 			maxWidth = MAX_WIDTH,
@@ -74,7 +95,7 @@ end
 
 return RoactRodux.connect(function(state)
 	return {
-		screenSize = state.displayOptions.screenSize,
+		screenSize = if FFlagTopBarSignalizeScreenSize then nil else state.displayOptions.screenSize,
 		visible = state.common.showHelpModal,
 	}
 end, function(dispatch)

@@ -27,7 +27,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
 local getFFlagExpChatMigrationSetup = SharedFlags.getFFlagExpChatMigrationSetup
 local getFFlagFireSignalForLegacyWindow = SharedFlags.getFFlagFireSignalForLegacyWindow
-local GetFFlagUnreduxChatTransparency = SharedFlags.GetFFlagUnreduxChatTransparency
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
@@ -117,7 +116,7 @@ do
 		end
 
 		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
-		if GetFFlagUnreduxChatTransparency() and ChatWindowState.Visible then
+		if ChatWindowState.Visible then
 			transparencyStore.resetAllTransparency()
 		end
 		moduleApiTable.ChatWindowToggled:fire(ChatWindowState.Visible)
@@ -128,7 +127,7 @@ do
 
 
 		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
-		if GetFFlagUnreduxChatTransparency() and ChatWindowState.Visible then
+		if ChatWindowState.Visible then
 			transparencyStore.resetAllTransparency()
 		end
 		moduleApiTable.ChatWindowToggled:fire(ChatWindowState.Visible)

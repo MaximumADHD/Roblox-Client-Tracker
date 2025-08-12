@@ -3,7 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local FFlagReplaceChromeNotificationBadge = SharedFlags.FFlagReplaceChromeNotificationBadge
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
@@ -53,12 +52,8 @@ return {
 	ICON_DIVIDER_POSITION = if FFlagAdaptUnibarAndTiltSizing
 		then UDim2.new(0, StyleTokens.Size.Size_50, 0.5, 0)
 		else UDim2.new(0, 2, 0.5, 0),
-	ICON_BADGE_OFFSET_X = if FFlagAdaptUnibarAndTiltSizing
-		then if FFlagReplaceChromeNotificationBadge then StyleTokens.Gap.XXLarge else StyleTokens.Gap.XLarge
-		else if FFlagReplaceChromeNotificationBadge then 24 else 20,
-	ICON_BADGE_OFFSET_Y = if FFlagReplaceChromeNotificationBadge
-		then if FFlagAdaptUnibarAndTiltSizing then withUIScale(5) else 5
-		else 0,
+	ICON_BADGE_OFFSET_X = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Gap.XXLarge else 24,
+	ICON_BADGE_OFFSET_Y = if FFlagAdaptUnibarAndTiltSizing then withUIScale(5) else 5,
 	MEDIUM_ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_700 else 28,
 	UNIBAR_END_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XSmall else 4,
 	MENU_SUBMENU_PADDING = if FFlagAdaptUnibarAndTiltSizing then withUIScale(10) else 10,

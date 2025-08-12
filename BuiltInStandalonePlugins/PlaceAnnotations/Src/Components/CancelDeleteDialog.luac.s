@@ -2,105 +2,98 @@ PROTO_0:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
-  GETUPVAL R2 1
+  GETUPVAL R3 1
+  JUMPIFNOT R3 [+8]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["use"]
   CALL R2 0 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K1 ["fflagAnnotationsFixForPolyfillOff"]
-  JUMPIFNOT R4 [+76]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K2 ["createElement"]
-  GETUPVAL R4 4
-  DUPTABLE R5 K10 [{"Title", "Modal", "Resizable", "Enabled", "OnClose", "ZIndexBehavior", "Size"}]
-  LOADK R8 K11 ["ConfirmDeleteDialog"]
-  LOADK R9 K3 ["Title"]
-  NAMECALL R6 R1 K12 ["getText"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K3 ["Title"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K4 ["Modal"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K5 ["Resizable"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K6 ["Enabled"]
-  GETTABLEKS R6 R0 K13 ["OnCancel"]
-  SETTABLEKS R6 R5 K7 ["OnClose"]
-  GETIMPORT R6 K16 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R6 R5 K8 ["ZIndexBehavior"]
-  GETIMPORT R6 K19 [Vector2.new]
-  LOADN R7 204
-  LOADN R8 160
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K9 ["Size"]
-  DUPTABLE R6 K21 [{"Provider"}]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K22 ["FoundationProvider"]
-  DUPTABLE R9 K24 [{"theme"}]
-  MOVE R10 R2
-  JUMPIFNOT R10 [+2]
-  GETTABLEKS R10 R2 K25 ["Name"]
-  SETTABLEKS R10 R9 K23 ["theme"]
-  DUPTABLE R10 K27 [{"Contents"}]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K2 ["createElement"]
-  GETUPVAL R12 6
-  DUPTABLE R13 K30 [{"Text", "OnDelete", "OnCancel"}]
-  GETTABLEKS R14 R0 K28 ["Text"]
-  SETTABLEKS R14 R13 K28 ["Text"]
-  GETTABLEKS R14 R0 K29 ["OnDelete"]
-  SETTABLEKS R14 R13 K29 ["OnDelete"]
-  GETTABLEKS R14 R0 K13 ["OnCancel"]
-  SETTABLEKS R14 R13 K13 ["OnCancel"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K26 ["Contents"]
+  NAMECALL R2 R2 K1 ["get"]
+  CALL R2 1 1
+  JUMP [+1]
+  LOADNIL R2
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K2 ["createElement"]
+  GETUPVAL R5 5
+  DUPTABLE R6 K10 [{"Title", "Modal", "Resizable", "Enabled", "OnClose", "ZIndexBehavior", "Size"}]
+  LOADK R9 K11 ["ConfirmDeleteDialog"]
+  LOADK R10 K3 ["Title"]
+  NAMECALL R7 R1 K12 ["getText"]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K20 ["Provider"]
-  CALL R3 3 1
-  RETURN R3 1
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K2 ["createElement"]
-  GETUPVAL R4 7
-  DUPTABLE R5 K32 [{"Plugin", "Title", "Modal", "Resizable", "Enabled", "OnClose", "ZIndexBehavior", "Size"}]
-  GETUPVAL R6 8
-  NAMECALL R6 R6 K0 ["use"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K31 ["Plugin"]
-  LOADK R8 K11 ["ConfirmDeleteDialog"]
-  LOADK R9 K3 ["Title"]
-  NAMECALL R6 R1 K12 ["getText"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K3 ["Title"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K4 ["Modal"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K5 ["Resizable"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K6 ["Enabled"]
-  GETTABLEKS R6 R0 K13 ["OnCancel"]
-  SETTABLEKS R6 R5 K7 ["OnClose"]
-  GETIMPORT R6 K16 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R6 R5 K8 ["ZIndexBehavior"]
-  GETIMPORT R6 K19 [Vector2.new]
-  LOADN R7 204
-  LOADN R8 160
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K9 ["Size"]
-  DUPTABLE R6 K27 [{"Contents"}]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 6
-  DUPTABLE R9 K30 [{"Text", "OnDelete", "OnCancel"}]
-  GETTABLEKS R10 R0 K28 ["Text"]
-  SETTABLEKS R10 R9 K28 ["Text"]
-  GETTABLEKS R10 R0 K29 ["OnDelete"]
-  SETTABLEKS R10 R9 K29 ["OnDelete"]
-  GETTABLEKS R10 R0 K13 ["OnCancel"]
-  SETTABLEKS R10 R9 K13 ["OnCancel"]
+  SETTABLEKS R7 R6 K3 ["Title"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K4 ["Modal"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K5 ["Resizable"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K6 ["Enabled"]
+  GETTABLEKS R7 R0 K13 ["OnCancel"]
+  SETTABLEKS R7 R6 K7 ["OnClose"]
+  GETIMPORT R7 K16 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R7 R6 K8 ["ZIndexBehavior"]
+  GETIMPORT R7 K19 [Vector2.new]
+  LOADN R8 204
+  LOADN R9 160
   CALL R7 2 1
-  SETTABLEKS R7 R6 K26 ["Contents"]
-  CALL R3 3 1
-  RETURN R3 1
+  SETTABLEKS R7 R6 K9 ["Size"]
+  DUPTABLE R7 K23 [{"StyleLink", "Contents", "Provider"}]
+  JUMPIFNOT R2 [+9]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  LOADK R9 K20 ["StyleLink"]
+  DUPTABLE R10 K25 [{"StyleSheet"}]
+  SETTABLEKS R2 R10 K24 ["StyleSheet"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K20 ["StyleLink"]
+  GETUPVAL R9 1
+  JUMPIFNOT R9 [+19]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 6
+  DUPTABLE R10 K28 [{"Text", "OnDelete", "OnCancel"}]
+  GETTABLEKS R11 R0 K26 ["Text"]
+  SETTABLEKS R11 R10 K26 ["Text"]
+  GETTABLEKS R11 R0 K27 ["OnDelete"]
+  SETTABLEKS R11 R10 K27 ["OnDelete"]
+  GETTABLEKS R11 R0 K13 ["OnCancel"]
+  SETTABLEKS R11 R10 K13 ["OnCancel"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K21 ["Contents"]
+  GETUPVAL R9 1
+  JUMPIF R9 [+36]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R10 7
+  GETTABLEKS R9 R10 K29 ["FoundationProvider"]
+  DUPTABLE R10 K31 [{"theme"}]
+  MOVE R11 R3
+  JUMPIFNOT R11 [+2]
+  GETTABLEKS R11 R3 K32 ["Name"]
+  SETTABLEKS R11 R10 K30 ["theme"]
+  DUPTABLE R11 K33 [{"Contents"}]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K2 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K28 [{"Text", "OnDelete", "OnCancel"}]
+  GETTABLEKS R15 R0 K26 ["Text"]
+  SETTABLEKS R15 R14 K26 ["Text"]
+  GETTABLEKS R15 R0 K27 ["OnDelete"]
+  SETTABLEKS R15 R14 K27 ["OnDelete"]
+  GETTABLEKS R15 R0 K13 ["OnCancel"]
+  SETTABLEKS R15 R14 K13 ["OnCancel"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K21 ["Contents"]
+  CALL R8 3 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K22 ["Provider"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -121,38 +114,41 @@ MAIN:
   GETTABLEKS R4 R5 K9 ["Foundation"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Bin"]
-  GETTABLEKS R6 R7 K11 ["Common"]
-  GETTABLEKS R5 R6 K12 ["defineLuaFlags"]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Hooks"]
+  GETTABLEKS R5 R6 K12 ["useTheme"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K13 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Hooks"]
-  GETTABLEKS R6 R7 K15 ["useTheme"]
-  CALL R5 1 1
-  GETTABLEKS R6 R2 K16 ["ContextServices"]
-  GETTABLEKS R7 R6 K17 ["Localization"]
-  GETTABLEKS R9 R2 K18 ["UI"]
-  GETTABLEKS R8 R9 K19 ["Dialog"]
-  GETTABLEKS R9 R6 K20 ["Plugin"]
+  GETTABLEKS R5 R2 K13 ["ContextServices"]
+  GETTABLEKS R6 R5 K14 ["Localization"]
+  GETTABLEKS R7 R5 K15 ["Design"]
+  GETTABLEKS R9 R2 K16 ["UI"]
+  GETTABLEKS R8 R9 K17 ["Dialog"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Components"]
+  GETTABLEKS R10 R11 K19 ["CancelDeleteContents"]
+  CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K13 ["Src"]
-  GETTABLEKS R12 R13 K21 ["Components"]
-  GETTABLEKS R11 R12 K19 ["Dialog"]
+  GETTABLEKS R12 R0 K6 ["Packages"]
+  GETTABLEKS R11 R12 K20 ["StudioFoundation"]
   CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K13 ["Src"]
-  GETTABLEKS R13 R14 K21 ["Components"]
-  GETTABLEKS R12 R13 K22 ["CancelDeleteContents"]
-  CALL R11 1 1
-  DUPCLOSURE R12 K23 [PROTO_0]
+  GETTABLEKS R12 R10 K21 ["SharedFlags"]
+  GETTABLEKS R11 R12 K22 ["getFFlagStudioFoundationPluginMigration"]
+  CALL R11 0 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K23 ["Bin"]
+  GETTABLEKS R14 R15 K24 ["Common"]
+  GETTABLEKS R13 R14 K25 ["defineLuaFlags"]
+  CALL R12 1 1
+  GETTABLEKS R14 R12 K26 ["fflagAnnotationsCancelDeleteDialogDesignLink"]
+  AND R13 R14 R11
+  DUPCLOSURE R14 K27 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R13
   CAPTURE VAL R7
-  CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R8
-  CAPTURE VAL R3
-  CAPTURE VAL R11
-  CAPTURE VAL R10
   CAPTURE VAL R9
-  RETURN R12 1
+  CAPTURE VAL R3
+  RETURN R14 1

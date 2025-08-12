@@ -60,71 +60,88 @@ PROTO_6:
 
 PROTO_7:
   GETUPVAL R2 0
-  GETTABLEKS R3 R1 K0 ["Plugin"]
+  JUMPIFNOT R2 [+22]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["Util"]
+  GETTABLEKS R2 R3 K1 ["createFoundationDesignBinding"]
+  CALL R2 0 2
+  SETTABLEKS R3 R0 K2 ["onFoundationStyleSheetChange"]
+  GETUPVAL R4 2
+  GETTABLEKS R5 R1 K3 ["Plugin"]
+  LOADNIL R6
+  LOADNIL R7
+  NEWTABLE R8 0 1
+  MOVE R9 R2
+  SETLIST R8 R9 1 [1]
+  CALL R4 4 1
+  SETTABLEKS R4 R0 K4 ["design"]
+  JUMP [+6]
+  GETUPVAL R2 2
+  GETTABLEKS R3 R1 K3 ["Plugin"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K1 ["design"]
-  DUPTABLE R2 K5 [{"enabled", "errorHeader", "errorMsg"}]
+  SETTABLEKS R2 R0 K4 ["design"]
+  DUPTABLE R2 K8 [{"enabled", "errorHeader", "errorMsg"}]
   LOADB R3 0
-  SETTABLEKS R3 R2 K2 ["enabled"]
-  LOADK R3 K6 [""]
-  SETTABLEKS R3 R2 K3 ["errorHeader"]
-  LOADK R3 K6 [""]
-  SETTABLEKS R3 R2 K4 ["errorMsg"]
-  SETTABLEKS R2 R0 K7 ["state"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K8 ["new"]
-  GETTABLEKS R3 R1 K0 ["Plugin"]
-  NAMECALL R3 R3 K9 ["GetMouse"]
+  SETTABLEKS R3 R2 K5 ["enabled"]
+  LOADK R3 K9 [""]
+  SETTABLEKS R3 R2 K6 ["errorHeader"]
+  LOADK R3 K9 [""]
+  SETTABLEKS R3 R2 K7 ["errorMsg"]
+  SETTABLEKS R2 R0 K10 ["state"]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K11 ["new"]
+  GETTABLEKS R3 R1 K3 ["Plugin"]
+  NAMECALL R3 R3 K12 ["GetMouse"]
   CALL R3 1 -1
   CALL R2 -1 1
-  SETTABLEKS R2 R0 K10 ["mouse"]
-  GETTABLEKS R2 R0 K10 ["mouse"]
-  LOADK R4 K11 ["Arrow"]
+  SETTABLEKS R2 R0 K13 ["mouse"]
+  GETTABLEKS R2 R0 K13 ["mouse"]
+  LOADK R4 K14 ["Arrow"]
   LOADN R5 0
-  NAMECALL R2 R2 K12 ["__pushCursor"]
+  NAMECALL R2 R2 K15 ["__pushCursor"]
   CALL R2 3 0
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K13 ["toggleEnabled"]
+  SETTABLEKS R2 R0 K16 ["toggleEnabled"]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K14 ["onClose"]
+  SETTABLEKS R2 R0 K17 ["onClose"]
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K15 ["onRestore"]
+  SETTABLEKS R2 R0 K18 ["onRestore"]
   NEWCLOSURE R2 P3
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K16 ["onWidgetEnabledChanged"]
-  GETUPVAL R2 2
+  SETTABLEKS R2 R0 K19 ["onWidgetEnabledChanged"]
+  GETUPVAL R2 4
   JUMPIFNOT R2 [+4]
   NEWCLOSURE R2 P4
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K17 ["onClearErrorMessage"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K18 ["Localization"]
-  GETTABLEKS R2 R3 K8 ["new"]
-  DUPTABLE R3 K22 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  GETUPVAL R4 4
-  SETTABLEKS R4 R3 K19 ["stringResourceTable"]
+  SETTABLEKS R2 R0 K20 ["onClearErrorMessage"]
   GETUPVAL R4 5
-  SETTABLEKS R4 R3 K20 ["translationResourceTable"]
-  LOADK R4 K23 ["ActivityFeed"]
-  SETTABLEKS R4 R3 K21 ["pluginName"]
+  GETTABLEKS R3 R4 K21 ["Localization"]
+  GETTABLEKS R2 R3 K11 ["new"]
+  DUPTABLE R3 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R4 6
+  SETTABLEKS R4 R3 K22 ["stringResourceTable"]
+  GETUPVAL R4 7
+  SETTABLEKS R4 R3 K23 ["translationResourceTable"]
+  LOADK R4 K26 ["ActivityFeed"]
+  SETTABLEKS R4 R3 K24 ["pluginName"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K24 ["localization"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K25 ["Analytics"]
-  GETTABLEKS R2 R3 K8 ["new"]
-  GETUPVAL R3 6
+  SETTABLEKS R2 R0 K27 ["localization"]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K28 ["Analytics"]
+  GETTABLEKS R2 R3 K11 ["new"]
+  GETUPVAL R3 8
   CALL R2 1 1
-  SETTABLEKS R2 R0 K26 ["analytics"]
-  GETUPVAL R2 2
+  SETTABLEKS R2 R0 K29 ["analytics"]
+  GETUPVAL R2 4
   JUMPIFNOT R2 [+8]
-  GETTABLEKS R2 R1 K0 ["Plugin"]
-  LOADK R4 K27 ["ActivityFeed.ShowErrorMessage"]
+  GETTABLEKS R2 R1 K3 ["Plugin"]
+  LOADK R4 K30 ["ActivityFeed.ShowErrorMessage"]
   NEWCLOSURE R5 P5
   CAPTURE VAL R0
-  NAMECALL R2 R2 K28 ["OnInvoke"]
+  NAMECALL R2 R2 K31 ["OnInvoke"]
   CALL R2 3 0
   RETURN R0 0
 
@@ -240,57 +257,86 @@ PROTO_10:
   GETTABLEKS R14 R0 K41 ["onWidgetEnabledChanged"]
   SETTABLE R14 R12 R13
   GETUPVAL R14 8
+  JUMPIFNOT R14 [+3]
+  GETTABLEKS R13 R0 K11 ["design"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K42 ["PluginDesign"]
+  GETUPVAL R14 8
+  JUMPIFNOT R14 [+32]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K15 ["createElement"]
+  GETUPVAL R14 9
+  DUPTABLE R15 K44 [{"onStyleSheetChange"}]
+  GETTABLEKS R16 R0 K45 ["onFoundationStyleSheetChange"]
+  SETTABLEKS R16 R15 K43 ["onStyleSheetChange"]
+  DUPTABLE R16 K47 [{"App"}]
+  GETUPVAL R18 5
+  GETTABLEKS R17 R18 K15 ["createElement"]
+  GETUPVAL R18 10
+  DUPTABLE R19 K50 [{"plugin", "enabled", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
+  SETTABLEKS R3 R19 K48 ["plugin"]
+  SETTABLEKS R4 R19 K3 ["enabled"]
+  SETTABLEKS R5 R19 K4 ["errorHeader"]
+  SETTABLEKS R6 R19 K5 ["errorMsg"]
+  GETTABLEKS R20 R0 K51 ["onClearErrorMessage"]
+  SETTABLEKS R20 R19 K49 ["OnClearErrorMessage"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K46 ["App"]
+  CALL R13 3 1
+  JUMP [+79]
+  GETUPVAL R14 11
   JUMPIFNOT R14 [+44]
   NEWTABLE R13 0 1
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K15 ["createElement"]
-  GETUPVAL R15 9
+  GETUPVAL R15 12
   LOADNIL R16
-  DUPTABLE R17 K44 [{"App", "StyleLink"}]
+  DUPTABLE R17 K53 [{"App", "StyleLink"}]
   GETUPVAL R19 5
   GETTABLEKS R18 R19 K15 ["createElement"]
   GETUPVAL R19 10
-  DUPTABLE R20 K47 [{"plugin", "enabled", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
-  SETTABLEKS R3 R20 K45 ["plugin"]
+  DUPTABLE R20 K50 [{"plugin", "enabled", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
+  SETTABLEKS R3 R20 K48 ["plugin"]
   SETTABLEKS R4 R20 K3 ["enabled"]
   SETTABLEKS R5 R20 K4 ["errorHeader"]
   SETTABLEKS R6 R20 K5 ["errorMsg"]
-  GETTABLEKS R21 R0 K48 ["onClearErrorMessage"]
-  SETTABLEKS R21 R20 K46 ["OnClearErrorMessage"]
+  GETTABLEKS R21 R0 K51 ["onClearErrorMessage"]
+  SETTABLEKS R21 R20 K49 ["OnClearErrorMessage"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K42 ["App"]
+  SETTABLEKS R18 R17 K46 ["App"]
   GETUPVAL R19 5
   GETTABLEKS R18 R19 K15 ["createElement"]
-  LOADK R19 K43 ["StyleLink"]
-  DUPTABLE R20 K50 [{"StyleSheet"}]
+  LOADK R19 K52 ["StyleLink"]
+  DUPTABLE R20 K55 [{"StyleSheet"}]
   GETTABLEKS R21 R0 K11 ["design"]
-  SETTABLEKS R21 R20 K49 ["StyleSheet"]
+  SETTABLEKS R21 R20 K54 ["StyleSheet"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K43 ["StyleLink"]
+  SETTABLEKS R18 R17 K52 ["StyleLink"]
   CALL R14 3 -1
   SETLIST R13 R14 -1 [1]
   JUMPIF R13 [+33]
-  DUPTABLE R13 K44 [{"App", "StyleLink"}]
+  DUPTABLE R13 K53 [{"App", "StyleLink"}]
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K15 ["createElement"]
   GETUPVAL R15 10
-  DUPTABLE R16 K47 [{"plugin", "enabled", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
-  SETTABLEKS R3 R16 K45 ["plugin"]
+  DUPTABLE R16 K50 [{"plugin", "enabled", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
+  SETTABLEKS R3 R16 K48 ["plugin"]
   SETTABLEKS R4 R16 K3 ["enabled"]
   SETTABLEKS R5 R16 K4 ["errorHeader"]
   SETTABLEKS R6 R16 K5 ["errorMsg"]
-  GETTABLEKS R17 R0 K48 ["onClearErrorMessage"]
-  SETTABLEKS R17 R16 K46 ["OnClearErrorMessage"]
+  GETTABLEKS R17 R0 K51 ["onClearErrorMessage"]
+  SETTABLEKS R17 R16 K49 ["OnClearErrorMessage"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K42 ["App"]
+  SETTABLEKS R14 R13 K46 ["App"]
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K15 ["createElement"]
-  LOADK R15 K43 ["StyleLink"]
-  DUPTABLE R16 K50 [{"StyleSheet"}]
+  LOADK R15 K52 ["StyleLink"]
+  DUPTABLE R16 K55 [{"StyleSheet"}]
   GETTABLEKS R17 R0 K11 ["design"]
-  SETTABLEKS R17 R16 K49 ["StyleSheet"]
+  SETTABLEKS R17 R16 K54 ["StyleSheet"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K43 ["StyleLink"]
+  SETTABLEKS R14 R13 K52 ["StyleLink"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K13 ["MainWidget"]
   CALL R7 2 -1
@@ -321,70 +367,83 @@ MAIN:
   GETTABLEKS R8 R9 K13 ["Foundation"]
   CALL R7 1 1
   GETTABLEKS R8 R7 K14 ["FoundationProvider"]
-  GETTABLEKS R9 R2 K15 ["ContextServices"]
-  GETTABLEKS R10 R9 K16 ["Plugin"]
-  GETTABLEKS R11 R9 K17 ["Mouse"]
-  GETTABLEKS R12 R9 K18 ["Design"]
-  GETIMPORT R13 K4 [require]
-  GETTABLEKS R16 R0 K19 ["Src"]
-  GETTABLEKS R15 R16 K20 ["Resources"]
-  GETTABLEKS R14 R15 K21 ["MakeTheme"]
-  CALL R13 1 1
-  GETTABLEKS R14 R3 K22 ["registerPluginStyles"]
-  GETTABLEKS R18 R0 K19 ["Src"]
-  GETTABLEKS R17 R18 K20 ["Resources"]
-  GETTABLEKS R16 R17 K23 ["Localization"]
-  GETTABLEKS R15 R16 K24 ["SourceStrings"]
-  GETTABLEKS R19 R0 K19 ["Src"]
-  GETTABLEKS R18 R19 K20 ["Resources"]
-  GETTABLEKS R17 R18 K23 ["Localization"]
-  GETTABLEKS R16 R17 K25 ["LocalizedStrings"]
-  GETIMPORT R17 K4 [require]
-  GETTABLEKS R20 R0 K19 ["Src"]
-  GETTABLEKS R19 R20 K26 ["Util"]
-  GETTABLEKS R18 R19 K27 ["AnalyticsHandlers"]
-  CALL R17 1 1
-  GETTABLEKS R19 R0 K19 ["Src"]
-  GETTABLEKS R18 R19 K28 ["Components"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K5 ["Packages"]
+  GETTABLEKS R10 R11 K15 ["StudioFoundation"]
+  CALL R9 1 1
+  GETTABLEKS R11 R9 K16 ["Components"]
+  GETTABLEKS R10 R11 K17 ["FoundationProviderAdapter"]
+  GETTABLEKS R11 R2 K18 ["ContextServices"]
+  GETTABLEKS R12 R11 K19 ["Plugin"]
+  GETTABLEKS R13 R11 K20 ["Mouse"]
+  GETTABLEKS R14 R11 K21 ["Design"]
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K22 ["Src"]
+  GETTABLEKS R17 R18 K23 ["Resources"]
+  GETTABLEKS R16 R17 K24 ["MakeTheme"]
+  CALL R15 1 1
+  GETTABLEKS R16 R3 K25 ["registerPluginStyles"]
+  GETTABLEKS R20 R0 K22 ["Src"]
+  GETTABLEKS R19 R20 K23 ["Resources"]
+  GETTABLEKS R18 R19 K26 ["Localization"]
+  GETTABLEKS R17 R18 K27 ["SourceStrings"]
+  GETTABLEKS R21 R0 K22 ["Src"]
+  GETTABLEKS R20 R21 K23 ["Resources"]
+  GETTABLEKS R19 R20 K26 ["Localization"]
+  GETTABLEKS R18 R19 K28 ["LocalizedStrings"]
   GETIMPORT R19 K4 [require]
-  GETTABLEKS R20 R18 K29 ["App"]
+  GETTABLEKS R22 R0 K22 ["Src"]
+  GETTABLEKS R21 R22 K29 ["Util"]
+  GETTABLEKS R20 R21 K30 ["AnalyticsHandlers"]
   CALL R19 1 1
-  GETTABLEKS R20 R1 K30 ["PureComponent"]
-  LOADK R22 K31 ["MainPlugin"]
-  NAMECALL R20 R20 K32 ["extend"]
-  CALL R20 2 1
-  GETIMPORT R21 K34 [game]
-  LOADK R23 K35 ["AHAddPackageAndScriptEvents"]
-  NAMECALL R21 R21 K36 ["GetFastFlag"]
-  CALL R21 2 1
-  GETIMPORT R22 K34 [game]
-  LOADK R24 K37 ["ActivityHistoryCompactUI"]
-  NAMECALL R22 R22 K36 ["GetFastFlag"]
+  GETTABLEKS R21 R0 K22 ["Src"]
+  GETTABLEKS R20 R21 K16 ["Components"]
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R20 K31 ["App"]
+  CALL R21 1 1
+  GETTABLEKS R22 R1 K32 ["PureComponent"]
+  LOADK R24 K33 ["MainPlugin"]
+  NAMECALL R22 R22 K34 ["extend"]
   CALL R22 2 1
-  DUPCLOSURE R23 K38 [PROTO_7]
-  CAPTURE VAL R14
-  CAPTURE VAL R11
-  CAPTURE VAL R21
+  GETIMPORT R23 K36 [game]
+  LOADK R25 K37 ["AHAddPackageAndScriptEvents"]
+  NAMECALL R23 R23 K38 ["GetFastFlag"]
+  CALL R23 2 1
+  GETIMPORT R24 K36 [game]
+  LOADK R26 K39 ["ActivityHistoryCompactUI"]
+  NAMECALL R24 R24 K38 ["GetFastFlag"]
+  CALL R24 2 1
+  GETTABLEKS R26 R9 K40 ["SharedFlags"]
+  GETTABLEKS R25 R26 K41 ["getFFlagStudioFoundationPluginMigration"]
+  CALL R25 0 1
+  DUPCLOSURE R26 K42 [PROTO_7]
+  CAPTURE VAL R25
   CAPTURE VAL R9
-  CAPTURE VAL R15
   CAPTURE VAL R16
+  CAPTURE VAL R13
+  CAPTURE VAL R23
+  CAPTURE VAL R11
   CAPTURE VAL R17
-  SETTABLEKS R23 R20 K39 ["init"]
-  DUPCLOSURE R23 K40 [PROTO_8]
+  CAPTURE VAL R18
+  CAPTURE VAL R19
+  SETTABLEKS R26 R22 K43 ["init"]
+  DUPCLOSURE R26 K44 [PROTO_8]
   CAPTURE VAL R1
   CAPTURE VAL R6
-  SETTABLEKS R23 R20 K41 ["renderButtons"]
-  DUPCLOSURE R23 K42 [PROTO_10]
-  CAPTURE VAL R9
-  CAPTURE VAL R10
+  SETTABLEKS R26 R22 K45 ["renderButtons"]
+  DUPCLOSURE R26 K46 [PROTO_10]
   CAPTURE VAL R11
-  CAPTURE VAL R13
   CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R14
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R4
-  CAPTURE VAL R22
+  CAPTURE VAL R25
+  CAPTURE VAL R10
+  CAPTURE VAL R21
+  CAPTURE VAL R24
   CAPTURE VAL R8
-  CAPTURE VAL R19
-  SETTABLEKS R23 R20 K43 ["render"]
-  RETURN R20 1
+  SETTABLEKS R26 R22 K47 ["render"]
+  RETURN R22 1

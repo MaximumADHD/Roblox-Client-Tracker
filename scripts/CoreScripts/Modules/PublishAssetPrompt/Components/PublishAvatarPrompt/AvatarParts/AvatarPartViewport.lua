@@ -12,8 +12,6 @@ local CameraUtility = require(CorePackages.Packages.Thumbnailing).CameraUtility
 local MannequinUtility = require(CorePackages.Packages.Thumbnailing).MannequinUtility
 local Constants = require(script.Parent.Parent.Parent.Parent.Constants)
 
-local FFlagFixPublishAvatarVRViewports = require(script.Parent.Parent.Parent.Parent.FFlagFixPublishAvatarVRViewports)
-
 local AvatarPartViewport = Roact.PureComponent:extend("AvatarPartViewport")
 
 AvatarPartViewport.validateProps = t.strictInterface({
@@ -43,10 +41,9 @@ function AvatarPartViewport:createViewportCamera()
 	local camera = Instance.new("Camera")
 	camera.Parent = self.modelRef:getValue()
 	camera.CameraType = Enum.CameraType.Scriptable
-	if FFlagFixPublishAvatarVRViewports then
-		camera.HeadLocked = true
-		camera.VRTiltAndRollEnabled = true
-	end
+	camera.HeadLocked = true
+	camera.VRTiltAndRollEnabled = true
+
 	return camera
 end
 

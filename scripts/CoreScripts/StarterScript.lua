@@ -45,7 +45,6 @@ local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6",
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 local GetFFlagEnableSocialContextToast =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSocialContextToast
-local GetFFlagLuaAppEnableSquadPage = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableSquadPage
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local GetFFlagChromeCentralizedConfiguration =
@@ -300,6 +299,10 @@ end
 
 if game:GetEngineFeature("ExperienceEventsEngineAPIEnabled") then
 	coroutine.wrap(safeRequire)(CoreGuiModules.ExperienceEvents.ExperienceEventsApp)
+end
+
+if game:GetEngineFeature("AvatarGenerationSelfieConsentEnabled") then
+	coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieConsent)
 end
 
 -- Prompt Block Player Script

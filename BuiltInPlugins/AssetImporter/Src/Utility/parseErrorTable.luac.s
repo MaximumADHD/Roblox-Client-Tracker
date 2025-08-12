@@ -34,75 +34,90 @@ PROTO_1:
   GETTABLEKS R8 R9 K11 ["statusCode"]
   CALL R5 3 1
   MOVE R4 R5
-  GETTABLEKS R5 R3 K12 ["reason"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K13 ["ErrorCode"]
-  GETTABLEKS R6 R7 K14 ["AssetDependencyError"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+17]
+  GETIMPORT R5 K14 [string.find]
+  GETTABLEKS R6 R3 K15 ["simpleErrorMessage"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K16 ["ErrorCode"]
+  GETTABLEKS R7 R8 K17 ["CorruptedFile"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+6]
+  LOADK R7 K18 ["ParseError"]
+  LOADK R8 K17 ["CorruptedFile"]
+  NAMECALL R5 R1 K7 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  GETTABLEKS R5 R3 K19 ["reason"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K16 ["ErrorCode"]
+  GETTABLEKS R6 R7 K20 ["AssetDependencyError"]
   JUMPIFNOTEQ R5 R6 [+10]
   GETUPVAL R5 1
   MOVE R6 R1
   LOADK R7 K5 ["HttpError"]
-  LOADK R8 K15 ["DependenciesLimitExceeded"]
-  GETTABLEKS R9 R3 K16 ["metadata"]
+  LOADK R8 K21 ["DependenciesLimitExceeded"]
+  GETTABLEKS R9 R3 K22 ["metadata"]
   CALL R5 4 1
   MOVE R4 R5
   JUMP [+45]
-  GETIMPORT R5 K19 [string.find]
-  GETTABLEKS R6 R3 K20 ["simpleErrorMessage"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K13 ["ErrorCode"]
-  GETTABLEKS R7 R8 K21 ["ModerationError"]
+  GETIMPORT R5 K14 [string.find]
+  GETTABLEKS R6 R3 K15 ["simpleErrorMessage"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K16 ["ErrorCode"]
+  GETTABLEKS R7 R8 K23 ["ModerationError"]
   CALL R5 2 1
   JUMPIFNOT R5 [+7]
   GETUPVAL R5 1
   MOVE R6 R1
   LOADK R7 K5 ["HttpError"]
-  LOADK R8 K22 ["UploadResultBadIdParse"]
+  LOADK R8 K24 ["UploadResultBadIdParse"]
   CALL R5 3 1
   MOVE R4 R5
   JUMP [+27]
-  GETIMPORT R5 K19 [string.find]
-  GETTABLEKS R6 R3 K20 ["simpleErrorMessage"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K13 ["ErrorCode"]
-  GETTABLEKS R7 R8 K23 ["ImageResolutionError"]
+  GETIMPORT R5 K14 [string.find]
+  GETTABLEKS R6 R3 K15 ["simpleErrorMessage"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K16 ["ErrorCode"]
+  GETTABLEKS R7 R8 K25 ["ImageResolutionError"]
   CALL R5 2 1
   JUMPIFNOT R5 [+16]
-  DUPTABLE R5 K25 [{"pixelLimit"}]
-  GETIMPORT R6 K27 [string.match]
-  GETTABLEKS R7 R3 K20 ["simpleErrorMessage"]
-  LOADK R8 K28 ["(%d+)%s+pixels"]
+  DUPTABLE R5 K27 [{"pixelLimit"}]
+  GETIMPORT R6 K29 [string.match]
+  GETTABLEKS R7 R3 K15 ["simpleErrorMessage"]
+  LOADK R8 K30 ["(%d+)%s+pixels"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K24 ["pixelLimit"]
+  SETTABLEKS R6 R5 K26 ["pixelLimit"]
   GETUPVAL R6 1
   MOVE R7 R1
   LOADK R8 K5 ["HttpError"]
-  LOADK R9 K29 ["ImageResolution"]
+  LOADK R9 K31 ["ImageResolution"]
   MOVE R10 R5
   CALL R6 4 1
   MOVE R4 R6
-  GETUPVAL R5 3
+  GETUPVAL R5 4
   CALL R5 0 1
   JUMPIFNOT R5 [+19]
   JUMPIFNOT R4 [+2]
   MOVE R5 R4
   JUMP [+2]
-  GETTABLEKS R5 R3 K20 ["simpleErrorMessage"]
+  GETTABLEKS R5 R3 K15 ["simpleErrorMessage"]
   MOVE R7 R5
-  LOADK R8 K30 ["
+  LOADK R8 K32 ["
 "]
-  LOADK R11 K31 ["Upload"]
-  LOADK R12 K32 ["OperationId"]
-  DUPTABLE R13 K34 [{"operationId"}]
-  GETTABLEKS R14 R3 K33 ["operationId"]
-  SETTABLEKS R14 R13 K33 ["operationId"]
+  LOADK R11 K33 ["Upload"]
+  LOADK R12 K34 ["OperationId"]
+  DUPTABLE R13 K36 [{"operationId"}]
+  GETTABLEKS R14 R3 K35 ["operationId"]
+  SETTABLEKS R14 R13 K35 ["operationId"]
   NAMECALL R9 R1 K7 ["getText"]
   CALL R9 4 1
   CONCAT R6 R7 R9
   RETURN R6 1
   JUMPIFNOT R4 [+1]
   RETURN R4 1
-  GETTABLEKS R5 R3 K20 ["simpleErrorMessage"]
+  GETTABLEKS R5 R3 K15 ["simpleErrorMessage"]
   RETURN R5 1
 
 MAIN:
@@ -129,11 +144,17 @@ MAIN:
   GETTABLEKS R6 R7 K14 ["Flags"]
   GETTABLEKS R5 R6 K15 ["getEFCinOperationIdInErrorEF"]
   CALL R4 1 1
-  DUPCLOSURE R5 K16 [PROTO_1]
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Flags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagImporterAdHocDialogue"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K17 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R3
+  CAPTURE VAL R5
   CAPTURE VAL R2
   CAPTURE VAL R4
-  SETGLOBAL R5 K17 ["parseErrorMessage"]
-  GETGLOBAL R5 K17 ["parseErrorMessage"]
-  RETURN R5 1
+  SETGLOBAL R6 K18 ["parseErrorMessage"]
+  GETGLOBAL R6 K18 ["parseErrorMessage"]
+  RETURN R6 1

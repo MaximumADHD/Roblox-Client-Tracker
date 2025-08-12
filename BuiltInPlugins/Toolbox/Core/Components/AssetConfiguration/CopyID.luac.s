@@ -54,7 +54,7 @@ PROTO_2:
   SETTABLEKS R10 R9 K10 ["AnchorPoint"]
   GETIMPORT R10 K15 [UDim2.new]
   LOADN R11 0
-  GETUPVAL R12 1
+  LOADN R12 145
   LOADN R13 0
   LOADN R14 24
   CALL R10 4 1
@@ -99,7 +99,7 @@ PROTO_2:
   DUPTABLE R17 K50 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "TextYAlignment", "TextXAlignment", "LayoutOrder"}]
   LOADN R18 1
   SETTABLEKS R18 R17 K8 ["BackgroundTransparency"]
-  GETUPVAL R19 2
+  GETUPVAL R19 1
   GETTABLEKS R18 R19 K51 ["FONT"]
   SETTABLEKS R18 R17 K44 ["Font"]
   LOADK R19 K52 ["ID: "]
@@ -109,23 +109,19 @@ PROTO_2:
   GETTABLEKS R19 R3 K53 ["uploadResult"]
   GETTABLEKS R18 R19 K54 ["idText"]
   SETTABLEKS R18 R17 K46 ["TextColor3"]
-  GETUPVAL R19 2
+  GETUPVAL R19 1
   GETTABLEKS R18 R19 K55 ["FONT_SIZE_MEDIUM"]
   SETTABLEKS R18 R17 K47 ["TextSize"]
   GETIMPORT R18 K15 [UDim2.new]
   LOADN R19 0
-  GETUPVAL R20 3
+  LOADN R20 120
   LOADN R21 1
   LOADN R22 0
   CALL R18 4 1
   SETTABLEKS R18 R17 K11 ["Size"]
   GETIMPORT R18 K56 [Enum.TextYAlignment.Center]
   SETTABLEKS R18 R17 K48 ["TextYAlignment"]
-  GETUPVAL R19 4
-  JUMPIFNOT R19 [+3]
   GETIMPORT R18 K58 [Enum.TextXAlignment.Right]
-  JUMP [+2]
-  GETIMPORT R18 K59 [Enum.TextXAlignment.Center]
   SETTABLEKS R18 R17 K49 ["TextXAlignment"]
   LOADN R18 1
   SETTABLEKS R18 R17 K39 ["LayoutOrder"]
@@ -133,7 +129,7 @@ PROTO_2:
   SETTABLEKS R15 R14 K24 ["IDLabel"]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K6 ["createElement"]
-  LOADK R16 K60 ["ImageButton"]
+  LOADK R16 K59 ["ImageButton"]
   NEWTABLE R17 8 0
   GETIMPORT R18 K15 [UDim2.new]
   LOADN R19 0
@@ -142,19 +138,19 @@ PROTO_2:
   LOADN R22 20
   CALL R18 4 1
   SETTABLEKS R18 R17 K11 ["Size"]
-  LOADK R18 K61 ["rbxasset://textures/StudioToolbox/AssetConfig/copy_2x.png"]
-  SETTABLEKS R18 R17 K62 ["Image"]
+  LOADK R18 K60 ["rbxasset://textures/StudioToolbox/AssetConfig/copy_2x.png"]
+  SETTABLEKS R18 R17 K61 ["Image"]
   GETTABLEKS R19 R3 K53 ["uploadResult"]
-  GETTABLEKS R18 R19 K63 ["buttonColor"]
-  SETTABLEKS R18 R17 K64 ["ImageColor3"]
+  GETTABLEKS R18 R19 K62 ["buttonColor"]
+  SETTABLEKS R18 R17 K63 ["ImageColor3"]
   LOADN R18 1
   SETTABLEKS R18 R17 K8 ["BackgroundTransparency"]
   LOADN R18 2
   SETTABLEKS R18 R17 K39 ["LayoutOrder"]
   GETUPVAL R20 0
-  GETTABLEKS R19 R20 K65 ["Event"]
-  GETTABLEKS R18 R19 K66 ["MouseButton1Click"]
-  GETTABLEKS R19 R0 K67 ["onCopyClicked"]
+  GETTABLEKS R19 R20 K64 ["Event"]
+  GETTABLEKS R18 R19 K65 ["MouseButton1Click"]
+  GETTABLEKS R19 R0 K66 ["onCopyClicked"]
   SETTABLE R19 R17 R18
   CALL R15 2 1
   SETTABLEKS R15 R14 K25 ["CopyButton"]
@@ -165,22 +161,22 @@ PROTO_2:
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K6 ["createElement"]
   LOADK R12 K43 ["TextLabel"]
-  DUPTABLE R13 K68 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "AnchorPoint", "Position", "TextYAlignment", "TextXAlignment"}]
+  DUPTABLE R13 K67 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "AnchorPoint", "Position", "TextYAlignment", "TextXAlignment"}]
   LOADN R14 1
   SETTABLEKS R14 R13 K8 ["BackgroundTransparency"]
-  GETUPVAL R15 2
+  GETUPVAL R15 1
   GETTABLEKS R14 R15 K51 ["FONT"]
   SETTABLEKS R14 R13 K44 ["Font"]
-  GETTABLEKS R14 R1 K69 ["Localization"]
-  LOADK R16 K70 ["AssetConfigUpload"]
-  LOADK R17 K71 ["IDCopied"]
-  NAMECALL R14 R14 K72 ["getText"]
+  GETTABLEKS R14 R1 K68 ["Localization"]
+  LOADK R16 K69 ["AssetConfigUpload"]
+  LOADK R17 K70 ["IDCopied"]
+  NAMECALL R14 R14 K71 ["getText"]
   CALL R14 3 1
   SETTABLEKS R14 R13 K45 ["Text"]
   GETTABLEKS R15 R3 K53 ["uploadResult"]
-  GETTABLEKS R14 R15 K73 ["greenText"]
+  GETTABLEKS R14 R15 K72 ["greenText"]
   SETTABLEKS R14 R13 K46 ["TextColor3"]
-  GETUPVAL R15 2
+  GETUPVAL R15 1
   GETTABLEKS R14 R15 K55 ["FONT_SIZE_MEDIUM"]
   SETTABLEKS R14 R13 K47 ["TextSize"]
   GETIMPORT R14 K15 [UDim2.new]
@@ -197,14 +193,14 @@ PROTO_2:
   SETTABLEKS R14 R13 K10 ["AnchorPoint"]
   GETIMPORT R14 K15 [UDim2.new]
   LOADN R15 0
-  GETUPVAL R16 5
+  LOADN R16 150
   LOADK R17 K16 [0.5]
   LOADN R18 0
   CALL R14 4 1
   SETTABLEKS R14 R13 K9 ["Position"]
   GETIMPORT R14 K56 [Enum.TextYAlignment.Center]
   SETTABLEKS R14 R13 K48 ["TextYAlignment"]
-  GETIMPORT R14 K59 [Enum.TextXAlignment.Center]
+  GETIMPORT R14 K73 [Enum.TextXAlignment.Center]
   SETTABLEKS R14 R13 K49 ["TextXAlignment"]
   CALL R11 2 1
   SETTABLEKS R11 R10 K20 ["CopiedLabel"]
@@ -240,37 +236,21 @@ MAIN:
   LOADK R10 K18 ["CopyID"]
   NAMECALL R8 R8 K19 ["extend"]
   CALL R8 2 1
-  GETIMPORT R9 K4 [game]
-  LOADK R11 K20 ["ToolboxFixCopyIDLabel"]
-  LOADB R12 0
-  NAMECALL R9 R9 K21 ["DefineFastFlag"]
-  CALL R9 3 1
-  JUMPIFNOT R9 [+2]
-  LOADN R10 120
-  JUMP [+1]
-  LOADN R10 86
-  ADDK R12 R10 K23 [20]
-  ADDK R11 R12 K22 [5]
-  ADDK R12 R11 K22 [5]
-  DUPCLOSURE R13 K24 [PROTO_1]
+  DUPCLOSURE R9 K20 [PROTO_1]
   CAPTURE VAL R1
-  SETTABLEKS R13 R8 K25 ["init"]
-  DUPCLOSURE R13 K26 [PROTO_2]
+  SETTABLEKS R9 R8 K21 ["init"]
+  DUPCLOSURE R9 K22 [PROTO_2]
   CAPTURE VAL R3
-  CAPTURE VAL R11
   CAPTURE VAL R5
-  CAPTURE VAL R10
-  CAPTURE VAL R9
-  CAPTURE VAL R12
-  SETTABLEKS R13 R8 K27 ["render"]
-  MOVE R13 R7
-  DUPTABLE R14 K30 [{"Stylizer", "Localization"}]
-  GETTABLEKS R15 R6 K28 ["Stylizer"]
-  SETTABLEKS R15 R14 K28 ["Stylizer"]
-  GETTABLEKS R15 R6 K29 ["Localization"]
-  SETTABLEKS R15 R14 K29 ["Localization"]
-  CALL R13 1 1
-  MOVE R14 R8
-  CALL R13 1 1
-  MOVE R8 R13
+  SETTABLEKS R9 R8 K23 ["render"]
+  MOVE R9 R7
+  DUPTABLE R10 K26 [{"Stylizer", "Localization"}]
+  GETTABLEKS R11 R6 K24 ["Stylizer"]
+  SETTABLEKS R11 R10 K24 ["Stylizer"]
+  GETTABLEKS R11 R6 K25 ["Localization"]
+  SETTABLEKS R11 R10 K25 ["Localization"]
+  CALL R9 1 1
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
   RETURN R8 1

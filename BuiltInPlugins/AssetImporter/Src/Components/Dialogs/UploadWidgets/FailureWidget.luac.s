@@ -1,9 +1,18 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["uploadErrorsExpanded"]
+  DUPTABLE R1 K1 [{"uploadErrorsExpanded"}]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K0 ["uploadErrorsExpanded"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+23]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["update"]
-  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K1 ["uploadErrorsExpanded"]
+  GETUPVAL R1 1
   DUPTABLE R3 K2 [{"uploadErrorsExpanded"}]
   GETUPVAL R4 2
   MOVE R5 R0
@@ -14,15 +23,34 @@ PROTO_0:
   NOT R8 R9
   SETTABLE R8 R6 R7
   CALL R4 2 1
-  SETTABLEKS R4 R3 K0 ["uploadErrorsExpanded"]
+  SETTABLEKS R4 R3 K1 ["uploadErrorsExpanded"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R1 4
+  GETTABLEKS R0 R1 K1 ["uploadErrorsExpanded"]
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K4 ["update"]
+  GETUPVAL R2 4
+  DUPTABLE R3 K2 [{"uploadErrorsExpanded"}]
+  GETUPVAL R4 2
+  MOVE R5 R0
+  NEWTABLE R6 1 0
+  GETUPVAL R7 3
+  GETUPVAL R10 3
+  GETTABLE R9 R0 R10
+  NOT R8 R9
+  SETTABLE R8 R6 R7
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["uploadErrorsExpanded"]
   CALL R1 2 1
-  GETUPVAL R3 4
-  GETTABLEKS R2 R3 K3 ["SetUploadWidgetItem"]
+  GETUPVAL R3 6
+  GETTABLEKS R2 R3 K5 ["SetUploadWidgetItem"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_1:
+PROTO_2:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Stylizer"]
   GETTABLEKS R4 R2 K2 ["ErrorWidget"]
@@ -40,61 +68,65 @@ PROTO_1:
   GETTABLEKS R14 R15 K9 ["createElement"]
   GETUPVAL R15 1
   DUPTABLE R16 K18 [{"Expanded", "OnExpandedChanged", "LayoutOrder", "Layout", "AutomaticSize", "VerticalAlignment", "Style", "Text"}]
-  GETTABLEKS R18 R13 K19 ["uploadErrorsExpanded"]
+  GETUPVAL R18 2
+  CALL R18 0 1
+  JUMPIFNOT R18 [+6]
+  GETTABLEKS R19 R0 K19 ["state"]
+  GETTABLEKS R18 R19 K20 ["uploadErrorsExpanded"]
+  GETTABLE R17 R18 R12
+  JUMP [+3]
+  GETTABLEKS R18 R13 K20 ["uploadErrorsExpanded"]
   GETTABLE R17 R18 R12
   SETTABLEKS R17 R16 K10 ["Expanded"]
   NEWCLOSURE R17 P0
-  CAPTURE VAL R13
   CAPTURE UPVAL U2
+  CAPTURE VAL R0
   CAPTURE UPVAL U3
   CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE UPVAL U4
   CAPTURE VAL R1
   SETTABLEKS R17 R16 K11 ["OnExpandedChanged"]
   SETTABLEKS R6 R16 K12 ["LayoutOrder"]
-  GETIMPORT R17 K23 [Enum.FillDirection.Vertical]
+  GETIMPORT R17 K24 [Enum.FillDirection.Vertical]
   SETTABLEKS R17 R16 K13 ["Layout"]
-  GETIMPORT R17 K25 [Enum.AutomaticSize.Y]
+  GETIMPORT R17 K26 [Enum.AutomaticSize.Y]
   SETTABLEKS R17 R16 K14 ["AutomaticSize"]
-  GETIMPORT R17 K27 [Enum.VerticalAlignment.Top]
+  GETIMPORT R17 K28 [Enum.VerticalAlignment.Top]
   SETTABLEKS R17 R16 K15 ["VerticalAlignment"]
   SETTABLEKS R3 R16 K16 ["Style"]
   SETTABLEKS R10 R16 K17 ["Text"]
-  DUPTABLE R17 K29 [{"ErrorDetails"}]
+  DUPTABLE R17 K30 [{"ErrorDetails"}]
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K9 ["createElement"]
-  GETUPVAL R19 4
-  DUPTABLE R20 K34 [{"Text", "TextWrapped", "TextSelectable", "AutomaticSize", "TextXAlignment", "TextSize", "Style"}]
-  GETUPVAL R22 5
-  CALL R22 0 1
-  JUMPIFNOT R22 [+6]
+  GETUPVAL R19 5
+  DUPTABLE R20 K35 [{"Text", "TextWrapped", "TextSelectable", "AutomaticSize", "TextXAlignment", "TextSize", "Style"}]
   GETUPVAL R21 6
   MOVE R22 R11
-  GETTABLEKS R23 R1 K35 ["Localization"]
+  GETTABLEKS R23 R1 K36 ["Localization"]
   CALL R21 2 1
-  JUMP [+1]
-  MOVE R21 R11
   SETTABLEKS R21 R20 K17 ["Text"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K30 ["TextWrapped"]
+  SETTABLEKS R21 R20 K31 ["TextWrapped"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K31 ["TextSelectable"]
-  GETIMPORT R21 K37 [Enum.AutomaticSize.XY]
+  SETTABLEKS R21 R20 K32 ["TextSelectable"]
+  GETIMPORT R21 K38 [Enum.AutomaticSize.XY]
   SETTABLEKS R21 R20 K14 ["AutomaticSize"]
-  GETIMPORT R21 K39 [Enum.TextXAlignment.Left]
-  SETTABLEKS R21 R20 K32 ["TextXAlignment"]
-  GETTABLEKS R21 R4 K40 ["SubtextSize"]
-  SETTABLEKS R21 R20 K33 ["TextSize"]
-  LOADK R21 K41 ["Error"]
+  GETIMPORT R21 K40 [Enum.TextXAlignment.Left]
+  SETTABLEKS R21 R20 K33 ["TextXAlignment"]
+  GETTABLEKS R21 R4 K41 ["SubtextSize"]
+  SETTABLEKS R21 R20 K34 ["TextSize"]
+  LOADK R21 K42 ["Error"]
   SETTABLEKS R21 R20 K16 ["Style"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K28 ["ErrorDetails"]
+  SETTABLEKS R18 R17 K29 ["ErrorDetails"]
   CALL R14 3 1
   SETTABLE R14 R5 R10
-  ADDK R6 R6 K42 [1]
-  FORGLOOP R7 2 [-85]
+  ADDK R6 R6 K43 [1]
+  FORGLOOP R7 2 [-91]
   RETURN R5 1
 
-PROTO_2:
+PROTO_3:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["Localization"]
@@ -229,7 +261,7 @@ PROTO_2:
   CALL R8 3 -1
   RETURN R8 -1
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -237,7 +269,7 @@ PROTO_3:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   DUPTABLE R1 K1 [{"SetUploadWidgetItem"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -245,7 +277,7 @@ PROTO_4:
   SETTABLEKS R2 R1 K0 ["SetUploadWidgetItem"]
   RETURN R1 1
 
-PROTO_5:
+PROTO_6:
   DUPTABLE R1 K1 [{"UploadWidgetItem"}]
   GETTABLEKS R3 R0 K2 ["Dialogs"]
   GETTABLEKS R2 R3 K3 ["uploadWidgetItem"]
@@ -303,39 +335,45 @@ MAIN:
   GETIMPORT R18 K5 [require]
   GETTABLEKS R21 R0 K22 ["Src"]
   GETTABLEKS R20 R21 K29 ["Flags"]
-  GETTABLEKS R19 R20 K30 ["getFFlagCinImprovedErrorMessages"]
+  GETTABLEKS R19 R20 K30 ["getFFlagImporterAdHocDialogue"]
   CALL R18 1 1
   GETTABLEKS R19 R2 K31 ["PureComponent"]
   LOADK R21 K32 ["FailureWidget"]
   NAMECALL R19 R19 K33 ["extend"]
   CALL R19 2 1
-  DUPCLOSURE R20 K34 [PROTO_1]
+  DUPCLOSURE R20 K34 [PROTO_0]
+  SETTABLEKS R20 R19 K35 ["init"]
+  DUPCLOSURE R20 K36 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R14
-  CAPTURE VAL R16
-  CAPTURE VAL R5
-  CAPTURE VAL R13
   CAPTURE VAL R18
+  CAPTURE VAL R5
+  CAPTURE VAL R16
+  CAPTURE VAL R13
   CAPTURE VAL R17
-  SETTABLEKS R20 R19 K35 ["_getErrorSections"]
-  DUPCLOSURE R20 K36 [PROTO_2]
+  SETTABLEKS R20 R19 K37 ["_getErrorSections"]
+  DUPCLOSURE R20 K38 [PROTO_3]
   CAPTURE VAL R2
   CAPTURE VAL R11
   CAPTURE VAL R13
   CAPTURE VAL R12
-  SETTABLEKS R20 R19 K37 ["render"]
+  SETTABLEKS R20 R19 K39 ["render"]
   MOVE R20 R8
-  DUPTABLE R21 K38 [{"Localization", "Stylizer"}]
+  DUPTABLE R21 K40 [{"Localization", "Stylizer"}]
   SETTABLEKS R9 R21 K16 ["Localization"]
   SETTABLEKS R7 R21 K14 ["Stylizer"]
   CALL R20 1 1
   MOVE R21 R19
   CALL R20 1 1
   MOVE R19 R20
-  DUPCLOSURE R20 K39 [PROTO_4]
+  MOVE R20 R18
+  CALL R20 0 1
+  JUMPIFNOT R20 [+1]
+  RETURN R19 1
+  DUPCLOSURE R20 K41 [PROTO_5]
   CAPTURE VAL R15
-  DUPCLOSURE R21 K40 [PROTO_5]
-  GETTABLEKS R22 R3 K41 ["connect"]
+  DUPCLOSURE R21 K42 [PROTO_6]
+  GETTABLEKS R22 R3 K43 ["connect"]
   MOVE R23 R21
   MOVE R24 R20
   CALL R22 2 1

@@ -292,29 +292,30 @@ MAIN:
   LOADK R5 K14 ["LoadedCode"]
   NAMECALL R3 R3 K15 ["FindFirstChild"]
   CALL R3 2 1
-  JUMPIFNOT R3 [+32]
+  JUMPIFNOT R3 [+33]
   LOADK R6 K16 ["EvalUtils"]
   NAMECALL R4 R3 K15 ["FindFirstChild"]
   CALL R4 2 1
-  LOADK R6 K17 ["lib"]
-  NAMECALL R4 R4 K15 ["FindFirstChild"]
-  CALL R4 2 1
-  JUMPIFNOT R4 [+23]
-  GETIMPORT R5 K5 [require]
-  MOVE R6 R4
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K18 ["thisIsEvalFramework"]
-  JUMPIFNOT R6 [+16]
-  LOADB R6 1
-  SETTABLEKS R6 R2 K8 ["RunningEval"]
-  GETIMPORT R6 K21 [Instance.new]
-  LOADK R7 K22 ["ObjectValue"]
+  JUMPIFNOT R4 [+28]
+  LOADK R7 K17 ["lib"]
+  NAMECALL R5 R4 K15 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+23]
+  GETIMPORT R6 K5 [require]
+  MOVE R7 R5
   CALL R6 1 1
-  LOADK R7 K23 ["CliAdapter"]
-  SETTABLEKS R7 R6 K24 ["Name"]
-  GETIMPORT R7 K1 [script]
-  SETTABLEKS R7 R6 K25 ["Value"]
-  SETTABLEKS R3 R6 K26 ["Parent"]
+  GETTABLEKS R7 R6 K18 ["thisIsEvalFramework"]
+  JUMPIFNOT R7 [+16]
+  LOADB R7 1
+  SETTABLEKS R7 R2 K8 ["RunningEval"]
+  GETIMPORT R7 K21 [Instance.new]
+  LOADK R8 K22 ["ObjectValue"]
+  CALL R7 1 1
+  LOADK R8 K23 ["CliAdapter"]
+  SETTABLEKS R8 R7 K24 ["Name"]
+  GETIMPORT R8 K1 [script]
+  SETTABLEKS R8 R7 K25 ["Value"]
+  SETTABLEKS R3 R7 K26 ["Parent"]
   GETTABLEKS R4 R1 K27 ["isCli"]
   CALL R4 0 1
   JUMPIF R4 [+7]
