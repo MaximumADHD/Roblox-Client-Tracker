@@ -35886,7 +35886,6 @@
       "Font": "@roblox/globaltype/Studio.Font",
       "Format On Paste": "@roblox/globaltype/Studio.Format On Paste",
       "Format On Type": "@roblox/globaltype/Studio.Format On Type",
-      "FreeCameraSpeedScroll": "@roblox/globaltype/Studio.FreeCameraSpeedScroll",
       "Function Name Color": "@roblox/globaltype/Studio.Function Name Color",
       "Highlight Current Line": "@roblox/globaltype/Studio.Highlight Current Line",
       "Highlight Occurances": "@roblox/globaltype/Studio.Highlight Occurances",
@@ -36364,11 +36363,6 @@
   "@roblox/globaltype/Studio.Format On Type": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Format On Type",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.FreeCameraSpeedScroll": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#FreeCameraSpeedScroll",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Function Name Color": {
@@ -44145,10 +44139,10 @@
     "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
-    "documentation": ""
+    "documentation": "The <code>BasePart</code> to use as a new replication focus."
   },
   "@roblox/globaltype/Player.AddReplicationFocus": {
-    "documentation": "",
+    "documentation": "Adds an additional replication focus for the player.",
     "params": [
       {
         "name": "self",
@@ -44689,10 +44683,10 @@
     "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
-    "documentation": ""
+    "documentation": "The <code>BasePart</code> to remove as a replication focus."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus": {
-    "documentation": "",
+    "documentation": "Removes a previously added replication focus.",
     "params": [
       {
         "name": "self",

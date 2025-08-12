@@ -6,15 +6,15 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Function Object:isA(className: string) -> boolean [Deprecated] [CustomLuaState]
 	Event Object.Changed(property: string)
 Class Capture : Object [NotCreatable] [NotReplicated]
-	Property Capture.CaptureTime: DateTime {🔐InternalTest} [ReadOnly]
-	Property Capture.CaptureType: Enum.CaptureType {🔐InternalTest} [ReadOnly]
-	Property Capture.LocalId: string {🔐InternalTest} [ReadOnly]
-	Property Capture.SourcePlaceId: number {🔐InternalTest} [ReadOnly]
-	Property Capture.SourceUniverseId: number {🔐InternalTest} [ReadOnly]
+	Property Capture.CaptureTime: DateTime [ReadOnly]
+	Property Capture.CaptureType: Enum.CaptureType [ReadOnly]
+	Property Capture.LocalId: string [ReadOnly]
+	Property Capture.SourcePlaceId: number [ReadOnly]
+	Property Capture.SourceUniverseId: number [ReadOnly]
 Class ScreenshotCapture : Capture [NotCreatable] [NotReplicated]
 Class VideoCapture : Capture [NotCreatable] [NotReplicated]
 	Property VideoCapture.FilePath: string {RobloxScriptSecurity} [ReadOnly]
-	Property VideoCapture.TimeLength: number {🔐InternalTest} [ReadOnly]
+	Property VideoCapture.TimeLength: number [ReadOnly]
 Class ConfigSnapshot : Object [NotCreatable] [NotReplicated]
 	Property ConfigSnapshot.Error: Enum.ConfigSnapshotErrorState [ReadOnly]
 	Property ConfigSnapshot.Outdated: boolean [ReadOnly]
@@ -443,6 +443,9 @@ Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplic
 	Event AppLifecycleObserverService.OnResignActive() {RobloxScriptSecurity}
 	Event AppLifecycleObserverService.OnStart() {RobloxScriptSecurity}
 	Event AppLifecycleObserverService.OnUnhide() {RobloxScriptSecurity}
+Class AppRatingPromptService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function AppRatingPromptService:isAppRatingPromptAvailable() -> boolean {RobloxScriptSecurity}
+	Function AppRatingPromptService:showAppRatingPrompt() -> () {RobloxScriptSecurity}
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppUpdateService:CanPerformBinaryUpdate() -> boolean {RobloxScriptSecurity}
 	Function AppUpdateService:CheckForUpdate(handler: ((...any) -> ...any)?) -> () {RobloxScriptSecurity}
@@ -847,6 +850,10 @@ Class AuroraScriptObject : Instance [NotCreatable] [Deprecated]
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () [Deprecated] {🧬Safe}
+	Function AuroraScriptService:getBehaviorObjects() -> { Instance } {RobloxScriptSecurity} [Deprecated]
+	Function AuroraScriptService:getBehaviors() -> { Instance } [Deprecated]
+	Function AuroraScriptService:getBehaviorsForInstance(instance: Instance) -> { Instance } [Deprecated]
+	Function AuroraScriptService:getInstancesForBehavior(behavior: AuroraScript) -> { Instance } [Deprecated]
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Property AuroraService.BufferFullInputCount: number {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraService.HashRoundingPoint: number [Deprecated]
@@ -1012,6 +1019,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GetBatchTokenDetailsAsync(tokenIds: { any }) -> { any } [Yields]
 	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
+	Function AvatarCreationService:HandleSelfieConsentResult(consentAccepted: boolean) -> () {RobloxScriptSecurity}
 	Function AvatarCreationService:LoadAvatar2DPreviewAsync(previewId: string) -> EditableImage [Yields]
 	Function AvatarCreationService:LoadGeneratedAvatarAsync(generationId: string) -> HumanoidDescription [Yields]
 	Function AvatarCreationService:PrepareAvatarForPreviewAsync(humanoidModel: Model) -> () [Yields]
@@ -1022,6 +1030,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:ValidateUGCBodyPartAsync(player: Player, instance: Instance, bodyPart: Enum.BodyPart) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCFullBodyAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Event AvatarCreationService.AvatarModerationCompleted(outfitId: number, moderationStatus: Enum.ModerationStatus)
+	Event AvatarCreationService.OpenSelfieConsent() {RobloxScriptSecurity}
 	Event AvatarCreationService.ReplicateAvatarGenerationImageId(fileId: string, error: string) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.ReplicateAvatarModel(id: string, success: boolean, serializedModel: string, bufferTable: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.ReplicateAvatarPreviewUrl(id: string, downloadUrl: string) {RobloxSecurity} [Hidden]
@@ -1099,8 +1108,6 @@ Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarImportService:ImportFbxRigWithoutSceneLoad(isR15: boolean? = true) -> Instance? {RobloxScriptSecurity} [Yields]
 	Function AvatarImportService:ImportLoadedFBXAnimation(useFBXModel: boolean) -> Instance? {RobloxScriptSecurity} [Yields]
 	Function AvatarImportService:LoadRigAndDetectType(promptR15Callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
-Class AvatarPreloader : Instance [NotCreatable] [Service] [NotReplicated]
-	Function AvatarPreloader:PreloadModelAssets(models: { Instance }) -> { any } {RobloxScriptSecurity}
 Class AvatarRules : Instance
 	Property AvatarRules.AvatarType: Enum.GameAvatarType {RobloxScriptSecurity}
 Class AvatarSettings : Instance [NotCreatable] [Service]
@@ -1438,6 +1445,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:OnVideoCaptureShared(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
 	Function CaptureService:PreVideoCaptureShared(videoCapture: VideoCapture) -> string {RobloxScriptSecurity}
 	Function CaptureService:PromptCaptureGalleryPermission(captureGalleryPermission: Enum.CaptureGalleryPermission, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
+	Function CaptureService:PromptCaptureGalleryPermissionAsync(captureGalleryPermission: Enum.CaptureGalleryPermission) -> boolean [Yields]
 	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:ReadCapturesFromGalleryAsync(captureTypeFilters: { any }? = {}) -> ...any [Yields]
@@ -2395,6 +2403,8 @@ Class Decal : FaceInstance
 	Property Decal.Specular: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Decal.Texture: string
 	Property Decal.TextureContent: Content
+	Property Decal.TexturePack: string {RobloxSecurity}
+	Property Decal.TexturePackMetadata: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Decal.Transparency: number
 	Property Decal.UVOffset: Vector2
 	Property Decal.UVScale: Vector2
@@ -2996,15 +3006,19 @@ Class HandleAdornment : PVAdornment [NotCreatable]
 	Event HandleAdornment.MouseEnter()
 	Event HandleAdornment.MouseLeave()
 Class BoxHandleAdornment : HandleAdornment
+	Property BoxHandleAdornment.Shading: Enum.AdornShading
 	Property BoxHandleAdornment.Size: Vector3
 Class ConeHandleAdornment : HandleAdornment
 	Property ConeHandleAdornment.Height: number
+	Property ConeHandleAdornment.Hollow: boolean
 	Property ConeHandleAdornment.Radius: number
+	Property ConeHandleAdornment.Shading: Enum.AdornShading
 Class CylinderHandleAdornment : HandleAdornment
 	Property CylinderHandleAdornment.Angle: number
 	Property CylinderHandleAdornment.Height: number
 	Property CylinderHandleAdornment.InnerRadius: number
 	Property CylinderHandleAdornment.Radius: number
+	Property CylinderHandleAdornment.Shading: Enum.AdornShading
 Class ImageHandleAdornment : HandleAdornment
 	Property ImageHandleAdornment.Image: string
 	Property ImageHandleAdornment.Size: Vector2
@@ -3013,6 +3027,7 @@ Class LineHandleAdornment : HandleAdornment
 	Property LineHandleAdornment.Thickness: number
 Class SphereHandleAdornment : HandleAdornment
 	Property SphereHandleAdornment.Radius: number
+	Property SphereHandleAdornment.Shading: Enum.AdornShading
 Class WireframeHandleAdornment : HandleAdornment
 	Property WireframeHandleAdornment.Scale: Vector3
 	Property WireframeHandleAdornment.Thickness: number
@@ -3297,6 +3312,7 @@ Class HttpRequest : Instance [NotCreatable]
 	Function HttpRequest:Start(callback: (...any) -> ...any) -> () {RobloxScriptSecurity}
 Class HttpService : Instance [NotCreatable] [Service]
 	Property HttpService.HttpEnabled: boolean {✏️LocalUserSecurity}
+	Function HttpService:CreateWebStreamClient(streamClientType: Enum.WebStreamClientType, requestOptions: { [string]: any }) -> WebStreamClient
 	Function HttpService:GenerateGUID(wrapInCurlyBraces: boolean? = true) -> string {🧬Safe}
 	Function HttpService:GetAsync(url: any, nocache: boolean? = false, headers: any) -> string [Yields]
 	Function HttpService:GetHttpEnabled() -> boolean {RobloxScriptSecurity}
@@ -3646,6 +3662,7 @@ Class ImportSession : Instance [NotCreatable] [NotReplicated]
 	Event ImportSession.UploadComplete(results: { [string]: any })
 	Event ImportSession.UploadProgress(progressRatio: number)
 Class AssetImportSession : ImportSession [NotCreatable] [NotReplicated]
+	Function AssetImportSession:AddKnownAssetsToCache(knownAssets: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function AssetImportSession:ApplyPreset(preset: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
@@ -4259,6 +4276,7 @@ Class MetaBreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event MetaBreakpointManager.MetaBreakpointRemoved(breakpoint: MetaBreakpoint) {RobloxScriptSecurity}
 	Event MetaBreakpointManager.MetaBreakpointSetChanged(breakpoint: MetaBreakpoint, detail: { [string]: any }) {RobloxScriptSecurity}
 Class MicroProfilerService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property MicroProfilerService.ContextLabel: string {RobloxScriptSecurity}
 Class ModerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ModerationService:InternalCreateReviewableContentAsync(config: { [string]: any }) -> string [Yields]
 	Function ModerationService:InternalRequestReviewableContentReviewAsync(config: { [string]: any }) -> () [Yields]
@@ -4310,6 +4328,7 @@ Class NetworkServer : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function NetworkReplicator:GetPlayer() -> Instance?
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
+	Function ClientReplicator:IsStreamedOut(instance: Instance) -> boolean {RobloxScriptSecurity}
 	Function ClientReplicator:RequestRCCProfilerData(frameRate: number, timeFrame: number) -> () {RobloxScriptSecurity}
 	Function ClientReplicator:RequestServerLuauHeapData() -> () {RobloxScriptSecurity}
 	Function ClientReplicator:RequestServerScriptProfiling(start: boolean, frequency: number?) -> () {RobloxScriptSecurity}
@@ -6033,6 +6052,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function DataModel:SetPlaceId(placeId: number) -> () {PluginSecurity}
 	Function DataModel:SetUniverseId(universeId: number) -> () {PluginSecurity}
 	Function DataModel:Shutdown() -> () {LocalUserSecurity}
+	Function DataModel:getGameTime() -> number {RobloxScriptSecurity}
 	Event DataModel.AllowedGearTypeChanged() [Deprecated]
 	Event DataModel.GraphicsQualityChangeRequest(betterQuality: boolean)
 	Event DataModel.ItemChanged(object: Instance, descriptor: string) [Deprecated]
@@ -6244,6 +6264,7 @@ Class SoundGroup : Instance
 Class SoundService : Instance [NotCreatable] [Service]
 	Property SoundService.AmbientReverb: Enum.ReverbType
 	Property SoundService.AudioApiByDefault: Enum.RolloutState {RobloxScriptSecurity} [Hidden]
+	Property SoundService.AudioPlayerVolumeFix: Enum.RolloutState {RobloxScriptSecurity}
 	Property SoundService.CharacterSoundsUseNewApi: Enum.RolloutState {✏️PluginSecurity}
 	Property SoundService.DefaultListenerLocation: Enum.ListenerLocation {PluginSecurity}
 	Property SoundService.DistanceFactor: number
@@ -6907,6 +6928,7 @@ Class TestService : Instance [Service]
 	Function TestService:Check(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Checkpoint(text: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:CreateAndSavePropertySet(source: Instance, fileName: string) -> () {RobloxScriptSecurity}
+	Function TestService:CreatePropertySetDiff(sourceA: Instance, sourceB: Instance) -> string {RobloxScriptSecurity}
 	Function TestService:Done() -> ()
 	Function TestService:Error(description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Fail(description: string, source: Instance? = nil, line: number? = 0) -> ()
@@ -7284,7 +7306,7 @@ Class UITextSizeConstraint : UIConstraint
 	Property UITextSizeConstraint.MinTextSize: number
 Class UIContainerQuery : UIComponent [NotReplicated] [NotBrowsable]
 	Property UIContainerQuery.AspectRatioRange: NumberRange
-	Property UIContainerQuery.IsActive: boolean
+	Property UIContainerQuery.IsActive: boolean [ReadOnly]
 	Property UIContainerQuery.MaxSize: Vector2
 	Property UIContainerQuery.MinSize: Vector2
 Class UICorner : UIComponent
@@ -7519,11 +7541,11 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UserInputService:GetDeviceType() -> Enum.DeviceType {RobloxScriptSecurity}
 	Function UserInputService:GetFocusedTextBox() -> TextBox
 	Function UserInputService:GetGamepadConnected(gamepadNum: Enum.UserInputType) -> boolean
-	Function UserInputService:GetGamepadState(gamepadNum: Enum.UserInputType) -> { any }
+	Function UserInputService:GetGamepadState(gamepadNum: Enum.UserInputType) -> { Instance }
 	Function UserInputService:GetImageForKeyCode(keyCode: Enum.KeyCode) -> string
-	Function UserInputService:GetKeysPressed() -> { any }
+	Function UserInputService:GetKeysPressed() -> { Instance }
 	Function UserInputService:GetLastInputType() -> Enum.UserInputType
-	Function UserInputService:GetMouseButtonsPressed() -> { any }
+	Function UserInputService:GetMouseButtonsPressed() -> { Instance }
 	Function UserInputService:GetMouseDelta() -> Vector2
 	Function UserInputService:GetMouseLocation() -> Vector2
 	Function UserInputService:GetNavigationGamepads() -> { any }
@@ -7900,6 +7922,7 @@ Class Wire : Instance
 	Property Wire.TargetInstance: Instance?
 	Property Wire.TargetName: string
 	Function Wire:RenameToDefault() -> () {RobloxScriptSecurity}
+Class WrapTextureTransfer : Instance
 Class MLSession : Object [NotCreatable] [NotReplicated]
 	Function MLSession:ForwardAsync(data: { [string]: any }) -> { [string]: any } [Yields]
 Class TerrainIterateOperation : Object [NotCreatable] [NotReplicated]
@@ -7913,6 +7936,13 @@ Class TerrainReadOperation : Object [NotCreatable] [NotReplicated]
 Class TerrainWriteOperation : Object [NotCreatable] [NotReplicated]
 	Function TerrainWriteOperation:CommitBlock(block: { [string]: any }) -> RBXScriptSignal
 	Function TerrainWriteOperation:GetBlock() -> { [string]: any } [CustomLuaState]
+Class WebStreamClient : Object [NotCreatable] [NotReplicated]
+	Property WebStreamClient.ConnectionState: Enum.WebStreamClientState [ReadOnly]
+	Function WebStreamClient:Close() -> ()
+	Event WebStreamClient.Closed()
+	Event WebStreamClient.Error(responseStatusCode: number, errorMessage: string)
+	Event WebStreamClient.MessageReceived(message: string)
+	Event WebStreamClient.Opened(responseStatusCode: number, headers: string)
 Enum AccessModifierType
 	EnumItem AccessModifierType.Allow : 0
 	EnumItem AccessModifierType.Deny : 1
@@ -8003,6 +8033,12 @@ Enum AdUnitStatus
 Enum AdornCullingMode
 	EnumItem AdornCullingMode.Automatic : 0
 	EnumItem AdornCullingMode.Never : 1
+Enum AdornShading
+	EnumItem AdornShading.Default : 0
+	EnumItem AdornShading.Shaded : 1
+	EnumItem AdornShading.XRay : 2
+	EnumItem AdornShading.XRayShaded : 3
+	EnumItem AdornShading.AlwaysOnTop : 4
 Enum AlignType
 	EnumItem AlignType.Parallel : 0 [Deprecated]
 	EnumItem AlignType.Perpendicular : 1 [Deprecated]
@@ -9422,6 +9458,7 @@ Enum InputActionType
 	EnumItem InputActionType.Direction1D : 1
 	EnumItem InputActionType.Direction2D : 2
 	EnumItem InputActionType.Direction3D : 3
+	EnumItem InputActionType.ViewportPosition : 4
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12
@@ -9711,6 +9748,7 @@ Enum KeyCode
 	EnumItem KeyCode.MouseNoButton : 1022 [Deprecated]
 	EnumItem KeyCode.MouseX : 1023 [Deprecated]
 	EnumItem KeyCode.MouseY : 1024 [Deprecated]
+	EnumItem KeyCode.MousePosition : 1025
 Enum KeyInterpolationMode
 	EnumItem KeyInterpolationMode.Constant : 0
 	EnumItem KeyInterpolationMode.Linear : 1
@@ -11314,6 +11352,14 @@ Enum WebSocketState
 	EnumItem WebSocketState.Open : 1
 	EnumItem WebSocketState.Closing : 2
 	EnumItem WebSocketState.Closed : 3
+Enum WebStreamClientState
+	EnumItem WebStreamClientState.Connecting : 0
+	EnumItem WebStreamClientState.Open : 1
+	EnumItem WebStreamClientState.Error : 2
+	EnumItem WebStreamClientState.Closed : 3
+Enum WebStreamClientType
+	EnumItem WebStreamClientType.SSE : 0
+	EnumItem WebStreamClientType.RawStream : 1
 Enum WeldConstraintPreserve
 	EnumItem WeldConstraintPreserve.All : 0
 	EnumItem WeldConstraintPreserve.None : 1

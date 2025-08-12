@@ -1,8 +1,11 @@
 Key,Context,Source,en-us
 Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
+Studio.Ribbon.Action.CollapseToolbar,"Action that when checked, will detach the Studio toolbar - Ribbon -  into a floating menu",Collapse toolbar,Collapse toolbar
+Studio.Ribbon.Action.CompactDensity,"Action that when checked will reduce the padding, spacing, text size for the main toolbar in Ribbon, making it more compact",Compact toolbar,Compact toolbar
 Studio.Ribbon.Action.FindAndReplaceAll,Tool to find and replace all instances of something within a script,Find and Replace All,Find and Replace All
 Studio.Ribbon.Action.ImportRobloxModel,Import from file a Roblox model,Import Roblox Model,Import Roblox Model
 Studio.Ribbon.Action.InviteCollaborators,Share your project and start building together,Invite Collaborators,Invite Collaborators
+Studio.Ribbon.Action.Labels,The action that hides/shows labels in the Studio Toolbar - Ribbon,Show labels,Show labels
 Studio.Ribbon.Action.Pivot,Edit the point around which the selected object rotates and translates,Pivot,Pivot
 Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
 Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currently selected test mode,Launch Test Mode,Launch Test Mode
@@ -10,12 +13,13 @@ Studio.Ribbon.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject 
 Studio.Ribbon.Add,Add clients to the current server & clients testing session,Add,Add
 Studio.Ribbon.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
 Studio.Ribbon.Plugin.Action.UpdateAvailable,,Update,Update
+Studio.Ribbon.Plugin.Add,Add clients to the current ongoing server & clients testing session,Add,Add
 Studio.Ribbon.Plugin.AddClients,,Add Clients,Add Clients
 Studio.Ribbon.Plugin.AddClientsTooltip,Add clients to the current server & clients testing session,Add clients to the current session,Add clients to the current session
 Studio.Ribbon.Plugin.AddSeparator,The title of the context menu item that adds a new divider to the current custom tab of the Ribbon,Add divider,Add divider
 Studio.Ribbon.Plugin.AddTools,The title of the context menu item that opens the Add Tools dialog in Ribbon,Add tools,Add tools
 Studio.Ribbon.Plugin.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
-Studio.Ribbon.Plugin.AnchorToolRibbonAction,,Select object to Anchor,Select object to Anchor
+Studio.Ribbon.Plugin.AnchorToolRibbonAction,"Tool operates as a key for both states: clicking on an unanchored object in the viewport anchors it, while clicking on an anchored object unanchors it.",Click object to anchor,Click object to anchor
 Studio.Ribbon.Plugin.Command,Opens the command bar plugin,Command,Command
 Studio.Ribbon.Plugin.DegreesFormat,Format for displaying the degree increment for rotating parts,{amount}°,{amount}°
 Studio.Ribbon.Plugin.DeleteSeparator,The name of the action to remove the currently selected divider in a Ribbon custom tab,Remove divider,Remove divider
@@ -26,6 +30,7 @@ Studio.Ribbon.Plugin.DeleteTool,The name of the action to remove the currently s
 Studio.Ribbon.Plugin.DockUndockRibbon,The option to detach the Studio Ribbon into a floating menu,Autohide ribbon,Autohide ribbon
 Studio.Ribbon.Plugin.DraggerSettingsModesHeader,"In the Studio ribbon dropdown for dragger modes, the header above settings like Collisions and Join Surfaces",Dragger modes,Dragger modes
 Studio.Ribbon.Plugin.DraggerSettingsSnapHeader,"In the Studio ribbon dropdown for dragger settings, the header of the section above settings like ""Snap to Parts""",Snap,Snap
+Studio.Ribbon.Plugin.Exit,Exit client window in either a team test session or a server and clients session,Exit,Exit
 Studio.Ribbon.Plugin.Filter.AllCreators,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Creators,All Creators
 Studio.Ribbon.Plugin.Filter.AllPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Plugins,All Plugins
 Studio.Ribbon.Plugin.Filter.CloudPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Cloud Plugins,Cloud Plugins
@@ -37,13 +42,15 @@ Studio.Ribbon.Plugin.ImportQueueTooltip,"Tooltip that appears when hovering over
 Studio.Ribbon.Plugin.InviteCollaborators,Share your project and start building together.,Invite Collaborators,Invite Collaborators
 Studio.Ribbon.Plugin.InviteCollaboratorsTooltip,Tooltip for the manage collaborator button when in a non-team create place,Share your project and start building together,Share your project and start building together
 Studio.Ribbon.Plugin.Lock,,Lock,Lock
-Studio.Ribbon.Plugin.LockToolRibbonAction,,Select object to Lock,Select object to Lock
+Studio.Ribbon.Plugin.LockToolRibbonAction,"Tool operates as a key for both states: clicking on an unlocked object in the viewport locks it, while clicking on a locked object unlocks it.",Click object to lock,Click object to lock
 Studio.Ribbon.Plugin.ManageCollaborators,See and manage your collaborators,Manage Collaborators,Manage Collaborators
 Studio.Ribbon.Plugin.ManageCollaboratorsTooltip,Tooltip for manage collaborators button when in a team create place,See and manage your collaborators,See and manage your collaborators
 Studio.Ribbon.Plugin.ManageTabs,The title of the context menu action to manage Studio Ribbon tabs,Manage tabs,Manage tabs
 Studio.Ribbon.Plugin.ManageTabs.Title,The title of the Manage Tabs dialog in the Studio Ribbon,Manage Tabs,Manage Tabs
-Studio.Ribbon.Plugin.MoveLeft,The name of the button that moves a tab or control to the left in the Ribbon UI,Move up,Move up
-Studio.Ribbon.Plugin.MoveRight,The name of the button that moves a tab or control to the right in the Ribbon UI,Move down,Move down
+Studio.Ribbon.Plugin.MoveDown,The name of the button that moves a tab down in the Ribbon Manage Tabs Window,Move down,Move down
+Studio.Ribbon.Plugin.MoveLeft,The name of the button that moves a tab or control to the left in the Ribbon UI,Move left,Move left
+Studio.Ribbon.Plugin.MoveRight,The name of the button that moves a tab or control to the right in the Ribbon UI,Move right,Move right
+Studio.Ribbon.Plugin.MoveUp,The name of the button that moves a tab up in the Ribbon Manage Tabs Window,Move up,Move up
 Studio.Ribbon.Plugin.Name,,Ribbon,Ribbon
 Studio.Ribbon.Plugin.Physical,,Physical,Physical
 Studio.Ribbon.Plugin.PlayersFormat,Format for displaying the number of players to add to a server,{amount} players,{amount} players
@@ -131,3 +138,5 @@ Studio.Ribbon.SystemMenu.Help,File menu option for user to get help on what to d
 Studio.Ribbon.SystemMenu.OpenFromFile,Open a roblox game from a file,Open from File,Open from File
 Studio.Ribbon.SystemMenu.Plugins,Plugins that the user owns,Plugins,Plugins
 Studio.Ribbon.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
+Studio.Ribbon.Title.AddNewTab,"Create a new, empty tab for a custom toolbar",Add New Tab,Add New Tab
+Studio.Ribbon.Tooltip.AddNewTab,"Tooltip for adding a new, empty tab to the ribbon toolbar","Create a new, empty tab for a custom toolbar","Create a new, empty tab for a custom toolbar"

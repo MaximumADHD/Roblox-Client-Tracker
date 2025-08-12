@@ -148,14 +148,6 @@
         {
             "Members": [
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
                     "Category": "Data",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
@@ -179,14 +171,6 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
                     "Category": "Data",
                     "Default": "__api_dump_failed_to_create_class__",
                     "MemberType": "Property",
@@ -210,14 +194,6 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
                     "Category": "Data",
                     "Default": "__api_dump_failed_to_create_class__",
                     "MemberType": "Property",
@@ -241,14 +217,6 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
                     "Category": "Data",
                     "Default": "__api_dump_failed_to_create_class__",
                     "MemberType": "Property",
@@ -272,14 +240,6 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
                     "Category": "Data",
                     "Default": "__api_dump_failed_to_create_class__",
                     "MemberType": "Property",
@@ -348,14 +308,6 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
                     "Category": "Data",
                     "Default": "__api_dump_failed_to_create_class__",
                     "MemberType": "Property",
@@ -9928,6 +9880,42 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "isAppRatingPromptAvailable",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "showAppRatingPrompt",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AppRatingPromptService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
                     "Name": "CanPerformBinaryUpdate",
                     "Parameters": [
                     ],
@@ -18533,6 +18521,80 @@
                     },
                     "Security": "None",
                     "ThreadSafety": "Safe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "getBehaviorObjects",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "getBehaviors",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "getBehaviorsForInstance",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "getInstancesForBehavior",
+                    "Parameters": [
+                        {
+                            "Name": "behavior",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "AuroraScript"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -21482,6 +21544,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "HandleSelfieConsentResult",
+                    "Parameters": [
+                        {
+                            "Name": "consentAccepted",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "AutoSetupAvatarAsync",
                     "Parameters": [
                         {
@@ -21856,6 +21937,14 @@
                         }
                     ],
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OpenSelfieConsent",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -23518,37 +23607,6 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "AvatarImportService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "PreloadModelAssets",
-                    "Parameters": [
-                        {
-                            "Name": "models",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Instances"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "AvatarPreloader",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -30759,9 +30817,28 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
-                    "Capabilities": [
-                        "InternalTest"
+                    "MemberType": "Function",
+                    "Name": "PromptCaptureGalleryPermissionAsync",
+                    "Parameters": [
+                        {
+                            "Name": "captureGalleryPermission",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CaptureGalleryPermission"
+                            }
+                        }
                     ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Function",
                     "Name": "ReadCapturesFromGalleryAsync",
                     "Parameters": [
@@ -30852,9 +30929,6 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
-                    "Capabilities": [
-                        "InternalTest"
-                    ],
                     "MemberType": "Function",
                     "Name": "UploadCaptureAsync",
                     "Parameters": [
@@ -51353,6 +51427,58 @@
                         ]
                     },
                     "Category": "Appearance",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "TexturePack",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "TexturePackMetadata",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
                     "Default": "0",
                     "MemberType": "Property",
                     "Name": "Transparency",
@@ -65120,6 +65246,31 @@
                         ]
                     },
                     "Category": "Data",
+                    "Default": "Default",
+                    "MemberType": "Property",
+                    "Name": "Shading",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AdornShading"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "UI"
+                        ]
+                    },
+                    "Category": "Data",
                     "Default": "1, 1, 1",
                     "MemberType": "Property",
                     "Name": "Size",
@@ -65177,6 +65328,31 @@
                         ]
                     },
                     "Category": "Data",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "Hollow",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "UI"
+                        ]
+                    },
+                    "Category": "Data",
                     "Default": "0.5",
                     "MemberType": "Property",
                     "Name": "Radius",
@@ -65192,6 +65368,31 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "UI"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "Default",
+                    "MemberType": "Property",
+                    "Name": "Shading",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AdornShading"
                     }
                 }
             ],
@@ -65299,6 +65500,31 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "UI"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "Default",
+                    "MemberType": "Property",
+                    "Name": "Shading",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AdornShading"
                     }
                 }
             ],
@@ -65445,6 +65671,31 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "UI"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "Default",
+                    "MemberType": "Property",
+                    "Name": "Shading",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AdornShading"
                     }
                 }
             ],
@@ -71436,6 +71687,35 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
+                },
+                {
+                    "Capabilities": [
+                        "Network"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "CreateWebStreamClient",
+                    "Parameters": [
+                        {
+                            "Name": "streamClientType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "WebStreamClientType"
+                            }
+                        },
+                        {
+                            "Name": "requestOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "WebStreamClient"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Function",
@@ -79441,6 +79721,25 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "AddKnownAssetsToCache",
+                    "Parameters": [
+                        {
+                            "Name": "knownAssets",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
                 {
                     "MemberType": "Function",
                     "Name": "ApplyPreset",
@@ -92897,6 +93196,25 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "ContextLabel",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "MicroProfilerService",
@@ -93843,6 +94161,25 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "IsStreamedOut",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
                 {
                     "MemberType": "Function",
                     "Name": "RequestRCCProfilerData",
@@ -130510,6 +130847,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "getGameTime",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetObjectsAsync",
                     "Parameters": [
                         {
@@ -135068,6 +135417,25 @@
                     "Tags": [
                         "Hidden"
                     ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RolloutState"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "Default",
+                    "MemberType": "Property",
+                    "Name": "AudioPlayerVolumeFix",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -148479,6 +148847,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CreatePropertySetDiff",
+                    "Parameters": [
+                        {
+                            "Name": "sourceA",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "sourceB",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "Done",
                     "Parameters": [
                     ],
@@ -157209,9 +157603,13 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -162292,8 +162690,8 @@
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
+                        "Category": "DataType",
+                        "Name": "Instances"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -162329,8 +162727,8 @@
                     "Parameters": [
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
+                        "Category": "DataType",
+                        "Name": "Instances"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -162359,8 +162757,8 @@
                     "Parameters": [
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
+                        "Category": "DataType",
+                        "Name": "Instances"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -170236,6 +170634,13 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "WrapTextureTransfer",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "ForwardAsync",
@@ -170422,6 +170827,119 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "TerrainWriteOperation",
+            "Superclass": "Object",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "ConnectionState",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "WebStreamClientState"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Close",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Closed",
+                    "Parameters": [
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Error",
+                    "Parameters": [
+                        {
+                            "Name": "responseStatusCode",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "errorMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MessageReceived",
+                    "Parameters": [
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Opened",
+                    "Parameters": [
+                        {
+                            "Name": "responseStatusCode",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "headers",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "WebStreamClient",
             "Superclass": "Object",
             "Tags": [
                 "NotCreatable",
@@ -170817,6 +171335,31 @@
                 }
             ],
             "Name": "AdornCullingMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Shaded",
+                    "Value": 1
+                },
+                {
+                    "Name": "XRay",
+                    "Value": 2
+                },
+                {
+                    "Name": "XRayShaded",
+                    "Value": 3
+                },
+                {
+                    "Name": "AlwaysOnTop",
+                    "Value": 4
+                }
+            ],
+            "Name": "AdornShading"
         },
         {
             "Items": [
@@ -176803,6 +177346,10 @@
                 {
                     "Name": "Direction3D",
                     "Value": 3
+                },
+                {
+                    "Name": "ViewportPosition",
+                    "Value": 4
                 }
             ],
             "Name": "InputActionType"
@@ -177580,6 +178127,10 @@
                 {
                     "Name": "MouseMiddleButton",
                     "Value": 1020
+                },
+                {
+                    "Name": "MousePosition",
+                    "Value": 1025
                 },
                 {
                     "Name": "World0",
@@ -185154,6 +185705,40 @@
                 }
             ],
             "Name": "WebSocketState"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Connecting",
+                    "Value": 0
+                },
+                {
+                    "Name": "Open",
+                    "Value": 1
+                },
+                {
+                    "Name": "Error",
+                    "Value": 2
+                },
+                {
+                    "Name": "Closed",
+                    "Value": 3
+                }
+            ],
+            "Name": "WebStreamClientState"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "SSE",
+                    "Value": 0
+                },
+                {
+                    "Name": "RawStream",
+                    "Value": 1
+                }
+            ],
+            "Name": "WebStreamClientType"
         },
         {
             "Items": [

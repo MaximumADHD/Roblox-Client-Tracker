@@ -3273,6 +3273,7 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
+        <string name="FFlag">EnableAudioFDNReverb</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">

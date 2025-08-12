@@ -1,10 +1,11 @@
 Key,Context,Source,en-us
 Studio.TestingControls.Title.AddClients,Add clients to the current playtesting session,Add Clients,Add Clients
-Studio.TestingControls.Title.Client,Toggle for the client DM (data model) view,Client,Client
-Studio.TestingControls.Title.ClientServerToggleDM,Toggle between client and server view,Client/Server,Client/Server
+Studio.TestingControls.Title.Client,Toggle for the client DM (data model) view,Toggle Client View,Toggle Client View
+Studio.TestingControls.Title.ClientServerToggleDM,Toggle between client and server view,Toggle Client/Server View,Toggle Client/Server View
 Studio.TestingControls.Title.DebugPlugin,Enable real-time debugging and reloading of plugins,Debug Plugin,Debug Plugin
 Studio.TestingControls.Title.EndSession,Close server and all client windows or End Team Test session for all collaborators,End Session,End Session
 Studio.TestingControls.Title.Exit,Exit client window in either a team test session or a server and clients session,Exit,Exit
+Studio.TestingControls.Title.ExitClient,Exit client window in a Server and Clients testing session,Exit Client,Exit Client
 Studio.TestingControls.Title.ExitServerAndClients,Exit client window in a Server and Clients testing session,Exit Server & Client,Exit Server & Client
 Studio.TestingControls.Title.ExitTeamTest,Exit client window in a Team Test testing session,Exit Team Test,Exit Team Test
 Studio.TestingControls.Title.JoinTeamTest,Join the ongoing Team Test,Join Team Test,Join Team Test
@@ -19,7 +20,7 @@ Studio.TestingControls.Title.ResumeClientServer,Resume client or server physics 
 Studio.TestingControls.Title.ResumeScripts,Resume scripts and simulation,Resume Scripts,Resume Scripts
 Studio.TestingControls.Title.ResumeServer,Resume server physics and animations,Resume Server,Resume Server
 Studio.TestingControls.Title.Run,Start the playtesting simulation at the camera's current position without a player,Run,Run
-Studio.TestingControls.Title.Server,Toggle for the server DM (data model) view,Server,Server
+Studio.TestingControls.Title.Server,Toggle for the server DM (data model) view,Toggle Server View,Toggle Server View
 Studio.TestingControls.Title.ServerAndClients,Start a server and multiple client playtesting sessions,Server & Clients,Server & Clients
 Studio.TestingControls.Title.ServerAndClientsExtended,Start a server and multiple client playtesting sessions,Server and Clients,Server and Clients
 Studio.TestingControls.Title.StepForward,Step forward one frame in the simulation,Step Forward,Step Forward
