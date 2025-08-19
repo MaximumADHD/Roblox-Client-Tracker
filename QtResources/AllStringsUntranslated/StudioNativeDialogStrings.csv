@@ -1,4 +1,7 @@
 Key,Context,Source,en-us
+Studio.NativeDialog.NativeDialogDescription,"The description is on a dialog that is given to users when we want to stop a plugin that is taking too long to run. Users can choose yes or no on the dialog. The user needs to know that stopping this plugin will not crash Studio, but will just kill that plugin. They will be able to continue working on their project and none of their work will get lost.",Would you like Studio to stop this plugin?,Would you like Studio to stop this plugin?
+Studio.NativeDialog.NativeDialogTitle,The tool who's name is replaced by the %1 is taking too long to run. Because it is taking too long to run all off Studio is hung meaning that it is not responsive/is not taking user input.,%1 is not responding,%1 is not responding
+Studio.NativeDialog.NativeDialogTitleUnknownName,A description on a dialog given to users when a plugin is taking too long to run,A plugin is not responding,A plugin is not responding
 Studio.NativeDialog.No,Negative word,No,No
 Studio.NativeDialog.Ok,Another affirmative,Ok,Ok
 Studio.NativeDialog.StudioFrozenTitle,This title is show when Studio is frozen. This is a state where the user cannot click on anything and the screen is unresponsive.,Studio Frozen,Studio Frozen

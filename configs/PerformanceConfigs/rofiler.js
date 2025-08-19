@@ -4920,9 +4920,6 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                     if (g_Ext.xray.isViewEnabled() || g_Ext.xray.isBarEnabled()) {
                                         var txEntry = xtrastart;
                                         txNorm = GetNormalizedFromTx(txEntry, false);
-                                        if (txEntry.netEvents !== undefined) {
-                                            txNorm.netEvents = txEntry.netEvents
-                                        }
                                         BatchesXtra[batchIndex].push(txNorm);
                                         if (g_Ext.xray.isViewEnabled() && txNorm.value > 0 && g_Ext.currentPlugin) {
                                             Name = "(" + g_Ext.currentPlugin.decorate(txNorm.value) + ") " + Name;
@@ -6265,9 +6262,8 @@ function MouseDrag(Source, Event) {
         ShowDiffWindow(false);
 
         if (Source == MouseDragUp) {
-            if (FFlagMicroProfilerNetworkPlugin && MouseDragTarget === CanvasNetworkHistory) {
-                let leftClick = MapMouseButton(Event) !== MouseButtonRight;
-                HandleNetworkViewClick(leftClick);
+            if (FFlagMicroProfilerNetworkPlugin && MouseDragTarget === g_Ext.currentPlugin.canvas && g_Ext.currentPlugin.handleCanvasClick) {
+                g_Ext.currentPlugin.handleCanvasClick(Event);
             } else {
                 MouseHandleDragClick();
             }
@@ -6448,42 +6444,6 @@ function SetFilterInput(group, timer) {
     else {
         ShowFilterInput(0);
     }
-
-}
-
-function HandleNetworkViewClick(left) {
-    let plugin = g_Ext.currentPlugin;
-    let activeCategory = window.ActiveNetworkCategory;
-    let activeFrame = window.ActiveNetworkFrame;
-    let categoryMap = plugin.activeDetailedCategories;
-    let activeGraph = window.ActiveNetworkGraph;
-    if (!left) {
-        if (activeGraph >= 0) {
-            let dir = categoryMap.get(activeGraph);
-            ShowEvents(true, activeFrame, {category: activeGraph, direction: dir});
-        } else if (activeGraph === -2) {
-            ShowEvents(true, activeFrame, {category: activeGraph, direction: window.NetworkMainActiveDirection});
-        }
-        return;
-    }
-    if (activeCategory !== -1) {
-        if (!categoryMap.has(activeCategory)) {
-            categoryMap.set(activeCategory, NetDirection.rx);
-        } else {
-            categoryMap.delete(activeCategory);
-        }
-    } else if (dirSwapCategory !== -1) {
-        if (categoryMap.has(dirSwapCategory)) {
-            let currDirection = categoryMap.get(dirSwapCategory);
-            let newDirection = currDirection === NetDirection.rx ? NetDirection.tx : NetDirection.rx;
-            categoryMap.set(dirSwapCategory, newDirection);
-        }
-    } else {
-        ZoomToHighlight(1);
-    }
-    var nAdditionalGraphs = plugin.activeDetailedCategories.size;
-    nNetworkHistoryCurrentHeight = nNetworkHistoryHeightOrig + nNetworkHistoryBaseHeightOrig * nAdditionalGraphs;
-    ResizeCanvas();
 }
 
 function ToggleFilterInput(escape) {
@@ -8597,14 +8557,16 @@ function StrHtmlEscape(s) {
     return s.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }
 
+function ValueByMode(v) {
+    return g_Ext.xray.mode === XRayModes.Count ? ValueToCount(v) : ValueToBytes(v);
+}
+
 function ValueToCount(v) {
     return v;
 }
 
-function ValueToBytes(v, override = false) {
-    if (!override && g_Ext.xray.mode == XRayModes.Count)
-        return v;
-    var res;
+function ValueToBytes(v) {
+    let res;
     if (v > 1000000)
         res = Math.floor(v / 100000) / 10 + "MB";
     else if (v > 10000)
@@ -8720,20 +8682,16 @@ function CalcPercentiles(txEntries, mode) {
  * Gathers all events within the given frame, matching category and direction.
  * Similar to GatherHoverEvents but for an entire frame.
  * @param nFrame - Index of the frame to gather from
- * @param category - Category index of network events to use, where -2 is ALL categories
- * @param direction - NetDirection to match
+ * @param pluginInfo - Plugin specific information to be passed back to the plugin for filtering
  * @returns {[Object]} - Array of decoded event objects
  */
-function GatherNetworkFrameEvents(nFrame, category, direction) {
-    g_Ext.plugins.forEach((plugin) => {
-        if (plugin.GatherBefore) {
-            plugin.GatherBefore();
-        }
-    });
+function GatherFrameEvents(nFrame, pluginInfo) {
+    if (g_Ext.currentPlugin.gatherEventsBefore) {
+        g_Ext.currentPlugin.gatherEventsBefore();
+    }
     let fr = Frames[nFrame];
     let HoverInfo = [];
     let nNumLogs = fr.ts.length;
-    let dirName = direction === NetDirection.rx ? "Rx" : "Tx";
     for (let nLog = 0; nLog < nNumLogs; nLog++) {
         let ts = fr.ts[nLog];
         let ti = fr.ti[nLog];
@@ -8744,13 +8702,15 @@ function GatherNetworkFrameEvents(nFrame, category, direction) {
             let type = tt[j];
             if (type > EventBaseId) {
                 let typeLookup = g_Ext.typeLookup[type];
+                let plugin = typeLookup.plugin;
                 if (typeLookup.IsActive() && !typeLookup.isBackground) {
                     let evt = RawToEvent(ts, ti, tt, tl, j);
-                    let ctx = typeLookup.plugin.decode(evt, true);
-                    if (ctx.directionName === dirName && (ctx.eventCategoryIndex === category || category === -2)) {
-                        let eventList = typeLookup.plugin.GatherEvent(ctx);
-                        HoverInfo.push(...eventList);
+                    let ctx = plugin.decode(evt, true);
+                    let eventList = [ctx];
+                    if (plugin.gatherEvent) {
+                        eventList = plugin.gatherEvent(ctx, nFrame, pluginInfo);
                     }
+                    HoverInfo.push(...eventList);
                 }
             }
         }
@@ -8761,11 +8721,9 @@ function GatherNetworkFrameEvents(nFrame, category, direction) {
 function GatherHoverEvents(TimerIndex, StartIndex, nLog, nFrameLast) {
     var HoverInfo = [];
     var StackPos = 1;
-    g_Ext.plugins.forEach((plugin) => {
-        if (plugin.GatherBefore) {
-            plugin.GatherBefore();
-        }
-    });
+    if (g_Ext.currentPlugin.gatherEventsBefore) {
+        g_Ext.currentPlugin.gatherEventsBefore();
+    }
     //search backwards, aggregate events
     for (var i = nFrameLast; i >= 0; i--) {
         var fr = Frames[i];
@@ -8795,8 +8753,8 @@ function GatherHoverEvents(TimerIndex, StartIndex, nLog, nFrameLast) {
                 if (typeLookup.IsActive() && !typeLookup.isBackground) {
                     var evt = RawToEvent(ts, ti, tt, tl, j);
                     var ctx = typeLookup.plugin.decode(evt, true);
-                    if (typeLookup.plugin.GatherEvent) {
-                        let eventList = typeLookup.plugin.GatherEvent(ctx);
+                    if (typeLookup.plugin.gatherEvent) {
+                        let eventList = typeLookup.plugin.gatherEvent(ctx, i);
                         HoverInfo.push(...eventList);
                     } else {
                         HoverInfo.push(ctx);
@@ -8850,97 +8808,6 @@ function ScanEvents() {
     } // frames
 }
 
-/**
- * Accumulates the network event into per frame and overall stat measurements
- * @param plugin - plugin to use (should be Network)
- * @param fr - frame to add stats to
- * @param ctx - decoded event
- * @param start - start time of scope where event occurred
- * @param end - end time of scope where event occurred
- */
-function addPerFrameNetworkEvent(plugin, fr, ctx, start, end) {
-    if (fr.netEventStats === undefined) {
-        fr.netEventStats = new Array();
-        for (let i = 0; i < plugin.eventCategories.length; i++) {
-            fr.netEventStats.push(new NetType());
-        }
-    }
-    if (fr.netEventScopes === undefined) {
-        fr.netEventScopes = new Array(plugin.eventCategories.length);
-    }
-    if (fr.netEventScopes[ctx.eventCategoryIndex] === undefined) {
-        fr.netEventScopes[ctx.eventCategoryIndex] = {
-            rx: {
-                start: -1,
-                end: 0,
-            },
-            tx: {
-                start: -1,
-                end: 0,
-            },
-        };
-    }
-    let categoryScope = fr.netEventScopes[ctx.eventCategoryIndex];
-    let direction = ctx.directionName === "Rx" ? NetDirection.rx : NetDirection.tx;
-    if (direction === NetDirection.rx) {
-        categoryScope = categoryScope.rx;
-    } else {
-        categoryScope = categoryScope.tx;
-    }
-    if (categoryScope.start === -1) {
-        categoryScope.start = start;
-    } else {
-        categoryScope.start = Math.min(categoryScope.start, start);
-    }
-    categoryScope.end = Math.max(categoryScope.end, end);
-    fr.netEventStats[ctx.eventCategoryIndex].add(ctx.value, ctx.count, direction);
-    fr.netTotals.add(ctx.value, ctx.count, direction);
-    plugin.eventStats.total.add(ctx.value, ctx.count, direction);
-    plugin.eventStats.max.maximize(fr.netTotals, direction);
-    plugin.categoryMax[ctx.eventCategoryIndex].maximize(fr.netEventStats[ctx.eventCategoryIndex], direction);
-}
-
-/**
- * Adds an entry to the asset ID map for the given asset ID, stage, and time scope
- * @param map - map to be updated
- * @param assetId - asset ID in question
- * @param stage - stage to add to map
- * @param timeScope - time scope of the stage
- */
-function AddAssetMapEntry(map, assetId, stage, timeScope) {
-    if (!map.has(assetId)) {
-        map.set(assetId, {
-            0: undefined,
-            1: undefined,
-            2: undefined,
-            3: undefined,
-        });
-    }
-    let entry = map.get(assetId);
-    entry[stage] = timeScope;
-}
-
-/**
- * Tries to get the time scope for the next stage in the asset fetching process for the given assetID
- * @param map - map with assetID -> time scope pairings
- * @param assetId - assetID in question
- * @param stage - current stage (0: Asset Req, 1: Asset Res, 2: CDN Req, 3: CDN Res)
- * @returns {Object|undefined} - Object containing start and end times of times scope, or undefined if it does not exist
- */
-function GetNextAssetStage(map, assetId, stage) {
-    if (!map.has(assetId)) {
-        return undefined;
-    }
-    return map.get(assetId)[stage + 1];
-}
-
-/**
- * Collects deserialize replication events and attaches them to a timestamp so that they can be used later
- * at the receive event stage.
- * @returns {Map<number, Object>} - a mapping of timestamps to an object containing: start and end times for receive scope,
- * array of start and end times as well as event identifiers (frame, log, entry) for deserialize events
- */
-
 function PrepareEvents() {
     g_Ext.prepareEventsBefore();
 
@@ -8962,7 +8829,7 @@ function PrepareEvents() {
         if (fr.tx == undefined) {
             fr.tx = [];
         }
-        fr.netTotals = new NetType();
+        NotifyPluginsOnFrameStart(fr);
         for (var nLog = 0; nLog < nNumLogs; ++nLog) {
             var ts = fr.ts[nLog]; // timestamp (ms)
             var ti = fr.ti[nLog]; // timer index
@@ -8970,7 +8837,6 @@ function PrepareEvents() {
             var tl = fr.tl[nLog]; // timer label
             if (fr.tx[nLog] == undefined) {
                 fr.tx[nLog] = [];
-
             }
             var tx = fr.tx[nLog]; // custom events
             var threadContext = threadContexts[nLog];
@@ -8982,6 +8848,7 @@ function PrepareEvents() {
                 if (logType == 1 || logType == 0) {
                     scopeInfo = {
                         frame: Frames[i],
+                        nFrame: i,
                         txEntry: tx[j],
                         timeStamp: ts[j],
                     };
@@ -9001,8 +8868,8 @@ function PrepareEvents() {
                         tx[j].sum = 0;
                     }
                     scopeInfo.txEntry = tx[j];
-                    scopeInfo.eventsAccumulator = [];
                     scopeStack.push(scopeInfo);
+                    NotifyPluginsOnScopeEnter(threadContext);
                 } else if (logType == 0) {
                     // EXIT
                     if (scopeStack.length > 0) {
@@ -9012,23 +8879,8 @@ function PrepareEvents() {
                             scopeEntries.push(curScopeTx);
                         }
                         threadContext.lastExit = scopeInfo;
-                        // Process accumulated network events
-                        if (FFlagMicroProfilerNetworkPlugin) {
-                            curScope.eventsAccumulator.forEach((eventInfo) => {
-                                let ctx = eventInfo.ctx;
-                                let typeLookup = g_Ext.typeLookup[ctx.evt.type + EventBaseId];
-                                if (typeLookup) {
-                                    let plugin = typeLookup.plugin;
-                                    let start = curScope.timeStamp;
-                                    let end = scopeInfo.timeStamp;
-                                    if (plugin && plugin.ProcessAccumulatedEvent) {
-                                        plugin.ProcessAccumulatedEvent(eventInfo, curScope, fr, start, end);
-                                    }
-                                }
-                            });
-                            // Remove array from scope so it doesn't waste space
-                            delete curScope.eventsAccumulator;
-                        }
+                        // Notify on scope exit
+                        NotifyPluginsOnScopeExit(threadContext);
                     }
                     scopeStack.pop();
                 }
@@ -9056,22 +8908,8 @@ function PrepareEvents() {
                                 curScope.txEntry.add(ctx.value, ctx.count);
                                 curScope.frame.txAcc.add(ctx.value, ctx.count);
                             }
-                            if (FFlagMicroProfilerNetworkPlugin) {
-                                if (curScope.txEntry.netEvents === undefined) {
-                                    curScope.txEntry.netEvents = [];
-                                }
-                                if (plugin.accumulateEvents) {
-                                    // Push these for processing on scope exit so we know the end timestamp
-                                    curScope.eventsAccumulator.push({
-                                        ctx: ctx,
-                                        frameIndex: i,
-                                        nLog: nLog,
-                                        j: j,
-                                    });
-                                }
-                                if (plugin.preprocessEvent) {
-                                    plugin.preprocessEvent(ctx);
-                                }
+                            if (plugin.notifyOnEvent) {
+                                plugin.notifyOnEvent(ctx, curScope);
                             }
                         }
                     } // plugin
@@ -9095,6 +8933,24 @@ function PrepareEvents() {
     g_Ext.prepareEventsAfter();
 }
 
+function NotifyPluginsOnFrameStart(fr) {
+    g_Ext.subscribedFrameStart.forEach((plugin) => {
+        plugin.notifyOnFrameStart(fr);
+    });
+}
+
+function NotifyPluginsOnScopeEnter(threadContext) {
+    g_Ext.subscribedScopeEnter.forEach((plugin) => {
+        plugin.notifyOnScopeEnter(threadContext);
+    });
+}
+
+function NotifyPluginsOnScopeExit(threadContext) {
+    g_Ext.subscribedScopeExit.forEach((plugin) => {
+        plugin.notifyOnScopeExit(threadContext);
+    });
+}
+
 function ShowEvents(Show, frame, pluginInfo) {
     if (Show) {
         ShowDiffWindow(false);
@@ -9112,11 +8968,7 @@ function ShowEvents(Show, frame, pluginInfo) {
     var hoverEvents;
     if (Show) {
         if (FFlagMicroProfilerNetworkPlugin && frame !== undefined) {
-            if (g_Ext.currentPlugin.GatherPluginFrameEvents) {
-                hoverEvents = g_Ext.currentPlugin.GatherPluginFrameEvents(frame, pluginInfo);
-            } else {
-                hoverEvents = [];
-            }
+            hoverEvents = GatherFrameEvents(frame, pluginInfo);
         } else {
             hoverEvents = GatherHoverEvents(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
         }
@@ -9142,22 +8994,21 @@ function ShowEvents(Show, frame, pluginInfo) {
     for (var j = 0; j < dspColumns.length; j++) {
         head += "<th style='background-color: " + columnColors[j % 2] + ";'>" + dspColumns[j] + "</th>";
     }
-    for (var i = 0; i < hoverEvents.length; i++) {
-        var ctx = hoverEvents[i];
-        var dsp = g_Ext.currentPlugin.display(ctx);
-        let startIndex = 0;
-        if (FFlagMicroProfilerNetworkPlugin && ctx.deferred === true) {
-            rows += "<tr style='display: none;'>";
-            rows += "<td></td>";
-            rows += "<td style=text-align:right;>&#x21B3;</td>";
-            startIndex = 2;
-        } else {
+
+    if (g_Ext.currentPlugin.eventsWindowOverride) {
+        // Plugin can generate its own html list of events
+        rows += g_Ext.currentPlugin.eventsWindowOverride(hoverEvents);
+    } else {
+        // Default events window behavior
+        for (var i = 0; i < hoverEvents.length; i++) {
+            var ctx = hoverEvents[i];
+            var dsp = g_Ext.currentPlugin.display(ctx);
             rows += "<tr>";
+            for (var j = 0; j < dsp.length; j++) {
+                rows += "<td>" + dsp[j] + "</td>";
+            }
+            rows += "</tr>";
         }
-        for (var j = startIndex; j < dsp.length; j++) {
-            rows += "<td>" + dsp[j] + "</td>";
-        }
-        rows += "</tr>";
     }
 
     // Compose the final html that contains the header and 2 switchable divs for
@@ -9223,54 +9074,15 @@ function ShowEvents(Show, frame, pluginInfo) {
     XBack.addEventListener('mouseover', DivOnFn);
     XBack.addEventListener('mouseout', DivOffFn);
 
-    // Handles Asset ID clicks, zooms to the scope where the next stage of the asset fetching occurred.
-    let AssetIdClickFn = function(currctx, index) {
-        let nextScope = GetNextAssetStage(g_Ext.currentPlugin.AssetMap, currctx.assetIds[index], currctx.subtype);
-        if (nextScope === undefined) {
-            return;
-        }
-        RangeCpu.Begin = nextScope.start;
-        RangeCpu.End = nextScope.end;
-        ZoomToHighlight(1);
-    }
-
-    let AssetIdLinkClickFn = function(ctx, index) {
-        if (!ctx.assetIds) {
-            return;
-        }
-        let assetId = ctx.assetIds[index];
-        if (!assetId) {
-            return;
-        }
-        let url = 'https://create.roblox.com/store/asset/';
-        url += assetId.toString();
-        window.open(url);
-    }
-
-    // Locates and highlights the deserialize stage for the given event, if it exists and we have recorded it.
-    let FindDeserializeFn = function(ctx) {
-        if (!ctx.isReplica || !ctx.timestamp || ctx.deserializeStart === undefined || ctx.deserializeEnd === 0) {
-            return;
-        }
-        let entry = g_Ext.currentPlugin.tsMap.get(ctx.timestamp);
-        RangeCpu.Begin = entry.rcv.start;
-        RangeCpu.End = ctx.deserializeEnd + (ctx.deserializeEnd - entry.rcv.start) * 0.25;
-        ZoomToHighlight(1);
-        RangeSelect.Begin = ctx.deserializeStart;
-        RangeSelect.End = ctx.deserializeEnd;
-    }
-
     // Display detailed info
     var RowClickFn = function (index) {
-        if (!g_Ext.currentPlugin.detail)
+        let plugin = g_Ext.currentPlugin;
+        if (!plugin.detail)
             return;
 
-        if (FFlagMicroProfilerNetworkPlugin) {
-            if (hoverEvents[index].isReplica) {
-                FindDeserializeFn(hoverEvents[index]);
-            }
-            if (hoverEvents[index].hasDeferred) {
-                Expand(index);
+        if (plugin.rowClickOverride) {
+            let shouldReturn = plugin.rowClickOverride(hoverEvents, index, EventsWindow);
+            if (shouldReturn) {
                 return;
             }
         }
@@ -9287,52 +9099,17 @@ function ShowEvents(Show, frame, pluginInfo) {
             rows += "<tr style='background-color: #555555;'><td>" + dtl.headers[j] + "</td></tr>";
             rows += "<tr><td>" + dtl.fields[j] + "</td><tr>";
         }
-        if (FFlagMicroProfilerNetworkPlugin && ctx.assetIds && ctx.assetIds.length > 0) {
-            let label = ctx.assetIds.length > 1 ? "Asset IDs" : "Asset ID";
-            rows += "<tr style='background-color: #555555;'><td>" + label + "</td></tr>";
-            ctx.assetIds.forEach((assetId) => {
-                rows += "<tr>";
-                rows += "<td class='assetId'>" + assetId + "</td>";
-                rows += "<td class='assetIdLink' style='user-select:none; font-size: 16px;'>+</td>";
-                rows += "</tr>";
-            });
+        if (plugin.extendDetail) {
+            rows += plugin.extendDetail(ctx);
         }
         var html = "<table><tbody>" + rows + "</tbody></table>";
         XDetails.innerHTML = html;
         XDetails.scrollTop = 0;
         XDetails.scrollLeft = 0;
-
-        if (FFlagMicroProfilerNetworkPlugin) {
-            let assetIdRows = EventsWindow.querySelectorAll('.assetId');
-            assetIdRows.forEach((row, index) => {
-                row.addEventListener('click', function () {
-                    AssetIdClickFn(ctx, index);
-                });
-                row.addEventListener('mouseover', DivOnFn);
-                row.addEventListener('mouseout', DivOffFn);
-            });
-            let assetIdLinkRows = EventsWindow.querySelectorAll('.assetIdLink');
-            assetIdLinkRows.forEach((row, index) => {
-                row.addEventListener('click', function () {
-                    AssetIdLinkClickFn(ctx, index);
-                });
-                row.addEventListener('mouseover', DivOnFn);
-                row.addEventListener('mouseout', DivOffFn);
-            })
+        if (plugin.detailEventListeners) {
+            plugin.detailEventListeners(ctx, EventsWindow, {DivOnFn, DivOffFn})
         }
     };
-
-    if (FFlagMicroProfilerNetworkPlugin) {
-        // Expands or hides the sub-events of a clicked packet in the event list, if there are any
-        var Expand = function (index) {
-            let currIndex = index + 1;
-            let rows = EventsWindow.querySelectorAll('tbody tr');
-            while (currIndex < hoverEvents.length && hoverEvents[currIndex].deferred === true) {
-                rows[currIndex].style.display = rows[currIndex].style.display === 'none' ? '' : 'none';
-                currIndex++;
-            }
-        }
-    }
 
     // Attach click event listener to each row
     var rows = EventsWindow.querySelectorAll('tbody tr');
@@ -9476,11 +9253,25 @@ function InitPluginStates() {
     g_Ext.hasVisiblePlugins = false;
     g_Ext.hasForegroundPlugins = false;
     var isPresetSet = false;
+    g_Ext.subscribedFrameStart = [];
+    g_Ext.subscribedScopeEnter = [];
+    g_Ext.subscribedScopeExit = [];
     g_Ext.plugins.forEach(function (p) {
         var shouldHide = p.preset && (p.preset.hideAlways == true || (p.preset.hideIfNoEvents == true && !p.isPresented));
         if (shouldHide) {
             p.isHidden = true;
             return;
+        }
+        if (p.isPresented) {
+            if (p.notifyOnFrameStart) {
+                g_Ext.subscribedFrameStart.push(p);
+            }
+            if (p.notifyOnScopeEnter) {
+                g_Ext.subscribedScopeEnter.push(p);
+            }
+            if (p.notifyOnScopeExit) {
+                g_Ext.subscribedScopeExit.push(p);
+            }
         }
         if (!isPresetSet && p.isPresented && !p.isBackground) {
             isPresetSet = true;
@@ -9943,7 +9734,7 @@ DefinePlugin(function () {
             events: ["Alloc"],
             hideIfNoEvents: true,
         },
-        decorate: ValueToBytes,
+        decorate: ValueByMode,
         decode: function (evt, full) {
             var data = BigInt(evt.data);
             var count = Number((data >> 32n) & 0xffffn);
@@ -10002,7 +9793,7 @@ DefinePlugin(function () {
         },
         tooltipBarFrames: ["Memory operation intensity"],
         tooltipBarDetailed: ["Memory operation intensity", "localized within frames.", "Use X-Ray for details."],
-        decorate: ValueToBytes,
+        decorate: ValueByMode,
         decode: function (evt, full) {
             var count = 0;
             var value = 0;
@@ -10116,12 +9907,47 @@ DefinePlugin(function () {
             total: new NetType(),
             max: new NetType(),
         },
-        categoryMax: new Array(),
+        categoryMax: [],
         activeDetailedCategories: new Map(),
-        accumulateEvents: true,
-        preprocessEvent: function(ctx) {
-            if (ctx.isReplica) {
-                if (ctx.timestamp !== undefined && !this.tsMap.has(ctx.timestamp)) {
+        canvas: CanvasNetworkHistory,
+        addPerFrameNetworkEvent: function(fr, ctx, start, end) {
+            let categoryScope = fr.netEventScopes[ctx.eventCategoryIndex];
+            let direction = ctx.direction;
+            categoryScope = direction === NetDirection.rx ? categoryScope.rx : categoryScope.tx;
+            categoryScope.start = Math.min(categoryScope.start, start);
+            categoryScope.end = Math.max(categoryScope.end, end);
+            fr.netEventStats[ctx.eventCategoryIndex].add(ctx.value, ctx.count, direction);
+            fr.netTotals.add(ctx.value, ctx.count, direction);
+            this.eventStats.total.add(ctx.value, ctx.count, direction);
+            this.eventStats.max.maximize(fr.netTotals, direction);
+            this.categoryMax[ctx.eventCategoryIndex].maximize(fr.netEventStats[ctx.eventCategoryIndex], direction);
+        },
+        notifyOnFrameStart: function(fr) {
+            fr.netTotals = new NetType();
+            fr.netEventStats = [];
+            fr.netEventScopes = [];
+            for (let i = 0; i < this.eventCategories.length; i++) {
+                fr.netEventStats.push(new NetType());
+                fr.netEventScopes.push({
+                    rx: {
+                        start: Infinity,
+                        end: -Infinity,
+                    },
+                    tx: {
+                        start: Infinity,
+                        end: -Infinity,
+                    },
+                });
+            }
+        },
+        notifyOnScopeEnter: function(threadContext) {
+            let scope = threadContext.scopeStack[threadContext.scopeStack.length - 1];
+            scope.accumulatedNetworkEvents = [];
+        },
+        notifyOnEvent: function(ctx, scope) {
+            if (ctx.isReplica && ctx.timestamp !== undefined) {
+                this.setReplicaTimestampId(ctx, scope.nFrame);
+                if (!this.tsMap.has(ctx.timestamp)) {
                     this.tsMap.set(ctx.timestamp, {
                         rcv: {
                             start: 0,
@@ -10132,88 +9958,235 @@ DefinePlugin(function () {
                         },
                     });
                 }
-                if (ctx.stage === 1) {
-                    let entry = this.tsMap.get(ctx.timestamp);
+                let entry = this.tsMap.get(ctx.timestamp);
+                if (ctx.stage === 1 || ctx.stage === 2) {
                     this.currDataCollectTs = ctx.timestamp;
-                    if (entry) {
-                        entry.deserialize.packets.push({
-                            values: [],
-                            start: 0,
-                            end: 0,
-                        });
-                    }
+                    entry.deserialize.packets.push({
+                        values: [],
+                        start: 0,
+                        end: 0,
+                    });
                 }
             }
+            scope.accumulatedNetworkEvents.push(ctx);
         },
-        ProcessAccumulatedEvent: function(eventInfo, curScope, fr, start, end) {
-            let ctx = eventInfo.ctx;
-            if (!ctx.hidden) {
-                curScope.txEntry.netEvents.push([ctx.eventName, ctx.eventCategoryIndex]);
-                addPerFrameNetworkEvent(this, fr, ctx, start, end);
-            }
-            if (ctx.isReplica) {
-                if (ctx.stage === 0 && ctx.timestamp !== undefined) {
-                    let entry = this.tsMap.get(ctx.timestamp);
-                    if (entry) {
-                        entry.rcv.start = start;
-                        entry.rcv.end = end;
-                    }
+        notifyOnScopeExit: function(threadContext) {
+            let scope = threadContext.scopeStack[threadContext.scopeStack.length - 1];
+            let start = scope.timeStamp;
+            let end = threadContext.lastExit.timeStamp;
+            let fr = scope.frame;
+            let events = scope.accumulatedNetworkEvents;
+            events.forEach((ctx) => {
+                if (!ctx.hidden) {
+                    this.addPerFrameNetworkEvent(fr, ctx, scope.timeStamp, end);
                 }
-                if (ctx.stage === 1) {
-                    let entry = this.tsMap.get(ctx.timestamp);
-                    if (entry) {
-                        let packets = entry.deserialize.packets
-                        if (packets.length > 0) {
-                            let packet = packets[packets.length - 1];
-                            packet.start = start;
-                            packet.end = end;
+                if (ctx.isReplica) {
+                    if (ctx.timestamp !== undefined) {
+                        let entry = this.tsMap.get(ctx.timestamp);
+                        if (entry) {
+                            if (ctx.stage === 0) {
+                                entry.rcv.start = start;
+                                entry.rcv.end = end;
+                            } else if (ctx.stage === 1 || ctx.stage === 2) {
+                                let packets = entry.deserialize.packets;
+                                if (packets.length > 0) {
+                                    let packet = packets[packets.length - 1];
+                                    packet.start = start;
+                                    packet.end = end;
+                                }
+                            }
+                        }
+                    } else if (ctx.stage === 2 && !ctx.ignoreEvent) {
+                        let entry = this.tsMap.get(this.currDataCollectTs);
+                        if (this.currDataCollectTs && entry) {
+                            let packets = entry.deserialize.packets;
+                            if (packets.length > 0) {
+                                packets[packets.length - 1].values.push(ctx.evt);
+                            }
                         }
                     }
-                } else if (ctx.stage === 2 && ctx.timestamp !== undefined) {
-                    this.currDataCollectTs = ctx.timestamp;
-                    let entry = this.tsMap.get(ctx.timestamp);
-                    if (entry) {
-                        entry.deserialize.packets.push({
-                            values: [],
-                            start: start,
-                            end: end,
-                        });
+                } else if (ctx.isCurl && ctx.assetId !== undefined) {
+                    let stage = 0;
+                    if (ctx.isBatchReport && ctx.directionName === "Rx") {
+                        stage = 1;
+                    } else if (ctx.isCdnReport) {
+                        stage = 2;
+                    } else {
+                        stage = 3;
                     }
-                } else if (ctx.stage === 2 && !ctx.ignoreEvent) {
-                    let entry = this.tsMap.get(this.currDataCollectTs);
-                    if (entry) {
-                        let packets = entry.deserialize.packets;
-                        if (packets.length > 0) {
-                            packets[packets.length - 1].values.push({
-                                frameIndex: eventInfo.frameIndex,
-                                nLog: eventInfo.nLog,
-                                j: eventInfo.j,
-                            });
-                        }
-                    }
+                    this.addAssetMapEntry(ctx.assetId, stage, {start: start, end: end});
                 }
+            });
+        },
+        addAssetMapEntry: function(assetId, stage, timeScope) {
+            if (!this.AssetMap.has(assetId)) {
+                this.AssetMap.set(assetId, {
+                    0: undefined,
+                    1: undefined,
+                    2: undefined,
+                    3: undefined,
+                });
             }
-            if (ctx.isCurl && ctx.assetId !== undefined) {
-                let stage = 0;
-                if (ctx.isBatchReport) {
-                    stage = 0;
-                    if (ctx.directionName === "Rx") {
-                        stage += 1;
-                    }
-                } else if (ctx.isCdnReport) {
-                    stage = 2;
-                } else {
-                    stage = 3;
-                }
-                let netPlugin = g_Ext.currentPlugin;
-                AddAssetMapEntry(netPlugin.AssetMap, ctx.assetId, stage, {start: start, end: end});
+            let entry = this.AssetMap.get(assetId);
+            entry[stage] = timeScope;
+        },
+        /**
+         * Tries to get the time scope for the next stage in the asset fetching process for the given assetID
+         * @param assetId - assetID in question
+         * @param stage - current stage (0: Asset Req, 1: Asset Res, 2: CDN Req, 3: CDN Res)
+         * @returns {Object|undefined} - Object containing start and end times of times scope, or undefined if it does not exist
+         */
+        getNextAssetStage: function(assetId, stage) {
+            if (!this.AssetMap.has(assetId) || stage > 2) {
+                return undefined;
             }
+            return this.AssetMap.get(assetId)[stage + 1];
         },
         DrawPluginFrameHistory: function() {
             DrawNetworkFrameHistory();
         },
-        GatherPluginFrameEvents: function(frame, pluginInfo) {
-            return GatherNetworkFrameEvents(frame, pluginInfo.category, pluginInfo.direction);
+        eventsWindowOverride: function(hoverEvents) {
+            let rows = '';
+            hoverEvents.forEach((ctx) => {
+                let startIndex = 0;
+                let dsp = g_Ext.currentPlugin.display(ctx);
+                if (ctx.deferred === true) {
+                    rows += "<tr style='display: none;'>";
+                    rows += "<td></td><td></td>";
+                    rows += "<td style=text-align:right;>&#x21B3;</td>";
+                    startIndex = 3;
+                } else {
+                    rows += "<tr>";
+                }
+                for (var j = startIndex; j < dsp.length; j++) {
+                    rows += "<td>" + dsp[j] + "</td>";
+                }
+            });
+            return rows;
+        },
+        findDeserialize: function(ctx) {
+            if (!ctx.isReplica || !ctx.timestamp || !ctx.deserializeStart || !ctx.deserializeEnd) {
+                return;
+            }
+            let entry = this.tsMap.get(ctx.timestamp);
+            if (!entry) {
+                return;
+            }
+            RangeCpu.Begin = entry.rcv.start;
+            RangeCpu.End = ctx.deserializeEnd + (ctx.deserializeEnd - entry.rcv.start) * 0.25;
+            ZoomToHighlight(1);
+            RangeSelect.Begin = ctx.deserializeStart;
+            RangeSelect.End = ctx.deserializeEnd;
+        },
+        expandEvent: function(hoverEvents, index, EventsWindow) {
+            let currIndex = index + 1;
+            let rows = EventsWindow.querySelectorAll('tbody tr');
+            while (currIndex < hoverEvents.length && hoverEvents[currIndex].deferred === true) {
+                rows[currIndex].style.display = rows[currIndex].style.display === 'none' ? '' : 'none';
+                currIndex++;
+            }
+        },
+        rowClickOverride: function(hoverEvents, index, EventsWindow) {
+            if (FFlagMicroProfilerNetworkPlugin) {
+                if (hoverEvents[index].isReplica) {
+                    this.findDeserialize(hoverEvents[index]);
+                }
+                if (hoverEvents[index].hasDeferred) {
+                    this.expandEvent(hoverEvents, index, EventsWindow);
+                    return true;
+                }
+            }
+            return false;
+        },
+        extendDetail: function(ctx) {
+            let rows = '';
+            if (FFlagMicroProfilerNetworkPlugin && ctx.assetIds && ctx.assetIds.length > 0) {
+                let label = ctx.assetIds.length > 1 ? "Asset IDs" : "Asset ID";
+                rows += "<tr style='background-color: #555555;'><td>" + label + "</td></tr>";
+                ctx.assetIds.forEach((assetId) => {
+                    rows += "<tr>";
+                    rows += "<td class='assetId'>" + assetId + "</td>";
+                    rows += "<td class='assetIdLink' style='user-select:none; font-size: 16px;'>+</td>";
+                    rows += "</tr>";
+                });
+            }
+            return rows;
+        },
+        assetIdClick: function(ctx, index) {
+            let nextScope = this.getNextAssetStage(ctx.assetIds[index], ctx.subtype);
+            if (nextScope === undefined) {
+                return;
+            }
+            RangeCpu.Begin = nextScope.start;
+            RangeCpu.End = nextScope.end;
+            ZoomToHighlight(1);
+        },
+        assetIdLinkClick: function(ctx, index) {
+            if (!ctx.assetIds) {
+                return;
+            }
+            let assetId = ctx.assetIds[index];
+            if (!assetId) {
+                return;
+            }
+            let url = 'https://create.roblox.com/store/asset/';
+            url += assetId.toString();
+            window.open(url);
+        },
+        detailEventListeners: function(ctx, EventsWindow, defaults) {
+            if (FFlagMicroProfilerNetworkPlugin) {
+                let assetIdRows = EventsWindow.querySelectorAll('.assetId');
+                assetIdRows.forEach((row, index) => {
+                    row.addEventListener('click', () => {
+                        this.assetIdClick(ctx, index);
+                    });
+                    row.addEventListener('mouseover', defaults.DivOnFn);
+                    row.addEventListener('mouseout', defaults.DivOffFn);
+                });
+                let assetIdLinkRows = EventsWindow.querySelectorAll('.assetIdLink');
+                assetIdLinkRows.forEach((row, index) => {
+                    row.addEventListener('click', () => {
+                        this.assetIdLinkClick(ctx, index);
+                    });
+                    row.addEventListener('mouseover', defaults.DivOnFn);
+                    row.addEventListener('mouseout', defaults.DivOffFn);
+                })
+            }
+        },
+        handleCanvasClick: function(Event) {
+            const MouseButtonRight = 3;
+            let left = MapMouseButton(Event) !== MouseButtonRight;
+            let activeCategory = window.ActiveNetworkCategory;
+            let activeFrame = window.ActiveNetworkFrame;
+            let categoryMap = this.activeDetailedCategories;
+            let activeGraph = window.ActiveNetworkGraph;
+            if (!left) {
+                if (activeGraph >= 0) {
+                    let dir = categoryMap.get(activeGraph);
+                    ShowEvents(true, activeFrame, {category: activeGraph, direction: dir});
+                } else if (activeGraph === -2) {
+                    ShowEvents(true, activeFrame, {category: undefined, direction: window.NetworkMainActiveDirection});
+                }
+                return;
+            }
+            if (activeCategory !== -1) {
+                if (!categoryMap.has(activeCategory)) {
+                    categoryMap.set(activeCategory, NetDirection.rx);
+                } else {
+                    categoryMap.delete(activeCategory);
+                }
+            } else if (dirSwapCategory !== -1) {
+                if (categoryMap.has(dirSwapCategory)) {
+                    let currDirection = categoryMap.get(dirSwapCategory);
+                    let newDirection = currDirection === NetDirection.rx ? NetDirection.tx : NetDirection.rx;
+                    categoryMap.set(dirSwapCategory, newDirection);
+                }
+            } else {
+                ZoomToHighlight(1);
+            }
+            let nAdditionalGraphs = this.activeDetailedCategories.size;
+            window.nNetworkHistoryCurrentHeight = window.nNetworkHistoryHeightOrig + window.nNetworkHistoryBaseHeightOrig * nAdditionalGraphs;
+            ResizeCanvas();
         },
         ShowCanvas: function() {
             window.CanvasNetworkHistory.style.display = '';
@@ -10221,59 +10194,74 @@ DefinePlugin(function () {
         HideCanvas: function() {
             window.CanvasNetworkHistory.style.display = 'none';
         },
-        GatherBefore: function() {
+        setReplicaTimestampId: function(ctx, nFrame) {
+            if (ctx.timestamp) {
+                ctx.timestamp = ctx.timestamp << 5n | BigInt(ctx.subtype);
+                ctx.timestamp = ctx.timestamp << 10n | BigInt(nFrame);
+            }
+        },
+        gatherEventsBefore: function() {
             this.tempMap = new Map();
             this.currBatch = undefined;
             this.currCdnReq = undefined;
         },
-        GatherEvent: function(ctx) {
+        gatherEvent: function(ctx, nFrame, pluginInfo) {
             if (ctx.isReplica && ctx.hidden) {
                 return [];
             }
+            if (pluginInfo !== undefined) {
+                if (pluginInfo.category !== undefined) {
+                    if (ctx.eventCategoryIndex !== pluginInfo.category || ctx.direction !== pluginInfo.direction) {
+                        return [];
+                    }
+                } else {
+                    if (ctx.direction !== pluginInfo.direction) {
+                        return [];
+                    }
+                }
+            }
             let eventList = [];
             let deferredArray = [];
-            if (ctx.isBatchCollect) {
-                this.currBatch = ctx;
-            } else if (ctx.isBatchReport && this.currBatch !== undefined) {
-                this.currBatch.assetIds.push(ctx.assetId);
-            } else if (ctx.isCdnRequest) {
-                this.currCdnReq = ctx;
-            } else if (ctx.isAssetIdReport && !ctx.isBatchReport && this.currCdnReq !== undefined) {
-                this.currCdnReq.assetIds = [ctx.assetId];
-            }
-            let deferredEvents = this.tsMap.get(ctx.timestamp);
-            if (deferredEvents) {
-                let deferredPackets = deferredEvents.deserialize.packets;
-                let currPacketArrIndex = this.tempMap.get(ctx.timestamp);
-                if (currPacketArrIndex === undefined) {
-                    currPacketArrIndex = deferredPackets.length - 1;
+            if (ctx.isCurl) {
+                if (ctx.isBatchCollect) {
+                    this.currBatch = ctx;
+                } else if (ctx.isBatchReport && this.currBatch !== undefined) {
+                    this.currBatch.assetIds.push(ctx.assetId);
+                } else if (ctx.isCdnRequest) {
+                    this.currCdnReq = ctx;
+                } else if (ctx.isAssetIdReport && !ctx.isBatchReport && this.currCdnReq !== undefined) {
+                    this.currCdnReq.assetIds = [ctx.assetId];
                 }
-                this.tempMap.set(ctx.timestamp, currPacketArrIndex - 1);
-                if (currPacketArrIndex !== undefined && deferredPackets[currPacketArrIndex] !== undefined) {
-                    let packetInfo = deferredPackets[currPacketArrIndex]
-                    packetInfo.values.forEach((elem) => {
-                        let fr = Frames[elem.frameIndex];
-                        let ts = fr.ts[elem.nLog];
-                        let ti = fr.ti[elem.nLog];
-                        let tt = fr.tt[elem.nLog];
-                        let tl = fr.tl[elem.nLog];
-                        var evt = RawToEvent(ts, ti, tt, tl, elem.j);
-                        var defctx = this.decode(evt, true);
-                        defctx.deferred = true;
-                        deferredArray.push(defctx);
-                    });
-                    ctx.deserializeStart = packetInfo.start;
-                    ctx.deserializeEnd = packetInfo.end;
+            } else if (ctx.isReplica) {
+                this.setReplicaTimestampId(ctx, nFrame);
+                let deferredEvents = this.tsMap.get(ctx.timestamp);
+                if (deferredEvents) {
+                    let deferredPackets = deferredEvents.deserialize.packets;
+                    let currPacketArrIndex = this.tempMap.get(ctx.timestamp);
+                    if (currPacketArrIndex === undefined) {
+                        currPacketArrIndex = deferredPackets.length - 1;
+                    }
+                    this.tempMap.set(ctx.timestamp, currPacketArrIndex - 1);
+                    if (currPacketArrIndex !== undefined && deferredPackets[currPacketArrIndex] !== undefined) {
+                        let packetInfo = deferredPackets[currPacketArrIndex]
+                        packetInfo.values.forEach((evt) => {
+                            var defctx = this.decode(evt, true);
+                            defctx.deferred = true;
+                            deferredArray.push(defctx);
+                        });
+                        ctx.deserializeStart = packetInfo.start;
+                        ctx.deserializeEnd = packetInfo.end;
+                    }
+                    ctx.hasDeferred = deferredArray.length > 0;
                 }
             }
             if (!ctx.hidden) {
                 eventList.push(...deferredArray.reverse());
-                ctx.hasDeferred = deferredArray.length > 0;
                 eventList.push(ctx);
             }
             return eventList;
         },
-        decorate: ValueToBytes,
+        decorate: ValueByMode,
         decode: function (evt, full) {
             if (!FFlagMicroProfilerNetworkPlugin) {
                 return {
@@ -10304,6 +10292,7 @@ DefinePlugin(function () {
             ctx.ignoreEvent = ctx.subtype === 10 || ctx.subtype === 13;
             ctx.hidden = ctx.stage !== 0;
             ctx.directionName = ctx.eventName.endsWith(eventNetRxTag) ? "Rx" : "Tx";
+            ctx.direction = ctx.directionName === "Rx" ? NetDirection.rx : NetDirection.tx;
             ctx.eventCategoryIndex = replicaSubtypeToCategoryMap[ctx.subtype];
             if (ctx.eventCategoryIndex === undefined) {
                 ctx.eventCategoryIndex = 9;
@@ -10337,6 +10326,7 @@ DefinePlugin(function () {
             ctx.isBatchCollect = ctx.subtype <= 1;
             ctx.isCdnRequest = ctx.subtype === 2;
             ctx.directionName = ctx.eventName.endsWith(eventNetRxTag) ? "Rx" : "Tx";
+            ctx.direction = ctx.directionName === "Rx" ? NetDirection.rx : NetDirection.tx;
             ctx.categoryName = eventsNetCategory[ctx.eventCategoryIndex];
             ctx.hidden = ctx.isAssetIdReport;
             if (!ctx.isAssetIdReport) {
@@ -10422,7 +10412,7 @@ DefinePlugin(function () {
                 ctx.count,
                 ctx.subsystemName,
                 ctx.directionName,
-                "<div style='text-align: right;'>" + this.decorate(ctx.value, true) + "</div>",
+                "<div style='text-align: right;'>" + ValueToBytes(ctx.value) + "</div>",
             ];
             if (ctx.isCurl) {
                 dsp.push(
@@ -10447,7 +10437,7 @@ DefinePlugin(function () {
                 ctx.count,
                 ctx.subsystemName,
                 ctx.directionName,
-                this.decorate(ctx.value, true),
+                ValueToBytes(ctx.value),
             ];
             if (ctx.isCurl) {
                 headers.push(

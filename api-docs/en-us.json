@@ -42366,7 +42366,7 @@
       "Wait": "@roblox/globaltype/VRService.NavigationRequested.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VRService#NavigationRequested",
-    "code_sample": "local VRService = game:GetService(\"VRService\")\n\nVRService.TouchpadModeChanged:Connect(function(cframe, inputUserCFrame)\n\tprint(inputUserCFrame.Name .. \" made request with CFrame: \" .. cframe)\nend)"
+    "code_sample": "local VRService = game:GetService(\"VRService\")\n\nVRService.NavigationRequested:Connect(function(cframe, inputUserCFrame)\n\tprint(inputUserCFrame.Name .. \" made request with CFrame: \" .. cframe)\nend)"
   },
   "@roblox/globaltype/VRService.TouchpadModeChanged.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -42454,7 +42454,7 @@
       "Wait": "@roblox/globaltype/VRService.TouchpadModeChanged.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VRService#TouchpadModeChanged",
-    "code_sample": "local VRService = game:GetService(\"VRService\")\n\nVRService.NavigationRequested:Connect(function(pad, mode)\n\tprint(pad.Name .. \" Touchpad changed to state: \" .. mode.Name)\nend)"
+    "code_sample": "local VRService = game:GetService(\"VRService\")\n\nVRService.TouchpadModeChanged:Connect(function(pad, mode)\n\tprint(pad.Name .. \" Touchpad changed to state: \" .. mode.Name)\nend)"
   },
   "@roblox/globaltype/VRService.UserCFrameChanged.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -48315,10 +48315,10 @@
     "documentation": "The name of the <code>KeyframeMarker</code> the signal is being created for. Not to be confused with the name of the <code>Keyframe</code>."
   },
   "@roblox/globaltype/AnimationTrack.GetMarkerReachedSignal/return/0": {
-    "documentation": "The signal created and fired when the animation reaches the created <code>KeyframeMarker</code>. Not to be confused with the name of the <code>Keyframe</code>."
+    "documentation": "The signal created and fired when the animation reaches the created <code>KeyframeMarker</code>."
   },
   "@roblox/globaltype/AnimationTrack.GetMarkerReachedSignal": {
-    "documentation": "Returns an <code>event</code> that fires when a specified <code>KeyframeMarker</code> has been hit in an <code>animation</code>.",
+    "documentation": "Returns an <code>RBXScriptSignal</code> (event) that fires when a specified <code>KeyframeMarker</code> has been hit in an <code>animation</code>.",
     "params": [
       {
         "name": "self",
@@ -56949,13 +56949,13 @@
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": ""
+    "documentation": "Dictionary containing the following key-value pairs: <ul> <li><code>ColorMap</code> — A <code>Content</code> object that contains the color   map. Default is <code>nil</code>.</li> <li><code>MetalnessMap</code> — A <code>Content</code> object that contains the   metalness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> <li><code>NormalMap</code> — A <code>Content</code> object that contains the   normal map. Default is <code>nil</code>.</li> <li><code>RoughnessMap</code> — A <code>Content</code> object that contains the   roughness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": ""
+    "documentation": "A new <code>SurfaceAppearance</code> instance with the given maps from the <code>content</code> parameter."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "",
+    "documentation": "Creates a new <code>SurfaceAppearance</code> object using the provided content maps.",
     "params": [
       {
         "name": "self",
@@ -93624,7 +93624,7 @@
     "documentation": "A GUI object that renders a rectangle, like a <code>Frame</code> does, with a moving video image."
   },
   "@roblox/globaltype/VideoFrame.Pause": {
-    "documentation": "Sets <code>VideoFrame.Playing</code> to false, pausing playback if the <code>VideoFrame.Video</code> is playing.",
+    "documentation": "Sets <code>VideoFrame.Playing</code> to <code>false</code>, pausing playback if the <code>VideoFrame.Video</code> is playing.",
     "params": [
       {
         "name": "self",
@@ -93639,7 +93639,7 @@
     "documentation": "A GUI object that renders a rectangle, like a <code>Frame</code> does, with a moving video image."
   },
   "@roblox/globaltype/VideoFrame.Play": {
-    "documentation": "Sets <code>VideoFrame.Playing</code> to true, playing the <code>VideoFrame.Video</code> from the current <code>VideoFrame.TimePosition</code>.",
+    "documentation": "Sets <code>VideoFrame.Playing</code> to <code>true</code>, playing the <code>VideoFrame.Video</code> from the current <code>VideoFrame.TimePosition</code>.",
     "params": [
       {
         "name": "self",
@@ -128219,7 +128219,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdEventType.RewardedAdLoaded": {
-    "documentation": "The event is fired when a click-to-play video ads is being served. This can be used to communicate and promote the reward to users through the UI or signage.",
+    "documentation": "The event is fired when a click-to-play video ad is being served. This can be used to communicate and promote the reward to users through the UI or signage.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -128229,7 +128229,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdEventType.RewardedAdGrant": {
-    "documentation": "The event is fired when a user has watched the click-to-play video for a certain time. This can be used to grant the player a reward such as an in-game item or in-game currency. The RewardedAdGrant enum will only be triggered once per ad rotation.",
+    "documentation": "The event is fired when a user has watched the click-to-play video ad for a certain time. This can be used to grant the player a reward such as an in-game item or in-game currency. The <code>RewardedAdGrant</code> enum will only be triggered once per ad rotation.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -128239,7 +128239,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdEventType.RewardedAdUnloaded": {
-    "documentation": "The event is fired when a click-to-play video ads is rotated out. This can be used to remove any UI or signage that is promoting the reward.",
+    "documentation": "The event is fired when a click-to-play video ad is rotated out. This can be used to remove any UI or signage that is promoting the reward.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

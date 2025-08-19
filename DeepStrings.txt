@@ -438,7 +438,9 @@ AcousticSimulationBetaFeatureUrl
 AcousticSimulationEnabled
 AcousticSimulationExpeditePathfindingOnDeletion
 AcousticSimulationFixOverYielding
+AcousticSimulationForegroundCost
 AcousticSimulationOcclusionUses6dbLowpass
+AcousticSimulationRemoveBloomFilter
 AcousticSimulationSeparateNotifications
 AcousticSimulationSubdivideDenseCells
 Acoustique
@@ -466,8 +468,8 @@ AcquireWinrtDisplayNV
 Acquisisci
 AcquisitionMethod
 Acquisizione
+ACSCleanup
 ACSOnServiceProviderCleanup
-ACSRemoveProxyWrap
 ACSReturnPromiseException
 ACTION_LOG_IN
 ACTION_LOG_OUT
@@ -642,6 +644,7 @@ AdaptiveEffectPredictorWeightPercent
 Adaptively
 AdaptiveMeshCacheSizeForAndroid
 AdaptivePtime
+ADataFlowGraphBuilder
 Adattamento
 Adattatore
 AdAttribution
@@ -709,6 +712,7 @@ ADDDDDDDDD
 AddDebugDecompClass
 AddDebugger
 AddDllDirectory
+AddDmDelta
 AddDraftsToActivityHistory
 AddedAndRemoved
 AddedAngleBetweenCLI149162
@@ -763,6 +767,10 @@ AddNoPathMetrics
 AddObserverForegroundUIReady
 AddObserverPartyVoiceChangerDisable
 AddObserverPartyVoiceChangerEnable
+AddObserverPartyVoiceChangerFeedbackDisable
+AddObserverPartyVoiceChangerFeedbackEnable
+AddObserverPartyVoiceChangerFeedbackWasDisabled
+AddObserverPartyVoiceChangerFeedbackWasEnabled
 AddObserverPartyVoiceChangerWasDisabled
 AddObserverPartyVoiceChangerWasEnabled
 AddObserverPartyVoiceDebugCommand
@@ -830,6 +838,7 @@ AddressSelector
 AddReturnExectargetCheck
 AddRomarkAnalyticsForPathfinding
 AddRomarkPhasenameToEventIngest
+AddScreenshotToGallery
 AddScriptDiffTelemetry
 AddScriptToExecuteOnDocumentCreated
 AddSecurityContextToRewardNotification
@@ -841,12 +850,13 @@ AddSnippet
 AddSnippetPack
 AddSoundReloadCount
 AddSpecialKey
-AddStreamingToOpenPlaceEnd
 AddStreamingTunableIXPUtility
 AddStudioLogWindowsNativeEventFilterOnClose
 AddStudioPlayTestSessionIdToAssetDeliveryRequest
+AddStylingTagToApiDump
 AddSubPose
 AddSuggestedExtraSelections
+AddSupportedVectorInstructionsSessionTracking
 AddTagFrequencyListItem
 AddTagPopup
 AddTagPopupOpened
@@ -2139,7 +2149,6 @@ AICOAutocompleteKeyPressLeftBracket
 AICOAutocompleteKeyPressOther
 AICOAutocompleteKeyPressPeriodColon
 AICOAutocompleteKeyPressWordCharacter
-AICOBetterInvokeReason
 AICOCancelWhenFailShowGhostText
 AICOCompletionContents
 AICOCompletionContentsEventThrottleHunredthsPercent
@@ -2455,11 +2464,11 @@ AllowedSaleLocations
 AllowedToGrantAssetTypes
 AllowForcingHttp1_1
 AllowHingedToAnchoredLocalSimulation
+AllowInsertFreeAssets
 AllowInsertFreeModels
 AllowMACBasedIPv6
 AllowNoDHEKEX
 AllowOversizedLogToUser
-AllowPasteForRobloxAssets
 AllowRegistrationOfAnimationClipInCoreScripts
 AllowRepeatSettingsResets
 AllowSleep
@@ -2468,6 +2477,7 @@ AllowSystemPorts
 AllowTeamChangeOnTouch
 AllowTextBoxesInSurfaceGuis
 AllowThirdPartySales
+AllowUserInTreatmentGroupToToggleRibbon
 AllowVideoPreRoll
 AllPackets
 AllPaymentProviderTypes
@@ -2543,7 +2553,6 @@ AltLabelKey
 AltPublicKeyInfo
 Altrimenti
 ALTSRP_GCM_AES128_REKEY
-ALuauDfgForwardNilFromAndOr
 ALWAYS_FORWARD_ONLY
 AlwaysAllowUIDragDetectorInNonMainWindows
 AlwaysChangePrimaryPartWithoutWarning
@@ -2566,7 +2575,6 @@ AmbientReverb
 AmbiguousSibling
 Ambulancia
 AmdPowerXpressRequestHighPerformance
-AmendNewGuiSelectionHighlights
 AmericanExpress
 Ametralladora
 AMHVFontInfo
@@ -2770,7 +2778,6 @@ AndroidProcMapsParsed
 AndroidProcMapsTelemetry
 AndroidReportPeakRSS
 AndroidRootedKick
-AndroidSessionTrackingUtils
 AndroidSocFilterAddManufacturer
 AndroidSocModel
 AndroidSuspendAudioFromUnfocusedDataModels
@@ -3037,6 +3044,7 @@ AnimationTrackStopCalledNotFromAnimateCount
 AnimationTrackTimePositionChangedCount
 AnimationType
 AnimationTypeStr
+AnimationUseHandleIterators
 AnimatorAnalytics
 AnimatorAndADFRefactor
 AnimatorAnywhere
@@ -3709,7 +3717,6 @@ AssetDataHash
 AssetDataModel
 AssetDataModelANRListener
 AssetDataModelCommandRegister
-AssetDataModelCreationKey
 AssetDataModelDraggerServiceHost
 AssetDataModelId
 AssetDataModelManager
@@ -3738,6 +3745,7 @@ AssetDmLuaFlagOverrides
 AssetExport
 AssetExportController
 AssetExportControllerProxy
+AssetExportDontGenerateDecalGeometryWithoutTextures
 AssetFetchFailed
 AssetFetchFailedNoExperienceAccessSignalReceiver
 AssetFetchStatus
@@ -3780,6 +3788,7 @@ AssetInfoAsync
 AssetInfoRequestStepSize
 AssetInPendingWrite
 AssetInsertComponent
+AssetInsertComponentEnabled
 AssetInsertController
 AssetInsertControllerProxy
 AssetInserted
@@ -3790,6 +3799,7 @@ AssetLatestSavedVersionRequestStepSize
 AssetLatestSavedVersionResponse
 AssetLoaded
 AssetLoadFailure
+AssetLoadFailureReason
 AssetLocationCache
 AssetManager
 AssetManager.rbxm
@@ -3861,8 +3871,10 @@ AssetProviderDeferRedirectCacheWrites
 AssetProviderDetailedFailure
 AssetProviderExecutorUseBoost
 AssetProviderFixBatchUrl
+AssetProviderFixCdnBytesStat
 AssetProviderFixMissingStats
 AssetProviderOverheadMs
+AssetProviderProfilerLeak
 AssetProviderPutShutdownVarUnderLock
 AssetProviderRedirectCacheReadThreadCount
 AssetProviderRedirectCacheReadThreadType
@@ -3955,8 +3967,10 @@ AssetService
 AssetService_AssetPublishFailure
 AssetService_AssetPublishSuccess
 AssetServiceDeserializeInstance
+AssetServiceProp
 AssetServiceUGCValidation
 AssetsFetched
+AssetsFileName
 AssetsMismatch
 AssetSoundEffect
 AssetsOverMaxLimit
@@ -4007,6 +4021,8 @@ Assistant.
 Assistant.rbxm
 Assistant.rbxm_AssistantToolbar
 Assistant.rbxm_AssistantToolbar_AssistantButton
+AssistantApplication
+AssistantApplicationProxy
 AssistantBridge
 AssistantBridgeProxy
 AssistantDockAction
@@ -4066,6 +4082,7 @@ ASWDepthDownsize
 ASYNC_init_thread
 ASYNC_INTERSECTION
 Async_Mesh
+Async_ModelDelivery_JIT
 Async_ModelDelivery_SetupAndLaunchMDS
 ASYNC_NEW_INTERSECT
 ASYNC_NEW_SUBTRACT
@@ -4158,6 +4175,7 @@ AtOriginalLocationAction
 AtQuadricThreshold
 AtSecSinceEpoch
 ATSHashIndex
+AttachAppRatingObserver
 AttachAudioBuffer
 AttachCallout
 AttachmeH9
@@ -4426,6 +4444,7 @@ AudioCompressor_Sidechain
 AudioCompressorCreated
 AudioCompressorEditor
 AudioCompressorProp
+AudioContent
 Audiodatei
 Audiodateien
 AudioDecoder
@@ -4907,6 +4926,7 @@ AUKeyValueTypeError
 AULayerCollectorStyledProps
 AULightGridFSM
 AULightGridUnified
+AULinearBackoffPolicy
 AULinearDeformerBuildParams
 AULinearDeformParams
 AULintRedundantNativeAttribute
@@ -4990,6 +5010,7 @@ AUPromoteTypeLevels
 AUPropertyNode
 AUProxyMetric
 AUPublishDiagnosticsNotification
+AUQByteArrayReadOnlySharedBuffer
 AUQuantifier
 AUQWidgetPluginGuiStyledProps
 AURateControlParameters
@@ -5042,7 +5063,6 @@ AuroraAlignWorldStepsToFixedTick
 AuroraClientInputBufferSize
 AuroraDebuggerPanel
 AuroraDebugLogs
-AuroraFixForDoubleUpdate
 AuroraIncrementTimestepIdDuringReSim
 AuroraInputFrameCount
 AuroraInputLogging
@@ -5077,6 +5097,7 @@ AuroraScriptService
 AuroraScriptService]
 AuroraScriptShareDataModelTimestamp
 AuroraScriptSlot
+AuroraScriptTestHelper
 AuroraServerInputBufferMaxSizeMultiplier
 AuroraServerInputBufferSize
 AuroraServerTimestampOffsetSmoothingHundredths
@@ -5327,6 +5348,7 @@ AutoExclusive
 AutoExpandDropdowns
 AutoExpandTextDropdowns
 AutoFetchAuthCodeReqTimeoutInMS
+AutoFidelityBytes
 AutoFillBackground
 AutoFRMLevel
 AutoGenerated
@@ -5951,7 +5973,6 @@ AVAssetCounterService
 AVAssetCounterServiceProp
 AVAssetDataModelANRListener
 AVAssetDataModelCommandRegister
-AVAssetDataModelCreationKey
 AVAssetDataModelDraggerServiceHost
 AVAssetDataModelManager
 AVAssetDataModelPluginHangMonitor
@@ -6003,6 +6024,8 @@ AVAssetServiceProp
 AVAssetSoundEffect
 AVAssetSoundEffectProp
 AVAssetUploadRequest
+AVAssistantApplication
+AVAssistantApplicationProxy
 AVAssistantBridge
 AVAssistantBridgeProxy
 AVAssistantExperimentation
@@ -6159,6 +6182,7 @@ AvatarBust
 AvatarCagesMissingWarning
 AvatarCarousel
 AvatarChat.DisableOnLowSpecAndroid
+AvatarChatDelayModelDelivery
 AvatarChatNonStaticClientFeatures
 AvatarChatProtocolDebugV1
 AvatarChatProtocolV1
@@ -6458,6 +6482,7 @@ AvatarSettingsOnUniverseLoaded
 AvatarSettingsOnUniverseLoadedEventThrottleHundredthsPercent
 AvatarSettingsProp
 AvatarSettingsScaleMode
+AvatarSettingsSlowerR6Climb
 AvatarSettingsStrafingFix
 AvatarSetup
 AvatarSetupJob
@@ -6759,6 +6784,7 @@ AVBanHistoryPagesProp
 AVBaseAction
 AVBaseAnimationTrack
 AVBaseAsyncAction
+AVBaseBackoffPolicy
 AVBaseBulkImportDialog
 AVBaseCallData
 AVBaseChannel
@@ -6911,6 +6937,7 @@ AVBoolValueProp
 AVBoostWorkerThreadTaskFactory
 AVBorderStrokeModifier
 AVBottomWidget
+AVBoundToCompleter
 AVBoundVerb
 AVBoxEmitterShapeSampler
 AVBoxFilter
@@ -7142,6 +7169,8 @@ AVChangeHistoryService
 AVChangeHistoryServiceProp
 AVChangeHistoryServiceTaskRegister
 AVChangeHistoryStatsItem
+AVChangeHistoryStreamingService
+AVChangeHistoryStreamingServiceProp
 AVChangeIndicatorBar
 AVChangePropertyItem
 AVChannelArgs
@@ -7308,6 +7337,13 @@ AVClientPublishWaitForPeerConnectionInitReadyState
 AVClientPublishWaitForTurnAuthState
 AVClientQueue
 AVClientQueue_Deprecated
+AVClientRebootAbandonState
+AVClientRebootActionState
+AVClientRebootFailState
+AVClientRebootInitializeState
+AVClientRebootOperation
+AVClientRebootSuccessState
+AVClientRebootWaitForRetryState
 AVClientReliabilitySendInCallReliabilityState
 AVClientReliabilityStatOperation
 AVClientReplicator
@@ -7824,6 +7860,7 @@ AVCustomQGraphicsScene
 AVCustomQSlider
 AVCustomSink
 AVCustomSoundEffect
+AVCustomSoundEffectImpl
 AVCustomSoundEffectProp
 AVCustomStyleProxy
 AVCylinder
@@ -7845,6 +7882,7 @@ AVDataModel
 AVDataModelActionStateController
 AVDataModelAutoSaver
 AVDataModelAutoSaverTelemetry
+AVDataModelCreationKey
 AVDataModelCreator
 AVDataModelCreatorLoaderBase
 AVDataModelEmptySerialize
@@ -8025,10 +8063,12 @@ AVDEPRECATED_CreatorsWidgetDelegate
 AVDEPRECATED_HighlightWidget
 AVDEPRECATED_InstanceSelectionHandler
 AVDEPRECATED_InstanceSelectionTool
+AVDEPRECATED_IPlaceSessionModel
 AVDEPRECATED_IPluginLoaderCache
 AVDEPRECATED_LoginPageLoginListener
 AVDEPRECATED_ManagedWorldJointInstance
 AVDEPRECATED_PasteVerb
+AVDEPRECATED_PlaceSessionModel
 AVDEPRECATED_ReflectionMetadataDocs
 AVDEPRECATED_ResumeScriptSyncAction
 AVDEPRECATED_RibbonChannelBar
@@ -8151,6 +8191,7 @@ AVDispatcher
 AVDispatchingWorkSerializer
 AVDisplayedDocumentView
 AVDisplayPackageDetailsVerb
+AVDisplaySizeSelector
 AVDistanceAttenuationPopup_DEPRECATED
 AVDistanceAttenuationPropertyItem_DEPRECATED
 AVDistanceAttenuationPropertyWidget_DEPRECATED
@@ -9128,6 +9169,7 @@ AVIAssetDeliveryRefreshClient
 AVIAssetExportController
 AVIAssetInsertController
 AVIAssetPluginErrorReporter
+AVIAssistantApplication
 AVIAssistantBridge
 AVIAssistantExperimentation
 AVIAssistantOutputConnection
@@ -9170,6 +9212,7 @@ AVIceTransportInternal
 AVIceTransportWithPointer
 AVICharacterSubject
 AVIChatSender
+AVIChorusImpl
 AVIClientGameDataClient
 AVIClientSessionMetricStorage
 AVICloudEditConnectionModel
@@ -9188,6 +9231,7 @@ AVIComponentCreationKey
 AVIComponentFetcher
 AVIComponentRegistration
 AVICompressor
+AVICompressorImpl
 AVIComputeExtentsPartFilter
 AVIconButtonControl
 AVIConnectivityProtocol
@@ -9232,6 +9276,7 @@ AVIDeviceEnumerator
 AVIdGenerator
 AVIDialogImageManager
 AVIDisplayedDocument
+AVIDistortionImpl
 AVIdleTimer
 AVIDMChangeSerializer
 AVIdParser
@@ -9240,9 +9285,11 @@ AVIDragDropDataModelController
 AVIdSerializer
 AVIdWithDirection
 AVIEAvatarAutoSetupDataModelObserver
+AVIEchoImpl
 AVIEmitterAudioNode
 AVIEngineWidget
 AVIEnumPropertyDescriptor
+AVIEqualizerImpl
 AVIEventAndCounterTelemetryBundle
 AVIEventIngest
 AVIExperimentationProvider
@@ -9260,6 +9307,7 @@ AVIFileSyncStudioDependence
 AVIFilterKeyTracker
 AVIFindListener
 AVIFindReplaceAllBridge
+AVIFlangeImpl
 AVIFontFetcher
 AVIForwardTsnChunk
 AVIFragmentAutocompleteReporter
@@ -9363,6 +9411,7 @@ AVIndexBox
 AVIndexedMesh
 AVIndicatorIconDelegate
 AVINetAssetCallbacks
+AVInferredCrashBacktraceReporter
 AVInferredHangTracker
 AVInferredHangTrackerComponent
 AVInfoBarBanner
@@ -9509,11 +9558,11 @@ AVIPerformanceRequest
 AVIPerformanceTelemetry
 AVIPerformanceToolsBridge
 AVIPipelined
+AVIPitchShiftImpl
 AVIPlaceManager
 AVIPlaceOpener
 AVIPlaceSessionContext
 AVIPlaceSessionContextBridge
-AVIPlaceSessionModel
 AVIPlaceSessionStateController
 AVIPlaceSessionStateTelemetry
 AVIPlaceSessionTaskRegister
@@ -9576,6 +9625,7 @@ AVIReplicatorGroupTranslator
 AVIRequest
 AVIRequestFactory
 AVIRestartController
+AVIReverbImpl
 AVIRibbonConfigurationProvider
 AVIRibbonFileSystemHelper
 AVIRidlCommandExample
@@ -9621,6 +9671,8 @@ AVISignalRManager
 AVISleepOverrideControllerObserver
 AVISnippetConnProtocol
 AVISnippetLoaderHost
+AVISoundEffectImpl
+AVISoundGroupImpl
 AVISoundImpl
 AVISoundServiceManager
 AVISpotlightManager
@@ -9656,6 +9708,7 @@ AVISystemMenuStateResolver
 AVITeamCreateManager
 AVITeamCreateSaver
 AVITeamTestManager
+AVITeamTestModeChecker
 AVITeamTestWorkflowManager
 AViterator
 AVITerrainDetail
@@ -9671,6 +9724,7 @@ AVITrackerEngine
 AVITrackerPostProcessor
 AVITrackerValidator
 AVITreeDiff
+AVITremoloImpl
 AVITypesetter
 AVIUIThread
 AVIUniverseController
@@ -9789,17 +9843,28 @@ AVLegacyAdorn
 AVLegacyChannel
 AVLegacyChannelIdleFilter
 AVLegacyCharacterAppearance
+AVLegacyChorusSoundEffectImpl
 AVLegacyClientIdleFilter
+AVLegacyCompressorSoundEffectImpl
 AVLegacyConnectedSubchannel
+AVLegacyDistortionSoundEffectImpl
+AVLegacyEchoSoundEffectImpl
 AVLegacyEncodedAudioFrame
+AVLegacyEqualizerSoundEffectImpl
+AVLegacyFlangeSoundEffectImpl
 AVLegacyHopperService
 AVLegacyMaxAgeFilter
+AVLegacyPitchShiftSoundEffectImpl
+AVLegacyReverbSoundEffectImpl
+AVLegacySoundEffectImpl
+AVLegacySoundGroupImpl
 AVLegacySoundImpl
 AVLegacyStatsCollector
 AVLegacyStatsCollectorInterface
 AVLegacyStudioBridgeProp
 AVLegacyStudioBridgeServiceRegister
 AVLegacyTransparentModeImpl
+AVLegacyTremoloSoundEffectImpl
 AVLegacyWorkSerializer
 AVLegalDisclaimerDialog
 AVlength_error
@@ -10080,6 +10145,7 @@ AVMemoryFile
 AVMemoryMessageStream
 AVMemoryQuota
 AVMemoryQuotaBasedMemoryAllocatorFactory
+AVMemorySelector
 AVMemoryStoreHashMap
 AVMemoryStoreHashMapPages
 AVMemoryStoreHashMapPagesProp
@@ -10177,6 +10243,7 @@ AVMidPhaseCollectionBinding
 AVMidPhaseCollectionPair
 AVMidPhaseComponentBinding
 AVMidPhaseResultPairUpdateCallback
+AVMinSelector
 AVmisc_category
 AVMish_final
 AVMish_final_avx
@@ -10197,6 +10264,7 @@ AVMLService
 AVMLServiceProp
 AVMLSession
 AVMLSessionProp
+AVMockableAppRatingPromptServiceWrapper
 AVMockableSystemThemeServiceWrapper
 AVMockDecoder
 AVMockGestureGenerator
@@ -10232,6 +10300,7 @@ AVModuleRtpRtcp
 AVModuleRtpRtcpImpl2
 AVModuleScript
 AVModuleScriptProp
+AVMomentsSelector
 AVMonitorOffListener
 AVMonoMixDsp
 AVMonoVadImpl
@@ -10409,6 +10478,7 @@ AVOfficeStyle
 AVOffsetUIDragResponder
 AVOggOutputFormat
 AvoidedPayloads
+AvoidInlineGhostTextAfterTab
 AvoidPayloadSizeStatistics
 AvoidUnnecessaryQuadtreeLock
 AVOldPickFirst
@@ -10428,6 +10498,7 @@ AVOnDiskBackend
 AVOneEuroFeaturesSmoother
 AVOneofDescriptorProto
 AVOneofOptions
+AVOneVectorSelector
 AVOobBackendMetricWatcher
 AVOobWatcher
 AVOpenCloudApiV1
@@ -10694,7 +10765,6 @@ AVPlaceSessionContextBridgeProxy
 AVPlaceSessionCreationKey
 AVPlaceSessionDataModelListener
 AVPlaceSessionMainView
-AVPlaceSessionModel
 AVPlaceSessionPluginWidgetsView
 AVPlaceSessionStateController
 AVPlaceSessionStateTelemetry
@@ -12077,6 +12147,7 @@ AVShirtProp
 AVShortcutDelegate
 AVShortcutDisambiguator
 AVShortcutDisambiguatorEventFilter
+AVShortcutInteractionTelemetry
 AVShortcutsModel
 AVShowConstraintDetailsVerb
 AVShowConstraintToolVerb
@@ -12196,6 +12267,7 @@ AVSolidModelContentProvider
 AVSolidModelContentProviderProp
 AVSolverInterface
 AVSolverSubSet
+AVSoundContentPropertyItem
 AVSoundEffect
 AVSoundEffectProp
 AVSoundEmitter
@@ -12372,6 +12444,7 @@ AVStreamingInterface
 AVStreamingObserver
 AVStreamingService
 AVStreamingServiceProp
+AVStreamingSettingsSyncer
 AVStreamingSolver
 AVStreamingSolverV2
 AVStreamInterface
@@ -12657,6 +12730,7 @@ AVTeamTestContext
 AVTeamTestContextProvider
 AVTeamTestDisconnectManager
 AVTeamTestManager
+AVTeamTestModeChecker
 AVTeamTestStartAction
 AVTeamTestStarter
 AVTeamTestWorkflowManager
@@ -13227,6 +13301,7 @@ AVVideoCaptureUpdateJob
 AVVideoChannel
 AVVideoClock
 AVVideoContentDescription
+AVVideoContentPropertyItem
 AVVideoDecoder
 AVVideoDecoderFactory
 AVVideoDetailsTableComponent
@@ -13806,6 +13881,7 @@ AW4SelectionBehavior
 AW4SelectionMode
 AW4SensorMode
 AW4SensorUpdateType
+AW4SequenceMatch
 AW4ServerLiveEditingMode
 AW4ServiceVisibility
 AW4ShowAdResult
@@ -14159,6 +14235,7 @@ BackSurface
 BackSurfaceInput
 BackTeleport
 BackToMinimumRadius
+BacktraceAPIQueryParamFix
 BacktraceGuid
 BacktraceReporter
 BacktraceReporter]
@@ -14192,6 +14269,7 @@ BadgesServiceThrottleMaxBackoffMilliseconds
 BadgesServiceThrottleThreshold
 BadgesWriteDisabled
 BadgesWriteEnabled
+BadgeVisible
 BadJSONInput
 BadLogInfluxHundredthsPercentage
 BadLogMask
@@ -14754,7 +14832,6 @@ BGUUUUW\jjlrrrrr
 BhChDhEhFhGhHhIhJhKhLhMhNhOhPhQhRhShThUhVhWhYhjhkhqhvhwhxhyhz
 BHHHHHHHHHHHHHHHHHHHHHHHHHH
 BhHlLjJTiIfdnczsxX
-BhideFunction
 BI_BITFIELDS
 Biblioteca
 Biblioteka
@@ -15186,9 +15263,6 @@ BootcampCLI155293
 BootcampCLI155293Log
 BootcampCLI155743
 BootcampCLI155743Log
-BootcampCLI155928
-BootcampCLI155928Log
-BootcampCLI155928Log]
 BootcampCLI156010
 BootcampCLI156010Log
 BootcampCLI156010Log]
@@ -15237,6 +15311,18 @@ BootcampCLI163797Log]
 BootcampCLI164347
 BootcampCLI164347Log
 BootcampCLI164347Log]
+BootcampCLI164711
+BootcampCLI164711Log
+BootcampCLI164711Log]
+BootcampCLI164914
+BootcampCLI164914Log
+BootcampCLI164914Log]
+BootcampCLI165139
+BootcampCLI165139Log
+BootcampCLI165139Log]
+BootcampCLI165176
+BootcampCLI165176Log
+BootcampCLI165176Log]
 BootcampCLI50852
 BootcampCLI7459
 BootcampCLI96223
@@ -15309,6 +15395,7 @@ BoundingRect
 BoundingUI
 BoundInstanceWeak
 BoundScheduler
+BoundToCount
 BoundToPartCount
 BoundYieldFuncDesc
 BoxClicked
@@ -15330,6 +15417,7 @@ BrandProjectDecision
 BrandProjectDecisionTelemetryThrottleHundredths
 BrCrDrErFrGrHrIrJrKrLrMrNrOrPrQrRrSrTrUrVrWrYrjrkrqrvrwrxryrz
 BRDlFRHRJRL
+BRDtBtFFBq
 BreakJoints
 BreakJointsOnDeath
 BreakOnAllErrors
@@ -15527,6 +15615,7 @@ BugReporterService
 BugReportRequested
 BuildAccelerationStructuresKHR
 BuildAndReloadDebuggablePluginAction
+BuildBacktraceData
 BuildBindings
 BuildCharArray
 BuildCompactHeightfield
@@ -15582,6 +15671,7 @@ BuiltinSnippet
 BuiltInStandalone
 BuiltInStandalonePluginLoadTime
 BuiltInStandalonePlugins
+BuiltInTypeFunctions
 Bulgotanie
 BulkAudioImportUse
 BulkAudioLoader
@@ -15786,6 +15876,8 @@ CachedFilesWhileLoggedOut
 CachedInstanceRelationshipNotAvailable
 CacheDirectoryException
 CacheDirectoryExceptionInfluxHundredthsPercentage
+CacheDirSize
+CacheDirSizeThrottleHundredthsPercent
 CacheDiskUsage
 CachedOrNonCurl
 CachedPatch
@@ -16060,6 +16152,7 @@ CancelDueToModuleDependencyInValid
 CancelDueToModuleIsNotDirty
 CancelDueToNoScript
 CancelDueToSourceModuleIntegrityFail
+CancelExportInstigatedAsync
 CancelGenerationButton
 CancelGenerationRequest
 CancelImportHeightmap
@@ -16128,6 +16221,7 @@ CanPerformBinaryUpdateEnabled
 CanPromptOptIn
 CanPromptOptInAsync
 CanRecordAsync
+CanReplicateAudioVideoContentPropertiesServer
 CanReplicateContentPropertiesServer
 CanReplicateDecalContentPropertiesServer
 CanReplicateImageButtonPropertiesServer
@@ -16355,6 +16449,7 @@ CaptureEngineManagesFrameRate
 CaptureFocus
 CaptureGalleryPermission
 CaptureImage.
+CaptureIndex
 CaptureMode
 CaptureModeEnabled
 CaptureModeMinFreeMemoryMultiplierPercent
@@ -16362,6 +16457,7 @@ CaptureModeModuleStarterScript
 CaptureModerated
 CaptureModeRequested
 CaptureNotInGallery
+CaptureObjectSavedInternal
 CaptureParams
 CapturePostCreated
 CapturePostCreatedEventThrottleHundrethsPercent
@@ -16383,6 +16479,7 @@ CaptureService
 CaptureService]
 CaptureServiceContentObjectEnabled
 CaptureServiceEnableTakeCaptureApi
+CaptureServiceFixHttpErrorHandling
 CaptureServiceGalleryPermissionPrompt
 CaptureServiceGalleryPermissionPromptAsync
 CaptureServiceSignalRateLimitCapacity
@@ -16546,7 +16643,6 @@ CDBPropChangesDetail
 CDCProductionTestEBZstdClersCoord
 CDCTestEBZstdClersCoord
 CDCTransformNotIdentityCrash
-CDCVerifyTransformIdentity
 CDDDDDDDDD
 CDebugLuauTimeTracing
 CDebugToggleReverb
@@ -16740,6 +16836,9 @@ ChangeHistoryServicePerfReportingRate
 ChangeHistoryServiceReportingRate
 ChangeHistoryServiceTaskRegister
 ChangeHistoryStatsItem
+ChangeHistoryStreamingService
+ChangeHistoryStreamingService]
+ChangeHistoryStreamingServiceMaxDeletedInstances
 ChangeInBytes
 Changement
 Changements
@@ -17036,7 +17135,6 @@ CheckRenderMeshOOB
 CheckResult
 CheckRootInstanceIsPublic
 CheckScreenshotPath
-CheckScrollingFrameSelection
 CheckSeconds
 CheckServerExists
 CheckState
@@ -17132,7 +17230,6 @@ CinKeepOriginalMesh
 CinKeepOriginalMeshSkinned
 CinOperationIdInError
 CinOperationIdInErrorEF
-CinRefactorUploadCompleteTask
 CIOSW[^adfikosvy
 CipherString
 CipherSuite
@@ -17265,6 +17362,7 @@ CLI119458R
 CLI141929CreateLocalPlayerFix
 CLI160771_ImproveTelemetry
 CLI160771_SecurityContextString
+CLI165167_Client
 CLI20390_2
 CLI46794Enable
 CLI46794InputTelemetryIntervalSeconds
@@ -17419,6 +17517,7 @@ ClientFixCreatorIdValueForSimulation
 ClientFlagContext
 ClientFPS_
 ClientFPS_Country_
+ClientFrame
 ClientFRMManualToAutoExperimentCheck
 ClientFSRequestsErrorCounter
 ClientFSRequestsReceived
@@ -17561,6 +17660,13 @@ ClientQosSessionId
 ClientQosTimeoutDetected
 ClientQueue
 ClientRealtimePhysicsFPS_
+ClientRebootAbandonState
+ClientRebootActionState
+ClientRebootFailState
+ClientRebootInitializeState
+ClientRebootOperation
+ClientRebootSuccessState
+ClientRebootWaitForRetryState
 ClientReceivedLateTT
 ClientReceiveNetStackPortAndToken
 ClientRecvFromRaknet
@@ -17730,6 +17836,9 @@ CliNetIngressLimiterReportingPer100K
 CliPackLoadPlaceIfSpecified
 ClipboardContext
 ClipboardContextProvider
+ClipboardContextProvider]
+ClipboardContextProviderInitialLoad
+ClipboardDataChanged
 ClipboardText
 ClipDistance
 ClipEvaluator
@@ -18355,9 +18464,9 @@ COLLAB5863CollaborateTelemetry
 COLLAB6008TCDisconnectFix
 COLLAB6083AvatarAssert
 COLLAB6095LocalServerAssert
-COLLAB6176PlaceAnnotations
+COLLAB6176PlaceAnnotations4
 COLLAB6176PlaceAnnotationsRCC
-COLLAB6176PlaceAnnotationsStudio
+COLLAB6176PlaceAnnotationsStudio2
 Collab6803
 Collab6803AutoResumeSOTSetting
 Collab6803Canonical
@@ -18383,10 +18492,15 @@ Collab6803SetHashOnSyncStart
 Collab6803TelemetryFix
 COLLAB6824UIThreadFix
 Collab7848
+Collab7848BatchProcessingLimit
 Collab7848FixRenameEvent
 Collab7848Forbidden
 Collab7848MaxDepth
 Collab7848Period
+Collab7848RescanIntervalMS
+Collab7848SettlingMaxFsQueueSize
+Collab7848SettlingMaxTimeMs
+Collab7848SettlingTimeMs
 Collab7848TotalSyncInstanceLimit
 COLLAB7882DeprecateLoading
 COLLAB8416FixStudioOpenPlaceTeamCreateFailureReporting
@@ -18427,6 +18541,7 @@ CollectDeprecatedGAAndEventStreamCalls
 CollectedProbeDataThrottleHundrethsPercent
 CollectFailedInner
 CollectFunctions
+CollectIAdornableDestructorTelemetry
 Collectible
 CollectibleEventRateLimiterEnabled
 CollectibleItemId
@@ -18518,6 +18633,7 @@ CollisionRightLeg
 Collisions
 CollisionsEnabled
 CollisionsLeft
+CollisionSoundCustomization
 CollisionsRight
 CollisionStateAssemblies
 CollisionToggleMode_Geometric
@@ -18555,7 +18671,6 @@ ColorIndex
 Colormap...
 ColorMapContent
 ColormapHasUnknownPixels
-ColorMapId
 ColorMaski
 ColorPicker
 ColorPickerForSelection
@@ -18929,6 +19044,7 @@ ComputeBoxMappedDataOnDemand
 ComputedBandwidth
 ComputedBandwidthDownloadedBytes
 ComputeEngine
+ComputeForBC
 ComputeImplTimeInMs
 ComputeNewSceneMSFT
 ComputeOriginalSizeForPart
@@ -19473,6 +19589,7 @@ ContentIdOverLimit
 ContentIdPropertyItem
 ContentImageSize
 ContentLength
+ContentPropertiesAudioVideo
 ContentPropertiesImageButton
 ContentPropertiesMaterialVariant
 ContentPropertiesScrollingFrame
@@ -19789,13 +19906,11 @@ ConvertToSmooth
 ConvertWin32PerformanceCounterToTimeKHR
 ConvertXiaomiSdk33VoiceRecord
 Convex_Decomp_Compression_v1
-Convex_Decomp_Compression_Verify_Identity
 ConvexCount
 ConvexDecompCompressed
 ConvexDecompCompression
 ConvexDecompCompressionAnalytics
 ConvexDecompCompressionSelector
-ConvexDecompCompressionTransformIdentity
 ConvexDecompCompressionZstd
 ConvexDecompHolder
 ConvexDecomposition
@@ -19874,6 +19989,7 @@ CoreBillboards
 CoreBillboardsGuiType
 CoreComponentManager
 CoreComponentManagerCallbacks
+CoreComponentManagerEmitAssetDMKeyTelemetry
 CoreComponentManagerProxy
 CoreConfiguration
 CoreEffectFolder
@@ -19945,6 +20061,7 @@ Corporation\Roblox
 Corporation0
 Corporation1
 Corporativo
+CorrectGuiStateMouseDown
 Correction
 Correctives
 CorrectivesLogic
@@ -20092,6 +20209,7 @@ CPPTYPE_UINT32
 CPPTYPE_UINT64
 CProcessingTime
 CpuArchitecture
+CPUCoreCount
 CpuImprovement
 CpuLimitedResolutionInPercent
 CpuLoadEstimator
@@ -20165,7 +20283,6 @@ CrashUploadToBacktraceWindowsStudioToken
 CrashUploadToBacktraceXboxPlayerToken
 CrashWhenNoFontGetsLoaded
 CratersAndDebris
-CRbxQtSingleton
 CreaAccessorio
 Creaciones
 CREATE_FAILED
@@ -20289,6 +20406,7 @@ CreateEventA
 CreateEventExW
 CreateEventW
 CreateExpiringDeepLinkAsync
+CreateExtraAssetsFileFromPropertySet
 CreateFacialTrackerHTC
 CreateFailed
 CreateFence
@@ -20545,6 +20663,7 @@ Creator.Studio.PerformanceAndOptimization.SceneBudgetThermometer.CreatorId
 Creator.Studio.ScriptEditor.CreatorId
 CREATOR_ELIGIBILITY_ACTION_COLLABORATION
 CreatorAssetsCreate
+CreatorBanTextFilter
 CreatorBanUICounter
 CreatorConfigProvider
 CreatorConfigProvider.
@@ -21060,6 +21179,7 @@ CSObject.In
 CSObject.Out
 CSObject.Size
 CST.TranslationVariant
+CStudio.App.DmDiffUI.DescendantChangesToolTip1
 CStudioFeatureActivityTrackerLog
 CSVwithCRLF
 CSwitchCache
@@ -21586,6 +21706,7 @@ DataModelANRListenerSample
 DataModelAPIUsageMetrics
 DataModelAPIUsageMetricsThrottle
 DataModelAsyncContentInit
+DataModelAsyncContentInitDisableForSound
 DataModelAutoSaver
 DataModelAutoSaver]
 DataModelAutoSaverTelemetry
@@ -21599,6 +21720,7 @@ DataModelCmd
 DataModelControllerClosed
 DataModelCookieCLI84135
 DataModelCreationFailure
+DataModelCreationKey
 DataModelCreatorType
 DataModelEditing
 DatamodelError
@@ -21950,6 +22072,7 @@ DataStructureRequestsOverLimit
 DataTypeUpgrade
 DataUpdateConflict
 DataValueTable
+DataWithDMLock
 DateFormat
 Dateibrowsers
 Dateidaten
@@ -22074,6 +22197,7 @@ DebouncingTimeStr
 DebrisProp
 DebrisService
 DEBUG_addAssembly
+DEBUG_EnableM3Validation
 Debug_ISRUseSimplePrioritization
 DEBUG_pushEdgeToDownstream
 DEBUG_removeAssembly
@@ -22202,7 +22326,6 @@ DebugClientSvrProfilerCaptTimeOverride
 DebugClientSvrProfilerFramesOverride
 DebugCodeAssistExperimentFetcherLog
 DebugCodegenChaosA64
-DebugCodegenNoOpt
 DebugCodegenOptSize
 DebugCodegenSkipNumbering
 DebugCollectGarbage
@@ -22697,6 +22820,7 @@ DebugPackageInplaceUpdate
 DebugPannerDisableInterpolation
 DebugPannerUpdateDenominator
 DebugPannerUpdateNumerator
+DebugPartialScriptResimulation
 DebugPauseVoxelizer
 DebugPerfMode
 DebugPerformanceControlAbsoluteMemoryLimitMB
@@ -22934,6 +23058,7 @@ DebugSlashCommandURLOverride
 DebugSmoothClusterBenchmarkUpdateTime
 DebugSoundServiceCloseFmodIssue
 DebugSoundShimEnabled
+DebugSQLiteDisableSHM
 DebugSQLiteLookasidePool
 DebugSQLitePageCachePool
 DebugSQLiteZeroMalloc
@@ -22963,6 +23088,7 @@ DebugStudioAvatarAutosetupInternalEndpoint
 DebugStudioAvatarAutosetupInternalStatusEndpoint
 DebugStudioAvatarAutosetupUseInternalEndpoint
 DebugStudioBulkImporterMockCycleSuccessErrorWarning
+DebugStudioCanUpdate
 DebugStudioCommands
 DebugStudioCreateGameWindowReturnsNull
 DebugStudioCreateGameWindowThrows
@@ -23005,7 +23131,6 @@ DebugStudioSleepInUserLoginInMS
 DebugStudioTokenRequestStop
 DebugStudioToolboxLoadFailurePercentage
 DebugStudioUnlinkSharedMemory
-DebugStudioUpdatesRibbon
 DebugStudioUseBulkImporterMock
 DebugStudioWBMForceUnavailable
 DebugStylingWarnDeprecatedPressedSelector
@@ -23076,6 +23201,7 @@ DebugVideoCaptureSkipFinalUpdate
 DebugVideoDoNotDropFrame
 DebugVideoEnableAudioOnlyFiles
 DebugVideoFileWritingOffline
+DebugVideoLogChosenResolution
 DebugVideoSkipFeatureControlCheck
 DebugVideoUpdateLatestFramePixelFormat
 DebugVideoWinHwEncoderUseBlacklist
@@ -23296,6 +23422,7 @@ DefaultNeonHQInGuiFS
 DefaultNeonInGuiFS
 DefaultNewShadowFS_
 DefaultNewShadowVS_
+DefaultObjects
 DefaultOpaqueFS_
 DefaultOpaqueHQFS_
 DefaultOpaquePBRDecalFS_
@@ -23439,6 +23566,7 @@ Deformacja
 Deformador
 Deformatore
 DeformerCagePublish
+DeformerContext
 DeformerPartPublish
 DeformerPhysicsDataPublishKey
 Deformieren
@@ -23499,6 +23627,7 @@ DeleteCookie
 DeleteCriticalSection
 DeletedCageGeometryWarning
 DeleteDCNV
+DeleteDmDelta
 DeletedRegions
 DeletedSignal
 DeletedTree
@@ -23613,7 +23742,6 @@ DeprecatableBroadcasts2
 DeprecateCpv15
 Deprecated
 DEPRECATED
-DEPRECATED_aboutToDestroyDataModel
 DEPRECATED_AnchorCursor.png
 DEPRECATED_AND_UNAVAILABLE_DO_NOT_USE
 DEPRECATED_ApplicationNotRespondingDetector
@@ -23628,7 +23756,6 @@ DEPRECATED_CommandBarController
 DEPRECATED_CommandBarPermissionDropdown
 DEPRECATED_ContextActionService
 DEPRECATED_CoverWidget
-DEPRECATED_createdDataModel
 DEPRECATED_CreatorItem
 DEPRECATED_creatorItemClicked
 DEPRECATED_creatorItemDoubleClicked
@@ -23641,10 +23768,9 @@ DEPRECATED_executeScriptFile
 DEPRECATED_FillCursor
 DEPRECATED_FillCursor.png
 DEPRECATED_foundItemsIncreased
-DEPRECATED_gameStateTypeAboutToChange
-DEPRECATED_gameStateTypeChanged
 DEPRECATED_GetProductInfoSubscriptionCacheSecs
 DEPRECATED_InstanceSelectionHandler
+DEPRECATED_IPlaceSessionModel
 DEPRECATED_IPluginLoaderCache
 DEPRECATED_IStudioHTTPRequest
 DEPRECATED_LockCursor.png
@@ -23654,7 +23780,6 @@ DEPRECATED_MeshUploadRequest
 DEPRECATED_onBottomMoreButtonClicked
 DEPRECATED_onDidWake
 DEPRECATED_onDisableUpdateDialog
-DEPRECATED_onGameStateTypeAboutToChange
 DEPRECATED_onGameStateTypeChanged
 DEPRECATED_onInteractionReady
 DEPRECATED_onItemClicked
@@ -23673,6 +23798,7 @@ DEPRECATED_orphanedSize
 DEPRECATED_PasteVerb
 DEPRECATED_performPurchase
 DEPRECATED_PermissionsUtil
+DEPRECATED_PlaceSessionModel
 DEPRECATED_PluginGui
 DEPRECATED_publishPlace
 DEPRECATED_PublishPlaceAsync
@@ -23732,6 +23858,7 @@ DeprecateInfoFetchForSubscription
 DeprecateLocalPlayerCreatedSignal
 DeprecateOldScriptCommandHandler2
 DeprecateOpenPublishResultModal
+DeprecateProfilingRequests
 DeprecateUnsubscribedTerrain
 DeprecationMessage
 DeprecationMessageDateLocalizationRefactor
@@ -23843,6 +23970,7 @@ Desenvolvedores
 Desequipar
 Deserailize
 Deserialization
+DESERIALIZATION
 DeserializationTimeMs
 Deserialize
 DeserializeAvatarModel
@@ -24321,6 +24449,7 @@ DiffAction
 DiffAgainstLatestPackageStart
 DiffAgainstLatestPackageVerb
 DiffChangeIndicatorBar
+Difference
 DifferentialD
 DifferentiateStreamedOut
 DifferentReason
@@ -24415,7 +24544,7 @@ Dinormalkan[Fitur
 Dinosaurio
 Dinosaurus
 Dioptimalkan
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos0
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
 Dipengaruhi
 Dipercepat
 DIPERDAGANGKAN
@@ -24502,7 +24631,6 @@ DisableAssetScripts
 DisableAsTool
 DisableAutomaticResize
 DisableAutoTagLocationToV2CounterStats
-DisableBButtonEscape
 DisableCameraToastShown
 DisableCameraToastShownStorageKey
 DisableCancel
@@ -24539,6 +24667,7 @@ DisableListFlag
 DisableLod
 DisableLTAnalytics
 DisableMemoryTracking
+DisableMemoryTrackingRollout
 DisableMerge
 DisableNSVariantParam
 DisableOldCookieManagementSticky
@@ -24563,6 +24692,7 @@ DisableSizingRemovalCharacter
 DisableSoundServiceRespectFilteringEnabled
 DisableStreamingTunableMemoryTracking
 DisableTitleBar
+DisableTriangleCountCheckForWMS
 DisableUIDragDetectorDrags
 DisableUlpFecExperiment
 DisableUniverIdForVictoriaMetrics
@@ -24570,6 +24700,7 @@ DisableUpdatesToContextManagedProxyActions
 DisableVertexAttribArray
 DisableVideoEncodeForIntelMac
 DisableVRMenuFix
+DisableWarningWhenScriptDisabled
 Disallowed
 DisallowInfiniteAutoFlexBasisHeightForTextScaledItems
 DisassembleRequest
@@ -24977,7 +25108,6 @@ DontCullNewestLogsFirst
 DontDeserializeTrackerDataOnRcc2
 DontIncreaseDelayBasedBweInAlr
 DontLayoutInvisibleGuiObjects
-DontOffsetScrollDelta
 DontOverwriteSettingsWithPartialSerialization
 DontPingInternalOnNoRss
 DontRemoveCaptureServiceTempDirectoryOnShutdown
@@ -25462,12 +25592,11 @@ DurationSinceLastCleanMs
 DurationSSLHandshake
 DurationSum
 DurationTooLong
-DurationUs
 DurationWidth
 Durchschnittlicher
 Durchsuchen
 Durdurulmu
-DV.nDV.nDV.nDV.nD
+DV.nDV.nDV.nDV.nD`s
 DVCSRequestData
 DVCSResponseData
 DViewportFrameSnapshotEngineFeature
@@ -25500,6 +25629,7 @@ DynamicFilters
 DynamicGeometryBufferSizing
 DynamicGeometryManager
 DynamicHead
+DynamicHead.rbxm
 DynamicHeadAvatar
 DynamicHeadEditableMesh
 DynamicHeadEditableMesh.
@@ -25513,7 +25643,6 @@ DynamicHeads
 DynamicHeadsEnablingChoiceEventThrottleHundrethsPercent
 DynamicHeadsMode
 DynamicHeadUsed
-DynamicHeadV2.rbxm
 DynamicHH9
 DynamicImage
 DynamicIndoorEnvMapBlendSpeed
@@ -25601,6 +25730,7 @@ E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_Y_j_k_q_v_w_x_y_z_
 E_INVALIDARG.
 E`u3fE9Epu
 EA2AAEB11E38B9D871882A8E559
+EAA_NPEBVQMimeData
 EAA_NVGuid
 EAA_NVStringView
 EAAEB11E38B9D871882A8E559
@@ -25646,7 +25776,6 @@ EAAXW4GuiType
 EAAXW4PartType
 EAAXXZAEAPEAV345
 EAAXXZPEAV34
-EAAXXZPEAV345
 EAB0886F11E18561866242201959
 EachFunction
 Eacutesmall
@@ -25907,7 +26036,6 @@ EditableImage.
 EditableImageApiEnabled
 EditableImageApiUpdateEnabled
 EditableImageApiUpdateEnabledQRCode
-EditableImageBasicReplicationEnabled
 EditableImageDrawTriangleEnabled
 EditableImageEventStreamReportPercent
 EditableImageInitLoggingHundredthsPercentage
@@ -26375,7 +26503,6 @@ EmitResultExpanded
 EmittersAtMaxParticles
 EmitterShape
 EmitterSize
-EmitterTextureDimensionFix
 EMMQUU]___ddfffffx
 Emocionante
 EmoteAnimation
@@ -26406,6 +26533,7 @@ EmptyDecryptedCookie
 EmptyDockWidgets
 EmptyFragments
 EmptyFrame
+EmptyPieces
 EmptyPlayers
 EmptyProtoP
 EmptySmallSquare
@@ -26467,6 +26595,7 @@ EnableAdsMouseUnlock
 EnableAffiliateLinkOpenEvent
 EnableAgeRegionRestrictionCodes
 EnableAimMeshUploadTime
+EnableAmpV2CanUseInExperienceChat
 EnableAndroidAssetReaderOTAFix
 EnableAnimatorAnalyticsForRetargeting
 EnableAnimatorJointModificationMetrics
@@ -26477,8 +26606,8 @@ EnableAppflyerUIDReporting
 EnableAppInitTTILog
 EnableAppLifecycleObserverService
 EnableAppPolicyDefaultsFile
-EnableAppRatingPrompt
 EnableAppRatingPrompt2
+EnableAppRatingPrompt3
 EnableAppTracing3
 EnableArenas
 EnableAssetFailedEvent
@@ -26516,6 +26645,8 @@ EnableBuiltInAEC
 EnableBuiltInAGC
 EnableBuiltInNS
 EnableBulkPurchase
+EnableCacheDirSizeTelemetry
+EnableCacheDirSizeTelemetryHundredthPercent
 EnableCameraByDefault
 EnableCancelInputEvent
 EnableCancelSubscriptionApp
@@ -26538,7 +26669,6 @@ EnableChatInputBarConfigurationAutocompleteEnabled
 EnableChatInputBarConfigurationPropertyIsFocused
 EnableChatInputBarConfigurationPropertyKeyboardKeyCode
 EnableChatInputBarConfigurationStyleCustomizations
-EnableChatLocaleId
 EnableChatWindowMessageProperties
 EnableCheckAdGuiData
 EnableCheckHarmonyBeforeShowAd
@@ -26641,6 +26771,7 @@ EnableErrorColorPreset
 EnableEvaluateStateMachine
 EnableEventIdentifier
 EnableEventsForCreateSurfaceAppearance
+EnableEventsForCreateSurfaceAppearanceNew
 EnableExcludeDeletedForListKeys
 EnableExpandedAllowlistForAds
 EnableExperienceDetailsPageDevProductPurchase
@@ -26688,7 +26819,6 @@ EnableGridLayoutModifier
 EnableGuacLastUpdatedUserSwitchForceFetch
 EnableGuacV2UrlForAppPolicy
 EnableGuiDevEnv
-EnableGUIStateChangeInVC
 EnableHapticMixerMaxNumOfEffects
 EnableHapticOnGUI
 EnableHarmonyForGmaAd
@@ -26706,7 +26836,6 @@ EnableIECSurfaceAppearanceSupport
 EnableIECWrapLayerSupport
 EnableImmediateSendingToHive
 EnableIndentationRulers
-EnableInExperienceChatTimeout
 EnableInExperienceRealWorldCommerce
 EnableInfluxKeyValidate
 EnableInGameMenuChrome
@@ -26801,6 +26930,7 @@ EnableOnTypeAutocomplete
 EnableOptionalVRDeviceCreation
 EnableOutOfMemoryGraphicsCrashReason2
 EnablePackageVerbAsyncFalsePositiveCount
+EnablePageLayoutModifier
 EnablePartyDevAPI
 EnablePartyEmulatorService
 EnablePartyValidationRetry
@@ -26837,6 +26967,8 @@ EnablePlaceFileUploadTempstoreS3Bucket
 EnablePlaceGzipEffectEvaluationTelemetry
 EnablePlaceVersionHistory
 EnablePlayerNameRequestAsyncThrottle
+EnablePlayerNamesEnabledSetting
+EnablePlayerNamesEnabledSettingEngineFeature
 EnablePlayerOwnsBundleApi
 EnablePlayerPartyId
 EnablePlayerViewApi
@@ -26855,7 +26987,6 @@ EnablePreferredInput
 EnablePreferredTextSizeAccessGuiService
 EnablePreferredTextSizeGuiService
 EnablePreferredTextSizeScale
-EnablePreferredTextSizeSecurityContext
 EnablePreferredTextSizeSetting
 EnablePreferredTextSizeSettingInMenus2
 EnablePrefetchTimeout
@@ -26875,6 +27006,7 @@ EnableRealtimeProtocolForAllV601
 EnableRealtimeProtocolRolloutV601
 EnableRealtimeProtocolRolloutV601HundredthPercent
 EnableRealWorldCommercePOC
+EnableRecommendationParameterCheck
 EnableRecommendationService
 EnableReferredByPlayerIdTelemetry
 EnableReflectionCrashFixLoggingPercent
@@ -26897,6 +27029,7 @@ EnableRewardedVideoExperimenationData
 EnableRewardedVideoInAdService
 EnableRewardedVideoStudioTestingForIneligibleExperiences
 EnableRibbonPlugin
+EnableRibbonPluginFeature
 EnableRibbonTour
 EnableRIDE11651
 EnableRidlCommandExample
@@ -26908,7 +27041,7 @@ EnableRobloxCreditPurchase
 EnableRobloxGuiFocusedChangedEvent
 EnableRunRenderJobCheck
 EnableSaleLocationShopAndExperiencesDevApi1
-EnableScreenshotUpload
+EnableSavePlaceAsyncInCreation
 EnableScriptCollabByDefaultOnLoad
 EnableSeamlessForceOTAUpdate2
 EnableSecureTeleport
@@ -26935,10 +27068,13 @@ EnableSound
 EnableSoundPreloading
 EnableSoundPreviewForAudioPlayer
 EnableStateTelemetryForAssets
+EnableStreamingBitStreamStateFlags
+EnableStreamJobMinTime
 EnableStudioIXPFlags
 EnableStudioPluginsParallelRequests
 EnableStudioServiceOpenBrowser
 EnableStudioStartupCounter
+EnableStudioStreaming
 EnableStudioSubscriptionDetailCacheing
 EnableStudioUserActionCounter
 EnableStyleEditor
@@ -26951,7 +27087,6 @@ EnableSystemFontCheck
 EnableTableAliases2
 EnableTagEditorPluginRibbonButton
 EnableTCSChatTranslation
-EnableTCSChatTranslationABTest
 EnableTCSChatTranslationLanguageSwitcher
 EnableTeamCreateRemoteSaveValidator
 EnableTelemetryService
@@ -26978,6 +27113,7 @@ EnableTunableClientReplicatorStatsForSessionTracking
 EnableU13SendIrisInvitePermissions
 EnableUnexpectedServiceInstanceCountsTelem
 EnableUniversalAppUserAgentOnMacAndWin32
+EnableUploadTelemetry
 EnableUserCodeAssistAcCompatibleExperiment
 EnableUserFacingCodeAssistStreaming
 EnableUserPrivacyUnauthorizedMessage
@@ -26990,7 +27126,6 @@ EnableValidateEngineContextLiveTrace
 EnableVerboseFailedUrl
 EnableVertexAttribArray
 EnableVideoAds
-EnableVideoAdsUpdatedImpressionDefinition
 EnableVideoApiStudio
 EnableVideoCaptureApi
 EnableVideoCaptureApiLua
@@ -27156,7 +27291,6 @@ Engaiolamento
 Engaiolando
 Engellendi
 Engine.Harmony
-Engine.Interactivity.InputAndControls.PointAndClickDefault
 Engine.Interactivity.UICreation.NotchScreenSupport
 Engine.MemoryAdvice
 Engine.Network
@@ -27993,6 +28127,12 @@ EXPCHAT826_CLIENT
 EXPCHAT826_LAST
 EXPCHAT826_RCC
 EXPCHAT878
+ExpChatLoadSuccessChange
+ExpChatLoadSuccessThrottlePermyriad
+ExpChatMessageClientRendered
+ExpChatMessageClientRenderedThrottlePermyriad
+ExpChatWindowScrollChange
+ExpChatWindowScrollThrottlePermyriad
 Expectation
 Expectations
 ExpectedAccessoryPublishPriceRobux
@@ -28023,7 +28163,6 @@ ExperienceCoordinator
 ExperienceDetailPage.EnableSubscriptionPurchase
 ExperienceDetailsPage
 ExperienceDetailsPageDevProductPageSize
-ExperienceEventAPISEnabled
 ExperienceEventsEngineAPIEnabled
 ExperienceFactory
 ExperienceId
@@ -28131,7 +28270,6 @@ Experimente
 Experimentelle
 ExperimentGroup
 Experiments
-ExperimentVariantDistributionVariable
 ExpertEncoding
 Expiration
 ExpirationDetails
@@ -28160,6 +28298,7 @@ Explorateur
 Exploration
 Explorer...
 ExplorerAllActionsContextual
+ExplorerBoundToAndWildcardSearch
 ExplorerCarryOverDockState
 ExplorerCollapseAll
 ExplorerDontIncrementNamesForDuplicates
@@ -28178,7 +28317,6 @@ ExplorerFiltering]
 ExplorerFilteringSortBools
 ExplorerFilterThrottleHundredthsPercent
 ExplorerFixCSGButtonLogic
-ExplorerFixZoomExtentsAction
 ExplorerGuest
 ExplorerHandleCoreGuiVisibilityProjectSetting
 ExplorerHeader
@@ -28190,6 +28328,7 @@ ExplorerIncrementNamesStartAtOne
 ExplorerInsertPartIntoSelection
 ExplorerMenuActionClicked
 ExplorerMousePress
+ExplorerNewCheckBoxIcons
 ExplorerOrder
 ExplorerPackageIconColumn
 ExplorerPackageIconIxpCheck
@@ -28212,11 +28351,9 @@ ExplorerSelectAll
 ExplorerSelectBlockSize
 ExplorerServiceVisibilityService
 ExplorerShowAllSettingCorrectness
-ExplorerSusMacHoverHack
 ExplorerTeamCreateIndicators
 ExplorerTreeWidget
 ExplorerTreeWidgetItem
-ExplorerUndockedHover
 ExplorerWidget
 ExplorerWidgetFilterUsed
 ExplorerWidgetFilterUsed_FTU
@@ -28257,6 +28394,7 @@ Exportiere
 Exportieren
 Exportieren.
 Exportiert
+ExportInstigated
 ExportInterfaceTimeOutMilliseconds
 ExportLogsPartialSuccess
 ExportLogsPartialSuccess.error_message
@@ -28325,6 +28463,7 @@ ExtendedMetricsOnPlacePublishPackage
 ExtendedReports
 ExtendInitialExpiryTest
 ExtendLightRangeTo120
+ExtendLightRangeTo120HideRolloutPropertyAndEnable
 ExtendLightRangeTo120ThreePhaseDefaultEnabled
 ExtendLightRangeTo120ThreePhaseRolloutProperty
 ExtensionConfig
@@ -28400,12 +28539,12 @@ ExternalURL
 ExternalUserPluginLoadDenyList
 ExtmapAllowMixed
 ExtraAssetFolder
+ExtraAssetsGenerator
 ExtraBold.otf
 ExtraContent
 EXTRACT_AND_EXPAND
 EXTRACT_ONLY
 Extracting
-ExtractMoreExceptionInformation
 ExtractNSExceptionInformation
 ExtractSessionInfo
 ExtractSessionInfo_n
@@ -28587,8 +28726,6 @@ FacialAnimationStreamingSubsessionStats
 FacialAnimationStreamingUseEnableFlags2
 FacialAnimationStreamRccThrottleServerCount
 FacialAnimationSupportFeature
-FacialBounds
-FacialExpressiveness
 FacingCamera
 FacingCameraWorldUp
 FacingDirection
@@ -28845,14 +28982,11 @@ FastConvOutdoor
 FastConvViewportFrameEnvMap
 FasterContentIdFormat
 FasterDelayDsp
-FasterFontInfoDeserialization
-FasterInstanceStringStream
 FasterJsonGetString
 FasterLocalizationTableParsing
 FasterMappedFileFlush
 FasterOptionalCoordinateFrame
 FasterPreciseTime
-FasterReplicatorStringStream
 FasterTranslation
 FastFlagConfig
 FastFlagsLoadTime
@@ -29120,6 +29254,7 @@ FetchedJoinScriptTime
 FetchedScriptToPlayerConfTime
 FetchedScriptToPlayerConfTime_Country_
 FetchedScriptToPlayerConfTime_Luobu
+FetchExtraAssets
 FetchFailedNoExperienceAccess
 FetchHighDpiProfilePic
 FetchJoinConfig
@@ -29229,6 +29364,8 @@ File_Sync_Persistence_Record_V1
 File_Sync_Persistence_Time_Last_Cleaned
 FileAddedOrModified
 FILECACHE]
+FileCacheClearRecursive
+FileCacheClearYield
 FileCacheDirAttemptCount
 FileCacheDirSizeYield
 FileCacheDisableFileBuffer
@@ -29238,7 +29375,6 @@ FileCacheHaltRename
 FileCachePermReserveSize
 FileCacheReserveSize
 FileCacheSelfTestMs
-FileCacheSkipPermsCleanup
 FileCacheTryCopy
 FileChanged
 FileChangeTimerFinished
@@ -29283,6 +29419,7 @@ FileOptionsR
 FileParsingError
 FilePathBase
 FilePathReservedForAutoSave
+FilePathString
 FilePermissions
 FilePublishPlaceAsCreate
 FileReader
@@ -29313,6 +29450,7 @@ FileSyncItem
 FileSyncItems
 FileSyncM3Logging
 FileSyncM3Logging]
+FileSyncM3RescanEvent
 FileSyncManager
 FileSyncManager_M2
 FileSyncManagerListener
@@ -29334,7 +29472,6 @@ FileSyncUtils
 Filesystem
 FileSystem
 FileSystemGetCacheDirectoryPointerCacheResult
-FileSystemOpsStringView
 FileSystemService
 FileSystemWalker
 FileSystemWalkerNonRecursive
@@ -29518,6 +29655,7 @@ FinalQEngineWrapperWidgetResized
 FinalQueueSize
 FinalRefCountedObject
 FinalRequests
+FinalSolution
 Find_Replace_All
 Find_Replace_All_Options
 FindAllHighlightsInScriptEditor
@@ -29692,9 +29830,9 @@ FixAccoutrementWeldCreationForCameras
 FixAdConstantsNewAllowedTypesOnly
 FixAdsClangTidyModernizeUseEmplaceBack
 FixAndroidBackgroundedSession
+FixAndroidNoMic
 FixAppSuccssMult
 FixAssetFetchRequestRace
-FixAvailableSpaceCleanup
 FixAVBURST15480
 FixBacktraceUniqueID
 FixBaseThreadPoolShutdownTimeout
@@ -29704,6 +29842,7 @@ FixBuildDeformerSolutionScaling
 FixCatalogSearchParamsAssetType
 FixCharacterAppearanceLoaded
 FixCircularBuffer
+FixClearGhostText
 FixCLI125315
 FixCLI69083_2
 FixCLI96085
@@ -29713,11 +29852,16 @@ FixCloudWarnings
 FixColorSequenceColorPickerCrash
 FixCommerceWebviewAutoDismiss
 FixCompositorAtomicsGc
+FixConsecutiveMultiTextEditEdgeCase
+FixConstraintScaleChangeCrash
 FixContentProviderAPIsForAssetProvider
 FixContextInfoShutdown
+FixCopyPasteFocus
 FixCountOfUnreadNotificationError
 FixCREATORBUG5135
+FixCursorUnsafe
 FixDebounceReset
+FixDebugDropdownInPluginDebug
 FixDiffToolSpacing
 FixDisabledHelpMenuActions
 FixDisconnectErrorCode
@@ -29756,6 +29900,7 @@ FixFileMenuFiles
 FixFileMenuRecents
 FixFlakyTimeFixture
 FixFlexLayoutASTextScaledInfiniteLayout
+FixFlipbookCheck
 FixForBulkPresenceNotifications
 FixFreefall
 FixFreefallCleanup
@@ -29764,6 +29909,7 @@ FixGetHumanoidForAccessories
 FixGLResourceFreeOnDeviceShutdown
 FixGradientEditorColorSelectionOnMacOS
 FixGuiInputForDeferredSignals
+FixHasDecalsForEditableImage
 FixHlsStringCopying
 FixHttpClientAbortBgReqBug
 FixHumanoidStateTypeNameNullTelemetryCrash
@@ -29774,6 +29920,7 @@ FixInstancePickerDeadlock
 FixInterpolationMovementCallbacks
 FixIntervalStatsSynchronization
 FixIntervalStatStartSamplingThisUse
+FixIsrDeferredPropResize
 FixJobTimeOfLastStep
 FixJoinMismatchReport
 FixJoinMismatchSkip
@@ -29817,7 +29964,6 @@ FixPropertiesTabFreezeOnDebugger
 FixRakPingTraceReport
 FixRapidSoundStopStart
 FixRawDumpAlignment
-FixRayAABBEdgeCase
 FixRedundantAllocationInAnimator
 FixRemindMeButtonStall
 FixRenderUnifiedDitheredSurfaceAppearance
@@ -29833,10 +29979,10 @@ FixScreenScaleAlwaysBeingOne
 FixScrollingDamping
 FixSDLGameControllerId
 FixServeAdNewAllowedTypesOnly
-FixServerQueuePushBack
 FixSessionMetricTeleportCondition
 FixShowHideServiceActionVisibility
 FixSkinningLifetimeAndBugs
+FixSkinningTransferProjectionError
 FixSkipDeleteEvents
 FixSkyBoxTextureBlurrines
 FixSmallSurfaceGuiMouseInput
@@ -29851,18 +29997,16 @@ FixStartPageOpenedInEditMode
 FixStrangerThingsIssueUsingAdditionalInvalidationSignal
 FixStudioClientRepStats
 FixStyleBaseNullPointerCrash
-FixStyledTextConfidential
 FixSurfaceGuisBreakingAfterRespawn
 FixTelemetryBadIntegerEncoding
 FixTelemetryForPacketMissLongTerm
 FixTestServiceStart
 FixTextboxSinkingInputOfOverlappingButtons
-FixTextBoxStyledInput
 FixTextMismatchAndOverlap
 FixTextStrokeModifierAccess
 FixTextureCompositorFramebufferManagement2
-FixTextWithCompositionCheck
 FixTimestampStall
+FixToggleMenuIconForTheFive
 FixToolsToInstanceCluster
 FixTooltipShowDelay
 FixTrackWeightBreakingStop
@@ -29887,6 +30031,7 @@ FixVideoCaptureRenderedAsImage
 FixVideoCaptureUploadCrashAfterDelete
 FixVisibleStyledChanged
 FixVRMenuAccess
+FixVulkanGetSwapChainSizeCrash
 FixWalkRunTimewarp
 FixWarnLongRunningScriptsOutputSpam
 FixWindowAverageUnderflow
@@ -30071,6 +30216,7 @@ FmodAudioSinkOutputs
 FMODChannel_
 FMODChannelIfPlaying
 FmodErrors
+FmodFallbackAaudioToOpensl
 FmodInitError
 FMODInitFailure
 FmodInitNoSoundError
@@ -30207,6 +30353,7 @@ ForceLimitsEnabled
 ForceLocalPatchConfigVersionValue
 ForceNewAssistant
 ForceNewPaBlob2
+ForceOffMeshDistanceBasedPriorityUpdates
 ForceOffMSAAForQuestVR
 ForceOffShadowForQuestVR
 ForcePartitionResilience
@@ -30313,6 +30460,7 @@ Fortsetzung
 ForUniverse
 ForUntrustedDownstream
 ForUntrustedUpstream
+ForUserInteraction
 FORWARD_ONLY
 FORWARD_TSN
 ForwardAsync
@@ -30769,6 +30917,7 @@ GainFocusEnterIsFalse
 GainMakeup
 Galerieansicht
 GalleryPermission
+GalleryStopGap
 Galoppierender
 GAME_EXPLORER_UPDATE
 GameAction
@@ -30876,13 +31025,12 @@ GameNetPVHeaderRotationOrientIdToleranceExponent
 GameNetPVHeaderTranslationZeroCutoffExponent
 GameNotFound
 GamepadCameraSensitivity
+GamepadCardinalFix
 GamepadConnected
 GamepadCursorEnabled
 GamepadCursorOverrideByUniverseID
 GamepadCursorOverrideByUniverseIDEnabled
 GamepadCursorRadius
-GamepadDirectionalOverrideByUniverseID
-GamepadDirectionalOverrideByUniverseIDEnabled
 GamepadDisconnected
 GamepadEmulationEnabled
 GamepadEmulator
@@ -30903,9 +31051,7 @@ GamepadModeSwitchKeyCode
 GamepadPointAndClick
 GamepadScrollPagesPerSecondThousandths
 GamepadSelectionPerformanceEnhancements
-GamepadSelectionPerformanceImprovements
 GamepadSelectionSpeed
-GamepadSelectionUpdateLayoutOptimization
 GamepadService
 GamepadService.EnableGamepadCursor
 GamepadServiceProp
@@ -31186,6 +31332,7 @@ GenericChallengeRetryExhausted
 GenericChallengeService
 GenericCodecDependencyDescriptor
 GenericCounter
+GenericCreateSurfaceAppearanceMaterial
 GenericDescriptorAdvertised
 GenericDescriptorAuth
 GenericError
@@ -32409,6 +32556,7 @@ GetSunDirection
 GetSupportedGamepadKeyCodes
 GetSwapchainCounterEXT
 GetSwapchainImagesKHR
+GetSwapChainSizeSupportBiggerSize
 GetSwapchainStateFB
 GetSwapchainStatusKHR
 GetSwapIntervalEXT
@@ -32688,6 +32836,8 @@ GiveUpTime
 Giydirmeyi
 GizmoManager
 GizmoRaycast
+GizmoRaycastHitAdornment
+GizmoReference
 GizmoScaleAction
 GjkBulkTileThreshold
 GjkLinearCastMaxIterations
@@ -32840,6 +32990,7 @@ GLSL.std.450
 GltfAddAnimationEndTimeEpsilonForFacs
 GltfAssumeNeutralIsAtZero
 GltfBeginAnimationsFromFirstFrame
+GltfExporter
 GltfExporterTerrainChunk
 GltfFlipEulerAngleOrder
 GltfParseFileLevelExtras
@@ -32921,7 +33072,6 @@ Grabando...
 GrabCursor.png
 GrabRotateCursor
 GrabRotateCursor.png
-GrabsMouse
 Gracchiare
 GradientEditor
 GradientEditorAdapter
@@ -32973,6 +33123,7 @@ GraphicsGLEnableHQShadersExclusion
 GraphicsGLEnableSuperHQShadersExclusion
 GraphicsGLES3BindBufferPaddingAllowList
 GraphicsGLES3ConstantBufferSupportDenyList
+GraphicsGLES3FixBorderColorCheck
 GraphicsGLES3FixNonAlignedCast
 GraphicsGLES3InstancingSupportDenyList
 GraphicsGlesAdrenoMTBlacklist
@@ -33397,7 +33548,6 @@ GrpcXdsBootstrap
 GrpcXdsClient
 GrpcXdsTransport
 GrpcXdsTransportFactory
-Grundbausteine
 Grundeinstellungen
 Grundlagen
 Grundlegende
@@ -33461,7 +33611,6 @@ GuiImageMixin
 GuiImagePlaceholder.png
 GuiInputUserCFrame
 GuiLayerCollector
-GuiLayerCollectorCombined
 GuiLayerCollectorGetsPositionForGamepadInputs
 GuildedOverlaySwapChainOperation
 Guillemets
@@ -33677,7 +33826,6 @@ HapticBufferSamplesPerBuffer
 HapticBufferSamplesPerSecond
 HapticBufferUpdateTimerMS
 HapticEffect
-HapticEffectCreateServiceDependency
 HapticEffectGUIUsageEvent
 HapticEffectProp
 HapticEffects
@@ -33685,12 +33833,10 @@ HapticEffectsBetaFeature
 HapticEffectsBetaFeatureRoleSet
 HapticEffectsBetaFeatureRolloutPercent
 HapticEffectsBetaFeatureUrl
-HapticEffectTelemtry
 HapticEffectType
 HapticEffectUsageEvent
 HapticMixer.run
 HapticMixerMaxNumOfEffects
-HapticRemoveSetterFlag
 HapticService
 HapticService.getNextHapticIntensities
 HapticServiceAPIV1UsageEvent
@@ -33814,7 +33960,6 @@ HBBBBBBBBBBBBBB
 Hbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaa
 HBHCHDHEHFHGHHIHJHKHLHMHNHOHPHQHRHSHTHUHVHWHYHjHkHqHvHwHxHyHz
 HcmAccessLogOptions
-HCSimRefactorConstraintForces
 Head_OuterCage
 HeadBaseRangeMax
 HeadBaseRangeMin
@@ -34031,6 +34176,7 @@ HidD_SetFeature
 HidD_SetNumInputBuffers
 HidD_SetOutputReport
 HiddenByInstanceClass
+HiddenCage
 HiddenClass
 HiddenEngineWidget
 HiddenSelectionEnabled
@@ -34060,7 +34206,6 @@ HideWidgets
 HidP_GetCaps
 Hierarchia
 Hierarchie
-HierarchyInternal
 Hierarquia
 HIGH_PRIORITY
 HighCompression
@@ -34331,6 +34476,7 @@ Http2_PendingQueueSize
 Http2_PendingQueueSizeForHost
 Http2_QueueTime
 Http2_SendToCallbackStartTime
+Http2CurlEnabledNoExternal
 Http2DetailedStats
 Http2Enabled
 Http2ProtocolOptions
@@ -34544,7 +34690,6 @@ HttpErrCode
 HttpErrMessage
 HttpErrorCode
 HttpErrorMessage
-HttpEsPendingQueueSize
 HttpExemptFtsReqHostLimit
 HttpExponetialRetryBaseInterval
 HttpFailed
@@ -34937,6 +35082,7 @@ HumanoidStatus
 HumanoidValidation
 HumanReadableTypeError
 HumpDownHump
+HundredthPercent
 Hungarumlautsmall
 HungScript
 HungScriptPermyriad
@@ -34982,6 +35128,7 @@ IActionManager
 IActionsBridge
 IActivityHistoryManager
 Iacutesmall
+IAdornableDestructorCalls
 IAI_IbIdIfIgIhIlImInIpIrIu1c1e1i1oJ0J1J2JaJcJeJiJoJsJtJ
 IAI_IbIdIfIgIhIlImInIpIrIuI
 IaIcIeIiIoI
@@ -34998,6 +35145,7 @@ IASRealInputObjects
 IASReportPlaceStatUsage
 IASReportPlaceStatUsageHundrethsPercent
 IASResetsStateOnWindowFocusChanged
+IASResponseCurve
 IAssetAccessController
 IAssetDataModelANRListener
 IAssetDataModelManager
@@ -35005,6 +35153,7 @@ IAssetExportController
 IAssetInsertController
 IAssetPluginErrorReporter
 IASSimplifyProperty
+IAssistantApplication
 IAssistantBridge
 IAssistantExperimentation
 IAssistantOutputConnection
@@ -35155,6 +35304,7 @@ IEAAXPEAD00
 IEAAXPEAPEAD0PEAH001
 IEAAXW4State
 IEAvatarAutoSetup
+IEAvatarAutoSetupAllowSurfaceAppearance
 IEAvatarAutoSetupBetaFeature
 IEAvatarAutoSetupBetaFeatureRoleSet
 IEAvatarAutoSetupBetaFeatureRolloutPercent
@@ -35164,6 +35314,7 @@ IEAvatarAutoSetupClientError
 IEAvatarAutoSetupDataModelObserver
 IEAvatarAutoSetupHandleThrottling
 IEAvatarAutoSetupProgress
+IEAvatarAutoSetupRemoveInternalJobId
 IEAvatarAutoSetupTakeBodyData
 IEAvatarAutoSetupValidateInput
 IEBA_NPEAXAEBW4EFbxType
@@ -35204,6 +35355,7 @@ IgnoreLagOutsideStudio
 IgnoreLayeredClothingHandleScale
 IgnoreListFlag
 IgnoreLocalTimeForStaleFlags2
+IgnoreMeshPreciseMode
 IgnoreOrphanStyleSheets
 IgnoreParentAudioOcclusion
 IgnoreProbesLowerThanNetworkStateEstimate
@@ -35241,6 +35393,7 @@ IkControlConstraintSupportDefaultEnabled
 IkControlConstraintSupportProperty
 IkControlDeepProfile
 IkControlEnableAutopole
+IkControlFixSetup
 IkControlFree
 IkControlManager
 IKControlProp
@@ -35254,7 +35407,7 @@ IkSolverFreeUseOgFabrikSolver
 IKSolverValidateChain
 IkTwoBoneBetterSolver
 ILegacyStudioBridge
-IllegalMessageToSessionLengthMs
+IllegalMessageTo
 IllegalObjectToRunInUIThread
 IllegalOperation
 IllegalValue
@@ -35312,7 +35465,6 @@ ImageRectOffset
 ImageRectSize
 ImageResampleMode
 ImageResourceController
-ImageRetryWithAssetFormat
 ImageReuseMip0FromGImage
 ImageScale
 ImageSelected
@@ -35750,11 +35902,20 @@ Inferencja
 InferPolarity
 InferredCrash
 InferredCrash]
+InferredCrashBacktraceReporter
+InferredCrashBacktraceReportLog
+InferredCrashBacktraceReportLog]
 InferredCrashDisableUsingLockFile
 InferredCrashFixAppVersionNull
 InferredCrashHandleInf
 InferredCrashOverwriteUserId
 InferredCrashPlaySessionCount
+InferredCrashReportBacktraceToken1
+InferredCrashReportBacktraceTokenSync1
+InferredCrashReportSynchronous
+InferredCrashReportToBacktrace
+InferredCrashReportToBacktraceHundredthPercent
+InferredCrashReportToBacktraceRegister
 InferredCrashSkipUpdatingUserIdOnLogOut
 InferredCrashStatsStorage
 InferredCrashUpdateUserId
@@ -35774,6 +35935,9 @@ InFlight50BTo100B
 InFlightAvg
 InFlightLessThan50B
 InFlightMax
+InflightMeshesBboxesColorByDistance
+InflightMeshesBboxesColorDistMax
+InflightMeshesBboxesColorDistMin
 InFlightMin
 Influenced
 Influenciado
@@ -36075,6 +36239,7 @@ InputActionType.Bool
 InputActionType.Direction1D
 InputActionType.Direction2D
 InputActionType.Direction3D
+InputActionType.ViewportPosition
 InputAudioSink
 InputBegan
 InputBeganChangedEnd
@@ -36359,6 +36524,7 @@ InstanceProxyDoesNotExist
 InstancePtr
 InstanceQuota
 InstanceQuotaMemoryPressureAvg
+InstanceReconnectTeleportFailedCounter
 InstanceRelationship
 InstanceRelationshipImpl
 InstanceRemoved
@@ -36602,7 +36768,6 @@ InternalExportAddTerrainChunkMetadata
 InternalExportAllowNullDataModel
 InternalExportCheckIfFacsControlsExists
 InternalExportCheckIfFacsControlsExistsAgain
-InternalExportCustomRigFacsSupport
 InternalExportDontIgnoreDynamicHeadTransform
 InternalExportEditableImages
 InternalExportFACSCorrectiveSupport
@@ -36621,6 +36786,7 @@ InternalExportUpdateFileMeshDataForFacsJoints
 InternalExportUse16uForJointIndexes
 InternalExportUseGeneratorInterface
 InternalExportUseScaleWhenCalculatingJointTransforms
+InternalExportUseSharedPointerExport
 InternalExportWrapContentProviderFetchInTryCatch
 InternalFeaturesButton
 InternalFeaturesButtonClicked
@@ -36754,6 +36920,7 @@ IntoActionV2
 IntoAtOriginalLocationAction
 IntoFileAction
 IntoFromFileComplete
+IntoMeshesBudget
 IntPropertyItem
 Intrattenimento
 IntrinsicSize
@@ -36960,7 +37127,6 @@ IPlaceManager
 IPlaceOpener
 IPlaceSessionContext
 IPlaceSessionContextBridge
-IPlaceSessionModel
 IPlaceSessionStateController
 IPlaceSessionTaskRegister
 IPluginLegacyApiProvider
@@ -37132,7 +37298,6 @@ IsInvalidEntry
 IsInvalidExit
 IsInviteFriendsEnabled
 IsKinematic
-IslandBatchSolver
 IslandCountDataAvgPerBatch
 IslandCountDataPointsPerBatch
 IslandCountMaxValuePerBatch
@@ -37182,6 +37347,8 @@ IsolatedContainers
 ISOLatin1Encoding
 IsOnInstance
 IsOnMainThread
+ISoundEffectImplEnabled
+ISoundGroupImplEnabled
 ISoundImplEnabled
 IsOutgoingDataWaiting
 IsPackageImport
@@ -37384,8 +37551,10 @@ Italienische
 ITeamCreateManager
 ITeamCreateSaver
 ITeamTestManager
+ITeamTestModeChecker
 ITeamTestWorkflowManager
 ItemAndMaybeCloseDialog
+ItemAssetIds
 ItemAvgTimeInAllQueues
 ItemAvgTimeInAllQueues_
 ItemAvgTimeInAllQueuesByPlayer_Tier_
@@ -37608,6 +37777,7 @@ JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JJJJVZZZZ____jxxxxxxxxx
 JKLMNOPQRSTU
 JNAJNEJNIJ
+JobCanceled
 JobCancellation
 JobCompleted
 JobCondition
@@ -37645,6 +37815,7 @@ JoinCrossExpVoiceWithPartyIdFeature
 JoinDataCompressionLevel
 JoinDataInstances
 JoinDataItem
+JoinDataItemEarlyReturnAllocation
 JoinDataItemEstimatedCompressionRatioHundreths
 JoinDataItemV2
 JoinDataRxStats
@@ -37669,6 +37840,7 @@ JoinFailurePlace
 JoinFailureReason
 JoinGameAttemptEphemeralCounter
 JoinGameFailureInfluxHundredthsPercentage
+JoinGamePlaceLauncherHttpResponse
 JoinGameSuccessEphemeralCounter
 JoinGameSuccessV2POCCounter
 JoinGameSuccessV2POCCounterForRollout
@@ -38048,7 +38220,6 @@ Keys.service
 KEYS_SUBSET
 KeySequenceEdit
 KeySequenceList
-KeysFromDB
 KeysHeaderPath
 KeyShiftDown
 KeysJsonPath
@@ -38299,6 +38470,7 @@ Kwaterniony
 Kwestionariusz
 Kx1KN5KN9KN
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
+L\N2LTF\L2N
 LA_SHAPE_MAX
 LABEL_LITERAL
 LABEL_OPTIONAL
@@ -38564,7 +38736,6 @@ LayoutRestored
 LayoutSettings
 LayoutUpdate
 LazyReporterAttachClientGroupName
-LazyReportPollCount
 LBCbits_inst
 LBCenc_inst
 LbEndpoint
@@ -38830,6 +39001,8 @@ LegacyRibbon
 LegacyShadows
 LegacySimulcastLayerLimit
 LegacySound
+LegacySoundEffectImpl
+LegacySoundGroupImpl
 LegacySoundImpl
 LegacyStatsCollector
 LegacyStudioBridge
@@ -39201,6 +39374,7 @@ LoadAnnotations
 LoadApiLayers
 LoadAsset_BatchedResolution_DelaySec
 LoadAsset_IndividualResolution_DelaySec
+LoadAssetAsync
 LoadAssetDelay
 LoadAssetDelayDiagHundredthsPercentage
 LoadAssetDelayInfluxHundredthsPercentage
@@ -39704,7 +39878,6 @@ LOGCHANNELS
 LogChunkSize
 LogClientLoadToAvatarLoad
 LogCounter
-LogCullingAdditionalTelemetry
 LogCullMaxLogsToKeep
 LogCustomEvent
 LogDurationEvent
@@ -39951,7 +40124,6 @@ LowerLeftArrow
 LowerLimit
 LowerLipSuck
 LowerRightArrow
-LowerTorH9
 LowerTorso
 LowerTorso_Geo
 LowerTorso_OuterCage
@@ -40213,14 +40385,12 @@ LuaStepIntervalMsOverrideEnabled
 LuaTextboxFocusChanged
 LuaTTIRequireCountV2
 LuauAutocompleteCheckTimeoutMs
-LuauAvoidExcessiveTypeCopying
 LuauBuffer
 LuauCheckRecursionLimit
 LuauCodegen
 LuauCodegenAggregateStatsEvent
 LuauCodegenAggregateStatsEventCooldownSec
 LuauCodegenAggregateStatsEventHundredthsPercent
-LuauCodeGenAllocationCheck
 LuauCodeGenBlockSize
 LuauCodeGenFixRexw
 LuauCodeGenLiveSlotReuseLimit
@@ -40233,7 +40403,6 @@ LuauCodegenStatsEvent
 LuauCodegenStatsEventHundredthsPercent
 LuauCollapseShouldNotCrash
 LuauCompile
-LuauCompileCli162537
 LuauCompileInlineDepth
 LuauCompileInlineThreshold
 LuauCompileInlineThresholdMaxBoost
@@ -40255,12 +40424,13 @@ LuauDoNotBlockOnStuckTypeFunctions
 LuauDoNotPrototypeTableIndex
 LuauDontDynamicallyCreateRedundantSubtypeConstraints
 LuauEagerGeneralization4
-LuauEmptyStringInKeyOf
+LuauEmplaceNotPushBack
 LuauEnableDenseTableAlias
 LuauEnableWriteOnlyProperties
 LuauErrorYield
 LuauExecutionTaskInput
 LuauExecutionTaskOutput
+LuauExtendSealedTableUpperBounds
 LuauFileSyncActionEvent
 LuauFileSyncActionEventThrottleHundredthsPercent
 LuauFileSyncSessionEvent
@@ -40277,6 +40447,7 @@ LuauGcGoal
 LuauGcGoalCore
 LuauGcStepMul
 LuauGcStepSizeKb
+LuauGenericCounterMaxDepth
 LuauHeapDumpStringSizeOverhead
 LuauHeapFixModules
 LuauHeapInstanceReferenceReport
@@ -40291,15 +40462,15 @@ LuauIceLess
 LuauImplicitTableIndexerKeys3
 LuauIndentTypeMismatchMaxTypeLength
 LuauInferActualIfElseExprType2
-LuauInferPolarityOfReadWriteProperties
 LuauInstantiateInSubtyping
 LuauKeyword
 LuauKnowsTheDataModel3
 LuauLexMapComputeTime
 LuauLimitDynamicConstraintSolving3
+LuauLimitUnification
 LuauMissingFollowMappedGenericPacks
-LuauMissingSeenSetRelate
 LuaUnalteredChatMessage
+LuauNameConstraintRestrictRecursiveTypes
 LuauNativeExecutionEvent
 LuauNativeExecutionEventCooldownSec
 LuauNativeExecutionEventHundredthsPercent
@@ -40319,7 +40490,8 @@ LuauNormalizationReorderFreeTypeIntersect
 LuauNormalizeCacheLimit
 LuauNormalizeIntersectionLimit
 LuauNormalizeUnionLimit
-LuauOccursCheckForRefinement
+LuauNoScopeShallNotSubsumeAll
+LuauParametrizedAttributeSyntax
 LuauParseErrorLimit
 LuauParseIncompleteInterpStringsWithLocation
 LuauPopulateSelfTypesInFragment
@@ -40327,11 +40499,13 @@ LuauPrimitiveInferenceInTableLimit
 LuauProfiler
 LuauPushFunctionTypesInFunctionStatement
 LuauRecursionLimit
+LuauReduceSetTypeStackPressure
+LuauRefineDistributesOverUnions
 LuauRefinementTelemetryInfluxHundredthsPercentage
 LuauRefinementTelemetryInfluxPriorityHundredthsPercentage
 LuauRefineNoRefineAlways
-LuauRefineTablesWithReadType
-LuauRelateTablesAreNeverDisjoint
+LuauRefineOccursCheckDirectRecursion
+LuauResetConditionalContextProperly
 LuauReturnMappedGenericPacksFromSubtyping2
 LuauSafeStackCheck
 LuauSandboxTest
@@ -40340,7 +40514,6 @@ LuauScriptAnalyzerService
 LuauSeparateCompilerTypeInfo
 LuauSimplificationComplexityLimit
 LuauSimplifyAnyAndUnion
-LuauSimplifyOutOfLine2
 LuauSolverAgnosticRobloxDefinitions
 LuauSolverAgnosticSetType
 LuauSolverAgnosticStringification
@@ -40348,7 +40521,8 @@ LuauSolverAgnosticVisitType
 LuauSolverConstraintLimit
 LuauSolverRecursionLimit
 LuauSolverV2
-LuauSubtypingCheckFunctionGenericCounts
+LuauStepRefineRecursionLimit
+LuauSubtypingGenericsDoesntUseVariance
 LuauSubtypingNegationsChecksNormalizationComplexity
 LuauSubtypingReasoningLimit
 LuauSuggestionDistance
@@ -40359,6 +40533,7 @@ LuauTableTypeMaximumStringifierLength
 LuauTarjanChildLimit
 LuauTarjanPreallocationSize
 LuauTelemetryParseReturnTypeVariadicWithTypeSuffixHundrethsPercentage
+LuauTidyTypeUtils
 LuauTrackFreeInteriorTypePacks
 LuauTrackTypeAllocations
 LuauTransitiveSubtyping
@@ -40374,16 +40549,16 @@ LuauTypeInferTypePackLoopLimit
 LuauTypeLengthLimit
 LuauTypeMaximumStringifierLength
 LuauTypePathMaximumTraverseSteps
+LuauTypeSimplificationIterationLimit
 LuauUnifierRecursionOnRestart
+LuauUnifyShortcircuitSomeIntersectionsAndUnions
 LuauUniqueReferenceReportProcess
-LuauUpdateGetMetatableTypeSignature
 LuauUpdateSetMetatableTypeSignature
 LuauUseWorkspacePropToChooseCheckMode
 LuauUseWorkspacePropToChooseSolver
 LuauVisitRecursionLimit
 LuauWatchdog
 LuauWeakGlobalApiSurface
-LuauWriteOnlyPropertyMangling
 LuaVersion
 LuaWebService
 LuaWebSrvsNoAccess
@@ -40396,7 +40571,6 @@ LuobuDevPublishAnalyticsHundredthsPercentage
 LuoBuLeSi.
 LuobuLuaAuthEnabled
 LuobuModerationStatus
-LuobuModerationStatusAvailable
 LuobuWhitelisted
 Lustrzanka
 LVvuOx39]O
@@ -40624,7 +40798,6 @@ Massimizza
 MassPackageUpdater
 MassPackageUpdateTaskState
 MassPropertyMigration
-MassPropertyMigrationOverwritten
 MassPropertyMigrationTelemetry
 MassPropertyMigrationTelemetryRolloutScale
 MassPropertyMigrationTelemetryThrottle
@@ -40747,7 +40920,6 @@ MaterialPickerBetaFeatureRolloutPercent
 MaterialPickerBetaFeatureUrl
 MaterialPickerButton
 MaterialPickerFocusSearchbar
-MaterialPickerRenameGrabsMouseProp
 MaterialRenderedCount
 Materials.
 MaterialService
@@ -41158,6 +41330,7 @@ Megacluster
 MegaCluster
 MegaClusterInit
 MegaClusterInit]
+MegaClusterInstance
 MegaClusterNetwork
 MegaClusterNetwork]
 MegaClusterNetworkInit
@@ -41344,6 +41517,7 @@ MemoryStoreUpdateAsyncRetryMaxLimit
 MemoryStoreUpdateAsyncRetryUseExpBackoff
 MemoryTelemetryTimer
 MemoryTrackerCategoryStatsItem
+MemoryTrackingEnabled
 MemoryType
 MemoryUsage
 MemoryUsage]
@@ -41528,6 +41702,7 @@ MeshDivisionMedium
 MeshDivisionNarrow
 MeshEdgebreakerDecoderImpl
 MeshEdgebreakerEncoderImpl
+MeshesBudgetMb
 MeshesMaxRecorded
 MeshGenActivatedTelemetry
 MeshGenCompletedTelemetry
@@ -41539,6 +41714,7 @@ MeshGenPublishedAssetsTelemetry
 MeshHiddenSurfaceRemoval
 MeshHoleDetectedPreview
 MeshHoleDetectedWarning
+MeshHttpLoadingDelayMs
 MeshIdPropertyItem
 MeshImport
 MeshImportData
@@ -41563,6 +41739,10 @@ MeshLODTranscodeRolloutHundredthPercent
 MeshLODTranscodeRolloutMajorVersion
 MeshLODZoom
 MeshManager
+MeshManagerAdditionalDetailUtility
+MeshManagerDisableControlByHarmony
+MeshManagerGreedy
+MeshManagerMaxUtility
 MeshModifierInstance
 MeshNoHoleDetected
 MeshNumPreloadStillWaiting
@@ -41576,6 +41756,7 @@ MeshPartProp
 MeshParts.
 MeshPartsCount
 MeshPartToMeshAsset
+MeshPerLodStreaming
 MeshPhysicsDataPublish
 MeshPredictionSchemeConstrainedMultiParallelogramDecoder
 MeshPredictionSchemeConstrainedMultiParallelogramEncoder
@@ -41594,6 +41775,7 @@ MeshPredictionSchemeTexCoordsPortableDecoder
 MeshPredictionSchemeTexCoordsPortableEncoder
 MeshProcessing
 MeshPublish
+MeshReceived
 MeshScaleUnit
 MeshScaleWarning
 MeshSharedStringLength
@@ -41633,6 +41815,7 @@ MeshTypeEnum
 MeshUpdateRateLimitCapacity
 MeshUpdateRateLimitDuration
 MeshUpdates
+MeshUploadNoThrottling
 MeshVertBodyPartName
 MeshVertColor
 MeshVertPosition
@@ -41738,6 +41921,7 @@ MetadataCredentialsFromPlugin
 MetadataDate
 MetadataFilter
 MetadataFilterH
+MetaDataIndex
 MetadataKey
 MetadataKey.PathSegmentB
 MetadataKeyB
@@ -41839,6 +42023,7 @@ MF_MT_FRAME_RATE
 MF_MT_FRAME_SIZE
 MF_MT_INTERLACE_MODE
 MF_MT_MAJOR_TYPE
+MF_MT_MAX_KEYFRAME_SPACING
 MF_MT_SUBTYPE
 MFCreateAlignedMemoryBuffer
 MFCreateDXGIDeviceManager
@@ -41935,6 +42120,7 @@ MicroprofilerHtmlV3Output
 MicroprofilerHttpNoCache
 MicroprofilerLabelSubstitution
 MicroprofilerLabelSubstitution2
+MicroProfilerLimitStrings
 MicroProfilerMemoryScope
 MicroProfilerMemoryTrackingAlert
 MicroProfilerNetworkPlugin
@@ -41952,6 +42138,7 @@ MicroProfilerStrSanitizer
 MicroprofilerThreadIds
 MicroprofilerThreadSearch
 MicroprofilerToggleAction
+MicroProfilerVerticalBounds
 MicroprofilerVisibleAsync
 MicroProfilerWebServerEnabled
 MicroProfilerWebServerIP
@@ -42039,6 +42226,7 @@ MinimizeDistance
 MinimizeResamplingOnMobile
 MinimumDecreasingMemoryPerRegionPercent
 MinimumDeltaEBodyColorDifference
+MinimumDisplayAreaMM2ForMaximumQuality
 MinimumExtentsMillionths
 MinimumFreefallMoveDistanceInTenths
 MinimumHeight
@@ -42178,6 +42366,7 @@ MLModelDeliveryServiceEvent
 MLModelDeliveryServiceEventsThrottleHundredthsPercent
 MLModelDeliveryServiceModelOutcomeCounter
 MLModelDeliveryServiceMutex
+MLService]
 MMapAudioStreams
 MmapForMemProfStorageThrottle
 MMDeviceEnumerator
@@ -42322,6 +42511,8 @@ ModelStreamingBehavior
 ModelStreamingMode
 ModelStreamingModeCountsHundredths
 ModelTab.json
+ModelTranscoder
+ModelTranscoder]
 ModelTranslation
 ModelUpdate
 ModelVersionDependentAssetsNotOpenUse
@@ -42398,6 +42589,7 @@ Modifizierungen
 Modifizierungsdatum
 MODIFY_ONLY
 ModifyDate
+ModifyDmDelta
 ModifyFsDelta
 ModifySendMessage
 ModifySendStatus
@@ -42629,6 +42821,7 @@ MouthRight
 MoveAccessoriesForR15Rigs2
 MoveAdapterPartHitboxes
 MoveAllMeshPartsForR15Rigs
+MoveAttachmentAncestryEvents
 MoveButtonClicked
 MoveCanEditAssetPrintStatement
 MoveCenter
@@ -43525,16 +43718,15 @@ NewEffectModel
 NewExpirySec
 NewExplorer
 NewFeatureAlerts
-NewFindAllReplaceAll
-NewFindAllReplaceAllBetaFeature
-NewFindAllReplaceAllBetaFeatureRoleSet
-NewFindAllReplaceAllBetaFeatureRolloutPercent
-NewFindAllReplaceAllBetaFeatureUrl
+NewFindAllReplaceAll2
+NewFindAllReplaceAll2BetaFeature
+NewFindAllReplaceAll2BetaFeatureRoleSet
+NewFindAllReplaceAll2BetaFeatureRolloutPercent
+NewFindAllReplaceAll2BetaFeatureUrl
 NewFindReplaceAllApiEnabled
 NewFindReplaceTasker
 NewFormatCollisionGeometryType
 NewGeometryPipeline
-NewGuiSelectionHighlights
 NewHapticService
 NewHostsUntilFirstHc
 NewHumanoidPartUpdated
@@ -43988,6 +44180,10 @@ NotifyMovingCallbackThreadingThreshold
 NotifyOnReady
 NotifyPartyVoiceChangerDisable
 NotifyPartyVoiceChangerEnable
+NotifyPartyVoiceChangerFeedbackDisable
+NotifyPartyVoiceChangerFeedbackEnable
+NotifyPartyVoiceChangerFeedbackWasDisabled
+NotifyPartyVoiceChangerFeedbackWasEnabled
 NotifyPartyVoiceChangerWasDisabled
 NotifyPartyVoiceChangerWasEnabled
 NotifyPartyVoiceDebugCommand
@@ -44465,6 +44661,7 @@ OcclusionWidthRatio
 OcclusionWorkerThreadCount
 OccupancyVoxelizationThreadStackBytes
 Occurances
+OCEnableDualHistory
 OCEvalCenterSample
 OCEvalFastTest
 OCIgnoreGpuBound
@@ -44502,6 +44699,7 @@ OctreeNodeOutlier].getTotalItemCount
 OctreeQuerySphere
 OculusQuest
 OculusRift
+OCUseDualHistory
 Oczekiwanie
 Oczekiwanie...
 Oczekiwany
@@ -44530,6 +44728,7 @@ OEOFOGOHOIOJOKOLOMONOOPOQOROSOTOUOVOWOYOjOkOqOvOwOxOyOzO
 OfA9HPuHfA9H`uAfA9Hpu
 OfAdmissions
 OfApproval
+OfAutoFidelityMeshes
 OfBytesInSS
 OfBytesInstancesUseful
 OfBytesMeta
@@ -44574,6 +44773,8 @@ OfNestedPackages
 OfOomExpression
 OfOperation
 OfPacketsSent
+OfPerformanceFidelityMeshes
+OfPreciseFidelityMeshes
 OfRawBytes
 OfResidence
 OfResponse
@@ -44659,6 +44860,7 @@ OnCameraCFrameReplicationRequest
 OnCaptureAndMetadataSignatureResult
 OnCaptureBegan
 OnCaptureEnded
+OnCaptureObjectShared
 OnCapturePermissionsPromptFinished
 OnCaptureShared
 OnCaptureSignatureResult
@@ -44723,8 +44925,9 @@ OneofOptions
 OneofOptionsR
 OnePerButton
 OneTimePassword
-OnExportCompleteFailed
+OnExportCancelledSuccess
 OnExportCompleteSuccess
+OnExportErrored
 OnExportFileNameInputted
 OnExportStarted
 OnFileSelectCanceled
@@ -44733,6 +44936,7 @@ OnFormattingResponse
 OnFrameDelivered
 OnFrustumQueries
 OnGameLeave
+OnGameLeft
 OnGenerateKeyFrame
 OngoingSave
 OnGotPacket
@@ -44792,6 +44996,7 @@ OnPeriodicRttUpdate
 OnPerTryTimeout
 OnPlacePublishLargePropertiesInfo
 OnPlacePublishPackage
+OnPlayerModeratedEvent
 OnPluginInitializedAsync
 OnPluginInstalledFromToolbox
 OnPluginInstalledFromWeb
@@ -45138,6 +45343,7 @@ OptimizePartsInPart
 OptimizeProximityPromptSetUpdate
 OptimizeVRMatrices
 OptInPromptClosed
+OptionalCFrame
 OptionalCoordinateFrame
 OptionButtonVisible
 OptionChanged
@@ -45248,6 +45454,7 @@ Oslashsmall
 OsPlatform
 OSPlatform
 OsPlatformName
+OSPlatformName
 Osservazione
 OSSL_ATTRIBUTES_SYNTAX
 OSSL_BASIC_ATTR_CONSTRAINTS
@@ -45359,6 +45566,7 @@ Out_old.png
 OutActionV2
 OutboundControlFrames
 OutboundFrames
+OutboundFsChanges
 OutboundTotal
 OutBufferHealth
 OutClusters
@@ -45438,6 +45646,7 @@ OutputFilterBar_ComboBox
 OutputFilterBar_FindLineEdit
 OutputFilterTextEdit
 OutputFindSearchBar
+OutputFormat
 OutputGLARB
 OutputLatency
 OutputLayoutMode
@@ -45531,7 +45740,6 @@ OxH9Opt[E3
 Oynanabilir
 Oynanabilirlik
 Ozs8xYCf2Q05p4gHyX
-P\R2PTJ\P2R
 PA^A]A\_^[]
 PA^A]A\_^][
 PA_A]A\_^][
@@ -45692,7 +45900,6 @@ PacketProcessingTotalTimeMsJoin
 PacketProcessTimeMs
 PacketProcessWaitTimeAvgMs
 PacketQueueSize
-PacketQueueTime
 PacketReceive
 PacketReceivedTimestamp
 PacketReturnQueue
@@ -45815,6 +46022,7 @@ ParallelForThreadStackSize
 ParallelForViaForEach
 ParallelHybridCallback
 Parallelism
+ParallelizeAudioPlayers
 ParallelLSCSearcher
 ParallelLSCSearcherLog
 ParallelLSCSearcherLog]
@@ -46055,9 +46263,6 @@ Pass3dAdorn
 Pass3dCore
 Pass3dPercentage
 PassesThroughMouseEvents
-PassiveCallAmpCanUseInExperienceChat
-PassiveCallAmpCanUseInExperienceChatRollout
-PassiveCallAmpCanUseInExperienceChatRolloutHundredthPercent
 PassPersistToEdgeFlag
 Passphrase
 PassThrough
@@ -46093,7 +46298,6 @@ PasteAtOriginalLocationDataModelAction
 PasteDataModelAction
 PasteDataModelActions
 PasteDataModelActions]
-PasteErrorBugFix
 PasteIntoAtOriginalLocation
 PasteIntoAtOriginalLocationDataModelAction
 PasteIntoDataModelAction
@@ -46306,6 +46510,7 @@ PauseEventTriggered
 PauseFromLua
 PauseLuaAppBackgroundParam
 PauseLuaSetting
+PauseMeshContentRequests
 PauseOutsideLoadedArea
 PausePhysicsAll
 PausePhysicsCurrent
@@ -46654,6 +46859,7 @@ PEAVISystemMenu
 PEAVITeamCreateManager
 PEAVITeamCreateSaver
 PEAVITeamTestManager
+PEAVITeamTestModeChecker
 PEAVITeamTestWorkflowManager
 PEAVIThumbnailController
 PEAVIToolsManager
@@ -47144,7 +47350,6 @@ Performance_Metric
 PerformanceConfigs
 PerformanceContorlFlappingCountInterval
 PerformanceControl
-PerformanceControlAddBoostedHighwatermark
 PerformanceControlAddMLOomModelTimestamp
 PerformanceControlAddNormalizedQualityToST
 PerformanceControlAddSupportForOomBox
@@ -47201,7 +47406,6 @@ PerformanceControlHundredthPercentageSent
 PerformanceControlImpactStates
 PerformanceControlIncludedTunables
 PerformanceControlInference
-PerformanceControlInference]
 PerformanceControlInferenceChanceHundredthsPercent
 PerformanceControlInferenceHoldoutChanceHundredthsPercent
 PerformanceControlInfiniteUtilities
@@ -47214,7 +47418,6 @@ PerformanceControlIXPMLOomThresholdIntegration
 PerformanceControlIXPQueueSizeBestUtility
 PerformanceControlIXPQueueSizeUtilityExponentTenThousandths
 PerformanceControlIXPStorage
-PerformanceControlLimitBoostedOomModelToInGame
 PerformanceControlLinearUtility
 PerformanceControlLmkdConfigs
 PerformanceControlLmkdDebugReporting
@@ -47308,6 +47511,7 @@ PerformanceControlUsedMemBlendHundredthsPercent
 PerformanceControlUsesRuntime
 PerformanceControlUtil
 PerformanceControlUtil]
+PerformanceFidelityBytes
 PerformanceMeasurementEventMismatchesThrottleHundredthsPercent
 PerformanceOverlay
 PerformanceOverlayFS_
@@ -47584,6 +47788,8 @@ PhysicsPerf_AverageTime_PhysicsSteppedTotal
 PhysicsPerf_AverageTime_Simulation
 PhysicsPerf_GameStepped_Msec_Per_NOU
 PhysicsPerf_PhysicsSteppedTotal_Msec_Per_NOU
+PhysicsPerf_Total_Physics_Memory
+PhysicsPerf_Total_Physics_Memory_Per_Nou
 PhysicsReal
 PhysicsReal..
 PhysicsReceiveKbps
@@ -47794,10 +48000,6 @@ PlaceAction
 PlaceAnnotations
 PlaceAnnotations.rbxm
 PlaceAnnotations]
-PlaceAnnotationsBetaFeature
-PlaceAnnotationsBetaFeatureRoleSet
-PlaceAnnotationsBetaFeatureRolloutPercent
-PlaceAnnotationsBetaFeatureUrl
 PlaceAnnotationsIxp
 PlaceAnnotationsServiceApi
 PlaceAsGltfAction
@@ -47878,6 +48080,7 @@ PlaceLaunched
 Placelauncher
 PlaceLauncher.ashx
 PlaceLauncherDuration
+PlaceLauncherHttpResponseTelemetry
 PlaceLauncherPayload
 PlaceLauncherRequestDuration
 PlaceLauncherRequestErrorMessage
@@ -47963,7 +48166,6 @@ PlaceSessionDataModelListener
 PlaceSessionDataModelListenerOnCreatedDataModel
 PlaceSessionId
 PlaceSessionMainView
-PlaceSessionModel
 PlaceSessionPluginWidgetsView
 PlaceSessionPluginWidgetsView]
 PlaceSessionPluginWidgetsViewDataModels
@@ -48256,6 +48458,7 @@ PlayerMuteStatusChangedEvent
 PlayerName
 PlayerNameCache
 PlayerNameplates
+PlayerNamesEnabled
 PlayerNetworkBandwidth
 PlayerNumber
 PlayerOwnsAsset
@@ -48360,7 +48563,6 @@ PlaySoloTiming]
 PlaySoloUiInit
 PlayStatH9
 PlayStation
-PlayStationAudioInputDeviceFiltering
 PlayStationController
 PlayStationOnly
 PlayStationPlusItem
@@ -48423,6 +48625,7 @@ PluginErrorCount
 PluginErrorExtraDetailsCallbackErrored
 PluginErrorReporterQueueLock
 PluginErrorReporterRegisterExtraDetails
+PluginErrorReportingIgnoreSomeErrors
 PluginFail
 PluginFileController
 PluginFileFailed
@@ -48567,9 +48770,6 @@ Pohukiwanie
 Poincareplane
 POINT_SIZE
 PointAndClick
-PointAndClickDefaultExperiment
-PointAndClickDefaultExperimentLayer
-PointAndClickPriorityQueue
 PointBalanceCacheInvalidateTimeMs
 PointDataChanged
 Pointer.png
@@ -48838,6 +49038,7 @@ Preajustes
 PreAnimation
 PreAuthKey
 PreauthStatus
+PreCaptureShared
 Precargando
 Precedente
 PrecedesEqual
@@ -48853,6 +49054,7 @@ Precise_From500To1kCounter
 Precise_From8To16kCounter
 Precise_LessThan100Counter
 PreciseConvexDecomposition
+PreciseFidelityBytes
 PreciseTimeJumpMsec
 PrecisionType
 PreCompress
@@ -49570,6 +49772,10 @@ PromptSaveAvatarThumbnailCustomizationCompleted
 PromptSaveCapturesToGallery
 PromptSaveSelection
 PromptSelectAvatarGenerationImageAsync
+PromptSelfieCompleted
+PromptSelfieConsentDenied
+PromptSelfieConsentDisplayed
+PromptSelfieUnder13Error
 PromptSetFavorite
 PromptSetFavoriteCompleted
 PromptShareCapture
@@ -50051,7 +50257,6 @@ QAbstractAnimation
 QAbstractButton
 QAbstractItemDelegate
 QAbstractItemModel
-QAbstractItemVi
 QAbstractItemView
 QAbstractListModel
 QAbstractNativeEventFilter
@@ -50582,6 +50787,7 @@ QLabel[invalidFieldMessageLabel
 QLabel[optionsLabel
 QLayoutItem
 QLinearGradient
+QLineEdiL9
 QLineEdit[errorInField
 QLineEdit[text
 QListWidget
@@ -50701,6 +50907,7 @@ QTextCodec
 QTextCursor
 QTextDocument
 QTextDocumentFragment
+QTextEdiH9
 QTextFormat
 QTextFragment
 QTextLayout
@@ -50721,6 +50928,7 @@ QtLanguageClient
 QtLanguageClientDTOR
 QtLanguageClientInitialize
 QtLanguageClientNotifySettingsChanged
+QtLateBoundInvokeRemoval
 QtMenuOffsetX
 QtMenuOffsetY
 QtMetaObject
@@ -51463,11 +51671,13 @@ RBX_EXIT_THERMAL
 RBX_EXIT_UNCATEGORIZED
 RBX_EXIT_UNKNOWN
 RBX_EXIT_USER_REQUESTED
+RBX_Follower
 RBX_HANDLE_DUPLICATE_ENTRIES_IN_RESTORE_STATE
 RBX_ImportMethod
 RBX_InstanceType
 RBX_InstanceType_EditableImage
 RBX_InstanceType_EditableMesh
+RBX_Leader
 RBX_LeftMouseButtonDown
 RBX_LightingCompatibilityMigrated
 RBX_LightingTechnologyClientSideMigration
@@ -51513,7 +51723,6 @@ RBX_WARN_MESSAGE
 RBX_WARN_NE
 RBX_WARN_NO_THROW
 RBX_WARN_THROW
-RBX_WRAP_DEFORMER_PROXY
 RbxAbnormalTerminateMessageBoxName
 RbxAnalyticsService
 RbxAnalyticsServiceExposePlaySessionId
@@ -51573,6 +51782,8 @@ RbxGjkUseCacheThresholdMillionth
 RBXIDCHECK
 RbxlDiffToolFix
 RbxLegacyAnimationBlending
+RbxLogCatchExceptions
+RbxLogRefactor
 RBXMainWindow
 RbxmContainsLuaBytecodePrehashCounter
 RbxMegaClusterInit
@@ -51607,7 +51818,6 @@ RbxStorageCategoryStatsThrottleHP
 RbxStorageCleanup
 RbxStorageCleanupBeforeCleanup
 RbxStorageCleanupDelaySeconds
-RbxStorageCleanupDoLoop
 RbxStorageCleanupHundredthsPercent
 RbxStorageCleanupOldCacheChunkSizeMB
 RbxStorageCleanupStats
@@ -51623,7 +51833,6 @@ RbxStorageDropCacheErrorsThreshold
 RbxStorageEnabled
 RbxStorageEnableDbCacheSelfTest
 RbxStorageEnableFileCacheSelfTest
-RbxStorageEnableSlowInitSkipLoadKeys
 RbxStorageErrorLog
 RbxStorageErrorLogHundredthsPercent
 RbxStorageForceROSBReadFile
@@ -51631,7 +51840,6 @@ RbxStorageGetStorageInterfaceMutex
 RbxStorageImprovePriorityScaling
 RbxStorageInit
 RbxStorageInitHundredthsPercent
-RbxStorageInitMutex
 RbxStorageInitStats
 RbxStorageInternalFree1
 RbxStorageInternalFree2
@@ -51650,8 +51858,6 @@ RbxStorageMinAvailableSpaceBeforeCleanupMB
 RbxStorageMinAvailableSpaceBeforeCleanupThresholdMB
 RbxStorageMinimumCleanupChunkMB
 RbxStorageMinMemoryRequirementMB
-RbxStorageNoLoadKeysAfterShutdown
-RbxStorageNoMemoryKeyMap
 RbxStorageOldCacheNoCreate
 RbxStoragePeriodicCleanupIntervalSec
 RbxStoragePriorityExponentialDifference
@@ -51660,6 +51866,7 @@ RbxStorageRemoveLargeDb
 RbxStorageRemoveLargeDbThresholdMB
 RbxStorageRemoveOnInitCleanupMiB
 RbxStorageRemoveOnInitThresholdMiB
+RbxStorageReportDbFileSize
 RbxStorageReportUniqueId
 RbxStorageRollingSelftest
 RbxStorageRollingStats
@@ -51676,14 +51883,12 @@ RbxStorageSelfTest
 RbxStorageSkipOldCacheSize
 RbxStorageSkipSizeAfterDestroyed
 RbxStorageSlowInitDelayMS
-RbxStorageSlowInitThresholdMS
 RbxStorageSlowRead
 RbxStorageSlowReadHundredthsPercent
 RbxStorageSlowReadStats
 RbxStorageSlowWrite
 RbxStorageSlowWriteHundredthsPercent
 RbxStorageSlowWriteStats
-RbxStorageSynchronizeInit
 RbxStorageSyncIntervalSec
 RbxStorageTelemetryIntervalMS
 RbxStorageUseAppData
@@ -52221,8 +52426,10 @@ RefactorAvatarRulesUtil
 RefactorEditableModelSerialization
 RefactorHighEndTerrainShaders
 RefactorHumanoidDefaultAssetsForAvatarEditor
+RefactorLevitationConstraintConstants
 RefactorRCCModeName
 RefactorScrollableToModifier
+RefactorSwimControllerMaxForces
 RefactorTranslatorInstance
 Refacturation
 RefCounted
@@ -52398,6 +52605,8 @@ RegisterAnimationClip
 RegisterAsync
 RegisterAudioCallback
 RegisterAutocompleteCallback
+RegisterBacktraceReporterCallback
+RegisterBacktraceReporterCallback]
 RegisterChatCallback
 RegisterClassExA
 RegisterClassExW
@@ -52533,6 +52742,7 @@ RelativeGuiEnable
 RelativePanel
 RelativePosition
 RelativeRotation
+RelativeSkinningTransferEnabled
 RelativeTo
 RelativeWindVelocity
 RelativeXX
@@ -52569,6 +52779,7 @@ ReleaseSRWLockExclusive
 ReleaseSRWLockShared
 ReleaseSwapchainImage
 ReleaseSwapchainImagesEXT
+ReleaseTempIdAsync
 ReleaseTexImageARB
 ReleaseVideoCaptureDeviceNV
 ReleaseVideoDeviceNV
@@ -52724,6 +52935,7 @@ RemoveBreakpoint
 RemoveBreakpointById
 RemoveButtonClicked
 RemoveCallbcakAfterTriggering
+RemoveCaptureSavedSignal
 RemoveCenterDialog
 RemoveCharacter
 RemoveClicked
@@ -52775,6 +52987,10 @@ RemoveNonFlagSideDistributionCheck
 RemoveObserverForegroundUIReady
 RemoveObserverPartyVoiceChangerDisable
 RemoveObserverPartyVoiceChangerEnable
+RemoveObserverPartyVoiceChangerFeedbackDisable
+RemoveObserverPartyVoiceChangerFeedbackEnable
+RemoveObserverPartyVoiceChangerFeedbackWasDisabled
+RemoveObserverPartyVoiceChangerFeedbackWasEnabled
 RemoveObserverPartyVoiceChangerWasDisabled
 RemoveObserverPartyVoiceChangerWasEnabled
 RemoveObserverPartyVoiceDebugCommand
@@ -52913,6 +53129,7 @@ RenderCPUFrameTime
 RenderCrashOnDX11WaitForGpuTimeout
 RenderCSGTrianglesDebug
 RenderDebugCheckThreading2
+RenderDecalTexturePackStudioGen
 RenderDepthPrepassDistanceScaler
 RenderDeviceIncludeAdapterIdInCaps
 RENDERDOC_HOOK_EGL
@@ -52960,6 +53177,7 @@ RenderFixGrassPrepass
 RenderFixIncorrectVRDepthBufferInitialization
 RenderFixInvalidLightGridUL
 RenderFixParticleDegenCrossProduct
+RenderFixULGlassLQAlpha
 RenderFixULGlassPrepassCheck
 RenderFixULGlassRefraction
 RenderFixULTechnologyMigration
@@ -53032,6 +53250,7 @@ RenderMeshBulkUploadMinDeviceMemoryInMbs
 RenderMeshEvictUnusedEnable
 RenderMeshEvictUnusedMaxCount
 RenderMeshEvictUnusedMaxSize
+RenderMeshFidelityStats
 RenderMeshManager
 RenderMeshManager]
 RenderMeshMaxBudget
@@ -53046,6 +53265,7 @@ RenderMsFrameGatherInterval
 RenderNodeEnterSleepingFrames
 RenderNoLowFrmBloom
 RenderOcclusionQueries
+RenderOrchestratorMesh
 Renderowanie
 RenderParticlesSimulateNonVisible
 RenderParticlesSimulateQualityLevelBase
@@ -53160,6 +53380,8 @@ RenderTextureManagerBudget
 RenderTextureManagerBudgetFor4k
 RenderTextureMaxUtility
 RenderTextureOrphanBudgetMB
+RenderTexturePackStillTranscodingRetryDelaySeconds
+RenderTextureStillTranscodingRetryDelaySeconds
 RenderTextureTotalBudgetCount
 RenderTextureTotalBudgetMB
 RenderThreadAverage
@@ -53215,6 +53437,7 @@ ReplaceAbort
 ReplaceAll
 ReplaceAllAsync
 ReplaceAllButtonEnabled
+ReplaceAllThreshold
 ReplaceAsync
 ReplaceBodyPartR15
 ReplaceButtonEnabled
@@ -53845,6 +54068,7 @@ RequestNoButtonPromptFallback
 RequestPlayoutData
 RequestPostHandshake
 RequestPostImpl
+RequestPriority
 RequestQueue
 RequestQueueSize
 RequestRaise
@@ -53862,11 +54086,8 @@ RequestScriptExecutionSignal
 RequestSent
 RequestServerHttpResult
 RequestServerHttpResultSignal
-RequestServerLuauHeapData
 RequestServerOutput
 RequestServerOutputSignal
-RequestServerScriptProfiling
-RequestServerScriptProfilingData
 RequestServerStats
 RequestSetSelectionAsync
 RequestSettingsChange
@@ -54094,6 +54315,7 @@ RESPONSABILIT
 ResponseBody
 ResponseCodes
 ResponseContentLength
+ResponseCurve
 ResponseData
 ResponseDialog
 ResponseFail
@@ -54256,6 +54478,7 @@ ReThrowGetCachedPatchException
 RetinaBlit
 RETIRE_CONN_ID
 RetransmissionQueue
+RetransmitPins
 Retransmits
 RetransmittedBitrateSentInBps
 RetransmittedBitrateSentInKbps
@@ -54362,7 +54585,6 @@ ReviewableContentId
 ReviewedApproved
 ReviewedRejected
 Revirtiendo
-ReviseWin32ScrollWhileDragging
 Revocation
 RevocationList
 RevocationRefs
@@ -54433,7 +54655,6 @@ RibbonAddAnnotationSmall
 RibbonAddClientSmall
 RibbonAddCollaboratorInverseSmall
 RibbonAddCollaboratorSmall
-RibbonAddImport3DToHomeTab
 RibbonAddNoBorderSmall
 RibbonAISmall
 RibbonAlignOrientation
@@ -54449,6 +54670,7 @@ RibbonAttachment
 RibbonAvatarSettings
 RibbonBack
 RibbonBallSocketConstraint
+RibbonBetaDateCutoff
 RibbonBetaIxpCheck
 RibbonBetaIxpCheck]
 RibbonBetaIxpExperimentation
@@ -54536,7 +54758,6 @@ RibbonModuleScript
 RibbonMove
 RibbonMove_Physical
 RibbonNegateOperation
-RibbonNewUserDays
 RibbonNoCollisionConstraint
 RibbonNotificationController
 RibbonNotificationService
@@ -54587,7 +54808,6 @@ RibbonServerSmall
 RibbonSetting
 RibbonSetup
 RibbonShareSmall
-RibbonSnappingEnabledByText
 RibbonSpringConstraint
 RibbonStartServer
 RibbonStartServerAndClientSmall
@@ -55078,6 +55298,7 @@ RobloxTelemetryLogDirSizeEventThrottleHundredthsPercent
 RobloxTelemetryMarketplaceDeprecatedSubscriptionFuncUseThrottleHundredthsPercent
 RobloxTelemetryNewESIHeader
 RobloxTelemetryPacketMissFrameWindowMetricsThrottleHundredthsPercent
+RobloxTelemetryPreventEmptyString
 RobloxTelemetryProdAdapterPointV2Prefix
 RobloxTelemetryProductInfoBatchingValidationAnalyticsThrottleHundredthsPercent
 RobloxTelemetryRccDisconnectEventsThrottleHundredthsPercent
@@ -55714,6 +55935,8 @@ SafetyRCCTelemetryCapMap
 SafetyRCCTelemetryDomainsWithNoisySubdomains
 SafetyRCCTelemetryEnable
 SafetyRCCTelemetryFilterDomainsWithHttpErrorsEnable
+SafetyRCCTelemetryJobId
+SafetyRCCTelemetrySafer
 SafetyRCCTelemetryThrottleHundredthsPercentage
 SafetyRCCTelemetryTrimDomainsWithNoisySubdomainsEnable
 SafetyRCCTelemetryV2
@@ -55858,6 +56081,7 @@ SaveBufferRegionARB
 SaveBuildAndReloadDebuggablePlugin
 SaveBuildAndReloadDebuggablePluginVerb
 SaveButtonClicked
+SaveCaptureObjectToExternalStorage
 SaveCapturesToExternalStorageAsync
 SaveCaptureToExternalStorage
 SaveChangesButtonPressed
@@ -55883,7 +56107,6 @@ SaveOptimizationDocsLinkString
 SaveOrPublish
 SaveOrPublishPlaceRelatedActionToEventIngest
 SavePlaceAsync
-SavePlaceDialogOnTopHint
 SavePlaceOptions
 SavePlacePerMinute
 SavePlaceToFile
@@ -55914,7 +56137,9 @@ SaveToRoblox
 SaveToRobloxAs
 SaveVideoCaptures
 SaveVideoCaptureToExternalStorage
+SaveWaiter
 SaveWithNotes
+SaveWithoutPublish
 Saving_XXXXXX.
 SavingAttribute
 SavingInProgress
@@ -56161,6 +56386,7 @@ ScreenshotReady
 Screenshots
 ScreenshotSavedToAlbum
 ScreenshotsFeatureActiveUserIds
+Screenshotsigning
 ScreenshotTaken
 ScreenshotTakenEventThrottleHundrethsPercent
 ScreenshotThread
@@ -56693,6 +56919,7 @@ SEC_I_CONTEXT_EXPIRED
 SEC_I_CONTINUE_NEEDED
 SEC_I_INCOMPLETE_CREDENTIALS
 SEC_I_RENEGOTIATE
+SecondaryActivated
 SecondaryAlias
 SecondaryAxis
 SecondaryButton
@@ -56821,7 +57048,6 @@ SelectedMicDevice
 SelectedMicDeviceGuid
 SelectedMicDeviceName
 SelectedObject
-SelectedObjectResetOnInvalidAncestor
 SelectedOutputDeviceGuid
 SelectedOutputDeviceName
 SelectedPackageAction
@@ -57091,6 +57317,7 @@ SendStatusFromServer
 SendStudioBetaFeatureEnrollmentKibana
 SendStylingSavePublishEvent
 SendTenthHighestRawPriorityInterval
+SendTerrainChangeFromStudio
 SendTextInputCharacterEvent
 SendToCrashHandlerServer
 SendTouchEvent
@@ -57245,6 +57472,7 @@ Server_SamplePlayer_PhysicsTouches_AppPacketBytesSentPerSec
 SERVER_TRAFFIC_SECRET_0
 SERVER_TRAFFIC_SECRET_N
 ServerAccessCode
+ServerACSCleanup
 ServerAction
 ServerActiveAtomicSetCount
 ServerActivePersistentSetCount
@@ -57307,6 +57535,7 @@ ServerErrorStart
 ServerFeatures
 ServerFeatures]
 Serverfehler.
+ServerFrame
 ServerFramesBetweenJoins
 ServerFrameTaskTime
 ServerFrameTaskTime_SteamingEnabled
@@ -57613,6 +57842,7 @@ SessionL2ValidationHelper
 SessionL2ValidationHelper]
 SessionLabel[
 SessionLength
+SessionLengthMs
 SessionLoggingAirTestReportShutDown
 SessionLoggingForAirTest3
 SessionLoginCount
@@ -58388,6 +58618,7 @@ ShortcutContext
 ShortcutData
 ShortcutDelegate
 ShortcutDisambiguator
+ShortcutInteractionTelemetry
 ShortcutOverride
 ShortcutOverrideEvent
 Shortcuts...
@@ -58473,6 +58704,7 @@ ShowGmaAdUtilityCurve
 ShowHSRMissingAssetIdWarnings
 ShowIfAttached
 ShowIfAttachedAsync
+ShowInflightMeshesBboxes
 ShowInFolder
 ShowInFolderAction
 ShowInstanceNamesForDrawnForcesAndTorques
@@ -58765,7 +58997,6 @@ SimAdaptiveEnableEightDt
 SimAdaptiveExplicitlyMarkInterpolatedAssemblies
 SimAdaptiveExtraIterations
 SimAdaptiveHumanoidPDControllerSubstepMultiplier
-SimAdaptiveRefactorIterationScaling
 SimAdaptiveScaleCollisionParameters
 SimAdaptiveUseNewVelocityCriteria
 SimAddInterpolationThrottlingViz
@@ -58837,6 +59068,7 @@ SimCSG4FixEmptyToolCrash
 SimCSG4ForceColdstart
 SimCSG4UseOperationGraphEvaluate
 SimCSG4UseOperationGraphEvaluateNewAsync
+SimCSGAcceptEmptyTools
 SimCSGAddContextToOptions
 SimCSGAddOperationTimeTelemetry
 SimCSGAttemptCounter
@@ -58903,6 +59135,7 @@ SimDcdRemoveGetMesh
 SimDcdTaskSpecialMeshFix
 SimDefaultFluidForceEnabled
 SimDefaultHumanoidTimestepMultiplier
+SimDisableAnimationConstraintAssert
 SimDisableHighOverheadEditableMeshAnalytics
 SimDumpCSGV3Tree
 SimDumpCSGV3TreePath
@@ -58935,6 +59168,7 @@ SimEditableSessionEventContext
 SimEditableSessionEventMeshInitFix
 SimEidtableFixImageCount
 SimEnableAngularAccelerationConversionMethods
+SimEnableChildSerNewAsync
 SimEnableCreateBone
 SimEnableEditableMeshSkinning
 SimEnableEditableMeshSkinningAPI
@@ -58950,6 +59184,7 @@ SimFixReducedMeshEvalWithCompressedMesh
 SimFixRunningControllerFreeFall
 SimFluidSaveOrPublishStatsHundredthsPercentage
 SimFluidSessionStatsHundredthsPercentage
+SimGeometrySamplingReduceHeapAllocations
 SimHumanoidFirstPerson240hz
 SimIfNoInterp2
 SimilarHipHeightPercentage
@@ -58970,6 +59205,7 @@ SimMoveToolToHandOnEquip
 SimNewActiveJointCount
 SimNullWorkspaceGizmoCrashFix
 SimOneAttachmentAlignmentsAreNotSpanningTreeJoints2
+SimOptimizeBodyMass
 SimOptimizeGeometryChangedAssemblies
 SimOptimizeSetSize
 SimOptimizeSetSizeNonDeferred
@@ -59001,6 +59237,7 @@ SimPositionalCorrectionScaleThou
 SimPrimalSolverConstraintPerp2AxesMakeJacobianConsistentWithFormula
 SimRadiusShrinkFactorHudredthsPercent
 SimReduceInertiaDataScaling
+SimRefactorConstraintForces
 SimRemoveBodyGravity
 SimRemoveBodySharedCofmStack
 SimRemoveConstraintDrawOnTop
@@ -59011,6 +59248,7 @@ SimReportAveWorldstepTimeEventIngestPercent
 SimReportAveWorldstepTimePercent
 SimReportAveWorldstepTimePerNOU
 SimReportContactStats
+SimReportV2MemoryTelemetry
 SimScopeTime
 SimShowJointCoordinatesGetCofmFromPart
 SimShrinkWakeAssembliesDequeLimit
@@ -59037,7 +59275,6 @@ SimSolverMoverConstraintRootBehaviorEnablePhaseThree
 SimSolverMoverConstraintRootBehaviorSetDefaultEnabled
 SimSolverNumTasksForLargeIslandCount
 SimSolverOptimizeSleepForceCaching
-SimSolverRefactorLDLTaskManagement
 SimSolverRefactorNetworkPhiInv
 SimSolverReserveForReducedEdgesNoAllocCheck
 SimSolverResponsiveness
@@ -59289,6 +59526,7 @@ Skorzystaj
 Skorzystanie
 Skreczowanie
 Skriptaktionen
+Skriptaktivit
 Skriptanalyse
 Skriptausf
 Skriptbearbeitungen
@@ -59386,10 +59624,12 @@ SlimRetryCount
 SlimService
 SlimServiceLog
 SlimServiceLog]
+SlimTranscoderResourcePath
 SlimTransitionDistance
 Slingshot.png
 SlingshotTexture.png
 Slittamento
+SLMDrender
 SlopeOfBweHighLossFunc
 SlotHandlerThreadCheckRemoval
 SlotQuickAccess
@@ -59749,6 +59989,7 @@ SoundAssetsOfInterest
 SoundCacheMemory
 SoundCheckResult
 SoundCheckResult]
+SoundContentPropertyItem
 SoundDirectorySize
 SoundDirectorySizeReportRateHundredthsPercent
 SoundEffect
@@ -59817,6 +60058,8 @@ SourceCodeInfo.LocationR
 SourceCodeInfoR
 SourceConfig
 SourceCount
+SourceDmDelta
+SourceFsDelta
 SourceFunc
 SourceGameId
 SourceInfo
@@ -60085,7 +60328,6 @@ SQLiteCacheBypassDbPermCats
 SQliteCacheCleanupMaxIterations
 SQLiteCacheEvictBatchSize
 SqliteCacheHitListMutex
-SqliteCacheKeysMutex
 SQLiteCacheMaxBlobSizeBytes
 SQLiteCacheMaxBlobSizeWithoutL2Bytes
 SQLiteCacheNumBuckets
@@ -60105,7 +60347,9 @@ SQLiteDisableIntegrityCheck
 SQLiteDiskFullCleanMB
 SQLiteEnableMmap32bit
 SQLiteEnableMmap64bit
+SQLiteFullChkpointMaxReport
 SQLiteFullfsync
+SQLiteLockedChkpointMaxReport
 SQLiteLookasideCount
 SQLiteLookasideSize
 SQLiteLowEndMinMemMB
@@ -60117,7 +60361,6 @@ SQLiteStatementLogError
 SQLiteStatementLogErrorMsg
 SQLiteStatementReportSlow
 SQLiteStatementReportSlowThresholdMs
-SQLiteSynchronousEnable
 SQLiteSynchronousMode
 SQLiteThrottleCorruptErrors
 SQLiteThrottleCorruptErrorsMax
@@ -60555,6 +60798,7 @@ Statistics
 StatisticsCalculator
 StatisticsChanged
 StatPrefix
+Stats.MemoryTrackingEnabled
 StatsAction
 StatsAvailable
 StatsCodeStandardCleanup
@@ -60910,6 +61154,7 @@ StreamingService
 StreamingServiceDispatcherRegistry
 StreamingSetCount
 StreamingSetGroupSendInstanceSizeLimit
+StreamingSettingsSyncer
 StreamingSolver
 StreamingSolver_processDirtyModelDefaultSets
 StreamingSolver_processDirtySets
@@ -60957,11 +61202,13 @@ StreamInitiateSubscriptions
 StreamInvocation
 StreamItemInfoRadiusReducedByGarbageCollection
 StreamJobCheckMaxQueueBytes
+StreamJobDeferredInstanceSetType
 StreamJobIterationStats
 StreamJobLimits
 StreamJobLogStreamOutPersistent
 StreamJobMaxBufferHealthThresholdHundredths
 StreamJobMinBufferHealthThresholdHundredths
+StreamJobMinTimeUs
 StreamJobMRF
 StreamJobNoItemLod
 StreamJobNOUVolumeCap
@@ -61014,7 +61261,6 @@ StreamPrefetch]
 StreamPrepareHeader
 StreamQoSCookie
 StreamRegion
-StreamRegionIteratorCurrentRegionRef
 StreamResetHandler
 STREAMS_BLOCKED_BIDI
 STREAMS_BLOCKED_UNI
@@ -64114,6 +64360,7 @@ Studio.App.Property.DataMtuAdjust
 Studio.App.Property.DataSendRate
 Studio.App.Property.DebuggerCurrentLineColor
 Studio.App.Property.DebuggerErrorLineColor
+Studio.App.Property.DefaultInstancesDir
 Studio.App.Property.DefaultScriptFileDir
 Studio.App.Property.DefaultWaitTime
 Studio.App.Property.DEPRECATEDHoverBoxThickness
@@ -64154,6 +64401,7 @@ Studio.App.Property.EnableScriptAnalysis
 Studio.App.Property.EnableScrollbarMarkers
 Studio.App.Property.EnableSignatureHelp
 Studio.App.Property.EnableSignatureHelpDocView
+Studio.App.Property.EnableStudioStreaming
 Studio.App.Property.EnableTeamCreateToggle
 Studio.App.Property.EnableTemporaryTabs
 Studio.App.Property.EnableTemporaryTabsInExplorer
@@ -64336,6 +64584,8 @@ Studio.App.Property.SkipClosingBracketsAndQuotes
 Studio.App.Property.SoftwareSound
 Studio.App.Property.SolverConvergenceMetricType
 Studio.App.Property.SolverConvergenceVisualizationMode
+Studio.App.Property.StreamingMaxRadius
+Studio.App.Property.StreamingMinRadius
 Studio.App.Property.StringColor
 Studio.App.Property.SystemProductName
 Studio.App.Property.TabWidth
@@ -66217,6 +66467,7 @@ Studio.App.SettingsCategory.StudioPrimaryPart
 Studio.App.SettingsCategory.StudioScriptEditor
 Studio.App.SettingsCategory.StudioScriptEditorColors
 Studio.App.SettingsCategory.StudioScriptSync
+Studio.App.SettingsCategory.StudioStreaming
 Studio.App.SettingsCategory.StudioTools
 Studio.App.SettingsCategory.StudioUndo
 Studio.App.SettingsCategory.StudioVisualization
@@ -66814,6 +67065,8 @@ Studio.Assistant.Tools.FileSearch
 Studio.Assistant.Tools.GenerateMaterial
 Studio.Assistant.Tools.GrepSearch
 Studio.Assistant.Tools.InsertFromMarketplace
+Studio.Assistant.Tools.MultiEdit
+Studio.Assistant.Tools.ReadFile
 Studio.Assistant.Tools.ScriptInsertion
 Studio.Assistant.Tools.SwapAsset
 Studio.AttachmentTool.Plugin.Button
@@ -69213,6 +69466,7 @@ Studio.LightTechUpdateRegister.Dialog.Title
 Studio.LightTechUpdateRegister.On.Startup.Migration.Dialog.Text1
 Studio.LightTechUpdateRegister.On.Startup.Migration.Dialog.Text2.Final
 Studio.LightTechUpdateRegister.On.Startup.Migration.Dialog.Text3.Final
+Studio.LiveSync.DeleteFolderButton
 Studio.LiveSync.DepthLimitExceededError
 Studio.LiveSync.DisablingAutoResume
 Studio.LiveSync.DuplicateNamesError
@@ -69230,6 +69484,7 @@ Studio.LiveSync.ExpectedFileExtension
 Studio.LiveSync.FailedToAccessPlaceMetadata
 Studio.LiveSync.FileNotFoundStoppingSync
 Studio.LiveSync.InvalidFileNameError
+Studio.LiveSync.KeepLocalAfterSync
 Studio.LiveSync.KeepLocalVersion
 Studio.LiveSync.KeepStudioVersion
 Studio.LiveSync.PackageLinkAdded
@@ -69367,10 +69622,10 @@ Studio.ModerationDialog.ReviewedNote.ReviewedDateTime1
 Studio.ModerationDialog.WarningHeader.WarningBody
 Studio.ModerationDialog.WarningHeader.WarningHeader
 Studio.ModerationDialog.WarningHeader.WarningLink
+Studio.NativeDialog.NativeDialogDescription
+Studio.NativeDialog.NativeDialogTitle
+Studio.NativeDialog.NativeDialogTitleUnknownName
 Studio.NativeDialog.No
-Studio.NativeDialog.StudioFrozenTitle
-Studio.NativeDialog.TerminateBuiltInNoName
-Studio.NativeDialog.TerminatePluginNoName
 Studio.NativeDialog.Yes
 Studio.NestedPackagePublisher.Action.Cancel
 Studio.NestedPackagePublisher.Action.Publish
@@ -73482,6 +73737,8 @@ Studio.UserInputPlayback.RecordTabView.StatusMessageDisabled
 Studio.UserInputPlayback.RecordTabView.StatusMessageNotRecording
 Studio.UserInputPlayback.RecordTabView.StatusMessageRecording
 Studio.UserInputPlayback.RecordTabView.StatusMessageShouldRecordOnGamePlayStart
+Studio.UserProvidedDefaults.ResetDefault
+Studio.UserProvidedDefaults.SaveAsDefault
 Studio.VRStatus.AlertDialog.Detected
 Studio.VRStatus.AlertDialog.ModeOff
 Studio.VRStatus.AlertDialog.ModeOn
@@ -73571,6 +73828,7 @@ StudioAssetFolder
 StudioAssetManagerAddRecentlyImportedView
 StudioAssetService
 StudioAssetServiceDependencies
+StudioAssistantApplicationComponent
 StudioAssistantBridge
 StudioAssistantBridgeGetContentFromImageData
 StudioAssistantExperimentationEnabled
@@ -73635,6 +73893,7 @@ StudioClientPresenceUpdateInterval
 StudioClientReplicatorEarlyStats
 StudioClientReplicatorStats
 StudioClientReplicatorStatsV2
+StudioClipboardContextProviderOptimization
 StudioClose
 StudioClose.End
 StudioClose.Start
@@ -73742,6 +74001,7 @@ StudioEnableInstanceChecker
 StudioEnableKeychainSecureStorage
 StudioEnableMagicAuth
 StudioEnableMultiTouchGestureEmulation
+StudioEnableShortcutInteractionTelemetry
 StudioEncodePlayerEmulatorArg
 StudioEnvChange
 StudioError
@@ -73769,6 +74029,7 @@ StudioFixBuggyPasteActions
 StudioFixConflictingSystemMenuQuitAction
 StudioFixDebugShortcuts
 StudioFixGridSizeInitialize
+StudioFixInstanceProxyBadWeakPtr
 StudioFixInstanceSignalStackOverflow
 StudioFixLateBoundActionShortcuts
 StudioFixMeshPartDeadlock
@@ -73853,11 +74114,11 @@ StudioImproveLCMDebuggability
 StudioImproveTeamCreateErrorReporting
 StudioInitializeTemplacePlaceIdZero
 StudioInProcessTeamTest
+StudioInProcessTeamTestInfra
 StudioInsertCheckTimeSeconds
 StudioInsertDeletionCheckTimeMS
 StudioInsertObjectWidgetAddStyleRelatedChildren
 StudioInsertObjectWidgetResetStyledProperties
-StudioInsertObjectWidgetSetScreenGuiDefaults
 StudioInsertWidgetLayerCollectorAutoLinkStyleSheet
 StudioInstanceChecker
 StudioInstanceChecker]
@@ -74032,7 +74293,7 @@ StudioPackagesEndpointsStatus
 StudioPackageUI
 StudioPackageUI]
 StudioPackageUtilsCallbackOnFail
-StudioPanelStateBoundsCheck
+StudioPanelsManagerHide
 StudioPasteActionContextConversion
 StudioPercentScaleRepeatCount
 StudioPerfermanceMeasurementEventSummaryThrottle
@@ -74216,8 +74477,7 @@ StudioQWidgetObserverSafeRelease
 StudioReapplyDockWindowGeometryWithDelayedExecution
 StudioReEnableNetworkProxy_Dev
 StudioReinstallLink
-StudioRemoveRestrictedGetCurrentGameStateType
-StudioRemoveRestrictedPlaceSessionModelSignals
+StudioRemovePlaceSessionModel
 StudioRenderingSettingsViewMode
 StudioReplacePlayTestingExpression
 StudioReplicationSyncDialogTelemetry
@@ -74320,10 +74580,11 @@ StudioSettingEnumBuilder
 StudioSettingsSaveOnChangeDelaySeconds
 StudioSetupUselessCode
 StudioSharedMemory
+StudioShortcutInteractionTelemetry
+StudioShortcutInteractionTelemetry]
 StudioShowAnnouncementWidget
 StudioShowLicenseInfoInAboutDialog
 StudioShowModerationDialog
-StudioSimplifyMimeTypes
 StudioSocialPresenceAction
 StudioSplitWithQtUiContext
 StudioStandaloneDMPluginTimeoutSeconds
@@ -74349,6 +74610,10 @@ StudioStopPlaySolo.Start
 StudioStopPlaySoloEndSuccessThresholdMB
 StudioStreamingDisableLOD
 StudioStreamingLimitedRadiusGC
+StudioStreamingMaxRadius
+StudioStreamingMinRadius
+StudioStreamingPerformUndoServer
+StudioStreamingSettings
 StudioStyleGuideColor
 StudioStyleGuideModifier
 StudioSuccessCloseDialogInMs
@@ -74361,8 +74626,10 @@ StudioTaskRunner
 StudioTaskRunner]
 StudioTasks
 StudioTasks]
+StudioTasksAsyncOptInHangUp
 StudioTasksFutureNotifyAll
 StudioTasksFutureNullopt
+StudioTasksFutureShareMutexes
 StudioTasksUiContextScheduler
 StudioTasksUiContextScheduler]
 StudioTCCHasAvailableTeamTestSession
@@ -74381,6 +74648,7 @@ StudioTeamCreateRetryOnUnauthorized
 StudioTeamTest
 StudioTeamTestAction
 StudioTeamTestDisableDialogFinished
+StudioTeamTestFetchJoinConfigResult
 StudioTestingImprovementsEnabled
 StudioTestRewardedVideoAdAssetUrl
 StudioTheme
@@ -74400,6 +74668,7 @@ StudioTour
 StudioTour3
 StudioTrackpadXGainThousandths
 StudioTrackpadYGainThousandths
+StudioTranscoderTextureDimensionMax
 StudioTranslator
 StudioTranslator]
 StudioTranslatorObject
@@ -74900,6 +75169,7 @@ SupportsContacts
 SupportSmoothScaleRichText
 SupportsPermissions
 SupportsPresent
+SupportsStyling
 SupportsSwitchToSettingsApp
 SupportsTexture3DCopyVulkan
 Suppression
@@ -75067,20 +75337,22 @@ Synchronisierungsfehler
 Synchronisierungsvorgang
 Synchronizacja
 SynchronizeCondition
+Synchronized
 SynchronizePlaybackDSPS
 SynchronizeState
 SynchronizeWith
 Synchronizowanie
 Synchronizowanych
 Synchronizuj
+Synchronous
 SyncHttpGet
 SyncInstance
 SyncMapEntriesModifiedSerial
+SyncMouseCursor
 SyncNodeType
 SyncQObjectWithGst
 SyncRelativeDelay
 SyncronizePlaybackDSPS
-SyncronizeToWorldStepId
 SyncScriptBuilder
 SyncScriptBuilder.CoverageInfo
 SyncScriptBuilder.DebugInfo
@@ -75276,7 +75548,6 @@ TargetDataModels
 TARGETDURATION
 TargetError
 TargetFilter
-TargetFrame
 TargetingInformation
 TargetInstance
 TargetLayerCageCompressed
@@ -75449,8 +75720,6 @@ TcServerReplicatorSessionSummaryStats
 TcServerReplicatorSessionSummaryStatsThrottle
 TcServerReplicatorStatsEventsThrottleHP
 TCSMigrationReplicationFix
-TCSTranslateSecondServerPartitionId
-TCSTranslateServerPartitionId
 TCTimeSinceOldestReplicatingChangeMs
 TDigestShared
 TDV6X\ZV\`^6\
@@ -75589,6 +75858,7 @@ TeamTestInitFailure
 TeamTestInstancesForServerList
 TeamTestJoinConfig
 TeamTestJoinConfig]
+TeamTestJoinTelemetry
 TeamTestLoadDataModel
 TeamTestLoadDataModelFailure
 TeamTestManager
@@ -75643,6 +75913,7 @@ TelemetryDataReArchTransmissionRolloutDenyList
 TelemetryEnableNewRolloutAnnotations
 TelemetryEnableRolloutAnnotations
 TelemetryEvent
+TelemetryFixRolloutUpdateTimestamp
 TelemetryInformation
 TelemetryJson
 TelemetryJSON
@@ -75795,6 +76066,8 @@ TeleportPreloadingNotFetchedRate
 TeleportPrivateServer
 TeleportPrivateServerAccessGrantFailed
 TeleportPrivateServerAccessGrantSucceeded
+TeleportReconnect
+TeleportReconnectRequestCounter
 TeleportRejected
 TeleportReservedServer
 TeleportResult
@@ -75869,6 +76142,7 @@ Tempestade
 TempFileCreationFailure
 TempFileRenameFailure
 TempFixLocalFrameOffByOne
+TempIdAsync
 TemporalWeightFactor
 TemporarilyUnavailable
 TEMPORARY_REDIRECT
@@ -75929,6 +76203,7 @@ TerrainArraySliceSize
 TerrainAtlasBorderSize
 TerrainAtlasTileSize
 TerrainCellListener
+TerrainChange
 TerrainChunks
 TerrainColorsItem
 TerrainColorTable
@@ -76092,7 +76367,6 @@ TextBoxEmitTab
 TextBoxFocused
 TextBoxFocusEnterPressedFix
 TextBoxFocusReleased
-TextBoxPreventNativeBindingLoop
 TextBoxProp
 TextBoxRedo
 TextBoxRoundUpCursorPosOnSetText
@@ -76163,6 +76437,7 @@ TextChatServiceSettingsSaved
 TextChatServiceTextChatCommandAutocompleteVisible
 TextChatServiceWhisperCheckEnabled
 TextChatTelemetrySendAsyncFailureThrottlePermyriad
+TextChatTelemetrySendClientEvents
 TextChatTelemetryVolumeAdditionalFields
 TextChatTelemetryVolumeClientReceived
 TextChatTelemetryVolumeCommandsTriggered
@@ -76378,14 +76653,12 @@ TexturePack
 TexturePackAlphaMode
 TexturePackColor
 TexturePackEtcEffortHundredth
-TexturePackId
 TexturePackID
 TexturePackLayerSupport
 TexturePackLoadStatus
 TexturePackMetadata
 TexturePackNorm
 TexturePackPreview
-TexturePackRetryWithAssetFormat
 TexturePackSpec
 TexturePackTextures
 TexturePackUseACR
@@ -76419,7 +76692,6 @@ TexturesResized
 TextureStorage1DEXT
 TextureStorage2DEXT
 TextureStorage3DEXT
-TextureStreamingV0
 TextureTranscodeFidelityETC
 TextureTranscodeMajorVersion
 TextureUnits
@@ -76475,7 +76747,6 @@ ThirdPartySale
 ThirdPartySalesNotAllowed
 ThirdPartyTextChatFixSyncPlatformAppStorageData
 ThirdPartyTextChatPermissionsApi
-ThirdPartyTextChatPermissionsApiEnabled
 ThirdPartyTextChatRestrictionStatus
 ThirdPartyTextChatSettings
 ThirdPartyThumbnailLoadsCounter
@@ -76745,6 +77016,7 @@ TimeElapsedMs
 TimeExcl.toFixed
 TimeFilter
 TimeFixtureTestHelper
+TimeForExportBatchinMs
 TimeFormat
 TimeFreqFromHardware
 TimeFreqMHz
@@ -77597,6 +77869,7 @@ TotalCount
 TotalCountTimeIntervalItem
 TotalDataStats
 TotalDelayMs
+TotalDeltaCount
 TotalDuration
 TotalEmittersPerFrame
 TotalEntries
@@ -77913,6 +78186,7 @@ TrackingSlotId
 TrackingStarted
 TrackingStopped
 TrackingSummary
+TrackLatestPersistedPlaceVersionNumber
 TrackMemoryOnSessionStartEndInST
 TrackMemoryPerRegionSeparatelyIfDecreasing
 TrackMidType
@@ -77982,8 +78256,10 @@ TransactNamedPipe
 Transaktion
 Transaktionslimit
 Transceiver
+TranscodePropertySet
 Transcoder
 TranscoderRefactor
+TranscoderVariableDimension
 TransferCallTeleportJoin
 TransferCallTeleportLeave
 TransferCharacteristics
@@ -78022,6 +78298,8 @@ TransformedWorldCFrame
 Transformer
 TransformFeedbackVaryings
 TransformFunctionError
+TransformIdentityFailLog
+TransformIdentityFailLog]
 Transformieren
 Transforming
 Transforms
@@ -78596,6 +78874,7 @@ UDeformerContext
 UDeltaConvexDecompHolder
 UDEPRECATED_IndicatorClickedMessage
 UDEPRECATED_ReplicatorDisconnectionMessage
+UDeprecatedInfo
 UDescendantsStats
 UDialogResult
 Udieresissmall
@@ -78892,7 +79171,6 @@ UGCValidationIECTelemetry
 UGCValidationJobTelemetry
 UGCValidationJobTelemetryThrottle
 UGCValidationLCOOB
-UGCValidationNewFACSChecks
 UGCValidationReportScriptTime
 UGCValidationReportScriptTimeBlocking
 UGCValidationRequiredFolderContextEngineFeature
@@ -78902,7 +79180,6 @@ UGCValidationSuccessCounter
 UGCValidationTelemetry
 UGCValidationTransparencyThresholdDeprecated
 UGCValidationValidateTransparencyEnhancedErrorMessage
-UGCValidationWithContextEntrypoint
 UGCValidationWithContextEntrypointFeature
 UGeneralResponse
 UGeneratedMaterialsResponse
@@ -79183,6 +79460,7 @@ UIPageLayoutProp
 UIPageLayoutProperBounds
 UIPageLayoutSupportStyling
 UIPageLayoutTicksPerPageHundreths
+UIPageLayoutVirtualCursor
 UIPerfSplitCoreDev
 UIPerfSplitCoreDev_ReportHundredthsPercent
 UIPerfSplitCoreDevSampleIntervalSeconds
@@ -79673,11 +79951,13 @@ UnknownComponent
 UnknownDataModelChild
 UnknownDataStoreType
 UnknownDataStructure
+UnknownDmDelta
 UnknownEngineCycle
 UnknownError
 UnknownEvent
 UnknownFail
 UnknownFailure
+UnknownFsDelta
 UnknownGlobal
 UnknownKey
 UnknownMemoryStoreHashMap
@@ -79827,6 +80107,7 @@ UnsupportedVideoColorSpace
 UnsupportedVideoFrameRate
 UnsupportedVideoPixelFormat
 UnsupportedVideoResolution
+Unsynchronized
 Unterbrechung
 UNTERBRECHUNGSFREIEN
 Unterbreiten
@@ -79960,7 +80241,6 @@ UpdateDurationUsecMin
 UpdateDurP05
 UpdateDurP50
 UpdateDurP95
-UpdatedVideoImpressionMinimumIntervalMs
 UpdateEditorSetting
 UpdateEmdSOA
 UpdateEntityTime
@@ -80128,6 +80408,8 @@ UploadAudioRequest
 UploadAudioRequestError
 UploadCapture
 UploadCaptureAsync
+UploadCaptureEvent
+UploadCaptureEventThrottleHundredthsPercent
 UploadCaptureResult
 UploadChunk
 UploadChunkComplete
@@ -80212,7 +80494,6 @@ UpperLimit
 UpperLimitTC1TextureBudget
 UpperLipSuck
 UpperRightArrow
-UpperTorH9
 UpperTorso
 UpperTorso_Geo
 UpperTorso_OuterCage
@@ -80256,6 +80537,7 @@ UpTeeArrow
 UPublishDiagnosticsNotification
 UPushStatsToGUIMessage
 UpwardFunctions
+UQByteArrayReadOnlySharedBuffer
 UQLatin1Char
 UQMetaObject
 UQPrivateSignal
@@ -80424,7 +80706,6 @@ UseImprovedModelLod
 UseImprovedModelLODDefaultEnabled
 UseImprovedModelLODThreePhaseRolloutProperty
 UseImprovedSearch
-UseIndirectSelectionCoreGui
 UseInventoryAssets
 UseJointAnalytics
 UseJsonWriterInPerformPurchase
@@ -80438,7 +80719,6 @@ UseLuauTypeCheckModeProperty
 UseMatchmakingApiClientStatus
 UseMaxLocomotionForce
 UseMeshScaleInVoxelizer
-UseMouseSinking
 UseMultipleStrokes
 USendTelemetryMessage
 UseNewAudioApi
@@ -80490,6 +80770,7 @@ UserAtomicCharacterSoundsUnparent
 UserAudioEligible
 UserAutoUpdate
 UserBanned
+UserBehavior
 UserBreakpoint
 UserCameraControlLastInputTypeUpdate
 UserCameraGamepadZoomFix
@@ -80802,6 +81083,7 @@ UseSizeConstraintModifier
 UseSolverModeToReportIces
 UseSplitOctree
 UseStandardBytesStats
+UseStartedActivityCount
 UseSteadyClockLocalTime2
 UseStrafingAnimations
 UseStreamSwitching
@@ -80964,7 +81246,6 @@ UTextureData
 UTexturePackPreview
 UTextureRefData
 UTF8_VALIDATION_UNKNOWN
-Utf8FilenameSupport
 UTF8String
 UTF8STRING
 Utf8Validation
@@ -81622,6 +81903,7 @@ VChangeHistoryContextDataModelController
 VChangeHistoryContextProvider
 VChangeHistoryService
 VChangeHistoryServiceTaskRegister
+VChangeHistoryStreamingService
 VChannelArgs
 VChannelCredsConfig
 VChannelInterface
@@ -82248,6 +82530,7 @@ VerifyLeafCertCrl
 VerifyMode
 VerifyRecover
 VerifyResponse
+VerifySetAncestorOptimization
 VerifyTeleportOptions
 VerifyVersionInfoA
 VerifyVersionInfoW
@@ -82709,6 +82992,7 @@ VIAssetDataModelManager
 VIAssetExportController
 VIAssetInsertController
 VIAssetPluginErrorReporter
+VIAssistantApplication
 VIAssistantBridge
 VIAssistantExperimentation
 VIAssistantOutputConnection
@@ -82744,12 +83028,17 @@ VIDebuggerHostAppServices
 VIdElementParser
 VIdentityOneEuroFeaturesSmoother
 VIdentityProtocol
+VideoAbrBigDisplay
 VideoAbrClearUpperLowerBound
 VideoAbrDebug
+VideoAbrMemoryThreshold
+VideoAbrMomentsCapture
 VideoAbrVisibilitySideInverseScale
 VideoAdaption
 VideoAdaption]
 VideoAdaptionByMemory
+VideoAdaptionByScreenSizeForMomentsOnly
+VideoAdaptionByScreenSizeThenHarmony
 VideoAdaptionDecidedNoVideo
 VideoAdaptionHarmonyWeight
 VideoAdaptionPlatformWeight
@@ -82836,6 +83125,7 @@ VideoCaptureBlockedOnLowMem
 VideoCaptureBlockOnLowMemDevices
 VideoCaptureBlockOnLowMemThresholdMB
 VideoCaptureBlockWinOpenGL
+VideoCaptureBlockWinVulkan
 VideoCaptureByDevCount
 VideoCaptureByUserCount
 VideoCaptureCaptureService
@@ -82963,6 +83253,7 @@ VideoCaptureWinOpenGLForceSoftware
 VideoCaptureWinSwBlockOnLowMemDevices
 VideoCaptureWinSwBlockOnLowMemThresholdMB
 VideoCaptureWinSwColorConversionShareBuffer
+VideoCaptureWinVulkanForceSoftware
 VideoCaptureXbox
 VideoChangeLadder
 VideoChannel
@@ -82981,7 +83272,9 @@ VideoCodecName
 VideoCodecPar
 VideoColor3
 VideoCompleteMinimumIntervalMs
+VideoConfigurableGopSize
 VideoContent
+VideoContentPropertyItem
 VideoControlHwCodecTotalCheck
 VideoControlHwCodecTotalReject
 VideoCoreScriptMaxLoadCount
@@ -83075,6 +83368,7 @@ VideoFrameTrace]
 VideoFrameTrackingIdAdvertised
 VideoFrameYuvGPU
 VideoGamePreviewSessionTracking
+VideoGopSize
 VideoGuiType
 VideoHandleEarlyServiceShutdown
 VideoHandler
@@ -83160,6 +83454,7 @@ VideoPixelX
 VideoPixelX2
 VideoPixelY
 VideoPixelY2
+VideoPlaybackLowMemThresholdMB
 VideoPlaybackManager
 VideoPlaybackManagerEarlyReset
 VideoPlaybackManagerTrace
@@ -83522,6 +83817,7 @@ VINativeDialogManager
 VIncrementalPatchBuilder
 VIndexedMesh
 VInferredCrash
+VInferredCrashBacktraceReporter
 VInitializationSegment
 VInitiateSubscriptionsRequest_FeedOptionsEntry_DoNotUse
 Vinput_buffer_adapter
@@ -83768,6 +84064,7 @@ VISystemMenu
 VITeamCreateManager
 VITeamCreateSaver
 VITeamTestManager
+VITeamTestModeChecker
 VITeamTestWorkflowManager
 VIThumbnailAssetDataLoader
 VIThumbnailController
@@ -84118,7 +84415,6 @@ VNonTeamCreateScriptTracker
 VNoTagsLabelItem
 VNotApprovedResponseModel
 VNotificationService
-VNullCache
 VNullClientSessionMetricStorage
 VNullLbTokenEndpointIterator
 VNumberRange
@@ -84193,6 +84489,7 @@ VoiceChatClientPublishOperationSetupFailedAbandoned
 VoiceChatClientPublishOperationSetupFailedBadJson
 VoiceChatClientPublishOperationTooManyAckedMessages
 VoiceChatClientPublishOperationTooManyCompletedMessages
+VoiceChatClientRebootOperationEnabled
 VoiceChatClientReceivedJoin
 VoiceChatClientReceivedRejoin
 VoiceChatClientRetryJoinSent
@@ -84266,6 +84563,7 @@ VoiceChatEnableSdpCompressionMaster
 VoiceChatEnableTaskStatsLogging
 VoiceChatEnableTurnAuthFromRCC_CLIENT
 VoiceChatEnableTurnAuthFromRCC_RCC
+VoiceChatEnableVoiceFailedUI
 VoiceChatError
 VoiceChatError]
 VoiceChatEventReplicatorWrapperEnabled
@@ -84406,6 +84704,10 @@ VoiceChatNumClientPublishOperationAbandonedDueToSessionIdChange
 VoiceChatNumClientPublishOperationFail
 VoiceChatNumClientPublishOperationFailedDueToTimeout
 VoiceChatNumClientPublishOperationSuccess
+VoiceChatNumClientRebootFromConnectionFailure
+VoiceChatNumClientRebootOperationAbandon
+VoiceChatNumClientRebootOperationFail
+VoiceChatNumClientRebootOperationSuccess
 VoiceChatNumClientSubscribeOperationAbandon
 VoiceChatNumClientSubscribeOperationAbandonedDueToLeaving
 VoiceChatNumClientSubscribeOperationAbandonedDueToSessionIdChange
@@ -84422,11 +84724,14 @@ VoiceChatNumClientTurnAuthOperationFailedDueToTimeout
 VoiceChatNumClientTurnAuthOperationSuccess
 VoiceChatNumRuppHeaderGenerationFailed
 VoiceChatNumRuppHeaderGenerationSuccess
+VoiceChatOnPlayerModeratedClearCacheEventSent
 VoiceChatPacketTimeMs
 VoiceChatPassMuteEventsToJava
 VoiceChatPcHolderDataChannelCloseWorkaroundEnabled
 VoiceChatPeerConnectionCreationError
 VoiceChatPeerConnectionFactory
+VoiceChatPeerConnectionFailedTelemetry
+VoiceChatPeerConnectionFailedTelemetryThrottleHundredthsPercent
 VoiceChatPeerConnectionInterface
 VoiceChatPeerConnectionInterfaceHolderDelayMs
 VoiceChatPeerConnectionManagerForSub
@@ -84515,6 +84820,7 @@ VoiceChatSdpCompressionMode
 VoiceChatSdpParseError
 VoiceChatSdpSerializationError
 VoiceChatSendInitialBatchEmpty
+VoiceChatSendPeerConnectionFailedTelemetry
 VoiceChatSendUserKickingMetric
 VoiceChatService
 VoiceChatService_DefaultVoice
@@ -84723,6 +85029,8 @@ VoiceClientLeaveOperationFail
 VoiceClientLeaveOperationSuccess
 VoiceClientPublishOperationFailedMs
 VoiceClientPublishOperationSuccessMs
+VoiceClientRebootOperationRetryLimit
+VoiceClientRebootOperationRetryRateMs
 VoiceClientRewriteSkipJoinForPlaySolo
 VoiceClientSubOperationInvalidPeerConnectionFallback
 VoiceClientSubOperationInvalidPeerConnectionFallbackDetails
@@ -84731,6 +85039,7 @@ VoiceClientSubscriptionsUpdateOperationSuccessMs
 VoiceClientTurnAuthOperationFailedMs
 VoiceClientTurnAuthOperationSuccessMs
 VoiceConnectionApiEnableInitializeAudioSinkOnDMThreadFix
+VoiceConnectionApiEnableWindowsEventQueueHangPotentialFix
 VoiceControlPath
 VoiceControlPlaneInitFlowWithVoiceType
 VoiceCustomAudioMixerSilentModeOptimizationFixEnabled
@@ -85120,7 +85429,6 @@ VPX_RC_ONE_PASS..VPX_RC_LAST_PASS]
 VPX_SS_MAX_LAYERS]
 VPX_TS_MAX_LAYERS]
 VPX_VBR..VPX_Q]
-VpXpZp\p^p`pbpdpfphpjplpn2p
 VpxSoftwareCodec
 VpxTplGopStats
 VQAbstractButton
@@ -85515,6 +85823,7 @@ VSharedTableRegistry
 VShareModalWindow
 VShirtGraphic
 VShortcutDisambiguator
+VShortcutInteractionTelemetry
 VShowInFolderAction
 VSignalrControl
 VSignalRCoreCancellationToken
@@ -85624,6 +85933,7 @@ VStreamingCall
 VStreamingMessageHandler
 VStreamingService
 VStreamingServiceDispatcher
+VStreamingSettingsSyncer
 VStreamingSolver
 VStreamingSolverV2
 VStreamJob
@@ -85903,6 +86213,7 @@ VUITextSizeConstraint
 VUITextSizeConstraintProxy
 VulkanAlwaysLogLayersAndExtensions
 VulkanBuggyRenderpassList2
+VulkanCorrectDepthStencilSupportChecking
 Vunderflow_error
 VUnionOperation
 VUniqueIdLookupService
@@ -86197,12 +86508,14 @@ WaitSemaphores
 WaitSemaphoresKHR
 WaitsForGpu
 WaitSwapchainImage
+WaitUntilCanPublish
 WakeAllConditionVariable
 WakeByAddressAll
 WakeByAddressSingle
 WakeConditionVariable
 WakeInsideCombiner
 Walentynki
+WalFileSizeBytes
 WalkAngleError
 WalkAnimation
 WalkBackAnim
@@ -86328,6 +86641,7 @@ WebBrowserSTM6332FixPreInitializeCrashEnabled
 WebBrowserSTM6363FixHangsEnabled
 WebBrowserSTM6363NullGuardEnabled
 WebBrowserSTM6461Enabled
+WebBrowserSTM6490AllowExternalDrop
 WebBrowserWidget
 WebBrowserWidgetConfig
 WebBrowserWidgetErrorEvent
@@ -86867,7 +87181,7 @@ WilError_03
 Willkommen
 WillReturn
 WIN32_LEAN_AND_MEAN
-Win64.686.45051
+Win64.687.55122
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
@@ -87042,6 +87356,7 @@ WmfVideoDecoder
 WmfVideoEncoder
 WmiWrapper
 WmiWrapper]
+WMSOverrides.JSON
 Wolfsschwanz
 Wolkengrau
 Wolkenkratzer
@@ -87529,6 +87844,7 @@ XPEAXVTimeDelta
 XPEBDPEBDV
 XPEBVGImage
 XPEBX_KPEAVStunRequest
+XpZp\p^p`pbpdpfphpjplpnpp2r
 XQColorDialog
 XR_API_LAYER_PATH
 XR_ENABLE_API_LAYERS

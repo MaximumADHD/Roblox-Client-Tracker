@@ -8,6 +8,7 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 Class Capture : Object [NotCreatable] [NotReplicated]
 	Property Capture.CaptureTime: DateTime [ReadOnly]
 	Property Capture.CaptureType: Enum.CaptureType [ReadOnly]
+	Property Capture.FilePathString: string {RobloxScriptSecurity} [ReadOnly]
 	Property Capture.LocalId: string [ReadOnly]
 	Property Capture.SourcePlaceId: number [ReadOnly]
 	Property Capture.SourceUniverseId: number [ReadOnly]
@@ -43,6 +44,7 @@ Class EditableMesh : Object [NotCreatable]
 	Property EditableMesh.SkinningEnabled: boolean [Deprecated]
 	Function EditableMesh:AddBone(boneProperties: { [string]: any }) -> number
 	Function EditableMesh:AddColor(color: Color3, alpha: number) -> number
+	Function EditableMesh:AddFace(vertexIds: { any }) -> number
 	Function EditableMesh:AddNormal(normal: Vector3?) -> number
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
 	Function EditableMesh:AddUV(uv: Vector2) -> number
@@ -446,6 +448,7 @@ Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplic
 Class AppRatingPromptService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppRatingPromptService:isAppRatingPromptAvailable() -> boolean {RobloxScriptSecurity}
 	Function AppRatingPromptService:showAppRatingPrompt() -> () {RobloxScriptSecurity}
+	Event AppRatingPromptService.OnGameLeft(gameTime: number) {RobloxScriptSecurity}
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppUpdateService:CanPerformBinaryUpdate() -> boolean {RobloxScriptSecurity}
 	Function AppUpdateService:CheckForUpdate(handler: ((...any) -> ...any)?) -> () {RobloxScriptSecurity}
@@ -497,6 +500,7 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.OutputPath: string
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
+	Property AssetService.AllowInsertFreeAssets: boolean
 	Function AssetService:CanEditAssetAsync(content: Content) -> boolean {RobloxScriptSecurity} [Yields]
 	Function AssetService:CreateAssetAsync(object: Object, assetType: Enum.AssetType, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
 	Function AssetService:CreateAssetVersionAsync(object: Object, assetType: Enum.AssetType, assetId: number, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
@@ -516,10 +520,11 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:GetBundleDetailsSync(bundleId: number) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetService:GetCreatorAssetID(creationID: number) -> number [Yields] [Deprecated]
 	Function AssetService:GetGamePlacesAsync() -> Instance? [Yields]
+	Function AssetService:LoadAssetAsync(assetId: number) -> Instance? [Yields]
 	Function AssetService:PromptCreateAssetAsync(player: Player, instance: Instance, assetType: Enum.AssetType) -> ...any [Yields]
 	Function AssetService:PromptImportAnimationClipFromVideoAsync(player: Player, progressCallback: (...any) -> ...any) -> ...any [Yields]
 	Function AssetService:RegisterUGCValidationFunction(function: (...any) -> ...any) -> () {RobloxScriptSecurity}
-	Function AssetService:SavePlaceAsync() -> () [Yields]
+	Function AssetService:SavePlaceAsync(requestParameters: { [string]: any }?) -> () [Yields]
 	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields]
 	Event AssetService.AudioMetadataFailedResponse(requestid: number) {RobloxScriptSecurity}
 	Event AssetService.AudioMetadataRequest(requestid: number, request: { any }) {RobloxScriptSecurity}
@@ -751,6 +756,7 @@ Class AudioPitchShifter : Instance
 Class AudioPlayer : Instance
 	Property AudioPlayer.Asset: string {🔐Audio}
 	Property AudioPlayer.AssetId: string {🔐Audio} [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
+	Property AudioPlayer.AudioContent: Content {🔐Audio}
 	Property AudioPlayer.AutoLoad: boolean {🔐Audio}
 	Property AudioPlayer.IsReady: boolean {🔐Audio} [ReadOnly]
 	Property AudioPlayer.TimeLength: number {🔐Audio} [ReadOnly]
@@ -847,6 +853,7 @@ Class AuroraScriptObject : Instance [NotCreatable] [Deprecated]
 	Property AuroraScriptObject.LODLevel: number [Deprecated]
 	Property AuroraScriptObject.MaxFrequency: number [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraScriptObject.PriorFrameInvoked: number [Deprecated]
+	Function AuroraScriptObject:GetCurrentState() -> { [string]: any } {RobloxScriptSecurity} [Deprecated] {🧬Safe}
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number {🔐Basic} [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () {🔐Basic} [Deprecated] {🧬Safe}
@@ -1438,11 +1445,13 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:IsCapturingVideo() -> boolean {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
+	Function CaptureService:OnCaptureObjectShared(capture: Capture) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCapturePermissionsPromptFinished(promptId: number, wasAccepted: boolean) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity} [CustomLuaState]
 	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnVideoCaptureShared(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
+	Function CaptureService:PreCaptureShared(capture: Capture) -> string {RobloxScriptSecurity}
 	Function CaptureService:PreVideoCaptureShared(videoCapture: VideoCapture) -> string {RobloxScriptSecurity}
 	Function CaptureService:PromptCaptureGalleryPermission(captureGalleryPermission: Enum.CaptureGalleryPermission, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> () {🔐InternalTest}
 	Function CaptureService:PromptCaptureGalleryPermissionAsync(captureGalleryPermission: Enum.CaptureGalleryPermission) -> boolean [Yields]
@@ -1450,6 +1459,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:ReadCapturesFromGalleryAsync(captureTypeFilters: { any }? = {}) -> ...any [Yields]
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
+	Function CaptureService:SaveCaptureObjectToExternalStorage(capture: Capture) -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:SaveScreenshotCapture(additionalInfo: string? = "") -> () {RobloxScriptSecurity}
@@ -1462,6 +1472,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:UploadCaptureAsync(capture: Capture) -> ...any [Yields]
 	Event CaptureService.CaptureBegan(captureType: Enum.CaptureType)
 	Event CaptureService.CaptureEnded(captureType: Enum.CaptureType)
+	Event CaptureService.CaptureObjectSavedInternal(capture: Capture, triggerSource: string) {RobloxScriptSecurity}
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) [Deprecated]
 	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {RobloxScriptSecurity}
 	Event CaptureService.OnCaptureAndMetadataSignatureResult(content: string, captureSignature: string, captureSignatureVersion: number, metadataSignature: string, metadataSignatureVersion: number) {RobloxSecurity} [Hidden]
@@ -1491,6 +1502,8 @@ Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Event ChangeHistoryService.OnRecordingStarted(name: string, displayName: string?) {PluginSecurity}
 	Event ChangeHistoryService.OnRedo(waypoint: string) {PluginSecurity}
 	Event ChangeHistoryService.OnUndo(waypoint: string) {PluginSecurity}
+Class ChangeHistoryStreamingService : Instance [NotCreatable] [Service]
+	Event ChangeHistoryStreamingService.SendTerrainChangeFromStudio(instance: Instance, chunkX: number, chunkY: number, chunkZ: number, cells: string) {RobloxScriptSecurity}
 Class CharacterAppearance : Instance [NotCreatable]
 Class BodyColors : CharacterAppearance
 	Property BodyColors.HeadColor: BrickColor {🔐Avatar} [📁 LoadOnly]
@@ -2662,6 +2675,7 @@ Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
 	Event GuiButton.MouseButton2Click() {🔐UI}
 	Event GuiButton.MouseButton2Down(x: number, y: number) {🔐UI}
 	Event GuiButton.MouseButton2Up(x: number, y: number) {🔐UI}
+	Event GuiButton.SecondaryActivated(inputObject: InputObject) {🔐UI}
 Class ImageButton : GuiButton
 	Property ImageButton.ContentImageSize: Vector2 {🔐UI} {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property ImageButton.HoverImage: string {🔐UI}
@@ -2999,6 +3013,7 @@ Class HandleAdornment : PVAdornment [NotCreatable]
 	Property HandleAdornment.AdornCullingMode: Enum.AdornCullingMode {🔐Basic | UI}
 	Property HandleAdornment.AlwaysOnTop: boolean {🔐Basic | UI}
 	Property HandleAdornment.CFrame: CFrame {🔐Basic | UI}
+	Property HandleAdornment.GizmoReference: Instance? {🔐Basic | UI} {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property HandleAdornment.SizeRelativeOffset: Vector3 {🔐Basic | UI}
 	Property HandleAdornment.ZIndex: number {🔐Basic | UI}
 	Event HandleAdornment.MouseButton1Down() {🔐Basic | UI}
@@ -3696,6 +3711,7 @@ Class InputBinding : Instance
 	Property InputBinding.KeyCode: Enum.KeyCode {🔐Input}
 	Property InputBinding.PressedThreshold: number {🔐Input}
 	Property InputBinding.ReleasedThreshold: number {🔐Input}
+	Property InputBinding.ResponseCurve: number {🔐Input}
 	Property InputBinding.Scale: number {🔐Input}
 	Property InputBinding.UIButton: GuiButton? {🔐Input}
 	Property InputBinding.Vector2Scale: Vector2 {🔐Input}
@@ -3999,6 +4015,7 @@ Class AuroraScript : LuaSourceContainer [Deprecated]
 	Property AuroraScript.Priority: number {PluginSecurity} [Deprecated]
 	Property AuroraScript.Source: string {PluginSecurity} [Deprecated]
 	Function AuroraScript:AddTo(instance: Instance) -> () [Deprecated]
+	Function AuroraScript:GetSchema() -> { [string]: any } {RobloxScriptSecurity} [Deprecated] {🧬Safe}
 	Function AuroraScript:IsOnInstance(instance: Instance) -> boolean [Deprecated]
 	Function AuroraScript:RemoveFrom(instance: Instance) -> () [Deprecated]
 	Function AuroraScript:SignalFired(instance: Instance, topic: string) -> RBXScriptSignal [Deprecated]
@@ -4330,9 +4347,6 @@ Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 	Function ClientReplicator:IsStreamedOut(instance: Instance) -> boolean {RobloxScriptSecurity}
 	Function ClientReplicator:RequestRCCProfilerData(frameRate: number, timeFrame: number) -> () {RobloxScriptSecurity}
-	Function ClientReplicator:RequestServerLuauHeapData() -> () {RobloxScriptSecurity}
-	Function ClientReplicator:RequestServerScriptProfiling(start: boolean, frequency: number?) -> () {RobloxScriptSecurity}
-	Function ClientReplicator:RequestServerScriptProfilingData() -> () {RobloxScriptSecurity}
 	Function ClientReplicator:RequestServerStats(request: boolean) -> () {RobloxScriptSecurity}
 	Event ClientReplicator.RCCProfilerDataComplete(success: boolean, message: string) {RobloxScriptSecurity}
 	Event ClientReplicator.StatsReceived(stats: { [string]: any }) {RobloxScriptSecurity}
@@ -6162,6 +6176,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.ShowPromptRsvpToEvent(eventId: string) {RobloxScriptSecurity}
 	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance
 Class Sound : Instance
+	Property Sound.AudioContent: Content {🔐LegacySound}
 	Property Sound.ChannelCount: number {🔐LegacySound} {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
 	Property Sound.IsLoaded: boolean {🔐LegacySound} [ReadOnly]
 	Property Sound.SoundId: string {🔐LegacySound}
@@ -6402,6 +6417,7 @@ Class Stats : Instance [NotCreatable] [Service]
 	Property Stats.HeartbeatTime: number [ReadOnly]
 	Property Stats.HeartbeatTimeMs: number [ReadOnly] [Deprecated]
 	Property Stats.InstanceCount: number [ReadOnly]
+	Property Stats.MemoryTrackingEnabled: boolean [ReadOnly]
 	Property Stats.MovingPrimitivesCount: number [ReadOnly]
 	Property Stats.PhysicsReceiveKbps: number [ReadOnly]
 	Property Stats.PhysicsSendKbps: number [ReadOnly]
@@ -6610,6 +6626,9 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.TypeColor: Color3 [Hidden] [NotReplicated] [NotScriptable]
 	Property Studio.Warning Color: Color3 [NotReplicated]
 	Property Studio.Whitespace Color: Color3 [NotReplicated]
+	Property Studio.EnableStudioStreaming: boolean {RobloxScriptSecurity}
+	Property Studio.StudioStreamingMaxRadius: number {RobloxScriptSecurity}
+	Property Studio.StudioStreamingMinRadius: number {RobloxScriptSecurity}
 	Property Studio.Active Color: Color3
 	Property Studio.Active Hover Over Color: Color3
 	Property Studio.Animate Hover Over: boolean
@@ -6874,6 +6893,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:TeleportAsync(placeId: number, players: { Instance }, teleportOptions: Instance? = nil) -> Instance? [Yields]
 	Function TeleportService:TeleportCancel() -> () {RobloxScriptSecurity}
 	Function TeleportService:TeleportPartyAsync(placeId: number, players: { Instance }, teleportData: any, customLoadingScreen: Instance? = nil) -> string [Yields]
+	Function TeleportService:TeleportReconnect() -> () {RobloxScriptSecurity}
 	Function TeleportService:TeleportToPlaceInstance(placeId: number, instanceId: string, player: Instance? = nil, spawnName: string? = "", teleportData: any, customLoadingScreen: Instance? = nil) -> ()
 	Function TeleportService:TeleportToPrivateServer(placeId: number, reservedServerAccessCode: string, players: { Instance }, spawnName: string? = "", teleportData: any, customLoadingScreen: Instance? = nil) -> ()
 	Function TeleportService:TeleportToSpawnByName(placeId: number, spawnName: string, player: Instance? = nil, teleportData: any, customLoadingScreen: Instance? = nil) -> ()
@@ -6927,16 +6947,19 @@ Class TestService : Instance [Service]
 	Property TestService.Timeout: number
 	Function TestService:Check(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Checkpoint(text: string, source: Instance? = nil, line: number? = 0) -> ()
-	Function TestService:CreateAndSavePropertySet(source: Instance, fileName: string) -> () {RobloxScriptSecurity}
+	Function TestService:CreateAndSavePropertySet(source: Instance) -> string {RobloxScriptSecurity}
+	Function TestService:CreateExtraAssetsFileFromPropertySet(psetFileName: string) -> string {RobloxScriptSecurity}
 	Function TestService:CreatePropertySetDiff(sourceA: Instance, sourceB: Instance) -> string {RobloxScriptSecurity}
 	Function TestService:Done() -> ()
 	Function TestService:Error(description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Fail(description: string, source: Instance? = nil, line: number? = 0) -> ()
+	Function TestService:FetchExtraAssets(extraAssetsFileName: string) -> string {RobloxScriptSecurity}
 	Function TestService:Message(text: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Require(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Run() -> () {PluginSecurity} [Yields]
 	Function TestService:ScopeTime() -> { [string]: any }
 	Function TestService:TakeSnapshot(snapshotname: string) -> () {🔐InternalTest}
+	Function TestService:TranscodePropertySet(extraAssetsFileName: string, psetFileName: string) -> string {RobloxScriptSecurity}
 	Function TestService:Warn(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:isFeatureEnabled(name: string) -> boolean
 	Event TestService.ServerCollectConditionalResult(condition: boolean, text: string, script: Instance, line: number)
@@ -7439,6 +7462,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings] [NotReplicated]
 	Property UserGameSettings.VRComfortSetting: Enum.VRComfortSetting {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.VRSafetyBubbleMode: Enum.VRSafetyBubbleMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.AllTutorialsDisabled: boolean {RobloxScriptSecurity}
+	Property UserGameSettings.BadgeVisible: boolean {RobloxScriptSecurity}
 	Property UserGameSettings.CameraYInverted: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.ChatTranslationEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.ChatTranslationFTUXShown: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -7468,6 +7492,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings] [NotReplicated]
 	Property UserGameSettings.PartyVoiceVolume: number {RobloxScriptSecurity}
 	Property UserGameSettings.PerformanceStatsVisible: boolean {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.PlayerHeight: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property UserGameSettings.PlayerNamesEnabled: boolean {RobloxScriptSecurity}
 	Property UserGameSettings.PreferredTextSize: Enum.PreferredTextSize {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.PreferredTransparency: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.QualityResetLevel: number {RobloxScriptSecurity} [Hidden]
@@ -7718,6 +7743,7 @@ Class VideoPlayer : Instance [NotBrowsable]
 	Property VideoPlayer.IsLoaded: boolean [ReadOnly]
 	Property VideoPlayer.Resolution: Vector2 [ReadOnly]
 	Property VideoPlayer.TimeLength: number [ReadOnly]
+	Property VideoPlayer.VideoContent: Content
 	Property VideoPlayer.AutoLoadInStudio: boolean {✏️RobloxScriptSecurity} [NotReplicated] [NotScriptable]
 	Property VideoPlayer.AutoPlayInStudio: boolean {✏️RobloxScriptSecurity} [NotReplicated] [NotScriptable]
 	Property VideoPlayer.IsPlaying: boolean [ReadOnly]
@@ -7848,7 +7874,9 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function VoiceChatService:joinVoice() -> () {RobloxScriptSecurity}
 	Function VoiceChatService:lastVoiceChatStats() -> { [string]: any } {RobloxScriptSecurity}
 	Function VoiceChatService:leaveVoice() -> () {RobloxScriptSecurity}
+	Function VoiceChatService:notifyServerACSCleanup() -> () {RobloxScriptSecurity}
 	Function VoiceChatService:rejoinVoice() -> () {RobloxScriptSecurity}
+	Event VoiceChatService.ACSCleanup() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ClientRetryJoinWithConfig(sessionConfigFlags: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.FetchUserTurnAuthOperationFailed(sessionId: string) {RobloxSecurity} [Hidden]

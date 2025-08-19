@@ -431,8 +431,8 @@
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" modernIcon="TaskScheduler" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation"/>
         <addaction fflag="EnableRibbonPlugin2" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance"/>
         <addaction fflag="!EnableRibbonPlugin2" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat"/>
-        <addaction fflag="!NewFindReplaceTasker3" name="toggleFindReplaceWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
-        <addaction fflag="NewFindReplaceTasker3" name="toggleFindReplaceAllWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
+        <addaction fflag="!NewFindReplaceTasker4" name="toggleFindReplaceWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
+        <addaction fflag="NewFindReplaceTasker4" name="toggleFindReplaceAllWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
         <addaction fflag="EnableAvatarSettings" name="avatarSettingsAction" modernIcon="AvatarSettings" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
         <!-- Remove with FFlagCOLLAB5668HideTCWidget -->
         <addaction fflag="!COLLAB5668HideTCWidget" name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" modernIcon="TeamCreate" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow"/>
@@ -452,7 +452,7 @@
         <addaction name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableNewAssistant" name="toggleAssistantDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
-        <addaction fflag="COLLAB6176PlaceAnnotations4" name="toggleStudioAnnotationsAction" style="textbesideicon" />
+        <addaction name="toggleStudioAnnotationsAction" style="textbesideicon" />
         <addaction fflag="EnablePlaceVersionHistory" name="togglePlaceVersionHistoryAction" style="textbesideicon"/>
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions" modernIcon="ViewSelector" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32">
@@ -542,8 +542,8 @@
           <addaction name="findAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" modernIcon="Find" />
           <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_next.png" modernIcon="FindNext" />
           <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_previous.png" modernIcon="FindPrevious" />
-          <addaction fflag="!NewFindReplaceTasker3" name="FINDALL_GeneralCmd" />
-          <addaction fflag="NewFindReplaceTasker3" name="toggleFindReplaceAllWidgetAction" />
+          <addaction fflag="!NewFindReplaceTasker4" name="FINDALL_GeneralCmd" />
+          <addaction fflag="NewFindReplaceTasker4" name="toggleFindReplaceAllWidgetAction" />
           <addaction name="GOTOLINE_ScriptingCmd" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" modernIcon="GoToLine" />
           <addaction name="quickOpenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" modernIcon="QuickOpen" />
           <addaction name="quickOpenActionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" modernIcon="QuickOpenActions" />

@@ -42289,7 +42289,7 @@
       "Wait": "@roblox/globaltype/VRService.NavigationRequested.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VRService#NavigationRequested",
-    "code_sample": "local VRService = game:GetService(\"VRService\")\n\nVRService.TouchpadModeChanged:Connect(function(cframe, inputUserCFrame)\n\tprint(inputUserCFrame.Name .. \" made request with CFrame: \" .. cframe)\nend)"
+    "code_sample": "local VRService = game:GetService(\"VRService\")\n\nVRService.NavigationRequested:Connect(function(cframe, inputUserCFrame)\n\tprint(inputUserCFrame.Name .. \" made request with CFrame: \" .. cframe)\nend)"
   },
   "@roblox/globaltype/VRService.TouchpadModeChanged.Connect/param/0": {
     "documentation": "Obiekt, który wykonuje powiązane funkcje w przypadku konkretnego wystąpienia."
@@ -42377,7 +42377,7 @@
       "Wait": "@roblox/globaltype/VRService.TouchpadModeChanged.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VRService#TouchpadModeChanged",
-    "code_sample": "local VRService = game:GetService(\"VRService\")\n\nVRService.NavigationRequested:Connect(function(pad, mode)\n\tprint(pad.Name .. \" Touchpad changed to state: \" .. mode.Name)\nend)"
+    "code_sample": "local VRService = game:GetService(\"VRService\")\n\nVRService.TouchpadModeChanged:Connect(function(pad, mode)\n\tprint(pad.Name .. \" Touchpad changed to state: \" .. mode.Name)\nend)"
   },
   "@roblox/globaltype/VRService.UserCFrameChanged.Connect/param/0": {
     "documentation": "Obiekt, który wykonuje powiązane funkcje w przypadku konkretnego wystąpienia."
