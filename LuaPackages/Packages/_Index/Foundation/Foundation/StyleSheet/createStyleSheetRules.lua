@@ -46,7 +46,6 @@ local function updateRuleAttributes(
 	scale = scale or 1
 
 	for _, attribute in attributes :: { StyleAttribute<unknown> } do
-		-- print("updateRuleAttributes", attribute.name, scale)
 		if attributesCache[attribute.name] ~= scale then
 			local scaledValue = scaleValue(attribute.value, scale)
 			sheet:SetAttribute(attribute.name, scaledValue)

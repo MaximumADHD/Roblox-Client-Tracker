@@ -40,7 +40,7 @@ Checkbox.validateProps = t.strictInterface({
 	-- An Instance for gamepad NextSelectionRight
 	NextSelectionRight = t.optional(t.table),
 	-- selectionCursor object
-	cursor = if UIBloxConfig.useFoundationSelectionCursor then t.table else nil,
+	cursor = t.table,
 	-- Whether to enable RoactGamepad functionality
 	isRoactGamepadEnabled = t.optional(t.boolean),
 })
@@ -70,11 +70,7 @@ end
 function Checkbox:render()
 	return withSelectionCursorProvider(function(getSelectionCursor)
 		return withStyle(function(style)
-			if UIBloxConfig.useFoundationSelectionCursor then
-				return self:renderWithProviders(style, getSelectionCursor, self.props.cursor)
-			else
-				return self:renderWithProviders(style, getSelectionCursor)
-			end
+			return self:renderWithProviders(style, getSelectionCursor, self.props.cursor)
 		end)
 	end)
 end
@@ -117,13 +113,11 @@ function Checkbox:renderWithProviders(style, getSelectionCursor, cursor)
 		isDisabled = self.props.isDisabled,
 		isRoactGamepadEnabled = self.props.isRoactGamepadEnabled,
 		[Roact.Ref] = self.props.frameRef,
-		SelectionImageObject = if UIBloxConfig.useFoundationSelectionCursor
-			then cursor
-			else getSelectionCursor(CursorKind.InputButton),
+		SelectionImageObject = cursor,
 	})
 end
 
 return Roact.forwardRef(function(props, ref)
-	local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursorByType(CursorKind.InputButton) else nil
+	local cursor = useCursorByType(CursorKind.InputButton)
 	return Roact.createElement(Checkbox, Cryo.Dictionary.join(props, { frameRef = ref, cursor = cursor }))
 end)

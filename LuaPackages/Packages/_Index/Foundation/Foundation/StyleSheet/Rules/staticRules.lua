@@ -762,7 +762,7 @@ local function AspectRatioRules(): { StyleRule }
 	return rules
 end
 
-local function DeprecatedColorRules(colors: ColorScopes, variants: Variants): { StyleRule }
+local function DeprecatedColorRules(colors: ColorScopes): { StyleRule }
 	local rules: { StyleRule } = {}
 
 	-- Add System colors for backwards compatibility, deprecated
@@ -869,7 +869,7 @@ local function rulesGenerator(
 
 	local theme: { StyleRule } = Cryo.List.join(
 		DefaultColorRules(tokens),
-		DeprecatedColorRules(colors, variants),
+		DeprecatedColorRules(colors),
 		BackgroundRules(colors, variants),
 		StrokeRules(colors, variants),
 		ContentRules(colors, variants)

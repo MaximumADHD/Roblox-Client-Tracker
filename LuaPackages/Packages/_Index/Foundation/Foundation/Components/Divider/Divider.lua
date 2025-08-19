@@ -9,24 +9,28 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local DividerVariant = require(Foundation.Enums.DividerVariant)
+local DividerOrientation = require(Foundation.Enums.DividerOrientation)
 local useDividerVariants = require(script.Parent.useDividerVariants)
 
 type DividerVariant = DividerVariant.DividerVariant
+type DividerOrientation = DividerOrientation.DividerOrientation
 
 type DividerProps = {
-	-- Configures the visual style of the divider.
 	variant: DividerVariant?,
+	orientation: DividerOrientation?,
 } & Types.CommonProps
 
 local defaultProps = {
 	variant = DividerVariant.Default,
+	orientation = DividerOrientation.Horizontal,
 }
 
 local function Divider(dividerProps: DividerProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(dividerProps, defaultProps)
 	local tokens = useTokens()
-	local variantProps = useDividerVariants(tokens, props.variant)
+	local variantProps = useDividerVariants(tokens, props.variant, props.orientation)
 	local isHeavy = props.variant :: DividerVariant == DividerVariant.Heavy
+		and props.orientation :: DividerOrientation ~= DividerOrientation.Vertical
 
 	return React.createElement(
 		View,
@@ -36,7 +40,7 @@ local function Divider(dividerProps: DividerProps, ref: React.Ref<GuiObject>?)
 		}),
 		{
 			DividerStroke = React.createElement(View, {
-				tag = variantProps.stroke.tag,
+				Size = variantProps.stroke.Size,
 				backgroundStyle = variantProps.stroke.backgroundStyle,
 			}),
 			DividerLine = if isHeavy

@@ -35,6 +35,7 @@ local function CircularProgressBar(props: CircularProgressBarProps, ref: React.R
 		View,
 		withCommonProps(props, {
 			tag = "size-full-full",
+			ref = ref,
 		}),
 		{
 			LeftGradient = React.createElement(View, {

@@ -4,6 +4,8 @@ local Packages = Foundation.Parent
 local BuilderIcons = require(Packages.BuilderIcons)
 local React = require(Packages.React)
 local Flags = require(Foundation.Utility.Flags)
+local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
@@ -76,7 +78,7 @@ local function MenuItem(menuItemProps: MenuItemProps, ref: React.Ref<GuiObject>?
 		}),
 		{
 			Icon = if props.icon
-				then if Flags.FoundationMigrateIconNames and props.icon ~= ""
+				then if props.icon ~= "" and isBuilderIconOrMigrated(props.icon)
 					then React.createElement(Icon, {
 						LayoutOrder = 1,
 						name = if migratedIcon then migratedIcon.name else props.icon,

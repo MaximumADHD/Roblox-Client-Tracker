@@ -13,14 +13,19 @@ type InputSize = InputSize.InputSize
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
 
+local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
+type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
+
 local InternalTextInput = require(Components.InternalTextInput)
 local InputField = require(Components.InputField)
+local View = require(Components.View)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local Types = require(Components.Types)
 
 local NumberInputControls = require(script.Parent.NumberInputControls)
+local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
 
 local function round(num: number, numDecimalPlaces: number?)
 	local mult = 10 ^ (numDecimalPlaces or 0)
@@ -30,6 +35,8 @@ end
 export type Props = {
 	-- Input number value
 	value: number?,
+	-- Variant of controls to use
+	controlsVariant: NumberInputControlsVariant?,
 	-- Whether the input is in an error state
 	hasError: boolean?,
 	-- Size of the number input
@@ -62,6 +69,7 @@ local function defaultFormatAsString(value: number)
 end
 
 local defaultProps = {
+	controlsVariant = NumberInputControlsVariant.Stacked,
 	size = InputSize.Large,
 	minimum = -math.huge,
 	maximum = math.huge,
@@ -74,6 +82,7 @@ local defaultProps = {
 
 local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(numberInputProps, defaultProps) :: {
+		controlsVariant: NumberInputControlsVariant?,
 		hasError: boolean?,
 		isDisabled: boolean?,
 		size: InputSize,
@@ -92,6 +101,7 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 
 	local tokens = useTokens()
 	local variantProps = useTextInputVariants(tokens, props.size)
+	local NumberInputControlsVariantProps = useNumberInputVariants(tokens, props.size)
 
 	local focused, setFocused = React.useState(false)
 	local isDisabledUp, isDisabledDown, upValue, downValue
@@ -106,6 +116,7 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 	-- Should we have a default value?
 	local roundedValue = if props.value then round(props.value, props.precision) else 0
 	local currentText = if focused then tostring(props.value) else props.formatAsString(roundedValue)
+	local controlsVariant = props.controlsVariant
 
 	local onFocus = React.useCallback(function()
 		setFocused(true)
@@ -129,27 +140,40 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 		props.onChanged(n :: number)
 	end, { focused :: unknown, props.onChanged })
 
-	local trailingElement = React.createElement(NumberInputControls, {
+	local onIncrement = React.useCallback(function()
+		if props.isDisabled or isDisabledUp then
+			return
+		end
+		props.onChanged(upValue)
+	end, { props.isDisabled, isDisabledUp, props.onChanged } :: { any })
+
+	local onDecrement = React.useCallback(function()
+		if props.isDisabled or isDisabledDown then
+			return
+		end
+		props.onChanged(downValue)
+	end)
+
+	local controls = React.createElement(NumberInputControls, {
+		variant = controlsVariant :: NumberInputControlsVariant,
 		size = props.size,
-		up = {
+		increment = {
 			isDisabled = props.isDisabled or isDisabledUp,
-			onClick = function()
-				if props.isDisabled or isDisabledUp then
-					return
-				end
-				props.onChanged(upValue)
-			end,
+			onClick = onIncrement,
 		},
-		down = {
+		decrement = {
 			isDisabled = props.isDisabled or isDisabledDown,
-			onClick = function()
-				if props.isDisabled or isDisabledDown then
-					return
-				end
-				props.onChanged(downValue)
-			end,
+			onClick = onDecrement,
 		},
 	})
+
+	local widthOffset = React.useMemo(function()
+		if controlsVariant == NumberInputControlsVariant.Split then
+			return UDim.new(0, (2 * NumberInputControlsVariantProps.splitButton.size) + (2 * tokens.Gap.XSmall))
+		end
+
+		return UDim.new()
+	end, { tokens, controlsVariant } :: { any })
 
 	return React.createElement(
 		InputField,
@@ -158,11 +182,13 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 			ref = ref,
 			hasError = props.hasError,
 			label = props.label,
-			size = getInputTextSize(props.size, false),
+			size = getInputTextSize(props.size),
 			isRequired = props.isRequired,
 			hint = props.hint,
 			input = function(inputRef)
-				return React.createElement(InternalTextInput, {
+				local isSplitVariant = controlsVariant == NumberInputControlsVariant.Split
+
+				local input = React.createElement(InternalTextInput, {
 					text = currentText,
 					hasError = props.hasError,
 					size = props.size,
@@ -173,9 +199,19 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 					onFocusLost = onFocusLost,
 					onFocus = onFocus,
 					ref = inputRef,
-					trailingElement = trailingElement,
+					trailingElement = if controlsVariant == NumberInputControlsVariant.Stacked then controls else nil,
 					isDisabled = props.isDisabled,
 				})
+
+				return if isSplitVariant
+					then React.createElement(View, {
+						Size = UDim2.fromOffset(props.width.Offset - widthOffset.Offset, 0),
+						tag = "row gap-xsmall auto-y align-y-center",
+					}, {
+						InputField = input,
+						Controls = if isSplitVariant then controls else nil,
+					})
+					else input
 			end,
 		})
 	)

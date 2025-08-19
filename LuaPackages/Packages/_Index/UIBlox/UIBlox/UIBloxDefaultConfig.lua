@@ -90,9 +90,6 @@ return {
 	-- Uses the Foundation Interactable component instead
 	useFoundationInteractable = false,
 
-	-- Uses the Foundation selectionCursor instead
-	useFoundationSelectionCursor = false,
-
 	-- Adds BuilderIcon migration to createImageSetComponent,
 	migrateBuilderIcon = false,
 

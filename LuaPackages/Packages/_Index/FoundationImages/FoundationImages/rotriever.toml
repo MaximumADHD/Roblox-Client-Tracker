@@ -1,6 +1,6 @@
 [package]
 name = "FoundationImages"
-version = "1.29.0"
+version = "1.30.2"
 readme = "README.md"
 content_root = "src"
 files = ["*"]
@@ -18,3 +18,5 @@ keywords = [
 ]
 homepage = "https://foundation.roblox.com/Images/"
 documentation = "https://foundation.roblox.com/Images/"
+[dependencies.SafeFlags]
+version = "^0.1.0"

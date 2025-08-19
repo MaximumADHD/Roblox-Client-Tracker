@@ -6,7 +6,7 @@ local Logger = require(Foundation.Utility.Logger)
 
 return React.createContext({
 	anchor = nil :: GuiObject?,
-	setAnchor = function(instance: GuiObject?)
+	setAnchor = function(_instance: GuiObject?)
 		Logger:warning("No PopoverProvider found for Popover")
 	end,
 	isOpen = false,

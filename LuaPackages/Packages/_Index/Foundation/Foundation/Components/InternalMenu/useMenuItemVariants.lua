@@ -21,7 +21,7 @@ type MenuItemVariantProps = {
 	check: { tag: string, style: Types.ColorStyleValue, size: number },
 }
 
-local variants = function(tokens: Tokens)
+local variantsMap = function(tokens: Tokens)
 	local common = {
 		container = { tag = "row align-y-center flex-x-between" },
 		icon = { tag = "content-emphasis", style = tokens.Color.Content.Emphasis },
@@ -65,6 +65,6 @@ local variants = function(tokens: Tokens)
 end
 
 return function(tokens: Tokens, size: InputSize, isChecked: boolean): MenuItemVariantProps
-	local variants = VariantsContext.useVariants("MenuItem", variants, tokens)
+	local variants = VariantsContext.useVariants("MenuItem", variantsMap, tokens)
 	return composeStyleVariant(variants.common, variants.sizes[size], variants.isChecked[isChecked])
 end

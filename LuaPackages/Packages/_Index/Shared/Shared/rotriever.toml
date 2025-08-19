@@ -1,6 +1,6 @@
 [package]
 name = "Shared"
-version = "17.3.0"
+version = "17.3.1"
 content_root = "src"
 files = [
     "*",

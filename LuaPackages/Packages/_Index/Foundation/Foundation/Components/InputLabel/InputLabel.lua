@@ -37,14 +37,14 @@ type InputLabelProps = {
 	Text: string,
 } & Types.CommonProps
 
-local function labelText(Text: string, isRequired: boolean?): string
+local function labelText(text: string, isRequired: boolean?): string
 	if isRequired == nil or isRequired == React.None then
-		return Text
+		return text
 	end
 
 	return if isRequired
-		then Text .. REQUIRED_INDICATOR
-		else Translator:FormatByKey("CommonUI.Controls.Input.Optional", { inputLabel = Text })
+		then text .. REQUIRED_INDICATOR
+		else Translator:FormatByKey("CommonUI.Controls.Input.Optional", { inputLabel = text })
 end
 
 local function InputLabel(props: InputLabelProps, ref: React.Ref<GuiObject>?)

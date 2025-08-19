@@ -66,6 +66,7 @@ local function RadioGroupItem(radioGroupItemProps: Props, ref: React.Ref<GuiObje
 			customVariantProps = variantProps.input,
 			size = props.size,
 			Selectable = selectable,
+			ref = ref,
 		}),
 		{
 			Center = if isChecked

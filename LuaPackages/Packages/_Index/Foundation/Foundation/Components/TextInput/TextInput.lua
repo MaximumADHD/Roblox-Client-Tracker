@@ -80,7 +80,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			width = props.width,
 			ref = ref,
 			label = props.label,
-			size = getInputTextSize(props.size, false),
+			size = getInputTextSize(props.size),
 			isRequired = props.isRequired,
 			hint = props.hint,
 			textBoxRef = props.textBoxRef,

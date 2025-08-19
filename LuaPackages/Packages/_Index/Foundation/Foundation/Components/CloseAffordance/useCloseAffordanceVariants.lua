@@ -39,7 +39,7 @@ type CloseAffordanceVariantProps = {
 	},
 }
 
-local variants = function(tokens: Tokens)
+local variantsMap = function(tokens: Tokens)
 	local common = {
 		container = {
 			tag = "auto-xy row align-y-center align-x-center clip",
@@ -105,6 +105,6 @@ local variants = function(tokens: Tokens)
 end
 
 return function(tokens: Tokens, size: InputSize, variant: CloseAffordanceVariant): CloseAffordanceVariantProps
-	local variants = VariantsContext.useVariants("CloseAffordance", variants, tokens)
+	local variants = VariantsContext.useVariants("CloseAffordance", variantsMap, tokens)
 	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant])
 end

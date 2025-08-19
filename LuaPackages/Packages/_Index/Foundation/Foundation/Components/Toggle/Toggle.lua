@@ -99,6 +99,7 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 			NextSelectionDown = props.NextSelectionDown,
 			NextSelectionLeft = props.NextSelectionLeft,
 			NextSelectionRight = props.NextSelectionRight,
+			ref = ref,
 		}),
 		{
 			Knob = React.createElement(Knob, {

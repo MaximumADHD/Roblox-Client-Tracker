@@ -10,7 +10,7 @@ local View = require(Foundation.Components.View)
 local Divider = require(Foundation.Components.Divider)
 local Interactable = require(Foundation.Components.Interactable)
 
-local function DynamicComponent(props)
+local function DynamicComponent()
 	return React.createElement(View, {
 		LayoutOrder = 14,
 		tag = "col gap-medium auto-x",

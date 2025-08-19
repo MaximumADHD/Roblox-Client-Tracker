@@ -64,7 +64,7 @@ local function getImagesBySection()
 	end
 
 	-- Sort images within each section
-	for section, imageList in pairs(sections) do
+	for _section, imageList in pairs(sections) do
 		table.sort(imageList, function(a, b)
 			return a.name < b.name
 		end)
@@ -82,7 +82,7 @@ local function createStoryForSection(sectionName, imageList)
 
 			-- Create grid items for this section
 			local gridItems: { [string]: React.ReactNode } = {}
-			for i, imageInfo in ipairs(imageList) do
+			for _, imageInfo in ipairs(imageList) do
 				gridItems[imageInfo.name] = React.createElement(ImageGridItem, {
 					imageName = imageInfo.name,
 					isVisible = if #keyword > 0 then string.find(imageInfo.name, keyword) ~= nil else true,

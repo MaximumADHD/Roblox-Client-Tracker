@@ -151,12 +151,11 @@ end
 
 if UIBloxConfig.fixAlertCloseCursor then
 	local function AlertTitleFunctionalWrapper(props)
-		local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursor(CLOSE_CURSOR_CORNER_RADIUS) else nil
-
+		local cursor = useCursor(CLOSE_CURSOR_CORNER_RADIUS)
 		return Roact.createElement(
 			AlertTitle,
 			Cryo.Dictionary.join(props, {
-				closeCursor = if UIBloxConfig.useFoundationSelectionCursor then cursor else nil,
+				closeCursor = cursor,
 			})
 		)
 	end

@@ -29,6 +29,7 @@ local function pascalToKebab(str)
 	return result
 end
 
+-- selene: allow(high_cyclomatic_complexity)
 local function createTokens(tokens: Tokens): FormattedTokens
 	local colors = {}
 	local variants = {}

@@ -24,7 +24,6 @@ return React.createElement(Chip, {
 	onActivated = function()
 		print("Chip Clicked!")
 	end,
-	isDisabled = false,
 })
 ...
 ```

@@ -7,7 +7,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
-local function Story(props)
+local function Story()
 	local tokens = useTokens()
 	local state, setState = React.useBinding(ControlState.Initialize :: ControlState)
 
@@ -22,8 +22,8 @@ local function Story(props)
 		onStateChanged = onStateChanged,
 	}, {
 		React.createElement(Text, {
-			Text = state:map(function(state)
-				return tostring(state)
+			Text = state:map(function(controlState)
+				return tostring(controlState)
 			end),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			textStyle = tokens.Color.Content.Emphasis,

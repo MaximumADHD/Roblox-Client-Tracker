@@ -1,6 +1,5 @@
 --!nonstrict
 local Packages = script.Parent.Parent.Parent.Parent
-local UIBlox = script.Parent.Parent.Parent
 
 local Roact = require(Packages.Roact)
 local RoactGamepad = require(Packages.RoactGamepad)
@@ -11,8 +10,6 @@ local SelectionImageContext = require(script.Parent.SelectionImageContext)
 local OnRootedListener = require(script.Parent.OnRootedListener)
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
-
-local UIBloxConfig = require(UIBlox.UIBloxDefaultConfig)
 
 local SelectionCursorProvider = Roact.PureComponent:extend("SelectionCursorProvider")
 
@@ -30,10 +27,7 @@ function SelectionCursorProvider:init()
 			CursorKind.isEnumValue(cursorKind),
 			("Invalid arg #1: expected a CursorKind enum variant, got %s"):format(tostring(cursorKind))
 		)
-		assert(
-			UIBloxConfig.useFoundationSelectionCursor == false,
-			"UIBlox's SelectionCursor is deprecated and should not be used anymore."
-		)
+		warn("UIBlox's SelectionCursor is deprecated and should not be used anymore.")
 
 		if self.state.mountedCursors[cursorKind] == nil then
 			self:setState(function(state)

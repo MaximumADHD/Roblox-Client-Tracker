@@ -8,11 +8,8 @@ local t = require(Packages.t)
 local RadioButton = require(script.Parent.RadioButton)
 local Cryo = require(Packages.Cryo)
 
-local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
-local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local useCursorByType = require(UIBlox.App.SelectionCursor.useCursorByType)
 local CursorType = require(UIBlox.App.SelectionCursor.CursorType)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local RadioButtonList = Roact.PureComponent:extend("RadioButtonList")
 
@@ -40,7 +37,7 @@ RadioButtonList.validateProps = t.strictInterface({
 	automaticSize = t.optional(t.boolean),
 
 	-- selectionCursor object
-	cursor = if UIBloxConfig.useFoundationSelectionCursor then t.table else nil,
+	cursor = t.table,
 
 	-- Optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),
@@ -109,9 +106,7 @@ function RadioButtonList:renderWithProviders(getSelectionCursor, cursor)
 				[Roact.Ref] = self.gamepadRefs[i],
 				NextSelectionUp = i > 1 and self.gamepadRefs[i - 1] or nil,
 				NextSelectionDown = i < #self.props.radioButtons and self.gamepadRefs[i + 1] or nil,
-				SelectionImageObject = if UIBloxConfig.useFoundationSelectionCursor
-					then cursor
-					else getSelectionCursor(CursorKind.RoundedRect),
+				SelectionImageObject = cursor,
 				inputBindings = if self.props.isRoactGamepadEnabled
 					then {
 						OnActivatedButton = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
@@ -137,18 +132,11 @@ function RadioButtonList:renderWithProviders(getSelectionCursor, cursor)
 end
 
 function RadioButtonList:render()
-	if UIBloxConfig.useFoundationSelectionCursor then
-		return self:renderWithProviders(nil, self.props.cursor)
-	else
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithProviders(getSelectionCursor)
-		end)
-	end
+	return self:renderWithProviders(nil, self.props.cursor)
 end
 
 return Roact.forwardRef(function(props, ref)
-	local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursorByType(CursorType.RoundedRect) else nil
-
+	local cursor = useCursorByType(CursorType.RoundedRect)
 	return Roact.createElement(
 		RadioButtonList,
 		Cryo.Dictionary.join(props, {

@@ -15,7 +15,7 @@ local DEFAUTL_LOG_LEVEL = Logger.Levels.Info
 
 local DefaultFoundationSink = {
 	maxLevel = DEFAUTL_LOG_LEVEL,
-	log = function(self, message, context)
+	log = function(_self, message, context)
 		if context.level == Logger.Levels.Error or context.level == Logger.Levels.Warning then
 			warn(message) -- error() will terminate the script. We use warn() instead.
 		else

@@ -469,7 +469,7 @@ return {
 		},
 		Player = {
 			name = "Player Tile",
-			story = function(props)
+			story = function()
 				local tokens = useTokens()
 				local avatarBG =
 					`component_assets/avatarBG_{if tokens.Config.ColorMode.Name == Theme.Dark then "dark" else "light"}`

@@ -22,8 +22,8 @@ local function getOriginalBackgroundStyle(
 			return { Color3 = backgroundColor3 :: Color3, Transparency = backgroundTransparency :: number }
 		end)
 	elseif ReactIs.isBinding(backgroundTransparency) then
-		return (backgroundTransparency :: React.Binding<number>):map(function(backgroundTransparency)
-			return { Color3 = backgroundColor :: Color3, Transparency = backgroundTransparency :: number }
+		return (backgroundTransparency :: React.Binding<number>):map(function(backgroundTransparencyValue)
+			return { Color3 = backgroundColor :: Color3, Transparency = backgroundTransparencyValue :: number }
 		end)
 	else
 		return { Color3 = backgroundColor :: Color3, Transparency = backgroundTransparency :: number }

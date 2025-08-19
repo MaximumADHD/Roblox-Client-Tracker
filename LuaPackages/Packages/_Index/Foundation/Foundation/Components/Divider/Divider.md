@@ -10,17 +10,30 @@ Dividers are layout components used to control visual separation between visual,
 
 ## Usage
 
-Dividers will horizontally fill their containers in order to achieve visual separation between other components in a layout. Vertical spacing and margins must be applied externally.
-Divider insets and visual style are controlled by the `variant` property. Possible values are defined in [[DividerVariant]] (`Default`/`Heavy`/`Inset`/`InsetLeft`/`InsetRight`)
-`Default` is the default.
+Dividers can be used in both horizontal and vertical orientations to achieve visual separation between components in a layout. The orientation is controlled by the `orientation` property, with possible values defined in [[DividerOrientation]] (`Horizontal`/`Vertical`). `Horizontal` is the default.
+
+### Variants
+
+The divider's visual style and insets are controlled by the `variant` property. Possible values are defined in [[DividerVariant]] (`Default`/`Heavy`/`Inset`/`InsetLeft`/`InsetRight`). `Default` is the default.
+
+Note: When `orientation` is set to `Vertical`, the `variant` property is always `Default` and other variants are not supported.
+
+### Examples
 
 ```lua
 local Foundation = require(Packages.Foundation)
 local Divider = Foundation.Divider
 local DividerVariant = require(Foundation.Enums.DividerVariant)
-...
+local DividerOrientation = require(Foundation.Enums.DividerOrientation)
+
+-- Horizontal divider with variant
 return React.createElement(Divider, {
-	variant = DividerVariant.Default,
+	variant = DividerVariant.Heavy,
+	orientation = DividerOrientation.Horizontal,
 })
-...
+
+-- Vertical divider (always uses Default variant)
+return React.createElement(Divider, {
+	orientation = DividerOrientation.Vertical,
+})
 ```

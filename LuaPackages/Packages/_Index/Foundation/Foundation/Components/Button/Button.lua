@@ -124,7 +124,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	local textSizeOffset = useTextSizeOffset()
 	local controlState, setControlState = React.useBinding(ControlState.Initialize :: ControlState)
 	local isDelaying, setIsDelaying = React.useState(inputDelay > 0)
-	local progress, setGoal = ReactOtter.useAnimatedBinding(0, function(value: number)
+	local progress, setGoal = ReactOtter.useAnimatedBinding(0, function()
 		setIsDelaying(false)
 	end)
 

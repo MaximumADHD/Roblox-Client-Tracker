@@ -8,6 +8,7 @@ local Components = Foundation.Components
 local View = require(Components.View)
 local Types = require(Components.Types)
 
+local FoundationConstants = require(Foundation.Constants)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
@@ -144,13 +145,13 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			GroupTransparency = if props.isDisabled then 0.32 else nil, -- TODO(tokens): replace opacity with token
+			GroupTransparency = if props.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
 			tag = variantProps.canvas.tag,
 		}),
 		{
 			Input = React.createElement(View, {
 				Size = UDim2.new(1, -outerBorderOffset, 1, -outerBorderOffset),
-				Position = UDim2.new(0, outerBorderOffset / 2, 0, outerBorderOffset / 2),
+				Position = UDim2.fromOffset(outerBorderOffset / 2, outerBorderOffset / 2),
 				selection = {
 					Selectable = not props.isDisabled,
 				},
@@ -173,7 +174,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			}, {
 				BorderFrame = React.createElement(View, {
 					Size = UDim2.new(1, -innerBorderOffset, 1, -innerBorderOffset),
-					Position = UDim2.new(0, innerBorderOffset / 2, 0, innerBorderOffset / 2),
+					Position = UDim2.fromOffset(innerBorderOffset / 2, innerBorderOffset / 2),
 					cornerRadius = UDim.new(0, variantProps.innerContainer.radius - innerBorderOffset / 2),
 					stroke = if not props.isDisabled and (hover or focus)
 						then {

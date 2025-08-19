@@ -52,6 +52,8 @@ local getFFlagCheckLayeredClothingMeshSize = require(root.flags.getFFlagCheckLay
 local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
 local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
 	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
+local getFFlagUGCValidateIncorrectNumericalData = require(root.flags.getFFlagUGCValidateIncorrectNumericalData)
+local getFFlagUGCValidateRestrictAnimationMovement = require(root.flags.getFFlagUGCValidateRestrictAnimationMovement)
 
 local function joinTables(...)
 	local result = {}
@@ -300,6 +302,14 @@ if getFFlagUGCValidateEmoteAnimationExtendedTests() then
 	Analytics.ErrorType.validateCurveAnimation_UnacceptableLength = "validateCurveAnimation_UnacceptableLength"
 	Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds = "validateCurveAnimation_UnacceptableSizeBounds"
 	Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
+end
+
+if getFFlagUGCValidateIncorrectNumericalData() then
+	Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData = "validateCurveAnimation_IncorrectNumericalData"
+end
+
+if getFFlagUGCValidateRestrictAnimationMovement() then
+	Analytics.ErrorType.validateCurveAnimation_PositionalMovement = "validateCurveAnimation_PositionalMovement"
 end
 
 if getFFlagCheckAccessoryMeshSize() or getFFlagCheckBodyPartMeshSize() or getFFlagCheckLayeredClothingMeshSize() then

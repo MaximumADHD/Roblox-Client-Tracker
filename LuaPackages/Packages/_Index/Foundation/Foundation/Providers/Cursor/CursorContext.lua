@@ -9,10 +9,10 @@ local Types = require(Foundation.Components.Types)
 
 local CursorContext = React.createContext({
 	refCache = {},
-	setMountedCursors = function(set: ({ [string | CursorType]: boolean }) -> { [string | CursorType]: boolean })
+	setMountedCursors = function(_set: ({ [string | CursorType]: boolean }) -> { [string | CursorType]: boolean })
 		Logger:warning("No Cursor Provider found")
 	end,
-	getCursor = function(cursor: Types.Cursor?)
+	getCursor = function(_cursor: Types.Cursor?)
 		Logger:warning("No Cursor Provider found")
 	end,
 })

@@ -41,7 +41,7 @@ type ButtonVariantProps = {
 	},
 }
 
-local variants = function(tokens: Tokens)
+local variantsMap = function(tokens: Tokens)
 	local sharedVariants = getSharedVariants(tokens)
 
 	local common = {
@@ -112,6 +112,6 @@ local variants = function(tokens: Tokens)
 end
 
 return function(tokens: Tokens, size: InputSize, variant: ButtonVariant): ButtonVariantProps
-	local variants = VariantsContext.useVariants("Button", variants, tokens)
+	local variants = VariantsContext.useVariants("Button", variantsMap, tokens)
 	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant])
 end

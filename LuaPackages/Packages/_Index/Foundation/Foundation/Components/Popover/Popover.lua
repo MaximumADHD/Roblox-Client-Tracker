@@ -11,7 +11,7 @@ type PopoverProps = {
 	children: React.ReactNode,
 }
 
-local function Popover(props: PopoverProps, ref: React.Ref<GuiObject>?)
+local function Popover(props: PopoverProps)
 	local anchor, setAnchor = React.useState(nil :: GuiObject?)
 
 	return React.createElement(PopoverContext.Provider, {
@@ -23,4 +23,4 @@ local function Popover(props: PopoverProps, ref: React.Ref<GuiObject>?)
 	}, props.children)
 end
 
-return React.forwardRef(Popover)
+return Popover

@@ -25,7 +25,7 @@ local function BasicStory(props)
 	})
 end
 
-local function CustomSelectionStory(props)
+local function CustomSelectionStory()
 	local isChatEnabled, setIsChatEnabled = React.useState(false)
 	local isNotifications, setIsNotifications = React.useState(true)
 	local tokens = useTokens()

@@ -128,6 +128,7 @@ return {
 				local startColor = tokens.Color.Extended.Blue.Blue_1400
 				local endColor = tokens.Color.Extended.Blue.Blue_100
 
+				-- selene: allow(shadowing)
 				local knobStyle = value:map(function(value)
 					return {
 						Color3 = startColor.Color3:Lerp(endColor.Color3, value),

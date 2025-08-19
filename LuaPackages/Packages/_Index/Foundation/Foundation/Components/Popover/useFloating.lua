@@ -71,7 +71,9 @@ local function useFloating(
 
 		local anchorPosition = anchor.AbsolutePosition
 		local anchorSize = anchor.AbsoluteSize
+		-- selene: allow(shadowing)
 		local contentSize = content.AbsoluteSize
+		-- selene: allow(shadowing)
 		local screenSize = overlay.AbsoluteSize
 		local screenPosition = overlay.AbsolutePosition
 		local anchorRect = Rect.new(anchorPosition, anchorPosition + anchorSize)

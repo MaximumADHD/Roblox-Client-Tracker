@@ -20,7 +20,7 @@ return {
 	stories = {
 		{
 			name = "Base",
-			story = function(props)
+			story = function()
 				local transparency, setTransparency = React.useBinding(0.5)
 				local hue, setHue = React.useBinding(0)
 				local saturation, setSaturation = React.useBinding(0)
@@ -91,6 +91,7 @@ return {
 							})
 						)
 					),
+					-- selene: allow(shadowing)
 					React.createElement(function(props: {
 						useCumulative: boolean,
 						transparency: React.Binding<number>,

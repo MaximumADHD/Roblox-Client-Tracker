@@ -216,7 +216,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 				then React.createElement(InputLabel, {
 					Text = label,
 					textStyle = values.labelStyle,
-					size = getInputTextSize(props.size, true),
+					size = getInputTextSize(props.size),
 					testId = "--foundation-input-label",
 				})
 				else label,

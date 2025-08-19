@@ -76,6 +76,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 
 	return React.createElement(Popover.Root, {
 		isOpen = isMenuOpen,
+		ref = ref,
 	}, {
 		DropdownControl = React.createElement(
 			DropdownControl,
@@ -109,7 +110,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 			React.createElement(InternalMenu, {
 				size = props.size,
 				width = props.width,
-				items = Dash.map(props.items, function(item, i)
+				items = Dash.map(props.items, function(item)
 					return {
 						id = item.id,
 						icon = item.icon,

@@ -36,7 +36,7 @@ local function BasicStory(props)
 	}, items)
 end
 
-local function CustomSelectionStory(props)
+local function CustomSelectionStory()
 	local selectedValue, setSelectedValue = React.useState(nil :: string?)
 	local tokens = useTokens()
 

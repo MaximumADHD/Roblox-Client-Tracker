@@ -28,7 +28,7 @@ type HoldBehavior = {
 	-- how quickly the bar will empty if the user releases the key before activating
 	resetTime: number?,
 	-- onEndHold will be invoked when the user releases the key prematurely or when they finish holding it down for `holdTime` seconds
-	onEndHold: ((didActivate: boolean) -> any),
+	onEndHold: (didActivate: boolean) -> any,
 	-- onBeginHold will be invoked when the user begins holding down the key
 	onBeginHold: (() -> any)?,
 }
@@ -71,6 +71,7 @@ local function KeyLabel(props: KeyLabelProps, ref: React.Ref<GuiObject>?)
 		View,
 		withCommonProps(props, {
 			Size = props.Size,
+			ref = ref,
 		}),
 		{
 			-- Key label

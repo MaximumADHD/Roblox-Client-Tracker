@@ -2,7 +2,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local TextService = require(Foundation.Utility.Wrappers).Services.TextService
 local noYield = require(Foundation.Utility.noYield)
 
-local function getTextSizeOffset(fontSize: number?, font: Font?): number?
+local function getTextSizeOffset(): number?
 	return noYield(function(fontSize, font): number?
 		fontSize = fontSize or 0
 		font = font or Font.fromEnum(Enum.Font.BuilderSans)

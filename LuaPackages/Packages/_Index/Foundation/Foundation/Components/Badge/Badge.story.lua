@@ -119,12 +119,15 @@ return {
 				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 				return React.createElement(
 					View,
-					{ tag = "row wrap auto-xy gap-xlarge" },
+					{ tag = "row wrap auto-xy gap-xxlarge" },
 					Dash.map(nonDeprecatedVariants, function(variant)
 						return React.createElement(
 							View,
-							{ tag = "col gap-medium auto-xy" },
-							React.createElement(Text, { tag = "auto-xy text-align-x-left", Text = variant }),
+							{ tag = "col gap-small auto-xy align-x-center" },
+							React.createElement(
+								Text,
+								{ tag = "auto-xy text-align-x-center text-caption-small", Text = variant }
+							),
 							React.createElement(Badge, {
 								text = props.controls.text,
 								icon = if props.controls.icon ~= "" then props.controls.icon else nil,
@@ -143,12 +146,15 @@ return {
 				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 				return React.createElement(
 					View,
-					{ tag = "row wrap auto-xy gap-xlarge" },
+					{ tag = "row wrap auto-xy gap-xxlarge" },
 					Dash.map({ BadgeVariant.Primary :: BadgeVariant, BadgeVariant.Secondary }, function(variant)
 						return React.createElement(
 							View,
-							{ tag = "col gap-medium auto-xy" },
-							React.createElement(Text, { tag = "auto-xy text-align-x-left", Text = variant }),
+							{ tag = "col gap-small auto-xy align-x-center" },
+							React.createElement(
+								Text,
+								{ tag = "auto-xy text-align-x-center text-caption-small", Text = variant }
+							),
 							React.createElement(Badge, {
 								text = props.controls.text,
 								icon = if props.controls.icon ~= "" then props.controls.icon else nil,

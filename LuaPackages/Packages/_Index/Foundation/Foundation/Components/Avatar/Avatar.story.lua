@@ -19,7 +19,7 @@ return {
 	stories = {
 		{
 			name = "Base",
-			story = function(props)
+			story = function()
 				local tokens = useTokens()
 				return React.createElement(
 					View,

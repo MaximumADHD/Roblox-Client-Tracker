@@ -10,6 +10,7 @@ local function useTagsState()
 
 		-- Iterate over the varargs
 		for _, arg in { ... } do
+			-- selene: allow(shadowing)
 			local tags = string.split(arg, " ")
 			for _, tag in tags do
 				table.insert(newTags, tag)

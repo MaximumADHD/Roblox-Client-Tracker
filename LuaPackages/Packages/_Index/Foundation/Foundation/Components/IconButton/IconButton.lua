@@ -77,7 +77,6 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	local iconName = if typeof(props.icon) == "table" then props.icon.name else props.icon
 	local iconVariant: BuilderIcons.IconVariant? = if typeof(props.icon) == "table" then props.icon.variant else nil
 
-	local isBuilderIcon = isBuilderIcon(iconName)
 	local intrinsicIconSize: Vector2?, scale
 	if isBuilderOrMigratedIcon(iconName) then
 		intrinsicIconSize, scale = nil, 1
@@ -89,7 +88,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	local variantProps = useIconButtonVariants(tokens, props.size, props.variant)
 
 	-- Remove with FoundationUpdateIconButtonSizes
-	local paddingOffset = useIconButtonPadding(props.size, isBuilderIcon)
+	local paddingOffset = useIconButtonPadding(props.size, isBuilderIcon(iconName))
 	local padding = UDim.new(0, paddingOffset)
 
 	-- Override radius if circular
@@ -97,7 +96,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 		then UDim.new(0, tokens.Radius.Circle)
 		else UDim.new(0, variantProps.container.radius or tokens.Radius.Large)
 
-	local iconSize = useIconSize(props.size, isBuilderIcon) :: UDim2 -- We don't support bindings for IconButton size
+	local iconSize = useIconSize(props.size, isBuilderIcon(iconName)) :: UDim2 -- We don't support bindings for IconButton size
 
 	local cursor = React.useMemo(function()
 		return {

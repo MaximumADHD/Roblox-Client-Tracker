@@ -6,7 +6,6 @@ local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 local Cryo = require(Packages.Cryo)
 
 local Interactable = require(Core.Control.Interactable)
@@ -23,11 +22,9 @@ local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 
-local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local RoactGamepad = require(Packages.RoactGamepad)
 local Focusable = RoactGamepad.Focusable
 local isCallable = require(UIBlox.Utility.isCallable)
-local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
 local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
 
 local DEFAULT_BACKGROUND = "UIMuted"
@@ -87,7 +84,7 @@ IconButton.validateProps = t.strictInterface({
 	-- When nil, this property will be derived from the backgroundColor's properties.
 	backgroundTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 	-- the selectionCursor to use
-	cursor = if UIBloxConfig.useFoundationSelectionCursor then t.optional(t.table) else nil,
+	cursor = t.optional(t.table),
 
 	[Roact.Children] = t.optional(t.table),
 
@@ -167,15 +164,7 @@ end
 
 function IconButton:render()
 	return withStyle(function(style)
-		if UIBloxConfig.useFoundationSelectionCursor then
-			return self:renderWithProviders(style, nil, nil)
-		else
-			return withSelectionCursorProvider(function(getSelectionCursor)
-				return withCursor(function(context)
-					return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
-				end)
-			end)
-		end
+		return self:renderWithProviders(style, nil, nil)
 	end)
 end
 
@@ -220,9 +209,7 @@ function IconButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
 		inputBindings = if self.props.isRoactGamepadEnabled then self.props.inputBindings else nil,
-		SelectionImageObject = if UIBloxConfig.useFoundationSelectionCursor
-			then self.props.cursor
-			else getCursor(CORNER_RADIUS),
+		SelectionImageObject = self.props.cursor,
 	}, {
 		sizeConstraint = Roact.createElement("UISizeConstraint", {
 			MinSize = Vector2.new(iconSizeMeasurement, iconSizeMeasurement),
@@ -249,28 +236,22 @@ function IconButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		}) or nil,
 	})
 end
-
-if UIBloxConfig.useFoundationSelectionCursor then
-	local function IconButtonFunctionalWrapper(props)
-		local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursor(CORNER_RADIUS) else nil
-
-		return Roact.createElement(
-			IconButton,
-			Cryo.Dictionary.join(props, {
-				cursor = if UIBloxConfig.useFoundationSelectionCursor then cursor else nil,
-			})
-		)
-	end
-
-	local IconButtonOuterWrapper = Roact.PureComponent:extend("IconButtonOuterWrapper")
-
-	IconButtonOuterWrapper.validateProps = IconButton.validateProps
-
-	function IconButtonOuterWrapper:render()
-		return Roact.createElement(IconButtonFunctionalWrapper, self.props)
-	end
-
-	return IconButtonOuterWrapper
+local function IconButtonFunctionalWrapper(props)
+	local cursor = useCursor(CORNER_RADIUS)
+	return Roact.createElement(
+		IconButton,
+		Cryo.Dictionary.join(props, {
+			cursor = cursor,
+		})
+	)
 end
 
-return IconButton
+local IconButtonOuterWrapper = Roact.PureComponent:extend("IconButtonOuterWrapper")
+
+IconButtonOuterWrapper.validateProps = IconButton.validateProps
+
+function IconButtonOuterWrapper:render()
+	return Roact.createElement(IconButtonFunctionalWrapper, self.props)
+end
+
+return IconButtonOuterWrapper

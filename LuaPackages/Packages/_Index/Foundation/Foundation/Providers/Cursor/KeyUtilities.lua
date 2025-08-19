@@ -4,11 +4,10 @@ local Types = require(Foundation.Components.Types)
 local CursorType = require(Foundation.Enums.CursorType)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
-local Flags = require(Foundation.Utility.Flags)
 
 local function encodeKey(tokens: Tokens, radius: UDim?, offset: number?, borderWidth: number?): string
 	local pRadius = radius or UDim.new(0, 0)
-	local defaultBorderWidth = if Flags.FoundationFixCursorStyling then tokens.Stroke.Thicker else tokens.Stroke.Thick
+	local defaultBorderWidth = tokens.Stroke.Thicker
 	local pBorderWidth = borderWidth or defaultBorderWidth
 	local pOffset = (offset or tokens.Size.Size_150) - pBorderWidth
 

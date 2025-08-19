@@ -16,7 +16,7 @@ type ThumbnailSize = ThumbnailSize.ThumbnailSize
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
-local function AssetStory(props)
+local function AssetStory()
 	local tokens = useTokens()
 	return React.createElement(
 		View,
@@ -50,7 +50,7 @@ local function AssetStory(props)
 	)
 end
 
-local function StoryGuiState(props)
+local function StoryGuiState()
 	local guiState, setGuiState = React.useBinding(ControlState.Initialize :: ControlState)
 	local tokens = useTokens()
 
@@ -80,7 +80,7 @@ return {
 	stories = {
 		{
 			name = "Basic Image",
-			story = function(props)
+			story = function()
 				return React.createElement(Image, {
 					Image = "icons/graphic/success_xlarge",
 					tag = "size-2800",

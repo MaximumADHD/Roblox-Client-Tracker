@@ -5,7 +5,7 @@ local React = require(Packages.React)
 
 return React.createContext({
 	value = nil,
-	onValueChanged = function(newValue: string)
+	onValueChanged = function(_newValue: string)
 		warn("No RadioGroupProvider found for RadioGroup")
 	end,
 	Selectable = true,

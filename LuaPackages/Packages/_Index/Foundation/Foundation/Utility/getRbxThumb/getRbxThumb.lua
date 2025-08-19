@@ -6,19 +6,23 @@ type ThumbnailType = ThumbnailType.ThumbnailType
 local ThumbnailSize = require(Foundation.Enums.ThumbnailSize)
 type ThumbnailSize = ThumbnailSize.ThumbnailSize
 
+local getAssetIdAsNumeric = require(Foundation.Utility.getAssetIdAsNumeric)
+
+type AssetId = string | number
+
 --[[
 	Type definitions for getRbxThumb function with precise size constraints for each thumbnail type.
 	Each thumbnail type only accepts specific sizes as defined in the rbxthumb protocol.
 ]]
 type AssetRbxThumb = (
 	type: typeof(ThumbnailType.Asset),
-	id: number,
+	id: AssetId,
 	size: (typeof(ThumbnailSize.Medium) | typeof(ThumbnailSize.Large))?
 ) -> string
 
 type AvatarRbxThumb = (
 	type: typeof(ThumbnailType.Avatar),
-	id: number,
+	id: AssetId,
 	size: (
 		typeof(ThumbnailSize.Small)
 		| typeof(ThumbnailSize.Medium)
@@ -29,7 +33,7 @@ type AvatarRbxThumb = (
 
 type AvatarBustRbxThumb = (
 	type: typeof(ThumbnailType.AvatarBust),
-	id: number,
+	id: AssetId,
 	size: (
 		typeof(ThumbnailSize.Small)
 		| typeof(ThumbnailSize.Medium)
@@ -40,7 +44,7 @@ type AvatarBustRbxThumb = (
 
 type AvatarHeadShotRbxThumb = (
 	type: typeof(ThumbnailType.AvatarHeadShot),
-	id: number,
+	id: AssetId,
 	size: (
 		typeof(ThumbnailSize.Small)
 		| typeof(ThumbnailSize.Medium)
@@ -51,37 +55,37 @@ type AvatarHeadShotRbxThumb = (
 
 type BadgeIconRbxThumb = (
 	type: typeof(ThumbnailType.BadgeIcon),
-	id: number,
+	id: AssetId,
 	size: typeof(ThumbnailSize.Medium)?
 ) -> string
 
 type BundleThumbnailRbxThumb = (
 	type: typeof(ThumbnailType.BundleThumbnail),
-	id: number,
+	id: AssetId,
 	size: (typeof(ThumbnailSize.Medium) | typeof(ThumbnailSize.Large))?
 ) -> string
 
 type FontFamilyRbxThumb = (
 	type: typeof(ThumbnailType.FontFamily),
-	id: number,
+	id: AssetId,
 	size: typeof(ThumbnailSize.Medium)?
 ) -> string
 
 type GameIconRbxThumb = (
 	type: typeof(ThumbnailType.GameIcon),
-	id: number,
+	id: AssetId,
 	size: (typeof(ThumbnailSize.Small) | typeof(ThumbnailSize.Medium))?
 ) -> string
 
 type GamePassRbxThumb = (
 	type: typeof(ThumbnailType.GamePass),
-	id: number,
+	id: AssetId,
 	size: typeof(ThumbnailSize.Medium)?
 ) -> string
 
 type GameThumbnailRbxThumb = (
 	type: typeof(ThumbnailType.GameThumbnail),
-	id: number,
+	id: AssetId,
 	size: (
 		typeof(ThumbnailSize.Small)
 		| typeof(ThumbnailSize.Medium)
@@ -92,13 +96,13 @@ type GameThumbnailRbxThumb = (
 
 type GroupIconRbxThumb = (
 	type: typeof(ThumbnailType.GroupIcon),
-	id: number,
+	id: AssetId,
 	size: (typeof(ThumbnailSize.Medium) | typeof(ThumbnailSize.Large))?
 ) -> string
 
 type OutfitRbxThumb = (
 	type: typeof(ThumbnailType.Outfit),
-	id: number,
+	id: AssetId,
 	size: (typeof(ThumbnailSize.Medium) | typeof(ThumbnailSize.Large))?
 ) -> string
 
@@ -181,15 +185,17 @@ local SIZE_TO_DIMENSIONS: { [ThumbnailType]: { [ThumbnailSize]: Vector2 } } = {
 	@param size The size of the thumbnail to generate (defaults to Medium)
 	@return A rbxthumb URL string
 ]]
-local getRbxThumb: GetRbxThumb = function(type: ThumbnailType, id: number, size: ThumbnailSize?): string
+local getRbxThumb: GetRbxThumb = function(type: ThumbnailType, id: AssetId, size: ThumbnailSize?): string
 	local dimensions = SIZE_TO_DIMENSIONS[type][size or ThumbnailSize.Medium]
+
+	local assetId = getAssetIdAsNumeric(id)
 
 	if not dimensions then
 		warn(`Unsupported size {size} for media type: {type}, defaulting to {ThumbnailSize.Medium}`)
 		dimensions = SIZE_TO_DIMENSIONS[type][ThumbnailSize.Medium]
 	end
 
-	return `rbxthumb://type={type}&id={id}&w={dimensions.X}&h={dimensions.Y}`
+	return `rbxthumb://type={type}&id={assetId}&w={dimensions.X}&h={dimensions.Y}`
 end
 
 return getRbxThumb

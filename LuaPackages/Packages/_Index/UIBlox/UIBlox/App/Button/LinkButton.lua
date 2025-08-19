@@ -19,7 +19,6 @@ local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
-local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local useCursorByType = require(App.SelectionCursor.useCursorByType)
 local CursorType = require(App.SelectionCursor.CursorType)
 local RoactGamepad = require(Packages.RoactGamepad)
@@ -129,13 +128,7 @@ function LinkButton:init()
 end
 
 function LinkButton:render()
-	if UIBloxConfig.useFoundationSelectionCursor then
-		return self:renderWithSelectionCursorProvider(nil, self.props.cursor)
-	else
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursorProvider(getSelectionCursor)
-		end)
-	end
+	return self:renderWithSelectionCursorProvider(nil, self.props.cursor)
 end
 
 function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor, cursor)
@@ -175,14 +168,7 @@ function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor, cursor
 
 		local minSize = Vector2.new(textWidth + minPaddingX * 2, fontSize + minPaddingY * 2)
 
-		local selectionCursor = nil
-		if UIBloxConfig.useFoundationSelectionCursor then
-			selectionCursor = cursor
-		else
-			if self.props.selectionCursorKind ~= nil then
-				selectionCursor = getSelectionCursor(self.props.selectionCursorKind)
-			end
-		end
+		local selectionCursor = cursor
 
 		return Roact.createElement(
 			if UIBloxConfig.enableLinkButtonGamepadSupport then Focusable[Interactable] else Interactable,
@@ -234,20 +220,14 @@ function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor, cursor
 		)
 	end)
 end
-
-if UIBloxConfig.useFoundationSelectionCursor then
-	function LinkButtonFunctionalWrapper(props)
-		local cursor = if UIBloxConfig.useFoundationSelectionCursor
-			then useCursorByType(CursorType.RoundedRectNoInset)
-			else nil
-		return Roact.createElement(
-			LinkButton,
-			Cryo.Dictionary.join(props, {
-				cursor = cursor,
-			})
-		)
-	end
-
-	return LinkButtonFunctionalWrapper
+function LinkButtonFunctionalWrapper(props)
+	local cursor = useCursorByType(CursorType.RoundedRectNoInset)
+	return Roact.createElement(
+		LinkButton,
+		Cryo.Dictionary.join(props, {
+			cursor = cursor,
+		})
+	)
 end
-return LinkButton
+
+return LinkButtonFunctionalWrapper

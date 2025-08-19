@@ -247,7 +247,9 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 				icon = FoundationButtonUtils.findIcon(props.icon),
 				text = props.text,
 				isLoading = props.isLoading,
-				isDisabled = props.isDisabled or props.userInteractionEnabled == false,
+				isDisabled = props.isDisabled
+					or props.userInteractionEnabled == false
+					or props.isDelayedInput and not props.enableInputDelayed,
 				inputDelay = if props.isDelayedInput and props.enableInputDelayed
 					then props.delayInputSeconds or 3
 					else nil,

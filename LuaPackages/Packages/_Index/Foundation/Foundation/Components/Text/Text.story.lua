@@ -16,7 +16,7 @@ local function Story(props)
 	})
 end
 
-local function StoryGuiState(props)
+local function StoryGuiState()
 	local guiState, setGuiState = React.useBinding(ControlState.Initialize :: ControlState)
 	local tokens = useTokens()
 

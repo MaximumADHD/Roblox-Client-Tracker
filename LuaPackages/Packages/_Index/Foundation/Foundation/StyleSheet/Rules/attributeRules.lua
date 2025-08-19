@@ -54,7 +54,7 @@ local function DefaultSizeRules(type: TextStyle, nominalScale: number): { StyleR
 			priority = 0,
 			properties = {
 				TextSize = "$TextSizeBodyLarge",
-				LineHeight = "$TextLineHeightBodyLarge",
+				LineHeight = type.LineHeight,
 			},
 			children = {
 				{
@@ -76,10 +76,6 @@ local function DefaultSizeRules(type: TextStyle, nominalScale: number): { StyleR
 				{
 					name = `TextSizeBodyLarge`,
 					value = type.TextSize,
-				},
-				{
-					name = `TextLineHeightBodyLarge`,
-					value = type.LineHeight,
 				},
 			},
 		},
@@ -201,16 +197,12 @@ local function TypographyRules(typography: Typography, nominalScale: number): { 
 			properties = {
 				Font = type.Font,
 				TextSize = `$TextSize{pascalName}`,
-				LineHeight = `$TextLineHeight{pascalName}`,
+				LineHeight = type.LineHeight,
 			},
 			attributes = {
 				{
 					name = `TextSize{pascalName}`,
 					value = type.TextSize,
-				},
-				{
-					name = `TextLineHeight{pascalName}`,
-					value = type.LineHeight,
 				},
 			},
 			children = {

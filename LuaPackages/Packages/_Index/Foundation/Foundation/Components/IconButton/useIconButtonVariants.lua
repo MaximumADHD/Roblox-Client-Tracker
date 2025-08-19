@@ -33,7 +33,7 @@ type IconButtonVariantProps = {
 	},
 }
 
-local variants = function(tokens: Tokens)
+local variantsMap = function(tokens: Tokens)
 	local common = {
 		container = {
 			tag = "row align-y-center align-x-center clip",
@@ -89,6 +89,6 @@ local variants = function(tokens: Tokens)
 end
 
 return function(tokens: Tokens, size: InputSize, variant: ButtonVariant): IconButtonVariantProps
-	local variants = VariantsContext.useVariants("IconButton", variants, tokens)
+	local variants = VariantsContext.useVariants("IconButton", variantsMap, tokens)
 	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant])
 end

@@ -940,6 +940,14 @@ local Migration = {
       name = "mirror-standing",
       variant = "Filled",
     },
+    ["icons/brands/moments"] = {
+      name = "moments",
+      variant = "Regular",
+    },
+    ["icons/brands/moments_large"] = {
+      name = "moments",
+      variant = "Regular",
+    },
     ["icons/controls/mouse/clickLeft"] = {
       name = "mouse-button-left",
       variant = "Regular",
@@ -1244,6 +1252,10 @@ local Migration = {
       name = "premium",
       variant = "Regular",
     },
+    ["icons/menu/clothing/premium_on"] = {
+      name = "premium",
+      variant = "Filled",
+    },
     ["icons/actions/pumpkin_medium"] = {
       name = "pumpkin",
       variant = "Regular",
@@ -1479,6 +1491,10 @@ local Migration = {
     ["icons/menu/clothing/dynamicHead"] = {
       name = "square-face-winking",
       variant = "Filled",
+    },
+    ["icons/menu/contacts_large"] = {
+      name = "square-person",
+      variant = "Regular",
     },
     ["icons/actions/friend_sort/qr_code"] = {
       name = "squares-grid-qr",

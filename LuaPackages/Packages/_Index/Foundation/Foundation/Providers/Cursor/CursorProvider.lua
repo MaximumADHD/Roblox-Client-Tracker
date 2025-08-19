@@ -50,7 +50,7 @@ local function CursorProvider(props: Props)
 				return refCache[key]
 			end,
 		}
-	end, { refCache :: any, setMountedCursors, if Flags.FoundationSelectionCursorMigration then tokens else nil })
+	end, { refCache :: any, setMountedCursors, tokens })
 
 	local renderCursors = function(): any
 		local cursors: { [string | CursorType]: React.ReactElement<any> } = {}

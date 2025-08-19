@@ -8,8 +8,7 @@ local function useScrollBarPadding(): (number, (instance: ScrollingFrame) -> ())
 
 	local updateScrollBarPadding = React.useCallback(function(instance: ScrollingFrame)
 		local hasOverflowY = instance.AbsoluteCanvasSize.Y > instance.AbsoluteSize.Y
-		local scrollBarPadding = if hasOverflowY then instance.ScrollBarThickness else 0
-		setScrollBarPadding(scrollBarPadding)
+		setScrollBarPadding(if hasOverflowY then instance.ScrollBarThickness else 0)
 	end, {})
 
 	return scrollBarPadding, updateScrollBarPadding

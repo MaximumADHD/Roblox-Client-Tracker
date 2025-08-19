@@ -62,6 +62,7 @@ local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
 			NextSelectionDown = props.NextSelectionDown,
 			NextSelectionLeft = props.NextSelectionLeft,
 			NextSelectionRight = props.NextSelectionRight,
+			ref = ref,
 		}),
 		{
 			Checkmark = if props.isChecked

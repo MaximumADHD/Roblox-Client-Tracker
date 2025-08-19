@@ -81,7 +81,7 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 			local onActivated = if item.onActivated then item.onActivated else props.onActivated
 			if not onActivated then
 				Logger:warning("Menu should have either onActivated on itself or on all of its children")
-				onActivated = function(itemId: ItemId) end
+				onActivated = function(_itemId: ItemId) end
 			end
 			return React.createElement(MenuItem, {
 				LayoutOrder = index,

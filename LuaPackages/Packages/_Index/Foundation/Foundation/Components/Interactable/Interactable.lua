@@ -78,58 +78,54 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 		return getOriginalBackgroundStyle(props.BackgroundColor3, props.BackgroundTransparency)
 	end, { props.BackgroundColor3 :: unknown, props.BackgroundTransparency })
 
-	local getBackgroundStyle = React.useCallback(
-		function(guiState, backgroundStyle: ColorStyleValue, isDisabled: boolean): ColorStyleValue
-			if
-				guiState == ControlState.Initialize
-				or guiState == ControlState.Default
-				or guiState == ControlState.Disabled
-				or (props.stateLayer and props.stateLayer.affordance == StateLayerAffordance.None)
-			then
-				return backgroundStyle
-			end
+	local getBackgroundStyle = React.useCallback(function(guiState, backgroundStyle: ColorStyleValue): ColorStyleValue
+		if
+			guiState == ControlState.Initialize
+			or guiState == ControlState.Default
+			or guiState == ControlState.Disabled
+			or (props.stateLayer and props.stateLayer.affordance == StateLayerAffordance.None)
+		then
+			return backgroundStyle
+		end
 
-			local finalBackgroundStyle = {
-				Color3 = backgroundStyle.Color3,
-				Transparency = backgroundStyle.Transparency,
-			}
-
-			if backgroundStyle.Color3 == nil then
-				finalBackgroundStyle.Color3 = if realBackgroundStyle.current
-					then realBackgroundStyle.current.Color3
-					else nil
-			end
-			if backgroundStyle.Transparency == nil then
-				finalBackgroundStyle.Transparency = if realBackgroundStyle.current
-					then realBackgroundStyle.current.Transparency
-					else nil
-			end
-
-			local stateLayerStyle = getStateLayerStyle(tokens, props.stateLayer, guiState)
-
-			return getBackgroundStyleWithStateLayer(finalBackgroundStyle, stateLayerStyle)
-		end,
-		{
-			props.isDisabled :: any,
-			tokens,
-			props.BackgroundColor3,
-			props.BackgroundTransparency,
-			props.stateLayer,
+		local finalBackgroundStyle = {
+			Color3 = backgroundStyle.Color3,
+			Transparency = backgroundStyle.Transparency,
 		}
-	)
+
+		if backgroundStyle.Color3 == nil then
+			finalBackgroundStyle.Color3 = if realBackgroundStyle.current
+				then realBackgroundStyle.current.Color3
+				else nil
+		end
+		if backgroundStyle.Transparency == nil then
+			finalBackgroundStyle.Transparency = if realBackgroundStyle.current
+				then realBackgroundStyle.current.Transparency
+				else nil
+		end
+
+		local stateLayerStyle = getStateLayerStyle(tokens, props.stateLayer, guiState)
+
+		return getBackgroundStyleWithStateLayer(finalBackgroundStyle, stateLayerStyle)
+	end, {
+		tokens :: unknown,
+		props.BackgroundColor3,
+		props.BackgroundTransparency,
+		props.stateLayer,
+	})
 
 	local backgroundStyleBinding = React.useMemo(function()
 		if ReactIs.isBinding(originalBackgroundStyle) then
 			return React.joinBindings({ controlState = controlState, backgroundStyle = originalBackgroundStyle })
 				:map(function(values)
-					return getBackgroundStyle(values.controlState, values.backgroundStyle, props.isDisabled)
+					return getBackgroundStyle(values.controlState, values.backgroundStyle)
 				end)
 		end
 
 		return controlState:map(function(guiState)
-			return getBackgroundStyle(guiState, originalBackgroundStyle :: ColorStyleValue, props.isDisabled)
+			return getBackgroundStyle(guiState, originalBackgroundStyle :: ColorStyleValue)
 		end :: (any) -> ColorStyleValue)
-	end, { originalBackgroundStyle :: any, controlState, getBackgroundStyle, props.isDisabled })
+	end, { originalBackgroundStyle :: any, controlState, getBackgroundStyle })
 
 	local wrappedRef = useGuiControlState(guiObjectRef, onStateChanged)
 

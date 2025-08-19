@@ -79,7 +79,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	local isKnobVisible, setIsKnobVisible = React.useState(false)
 	local value = useBindable(props.value)
 
-	local lastDragPosition = if Flags.FoundationSliderDirectionalInputSupport()
+	local lastDragPosition = if Flags.FoundationSliderDirectionalInputSupport
 		then React.useRef(nil :: Vector2?)
 		else nil :: never
 	local lastInputMode = if Flags.FoundationSliderDirectionalInputSupport then useLastInputMode() else nil :: never
@@ -90,8 +90,8 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	end, {})
 
 	local pointerPosition = usePointerPosition(ref.current)
-	local guiInset = if Flags.FoundationSliderDirectionalInputSupport() then nil :: never else useGuiInset()
-	local layerCollector = if Flags.FoundationSliderDirectionalInputSupport()
+	local guiInset = if Flags.FoundationSliderDirectionalInputSupport then nil :: never else useGuiInset()
+	local layerCollector = if Flags.FoundationSliderDirectionalInputSupport
 		then nil :: never
 		else useLayerCollector(ref.current)
 
@@ -124,32 +124,21 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	local calculateValueFromAbsPosition = React.useCallback(function(position: Vector2)
 		if ref.current then
 			local sliderValue
+			local orientation = ref.current.AbsoluteRotation
+			local sliderFrame = ref.current
 
-			if Flags.FoundationSliderOrientationImprovement then
-				local orientation = ref.current.AbsoluteRotation
-				local sliderFrame = ref.current
+			local length = sliderFrame.AbsoluteSize.Magnitude
+			local centerPoint = sliderFrame.AbsolutePosition + sliderFrame.AbsoluteSize * 0.5
 
-				local length = sliderFrame.AbsoluteSize.Magnitude
-				local centerPoint = sliderFrame.AbsolutePosition + sliderFrame.AbsoluteSize * 0.5
+			local radians = math.rad(orientation)
+			local unit = Vector2.new(math.cos(radians), math.sin(radians))
 
-				local radians = math.rad(orientation)
-				local unit = Vector2.new(math.cos(radians), math.sin(radians))
+			local dotProduct = (position - centerPoint):Dot(unit)
+			local percentage = dotProduct / length + 0.5
+			local clampedPercent = math.clamp(percentage, 0, 1)
 
-				local dotProduct = (position - centerPoint):Dot(unit)
-				local percentage = dotProduct / length + 0.5
-				local clampedPercent = math.clamp(percentage, 0, 1)
-
-				local rangeSpan = props.range.Max - props.range.Min
-				sliderValue = clampedPercent * rangeSpan + props.range.Min
-			else
-				local screenBounds = NumberRange.new(
-					ref.current.AbsolutePosition.X,
-					ref.current.AbsolutePosition.X + ref.current.AbsoluteSize.X
-				)
-				local valueAsPercent = (position.X - screenBounds.Min) / (screenBounds.Max - screenBounds.Min)
-				local valueRangeMagnitude = math.abs(props.range.Max - props.range.Min)
-				sliderValue = (valueAsPercent * valueRangeMagnitude) + props.range.Min
-			end
+			local rangeSpan = props.range.Max - props.range.Min
+			sliderValue = clampedPercent * rangeSpan + props.range.Min
 
 			return math.clamp(sliderValue, props.range.Min, props.range.Max)
 		else
@@ -171,7 +160,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	end, { calculateValueFromAbsPosition, pointerPosition, updateValue } :: { unknown })
 
 	local onDragStarted = React.useCallback(function(_rbx, inputPosition: Vector2)
-		if Flags.FoundationSliderDirectionalInputSupport() then
+		if Flags.FoundationSliderDirectionalInputSupport then
 			lastDragPosition.current = inputPosition
 		end
 		setIsDragging(true)
@@ -181,7 +170,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		end
 	end, { props.onDragStarted })
 
-	local onDrag = if Flags.FoundationSliderDirectionalInputSupport()
+	local onDrag = if Flags.FoundationSliderDirectionalInputSupport
 		then React.useCallback(function(_rbx, position: Vector2)
 			if ref.current and lastDragPosition.current then
 				local length = ref.current.AbsoluteSize.Magnitude
@@ -206,7 +195,9 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 				end
 
 				local current = value:getValue() :: number
-				local newValue = math.clamp(current + delta, props.range.Min, props.range.Max)
+				local rangeSpan = props.range.Max - props.range.Min
+				local scaledDelta = delta * rangeSpan
+				local newValue = math.clamp(current + scaledDelta, props.range.Min, props.range.Max)
 
 				updateValue(newValue)
 			end
@@ -235,7 +226,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 
 	local onDragEnded = React.useCallback(function()
 		setIsDragging(false)
-		if Flags.FoundationSliderDirectionalInputSupport() then
+		if Flags.FoundationSliderDirectionalInputSupport then
 			lastDragPosition.current = nil
 		end
 

@@ -91,7 +91,7 @@ end
 local function applyDefaults(props, defaults)
 	for key, value in defaults do
 		if typeof(value) == "table" and typeof(props[key]) == "table" then
-			for k, v in pairs(value) do
+			for k, _v in pairs(value) do
 				props[key][k] = value[k]
 			end
 		else

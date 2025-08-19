@@ -58,7 +58,7 @@ local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<F
 		}),
 		HeartbeatConnection = props.isVisible and React.createElement(EventConnection, {
 			event = RunService.Heartbeat :: RBXScriptSignal,
-			callback = function(step)
+			callback = function()
 				-- TODO(UIBLOX-497): Normalize animation speed of heartbeat callback
 				local r = rotation:getValue() + GRADIENT_ROTATION_SPEED
 				local c = colorSequence

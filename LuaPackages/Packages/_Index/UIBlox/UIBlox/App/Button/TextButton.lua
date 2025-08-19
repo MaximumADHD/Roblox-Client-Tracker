@@ -9,7 +9,6 @@ local Roact = require(Packages.Roact)
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Interactable = require(Core.Control.Interactable)
 
 local ControlState = require(Core.Control.Enum.ControlState)
@@ -17,14 +16,12 @@ local getContentStyle = require(Core.Button.getContentStyle)
 local GetTextSize = require(Core.Text.GetTextSize)
 local cleanRichTextTags = require(Core.Text.CleanRichTextTags)
 local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
-local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(App.SelectionImage.CursorKind)
 
 local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 
-local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
 local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
 
 local CORNER_RADIUS = UDim.new(0, 8)
@@ -74,7 +71,7 @@ TextButton.validateProps = t.strictInterface({
 	-- The Text of the button
 	text = t.optional(t.string),
 	-- The selectionCursor to use
-	cursor = if UIBloxConfig.useFoundationSelectionCursor then t.optional(t.table) else nil,
+	cursor = t.optional(t.table),
 
 	-- A callback that replaces getTextSize implementation
 	debugGetTextSize = t.optional(t.callback),
@@ -124,15 +121,7 @@ end
 
 function TextButton:render()
 	return withStyle(function(style)
-		if UIBloxConfig.useFoundationSelectionCursor then
-			return self:renderWithProviders(style, nil, nil)
-		else
-			return withSelectionCursorProvider(function(getSelectionCursor)
-				return withCursor(function(context)
-					return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
-				end)
-			end)
-		end
+		return self:renderWithProviders(style, nil, nil)
 	end)
 end
 
@@ -211,27 +200,22 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		}),
 	})
 end
-
-if UIBloxConfig.useFoundationSelectionCursor then
-	local function TextButtonFunctionalWrapper(props)
-		local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursor(CORNER_RADIUS) else nil
-
-		return Roact.createElement(
-			TextButton,
-			Cryo.Dictionary.join(props, {
-				cursor = cursor,
-			})
-		)
-	end
-
-	local TextButtonOuterWrapper = Roact.PureComponent:extend("TextButtonOuterWrapper")
-
-	TextButtonOuterWrapper.validateProps = TextButton.validateProps
-
-	function TextButtonOuterWrapper:render()
-		return Roact.createElement(TextButtonFunctionalWrapper, self.props)
-	end
-
-	return TextButtonOuterWrapper
+local function TextButtonFunctionalWrapper(props)
+	local cursor = useCursor(CORNER_RADIUS)
+	return Roact.createElement(
+		TextButton,
+		Cryo.Dictionary.join(props, {
+			cursor = cursor,
+		})
+	)
 end
-return TextButton
+
+local TextButtonOuterWrapper = Roact.PureComponent:extend("TextButtonOuterWrapper")
+
+TextButtonOuterWrapper.validateProps = TextButton.validateProps
+
+function TextButtonOuterWrapper:render()
+	return Roact.createElement(TextButtonFunctionalWrapper, self.props)
+end
+
+return TextButtonOuterWrapper

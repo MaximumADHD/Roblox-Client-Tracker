@@ -11,11 +11,8 @@ local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
 local t = require(Packages.t)
 
-local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
-local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local CursorType = require(App.SelectionCursor.CursorType)
 local useCursorByType = require(App.SelectionCursor.useCursorByType)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local SmallRadioButtonCell = require(UIBlox.App.Cell.Small.SelectionGroup.SmallRadioButtonCell)
 
@@ -103,35 +100,8 @@ function SmallRadioButtonGroup:render()
 		if not isRoactGamepadEnabled then
 			self.gamepadRefs[index] = self.gamepadRefs[index] or Roact.createRef()
 		end
-
-		if UIBloxConfig.useFoundationSelectionCursor then
-			smallRadioButtonCellGroup["smallRadioButtonCell" .. button.id] =
-				self:renderButtonCell(button, index, isRoactGamepadEnabled)
-		else
-			smallRadioButtonCellGroup["smallRadioButtonCell" .. button.id] = withSelectionCursorProvider(
-				function(getSelectionCursor)
-					return Roact.createElement(
-						if isRoactGamepadEnabled
-							then RoactGamepad.Focusable[SmallRadioButtonCell]
-							else SmallRadioButtonCell,
-						{
-							id = button.id,
-							text = button.text,
-							onActivated = self.props.onActivated,
-							isSelected = self.props.selectedValue == button.id,
-							isDisabled = button.isDisabled,
-							layoutOrder = index,
-							useDefaultControlState = self.props.useDefaultControlState,
-
-							[Roact.Ref] = self.gamepadRefs[index],
-							NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
-							NextSelectionDown = index < #self.props.items and self.gamepadRefs[index + 1] or nil,
-							SelectionImageObject = getSelectionCursor(CursorKind.SelectionCell),
-						}
-					)
-				end
-			)
-		end
+		smallRadioButtonCellGroup["smallRadioButtonCell" .. button.id] =
+			self:renderButtonCell(button, index, isRoactGamepadEnabled)
 	end
 
 	local isGamepad = isRoactGamepadEnabled and self.props.items and #self.props.items > 0
@@ -149,6 +119,6 @@ function SmallRadioButtonGroup:render()
 end
 
 return Roact.forwardRef(function(props, ref)
-	local cursor = if UIBloxConfig.useFoundationSelectionCursor then useCursorByType(CursorType.SelectionCell) else nil
+	local cursor = useCursorByType(CursorType.SelectionCell)
 	return Roact.createElement(SmallRadioButtonGroup, Cryo.Dictionary.join(props, { frameRef = ref, cursor = cursor }))
 end)

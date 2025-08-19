@@ -10,7 +10,7 @@ end
 
 local stories = {}
 
-for i, keyCode in Enum.KeyCode:GetEnumItems() do
+for _, keyCode in Enum.KeyCode:GetEnumItems() do
 	local newStory = {
 		name = tostring(keyCode),
 		story = function(props)

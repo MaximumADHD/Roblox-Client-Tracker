@@ -22,6 +22,7 @@ local function Story(props)
 		onActivated = props.onActivated,
 		isChecked = props.isChecked,
 		size = props.size,
+		isDisabled = props.isDisabled,
 	})
 end
 
@@ -40,6 +41,7 @@ return {
 					leading = props.controls.leading,
 					trailing = props.controls.trailing,
 					isChecked = props.controls.isChecked,
+					isDisabled = props.controls.isDisabled,
 					size = props.controls.size,
 					chipDesignUpdate = props.controls.chipDesignUpdate,
 				})
@@ -61,6 +63,7 @@ return {
 							leading = props.controls.leading,
 							trailing = props.controls.trailing,
 							isChecked = props.controls.isChecked,
+							isDisabled = props.controls.isDisabled,
 							size = value,
 							chipDesignUpdate = props.controls.chipDesignUpdate,
 						})
@@ -90,6 +93,7 @@ return {
 						},
 					},
 					isChecked = props.controls.isChecked,
+					isDisabled = props.controls.isDisabled,
 					size = props.controls.size,
 					chipDesignUpdate = props.controls.chipDesignUpdate,
 				})
@@ -124,6 +128,7 @@ return {
 								},
 							},
 							isChecked = props.controls.isChecked,
+							isDisabled = props.controls.isDisabled,
 							size = props.controls.size,
 							chipDesignUpdate = props.controls.chipDesignUpdate,
 						})
@@ -144,8 +149,7 @@ return {
 							print(`Chip activated`)
 						end,
 						isChecked = props.controls.isChecked,
-						-- Is just ignored
-						isDisabled = true,
+						isDisabled = props.controls.isDisabled,
 					}),
 					React.createElement(Chip, {
 						icon = {
@@ -157,6 +161,7 @@ return {
 							print(`Chip activated`)
 						end,
 						isChecked = props.controls.isChecked,
+						isDisabled = props.controls.isDisabled,
 					})
 				)
 			end,
@@ -196,6 +201,7 @@ return {
 		size = Dash.values(ChipSize),
 		text = "Filter",
 		isChecked = false,
+		isDisabled = false,
 		migrateIconNames = Flags.FoundationMigrateIconNames,
 	},
 }

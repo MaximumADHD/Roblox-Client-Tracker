@@ -2,12 +2,20 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local BuilderIcons = require(Packages.BuilderIcons)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Components = Foundation.Components
 local View = require(Components.View)
 local Image = require(Components.Image)
+local Icon = require(Components.Icon)
+local FoundationConstants = require(Foundation.Constants)
+
+local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
+type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
+
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 
 local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -19,14 +27,15 @@ type NumberInputControlProps = {
 }
 
 type NumberInputControlsProps = {
+	variant: NumberInputControlsVariant,
 	-- Size of the controls
 	size: InputSize,
-	up: NumberInputControlProps,
-	down: NumberInputControlProps,
+	increment: NumberInputControlProps,
+	decrement: NumberInputControlProps,
 	LayoutOrder: number?,
 }
 
-local IconButton = function(props)
+local StackedIconButton = function(props)
 	local tokens = useTokens()
 	local radius = UDim.new(0, tokens.Radius.Medium)
 
@@ -49,10 +58,57 @@ local IconButton = function(props)
 		padding = props.padding,
 		cornerRadius = radius,
 		tag = props.tag,
+		LayoutOrder = props.layoutOrder,
 	}, props.children)
 end
 
-local function NumberInputControls(props: NumberInputControlsProps)
+local function SplitControls(props: NumberInputControlsProps)
+	local tokens = useTokens()
+	local variantProps = useNumberInputVariants(tokens, props.size)
+
+	local outerBorderThickness = tokens.Stroke.Standard
+	local outerBorderOffset = math.ceil(outerBorderThickness) * 2
+	local buttonSize = UDim2.fromOffset(
+		variantProps.splitButton.size - outerBorderOffset,
+		variantProps.splitButton.size - outerBorderOffset
+	)
+
+	return React.createElement(React.Fragment, {}, {
+		ControlIncrement = React.createElement(View, {
+			onActivated = props.increment.onClick,
+			isDisabled = props.increment.isDisabled,
+			padding = variantProps.button.padding,
+			Size = buttonSize,
+			tag = variantProps.splitButton.tag,
+			LayoutOrder = 1,
+			GroupTransparency = if props.increment.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
+		}, {
+			Icon = React.createElement(Icon, {
+				name = BuilderIcons.Icon.PlusSmall,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+			}),
+		}),
+		ControlDecrement = React.createElement(View, {
+			variant = ButtonVariant.Standard,
+			onActivated = props.decrement.onClick,
+			isDisabled = props.decrement.isDisabled,
+			padding = variantProps.button.padding,
+			Size = buttonSize,
+			tag = variantProps.splitButton.tag,
+			LayoutOrder = -1,
+			GroupTransparency = if props.decrement.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
+		}, {
+			Icon = React.createElement(Icon, {
+				name = BuilderIcons.Icon.MinusSmall,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+			}),
+		}),
+	})
+end
+
+local function StackedControls(props: NumberInputControlsProps)
 	local tokens = useTokens()
 	local variantProps = useNumberInputVariants(tokens, props.size)
 
@@ -61,9 +117,9 @@ local function NumberInputControls(props: NumberInputControlsProps)
 		Size = UDim2.new(0, variantProps.button.width, 1, 0),
 		LayoutOrder = props.LayoutOrder,
 	}, {
-		ControlUp = React.createElement(IconButton, {
-			onActivated = props.up.onClick,
-			isDisabled = props.up.isDisabled,
+		ControlIncrement = React.createElement(StackedIconButton, {
+			onActivated = props.increment.onClick,
+			isDisabled = props.increment.isDisabled,
 			padding = variantProps.button.padding,
 			tag = variantProps.upButton.tag,
 		}, {
@@ -72,10 +128,10 @@ local function NumberInputControls(props: NumberInputControlsProps)
 				tag = variantProps.icon.tag,
 			}),
 		}),
-		ControlDown = React.createElement(IconButton, {
+		ControlDecrement = React.createElement(StackedIconButton, {
 			tag = variantProps.downButton.tag,
-			onActivated = props.down.onClick,
-			isDisabled = props.down.isDisabled,
+			onActivated = props.decrement.onClick,
+			isDisabled = props.decrement.isDisabled,
 			padding = variantProps.button.padding,
 		}, {
 			Icon = React.createElement(Image, {
@@ -84,6 +140,14 @@ local function NumberInputControls(props: NumberInputControlsProps)
 			}),
 		}),
 	})
+end
+
+local function NumberInputControls(props: NumberInputControlsProps)
+	if props.variant == NumberInputControlsVariant.Stacked then
+		return React.createElement(StackedControls, props)
+	else
+		return React.createElement(SplitControls, props)
+	end
 end
 
 return NumberInputControls

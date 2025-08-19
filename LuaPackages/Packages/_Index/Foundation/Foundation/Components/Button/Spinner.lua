@@ -112,10 +112,10 @@ local function Spinner(spinnerProps: SpinnerProps, ref: React.Ref<GuiObject>?)
 			style = React.joinBindings({
 				style = props.style,
 				transparency = values.transparency,
-			}):map(function(values)
+			}):map(function(styleValues)
 				return {
-					Color3 = values.style.Color3,
-					Transparency = (values.style.Transparency :: number) + (values.transparency :: number) / 2,
+					Color3 = styleValues.style.Color3,
+					Transparency = styleValues.style.Transparency :: number + (styleValues.transparency :: number) / 2,
 				}
 			end),
 		}),

@@ -6,6 +6,12 @@ category: Layout
 
 `Dialogs` create a temporary, purposeful exchange (or dialog) between a user and our platform, helping surface important information or require user input without disrupting the larger experience.
 
+By default, Dialog renders in the center of its parent component without portaling to the root. If you need to portal the Dialog to the root (for example, to ensure it's always on top of other UI elements), you can set `disablePortal = false`.
+
+The Dialog component does not include a backdrop by default. You can add a backdrop by setting `hasBackdrop = true` if you want to visually separate the dialog from the rest of the UI.
+
+If your application has its own modal window management system, you can render Dialog directly within it instead of using the built-in portal functionality.
+
 ## Sizing Behavior
 
 The Dialog component supports 3 fixed sizes:
@@ -89,6 +95,7 @@ local ButtonVariant = Foundation.Enums.ButtonVariant
 local function ConfirmDialog(props)
     return React.createElement(Dialog.Root, {
         size = DialogSize.Small,
+		hasBackdrop = true,
         onClose = function(reason)
             if reason == OnCloseCallbackReason.BackdropClick then
                 -- Optionally prevent closing on backdrop click

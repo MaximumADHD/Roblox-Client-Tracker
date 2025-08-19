@@ -2,6 +2,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local ReactRoblox = require(Packages.ReactRoblox)
 local Dash = require(Packages.Dash)
 
 local Types = require(Foundation.Components.Types)
@@ -18,6 +19,7 @@ local useDialogVariants = require(script.Parent.useDialogVariants).useDialogVari
 local useDialogSize = require(script.Parent.useDialogSize)
 local useDialogResponsiveSize = require(script.Parent.useDialogResponsiveSize)
 local DialogLayoutProvider = require(script.Parent.DialogLayoutProvider)
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 
 type DialogSize = DialogSize.DialogSize
 type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
@@ -25,6 +27,8 @@ type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 type DialogProps = {
 	onClose: ((reason: OnCloseCallbackReason?) -> ())?,
 	size: DialogSize?,
+	disablePortal: boolean?,
+	hasBackdrop: boolean?,
 	children: React.ReactNode,
 } & Types.NativeCallbackProps
 
@@ -34,6 +38,8 @@ type DialogInternalProps = DialogProps & {
 
 local defaultProps = {
 	size = DialogSize.Medium,
+	disablePortal = true,
+	hasBackdrop = false,
 }
 
 local SHADOW_IMAGE = "component_assets/dropshadow_17_8"
@@ -45,24 +51,27 @@ local function Dialog(dialogProps: DialogInternalProps)
 	local maxWidth = useScaledValue(variants.inner.maxWidth)
 	local dialogBodyRef = React.useRef(nil)
 	local dialogSizeBinding = useDialogSize(dialogBodyRef)
+	local overlay = useOverlay()
 
 	useDialogResponsiveSize(props.size)
 
-	return React.createElement(React.Fragment, nil, {
-		Backdrop = React.createElement(View, {
-			tag = "size-full-full",
-			stateLayer = {
-				affordance = StateLayerAffordance.None,
-			},
-			onActivated = function()
-				if props.onClose then
-					props.onClose(OnCloseCallbackReason.BackdropClick)
-				end
-			end,
-			backgroundStyle = variants.backdrop.backgroundStyle,
-			ZIndex = 2,
-			testId = "--foundation-dialog-backdrop",
-		}),
+	local content = React.createElement(React.Fragment, nil, {
+		Backdrop = if props.hasBackdrop
+			then React.createElement(View, {
+				tag = "size-full-full",
+				stateLayer = {
+					affordance = StateLayerAffordance.None,
+				},
+				onActivated = function()
+					if props.onClose then
+						props.onClose(OnCloseCallbackReason.BackdropClick)
+					end
+				end,
+				backgroundStyle = variants.backdrop.backgroundStyle,
+				ZIndex = 2,
+				testId = "--foundation-dialog-backdrop",
+			})
+			else nil,
 		DialogShadowWrapper = React.createElement(View, {
 			tag = variants.container.tag,
 			ZIndex = 2,
@@ -131,6 +140,12 @@ local function Dialog(dialogProps: DialogInternalProps)
 			}),
 		}),
 	})
+
+	if props.disablePortal or overlay == nil then
+		return content
+	end
+
+	return ReactRoblox.createPortal(content, overlay)
 end
 
 local function DialogContainer(dialogContainerProps: DialogProps, ref: React.Ref<GuiObject>?)

@@ -8,7 +8,7 @@ type DialogSize = DialogSize.DialogSize
 return React.createContext({
 	size = DialogSize.Small,
 	responsiveSize = DialogSize.Small,
-	setResponsiveSize = function(size: DialogSize) end,
+	setResponsiveSize = function(_size: DialogSize) end,
 	hasHeroMedia = false,
-	setHasHeroMedia = function(has: boolean) end,
+	setHasHeroMedia = function(_hasHeroMedia: boolean) end,
 })

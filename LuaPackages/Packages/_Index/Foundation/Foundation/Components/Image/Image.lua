@@ -68,8 +68,11 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil
 
 	local image, imageRectOffset, imageRectSize = React.useMemo(function(): ...any
+		-- selene: allow(shadowing)
 		local image = props.Image
+		-- selene: allow(shadowing)
 		local imageRectOffset = if props.imageRect then props.imageRect.offset else nil
+		-- selene: allow(shadowing)
 		local imageRectSize = if props.imageRect then props.imageRect.size else nil
 
 		if ReactIs.isBinding(props.Image) then

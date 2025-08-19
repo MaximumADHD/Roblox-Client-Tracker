@@ -27,9 +27,7 @@ local function useGuiControlState(guiObjectRef: React.Ref<Instance>, onStateChan
 		local oldState = currentControlState.current
 
 		if isSelected.current then
-			if newState == ControlState.Default then
-				newState = ControlState.Selected
-			elseif newState == ControlState.Hover then
+			if newState == ControlState.Default or newState == ControlState.Hover then
 				newState = ControlState.Selected
 			elseif newState == ControlState.Pressed then
 				newState = ControlState.SelectedPressed

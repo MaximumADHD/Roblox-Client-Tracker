@@ -9,7 +9,7 @@ type FillBehavior = FillBehavior.FillBehavior
 
 return {
 	summary = "Chip",
-	story = function(props)
+	story = function()
 		local chip1Text = "I'm a chip"
 		local chip2Text = "I'm a dale"
 

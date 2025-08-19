@@ -23,7 +23,7 @@ end
 local function useMultiselect(items: { MenuItem })
 	local state, setState = React.useState(items)
 	local onActivated = React.useCallback(function(id: ItemId)
-		setState(function(oldValue)
+		setState(function()
 			local newValue = table.clone(state)
 			for _, value in newValue do
 				if value.id == id then
@@ -174,7 +174,7 @@ return {
 		} :: unknown,
 		{
 			name = "All Sizes",
-			story = function(props)
+			story = function()
 				return React.createElement(
 					View,
 					{ tag = "row gap-xxlarge size-full-0 auto-y wrap" },
@@ -192,13 +192,13 @@ return {
 		},
 		{
 			name = "Fixed width",
-			story = function(props)
+			story = function()
 				return React.createElement(BaseMenu, { width = UDim.new(0, 300) })
 			end,
 		},
 		{
 			name = "Full width",
-			story = function(props)
+			story = function()
 				return React.createElement(BaseMenu, { width = UDim.new(1, 0) })
 			end,
 		},

@@ -54,6 +54,7 @@ local Dash = {
 	mapLast = require(script.mapLast),
 	mapOne = require(script.mapOne),
 	max = require(script.max),
+	memoize = require(script.memoize),
 	min = require(script.min),
 	None = require(script.None),
 	noop = require(script.noop),

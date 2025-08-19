@@ -35,9 +35,9 @@ return {
 		return React.createElement(Dropdown.Root, {
 			value = id,
 			placeholder = if controls.hasPlaceholder then "Choose a value" else nil,
-			onItemChanged = function(id: ItemId)
-				print("Checking item with value = " .. id)
-				setId(id)
+			onItemChanged = function(itemId: ItemId)
+				print("Checking item with value = " .. itemId)
+				setId(itemId)
 			end,
 			hasError = controls.hasError,
 			isDisabled = controls.isDisabled,
