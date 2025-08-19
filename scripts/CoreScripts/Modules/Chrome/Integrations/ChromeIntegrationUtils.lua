@@ -6,15 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
-local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 local FFlagGamepadFocusRefactor = SharedFlags.FFlagGamepadFocusRefactor
-
-local SocialExperiments
-local TenFootInterfaceExpChatExperimentation
-if FFlagConsoleChatOnExpControls then
-	SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
-	TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
-end
 
 local TopBar = RobloxGui.Modules.TopBar
 local GamepadConnector
@@ -23,10 +15,7 @@ if FFlagConsoleChatOnExpControls then
 end
 
 function dismissRobloxMenuAndRun(func)
-	if
-		FFlagConsoleChatOnExpControls
-		and (FFlagChromeChatGamepadSupportFix or TenFootInterfaceExpChatExperimentation.getIsEnabled())
-	then
+	if FFlagConsoleChatOnExpControls then
 		if UserInputService.GamepadEnabled then
 			if FFlagGamepadFocusRefactor then
 				GuiService.SelectedCoreObject = nil

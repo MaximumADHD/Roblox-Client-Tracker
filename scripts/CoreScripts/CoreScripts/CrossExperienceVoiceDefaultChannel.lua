@@ -96,6 +96,7 @@ local FFlagLogPartyVoiceReconnect = game:DefineFastFlag("LogPartyVoiceReconnect"
 local FFlagPartyVoiceReportJoinFailed = game:DefineFastFlag("PartyVoiceReportJoinFailed", false)
 local FFlagPartyVoiceCatchError = game:DefineFastFlag("PartyVoiceCatchError", false)
 local FFlagPartyVoiceFixCaptureVideoCheck = game:DefineFastFlag("PartyVoiceFixCaptureVideoCheck", false)
+local FIntPartyVoiceUndeafenDelayMS = SharedFlags.FIntPartyVoiceUndeafenDelayMS
 local FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit =
 	game:DefineFastFlag("PartyVoiceExecuteVoiceActionsPostAsyncInit", false)
 local FIntVoiceJoinTimeoutInSeconds = game:DefineFastInt("VoiceJoinTimeoutInSeconds", 15)
@@ -122,6 +123,8 @@ local VOICE_STATUS = Constants.VOICE_STATUS
 local FFlagFixPartyVoiceGetPermissions = SharedFlags.GetFFlagFixPartyVoiceGetPermissions()
 local FFlagEnableCoreVoiceManagerPassErrorInReject = SharedFlags.FFlagEnableCoreVoiceManagerPassErrorInReject
 local FFlagEnablePartyVoiceChangersInLua = SharedFlags.FFlagEnablePartyVoiceChangersInLua
+
+local undeafenTimerHandle: thread? = nil
 
 if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	CoreVoiceManager:setOptions({
@@ -262,6 +265,7 @@ local onPlayerAdded = function(player)
 		username = player.Name,
 		displayname = player.DisplayName,
 		isVoiceChangerActive = if FFlagEnablePartyVoiceChangersInLua then false else nil,
+		isVoiceChangerHearMyselfActive = if FFlagEnablePartyVoiceChangersInLua then false else nil,
 		-- TODO:
 		-- Check to see if setting new participants' selected voice pack to None might cause desync issues
 		-- with the participant updating their voice pack before things are fully initialized.
@@ -315,6 +319,17 @@ local function onLocalVoiceChangerChanged(isVoiceChangerActive)
 	local eventName = if isVoiceChangerActive
 		then CrossExperience.Constants.EVENTS.PARTY_VOICE_CHANGER_WAS_ENABLED
 		else CrossExperience.Constants.EVENTS.PARTY_VOICE_CHANGER_WAS_DISABLED
+
+	cevEventManager:notify(eventName, {
+		userId = localUserId,
+		isLocalUser = true,
+	})
+end
+
+local function onLocalVoiceChangerHearMyselfChanged(isVoiceChangerHearMyselfActive)
+	local eventName = if isVoiceChangerHearMyselfActive
+		then CrossExperience.Constants.EVENTS.PARTY_VOICE_CHANGER_FEEDBACK_WAS_ENABLED
+		else CrossExperience.Constants.EVENTS.PARTY_VOICE_CHANGER_FEEDBACK_WAS_DISABLED
 
 	cevEventManager:notify(eventName, {
 		userId = localUserId,
@@ -397,6 +412,17 @@ local function toggleVoiceChanger(params)
 	end
 end
 
+local function toggleVoiceChangerHearMyself(params)
+	local userId = tonumber(params.userId)
+	local isLocalPlayer = localUserId == userId
+
+	if isLocalPlayer then
+		CoreVoiceManager:ToggleVoiceChangerHearMyself("Squads")
+	else
+		CoreVoiceManager:ToggleVoiceChangerHearMyself(userId)
+	end
+end
+
 function handleParticipants()
 	Players.PlayerAdded:Connect(function(player)
 		onPlayerAdded(player)
@@ -425,6 +451,15 @@ function handleVoiceChanger()
 	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.ENABLE_PARTY_VOICE_CHANGER, toggleVoiceChanger)
 	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.DISABLE_PARTY_VOICE_CHANGER, toggleVoiceChanger)
 	cevEventManager:addObserver(CrossExperience.Constants.EVENTS.SET_PARTY_VOICE_PACK, setVoicePack)
+	CoreVoiceManager.voiceChangerHearMyselfChanged.Event:Connect(onLocalVoiceChangerHearMyselfChanged)
+	cevEventManager:addObserver(
+		CrossExperience.Constants.EVENTS.ENABLE_PARTY_VOICE_CHANGER_FEEDBACK,
+		toggleVoiceChangerHearMyself
+	)
+	cevEventManager:addObserver(
+		CrossExperience.Constants.EVENTS.DISABLE_PARTY_VOICE_CHANGER_FEEDBACK,
+		toggleVoiceChangerHearMyself
+	)
 end
 
 local handleBlockedParticipant = function(params: { userId: number })
@@ -775,6 +810,11 @@ function initializeAFM()
 			AudioFocusService:RegisterContextIdFromLua(contextId)
 
 			local deafenAll = function()
+				if FIntPartyVoiceUndeafenDelayMS > 0 and undeafenTimerHandle then
+					task.cancel(undeafenTimerHandle)
+					undeafenTimerHandle = nil
+				end
+
 				if (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
 					CoreVoiceManager:MuteAll(true, "AudioFocusManagement CEV")
 				end
@@ -785,6 +825,11 @@ function initializeAFM()
 			end
 
 			local undeafenAll = function()
+				if FIntPartyVoiceUndeafenDelayMS > 0 and undeafenTimerHandle then
+					task.cancel(undeafenTimerHandle)
+					undeafenTimerHandle = nil
+				end
+
 				if (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
 					CoreVoiceManager:MuteAll(false, "AudioFocusManagement CEV")
 				end
@@ -796,6 +841,10 @@ function initializeAFM()
 
 			AudioFocusService.OnDeafenVoiceAudio:Connect(function(serviceContextId)
 				if serviceContextId == contextId then
+					if FIntPartyVoiceUndeafenDelayMS > 0 and undeafenTimerHandle then
+						task.cancel(undeafenTimerHandle)
+						undeafenTimerHandle = nil
+					end
 					log:info("CEV OnDeafenVoiceAudio fired" .. serviceContextId)
 					deafenAll()
 				end
@@ -803,8 +852,19 @@ function initializeAFM()
 
 			AudioFocusService.OnUndeafenVoiceAudio:Connect(function(serviceContextId)
 				if serviceContextId == contextId then
-					log:info("CEV OnUndeafenVoiceAudio fired" .. serviceContextId)
-					undeafenAll()
+					if FIntPartyVoiceUndeafenDelayMS > 0 then
+						if undeafenTimerHandle then
+							task.cancel(undeafenTimerHandle)
+						end		
+						undeafenTimerHandle = task.delay(FIntPartyVoiceUndeafenDelayMS / 1000, function()
+							undeafenTimerHandle = nil
+							log:info("CEV OnUndeafenVoiceAudio fired delayed" .. serviceContextId)
+							undeafenAll()
+						end)
+					else
+						log:info("CEV OnUndeafenVoiceAudio fired" .. serviceContextId)
+						undeafenAll()
+					end
 				end
 			end)
 

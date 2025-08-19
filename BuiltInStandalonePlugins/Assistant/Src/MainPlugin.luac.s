@@ -206,10 +206,12 @@ PROTO_9:
   DUPTABLE R11 K49 [{"App"}]
   GETUPVAL R12 3
   GETUPVAL R13 6
-  DUPTABLE R14 K51 [{"Plugin", "onFoundationStyleSheetChange"}]
-  SETTABLEKS R3 R14 K2 ["Plugin"]
-  GETTABLEKS R15 R0 K50 ["onFoundationStyleSheetChange"]
-  SETTABLEKS R15 R14 K50 ["onFoundationStyleSheetChange"]
+  DUPTABLE R14 K52 [{"dockWidget", "onFoundationStyleSheetChange"}]
+  GETTABLEKS R16 R1 K38 ["PluginLoaderContext"]
+  GETTABLEKS R15 R16 K39 ["mainDockWidget"]
+  SETTABLEKS R15 R14 K50 ["dockWidget"]
+  GETTABLEKS R15 R0 K51 ["onFoundationStyleSheetChange"]
+  SETTABLEKS R15 R14 K51 ["onFoundationStyleSheetChange"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K48 ["App"]
   CALL R8 3 1

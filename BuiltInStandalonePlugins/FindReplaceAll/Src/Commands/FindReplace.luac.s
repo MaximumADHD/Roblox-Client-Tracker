@@ -111,16 +111,8 @@ PROTO_11:
   MOVE R5 R3
   CALL R4 1 0
   RETURN R0 0
-  GETIMPORT R4 K3 [warn]
-  LOADK R6 K4 ["[FindReplaceAll] Error in getResults: "]
-  FASTCALL1 TOSTRING R3 [+3]
-  MOVE R8 R3
-  GETIMPORT R7 K6 [tostring]
-  CALL R7 1 1
-  CONCAT R5 R6 R7
-  CALL R4 1 0
   MOVE R4 R1
-  ORK R5 R3 K7 ["Unknown error from GetResultsAsync"]
+  MOVE R5 R3
   CALL R4 1 0
   RETURN R0 0
 

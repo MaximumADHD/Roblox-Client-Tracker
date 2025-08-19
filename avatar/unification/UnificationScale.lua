@@ -41,7 +41,7 @@ local ACCESSORY_MAPPINGS: { [string]: string } = {
 	RootAttachment = "HumanoidRootPart",
 }
 
-local function GetExtentsSize(instances: { BasePart })
+local function GetExtentsSize(instances: { BasePart }, relativeTo: CFrame?)
 	assert(#instances > 0, "instances must not be empty for GetExtentsSize")
 	local abs = math.abs
 	local inf = math.huge
@@ -49,9 +49,12 @@ local function GetExtentsSize(instances: { BasePart })
 	local minx, miny, minz = inf, inf, inf
 	local maxx, maxy, maxz = -inf, -inf, -inf
 
-	for _, obj in instances do
+    for _, obj in instances do
 		if obj:IsA("BasePart") then
-			local cf = obj.ExtentsCFrame
+            local cf = obj.ExtentsCFrame
+            if relativeTo then
+                cf = relativeTo:ToObjectSpace(cf)
+            end
 			local size = obj.ExtentsSize
 			local sx, sy, sz = size.X, size.Y, size.Z
 			local x, y, z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = cf:GetComponents()
@@ -97,6 +100,7 @@ UnificationScale.ScaleCharacter = function(character: Model, unificationMode: st
 	local humanoid: Humanoid = character:WaitForChild("Humanoid") :: Humanoid
 	self.Humanoid = humanoid
 	self.Character = character
+	self.ReferenceCFrame = self.Character.HumanoidRootPart.CFrame
 	self.ScalingFactors = {}
 	self:ScaleParts()
 	humanoid.HipHeight = R6_HIP_HEIGHT
@@ -159,7 +163,7 @@ function UnificationScale:GetBodyWidthScalingFactor()
 	local leftLeg = self:GetLeg("Left")
 	local rightLeg = self:GetLeg("Right")
 	local torso = self:GetTorso()
-	local bodySize = GetExtentsSize(JoinArrays(torso, leftArm, rightArm, leftLeg, rightLeg))
+    local bodySize = GetExtentsSize(JoinArrays(torso, leftArm, rightArm, leftLeg, rightLeg), self.ReferenceCFrame)
 	local targetWidth = R6_TARGET_SIZES["Torso"].X + 2 * R6_TARGET_SIZES["Arm"].X
 	local scaleFactorX = targetWidth / bodySize.X
 	if self.UnificationMode == UnificationScale.UnificationModes.CLAMP_WIDTH then
@@ -184,7 +188,7 @@ function UnificationScale:GetBodyHeightScalingFactor()
 		- upperTorso.NeckRigAttachment.WorldCFrame.Position.Y
 
 	local parts = JoinArrays(torso, leftLeg, rightLeg)
-	local extentSize = GetExtentsSize(parts)
+    local extentSize = GetExtentsSize(parts, self.ReferenceCFrame)
 	local targetSizeY = R6_TARGET_SIZES["Torso"].Y + R6_TARGET_SIZES["Leg"].Y
 	self.BodyHeightScalingFactor = targetSizeY / (extentSize.Y - neckToTorsoHeight)
 	return self.BodyHeightScalingFactor
@@ -269,7 +273,7 @@ end
 
 function UnificationScale:ScaleArm(side: "Left" | "Right")
 	local arm = self:GetArm(side)
-	local extentsSize = GetExtentsSize(arm)
+    local extentsSize = GetExtentsSize(arm, self.ReferenceCFrame)
 	local scaleFactor = R6_TARGET_SIZES["Arm"] / extentsSize
 	for _, part in arm do
 		self:ScalePart(part, Vector3.new(self.BodyWidthScalingFactor, scaleFactor.Y, scaleFactor.Z))
@@ -277,7 +281,7 @@ function UnificationScale:ScaleArm(side: "Left" | "Right")
 end
 
 function UnificationScale:ScaleBodyPartGroupWithDepth(bodyParts: { MeshPart })
-	local extentSize = GetExtentsSize(bodyParts)
+    local extentSize = GetExtentsSize(bodyParts, self.ReferenceCFrame)
 	local scalingFactorZ = R6_TARGET_SIZES["Torso"].Z / extentSize.Z
 	local scaleFactor = Vector3.new(self.BodyWidthScalingFactor, self.BodyHeightScalingFactor, scalingFactorZ)
 	for _, part in bodyParts do
@@ -296,7 +300,7 @@ end
 
 function UnificationScale:MoveAndScaleAccessories()
 	local humanoid = self.Humanoid
-	local MIN_ACCESSORY_SCALE = 0.7
+	local MIN_ACCESSORY_SCALE = 0
 	local MAX_ACCESSORY_SCALE = 1.3
 	for _, accessory in humanoid:GetAccessories() do
 		local accessoryHandle = accessory:WaitForChild("Handle") :: MeshPart

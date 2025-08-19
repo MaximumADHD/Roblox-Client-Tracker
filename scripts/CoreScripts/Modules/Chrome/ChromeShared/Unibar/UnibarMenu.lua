@@ -17,14 +17,12 @@ local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local GetFFlagEnableJoinVoiceOnUnibar = SharedFlags.GetFFlagEnableJoinVoiceOnUnibar
 local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
-local GetFFlagEnableSongbirdInChrome = require(Root.Parent.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
-local GetFFlagSongbirdCleanupExperiment = SharedFlags.GetFFlagSongbirdCleanupExperiment
 
 local ChromeFlags = script.Parent.Parent.Parent.Flags
 local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
@@ -144,14 +142,8 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
 		-- selene: allow(denylist_filter)
 		local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
-		if GetFFlagSongbirdCleanupExperiment() then
-			if isNotVROrConsole then
-				table.insert(nineDot, 4, "music_entrypoint")
-			end
-		else
-			if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
-				table.insert(nineDot, 4, "music_entrypoint")
-			end
+		if isNotVROrConsole then
+			table.insert(nineDot, 4, "music_entrypoint")
 		end
 
 		ChromeService:configureSubMenu("nine_dot", nineDot)

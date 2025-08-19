@@ -40,6 +40,12 @@ local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy =
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 
+local FFlagParseItemRestrictionsFromCatalog =
+	require(InspectAndBuyFolder.Flags.FFlagParseItemRestrictionsFromCatalog)
+
+local FFlagAXEnableSaleLocationTypeParsing =
+	require(InspectAndBuyFolder.Flags.FFlagAXEnableSaleLocationTypeParsing)
+
 local AssetInfo = {}
 
 function AssetInfo.new()
@@ -221,6 +227,17 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 	newAsset.price = itemDetails.Price or 0
 	newAsset.hasResellers = itemDetails.HasResellers
 	newAsset.collectibleItemId = itemDetails.CollectibleItemId
+	newAsset.saleLocationType = if FFlagAXEnableSaleLocationTypeParsing then itemDetails.SaleLocationType else nil
+
+	if FFlagParseItemRestrictionsFromCatalog then
+		local itemRestrictions = {}
+		if itemDetails.ItemRestrictions then
+			for _, value in itemDetails.ItemRestrictions do
+				itemRestrictions[value] = true
+			end
+			newAsset.itemRestrictions = itemRestrictions
+		end
+	end
 
 	return newAsset
 end

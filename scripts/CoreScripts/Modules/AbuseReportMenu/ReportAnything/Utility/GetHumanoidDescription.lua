@@ -1,5 +1,6 @@
 local root = script:FindFirstAncestor("AbuseReportMenu")
 local GetFFlagGetHumanoidDescriptionUpdates = require(root.Flags.GetFFlagGetHumanoidDescriptionUpdates)
+local FFlagGetHumanoidDescriptionUpdatesV2A = game:DefineFastFlag("GetHumanoidDescriptionUpdatesV2A", false)
 
 local Players = game:GetService("Players")
 
@@ -46,6 +47,7 @@ export type HumanoidDescriptionData = {
 	WalkAnimation: number,
 	WidthScale: number,
 	AccessoryBlob: { any }?,
+	Emotes: { any }?,
 	FieldErrorCount: number?,
 }
 
@@ -180,6 +182,15 @@ local getHumanoidDescription = function(userId: number): (HumanoidDescriptionDat
 				end
 			else
 				fieldErrorCount = fieldErrorCount + 1
+			end
+
+			if FFlagGetHumanoidDescriptionUpdatesV2A then
+				local getEmotesOk, emotes = pcall(description.GetEmotes, description)
+				if getEmotesOk then
+					humanoidDescriptionData.Emotes = emotes
+				else
+					fieldErrorCount = fieldErrorCount + 1
+				end
 			end
 
 			humanoidDescriptionData.FieldErrorCount = fieldErrorCount

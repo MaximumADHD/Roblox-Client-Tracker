@@ -35,37 +35,31 @@ PROTO_1:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K7 ["Tag"]
   GETUPVAL R5 1
-  LOADK R6 K8 ["Component-Toggle"]
-  GETTABLEKS R8 R0 K9 ["Selected"]
+  LOADK R7 K8 ["Component-Toggle data-testid=%*"]
+  GETUPVAL R9 2
+  GETTABLEKS R10 R0 K9 ["Uri"]
+  CALL R9 1 1
+  NAMECALL R7 R7 K10 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  GETTABLEKS R8 R0 K11 ["Selected"]
   JUMPIFNOT R8 [+2]
-  LOADK R7 K10 ["State-Selected"]
+  LOADK R7 K12 ["State-Selected"]
   JUMP [+1]
   LOADNIL R7
-  GETTABLEKS R9 R0 K11 ["Enabled"]
+  GETTABLEKS R9 R0 K13 ["Enabled"]
   JUMPIF R9 [+2]
-  LOADK R8 K12 ["State-Disabled"]
+  LOADK R8 K14 ["State-Disabled"]
   JUMP [+1]
   LOADNIL R8
-  GETUPVAL R10 2
-  CALL R10 0 1
-  JUMPIFNOT R10 [+10]
-  LOADK R10 K13 ["data-testid=%*"]
-  GETUPVAL R12 3
-  GETTABLEKS R13 R0 K14 ["Uri"]
-  CALL R12 1 1
-  NAMECALL R10 R10 K15 ["format"]
-  CALL R10 2 1
-  MOVE R9 R10
-  JUMP [+1]
-  LOADNIL R9
-  CALL R5 4 1
+  CALL R5 3 1
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K17 [{"Knob"}]
+  DUPTABLE R4 K16 [{"Knob"}]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
   LOADK R6 K1 ["Frame"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K16 ["Knob"]
+  SETTABLEKS R5 R4 K15 ["Knob"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -90,14 +84,8 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R4 R3 K12 ["Styling"]
   GETTABLEKS R5 R4 K13 ["joinTags"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Src"]
-  GETTABLEKS R8 R9 K14 ["SharedFlags"]
-  GETTABLEKS R7 R8 K15 ["getFFlagRibbonAddTestIds"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_1]
+  DUPCLOSURE R6 K14 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R5
-  CAPTURE VAL R6
   CAPTURE VAL R2
-  RETURN R7 1
+  RETURN R6 1

@@ -45,7 +45,7 @@ local R15ToR6Parts = {
 	["RightUpperArm"] = "Right Arm",
 	["RightLowerArm"] = "Right Arm",
 	["RightHand"] = "Right Arm",
-	["VisualHead"] = "Head",
+	["Head"] = "CollisionHead",
 }
 
 local R6ToR15 = {
@@ -54,7 +54,7 @@ local R6ToR15 = {
 	["Torso"] = "UpperTorso",
 	["Left Arm"] = "LeftUpperArm",
 	["Right Arm"] = "RightUpperArm",
-	["Head"] = "VisualHead",
+	["CollisionHead"] = "Head",
 }
 
 local R6AttachmentsToParent = {
@@ -77,10 +77,10 @@ local R6AttachmentsToParent = {
 	["WaistFrontAttachment"] = "Torso",
 	["WaistBackAttachment"] = "Torso",
 
-	["HatAttachment"] = "Head",
-	["HairAttachment"] = "Head",
-	["FaceFrontAttachment"] = "Head",
-	["FaceCenterAttachment"] = "Head",
+	["HatAttachment"] = "CollisionHead",
+	["HairAttachment"] = "CollisionHead",
+	["FaceFrontAttachment"] = "CollisionHead",
+	["FaceCenterAttachment"] = "CollisionHead",
 }
 
 local function isPropertyBlacklisted(toBeAdaptedInstance, propName)
@@ -168,10 +168,12 @@ function AdaptCharacterPropertiesAndPhysics:ProcessDescendant(descendant)
 		local currentParent = descendant.Parent.Name
 		if R6AttachmentsToParent[descendant.Name] and currentParent ~= R6AttachmentsToParent[descendant.Name] then
 			local newParent = self:GetAdapterByName(R6AttachmentsToParent[descendant.Name])
-			local clone = Instance.new("Attachment")
-			clone.Name = descendant.Name
-			clone.Parent = newParent
-			clone.WorldCFrame = descendant.WorldCFrame
+			if not newParent:FindFirstChild(descendant.Name) then
+				local clone = Instance.new("Attachment")
+				clone.Name = descendant.Name
+				clone.Parent = newParent
+				clone.WorldCFrame = descendant.WorldCFrame
+			end
 		end
 	elseif descendant:IsA("Constraint") then
 		if self.ShouldAdaptProperties then

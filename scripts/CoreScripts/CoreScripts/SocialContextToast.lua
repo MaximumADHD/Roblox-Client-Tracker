@@ -7,6 +7,7 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local SocialContextToastPackage = require(CorePackages.Workspace.Packages.SocialContextToasts)
 local SocialContextToastContainer = SocialContextToastPackage.SocialContextToastContainer
 local GetFFlagSocialContextToastEventStream = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSocialContextToastEventStream
+local FFlagEnablePartyNudgeAfterJoin = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
 local GetFFlagEnableReferredPlayerJoinRemoteEvent =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableReferredPlayerJoinRemoteEvent
 local GetFIntReferredPlayerJoinRemoteEventTimeout =
@@ -31,6 +32,14 @@ if GetFFlagEnableReferredPlayerJoinRemoteEvent() then
     ReferredPlayerJoin = RobloxReplicatedStorage:WaitForChild("ReferredPlayerJoin", GetFIntReferredPlayerJoinRemoteEventTimeout()) :: RemoteEvent
 end
 
+local ShowFriendJoinedPlayerToast = nil
+local ShowPlayerJoinedFriendsToast = nil
+local FIntFriendPlayerJoinedRemoteEventTimeout = game:DefineFastInt("FriendPlayerJoinedRemoteEventTimeout", 5)
+if FFlagEnablePartyNudgeAfterJoin then
+    ShowFriendJoinedPlayerToast = RobloxReplicatedStorage:WaitForChild("ShowFriendJoinedPlayerToast", FIntFriendPlayerJoinedRemoteEventTimeout) :: RemoteEvent
+    ShowPlayerJoinedFriendsToast = RobloxReplicatedStorage:WaitForChild("ShowPlayerJoinedFriendsToast", FIntFriendPlayerJoinedRemoteEventTimeout) :: RemoteEvent
+end
+
 local services = {
     networking = httpRequest,
     playersService = Players, 
@@ -38,7 +47,9 @@ local services = {
     analytics = Analytics.new(),
     ixpService = IXPServiceWrapper,
     eventIngest = EventIngest.new(EventIngestService),
-    referredPlayerJoinRemoteEvent = ReferredPlayerJoin
+    referredPlayerJoinRemoteEvent = ReferredPlayerJoin,
+    showFriendJoinedPlayerToastRemoteEvent = ShowFriendJoinedPlayerToast,
+    showPlayerJoinedFriendsToastRemoteEvent = ShowPlayerJoinedFriendsToast,
 }
 
 SocialContextToastContainer(

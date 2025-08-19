@@ -195,8 +195,9 @@ PROTO_8:
   GETTABLEKS R3 R0 K21 ["pluginController"]
   GETTABLEKS R4 R0 K22 ["inputController"]
   GETTABLEKS R5 R0 K24 ["searchController"]
-  GETTABLEKS R6 R0 K20 ["networking"]
-  CALL R2 4 1
+  GETTABLEKS R6 R0 K25 ["layoutController"]
+  GETTABLEKS R7 R0 K20 ["networking"]
+  CALL R2 5 1
   SETTABLEKS R2 R0 K26 ["itemsController"]
   GETUPVAL R3 14
   CALL R3 0 1

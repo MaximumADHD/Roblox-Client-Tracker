@@ -66,8 +66,6 @@ local FIntUILessTooltipDuration = game:DefineFastInt("UILessTooltipDuration", 10
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
-local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
-local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -96,7 +94,6 @@ local Connection = require(script.Parent.Connection)
 
 local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
-local GetFFlagChangeTopbarHeightCalculation = require(TopBar.Flags.GetFFlagChangeTopbarHeightCalculation)
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local FFlagUnibarMenuIconLayoutFix = require(TopBar.Flags.FFlagUnibarMenuIconLayoutFix)
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
@@ -309,20 +306,18 @@ function TopBarApp:init()
 		end
 	end
 
-	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-		-- This chatVersion may be inaccurate if the game isn't loaded
-		self:setState({
-			chatVersion = TextChatService.ChatVersion,
-		})
+	-- This chatVersion may be inaccurate if the game isn't loaded
+	self:setState({
+		chatVersion = TextChatService.ChatVersion,
+	})
 
-		-- If the game isn't loaded, then set the real chat version when the game is loaded
-		if not game:IsLoaded() then
-			game.Loaded:Connect(function()
-				self:setState({
-					chatVersion = TextChatService.ChatVersion,
-				})
-			end)
-		end
+	-- If the game isn't loaded, then set the real chat version when the game is loaded
+	if not game:IsLoaded() then
+		game.Loaded:Connect(function()
+			self:setState({
+				chatVersion = TextChatService.ChatVersion,
+			})
+		end)
 	end
 end
 
@@ -399,10 +394,7 @@ function TopBarApp:renderWithStyle(style)
 	end
 
 	local screenSideOffset = Constants.ScreenSideOffset
-	local topBarHeight = if not isNewTiltIconEnabled() then 36 else Constants.TopBarHeight
-	if GetFFlagChangeTopbarHeightCalculation() then
-		topBarHeight = Constants.TopBarHeight
-	end
+	local topBarHeight = Constants.TopBarHeight
 
 	if TenFootInterface:IsEnabled() then
 		if not FFlagUnibarMenuIconLayoutFix or not ChromeEnabled() then
@@ -417,7 +409,7 @@ function TopBarApp:renderWithStyle(style)
 		else not (self.props.menuOpen or self.props.inspectMenuOpen)
 
 	local topBarFramePosition =
-		UDim2.new(0, 0, 0, if GetFFlagChangeTopbarHeightCalculation() then Constants.TopBarTopMargin else 0)
+		UDim2.new(0, 0, 0, Constants.TopBarTopMargin )
 	local topBarFrameHeight = topBarHeight - Constants.TopBarTopMargin
 	local topBarLeftFramePosition = UDim2.new(0, screenSideOffset, 0, 0)
 	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
@@ -468,11 +460,9 @@ function TopBarApp:renderWithStyle(style)
 	}, {
 		Connection = Roact.createElement(Connection),
 		GamepadMenu = if not FFlagConnectGamepadChrome
-			then if TenFootInterfaceExpChatExperimentation.getIsEnabled()
-				then Roact.createElement(GamepadMenu, {
+			then Roact.createElement(GamepadMenu, {
 					chatVersion = self.state.chatVersion,
 				})
-				else Roact.createElement(GamepadMenu)
 			else nil,
 		MenuNavigationToggleDialog = if chromeEnabled
 				and FFlagAddMenuNavigationToggleDialog
@@ -505,13 +495,13 @@ function TopBarApp:renderWithStyle(style)
 					0,
 					screenSideOffset,
 					0,
-					if GetFFlagChangeTopbarHeightCalculation() then Constants.TopBarTopMargin else 0
+					Constants.TopBarTopMargin
 				),
 				Size = UDim2.new(
 					1,
 					0,
 					0,
-					if GetFFlagChangeTopbarHeightCalculation() then topBarFrameHeight else topBarHeight
+					topBarFrameHeight
 				),
 			}, {
 				MenuIcon = newMenuIcon,
@@ -529,7 +519,7 @@ function TopBarApp:renderWithStyle(style)
 						0,
 						screenSideOffset,
 						0,
-						if GetFFlagChangeTopbarHeightCalculation() then Constants.TopBarTopMargin else 0
+						Constants.TopBarTopMargin
 					),
 					AutomaticSize = Enum.AutomaticSize.XY,
 					BackgroundTransparency = self.uiLessTooltipTransparency,
@@ -681,11 +671,9 @@ function TopBarApp:renderWithStyle(style)
 						1,
 						0,
 						0,
-						if GetFFlagChangeTopbarHeightCalculation() then topBarFrameHeight else topBarHeight
+						topBarFrameHeight
 					),
-					Position = if GetFFlagChangeTopbarHeightCalculation()
-						then topBarRightUnibarFramePosition
-						else topBarRightFramePosition,
+					Position = topBarRightUnibarFramePosition,
 					AnchorPoint = Vector2.new(1, 0),
 				}, {
 					JoinVoiceBinder = if chromeEnabled and JoinVoiceBinder
@@ -799,11 +787,9 @@ function TopBarApp:renderWithStyle(style)
 						1,
 						0,
 						0,
-						if GetFFlagChangeTopbarHeightCalculation() then topBarFrameHeight else topBarHeight
+						topBarFrameHeight
 					),
-					Position = if GetFFlagChangeTopbarHeightCalculation()
-						then topBarRightUnibarFramePosition
-						else topBarRightFramePosition,
+					Position = topBarRightUnibarFramePosition,
 					AnchorPoint = Vector2.new(1, 0),
 				}, {
 					ChromeAnalytics = if ChromeAnalytics then Roact.createElement(ChromeAnalytics) else nil,
@@ -841,7 +827,7 @@ function TopBarApp:renderWithStyle(style)
 				1,
 				0,
 				0,
-				if GetFFlagChangeTopbarHeightCalculation() then topBarFrameHeight else topBarHeight
+				topBarFrameHeight
 			),
 			Visible = isTopBarVisible,
 			Position = topBarFramePosition,

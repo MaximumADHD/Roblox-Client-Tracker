@@ -81,7 +81,7 @@ PROTO_4:
 PROTO_5:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Localization"]
-  NEWTABLE R3 0 11
+  NEWTABLE R3 0 12
   GETTABLEKS R4 R1 K2 ["Plugin"]
   GETTABLEKS R5 R1 K3 ["Design"]
   GETTABLEKS R6 R1 K4 ["Mouse"]
@@ -92,60 +92,61 @@ PROTO_5:
   GETTABLEKS R11 R1 K8 ["CalloutController"]
   GETTABLEKS R12 R1 K9 ["PresetController"]
   GETTABLEKS R13 R1 K10 ["FileController"]
-  GETTABLEKS R14 R1 K11 ["QueueController"]
-  SETLIST R3 R4 11 [1]
+  GETTABLEKS R14 R1 K11 ["Networking"]
+  GETTABLEKS R15 R1 K12 ["QueueController"]
+  SETLIST R3 R4 12 [1]
   GETUPVAL R4 0
   GETTABLEKS R5 R1 K8 ["CalloutController"]
   MOVE R6 R2
   CALL R4 2 0
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K12 ["provide"]
+  GETTABLEKS R4 R5 K13 ["provide"]
   MOVE R5 R3
-  DUPTABLE R6 K17 [{"ImportQueue", "Preview", "UploadWidget", "ParseWidget"}]
+  DUPTABLE R6 K18 [{"ImportQueue", "Preview", "UploadWidget", "ParseWidget"}]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K18 ["createElement"]
+  GETTABLEKS R7 R8 K19 ["createElement"]
   GETUPVAL R8 3
-  DUPTABLE R9 K20 [{"Title"}]
-  LOADK R12 K13 ["ImportQueue"]
-  LOADK R13 K21 ["WindowTitle"]
-  NAMECALL R10 R2 K22 ["getText"]
+  DUPTABLE R9 K21 [{"Title"}]
+  LOADK R12 K14 ["ImportQueue"]
+  LOADK R13 K22 ["WindowTitle"]
+  NAMECALL R10 R2 K23 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K19 ["Title"]
+  SETTABLEKS R10 R9 K20 ["Title"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K13 ["ImportQueue"]
+  SETTABLEKS R7 R6 K14 ["ImportQueue"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K18 ["createElement"]
+  GETTABLEKS R7 R8 K19 ["createElement"]
   GETUPVAL R8 4
-  DUPTABLE R9 K20 [{"Title"}]
+  DUPTABLE R9 K21 [{"Title"}]
   LOADK R12 K2 ["Plugin"]
-  LOADK R13 K21 ["WindowTitle"]
-  NAMECALL R10 R2 K22 ["getText"]
+  LOADK R13 K22 ["WindowTitle"]
+  NAMECALL R10 R2 K23 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K19 ["Title"]
+  SETTABLEKS R10 R9 K20 ["Title"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K14 ["Preview"]
+  SETTABLEKS R7 R6 K15 ["Preview"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K18 ["createElement"]
+  GETTABLEKS R7 R8 K19 ["createElement"]
   GETUPVAL R8 5
-  DUPTABLE R9 K20 [{"Title"}]
-  LOADK R12 K23 ["Upload"]
-  LOADK R13 K21 ["WindowTitle"]
-  NAMECALL R10 R2 K22 ["getText"]
+  DUPTABLE R9 K21 [{"Title"}]
+  LOADK R12 K24 ["Upload"]
+  LOADK R13 K22 ["WindowTitle"]
+  NAMECALL R10 R2 K23 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K19 ["Title"]
+  SETTABLEKS R10 R9 K20 ["Title"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K15 ["UploadWidget"]
+  SETTABLEKS R7 R6 K16 ["UploadWidget"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K18 ["createElement"]
+  GETTABLEKS R7 R8 K19 ["createElement"]
   GETUPVAL R8 6
-  DUPTABLE R9 K20 [{"Title"}]
-  LOADK R12 K24 ["Parse"]
-  LOADK R13 K21 ["WindowTitle"]
-  NAMECALL R10 R2 K22 ["getText"]
+  DUPTABLE R9 K21 [{"Title"}]
+  LOADK R12 K25 ["Parse"]
+  LOADK R13 K22 ["WindowTitle"]
+  NAMECALL R10 R2 K23 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K19 ["Title"]
+  SETTABLEKS R10 R9 K20 ["Title"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K16 ["ParseWidget"]
+  SETTABLEKS R7 R6 K17 ["ParseWidget"]
   CALL R4 2 -1
   RETURN R4 -1
 

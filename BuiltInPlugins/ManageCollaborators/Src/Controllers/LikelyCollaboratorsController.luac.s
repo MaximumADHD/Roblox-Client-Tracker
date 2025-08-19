@@ -1,0 +1,75 @@
+PROTO_0:
+  NEWTABLE R1 1 0
+  SETTABLEKS R0 R1 K0 ["__networking"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K2 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["__networking"]
+  LOADK R5 K1 ["apis"]
+  LOADK R6 K2 ["/likely-collaborator-service/v1/get-likely-collaborators"]
+  DUPTABLE R7 K4 [{"Params"}]
+  DUPTABLE R8 K6 [{"userId"}]
+  SETTABLEKS R1 R8 K5 ["userId"]
+  SETTABLEKS R8 R7 K3 ["Params"]
+  NAMECALL R3 R2 K7 ["get"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["getLikelyCollaboratorsV1GET"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K1 ["await"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETIMPORT R2 K1 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R2 1 2
+  JUMPIFNOT R2 [+9]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R4 R3 K2 ["responseBody"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R5 R3 K2 ["responseBody"]
+  GETTABLEKS R4 R5 K3 ["likelyCollaborators"]
+  JUMPIF R4 [+3]
+  NEWTABLE R4 0 0
+  RETURN R4 1
+  GETTABLEKS R5 R3 K2 ["responseBody"]
+  GETTABLEKS R4 R5 K3 ["likelyCollaborators"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ManageCollaborators"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["IsLikelyCollaboratorPrefetchEnabled"]
+  CALL R1 1 1
+  MOVE R2 R1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+15]
+  NEWTABLE R2 4 0
+  SETTABLEKS R2 R2 K9 ["__index"]
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K11 ["new"]
+  DUPCLOSURE R3 K12 [PROTO_1]
+  SETTABLEKS R3 R2 K13 ["getLikelyCollaboratorsV1GET"]
+  DUPCLOSURE R3 K14 [PROTO_3]
+  SETTABLEKS R3 R2 K15 ["getLikelyCollaborators"]
+  RETURN R2 1
+  RETURN R0 0

@@ -865,8 +865,6 @@ function ClickToMove.new(CONTROL_ACTION_PRIORITY)
 	self.fingerTouches = {}
 	self.numUnsunkTouches = 0
 	-- PC simulation
-	self.mouse1Down = tick()
-	self.mouse1DownPos = Vector2.new()
 	self.mouse2DownTime = tick()
 	self.mouse2DownPos = Vector2.new()
 	self.mouse2UpTime = tick()
@@ -956,10 +954,6 @@ function ClickToMove:OnCharacterAdded(character)
 			and movementKeys[input.KeyCode] then
 			CleanupPath()
 			ClickToMoveDisplay.CancelFailureAnimation()
-		end
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			self.mouse1DownTime = tick()
-			self.mouse1DownPos = input.Position
 		end
 		if input.UserInputType == Enum.UserInputType.MouseButton2 then
 			self.mouse2DownTime = tick()

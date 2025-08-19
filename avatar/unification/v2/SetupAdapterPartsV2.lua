@@ -10,7 +10,7 @@ local R15ToR6Weld = {
 	["RightUpperArm"] = "Right Arm",
 	["LeftUpperArm"] = "Left Arm",
 	["UpperTorso"] = "Torso",
-	["VisualHead"] = "Head",
+	["Head"] = "CollisionHead",
 }
 
 local R15ToR6Parts = {
@@ -28,7 +28,7 @@ local R15ToR6Parts = {
 	["RightUpperArm"] = "Right Arm",
 	["RightLowerArm"] = "Right Arm",
 	["RightHand"] = "Right Arm",
-	["Head"] = "Head",
+	["Head"] = "CollisionHead",
 	["HumanoidRootPart"] = "HumanoidRootPart",
 }
 
@@ -120,13 +120,6 @@ function SetupAdapterParts:SetupAdapterPart(adapter)
 end
 
 function SetupAdapterParts:SetUpAestheticPart(part)
-	if part.Name == "Head" then
-		if part:IsA("MeshPart") then
-			part.Name = "VisualHead" -- R15 Head, rename to VisualHead to make it noopt, because players expect to collide and query w R6 hitbox size
-		else
-			return
-		end
-	end
 	if R15ToR6Weld[part.Name] then
 		local adapter = self.AdapterNameToAdapterPart[R15ToR6Weld[part.Name]]
 		if adapter then
@@ -162,9 +155,9 @@ end
 function SetupAdapterParts:CreateHead(CollisionHead)
 	local newHead = CollisionHead:Clone()
 	newHead:ClearAllChildren()
-	newHead.Name = "Head"
+	newHead.Name = "CollisionHead"
 	newHead.Parent = self.Character
-	self.AdapterNameToAdapterPart["Head"] = newHead
+	self.AdapterNameToAdapterPart["CollisionHead"] = newHead
 	CollisionHead:Destroy()
 	CollectionService:AddTag(newHead, ALWAYS_TRANSPARENT_PART_TAG)
 end

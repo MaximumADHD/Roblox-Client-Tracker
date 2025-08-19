@@ -19,6 +19,157 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
+  GETTABLEKS R4 R0 K0 ["_mock"]
+  JUMPIFNOT R4 [+40]
+  MOVE R4 R2
+  DUPTABLE R5 K13 [{"id", "name", "description", "isArchived", "rootPlaceId", "isActive", "privacyType", "creatorType", "creatorTargetId", "creatorName", "created", "updated"}]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K1 ["id"]
+  LOADK R6 K14 ["string"]
+  SETTABLEKS R6 R5 K2 ["name"]
+  LOADK R6 K14 ["string"]
+  SETTABLEKS R6 R5 K3 ["description"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K4 ["isArchived"]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K5 ["rootPlaceId"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K6 ["isActive"]
+  LOADK R6 K14 ["string"]
+  SETTABLEKS R6 R5 K7 ["privacyType"]
+  LOADK R6 K15 ["group"]
+  SETTABLEKS R6 R5 K8 ["creatorType"]
+  LOADN R6 2
+  SETTABLEKS R6 R5 K9 ["creatorTargetId"]
+  LOADK R6 K16 ["BadgeBuds"]
+  SETTABLEKS R6 R5 K10 ["creatorName"]
+  LOADK R6 K17 ["2021-06-23T01:07:02.659Z"]
+  SETTABLEKS R6 R5 K11 ["created"]
+  LOADK R6 K17 ["2021-06-23T01:07:02.659Z"]
+  SETTABLEKS R6 R5 K12 ["updated"]
+  CALL R4 1 0
+  RETURN R0 0
+  MOVE R6 R1
+  MOVE R7 R2
+  MOVE R8 R3
+  NAMECALL R4 R0 K18 ["getUniverseInfoImpl"]
+  CALL R4 4 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["responseBody"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+7]
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["Failed to get universe id"]
+  GETUPVAL R3 1
+  LOADK R4 K3 ["with error"]
+  MOVE R5 R0
+  CALL R1 4 0
+  GETUPVAL R1 2
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R8 R0 K0 ["api"]
+  GETTABLEKS R7 R8 K1 ["Develop"]
+  GETTABLEKS R6 R7 K2 ["V1"]
+  GETTABLEKS R5 R6 K3 ["Universes"]
+  GETTABLEKS R4 R5 K4 ["get"]
+  NEWTABLE R5 0 0
+  MOVE R6 R4
+  MOVE R7 R1
+  CALL R6 1 1
+  NAMECALL R6 R6 K5 ["makeRequest"]
+  CALL R6 1 1
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R2
+  NEWCLOSURE R9 P1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  NAMECALL R6 R6 K6 ["andThen"]
+  CALL R6 3 0
+  RETURN R5 1
+
+PROTO_6:
+  GETTABLEKS R3 R0 K0 ["_mock"]
+  JUMPIFNOT R3 [+28]
+  MOVE R3 R1
+  NEWTABLE R4 0 3
+  DUPTABLE R5 K3 [{"name", "id"}]
+  LOADK R6 K4 ["Test"]
+  SETTABLEKS R6 R5 K1 ["name"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K2 ["id"]
+  DUPTABLE R6 K3 [{"name", "id"}]
+  LOADK R7 K5 ["BadgeBuds"]
+  SETTABLEKS R7 R6 K1 ["name"]
+  LOADN R7 2
+  SETTABLEKS R7 R6 K2 ["id"]
+  DUPTABLE R7 K3 [{"name", "id"}]
+  LOADK R8 K6 ["MyGroup"]
+  SETTABLEKS R8 R7 K1 ["name"]
+  LOADN R8 3
+  SETTABLEKS R8 R7 K2 ["id"]
+  SETLIST R4 R5 3 [1]
+  CALL R3 1 0
+  RETURN R0 0
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R0 K7 ["getManagedGroupsImpl"]
+  CALL R3 3 -1
+  RETURN R3 -1
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["responseBody"]
+  GETTABLEKS R2 R3 K1 ["data"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["Failed to fetch groups with edit permission"]
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R8 R0 K0 ["api"]
+  GETTABLEKS R7 R8 K1 ["Develop"]
+  GETTABLEKS R6 R7 K2 ["V1"]
+  GETTABLEKS R5 R6 K3 ["User"]
+  GETTABLEKS R4 R5 K4 ["Groups"]
+  GETTABLEKS R3 R4 K5 ["canManage"]
+  MOVE R4 R3
+  CALL R4 0 1
+  NAMECALL R4 R4 K6 ["makeRequest"]
+  CALL R4 1 1
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  NEWCLOSURE R7 P1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R2
+  NAMECALL R4 R4 K7 ["andThen"]
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_10:
   GETTABLEKS R1 R0 K0 ["_mock"]
   JUMPIFNOT R1 [+4]
   NAMECALL R1 R0 K1 ["loadManagedGroupsMock"]
@@ -28,7 +179,7 @@ PROTO_2:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_11:
   GETTABLEKS R2 R0 K0 ["responseBody"]
   GETTABLEKS R1 R2 K1 ["data"]
   GETUPVAL R3 0
@@ -40,14 +191,14 @@ PROTO_3:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_12:
   GETIMPORT R1 K1 [warn]
   LOADK R2 K2 ["Failed to fetch groups with edit permission"]
   MOVE R3 R0
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_13:
   GETTABLEKS R6 R0 K0 ["api"]
   GETTABLEKS R5 R6 K1 ["Develop"]
   GETTABLEKS R4 R5 K2 ["V1"]
@@ -61,28 +212,28 @@ PROTO_5:
   NEWCLOSURE R4 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  DUPCLOSURE R5 K7 [PROTO_4]
+  DUPCLOSURE R5 K7 [PROTO_12]
   NAMECALL R2 R2 K8 ["andThen"]
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_14:
   NEWTABLE R1 0 3
-  DUPTABLE R2 K2 [{"name", "groupId"}]
+  DUPTABLE R2 K2 [{"name", "id"}]
   LOADK R3 K3 ["Test"]
   SETTABLEKS R3 R2 K0 ["name"]
   LOADN R3 1
-  SETTABLEKS R3 R2 K1 ["groupId"]
-  DUPTABLE R3 K2 [{"name", "groupId"}]
+  SETTABLEKS R3 R2 K1 ["id"]
+  DUPTABLE R3 K2 [{"name", "id"}]
   LOADK R4 K4 ["BadgeBuds"]
   SETTABLEKS R4 R3 K0 ["name"]
   LOADN R4 2
-  SETTABLEKS R4 R3 K1 ["groupId"]
-  DUPTABLE R4 K2 [{"name", "groupId"}]
+  SETTABLEKS R4 R3 K1 ["id"]
+  DUPTABLE R4 K2 [{"name", "id"}]
   LOADK R5 K5 ["MyGroup"]
   SETTABLEKS R5 R4 K0 ["name"]
   LOADN R5 3
-  SETTABLEKS R5 R4 K1 ["groupId"]
+  SETTABLEKS R5 R4 K1 ["id"]
   SETLIST R1 R2 3 [1]
   GETTABLEKS R2 R0 K6 ["_store"]
   GETUPVAL R4 0
@@ -114,21 +265,44 @@ MAIN:
   GETTABLEKS R8 R0 K11 ["Src"]
   GETTABLEKS R7 R8 K14 ["Types"]
   CALL R6 1 1
-  LOADK R9 K15 ["Networking"]
-  NAMECALL R7 R3 K16 ["extend"]
-  CALL R7 2 1
-  DUPCLOSURE R8 K17 [PROTO_0]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Flags"]
+  GETTABLEKS R8 R9 K16 ["getFFlagCinSetDefaultCreator"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K11 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Flags"]
+  GETTABLEKS R9 R10 K17 ["getFFlagDebugAssetImportPlugin"]
+  CALL R8 1 1
+  LOADK R11 K18 ["Networking"]
+  NAMECALL R9 R3 K19 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K20 [PROTO_0]
   CAPTURE VAL R4
-  CAPTURE VAL R7
-  SETTABLEKS R8 R7 K18 ["new"]
-  DUPCLOSURE R8 K19 [PROTO_1]
-  SETTABLEKS R8 R7 K20 ["destroy"]
-  DUPCLOSURE R8 K21 [PROTO_2]
-  SETTABLEKS R8 R7 K22 ["loadManagedGroups"]
-  DUPCLOSURE R8 K23 [PROTO_5]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R9 K21 ["new"]
+  DUPCLOSURE R10 K22 [PROTO_1]
+  SETTABLEKS R10 R9 K23 ["destroy"]
+  DUPCLOSURE R10 K24 [PROTO_2]
+  SETTABLEKS R10 R9 K25 ["getUniverseInfo"]
+  DUPCLOSURE R10 K26 [PROTO_5]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R9 K27 ["getUniverseInfoImpl"]
+  DUPCLOSURE R10 K28 [PROTO_6]
+  SETTABLEKS R10 R9 K29 ["getManagedGroups"]
+  DUPCLOSURE R10 K30 [PROTO_9]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R9 K31 ["getManagedGroupsImpl"]
+  MOVE R10 R7
+  CALL R10 0 1
+  JUMPIF R10 [+11]
+  DUPCLOSURE R10 K32 [PROTO_10]
+  SETTABLEKS R10 R9 K33 ["loadManagedGroups"]
+  DUPCLOSURE R10 K34 [PROTO_13]
   CAPTURE VAL R5
-  SETTABLEKS R8 R7 K24 ["loadManagedGroupsImpl"]
-  DUPCLOSURE R8 K25 [PROTO_6]
+  SETTABLEKS R10 R9 K35 ["loadManagedGroupsImpl"]
+  DUPCLOSURE R10 K36 [PROTO_14]
   CAPTURE VAL R5
-  SETTABLEKS R8 R7 K26 ["loadManagedGroupsMock"]
-  RETURN R7 1
+  SETTABLEKS R10 R9 K37 ["loadManagedGroupsMock"]
+  RETURN R9 1

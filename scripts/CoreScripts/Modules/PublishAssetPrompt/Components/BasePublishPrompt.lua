@@ -37,7 +37,7 @@ local Constants = require(script.Parent.Parent.Constants)
 local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
 local PreviewViewport = require(Components.Common.PreviewViewport)
 local ValidationErrorModal = require(Components.ValidationErrorModal)
-local PurchasePrompt = require(RobloxGui.Modules.PurchasePrompt)
+local PurchasePrompt = require(CorePackages.Workspace.Packages.PurchasePrompt)
 local Analytics = PurchasePrompt.PublishAssetAnalytics
 
 local NAME_HEIGHT_PIXELS = 30

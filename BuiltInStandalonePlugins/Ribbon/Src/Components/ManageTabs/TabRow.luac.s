@@ -45,7 +45,7 @@ PROTO_2:
   DUPTABLE R6 K12 [{"Checkbox"}]
   GETUPVAL R7 1
   GETUPVAL R8 4
-  DUPTABLE R9 K16 [{"LayoutOrder", "Checked", "OnClick", "Text"}]
+  DUPTABLE R9 K17 [{"LayoutOrder", "Checked", "OnClick", "Text", "ExcludeTextFromClickableArea"}]
   MOVE R10 R1
   CALL R10 0 1
   SETTABLEKS R10 R9 K3 ["LayoutOrder"]
@@ -56,6 +56,8 @@ PROTO_2:
   SETTABLEKS R10 R9 K14 ["OnClick"]
   GETTABLEKS R10 R2 K15 ["Text"]
   SETTABLEKS R10 R9 K15 ["Text"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K16 ["ExcludeTextFromClickableArea"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K11 ["Checkbox"]
   CALL R3 3 -1

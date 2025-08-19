@@ -8,7 +8,6 @@ local TenFootInterface = require(Modules.TenFootInterface)
 local ChromeEnabled = require(Modules.Chrome.Enabled)
 local ChromeShared = Modules.Chrome.ChromeShared
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
-local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 local FFlagUnibarMenuIconLayoutFix = require(script.Parent.Flags.FFlagUnibarMenuIconLayoutFix)
 
 local StyleTokens = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing
@@ -38,15 +37,11 @@ local function getTopbarHeight()
 	return DEFAULT_TOPBAR_HEIGHT
 end
 
-local topbarHeight = if ChromeEnabled() then if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1200 else 48 else 36
+local topbarHeight = getTopbarHeight()
 local topbarButtonHeight = if ChromeEnabled() then DEFAULT_CHROME_TOPBAR_BUTTON_HEIGHT else DEFAULT_TOPBAR_BUTTON_HEIGHT
 local topbarButtonPadding = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XXSmall else 2
 local screenSideOffset = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Gap.Large else 16
 local topBarPadding = if ChromeEnabled() then if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8 else 12
-
-if GetFFlagChangeTopbarHeightCalculation() then
-	topbarHeight = getTopbarHeight()
-end
 
 
 local GAMEPAD_INPUT_TYPES = {

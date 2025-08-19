@@ -87,39 +87,41 @@ PROTO_1:
   SETTABLEKS R6 R5 K25 ["ZIndexBehavior"]
   GETTABLEKS R6 R1 K35 ["createElement"]
   MOVE R7 R3
-  DUPTABLE R8 K38 [{"Plugin", "Widget", "Floating"}]
+  DUPTABLE R8 K39 [{"Plugin", "Widget", "Floating", "Mdi"}]
   SETTABLEKS R0 R8 K36 ["Plugin"]
   SETTABLEKS R4 R8 K37 ["Widget"]
   SETTABLEKS R5 R8 K28 ["Floating"]
+  GETTABLEKS R9 R0 K40 ["MultipleDocumentInterfaceInstance"]
+  SETTABLEKS R9 R8 K38 ["Mdi"]
   CALL R6 2 1
-  GETTABLEKS R7 R2 K39 ["createRoot"]
+  GETTABLEKS R7 R2 K41 ["createRoot"]
   MOVE R8 R4
   CALL R7 1 1
   MOVE R10 R6
-  NAMECALL R8 R7 K40 ["render"]
+  NAMECALL R8 R7 K42 ["render"]
   CALL R8 2 0
-  GETTABLEKS R8 R0 K41 ["Unloading"]
+  GETTABLEKS R8 R0 K43 ["Unloading"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R7
   CAPTURE VAL R4
-  NAMECALL R8 R8 K42 ["Once"]
+  NAMECALL R8 R8 K44 ["Once"]
   CALL R8 2 0
   GETUPVAL R8 2
   CALL R8 0 1
   JUMPIFNOT R8 [+23]
-  GETIMPORT R8 K44 [game]
-  LOADK R10 K45 ["RobloxPluginGuiService"]
-  NAMECALL R8 R8 K46 ["GetService"]
+  GETIMPORT R8 K46 [game]
+  LOADK R10 K47 ["RobloxPluginGuiService"]
+  NAMECALL R8 R8 K48 ["GetService"]
   CALL R8 2 1
   GETIMPORT R9 K1 [require]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K5 ["Src"]
-  GETTABLEKS R10 R11 K47 ["FoundationInspector"]
+  GETTABLEKS R10 R11 K49 ["FoundationInspector"]
   CALL R9 1 1
-  GETTABLEKS R10 R9 K48 ["open"]
+  GETTABLEKS R10 R9 K50 ["open"]
   MOVE R11 R0
   CALL R10 1 0
-  GETTABLEKS R10 R9 K49 ["watchDockWidgets"]
+  GETTABLEKS R10 R9 K51 ["watchDockWidgets"]
   MOVE R11 R0
   MOVE R12 R8
   CALL R10 2 0

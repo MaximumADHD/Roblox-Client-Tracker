@@ -54,9 +54,6 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
-
-local GetFFlagChangeTopbarHeightCalculation =
-	require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 local FFlagEnableChromeBackwardsSignalAPI =
 	require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local FFlagFixMenuIconBackground = game:DefineFastFlag("FixMenuIconBackground", false)
@@ -111,10 +108,7 @@ local withReferralRewardTooltipInfo = require(script.Parent.withReferralRewardTo
 
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
-local BACKGROUND_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 32
-if GetFFlagChangeTopbarHeightCalculation() then
-	BACKGROUND_SIZE = Constants.TopBarButtonHeight
-end
+local BACKGROUND_SIZE = Constants.TopBarButtonHeight
 
 local tooltipEnabled = ChromeEnabled()
 local DEFAULT_DELAY_TIME = if tooltipEnabled then 0.65 else 0.4

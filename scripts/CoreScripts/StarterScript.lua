@@ -58,7 +58,6 @@ local FStringReactSchedulingContext =
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts =
 	game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
-local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportPromptLua", false)
 
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
@@ -285,7 +284,7 @@ end
 
 -- Purchase Prompt Script
 coroutine.wrap(function()
-	local PurchasePrompt = safeRequire(CoreGuiModules.PurchasePrompt)
+	local PurchasePrompt = safeRequire(CorePackages.Workspace.Packages.PurchasePrompt)
 
 	if PurchasePrompt then
 		PurchasePrompt.mountPurchasePrompt()
@@ -297,9 +296,7 @@ if FFlagAddPublishAssetPrompt then
 	coroutine.wrap(safeRequire)(CoreGuiModules.PublishAssetPrompt)
 end
 
-if game:GetEngineFeature("ExperienceEventsEngineAPIEnabled") then
-	coroutine.wrap(safeRequire)(CoreGuiModules.ExperienceEvents.ExperienceEventsApp)
-end
+coroutine.wrap(safeRequire)(CoreGuiModules.ExperienceEvents.ExperienceEventsApp)
 
 if game:GetEngineFeature("AvatarGenerationSelfieConsentEnabled") then
 	coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieConsent)
@@ -414,12 +411,6 @@ if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag(
 end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/PortalTeleportGUI", RobloxGui)
-
-if game:GetEngineFeature("PortalAdPrompt") then
-	if FFlagAdPortalTeleportPromptLua then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/AdTeleportPrompt", RobloxGui)
-	end
-end
 
 coroutine.wrap(function()
 	local AdsEudsaInit = safeRequire(CorePackages.Workspace.Packages.AdsEudsa)

@@ -1,6 +1,6 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["CinSetDefaultCreator"]
+  LOADK R2 K2 ["CinSetDefaultCreator2"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIFNOT R0 [+2]
@@ -20,7 +20,7 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["getFFlagCinCancelParse"]
   CALL R1 1 1
   GETIMPORT R2 K10 [game]
-  LOADK R4 K11 ["CinSetDefaultCreator"]
+  LOADK R4 K11 ["CinSetDefaultCreator2"]
   LOADB R5 0
   NAMECALL R2 R2 K12 ["DefineFastFlag"]
   CALL R2 3 0

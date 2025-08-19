@@ -57,19 +57,21 @@ PROTO_2:
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["createElement"]
   GETUPVAL R3 2
-  DUPTABLE R4 K6 [{"LayoutOrder", "onActivated", "tag", "onStateChanged"}]
+  DUPTABLE R4 K7 [{"LayoutOrder", "onActivated", "tag", "onStateChanged", "testId"}]
   GETTABLEKS R5 R0 K2 ["LayoutOrder"]
   SETTABLEKS R5 R4 K2 ["LayoutOrder"]
   GETTABLEKS R5 R0 K3 ["onActivated"]
   SETTABLEKS R5 R4 K3 ["onActivated"]
-  LOADK R5 K7 ["auto-xy padding-small radius-circle"]
+  LOADK R5 K8 ["auto-xy padding-small radius-circle"]
   SETTABLEKS R5 R4 K4 ["tag"]
   SETTABLEKS R1 R4 K5 ["onStateChanged"]
+  LOADK R5 K9 ["--start-page-SearchBar-ClearButton"]
+  SETTABLEKS R5 R4 K6 ["testId"]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K1 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K8 [{"tag"}]
-  LOADK R8 K9 ["StartPage-CancelIcon"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K10 [{"tag"}]
+  LOADK R8 K11 ["StartPage-CancelIcon"]
   SETTABLEKS R8 R7 K4 ["tag"]
   CALL R5 2 -1
   CALL R2 -1 -1
@@ -108,15 +110,6 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["OnFocusLost"]
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["OnFocusLost"]
-  CALL R0 0 0
-  RETURN R0 0
-
-PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["OnTextChanged"]
   JUMPIFNOT R1 [+6]
@@ -126,7 +119,7 @@ PROTO_6:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_6:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
@@ -136,7 +129,7 @@ PROTO_7:
   LOADNIL R4
   CALL R3 1 1
   GETUPVAL R4 3
-  LOADK R5 K1 ["fill size-full gui-object-defaults text-body-medium content-emphasis text-align-x-left padding-x-small"]
+  LOADK R5 K1 ["fill size-full gui-object-defaults text-body-medium content-emphasis text-align-x-left padding-x-small data-testid=--start-page-SearchBar-TextBox"]
   CALL R4 1 1
   GETUPVAL R5 4
   NEWCLOSURE R6 P0
@@ -156,7 +149,7 @@ PROTO_7:
   SETTABLEKS R8 R7 K5 ["LayoutOrder"]
   LOADK R8 K8 ["row align-y-center padding-x-small text-truncate-end"]
   SETTABLEKS R8 R7 K6 ["tag"]
-  DUPTABLE R8 K12 [{"MagnifyingGlass", "TextInputArea", "CancelButton"}]
+  DUPTABLE R8 K12 [{"MagnifyingGlass", "TextInputArea", "ClearButton"}]
   GETUPVAL R10 5
   GETTABLEKS R9 R10 K2 ["createElement"]
   GETUPVAL R10 7
@@ -173,7 +166,7 @@ PROTO_7:
   GETUPVAL R10 5
   GETTABLEKS R9 R10 K2 ["createElement"]
   LOADK R10 K17 ["TextBox"]
-  NEWTABLE R11 16 0
+  NEWTABLE R11 8 0
   GETTABLEKS R12 R0 K18 ["Text"]
   SETTABLEKS R12 R11 K18 ["Text"]
   LOADK R14 K19 ["Plugin"]
@@ -191,87 +184,69 @@ PROTO_7:
   CAPTURE VAL R0
   SETTABLE R13 R11 R12
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K25 ["Event"]
-  GETTABLEKS R12 R13 K27 ["FocusLost"]
-  NEWCLOSURE R13 P2
-  CAPTURE VAL R0
-  SETTABLE R13 R11 R12
-  GETUPVAL R14 5
-  GETTABLEKS R13 R14 K28 ["Change"]
+  GETTABLEKS R13 R14 K27 ["Change"]
   GETTABLEKS R12 R13 K18 ["Text"]
-  NEWCLOSURE R13 P3
+  NEWCLOSURE R13 P2
   CAPTURE VAL R0
   SETTABLE R13 R11 R12
   MOVE R12 R2
   CALL R12 0 1
   SETTABLEKS R12 R11 K5 ["LayoutOrder"]
   GETUPVAL R13 5
-  GETTABLEKS R12 R13 K29 ["Tag"]
+  GETTABLEKS R12 R13 K28 ["Tag"]
   SETTABLE R4 R11 R12
   CALL R9 2 1
   SETTABLEKS R9 R8 K10 ["TextInputArea"]
   GETTABLEKS R10 R0 K18 ["Text"]
-  JUMPIFEQKS R10 K30 [""] [+19]
-  GETTABLEKS R10 R0 K31 ["ShouldShowCancel"]
-  JUMPIFNOT R10 [+15]
+  JUMPIFEQKS R10 K29 [""] [+16]
   GETUPVAL R10 5
   GETTABLEKS R9 R10 K2 ["createElement"]
   GETUPVAL R10 8
-  DUPTABLE R11 K33 [{"LayoutOrder", "onActivated"}]
+  DUPTABLE R11 K31 [{"LayoutOrder", "onActivated"}]
   MOVE R12 R2
   CALL R12 0 1
   SETTABLEKS R12 R11 K5 ["LayoutOrder"]
-  GETTABLEKS R12 R0 K34 ["OnCancelled"]
-  SETTABLEKS R12 R11 K32 ["onActivated"]
+  GETTABLEKS R12 R0 K32 ["OnCleared"]
+  SETTABLEKS R12 R11 K30 ["onActivated"]
   CALL R9 2 1
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K11 ["CancelButton"]
+  SETTABLEKS R9 R8 K11 ["ClearButton"]
   CALL R5 3 -1
   RETURN R5 -1
 
-PROTO_8:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["SearchBar"]
-  GETTABLEKS R0 R1 K1 ["setCurrentQuery"]
-  LOADK R1 K2 [""]
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["SearchInput"]
+  GETTABLEKS R1 R2 K2 ["query"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_9:
-  RETURN R0 0
-
-PROTO_10:
+PROTO_8:
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["SearchBar"]
+  GETTABLEKS R2 R3 K0 ["SearchInput"]
   GETTABLEKS R1 R2 K1 ["setCurrentQuery"]
   MOVE R2 R0
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_11:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["SetIsSearchBarFocused"]
-  LOADB R1 0
-  CALL R0 1 0
+PROTO_9:
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K1 ["SearchBar"]
-  GETTABLEKS R0 R1 K2 ["setCurrentQuery"]
-  LOADK R1 K3 [""]
+  GETTABLEKS R1 R2 K0 ["SearchInput"]
+  GETTABLEKS R0 R1 K1 ["setCurrentQuery"]
+  LOADK R1 K2 [""]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_10:
   GETUPVAL R1 0
-  FASTCALL2K MATH_MIN R0 K0 [+5]
-  MOVE R3 R0
-  LOADK R4 K0 [6]
-  GETIMPORT R2 K3 [math.min]
-  CALL R2 2 1
+  MOVE R2 R0
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_11:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
@@ -282,168 +257,224 @@ PROTO_13:
   CALL R3 1 2
   GETUPVAL R5 3
   CALL R5 0 1
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K1 ["createElement"]
-  GETUPVAL R7 5
-  DUPTABLE R8 K6 [{"Size", "Position", "sizeConstraint", "tag"}]
-  GETTABLEKS R9 R0 K2 ["Size"]
-  SETTABLEKS R9 R8 K2 ["Size"]
-  GETTABLEKS R9 R0 K3 ["Position"]
-  SETTABLEKS R9 R8 K3 ["Position"]
-  DUPTABLE R9 K8 [{"MaxSize"}]
-  GETIMPORT R10 K11 [Vector2.new]
-  LOADN R11 108
-  LOADN R12 188
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K7 ["MaxSize"]
-  SETTABLEKS R9 R8 K4 ["sizeConstraint"]
-  LOADK R9 K12 ["col bg-surface-200 anchor-top-center radius-medium padding-bottom-small stroke-default auto-y"]
-  SETTABLEKS R9 R8 K5 ["tag"]
-  DUPTABLE R9 K16 [{"SearchBar", "Border", "Results"}]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K1 ["createElement"]
-  GETUPVAL R11 5
-  DUPTABLE R12 K17 [{"tag"}]
-  LOADK R13 K18 ["padding-y-small auto-y size-full-0"]
-  SETTABLEKS R13 R12 K5 ["tag"]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K1 ["createElement"]
-  GETUPVAL R14 6
-  DUPTABLE R15 K27 [{"Size", "OnFocused", "OnFocusLost", "OnTextChanged", "OnCancelled", "IsFocused", "ShouldShowCancel", "Text", "LayoutOrder"}]
-  GETIMPORT R16 K29 [UDim2.new]
-  LOADN R17 1
-  LOADN R18 0
-  LOADN R19 0
-  GETTABLEKS R21 R5 K2 ["Size"]
-  GETTABLEKS R20 R21 K30 ["Size_900"]
-  CALL R16 4 1
-  SETTABLEKS R16 R15 K2 ["Size"]
-  NEWCLOSURE R16 P0
+  GETUPVAL R6 2
+  GETTABLEKS R8 R0 K1 ["SearchInput"]
+  GETTABLEKS R7 R8 K2 ["query"]
+  CALL R6 1 2
+  GETUPVAL R8 4
+  GETUPVAL R9 5
+  MOVE R10 R7
+  LOADK R11 K3 [0.2]
+  CALL R9 2 -1
+  CALL R8 -1 1
+  GETUPVAL R9 6
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R8
   CAPTURE VAL R0
-  SETTABLEKS R16 R15 K19 ["OnFocused"]
-  DUPCLOSURE R16 K31 [PROTO_9]
-  SETTABLEKS R16 R15 K20 ["OnFocusLost"]
-  NEWCLOSURE R16 P2
-  CAPTURE VAL R0
-  SETTABLEKS R16 R15 K21 ["OnTextChanged"]
-  NEWCLOSURE R16 P3
-  CAPTURE VAL R0
-  SETTABLEKS R16 R15 K22 ["OnCancelled"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K23 ["IsFocused"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K24 ["ShouldShowCancel"]
-  GETTABLEKS R16 R0 K32 ["Query"]
-  SETTABLEKS R16 R15 K25 ["Text"]
-  LOADN R16 1
-  SETTABLEKS R16 R15 K26 ["LayoutOrder"]
-  CALL R13 2 -1
-  CALL R10 -1 1
-  SETTABLEKS R10 R9 K13 ["SearchBar"]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K1 ["createElement"]
+  NEWTABLE R11 0 1
+  GETTABLEKS R13 R0 K1 ["SearchInput"]
+  GETTABLEKS R12 R13 K2 ["query"]
+  SETLIST R11 R12 1 [1]
+  CALL R9 2 0
+  LOADB R9 0
+  LENGTH R10 R6
+  LOADN R11 2
+  JUMPIFNOTLT R11 R10 [+6]
+  LOADN R10 0
+  JUMPIFLT R10 R3 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
   GETUPVAL R11 7
-  DUPTABLE R12 K33 [{"LayoutOrder"}]
-  LOADN R13 2
-  SETTABLEKS R13 R12 K26 ["LayoutOrder"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K14 ["Border"]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K1 ["createElement"]
-  GETUPVAL R11 5
-  DUPTABLE R12 K34 [{"LayoutOrder", "tag"}]
-  LOADN R13 3
-  SETTABLEKS R13 R12 K26 ["LayoutOrder"]
-  LOADK R13 K35 ["padding-top-large col gap-xsmall auto-y size-full-0"]
-  SETTABLEKS R13 R12 K5 ["tag"]
-  DUPTABLE R13 K38 [{"ResultPreview", "SeeMoreLink"}]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K1 ["createElement"]
-  GETUPVAL R15 5
-  DUPTABLE R16 K40 [{"Size", "Visible", "LayoutOrder"}]
-  GETIMPORT R17 K29 [UDim2.new]
-  LOADN R18 1
-  LOADN R19 0
-  LOADN R20 0
-  LOADN R22 90
-  MUL R21 R22 R3
-  CALL R17 4 1
-  SETTABLEKS R17 R16 K2 ["Size"]
-  LOADN R18 0
-  JUMPIFLT R18 R3 [+2]
-  LOADB R17 0 +1
-  LOADB R17 1
-  SETTABLEKS R17 R16 K39 ["Visible"]
-  MOVE R17 R2
-  CALL R17 0 1
-  SETTABLEKS R17 R16 K26 ["LayoutOrder"]
-  NEWTABLE R17 0 1
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K1 ["createElement"]
-  GETTABLEKS R19 R0 K41 ["ResultComponent"]
-  DUPTABLE R20 K48 [{"DisplayComponent", "MaxCount", "OnItemCountUpdated", "CellComponent", "CellSize", "BaseQuery"}]
-  GETUPVAL R21 8
-  SETTABLEKS R21 R20 K42 ["DisplayComponent"]
-  LOADN R21 6
-  SETTABLEKS R21 R20 K43 ["MaxCount"]
-  NEWCLOSURE R21 P4
-  CAPTURE VAL R4
-  SETTABLEKS R21 R20 K44 ["OnItemCountUpdated"]
-  GETUPVAL R21 9
-  SETTABLEKS R21 R20 K45 ["CellComponent"]
-  GETIMPORT R21 K29 [UDim2.new]
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R11 8
+  DUPTABLE R12 K10 [{"Size", "Position", "sizeConstraint", "testId", "tag"}]
+  GETTABLEKS R13 R0 K5 ["Size"]
+  SETTABLEKS R13 R12 K5 ["Size"]
+  GETTABLEKS R13 R0 K6 ["Position"]
+  SETTABLEKS R13 R12 K6 ["Position"]
+  DUPTABLE R13 K12 [{"MaxSize"}]
+  GETIMPORT R14 K15 [Vector2.new]
+  LOADN R15 108
+  LOADN R16 188
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K11 ["MaxSize"]
+  SETTABLEKS R13 R12 K7 ["sizeConstraint"]
+  LOADK R13 K16 ["--start-page-SearchBar-Dropdown"]
+  SETTABLEKS R13 R12 K8 ["testId"]
+  LOADK R13 K17 ["col bg-surface-200 anchor-top-center radius-medium stroke-default auto-y"]
+  SETTABLEKS R13 R12 K9 ["tag"]
+  DUPTABLE R13 K20 [{"SearchInput", "Border", "Results"}]
+  GETUPVAL R15 7
+  GETTABLEKS R14 R15 K4 ["createElement"]
+  GETUPVAL R15 8
+  DUPTABLE R16 K21 [{"tag"}]
+  LOADK R17 K22 ["padding-y-small auto-y size-full-0"]
+  SETTABLEKS R17 R16 K9 ["tag"]
+  GETUPVAL R18 7
+  GETTABLEKS R17 R18 K4 ["createElement"]
+  GETUPVAL R18 9
+  DUPTABLE R19 K28 [{"Size", "OnTextChanged", "OnCleared", "IsFocused", "Text", "LayoutOrder"}]
+  GETIMPORT R20 K30 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 0
+  GETTABLEKS R25 R5 K5 ["Size"]
+  GETTABLEKS R24 R25 K31 ["Size_900"]
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K5 ["Size"]
+  NEWCLOSURE R20 P1
+  CAPTURE VAL R0
+  SETTABLEKS R20 R19 K23 ["OnTextChanged"]
+  NEWCLOSURE R20 P2
+  CAPTURE VAL R0
+  SETTABLEKS R20 R19 K24 ["OnCleared"]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K25 ["IsFocused"]
+  GETTABLEKS R21 R0 K1 ["SearchInput"]
+  GETTABLEKS R20 R21 K2 ["query"]
+  SETTABLEKS R20 R19 K26 ["Text"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K27 ["LayoutOrder"]
+  CALL R17 2 -1
+  CALL R14 -1 1
+  SETTABLEKS R14 R13 K1 ["SearchInput"]
+  GETUPVAL R15 7
+  GETTABLEKS R14 R15 K4 ["createElement"]
+  GETUPVAL R15 10
+  DUPTABLE R16 K32 [{"LayoutOrder"}]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K27 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K18 ["Border"]
+  GETUPVAL R15 7
+  GETTABLEKS R14 R15 K4 ["createElement"]
+  GETUPVAL R15 8
+  DUPTABLE R16 K33 [{"LayoutOrder", "tag"}]
+  LOADN R17 3
+  SETTABLEKS R17 R16 K27 ["LayoutOrder"]
+  LOADK R17 K34 ["padding-top-large padding-bottom-small col gap-xsmall auto-y size-full-0"]
+  SETTABLEKS R17 R16 K9 ["tag"]
+  DUPTABLE R17 K38 [{"ResultPreview", "SeeMoreLink", "Fallback"}]
+  GETUPVAL R19 7
+  GETTABLEKS R18 R19 K4 ["createElement"]
+  GETUPVAL R19 8
+  DUPTABLE R20 K40 [{"Size", "Visible", "LayoutOrder"}]
+  GETIMPORT R21 K30 [UDim2.new]
   LOADN R22 1
   LOADN R23 0
   LOADN R24 0
-  LOADN R25 90
+  FASTCALL2K MATH_MIN R3 K42 [+5]
+  MOVE R27 R3
+  LOADK R28 K42 [6]
+  GETIMPORT R26 K45 [math.min]
+  CALL R26 2 1
+  MULK R25 R26 K41 [90]
   CALL R21 4 1
-  SETTABLEKS R21 R20 K46 ["CellSize"]
-  GETUPVAL R21 10
-  GETTABLEKS R22 R0 K47 ["BaseQuery"]
-  DUPTABLE R23 K50 [{"search"}]
-  GETTABLEKS R24 R0 K32 ["Query"]
-  SETTABLEKS R24 R23 K49 ["search"]
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K47 ["BaseQuery"]
-  CALL R18 2 -1
-  SETLIST R17 R18 -1 [1]
+  SETTABLEKS R21 R20 K5 ["Size"]
+  SETTABLEKS R9 R20 K39 ["Visible"]
+  MOVE R21 R2
+  CALL R21 0 1
+  SETTABLEKS R21 R20 K27 ["LayoutOrder"]
+  GETUPVAL R22 7
+  GETTABLEKS R21 R22 K4 ["createElement"]
+  GETTABLEKS R22 R0 K46 ["ResultComponent"]
+  DUPTABLE R23 K53 [{"DisplayComponent", "MaxCount", "OnItemCountUpdated", "CellComponent", "CellSize", "BaseQuery"}]
+  GETUPVAL R24 11
+  SETTABLEKS R24 R23 K47 ["DisplayComponent"]
+  LOADN R24 6
+  SETTABLEKS R24 R23 K48 ["MaxCount"]
+  NEWCLOSURE R24 P3
+  CAPTURE VAL R4
+  SETTABLEKS R24 R23 K49 ["OnItemCountUpdated"]
+  GETUPVAL R24 12
+  SETTABLEKS R24 R23 K50 ["CellComponent"]
+  GETIMPORT R24 K30 [UDim2.new]
+  LOADN R25 1
+  LOADN R26 0
+  LOADN R27 0
+  LOADN R28 90
+  CALL R24 4 1
+  SETTABLEKS R24 R23 K51 ["CellSize"]
+  GETUPVAL R24 13
+  GETTABLEKS R25 R0 K52 ["BaseQuery"]
+  DUPTABLE R26 K55 [{"search"}]
+  SETTABLEKS R6 R26 K54 ["search"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K52 ["BaseQuery"]
+  CALL R21 2 -1
+  CALL R18 -1 1
+  SETTABLEKS R18 R17 K35 ["ResultPreview"]
+  JUMPIFNOT R9 [+36]
+  LOADN R19 6
+  JUMPIFNOTLT R19 R3 [+34]
+  GETUPVAL R19 7
+  GETTABLEKS R18 R19 K4 ["createElement"]
+  GETUPVAL R19 14
+  DUPTABLE R20 K58 [{"LayoutOrder", "Text", "onActivated", "stateLayer", "tag"}]
+  MOVE R21 R2
+  CALL R21 0 1
+  SETTABLEKS R21 R20 K27 ["LayoutOrder"]
+  LOADK R23 K59 ["Plugin"]
+  LOADK R24 K60 ["SeeAllMatchingExperiences"]
+  NAMECALL R21 R1 K61 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K26 ["Text"]
+  GETTABLEKS R21 R0 K62 ["MoreExperiencesRequested"]
+  SETTABLEKS R21 R20 K56 ["onActivated"]
+  DUPTABLE R21 K64 [{"affordance"}]
+  GETUPVAL R23 15
+  GETTABLEKS R22 R23 K65 ["None"]
+  SETTABLEKS R22 R21 K63 ["affordance"]
+  SETTABLEKS R21 R20 K57 ["stateLayer"]
+  LOADK R21 K66 ["size-full-0 auto-y padding-x-large padding-y-small text-align-x-left text-label-medium content-system-emphasis"]
+  SETTABLEKS R21 R20 K9 ["tag"]
+  CALL R18 2 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K36 ["SeeMoreLink"]
+  JUMPIF R9 [+37]
+  GETUPVAL R19 7
+  GETTABLEKS R18 R19 K4 ["createElement"]
+  GETUPVAL R19 14
+  DUPTABLE R20 K67 [{"LayoutOrder", "tag", "Text", "testId"}]
+  LOADN R21 4
+  SETTABLEKS R21 R20 K27 ["LayoutOrder"]
+  LOADK R21 K68 ["padding-large auto-y size-full-0 text-align-x-center"]
+  SETTABLEKS R21 R20 K9 ["tag"]
+  LENGTH R22 R6
+  LOADN R23 2
+  JUMPIFNOTLT R23 R22 [+7]
+  LOADK R23 K59 ["Plugin"]
+  LOADK R24 K69 ["SearchBar.NoMatchingExperiencesFound"]
+  NAMECALL R21 R1 K61 ["getText"]
+  CALL R21 3 1
+  JUMP [+9]
+  LOADK R23 K59 ["Plugin"]
+  LOADK R24 K70 ["SearchBar.InsufficientQueryLength"]
+  DUPTABLE R25 K72 [{"length"}]
+  LOADN R26 2
+  SETTABLEKS R26 R25 K71 ["length"]
+  NAMECALL R21 R1 K61 ["getText"]
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K26 ["Text"]
+  LOADK R21 K73 ["--start-page-SearchBar-Fallback"]
+  SETTABLEKS R21 R20 K8 ["testId"]
+  CALL R18 2 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K37 ["Fallback"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K36 ["ResultPreview"]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K1 ["createElement"]
-  GETUPVAL R15 11
-  DUPTABLE R16 K53 [{"LayoutOrder", "Text", "onActivated", "stateLayer", "tag"}]
-  MOVE R17 R2
-  CALL R17 0 1
-  SETTABLEKS R17 R16 K26 ["LayoutOrder"]
-  LOADK R19 K54 ["Plugin"]
-  LOADK R20 K55 ["SeeAllMatchingExperiences"]
-  NAMECALL R17 R1 K56 ["getText"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K25 ["Text"]
-  GETTABLEKS R17 R0 K57 ["MoreExperiencesRequested"]
-  SETTABLEKS R17 R16 K51 ["onActivated"]
-  DUPTABLE R17 K59 [{"affordance"}]
-  GETUPVAL R19 12
-  GETTABLEKS R18 R19 K60 ["None"]
-  SETTABLEKS R18 R17 K58 ["affordance"]
-  SETTABLEKS R17 R16 K52 ["stateLayer"]
-  LOADK R17 K61 ["size-full-0 auto-y padding-x-large padding-y-small text-align-x-left text-label-medium content-system-emphasis"]
-  SETTABLEKS R17 R16 K5 ["tag"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K37 ["SeeMoreLink"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K15 ["Results"]
-  CALL R6 3 -1
-  RETURN R6 -1
+  SETTABLEKS R14 R13 K19 ["Results"]
+  CALL R10 3 -1
+  RETURN R10 -1
 
-PROTO_14:
+PROTO_12:
   GETUPVAL R0 0
   LOADB R1 0
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_13:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["ease"]
@@ -466,7 +497,7 @@ PROTO_15:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_14:
   GETUPVAL R1 0
   LOADB R2 0
   CALL R1 1 2
@@ -493,7 +524,7 @@ PROTO_16:
   MOVE R10 R7
   RETURN R8 3
 
-PROTO_17:
+PROTO_15:
   GETIMPORT R1 K2 [UDim2.new]
   LOADN R2 0
   MOVE R3 R0
@@ -502,19 +533,19 @@ PROTO_17:
   CALL R1 4 -1
   RETURN R1 -1
 
-PROTO_18:
+PROTO_16:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["AbsoluteSize"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_17:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["AbsolutePosition"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_18:
   GETUPVAL R0 0
   LOADK R1 K0 [""]
   CALL R0 1 0
@@ -523,7 +554,7 @@ PROTO_20:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_19:
   GETUPVAL R0 0
   LOADB R1 0
   CALL R0 1 0
@@ -538,10 +569,10 @@ PROTO_21:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_20:
   RETURN R0 0
 
-PROTO_23:
+PROTO_21:
   GETUPVAL R0 0
   LOADB R1 0
   CALL R0 1 0
@@ -554,7 +585,7 @@ PROTO_23:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_22:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["OnSearchRequested"]
   GETUPVAL R1 1
@@ -567,7 +598,7 @@ PROTO_24:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_23:
   GETUPVAL R1 0
   CALL R1 0 1
   GETUPVAL R2 1
@@ -599,7 +630,7 @@ PROTO_25:
   GETTABLEKS R14 R0 K4 ["Position"]
   SETTABLEKS R14 R13 K4 ["Position"]
   DUPTABLE R14 K12 [{"UnfocusedSearchBar", "FocusedContent"}]
-  JUMPIF R9 [+53]
+  JUMPIF R9 [+50]
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K1 ["createElement"]
   GETUPVAL R16 4
@@ -615,7 +646,7 @@ PROTO_25:
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K1 ["createElement"]
   GETUPVAL R19 5
-  DUPTABLE R20 K23 [{"Size", "OnFocused", "OnCancelled", "IsFocused", "Text", "ShouldShowCancel"}]
+  DUPTABLE R20 K22 [{"Size", "OnFocused", "OnCleared", "IsFocused", "Text"}]
   GETIMPORT R21 K8 [UDim2.new]
   LOADN R22 1
   LOADN R23 0
@@ -632,102 +663,98 @@ PROTO_25:
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R0
-  SETTABLEKS R21 R20 K19 ["OnCancelled"]
+  SETTABLEKS R21 R20 K19 ["OnCleared"]
   LOADB R21 0
   SETTABLEKS R21 R20 K20 ["IsFocused"]
   SETTABLEKS R2 R20 K21 ["Text"]
-  LOADB R21 1
-  SETTABLEKS R21 R20 K22 ["ShouldShowCancel"]
   CALL R18 2 -1
   CALL R15 -1 1
   JUMP [+1]
   LOADNIL R15
   SETTABLEKS R15 R14 K10 ["UnfocusedSearchBar"]
-  JUMPIFNOT R9 [+121]
-  JUMPIFNOT R4 [+120]
+  JUMPIFNOT R9 [+117]
+  JUMPIFNOT R4 [+116]
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K1 ["createElement"]
   GETUPVAL R16 6
   LOADNIL R17
-  NEWTABLE R18 0 1
-  GETUPVAL R20 3
-  GETTABLEKS R19 R20 K1 ["createElement"]
-  GETUPVAL R20 7
-  NEWTABLE R21 4 0
-  DUPCLOSURE R22 K24 [PROTO_22]
-  SETTABLEKS R22 R21 K25 ["OnFocusLost"]
-  LOADK R22 K26 [999999]
-  SETTABLEKS R22 R21 K27 ["Priority"]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K1 ["createElement"]
+  GETUPVAL R19 7
+  NEWTABLE R20 4 0
+  DUPCLOSURE R21 K23 [PROTO_20]
+  SETTABLEKS R21 R20 K24 ["OnFocusLost"]
+  LOADK R21 K25 [999999]
+  SETTABLEKS R21 R20 K26 ["Priority"]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K27 ["Tag"]
+  LOADK R22 K28 ["size-full"]
+  SETTABLE R22 R20 R21
+  DUPTABLE R21 K31 [{"DarkShadow", "Dropdown"}]
   GETUPVAL R23 3
-  GETTABLEKS R22 R23 K28 ["Tag"]
-  LOADK R23 K29 ["size-full"]
-  SETTABLE R23 R21 R22
-  DUPTABLE R22 K32 [{"DarkShadow", "Dropdown"}]
-  GETUPVAL R24 3
-  GETTABLEKS R23 R24 K1 ["createElement"]
-  GETUPVAL R24 4
-  DUPTABLE R25 K35 [{"onActivated", "stateLayer", "tag"}]
-  NEWCLOSURE R26 P5
+  GETTABLEKS R22 R23 K1 ["createElement"]
+  GETUPVAL R23 4
+  DUPTABLE R24 K34 [{"onActivated", "stateLayer", "tag"}]
+  NEWCLOSURE R25 P5
   CAPTURE VAL R10
   CAPTURE VAL R3
   CAPTURE VAL R0
-  SETTABLEKS R26 R25 K33 ["onActivated"]
-  DUPTABLE R26 K37 [{"affordance"}]
-  GETUPVAL R28 8
-  GETTABLEKS R27 R28 K38 ["None"]
-  SETTABLEKS R27 R26 K36 ["affordance"]
-  SETTABLEKS R26 R25 K34 ["stateLayer"]
-  LOADK R26 K39 ["size-full bg-over-media-0"]
-  SETTABLEKS R26 R25 K13 ["tag"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K30 ["DarkShadow"]
-  GETUPVAL R24 3
-  GETTABLEKS R23 R24 K1 ["createElement"]
-  GETUPVAL R24 9
-  DUPTABLE R25 K46 [{"Size", "Position", "Query", "BaseQuery", "ResultComponent", "SetIsSearchBarFocused", "MoreExperiencesRequested", "SearchBar"}]
-  GETUPVAL R28 10
-  NAMECALL R26 R8 K47 ["map"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K3 ["Size"]
+  SETTABLEKS R25 R24 K32 ["onActivated"]
+  DUPTABLE R25 K36 [{"affordance"}]
+  GETUPVAL R27 8
+  GETTABLEKS R26 R27 K37 ["None"]
+  SETTABLEKS R26 R25 K35 ["affordance"]
+  SETTABLEKS R25 R24 K33 ["stateLayer"]
+  LOADK R25 K38 ["size-full bg-over-media-0"]
+  SETTABLEKS R25 R24 K13 ["tag"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K29 ["DarkShadow"]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K1 ["createElement"]
+  GETUPVAL R23 9
+  DUPTABLE R24 K44 [{"Size", "Position", "BaseQuery", "ResultComponent", "SetIsSearchBarFocused", "MoreExperiencesRequested", "SearchInput"}]
+  GETUPVAL R27 10
+  NAMECALL R25 R8 K45 ["map"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K3 ["Size"]
   JUMPIFNOT R6 [+19]
-  GETIMPORT R26 K8 [UDim2.new]
-  LOADN R27 0
-  GETTABLEKS R29 R6 K48 ["X"]
-  GETTABLEKS R31 R4 K48 ["X"]
-  DIVK R30 R31 K49 [2]
-  ADD R28 R29 R30
-  LOADN R29 0
-  GETTABLEKS R31 R6 K50 ["Y"]
-  GETTABLEKS R33 R1 K51 ["Padding"]
-  GETTABLEKS R32 R33 K52 ["Small"]
-  SUB R30 R31 R32
-  CALL R26 4 1
-  JUMP [+5]
-  GETIMPORT R26 K54 [UDim2.fromScale]
-  LOADN R27 0
+  GETIMPORT R25 K8 [UDim2.new]
+  LOADN R26 0
+  GETTABLEKS R28 R6 K46 ["X"]
+  GETTABLEKS R30 R4 K46 ["X"]
+  DIVK R29 R30 K47 [2]
+  ADD R27 R28 R29
   LOADN R28 0
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K4 ["Position"]
-  SETTABLEKS R2 R25 K40 ["Query"]
-  GETTABLEKS R26 R0 K41 ["BaseQuery"]
-  SETTABLEKS R26 R25 K41 ["BaseQuery"]
-  GETTABLEKS R26 R0 K42 ["ResultComponent"]
-  SETTABLEKS R26 R25 K42 ["ResultComponent"]
-  SETTABLEKS R10 R25 K43 ["SetIsSearchBarFocused"]
-  NEWCLOSURE R26 P6
+  GETTABLEKS R30 R6 K48 ["Y"]
+  GETTABLEKS R32 R1 K49 ["Padding"]
+  GETTABLEKS R31 R32 K50 ["Small"]
+  SUB R29 R30 R31
+  CALL R25 4 1
+  JUMP [+5]
+  GETIMPORT R25 K52 [UDim2.fromScale]
+  LOADN R26 0
+  LOADN R27 0
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K4 ["Position"]
+  GETTABLEKS R25 R0 K39 ["BaseQuery"]
+  SETTABLEKS R25 R24 K39 ["BaseQuery"]
+  GETTABLEKS R25 R0 K40 ["ResultComponent"]
+  SETTABLEKS R25 R24 K40 ["ResultComponent"]
+  SETTABLEKS R10 R24 K41 ["SetIsSearchBarFocused"]
+  NEWCLOSURE R25 P6
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R10
-  SETTABLEKS R26 R25 K44 ["MoreExperiencesRequested"]
-  DUPTABLE R26 K56 [{"setCurrentQuery"}]
-  SETTABLEKS R3 R26 K55 ["setCurrentQuery"]
-  SETTABLEKS R26 R25 K45 ["SearchBar"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K31 ["Dropdown"]
-  CALL R19 3 -1
-  SETLIST R18 R19 -1 [1]
-  CALL R15 3 1
+  SETTABLEKS R25 R24 K42 ["MoreExperiencesRequested"]
+  DUPTABLE R25 K55 [{"query", "setCurrentQuery"}]
+  SETTABLEKS R2 R25 K53 ["query"]
+  SETTABLEKS R3 R25 K54 ["setCurrentQuery"]
+  SETTABLEKS R25 R24 K43 ["SearchInput"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K30 ["Dropdown"]
+  CALL R18 3 -1
+  CALL R15 -1 1
   JUMP [+1]
   LOADNIL R15
   SETTABLEKS R15 R14 K11 ["FocusedContent"]
@@ -811,33 +838,39 @@ MAIN:
   GETIMPORT R27 K5 [require]
   GETTABLEKS R30 R0 K32 ["Src"]
   GETTABLEKS R29 R30 K16 ["Util"]
-  GETTABLEKS R28 R29 K39 ["Services"]
+  GETTABLEKS R28 R29 K39 ["debounce"]
   CALL R27 1 1
-  GETTABLEKS R28 R27 K40 ["StartPageManager"]
-  GETTABLEKS R29 R27 K41 ["StudioService"]
-  GETIMPORT R30 K5 [require]
-  GETTABLEKS R32 R0 K32 ["Src"]
-  GETTABLEKS R31 R32 K42 ["Types"]
-  CALL R30 1 1
+  GETIMPORT R28 K5 [require]
+  GETTABLEKS R31 R0 K32 ["Src"]
+  GETTABLEKS R30 R31 K16 ["Util"]
+  GETTABLEKS R29 R30 K40 ["Services"]
+  CALL R28 1 1
+  GETTABLEKS R29 R28 K41 ["StartPageManager"]
+  GETTABLEKS R30 R28 K42 ["StudioService"]
   GETIMPORT R31 K5 [require]
-  GETTABLEKS R34 R0 K32 ["Src"]
-  GETTABLEKS R33 R34 K43 ["Network"]
-  GETTABLEKS R32 R33 K44 ["DiscoverCreatorEligibilityAndOpenPlace"]
+  GETTABLEKS R33 R0 K32 ["Src"]
+  GETTABLEKS R32 R33 K43 ["Types"]
   CALL R31 1 1
-  DUPCLOSURE R32 K45 [PROTO_1]
+  GETIMPORT R32 K5 [require]
+  GETTABLEKS R35 R0 K32 ["Src"]
+  GETTABLEKS R34 R35 K44 ["Network"]
+  GETTABLEKS R33 R34 K45 ["DiscoverCreatorEligibilityAndOpenPlace"]
+  CALL R32 1 1
+  DUPCLOSURE R33 K46 [PROTO_1]
   CAPTURE VAL R5
   CAPTURE VAL R26
   CAPTURE VAL R1
   CAPTURE VAL R24
   CAPTURE VAL R8
-  CAPTURE VAL R31
+  CAPTURE VAL R32
+  CAPTURE VAL R30
   CAPTURE VAL R29
-  CAPTURE VAL R28
-  DUPCLOSURE R33 K46 [PROTO_2]
+  DUPCLOSURE R34 K47 [PROTO_2]
   CAPTURE VAL R22
   CAPTURE VAL R1
+  CAPTURE VAL R16
   CAPTURE VAL R18
-  DUPCLOSURE R34 K47 [PROTO_7]
+  DUPCLOSURE R35 K48 [PROTO_6]
   CAPTURE VAL R11
   CAPTURE VAL R10
   CAPTURE VAL R3
@@ -846,36 +879,39 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R16
   CAPTURE VAL R18
-  CAPTURE VAL R33
-  DUPCLOSURE R35 K48 [PROTO_13]
+  CAPTURE VAL R34
+  DUPCLOSURE R36 K49 [PROTO_11]
   CAPTURE VAL R11
   CAPTURE VAL R10
   CAPTURE VAL R2
   CAPTURE VAL R20
+  CAPTURE VAL R3
+  CAPTURE VAL R27
+  CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R16
-  CAPTURE VAL R34
+  CAPTURE VAL R35
   CAPTURE VAL R25
   CAPTURE VAL R13
-  CAPTURE VAL R32
+  CAPTURE VAL R33
   CAPTURE VAL R8
   CAPTURE VAL R17
   CAPTURE VAL R19
-  DUPCLOSURE R36 K49 [PROTO_16]
+  DUPCLOSURE R37 K50 [PROTO_14]
   CAPTURE VAL R2
   CAPTURE VAL R6
   CAPTURE VAL R1
-  DUPCLOSURE R37 K50 [PROTO_17]
-  DUPCLOSURE R38 K51 [PROTO_25]
+  DUPCLOSURE R38 K51 [PROTO_15]
+  DUPCLOSURE R39 K52 [PROTO_23]
   CAPTURE VAL R20
   CAPTURE VAL R2
-  CAPTURE VAL R36
+  CAPTURE VAL R37
   CAPTURE VAL R1
   CAPTURE VAL R16
-  CAPTURE VAL R34
+  CAPTURE VAL R35
   CAPTURE VAL R23
   CAPTURE VAL R14
   CAPTURE VAL R19
-  CAPTURE VAL R35
-  CAPTURE VAL R37
-  RETURN R38 1
+  CAPTURE VAL R36
+  CAPTURE VAL R38
+  RETURN R39 1

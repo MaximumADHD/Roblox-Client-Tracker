@@ -62,14 +62,14 @@ PROTO_1:
   MOVE R14 R3
   CALL R14 0 1
   SETTABLEKS R14 R13 K6 ["LayoutOrder"]
-  LOADK R14 K16 ["padding-xsmall radius-circle bg-system-emphasis row align-x-center align-y-center auto-xy"]
+  LOADK R14 K16 ["size-600 radius-circle bg-system-emphasis row align-x-center align-y-center"]
   SETTABLEKS R14 R13 K9 ["tag"]
   GETUPVAL R15 11
   JUMPIFNOT R15 [+28]
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K5 ["createElement"]
   GETUPVAL R15 12
-  DUPTABLE R16 K21 [{"name", "size", "variant", "contentStyle"}]
+  DUPTABLE R16 K21 [{"name", "size", "variant", "style"}]
   LOADK R17 K22 ["plus-small"]
   SETTABLEKS R17 R16 K17 ["name"]
   GETUPVAL R18 13
@@ -81,16 +81,16 @@ PROTO_1:
   GETTABLEKS R19 R4 K25 ["Color"]
   GETTABLEKS R18 R19 K26 ["ActionEmphasis"]
   GETTABLEKS R17 R18 K27 ["Foreground"]
-  SETTABLEKS R17 R16 K20 ["contentStyle"]
+  SETTABLEKS R17 R16 K20 ["style"]
   CALL R14 2 1
   JUMP [+20]
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K5 ["createElement"]
   GETUPVAL R15 15
   DUPTABLE R16 K30 [{"Image", "tag", "imageStyle"}]
-  LOADK R17 K31 ["icons/common/plus"]
+  LOADK R17 K31 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Standard/Plus.png"]
   SETTABLEKS R17 R16 K28 ["Image"]
-  LOADK R17 K32 ["size-400 content-emphasis"]
+  LOADK R17 K32 ["size-300"]
   SETTABLEKS R17 R16 K9 ["tag"]
   GETTABLEKS R19 R4 K25 ["Color"]
   GETTABLEKS R18 R19 K26 ["ActionEmphasis"]

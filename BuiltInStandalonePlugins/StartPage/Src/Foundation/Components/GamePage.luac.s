@@ -100,14 +100,14 @@ PROTO_6:
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K0 ["createElement"]
   GETUPVAL R4 6
-  DUPTABLE R5 K24 [{"LayoutOrder", "PlaceholderText", "Size", "SelectedIndex", "Items", "Variant", "TextTruncate", "OnItemActivated"}]
+  DUPTABLE R5 K23 [{"LayoutOrder", "PlaceholderText", "Size", "SelectedIndex", "Items", "TextTruncate", "OnItemActivated"}]
   GETTABLEKS R6 R0 K3 ["LayoutOrder"]
   SETTABLEKS R6 R5 K3 ["LayoutOrder"]
   GETTABLEKS R6 R0 K6 ["placeholder"]
   SETTABLEKS R6 R5 K17 ["PlaceholderText"]
-  GETIMPORT R6 K27 [UDim2.new]
+  GETIMPORT R6 K26 [UDim2.new]
   GETUPVAL R7 3
-  GETIMPORT R8 K29 [UDim.new]
+  GETIMPORT R8 K28 [UDim.new]
   LOADN R9 0
   LOADN R10 32
   CALL R8 2 -1
@@ -115,17 +115,15 @@ PROTO_6:
   SETTABLEKS R6 R5 K18 ["Size"]
   SETTABLEKS R1 R5 K19 ["SelectedIndex"]
   SETTABLEKS R2 R5 K20 ["Items"]
-  LOADK R6 K30 ["modern"]
-  SETTABLEKS R6 R5 K21 ["Variant"]
   GETUPVAL R7 7
   JUMPIFNOT R7 [+3]
-  GETIMPORT R6 K33 [Enum.TextTruncate.SplitWord]
+  GETIMPORT R6 K31 [Enum.TextTruncate.SplitWord]
   JUMP [+1]
   LOADNIL R6
-  SETTABLEKS R6 R5 K22 ["TextTruncate"]
+  SETTABLEKS R6 R5 K21 ["TextTruncate"]
   NEWCLOSURE R6 P1
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K23 ["OnItemActivated"]
+  SETTABLEKS R6 R5 K22 ["OnItemActivated"]
   CALL R3 2 -1
   RETURN R3 -1
 
@@ -669,18 +667,18 @@ PROTO_24:
   SETTABLEKS R41 R40 K25 ["LayoutOrder"]
   CALL R38 2 1
   SETTABLEKS R38 R37 K43 ["Header"]
-  GETTABLEKS R39 R0 K56 ["HideTabs"]
-  JUMPIF R39 [+154]
   GETUPVAL R39 11
   GETTABLEKS R38 R39 K13 ["createElement"]
   GETUPVAL R39 12
-  DUPTABLE R40 K57 [{"LayoutOrder", "tag"}]
+  DUPTABLE R40 K56 [{"LayoutOrder", "tag"}]
   MOVE R41 R29
   CALL R41 0 1
   SETTABLEKS R41 R40 K25 ["LayoutOrder"]
-  LOADK R41 K58 ["size-full-0 auto-y row"]
+  LOADK R41 K57 ["size-full-0 auto-y row"]
   SETTABLEKS R41 R40 K14 ["tag"]
-  DUPTABLE R41 K61 [{"Pills", "DropdownControls"}]
+  DUPTABLE R41 K60 [{"Pills", "DropdownControls"}]
+  GETTABLEKS R43 R0 K61 ["HideTabs"]
+  JUMPIF R43 [+27]
   GETUPVAL R43 11
   GETTABLEKS R42 R43 K13 ["createElement"]
   GETUPVAL R43 19
@@ -700,15 +698,17 @@ PROTO_24:
   CAPTURE VAL R5
   SETTABLEKS R45 R44 K64 ["onTabSelected"]
   CALL R42 2 1
-  SETTABLEKS R42 R41 K59 ["Pills"]
+  JUMP [+1]
+  LOADNIL R42
+  SETTABLEKS R42 R41 K58 ["Pills"]
   GETUPVAL R43 11
   GETTABLEKS R42 R43 K13 ["createElement"]
   GETUPVAL R43 12
-  DUPTABLE R44 K57 [{"LayoutOrder", "tag"}]
+  DUPTABLE R44 K56 [{"LayoutOrder", "tag"}]
   MOVE R45 R29
   CALL R45 0 1
   SETTABLEKS R45 R44 K25 ["LayoutOrder"]
-  LOADK R45 K67 ["row gap-medium align-x-right grow"]
+  LOADK R45 K67 ["auto-xy row gap-medium align-x-right grow"]
   SETTABLEKS R45 R44 K14 ["tag"]
   DUPTABLE R45 K69 [{"GroupDropdown", "SortDropdown", "ToggleView"}]
   JUMPIFNOT R23 [+28]
@@ -782,15 +782,13 @@ PROTO_24:
   LOADNIL R46
   SETTABLEKS R46 R45 K68 ["ToggleView"]
   CALL R42 3 1
-  SETTABLEKS R42 R41 K60 ["DropdownControls"]
+  SETTABLEKS R42 R41 K59 ["DropdownControls"]
   CALL R38 3 1
-  JUMP [+1]
-  LOADNIL R38
   SETTABLEKS R38 R37 K44 ["Controls"]
   GETUPVAL R39 11
   GETTABLEKS R38 R39 K13 ["createElement"]
   GETUPVAL R39 24
-  DUPTABLE R40 K57 [{"LayoutOrder", "tag"}]
+  DUPTABLE R40 K56 [{"LayoutOrder", "tag"}]
   MOVE R41 R29
   CALL R41 0 1
   SETTABLEKS R41 R40 K25 ["LayoutOrder"]

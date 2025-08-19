@@ -30,20 +30,11 @@ if FFlagUserCameraInputDt then
 	ROTATION_SPEED_GAMEPAD *= 60 -- inline with FFlagUserCameraInputDt
 end
 
-
 local ZOOM_SPEED_MOUSE = 1 -- (scaled studs/wheel click)
 local ZOOM_SPEED_KEYS = 0.1 -- (studs/s)
 local ZOOM_SPEED_TOUCH = 0.04 -- (scaled studs/DIP %)
 
 local MIN_TOUCH_SENSITIVITY_FRACTION = 0.25 -- 25% sensitivity at 90°
-
-local FFlagUserClearPanOnCameraDisable
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserClearPanOnCameraDisable")
-	end)
-	FFlagUserClearPanOnCameraDisable = success and result
-end
 
 -- right mouse button up & down events
 local rmbDown, rmbUp do
@@ -280,9 +271,7 @@ do
 				end
 			end
 			
-			if FFlagUserClearPanOnCameraDisable then
-				resetPanInputCount()
-			end
+			resetPanInputCount()
 		end
 
 		local touchBegan, touchChanged, touchEnded, resetTouchState do

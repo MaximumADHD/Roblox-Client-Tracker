@@ -8,59 +8,53 @@ PROTO_0:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["Tag"]
   GETUPVAL R5 1
-  LOADK R6 K4 ["Component-RibbonToggle Role-Surface X-Fit"]
-  GETTABLEKS R8 R0 K5 ["Enabled"]
+  LOADK R7 K4 ["Component-RibbonToggle Role-Surface X-Fit data-testid=%*"]
+  GETUPVAL R9 2
+  GETTABLEKS R10 R0 K5 ["Uri"]
+  CALL R9 1 1
+  NAMECALL R7 R7 K6 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  GETTABLEKS R8 R0 K7 ["Enabled"]
   JUMPIF R8 [+2]
-  LOADK R7 K6 ["State-Disabled"]
+  LOADK R7 K8 ["State-Disabled"]
   JUMP [+1]
   LOADNIL R7
-  GETUPVAL R9 2
-  CALL R9 0 1
-  JUMPIFNOT R9 [+10]
-  LOADK R9 K7 ["data-testid=%*"]
-  GETUPVAL R11 3
-  GETTABLEKS R12 R0 K8 ["Uri"]
-  CALL R11 1 1
-  NAMECALL R9 R9 K9 ["format"]
-  CALL R9 2 1
-  MOVE R8 R9
-  JUMP [+1]
-  LOADNIL R8
-  CALL R5 3 1
+  CALL R5 2 1
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K12 [{"Label", "Toggle"}]
+  DUPTABLE R4 K11 [{"Label", "Toggle"}]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K13 ["TextLabel"]
+  LOADK R6 K12 ["TextLabel"]
   NEWTABLE R7 2 0
-  GETTABLEKS R8 R0 K14 ["Text"]
-  SETTABLEKS R8 R7 K14 ["Text"]
+  GETTABLEKS R8 R0 K13 ["Text"]
+  SETTABLEKS R8 R7 K13 ["Text"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K3 ["Tag"]
-  LOADK R9 K15 ["X-Fit"]
+  LOADK R9 K14 ["X-Fit"]
   SETTABLE R9 R7 R8
   CALL R5 2 1
-  SETTABLEKS R5 R4 K10 ["Label"]
+  SETTABLEKS R5 R4 K9 ["Label"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 4
-  DUPTABLE R7 K20 [{"Uri", "AnchorPoint", "Enabled", "OnClick", "LayoutOrder", "Position", "Selected"}]
-  GETTABLEKS R8 R0 K8 ["Uri"]
-  SETTABLEKS R8 R7 K8 ["Uri"]
-  GETTABLEKS R8 R0 K16 ["AnchorPoint"]
-  SETTABLEKS R8 R7 K16 ["AnchorPoint"]
-  GETTABLEKS R8 R0 K5 ["Enabled"]
-  SETTABLEKS R8 R7 K5 ["Enabled"]
-  GETTABLEKS R8 R0 K17 ["OnClick"]
-  SETTABLEKS R8 R7 K17 ["OnClick"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K19 [{"Uri", "AnchorPoint", "Enabled", "OnClick", "LayoutOrder", "Position", "Selected"}]
+  GETTABLEKS R8 R0 K5 ["Uri"]
+  SETTABLEKS R8 R7 K5 ["Uri"]
+  GETTABLEKS R8 R0 K15 ["AnchorPoint"]
+  SETTABLEKS R8 R7 K15 ["AnchorPoint"]
+  GETTABLEKS R8 R0 K7 ["Enabled"]
+  SETTABLEKS R8 R7 K7 ["Enabled"]
+  GETTABLEKS R8 R0 K16 ["OnClick"]
+  SETTABLEKS R8 R7 K16 ["OnClick"]
   LOADN R8 1
   SETTABLEKS R8 R7 K2 ["LayoutOrder"]
-  GETTABLEKS R8 R0 K18 ["Position"]
-  SETTABLEKS R8 R7 K18 ["Position"]
-  GETTABLEKS R8 R0 K19 ["Selected"]
-  SETTABLEKS R8 R7 K19 ["Selected"]
+  GETTABLEKS R8 R0 K17 ["Position"]
+  SETTABLEKS R8 R7 K17 ["Position"]
+  GETTABLEKS R8 R0 K18 ["Selected"]
+  SETTABLEKS R8 R7 K18 ["Selected"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K11 ["Toggle"]
+  SETTABLEKS R5 R4 K10 ["Toggle"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -90,15 +84,9 @@ MAIN:
   GETTABLEKS R8 R9 K14 ["Util"]
   GETTABLEKS R7 R8 K15 ["uriToTestId"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K11 ["Src"]
-  GETTABLEKS R9 R10 K16 ["SharedFlags"]
-  GETTABLEKS R8 R9 K17 ["getFFlagRibbonAddTestIds"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K18 [PROTO_0]
+  DUPCLOSURE R7 K16 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R4
-  CAPTURE VAL R7
   CAPTURE VAL R6
   CAPTURE VAL R5
-  RETURN R8 1
+  RETURN R7 1

@@ -36,8 +36,10 @@ local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
+local getFFlagDisablePVUpsellDataConsent = SharedFlags.GetFFlagDisablePVUpsellDataConsent
 
-local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
+	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 local GetFFlagAddMorePhoneUpsellEvents =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAddMorePhoneUpsellEvents
@@ -191,43 +193,45 @@ local function Initialize()
 				end,
 				isDisabled = requireExplicitVoiceConsent and not legalChecked,
 			}),
-			PhoneLegalDisclaimer = React.createElement(PhoneLegalDisclaimer, {
-				legalText = if requireExplicitVoiceConsent
-					then localizedText.voiceConsent
-					else localizedText.voiceDisclaimer,
-				termsOfUse = localizedText.termsOfUse,
-				privacyPolicy = localizedText.privacyPolicy,
-				showLegalText = upsellType == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat,
-				showLegalButtons = true,
-				showLegalTextCheckbox = requireExplicitVoiceConsent,
-				legalTextChecked = legalChecked,
-				setLegalTextChecked = function()
-					setLegalChecked(not legalChecked)
-				end,
-				onTermsOfUseClick = function()
-					if GetFFlagAddMorePhoneUpsellEvents() then
-						AnalyticsService:SendEventDeferred(
-							getPlatformTarget(),
-							eventContext,
-							"modalAction",
-							{ origin = props.origin, field = "termsOfService", section = props.section }
-						)
-					end
-					props.showWebpage(PhoneConstants.TERMS_OF_SERVICE_URL)
-				end,
-				onPrivacyPolicyClick = function()
-					if GetFFlagAddMorePhoneUpsellEvents() then
-						AnalyticsService:SendEventDeferred(
-							getPlatformTarget(),
-							eventContext,
-							"modalAction",
-							{ origin = props.origin, field = "privacyPolicy", section = props.section }
-						)
-					end
-					props.showWebpage(PhoneConstants.PRIVACY_POLICY_URL)
-				end,
-				LayoutOrder = 4,
-			}),
+			PhoneLegalDisclaimer = if not getFFlagDisablePVUpsellDataConsent()
+				then React.createElement(PhoneLegalDisclaimer, {
+					legalText = if requireExplicitVoiceConsent
+						then localizedText.voiceConsent
+						else localizedText.voiceDisclaimer,
+					termsOfUse = localizedText.termsOfUse,
+					privacyPolicy = localizedText.privacyPolicy,
+					showLegalText = upsellType == VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat,
+					showLegalButtons = true,
+					showLegalTextCheckbox = requireExplicitVoiceConsent,
+					legalTextChecked = legalChecked,
+					setLegalTextChecked = function()
+						setLegalChecked(not legalChecked)
+					end,
+					onTermsOfUseClick = function()
+						if GetFFlagAddMorePhoneUpsellEvents() then
+							AnalyticsService:SendEventDeferred(
+								getPlatformTarget(),
+								eventContext,
+								"modalAction",
+								{ origin = props.origin, field = "termsOfService", section = props.section }
+							)
+						end
+						props.showWebpage(PhoneConstants.TERMS_OF_SERVICE_URL)
+					end,
+					onPrivacyPolicyClick = function()
+						if GetFFlagAddMorePhoneUpsellEvents() then
+							AnalyticsService:SendEventDeferred(
+								getPlatformTarget(),
+								eventContext,
+								"modalAction",
+								{ origin = props.origin, field = "privacyPolicy", section = props.section }
+							)
+						end
+						props.showWebpage(PhoneConstants.PRIVACY_POLICY_URL)
+					end,
+					LayoutOrder = 4,
+				})
+				else nil,
 		})
 	end
 

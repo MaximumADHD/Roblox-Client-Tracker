@@ -56,12 +56,9 @@ local GetFIntMusicFtuxShowDelayMs = require(Chrome.Flags.GetFIntMusicFtuxShowDel
 local GetFIntMusicFtuxDismissDelayMs = require(Chrome.Flags.GetFIntMusicFtuxDismissDelayMs)
 local GetFFlagShouldShowMusicFtuxTooltipXTimes = require(Chrome.Flags.GetFFlagShouldShowMusicFtuxTooltipXTimes)
 local GetFStringMusicTooltipLocalStorageKey_v2 = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey_v2)
-local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagShouldShowSimpleMusicFtuxTooltip = require(Chrome.Flags.GetFFlagShouldShowSimpleMusicFtuxTooltip)
 local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
 local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
-local GetFFlagSongbirdCleanupExperiment =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdCleanupExperiment
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
@@ -80,9 +77,7 @@ local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 
 local shouldShowMusicTooltip = if GetFFlagSongbirdCleanupMusicTooltip()
 	then nil
-	else if GetFFlagSongbirdCleanupExperiment()
-		then FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip()
-		else FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip() and GetFFlagEnableSongbirdInChrome()
+	else FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip()
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled

@@ -8,6 +8,8 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 local ContextualMenu = UIBlox.App.Menu.ContextualMenu
 local MenuDirection = UIBlox.App.Menu.MenuDirection
@@ -26,6 +28,7 @@ local TopBarAnalytics = require(TopBar.Analytics)
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
 local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
@@ -86,7 +89,7 @@ MoreMenu.validateProps = t.strictInterface({
 
 	moreMenuOpen = t.boolean,
 	setMoreMenuOpen = t.callback,
-	screenSize = t.Vector2,
+	screenSize = if FFlagTopBarSignalizeScreenSize then nil else t.Vector2,
 	isSmallTouchDevice = t.boolean,
 
 	topBarEnabled = t.boolean,
@@ -141,6 +144,22 @@ function MoreMenu:init()
 
 	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
 		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
+	end
+
+	if FFlagTopBarSignalizeScreenSize then 
+		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
+
+		self.disposeScreenSize = Signals.createEffect(function(scope) 
+			self:setState({
+				screenSize = getViewportSize(scope)
+			})
+		end)
+	end
+end
+
+function MoreMenu:willUnmount()
+	if FFlagTopBarSignalizeScreenSize then 
+		self.disposeScreenSize()
 	end
 end
 
@@ -237,9 +256,11 @@ function MoreMenu:renderWithStyle(style)
 		hasOptions = true
 	end
 
-	local moreMenuSize = UDim2.new(0, MENU_DEFAULT_SIZE + CONTEXT_MENU_DEFAULT_PADDING * 2, 0, self.props.screenSize.Y)
-	if self.props.screenSize.X < MENU_FULLSCREEN_THRESHOLD then
-		moreMenuSize = UDim2.new(0, self.props.screenSize.X - (MENU_EXTRA_PADDING * 2), 0, self.props.screenSize.Y)
+	local screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize
+
+	local moreMenuSize = UDim2.new(0, MENU_DEFAULT_SIZE + CONTEXT_MENU_DEFAULT_PADDING * 2, 0, screenSize.Y)
+	if screenSize.X < MENU_FULLSCREEN_THRESHOLD then
+		moreMenuSize = UDim2.new(0, screenSize.X - (MENU_EXTRA_PADDING * 2), 0, screenSize.Y)
 	end
 
 	local moreIcon = MORE_ICON_ON
@@ -307,7 +328,7 @@ function MoreMenu:renderWithStyle(style)
 
 				background = style.Theme.BackgroundUIContrast,
 				closeBackgroundVisible = false,
-				screenSize = self.props.screenSize,
+				screenSize = screenSize,
 
 				onDismiss = function()
 					self.props.setMoreMenuOpen(false)
@@ -356,7 +377,10 @@ function MoreMenu:didUpdate(prevProps, prevState)
 
 		self:updateActionBound()
 
-		if self.props.screenSize.X < CHAT_HIDE_THRESHOLD then
+
+		local screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize
+
+		if screenSize.X < CHAT_HIDE_THRESHOLD then
 			if self.props.moreMenuOpen and ChatSelector:GetVisibility() then
 				self.chatWasHidden = true
 				ChatSelector:SetVisible(false)
@@ -370,7 +394,7 @@ end
 
 local function mapStateToProps(state)
 	return {
-		screenSize = state.displayOptions.screenSize,
+		screenSize = if FFlagTopBarSignalizeScreenSize then nil else state.displayOptions.screenSize,
 		moreMenuOpen = state.moreMenu.open,
 
 		isSmallTouchDevice = state.displayOptions.isSmallTouchDevice,

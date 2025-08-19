@@ -22,32 +22,18 @@ local GetFStringLuaAppConsoleExperienceMenuLayer = require(script.Parent.Flags.G
 local GetFFlagDisableChromeV4Baseline = require(script.Parent.Flags.GetFFlagDisableChromeV4Baseline)()
 local GetFFlagDisableChromeV4ClosedSelfView = require(script.Parent.Flags.GetFFlagDisableChromeV4ClosedSelfView)()
 
-local GetFFlagSetupSongbirdWindowExperimentFeb2025 = SharedFlags.GetFFlagSetupSongbirdWindowExperimentFeb2025
-local GetFFlagSongbirdCleanupExperiment = SharedFlags.GetFFlagSongbirdCleanupExperiment
-
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t10" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
-local SONGBIRD_TEST_VERSION = if GetFFlagSongbirdCleanupExperiment()
-	then nil
-	else if GetFFlagSetupSongbirdWindowExperimentFeb2025() then "s3" else "s2"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
 local MENU_VERSION_V3 = "v3"..TEST_VERSION
 local REPORT_ABUSE_MENU_VERSION_V2 = "ARv2"..REPORT_ABUSE_MENU_TEST_VERSION
 
-local MENU_VERSION_SONGBIRD_ENUM = if GetFFlagSongbirdCleanupExperiment()
-	then nil
-	else {
-		SONGBIRD = "v9.1" .. SONGBIRD_TEST_VERSION,
-		SONGBIRD_UNIBAR = "v9.2" .. SONGBIRD_TEST_VERSION,
-		SONGBIRD_PEEK = "v9.3" .. SONGBIRD_TEST_VERSION,
-		SONGBIRD_SCENE_ANALYSIS = "v9.4" .. SONGBIRD_TEST_VERSION,
-	}
 
 -- These menu versions cannot be updated as they will be used for holdouts
 local MENU_VERSION_LEGACY_CONTROLS = "v10.0"
@@ -62,27 +48,11 @@ local ENUM_UNIBAR_MENU_OPEN_FOCUS = {
 	NOT_AVAILABLE = "not_available",
 }
 
-local validVersion = if GetFFlagSongbirdCleanupExperiment() then {
+local validVersion =  {
 	[DEFAULT_MENU_VERSION] = true,
 	[MENU_VERSION_V2] = false,
 	[MENU_VERSION_V3] = false,
 	[REPORT_ABUSE_MENU_VERSION_V2] = false,
-	[ENUM_UNIBAR_MENU_OPEN_FOCUS.HAMBURGER] = FFlagUnibarMenuOpenSelectionIXP,
-	[ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU] = FFlagUnibarMenuOpenSelectionIXP,
-	[ENUM_UNIBAR_MENU_OPEN_FOCUS.NOT_AVAILABLE] = true,
-
-	-- Invalidate Unibar test variants if the respective disable flag is turned on
-	[MENU_VERSION_LEGACY_CONTROLS] = true,
-	[MENU_VERSION_CHROME_V4_ENUM.BASELINE] = not GetFFlagDisableChromeV4Baseline,
-	[MENU_VERSION_CHROME_V4_ENUM.CLOSED_SELF_VIEW] = not GetFFlagDisableChromeV4ClosedSelfView,
-} else {
-	[DEFAULT_MENU_VERSION] = true,
-	[MENU_VERSION_V2] = false,
-	[MENU_VERSION_V3] = false,
-	[REPORT_ABUSE_MENU_VERSION_V2] = false,
-	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD] = true,
-	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR] = true,
-	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK] = true,
 	[ENUM_UNIBAR_MENU_OPEN_FOCUS.HAMBURGER] = FFlagUnibarMenuOpenSelectionIXP,
 	[ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU] = FFlagUnibarMenuOpenSelectionIXP,
 	[ENUM_UNIBAR_MENU_OPEN_FOCUS.NOT_AVAILABLE] = true,
@@ -141,20 +111,6 @@ end
 
 function ExperienceMenuABTestManager.chromeV4ClosedSelfViewVersionId()
 	return MENU_VERSION_CHROME_V4_ENUM.CLOSED_SELF_VIEW
-end
-
-if not GetFFlagSongbirdCleanupExperiment() then
-	function ExperienceMenuABTestManager.chromeSongbirdVersionId()
-		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD
-	end
-
-	function ExperienceMenuABTestManager.chromeSongbirdUnibarVersionId()
-		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR
-	end
-
-	function ExperienceMenuABTestManager.chromeSongbirdPeekVersionId()
-		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK
-	end
 end
 
 function parseCountData(data)
@@ -220,14 +176,6 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 		end
 	end
 
-	if not GetFFlagSongbirdCleanupExperiment() then
-		for _, version in MENU_VERSION_SONGBIRD_ENUM do
-			if self:getVersion() == version then
-				return true
-			end
-		end
-	end
-
 	if FFlagUnibarMenuOpenSelectionIXP then
 		if self:getVersion() == ENUM_UNIBAR_MENU_OPEN_FOCUS.HAMBURGER or self:getVersion() == ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU then
 			return true
@@ -239,18 +187,6 @@ end
 
 function ExperienceMenuABTestManager:shouldCloseSelfViewAtStartup()
 	return self:getVersion() == MENU_VERSION_CHROME_V4_ENUM.CLOSED_SELF_VIEW
-end
-
-if not GetFFlagSongbirdCleanupExperiment() then
-	function ExperienceMenuABTestManager:shouldShowSongbirdUnibar()
-		local version = self:getVersion()
-		return version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR
-	end
-
-	function ExperienceMenuABTestManager:shouldShowSongbirdPeek()
-		local version = self:getVersion()
-		return version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK
-	end
 end
 
 function ExperienceMenuABTestManager:showConsoleExpControlsMenuOpenHamburger()

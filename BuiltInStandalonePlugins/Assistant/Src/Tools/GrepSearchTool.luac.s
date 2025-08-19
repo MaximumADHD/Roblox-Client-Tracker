@@ -119,47 +119,59 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["ModelContextProtocol"]
+  GETTABLEKS R2 R3 K7 ["AssistantUI"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["StudioNetworking"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ModelContextProtocol"]
   CALL R2 1 1
-  GETTABLEKS R4 R1 K9 ["Util"]
-  GETTABLEKS R3 R4 K11 ["ToolBuilder"]
-  GETTABLEKS R5 R1 K9 ["Util"]
-  GETTABLEKS R4 R5 K12 ["ToolResult"]
-  GETTABLEKS R5 R2 K13 ["get"]
-  CALL R5 0 1
-  DUPCLOSURE R6 K14 [PROTO_0]
-  LOADK R9 K15 ["GrepSearchTool_GrepSearch"]
-  DUPCLOSURE R10 K16 [PROTO_1]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["StudioNetworking"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Tools"]
+  GETTABLEKS R5 R6 K13 ["ToolTypes"]
+  CALL R4 1 1
+  GETTABLEKS R6 R2 K10 ["Util"]
+  GETTABLEKS R5 R6 K14 ["ToolBuilder"]
+  GETTABLEKS R7 R2 K10 ["Util"]
+  GETTABLEKS R6 R7 K15 ["ToolResult"]
+  GETTABLEKS R7 R4 K16 ["ToolNames"]
+  GETTABLEKS R8 R3 K17 ["get"]
+  CALL R8 0 1
+  DUPCLOSURE R9 K18 [PROTO_0]
+  LOADK R12 K19 ["GrepSearchTool_GrepSearch"]
+  DUPCLOSURE R13 K20 [PROTO_1]
+  CAPTURE VAL R9
+  NAMECALL R10 R8 K21 ["OnHostInvokeAsync"]
+  CALL R10 3 1
+  DUPCLOSURE R11 K22 [PROTO_2]
+  CAPTURE VAL R10
   CAPTURE VAL R6
-  NAMECALL R7 R5 K17 ["OnHostInvokeAsync"]
-  CALL R7 3 1
-  DUPCLOSURE R8 K18 [PROTO_2]
-  CAPTURE VAL R7
-  CAPTURE VAL R4
-  GETTABLEKS R9 R3 K19 ["define"]
-  CALL R9 0 1
-  LOADK R11 K20 ["grep_search"]
-  NAMECALL R9 R9 K21 ["setName"]
-  CALL R9 2 1
-  LOADK R11 K22 ["Runs a search for a string pattern over all script contents in the game. To avoid overwhelming output, the results are capped at 50 matches."]
-  NAMECALL R9 R9 K23 ["setDescription"]
-  CALL R9 2 1
-  LOADK R11 K24 ["query"]
-  DUPTABLE R12 K27 [{"type", "description"}]
-  LOADK R13 K28 ["string"]
-  SETTABLEKS R13 R12 K25 ["type"]
-  LOADK R13 K29 ["The string or Luau pattern to search for."]
-  SETTABLEKS R13 R12 K26 ["description"]
-  NAMECALL R9 R9 K30 ["addArgument"]
-  CALL R9 3 1
-  MOVE R11 R8
-  NAMECALL R9 R9 K31 ["setHandler"]
-  CALL R9 2 1
-  NAMECALL R9 R9 K32 ["build"]
-  CALL R9 1 -1
-  RETURN R9 -1
+  GETTABLEKS R12 R5 K23 ["define"]
+  CALL R12 0 1
+  GETTABLEKS R14 R7 K24 ["GrepSearch"]
+  NAMECALL R12 R12 K25 ["setName"]
+  CALL R12 2 1
+  LOADK R14 K26 ["Runs a search for a string pattern over all script contents in the game. To avoid overwhelming output, the results are capped at 50 matches."]
+  NAMECALL R12 R12 K27 ["setDescription"]
+  CALL R12 2 1
+  LOADK R14 K28 ["query"]
+  DUPTABLE R15 K31 [{"type", "description"}]
+  LOADK R16 K32 ["string"]
+  SETTABLEKS R16 R15 K29 ["type"]
+  LOADK R16 K33 ["The string or Luau pattern to search for."]
+  SETTABLEKS R16 R15 K30 ["description"]
+  NAMECALL R12 R12 K34 ["addArgument"]
+  CALL R12 3 1
+  MOVE R14 R11
+  NAMECALL R12 R12 K35 ["setHandler"]
+  CALL R12 2 1
+  NAMECALL R12 R12 K36 ["build"]
+  CALL R12 1 1
+  DUPTABLE R13 K38 [{"definition"}]
+  SETTABLEKS R12 R13 K37 ["definition"]
+  RETURN R13 1

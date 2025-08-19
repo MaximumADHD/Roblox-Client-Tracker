@@ -55,6 +55,17 @@ PROTO_3:
   CALL R2 2 -1
   RETURN R2 -1
 
+PROTO_4:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"LikelyCollaborators"}]
+  GETTABLEKS R5 R1 K4 ["likelyCollaborators"]
+  SETTABLEKS R5 R4 K2 ["LikelyCollaborators"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -74,26 +85,44 @@ MAIN:
   GETTABLEKS R5 R6 K9 ["Keys"]
   GETTABLEKS R4 R5 K10 ["loadingInProgress"]
   CALL R3 1 1
-  DUPTABLE R4 K13 [{"CachedSearchResults", "SearchText"}]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K11 ["CachedSearchResults"]
-  LOADK R5 K14 [""]
-  SETTABLEKS R5 R4 K12 ["SearchText"]
-  GETTABLEKS R5 R1 K15 ["createReducer"]
-  MOVE R6 R4
-  DUPTABLE R7 K20 [{"ResetStore", "LoadedWebResults", "LoadWebResults", "SearchTextChanged"}]
-  DUPCLOSURE R8 K21 [PROTO_0]
-  CAPTURE VAL R4
-  SETTABLEKS R8 R7 K16 ["ResetStore"]
-  DUPCLOSURE R8 K22 [PROTO_1]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["IsLikelyCollaboratorPrefetchEnabled"]
+  CALL R4 1 1
+  MOVE R5 R4
+  CALL R5 0 1
+  DUPTABLE R6 K16 [{"CachedSearchResults", "SearchText", "LikelyCollaborators"}]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K13 ["CachedSearchResults"]
+  LOADK R7 K17 [""]
+  SETTABLEKS R7 R6 K14 ["SearchText"]
+  JUMPIFNOT R5 [+3]
+  NEWTABLE R7 0 0
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K15 ["LikelyCollaborators"]
+  GETTABLEKS R7 R1 K18 ["createReducer"]
+  MOVE R8 R6
+  DUPTABLE R9 K24 [{"ResetStore", "LoadedWebResults", "LoadWebResults", "SearchTextChanged", "PrefetchLikelyCollaborators"}]
+  DUPCLOSURE R10 K25 [PROTO_0]
+  CAPTURE VAL R6
+  SETTABLEKS R10 R9 K19 ["ResetStore"]
+  DUPCLOSURE R10 K26 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K17 ["LoadedWebResults"]
-  DUPCLOSURE R8 K23 [PROTO_2]
+  SETTABLEKS R10 R9 K20 ["LoadedWebResults"]
+  DUPCLOSURE R10 K27 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R3
-  SETTABLEKS R8 R7 K18 ["LoadWebResults"]
-  DUPCLOSURE R8 K24 [PROTO_3]
+  SETTABLEKS R10 R9 K21 ["LoadWebResults"]
+  DUPCLOSURE R10 K28 [PROTO_3]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K19 ["SearchTextChanged"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  SETTABLEKS R10 R9 K22 ["SearchTextChanged"]
+  JUMPIFNOT R5 [+3]
+  DUPCLOSURE R10 K29 [PROTO_4]
+  CAPTURE VAL R2
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K23 ["PrefetchLikelyCollaborators"]
+  CALL R7 2 -1
+  RETURN R7 -1

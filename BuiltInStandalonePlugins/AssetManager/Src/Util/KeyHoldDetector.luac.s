@@ -1,0 +1,126 @@
+PROTO_0:
+  DUPTABLE R0 K5 [{"_callback", "_heartbeatConnection", "_latestKeyPress", "_holdTime", "_sendTime"}]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_callback"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_heartbeatConnection"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_latestKeyPress"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K3 ["_holdTime"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K4 ["_sendTime"]
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K7 [setmetatable]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_1:
+  NAMECALL R1 R0 K0 ["_reset"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  SETTABLEKS R1 R0 K0 ["_callback"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_onHeartbeat"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  SETTABLEKS R1 R0 K0 ["_latestKeyPress"]
+  LOADK R2 K1 [0.5]
+  SETTABLEKS R2 R0 K2 ["_holdTime"]
+  GETTABLEKS R2 R0 K3 ["_heartbeatConnection"]
+  JUMPIF R2 [+10]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Heartbeat"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K5 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K3 ["_heartbeatConnection"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["_latestKeyPress"]
+  JUMPIFNOTEQ R2 R1 [+4]
+  NAMECALL R2 R0 K1 ["_reset"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["_holdTime"]
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+7]
+  GETTABLEKS R2 R0 K0 ["_holdTime"]
+  SUB R2 R2 R1
+  SETTABLEKS R2 R0 K0 ["_holdTime"]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K1 ["_sendTime"]
+  SUB R2 R2 R1
+  SETTABLEKS R2 R0 K1 ["_sendTime"]
+  GETTABLEKS R2 R0 K1 ["_sendTime"]
+  LOADN R3 0
+  JUMPIFNOTLT R2 R3 [+19]
+  GETTABLEKS R4 R0 K2 ["_callback"]
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL1 ASSERT R3 [+2]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K2 ["_callback"]
+  GETTABLEKS R3 R0 K5 ["_latestKeyPress"]
+  CALL R2 1 0
+  LOADK R2 K6 [0.1]
+  SETTABLEKS R2 R0 K1 ["_sendTime"]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_heartbeatConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["_heartbeatConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_heartbeatConnection"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_latestKeyPress"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K3 ["_holdTime"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K4 ["_sendTime"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NEWTABLE R1 8 0
+  SETTABLEKS R1 R1 K4 ["__index"]
+  DUPCLOSURE R2 K5 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K6 ["new"]
+  DUPCLOSURE R2 K7 [PROTO_1]
+  SETTABLEKS R2 R1 K8 ["destroy"]
+  DUPCLOSURE R2 K9 [PROTO_2]
+  SETTABLEKS R2 R1 K10 ["setCallback"]
+  DUPCLOSURE R2 K11 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K12 ["keyPressed"]
+  DUPCLOSURE R2 K13 [PROTO_5]
+  SETTABLEKS R2 R1 K14 ["keyReleased"]
+  DUPCLOSURE R2 K15 [PROTO_6]
+  SETTABLEKS R2 R1 K16 ["_onHeartbeat"]
+  DUPCLOSURE R2 K17 [PROTO_7]
+  SETTABLEKS R2 R1 K18 ["_reset"]
+  RETURN R1 1

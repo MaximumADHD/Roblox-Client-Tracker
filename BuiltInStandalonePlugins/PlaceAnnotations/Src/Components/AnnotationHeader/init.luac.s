@@ -122,59 +122,64 @@ PROTO_2:
   NEWTABLE R10 1 0
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K21 ["Tag"]
-  LOADK R12 K22 ["Component-PopoverHeader"]
+  GETUPVAL R14 6
+  GETTABLEKS R13 R14 K22 ["fflagCOLLAB9036DecreaseLineHeight"]
+  JUMPIFNOT R13 [+2]
+  LOADK R12 K23 ["Component-AnnotationHeader"]
+  JUMP [+1]
+  LOADK R12 K24 ["Component-PopoverHeader"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K24 [{"Navigation"}]
+  DUPTABLE R11 K26 [{"Navigation"}]
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K19 ["createElement"]
   LOADK R13 K20 ["Frame"]
-  DUPTABLE R14 K26 [{"LayoutOrder"}]
+  DUPTABLE R14 K28 [{"LayoutOrder"}]
   LOADN R15 0
-  SETTABLEKS R15 R14 K25 ["LayoutOrder"]
-  DUPTABLE R15 K29 [{"LeftAligned", "RightAligned"}]
+  SETTABLEKS R15 R14 K27 ["LayoutOrder"]
+  DUPTABLE R15 K31 [{"LeftAligned", "RightAligned"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K19 ["createElement"]
   LOADK R17 K20 ["Frame"]
   NEWTABLE R18 0 0
-  DUPTABLE R19 K31 [{"ClassIcon", "Adornee"}]
+  DUPTABLE R19 K33 [{"ClassIcon", "Adornee"}]
   JUMPIFNOT R6 [+18]
   GETUPVAL R21 3
   GETTABLEKS R20 R21 K19 ["createElement"]
-  LOADK R21 K32 ["ImageLabel"]
-  DUPTABLE R22 K34 [{"Image", "LayoutOrder"}]
-  GETTABLEKS R24 R3 K35 ["getClassIcon"]
+  LOADK R21 K34 ["ImageLabel"]
+  DUPTABLE R22 K36 [{"Image", "LayoutOrder"}]
+  GETTABLEKS R24 R3 K37 ["getClassIcon"]
   MOVE R25 R6
   CALL R24 1 1
-  GETTABLEKS R23 R24 K33 ["Image"]
-  SETTABLEKS R23 R22 K33 ["Image"]
+  GETTABLEKS R23 R24 K35 ["Image"]
+  SETTABLEKS R23 R22 K35 ["Image"]
   LOADN R23 0
-  SETTABLEKS R23 R22 K25 ["LayoutOrder"]
+  SETTABLEKS R23 R22 K27 ["LayoutOrder"]
   CALL R20 2 1
   JUMP [+1]
   LOADNIL R20
-  SETTABLEKS R20 R19 K30 ["ClassIcon"]
+  SETTABLEKS R20 R19 K32 ["ClassIcon"]
   GETUPVAL R21 3
   GETTABLEKS R20 R21 K19 ["createElement"]
-  LOADK R21 K36 ["TextLabel"]
-  DUPTABLE R22 K38 [{"Text", "LayoutOrder"}]
-  SETTABLEKS R7 R22 K37 ["Text"]
+  LOADK R21 K38 ["TextLabel"]
+  DUPTABLE R22 K40 [{"Text", "LayoutOrder"}]
+  SETTABLEKS R7 R22 K39 ["Text"]
   LOADN R23 1
-  SETTABLEKS R23 R22 K25 ["LayoutOrder"]
+  SETTABLEKS R23 R22 K27 ["LayoutOrder"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K8 ["Adornee"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K27 ["LeftAligned"]
+  SETTABLEKS R16 R15 K29 ["LeftAligned"]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K19 ["createElement"]
   LOADK R17 K20 ["Frame"]
-  DUPTABLE R18 K26 [{"LayoutOrder"}]
+  DUPTABLE R18 K28 [{"LayoutOrder"}]
   LOADN R19 2
-  SETTABLEKS R19 R18 K25 ["LayoutOrder"]
-  GETTABLEKS R19 R1 K39 ["children"]
+  SETTABLEKS R19 R18 K27 ["LayoutOrder"]
+  GETTABLEKS R19 R1 K41 ["children"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K28 ["RightAligned"]
+  SETTABLEKS R16 R15 K30 ["RightAligned"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K23 ["Navigation"]
+  SETTABLEKS R12 R11 K25 ["Navigation"]
   CALL R8 3 -1
   RETURN R8 -1
 
@@ -196,33 +201,39 @@ MAIN:
   GETTABLEKS R5 R0 K9 ["Src"]
   GETTABLEKS R4 R5 K10 ["Types"]
   CALL R3 1 1
-  GETTABLEKS R4 R2 K11 ["ContextServices"]
-  GETTABLEKS R5 R4 K12 ["Localization"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Contexts"]
-  GETTABLEKS R7 R8 K14 ["ClassIconContext"]
-  CALL R6 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K11 ["Bin"]
+  GETTABLEKS R6 R7 K12 ["Common"]
+  GETTABLEKS R5 R6 K13 ["defineLuaFlags"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K14 ["ContextServices"]
+  GETTABLEKS R6 R5 K15 ["Localization"]
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K9 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Util"]
-  GETTABLEKS R8 R9 K16 ["rerenderReducer"]
+  GETTABLEKS R9 R10 K16 ["Contexts"]
+  GETTABLEKS R8 R9 K17 ["ClassIconContext"]
   CALL R7 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K6 ["Packages"]
-  GETTABLEKS R11 R12 K17 ["Cryo"]
-  CALL R10 1 1
-  GETTABLEKS R9 R10 K18 ["Dictionary"]
-  GETTABLEKS R8 R9 K19 ["join"]
-  NEWTABLE R9 0 0
-  DUPCLOSURE R10 K20 [PROTO_2]
-  CAPTURE VAL R8
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Util"]
+  GETTABLEKS R9 R10 K19 ["rerenderReducer"]
+  CALL R8 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K6 ["Packages"]
+  GETTABLEKS R12 R13 K20 ["Cryo"]
+  CALL R11 1 1
+  GETTABLEKS R10 R11 K21 ["Dictionary"]
+  GETTABLEKS R9 R10 K22 ["join"]
+  NEWTABLE R10 0 0
+  DUPCLOSURE R11 K23 [PROTO_2]
   CAPTURE VAL R9
-  CAPTURE VAL R5
-  CAPTURE VAL R1
+  CAPTURE VAL R10
   CAPTURE VAL R6
+  CAPTURE VAL R1
   CAPTURE VAL R7
-  GETTABLEKS R11 R1 K21 ["memo"]
-  MOVE R12 R10
-  CALL R11 1 -1
-  RETURN R11 -1
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  GETTABLEKS R12 R1 K24 ["memo"]
+  MOVE R13 R11
+  CALL R12 1 -1
+  RETURN R12 -1

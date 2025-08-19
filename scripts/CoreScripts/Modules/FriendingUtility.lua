@@ -23,7 +23,6 @@ BaseUrl = string.gsub(BaseUrl, "http:", "https:")
 local FriendCountUrl = string.gsub(BaseUrl, "www", "friends") .. "v1/users/{userId}/friends/count"
 
 function FriendingUtility:GetFriendCountAsync(userId)
-	assert(not FFlagRemoveHardCodedFriendLimitPrompt, "Should not call GetFriendCountAsync when FFlagRemoveHardCodedFriendLimitPrompt is enabled")
 	local friendCount = nil
 
 	local wasSuccess, result = pcall(function()

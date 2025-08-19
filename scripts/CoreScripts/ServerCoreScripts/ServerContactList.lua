@@ -8,7 +8,7 @@ local TeleportService = game:GetService("TeleportService")
 
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
-local FFlagEnableContactListRemoteEventValidation = game:DefineFastFlag("EnableContactListRemoteEventValidation", false)
+local FFlagEnableContactListRemoteEventValidation = game:DefineFastFlag("EnableContactListRemoteEventValidation2", false)
 local EngineFeatureEnableIrisRerouteToRCC = game:GetEngineFeature("EnableIrisRerouteToRCC")
 
 local RemoteInvokeIrisInvite = Instance.new("RemoteEvent")
@@ -18,14 +18,13 @@ RemoteInvokeIrisInvite.Parent = RobloxReplicatedStorage
 RemoteInvokeIrisInvite.OnServerEvent:Connect(
 	function(player, tag, calleeId, calleeCombinedName, muted, camEnabled, userAgent, version)
 		if FFlagEnableContactListRemoteEventValidation then
-			-- Validation for invalid strings
+			-- Validation for invalid parameters.
 			if
 				typeof(tag) ~= "string"
 				or #tag > 1000
-				or typeof(calleeId) ~= "string"
-				or #calleeId > 1000
 				or typeof(calleeCombinedName) ~= "string"
 				or #calleeCombinedName > 1000
+				or typeof(calleeId) ~= "number"
 			then
 				return
 			end

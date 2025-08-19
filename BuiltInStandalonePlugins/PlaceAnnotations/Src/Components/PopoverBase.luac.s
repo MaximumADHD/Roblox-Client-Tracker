@@ -172,7 +172,7 @@ PROTO_5:
   CAPTURE VAL R6
   SETTABLEKS R13 R12 K20 ["onAbsoluteSizeChanged"]
   GETUPVAL R15 9
-  GETTABLEKS R14 R15 K28 ["fflagAnnotationsModernColors"]
+  GETTABLEKS R14 R15 K28 ["fflagIsModernRibbon"]
   JUMPIFNOT R14 [+7]
   GETTABLEKS R15 R2 K29 ["Color"]
   GETTABLEKS R14 R15 K30 ["Surface"]

@@ -152,7 +152,7 @@ MAIN:
   MOVE R21 R3
   LOADK R22 K59 ["::UISizeConstraint"]
   DUPTABLE R23 K61 [{"MinSize"}]
-  GETIMPORT R24 K63 [Vector2.new]
+  GETIMPORT R24 K55 [UDim2.fromOffset]
   GETTABLEKS R25 R1 K22 ["widgetHeaderLineHeight"]
   GETTABLEKS R26 R1 K22 ["widgetHeaderLineHeight"]
   CALL R24 2 1

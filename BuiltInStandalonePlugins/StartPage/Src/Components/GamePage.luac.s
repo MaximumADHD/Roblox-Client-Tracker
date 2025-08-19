@@ -533,7 +533,7 @@ PROTO_20:
   LOADNIL R36
   SETTABLEKS R36 R35 K19 ["AlertBanner"]
   GETTABLEKS R37 R0 K52 ["HideTabs"]
-  JUMPIF R37 [+248]
+  JUMPIF R37 [+242]
   GETUPVAL R37 12
   GETTABLEKS R36 R37 K13 ["createElement"]
   LOADK R37 K14 ["Frame"]
@@ -582,16 +582,16 @@ PROTO_20:
   LOADK R44 K60 ["X-RowS X-Right X-Transparent"]
   SETTABLE R44 R42 R43
   DUPTABLE R43 K62 [{"GroupDropdown", "ToggleView", "SortDropdown"}]
-  JUMPIFNOT R29 [+49]
+  JUMPIFNOT R29 [+46]
   GETUPVAL R45 12
   GETTABLEKS R44 R45 K13 ["createElement"]
   GETUPVAL R45 22
-  DUPTABLE R46 K68 [{"LayoutOrder", "PlaceholderText", "Size", "SelectedIndex", "Items", "Variant", "TextTruncate", "OnItemActivated"}]
+  DUPTABLE R46 K67 [{"LayoutOrder", "PlaceholderText", "Size", "SelectedIndex", "Items", "TextTruncate", "OnItemActivated"}]
   MOVE R47 R31
   CALL R47 0 1
   SETTABLEKS R47 R46 K29 ["LayoutOrder"]
   LOADK R49 K0 ["Plugin"]
-  LOADK R50 K69 ["GroupDropdown.Placeholder"]
+  LOADK R50 K68 ["GroupDropdown.Placeholder"]
   NAMECALL R47 R3 K31 ["getText"]
   CALL R47 3 1
   SETTABLEKS R47 R46 K32 ["PlaceholderText"]
@@ -604,28 +604,26 @@ PROTO_20:
   SETTABLEKS R47 R46 K28 ["Size"]
   SETTABLEKS R26 R46 K63 ["SelectedIndex"]
   SETTABLEKS R29 R46 K64 ["Items"]
-  LOADK R47 K70 ["modern"]
-  SETTABLEKS R47 R46 K65 ["Variant"]
   GETUPVAL R48 23
   JUMPIFNOT R48 [+3]
-  GETIMPORT R47 K73 [Enum.TextTruncate.SplitWord]
+  GETIMPORT R47 K71 [Enum.TextTruncate.SplitWord]
   JUMP [+2]
-  GETIMPORT R47 K75 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R47 R46 K66 ["TextTruncate"]
+  GETIMPORT R47 K73 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R47 R46 K65 ["TextTruncate"]
   NEWCLOSURE R47 P12
   CAPTURE VAL R26
   CAPTURE UPVAL U21
   CAPTURE VAL R27
-  SETTABLEKS R47 R46 K67 ["OnItemActivated"]
+  SETTABLEKS R47 R46 K66 ["OnItemActivated"]
   CALL R44 2 1
   JUMP [+1]
   LOADNIL R44
   SETTABLEKS R44 R43 K10 ["GroupDropdown"]
-  GETTABLEKS R45 R0 K76 ["CanSwapBetweenViews"]
+  GETTABLEKS R45 R0 K74 ["CanSwapBetweenViews"]
   JUMPIFNOT R45 [+67]
   GETUPVAL R45 12
   GETTABLEKS R44 R45 K13 ["createElement"]
-  LOADK R45 K77 ["ImageButton"]
+  LOADK R45 K75 ["ImageButton"]
   NEWTABLE R46 8 0
   MOVE R47 R31
   CALL R47 0 1
@@ -638,24 +636,24 @@ PROTO_20:
   CALL R47 4 1
   SETTABLEKS R47 R46 K28 ["Size"]
   GETUPVAL R49 12
-  GETTABLEKS R48 R49 K78 ["Event"]
-  GETTABLEKS R47 R48 K79 ["Activated"]
+  GETTABLEKS R48 R49 K76 ["Event"]
+  GETTABLEKS R47 R48 K77 ["Activated"]
   NEWCLOSURE R48 P13
   CAPTURE VAL R1
   CAPTURE VAL R19
   CAPTURE VAL R20
   SETTABLE R48 R46 R47
   GETUPVAL R49 12
-  GETTABLEKS R48 R49 K78 ["Event"]
-  GETTABLEKS R47 R48 K80 ["MouseEnter"]
+  GETTABLEKS R48 R49 K76 ["Event"]
+  GETTABLEKS R47 R48 K78 ["MouseEnter"]
   SETTABLE R21 R46 R47
   GETUPVAL R49 12
-  GETTABLEKS R48 R49 K78 ["Event"]
-  GETTABLEKS R47 R48 K81 ["MouseLeave"]
+  GETTABLEKS R48 R49 K76 ["Event"]
+  GETTABLEKS R47 R48 K79 ["MouseLeave"]
   SETTABLE R22 R46 R47
   GETUPVAL R48 12
   GETTABLEKS R47 R48 K15 ["Tag"]
-  LOADK R48 K82 ["X-Middle X-Center X-Corner StartPage-PageBackground"]
+  LOADK R48 K80 ["X-Middle X-Center X-Corner StartPage-PageBackground"]
   SETTABLE R48 R46 R47
   NEWTABLE R47 0 1
   GETUPVAL R49 12
@@ -665,9 +663,9 @@ PROTO_20:
   GETUPVAL R52 12
   GETTABLEKS R51 R52 K15 ["Tag"]
   JUMPIFNOT R19 [+2]
-  LOADK R52 K83 ["StartPage-ListIcon"]
+  LOADK R52 K81 ["StartPage-ListIcon"]
   JUMP [+1]
-  LOADK R52 K84 ["StartPage-GridIcon"]
+  LOADK R52 K82 ["StartPage-GridIcon"]
   SETTABLE R52 R50 R51
   CALL R48 2 -1
   SETLIST R47 R48 -1 [1]
@@ -675,16 +673,16 @@ PROTO_20:
   JUMP [+1]
   LOADNIL R44
   SETTABLEKS R44 R43 K61 ["ToggleView"]
-  JUMPIFNOT R28 [+48]
+  JUMPIFNOT R28 [+45]
   GETUPVAL R45 12
   GETTABLEKS R44 R45 K13 ["createElement"]
   GETUPVAL R45 22
-  DUPTABLE R46 K68 [{"LayoutOrder", "PlaceholderText", "Size", "SelectedIndex", "Items", "Variant", "TextTruncate", "OnItemActivated"}]
+  DUPTABLE R46 K67 [{"LayoutOrder", "PlaceholderText", "Size", "SelectedIndex", "Items", "TextTruncate", "OnItemActivated"}]
   MOVE R47 R31
   CALL R47 0 1
   SETTABLEKS R47 R46 K29 ["LayoutOrder"]
   LOADK R49 K0 ["Plugin"]
-  LOADK R50 K85 ["SortDropdown.Placeholder"]
+  LOADK R50 K83 ["SortDropdown.Placeholder"]
   NAMECALL R47 R3 K31 ["getText"]
   CALL R47 3 1
   SETTABLEKS R47 R46 K32 ["PlaceholderText"]
@@ -697,19 +695,17 @@ PROTO_20:
   SETTABLEKS R47 R46 K28 ["Size"]
   SETTABLEKS R24 R46 K63 ["SelectedIndex"]
   SETTABLEKS R28 R46 K64 ["Items"]
-  LOADK R47 K70 ["modern"]
-  SETTABLEKS R47 R46 K65 ["Variant"]
   GETUPVAL R48 23
   JUMPIFNOT R48 [+3]
-  GETIMPORT R47 K73 [Enum.TextTruncate.SplitWord]
+  GETIMPORT R47 K71 [Enum.TextTruncate.SplitWord]
   JUMP [+1]
   LOADNIL R47
-  SETTABLEKS R47 R46 K66 ["TextTruncate"]
+  SETTABLEKS R47 R46 K65 ["TextTruncate"]
   NEWCLOSURE R47 P14
   CAPTURE VAL R24
   CAPTURE UPVAL U21
   CAPTURE VAL R25
-  SETTABLEKS R47 R46 K67 ["OnItemActivated"]
+  SETTABLEKS R47 R46 K66 ["OnItemActivated"]
   CALL R44 2 1
   JUMP [+1]
   LOADNIL R44
@@ -736,36 +732,36 @@ PROTO_20:
   SETTABLEKS R39 R38 K28 ["Size"]
   GETUPVAL R40 12
   GETTABLEKS R39 R40 K15 ["Tag"]
-  LOADK R40 K86 ["X-Transparent"]
+  LOADK R40 K84 ["X-Transparent"]
   SETTABLE R40 R38 R39
-  DUPTABLE R39 K89 [{"Label", "Toggle"}]
+  DUPTABLE R39 K87 [{"Label", "Toggle"}]
   GETUPVAL R41 12
   GETTABLEKS R40 R41 K13 ["createElement"]
-  LOADK R41 K90 ["TextLabel"]
+  LOADK R41 K88 ["TextLabel"]
   NEWTABLE R42 2 0
   JUMPIFEQKS R8 K3 [""] [+7]
   LOADK R45 K0 ["Plugin"]
-  LOADK R46 K91 ["SearchResults"]
+  LOADK R46 K89 ["SearchResults"]
   NAMECALL R43 R3 K31 ["getText"]
   CALL R43 3 1
   JUMP [+5]
   GETTABLEKS R45 R0 K5 ["Tabs"]
   GETTABLE R44 R45 R4
   GETTABLEKS R43 R44 K21 ["Title"]
-  SETTABLEKS R43 R42 K92 ["Text"]
+  SETTABLEKS R43 R42 K90 ["Text"]
   GETUPVAL R44 12
   GETTABLEKS R43 R44 K15 ["Tag"]
-  LOADK R44 K93 ["X-Fit StartPage-TextColor StartPage-TextSizeL StartPage-FontBold X-Transparent"]
+  LOADK R44 K91 ["X-Fit StartPage-TextColor StartPage-TextSizeL StartPage-FontBold X-Transparent"]
   SETTABLE R44 R42 R43
   CALL R40 2 1
-  SETTABLEKS R40 R39 K87 ["Label"]
-  GETTABLEKS R41 R0 K76 ["CanSwapBetweenViews"]
+  SETTABLEKS R40 R39 K85 ["Label"]
+  GETTABLEKS R41 R0 K74 ["CanSwapBetweenViews"]
   JUMPIFNOT R41 [+80]
   GETTABLEKS R41 R0 K52 ["HideTabs"]
   JUMPIFNOT R41 [+77]
   GETUPVAL R41 12
   GETTABLEKS R40 R41 K13 ["createElement"]
-  LOADK R41 K77 ["ImageButton"]
+  LOADK R41 K75 ["ImageButton"]
   NEWTABLE R42 8 0
   GETIMPORT R43 K27 [UDim2.new]
   LOADN R44 0
@@ -774,35 +770,35 @@ PROTO_20:
   LOADN R47 32
   CALL R43 4 1
   SETTABLEKS R43 R42 K28 ["Size"]
-  GETIMPORT R43 K95 [Vector2.new]
+  GETIMPORT R43 K93 [Vector2.new]
   LOADN R44 1
-  LOADK R45 K96 [0.5]
+  LOADK R45 K94 [0.5]
   CALL R43 2 1
-  SETTABLEKS R43 R42 K97 ["AnchorPoint"]
-  GETIMPORT R43 K99 [UDim2.fromScale]
+  SETTABLEKS R43 R42 K95 ["AnchorPoint"]
+  GETIMPORT R43 K97 [UDim2.fromScale]
   LOADN R44 1
-  LOADK R45 K96 [0.5]
+  LOADK R45 K94 [0.5]
   CALL R43 2 1
-  SETTABLEKS R43 R42 K100 ["Position"]
+  SETTABLEKS R43 R42 K98 ["Position"]
   GETUPVAL R45 12
-  GETTABLEKS R44 R45 K78 ["Event"]
-  GETTABLEKS R43 R44 K79 ["Activated"]
+  GETTABLEKS R44 R45 K76 ["Event"]
+  GETTABLEKS R43 R44 K77 ["Activated"]
   NEWCLOSURE R44 P15
   CAPTURE VAL R1
   CAPTURE VAL R19
   CAPTURE VAL R20
   SETTABLE R44 R42 R43
   GETUPVAL R45 12
-  GETTABLEKS R44 R45 K78 ["Event"]
-  GETTABLEKS R43 R44 K80 ["MouseEnter"]
+  GETTABLEKS R44 R45 K76 ["Event"]
+  GETTABLEKS R43 R44 K78 ["MouseEnter"]
   SETTABLE R21 R42 R43
   GETUPVAL R45 12
-  GETTABLEKS R44 R45 K78 ["Event"]
-  GETTABLEKS R43 R44 K81 ["MouseLeave"]
+  GETTABLEKS R44 R45 K76 ["Event"]
+  GETTABLEKS R43 R44 K79 ["MouseLeave"]
   SETTABLE R22 R42 R43
   GETUPVAL R44 12
   GETTABLEKS R43 R44 K15 ["Tag"]
-  LOADK R44 K82 ["X-Middle X-Center X-Corner StartPage-PageBackground"]
+  LOADK R44 K80 ["X-Middle X-Center X-Corner StartPage-PageBackground"]
   SETTABLE R44 R42 R43
   NEWTABLE R43 0 1
   GETUPVAL R45 12
@@ -812,16 +808,16 @@ PROTO_20:
   GETUPVAL R48 12
   GETTABLEKS R47 R48 K15 ["Tag"]
   JUMPIFNOT R19 [+2]
-  LOADK R48 K83 ["StartPage-ListIcon"]
+  LOADK R48 K81 ["StartPage-ListIcon"]
   JUMP [+1]
-  LOADK R48 K84 ["StartPage-GridIcon"]
+  LOADK R48 K82 ["StartPage-GridIcon"]
   SETTABLE R48 R46 R47
   CALL R44 2 -1
   SETLIST R43 R44 -1 [1]
   CALL R40 3 1
   JUMP [+1]
   LOADNIL R40
-  SETTABLEKS R40 R39 K88 ["Toggle"]
+  SETTABLEKS R40 R39 K86 ["Toggle"]
   CALL R36 3 1
   SETTABLEKS R36 R35 K21 ["Title"]
   GETUPVAL R37 12
@@ -844,7 +840,7 @@ PROTO_20:
   SETTABLEKS R39 R38 K28 ["Size"]
   GETUPVAL R40 12
   GETTABLEKS R39 R40 K15 ["Tag"]
-  LOADK R40 K86 ["X-Transparent"]
+  LOADK R40 K84 ["X-Transparent"]
   SETTABLE R40 R38 R39
   NEWTABLE R39 0 1
   GETUPVAL R41 12
@@ -852,7 +848,7 @@ PROTO_20:
   GETTABLEKS R43 R0 K5 ["Tabs"]
   GETTABLE R42 R43 R4
   GETTABLEKS R41 R42 K22 ["PageComponent"]
-  DUPTABLE R42 K108 [{"Size", "Position", "DisplayComponent", "Dropdowns", "NoContentDisplayComponent", "CanDisplayComponentAdjustQuery", "DisplayComponentHasAdjustedQuery", "InitialContentHasLoaded", "CellSize", "CellPadding", "BaseQuery"}]
+  DUPTABLE R42 K106 [{"Size", "Position", "DisplayComponent", "Dropdowns", "NoContentDisplayComponent", "CanDisplayComponentAdjustQuery", "DisplayComponentHasAdjustedQuery", "InitialContentHasLoaded", "CellSize", "CellPadding", "BaseQuery"}]
   GETIMPORT R43 K27 [UDim2.new]
   LOADN R44 1
   LOADN R45 0
@@ -866,12 +862,12 @@ PROTO_20:
   LOADN R46 0
   LOADN R47 240
   CALL R43 4 1
-  SETTABLEKS R43 R42 K100 ["Position"]
+  SETTABLEKS R43 R42 K98 ["Position"]
   JUMPIFNOT R19 [+2]
   GETUPVAL R43 25
   JUMP [+1]
   GETUPVAL R43 26
-  SETTABLEKS R43 R42 K101 ["DisplayComponent"]
+  SETTABLEKS R43 R42 K99 ["DisplayComponent"]
   SETTABLEKS R23 R42 K6 ["Dropdowns"]
   NEWCLOSURE R43 P16
   CAPTURE UPVAL U12
@@ -881,30 +877,30 @@ PROTO_20:
   CAPTURE VAL R3
   CAPTURE VAL R0
   CAPTURE VAL R4
-  SETTABLEKS R43 R42 K102 ["NoContentDisplayComponent"]
+  SETTABLEKS R43 R42 K100 ["NoContentDisplayComponent"]
   NOT R43 R19
   JUMPIFNOT R43 [+4]
   MOVE R43 R23
   JUMPIFNOT R43 [+2]
   GETTABLEKS R43 R23 K8 ["SortDropdown"]
-  SETTABLEKS R43 R42 K103 ["CanDisplayComponentAdjustQuery"]
+  SETTABLEKS R43 R42 K101 ["CanDisplayComponentAdjustQuery"]
   JUMPIF R19 [+3]
   NEWCLOSURE R43 P17
   CAPTURE VAL R7
   JUMP [+1]
   LOADNIL R43
-  SETTABLEKS R43 R42 K104 ["DisplayComponentHasAdjustedQuery"]
-  DUPCLOSURE R43 K109 [PROTO_19]
-  SETTABLEKS R43 R42 K105 ["InitialContentHasLoaded"]
-  GETTABLEKS R43 R0 K106 ["CellSize"]
-  SETTABLEKS R43 R42 K106 ["CellSize"]
+  SETTABLEKS R43 R42 K102 ["DisplayComponentHasAdjustedQuery"]
+  DUPCLOSURE R43 K107 [PROTO_19]
+  SETTABLEKS R43 R42 K103 ["InitialContentHasLoaded"]
+  GETTABLEKS R43 R0 K104 ["CellSize"]
+  SETTABLEKS R43 R42 K104 ["CellSize"]
   GETIMPORT R43 K27 [UDim2.new]
   LOADN R44 0
   LOADN R45 16
   LOADN R46 0
   LOADN R47 16
   CALL R43 4 1
-  SETTABLEKS R43 R42 K107 ["CellPadding"]
+  SETTABLEKS R43 R42 K105 ["CellPadding"]
   SETTABLEKS R30 R42 K37 ["BaseQuery"]
   CALL R40 2 -1
   SETLIST R39 R40 -1 [1]

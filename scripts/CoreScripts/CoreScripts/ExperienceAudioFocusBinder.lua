@@ -9,12 +9,17 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local Constants = CrossExperience.Constants
+
+local FIntPartyVoiceUndeafenDelayMS = SharedFlags.FIntPartyVoiceUndeafenDelayMS
 
 local wasVoiceEverSuspended = false
 local voiceChatState = nil
 local muteWasHandled = false
 local wasInitialFocusRequestHandled = false
+
+local undeafenTimerHandle: thread? = nil
 
 if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	VoiceChatServiceManager:subscribe("OnStateChanged", function(oldState, newState)
@@ -55,6 +60,11 @@ if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 
 			local deafenAll = function()
 				if isConnectedToPublicVoice() then
+					if FIntPartyVoiceUndeafenDelayMS > 0 and undeafenTimerHandle then
+						task.cancel(undeafenTimerHandle)
+						undeafenTimerHandle = nil
+					end
+
 					VoiceChatServiceManager:MuteAll(true, "AudioFocusManagement UGC")
 					if not VoiceChatServiceManager.localMuted then
 						VoiceChatServiceManager:ToggleMic()
@@ -67,6 +77,11 @@ if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	
 			local undeafenAll = function()
 				if isConnectedToPublicVoice() then
+					if FIntPartyVoiceUndeafenDelayMS > 0 and undeafenTimerHandle then
+						task.cancel(undeafenTimerHandle)
+						undeafenTimerHandle = nil
+					end
+
 					VoiceChatServiceManager:MuteAll(false, "AudioFocusManagement UGC")
 					if not VoiceChatServiceManager.localMuted then
 						VoiceChatServiceManager:ToggleMic()
@@ -79,6 +94,10 @@ if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 
 			AudioFocusService.OnDeafenVoiceAudio:Connect(function(serviceContextId)
 				if serviceContextId == contextId then
+					if FIntPartyVoiceUndeafenDelayMS > 0 and undeafenTimerHandle then
+						task.cancel(undeafenTimerHandle)
+						undeafenTimerHandle = nil
+					end
 					log:info("UGC OnDeafenVoiceAudio fired" .. serviceContextId)
 					performVoiceOperationWhenReady(deafenAll)
 				end
@@ -86,8 +105,19 @@ if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	
 			AudioFocusService.OnUndeafenVoiceAudio:Connect(function(serviceContextId)
 				if serviceContextId == contextId then
-					log:info("UGC OnUndeafenVoiceAudio fired" .. serviceContextId)
-					performVoiceOperationWhenReady(undeafenAll)
+					if FIntPartyVoiceUndeafenDelayMS > 0 then
+						if undeafenTimerHandle then
+							task.cancel(undeafenTimerHandle)
+						end
+						undeafenTimerHandle = task.delay(FIntPartyVoiceUndeafenDelayMS / 1000, function()
+							undeafenTimerHandle = nil
+							log:info("UGC OnUndeafenVoiceAudio fired delayed" .. serviceContextId)
+							performVoiceOperationWhenReady(undeafenAll)
+						end)
+					else
+						log:info("UGC OnUndeafenVoiceAudio fired" .. serviceContextId)
+						performVoiceOperationWhenReady(undeafenAll)
+					end
 				end
 			end)
 	

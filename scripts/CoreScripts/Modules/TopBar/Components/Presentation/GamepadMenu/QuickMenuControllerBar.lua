@@ -12,9 +12,6 @@ local Constants = require(RobloxGui.Modules.InGameMenuConstants)
 local ControllerBar = UIBlox.App.Bar.ControllerBar
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-
-local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
-local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
@@ -28,79 +25,52 @@ local localizedHints = {
 }
 
 local function QuickMenuControllerBar(props)
-	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-		local locales = Localization.new(LocalizationService.RobloxLocaleId)
+	local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
-		-- This is the base set of right-side hints, we will add a chat option if the chat menu is visible
-		local rightHints = {
-			{
-				text = locales:Format(localizedHints.respawn),
-				keyCode = Enum.KeyCode.ButtonY,
-			},
-			{
-				text = locales:Format(localizedHints.leave),
-				keyCode = Enum.KeyCode.ButtonX,
-			},
-		}
+	-- This is the base set of right-side hints, we will add a chat option if the chat menu is visible
+	local rightHints = {
+		{
+			text = locales:Format(localizedHints.respawn),
+			keyCode = Enum.KeyCode.ButtonY,
+		},
+		{
+			text = locales:Format(localizedHints.leave),
+			keyCode = Enum.KeyCode.ButtonX,
+		},
+	}
 
-		-- We only want to show the show/hide chat hint if the chat menu is visible
-		if props.chatMenuEnabled then
-			local selectChatVisibility = React.useCallback(function(state: any)
-				return state.chat.visible
-			end)
+	-- We only want to show the show/hide chat hint if the chat menu is visible
+	if props.chatMenuEnabled then
+		local selectChatVisibility = React.useCallback(function(state: any)
+			return state.chat.visible
+		end)
 
-			local isChatVisible = useSelector(selectChatVisibility)
+		local isChatVisible = useSelector(selectChatVisibility)
 
-			local toggleChatHint = if isChatVisible then localizedHints.hideChat else localizedHints.showChat
+		local toggleChatHint = if isChatVisible then localizedHints.hideChat else localizedHints.showChat
 
-			-- Prepend show/hide chat hint to the start of the table
-			table.insert(rightHints, 1, {
-				text = locales:Format(toggleChatHint),
-				keyCode = Enum.KeyCode.ButtonR1,
-			})
-		end
-
-		return React.createElement(Roact.Portal, {
-			target = CoreGui,
-		}, {
-			QuickMenuControllerBar = React.createElement("ScreenGui", {
-				DisplayOrder = Constants.DisplayOrder.ControllerBar,
-			}, {
-				ControllerBar = React.createElement(ControllerBar, {
-					leftHint = {
-						text = locales:Format(localizedHints.back),
-						keyCode = Enum.KeyCode.ButtonB,
-					},
-					rightHints = rightHints,
-				}),
-			}),
-		})
-	else
-		return Roact.createElement(Roact.Portal, {
-			target = CoreGui,
-		}, {
-			QuickMenuControllerBar = Roact.createElement("ScreenGui", {
-				DisplayOrder = Constants.DisplayOrder.ControllerBar,
-			}, {
-				ControllerBar = Roact.createElement(ControllerBar, {
-					leftHint = {
-						text = RobloxTranslator:FormatByKey(localizedHints.back),
-						keyCode = Enum.KeyCode.ButtonB,
-					},
-					rightHints = {
-						{
-							text = RobloxTranslator:FormatByKey(localizedHints.respawn),
-							keyCode = Enum.KeyCode.ButtonY,
-						},
-						{
-							text = RobloxTranslator:FormatByKey(localizedHints.leave),
-							keyCode = Enum.KeyCode.ButtonX,
-						},
-					},
-				}),
-			}),
+		-- Prepend show/hide chat hint to the start of the table
+		table.insert(rightHints, 1, {
+			text = locales:Format(toggleChatHint),
+			keyCode = Enum.KeyCode.ButtonR1,
 		})
 	end
+
+	return React.createElement(Roact.Portal, {
+		target = CoreGui,
+	}, {
+		QuickMenuControllerBar = React.createElement("ScreenGui", {
+			DisplayOrder = Constants.DisplayOrder.ControllerBar,
+		}, {
+			ControllerBar = React.createElement(ControllerBar, {
+				leftHint = {
+					text = locales:Format(localizedHints.back),
+					keyCode = Enum.KeyCode.ButtonB,
+				},
+				rightHints = rightHints,
+			}),
+		}),
+	})
 end
 
 return QuickMenuControllerBar

@@ -18,12 +18,8 @@ local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local properties = require(VirtualCursorFolder.Properties)
 local Interface = require(VirtualCursorFolder.Interface)
 local getFFlagPointAndClickCursor = require(VirtualCursorFolder.getFFlagPointAndClickCursor)
-local getFFlagInputEndedEventChange = require(VirtualCursorFolder.getFFlagInputEndedEventChange)
-local getFFlagInputDeferredLuaFix = require(VirtualCursorFolder.getFFlagInputDeferredLuaFix)
 
 local FFlagPointAndClickCursor = getFFlagPointAndClickCursor()
-local FFlagInputEndedEventChange = getFFlagInputEndedEventChange()
-local FFlagInputDeferredLuaFix = getFFlagInputDeferredLuaFix()
 
 local Input = {}
 
@@ -86,23 +82,13 @@ local function processPreviewEnabled(enabled: boolean)
         gamepadSelectionRect2DChangedConnection:Disconnect()
     end
 
-    if FFlagInputDeferredLuaFix then
-        if previewEnabled and GuiService.SelectedObject then
-            local selectedObject = GuiService.SelectedObject
-            gamepadSelectionRect2DChangedConnection = selectedObject:GetPropertyChangedSignal("SelectionRect2D"):Connect(function()
-                if selectedObject and previewEnabled then
-                    Interface:TweenCursorPosition(getRectCenter(selectedObject.SelectionRect2D))
-                end
-            end)
-        end
-    else
-        if previewEnabled and GuiService.SelectedObject then
-            gamepadSelectionRect2DChangedConnection = GuiService.SelectedObject:GetPropertyChangedSignal("SelectionRect2D"):Connect(function()
-                if previewEnabled then
-                    Interface:TweenCursorPosition(getRectCenter(GuiService.SelectedObject.SelectionRect2D))
-                end
-            end)
-        end
+    if previewEnabled and GuiService.SelectedObject then
+        local selectedObject = GuiService.SelectedObject
+        gamepadSelectionRect2DChangedConnection = selectedObject:GetPropertyChangedSignal("SelectionRect2D"):Connect(function()
+            if selectedObject and previewEnabled then
+                Interface:TweenCursorPosition(getRectCenter(selectedObject.SelectionRect2D))
+            end
+        end)
     end
 
     if enabled then
@@ -152,7 +138,7 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 UserInputService.InputEnded:Connect(function(input)
-    if FFlagInputEndedEventChange and FFlagPointAndClickCursor then
+    if FFlagPointAndClickCursor then
         if cursorEnabled then
             if input.UserInputType == Enum.UserInputType.Gamepad1 then
                 if input.KeyCode == Enum.KeyCode.ButtonA then

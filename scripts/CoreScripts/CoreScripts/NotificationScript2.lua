@@ -36,6 +36,7 @@ local RobloxGui = CoreGui.RobloxGui
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
+local FriendingUtility = require(RobloxGui.Modules.FriendingUtility)
 
 local FFlagClientToastNotificationsEnabled = game:GetEngineFeature("ClientToastNotificationsEnabled")
 local GetFFlagClientToastNotificationsRedirect =
@@ -43,6 +44,7 @@ local GetFFlagClientToastNotificationsRedirect =
 local GetFFlagFriendshipNotifsUseSendr = require(RobloxGui.Modules.Flags.GetFFlagFriendshipNotifsUseSendr)
 local FFlagNotificationsRenameFriendRequestToConnection =
 	game:DefineFastFlag("NotificationsRenameFriendRequestToConnection", false)
+local FFlagHideFriendingNotifsForOSA = game:DefineFastFlag("HideFriendingNotifsForOSA", false)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local FFlagFixOnBadgeAwardedError = game:DefineFastFlag("FixOnBadgeAwardedError", false)
@@ -889,6 +891,12 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 		then translateString(FRIEND_REQUEST_NOTIFICATION_LOCALIZATION_KEYS.ACCEPTED)
 		else "New Friend"
 
+	local requiresOSAFriendingEducation = FFlagHideFriendingNotifsForOSA
+		and UniversalAppPolicy.getAppFeaturePolicies().getRequiresOSAFriendingEducation()
+
+	local friendCount = if FFlagHideFriendingNotifsForOSA then FriendingUtility:GetFriendCountAsync(LocalPlayer.UserId) else nil :: never
+	local hasNoFriends = friendCount == 0 or friendCount == nil
+
 	if fromPlayer == LocalPlayer then
 		if event == Enum.FriendRequestEvent.Accept and (not GetFFlagFriendshipNotifsUseSendr()) then
 			local detailText = RobloxTranslator:FormatByKey(
@@ -909,6 +917,8 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 	elseif toPlayer == LocalPlayer then
 		if event == Enum.FriendRequestEvent.Issue and (not GetFFlagFriendshipNotifsUseSendr()) then
 			if FriendRequestBlacklist[fromPlayer] then
+				return
+			elseif FFlagHideFriendingNotifsForOSA and (requiresOSAFriendingEducation and hasNoFriends) then
 				return
 			end
 			sendFriendNotification(fromPlayer)

@@ -65,41 +65,41 @@ MAIN:
   LOADK R2 K2 ["Assistant"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["AssistantUI"]
-  CALL R1 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Flags"]
-  GETTABLEKS R4 R5 K10 ["FFlagDebugLogAssistantUI"]
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["TelemetryService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["AssistantUI"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R0 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Flags"]
+  GETTABLEKS R4 R5 K14 ["FFlagDebugLogAssistantUI"]
   CALL R3 1 1
-  GETTABLEKS R2 R3 K11 ["Get"]
-  GETIMPORT R3 K13 [game]
-  LOADK R5 K14 ["TelemetryService"]
-  NAMECALL R3 R3 K15 ["GetService"]
-  CALL R3 2 1
-  DUPTABLE R4 K20 [{"EventIngest", "Points", "RobloxTelemetryCounter", "RobloxTelemetryStat"}]
-  LOADK R5 K16 ["EventIngest"]
-  SETTABLEKS R5 R4 K16 ["EventIngest"]
-  LOADK R5 K17 ["Points"]
-  SETTABLEKS R5 R4 K17 ["Points"]
-  LOADK R5 K18 ["RobloxTelemetryCounter"]
-  SETTABLEKS R5 R4 K18 ["RobloxTelemetryCounter"]
-  LOADK R5 K19 ["RobloxTelemetryStat"]
-  SETTABLEKS R5 R4 K19 ["RobloxTelemetryStat"]
-  DUPTABLE R5 K22 [{"Backends"}]
-  SETTABLEKS R4 R5 K21 ["Backends"]
-  DUPCLOSURE R6 K23 [PROTO_0]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  SETTABLEKS R6 R5 K24 ["logStat"]
-  DUPCLOSURE R6 K25 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  SETTABLEKS R6 R5 K26 ["logEvent"]
-  DUPCLOSURE R6 K27 [PROTO_2]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  SETTABLEKS R6 R5 K28 ["logCounter"]
-  RETURN R5 1
+  GETTABLEKS R4 R3 K15 ["Get"]
+  DUPTABLE R5 K20 [{"EventIngest", "Points", "RobloxTelemetryCounter", "RobloxTelemetryStat"}]
+  LOADK R6 K16 ["EventIngest"]
+  SETTABLEKS R6 R5 K16 ["EventIngest"]
+  LOADK R6 K17 ["Points"]
+  SETTABLEKS R6 R5 K17 ["Points"]
+  LOADK R6 K18 ["RobloxTelemetryCounter"]
+  SETTABLEKS R6 R5 K18 ["RobloxTelemetryCounter"]
+  LOADK R6 K19 ["RobloxTelemetryStat"]
+  SETTABLEKS R6 R5 K19 ["RobloxTelemetryStat"]
+  DUPTABLE R6 K22 [{"Backends"}]
+  SETTABLEKS R5 R6 K21 ["Backends"]
+  DUPCLOSURE R7 K23 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K24 ["logStat"]
+  DUPCLOSURE R7 K25 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K26 ["logEvent"]
+  DUPCLOSURE R7 K27 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K28 ["logCounter"]
+  RETURN R6 1

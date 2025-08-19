@@ -54,7 +54,6 @@ local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSe
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
-local FFlagRemovePreferredTextSizePcall = game:DefineFastFlag("RemovePreferredTextSizePcall", false)
 
 local SettingsFlags = require(Settings.Flags)
 local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
@@ -69,14 +68,7 @@ local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: 
 local ChromeFlags = require(Chrome.Flags)
 local FFlagHideShortcutsWhileIemDropdownActive = ChromeFlags.FFlagHideShortcutsWhileIemDropdownActive
 
-local isPreferredTextSizePropValid, _result 
-if FFlagRemovePreferredTextSizePcall then
-	isPreferredTextSizePropValid = game:GetEngineFeature("EnablePreferredTextSizeAccessGuiService")
-else
-	isPreferredTextSizePropValid, _result = pcall(function() -- TODO(UIBLOX-1002): Ideally we'd use an engine feature here instead of a pcall. This will be removed when we have the EnablePreferredTextSizeAccessGuiService engine feature
-		return GuiService.PreferredTextSize
-	end)
-end
+local isPreferredTextSizePropValid = game:GetEngineFeature("EnablePreferredTextSizeAccessGuiService")
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled

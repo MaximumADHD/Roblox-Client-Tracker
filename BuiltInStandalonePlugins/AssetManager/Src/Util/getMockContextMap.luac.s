@@ -2,74 +2,80 @@ PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["new"]
   LOADK R1 K1 ["AssetManager"]
-  CALL R0 1 1
+  LOADNIL R2
+  GETIMPORT R3 K3 [script]
+  LOADK R5 K4 ["Plugin"]
+  NAMECALL R3 R3 K5 ["FindFirstAncestorOfClass"]
+  CALL R3 2 -1
+  CALL R0 -1 1
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K2 ["setPlugin"]
+  GETTABLEKS R1 R2 K6 ["setPlugin"]
   MOVE R2 R0
   CALL R1 1 0
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K3 ["Localization"]
-  GETTABLEKS R1 R2 K4 ["mock"]
+  GETTABLEKS R2 R3 K7 ["Localization"]
+  GETTABLEKS R1 R2 K8 ["mock"]
   GETUPVAL R2 3
   CALL R1 1 1
   GETUPVAL R3 4
-  GETTABLEKS R2 R3 K4 ["mock"]
+  GETTABLEKS R2 R3 K8 ["mock"]
   CALL R2 0 1
   GETUPVAL R4 5
-  GETTABLEKS R3 R4 K4 ["mock"]
+  GETTABLEKS R3 R4 K8 ["mock"]
   MOVE R4 R0
   MOVE R5 R2
   MOVE R6 R1
   CALL R3 3 1
   GETUPVAL R5 6
-  GETTABLEKS R4 R5 K4 ["mock"]
+  GETTABLEKS R4 R5 K8 ["mock"]
   MOVE R5 R0
   CALL R4 1 1
   GETUPVAL R6 7
-  GETTABLEKS R5 R6 K4 ["mock"]
+  GETTABLEKS R5 R6 K8 ["mock"]
   MOVE R6 R3
   MOVE R7 R2
   CALL R5 2 1
   GETUPVAL R7 8
-  GETTABLEKS R6 R7 K4 ["mock"]
+  GETTABLEKS R6 R7 K8 ["mock"]
   MOVE R7 R3
   MOVE R8 R2
   CALL R6 2 1
   GETUPVAL R8 9
-  GETTABLEKS R7 R8 K4 ["mock"]
+  GETTABLEKS R7 R8 K8 ["mock"]
   MOVE R8 R3
   MOVE R9 R6
   MOVE R10 R2
   CALL R7 3 1
   GETUPVAL R9 10
-  GETTABLEKS R8 R9 K4 ["mock"]
+  GETTABLEKS R8 R9 K8 ["mock"]
   MOVE R9 R3
   MOVE R10 R5
   MOVE R11 R7
-  MOVE R12 R2
-  CALL R8 4 1
+  MOVE R12 R4
+  MOVE R13 R2
+  CALL R8 5 1
   GETUPVAL R10 11
-  GETTABLEKS R9 R10 K4 ["mock"]
+  GETTABLEKS R9 R10 K8 ["mock"]
   MOVE R10 R0
   MOVE R11 R4
   MOVE R12 R8
   MOVE R13 R7
   MOVE R14 R6
   CALL R9 5 1
-  DUPTABLE R10 K14 [{"Localization", "Theme", "PluginController", "LayoutController", "InputController", "ExplorerController", "SearchController", "ItemsController", "Networking", "Input"}]
-  SETTABLEKS R1 R10 K3 ["Localization"]
+  DUPTABLE R10 K18 [{"Localization", "Theme", "PluginController", "LayoutController", "InputController", "ExplorerController", "SearchController", "ItemsController", "Networking", "Input"}]
+  SETTABLEKS R1 R10 K7 ["Localization"]
   GETUPVAL R12 12
-  GETTABLEKS R11 R12 K4 ["mock"]
+  GETTABLEKS R11 R12 K8 ["mock"]
   CALL R11 0 1
-  SETTABLEKS R11 R10 K5 ["Theme"]
-  SETTABLEKS R3 R10 K6 ["PluginController"]
-  SETTABLEKS R4 R10 K7 ["LayoutController"]
-  SETTABLEKS R5 R10 K8 ["InputController"]
-  SETTABLEKS R6 R10 K9 ["ExplorerController"]
-  SETTABLEKS R7 R10 K10 ["SearchController"]
-  SETTABLEKS R8 R10 K11 ["ItemsController"]
-  SETTABLEKS R2 R10 K12 ["Networking"]
-  SETTABLEKS R9 R10 K13 ["Input"]
+  SETTABLEKS R11 R10 K9 ["Theme"]
+  SETTABLEKS R3 R10 K10 ["PluginController"]
+  SETTABLEKS R4 R10 K11 ["LayoutController"]
+  SETTABLEKS R5 R10 K12 ["InputController"]
+  SETTABLEKS R6 R10 K13 ["ExplorerController"]
+  SETTABLEKS R7 R10 K14 ["SearchController"]
+  SETTABLEKS R8 R10 K15 ["ItemsController"]
+  SETTABLEKS R2 R10 K16 ["Networking"]
+  SETTABLEKS R9 R10 K17 ["Input"]
   RETURN R10 1
 
 MAIN:

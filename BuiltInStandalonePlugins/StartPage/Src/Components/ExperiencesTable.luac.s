@@ -443,7 +443,7 @@ PROTO_9:
   NEWTABLE R8 1 0
   GETUPVAL R10 7
   GETTABLEKS R9 R10 K14 ["Tag"]
-  LOADK R10 K15 ["X-Transparent StartPage-TablePadding X-Fill"]
+  LOADK R10 K15 ["X-Transparent StartPage-TablePadding X-Fill data-testid=--start-page-ExperiencesTable"]
   SETTABLE R10 R8 R9
   NEWTABLE R9 0 1
   GETUPVAL R11 7

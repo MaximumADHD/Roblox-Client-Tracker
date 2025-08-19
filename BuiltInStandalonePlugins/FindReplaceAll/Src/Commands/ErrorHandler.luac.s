@@ -4,14 +4,6 @@ PROTO_0:
   CALL R1 1 2
   JUMPIFNOT R1 [+1]
   RETURN R2 1
-  GETIMPORT R3 K3 [warn]
-  LOADK R5 K4 ["[FindReplaceAll] Error occurred: "]
-  FASTCALL1 TOSTRING R2 [+3]
-  MOVE R7 R2
-  GETIMPORT R6 K6 [tostring]
-  CALL R6 1 1
-  CONCAT R4 R5 R6
-  CALL R3 1 0
   LOADNIL R3
   RETURN R3 1
 

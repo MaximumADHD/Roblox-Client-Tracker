@@ -5,8 +5,6 @@
 	// Description: Code for determining which chat version to use in game.
 ]]
 
-local FORCE_IS_CONSOLE = false
-
 local CoreGuiService = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
@@ -28,9 +26,6 @@ local VRService = game:GetService("VRService")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
-
-local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
-local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 
 local useModule = nil
 
@@ -63,7 +58,7 @@ do
 
 	function interface:FocusSelectChatBar(onSelectionLost: ()->()?, keybinds: {Enum.KeyCode}?)
 		if (useModule) then
-			if FFlagConsoleChatOnExpControls and (FFlagChromeChatGamepadSupportFix or TenFootInterfaceExpChatExperimentation.getIsEnabled()) then
+			if FFlagConsoleChatOnExpControls then
 				useModule:FocusSelectChatBar(onSelectionLost, keybinds)
 			end
 		end
@@ -193,34 +188,30 @@ local function ConnectSignals(useModule, interface, sigName)
 	end
 end
 
-local isConsole = GuiService:IsTenFootInterface() or FORCE_IS_CONSOLE
+coroutine.wrap(function()
+	useModule = require(RobloxGui.Modules.NewChat)
 
-if TenFootInterfaceExpChatExperimentation.getIsEnabled() or (not isConsole) then
-	coroutine.wrap(function()
-		useModule = require(RobloxGui.Modules.NewChat)
+	ConnectSignals(useModule, interface, "ChatBarFocusChanged")
+	ConnectSignals(useModule, interface, "VisibilityStateChanged")
+	ConnectSignals(useModule, interface, "ChatWindowToggled")
+	ConnectSignals(useModule, interface, "ChatActiveChanged")
+	ConnectSignals(useModule, interface, "BubbleChatOnlySet")
+	ConnectSignals(useModule, interface, "ChatDisabled")
 
-		ConnectSignals(useModule, interface, "ChatBarFocusChanged")
-		ConnectSignals(useModule, interface, "VisibilityStateChanged")
-		ConnectSignals(useModule, interface, "ChatWindowToggled")
-		ConnectSignals(useModule, interface, "ChatActiveChanged")
-		ConnectSignals(useModule, interface, "BubbleChatOnlySet")
-		ConnectSignals(useModule, interface, "ChatDisabled")
+	while Players.LocalPlayer == nil do Players.ChildAdded:wait() end
+	local LocalPlayer = Players.LocalPlayer
 
-		while Players.LocalPlayer == nil do Players.ChildAdded:wait() end
-		local LocalPlayer = Players.LocalPlayer
+	ConnectSignals(useModule, interface, "MessagesChanged")
+	-- Retained for legacy reasons, no longer used by the chat scripts.
+	StarterGui:RegisterGetCore("UseNewLuaChat", function() return true end)
 
-		ConnectSignals(useModule, interface, "MessagesChanged")
-		-- Retained for legacy reasons, no longer used by the chat scripts.
-		StarterGui:RegisterGetCore("UseNewLuaChat", function() return true end)
+	useModule:SetVisible(state.Visible)
+	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Chat))
 
-		useModule:SetVisible(state.Visible)
-		StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Chat))
-
-		StopQueueingSystemMessages = true
-		for i, messageData in pairs(MakeSystemMessageQueue) do
-			pcall(function() StarterGui:SetCore("ChatMakeSystemMessage", messageData) end)
-		end
-	end)()
-end
+	StopQueueingSystemMessages = true
+	for i, messageData in pairs(MakeSystemMessageQueue) do
+		pcall(function() StarterGui:SetCore("ChatMakeSystemMessage", messageData) end)
+	end
+end)()
 
 return interface

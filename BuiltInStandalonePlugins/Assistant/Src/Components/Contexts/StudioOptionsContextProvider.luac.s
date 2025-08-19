@@ -159,37 +159,56 @@ MAIN:
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Hooks"]
-  GETTABLEKS R5 R6 K12 ["useMcpClient"]
+  GETTABLEKS R6 R7 K11 ["Tools"]
+  GETTABLEKS R5 R6 K12 ["ToolTypes"]
   CALL R4 1 1
-  GETTABLEKS R5 R2 K13 ["ToolRegistry"]
-  GETTABLEKS R8 R1 K14 ["Resources"]
-  GETTABLEKS R7 R8 K15 ["Localization"]
-  GETTABLEKS R6 R7 K16 ["Translator"]
-  GETTABLEKS R7 R3 K17 ["createElement"]
-  DUPTABLE R8 K25 [{"execute_luau", "file_search", "generate_material", "grep_search", "insert_from_marketplace", "script_insertion", "swap_asset"}]
-  LOADK R9 K26 ["ExecuteLuau"]
-  SETTABLEKS R9 R8 K18 ["execute_luau"]
-  LOADK R9 K27 ["FileSearch"]
-  SETTABLEKS R9 R8 K19 ["file_search"]
-  LOADK R9 K28 ["GenerateMaterial"]
-  SETTABLEKS R9 R8 K20 ["generate_material"]
-  LOADK R9 K29 ["GrepSearch"]
-  SETTABLEKS R9 R8 K21 ["grep_search"]
-  LOADK R9 K30 ["InsertFromMarketplace"]
-  SETTABLEKS R9 R8 K22 ["insert_from_marketplace"]
-  LOADK R9 K31 ["ScriptInsertion"]
-  SETTABLEKS R9 R8 K23 ["script_insertion"]
-  LOADK R9 K32 ["SwapAsset"]
-  SETTABLEKS R9 R8 K24 ["swap_asset"]
-  DUPCLOSURE R9 K33 [PROTO_2]
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  CAPTURE VAL R5
-  DUPCLOSURE R10 K34 [PROTO_6]
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R9
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Hooks"]
+  GETTABLEKS R6 R7 K14 ["useMcpClient"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K15 ["ToolRegistry"]
+  GETTABLEKS R9 R1 K16 ["Resources"]
+  GETTABLEKS R8 R9 K17 ["Localization"]
+  GETTABLEKS R7 R8 K18 ["Translator"]
+  GETTABLEKS R8 R4 K19 ["ToolNames"]
+  GETTABLEKS R9 R3 K20 ["createElement"]
+  NEWTABLE R10 16 0
+  GETTABLEKS R11 R8 K21 ["ExecuteLuau"]
+  LOADK R12 K21 ["ExecuteLuau"]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R8 K22 ["FileSearch"]
+  LOADK R12 K22 ["FileSearch"]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R8 K23 ["MaterialGen"]
+  LOADK R12 K24 ["GenerateMaterial"]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R8 K25 ["GrepSearch"]
+  LOADK R12 K25 ["GrepSearch"]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R8 K26 ["InsertFromMarketplace"]
+  LOADK R12 K26 ["InsertFromMarketplace"]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R8 K27 ["MultiEdit"]
+  LOADK R12 K27 ["MultiEdit"]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R8 K28 ["ReadFile"]
+  LOADK R12 K28 ["ReadFile"]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R8 K29 ["ScriptInsertion"]
+  LOADK R12 K29 ["ScriptInsertion"]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R8 K30 ["SwapAsset"]
+  LOADK R12 K30 ["SwapAsset"]
+  SETTABLE R12 R10 R11
+  DUPCLOSURE R11 K31 [PROTO_2]
+  CAPTURE VAL R10
   CAPTURE VAL R7
+  CAPTURE VAL R6
+  DUPCLOSURE R12 K32 [PROTO_6]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R11
+  CAPTURE VAL R9
   CAPTURE VAL R1
-  RETURN R10 1
+  RETURN R12 1

@@ -15,6 +15,8 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local ExperimentLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
@@ -38,6 +40,9 @@ local PlayerListMaster = require(Modules.PlayerList.PlayerListManager)
 local isNewInGameMenuEnabled = require(Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(Modules.InGameMenuConstants)
 local ChromeEnabled = require(Modules.Chrome.Enabled)
+
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local TopBarTelemetry = require(TopBar:WaitForChild("Telemetry"))
 local LogGamepadOpenExperienceControlsMenu = TopBarTelemetry.LogGamepadOpenExperienceControlsMenu
@@ -94,8 +99,6 @@ local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagGamepadMenuActionTelemetry = require(TopBar.Flags.FFlagGamepadMenuActionTelemetry)
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 
-local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
-local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local FFlagSaveChatVisibilityUserSettings = game:DefineFastFlag("SaveChatVisibilityUserSettings", false)
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 
@@ -112,7 +115,7 @@ local Toast
 	end)
 
 GamepadMenu.validateProps = t.strictInterface({
-	screenSize = t.Vector2,
+	screenSize = if FFlagTopBarSignalizeScreenSize then nil else t.Vector2,
 
 	chatVersion = t.optional(t.EnumItem),
 	chatEnabled = t.boolean,
@@ -349,6 +352,16 @@ function GamepadMenu:init()
 	self.overlayDismiss = function()
 		self.props.setGamepadMenuOpen(false)
 	end
+
+	if FFlagTopBarSignalizeScreenSize then 
+		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
+
+		self.disposeScreenSize = Signals.createEffect(function(scope) 
+			self:setState({
+				screenSize = getViewportSize(scope)
+			})
+		end)
+	end
 end
 
 function GamepadMenu.openRootMenu()
@@ -380,13 +393,11 @@ function GamepadMenu.toggleChatVisible()
 end
 
 function GamepadMenu.focusChatBar()
-	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-		ChatModule:SetVisible(true)
-		if FFlagSaveChatVisibilityUserSettings then
-			GameSettings.ChatVisible = true
-		end
-		ChatModule:FocusChatBar()
+	ChatModule:SetVisible(true)
+	if FFlagSaveChatVisibilityUserSettings then
+		GameSettings.ChatVisible = true
 	end
+	ChatModule:FocusChatBar()
 end
 
 function GamepadMenu.toggleLeaderboard()
@@ -473,16 +484,14 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 		onActivated = GamepadMenu.openRootMenu,
 	})
 
-	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-		if GamepadMenu.shouldShowChatMenuOption(props.chatVersion, props.chatEnabled) then
-			table.insert(menuActions, {
-				name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Chat else "Chat",
-				icon = nil,
-				iconComponent = ChatIcon,
-				localizationKey = "CoreScripts.TopBar.Chat",
-				onActivated = GamepadMenu.focusChatBar,
-			})
-		end
+	if GamepadMenu.shouldShowChatMenuOption(props.chatVersion, props.chatEnabled) then
+		table.insert(menuActions, {
+			name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Chat else "Chat",
+			icon = nil,
+			iconComponent = ChatIcon,
+			localizationKey = "CoreScripts.TopBar.Chat",
+			onActivated = GamepadMenu.focusChatBar,
+		})
 	end
 
 	if ChromeEnabled() then
@@ -493,18 +502,6 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 			localizationKey = "CoreScripts.TopBar.Title.ExperienceControls",
 			onActivated = GamepadMenu.openUnibarMenu,
 		})
-	end
-
-	if not TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-		if props.chatEnabled and not TenFootInterface:IsEnabled() then
-			table.insert(menuActions, {
-				name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Chat else "Chat",
-				icon = nil,
-				iconComponent = ChatIcon,
-				localizationKey = "CoreScripts.TopBar.Chat",
-				onActivated = GamepadMenu.toggleChatVisible,
-			})
-		end
 	end
 
 	if props.leaderboardEnabled or TenFootInterface:IsEnabled() then
@@ -643,13 +640,14 @@ function GamepadMenu:render()
 		local menuHeight = HEADER_HEIGHT + (#self.state.menuActions * CELL_HEIGHT)
 
 		local maxScale = 1
+		local screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize
 
-		if menuHeight > (self.props.screenSize.Y * MAX_SCREEN_PERCENTAGE) then
-			maxScale = (self.props.screenSize.Y * MAX_SCREEN_PERCENTAGE) / menuHeight
+		if menuHeight > (screenSize.Y * MAX_SCREEN_PERCENTAGE) then
+			maxScale = (screenSize.Y * MAX_SCREEN_PERCENTAGE) / menuHeight
 		end
 
-		if MENU_SIZE_X > (self.props.screenSize.X * MAX_SCREEN_PERCENTAGE) then
-			local scaleX = (self.props.screenSize.X * MAX_SCREEN_PERCENTAGE) / MENU_SIZE_X
+		if MENU_SIZE_X > (screenSize.X * MAX_SCREEN_PERCENTAGE) then
+			local scaleX = (screenSize.X * MAX_SCREEN_PERCENTAGE) / MENU_SIZE_X
 			if scaleX < maxScale then
 				maxScale = scaleX
 			end
@@ -663,14 +661,10 @@ function GamepadMenu:render()
 
 		local visible = self.props.isGamepadMenuOpen
 		local controllerBarComponent
-		if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-			if visible then
-				controllerBarComponent = Roact.createElement(ControllerBar, {
-					chatMenuEnabled = self.shouldShowChatMenuOption(self.props.chatVersion, self.props.chatEnabled),
-				})
-			end
-		else
-			controllerBarComponent = visible and Roact.createElement(ControllerBar) or nil
+		if visible then
+			controllerBarComponent = Roact.createElement(ControllerBar, {
+				chatMenuEnabled = self.shouldShowChatMenuOption(self.props.chatVersion, self.props.chatEnabled),
+			})
 		end
 
 		local children = {
@@ -749,14 +743,12 @@ function GamepadMenu:bindMenuOpenActions()
 	ContextActionService:BindCoreAction(GO_TO_TOP_ACTION_NAME, self.goToTopAction, false, Enum.KeyCode.ButtonL2)
 	ContextActionService:BindCoreAction(GO_TO_BOTTOM_ACTION_NAME, self.goToBottomAction, false, Enum.KeyCode.ButtonR2)
 
-	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-		ContextActionService:BindCoreAction(
-			TOGGLE_CHAT_VISIBILITY,
-			self.toggleChatVisibilityAction,
-			false,
-			Enum.KeyCode.ButtonR1
-		)
-	end
+	ContextActionService:BindCoreAction(
+		TOGGLE_CHAT_VISIBILITY,
+		self.toggleChatVisibilityAction,
+		false,
+		Enum.KeyCode.ButtonR1
+	)
 
 	ContextActionService:BindCoreAction(
 		TOGGLE_GAMEPAD_MENU_ACTION,
@@ -777,10 +769,7 @@ function GamepadMenu:unbindMenuOpenActions()
 	ContextActionService:UnbindCoreAction(MOVE_SLECTION_ACTION_NAME)
 	ContextActionService:UnbindCoreAction(GO_TO_TOP_ACTION_NAME)
 	ContextActionService:UnbindCoreAction(GO_TO_BOTTOM_ACTION_NAME)
-
-	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-		ContextActionService:UnbindCoreAction(TOGGLE_CHAT_VISIBILITY)
-	end
+	ContextActionService:UnbindCoreAction(TOGGLE_CHAT_VISIBILITY)
 end
 
 function GamepadMenu:unbindAllActions()
@@ -826,6 +815,10 @@ end
 
 function GamepadMenu:willUnmount()
 	self:unbindAllActions()
+
+	if FFlagTopBarSignalizeScreenSize then 
+		self.disposeScreenSize()
+	end
 end
 
 function GamepadMenu:logExperienceMenuGamepadExposure()
@@ -839,7 +832,7 @@ local function mapStateToProps(state)
 	local topBarEnabled = state.displayOptions.topbarEnabled
 
 	return {
-		screenSize = state.displayOptions.screenSize,
+		screenSize = if FFlagTopBarSignalizeScreenSize then nil else state.displayOptions.screenSize,
 
 		chatEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Chat] and topBarEnabled and not VRService.VREnabled,
 		leaderboardEnabled = state.coreGuiEnabled[Enum.CoreGuiType.PlayerList] and topBarEnabled,

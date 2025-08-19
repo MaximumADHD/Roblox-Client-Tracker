@@ -66,7 +66,7 @@ PROTO_3:
   CALL R4 2 1
   GETUPVAL R5 2
   CALL R5 0 1
-  JUMPIFNOT R5 [+404]
+  JUMPIFNOT R5 [+396]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K11 ["createElement"]
   GETUPVAL R8 0
@@ -111,15 +111,13 @@ PROTO_3:
   SETTABLEKS R16 R15 K32 ["LayoutOrder"]
   DUPTABLE R16 K41 [{"Image", "SelectTitle", "SplitLabel", "Import3D"}]
   GETUPVAL R18 4
-  JUMPIFNOT R18 [+31]
+  JUMPIFNOT R18 [+27]
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K11 ["createElement"]
   GETUPVAL R20 0
   GETTABLEKS R19 R20 K12 ["UI"]
   GETTABLEKS R18 R19 K37 ["Image"]
-  DUPTABLE R19 K43 [{"AutomaticSize", "LayoutOrder", "Image", "Size"}]
-  GETIMPORT R20 K35 [Enum.AutomaticSize.XY]
-  SETTABLEKS R20 R19 K30 ["AutomaticSize"]
+  DUPTABLE R19 K43 [{"LayoutOrder", "Image", "Size"}]
   NAMECALL R20 R2 K36 ["getNextOrder"]
   CALL R20 1 1
   SETTABLEKS R20 R19 K32 ["LayoutOrder"]
@@ -131,7 +129,7 @@ PROTO_3:
   CALL R20 2 1
   SETTABLEKS R20 R19 K42 ["Size"]
   CALL R17 2 1
-  JUMP [+101]
+  JUMP [+97]
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K11 ["createElement"]
   LOADK R18 K47 ["Frame"]
@@ -185,9 +183,7 @@ PROTO_3:
   GETUPVAL R24 0
   GETTABLEKS R23 R24 K12 ["UI"]
   GETTABLEKS R22 R23 K37 ["Image"]
-  DUPTABLE R23 K66 [{"AutomaticSize", "LayoutOrder", "Image", "ImageColor3", "Size"}]
-  GETIMPORT R24 K35 [Enum.AutomaticSize.XY]
-  SETTABLEKS R24 R23 K30 ["AutomaticSize"]
+  DUPTABLE R23 K66 [{"LayoutOrder", "Image", "ImageColor3", "Size"}]
   NAMECALL R24 R2 K36 ["getNextOrder"]
   CALL R24 1 1
   SETTABLEKS R24 R23 K32 ["LayoutOrder"]
@@ -414,9 +410,7 @@ PROTO_3:
   GETUPVAL R20 0
   GETTABLEKS R19 R20 K12 ["UI"]
   GETTABLEKS R18 R19 K37 ["Image"]
-  DUPTABLE R19 K66 [{"AutomaticSize", "LayoutOrder", "Image", "ImageColor3", "Size"}]
-  GETIMPORT R20 K35 [Enum.AutomaticSize.XY]
-  SETTABLEKS R20 R19 K30 ["AutomaticSize"]
+  DUPTABLE R19 K66 [{"LayoutOrder", "Image", "ImageColor3", "Size"}]
   NAMECALL R20 R2 K36 ["getNextOrder"]
   CALL R20 1 1
   SETTABLEKS R20 R19 K32 ["LayoutOrder"]

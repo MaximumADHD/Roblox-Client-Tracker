@@ -621,7 +621,7 @@ MAIN:
   NAMECALL R7 R7 K17 ["GetService"]
   CALL R7 2 1
   GETIMPORT R8 K15 [game]
-  LOADK R10 K20 ["Collab8766_LogCollabSearchItemClickedEventV2"]
+  LOADK R10 K20 ["Collab8766_LogCollabSearchItemClickedEventV3"]
   NAMECALL R8 R8 K21 ["GetFastFlag"]
   CALL R8 2 1
   GETIMPORT R9 K15 [game]

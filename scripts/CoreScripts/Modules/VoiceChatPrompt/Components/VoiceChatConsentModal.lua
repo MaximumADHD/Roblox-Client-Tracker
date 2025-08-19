@@ -19,6 +19,8 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 
 local VoiceChatFlags = VoiceChat.Flags
 local GetFFlagSupportGamepadNavInVoiceModals = VoiceChatFlags.GetFFlagSupportGamepadNavInVoiceModals
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local getFFlagDisablePVUpsellDataConsent = SharedFlags.GetFFlagDisablePVUpsellDataConsent
 
 -- Constants
 local OVERLAY_WIDTH = 365
@@ -127,8 +129,7 @@ local function VoiceChatConsentModal(props: Props, ref: React.Ref<GuiObject>?)
 					+ bodyTextContainerHeight
 					+ 2 * EXTRA_PADDING_HEIGHT
 					+ BUTTON_CONTAINER_SIZE
-					+ 3 * PADDING
-					+ infoTextContainerHeight
+					+ if not getFFlagDisablePVUpsellDataConsent() then (3 * PADDING + infoTextContainerHeight) else 0
 			),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			SliceCenter = Assets.Images.RoundedRect.SliceCenter,
@@ -194,48 +195,50 @@ local function VoiceChatConsentModal(props: Props, ref: React.Ref<GuiObject>?)
 					lineHeight = 1.2,
 				}),
 			}),
-			InfoTextContainer = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 5,
-				Size = UDim2.new(1, 0, 0, infoTextContainerHeight + PADDING),
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 15),
-				}),
-				Layout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				}),
-				Checkbox = props.showCheckbox and Roact.createElement(Checkbox, {
-					text = "",
-					isSelected = isSelected,
-					isDisabled = false,
-					onActivated = function(selected)
-						setIsSelected(selected)
-					end,
-					layoutOrder = 1,
-				}),
-				TextContainer = Roact.createElement("Frame", {
+			InfoTextContainer = if not getFFlagDisablePVUpsellDataConsent()
+				then Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					LayoutOrder = 2,
-					Size = UDim2.new(if props.showCheckbox then 0.95 else 1, 0, 0, infoTextContainerHeight),
+					LayoutOrder = 5,
+					Size = UDim2.new(1, 0, 0, infoTextContainerHeight + PADDING),
 				}, {
-					Padding = props.showCheckbox and Roact.createElement("UIPadding", {
-						PaddingLeft = UDim.new(0, 10),
+					Padding = Roact.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, 15),
 					}),
-					InfoText = Roact.createElement(UIBlox.App.Text.StyledTextLabel, {
-						fontStyle = props.promptStyle.Font.CaptionHeader,
-						colorStyle = props.promptStyle.Theme.TextDefault,
-						textXAlignment = Enum.TextXAlignment.Left,
-						textYAlignment = Enum.TextYAlignment.Top,
-						size = UDim2.new(1, 0, 1, 0),
-						text = turnOnDisclaimer,
-						lineHeight = 1.15,
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					}),
-				}),
-			}),
+					Checkbox = props.showCheckbox and Roact.createElement(Checkbox, {
+						text = "",
+						isSelected = isSelected,
+						isDisabled = false,
+						onActivated = function(selected)
+							setIsSelected(selected)
+						end,
+						layoutOrder = 1,
+					}),
+					TextContainer = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+						Size = UDim2.new(if props.showCheckbox then 0.95 else 1, 0, 0, infoTextContainerHeight),
+					}, {
+						Padding = props.showCheckbox and Roact.createElement("UIPadding", {
+							PaddingLeft = UDim.new(0, 10),
+						}),
+						InfoText = Roact.createElement(UIBlox.App.Text.StyledTextLabel, {
+							fontStyle = props.promptStyle.Font.CaptionHeader,
+							colorStyle = props.promptStyle.Theme.TextDefault,
+							textXAlignment = Enum.TextXAlignment.Left,
+							textYAlignment = Enum.TextYAlignment.Top,
+							size = UDim2.new(1, 0, 1, 0),
+							text = turnOnDisclaimer,
+							lineHeight = 1.15,
+						}),
+					}),
+				})
+				else nil,
 			SpaceContainer = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 6,

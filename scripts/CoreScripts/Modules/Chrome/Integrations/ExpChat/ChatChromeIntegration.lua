@@ -26,7 +26,6 @@ local SignalsRoblox = require(CorePackages.Packages.SignalsRoblox)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
-local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
@@ -44,13 +43,6 @@ local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUniba
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
-
-local SocialExperiments
-local TenFootInterfaceExpChatExperimentation
-if FFlagConsoleChatOnExpControls then
-	SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
-	TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
-end
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -129,10 +121,7 @@ local dismissCallback = function()
 
 	ChatSelector:SetVisible(true)
 
-	if
-		FFlagConsoleChatOnExpControls
-		and (FFlagChromeChatGamepadSupportFix or TenFootInterfaceExpChatExperimentation.getIsEnabled())
-	then
+	if FFlagConsoleChatOnExpControls then
 		FocusSelectExpChat(chatChromeIntegration.id)
 	end
 end
@@ -339,10 +328,7 @@ if FFlagConsoleChatOnExpControls then
 
 		local chatIsAvailable = chatChromeIntegration.availability:get() ~= AvailabilitySignalState.Unavailable
 
-		if
-			FFlagChromeChatGamepadSupportFix and not TenFootInterfaceExpChatExperimentation.getIsEnabled()
-			or TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService and chatIsAvailable
-		then
+		if TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService and chatIsAvailable then
 			if FFlagExpChatUnibarAvailabilityRefactor then
 				ChatIconVisibleSignals.setForceDisableForConsoleUsecase(true)
 			else

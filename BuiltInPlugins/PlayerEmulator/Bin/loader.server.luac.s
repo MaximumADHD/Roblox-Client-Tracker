@@ -70,36 +70,41 @@ MAIN:
   SETTABLEKS R9 R8 K26 ["localizationNamespace"]
   DUPCLOSURE R9 K34 [PROTO_0]
   SETTABLEKS R9 R8 K27 ["getToolbarName"]
-  DUPTABLE R9 K40 [{"getName", "getDescription", "icon", "text", "enabled"}]
-  DUPCLOSURE R10 K41 [PROTO_1]
+  DUPTABLE R9 K41 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden", "enabled"}]
+  DUPCLOSURE R10 K42 [PROTO_1]
   SETTABLEKS R10 R9 K35 ["getName"]
-  DUPCLOSURE R10 K42 [PROTO_2]
+  DUPCLOSURE R10 K43 [PROTO_2]
   SETTABLEKS R10 R9 K36 ["getDescription"]
-  LOADK R10 K43 ["rbxlocaltheme://Player"]
+  LOADK R10 K44 ["rbxlocaltheme://Player"]
   SETTABLEKS R10 R9 K37 ["icon"]
   LOADNIL R10
   SETTABLEKS R10 R9 K38 ["text"]
-  NAMECALL R10 R2 K44 ["IsEdit"]
+  GETIMPORT R10 K10 [game]
+  LOADK R12 K45 ["PlayerEmulatorButtonAlwaysClickable"]
+  NAMECALL R10 R10 K46 ["GetFastFlag"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K39 ["clickableWhenViewportHidden"]
+  NAMECALL R10 R2 K47 ["IsEdit"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K39 ["enabled"]
+  SETTABLEKS R10 R9 K40 ["enabled"]
   SETTABLEKS R9 R8 K28 ["buttonInfo"]
   LOADNIL R9
   SETTABLEKS R9 R8 K29 ["dockWidgetInfo"]
-  DUPCLOSURE R9 K45 [PROTO_3]
+  DUPCLOSURE R9 K48 [PROTO_3]
   CAPTURE VAL R3
   SETTABLEKS R9 R8 K30 ["shouldImmediatelyOpen"]
-  GETTABLEKS R9 R5 K46 ["build"]
+  GETTABLEKS R9 R5 K49 ["build"]
   MOVE R10 R8
   CALL R9 1 1
-  GETTABLEKS R10 R9 K47 ["pluginLoader"]
-  NAMECALL R10 R10 K48 ["waitForUserInteraction"]
+  GETTABLEKS R10 R9 K50 ["pluginLoader"]
+  NAMECALL R10 R10 K51 ["waitForUserInteraction"]
   CALL R10 1 1
   JUMPIF R10 [+1]
   RETURN R0 0
   GETIMPORT R11 K4 [require]
   GETIMPORT R14 K1 [script]
   GETTABLEKS R13 R14 K2 ["Parent"]
-  GETTABLEKS R12 R13 K49 ["main"]
+  GETTABLEKS R12 R13 K52 ["main"]
   CALL R11 1 1
   MOVE R12 R11
   GETIMPORT R13 K32 [plugin]

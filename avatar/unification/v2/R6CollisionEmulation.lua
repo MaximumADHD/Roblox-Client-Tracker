@@ -11,7 +11,7 @@ local CollisionDefaults = {
 	["Left Arm"] = false,
 	["Right Arm"] = false,
 	["Torso"] = true,
-	["Head"] = true,
+	["CollisionHead"] = true,
 	["HumanoidRootPart"] = false,
 }
 
@@ -28,7 +28,7 @@ local DeadCollision = {
 	["Left Arm"] = true,
 	["Right Arm"] = true,
 	["Torso"] = true,
-	["Head"] = true,
+	["CollisionHead"] = true,
 	["HumanoidRootPart"] = true,
 }
 
@@ -59,7 +59,7 @@ local LegacyParts = {
 	["Left Arm"] = true,
 	["Right Arm"] = true,
 	["Torso"] = true,
-	["Head"] = true,
+	["CollisionHead"] = true,
 	["HumanoidRootPart"] = true,
 }
 

@@ -26,11 +26,17 @@ local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusRoot = FocusNavigationUtils.FocusRoot
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
+local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
+local useRegistryEntry = FocusNavigationUtils.FocusNavigableSurfaceRegistry.useRegistryEntry
 
 -- Flags
 local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
 local FFlagHelpPageTouch = HelpPage.Flags.FFlagHelpPageTouch
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
+local FFlagHelpPageShowVersion = game:DefineFastFlag("HelpPageShowVersion", false)
 
 local Integrations = nil
 local Constants = nil
@@ -43,6 +49,16 @@ end
 
 local tree: ReactRoblox.RootType? = nil
 local getDisplayed, setDisplayed = Signals.createSignal(false)
+
+local function HelpFocusRoot(props)
+    local centralOverlay = useRegistryEntry(FocusNavigableSurfaceIdentifierEnum.CentralOverlay)
+    local shouldAutoFocus = centralOverlay == nil
+
+    return React.createElement(FocusRoot, {
+        surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.Auxiliary,
+        isAutoFocusRoot = shouldAutoFocus,
+    }, props.children)
+end
 
 local function createHelpPage()
     local HelpPage = SettingsPageFactory:CreateNewPage()
@@ -73,14 +89,18 @@ local function createHelpPage()
         local HelpConditionalView = function()
             local displayed = SignalsReact.useSignalState(getDisplayed)
 
-            local Help = if displayed then React.createElement(FoundationProvider, {
-                theme = Foundation.Enums.Theme.Dark,
-                device = Utils.getDeviceType(),
-            }, {
-                Child = React.createElement(LocalizationProvider, {
-                    localization = locales,
+            local Help = if displayed then React.createElement(CoreScriptsRootProvider, {}, {
+                FoundationProvider = React.createElement(FoundationProvider, {
+                    theme = Foundation.Enums.Theme.Dark,
+                    device = Utils.getDeviceType(),
                 }, {
-                    Child = React.createElement(HelpReactView)
+                    Child = React.createElement(LocalizationProvider, {
+                        localization = locales,
+                    }, {
+                        FocusRoot = React.createElement(HelpFocusRoot, {}, {
+                            Child = React.createElement(HelpReactView)
+                        })
+                    })
                 })
             }) else nil
 
@@ -96,15 +116,27 @@ local function createHelpPage()
     HelpPage.Displayed.Event:Connect(function()
         createReactTree()
         setDisplayed(true)
+
+        if FFlagHelpPageShowVersion then
+            if HelpPage.HubRef.VersionContainer then
+                HelpPage.HubRef.VersionContainer.Visible = true
+            end
+        end
     end)
 
     HelpPage.Hidden.Event:Connect(function()
         setDisplayed(false)
+        
+        if FFlagHelpPageShowVersion then
+            if HelpPage.HubRef.VersionContainer then
+                HelpPage.HubRef.VersionContainer.Visible = false
+            end
+        end
     end)
 
     if FFlagHelpPageTouch then
         HelpPage.Page.Size = UDim2.fromScale(1, 0)
-        HelpPage.Page.AutomaticSize = Enum.AutomaticSize.Y
+        HelpPage.Page.AutomaticSize = Enum.AutomaticSize.Y    
     end
 
     return HelpPage

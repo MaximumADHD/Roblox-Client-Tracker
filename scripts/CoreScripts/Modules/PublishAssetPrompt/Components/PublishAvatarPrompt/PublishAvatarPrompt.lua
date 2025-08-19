@@ -2,13 +2,11 @@
 	The prompt UI opened for Avatar body part outfit publishing.
 ]]
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local AvatarPartGrid = require(script.Parent.AvatarParts.AvatarPartGrid)
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -20,7 +18,7 @@ local BasePublishPrompt = require(Components.BasePublishPrompt)
 local ObjectViewport = require(Components.Common.ObjectViewport)
 local LabeledTextBox = require(Components.Common.LabeledTextBox)
 local PublishInfoList = require(Components.Common.PublishInfoList)
-local PurchasePrompt = require(RobloxGui.Modules.PurchasePrompt)
+local PurchasePrompt = require(CorePackages.Workspace.Packages.PurchasePrompt)
 local Analytics = PurchasePrompt.PublishAssetAnalytics
 
 local Actions = script.Parent.Parent.Parent.Actions

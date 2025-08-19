@@ -1,0 +1,27 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 1 0
+  DUPTABLE R1 K10 [{"ExecuteLuau", "FileSearch", "GrepSearch", "InsertFromMarketplace", "MaterialGen", "MeshGen", "SwapAsset", "ScriptInsertion", "MultiEdit", "ReadFile"}]
+  LOADK R2 K11 ["execute_luau"]
+  SETTABLEKS R2 R1 K0 ["ExecuteLuau"]
+  LOADK R2 K12 ["file_search"]
+  SETTABLEKS R2 R1 K1 ["FileSearch"]
+  LOADK R2 K13 ["grep_search"]
+  SETTABLEKS R2 R1 K2 ["GrepSearch"]
+  LOADK R2 K14 ["insert_from_marketplace"]
+  SETTABLEKS R2 R1 K3 ["InsertFromMarketplace"]
+  LOADK R2 K15 ["generate_material"]
+  SETTABLEKS R2 R1 K4 ["MaterialGen"]
+  LOADK R2 K16 ["generate_mesh"]
+  SETTABLEKS R2 R1 K5 ["MeshGen"]
+  LOADK R2 K17 ["swap_asset"]
+  SETTABLEKS R2 R1 K6 ["SwapAsset"]
+  LOADK R2 K18 ["script_insertion"]
+  SETTABLEKS R2 R1 K7 ["ScriptInsertion"]
+  LOADK R2 K19 ["multi_edit"]
+  SETTABLEKS R2 R1 K8 ["MultiEdit"]
+  LOADK R2 K20 ["read_file"]
+  SETTABLEKS R2 R1 K9 ["ReadFile"]
+  SETTABLEKS R1 R0 K21 ["ToolNames"]
+  GETTABLEKS R1 R0 K21 ["ToolNames"]
+  RETURN R0 1

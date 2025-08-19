@@ -66,7 +66,7 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K17 ["Collab8766_LogCollabSearchItemClickedEventV2"]
+  LOADK R2 K17 ["Collab8766_LogCollabSearchItemClickedEventV3"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
@@ -87,6 +87,26 @@ MAIN:
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
   LOADK R2 K21 ["COLLAB8937FixPrintNumToString"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K22 ["Collab9031_ManageCollaboratorsEarlyFoundationMigration"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K23 ["Collab8864_ShowCopyLinkButton"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K24 ["Collab8953_EnableLikelyCollaboratorPrefetch"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K25 ["Collab8953_EnableLikelyCollaboratorPrefetchExperiment"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

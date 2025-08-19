@@ -20,7 +20,6 @@ local TopBarConstants = require(TopBar.Constants)
 
 local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
-local GetFFlagChromeSupportSocialService = require(Chrome.Flags.GetFFlagChromeSupportSocialService)
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
 local GetFFlagChromeTrackWindowPosition = require(Chrome.Flags.GetFFlagChromeTrackWindowPosition)
 local GetFFlagChromeTrackWindowStatus = require(Chrome.Flags.GetFFlagChromeTrackWindowStatus)
@@ -168,7 +167,7 @@ end
 
 StarterGui.CoreGuiChangedSignal:Connect(updateAvailability)
 
-if GetFFlagChromeSupportSocialService() and game:GetEngineFeature("EnableSelfViewToggleApi") then
+if game:GetEngineFeature("EnableSelfViewToggleApi") then
 	if selfViewVisibleConnection then
 		selfViewVisibleConnection:Disconnect()
 		selfViewVisibleConnection = nil

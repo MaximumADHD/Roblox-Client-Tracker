@@ -1,7 +1,7 @@
 PROTO_0:
-  DUPTABLE R0 K2 [{"groupId", "name"}]
+  DUPTABLE R0 K2 [{"id", "name"}]
   LOADK R1 K3 [13370420]
-  SETTABLEKS R1 R0 K0 ["groupId"]
+  SETTABLEKS R1 R0 K0 ["id"]
   LOADK R1 K4 ["RobloxLovers"]
   SETTABLEKS R1 R0 K1 ["name"]
   RETURN R0 1
@@ -24,11 +24,11 @@ PROTO_1:
   LOADK R2 K7 ["Group.fromJsonData expects name to be a string"]
   RETURN R1 2
   LOADB R1 1
-  DUPTABLE R2 K9 [{"name", "groupId"}]
+  DUPTABLE R2 K8 [{"name", "id"}]
   GETTABLEKS R3 R0 K5 ["name"]
   SETTABLEKS R3 R2 K5 ["name"]
   GETTABLEKS R3 R0 K0 ["id"]
-  SETTABLEKS R3 R2 K8 ["groupId"]
+  SETTABLEKS R3 R2 K0 ["id"]
   RETURN R1 2
 
 MAIN:
