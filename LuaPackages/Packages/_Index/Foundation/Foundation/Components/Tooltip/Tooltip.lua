@@ -23,7 +23,7 @@ type PopoverSide = PopoverSide.PopoverSide
 local Popover = require(Foundation.Components.Popover)
 type PopoverAnchorProps = Popover.PopoverAnchorProps
 
-type TooltipProps = {
+export type TooltipProps = {
 	title: string,
 	text: string?,
 	-- Shortcut associated with the action owning the tooltip

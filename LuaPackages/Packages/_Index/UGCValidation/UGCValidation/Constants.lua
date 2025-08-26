@@ -16,6 +16,8 @@ local getFFlagUGCValidateEmoteAnimationExtendedTests =
 local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
 local getFFlagUGCValidateAnimationRequiredFieldsFix = require(root.flags.getFFlagUGCValidateAnimationRequiredFieldsFix)
 local getFFlagUGCValidationFixBannedNamesTypo = require(root.flags.getFFlagUGCValidationFixBannedNamesTypo)
+local getFFlagUGCValidateRestrictAnimationMovementCurvesFix =
+	require(root.flags.getFFlagUGCValidateRestrictAnimationMovementCurvesFix)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -97,6 +99,21 @@ else
 		"RightLowerArm",
 		"RightHand",
 	}
+end
+
+if getFFlagUGCValidateRestrictAnimationMovementCurvesFix() then
+	Constants.NAMED_R15_BODY_PARTS = {}
+	for _, bodyPartName in Constants.R15_BODY_PARTS do
+		Constants.NAMED_R15_BODY_PARTS[bodyPartName] = bodyPartName
+	end
+	Constants.NAMED_R15_BODY_PARTS.Head = "Head"
+
+	setmetatable(Constants.NAMED_R15_BODY_PARTS, {
+		__index = function()
+			error("NAMED_R15_BODY_PARTS key does not exist")
+			return nil
+		end,
+	})
 end
 
 Constants.R15_STANDARD_JOINT_NAMES = {

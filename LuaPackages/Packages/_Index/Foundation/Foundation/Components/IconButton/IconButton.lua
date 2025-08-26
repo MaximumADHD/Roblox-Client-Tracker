@@ -49,7 +49,7 @@ local Text = require(Foundation.Components.Text)
 local Image = require(Foundation.Components.Image)
 local Types = require(Foundation.Components.Types)
 
-type IconButtonProps = {
+export type IconButtonProps = {
 	onActivated: () -> (),
 	isDisabled: boolean?,
 	isCircular: boolean?,

@@ -147,7 +147,7 @@ return {
 	controls = {
 		side = Dash.values(PopoverSide),
 		align = Dash.values(PopoverAlign),
-		radius = { Radius.Small :: Radius.Radius, Radius.Medium },
+		radius = { Radius.Small, Radius.Medium, Radius.Circle } :: { Radius.Radius },
 		backgroundStyle = backgroundStyleOrderedKeys,
 	},
 }

@@ -18,7 +18,7 @@ type InputLabelSize = InputLabelSize.InputLabelSize
 
 local REQUIRED_INDICATOR = "*"
 
-type InputLabelProps = {
+export type InputLabelProps = {
 	-- Optional text style override
 	textStyle: Types.ColorStyle?,
 	-- Whether the input is required or not. Leave nil for the majority case

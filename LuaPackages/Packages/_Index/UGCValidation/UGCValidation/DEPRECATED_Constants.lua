@@ -18,6 +18,8 @@ local getFFlagUGCValidateRestrictAttachmentPositions =
 local getFFlagUGCValidateEmoteAnimationExtendedTests =
 	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
 local getFFlagUGCValidateAnimationRequiredFieldsFix = require(root.flags.getFFlagUGCValidateAnimationRequiredFieldsFix)
+local getFFlagUGCValidateRestrictAnimationMovementCurvesFix =
+	require(root.flags.getFFlagUGCValidateRestrictAnimationMovementCurvesFix)
 
 local FIntUGCValidateTriangleLimitDynamicHead = game:DefineFastInt("UGCValidateTriangleLimitDynamicHead", 4000)
 local FIntUGCValidateTriangleLimitLeftArm = game:DefineFastInt("UGCValidateTriangleLimitLeftArm", 1248)
@@ -87,6 +89,21 @@ Constants.R15_BODY_PARTS = {
 	"RightHand",
 }
 
+if getFFlagUGCValidateRestrictAnimationMovementCurvesFix() then
+	Constants.NAMED_R15_BODY_PARTS = {}
+	for _, bodyPartName in Constants.R15_BODY_PARTS do
+		Constants.NAMED_R15_BODY_PARTS[bodyPartName] = bodyPartName
+	end
+	Constants.NAMED_R15_BODY_PARTS.Head = "Head"
+
+	setmetatable(Constants.NAMED_R15_BODY_PARTS, {
+		__index = function()
+			error("NAMED_R15_BODY_PARTS key does not exist")
+			return nil
+		end,
+	})
+end
+
 Constants.UGC_BODY_PARTS = {
 	"Head",
 	"UpperTorso",
@@ -107,6 +124,31 @@ Constants.UGC_BODY_PARTS = {
 	"EyelashAccessory",
 	"HairAccessory",
 }
+
+Constants.NAMED_BODY_PARTS = {
+	Head = "Head",
+	UpperTorso = "UpperTorso",
+	LowerTorso = "LowerTorso",
+	LeftUpperLeg = "LeftUpperLeg",
+	LeftLowerLeg = "LeftLowerLeg",
+	LeftHand = "LeftHand",
+	RightUpperArm = "RightUpperArm",
+	RightLowerArm = "RightLowerArm",
+	RightHand = "RightHand",
+	LeftUpperArm = "LeftUpperArm",
+	LeftLowerArm = "LeftLowerArm",
+	LeftFoot = "LeftFoot",
+	RightUpperLeg = "RightUpperLeg",
+	RightLowerLeg = "RightLowerLeg",
+	RightFoot = "RightFoot",
+}
+
+setmetatable(Constants.NAMED_BODY_PARTS, {
+	__index = function()
+		error("NAMED_BODY_PARTS key does not exist")
+		return nil
+	end,
+})
 
 Constants.UGC_BODY_PART_NAMES_TO_ASSET_TYPE = {
 	Head = Enum.AssetType.DynamicHead,

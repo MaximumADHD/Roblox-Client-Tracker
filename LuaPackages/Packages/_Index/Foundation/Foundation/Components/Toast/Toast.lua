@@ -30,7 +30,7 @@ export type ToastButtonProps = {
 	text: string,
 }
 
-type ToastProps = {
+export type ToastProps = {
 	title: string?,
 	text: string?,
 	icon: string?,
@@ -109,7 +109,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 				LayoutOrder = 2,
 				tag = {
 					["auto-y fill self-center"] = true,
-					["col gap-xxsmall"] = hasTitle or hasBody,
+					["col gap-xxsmall"] = (hasTitle or hasBody) :: boolean,
 				},
 			}, {
 				Header = if hasTitle
@@ -133,7 +133,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 						LayoutOrder = 3,
 						tag = {
 							["auto-y row gap-small size-full-0"] = true,
-							["padding-top-small"] = hasTitle or hasBody,
+							["padding-top-small"] = (hasTitle or hasBody) :: boolean,
 						},
 					}, toastButtons)
 					else nil,

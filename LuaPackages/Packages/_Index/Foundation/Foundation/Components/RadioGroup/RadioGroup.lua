@@ -10,7 +10,7 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 
 local RadioGroupContext = require(script.Parent.RadioGroupContext)
 
-type RadioGroupProps = {
+export type RadioGroupProps = {
 	-- The value of the currently checked radio item.
 	-- If `nil`, the radio group will be considered uncontrolled.
 	value: string?,

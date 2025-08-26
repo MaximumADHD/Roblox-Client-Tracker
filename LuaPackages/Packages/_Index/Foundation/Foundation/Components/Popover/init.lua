@@ -1,9 +1,13 @@
-local Anchor = require(script.Anchor)
+local Popover = require(script.Popover)
+local PopoverAnchor = require(script.Anchor)
+local PopoverContent = require(script.Content)
 
-export type PopoverAnchorProps = Anchor.PopoverAnchorProps
+export type PopoverProps = Popover.PopoverProps
+export type PopoverAnchorProps = PopoverAnchor.PopoverAnchorProps
+export type PopoverContentProps = PopoverContent.PopoverContentProps
 
 return {
-	Root = require(script.Popover),
-	Anchor = Anchor,
-	Content = require(script.Content),
+	Root = Popover,
+	Anchor = PopoverAnchor,
+	Content = PopoverContent,
 }

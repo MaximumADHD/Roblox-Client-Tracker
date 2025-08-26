@@ -26,7 +26,7 @@ local open, setOpen = React.useState(false)
 
 return React.createElement(Popover.Root, {
     isOpen = open,
-} {
+}, {
     Anchor = React.createElement(Popover.Anchor, nil, {
         React.createElement(Button, {
             text = "Toggle Popover",

@@ -1,5 +1,7 @@
-local Dropdown = {
-	Root = require(script.Dropdown),
-}
+local DropdownRoot = require(script.Dropdown)
 
-return Dropdown
+export type DropdownProps = DropdownRoot.DropdownProps
+
+return {
+	Root = DropdownRoot,
+}

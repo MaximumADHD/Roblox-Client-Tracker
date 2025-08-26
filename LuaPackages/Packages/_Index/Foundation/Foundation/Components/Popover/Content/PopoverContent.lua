@@ -29,7 +29,7 @@ type Radius = Radius.Radius
 type SideConfig = useFloating.SideConfig
 type AlignConfig = useFloating.AlignConfig
 
-type PopoverContentProps = {
+export type PopoverContentProps = {
 	-- The side the popover should be anchored to.
 	side: SideConfig?,
 	-- The alignment of the popover relative to the anchor.
@@ -40,7 +40,7 @@ type PopoverContentProps = {
 	onPressedOutside: () -> ()?,
 	selection: Selection?,
 	backgroundStyle: Types.ColorStyle?,
-	radius: ("Small" | "Medium")?,
+	radius: (typeof(Radius.Small) | typeof(Radius.Medium) | typeof(Radius.Circle))?,
 	children: React.ReactNode,
 }
 
@@ -57,6 +57,7 @@ local defaultProps = {
 local radiusToTag: { [Radius]: string } = {
 	[Radius.Small] = "radius-small",
 	[Radius.Medium] = "radius-medium",
+	[Radius.Circle] = "radius-circle",
 }
 
 local SHADOW_IMAGE = "component_assets/dropshadow_17_8"

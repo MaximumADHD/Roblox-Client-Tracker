@@ -28,7 +28,7 @@ local SPRING_PARAMETERS = {
 	frequency = 4,
 }
 
-type Props = {
+export type ToggleProps = {
 	-- Whether the toggle is currently checked (i.e. on). If it is left `nil`,
 	-- the toggle will be considered uncontrolled.
 	isChecked: boolean?,
@@ -48,7 +48,7 @@ local defaultProps = {
 	Selectable = true,
 }
 
-local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
+local function Toggle(toggleProps: ToggleProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(toggleProps, defaultProps)
 	local tokens = useTokens()
 	local variantProps = useToggleVariants(tokens, props.size)

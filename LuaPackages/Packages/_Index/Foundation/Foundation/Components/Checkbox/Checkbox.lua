@@ -21,7 +21,7 @@ local useCheckboxVariants = require(script.Parent.useCheckboxVariants)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-type Props = {
+export type CheckboxProps = {
 	-- Whether the checkbox is currently checked. If it is left `nil`,
 	-- the checkbox will be considered uncontrolled.
 	isChecked: boolean?,
@@ -41,7 +41,7 @@ local defaultProps = {
 	Selectable = true,
 }
 
-local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
+local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(checkboxProps, defaultProps)
 	local tokens = useTokens()
 	local variantProps = useCheckboxVariants(tokens, props.size)

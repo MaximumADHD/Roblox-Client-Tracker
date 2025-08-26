@@ -8,6 +8,7 @@ local Types = require(StyleSheetRoot.Rules.Types)
 local scaleValue = require(Foundation.Utility.scaleValue)
 local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
+local Flags = require(Foundation.Utility.Flags)
 
 type Theme = Theme.Theme
 type Device = Device.Device
@@ -24,6 +25,10 @@ local function insertRule(ruleNodes: { React.ReactNode }, rule: StyleRuleNoTag, 
 	local modifier = if rule.modifier ~= nil then ":" .. rule.modifier else ""
 	local pseudo = if rule.pseudo ~= nil then " ::" .. rule.pseudo else ""
 	local selector = tagSelector .. modifier .. pseudo
+
+	if Flags.FoundationPseudoChildSelectors and rule.pseudo ~= nil then
+		selector = selector .. ", " .. tagSelector .. modifier .. " > " .. rule.pseudo
+	end
 
 	table.insert(
 		ruleNodes,

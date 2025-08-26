@@ -13,7 +13,7 @@ local useRotation = require(Foundation.Utility.useRotation)
 local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
-type Props = {
+export type LoadingProps = {
 	size: IconSize?,
 } & Types.CommonProps
 
@@ -21,7 +21,7 @@ local defaultProps = {
 	size = IconSize.Large,
 }
 
-local function Loading(loadingProps: Props, ref: React.Ref<GuiObject>?)
+local function Loading(loadingProps: LoadingProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(loadingProps, defaultProps)
 	local rotation = useRotation()
 	local tokens = useTokens()

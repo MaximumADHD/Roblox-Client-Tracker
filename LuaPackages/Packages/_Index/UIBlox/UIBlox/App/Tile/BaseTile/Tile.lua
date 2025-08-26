@@ -4,7 +4,6 @@ local TileRoot = BaseTile.Parent
 local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -341,7 +340,6 @@ function Tile:render()
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
 					Selectable = self.props.Selectable,
-					onStateChanged = if UIBloxConfig.refactorInteractable then nil else function() end,
 					[React.Event.Activated] = if isDisabled then nil else onActivated,
 					[React.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 					ref = self.props.textButtonRef,

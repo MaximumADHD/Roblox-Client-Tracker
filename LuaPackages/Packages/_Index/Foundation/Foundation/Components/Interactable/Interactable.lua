@@ -30,6 +30,7 @@ export type InteractableProps = {
 	component: (React.ReactElement | string)?,
 	isDisabled: boolean?,
 	onActivated: () -> ()?,
+	onSecondaryActivated: () -> ()?,
 	onStateChanged: StateChangedCallback?,
 	stateLayer: Types.StateLayer?,
 
@@ -143,6 +144,8 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 		Active = not props.isDisabled,
 		Interactable = not props.isDisabled,
 		[React.Event.Activated] = if not props.isDisabled then props.onActivated else nil,
+		-- TODO: Replace with SecondaryActivated when available
+		[React.Event.MouseButton2Click] = if not props.isDisabled then props.onSecondaryActivated else nil,
 		ref = wrappedRef,
 		SelectionImageObject = props.SelectionImageObject or cursor,
 	})
@@ -151,6 +154,7 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 	mergedProps.component = nil
 	mergedProps.isDisabled = nil
 	mergedProps.onActivated = nil
+	mergedProps.onSecondaryActivated = nil
 	mergedProps.onStateChanged = nil
 	mergedProps.stateLayer = nil
 	mergedProps.cursor = nil

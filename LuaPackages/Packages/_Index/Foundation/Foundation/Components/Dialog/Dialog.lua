@@ -24,7 +24,7 @@ local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 type DialogSize = DialogSize.DialogSize
 type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 
-type DialogProps = {
+export type DialogProps = {
 	onClose: ((reason: OnCloseCallbackReason?) -> ())?,
 	size: DialogSize?,
 	disablePortal: boolean?,

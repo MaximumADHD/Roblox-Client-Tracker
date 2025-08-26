@@ -12,6 +12,7 @@ local View = require(Foundation.Components.View)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useDefaultTags = require(Foundation.Utility.useDefaultTags)
 local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
+local separateLayoutTags = require(script.Parent.separateLayoutTags)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 
@@ -56,25 +57,30 @@ local defaultProps = {
 	isDisabled = false,
 }
 
--- TODO: Remove when FoundationFixScrollViewBackgroundForStylingV2 is removed
+-- TODO: Remove when FoundationFixScrollViewTags is removed
 local defaultTags = "gui-object-defaults"
 
 local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiObject>?)
+	-- Separate layout tags from other tags
+	local layoutTags, nonLayoutTags
+	if Flags.FoundationFixScrollViewTags then
+		layoutTags, nonLayoutTags = separateLayoutTags(scrollViewProps.tag)
+	end
+
 	local defaultPropsWithStyles = if not Flags.FoundationDisableStylingPolyfill
-			and not Flags.FoundationFixScrollViewBackgroundForStylingV2
+			and not Flags.FoundationFixScrollViewTags
 		then useStyledDefaults("View", scrollViewProps.tag, defaultTags, defaultProps)
 		else nil
 	local props = withDefaults(
 		scrollViewProps,
 		(
-				if not Flags.FoundationDisableStylingPolyfill
-						and not Flags.FoundationFixScrollViewBackgroundForStylingV2
+				if not Flags.FoundationDisableStylingPolyfill and not Flags.FoundationFixScrollViewTags
 					then defaultPropsWithStyles
 					else defaultProps
 			) :: typeof(defaultProps)
 	)
 
-	-- TODO: Remove when FoundationFixScrollViewBackgroundForStylingV2 is removed
+	-- TODO: Remove when FoundationFixScrollViewTags is removed
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)
 	local tag = useStyleTags(tagsWithDefaults)
 	-- end of code for removal
@@ -98,8 +104,8 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 		},
 
 		ref = ref,
-		[React.Tag] = if Flags.FoundationFixScrollViewBackgroundForStylingV2 then nil else tag,
-		tag = if Flags.FoundationFixScrollViewBackgroundForStylingV2 then props.tag else nil,
+		[React.Tag] = if Flags.FoundationFixScrollViewTags then nil else tag,
+		tag = if Flags.FoundationFixScrollViewTags then nonLayoutTags else nil,
 	})
 
 	viewProps.scroll = nil
@@ -123,6 +129,7 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 				VerticalScrollBarInset = props.scroll.VerticalScrollBarInset,
 				HorizontalScrollBarInset = props.scroll.HorizontalScrollBarInset,
 				ref = props.scrollingFrameRef,
+				tag = if Flags.FoundationFixScrollViewTags then layoutTags else nil,
 			},
 			if props.children
 					and props.layout ~= nil

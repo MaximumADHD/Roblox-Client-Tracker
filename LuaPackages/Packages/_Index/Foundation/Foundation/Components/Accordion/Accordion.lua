@@ -16,7 +16,7 @@ type InputSize = InputSize.InputSize
 type ItemId = Types.ItemId
 type onAccordionItemActivated = useAccordionControlled.onAccordionItemActivated
 
-type AccordionProps = {
+export type AccordionProps = {
 	-- width of the Accordion and it's items
 	width: UDim?,
 	-- activation function for children AccordionItems based on their id

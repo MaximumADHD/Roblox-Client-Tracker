@@ -18,7 +18,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-type Props = {
+export type KnobProps = {
 	-- The size variant of the knob
 	size: InputSize?,
 	style: Types.ColorStyle?,
@@ -31,7 +31,7 @@ local defaultProps = {
 	hasShadow = true,
 }
 
-local function Knob(knobProps: Props)
+local function Knob(knobProps: KnobProps)
 	local props = withDefaults(knobProps, defaultProps)
 	local tokens = useTokens()
 	local variantProps = useKnobVariants(tokens, props.size)

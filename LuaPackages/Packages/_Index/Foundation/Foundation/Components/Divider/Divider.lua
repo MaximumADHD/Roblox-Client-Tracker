@@ -15,7 +15,7 @@ local useDividerVariants = require(script.Parent.useDividerVariants)
 type DividerVariant = DividerVariant.DividerVariant
 type DividerOrientation = DividerOrientation.DividerOrientation
 
-type DividerProps = {
+export type DividerProps = {
 	variant: DividerVariant?,
 	orientation: DividerOrientation?,
 } & Types.CommonProps

@@ -1,1 +1,5 @@
-return require(script.Divider)
+local Divider = require(script.Divider)
+
+export type DividerProps = Divider.DividerProps
+
+return Divider

@@ -25,7 +25,7 @@ type StatusIndicatorNumeric = {
 	[any]: nil,
 } & Types.CommonProps
 
-type StatusIndicatorProps = StatusIndicatorEmpty | StatusIndicatorNumeric
+export type StatusIndicatorProps = StatusIndicatorEmpty | StatusIndicatorNumeric
 
 local defaultProps = {
 	variant = StatusIndicatorVariant.Standard,

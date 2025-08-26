@@ -90,7 +90,7 @@ local function getTransparency(
 	end)
 end
 
-type ButtonProps = {
+export type ButtonProps = {
 	text: string?,
 	icon: string?,
 	onActivated: () -> (),

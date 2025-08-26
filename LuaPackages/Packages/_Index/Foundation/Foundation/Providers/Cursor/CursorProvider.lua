@@ -8,6 +8,7 @@ local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local ReactUtils = require(Packages.ReactUtils)
 local useRefCache = ReactUtils.useRefCache
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 
 local CursorContext = require(script.Parent.CursorContext)
 local CursorComponent = require(script.Parent.CursorComponent)
@@ -88,7 +89,9 @@ local function CursorProvider(props: Props)
 			return
 		end
 
-		local isDescendantOfCoreGui = frameRef.current:IsDescendantOf(CoreGui)
+		local isDescendantOfCoreGui = if Flags.FoundationCheckCoreGuiAccessCursorProvider
+			then isPluginSecurity() and frameRef.current:IsDescendantOf(CoreGui)
+			else frameRef.current:IsDescendantOf(CoreGui)
 
 		local function setUpSelectionImageObjectConnection()
 			-- Listen to different signals depending on whether it's under CoreGui or PlayerGui.

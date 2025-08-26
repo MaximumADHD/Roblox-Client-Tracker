@@ -26,7 +26,7 @@ type Bindable<T> = Types.Bindable<T>
 
 local FontScales = require(script.Parent.FontScales)
 
-type TextProps = {
+export type TextProps = {
 	textStyle: ColorStyle?,
 	fontStyle: FontStyle?,
 
@@ -61,7 +61,7 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 			) :: typeof(defaultProps)
 	)
 
-	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil
+	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil or props.onSecondaryActivated ~= nil
 
 	local defaultTags = if props.backgroundStyle ~= nil then DEFAULT_TAGS_WITH_BG else DEFAULT_TAGS
 
@@ -147,6 +147,7 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 		then Cryo.Dictionary.union(engineComponentProps, {
 			component = engineComponent,
 			onActivated = props.onActivated,
+			onSecondaryActivated = props.onSecondaryActivated,
 			onStateChanged = props.onStateChanged,
 			stateLayer = props.stateLayer,
 			isDisabled = props.isDisabled,

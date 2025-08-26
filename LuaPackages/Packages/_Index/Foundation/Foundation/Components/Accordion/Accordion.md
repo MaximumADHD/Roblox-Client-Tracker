@@ -17,7 +17,7 @@ local Foundation = require(Packages.Foundation)
 local BuilderIcons = require(Packages.BuilderIcons)
 
 local Accordion = Foundation.Accordion
-local AccordionItem = Foundation.AccordionItem
+local AccordionItem = Foundation.Accordion.Item
 local InputSize = Foundation.Enums.InputSize
 type InputSize = InputSize.InputSize
 type IconVariant = BuilderIcons.IconVariant
@@ -56,17 +56,16 @@ return React.createElement(Accordion, {
 If you want to allow only one `AccordionItem` to expand at a time, or have some similarly custom behavior, you can use state in the container, and pass `onActivated` to your `Accordion`.
 
 ```lua
-local expandedItems, setExpandedItems = React.useState(1)
+local expandedItem, setExpandedItem = React.useState(1)
 
 return React.createElement(Accordion, {
     width = UDim.new(0, 400),
-    expandedItems = expandedItems,
     onActivated = function(item, isExpanded)
         return function()
             if isExpanded then
                 setExpandedItem(-1)
             else
-                setExpandedItems(item) -- if activated item is collapsed, expand only this item
+                setExpandedItem(item) -- if activated item is collapsed, expand only this item
             end
         end
     end,
@@ -93,10 +92,9 @@ return React.createElement(Accordion, {
 The same behavior can be achieved by passing `onActivated` to each individual `AccordionItem`, if you prefer:
 
 ```lua
-local expandedItems, setExpandedItems = React.useState(1)
+local expandedItem, setExpandedItem = React.useState(1)
 return React.createElement(Accordion, {
     width = UDim.new(0, 400),
-    expandedItems = expandedItems,
 }, {
     AccordionItem1 = React.createElement(AccordionItem, {
         text = "Controlled Item 1",
@@ -127,7 +125,7 @@ return React.createElement(Accordion, {
         id = 2,
     }, {
         accordionItemContent = React.createElement("TextButton", {}),
-    },
+    }),
 })
 ```
 

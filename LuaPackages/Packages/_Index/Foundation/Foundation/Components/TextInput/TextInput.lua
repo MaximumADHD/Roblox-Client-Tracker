@@ -26,7 +26,7 @@ type ControlState = ControlState.ControlState
 
 type TextInputRef = Types.TextInputRef
 
-type TextInputProps = {
+export type TextInputProps = {
 	-- Input text value
 	text: string,
 	-- Type of text input. Only available for use in descendants of `CoreGui`.
@@ -82,6 +82,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			label = props.label,
 			size = getInputTextSize(props.size),
 			isRequired = props.isRequired,
+			hasError = props.hasError,
 			hint = props.hint,
 			textBoxRef = props.textBoxRef,
 			input = function(inputRef)

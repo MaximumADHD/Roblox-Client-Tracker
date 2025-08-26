@@ -79,6 +79,16 @@ local function applyRules(
 	attributesCache: AttributesCache,
 	scale: number?
 )
+	if not rules then
+		if Flags.FoundationShowErrorAboutFoundationProvider then
+			error("applyRules: rules is nil - make sure FoundationProvider is used to wrap your component")
+			return
+		else
+			warn("applyRules: rules is nil - make sure FoundationProvider is used to wrap your component")
+			return
+		end
+	end
+
 	if tags then
 		for str in string.gmatch(tags, "%S+") do
 			if rules[str] then

@@ -5,7 +5,7 @@ local React = require(Packages.React)
 
 local PopoverContext = require(script.Parent.PopoverContext)
 
-type PopoverProps = {
+export type PopoverProps = {
 	-- Whether the popover is open
 	isOpen: boolean,
 	children: React.ReactNode,

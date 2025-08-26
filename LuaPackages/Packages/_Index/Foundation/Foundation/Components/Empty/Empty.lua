@@ -16,7 +16,7 @@ local Translator = require(Foundation.Utility.Localization.Translator)
 local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
-type EmptyProps = {
+export type EmptyProps = {
 	icon: {
 		name: string?,
 		size: IconSize?,

@@ -57,7 +57,7 @@ local function View(viewProps: ViewProps, ref: React.Ref<GuiObject>?)
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)
 	local tag = useStyleTags(tagsWithDefaults)
 
-	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil
+	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil or props.onSecondaryActivated ~= nil
 
 	local usesCanvasGroup = React.useMemo(function()
 		if props.GroupTransparency ~= nil then
@@ -98,6 +98,7 @@ local function View(viewProps: ViewProps, ref: React.Ref<GuiObject>?)
 		then Cryo.Dictionary.union(engineComponentProps, {
 			component = engineComponent,
 			onActivated = props.onActivated,
+			onSecondaryActivated = props.onSecondaryActivated,
 			onStateChanged = props.onStateChanged,
 			stateLayer = props.stateLayer,
 			isDisabled = props.isDisabled,

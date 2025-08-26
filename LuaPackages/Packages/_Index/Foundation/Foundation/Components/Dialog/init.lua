@@ -1,10 +1,22 @@
-local Dialog = {
-	Root = require(script.Dialog),
-	Actions = require(script.Actions),
-	Content = require(script.Content),
-	Text = require(script.Text),
-	HeroMedia = require(script.HeroMedia),
-	Title = require(script.Title),
-}
+local DialogRoot = require(script.Dialog)
+local DialogActions = require(script.Actions)
+local DialogContent = require(script.Content)
+local DialogText = require(script.Text)
+local DialogHeroMedia = require(script.HeroMedia)
+local DialogTitle = require(script.Title)
 
-return Dialog
+export type DialogProps = DialogRoot.DialogProps
+export type DialogActionsProps = DialogActions.DialogActionsProps
+export type DialogContentProps = DialogContent.DialogContentProps
+export type DialogTextProps = DialogText.DialogTextProps
+export type DialogHeroMediaProps = DialogHeroMedia.DialogHeroMediaProps
+export type DialogTitleProps = DialogTitle.DialogTitleProps
+
+return {
+	Root = DialogRoot,
+	Actions = DialogActions,
+	Content = DialogContent,
+	Text = DialogText,
+	HeroMedia = DialogHeroMedia,
+	Title = DialogTitle,
+}

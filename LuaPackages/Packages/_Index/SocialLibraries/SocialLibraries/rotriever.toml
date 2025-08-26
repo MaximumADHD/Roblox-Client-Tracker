@@ -1,6 +1,6 @@
 [package]
 name = "SocialLibraries"
-version = "4.0.3"
+version = "4.1.0"
 readme = "README.md"
 content_root = "src"
 files = [

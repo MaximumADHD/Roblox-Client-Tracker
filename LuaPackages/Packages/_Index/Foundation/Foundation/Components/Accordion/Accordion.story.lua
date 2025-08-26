@@ -6,7 +6,7 @@ local BuilderIcons = require(Packages.BuilderIcons)
 
 local Types = require(Foundation.Components.Types)
 local Accordion = require(Foundation.Components.Accordion).Root
-local AccordionItem = require(script.Parent.AccordionItem)
+local AccordionItem = require(script.Parent.Item)
 local Text = require(Foundation.Components.Text)
 
 local InputSize = require(Foundation.Enums.InputSize)

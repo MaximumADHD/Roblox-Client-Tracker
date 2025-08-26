@@ -136,6 +136,7 @@ export type GuiObjectProps = {
 
 	stateLayer: StateLayer?, -- Can this be bindable?
 	onActivated: ((self: GuiObject, inputObject: InputObject, clickCount: number) -> ())?,
+	onSecondaryActivated: ((self: GuiObject, inputObject: InputObject) -> ())?,
 	onStateChanged: StateChangedCallback?,
 	isDisabled: boolean?, -- This can't be a bindable due to handling state updates
 

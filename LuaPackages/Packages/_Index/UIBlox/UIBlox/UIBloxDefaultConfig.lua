@@ -18,9 +18,6 @@ return {
 	-- Use SurfaceGuiWithAdornee for Panel3D
 	refactorPanel3D = false,
 
-	-- use new refactored interactable
-	refactorInteractable = false,
-
 	-- Support ControlState.Selected in the hover controller for TooltipV2
 	supportControlStateSelectedForTooltipHover = false,
 
@@ -86,9 +83,6 @@ return {
 
 	-- Uses engine rich text support for GetTextBoundsAsync
 	useEngineRichTextBounds = false,
-
-	-- Uses the Foundation Interactable component instead
-	useFoundationInteractable = false,
 
 	-- Adds BuilderIcon migration to createImageSetComponent,
 	migrateBuilderIcon = false,

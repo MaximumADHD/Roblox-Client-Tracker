@@ -35,6 +35,9 @@ local function DialogActions(props: DialogActionsProps)
 	local variants = useDialogVariants()
 
 	local actions = React.useMemo(function()
+		if not props.actions then
+			return nil :: React.ReactNode
+		end
 		return React.createElement(
 			React.Fragment,
 			nil,

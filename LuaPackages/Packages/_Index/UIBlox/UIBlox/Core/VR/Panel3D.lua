@@ -39,6 +39,7 @@ local defaultProps: Props = {
 	curvature = 1, -- On by default to obtain anti-aliasing, disable with 0
 	zOffset = 0,
 	connectPanelManagerFunction = nil,
+	partRef = nil,
 }
 
 local function Panel3D(providedProps: Props)
@@ -92,7 +93,7 @@ local function Panel3D(providedProps: Props)
 			},
 		}, props.children)
 	else
-		local basePart: Constants.Ref<Part?> = React.useRef(nil)
+		local basePart: Constants.Ref<Part?> = props.partRef or React.useRef(nil)
 		local surfaceGui: Constants.Ref<SurfaceGui?> = React.useRef(nil)
 		local folder: Constants.Ref<Folder?> = React.useRef(nil)
 

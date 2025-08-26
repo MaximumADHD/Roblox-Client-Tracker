@@ -19,7 +19,7 @@ type InputSize = InputSize.InputSize
 
 local useRadioGroupValues = require(script.Parent.Parent.useRadioGroupValues)
 
-type Props = {
+export type RadioGroupItemProps = {
 	-- A unique value for the radio item.
 	value: string,
 	-- Whether the radio item is disabled. When `true`, the `setValue` method
@@ -37,7 +37,7 @@ local defaultProps = {
 	isDisabled = false,
 }
 
-local function RadioGroupItem(radioGroupItemProps: Props, ref: React.Ref<GuiObject>?)
+local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(radioGroupItemProps, defaultProps)
 	local isDisabled = props.isDisabled
 	local value, setValue, selectable = useRadioGroupValues()

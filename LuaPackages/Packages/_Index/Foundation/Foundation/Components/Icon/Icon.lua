@@ -27,7 +27,7 @@ local Types = require(Foundation.Components.Types)
 type Bindable<T> = Types.Bindable<T>
 type ColorStyle = Types.ColorStyle
 
-type IconProps = {
+export type IconProps = {
 	name: string,
 	style: ColorStyle?,
 	size: IconSize | Bindable<number>?,

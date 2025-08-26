@@ -20,6 +20,12 @@ local function Story()
 		BackgroundTransparency = tokens.Color.Extended.Green.Green_500.Transparency,
 		BackgroundColor3 = tokens.Color.Extended.Green.Green_500.Color3,
 		onStateChanged = onStateChanged,
+		onActivated = function()
+			print("activated")
+		end,
+		onSecondaryActivated = function()
+			print("secondary activated")
+		end,
 	}, {
 		React.createElement(Text, {
 			Text = state:map(function(controlState)

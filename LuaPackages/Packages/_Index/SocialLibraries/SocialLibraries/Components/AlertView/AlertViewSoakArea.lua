@@ -2,6 +2,8 @@ local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
 local Roact = dependencies.Roact
 
+local FFlagSocialLibrariesSelectableAlertViewShim = game:DefineFastFlag("SocialLibrariesSelectableAlertViewShim", false)
+
 local AlertViewSoakArea = Roact.PureComponent:extend("AlertViewSoakArea")
 AlertViewSoakArea.defaultProps = {
 	Visible = true,
@@ -16,6 +18,7 @@ function AlertViewSoakArea:render()
 		BackgroundColor3 = self.props.BackgroundColor3,
 		Active = true,
 		AutoButtonColor = false,
+		Selectable = if FFlagSocialLibrariesSelectableAlertViewShim then false else nil,
 		Visible = self.props.Visible,
 	}, self.props[Roact.Children])
 end

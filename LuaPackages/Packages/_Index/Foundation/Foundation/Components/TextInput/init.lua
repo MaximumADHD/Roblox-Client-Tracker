@@ -1,1 +1,5 @@
-return require(script.TextInput)
+local TextInput = require(script.TextInput)
+
+export type TextInputProps = TextInput.TextInputProps
+
+return TextInput

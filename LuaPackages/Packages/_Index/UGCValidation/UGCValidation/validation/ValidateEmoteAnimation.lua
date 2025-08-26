@@ -24,7 +24,6 @@ local ValidateCurveAnimation = require(validation.ValidateCurveAnimation)
 
 local flags = root.flags
 local getFFlagUGCValidateEmoteAnimationExtendedTests = require(flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
-local getFFlagUGCValidateAccurateCurveFrames = require(flags.getFFlagUGCValidateAccurateCurveFrames)
 
 local ValidateEmoteAnimation = {}
 
@@ -82,16 +81,6 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 			end
 		end
 
-		-- if we're validating accurate curve frames, then we need to exit early if we don't own the animation else
-		-- the call to ValidateCurveAnimation.validate() will hang forever as it's calling ContentProvider:PreloadAsync()
-		if getFFlagUGCValidateAccurateCurveFrames() then
-			local success, reasons =
-				validateModeration(instance, validationContext.restrictedUserIds, validationContext)
-			if not success then
-				return false, reasons
-			end
-		end
-
 		local anim = nil
 		do
 			local successfullyExecuted, animOpt = pcallDeferred(function()
@@ -112,15 +101,12 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 		local reasonsAccumulator = FailureReasonsAccumulator.new()
 		reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
 		reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
+		reasonsAccumulator:updateReasons(ValidateCurveAnimation.validate(anim, validationContext))
+
 		reasonsAccumulator:updateReasons(
-			ValidateCurveAnimation.validate(anim, (instance :: Animation).AnimationId, validationContext)
+			validateModeration(instance, validationContext.restrictedUserIds, validationContext)
 		)
 
-		if not getFFlagUGCValidateAccurateCurveFrames() then
-			reasonsAccumulator:updateReasons(
-				validateModeration(instance, validationContext.restrictedUserIds, validationContext)
-			)
-		end
 		return reasonsAccumulator:getFinalResults()
 	else
 		local reasonsAccumulator = FailureReasonsAccumulator.new()

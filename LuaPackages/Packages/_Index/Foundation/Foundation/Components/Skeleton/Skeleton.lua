@@ -24,7 +24,7 @@ local TRANSPARENCY_DELTA = 0.1
 local GRADIENT_OFFSET = 3
 local ANIMATION_SPEED = 2
 
-type Props = {
+export type SkeletonProps = {
 	radius: Radius?,
 	Size: Bindable<UDim2>?,
 } & Types.CommonProps
@@ -34,7 +34,7 @@ local defaultProps = {
 	Size = UDim2.fromScale(1, 1),
 }
 
-local function Skeleton(skeletonProps: Props, ref: React.Ref<GuiObject>?)
+local function Skeleton(skeletonProps: SkeletonProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(skeletonProps, defaultProps)
 	local clockBinding = useClock()
 	local tokens = useTokens()

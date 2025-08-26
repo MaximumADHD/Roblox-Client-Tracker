@@ -54,8 +54,10 @@ local function getTokens(device: Device, theme: Theme, scaleFactor: number?)
 	return filteredTokens
 end
 
-export type Tokens = typeof(getTokens(Device.Desktop, Theme.Dark))
+local defaultTokens = getTokens(Device.Desktop, Theme.Dark)
+export type Tokens = typeof(defaultTokens)
 
 return {
 	getTokens = getTokens,
+	defaultTokens = defaultTokens,
 }

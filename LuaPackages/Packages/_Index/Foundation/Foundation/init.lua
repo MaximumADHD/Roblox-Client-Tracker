@@ -90,48 +90,152 @@ export type Visibility = Visibility.Visibility
 -- enums end
 
 -- Components and their types
-local Menu = require(script.Components.Menu)
+local Accordion = require(script.Components.Accordion)
+export type AccordionProps = Accordion.AccordionProps
+export type AccordionItemProps = Accordion.AccordionItemProps
 
+local Avatar = require(script.Components.Avatar)
+export type AvatarProps = Avatar.AvatarProps
+
+local AvatarGroup = require(script.Components.AvatarGroup)
+export type AvatarGroupProps = AvatarGroup.AvatarGroupProps
+
+local Badge = require(script.Components.Badge)
+export type BadgeProps = Badge.BadgeProps
+
+local Button = require(script.Components.Button)
+export type ButtonProps = Button.ButtonProps
+
+local Checkbox = require(script.Components.Checkbox)
+export type CheckboxProps = Checkbox.CheckboxProps
+
+local Chip = require(script.Components.Chip)
+export type ChipProps = Chip.ChipProps
+
+local Dialog = require(script.Components.Dialog)
+export type DialogProps = Dialog.DialogProps
+export type DialogActionsProps = Dialog.DialogActionsProps
+export type DialogContentProps = Dialog.DialogContentProps
+export type DialogTextProps = Dialog.DialogTextProps
+export type DialogHeroMediaProps = Dialog.DialogHeroMediaProps
+export type DialogTitleProps = Dialog.DialogTitleProps
+
+local Divider = require(script.Components.Divider)
+export type DividerProps = Divider.DividerProps
+
+local Dropdown = require(script.Components.Dropdown)
+export type DropdownProps = Dropdown.DropdownProps
+
+local Empty = require(script.Components.Empty)
+export type EmptyProps = Empty.EmptyProps
+
+local Icon = require(script.Components.Icon)
+export type IconProps = Icon.IconProps
+
+local IconButton = require(script.Components.IconButton)
+export type IconButtonProps = IconButton.IconButtonProps
+
+local Image = require(script.Components.Image)
+export type ImageProps = Image.ImageProps
+
+local InputLabel = require(script.Components.InputLabel)
+export type InputLabelProps = InputLabel.InputLabelProps
+
+local KeyLabel = require(script.Components.KeyLabel)
+export type KeyLabelProps = KeyLabel.KeyLabelProps
+
+local Knob = require(script.Components.Knob)
+export type KnobProps = Knob.KnobProps
+
+local Loading = require(script.Components.Loading)
+export type LoadingProps = Loading.LoadingProps
+
+local Menu = require(script.Components.Menu)
 export type MenuProps = Menu.MenuProps
 export type MenuItem = Menu.MenuItem
--- Ccomponents end
+
+local NumberInput = require(script.Components.NumberInput)
+export type NumberInputProps = NumberInput.NumberInputProps
+
+local Popover = require(script.Components.Popover)
+export type PopoverProps = Popover.PopoverProps
+export type PopoverAnchorProps = Popover.PopoverAnchorProps
+export type PopoverContentProps = Popover.PopoverContentProps
+
+local RadioGroup = require(script.Components.RadioGroup)
+export type RadioGroupProps = RadioGroup.RadioGroupProps
+export type RadioGroupItemProps = RadioGroup.RadioGroupItemProps
+
+local ScrollView = require(script.Components.ScrollView)
+export type ScrollViewProps = ScrollView.ScrollViewProps
+
+local SegmentedControl = require(script.Components.SegmentedControl)
+export type SegmentedControlProps = SegmentedControl.SegmentedControlProps
+
+local Skeleton = require(script.Components.Skeleton)
+export type SkeletonProps = Skeleton.SkeletonProps
+
+local Slider = require(script.Components.Slider)
+export type SliderProps = Slider.SliderProps
+
+local StatusIndicator = require(script.Components.StatusIndicator)
+export type StatusIndicatorProps = StatusIndicator.StatusIndicatorProps
+
+local Text = require(script.Components.Text)
+export type TextProps = Text.TextProps
+
+local TextInput = require(script.Components.TextInput)
+export type TextInputProps = TextInput.TextInputProps
+
+local Toggle = require(script.Components.Toggle)
+export type ToggleProps = Toggle.ToggleProps
+
+local Tooltip = require(script.Components.Tooltip)
+export type TooltipProps = Tooltip.TooltipProps
+
+local Toast = require(script.Components.Toast)
+export type ToastProps = Toast.ToastProps
+
+local View = require(script.Components.View)
+export type ViewProps = View.ViewProps
+-- Components and types end
 
 local Foundation = strict({
 	-- Components
-	Accordion = require(script.Components.Accordion),
-	Avatar = require(script.Components.Avatar),
-	AvatarGroup = require(script.Components.AvatarGroup),
-	Badge = require(script.Components.Badge),
-	Button = require(script.Components.Button),
-	Checkbox = require(script.Components.Checkbox),
-	Chip = require(script.Components.Chip),
-	Dialog = require(script.Components.Dialog),
-	Divider = require(script.Components.Divider),
-	Dropdown = require(script.Components.Dropdown),
-	Empty = require(script.Components.Empty),
-	Icon = require(script.Components.Icon),
-	IconButton = require(script.Components.IconButton),
-	Image = require(script.Components.Image),
-	InputLabel = require(script.Components.InputLabel),
-	KeyLabel = require(script.Components.KeyLabel),
-	Knob = require(script.Components.Knob),
-	Loading = require(script.Components.Loading),
+	Accordion = Accordion,
+	Avatar = Avatar,
+	AvatarGroup = AvatarGroup,
+	Badge = Badge,
+	Button = Button,
+	Checkbox = Checkbox,
+	Chip = Chip,
+	Dialog = Dialog,
+	Divider = Divider,
+	Dropdown = Dropdown,
+	Empty = Empty,
+	Icon = Icon,
+	IconButton = IconButton,
+	Image = Image,
+	InputLabel = InputLabel,
+	KeyLabel = KeyLabel,
+	Knob = Knob,
+	Loading = Loading,
 	Menu = Menu,
-	NumberInput = require(script.Components.NumberInput),
-	Pill = require(script.Components.Chip),
-	Popover = require(script.Components.Popover),
-	RadioGroup = require(script.Components.RadioGroup),
-	ScrollView = require(script.Components.ScrollView),
-	Skeleton = require(script.Components.Skeleton),
-	Slider = require(script.Components.Slider),
-	StatusIndicator = require(script.Components.StatusIndicator),
-	Text = require(script.Components.Text),
-	TextInput = require(script.Components.TextInput),
-	Toggle = require(script.Components.Toggle),
-	Tooltip = require(script.Components.Tooltip),
-	Toast = require(script.Components.Toast),
-	View = require(script.Components.View),
-	SegmentedControl = require(script.Components.SegmentedControl),
+	NumberInput = NumberInput,
+	Pill = Chip,
+	Popover = Popover,
+	RadioGroup = RadioGroup,
+	ScrollView = ScrollView,
+	SegmentedControl = SegmentedControl,
+	Skeleton = Skeleton,
+	Slider = Slider,
+	StatusIndicator = StatusIndicator,
+	Text = Text,
+	TextInput = TextInput,
+	Toggle = Toggle,
+	Tooltip = Tooltip,
+	Toast = Toast,
+	View = View,
 
 	-- Providers
 	FoundationProvider = require(script.Providers.Foundation),

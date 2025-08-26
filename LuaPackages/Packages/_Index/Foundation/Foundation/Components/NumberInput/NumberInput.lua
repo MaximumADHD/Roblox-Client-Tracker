@@ -23,6 +23,7 @@ local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local Types = require(Components.Types)
+local Flags = require(Foundation.Utility.Flags)
 
 local NumberInputControls = require(script.Parent.NumberInputControls)
 local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
@@ -32,7 +33,7 @@ local function round(num: number, numDecimalPlaces: number?)
 	return math.floor(num * mult + 0.5) / mult
 end
 
-export type Props = {
+export type NumberInputProps = {
 	-- Input number value
 	value: number?,
 	-- Variant of controls to use
@@ -80,7 +81,7 @@ local defaultProps = {
 	width = UDim.new(0, 400),
 }
 
-local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
+local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(numberInputProps, defaultProps) :: {
 		controlsVariant: NumberInputControlsVariant?,
 		hasError: boolean?,
@@ -106,11 +107,22 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 	local focused, setFocused = React.useState(false)
 	local isDisabledUp, isDisabledDown, upValue, downValue
 
+	local clampValueToRange = React.useCallback(function(value: number)
+		return math.clamp(value, props.minimum, props.maximum)
+	end, { props.minimum, props.maximum })
+
 	if not focused then
-		upValue = round(props.value + props.step, props.precision)
-		isDisabledUp = upValue > props.maximum
-		downValue = round(props.value - props.step, props.precision)
-		isDisabledDown = downValue < props.minimum
+		if Flags.FoundationNumberInputIncrementClamp then
+			upValue = clampValueToRange(round(props.value + props.step, props.precision))
+			isDisabledUp = props.value == props.maximum
+			downValue = clampValueToRange(round(props.value - props.step, props.precision))
+			isDisabledDown = props.value == props.minimum
+		else
+			upValue = round(props.value + props.step, props.precision)
+			isDisabledUp = upValue > props.maximum
+			downValue = round(props.value - props.step, props.precision)
+			isDisabledDown = downValue < props.minimum
+		end
 	end
 
 	-- Should we have a default value?

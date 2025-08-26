@@ -16,7 +16,6 @@ local useCursorByType = require(App.SelectionCursor.useCursorByType)
 local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
 local CursorType = require(App.SelectionCursor.CursorType)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DISABLED_TRANSPARENCY = 0.5
 
@@ -138,7 +137,7 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 	local userInteractionEnabled = self.props.userInteractionEnabled
 	local interactionEnabled = (tail and userInteractionEnabled) and true or false
 	local isDisabled = self.props.isDisabled
-	local onActivated = if UIBloxConfig.useFoundationInteractable and self.props.onActivated
+	local onActivated = if self.props.onActivated
 		then function(...)
 			if interactionEnabled then
 				self.props.onActivated(...)
@@ -163,7 +162,6 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 
 		isDisabled = isDisabled,
 		onStateChanged = self.onStateChanged,
-		userInteractionEnabled = if not UIBloxConfig.useFoundationInteractable then interactionEnabled else nil,
 		[Roact.Event.Activated] = onActivated,
 		[Roact.Event.TouchTap] = onTouchTapped,
 

@@ -32,6 +32,8 @@ export type Panel3DProps = {
 	offsetCallback: ((arg: any) -> Vector3)?, -- callback to tweak final position in each frame
 	tiltCallback: ((arg: any) -> CFrame)?, -- callback to tweak final rotation in each frame
 	connectPanelManagerFunction: ((arg: any) -> ())?, -- callback to connect to the panel manager function, only used for AnchoringTypes.PanelManaged
+	-- Ref to the Part maintained in the Panel3D component
+	partRef: Ref<any>?,
 }
 
 return {

@@ -21,7 +21,7 @@ local useSegmentedControlVariants = require(script.Parent.useSegmentedControlVar
 local Segment = require(script.Parent.Segment)
 type Segment = Segment.Segment
 
-type SegmentedControlProps = {
+export type SegmentedControlProps = {
 	segments: { Segment },
 	value: Types.ItemId,
 	onActivated: (id: Types.ItemId) -> (),

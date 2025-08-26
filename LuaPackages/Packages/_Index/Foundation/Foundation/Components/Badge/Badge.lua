@@ -38,7 +38,7 @@ type Icon = {
 	position: IconPosition,
 }
 
-type BadgeProps = {
+export type BadgeProps = {
 	text: string?,
 	icon: (string | Icon)?,
 	variant: BadgeVariant?,
