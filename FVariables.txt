@@ -1098,6 +1098,7 @@
 [C++] DFFlagIEAvatarAutoSetupValidateInput
 [C++] DFFlagIgnoreLagOutsideStudio
 [C++] DFFlagIgnoreLayeredClothingHandleScale
+[C++] DFFlagIgnoreParam
 [C++] DFFlagIkControlConstraintSupportDefaultEnabled
 [C++] DFFlagIkControlConstraintSupportProperty
 [C++] DFFlagIkControlDeepProfile
@@ -1671,6 +1672,7 @@
 [C++] DFFlagSaveMicroProfileScreenshotsInExternalStorage
 [C++] DFFlagSchemaVersionEnable
 [C++] DFFlagScNoAes
+[C++] DFFlagScreenshotScreening
 [C++] DFFlagSendDataModelAPIUsageMetrics
 [C++] DFFlagSendItemLimitLogToUser
 [C++] DFFlagSendMapFieldsForClassUsage

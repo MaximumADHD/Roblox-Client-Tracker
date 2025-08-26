@@ -108,6 +108,7 @@ AAF011E38B9D871882A8E559
 AAF111E38B9D871882A8E559
 AAF511E38B9D871882A8E559
 AAIS[^^^^aarrrz
+AAXPEBVQLineF
 AB_AllUsers
 Ab_bbdbfbgbh
 Ab_bbdbfbgbhblbmbnbpbrbu
@@ -35555,6 +35556,7 @@ IgnoreLayeredClothingHandleScale
 IgnoreListFlag
 IgnoreLocalTimeForStaleFlags2
 IgnoreOrphanStyleSheets
+IgnoreParam
 IgnoreParentAudioOcclusion
 IgnoreProbesLowerThanNetworkStateEstimate
 IgnoreRotation
@@ -56800,6 +56802,7 @@ ScreenShotInfo
 ScreenshotReady
 Screenshots
 ScreenshotSavedToAlbum
+ScreenshotScreening
 ScreenshotsFeatureActiveUserIds
 Screenshotsigning
 ScreenshotTaken
@@ -60188,6 +60191,7 @@ SmoothWinkel
 SMSProtocol
 SmtpUTF8Mailbox
 SnapAttachmentsVerb
+SnapshotAsync
 SnapToParts
 SnapToPartsAction
 SniHostname
@@ -79152,6 +79156,7 @@ TrendlineIntegrationEnabled
 TrendlineObservationsWindowSize
 Treningowa
 Trennlinie
+Tresolution
 TRIANGLE_LIMIT_EXCEEDED_ERROR
 TriangleCount
 TriangleMesh
@@ -80696,6 +80701,7 @@ UnknownAttempt
 UnknownBespokeFilter
 UnknownCacheReadResult
 UnknownCacheWriteResult
+UnknownComponent
 UnknownDataModelChild
 UnknownDataStoreType
 UnknownDataStructure
@@ -81638,6 +81644,7 @@ UserFreecamSmoothnessControl
 UserFreecamTiltControl
 UserGameSettings
 UserGameSettingsProp
+UserGuiRenderingCh
 UserGuiRenderingChanged
 UserHandleChatHotKeyWithContextActionService
 UserHandleFriendJoinNotifierOnClient
@@ -89011,7 +89018,6 @@ Zugewiesen
 ZUgithub.com
 Zugriffsberechtigung
 Zugriffsrechte
-ZUnknownComponent
 Zuordnungen
 Zusammenarbeit
 Zusammenarbeiten
