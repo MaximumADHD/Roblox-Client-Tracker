@@ -11,32 +11,47 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K5 ["PaidAccessInFiat"]
+  LOADK R2 K5 ["GameSettingsPlayabilityWarning"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K6 ["GameSettingsPlayabilityWarningBefore30Sept"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K7 ["PaidAccessInFiat"]
   LOADN R3 2
-  NAMECALL R0 R0 K6 ["SetFlagVersion"]
+  NAMECALL R0 R0 K8 ["SetFlagVersion"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K5 ["PaidAccessInFiat"]
+  LOADK R2 K7 ["PaidAccessInFiat"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["GameSettingsAddCreatorHubLinkToFooter"]
+  LOADK R2 K9 ["FixGameSettingsLabelRegression"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K8 ["GameSettingsCreatorHubManageExperienceLink"]
-  LOADK R3 K9 ["https://create.roblox.com/dashboard/creations/experiences/{}/configure"]
-  NAMECALL R0 R0 K10 ["DefineFastString"]
+  LOADK R2 K10 ["GameSettingsAddCreatorHubLinkToFooter"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K11 ["StudioGenreOverhaulExplainationLink"]
-  LOADK R3 K12 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
-  NAMECALL R0 R0 K10 ["DefineFastString"]
+  LOADK R2 K11 ["GameSettingsCreatorHubManageExperienceLink"]
+  LOADK R3 K12 ["https://create.roblox.com/dashboard/creations/experiences/{}/configure"]
+  NAMECALL R0 R0 K13 ["DefineFastString"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K13 ["CU1320ExperienceGenre"]
+  LOADK R2 K14 ["StudioGenreOverhaulExplainationLink"]
+  LOADK R3 K15 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
+  NAMECALL R0 R0 K13 ["DefineFastString"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K16 ["CU1320ExperienceGenre"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

@@ -50,6 +50,16 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["GuiService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  LOADK R3 K4 ["https://devforum.roblox.com/t/important-updates-unrated-experiences-and-changes-to-experience-pages/3899317"]
+  NAMECALL R1 R0 K5 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
   GETUPVAL R2 0
   FASTCALL1 ASSERT R2 [+2]
   GETIMPORT R1 K1 [assert]
@@ -223,30 +233,151 @@ PROTO_4:
   CALL R21 2 -1
   CALL R19 -1 1
   SETTABLEKS R19 R18 K44 ["OpenQuestionnaireButton"]
+  GETUPVAL R20 8
+  JUMPIFNOT R20 [+176]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K24 ["createElement"]
+  GETUPVAL R20 9
+  DUPTABLE R21 K70 [{"Layout", "AutomaticSize", "Spacing", "LayoutOrder"}]
+  GETIMPORT R22 K74 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R22 R21 K42 ["Layout"]
+  GETIMPORT R22 K75 [Enum.AutomaticSize.Y]
+  SETTABLEKS R22 R21 K68 ["AutomaticSize"]
+  LOADN R22 6
+  SETTABLEKS R22 R21 K69 ["Spacing"]
+  NAMECALL R22 R6 K55 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K6 ["LayoutOrder"]
+  DUPTABLE R22 K77 [{"Icon", "Text"}]
+  GETTABLEKS R24 R1 K11 ["GameGuideline"]
+  JUMPIF R24 [+28]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K24 ["createElement"]
+  LOADK R24 K78 ["ImageLabel"]
+  DUPTABLE R25 K82 [{"BackgroundTransparency", "Image", "ImageColor3", "Size", "LayoutOrder"}]
+  LOADN R26 1
+  SETTABLEKS R26 R25 K79 ["BackgroundTransparency"]
+  GETTABLEKS R26 R2 K83 ["warningIcon"]
+  SETTABLEKS R26 R25 K80 ["Image"]
+  GETTABLEKS R26 R2 K84 ["warningColor"]
+  SETTABLEKS R26 R25 K81 ["ImageColor3"]
+  GETIMPORT R26 K86 [UDim2.fromOffset]
+  LOADN R27 16
+  LOADN R28 16
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K58 ["Size"]
+  LOADN R26 0
+  SETTABLEKS R26 R25 K6 ["LayoutOrder"]
+  CALL R23 2 1
+  JUMP [+1]
+  LOADNIL R23
+  SETTABLEKS R23 R22 K76 ["Icon"]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K24 ["createElement"]
+  GETUPVAL R24 10
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K26 ["Dictionary"]
+  GETTABLEKS R25 R26 K27 ["join"]
+  DUPTABLE R26 K96 [{"Text", "OnLinkClicked", "LinkText", "LinkPlaceholder", "MaxWidth", "TextProps", "HorizontalAlignment", "TextXAlignment", "TextYAlignment", "LayoutOrder", "TextWrapped"}]
+  GETTABLEKS R28 R1 K11 ["GameGuideline"]
+  JUMPIFNOT R28 [+6]
+  LOADK R29 K8 ["Guidelines"]
+  LOADK R30 K97 ["RetakeQuestionnaireMaturity"]
+  NAMECALL R27 R3 K10 ["getText"]
+  CALL R27 3 1
+  JUMP [+29]
+  GETUPVAL R28 11
+  JUMPIFNOT R28 [+14]
+  LOADK R29 K8 ["Guidelines"]
+  LOADK R30 K98 ["UnratedExpPlayabilityWaringBeforeSept30"]
+  DUPTABLE R31 K100 [{"link"}]
+  LOADK R34 K8 ["Guidelines"]
+  LOADK R35 K101 ["UnratedExpPlayabilityWaringLink"]
+  NAMECALL R32 R3 K10 ["getText"]
+  CALL R32 3 1
+  SETTABLEKS R32 R31 K99 ["link"]
+  NAMECALL R27 R3 K10 ["getText"]
+  CALL R27 4 1
+  JUMP [+13]
+  LOADK R29 K8 ["Guidelines"]
+  LOADK R30 K102 ["UnratedExpPlayabilityWaring"]
+  DUPTABLE R31 K100 [{"link"}]
+  LOADK R34 K8 ["Guidelines"]
+  LOADK R35 K101 ["UnratedExpPlayabilityWaringLink"]
+  NAMECALL R32 R3 K10 ["getText"]
+  CALL R32 3 1
+  SETTABLEKS R32 R31 K99 ["link"]
+  NAMECALL R27 R3 K10 ["getText"]
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K33 ["Text"]
+  DUPCLOSURE R27 K103 [PROTO_4]
+  SETTABLEKS R27 R26 K87 ["OnLinkClicked"]
+  LOADK R29 K8 ["Guidelines"]
+  LOADK R30 K101 ["UnratedExpPlayabilityWaringLink"]
+  NAMECALL R27 R3 K10 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K88 ["LinkText"]
+  LOADK R29 K8 ["Guidelines"]
+  LOADK R30 K101 ["UnratedExpPlayabilityWaringLink"]
+  NAMECALL R27 R3 K10 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K89 ["LinkPlaceholder"]
+  GETTABLEKS R29 R0 K51 ["state"]
+  GETTABLEKS R28 R29 K105 ["maxChildWidth"]
+  SUBK R27 R28 K104 [22]
+  SETTABLEKS R27 R26 K90 ["MaxWidth"]
+  GETUPVAL R29 4
+  GETTABLEKS R28 R29 K26 ["Dictionary"]
+  GETTABLEKS R27 R28 K27 ["join"]
+  GETTABLEKS R29 R2 K14 ["fontStyle"]
+  GETTABLEKS R28 R29 K106 ["Warning"]
+  DUPTABLE R29 K107 [{"BackgroundTransparency", "TextXAlignment"}]
+  LOADN R30 1
+  SETTABLEKS R30 R29 K79 ["BackgroundTransparency"]
+  GETIMPORT R30 K109 [Enum.TextXAlignment.Left]
+  SETTABLEKS R30 R29 K93 ["TextXAlignment"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K91 ["TextProps"]
+  GETIMPORT R27 K110 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R27 R26 K92 ["HorizontalAlignment"]
+  GETIMPORT R27 K109 [Enum.TextXAlignment.Left]
+  SETTABLEKS R27 R26 K93 ["TextXAlignment"]
+  GETIMPORT R27 K112 [Enum.TextYAlignment.Top]
+  SETTABLEKS R27 R26 K94 ["TextYAlignment"]
+  LOADN R27 1
+  SETTABLEKS R27 R26 K6 ["LayoutOrder"]
+  LOADB R27 1
+  SETTABLEKS R27 R26 K95 ["TextWrapped"]
+  GETTABLEKS R27 R2 K113 ["guidelinesDescriptionText"]
+  CALL R25 2 -1
+  CALL R23 -1 1
+  SETTABLEKS R23 R22 K33 ["Text"]
+  CALL R19 3 1
+  JUMP [+39]
   GETUPVAL R20 3
   GETTABLEKS R19 R20 K24 ["createElement"]
   GETUPVAL R20 5
   GETUPVAL R23 4
   GETTABLEKS R22 R23 K26 ["Dictionary"]
   GETTABLEKS R21 R22 K27 ["join"]
-  DUPTABLE R22 K70 [{"Text", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
+  DUPTABLE R22 K114 [{"Text", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
   LOADK R25 K8 ["Guidelines"]
   GETTABLEKS R27 R1 K11 ["GameGuideline"]
   JUMPIFNOT R27 [+2]
-  LOADK R26 K71 ["RetakeQuestionnaireMaturity"]
+  LOADK R26 K97 ["RetakeQuestionnaireMaturity"]
   JUMP [+1]
-  LOADK R26 K72 ["GetAContentMaturityLabel"]
+  LOADK R26 K115 ["GetAContentMaturityLabel"]
   NAMECALL R23 R3 K10 ["getText"]
   CALL R23 3 1
   SETTABLEKS R23 R22 K33 ["Text"]
-  GETIMPORT R23 K75 [Enum.TextXAlignment.Left]
-  SETTABLEKS R23 R22 K68 ["TextXAlignment"]
-  GETIMPORT R23 K77 [Enum.TextYAlignment.Top]
-  SETTABLEKS R23 R22 K69 ["TextYAlignment"]
+  GETIMPORT R23 K109 [Enum.TextXAlignment.Left]
+  SETTABLEKS R23 R22 K93 ["TextXAlignment"]
+  GETIMPORT R23 K112 [Enum.TextYAlignment.Top]
+  SETTABLEKS R23 R22 K94 ["TextYAlignment"]
   NAMECALL R23 R6 K55 ["getNextOrder"]
   CALL R23 1 1
   SETTABLEKS R23 R22 K6 ["LayoutOrder"]
-  GETTABLEKS R23 R2 K78 ["guidelinesDescriptionText"]
+  GETTABLEKS R23 R2 K113 ["guidelinesDescriptionText"]
   CALL R21 2 -1
   CALL R19 -1 1
   SETTABLEKS R19 R18 K45 ["GuidelinesQuestionnaireInfo"]
@@ -266,62 +397,82 @@ MAIN:
   LOADK R3 K5 ["GameSettingsExperienceGuidelines"]
   NAMECALL R1 R1 K6 ["GetFastFlag"]
   CALL R1 2 1
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Roact"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K11 ["PureComponent"]
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K12 ["Name"]
-  NAMECALL R3 R3 K13 ["extend"]
+  GETIMPORT R2 K4 [game]
+  LOADK R4 K7 ["GameSettingsPlayabilityWarning"]
+  NAMECALL R2 R2 K6 ["GetFastFlag"]
+  CALL R2 2 1
+  GETIMPORT R3 K4 [game]
+  LOADK R5 K8 ["GameSettingsPlayabilityWarningBefore30Sept"]
+  NAMECALL R3 R3 K6 ["GetFastFlag"]
   CALL R3 2 1
-  GETIMPORT R5 K8 [require]
-  GETTABLEKS R8 R0 K14 ["Src"]
-  GETTABLEKS R7 R8 K15 ["Util"]
-  GETTABLEKS R6 R7 K16 ["BrowserUtils"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K17 ["OpenExperienceQuestionnaire"]
-  GETIMPORT R5 K8 [require]
-  GETTABLEKS R7 R0 K9 ["Packages"]
-  GETTABLEKS R6 R7 K18 ["Framework"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K19 ["ContextServices"]
-  GETTABLEKS R7 R6 K20 ["withContext"]
-  GETIMPORT R8 K8 [require]
-  GETTABLEKS R10 R0 K9 ["Packages"]
-  GETTABLEKS R9 R10 K21 ["Cryo"]
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Roact"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K13 ["PureComponent"]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K14 ["Name"]
+  NAMECALL R5 R5 K15 ["extend"]
+  CALL R5 2 1
+  GETIMPORT R7 K10 [require]
+  GETTABLEKS R10 R0 K16 ["Src"]
+  GETTABLEKS R9 R10 K17 ["Util"]
+  GETTABLEKS R8 R9 K18 ["BrowserUtils"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K19 ["OpenExperienceQuestionnaire"]
+  GETIMPORT R8 K10 [require]
+  GETTABLEKS R11 R0 K16 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Util"]
+  GETTABLEKS R9 R10 K18 ["BrowserUtils"]
   CALL R8 1 1
-  GETTABLEKS R10 R5 K15 ["Util"]
-  GETTABLEKS R9 R10 K22 ["LayoutOrderIterator"]
-  GETTABLEKS R10 R5 K23 ["UI"]
-  GETTABLEKS R11 R10 K24 ["TextLabel"]
-  GETTABLEKS R12 R10 K25 ["Button"]
-  GETTABLEKS R14 R5 K15 ["Util"]
-  GETTABLEKS R13 R14 K26 ["GetTextSize"]
-  DUPCLOSURE R14 K27 [PROTO_1]
+  GETTABLEKS R7 R8 K20 ["OpenExperienceSettings"]
+  GETIMPORT R8 K10 [require]
+  GETTABLEKS R10 R0 K11 ["Packages"]
+  GETTABLEKS R9 R10 K21 ["Framework"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K22 ["ContextServices"]
+  GETTABLEKS R10 R9 K23 ["withContext"]
+  GETIMPORT R11 K10 [require]
+  GETTABLEKS R13 R0 K11 ["Packages"]
+  GETTABLEKS R12 R13 K24 ["Cryo"]
+  CALL R11 1 1
+  GETTABLEKS R13 R8 K17 ["Util"]
+  GETTABLEKS R12 R13 K25 ["LayoutOrderIterator"]
+  GETTABLEKS R13 R8 K26 ["UI"]
+  GETTABLEKS R14 R13 K27 ["TextLabel"]
+  GETTABLEKS R15 R13 K28 ["Button"]
+  GETTABLEKS R16 R13 K29 ["TextWithInlineLink"]
+  GETTABLEKS R17 R13 K30 ["Pane"]
+  GETTABLEKS R19 R8 K17 ["Util"]
+  GETTABLEKS R18 R19 K31 ["GetTextSize"]
+  DUPCLOSURE R19 K32 [PROTO_1]
   CAPTURE VAL R1
-  CAPTURE VAL R2
-  SETTABLEKS R14 R3 K28 ["init"]
-  DUPCLOSURE R14 K29 [PROTO_2]
-  SETTABLEKS R14 R3 K30 ["didMount"]
-  DUPCLOSURE R14 K31 [PROTO_4]
-  CAPTURE VAL R1
-  CAPTURE VAL R9
-  CAPTURE VAL R13
-  CAPTURE VAL R2
-  CAPTURE VAL R8
-  CAPTURE VAL R11
-  CAPTURE VAL R12
   CAPTURE VAL R4
-  SETTABLEKS R14 R3 K32 ["render"]
-  MOVE R14 R7
-  DUPTABLE R15 K35 [{"Localization", "Stylizer"}]
-  GETTABLEKS R16 R6 K33 ["Localization"]
-  SETTABLEKS R16 R15 K33 ["Localization"]
-  GETTABLEKS R16 R6 K34 ["Stylizer"]
-  SETTABLEKS R16 R15 K34 ["Stylizer"]
-  CALL R14 1 1
-  MOVE R15 R3
-  CALL R14 1 1
-  MOVE R3 R14
-  RETURN R3 1
+  SETTABLEKS R19 R5 K33 ["init"]
+  DUPCLOSURE R19 K34 [PROTO_2]
+  SETTABLEKS R19 R5 K35 ["didMount"]
+  DUPCLOSURE R19 K36 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R18
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  SETTABLEKS R19 R5 K37 ["render"]
+  MOVE R19 R10
+  DUPTABLE R20 K40 [{"Localization", "Stylizer"}]
+  GETTABLEKS R21 R9 K38 ["Localization"]
+  SETTABLEKS R21 R20 K38 ["Localization"]
+  GETTABLEKS R21 R9 K39 ["Stylizer"]
+  SETTABLEKS R21 R20 K39 ["Stylizer"]
+  CALL R19 1 1
+  MOVE R20 R5
+  CALL R19 1 1
+  MOVE R5 R19
+  RETURN R5 1

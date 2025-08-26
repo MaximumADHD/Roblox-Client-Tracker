@@ -13,36 +13,30 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
-  CALL R2 0 1
-  JUMPIFNOT R2 [+6]
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  NAMECALL R1 R1 K1 ["getShowRewardedAdsToggle"]
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  NAMECALL R1 R1 K0 ["getShowRewardedAdsToggle"]
   CALL R1 2 1
-  JUMP [+1]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K2 ["showRewardedAdsToggle"]
-  GETUPVAL R2 3
+  SETTABLEKS R1 R0 K1 ["showRewardedAdsToggle"]
+  GETUPVAL R2 2
   JUMPIF R2 [+1]
   JUMPIFNOT R1 [+26]
-  GETUPVAL R2 1
-  GETUPVAL R4 2
-  NAMECALL R2 R2 K3 ["getIsUniverseEligibleForRewardedOnDemandAds"]
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  NAMECALL R2 R2 K2 ["getIsUniverseEligibleForRewardedOnDemandAds"]
   CALL R2 2 1
   JUMPIFNOT R2 [+12]
-  GETTABLEKS R3 R2 K4 ["isUniverseEligible"]
-  SETTABLEKS R3 R0 K5 ["isUniverseEligibleForRewardedOnDemandAds"]
-  GETTABLEKS R3 R2 K6 ["isUniverseSuspendedFromRewardedAds"]
-  SETTABLEKS R3 R0 K6 ["isUniverseSuspendedFromRewardedAds"]
-  GETTABLEKS R3 R2 K7 ["hasUniverseBeenEligible"]
-  SETTABLEKS R3 R0 K8 ["hasUniverseBeenEligibleForRewardedAds"]
-  GETUPVAL R3 1
-  GETUPVAL R5 2
-  NAMECALL R3 R3 K9 ["getIsRewardedOnDemandAdsAllowed"]
+  GETTABLEKS R3 R2 K3 ["isUniverseEligible"]
+  SETTABLEKS R3 R0 K4 ["isUniverseEligibleForRewardedOnDemandAds"]
+  GETTABLEKS R3 R2 K5 ["isUniverseSuspendedFromRewardedAds"]
+  SETTABLEKS R3 R0 K5 ["isUniverseSuspendedFromRewardedAds"]
+  GETTABLEKS R3 R2 K6 ["hasUniverseBeenEligible"]
+  SETTABLEKS R3 R0 K7 ["hasUniverseBeenEligibleForRewardedAds"]
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  NAMECALL R3 R3 K8 ["getIsRewardedOnDemandAdsAllowed"]
   CALL R3 2 1
-  GETUPVAL R4 4
+  GETUPVAL R4 3
   CALL R4 0 1
   SETTABLE R3 R0 R4
   RETURN R0 0
@@ -189,7 +183,6 @@ PROTO_14:
   NEWCLOSURE R9 P1
   CAPTURE VAL R4
   NEWCLOSURE R10 P2
-  CAPTURE UPVAL U1
   CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE UPVAL U0
@@ -373,21 +366,15 @@ PROTO_25:
   GETTABLEKS R9 R10 K10 ["DeveloperSubscriptions"]
   JUMPIF R9 [+2]
   NEWTABLE R9 0 0
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K11 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
-  CALL R11 0 1
-  JUMPIFNOT R11 [+7]
   GETTABLEKS R12 R2 K5 ["Settings"]
   GETTABLEKS R11 R12 K9 ["Current"]
-  GETTABLEKS R10 R11 K12 ["showRewardedAdsToggle"]
-  JUMP [+1]
-  LOADNIL R10
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K13 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
+  GETTABLEKS R10 R11 K11 ["showRewardedAdsToggle"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K12 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
   MOVE R13 R3
   CALL R12 1 1
   OR R11 R12 R10
-  SETUPVAL R11 1
+  SETUPVAL R11 0
   NEWTABLE R11 0 5
   NEWCLOSURE R12 P0
   CAPTURE VAL R2
@@ -406,13 +393,13 @@ PROTO_25:
   CAPTURE VAL R4
   CAPTURE VAL R3
   NEWCLOSURE R16 P4
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R3
   SETLIST R11 R12 5 [1]
   JUMPIFEQKNIL R6 [+18]
-  GETIMPORT R12 K15 [pairs]
+  GETIMPORT R12 K14 [pairs]
   MOVE R13 R6
   CALL R12 1 3
   FORGPREP_NEXT R12
@@ -422,11 +409,11 @@ PROTO_25:
   CAPTURE VAL R16
   FASTCALL2 TABLE_INSERT R11 R19 [+4]
   MOVE R18 R11
-  GETIMPORT R17 K18 [table.insert]
+  GETIMPORT R17 K17 [table.insert]
   CALL R17 2 0
   FORGLOOP R12 2 [-11]
   JUMPIFEQKNIL R7 [+18]
-  GETIMPORT R12 K15 [pairs]
+  GETIMPORT R12 K14 [pairs]
   MOVE R13 R7
   CALL R12 1 3
   FORGPREP_NEXT R12
@@ -436,17 +423,17 @@ PROTO_25:
   CAPTURE VAL R16
   FASTCALL2 TABLE_INSERT R11 R19 [+4]
   MOVE R18 R11
-  GETIMPORT R17 K18 [table.insert]
+  GETIMPORT R17 K17 [table.insert]
   CALL R17 2 0
   FORGLOOP R12 2 [-11]
   GETUPVAL R12 2
   JUMPIFNOT R12 [+49]
   JUMPIFEQKNIL R9 [+48]
-  GETIMPORT R12 K15 [pairs]
+  GETIMPORT R12 K14 [pairs]
   MOVE R13 R9
   CALL R12 1 3
   FORGPREP_NEXT R12
-  GETTABLEKS R17 R16 K19 ["IsNew"]
+  GETTABLEKS R17 R16 K18 ["IsNew"]
   JUMPIFNOT R17 [+11]
   NEWCLOSURE R19 P7
   CAPTURE VAL R5
@@ -454,10 +441,10 @@ PROTO_25:
   CAPTURE VAL R16
   FASTCALL2 TABLE_INSERT R11 R19 [+4]
   MOVE R18 R11
-  GETIMPORT R17 K18 [table.insert]
+  GETIMPORT R17 K17 [table.insert]
   CALL R17 2 0
   JUMP [+26]
-  GETTABLEKS R17 R16 K20 ["Active"]
+  GETTABLEKS R17 R16 K19 ["Active"]
   JUMPIFNOTEQKB R17 FALSE [+12]
   NEWCLOSURE R19 P8
   CAPTURE VAL R5
@@ -465,7 +452,7 @@ PROTO_25:
   CAPTURE VAL R15
   FASTCALL2 TABLE_INSERT R11 R19 [+4]
   MOVE R18 R11
-  GETIMPORT R17 K18 [table.insert]
+  GETIMPORT R17 K17 [table.insert]
   CALL R17 2 0
   JUMP [+11]
   NEWCLOSURE R19 P9
@@ -475,7 +462,7 @@ PROTO_25:
   CAPTURE VAL R16
   FASTCALL2 TABLE_INSERT R11 R19 [+4]
   MOVE R18 R11
-  GETIMPORT R17 K18 [table.insert]
+  GETIMPORT R17 K17 [table.insert]
   CALL R17 2 0
   FORGLOOP R12 2 [-41]
   RETURN R11 1
@@ -485,161 +472,155 @@ PROTO_26:
   GETTABLEKS R2 R3 K1 ["Errors"]
   GETTABLEKS R4 R1 K2 ["Metadata"]
   GETTABLEKS R3 R4 K3 ["gameId"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
-  CALL R5 0 1
-  JUMPIFNOT R5 [+4]
   MOVE R4 R0
-  LOADK R5 K5 ["showRewardedAdsToggle"]
+  LOADK R5 K4 ["showRewardedAdsToggle"]
   CALL R4 1 1
-  JUMP [+1]
-  LOADNIL R4
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K6 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
   MOVE R7 R3
   CALL R6 1 1
   OR R5 R6 R4
-  SETUPVAL R5 1
+  SETUPVAL R5 0
   LOADB R5 0
   GETTABLEKS R9 R1 K0 ["Settings"]
-  GETTABLEKS R8 R9 K7 ["Changed"]
-  GETTABLEKS R7 R8 K8 ["vipServersIsEnabled"]
+  GETTABLEKS R8 R9 K6 ["Changed"]
+  GETTABLEKS R7 R8 K7 ["vipServersIsEnabled"]
   JUMPIFEQKB R7 FALSE [+2]
   LOADB R6 0 +1
   LOADB R6 1
   GETTABLEKS R9 R1 K0 ["Settings"]
-  GETTABLEKS R8 R9 K9 ["Current"]
-  GETTABLEKS R7 R8 K8 ["vipServersIsEnabled"]
+  GETTABLEKS R8 R9 K8 ["Current"]
+  GETTABLEKS R7 R8 K7 ["vipServersIsEnabled"]
   JUMPIFNOT R7 [+9]
   GETTABLEKS R9 R1 K0 ["Settings"]
-  GETTABLEKS R8 R9 K7 ["Changed"]
-  GETTABLEKS R7 R8 K10 ["vipServersPrice"]
+  GETTABLEKS R8 R9 K6 ["Changed"]
+  GETTABLEKS R7 R8 K9 ["vipServersPrice"]
   JUMPIFEQKNIL R7 [+2]
   LOADB R5 1
-  DUPTABLE R7 K29 [{"TaxRate", "MinimumFee", "RewardedOnDemandAdsSetting", "PaidAccess", "VIPServers", "UnsavedDevProducts", "DevProducts", "EditedDevProducts", "EditDevProductId", "AccessPriceError", "DevProductPriceError", "DevProductNameError", "isEditingSubscription", "editedSubscriptionKey", "Badges", "BadgeLoadState", "isPublic", "isInitiallyEnabled"}]
+  DUPTABLE R7 K28 [{"TaxRate", "MinimumFee", "RewardedOnDemandAdsSetting", "PaidAccess", "VIPServers", "UnsavedDevProducts", "DevProducts", "EditedDevProducts", "EditDevProductId", "AccessPriceError", "DevProductPriceError", "DevProductNameError", "isEditingSubscription", "editedSubscriptionKey", "Badges", "BadgeLoadState", "isPublic", "isInitiallyEnabled"}]
   MOVE R8 R0
-  LOADK R9 K30 ["taxRate"]
+  LOADK R9 K29 ["taxRate"]
   CALL R8 1 1
-  SETTABLEKS R8 R7 K11 ["TaxRate"]
+  SETTABLEKS R8 R7 K10 ["TaxRate"]
   MOVE R8 R0
-  LOADK R9 K31 ["minimumFee"]
+  LOADK R9 K30 ["minimumFee"]
   CALL R8 1 1
-  SETTABLEKS R8 R7 K12 ["MinimumFee"]
-  DUPTABLE R8 K36 [{"showRewardedAdsToggle", "isUniverseEligibleForRewardedOnDemandAds", "isRewardedOnDemandAdsAllowed", "isUniverseSuspendedFromRewardedAds", "hasUniverseBeenEligible"}]
-  SETTABLEKS R4 R8 K5 ["showRewardedAdsToggle"]
-  GETUPVAL R10 1
+  SETTABLEKS R8 R7 K11 ["MinimumFee"]
+  DUPTABLE R8 K35 [{"showRewardedAdsToggle", "isUniverseEligibleForRewardedOnDemandAds", "isRewardedOnDemandAdsAllowed", "isUniverseSuspendedFromRewardedAds", "hasUniverseBeenEligible"}]
+  SETTABLEKS R4 R8 K4 ["showRewardedAdsToggle"]
+  GETUPVAL R10 0
   JUMPIFNOT R10 [+4]
   MOVE R9 R0
-  LOADK R10 K32 ["isUniverseEligibleForRewardedOnDemandAds"]
+  LOADK R10 K31 ["isUniverseEligibleForRewardedOnDemandAds"]
   CALL R9 1 1
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K32 ["isUniverseEligibleForRewardedOnDemandAds"]
-  GETUPVAL R10 1
+  SETTABLEKS R9 R8 K31 ["isUniverseEligibleForRewardedOnDemandAds"]
+  GETUPVAL R10 0
   JUMPIFNOT R10 [+7]
   GETTABLEKS R11 R1 K0 ["Settings"]
-  GETTABLEKS R10 R11 K9 ["Current"]
-  GETTABLEKS R9 R10 K33 ["isRewardedOnDemandAdsAllowed"]
+  GETTABLEKS R10 R11 K8 ["Current"]
+  GETTABLEKS R9 R10 K32 ["isRewardedOnDemandAdsAllowed"]
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K33 ["isRewardedOnDemandAdsAllowed"]
+  SETTABLEKS R9 R8 K32 ["isRewardedOnDemandAdsAllowed"]
   MOVE R9 R0
-  LOADK R10 K34 ["isUniverseSuspendedFromRewardedAds"]
+  LOADK R10 K33 ["isUniverseSuspendedFromRewardedAds"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K34 ["isUniverseSuspendedFromRewardedAds"]
+  SETTABLEKS R9 R8 K33 ["isUniverseSuspendedFromRewardedAds"]
   MOVE R9 R0
-  LOADK R10 K37 ["hasUniverseBeenEligibleForRewardedAds"]
+  LOADK R10 K36 ["hasUniverseBeenEligibleForRewardedAds"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K35 ["hasUniverseBeenEligible"]
-  SETTABLEKS R8 R7 K13 ["RewardedOnDemandAdsSetting"]
-  DUPTABLE R8 K41 [{"enabled", "price", "initialPrice"}]
+  SETTABLEKS R9 R8 K34 ["hasUniverseBeenEligible"]
+  SETTABLEKS R8 R7 K12 ["RewardedOnDemandAdsSetting"]
+  DUPTABLE R8 K40 [{"enabled", "price", "initialPrice"}]
   MOVE R9 R0
   GETUPVAL R10 2
   CALL R10 0 -1
   CALL R9 -1 1
-  SETTABLEKS R9 R8 K38 ["enabled"]
+  SETTABLEKS R9 R8 K37 ["enabled"]
   MOVE R9 R0
-  LOADK R10 K39 ["price"]
+  LOADK R10 K38 ["price"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K39 ["price"]
+  SETTABLEKS R9 R8 K38 ["price"]
   GETTABLEKS R12 R1 K0 ["Settings"]
-  GETTABLEKS R11 R12 K9 ["Current"]
-  GETTABLEKS R10 R11 K39 ["price"]
+  GETTABLEKS R11 R12 K8 ["Current"]
+  GETTABLEKS R10 R11 K38 ["price"]
   JUMPIFNOT R10 [+7]
   GETTABLEKS R11 R1 K0 ["Settings"]
-  GETTABLEKS R10 R11 K9 ["Current"]
-  GETTABLEKS R9 R10 K39 ["price"]
+  GETTABLEKS R10 R11 K8 ["Current"]
+  GETTABLEKS R9 R10 K38 ["price"]
   JUMPIF R9 [+1]
   LOADN R9 0
-  SETTABLEKS R9 R8 K40 ["initialPrice"]
-  SETTABLEKS R8 R7 K14 ["PaidAccess"]
-  DUPTABLE R8 K47 [{"isEnabled", "price", "initialPrice", "activeServersCount", "activeSubscriptionsCount", "changed", "willShutdown"}]
+  SETTABLEKS R9 R8 K39 ["initialPrice"]
+  SETTABLEKS R8 R7 K13 ["PaidAccess"]
+  DUPTABLE R8 K46 [{"isEnabled", "price", "initialPrice", "activeServersCount", "activeSubscriptionsCount", "changed", "willShutdown"}]
   MOVE R9 R0
   GETUPVAL R10 3
   CALL R10 0 -1
   CALL R9 -1 1
-  SETTABLEKS R9 R8 K42 ["isEnabled"]
+  SETTABLEKS R9 R8 K41 ["isEnabled"]
   MOVE R9 R0
-  LOADK R10 K10 ["vipServersPrice"]
+  LOADK R10 K9 ["vipServersPrice"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K39 ["price"]
+  SETTABLEKS R9 R8 K38 ["price"]
   GETTABLEKS R12 R1 K0 ["Settings"]
-  GETTABLEKS R11 R12 K9 ["Current"]
-  GETTABLEKS R10 R11 K10 ["vipServersPrice"]
+  GETTABLEKS R11 R12 K8 ["Current"]
+  GETTABLEKS R10 R11 K9 ["vipServersPrice"]
   JUMPIFNOT R10 [+7]
   GETTABLEKS R11 R1 K0 ["Settings"]
-  GETTABLEKS R10 R11 K9 ["Current"]
-  GETTABLEKS R9 R10 K10 ["vipServersPrice"]
+  GETTABLEKS R10 R11 K8 ["Current"]
+  GETTABLEKS R9 R10 K9 ["vipServersPrice"]
   JUMPIF R9 [+1]
   LOADN R9 0
-  SETTABLEKS R9 R8 K40 ["initialPrice"]
+  SETTABLEKS R9 R8 K39 ["initialPrice"]
   MOVE R9 R0
-  LOADK R10 K48 ["vipServersActiveServersCount"]
+  LOADK R10 K47 ["vipServersActiveServersCount"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K43 ["activeServersCount"]
+  SETTABLEKS R9 R8 K42 ["activeServersCount"]
   MOVE R9 R0
-  LOADK R10 K49 ["vipServersActiveSubscriptionsCount"]
+  LOADK R10 K48 ["vipServersActiveSubscriptionsCount"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K44 ["activeSubscriptionsCount"]
-  SETTABLEKS R5 R8 K45 ["changed"]
-  SETTABLEKS R6 R8 K46 ["willShutdown"]
-  SETTABLEKS R8 R7 K15 ["VIPServers"]
+  SETTABLEKS R9 R8 K43 ["activeSubscriptionsCount"]
+  SETTABLEKS R5 R8 K44 ["changed"]
+  SETTABLEKS R6 R8 K45 ["willShutdown"]
+  SETTABLEKS R8 R7 K14 ["VIPServers"]
   MOVE R8 R0
-  LOADK R9 K50 ["unsavedDevProducts"]
+  LOADK R9 K49 ["unsavedDevProducts"]
   CALL R8 1 1
-  SETTABLEKS R8 R7 K16 ["UnsavedDevProducts"]
+  SETTABLEKS R8 R7 K15 ["UnsavedDevProducts"]
   GETTABLEKS R10 R1 K0 ["Settings"]
-  GETTABLEKS R9 R10 K9 ["Current"]
-  GETTABLEKS R8 R9 K51 ["developerProducts"]
-  SETTABLEKS R8 R7 K17 ["DevProducts"]
+  GETTABLEKS R9 R10 K8 ["Current"]
+  GETTABLEKS R8 R9 K50 ["developerProducts"]
+  SETTABLEKS R8 R7 K16 ["DevProducts"]
   GETTABLEKS R10 R1 K0 ["Settings"]
-  GETTABLEKS R9 R10 K7 ["Changed"]
-  GETTABLEKS R8 R9 K52 ["editedDeveloperProducts"]
-  SETTABLEKS R8 R7 K18 ["EditedDevProducts"]
-  GETTABLEKS R9 R1 K53 ["EditAsset"]
-  GETTABLEKS R8 R9 K54 ["editDevProductId"]
-  SETTABLEKS R8 R7 K19 ["EditDevProductId"]
-  GETTABLEKS R8 R2 K55 ["monetizationPrice"]
-  SETTABLEKS R8 R7 K20 ["AccessPriceError"]
-  GETTABLEKS R8 R2 K56 ["devProductPrice"]
-  SETTABLEKS R8 R7 K21 ["DevProductPriceError"]
-  GETTABLEKS R8 R2 K57 ["devProductName"]
-  SETTABLEKS R8 R7 K22 ["DevProductNameError"]
+  GETTABLEKS R9 R10 K6 ["Changed"]
+  GETTABLEKS R8 R9 K51 ["editedDeveloperProducts"]
+  SETTABLEKS R8 R7 K17 ["EditedDevProducts"]
+  GETTABLEKS R9 R1 K52 ["EditAsset"]
+  GETTABLEKS R8 R9 K53 ["editDevProductId"]
+  SETTABLEKS R8 R7 K18 ["EditDevProductId"]
+  GETTABLEKS R8 R2 K54 ["monetizationPrice"]
+  SETTABLEKS R8 R7 K19 ["AccessPriceError"]
+  GETTABLEKS R8 R2 K55 ["devProductPrice"]
+  SETTABLEKS R8 R7 K20 ["DevProductPriceError"]
+  GETTABLEKS R8 R2 K56 ["devProductName"]
+  SETTABLEKS R8 R7 K21 ["DevProductNameError"]
   MOVE R8 R0
-  LOADK R9 K23 ["isEditingSubscription"]
+  LOADK R9 K22 ["isEditingSubscription"]
   CALL R8 1 1
-  SETTABLEKS R8 R7 K23 ["isEditingSubscription"]
+  SETTABLEKS R8 R7 K22 ["isEditingSubscription"]
   MOVE R8 R0
-  LOADK R9 K24 ["editedSubscriptionKey"]
+  LOADK R9 K23 ["editedSubscriptionKey"]
   CALL R8 1 1
-  SETTABLEKS R8 R7 K24 ["editedSubscriptionKey"]
+  SETTABLEKS R8 R7 K23 ["editedSubscriptionKey"]
   GETTABLEKS R10 R1 K0 ["Settings"]
-  GETTABLEKS R9 R10 K9 ["Current"]
-  GETTABLEKS R8 R9 K58 ["badges"]
-  SETTABLEKS R8 R7 K25 ["Badges"]
-  GETTABLEKS R9 R1 K59 ["ComponentLoadState"]
-  GETTABLEKS R8 R9 K25 ["Badges"]
-  SETTABLEKS R8 R7 K26 ["BadgeLoadState"]
+  GETTABLEKS R9 R10 K8 ["Current"]
+  GETTABLEKS R8 R9 K57 ["badges"]
+  SETTABLEKS R8 R7 K24 ["Badges"]
+  GETTABLEKS R9 R1 K58 ["ComponentLoadState"]
+  GETTABLEKS R8 R9 K24 ["Badges"]
+  SETTABLEKS R8 R7 K25 ["BadgeLoadState"]
   MOVE R8 R0
   GETUPVAL R9 4
   CALL R9 0 -1
@@ -650,36 +631,36 @@ PROTO_26:
   CALL R10 0 -1
   CALL R9 -1 1
   NOT R8 R9
-  SETTABLEKS R8 R7 K27 ["isPublic"]
+  SETTABLEKS R8 R7 K26 ["isPublic"]
   GETTABLEKS R11 R1 K0 ["Settings"]
-  GETTABLEKS R10 R11 K9 ["Current"]
+  GETTABLEKS R10 R11 K8 ["Current"]
   GETUPVAL R11 4
   CALL R11 0 1
   GETTABLE R9 R10 R11
   JUMPIFNOT R9 [+8]
   GETTABLEKS R10 R1 K0 ["Settings"]
-  GETTABLEKS R9 R10 K9 ["Current"]
+  GETTABLEKS R9 R10 K8 ["Current"]
   GETUPVAL R10 5
   CALL R10 0 1
   GETTABLE R8 R9 R10
   JUMPIFNOT R8 [+15]
   GETTABLEKS R10 R1 K0 ["Settings"]
-  GETTABLEKS R9 R10 K9 ["Current"]
+  GETTABLEKS R9 R10 K8 ["Current"]
   GETUPVAL R10 2
   CALL R10 0 1
   GETTABLE R8 R9 R10
   JUMPIF R8 [+7]
   GETTABLEKS R10 R1 K0 ["Settings"]
-  GETTABLEKS R9 R10 K9 ["Current"]
+  GETTABLEKS R9 R10 K8 ["Current"]
   GETUPVAL R10 3
   CALL R10 0 1
   GETTABLE R8 R9 R10
-  SETTABLEKS R8 R7 K28 ["isInitiallyEnabled"]
+  SETTABLEKS R8 R7 K27 ["isInitiallyEnabled"]
   GETUPVAL R8 6
   JUMPIFNOT R8 [+6]
   GETTABLEKS R9 R1 K2 ["Metadata"]
   GETTABLEKS R8 R9 K3 ["gameId"]
-  SETTABLEKS R8 R7 K60 ["GameId"]
+  SETTABLEKS R8 R7 K59 ["GameId"]
   RETURN R7 1
 
 PROTO_27:
@@ -1507,64 +1488,58 @@ PROTO_54:
   GETUPVAL R2 0
   JUMPIFNOT R2 [+2]
   GETTABLEKS R1 R0 K0 ["GameId"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
-  CALL R3 0 1
-  JUMPIFNOT R3 [+10]
   LOADB R2 0
-  GETTABLEKS R3 R0 K2 ["RewardedOnDemandAdsSetting"]
-  JUMPIFEQKNIL R3 [+7]
-  GETTABLEKS R3 R0 K2 ["RewardedOnDemandAdsSetting"]
-  GETTABLEKS R2 R3 K3 ["showRewardedAdsToggle"]
-  JUMP [+1]
-  LOADNIL R2
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
+  GETTABLEKS R3 R0 K1 ["RewardedOnDemandAdsSetting"]
+  JUMPIFEQKNIL R3 [+5]
+  GETTABLEKS R3 R0 K1 ["RewardedOnDemandAdsSetting"]
+  GETTABLEKS R2 R3 K2 ["showRewardedAdsToggle"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
   MOVE R5 R1
   CALL R4 1 1
   OR R3 R4 R2
-  SETUPVAL R3 2
-  GETTABLEKS R3 R0 K5 ["Localization"]
-  GETTABLEKS R4 R0 K6 ["Stylizer"]
-  GETTABLEKS R5 R0 K7 ["TaxRate"]
-  GETTABLEKS R6 R0 K8 ["MinimumFee"]
+  SETUPVAL R3 1
+  GETTABLEKS R3 R0 K4 ["Localization"]
+  GETTABLEKS R4 R0 K5 ["Stylizer"]
+  GETTABLEKS R5 R0 K6 ["TaxRate"]
+  GETTABLEKS R6 R0 K7 ["MinimumFee"]
   LOADNIL R7
   LOADNIL R8
   LOADNIL R9
-  GETUPVAL R10 2
+  GETUPVAL R10 1
   JUMPIFNOT R10 [+10]
-  GETTABLEKS R10 R0 K2 ["RewardedOnDemandAdsSetting"]
-  GETTABLEKS R7 R10 K9 ["isUniverseEligibleForRewardedOnDemandAds"]
-  GETTABLEKS R10 R0 K2 ["RewardedOnDemandAdsSetting"]
-  GETTABLEKS R8 R10 K10 ["isRewardedOnDemandAdsAllowed"]
-  GETTABLEKS R9 R0 K11 ["RewardedOnDemandAdsToggled"]
-  GETTABLEKS R11 R0 K2 ["RewardedOnDemandAdsSetting"]
-  GETTABLEKS R10 R11 K12 ["isUniverseSuspendedFromRewardedAds"]
-  GETTABLEKS R12 R0 K2 ["RewardedOnDemandAdsSetting"]
-  GETTABLEKS R11 R12 K13 ["hasUniverseBeenEligible"]
-  GETTABLEKS R13 R0 K14 ["PaidAccess"]
-  GETTABLEKS R12 R13 K15 ["enabled"]
-  GETTABLEKS R14 R0 K14 ["PaidAccess"]
-  GETTABLEKS R13 R14 K16 ["price"]
-  GETTABLEKS R14 R0 K17 ["VIPServers"]
-  GETTABLEKS R16 R0 K18 ["UnsavedDevProducts"]
+  GETTABLEKS R10 R0 K1 ["RewardedOnDemandAdsSetting"]
+  GETTABLEKS R7 R10 K8 ["isUniverseEligibleForRewardedOnDemandAds"]
+  GETTABLEKS R10 R0 K1 ["RewardedOnDemandAdsSetting"]
+  GETTABLEKS R8 R10 K9 ["isRewardedOnDemandAdsAllowed"]
+  GETTABLEKS R9 R0 K10 ["RewardedOnDemandAdsToggled"]
+  GETTABLEKS R11 R0 K1 ["RewardedOnDemandAdsSetting"]
+  GETTABLEKS R10 R11 K11 ["isUniverseSuspendedFromRewardedAds"]
+  GETTABLEKS R12 R0 K1 ["RewardedOnDemandAdsSetting"]
+  GETTABLEKS R11 R12 K12 ["hasUniverseBeenEligible"]
+  GETTABLEKS R13 R0 K13 ["PaidAccess"]
+  GETTABLEKS R12 R13 K14 ["enabled"]
+  GETTABLEKS R14 R0 K13 ["PaidAccess"]
+  GETTABLEKS R13 R14 K15 ["price"]
+  GETTABLEKS R14 R0 K16 ["VIPServers"]
+  GETTABLEKS R16 R0 K17 ["UnsavedDevProducts"]
   JUMPIFNOT R16 [+3]
-  GETTABLEKS R15 R0 K18 ["UnsavedDevProducts"]
+  GETTABLEKS R15 R0 K17 ["UnsavedDevProducts"]
   JUMPIF R15 [+2]
   NEWTABLE R15 0 0
-  GETTABLEKS R17 R0 K19 ["DevProducts"]
+  GETTABLEKS R17 R0 K18 ["DevProducts"]
   JUMPIFNOT R17 [+3]
-  GETTABLEKS R16 R0 K19 ["DevProducts"]
+  GETTABLEKS R16 R0 K18 ["DevProducts"]
   JUMPIF R16 [+2]
   NEWTABLE R16 0 0
-  GETTABLEKS R18 R0 K20 ["EditedDevProducts"]
+  GETTABLEKS R18 R0 K19 ["EditedDevProducts"]
   JUMPIFNOT R18 [+3]
-  GETTABLEKS R17 R0 K20 ["EditedDevProducts"]
+  GETTABLEKS R17 R0 K19 ["EditedDevProducts"]
   JUMPIF R17 [+2]
   NEWTABLE R17 0 0
   GETUPVAL R20 3
-  GETTABLEKS R19 R20 K21 ["Dictionary"]
-  GETTABLEKS R18 R19 K22 ["join"]
+  GETTABLEKS R19 R20 K20 ["Dictionary"]
+  GETTABLEKS R18 R19 K21 ["join"]
   MOVE R19 R16
   MOVE R20 R17
   CALL R18 2 1
@@ -1577,15 +1552,15 @@ PROTO_54:
   MOVE R20 R18
   MOVE R21 R3
   CALL R19 2 2
-  GETTABLEKS R21 R0 K23 ["PaidAccessToggled"]
-  GETTABLEKS R22 R0 K24 ["PaidAccessPriceChanged"]
-  GETTABLEKS R23 R0 K25 ["VIPServersToggled"]
-  GETTABLEKS R24 R0 K26 ["VIPServersPriceChanged"]
-  GETTABLEKS R25 R0 K27 ["SetUnsavedDevProducts"]
-  GETTABLEKS R26 R0 K28 ["SetEditDevProductId"]
-  GETTABLEKS R27 R0 K29 ["LoadMoreDevProducts"]
-  GETTABLEKS R28 R0 K30 ["isPublic"]
-  GETTABLEKS R29 R0 K31 ["isInitiallyEnabled"]
+  GETTABLEKS R21 R0 K22 ["PaidAccessToggled"]
+  GETTABLEKS R22 R0 K23 ["PaidAccessPriceChanged"]
+  GETTABLEKS R23 R0 K24 ["VIPServersToggled"]
+  GETTABLEKS R24 R0 K25 ["VIPServersPriceChanged"]
+  GETTABLEKS R25 R0 K26 ["SetUnsavedDevProducts"]
+  GETTABLEKS R26 R0 K27 ["SetEditDevProductId"]
+  GETTABLEKS R27 R0 K28 ["LoadMoreDevProducts"]
+  GETTABLEKS R28 R0 K29 ["isPublic"]
+  GETTABLEKS R29 R0 K30 ["isInitiallyEnabled"]
   LOADNIL R30
   LOADNIL R31
   LOADNIL R32
@@ -1594,235 +1569,235 @@ PROTO_54:
   CALL R34 0 1
   JUMPIFNOT R34 [+11]
   GETUPVAL R35 7
-  GETTABLEKS R36 R0 K32 ["Badges"]
+  GETTABLEKS R36 R0 K31 ["Badges"]
   CALL R35 1 1
   MOVE R30 R35
-  GETTABLEKS R31 R0 K33 ["LoadMoreBadges"]
-  GETTABLEKS R32 R0 K34 ["RefreshBadges"]
-  GETTABLEKS R33 R0 K35 ["BadgeLoadState"]
-  GETTABLEKS R35 R0 K36 ["OnDeveloperSubscriptionCreated"]
+  GETTABLEKS R31 R0 K32 ["LoadMoreBadges"]
+  GETTABLEKS R32 R0 K33 ["RefreshBadges"]
+  GETTABLEKS R33 R0 K34 ["BadgeLoadState"]
+  GETTABLEKS R35 R0 K35 ["OnDeveloperSubscriptionCreated"]
   GETUPVAL R36 8
-  GETTABLEKS R37 R0 K37 ["AccessPriceError"]
-  GETTABLEKS R38 R14 K38 ["isEnabled"]
+  GETTABLEKS R37 R0 K36 ["AccessPriceError"]
+  GETTABLEKS R38 R14 K37 ["isEnabled"]
   MOVE R39 R12
   MOVE R40 R3
   CALL R36 4 1
   GETUPVAL R38 9
-  GETTABLEKS R37 R38 K39 ["new"]
+  GETTABLEKS R37 R38 K38 ["new"]
   CALL R37 0 1
   JUMPIF R5 [+4]
   LOADNIL R12
   LOADNIL R38
-  SETTABLEKS R38 R14 K38 ["isEnabled"]
-  GETUPVAL R38 2
-  DUPTABLE R39 K43 [{"BadgesLoadingIndicatorContainer", "Badges", "Separator", "RewardedOnDemandAdsSetting", "PaidAccess", "VIPServers", "DevSubsList", "DevProducts"}]
+  SETTABLEKS R38 R14 K37 ["isEnabled"]
+  GETUPVAL R38 1
+  DUPTABLE R39 K42 [{"BadgesLoadingIndicatorContainer", "Badges", "Separator", "RewardedOnDemandAdsSetting", "PaidAccess", "VIPServers", "DevSubsList", "DevProducts"}]
   MOVE R40 R34
   JUMPIFNOT R40 [+48]
   LOADB R40 0
   GETUPVAL R42 10
-  GETTABLEKS R41 R42 K44 ["Loading"]
+  GETTABLEKS R41 R42 K43 ["Loading"]
   JUMPIFNOTEQ R33 R41 [+43]
   GETUPVAL R41 11
-  GETTABLEKS R40 R41 K45 ["createElement"]
+  GETTABLEKS R40 R41 K44 ["createElement"]
   GETUPVAL R41 12
-  DUPTABLE R42 K47 [{"Size"}]
-  GETIMPORT R43 K49 [UDim2.new]
+  DUPTABLE R42 K46 [{"Size"}]
+  GETIMPORT R43 K48 [UDim2.new]
   LOADN R44 1
   LOADN R45 0
   LOADN R46 0
-  GETTABLEKS R49 R4 K51 ["table"]
-  GETTABLEKS R48 R49 K52 ["height"]
-  DIVK R47 R48 K50 [2]
+  GETTABLEKS R49 R4 K50 ["table"]
+  GETTABLEKS R48 R49 K51 ["height"]
+  DIVK R47 R48 K49 [2]
   CALL R43 4 1
-  SETTABLEKS R43 R42 K46 ["Size"]
-  DUPTABLE R43 K54 [{"BadgesLoadingIndicator"}]
+  SETTABLEKS R43 R42 K45 ["Size"]
+  DUPTABLE R43 K53 [{"BadgesLoadingIndicator"}]
   GETUPVAL R45 11
-  GETTABLEKS R44 R45 K45 ["createElement"]
+  GETTABLEKS R44 R45 K44 ["createElement"]
   GETUPVAL R45 13
-  DUPTABLE R46 K57 [{"AnchorPoint", "Position"}]
-  GETIMPORT R47 K59 [Vector2.new]
-  LOADK R48 K60 [0.5]
-  LOADK R49 K60 [0.5]
+  DUPTABLE R46 K56 [{"AnchorPoint", "Position"}]
+  GETIMPORT R47 K58 [Vector2.new]
+  LOADK R48 K59 [0.5]
+  LOADK R49 K59 [0.5]
   CALL R47 2 1
-  SETTABLEKS R47 R46 K55 ["AnchorPoint"]
-  GETIMPORT R47 K62 [UDim2.fromScale]
-  LOADK R48 K60 [0.5]
-  LOADK R49 K60 [0.5]
+  SETTABLEKS R47 R46 K54 ["AnchorPoint"]
+  GETIMPORT R47 K61 [UDim2.fromScale]
+  LOADK R48 K59 [0.5]
+  LOADK R49 K59 [0.5]
   CALL R47 2 1
-  SETTABLEKS R47 R46 K56 ["Position"]
+  SETTABLEKS R47 R46 K55 ["Position"]
   CALL R44 2 1
-  SETTABLEKS R44 R43 K53 ["BadgesLoadingIndicator"]
+  SETTABLEKS R44 R43 K52 ["BadgesLoadingIndicator"]
   CALL R40 3 1
-  SETTABLEKS R40 R39 K40 ["BadgesLoadingIndicatorContainer"]
+  SETTABLEKS R40 R39 K39 ["BadgesLoadingIndicatorContainer"]
   MOVE R40 R34
   JUMPIFNOT R40 [+23]
   LOADB R40 0
   GETUPVAL R42 10
-  GETTABLEKS R41 R42 K44 ["Loading"]
+  GETTABLEKS R41 R42 K43 ["Loading"]
   JUMPIFEQ R33 R41 [+18]
   GETUPVAL R41 11
-  GETTABLEKS R40 R41 K45 ["createElement"]
+  GETTABLEKS R40 R41 K44 ["createElement"]
   GETUPVAL R41 14
-  DUPTABLE R42 K66 [{"BadgeList", "LayoutOrder", "OnLoadMoreBadges", "RefreshBadges"}]
-  SETTABLEKS R30 R42 K63 ["BadgeList"]
-  NAMECALL R43 R37 K67 ["getNextOrder"]
+  DUPTABLE R42 K65 [{"BadgeList", "LayoutOrder", "OnLoadMoreBadges", "RefreshBadges"}]
+  SETTABLEKS R30 R42 K62 ["BadgeList"]
+  NAMECALL R43 R37 K66 ["getNextOrder"]
   CALL R43 1 1
-  SETTABLEKS R43 R42 K64 ["LayoutOrder"]
-  SETTABLEKS R31 R42 K65 ["OnLoadMoreBadges"]
-  SETTABLEKS R32 R42 K34 ["RefreshBadges"]
+  SETTABLEKS R43 R42 K63 ["LayoutOrder"]
+  SETTABLEKS R31 R42 K64 ["OnLoadMoreBadges"]
+  SETTABLEKS R32 R42 K33 ["RefreshBadges"]
   CALL R40 2 1
-  SETTABLEKS R40 R39 K32 ["Badges"]
+  SETTABLEKS R40 R39 K31 ["Badges"]
   MOVE R40 R34
   JUMPIFNOT R40 [+11]
   GETUPVAL R41 11
-  GETTABLEKS R40 R41 K45 ["createElement"]
+  GETTABLEKS R40 R41 K44 ["createElement"]
   GETUPVAL R41 15
-  DUPTABLE R42 K68 [{"LayoutOrder"}]
-  NAMECALL R43 R37 K67 ["getNextOrder"]
+  DUPTABLE R42 K67 [{"LayoutOrder"}]
+  NAMECALL R43 R37 K66 ["getNextOrder"]
   CALL R43 1 1
-  SETTABLEKS R43 R42 K64 ["LayoutOrder"]
+  SETTABLEKS R43 R42 K63 ["LayoutOrder"]
   CALL R40 2 1
-  SETTABLEKS R40 R39 K41 ["Separator"]
+  SETTABLEKS R40 R39 K40 ["Separator"]
   JUMPIFNOT R38 [+47]
   GETUPVAL R41 11
-  GETTABLEKS R40 R41 K45 ["createElement"]
+  GETTABLEKS R40 R41 K44 ["createElement"]
   GETUPVAL R41 16
-  DUPTABLE R42 K77 [{"LayoutOrder", "IsEligible", "IsEnabled", "Title", "SubText", "LinkText", "OnToggled", "IsSuspended", "HasBeenEligible", "Localization"}]
-  NAMECALL R43 R37 K67 ["getNextOrder"]
+  DUPTABLE R42 K76 [{"LayoutOrder", "IsEligible", "IsEnabled", "Title", "SubText", "LinkText", "OnToggled", "IsSuspended", "HasBeenEligible", "Localization"}]
+  NAMECALL R43 R37 K66 ["getNextOrder"]
   CALL R43 1 1
-  SETTABLEKS R43 R42 K64 ["LayoutOrder"]
-  SETTABLEKS R7 R42 K69 ["IsEligible"]
-  SETTABLEKS R8 R42 K70 ["IsEnabled"]
-  LOADK R45 K78 ["Monetization"]
-  LOADK R46 K79 ["RewardedAdsTitle"]
-  NAMECALL R43 R3 K80 ["getText"]
+  SETTABLEKS R43 R42 K63 ["LayoutOrder"]
+  SETTABLEKS R7 R42 K68 ["IsEligible"]
+  SETTABLEKS R8 R42 K69 ["IsEnabled"]
+  LOADK R45 K77 ["Monetization"]
+  LOADK R46 K78 ["RewardedAdsTitle"]
+  NAMECALL R43 R3 K79 ["getText"]
   CALL R43 3 1
-  SETTABLEKS R43 R42 K71 ["Title"]
-  LOADK R45 K78 ["Monetization"]
-  LOADK R46 K81 ["RewardedAdsSubtext"]
-  NAMECALL R43 R3 K80 ["getText"]
+  SETTABLEKS R43 R42 K70 ["Title"]
+  LOADK R45 K77 ["Monetization"]
+  LOADK R46 K80 ["RewardedAdsSubtext"]
+  NAMECALL R43 R3 K79 ["getText"]
   CALL R43 3 1
-  SETTABLEKS R43 R42 K72 ["SubText"]
-  LOADK R45 K78 ["Monetization"]
-  LOADK R46 K82 ["RewardedAdsSubtextLink"]
-  NAMECALL R43 R3 K80 ["getText"]
+  SETTABLEKS R43 R42 K71 ["SubText"]
+  LOADK R45 K77 ["Monetization"]
+  LOADK R46 K81 ["RewardedAdsSubtextLink"]
+  NAMECALL R43 R3 K79 ["getText"]
   CALL R43 3 1
-  SETTABLEKS R43 R42 K73 ["LinkText"]
+  SETTABLEKS R43 R42 K72 ["LinkText"]
   NEWCLOSURE R43 P0
   CAPTURE REF R9
-  SETTABLEKS R43 R42 K74 ["OnToggled"]
-  SETTABLEKS R10 R42 K75 ["IsSuspended"]
-  SETTABLEKS R11 R42 K76 ["HasBeenEligible"]
-  SETTABLEKS R3 R42 K5 ["Localization"]
+  SETTABLEKS R43 R42 K73 ["OnToggled"]
+  SETTABLEKS R10 R42 K74 ["IsSuspended"]
+  SETTABLEKS R11 R42 K75 ["HasBeenEligible"]
+  SETTABLEKS R3 R42 K4 ["Localization"]
   CALL R40 2 1
   JUMP [+1]
   LOADNIL R40
-  SETTABLEKS R40 R39 K2 ["RewardedOnDemandAdsSetting"]
+  SETTABLEKS R40 R39 K1 ["RewardedOnDemandAdsSetting"]
   GETUPVAL R41 11
-  GETTABLEKS R40 R41 K45 ["createElement"]
+  GETTABLEKS R40 R41 K44 ["createElement"]
   GETUPVAL R41 17
-  DUPTABLE R42 K89 [{"GameId", "Price", "TaxRate", "MinimumFee", "PriceError", "LayoutOrder", "Enabled", "Selected", "OnPaidAccessToggle", "OnPaidAccessPriceChanged"}]
+  DUPTABLE R42 K88 [{"GameId", "Price", "TaxRate", "MinimumFee", "PriceError", "LayoutOrder", "Enabled", "Selected", "OnPaidAccessToggle", "OnPaidAccessPriceChanged"}]
   GETUPVAL R44 0
   JUMPIFNOT R44 [+2]
   MOVE R43 R1
   JUMP [+1]
   LOADNIL R43
   SETTABLEKS R43 R42 K0 ["GameId"]
-  SETTABLEKS R13 R42 K83 ["Price"]
-  SETTABLEKS R5 R42 K7 ["TaxRate"]
-  SETTABLEKS R6 R42 K8 ["MinimumFee"]
+  SETTABLEKS R13 R42 K82 ["Price"]
+  SETTABLEKS R5 R42 K6 ["TaxRate"]
+  SETTABLEKS R6 R42 K7 ["MinimumFee"]
   JUMPIFNOT R12 [+2]
   MOVE R43 R36
   JUMPIF R43 [+1]
   LOADNIL R43
-  SETTABLEKS R43 R42 K84 ["PriceError"]
-  NAMECALL R43 R37 K67 ["getNextOrder"]
+  SETTABLEKS R43 R42 K83 ["PriceError"]
+  NAMECALL R43 R37 K66 ["getNextOrder"]
   CALL R43 1 1
-  SETTABLEKS R43 R42 K64 ["LayoutOrder"]
+  SETTABLEKS R43 R42 K63 ["LayoutOrder"]
   LOADB R43 0
-  GETTABLEKS R44 R14 K38 ["isEnabled"]
+  GETTABLEKS R44 R14 K37 ["isEnabled"]
   JUMPIFNOTEQKB R44 FALSE [+5]
   JUMPIFNOT R12 [+2]
   MOVE R43 R29
   JUMPIF R43 [+1]
   MOVE R43 R28
-  SETTABLEKS R43 R42 K85 ["Enabled"]
-  SETTABLEKS R12 R42 K86 ["Selected"]
+  SETTABLEKS R43 R42 K84 ["Enabled"]
+  SETTABLEKS R12 R42 K85 ["Selected"]
   NEWCLOSURE R43 P1
   CAPTURE VAL R0
   CAPTURE UPVAL U18
   CAPTURE VAL R21
-  SETTABLEKS R43 R42 K87 ["OnPaidAccessToggle"]
-  SETTABLEKS R22 R42 K88 ["OnPaidAccessPriceChanged"]
+  SETTABLEKS R43 R42 K86 ["OnPaidAccessToggle"]
+  SETTABLEKS R22 R42 K87 ["OnPaidAccessPriceChanged"]
   CALL R40 2 1
-  SETTABLEKS R40 R39 K14 ["PaidAccess"]
+  SETTABLEKS R40 R39 K13 ["PaidAccess"]
   GETUPVAL R41 11
-  GETTABLEKS R40 R41 K45 ["createElement"]
+  GETTABLEKS R40 R41 K44 ["createElement"]
   GETUPVAL R41 19
-  DUPTABLE R42 K93 [{"VIPServersData", "TaxRate", "MinimumFee", "PriceError", "LayoutOrder", "Enabled", "OnVipServersToggled", "OnVipServersPriceChanged"}]
-  SETTABLEKS R14 R42 K90 ["VIPServersData"]
-  SETTABLEKS R5 R42 K7 ["TaxRate"]
-  SETTABLEKS R6 R42 K8 ["MinimumFee"]
-  GETTABLEKS R44 R14 K38 ["isEnabled"]
+  DUPTABLE R42 K92 [{"VIPServersData", "TaxRate", "MinimumFee", "PriceError", "LayoutOrder", "Enabled", "OnVipServersToggled", "OnVipServersPriceChanged"}]
+  SETTABLEKS R14 R42 K89 ["VIPServersData"]
+  SETTABLEKS R5 R42 K6 ["TaxRate"]
+  SETTABLEKS R6 R42 K7 ["MinimumFee"]
+  GETTABLEKS R44 R14 K37 ["isEnabled"]
   JUMPIFNOT R44 [+2]
   MOVE R43 R36
   JUMPIF R43 [+1]
   LOADNIL R43
-  SETTABLEKS R43 R42 K84 ["PriceError"]
-  NAMECALL R43 R37 K67 ["getNextOrder"]
+  SETTABLEKS R43 R42 K83 ["PriceError"]
+  NAMECALL R43 R37 K66 ["getNextOrder"]
   CALL R43 1 1
-  SETTABLEKS R43 R42 K64 ["LayoutOrder"]
+  SETTABLEKS R43 R42 K63 ["LayoutOrder"]
   LOADB R43 0
   JUMPIFNOTEQKB R12 FALSE [+7]
-  GETTABLEKS R44 R14 K38 ["isEnabled"]
+  GETTABLEKS R44 R14 K37 ["isEnabled"]
   JUMPIFNOT R44 [+2]
   MOVE R43 R29
   JUMPIF R43 [+1]
   MOVE R43 R28
-  SETTABLEKS R43 R42 K85 ["Enabled"]
+  SETTABLEKS R43 R42 K84 ["Enabled"]
   NEWCLOSURE R43 P2
   CAPTURE VAL R0
   CAPTURE UPVAL U20
   CAPTURE VAL R23
-  SETTABLEKS R43 R42 K91 ["OnVipServersToggled"]
-  SETTABLEKS R24 R42 K92 ["OnVipServersPriceChanged"]
+  SETTABLEKS R43 R42 K90 ["OnVipServersToggled"]
+  SETTABLEKS R24 R42 K91 ["OnVipServersPriceChanged"]
   CALL R40 2 1
-  SETTABLEKS R40 R39 K17 ["VIPServers"]
+  SETTABLEKS R40 R39 K16 ["VIPServers"]
   GETUPVAL R40 21
   JUMPIFNOT R40 [+13]
   GETUPVAL R41 11
-  GETTABLEKS R40 R41 K45 ["createElement"]
+  GETTABLEKS R40 R41 K44 ["createElement"]
   GETUPVAL R41 22
-  DUPTABLE R42 K94 [{"LayoutOrder", "OnDeveloperSubscriptionCreated"}]
-  NAMECALL R43 R37 K67 ["getNextOrder"]
+  DUPTABLE R42 K93 [{"LayoutOrder", "OnDeveloperSubscriptionCreated"}]
+  NAMECALL R43 R37 K66 ["getNextOrder"]
   CALL R43 1 1
-  SETTABLEKS R43 R42 K64 ["LayoutOrder"]
-  SETTABLEKS R35 R42 K36 ["OnDeveloperSubscriptionCreated"]
+  SETTABLEKS R43 R42 K63 ["LayoutOrder"]
+  SETTABLEKS R35 R42 K35 ["OnDeveloperSubscriptionCreated"]
   CALL R40 2 1
-  SETTABLEKS R40 R39 K42 ["DevSubsList"]
+  SETTABLEKS R40 R39 K41 ["DevSubsList"]
   GETUPVAL R41 11
-  GETTABLEKS R40 R41 K45 ["createElement"]
+  GETTABLEKS R40 R41 K44 ["createElement"]
   GETUPVAL R41 23
-  DUPTABLE R42 K100 [{"ProductList", "ShowTable", "LayoutOrder", "CreateNewDevProduct", "OnLoadMoreDevProducts", "OnEditDevProductClicked"}]
-  SETTABLEKS R19 R42 K95 ["ProductList"]
-  JUMPIFNOTEQKN R20 K101 [0] [+2]
+  DUPTABLE R42 K99 [{"ProductList", "ShowTable", "LayoutOrder", "CreateNewDevProduct", "OnLoadMoreDevProducts", "OnEditDevProductClicked"}]
+  SETTABLEKS R19 R42 K94 ["ProductList"]
+  JUMPIFNOTEQKN R20 K100 [0] [+2]
   LOADB R43 0 +1
   LOADB R43 1
-  SETTABLEKS R43 R42 K96 ["ShowTable"]
-  NAMECALL R43 R37 K67 ["getNextOrder"]
+  SETTABLEKS R43 R42 K95 ["ShowTable"]
+  NAMECALL R43 R37 K66 ["getNextOrder"]
   CALL R43 1 1
-  SETTABLEKS R43 R42 K64 ["LayoutOrder"]
+  SETTABLEKS R43 R42 K63 ["LayoutOrder"]
   NEWCLOSURE R43 P3
   CAPTURE VAL R20
   CAPTURE UPVAL U24
   CAPTURE VAL R3
   CAPTURE VAL R15
   CAPTURE VAL R25
-  SETTABLEKS R43 R42 K97 ["CreateNewDevProduct"]
-  SETTABLEKS R27 R42 K98 ["OnLoadMoreDevProducts"]
-  SETTABLEKS R26 R42 K99 ["OnEditDevProductClicked"]
+  SETTABLEKS R43 R42 K96 ["CreateNewDevProduct"]
+  SETTABLEKS R27 R42 K97 ["OnLoadMoreDevProducts"]
+  SETTABLEKS R26 R42 K98 ["OnEditDevProductClicked"]
   CALL R40 2 1
-  SETTABLEKS R40 R39 K19 ["DevProducts"]
+  SETTABLEKS R40 R39 K18 ["DevProducts"]
   CLOSEUPVALS R9
   RETURN R39 1
 
@@ -2669,12 +2644,12 @@ MAIN:
   CAPTURE VAL R61
   CAPTURE VAL R49
   NEWCLOSURE R67 P1
-  CAPTURE VAL R55
   CAPTURE REF R56
+  CAPTURE VAL R55
   CAPTURE VAL R52
   NEWCLOSURE R68 P2
-  CAPTURE VAL R55
   CAPTURE REF R56
+  CAPTURE VAL R55
   CAPTURE VAL R63
   CAPTURE VAL R65
   CAPTURE VAL R62
@@ -2723,8 +2698,8 @@ MAIN:
   CAPTURE VAL R12
   NEWCLOSURE R78 P12
   CAPTURE VAL R50
-  CAPTURE VAL R55
   CAPTURE REF R56
+  CAPTURE VAL R55
   CAPTURE VAL R12
   CAPTURE VAL R74
   CAPTURE VAL R73
