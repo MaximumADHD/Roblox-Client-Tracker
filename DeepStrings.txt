@@ -38152,7 +38152,6 @@ JPEAUICoreWebView2Controller
 JPEAUICoreWebView2CookieList
 JPEAUICoreWebView2Environment
 JPEAUICoreWebView2ProcessExtendedInfoCollection
-Jresolution
 JrLDH2F6NXP
 JS_NORMALR
 JsepMessage
@@ -80697,7 +80696,6 @@ UnknownAttempt
 UnknownBespokeFilter
 UnknownCacheReadResult
 UnknownCacheWriteResult
-UnknownComponent
 UnknownDataModelChild
 UnknownDataStoreType
 UnknownDataStructure
@@ -89013,6 +89011,7 @@ Zugewiesen
 ZUgithub.com
 Zugriffsberechtigung
 Zugriffsrechte
+ZUnknownComponent
 Zuordnungen
 Zusammenarbeit
 Zusammenarbeiten
