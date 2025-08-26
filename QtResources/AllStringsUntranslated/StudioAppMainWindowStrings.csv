@@ -12,6 +12,7 @@ Studio.App.MainWindow.AmongRegisteredTrademarks2,Replacement of Studio.App.MainW
 Studio.App.MainWindow.ArgumentsBreak,Main Window,Arguments:<br>,Arguments:<br>
 Studio.App.MainWindow.BreakPathSpace,Main Window,<br>Path: ,<br>Path: 
 Studio.App.MainWindow.BuildTypeSpace1,Main Window,Build Type: %1,Build Type: %1
+Studio.App.MainWindow.Channel1,Main Window,Channel: %1,Channel: %1
 Studio.App.MainWindow.ClearTerrain,Main Window,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.
 Studio.App.MainWindow.ClearTerrainTitle,Main Window,No terrain to clear,No terrain to clear
 Studio.App.MainWindow.CloseFile,Main Window,Close File,Close File

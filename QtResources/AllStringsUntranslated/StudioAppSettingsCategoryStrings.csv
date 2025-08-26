@@ -42,6 +42,7 @@ Studio.App.SettingsCategory.StudioScriptSync,Settings Category for FileSync sett
 Studio.App.SettingsCategory.StudioStreaming,Streaming category for Studio Settings,Streaming,Streaming
 Studio.App.SettingsCategory.StudioTools,,Tools,Tools
 Studio.App.SettingsCategory.StudioUndo,,Undo,Undo
+Studio.App.SettingsCategory.StudioUpdates,Settings category for Studio Updates.,Updates,Updates
 Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
 Studio.App.SettingsCategory.TaskSchedulerConfiguration,,Configuration,Configuration
 Studio.App.SettingsCategory.TaskSchedulerDiagnostics,,Diagnostics,Diagnostics

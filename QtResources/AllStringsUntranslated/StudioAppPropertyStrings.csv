@@ -51,6 +51,7 @@ Studio.App.Property.AutoResumeSyncOnPlaceOpen,Setting description for auto resum
 Studio.App.Property.AutoSaveEnabled,,Auto-Save Enabled,Auto-Save Enabled
 Studio.App.Property.AutoSaveIntervalMinutes,,Auto-Save Interval (Minutes),Auto-Save Interval (Minutes)
 Studio.App.Property.AutoSavePath,,Auto-Save Path,Auto-Save Path
+Studio.App.Property.AutoUpdateEnabled,Setting to enable automatically downloading updates in the background (without restarting Studio).,Automatically background download updates,Automatically background download updates
 Studio.App.Property.AutocompleteAcceptanceBehavior,Specifies what behavior to use when accepting autocomplete suggestions,Autocomplete Acceptance Behavior,Autocomplete Acceptance Behavior
 Studio.App.Property.AutocompleteBehaviorOnEnter,Specifies autocomplete behavior when accepting a suggestion with the Enter key,Autocomplete Behavior On Enter,Autocomplete Behavior On Enter
 Studio.App.Property.AutocompleteBehaviorOnTab,Specifies autocomplete behavior when accepting a suggestion with the Tab key,Autocomplete Behavior On Tab,Autocomplete Behavior On Tab
@@ -92,6 +93,7 @@ Studio.App.Property.DataMtuAdjust,,Data Mtu Adjust,Data Mtu Adjust
 Studio.App.Property.DataSendRate,,Data Send Rate,Data Send Rate
 Studio.App.Property.DebuggerCurrentLineColor,The color of the current line we are stopped on in the debugger.,Debugger Current Line Color,Debugger Current Line Color
 Studio.App.Property.DebuggerErrorLineColor,The color of the line we have stopped on in the debugger because it produced an error.,Debugger Error Line Color,Debugger Error Line Color
+Studio.App.Property.DefaultInstancesDir,User specified directory for where to place user provided instance defaults,Instance Defaults Dir,Instance Defaults Dir
 Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script File Dir
 Studio.App.Property.DefaultWaitTime,,Default Wait Time,Default Wait Time
 Studio.App.Property.DeprecatedObjectsShown,,Deprecated Objects Shown,Deprecated Objects Shown

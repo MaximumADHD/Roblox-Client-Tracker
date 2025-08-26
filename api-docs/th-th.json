@@ -88441,6 +88441,7 @@
       "HeartbeatTime": "@roblox/globaltype/Stats.HeartbeatTime",
       "HeartbeatTimeMs": "@roblox/globaltype/Stats.HeartbeatTimeMs",
       "InstanceCount": "@roblox/globaltype/Stats.InstanceCount",
+      "MemoryTrackingEnabled": "@roblox/globaltype/Stats.MemoryTrackingEnabled",
       "MovingPrimitivesCount": "@roblox/globaltype/Stats.MovingPrimitivesCount",
       "PhysicsReceiveKbps": "@roblox/globaltype/Stats.PhysicsReceiveKbps",
       "PhysicsSendKbps": "@roblox/globaltype/Stats.PhysicsSendKbps",
@@ -88501,6 +88502,11 @@
   "@roblox/globaltype/Stats.InstanceCount": {
     "documentation": "A measurement of how many <code>Instance</code> are currently in memory.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#InstanceCount",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Stats.MemoryTrackingEnabled": {
+    "documentation": "An indication of whether memory tracking is enabled. This is guaranteed to be unchanged until the next time the Client is started.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#MemoryTrackingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.MovingPrimitivesCount": {
@@ -88630,7 +88636,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbAllCategories": {
-    "documentation": "",
+    "documentation": "Returns the number of megabytes that are being consumed by all available categories, or an empty array if <code>MemoryTrackingEnabled</code> is false.",
     "params": [
       {
         "name": "self",
@@ -88653,7 +88659,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbForTag": {
-    "documentation": "Returns the number of megabytes that are being consumed in the specified <code>DeveloperMemoryTag</code> category.",
+    "documentation": "Returns the number of megabytes that are being consumed in the specified <code>DeveloperMemoryTag</code> category, or 0 if <code>MemoryTrackingEnabled</code> is false.",
     "params": [
       {
         "name": "self",
@@ -88677,7 +88683,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetTotalMemoryUsageMb": {
-    "documentation": "Returns the total amount of memory being consumed by the current game session, in megabytes.",
+    "documentation": "Returns the total amount of memory being consumed by the current game session, in megabytes, or 0 if <code>MemoryTrackingEnabled</code> is false.",
     "params": [
       {
         "name": "self",
@@ -106998,7 +107004,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Small": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as small. Applies to most tablet/mobile/handheld devices.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107008,7 +107014,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Medium": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as medium. Applies to most laptops and monitors.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107018,7 +107024,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Large": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as large. Applies to most TVs or larger.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107028,7 +107034,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.DisplaySize": {
-    "documentation": "",
+    "documentation": "This enum is used with <code>GuiService.ViewportDisplaySize</code> to indicate the internally-categorized rendering size of the viewport.",
     "keys": {
       "Small": "@roblox/enum/DisplaySize.Small",
       "Medium": "@roblox/enum/DisplaySize.Medium",

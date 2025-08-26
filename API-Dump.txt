@@ -127,6 +127,11 @@ Class EditableMesh : Object [NotCreatable]
 	Function EditableMesh:SetVertexFaceNormal(vertexId: number, faceId: number, normalId: number) -> ()
 	Function EditableMesh:SetVertexFaceUV(vertexId: number, faceId: number, uvId: number) -> ()
 	Function EditableMesh:Triangulate() -> ()
+Class ExecutedRemoteCommand : Object [NotCreatable] [NotReplicated]
+	Function ExecutedRemoteCommand:RunMoreCode(code: string, args: ...any) -> ()
+	Function ExecutedRemoteCommand:SendUpdate(args: ...any) -> ()
+	Function ExecutedRemoteCommand:Stop() -> ()
+	Event ExecutedRemoteCommand.ReceivedUpdate(args: ...any)
 Class Instance : Object [NotCreatable] [NotBrowsable]
 	Property Instance.Archivable: boolean
 	Property Instance.Attributes: string {RobloxSecurity} [Hidden] [ReadOnly] [NotScriptable]
@@ -235,8 +240,6 @@ Class AdPortal : Instance
 	Property AdPortal.Status: Enum.AdUnitStatus [ReadOnly]
 	Property AdPortal.PortalInvalidReason: string [ReadOnly] [NotScriptable]
 	Property AdPortal.PortalVersion: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function AdPortal:TeleportConfirmed(placeId: number, player: Player) -> () {RobloxScriptSecurity}
-	Function AdPortal:TeleportRejected(shouldCooldown: boolean, rejectedByDistance: boolean) -> () {RobloxScriptSecurity}
 Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:CreateAdRewardFromDevProductId(devProductId: number) -> AdReward
 	Function AdService:GetAdAvailabilityNowAsync(adFormat: Enum.AdFormat) -> any [Yields]
@@ -253,7 +256,6 @@ Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:UnregisterAdOpportunity(instance: Instance) -> ()
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
-	Event AdService.PortalPrompt(destinationId: number, portal: Instance, requiresNoButton: boolean) {RobloxScriptSecurity}
 	Event AdService.ReportImpressionSignal(ad_instance_name: string, encrypted_ad_tracking_data: string, encryption_metadata: string) {RobloxSecurity} [Hidden]
 	Event AdService.ReportTeleportSignal(ad_instance_name: string, encrypted_ad_tracking_data: string, encryption_metadata: string, teleport_type: string, teleport_source_universe_id: number, teleport_source_place_id: number, teleport_dest_place_id: number) {RobloxSecurity} [Hidden]
 	Event AdService.RewardedVideoAdEnded() {RobloxScriptSecurity}
@@ -500,8 +502,9 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.OutputPath: string
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
-	Property AssetService.AllowInsertFreeAssets: boolean
+	Property AssetService.AllowInsertFreeAssets: boolean {RobloxScriptSecurity}
 	Function AssetService:CanEditAssetAsync(content: Content) -> boolean {RobloxScriptSecurity} [Yields]
+	Function AssetService:ComposeDecalAsync(layers: { any }) -> Decal [Yields]
 	Function AssetService:CreateAssetAsync(object: Object, assetType: Enum.AssetType, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
 	Function AssetService:CreateAssetVersionAsync(object: Object, assetType: Enum.AssetType, assetId: number, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
 	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> EditableImage
@@ -854,6 +857,7 @@ Class AuroraScriptObject : Instance [NotCreatable] [Deprecated]
 	Property AuroraScriptObject.MaxFrequency: number [Hidden] [NotScriptable] [Deprecated]
 	Property AuroraScriptObject.PriorFrameInvoked: number [Deprecated]
 	Function AuroraScriptObject:GetCurrentState() -> { [string]: any } {RobloxScriptSecurity} [Deprecated] {🧬Safe}
+	Function AuroraScriptObject:SetStateFieldValue(fieldName: string, value: any) -> () {RobloxScriptSecurity} [Deprecated] {🧬Safe}
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number {🔐Basic} [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () {🔐Basic} [Deprecated] {🧬Safe}
@@ -1569,6 +1573,7 @@ Class ChatbotUIService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ClickDetector : Instance
 	Property ClickDetector.MaxActivationDistance: number {🔐Input}
 	Property ClickDetector.CursorIcon: string {🔐Input}
+	Property ClickDetector.CursorIconContent: Content {🔐Input}
 	Event ClickDetector.MouseActionReplicated(player: Player, actionType: number) {🔐Input} {RobloxSecurity} [Hidden]
 	Event ClickDetector.MouseClick(playerWhoClicked: Player) {🔐Input}
 	Event ClickDetector.MouseHoverEnter(playerWhoHovered: Player) {🔐Input}
@@ -1595,6 +1600,7 @@ Class DragDetector : ClickDetector
 	Property DragDetector.MinDragTranslation: Vector3 {🔐Input | Physics}
 	Property DragDetector.DragFrame: CFrame {🔐Input | Physics}
 	Property DragDetector.ActivatedCursorIcon: string {🔐Input | Physics}
+	Property DragDetector.ActivatedCursorIconContent: Content {🔐Input | Physics}
 	Property DragDetector.PhysicalDragClickedPart: Instance? {🔐Input | Physics} [Hidden] [NotScriptable]
 	Property DragDetector.PhysicalDragHitPoint: Vector3 {🔐Input | Physics} [Hidden] [NotScriptable]
 	Property DragDetector.PhysicalDragIsInVR: boolean {🔐Input | Physics} [Hidden] [NotScriptable]
@@ -2455,7 +2461,9 @@ Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
 Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
 	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
+	Event FeatureRestrictionManager.UpdateClientFeatureTimeout(startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
 	Event FeatureRestrictionManager.UpdateExperienceChatTimeout(startTime: number, duration: number) {RobloxSecurity} [Hidden]
+	Event FeatureRestrictionManager.UpdateFeatureTimeout(userId: number, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
 Class File : Instance [NotCreatable] [NotReplicated]
 	Property File.Size: number {PluginSecurity} [Hidden] [ReadOnly]
 	Function File:GetBinaryContents() -> string {PluginSecurity}
@@ -3654,20 +3662,29 @@ Class IKControl : Instance
 Class ILegacyStudioBridge : Instance [NotCreatable] [Service]
 Class LegacyStudioBridge : ILegacyStudioBridge [NotCreatable] [Service] [NotReplicated]
 Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function IXPService:ClearCreatorLayers() -> () {LocalUserSecurity}
 	Function IXPService:ClearUserLayers() -> () {LocalUserSecurity}
 	Function IXPService:GetBrowserTrackerLayerLoadingStatus() -> Enum.IXPLoadingStatus {LocalUserSecurity}
 	Function IXPService:GetBrowserTrackerLayerVariables(layerName: string) -> { [string]: any } {LocalUserSecurity}
 	Function IXPService:GetBrowserTrackerStatusForLayer(layerName: string) -> Enum.IXPLoadingStatus? {LocalUserSecurity}
+	Function IXPService:GetCreatorLayerLoadingStatus() -> Enum.IXPLoadingStatus {LocalUserSecurity}
+	Function IXPService:GetCreatorLayerVariables(layerName: string) -> { [string]: any } {LocalUserSecurity}
+	Function IXPService:GetCreatorStatusForLayer(layerName: string) -> Enum.IXPLoadingStatus? {LocalUserSecurity}
+	Function IXPService:GetRegisteredCreatorLayersToStatus() -> { [string]: any } {LocalUserSecurity}
 	Function IXPService:GetRegisteredUserLayersToStatus() -> { [string]: any } {LocalUserSecurity}
 	Function IXPService:GetUserLayerLoadingStatus() -> Enum.IXPLoadingStatus {LocalUserSecurity}
 	Function IXPService:GetUserLayerVariables(layerName: string) -> { [string]: any } {LocalUserSecurity}
 	Function IXPService:GetUserStatusForLayer(layerName: string) -> Enum.IXPLoadingStatus? {LocalUserSecurity}
+	Function IXPService:InitializeCreatorLayers(creatorId: number) -> () {LocalUserSecurity}
 	Function IXPService:InitializeUserLayers(userId: number) -> () {LocalUserSecurity}
 	Function IXPService:LogBrowserTrackerLayerExposure(layerName: string) -> () {LocalUserSecurity}
+	Function IXPService:LogCreatorLayerExposure(layerName: string) -> () {LocalUserSecurity}
 	Function IXPService:LogFlagLinkedUserLayerExposure(layerName: string) -> () {LocalUserSecurity}
 	Function IXPService:LogUserLayerExposure(layerName: string) -> () {LocalUserSecurity}
+	Function IXPService:RegisterCreatorLayers(creatorLayers: any) -> () {LocalUserSecurity}
 	Function IXPService:RegisterUserLayers(userLayers: any) -> () {LocalUserSecurity}
 	Event IXPService.OnBrowserTrackerLayerLoadingStatusChanged(status: Enum.IXPLoadingStatus) {LocalUserSecurity}
+	Event IXPService.OnCreatorLayerLoadingStatusChanged(status: Enum.IXPLoadingStatus) {LocalUserSecurity}
 	Event IXPService.OnUserLayerLoadingStatusChanged(status: Enum.IXPLoadingStatus) {LocalUserSecurity}
 Class ImportSession : Instance [NotCreatable] [NotReplicated]
 	Function ImportSession:Cancel() -> () {RobloxScriptSecurity}
@@ -4019,6 +4036,7 @@ Class AuroraScript : LuaSourceContainer [Deprecated]
 	Function AuroraScript:IsOnInstance(instance: Instance) -> boolean [Deprecated]
 	Function AuroraScript:RemoveFrom(instance: Instance) -> () [Deprecated]
 	Function AuroraScript:SignalFired(instance: Instance, topic: string) -> RBXScriptSignal [Deprecated]
+	Event AuroraScript.ChangedThisFrame() {RobloxScriptSecurity} [Deprecated]
 	Event AuroraScript.SynchronizeState(frameId: number, instance: Instance, state: { [string]: any }, ingressHeaders: string, ingressArgs: { any }, egressHeaders: string, egressArgs: { any }, lodLevel: number, priorInvocationFrame: number) {RobloxSecurity} [Hidden] [Deprecated]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property BaseScript.Disabled: boolean
@@ -4301,6 +4319,7 @@ Class ModerationService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Mouse : Instance [NotCreatable]
 	Property Mouse.Hit: CFrame {🔐Input} [ReadOnly]
 	Property Mouse.Icon: string {🔐Input}
+	Property Mouse.IconContent: Content {🔐Input}
 	Property Mouse.Origin: CFrame {🔐Input} [ReadOnly]
 	Property Mouse.Target: BasePart? {🔐Input} [ReadOnly]
 	Property Mouse.TargetFilter: Instance? {🔐Input}
@@ -4782,6 +4801,7 @@ Class Actor : Model
 	Function Actor:BindToMessageParallel(topic: string, function: (...any) -> ...any) -> RBXScriptConnection {🔐Basic} {🧬Safe}
 	Function Actor:SendMessage(topic: string, message: ...any) -> () {🔐Basic} {🧬Safe}
 Class BackpackItem : Model [NotCreatable]
+	Property BackpackItem.TextureContent: Content
 	Property BackpackItem.TextureId: string
 Class HopperBin : BackpackItem [Deprecated]
 	Property HopperBin.Active: boolean {🔐Input} [Deprecated]
@@ -5714,6 +5734,21 @@ Class ReflectionService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ReflectionService:GetPropertiesOfClass(className: string, filter: { [string]: any }? = nil) -> { any }
 	Function ReflectionService:GetPropertyNames(name: string) -> { any } {RobloxScriptSecurity}
 	Function ReflectionService:GetStyledPropertyNames(name: string) -> { any } {RobloxScriptSecurity}
+Class RemoteCommandService : Instance [NotCreatable] [Service]
+	Function RemoteCommandService:ExecuteCommand(code: string, args: ...any) -> ExecutedRemoteCommand {RobloxScriptSecurity}
+	Function RemoteCommandService:ExecuteCommandAsync(code: string, args: ...any) -> ...any {RobloxScriptSecurity} [Yields]
+	Function RemoteCommandService:GetExecutingPlayer() -> Player {🔐RemoteCommand}
+	Function RemoteCommandService:GetReceivedUpdateSignal() -> RBXScriptSignal {🔐RemoteCommand}
+	Function RemoteCommandService:GetStoppingSignal() -> RBXScriptSignal {🔐RemoteCommand}
+	Function RemoteCommandService:SendUpdate(args: ...any) -> () {🔐RemoteCommand}
+	Event RemoteCommandService.CommandSentFromStudio(commandId: number, code: string, args: ...any) {RobloxSecurity} [Hidden]
+	Event RemoteCommandService.OneshotCommandErrorFromRcc(commandId: number, error: string) {RobloxSecurity} [Hidden]
+	Event RemoteCommandService.OneshotCommandResultFromRcc(commandId: number, args: ...any) {RobloxSecurity} [Hidden]
+	Event RemoteCommandService.OneshotCommandSentFromStudio(commandId: number, code: string, args: ...any) {RobloxSecurity} [Hidden]
+	Event RemoteCommandService.StandardOutMessageFromRcc(messageType: Enum.MessageType, message: string) {RobloxSecurity} [Hidden]
+	Event RemoteCommandService.StopSentFromStudio(commandId: number) {RobloxSecurity} [Hidden]
+	Event RemoteCommandService.UpdateSentFromRcc(commandId: number, args: ...any) {RobloxSecurity} [Hidden]
+	Event RemoteCommandService.UpdateSentFromStudio(commandId: number, args: ...any) {RobloxSecurity} [Hidden]
 Class RemoteCursorService : Instance [NotCreatable] [Service]
 	Event RemoteCursorService.BroadcastRemoteCursorPositions(script: string, remoteCursorPosition: string) {RobloxSecurity} [Hidden]
 	Event RemoteCursorService.RequestAllRemoteCursorPositionForScript(script: string) {RobloxSecurity} [Hidden]
@@ -6159,7 +6194,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:PromptLinkSharing(player: Player, options: { [string]: any }? = nil) -> ...any [Yields]
 	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> ()
 	Function SocialService:PromptRsvpToEventAsync(eventId: string) -> Enum.RsvpStatus [Yields]
-	Function SocialService:PromptRsvpToEventCompleted(eventId: string, success: boolean, rsvpStatus: Enum.RsvpStatus) -> () {RobloxScriptSecurity}
+	Function SocialService:PromptRsvpToEventCompleted(eventId: string, success: boolean, rsvpStatus: Enum.RsvpStatus, previousRsvpStatus: Enum.RsvpStatus? = "None") -> () {RobloxScriptSecurity}
 	Function SocialService:ShowSelfView(selfViewPosition: Enum.SelfViewPosition? = "LastPosition") -> ()
 	Function SocialService:UpdatePlayerPartyData(partyId: string) -> () {RobloxScriptSecurity}
 	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState)
@@ -6316,6 +6351,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Event SoundService.OpenAudioCompressorEditorSignal(selectedCompressorObjects: { Instance }) {RobloxScriptSecurity}
 	Event SoundService.OpenAudioEqualizerEditorSignal(selectedEqualizerObjects: { Instance }) {RobloxScriptSecurity}
 	Event SoundService.OpenDirectionalCurveEditorSignal(selectedCurveObjects: { Instance }) {RobloxScriptSecurity}
+Class SoundShimService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Sparkles : Instance
 	Property Sparkles.Color: Color3 {🔐Basic} [📁 LoadOnly] [Hidden] [NotReplicated]
 	Property Sparkles.Enabled: boolean {🔐Basic}
@@ -7096,6 +7132,9 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } {🔐Chat} [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {🔐Chat} {RobloxScriptSecurity} [Yields]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> () {🔐Chat}
+	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number) -> () {🔐Chat} {RobloxScriptSecurity}
+	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage) -> () {🔐Chat} {RobloxScriptSecurity}
+	Function TextChatService:SendExpChatWindowScroll() -> () {🔐Chat} {RobloxScriptSecurity}
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage) {🔐Chat}
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) {🔐Chat} {RobloxSecurity} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🔐Chat} {RobloxSecurity} [Hidden]
@@ -7116,6 +7155,9 @@ Class TextFilterTranslatedResult : Instance [NotCreatable] [NotReplicated]
 	Property TextFilterTranslatedResult.SourceText: TextFilterResult? {🔐UI} [ReadOnly]
 	Function TextFilterTranslatedResult:GetTranslationForLocale(locale: string) -> TextFilterResult {🔐UI}
 	Function TextFilterTranslatedResult:GetTranslations() -> { [string]: any } {🔐UI}
+Class TextGenerator : Instance
+	Property TextGenerator.SystemPrompt: string
+	Function TextGenerator:GenerateTextAsync(request: { [string]: any }) -> { [string]: any } [Yields]
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TextService:FilterAndTranslateStringAsync(stringToFilter: string, fromUserId: number, targetLocales: { any }, textContext: Enum.TextFilterContext? = "PrivateChat") -> TextFilterTranslatedResult {🔐UI} [Yields]
 	Function TextService:FilterStringAsync(stringToFilter: string, fromUserId: number, textContext: Enum.TextFilterContext? = "PrivateChat") -> TextFilterResult {🔐UI} [Yields]
@@ -7354,7 +7396,9 @@ Class UIDragDetector : UIComponent
 	Property UIDragDetector.DragRotation: number {🔐UI}
 	Property UIDragDetector.DragUDim2: UDim2 {🔐UI}
 	Property UIDragDetector.ActivatedCursorIcon: string {🔐UI}
+	Property UIDragDetector.ActivatedCursorIconContent: Content {🔐UI}
 	Property UIDragDetector.CursorIcon: string {🔐UI}
+	Property UIDragDetector.CursorIconContent: Content {🔐UI}
 	Function UIDragDetector:AddConstraintFunction(priority: number, function: (...any) -> ...any) -> RBXScriptConnection {🔐UI}
 	Function UIDragDetector:GetReferencePosition() -> UDim2 {🔐UI}
 	Function UIDragDetector:GetReferenceRotation() -> number {🔐UI}
@@ -7544,6 +7588,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property UserInputService.MouseDeltaSensitivity: number {🔐Input} [📁 LoadOnly] [NotReplicated]
 	Property UserInputService.MouseEnabled: boolean {🔐Input} [ReadOnly]
 	Property UserInputService.MouseIcon: string {🔐Input}
+	Property UserInputService.MouseIconContent: Content {🔐Input}
 	Property UserInputService.MouseIconEnabled: boolean {🔐Input}
 	Property UserInputService.NavBarSize: Vector2 {🔐Input} {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property UserInputService.OnScreenKeyboardAnimationDuration: number {🔐Input} {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -9117,6 +9162,9 @@ Enum FacsActionUnit
 	EnumItem FacsActionUnit.TongueDown : 47
 	EnumItem FacsActionUnit.TongueOut : 48
 	EnumItem FacsActionUnit.TongueUp : 49
+Enum FeatureRestrictionAbuseVector
+	EnumItem FeatureRestrictionAbuseVector.ExperienceChat : 0
+	EnumItem FeatureRestrictionAbuseVector.Communication : 1
 Enum FieldOfViewMode
 	EnumItem FieldOfViewMode.Vertical : 0
 	EnumItem FieldOfViewMode.Diagonal : 1

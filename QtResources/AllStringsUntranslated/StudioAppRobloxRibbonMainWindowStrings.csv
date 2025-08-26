@@ -398,7 +398,7 @@ Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet,,View Code Snippet,View Code S
 Studio.App.RobloxRibbonMainWindow.ViewContextSensitiveHelp,,View context-sensitive help,View context-sensitive help
 Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack,,View current call stack,View current call stack
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,View currently watched variables,View currently watched variables
-Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,,View diagnostic information of your game,View diagnostic information of your game
+Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,This looks like a long list of fairly basic information you might send to someone if you needed help and didn’t know where to start.,View diagnostic information for your experience,View diagnostic information for your experience
 Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints,,View existing breakpoints,View existing breakpoints
 Studio.App.RobloxRibbonMainWindow.ViewGameExplorer,,View Game Explorer,View Game Explorer
 Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects,,View Lua API objects that can be accessed through scripting,View Lua API objects that can be accessed through scripting

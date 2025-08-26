@@ -15,3 +15,4 @@ Studio.DeviceEmulator.Plugin.Button,,Toggle,Toggle
 Studio.DeviceEmulator.Plugin.Description,,Toggles the Device Emulator plugin window,Toggles the Device Emulator plugin window
 Studio.DeviceEmulator.Plugin.Name,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,Device Emulator,Device Emulator
+Studio.DeviceEmulator.Tooltip.OnlyEnabledIn3D,"When the 3D viewport is not active (Scripting, Object Browser), Device Emulator is disabled.",Device Emulator (Only enabled in 3D viewport),Device Emulator (Only enabled in 3D viewport)

@@ -780,6 +780,8 @@ Studio.App.TeamCreateJoinMessage.Reconnecting,Team Create Join Message,Reconnect
 Studio.App.TeamCreateJoinMessage.SettingUpServer,Team Create Join Message,Setting up server...,Setting up server...
 Studio.App.TeamCreateUserData.FailToRestoreCameraPosition1,,Failed to restore camera position: {{}},Failed to restore camera position: {{}}
 Studio.App.TeamTestManager.DisconnectedFromTeamTestServer,Disconnect from TeamTest Server,You have been disconnected from the team test server.,You have been disconnected from the team test server.
+Studio.App.TeamTest.StartStatus,Status message displayed on the modal dialog when starting the Team Test,Join Team Test Server,Join Team Test Server
+Studio.App.TeamTest.StartTitle,Title for the modal dialog when starting a Team Test,Team Test,Team Test
 Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay
 Studio.App.TemplatePage.Theme,,Theme,Theme
 Studio.App.TemplatePageController.Baseplate,,Baseplate,Baseplate

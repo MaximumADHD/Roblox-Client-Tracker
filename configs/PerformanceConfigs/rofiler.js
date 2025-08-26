@@ -1085,6 +1085,14 @@ function InitFrameInfo() {
                             "Display": window.GeneralInfo.PlaceId,
                             "Link": `https://www.roblox.com/games/${window.GeneralInfo.PlaceId}/`
                         }
+                    },
+                    {
+                        "ContextLabel": {
+                            "Display": window.GeneralInfo.ContextLabel,
+                            "Style": {
+                                "color": "#ffff88"
+                            }
+                        }
                     }
                 ]
             },

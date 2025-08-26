@@ -131,8 +131,7 @@
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" modernIcon="Stop" width="32" height="32"/>
       </Group>
       <Group name="Settings" text="Studio.App.RobloxRibbonMainWindow.Settings" modernIcon="GameSettings" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32">
-        <addaction fflag="!StudioGameSettingsAndDownloadCopyGrayedInScriptEditor" name="luaGameSettingsAction" text="Studio.App.RobloxRibbonMainWindow.GameSettings" iscommonslot="true" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" modernIcon="GameSettings" width="32" height="32"/>
-        <addaction fflag="StudioGameSettingsAndDownloadCopyGrayedInScriptEditor" name="gameSettingsAction" iscommonslot="true" style="textundericon" width="32" height="32"/>
+        <addaction name="gameSettingsAction" iscommonslot="true" style="textundericon" width="32" height="32"/>
       </Group>
       <Group name="Team Test" text="Studio.App.RobloxRibbonMainWindow.TeamTest" modernIcon="TeamTest" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" width="32" height="32">
         <addaction name="startTeamTestAction" iscommonslot="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.TeamTest"  tooltip="Studio.App.RobloxRibbonMainWindow.StartATeamTest" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" modernIcon="TeamTest" width="32" height="32" />

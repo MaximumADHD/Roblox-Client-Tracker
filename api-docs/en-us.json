@@ -55128,9 +55128,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.ViewportDisplaySize": {
-    "documentation": "",
+    "documentation": "Read-only property which represents the physical rendering size of the viewport.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ViewportDisplaySize",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal function updateUI()\n\tif (GuiService.ViewportDisplaySize == Enum.DisplaySize.Small) then\n\t\t-- Update UI to small screen\n\telseif (GuiService.ViewportDisplaySize == Enum.DisplaySize.Large) then\n\t\t-- Update UI to large screen\n\telse\n\t\t-- Update UI to medium/default screen\n\tend\nend\n\nGuiService:GetPropertyChangedSignal(\"ViewportDisplaySize\"):Connect(updateUI)\nupdateUI()"
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/0": {
     "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
@@ -56949,7 +56949,7 @@
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Dictionary containing the following key-value pairs: <ul> <li><code>ColorMap</code> — A <code>Content</code> object that contains the color   map. Default is <code>nil</code>.</li> <li><code>MetalnessMap</code> — A <code>Content</code> object that contains the   metalness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> <li><code>NormalMap</code> — A <code>Content</code> object that contains the   normal map. Default is <code>nil</code>.</li> <li><code>RoughnessMap</code> — A <code>Content</code> object that contains the   roughness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> </ul>"
+    "documentation": "Dictionary containing the following key-value pairs: <ul> <li><code>ColorMap</code> — A <code>Content</code> object that contains the color   map. Default is <code>nil</code>.</li> <li><code>MetalnessMap</code> — A <code>Content</code> object that contains the   metalness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> <li><code>NormalMap</code> — A <code>Content</code> object that contains the normal   map. Default is <code>nil</code>.</li> <li><code>RoughnessMap</code> — A <code>Content</code> object that contains the   roughness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
     "documentation": "A new <code>SurfaceAppearance</code> instance with the given maps from the <code>content</code> parameter."
@@ -57178,12 +57178,19 @@
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/0": {
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
   },
+  "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
+    "documentation": "Optional dictionary that includes <code>SaveWithoutPublish</code>, a boolean indicating whether to save with publish or without publish, and <code>PlaceId</code>, the destination place ID to save over. An example usage would be: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). If PlaceId is not provided, the default behavior will save over the current original place which is calling SavePlaceAsync. If SaveWithoutPublish is not provided, the default behavior is SaveWithoutPublish=false."
+  },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Saves the state of the current place.",
     "params": [
       {
         "name": "self",
         "documentation": "@roblox/globaltype/AssetService.SavePlaceAsync/param/0"
+      },
+      {
+        "name": "requestParameters",
+        "documentation": "@roblox/globaltype/AssetService.SavePlaceAsync/param/1"
       }
     ],
     "returns": [],
@@ -61763,6 +61770,9 @@
       "GetFaceVertices": "@roblox/globaltype/EditableMesh.GetFaceVertices",
       "GetFaces": "@roblox/globaltype/EditableMesh.GetFaces",
       "GetFacesWithAttribute": "@roblox/globaltype/EditableMesh.GetFacesWithAttribute",
+      "GetFacesWithColor": "@roblox/globaltype/EditableMesh.GetFacesWithColor",
+      "GetFacesWithNormal": "@roblox/globaltype/EditableMesh.GetFacesWithNormal",
+      "GetFacesWithUV": "@roblox/globaltype/EditableMesh.GetFacesWithUV",
       "GetFacsCorrectivePose": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose",
       "GetFacsCorrectivePoses": "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses",
       "GetFacsPose": "@roblox/globaltype/EditableMesh.GetFacsPose",
@@ -61775,8 +61785,18 @@
       "GetUVs": "@roblox/globaltype/EditableMesh.GetUVs",
       "GetVertexBoneWeights": "@roblox/globaltype/EditableMesh.GetVertexBoneWeights",
       "GetVertexBones": "@roblox/globaltype/EditableMesh.GetVertexBones",
+      "GetVertexColors": "@roblox/globaltype/EditableMesh.GetVertexColors",
+      "GetVertexFaceColor": "@roblox/globaltype/EditableMesh.GetVertexFaceColor",
+      "GetVertexFaceNormal": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal",
+      "GetVertexFaceUV": "@roblox/globaltype/EditableMesh.GetVertexFaceUV",
+      "GetVertexFaces": "@roblox/globaltype/EditableMesh.GetVertexFaces",
+      "GetVertexNormals": "@roblox/globaltype/EditableMesh.GetVertexNormals",
+      "GetVertexUVs": "@roblox/globaltype/EditableMesh.GetVertexUVs",
       "GetVertices": "@roblox/globaltype/EditableMesh.GetVertices",
       "GetVerticesWithAttribute": "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute",
+      "GetVerticesWithColor": "@roblox/globaltype/EditableMesh.GetVerticesWithColor",
+      "GetVerticesWithNormal": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal",
+      "GetVerticesWithUV": "@roblox/globaltype/EditableMesh.GetVerticesWithUV",
       "IdDebugString": "@roblox/globaltype/EditableMesh.IdDebugString",
       "MergeVertices": "@roblox/globaltype/EditableMesh.MergeVertices",
       "RaycastLocal": "@roblox/globaltype/EditableMesh.RaycastLocal",
@@ -61802,6 +61822,9 @@
       "SetUV": "@roblox/globaltype/EditableMesh.SetUV",
       "SetVertexBoneWeights": "@roblox/globaltype/EditableMesh.SetVertexBoneWeights",
       "SetVertexBones": "@roblox/globaltype/EditableMesh.SetVertexBones",
+      "SetVertexFaceColor": "@roblox/globaltype/EditableMesh.SetVertexFaceColor",
+      "SetVertexFaceNormal": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal",
+      "SetVertexFaceUV": "@roblox/globaltype/EditableMesh.SetVertexFaceUV",
       "Triangulate": "@roblox/globaltype/EditableMesh.Triangulate"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh",
@@ -62561,6 +62584,87 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithAttribute",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
+    "documentation": "Color ID to find faces for."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
+    "documentation": "List of face IDs that use the provided color ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
+    "documentation": "Returns an array of face IDs that use the given color ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0"
+      },
+      {
+        "name": "colorId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithColor",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
+    "documentation": "Normal ID to find faces for."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
+    "documentation": "List of face IDs that use the provided normal ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
+    "documentation": "Returns an array of face IDs that use the given normal ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0"
+      },
+      {
+        "name": "normalId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithNormal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
+    "documentation": "UV ID to find faces for."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
+    "documentation": "List of face IDs that use the provided UV ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
+    "documentation": "Returns an array of face IDs that use the given UV ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0"
+      },
+      {
+        "name": "uvId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetFacesWithUV",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -62850,6 +62954,216 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexBones",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.GetVertexColors/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
+    "documentation": "Stable vertex ID to find color IDs."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
+    "documentation": "Array of color IDs of faces attached to the given vertex."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexColors": {
+    "documentation": "Returns the color IDs of the faces attached to the given vertex.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexColors/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexColors/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexColors",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1": {
+    "documentation": "Stable vertex ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2": {
+    "documentation": "Stable face ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
+    "documentation": "Stable color ID of the vertex/face pair."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
+    "documentation": "Returns the color ID of a vertex/face pair.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1"
+      },
+      {
+        "name": "faceId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceColor",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
+    "documentation": "Stable vertex ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
+    "documentation": "Stable face ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
+    "documentation": "Stable normal ID of the vertex/face pair."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
+    "documentation": "Returns the normal ID of a vertex/face pair.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1"
+      },
+      {
+        "name": "faceId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceNormal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
+    "documentation": "Stable vertex ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
+    "documentation": "Stable face ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
+    "documentation": "Stable UV ID of the vertex/face pair."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
+    "documentation": "Returns the UV ID of a vertex/face pair.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1"
+      },
+      {
+        "name": "faceId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaceUV",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
+    "documentation": "Stable vertex ID to find faces for."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
+    "documentation": "Array of face IDs attached to the given vertex."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexFaces": {
+    "documentation": "Returns the face IDs of the faces attached to the given vertex.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexFaces",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
+    "documentation": "Stable vertex ID to find normal IDs."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
+    "documentation": "Array of normal IDs of faces attached to the given vertex."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexNormals": {
+    "documentation": "Returns the normal IDs of the faces attached to the given vertex.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexNormals",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
+    "documentation": "Stable vertex ID to find UV IDs."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
+    "documentation": "Array of UV IDs of faces attached to the given vertex."
+  },
+  "@roblox/globaltype/EditableMesh.GetVertexUVs": {
+    "documentation": "Returns the UV IDs of the faces attached to the given vertex.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVertexUVs",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.GetVertices/param/0": {
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
   },
@@ -62895,6 +63209,87 @@
       "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithAttribute",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
+    "documentation": "Color ID to find faces for."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
+    "documentation": "List of face IDs that use the provided color ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
+    "documentation": "Returns an array of face IDs that use the given color ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0"
+      },
+      {
+        "name": "colorId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithColor",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
+    "documentation": "Normal ID to find vertices for."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
+    "documentation": "List of vertex IDs that use the provided normal ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
+    "documentation": "Returns an array of vertex IDs that use the given normal ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0"
+      },
+      {
+        "name": "normalId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithNormal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
+    "documentation": "UV ID to find vertices for."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0": {
+    "documentation": "List of vertex IDs that use the provided UV ID."
+  },
+  "@roblox/globaltype/EditableMesh.GetVerticesWithUV": {
+    "documentation": "Returns an array of vertex IDs that use the given UV ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0"
+      },
+      {
+        "name": "uvId",
+        "documentation": "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#GetVerticesWithUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/0": {
@@ -63612,6 +64007,114 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexBones",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
+    "documentation": "Stable vertex ID."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2": {
+    "documentation": "Stable face ID."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
+    "documentation": "Stable color ID to set for the vertex/face pair."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
+    "documentation": "Sets the color ID of a vertex/face pair.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1"
+      },
+      {
+        "name": "faceId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2"
+      },
+      {
+        "name": "colorId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceColor",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1": {
+    "documentation": "Stable vertex ID."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2": {
+    "documentation": "Stable face ID."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
+    "documentation": "Stable normal ID to set for the vertex/face pair."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
+    "documentation": "Sets the normal ID of a vertex/face pair.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1"
+      },
+      {
+        "name": "faceId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/2"
+      },
+      {
+        "name": "normalId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceNormal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0": {
+    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1": {
+    "documentation": "Stable vertex ID."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2": {
+    "documentation": "Stable face ID."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
+    "documentation": "Stable UV ID to set for the vertex/face pair."
+  },
+  "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
+    "documentation": "Sets the UV ID of a vertex/face pair.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0"
+      },
+      {
+        "name": "vertexId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1"
+      },
+      {
+        "name": "faceId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2"
+      },
+      {
+        "name": "uvId",
+        "documentation": "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SetVertexFaceUV",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Triangulate/param/0": {
@@ -89306,6 +89809,7 @@
       "HeartbeatTime": "@roblox/globaltype/Stats.HeartbeatTime",
       "HeartbeatTimeMs": "@roblox/globaltype/Stats.HeartbeatTimeMs",
       "InstanceCount": "@roblox/globaltype/Stats.InstanceCount",
+      "MemoryTrackingEnabled": "@roblox/globaltype/Stats.MemoryTrackingEnabled",
       "MovingPrimitivesCount": "@roblox/globaltype/Stats.MovingPrimitivesCount",
       "PhysicsReceiveKbps": "@roblox/globaltype/Stats.PhysicsReceiveKbps",
       "PhysicsSendKbps": "@roblox/globaltype/Stats.PhysicsSendKbps",
@@ -89366,6 +89870,11 @@
   "@roblox/globaltype/Stats.InstanceCount": {
     "documentation": "A measurement of how many <code>Instance</code> are currently in memory.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#InstanceCount",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Stats.MemoryTrackingEnabled": {
+    "documentation": "An indication of whether memory tracking is enabled. This is guaranteed to be unchanged until the next time the Client is started.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#MemoryTrackingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.MovingPrimitivesCount": {
@@ -89495,7 +90004,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbAllCategories": {
-    "documentation": "",
+    "documentation": "Returns the number of megabytes that are being consumed by all available categories, or an empty array if <code>MemoryTrackingEnabled</code> is false.",
     "params": [
       {
         "name": "self",
@@ -89518,7 +90027,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbForTag": {
-    "documentation": "Returns the number of megabytes that are being consumed in the specified <code>DeveloperMemoryTag</code> category.",
+    "documentation": "Returns the number of megabytes that are being consumed in the specified <code>DeveloperMemoryTag</code> category, or 0 if <code>MemoryTrackingEnabled</code> is false.",
     "params": [
       {
         "name": "self",
@@ -89542,7 +90051,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetTotalMemoryUsageMb": {
-    "documentation": "Returns the total amount of memory being consumed by the current game session, in megabytes.",
+    "documentation": "Returns the total amount of memory being consumed by the current game session, in megabytes, or 0 if <code>MemoryTrackingEnabled</code> is false.",
     "params": [
       {
         "name": "self",
@@ -108067,7 +108576,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Small": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as small. Applies to most tablet/mobile/handheld devices.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -108077,7 +108586,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Medium": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as medium. Applies to most laptops and monitors.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -108087,7 +108596,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Large": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as large. Applies to most TVs or larger.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -108097,7 +108606,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.DisplaySize": {
-    "documentation": "",
+    "documentation": "This enum is used with <code>GuiService.ViewportDisplaySize</code> to indicate the internally-categorized rendering size of the viewport.",
     "keys": {
       "Small": "@roblox/enum/DisplaySize.Small",
       "Medium": "@roblox/enum/DisplaySize.Medium",

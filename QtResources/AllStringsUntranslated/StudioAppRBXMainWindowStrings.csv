@@ -263,7 +263,7 @@ Studio.App.RBXMainWindow.PasteAtOriginalLocation,"Inserts copied instances (part
 Studio.App.RBXMainWindow.PasteInto,,Paste Into,Paste Into
 Studio.App.RBXMainWindow.PasteIntoAtOriginalLocation,,Paste At Original Location,Paste At Original Location
 Studio.App.RBXMainWindow.PausesTheRun,,Pause the run,Pause the run
-Studio.App.RBXMainWindow.Performance,,Performance,Performance
+Studio.App.RBXMainWindow.Performance,This looks like a long list of fairly basic information you might send to someone if you needed help and didn’t know where to start.,Performance Diagnostics,Performance Diagnostics
 Studio.App.RBXMainWindow.PhysicsStats,,Physics Stats,Physics Stats
 Studio.App.RBXMainWindow.PickColor,,Pick Color,Pick Color
 Studio.App.RBXMainWindow.PicksUpAColorFromAPart,,Picks up a color from a part,Picks up a color from a part

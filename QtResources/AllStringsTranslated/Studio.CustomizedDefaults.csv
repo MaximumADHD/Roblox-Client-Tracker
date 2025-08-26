@@ -1,0 +1,5 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,hi-in,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.CustomizedDefaults.DefaultPropertiesReset,,,Default Properties have been reset.,Default Properties have been reset.,,,,Les propriétés par défaut ont été réinitialisées.,,,,,,,,,,,,,,
+Studio.CustomizedDefaults.DefaultPropertiesUpdated,,,Default Properties have been updated.,Default Properties have been updated.,,,,Les propriétés par défaut ont été mises à jour.,,,,,,,,,,,,,,
+Studio.CustomizedDefaults.ResetDefault,,,Reset Default %1,Reset Default %1,,,,Réinitialiser la valeur par défaut %1,,,,,,,,,,,,,,
+Studio.CustomizedDefaults.SaveAsDefault,,,Save as Default %1,Save as Default %1,,,,Enregistrer comme valeur par défaut %1,,,,,,,,,,,,,,

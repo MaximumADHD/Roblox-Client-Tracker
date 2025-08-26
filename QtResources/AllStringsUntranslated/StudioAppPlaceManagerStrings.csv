@@ -28,6 +28,7 @@ Studio.App.PlaceManager.SyncProgressTitle,,<b>Data Sync Progress</b>,<b>Data Syn
 Studio.App.PlaceManager.SyncTerrainProgressTitle,,<b>Terrain Sync Progress</b>,<b>Terrain Sync Progress</b>
 Studio.App.PlaceManager.SyncingGenericWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Quitting Roblox Studio will cause you to lose data that is currently syncing.
 Studio.App.PlaceManager.SyncingTerrainWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.
+Studio.App.PlaceManager.TeamTestError,Error message displayed when loading Team Test failed,Error loading TeamTest. Please try again later.,Error loading TeamTest. Please try again later.
 Studio.App.PlaceManager.UnableToOpenDeletedFile1,Open deleted file,"Could not open the file ""%1"" because it no longer exists.","Could not open the file ""%1"" because it no longer exists."
 Studio.App.PlaceManager.UploadingPlaceQuitCommitAuto,PlaceManager applies scripts changes before closing a place,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.
 Studio.App.PlaceManager.WeCouldNotJoinTeamCreatePlaceId2,PlaceManager couldn't join team create (place id).,We could not join the Team Create session for place [%1]. %2,We could not join the Team Create session for place [%1]. %2

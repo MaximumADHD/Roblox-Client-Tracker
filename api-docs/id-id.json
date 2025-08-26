@@ -106974,7 +106974,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Small": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as small. Applies to most tablet/mobile/handheld devices.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106984,7 +106984,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Medium": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as medium. Applies to most laptops and monitors.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106994,7 +106994,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DisplaySize.Large": {
-    "documentation": "",
+    "documentation": "Viewport is categorized as large. Applies to most TVs or larger.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107004,7 +107004,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.DisplaySize": {
-    "documentation": "",
+    "documentation": "This enum is used with <code>GuiService.ViewportDisplaySize</code> to indicate the internally-categorized rendering size of the viewport.",
     "keys": {
       "Small": "@roblox/enum/DisplaySize.Small",
       "Medium": "@roblox/enum/DisplaySize.Medium",
